@@ -132,3 +132,63 @@
 	name = "капюшон Вай"
 	icon_state = "vi_arcane"
 	item_state = "vi_arcane"
+
+/obj/item/clothing/suit/soundhand_black_jacket
+	name = "черная куртка группы Саундхэнд."
+	desc = "Легендарная черная куртка группы Саундхэнд."
+	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
+	icon_state = "soundhand_black_jacket"
+	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
+	item_state = "soundhand_black_jacket"
+	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
+	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
+
+/obj/item/clothing/suit/soundhand_black_jacket/soundhand_black_jacket_tag
+	name = "черная куртка с тэгом группы Саундхэнд."
+	desc = "Легендарная черная куртка с тэгом группы Саундхэнд."
+	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
+	icon_state = "soundhand_black_jacket_teg"
+	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
+	item_state = "soundhand_black_jacket"
+	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
+	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
+
+/obj/item/clothing/suit/soundhand_olive_jacket
+	name = "оливковая куртка группы Саундхэнд."
+	desc = "Легендарная оливковая куртка группы Саундхэнд."
+	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
+	icon_state = "soundhand_olive_jacket"
+	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
+	item_state = "soundhand_olive_jacket"
+	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
+	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
+
+/obj/item/clothing/suit/soundhand_olive_jacket/soundhand_olive_jacket_tag
+	name = "оливковая куртка с тэгом группы Саундхэнд."
+	desc = "Легендарная оливковая куртка с тэгом группы Саундхэнд."
+	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
+	icon_state = "soundhand_olive_jacket_teg"
+	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
+	item_state = "soundhand_olive_jacket"
+	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
+	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
+
+/obj/item/clothing/suit/soundhand_brown_jacket
+	name = "коричневая куртка группы Саундхэнд."
+	desc = "Легендарная коричневая куртка группы Саундхэнд."
+	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
+	icon_state = "soundhand_brown_jacket"
+	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
+	item_state = "soundhand_brown_jacket"
+	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
+	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
+
+/obj/item/clothing/suit/soundhand_brown_jacket/soundhand_brown_jacket_tag
+	name = "коричневая куртка с тэгом группы Саундхэнд."
+	desc = "Легендарная коричневая куртка с тэгом группы Саундхэнд."
+	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
+	icon_state = "soundhand_brown_jacket_teg"
+	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
+	item_state = "soundhand_brown_jacket"
+	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
+	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'

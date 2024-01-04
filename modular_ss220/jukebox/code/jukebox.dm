@@ -543,3 +543,49 @@
 		for(var/mob/living/M in rangers)
 			if(prob(5+(allowed(M)*4)) && (M.mobility_flags & MOBILITY_MOVE))
 				dance(M)
+
+//Drum
+
+/obj/machinery/jukebox/drum_red
+	name = "\improper красный барабан"
+	desc = "Крутые барабаны от какой-то группы."
+	icon = 'modular_ss220/jukebox/icons/jukebox.dmi'
+	icon_state = "drum_red"
+
+/obj/machinery/jukebox/drum_red/update_icon_state()
+	if(stat & BROKEN)
+		icon_state = "[initial(icon_state)]_broken"
+		return
+	icon_state = "[initial(icon_state)]"
+
+	if(active)
+		icon_state = "[initial(icon_state)]-active"
+	else if(anchored)
+		icon_state = "[initial(icon_state)]_anchored"
+
+/obj/machinery/jukebox/drum_red/attackby(obj/item/O, mob/user, params)
+	if(active || (resistance_flags & INDESTRUCTIBLE))
+		return
+
+	if(!iswrench(O))
+		return ..()
+
+	if(!anchored && !isinspace())
+		to_chat(user, span_notice("You secure [src] to the floor."))
+		anchored = TRUE
+		update_icon()
+	else if(anchored)
+		to_chat(user, span_notice("You unsecure and disconnect [src]."))
+		anchored = FALSE
+		update_icon()
+
+	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
+
+/obj/machinery/jukebox/drum_red/drum_yellow
+	name = "\improper желтый барабан"
+	icon_state = "drum_yello"
+
+/obj/machinery/jukebox/drum_red/drum_blue
+	name = "\improper синий барабан"
+	icon_state = "drum_blue"
+

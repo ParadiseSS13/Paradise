@@ -53,3 +53,28 @@
 	required_reagents = list("sambuka" = 3, "triple_citrus" = 1, "irishcream" = 1)
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/reagent/consumable/ethanol/soundhand
+	name = "soundhand"
+	id = "soundhand"
+	description = "Коктейль из нескольких алкогольных напитков с запахом ягод и легким слоем перца на стакане."
+	color = "#C18A7B"
+	alcohol_perc = 0.5
+	drink_icon = "soundhand"
+	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drink_name = "Саундхэнд"
+	drink_desc = "Коктейль из нескольких алкогольных напитков с запахом ягод и легким слоем перца на стакане."
+	taste_description = "дребезжащие в ритме металлические струны."
+
+/datum/reagent/consumable/ethanol/soundhand/on_mob_life(mob/living/M)
+	. = ..()
+	if(prob(10))
+		M.emote("airguitar")
+
+/datum/chemical_reaction/soundhand
+	name = "Soundhand"
+	id = "soundhand"
+	result = "soundhand"
+	required_reagents = list("vodka" = 2, "whiskey" = 1, "berryjuice" = 1, "blackpepper" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
