@@ -1,2 +1,3 @@
 # Ignore built packages:
-packages/tgui/public
+public
+**.cjs
