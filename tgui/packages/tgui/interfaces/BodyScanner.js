@@ -295,18 +295,20 @@ const BodyScannerMainOrgansExternal = (props) => {
               >
                 <Box float="left" inline>
                   {!!o.bruteLoss && (
-                    <Box inline position="relative">
-                      <Icon name="bone" />
-                      {round(o.bruteLoss, 0)}&nbsp;
-                      <Tooltip position="top" content="Brute damage" />
-                    </Box>
+                    <Tooltip position="top" content="Brute damage">
+                      <Box inline position="relative">
+                        <Icon name="bone" />
+                        {round(o.bruteLoss, 0)}&nbsp;
+                      </Box>
+                    </Tooltip>
                   )}
                   {!!o.fireLoss && (
-                    <Box inline position="relative">
-                      <Icon name="fire" />
-                      {round(o.fireLoss, 0)}
-                      <Tooltip position="top" content="Burn damage" />
-                    </Box>
+                    <Tooltip position="top" content="Burn damage">
+                      <Box inline position="relative">
+                        <Icon name="fire" />
+                        {round(o.fireLoss, 0)}
+                      </Box>
+                    </Tooltip>
                   )}
                 </Box>
                 <Box inline>{round(o.totalLoss, 0)}</Box>

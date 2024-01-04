@@ -304,7 +304,7 @@ const DNAModifierMainRadiationEmitter = (props, context) => {
         icon="radiation"
         content="Pulse Radiation"
         tooltip="Mutates a random block of either the occupant's UI or SE."
-        tooltipPosition="top-right"
+        tooltipPosition="top-start"
         mt="0.5rem"
         onClick={() => act('pulseRadiation')}
       />
@@ -377,7 +377,7 @@ const DNAModifierMainBuffersElement = (props, context) => {
               icon="save"
               content="Export"
               tooltip="Exports this buffer to the currently loaded data disk."
-              tooltipPosition="bottom-left"
+              tooltipPosition="bottom-start"
               onClick={() =>
                 act('bufferOption', {
                   option: 'saveDisk',

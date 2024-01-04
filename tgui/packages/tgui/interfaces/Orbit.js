@@ -162,7 +162,7 @@ export const Orbit = (props, context) => {
                 inline
                 color="transparent"
                 tooltip="Refresh"
-                tooltipPosition="bottom-left"
+                tooltipPosition="bottom-start"
                 icon="sync-alt"
                 onClick={() => act('refresh')}
               />

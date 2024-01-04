@@ -98,7 +98,7 @@ export const Smartfridge = (props, context) => {
                           icon="arrow-down"
                           content="All"
                           tooltip="Dispense all."
-                          tooltipPosition="bottom-left"
+                          tooltipPosition="bottom-start"
                           onClick={() =>
                             act('vend', {
                               index: item.vend,

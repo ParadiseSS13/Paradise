@@ -359,7 +359,7 @@ const CartButtons = (props, context) => {
       <Button.Input
         content={i.amount}
         width="45px"
-        tooltipPosition="bottom-left"
+        tooltipPosition="bottom-start"
         tooltip={i.limit === 0 && 'Discount already redeemed!'}
         onCommit={(e, value) =>
           act('set_cart_item_quantity', {
@@ -371,7 +371,7 @@ const CartButtons = (props, context) => {
       />
       <Button
         icon="plus"
-        tooltipPosition="bottom-left"
+        tooltipPosition="bottom-start"
         tooltip={i.limit === 0 && 'Discount already redeemed!'}
         onClick={() =>
           act('set_cart_item_quantity', {

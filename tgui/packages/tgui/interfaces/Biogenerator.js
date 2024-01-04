@@ -102,7 +102,7 @@ const Controls = (props, context) => {
             tooltip={
               has_plants ? '' : 'There are no plants in the biogenerator.'
             }
-            tooltipPosition="top-right"
+            tooltipPosition="top-start"
             content="Activate"
             onClick={() => act('activate')}
           />
@@ -128,7 +128,7 @@ const Controls = (props, context) => {
             icon="eject"
             disabled={!has_plants}
             tooltip={has_plants ? '' : 'There are no stored plants to eject.'}
-            tooltipPosition="top-left"
+            tooltipPosition="top-end"
             content="Eject Plants"
             onClick={() => act('eject_plants')}
           />

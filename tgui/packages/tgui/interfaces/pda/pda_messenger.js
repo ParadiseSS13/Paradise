@@ -43,7 +43,7 @@ export const ActiveConversation = (props, context) => {
             icon="eye"
             selected={clipboardMode}
             tooltip="Enter Clipboard Mode"
-            tooltipPosition="bottom-left"
+            tooltipPosition="bottom-start"
             onClick={() => setClipboardMode(!clipboardMode)}
           />
         }
@@ -109,7 +109,7 @@ export const ActiveConversation = (props, context) => {
             icon="eye"
             selected={clipboardMode}
             tooltip="Exit Clipboard Mode"
-            tooltipPosition="bottom-left"
+            tooltipPosition="bottom-start"
             onClick={() => setClipboardMode(!clipboardMode)}
           />
         }
