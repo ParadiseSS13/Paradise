@@ -91,7 +91,7 @@ task-clean() {
   rm -rf .yarn/webpack
   rm -rf .yarn/build-state.yml
   rm -rf .yarn/install-state.gz
-  rm -f .pnp.js
+  rm -f .pnp.*
   echo "tgui: cleaning NPM artifacts"
   ## NPM artifacts
   rm -rf **/node_modules
