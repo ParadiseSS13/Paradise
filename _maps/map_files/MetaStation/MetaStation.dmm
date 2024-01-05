@@ -49128,11 +49128,6 @@
 /obj/item/assembly/signaler{
 	pixel_y = 8
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
