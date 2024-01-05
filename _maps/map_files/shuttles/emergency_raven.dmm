@@ -47,6 +47,7 @@
 	check_arrest = 0;
 	check_records = 0
 	},
+/obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "ah" = (
@@ -1052,6 +1053,11 @@
 	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
+"jZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/tesla_coil,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
 "ky" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -1398,6 +1404,10 @@
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
+"ZM" = (
+/obj/structure/dispenser,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
@@ -1697,7 +1707,7 @@ db
 dj
 ak
 cP
-dT
+jZ
 dE
 dE
 vw
@@ -1765,7 +1775,7 @@ ak
 ak
 bb
 cP
-dE
+ZM
 dE
 dE
 ed
@@ -1833,7 +1843,7 @@ dd
 dm
 ac
 cP
-dT
+jZ
 dE
 dE
 vw
