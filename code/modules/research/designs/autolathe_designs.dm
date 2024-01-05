@@ -955,5 +955,5 @@
 	id = "spraybottle"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 2000)
-	build_path = /obj/item/reagent_containers/spray
+	build_path = /obj/item/reagent_containers/spray/empty
 	category = list("initial", "Miscellaneous")
