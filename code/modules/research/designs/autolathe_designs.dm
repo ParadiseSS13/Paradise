@@ -951,7 +951,7 @@
 	category = list("initial", "Miscellaneous")
 
 /datum/design/spraybottle
-	name = "Spray bottle"
+	name = "Spray Bottle"
 	id = "spraybottle"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 2000)
