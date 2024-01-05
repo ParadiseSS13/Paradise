@@ -8,7 +8,7 @@ export const Holodeck = (props, context) => {
   const { decks, current_deck, ai_override, emagged } = data;
 
   return (
-    <Window width={400} height={320} resizable>
+    <Window width={400} height={320}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>

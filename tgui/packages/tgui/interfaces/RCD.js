@@ -15,7 +15,7 @@ import { AccessList } from './common/AccessList';
 
 export const RCD = (props, context) => {
   return (
-    <Window width={470} height={660} resizable>
+    <Window width={470} height={660}>
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>

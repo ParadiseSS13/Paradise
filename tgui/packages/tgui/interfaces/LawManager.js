@@ -14,7 +14,7 @@ export const LawManager = (props, context) => {
   const { isAdmin, isSlaved, isMalf, isAIMalf, view } = data;
 
   return (
-    <Window width={800} height={isMalf ? 620 : 365} resizable>
+    <Window width={800} height={isMalf ? 620 : 365}>
       <Window.Content scrollable>
         {!!(isAdmin && isSlaved) && (
           <NoticeBox>This unit is slaved to {isSlaved}.</NoticeBox>

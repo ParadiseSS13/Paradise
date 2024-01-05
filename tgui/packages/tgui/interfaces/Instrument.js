@@ -15,7 +15,7 @@ import { Window } from '../layouts';
 export const Instrument = (properties, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window width={600} height={505} resizable>
+    <Window width={600} height={505}>
       <InstrumentHelp />
       <Window.Content>
         <Stack fill vertical>

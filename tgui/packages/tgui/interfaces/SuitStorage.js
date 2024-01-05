@@ -14,7 +14,7 @@ export const SuitStorage = (props, context) => {
   const { data } = useBackend(context);
   const { uv } = data;
   return (
-    <Window width={400} height={260} resizable>
+    <Window width={400} height={260}>
       <Window.Content>
         <Stack fill vertical>
           {!!uv && (

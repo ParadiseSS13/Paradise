@@ -29,7 +29,7 @@ export const BluespaceTap = (props, context) => {
   } = data;
   const barColor = (desiredLevel > inputLevel && 'bad') || 'good';
   return (
-    <Window width={650} height={450} resizable>
+    <Window width={650} height={450}>
       <Window.Content scrollable>
         <Stack fill vertical>
           {!!emagged && (

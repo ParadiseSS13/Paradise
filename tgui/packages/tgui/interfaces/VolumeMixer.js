@@ -7,11 +7,7 @@ export const VolumeMixer = (properties, context) => {
   const { act, data } = useBackend(context);
   const { channels } = data;
   return (
-    <Window
-      width={350}
-      height={Math.min(95 + channels.length * 50, 565)}
-      resizable
-    >
+    <Window width={350} height={Math.min(95 + channels.length * 50, 565)}>
       <Window.Content>
         <Section fill scrollable>
           {channels.map((channel, key) => (

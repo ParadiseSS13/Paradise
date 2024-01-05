@@ -21,7 +21,7 @@ import {
 
 export const LibraryComputer = (props, context) => {
   return (
-    <Window width={1050} height={600} resizable>
+    <Window width={1050} height={600}>
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>

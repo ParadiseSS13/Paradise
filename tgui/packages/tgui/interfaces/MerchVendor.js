@@ -65,7 +65,7 @@ export const MerchVendor = (props, context) => {
   const { user_cash, inserted_cash } = data;
 
   return (
-    <Window title="Merch Computer" width={450} height={600} resizable>
+    <Window title="Merch Computer" width={450} height={600}>
       <Window.Content scrollable>
         <Stack fill vertical>
           <Stack.Item>

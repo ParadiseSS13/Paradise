@@ -19,7 +19,7 @@ export const NTRecruiter = (props, context) => {
   } = data;
   if (gamestatus === 0) {
     return (
-      <Window width={400} height={550} resizable>
+      <Window width={400} height={550}>
         <Window.Content>
           <Stack fill vertical>
             <Stack.Item grow>
@@ -71,7 +71,7 @@ export const NTRecruiter = (props, context) => {
   }
   if (gamestatus === 1) {
     return (
-      <Window width={400} height={550} resizable>
+      <Window width={400} height={550}>
         <Window.Content>
           <Stack fill vertical>
             <Section
@@ -134,7 +134,7 @@ export const NTRecruiter = (props, context) => {
   }
   if (gamestatus === 2) {
     return (
-      <Window width={400} height={550} resizable>
+      <Window width={400} height={550}>
         <Window.Content>
           <Stack fill vertical>
             <Stack.Item grow>
@@ -210,7 +210,7 @@ export const NTRecruiter = (props, context) => {
   }
   if (gamestatus === 3) {
     return (
-      <Window width={400} height={550} resizable>
+      <Window width={400} height={550}>
         <Window.Content>
           <Stack fill vertical>
             <Stack.Item grow>

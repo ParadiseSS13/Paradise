@@ -13,7 +13,7 @@ export const PrisonerImplantManager = (props, context) => {
   let body;
   if (!loginState.logged_in) {
     return (
-      <Window theme="security" width={500} height={850} resizable>
+      <Window theme="security" width={500} height={850}>
         <Window.Content>
           <LoginScreen />
         </Window.Content>
@@ -24,7 +24,7 @@ export const PrisonerImplantManager = (props, context) => {
   let injectionAmount = [1, 5, 10]; // used for auto generating chemical implant inject buttons
 
   return (
-    <Window theme="security" width={500} height={850} resizable>
+    <Window theme="security" width={500} height={850}>
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>

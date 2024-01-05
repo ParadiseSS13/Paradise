@@ -104,7 +104,7 @@ export const Autolathe = (props, context) => {
     rText = 'Build (' + category + ')';
   }
   return (
-    <Window width={750} height={525} resizable>
+    <Window width={750} height={525}>
       <Window.Content scrollable>
         <Stack fill horizontal>
           <Stack.Item width="70%">

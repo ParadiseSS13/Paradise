@@ -9,7 +9,7 @@ export const KitchenMachine = (props, context) => {
   const { title } = config;
 
   return (
-    <Window width={400} height={320} resizable>
+    <Window width={400} height={320}>
       <Window.Content>
         <Stack fill vertical>
           <Operating operating={operating} name={title} />

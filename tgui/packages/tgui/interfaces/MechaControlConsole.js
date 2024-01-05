@@ -20,7 +20,7 @@ export const MechaControlConsole = (props, context) => {
 
   if (stored_data.length) {
     return (
-      <Window width={420} height={500} resizable>
+      <Window width={420} height={500}>
         <Window.Content scrollable>
           <Section
             title="Log"
@@ -40,7 +40,7 @@ export const MechaControlConsole = (props, context) => {
     );
   }
   return (
-    <Window width={420} height={500} resizable>
+    <Window width={420} height={500}>
       <Window.Content scrollable>
         {(beacons.length &&
           beacons.map((beacon) => (

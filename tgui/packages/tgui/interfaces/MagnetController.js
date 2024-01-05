@@ -71,7 +71,7 @@ export const MagnetController = (props, context) => {
   } = data;
 
   return (
-    <Window width={400} height={600} resizable>
+    <Window width={400} height={600}>
       <ComplexModal />
       <Window.Content scrollable>
         {!autolink && (

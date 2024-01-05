@@ -17,7 +17,7 @@ export const TcommsRelay = (props, context) => {
   const { linked, active, network_id } = data;
 
   return (
-    <Window width={600} height={292} resizable>
+    <Window width={600} height={292}>
       <Window.Content scrollable>
         <Section title="Relay Configuration">
           <LabeledList>

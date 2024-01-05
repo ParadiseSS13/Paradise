@@ -19,7 +19,7 @@ const formatPoints = (amt) => amt.toLocaleString('en-US') + ' pts';
 
 export const OreRedemption = (properties, context) => {
   return (
-    <Window width={490} height={750} resizable>
+    <Window width={490} height={750}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>

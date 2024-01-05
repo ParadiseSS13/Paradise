@@ -6,7 +6,7 @@ import { AccessList } from './common/AccessList';
 export const GuestPass = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window width={500} height={690} resizable>
+    <Window width={500} height={690}>
       <Window.Content>
         <Tabs>
           <Tabs.Tab

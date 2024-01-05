@@ -46,9 +46,8 @@ export const Radio = (props, context) => {
   }))(data.ichannels);
   return (
     <Window
-      width={350}
+      width={375}
       height={130 + schannels.length * 21.2 + ichannels.length * 11}
-      resizable
     >
       <Window.Content scrollable>
         <Section fill>

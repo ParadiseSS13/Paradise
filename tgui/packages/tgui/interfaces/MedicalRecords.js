@@ -73,7 +73,7 @@ export const MedicalRecords = (_properties, context) => {
   const { loginState, screen } = data;
   if (!loginState.logged_in) {
     return (
-      <Window width={800} height={800} resizable>
+      <Window width={800} height={800}>
         <Window.Content>
           <LoginScreen />
         </Window.Content>
@@ -100,7 +100,7 @@ export const MedicalRecords = (_properties, context) => {
   }
 
   return (
-    <Window resizable>
+    <Window>
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>

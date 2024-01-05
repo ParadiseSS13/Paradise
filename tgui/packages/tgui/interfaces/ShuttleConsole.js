@@ -12,7 +12,7 @@ import { Window } from '../layouts';
 export const ShuttleConsole = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window width={350} height={150} resizable>
+    <Window width={350} height={150}>
       <Window.Content>
         <Section>
           <LabeledList>

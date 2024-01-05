@@ -13,7 +13,7 @@ const removeAmounts = [1, 5, 10];
 
 export const HandheldChemDispenser = (props, context) => {
   return (
-    <Window width={390} height={430} resizable>
+    <Window width={390} height={430}>
       <Window.Content>
         <Stack fill vertical>
           <HandheldChemDispenserSettings />

@@ -84,7 +84,7 @@ export const CloningConsole = (props, context) => {
   const { menu } = data;
   modalRegisterBodyOverride('view_rec', viewRecordModalBodyOverride);
   return (
-    <Window width={535} height={440} resizable>
+    <Window width={535} height={440}>
       <ComplexModal maxWidth="75%" maxHeight="75%" />
       <Window.Content>
         <Stack fill vertical>

@@ -14,7 +14,7 @@ import { Window } from '../layouts';
 
 export const ChemHeater = (_props, _context) => {
   return (
-    <Window width={350} height={275} resizable>
+    <Window width={350} height={275}>
       <Window.Content>
         <Stack fill vertical>
           <ChemHeaterSettings />

@@ -52,7 +52,7 @@ export const ListInput = (props, context) => {
     buttons[0]
   );
   return (
-    <Window title={title} width={325} height={350} resizable>
+    <Window title={title} width={325} height={350}>
       {timeout !== undefined && <Loader value={timeout} />}
       <Window.Content>
         <Stack fill vertical>

@@ -9,7 +9,7 @@ export const ReagentGrinder = (props, context) => {
   const { operating } = data;
   const { title } = config;
   return (
-    <Window width={400} height={565} resizable>
+    <Window width={400} height={565}>
       <Window.Content>
         <Stack fill vertical>
           <Operating operating={operating} name={title} />
