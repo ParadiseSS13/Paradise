@@ -96,6 +96,7 @@ function task-clean {
 ## Validates current build against the build stored in git
 function task-validate-build {
   $diff = git diff public/*
+  Write-Output $diff
   if ($diff) {
     Write-Output "Error: our build differs from the build committed into git."
     Write-Output "Please rebuild tgui."
