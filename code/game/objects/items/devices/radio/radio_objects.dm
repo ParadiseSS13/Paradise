@@ -366,7 +366,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	if(wires.is_cut(WIRE_RADIO_TRANSMIT)) // The device has to have all its wires and shit intact
 		return 0
 
-	if(!M.IsVocal())
+	if(!M.IsVocal() || M.cannot_speak_loudly())
 		return 0
 
 	if(is_type_in_list(get_area(src), blacklisted_areas))
