@@ -10,7 +10,7 @@
 	name = "Disguised"
 	desc = "You are disguised as a crewmember."
 	icon = 'icons/mob/actions/actions.dmi'
-	icon_state = "chameleon_skin"
+	icon_state = "chameleon_outfit"
 
 /datum/status_effect/magic_disguise/on_creation(mob/living/new_owner, mob/living/disguise_mob)
 	. = ..()
@@ -33,6 +33,10 @@
 		return FALSE
 
 	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(remove_disguise))
+
+/datum/status_effect/magic_disguise/on_remove()
+	owner.regenerate_icons()
+	..()
 
 /datum/status_effect/magic_disguise/proc/select_disguise()
 	var/obj/machinery/door/airlock/AL

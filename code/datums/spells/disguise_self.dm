@@ -4,15 +4,13 @@
 		The disguise will not hold up to being examined directly, and will break if you're damaged."
 
 	school = "illusion"
-	base_cooldown = 2 SECONDS
+	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	invocation = "Yutake Yutendes"
 	invocation_type = "whisper"
 	level_max = 0 //cannot be improved
-	action_icon_state = "chameleon_skin"
+	action_icon_state = "chameleon_outfit"
 	sound = null
-
-	var/upgraded = FALSE //Upgrading the spell lets you speak as the disguised
 
 /obj/effect/proc_holder/spell/disguise_self/create_new_targeting()
 	return new /datum/spell_targeting/self
