@@ -29,7 +29,7 @@ module.exports = (env = {}, argv) => {
   const config = {
     mode,
     context: path.resolve(__dirname),
-    target: ['web', 'es3', 'browserslist:ie 8'],
+    target: ['web', 'es5', 'browserslist:ie 11'],
     entry: {
       'tgui': [
         './packages/tgui-polyfill',
@@ -98,6 +98,7 @@ module.exports = (env = {}, argv) => {
     },
     optimization: {
       emitOnErrors: false,
+      realContentHash: true,
     },
     performance: {
       hints: false,
@@ -138,7 +139,7 @@ module.exports = (env = {}, argv) => {
     const { EsbuildPlugin } = require('esbuild-loader');
     config.optimization.minimizer = [
       new EsbuildPlugin({
-        target: 'ie8',
+        target: 'es5',
         css: true,
       }),
     ];
