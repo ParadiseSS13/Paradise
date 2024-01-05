@@ -297,6 +297,8 @@
 	icon_state = "shield[active ? "on" : "off"][malfunction ? "br" : ""]"
 
 /obj/machinery/shieldgen/raven
+	name = "military shield generator"
+	desc = "Military grade shield generators used to protect spaceships from incoming fire."
 	shield_range = 4
 	anchored = TRUE
 

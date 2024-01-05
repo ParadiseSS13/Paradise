@@ -59,13 +59,6 @@
 /obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
-"aj" = (
-/obj/machinery/shieldgen{
-	anchored = 1
-	},
-/obj/effect/turf_decal/delivery/white/hollow,
-/turf/simulated/floor/plasteel/dark,
-/area/shuttle/escape)
 "ak" = (
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
@@ -354,14 +347,6 @@
 "br" = (
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
-/area/shuttle/escape)
-"bs" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/shieldgen{
-	anchored = 1
-	},
-/obj/effect/turf_decal/delivery/white/hollow,
-/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "bt" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1621,7 +1606,7 @@ aa
 (7,1,1) = {"
 ab
 ab
-aj
+Px
 gL
 ay
 cP
@@ -1893,7 +1878,7 @@ aa
 (15,1,1) = {"
 ab
 ab
-bs
+wr
 aw
 aG
 cP
