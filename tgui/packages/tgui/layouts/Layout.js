@@ -30,7 +30,7 @@ const LayoutContent = (props) => {
         'Layout__content',
         scrollable && 'Layout__content--scrollable',
         className,
-        ...computeBoxClassName(rest),
+        computeBoxClassName(rest),
       ])}
       {...computeBoxProps(rest)}
     >

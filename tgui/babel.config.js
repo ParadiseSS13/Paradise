@@ -22,7 +22,7 @@ const createBabelConfig = options => {
       ...presets,
     ],
     plugins: [
-      [require.resolve('@babel/plugin-proposal-class-properties'), {
+      [require.resolve('@babel/plugin-transform-class-properties'), {
         loose: true,
       }],
       require.resolve('@babel/plugin-transform-jscript'),

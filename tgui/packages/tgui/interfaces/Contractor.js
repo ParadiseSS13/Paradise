@@ -145,7 +145,7 @@ const Summary = (properties, context) => {
               label="Contracts Completed"
               verticalAlign="middle"
             >
-              <Box height="20px" lineHeight="20px" display="inline-block">
+              <Box height="20px" lineHeight="20px" inline>
                 {completed_contracts}
               </Box>
             </LabeledList.Item>
@@ -262,7 +262,7 @@ const Contracts = (properties, context) => {
                 {!!contractStatuses[contract.status] && (
                   <Box
                     color={contractStatuses[contract.status][1]}
-                    display="inline-block"
+                    inline
                     mt={contract.status !== 1 && '0.125rem'}
                     mr="0.25rem"
                     lineHeight="20px"

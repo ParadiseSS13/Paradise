@@ -1,5 +1,5 @@
 import { classes } from 'common/react';
-import { deleteLocalState, useBackend, useLocalState } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
@@ -109,7 +109,7 @@ export const Newscaster = (properties, context) => {
             ])}
           >
             <Stack fill vertical>
-              <Box>
+              <Stack.Item>
                 <MenuButton
                   icon="bars"
                   title="Toggle Menu"
@@ -134,8 +134,8 @@ export const Newscaster = (properties, context) => {
                   onClick={() => act('jobs')}
                 />
                 <Divider />
-              </Box>
-              <Box flex="2" overflowY="auto" overflowX="hidden">
+              </Stack.Item>
+              <Stack.Item grow>
                 {channels.map((channel) => (
                   <MenuButton
                     key={channel}
@@ -153,8 +153,8 @@ export const Newscaster = (properties, context) => {
                     )}
                   </MenuButton>
                 ))}
-              </Box>
-              <Box width="100%" flex="0 0 content">
+              </Stack.Item>
+              <Stack.Item>
                 <Divider />
                 {(!!is_security || !!is_admin) && (
                   <>
@@ -198,10 +198,10 @@ export const Newscaster = (properties, context) => {
                   title={'Mute: ' + (is_silent ? 'On' : 'Off')}
                   onClick={() => act('toggle_mute')}
                 />
-              </Box>
+              </Stack.Item>
             </Stack>
           </Section>
-          <Stack fill vertical flex="1">
+          <Stack fill vertical width="100%">
             <TemporaryNotice />
             {body}
           </Stack>
@@ -619,7 +619,6 @@ const manageChannelModalBodyOverride = (modal, context) => {
   );
   return (
     <Section
-      level="2"
       m="-1rem"
       pb="1rem"
       title={isEditing ? 'Manage ' + channel.name : 'Create New Channel'}
@@ -702,15 +701,6 @@ const manageChannelModalBodyOverride = (modal, context) => {
             public: isPublic ? 1 : 0,
             admin_locked: adminLocked ? 1 : 0,
           });
-          // Clean up
-          deleteLocalState(
-            context,
-            'author',
-            'name',
-            'description',
-            'icon',
-            'public'
-          );
         }}
       />
     </Section>
@@ -758,7 +748,7 @@ const createStoryModalBodyOverride = (modal, context) => {
     false
   );
   return (
-    <Section level={2} m="-1rem" pb="1rem" title="Create New Story">
+    <Section m="-1rem" pb="1rem" title="Create New Story">
       <Box mx="0.5rem">
         <LabeledList>
           <LabeledList.Item label="Author">
@@ -868,8 +858,6 @@ const createStoryModalBodyOverride = (modal, context) => {
             body: body.substr(0, 1023),
             admin_locked: adminLocked ? 1 : 0,
           });
-          // Clean up
-          deleteLocalState(context, 'author', 'channel', 'title', 'body');
         }}
       />
     </Section>
@@ -904,7 +892,7 @@ const wantedNoticeModalBodyOverride = (modal, context) => {
     wanted?.admin_locked === 1 || false
   );
   return (
-    <Section level="2" m="-1rem" pb="1rem" title="Manage Wanted Notice">
+    <Section m="-1rem" pb="1rem" title="Manage Wanted Notice">
       <Box mx="0.5rem">
         <LabeledList>
           <LabeledList.Item label="Authority">
@@ -977,14 +965,6 @@ const wantedNoticeModalBodyOverride = (modal, context) => {
         onClick={() => {
           act('clear_wanted_notice');
           modalClose(context);
-          // Clean up
-          deleteLocalState(
-            context,
-            'author',
-            'name',
-            'description',
-            'admin_locked'
-          );
         }}
       />
       <Button.Confirm
@@ -1006,14 +986,6 @@ const wantedNoticeModalBodyOverride = (modal, context) => {
             description: description.substr(0, 511),
             admin_locked: adminLocked ? 1 : 0,
           });
-          // Clean up
-          deleteLocalState(
-            context,
-            'author',
-            'name',
-            'description',
-            'admin_locked'
-          );
         }}
       />
     </Section>

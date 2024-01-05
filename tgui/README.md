@@ -90,6 +90,7 @@ doing development on IE8).
 - `bin/tgui --test` - Run tests.
 - `bin/tgui --analyze` - Run a bundle analyzer.
 - `bin/tgui --clean` - Clean up project repo.
+- `bin/tgui --tgui-polyfill` - Build polyfills. You need to run it when updating any of the static (numbered) polyfills.
 - `bin/tgui [webpack options]` - Build the project with custom webpack
 options.
 

@@ -259,13 +259,7 @@ const CloningConsoleMain = (props, context) => {
             }
 
             return (
-              <Box
-                key={i}
-                width="64px"
-                textAlign="center"
-                display="inline-block"
-                mr="0.5rem"
-              >
+              <Box key={i} width="64px" textAlign="center" inline mr="0.5rem">
                 <img
                   src={resolveAsset('pod_' + pod.status + '.gif')}
                   style={{
@@ -334,7 +328,7 @@ const CloningConsoleTemp = (props, context) => {
   const tempProp = { [temp.style]: true };
   return (
     <NoticeBox {...tempProp}>
-      <Box display="inline-block" verticalAlign="middle">
+      <Box inline verticalAlign="middle">
         {temp.text}
       </Box>
       <Button

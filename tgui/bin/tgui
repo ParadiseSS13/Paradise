@@ -76,6 +76,11 @@ task-prettier() {
   npx prettier --check packages --write "${@}"
 }
 
+task-polyfill() {
+  cd "${base_dir}"
+  yarn tgui-polyfill:build
+}
+
 ## Mr. Proper
 task-clean() {
   cd "${base_dir}"
@@ -103,7 +108,8 @@ task-clean() {
 task-validate-build() {
   cd "${base_dir}"
   local diff
-  diff="$(git diff public/*)"
+  diff="$(git diff --text public/*)"
+  echo ${diff}
   if [[ -n ${diff} ]]; then
     echo "Error: our build differs from the build committed into git."
     echo "Please rebuild tgui."
@@ -218,6 +224,14 @@ fi
 if [[ ${1} == '--prettier' ]]; then
   shift 1
   task-prettier "${@}"
+  exit 0
+fi
+
+## Run prettier
+if [[ ${1} == '--tgui-polyfill' ]]; then
+  shift 1
+  task-install
+  task-polyfill "${@}"
   exit 0
 fi
 

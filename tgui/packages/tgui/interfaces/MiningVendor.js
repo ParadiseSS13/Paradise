@@ -38,7 +38,7 @@ const MiningVendorUser = (_properties, context) => {
       {has_id ? (
         <>
           <Box
-            display="inline-block"
+            inline
             verticalAlign="middle"
             style={{
               float: 'left',
@@ -175,7 +175,7 @@ const MiningVendorItemsCategory = (properties, context) => {
       {items.map((item) => (
         <Box key={item.name}>
           <Box
-            display="inline-block"
+            inline
             verticalAlign="middle"
             lineHeight="20px"
             style={{

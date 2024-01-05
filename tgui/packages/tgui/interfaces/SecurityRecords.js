@@ -308,12 +308,7 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
       <Box position="absolute" right="0" textAlign="right">
         {!!general.has_photos &&
           general.photos.map((p, i) => (
-            <Box
-              key={i}
-              display="inline-block"
-              textAlign="center"
-              color="label"
-            >
+            <Box key={i} inline textAlign="center" color="label">
               <img
                 src={p}
                 style={{

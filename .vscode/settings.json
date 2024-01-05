@@ -11,6 +11,7 @@
     "**/.pnp.*": true
 	},
 	"eslint.nodePath": "tgui/.yarn/sdks",
+	"prettier.prettierPath": "tgui/.yarn/sdks/prettier/index.cjs",
 	"typescript.tsdk": "tgui/.yarn/sdks/typescript/lib",
 	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"eslint.rules.customizations": [
