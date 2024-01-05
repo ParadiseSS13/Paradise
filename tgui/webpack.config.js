@@ -47,6 +47,7 @@ module.exports = (env = {}, argv) => {
       filename: '[name].bundle.js',
       chunkFilename: '[name].bundle.js',
       chunkLoadTimeout: 15000,
+      hashFunction: "xxhash64",
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
@@ -85,14 +86,7 @@ module.exports = (env = {}, argv) => {
         },
         {
           test: /\.(png|jpg|svg)$/,
-          use: [
-            {
-              loader: require.resolve('url-loader'),
-              options: {
-                esModule: false,
-              },
-            },
-          ],
+          type: 'asset/resource'
         },
       ],
     },
