@@ -55,8 +55,9 @@ export class Popper extends Component<PopperProps> {
 
   componentWillUnmount() {
     this.popperInstance?.destroy();
-    this.renderedContent.remove();
-    this.renderedContent = null;
+    render(null, this.renderedContent, () => {
+      this.renderedContent.remove();
+    });
   }
 
   renderPopperContent(callback: () => void) {

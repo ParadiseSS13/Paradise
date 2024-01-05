@@ -66,6 +66,10 @@ function task-prettier {
   npx prettier --check packages --write @Args
 }
 
+function task-polyfill {
+  yarn tgui-polyfill:build
+}
+
 ## Mr. Proper
 function task-clean {
   ## Build artifacts
@@ -169,6 +173,14 @@ if ($Args.Length -gt 0) {
   if ($Args[0] -eq "--prettier") {
     $Rest = $Args | Select-Object -Skip 1
     task-prettier @Rest
+    exit 0
+  }
+
+  ## ## Run prettier
+  if ($Args[0] -eq "--tgui-polyfill") {
+    $Rest = $Args | Select-Object -Skip 1
+    task-install
+    task-polyfill @Rest
     exit 0
   }
 }

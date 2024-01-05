@@ -5,26 +5,29 @@
  */
 
 import { BooleanLike, classes, pureComponentHooks } from 'common/react';
-import { Box, BoxProps, unit } from './Box';
+import { BoxProps, computeBoxClassName, computeBoxProps, unit } from './Box';
 
-export interface FlexProps extends BoxProps {
-  direction: string | BooleanLike;
-  wrap: string | BooleanLike;
-  align: string | BooleanLike;
-  justify: string | BooleanLike;
-  inline: BooleanLike;
-}
+export type FlexProps = BoxProps & {
+  direction?: string | BooleanLike;
+  wrap?: string | BooleanLike;
+  align?: string | BooleanLike;
+  justify?: string | BooleanLike;
+  inline?: BooleanLike;
+};
+
+export const computeFlexClassName = (props: FlexProps) => {
+  return classes([
+    'Flex',
+    props.inline && 'Flex--inline',
+    Byond.IS_LTE_IE10 && 'Flex--iefix',
+    Byond.IS_LTE_IE10 && props.direction === 'column' && 'Flex--iefix--column',
+    computeBoxClassName(props),
+  ]);
+};
 
 export const computeFlexProps = (props: FlexProps) => {
   const { className, direction, wrap, align, justify, inline, ...rest } = props;
-  return {
-    className: classes([
-      'Flex',
-      Byond.IS_LTE_IE10 &&
-        (direction === 'column' ? 'Flex--iefix--column' : 'Flex--iefix'),
-      inline && 'Flex--inline',
-      className,
-    ]),
+  return computeBoxProps({
     style: {
       ...rest.style,
       'flex-direction': direction,
@@ -33,20 +36,36 @@ export const computeFlexProps = (props: FlexProps) => {
       'justify-content': justify,
     },
     ...rest,
-  };
+  });
 };
 
-export const Flex = (props) => <Box {...computeFlexProps(props)} />;
+export const Flex = (props) => {
+  const { className, ...rest } = props;
+  return (
+    <div
+      className={classes([className, computeFlexClassName(rest)])}
+      {...computeFlexProps(rest)}
+    />
+  );
+};
 
 Flex.defaultHooks = pureComponentHooks;
 
-export interface FlexItemProps extends BoxProps {
+export type FlexItemProps = BoxProps & {
   grow?: number;
   order?: number;
   shrink?: number;
   basis?: string | BooleanLike;
   align?: string | BooleanLike;
-}
+};
+
+export const computeFlexItemClassName = (props: FlexItemProps) => {
+  return classes([
+    'Flex__item',
+    Byond.IS_LTE_IE10 && 'Flex__item--iefix',
+    computeBoxClassName(props),
+  ]);
+};
 
 export const computeFlexItemProps = (props: FlexItemProps) => {
   const {
@@ -61,13 +80,7 @@ export const computeFlexItemProps = (props: FlexItemProps) => {
     align,
     ...rest
   } = props;
-  return {
-    className: classes([
-      'Flex__item',
-      Byond.IS_LTE_IE10 && 'Flex__item--iefix',
-      Byond.IS_LTE_IE10 && grow > 0 && 'Flex__item--iefix--grow',
-      className,
-    ]),
+  return computeBoxProps({
     style: {
       ...style,
       'flex-grow': grow !== undefined && Number(grow),
@@ -77,10 +90,18 @@ export const computeFlexItemProps = (props: FlexItemProps) => {
       'align-self': align,
     },
     ...rest,
-  };
+  });
 };
 
-const FlexItem = (props) => <Box {...computeFlexItemProps(props)} />;
+const FlexItem = (props) => {
+  const { className, ...rest } = props;
+  return (
+    <div
+      className={classes([className, computeFlexItemClassName(props)])}
+      {...computeFlexItemProps(rest)}
+    />
+  );
+};
 
 FlexItem.defaultHooks = pureComponentHooks;
 
