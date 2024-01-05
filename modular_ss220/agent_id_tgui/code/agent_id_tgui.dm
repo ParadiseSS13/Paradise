@@ -116,10 +116,13 @@
 	data["appearances"] = card_images
 	return data
 
-/obj/item/card/id/syndicate/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/card/id/syndicate/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/item/card/id/syndicate/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AgentCard", name, 425, 500, master_ui, state)
+		ui = new(user, src, "AgentCard", name)
 		ui.open()
 
 /obj/item/card/id/syndicate/attack_self(mob/user)

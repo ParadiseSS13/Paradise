@@ -42,7 +42,6 @@
 #include "satellite\code\satellite.dm"
 #include "sheets\code\sheets.dm"
 #include "shutters\code\shutters.dm"
-#include "skin\code\darkmode.dm"
 #include "soap\code\soap.dm"
 #include "stamps\code\stamps.dm"
 #include "surgery_table\code\surgery_table.dm"

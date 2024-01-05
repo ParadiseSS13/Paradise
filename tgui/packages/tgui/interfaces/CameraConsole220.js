@@ -2,19 +2,19 @@ import { filter, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { classes } from 'common/react';
 import { createSearch } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   Button,
   ByondUi,
   Input,
   Section,
-  Box,
+  Stack,
   NanoMap,
   Tabs,
   Icon,
+  Box,
 } from '../components';
-import { refocusLayout, Window } from '../layouts';
+import { Window } from '../layouts';
 
 /**
  * Returns previous and next camera names relative to the currently
@@ -61,27 +61,38 @@ export const CameraConsole220 = (props, context) => {
   };
 
   return (
-    <Window resizable>
+    <Window width={1170} height={755}>
       <Window.Content>
-        <Box fillPositionedParent overflow="hidden">
-          <Tabs>
-            <Tabs.Tab
-              key="Map"
-              selected={tabIndex === 0}
-              onClick={() => setTabIndex(0)}
+        <Stack>
+          <Box fillPositionedParent>
+            <Stack.Item
+              width={tabIndex === 1 ? '222px' : '475px'}
+              textAlign="center"
             >
-              <Icon name="map-marked-alt" /> Карта
-            </Tabs.Tab>
-            <Tabs.Tab
-              key="List"
-              selected={tabIndex === 1}
-              onClick={() => setTabIndex(1)}
-            >
-              <Icon name="table" /> Список
-            </Tabs.Tab>
-          </Tabs>
-          {decideTab(tabIndex)}
-        </Box>
+              <Tabs
+                fluid
+                ml={tabIndex === 1 ? 1 : 0}
+                mt={tabIndex === 1 ? 1 : 0}
+              >
+                <Tabs.Tab
+                  key="Map"
+                  selected={tabIndex === 0}
+                  onClick={() => setTabIndex(0)}
+                >
+                  <Icon name="map-marked-alt" /> Карта
+                </Tabs.Tab>
+                <Tabs.Tab
+                  key="List"
+                  selected={tabIndex === 1}
+                  onClick={() => setTabIndex(1)}
+                >
+                  <Icon name="table" /> Список
+                </Tabs.Tab>
+              </Tabs>
+            </Stack.Item>
+            {decideTab(tabIndex)}
+          </Box>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -97,8 +108,20 @@ export const CameraConsoleMapContent = (props, context) => {
     activeCamera
   );
   return (
-    <Box height="100%" display="flex">
-      <Box height="100%" flex="0 0 500px" display="flex">
+    <Stack
+      fill
+      vertical
+      style={{
+        display: 'flex',
+      }}
+    >
+      <Stack.Item
+        height="100%"
+        style={{
+          display: 'flex',
+          flex: '0 0 475px',
+        }}
+      >
         <NanoMap onZoom={(v) => setZoom(v)}>
           {cameras
             .filter((cam) => cam.z === stationLevel)
@@ -118,8 +141,8 @@ export const CameraConsoleMapContent = (props, context) => {
               />
             ))}
         </NanoMap>
-      </Box>
-      <Box height="96%" resizable className="CameraConsole__right_map">
+      </Stack.Item>
+      <Stack.Item height="100%" resizable className="CameraConsole__right_map">
         <div className="CameraConsole__header">
           <div className="CameraConsole__toolbar">
             <b>Камера: </b>
@@ -152,12 +175,11 @@ export const CameraConsoleMapContent = (props, context) => {
           overflow="hidden"
           params={{
             id: mapRef,
-            parent: config.window,
             type: 'map',
           }}
         />
-      </Box>
-    </Box>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -171,46 +193,48 @@ export const CameraConsoleOldContent = (props, context) => {
     activeCamera
   );
   return (
-    <Box>
+    <Stack.Item>
       <div className="CameraConsole__left">
-        <Window.Content scrollable>
-          <Fragment>
-            <Input
-              fluid
-              mb={1}
-              placeholder="Найти камеру"
-              onInput={(e, value) => setSearchText(value)}
-            />
-            <Section>
-              {cameras.map((camera) => (
-                // We're not using the component here because performance
-                // would be absolutely abysmal (50+ ms for each re-render).
-                <div
-                  key={camera.name}
-                  title={camera.name}
-                  className={classes([
-                    'Button',
-                    'Button--fluid',
-                    camera.status
-                      ? 'Button--color--transparent'
-                      : 'Button--color--danger',
-                    'Button--ellipsis',
-                    activeCamera &&
-                      camera.name === activeCamera.name &&
-                      'Button--selected',
-                  ])}
-                  onClick={() => {
-                    refocusLayout();
-                    act('switch_camera', {
-                      name: camera.name,
-                    });
-                  }}
-                >
-                  {camera.name}
-                </div>
-              ))}
-            </Section>
-          </Fragment>
+        <Window.Content>
+          <Stack fill vertical>
+            <Stack.Item>
+              <Input
+                width="215px"
+                placeholder="Найти камеру"
+                onInput={(e, value) => setSearchText(value)}
+              />
+            </Stack.Item>
+            <Stack.Item grow>
+              <Section fill scrollable>
+                {cameras.map((camera) => (
+                  // We're not using the component here because performance
+                  // would be absolutely abysmal (50+ ms for each re-render).
+                  <div
+                    key={camera.name}
+                    title={camera.name}
+                    className={classes([
+                      'Button',
+                      'Button--fluid',
+                      camera.status
+                        ? 'Button--color--transparent'
+                        : 'Button--color--danger',
+                      'Button--ellipsis',
+                      activeCamera &&
+                        camera.name === activeCamera.name &&
+                        'Button--selected',
+                    ])}
+                    onClick={() =>
+                      act('switch_camera', {
+                        name: camera.name,
+                      })
+                    }
+                  >
+                    {camera.name}
+                  </div>
+                ))}
+              </Section>
+            </Stack.Item>
+          </Stack>
         </Window.Content>
       </div>
       <div className="CameraConsole__right">
@@ -242,11 +266,10 @@ export const CameraConsoleOldContent = (props, context) => {
           className="CameraConsole__map"
           params={{
             id: mapRef,
-            parent: config.window,
             type: 'map',
           }}
         />
       </div>
-    </Box>
+    </Stack.Item>
   );
 };

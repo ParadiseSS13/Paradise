@@ -14,7 +14,6 @@
 #include "code/helpers.dm"
 #include "code/misc.dm"
 #include "code/mobs.dm"
-#include "code/nanomap.dm"
 #include "code/spawners.dm"
 #include "code/walls.dm"
 #include "code/floors.dm"

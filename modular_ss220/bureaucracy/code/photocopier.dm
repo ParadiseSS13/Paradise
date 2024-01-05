@@ -51,10 +51,13 @@
 		if("copies")
 			copies = clamp(text2num(params["new"]), 0, maxcopies)
 
-/obj/machinery/photocopier/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/photocopier/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/photocopier/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Photocopier220", "Ксерокс", 550, 635, master_ui, state)
+		ui = new(user, src, "Photocopier220", "Ксерокс")
 		ui.open()
 
 /obj/machinery/photocopier/ui_data(mob/user)
