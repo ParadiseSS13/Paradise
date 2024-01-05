@@ -84,7 +84,7 @@ export const AIFixer = (props, context) => {
                 {(!!data.has_laws && (
                   <Box>
                     {data.laws.map((value, key) => (
-                      <Box key={key} display="inline-block">
+                      <Box key={key} inline>
                         {value}
                       </Box>
                     ))}

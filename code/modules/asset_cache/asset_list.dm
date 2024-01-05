@@ -10,6 +10,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset
 	var/_abstract = /datum/asset
+	var/cached_serialized_url_mappings
+	var/cached_serialized_url_mappings_transport_type
 
 /datum/asset/New()
 	GLOB.asset_datums[type] = src
@@ -78,6 +80,14 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	for(var/type in children)
 		var/datum/asset/A = get_asset_datum(type)
 		. += A.get_url_mappings()
+
+/// Returns a cached tgui message of URL mappings
+/datum/asset/proc/get_serialized_url_mappings()
+	if(isnull(cached_serialized_url_mappings) || cached_serialized_url_mappings_transport_type != SSassets.transport.type)
+		cached_serialized_url_mappings = TGUI_CREATE_MESSAGE("asset/mappings", get_url_mappings())
+		cached_serialized_url_mappings_transport_type = SSassets.transport.type
+
+	return cached_serialized_url_mappings
 
 // spritesheet implementation - coalesces various icons into a single .png file
 // and uses CSS to select icons out of that file - saves on transferring some

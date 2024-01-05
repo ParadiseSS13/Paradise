@@ -29,7 +29,7 @@ module.exports = (env = {}, argv) => {
   const config = {
     mode,
     context: path.resolve(__dirname),
-    target: ['web', 'es3', 'browserslist:ie 8'],
+    target: ['web', 'es5', 'browserslist:ie 11'],
     entry: {
       'tgui': [
         './packages/tgui-polyfill',
@@ -47,6 +47,7 @@ module.exports = (env = {}, argv) => {
       filename: '[name].bundle.js',
       chunkFilename: '[name].bundle.js',
       chunkLoadTimeout: 15000,
+      hashFunction: "xxhash64",
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
@@ -85,19 +86,13 @@ module.exports = (env = {}, argv) => {
         },
         {
           test: /\.(png|jpg|svg)$/,
-          use: [
-            {
-              loader: require.resolve('url-loader'),
-              options: {
-                esModule: false,
-              },
-            },
-          ],
+          type: 'asset/inline'
         },
       ],
     },
     optimization: {
       emitOnErrors: false,
+      realContentHash: true,
     },
     performance: {
       hints: false,
@@ -135,17 +130,11 @@ module.exports = (env = {}, argv) => {
 
   // Production build specific options
   if (argv.mode === 'production') {
-    const TerserPlugin = require('terser-webpack-plugin');
+    const { EsbuildPlugin } = require('esbuild-loader');
     config.optimization.minimizer = [
-      new TerserPlugin({
-        extractComments: false,
-        terserOptions: {
-          ie8: true,
-          output: {
-            ascii_only: true,
-            comments: false,
-          },
-        },
+      new EsbuildPlugin({
+        target: 'ie11',
+        css: true,
       }),
     ];
   }

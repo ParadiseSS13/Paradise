@@ -54,7 +54,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(check_rights(R_ADMIN | R_MENTOR | R_MOD, 0, C.mob))
 			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
 				to_chat(C,
-					type = MESSAGE_TYPE_MODCHAT,
+					type = MESSAGE_TYPE_MENTORCHAT,
 					html = msg,
 					confidential = TRUE)
 			if(important)

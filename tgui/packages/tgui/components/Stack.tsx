@@ -5,55 +5,77 @@
  */
 
 import { classes } from 'common/react';
-import { Flex, FlexItemProps, FlexProps } from './Flex';
+import { RefObject } from 'inferno';
+import {
+  computeFlexClassName,
+  computeFlexItemClassName,
+  computeFlexItemProps,
+  computeFlexProps,
+  FlexItemProps,
+  FlexProps,
+} from './Flex';
 
-interface StackProps extends FlexProps {
+type StackProps = FlexProps & {
   vertical?: boolean;
   fill?: boolean;
-  zebra?: boolean;
-}
+};
 
 export const Stack = (props: StackProps) => {
-  const { className, vertical, fill, zebra, ...rest } = props;
+  const { className, vertical, fill, ...rest } = props;
   return (
-    <Flex
+    <div
       className={classes([
         'Stack',
         fill && 'Stack--fill',
         vertical ? 'Stack--vertical' : 'Stack--horizontal',
-        zebra && 'Stack--zebra',
         className,
+        computeFlexClassName(props),
       ])}
-      direction={vertical ? 'column' : 'row'}
-      {...rest}
+      {...computeFlexProps({
+        direction: vertical ? 'column' : 'row',
+        ...rest,
+      })}
     />
   );
 };
 
-const StackItem = (props: FlexProps) => {
-  const { className, ...rest } = props;
+type StackItemProps = FlexProps & {
+  innerRef?: RefObject<HTMLDivElement>;
+};
+
+const StackItem = (props: StackItemProps) => {
+  const { className, innerRef, ...rest } = props;
   return (
-    <Flex.Item className={classes(['Stack__item', className])} {...rest} />
+    <div
+      className={classes([
+        'Stack__item',
+        className,
+        computeFlexItemClassName(rest),
+      ])}
+      ref={innerRef}
+      {...computeFlexItemProps(rest)}
+    />
   );
 };
 
 Stack.Item = StackItem;
 
-interface StackDividerProps extends FlexItemProps {
+type StackDividerProps = FlexItemProps & {
   hidden?: boolean;
-}
+};
 
 const StackDivider = (props: StackDividerProps) => {
   const { className, hidden, ...rest } = props;
   return (
-    <Flex.Item
+    <div
       className={classes([
         'Stack__item',
         'Stack__divider',
         hidden && 'Stack__divider--hidden',
         className,
+        computeFlexItemClassName(rest),
       ])}
-      {...rest}
+      {...computeFlexItemProps(rest)}
     />
   );
 };
