@@ -6,6 +6,7 @@
 
 import http from 'http';
 import { inspect } from 'util';
+
 import { createLogger, directLog } from '../logging.js';
 import { require } from '../require.js';
 import { loadSourceMaps, retrace } from './retrace.js';
@@ -76,19 +77,17 @@ class LinkServer {
       if (level <= 0 && !DEBUG) {
         return;
       }
-      directLog(
-        ns,
-        ...args.map((arg) => {
-          if (typeof arg === 'object') {
-            return inspect(arg, {
-              depth: Infinity,
-              colors: true,
-              compact: 8,
-            });
-          }
-          return arg;
-        })
-      );
+      // prettier-ignore
+      directLog(ns, ...args.map(arg => {
+        if (typeof arg === 'object') {
+          return inspect(arg, {
+            depth: Infinity,
+            colors: true,
+            compact: 8,
+          });
+        }
+        return arg;
+      }));
       return;
     }
     if (type === 'relay') {
