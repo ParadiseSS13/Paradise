@@ -227,7 +227,14 @@
 
 /obj/item/toy/sword/chaosprank
 	name = "energy sword"
-	hitsound = 'sound/items/bikehorn.ogg'
+	var/pranked = FALSE
+
+/obj/item/toy/sword/chaosprank/afterattack(mob/living/target, mob/living/user, proximity)
+	..()
+	if(!pranked)
+		to_chat(user, "<span class='chaosverybad'>Oh... it's a fake.</span>")
+		name = "toy sword"
+		pranked = TRUE
 
 /*
  * Subtype of Double-Bladed Energy Swords
