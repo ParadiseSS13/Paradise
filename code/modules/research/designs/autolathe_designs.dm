@@ -949,3 +949,11 @@
 	materials = list(MAT_METAL = 1500, MAT_GLASS = 500)
 	build_path = /obj/item/mail_scanner
 	category = list("initial", "Miscellaneous")
+
+/datum/design/spraybottle
+	name = "Spray bottle"
+	id = "spraybottle"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 2000)
+	build_path = /obj/item/reagent_containers/spray
+	category = list("initial", "Miscellaneous")
