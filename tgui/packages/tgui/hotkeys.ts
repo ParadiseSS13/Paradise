@@ -98,14 +98,14 @@ const handlePassthrough = (key: KeyEvent) => {
   // KeyDown
   if (key.isDown() && !keyState[byondKeyCode]) {
     keyState[byondKeyCode] = true;
-    const command = `KeyDown "${byondKeyCode}"`;
+    const command = `Key_Down "${byondKeyCode}"`;
     logger.debug(command);
     return Byond.command(command);
   }
   // KeyUp
   if (key.isUp() && keyState[byondKeyCode]) {
     keyState[byondKeyCode] = false;
-    const command = `KeyUp "${byondKeyCode}"`;
+    const command = `Key_Up "${byondKeyCode}"`;
     logger.debug(command);
     return Byond.command(command);
   }
