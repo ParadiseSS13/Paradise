@@ -143,10 +143,10 @@
 	origin_tech = "syndicate=1"
 
 /obj/item/mod/module/noslip/on_suit_activation()
-	mod.boots.flags |= NOSLIP
+	ADD_TRAIT(mod.wearer, TRAIT_NOSLIP, UID())
 
 /obj/item/mod/module/noslip/on_suit_deactivation(deleting = FALSE)
-	mod.boots.flags ^= NOSLIP
+	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIP, UID())
 
 //Bite of 87 Springlock - Equips faster, disguised as DNA lock, can block retracting for 10 seconds.
 /obj/item/mod/module/springlock/bite_of_87

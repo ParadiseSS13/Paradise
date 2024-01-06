@@ -8,7 +8,7 @@
 	w_class_override = list(/obj/item/storage/belt)
 	silent = TRUE
 
-/obj/item/implant/storage
+/obj/item/bio_chip/storage
 	name = "storage bio-chip"
 	desc = "Stores up to two big items in a bluespace pocket."
 	icon_state = "storage"
@@ -19,22 +19,22 @@
 
 	var/obj/item/storage/hidden/implant/storage
 
-/obj/item/implant/storage/Initialize(mapload)
+/obj/item/bio_chip/storage/Initialize(mapload)
 	. = ..()
 	storage = new /obj/item/storage/hidden/implant(src)
 
-/obj/item/implant/storage/emp_act(severity)
+/obj/item/bio_chip/storage/emp_act(severity)
 	..()
 	storage.emp_act(severity)
 
-/obj/item/implant/storage/activate()
+/obj/item/bio_chip/storage/activate()
 	if(!length(storage.mobs_viewing))
 		storage.MouseDrop(imp_in)
 	else
 		for(var/mob/to_close in storage.mobs_viewing)
 			storage.close(to_close)
 
-/obj/item/implant/storage/removed(source)
+/obj/item/bio_chip/storage/removed(source)
 	if(..())
 		for(var/mob/M in range(1))
 			if(M.s_active == storage)
@@ -43,8 +43,8 @@
 			storage.remove_from_storage(I, get_turf(source))
 		return TRUE
 
-/obj/item/implant/storage/implant(mob/source)
-	var/obj/item/implant/storage/imp_e = locate(type) in source
+/obj/item/bio_chip/storage/implant(mob/source)
+	var/obj/item/bio_chip/storage/imp_e = locate(type) in source
 	if(imp_e)
 		imp_e.storage.storage_slots += storage.storage_slots
 		imp_e.storage.max_combined_w_class += storage.max_combined_w_class
@@ -60,15 +60,15 @@
 
 	return ..()
 
-/obj/item/implant/storage/proc/get_contents() //Used for swiftly returning a list of the implant's contents i.e. for checking a theft objective's completion.
+/obj/item/bio_chip/storage/proc/get_contents() //Used for swiftly returning a list of the implant's contents i.e. for checking a theft objective's completion.
 	if(storage && storage.contents)
 		return storage.contents
 
-/obj/item/implanter/storage
+/obj/item/bio_chip_implanter/storage
 	name = "bio-chip implanter (storage)"
-	implant_type = /obj/item/implant/storage
+	implant_type = /obj/item/bio_chip/storage
 
-/obj/item/implantcase/storage
+/obj/item/bio_chip_case/storage
 	name = "bio-chip case - 'Storage'"
 	desc = "A glass case containing a storage bio-chip."
-	implant_type = /obj/item/implant/storage
+	implant_type = /obj/item/bio_chip/storage
