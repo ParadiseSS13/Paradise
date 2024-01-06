@@ -58609,14 +58609,12 @@
 "dlv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/cryo)
 "dlw" = (
@@ -67755,9 +67753,6 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -73691,6 +73686,9 @@
 	dir = 9;
 	network = list("SS13","Medical")
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -76794,7 +76792,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/hologram/holopad,
 /obj/structure/disposalpipe/junction{
 	dir = 1;
 	icon_state = "pipe-j2"
@@ -78311,6 +78308,24 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
+"lkb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel/white,
+/area/station/medical/medbay)
 "lky" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -81243,6 +81258,7 @@
 /obj/structure/disposalpipe/junction{
 	dir = 1
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "naA" = (
@@ -83906,6 +83922,7 @@
 	name = "Emergency NanoMed";
 	pixel_y = -32
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitebluecorner"
@@ -85030,6 +85047,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -86698,6 +86716,9 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start/doctor,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/cryo)
 "qub" = (
@@ -92617,6 +92638,7 @@
 	dir = 1;
 	network = list("Medical","SS13")
 	},
+/obj/structure/closet/walllocker/emerglocker/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitebluecorner"
@@ -98961,6 +98983,13 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/range)
+"xIm" = (
+/obj/structure/closet/walllocker/emerglocker/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitebluecorner"
+	},
+/area/station/medical/medbay)
 "xIo" = (
 /obj/structure/bed,
 /obj/structure/cable{
@@ -143636,7 +143665,7 @@ ppu
 tDw
 tDw
 ppy
-hbt
+lkb
 oGw
 mXA
 gQS
@@ -146474,7 +146503,7 @@ fPq
 fPq
 bfW
 fPq
-fPq
+xIm
 fPq
 omx
 mwd
