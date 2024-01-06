@@ -889,26 +889,31 @@
 	speech_verb = "chimpers"
 	ask_verb = "chimpers"
 	exclaim_verbs = list("screeches")
+	flags = RESTRICTED
 	key = "mo"
 
 /datum/language/skrell/monkey
 	name = "Neara"
 	desc = "Squik squik squik."
+	flags = RESTRICTED
 	key = "ne"
 
 /datum/language/unathi/monkey
 	name = "Stok"
 	desc = "Hiss hiss hiss."
+	flags = RESTRICTED
 	key = "st"
 
 /datum/language/tajaran/monkey
 	name = "Farwa"
 	desc = "Meow meow meow."
+	flags = RESTRICTED
 	key = "fa"
 
 /datum/language/vulpkanin/monkey
 	name = "Wolpin"
 	desc = "Bark bark bark."
+	flags = RESTRICTED
 	key = "vu"
 
 /mob/proc/grant_all_babel_languages()

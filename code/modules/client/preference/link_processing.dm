@@ -320,6 +320,8 @@
 				if("cultural_language")
 					var/list/new_languages = list("None")
 					for(var/datum/language/lang in S.get_cultural_languages())
+						if(lang.flags & RESTRICTED)
+							continue
 						new_languages += lang.name
 
 					var/new_active_character_language = tgui_input_list(user, "Please select a cultural language", "Character Generation", sortList(new_languages))
