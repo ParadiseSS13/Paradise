@@ -23,7 +23,7 @@
 	/// Do we want to override the word-join character for scrambled text? If null, defaults to " " or ". "
 	var/join_override
 	var/list/partial_understanding				  // List of languages that can /somehwat/ understand it, format is: name = chance of understanding a word
-	var/culture = LANGUAGE_HUMAN
+	var/culture
 
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len || english_names)
@@ -451,7 +451,7 @@
 	flags = RESTRICTED
 	syllables = list("blah","blah","blah","bleh","meh","neh","nah","wah")
 	english_names = 1
-	partial_understanding = list(/datum/language/skrell = 30, /datum/language/human_language/sol = 30)
+	partial_understanding = list(/datum/language/skrell = 30, /datum/language/human/sol = 30)
 
 /datum/language/spacer
 	name = "Spacer"
@@ -635,7 +635,7 @@
 		"zong", "zou", "zuan", "zui", "zun", "zuo", "zu"
 	)
 
-/datum/language/human_language/yangyu/get_random_name()
+/datum/language/human/yangyu/get_random_name()
 	var/new_name = "[pick(list("Akira", "Aiko", "Haruki", "Emi", "Hiroshi", "Yuki", "Sakura", "Kenzo", "Ayumi", "Riku", "Sora", "Miyuki", "Ren", "Kai", "Naomi", "Rin", "Yuna", "Takashi", "Asuka", "Haru", "Keiko", "Kazuki", "Satsuki", "Toshiro", "Mei", "Daichi", "Amaya", "Hikaru", "Eriko", "Kaito", "Misaki", "Haruka", "Kazumi", "Shin", "Yoko", "Noboru", "Hana", "Taiki", "Mika", "Hiroko", "Yoshiro", "Natsuki", "Tsubasa", "Yumi", "Akari", "Ryota", "Rika", "Tatsu", "Megumi", "Yukio", "Mao", "Kazuhiro", "Hinata", "Eiji", "Hanae", "Kenshin", "Yoshiko", "Daisuke", "Yoshimi", "Kazuo", "Natsumi", "Shiori", "Yasuo", "Yui", "Itsuki", "Mitsuki", "Ryo", "Yoshida", "Rei", "Nariko", "Takumi", "Izumi", "Akio", "Mizuki", "Kiyomi", "Satoshi", "Ayane", "Kanako", "Hideki", "Chiyo", "Nori", "Kaori", "Tomo", "Aimi", "Kiyoshi", "Haruko", "Taiga", "Eiko", "Kenji", "Sakiko", "Yoshio", "Maki", "Takako", "Kaito", "Miyako"))]"
 	new_name += "[pick(list("Tanaka", "Suzuki", "Yamamoto", "Nakamura", "Kobayashi", "Kato", "Sato", "Ito", "Yoshida", "Yamada", "Sasaki", "Yamaguchi", "Matsumoto", "Inoue", "Kimura", "Shimizu", "Hayashi", "Shin", "Sakamoto", "Ishikawa", "Mori", "Hashimoto", "Maeda", "Murakami", "Fujita", "Okada", "Takahashi", "Nakajima", "Tamura", "Abe", "Kaneko", "Ishii", "Hasegawa", "Ogawa", "Arai", "Ono", "Mizuno", "Kojima", "Fujii", "Kawamura", "Itoh", "Shibata", "Kudo", "Yano", "Eto", "Noguchi", "Shibuya", "Imai", "Takada", "Matsui", "Hara", "Hosokawa", "Murata", "Komatsu", "Fukuda", "Iwasaki", "Otsuka", "Shoji", "Kawakami", "Sugiyama", "Ogata", "Maruyama", "Ueno", "Ota", "Takeda", "Taniguchi", "Tamura", "Morita", "Yonezawa", "Uchida", "Kubo", "Yamashita", "Ueda", "Kawashima", "Morikawa", "Iwata", "Sasaki", "Fujimoto", "Nakano", "Saito", "Kudo", "Iwamoto", "Nishimura", "Ikeuchi", "Yoshimura", "Akiyama", "Nishida", "Higuchi", "Kojima", "Igarashi", "Aoki", "Higashiyama"))]"
 
@@ -883,7 +883,7 @@
 	else
 		return ..()
 
-/datum/language/human_language/sol/monkey
+/datum/language/human/monkey
 	name = "Chimpanzee"
 	desc = "Ook ook ook."
 	speech_verb = "chimpers"
