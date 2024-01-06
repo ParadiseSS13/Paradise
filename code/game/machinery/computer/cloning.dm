@@ -330,6 +330,10 @@
 			set_scan_temp("Subject species is not clonable.", "bad")
 			SStgui.update_uis(src)
 			return
+	if(NO_CLONESCAN in subject.dna.species.species_traits)
+		set_scan_temp("[subject.dna.species.name_plural] are not clonable. Alternative revival methods recommended.", "bad")
+		SStgui.update_uis(src)
+		return
 	if(subject.get_int_organ(/obj/item/organ/internal/brain))
 		var/obj/item/organ/internal/brain/Brn = subject.get_int_organ(/obj/item/organ/internal/brain)
 		if(istype(Brn))

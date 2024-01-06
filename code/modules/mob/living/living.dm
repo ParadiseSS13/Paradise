@@ -291,7 +291,7 @@
 
 /mob/living/verb/succumb()
 	set hidden = TRUE
-	if(health >= HEALTH_THRESHOLD_CRIT || stat != UNCONSCIOUS)
+	if(health >= HEALTH_THRESHOLD_CRIT)
 		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
 		return
 
