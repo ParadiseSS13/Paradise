@@ -437,7 +437,7 @@
 	name = "\improper Technocracy Advanced Cloning System Kit"
 
 /obj/item/storage/box/syndie_kit/prescan/populate_contents()
-	new /obj/item/implanter/grey_autocloner(src)
+	new /obj/item/bio_chip_implanter/grey_autocloner(src)
 	new /obj/item/radio/beacon/syndicate/bomb/grey_autocloner(src)
 
 /obj/item/storage/box/syndie_kit/pen_bomb

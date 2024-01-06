@@ -24,10 +24,10 @@
 	clonemind = null
 	return ..()
 
-/obj/machinery/grey_autocloner/attackby(obj/item/implanter/implant, mob/user, params)
-	if(!istype(implant) || !(istype(implant.imp, /obj/item/implant/grey_autocloner)))
+/obj/machinery/grey_autocloner/attackby(obj/item/bio_chip_implanter/implant, mob/user, params)
+	if(!istype(implant) || !(istype(implant.imp, /obj/item/bio_chip/grey_autocloner)))
 		return ..()
-	var/obj/item/implant/grey_autocloner/autoclone = implant.imp
+	var/obj/item/bio_chip/grey_autocloner/autoclone = implant.imp
 	autoclone.linked = src
 	atom_say("Link confirmed!")
 
