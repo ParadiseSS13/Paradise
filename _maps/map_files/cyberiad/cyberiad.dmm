@@ -22744,9 +22744,7 @@
 	pixel_x = -6;
 	pixel_y = 8
 	},
-/obj/item/aicard{
-	pixel_x = null
-	},
+/obj/item/aicard,
 /obj/item/multitool/command,
 /turf/simulated/floor/plasteel{
 	dir = 8;
