@@ -37,6 +37,7 @@
 	var/alt_head = "None"				//Alt head style.
 	var/species = "Human"
 	var/language = "None"				//Secondary language
+	var/human_language = "None"			//Species Language
 	var/autohiss_mode = AUTOHISS_OFF	//Species autohiss level. OFF, BASIC, FULL.
 
 	/// The body accessory name of the mob (e.g. wings, tail).

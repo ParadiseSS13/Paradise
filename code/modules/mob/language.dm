@@ -23,6 +23,7 @@
 	/// Do we want to override the word-join character for scrambled text? If null, defaults to " " or ". "
 	var/join_override
 	var/list/partial_understanding				  // List of languages that can /somehwat/ understand it, format is: name = chance of understanding a word
+	var/list/human_language						// Human languages
 
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len || english_names)
@@ -441,7 +442,7 @@
 ///Human misc langauges, able to be learnt by every species, however are some origin from Humans
 /datum/language/common //This is the default language everyone should obviously start with, so its always going to be given to crew members unless something something admins
 	name = "Galactic Common"
-	desc = "The common galactic tongue."
+	desc = "A fusion of Human and Skrellian dialects, stands as one of the most universally comprehended languages throughout the Orion Sector. It has gained immense popularity, particularly within the Trans-Solar Federation, where it serves as a common tongue understood by virtually all its inhabitants, whether they hail from the planets or the stars. Proficiency in Galactic Common has become almost mandatory for securing employment or prospects within Human or Skrell territory. Its widespread usage and long history have contributed to making Galactic Common one of the easiest and most straightforward languages for learning."
 	speech_verb = "says"
 	exclaim_verbs = list("exclaims", "shouts", "yells")
 	whisper_verb = "whispers"
@@ -449,17 +450,17 @@
 	flags = RESTRICTED
 	syllables = list("blah","blah","blah","bleh","meh","neh","nah","wah")
 	english_names = 1
-	partial_understanding = list(/datum/language/skrell = 30, /datum/language/human = 30)
+	partial_understanding = list(/datum/language/skrell = 30, /datum/language/human_language/sol = 30)
 
 /datum/language/spacer
 	name = "Spacer"
-	desc = "A rough, informal language used infrequently by humans as a last resort when attempts to establish dialogue in more proper languages fail and no autotranslators are available."
+	desc = "One of the earliest human languages devised during the pioneering days of space exploration, was originally crafted to facilitate communication during diplomatic exchanges between the Solar-Central Compact and various alien species. Over time, it was eventually superseded by the simpler and more widespread Galactic Common, which gained prominence due to its ease of use. However, Spacer retained its popularity, particularly among spacefaring nomads, explorers, and those with a strong connection to space. It has endured as a language associated with those of Spacer heritage and remains in common use among individuals dwelling long-term on space stations and starships."
 	colour = "spacer"
 	key = "s"
 	partial_understanding = list(
-		/datum/language/human/euro = 25,
-		/datum/language/human/chinese = 25,
-		/datum/language/human/iberian = 25,
+		/datum/language/human_language/euro = 25,
+		/datum/language/human_language/sol/chinese = 25,
+		/datum/language/human_language/sol/iberian = 25,
 		/datum/language/com_srus = 25,
 		/datum/language/trader = 25,
 		/datum/language/gutter = 35,
@@ -468,12 +469,11 @@
 	syllables = list(
 		"ada", "zir", "bian", "ach", "usk", "ado", "ich", "cuan", "iga", "qing", "le", "que", "ki", "qaf", "dei", "eta"
 	)
-	colour = "spacer"
 
 // Galactic common languages (systemwide accepted standards).
 /datum/language/trader
 	name = "Tradeband"
-	desc = "Maintained by the various trading cartels in major systems, this elegant, structured language is used for bartering and bargaining."
+	desc = "With its origins dating back to Mars during the period of rapid corporate expansion into other Trans-Solar Federation colonies, particularly within Skrell space, has earned widespread popularity among corporations and commerce enthusiasts. Originally developed to streamline the process of bargaining and negotiations, Tradeband's frequency became associated with affluent individuals. Over time, it evolved into a distinct language among the sector's aristocrats and traders, reflecting its prominent role in the realm of interstellar business and corporate prestige. It sounds posh and snappy when heard, with occasional wavy tones mixed."
 	speech_verb = "enunciates"
 	colour = "say_quote"
 	key = "2"
@@ -487,14 +487,14 @@
 					"pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
 					"in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum")
 	partial_understanding = list(
-		/datum/language/human/euro = 30,
+		/datum/language/human_language/euro = 30,
 		/datum/language/skrell = 40,
 		/datum/language/spacer = 20
 	)
 
 /datum/language/gutter
 	name = "Gutter"
-	desc = "Much like Standard, this crude pidgin tongue descended from numerous languages and serves as Tradeband for criminal elements."
+	desc = "Originating on Pluto due to its unusual pronunciation and dissonant sounds, Gutter quickly gained notoriety as a language used primarily in seedy and criminal circles across space. Over time, it expanded far beyond Pluto's borders, becoming synonymous with nefarious activities and adding layers of complexity to covert communication. Gutter is prevalent in regions where poverty and criminality are rife, with most speakers acquiring the language through their upbringing in such environments or by associating closely with shady, often unlawful, associates."
 	speech_verb = "growls"
 	ask_verb = "gnarls"
 	exclaim_verbs = list("snarls")
@@ -502,14 +502,14 @@
 	key = "3"
 	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh","gra")
 	partial_understanding = list(
-		/datum/language/human/euro = 5,
+		/datum/language/human_language/euro = 5,
 		/datum/language/gutter = 10,
 		/datum/language/spacer = 20
 	)
 
 /datum/language/clown
 	name = "Clownish"
-	desc = "The language of Clown University. Mother tongue of clowns throughout the galaxy."
+	desc = "The language derived from the fervent worship of the Honk Mother, has its origins in an ancient circus performer from the 21st Century. This performer's acts and eccentric shows captivated audiences worldwide, leading to the creation of a cult of personality around her. Over time, this following evolved into a legally recognized religious group dedicated to the teachings and gospel of the Honk Mother. Within this religious community, Clownish developed as an internal language spoken by those devoted to the arts of entertainment and the venerable traditions associated with the clown arts."
 	speech_verb = "honks"
 	ask_verb = "honks"
 	exclaim_verbs = list("toots", "wubs", "honks")
@@ -518,7 +518,7 @@
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
 ///Below are Human cultural languages, only exclusive to the Human species.
-/datum/language/human
+/datum/language/human_language/sol
 	name = "Sol Common"
 	desc = "A bastardized hybrid of informal English and elements of Mandarin Chinese; the common language of the Sol system."
 	speech_verb = "says"
@@ -532,7 +532,7 @@
 
 /datum/language/com_srus
 	name = "Neo-Russkiya"
-	desc = "Neo-Russkiya, a bastard mix of Gutter, Sol Common, and old Russian. The official language of the USSP. It has started to see use outside of the fringe in hobby circles and protest groups. The linguistic spirit of Sol-Gov criticisms."
+	desc = "Derived from Old Slavic and various European dialects, Neo-Russkiya is the linguistic offspring of ancient tongues that now follow Northern Eurasian culture, particularly under the USSP government. The sheer scale of the USSP's dominion and the migration of its populace have propelled Neo-Russkiya to the forefront, making it the primary language. It sounds blunt and harsh when heard and comprised of mostly consonants and vowels."
 	speech_verb = "articulates"
 	whisper_verb = "mutters"
 	exclaim_verbs = list("exaggerates")
@@ -550,14 +550,13 @@
 					"tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
 					"udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
 
-/datum/language/human/iberian
+/datum/language/human_language/sol_language/iberian
 	name = "Iberian Mix"
-	desc = "One of the few great common Earth languages to come about naturally, this language developed in the late 21st century during\
-			 a historic period of closeness between Spain, Portugal and their former colonies."
+	desc = "A dialect that emerges from the fusion of Spanish and Northern African languages. Its popularity took root in the Iberian Peninsula and Northern Africa. Over time, Iberian would gradually supersede traditional Spanish and North African languages due to its linguistic simplicity and its ability to harmoniously blend different cultural vowel's. Its words tend to be very flowy, they sound melodic and rhythmic in hearing."
 	colour = "iberian"
 	key = "i"
 	partial_understanding = list(
-		/datum/language/human/euro = 30,
+		/datum/language/human_language/euro = 30,
 		/datum/language/trader = 15,
 		/datum/language/spacer = 20
 	)
@@ -570,7 +569,7 @@
 		"ndo", "nha", "ver", "voc", "uma"
 	)
 
-/datum/language/human/euro
+/datum/language/human_language/euro
 	name = "Euro Accord"
 	desc = "A constructed language established by a conference of European and African research universities convening in Zurich, Switzerland starting in 2119, \
 			later adopted with little controversy as the lingua franca of the entirety of Sol space following the establishment of the SCG."
@@ -581,8 +580,8 @@
 	key = "e"
 	flags = WHITELISTED
 	partial_understanding = list(
-		/datum/language/human/chinese = 5,
-		/datum/language/human/iberian = 30,
+		/datum/language/human_language/sol/chinese = 5,
+		/datum/language/human_language/sol/iberian = 30,
 		/datum/language/com_srus = 5,
 		/datum/language/trader = 85,
 		/datum/language/spacer = 20
@@ -596,14 +595,14 @@
 		"ing", "the", "ver", "was", "ith", "hin"
 	)
 
-/datum/language/human/chinese
+/datum/language/human_language/sol_language/chinese
 	name = "Yangyu"
 	desc = "A simplified version of Mandarin written in the Latin script, Yangyu steadily rose to prominence as a trade language in the continent, Japan, Korea, as well as parts of Africa."
 	colour = "yangyu"
 	key = "c"
 	space_chance = 30
 	partial_understanding = list(
-		/datum/language/human/euro = 5,
+		/datum/language/human_language/euro = 5,
 		/datum/language/trader = 10,
 		/datum/language/spacer = 20
 	)
@@ -878,7 +877,7 @@
 	else
 		return ..()
 
-/datum/language/human/monkey
+/datum/language/human_language/sol/monkey
 	name = "Chimpanzee"
 	desc = "Ook ook ook."
 	speech_verb = "chimpers"
