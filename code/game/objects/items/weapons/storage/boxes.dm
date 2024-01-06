@@ -262,55 +262,6 @@
 	for(var/I in 1 to 5)
 		new /obj/item/grenade/empgrenade(src)
 
-
-/obj/item/storage/box/trackimp
-	name = "tracking bio-chip kit"
-	desc = "Box full of scum-bag tracking utensils."
-	icon_state = "implant"
-
-/obj/item/storage/box/trackimp/populate_contents()
-	new /obj/item/bio_chip_case/tracking(src)
-	new /obj/item/bio_chip_case/tracking(src)
-	new /obj/item/bio_chip_case/tracking(src)
-	new /obj/item/bio_chip_case/tracking(src)
-	new /obj/item/bio_chip_implanter(src)
-	new /obj/item/bio_chip_pad(src)
-	new /obj/item/gps/security(src)
-
-/obj/item/storage/box/minertracker
-	name = "boxed tracking bio-chip kit"
-	desc = "For finding those who have died on the accursed lavaworld."
-	icon_state = "implant"
-
-/obj/item/storage/box/minertracker/populate_contents()
-	new /obj/item/bio_chip_case/tracking(src)
-	new /obj/item/bio_chip_case/tracking(src)
-	new /obj/item/bio_chip_case/tracking(src)
-	new /obj/item/bio_chip_implanter(src)
-	new /obj/item/bio_chip_pad(src)
-	new /obj/item/gps/mining(src)
-
-/obj/item/storage/box/chemimp
-	name = "chemical bio-chip kit"
-	desc = "Box of stuff used to bio-chip chemicals."
-	icon_state = "implant"
-
-/obj/item/storage/box/chemimp/populate_contents()
-	for(var/I in 1 to 5)
-		new /obj/item/bio_chip_case/chem(src)
-	new /obj/item/bio_chip_implanter(src)
-	new /obj/item/bio_chip_pad(src)
-
-/obj/item/storage/box/deathimp
-	name = "death alarm bio-chip kit"
-	desc = "Box of life sign monitoring bio-chips."
-	icon_state = "implant"
-
-/obj/item/storage/box/deathimp/populate_contents()
-	for(var/I in 1 to 6)
-		new /obj/item/bio_chip_case/death_alarm(src)
-	new /obj/item/bio_chip_implanter/death_alarm (src)
-
 /obj/item/storage/box/tapes
 	name = "Tape Box"
 	desc = "A box of spare recording tapes."
@@ -772,12 +723,12 @@
 	icon_state = "implant_box"
 
 /obj/item/storage/box/trackimp/populate_contents()
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implanter(src)
-	new /obj/item/implantpad(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_implanter(src)
+	new /obj/item/bio_chip_pad(src)
 	new /obj/item/gps/security(src)
 
 /obj/item/storage/box/minertracker
@@ -786,11 +737,11 @@
 	icon_state = "implant_box"
 
 /obj/item/storage/box/minertracker/populate_contents()
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implanter(src)
-	new /obj/item/implantpad(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_implanter(src)
+	new /obj/item/bio_chip_pad(src)
 	new /obj/item/gps/mining(src)
 
 /obj/item/storage/box/chemimp
@@ -800,9 +751,9 @@
 
 /obj/item/storage/box/chemimp/populate_contents()
 	for(var/I in 1 to 5)
-		new /obj/item/implantcase/chem(src)
-	new /obj/item/implanter(src)
-	new /obj/item/implantpad(src)
+		new /obj/item/bio_chip_case/chem(src)
+	new /obj/item/bio_chip_implanter(src)
+	new /obj/item/bio_chip_pad(src)
 
 /obj/item/storage/box/deathimp
 	name = "death alarm bio-chip kit"
@@ -811,8 +762,8 @@
 
 /obj/item/storage/box/deathimp/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/implantcase/death_alarm(src)
-	new /obj/item/implanter/death_alarm (src)
+		new /obj/item/bio_chip_case/death_alarm(src)
+	new /obj/item/bio_chip_implanter/death_alarm (src)
 
 ////////////////
 /* Ammo Boxes */
