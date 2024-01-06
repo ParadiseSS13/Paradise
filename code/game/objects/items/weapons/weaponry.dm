@@ -4,7 +4,7 @@
 /obj/item/banhammer
 	desc = "A banhammer"
 	name = "banhammer"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/toy.dmi'
 	icon_state = "toyhammer"
 	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0

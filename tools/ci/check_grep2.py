@@ -101,10 +101,9 @@ def check_to_chats_have_a_user_arguement(lines):
         if TO_CHAT_WITH_NO_USER_ARG_RE.search(line):
             return Failure(idx + 1, "Changed files contains a to_chat() procedure without a user argument.")
 
-CONDITIONAL_LEADING_SPACE = re.compile(r"(if|for|while|switch)\s+(\(.*?\))") # checks for "if (thing)", replace with $1$2
-CONDITIONAL_BEGINNING_SPACE = re.compile(r"(if|for|while|switch)(\(.+) \)") # checks for "if( thing)", replace with $1$2)
-CONDITIONAL_ENDING_SPACE = re.compile(r"(if|for|while|switch)\( (.+\))") # checks for "if(thing )", replace with $1($2
-CONDITIONAL_INFIX_NOT_SPACE = re.compile(r"(if)\(! (.+\))") # checks for "if(! thing)", replace with $1(!$2
+CONDITIONAL_LEADING_SPACE = re.compile(r"(if|for|while|switch)\s+(\(.*?\)?)") # checks for "if (thing)", replace with $1$2
+CONDITIONAL_BEGINNING_SPACE = re.compile(r"(if|for|while|switch)\((!?) (.+\)?)") # checks for "if( thing)", replace with $1($2$3
+CONDITIONAL_ENDING_SPACE = re.compile(r"(if|for|while|switch)(\(.+) \)") # checks for "if(thing )", replace with $1$2)
 # To fix any of these, run them as regex in VSCode, with the appropriate replacement
 # It may be a good idea to turn the replacement into a script someday
 def check_conditional_spacing(lines):
@@ -115,8 +114,15 @@ def check_conditional_spacing(lines):
             return Failure(idx + 1, "Found a conditional statement matching the format \"if( thing)\", please use \"if(thing)\" instead.")
         if CONDITIONAL_ENDING_SPACE.search(line):
             return Failure(idx + 1, "Found a conditional statement matching the format \"if(thing )\", please use \"if(thing)\" instead.")
-        if CONDITIONAL_INFIX_NOT_SPACE.search(line):
-            return Failure(idx + 1, "Found a conditional statement matching the format \"if(! thing)\", please use \"if(!thing)\" instead.")
+
+# makes sure that no global list inits have an empty list in them without using the helper
+GLOBAL_LIST_EMPTY = re.compile(r"(?<!#define GLOBAL_LIST_EMPTY\(X\) )GLOBAL_LIST_INIT([^,]+),.{0,5}list\(\)")
+# This uses a negative look behind to make sure its not the global list definition
+# An easy regex replacement for this is GLOBAL_LIST_EMPTY$1
+def check_global_list_empty(lines):
+    for idx, line in enumerate(lines):
+        if GLOBAL_LIST_EMPTY.search(line):
+            return Failure(idx + 1, "Found a GLOBAL_LIST_INIT(_, list()), please use GLOBAL_LIST_EMPTY(_) instead.")
 
 CODE_CHECKS = [
     check_space_indentation,

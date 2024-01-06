@@ -76,11 +76,18 @@ export class Input extends Component {
     const input = this.inputRef.current;
     if (input) {
       input.value = toInputValue(nextValue);
-      if (this.props.autofocus) {
+      input.selectionStart = 0;
+      input.selectionEnd = input.value.length;
+    }
+
+    if (this.props.autoFocus || this.props.autoSelect) {
+      setTimeout(() => {
         input.focus();
-        input.selectionStart = 0;
-        input.selectionEnd = input.value.length;
-      }
+
+        if (this.props.autoSelect) {
+          input.select();
+        }
+      }, 1);
     }
   }
 
