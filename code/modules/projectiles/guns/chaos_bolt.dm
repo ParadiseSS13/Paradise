@@ -263,9 +263,6 @@
 			H.reagents.add_reagent("blood", 10, data)
 
 /obj/item/projectile/magic/chaos/proc/apply_gift_effect(mob/living/target)
-	if(!iscarbon(target))
-		//slightly heal target
-		return
 	chaos_effect = pick("toy sword", "toy revolver", "cheese", "food", "medkit", \
 		"insulated gloves", "wand of doors", "golden bike horn", "ban hammer", "banana")
 	switch(chaos_effect)
@@ -301,9 +298,6 @@
 			item_to_summon = /obj/item/reagent_containers/food/snacks/grown/banana
 
 /obj/item/projectile/magic/chaos/proc/apply_great_gift_effect(mob/living/target)
-	if(!iscarbon(target))
-		//aheal target
-		return
 	chaos_effect = pick("esword", "emag", "chaos wand", "revolver", "aeg", \
 		"bluespace banana", "banana grenade", "disco ball", "syndicate minibomb", "crystal ball")
 	switch(chaos_effect)
