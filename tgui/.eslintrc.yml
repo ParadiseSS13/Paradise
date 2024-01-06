@@ -10,7 +10,7 @@ env:
   browser: true
   node: true
 plugins:
-  - radar
+  - prettier
   - react
 settings:
   import/resolver:

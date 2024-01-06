@@ -128,13 +128,6 @@ if ($Args.Length -gt 0) {
     exit 0
   }
 
-  if ($Args[0] -eq "--lint-harder") {
-    $Rest = $Args | Select-Object -Skip 1
-    task-install
-    task-lint -c ".eslintrc-harder.yml" @Rest
-    exit 0
-  }
-
   if ($Args[0] -eq "--fix") {
     $Rest = $Args | Select-Object -Skip 1
     task-install
