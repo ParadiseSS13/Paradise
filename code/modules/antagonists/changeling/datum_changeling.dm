@@ -298,9 +298,7 @@
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		ignored_languages += H.dna.species.default_language
-		ignored_languages += H.dna.species.language
-		ignored_languages += H.dna.species.secondary_langs
-		ignored_languages += H.dna.species.culture_langs
+		ignored_languages += H.dna.species.get_cultural_languages()
 	for(var/lang_UID in absorbed_languages)
 		var/datum/language/lang = locateUID(lang_UID)
 		if(lang.name in ignored_languages)

@@ -2,7 +2,7 @@
 	name = "Skrell"
 	name_plural = "Skrell"
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
-	language = "Skrellian"
+	cultural_language = "Skrellian"
 	primitive_form = /datum/species/monkey/skrell
 
 	blurb = "Skrell are a amphibious species, that come from the planet Jargon 4, a humid planet filled with swamps and archipelagos. \

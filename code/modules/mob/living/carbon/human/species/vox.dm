@@ -4,7 +4,7 @@
 	max_age = 90 // vox stacks can be older than this, but let's assume their body fails beyond repair after such ages.
 	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
 	dangerous_existence = TRUE
-	language = "Vox-pidgin"
+	cultural_language = "Vox-pidgin"
 	tail = "voxtail"
 	speech_sounds = list('sound/voice/shriek1.ogg')
 	speech_chance = 20

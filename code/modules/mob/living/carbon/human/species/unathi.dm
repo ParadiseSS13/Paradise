@@ -3,7 +3,7 @@
 	name_plural = "Unathi"
 	article_override = "a"  // it's pronounced "you-nah-thee"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
-	language = "Sinta'unathi"
+	cultural_language = "Sinta'unathi"
 	tail = "sogtail"
 	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	unarmed_type = /datum/unarmed_attack/claws
@@ -108,7 +108,6 @@
 	blurb = "These reptillian creatures appear to be related to the Unathi, but seem significantly less evolved. \
 	They roam the wastes of Lavaland, worshipping a dead city and capturing unsuspecting miners."
 
-	language = "Sinta'unathi"
 	default_language = "Sinta'unathi"
 
 	speed_mod = -0.80

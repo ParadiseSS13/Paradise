@@ -23,7 +23,7 @@
 	/// Do we want to override the word-join character for scrambled text? If null, defaults to " " or ". "
 	var/join_override
 	var/list/partial_understanding				  // List of languages that can /somehwat/ understand it, format is: name = chance of understanding a word
-	var/list/human_language						// Human languages
+	var/culture = LANGUAGE_HUMAN
 
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len || english_names)
@@ -439,6 +439,7 @@
 	new_name += " [pick(list("Alkaid","Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava"))]"
 	return new_name
 
+
 ///Human misc langauges, able to be learnt by every species, however are some origin from Humans
 /datum/language/common //This is the default language everyone should obviously start with, so its always going to be given to crew members unless something something admins
 	name = "Galactic Common"
@@ -458,9 +459,9 @@
 	colour = "spacer"
 	key = "s"
 	partial_understanding = list(
-		/datum/language/human_language/euro = 25,
-		/datum/language/human_language/yangyu = 25,
-		/datum/language/human_language/iberian = 25,
+		/datum/language/human/euro = 25,
+		/datum/language/human/yangyu = 25,
+		/datum/language/human/iberian = 25,
 		/datum/language/com_srus = 25,
 		/datum/language/trader = 25,
 		/datum/language/gutter = 35,
@@ -487,7 +488,7 @@
 					"pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
 					"in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum")
 	partial_understanding = list(
-		/datum/language/human_language/euro = 30,
+		/datum/language/human/euro = 30,
 		/datum/language/skrell = 40,
 		/datum/language/spacer = 20
 	)
@@ -502,7 +503,7 @@
 	key = "3"
 	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh","gra")
 	partial_understanding = list(
-		/datum/language/human_language/euro = 5,
+		/datum/language/human/euro = 5,
 		/datum/language/gutter = 10,
 		/datum/language/spacer = 20
 	)
@@ -518,7 +519,10 @@
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
 ///Below are Human cultural languages, only exclusive to the Human species.
-/datum/language/human_language/sol
+/datum/language/human
+	culture = LANGUAGE_HUMAN
+
+/datum/language/human/sol
 	name = "Sol Common"
 	desc = "A bastardized hybrid of informal English and elements of Mandarin Chinese; the common language of the Sol system."
 	speech_verb = "says"
@@ -526,7 +530,6 @@
 	whisper_verb = "whispers"
 	colour = "solcom"
 	key = "1"
-	flags = RESTRICTED
 	syllables = list("tao", "shi", "tzu", "yi", "com", "be", "is", "i", "op", "vi", "ed", "lec", "mo", "cle", "te", "dis", "e")
 	english_names = 1
 
@@ -550,13 +553,13 @@
 					"tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
 					"udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
 
-/datum/language/human_language/iberian
+/datum/language/human/iberian
 	name = "Iberian Mix"
 	desc = "A dialect that emerges from the fusion of Spanish and Northern African languages. Its popularity took root in the Iberian Peninsula and Northern Africa. Over time, Iberian would gradually supersede traditional Spanish and North African languages due to its linguistic simplicity and its ability to harmoniously blend different cultural vowels. Its words tend to flow seamlessly and have a natural rhythm."
 	colour = "iberian"
 	key = "i"
 	partial_understanding = list(
-		/datum/language/human_language/euro = 30,
+		/datum/language/human/euro = 30,
 		/datum/language/trader = 15,
 		/datum/language/spacer = 20
 	)
@@ -569,17 +572,16 @@
 		"ndo", "nha", "ver", "voc", "uma"
 	)
 
-/datum/language/human_language/euro
+/datum/language/human/euro
 	name = "Euro Accord"
 	desc = "A language that draws its roots from French, Germania, and English dialects, combining the linguistic and cultural traditions of old Western Europe. With its distinctive speech patterns, Euro Accord stands as one of the most anciently evolved languages in human history, being the predecessor of the English language. It sounds nasally and very congested when spoken, but compact enough to be short and to the point."
 	colour = "euro"
 	speech_verb = "says"
 	whisper_verb = "whispers"
 	key = "e"
-	flags = WHITELISTED
 	partial_understanding = list(
-		/datum/language/human_language/yangyu = 5,
-		/datum/language/human_language/iberian = 30,
+		/datum/language/human/yangyu = 5,
+		/datum/language/human/iberian = 30,
 		/datum/language/com_srus = 5,
 		/datum/language/trader = 85,
 		/datum/language/spacer = 20
@@ -593,14 +595,14 @@
 		"ing", "the", "ver", "was", "ith", "hin"
 	)
 
-/datum/language/human_language/yangyu
+/datum/language/human/yangyu
 	name = "Yangyu"
 	desc = "A simplified version of Mandarin Chinese adapted to the Latin script, is the predominant language spoken across Asia on Earth. Its influence has extended beyond Earth's borders, making it the modern of choice for many Asian communities, both on their home planets and in space. It sounds bouncy and lively when heard, having many upward and downward audio cues within it."
 	colour = "yangyu"
 	key = "c"
 	space_chance = 30
 	partial_understanding = list(
-		/datum/language/human_language/euro = 5,
+		/datum/language/human/euro = 5,
 		/datum/language/trader = 10,
 		/datum/language/spacer = 20
 	)

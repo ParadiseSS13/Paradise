@@ -305,17 +305,19 @@
 				if("speciesprefs")
 					active_character.speciesprefs = !active_character.speciesprefs //Starts 0, so if someone clicks the button up top there, this won't be 0 anymore. If they click it again, it'll go back to 0.
 				if("language")
-//						var/languages_available
+//					var/languages_available
 					var/list/new_languages = list("None")
 					for(var/L in GLOB.all_languages)
 						var/datum/language/lang = GLOB.all_languages[L]
-						if(!(lang.flags & RESTRICTED))
-							new_languages += lang.name
+						if((lang.flags & RESTRICTED) || lang.culture)
+							continue
+						new_languages += lang.name
 
 					var/new_active_character_language = tgui_input_list(user, "Please select a secondary language", "Character Generation", sortList(new_languages))
 					if(!new_active_character_language)
 						return
 					active_character.language = new_active_character_language
+				if("cultural_language")
 
 				if("autohiss_mode")
 					if(S.autohiss_basic_map)

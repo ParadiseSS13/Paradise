@@ -1280,8 +1280,6 @@
 	var/datum/species/oldspecies = dna.species
 
 	if(oldspecies)
-		if(oldspecies.language)
-			remove_language(oldspecies.language)
 
 		if(oldspecies.default_language)
 			remove_language(oldspecies.default_language)
@@ -1300,10 +1298,6 @@
 	wing = dna.species.wing
 
 	maxHealth = dna.species.total_health
-
-	if(dna.species.language)
-		add_language(dna.species.language)
-
 	if(dna.species.default_language)
 		add_language(dna.species.default_language)
 

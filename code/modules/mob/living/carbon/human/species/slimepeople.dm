@@ -10,7 +10,7 @@
 	name = "Slime People"
 	name_plural = "Slime People"
 	max_age = 130
-	language = "Bubblish"
+	cultural_language = "Bubblish"
 
 	blurb = "Slime People are gelatinous and translucent beings from the vast oceans of Xarxis 5. \
 	They are recent entrants to the galactic scene, having been discovered by a TSF exploratory company during space expedetions.<br/><br/> \

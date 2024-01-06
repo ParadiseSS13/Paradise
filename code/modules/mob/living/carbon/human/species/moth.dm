@@ -7,7 +7,7 @@
 /datum/species/moth
 	name = "Nian"
 	name_plural = "Nianae"
-	language = "Tkachi"
+	cultural_language = "Tkachi"
 	icobase = 'icons/mob/human_races/r_moth.dmi'
 	inherent_factions = list("nian")
 	species_traits = list(NO_HAIR)

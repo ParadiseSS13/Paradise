@@ -3,7 +3,7 @@
 	name_plural = "Dionaea"
 	max_age = 300
 	icobase = 'icons/mob/human_races/r_diona.dmi'
-	language = "Rootspeak"
+	cultural_language = "Rootspeak"
 	speech_sounds = list('sound/voice/dionatalk1.ogg') //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/diona

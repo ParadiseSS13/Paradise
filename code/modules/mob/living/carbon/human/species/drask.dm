@@ -3,7 +3,7 @@
 	name_plural = "Drask"
 	max_age = 500
 	icobase = 'icons/mob/human_races/r_drask.dmi'
-	language = "Orluum"
+	cultural_language = "Orluum"
 	eyes = "drask_eyes_s"
 
 	speech_sounds = list('sound/voice/drasktalk.ogg')

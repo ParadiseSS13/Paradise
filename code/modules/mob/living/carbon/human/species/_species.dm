@@ -132,9 +132,7 @@
 
 	// Language/culture vars.
 	var/default_language = "Galactic Common" // Default language is used when 'say' is used without modifiers.
-	var/language = "Galactic Common"         // Default racial language, if any.
-	var/secondary_langs = list()             // The names of secondary languages that are available to this species.
-	var/culture_langs = list()              // The names of culture locked languages that are available to this species.
+	var/cultural_language          // Default racial language, if any.
 	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
 	var/list/speech_chance                   // The likelihood of a speech sound playing.
 	var/scream_verb = "screams"
@@ -202,8 +200,21 @@
 		sprite_sheet_name = name
 
 /datum/species/proc/get_random_name(gender)
-	var/datum/language/species_language = GLOB.all_languages[language]
-	return species_language.get_random_name(gender)
+	var/list/species_languages = get_cultural_languages()
+
+	var/datum/language/picked_language = pick(species_languages)
+	return picked_language.get_random_name(gender)
+
+/datum/species/proc/get_cultural_languages()
+	if(!cultural_language)
+		return
+
+	var/list/cultural_languages = list()
+	for(var/language_name in GLOB.all_languages)
+		var/datum/language/lang = GLOB.all_languages[language_name]
+		if(lang.culture == cultural_language)
+			cultural_languages += lang
+	return cultural_languages
 
 
 /**

@@ -2,7 +2,7 @@
 	name = "Grey"
 	name_plural = "Greys"
 	icobase = 'icons/mob/human_races/r_grey.dmi'
-	language = "Psionic Communication"
+	cultural_language = "Psionic Communication"
 
 	blurb = "The Grey, known for their psionic abilities and unique appearance, hail from beyond the Milky Way, with an undisclosed homeworld. \
 	They rely heavily on cloning technology and are governed by a technocratic council of scientists.<br/><br/> \

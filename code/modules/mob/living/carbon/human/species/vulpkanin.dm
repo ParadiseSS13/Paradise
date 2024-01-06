@@ -2,7 +2,7 @@
 	name = "Vulpkanin"
 	name_plural = "Vulpkanin"
 	icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
-	language = "Canilunzt"
+	cultural_language = "Canilunzt"
 	primitive_form = /datum/species/monkey/vulpkanin
 	tail = "vulptail"
 	skinned_type = /obj/item/stack/sheet/fur

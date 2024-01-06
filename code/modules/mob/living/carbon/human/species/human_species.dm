@@ -3,7 +3,7 @@
 	name_plural = "Humans"
 	icobase = 'icons/mob/human_races/r_human.dmi'
 	primitive_form = /datum/species/monkey
-	language = "Sol Common"
+	cultural_language = LANGUAGE_HUMAN
 	species_traits = list(LIPS)
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
