@@ -208,7 +208,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/rename_character(oldname, newname)
 	if(!..(oldname, newname))
-		return 0
+		return FALSE
 
 	if(oldname != real_name)
 		notify_ai(3, oldname, newname)
@@ -225,7 +225,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(mmi && mmi.brainmob)
 		mmi.brainmob.name = newname
 
-	return 1
+	return TRUE
 
 /mob/living/silicon/robot/proc/check_custom_sprite()
 	if(!custom_sprite && (ckey in GLOB.configuration.custom_sprites.cyborg_ckeys))
