@@ -96,14 +96,14 @@
 		var/next = pick(syllables)
 		if(capitalize)
 			next = capitalize(next)
-			capitalize = 0
+			capitalize = FALSE
 		scrambled_text += next
 		var/chance = rand(100)
 		if(!isnull(join_override))
 			scrambled_text += join_override
 		else if(chance <= 5)
 			scrambled_text += ". "
-			capitalize = 1
+			capitalize = TRUE
 		else if(chance > 5 && chance <= space_chance)
 			scrambled_text += " "
 

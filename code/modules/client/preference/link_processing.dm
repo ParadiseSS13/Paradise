@@ -318,6 +318,13 @@
 						return
 					active_character.language = new_active_character_language
 				if("cultural_language")
+					var/list/new_languages = list("None")
+					for(var/datum/language/lang in S.get_cultural_languages())
+						new_languages += lang.name
+
+					var/new_active_character_language = tgui_input_list(user, "Please select a cultural language", "Character Generation", sortList(new_languages))
+					if(!new_active_character_language)
+						return
 
 				if("autohiss_mode")
 					if(S.autohiss_basic_map)
