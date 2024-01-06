@@ -127,9 +127,9 @@
 		var/obj/item/clothing/suit/hooded/S = H.wear_suit
 		S.ToggleHood()
 
-/datum/outfit/job/miner/equipped/hardsuit
-	name = "Shaft Miner (Equipment + Hardsuit)"
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
+/datum/outfit/job/miner/equipped/modsuit
+	name = "Shaft Miner (Equipment + MODsuit)"
+	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	mask = /obj/item/clothing/mask/breath
 
 
@@ -290,7 +290,7 @@
 		/obj/item/instrument/bikehorn = 1
 	)
 
-	implants = list(/obj/item/implant/sad_trombone)
+	bio_chips = list(/obj/item/bio_chip/sad_trombone)
 
 	backpack = /obj/item/storage/backpack/clown
 	satchel = /obj/item/storage/backpack/satchel/clown

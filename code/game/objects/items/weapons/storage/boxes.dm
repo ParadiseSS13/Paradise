@@ -102,6 +102,215 @@
 //////////////////
 /* Common Boxes */
 //////////////////
+/obj/item/storage/box/gloves
+	name = "box of latex gloves"
+	desc = "Contains white gloves."
+	icon_state = "latex"
+
+/obj/item/storage/box/gloves/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/clothing/gloves/color/latex(src)
+
+/obj/item/storage/box/masks
+	name = "sterile masks"
+	desc = "This box contains masks of sterility."
+	icon_state = "sterile"
+
+/obj/item/storage/box/masks/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/clothing/mask/surgical(src)
+
+/obj/item/storage/box/syringes
+	name = "syringes"
+	desc = "A box full of syringes."
+	desc = "A biohazard alert warning is printed on the box"
+	icon_state = "syringe"
+
+/obj/item/storage/box/syringes/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/reagent_containers/syringe(src)
+
+/obj/item/storage/box/beakers
+	name = "beaker box"
+	icon_state = "beaker"
+
+/obj/item/storage/box/beakers/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/reagent_containers/glass/beaker(src)
+
+/obj/item/storage/box/beakers/bluespace
+	name = "box of bluespace beakers"
+	icon_state = "beaker"
+
+/obj/item/storage/box/beakers/bluespace/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/reagent_containers/glass/beaker/bluespace(src)
+
+/obj/item/storage/box/iv_bags
+	name = "IV Bags"
+	desc = "A box full of empty IV bags."
+	icon_state = "beaker"
+
+/obj/item/storage/box/iv_bags/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/reagent_containers/iv_bag(src)
+
+/obj/item/storage/box/injectors
+	name = "\improper DNA injectors"
+	desc = "This box contains injectors it seems."
+
+/obj/item/storage/box/injectors/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/dnainjector/h2m(src)
+
+/obj/item/storage/box/slug
+	name = "ammunition box (Slug)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "slugbox"
+
+/obj/item/storage/box/slug/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun(src)
+
+/obj/item/storage/box/buck
+	name = "ammunition box (Buckshot)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "buckshotbox"
+
+/obj/item/storage/box/buck/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/buckshot(src)
+
+/obj/item/storage/box/dragonsbreath
+	name = "ammunition box (Dragonsbreath)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "dragonsbreathbox"
+
+/obj/item/storage/box/dragonsbreath/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
+
+/obj/item/storage/box/stun
+	name = "ammunition box (Stun shells)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "stunbox"
+
+/obj/item/storage/box/stun/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/stunslug(src)
+
+/obj/item/storage/box/beanbag
+	name = "ammunition box (Beanbag shells)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "beanbagbox"
+
+/obj/item/storage/box/beanbag/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/beanbag(src)
+
+/obj/item/storage/box/rubbershot
+	name = "ammunition box (Rubbershot shells)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "rubbershotbox"
+
+/obj/item/storage/box/rubbershot/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/rubbershot(src)
+
+/obj/item/storage/box/tranquilizer
+	name = "ammunition box (Tranquilizer darts)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "tranqbox"
+
+/obj/item/storage/box/tranquilizer/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
+
+/obj/item/storage/box/flashbangs
+	name = "box of flashbangs (WARNING)"
+	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</B>"
+	icon_state = "flashbang"
+
+/obj/item/storage/box/flashbangs/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/flashbang(src)
+
+/obj/item/storage/box/flashes
+	name = "box of flashbulbs"
+	desc = "<B>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</B>"
+	icon_state = "flashbang"
+
+/obj/item/storage/box/flashes/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/flash(src)
+
+/obj/item/storage/box/teargas
+	name = "box of tear gas grenades (WARNING)"
+	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness and skin irritation.</B>"
+	icon_state = "flashbang"
+
+/obj/item/storage/box/teargas/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/chem_grenade/teargas(src)
+
+/obj/item/storage/box/emps
+	name = "emp grenades"
+	desc = "A box with 5 emp grenades."
+	icon_state = "flashbang"
+
+/obj/item/storage/box/emps/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/grenade/empgrenade(src)
+
+
+/obj/item/storage/box/trackimp
+	name = "tracking bio-chip kit"
+	desc = "Box full of scum-bag tracking utensils."
+	icon_state = "implant"
+
+/obj/item/storage/box/trackimp/populate_contents()
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_implanter(src)
+	new /obj/item/bio_chip_pad(src)
+	new /obj/item/gps/security(src)
+
+/obj/item/storage/box/minertracker
+	name = "boxed tracking bio-chip kit"
+	desc = "For finding those who have died on the accursed lavaworld."
+	icon_state = "implant"
+
+/obj/item/storage/box/minertracker/populate_contents()
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_implanter(src)
+	new /obj/item/bio_chip_pad(src)
+	new /obj/item/gps/mining(src)
+
+/obj/item/storage/box/chemimp
+	name = "chemical bio-chip kit"
+	desc = "Box of stuff used to bio-chip chemicals."
+	icon_state = "implant"
+
+/obj/item/storage/box/chemimp/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/bio_chip_case/chem(src)
+	new /obj/item/bio_chip_implanter(src)
+	new /obj/item/bio_chip_pad(src)
+
+/obj/item/storage/box/deathimp
+	name = "death alarm bio-chip kit"
+	desc = "Box of life sign monitoring bio-chips."
+	icon_state = "implant"
+
+/obj/item/storage/box/deathimp/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/bio_chip_case/death_alarm(src)
+	new /obj/item/bio_chip_implanter/death_alarm (src)
+
 /obj/item/storage/box/tapes
 	name = "Tape Box"
 	desc = "A box of spare recording tapes."
@@ -866,7 +1075,7 @@
 
 	new /obj/item/radio/centcom(src)
 	new /obj/item/door_remote/omni(src)
-	new /obj/item/implanter/death_alarm(src)
+	new /obj/item/bio_chip_implanter/death_alarm(src)
 
 	new /obj/item/reagent_containers/hypospray/combat/nanites(src)
 	new /obj/item/pinpointer(src)
@@ -1013,8 +1222,8 @@
 
 /obj/item/storage/box/mindshield/populate_contents()
 	for(var/I in 1 to 3)
-		new /obj/item/implantcase/mindshield(src)
-	new /obj/item/implanter/mindshield(src)
+		new /obj/item/bio_chip_case/mindshield(src)
+	new /obj/item/bio_chip_implanter/mindshield(src)
 
 /obj/item/storage/box/dish_drive
 	name = "DIY Dish Drive Kit"

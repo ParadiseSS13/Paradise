@@ -41,7 +41,7 @@
 		/obj/item/storage/box/ids = 1,
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
-	implants = list(/obj/item/implant/mindshield)
+	bio_chips = list(/obj/item/bio_chip/mindshield)
 	backpack = /obj/item/storage/backpack/captain
 	satchel = /obj/item/storage/backpack/satchel_cap
 	dufflebag = /obj/item/storage/backpack/duffel/captain
@@ -101,7 +101,7 @@
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
 
-	implants = list()
+	bio_chips = list()
 
 
 
@@ -149,7 +149,7 @@
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/ntcane = 1
 	)
-	implants = list(/obj/item/implant/mindshield)
+	bio_chips = list(/obj/item/bio_chip/mindshield)
 
 
 
@@ -195,7 +195,7 @@
 		/obj/item/storage/box/deathimp = 1,
 		/obj/item/gun/energy/gun/blueshield = 1
 	)
-	implants = list(/obj/item/implant/mindshield)
+	bio_chips = list(/obj/item/bio_chip/mindshield)
 	backpack = /obj/item/storage/backpack/blueshield
 	satchel = /obj/item/storage/backpack/satchel_blueshield
 	dufflebag = /obj/item/storage/backpack/duffel/blueshield
@@ -242,7 +242,7 @@
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
-	implants = list(/obj/item/implant/mindshield)
+	bio_chips = list(/obj/item/bio_chip/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
@@ -284,6 +284,6 @@
 	backpack_contents = list(
 		/obj/item/flash = 1
 	)
-	implants = list(/obj/item/implant/mindshield)
+	bio_chips = list(/obj/item/bio_chip/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security

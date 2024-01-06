@@ -1,4 +1,4 @@
-/obj/item/implant/death_alarm
+/obj/item/bio_chip/death_alarm
 	name = "death alarm bio-chip"
 	desc = "An alarm which monitors host vital signs and transmits a radio message upon death."
 	activated = BIOCHIP_ACTIVATED_PASSIVE
@@ -9,12 +9,12 @@
 	var/mobname = "Unknown"
 	var/static/list/stealth_areas = typecacheof(list(/area/syndicate_mothership, /area/shuttle/syndicate_elite))
 
-/obj/item/implant/death_alarm/implant(mob/target)
+/obj/item/bio_chip/death_alarm/implant(mob/target)
 	. = ..()
 	if(.)
 		mobname = target.real_name
 
-/obj/item/implant/death_alarm/activate(cause) // Death signal sends name followed by the gibbed / not gibbed check
+/obj/item/bio_chip/death_alarm/activate(cause) // Death signal sends name followed by the gibbed / not gibbed check
 	var/mob/M = imp_in
 	var/area/t = get_area(M)
 
@@ -38,26 +38,26 @@
 
 	qdel(a)
 
-/obj/item/implant/death_alarm/emp_act(severity)			//for some reason alarms stop going off in case they are emp'd, even without this
+/obj/item/bio_chip/death_alarm/emp_act(severity)			//for some reason alarms stop going off in case they are emp'd, even without this
 	activate("emp")	//let's shout that this dude is dead
 
-/obj/item/implant/death_alarm/death_trigger(mob/source, gibbed)
+/obj/item/bio_chip/death_alarm/death_trigger(mob/source, gibbed)
 	if(gibbed)
 		activate("gib")
 	else
 		activate("death")
 
-/obj/item/implant/death_alarm/removed(mob/target)
+/obj/item/bio_chip/death_alarm/removed(mob/target)
 	if(..())
 		UnregisterSignal(target, COMSIG_MOB_DEATH)
 		return TRUE
 	return FALSE
 
-/obj/item/implanter/death_alarm
+/obj/item/bio_chip_implanter/death_alarm
 	name = "bio-chip implanter (Death Alarm)"
-	implant_type = /obj/item/implant/death_alarm
+	implant_type = /obj/item/bio_chip/death_alarm
 
-/obj/item/implantcase/death_alarm
+/obj/item/bio_chip_case/death_alarm
 	name = "bio-chip Case - 'Death Alarm'"
 	desc = "A case containing a death alarm bio-chip."
-	implant_type = /obj/item/implant/death_alarm
+	implant_type = /obj/item/bio_chip/death_alarm

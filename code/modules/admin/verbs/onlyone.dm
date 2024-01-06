@@ -26,7 +26,7 @@
 		to_chat(H, chat_box_red(messages.Join("<br>")))
 
 		for(var/obj/item/I in H)
-			if(istype(I, /obj/item/implant))
+			if(istype(I, /obj/item/bio_chip))
 				continue
 			qdel(I)
 

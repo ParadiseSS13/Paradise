@@ -289,7 +289,7 @@
 		offering full view of the land and its soon-to-be-dead inhabitants. The armor plating has been trimmed down to \
 		the bare essentials, geared far more for environmental hazards than combat against fauna; however, \
 		this gives way to incredible protection against corrosives and thermal protection good enough for \
-		both casual backstroking through molten magma and romantic walks through arctic terrain. \
+		traversing the hostile climate of scorching hot barren planets, molten, and volcanic worlds like Epsilon Eridanii II. \
 		Instead, the suit is capable of using its' anomalous properties to attract and \
 		carefully distribute layers of ash or ice across the surface; these layers are ablative, but incredibly strong. \
 		However, all of this has proven to be straining on all Nanotrasen-approved cells, \
