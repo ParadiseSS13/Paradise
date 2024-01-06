@@ -99,7 +99,7 @@
 	INVOKE_ASYNC(client, TYPE_PROC_REF(/client, colour_transition), get_screen_colour(), flash_time)
 
 /proc/ismindshielded(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
-	for(var/obj/item/implant/mindshield/L in A)
+	for(var/obj/item/bio_chip/mindshield/L in A)
 		if(L && L.implanted)
 			return 1
 	return 0

@@ -1,4 +1,4 @@
-/obj/item/implant/grey_autocloner
+/obj/item/bio_chip/grey_autocloner
 	name = "technocracy cloning bio-chip"
 	desc = "Allows for advanced instantanious cloning!"
 	icon_state = "generic"
@@ -9,17 +9,17 @@
 	var/obj/machinery/grey_autocloner/linked
 	var/datum/dna2/record/our_record
 
-/obj/item/implant/grey_autocloner/Destroy()
+/obj/item/bio_chip/grey_autocloner/Destroy()
 	linked = null
 	our_record = null
 	return ..()
 
-/obj/item/implant/grey_autocloner/death_trigger(mob/source, gibbed)
+/obj/item/bio_chip/grey_autocloner/death_trigger(mob/source, gibbed)
 	imp_in.ghostize(TRUE)
 	if(linked)
 		linked.growclone(our_record)
 
-/obj/item/implant/grey_autocloner/implant(mob/source, mob/user, force)
+/obj/item/bio_chip/grey_autocloner/implant(mob/source, mob/user, force)
 	if(!linked)
 		to_chat(user, "<span class='warning'>Please link the implanter with a Technocracy cloning pod!</span>")
 		return FALSE
@@ -38,11 +38,11 @@
 	if(imp_in.mind) //Save that mind so traitors can continue traitoring after cloning.
 		our_record.mind = imp_in.mind.UID()
 
-/obj/item/implanter/grey_autocloner
+/obj/item/bio_chip_implanter/grey_autocloner
 	name = "bio-chip implanter (Technocracy cloning)"
-	implant_type = /obj/item/implant/grey_autocloner
+	implant_type = /obj/item/bio_chip/grey_autocloner
 
-/obj/item/implantcase/grey_autocloner
+/obj/item/bio_chip_case/grey_autocloner
 	name = "bio-chip case - 'Technocracy cloning'"
 	desc = "A glass case containing an Technocracy bio-chip."
-	implant_type = /obj/item/implant/grey_autocloner
+	implant_type = /obj/item/bio_chip/grey_autocloner

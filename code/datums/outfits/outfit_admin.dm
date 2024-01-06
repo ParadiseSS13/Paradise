@@ -113,7 +113,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/implant/explosive/E = new(H)
+	var/obj/item/bio_chip/explosive/E = new(H)
 	E.implant(H)
 
 
@@ -136,8 +136,8 @@
 	uplink_uses = 200
 	id_access = "Syndicate Agent"
 
-	implants = list(
-		/obj/item/implant/dust
+	bio_chips = list(
+		/obj/item/bio_chip/dust
 	)
 
 
@@ -181,11 +181,11 @@
 	pda = /obj/item/pda/centcom
 	backpack_contents = list(
 		/obj/item/storage/box/centcomofficer = 1,
-		/obj/item/implanter/death_alarm = 1
+		/obj/item/bio_chip_implanter/death_alarm = 1
 	)
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/dust
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/dust
 	)
 
 /datum/outfit/admin/nt_navy_captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -212,11 +212,11 @@
 	pda = /obj/item/pda/centcom
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
-		/obj/item/implanter/death_alarm = 1,
+		/obj/item/bio_chip_implanter/death_alarm = 1,
 	)
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/dust
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/dust
 	)
 
 /datum/outfit/admin/nt_diplomat/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -246,8 +246,8 @@
 		/obj/item/flashlight = 1,
 		/obj/item/pinpointer/crew = 1
 	)
-	implants = list(
-		/obj/item/implant/dust
+	bio_chips = list(
+		/obj/item/bio_chip/dust
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
@@ -299,9 +299,9 @@
 		/obj/item/shield/energy,
 	)
 
-	implants = list(
-		/obj/item/implant/mindshield, // No death alarm, Deathsquad are silent
-		/obj/item/implant/dust
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield, // No death alarm, Deathsquad are silent
+		/obj/item/bio_chip/dust
 	)
 
 /datum/outfit/admin/deathsquad_commando/leader
@@ -701,12 +701,12 @@
 	pda = /obj/item/pda
 	backpack_contents = list(
 		/obj/item/storage/box/responseteam = 1,
-		/obj/item/implanter/dust = 1,
-		/obj/item/implanter/death_alarm = 1,
+		/obj/item/bio_chip_implanter/dust = 1,
+		/obj/item/bio_chip_implanter/death_alarm = 1,
 	)
 
-	implants = list(/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	bio_chips = list(/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 /datum/outfit/admin/solgov_rep/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -749,8 +749,8 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security
 	)
-	implants = list(/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	bio_chips = list(/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 	var/is_solgov_lieutenant = FALSE
@@ -1041,7 +1041,7 @@
 	. = ..()
 
 	for(var/obj/item/I in H.contents)
-		if(!istype(I, /obj/item/implant))
+		if(!istype(I, /obj/item/bio_chip))
 			I.add_mob_blood(H)
 
 	if(visualsOnly)
@@ -1076,7 +1076,7 @@
 	. = ..()
 
 	for(var/obj/item/I in H.contents)
-		if(!istype(I, /obj/item/implant))
+		if(!istype(I, /obj/item/bio_chip))
 			I.add_mob_blood(H)
 
 	if(visualsOnly)
@@ -1273,8 +1273,8 @@
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
 	)
-	implants = list(
-		/obj/item/implant/dust
+	bio_chips = list(
+		/obj/item/bio_chip/dust
 	)
 
 /datum/outfit/admin/dark_priest/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -1371,7 +1371,7 @@
 	shoes = /obj/item/clothing/shoes/black
 	box = /obj/item/storage/box/survival
 	backpack_contents = list(
-		/obj/item/implanter/dust = 1
+		/obj/item/bio_chip_implanter/dust = 1
 		)
 
 /datum/outfit/admin/observer/plasmaman

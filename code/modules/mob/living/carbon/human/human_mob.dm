@@ -1987,7 +1987,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(thing != null)
 			equip_list[i] = thing.serialize()
 
-	for(var/obj/item/implant/implant in src)
+	for(var/obj/item/bio_chip/implant in src)
 		implant_list[implant] = implant.serialize()
 
 	return data
@@ -2031,7 +2031,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	for(var/thing in implant_list)
 		var/implant_data = implant_list[thing]
 		var/path = text2path(implant_data["type"])
-		var/obj/item/implant/implant = new path(T)
+		var/obj/item/bio_chip/implant = new path(T)
 		if(!implant.implant(src, src))
 			qdel(implant)
 

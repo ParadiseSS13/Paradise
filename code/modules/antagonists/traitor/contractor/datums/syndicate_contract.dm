@@ -376,11 +376,11 @@
 				continue
 
 		// Any kind of implant gets potentially removed (mindshield, freedoms, etc)
-		if(istype(I, /obj/item/implant))
-			if(istype(I, /obj/item/implant/storage)) // Storage items are removed and placed in the confiscation locker before the implant is taken.
-				var/obj/item/implant/storage/storage_implant = I
-				for(var/it in storage_implant.storage)
-					storage_implant.storage.remove_from_storage(it)
+		if(istype(I, /obj/item/bio_chip))
+			if(istype(I, /obj/item/bio_chip/storage)) // Storage items are removed and placed in the confiscation locker before the implant is taken.
+				var/obj/item/bio_chip/storage/storage_chip = I
+				for(var/it in storage_chip.storage)
+					storage_chip.storage.remove_from_storage(it)
 					stuff_to_transfer += it
 			qdel(I)
 			continue
@@ -553,7 +553,7 @@
 	victim_belongings = list()
 
 	// Clean up
-	var/obj/item/implant/uplink/uplink_implant = locate() in M
+	var/obj/item/bio_chip/uplink/uplink_implant = locate() in M
 	uplink_implant?.hidden_uplink?.is_jammed = FALSE
 
 	QDEL_LIST_CONTENTS(temp_objs)

@@ -513,7 +513,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(iscarbon(src) && contents.len && ventcrawlerlocal < 2)//It must have atleast been 1 to get this far
 				for(var/obj/item/I in contents)
 					var/failed = 0
-					if(istype(I, /obj/item/implant))
+					if(istype(I, /obj/item/bio_chip))
 						continue
 					if(istype(I, /obj/item/reagent_containers/patch))
 						continue
