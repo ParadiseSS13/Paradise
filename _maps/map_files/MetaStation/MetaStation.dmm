@@ -23941,8 +23941,7 @@
 /area/station/command/office/hop)
 "bCm" = (
 /obj/machinery/economy/vending/cigarette{
-	pixel_y = 2;
-	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate=7,/obj/item/storage/fancy/cigarettes/cigpack_uplift=3,/obj/item/storage/fancy/cigarettes/cigpack_robust=2,/obj/item/storage/fancy/cigarettes/cigpack_carp=3,/obj/item/storage/fancy/cigarettes/cigpack_midori=1,/obj/item/storage/box/matches=10,/obj/item/lighter/random=4)
+	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate=7,/obj/item/storage/fancy/cigarettes/cigpack_uplift=3,/obj/item/storage/fancy/cigarettes/cigpack_robust=2,/obj/item/storage/fancy/cigarettes/cigpack_carp=3,/obj/item/storage/fancy/cigarettes/cigpack_midori=1,/obj/item/storage/fancy/matches=10,/obj/item/lighter/random=4)
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
@@ -25045,9 +25044,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/machinery/economy/vending/cigarette{
-	pixel_x = 2
-	},
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -25544,7 +25541,7 @@
 /area/station/service/bar)
 "bHQ" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/box/matches{
+/obj/item/storage/fancy/matches{
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
@@ -30361,7 +30358,7 @@
 /area/station/science/robotics/showroom)
 "bYg" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/matches{
+/obj/item/storage/fancy/matches{
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -50100,7 +50097,7 @@
 "eVz" = (
 /obj/structure/table,
 /obj/item/storage/fancy/rollingpapers,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/item/seeds/tobacco,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
@@ -78321,7 +78318,7 @@
 /obj/item/candle{
 	pixel_x = -5
 	},
-/obj/item/storage/box/matches{
+/obj/item/storage/fancy/matches{
 	pixel_x = 1;
 	pixel_y = -1
 	},

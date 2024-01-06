@@ -596,18 +596,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			occupant.reagents.add_reagent(bt, 1)
 
 /*
- *	Genetics Diskette Box
- */
-
-/obj/item/storage/box/disks
-	name = "Genetics Diskette Box"
-	icon_state = "disk_kit"
-
-/obj/item/storage/box/disks/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/disk/data(src)
-
-/*
  *	Manual -- A big ol' manual.
  */
 

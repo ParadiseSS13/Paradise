@@ -540,7 +540,7 @@
 /obj/item/storage/box/cyber_implants
 	name = "boxed cybernetic implants"
 	desc = "A sleek, sturdy box."
-	icon_state = "cyber_implants"
+	icon_state = "cyber_implants_box"
 	var/list/boxed = list(
 		/obj/item/autosurgeon/organ/syndicate/thermal_eyes,
 		/obj/item/autosurgeon/organ/syndicate/xray_eyes,

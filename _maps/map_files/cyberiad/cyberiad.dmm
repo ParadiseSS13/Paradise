@@ -30373,7 +30373,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/item/reagent_containers/food/drinks/flask/gold,
 /obj/item/clothing/mask/cigarette/cigar,
 /obj/item/razor{
@@ -71366,7 +71366,7 @@
 "lWD" = (
 /obj/structure/table,
 /obj/item/storage/fancy/rollingpapers,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/item/seeds/tobacco,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4

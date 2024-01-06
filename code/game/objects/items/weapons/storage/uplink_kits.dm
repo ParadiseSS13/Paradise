@@ -1,6 +1,6 @@
 /obj/item/storage/box/syndie_kit
 	desc = "A sleek, sturdy box."
-	icon_state = "box_of_doom"
+	icon_state = "doom_box"
 
 /obj/item/storage/box/syndie_kit/bundle // Traitor bundles
 	var/list/items = list()
