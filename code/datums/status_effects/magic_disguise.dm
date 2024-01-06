@@ -57,14 +57,14 @@
 			continue //ditto
 		if(!backup_source.mind.offstation_role && backup_source != owner)
 			return backup_source
-	return null
+	return
 
 /datum/status_effect/magic_disguise/proc/create_disguise(mob/living/carbon/human/disguise_source)
 	var/datum/icon_snapshot/temp = new
 	temp.name = disguise_source.name
 	temp.icon = disguise_source.icon
 	temp.icon_state = disguise_source.icon_state
-	temp.overlays = disguise_source.get_overlays_copy(list(L_HAND_LAYER,R_HAND_LAYER))
+	temp.overlays = disguise_source.get_overlays_copy(list(L_HAND_LAYER, R_HAND_LAYER))
 	disguise = temp
 
 /datum/status_effect/magic_disguise/proc/apply_disguise(mob/living/carbon/human/H)
