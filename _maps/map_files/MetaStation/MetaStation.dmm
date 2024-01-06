@@ -38461,6 +38461,13 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
+/obj/machinery/door_control{
+	id = "rdrnd";
+	name = "Research and Development Containment Control";
+	pixel_x = 24;
+	pixel_y = null;
+	req_access_txt = "7"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -93366,17 +93373,10 @@
 /obj/item/stack/sheet/glass,
 /obj/item/stack/sheet/glass,
 /obj/machinery/door_control{
-	id = "rdrnd";
-	name = "Primary Research Shutters Control";
-	pixel_x = 24;
-	pixel_y = 6;
-	req_access_txt = "7"
-	},
-/obj/machinery/door_control{
 	id = "rndlab2";
-	name = "Secondary Research Shutters Control";
+	name = "Research Shutters Control";
 	pixel_x = 24;
-	pixel_y = -6;
+	pixel_y = null;
 	req_access_txt = "7"
 	},
 /obj/machinery/cell_charger,
