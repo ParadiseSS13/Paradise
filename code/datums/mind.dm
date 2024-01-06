@@ -163,6 +163,17 @@
 		new_character.key = key		//now transfer the key to link the client to our new body
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
 	SEND_SIGNAL(new_character, COMSIG_BODY_TRANSFER_TO)
+	if(ishuman(new_character))
+		var/mob/living/carbon/human/H = new_character
+		if(H.mind in SSticker.mode.syndicates)
+			SSticker.mode.update_synd_icons_added()
+		if(H.mind in SSticker.mode.cult)
+			SSticker.mode.update_cult_icons_added(H.mind) // Adds the cult antag hud
+			SSticker.mode.add_cult_actions(H.mind) // And all the actions
+			if(SSticker.mode.cult_risen)
+				SSticker.mode.rise(H)
+				if(SSticker.mode.cult_ascendant)
+					SSticker.mode.ascend(H)
 
 /datum/mind/proc/store_memory(new_text)
 	memory += "[new_text]<br>"
