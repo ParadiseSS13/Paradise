@@ -72,7 +72,7 @@
 		target.death(FALSE)
 		return
 	chaos_effect = pick("ded", "heart deleted", "gibbed", "cluwned", "spaced", "decapitated", "banned", \
-		"exploded", "cheese morphed", "supermattered", "borged", "animal morphed", "trick revolver")
+		"exploded", "cheese morphed", "supermattered", "borged", "animal morphed", "trick revolver", "prions")
 	var/mob/living/carbon/human/H = target
 	switch(chaos_effect)
 		if("ded")
@@ -139,6 +139,9 @@
 			wabbajack(H, force_animal = TRUE)
 		if("trick revolver")
 			item_to_summon = /obj/item/gun/projectile/revolver/fake
+		if("prions")
+			H.visible_message("<span class='chaosverybad'>[H] laughs uncontrollably!</span>", "<span class='chaosverybad'>You feel like you're going to die of laughter!</span>")
+			H.reagents.add_reagent("prions", 5)
 
 /obj/item/projectile/magic/chaos/proc/apply_negative_effect(mob/living/target)
 	if(!iscarbon(target))
@@ -150,7 +153,7 @@
 			target.visible_message("<span class='chaosbad'>[target] gets burned by [src]!</span>", "<span class='chaosbad'>You get burned by [src]!</span>")
 		return
 	chaos_effect = pick("fireballed", "ice spiked", "rathend", "stabbed", "slashed", "burned", "poisoned", \
-		"plasma", "clowned", "mimed", "teleport", "teleport roulette", "scatter inventory", "electrocuted", "drunk")
+		"plasma", "teleport", "teleport roulette", "electrocuted")
 	var/mob/living/carbon/human/H = target
 	switch(chaos_effect)
 		if("fireballed")
@@ -194,12 +197,6 @@
 		if("plasma")
 			H.visible_message("<span class='chaosbad'>A cloud of plasma surrounds [H]!</span>", "<span class='chaosbad'>You're covered in plasma gas!</span>")
 			H.atmos_spawn_air(LINDA_SPAWN_TOXINS | LINDA_SPAWN_20C, 200)
-		if("clowned")
-			H.visible_message("<span class='chaosbad'>[H] turns into a clown!</span>", "<span class='chaosbad'>Honk?</span>")
-			H.bananatouched() //Gives nodrop clown clothes, clumsy, and stuns target
-		if("mimed")
-			H.visible_message("<span class='chaosbad'>[H] turns into a mime!</span>", "<span class='chaosbad'>...</span>")
-			H.mimetouched() //Nodrop mime clothes, mutes, stuns target
 		if("teleport")
 			var/turf/T
 			T = find_safe_turf() //Get a safe station turf
@@ -209,24 +206,9 @@
 		if("teleport roulette")
 			H.apply_status_effect(STATUS_EFFECT_TELEPORT_ROULETTE)
 			H.visible_message("<span class='chaosverybad'>[H] disappears!</span>", "<span class='chaosverybad'>You feel sick as you're teleported around the station!</span>")
-		if("scatter backpack")
-			if(H.back && isstorage(H.back))
-				var/obj/item/storage/S = H.back
-				H.visible_message("<span class='chaosbad'>Everything in [H]'s [S.name] goes flying!</span>", "<span class='chaosverybad'>Everything in your [S.name] goes flying!</span>")
-				for(var/obj/item/I in S.contents)
-					INVOKE_ASYNC(I, TYPE_PROC_REF(/atom/movable, throw_at), pick(oview(7, get_turf(src))), 10, 1)
-			else if(H.back && ismodcontrol(H.back))
-				var/obj/item/mod/control/C = H.back
-				if(C.bag)
-					H.visible_message("<span class='chaosbad'>Everything in [H]'s [C.name] goes flying!</span>", "<span class='chaosverybad'>Everything in your [C.name] goes flying!</span>")
-					for(var/obj/item/I in C.bag.contents)
-						INVOKE_ASYNC(I, TYPE_PROC_REF(/atom/movable, throw_at), pick(oview(7, get_turf(src))), 10, 1)
-			else
-				H.visible_message("<span class='chaosneutral'>[H] glows ominously, but nothing happens.</span>", "<span class='chaosneutral'>You feel strange, but nothing happens.</span>")
 		if("electrocuted")
 			H.visible_message("<span class='chaosbad'>[H] gets electrocuted!</span>", "<span class='chaosbad'>You get electrocuted!</span>")
 			H.electrocute_act(CHAOS_STAFF_DAMAGE, src)
-	//	if("drunk")
 
 /datum/status_effect/teleport_roulette
 	duration = 16 SECONDS
@@ -242,52 +224,50 @@
 
 /obj/item/projectile/magic/chaos/proc/apply_misc_effect(mob/living/target)
 	if(!iscarbon(target))
-		//random effect like fireworks/confetti/etc
-		return
-	chaos_effect = pick("bark", "fireworks", "smoke", "blink", "blink spam", "spin", "flip", "confetti", "slip", \
-		"wand of nothing", "help maint", "fake callout", "switcharoo", "spacetime distortion", "bike horn", "wizard robes")
+		confettisize(get_turf(target), 20, 4)
+	chaos_effect = pick("bark", "smoke", "spin", "flip", "confetti", "slip", "wand of nothing", \
+		"help maint", "fake callout", "bike horn", "wizarditis")
+	var/mob/living/carbon/human/H = target
 	switch(chaos_effect)
 		if("bark")
-			return
-		if("fireworks")
-			return
+			H.visible_message("<span class='chaosneutral'>[H] barks!</span>", "<span class='chaosneutral'>Bark!</span>")
+			playsound(H, 'sound/creatures/dog_bark1.ogg', 100, FALSE)
 		if("smoke")
-			return
-		if("blink")
-			return
-		if("blink spam")
-			return
+			var/datum/effect_system/smoke_spread/smoke = new
+			smoke.set_up(4, FALSE, H)
+			INVOKE_ASYNC(smoke, TYPE_PROC_REF(/datum/effect_system, start))
 		if("spin")
-			return
+			H.emote("spin")
 		if("flip")
-			return
+			H.emote("flip")
 		if("confetti")
-			return
+			confettisize(get_turf(H), 20, 4)
 		if("slip")
-			return
+			H.slip("your own foot", 6 SECONDS, 0, 0, 1, "trip")
 		if("wand of nothing")
 			item_to_summon = /obj/item/gun/magic/wand
 			explosion_amount = rand(2, 5)
 		if("help maint")
-			return
+			H.say(";HELP MAINT")
 		if("fake callout")
-			return
-		if("switcharoo")
-			return
-		if("spacetime distortion")
-			return
+			var/message = ";WIZ "
+			message += pick("SCIENCE", "MED", "BRIG", "BRIDGE", "ARRIVALS", "CHAPEL", "SCIENCE MAINT", "CARGO", "TURBINE", "ENGI", "ATMOS")
+			H.say(message)
 		if("bike horn")
 			item_to_summon = /obj/item/bikehorn
 			explosion_amount = rand(2, 3)
-		if("wizard robes")
-			return
+		if("wizarditis")
+			H.visible_message("<span class='chaosbad'>[H] looks ill!</span>", "<span class='chaosbad'>You feel sick...</span>")
+			var/datum/disease/wizarditis/F = new
+			var/list/data = list("viruses" = list(F), "blood_color" = "#A10808")
+			H.reagents.add_reagent("blood", 10, data)
 
 /obj/item/projectile/magic/chaos/proc/apply_gift_effect(mob/living/target)
 	if(!iscarbon(target))
 		//slightly heal target
 		return
-	chaos_effect = pick("toy sword", "toy revolver", "cheese", "food", "medkit", "heal", \
-		"dwarf", "insulated gloves", "wand of doors", "golden bike horn", "ban hammer", "banana")
+	chaos_effect = pick("toy sword", "toy revolver", "cheese", "food", "medkit", \
+		"insulated gloves", "wand of doors", "golden bike horn", "ban hammer", "banana")
 	switch(chaos_effect)
 		if("toy sword")
 			item_to_summon = /obj/item/toy/sword/chaosprank
@@ -306,10 +286,6 @@
 
 		if("medkit")
 			item_to_summon = pick(/obj/item/storage/firstaid/brute, /obj/item/storage/firstaid/fire, /obj/item/storage/firstaid/adv)
-		if("heal")
-			return
-		if("dwarf")
-			return
 		if("insulated gloves")
 			item_to_summon = /obj/item/clothing/gloves/color/yellow
 			explosion_amount = rand(2, 5)
@@ -328,8 +304,8 @@
 	if(!iscarbon(target))
 		//aheal target
 		return
-	chaos_effect = pick("esword", "emag", "chaos wand", "revolver", "aeg", "aheal", "meth mix", \
-		"bluespace banana", "banana grenade", "hulk", "jump", "disco ball", "syndicate minibomb", "crystal ball")
+	chaos_effect = pick("esword", "emag", "chaos wand", "revolver", "aeg", \
+		"bluespace banana", "banana grenade", "disco ball", "syndicate minibomb", "crystal ball")
 	switch(chaos_effect)
 		if("esword")
 			item_to_summon = /obj/item/melee/energy/sword/saber/blue
@@ -341,18 +317,10 @@
 			item_to_summon = /obj/item/gun/projectile/revolver
 		if("aeg")
 			item_to_summon = /obj/item/gun/energy/gun/nuclear
-		if("aheal")
-			return
-		if("meth mix")
-			return
 		if("bluespace banana")
 			item_to_summon = /obj/item/reagent_containers/food/snacks/grown/banana/bluespace
 		if("banana grenade")
 			item_to_summon = /obj/item/grenade/clown_grenade
-		if("hulk")
-			return
-		if("jump")
-			return
 		if("disco ball")
 			if(prob(20)) //TODO : code plasmafire
 				new /obj/machinery/disco/chaos_staff/plasmafire(get_turf(target))
