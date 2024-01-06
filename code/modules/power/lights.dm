@@ -470,6 +470,23 @@
 		LR.ReplaceLight(src, user)
 		return
 
+	// ඞ Attack with Spray Can! Coloring time.
+	if(istype(W, /obj/item/toy/crayon/spraycan))
+		// Some ported code from Light_floor. I was going to write my own but this seems decently written, covers something I wouldn't be able to fix myself - noob
+		var/new_color = input(user, "Select a bulb color", "Select a bulb color", color) as color|null
+		if(!new_color)
+			return
+		if(!Adjacent(user, src))
+			return
+		var/list/hsl = rgb2hsl(hex2num(copytext(new_color, 2, 4)), hex2num(copytext(new_color, 4, 6)), hex2num(copytext(new_color, 6, 8)))
+		hsl[3] = max(hsl[3], 0.4)
+		var/list/rgb = hsl2rgb(arglist(hsl))
+		color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+		to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
+		brightness_color = new_color
+		update(TRUE, TRUE, FALSE)
+		return
+
 	// attempt to insert light
 	if(istype(W, /obj/item/light))
 		if(status != LIGHT_EMPTY)
