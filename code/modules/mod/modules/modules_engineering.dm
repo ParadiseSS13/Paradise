@@ -57,7 +57,7 @@
 	. = ..()
 	if(!.)
 		return
-	ADD_TRAIT(mod.wearer, TRAIT_NOSLIP, src)
+	ADD_TRAIT(mod.wearer, TRAIT_NOSLIP, UID())
 	mod.slowdown += slowdown_active
 	ADD_TRAIT(mod.wearer, TRAIT_MAGPULSE, "magbooted")
 
@@ -65,7 +65,7 @@
 	. = ..()
 	if(!.)
 		return
-	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIP, src)
+	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIP, UID())
 	mod.slowdown -= slowdown_active
 	REMOVE_TRAIT(mod.wearer, TRAIT_MAGPULSE, "magbooted")
 
