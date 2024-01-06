@@ -517,14 +517,7 @@
 	anchored = TRUE
 	var/disco_inferno = FALSE
 
-/obj/machinery/disco/chaos_staff/plasmafire
-	disco_inferno = TRUE
-
 /obj/machinery/disco/chaos_staff/Initialize(mapload)
 	. = ..()
 	selection = pick(songs)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/disco/chaos_staff, breakitdown))
-	if(disco_inferno)
-		//in 30-50 seconds
-		visible_message("<span class='chaosverybad'>DISCO INFERNO!</span>")
-		//plasma fire
