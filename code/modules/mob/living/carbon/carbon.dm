@@ -1131,7 +1131,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(!(slipAny))
 		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
-			if(isobj(H.shoes) && H.shoes.flags & NOSLIP)
+			if(HAS_TRAIT(H, TRAIT_NOSLIP))
 				return FALSE
 
 	if(tilesSlipped)

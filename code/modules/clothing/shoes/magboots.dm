@@ -8,6 +8,8 @@
 	var/slowdown_active = 2
 	var/slowdown_passive = SHOES_SLOWDOWN
 	var/magpulse_name = "mag-pulse traction system"
+	///If a pair of magboots has different icons for being on or off
+	var/multiple_icons = TRUE
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	put_on_delay = 70
@@ -34,14 +36,16 @@
 	toggle_magpulse(user, forced)
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, forced)
-	if(magpulse)
-		flags &= ~NOSLIP
+	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
+		REMOVE_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_passive
 	else
-		flags |= NOSLIP
+		ADD_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_active
 	magpulse = !magpulse
-	icon_state = "[magboot_state][magpulse]"
+	no_slip = !no_slip
+	if(multiple_icons)
+		icon_state = "[magboot_state][magpulse]"
 	if(!forced)
 		to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
 	user.update_inv_shoes()	//so our mob-overlays update
