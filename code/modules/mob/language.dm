@@ -72,7 +72,7 @@
 		scrambled_text = copytext(scrambled_text, 1, length(scrambled_text) - 1)
 
 	var/input_ending = copytext(input, length(input))
-	if(input_ending in list("!","?","."))
+	if(input_ending in list("!", "?", "."))
 		scrambled_text += input_ending
 
 	return scrambled_text
@@ -90,7 +90,7 @@
 
 	var/input_size = length(input)
 	var/scrambled_text = ""
-	var/capitalize = 0
+	var/capitalize = FALSE
 
 	while(length(scrambled_text) < input_size)
 		var/next = pick(syllables)
@@ -442,7 +442,7 @@
 ///Human misc langauges, able to be learnt by every species, however are some origin from Humans
 /datum/language/common //This is the default language everyone should obviously start with, so its always going to be given to crew members unless something something admins
 	name = "Galactic Common"
-	desc = "A fusion of Human and Skrellian dialects, stands as one of the most universally comprehended languages throughout the Orion Sector. It has gained immense popularity, particularly within the Trans-Solar Federation, where it serves as a common tongue understood by virtually all its inhabitants, whether they hail from the planets or the stars. Proficiency in Galactic Common has become almost mandatory for securing employment or prospects within Human or Skrell territory. Its widespread usage and long history have contributed to making Galactic Common one of the easiest and most straightforward languages for learning."
+	desc = "A fusion of Human and Skrellian dialects, it stands as one of the most universally comprehended languages throughout the Orion Sector. It has gained immense popularity, particularly within the Trans-Solar Federation, where it serves as a common tongue understood by virtually all its inhabitants, whether they hail from the planets or the stars. Proficiency in Galactic Common has become almost mandatory for securing employment or prospects within Human or Skrell territory. Its widespread usage and long history have contributed to making Galactic Common one of the easiest and most straightforward languages to learn."
 	speech_verb = "says"
 	exclaim_verbs = list("exclaims", "shouts", "yells")
 	whisper_verb = "whispers"
@@ -454,7 +454,7 @@
 
 /datum/language/spacer
 	name = "Spacer"
-	desc = "One of the earliest human languages devised during the pioneering days of space exploration, was originally crafted to facilitate communication during diplomatic exchanges between the Solar-Central Compact and various alien species. Over time, it was eventually superseded by the simpler and more widespread Galactic Common, which gained prominence due to its ease of use. However, Spacer retained its popularity, particularly among spacefaring nomads, explorers, and those with a strong connection to space. It has endured as a language associated with those of Spacer heritage and remains in common use among individuals dwelling long-term on space stations and starships."
+	desc = "One of the earliest human languages devised during the pioneering days of space exploration, it was originally crafted to facilitate communication during diplomatic exchanges between the Solar-Central Compact and various alien species. Over time, it was eventually superseded by the simpler and more widespread Galactic Common, which gained prominence due to its ease of use. However, Spacer retained its popularity, particularly among spacefaring nomads, explorers, and those with a strong connection to space. It has endured as a language associated with those of Spacer heritage and remains in common use among individuals dwelling long-term on space stations and starships."
 	colour = "spacer"
 	key = "s"
 	partial_understanding = list(
@@ -473,7 +473,7 @@
 // Galactic common languages (systemwide accepted standards).
 /datum/language/trader
 	name = "Tradeband"
-	desc = "With its origins dating back to Mars during the period of rapid corporate expansion into other Trans-Solar Federation colonies, particularly within Skrell space, has earned widespread popularity among corporations and commerce enthusiasts. Originally developed to streamline the process of bargaining and negotiations, Tradeband's frequency became associated with affluent individuals. Over time, it evolved into a distinct language among the sector's aristocrats and traders, reflecting its prominent role in the realm of interstellar business and corporate prestige. It sounds posh and snappy when heard, with occasional wavy tones mixed."
+	desc = "With its origins dating back to Mars during the period of rapid corporate expansion into other Trans-Solar Federation colonies, particularly within Skrell space, it has earned widespread popularity among corporations and commerce enthusiasts. Originally developed to streamline the process of bargaining and negotiations, Tradeband's frequency became associated with affluent individuals. Over time, it evolved into a distinct language among the sector's aristocrats and traders, reflecting its prominent role in the realm of interstellar business and corporate prestige. It sounds posh and snappy when heard, with occasional wavy tones mixed in."
 	speech_verb = "enunciates"
 	colour = "say_quote"
 	key = "2"
@@ -509,7 +509,7 @@
 
 /datum/language/clown
 	name = "Clownish"
-	desc = "The language derived from the fervent worship of the Honk Mother, has its origins in an ancient circus performer from the 21st Century. This performer's acts and eccentric shows captivated audiences worldwide, leading to the creation of a cult of personality around her. Over time, this following evolved into a legally recognized religious group dedicated to the teachings and gospel of the Honk Mother. Within this religious community, Clownish developed as an internal language spoken by those devoted to the arts of entertainment and the venerable traditions associated with the clown arts."
+	desc = "The language derived from the fervent worship of the Honk Mother has its origins in an ancient circus performer from the 21st century. This performer's acts and eccentric shows captivated audiences worldwide, leading to the creation of a cult of personality around her. Over time, this following evolved into a legally recognized religious group dedicated to the teachings and gospel of the Honk Mother. Within this religious community, Clownish developed as an internal language spoken by those devoted to the arts of entertainment and the venerable traditions associated with the clown arts."
 	speech_verb = "honks"
 	ask_verb = "honks"
 	exclaim_verbs = list("toots", "wubs", "honks")
@@ -527,12 +527,12 @@
 	colour = "solcom"
 	key = "1"
 	flags = RESTRICTED
-	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
+	syllables = list("tao", "shi", "tzu", "yi", "com", "be", "is", "i", "op", "vi", "ed", "lec", "mo", "cle", "te", "dis", "e")
 	english_names = 1
 
 /datum/language/com_srus
 	name = "Neo-Russkiya"
-	desc = "Derived from Old Slavic and various European dialects, Neo-Russkiya is the linguistic offspring of ancient tongues that now follow Northern Eurasian culture, particularly under the USSP government. The sheer scale of the USSP's dominion and the migration of its populace have propelled Neo-Russkiya to the forefront, making it the primary language. It sounds blunt and harsh when heard and comprised of mostly consonants and vowels."
+	desc = "Derived from Old Slavic and various European dialects, Neo-Russkiya is the linguistic offspring of ancient tongues that now follow Northern Eurasian culture, particularly under the USSP government. The sheer scale of the USSP's dominion and the migration of its populace have propelled Neo-Russkiya to the forefront, making it the primary language. It sounds blunt and harsh when heard and composed of mostly consonants and vowels."
 	speech_verb = "articulates"
 	whisper_verb = "mutters"
 	exclaim_verbs = list("exaggerates")
@@ -552,7 +552,7 @@
 
 /datum/language/human_language/iberian
 	name = "Iberian Mix"
-	desc = "A dialect that emerges from the fusion of Spanish and Northern African languages. Its popularity took root in the Iberian Peninsula and Northern Africa. Over time, Iberian would gradually supersede traditional Spanish and North African languages due to its linguistic simplicity and its ability to harmoniously blend different cultural vowel's. Its words tend to be very flowy, they sound melodic and rhythmic in hearing."
+	desc = "A dialect that emerges from the fusion of Spanish and Northern African languages. Its popularity took root in the Iberian Peninsula and Northern Africa. Over time, Iberian would gradually supersede traditional Spanish and North African languages due to its linguistic simplicity and its ability to harmoniously blend different cultural vowels. Its words tend to flow seamlessly and have a natural rhythm."
 	colour = "iberian"
 	key = "i"
 	partial_understanding = list(
