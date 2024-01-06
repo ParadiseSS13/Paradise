@@ -34,7 +34,7 @@
 		return
 
 	var/obj/item/organ/external/punched = target.get_organ(user.zone_selected)
-	if(gripped && target.health < 90 && prob(robust)) // Better at throwing strong punches when gripped
+	if(gripped && prob(robust) && target.health < 90) // Better at throwing strong punches when gripped
 		if(isslimeperson(target))
 			punched.cause_internal_bleeding() // Slimes get no quarter, they too shall suffer. IPCs get a pass, they have it bad enough
 		else
@@ -45,7 +45,7 @@
 		return
 
 	var/obj/item/organ/internal/squishy = pick(punched.internal_organs)
-	if(gripped & elite) // Syndie variant gets to directly damage organs, as a treat
+	if(gripped & elite && target.health < 90) // Syndie variant gets to directly damage organs, as a treat
 		squishy.receive_damage(trauma)
 	if(punched.is_broken())
 		squishy.receive_damage(trauma) // Probably not so good for your organs to have your already broken ribs punched hard again
@@ -61,7 +61,6 @@
 	origin_tech = "combat=2;syndicate=1"
 	elite = TRUE
 	robust = 15
-	trauma = 5
 
 /obj/item/melee/knuckleduster/nanotrasen
 	name = "engraved knuckleduster"
@@ -73,7 +72,6 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	materials = list(MAT_GOLD = 500)
 	robust = 20
-	trauma = 10
 
 /obj/item/melee/knuckleduster/test
 	name = "handheld bone-breakers"
