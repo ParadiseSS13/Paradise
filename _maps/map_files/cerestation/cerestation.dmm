@@ -92852,7 +92852,7 @@
 	name = "Robotics Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics{
-	dir = 1
+	dir = 5
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -95732,6 +95732,9 @@
 /obj/machinery/door/window/classic/normal{
 	dir = 8;
 	name = "Robotics Surgery"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

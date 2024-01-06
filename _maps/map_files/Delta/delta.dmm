@@ -78725,6 +78725,9 @@
 	name = "Robotics Surgery"
 	},
 /obj/effect/mapping_helpers/airlock/polarized,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "hRZ" = (
