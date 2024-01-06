@@ -34103,18 +34103,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/research)
-"clc" = (
-/obj/structure/table/glass,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/obj/item/paicard,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whitepurple"
-	},
-/area/station/science/research)
 "cle" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
@@ -61651,6 +61639,17 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
+"jUr" = (
+/obj/structure/table/glass,
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/obj/item/paicard,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/science/research)
 "jUK" = (
 /obj/machinery/light_switch{
 	dir = 8;
@@ -124011,7 +124010,7 @@ cft
 cgF
 rFe
 cjN
-clb
+jUr
 cmz
 fwz
 daG
@@ -124525,7 +124524,7 @@ cfw
 cgu
 qnt
 qnt
-clc
+oic
 uxR
 cic
 bVj
