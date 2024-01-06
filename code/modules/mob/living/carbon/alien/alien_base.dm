@@ -181,7 +181,7 @@
 		return threatcount
 
 	//Check for weapons
-	if(judgebot.weaponscheck)
+	if(judgebot.weapons_check)
 		if(judgebot.check_for_weapons(l_hand))
 			threatcount += 4
 		if(judgebot.check_for_weapons(r_hand))

@@ -293,7 +293,7 @@
 	implants = list(/obj/item/implant/sad_trombone)
 
 	backpack = /obj/item/storage/backpack/clown
-	satchel = /obj/item/storage/backpack/clown
+	satchel = /obj/item/storage/backpack/satchel/clown
 	dufflebag = /obj/item/storage/backpack/duffel/clown
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
