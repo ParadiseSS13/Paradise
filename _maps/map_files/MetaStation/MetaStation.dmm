@@ -24001,21 +24001,15 @@
 /area/station/engineering/atmos/control)
 "bCx" = (
 /obj/structure/table,
-/obj/item/surgicaldrill{
-	pixel_x = 17;
-	pixel_y = 4
-	},
-/obj/item/stack/medical/bruise_pack/advanced{
-	pixel_x = -4;
-	pixel_y = 4
-	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/cautery,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/machine,
+/obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -38409,19 +38403,12 @@
 /area/station/science/server)
 "cBT" = (
 /obj/structure/table,
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/bonegel,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
 /obj/machinery/firealarm{
 	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/item/storage/surgical_tray,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -42678,7 +42665,6 @@
 /obj/machinery/optable{
 	name = "Robotics Operating Table"
 	},
-/obj/item/storage/firstaid/machine,
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
 	pixel_y = -30
@@ -49759,24 +49745,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
-"eQL" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/table,
-/obj/item/storage/surgical_tray,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurple"
-	},
-/area/station/science/research)
 "eRc" = (
 /obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
@@ -54957,32 +54925,6 @@
 /obj/machinery/atmospherics/unary/tank/air,
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_north)
-"hbp" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/table,
-/obj/item/tank/internals/anesthetic{
-	pixel_x = 2
-	},
-/obj/item/clothing/mask/breath/medical,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
-	name = "Surgery Cleaner";
-	pixel_x = -10;
-	pixel_y = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/transparent/glass/reinforced,
-/area/station/science/research)
 "hbr" = (
 /obj/machinery/power/solar_control{
 	name = "Fore Starboard Solar Control"
@@ -59336,29 +59278,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/main)
-"iPL" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/table,
-/obj/machinery/light/small,
-/obj/machinery/button/windowtint{
-	dir = 1;
-	id = "ROBO";
-	pixel_x = -6;
-	pixel_y = -24
-	},
-/obj/item/storage/firstaid/machine,
-/obj/item/storage/firstaid/machine,
-/obj/item/robotanalyzer,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/transparent/glass/reinforced,
-/area/station/science/research)
 "iPP" = (
 /obj/structure/table,
 /obj/item/clothing/mask/gas,
@@ -60854,28 +60773,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/ai_monitored/storage/eva)
 "jHp" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/rack,
-/obj/item/storage/box/bodybags{
-	pixel_x = -4;
-	pixel_y = -4
-	},
-/obj/item/storage/box/masks,
-/obj/item/storage/box/gloves{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
@@ -60890,9 +60787,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/science/robotics{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -80614,16 +80508,6 @@
 	},
 /area/station/security/main)
 "sab" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/table,
-/obj/item/mmi,
-/obj/item/mmi,
-/obj/item/mmi,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -80634,9 +80518,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -82155,23 +82036,10 @@
 	},
 /area/station/command/bridge)
 "sLv" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/table,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "roboticsprivacy2";
 	name = "Robotics Shutters"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/robotics)
@@ -82591,27 +82459,11 @@
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "sTs" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/optable{
-	name = "Robotics Operating Table"
-	},
-/obj/structure/noticeboard{
-	dir = 8;
-	pixel_x = 32
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -85781,17 +85633,17 @@
 /area/station/command/office/captain)
 "uuG" = (
 /obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/item/storage/box/bodybags{
 	pixel_x = -4;
 	pixel_y = -4
 	},
+/obj/item/storage/box/masks,
 /obj/item/storage/box/gloves{
 	pixel_x = 4;
 	pixel_y = 4
-	},
-/obj/item/storage/box/masks,
-/obj/structure/window/reinforced{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -86130,14 +85982,6 @@
 /area/station/command/teleporter)
 "uEX" = (
 /obj/structure/table,
-/obj/item/scalpel{
-	pixel_y = 12
-	},
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/circular_saw,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -90725,7 +90569,6 @@
 /obj/item/mmi,
 /obj/item/mmi,
 /obj/item/mmi,
-/obj/item/robotanalyzer,
 /obj/machinery/alarm{
 	dir = 1;
 	name = "south bump";
@@ -124369,7 +124212,7 @@ ihW
 kqd
 vQB
 kfx
-eQL
+bIG
 qUY
 bIG
 bIG
@@ -124622,11 +124465,11 @@ mfG
 cwR
 cwR
 cwR
-hbp
+cwR
 sab
 sTs
 clb
-iPL
+cwR
 cwR
 cwR
 cwR
