@@ -918,7 +918,7 @@
 	damage *= 6 //objects tend to fall apart as atoms are ripped up
 
 /obj/item/projectile/energy/vortex_blast/on_hit(atom/target, blocked = 0)
-	if((blocked < 100))
+	if(blocked < 100)
 		if(ishuman(target))
 			var/mob/living/carbon/human/L = target
 			var/obj/item/organ/external/affecting = L.get_organ(ran_zone(def_zone))

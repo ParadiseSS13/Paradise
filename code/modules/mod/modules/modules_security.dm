@@ -275,7 +275,7 @@
 
 /obj/item/grenade/cryogrenade_mod/prime()
 	update_mob()
-	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
+	playsound(loc, 'sound/effects/empulse.ogg', 50, TRUE)
 	for(var/turf/simulated/floor/T in view(freeze_range, loc))
 		T.MakeSlippery(TURF_WET_ICE)
 		for(var/mob/living/carbon/C in T)
