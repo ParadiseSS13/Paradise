@@ -48236,9 +48236,8 @@
 	},
 /area/station/maintenance/asmaint)
 "egC" = (
-/obj/item/slime_extract/oil,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/oil,
+/obj/item/slime_extract/darkblue,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -50564,7 +50563,7 @@
 /turf/space,
 /area/station/engineering/solar/auxport)
 "fho" = (
-/obj/structure/chair/stool,
+/obj/structure/closet/secure_closet/roboticist,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -50944,6 +50943,12 @@
 	icon_state = "darkgreycheck"
 	},
 /area/station/science/research)
+"fpO" = (
+/obj/structure/sign/vacuum/external{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "fpR" = (
 /obj/structure/sign/pods{
 	pixel_x = 32
@@ -56376,6 +56381,9 @@
 /area/station/security/checkpoint/secondary)
 "hEe" = (
 /obj/effect/landmark/start/roboticist,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "hEj" = (
@@ -63950,7 +63958,10 @@
 "kVn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/door_assembly/door_assembly_fre{
-	name = "broken freezer airlock"
+	name = "broken freezer airlock";
+	move_force = 10000;
+	move_resist = 10000;
+	anchored = 1
 	},
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -67770,8 +67781,8 @@
 /area/station/service/kitchen)
 "mxp" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "mxw" = (
@@ -69337,6 +69348,11 @@
 	},
 /area/station/security/storage)
 "ndR" = (
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "ndS" = (
@@ -69709,6 +69725,11 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "nln" = (
@@ -72818,7 +72839,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "oNl" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "oNn" = (
@@ -77121,6 +77149,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/bridge)
+"qyd" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop{
+	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
+	name = "trash spawner"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "qyo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -77415,6 +77455,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/machinery/economy/vending/robodrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -78662,6 +78703,14 @@
 	icon_state = "cult"
 	},
 /area/station/maintenance/starboard)
+"rjb" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/station/science/robotics)
 "rjA" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
@@ -123766,7 +123815,7 @@ cJp
 oUU
 pzC
 rWk
-dQb
+rjb
 eVO
 cJp
 cFY
@@ -123791,8 +123840,8 @@ tba
 mZq
 vZo
 coG
-coG
-dif
+aaa
+abq
 aef
 abq
 abq
@@ -124046,10 +124095,10 @@ jKP
 jDv
 xHR
 cSY
-tNn
 vZo
-vZo
-vZo
+coG
+aaa
+abq
 aef
 abq
 aaa
@@ -124303,10 +124352,10 @@ kQj
 coG
 coG
 cUL
-clN
+cUL
 coG
-coG
-coG
+aaa
+abq
 aef
 abq
 aaa
@@ -125332,7 +125381,7 @@ lTS
 coG
 abq
 aaa
-aaa
+abq
 aaa
 abq
 aef
@@ -125588,9 +125637,9 @@ kQj
 avs
 wSg
 coG
-abq
-abq
-abq
+coG
+dif
+aef
 arA
 arA
 bcb
@@ -125843,11 +125892,11 @@ rVg
 coG
 wWu
 vZo
+tNn
 vZo
-hXg
-abq
-aaa
-aaa
+fpO
+vZo
+aef
 abq
 aef
 abq
@@ -126100,11 +126149,11 @@ cKS
 wxV
 gWk
 lYB
-vZo
+qyd
 hXg
-aaa
-aaa
-aaa
+hXg
+hXg
+aef
 abq
 aef
 abq
@@ -126357,7 +126406,7 @@ dXZ
 coG
 kQj
 mlV
-cUL
+clN
 coG
 abq
 aaa
@@ -131701,7 +131750,7 @@ aoG
 aoG
 aoG
 aoG
-oXK
+mfJ
 asJ
 aNR
 bEG
@@ -131958,7 +132007,7 @@ bHW
 bHX
 kZl
 xbt
-aoG
+oXK
 bPg
 dnm
 bTP
