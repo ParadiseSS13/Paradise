@@ -85,13 +85,14 @@
 
 /datum/supply_packs/abstract/shuttle/military
 	// if you can pool enough money together for this one, maybe you deserve it
+	speed_factor = 1.5
 	cost = 4250
 	template = /datum/map_template/shuttle/emergency/military
 
 /datum/supply_packs/abstract/shuttle/clown
 	speed_factor = 0.75  // this one's a little slower, enjoy your ride!
-	hidden = TRUE
-	cost = 2500  // this one could be worth a cmag
+	cmag_hidden = TRUE
+	cost = 500  // let the clown have it
 	template = /datum/map_template/shuttle/emergency/clown
 
 /datum/supply_packs/abstract/shuttle/narnar

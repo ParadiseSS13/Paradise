@@ -22,6 +22,8 @@
 	var/hidden = FALSE
 	/// If TRUE, this pack is only visible on a hacked supply console.
 	var/contraband = FALSE
+	/// If TRUE, this pack is only visible on a cmagged supply console.
+	var/cmag_hidden = FALSE
 	/// A special pack that should not appear unless certain circumstances are fulfilled (event, station goals, admin packs)
 	var/special = FALSE
 	/// If this pack is special, whether it should be visible or not.

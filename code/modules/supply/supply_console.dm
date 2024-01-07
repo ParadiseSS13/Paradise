@@ -215,17 +215,12 @@
 		var/datum/supply_packs/pack = SSeconomy.supply_packs[set_name]
 		var/shown_if_hacked = pack.hidden && hacked
 		var/shown_if_contraband = pack.contraband && can_order_contraband
+		var/shown_if_cmagged = pack.cmag_hidden && HAS_TRAIT(src, TRAIT_CMAGGED)
 
-		var/shown = (!pack.hidden || shown_if_hacked) && (!pack.contraband || shown_if_contraband)
+		var/shown = (!pack.hidden || shown_if_hacked) && (!pack.contraband || shown_if_contraband) && (!HAS_TRAIT(src, TRAIT_CMAGGED) || shown_if_cmagged)
 
 		if(pack.special)
 			shown &= pack.special_enabled
-
-		// if(pack.special)
-		// 	shown = pack.special_enabled && (!pack.hidden || shown_if_hacked) && (!pack.contraband || shown_if_contraband)
-		// else
-		// 	shown = shown_if_hacked || shown_if_contraband || (!pack.contraband && !pack.hidden)
-
 
 		if(shown)
 			packs_list.Add(list(list(
@@ -509,6 +504,13 @@
 		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
 		hacked = TRUE
 		SStgui.update_uis(src, update_static_data = TRUE)
+
+/obj/machinery/computer/supplycomp/cmag_act(mob/user)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	to_chat(user, "<span class='notice sans'>Special supplies unlocked.</span>")
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 
 /obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"
