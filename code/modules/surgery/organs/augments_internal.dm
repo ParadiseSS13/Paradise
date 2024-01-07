@@ -535,6 +535,99 @@
 	owner.physiology.stamina_mod /= 1.15
 	return ..()
 
+/obj/item/organ/internal/cyberimp/chest/ipc_reviver
+	name = "Positronic Emergency Reboot System"
+	desc = "A reactive repair system for bringing a dying IPC back from the brink. Comes with a diagnostics system so you can figure out how dead you are."
+	implant_color = "#0827F5"
+	actions_types = list(/datum/action/item_action/organ_action/toggle)
+	origin_tech = "materials=4;programming=5;magnets=5;engineering=6"
+	slot = "heartdrive"
+	requires_machine_person = TRUE
+	var/revive_cost = 0
+	var/reviving = FALSE
+	var/cooldown = 0
+
+/obj/item/organ/internal/cyberimp/chest/ipc_reviver/hardened
+	name = "Hardened Emergency Rebooter"
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/ipc_reviver/hardened/Initialize(mapload)
+	. = ..()
+	desc += " The implant has been hardened. It is invulnerable to EMPs."
+
+/obj/item/organ/internal/cyberimp/chest/ipc_reviver/ui_action_click()
+	if(owner && crit_fail)
+		to_chat(owner, "<span class='warning'>Error; Diagnostics System undergoing reboot.</span>")
+	else
+		owner_diagnostics(owner)
+
+/obj/item/organ/internal/cyberimp/chest/ipc_reviver/on_life()
+	if(cooldown > world.time || owner.suiciding)
+		return
+	if(reviving)
+		reviving = FALSE
+		if(owner.health <= HEALTH_THRESHOLD_CRIT + 10)
+			addtimer(CALLBACK(src, PROC_REF(repairing)), 30)
+			reviving = TRUE
+		if(!reviving)
+			return
+	cooldown = revive_cost + world.time
+	revive_cost = 0
+	reviving = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/ipc_reviver/proc/repairing()
+	if(QDELETED(owner))
+		return
+	if(prob(80) && owner.getBruteLoss())
+		owner.adjustBruteLoss(-4, robotic = TRUE)
+		revive_cost += 30
+	if(prob(80) && owner.getFireLoss())
+		owner.adjustFireLoss(-4, robotic = TRUE)
+		revive_cost += 30
+	if(prob(50) && owner.getBrainLoss())
+		owner.adjustBrainLoss(-4)
+		revive_cost += 60
+
+/obj/item/organ/internal/cyberimp/chest/ipc_reviver/proc/owner_diagnostics(mob/owner)
+	var/mob/living/carbon/human/machine/H = owner
+	to_chat(owner, "<span class='notice'>Analyzing Current State</span>")
+	to_chat(owner, "Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>")
+	to_chat(owner, "<span class='notice'>External components:</span>")
+	var/organ_found
+	if(LAZYLEN(H.internal_organs))
+		for(var/obj/item/organ/external/E in H.bodyparts)
+			if(!E.is_robotic())
+				continue
+			organ_found = TRUE
+			to_chat(owner, "[E.name]: <font color='red'>[E.brute_dam]</font> <font color='#FFA500'>[E.burn_dam]</font>")
+	to_chat(owner, "<hr>")
+	to_chat(owner, "<span class='notice'>Internal components:</span>")
+	organ_found = null
+	if(LAZYLEN(H.internal_organs))
+		for(var/obj/item/organ/internal/O in H.internal_organs)
+			if(!O.is_robotic() || istype(O, /obj/item/organ/internal/cyberimp))
+				continue
+			organ_found = TRUE
+			to_chat(owner, "[capitalize(O.name)]: <font color='red'>[O.damage]</font>")
+	to_chat(owner, "<hr>")
+	to_chat(owner, "<span class='notice'>Located implants:</span>")
+	organ_found = null
+	if(LAZYLEN(H.internal_organs))
+		for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
+			organ_found = TRUE
+			to_chat(owner, "[capitalize(I.name)]: <font color='red'>[I.crit_fail ? "CRITICAL FAILURE" : I.damage]</font>")
+	if(!organ_found)
+		to_chat(owner, "<span class='warning'>No implants located.</span>")
+
+/obj/item/organ/internal/cyberimp/chest/ipc_reviver/emp_act(severity)
+	if(!owner || emp_proof)
+		return
+	if(reviving)
+		revive_cost +=200
+	else
+		cooldown += 200
+		to_chat(owner, "<span class='warning'>WARNING; Reboot Diagnostics Systems encountered an error, restarting.</span>")
+
 //BOX O' IMPLANTS
 
 /obj/item/storage/box/cyber_implants
