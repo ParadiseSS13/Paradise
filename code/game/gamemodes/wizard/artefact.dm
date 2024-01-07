@@ -630,7 +630,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(new /obj/item/scalpel(M), SLOT_HUD_RIGHT_STORE)
 				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
 				for(var/obj/item/carried_item in M.contents)
-					if(!istype(carried_item, /obj/item/implant))
+					if(!istype(carried_item, /obj/item/bio_chip))
 						carried_item.add_mob_blood(M)
 
 			if("pirate")

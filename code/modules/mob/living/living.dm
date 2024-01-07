@@ -291,7 +291,7 @@
 
 /mob/living/verb/succumb()
 	set hidden = TRUE
-	if(health >= HEALTH_THRESHOLD_CRIT || stat != UNCONSCIOUS)
+	if(health >= HEALTH_THRESHOLD_CRIT)
 		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
 		return
 
@@ -414,7 +414,7 @@
 			L += get_contents(S)
 		for(var/obj/item/clothing/accessory/storage/S in contents)//Check for holsters
 			L += get_contents(S)
-		for(var/obj/item/implant/storage/I in contents) //Check for storage implants.
+		for(var/obj/item/bio_chip/storage/I in contents) //Check for storage implants.
 			L += I.get_contents()
 		for(var/obj/item/gift/G in contents) //Check for gift-wrapped items
 			L += G.gift

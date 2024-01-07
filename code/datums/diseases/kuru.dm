@@ -11,7 +11,7 @@
 	desc = "Uncontrollable laughing."
 	severity = BIOHAZARD
 	disease_flags = CAN_CARRY
-	bypasses_immunity = TRUE //Kuru is a prion disorder, not a virus
+	bypasses_immunity = TRUE // Kuru is a prion disorder, not a virus
 	virus_heal_resistant = TRUE
 
 /datum/disease/kuru/stage_act()

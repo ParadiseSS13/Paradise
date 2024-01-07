@@ -9,7 +9,7 @@
 		/datum/surgery_step/generic/clamp_bleeders,
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/open_organ,
-		/datum/surgery_step/extract_implant,
+		/datum/surgery_step/extract_bio_chip,
 		/datum/surgery_step/generic/cauterize
 	)
 	possible_locs = list(BODY_ZONE_CHEST)
@@ -21,20 +21,20 @@
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
 		/datum/surgery_step/proxy/robotics/repair_limb,
-		/datum/surgery_step/extract_implant/synth,
+		/datum/surgery_step/extract_bio_chip/synth,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
 	requires_organic_bodypart = FALSE
 
-/datum/surgery_step/extract_implant
+/datum/surgery_step/extract_bio_chip
 	name = "extract bio-chip"
 	allowed_tools = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 65)
 	time = 6.4 SECONDS
 	repeatable = TRUE
-	var/obj/item/implant/I = null
+	var/obj/item/bio_chip/I = null
 	var/max_times_to_check = 5
 
-/datum/surgery_step/extract_implant/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/extract_bio_chip/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -45,7 +45,7 @@
 		)
 		return SURGERY_BEGINSTEP_SKIP
 
-	I = locate(/obj/item/implant) in target
+	I = locate(/obj/item/bio_chip) in target
 	user.visible_message(
 		"[user] starts poking around inside [target]'s [affected.name] with \the [tool].",
 		"You start poking around inside [target]'s [affected.name] with \the [tool]."
@@ -53,7 +53,7 @@
 	affected.custom_pain("The pain in your [affected.name] is living hell!")
 	return ..()
 
-/datum/surgery_step/extract_implant/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/extract_bio_chip/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	. = ..()
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -64,9 +64,9 @@
 	affected.receive_damage(10)
 	return SURGERY_STEP_RETRY
 
-/datum/surgery_step/extract_implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/extract_bio_chip/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	I = locate(/obj/item/implant) in target
+	I = locate(/obj/item/bio_chip) in target
 	if(I && prob(80)) //implant removal only works on the chest.
 		user.visible_message(
 			"<span class='notice'>[user] takes something out of [target]'s [affected.name] with \the [tool].</span>",
@@ -75,14 +75,14 @@
 
 		I.removed(target)
 
-		var/obj/item/implantcase/case
+		var/obj/item/bio_chip_case/case
 
-		if(istype(user.get_item_by_slot(SLOT_HUD_LEFT_HAND), /obj/item/implantcase))
+		if(istype(user.get_item_by_slot(SLOT_HUD_LEFT_HAND), /obj/item/bio_chip_case))
 			case = user.get_item_by_slot(SLOT_HUD_LEFT_HAND)
-		else if(istype(user.get_item_by_slot(SLOT_HUD_RIGHT_HAND), /obj/item/implantcase))
+		else if(istype(user.get_item_by_slot(SLOT_HUD_RIGHT_HAND), /obj/item/bio_chip_case))
 			case = user.get_item_by_slot(SLOT_HUD_RIGHT_HAND)
 		else
-			case = locate(/obj/item/implantcase) in get_turf(target)
+			case = locate(/obj/item/bio_chip_case) in get_turf(target)
 
 		if(case && !case.imp)
 			case.imp = I
@@ -98,6 +98,6 @@
 		)
 	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/extract_implant/synth
+/datum/surgery_step/extract_bio_chip/synth
 	allowed_tools = list(TOOL_WIRECUTTER = 100, TOOL_HEMOSTAT = 60)
 

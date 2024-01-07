@@ -3,16 +3,16 @@
  *
  * Implant which allows you to summon an MGS-style cardboard box that turns you invisble after a short delay.
  */
-/obj/item/implant/stealth
+/obj/item/bio_chip/stealth
 	name = "S3 bio-chip"
 	desc = "Allows you to be hidden in plain sight."
 	implant_state = "implant-syndicate"
 	implant_data = /datum/implant_fluff/stealth
 	actions_types = list(/datum/action/item_action/agent_box)
 
-/obj/item/implanter/stealth
+/obj/item/bio_chip_implanter/stealth
 	name = "bio-chip implanter (stealth)"
-	implant_type = /obj/item/implant/stealth
+	implant_type = /obj/item/bio_chip/stealth
 
 /datum/action/item_action/agent_box
 	name = "Deploy Box"

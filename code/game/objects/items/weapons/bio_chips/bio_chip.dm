@@ -23,16 +23,16 @@
  * Code for implants that can be inserted into a person and have some sort of passive or triggered action.
  *
  */
-/obj/item/implant
+/obj/item/bio_chip
 	name = "bio-chip"
-	icon = 'icons/obj/implants.dmi'
+	icon = 'icons/obj/bio_chips.dmi'
 	icon_state = "generic" //Shows up as a auto surgeon, used as a placeholder when a implant doesn't have a sprite
 	origin_tech = "materials=2;biotech=3;programming=2"
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	item_color = "black"
 	flags = DROPDEL  // By default, don't let implants be harvestable.
 
-	///which implant overlay should be used for implant cases. This should point to a state in implants.dmi
+	///which implant overlay should be used for implant cases. This should point to a state in bio_chips.dmi
 	var/implant_state = "implant-default"
 	/// How the implant is activated.
 	var/activated = BIOCHIP_ACTIVATED_ACTIVE
@@ -56,18 +56,18 @@
 	///the implant_fluff datum attached to this implant, purely cosmetic "lore" information
 	var/datum/implant_fluff/implant_data = /datum/implant_fluff
 
-/obj/item/implant/Initialize(mapload)
+/obj/item/bio_chip/Initialize(mapload)
 	. = ..()
 	if(ispath(implant_data))
 		implant_data = new implant_data
 
-/obj/item/implant/Destroy()
+/obj/item/bio_chip/Destroy()
 	if(imp_in)
 		removed(imp_in)
 	QDEL_NULL(implant_data)
 	return ..()
 
-/obj/item/implant/proc/unregister_emotes()
+/obj/item/bio_chip/proc/unregister_emotes()
 	if(imp_in && LAZYLEN(trigger_emotes))
 		for(var/emote in trigger_emotes)
 			UnregisterSignal(imp_in, COMSIG_MOB_EMOTED(emote))
@@ -79,7 +79,7 @@
  * * on_implant - Whether this proc is being called during the implantation of the implant.
  * * silent - If true, the user won't get any to_chat messages if an implantation fails.
  */
-/obj/item/implant/proc/set_trigger(mob/user, emote_key, on_implant = FALSE, silent = TRUE)
+/obj/item/bio_chip/proc/set_trigger(mob/user, emote_key, on_implant = FALSE, silent = TRUE)
 	if(imp_in != user)
 		return FALSE
 
@@ -107,7 +107,7 @@
 	LAZYADD(trigger_emotes, emote_key)
 	RegisterSignal(user, COMSIG_MOB_EMOTED(emote_key), PROC_REF(on_emote))
 
-/obj/item/implant/proc/on_emote(mob/living/user, datum/emote/fired_emote, key, emote_type, message, intentional)
+/obj/item/bio_chip/proc/on_emote(mob/living/user, datum/emote/fired_emote, key, emote_type, message, intentional)
 	SIGNAL_HANDLER
 
 	if(!implanted || !imp_in)
@@ -119,7 +119,7 @@
 	add_attack_logs(user, user, "[intentional ? "intentionally" : "unintentionally"] [src] was [intentional ? "intentionally" : "unintentionally"] triggered with the emote [fired_emote].")
 	emote_trigger(key, user, intentional)
 
-/obj/item/implant/proc/on_death(mob/source, gibbed)
+/obj/item/bio_chip/proc/on_death(mob/source, gibbed)
 	SIGNAL_HANDLER
 
 	if(!implanted || !imp_in)
@@ -137,16 +137,16 @@
 	add_attack_logs(source, source, "had their [src] bio-chip triggered on [gibbed ? "gib" : "death"].")
 	death_trigger(source, gibbed)
 
-/obj/item/implant/proc/emote_trigger(emote, mob/source, force)
+/obj/item/bio_chip/proc/emote_trigger(emote, mob/source, force)
 	return
 
-/obj/item/implant/proc/death_trigger(mob/source, gibbed)
+/obj/item/bio_chip/proc/death_trigger(mob/source, gibbed)
 	return
 
-/obj/item/implant/proc/activate(cause)
+/obj/item/bio_chip/proc/activate(cause)
 	return
 
-/obj/item/implant/ui_action_click()
+/obj/item/bio_chip/ui_action_click()
 	activate("action_button")
 
 /**
@@ -160,10 +160,10 @@
  *  -1 if the implant fails to inject
  * 	0 if there's no room for the implant.
  */
-/obj/item/implant/proc/implant(mob/source, mob/user, force)
+/obj/item/bio_chip/proc/implant(mob/source, mob/user, force)
 	if(!force && !can_implant(source, user))
 		return
-	var/obj/item/implant/imp_e = locate(type) in source
+	var/obj/item/bio_chip/imp_e = locate(type) in source
 	if(!allow_multiple && imp_e && imp_e != src)
 		if(imp_e.uses < initial(imp_e.uses)*2)
 			if(uses == -1)
@@ -211,7 +211,7 @@
  * TRUE - I could care less, implant it, maybe don't. I don't care.
  * FALSE - Don't implant!
  */
-/obj/item/implant/proc/can_implant(mob/source, mob/user)
+/obj/item/bio_chip/proc/can_implant(mob/source, mob/user)
 	return TRUE
 
 
@@ -219,7 +219,7 @@
  * Clean up when an implant is removed.
  * * source - the user who the implant was removed from.
  */
-/obj/item/implant/proc/removed(mob/source)
+/obj/item/bio_chip/proc/removed(mob/source)
 	loc = null
 	imp_in = null
 	implanted = FALSE
@@ -239,6 +239,6 @@
 
 	return TRUE
 
-/obj/item/implant/dropped(mob/user)
+/obj/item/bio_chip/dropped(mob/user)
 	. = TRUE
 	..()

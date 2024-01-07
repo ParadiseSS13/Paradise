@@ -290,7 +290,7 @@
 	desc = "A single-use bio-chip which contains an experimental serum that causes rapid muscular growth in Hominidae. \
 			Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
 	reference = "MAG"
-	item = /obj/item/implanter/gorilla_rampage
+	item = /obj/item/bio_chip_implanter/gorilla_rampage
 	cost = 25
 	job = list("Research Director", "Geneticist")
 
@@ -340,7 +340,7 @@
 	name = "Synthetic Supercharge Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated manually to inject a chemical cocktail, which has the effect of removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
 	reference = "SSI"
-	item = /obj/item/implanter/supercharge
+	item = /obj/item/bio_chip_implanter/supercharge
 	cost = 40
 	species = list("Machine")
 	surplus = 0
@@ -364,6 +364,16 @@
 	item = /obj/item/clothing/mask/holo_cigar
 	cost = 10
 	species = list("Human")
+
+//Gr(e)(a)y
+/datum/uplink_item/species_restricted/prescan
+	name = "Technocracy Advanced Cloning System"
+	desc = "This kit will give you the parts to build an advanced automatic cloning system, to clone whoever has the linked implant installed on death. \
+	Power intensive, implant must be recovered for reuse, and implanter must be linked to cloner."
+	reference = "TACS"
+	item = /obj/item/storage/box/syndie_kit/prescan
+	cost = 25 /// A fresh start, but a start with nothing. Hard to use as well
+	species = list("Grey")
 
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS
@@ -496,11 +506,11 @@
 	surplus = 60
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/implants/uplink // Nukies get Nuclear Uplink Bio-chip instead
+/datum/uplink_item/bio_chips/uplink // Nukies get Nuclear Uplink Bio-chip instead
 	name = "Uplink Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated manually to open an uplink with 50 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
 	reference = "UI"
-	item = /obj/item/implanter/uplink
+	item = /obj/item/bio_chip_implanter/uplink
 	cost = 70
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
