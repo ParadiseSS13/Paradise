@@ -1,4 +1,4 @@
-/obj/item/implant/supercharge
+/obj/item/bio_chip/supercharge
 	name = "supercharge bio-chip"
 	desc = "Removes all stuns and knockdowns."
 	icon_state = "adrenal"
@@ -7,7 +7,7 @@
 	implant_data = /datum/implant_fluff/adrenaline
 	implant_state = "implant-syndicate"
 
-/obj/item/implant/supercharge/activate()
+/obj/item/bio_chip/supercharge/activate()
 	uses--
 	to_chat(imp_in, "<span class='notice'>You feel an electric sensation as your components enter overdrive!</span>")
 	imp_in.SetStunned(0)
@@ -24,11 +24,11 @@
 	if(!uses)
 		qdel(src)
 
-/obj/item/implanter/supercharge
+/obj/item/bio_chip_implanter/supercharge
 	name = "bio-chip implanter (supercharge)"
-	implant_type = /obj/item/implant/supercharge
+	implant_type = /obj/item/bio_chip/supercharge
 
-/obj/item/implantcase/supercharge
+/obj/item/bio_chip_case/supercharge
 	name = "bio-chip case - 'supercharge'"
 	desc = "A glass case containing an supercharge bio-chip."
-	implant_type = /obj/item/implant/supercharge
+	implant_type = /obj/item/bio_chip/supercharge

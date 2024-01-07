@@ -1,4 +1,4 @@
-/obj/item/implant/adrenalin
+/obj/item/bio_chip/adrenalin
 	name = "adrenal bio-chip"
 	desc = "Removes all stuns and knockdowns."
 	icon_state = "adrenal"
@@ -7,7 +7,7 @@
 	implant_data = /datum/implant_fluff/adrenaline
 	implant_state = "implant-syndicate"
 
-/obj/item/implant/adrenalin/activate()
+/obj/item/bio_chip/adrenalin/activate()
 	uses--
 	to_chat(imp_in, "<span class='notice'>You feel a sudden surge of energy!</span>")
 	imp_in.SetStunned(0)
@@ -24,11 +24,11 @@
 	if(!uses)
 		qdel(src)
 
-/obj/item/implanter/adrenalin
+/obj/item/bio_chip_implanter/adrenalin
 	name = "bio-chip implanter (adrenalin)"
-	implant_type = /obj/item/implant/adrenalin
+	implant_type = /obj/item/bio_chip/adrenalin
 
-/obj/item/implantcase/adrenaline
+/obj/item/bio_chip_case/adrenaline
 	name = "bio-chip case - 'Adrenaline'"
 	desc = "A glass case containing an adrenaline bio-chip."
-	implant_type = /obj/item/implant/adrenalin
+	implant_type = /obj/item/bio_chip/adrenalin

@@ -628,7 +628,25 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return 1
 
 	face_atom(A)
-	var/list/result = A.examine(src)
+	if(!client)
+		var/list/result = A.examine(src)
+		to_chat(src, chat_box_examine(result.Join("\n")))
+		return
+
+	var/list/result
+	LAZYINITLIST(client.recent_examines)
+	for(var/key in client.recent_examines)
+		if(client.recent_examines[key] < world.time)
+			client.recent_examines -= key
+	var/ref_to_atom = A.UID()
+	if(LAZYACCESS(client.recent_examines, ref_to_atom))
+		result = A.examine_more(src)
+		if(!length(result))
+			result += "<span class='notice'><i>You examine [A] closer, but find nothing of interest...</i></span>"
+	else
+		result = A.examine(src)
+		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
+
 	to_chat(src, chat_box_examine(result.Join("\n")))
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)

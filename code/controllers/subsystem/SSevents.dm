@@ -30,6 +30,8 @@ SUBSYSTEM_DEF(events)
 
 	var/datum/event_meta/new_event = new
 
+	var/list/biohazards_this_round = list()
+
 /datum/controller/subsystem/events/Initialize()
 	allEvents = subtypesof(/datum/event)
 
