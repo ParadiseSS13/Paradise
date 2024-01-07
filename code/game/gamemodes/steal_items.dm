@@ -66,18 +66,6 @@
 	protected_jobs = list("Captain", "Research Director", "Chief Engineer")
 	location_override = "Teleporter"
 
-/datum/theft_objective/ai
-	name = "a functional AI"
-	typepath = /obj/item/aicard
-	location_override = "AI Satellite. An intellicard for transportation can be found in Tech Storage, Science Department or manufactured"
-
-/datum/theft_objective/ai/check_special_completion(obj/item/aicard/C)
-	if(..())
-		for(var/mob/living/silicon/ai/A in C)
-			if(isAI(A) && A.stat != 2) //See if any AI's are alive inside that card.
-				return 1
-	return 0
-
 /datum/theft_objective/defib
 	name = "the chief medical officer's advanced compact defibrillator"
 	typepath = /obj/item/defibrillator/compact/advanced

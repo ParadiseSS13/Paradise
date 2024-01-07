@@ -99,7 +99,7 @@
 	INVOKE_ASYNC(client, TYPE_PROC_REF(/client, colour_transition), get_screen_colour(), flash_time)
 
 /proc/ismindshielded(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
-	for(var/obj/item/implant/mindshield/L in A)
+	for(var/obj/item/bio_chip/mindshield/L in A)
 		if(L && L.implanted)
 			return 1
 	return 0
@@ -602,7 +602,7 @@
 
 /mob/proc/rename_character(oldname, newname)
 	if(!newname)
-		return 0
+		return FALSE
 	real_name = newname
 	name = newname
 	if(mind)
@@ -620,8 +620,8 @@
 
 		//update our pda and id if we have them on our person
 		var/list/searching = GetAllContents(searchDepth = 3)
-		var/search_id = 1
-		var/search_pda = 1
+		var/search_id = TRUE
+		var/search_pda = TRUE
 
 		for(var/A in searching)
 			if(search_id && istype(A,/obj/item/card/id))
@@ -630,27 +630,26 @@
 					ID.registered_name = newname
 					ID.name = "[newname]'s ID Card ([ID.assignment])"
 					ID.RebuildHTML()
-					if(!search_pda)	break
-					search_id = 0
+					if(!search_pda)
+						break
+					search_id = FALSE
 
 			else if(search_pda && istype(A,/obj/item/pda))
 				var/obj/item/pda/PDA = A
 				if(PDA.owner == oldname)
 					PDA.owner = newname
 					PDA.name = "PDA-[newname] ([PDA.ownjob])"
-					if(!search_id)	break
-					search_pda = 0
+					if(!search_id)
+						break
+					search_pda = FALSE
 
 		//Fixes renames not being reflected in objective text
-		var/length
-		var/pos
-		for(var/datum/objective/objective in GLOB.all_objectives)
-			if(!mind || objective.target != mind)
-				continue
-			length = length(oldname)
-			pos = findtextEx(objective.explanation_text, oldname)
-			objective.explanation_text = copytext(objective.explanation_text, 1, pos)+newname+copytext(objective.explanation_text, pos+length)
-	return 1
+		if(mind)
+			for(var/datum/objective/objective in GLOB.all_objectives)
+				if(objective.target != mind)
+					continue
+				objective.update_explanation_text()
+	return TRUE
 
 /mob/proc/rename_self(role, allow_numbers = FALSE, force = FALSE)
 	spawn(0)

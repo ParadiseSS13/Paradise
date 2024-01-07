@@ -1002,7 +1002,7 @@
 /area/station/security/permabrig)
 "aga" = (
 /obj/structure/table,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/item/seeds/tobacco,
 /obj/item/storage/fancy/rollingpapers,
 /turf/simulated/floor/plasteel{
@@ -49148,7 +49148,7 @@
 /area/station/command/office/blueshield)
 "iKY" = (
 /obj/structure/table/glass/reinforced,
-/obj/item/storage/box/matches{
+/obj/item/storage/fancy/matches{
 	pixel_x = 1;
 	pixel_y = -1
 	},
