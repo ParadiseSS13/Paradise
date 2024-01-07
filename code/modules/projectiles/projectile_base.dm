@@ -62,7 +62,7 @@
 	var/jitter = 0
 	/// Number of times an object can pass through an object. -1 is infinite
 	var/forcedodge = 0
-	/// Does the projectile increase fire stacks / immolate mobs on hit?
+	/// Does the projectile increase fire stacks / immolate mobs on hit? Applies fire stacks equal to the number on hit.
 	var/immolate = 0
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 	var/impact_effect_type //what type of impact effect to show when hitting something

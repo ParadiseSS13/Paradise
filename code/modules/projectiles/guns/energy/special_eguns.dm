@@ -918,14 +918,15 @@
 	damage *= 6 //objects tend to fall apart as atoms are ripped up
 
 /obj/item/projectile/energy/vortex_blast/on_hit(atom/target, blocked = 0)
-	if(blocked < 100)
-		if(ishuman(target))
-			var/mob/living/carbon/human/L = target
-			var/obj/item/organ/external/affecting = L.get_organ(ran_zone(def_zone))
-			L.apply_damage(2, BRUTE, affecting, L.run_armor_check(affecting, ENERGY))
-			L.apply_damage(2, TOX, affecting, L.run_armor_check(affecting, ENERGY))
-			L.apply_damage(2, CLONE, affecting, L.run_armor_check(affecting, ENERGY))
-			L.adjustBrainLoss(3)
+	if(blocked >= 100)
+		return ..()
+	if(ishuman(target))
+		var/mob/living/carbon/human/L = target
+		var/obj/item/organ/external/affecting = L.get_organ(ran_zone(def_zone))
+		L.apply_damage(2, BRUTE, affecting, L.run_armor_check(affecting, ENERGY))
+		L.apply_damage(2, TOX, affecting, L.run_armor_check(affecting, ENERGY))
+		L.apply_damage(2, CLONE, affecting, L.run_armor_check(affecting, ENERGY))
+		L.adjustBrainLoss(3)
 	..()
 
 /obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast

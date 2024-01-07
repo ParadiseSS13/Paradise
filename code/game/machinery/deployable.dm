@@ -328,7 +328,7 @@
 	///The core shield that protects the generator
 	var/obj/structure/barricade/dropwall/core_shield = null
 	/// The type of dropwall
-	var/our_type = /obj/structure/barricade/dropwall
+	var/barricade_type = /obj/structure/barricade/dropwall
 
 /obj/structure/dropwall_generator/Initialize(mapload, direction, uptime)
 	. = ..()
@@ -346,18 +346,18 @@
 	addtimer(CALLBACK(src, PROC_REF(power_out)), uptime)
 	timer_overlay_proc(uptime/10)
 
-	connected_shields += new our_type(get_turf(loc), src, TRUE, direction)
+	connected_shields += new barricade_type(get_turf(loc), src, TRUE, direction)
 	core_shield = connected_shields[1]
 
 	var/dir_left = turn(direction, -90)
 	var/dir_right = turn(direction, 90)
 	var/target_turf = get_step(src, dir_left)
 	if(!is_blocked_turf(target_turf))
-		connected_shields += new our_type(target_turf, src, FALSE, direction, dir_left)
+		connected_shields += new barricade_type(target_turf, src, FALSE, direction, dir_left)
 
 	var/target_turf2 = get_step(src, dir_right)
 	if(!is_blocked_turf(target_turf2))
-		connected_shields += new our_type(target_turf2, src, FALSE, direction, dir_right)
+		connected_shields += new barricade_type(target_turf2, src, FALSE, direction, dir_right)
 
 
 /obj/structure/dropwall_generator/attacked_by(obj/item/I, mob/living/user) //No, you can not just go up to the generator and whack it. Central shield needs to go down first.
@@ -423,7 +423,7 @@
 
 /obj/structure/dropwall_generator/firewall
 	name = "deployed firewall shield generator"
-	our_type = /obj/structure/barricade/dropwall/firewall
+	barricade_type = /obj/structure/barricade/dropwall/firewall
 
 /obj/structure/barricade/dropwall/firewall
 
