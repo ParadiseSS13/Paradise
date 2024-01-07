@@ -103,6 +103,7 @@
 /datum/sprite_accessory/hair/ipc/ipc_screen_waiting
 	name = "Waiting IPC screen"
 	icon_state = "waiting"
+
 /datum/sprite_accessory/hair/ipc/hesphiastos_alt_off
 	name = "Dark Hesphiastos Screen"
 	icon_state = "off"
