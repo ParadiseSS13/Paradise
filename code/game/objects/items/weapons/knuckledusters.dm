@@ -51,7 +51,6 @@
 		squishy.receive_damage(trauma) // Probably not so good for your organs to have your already broken ribs punched hard again
 		return
 
-
 /obj/item/melee/knuckleduster/syndie
 	name = "syndicate knuckleduster"
 	desc = "For feeling like a real Syndicate Elite when threatening to punch someone to death."
