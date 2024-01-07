@@ -81,7 +81,7 @@ const ChemDispenserChemicals = (properties, context) => {
     flexFillers.push(true);
   }
   return (
-    <Stack.Item grow height="18%">
+    <Stack.Item grow height="17%">
       <Section
         fill
         scrollable
@@ -89,8 +89,9 @@ const ChemDispenserChemicals = (properties, context) => {
       >
         {chemicals.map((c, i) => (
           <Button
+            m={0.1}
             key={i}
-            width="32%"
+            width="32.5%"
             icon="arrow-circle-down"
             overflow="hidden"
             textOverflow="ellipsis"
