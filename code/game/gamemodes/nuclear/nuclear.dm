@@ -309,7 +309,7 @@
 				synd_mob.update_action_buttons_icon()
 
 	synd_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
-	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(synd_mob)
+	var/obj/item/bio_chip/explosive/E = new/obj/item/bio_chip/explosive(synd_mob)
 	E.implant(synd_mob)
 	synd_mob.faction |= "syndicate"
 	synd_mob.update_icons()

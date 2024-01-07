@@ -132,8 +132,8 @@
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
 	for(var/datum/reagent/R as anything in reagents.reagent_list)
 		if(initial(R.id) == "????") // Yes this is a specific case that we don't really want
-			return TRUE
-	reagents.reaction(M, REAGENT_INGEST, 0.1)
+			continue
+		reagents.reaction(M, REAGENT_INGEST, 0.1)
 	return TRUE
 
 

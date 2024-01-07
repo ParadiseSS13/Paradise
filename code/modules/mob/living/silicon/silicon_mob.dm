@@ -167,13 +167,15 @@
 		alarm_types_clear[key] = 0
 
 /mob/living/silicon/rename_character(oldname, newname)
-	// we actually don't want it changing minds and stuff
 	if(!newname)
-		return 0
+		return FALSE
 
 	real_name = newname
 	name = real_name
-	return 1
+	if(mind?.is_original_mob(src))
+		mind.set_original_mob(src) // update our original mind name, since this is our original mob.
+		mind.name = newname
+	return TRUE
 
 /mob/living/silicon/proc/show_laws()
 	return
@@ -432,3 +434,8 @@
 
 /mob/living/silicon/on_standing_up()
 	return // Silicons are always standing by default.
+
+/mob/living/silicon/throw_impact(atom/hit_atom, throwingdatum, speed = 1)
+	. = ..()
+	var/damage = 10 + 1.5 * speed
+	hit_atom.hit_by_thrown_mob(src, throwingdatum, damage, FALSE, FALSE)

@@ -324,7 +324,7 @@
 		))
 	if(!keep_turfs)
 		keep_turfs = typecacheof(list(
-			/turf/simulated/floor/plating/lava,
+			/turf/simulated/floor/lava,
 			/turf/simulated/floor/indestructible/hierophant,
 			/turf/simulated/floor/indestructible/necropolis
 			))

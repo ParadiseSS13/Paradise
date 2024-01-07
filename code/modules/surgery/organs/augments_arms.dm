@@ -294,7 +294,7 @@
 /obj/item/organ/internal/cyberimp/arm/combat/centcom
 	name = "NT specops cybernetics implant"
 	desc = "An extremely powerful cybernetic implant that contains combat and utility modules used by NT special forces."
-	contents = newlist(/obj/item/gun/energy/pulse/pistol/m1911, /obj/item/door_remote/omni, /obj/item/melee/energy/blade/hardlight, /obj/item/reagent_containers/hypospray/combat/nanites, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/implanter/mindshield, /obj/item/flash/armimplant)
+	contents = newlist(/obj/item/gun/energy/pulse/pistol/m1911, /obj/item/door_remote/omni, /obj/item/melee/energy/blade/hardlight, /obj/item/reagent_containers/hypospray/combat/nanites, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/bio_chip_implanter/mindshield, /obj/item/flash/armimplant)
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "m1911"
 	emp_proof = 1
@@ -481,6 +481,7 @@
 	desc = "A modification to a users arm, allowing them to use a vortex core energy feedback, to parry, reflect, and even empower projectile attacks. Rumors that it runs on the user's blood are unconfirmed."
 	icon_state = "v1_arm"
 	item_state = "v1_arm"
+	icon = 'icons/obj/items.dmi'
 	sprite_sheets_inhand = list("Drask" = 'icons/mob/clothing/species/drask/held.dmi', "Vox" = 'icons/mob/clothing/species/vox/held.dmi')
 	force = 20 //bonk, not sharp
 	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interrupted", "gored")
