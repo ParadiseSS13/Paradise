@@ -19,7 +19,7 @@
 			our_characters_names += saves.real_name
 			our_character_saves += list(saves.real_name = saves)
 
-		var/character_name = input("Select a character", "Character selection") as null|anything in our_characters_names
+		var/character_name = tgui_input_list(user, "Select a character", "Character selection", our_characters_names)
 		if(!character_name)
 			return
 		if(QDELETED(user))
@@ -38,7 +38,7 @@
 	equip_item(H, /obj/item/radio/headset/deadsay, SLOT_HUD_LEFT_EAR)
 	H.dna.species.before_equip_job(/datum/job/assistant, H)
 	H.dna.species.remains_type = /obj/effect/decal/cleanable/ash
-	var/obj/item/implant/dust/I = new
+	var/obj/item/bio_chip/dust/I = new
 	I.implant(H, null)
 	for(var/gear in save_to_load.loadout_gear)
 		var/datum/gear/G = GLOB.gear_datums[text2path(gear) || gear]

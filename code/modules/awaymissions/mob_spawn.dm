@@ -2,7 +2,12 @@
 
 //If someone can do this in a neater way, be my guest-Kor
 
-//To do: Allow corpses to appear mangled, bloody, etc. Allow customizing the bodies appearance (they're all bald and white right now).
+// To do: Allow customizing the bodies appearance (they're all bald and white right now).
+
+/// this mob spawn creates the corpse instantly
+#define CORPSE_INSTANT 1
+/// this mob spawn creates the corpse during GAME_STATE_PLAYING
+#define CORPSE_ROUNDSTART 2
 
 /obj/effect/mob_spawn
 	name = "Unknown"
@@ -82,9 +87,14 @@
 	if(jobban_isbanned(user, banType) || jobban_isbanned(user, ROLE_SYNDICATE))
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
 		return FALSE
-	if(cannotPossess(user))
-		to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+	if(!HAS_TRAIT(user, TRAIT_RESPAWNABLE))
+		to_chat(user, "<span class='warning'>You currently do not have respawnability!</span>")
 		return FALSE
+	if(isobserver(user))
+		var/mob/dead/observer/O = user
+		if(!O.check_ahud_rejoin_eligibility())
+			to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			return FALSE
 	if(time_check(user))
 		return FALSE
 	return TRUE
@@ -147,6 +157,8 @@
 		M.mind.offstation_role = offstation_role
 		special(M, name)
 		MM.name = M.real_name
+	else
+		special(M)
 	if(uses > 0)
 		uses--
 	if(!permanent && !uses)
@@ -532,7 +544,7 @@
 
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	belt = /obj/item/storage/belt/utility/full
-	suit = /obj/item/clothing/suit/space/hardsuit/engine
+	back = /obj/item/mod/control/pre_equipped/engineering
 	shoes = /obj/item/clothing/shoes/workboots
 	mask = /obj/item/clothing/mask/breath
 	id = /obj/item/card/id/engineering
@@ -564,13 +576,13 @@
 
 /datum/outfit/job/mining/suit
 	name = "Shaft Miner"
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
+	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	uniform = /obj/item/clothing/under/rank/cargo/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
 	l_ear = /obj/item/radio/headset/headset_cargo/mining
 	id = /obj/item/card/id/shaftminer
-	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
+	l_pocket = /obj/item/reagent_containers/patch/styptic
 	r_pocket = /obj/item/flashlight/seclite
 
 //Scientist corpse.
@@ -609,8 +621,49 @@
 	icon_state = "sleeper"
 	flavour_text = "Moo!"
 
+/// these mob spawn subtypes trigger immediately (New or Initialize) and are not player controlled... since they're dead, you know?
+/obj/effect/mob_spawn/corpse
+	/// when this mob spawn should auto trigger.
+	var/spawn_when = CORPSE_INSTANT
+
+	/// what environmental storytelling script should this corpse have
+	var/corpse_description = ""
+	/// optionally different text to display if the target is a clown
+	var/naive_corpse_description = ""
+
+/obj/effect/mob_spawn/corpse/Initialize(mapload, no_spawn)
+	. = ..()
+	if(no_spawn)
+		return
+	switch(spawn_when)
+		if(CORPSE_INSTANT)
+			INVOKE_ASYNC(src, PROC_REF(create))
+		if(CORPSE_ROUNDSTART)
+			if(mapload || (SSticker && SSticker.current_state > GAME_STATE_SETTING_UP))
+				INVOKE_ASYNC(src, PROC_REF(create))
+
+/obj/effect/mob_spawn/corpse/special(mob/living/spawned_mob)
+	. = ..()
+	spawned_mob.death(TRUE)
+	if(corpse_description)
+		spawned_mob.AddComponent(/datum/component/corpse_description, corpse_description, naive_corpse_description)
+
+/obj/effect/mob_spawn/corpse/create(ckey, flavour, name, user)
+	. = ..()
+	qdel(src)
+
+/obj/effect/mob_spawn/corpse/watcher
+	mob_type = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
+	icon = 'icons/mob/lavaland/watcher.dmi'
+	icon_state = "watcher_dead"
+	pixel_x = -12
+
+/obj/effect/mob_spawn/corpse/goliath
+	mob_type = /mob/living/simple_animal/hostile/asteroid/goliath/beast
+	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	icon_state = "goliath_dead"
+	pixel_x = -12
 
 
-
-
-
+#undef CORPSE_INSTANT
+#undef CORPSE_ROUNDSTART

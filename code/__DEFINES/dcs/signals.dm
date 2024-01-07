@@ -564,6 +564,8 @@
 ///from base of obj/item/pre_attack(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_PRE_ATTACK "item_pre_attack"
 	#define COMPONENT_NO_ATTACK (1<<0)
+///from base of obj/item/pre_attack(): (atom/target, mob/user, params)
+#define COMSIG_ITEM_BEING_ATTACKED "item_being_attacked"
 ///from base of obj/item/afterattack(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_AFTERATTACK "item_afterattack"
 ///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, params)
@@ -647,12 +649,12 @@
 #define COMSIG_SUIT_SPACE_TOGGLE "suit_space_toggle"
 
 // /obj/item/implant signals
-///from base of /obj/item/implant/proc/activate(): ()
+///from base of /obj/item/bio_chip/proc/activate(): ()
 #define COMSIG_IMPLANT_ACTIVATED "implant_activated"
-///from base of /obj/item/implant/proc/implant(): (list/args)
+///from base of /obj/item/bio_chip/proc/implant(): (list/args)
 #define COMSIG_IMPLANT_IMPLANTING "implant_implanting"
 	#define COMPONENT_STOP_IMPLANTING (1<<0)
-///called on already installed implants when a new one is being added in /obj/item/implant/proc/implant(): (list/args, obj/item/implant/new_implant)
+///called on already installed implants when a new one is being added in /obj/item/bio_chip/proc/implant(): (list/args, obj/item/bio_chip/new_implant)
 #define COMSIG_IMPLANT_OTHER "implant_other"
 	//#define COMPONENT_STOP_IMPLANTING (1<<0) //The name makes sense for both
 	#define COMPONENT_DELETE_NEW_IMPLANT (1<<1)

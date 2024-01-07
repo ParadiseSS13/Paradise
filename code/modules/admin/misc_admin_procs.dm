@@ -118,6 +118,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			body += "<b>Related accounts by IP:</b> [jointext(M.client.related_accounts_ip, " - ")]<br><br>"
 
 	if(M.ckey)
+		body += "<b>Enabled AntagHUD</b>: [M.has_ahudded() ? "<b><font color='red'>TRUE</font></b>" : "false"]<br>"
+		body += "<b>Roundstart observer</b>: [M.is_roundstart_observer() ? "<b>true</b>" : "false"]<br>"
 		body += "<A href='?_src_=holder;boot2=[M.UID()]'>Kick</A> | "
 		body += "<A href='?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</A> | "
 		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
@@ -404,6 +406,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	message_admins("[key_name_admin(usr)] has admin ended the round with message: '[input]'")
 	log_admin("[key_name(usr)] has admin ended the round with message: '[input]'")
 	SSticker.force_ending = TRUE
+	SSticker.event_blackbox(outcome = ROUND_END_FORCED)
 	to_chat(world, "<span class='warning'><big><b>[input]</b></big></span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	SSticker.mode_result = "admin ended"

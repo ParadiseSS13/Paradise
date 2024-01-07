@@ -97,7 +97,7 @@
 		qdel(B)
 	for(var/mob/living/simple_animal/hostile/carp/holocarp/C in linkedholodeck)
 		qdel(C)
-	holographic_items = A.copy_contents_to(linkedholodeck, platingRequired = TRUE, perfect_copy = FALSE)
+	holographic_items = A.copy_contents_to(linkedholodeck, platingRequired = TRUE)
 
 	if(emagged)
 		for(var/obj/item/holo/H in linkedholodeck)
@@ -357,6 +357,7 @@
 /obj/item/holo/esword
 	name = "holographic energy sword"
 	desc = "This looks like a real energy sword!"
+	icon = 'icons/obj/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "sword0"

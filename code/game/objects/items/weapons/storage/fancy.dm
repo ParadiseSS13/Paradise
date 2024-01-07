@@ -161,6 +161,47 @@
 				return
 	..()
 
+/*
+ * Matches Box
+ */
+
+/obj/item/storage/fancy/matches
+	name = "matchbox"
+	desc = "A small box of Almost But Not Quite Plasma Premium Matches."
+	icon = 'icons/obj/cigarettes.dmi'
+	icon_state = "matchbox"
+	item_state = "matchbox"
+	base_icon_state = "matchbox"
+	storage_slots = 10
+	w_class = WEIGHT_CLASS_TINY
+	max_w_class = WEIGHT_CLASS_TINY
+	slot_flags = SLOT_FLAG_BELT
+	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
+	can_hold = list(/obj/item/match)
+
+/obj/item/storage/fancy/matches/populate_contents()
+	for(var/I in 1 to storage_slots)
+		new /obj/item/match(src)
+
+/obj/item/storage/fancy/matches/attackby(obj/item/match/W, mob/user, params)
+	if(istype(W, /obj/item/match) && !W.lit)
+		W.matchignite()
+		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
+	return
+
+/obj/item/storage/fancy/matches/update_icon_state()
+	. = ..()
+	switch(length(contents))
+		if(10)
+			icon_state = base_icon_state
+		if(5 to 9)
+			icon_state = "[base_icon_state]_almostfull"
+		if(1 to 4)
+			icon_state = "[base_icon_state]_almostempty"
+		if(0)
+			icon_state = "[base_icon_state]_e"
+
 ////////////
 //CIG PACK//
 ////////////

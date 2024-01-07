@@ -26,6 +26,10 @@
 	distill_reagent = "bananahonk"
 	tastes = list("banana" = 1)
 
+/obj/item/reagent_containers/food/snacks/grown/banana/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
+
 /obj/item/reagent_containers/food/snacks/grown/banana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is aiming [src] at [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)

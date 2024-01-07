@@ -113,6 +113,7 @@
 					/obj/item/clothing/head/surgery/black = 1,
 					/obj/item/autopsy_scanner = 1,
 					/obj/item/reagent_scanner = 1,
+					/obj/item/healthanalyzer = 1,
 					/obj/item/storage/box/bodybags = 1)
 
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

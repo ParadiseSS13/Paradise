@@ -127,9 +127,9 @@
 		var/obj/item/clothing/suit/hooded/S = H.wear_suit
 		S.ToggleHood()
 
-/datum/outfit/job/miner/equipped/hardsuit
-	name = "Shaft Miner (Equipment + Hardsuit)"
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
+/datum/outfit/job/miner/equipped/modsuit
+	name = "Shaft Miner (Equipment + MODsuit)"
+	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	mask = /obj/item/clothing/mask/breath
 
 
@@ -290,10 +290,10 @@
 		/obj/item/instrument/bikehorn = 1
 	)
 
-	implants = list(/obj/item/implant/sad_trombone)
+	bio_chips = list(/obj/item/bio_chip/sad_trombone)
 
 	backpack = /obj/item/storage/backpack/clown
-	satchel = /obj/item/storage/backpack/clown
+	satchel = /obj/item/storage/backpack/satchel/clown
 	dufflebag = /obj/item/storage/backpack/duffel/clown
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -466,34 +466,6 @@
 		if(new_language.flags & (HIVEMIND|NOLIBRARIAN))
 			continue
 		H.add_language(la)
-
-/datum/job/barber
-	title = "Barber"
-	flag = JOB_BARBER
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
-	spawn_positions = 1
-	job_department_flags = DEP_FLAG_SERVICE
-	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
-	alt_titles = list("Hair Stylist","Beautician")
-	access = list(ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS)
-	outfit = /datum/outfit/job/barber
-
-/datum/outfit/job/barber
-	name = "Barber"
-	jobtype = /datum/job/barber
-
-	uniform = /obj/item/clothing/under/rank/civilian/barber
-	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/radio/headset/headset_service
-	id = /obj/item/card/id/barber
-	backpack_contents = list(
-		/obj/item/storage/box/lip_stick = 1,
-		/obj/item/storage/box/barber = 1
-	)
 
 /datum/job/explorer
 	title = "Explorer"

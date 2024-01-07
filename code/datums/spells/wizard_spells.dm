@@ -15,7 +15,7 @@
 	proj_type = "/obj/effect/proc_holder/spell/inflict_handler/magic_missile"
 
 	proj_lifespan = 20
-	proj_step_delay = 5
+	proj_step_delay = 2
 
 	proj_trail = 1
 	proj_trail_lifespan = 5
@@ -190,6 +190,29 @@
 /obj/effect/proc_holder/spell/area_teleport/teleport/create_new_targeting()
 	return new /datum/spell_targeting/self
 
+/obj/effect/proc_holder/spell/return_to_teacher
+	name = "Return to Teacher"
+	desc = "This spell teleports you back to your teacher."
+
+	school = "abjuration"
+	base_cooldown = 30 SECONDS
+	clothes_req = TRUE
+	invocation = "SCYAR TESO"
+	invocation_type = "shout"
+	cooldown_min = 10 SECONDS
+
+	action_icon_state = "spell_teleport"
+	var/datum/mind/teacher
+
+/obj/effect/proc_holder/spell/return_to_teacher/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/return_to_teacher/cast(list/targets, mob/living/user = usr)
+	if(!(teacher && teacher.current))
+		to_chat(user, "<span class='danger'>The link to your teacher is broken!</span>")
+		return
+	do_teleport(user, teacher.current, 1, sound_in = 'sound/magic/blink.ogg', sound_out = 'sound/magic/blink.ogg', safe_turf_pick = TRUE)
+
 /obj/effect/proc_holder/spell/forcewall
 	name = "Force Wall"
 	desc = "This spell creates a 3 tile wide unbreakable wall that only you can pass through, and does not need wizard garb. Lasts 30 seconds."
@@ -283,12 +306,12 @@
 	desc = "This spell temporarily blinds a single person and does not require wizard garb."
 
 	school = "transmutation"
-	base_cooldown = 300
+	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	invocation = "STI KALY"
 	invocation_type = "whisper"
 	message = "<span class='notice'>Your eyes cry out in pain!</span>"
-	cooldown_min = 50 //12 deciseconds reduction per rank
+	cooldown_min = 2 SECONDS
 
 	starting_spells = list("/obj/effect/proc_holder/spell/inflict_handler/blind","/obj/effect/proc_holder/spell/genetic/blind")
 
@@ -331,6 +354,9 @@
 	sound = 'sound/magic/fireball.ogg'
 
 	active = FALSE
+
+/obj/effect/proc_holder/spell/fireball/apprentice
+	centcom_cancast = FALSE
 
 /obj/effect/proc_holder/spell/fireball/create_new_targeting()
 	var/datum/spell_targeting/clicked_atom/C = new()
