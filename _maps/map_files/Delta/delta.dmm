@@ -2641,7 +2641,7 @@
 /area/station/maintenance/electrical_shop)
 "aqx" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/electrical_shop)
 "aqy" = (
@@ -9183,7 +9183,7 @@
 	pixel_y = 5
 	},
 /obj/item/storage/fancy/cigarettes/cigpack_random,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
 "aGG" = (
@@ -67421,7 +67421,7 @@
 "dEV" = (
 /obj/structure/table/wood,
 /obj/item/clothing/mask/cigarette/pipe,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
@@ -85195,7 +85195,7 @@
 "naA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /turf/simulated/floor/plating,

@@ -1,7 +1,7 @@
-/obj/item/implanter
+/obj/item/bio_chip_implanter
 	name = "bio-chip implanter"
 	desc = "A sterile automatic bio-chip injector."
-	icon = 'icons/obj/implants.dmi'
+	icon = 'icons/obj/bio_chips.dmi'
 	icon_state = "implanter0"
 	item_state = "syringe_0"
 	throw_speed = 3
@@ -10,10 +10,10 @@
 	origin_tech = "materials=2;biotech=3"
 	materials = list(MAT_METAL = 600, MAT_GLASS = 200)
 	toolspeed = 1
-	var/obj/item/implant/imp
-	var/obj/item/implant/implant_type
+	var/obj/item/bio_chip/imp
+	var/obj/item/bio_chip/implant_type
 
-/obj/item/implanter/update_icon_state()
+/obj/item/bio_chip_implanter/update_icon_state()
 	if(imp)
 		icon_state = "implanter1"
 		origin_tech = imp.origin_tech
@@ -21,7 +21,7 @@
 		icon_state = "implanter0"
 		origin_tech = initial(origin_tech)
 
-/obj/item/implanter/attack(mob/living/carbon/M, mob/user)
+/obj/item/bio_chip_implanter/attack(mob/living/carbon/M, mob/user)
 	if(!iscarbon(M))
 		return
 	if(user && imp)
@@ -39,18 +39,18 @@
 					imp = null
 					update_icon(UPDATE_ICON_STATE)
 
-/obj/item/implanter/attackby(obj/item/W, mob/user, params)
+/obj/item/bio_chip_implanter/attackby(obj/item/W, mob/user, params)
 	..()
 	if(is_pen(W))
 		rename_interactive(user, W)
 
-/obj/item/implanter/Initialize(mapload)
+/obj/item/bio_chip_implanter/Initialize(mapload)
 	. = ..()
 	if(!implant_type)
 		return
 	imp = new implant_type()
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/implanter/Destroy()
+/obj/item/bio_chip_implanter/Destroy()
 	QDEL_NULL(imp)
 	. = ..()

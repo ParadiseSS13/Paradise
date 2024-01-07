@@ -38,7 +38,7 @@
 	equip_item(H, /obj/item/radio/headset/deadsay, SLOT_HUD_LEFT_EAR)
 	H.dna.species.before_equip_job(/datum/job/assistant, H)
 	H.dna.species.remains_type = /obj/effect/decal/cleanable/ash
-	var/obj/item/implant/dust/I = new
+	var/obj/item/bio_chip/dust/I = new
 	I.implant(H, null)
 	for(var/gear in save_to_load.loadout_gear)
 		var/datum/gear/G = GLOB.gear_datums[text2path(gear) || gear]
