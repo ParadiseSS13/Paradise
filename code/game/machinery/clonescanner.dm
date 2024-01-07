@@ -65,13 +65,13 @@
 	density = TRUE
 	anchored = TRUE
 
-	//The linked cloning console.
+	/// The linked cloning console.
 	var/obj/machinery/computer/cloning/console
-	//The tier of scan we can perform. Tier 2 parts and up can scan husks - or a tier 4 scanner and tier 1 laser.
+	/// The tier of scan we can perform. Tier 2 parts and up can scan husks - or a tier 4 scanner and tier 1 laser.
 	var/scanning_tier
-	//The scanner's occupant.
+	/// The scanner's occupant.
 	var/mob/living/carbon/human/occupant
-	//The scanner's latest scan result
+	/// The scanner's latest scan result
 	var/datum/cloning_data/last_scan
 	/// Whether or not we've tried to scan the current patient
 	var/has_scanned = FALSE

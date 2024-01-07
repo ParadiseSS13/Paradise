@@ -14,7 +14,7 @@
 
 /obj/item/disk/data/proc/initialize()
 	buf = new
-	buf.dna=new
+	buf.dna = new
 
 /obj/item/disk/data/Destroy()
 	QDEL_NULL(buf)
@@ -25,17 +25,17 @@
 	read_only = TRUE
 
 /obj/item/disk/data/demo/New()
-	..()
+	. = ..()
 	initialize()
 	buf.types=DNA2_BUF_UE|DNA2_BUF_UI
 	//data = "066000033000000000AF00330660FF4DB002690"
 	//data = "0C80C80C80C80C80C8000000000000161FBDDEF" - Farmer Jeff
-	buf.dna.real_name="God Emperor of Mankind"
+	buf.dna.real_name = "God Emperor of Mankind"
 	buf.dna.unique_enzymes = md5(buf.dna.real_name)
-	buf.dna.UI=list(0x066,0x000,0x033,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0xAF0,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x033,0x066,0x0FF,0x4DB,0x002,0x690,0x000,0x000,0x000,0x328,0x045,0x5FC,0x053,0x035,0x035,0x035)
+	buf.dna.UI = list(0x066,0x000,0x033,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0xAF0,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x033,0x066,0x0FF,0x4DB,0x002,0x690,0x000,0x000,0x000,0x328,0x045,0x5FC,0x053,0x035,0x035,0x035)
 	//buf.dna.UI=list(0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x000,0x000,0x000,0x000,0x161,0xFBD,0xDEF) // Farmer Jeff
-	if(buf.dna.UI.len != DNA_UI_LENGTH) //If there's a disparity b/w the dna UI string lengths, 0-fill the extra blocks in this UI.
-		for(var/i in buf.dna.UI.len to DNA_UI_LENGTH)
+	if(length(buf.dna.UI) != DNA_UI_LENGTH) //If there's a disparity b/w the dna UI string lengths, 0-fill the extra blocks in this UI.
+		for(var/i in length(buf.dna.UI) to DNA_UI_LENGTH)
 			buf.dna.UI += 0x000
 	buf.dna.ResetSE()
 	buf.dna.UpdateUI()
@@ -47,17 +47,17 @@
 /obj/item/disk/data/monkey/New()
 	..()
 	initialize()
-	buf.types=DNA2_BUF_SE
-	var/list/new_SE=list(0x098,0x3E8,0x403,0x44C,0x39F,0x4B0,0x59D,0x514,0x5FC,0x578,0x5DC,0x640,0x6A4)
-	for(var/i=new_SE.len;i<=DNA_SE_LENGTH;i++)
-		new_SE += rand(1,1024)
-	buf.dna.SE=new_SE
-	buf.dna.SetSEValueRange(GLOB.monkeyblock,0xDAC, 0xFFF)
+	buf.types = DNA2_BUF_SE
+	var/list/new_SE = list(0x098,0x3E8,0x403,0x44C,0x39F,0x4B0,0x59D,0x514,0x5FC,0x578,0x5DC,0x640,0x6A4)
+	for(var/i = length(new_SE); i<=DNA_SE_LENGTH; i++)
+		new_SE += rand(1, 1024)
+	buf.dna.SE = new_SE
+	buf.dna.SetSEValueRange(GLOB.monkeyblock, 0xDAC, 0xFFF)
 
 //Disk stuff.
 /obj/item/disk/data/New()
 	..()
-	var/diskcolor = pick(0,1,2)
+	var/diskcolor = pick(0, 1, 2)
 	icon_state = "datadisk[diskcolor]"
 
 /obj/item/disk/data/attack_self(mob/user as mob)

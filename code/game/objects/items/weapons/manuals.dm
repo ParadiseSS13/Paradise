@@ -366,7 +366,7 @@
 				</head>
 				<body>
 
-				<H3>How to Clone People</H3>
+				<h3>How to Clone People</h3>
 				Picture the scene: there's five corpses surrounding you, the Chief Medical Officer is yelling something \
 				about terror spiders into their radio, and you only graduated medical school last week. What are you supposed to do? <br> \
 				Well, Thinktronics Corporation is proud to present you the new and improved TTC-5601 cloning device - capable of \
@@ -382,7 +382,7 @@
 					<li><a href='#6'>Finish Procedure</a></li>
 				</ol>
 
-				<a name='1'><H4>Step 1: Preparation</H4>
+				<a name='1'><h4>Step 1: Preparation</h4>
 				Your patient must be dead to clone them (as of the Cloning Regulatory Act of 2533). Therefore, make sure that \
 				they are deceased before proceeding, and ideally try to revive them via defibrillation! If that fails, however, \
 				you should strip them of their equipment and check to make sure the cloning pod is loaded with, at least, 250 \
@@ -393,27 +393,27 @@
 				both much harder to replenish than biomass, so consider being polite to your chemists and fixing these via \
 				surgery instead.
 
-				<a name='2'><H4>Step 2: Load into Cloning Scanner</H4>
+				<a name='2'><h4>Step 2: Load into Cloning Scanner</h4>
 				After stripping your patient, load them into the cloning device's scanning machine, as you would with any other \
 				device.
 
-				<a name='3'><H4>Step 3: Scan Patient</H4>
+				<a name='3'><h4>Step 3: Scan Patient</h4>
 				Access the cloning device's terminal, then navigate to the Damage Configuration menu and click 'scan.' If you see \
 				'Scan Successful' - great! Move on to the next step. If not, the device will inform you about what went wrong with \
 				the process. If it says it failed to sequence the patient's brain, try to scan them again in a few seconds. \
 
-				<a name='4'><H4>Step 4: Configure Device</H4>
+				<a name='4'><h4>Step 4: Configure Device</h4>
 				This step is where the TTC-5601 cloning device diverges from its earlier models. Its advanced systems allow you to \
 				conserve resources and elect to <i>not</i> fix certain damages, or elect to fix all damages - all on the fly! Keep \
 				in mind that if you're short on resources, you'll <i>have</i> to leave some damages on the patient in order to clone \
 				them. Once you're done tweaking settings, proceed to the next step.
 
-				<a name='5'><H4>Step 5: Clone</H4>
+				<a name='5'><h4>Step 5: Clone</h4>
 				This is the simplest, but most important step. Simply press 'Clone' in the Damage Configuration menu, and the machine \
 				will begin the process of cloning. The process is fully automatic, so feel free to take care of other chores in the \
 				meanwhile - like moving the scanned cadaver to the morgue.
 
-				<a name='6'><H4>Step 6: Finish Procedure</H4>
+				<a name='6'><h4>Step 6: Finish Procedure</h4>
 				After cloning, the patient may be disoriented - help them to get their bearings and put on the gear you stripped from \
 				their previous body. In addition, make sure to fix any wounds you may have left to save resources before sending them off.
 
