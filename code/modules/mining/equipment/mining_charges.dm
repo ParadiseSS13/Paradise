@@ -8,6 +8,7 @@
 	var/timer_off = FALSE
 	var/installed = FALSE
 	var/smoke_amount = 3
+	/// list of sizes for explosion. Third number is used for actual rock explosion size, second number is radius for Weaken() effects, third is used for hacked charges
 	var/boom_sizes = list(2, 3, 5)
 	var/hacked = FALSE
 
@@ -32,11 +33,11 @@
 	if(is_ancient_rock(AM) && !hacked)
 		visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
 		return
-	if(timer_off) //override original proc for plastic explosions
+	if(!timer_off) //override original proc for plastic explosions
 		return ..()
 	if(!flag)
 		return
-	if(iscarbon(AM, /mob/living/carbon))
+	if(iscarbon(AM))
 		return
 	to_chat(user, "<span class='notice'>You start planting the [src].</span>")
 	if(do_after(user, 25 * toolspeed, target = AM))
@@ -51,17 +52,17 @@
 		target.overlays += image_overlay
 
 /obj/item/grenade/plastic/miningcharge/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/detonator))
-		var/obj/item/detonator/detonator = I
-		if(!(src in detonator.bombs) && !timer_off)
-			detonator.bombs += src
-			timer_off = TRUE
-			to_chat(user, "<span class='notice'>You synchronized [src] to a detonator.</span>")
-			playsound(src, 'sound/machines/twobeep.ogg', 50)
-		else
-			to_chat(user, "<span class='warning'>[src] was already synchronized to a existing detonator!</span>")
-		detonator.update_icon()
-	..()
+	if(!istype(I, /obj/item/detonator))
+		return
+	var/obj/item/detonator/detonator = I
+	if(!(src in detonator.bombs) && !timer_off)
+		detonator.bombs += src
+		timer_off = TRUE
+		to_chat(user, "<span class='notice'>You synchronized [src] to a detonator.</span>")
+		playsound(src, 'sound/machines/twobeep.ogg', 50)
+	else
+		to_chat(user, "<span class='warning'>[src] was already synchronized to a existing detonator!</span>")
+	detonator.update_icon()
 
 /obj/item/grenade/plastic/miningcharge/proc/detonate()
 	addtimer(CALLBACK(src, PROC_REF(prime)), 3 SECONDS)
@@ -116,7 +117,7 @@
 	notify_admins = TRUE
 	boom_sizes[1] = round(boom_sizes[1] / 3)	//lesser - 0, normal - 0, mega - 1; c4 - 0
 	boom_sizes[2] = round(boom_sizes[2] / 3)	//lesser - 0, normal - 1, mega - 2; c4 - 0
-	boom_sizes[3] = round(boom_sizes[3] / 1.5)//lesser - 2, normal - 3, mega - 5; c4 - 3
+	boom_sizes[3] = round(boom_sizes[3] / 1.5)	//lesser - 2, normal - 3, mega - 5; c4 - 3
 
 /obj/item/grenade/plastic/miningcharge/deconstruct(disassembled = TRUE) //no gibbing a miner with pda bombs
 	if(!QDELETED(src))
@@ -147,24 +148,25 @@
 
 /obj/item/t_scanner/adv_mining_scanner/syndicate
 	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. This scanner has an extra port for overriding mining charge safeties."
-	
+
 	var/charges = 6
 
 /obj/item/t_scanner/adv_mining_scanner/syndicate/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	if(istype(target,/obj/item/grenade/plastic/miningcharge))
-		var/obj/item/grenade/plastic/miningcharge/charge = target
-		if(charge.hacked)
-			to_chat(user, "<span class='notice'>[src] is already overridden!</span>")
-			return
-		if(charges <= 0)
-			to_chat(user, "<span class='notice'>Its overriding function is depleted.</span>")
-			return
-		charge.override_safety()
-		visible_message("<span class='warning'>Sparks fly out of [src]!</span>")
-		playsound(src, "sparks", 50, 1)
-		charges--
-		if(charges <= 0)
-			to_chat(user ,"<span class='warning'>[src]'s internal battery for overriding mining charges has run dry!</span>")
+	if(!istype(target, /obj/item/grenade/plastic/miningcharge))
+		return
+	var/obj/item/grenade/plastic/miningcharge/charge = target
+	if(charge.hacked)
+		to_chat(user, "<span class='notice'>[src] is already overridden!</span>")
+		return
+	if(charges <= 0)
+		to_chat(user, "<span class='notice'>Its overriding function is depleted.</span>")
+		return
+	charge.override_safety()
+	visible_message("<span class='warning'>Sparks fly out of [src]!</span>")
+	playsound(src, "sparks", 50, 1)
+	charges--
+	if(charges <= 0)
+		to_chat(user ,"<span class='warning'>[src]'s internal battery for overriding mining charges has run dry!</span>")
 
 // MINING CHARGES DETONATOR
 
@@ -174,7 +176,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Detonator-0"
-	var/list/bombs = list()
+
+	var/list/bombs = list() // list of all bombs connected to a detonator for a moment
 
 /obj/item/detonator/examine(mob/user)
 	. = ..()
