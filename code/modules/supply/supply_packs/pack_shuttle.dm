@@ -63,7 +63,7 @@
 // these ones are pretty reasonable
 
 /datum/supply_packs/abstract/shuttle/bar
-	cost = 3500
+	cost = 3250
 	template = /datum/map_template/shuttle/emergency/bar
 
 /datum/supply_packs/abstract/shuttle/dept
@@ -77,15 +77,15 @@
 // this one isn't great but it isn't horrible either
 
 /datum/supply_packs/abstract/shuttle/cramped
-	cost = 4000
+	cost = 3750
 	template = /datum/map_template/shuttle/emergency/cramped
 
 
 // these, otoh, have some pretty silly features, and are hidden behind emag
 
 /datum/supply_packs/abstract/shuttle/military
-	hidden = TRUE
-	cost = 5000
+	// if you can pool enough money together for this one, maybe you deserve it
+	cost = 4250
 	template = /datum/map_template/shuttle/emergency/military
 
 /datum/supply_packs/abstract/shuttle/clown
@@ -95,10 +95,12 @@
 	template = /datum/map_template/shuttle/emergency/clown
 
 /datum/supply_packs/abstract/shuttle/narnar
+	cost = 3000
 	hidden = TRUE
 	template = /datum/map_template/shuttle/emergency/narnar
 
 
 /datum/supply_packs/abstract/shuttle/jungle
 	hidden = TRUE
+	cost = 4000
 	template = /datum/map_template/shuttle/emergency/jungle
