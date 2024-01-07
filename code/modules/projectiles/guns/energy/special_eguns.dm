@@ -190,6 +190,9 @@
 /obj/item/gun/energy/plasmacutter/update_overlays()
 	return list()
 
+/obj/item/gun/energy/plasmacutter/get_heat()
+	return 3800
+
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
@@ -292,7 +295,7 @@
 // HONK Rifle //
 /obj/item/gun/energy/clown
 	name = "\improper HONK rifle"
-	desc = "Clown Planet's finest."
+	desc = "Clown University's finest."
 	icon_state = "honkrifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = FALSE

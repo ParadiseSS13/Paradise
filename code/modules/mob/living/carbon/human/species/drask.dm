@@ -15,16 +15,13 @@
 	male_sneeze_sound = 'sound/voice/drasksneeze.ogg'
 	female_sneeze_sound = 'sound/voice/drasksneeze.ogg'
 
-	burn_mod = 1.5
 	//exotic_blood = "cryoxadone"
 	body_temperature = 273
 
-	blurb = "Hailing from Hoorlm, planet outside what is usually considered a habitable \
-	orbit, the Drask evolved to live in extreme cold. Their strange bodies seem \
-	to operate better the colder their surroundings are, and can regenerate rapidly \
-	when breathing supercooled gas. <br/><br/> On their homeworld, the Drask live long lives \
-	in their labyrinthine settlements, carved out beneath Hoorlm's icy surface, where the air \
-	is of breathable density."
+	blurb = "Drask are cold-bodied humanoids from the ice world of Hoorlm, contained within a black hole system. \
+	Operating in enclaves run by elders, Drasks are biologically immortal and place great societal value in patience.<br/><br/> \
+	Drask traditionally pay homage to their planet as their birth deity, with many modern Drask viewing space travel a patron saint. \
+	Drasks wield little influence on the galaxy in a traditional sense and have slowly begun to become more prevalent outside their origin system thanks to alien contact."
 
 	suicide_messages = list(
 		"is self-warming with friction!",
@@ -46,7 +43,7 @@
 	heat_level_1 = 310 //Default 370 - Higher is better
 	heat_level_2 = 340 //Default 400
 	heat_level_3 = 400 //Default 460
-	heatmod = 2 // 3 * more damage from body temp
+	heatmod = 3 // 3 * more damage from body temp
 
 	flesh_color = "#a3d4eb"
 	reagent_tag = PROCESS_ORG
