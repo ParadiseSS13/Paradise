@@ -8,7 +8,7 @@
 	var/timer_off = FALSE
 	var/installed = FALSE
 	var/smoke_amount = 3
-	var/boom_sizes = list(2,3,5)
+	var/boom_sizes = list(2, 3, 5)
 	var/hacked = FALSE
 
 /obj/item/grenade/plastic/miningcharge/Initialize()
@@ -27,28 +27,28 @@
 		nadeassembly.attack_self(user)
 
 /obj/item/grenade/plastic/miningcharge/afterattack(atom/movable/AM, mob/user, flag)
-	if(ismineralturf(AM) || hacked)
-		if(is_ancient_rock(AM) && !hacked)
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+	if(!ismineralturf(AM) && !hacked)
+		return
+	if(is_ancient_rock(AM) && !hacked)
+		visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		return
+	if(timer_off) //override original proc for plastic explosions
+		return ..()
+	if(!flag)
+		return
+	if(iscarbon(AM, /mob/living/carbon))
+		return
+	to_chat(user, "<span class='notice'>You start planting the [src].</span>")
+	if(do_after(user, 25 * toolspeed, target = AM))
+		if(!user.unEquip(src))
 			return
-		if(timer_off) //override original proc for plastic explosions
-			if(!flag)
-				return
-			if(istype(AM, /mob/living/carbon))
-				return
-			to_chat(user, "<span class='notice'>You start planting the [src].</span>")
-			if(do_after(user, 25 * toolspeed, target = AM))
-				if(!user.unEquip(src))
-					return
-				src.target = AM
-				loc = null
-				if(hacked)
-					message_admins("[ADMIN_LOOKUPFLW(user)] planted [src.name] on [target.name] at [ADMIN_COORDJMP(target)]")
-					log_game("planted [name] on [target.name] at [COORD(target)]", user)
-				installed = TRUE
-				target.overlays += image_overlay
-			return
-		..()
+		target = AM
+		loc = null
+		if(hacked)
+			message_admins("[ADMIN_LOOKUPFLW(user)] planted [src.name] on [target.name] at [ADMIN_COORDJMP(target)]")
+			log_game("planted [name] on [target.name] at [COORD(target)]", user)
+		installed = TRUE
+		target.overlays += image_overlay
 
 /obj/item/grenade/plastic/miningcharge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/detonator))
@@ -72,17 +72,14 @@
 		return
 	var/turf/simulated/mineral/location = get_turf(target)
 	var/datum/effect_system/smoke_spread/S = new
-	S.set_up(smoke_amount,0,location,null)
+	S.set_up(smoke_amount, 0, location, null)
 	S.start()
 	//location.attempt_drill(null,TRUE,3) //orange says it doesnt include the actual middle
 	for(var/turf/simulated/mineral/rock in circlerangeturfs(location, boom_sizes[3]))
 		var/distance = get_dist_euclidian(location,rock)
-		if(distance <= boom_sizes[1]) //all this will be needed later on
-			rock.gets_drilled(null,TRUE,3)
-		else if(distance <= boom_sizes[2])
-			rock.gets_drilled(null,TRUE,2)
-		else if(distance <= boom_sizes[3])
-			rock.gets_drilled(null,TRUE,1)
+		if(distance <= boom_sizes[3])
+			rock.mineralAmt += 3 // if rock is going to get drilled, add bonus mineral amount
+			rock.gets_drilled()
 	for(var/mob/living/carbon/C in circlerange(location,boom_sizes[3]))
 		if(ishuman(C)) //working on everyone
 			var/distance = get_dist_euclidian(location,C)
@@ -99,7 +96,7 @@
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))
-			if(istype(target, /turf/))
+			if(isturf(target))
 				location = get_turf(target)
 			else
 				location = get_atom_on_turf(target)
@@ -109,7 +106,7 @@
 	if(location)
 		explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3], cause = src)
 		location.ex_act(2, target)
-	if(istype(target, /mob))
+	if(ismob(target, /mob))
 		var/mob/M = target
 		M.gib()
 	qdel(src)
@@ -117,9 +114,9 @@
 /obj/item/grenade/plastic/miningcharge/proc/override_safety()
 	hacked = TRUE
 	notify_admins = TRUE
-	boom_sizes[1] = round(boom_sizes[1]/3)	//lesser - 0, normal - 0, mega - 1; c4 - 0
-	boom_sizes[2] = round(boom_sizes[2]/3)	//lesser - 0, normal - 1, mega - 2; c4 - 0
-	boom_sizes[3] = round(boom_sizes[3]/1.5)//lesser - 2, normal - 3, mega - 5; c4 - 3
+	boom_sizes[1] = round(boom_sizes[1] / 3)	//lesser - 0, normal - 0, mega - 1; c4 - 0
+	boom_sizes[2] = round(boom_sizes[2] / 3)	//lesser - 0, normal - 1, mega - 2; c4 - 0
+	boom_sizes[3] = round(boom_sizes[3] / 1.5)//lesser - 2, normal - 3, mega - 5; c4 - 3
 
 /obj/item/grenade/plastic/miningcharge/deconstruct(disassembled = TRUE) //no gibbing a miner with pda bombs
 	if(!QDELETED(src))
@@ -130,14 +127,14 @@
 	desc = "A mining charge. This one seems less powerful than industrial. Only works on rocks!"
 	icon_state = "mining-charge-1"
 	smoke_amount = 1
-	boom_sizes = list(1,2,3)
+	boom_sizes = list(1, 2, 3)
 
 /obj/item/grenade/plastic/miningcharge/mega
 	name = "experimental mining charge"
 	desc = "A mining charge. This one seems much more powerful than normal!"
 	icon_state = "mining-charge-3"
 	smoke_amount = 5
-	boom_sizes = list(4,6,8)
+	boom_sizes = list(4, 6, 8)
 
 /obj/item/storage/backpack/duffel/miningcharges/populate_contents()
 	for(var/i in 1 to 5)
@@ -149,8 +146,9 @@
 //MINING CHARGE HACKER
 
 /obj/item/t_scanner/adv_mining_scanner/syndicate
-	var/charges = 6
 	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. This scanner has an extra port for overriding mining charge safeties."
+	
+	var/charges = 6
 
 /obj/item/t_scanner/adv_mining_scanner/syndicate/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(istype(target,/obj/item/grenade/plastic/miningcharge))
@@ -180,21 +178,21 @@
 
 /obj/item/detonator/examine(mob/user)
 	. = ..()
-	if(bombs.len)
+	if(length(bombs))
 		. += "<span class='notice'>List of synched bombs:</span>"
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
 			. += "<span class='notice'>[bicon(charge)] [charge]. Current status: [charge.installed ? "ready to detonate" : "ready to deploy"]."
 
 /obj/item/detonator/update_icon()
 	. = ..()
-	if(bombs.len)
+	if(length(bombs))
 		icon_state = "Detonator-1"
 	else
 		icon_state = initial(icon_state)
 
 /obj/item/detonator/attack_self(mob/user)
 	playsound(src, 'sound/items/detonator.ogg', 40)
-	if(bombs.len)
+	if(length(bombs))
 		to_chat(user, "<span class='notice'>Activating explosives...</span>")
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
 			if(QDELETED(charge))
