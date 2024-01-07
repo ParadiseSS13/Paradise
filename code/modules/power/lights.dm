@@ -470,7 +470,7 @@
 		LR.ReplaceLight(src, user)
 		return
 
-	// ඞ Attack with Spray Can! Coloring time.
+	// Attack with Spray Can! Coloring time.
 	if(istype(W, /obj/item/toy/crayon/spraycan))
 		var/obj/item/toy/crayon/spraycan/spraycan = W
 
