@@ -211,7 +211,7 @@
 			Must be standing on a powered cable to use. \
 			Activated by alt-clicking, or pressing the middle mouse button. Disarm intent will deal stamina damage and cause jittering, while harm intent will deal damage based on the power of the cable you're standing on. Can be toggled on / off via the action button."
 	reference = "PG"
-	item = /obj/item/implanter/shock
+	item = /obj/item/bio_chip_implanter/shock
 	cost = 50
 	job = list("Station Engineer", "Chief Engineer")
 

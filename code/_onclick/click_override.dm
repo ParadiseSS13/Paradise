@@ -49,7 +49,7 @@
 		return FALSE
 	if(user.incapacitated())
 		return FALSE
-	var/obj/item/implant/shock/P = locate() in user
+	var/obj/item/bio_chip/shock/P = locate() in user
 	if(!P)
 		return
 	if(world.time < P.last_shocked + P.shock_delay)
