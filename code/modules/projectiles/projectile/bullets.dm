@@ -101,13 +101,6 @@
 	if(H.getStaminaLoss() >= 60)
 		H.KnockDown(8 SECONDS)
 
-/obj/item/projectile/bullet/pellet/overload
-	damage = 3
-
-/obj/item/projectile/bullet/pellet/overload/New()
-	range = rand(1, 10)
-	..()
-
 /obj/item/projectile/bullet/pellet/assassination
 	damage = 12
 	tile_dropoff = 1	// slightly less damage and greater damage falloff compared to normal buckshot
