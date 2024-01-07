@@ -3117,7 +3117,7 @@
 	icon_state = "mining"
 	},
 /obj/item/clothing/under/plasmaman/mining,
-/obj/item/clothing/suit/space/hardsuit/mining,
+/obj/item/mod/control/pre_equipped/mining/asteroid,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "ED" = (

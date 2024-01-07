@@ -22015,7 +22015,7 @@
 "bIM" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom/directional/south,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/item/reagent_containers/food/drinks/flask/gold,
 /obj/item/clothing/mask/cigarette/cigar,
 /obj/item/razor{
@@ -55839,7 +55839,7 @@
 "hpP" = (
 /obj/structure/table,
 /obj/item/storage/fancy/rollingpapers,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/item/seeds/tobacco,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -68494,7 +68494,7 @@
 /obj/item/reagent_containers/syringe/heparin{
 	pixel_y = 4
 	},
-/obj/item/implanter/mindshield{
+/obj/item/bio_chip_implanter/mindshield{
 	pixel_y = 1;
 	pixel_x = -2
 	},

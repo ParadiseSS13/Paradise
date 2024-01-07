@@ -634,7 +634,7 @@
 	in_use = 1;
 	pixel_y = -9
 	},
-/obj/item/clothing/suit/space/hardsuit/medical,
+/obj/item/mod/control/pre_equipped/medical,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "oB" = (
@@ -974,7 +974,7 @@
 /area/shuttle/abandoned)
 "xr" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/space/hardsuit/medical,
+/obj/item/mod/control/pre_equipped/medical,
 /obj/item/clothing/mask/breath,
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	name = "standard air scrubber";

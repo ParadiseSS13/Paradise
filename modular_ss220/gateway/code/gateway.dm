@@ -282,7 +282,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			M.client.move_delay = max(world.time + 5, M.client.move_delay)
 
 /obj/machinery/gateway/centeraway/proc/exilecheck(mob/living/carbon/M)
-	for(var/obj/item/implant/exile/E in M) // Checking that there is an exile bio-chip in the contents
+	for(var/obj/item/bio_chip/exile/E in M) // Checking that there is an exile bio-chip in the contents
 		if(E.imp_in == M) // Checking that it's actually implanted vs just in their pocket
 			to_chat(M, span_notice("The station gate has detected your exile bio-chip and is blocking your entry."))
 			return TRUE
