@@ -51,7 +51,7 @@
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(allowed(user))
 			locked = !locked
-			to_chat(user, "<span class='notice'>Access restriction is now [locked ? "enabled." : "disabled."]</span>")
+			to_chat(user, "<span class='notice'>Access restriction is now [locked ? "enabled" : "disabled"].</span>")
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
