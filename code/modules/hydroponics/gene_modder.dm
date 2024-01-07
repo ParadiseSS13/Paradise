@@ -451,14 +451,3 @@
 		return
 	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && (user.Adjacent(src)))
 		. += "<span class='warning'>... Wait. This isn't the nuclear authentication disk! It's a clever forgery!</span>"
-
-/*
- *  Plant DNA Disks Box
- */
-/obj/item/storage/box/disks_plantgene
-	name = "plant data disks box"
-	icon_state = "disk_kit"
-
-/obj/item/storage/box/disks_plantgene/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/disk/plantgene(src)

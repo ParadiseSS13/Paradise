@@ -2626,7 +2626,7 @@
 /area/station/maintenance/electrical_shop)
 "aqx" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/electrical_shop)
 "aqy" = (
@@ -54795,7 +54795,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/machinery/light/directional/north,
 /obj/structure/sign/barsign{
 	pixel_y = 32
@@ -76847,7 +76847,7 @@
 "naA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /turf/simulated/floor/plating,
@@ -80776,7 +80776,7 @@
 	pixel_x = -11;
 	pixel_y = -2
 	},
-/obj/item/implanter/mindshield{
+/obj/item/bio_chip_implanter/mindshield{
 	pixel_y = 11;
 	pixel_x = -7
 	},
@@ -82472,7 +82472,7 @@
 /area/station/supply/miningdock)
 "oJQ" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/security/permabrig)

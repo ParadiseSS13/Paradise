@@ -10099,7 +10099,7 @@
 /obj/item/clothing/mask/balaclava,
 /obj/item/clothing/head/officer,
 /obj/item/clothing/under/color/red,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/structure/closet,
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/item/storage/belt/fannypack,
@@ -14012,7 +14012,7 @@
 "rHT" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/clothing/mask/cigarette/pipe,
 /turf/simulated/floor/wood/oak,

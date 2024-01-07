@@ -4478,7 +4478,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Armory)
 "vl" = (
-/obj/item/clothing/suit/space/hardsuit/medical,
+/obj/item/mod/control/pre_equipped/medical,
 /turf/space,
 /area/space)
 "vr" = (
@@ -6285,7 +6285,7 @@
 /obj/item/storage/fancy/cigarettes/cigpack_med,
 /obj/item/storage/fancy/cigarettes,
 /obj/item/storage/fancy/cigarettes/dromedaryco,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/machinery/light/small/directional/west,
 /obj/structure/cable{
 	icon_state = "2-4"

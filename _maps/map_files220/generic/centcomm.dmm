@@ -4079,8 +4079,8 @@
 /obj/item/organ/internal/cyberimp/eyes/hud/medical,
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
-/obj/item/implanter/mindshield,
-/obj/item/implanter/mindshield,
+/obj/item/bio_chip_implanter/mindshield,
+/obj/item/bio_chip_implanter/mindshield,
 /obj/item/organ/internal/cyberimp/arm/combat/centcom,
 /obj/item/organ/internal/cyberimp/arm/combat/centcom,
 /obj/item/organ/internal/cyberimp/arm/surgery,
@@ -7299,8 +7299,8 @@
 /obj/item/organ/internal/cyberimp/eyes/hud/medical,
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
-/obj/item/implanter/mindshield,
-/obj/item/implanter/mindshield,
+/obj/item/bio_chip_implanter/mindshield,
+/obj/item/bio_chip_implanter/mindshield,
 /obj/item/organ/internal/cyberimp/arm/surgery,
 /obj/item/organ/internal/cyberimp/arm/toolset,
 /obj/item/organ/internal/cyberimp/arm/janitorial,
@@ -14168,12 +14168,6 @@
 /obj/item/toy/plushie/corgi,
 /turf/simulated/floor/grass/jungle,
 /area/centcom/ss220/library)
-"jxt" = (
-/obj/structure/ore_box,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_mothership)
 "jxO" = (
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 8
@@ -15022,12 +15016,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_elite)
-"kjx" = (
-/obj/effect/turf_decal/delivery/white,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_mothership)
 "kjH" = (
 /obj/structure/table/wood/fancy/black,
 /obj/structure/chair/stool/bar{
@@ -16190,7 +16178,7 @@
 /area/centcom/ss220/command)
 "leH" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
 	},
@@ -16635,7 +16623,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/storage/box/matches{
+/obj/item/storage/fancy/matches{
 	pixel_x = 4;
 	pixel_y = -10
 	},
@@ -21839,32 +21827,32 @@
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/ss220/general)
 "pag" = (
-/obj/item/implanter/adrenalin{
+/obj/item/bio_chip_implanter/adrenalin{
 	pixel_x = 12;
 	pixel_y = -12
 	},
-/obj/item/implanter/emp{
+/obj/item/bio_chip_implanter/emp{
 	pixel_x = 9;
 	pixel_y = -9
 	},
-/obj/item/implanter/explosive{
+/obj/item/bio_chip_implanter/explosive{
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/obj/item/implanter/explosive_macro{
+/obj/item/bio_chip_implanter/explosive_macro{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/implanter/freedom,
-/obj/item/implanter/krav_maga{
+/obj/item/bio_chip_implanter/freedom,
+/obj/item/bio_chip_implanter/krav_maga{
 	pixel_x = -9;
 	pixel_y = 9
 	},
-/obj/item/implanter/mindshield{
+/obj/item/bio_chip_implanter/mindshield{
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/item/implanter/storage{
+/obj/item/bio_chip_implanter/storage{
 	pixel_x = -3;
 	pixel_y = 3
 	},
@@ -25715,15 +25703,6 @@
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/centcom/ss220/general)
-"rNu" = (
-/obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_mothership)
 "rNA" = (
 /obj/structure/closet/crate/secure/bin{
 	color = "36373a"
@@ -29926,12 +29905,6 @@
 	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom/ss220/bar)
-"uLd" = (
-/obj/effect/turf_decal/delivery/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_mothership)
 "uMm" = (
 /obj/structure/flora/tree/jungle,
 /obj/item/flashlight/lantern{
@@ -33148,7 +33121,7 @@
 /area/centcom/ss220/admin2)
 "wYx" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "wYC" = (
@@ -33934,15 +33907,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
-"xrm" = (
-/obj/effect/turf_decal/delivery/red,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_mothership)
 "xsg" = (
 /obj/structure/table/wood,
 /obj/item/vending_refill/nta,
@@ -34230,11 +34194,6 @@
 	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership/elite_squad)
-"xBZ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_mothership)
 "xCo" = (
 /obj/vehicle/bike{
 	dir = 8
@@ -43932,13 +43891,13 @@ fnU
 gOQ
 tCJ
 haI
-jxt
+jsg
 ivS
 ala
 qsk
 ovP
 haI
-jxt
+jsg
 gFk
 gOQ
 fnU
@@ -44188,14 +44147,14 @@ vxx
 fnU
 gOQ
 ocR
-xBZ
-kjx
+ovP
+dJp
 ovP
 dJp
 ovP
 nRS
-jxt
-rNu
+jsg
+nRS
 mpq
 gOQ
 gOQ
@@ -44445,14 +44404,14 @@ vxx
 fnU
 gOQ
 tCJ
-uLd
+bcl
 nlb
-xrm
+haI
 jsg
-xrm
+haI
 ovP
-uLd
-xBZ
+bcl
+ovP
 oEC
 gOQ
 gOQ
@@ -48306,10 +48265,10 @@ viA
 viA
 lrc
 dlt
-xBZ
-xBZ
-xBZ
-xBZ
+ovP
+ovP
+ovP
+ovP
 cji
 rJo
 rJo
@@ -48563,10 +48522,10 @@ viA
 viA
 viA
 dlt
-xBZ
-xBZ
-xBZ
-xBZ
+ovP
+ovP
+ovP
+ovP
 cji
 nbn
 nbn

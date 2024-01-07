@@ -23,8 +23,8 @@
 		/obj/item/clothing/accessory/holster,
 		/obj/item/gun/projectile/automatic/proto
 	)
-	implants = list(
-		/obj/item/implant/mindshield
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/baton,
@@ -104,9 +104,9 @@
 	head = /obj/item/clothing/head/helmet/space/deathsquad/beret/field
 	l_pocket = /obj/item/melee/baseball_bat/homerun/central_command
 
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/dust,
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/dust,
 		/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened,
 		/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/hud/medical,
