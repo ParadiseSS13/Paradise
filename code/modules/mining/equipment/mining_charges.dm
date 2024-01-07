@@ -8,7 +8,7 @@
 	var/timer_off = FALSE
 	var/installed = FALSE
 	var/smoke_amount = 3
-	/// list of sizes for explosion. Third number is used for actual rock explosion size, second number is radius for Weaken() effects, third is used for hacked charges
+	/// list of sizes for explosion. Third number is used for actual rock explosion size, second number is radius for Weaken() effects, first is used for hacked charges
 	var/boom_sizes = list(2, 3, 5)
 	var/hacked = FALSE
 
