@@ -18,9 +18,9 @@
 	var/containername
 	/// If the container is lockable, the access to require for it.
 	var/access
-	/// If TRUE, this pack is only visible on a hacked supply console.
-	var/hidden = FALSE
 	/// If TRUE, this pack is only visible on an emagged supply console.
+	var/hidden = FALSE
+	/// If TRUE, this pack is only visible on a hacked supply console.
 	var/contraband = FALSE
 	/// A special pack that should not appear unless certain circumstances are fulfilled (event, station goals, admin packs)
 	var/special = FALSE
@@ -98,6 +98,10 @@
 
 /// A supply pack that does not contain physical objects, but instead fires some sort of callback when ordered.
 /datum/supply_packs/abstract
+
+/datum/supply_packs/abstract/New()
+	. = ..()
+	ui_manifest = list(manifest)
 
 
 /// A sample supply pack that notifies admins when it is purchased, but provides no items.

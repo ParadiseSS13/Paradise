@@ -3,14 +3,14 @@
 
 /// A "supply pack" that allows for purchasing a custom shuttle.
 /datum/supply_packs/abstract/shuttle
-	name = "HEADER"
+	name = "Custom Shuttle"
 	cost = 1
 	containertype = null
 	group = SUPPLY_SHUTTLE
 	department_restrictions = list(DEPARTMENT_COMMAND)
 	// these are special, but start enabled. As soon as one is ordered, all variants of this should be disabled.
 	special = TRUE
-	special_enabled = TRUE  // TODO come up with a better way of blacklisting intermediate types
+	special_enabled = TRUE
 	/// The shuttle that this pack corresponds to ordering.
 	/// If given on init, will fill out the pack automagically.
 	var/datum/map_template/shuttle/template
@@ -40,17 +40,19 @@
 
 /datum/supply_packs/abstract/shuttle/on_order_confirm(datum/supply_order/order)
 	. = ..()
+	if(SSshuttle.custom_shuttle_ordered)
+		return
 	if(isnull(template))
 		CRASH("Shuttle pack [src] has no map template to load!")
 	GLOB.major_announcement.Announce("[order.orderedby] has purchased [name] for [cost] credit\s as the emergency shuttle for the shift.", "Shuttle Purchase Receipt")
 	var/orderer = order.orderedby
 	log_and_message_admins("Shuttle pack [src] costing [cost] has been ordered and paid for by [orderer] ([order.orderedbyRank])")
-	for(var/datum/supply_packs/abstract/shuttle/shuttle_pack in SSeconomy.supply_packs)
-		shuttle_pack.special_enabled = FALSE
+	for(var/pack_key in SSeconomy.supply_packs)
+		var/datum/supply_packs/abstract/shuttle/SP = SSeconomy.supply_packs[pack_key]
+		if(!istype(SP))
+			continue
+		SP.special_enabled = FALSE
 	SSshuttle.custom_shuttle_ordered = TRUE
-	// var/datum/map_template
-	// TODO prevent this from happening while someone else is modifying it, or while it's not at centcomm
-	// probably should do this in a way that prevents people from buying it
 	var/obj/docking_port/mobile/shuttle = SSshuttle.load_template(template)
 	shuttle.shuttle_speed_factor = speed_factor
 	SSshuttle.replace_shuttle(shuttle)
@@ -60,6 +62,7 @@
 	manifest = "1% of every donation goes towards supporting corgis in need."
 	cost = 500
 
+// these ones are pretty reasonable
 
 /datum/supply_packs/abstract/shuttle/bar
 	template = /datum/map_template/shuttle/emergency/bar
@@ -67,27 +70,31 @@
 /datum/supply_packs/abstract/shuttle/dept
 	template = /datum/map_template/shuttle/emergency/dept
 
-/datum/supply_packs/abstract/shuttle/military
-	template = /datum/map_template/shuttle/emergency/military
+/datum/supply_packs/abstract/shuttle/old
+	template = /datum/map_template/shuttle/emergency/old
 
-/datum/supply_packs/abstract/shuttle/clown
-	speed_factor = 5
-	contraband = TRUE
-	template = /datum/map_template/shuttle/emergency/clown
+// this one isn't great but it isn't horrible either
 
 /datum/supply_packs/abstract/shuttle/cramped
 	template = /datum/map_template/shuttle/emergency/cramped
 
+
+// these, otoh, have some pretty silly features
+
+/datum/supply_packs/abstract/shuttle/military
+	hidden = TRUE
+	template = /datum/map_template/shuttle/emergency/military
+
+/datum/supply_packs/abstract/shuttle/clown
+	speed_factor = 0.75  // this one's a little slower, enjoy your ride!
+	hidden = TRUE
+	template = /datum/map_template/shuttle/emergency/clown
+
 /datum/supply_packs/abstract/shuttle/narnar
-	contraband = TRUE
+	hidden = TRUE
 	template = /datum/map_template/shuttle/emergency/narnar
 
-/datum/supply_packs/abstract/shuttle/old
-	template = /datum/map_template/shuttle/emergency/old
 
 /datum/supply_packs/abstract/shuttle/jungle
+	hidden = TRUE
 	template = /datum/map_template/shuttle/emergency/jungle
-
-// /datum/supply_packs/abstract/shuttle/emergency/yaya
-// 	// contraband = TRUE
-// 	template = /datum/map_template/shuttle/admin/skipjack

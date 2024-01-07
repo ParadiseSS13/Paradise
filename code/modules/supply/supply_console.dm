@@ -216,12 +216,15 @@
 		var/shown_if_hacked = pack.hidden && hacked
 		var/shown_if_contraband = pack.contraband && can_order_contraband
 
-		var/shown = FALSE
+		var/shown = (!pack.hidden || shown_if_hacked) && (!pack.contraband || shown_if_contraband)
 
 		if(pack.special)
-			shown = pack.special_enabled && (!pack.hidden || shown_if_hacked) && (!pack.contraband || shown_if_contraband)
-		else
-			shown = shown_if_hacked || shown_if_contraband || (!pack.contraband && !pack.hidden)
+			shown &= pack.special_enabled
+
+		// if(pack.special)
+		// 	shown = pack.special_enabled && (!pack.hidden || shown_if_hacked) && (!pack.contraband || shown_if_contraband)
+		// else
+		// 	shown = shown_if_hacked || shown_if_contraband || (!pack.contraband && !pack.hidden)
 
 
 		if(shown)
