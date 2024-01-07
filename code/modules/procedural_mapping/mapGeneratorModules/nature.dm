@@ -20,12 +20,6 @@
 	for(var/i in spawnableAtoms)
 		spawnableAtoms[i] = 20
 
-
-//Random assortment of rocks and rockpiles
-/datum/mapGeneratorModule/randRocks
-	spawnableAtoms = list(/obj/structure/flora/rock = 40, /obj/structure/flora/rock/pile = 20)
-
-
 //Grass turfs
 /datum/mapGeneratorModule/bottomLayer/grassTurfs
 	spawnableTurfs = list(/turf/simulated/floor/grass = 100)

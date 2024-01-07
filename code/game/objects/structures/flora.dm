@@ -319,37 +319,6 @@
 	desc = "A gift from the botanical staff, presented after the RD's reassignment. There's a tag on it that says \"Y'all come back now, y'hear?\"\nIt doesn't look very healthy..."
 	icon_state = "plant-dead"
 
-//a rock is flora according to where the icon file is
-//and now these defines
-/obj/structure/flora/rock
-	name = "rock"
-	desc = "A rock."
-	icon_state = "rock1"
-	icon = 'icons/obj/flora/rocks.dmi'
-	resistance_flags = FIRE_PROOF
-	anchored = TRUE
-
-/obj/structure/flora/rock/Initialize(mapload)
-	. = ..()
-	icon_state = "rock[rand(1,5)]"
-
-/obj/structure/flora/rock/pile
-	name = "rocks"
-	desc = "Some rocks."
-	icon_state = "rockpile1"
-
-/obj/structure/flora/rock/pile/Initialize(mapload)
-	. = ..()
-	icon_state = "rockpile[rand(1,5)]"
-
-/obj/structure/flora/rock/icy
-	name = "icy rock"
-	color = "#cce9eb"
-
-/obj/structure/flora/rock/pile/icy
-	name = "icy rocks"
-	color = "#cce9eb"
-
 /obj/structure/flora/corn_stalk
 	name = "corn stalk"
 	icon = 'icons/obj/flora/plants.dmi'
