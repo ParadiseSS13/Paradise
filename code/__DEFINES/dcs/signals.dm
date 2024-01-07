@@ -649,12 +649,12 @@
 #define COMSIG_SUIT_SPACE_TOGGLE "suit_space_toggle"
 
 // /obj/item/implant signals
-///from base of /obj/item/implant/proc/activate(): ()
+///from base of /obj/item/bio_chip/proc/activate(): ()
 #define COMSIG_IMPLANT_ACTIVATED "implant_activated"
-///from base of /obj/item/implant/proc/implant(): (list/args)
+///from base of /obj/item/bio_chip/proc/implant(): (list/args)
 #define COMSIG_IMPLANT_IMPLANTING "implant_implanting"
 	#define COMPONENT_STOP_IMPLANTING (1<<0)
-///called on already installed implants when a new one is being added in /obj/item/implant/proc/implant(): (list/args, obj/item/implant/new_implant)
+///called on already installed implants when a new one is being added in /obj/item/bio_chip/proc/implant(): (list/args, obj/item/bio_chip/new_implant)
 #define COMSIG_IMPLANT_OTHER "implant_other"
 	//#define COMPONENT_STOP_IMPLANTING (1<<0) //The name makes sense for both
 	#define COMPONENT_DELETE_NEW_IMPLANT (1<<1)

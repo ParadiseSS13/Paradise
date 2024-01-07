@@ -31,7 +31,7 @@
 		/obj/item/encryptionkey/binary,
 		/obj/item/jammer,
 		/obj/item/clothing/under/syndicate/silicon_cham,
-		/obj/item/implanter/freedom,
+		/obj/item/bio_chip_implanter/freedom,
 	)
 
 

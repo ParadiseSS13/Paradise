@@ -368,7 +368,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	box = /obj/item/storage/box/responseteam
 	gloves = /obj/item/clothing/gloves/combat
 
-	implants = list(/obj/item/implant/mindshield)
+	bio_chips = list(/obj/item/bio_chip/mindshield)
 
 /obj/item/radio/centcom
 	name = "centcomm bounced radio"

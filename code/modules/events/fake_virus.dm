@@ -17,7 +17,7 @@
 		hypochondriac.apply_status_effect(STATUS_EFFECT_FAKE_VIRUS)
 		hypochondriac.create_log(MISC_LOG, "[hypochondriac] has contracted a fake virus.")
 		valid_targets -= hypochondriac
-		notify_ghosts("[hypochondriac] now has a fake virus!")
+		notify_ghosts("[hypochondriac] now has a fake virus!", flashwindow = FALSE)
 
 	if(!length(valid_targets)) // List has been modified, lets check again
 		return

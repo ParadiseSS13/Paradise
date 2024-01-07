@@ -61,7 +61,7 @@
 		qdel(uplink)
 
 	// Check for an uplink implant
-	var/uplink_implant = locate(/obj/item/implant/uplink) in M.contents
+	var/uplink_implant = locate(/obj/item/bio_chip/uplink) in M.contents
 	if(uplink_implant)
 		qdel(uplink_implant)
 
