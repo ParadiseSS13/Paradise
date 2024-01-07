@@ -333,7 +333,7 @@
 
 	if(!clone && force)
 		new /obj/effect/gibspawner/generic(get_turf(src), desired_data.genetic_info)
-		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 		currently_cloning = FALSE
 		patient_data = null
 		desired_data = null
@@ -345,7 +345,7 @@
 		if(force)
 			clone.forceMove(src.loc)
 			new /obj/effect/gibspawner/generic(get_turf(src), clone)
-			playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+			playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 
 			var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
 			patient_mind.transfer_to(clone)
@@ -370,7 +370,7 @@
 		patient_mind.transfer_to(clone)
 		clone.grab_ghost()
 		clone.update_revive()
-		to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!")
+		to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
 		to_chat(clone, "<span class='notice'>There's a bright flash of light, and you take your first breath once more.</span>")
 
 		currently_cloning = FALSE
@@ -387,7 +387,7 @@
 	var/datum/cloning_data/p_data = _patient_data
 	var/datum/cloning_data/d_data = _desired_data
 	//Biomass, sanguine reagent, osseous reagent
-	var/list/cloning_cost = list((price_modifier*BIOMASS_BASE_COST), 0, 0)
+	var/list/cloning_cost = list((price_modifier * BIOMASS_BASE_COST), 0, 0)
 
 	if(!istype(p_data) || !istype(d_data))
 		return //this shouldn't happen but whatever
