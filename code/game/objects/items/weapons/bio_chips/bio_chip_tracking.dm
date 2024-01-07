@@ -1,4 +1,4 @@
-/obj/item/implant/tracking
+/obj/item/bio_chip/tracking
 	name = "tracking bio-chip"
 	desc = "Track with this."
 	activated = BIOCHIP_ACTIVATED_PASSIVE
@@ -9,22 +9,22 @@
 	var/obj/item/gps/internal_gps
 	var/internal_gps_path = /obj/item/gps/internal/tracking_implant
 
-/obj/item/implant/tracking/Initialize(mapload)
+/obj/item/bio_chip/tracking/Initialize(mapload)
 	. = ..()
 	GLOB.tracked_implants += src
 
-/obj/item/implant/tracking/Destroy()
+/obj/item/bio_chip/tracking/Destroy()
 	QDEL_NULL(internal_gps)
 	GLOB.tracked_implants -= src
 	return ..()
 
-/obj/item/implant/tracking/implant(mob/target)
+/obj/item/bio_chip/tracking/implant(mob/target)
 	. = ..()
 	if(!.)
 		return
 	internal_gps = new internal_gps_path(src)
 
-/obj/item/implant/tracking/removed(mob/target)
+/obj/item/bio_chip/tracking/removed(mob/target)
 	. = ..()
 	if(.)
 		QDEL_NULL(internal_gps)
@@ -33,11 +33,11 @@
 	gpstag = "TRACK0"
 	local = FALSE
 
-/obj/item/implanter/tracking
+/obj/item/bio_chip_implanter/tracking
 	name = "bio-chip implanter (tracking)"
-	implant_type = /obj/item/implant/tracking
+	implant_type = /obj/item/bio_chip/tracking
 
-/obj/item/implantcase/tracking
+/obj/item/bio_chip_case/tracking
 	name = "bio-chip case - 'Tracking'"
 	desc = "A glass case containing a tracking bio-chip."
-	implant_type = /obj/item/implant/tracking
+	implant_type = /obj/item/bio_chip/tracking

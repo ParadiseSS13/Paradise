@@ -1,4 +1,4 @@
-/obj/item/implant/abductor
+/obj/item/bio_chip/abductor
 	name = "recall bio-chip"
 	desc = "Returns you to the mothership."
 	icon = 'icons/obj/abductor.dmi'
@@ -12,7 +12,7 @@
 	var/cooldown = 30
 	var/total_cooldown = 30
 
-/obj/item/implant/abductor/activate()
+/obj/item/bio_chip/abductor/activate()
 	if(cooldown == total_cooldown)
 		home.Retrieve(imp_in, 1)
 		cooldown = 0
@@ -20,13 +20,13 @@
 	else
 		to_chat(imp_in, "<span class='warning'>You must wait [(total_cooldown - cooldown) * 2] seconds to use [src] again!</span>")
 
-/obj/item/implant/abductor/process()
+/obj/item/bio_chip/abductor/process()
 	if(cooldown < total_cooldown)
 		cooldown++
 		if(cooldown == total_cooldown)
 			STOP_PROCESSING(SSobj, src)
 
-/obj/item/implant/abductor/implant(mob/source, mob/user)
+/obj/item/bio_chip/abductor/implant(mob/source, mob/user)
 	if(..())
 		var/obj/machinery/abductor/console/console
 		if(ishuman(source))
@@ -41,7 +41,7 @@
 			home = console.pad
 		return TRUE
 
-/obj/item/implant/abductor/proc/get_team_console(team)
+/obj/item/bio_chip/abductor/proc/get_team_console(team)
 	var/obj/machinery/abductor/console/console
 	for(var/obj/machinery/abductor/console/c in GLOB.abductor_equipment)
 		if(c.team == team)
@@ -49,11 +49,11 @@
 			break
 	return console
 
-/obj/item/implanter/abductor
+/obj/item/bio_chip_implanter/abductor
 	name = "bio-chip implanter (abductor)"
-	implant_type = /obj/item/implant/abductor
+	implant_type = /obj/item/bio_chip/abductor
 
-/obj/item/implantcase/abductor
+/obj/item/bio_chip_case/abductor
 	name = "bio-chip case - 'abductor'"
 	desc = "A glass case containing an abductor bio-chip."
-	implant_type = /obj/item/implant/abductor
+	implant_type = /obj/item/bio_chip/abductor

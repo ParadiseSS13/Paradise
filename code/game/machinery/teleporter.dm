@@ -212,7 +212,7 @@
 			"y" = T.y,
 			"z" = T.z)
 
-	for(var/obj/item/implant/tracking/I in GLOB.tracked_implants)
+	for(var/obj/item/bio_chip/tracking/I in GLOB.tracked_implants)
 		if(!I.implanted || !ismob(I.loc))
 			continue
 		else

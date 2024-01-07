@@ -24,7 +24,7 @@
 	var/effect_cooldown = 0
 	///Whether or not portal use will cause sparks
 	var/create_sparks = TRUE
-	
+
 /obj/effect/portal/New(loc, turf/_target, obj/creation_object = null, lifespan = 300, mob/creation_mob = null, create_sparks = TRUE)
 	..()
 
@@ -187,8 +187,8 @@
 
 #undef UNSTABLE_TIME_DELAY
 
-/obj/effect/portal/redspace
-	name = "redspace portal"
+/obj/effect/portal/advanced
+	name = "advanced portal"
 	desc = "A portal capable of bypassing bluespace interference."
 	icon_state = "portal1"
 	failchance = 0
