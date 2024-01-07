@@ -228,17 +228,17 @@
 	if(divisor <= 0)
 		divisor = 10
 	if(!timer)
-		return round(SSshuttle.emergencyCallTime / shuttle_speed_factor / divisor, 1)
+		return round((SSshuttle.emergencyCallTime / shuttle_speed_factor) / divisor, 1)
 
 	var/dtime = world.time - timer
 	switch(mode)
 		if(SHUTTLE_ESCAPE)
-			dtime = max(SSshuttle.emergencyEscapeTime / shuttle_speed_factor - dtime, 0)
+			dtime = max((SSshuttle.emergencyEscapeTime / shuttle_speed_factor) - dtime, 0)
 		if(SHUTTLE_DOCKED)
 			dtime = max(SSshuttle.emergencyDockTime - dtime, 0)
 		else
 
-			dtime = max(SSshuttle.emergencyCallTime / shuttle_speed_factor - dtime, 0)
+			dtime = max((SSshuttle.emergencyCallTime / shuttle_speed_factor) - dtime, 0)
 	return round(dtime/divisor, 1)
 
 /obj/docking_port/mobile/emergency/request(obj/docking_port/stationary/S, coefficient=1, area/signalOrigin, reason, redAlert)
