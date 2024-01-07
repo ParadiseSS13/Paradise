@@ -377,9 +377,7 @@
 		return
 
 	// Our bodytemperature is +-50 degrees of our wanted body temperature
-	bodytemperature += ((body_temperature_difference * metabolism_efficiency) / BODYTEMP_AUTORECOVERY_LOW) // We get back to safe our preferred bodytemp a lot faster
-
-
+	bodytemperature += ((body_temperature_difference * metabolism_efficiency) / max((BODYTEMP_AUTORECOVERY_LOW * (modulus(body_temperature_difference)) / 10), 2)) // We get back to safe our preferred bodytemp a lot faster, but slower when we are colder or hotter
 
 	//This proc returns a number made up of the flags for body parts which you are protected on. (such as HEAD, UPPER_TORSO, LOWER_TORSO, etc. See setup.dm for the full list)
 /mob/living/carbon/human/proc/get_heat_protection_flags(temperature) //Temperature is the temperature you're being exposed to.

@@ -195,6 +195,10 @@
 	/// Whether the presence of a body accessory on this species is optional or not.
 	var/optional_body_accessory = TRUE
 
+	var/list/autohiss_basic_map = null
+	var/list/autohiss_extra_map = null
+	var/list/autohiss_exempt = null
+
 /datum/species/New()
 	unarmed = new unarmed_type()
 	if(!sprite_sheet_name)
