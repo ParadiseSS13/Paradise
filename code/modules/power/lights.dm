@@ -476,7 +476,7 @@
 
 		// quick check to disable capped spraypainting, aesthetic reasons
 		if(spraycan.capped)
-			to_chat(user, "<span class='notice'>You can't spraypaint with the cap still on, silly.</span>")
+			to_chat(user, "<span class='notice'>You can't spraypaint [src] with the cap still on!</span>")
 			return
 		var/new_color = spraycan.colour
 		color = new_color
