@@ -19,7 +19,6 @@
 
 #define REAGENT_TOUCH 1
 #define REAGENT_INGEST 2
-#define REAGENT_SPLASH 3
 
 ///Health threshold for synthflesh and rezadone to unhusk someone
 #define UNHUSK_DAMAGE_THRESHOLD 50

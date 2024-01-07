@@ -70,7 +70,7 @@
 	T.reagents.add_reagent("napalm", volume)
 
 /datum/reagent/napalm/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
+	if(method == REAGENT_TOUCH)
 		if(M.on_fire)
 			M.adjust_fire_stacks(14)
 			M.emote("scream")
@@ -140,7 +140,7 @@
 	T.reagents.add_reagent("fuel", volume)
 
 /datum/reagent/fuel/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with welding fuel to make them easy to ignite!
-	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
+	if(method == REAGENT_TOUCH)
 		if(M.on_fire)
 			M.adjust_fire_stacks(6)
 
@@ -172,7 +172,7 @@
 	return ..() | update_flags
 
 /datum/reagent/plasma/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)//Splashing people with plasma is stronger than fuel!
-	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
+	if(method == REAGENT_TOUCH)
 		if(M.on_fire)
 			M.adjust_fire_stacks(6)
 
@@ -187,7 +187,7 @@
 	taste_description = "rust"
 
 /datum/reagent/thermite/reaction_mob(mob/living/M, method= REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
+	if(method == REAGENT_TOUCH)
 		if(M.on_fire)
 			M.adjust_fire_stacks(20)
 
@@ -363,7 +363,7 @@
 			holder.temperature_reagents(holder.chem_temp - 200)
 
 /datum/reagent/cryostylane/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
+	if(method == REAGENT_TOUCH)
 		M.ExtinguishMob()
 
 /datum/reagent/cryostylane/reaction_turf(turf/simulated/T, volume)
@@ -415,7 +415,7 @@
 
 /datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 // Put out fire
-	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
+	if(method == REAGENT_TOUCH)
 		M.adjust_fire_stacks(-10) // more effective than water
 
 /datum/reagent/firefighting_foam/reaction_obj(obj/O, volume)
@@ -459,7 +459,7 @@
 	return ..() | update_flags
 
 /datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!
-	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
+	if(method == REAGENT_TOUCH)
 		M.adjust_fire_stacks(volume / 5)
 		return
 	..()

@@ -47,7 +47,7 @@
 							"<span class='userdanger'>[user] splashes the contents of [src] onto [M]!</span>")
 			add_attack_logs(user, M, "Splashed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
 
-			reagents.reaction(M, REAGENT_SPLASH)
+			reagents.reaction(M, REAGENT_TOUCH)
 			reagents.clear_reagents()
 		else
 			if(!iscarbon(M)) // Non-carbons can't process reagents

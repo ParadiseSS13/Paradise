@@ -47,14 +47,12 @@
 /datum/effect_system/smoke_spread/chem
 	var/obj/chemholder
 	var/list/smoked_atoms = list()
-	var/botany_curse = FALSE // this will be true if smoke is produced by botany fruits
 
-/datum/effect_system/smoke_spread/chem/New(botany_curse = FALSE)
+/datum/effect_system/smoke_spread/chem/New()
 	..()
 	chemholder = new
 	chemholder.create_reagents(1000)
 	chemholder.reagents.set_reacting(FALSE) // Just in case
-	botany_curse = botany_curse
 
 /datum/effect_system/smoke_spread/chem/Destroy()
 	QDEL_NULL(chemholder)
@@ -121,10 +119,7 @@
 		if(A in smoked_atoms)
 			continue
 		smoked_atoms += A
-		if(botany_curse)
-			chemholder.reagents.reaction(A, REAGENT_SPLASH)
-		else
-			chemholder.reagents.reaction(A)
+		chemholder.reagents.reaction(A)
 		SEND_SIGNAL(A, COMSIG_ATOM_EXPOSE_REAGENTS, chemholder.reagents, chemholder, chemholder.reagents.total_volume)
 		if(iscarbon(A))
 			var/mob/living/carbon/C = A

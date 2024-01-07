@@ -679,7 +679,7 @@
 
 /datum/reagent/spraytan/reaction_mob(mob/living/M, method=REAGENT_TOUCH, reac_volume, show_message = 1)
 	if(ishuman(M))
-		if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
+		if(method == REAGENT_TOUCH)
 			var/mob/living/carbon/human/N = M
 			set_skin_color(N)
 

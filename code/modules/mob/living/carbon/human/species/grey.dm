@@ -43,7 +43,7 @@
 /datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 
-	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
+	if(method == REAGENT_TOUCH)
 		if((H.head?.flags & THICKMATERIAL) && (H.wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
 			return
 		if(volume > 25)
