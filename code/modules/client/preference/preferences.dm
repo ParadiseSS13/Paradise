@@ -199,7 +199,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Body:</b> <a href='?_src_=prefs;preference=all;task=random'>(&reg;)</a><br>"
 			dat += "<b>Species:</b> <a href='?_src_=prefs;preference=species;task=input'>[active_character.species]</a><br>"
 			if(S.cultural_language)
-				dat += "<b>Cultural Language:</b> <a href='?_src_=prefs;preference=cultural_language;task=input'>[active_character.human_language]</a><br>"
+				dat += "<b>Cultural Language:</b> <a href='?_src_=prefs;preference=cultural_language;task=input'>[active_character.cultural_language]</a><br>"
 			if(active_character.species == "Vox") // Purge these bastards
 				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
 			if(active_character.species == "Plasmaman")

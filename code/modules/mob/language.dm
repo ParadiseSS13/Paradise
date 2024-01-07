@@ -451,7 +451,7 @@
 	flags = RESTRICTED
 	syllables = list("blah","blah","blah","bleh","meh","neh","nah","wah")
 	english_names = 1
-	partial_understanding = list(/datum/language/skrell = 30, /datum/language/human/sol = 30)
+	partial_understanding = list(/datum/language/skrell = 30, /datum/language/sol = 30)
 
 /datum/language/spacer
 	name = "Spacer"
@@ -459,9 +459,9 @@
 	colour = "spacer"
 	key = "s"
 	partial_understanding = list(
-		/datum/language/human/euro = 25,
-		/datum/language/human/yangyu = 25,
-		/datum/language/human/iberian = 25,
+		/datum/language/euro = 25,
+		/datum/language/yangyu = 25,
+		/datum/language/iberian = 25,
 		/datum/language/com_srus = 25,
 		/datum/language/trader = 25,
 		/datum/language/gutter = 35,
@@ -488,7 +488,7 @@
 					"pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
 					"in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum")
 	partial_understanding = list(
-		/datum/language/human/euro = 30,
+		/datum/language/euro = 30,
 		/datum/language/skrell = 40,
 		/datum/language/spacer = 20
 	)
@@ -503,7 +503,7 @@
 	key = "3"
 	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh","gra")
 	partial_understanding = list(
-		/datum/language/human/euro = 5,
+		/datum/language/euro = 5,
 		/datum/language/gutter = 10,
 		/datum/language/spacer = 20
 	)
@@ -518,11 +518,7 @@
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
-///Below are Human cultural languages, only exclusive to the Human species.
-/datum/language/human
-	culture = LANGUAGE_HUMAN
-
-/datum/language/human/sol
+/datum/language/sol
 	name = "Sol Common"
 	desc = "A bastardized hybrid of informal English and elements of Mandarin Chinese; the common language of the Sol system."
 	speech_verb = "says"
@@ -530,6 +526,7 @@
 	whisper_verb = "whispers"
 	colour = "solcom"
 	key = "1"
+	culture = LANGUAGE_HUMAN
 	syllables = list("tao", "shi", "tzu", "yi", "com", "be", "is", "i", "op", "vi", "ed", "lec", "mo", "cle", "te", "dis", "e")
 	english_names = 1
 
@@ -553,13 +550,14 @@
 					"tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
 					"udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
 
-/datum/language/human/iberian
+/datum/language/iberian
 	name = "Iberian Mix"
 	desc = "A dialect that emerges from the fusion of Spanish and Northern African languages. Its popularity took root in the Iberian Peninsula and Northern Africa. Over time, Iberian would gradually supersede traditional Spanish and North African languages due to its linguistic simplicity and its ability to harmoniously blend different cultural vowels. Its words tend to flow seamlessly and have a natural rhythm."
 	colour = "iberian"
 	key = "i"
+	culture = LANGUAGE_HUMAN
 	partial_understanding = list(
-		/datum/language/human/euro = 30,
+		/datum/language/euro = 30,
 		/datum/language/trader = 15,
 		/datum/language/spacer = 20
 	)
@@ -572,16 +570,17 @@
 		"ndo", "nha", "ver", "voc", "uma"
 	)
 
-/datum/language/human/euro
+/datum/language/euro
 	name = "Euro Accord"
 	desc = "A language that draws its roots from French, Germania, and English dialects, combining the linguistic and cultural traditions of old Western Europe. With its distinctive speech patterns, Euro Accord stands as one of the most anciently evolved languages in human history, being the predecessor of the English language. It sounds nasally and very congested when spoken, but compact enough to be short and to the point."
 	colour = "euro"
 	speech_verb = "says"
 	whisper_verb = "whispers"
 	key = "e"
+	culture = LANGUAGE_HUMAN
 	partial_understanding = list(
-		/datum/language/human/yangyu = 5,
-		/datum/language/human/iberian = 30,
+		/datum/language/yangyu = 5,
+		/datum/language/iberian = 30,
 		/datum/language/com_srus = 5,
 		/datum/language/trader = 85,
 		/datum/language/spacer = 20
@@ -595,14 +594,16 @@
 		"ing", "the", "ver", "was", "ith", "hin"
 	)
 
-/datum/language/human/yangyu
+
+/datum/language/yangyu
 	name = "Yangyu"
 	desc = "A simplified version of Mandarin Chinese adapted to the Latin script, is the predominant language spoken across Asia on Earth. Its influence has extended beyond Earth's borders, making it the modern of choice for many Asian communities, both on their home planets and in space. It sounds bouncy and lively when heard, having many upward and downward audio cues within it."
 	colour = "yangyu"
 	key = "c"
+	culture = LANGUAGE_HUMAN
 	space_chance = 30
 	partial_understanding = list(
-		/datum/language/human/euro = 5,
+		/datum/language/euro = 5,
 		/datum/language/trader = 10,
 		/datum/language/spacer = 20
 	)
@@ -635,9 +636,9 @@
 		"zong", "zou", "zuan", "zui", "zun", "zuo", "zu"
 	)
 
-/datum/language/human/yangyu/get_random_name()
+/datum/language/yangyu/get_random_name()
 	var/new_name = "[pick(list("Akira", "Aiko", "Haruki", "Emi", "Hiroshi", "Yuki", "Sakura", "Kenzo", "Ayumi", "Riku", "Sora", "Miyuki", "Ren", "Kai", "Naomi", "Rin", "Yuna", "Takashi", "Asuka", "Haru", "Keiko", "Kazuki", "Satsuki", "Toshiro", "Mei", "Daichi", "Amaya", "Hikaru", "Eriko", "Kaito", "Misaki", "Haruka", "Kazumi", "Shin", "Yoko", "Noboru", "Hana", "Taiki", "Mika", "Hiroko", "Yoshiro", "Natsuki", "Tsubasa", "Yumi", "Akari", "Ryota", "Rika", "Tatsu", "Megumi", "Yukio", "Mao", "Kazuhiro", "Hinata", "Eiji", "Hanae", "Kenshin", "Yoshiko", "Daisuke", "Yoshimi", "Kazuo", "Natsumi", "Shiori", "Yasuo", "Yui", "Itsuki", "Mitsuki", "Ryo", "Yoshida", "Rei", "Nariko", "Takumi", "Izumi", "Akio", "Mizuki", "Kiyomi", "Satoshi", "Ayane", "Kanako", "Hideki", "Chiyo", "Nori", "Kaori", "Tomo", "Aimi", "Kiyoshi", "Haruko", "Taiga", "Eiko", "Kenji", "Sakiko", "Yoshio", "Maki", "Takako", "Kaito", "Miyako"))]"
-	new_name += "[pick(list("Tanaka", "Suzuki", "Yamamoto", "Nakamura", "Kobayashi", "Kato", "Sato", "Ito", "Yoshida", "Yamada", "Sasaki", "Yamaguchi", "Matsumoto", "Inoue", "Kimura", "Shimizu", "Hayashi", "Shin", "Sakamoto", "Ishikawa", "Mori", "Hashimoto", "Maeda", "Murakami", "Fujita", "Okada", "Takahashi", "Nakajima", "Tamura", "Abe", "Kaneko", "Ishii", "Hasegawa", "Ogawa", "Arai", "Ono", "Mizuno", "Kojima", "Fujii", "Kawamura", "Itoh", "Shibata", "Kudo", "Yano", "Eto", "Noguchi", "Shibuya", "Imai", "Takada", "Matsui", "Hara", "Hosokawa", "Murata", "Komatsu", "Fukuda", "Iwasaki", "Otsuka", "Shoji", "Kawakami", "Sugiyama", "Ogata", "Maruyama", "Ueno", "Ota", "Takeda", "Taniguchi", "Tamura", "Morita", "Yonezawa", "Uchida", "Kubo", "Yamashita", "Ueda", "Kawashima", "Morikawa", "Iwata", "Sasaki", "Fujimoto", "Nakano", "Saito", "Kudo", "Iwamoto", "Nishimura", "Ikeuchi", "Yoshimura", "Akiyama", "Nishida", "Higuchi", "Kojima", "Igarashi", "Aoki", "Higashiyama"))]"
+	new_name += "[pick(list("Tanaka" , "Suzuki", "Yamamoto", "Nakamura", "Kobayashi", "Kato", "Sato", "Ito", "Yoshida", "Yamada", "Sasaki", "Yamaguchi", "Matsumoto", "Inoue", "Kimura", "Shimizu", "Hayashi", "Shin", "Sakamoto", "Ishikawa", "Mori", "Hashimoto", "Maeda", "Murakami", "Fujita", "Okada", "Takahashi", "Nakajima", "Tamura", "Abe", "Kaneko", "Ishii", "Hasegawa", "Ogawa", "Arai", "Ono", "Mizuno", "Kojima", "Fujii", "Kawamura", "Itoh", "Shibata", "Kudo", "Yano", "Eto", "Noguchi", "Shibuya", "Imai", "Takada", "Matsui", "Hara", "Hosokawa", "Murata", "Komatsu", "Fukuda", "Iwasaki", "Otsuka", "Shoji", "Kawakami", "Sugiyama", "Ogata", "Maruyama", "Ueno", "Ota", "Takeda", "Taniguchi", "Tamura", "Morita", "Yonezawa", "Uchida", "Kubo", "Yamashita", "Ueda", "Kawashima", "Morikawa", "Iwata", "Sasaki", "Fujimoto", "Nakano", "Saito", "Kudo", "Iwamoto", "Nishimura", "Ikeuchi", "Yoshimura", "Akiyama", "Nishida", "Higuchi", "Kojima", "Igarashi", "Aoki", "Higashiyama"))]"
 
 	return new_name
 

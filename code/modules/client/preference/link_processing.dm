@@ -130,7 +130,11 @@
 				robohead = GLOB.all_robolimbs[head_model]
 			switch(href_list["preference"])
 				if("name")
-					active_character.real_name = random_name(active_character.gender, active_character.species)
+					if(active_character.cultural_language != "None")
+						var/datum/language/lang = GLOB.all_languages[active_character.cultural_language]
+						active_character.real_name = lang.get_random_name(active_character.gender)
+					else
+						active_character.real_name = random_name(active_character.gender, active_character.species)
 					if(isnewplayer(user))
 						var/mob/new_player/N = user
 						N.new_player_panel_proc()
@@ -325,8 +329,8 @@
 						new_languages += lang.name
 
 					var/new_active_character_language = tgui_input_list(user, "Please select a cultural language", "Character Generation", sortList(new_languages))
-					if(!new_active_character_language)
-						return
+					if(new_active_character_language)
+						active_character.cultural_language = new_active_character_language
 
 				if("autohiss_mode")
 					if(S.autohiss_basic_map)
