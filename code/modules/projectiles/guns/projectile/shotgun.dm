@@ -320,7 +320,7 @@
 	item_state = "shotgun_combat"
 	origin_tech = "combat=6"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
-	w_class = WEIGHT_CLASS_HUGE
+	w_class = WEIGHT_CLASS_BULKY
 	execution_speed = 5 SECONDS
 
 //Dual Feed Shotgun
