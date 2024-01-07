@@ -77,7 +77,7 @@
 
 	return scrambled_text
 
-/datum/language/proc/scramble_word(var/input)
+/datum/language/proc/scramble_word(input)
 	if(!length(syllables))
 		return stars(input)
 
