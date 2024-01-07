@@ -72,7 +72,7 @@
 	materials = list(MAT_GOLD = 500)
 	robust = 20
 
-/obj/item/melee/knuckleduster/test
+/obj/item/melee/knuckleduster/admin
 	name = "handheld bone-breakers"
 	desc = "Your bones just hurt looking at it."
 	icon_state = "knuckleduster_nt"
