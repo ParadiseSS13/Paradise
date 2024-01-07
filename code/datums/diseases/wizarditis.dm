@@ -8,84 +8,82 @@
 	cure_chance = 100
 	agent = "Rincewindus Vulgaris"
 	viable_mobtypes = list(/mob/living/carbon/human)
-	disease_flags = CAN_CARRY|CAN_RESIST|CURABLE
 	permeability_mod = 0.75
-	severity = HARMFUL
-	required_organs = list(/obj/item/organ/external/head)
+	severity = MINOR
+	/// A mapping of `num2text(SLOT_HUD_XYZ)` -> item path
+	var/list/magic_fashion = new
 
-/*
-BIRUZ BENNAR
-SCYAR NILA - teleport
-NEC CANTIO - dis techno
-EI NATH - shocking grasp
-AULIE OXIN FIERA - knock
-TARCOL MINTI ZHERI - forcewall
-STI KALY - blind
-*/
+
+/datum/disease/wizarditis/New()
+	. = ..()
+
+	var/list/magic_fashion_slot_IDs = list(
+		SLOT_HUD_RIGHT_HAND,
+		SLOT_HUD_LEFT_HAND,
+		SLOT_HUD_HEAD,
+		SLOT_HUD_OUTER_SUIT,
+		SLOT_HUD_SHOES
+	)
+	var/list/magic_fashion_items = list(
+		/obj/item/staff,
+		/obj/item/staff,
+		/obj/item/clothing/head/wizard,
+		/obj/item/clothing/suit/wizrobe,
+		/obj/item/clothing/shoes/sandal
+	)
+	for(var/i in 1 to length(magic_fashion_slot_IDs))
+		var/slot = num2text(magic_fashion_slot_IDs[i])
+		var/item = magic_fashion_items[i]
+		magic_fashion[slot] = item
 
 /datum/disease/wizarditis/stage_act()
 	if(!..())
 		return FALSE
 
 	switch(stage)
-		if(2)
-			if(prob(0.5))
-				affected_mob.say(pick("You shall not pass!", "Expeliarmus!", "By Merlins beard!", "Feel the power of the Dark Side!"))
-			if(prob(0.5))
-				to_chat(affected_mob, "<span class='danger'>You feel [pick("that you don't have enough mana", "that the winds of magic are gone", "an urge to summon familiar")].</span>")
-
-
-		if(3)
-			if(prob(0.5))
-				affected_mob.say(pick("NEC CANTIO!","AULIE OXIN FIERA!", "STI KALY!", "TARCOL MINTI ZHERI!"))
-			if(prob(0.5))
-				to_chat(affected_mob, "<span class='danger'>You feel [pick("the magic bubbling in your veins","that this location gives you a +1 to INT","an urge to summon familiar")].</span>")
-
+		if(2, 3)
+			if(prob(2)) // Low prob. since everyone else will also be spouting this
+				affected_mob.say(pick("You shall not pass!", "Expeliarmus!", "By Merlin's beard!", "Feel the power of the Dark Side!", "A wizard is never late!", "50 points for Security!", "NEC CANTIO!", "STI KALY!", "AULIE OXIN FIERA!", "GAR YOK!", "DIRI CEL!"))
+			if(prob(8)) // Double the stage advancement prob. so each player has a chance to catch a couple
+				to_chat(affected_mob, "<span class='danger'>You feel [pick("that you don't have enough mana", "that the winds of magic are gone", "that this location gives you a +1 to INT", "an urge to summon familiar")].</span>")
 		if(4)
-
 			if(prob(1))
-				affected_mob.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"))
-				return
-			if(prob(0.5))
-				to_chat(affected_mob, "<span class='danger'>You feel [pick("the tidal wave of raw power building inside","that this location gives you a +2 to INT and +1 to WIS","an urge to teleport")].</span>")
-				spawn_wizard_clothes(50)
-			if(prob(0.01))
+				affected_mob.say(pick("FORTI GY AMA!", "GITTAH WEIGH!", "TOKI WO TOMARE!", "TARCOL MINTI ZHERI!", "ONI SOMA!", "EI NATH!", "BIRUZ BENNAR!", "NWOLC EGNEVER!"))
+			if(prob(3)) // Last stage, so we'll have plenty of time to show these off even with a lower prob.
+				to_chat(affected_mob, "<span class='danger'>You feel [pick("the tidal wave of raw power building inside", "that this location gives you a +2 to INT and +1 to WIS", "an urge to teleport", "the magic bubbling in your veins", "an urge to summon familiar")].</span>")
+			if(prob(3)) // About 1 minute per item on average
+				spawn_wizard_clothes()
+			if(prob(0.033)) // Assuming 50 infected, someone should teleport every ~2 minutes on average
 				teleport()
-	return
 
+/datum/disease/wizarditis/proc/spawn_wizard_clothes()
+	var/mob/living/carbon/human/H = affected_mob
 
+	// Which slots can we replace?
+	var/list/eligible_slot_IDs = new
+	for(var/slot in magic_fashion)
+		var/slot_ID = text2num(slot) // Convert back to numeric defines
 
-/datum/disease/wizarditis/proc/spawn_wizard_clothes(chance = 0)
-	if(ishuman(affected_mob))
-		var/mob/living/carbon/human/H = affected_mob
-		if(prob(chance) && !isplasmaman(H))
-			if(!istype(H.head, /obj/item/clothing/head/wizard))
-				if(!H.unEquip(H.head))
-					qdel(H.head)
-				H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(H), SLOT_HUD_HEAD)
-			return
-		if(prob(chance))
-			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
-				if(!H.unEquip(H.wear_suit))
-					qdel(H.wear_suit)
-				H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(H), SLOT_HUD_OUTER_SUIT)
-			return
-		if(prob(chance))
-			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
-				if(!H.unEquip(H.shoes))
-					qdel(H.shoes)
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
-			return
-	else
-		var/mob/living/carbon/H = affected_mob
-		if(prob(chance))
-			if(!istype(H.r_hand, /obj/item/staff))
-				H.drop_r_hand()
-				H.put_in_r_hand( new /obj/item/staff(H) )
-			return
-	return
+		if((locate(magic_fashion[slot]) in H) || !H.has_organ_for_slot(slot_ID) || !H.canUnEquip(H.get_item_by_slot(slot_ID)))
+			continue
 
+		switch(slot_ID) // Extra filtering for specific slots
+			if(SLOT_HUD_HEAD)
+				if(isplasmaman(H))
+					continue // We want them to spread the magical joy, not burn to death in agony
 
+		eligible_slot_IDs.Add(slot_ID)
+	if(!length(eligible_slot_IDs))
+		return
+
+	// Pick the magical winner and apply
+	var/chosen_slot_ID = pick(eligible_slot_IDs)
+	var/chosen_fashion = magic_fashion[num2text(chosen_slot_ID)]
+
+	H.unEquip(H.get_item_by_slot(chosen_slot_ID))
+	var/obj/item/magic_attire = new chosen_fashion
+	magic_attire.flags |= DROPDEL
+	H.equip_to_slot_or_del(magic_attire, chosen_slot_ID)
 
 /datum/disease/wizarditis/proc/teleport()
 	if(!is_teleport_allowed(affected_mob.z))
@@ -118,4 +116,3 @@ STI KALY - blind
 
 	affected_mob.say("SCYAR NILA [uppertext(chosen_area.name)]!")
 	affected_mob.forceMove(pick(teleport_turfs))
-

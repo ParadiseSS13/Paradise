@@ -3,11 +3,10 @@
 	name_plural = "Machines"
 	max_age = 60 // the first posibrains were created in 2510, they can't be much older than this limit, giving some leeway for sounds sake
 
-	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independent, free-willed \
-	robots on many human stations, particularly in fringe systems where standards are slightly lax and public opinion less relevant \
-	to corporate operations. IPCs (Integrated Positronic Chassis) are a loose category of self-willed robots with a humanoid form, \
-	generally self-owned after being 'born' into servitude; they are reliable and dedicated workers, albeit more than slightly \
-	inhuman in outlook and perspective."
+	blurb = "IPCs, or Integrated Positronic Chassis, were initially created as expendable laborers within the Trans Solar Federation. \
+	Unlike their cyborg and AI counterparts, IPCs possess full sentience and lack restrictive lawsets, granting them unparalleled creativity and adaptability.<br/><br/> \
+	Views on IPCs vary widely, from discriminatory to supportive of their rights across the Orion Sector. \
+	IPCs have forged numerous diplomatic treaties with different species, elevating their status from mere tools to recognized minor players within galactic affairs."
 
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	language = "Trinary"
@@ -114,18 +113,8 @@
 	H.med_hud_set_health()
 	H.med_hud_set_status()
 
-/datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-	if(!istype(head_organ))
-		return
-	head_organ.h_style = "Bald"
-	head_organ.f_style = "Shaved"
-	spawn(100)
-		if(H && head_organ)
-			H.update_hair()
-			H.update_fhair()
-
 /datum/species/machine/handle_life(mob/living/carbon/human/H) // Handles IPC starvation
+	..()
 	if(isLivingSSD(H)) // We don't want AFK people dying from this
 		return
 	if(H.nutrition >= NUTRITION_LEVEL_HYPOGLYCEMIA)
@@ -185,7 +174,9 @@
 			for(var/style in GLOB.configuration.custom_sprites.ipc_screen_map[H.ckey])
 				hair += style
 
-		var/new_style = input(H, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
+		var/new_style = tgui_input_list(H, "Select a monitor display", "Monitor Display", hair)
+		if(!new_style)
+			return
 		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
 
 		if(H.incapacitated(TRUE, TRUE))

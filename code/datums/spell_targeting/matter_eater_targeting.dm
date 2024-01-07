@@ -22,7 +22,7 @@
 	)
 	var/list/own_blacklist = list(
 		/obj/item/organ,
-		/obj/item/implant
+		/obj/item/bio_chip
 	)
 
 /datum/spell_targeting/matter_eater/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
@@ -40,7 +40,7 @@
 					continue
 			possible_targets += O
 
-	var/atom/movable/target = input("Choose the target of your hunger.", "Targeting") as null|anything in possible_targets
+	var/atom/movable/target = tgui_input_list(user, "Choose the target of your hunger", "Targeting", possible_targets)
 
 	if(QDELETED(target))
 		return
