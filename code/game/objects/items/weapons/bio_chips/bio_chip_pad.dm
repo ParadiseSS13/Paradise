@@ -1,40 +1,40 @@
-/obj/item/implantpad
+/obj/item/bio_chip_pad
 	name = "bio-chip pad"
 	desc = "Used to modify bio-chips."
-	icon = 'icons/obj/implants.dmi'
+	icon = 'icons/obj/bio_chips.dmi'
 	icon_state = "implantpad-off"
 	item_state = "electronic"
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 
-	var/obj/item/implantcase/case
+	var/obj/item/bio_chip_case/case
 
-/obj/item/implantpad/Destroy()
+/obj/item/bio_chip_pad/Destroy()
 	if(case)
 		eject_case()
 	return ..()
 
-/obj/item/implantpad/examine(mob/user)
+/obj/item/bio_chip_pad/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to remove it's stored implant.</span>"
 
-/obj/item/implantpad/update_icon_state()
+/obj/item/bio_chip_pad/update_icon_state()
 	if(case)
 		icon_state = "implantpad-on"
 	else
 		icon_state = "implantpad-off"
 
-/obj/item/implantpad/attack_self(mob/user)
+/obj/item/bio_chip_pad/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/implantpad/attackby(obj/item/implantcase/C, mob/user)
+/obj/item/bio_chip_pad/attackby(obj/item/bio_chip_case/C, mob/user)
 	if(istype(C))
 		addcase(user, C)
 	else
 		return ..()
 
-/obj/item/implantpad/proc/addcase(mob/user, obj/item/implantcase/C)
+/obj/item/bio_chip_pad/proc/addcase(mob/user, obj/item/bio_chip_case/C)
 	if(!user || !C)
 		return
 	if(case)
@@ -45,7 +45,7 @@
 	case = C
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/implantpad/proc/eject_case(mob/user)
+/obj/item/bio_chip_pad/proc/eject_case(mob/user)
 	if(!case)
 		return
 	if(user)
@@ -60,19 +60,19 @@
 	case = null
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/implantpad/AltClick(mob/user)
+/obj/item/bio_chip_pad/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	eject_case(user)
 
-/obj/item/implantpad/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/item/bio_chip_pad/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "ImplantPad", name, 410, 400, master_ui, state)
 		ui.open()
 
-/obj/item/implantpad/ui_data(mob/user)
+/obj/item/bio_chip_pad/ui_data(mob/user)
 	var/list/data = list()
 	data["contains_case"] = case ? TRUE : FALSE
 	if(case && case.imp)
@@ -86,7 +86,7 @@
 		)
 	return data
 
-/obj/item/implantpad/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/obj/item/bio_chip_pad/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 

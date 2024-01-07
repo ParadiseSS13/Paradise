@@ -30373,7 +30373,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/item/reagent_containers/food/drinks/flask/gold,
 /obj/item/clothing/mask/cigarette/cigar,
 /obj/item/razor{
@@ -32203,10 +32203,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
-"bXl" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel,
-/area/station/command/teleporter)
 "bXn" = (
 /obj/machinery/shieldwallgen,
 /obj/effect/turf_decal/delivery/hollow,
@@ -64785,6 +64781,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
+"iLY" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel,
+/area/station/command/teleporter)
 "iMo" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Bar Office Maintenance"
@@ -71329,7 +71329,7 @@
 "lWD" = (
 /obj/structure/table,
 /obj/item/storage/fancy/rollingpapers,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/item/seeds/tobacco,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -122662,7 +122662,7 @@ bOK
 oRE
 bTR
 jqu
-bXl
+iLY
 bZc
 bSi
 cdU
@@ -122919,7 +122919,7 @@ bQw
 oRE
 bTS
 tvD
-bXl
+iLY
 cbl
 bSi
 cdJ

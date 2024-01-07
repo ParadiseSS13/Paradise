@@ -1,4 +1,4 @@
-/obj/item/implant/explosive
+/obj/item/bio_chip/explosive
 	name = "microbomb bio-chip"
 	desc = "And boom goes the weasel."
 	icon_state = "explosive"
@@ -14,10 +14,10 @@
 	var/heavy = 0.4
 	var/delay = 7
 
-/obj/item/implant/explosive/death_trigger(mob/source, gibbed)
+/obj/item/bio_chip/explosive/death_trigger(mob/source, gibbed)
 	activate("death")
 
-/obj/item/implant/explosive/activate(cause)
+/obj/item/bio_chip/explosive/activate(cause)
 	if(!cause || !imp_in)
 		return FALSE
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your microbomb bio-chip? This will cause you to explode!", "Microbomb Bio-chip Confirmation", "Yes", "No") != "Yes")
@@ -36,7 +36,7 @@
 	timed_explosion()
 
 /// Gib the implantee and delete their destructible contents.
-/obj/item/implant/explosive/proc/self_destruct()
+/obj/item/bio_chip/explosive/proc/self_destruct()
 	if(!imp_in)
 		return
 
@@ -67,8 +67,8 @@
 
 	qdel(src)
 
-/obj/item/implant/explosive/implant(mob/source)
-	var/obj/item/implant/explosive/imp_e = locate(type) in source
+/obj/item/bio_chip/explosive/implant(mob/source)
+	var/obj/item/bio_chip/explosive/imp_e = locate(type) in source
 	if(imp_e && imp_e != src)
 		imp_e.heavy += heavy
 		imp_e.medium += medium
@@ -79,7 +79,7 @@
 
 	return ..()
 
-/obj/item/implant/explosive/proc/timed_explosion()
+/obj/item/bio_chip/explosive/proc/timed_explosion()
 	imp_in.visible_message("<span class = 'warning'>[imp_in] starts beeping ominously!</span>")
 	playsound(loc, 'sound/items/timer.ogg', 30, 0)
 	var/wait_delay = delay / 4
@@ -95,7 +95,7 @@
 	sleep(wait_delay)
 	self_destruct()
 
-/obj/item/implant/explosive/macro
+/obj/item/bio_chip/explosive/macro
 	name = "macrobomb bio-chip"
 	desc = "And boom goes the weasel. And everything else nearby."
 	icon_state = "explosive"
@@ -106,7 +106,7 @@
 	delay = 3 SECONDS
 	implant_data = new /datum/implant_fluff/explosive_macro
 
-/obj/item/implant/explosive/macro/activate(cause)
+/obj/item/bio_chip/explosive/macro/activate(cause)
 	if(!cause || !imp_in)
 		return FALSE
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your macrobomb bio-chip? This will cause you to explode and gib!", "Macrobomb Bio-chip Confirmation", "Yes", "No") != "Yes")
@@ -114,11 +114,11 @@
 	to_chat(imp_in, "<span class='notice'>You activate your macrobomb bio-chip.</span>")
 	timed_explosion()
 
-/obj/item/implant/explosive/macro/implant(mob/source)
-	var/obj/item/implant/explosive/imp_e = locate(type) in source
+/obj/item/bio_chip/explosive/macro/implant(mob/source)
+	var/obj/item/bio_chip/explosive/imp_e = locate(type) in source
 	if(imp_e && imp_e != src)
 		return FALSE
-	imp_e = locate(/obj/item/implant/explosive) in source
+	imp_e = locate(/obj/item/bio_chip/explosive) in source
 	if(imp_e && imp_e != src)
 		heavy += imp_e.heavy
 		medium += imp_e.medium
@@ -129,20 +129,20 @@
 	return ..()
 
 
-/obj/item/implanter/explosive
+/obj/item/bio_chip_implanter/explosive
 	name = "bio-chip implanter (explosive)"
-	implant_type = /obj/item/implant/explosive
+	implant_type = /obj/item/bio_chip/explosive
 
-/obj/item/implantcase/explosive
+/obj/item/bio_chip_case/explosive
 	name = "bio-chip case - 'Micro Explosive'"
 	desc = "A glass case containing a micro explosive bio-chip."
-	implant_type = /obj/item/implant/explosive
+	implant_type = /obj/item/bio_chip/explosive
 
-/obj/item/implanter/explosive_macro
+/obj/item/bio_chip_implanter/explosive_macro
 	name = "bio-chip implanter (macro-explosive)"
-	implant_type = /obj/item/implant/explosive/macro
+	implant_type = /obj/item/bio_chip/explosive/macro
 
-/obj/item/implantcase/explosive_macro
+/obj/item/bio_chip_case/explosive_macro
 	name = "bio-chip case - 'Macro Explosive'"
 	desc = "A glass case containing a macro explosive bio-chip."
-	implant_type = /obj/item/implant/explosive/macro
+	implant_type = /obj/item/bio_chip/explosive/macro
