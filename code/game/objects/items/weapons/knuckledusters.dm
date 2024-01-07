@@ -11,10 +11,10 @@
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=2"
 	attack_verb = list("struck", "bludgeoned", "bashed", "smashed")
-	var/gripped = FALSE
-	var/elite = FALSE
-	var/robust = 10
-	var/trauma = 5
+	var/gripped = FALSE // Is the weapon gripped or not?
+	var/elite = FALSE // Can the weapon damage organs directly or not?
+	var/robust = 10 // Chance to break bones on hit
+	var/trauma = 5 // How much organ damage can the weapon do?
 
 /obj/item/melee/knuckleduster/attack_self(mob/user)
 	if(!gripped)
@@ -35,8 +35,8 @@
 
 	var/obj/item/organ/external/punched = target.get_organ(user.zone_selected)
 	if(gripped && prob(robust) && target.health < 90) // Better at throwing strong punches when gripped
-		if(isslimeperson(target))
-			punched.cause_internal_bleeding() // Slimes get no quarter, they too shall suffer. IPCs get a pass, they have it bad enough
+		if(HAS_TRAIT(target, TRAIT_NO_BONES))
+			punched.cause_internal_bleeding() // Those with no bones get no relief, although this is primarily for Slimes
 		else
 			punched.fracture()
 		return
@@ -45,12 +45,10 @@
 		return
 
 	var/obj/item/organ/internal/squishy = pick(punched.internal_organs)
-	if(gripped & elite && target.health < 90) // Syndie variant gets to directly damage organs, as a treat
+	if(gripped & elite && target.health < 90)
 		squishy.receive_damage(trauma)
 	if(punched.is_broken())
 		squishy.receive_damage(trauma) // Probably not so good for your organs to have your already broken ribs punched hard again
-		return
-
 
 /obj/item/melee/knuckleduster/syndie
 	name = "syndicate knuckleduster"
