@@ -11,10 +11,14 @@
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=2"
 	attack_verb = list("struck", "bludgeoned", "bashed", "smashed")
-	var/gripped = FALSE // Is the weapon gripped or not?
-	var/elite = FALSE // Can the weapon damage organs directly or not?
-	var/robust = 10 // Chance to break bones on hit
-	var/trauma = 5 // How much organ damage can the weapon do?
+	/// Is the weapon gripped or not?
+	var/gripped = FALSE
+	/// Can the weapon damage organs directly or not?
+	var/elite = FALSE
+	/// Chance to break bones on hit
+	var/robust = 10
+	/// How much organ damage can the weapon do?
+	var/trauma = 5
 
 /obj/item/melee/knuckleduster/attack_self(mob/user)
 	if(!gripped)
