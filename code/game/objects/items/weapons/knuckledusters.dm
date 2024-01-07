@@ -49,6 +49,7 @@
 		squishy.receive_damage(trauma)
 	if(punched.is_broken())
 		squishy.receive_damage(trauma) // Probably not so good for your organs to have your already broken ribs punched hard again
+		return
 
 /obj/item/melee/knuckleduster/syndie
 	name = "syndicate knuckleduster"
