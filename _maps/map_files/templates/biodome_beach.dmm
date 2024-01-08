@@ -283,7 +283,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/powered/beach)
 "br" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "bx" = (

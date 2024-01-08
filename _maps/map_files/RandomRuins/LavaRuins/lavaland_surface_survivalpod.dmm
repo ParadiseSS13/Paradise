@@ -93,7 +93,7 @@
 /obj/structure/tubes,
 /obj/item/crowbar,
 /obj/effect/decal/cleanable/blood/drip,
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered)
 "s" = (

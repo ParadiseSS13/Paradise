@@ -50,8 +50,8 @@
 	name = "lava baseturf editor"
 	baseturf = /turf/simulated/floor/plating/lava/smooth
 
-/obj/effect/baseturf_helper/lava_land/surface
-	name = "lavaland baseturf editor"
+/obj/effect/baseturf_helper/lava/mapping_lava
+	name = "mapping lava baseturf editor"
 	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
 
 /obj/effect/mapping_helpers

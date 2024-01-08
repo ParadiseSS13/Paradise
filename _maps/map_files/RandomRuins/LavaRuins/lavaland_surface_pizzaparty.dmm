@@ -223,7 +223,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "B" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/wood{
 	nitrogen = 14;
 	oxygen = 8;

@@ -449,7 +449,7 @@
 			if(conductivity_directions & direction)
 				var/turf/neighbor = get_step(src,direction)
 
-				if(!neighbor.thermal_conductivity)
+				if(!neighbor?.thermal_conductivity)
 					continue
 
 				if(issimulatedturf(neighbor)) //anything under this subtype will share in the exchange

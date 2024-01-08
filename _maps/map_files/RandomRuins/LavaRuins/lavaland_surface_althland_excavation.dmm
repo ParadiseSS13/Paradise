@@ -1149,7 +1149,7 @@
 	desc = "The shattered remnants of a ladder hanging over the pitch-black chasm, providing no safe route to the abyss beneath. Its fractured rungs suggest an inevitable plunge, as if the remainder might soon join the void.";
 	name = "shattered ladder"
 	},
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/chasm,
 /area/lavaland/surface/outdoors)
@@ -1385,7 +1385,7 @@
 /area/ruin/unpowered/althland_excavation)
 "Rf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
 	nitrogen = 0
