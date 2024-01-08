@@ -125,7 +125,7 @@ def check_global_list_empty(lines):
             return Failure(idx + 1, "Found a GLOBAL_LIST_INIT(_, list()), please use GLOBAL_LIST_EMPTY(_) instead.")
 
 # makes sure arguments contained within "ui = new" are valid
-TGUI_UI_NEW = re.compile(r"ui = new\(((?:(?!,\s*).)+,\s*){3}(?:(?!,\s*).)+\)")
+TGUI_UI_NEW = re.compile(r"ui = new\(((?:(?!,\s*).)+,\s*){1,3}(?:(?!,\s*).)+\)")
 def check_tgui_ui_new_argument(lines):
     for idx, line in enumerate(lines):
         if "\tui = new" in line and not TGUI_UI_NEW.search(line):
