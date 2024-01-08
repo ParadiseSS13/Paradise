@@ -429,6 +429,26 @@
 	M.radiation = max(0, M.radiation - 25)
 	return ..()
 
+/datum/reagent/medicine/vomicilin
+	name = "Vomicilin"
+	id = "vomicilin"
+	description = "A pungent mixture of chemicals used to induce vomiting, to purge the intestinal tract."
+	reagent_state = LIQUID
+	color = "#005014"
+	taste_description = "putrid"
+
+/datum/reagent/medicine/vomicilin/on_mob_life(mob/living/M)
+	if(prob(60))
+		var/update_flags = STATUS_UPDATE_NONE
+		update_flags |= M.adjustToxLoss(-0.7*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		M.fakevomit(1)
+		M.adjust_nutrition(-2)
+	else
+		var/update_flags = STATUS_UPDATE_NONE
+		update_flags |= M.adjustToxLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		M.fakevomit(0)
+		M.adjust_nutrition(-1)
+
 /datum/reagent/medicine/pen_acid
 	name = "Pentetic Acid"
 	id = "pen_acid"

@@ -110,6 +110,14 @@
 	result_amount = 2
 	mix_message = "The solution settles calmly and emits gentle fumes."
 
+/datum/chemical_reaction/vomicilin
+	name = "Vomicilin"
+	id = "vomicilin"
+	result = "vomicilin"
+	required_reagents = list("sulfur" = 1, "water" = 1, "chlorine" = 1, "bromine" = 1)
+	result_amount = 4
+	mix_message = "The solution melds into a viscous, putrid-scented mixture."
+
 /datum/chemical_reaction/pen_acid
 	name = "Pentetic Acid"
 	id = "pen_acid"
