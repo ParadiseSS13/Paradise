@@ -85426,7 +85426,6 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Supply Break Room"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "nhh" = (
