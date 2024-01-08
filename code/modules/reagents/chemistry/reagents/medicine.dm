@@ -425,6 +425,14 @@
 	color = "#B4DCBE"
 	taste_description = "cleansing"
 
+/datum/reagent/medicine/potass_iodide
+	name = "Vomicilin"
+	id = "vomicilin"
+	description = "A pungent mixture of chemicals used to induce vomiting, to purge the intestinal tract."
+	reagent_state = LIQUID
+	color = "#005014"
+	taste_description = "putrid"
+
 /datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/M)
 	M.radiation = max(0, M.radiation - 25)
 	return ..()

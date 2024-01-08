@@ -285,6 +285,12 @@
 	icon_state = "wide_bottle"
 	list_reagents = list("potass_iodide" = 30)
 
+/obj/item/reagent_containers/glass/bottle/vomicilin
+	name = "vomicilin bottle"
+	desc = "A small bottle of vomicilin."
+	icon_state = "wide_bottle"
+	list_reagents = list("vomicilin" = 30)
+
 /obj/item/reagent_containers/glass/bottle/flu_virion
 	name = "Flu virion culture bottle"
 	desc = "A small bottle. Contains H13N1 flu virion culture in synthblood medium."

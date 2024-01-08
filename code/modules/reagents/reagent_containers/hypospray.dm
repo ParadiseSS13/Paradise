@@ -19,7 +19,7 @@
 	var/safety_hypo = FALSE
 	var/static/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "salbutamol","omnizine",
 									"stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "spaceacillin", "salglu_solution",
-									"sal_acid", "cryoxadone", "blood", "hydrocodone", "mitocholide", "rezadone", "menthol")
+									"sal_acid", "cryoxadone", "blood", "hydrocodone", "mitocholide", "rezadone", "menthol", "vomicilin")
 
 /obj/item/reagent_containers/hypospray/proc/apply(mob/living/M, mob/user)
 	if(!reagents.total_volume)

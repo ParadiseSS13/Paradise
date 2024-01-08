@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(standard_chemicals, list("slimejelly","blood","water","lube","c
 								"glycerol","radium","mutadone","thermite","mutagen","virusfood","iron",
 								"gold","silver","uranium","aluminum","silicon","fuel","cleaner","atrazine",
 								"plasma","teporone","lexorin","silver_sulfadiazine","salbutamol",
-								"perfluorodecalin","omnizine","synaptizine","haloperidol","potass_iodide",
+								"perfluorodecalin","omnizine","synaptizine","haloperidol","potass_iodide","vomicilin",
 								"pen_acid","mannitol","oculine","styptic_powder","methamphetamine",
 								"cryoxadone","spaceacillin","carpotoxin","lsd","fluorosurfactant",
 								"fluorosurfactant","ethanol","ammonia","diethylamine","antihol","pancuronium",
