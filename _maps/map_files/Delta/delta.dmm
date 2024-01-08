@@ -88016,9 +88016,6 @@
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
-/obj/effect/mapping_helpers/airlock/polarized{
-	id = "kitchenbar"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "oUJ" = (
