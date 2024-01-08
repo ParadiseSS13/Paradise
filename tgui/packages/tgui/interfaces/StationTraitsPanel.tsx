@@ -1,20 +1,38 @@
-import { filterMap } from './common/collections';
-import { exhaustiveCheck } from './common/exhaustive';
+import { filterMap } from 'common/collections';
+import { exhaustiveCheck } from 'common/exhaustive';
+import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Divider, Dropdown, Flex, Tabs } from '../components';
+import { Box, Button, Divider, Dropdown, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
 
-let Tab;
-(function (Tab) {
-  Tab[(Tab['SetupFutureStationTraits'] = 0)] = 'SetupFutureStationTraits';
-  Tab[(Tab['ViewStationTraits'] = 1)] = 'ViewStationTraits';
-})(Tab || (Tab = {}));
+type CurrentStationTrait = {
+  can_revert: BooleanLike;
+  name: string;
+  ref: string;
+};
+
+type ValidStationTrait = {
+  name: string;
+  path: string;
+};
+
+type StationTraitsData = {
+  current_traits: CurrentStationTrait[];
+  future_station_traits?: ValidStationTrait[];
+  too_late_to_revert: BooleanLike;
+  valid_station_traits: ValidStationTrait[];
+};
+
+enum Tab {
+  SetupFutureStationTraits,
+  ViewStationTraits,
+}
 
 const FutureStationTraitsPage = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<StationTraitsData>(context);
   const { future_station_traits } = data;
 
-  const [selectedTrait, setSelectedTrait] = useLocalState(
+  const [selectedTrait, setSelectedTrait] = useLocalState<string | null>(
     context,
     'selectedFutureTrait',
     null
@@ -31,18 +49,18 @@ const FutureStationTraitsPage = (props, context) => {
 
   return (
     <Box>
-      <Flex fill>
-        <Flex.Item grow>
+      <Stack fill>
+        <Stack.Item grow>
           <Dropdown
             displayText={!selectedTrait && 'Select trait to add...'}
             onSelected={setSelectedTrait}
             options={traitNames}
             selected={selectedTrait}
-            width="190px"
+            width="100%"
           />
-        </Flex.Item>
+        </Stack.Item>
 
-        <Flex.Item>
+        <Stack.Item>
           <Button
             color="green"
             icon="plus"
@@ -75,44 +93,45 @@ const FutureStationTraitsPage = (props, context) => {
           >
             Add
           </Button>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
 
       <Divider />
 
       {Array.isArray(future_station_traits) ? (
         future_station_traits.length > 0 ? (
-          <Flex direction="column">
+          <Stack vertical fill>
             {future_station_traits.map((trait) => (
-              <div key={trait.path}>
-                <Flex.Item>
-                  <Flex fill>
-                    <Flex.Item grow>{trait.name}</Flex.Item>
+              <Stack.Item key={trait.path}>
+                <Stack fill>
+                  <Stack.Item grow>{trait.name}</Stack.Item>
 
-                    <Flex.Item>
-                      <Button
-                        color="red"
-                        icon="times"
-                        onClick={() => {
-                          act('setup_future_traits', {
-                            station_traits: filterMap(
-                              future_station_traits,
-                              (otherTrait) =>
-                                otherTrait.path === trait.path
-                                  ? undefined
-                                  : otherTrait.path
-                            ),
-                          });
-                        }}
-                      >
-                        Delete
-                      </Button>
-                    </Flex.Item>
-                  </Flex>
-                </Flex.Item>
-              </div>
+                  <Stack.Item>
+                    <Button
+                      color="red"
+                      icon="times"
+                      onClick={() => {
+                        act('setup_future_traits', {
+                          station_traits: filterMap(
+                            future_station_traits,
+                            (otherTrait) => {
+                              if (otherTrait.path === trait.path) {
+                                return undefined;
+                              } else {
+                                return otherTrait.path;
+                              }
+                            }
+                          ),
+                        });
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </Stack.Item>
+                </Stack>
+              </Stack.Item>
             ))}
-          </Flex>
+          </Stack>
         ) : (
           <>
             <Box>No station traits will run next round.</Box>
@@ -153,40 +172,38 @@ const FutureStationTraitsPage = (props, context) => {
 };
 
 const ViewStationTraitsPage = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<StationTraitsData>(context);
 
   return data.current_traits.length > 0 ? (
-    <Flex direction="column">
+    <Stack vertical fill>
       {data.current_traits.map((stationTrait) => (
-        <div key={stationTrait.ref}>
-          <Flex.Item>
-            <Flex fill>
-              <Flex.Item grow>{stationTrait.name}</Flex.Item>
+        <Stack.Item key={stationTrait.ref}>
+          <Stack fill>
+            <Stack.Item grow>{stationTrait.name}</Stack.Item>
 
-              <Flex.Item>
-                <Button.Confirm
-                  content="Revert"
-                  color="red"
-                  disabled={data.too_late_to_revert || !stationTrait.can_revert}
-                  tooltip={
-                    (!stationTrait.can_revert &&
-                      'This trait is not revertable.') ||
-                    (data.too_late_to_revert &&
-                      "It's too late to revert station traits, the round has already started.")
-                  }
-                  icon="times"
-                  onClick={() =>
-                    act('revert', {
-                      ref: stationTrait.ref,
-                    })
-                  }
-                />
-              </Flex.Item>
-            </Flex>
-          </Flex.Item>
-        </div>
+            <Stack.Item>
+              <Button.Confirm
+                content="Revert"
+                color="red"
+                disabled={data.too_late_to_revert || !stationTrait.can_revert}
+                tooltip={
+                  (!stationTrait.can_revert &&
+                    'This trait is not revertable.') ||
+                  (data.too_late_to_revert &&
+                    "It's too late to revert station traits, the round has already started.")
+                }
+                icon="times"
+                onClick={() =>
+                  act('revert', {
+                    ref: stationTrait.ref,
+                  })
+                }
+              />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
       ))}
-    </Flex>
+    </Stack>
   ) : (
     <Box>There are no active station traits.</Box>
   );

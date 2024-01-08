@@ -126,11 +126,11 @@
 /datum/ui_module/station_traits_panel/proc/too_late_to_revert()
 	return SSticker.current_state >= GAME_STATE_PLAYING
 
-/datum/station_traits_panel/ui_state(mob/user)
+/datum/ui_module/station_traits_panel/ui_state(mob/user)
 	return GLOB.admin_state
 
-/datum/ui_module/station_traits_panel/ui_interact(mob/user, datum/tgui/ui)
+/datum/ui_module/station_traits_panel/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "StationTraitsPanel")
+		ui = new(user, src, "StationTraitsPanel", "Station Traits Panel")
 		ui.open()
