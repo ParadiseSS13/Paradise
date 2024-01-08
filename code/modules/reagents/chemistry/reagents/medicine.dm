@@ -430,7 +430,7 @@
 	M.radiation = max(0, M.radiation - 25)
 	return ..()
 
-/datum/reagent/medicine/potass_iodide
+/datum/reagent/medicine/vomicilin
 	name = "Vomicilin"
 	id = "vomicilin"
 	description = "A pungent mixture of chemicals used to induce vomiting, to purge the intestinal tract."
@@ -441,12 +441,12 @@
 	taste_description = "putrid"
 
 /datum/reagent/medicine/vomicilin/on_mob_life(mob/living/M)
-	if(prob(40))
-		if(prob(50))
-
-			M.fakevomit(1)
-		else
-			M.fakevomit(0)
+	if(prob(50))
+		M.fakevomit(1)
+		M.adjust_nutrition(-2)
+	else
+		M.fakevomit(0)
+		M.adjust_nutrition(-1)
 	return ..()
 
 /datum/reagent/medicine/pen_acid
