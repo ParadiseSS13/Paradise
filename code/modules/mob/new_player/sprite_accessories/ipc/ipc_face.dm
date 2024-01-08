@@ -139,5 +139,3 @@
 	icon_state = "rainbow_hesp_alt"
 	models_allowed = list("Hesphiastos Industries alt.")
 
-/datum/sprite_accessory/hair/ipc/fluff
-	fluff = 1
