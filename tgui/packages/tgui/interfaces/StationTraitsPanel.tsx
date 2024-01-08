@@ -230,7 +230,7 @@ export const StationTraitsPanel = (props, context) => {
   }
 
   return (
-    <Window title="Modify Station Traits" height={700} width={600}>
+    <Window title="Modify Station Traits" height={500} width={500}>
       <Window.Content scrollable>
         <Tabs>
           <Tabs.Tab
