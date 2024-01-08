@@ -21307,6 +21307,11 @@
 /obj/item/reagent_containers/food/condiment/enzyme,
 /obj/machinery/reagentgrinder,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/button/windowtint{
+	dir = 1;
+	id = "kitchenbar";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bll" = (
@@ -33529,7 +33534,7 @@
 	},
 /obj/machinery/button/windowtint{
 	dir = 1;
-	id = "Detective";
+	id = "kitchenbar";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -88013,9 +88018,14 @@
 /area/station/maintenance/starboard)
 "oTS" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/airlock/public/glass{
+	id = "kitchenbar"
+	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "kitchenbar"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "oUJ" = (
