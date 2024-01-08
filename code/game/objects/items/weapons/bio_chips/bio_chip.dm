@@ -144,6 +144,7 @@
 	return
 
 /obj/item/bio_chip/proc/activate(cause)
+	SEND_SIGNAL(src, COMSIG_IMPLANT_ACTIVATED, cause, imp_in)
 	return
 
 /obj/item/bio_chip/ui_action_click()
@@ -200,6 +201,7 @@
 	if(user)
 		add_attack_logs(user, source, "Chipped with [src]")
 
+	SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTED, source, user, force)
 	return 1
 
 /**
@@ -237,6 +239,7 @@
 
 	unregister_emotes()
 
+	SEND_SIGNAL(src, COMSIG_IMPLANT_REMOVED, source)
 	return TRUE
 
 /obj/item/bio_chip/dropped(mob/user)

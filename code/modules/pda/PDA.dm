@@ -369,12 +369,14 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/proc/play_ringtone()
 	var/S
-
-	if(ttone in ttone_sound)
-		S = ttone_sound[ttone]
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
+		playsound(src, pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg'), 50, TRUE)
 	else
-		S = 'sound/machines/twobeep_high.ogg'
-	playsound(loc, S, 50, 1)
+		if(ttone in ttone_sound)
+			S = ttone_sound[ttone]
+		else
+			S = 'sound/machines/twobeep_high.ogg'
+		playsound(loc, S, 50, TRUE)
 	for(var/mob/O in hearers(3, loc))
 		O.show_message(text("[bicon(src)] *[ttone]*"))
 
