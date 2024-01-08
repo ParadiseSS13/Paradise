@@ -48,9 +48,15 @@
 
 /obj/item/storage/box/survival/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/tank/internals/emergency_oxygen/engi(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+		new /obj/item/flashlight/flare(src)
+	else
+		new /obj/item/tank/internals/emergency_oxygen(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+		new /obj/item/flashlight/flare/glowstick/emergency(src)
+
 
 /obj/item/storage/box/survival_vox
 	icon_state = "vox_box"
@@ -58,8 +64,12 @@
 /obj/item/storage/box/survival_vox/populate_contents()
 	new /obj/item/clothing/mask/breath/vox(src)
 	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+		new /obj/item/flashlight/flare(src)
+	else
+		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_plasmaman
 	icon_state = "plasma_box"
@@ -67,26 +77,40 @@
 /obj/item/storage/box/survival_plasmaman/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+		new /obj/item/flashlight/flare(src)
+	else
+		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/engineer
 	icon_state = "eng_box"
 
 /obj/item/storage/box/engineer/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/tank/internals/emergency_oxygen/double(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+		new /obj/item/flashlight/flare(src)
+	else
+		new /obj/item/tank/internals/emergency_oxygen/engi(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_mining
 	icon_state = "min_box"
 
 /obj/item/storage/box/survival_mining/populate_contents()
 	new /obj/item/clothing/mask/gas/explorer(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/tank/internals/emergency_oxygen/double(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+		new /obj/item/flashlight/flare(src)
+	else
+		new /obj/item/tank/internals/emergency_oxygen/engi(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_syndi
 	icon_state = "syndi_box"
