@@ -87,6 +87,10 @@
 
 /obj/effect/decal/cleanable/Initialize(mapload)
 	. = ..()
+	var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
+	prepare_huds()
+	jani_hud.add_to_hud(src)
+	jani_hud_set_sign()
 	if(try_merging_decal())
 		return TRUE
 	if(random_icon_states && length(src.random_icon_states) > 0)
@@ -96,10 +100,6 @@
 		QUEUE_SMOOTH_NEIGHBORS(src)
 	if(iswallturf(loc) && plane == FLOOR_PLANE)
 		plane = GAME_PLANE // so they can be seen above walls
-	var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
-	prepare_huds()
-	jani_hud.add_to_hud(src)
-	jani_hud_set_sign()
 
 /obj/effect/decal/cleanable/Destroy()
 	if(smoothing_flags)

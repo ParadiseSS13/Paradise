@@ -513,7 +513,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(iscarbon(src) && contents.len && ventcrawlerlocal < 2)//It must have atleast been 1 to get this far
 				for(var/obj/item/I in contents)
 					var/failed = 0
-					if(istype(I, /obj/item/implant))
+					if(istype(I, /obj/item/bio_chip))
 						continue
 					if(istype(I, /obj/item/reagent_containers/patch))
 						continue
@@ -1131,7 +1131,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(!(slipAny))
 		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
-			if(isobj(H.shoes) && H.shoes.flags & NOSLIP)
+			if(HAS_TRAIT(H, TRAIT_NOSLIP))
 				return FALSE
 
 	if(tilesSlipped)

@@ -143,10 +143,10 @@
 	origin_tech = "syndicate=1"
 
 /obj/item/mod/module/noslip/on_suit_activation()
-	mod.boots.flags |= NOSLIP
+	ADD_TRAIT(mod.wearer, TRAIT_NOSLIP, UID())
 
 /obj/item/mod/module/noslip/on_suit_deactivation(deleting = FALSE)
-	mod.boots.flags ^= NOSLIP
+	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIP, UID())
 
 //Bite of 87 Springlock - Equips faster, disguised as DNA lock, can block retracting for 10 seconds.
 /obj/item/mod/module/springlock/bite_of_87
@@ -272,7 +272,7 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 10
 	incompatible_modules = list(/obj/item/mod/module/stealth)
-	cooldown_time = 5 SECONDS
+	cooldown_time = 10 SECONDS
 	origin_tech = "combat=6;materials=6;powerstorage=5;bluespace=5;syndicate=2" //Printable at 3
 	/// Whether or not the cloak turns off on bumping.
 	var/bumpoff = TRUE
@@ -286,7 +286,7 @@
 	if(bumpoff)
 		RegisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP, PROC_REF(unstealth))
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
-	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act)) //TODO QWERTY: A LOT OF THESE SIGNALS AINT TRIGGERING. or at least this one.
+	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
 	RegisterSignals(mod.wearer, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW), PROC_REF(unstealth))
 	animate(mod.wearer, alpha = stealth_alpha, time = 1.5 SECONDS)
 	drain_power(use_power_cost)
@@ -306,6 +306,7 @@
 	to_chat(mod.wearer, "<span class='warning'>[src] gets discharged from contact!</span>")
 	do_sparks(2, TRUE, src)
 	drain_power(use_power_cost)
+	COOLDOWN_START(src, cooldown_timer, cooldown_time) //Put it on cooldown.
 	on_deactivation(display_message = TRUE, deleting = FALSE)
 
 /obj/item/mod/module/stealth/proc/on_unarmed_attack(datum/source, atom/target)
@@ -330,6 +331,7 @@
 	icon_state = "cloak_ninja"
 	bumpoff = FALSE
 	stealth_alpha = 10
+	cooldown_time = 5 SECONDS
 	active_power_cost = DEFAULT_CHARGE_DRAIN
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	cooldown_time = 3 SECONDS

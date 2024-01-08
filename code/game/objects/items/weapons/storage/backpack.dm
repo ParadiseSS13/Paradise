@@ -267,6 +267,12 @@
 	icon_state = "satchel-norm"
 	item_state = "satchel-norm"
 
+/obj/item/storage/backpack/satchel/clown
+	name = "Tickles Von Squeakerton"
+	desc = "A satchel with extra pockets for all your banana storing needs!"
+	icon_state = "satchel-clown"
+	item_state = "satchel-clown"
+
 /obj/item/storage/backpack/satchel_eng
 	name = "industrial satchel"
 	desc = "A tough satchel with extra pockets."

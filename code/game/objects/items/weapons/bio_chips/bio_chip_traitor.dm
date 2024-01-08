@@ -1,4 +1,4 @@
-/obj/item/implant/traitor
+/obj/item/bio_chip/traitor
 	name = "Mindslave Bio-chip"
 	desc = "Divide and Conquer"
 	origin_tech = "programming=5;biotech=5;syndicate=8"
@@ -9,7 +9,7 @@
 	/// The UID of the mindslave's `mind`. Stored to solve GC race conditions and ensure we can remove their mindslave status even when they're deleted or gibbed.
 	var/mindslave_UID
 
-/obj/item/implant/traitor/implant(mob/living/carbon/human/mindslave_target, mob/living/carbon/human/user)
+/obj/item/bio_chip/traitor/implant(mob/living/carbon/human/mindslave_target, mob/living/carbon/human/user)
 	// Check `activated` here so you can't just keep taking it out and putting it back into other people.
 	if(activated || !istype(mindslave_target) || !istype(user)) // Both the target and the user need to be human.
 		return FALSE
@@ -40,16 +40,16 @@
 	log_admin("[key_name_admin(user)] has mind-slaved [key_name_admin(mindslave_target)].")
 	return ..()
 
-/obj/item/implant/traitor/removed(mob/target)
+/obj/item/bio_chip/traitor/removed(mob/target)
 	. = ..()
 	var/datum/mind/M = locateUID(mindslave_UID)
 	M.remove_antag_datum(/datum/antagonist/mindslave)
 
-/obj/item/implanter/traitor
+/obj/item/bio_chip_implanter/traitor
 	name = "bio-chip implanter (Mindslave)"
-	implant_type = /obj/item/implant/traitor
+	implant_type = /obj/item/bio_chip/traitor
 
-/obj/item/implantcase/traitor
+/obj/item/bio_chip_case/traitor
 	name = "bio-chip case - 'Mindslave'"
 	desc = "A glass case containing a mindslave bio-chip."
-	implant_type = /obj/item/implant/traitor
+	implant_type = /obj/item/bio_chip/traitor

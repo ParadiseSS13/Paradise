@@ -57,7 +57,7 @@
 	. = ..()
 	if(!.)
 		return
-	mod.boots.flags |= NOSLIP
+	ADD_TRAIT(mod.wearer, TRAIT_NOSLIP, UID())
 	mod.slowdown += slowdown_active
 	ADD_TRAIT(mod.wearer, TRAIT_MAGPULSE, "magbooted")
 
@@ -65,7 +65,7 @@
 	. = ..()
 	if(!.)
 		return
-	mod.boots.flags ^= NOSLIP
+	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIP, UID())
 	mod.slowdown -= slowdown_active
 	REMOVE_TRAIT(mod.wearer, TRAIT_MAGPULSE, "magbooted")
 

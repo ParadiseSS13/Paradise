@@ -58,5 +58,5 @@
 /datum/outfit/abductor/scientist/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(!visualsOnly)
-		var/obj/item/implant/abductor/beamplant = new /obj/item/implant/abductor(H)
+		var/obj/item/bio_chip/abductor/beamplant = new /obj/item/bio_chip/abductor(H)
 		beamplant.implant(H)

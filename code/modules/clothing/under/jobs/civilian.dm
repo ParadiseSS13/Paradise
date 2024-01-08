@@ -90,9 +90,16 @@
 			SSticker.score.score_clown_abuse++
 	return ..()
 
+/obj/item/clothing/under/rank/civilian/clown/skirt
+	name = "clown skirt"
+	desc = "<i>'HONK!'</i>"
+	icon_state = "clown_skirt"
+	item_state = "clown_skirt"
+	item_color = "clown_skirt"
+
 /obj/item/clothing/under/rank/civilian/clown/sexy
 	name = "sexy-clown suit"
-	desc = "It makes you look HONKable!"
+	desc = "It makes you want to practice clown law."
 	icon_state = "sexyclown"
 	item_state = "sexyclown"
 	item_color = "sexyclown"
@@ -106,6 +113,13 @@
 	icon_state = "mime"
 	item_state = "mime"
 	item_color = "mime"
+
+/obj/item/clothing/under/rank/civilian/mime/skirt
+	name = "mime's skirt"
+	desc = "It's not very colourful."
+	icon_state = "mime_skirt"
+	item_state = "mime_skirt"
+	item_color = "mime_skirt"
 
 /obj/item/clothing/under/rank/civilian/mime/sexy
 	name = "sexy mime outfit"
