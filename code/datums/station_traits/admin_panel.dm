@@ -129,7 +129,7 @@
 /datum/station_traits_panel/ui_state(mob/user)
 	return GLOB.admin_state
 
-/datum/ui_module/station_traits_panel/ui_interact(mob/user, datum/tgui/ui)
+/datum/ui_module/station_traits_panel/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "StationTraitsPanel")
