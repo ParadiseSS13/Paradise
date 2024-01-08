@@ -17,7 +17,7 @@
  * If implant is already implanted in a person, then trigger the implantation
  * code.
  */
-/datum/deathrattle_group/proc/register(obj/item/implant/deathrattle/implant)
+/datum/deathrattle_group/proc/register(obj/item/bio_chip/deathrattle/implant)
 	if(implant in implants)
 		return
 	RegisterSignal(implant, COMSIG_PARENT_QDELETING, PROC_REF(on_implant_destruction))
@@ -26,12 +26,12 @@
 	implants += implant
 
 
-/datum/deathrattle_group/proc/on_implant_destruction(obj/item/implant/implant)
+/datum/deathrattle_group/proc/on_implant_destruction(obj/item/bio_chip/implant)
 	SIGNAL_HANDLER
 
 	implants -= implant
 
-/datum/deathrattle_group/proc/on_user_death(obj/item/implant/implant, source, mob/owner)
+/datum/deathrattle_group/proc/on_user_death(obj/item/bio_chip/implant, source, mob/owner)
 	SIGNAL_HANDLER
 	var/victim_name = owner.mind ? owner.mind.name : owner.real_name
 	// All "hearers" hear the same sound.
@@ -43,7 +43,7 @@
 	)
 
 
-	for(var/obj/item/implant/deathrattle/other_implant as anything in implants)
+	for(var/obj/item/bio_chip/deathrattle/other_implant as anything in implants)
 
 		// Skip the unfortunate soul, and any unimplanted implants
 		if(implant == other_implant || !implant.imp_in)
@@ -73,4 +73,4 @@
 /obj/item/bio_chip_case/deathrattle
 	name = "implant case - 'Deathrattle'"
 	desc = "A glass case containing a deathrattle implant."
-	implant_type = /obj/item/implant/deathrattle
+	implant_type = /obj/item/bio_chip/deathrattle

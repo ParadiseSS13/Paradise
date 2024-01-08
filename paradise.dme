@@ -1116,6 +1116,7 @@
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_case.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_chem.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_death_alarm.dm"
+#include "code\game\objects\items\weapons\bio_chips\bio_chip_deathrattle.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_dust.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_emp.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_explosive.dm"

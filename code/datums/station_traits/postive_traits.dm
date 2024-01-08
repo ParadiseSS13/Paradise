@@ -76,7 +76,7 @@
 		if(!(job.job_department_flags & department_to_apply_to))
 			return
 
-	var/obj/item/implant/deathrattle/implant_to_give = new()
+	var/obj/item/bio_chip/deathrattle/implant_to_give = new()
 	deathrattle_group.register(implant_to_give)
 	implant_to_give.implant(spawned, spawned, TRUE, TRUE)
 
@@ -149,7 +149,7 @@
 /datum/station_trait/deathrattle_all/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned, client/player_client)
 	SIGNAL_HANDLER
 
-	var/obj/item/implant/deathrattle/implant_to_give = new()
+	var/obj/item/bio_chip/deathrattle/implant_to_give = new()
 	deathrattle_group.register(implant_to_give)
 	implant_to_give.implant(spawned, spawned, TRUE, TRUE)
 
