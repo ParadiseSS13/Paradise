@@ -9,7 +9,7 @@
 	/// Is it currently spinning?
 	var/spinning = FALSE
 	/// List of options the roulette currently has
-	var/list/options = list("10 credits", "20 credits", "50 credits", "100 credits", "200 credits", "500 credits")
+	var/list/options = list("Blue", "Orange", "Green", "Yellow", "Red", "Purple")
 	/// Colors available on the roulette
 	var/list/colors = list("blue", "orange", "green", "yellow", "red", "purple")
 
