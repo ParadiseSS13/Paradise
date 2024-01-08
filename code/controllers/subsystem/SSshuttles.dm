@@ -320,7 +320,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/turf/landmark_turf = get_turf(locate("landmark*Shuttle Import"))
 	S.load(landmark_turf, centered = TRUE)
 
-	var/affected = S.get_affected_turfs(landmark_turf, centered=TRUE)
+	var/affected = S.get_affected_turfs(landmark_turf, centered = TRUE)
 
 	var/mobile_docking_ports = 0
 	var/obj/docking_port/mobile/port
