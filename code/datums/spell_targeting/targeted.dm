@@ -25,7 +25,7 @@
 	else if(max_targets == 1) // Only one target
 		var/atom/target
 		if(!random_target)
-			target = input("Choose the target for the spell.", "Targeting") as anything in possible_targets
+			target = tgui_input_list(user, "Choose the target for the spell", "Targeting", possible_targets)
 			//Adds a safety check post-input to make sure those targets are actually in range.
 			if(target in view_or_range(range, spell_location, selection_type))
 				targets += target
