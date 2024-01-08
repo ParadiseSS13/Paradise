@@ -114,7 +114,7 @@
 	name = "Vomicilin"
 	id = "vomicilin"
 	result = "vomicilin"
-	required_reagents = list("sulfur" = 1, "water" = 1,, "chlorine" = 1,, "radium" = 1)
+	required_reagents = list("sulfur" = 1, "water" = 1, "chlorine" = 1, "radium" = 1)
 	result_amount = 4
 	mix_message = "The solution melds into a viscous, putrid-scented mixture."
 
