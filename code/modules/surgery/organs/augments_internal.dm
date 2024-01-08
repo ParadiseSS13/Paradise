@@ -341,7 +341,10 @@
 		return
 	if(owner.nutrition <= hunger_threshold)
 		synthesizing = TRUE
-		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
+		if(!ismachineperson(owner))
+			to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
+		else
+			to_chat(owner, "<span class='notice'>You feel slightly energized...</span>")
 		owner.adjust_nutrition(50)
 		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
 
@@ -466,7 +469,7 @@
 	if(crit_fail)
 		return
 	if(owner.maxHealth == owner.health)
-		owner.adjust_nutrition(-0.5)
+		owner.adjust_nutrition(-0.25)
 		return //Passive damage scanning
 
 	owner.adjustBruteLoss(-0.5, robotic = TRUE)
@@ -580,44 +583,46 @@
 		return
 	if(prob(80) && owner.getBruteLoss())
 		owner.adjustBruteLoss(-4, robotic = TRUE)
-		revive_cost += 30
+		revive_cost += 40
 	if(prob(80) && owner.getFireLoss())
 		owner.adjustFireLoss(-4, robotic = TRUE)
-		revive_cost += 30
+		revive_cost += 40
 	if(prob(50) && owner.getBrainLoss())
 		owner.adjustBrainLoss(-4)
 		revive_cost += 60
 
 /obj/item/organ/internal/cyberimp/chest/ipc_reviver/proc/owner_diagnostics(mob/owner)
+	var/list/msgs = list()
 	var/mob/living/carbon/human/machine/H = owner
-	to_chat(owner, "<span class='notice'>Analyzing Current State</span>")
-	to_chat(owner, "Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>")
-	to_chat(owner, "<span class='notice'>External components:</span>")
+	msgs += "<span class='notice'>Systems Diagnostics</span>"
+	msgs += "<hr>"
+	msgs += "Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
+	msgs += "Internals and Externals are only logged when damaged"
+	msgs += "Implants are always logged if installed"
 	var/organ_found
 	if(LAZYLEN(H.internal_organs))
+		msgs += "<hr>"
+		msgs += "<span class='notice'>External components:</span>"
 		for(var/obj/item/organ/external/E in H.bodyparts)
-			if(!E.is_robotic())
-				continue
 			organ_found = TRUE
-			to_chat(owner, "[E.name]: <font color='red'>[E.brute_dam]</font> <font color='#FFA500'>[E.burn_dam]</font>")
-	to_chat(owner, "<hr>")
-	to_chat(owner, "<span class='notice'>Internal components:</span>")
+			msgs += "[E.name]: <font color='red'>[E.brute_dam]</font> <font color='#FFA500'>[E.burn_dam]</font>"
 	organ_found = null
 	if(LAZYLEN(H.internal_organs))
+		msgs += "<hr>"
+		msgs += "<span class='notice'>Internal components:</span>"
 		for(var/obj/item/organ/internal/O in H.internal_organs)
-			if(!O.is_robotic() || istype(O, /obj/item/organ/internal/cyberimp))
-				continue
 			organ_found = TRUE
-			to_chat(owner, "[capitalize(O.name)]: <font color='red'>[O.damage]</font>")
-	to_chat(owner, "<hr>")
-	to_chat(owner, "<span class='notice'>Located implants:</span>")
+			msgs += "[capitalize(O.name)]: <font color='red'>[O.damage]</font>"
 	organ_found = null
 	if(LAZYLEN(H.internal_organs))
+		msgs += "<hr>"
+		msgs += "<span class='notice'>Located implants:</span>"
 		for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
 			organ_found = TRUE
-			to_chat(owner, "[capitalize(I.name)]: <font color='red'>[I.crit_fail ? "CRITICAL FAILURE" : I.damage]</font>")
+			msgs += "[capitalize(I.name)]: <font color='red'>[I.crit_fail ? "CRITICAL FAILURE" : I.damage]</font>"
 	if(!organ_found)
-		to_chat(owner, "<span class='warning'>No implants located.</span>")
+		msgs += "<span class='warning'>No implants located.</span>"
+	to_chat(owner, chat_box_healthscan(msgs.Join("<br>")))
 
 /obj/item/organ/internal/cyberimp/chest/ipc_reviver/emp_act(severity)
 	if(!owner || emp_proof)
