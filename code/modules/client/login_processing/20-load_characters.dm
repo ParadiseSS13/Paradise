@@ -11,6 +11,7 @@
 		age,
 		species,
 		language,
+		cultural_language,
 		hair_colour,
 		secondary_hair_colour,
 		facial_hair_colour,
@@ -85,7 +86,7 @@
 
 	while(Q.NextRow())
 		character_loaded = TRUE
-		var/datum/character_save/CS = C.prefs.character_saves[Q.item[50]] // Get the slot referenced by this query
+		var/datum/character_save/CS = C.prefs.character_saves[Q.item[51]] // Get the slot referenced by this query
 		CS.load(Q) // Let the save handle the query processing
 		CS.valid_save = TRUE
 

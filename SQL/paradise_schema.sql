@@ -30,6 +30,7 @@ CREATE TABLE `characters` (
   `age` smallint(4) NOT NULL,
   `species` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `language` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cultural_language` VARCHAR(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `hair_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000',
   `secondary_hair_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000',
   `facial_hair_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000',
