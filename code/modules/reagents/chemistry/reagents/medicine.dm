@@ -434,6 +434,8 @@
 	id = "vomicilin"
 	description = "A pungent mixture of chemicals used to induce vomiting, to purge the intestinal tract."
 	reagent_state = LIQUID
+	metabolization_rate = 0.2
+	harmless = TRUE
 	color = "#005014"
 	taste_description = "putrid"
 
