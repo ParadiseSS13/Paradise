@@ -22124,6 +22124,11 @@
 /area/station/aisat)
 "bmZ" = (
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenhall";
+	name = "Kitchen bridge Shutters";
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/station/service/kitchen)
 "bna" = (
@@ -74754,9 +74759,6 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/machinery/recharger{
-	pixel_y = 1
-	},
 /obj/machinery/fishtank/bowl,
 /turf/simulated/floor/wood,
 /area/station/public/pet_store)
@@ -85419,7 +85421,7 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Supply Break Room"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "nhh" = (
@@ -88014,6 +88016,9 @@
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "kitchenbar"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "oUJ" = (
@@ -98748,6 +98753,16 @@
 	icon_state = "wood-broken5"
 	},
 /area/station/maintenance/apmaint)
+"xbA" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/station/service/bar)
 "xbS" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -138147,7 +138162,7 @@ aRs
 aUI
 aWg
 aUo
-aOG
+xbA
 aTp
 iUZ
 bdQ
