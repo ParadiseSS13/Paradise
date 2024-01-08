@@ -98753,16 +98753,6 @@
 	icon_state = "wood-broken5"
 	},
 /area/station/maintenance/apmaint)
-"xbA" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "kitchenbar";
-	name = "Kitchen Shutters";
-	dir = 2
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/station/service/bar)
 "xbS" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -138162,7 +138152,7 @@ aRs
 aUI
 aWg
 aUo
-xbA
+aOG
 aTp
 iUZ
 bdQ
