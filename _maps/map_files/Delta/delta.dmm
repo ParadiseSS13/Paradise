@@ -78604,6 +78604,7 @@
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
 	name = "Surgery Cleaner"
 	},
+/obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"

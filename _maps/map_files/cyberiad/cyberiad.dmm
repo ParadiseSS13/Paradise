@@ -32203,6 +32203,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
+"bXl" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel,
+/area/station/command/teleporter)
 "bXn" = (
 /obj/machinery/shieldwallgen,
 /obj/effect/turf_decal/delivery/hollow,
@@ -33711,6 +33715,7 @@
 	pixel_y = 24
 	},
 /obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -62564,6 +62569,7 @@
 	name = "custom placement";
 	pixel_y = -4
 	},
+/obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -64876,10 +64882,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
-"iLY" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel,
-/area/station/command/teleporter)
 "iMo" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Bar Office Maintenance"
@@ -122802,7 +122804,7 @@ bOK
 oRE
 bTR
 jqu
-iLY
+bXl
 bZc
 bSi
 cdU
@@ -123059,7 +123061,7 @@ bQw
 oRE
 bTS
 tvD
-iLY
+bXl
 cbl
 bSi
 cdJ
