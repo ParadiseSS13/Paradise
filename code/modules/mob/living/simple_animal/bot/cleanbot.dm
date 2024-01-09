@@ -52,6 +52,9 @@
 	. = ..()
 	icon_state = "cleanbot[on]"
 
+	clean_dirt = typecacheof(clean_dirt)
+	clean_blood = typecacheof(clean_blood)
+
 	var/datum/job/janitor/J = new/datum/job/janitor
 	access_card.access += J.get_access()
 	prev_access = access_card.access

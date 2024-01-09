@@ -588,54 +588,54 @@
 ////////////Regular Implants/////////////
 /////////////////////////////////////////
 
-/datum/design/implanter
+/datum/design/bio_chip_implanter
 	name = "Bio-chip Implanter"
 	desc = "A sterile automatic bio-chip injector."
 	id = "implanter"
 	req_tech = list("materials" = 2, "biotech" = 3, "programming" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 600, MAT_GLASS = 200)
-	build_path = /obj/item/implanter
+	build_path = /obj/item/bio_chip_implanter
 	category = list("Medical")
 
-/datum/design/implantcase
+/datum/design/bio_chip_case
 	name = "Bio-chip Case"
 	desc = "A glass case containing a bio-chip."
 	id = "implantcase"
 	req_tech = list("biotech" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 500)
-	build_path = /obj/item/implantcase
+	build_path = /obj/item/bio_chip_case
 	category = list("Medical")
 
-/datum/design/implant_chem
+/datum/design/bio_chip_chem
 	name = "Chemical Bio-chip Case"
 	desc = "A glass case containing a bio-chip."
 	id = "implant_chem"
 	req_tech = list("materials" = 3, "biotech" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 700)
-	build_path = /obj/item/implantcase/chem
+	build_path = /obj/item/bio_chip_case/chem
 	category = list("Medical")
 
-/datum/design/implant_sadtrombone
+/datum/design/bio_chip_sad_trombone
 	name = "Sad Trombone Bio-chip Case"
 	desc = "Makes death amusing."
 	id = "implant_trombone"
 	req_tech = list("materials" = 3, "biotech" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 500, MAT_BANANIUM = 500)
-	build_path = /obj/item/implantcase/sad_trombone
+	build_path = /obj/item/bio_chip_case/sad_trombone
 	category = list("Medical")
 
-/datum/design/implant_tracking
+/datum/design/bio_chip_tracking
 	name = "Tracking Bio-chip Case"
 	desc = "A glass case containing a bio-chip."
 	id = "implant_tracking"
 	req_tech = list("materials" = 2, "biotech" = 3, "magnets" = 3, "programming" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
-	build_path = /obj/item/implantcase/tracking
+	build_path = /obj/item/bio_chip_case/tracking
 	category = list("Medical")
 
 //Cybernetic organs
