@@ -364,7 +364,7 @@
 	tastes = list("тесто" = 2, "собачатина" = 3)
 
 /datum/recipe/oven/vuplix
-	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "tsauce" = 1, "cream" = 5)
+	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "tomato_sauce" = 1, "cream" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/meat,
@@ -373,7 +373,7 @@
 
 // Cheese Vulpixes
 /obj/item/reagent_containers/food/snacks/vulpix/cheese
-	name = "сырные вульпыксы"
+	name = "сырные вульпиксы"
 	desc = "Аппетитно выглядящие мясные шарики в тесте с начинкой из сыра... Главное - не думать о том, из кого они сделаны!"
 	icon = 'modular_ss220/food/icons/food.dmi'
 	icon_state = "vulpix_cheese"
@@ -381,7 +381,7 @@
 	tastes = list("тесто" = 2, "собачатина" = 3, "сыр" = 2)
 
 /datum/recipe/oven/vulpixcheese
-	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "csauce" = 1, "cream" = 5)
+	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "cheesesauce" = 1, "cream" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/meat,
@@ -399,7 +399,7 @@
 	tastes = list("тесто" = 2, "собачатина" = 3, "бекон" = 2, "грибы" = 2)
 
 /datum/recipe/oven/vulpixbacon
-	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "msauce" = 1, "cream" = 5)
+	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "mushroomsauce" = 1, "cream" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/meat,
@@ -418,7 +418,7 @@
 	tastes = list("тесто" = 2, "собачатина" = 3, "чилли" = 2)
 
 /datum/recipe/oven/vulpixchilli
-	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "dsauce" = 1, "cream" = 5)
+	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "diablosauce" = 1, "cream" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/meat,
