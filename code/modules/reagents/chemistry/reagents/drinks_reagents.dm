@@ -271,6 +271,7 @@
 /datum/reagent/consumable/drink/hot_coco/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 310) // 310 is the normal bodytemp. 310.055
 		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	return ..()
 
 /datum/reagent/consumable/drink/coffee
 	name = "Coffee"

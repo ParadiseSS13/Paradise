@@ -168,6 +168,14 @@
 				"" = 61 // This should be a decently high number for chances where no loot will spawn
 				)
 
+/obj/effect/spawner/lootdrop/maintenance/Initialize(mapload)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_EMPTY_MAINT) && prob(50))
+		return qdel(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_FILLED_MAINT) && prob(50))
+		lootcount = min(lootcount * 2, 12)
+	. = ..()
+
+
 /obj/effect/spawner/lootdrop/maintenance/two
 	name = "maintenance loot spawner (2 items)"
 	icon_state = "doubleloot"
