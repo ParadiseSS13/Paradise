@@ -207,6 +207,23 @@
 	cost = 200
 	containername = "high-traction floor tiles"
 
+/datum/supply_packs/misc/soap
+	name = "Assorted Soap Crate"
+	contains = list(/obj/item/soap,
+					/obj/item/soap,
+					/obj/item/soap,
+					/obj/item/soap/nanotrasen)
+	cost = 250
+	containername = "soap crate"
+
+/datum/supply_packs/misc/sus_soap
+	name = "Suspicious Soap Crate"
+	contains = list(/obj/item/soap/syndie,
+					/obj/item/soap/syndie)
+	cost = 250
+	containername = "suspicious soap crate"
+	hidden = TRUE
+
 ///////////// Costumes
 
 /datum/supply_packs/misc/servicecostume
