@@ -22,6 +22,5 @@
 	},
 	"[scss]": {
 		"editor.rulers": [80]
-	},
-	"GitHooks.hooksDirectory": "c:\\Users\\User1\\OneDrive\\Documents\\GitHub\\Paradise\\.git\\hooks"
+	}
 }
