@@ -13,8 +13,9 @@
 
 /datum/character_save/copy_to(mob/living/carbon/human/character)
 	. = ..()
-	character.tts_seed = tts_seed
-	character.dna.tts_seed_dna = tts_seed
+	if(tts_seed)
+		character.tts_seed = tts_seed
+		character.dna.tts_seed_dna = tts_seed
 
 /datum/ui_module/tts_seeds_explorer
 	name = "Эксплорер TTS голосов"

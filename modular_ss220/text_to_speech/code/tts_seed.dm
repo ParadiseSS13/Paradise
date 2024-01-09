@@ -16,14 +16,23 @@
 	var/static/tts_test_str = "Так звучит мой голос."
 
 	var/tts_seeds
+	var/tts_gender = get_converted_tts_seed_gender(user.gender)
+	var/list/list_genders = SStts220.tts_list_names_gender[tts_gender]
 	if(user && (check_rights(R_ADMIN, FALSE, user) || override))
-		tts_seeds = SStts220.tts_seeds_names
+		tts_seeds = list_genders
 	else
-		tts_seeds = SStts220.get_available_seeds(src)
+		var/list/not_available_tts_seeds = list_genders - SStts220.get_available_seeds(src)
+		tts_seeds = list_genders - not_available_tts_seeds
 
-	var/new_tts_seed = input(user || src, "Выберите голос:", "Настройка персонажа", tts_seed) as null|anything in tts_seeds
+	var/datum/character_save/active_character = user?.client?.prefs.active_character
+	var/new_tts_seed
+	if(active_character.tts_seed && (user.gender == active_character.gender))
+		if(alert(user || src, "Оставляем голос вашего персонажа [active_character.real_name]?", "Выбор голоса", "Нет", "Да") ==  "Да")
+			new_tts_seed = active_character.tts_seed
 	if(!new_tts_seed)
-		return null
+		new_tts_seed = input(user, "Выберите голос вашего персонажа", "Преобразуем голос") as null|anything in tts_seeds
+		if(!new_tts_seed)
+			return null
 	if(!silent_target && ismob(src) && src != user)
 		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(tts_cast), null, src, tts_test_str, new_tts_seed, FALSE)
 	if(user)
@@ -41,11 +50,6 @@
 	tts_seed = new_tts_seed
 	return new_tts_seed
 
-/mob/living/carbon/human/Initialize(mapload, datum/species/new_species)
-	. = ..()
-	if(dna)
-		dna.tts_seed_dna = tts_seed
-
 /mob/living/carbon/human/change_dna(datum/dna/new_dna, include_species_change, keep_flavor_text)
 	. = ..()
 	tts_seed = dna.tts_seed_dna
@@ -60,6 +64,26 @@
 	set desc = "Express yourself!"
 	set category = "Subsystems"
 	change_voice()
+
+/atom/proc/get_converted_tts_seed_gender()
+	switch(gender)
+		if(MALE)
+			return TTS_GENDER_MALE
+		if(FEMALE)
+			return TTS_GENDER_FEMALE
+		else
+			return TTS_GENDER_ANY
+
+/atom/proc/pick_tts_seed_gender()
+	var/tts_gender = get_converted_tts_seed_gender()
+	return pick(SStts220.tts_list_names_gender[tts_gender])
+
+/atom/proc/get_random_tts_seed_gender()
+	var/tts_choice = pick_tts_seed_gender(gender)
+	var/datum/tts_seed/seed = SStts220.tts_seeds[tts_choice]
+	if(!seed)
+		return null
+	return seed.name
 
 /**
 * Surgery to change the voice of TTS.

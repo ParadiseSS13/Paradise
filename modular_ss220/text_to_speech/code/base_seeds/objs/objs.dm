@@ -15,3 +15,11 @@
 
 /obj/item/ttsdevice
 	tts_seed = "Xenia"
+
+/obj/structure/mirror/magic/Initialize(mapload, newdir, building)
+	. = ..()
+	options |= list("Voice TTS")
+
+/obj/structure/mirror/magic/proc/tts_choose(choice, mob/living/carbon/human/human_to_update)
+	if(choice == "Voice TTS")
+		human_to_update.change_voice(human_to_update, TRUE)

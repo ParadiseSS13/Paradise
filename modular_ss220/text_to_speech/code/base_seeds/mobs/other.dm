@@ -12,6 +12,12 @@
 /mob/living/simple_animal/bot
 	tts_seed = null
 
+/mob/living/simple_animal/bot/mulebot
+	tts_seed = "Training_robot"
+
+/mob/living/simple_animal/bot/honkbot
+	tts_seed = "Training_robot"
+
 /mob/living/simple_animal/slime
 	tts_seed = "Chen"
 
