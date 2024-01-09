@@ -131,7 +131,7 @@ const DataView = (props, context) => {
             </Section>
           </Flex.Item>
           <Flex.Item grow={1}>
-            <Section position="relative" height="100%">
+            <Section fill ml={1}>
               <Chart.Line
                 fillPositionedParent
                 data={supplyData}
