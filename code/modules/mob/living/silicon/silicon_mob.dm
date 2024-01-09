@@ -487,7 +487,7 @@
 		if("Cricket-SEC", "Cricket-MEDI", "Cricket-JANI", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV") //Height: 31 pixels
 			can_be_hatted = TRUE
 			hat_offset_y = 2
-		if("droidcombat-shield", "droidcombat") 
+		if("droidcombat-shield", "droidcombat")
 			can_be_hatted = TRUE
 			hat_alpha = 255
 			hat_offset_y = 2
@@ -536,7 +536,7 @@
 		if (!can_wear_blacklisted_hats && is_type_in_list(inventory_head, blacklisted_hats))
 			remove_from_head(usr)
 			return
-	
+
 	update_icons()
 
 /mob/living/silicon/proc/hat_icons()
@@ -644,3 +644,9 @@
 
 /mob/living/silicon/grabbedby(mob/living/user)
 	remove_from_head(user)
+
+/mob/living/silicon/examine(mob/user)
+	. = ..()
+	if(inventory_head)
+		. += "<span class='notice'>They are wearing a [bicon(inventory_head)] [inventory_head.name].<span>"
+		. += "<span class='notice'>Use an empty hand on [src] on grab mode to remove [inventory_head].<span>"
