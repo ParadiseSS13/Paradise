@@ -134,3 +134,8 @@
 	life = "Unknown. No collected sample has been active long enough to determine lifespan."
 	notes = "Manually activated by the user."
 	function = "Allows the user to summon a box from a bluespace pocket located inside the implant. The exterior of this box is lined with experimental cloaking panels which render the box invisible to the naked eye."
+
+/datum/implant_fluff/deathrattle
+	name = "BioTech Solutions \"Dead Ringer\" Death Ratttle Bio-chip"
+	notes = "Alerts implanted crew to crewmember death."
+	function = "Contains a compact radio signaler that triggers when the host's lifesigns cease, only sent to other implanted in the group."
