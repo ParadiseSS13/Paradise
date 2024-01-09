@@ -66799,6 +66799,12 @@
 /area/station/science/genetics)
 "dYd" = (
 /obj/machinery/dna_scannernew,
+/obj/machinery/requests_console{
+	department = "Medbay";
+	departmentType = 1;
+	name = "Genetics Requests Console";
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -70656,6 +70662,7 @@
 	},
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/item/stack/medical/bruise_pack/advanced,
+/obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -76130,9 +76137,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "jKM" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -76149,35 +76153,6 @@
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/glass,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/stack/medical/bruise_pack/advanced,
-/obj/item/reagent_containers/iv_bag/salglu,
-/obj/machinery/camera{
-	c_tag = "Medbay Surgery West";
-	dir = 1;
-	network = list("Medical","SS13")
-	},
-/obj/machinery/status_display{
-	pixel_y = -32
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
-	name = "Surgery Cleaner"
-	},
-/obj/item/stack/medical/ointment/advanced,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/primary)
@@ -82571,12 +82546,6 @@
 /area/station/public/fitness)
 "nJz" = (
 /obj/machinery/computer/scan_consolenew,
-/obj/machinery/requests_console{
-	department = "Medbay";
-	departmentType = 1;
-	name = "Genetics Requests Console";
-	pixel_y = 30
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -93333,6 +93302,7 @@
 	},
 /obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
