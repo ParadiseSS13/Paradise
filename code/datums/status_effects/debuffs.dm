@@ -422,7 +422,7 @@
 	var/alcohol_resistance = 1
 	var/actual_strength = strength
 	var/datum/mind/M = owner.mind
-	var/is_ipc = ismachineperson(owner)
+	var/is_robot = ismachineperson(owner) || issilicon(owner)
 
 	if(HAS_TRAIT(owner, TRAIT_ALCOHOL_TOLERANCE))
 		alcohol_resistance = 2
@@ -430,7 +430,7 @@
 	actual_strength /= alcohol_resistance
 
 	var/obj/item/organ/internal/liver/L
-	if(!is_ipc)
+	if(!is_robot)
 		L = owner.get_int_organ(/obj/item/organ/internal/liver)
 		var/liver_multiplier = 5 // no liver? get shitfaced
 		if(L)
@@ -456,10 +456,10 @@
 	if(actual_strength >= THRESHOLD_CONFUSION && prob(0.33))
 		owner.AdjustConfused(6 SECONDS / alcohol_resistance, bound_lower = 2 SECONDS, bound_upper = 1 MINUTES)
 	// THRESHOLD_SPARK (100 SECONDS)
-	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(0.25))
+	if(is_robot && actual_strength >= THRESHOLD_SPARK && prob(0.25))
 		do_sparks(3, 1, owner)
 	// THRESHOLD_VOMIT (120 SECONDS)
-	if(!is_ipc && actual_strength >= THRESHOLD_VOMIT && prob(0.08))
+	if(!is_robot && actual_strength >= THRESHOLD_VOMIT && prob(0.08))
 		owner.fakevomit()
 	// THRESHOLD_BLUR (150 SECONDS)
 	if(actual_strength >= THRESHOLD_BLUR)
@@ -474,7 +474,7 @@
 		owner.Drowsy(60 SECONDS / alcohol_resistance)
 		if(L)
 			L.receive_damage(1, TRUE)
-		if(!is_ipc)
+		if(!is_robot)
 			owner.adjustToxLoss(1)
 	// THRESHOLD_BRAIN_DAMAGE (240 SECONDS)
 	if(actual_strength >= THRESHOLD_BRAIN_DAMAGE && prob(0.1))

@@ -597,6 +597,7 @@
 
 /datum/reagent/consumable/chocolate/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 0.8)
+	return ..()
 
 /datum/reagent/consumable/chocolate/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))

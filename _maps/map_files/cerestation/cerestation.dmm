@@ -10398,17 +10398,6 @@
 	icon_state = "white"
 	},
 /area/station/medical/surgery/primary)
-"bjL" = (
-/obj/structure/table,
-/obj/item/reagent_containers/iv_bag/salglu,
-/obj/machinery/alarm{
-	pixel_y = 24;
-	name = "north bump"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/station/medical/surgery/primary)
 "bjN" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
@@ -23638,6 +23627,17 @@
 /obj/machinery/chem_heater,
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
+"cvT" = (
+/obj/structure/table,
+/obj/machinery/alarm{
+	pixel_y = 24;
+	name = "north bump"
+	},
+/obj/item/reagent_containers/iv_bag/salglu,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/medical/surgery/secondary)
 "cvW" = (
 /mob/living/simple_animal/slime,
 /turf/simulated/floor/engine,
@@ -59814,6 +59814,17 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/north)
+"mbr" = (
+/obj/structure/table,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/machinery/alarm{
+	pixel_y = 24;
+	name = "north bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/medical/surgery/primary)
 "mbw" = (
 /obj/machinery/computer/crew{
 	dir = 1
@@ -75889,17 +75900,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
-"rrV" = (
-/obj/structure/table,
-/obj/machinery/alarm{
-	pixel_y = 24;
-	name = "north bump"
-	},
-/obj/item/reagent_containers/iv_bag/salglu,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/station/medical/surgery/secondary)
 "rsj" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -146973,7 +146973,7 @@ qGo
 bhp
 qCT
 dzw
-bjL
+mbr
 bkI
 cOO
 cPa
@@ -148515,7 +148515,7 @@ kuE
 gFg
 itf
 dzy
-rrV
+cvT
 rRb
 sin
 syk

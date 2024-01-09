@@ -78531,26 +78531,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
-"hLZ" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/iv_bag/salglu,
-/obj/machinery/camera{
-	c_tag = "Medbay Surgery West";
-	dir = 1;
-	network = list("Medical","SS13")
-	},
-/obj/machinery/status_display{
-	pixel_y = -32
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
-	name = "Surgery Cleaner"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
-	},
-/area/station/medical/surgery/primary)
 "hMD" = (
 /obj/machinery/camera{
 	c_tag = "Research Toxin Mixing";
@@ -79205,6 +79185,26 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
+"ilr" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/machinery/camera{
+	c_tag = "Medbay Surgery West";
+	dir = 1;
+	network = list("Medical","SS13")
+	},
+/obj/machinery/status_display{
+	pixel_y = -32
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/station/medical/surgery/primary)
 "imf" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -148121,7 +148121,7 @@ dEu
 dtm
 nRf
 dvM
-hLZ
+ilr
 cXJ
 eha
 hTW

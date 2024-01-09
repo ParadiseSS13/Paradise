@@ -272,7 +272,7 @@
 /obj/structure/table,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/coin,
+/obj/item/coin/gold,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "aU" = (

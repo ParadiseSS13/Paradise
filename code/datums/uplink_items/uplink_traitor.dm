@@ -412,6 +412,16 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	cant_discount = TRUE
 
+/datum/uplink_item/stealthy_weapons/bearserk
+	name = "Bearserker Pelt"
+	desc = "A bear pelt that infuses the wearer with bear spirits and knowledge on an occultic martial art known as Rage of the Space Bear. \
+			The pelt itself is also armored, providing the wearer great longevity. \
+			Made with love, lots of spirits and lots of the other kind of spirits by the Sydnicate-affiliated cult, Children of Ursa Major."
+	reference = "BSP"
+	item = /obj/item/clothing/head/bearpelt/bearserk
+	cost = 65
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/stealthy_tools/traitor_belt
 	name = "Traitor's Toolbelt"
 	desc = "A robust seven-slot belt made for carrying a broad variety of weapons, ammunition and explosives. It's modelled after the standard NT toolbelt so as to avoid suspicion while wearing it."
@@ -626,6 +636,11 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 	cant_discount = TRUE
+
+/datum/uplink_item/explosives/emp_bomb/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		cost *= 1.25 //ok this thing is already very expencive it doesnt need much more
 
 /datum/uplink_item/explosives/atmosfiregrenades
 	name = "Plasma Fire Grenades"
