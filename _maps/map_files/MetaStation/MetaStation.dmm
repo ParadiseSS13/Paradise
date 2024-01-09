@@ -817,6 +817,11 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -3217,14 +3222,6 @@
 /obj/structure/grille/broken,
 /turf/space,
 /area/space/nearstation)
-"auq" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/break_room)
 "aus" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -16273,7 +16270,7 @@
 	dir = 8;
 	icon_state = "darkbluecorners"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "bik" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -17569,7 +17566,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "blA" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
 /turf/simulated/floor/plating,
@@ -20273,7 +20270,7 @@
 	dir = 8;
 	icon_state = "darkbluecorners"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "bsE" = (
 /obj/machinery/light/small,
 /obj/vehicle/janicart,
@@ -20323,7 +20320,7 @@
 	dir = 4;
 	icon_state = "darkbluecorners"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "bsK" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_4)
@@ -22167,7 +22164,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "bxy" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable/yellow{
@@ -47285,7 +47282,7 @@
 	dir = 4;
 	icon_state = "darkbluecorners"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "dIQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -51019,7 +51016,7 @@
 	dir = 8;
 	icon_state = "darkbluecorners"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "fqX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -53389,7 +53386,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "gpV" = (
 /obj/machinery/door/window/classic/normal{
 	name = "Mass Driver Door";
@@ -55526,7 +55523,7 @@
 	dir = 4;
 	icon_state = "darkbluecorners"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "hkF" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_2)
@@ -56441,7 +56438,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "hED" = (
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
@@ -61059,6 +61056,9 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/turret_protected/aisat/interior)
+"jKj" = (
+/turf/simulated/wall/r_wall,
+/area/station/engineering/ai_transit_tube)
 "jKP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -64305,6 +64305,16 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -66364,11 +66374,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -67932,7 +67937,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "mBe" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -68924,9 +68929,9 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
@@ -69280,7 +69285,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "ncC" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
@@ -72764,11 +72769,16 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "oMn" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -75176,11 +75186,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 5
 	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "pKs" = (
@@ -76440,7 +76445,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "qkD" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -78207,7 +78212,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "rab" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -81050,7 +81055,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "slX" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -84341,7 +84346,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "tOF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -86658,10 +86663,15 @@
 	id_tag = "transittube";
 	name = "Transit Tube Blast Door"
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "uRT" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -92325,7 +92335,7 @@
 	dir = 8;
 	icon_state = "darkbluecorners"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "xrZ" = (
 /obj/structure/closet/firecloset,
 /obj/effect/decal/cleanable/cobweb2,
@@ -92596,11 +92606,17 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/yellow,
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/ai_transit_tube)
 "xyc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -137084,7 +137100,7 @@ bjN
 bjN
 bnt
 xrx
-auq
+bpn
 lQJ
 gYM
 hHE
@@ -137343,12 +137359,12 @@ nmh
 aLw
 pKi
 aiE
-bnt
-bnt
-bnt
-bnt
-bnt
-bnt
+jKj
+jKj
+jKj
+jKj
+jKj
+jKj
 iRu
 mpP
 skc
@@ -137857,7 +137873,7 @@ bnt
 xYR
 nCm
 tyW
-bnt
+jKj
 hkm
 tNQ
 mAZ
@@ -138118,7 +138134,7 @@ wUa
 bsI
 bxx
 bly
-bnt
+jKj
 qZz
 iRu
 fmo
@@ -138375,7 +138391,7 @@ wUa
 dIn
 sls
 hEA
-bnt
+jKj
 ncA
 iRu
 yif
@@ -138632,7 +138648,7 @@ sTM
 jKS
 aXO
 aXO
-bnt
+jKj
 qkC
 iRu
 ciD

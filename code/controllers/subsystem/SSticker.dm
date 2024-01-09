@@ -278,6 +278,7 @@ SUBSYSTEM_DEF(ticker)
 	watch = start_watch()
 	GLOB.data_core.manifest() // Create the manifest
 	log_debug("Manifest creation took [stop_watch(watch)]s")
+	SEND_SIGNAL(src, COMSIG_TICKER_ROUND_STARTING, world.time)
 
 	// Update the MC and state to game playing
 	current_state = GAME_STATE_PLAYING
