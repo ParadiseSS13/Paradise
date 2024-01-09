@@ -304,18 +304,8 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bw" = (
+/obj/item/storage/surgical_tray,
 /obj/structure/table/tray,
-/obj/item/stack/medical/bruise_pack/advanced,
-/obj/item/scalpel,
-/obj/item/hemostat,
-/obj/item/retractor,
-/obj/item/circular_saw,
-/obj/item/bonegel,
-/obj/item/bonesetter,
-/obj/item/cautery,
-/obj/item/FixOVein,
-/obj/item/surgicaldrill,
-/obj/item/storage/backpack/duffel/medical,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bx" = (
