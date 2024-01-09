@@ -3979,32 +3979,32 @@
 /area/abductor_ship)
 "ns" = (
 /obj/structure/rack,
-/obj/item/implanter/adrenalin{
+/obj/item/bio_chip_implanter/adrenalin{
 	pixel_x = 12;
 	pixel_y = -12
 	},
-/obj/item/implanter/emp{
+/obj/item/bio_chip_implanter/emp{
 	pixel_x = 9;
 	pixel_y = -9
 	},
-/obj/item/implanter/explosive{
+/obj/item/bio_chip_implanter/explosive{
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/obj/item/implanter/explosive_macro{
+/obj/item/bio_chip_implanter/explosive_macro{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/implanter/freedom,
-/obj/item/implanter/krav_maga{
+/obj/item/bio_chip_implanter/freedom,
+/obj/item/bio_chip_implanter/krav_maga{
 	pixel_x = -9;
 	pixel_y = 9
 	},
-/obj/item/implanter/mindshield{
+/obj/item/bio_chip_implanter/mindshield{
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/item/implanter/storage{
+/obj/item/bio_chip_implanter/storage{
 	pixel_x = -3;
 	pixel_y = 3
 	},
@@ -4801,7 +4801,7 @@
 /area/shuttle/escape)
 "qm" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "qn" = (
@@ -7407,6 +7407,7 @@
 /obj/item/surgicaldrill,
 /obj/item/bonegel,
 /obj/item/FixOVein,
+/obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -10690,7 +10691,7 @@
 /area/shuttle/escape)
 "LT" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
 	},
@@ -12904,7 +12905,7 @@
 	},
 /area/centcom/evac)
 "TN" = (
-/obj/item/storage/box/matches{
+/obj/item/storage/fancy/matches{
 	pixel_x = -3;
 	pixel_y = 5
 	},

@@ -57,7 +57,7 @@
 	. = ..()
 	if(!.)
 		return
-	mod.boots.flags |= NOSLIP
+	ADD_TRAIT(mod.wearer, TRAIT_NOSLIP, UID())
 	mod.slowdown += slowdown_active
 	ADD_TRAIT(mod.wearer, TRAIT_MAGPULSE, "magbooted")
 
@@ -65,7 +65,7 @@
 	. = ..()
 	if(!.)
 		return
-	mod.boots.flags ^= NOSLIP
+	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIP, UID())
 	mod.slowdown -= slowdown_active
 	REMOVE_TRAIT(mod.wearer, TRAIT_MAGPULSE, "magbooted")
 
@@ -174,7 +174,6 @@
 	item_state = "nozzleatmos"
 	safety = 0
 	max_water = 500
-	power = 8
 	precision = 1
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
