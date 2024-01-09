@@ -86,7 +86,7 @@
 
 	if(rotting)
 		. += "<span class='warning'>There is fungus growing on [src].</span>"
-	if (can_dismantle_with_welder)
+	if(can_dismantle_with_welder)
 		. += "<span class='notice'>Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.</span>"
 
 /// Apply rust effects to the wall
