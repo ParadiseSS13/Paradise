@@ -93458,11 +93458,6 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "ujq" = (
