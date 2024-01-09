@@ -47,6 +47,8 @@
 
 	var/light_range_on = 1
 	var/light_power_on = 0.5
+	/// Do we drop contents on destroy?
+	var/drop_contents_on_delete = TRUE
 
 /obj/machinery/smartfridge/Initialize(mapload)
 	. = ..()
@@ -92,8 +94,9 @@
 /obj/machinery/smartfridge/Destroy()
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
-	for(var/atom/movable/A in contents)
-		A.forceMove(loc)
+	if(drop_contents_on_delete)
+		for(var/atom/movable/A in contents)
+			A.forceMove(loc)
 	return ..()
 
 /obj/machinery/smartfridge/process()
@@ -158,8 +161,6 @@
 
 /obj/machinery/smartfridge/wrench_act(mob/living/user, obj/item/I)
 	. = default_unfasten_wrench(user, I, time = 4 SECONDS)
-	if(.)
-		power_change()
 
 /obj/machinery/smartfridge/crowbar_act(mob/living/user, obj/item/I)
 	. = default_deconstruction_crowbar(user, I)
@@ -529,6 +530,9 @@
 /obj/machinery/smartfridge/secure/circuits/aiupload/Initialize(mapload)
 	. = ..()
 	req_access_txt = "[ACCESS_AI_UPLOAD]"
+	if(mapload && HAS_TRAIT(SSstation, STATION_TRAIT_UNIQUE_AI) && is_station_level(z))
+		drop_contents_on_delete = FALSE
+		return INITIALIZE_HINT_QDEL
 
 /obj/machinery/smartfridge/secure/circuits/aiupload/experimental
 	name = "\improper Experimental Laws Storage"
@@ -580,7 +584,8 @@
 		/obj/item/reagent_containers/iv_bag,
 		/obj/item/reagent_containers/applicator,
 		/obj/item/storage/pill_bottle,
-		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/patch,
 		/obj/item/stack/medical
 	))
 
@@ -620,7 +625,8 @@
 		/obj/item/reagent_containers/iv_bag,
 		/obj/item/reagent_containers/applicator,
 		/obj/item/storage/pill_bottle,
-		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/patch,
 		/obj/item/stack/medical
 	))
 
@@ -654,8 +660,8 @@
 
 /obj/machinery/smartfridge/secure/chemistry/preloaded/Initialize(mapload)
 	starting_items = list(
-		/obj/item/reagent_containers/food/pill/epinephrine = 12,
-		/obj/item/reagent_containers/food/pill/charcoal = 5,
+		/obj/item/reagent_containers/pill/epinephrine = 12,
+		/obj/item/reagent_containers/pill/charcoal = 5,
 		/obj/item/reagent_containers/glass/bottle/epinephrine = 1,
 		/obj/item/reagent_containers/glass/bottle/charcoal = 1,
 	)

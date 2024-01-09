@@ -51,7 +51,7 @@
 	if(!length(vampires))
 		return
 
-	var/text = "<FONT size = 2><B>The vampires were:</B></FONT>"
+	var/list/text = list("<FONT size = 2><B>The vampires were:</B></FONT>")
 	for(var/datum/mind/vampire in vampires)
 		var/traitorwin = TRUE
 		var/datum/antagonist/vampire/V = vampire.has_antag_datum(/datum/antagonist/vampire)
@@ -101,14 +101,13 @@
 		else
 			text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
 			SSblackbox.record_feedback("tally", "vampire_success", 1, "FAIL")
-	to_chat(world, text)
-	return TRUE
+	return text.Join("")
 
 /datum/game_mode/proc/auto_declare_completion_enthralled()
 	if(!length(vampire_enthralled))
 		return
 
-	var/text = "<FONT size = 2><B>The Enthralled were:</B></FONT>"
+	var/list/text = list("<FONT size = 2><B>The Enthralled were:</B></FONT>")
 	for(var/datum/mind/mind in vampire_enthralled)
 		text += "<br>[mind.get_display_key()] was [mind.name] ("
 		if(mind.current)
@@ -121,6 +120,5 @@
 		else
 			text += "body destroyed"
 		text += ")"
-	to_chat(world, text)
-	return TRUE
+	return text.Join("")
 

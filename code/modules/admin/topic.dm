@@ -2678,8 +2678,8 @@
 		if(!paths)
 			alert("The path list you sent is empty")
 			return
-		if(length(paths) > 5)
-			alert("Select fewer object types, (max 5)")
+		if(length(paths) > 20)
+			alert("Select fewer object types, (max 20)")
 			return
 
 		var/list/offset = splittext(href_list["offset"],",")
@@ -2800,27 +2800,35 @@
 		qdel(query_memoedits)
 
 	else if(href_list["secretsfun"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
-
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
 		var/ok = 0
 		switch(href_list["secretsfun"])
 			if("sec_clothes")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove 'internal' clothing")
 				for(var/obj/item/clothing/under/O in world)
 					qdel(O)
 				ok = 1
 			if("sec_all_clothes")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove ALL clothing")
 				for(var/obj/item/clothing/O in world)
 					qdel(O)
 				ok = 1
 			if("sec_classic1")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove firesuits, grilles, and pods")
 				for(var/obj/item/clothing/suit/fire/O in world)
 					qdel(O)
 				for(var/obj/structure/grille/O in world)
 					qdel(O)
 			if("monkey")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Monkeyize All Humans")
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
@@ -2828,6 +2836,8 @@
 						H.monkeyize()
 				ok = 1
 			if("corgi")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Corgize All Humans")
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
@@ -2897,6 +2907,8 @@
 				if(!SSticker)
 					alert("The game hasn't started yet!", null, null, null, null, null)
 					return
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Prison Warp")
 				message_admins("<span class='notice'>[key_name_admin(usr)] teleported all players to the prison station.</span>", 1)
 				for(var/thing in GLOB.human_list)
@@ -2935,6 +2947,8 @@
 			if("traitor_all")
 				if(!SSticker)
 					alert("The game hasn't started yet!")
+					return
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				var/objective = sanitize(copytext(input("Enter an objective"),1,MAX_MESSAGE_LEN))
 				if(!objective)
@@ -3015,33 +3029,34 @@
 					L.fix()
 					L.switchcount = 0
 			if("floorlava")
-				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor")
 				SSweather.run_weather(/datum/weather/floor_is_lava)
 				message_admins("[key_name_admin(usr)] made the floor lava")
 			if("fakelava")
-				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor Fake")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor Fake")
 				SSweather.run_weather(/datum/weather/floor_is_lava/fake)
 				message_admins("[key_name_admin(usr)] made aesthetic lava on the floor")
 			if("weatherashstorm")
-				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Weather Ash Storm")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Weather Ash Storm")
 				SSweather.run_weather(/datum/weather/ash_storm)
 				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining level")
 			if("stupify")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Mass Braindamage")
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					to_chat(H, "<span class='danger'>You suddenly feel stupid.</span>")
 					H.setBrainLoss(60)
 				message_admins("[key_name_admin(usr)] made everybody stupid")
 			if("fakeguns")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fake Guns")
 				for(var/obj/item/W in world)
 					if(isclothing(W) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
@@ -3051,6 +3066,8 @@
 					W.item_state = "gun"
 				message_admins("[key_name_admin(usr)] made every item look like a gun")
 			if("schoolgirl") // nyaa~ How much are you paying attention in reviews?
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				for(var/obj/item/clothing/under/W in world)
 					W.icon_state = "schoolgirl"
@@ -3059,6 +3076,8 @@
 				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
 				SEND_SOUND(world, sound('sound/AI/animes.ogg'))
 			if("eagles")//SCRAW
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Egalitarian Station")
 				for(var/obj/machinery/door/airlock/W in GLOB.airlocks)
 					if(is_station_level(W.z) && !istype(get_area(W), /area/station/command/bridge) && !istype(get_area(W), /area/station/public) && !istype(get_area(W), /area/station/security/prison))
@@ -3066,13 +3085,19 @@
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
 				GLOB.minor_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
 			if("onlyone")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One")
 				usr.client.only_one()
 //				message_admins("[key_name_admin(usr)] has triggered HIGHLANDER")
 			if("onlyme")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only Me")
 				usr.client.only_me()
 			if("onlyoneteam")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One Team")
 				usr.client.only_one_team()
 //				message_admins("[key_name_admin(usr)] has triggered ")
@@ -3157,8 +3182,8 @@
 				to_chat(world, "<b>A secret has been activated by [usr.key]!</b>")
 
 	else if(href_list["secretsadmin"])
-		if(!check_rights(R_ADMIN))	return
-
+		if(!check_rights(R_ADMIN))
+			return
 		var/ok = 0
 		switch(href_list["secretsadmin"])
 			if("list_signalers")
@@ -3480,8 +3505,8 @@
 	N.target = H
 	N.point_at(N.target)
 	N.modelocked = TRUE
-	if(!locate(/obj/item/implant/dust, hunter_mob))
-		var/obj/item/implant/dust/D = new /obj/item/implant/dust(hunter_mob)
+	if(!locate(/obj/item/bio_chip/dust, hunter_mob))
+		var/obj/item/bio_chip/dust/D = new /obj/item/bio_chip/dust(hunter_mob)
 		D.implant(hunter_mob)
 	if(killthem)
 		var/datum/objective/assassinate/kill_objective = new

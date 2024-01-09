@@ -15,7 +15,6 @@
 	dir = WEST
 	var/mob/living/carbon/human/occupant = null
 	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
-	var/emergency_chems = list("ephedrine") // Desnowflaking
 	var/amounts = list(5, 10)
 	/// Beaker loaded into the sleeper. Used for dialysis.
 	var/obj/item/reagent_containers/glass/beaker = null
@@ -23,7 +22,6 @@
 	var/filtering = FALSE
 	var/max_chem
 	var/initial_bin_rating = 1
-	var/min_health = -25
 	var/controls_inside = FALSE
 	var/auto_eject_dead = FALSE
 	idle_power_consumption = 1250
@@ -86,7 +84,6 @@
 		E += B.rating
 
 	max_chem = E * 20
-	min_health = -E * 25
 
 /obj/machinery/sleeper/Destroy()
 	for(var/mob/M in contents)
@@ -119,13 +116,13 @@
 
 			if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
 				occupant.transfer_blood_to(beaker, 1)
-				for(var/datum/reagent/R in occupant.reagents.reagent_list)
+				for(var/datum/reagent/reagent in occupant.reagents.reagent_list)
 					occupant.transfer_blood_to(beaker, 1)
-					if(R.id in GLOB.blocked_chems)
-						occupant.reagents.remove_reagent(R.id, 3)
+					if(reagent.id in GLOB.blocked_chems)
+						occupant.reagents.remove_reagent(reagent.id, 3)
 						beaker.reagents.add_reagent("saturated_charcoal", 3)
 						continue
-					occupant.reagents.trans_to(beaker, 3)
+					occupant.reagents.trans_id_to(beaker, reagent.id, 3)
 
 		for(var/A in occupant.reagents.addiction_list)
 			var/datum/reagent/R = A
@@ -171,7 +168,6 @@
 	data["amounts"] = amounts
 	data["hasOccupant"] = occupant ? 1 : 0
 	var/occupantData[0]
-	var/crisis = 0
 	if(occupant)
 		occupantData["name"] = occupant.name
 		occupantData["stat"] = occupant.stat
@@ -215,7 +211,6 @@
 		occupantData["btFaren"] = ((occupant.bodytemperature - T0C) * (9.0/5.0))+ 32
 
 
-		crisis = (occupant.health < min_health)
 		// I'm not sure WHY you'd want to put a simple_animal in a sleeper, but precedent is precedent
 		// Runtime is aptly named, isn't she?
 		if(ishuman(occupant) && !(NO_BLOOD in occupant.dna.species.species_traits))
@@ -227,7 +222,6 @@
 
 	data["occupant"] = occupantData
 	data["maxchem"] = max_chem
-	data["minhealth"] = min_health
 	data["dialysis"] = filtering
 	data["auto_eject_dead"] = auto_eject_dead
 	if(beaker)
@@ -250,8 +244,6 @@
 			var/injectable = occupant ? 1 : 0
 			var/overdosing = 0
 			var/caution = 0 // To make things clear that you're coming close to an overdose
-			if(crisis && !(temp.id in emergency_chems))
-				injectable = 0
 
 			if(occupant && occupant.reagents)
 				reagent_amount = occupant.reagents.get_reagent_amount(temp.id)
@@ -267,7 +259,7 @@
 	data["chemicals"] = chemicals
 	return data
 
-/obj/machinery/sleeper/ui_act(action, params)
+/obj/machinery/sleeper/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 	if(!controls_inside && usr == occupant)
@@ -290,12 +282,9 @@
 			var/amount = text2num(params["amount"])
 			if(!length(chemical) || amount <= 0)
 				return
-			if(occupant.health > min_health || (chemical in emergency_chems))
-				inject_chemical(usr, chemical, amount)
-			else
-				to_chat(usr, "<span class='danger'>This person is not in good enough condition for sleepers to be effective! Use another means of treatment, such as cryogenics!</span>")
+			inject_chemical(usr, chemical, amount)
 		if("removebeaker")
-			remove_beaker()
+			remove_beaker(ui.user)
 		if("togglefilter")
 			toggle_filter()
 		if("ejectify")
@@ -553,7 +542,6 @@
 	icon_state = "sleeper_s-open"
 	base_icon = "sleeper_s"
 	possible_chems = list("epinephrine", "ether", "salbutamol", "styptic_powder", "silver_sulfadiazine")
-	emergency_chems = list("epinephrine")
 	controls_inside = TRUE
 
 	light_color = LIGHT_COLOR_DARKRED

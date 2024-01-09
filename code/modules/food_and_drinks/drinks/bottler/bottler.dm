@@ -86,13 +86,7 @@
 
 /obj/machinery/bottler/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	anchored = !anchored
-	if(anchored)
-		WRENCH_ANCHOR_MESSAGE
-	else
-		WRENCH_UNANCHOR_MESSAGE
+	default_unfasten_wrench(user, I, 0)
 
 /obj/machinery/bottler/proc/insert_item(obj/item/O, mob/user)
 	if(!O || !user)
@@ -381,7 +375,7 @@
 
 	if(href_list["process"])
 		var/list/choices = list("Glass Bottle" = 1, "Plastic Bottle" = 2, "Metal Can" = 3)
-		var/selection = input("Select a container for your beverage.", "Container") as null|anything in choices
+		var/selection = tgui_input_list(usr, "Select a container for your beverage.", "Container", choices)
 		if(!selection)
 			return
 		else
