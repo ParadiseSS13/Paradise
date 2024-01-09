@@ -32203,10 +32203,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
-"bXl" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel,
-/area/station/command/teleporter)
 "bXn" = (
 /obj/machinery/shieldwallgen,
 /obj/effect/turf_decal/delivery/hollow,
@@ -33114,15 +33110,9 @@
 /area/station/science/robotics)
 "cav" = (
 /obj/structure/table,
-/obj/item/scalpel{
-	pixel_y = 12
-	},
-/obj/item/hemostat,
-/obj/item/retractor,
-/obj/item/stack/medical/bruise_pack/advanced{
-	pixel_x = -4;
-	pixel_y = 4
-	},
+/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/machine,
+/obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -33317,8 +33307,6 @@
 /obj/machinery/optable{
 	name = "Robotics Operating Table"
 	},
-/obj/item/storage/firstaid/machine,
-/obj/item/storage/firstaid/machine,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -33700,26 +33688,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/science/robotics)
-"cck" = (
-/obj/structure/table/glass,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/stack/medical/bruise_pack/advanced,
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
-/obj/item/reagent_containers/iv_bag/salglu,
-/obj/item/stack/medical/ointment/advanced,
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
-/area/station/medical/surgery/primary)
 "ccm" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -40161,7 +40129,6 @@
 /area/station/maintenance/aft)
 "cyM" = (
 /obj/item/clothing/under/rank/medical/gown,
-/obj/structure/table/tray,
 /obj/item/hemostat{
 	pixel_x = 6
 	},
@@ -54585,21 +54552,11 @@
 /turf/simulated/floor/plating,
 /area/station/aisat/hall)
 "dRz" = (
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/structure/table/tray,
-/obj/item/scalpel,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_x = -32
 	},
+/obj/structure/table/tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
@@ -62042,9 +61999,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/bonegel,
-/obj/item/bonesetter,
-/obj/item/FixOVein,
+/obj/item/storage/surgical_tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -62546,35 +62501,6 @@
 /obj/structure/flora/rock/pile/largejungle,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
-"hAl" = (
-/obj/structure/table/glass,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/stack/medical/bruise_pack/advanced,
-/obj/item/reagent_containers/iv_bag/salglu,
-/obj/machinery/holosign_switch{
-	id = "surgery2";
-	pixel_x = -24;
-	pixel_y = 4;
-	dir = 4
-	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	dir = 4;
-	name = "custom placement";
-	pixel_y = -4
-	},
-/obj/item/stack/medical/ointment/advanced,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
-	},
-/area/station/medical/surgery/secondary)
 "hAG" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/disposalpipe/segment,
@@ -64882,6 +64808,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
+"iLY" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel,
+/area/station/command/teleporter)
 "iMo" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Bar Office Maintenance"
@@ -75499,9 +75429,15 @@
 /area/station/maintenance/asmaint2)
 "ocX" = (
 /obj/structure/table,
-/obj/item/circular_saw,
-/obj/item/surgicaldrill,
-/obj/item/cautery,
+/obj/item/storage/box/bodybags{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/obj/item/storage/box/masks,
+/obj/item/storage/box/gloves{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -75707,13 +75643,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/main)
 "oiA" = (
+/obj/item/storage/surgical_tray,
 /obj/structure/table/glass,
-/obj/item/circular_saw,
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/surgicaldrill,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -76552,15 +76483,6 @@
 /area/station/supply/storage)
 "ozX" = (
 /obj/structure/table,
-/obj/item/storage/box/bodybags{
-	pixel_x = -4;
-	pixel_y = -4
-	},
-/obj/item/storage/box/masks,
-/obj/item/storage/box/gloves{
-	pixel_x = 4;
-	pixel_y = 4
-	},
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plasteel{
@@ -78211,17 +78133,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "pop" = (
+/obj/item/storage/surgical_tray,
 /obj/structure/table/tray,
-/obj/item/cautery,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/scalpel,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -84635,6 +84548,26 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
+"suJ" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/machinery/holosign_switch{
+	id = "surgery2";
+	pixel_x = -24;
+	pixel_y = 4;
+	dir = 4
+	},
+/obj/machinery/light_switch{
+	pixel_x = -24;
+	dir = 4;
+	name = "custom placement";
+	pixel_y = -4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/station/medical/surgery/secondary)
 "suM" = (
 /obj/structure/flora/grass/jungle,
 /obj/machinery/light{
@@ -85618,6 +85551,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
+"sYi" = (
+/obj/structure/table/glass,
+/obj/machinery/firealarm{
+	name = "north bump";
+	pixel_y = 24
+	},
+/obj/item/reagent_containers/iv_bag/salglu,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/station/medical/surgery/primary)
 "sYp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -95476,12 +95420,6 @@
 	pixel_y = 24
 	},
 /obj/structure/table/glass,
-/obj/item/circular_saw,
-/obj/item/surgicaldrill,
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
@@ -122804,7 +122742,7 @@ bOK
 oRE
 bTR
 jqu
-bXl
+iLY
 bZc
 bSi
 cdU
@@ -123061,7 +122999,7 @@ bQw
 oRE
 bTS
 tvD
-bXl
+iLY
 cbl
 bSi
 cdJ
@@ -130788,7 +130726,7 @@ nEA
 oxN
 der
 cCW
-cck
+sYi
 tsJ
 cAr
 cuf
@@ -132081,7 +132019,7 @@ hpR
 cDf
 dRz
 oiA
-hAl
+suJ
 chq
 cDf
 cKj

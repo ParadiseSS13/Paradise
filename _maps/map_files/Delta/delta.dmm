@@ -51510,18 +51510,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/reception)
-"cKS" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/food/drinks/dry_ramen,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
-	},
-/area/station/medical/reception)
 "cKT" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel/white,
@@ -55917,17 +55905,6 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/station/maintenance/starboard)
-"dbA" = (
-/obj/item/hemostat,
-/obj/structure/table/tray,
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "dbB" = (
 /obj/structure/cable{
@@ -61609,8 +61586,6 @@
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
-/obj/item/storage/firstaid/machine,
-/obj/item/storage/firstaid/machine,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dAa" = (
@@ -61927,16 +61902,16 @@
 /area/station/maintenance/aft)
 "dBO" = (
 /obj/structure/table/reinforced,
-/obj/item/robotanalyzer,
-/obj/item/bonegel,
-/obj/item/FixOVein,
-/obj/item/surgicaldrill,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/button/windowtint{
 	id = "RoboSurgery";
 	pixel_x = 24;
 	dir = 8
 	},
+/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/machine,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dBP" = (
@@ -62787,12 +62762,11 @@
 	dir = 8;
 	id = "RoboSurgery"
 	},
-/obj/item/tank/internals/anesthetic,
-/obj/item/clothing/mask/breath/medical,
 /obj/item/mmi,
 /obj/item/mmi,
 /obj/item/mmi,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/mmi,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dFx" = (
@@ -62810,15 +62784,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/retractor,
-/obj/item/hemostat,
-/obj/item/bonesetter,
-/obj/item/stack/medical/bruise_pack/advanced{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/spray/cleaner,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/storage/surgical_tray,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dFB" = (
@@ -63205,13 +63172,16 @@
 	dir = 8;
 	id = "RoboSurgery"
 	},
-/obj/item/mmi,
-/obj/item/storage/box/gloves{
-	pixel_x = 3;
-	pixel_y = 5
+/obj/effect/turf_decal/delivery/hollow,
+/obj/item/storage/box/bodybags{
+	pixel_x = -4;
+	pixel_y = -4
 	},
 /obj/item/storage/box/masks,
-/obj/effect/turf_decal/delivery/hollow,
+/obj/item/storage/box/gloves{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dHT" = (
@@ -64817,12 +64787,9 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_y = -32
 	},
-/obj/item/scalpel{
-	pixel_y = 12
-	},
-/obj/item/circular_saw,
-/obj/item/cautery,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/tank/internals/anesthetic,
+/obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dQr" = (
@@ -66513,6 +66480,49 @@
 "dWP" = (
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/sleeper)
+"dWR" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/machinery/hologram/holopad,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/table/glass,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/machinery/camera{
+	c_tag = "Medbay Surgery West";
+	dir = 1;
+	network = list("Medical","SS13")
+	},
+/obj/machinery/status_display{
+	pixel_y = -32
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/medical/surgery/primary)
 "dWX" = (
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
@@ -68842,13 +68852,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/explab)
-"eTR" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/medical/surgery/observation)
 "eUn" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -75888,14 +75891,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/medical/morgue)
-"jCM" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
-/area/station/medical/surgery)
 "jCQ" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "fpsolar_door_int";
@@ -76136,26 +76131,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
-"jKM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/machinery/hologram/holopad,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/medical/surgery/primary)
 "jKW" = (
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "tox_sensor"
@@ -77188,6 +77163,37 @@
 	},
 /turf/space,
 /area/space)
+"knY" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/table/glass,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/machinery/status_display{
+	pixel_y = -32
+	},
+/obj/machinery/camera{
+	c_tag = "Medbay Surgery East";
+	dir = 1;
+	network = list("Medical","SS13")
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/medical/surgery)
 "koC" = (
 /obj/item/kirbyplants,
 /obj/machinery/light/small{
@@ -77233,6 +77239,16 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
+"kpk" = (
+/obj/item/hemostat,
+/obj/machinery/newscaster{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -28
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboard)
 "kpC" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on,
 /turf/simulated/floor/bluegrid{
@@ -77520,6 +77536,31 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/medical/break_room)
+"kBB" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/table/glass,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/station/medical/surgery/secondary)
 "kBZ" = (
 /obj/structure/sign/explosives,
 /turf/simulated/wall/r_wall,
@@ -80322,6 +80363,29 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/break_room)
+"mwc" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/start/doctor,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/item/storage/surgical_tray,
+/obj/structure/table/tray,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/medical/surgery/secondary)
 "mwK" = (
 /obj/machinery/status_display{
 	pixel_x = -32
@@ -85088,21 +85152,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
-"pnZ" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
-	},
-/area/station/medical/surgery/secondary)
 "ppj" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -88274,18 +88323,6 @@
 	icon_state = "neutral"
 	},
 /area/station/hallway/secondary/entry)
-"roZ" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/landmark/start/doctor,
-/turf/simulated/floor/plasteel/white,
-/area/station/medical/surgery/secondary)
 "rps" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -91554,20 +91591,6 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/break_room)
-"taE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/junction{
-	dir = 1;
-	icon_state = "pipe-j2"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/medical/surgery/observation)
 "tbn" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -93201,6 +93224,31 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/research)
+"udE" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 1;
+	icon_state = "pipe-j2"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/item/storage/surgical_tray,
+/obj/structure/table/tray,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/medical/surgery/observation)
 "udS" = (
 /obj/machinery/dna_scannernew,
 /turf/simulated/floor/plasteel{
@@ -93467,6 +93515,28 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/armory/secure)
+"uje" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/table/glass,
+/obj/machinery/firealarm{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/medical/surgery/observation)
 "ujq" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=hall9e";
@@ -94457,6 +94527,35 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
+"uTD" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/table/glass,
+/obj/item/reagent_containers/food/drinks/coffee{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/drinks/dry_ramen,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/item/stack/medical/bruise_pack/advanced{
+	pixel_x = -7;
+	pixel_y = 7
+	},
+/obj/item/stack/medical/ointment/advanced{
+	pixel_x = 4;
+	pixel_y = 5
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitebluecorner"
+	},
+/area/station/medical/reception)
 "uUi" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/iv_bags{
@@ -142112,7 +142211,7 @@ cFa
 tmq
 cHK
 ppu
-cKS
+uTD
 npp
 qZV
 giz
@@ -147532,7 +147631,7 @@ doj
 wqd
 rMm
 aiL
-eTR
+uje
 llV
 jIB
 fxA
@@ -147789,11 +147888,11 @@ fod
 lfZ
 qRe
 qZr
-taE
+udE
 dWY
 wpJ
 xAK
-jKM
+dWR
 pWz
 uDG
 jPY
@@ -149331,11 +149430,11 @@ dAx
 orw
 cel
 fXM
-roZ
+mwc
 leo
 dlz
 wbi
-jCM
+knY
 shh
 dlz
 cSZ
@@ -149588,7 +149687,7 @@ dAx
 ocR
 etc
 iAa
-pnZ
+kBB
 ldp
 dlz
 wMS
@@ -151634,7 +151733,7 @@ dab
 ddR
 dxM
 dNZ
-dbA
+kpk
 dfI
 dhm
 diT
