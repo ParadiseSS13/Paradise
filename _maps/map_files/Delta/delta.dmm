@@ -77150,14 +77150,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/machinery/status_display{
-	pixel_y = -32
-	},
-/obj/machinery/camera{
-	c_tag = "Medbay Surgery East";
-	dir = 1;
-	network = list("Medical","SS13")
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
