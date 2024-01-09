@@ -649,4 +649,4 @@
 	. = ..()
 	if(inventory_head)
 		. += "<span class='notice'>They are wearing a [bicon(inventory_head)] [inventory_head.name].<span>"
-		. += "<span class='notice'>Use an empty hand on [src] on grab mode to remove [inventory_head].<span>"
+		. += "<span class='notice'>Use an empty hand on [src] on grab mode to remove [inventory_head].<span>y"
