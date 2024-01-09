@@ -118,6 +118,7 @@ const Designs = (properties, context) => {
       className="Exofab__designs"
       title={
         <Dropdown
+          width="150px"
           selected={curCategory}
           options={categories}
           onSelected={(cat) =>
@@ -125,11 +126,10 @@ const Designs = (properties, context) => {
               cat: cat,
             })
           }
-          width="150px"
         />
       }
       buttons={
-        <Box mt="-18px">
+        <Box mt="2px">
           <Button
             icon="plus"
             content="Queue all"
