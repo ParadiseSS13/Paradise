@@ -429,33 +429,7 @@
 	M.radiation = max(0, M.radiation - 25)
 	return ..()
 
-<<<<<<< HEAD
-/datum/reagent/medicine/vomicilin
-	name = "Vomicilin"
-	id = "vomicilin"
-	description = "A pungent mixture of chemicals used to induce vomiting, to purge the intestinal tract."
-	reagent_state = LIQUID
-	metabolization_rate = 0.2
-	harmless = TRUE
-	color = "#005014"
-	taste_description = "putrid"
-
-/datum/reagent/medicine/vomicilin/on_mob_life(mob/living/M)
-	if(prob(60))
-		var/update_flags = STATUS_UPDATE_NONE
-		update_flags |= M.adjustToxLoss(-0.7*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		M.fakevomit(1)
-		M.adjust_nutrition(-2)
-	else
-		var/update_flags = STATUS_UPDATE_NONE
-		update_flags |= M.adjustToxLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		M.fakevomit(0)
-		M.adjust_nutrition(-1)
-	return ..() | update_flags
-	
-=======
->>>>>>> parent of e33addd49c (Create reagent vomicilin)
-/datum/reagent/medicine/pen_acid
+id
 	name = "Pentetic Acid"
 	id = "pen_acid"
 	description = "Pentetic Acid is an aggressive chelation agent. May cause tissue damage. Use with caution."
@@ -468,7 +442,9 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.id,4)
+			M.reage	return ..() | update_flags
+
+s.remove_reagent(R.id,4)
 	M.radiation = max(0, M.radiation-70)
 	if(prob(75))
 		update_flags |= M.adjustToxLoss(-4*REAGENTS_EFFECT_MULTIPLIER, FALSE)
