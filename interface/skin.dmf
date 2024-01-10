@@ -114,7 +114,7 @@ menu "menu"
 		name = "&Show status bar"
 		category = "&Options"
 		can-check = true
-		is-checked = true
+		is-checked = false
 		saved-params = "is-checked"
 		command = ".winset \"menu.statusbar.is-checked=true?paramapwindow.status_bar.is-visible=true:paramapwindow.status_bar.is-visible=false\""
 	elem
