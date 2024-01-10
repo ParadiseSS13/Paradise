@@ -14,7 +14,6 @@
 	var/unlimited_power = FALSE // Does this really need explanation?
 	var/shock_range = 7
 
-
 /obj/item/bio_chip/shock/activate()
 	enabled = !enabled
 	to_chat(imp_in, "<span class='notice'>You toggle the implant [enabled? "on" : "off"].</span>")
