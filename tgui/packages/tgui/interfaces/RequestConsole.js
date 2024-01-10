@@ -1,10 +1,10 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Section, Stack } from '../components';
+import { Button, LabeledList, Box, Section, Stack, Blink } from '../components';
 import { Window } from '../layouts';
 
 export const RequestConsole = (props, context) => {
   const { act, data } = useBackend(context);
-  const { screen } = data;
+  const { screen, announcementConsole } = data;
 
   const pickPage = (index) => {
     switch (index) {
@@ -36,7 +36,7 @@ export const RequestConsole = (props, context) => {
   };
 
   return (
-    <Window width={450} height={500}>
+    <Window width={450} height={announcementConsole ? 385 : 345}>
       <Window.Content scrollable>
         <Stack fill vertical>
           {pickPage(screen)}
@@ -52,14 +52,22 @@ const MainMenu = (props, context) => {
   let messageInfo;
   if (newmessagepriority === 1) {
     messageInfo = (
-      <Box color="red" mb={1}>
+      <Box color="red" bold mb={1}>
         There are new messages
       </Box>
     );
   } else if (newmessagepriority === 2) {
     messageInfo = (
-      <Box color="red" bold mb={1}>
-        NEW PRIORITY MESSAGES
+      <Blink>
+        <Box color="red" bold mb={1}>
+          NEW PRIORITY MESSAGES
+        </Box>
+      </Blink>
+    );
+  } else {
+    messageInfo = (
+      <Box color="label" mb={1}>
+        There are no new messages
       </Box>
     );
   }
@@ -84,17 +92,17 @@ const MainMenu = (props, context) => {
           <Button
             fluid
             lineHeight={3}
-            color="transparent"
+            color="translucent"
             content="View Messages"
             icon={newmessagepriority > 0 ? 'envelope-open-text' : 'envelope'}
             onClick={() => act('setScreen', { setScreen: 6 })}
           />
         </Stack.Item>
-        <Stack.Item mt={2}>
+        <Stack.Item mt={1}>
           <Button
             fluid
             lineHeight={3}
-            color="transparent"
+            color="translucent"
             content="Request Assistance"
             icon="hand-paper"
             onClick={() => act('setScreen', { setScreen: 1 })}
@@ -103,7 +111,7 @@ const MainMenu = (props, context) => {
             <Button
               fluid
               lineHeight={3}
-              color="transparent"
+              color="translucent"
               content="Request Supplies"
               icon="box"
               onClick={() => act('setScreen', { setScreen: 2 })}
@@ -111,19 +119,19 @@ const MainMenu = (props, context) => {
             <Button
               fluid
               lineHeight={3}
-              color="transparent"
+              color="translucent"
               content="Relay Anonymous Information"
               icon="comment"
               onClick={() => act('setScreen', { setScreen: 3 })}
             />
           </Stack.Item>
         </Stack.Item>
-        <Stack.Item mt={2}>
+        <Stack.Item mt={1}>
           <Stack.Item>
             <Button
               fluid
               lineHeight={3}
-              color="transparent"
+              color="translucent"
               content="Print Shipping Label"
               icon="tag"
               onClick={() => act('setScreen', { setScreen: 9 })}
@@ -131,7 +139,7 @@ const MainMenu = (props, context) => {
             <Button
               fluid
               lineHeight={3}
-              color="transparent"
+              color="translucent"
               content="View Shipping Logs"
               icon="clipboard-list"
               onClick={() => act('setScreen', { setScreen: 10 })}
@@ -139,11 +147,11 @@ const MainMenu = (props, context) => {
           </Stack.Item>
         </Stack.Item>
         {!!announcementConsole && (
-          <Stack.Item mt={2}>
+          <Stack.Item mt={1}>
             <Button
               fluid
               lineHeight={3}
-              color="transparent"
+              color="translucent"
               content="Send Station-Wide Announcement"
               icon="bullhorn"
               onClick={() => act('setScreen', { setScreen: 8 })}
@@ -202,12 +210,12 @@ const DepartmentList = (props, context) => {
                 <Button
                   content="Message"
                   icon="envelope"
-                  onClick={() => act('writeInput', { write: d, priority: 1 })}
+                  onClick={() => act('writeInput', { write: d, priority: '1' })}
                 />
                 <Button
                   content="High Priority"
                   icon="exclamation-circle"
-                  onClick={() => act('writeInput', { write: d, priority: 2 })}
+                  onClick={() => act('writeInput', { write: d, priority: '2' })}
                 />
               </LabeledList.Item>
             ))}

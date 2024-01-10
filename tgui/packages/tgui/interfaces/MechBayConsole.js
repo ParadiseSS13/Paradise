@@ -16,9 +16,10 @@ export const MechBayConsole = (props, context) => {
   const cell = mech && mech.cell;
   const name = mech && mech.name;
   return (
-    <Window width={400} height={135}>
+    <Window width={400} height={155}>
       <Window.Content>
         <Section
+          fill
           title={!name ? 'Mech status' : 'Mech status: ' + name}
           textAlign="center"
           buttons={

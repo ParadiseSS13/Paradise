@@ -259,7 +259,14 @@ const CloningConsoleMain = (props, context) => {
             }
 
             return (
-              <Box key={i} width="64px" textAlign="center" inline mr="0.5rem">
+              <Box
+                key={i}
+                width="64px"
+                textAlign="center"
+                inline
+                mr="0.5rem"
+                mt={1}
+              >
                 <img
                   src={resolveAsset('pod_' + pod.status + '.gif')}
                   style={{
@@ -268,7 +275,12 @@ const CloningConsoleMain = (props, context) => {
                   }}
                 />
                 <Box color="label">Pod #{i + 1}</Box>
-                <Box bold color={pod.biomass >= 150 ? 'good' : 'bad'} inline>
+                <Box
+                  bold
+                  mt={0.75}
+                  color={pod.biomass >= 150 ? 'good' : 'bad'}
+                  inline
+                >
                   <Icon name={pod.biomass >= 150 ? 'circle' : 'circle-o'} />
                   &nbsp;
                   {pod.biomass}

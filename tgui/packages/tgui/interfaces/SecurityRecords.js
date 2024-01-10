@@ -287,8 +287,8 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
     return <Box color="bad">General records lost!</Box>;
   }
   return (
-    <>
-      <Box float="left">
+    <Stack>
+      <Stack.Item grow>
         <LabeledList>
           {general.fields.map((field, i) => (
             <LabeledList.Item key={i} label={field.field} prewrap>
@@ -304,25 +304,24 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
             </LabeledList.Item>
           ))}
         </LabeledList>
-      </Box>
-      <Box position="absolute" right="0" textAlign="right">
-        {!!general.has_photos &&
-          general.photos.map((p, i) => (
-            <Box key={i} inline textAlign="center" color="label">
-              <img
-                src={p}
-                style={{
-                  width: '96px',
-                  'margin-bottom': '0.5rem',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
-                }}
-              />
-              <br />
-              Photo #{i + 1}
-            </Box>
-          ))}
-      </Box>
-    </>
+      </Stack.Item>
+      {!!general.has_photos &&
+        general.photos.map((p, i) => (
+          <Stack.Item key={i} inline textAlign="center" color="label" ml={0}>
+            <img
+              src={p}
+              style={{
+                width: '96px',
+                'margin-top': '5rem',
+                'margin-bottom': '0.5rem',
+                '-ms-interpolation-mode': 'nearest-neighbor',
+              }}
+            />
+            <br />
+            Photo #{i + 1}
+          </Stack.Item>
+        ))}
+    </Stack>
   );
 };
 

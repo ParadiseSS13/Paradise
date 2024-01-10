@@ -36,7 +36,7 @@ const CrewList = (props, context) => {
       {!frozen_crew.length ? (
         <NoticeBox>No stored crew!</NoticeBox>
       ) : (
-        <Section fill scrollable>
+        <Section>
           <LabeledList>
             {frozen_crew.map((person, index) => (
               <LabeledList.Item key={index} label={person.name}>
@@ -68,7 +68,7 @@ const ItemList = (props, context) => {
         <NoticeBox>No stored items!</NoticeBox>
       ) : (
         <>
-          <Section fill scrollable>
+          <Section>
             <LabeledList>
               {frozen_items.map((item) => (
                 <LabeledList.Item
