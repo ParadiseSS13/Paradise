@@ -785,7 +785,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1072,7 +1072,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "cz" = (
@@ -1648,7 +1648,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -2157,7 +2157,7 @@
 	d2 = 8;
 	icon_state = "4-9"
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
 "eE" = (
@@ -2593,7 +2593,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "fv" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -3462,7 +3462,7 @@
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "ir" = (
@@ -3826,7 +3826,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "kA" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/siberia)
 "kI" = (
@@ -4998,7 +4998,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "rM" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "rP" = (
@@ -5738,7 +5738,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -5868,7 +5868,7 @@
 /area/mine/laborcamp)
 "yp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "yq" = (
@@ -5936,7 +5936,7 @@
 	dir = 9;
 	network = list("Mining Outpost")
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
 "yO" = (
@@ -6185,7 +6185,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "Av" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -6803,7 +6803,7 @@
 /area/mine/outpost/lockers)
 "EF" = (
 /obj/item/cigbutt,
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -7245,7 +7245,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull";
 	dir = 8
@@ -7364,7 +7364,7 @@
 	d2 = 4
 	},
 /obj/item/radio/beacon,
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -7551,7 +7551,7 @@
 	c_tag = "Mining Outpost - Custodial Storage";
 	network = list("Mining Outpost")
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreencorners"
 	},
@@ -8636,7 +8636,7 @@
 /obj/structure/cable/cyan{
 	icon_state = "1-4"
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/comms)
 "Ta" = (
@@ -8677,7 +8677,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "Ts" = (
@@ -9092,7 +9092,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
