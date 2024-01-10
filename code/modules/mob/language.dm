@@ -43,7 +43,7 @@
 
 	return "[trim(full_name)]"
 
-/datum/language/proc/scramble(input, list/known_languages)
+/datum/language/proc/scramble(input, list/known_languages = list())
 
 	var/understand_chance = 0
 	for(var/datum/language/L in known_languages)
