@@ -21,6 +21,7 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	new /datum/stack_recipe("fish tank", /obj/machinery/fishtank/tank, 3, time = 2 SECONDS, on_floor = TRUE),
 	new /datum/stack_recipe("wall aquarium", /obj/machinery/fishtank/wall, 4, time = 4 SECONDS, on_floor = TRUE),
 	new /datum/stack_recipe("glass ashtray", /obj/item/ashtray/glass, 1, time = 1 SECONDS),
+	new /datum/stack_recipe("dropper", /obj/item/reagent_containers/dropper, 1, time = 1 SECONDS),
 ))
 
 /obj/item/stack/sheet/glass
