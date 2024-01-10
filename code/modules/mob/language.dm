@@ -90,7 +90,7 @@
 
 	var/input_size = length(input)
 	var/scrambled_text = ""
-	var/capitalize = FALSE
+	var/capitalize = TRUE
 
 	while(length(scrambled_text) < input_size)
 		var/next = pick(syllables)

@@ -309,7 +309,6 @@
 				if("speciesprefs")
 					active_character.speciesprefs = !active_character.speciesprefs //Starts 0, so if someone clicks the button up top there, this won't be 0 anymore. If they click it again, it'll go back to 0.
 				if("language")
-//					var/languages_available
 					var/list/new_languages = list("None")
 					for(var/L in GLOB.all_languages)
 						var/datum/language/lang = GLOB.all_languages[L]
