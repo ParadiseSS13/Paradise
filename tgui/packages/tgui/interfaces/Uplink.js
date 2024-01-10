@@ -184,13 +184,21 @@ const ItemsPage = (_properties, context) => {
         </Stack.Item>
         <Stack.Item grow>
           <Section fill scrollable>
-            {uplinkItems.map((i) => (
-              <UplinkItem
-                i={i}
-                showDecription={showDesc}
-                key={decodeHtmlEntities(i.name)}
-              />
-            ))}
+            <Stack vertical>
+              {uplinkItems.map((i) => (
+                <Stack.Item
+                  key={decodeHtmlEntities(i.name)}
+                  p={1}
+                  backgroundColor={'rgba(255, 0, 0, 0.1)'}
+                >
+                  <UplinkItem
+                    i={i}
+                    showDecription={showDesc}
+                    key={decodeHtmlEntities(i.name)}
+                  />
+                </Stack.Item>
+              ))}
+            </Stack>
           </Section>
         </Stack.Item>
       </Stack>
@@ -233,18 +241,26 @@ const CartPage = (_properties, context) => {
             </>
           }
         >
-          {cart ? (
-            cart.map((i) => (
-              <UplinkItem
-                i={i}
-                showDecription={showDesc}
-                key={decodeHtmlEntities(i.name)}
-                buttons={<CartButtons i={i} />}
-              />
-            ))
-          ) : (
-            <Box italic>Your Shopping Cart is empty!</Box>
-          )}
+          <Stack vertical>
+            {cart ? (
+              cart.map((i) => (
+                <Stack.Item
+                  key={decodeHtmlEntities(i.name)}
+                  p={1}
+                  mr={1}
+                  backgroundColor={'rgba(255, 0, 0, 0.1)'}
+                >
+                  <UplinkItem
+                    i={i}
+                    showDecription={showDesc}
+                    buttons={<CartButtons i={i} />}
+                  />
+                </Stack.Item>
+              ))
+            ) : (
+              <Box italic>Your Shopping Cart is empty!</Box>
+            )}
+          </Stack>
         </Section>
       </Stack.Item>
       <Advert />
@@ -269,12 +285,19 @@ const Advert = (_properties, context) => {
           />
         }
       >
-        <Stack wrap="wrap">
+        <Stack wrap>
           {lucky_numbers
             .map((number) => cats[number.cat].items[number.item])
             .filter((item) => item !== undefined && item !== null)
             .map((item, index) => (
-              <Stack.Item key={index} p="0.5%" width="48%">
+              <Stack.Item
+                key={index}
+                p={1}
+                mb={1}
+                ml={1}
+                width={34}
+                backgroundColor={'rgba(255, 0, 0, 0.15)'}
+              >
                 <UplinkItem grow i={item} />
               </Stack.Item>
             ))}
