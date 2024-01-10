@@ -255,7 +255,7 @@
 	name = "Adaptive lava / chasm / plasma"
 	icon_state = "mappinglava"
 	base_icon_state = "mappinglava"
-	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	baseturf = /turf/simulated/floor/lava/mapping_lava
 	temperature = 500
 	oxygen = 8
 	nitrogen = 14
