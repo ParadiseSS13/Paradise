@@ -297,7 +297,7 @@
 	return ..()
 
 /datum/reagent/medicine/heal_on_apply/synthflesh/heal_external_limb(obj/item/organ/external/organ, volume)
-	organ.heal_damage(1.5*volume, 1.5*volume, updating_health=FALSE)
+	organ.heal_damage(1.5 * volume, 1.5 * volume, updating_health = FALSE)
 
 /datum/reagent/medicine/heal_on_apply/synthflesh/heal_overall_damage(mob/living/M, volume)
 	M.adjustBruteLoss(-1.5 * volume)
