@@ -14,7 +14,8 @@
 		"Grey" = 'icons/mob/clothing/modsuit/species/grey_helmets.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
-		"Unathi" = 'icons/mob/clothing/modsuit/species/modsuits_younahthee.dmi'
+		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
+		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
 
 /obj/item/clothing/suit/mod
@@ -39,7 +40,8 @@
 	sprite_sheets = list(
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
-		"Unathi" = 'icons/mob/clothing/modsuit/species/modsuits_younahthee.dmi'
+		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
+		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
 
 
@@ -58,7 +60,8 @@
 	sprite_sheets = list(
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
-		"Unathi" = 'icons/mob/clothing/modsuit/species/modsuits_younahthee.dmi'
+		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
+		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
 
 
@@ -77,9 +80,6 @@
 	sprite_sheets = list(
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
-		"Unathi" = 'icons/mob/clothing/modsuit/species/modsuits_younahthee.dmi'
+		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
+		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
-	var/magbooted
-
-/obj/item/clothing/shoes/mod/negates_gravity()
-	return magbooted

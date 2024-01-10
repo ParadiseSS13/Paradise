@@ -513,7 +513,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(iscarbon(src) && contents.len && ventcrawlerlocal < 2)//It must have atleast been 1 to get this far
 				for(var/obj/item/I in contents)
 					var/failed = 0
-					if(istype(I, /obj/item/implant))
+					if(istype(I, /obj/item/bio_chip))
 						continue
 					if(istype(I, /obj/item/reagent_containers/patch))
 						continue
@@ -612,9 +612,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	var/damage = 10 + 1.5 * speed // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4, highest speed is 14
 
-	hit_atom.hit_by_thrown_carbon(src, throwingdatum, damage, FALSE, FALSE)
+	hit_atom.hit_by_thrown_mob(src, throwingdatum, damage, FALSE, FALSE)
 
-/mob/living/carbon/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/mob/living/carbon/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	for(var/obj/item/dualsaber/D in contents)
 		if(HAS_TRAIT(D, TRAIT_WIELDED) && D.force)
 			visible_message("<span class='danger'>[src] impales [C] with [D], before dropping them on the ground!</span>")
@@ -888,6 +888,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		buckled.user_unbuckle_mob(src, src)
 		return
 
+	if(has_status_effect(STATUS_EFFECT_UNBUCKLE))
+		to_chat(src, "<span class='notice'>You are already trying to unbuckle!</span>")
+		return
+	apply_status_effect(STATUS_EFFECT_UNBUCKLE)
 	var/time = I.breakouttime
 	visible_message("<span class='warning'>[src] attempts to unbuckle [p_themselves()]!</span>",
 				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [time / 10] seconds and you need to stay still.)</span>")
@@ -898,6 +902,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(!buckled)
 			return
 		buckled.user_unbuckle_mob(src, src)
+
+	remove_status_effect(STATUS_EFFECT_UNBUCKLE)
 
 /mob/living/carbon/proc/buckle_check()
 	if(!buckled) // No longer buckled
@@ -942,15 +948,20 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	var/time = I.resist_time
 	if(I.resist_time == 0)//if it's 0, you can't get out of it
 		to_chat(src, "[I] is too well made, you'll need hands for this one!")
-	else
-		visible_message("<span class='warning'>[src] gnaws on [I], trying to remove it!</span>")
-		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [time/10] seconds and you need to stand still.)</span>")
-		if(do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(muzzle_check)))))
-			visible_message("<span class='warning'>[src] removes [I]!</span>")
-			to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
-			if(I.security_lock)
-				I.do_break()
-			unEquip(I)
+		return
+	if(has_status_effect(STATUS_EFFECT_REMOVE_MUZZLE))
+		to_chat(src, "<span class='notice'>You are already trying to remove [I]!</span>")
+		return
+	apply_status_effect(STATUS_EFFECT_REMOVE_MUZZLE)
+	visible_message("<span class='warning'>[src] gnaws on [I], trying to remove it!</span>")
+	to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [time/10] seconds and you need to stand still.)</span>")
+	if(do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(muzzle_check)))))
+		visible_message("<span class='warning'>[src] removes [I]!</span>")
+		to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
+		if(I.security_lock)
+			I.do_break()
+		unEquip(I)
+	remove_status_effect(STATUS_EFFECT_REMOVE_MUZZLE)
 
 
 /mob/living/carbon/proc/cuff_resist(obj/item/I, breakouttime = 600, cuff_break = 0)
@@ -958,9 +969,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	var/displaytime = breakouttime / 10
 	if(!cuff_break)
+		if(has_status_effect(STATUS_EFFECT_REMOVE_CUFFS))
+			to_chat(src, "<span class='notice'>You are already trying to remove [I].</span>")
+			return
+		apply_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
 		visible_message("<span class='warning'>[src] attempts to remove [I]!</span>")
 		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [displaytime] seconds and you need to stand still.)</span>")
 		if(do_after(src, breakouttime, 0, target = src))
+			remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
 			if(I.loc != src || buckled)
 				return
 			if(istype(I, /obj/item/restraints/handcuffs/twimsts))
@@ -996,13 +1012,19 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				I.dropped(src)
 				return
 		else
+			remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
 			to_chat(src, "<span class='warning'>You fail to remove [I]!</span>")
 
 	else
 		breakouttime = 50
+		if(has_status_effect(STATUS_EFFECT_BREAK_CUFFS))
+			to_chat(src, "<span class='notice'>You are already trying to break [I].</span>")
+			return
+		apply_status_effect(STATUS_EFFECT_BREAK_CUFFS)
 		visible_message("<span class='warning'>[src] is trying to break [I]!</span>")
 		to_chat(src, "<span class='notice'>You attempt to break [I]... (This will take around 5 seconds and you need to stand still.)</span>")
 		if(do_after(src, breakouttime, 0, target = src))
+			remove_status_effect(STATUS_EFFECT_BREAK_CUFFS)
 			if(!I.loc || buckled)
 				return
 			visible_message("<span class='danger'>[src] manages to break [I]!</span>")
@@ -1020,6 +1042,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				return
 			return 1
 		else
+			remove_status_effect(STATUS_EFFECT_BREAK_CUFFS)
 			to_chat(src, "<span class='warning'>You fail to break [I]!</span>")
 
 //called when we get cuffed/uncuffed
@@ -1108,7 +1131,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(!(slipAny))
 		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
-			if(isobj(H.shoes) && H.shoes.flags & NOSLIP)
+			if(HAS_TRAIT(H, TRAIT_NOSLIP))
 				return FALSE
 
 	if(tilesSlipped)
@@ -1216,11 +1239,10 @@ so that different stomachs can handle things in different ways VB*/
 	if(to_eat.reagents.total_volume)
 		taste(to_eat.reagents)
 		var/fraction = min(this_bite / to_eat.reagents.total_volume, 1)
-		if(fraction)
-			to_eat.reagents.reaction(src, REAGENT_INGEST, fraction)
-			to_eat.reagents.trans_to(src, this_bite)
+		to_eat.reagents.reaction(src, REAGENT_INGEST, fraction)
+		to_eat.reagents.trans_to(src, this_bite)
 
-/mob/living/carbon/proc/consume_patch_or_pill(obj/item/reagent_containers/medicine, user) // medicine = patch or pill
+/mob/living/carbon/proc/consume_patch_or_pill(obj/item/reagent_containers/medicine, mob/user) // medicine = patch or pill
 	// The reason why this is bundled up is to avoid 2 procs that will be practically identical
 	if(!medicine.reagents.total_volume)
 		return TRUE // Doesn't have reagents, would be fine to use up
@@ -1233,13 +1255,13 @@ so that different stomachs can handle things in different ways VB*/
 	var/reagent_application = REAGENT_INGEST
 	var/requires_mouth = TRUE
 	var/instant = FALSE
-	var/efficiency = 1
+	var/how_many_reagents = medicine.reagents.total_volume
 
 	if(ispatch(medicine))
 		apply_method = "apply"
 		reagent_application = REAGENT_TOUCH
 		requires_mouth = FALSE
-		efficiency = 0.5 // Patches aren't that good at transporting reagents into the bloodstream
+		how_many_reagents = clamp(medicine.reagents.total_volume, 0.1, 2) // Patches aren't that good at transporting reagents into the bloodstream
 		var/obj/item/reagent_containers/patch/patch = medicine
 		if(patch.instant_application)
 			instant = TRUE
@@ -1258,7 +1280,7 @@ so that different stomachs can handle things in different ways VB*/
 
 	var/fraction = min(1 / medicine.reagents.total_volume, 1)
 	medicine.reagents.reaction(src, reagent_application, fraction)
-	medicine.reagents.trans_to(src, medicine.reagents.total_volume * efficiency)
+	medicine.reagents.trans_to(src, how_many_reagents)
 	return TRUE
 
 /mob/living/carbon/get_access()

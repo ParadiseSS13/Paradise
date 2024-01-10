@@ -1,0 +1,3 @@
+/turf/simulated/floor/plating/lava/smooth/@SUBTYPES : /turf/simulated/floor/lava/@SUBTYPES{@OLD}
+/turf/simulated/floor/plating/lava/@SUBTYPES : /turf/simulated/floor/lava/@SUBTYPES{@OLD}
+/turf/simulated/lava/@SUBTYPES : /turf/simulated/floor/lava/@SUBTYPES{@OLD}

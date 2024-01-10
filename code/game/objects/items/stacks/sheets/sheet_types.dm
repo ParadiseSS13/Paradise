@@ -242,7 +242,8 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("ore box", /obj/structure/ore_box, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("loom", /obj/structure/loom, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("fermenting barrel", /obj/structure/fermenting_barrel, 30, time = 5 SECONDS),
-	new /datum/stack_recipe("compost bin", /obj/machinery/compost_bin, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
+	new /datum/stack_recipe("compost bin", /obj/machinery/compost_bin, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("roulette", /obj/structure/roulette, 10, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
 ))
 
 /obj/item/stack/sheet/wood
@@ -274,6 +275,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 		new /datum/stack_recipe("white shoes", /obj/item/clothing/shoes/white, 2),
 		new /datum/stack_recipe("cloth footwraps", /obj/item/clothing/shoes/footwraps, 2),
 		null,
+		new /datum/stack_recipe("cloth handwraps", /obj/item/clothing/gloves/handwraps, 2),
 		new /datum/stack_recipe("fingerless gloves", /obj/item/clothing/gloves/fingerless, 1),
 		new /datum/stack_recipe("white gloves", /obj/item/clothing/gloves/color/white, 3),
 		new /datum/stack_recipe("white softcap", /obj/item/clothing/head/soft/mime, 2),

@@ -190,7 +190,7 @@
 
 /obj/item/organ/internal/heart/gland/ventcrawling/activate()
 	to_chat(owner, "<span class='notice'>You feel very stretchy.</span>")
-	owner.ventcrawler = 2
+	owner.ventcrawler = VENTCRAWLER_ALWAYS
 
 
 /obj/item/organ/internal/heart/gland/viral

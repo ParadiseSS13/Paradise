@@ -109,7 +109,8 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/outfit_manager,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
-	/client/proc/change_human_appearance_self	/* Allows the human-based mob itself to change its basic appearance */
+	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself to change its basic appearance */
+	/datum/admins/proc/station_traits_panel
 	))
 
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(

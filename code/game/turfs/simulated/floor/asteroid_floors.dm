@@ -111,7 +111,7 @@
 	digResult = /obj/item/stack/ore/glass/basalt
 
 /turf/simulated/floor/plating/asteroid/basalt/lava //lava underneath
-	baseturf = /turf/simulated/floor/plating/lava/smooth
+	baseturf = /turf/simulated/floor/lava
 
 /turf/simulated/floor/plating/asteroid/basalt/airless
 	temperature = TCMB
@@ -149,7 +149,15 @@
 	nitrogen = 23
 	temperature = 300
 	planetary_atmos = TRUE
-	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	baseturf = /turf/simulated/floor/lava/mapping_lava
+
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+	planetary_atmos = TRUE
+	color = COLOR_FLOOR_HARD_ROCK
+	baseturf = /turf/simulated/floor/lava/lava_land_surface
 
 /turf/simulated/floor/plating/asteroid/airless
 	temperature = TCMB
@@ -307,7 +315,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 						SpawnFloor(NT, 50) //Room has higher probabilty.
 			if(prob(25))
 				tempradius = round(tempradius / 3)
-				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/plating/lava/smooth/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/mapping_lava = 6, /turf/simulated/floor/beach/away/water/lavaland_air = 1, /turf/simulated/floor/plating/asteroid = 1))
+				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/lava/lava_land_surface = 4, /turf/simulated/floor/lava/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/lava/mapping_lava = 6, /turf/simulated/floor/beach/away/water/lavaland_air = 1, /turf/simulated/floor/plating/asteroid = 1))
 				if(oasis_lake == /turf/simulated/floor/plating/asteroid)
 					new /obj/effect/spawner/oasisrock(T, tempradius)
 				for(var/turf/oasis in circlerangeturfs(T, tempradius))

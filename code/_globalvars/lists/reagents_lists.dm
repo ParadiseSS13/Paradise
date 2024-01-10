@@ -1,23 +1,3 @@
-// Base chemicals
-GLOBAL_LIST_INIT(base_chemicals, list("water","oxygen","nitrogen","hydrogen","potassium","mercury","carbon",
-							"chlorine","fluorine","phosphorus","lithium","sulfur","sacid","radium",
-							"iron","aluminum","silicon","sugar","ethanol"))
-// Standard chemicals
-GLOBAL_LIST_INIT(standard_chemicals, list("slimejelly","blood","water","lube","charcoal","toxin","cyanide",
-								"morphine","epinephrine","space_drugs","oxygen","copper",
-								"nitrogen","hydrogen","potassium","mercury","sulfur","carbon","chlorine",
-								"fluorine","sodium","phosphorus","lithium","sugar","sacid","facid",
-								"glycerol","radium","mutadone","thermite","mutagen","virusfood","iron",
-								"gold","silver","uranium","aluminum","silicon","fuel","cleaner","atrazine",
-								"plasma","teporone","lexorin","silver_sulfadiazine","salbutamol",
-								"perfluorodecalin","omnizine","synaptizine","haloperidol","potass_iodide",
-								"pen_acid","mannitol","oculine","styptic_powder","methamphetamine",
-								"cryoxadone","spaceacillin","carpotoxin","lsd","fluorosurfactant",
-								"fluorosurfactant","ethanol","ammonia","diethylamine","antihol","pancuronium",
-								"lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin",
-								"enzyme","nothing","salglu_solution","antifreeze","neurotoxin", "jestosterone"))
-// Rare chemicals
-GLOBAL_LIST_INIT(rare_chemicals, list("minttoxin","syndicate_nanites", "xenomicrobes"))
 // Standard medicines
 GLOBAL_LIST_INIT(standard_medicines, list("charcoal","toxin","cyanide","morphine","epinephrine","space_drugs",
 								"mutadone","mutagen","teporone","lexorin","silver_sulfadiazine",
@@ -66,4 +46,6 @@ GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_i
 							"spidereggs", "heartworms", "bacon_grease",
 							"fungalspores", "jagged_crystals", "salmonella",
 							"lavaland_extract", "stable_mutagen", "beer2",
-							"curare", "gluttonytoxin", "smoke_powder", "stimulative_cling"))
+							"curare", "gluttonytoxin", "smoke_powder", "stimulative_cling",
+							"teslium_paste"
+							))
