@@ -154,7 +154,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard
 	oxygen = 8
 	nitrogen = 14
-	temperature = 300
+	temperature = 500
 	planetary_atmos = TRUE
 	color = COLOR_FLOOR_HARD_ROCK
 	baseturf = /turf/simulated/floor/lava/lava_land_surface
