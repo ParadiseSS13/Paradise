@@ -69,6 +69,8 @@
 			new_mob.a_intent = "harm"
 			if(affected_mob.mind)
 				affected_mob.mind.transfer_to(new_mob)
+			if(isrobot(new_mob))
+				new_mob.rename_self("Cyborg", TRUE, TRUE)
 			else
 				new_mob.key = affected_mob.key
 		qdel(affected_mob)
