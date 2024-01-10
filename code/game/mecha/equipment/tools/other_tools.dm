@@ -299,7 +299,7 @@
 					pow_chan = c
 					break
 			if(pow_chan)
-				var/delta = min(60, chassis.cell.maxcharge-cur_charge)
+				var/delta = min(60, chassis.cell.maxcharge - cur_charge)
 				chassis.give_power(delta)
 				A.powernet.use_active_power(pow_chan, delta * coeff)
 
