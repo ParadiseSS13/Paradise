@@ -277,7 +277,7 @@
 			continue
 
 		if(threatlevel < 4)
-			if(emagged  == 2) // actually emagged
+			if(emagged == 2) // actually emagged
 				bike_horn()
 			else
 				if(C in view(4, src) && !spam_flag) //keep the range short for patrolling
