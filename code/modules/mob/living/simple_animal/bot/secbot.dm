@@ -32,7 +32,7 @@
 	var/idcheck = FALSE //If true, arrest people with no IDs
 	var/weaponscheck = FALSE //If true, arrest people for weapons if they lack access
 	var/check_records = TRUE //Does it check security records?
-	var/arrest_type = FALSE //If true, don't handcuff
+	var/no_handcuffs = FALSE //If true, don't handcuff
 	var/harmbaton = FALSE //If true, beat instead of stun
 	var/flashing_lights = FALSE //If true, flash lights
 	var/baton_delayed = FALSE
@@ -83,7 +83,7 @@
 	base_icon = "rustbot"
 	icon_state = "rustbot0"
 	declare_arrests = FALSE
-	arrest_type = TRUE
+	no_handcuffs = TRUE
 	harmbaton = TRUE
 	emagged = 2
 
@@ -92,7 +92,7 @@
 	health = 100
 	maxHealth = 100
 	idcheck = TRUE
-	arrest_type = TRUE
+	no_handcuffs = TRUE
 	weaponscheck = TRUE
 
 /mob/living/simple_animal/bot/secbot/Initialize(mapload)
@@ -141,7 +141,7 @@
 	data["check_id"] = idcheck
 	data["check_weapons"] = weaponscheck
 	data["check_warrant"] = check_records
-	data["arrest_mode"] = arrest_type // detain or arrest
+	data["arrest_mode"] = no_handcuffs // detain or arrest
 	data["arrest_declare"] = declare_arrests // announce arrests on radio
 	return data
 
@@ -173,7 +173,7 @@
 		if("authwarrant")
 			check_records = !check_records
 		if("arrtype")
-			arrest_type = !arrest_type
+			no_handcuffs = !no_handcuffs
 		if("arrdeclare")
 			declare_arrests = !declare_arrests
 		if("ejectpai")
@@ -224,7 +224,7 @@
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if((!C.IsWeakened() || arrest_type) && !baton_delayed)
+		if((!C.IsWeakened() || no_handcuffs) && !baton_delayed)
 			stun_attack(A)
 		else if(C.canBeHandcuffed() && !C.handcuffed)
 			cuff(A)
@@ -275,7 +275,7 @@
 	addtimer(VARSET_CALLBACK(src, icon_state, "[base_icon][on]"), 2)
 	if(declare_arrests)
 		var/area/location = get_area(src)
-		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+		speak("[no_handcuffs ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 
 /mob/living/simple_animal/bot/secbot/Life(seconds, times_fired)
 	. = ..()
@@ -351,7 +351,7 @@
 				back_to_hunt()
 				return
 			// target is stunned and nearby
-			if(arrest_type) // should we not cuff?
+			if(no_handcuffs) // should we not cuff?
 				back_to_idle()
 				return
 

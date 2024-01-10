@@ -27,7 +27,7 @@
 	var/target_lastloc = FALSE	//Loc of target when arrested.
 	var/last_found = FALSE	//There's a delay
 	var/threatlevel = FALSE
-	var/arrest_type = FALSE
+	var/no_handcuffs = FALSE
 
 /mob/living/simple_animal/bot/honkbot/Initialize(mapload)
 	. = ..()
@@ -140,7 +140,7 @@
 		if(emagged <= 1)
 			honk_attack(A)
 		else
-			if(!C.IsStunned() || arrest_type)
+			if(!C.IsStunned() || no_handcuffs)
 				stun_attack(A)
 		..()
 	else if(!spam_flag) //honking at the ground

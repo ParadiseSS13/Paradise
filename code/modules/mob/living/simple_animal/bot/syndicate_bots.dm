@@ -10,7 +10,7 @@
 	maxHealth = 300
 	declare_arrests = FALSE
 	idcheck = TRUE
-	arrest_type = TRUE
+	no_handcuffs = TRUE
 	auto_patrol = TRUE
 	emagged = 2
 	faction = list("syndicate")

@@ -40,7 +40,7 @@
 	var/idcheck = FALSE //If true, arrest people with no IDs
 	var/weaponscheck = TRUE //If true, arrest people for weapons if they don't have access
 	var/check_records = TRUE //Does it check security records?
-	var/arrest_type = FALSE //If true, don't handcuff
+	var/no_handcuffs = FALSE //If true, don't handcuff
 	var/projectile = /obj/item/projectile/beam/disabler //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/taser.ogg'
 	var/baton_delayed = FALSE
@@ -61,7 +61,7 @@
 	if(lasercolor)
 		shot_delay = 6 //Longer shot delay because JESUS CHRIST
 		check_records = FALSE //Don't actively target people set to arrest
-		arrest_type = TRUE //Don't even try to cuff
+		no_handcuffs = TRUE //Don't even try to cuff
 		declare_arrests = FALSE // Don't spam sec
 		req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
 
@@ -120,7 +120,7 @@
 	data["check_id"] = idcheck
 	data["check_weapons"] = weaponscheck
 	data["check_warrant"] = check_records
-	data["arrest_mode"] = arrest_type // detain or arrest
+	data["arrest_mode"] = no_handcuffs // detain or arrest
 	data["arrest_declare"] = declare_arrests // announce arrests on radio
 	return data
 
@@ -152,7 +152,7 @@
 		if("authwarrant")
 			check_records = !check_records
 		if("arrtype")
-			arrest_type = !arrest_type
+			no_handcuffs = !no_handcuffs
 		if("arrdeclare")
 			declare_arrests = !declare_arrests
 		if("ejectpai")
@@ -282,7 +282,7 @@
 				back_to_hunt()
 				return
 
-			if(arrest_type) // should we not cuff?
+			if(no_handcuffs) // should we not cuff?
 				back_to_idle()
 				return
 
@@ -540,7 +540,7 @@
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if(!C.IsStunned() || arrest_type && !baton_delayed)
+		if(!C.IsStunned() || no_handcuffs && !baton_delayed)
 			stun_attack(A)
 		else if(C.canBeHandcuffed() && !C.handcuffed)
 			cuff(A)
@@ -572,7 +572,7 @@
 	addtimer(VARSET_CALLBACK(src, icon_state, "[lasercolor]ed209[on]"), 2)
 	if(declare_arrests)
 		var/area/location = get_area(src)
-		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+		speak("[no_handcuffs ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 
 /mob/living/simple_animal/bot/ed209/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST
