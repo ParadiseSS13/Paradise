@@ -335,7 +335,7 @@
 		M.emote("scream")
 
 	if(method == REAGENT_INGEST)
-		M.adjustToxLoss(0.5*volume)
+		M.adjustToxLoss(0.5 * volume)
 		if(show_message)
 			to_chat(M, "<span class='warning'>You feel gross!</span>")
 
