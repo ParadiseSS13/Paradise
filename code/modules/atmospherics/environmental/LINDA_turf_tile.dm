@@ -479,7 +479,8 @@
 					else
 						mimic_temperature_solid(neighbor, neighbor.thermal_conductivity)
 
-	radiate_to_spess()
+	if(!planetary_atmos)
+		radiate_to_spess()
 
 	//Conduct with air on my tile if I have it
 	if(air)
