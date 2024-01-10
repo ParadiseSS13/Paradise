@@ -296,7 +296,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Generate code phrases and responses
 	if(!GLOB.syndicate_code_phrase)
-		var/temp_syndicate_code_phrase = generate_code_phrase(return_list=TRUE)
+		var/temp_syndicate_code_phrase = generate_code_phrase(return_list = TRUE)
 
 		var/codewords = jointext(temp_syndicate_code_phrase, "|")
 		var/regex/codeword_match = new("([codewords])", "ig")
