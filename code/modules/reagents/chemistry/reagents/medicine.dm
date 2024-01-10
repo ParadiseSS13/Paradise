@@ -286,7 +286,7 @@
 
 /datum/reagent/medicine/heal_on_apply/synthflesh/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	var/mob/living/carbon/human/H = M
-	if(ishuman(H) && HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() <= UNHUSK_DAMAGE_THRESHOLD && (H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT))
+	if(ishuman(H) && HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() <= UNHUSK_DAMAGE_THRESHOLD && H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT)
 		H.cure_husk(BURN)
 		// Could be a skeleton or a golem or sth, avoid phrases like "burnt flesh" and "burnt skin"
 		H.visible_message("<span class='nicegreen'>The squishy liquid coats [H]'s burns. [H] looks a lot healthier!</span>")
