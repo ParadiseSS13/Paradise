@@ -119,7 +119,7 @@
 
 /mob/living/simple_animal/bot/honkbot/emag_act(mob/user)
 	..()
-	if(emagged == 2)
+	if(emagged)
 		if(user)
 			to_chat(user, "<span class='warning'>You short out [src]'s target assessment circuits. It gives out an evil laugh!!</span>")
 			oldtarget_name = user.name
@@ -137,7 +137,7 @@
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if(emagged <= 1)
+		if(!emagged)
 			honk_attack(A)
 		else
 			if(!C.IsStunned() || no_handcuffs)
@@ -156,13 +156,13 @@
 	..()
 
 /mob/living/simple_animal/bot/honkbot/proc/bike_horn() //use bike_horn
-	if(emagged <= 1)
+	if(!emagged)
 		if(!spam_flag)
 			playsound(src, honksound, 50, TRUE, -1)
 			spam_flag = TRUE //prevent spam
 			sensor_blink()
 			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
-	else if(emagged == 2) //emagged honkbots will spam short and memorable sounds.
+	else //emagged honkbots will spam short and memorable sounds.
 		if(!spam_flag)
 			playsound(src, "honkbot_e", 50, 0)
 			spam_flag = TRUE // prevent spam
@@ -192,7 +192,7 @@
 			C.Weaken(10 SECONDS)
 			if(client) //prevent spam from players..
 				spam_flag = TRUE
-			if(emagged <= 1) //HONK once, then leave
+			if(!emagged) //HONK once, then leave
 				threatlevel -= 6
 				target = oldtarget_name
 			else // you really don't want to hit an emagged honkbot
@@ -277,14 +277,14 @@
 			continue
 
 		if(threatlevel < 4)
-			if(emagged == 2) // actually emagged
+			if(emagged) // actually emagged
 				bike_horn()
 			else
 				if(C in view(4, src) && !spam_flag) //keep the range short for patrolling
 					bike_horn()
 			continue
 
-		if(spam_flag && emagged <= 1)
+		if(spam_flag && !emagged)
 			continue
 
 		target = C
