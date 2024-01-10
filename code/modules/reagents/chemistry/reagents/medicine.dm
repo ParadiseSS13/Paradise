@@ -266,7 +266,7 @@
 	if(!iscarbon(M))
 		return ..()
 
-	if(ishuman(M) && (volume >= 20) && method == REAGENT_TOUCH)
+	if(ishuman(M) && volume >= 20 && method == REAGENT_TOUCH)
 		var/applied_volume = splash_human(M, volume)
 		return ..(M, method, applied_volume, show_message)
 
