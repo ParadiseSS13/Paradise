@@ -357,7 +357,7 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/heal_on_apply/silver_sulfadiazine/heal_external_limb(obj/item/organ/external/organ, volume)
-	organ.heal_damage(0, volume, updating_health=FALSE)
+	organ.heal_damage(0, volume, updating_health = FALSE)
 
 /datum/reagent/medicine/heal_on_apply/silver_sulfadiazine/heal_overall_damage(mob/living/M, volume)
 	M.adjustFireLoss(-volume)
