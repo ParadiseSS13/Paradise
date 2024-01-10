@@ -776,6 +776,10 @@ $(function() {
 		opts.hideSpam = $.parseJSON(savedConfig.shideSpam);
 		internalOutput('<span class="internal boldnshit">Loaded hide spam preference of: ' + savedConfig.shideSpam + '</span>', 'internal');
 	}
+	if (savedConfig.darkChat == "") {
+		savedConfig.darkChat = "on";
+		setCookie('darkChat', "on", 365);
+	}
 	if (savedConfig.darkChat == "on") {
 		$("head").append("<link>");
 		var css = $("head").children(":last");
