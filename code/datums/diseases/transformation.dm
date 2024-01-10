@@ -67,12 +67,12 @@
 		affected_mob.create_log(MISC_LOG, "has transformed into [new_mob], due to having the virus \"[src]\"")
 		if(istype(new_mob))
 			new_mob.a_intent = "harm"
-			if(isrobot(new_mob))
-				new_mob.rename_self("Cyborg", TRUE, TRUE)
 			if(affected_mob.mind)
 				affected_mob.mind.transfer_to(new_mob)
 			else
 				new_mob.key = affected_mob.key
+			if(isrobot(new_mob))
+				new_mob.rename_self("Cyborg", TRUE, TRUE)
 		qdel(affected_mob)
 
 
