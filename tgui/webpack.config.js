@@ -93,6 +93,7 @@ module.exports = (env = {}, argv) => {
     optimization: {
       emitOnErrors: false,
       realContentHash: true,
+      moduleIds: 'deterministic',
     },
     performance: {
       hints: false,
