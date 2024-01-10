@@ -429,7 +429,7 @@
 	M.radiation = max(0, M.radiation - 25)
 	return ..()
 
-id
+/datum/reagent/medicine/pen_acid
 	name = "Pentetic Acid"
 	id = "pen_acid"
 	description = "Pentetic Acid is an aggressive chelation agent. May cause tissue damage. Use with caution."
@@ -442,9 +442,7 @@ id
 	var/update_flags = STATUS_UPDATE_NONE
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			M.reage	return ..() | update_flags
-
-s.remove_reagent(R.id,4)
+			M.reagents.remove_reagent(R.id,4)
 	M.radiation = max(0, M.radiation-70)
 	if(prob(75))
 		update_flags |= M.adjustToxLoss(-4*REAGENTS_EFFECT_MULTIPLIER, FALSE)
