@@ -262,7 +262,7 @@
 
 	return volume
 
-/datum/reagent/medicine/heal_on_apply/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
+/datum/reagent/medicine/heal_on_apply/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = 1)
 	if(!iscarbon(M))
 		return ..()
 
