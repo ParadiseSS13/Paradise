@@ -362,7 +362,7 @@
 /datum/reagent/medicine/heal_on_apply/silver_sulfadiazine/heal_overall_damage(mob/living/M, volume)
 	M.adjustFireLoss(-volume)
 
-/datum/reagent/medicine/heal_on_apply/silver_sulfadiazine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
+/datum/reagent/medicine/heal_on_apply/silver_sulfadiazine/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = 1)
 	if(show_message)
 		to_chat(M, "<span class='notice'>The silver sulfadiazine soothes your burns.</span>")
 
