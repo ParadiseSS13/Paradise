@@ -7407,6 +7407,7 @@
 /obj/item/surgicaldrill,
 /obj/item/bonegel,
 /obj/item/FixOVein,
+/obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
