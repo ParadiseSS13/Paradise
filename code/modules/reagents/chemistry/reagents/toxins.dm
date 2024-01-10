@@ -377,7 +377,7 @@
 
 	if(volume >= 5)
 		H.emote("scream")
-		H.adjustFireLoss(clamp((volume - 5) * 3, 8, 75))
+		H.adjustFireLoss(clamp((volume - 5) * 3, 4, 75))
 	to_chat(H, "<span class='warning'>The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
 
 /datum/reagent/acetic_acid
