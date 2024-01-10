@@ -429,6 +429,7 @@
 	M.radiation = max(0, M.radiation - 25)
 	return ..()
 
+<<<<<<< HEAD
 /datum/reagent/medicine/vomicilin
 	name = "Vomicilin"
 	id = "vomicilin"
@@ -452,6 +453,8 @@
 		M.adjust_nutrition(-1)
 	return ..() | update_flags
 	
+=======
+>>>>>>> parent of e33addd49c (Create reagent vomicilin)
 /datum/reagent/medicine/pen_acid
 	name = "Pentetic Acid"
 	id = "pen_acid"

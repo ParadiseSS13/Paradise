@@ -21,7 +21,7 @@
 									"weak_omnizine", "godblood", "potass_iodide", "oculine", "mannitol", "spaceacillin", "salglu_solution",
 									"sal_acid", "cryoxadone", "sugar", "hydrocodone", "mitocholide", "rezadone", "menthol",
 									"mutadone", "sanguine_reagent", "iron", "ephedrine", "heparin", "corazone", "sodiumchloride",
-									"lavaland_extract", "synaptizine", "bicaridine", "kelotane","vomicilin")
+									"lavaland_extract", "synaptizine", "bicaridine", "kelotane")
 
 /obj/item/reagent_containers/hypospray/proc/apply(mob/living/M, mob/user)
 	if(!reagents.total_volume)
