@@ -219,20 +219,6 @@ a.popt {
   color: #a4bad6;
 }
 
-/* ADD HERE FOR BOLD */
-
-.bold,
-.name,
-.prefix,
-.ooc,
-.looc,
-.adminooc,
-.admin,
-.medal,
-.yell {
-  font-weight: bold;
-}
-
 /* ADD HERE FOR ITALIC */
 
 .italic,
@@ -281,6 +267,7 @@ em {
 
 .looc {
   color: #6699cc;
+  font-weight: bold;
 }
 
 .adminobserverooc {
@@ -573,6 +560,11 @@ h2.alert {
   font-weight: bold;
   font-style: italic;
 }
+
+.medal {
+  font-weight: bold;
+}
+
 /* /vg/ */
 .blob {
   color: #006221;
