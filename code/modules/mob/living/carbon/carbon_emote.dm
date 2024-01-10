@@ -1,6 +1,5 @@
 /datum/emote/living/carbon
 	mob_type_allowed_typecache = list(/mob/living/carbon)
-	mob_type_blacklist_typecache = list(/mob/living/carbon/brain)
 
 /datum/emote/living/carbon/blink
 	key = "blink"
@@ -30,7 +29,7 @@
 	key_third_person = "coughs"
 	message = "coughs!"
 	message_mime = "appears to cough!"
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	vary = TRUE
 	age_based = TRUE
 	volume = 120

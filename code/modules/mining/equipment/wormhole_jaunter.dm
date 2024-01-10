@@ -98,10 +98,13 @@
 	item_state = "flare"
 	var/destination
 
-/obj/item/wormhole_jaunter/contractor/verb/set_destination()
-	set category = "Object"
-	set name = "Change Portal Destination"
-	set src in usr
+/obj/item/wormhole_jaunter/contractor/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>You can <b>Alt-Click</b> [src] to change its destination!</span>"
+
+/obj/item/wormhole_jaunter/contractor/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
 	var/list/L = list()
 	var/list/areaindex = list()
@@ -121,7 +124,6 @@
 
 	var/desc = input("Please select a location to target.", "Flare Target Interface") in L
 	destination = L[desc]
-	return
 
 /obj/item/wormhole_jaunter/contractor/attack_self(mob/user) // message is later down
 	activate(user, TRUE)
@@ -144,7 +146,7 @@
 
 /obj/item/wormhole_jaunter/contractor/proc/create_portal(turf/destination)
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
-	new /obj/effect/portal/redspace/getaway(get_turf(src), get_turf(destination), src, 100)
+	new /obj/effect/portal/advanced/getaway(get_turf(src), get_turf(destination), src, 100)
 	qdel(src)
 
 /obj/item/wormhole_jaunter/contractor/emag_act(mob/user)
@@ -160,7 +162,7 @@
 	new /obj/item/wormhole_jaunter/contractor(src)
 	new /obj/item/radio/beacon/emagged(src)
 
-/obj/effect/portal/redspace/getaway
+/obj/effect/portal/advanced/getaway
 	one_use = TRUE
 
 /obj/effect/temp_visual/getaway_flare // Because the original contractor flare is not a temp visual, for some reason.
@@ -208,7 +210,7 @@
 				playsound(src, 'sound/magic/lightningbolt.ogg', 100, TRUE)
 		qdel(src)
 		return
-		
+
 	var/list/portal_turfs = list()
 	for(var/turf/PT in circleviewturfs(T, 3))
 		if(!PT.density)

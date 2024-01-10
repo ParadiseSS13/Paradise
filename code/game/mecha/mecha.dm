@@ -186,7 +186,7 @@
 		radio.talk_into(M, message_pieces)
 
 /obj/mecha/proc/click_action(atom/target, mob/user, params)
-	if(!occupant || occupant != user )
+	if(!occupant || occupant != user)
 		return
 	if(user.incapacitated())
 		return
@@ -743,11 +743,16 @@
 		// Check if a tracker exists
 		var/obj/item/mecha_parts/mecha_tracking/new_tracker = W
 		for(var/obj/item/mecha_parts/mecha_tracking/current_tracker in trackers)
-			if(new_tracker.ai_beacon == current_tracker.ai_beacon)
-				to_chat(user, "<span class='warning'>This exosuit already has \a [new_tracker.ai_beacon ? "AI" : "tracking"] beacon.</span>")
+			if(new_tracker.type == current_tracker.type)
+				to_chat(user, "<span class='warning'>This exosuit already has a [current_tracker].</span>")
 				user.put_in_hands(new_tracker)
 				return
 
+			trackers -= current_tracker
+			to_chat(user, "<span class='notice'>You remove [current_tracker].</span>")
+			var/obj/item/mecha_parts/mecha_tracking/duplicate_tracker = new current_tracker.type
+			user.put_in_hands(duplicate_tracker)
+			qdel(current_tracker)
 		new_tracker.forceMove(src)
 		trackers += W
 		user.visible_message("[user] attaches [new_tracker] to [src].", "<span class='notice'>You attach [new_tracker] to [src].</span>")
@@ -1206,7 +1211,7 @@
 		if(!user.unEquip(mmi_as_oc))
 			to_chat(user, "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return FALSE
-		var/mob/living/carbon/brain/brainmob = mmi_as_oc.brainmob
+		var/mob/living/brain/brainmob = mmi_as_oc.brainmob
 		brainmob.reset_perspective(src)
 		occupant = brainmob
 		brainmob.forceMove(src) //should allow relaymove
@@ -1231,13 +1236,13 @@
 /obj/mecha/proc/pilot_is_mmi()
 	var/atom/movable/mob_container
 	if(isbrain(occupant))
-		var/mob/living/carbon/brain/brain = occupant
+		var/mob/living/brain/brain = occupant
 		mob_container = brain.container
 	if(istype(mob_container, /obj/item/mmi))
 		return 1
 	return 0
 
-/obj/mecha/proc/pilot_mmi_hud(mob/living/carbon/brain/pilot)
+/obj/mecha/proc/pilot_mmi_hud(mob/living/brain/pilot)
 	return
 
 /obj/mecha/Exited(atom/movable/M, atom/newloc)
@@ -1258,7 +1263,7 @@
 		mob_container = occupant
 		RemoveActions(occupant, human_occupant = 1)
 	else if(isbrain(occupant))
-		var/mob/living/carbon/brain/brain = occupant
+		var/mob/living/brain/brain = occupant
 		RemoveActions(brain)
 		mob_container = brain.container
 	else if(isAI(occupant))
@@ -1320,14 +1325,14 @@
 /obj/mecha/proc/operation_allowed(mob/living/carbon/human/H)
 	if(!ishuman(H))
 		return 0
-	for(var/ID in list(H.get_active_hand(), H.wear_id, H.belt))
+	for(var/ID in list(H.get_active_hand(), H.wear_id, H.belt, H.wear_pda))
 		if(check_access(ID, operation_req_access))
 			return 1
 	return 0
 
 
 /obj/mecha/proc/internals_access_allowed(mob/living/carbon/human/H)
-	for(var/atom/ID in list(H.get_active_hand(), H.wear_id, H.belt))
+	for(var/atom/ID in list(H.get_active_hand(), H.wear_id, H.belt, H.wear_pda))
 		if(check_access(ID, internals_req_access))
 			return 1
 	return 0
@@ -1338,9 +1343,7 @@
 		return 1
 	if(!access_list.len) //no requirements
 		return 1
-	if(istype(I, /obj/item/pda))
-		var/obj/item/pda/pda = I
-		I = pda.id
+	I = I?.GetID()
 	if(!istype(I) || !I.access) //not ID or no access
 		return 0
 	if(access_list==operation_req_access)
@@ -1562,11 +1565,11 @@
 	for(var/obj/item/mecha_parts/mecha_equipment/MT in equipment)
 		if(!MT.selectable || selected == MT)
 			continue
-		var/mutable_appearance/clean/MA = new(MT)
+		var/mutable_appearance/clean/MA = mutable_appearance(MT.icon, MT.icon_state, MT.layer)
 		choices[MT.name] = MA
 		choices_to_refs[MT.name] = MT
 
-	var/choice = show_radial_menu(L, src, choices, radius = 48, custom_check = CALLBACK(src, PROC_REF(check_menu), L))
+	var/choice = show_radial_menu(L, L, choices, radius = 48, custom_check = CALLBACK(src, PROC_REF(check_menu), L))
 	if(!check_menu(L) || choice == "Cancel / No Change")
 		return
 

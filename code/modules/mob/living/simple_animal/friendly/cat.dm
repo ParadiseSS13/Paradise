@@ -55,6 +55,8 @@
 	deploy_the_cats()
 
 /mob/living/simple_animal/pet/cat/Runtime/persistent_save()
+	if(SEND_SIGNAL(src, COMSIG_LIVING_WRITE_MEMORY) & COMPONENT_DONT_WRITE_MEMORY)
+		return FALSE
 	write_memory(FALSE)
 
 /mob/living/simple_animal/pet/cat/Runtime/make_babies()
@@ -159,7 +161,7 @@
 	if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
 		movement_target = null
 		stop_automated_movement = FALSE
-	if( !movement_target || !(movement_target.loc in oview(src, 3)) )
+	if(!movement_target || !(movement_target.loc in oview(src, 3)))
 		movement_target = null
 		stop_automated_movement = FALSE
 		for(var/mob/living/simple_animal/mouse/snack in oview(src,3))

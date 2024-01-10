@@ -16,7 +16,6 @@
 /*
 * Color adjustment
 */
-GLOBAL_DATUM_INIT(gear_tweak_free_color_choice, /datum/gear_tweak/color, new())
 
 /datum/gear_tweak/color
 	var/list/valid_colors

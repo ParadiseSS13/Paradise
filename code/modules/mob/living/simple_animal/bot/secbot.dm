@@ -30,7 +30,7 @@
 	var/last_found //There's a delay
 	var/declare_arrests = TRUE //When making an arrest, should it notify everyone on the security channel?
 	var/idcheck = FALSE //If true, arrest people with no IDs
-	var/weaponscheck = FALSE //If true, arrest people for weapons if they lack access
+	var/weapons_check = FALSE //If true, arrest people for weapons if they lack access
 	var/check_records = TRUE //Does it check security records?
 	var/arrest_type = FALSE //If true, don't handcuff
 	var/harmbaton = FALSE //If true, beat instead of stun
@@ -43,7 +43,7 @@
 	name = "Officer Beepsky"
 	desc = "It's Officer Beepsky! Powered by a potato and a shot of whiskey."
 	idcheck = FALSE
-	weaponscheck = FALSE
+	weapons_check = FALSE
 	auto_patrol = TRUE
 
 /mob/living/simple_animal/bot/secbot/beepsky/explode()
@@ -63,7 +63,7 @@
 	name = "Prison Ofitser"
 	desc = "It's Prison Ofitser! Powered by the tears and sweat of prisoners."
 	idcheck = FALSE
-	weaponscheck = TRUE
+	weapons_check = TRUE
 	auto_patrol = TRUE
 
 /mob/living/simple_animal/bot/secbot/buzzsky
@@ -74,7 +74,7 @@
 	declare_arrests = FALSE
 	arrest_type = TRUE
 	harmbaton = TRUE
-	emagged = 2
+	emagged = TRUE
 
 /mob/living/simple_animal/bot/secbot/armsky
 	name = "Sergeant-at-Armsky"
@@ -82,7 +82,7 @@
 	maxHealth = 100
 	idcheck = TRUE
 	arrest_type = TRUE
-	weaponscheck = TRUE
+	weapons_check = TRUE
 
 /mob/living/simple_animal/bot/secbot/Initialize(mapload)
 	. = ..()
@@ -126,14 +126,14 @@
 /mob/living/simple_animal/bot/secbot/ui_data(mob/user)
 	var/list/data = ..()
 	data["check_id"] = idcheck
-	data["check_weapons"] = weaponscheck
+	data["check_weapons"] = weapons_check
 	data["check_warrant"] = check_records
 	data["arrest_mode"] = arrest_type // detain or arrest
 	data["arrest_declare"] = declare_arrests // announce arrests on radio
 	return data
 
 /mob/living/simple_animal/bot/secbot/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(topic_denied(usr))
 		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
@@ -154,7 +154,7 @@
 		if("disableremote")
 			remote_disabled = !remote_disabled
 		if("authweapon")
-			weaponscheck = !weaponscheck
+			weapons_check = !weapons_check
 		if("authid")
 			idcheck = !idcheck
 		if("authwarrant")
@@ -187,7 +187,7 @@
 
 /mob/living/simple_animal/bot/secbot/emag_act(mob/user)
 	..()
-	if(emagged == 2)
+	if(emagged)
 		if(user)
 			to_chat(user, "<span class='danger'>You short out [src]'s target assessment circuits.</span>")
 			oldtarget_name = user.name
@@ -330,7 +330,7 @@
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if( !Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)
+			if(!Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)
 				back_to_hunt()
 				return
 
