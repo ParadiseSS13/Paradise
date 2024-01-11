@@ -213,6 +213,7 @@
 	icon_state = "chaoswand"
 	max_charges = 20
 	variable_charges = FALSE
+	no_den_usage = TRUE
 
 /obj/item/gun/magic/wand/chaos/zap_self(mob/living/user)
 	if(ishuman(user))
