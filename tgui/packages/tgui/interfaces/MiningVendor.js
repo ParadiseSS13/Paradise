@@ -5,7 +5,7 @@ import {
   Button,
   Collapsible,
   Dropdown,
-  Flex,
+  Stack,
   Input,
   NoticeBox,
   Section,
@@ -21,10 +21,12 @@ const sortTypes = {
 export const MiningVendor = (_properties, _context) => {
   return (
     <Window width={400} height={455}>
-      <Window.Content className="Layout__content--flexColumn">
-        <MiningVendorUser />
-        <MiningVendorSearch />
-        <MiningVendorItems />
+      <Window.Content>
+        <Stack fill vertical>
+          <MiningVendorUser />
+          <MiningVendorSearch />
+          <MiningVendorItems />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -113,15 +115,15 @@ const MiningVendorItems = (_properties, context) => {
     );
   });
   return (
-    <Flex.Item grow="1" overflow="auto">
-      <Section>
+    <Stack.Item grow mt={0.5}>
+      <Section fill scrollable>
         {has_contents ? (
           contents
         ) : (
           <Box color="label">No items matching your criteria was found!</Box>
         )}
       </Section>
-    </Flex.Item>
+    </Stack.Item>
   );
 };
 
@@ -134,35 +136,34 @@ const MiningVendorSearch = (_properties, context) => {
     false
   );
   return (
-    <Box mb="0.5rem">
-      <Flex width="100%">
-        <Flex.Item grow="1" mr="0.5rem">
+    <Box>
+      <Stack fill>
+        <Stack.Item grow>
           <Input
+            mt={0.2}
             placeholder="Search by item name.."
             width="100%"
             onInput={(_e, value) => setSearchText(value)}
           />
-        </Flex.Item>
-        <Flex.Item basis="30%">
+        </Stack.Item>
+        <Stack.Item basis="30%">
           <Dropdown
             selected="Alphabetical"
             options={Object.keys(sortTypes)}
             width="100%"
-            lineHeight="19px"
             onSelected={(v) => setSortOrder(v)}
           />
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             icon={descending ? 'arrow-down' : 'arrow-up'}
-            height="19px"
+            height="21px"
             tooltip={descending ? 'Descending order' : 'Ascending order'}
             tooltipPosition="bottom-start"
-            ml="0.5rem"
             onClick={() => setDescending(!descending)}
           />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Box>
   );
 };

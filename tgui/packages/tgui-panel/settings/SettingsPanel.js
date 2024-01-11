@@ -82,7 +82,7 @@ export const SettingsGeneral = (props, context) => {
   const dispatch = useDispatch(context);
   const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
   return (
-    <Section height="145px">
+    <Section height="150px">
       <LabeledList>
         <LabeledList.Item label="Theme">
           <Dropdown
@@ -177,6 +177,7 @@ export const SettingsGeneral = (props, context) => {
       </LabeledList>
       <Divider />
       <Button
+        mt={0.25}
         content="Save chat log"
         icon="save"
         onClick={() => dispatch(saveChatToDisk())}

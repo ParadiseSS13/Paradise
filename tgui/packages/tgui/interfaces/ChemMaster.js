@@ -432,7 +432,6 @@ const ChemMasterProductionCommon = (props, context) => {
 
 const SpriteStyleButton = (props, context) => {
   const { icon, ...restProps } = props;
-  logger.info('Icon Name:' + icon);
   return (
     <Button style={{ padding: 0, 'line-height': 0 }} {...restProps}>
       <Box className={classes(['chem_master32x32', icon])} />
