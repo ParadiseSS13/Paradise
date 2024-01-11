@@ -42,7 +42,7 @@
 /obj/item/card/id/away/old/apc
 	name = "APC Access ID"
 	desc = "A special ID card that allows access to APC terminals."
-	icon_state = "retro_nanotrasen"
+	icon_state = "retro_engineering"
 	access = list(ACCESS_ENGINE_EQUIP)
 
 /obj/item/storage/backpack/old
