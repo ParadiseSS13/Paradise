@@ -10,7 +10,8 @@
 	icon_state = "ice_1"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/chaos
 	var/obj/item/item_to_summon
-	var/explosion_amount = 0 //If left at 0, item goes in backpack or floor, if set, throw that many items around the target
+	/// If left at 0, item goes in backpack or floor, if set, throw that many items around the target
+	var/explosion_amount = 0
 	var/chaos_effect
 
 /obj/item/projectile/magic/chaos/on_hit(atom/target, blocked = 0)
