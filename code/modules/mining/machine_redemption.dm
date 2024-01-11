@@ -368,7 +368,7 @@
 	add_fingerprint(usr)
 
 /obj/machinery/mineral/ore_redemption/ui_state(mob/user)
-	return GLOB.physical_state
+	return GLOB.default_state
 
 /obj/machinery/mineral/ore_redemption/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
