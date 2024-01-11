@@ -176,7 +176,6 @@
 	H.check_mutations = 1
 	ADD_TRAIT(H, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
 	var/datum/martial_art/judo/under_siege/bouncer_delight = new
-	var/datum/
 	bouncer_delight.teach(H)
 
 
