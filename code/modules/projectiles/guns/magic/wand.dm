@@ -226,11 +226,3 @@
 		qdel(C)
 		charges--
 	..()
-
-/obj/item/gun/magic/wand/chaos/debug
-	name = "wand of infinite chaos"
-	desc = "Are you sure you're supposed to be using this?"
-	max_charges = 500
-	variable_charges = FALSE
-	can_charge = TRUE
-	recharge_rate = 1
