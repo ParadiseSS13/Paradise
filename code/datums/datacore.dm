@@ -128,7 +128,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 			is_custom_job = FALSE
 			break
 
-	if(is_custom_job)
+	if(is_custom_job && foundrecord)
 		real_title = foundrecord.fields["real_rank"]
 
 	if(foundrecord)

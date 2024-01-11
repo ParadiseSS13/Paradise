@@ -13,10 +13,11 @@ export const DestinationTagger = (props, context) => {
       <Window.Content>
         <Stack fill vertical>
           <Section fill scrollable textAlign="center" title="TagMaster 3.1">
-            <Box ml="30%">
-              <LabeledList.Item label="Selected">
-                {selected_destination.name ?? 'None'}
-              </LabeledList.Item>
+            <Box width="100%" textAlign="center">
+              <Box color="label" inline>
+                Selected:
+              </Box>{' '}
+              {selected_destination.name ?? 'None'}
             </Box>
             <Box mt={1.5}>
               <Stack

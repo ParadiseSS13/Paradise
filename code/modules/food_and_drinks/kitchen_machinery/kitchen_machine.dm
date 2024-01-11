@@ -446,6 +446,9 @@
 
 	ui_interact(user)
 
+/obj/machinery/kitchen_machine/attack_ghost(mob/user)
+	ui_interact(user)
+
 /obj/machinery/kitchen_machine/ui_state(mob/user)
 	return GLOB.default_state
 

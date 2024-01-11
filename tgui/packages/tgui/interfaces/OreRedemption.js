@@ -269,7 +269,6 @@ const SheetLine = (properties, context) => {
 const AlloyLine = (properties, context) => {
   const { act } = useBackend(context);
   const { ore } = properties;
-  logger.info('Ore Id: ' + ore.id);
   return (
     <Box className="SheetLine">
       <Stack fill>

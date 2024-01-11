@@ -49,7 +49,6 @@
 			if(!tmp_msg)
 				continue
 			msg = tmp_msg
-			log_debug(msg)
 
 	if(verb)
 		. = "[verb], \"[trim(msg)]\""

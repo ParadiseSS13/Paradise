@@ -100,7 +100,7 @@ export const MedicalRecords = (_properties, context) => {
   }
 
   return (
-    <Window>
+    <Window width={800} height={800}>
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>
@@ -271,8 +271,8 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
     return <Box color="bad">General records lost!</Box>;
   }
   return (
-    <>
-      <Box width="50%" float="left">
+    <Stack>
+      <Stack.Item grow>
         <LabeledList>
           {general.fields.map((field, i) => (
             <LabeledList.Item key={i} label={field.field}>
@@ -289,25 +289,24 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
             </LabeledList.Item>
           ))}
         </LabeledList>
-      </Box>
-      <Box width="50%" float="right" textAlign="right">
-        {!!general.has_photos &&
-          general.photos.map((p, i) => (
-            <Box key={i} inline textAlign="center" color="label">
-              <img
-                src={p}
-                style={{
-                  width: '96px',
-                  'margin-bottom': '0.5rem',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
-                }}
-              />
-              <br />
-              Photo #{i + 1}
-            </Box>
-          ))}
-      </Box>
-    </>
+      </Stack.Item>
+      {!!general.has_photos &&
+        general.photos.map((p, i) => (
+          <Stack.Item key={i} inline textAlign="center" color="label" ml={0}>
+            <img
+              src={p}
+              style={{
+                width: '96px',
+                'margin-top': '2.5rem',
+                'margin-bottom': '0.5rem',
+                '-ms-interpolation-mode': 'nearest-neighbor',
+              }}
+            />
+            <br />
+            Photo #{i + 1}
+          </Stack.Item>
+        ))}
+    </Stack>
   );
 };
 
@@ -547,45 +546,47 @@ const MedicalRecordsNavigation = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { screen, general } = data;
   return (
-    <Stack.Item>
-      <Tabs>
-        <Tabs.Tab
-          icon="list"
-          selected={screen === 2}
-          onClick={() => {
-            act('screen', { screen: 2 });
-          }}
-        >
-          List Records
-        </Tabs.Tab>
-        <Tabs.Tab
-          icon="database"
-          selected={screen === 5}
-          onClick={() => {
-            act('screen', { screen: 5 });
-          }}
-        >
-          Virus Database
-        </Tabs.Tab>
-        <Tabs.Tab
-          icon="plus-square"
-          selected={screen === 6}
-          onClick={() => act('screen', { screen: 6 })}
-        >
-          Medibot Tracking
-        </Tabs.Tab>
-        {screen === 3 && (
-          <Tabs.Tab icon="wrench" selected={screen === 3}>
-            Record Maintenance
+    <Stack vertical mb={1}>
+      <Stack.Item>
+        <Tabs>
+          <Tabs.Tab
+            icon="list"
+            selected={screen === 2}
+            onClick={() => {
+              act('screen', { screen: 2 });
+            }}
+          >
+            List Records
           </Tabs.Tab>
-        )}
-        {screen === 4 && general && !general.empty && (
-          <Tabs.Tab icon="file" selected={screen === 4}>
-            Record: {general.fields[0].value}
+          <Tabs.Tab
+            icon="database"
+            selected={screen === 5}
+            onClick={() => {
+              act('screen', { screen: 5 });
+            }}
+          >
+            Virus Database
           </Tabs.Tab>
-        )}
-      </Tabs>
-    </Stack.Item>
+          <Tabs.Tab
+            icon="plus-square"
+            selected={screen === 6}
+            onClick={() => act('screen', { screen: 6 })}
+          >
+            Medibot Tracking
+          </Tabs.Tab>
+          {screen === 3 && (
+            <Tabs.Tab icon="wrench" selected={screen === 3}>
+              Record Maintenance
+            </Tabs.Tab>
+          )}
+          {screen === 4 && general && !general.empty && (
+            <Tabs.Tab icon="file" selected={screen === 4}>
+              Record: {general.fields[0].value}
+            </Tabs.Tab>
+          )}
+        </Tabs>
+      </Stack.Item>
+    </Stack>
   );
 };
 

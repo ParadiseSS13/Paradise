@@ -140,6 +140,7 @@ export const NTRecruiter = (props, context) => {
             <Stack.Item grow>
               <Section
                 fill
+                scrollable
                 color="label"
                 fontSize="14px"
                 title="Employment Applications"
@@ -176,31 +177,34 @@ export const NTRecruiter = (props, context) => {
             <Stack.Item>
               <Section
                 fill
-                mb="2px"
                 title="Stamp the application!"
                 color="grey"
                 textAlign="center"
               >
-                <Button
-                  float="right"
-                  color="green"
-                  content="Hire"
-                  fontSize="150%"
-                  width="49%"
-                  icon="arrow-circle-up"
-                  lineHeight={4.5}
-                  onClick={() => act('hire')}
-                />
-                <Button
-                  float="left"
-                  color="red"
-                  content="Dismiss"
-                  fontSize="150%"
-                  width="49%"
-                  icon="ban"
-                  lineHeight={4.5}
-                  onClick={() => act('dismiss')}
-                />
+                <Stack>
+                  <Stack.Item grow basis={0}>
+                    <Button
+                      fluid
+                      color="red"
+                      content="Dismiss"
+                      fontSize="150%"
+                      icon="ban"
+                      lineHeight={4.5}
+                      onClick={() => act('dismiss')}
+                    />
+                  </Stack.Item>
+                  <Stack.Item grow basis={0}>
+                    <Button
+                      fluid
+                      color="green"
+                      content="Hire"
+                      fontSize="150%"
+                      icon="arrow-circle-up"
+                      lineHeight={4.5}
+                      onClick={() => act('hire')}
+                    />
+                  </Stack.Item>
+                </Stack>
               </Section>
             </Stack.Item>
           </Stack>

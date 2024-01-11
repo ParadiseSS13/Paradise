@@ -2,7 +2,15 @@ import { filter, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Input, Section, Stack, Tabs } from '../components';
+import {
+  Box,
+  Button,
+  Input,
+  Section,
+  Stack,
+  Tabs,
+  LabeledList,
+} from '../components';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 
@@ -27,10 +35,10 @@ export const Uplink = (props, context) => {
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
   return (
-    <Window width={900} height={610} theme="syndicate">
+    <Window width={900} height={600} theme="syndicate">
       <ComplexModal />
       <Window.Content scrollable>
-        <Stack vertical>
+        <Stack fill vertical>
           <Stack.Item>
             <Tabs>
               <Tabs.Tab
@@ -120,72 +128,80 @@ const ItemsPage = (_properties, context) => {
 
   return (
     <Stack fill vertical>
-      <Stack.Item>
-        <Section
-          title={'Current Balance: ' + crystals + 'TC'}
-          buttons={
-            <>
-              <Button.Checkbox
-                content="Show Descriptions"
-                checked={showDesc}
-                onClick={() => setShowDesc(!showDesc)}
-              />
-              <Button
-                content="Random Item"
-                icon="question"
-                onClick={() => act('buyRandom')}
-              />
-              <Button
-                content="Refund Currently Held Item"
-                icon="undo"
-                onClick={() => act('refund')}
-              />
-            </>
-          }
-        >
-          <Input
-            fluid
-            placeholder="Search Equipment"
-            onInput={(e, value) => {
-              handleSearch(value);
-            }}
-            value={searchText}
-          />
-        </Section>
-        <Stack fill>
-          <Stack.Item>
-            <Section fill>
-              <Tabs vertical>
-                {cats.map((c) => (
-                  <Tabs.Tab
-                    key={c}
-                    selected={
-                      searchText !== '' ? false : c.items === uplinkItems
-                    }
-                    onClick={() => {
-                      setUplinkItems(c.items);
-                      setSearchText('');
-                    }}
-                  >
-                    {c.cat}
-                  </Tabs.Tab>
-                ))}
-              </Tabs>
-            </Section>
-          </Stack.Item>
-          <Stack.Item grow>
-            <Section fill scrollable>
-              {uplinkItems.map((i) => (
-                <UplinkItem
-                  i={i}
-                  showDecription={showDesc}
-                  key={decodeHtmlEntities(i.name)}
+      <Stack vertical>
+        <Stack.Item>
+          <Section
+            title={'Current Balance: ' + crystals + 'TC'}
+            buttons={
+              <>
+                <Button.Checkbox
+                  content="Show Descriptions"
+                  checked={showDesc}
+                  onClick={() => setShowDesc(!showDesc)}
                 />
+                <Button
+                  content="Random Item"
+                  icon="question"
+                  onClick={() => act('buyRandom')}
+                />
+                <Button
+                  content="Refund Currently Held Item"
+                  icon="undo"
+                  onClick={() => act('refund')}
+                />
+              </>
+            }
+          >
+            <Input
+              fluid
+              placeholder="Search Equipment"
+              onInput={(e, value) => {
+                handleSearch(value);
+              }}
+              value={searchText}
+            />
+          </Section>
+        </Stack.Item>
+      </Stack>
+      <Stack fill mt={0.3}>
+        <Stack.Item width="30%">
+          <Section fill scrollable>
+            <Tabs vertical>
+              {cats.map((c) => (
+                <Tabs.Tab
+                  key={c}
+                  selected={searchText !== '' ? false : c.items === uplinkItems}
+                  onClick={() => {
+                    setUplinkItems(c.items);
+                    setSearchText('');
+                  }}
+                >
+                  {c.cat}
+                </Tabs.Tab>
               ))}
-            </Section>
-          </Stack.Item>
-        </Stack>
-      </Stack.Item>
+            </Tabs>
+          </Section>
+        </Stack.Item>
+        <Stack.Item grow>
+          <Section fill scrollable>
+            <Stack vertical>
+              {uplinkItems.map((i) => (
+                <Stack.Item
+                  key={decodeHtmlEntities(i.name)}
+                  p={1}
+                  backgroundColor={'rgba(255, 0, 0, 0.1)'}
+                >
+                  <UplinkItem
+                    i={i}
+                    showDecription={showDesc}
+                    key={decodeHtmlEntities(i.name)}
+                  />
+                </Stack.Item>
+              ))}
+            </Stack>
+          </Section>
+        </Stack.Item>
+      </Stack>
     </Stack>
   );
 };
@@ -198,45 +214,55 @@ const CartPage = (_properties, context) => {
 
   return (
     <Stack fill vertical>
-      <Section
-        title={'Current Balance: ' + crystals + 'TC'}
-        buttons={
-          <>
-            <Button.Checkbox
-              content="Show Descriptions"
-              checked={showDesc}
-              onClick={() => setShowDesc(!showDesc)}
-            />
-            <Button
-              content="Empty Cart"
-              icon="trash"
-              onClick={() => act('empty_cart')}
-              disabled={!cart}
-            />
-            <Button
-              content={'Purchase Cart (' + cart_price + 'TC)'}
-              icon="shopping-cart"
-              onClick={() => act('purchase_cart')}
-              disabled={!cart || cart_price > crystals}
-            />
-          </>
-        }
-      >
-        <Stack.Item grow>
-          {cart ? (
-            cart.map((i) => (
-              <UplinkItem
-                i={i}
-                showDecription={showDesc}
-                key={decodeHtmlEntities(i.name)}
-                buttons={<CartButtons i={i} />}
+      <Stack.Item grow>
+        <Section
+          fill
+          scrollable
+          title={'Current Balance: ' + crystals + 'TC'}
+          buttons={
+            <>
+              <Button.Checkbox
+                content="Show Descriptions"
+                checked={showDesc}
+                onClick={() => setShowDesc(!showDesc)}
               />
-            ))
-          ) : (
-            <Box italic>Your Shopping Cart is empty!</Box>
-          )}
-        </Stack.Item>
-      </Section>
+              <Button
+                content="Empty Cart"
+                icon="trash"
+                onClick={() => act('empty_cart')}
+                disabled={!cart}
+              />
+              <Button
+                content={'Purchase Cart (' + cart_price + 'TC)'}
+                icon="shopping-cart"
+                onClick={() => act('purchase_cart')}
+                disabled={!cart || cart_price > crystals}
+              />
+            </>
+          }
+        >
+          <Stack vertical>
+            {cart ? (
+              cart.map((i) => (
+                <Stack.Item
+                  key={decodeHtmlEntities(i.name)}
+                  p={1}
+                  mr={1}
+                  backgroundColor={'rgba(255, 0, 0, 0.1)'}
+                >
+                  <UplinkItem
+                    i={i}
+                    showDecription={showDesc}
+                    buttons={<CartButtons i={i} />}
+                  />
+                </Stack.Item>
+              ))
+            ) : (
+              <Box italic>Your Shopping Cart is empty!</Box>
+            )}
+          </Stack>
+        </Section>
+      </Stack.Item>
       <Advert />
     </Stack>
   );
@@ -246,27 +272,38 @@ const Advert = (_properties, context) => {
   const { cats, lucky_numbers } = data;
 
   return (
-    <Section
-      title="Suggested Purchases"
-      buttons={
-        <Button
-          icon="dice"
-          content="See more suggestions"
-          onClick={() => act('shuffle_lucky_numbers')}
-        />
-      }
-    >
-      <Box display="flex" flexWrap="wrap">
-        {lucky_numbers
-          .map((number) => cats[number.cat].items[number.item])
-          .filter((item) => item !== undefined && item !== null)
-          .map((item, index) => (
-            <Stack.Item key={index} p="0.5%" width="49%">
-              <UplinkItem grow i={item} />
-            </Stack.Item>
-          ))}
-      </Box>
-    </Section>
+    <Stack.Item grow>
+      <Section
+        fill
+        scrollable
+        title="Suggested Purchases"
+        buttons={
+          <Button
+            icon="dice"
+            content="See more suggestions"
+            onClick={() => act('shuffle_lucky_numbers')}
+          />
+        }
+      >
+        <Stack wrap>
+          {lucky_numbers
+            .map((number) => cats[number.cat].items[number.item])
+            .filter((item) => item !== undefined && item !== null)
+            .map((item, index) => (
+              <Stack.Item
+                key={index}
+                p={1}
+                mb={1}
+                ml={1}
+                width={34}
+                backgroundColor={'rgba(255, 0, 0, 0.15)'}
+              >
+                <UplinkItem grow i={item} />
+              </Stack.Item>
+            ))}
+        </Stack>
+      </Section>
+    </Stack.Item>
   );
 };
 
@@ -359,7 +396,7 @@ const CartButtons = (props, context) => {
       <Button.Input
         content={i.amount}
         width="45px"
-        tooltipPosition="bottom-start"
+        tooltipPosition="bottom-end"
         tooltip={i.limit === 0 && 'Discount already redeemed!'}
         onCommit={(e, value) =>
           act('set_cart_item_quantity', {
@@ -370,6 +407,7 @@ const CartButtons = (props, context) => {
         disabled={i.limit !== -1 && i.amount >= i.limit && i.amount <= 0}
       />
       <Button
+        mb={0.3}
         icon="plus"
         tooltipPosition="bottom-start"
         tooltip={i.limit === 0 && 'Discount already redeemed!'}
@@ -413,9 +451,9 @@ const ExploitableInfoPage = (_properties, context) => {
   const crew = SelectMembers(exploitable, searchText);
 
   return (
-    <Section title="Exploitable Records">
-      <Stack>
-        <Stack.Item basis={20}>
+    <Stack fill>
+      <Stack.Item width="30%">
+        <Section fill scrollable title="Exploitable Records">
           <Input
             fluid
             mb={1}
@@ -433,17 +471,29 @@ const ExploitableInfoPage = (_properties, context) => {
               </Tabs.Tab>
             ))}
           </Tabs>
-        </Stack.Item>
-        <Stack.Item grow={1} basis={0}>
-          <Section title={'Name: ' + selectedRecord.name}>
-            <Box>Age: {selectedRecord.age}</Box>
-            <Box>Fingerprint: {selectedRecord.fingerprint}</Box>
-            <Box>Rank: {selectedRecord.rank}</Box>
-            <Box>Sex: {selectedRecord.sex}</Box>
-            <Box>Species: {selectedRecord.species}</Box>
-          </Section>
-        </Stack.Item>
-      </Stack>
-    </Section>
+        </Section>
+      </Stack.Item>
+      <Stack.Item grow>
+        <Section fill scrollable title={selectedRecord.name}>
+          <LabeledList>
+            <LabeledList.Item label="Age">
+              {selectedRecord.age}
+            </LabeledList.Item>
+            <LabeledList.Item label="Fingerprint">
+              {selectedRecord.fingerprint}
+            </LabeledList.Item>
+            <LabeledList.Item label="Rank">
+              {selectedRecord.rank}
+            </LabeledList.Item>
+            <LabeledList.Item label="Sex">
+              {selectedRecord.sex}
+            </LabeledList.Item>
+            <LabeledList.Item label="Species">
+              {selectedRecord.species}
+            </LabeledList.Item>
+          </LabeledList>
+        </Section>
+      </Stack.Item>
+    </Stack>
   );
 };
