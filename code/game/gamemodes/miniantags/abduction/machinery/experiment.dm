@@ -61,8 +61,14 @@
 
 	return I
 
+/obj/machinery/abductor/experiment/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/abductor/experiment/attack_ghost(mob/user)
+	ui_interact(user)
+
 /obj/machinery/abductor/experiment/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ExperimentConsole", name)
 		ui.open()
