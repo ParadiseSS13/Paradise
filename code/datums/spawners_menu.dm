@@ -47,6 +47,8 @@
 	if(..())
 		return
 	var/list/possible_spawners = params["ID"]
+	if(!length(possible_spawners))
+		return
 	var/obj/effect/mob_spawn/MS = locate(pick(possible_spawners))
 	if(!MS || !istype(MS))
 		CRASH("A ghost tried to interact with an invalid spawner, or the spawner didn't exist.")
