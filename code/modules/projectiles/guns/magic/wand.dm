@@ -210,7 +210,7 @@
 	desc = "Payback time!"
 	fire_sound = 'sound/magic/staff_chaos.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/chaos
-	icon_state = "staffofchaos"
+	icon_state = "chaoswand"
 	max_charges = 20
 	variable_charges = FALSE
 

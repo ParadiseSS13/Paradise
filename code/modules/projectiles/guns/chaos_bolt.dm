@@ -8,6 +8,7 @@
 /obj/item/projectile/magic/chaos
 	name = "chaos bolt"
 	icon_state = "ice_1"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/chaos
 	var/obj/item/item_to_summon
 	var/explosion_amount = 0 //If left at 0, item goes in backpack or floor, if set, throw that many items around the target
 	var/chaos_effect
@@ -15,8 +16,21 @@
 /obj/item/projectile/magic/chaos/on_hit(atom/target, blocked = 0)
 	. = ..()
 
+	if(iswallturf(target) || isobj(target))
+		target.color = pick(GLOB.random_color_list)
+
 	if(target && isliving(target))
-		chaos_chaos(target)
+		var/mob/living/L = target
+		if(L.stat != DEAD)
+			chaos_chaos(target)
+
+/obj/item/projectile/magic/chaos/Initialize(mapload)
+	. = ..()
+	icon_state = pick("bluespace", "pulse1", "magicm", "declone", "fireball", "blood_bolt", "arcane_barrage", "laser", "u_laser")
+
+/obj/item/projectile/magic/chaos/New()
+	..()
+	SpinAnimation()
 
 /obj/item/projectile/magic/chaos/proc/chaos_chaos(mob/living/target, blocked = 0)
 	var/category = pick(prob(CHAOS_STAFF_LETHAL_CHANCE);"lethal", prob(CHAOS_STAFF_NEGATIVE_CHANCE);"negative", prob(CHAOS_STAFF_MISC_CHANCE);"misc",\
@@ -32,7 +46,6 @@
 			apply_gift_effect(target)
 		if("great gift") //Grants a gift or positive effect to the target. Usually a weapon or useful item.
 			apply_great_gift_effect(target)
-	visible_message("[target] gets hit by [chaos_effect] in [category]")
 	if(item_to_summon) //TODO check if mob's alive, no effect on dead mobs
 		//if(!target.mind) //no abusing mindless mobs for free stuff
 		//	target.visible_message("<span class='warning'>[target] glows faintly, but nothing else happens.</span>")
@@ -144,7 +157,7 @@
 			H.reagents.add_reagent("prions", 5)
 
 /obj/item/projectile/magic/chaos/proc/apply_negative_effect(mob/living/target)
-	if(!iscarbon(target))
+	if(!ishuman(target))
 		if(prob(50))
 			target.apply_damage(CHAOS_STAFF_DAMAGE, BRUTE)
 			target.visible_message("<span class='chaosbad'>[target] gets slashed by [src]!</span>", "<span class='chaosbad'>You get slashed by [src]!</span>")
@@ -205,7 +218,11 @@
 				do_teleport(H, T)
 		if("teleport roulette")
 			H.apply_status_effect(STATUS_EFFECT_TELEPORT_ROULETTE)
-			H.visible_message("<span class='chaosverybad'>[H] disappears!</span>", "<span class='chaosverybad'>You feel sick as you're teleported around the station!</span>")
+			var/turf/T
+			T = find_safe_turf() //Get a safe station turf
+			if(T)
+				H.visible_message("<span class='chaosverybad'>[H] disappears!</span>", "<span class='chaosverybad'>You feel sick as you're teleported around the station!</span>")
+				do_teleport(H, T)
 		if("electrocuted")
 			H.visible_message("<span class='chaosbad'>[H] gets electrocuted!</span>", "<span class='chaosbad'>You get electrocuted!</span>")
 			H.electrocute_act(CHAOS_STAFF_DAMAGE, src)
@@ -223,44 +240,45 @@
 		do_teleport(owner, T)
 
 /obj/item/projectile/magic/chaos/proc/apply_misc_effect(mob/living/target)
-	if(!iscarbon(target))
-		confettisize(get_turf(target), 20, 4)
-	chaos_effect = pick("bark", "smoke", "spin", "flip", "confetti", "slip", "wand of nothing", \
-		"help maint", "fake callout", "bike horn", "wizarditis")
-	var/mob/living/carbon/human/H = target
+	if(!ishuman(target))
+		chaos_effect = pick("recolor", "bark", "confetti", "smoke", "wand of nothing", "bike horn")
+	else
+		chaos_effect = pick("bark", "smoke", "spin", "flip", "confetti", "slip", "wand of nothing", \
+			"help maint", "fake callout", "bike horn")
 	switch(chaos_effect)
+		if("recolor") //non-humans only because recoloring humans is kinda meh
+			target.color = pick(GLOB.random_color_list)
 		if("bark")
-			H.visible_message("<span class='chaosneutral'>[H] barks!</span>", "<span class='chaosneutral'>Bark!</span>")
-			playsound(H, 'sound/creatures/dog_bark1.ogg', 100, FALSE)
+			target.visible_message("<span class='chaosneutral'>[target] barks!</span>", "<span class='chaosneutral'>Bark!</span>")
+			playsound(target, 'sound/creatures/dog_bark1.ogg', 100, FALSE)
 		if("smoke")
 			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(4, FALSE, H)
+			smoke.set_up(4, FALSE, target)
 			INVOKE_ASYNC(smoke, TYPE_PROC_REF(/datum/effect_system, start))
 		if("spin")
-			H.emote("spin")
+			target.emote("spin")
 		if("flip")
-			H.emote("flip")
+			target.emote("flip")
 		if("confetti")
-			confettisize(get_turf(H), 20, 4)
+			confettisize(get_turf(target), 20, 4)
 		if("slip")
-			H.slip("your own foot", 6 SECONDS, 0, 0, 1, "trip")
+			if(ishuman(target))
+				var/mob/living/carbon/human/H = target
+				H.slip("your own foot", 6 SECONDS, 0, 0, 1, "trip")
 		if("wand of nothing")
 			item_to_summon = /obj/item/gun/magic/wand
 			explosion_amount = rand(2, 5)
 		if("help maint")
-			H.say(";HELP MAINT")
+			target.say(";HELP MAINT")
+			target.Silence(10 SECONDS)
 		if("fake callout")
 			var/message = ";WIZ "
-			message += pick("SCIENCE", "MED", "BRIG", "BRIDGE", "ARRIVALS", "CHAPEL", "SCIENCE MAINT", "CARGO", "TURBINE", "ENGI", "ATMOS")
-			H.say(message)
+			message += pick("SCIENCE", "MED", "BRIG", "BRIDGE", "ARRIVALS", "ARRIVALS MAINT", "CHAPEL", "SCIENCE MAINT", "CARGO", "MINING MAINT", "TURBINE", "ENGI", "ATMOS")
+			target.say(message)
+			target.Silence(10 SECONDS)
 		if("bike horn")
 			item_to_summon = /obj/item/bikehorn
 			explosion_amount = rand(2, 3)
-		if("wizarditis")
-			H.visible_message("<span class='chaosbad'>[H] looks ill!</span>", "<span class='chaosbad'>You feel sick...</span>")
-			var/datum/disease/wizarditis/F = new
-			var/list/data = list("viruses" = list(F), "blood_color" = "#A10808")
-			H.reagents.add_reagent("blood", 10, data)
 
 /obj/item/projectile/magic/chaos/proc/apply_gift_effect(mob/living/target)
 	chaos_effect = pick("toy sword", "toy revolver", "cheese", "food", "medkit", \
