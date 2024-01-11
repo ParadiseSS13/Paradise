@@ -44,7 +44,7 @@
 			apply_gift_effect(target)
 		if("great gift") //Grants a gift or positive effect to the target. Usually a weapon or useful item.
 			apply_great_gift_effect(target)
-	if(item_to_summon) //TODO check if mob's alive, no effect on dead mobs
+	if(item_to_summon)
 		if(!target.mind) //no abusing mindless mobs for free stuff
 			target.visible_message("<span class='warning'>[target] glows faintly, but nothing else happens.</span>")
 			return
@@ -338,3 +338,10 @@
 			item_to_summon = /obj/item/grenade/syndieminibomb
 		if("crystal ball")
 			item_to_summon = /obj/item/scrying
+
+#undef CHAOS_STAFF_DAMAGE
+#undef CHAOS_STAFF_LETHAL_CHANCE
+#undef CHAOS_STAFF_NEGATIVE_CHANCE
+#undef CHAOS_STAFF_MISC_CHANCE
+#undef CHAOS_STAFF_GIFT_CHANCE
+#undef CHAOS_STAFF_GREAT_GIFT_CHANCE
