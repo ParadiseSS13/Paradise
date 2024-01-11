@@ -42,6 +42,10 @@
 	},
 /turf/space,
 /area/space)
+"abb" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/wood,
+/area/station/command/office/captain)
 "abe" = (
 /obj/structure/grille/broken,
 /obj/structure/lattice,
@@ -23936,12 +23940,6 @@
 /obj/item/storage/box/ids,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
-"bCm" = (
-/obj/machinery/economy/vending/cigarette{
-	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate=7,/obj/item/storage/fancy/cigarettes/cigpack_uplift=3,/obj/item/storage/fancy/cigarettes/cigpack_robust=2,/obj/item/storage/fancy/cigarettes/cigpack_carp=3,/obj/item/storage/fancy/cigarettes/cigpack_midori=1,/obj/item/storage/fancy/matches=10,/obj/item/lighter/random=4)
-	},
-/turf/simulated/floor/wood,
-/area/station/command/office/captain)
 "bCo" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -23998,21 +23996,15 @@
 /area/station/engineering/atmos/control)
 "bCx" = (
 /obj/structure/table,
-/obj/item/surgicaldrill{
-	pixel_x = 17;
-	pixel_y = 4
-	},
-/obj/item/stack/medical/bruise_pack/advanced{
-	pixel_x = -4;
-	pixel_y = 4
-	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/cautery,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/machine,
+/obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -32798,20 +32790,11 @@
 /turf/simulated/wall/r_wall,
 /area/station/science/explab)
 "cgH" = (
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/storage/surgical_tray,
 /obj/structure/table/tray,
-/obj/item/scalpel,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -36597,12 +36580,6 @@
 /area/station/science/toxins/mixing)
 "cuS" = (
 /obj/structure/table/glass,
-/obj/item/circular_saw,
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/surgicaldrill,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
@@ -38431,19 +38408,12 @@
 /area/station/science/server)
 "cBT" = (
 /obj/structure/table,
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/bonegel,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
 /obj/machinery/firealarm{
 	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/item/storage/surgical_tray,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -41419,20 +41389,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "cMx" = (
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/storage/surgical_tray,
 /obj/structure/table/tray,
-/obj/item/scalpel,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -42709,7 +42670,6 @@
 /obj/machinery/optable{
 	name = "Robotics Operating Table"
 	},
-/obj/item/storage/firstaid/machine,
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
 	pixel_y = -30
@@ -42721,12 +42681,6 @@
 /area/station/science/robotics)
 "cRp" = (
 /obj/structure/table/glass,
-/obj/item/circular_saw,
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/surgicaldrill,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -61349,14 +61303,6 @@
 /area/station/security/permabrig)
 "jOX" = (
 /obj/structure/table/glass,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/item/reagent_containers/spray/cleaner{
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
@@ -83113,26 +83059,6 @@
 	icon_state = "red"
 	},
 /area/station/security/processing)
-"tfV" = (
-/obj/structure/table/glass,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/stack/medical/bruise_pack/advanced,
-/obj/item/reagent_containers/iv_bag/salglu,
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
-	name = "Surgery Cleaner"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
-	},
-/area/station/medical/surgery/secondary)
 "tgu" = (
 /obj/structure/table,
 /obj/machinery/recharger,
@@ -83332,6 +83258,18 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"tkA" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
+	},
+/obj/item/reagent_containers/iv_bag/salglu,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/station/medical/surgery/secondary)
 "tlh" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
@@ -85690,17 +85628,17 @@
 /area/station/command/office/captain)
 "uuG" = (
 /obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/item/storage/box/bodybags{
 	pixel_x = -4;
 	pixel_y = -4
 	},
+/obj/item/storage/box/masks,
 /obj/item/storage/box/gloves{
 	pixel_x = 4;
 	pixel_y = 4
-	},
-/obj/item/storage/box/masks,
-/obj/structure/window/reinforced{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -86039,14 +85977,6 @@
 /area/station/command/teleporter)
 "uEX" = (
 /obj/structure/table,
-/obj/item/scalpel{
-	pixel_y = 12
-	},
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/circular_saw,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -90647,7 +90577,6 @@
 /obj/item/mmi,
 /obj/item/mmi,
 /obj/item/mmi,
-/obj/item/robotanalyzer,
 /obj/machinery/alarm{
 	dir = 1;
 	name = "south bump";
@@ -115823,7 +115752,7 @@ cKX
 cNa
 cNs
 cnd
-tfV
+tkA
 cyE
 tSj
 cry
@@ -124001,7 +123930,7 @@ qgk
 qgk
 qgk
 bAl
-bCm
+abb
 bEi
 bFV
 qgk
