@@ -73,7 +73,6 @@
 	dat += "<hr>"
 	var/datum/browser/popup = new(user, "crayon", name, 300, 500)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 	dat = ""
 

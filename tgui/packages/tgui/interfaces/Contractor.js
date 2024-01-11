@@ -71,7 +71,7 @@ export const Contractor = (properties, context) => {
     );
   } else {
     body = (
-      <Fragment>
+      <>
         <Flex.Item basis="content">
           <Summary />
         </Flex.Item>
@@ -85,7 +85,7 @@ export const Contractor = (properties, context) => {
             <Hub height="100%" />
           )}
         </Flex.Item>
-      </Fragment>
+      </>
     );
   }
   const [viewingPhoto, _setViewingPhoto] = useLocalState(
@@ -94,7 +94,7 @@ export const Contractor = (properties, context) => {
     ''
   );
   return (
-    <Window theme="syndicate">
+    <Window theme="syndicate" width={500} height={600}>
       {viewingPhoto && <PhotoZoom />}
       <Window.Content className="Contractor">
         <Flex direction="column" height="100%">
@@ -145,7 +145,7 @@ const Summary = (properties, context) => {
               label="Contracts Completed"
               verticalAlign="middle"
             >
-              <Box height="20px" lineHeight="20px" display="inline-block">
+              <Box height="20px" lineHeight="20px" inline>
                 {completed_contracts}
               </Box>
             </LabeledList.Item>
@@ -262,7 +262,7 @@ const Contracts = (properties, context) => {
                 {!!contractStatuses[contract.status] && (
                   <Box
                     color={contractStatuses[contract.status][1]}
-                    display="inline-block"
+                    inline
                     mt={contract.status !== 1 && '0.125rem'}
                     mr="0.25rem"
                     lineHeight="20px"

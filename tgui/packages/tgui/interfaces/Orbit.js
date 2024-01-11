@@ -4,10 +4,10 @@ import {
   Box,
   Button,
   Divider,
-  Flex,
   Icon,
   Input,
   Section,
+  Stack,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -137,14 +137,14 @@ export const Orbit = (props, context) => {
   };
 
   return (
-    <Window resizable>
+    <Window width={700} height={500}>
       <Window.Content scrollable>
         <Section>
-          <Flex>
-            <Flex.Item>
-              <Icon name="search" mr={1} />
-            </Flex.Item>
-            <Flex.Item grow={1}>
+          <Stack>
+            <Stack.Item>
+              <Icon name="search" />
+            </Stack.Item>
+            <Stack.Item grow>
               <Input
                 placeholder="Search..."
                 autoFocus
@@ -153,21 +153,21 @@ export const Orbit = (props, context) => {
                 onInput={(_, value) => setSearchText(value)}
                 onEnter={(_, value) => orbitMostRelevant(value)}
               />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Divider vertical />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 inline
                 color="transparent"
                 tooltip="Refresh"
-                tooltipPosition="bottom-left"
+                tooltipPosition="bottom-start"
                 icon="sync-alt"
                 onClick={() => act('refresh')}
               />
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         </Section>
         {antagonists.length > 0 && (
           <Section title="Antagonists">

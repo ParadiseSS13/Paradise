@@ -170,12 +170,19 @@
 /obj/item/rpd/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/rpd/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/rpd/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/rpd/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RPD", name, 450, 650, master_ui, state)
+		ui = new(user, src, "RPD", name)
 		ui.open()
 
+/obj/item/rpd/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/rpd)
+	)
 
 /obj/item/rpd/AltClick(mob/user)
 	radial_menu(user)
@@ -200,15 +207,15 @@
 
 	switch(action)
 		if("iconrotation")
-			iconrotation = text2num(sanitize(params["iconrotation"]))
+			iconrotation = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("whatpipe")
-			whatpipe = text2num(sanitize(params["whatpipe"]))
+			whatpipe = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("whatdpipe")
-			whatdpipe = text2num(sanitize(params["whatdpipe"]))
+			whatdpipe = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("pipe_category")
-			pipe_category = text2num(sanitize(params["pipe_category"]))
+			pipe_category = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("mode")
-			mode = text2num(sanitize(params["mode"]))
+			mode = isnum(params[action]) ? params[action] : text2num(params[action])
 
 //RPD radial menu
 /obj/item/rpd/proc/check_menu(mob/living/user)

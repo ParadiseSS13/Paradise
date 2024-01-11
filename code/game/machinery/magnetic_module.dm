@@ -237,10 +237,13 @@
 	if(magnets.len == 0 && autolink)
 		link_magnets()
 
-/obj/machinery/magnetic_controller/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/magnetic_controller/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/magnetic_controller/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "MagnetController", name, 400, 600)
+		ui = new(user, src, "MagnetController", name)
 		ui.open()
 
 /obj/machinery/magnetic_controller/attack_ai(mob/user as mob)

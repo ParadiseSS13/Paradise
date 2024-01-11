@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2018 Aleksej Komarov
- * SPDX-License-Identifier: GPL-2.0-or-later
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
  */
 
 @use 'sass:color';
@@ -18,9 +18,9 @@
     @return null;
   }
   @if math.unit($value) == '%' {
-    @return math.div($value, 100%);
+    @return calc($value / 100%);
   }
-  @return math.div($value, ($value * 0 + 1));
+  @return calc($value / ($value * 0 + 1));
 }
 
 //  Color
@@ -48,11 +48,11 @@
 
   @each $name, $value in $colors {
     $adjusted: 0;
-    $value: math.div($value, 255);
+    $value: calc($value / 255);
     @if $value < 0.03928 {
-      $value: math.div($value, 12.92);
+      $value: calc($value / 12.92);
     } @else {
-      $value: math.div(($value + 0.055), 1.055);
+      $value: calc(($value + 0.055) / 1.055);
       $value: math.pow($value, 2.4);
     }
     $colors: map.merge(
@@ -65,4 +65,14 @@
 
   @return (map.get($colors, 'red') * 0.2126) +
     (map.get($colors, 'green') * 0.7152) + (map.get($colors, 'blue') * 0.0722);
+}
+
+// Blends an RGBA color with a static background color based on its
+// alpha channel. Returns an RGB color, which is compatible with IE8.
+@function fake-alpha($color-rgba, $color-background) {
+  @return color.mix(
+    color.change($color-rgba, $alpha: 1),
+    $color-background,
+    color.alpha($color-rgba) * 100%
+  );
 }

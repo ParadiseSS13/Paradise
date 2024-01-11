@@ -242,7 +242,10 @@
 
 	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
 
-	to_chat(src, "<span class='pmsend'>PM to-<b>Discord Admins</b>: [msg]</span>")
+	to_chat(src,
+		type = MESSAGE_TYPE_ADMINPM,
+		html = "<span class='pmsend'>PM to-<b>Discord Admins</b>: [msg]</span>",
+		confidential = TRUE)
 
 	log_admin("PM: [key_name(src)]->Discord: [msg]")
 	for(var/client/X in GLOB.admins)

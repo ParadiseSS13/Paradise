@@ -53,7 +53,9 @@
 
 		//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
 		/obj/item/slime_extract = list(),
-		/obj/item/reagent_containers/food = list()
+		/obj/item/reagent_containers/food = list(),
+		/obj/item/reagent_containers/pill = list(),
+		/obj/item/reagent_containers/patch = list()
 	)
 
 	var/list/juice_items = list (
@@ -237,10 +239,16 @@
 /obj/machinery/reagentgrinder/attack_hand(mob/user)
 	ui_interact(user)
 
-/obj/machinery/reagentgrinder/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/reagentgrinder/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/machinery/reagentgrinder/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/reagentgrinder/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ReagentGrinder", name, 400, 500, master_ui, state)
+		ui = new(user, src, "ReagentGrinder", name)
 		ui.open()
 
 /obj/machinery/reagentgrinder/ui_data(mob/user)

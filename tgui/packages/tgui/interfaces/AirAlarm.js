@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   Button,
@@ -19,15 +18,15 @@ export const AirAlarm = (props, context) => {
   const { locked } = data;
   // Bail straight away if there is no air
   return (
-    <Window resizable>
+    <Window width={570} height={locked ? 310 : 755}>
       <Window.Content scrollable>
-        <AirStatus />
         <InterfaceLockNoticeBox />
+        <AirStatus />
         {!locked && (
-          <Fragment>
+          <>
             <AirAlarmTabs />
             <AirAlarmUnlockedContent />
-          </Fragment>
+          </>
         )}
       </Window.Content>
     </Window>
@@ -70,7 +69,7 @@ const AirStatus = (props, context) => {
             <Box color={Danger2Colour(air.danger.pressure)}>
               <AnimatedNumber value={air.pressure} /> kPa
               {!locked && (
-                <Fragment>
+                <>
                   &nbsp;
                   <Button
                     content={
@@ -82,7 +81,7 @@ const AirStatus = (props, context) => {
                     icon="exclamation-triangle"
                     onClick={() => act('mode', { mode: mode === 3 ? 1 : 3 })}
                   />
-                </Fragment>
+                </>
               )}
             </Box>
           </LabeledList.Item>
@@ -153,7 +152,7 @@ const AirStatus = (props, context) => {
             <Box color={Danger2Colour(air.danger.overall)}>
               {areaStatus}
               {!locked && (
-                <Fragment>
+                <>
                   &nbsp;
                   <Button
                     content={alarmActivated ? 'Reset Alarm' : 'Activate Alarm'}
@@ -162,7 +161,7 @@ const AirStatus = (props, context) => {
                       act(alarmActivated ? 'atmos_reset' : 'atmos_alarm')
                     }
                   />
-                </Fragment>
+                </>
               )}
             </Box>
           </LabeledList.Item>
@@ -257,18 +256,18 @@ const AirAlarmVentsView = (props, context) => {
             onClick={() =>
               act('command', {
                 cmd: 'power',
-                val: v.power === 1 ? 0 : 1,
+                val: !v.power,
                 id_tag: v.id_tag,
               })
             }
           />
           <Button
-            content={v.direction === 'release' ? 'Blowing' : 'Siphoning'}
-            icon={v.direction === 'release' ? 'sign-out-alt' : 'sign-in-alt'}
+            content={v.direction ? 'Blowing' : 'Siphoning'}
+            icon={v.direction ? 'sign-out-alt' : 'sign-in-alt'}
             onClick={() =>
               act('command', {
                 cmd: 'direction',
-                val: v.direction === 'release' ? 0 : 1,
+                val: !v.direction,
                 id_tag: v.id_tag,
               })
             }
@@ -330,18 +329,18 @@ const AirAlarmScrubbersView = (props, context) => {
             onClick={() =>
               act('command', {
                 cmd: 'power',
-                val: s.power === 1 ? 0 : 1,
+                val: !s.power,
                 id_tag: s.id_tag,
               })
             }
           />
           <Button
-            content={s.scrubbing === 0 ? 'Siphoning' : 'Scrubbing'}
-            icon={s.scrubbing === 0 ? 'sign-in-alt' : 'filter'}
+            content={s.scrubbing ? 'Scrubbing' : 'Siphoning'}
+            icon={s.scrubbing ? 'filter' : 'sign-in-alt'}
             onClick={() =>
               act('command', {
                 cmd: 'scrubbing',
-                val: s.scrubbing === 0 ? 1 : 0,
+                val: !s.scrubbing,
                 id_tag: s.id_tag,
               })
             }
@@ -355,7 +354,7 @@ const AirAlarmScrubbersView = (props, context) => {
             onClick={() =>
               act('command', {
                 cmd: 'widenet',
-                val: s.widenet === 0 ? 1 : 0,
+                val: !s.widenet,
                 id_tag: s.id_tag,
               })
             }
@@ -368,7 +367,7 @@ const AirAlarmScrubbersView = (props, context) => {
             onClick={() =>
               act('command', {
                 cmd: 'co2_scrub',
-                val: s.filter_co2 === 0 ? 1 : 0,
+                val: !s.filter_co2,
                 id_tag: s.id_tag,
               })
             }
@@ -379,7 +378,7 @@ const AirAlarmScrubbersView = (props, context) => {
             onClick={() =>
               act('command', {
                 cmd: 'tox_scrub',
-                val: s.filter_toxins === 0 ? 1 : 0,
+                val: !s.filter_toxins,
                 id_tag: s.id_tag,
               })
             }
@@ -390,7 +389,7 @@ const AirAlarmScrubbersView = (props, context) => {
             onClick={() =>
               act('command', {
                 cmd: 'n2o_scrub',
-                val: s.filter_n2o === 0 ? 1 : 0,
+                val: !s.filter_n2o,
                 id_tag: s.id_tag,
               })
             }
@@ -401,7 +400,7 @@ const AirAlarmScrubbersView = (props, context) => {
             onClick={() =>
               act('command', {
                 cmd: 'o2_scrub',
-                val: s.filter_o2 === 0 ? 1 : 0,
+                val: !s.filter_o2,
                 id_tag: s.id_tag,
               })
             }
@@ -412,7 +411,7 @@ const AirAlarmScrubbersView = (props, context) => {
             onClick={() =>
               act('command', {
                 cmd: 'n2_scrub',
-                val: s.filter_n2 === 0 ? 1 : 0,
+                val: !s.filter_n2,
                 id_tag: s.id_tag,
               })
             }
@@ -427,7 +426,7 @@ const AirAlarmModesView = (props, context) => {
   const { act, data } = useBackend(context);
   const { modes, presets, emagged, mode, preset } = data;
   return (
-    <Fragment>
+    <>
       <Section title="System Mode">
         <Table>
           {modes.map(
@@ -469,7 +468,7 @@ const AirAlarmModesView = (props, context) => {
           ))}
         </Table>
       </Section>
-    </Fragment>
+    </>
   );
 };
 

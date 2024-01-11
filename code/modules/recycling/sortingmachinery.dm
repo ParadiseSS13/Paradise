@@ -256,7 +256,10 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/item/destTagger/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/item/destTagger/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/item/destTagger/ui_interact(mob/user, datum/tgui/ui = null)
 	destination_tagger.ui_interact(user)
 
 /obj/machinery/disposal/deliveryChute
@@ -365,7 +368,7 @@
 /obj/item/shippingPackage
 	name = "Shipping package"
 	desc = "A pre-labeled package for shipping an item to coworkers."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/boxes.dmi'
 	icon_state = "shippack"
 	var/obj/item/wrapped = null
 	var/sortTag = 1

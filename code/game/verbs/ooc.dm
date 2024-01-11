@@ -17,18 +17,30 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!mob)
 		return
 	if(IsGuestKey(key))
-		to_chat(src, "<span class='danger'>Guests may not use OOC.</span>")
+		to_chat(src, 
+			type = MESSAGE_TYPE_WARNING,
+			html = "<span class='danger'>Guests may not use OOC.</span>",
+			confidential = TRUE)
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD, 0))
 		if(!GLOB.ooc_enabled)
-			to_chat(src, "<span class='danger'>OOC is globally muted.</span>")
+			to_chat(src, 
+				type = MESSAGE_TYPE_WARNING,
+				html = "<span class='danger'>OOC is globally muted.</span>",
+				confidential = TRUE)
 			return
 		if(!GLOB.dooc_enabled && (mob.stat == DEAD))
-			to_chat(usr, "<span class='danger'>OOC for dead mobs has been turned off.</span>")
+			to_chat(usr, 
+				type = MESSAGE_TYPE_WARNING,
+				html = "<span class='danger'>OOC for dead mobs has been turned off.</span>",
+				confidential = TRUE)
 			return
 		if(check_mute(ckey, MUTE_OOC))
-			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
+			to_chat(src, 
+				type = MESSAGE_TYPE_WARNING,
+				html = "<span class='danger'>You cannot use OOC (muted).</span>",
+				confidential = TRUE)
 			return
 
 	if(!msg)
@@ -173,18 +185,30 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!mob)
 		return
 	if(IsGuestKey(key))
-		to_chat(src, "<span class='danger'>Guests may not use OOC.</span>")
+		to_chat(src, 
+			type = MESSAGE_TYPE_WARNING,
+			html = "<span class='danger'>Guests may not use LOOC.</span>",
+			confidential = TRUE)
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
 		if(!GLOB.looc_enabled)
-			to_chat(src, "<span class='danger'>LOOC is globally muted.</span>")
+			to_chat(src, 
+				type = MESSAGE_TYPE_WARNING, 
+				html = "<span class='danger'>LOOC is globally muted.</span>",
+				confidential = TRUE)
 			return
 		if(!GLOB.dooc_enabled && (mob.stat == DEAD))
-			to_chat(usr, "<span class='danger'>LOOC for dead mobs has been turned off.</span>")
+			to_chat(usr, 
+				type = MESSAGE_TYPE_WARNING,
+				html= "<span class='danger'>LOOC for dead mobs has been turned off.</span>",
+				confidential = TRUE)
 			return
 		if(check_mute(ckey, MUTE_OOC))
-			to_chat(src, "<span class='danger'>You cannot use LOOC (muted).</span>")
+			to_chat(src, 
+				type = MESSAGE_TYPE_WARNING, 
+				html = "<span class='danger'>You cannot use LOOC (muted).</span>",
+				confidential = TRUE)
 			return
 
 	if(!msg)

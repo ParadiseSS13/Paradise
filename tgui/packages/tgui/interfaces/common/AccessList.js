@@ -1,5 +1,4 @@
 import { sortBy } from 'common/collections';
-import { Fragment } from 'inferno';
 import { useLocalState } from '../../backend';
 import {
   Box,
@@ -28,7 +27,6 @@ const diffMap = {
 export const AccessList = (props, context) => {
   const {
     sectionButtons = null,
-    sectionFlexGrow = null,
     usedByRcd,
     rcdButtons,
     accesses = [],
@@ -74,9 +72,8 @@ export const AccessList = (props, context) => {
   return (
     <Section
       title="Access"
-      flexGrow={sectionFlexGrow}
       buttons={
-        <Fragment>
+        <>
           <Button
             icon="check-double"
             content="Select All"
@@ -90,7 +87,7 @@ export const AccessList = (props, context) => {
             onClick={() => denyAll()}
           />
           {sectionButtons}
-        </Fragment>
+        </>
       }
     >
       <Flex>

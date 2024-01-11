@@ -113,17 +113,6 @@
 	H.med_hud_set_health()
 	H.med_hud_set_status()
 
-/datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-	if(!istype(head_organ))
-		return
-	head_organ.h_style = "Bald"
-	head_organ.f_style = "Shaved"
-	spawn(100)
-		if(H && head_organ)
-			H.update_hair()
-			H.update_fhair()
-
 /datum/species/machine/handle_life(mob/living/carbon/human/H) // Handles IPC starvation
 	..()
 	if(isLivingSSD(H)) // We don't want AFK people dying from this
@@ -185,7 +174,9 @@
 			for(var/style in GLOB.configuration.custom_sprites.ipc_screen_map[H.ckey])
 				hair += style
 
-		var/new_style = input(H, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
+		var/new_style = tgui_input_list(H, "Select a monitor display", "Monitor Display", hair)
+		if(!new_style)
+			return
 		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
 
 		if(H.incapacitated(TRUE, TRUE))

@@ -1,5 +1,4 @@
 import { createSearch } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
@@ -8,8 +7,8 @@ import {
   Input,
   LabeledList,
   Section,
+  Stack,
   Tabs,
-  Flex,
   Table,
 } from '../components';
 import {
@@ -17,7 +16,6 @@ import {
   modalOpen,
   modalRegisterBodyOverride,
 } from '../interfaces/common/ComplexModal';
-import { FlexItem } from '../components/Flex';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
@@ -48,7 +46,7 @@ const doEdit = (context, field) => {
 const virusModalBodyOverride = (modal, context) => {
   const virus = modal.args;
   return (
-    <Section level={2} m="-1rem" pb="1rem" title={virus.name || 'Virus'}>
+    <Section m="-1rem" pb="1rem" title={virus.name || 'Virus'}>
       <Box mx="0.5rem">
         <LabeledList>
           <LabeledList.Item label="Number of stages">
@@ -75,7 +73,7 @@ export const MedicalRecords = (_properties, context) => {
   const { loginState, screen } = data;
   if (!loginState.logged_in) {
     return (
-      <Window resizable>
+      <Window width={800} height={800}>
         <Window.Content>
           <LoginScreen />
         </Window.Content>
@@ -102,15 +100,17 @@ export const MedicalRecords = (_properties, context) => {
   }
 
   return (
-    <Window resizable>
+    <Window width={800} height={800}>
       <ComplexModal />
-      <Window.Content className="Layout__content--flexColumn">
-        <LoginInfo />
-        <TemporaryNotice />
-        <MedicalRecordsNavigation />
-        <Section height="100%" flexGrow="1">
-          {body}
-        </Section>
+      <Window.Content>
+        <Stack fill vertical>
+          <LoginInfo />
+          <TemporaryNotice />
+          <MedicalRecordsNavigation />
+          <Section fill scrollable>
+            {body}
+          </Section>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -123,80 +123,87 @@ const MedicalRecordsList = (_properties, context) => {
   const [sortId, _setSortId] = useLocalState(context, 'sortId', 'name');
   const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
   return (
-    <Flex direction="column" height="100%">
-      <Flex>
-        <FlexItem>
+    <Box>
+      <Stack>
+        <Stack.Item>
           <Button
             content="Manage Records"
             icon="wrench"
             ml="0.25rem"
             onClick={() => act('screen', { screen: 3 })}
           />
-        </FlexItem>
-        <FlexItem grow="1" ml="0.5rem">
+        </Stack.Item>
+        <Stack.Item grow>
           <Input
             placeholder="Search by Name, ID, Physical Status, or Mental Status"
             width="100%"
             onInput={(e, value) => setSearchText(value)}
           />
-        </FlexItem>
-      </Flex>
-      <Section flexGrow="1" mt="0.5rem">
-        <Table className="MedicalRecords__list">
-          <Table.Row bold>
-            <SortButton id="name">Name</SortButton>
-            <SortButton id="id">ID</SortButton>
-            <SortButton id="rank">Assignment</SortButton>
-            <SortButton id="p_stat">Patient Status</SortButton>
-            <SortButton id="m_stat">Mental Status</SortButton>
-          </Table.Row>
-          {records
-            .filter(
-              createSearch(searchText, (record) => {
-                return (
-                  record.name +
-                  '|' +
-                  record.id +
-                  '|' +
-                  record.rank +
-                  '|' +
-                  record.p_stat +
-                  '|' +
-                  record.m_stat
-                );
-              })
-            )
-            .sort((a, b) => {
-              const i = sortOrder ? 1 : -1;
-              return a[sortId].localeCompare(b[sortId]) * i;
-            })
-            .map((record) => (
-              <Table.Row
-                key={record.id}
-                className={
-                  'MedicalRecords__listRow--' + medStatusStyles[record.p_stat]
-                }
-                onClick={() => act('view_record', { view_record: record.ref })}
-              >
-                <Table.Cell>
-                  <Icon name="user" /> {record.name}
-                </Table.Cell>
-                <Table.Cell>{record.id}</Table.Cell>
-                <Table.Cell>{record.rank}</Table.Cell>
-                <Table.Cell>{record.p_stat}</Table.Cell>
-                <Table.Cell>{record.m_stat}</Table.Cell>
+        </Stack.Item>
+      </Stack>
+      <Stack fill vertical>
+        <Stack.Item grow>
+          <Section mt="0.5rem">
+            <Table className="MedicalRecords__list">
+              <Table.Row bold>
+                <SortButton id="name">Name</SortButton>
+                <SortButton id="id">ID</SortButton>
+                <SortButton id="rank">Assignment</SortButton>
+                <SortButton id="p_stat">Patient Status</SortButton>
+                <SortButton id="m_stat">Mental Status</SortButton>
               </Table.Row>
-            ))}
-        </Table>
-      </Section>
-    </Flex>
+              {records
+                .filter(
+                  createSearch(searchText, (record) => {
+                    return (
+                      record.name +
+                      '|' +
+                      record.id +
+                      '|' +
+                      record.rank +
+                      '|' +
+                      record.p_stat +
+                      '|' +
+                      record.m_stat
+                    );
+                  })
+                )
+                .sort((a, b) => {
+                  const i = sortOrder ? 1 : -1;
+                  return a[sortId].localeCompare(b[sortId]) * i;
+                })
+                .map((record) => (
+                  <Table.Row
+                    key={record.id}
+                    className={
+                      'MedicalRecords__listRow--' +
+                      medStatusStyles[record.p_stat]
+                    }
+                    onClick={() =>
+                      act('view_record', { view_record: record.ref })
+                    }
+                  >
+                    <Table.Cell>
+                      <Icon name="user" /> {record.name}
+                    </Table.Cell>
+                    <Table.Cell>{record.id}</Table.Cell>
+                    <Table.Cell>{record.rank}</Table.Cell>
+                    <Table.Cell>{record.p_stat}</Table.Cell>
+                    <Table.Cell>{record.m_stat}</Table.Cell>
+                  </Table.Row>
+                ))}
+            </Table>
+          </Section>
+        </Stack.Item>
+      </Stack>
+    </Box>
   );
 };
 
 const MedicalRecordsMaintenance = (_properties, context) => {
   const { act } = useBackend(context);
   return (
-    <Fragment>
+    <>
       <Button icon="download" content="Backup to Disk" disabled />
       <br />
       <Button
@@ -211,7 +218,7 @@ const MedicalRecordsMaintenance = (_properties, context) => {
         content="Delete All Medical Records"
         onClick={() => act('del_all_med_records')}
       />
-    </Fragment>
+    </>
   );
 };
 
@@ -219,39 +226,41 @@ const MedicalRecordsView = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { medical, printing } = data;
   return (
-    <Fragment>
-      <Section
-        title="General Data"
-        level={2}
-        mt="-6px"
-        buttons={
-          <Button
-            icon={printing ? 'spinner' : 'print'}
-            disabled={printing}
-            iconSpin={!!printing}
-            content="Print Record"
-            ml="0.5rem"
-            onClick={() => act('print_record')}
-          />
-        }
-      >
-        <MedicalRecordsViewGeneral />
-      </Section>
-      <Section
-        title="Medical Data"
-        level={2}
-        buttons={
-          <Button.Confirm
-            icon="trash"
-            disabled={!!medical.empty}
-            content="Delete Medical Record"
-            onClick={() => act('del_med_record')}
-          />
-        }
-      >
-        <MedicalRecordsViewMedical />
-      </Section>
-    </Fragment>
+    <Stack vertical>
+      <Stack.Item>
+        <Section
+          title="General Data"
+          mt="-6px"
+          buttons={
+            <Button
+              icon={printing ? 'spinner' : 'print'}
+              disabled={printing}
+              iconSpin={!!printing}
+              content="Print Record"
+              ml="0.5rem"
+              onClick={() => act('print_record')}
+            />
+          }
+        >
+          <MedicalRecordsViewGeneral />
+        </Section>
+      </Stack.Item>
+      <Stack.Item>
+        <Section
+          title="Medical Data"
+          buttons={
+            <Button.Confirm
+              icon="trash"
+              disabled={!!medical.empty}
+              content="Delete Medical Record"
+              onClick={() => act('del_med_record')}
+            />
+          }
+        >
+          <MedicalRecordsViewMedical />
+        </Section>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -262,12 +271,12 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
     return <Box color="bad">General records lost!</Box>;
   }
   return (
-    <Fragment>
-      <Box width="50%" float="left">
+    <Stack>
+      <Stack.Item grow>
         <LabeledList>
           {general.fields.map((field, i) => (
             <LabeledList.Item key={i} label={field.field}>
-              <Box height="20px" display="inline-block">
+              <Box height="20px" inline>
                 {field.value}
               </Box>
               {!!field.edit && (
@@ -280,30 +289,24 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
             </LabeledList.Item>
           ))}
         </LabeledList>
-      </Box>
-      <Box width="50%" float="right" textAlign="right">
-        {!!general.has_photos &&
-          general.photos.map((p, i) => (
-            <Box
-              key={i}
-              display="inline-block"
-              textAlign="center"
-              color="label"
-            >
-              <img
-                src={p}
-                style={{
-                  width: '96px',
-                  'margin-bottom': '0.5rem',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
-                }}
-              />
-              <br />
-              Photo #{i + 1}
-            </Box>
-          ))}
-      </Box>
-    </Fragment>
+      </Stack.Item>
+      {!!general.has_photos &&
+        general.photos.map((p, i) => (
+          <Stack.Item key={i} inline textAlign="center" color="label" ml={0}>
+            <img
+              src={p}
+              style={{
+                width: '96px',
+                'margin-top': '2.5rem',
+                'margin-bottom': '0.5rem',
+                '-ms-interpolation-mode': 'nearest-neighbor',
+              }}
+            />
+            <br />
+            Photo #{i + 1}
+          </Stack.Item>
+        ))}
+    </Stack>
   );
 };
 
@@ -324,7 +327,7 @@ const MedicalRecordsViewMedical = (_properties, context) => {
     );
   }
   return (
-    <Fragment>
+    <>
       <LabeledList>
         {medical.fields.map((field, i) => (
           <LabeledList.Item key={i} label={field.field} prewrap>
@@ -338,38 +341,39 @@ const MedicalRecordsViewMedical = (_properties, context) => {
           </LabeledList.Item>
         ))}
       </LabeledList>
-      <Section
-        title="Comments/Log"
-        level={2}
-        buttons={
-          <Button
-            icon="comment"
-            content="Add Entry"
-            onClick={() => modalOpen(context, 'add_comment')}
-          />
-        }
-      >
-        {medical.comments.length === 0 ? (
-          <Box color="label">No comments found.</Box>
-        ) : (
-          medical.comments.map((comment, i) => (
-            <Box key={i} prewrap>
-              <Box color="label" display="inline">
-                {comment.header}
+      <Stack.Item mt={1.5}>
+        <Section
+          title="Comments/Log"
+          buttons={
+            <Button
+              icon="comment"
+              content="Add Entry"
+              onClick={() => modalOpen(context, 'add_comment')}
+            />
+          }
+        >
+          {medical.comments.length === 0 ? (
+            <Box color="label">No comments found.</Box>
+          ) : (
+            medical.comments.map((comment, i) => (
+              <Box key={i} prewrap>
+                <Box color="label" inline>
+                  {comment.header}
+                </Box>
+                <br />
+                {comment.text}
+                <Button
+                  icon="comment-slash"
+                  color="bad"
+                  ml="0.5rem"
+                  onClick={() => act('del_comment', { del_comment: i + 1 })}
+                />
               </Box>
-              <br />
-              {comment.text}
-              <Button
-                icon="comment-slash"
-                color="bad"
-                ml="0.5rem"
-                onClick={() => act('del_comment', { del_comment: i + 1 })}
-              />
-            </Box>
-          ))
-        )}
-      </Section>
-    </Fragment>
+            ))
+          )}
+        </Section>
+      </Stack.Item>
+    </>
   );
 };
 
@@ -384,17 +388,15 @@ const MedicalRecordsViruses = (_properties, context) => {
     true
   );
   return (
-    <Flex direction="column" height="100%">
-      <Flex>
-        <FlexItem grow="1" ml="0.5rem">
-          <Input
-            placeholder="Search by Name, Max Stages, or Severity"
-            width="100%"
-            onInput={(e, value) => setSearchText(value)}
-          />
-        </FlexItem>
-      </Flex>
-      <Section flexGrow="1" mt="0.5rem">
+    <Stack fill vertical>
+      <Stack.Item grow ml="0.5rem">
+        <Input
+          placeholder="Search by Name, Max Stages, or Severity"
+          width="100%"
+          onInput={(e, value) => setSearchText(value)}
+        />
+      </Stack.Item>
+      <Section fill scrollable mt="0.5rem">
         <Table className="MedicalRecords__list">
           <Table.Row bold>
             <SortButton2 id="name">Name</SortButton2>
@@ -428,7 +430,7 @@ const MedicalRecordsViruses = (_properties, context) => {
             ))}
         </Table>
       </Section>
-    </Flex>
+    </Stack>
   );
 };
 
@@ -439,8 +441,8 @@ const MedicalRecordsMedbots = (_properties, context) => {
     return <Box color="label">There are no Medibots.</Box>;
   }
   return (
-    <Flex direction="column" height="100%">
-      <Section flexGrow="1" mt="0.5rem">
+    <Stack fill vertical>
+      <Section fill scrollable mt="0.5rem">
         <Table className="MedicalRecords__list">
           <Table.Row bold>
             <Table.Cell>Name</Table.Cell>
@@ -478,7 +480,7 @@ const MedicalRecordsMedbots = (_properties, context) => {
           ))}
         </Table>
       </Section>
-    </Flex>
+    </Stack>
   );
 };
 
@@ -544,45 +546,47 @@ const MedicalRecordsNavigation = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { screen, general } = data;
   return (
-    <Tabs>
-      <Tabs.Tab
-        selected={screen === 2}
-        onClick={() => {
-          act('screen', { screen: 2 });
-        }}
-      >
-        <Icon name="list" />
-        List Records
-      </Tabs.Tab>
-      <Tabs.Tab
-        selected={screen === 5}
-        onClick={() => {
-          act('screen', { screen: 5 });
-        }}
-      >
-        <Icon name="database" />
-        Virus Database
-      </Tabs.Tab>
-      <Tabs.Tab
-        selected={screen === 6}
-        onClick={() => act('screen', { screen: 6 })}
-      >
-        <Icon name="plus-square" />
-        Medibot Tracking
-      </Tabs.Tab>
-      {screen === 3 && (
-        <Tabs.Tab selected={screen === 3}>
-          <Icon name="wrench" />
-          Record Maintenance
-        </Tabs.Tab>
-      )}
-      {screen === 4 && general && !general.empty && (
-        <Tabs.Tab selected={screen === 4}>
-          <Icon name="file" />
-          Record: {general.fields[0].value}
-        </Tabs.Tab>
-      )}
-    </Tabs>
+    <Stack vertical mb={1}>
+      <Stack.Item>
+        <Tabs>
+          <Tabs.Tab
+            icon="list"
+            selected={screen === 2}
+            onClick={() => {
+              act('screen', { screen: 2 });
+            }}
+          >
+            List Records
+          </Tabs.Tab>
+          <Tabs.Tab
+            icon="database"
+            selected={screen === 5}
+            onClick={() => {
+              act('screen', { screen: 5 });
+            }}
+          >
+            Virus Database
+          </Tabs.Tab>
+          <Tabs.Tab
+            icon="plus-square"
+            selected={screen === 6}
+            onClick={() => act('screen', { screen: 6 })}
+          >
+            Medibot Tracking
+          </Tabs.Tab>
+          {screen === 3 && (
+            <Tabs.Tab icon="wrench" selected={screen === 3}>
+              Record Maintenance
+            </Tabs.Tab>
+          )}
+          {screen === 4 && general && !general.empty && (
+            <Tabs.Tab icon="file" selected={screen === 4}>
+              Record: {general.fields[0].value}
+            </Tabs.Tab>
+          )}
+        </Tabs>
+      </Stack.Item>
+    </Stack>
   );
 };
 

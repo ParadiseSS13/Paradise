@@ -313,6 +313,8 @@
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
 
+#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
+
 // Macro to get the current elapsed round time, rather than total world runtime
 #define ROUND_TIME (SSticker.time_game_started ? (world.time - SSticker.time_game_started) : 0)
 
@@ -578,3 +580,13 @@
 /// It will only work for datums mind, for datum reasons
 /// : because of the embedded typecheck
 #define text_ref(datum) (isdatum(datum) ? (datum:cached_ref ||= "\ref[datum]") : ("\ref[datum]"))
+
+#define ROUND_END_NUCLEAR 1
+#define ROUND_END_CREW_TRANSFER 2
+#define ROUND_END_FORCED 3
+
+#define TS_INFESTATION_GREEN_SPIDER 1
+#define TS_INFESTATION_PRINCE_SPIDER 2
+#define TS_INFESTATION_WHITE_SPIDER 3
+#define TS_INFESTATION_PRINCESS_SPIDER 4
+#define TS_INFESTATION_QUEEN_SPIDER 5

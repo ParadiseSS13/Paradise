@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   Button,
@@ -7,7 +6,6 @@ import {
   Section,
   NoticeBox,
   Tabs,
-  Icon,
   Table,
 } from '../components';
 import { Window } from '../layouts';
@@ -31,32 +29,32 @@ export const TcommsCore = (props, context) => {
   };
 
   return (
-    <Window resizable>
+    <Window width={900} height={520}>
       <Window.Content scrollable>
         {ion === 1 && <IonBanner />}
         <Tabs>
           <Tabs.Tab
             key="ConfigPage"
+            icon="wrench"
             selected={tabIndex === 0}
             onClick={() => setTabIndex(0)}
           >
-            <Icon name="wrench" />
             Configuration
           </Tabs.Tab>
           <Tabs.Tab
             key="LinkagePage"
+            icon="link"
             selected={tabIndex === 1}
             onClick={() => setTabIndex(1)}
           >
-            <Icon name="link" />
             Device Linkage
           </Tabs.Tab>
           <Tabs.Tab
             key="FilterPage"
+            icon="user-times"
             selected={tabIndex === 2}
             onClick={() => setTabIndex(2)}
           >
-            <Icon name="user-times" />
             User Filtering
           </Tabs.Tab>
         </Tabs>
@@ -92,7 +90,7 @@ const ConfigPage = (_properties, context) => {
     network_id,
   } = data;
   return (
-    <Fragment>
+    <>
       <Section title="Status">
         <LabeledList>
           <LabeledList.Item label="Machine Power">
@@ -189,7 +187,7 @@ const ConfigPage = (_properties, context) => {
           onClick={() => act('export')}
         />
       </Section>
-    </Fragment>
+    </>
   );
 };
 

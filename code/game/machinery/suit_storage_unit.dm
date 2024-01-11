@@ -213,41 +213,6 @@
 /obj/machinery/suit_storage_unit/syndicate/secure
 	secure = TRUE
 
-/obj/machinery/suit_storage_unit/ert
-	req_access = list(ACCESS_CENT_GENERAL)
-
-/obj/machinery/suit_storage_unit/ert/command
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/ert/commander
-	mask_type	= /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/internals/emergency_oxygen/double
-
-/obj/machinery/suit_storage_unit/ert/command/secure
-	secure = TRUE
-
-/obj/machinery/suit_storage_unit/ert/security
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/ert/security
-	mask_type	= /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/internals/emergency_oxygen/double
-
-/obj/machinery/suit_storage_unit/ert/security/secure
-	secure = TRUE
-
-/obj/machinery/suit_storage_unit/ert/engineer
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/ert/engineer
-	mask_type	= /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/internals/emergency_oxygen/double
-
-/obj/machinery/suit_storage_unit/ert/engineer/secure
-	secure = TRUE
-
-/obj/machinery/suit_storage_unit/ert/medical
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/ert/medical
-	mask_type	= /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/internals/emergency_oxygen/double
-
-/obj/machinery/suit_storage_unit/ert/medical/secure
-	secure = TRUE
-
 //telecoms NASA SSU. Suits themselves are assigned in Initialize
 /obj/machinery/suit_storage_unit/telecoms
 	mask_type	= /obj/item/clothing/mask/breath
@@ -630,10 +595,16 @@
 		wires.Interact(user)
 	ui_interact(user)
 
-/obj/machinery/suit_storage_unit/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/suit_storage_unit/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/machinery/suit_storage_unit/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/suit_storage_unit/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SuitStorage", name, 402, 268, master_ui, state)
+		ui = new(user, src, "SuitStorage", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

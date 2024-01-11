@@ -81,7 +81,10 @@
 
 /datum/reagent/consumable/drink/berry_banned2/on_mob_death(mob/living/M)
 	SEND_SOUND(M, sound('sound/effects/adminhelp.ogg', 0, 1, 0, 25))
-	to_chat(M, chat_box_red("<span class='adminhelp'>PM from-<b>Administrator</b>: BWOINK!</span>"))
+	to_chat(M,
+		type = MESSAGE_TYPE_ADMINPM,
+		html = chat_box_red("<span class='adminhelp'>PM from-<b>Administrator</b>: BWOINK!</span>"),
+		confidential = TRUE)
 	..()
 
 //Blackeye Brew: Chance to make the drinker say greytider-themed things like "I thought clown was valid!"

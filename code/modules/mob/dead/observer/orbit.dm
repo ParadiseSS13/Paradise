@@ -6,10 +6,13 @@
 		qdel(src)
 	owner = new_owner
 
-/datum/orbit_menu/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.observer_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/orbit_menu/ui_state(mob/user)
+	return GLOB.observer_state
+
+/datum/orbit_menu/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Orbit", "Orbit", 700, 500, master_ui, state)
+		ui = new(user, src, "Orbit", "Orbit")
 		ui.open()
 
 /datum/orbit_menu/ui_act(action, list/params, datum/tgui/ui)

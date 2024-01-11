@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, Section, Tabs } from '../components';
 import { Window } from '../layouts';
@@ -7,8 +6,8 @@ import { AccessList } from './common/AccessList';
 export const GuestPass = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window resizable>
-      <Window.Content scrollable>
+    <Window width={500} height={690}>
+      <Window.Content>
         <Tabs>
           <Tabs.Tab
             icon="id-card"
@@ -67,7 +66,7 @@ export const GuestPass = (props, context) => {
               </LabeledList.Item>
             </LabeledList>
             {!!data.scan_name && (
-              <Fragment>
+              <>
                 <AccessList
                   grantableList={data.grantableList}
                   accesses={data.regions}
@@ -96,14 +95,14 @@ export const GuestPass = (props, context) => {
                   disabled={!data.canprint}
                   onClick={() => act('issue')}
                 />
-              </Fragment>
+              </>
             )}
           </Section>
         )}
         {!!data.showlogs && (
           <Section title="Issuance Log">
             {(!!data.issue_log.length && (
-              <Fragment>
+              <>
                 <LabeledList>
                   {data.issue_log.map((a, i) => (
                     <LabeledList.Item key={i}>{a}</LabeledList.Item>
@@ -115,7 +114,7 @@ export const GuestPass = (props, context) => {
                   disabled={!data.scan_name}
                   onClick={() => act('print')}
                 />
-              </Fragment>
+              </>
             )) || <Box>None.</Box>}
           </Section>
         )}

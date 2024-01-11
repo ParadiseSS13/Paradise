@@ -128,8 +128,8 @@
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_ATTACK
 	recharge_slowdown = 0.75
+	category = /datum/changeling_power_category/offence
 
 /obj/item/melee/arm_blade
 	name = "arm blade"
@@ -194,7 +194,7 @@
 	weapon_name_simple = "tentacle"
 	silent = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_ATTACK
+	category = /datum/changeling_power_category/offence
 
 /obj/item/gun/magic/tentacle
 	name = "tentacle"
@@ -390,7 +390,7 @@
 /datum/action/changeling/weapon/shield
 	name = "Organic Shield"
 	desc = "We reform one of our arms into a hard shield. Costs 20 chemicals."
-	helptext = "Organic tissue cannot resist damage forever. The shield will break after it is hit too much. The more DNA we collect, the stronger it is. Cannot be used while in lesser form."
+	helptext = "Organic tissue cannot resist damage forever, with the shield breaking after it is hit 6 times. Automatically parries. Cannot be used while in lesser form."
 	button_icon_state = "organic_shield"
 	chemical_cost = 20
 	dna_cost = 2
@@ -398,13 +398,12 @@
 	weapon_type = /obj/item/shield/changeling
 	weapon_name_simple = "shield"
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_DEFENSE
+	category = /datum/changeling_power_category/defence
 
 /datum/action/changeling/weapon/shield/sting_action(mob/user)
 	var/obj/item/shield/changeling/S = ..(user)
 	if(!S)
 		return FALSE
-	S.remaining_uses = round(cling.absorbed_count * 3)
 	return TRUE
 
 /obj/item/shield/changeling
@@ -413,7 +412,7 @@
 	flags = NODROP | DROPDEL
 	icon_state = "ling_shield"
 
-	var/remaining_uses //Set by the changeling ability.
+	var/remaining_uses = 6
 
 /obj/item/shield/changeling/Initialize(mapload)
 	. = ..()
@@ -423,6 +422,10 @@
 		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 
 /obj/item/shield/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	SEND_SIGNAL(owner, COMSIG_HUMAN_PARRY)
+	. = ..()
+	if(!.)
+		return
 	if(remaining_uses < 1)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
@@ -430,10 +433,9 @@
 			playsound(loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 			H.unEquip(src, 1)
 		qdel(src)
-		return 0
+		return FALSE
 	else
 		remaining_uses--
-		return ..()
 
 /***************************************\
 |*********SPACE SUIT + HELMET***********|
@@ -453,7 +455,7 @@
 	helmet_name_simple = "space helmet"
 	recharge_slowdown = 0.5
 	blood_on_castoff = 1
-	menu_location = CLING_MENU_UTILITY
+	category = /datum/changeling_power_category/utility
 
 /obj/item/clothing/suit/space/changeling
 	name = "flesh mass"
@@ -499,7 +501,7 @@
 	suit_name_simple = "armor"
 	helmet_name_simple = "helmet"
 	recharge_slowdown = 0.25
-	menu_location = CLING_MENU_DEFENSE
+	category = /datum/changeling_power_category/defence
 
 /obj/item/clothing/suit/armor/changeling
 	name = "chitinous mass"

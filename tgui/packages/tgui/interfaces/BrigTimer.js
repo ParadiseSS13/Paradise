@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Button, LabeledList, Dropdown, Box, Section } from '../components';
 import { Window } from '../layouts';
@@ -25,7 +24,7 @@ export const BrigTimer = (props, context) => {
     nameOptions.push(data.spns[i]);
   }
   return (
-    <Window resizable>
+    <Window width={500} height={!data.timing ? 396 : 237}>
       <Window.Content>
         <Section title="Cell Information">
           <LabeledList>
@@ -44,7 +43,7 @@ export const BrigTimer = (props, context) => {
               {data.time_left}
             </LabeledList.Item>
             <LabeledList.Item label="Actions">
-              <Fragment>
+              <>
                 <Button
                   icon="lightbulb-o"
                   content="Flash"
@@ -63,7 +62,7 @@ export const BrigTimer = (props, context) => {
                   disabled={!data.timing || !data.isAllowed}
                   onClick={() => act('stop')}
                 />
-              </Fragment>
+              </>
             </LabeledList.Item>
           </LabeledList>
         </Section>

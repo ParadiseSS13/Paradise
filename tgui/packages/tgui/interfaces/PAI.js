@@ -31,7 +31,7 @@ export const PAI = (props, context) => {
   const App = GetApp(app_template);
 
   return (
-    <Window>
+    <Window width={600} height={650}>
       <Window.Content scrollable>
         <Section
           title={

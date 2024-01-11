@@ -4,8 +4,9 @@ import {
   Section,
   Button,
   NumberInput,
-  Flex,
+  Stack,
   NoticeBox,
+  Icon,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -18,74 +19,99 @@ export const Smartfridge = (props, context) => {
     contents,
   } = data;
   return (
-    <Window>
+    <Window width={500} height={500}>
       <Window.Content>
-        {!!secure && (
-          <Section title="Secure">
+        <Stack fill vertical>
+          {!!secure && (
             <NoticeBox>
               Secure Access: Please have your identification ready.
             </NoticeBox>
+          )}
+          <Section
+            fill
+            scrollable
+            title={can_dry ? 'Drying rack' : 'Contents'}
+            buttons={
+              !!can_dry && (
+                <Button
+                  width={4}
+                  icon={drying ? 'power-off' : 'times'}
+                  content={drying ? 'On' : 'Off'}
+                  selected={drying}
+                  onClick={() => act('drying')}
+                />
+              )
+            }
+          >
+            {!contents && (
+              <Stack fill>
+                <Stack.Item
+                  bold
+                  grow
+                  textAlign="center"
+                  align="center"
+                  color="average"
+                >
+                  <Icon.Stack>
+                    <Icon name="cookie-bite" size={5} color="brown" />
+                    <Icon name="slash" size={5} color="red" />
+                  </Icon.Stack>
+                  <br />
+                  No products loaded.
+                </Stack.Item>
+              </Stack>
+            )}
+            {!!contents &&
+              contents
+                .slice()
+                .sort((a, b) => a.display_name.localeCompare(b.display_name))
+                .map((item) => {
+                  return (
+                    <Stack key={item}>
+                      <Stack.Item width="55%">{item.display_name}</Stack.Item>
+                      <Stack.Item width="25%">
+                        ({item.quantity} in stock)
+                      </Stack.Item>
+                      <Stack.Item width={13}>
+                        <Button
+                          width={3}
+                          icon="arrow-down"
+                          tooltip="Dispense one."
+                          content="1"
+                          onClick={() =>
+                            act('vend', { index: item.vend, amount: 1 })
+                          }
+                        />
+                        <NumberInput
+                          width="40px"
+                          minValue={0}
+                          value={0}
+                          maxValue={item.quantity}
+                          step={1}
+                          stepPixelSize={3}
+                          onChange={(e, value) =>
+                            act('vend', { index: item.vend, amount: value })
+                          }
+                        />
+                        <Button
+                          width={4}
+                          icon="arrow-down"
+                          content="All"
+                          tooltip="Dispense all."
+                          tooltipPosition="bottom-start"
+                          onClick={() =>
+                            act('vend', {
+                              index: item.vend,
+                              amount: item.quantity,
+                            })
+                          }
+                        />
+                      </Stack.Item>
+                    </Stack>
+                  );
+                })}
           </Section>
-        )}
-        {!!can_dry && (
-          <Section title="Drying rack">
-            <Button
-              icon={drying ? 'power-off' : 'times'}
-              content={drying ? 'On' : 'Off'}
-              selected={drying}
-              onClick={() => act('drying')}
-            />
-          </Section>
-        )}
-        <Section title="Contents">
-          {!contents && <Box color="average"> No products loaded. </Box>}
-          {!!contents &&
-            contents
-              .slice()
-              .sort((a, b) => a.display_name.localeCompare(b.display_name))
-              .map((item) => {
-                return (
-                  <Flex direction="row" key={item}>
-                    <Flex.Item width="45%">{item.display_name}</Flex.Item>
-                    <Flex.Item width="25%">
-                      ({item.quantity} in stock)
-                    </Flex.Item>
-                    <Flex.Item width="30%">
-                      <Button
-                        icon="arrow-down"
-                        tooltip="Dispense one."
-                        content="1"
-                        onClick={() =>
-                          act('vend', { index: item.vend, amount: 1 })
-                        }
-                      />
-                      <NumberInput
-                        width="40px"
-                        minValue={0}
-                        value={0}
-                        maxValue={item.quantity}
-                        step={1}
-                        stepPixelSize={3}
-                        onChange={(e, value) =>
-                          act('vend', { index: item.vend, amount: value })
-                        }
-                      />
-                      <Button
-                        icon="arrow-down"
-                        content="All"
-                        tooltip="Dispense all. "
-                        onClick={() =>
-                          act('vend', {
-                            index: item.vend,
-                            amount: item.quantity,
-                          })
-                        }
-                      />
-                    </Flex.Item>
-                  </Flex>
-                );
-              })}
-        </Section>
+        </Stack>
       </Window.Content>
     </Window>
   );

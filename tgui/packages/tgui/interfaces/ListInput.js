@@ -6,9 +6,9 @@
 
 import { clamp01 } from 'common/math';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Section, Input } from '../components';
+import { Box, Button, Stack, Section, Input } from '../components';
 import { Window } from '../layouts';
-import { ARROW_KEY_UP, ARROW_KEY_DOWN } from '../hotkeys';
+import { KEY_UP, KEY_DOWN } from 'common/keycodes';
 
 let lastScrollTime = 0;
 
@@ -20,7 +20,7 @@ export const ListInput = (props, context) => {
   const [showSearchBar, setShowSearchBar] = useLocalState(
     context,
     'search_bar',
-    false
+    true
   );
   const [displayedArray, setDisplayedArray] = useLocalState(
     context,
@@ -52,20 +52,15 @@ export const ListInput = (props, context) => {
     buttons[0]
   );
   return (
-    <Window title={title}>
+    <Window title={title} width={325} height={350}>
       {timeout !== undefined && <Loader value={timeout} />}
       <Window.Content>
-        <Flex direction="column" height="100%">
-          <Flex.Item
-            className="Layout__content--flexColumn"
-            height="100%"
-            mb="7px"
-          >
+        <Stack fill vertical>
+          <Stack.Item grow>
             <Section
-              className="ListInput__Section"
-              flexGrow="1"
-              scrollable
               fill
+              scrollable
+              className="ListInput__Section"
               title={message}
               tabIndex={1}
               onKeyDown={(e) => {
@@ -75,12 +70,9 @@ export const ListInput = (props, context) => {
                 }
                 lastScrollTime = performance.now() + 125;
 
-                if (
-                  e.keyCode === ARROW_KEY_UP ||
-                  e.keyCode === ARROW_KEY_DOWN
-                ) {
+                if (e.keyCode === KEY_UP || e.keyCode === KEY_DOWN) {
                   let direction = 1;
-                  if (e.keyCode === ARROW_KEY_UP) {
+                  if (e.keyCode === KEY_UP) {
                     direction = -1;
                   }
 
@@ -138,6 +130,7 @@ export const ListInput = (props, context) => {
               }}
               buttons={
                 <Button
+                  compact
                   icon="search"
                   color="transparent"
                   selected={showSearchBar}
@@ -147,35 +140,31 @@ export const ListInput = (props, context) => {
                     setShowSearchBar(!showSearchBar);
                     setDisplayedArray(buttons);
                   }}
-                  compact
                 />
               }
             >
-              <Flex wrap="wrap">
-                {displayedArray.map((button) => (
-                  <Flex.Item key={button} basis="100%">
-                    <Button
-                      color="transparent"
-                      content={button}
-                      id={button}
-                      width="100%"
-                      selected={selectedButton === button}
-                      onClick={() => {
-                        if (selectedButton === button) {
-                          act('choose', { choice: button });
-                        } else {
-                          setSelectedButton(button);
-                        }
-                        setLastCharCode(null);
-                      }}
-                    />
-                  </Flex.Item>
-                ))}
-              </Flex>
+              {displayedArray.map((button) => (
+                <Button
+                  color="transparent"
+                  content={button}
+                  id={button}
+                  key={button}
+                  fluid
+                  selected={selectedButton === button}
+                  onClick={() => {
+                    if (selectedButton === button) {
+                      act('choose', { choice: button });
+                    } else {
+                      setSelectedButton(button);
+                    }
+                    setLastCharCode(null);
+                  }}
+                />
+              ))}
             </Section>
-          </Flex.Item>
+          </Stack.Item>
           {showSearchBar && (
-            <Flex.Item basis={2.5}>
+            <Stack.Item>
               <Input
                 width="100%"
                 autoFocus
@@ -188,11 +177,11 @@ export const ListInput = (props, context) => {
                   )
                 }
               />
-            </Flex.Item>
+            </Stack.Item>
           )}
-          <Flex.Item>
-            <Flex textAlign="center">
-              <Flex.Item grow={1} basis={0} ml={1} mx="5px">
+          <Stack.Item>
+            <Stack textAlign="center">
+              <Stack.Item grow basis={0}>
                 <Button
                   fluid
                   color="good"
@@ -200,18 +189,18 @@ export const ListInput = (props, context) => {
                   disabled={selectedButton === null}
                   onClick={() => act('choose', { choice: selectedButton })}
                 />
-              </Flex.Item>
-              <Flex.Item grow={1} basis={0} mr={1} mx="5px">
+              </Stack.Item>
+              <Stack.Item grow basis={0}>
                 <Button
                   fluid
                   color="bad"
                   content="Cancel"
                   onClick={() => act('cancel')}
                 />
-              </Flex.Item>
-            </Flex>
-          </Flex.Item>
-        </Flex>
+              </Stack.Item>
+            </Stack>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );

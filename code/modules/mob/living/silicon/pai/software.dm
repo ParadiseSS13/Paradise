@@ -28,10 +28,13 @@ GLOBAL_LIST_EMPTY(pai_software_by_key)
 
 	pai_user.ui_interact(pai_user)
 
-/mob/living/silicon/pai/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.self_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/silicon/pai/ui_state(mob/user)
+	return GLOB.self_state
+
+/mob/living/silicon/pai/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PAI", name, 600, 650, master_ui, state)
+		ui = new(user, src, "PAI", name)
 		ui.open()
 
 /mob/living/silicon/pai/ui_data(mob/user)

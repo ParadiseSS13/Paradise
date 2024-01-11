@@ -158,19 +158,20 @@
 		dirty_items = TRUE
 	return ..()
 
-/obj/machinery/mineral/equipment_vendor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/mineral/equipment_vendor/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/mineral/equipment_vendor/ui_interact(mob/user, datum/tgui/ui = null)
 	// Update static data if need be
 	if(dirty_items)
 		if(!ui)
-			ui = SStgui.get_open_ui(user, src, ui_key)
-		if(ui) // OK so ui?. somehow breaks the implied src so this is needed
-			ui.initial_static_data = ui_static_data(user)
+			ui = SStgui.get_open_ui(user, src)
 		dirty_items = FALSE
 
 	// Open the window
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "MiningVendor", name, 400, 450)
+		ui = new(user, src, "MiningVendor", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -242,7 +243,7 @@
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Plasma Cutter", "Jaunter Kit", "Mining Conscription Kit")
 
-	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
+	var/selection = tgui_input_list(redeemer, "Pick your equipment", "Mining Voucher Redemption", items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
 		return
 
@@ -341,7 +342,7 @@
 		EQUIPMENT("Cigarettes", /obj/item/storage/fancy/cigarettes, 100),
 		EQUIPMENT("Medical Marijuana", /obj/item/storage/fancy/cigarettes/cigpack_med, 250),
 		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
-		EQUIPMENT("Box of matches", /obj/item/storage/box/matches, 50),
+		EQUIPMENT("Box of matches", /obj/item/storage/fancy/matches, 50),
 		EQUIPMENT("Cheeseburger", /obj/item/reagent_containers/food/snacks/burger/cheese, 150),
 		EQUIPMENT("Big Burger", /obj/item/reagent_containers/food/snacks/burger/bigbite, 250),
 		EQUIPMENT("Recycled Prisoner", /obj/item/reagent_containers/food/snacks/soylentgreen, 500),

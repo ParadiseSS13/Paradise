@@ -2,8 +2,6 @@
 	holder_type = /obj/item/radio
 	wire_count = 3
 	proper_name = "Radio"
-	window_x = 330
-	window_y = 37
 
 /datum/wires/radio/New(atom/_holder)
 	wires = list(WIRE_RADIO_SIGNAL, WIRE_RADIO_RECEIVER, WIRE_RADIO_TRANSMIT)

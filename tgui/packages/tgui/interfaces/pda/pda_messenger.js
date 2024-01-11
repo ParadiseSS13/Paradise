@@ -43,7 +43,7 @@ export const ActiveConversation = (props, context) => {
             icon="eye"
             selected={clipboardMode}
             tooltip="Enter Clipboard Mode"
-            tooltipPosition="bottom-left"
+            tooltipPosition="bottom-start"
             onClick={() => setClipboardMode(!clipboardMode)}
           />
         }
@@ -109,7 +109,7 @@ export const ActiveConversation = (props, context) => {
             icon="eye"
             selected={clipboardMode}
             tooltip="Exit Clipboard Mode"
-            tooltipPosition="bottom-left"
+            tooltipPosition="bottom-start"
             onClick={() => setClipboardMode(!clipboardMode)}
           />
         }
@@ -203,7 +203,7 @@ export const MessengerList = (props, context) => {
           <Button>
             <Dropdown
               selected={ringtone}
-              width="110px"
+              width="100px"
               options={Object.keys(ringtone_list)}
               onSelected={(value) =>
                 act('Available_Ringtones', { selected_ringtone: value })

@@ -12,7 +12,7 @@ export const SlotMachine = (props, context) => {
   const { act, data } = useBackend(context);
   if (data.money === null) {
     return (
-      <Window>
+      <Window width={350} height={90}>
         <Window.Content>
           <Section>
             <Box>Could not scan your card or could not find account!</Box>
@@ -29,7 +29,7 @@ export const SlotMachine = (props, context) => {
       playerText = data.plays + ' players have tried their luck today!';
     }
     return (
-      <Window>
+      <Window width={300} height={151}>
         <Window.Content>
           <Section>
             <Box lineHeight={2}>{playerText}</Box>

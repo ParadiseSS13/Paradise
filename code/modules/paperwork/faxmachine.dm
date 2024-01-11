@@ -117,10 +117,13 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return TRUE
 	return FALSE
 
-/obj/machinery/photocopier/faxmachine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/photocopier/faxmachine/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/photocopier/faxmachine/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "FaxMachine",  name, 540, 300, master_ui, state)
+		ui = new(user, src, "FaxMachine",  name)
 		ui.open()
 
 /obj/machinery/photocopier/faxmachine/ui_data(mob/user)
@@ -227,7 +230,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 					for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 						if(F.emagged)//we can contact emagged faxes on the station
 							combineddepartments |= F.department
-				destination = input(usr, "To which department?", "Choose a department", "") as null|anything in combineddepartments
+				destination = tgui_input_list(usr, "To which department?", "Choose a department", combineddepartments)
 				if(!destination)
 					destination = lastdestination
 		if("send") // actually send the fax

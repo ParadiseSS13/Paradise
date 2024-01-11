@@ -212,10 +212,13 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	return ui_interact(user)
 
 // tgui\packages\tgui\interfaces\GravityGen.js
-/obj/machinery/gravity_generator/main/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/gravity_generator/main/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/gravity_generator/main/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui && !(stat & BROKEN))
-		ui = new(user, src, ui_key, "GravityGen", name, 350, 250, master_ui, state)
+		ui = new(user, src, "GravityGen", name)
 		ui.open()
 
 /obj/machinery/gravity_generator/main/ui_data(mob/user)

@@ -30,10 +30,13 @@
 	///browserui helper variable for turning pages in book
 	var/view_book_page = 0
 
-/datum/ui_module/library_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/ui_module/library_manager/ui_state(mob/user)
+	return GLOB.admin_state
+
+/datum/ui_module/library_manager/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "LibraryManager", name, 600, 600, master_ui, state)
+		ui = new(user, src, "LibraryManager", name)
 		ui.autoupdate = TRUE
 		ui.open()
 

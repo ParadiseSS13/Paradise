@@ -56,7 +56,7 @@
 	if(!length(contents))
 		return
 
-	var/obj/item/book/choice = input(user, "Which book would you like to remove from [src]?") as null|anything in contents
+	var/obj/item/book/choice = tgui_input_list(user, "Which book would you like to remove from [src]?", "Bookcase", contents)
 	if(!choice)
 		return
 	if(user.incapacitated() || !Adjacent(user))
@@ -214,10 +214,13 @@
 		if(c)
 			selected_content.categories += c
 
-/obj/machinery/bookbinder/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/bookbinder/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/bookbinder/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BookBinder", name, 700, 400, master_ui, state)
+		ui = new(user, src, "BookBinder", name)
 		ui.open()
 
 /obj/machinery/bookbinder/ui_data(mob/user)

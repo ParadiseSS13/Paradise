@@ -207,6 +207,8 @@
 			return 'icons/mob/screen_operative.dmi'
 		if("White")
 			return 'icons/mob/screen_white.dmi'
+		if("Midnight")
+			return 'icons/mob/screen_midnight.dmi'
 		else
 			return 'icons/mob/screen_midnight.dmi'
 
@@ -377,3 +379,8 @@
 	if(input == "true")
 		return TRUE
 	return FALSE //
+
+/// Return html to load a url.
+/// for use inside of browse() calls to html assets that might be loaded on a cdn.
+/proc/url2htmlloader(url)
+	return {"<html><head><meta http-equiv="refresh" content="0;URL='[url]'"/></head><body onLoad="parent.location='[url]'"></body></html>"}

@@ -1,14 +1,13 @@
 import { round } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Flex,
   Icon,
   LabeledList,
   ProgressBar,
   Section,
+  Stack,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -45,10 +44,14 @@ export const Sleeper = (props, context) => {
   const { hasOccupant } = data;
   const body = hasOccupant ? <SleeperMain /> : <SleeperEmpty />;
   return (
-    <Window resizable>
-      <Window.Content className="Layout__content--flexColumn">
-        {body}
-        <SleeperDialysis />
+    <Window width={550} height={760}>
+      <Window.Content scrollable>
+        <Stack fill vertical>
+          <Stack.Item grow>{body}</Stack.Item>
+          <Stack.Item>
+            <SleeperDialysis />
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -58,11 +61,11 @@ const SleeperMain = (props, context) => {
   const { act, data } = useBackend(context);
   const { occupant } = data;
   return (
-    <Fragment>
+    <>
       <SleeperOccupant />
       <SleeperDamage />
       <SleeperChemicals />
-    </Fragment>
+    </>
   );
 };
 
@@ -73,8 +76,8 @@ const SleeperOccupant = (props, context) => {
     <Section
       title="Occupant"
       buttons={
-        <Fragment>
-          <Box color="label" display="inline">
+        <>
+          <Box color="label" inline>
             Auto-eject if dead:&nbsp;
           </Box>
           <Button
@@ -90,7 +93,7 @@ const SleeperOccupant = (props, context) => {
             content="Eject"
             onClick={() => act('ejectify')}
           />
-        </Fragment>
+        </>
       }
     >
       <LabeledList>
@@ -124,7 +127,7 @@ const SleeperOccupant = (props, context) => {
           </ProgressBar>
         </LabeledList.Item>
         {!!occupant.hasBlood && (
-          <Fragment>
+          <>
             <LabeledList.Item label="Blood Level">
               <ProgressBar
                 min="0"
@@ -142,7 +145,7 @@ const SleeperOccupant = (props, context) => {
             <LabeledList.Item label="Pulse" verticalAlign="middle">
               {occupant.pulse} BPM
             </LabeledList.Item>
-          </Fragment>
+          </>
         )}
       </LabeledList>
     </Section>
@@ -187,7 +190,7 @@ const SleeperDialysis = (props, context) => {
     <Section
       title="Dialysis"
       buttons={
-        <Fragment>
+        <>
           <Button
             disabled={!isBeakerLoaded || beakerFreeSpace <= 0 || !hasOccupant}
             selected={canDialysis}
@@ -201,7 +204,7 @@ const SleeperDialysis = (props, context) => {
             content="Eject"
             onClick={() => act('removebeaker')}
           />
-        </Fragment>
+        </>
       }
     >
       {isBeakerLoaded ? (
@@ -232,7 +235,7 @@ const SleeperChemicals = (props, context) => {
   const { act, data } = useBackend(context);
   const { occupant, chemicals, maxchem, amounts } = data;
   return (
-    <Section title="Occupant Chemicals" flexGrow="1">
+    <Section title="Occupant Chemicals">
       {chemicals.map((chem, i) => {
         let barColor = '';
         let odWarning;
@@ -262,7 +265,7 @@ const SleeperChemicals = (props, context) => {
               lineHeight="18px"
               buttons={odWarning}
             >
-              <Flex align="flex-start">
+              <Stack>
                 <ProgressBar
                   min="0"
                   max={maxchem}
@@ -300,7 +303,7 @@ const SleeperChemicals = (props, context) => {
                     }
                   />
                 ))}
-              </Flex>
+              </Stack>
             </Section>
           </Box>
         );
@@ -311,14 +314,14 @@ const SleeperChemicals = (props, context) => {
 
 const SleeperEmpty = (props, context) => {
   return (
-    <Section textAlign="center" flexGrow="1">
-      <Flex height="100%">
-        <Flex.Item grow="1" align="center" color="label">
+    <Section fill textAlign="center">
+      <Stack fill>
+        <Stack.Item grow align="center" color="label">
           <Icon name="user-slash" mb="0.5rem" size="5" />
           <br />
           No occupant detected.
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

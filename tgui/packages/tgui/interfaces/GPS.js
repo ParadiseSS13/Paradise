@@ -1,10 +1,9 @@
 import { rad2deg } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
-  Flex,
+  Stack,
   Icon,
   Input,
   LabeledList,
@@ -37,38 +36,38 @@ export const GPS = (properties, context) => {
   const { data } = useBackend(context);
   const { emped, active, area, position, saved } = data;
   return (
-    <Window>
+    <Window width={400} height={600}>
       <Window.Content>
-        <Flex direction="column" height="100%">
+        <Stack fill vertical>
           {emped ? (
-            <Flex.Item grow="1" basis="0">
+            <Stack.Item grow basis="0">
               <TurnedOff emp />
-            </Flex.Item>
+            </Stack.Item>
           ) : (
-            <Fragment>
-              <Flex.Item>
+            <>
+              <Stack.Item>
                 <Settings />
-              </Flex.Item>
+              </Stack.Item>
               {active ? (
-                <Fragment>
-                  <Flex.Item mt="0.5rem">
+                <>
+                  <Stack.Item>
                     <Position area={area} position={position} />
-                  </Flex.Item>
+                  </Stack.Item>
                   {saved && (
-                    <Flex.Item mt="0.5rem">
+                    <Stack.Item>
                       <Position title="Saved Position" position={saved} />
-                    </Flex.Item>
+                    </Stack.Item>
                   )}
-                  <Flex.Item mt="0.5rem" grow="1" basis="0">
+                  <Stack.Item grow basis="0">
                     <Signals height="100%" />
-                  </Flex.Item>
-                </Fragment>
+                  </Stack.Item>
+                </>
               ) : (
                 <TurnedOff />
               )}
-            </Fragment>
+            </>
           )}
-        </Flex>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -76,17 +75,17 @@ export const GPS = (properties, context) => {
 
 const TurnedOff = ({ emp }, context) => {
   return (
-    <Section mt="0.5rem" width="100%" height="100%" stretchContents>
+    <Section fill>
       <Box width="100%" height="100%" color="label" textAlign="center">
-        <Flex height="100%">
-          <Flex.Item grow="1" align="center" color="label">
+        <Stack fill>
+          <Stack.Item grow align="center" color="label">
             <Icon name={emp ? 'ban' : 'power-off'} mb="0.5rem" size="5" />
             <br />
             {emp
               ? 'ERROR: Device temporarily lost signal.'
               : 'Device is disabled.'}
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       </Box>
     </Section>
   );
@@ -144,10 +143,10 @@ const Position = ({ title, area, position }, context) => {
     <Section title={title || 'Position'}>
       <Box fontSize="1.5rem">
         {area && (
-          <Fragment>
+          <>
             {area}
             <br />
-          </Fragment>
+          </>
         )}
         {vectorText(position)}
       </Box>
@@ -159,7 +158,7 @@ const Signals = (properties, context) => {
   const { data } = useBackend(context);
   const { position, signals } = data;
   return (
-    <Section title="Signals" overflow="auto" {...properties}>
+    <Section fill scrollable title="Signals" {...properties}>
       <Table>
         {signals
           .map((signal) => ({

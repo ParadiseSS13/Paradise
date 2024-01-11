@@ -149,10 +149,17 @@
 				to_chat(usr, "<span class='notice'>Laws displayed.</span>")
 
 
-/datum/ui_module/law_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/ui_module/law_manager/ui_state(mob/user)
+	if(check_rights(R_ADMIN, FALSE))
+		return GLOB.admin_state
+	if(issilicon(user))
+		return GLOB.conscious_state
+	return GLOB.default_state
+
+/datum/ui_module/law_manager/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "LawManager", sanitize("[src] - [owner.name]"), 800, is_malf(user) ? 600 : 400, master_ui, state)
+		ui = new(user, src, "LawManager", sanitize("[src] - [owner.name]"))
 		ui.open()
 
 /datum/ui_module/law_manager/ui_data(mob/user)

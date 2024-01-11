@@ -81,10 +81,13 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 /obj/item/assembly/signaler/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/assembly/signaler/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.deep_inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/assembly/signaler/ui_state(mob/user)
+	return GLOB.deep_inventory_state
+
+/obj/item/assembly/signaler/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RemoteSignaler", name, 300, 200, master_ui, state)
+		ui = new(user, src, "RemoteSignaler", name)
 		ui.open()
 
 /obj/item/assembly/signaler/ui_data(mob/user)

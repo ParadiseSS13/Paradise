@@ -195,10 +195,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		return TRUE
 	return FALSE
 
-/obj/item/uplink/hidden/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/uplink/hidden/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/uplink/hidden/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Uplink", name, 900, 600, master_ui, state)
+		ui = new(user, src, "Uplink", name)
 		ui.open()
 
 /obj/item/uplink/hidden/ui_data(mob/user)

@@ -1,5 +1,4 @@
 import { toFixed } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   AnimatedNumber,
@@ -143,7 +142,7 @@ export const Canister = (props, context) => {
   }
 
   return (
-    <Window>
+    <Window width={600} height={canLabel ? 300 : 230}>
       <Window.Content>
         <Section
           title={name}
@@ -229,17 +228,18 @@ export const Canister = (props, context) => {
               />
             </LabeledControls.Item>
             <LabeledControls.Item mr={1} label="Port">
-              <Box position="relative">
-                <Icon
-                  size={1.25}
-                  name={portConnected ? 'plug' : 'times'}
-                  color={portConnected ? 'good' : 'bad'}
-                />
-                <Tooltip
-                  content={portConnected ? 'Connected' : 'Disconnected'}
-                  position="top"
-                />
-              </Box>
+              <Tooltip
+                content={portConnected ? 'Connected' : 'Disconnected'}
+                position="top"
+              >
+                <Box position="relative">
+                  <Icon
+                    size={1.25}
+                    name={portConnected ? 'plug' : 'times'}
+                    color={portConnected ? 'good' : 'bad'}
+                  />
+                </Box>
+              </Tooltip>
             </LabeledControls.Item>
           </LabeledControls>
         </Section>

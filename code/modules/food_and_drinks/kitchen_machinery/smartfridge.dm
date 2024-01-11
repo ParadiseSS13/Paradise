@@ -47,6 +47,8 @@
 
 	var/light_range_on = 1
 	var/light_power_on = 0.5
+	/// Do we drop contents on destroy?
+	var/drop_contents_on_delete = TRUE
 
 /obj/machinery/smartfridge/Initialize(mapload)
 	. = ..()
@@ -92,8 +94,9 @@
 /obj/machinery/smartfridge/Destroy()
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
-	for(var/atom/movable/A in contents)
-		A.forceMove(loc)
+	if(drop_contents_on_delete)
+		for(var/atom/movable/A in contents)
+			A.forceMove(loc)
 	return ..()
 
 /obj/machinery/smartfridge/process()
@@ -245,10 +248,13 @@
 		to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
 	return TRUE
 
-/obj/machinery/smartfridge/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/smartfridge/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/smartfridge/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Smartfridge", name, 500, 500)
+		ui = new(user, src, "Smartfridge", name)
 		ui.open()
 
 /obj/machinery/smartfridge/ui_data(mob/user)
@@ -527,6 +533,9 @@
 /obj/machinery/smartfridge/secure/circuits/aiupload/Initialize(mapload)
 	. = ..()
 	req_access_txt = "[ACCESS_AI_UPLOAD]"
+	if(mapload && HAS_TRAIT(SSstation, STATION_TRAIT_UNIQUE_AI) && is_station_level(z))
+		drop_contents_on_delete = FALSE
+		return INITIALIZE_HINT_QDEL
 
 /obj/machinery/smartfridge/secure/circuits/aiupload/experimental
 	name = "\improper Experimental Laws Storage"

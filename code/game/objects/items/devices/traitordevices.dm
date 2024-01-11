@@ -410,8 +410,11 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/datum/ui_module/appearance_changer/appearance_changer_holder
 
-/obj/item/handheld_mirror/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.hands_state)
-	appearance_changer_holder.ui_interact(user, ui_key, ui, force_open, master_ui, state = GLOB.hands_state)
+/obj/item/handheld_mirror/ui_state(mob/user)
+	return GLOB.hands_state
+
+/obj/item/handheld_mirror/ui_interact(mob/user, datum/tgui/ui = null)
+	appearance_changer_holder.ui_interact(user, ui)
 
 /obj/item/handheld_mirror/attack_self(mob/user)
 	if(ishuman(user))

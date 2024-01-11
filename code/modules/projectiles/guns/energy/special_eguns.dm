@@ -19,6 +19,11 @@
 	flight_x_offset = 17
 	flight_y_offset = 9
 
+/obj/item/gun/energy/ionrifle/Initialize(mapload)
+	. = ..()
+	if(mapload && HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION) && is_station_level(z)) //No ion rifle when everyone has cybernetic organs, sorry!
+		return INITIALIZE_HINT_QDEL
+
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
 
@@ -190,6 +195,9 @@
 /obj/item/gun/energy/plasmacutter/update_overlays()
 	return list()
 
+/obj/item/gun/energy/plasmacutter/get_heat()
+	return 3800
+
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
@@ -292,7 +300,7 @@
 // HONK Rifle //
 /obj/item/gun/energy/clown
 	name = "\improper HONK rifle"
-	desc = "Clown Planet's finest."
+	desc = "Clown University's finest."
 	icon_state = "honkrifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = FALSE
@@ -569,10 +577,13 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/item/gun/energy/temperature/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.deep_inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/gun/energy/temperature/ui_state(mob/user)
+	return GLOB.deep_inventory_state
+
+/obj/item/gun/energy/temperature/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TempGun", name, 250, 130, master_ui, state)
+		ui = new(user, src, "TempGun", name)
 		ui.open()
 
 /obj/item/gun/energy/temperature/ui_data(mob/user)

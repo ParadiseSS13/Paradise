@@ -213,10 +213,13 @@
 			part.update_icon()
 	return 1
 
-/obj/machinery/particle_accelerator/control_box/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/particle_accelerator/control_box/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/particle_accelerator/control_box/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ParticleAccelerator", name, 350, 160, master_ui, state)
+		ui = new(user, src, "ParticleAccelerator", name)
 		ui.open()
 
 /obj/machinery/particle_accelerator/control_box/ui_data(mob/user)

@@ -38,10 +38,13 @@
 	UnregisterSignal(user_account, COMSIG_PARENT_QDELETING)
 	user_account = null
 
-/obj/machinery/economy/slot_machine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/economy/slot_machine/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/economy/slot_machine/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SlotMachine", name, 350, 200, master_ui, state)
+		ui = new(user, src, "SlotMachine", name)
 		ui.open()
 
 /obj/machinery/economy/slot_machine/ui_data(mob/user)

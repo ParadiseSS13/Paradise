@@ -109,7 +109,8 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/outfit_manager,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
-	/client/proc/change_human_appearance_self	/* Allows the human-based mob itself to change its basic appearance */
+	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself to change its basic appearance */
+	/datum/admins/proc/station_traits_panel
 	))
 
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -253,10 +254,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/debug_timers,
 	/client/proc/timer_log
 ))
-
-/client/proc/on_holder_add()
-	if(chatOutput && chatOutput.loaded)
-		chatOutput.loadAdmin()
 
 /client/proc/add_admin_verbs()
 	if(holder)
@@ -800,7 +797,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!S) return
 
 	var/datum/ui_module/law_manager/L = new(S)
-	L.ui_interact(usr, state = GLOB.admin_state)
+	L.ui_interact(usr)
 	log_and_message_admins("has opened [S]'s law manager.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Silicon Laws") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

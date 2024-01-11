@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
@@ -24,7 +23,7 @@ export const AiAirlock = (props, context) => {
   const statusBackup = dangerMap[data.power.backup] || dangerMap[0];
   const statusElectrify = dangerMap[data.shock] || dangerMap[0];
   return (
-    <Window width={500} height={390}>
+    <Window width={500} height={400}>
       <Window.Content>
         <Section title="Power Status">
           <LabeledList>
@@ -66,7 +65,7 @@ export const AiAirlock = (props, context) => {
               label="Electrify"
               color={statusElectrify.color}
               buttons={
-                <Fragment>
+                <>
                   <Button
                     icon="wrench"
                     disabled={!(data.wires.shock && data.shock !== 2)}
@@ -85,7 +84,7 @@ export const AiAirlock = (props, context) => {
                     content="Permanent"
                     onClick={() => act('shock-perm')}
                   />
-                </Fragment>
+                </>
               }
             >
               {data.shock === 2 ? 'Safe' : 'Electrified'}{' '}

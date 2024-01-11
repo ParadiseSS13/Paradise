@@ -1,6 +1,7 @@
-parser: '@babel/eslint-parser'
+root: true
+parser: '@typescript-eslint/parser'
 parserOptions:
-  ecmaVersion: 2019
+  ecmaVersion: 2020
   sourceType: module
   ecmaFeatures:
     jsx: true
@@ -9,13 +10,16 @@ env:
   browser: true
   node: true
 plugins:
-  - react
-extends:
   - prettier
+  - react
 settings:
+  import/resolver:
+    node:
+      extensions: ['.js','.jsx','.ts','.tsx']
   react:
     version: '16.10'
 rules:
+
   ## Possible Errors
   ## ----------------------------------------
 
@@ -113,7 +117,7 @@ rules:
   ## Require return statements to either always or never specify values
   # consistent-return: error
   ## Enforce consistent brace style for all control statements
-  curly: [error, all]
+  curly: [error, multi-line]
   ## Require default cases in switch statements
   # default-case: error
   ## Enforce default parameters to be last
@@ -278,7 +282,7 @@ rules:
   no-shadow-restricted-names: error
   ## Disallow the use of undeclared variables unless mentioned
   ## in /*global*/ comments
-  no-undef: error
+  # no-undef: error
   ## Disallow initializing variables to undefined
   no-undef-init: error
   ## Disallow the use of undefined as an identifier
@@ -373,6 +377,7 @@ rules:
   #ignorePattern: '^(import\s.+\sfrom\s|.*require\()',
   #ignoreUrls: true,
   #ignoreRegExpLiterals: true,
+  #ignoreStrings: true,
   #}]
   ## Enforce a maximum number of lines per file
   # max-lines: error
@@ -644,7 +649,7 @@ rules:
   ## Enforce ES5 or ES6 class for React Components
   react/prefer-es6-class: error
   ## Enforce that props are read-only
-  react/prefer-read-only-props: error
+  # react/prefer-read-only-props: error
   ## Enforce stateless React Components to be written as a pure function
   react/prefer-stateless-function: error
   ## Prevent missing props validation in a React component definition
@@ -726,7 +731,7 @@ rules:
   ## Prevent usage of unsafe target='_blank'
   react/jsx-no-target-blank: error
   ## Disallow undeclared variables in JSX
-  react/jsx-no-undef: error
+  # react/jsx-no-undef: error
   ## Disallow unnecessary fragments (fixable)
   react/jsx-no-useless-fragment: error
   ## Limit to one expression per line in JSX

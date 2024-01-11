@@ -55,10 +55,13 @@
 	else
 		return ..()
 
-/obj/item/eftpos/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/eftpos/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/eftpos/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "EFTPOS", name, 500, 250, master_ui, state)
+		ui = new(user, src, "EFTPOS", name)
 		ui.open()
 
 /obj/item/eftpos/ui_data(mob/user)
@@ -278,9 +281,12 @@
 			to_chat(user, "<span class='warning'>You need to be behind [src] to use it!</span>")
 			return
 		add_fingerprint(user)
-		ui_interact(user, state = GLOB.human_adjacent_state)
+		ui_interact(user)
 		return TRUE
 	return ..()
+
+/obj/item/eftpos/register/ui_state(mob/user)
+	return GLOB.human_adjacent_state
 
 /obj/item/eftpos/register/attack_self(mob/user)
 	to_chat(user, "<span class='notice'>[src] has to be set down and secured to be used.</span>")

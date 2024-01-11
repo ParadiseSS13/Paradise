@@ -28,7 +28,7 @@ export const PrisonerShuttleConsole = (props, context) => {
     statusBlock = 'ERR0R COMPLETED?!@';
   }
   return (
-    <Window>
+    <Window width={315} height={150}>
       <Window.Content>
         <LabeledList>
           <LabeledList.Item label="Status">{statusBlock}</LabeledList.Item>

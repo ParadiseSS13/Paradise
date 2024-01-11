@@ -3,6 +3,8 @@ import { pureComponentHooks } from 'common/react';
 import { Component, createRef } from 'inferno';
 import { AnimatedNumber } from './AnimatedNumber';
 
+const DEFAULT_UPDATE_RATE = 400;
+
 /**
  * Reduces screen offset to a single number based on the matrix provided.
  */
@@ -15,10 +17,11 @@ export class DraggableControl extends Component {
     super(props);
     this.inputRef = createRef();
     this.state = {
+      originalValue: props.value,
       value: props.value,
       dragging: false,
       editing: false,
-      oldOffset: null,
+      origin: null,
       suppressingFlicker: false,
     };
 
@@ -50,8 +53,10 @@ export class DraggableControl extends Component {
       document.body.style['pointer-events'] = 'none';
       this.ref = e.currentTarget;
       this.setState({
+        originalValue: value,
         dragging: false,
         value,
+        origin: getScalarScreenOffset(e, dragMatrix),
       });
       this.timer = setTimeout(() => {
         this.setState({
@@ -64,7 +69,7 @@ export class DraggableControl extends Component {
         if (dragging && onDrag) {
           onDrag(e, value);
         }
-      }, 500);
+      }, this.props.updateRate || DEFAULT_UPDATE_RATE);
       document.addEventListener('mousemove', this.handleDragMove);
       document.addEventListener('mouseup', this.handleDragEnd);
     };
@@ -82,57 +87,16 @@ export class DraggableControl extends Component {
       }
       this.setState((prevState) => {
         const state = { ...prevState };
-        const oldOffset = prevState.oldOffset;
-        const offset =
-          getScalarScreenOffset(e, dragMatrix) -
-          this.ref.getBoundingClientRect().left -
-          window.screenX;
+        const origin = prevState.origin;
+        const offset = getScalarScreenOffset(e, dragMatrix) - origin;
         if (prevState.dragging) {
-          if (
-            oldOffset !== undefined &&
-            oldOffset !== null &&
-            offset !== oldOffset
-          ) {
-            const maxStep = maxValue / step;
-            const toNearestStep =
-              offset > oldOffset
-                ? Math.floor // Increasing
-                : Math.ceil; // Decreasing
-            /* ● = step, o = oldOffset, n = offset
-             * There are four cases to consider for the following code:
-             * Case 1: Increasing(offset > oldOffset), moving between steps
-             * ●--o--n-●
-             * value should not change. Since both offsets are subject to floor,
-             * they have the same nearest steps and the difference cancels out,
-             * leaving value the same
-             * Case 2: Decreasing(offset < oldOffset), moving between steps
-             * ●--n--o-●
-             * Same as Case 1 except the function is ceil not floor
-             * Case 3: Increasing, offset is past step
-             * ●-o-●-n-● ; ●-o-●---●-n
-             * value should increase by 1, or however many steps o is behind n
-             * Case 4: Decreasing, offset is behind step
-             * ●-n-●-o-● ; ●-n-●---●-o
-             * Same as Case 3, but decrease instead of increase
-             */
-            const oldStep = clamp(
-              toNearestStep(oldOffset / stepPixelSize),
-              0,
-              maxStep
-            );
-            const newStep = clamp(
-              toNearestStep(offset / stepPixelSize),
-              0,
-              maxStep
-            );
-            const stepDifference = newStep - oldStep;
-            state.value = clamp(
-              state.value + stepDifference * step,
-              minValue,
-              maxValue
-            );
-          }
-          state.oldOffset = offset;
+          const stepDifference = Math.trunc(offset / stepPixelSize);
+          state.value = clamp(
+            Math.floor(state.originalValue / step) * step +
+              stepDifference * step,
+            minValue,
+            maxValue
+          );
         } else if (Math.abs(offset) > 4) {
           state.dragging = true;
         }
@@ -147,9 +111,10 @@ export class DraggableControl extends Component {
       clearTimeout(this.timer);
       clearInterval(this.dragInterval);
       this.setState({
+        originalValue: null,
         dragging: false,
         editing: !dragging,
-        oldOffset: null,
+        origin: null,
       });
       document.removeEventListener('mousemove', this.handleDragMove);
       document.removeEventListener('mouseup', this.handleDragEnd);
@@ -228,7 +193,13 @@ export class DraggableControl extends Component {
           if (!editing) {
             return;
           }
-          const value = clamp(e.target.value, minValue, maxValue);
+          const value = clamp(parseFloat(e.target.value), minValue, maxValue);
+          if (Number.isNaN(value)) {
+            this.setState({
+              editing: false,
+            });
+            return;
+          }
           this.setState({
             editing: false,
             value,
@@ -243,7 +214,13 @@ export class DraggableControl extends Component {
         }}
         onKeyDown={(e) => {
           if (e.keyCode === 13) {
-            const value = clamp(e.target.value, minValue, maxValue);
+            const value = clamp(parseFloat(e.target.value), minValue, maxValue);
+            if (Number.isNaN(value)) {
+              this.setState({
+                editing: false,
+              });
+              return;
+            }
             this.setState({
               editing: false,
               value,

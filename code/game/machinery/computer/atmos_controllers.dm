@@ -70,7 +70,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			"-SAVE TO BUFFER-" = "multitool"
 		)
 
-		var/temp_answer = input(user, "Select an option to adjust", "Options!", null) as null|anything in options
+		var/temp_answer = tgui_input_list(user, "Select an option to adjust", "Options!", options)
 
 		if(!Adjacent(user))
 			break
@@ -145,15 +145,18 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 /obj/machinery/computer/general_air_control/attack_hand(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/general_air_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/computer/general_air_control/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/general_air_control/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!isprocessing)
 		START_PROCESSING(SSmachines, src)
 		refresh_all()
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		// We can use the same template here for sensors and for tanks with inlets/outlets with TGUI memes
-		ui = new(user, src, ui_key, "AtmosTankControl", name, 400, 400, master_ui, state)
+		ui = new(user, src, "AtmosTankControl", name)
 		ui.open()
 
 /obj/machinery/computer/general_air_control/ui_data(mob/user)
@@ -191,7 +194,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			to_chat(user, "<span class='notice'>Successfully added a new sensor/meter with name <code>[new_name]</code></span>")
 
 		if("Remove")
-			var/to_remove = input(user, "Select a sensor/meter to remove", "Sensor/Meter Removal") as null|anything in sensor_name_uid_map
+			var/to_remove = tgui_input_list(user, "Select a sensor/meter to remove", "Sensor/Meter Removal", sensor_name_uid_map)
 			if(!to_remove)
 				return
 
@@ -274,10 +277,11 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 /obj/machinery/computer/general_air_control/process()
 	// We only care about refreshing if people are looking at us
-	if(SStgui.get_open_ui_count(src) < 1)
-		return PROCESS_KILL
+	if(src in SStgui.open_uis_by_src)
+		refresh_all()
+		return
 
-	refresh_all()
+	return PROCESS_KILL
 
 /obj/machinery/computer/general_air_control/large_tank_control
 	circuit = /obj/item/circuitboard/large_tank_control
@@ -516,5 +520,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		return
 	ui_interact(user)
 
-/obj/machinery/computer/atmoscontrol/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	atmos_control.ui_interact(user, ui_key, ui, force_open)
+/obj/machinery/computer/atmoscontrol/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/atmoscontrol/ui_interact(mob/user, datum/tgui/ui = null)
+	atmos_control.ui_interact(user, ui)
