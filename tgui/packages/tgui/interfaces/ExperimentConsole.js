@@ -54,7 +54,7 @@ export const ExperimentConsole = (props, context) => {
   const scannerSection = renderScannerSection();
 
   return (
-    <Window theme="abductor">
+    <Window theme="abductor" width={350} height={200}>
       <Window.Content>
         <Section>
           <LabeledList>
