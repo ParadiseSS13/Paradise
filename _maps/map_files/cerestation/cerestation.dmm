@@ -10398,18 +10398,6 @@
 	icon_state = "white"
 	},
 /area/station/medical/surgery/primary)
-"bjL" = (
-/obj/structure/table,
-/obj/item/stack/medical/bruise_pack/advanced,
-/obj/item/reagent_containers/iv_bag/salglu,
-/obj/machinery/alarm{
-	pixel_y = 24;
-	name = "north bump"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/station/medical/surgery/primary)
 "bjN" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
@@ -10557,30 +10545,14 @@
 	},
 /area/station/medical/morgue)
 "bkI" = (
-/obj/structure/table/tray,
-/obj/item/scalpel,
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/storage/surgical_tray,
+/obj/structure/table/tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -21216,12 +21188,6 @@
 	name = "custom placement"
 	},
 /obj/structure/table,
-/obj/item/circular_saw,
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/surgicaldrill,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -23661,6 +23627,17 @@
 /obj/machinery/chem_heater,
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
+"cvT" = (
+/obj/structure/table,
+/obj/machinery/alarm{
+	pixel_y = 24;
+	name = "north bump"
+	},
+/obj/item/reagent_containers/iv_bag/salglu,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/medical/surgery/secondary)
 "cvW" = (
 /mob/living/simple_animal/slime,
 /turf/simulated/floor/engine,
@@ -42951,12 +42928,6 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/item/surgicaldrill,
-/obj/item/circular_saw,
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -50639,9 +50610,6 @@
 	network = list("SS13","RD")
 	},
 /obj/machinery/optable,
-/obj/item/storage/firstaid/machine,
-/obj/item/storage/firstaid/machine,
-/obj/item/storage/backpack/duffel/medical,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -55569,17 +55537,13 @@
 	},
 /area/station/hallway/primary/port/south)
 "kMa" = (
-/obj/structure/table/tray,
-/obj/item/robotanalyzer,
-/obj/item/stack/medical/bruise_pack/advanced{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/storage/box/masks,
-/obj/item/storage/box/bodybags,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/machine,
+/obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkpurple"
@@ -59850,6 +59814,17 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/north)
+"mbr" = (
+/obj/structure/table,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/machinery/alarm{
+	pixel_y = 24;
+	name = "north bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/medical/surgery/primary)
 "mbw" = (
 /obj/machinery/computer/crew{
 	dir = 1
@@ -75925,18 +75900,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
-"rrV" = (
-/obj/structure/table,
-/obj/machinery/alarm{
-	pixel_y = 24;
-	name = "north bump"
-	},
-/obj/item/stack/medical/bruise_pack/advanced,
-/obj/item/reagent_containers/iv_bag/salglu,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/station/medical/surgery/secondary)
 "rsj" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -76318,16 +76281,16 @@
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "rAM" = (
-/obj/item/bonegel,
-/obj/item/surgicaldrill,
-/obj/item/bonesetter,
-/obj/item/FixOVein,
-/obj/item/cautery,
-/obj/item/scalpel,
-/obj/item/circular_saw,
-/obj/item/hemostat,
-/obj/item/retractor,
-/obj/structure/table/tray,
+/obj/structure/table/reinforced,
+/obj/item/storage/box/bodybags{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/obj/item/storage/box/masks,
+/obj/item/storage/box/gloves{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
@@ -77278,27 +77241,11 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/scalpel,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/structure/table/tray,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/storage/surgical_tray,
+/obj/structure/table/tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -78253,16 +78200,11 @@
 	},
 /area/station/turret_protected/aisat/interior)
 "shk" = (
-/obj/structure/table/tray,
 /obj/item/clothing/mask/breath/medical,
 /obj/item/tank/internals/anesthetic,
 /obj/item/reagent_containers/spray/cleaner{
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
 	name = "Surgery Cleaner"
-	},
-/obj/item/storage/box/gloves{
-	pixel_x = 4;
-	pixel_y = 4
 	},
 /obj/machinery/button/windowtint{
 	dir = 1;
@@ -78271,6 +78213,7 @@
 /obj/structure/window/reinforced/polarized{
 	dir = 8
 	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
@@ -80038,6 +79981,8 @@
 	},
 /area/station/hallway/spacebridge/sercom)
 "sLj" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/surgical_tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
@@ -147028,7 +146973,7 @@ qGo
 bhp
 qCT
 dzw
-bjL
+mbr
 bkI
 cOO
 cPa
@@ -148570,7 +148515,7 @@ kuE
 gFg
 itf
 dzy
-rrV
+cvT
 rRb
 sin
 syk
