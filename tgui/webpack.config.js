@@ -88,10 +88,6 @@ module.exports = (env = {}, argv) => {
           test: /\.(png|jpg|svg)$/,
           type: 'asset/inline',
         },
-        {
-          test: /\.(woff|woff2|eot|ttf|otf)$/,
-          type: 'asset/inline',
-        },
       ],
     },
     optimization: {
