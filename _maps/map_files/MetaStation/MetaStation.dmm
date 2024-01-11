@@ -1386,10 +1386,6 @@
 	},
 /area/station/legal/lawoffice)
 "alI" = (
-/obj/machinery/chem_master/condimaster{
-	name = "CondiMaster Neo";
-	pixel_x = -5
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -27558,29 +27554,6 @@
 	icon_state = "neutral"
 	},
 /area/station/hallway/secondary/garden)
-"bPe" = (
-/obj/machinery/navbeacon{
-	codes_txt = "delivery";
-	dir = 8;
-	location = "Kitchen"
-	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
-/obj/machinery/door/window/classic/normal{
-	name = "Kitchen Delivery";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bot"
-	},
-/area/station/service/kitchen)
 "bPg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -49804,6 +49777,29 @@
 	icon_state = "cafeteria"
 	},
 /area/station/science/break_room)
+"eRh" = (
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 8;
+	location = "Kitchen"
+	},
+/obj/machinery/door/window/classic/normal{
+	name = "Kitchen Delivery";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
+	dir = 4
+	},
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bot"
+	},
+/area/station/service/kitchen)
 "eRy" = (
 /obj/structure/table/glass,
 /obj/structure/cable/yellow{
@@ -50139,7 +50135,7 @@
 /area/station/science/research)
 "eVO" = (
 /obj/machinery/light,
-/obj/structure/closet/secure_closet/roboticist,
+/obj/machinery/economy/vending/robodrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -77455,7 +77451,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/machinery/economy/vending/robodrobe,
+/obj/structure/closet/secure_closet/roboticist,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -88924,6 +88920,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"vPk" = (
+/obj/machinery/chem_master/condimaster{
+	name = "CondiMaster Neo";
+	pixel_x = -5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/service/kitchen)
 "vPx" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 5
@@ -131493,9 +131498,9 @@ mpr
 bTd
 bJO
 bQI
+vPk
 bQI
-bPe
-bQI
+eRh
 bQI
 bQI
 bVA
@@ -131749,9 +131754,9 @@ aoG
 aoG
 aoG
 aoG
-aoG
-mfJ
-asJ
+bQI
+bQI
+bQI
 aNR
 bEG
 bZv
