@@ -28,10 +28,6 @@
 	. = ..()
 	icon_state = pick("bluespace", "pulse1", "magicm", "declone", "fireball", "blood_bolt", "arcane_barrage", "laser", "u_laser")
 
-/obj/item/projectile/magic/chaos/New()
-	..()
-	SpinAnimation()
-
 /obj/item/projectile/magic/chaos/proc/chaos_chaos(mob/living/target, blocked = 0)
 	var/category = pick(prob(CHAOS_STAFF_LETHAL_CHANCE);"lethal", prob(CHAOS_STAFF_NEGATIVE_CHANCE);"negative", prob(CHAOS_STAFF_MISC_CHANCE);"misc",\
 		prob(CHAOS_STAFF_GIFT_CHANCE);"gift", prob(CHAOS_STAFF_GREAT_GIFT_CHANCE);"great gift")
