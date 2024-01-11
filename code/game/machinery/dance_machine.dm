@@ -515,7 +515,6 @@
 /obj/machinery/disco/chaos_staff
 	restdancing = FALSE
 	anchored = TRUE
-	var/disco_inferno = FALSE
 
 /obj/machinery/disco/chaos_staff/Initialize(mapload)
 	. = ..()
