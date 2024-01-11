@@ -93,7 +93,7 @@
 				new /obj/effect/decal/cleanable/blood/gibs/cleangibs(target)
 			else if(iscarbon(target))
 				for(var/obj/item/carried_item in target.contents)
-					if(!istype(carried_item, /obj/item/implant))//If it's not an implant.
+					if(!istype(carried_item, /obj/item/bio_chip))//If it's not an implant.
 						carried_item.add_mob_blood(target)//Oh yes, there will be blood...
 				var/mob/living/carbon/human/H = target
 				H.bloody_hands(target,0)

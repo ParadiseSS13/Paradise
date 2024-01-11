@@ -154,14 +154,14 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 	// Implants:
 	// Uplink
-	var/obj/item/implant/uplink/sit/U = new /obj/item/implant/uplink/sit(src)
+	var/obj/item/bio_chip/uplink/sit/U = new /obj/item/bio_chip/uplink/sit(src)
 	U.implant(src)
 	if(flag_mgmt)
 		U.hidden_uplink.uses = 2500
 	else
 		U.hidden_uplink.uses = num_tc
 	// Dust
-	var/obj/item/implant/dust/D = new /obj/item/implant/dust(src)
+	var/obj/item/bio_chip/dust/D = new /obj/item/bio_chip/dust(src)
 	D.implant(src)
 
 	// Radio & PDA

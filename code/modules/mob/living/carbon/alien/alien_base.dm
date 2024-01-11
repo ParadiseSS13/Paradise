@@ -20,7 +20,7 @@
 	var/loudspeaker = FALSE
 	var/heat_protection = 0.5
 	var/leaping = FALSE
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
 
@@ -181,7 +181,7 @@
 		return threatcount
 
 	//Check for weapons
-	if(judgebot.weaponscheck)
+	if(judgebot.weapons_check)
 		if(judgebot.check_for_weapons(l_hand))
 			threatcount += 4
 		if(judgebot.check_for_weapons(r_hand))

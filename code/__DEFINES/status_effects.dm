@@ -60,6 +60,8 @@
 
 #define STATUS_EFFECT_REVOLUTION_PROTECT /datum/status_effect/rev_protection
 
+#define STATUS_EFFECT_BEARSERKER_RAGE /datum/status_effect/bearserker_rage
+
 #define STATUS_EFFECT_FLAYER_REJUV /datum/status_effect/flayer_rejuv
 
 /////////////

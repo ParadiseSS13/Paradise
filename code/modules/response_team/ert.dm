@@ -98,7 +98,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		A.close()
 	var/list/ert_species_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
-		ert_species_prefs.Add(input_async(M, "Please select a species (10 seconds):", list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Random")))
+		ert_species_prefs.Add(input_async(M, "Please select a species (10 seconds):", list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Random")))
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_role_prefs), GLOB.response_team_members, ert_gender_prefs, ert_species_prefs), 10 SECONDS)
 
 /proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs, list/ert_species_prefs) // Why the FUCK is this variable the EXACT SAME as the global one
@@ -164,7 +164,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(!new_species)
 		new_species = "Human"
 	if(new_species == "Random")
-		new_species = pick("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian")
+		new_species = pick("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey")
 	var/datum/species/S = GLOB.all_species[new_species]
 	var/species = S.type
 	M.set_species(species, TRUE)
@@ -172,10 +172,10 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	M.cleanSE() //No fat/blind/colourblind/epileptic/whatever ERT.
 	M.overeatduration = 0
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
-	var/eye_c = pick("#000000", "#8B4513", "#1E90FF") // Black, brown, blue
+	var/eye_c = pick("#000000", "#8B4513", "#1E90FF", "#8c00ff", "#a80c0c", "#2fdb63") // Black, brown, blue, purple, red, green
 	var/skin_tone = rand(-120, 20) // A range of skin colors
 
-	switch(new_species) //Diona not included as they don't use the hair colours
+	switch(new_species) //Diona not included as they don't use the hair colours, kidan use accessory, drask are skin tone Grey not included as they are BALD
 		if("Human", "Tajaran", "Vulpkanin", "Nian")
 			var/hair_c_htvn = pick("#8B4513", "#000000", "#FF4500", "#FFD700", "#d4d1bf") // Brown, black, red, blonde, grey
 			head_organ.facial_colour = hair_c_htvn
@@ -195,8 +195,10 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 			else
 				M.skin_colour = pick(su) //Pick a diffrent colour for body.
 
+
 	M.change_eye_color(eye_c)
 	M.s_tone = skin_tone
+	head_organ.headacc_colour = pick("#1f138b", "#272525", "#07a035", "#8c00ff", "#a80c0c")
 	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
 	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
 
@@ -366,7 +368,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	box = /obj/item/storage/box/responseteam
 	gloves = /obj/item/clothing/gloves/combat
 
-	implants = list(/obj/item/implant/mindshield)
+	bio_chips = list(/obj/item/bio_chip/mindshield)
 
 /obj/item/radio/centcom
 	name = "centcomm bounced radio"
