@@ -20,15 +20,13 @@ GLOBAL_DATUM_INIT(default_state, /datum/ui_state/default, new)
 	. = shared_ui_interaction(src_object)
 	if(. > UI_CLOSE && loc) //must not be in nullspace.
 		. = min(., loc.contents_ui_distance(src_object, src)) // Check the distance...
-	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED) && . == UI_INTERACTIVE) // Non-human living mobs can only look, not touch.
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED) && . == UI_INTERACTIVE) // Non-human living mobs and mobs with blocked hands can only look, not touch.
 		return UI_UPDATE
 
 /mob/living/carbon/human/default_can_use_topic(src_object)
 	. = shared_ui_interaction(src_object)
 	if(. > UI_CLOSE)
 		. = min(., shared_living_ui_distance(src_object)) // Check the distance...
-	if(. == UI_INTERACTIVE && HAS_TRAIT(src, TRAIT_CHUNKYFINGERS)) // unhandy living mobs can only look, not touch.
-		return UI_UPDATE
 
 /mob/living/silicon/robot/default_can_use_topic(src_object)
 	. = shared_ui_interaction(src_object)
