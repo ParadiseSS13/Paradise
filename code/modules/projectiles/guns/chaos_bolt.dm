@@ -21,8 +21,10 @@
 
 	if(target && isliving(target))
 		var/mob/living/L = target
-		if(L.stat != DEAD)
-			chaos_chaos(target)
+		if(L.stat == DEAD)
+			L.visible_message("<span class='warning'>[target] glows faintly, but nothing else happens.</span>")
+			return
+		chaos_chaos(target)
 
 /obj/item/projectile/magic/chaos/Initialize(mapload)
 	. = ..()
