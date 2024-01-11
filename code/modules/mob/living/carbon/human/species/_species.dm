@@ -132,7 +132,8 @@
 
 	// Language/culture vars.
 	var/default_language = "Galactic Common" // Default language is used when 'say' is used without modifiers.
-	var/cultural_language          // Default racial language, if any.
+	/// Default racial language, if any.
+	var/cultural_language
 	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
 	var/list/speech_chance                   // The likelihood of a speech sound playing.
 	var/scream_verb = "screams"
