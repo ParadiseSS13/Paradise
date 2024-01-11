@@ -43,9 +43,9 @@
 		if("great gift") //Grants a gift or positive effect to the target. Usually a weapon or useful item.
 			apply_great_gift_effect(target)
 	if(item_to_summon) //TODO check if mob's alive, no effect on dead mobs
-		//if(!target.mind) //no abusing mindless mobs for free stuff
-		//	target.visible_message("<span class='warning'>[target] glows faintly, but nothing else happens.</span>")
-		//	return
+		if(!target.mind) //no abusing mindless mobs for free stuff
+			target.visible_message("<span class='warning'>[target] glows faintly, but nothing else happens.</span>")
+			return
 		if(explosion_amount)
 			target.visible_message("<span class='chaosneutral'>A bunch of [item_to_summon.name] scatter around [target]!</span>", \
 				"<span class='chaosneutral'>A bunch of [item_to_summon.name] scatter around you!</span>")
