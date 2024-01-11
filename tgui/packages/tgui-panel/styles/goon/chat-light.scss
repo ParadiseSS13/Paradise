@@ -237,20 +237,6 @@ a.popt {
   color: #638500;
 }
 
-/* ADD HERE FOR BOLD */
-
-.bold,
-.name,
-.prefix,
-.ooc,
-.looc,
-.adminooc,
-.admin,
-.medal,
-.yell {
-  font-weight: bold;
-}
-
 /* ADD HERE FOR ITALIC */
 
 .italic,
@@ -299,6 +285,7 @@ em {
 
 .looc {
   color: #6699cc;
+  font-weight: bold;
 }
 
 .adminobserverooc {
@@ -615,8 +602,9 @@ h2.alert {
 }
 
 .robot {
-  font-family: 'PxPlus IBM MDA';
+  font-family: 'OCR-A', monospace;
   font-size: 1.15em;
+  font-weight: bold;
 }
 
 .ancient {
@@ -880,6 +868,10 @@ h2.alert {
 .specialnotice {
   color: #36525e;
   font-size: 120%;
+}
+
+.medal {
+  font-weight: bold;
 }
 
 /* /vg/ */
