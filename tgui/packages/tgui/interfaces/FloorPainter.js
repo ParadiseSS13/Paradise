@@ -56,7 +56,7 @@ export const FloorPainter = (props, context) => {
                 height="20px"
                 ml="2px"
                 mr="2px"
-                nochevron="true"
+                nochevron
                 onSelected={(val) => act('select_style', { style: val })}
               />
             </Flex.Item>

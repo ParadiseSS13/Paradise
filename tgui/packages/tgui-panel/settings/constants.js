@@ -24,7 +24,6 @@ export const FONTS_DISABLED = 'Default';
 
 export const FONTS = [
   FONTS_DISABLED,
-  'Verdana',
   'Arial',
   'Arial Black',
   'Comic Sans MS',
