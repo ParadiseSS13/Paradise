@@ -468,7 +468,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
 		clonemind.transfer_to(occupant)
 		occupant.grab_ghost()
-		to_chat(occupant, "<span class='userdanger'>You remember nothing from the time that you were dead, nor the events leading up to your death!</span>")
+		to_chat(occupant, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
 			<i>You feel like a new being.</i></span>")
 		if(HAS_TRAIT(src, TRAIT_CMAGGED))
