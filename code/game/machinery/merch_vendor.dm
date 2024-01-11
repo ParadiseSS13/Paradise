@@ -19,6 +19,9 @@
 /obj/machinery/economy/merch/attack_hand(mob/user)
 	ui_interact(user)
 
+/obj/machinery/economy/merch/attack_ghost(mob/user)
+	ui_interact(user)
+
 /obj/machinery/economy/merch/Initialize(mapload)
 	. = ..()
 	component_parts = list()

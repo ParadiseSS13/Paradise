@@ -239,6 +239,9 @@
 /obj/machinery/reagentgrinder/attack_hand(mob/user)
 	ui_interact(user)
 
+/obj/machinery/reagentgrinder/attack_ghost(mob/user)
+	ui_interact(user)
+
 /obj/machinery/reagentgrinder/ui_state(mob/user)
 	return GLOB.default_state
 

@@ -595,6 +595,9 @@
 		wires.Interact(user)
 	ui_interact(user)
 
+/obj/machinery/suit_storage_unit/attack_ghost(mob/user)
+	ui_interact(user)
+
 /obj/machinery/suit_storage_unit/ui_state(mob/user)
 	return GLOB.default_state
 

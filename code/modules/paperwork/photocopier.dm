@@ -46,7 +46,7 @@
 	return attack_hand(user)
 
 /obj/machinery/photocopier/attack_ghost(mob/user)
-	return attack_hand(user)
+	ui_interact(user)
 
 /obj/machinery/photocopier/attack_hand(mob/user)
 	if(..())
