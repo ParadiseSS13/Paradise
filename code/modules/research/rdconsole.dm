@@ -96,39 +96,22 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return initial(tt.name)
 
 /proc/CallMaterialName(ID)
-	if(copytext(ID, 1, 2) == "$")
-		var/return_name = copytext(ID, 2)
-		switch(return_name)
-			if("metal")
-				return_name = "Metal"
-			if("glass")
-				return_name = "Glass"
-			if("gold")
-				return_name = "Gold"
-			if("silver")
-				return_name = "Silver"
-			if("plasma")
-				return_name = "Solid Plasma"
-			if("uranium")
-				return_name = "Uranium"
-			if("diamond")
-				return_name = "Diamond"
-			if("clown")
-				return_name = "Bananium"
-			if("mime")
-				return_name = "Tranquillite"
-			if("titanium")
-				return_name = "Titanium"
-			if("bluespace")
-				return_name = "Bluespace Mesh"
-			if("plastic")
-				return_name = "Plastic"
-		return return_name
-	else
-		for(var/R in subtypesof(/datum/reagent))
-			var/datum/reagent/rt = R
-			if(initial(rt.id) == ID)
-				return initial(rt.name)
+	var/return_name = ID
+	switch(return_name)
+		if("plasma")
+			return_name = "Solid Plasma"
+		if("clown")
+			return_name = "Bananium"
+		if("mime")
+			return_name = "Tranquillite"
+		if("bluespace")
+			return_name = "Bluespace Mesh"
+		else
+			for(var/R in subtypesof(/datum/reagent))
+				var/datum/reagent/rt = R
+				if(initial(rt.id) == ID)
+					return_name = initial(rt.name)
+	return capitalize(return_name)
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
 	for(var/obj/machinery/r_n_d/D in range(range, src))
