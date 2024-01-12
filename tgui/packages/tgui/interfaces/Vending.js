@@ -104,7 +104,43 @@ export const Vending = (props, context) => {
         <Stack fill vertical>
           {!!chargesMoney && (
             <Stack.Item>
-              <Section title="User">
+              <Section
+                title="User"
+                buttons={
+                  <Stack>
+                    <Stack.Item>
+                      {!!inserted_item_name && (
+                        <Button
+                          fluid
+                          icon="eject"
+                          content={
+                            <span style={{ 'text-transform': 'capitalize' }}>
+                              {inserted_item_name}
+                            </span>
+                          }
+                          onClick={() => act('eject_item', {})}
+                        />
+                      )}
+                    </Stack.Item>
+                    <Stack.Item>
+                      <Button
+                        disabled={!inserted_cash}
+                        icon="money-bill-wave-alt"
+                        content={
+                          inserted_cash ? (
+                            <>{<b>{inserted_cash}</b>} credits</>
+                          ) : (
+                            'Dispense Change'
+                          )
+                        }
+                        tooltip={inserted_cash ? 'Dispense Change' : null}
+                        textAlign="left"
+                        onClick={() => act('change')}
+                      />
+                    </Stack.Item>
+                  </Stack>
+                }
+              >
                 {user && (
                   <Box>
                     Welcome, <b>{user.name}</b>,{' '}
@@ -114,46 +150,21 @@ export const Vending = (props, context) => {
                     <br />
                   </Box>
                 )}
-                <Box>
-                  There is <b>{inserted_cash} credits </b> of space cash
-                  inserted.
-                  <br />
-                  <Button
-                    disabled={!inserted_cash}
-                    icon="money-bill-wave-alt"
-                    content="Dispense Change"
-                    textAlign="left"
-                    onClick={() => act('change')}
-                  />
-                </Box>
               </Section>
             </Stack.Item>
           )}
-          {!!inserted_item_name && (
-            <Section
-              title="Item"
-              buttons={
-                <Button
-                  fluid
-                  icon="eject"
-                  content="Eject Item"
-                  onClick={() => act('eject_item', {})}
-                />
-              }
-            >
-              <Box>{inserted_item_name}</Box>
-            </Section>
-          )}
           {!!panel_open && (
-            <Section title="Maintenance">
-              <Button
-                icon={speaker ? 'check' : 'volume-mute'}
-                selected={speaker}
-                content="Speaker"
-                textAlign="left"
-                onClick={() => act('toggle_voice', {})}
-              />
-            </Section>
+            <Stack.Item>
+              <Section title="Maintenance">
+                <Button
+                  icon={speaker ? 'check' : 'volume-mute'}
+                  selected={speaker}
+                  content="Speaker"
+                  textAlign="left"
+                  onClick={() => act('toggle_voice', {})}
+                />
+              </Section>
+            </Stack.Item>
           )}
           <Stack.Item grow>
             <Section fill scrollable title="Products">

@@ -10,8 +10,9 @@ const COLOR_DARK_BG = '#202020';
 const COLOR_DARK_BG_DARKER = '#171717';
 const COLOR_DARK_BG_BUTTON = '#4C4C4D';
 const COLOR_DARK_TEXT = '#A4BAD6';
-const COLOR_LIGHT_BG = '#FFFFFF';
-const COLOR_LIGHT_BUTTON = '#FFFFFF';
+const COLOR_LIGHT_BG = '#EEEEEE';
+const COLOR_LIGHT_BG_LIGHTER = '#FFFFFF';
+const COLOR_LIGHT_BUTTON = '#EEEEEE';
 const COLOR_LIGHT_TEXT = '#000000';
 
 /**
@@ -56,9 +57,9 @@ export const setClientTheme = (name) => {
       /* Infowindow */
       'infowindow.background-color': COLOR_LIGHT_BG,
       'infowindow.text-color': COLOR_LIGHT_TEXT,
-      'infowindow.info.background-color': COLOR_LIGHT_BG,
+      'infowindow.info.background-color': COLOR_LIGHT_BG_LIGHTER,
       'infowindow.info.text-color': COLOR_LIGHT_TEXT,
-      'infowindow.info.highlight-color': '#007700',
+      'infowindow.info.highlight-color': '#009900',
       'infowindow.info.tab-text-color': COLOR_LIGHT_TEXT,
       'infowindow.info.tab-background-color': COLOR_LIGHT_BG,
       // Say, OOC, me Buttons etc.
@@ -72,7 +73,7 @@ export const setClientTheme = (name) => {
       'asset_cache_browser.text-color': COLOR_LIGHT_TEXT,
       'tooltip.background-color': COLOR_LIGHT_BG,
       'tooltip.text-color': COLOR_LIGHT_TEXT,
-      'input.background-color': COLOR_LIGHT_BG,
+      'input.background-color': COLOR_LIGHT_BG_LIGHTER,
       'input.text-color': COLOR_LIGHT_TEXT,
     });
   }
