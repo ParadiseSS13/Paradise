@@ -32,6 +32,7 @@ export const AiAirlock = (props, context) => {
               color={statusMain.color}
               buttons={
                 <Button
+                  mb={0.5}
                   icon="lightbulb-o"
                   disabled={!data.power.main}
                   content="Disrupt"
@@ -49,6 +50,7 @@ export const AiAirlock = (props, context) => {
               color={statusBackup.color}
               buttons={
                 <Button
+                  mb={0.5}
                   icon="lightbulb-o"
                   disabled={!data.power.backup}
                   content="Disrupt"
@@ -67,12 +69,14 @@ export const AiAirlock = (props, context) => {
               buttons={
                 <>
                   <Button
+                    mr={0.5}
                     icon="wrench"
                     disabled={!(data.wires.shock && data.shock !== 2)}
                     content="Restore"
                     onClick={() => act('shock-restore')}
                   />
                   <Button
+                    mr={0.5}
                     icon="bolt"
                     disabled={!data.wires.shock}
                     content="Temporary"
@@ -101,6 +105,8 @@ export const AiAirlock = (props, context) => {
               color="bad"
               buttons={
                 <Button
+                  mb={0.5}
+                  width={6.5}
                   icon={data.id_scanner ? 'power-off' : 'times'}
                   content={data.id_scanner ? 'Enabled' : 'Disabled'}
                   selected={data.id_scanner}
@@ -115,6 +121,7 @@ export const AiAirlock = (props, context) => {
               label="Emergency Access"
               buttons={
                 <Button
+                  width={6.5}
                   icon={data.emergency ? 'power-off' : 'times'}
                   content={data.emergency ? 'Enabled' : 'Disabled'}
                   selected={data.emergency}
@@ -128,6 +135,7 @@ export const AiAirlock = (props, context) => {
               color="bad"
               buttons={
                 <Button
+                  mb={0.5}
                   icon={data.locked ? 'lock' : 'unlock'}
                   content={data.locked ? 'Lowered' : 'Raised'}
                   selected={data.locked}
@@ -143,6 +151,8 @@ export const AiAirlock = (props, context) => {
               color="bad"
               buttons={
                 <Button
+                  mb={0.5}
+                  width={6.5}
                   icon={data.lights ? 'power-off' : 'times'}
                   content={data.lights ? 'Enabled' : 'Disabled'}
                   selected={data.lights}
@@ -158,6 +168,8 @@ export const AiAirlock = (props, context) => {
               color="bad"
               buttons={
                 <Button
+                  mb={0.5}
+                  width={6.5}
                   icon={data.safe ? 'power-off' : 'times'}
                   content={data.safe ? 'Enabled' : 'Disabled'}
                   selected={data.safe}
@@ -173,6 +185,8 @@ export const AiAirlock = (props, context) => {
               color="bad"
               buttons={
                 <Button
+                  mb={0.5}
+                  width={6.5}
                   icon={data.speed ? 'power-off' : 'times'}
                   content={data.speed ? 'Enabled' : 'Disabled'}
                   selected={data.speed}
