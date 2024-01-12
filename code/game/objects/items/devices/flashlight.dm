@@ -202,7 +202,7 @@
 	on = FALSE
 	force = initial(force)
 	damtype = initial(damtype)
-	hitsound = initial(hitsound)
+	hitsound = "swing_hit"
 	attack_verb = list()
 	update_brightness()
 
