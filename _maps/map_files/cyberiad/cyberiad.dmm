@@ -35323,7 +35323,7 @@
 	},
 /area/station/command/office/rd)
 "chP" = (
-/obj/machinery/suit_storage_unit/rd,
+/obj/machinery/suit_storage_unit/rd/secure,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -36526,7 +36526,7 @@
 	},
 /area/station/medical/medbay3)
 "cmo" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
 /obj/machinery/camera{
 	c_tag = "Medbay Secure Storage";
 	dir = 4
@@ -36874,7 +36874,7 @@
 	},
 /area/station/medical/medbay3)
 "cnJ" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -90112,7 +90112,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/suit_storage_unit/qm,
+/obj/machinery/suit_storage_unit/qm/secure,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"

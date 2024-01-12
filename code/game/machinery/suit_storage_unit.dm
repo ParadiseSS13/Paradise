@@ -27,7 +27,7 @@
 	var/broken = FALSE
 
 	/// enables ID locking when set to true
-	var/secure = TRUE
+	var/secure = FALSE
 	/// Shocks anyone that touches it
 	var/shocked = FALSE
 	/// Access needed to control it, checked only if ID lock is enabled
@@ -61,6 +61,9 @@
 	helmet_type	= /obj/item/clothing/head/helmet/space/eva
 	mask_type = /obj/item/clothing/mask/breath
 
+/obj/machinery/suit_storage_unit/standard_unit/secure
+	secure = TRUE	//start with ID lock enabled
+
 /obj/machinery/suit_storage_unit/captain
 	name = "captain's suit storage unit"
 	desc = "An U-Stor-It Storage unit designed to accommodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\". This one looks kind of fancy."
@@ -68,6 +71,9 @@
 	mask_type = /obj/item/clothing/mask/gas
 	suit_type = /obj/item/mod/control/pre_equipped/magnate
 	req_access = list(ACCESS_CAPTAIN)
+
+/obj/machinery/suit_storage_unit/captain/secure
+	secure = TRUE
 
 /obj/machinery/suit_storage_unit/engine
 	name = "engineering suit storage unit"
@@ -78,6 +84,9 @@
 	suit_type = /obj/item/mod/control/pre_equipped/engineering
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	board_type = /obj/item/circuitboard/suit_storage_unit/industrial
+
+/obj/machinery/suit_storage_unit/engine/secure
+	secure = TRUE
 
 /obj/machinery/suit_storage_unit/ce
 	name = "chief engineer's suit storage unit"
@@ -98,11 +107,17 @@
 	mask_type = /obj/item/clothing/mask/gas
 	req_access = list(ACCESS_RD)
 
+/obj/machinery/suit_storage_unit/rd/secure
+	secure = TRUE
+
 /obj/machinery/suit_storage_unit/qm
 	name = "quartermaster's suit storage unit"
 	suit_type = /obj/item/mod/control/pre_equipped/loader
 	mask_type = /obj/item/clothing/mask/breath
 	req_access = list(ACCESS_QM)
+
+/obj/machinery/suit_storage_unit/qm/secure
+	secure = TRUE
 
 /obj/machinery/suit_storage_unit/security
 	name = "security suit storage unit"
@@ -110,17 +125,26 @@
 	suit_type = /obj/item/mod/control/pre_equipped/security
 	req_access = list(ACCESS_SECURITY)
 
+/obj/machinery/suit_storage_unit/security/secure
+	secure = TRUE
+
 /obj/machinery/suit_storage_unit/security/hos
 	name = "Head of Security's suit storage unit"
 	mask_type = /obj/item/clothing/mask/gas/sechailer/hos
 	suit_type = /obj/item/mod/control/pre_equipped/safeguard
 	req_access = list(ACCESS_HOS)
 
+/obj/machinery/suit_storage_unit/security/hos/secure
+	secure = TRUE
+
 /obj/machinery/suit_storage_unit/gamma
 	name = "gamma shielded suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/shielded/gamma
 	mask_type = /obj/item/clothing/mask/gas/sechailer/swat
 	req_access = list(ACCESS_SECURITY)
+
+/obj/machinery/suit_storage_unit/gamma/secure
+	secure = TRUE
 
 /obj/machinery/suit_storage_unit/atmos
 	name = "atmospherics suit storage unit"
@@ -129,11 +153,17 @@
 	suit_type = /obj/item/mod/control/pre_equipped/atmospheric
 	req_access = list(ACCESS_ATMOSPHERICS)
 
+/obj/machinery/suit_storage_unit/atmos/secure
+	secure = TRUE
+
 /obj/machinery/suit_storage_unit/mining
 	name = "mining suit storage unit"
 	mask_type = /obj/item/clothing/mask/breath
 	suit_type = /obj/item/mod/control/pre_equipped/mining/asteroid
 	req_access = list(ACCESS_MINING_STATION)
+
+/obj/machinery/suit_storage_unit/mining/secure
+	secure = TRUE
 
 /obj/machinery/suit_storage_unit/lavaland
 	name = "mining suit storage unit"
@@ -147,11 +177,13 @@
 	suit_type = /obj/item/mod/control/pre_equipped/medical
 	req_access = list(ACCESS_CMO)
 
+/obj/machinery/suit_storage_unit/cmo/secure
+	secure = TRUE
+
 //version of the SSU for medbay secondary storage. Includes magboots. //no it doesn't, it aint have shit for magboots
-/obj/machinery/suit_storage_unit/cmo/sec_storage
+/obj/machinery/suit_storage_unit/cmo/secure/sec_storage
 	name = "medical suit storage unit"
 	mask_type = /obj/item/clothing/mask/gas
-	req_access = list(ACCESS_MEDICAL)
 
 /obj/machinery/suit_storage_unit/clown
 	name = "clown suit storage unit"
@@ -159,11 +191,17 @@
 	helmet_type = /obj/item/clothing/head/helmet/space/eva/clown
 	req_access = list(ACCESS_CLOWN)
 
+/obj/machinery/suit_storage_unit/clown/secure
+	secure = TRUE
+
 /obj/machinery/suit_storage_unit/mime
 	name = "mime suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/eva/mime
 	helmet_type = /obj/item/clothing/head/helmet/space/eva/mime
 	req_access = list(ACCESS_MIME)
+
+/obj/machinery/suit_storage_unit/mime/secure
+	secure = TRUE
 
 /obj/machinery/suit_storage_unit/syndicate
 	name = "syndicate suit storage unit"
@@ -172,11 +210,17 @@
 	req_access = list(ACCESS_SYNDICATE)
 	safeties = FALSE	//in a syndicate base, everything can be used as a murder weapon at a moment's notice.
 
+/obj/machinery/suit_storage_unit/syndicate/secure
+	secure = TRUE
+
 //telecoms NASA SSU. Suits themselves are assigned in Initialize
 /obj/machinery/suit_storage_unit/telecoms
 	mask_type = /obj/item/clothing/mask/breath
 	storage_type = /obj/item/tank/jetpack/void
 	req_access = list(ACCESS_TCOMSAT)
+
+/obj/machinery/suit_storage_unit/telecoms/secure
+	secure = TRUE
 
 /obj/machinery/suit_storage_unit/radsuit
 	name = "radiation suit storage unit"

@@ -2550,7 +2550,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
 "iX" = (
-/obj/machinery/suit_storage_unit/syndicate,
+/obj/machinery/suit_storage_unit/syndicate/secure,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "iY" = (
@@ -5312,7 +5312,7 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/obj/machinery/suit_storage_unit/syndicate,
+/obj/machinery/suit_storage_unit/syndicate/secure,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "rO" = (
