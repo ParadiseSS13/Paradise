@@ -194,6 +194,7 @@ const ApcContent = (props, context) => {
             label="Cover Lock"
             buttons={
               <Button
+                mb={0.4}
                 icon={data.coverLocked ? 'lock' : 'unlock'}
                 content={data.coverLocked ? 'Engaged' : 'Disengaged'}
                 disabled={locked}
@@ -216,6 +217,7 @@ const ApcContent = (props, context) => {
             label="Night Shift Lighting"
             buttons={
               <Button
+                mt={0.4}
                 icon="lightbulb-o"
                 content={data.nightshiftLights ? 'Enabled' : 'Disabled'}
                 onClick={() => act('toggle_nightshift')}

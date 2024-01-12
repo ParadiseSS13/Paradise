@@ -44,20 +44,30 @@ export const PDA = (props, context) => {
   return (
     <Window width={600} height={650}>
       <Window.Content scrollable>
-        <PDAHeader />
-        <Section
-          title={
-            <Box>
-              <Icon name={app.icon} mr={1} />
-              {app.name}
-            </Box>
-          }
-          p={1}
-        >
-          <App />
-        </Section>
-        <Box mb={8} />
-        <PDAFooter />
+        <Stack fill vertical>
+          <Stack.Item>
+            <PDAHeader />
+          </Stack.Item>
+          <Stack.Item grow>
+            <Section
+              fill
+              scrollable
+              p={1}
+              pb={0}
+              title={
+                <Box>
+                  <Icon name={app.icon} mr={1} />
+                  {app.name}
+                </Box>
+              }
+            >
+              <App />
+            </Section>
+          </Stack.Item>
+          <Stack.Item mt={7.5}>
+            <PDAFooter />
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -68,43 +78,31 @@ const PDAHeader = (props, context) => {
   const { idInserted, idLink, stationTime, cartridge_name } = data;
 
   return (
-    <Box mb={1}>
-      <Stack align="center" justify="space-between">
-        {idInserted ? (
-          <Stack.Item>
-            <Button
-              icon="id-card"
-              color="transparent"
-              onClick={() => act('Authenticate')}
-              content={idLink}
-            />
-          </Stack.Item>
-        ) : (
-          <Stack.Item m={1} color="grey">
-            No ID Inserted
-          </Stack.Item>
-        )}
-
-        {cartridge_name ? (
-          <Stack.Item>
-            <Button
-              icon="sd-card"
-              color="transparent"
-              onClick={() => act('Eject')}
-              content={'Eject ' + cartridge_name}
-            />
-          </Stack.Item>
-        ) : (
-          <Stack.Item m={1} color="grey">
-            No Cartridge Inserted
-          </Stack.Item>
-        )}
-
-        <Stack.Item grow textAlign="right" bold m={1}>
-          {stationTime}
-        </Stack.Item>
-      </Stack>
-    </Box>
+    <Stack fill>
+      <Stack.Item ml={0.5}>
+        <Button
+          icon="id-card"
+          color="transparent"
+          onClick={() => act('Authenticate')}
+          content={idInserted ? idLink : 'No ID Inserted'}
+        />
+      </Stack.Item>
+      <Stack.Item>
+        <Button
+          icon="sd-card"
+          color="transparent"
+          onClick={() => act('Eject')}
+          content={
+            cartridge_name
+              ? ['Eject ' + cartridge_name]
+              : 'No Cartridge Inserted'
+          }
+        />
+      </Stack.Item>
+      <Stack.Item grow textAlign="right" bold mr={1} mt={0.5}>
+        {stationTime}
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -115,18 +113,20 @@ const PDAFooter = (props, context) => {
 
   return (
     <Box height="45px" className="PDA__footer" backgroundColor="#1b1b1b">
-      <Stack>
-        <Stack.Item basis="33%">
-          <Button
-            fluid
-            className="PDA__footer__button"
-            color="transparent"
-            iconColor={app.has_back ? 'white' : 'disabled'}
-            icon="arrow-alt-circle-left-o"
-            onClick={() => act('Back')}
-          />
-        </Stack.Item>
-        <Stack.Item basis="33%">
+      <Stack fill>
+        {!!app.has_back && (
+          <Stack.Item basis="33%" mr={-0.5}>
+            <Button
+              fluid
+              className="PDA__footer__button"
+              color="transparent"
+              iconColor={app.has_back ? 'white' : 'disabled'}
+              icon="arrow-alt-circle-left-o"
+              onClick={() => act('Back')}
+            />
+          </Stack.Item>
+        )}
+        <Stack.Item basis={app.has_back ? '33%' : '100%'}>
           <Button
             fluid
             className="PDA__footer__button"
