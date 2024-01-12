@@ -260,7 +260,7 @@
 	. = ..()
 
 	if(length(active_nether_portals))
-		icon_state = "redspace_tap"
+		icon_state = "cascade_tap"
 		return
 
 	if(get_available_power() <= 0)
@@ -275,7 +275,7 @@
 	underlays.Cut()
 
 	if(length(active_nether_portals))
-		. += "redspace"
+		. += "cascade"
 		set_light(15, 5, "#ff0000")
 		return
 

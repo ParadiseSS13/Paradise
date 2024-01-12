@@ -22,6 +22,8 @@
 	var/law_header = "Prime Directives"
 	var/selectable = FALSE
 	var/default = FALSE
+	///Is this lawset used by the unique ai trait?
+	var/unique_ai = FALSE
 	var/datum/ai_law/zero/zeroth_law = null
 	var/datum/ai_law/zero/zeroth_law_borg = null
 	var/list/datum/ai_law/inherent_laws = list()
