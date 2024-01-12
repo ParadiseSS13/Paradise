@@ -250,7 +250,7 @@ const CataloguePane = (_properties, context) => {
                     onClick={() =>
                       act('order', {
                         crate: c.ref,
-                        multiple: 0,
+                        multiple: false,
                         account: selectedAccount,
                       })
                     }
@@ -262,7 +262,7 @@ const CataloguePane = (_properties, context) => {
                     onClick={() =>
                       act('order', {
                         crate: c.ref,
-                        multiple: 1,
+                        multiple: true,
                         account: selectedAccount,
                       })
                     }
