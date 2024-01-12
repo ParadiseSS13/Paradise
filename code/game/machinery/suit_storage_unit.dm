@@ -293,10 +293,13 @@
 		return
 	if(panel_open)
 		if(istype(I, /obj/item/crowbar))
+			if(occupant || helmet || suit || storage || boots)
+				to_chat(user, "<span class='warning'>There are contents that prevent you form deconstructing [src]!</span>")
+				return
 			if(locked)
 				to_chat(user, "<span class='warning'>The security system prevents you from deconstructing [src]!</span>")
 				return
-			dump_contents()
+			dump_contents() // probably still a good idea for just incase?
 			default_deconstruction_crowbar(user, I)
 			return
 		wires.Interact(user)
