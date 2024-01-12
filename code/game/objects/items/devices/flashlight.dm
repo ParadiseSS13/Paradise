@@ -203,7 +203,7 @@
 	force = initial(force)
 	damtype = initial(damtype)
 	hitsound = initial(hitsound)
-	attack_verb = list(null)
+	attack_verb = list()
 	update_brightness()
 
 /obj/item/flashlight/flare/attack_self(mob/user)
