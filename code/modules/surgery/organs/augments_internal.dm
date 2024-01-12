@@ -539,7 +539,7 @@
 	return ..()
 
 /obj/item/organ/internal/cyberimp/chest/ipc_reviver
-	name = "Positronic Emergency Reboot System"
+	name = "Emergency Reboot System"
 	desc = "A reactive repair system for bringing a dying IPC back from the brink. Comes with a diagnostics system so you can figure out how dead you are."
 	implant_color = "#0827F5"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
@@ -595,10 +595,7 @@
 	var/list/msgs = list()
 	var/mob/living/carbon/human/machine/H = owner
 	msgs += "<span class='notice'>Systems Diagnostics</span>"
-	msgs += "<hr>"
 	msgs += "Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
-	msgs += "Internals and Externals are only logged when damaged"
-	msgs += "Implants are always logged if installed"
 	var/organ_found
 	if(LAZYLEN(H.internal_organs))
 		msgs += "<hr>"
