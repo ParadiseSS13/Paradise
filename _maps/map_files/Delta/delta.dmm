@@ -60779,7 +60779,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "dvc" = (
-/obj/machinery/suit_storage_unit/rd/secure,
+/obj/machinery/suit_storage_unit/rd,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -75404,7 +75404,7 @@
 	},
 /area/station/medical/virology)
 "jin" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -75416,7 +75416,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/machinery/suit_storage_unit/qm/secure,
+/obj/machinery/suit_storage_unit/qm,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -89421,7 +89421,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "rYe" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
