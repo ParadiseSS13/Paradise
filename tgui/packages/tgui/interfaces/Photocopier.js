@@ -1,6 +1,5 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Box, Button, Stack, LabeledList, Section } from '../components';
+import { Button, Stack, Section } from '../components';
 import { Window } from '../layouts';
 
 export const Photocopier = (props, context) => {
@@ -10,34 +9,33 @@ export const Photocopier = (props, context) => {
       <Window.Content scrollable>
         <Stack fill vertical>
           <Section title="Photocopier" color="silver">
-            <LabeledList>
-              <LabeledList.Item label="Copies">
-                <Stack>
-                  <Box width="2em" bold>
-                    {data.copynumber}
-                  </Box>
-                  <Fragment float="right">
-                    <Button
-                      fluid
-                      icon="minus"
-                      textAlign="center"
-                      content=""
-                      onClick={() => act('minus')}
-                    />
-                    <Button
-                      fluid
-                      icon="plus"
-                      textAlign="center"
-                      content=""
-                      onClick={() => act('add')}
-                    />
-                  </Fragment>
-                </Stack>
-              </LabeledList.Item>
-              <LabeledList.Item label="Toner">
-                <Box bold>{data.toner}</Box>
-              </LabeledList.Item>
-              <LabeledList.Item label="Inserted Document">
+            <Stack mb={1}>
+              <Stack.Item width={12}>Copies:</Stack.Item>
+              <Stack.Item width="2em" bold>
+                {data.copynumber}
+              </Stack.Item>
+              <Stack.Item float="right">
+                <Button
+                  icon="minus"
+                  textAlign="center"
+                  content=""
+                  onClick={() => act('minus')}
+                />
+                <Button
+                  icon="plus"
+                  textAlign="center"
+                  content=""
+                  onClick={() => act('add')}
+                />
+              </Stack.Item>
+            </Stack>
+            <Stack mb={2}>
+              <Stack.Item width={12}>Toner:</Stack.Item>
+              <Stack.Item bold>{data.toner}</Stack.Item>
+            </Stack>
+            <Stack mb={1}>
+              <Stack.Item width={12}>Inserted Document:</Stack.Item>
+              <Stack.Item grow>
                 <Button
                   fluid
                   textAlign="center"
@@ -51,8 +49,11 @@ export const Photocopier = (props, context) => {
                   }
                   onClick={() => act('removedocument')}
                 />
-              </LabeledList.Item>
-              <LabeledList.Item label="Inserted Folder">
+              </Stack.Item>
+            </Stack>
+            <Stack>
+              <Stack.Item width={12}>Inserted Folder:</Stack.Item>
+              <Stack.Item grow>
                 <Button
                   fluid
                   textAlign="center"
@@ -60,8 +61,8 @@ export const Photocopier = (props, context) => {
                   content={data.folder ? data.folder : 'folder'}
                   onClick={() => act('removefolder')}
                 />
-              </LabeledList.Item>
-            </LabeledList>
+              </Stack.Item>
+            </Stack>
           </Section>
           <Section>
             <Actions />
