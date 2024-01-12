@@ -328,7 +328,7 @@ const TextHighlightSetting = (props, context) => {
       <TextArea
         height="3em"
         value={highlightText}
-        placeholder="Put words to highlight here. Separate terms with commas, i.e. (term1, term2, term3)"
+        placeholder="Put terms to highlight here. Separate terms with commas or vertical bars, i.e. (term1 | term2) or (term1, term2). Regex syntax is /[regex]/"
         onChange={(e, value) =>
           dispatch(
             updateHighlightSetting({

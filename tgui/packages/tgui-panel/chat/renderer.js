@@ -193,7 +193,7 @@ class ChatRenderer {
       const allowedRegex = /^[a-z0-9_\-$/^[\s\]\\]+$/gi;
       const regexEscapeCharacters = /[!#$%^&*)(+=.<>{}[\]:;'"|~`_\-\\/]/g;
       const lines = String(text)
-        .split(',')
+        .split(/[,|]/)
         .map((str) => str.trim())
         .filter(
           (str) =>
