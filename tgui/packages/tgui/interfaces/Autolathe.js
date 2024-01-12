@@ -139,6 +139,7 @@ export const Autolathe = (props, context) => {
                     }}
                   />
                   <Button
+                    mr={1}
                     icon="hammer"
                     selected={
                       data.busyname === recipe.name && data.busyamt === 1
@@ -162,6 +163,7 @@ export const Autolathe = (props, context) => {
                   </Button>
                   {recipe.max_multiplier >= 10 && (
                     <Button
+                      mr={1}
                       icon="hammer"
                       selected={
                         data.busyname === recipe.name && data.busyamt === 10
@@ -186,6 +188,7 @@ export const Autolathe = (props, context) => {
                   )}
                   {recipe.max_multiplier >= 25 && (
                     <Button
+                      mr={1}
                       icon="hammer"
                       selected={
                         data.busyname === recipe.name && data.busyamt === 25
@@ -210,6 +213,7 @@ export const Autolathe = (props, context) => {
                   )}
                   {recipe.max_multiplier > 25 && (
                     <Button
+                      mr={1}
                       icon="hammer"
                       selected={
                         data.busyname === recipe.name &&
