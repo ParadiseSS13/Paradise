@@ -12,7 +12,7 @@
 		target.apply_damage(20, BRUTE, user.zone_selected)
 		target.Slowed(2 SECONDS)
 		if(isliving(target) && target.stat != DEAD)
-			user.adjustStaminaLoss(-15)
+			user.adjustStaminaLoss(-40)
 			user.apply_status_effect(STATUS_EFFECT_BEARSERKER_RAGE)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Paw Slam", ATKLOG_ALL)
 		return MARTIAL_COMBO_DONE
@@ -24,7 +24,7 @@
 	target.KnockDown(4 SECONDS)
 	target.Slowed(6 SECONDS)
 	if(isliving(target) && target.stat != DEAD)
-		user.adjustStaminaLoss(-15)
+		user.adjustStaminaLoss(-40)
 		user.apply_status_effect(STATUS_EFFECT_BEARSERKER_RAGE)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Paw Slam", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE
