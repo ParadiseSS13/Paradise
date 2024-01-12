@@ -10,7 +10,7 @@ export const pda_main_menu = (props, context) => {
   return (
     <Stack fill vertical>
       <Stack.Item>
-        <Box>
+        <Section>
           <LabeledList>
             <LabeledList.Item label="Owner" color="average">
               {owner}, {ownjob}
@@ -24,7 +24,7 @@ export const pda_main_menu = (props, context) => {
               />
             </LabeledList.Item>
           </LabeledList>
-        </Box>
+        </Section>
       </Stack.Item>
       <Stack.Item>
         <Section title="Functions">
