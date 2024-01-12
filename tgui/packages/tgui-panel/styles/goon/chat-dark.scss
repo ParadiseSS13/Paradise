@@ -27,14 +27,6 @@ a {
   color: #397ea5;
 }
 
-a.visited {
-  color: #7c00e6;
-}
-
-a:visited {
-  color: #7c00e6;
-}
-
 a.popt {
   text-decoration: none;
 }
@@ -213,7 +205,6 @@ a.popt {
 
 .motd a,
 .motd a:link,
-.motd a:visited,
 .motd a:active,
 .motd a:hover {
   color: #a4bad6;

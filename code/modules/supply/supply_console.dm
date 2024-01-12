@@ -255,7 +255,7 @@
 				visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
 				return
 			var/amount = 1
-			if(params["multiple"] == "1") // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
+			if(params["multiple"])
 				var/num_input = input(user, "Amount", "How many crates? ([MULTIPLE_CRATE_MAX] Max)") as null|num
 				if(!num_input || (!is_public && !is_authorized(user)) || ..()) // Make sure they dont walk away
 					return
