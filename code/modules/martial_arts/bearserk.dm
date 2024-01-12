@@ -20,7 +20,7 @@
 	to_chat(user, "<b><i>Quelling the ursine rage for a moment, you ponder on how a Space Bear fights...</i></b>")
 
 /datum/martial_art/bearserk/explaination_footer(user)
-	to_chat(user, "<b>Most combos recover stamina and grant a stamina resistance buff, so get aggressive!.</b>")
+	to_chat(user, "<b>Most combos recover stamina and grant a stamina resistance buff, so get aggressive!</b>")
 
 /datum/martial_art/bearserk/teach(mob/living/carbon/human/H, make_temporary = 0)
 	..()
