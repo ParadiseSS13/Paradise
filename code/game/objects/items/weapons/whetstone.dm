@@ -33,7 +33,7 @@
 		return
 	if(istype(I, /obj/item/melee/energy))
 		var/obj/item/melee/energy/E = I
-		if((E.force_on > initial(E.force_on)))
+		if(E.force_on > initial(E.force_on))
 			to_chat(user, "<span class='warning'>[E] is much too powerful to sharpen further!</span>")
 			return
 		E.throwforce_on = clamp(E.throwforce_on + increment, 0, max)
