@@ -40,6 +40,7 @@
 
 /obj/item/clothing/head/bearpelt/bearserk
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, RAD = 0, FIRE = INFINITY, ACID = 10)
+	flags = FIRE_PROOF
 	body_parts_covered = UPPER_TORSO|HEAD|ARMS
 	var/datum/martial_art/bearserk/style
 
