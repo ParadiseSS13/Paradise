@@ -666,7 +666,6 @@
 	deploy_turret()
 	active = FALSE
 
-
 /datum/action/innate/ai/place_turret/proc/deploy_turret()
 	var/turf/T = get_turf(owner_AI.eyeobj)
 
