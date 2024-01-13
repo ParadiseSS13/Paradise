@@ -759,9 +759,12 @@
 	dump_contents()
 	eject_occupant()
 	update_icon(UPDATE_OVERLAYS)
+	if(locked)
+		locked = FALSE
 	if(safeties)
 		togglesafeties(FALSE)
-		return
 	if(!uv_super)
 		toggleUV(TRUE)
-		return
+	if(secure)
+		secure = FALSE
+	return
