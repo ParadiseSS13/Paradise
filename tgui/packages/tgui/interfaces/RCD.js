@@ -1,21 +1,12 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  Section,
-  LabeledList,
-  Box,
-  ProgressBar,
-  Stack,
-  Tabs,
-  Icon,
-} from '../components';
+import { Button, Section, ProgressBar, Stack, Tabs, Icon } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { AccessList } from './common/AccessList';
 
 export const RCD = (props, context) => {
   return (
-    <Window width={470} height={660}>
+    <Window width={480} height={670}>
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>
@@ -46,7 +37,9 @@ const MatterReadout = (props, context) => {
           value={matter}
           maxValue={max_matter}
         >
-          <Box textAlign="center">{matter + ' / ' + max_matter + ' units'}</Box>
+          <Stack.Item textAlign="center">
+            {matter + ' / ' + max_matter + ' units'}
+          </Stack.Item>
         </ProgressBar>
       </Section>
     </Stack.Item>
@@ -56,11 +49,13 @@ const MatterReadout = (props, context) => {
 const ConstructionType = () => {
   return (
     <Stack.Item>
-      <Section fill title="Construction Type">
-        <ConstructionTypeCheckbox mode_type="Floors and Walls" />
-        <ConstructionTypeCheckbox mode_type="Airlocks" />
-        <ConstructionTypeCheckbox mode_type="Windows" />
-        <ConstructionTypeCheckbox mode_type="Deconstruction" />
+      <Section title="Construction Type">
+        <Stack>
+          <ConstructionTypeCheckbox mode_type="Floors and Walls" />
+          <ConstructionTypeCheckbox mode_type="Airlocks" />
+          <ConstructionTypeCheckbox mode_type="Windows" />
+          <ConstructionTypeCheckbox mode_type="Deconstruction" />
+        </Stack>
       </Section>
     </Stack.Item>
   );
@@ -71,15 +66,19 @@ const ConstructionTypeCheckbox = (props, context) => {
   const { mode_type } = props;
   const { mode } = data;
   return (
-    <Button.Checkbox
-      content={mode_type}
-      checked={mode === mode_type ? 1 : 0}
-      onClick={() =>
-        act('mode', {
-          mode: mode_type,
-        })
-      }
-    />
+    <Stack.Item grow textAlign="center">
+      <Button
+        fluid
+        color="transparent"
+        content={mode_type}
+        selected={mode === mode_type ? 1 : 0}
+        onClick={() =>
+          act('mode', {
+            mode: mode_type,
+          })
+        }
+      />
+    </Stack.Item>
   );
 };
 
@@ -95,7 +94,7 @@ const AirlockSettings = (props, context) => {
               fluid
               color="transparent"
               icon="pen-alt"
-              content={door_name}
+              content={<>Rename: {<b>{door_name}</b>}</>}
               onClick={() => modalOpen(context, 'renameAirlock')}
             />
           </Stack.Item>
@@ -120,9 +119,9 @@ const TypesAndAccess = (props, context) => {
   const { act, data } = useBackend(context);
   const { tab, locked, one_access, selected_accesses, regions } = data;
   return (
-    <Stack fill vertical mt={1}>
-      <Stack.Item>
-        <Tabs>
+    <>
+      <Stack.Item textAlign="center">
+        <Tabs fluid>
           <Tabs.Tab
             icon="cog"
             selected={tab === 1}
@@ -139,43 +138,43 @@ const TypesAndAccess = (props, context) => {
           </Tabs.Tab>
         </Tabs>
       </Stack.Item>
-      {tab === 1 ? (
-        <Section fill scrollable title="Types">
-          <Stack>
-            <Stack.Item>
-              <AirlockTypeList check_number={0} />
-            </Stack.Item>
-            <Stack.Item>
-              <AirlockTypeList check_number={1} />
-            </Stack.Item>
-          </Stack>
-        </Section>
-      ) : tab === 2 && locked ? (
-        <Section
-          fill
-          title="Access"
-          buttons={
-            <Button
-              icon="lock-open"
-              content="Unlock"
-              onClick={() =>
-                act('set_lock', {
-                  new_lock: 'unlock',
-                })
-              }
-            />
-          }
-        >
-          <Stack fill>
-            <Stack.Item grow textAlign="center" align="center" color="label">
-              <Icon name="lock" size="5" mb={3} />
-              <br />
-              Airlock access selection is currently locked.
-            </Stack.Item>
-          </Stack>
-        </Section>
-      ) : (
-        <Section fill scrollable>
+      <Stack.Item grow>
+        {tab === 1 ? (
+          <Section fill scrollable title="Types">
+            <Stack>
+              <Stack.Item grow>
+                <AirlockTypeList check_number={0} />
+              </Stack.Item>
+              <Stack.Item grow>
+                <AirlockTypeList check_number={1} />
+              </Stack.Item>
+            </Stack>
+          </Section>
+        ) : tab === 2 && locked ? (
+          <Section
+            fill
+            title="Access"
+            buttons={
+              <Button
+                icon="lock-open"
+                content="Unlock"
+                onClick={() =>
+                  act('set_lock', {
+                    new_lock: 'unlock',
+                  })
+                }
+              />
+            }
+          >
+            <Stack fill>
+              <Stack.Item grow textAlign="center" align="center" color="label">
+                <Icon name="lock" size="5" mb={3} />
+                <br />
+                Airlock access selection is currently locked.
+              </Stack.Item>
+            </Stack>
+          </Section>
+        ) : (
           <AccessList
             sectionButtons={
               <Button
@@ -232,9 +231,9 @@ const TypesAndAccess = (props, context) => {
               })
             }
           />
-        </Section>
-      )}
-    </Stack>
+        )}
+      </Stack.Item>
+    </>
   );
 };
 
@@ -250,27 +249,30 @@ const AirlockTypeList = (props, context) => {
     }
   }
   return (
-    <Box>
+    <Stack.Item>
       {doors_filtered.map((entry, i) => (
-        <Stack key={i}>
-          <Stack.Item>
-            <img
-              src={`data:image/jpeg;base64,${entry.image}`}
-              style={{
-                'vertical-align': 'middle',
-                width: '32px',
-                margin: '0px',
-                'margin-left': '0px',
-              }}
-            />
-          </Stack.Item>
-          <Stack.Item>
+        <Stack key={i} mb={0.5}>
+          <Stack.Item grow>
             <Button.Checkbox
-              ml={1.5}
-              mt={1}
-              width={14}
+              fluid
+              icon={null}
+              color="translucent"
               checked={door_type === entry.type}
-              content={entry.name}
+              content={
+                <>
+                  <img
+                    src={`data:image/jpeg;base64,${entry.image}`}
+                    style={{
+                      'vertical-align': 'middle',
+                      width: '32px',
+                      margin: '3px',
+                      'margin-right': '6px',
+                      'margin-left': '-3px',
+                    }}
+                  />
+                  {entry.name}
+                </>
+              }
               onClick={() =>
                 act('door_type', {
                   door_type: entry.type,
@@ -280,6 +282,6 @@ const AirlockTypeList = (props, context) => {
           </Stack.Item>
         </Stack>
       ))}
-    </Box>
+    </Stack.Item>
   );
 };
