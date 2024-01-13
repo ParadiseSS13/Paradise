@@ -1020,8 +1020,8 @@ span.body .coderesponses {
 }
 
 .boxed_message {
-  background: #f2f7fa;
-  border: 1px solid #111a27;
+  background: #f7fcff;
+  border: 1px solid #111a26;
   margin: 0.5em;
   padding: 0.5em 0.75em;
   text-align: center;
@@ -1032,18 +1032,23 @@ span.body .coderesponses {
 }
 
 .boxed_message.red_border {
-  background: #faf2f2;
+  background: #fff7f7;
   border-color: #aa0000;
 }
 
 .boxed_message.green_border {
-  background: #f3faf2;
+  background: #f7fff7;
   border-color: #00ff00;
 }
 
+.boxed_message.purple_border {
+  background: #fdf7ff;
+  border-color: #aa00ff;
+}
+
 .boxed_message.notice_border {
-  background: #f2f7fa;
-  border-color: #000099;
+  background: #f7fdff;
+  border-color: #0000bf;
 }
 
 .boxed_message.thick_border {
