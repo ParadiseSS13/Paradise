@@ -1411,9 +1411,7 @@
 /area/ruin/space/derelict/arrival)
 "dC" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	dir = 2
-	},
+/obj/machinery/door/window/classic/reversed,
 /obj/item/folder{
 	pixel_x = 31;
 	pixel_y = 1
@@ -1965,10 +1963,10 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "eO" = (
-/obj/structure/table/tray,
 /obj/item/scalpel{
 	pixel_y = 12
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -2385,10 +2383,10 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "fI" = (
-/obj/structure/table/tray,
 /obj/item/circular_saw{
 	pixel_y = 10
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fJ" = (
@@ -3750,9 +3748,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "jh" = (
@@ -5574,9 +5570,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/door/window/classic/reversed{
-	dir = 2
-	},
+/obj/machinery/door/window/classic/reversed,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -7196,9 +7190,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/grass,
 /area/ruin/space/derelict/arrival)
 "rz" = (
@@ -7210,9 +7202,7 @@
 	name = "Cygni Commemorative Statue";
 	pixel_y = 16
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/flora/ausbushes/fullgrass{
 	pixel_y = 5
 	},
@@ -7231,9 +7221,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/grass,
 /area/ruin/space/derelict/arrival)
 "rB" = (
@@ -7356,9 +7344,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -7378,9 +7364,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -7399,9 +7383,7 @@
 	name = "interior access button";
 	pixel_y = -25
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -7417,9 +7399,7 @@
 	dir = 10;
 	initialize_directions = 10
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},

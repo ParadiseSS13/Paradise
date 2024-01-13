@@ -59,6 +59,10 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
+/obj/structure/dispenser/attack_ai(mob/user)
+	if(isrobot(user) && Adjacent(user)) //Robots can use it, but not the AI
+		attack_hand(user)
+
 /obj/structure/dispenser/attack_ghost(mob/user)
 	ui_interact(user)
 
