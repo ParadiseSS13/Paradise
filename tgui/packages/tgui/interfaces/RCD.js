@@ -49,11 +49,13 @@ const MatterReadout = (props, context) => {
 const ConstructionType = () => {
   return (
     <Stack.Item>
-      <Section fill title="Construction Type">
-        <ConstructionTypeCheckbox mode_type="Floors and Walls" />
-        <ConstructionTypeCheckbox mode_type="Airlocks" />
-        <ConstructionTypeCheckbox mode_type="Windows" />
-        <ConstructionTypeCheckbox mode_type="Deconstruction" />
+      <Section title="Construction Type">
+        <Stack>
+          <ConstructionTypeCheckbox mode_type="Floors and Walls" />
+          <ConstructionTypeCheckbox mode_type="Airlocks" />
+          <ConstructionTypeCheckbox mode_type="Windows" />
+          <ConstructionTypeCheckbox mode_type="Deconstruction" />
+        </Stack>
       </Section>
     </Stack.Item>
   );
@@ -64,15 +66,19 @@ const ConstructionTypeCheckbox = (props, context) => {
   const { mode_type } = props;
   const { mode } = data;
   return (
-    <Button.Checkbox
-      content={mode_type}
-      checked={mode === mode_type ? 1 : 0}
-      onClick={() =>
-        act('mode', {
-          mode: mode_type,
-        })
-      }
-    />
+    <Stack.Item grow textAlign="center">
+      <Button
+        fluid
+        color="transparent"
+        content={mode_type}
+        selected={mode === mode_type ? 1 : 0}
+        onClick={() =>
+          act('mode', {
+            mode: mode_type,
+          })
+        }
+      />
+    </Stack.Item>
   );
 };
 
