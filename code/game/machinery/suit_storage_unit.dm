@@ -181,9 +181,12 @@
 	secure = TRUE
 
 //version of the SSU for medbay secondary storage. Includes magboots. //no it doesn't, it aint have shit for magboots
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage
+/obj/machinery/suit_storage_unit/cmo/sec_storage
 	name = "medical suit storage unit"
 	mask_type = /obj/item/clothing/mask/gas
+
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure
+	secure = TRUE
 
 /obj/machinery/suit_storage_unit/clown
 	name = "clown suit storage unit"
