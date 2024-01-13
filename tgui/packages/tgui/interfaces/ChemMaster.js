@@ -288,8 +288,8 @@ const ChemMasterProduction = (props, context) => {
   }
 
   return (
-    <Stack.Item grow height="16%">
-      <Section fill scrollable title="Production">
+    <Stack.Item>
+      <Section fill title="Production">
         {!props.isCondiment ? (
           <ChemMasterProductionChemical />
         ) : (
@@ -453,7 +453,7 @@ const ChemMasterProductionPills = (props, context) => {
     <SpriteStyleButton
       key={id}
       icon={sprite}
-      color="transparent"
+      color="translucent"
       onClick={() => act('set_pills_style', { style: id })}
       selected={pillsprite === id}
     />
@@ -499,7 +499,7 @@ const ChemMasterProductionBottles = (props, context) => {
     <SpriteStyleButton
       key={id}
       icon={sprite}
-      color="transparent"
+      color="translucent"
       onClick={() => act('set_bottles_style', { style: id })}
       selected={bottlesprite === id}
     />

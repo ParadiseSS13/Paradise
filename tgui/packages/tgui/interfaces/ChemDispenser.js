@@ -14,8 +14,10 @@ const dispenseAmounts = [1, 5, 10, 20, 30, 50];
 const removeAmounts = [1, 5, 10];
 
 export const ChemDispenser = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { chemicals } = data;
   return (
-    <Window width={400} height={600}>
+    <Window width={400} height={400 + chemicals.length * 8}>
       <Window.Content>
         <Stack fill vertical>
           <ChemDispenserSettings />
@@ -81,7 +83,7 @@ const ChemDispenserChemicals = (properties, context) => {
     flexFillers.push(true);
   }
   return (
-    <Stack.Item grow height="17%">
+    <Stack.Item grow>
       <Section
         fill
         scrollable
@@ -121,7 +123,7 @@ const ChemDispenserBeaker = (properties, context) => {
     beakerContents = [],
   } = data;
   return (
-    <Stack.Item grow>
+    <Stack.Item height={16}>
       <Section
         title={data.glass ? 'Glass' : 'Beaker'}
         fill
