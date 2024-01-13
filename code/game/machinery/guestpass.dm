@@ -88,7 +88,6 @@
 	if(!ui)
 		ui = new(user, src, "GuestPass",  name)
 		ui.open()
-		ui.set_autoupdate(FALSE)
 
 /obj/machinery/computer/guestpass/ui_data(mob/user)
 	var/list/data = list()
