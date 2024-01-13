@@ -748,3 +748,20 @@
 /obj/machinery/suit_storage_unit/proc/check_electrified_callback()
 	if(!wires.is_cut(WIRE_ELECTRIFY))
 		shocked = FALSE
+
+/obj/machinery/suit_storage_unit/emag_act(mob/user)
+	if(uv)
+		to_chat(user, "<span class='warning'>\The [src] is currently undergoing a disinfection cycle, it wont open.</span>")
+		return
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	to_chat(user, "<span class='warning'>You short out \the [src]'s internal circuitry, causing its safties to fail, and dumping it's contents.</span>")
+	open_machine()
+	dump_contents()
+	eject_occupant()
+	update_icon(UPDATE_OVERLAYS)
+	if(safeties)
+		togglesafeties(FALSE)
+		return
+	if(!uv_super)
+		toggleUV(TRUE)
+		return
