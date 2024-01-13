@@ -65,9 +65,9 @@
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
+		style.remove(H)
 		H.faction -= "russian" // Hardbass stops
 		H.physiology.stun_mod /= 0.80
-		style.remove(H)
 		REMOVE_TRAIT (H, TRAIT_RESISTHEAT, "bearserk")
 
 /obj/item/clothing/head/bearpelt/bearserk/examine(mob/user)
