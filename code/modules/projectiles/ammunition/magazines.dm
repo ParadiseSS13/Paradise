@@ -123,7 +123,7 @@
 
 /obj/item/ammo_box/magazine/internal/shot/improvised
 	name = "improvised shotgun internal magazine"
-	ammo_type = /obj/item/ammo_casing/shotgun/improvised
+	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
 	max_ammo = 1
 
 /obj/item/ammo_box/magazine/internal/shot/improvised/cane

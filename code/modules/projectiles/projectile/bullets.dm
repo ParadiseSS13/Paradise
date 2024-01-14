@@ -101,25 +101,6 @@
 	if(H.getStaminaLoss() >= 60)
 		H.KnockDown(8 SECONDS)
 
-/obj/item/projectile/bullet/pellet/weak
-	tile_dropoff = 0.55		//Come on it does 6 damage don't be like that.
-	damage = 6
-
-/obj/item/projectile/bullet/pellet/weak/New()
-	range = rand(1, 8)
-	..()
-
-/obj/item/projectile/bullet/pellet/weak/on_range()
-	do_sparks(1, 1, src)
-	..()
-
-/obj/item/projectile/bullet/pellet/overload
-	damage = 3
-
-/obj/item/projectile/bullet/pellet/overload/New()
-	range = rand(1, 10)
-	..()
-
 /obj/item/projectile/bullet/pellet/assassination
 	damage = 12
 	tile_dropoff = 1	// slightly less damage and greater damage falloff compared to normal buckshot
@@ -128,15 +109,6 @@
 	if(..(target, blocked))
 		var/mob/living/M = target
 		M.AdjustSilence(4 SECONDS)	// HELP MIME KILLING ME IN MAINT
-
-/obj/item/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
-	..()
-	explosion(target, 0, 0, 2)
-
-/obj/item/projectile/bullet/pellet/overload/on_range()
-	explosion(src, 0, 0, 2)
-	do_sparks(3, 3, src)
-	..()
 
 /obj/item/projectile/bullet/midbullet
 	damage = 20
