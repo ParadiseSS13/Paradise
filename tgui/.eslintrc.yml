@@ -9,6 +9,8 @@ env:
   es6: true
   browser: true
   node: true
+globals:
+  Byond: readonly
 plugins:
   - prettier
   - react
@@ -282,10 +284,11 @@ rules:
   no-shadow-restricted-names: error
   ## Disallow the use of undeclared variables unless mentioned
   ## in /*global*/ comments
-  # no-undef: error
+  no-undef: error
   ## Disallow initializing variables to undefined
   no-undef-init: error
   ## Disallow the use of undefined as an identifier
+  ## This can't be enabled because of https://github.com/facebook/regenerator/blob/cb755fd82c648cbc5307a5a2d61cdd598e698fc4/packages/runtime/runtime.js#L14
   # no-undefined: error
   ## Disallow unused variables
   # no-unused-vars: error
@@ -731,7 +734,7 @@ rules:
   ## Prevent usage of unsafe target='_blank'
   react/jsx-no-target-blank: error
   ## Disallow undeclared variables in JSX
-  # react/jsx-no-undef: error
+  react/jsx-no-undef: error
   ## Disallow unnecessary fragments (fixable)
   react/jsx-no-useless-fragment: error
   ## Limit to one expression per line in JSX
@@ -759,3 +762,10 @@ rules:
   react/jsx-uses-vars: error
   ## Prevent missing parentheses around multilines JSX (fixable)
   # react/jsx-wrap-multilines: error
+
+overrides:
+  - files: [ "*.ts", "*.mts", "*.cts", "*.tsx" ]
+    rules:
+      # https://typescript-eslint.io/linting/troubleshooting/#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
+      no-undef: off
+      react/jsx-no-undef: off
