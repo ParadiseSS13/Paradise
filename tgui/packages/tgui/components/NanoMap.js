@@ -160,9 +160,9 @@ const NanoMapZoomer = (props, context) => {
       <LabeledList>
         <LabeledList.Item label="Zoom">
           <Slider
-            minValue="1"
-            maxValue="8"
-            stepPixelSize="10"
+            minValue={1}
+            maxValue={8}
+            stepPixelSize={10}
             format={(v) => v + 'x'}
             value={props.zoom}
             onDrag={(e, v) => props.onZoom(e, v)}

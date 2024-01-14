@@ -61,3 +61,11 @@
 	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
 	HUD_type = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
+
+/obj/item/organ/internal/cyberimp/eyes/hud/jani
+	name = "Janitor HUD implant"
+	desc = "These cybernetic eye implants will display a filth HUD over everything you see."
+	implant_color = "#AF00AF"
+	origin_tech = "materials=4;engineering=4;biotech=4"
+	aug_message = "You scan for filth spots around you..."
+	HUD_type = DATA_HUD_JANITOR

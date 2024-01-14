@@ -394,8 +394,8 @@
 	window_height = 300
 	req_access = list(ACCESS_SYNDICATE_LEADER)
 	var/obj/machinery/bluespace_beacon/syndicate/mybeacon
-	var/obj/effect/portal/redspace/myportal
-	var/obj/effect/portal/redspace/myportal2
+	var/obj/effect/portal/advanced/myportal
+	var/obj/effect/portal/advanced/myportal2
 	var/portal_enabled = FALSE
 	var/portaldir = WEST
 
@@ -457,11 +457,11 @@
 		if(!tele_target)
 			return
 		var/turf/portal_turf = get_step(src, portaldir)
-		var/obj/effect/portal/redspace/P = new(portal_turf, tele_target, src, 0)
+		var/obj/effect/portal/advanced/P = new(portal_turf, tele_target, src, 0)
 		myportal = P
 		var/area/A = get_area(tele_target)
 		P.name = "[A] portal"
-		var/obj/effect/portal/redspace/P2 = new(get_turf(tele_target), portal_turf, src, 0)
+		var/obj/effect/portal/advanced/P2 = new(get_turf(tele_target), portal_turf, src, 0)
 		myportal2 = P2
 		P2.name = "mysterious portal"
 	else if(!portal_enabled && myportal)
