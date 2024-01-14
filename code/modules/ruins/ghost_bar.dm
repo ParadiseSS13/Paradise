@@ -20,12 +20,12 @@
 			our_characters_names += "[saves.real_name] (Slot #[index])"
 			our_character_saves += list("[saves.real_name] (Slot #[index])" = saves)
 
-		var/character_index = tgui_input_list(user, "Select a character", "Character selection", our_characters_names)
-		if(!character_index)
+		var/character_name = tgui_input_list(user, "Select a character", "Character selection", our_characters_names)
+		if(!character_name)
 			return
 		if(QDELETED(user))
 			return
-		save_to_load = our_character_saves[character_index]
+		save_to_load = our_character_saves[character_name]
 	else
 		if(QDELETED(user))
 			return
