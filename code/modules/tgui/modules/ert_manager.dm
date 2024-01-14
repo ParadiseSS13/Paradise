@@ -99,7 +99,7 @@
 			if(cyborg_slots > 0)
 				slots_list += "cyborg: [cyborg_slots]"
 
-			var/silenced = text2bool(params["silent"])
+			var/silenced = (params["silent"])
 			D.silent = silenced
 
 			var/slot_text = english_list(slots_list)
