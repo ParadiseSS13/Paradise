@@ -46,15 +46,15 @@ const NanoBankNavigation = (properties, context) => {
   return (
     <Tabs mt={2}>
       <Tabs.Tab selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
-        <Icon name="list" />
+        <Icon mr={1} name="list" />
         Transfers
       </Tabs.Tab>
       <Tabs.Tab selected={2 === tabIndex} onClick={() => setTabIndex(2)}>
-        <Icon name="list" />
+        <Icon mr={1} name="list" />
         Account Actions
       </Tabs.Tab>
       <Tabs.Tab selected={3 === tabIndex} onClick={() => setTabIndex(3)}>
-        <Icon name="list" />
+        <Icon mr={1} name="list" />
         Transaction History
       </Tabs.Tab>
     </Tabs>

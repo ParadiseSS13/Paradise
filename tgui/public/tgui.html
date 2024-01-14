@@ -471,8 +471,6 @@ window.update.flushQueue = function (listener) {
   }
 };
 
-// Signal tgui that we're ready to receive updates
-Byond.sendMessage('ready');
 </script>
 
 <style>
@@ -606,6 +604,11 @@ Nanotrasen (c) 2223-2564
     <div>Please enable Javascript and restart the game.</div>
   </div>
 </noscript>
+
+<script>
+// Signal tgui that we're ready to receive updates
+Byond.sendMessage('ready');
+</script>
 
 </body>
 </html>
