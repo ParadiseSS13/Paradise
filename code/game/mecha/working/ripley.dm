@@ -15,7 +15,11 @@
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	var/list/cargo = new
 	var/cargo_capacity = 15
+
+	/// how much Ripley has hides OR plates on him? Does not stack each other
 	var/hides = 0
+
+	/// how much Ripley has hides OR plates on him? Does not stack each other
 	var/plates = 0
 
 /obj/mecha/working/ripley/Move()
