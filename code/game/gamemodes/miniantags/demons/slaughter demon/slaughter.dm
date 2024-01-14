@@ -185,7 +185,7 @@
 		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
 		return
 
-	var/mob/living/target = input("Choose the target to talk to.", "Targeting") as null|mob in validtargets
+	var/mob/living/target = tgui_input_list(user, "Choose the target to talk to", "Targeting", validtargets)
 	return target
 
 /datum/action/innate/demon/whisper/Activate()

@@ -81,7 +81,7 @@ const ChemDispenserChemicals = (properties, context) => {
   return (
     <Section
       title={data.glass ? 'Drink Dispenser' : 'Chemical Dispenser'}
-      flexGrow="1"
+      flexShrink={0}
     >
       <Flex
         direction="row"
@@ -135,7 +135,7 @@ const ChemDispenserBeaker = (properties, context) => {
   return (
     <Section
       title={data.glass ? 'Glass' : 'Beaker'}
-      flex="content"
+      flexGrow={1}
       minHeight="25%"
       buttons={
         <Box>

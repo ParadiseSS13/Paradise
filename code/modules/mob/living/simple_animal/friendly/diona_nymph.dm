@@ -16,7 +16,7 @@
 	pass_flags = PASSTABLE | PASSMOB
 	mob_biotypes = MOB_ORGANIC | MOB_PLANT
 	mob_size = MOB_SIZE_SMALL
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
@@ -147,8 +147,8 @@
 	else
 		return FALSE
 
-/mob/living/simple_animal/diona/proc/split()
-	if((stat != CONSCIOUS) || !isdiona(loc))
+/mob/living/simple_animal/diona/proc/split(forced = FALSE)
+	if((stat != CONSCIOUS && !forced) || !isdiona(loc))
 		return FALSE
 	var/mob/living/carbon/human/D = loc
 	var/turf/T = get_turf(src)

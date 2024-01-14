@@ -2,7 +2,7 @@
 /obj/item/lighter
 	name = "cheap lighter"
 	desc = "A cheap-as-free lighter."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/lighter.dmi'
 	lefthand_file = 'icons/mob/inhands/lighter_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lighter_righthand.dmi'
 	icon_state = "lighter-g"
@@ -124,6 +124,9 @@
 /obj/item/lighter/update_overlays()
 	item_state = "[initial(item_state)][lit ? "-on" : ""]"
 	return ..()
+
+/obj/item/lighter/get_heat()
+	return lit * 1500
 
 // Zippo lighters
 /obj/item/lighter/zippo
@@ -303,6 +306,9 @@
 	var/mask_item = M.get_item_by_slot(SLOT_HUD_WEAR_MASK)
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
 		return mask_item
+
+/obj/item/match/get_heat()
+	return lit * 1000
 
 /obj/item/match/firebrand
 	name = "firebrand"

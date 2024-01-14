@@ -1823,6 +1823,7 @@
 	dir = 4;
 	pixel_y = 8
 	},
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "gT" = (
@@ -3686,7 +3687,7 @@
 /area/admin)
 "mz" = (
 /obj/machinery/economy/vending/boozeomat,
-/turf/simulated/wall/indestructible/riveted,
+/turf/simulated/floor/wood,
 /area/ghost_bar)
 "mA" = (
 /obj/structure/sign/poster/official/fruit_bowl,
@@ -3978,32 +3979,32 @@
 /area/abductor_ship)
 "ns" = (
 /obj/structure/rack,
-/obj/item/implanter/adrenalin{
+/obj/item/bio_chip_implanter/adrenalin{
 	pixel_x = 12;
 	pixel_y = -12
 	},
-/obj/item/implanter/emp{
+/obj/item/bio_chip_implanter/emp{
 	pixel_x = 9;
 	pixel_y = -9
 	},
-/obj/item/implanter/explosive{
+/obj/item/bio_chip_implanter/explosive{
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/obj/item/implanter/explosive_macro{
+/obj/item/bio_chip_implanter/explosive_macro{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/implanter/freedom,
-/obj/item/implanter/krav_maga{
+/obj/item/bio_chip_implanter/freedom,
+/obj/item/bio_chip_implanter/krav_maga{
 	pixel_x = -9;
 	pixel_y = 9
 	},
-/obj/item/implanter/mindshield{
+/obj/item/bio_chip_implanter/mindshield{
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/item/implanter/storage{
+/obj/item/bio_chip_implanter/storage{
 	pixel_x = -3;
 	pixel_y = 3
 	},
@@ -4800,7 +4801,7 @@
 /area/shuttle/escape)
 "qm" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "qn" = (
@@ -5137,6 +5138,12 @@
 /obj/item/stack/sheet/metal/fifty,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"rq" = (
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "rr" = (
 /obj/structure/table,
 /obj/item/storage/box/beakers,
@@ -5679,10 +5686,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "tr" = (
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
+/obj/machinery/light/small{
+	dir = 1
 	},
+/turf/simulated/floor/wood,
 /area/ghost_bar)
 "ts" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
@@ -5978,7 +5985,7 @@
 /obj/item/gun/syringe/syndicate,
 /obj/item/storage/firstaid/regular,
 /obj/item/storage/firstaid/adv,
-/obj/item/storage/box/syndie_kit/bonerepair,
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "up" = (
@@ -6703,6 +6710,7 @@
 	desc = "Used to grind things up into raw materials and liquids.";
 	pixel_y = 5
 	},
+/obj/item/reagent_containers/glass/beaker/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6987,7 +6995,6 @@
 "xU" = (
 /obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave/upgraded,
-/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6997,10 +7004,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "xY" = (
-/obj/machinery/economy/vending/cigarette,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/structure/closet/crate/can,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "xZ" = (
@@ -7288,6 +7292,13 @@
 /obj/machinery/computer/cryopod/robot,
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/specops)
+"zP" = (
+/obj/machinery/light/small,
+/obj/machinery/economy/vending/dinnerware,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "zQ" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel/freezer,
@@ -7396,6 +7407,7 @@
 /obj/item/surgicaldrill,
 /obj/item/bonegel,
 /obj/item/FixOVein,
+/obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -7717,7 +7729,7 @@
 /area/centcom/suppy)
 "Bv" = (
 /obj/structure/stone_tile/slab/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "Bw" = (
 /obj/structure/ninjatele{
@@ -8729,7 +8741,7 @@
 /area/centcom/control)
 "Fk" = (
 /obj/structure/stone_tile/slab/burnt,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "Fm" = (
 /obj/structure/chair/sofa/corp{
@@ -10679,7 +10691,7 @@
 /area/shuttle/escape)
 "LT" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
 	},
@@ -10693,7 +10705,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "LV" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "LX" = (
 /obj/structure/chair/sofa/corp/left{
@@ -12893,7 +12905,7 @@
 	},
 /area/centcom/evac)
 "TN" = (
-/obj/item/storage/box/matches{
+/obj/item/storage/fancy/matches{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -13165,7 +13177,7 @@
 	},
 /area/holodeck/source_knightarena)
 "UJ" = (
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/wizard_station)
 "UK" = (
 /turf/simulated/floor/holofloor/carpet,
@@ -13502,7 +13514,7 @@
 /obj/structure/stone_tile/surrounding/burnt,
 /obj/structure/stone_tile/center/burnt,
 /obj/effect/landmark/spawner/bubblegum,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "Wh" = (
 /turf/simulated/floor/plasteel{
@@ -13851,6 +13863,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/closet/crate/can,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Xb" = (
@@ -72235,7 +72248,7 @@ Jy
 vd
 vd
 vd
-Jy
+rf
 Me
 EX
 Jy
@@ -72492,7 +72505,7 @@ Jy
 vd
 cX
 vd
-rf
+xY
 Me
 wh
 rd
@@ -73785,8 +73798,8 @@ Me
 Me
 Me
 Me
-xY
-Jy
+Me
+tr
 Jy
 qH
 Nm
@@ -74041,8 +74054,8 @@ es
 Oj
 zj
 fF
-Me
-Jy
+rq
+aT
 Jy
 ip
 Jy
@@ -74298,8 +74311,8 @@ es
 es
 es
 es
+es
 Uk
-Jy
 Jy
 ol
 ol
@@ -74555,8 +74568,8 @@ wN
 Dk
 zY
 xU
+zP
 Me
-tr
 Jy
 rG
 hU
@@ -74812,8 +74825,8 @@ Me
 Me
 Me
 Me
-aT
-Jy
+Me
+Me
 Jy
 RX
 RX
@@ -75070,9 +75083,9 @@ ps
 ps
 ps
 Me
-Jy
+Me
 gS
-Jy
+xY
 Me
 Me
 Me

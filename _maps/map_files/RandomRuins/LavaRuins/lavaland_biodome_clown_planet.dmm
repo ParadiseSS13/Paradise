@@ -1156,7 +1156,7 @@
 /turf/simulated/floor/light,
 /area/ruin/powered/clownplanet)
 "ye" = (
-/turf/simulated/floor/plating/lava/smooth,
+/turf/simulated/floor/lava,
 /area/ruin/powered/clownplanet)
 "CB" = (
 /obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet/hope,

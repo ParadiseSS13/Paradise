@@ -98,7 +98,7 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attackby(obj/item/W)
 	..()
-	if(is_hot(W))
+	if(W.get_heat())
 		fire_act()
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack_hand(mob/user, pickupfireoverride = TRUE)

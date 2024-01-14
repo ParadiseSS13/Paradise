@@ -1506,7 +1506,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered/syndicate_space_base/inner)
 "ig" = (
-/obj/structure/kitchenspike,
+/obj/machinery/kitchen_machine/candy_maker,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -5033,8 +5033,8 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "BJ" = (
-/obj/machinery/kitchen_machine/candy_maker,
 /obj/machinery/light,
+/obj/machinery/kitchen_machine/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

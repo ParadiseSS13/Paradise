@@ -42,7 +42,7 @@
 		return TRUE
 
 /obj/item/candle/attackby(obj/item/W, mob/user, params)
-	if(is_hot(W))
+	if(W.get_heat())
 		light("<span class='notice'>[user] lights [src] with [W].</span>")
 		return
 	return ..()
@@ -151,6 +151,9 @@
 		return
 	infinite = FALSE
 	wax = 1 // next process will burn it out
+
+/obj/item/candle/get_heat()
+	return lit * 1000
 
 #undef TALL_CANDLE
 #undef MID_CANDLE
