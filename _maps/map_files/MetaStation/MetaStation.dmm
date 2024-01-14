@@ -58036,14 +58036,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
-"iqW" = (
-/obj/structure/sign/botany{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "greenfull"
-	},
-/area/station/hallway/primary/central)
 "iqY" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -126946,7 +126938,7 @@ bQI
 bQI
 aUX
 pwN
-iqW
+cbL
 cbL
 cbL
 cbL
