@@ -78,7 +78,7 @@
 		var/transferred = W.reagents.trans_to(src, max_water)
 		if(transferred > 0)
 			to_chat(user, "<span class='notice'>\The [src] has been refilled by [transferred] units</span>")
-			playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
+			playsound(loc, 'sound/effects/refill.ogg', 50, 1, -6)
 			for(var/datum/reagent/water/R in reagents.reagent_list)
 				R.cooling_temperature = cooling_power
 		else
@@ -100,8 +100,8 @@
 
 	if(safety)
 		return ..()
-	if(src.reagents.total_volume < 1)
-		to_chat(user, "<span class='danger'>\The [src] is empty.</span>")
+	if(reagents.total_volume < 1)
+		to_chat(user, "<span class='danger'>[src] is empty.</span>")
 		return
 
 	if(world.time < src.last_use + 2 SECONDS)
@@ -111,7 +111,7 @@
 
 	if(reagents.chem_temp > 300 || reagents.chem_temp < 280)
 		add_attack_logs(user, target, "Sprayed with superheated or cooled fire extinguisher at Temperature [reagents.chem_temp]K")
-	playsound(src.loc, 'sound/effects/extinguish.ogg', 75, 1, -3)
+	playsound(loc, 'sound/effects/extinguish.ogg', 75, TRUE, -3)
 
 	var/direction = get_dir(src,target)
 

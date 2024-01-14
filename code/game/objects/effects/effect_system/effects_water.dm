@@ -40,7 +40,6 @@
 			return
 		sleep(2)
 
-
 /////////////////////////////////////////////
 // GENERIC STEAM SPREAD SYSTEM
 
