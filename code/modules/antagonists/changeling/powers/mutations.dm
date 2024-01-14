@@ -390,7 +390,7 @@
 /datum/action/changeling/weapon/shield
 	name = "Organic Shield"
 	desc = "We reform one of our arms into a hard shield. Costs 20 chemicals."
-	helptext = "Organic tissue cannot resist damage forever. The shield will break after it is hit too much. The more DNA we collect, the stronger it is. Cannot be used while in lesser form."
+	helptext = "Organic tissue cannot resist damage forever, with the shield breaking after it is hit 6 times. Automatically parries. Cannot be used while in lesser form."
 	button_icon_state = "organic_shield"
 	chemical_cost = 20
 	dna_cost = 2
@@ -404,7 +404,6 @@
 	var/obj/item/shield/changeling/S = ..(user)
 	if(!S)
 		return FALSE
-	S.remaining_uses = round(cling.absorbed_count * 3)
 	return TRUE
 
 /obj/item/shield/changeling
@@ -413,7 +412,7 @@
 	flags = NODROP | DROPDEL
 	icon_state = "ling_shield"
 
-	var/remaining_uses //Set by the changeling ability.
+	var/remaining_uses = 6
 
 /obj/item/shield/changeling/Initialize(mapload)
 	. = ..()
@@ -423,6 +422,10 @@
 		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 
 /obj/item/shield/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	SEND_SIGNAL(owner, COMSIG_HUMAN_PARRY)
+	. = ..()
+	if(!.)
+		return
 	if(remaining_uses < 1)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
@@ -430,10 +433,9 @@
 			playsound(loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 			H.unEquip(src, 1)
 		qdel(src)
-		return 0
+		return FALSE
 	else
 		remaining_uses--
-		return ..()
 
 /***************************************\
 |*********SPACE SUIT + HELMET***********|
@@ -580,3 +582,4 @@
 	flags = BLOCKHAIR | NODROP | DROPDEL
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, RAD = 0, FIRE = 90, ACID = 90)
 	flags_inv = HIDEEARS
+	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH

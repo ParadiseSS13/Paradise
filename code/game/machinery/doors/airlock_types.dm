@@ -555,6 +555,9 @@
 	stealthy = initial(stealthy)
 	update_icon()
 
+/obj/machinery/door/airlock/cult/arePowerSystemsOn()
+	return !(stat & BROKEN)
+
 /obj/machinery/door/airlock/cult/narsie_act()
 	return
 

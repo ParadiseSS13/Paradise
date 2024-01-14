@@ -743,11 +743,16 @@
 		// Check if a tracker exists
 		var/obj/item/mecha_parts/mecha_tracking/new_tracker = W
 		for(var/obj/item/mecha_parts/mecha_tracking/current_tracker in trackers)
-			if(new_tracker.ai_beacon == current_tracker.ai_beacon)
-				to_chat(user, "<span class='warning'>This exosuit already has \a [new_tracker.ai_beacon ? "AI" : "tracking"] beacon.</span>")
+			if(new_tracker.type == current_tracker.type)
+				to_chat(user, "<span class='warning'>This exosuit already has a [current_tracker].</span>")
 				user.put_in_hands(new_tracker)
 				return
 
+			trackers -= current_tracker
+			to_chat(user, "<span class='notice'>You remove [current_tracker].</span>")
+			var/obj/item/mecha_parts/mecha_tracking/duplicate_tracker = new current_tracker.type
+			user.put_in_hands(duplicate_tracker)
+			qdel(current_tracker)
 		new_tracker.forceMove(src)
 		trackers += W
 		user.visible_message("[user] attaches [new_tracker] to [src].", "<span class='notice'>You attach [new_tracker] to [src].</span>")

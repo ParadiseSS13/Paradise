@@ -220,7 +220,9 @@
 ****************************************************/
 
 /obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
-	var/max_limb_damage = max_damage - (HAS_TRAIT(owner, TRAIT_IPC_JOINTS_MAG) ? max_damage * 0.25 : 0)
+	var/max_limb_damage = max_damage
+	if(owner)
+		max_limb_damage -= (HAS_TRAIT(owner, TRAIT_IPC_JOINTS_MAG) ? max_damage * 0.25 : 0)
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)

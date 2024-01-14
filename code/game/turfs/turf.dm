@@ -228,6 +228,7 @@
 	var/old_corners = corners
 
 	BeforeChange()
+	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
 
 	var/old_baseturf = baseturf
 	changing_turf = TRUE

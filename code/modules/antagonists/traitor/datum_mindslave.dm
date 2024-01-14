@@ -27,8 +27,11 @@
 	if(owner.som)
 		owner.som.serv -= owner
 		owner.som.leave_serv_hud(owner)
-	// Remove the reference but turn this into a string so it can still be used in /datum/antagonist/mindslave/farewell().
-	master = "[master.current.real_name]"
+	// Remove the master reference but turn this into a string so it can still be used in /datum/antagonist/mindslave/farewell().
+	if(master.current)
+		master = "[master.current.real_name]"
+	else
+		master = "[master]"
 	return ..()
 
 /datum/antagonist/mindslave/on_gain()
