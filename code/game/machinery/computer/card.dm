@@ -566,7 +566,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
 			var/datum/job/job = SSjobs.GetJob(modify.rank)
 			if(modify.assignment != "Demoted" && !(job.title in GLOB.command_positions))
-				job.current_positions-
+				job.current_positions--
 			modify.assignment = "Terminated"
 			modify.access = list()
 			regenerate_id_name()
