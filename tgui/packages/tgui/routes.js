@@ -5,6 +5,7 @@
  */
 
 import { selectBackend } from './backend';
+import { Icon, Stack } from './components';
 import { selectDebug } from './debug/selectors';
 import { Window } from './layouts';
 
