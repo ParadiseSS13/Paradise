@@ -12,6 +12,7 @@
 	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
 	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
 	var/datum/action/innate/mecha/mech_switch_damtype/switch_damtype_action = new
+	var/list/select_actions = list()
 
 /obj/mecha/proc/GrantActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
@@ -21,6 +22,8 @@
 	stats_action.Grant(user, src)
 	if(locate(/obj/item/mecha_parts/mecha_equipment/thrusters) in equipment)
 		add_thrusters()
+	for(var/obj/item/mecha_parts/mecha_equipment/equipment_mod in equipment)
+		equipment_mod.give_targeted_action()
 
 /obj/mecha/proc/RemoveActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
@@ -29,6 +32,8 @@
 	lights_action.Remove(user)
 	stats_action.Remove(user)
 	thrusters_action.Remove(user)
+	for(var/obj/item/mecha_parts/mecha_equipment/equipment_mod in equipment)
+		equipment_mod.remove_targeted_action()
 
 /datum/action/innate/mecha
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_CONSCIOUS
@@ -231,3 +236,24 @@
 	button_icon_state = "mech_damtype_[new_damtype]"
 	playsound(src, 'sound/mecha/mechmove01.ogg', 50, 1)
 	UpdateButtonIcon()
+
+/datum/action/innate/mecha/select_module
+	name = "Hey, you shouldn't see it"
+	var/obj/item/mecha_parts/mecha_equipment/equipment
+
+/datum/action/innate/mecha/select_module/Grant(mob/living/L, obj/mecha/M, obj/item/mecha_parts/mecha_equipment/_equipment)
+	if(!_equipment)
+		return FALSE
+	equipment = _equipment
+	icon_icon = equipment.icon
+	button_icon_state = equipment.icon_state
+	. = ..()
+	button.name = "Switch module to [equipment.name]"
+
+/datum/action/innate/mecha/select_module/Activate()
+	if(!owner || !chassis || chassis.occupant != owner)
+		return
+	chassis.selected = equipment
+	chassis.occupant_message("<span class='notice'>You switch to [equipment.name].</span>")
+	chassis.visible_message("[chassis] raises [equipment.name]")
+	send_byjax(chassis.occupant, "exosuit.browser", "eq_list", chassis.get_equipment_list())

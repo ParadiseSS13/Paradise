@@ -298,6 +298,12 @@
 	refills_over_time = TRUE
 	low_fuel_changes_icon = FALSE
 
+/obj/item/weldingtool/experimental/mecha
+	name = "integrated welding tool"
+	desc = "An advanced welder designed to be used in robotic systems."
+	requires_fuel = FALSE
+	light_intensity = 0
+
 /obj/item/weldingtool/experimental/brass
 	name = "brass welding tool"
 	desc = "A brass welder that seems to constantly refuel itself. It is faintly warm to the touch."

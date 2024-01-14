@@ -633,6 +633,17 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_eng_toolset
+	name = "Exosuit Engineering Equipment (Engineering Toolset)"
+	desc = "Exosuit toolset. Gives a set of good tools."
+	id = "mech_eng_toolset"
+	build_type = MECHFAB
+	req_tech = list("materials" = 6, "engineering" = 4)
+	build_path = /obj/item/mecha_parts/mecha_equipment/eng_toolset
+	materials = list(MAT_METAL=10000,MAT_TITANIUM =2000,MAT_PLASMA=2000)
+	construction_time = 20 SECONDS
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_sleeper
 	name = "Exosuit Medical Equipment (Mounted Sleeper)"
 	id = "mech_sleeper"

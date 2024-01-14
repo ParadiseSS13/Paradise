@@ -157,7 +157,15 @@
 	if(!interactable(user))
 		return
 
-	var/obj/item/I = user.get_active_hand()
+	var/obj/item/I
+	if(ismecha(user.loc))
+		var/obj/mecha/mecha = user.loc
+		if(istype(mecha.selected, /obj/item/mecha_parts/mecha_equipment/eng_toolset))
+			var/obj/item/mecha_parts/mecha_equipment/eng_toolset/toolset = mecha.selected
+			I = toolset.selected_item
+
+	else
+		I = user.get_active_hand()
 	var/color = lowertext(params["wire"])
 	holder.add_hiddenprint(user)
 
