@@ -194,17 +194,17 @@ REAGENT SCANNER
 			continue
 		// Snowflaking heart problems, because they are special (and common).
 		if(istype(D, /datum/disease/critical))
-			msgs += "<span class='alert'><b>Warning: Subject is undergoing [D.name].</b>\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>"
+			msgs += "<span class='notice'><font color='red'><b>Warning: Subject is undergoing [D.name].</b>\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
 			continue
-		msgs += "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>"
+		msgs += "<span class='notice'><font color='red'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
 	if(H.undergoing_cardiac_arrest())
 		var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
 		if(heart && !(heart.status & ORGAN_DEAD))
-			msgs += "<span class='alert'><b>The patient's heart has stopped.</b>\nPossible Cure: Electric Shock</span>"
+			msgs += "<span class='notice'><font color='red'><b>The patient's heart has stopped.</b>\nPossible Cure: Electric Shock</font></span>"
 		else if(heart && (heart.status & ORGAN_DEAD))
-			msgs += "<span class='alert'><b>Subject's heart is necrotic.</b></span>"
+			msgs += "<span class='notice'><font color='red'><b>Subject's heart is necrotic.</b></font></span>"
 		else if(!heart)
-			msgs += "<span class='alert'><b>Subject has no heart.</b></span>"
+			msgs += "<span class='notice'><font color='red'><b>Subject has no heart.</b></font></span>"
 
 	if(H.getStaminaLoss())
 		msgs += "<span class='info'>Subject appears to be suffering from fatigue.</span>"
