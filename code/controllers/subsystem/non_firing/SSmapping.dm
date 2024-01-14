@@ -129,6 +129,8 @@ SUBSYSTEM_DEF(mapping)
 	var/num_extra_space = rand(GLOB.configuration.ruins.extra_levels_min, GLOB.configuration.ruins.extra_levels_max)
 	for(var/i in 1 to num_extra_space)
 		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE_BY_CREW, SPAWN_RUINS, REACHABLE_SPACE_ONLY))
+		CHECK_TICK
+
 	log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
 
 	// Now spawn ruins, random budget between 20 and 30 for all zlevels combined.
