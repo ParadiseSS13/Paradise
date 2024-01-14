@@ -10,12 +10,10 @@
 	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/claws	//I dont think it will hurt to give vox claws too.
 
-	blurb = "The Vox are the broken remnants of a once-proud race, now reduced to little more than \
-	scavenging vermin who prey on isolated stations, ships or planets to keep their own ancient arkships \
-	alive. They are four to five feet tall, reptillian, beaked, tailed and quilled; human crews often \
-	refer to them as 'shitbirds' for their violent and offensive nature, as well as their horrible \
-	smell.<br/><br/>Most humans will never meet a Vox raider, instead learning of this insular species through \
-	dealing with their traders and merchants; those that do rarely enjoy the experience."
+	blurb = "The Vox are remnants of an ancient race, that originate from arkships. \
+	These bioengineered, reptilian, beaked, and quilled beings have a physiological caste system and follow 'The Inviolate' tenets.<br/><br/> \
+	Breathing pure nitrogen, they need specialized masks and tanks for survival outside their arkships. \
+	Their insular nature limits their involvement in broader galactic affairs, maintaining a distinct, yet isolated presence away from other species."
 
 	breathid = "n2"
 
@@ -51,7 +49,9 @@
 		3 = "Brown",
 		4 = "Grey",
 		5 = "Emerald",
-		6 = "Azure"
+		6 = "Azure",
+		7 = "Crimson",
+		8 = "Nebula"
 		)
 
 	has_organ = list(
@@ -105,6 +105,12 @@
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 		var/new_icobase = 'icons/mob/human_races/vox/r_vox.dmi' //Default Green Vox.
 		switch(H.s_tone)
+			if(8) //Nebula Vox.
+				new_icobase = 'icons/mob/human_races/vox/r_voxpurp.dmi'
+				H.tail = "voxtail_purp"
+			if(7) //Crimson Vox.
+				new_icobase = 'icons/mob/human_races/vox/r_voxcrim.dmi'
+				H.tail = "voxtail_crim"
 			if(6) //Azure Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxazu.dmi'
 				H.tail = "voxtail_azu"

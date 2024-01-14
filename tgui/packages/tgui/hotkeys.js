@@ -12,6 +12,8 @@ export const KEY_CTRL = 17;
 export const KEY_ALT = 18;
 export const KEY_ESCAPE = 27;
 export const KEY_SPACE = 32;
+export const ARROW_KEY_UP = 38;
+export const ARROW_KEY_DOWN = 40;
 export const KEY_0 = 48;
 export const KEY_1 = 49;
 export const KEY_2 = 50;
@@ -192,9 +194,10 @@ const handlePassthrough = (e, eventType) => {
 export const releaseHeldKeys = () => {
   for (let keyCode of Object.keys(keyState)) {
     if (keyState[keyCode]) {
+      const byondKey = keyCodeToByond(keyCode);
       logger.log(`releasing [${keyCode}] key`);
       keyState[keyCode] = false;
-      callByond('', { __keyup: keyCode });
+      callByond('', { __keyup: byondKey });
     }
   }
 };

@@ -10,7 +10,7 @@
 	active_power_consumption = 2500
 	light_color = "#00FF00"
 	var/mob/living/carbon/human/occupant
-	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
+	var/known_implants = list(/obj/item/bio_chip/chem, /obj/item/bio_chip/death_alarm, /obj/item/bio_chip/mindshield, /obj/item/bio_chip/tracking, /obj/item/bio_chip/health)
 
 /obj/machinery/bodyscanner/examine(mob/user)
 	. = ..()
@@ -271,7 +271,7 @@
 		occupantData["blood"] = bloodData
 
 		var/implantData[0]
-		for(var/obj/item/implant/I in occupant)
+		for(var/obj/item/bio_chip/I in occupant)
 			if(I.implanted && is_type_in_list(I, known_implants))
 				var/implantSubData[0]
 				implantSubData["name"] = sanitize(I.name)

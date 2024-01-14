@@ -54,3 +54,6 @@
 
 /proc/cmp_login_processor_priority(datum/client_login_processor/A, datum/client_login_processor/B)
 	return A.priority - B.priority
+
+/proc/cmp_changeling_power_category_asc(datum/changeling_power_category/a, datum/changeling_power_category/b)
+	return initial(a.priority) - initial(b.priority)

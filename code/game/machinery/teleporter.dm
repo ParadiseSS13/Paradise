@@ -20,7 +20,7 @@
 	/// The target turf of the teleporter
 	var/turf/target
 
-	/* 	var/area_bypass is for one-time-use teleport cards (such as clown planet coordinates.)
+	/* 	var/area_bypass is for one-time-use teleport cards
 		Setting this to TRUE will set var/obj/item/gps/locked to null after a player enters the portal and will not allow hand-teles to open portals to that location.
 	*/
 	var/area_bypass = FALSE
@@ -212,7 +212,7 @@
 			"y" = T.y,
 			"z" = T.z)
 
-	for(var/obj/item/implant/tracking/I in GLOB.tracked_implants)
+	for(var/obj/item/bio_chip/tracking/I in GLOB.tracked_implants)
 		if(!I.implanted || !ismob(I.loc))
 			continue
 		else

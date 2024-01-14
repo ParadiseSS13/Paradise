@@ -10,4 +10,4 @@ This DMAPI implements bridge requests using HTTP GET requests to TGS. It has no 
 - [v5_commands.dm](./v5_commands.dm) contains functions relating to `/datum/tgs_chat_command`s.
 - [v5_serializers.dm](./v5_serializers.dm) contains function to help convert interop `/datum`s into a JSON encodable `list()` format.
 - [v5_topic.dm](./v5_topic.dm) contains functions related to processing topic requests.
-- [v5_undefs.dm](./v5_undefs.dm) Undoes the work of `_v5_defines.dm`.
+- [v5_undefs.dm](./v5_undefs.dm) Undoes the work of `_defines.dm`.

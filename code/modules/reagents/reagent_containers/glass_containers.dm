@@ -307,6 +307,11 @@
 	container_type = OPENCONTAINER
 	dog_fashion = /datum/dog_fashion/head/bucket
 
+/obj/item/reagent_containers/glass/bucket/update_overlays()
+	. = ..()
+	if(!is_open_container())
+		. += "lid_[initial(icon_state)]"
+
 /obj/item/reagent_containers/glass/bucket/wooden
 	name = "wooden bucket"
 	icon_state = "woodbucket"

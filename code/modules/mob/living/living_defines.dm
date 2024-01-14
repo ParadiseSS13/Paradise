@@ -42,7 +42,7 @@
 	var/mob_biotypes = MOB_ORGANIC
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
 
-	var/ventcrawler = 0 //0 No vent crawling, 1 vent crawling in the nude, 2 vent crawling always
+	var/ventcrawler = VENTCRAWLER_NONE
 	var/list/icon/pipes_shown = list()
 	var/last_played_vent
 
@@ -87,6 +87,9 @@
 
 	/// the type of holder that will be created when a mob gets scooped up
 	var/holder_type
+
+	/// This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
+	var/forced_look = null
 
 	var/datum/language/default_language
 

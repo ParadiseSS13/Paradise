@@ -514,6 +514,7 @@
 
 // Runechat symbol types
 #define RUNECHAT_SYMBOL_EMOTE 1
+#define RUNECHAT_SYMBOL_LOOC 2
 
 /// Waits at a line of code until X is true
 #define UNTIL(X) while(!(X)) sleep(world.tick_lag)
@@ -577,3 +578,13 @@
 /// It will only work for datums mind, for datum reasons
 /// : because of the embedded typecheck
 #define text_ref(datum) (isdatum(datum) ? (datum:cached_ref ||= "\ref[datum]") : ("\ref[datum]"))
+
+#define ROUND_END_NUCLEAR 1
+#define ROUND_END_CREW_TRANSFER 2
+#define ROUND_END_FORCED 3
+
+#define TS_INFESTATION_GREEN_SPIDER 1
+#define TS_INFESTATION_PRINCE_SPIDER 2
+#define TS_INFESTATION_WHITE_SPIDER 3
+#define TS_INFESTATION_PRINCESS_SPIDER 4
+#define TS_INFESTATION_QUEEN_SPIDER 5

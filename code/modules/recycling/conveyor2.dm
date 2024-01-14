@@ -3,8 +3,8 @@
 #define DIRECTION_REVERSED	-1
 #define IS_OPERATING		(operating && can_conveyor_run())
 
-GLOBAL_LIST_INIT(conveyor_belts, list()) //Saves us having to look through the entire machines list for our things
-GLOBAL_LIST_INIT(conveyor_switches, list())
+GLOBAL_LIST_EMPTY(conveyor_belts) //Saves us having to look through the entire machines list for our things
+GLOBAL_LIST_EMPTY(conveyor_switches)
 
 //conveyor2 is pretty much like the original, except it supports corners, but not diverters.
 //Except this is pretty heavily modified so it's more like conveyor2.5
