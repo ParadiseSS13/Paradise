@@ -61,10 +61,7 @@
 	pixel_y = -10
 	},
 /obj/item/shard,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsSouth)
@@ -147,10 +144,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
@@ -1899,8 +1893,7 @@
 /area/awaymission/BMPship/Buffer)
 "fx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead";
+/obj/item/kirbyplants/dead{
 	tag = "plant-dead"
 	},
 /obj/machinery/light/small/directional/south,
@@ -2026,8 +2019,7 @@
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/north,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead";
+/obj/item/kirbyplants/dead{
 	tag = "plant-dead"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -2327,8 +2319,7 @@
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/south,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead";
+/obj/item/kirbyplants/dead{
 	tag = "plant-dead"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -2678,10 +2669,7 @@
 	},
 /obj/item/shard,
 /obj/effect/landmark/damageturf,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "hV" = (
@@ -2749,10 +2737,7 @@
 /area/awaymission/BMPship/Armory)
 "ii" = (
 /obj/structure/window/reinforced,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/shard{
 	icon_state = "medium";
 	pixel_x = -7;
@@ -2880,10 +2865,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/engine/vacuum,
 /area/awaymission/BMPship/TurretsSouth)
 "iH" = (
@@ -3305,10 +3287,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/damageturf,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "ld" = (
@@ -3475,8 +3454,7 @@
 /area/awaymission/BMPship/Kitchen)
 "mA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead";
+/obj/item/kirbyplants/dead{
 	tag = "plant-dead"
 	},
 /obj/machinery/light_construct/small/north,
@@ -3591,8 +3569,7 @@
 "nO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/south,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead";
+/obj/item/kirbyplants/dead{
 	tag = "plant-dead"
 	},
 /obj/machinery/light/small/directional/south,
@@ -3749,10 +3726,7 @@
 	pixel_x = 9;
 	pixel_y = -9
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/space,
 /area/space)
 "pc" = (
@@ -4991,10 +4965,7 @@
 /turf/space,
 /area/space)
 "Ac" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/shard{
 	icon_state = "medium";
 	pixel_x = 9;
@@ -5482,10 +5453,7 @@
 	pixel_x = -7;
 	pixel_y = -10
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8
 	},
@@ -6539,8 +6507,7 @@
 /area/awaymission/BMPship/Fore)
 "Qk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead";
+/obj/item/kirbyplants/dead{
 	tag = "plant-dead"
 	},
 /obj/structure/spider/stickyweb,
@@ -7201,8 +7168,7 @@
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/south,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead";
+/obj/item/kirbyplants/dead{
 	tag = "plant-dead"
 	},
 /obj/structure/spider/stickyweb,
@@ -7326,8 +7292,7 @@
 /area/awaymission/BMPship/Fore)
 "YU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead";
+/obj/item/kirbyplants/dead{
 	tag = "plant-dead"
 	},
 /obj/machinery/light/small/directional/north,
@@ -7399,10 +7364,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/stack/rods/ten,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)

@@ -7434,10 +7434,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/station/public/sleep_female)
 "aGs" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -7534,14 +7531,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/mechanic)
-"aGW" = (
-/obj/structure/lattice,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
-/turf/space,
-/area/space/nearstation)
 "aGX" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -16723,10 +16712,7 @@
 /turf/simulated/floor/carpet/cyan,
 /area/station/security/prison/cell_block/A)
 "btV" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/shard,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
@@ -31012,10 +30998,7 @@
 /turf/simulated/floor/carpet,
 /area/station/service/library)
 "ctS" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -35362,10 +35345,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/station/legal/courtroom)
 "cMG" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -41769,10 +41749,7 @@
 	},
 /area/station/security/processing)
 "drs" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -42370,10 +42347,7 @@
 	},
 /area/station/science/research)
 "dtU" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "dtY" = (
@@ -47886,10 +47860,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/hallway/secondary/exit)
 "dXo" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -47938,10 +47909,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "dXs" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -52070,10 +52038,7 @@
 	},
 /area/station/public/vacant_store)
 "fhI" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
 /turf/simulated/floor/plating,
@@ -52346,10 +52311,7 @@
 /area/station/maintenance/dormitory_maintenance)
 "fmc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dormitory_maintenance)
 "fmg" = (
@@ -53260,10 +53222,7 @@
 	},
 /area/station/hallway/primary/central/ne)
 "fAW" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -56036,10 +55995,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "gvn" = (
@@ -56677,10 +56633,7 @@
 	},
 /area/station/maintenance/fsmaint)
 "gGM" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
@@ -57307,10 +57260,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/station/legal/magistrate)
 "gQm" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/shard,
 /obj/item/shard{
 	icon_state = "small"
@@ -57455,10 +57405,7 @@
 	},
 /area/station/maintenance/fsmaint)
 "gSY" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
 /turf/simulated/floor/plating,
@@ -57565,10 +57512,7 @@
 /turf/simulated/wall,
 /area/station/supply/abandoned_boxroom)
 "gUg" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/structure/chair/stool/bar{
 	dir = 8
 	},
@@ -60362,10 +60306,7 @@
 	},
 /area/station/security/permabrig)
 "hNR" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/shard{
 	icon_state = "small";
 	pixel_x = -8;
@@ -60880,10 +60821,7 @@
 /area/station/medical/morgue)
 "hWh" = (
 /obj/machinery/light/small/directional/north,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
@@ -61411,10 +61349,7 @@
 	},
 /area/station/security/permabrig)
 "ieW" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard{
 	icon_state = "small"
@@ -66731,10 +66666,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -70405,10 +70337,7 @@
 /area/station/maintenance/starboard2)
 "kUF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/stack/rods,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
@@ -76031,10 +75960,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "mPO" = (
@@ -88236,10 +88162,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/podpilot)
 "qBo" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/oak,
@@ -91370,10 +91293,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -93825,10 +93745,7 @@
 /area/station/command/meeting_room)
 "snC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/stack/rods{
 	amount = 3
 	},
@@ -94939,10 +94856,7 @@
 	},
 /area/station/service/barber)
 "sCq" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -96070,10 +95984,7 @@
 	},
 /area/station/engineering/control)
 "sWY" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/oak,
 /area/station/maintenance/starboard)
@@ -104535,10 +104446,7 @@
 	},
 /area/station/medical/morgue)
 "vHZ" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -108137,10 +108045,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/explab/chamber)
 "wRZ" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "wSa" = (
@@ -108241,10 +108146,7 @@
 	},
 /area/station/maintenance/fsmaint)
 "wTf" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "wTo" = (
@@ -108700,10 +108602,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/mechanic)
 "wYP" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -110765,10 +110664,7 @@
 	},
 /area/station/medical/reception)
 "xHN" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -127674,7 +127570,7 @@ aaa
 aaa
 dij
 dij
-aGW
+sso
 dij
 dij
 aaa
@@ -131786,7 +131682,7 @@ aaa
 aaa
 dij
 dij
-aGW
+sso
 dij
 abj
 aaa
@@ -131796,7 +131692,7 @@ abj
 aaa
 abj
 dij
-aGW
+sso
 dij
 dij
 abj
@@ -160303,7 +160199,7 @@ aaa
 aaa
 dij
 dij
-aGW
+sso
 dij
 abj
 adg
@@ -161831,7 +161727,7 @@ aaa
 aaa
 aaa
 dij
-aGW
+sso
 dij
 dij
 abj
@@ -163375,7 +163271,7 @@ aaa
 aaa
 aaa
 aaa
-aGW
+sso
 abj
 ace
 aco

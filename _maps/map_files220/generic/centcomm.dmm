@@ -5304,9 +5304,7 @@
 /area/centcom/ss220/admin1)
 "dFj" = (
 /obj/structure/window/reinforced,
-/obj/item/kirbyplants{
-	icon_state = "applebush"
-	},
+/obj/item/kirbyplants/applebush,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkneutralfull"
 	},

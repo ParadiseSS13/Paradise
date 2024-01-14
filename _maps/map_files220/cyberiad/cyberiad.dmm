@@ -24091,9 +24091,7 @@
 	},
 /area/station/command/office/cmo)
 "bSy" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-32"
-	},
+/obj/item/kirbyplants/plant32,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -78072,9 +78070,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "pyl" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-32"
-	},
+/obj/item/kirbyplants/plant32,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
