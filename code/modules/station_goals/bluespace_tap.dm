@@ -316,12 +316,14 @@
 
 
 /obj/machinery/power/bluespace_tap/connect_to_network()
-	..()
-	update_icon()
+	. = ..()
+	if(.)
+		update_icon()
 
 /obj/machinery/power/bluespace_tap/disconnect_from_network()
-	..()
-	update_icon()
+	. = ..()
+	if(.)
+		update_icon()
 
 /obj/machinery/power/bluespace_tap/Destroy()
 	QDEL_LIST_CONTENTS(fillers)

@@ -1347,10 +1347,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "du" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
@@ -1461,10 +1458,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/arrival)
 "dG" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/shard{
 	icon_state = "small"
 	},
