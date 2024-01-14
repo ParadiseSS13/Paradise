@@ -4140,7 +4140,6 @@
 /area/ruin/space/spacehotelv1/kitchen)
 "Dx" = (
 /obj/structure/rack,
-/obj/item/clothing/gloves/color/yellow/power,
 /obj/random/toolbox,
 /obj/random/tool,
 /turf/simulated/floor/plating,
@@ -5929,7 +5928,6 @@
 /area/ruin/space/spacehotelv1/restoraunt2)
 "PO" = (
 /obj/structure/rack,
-/obj/item/clothing/gloves/color/yellow/power,
 /obj/random/toolbox,
 /obj/random/tool,
 /obj/effect/spawner/random_spawners/dirt_often,
