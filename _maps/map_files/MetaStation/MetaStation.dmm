@@ -63702,10 +63702,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "kQv" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/reagent_containers/food/snacks/grown/poppy,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
