@@ -56,17 +56,14 @@
 	..(holder)
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
-	if(istype(holder))
+	if(ishuman(holder))
 		if(holder.dna)
 			dna = holder.dna.Clone()
+			if(!blood_DNA)
+				blood_DNA = list()
+			blood_DNA[dna.unique_enzymes] = dna.blood_type
 		else
 			stack_trace("[holder] spawned without a proper DNA.")
-		var/mob/living/carbon/human/H = holder
-		if(istype(H))
-			if(dna)
-				if(!blood_DNA)
-					blood_DNA = list()
-				blood_DNA[dna.unique_enzymes] = dna.blood_type
 	else
 		dna = new /datum/dna(null)
 		if(species_override)

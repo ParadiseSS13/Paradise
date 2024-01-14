@@ -151,9 +151,7 @@
 			return TRUE
 
 		if("remove_tank")
-			if(holding_tank)
-				holding_tank.forceMove(get_turf(src))
-				holding_tank = null
+			replace_tank(ui.user, TRUE)
 			update_icon()
 			return TRUE
 

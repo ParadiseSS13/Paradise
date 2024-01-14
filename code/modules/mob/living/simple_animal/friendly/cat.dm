@@ -55,6 +55,8 @@
 	deploy_the_cats()
 
 /mob/living/simple_animal/pet/cat/Runtime/persistent_save()
+	if(SEND_SIGNAL(src, COMSIG_LIVING_WRITE_MEMORY) & COMPONENT_DONT_WRITE_MEMORY)
+		return FALSE
 	write_memory(FALSE)
 
 /mob/living/simple_animal/pet/cat/Runtime/make_babies()

@@ -163,6 +163,22 @@ eg: `/datum/thing`, not `datum/thing`
 In DM, this is optional, but omitting it makes finding definitions harder. To be specific, you can declare the path `/arbitrary`, but it
 will still be, in actuality, `/datum/arbitrary`. Write your code to reflect this.
 
+### Do not use list operators in strings
+
+The use of list operators to augment strings is not allowed. This is roughly 10 times slower than using a list with a Join() Function.
+
+```dm
+//Bad
+var/text = "text"
+text += "More text"
+to_chat(world, text)
+
+//Good
+var/list/text = list("text")
+text += "More text"
+to_chat(world, text.Join(""))
+```
+
 ### Do not use text/string based type paths
 
 It is rarely allowed to put type paths in a text format, as there are no compile errors if the type path no longer exists. Here is an example:

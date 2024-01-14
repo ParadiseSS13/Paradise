@@ -1,7 +1,10 @@
 import { Fragment } from 'inferno';
+import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Icon, Section, Tabs } from '../components';
+import { Box, Button, Flex, Section, Tabs, Input } from '../components';
 import { Window } from '../layouts';
+import { flow } from 'common/fp';
+import { filter, sortBy } from 'common/collections';
 
 export const EvolutionMenu = (props, context) => {
   return (
@@ -48,14 +51,69 @@ const EvolutionPoints = (props, context) => {
 
 const Abilities = (props, context) => {
   const { act, data } = useBackend(context);
-  const { evo_points, ability_list, purchased_abilities, view_mode } = data;
-  const [tab, setTab] = useLocalState(context, 'tab', 0);
+  const { evo_points, ability_tabs, purchased_abilities, view_mode } = data;
+  const [selectedTab, setSelectedTab] = useLocalState(
+    context,
+    'selectedTab',
+    ability_tabs[0]
+  );
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [abilities, setAbilities] = useLocalState(
+    context,
+    'ability_tabs',
+    ability_tabs[0].abilities
+  );
+
+  const selectAbilities = (abilities, searchText = '') => {
+    if (!abilities || abilities.length === 0) {
+      return [];
+    }
+
+    const AbilitySearch = createSearch(searchText, (ability) => {
+      return ability.name + '|' + ability.description;
+    });
+
+    return flow([
+      filter((ability) => ability?.name),
+      filter(AbilitySearch),
+      sortBy((ability) => ability?.name),
+    ])(abilities);
+  };
+
+  const handleSearch = (value) => {
+    setSearchText(value);
+    if (value === '') {
+      return setAbilities(selectedTab.abilities);
+    }
+
+    setAbilities(
+      selectAbilities(
+        ability_tabs.map((ability_entry) => ability_entry.abilities).flat(),
+        value
+      )
+    );
+  };
+
+  const handleTabChange = (selectedTab) => {
+    setSelectedTab(selectedTab);
+    setAbilities(selectedTab.abilities);
+    setSearchText('');
+  };
+
   return (
     <Section
       title="Abilities"
       flexGrow="1"
       buttons={
         <Fragment>
+          <Input
+            width="200px"
+            placeholder="Search Abilities"
+            onInput={(e, value) => {
+              handleSearch(value);
+            }}
+            value={searchText}
+          />
           <Button
             icon={!view_mode ? 'check-square-o' : 'square-o'}
             selected={!view_mode}
@@ -80,30 +138,20 @@ const Abilities = (props, context) => {
       }
     >
       <Tabs>
-        <Tabs.Tab
-          selected={tab === 0}
-          onClick={() => {
-            setTab(0);
-          }}
-        >
-          Offense
-        </Tabs.Tab>
-        <Tabs.Tab
-          selected={tab === 1}
-          onClick={() => {
-            setTab(1);
-          }}
-        >
-          Defense
-        </Tabs.Tab>
-        <Tabs.Tab selected={tab === 2} onClick={() => setTab(2)}>
-          Utility
-        </Tabs.Tab>
-        <Tabs.Tab selected={tab === 3} onClick={() => setTab(3)}>
-          Stings
-        </Tabs.Tab>
+        {ability_tabs.map((tab) => (
+          <Tabs.Tab
+            key={tab}
+            selected={searchText === '' && selectedTab === tab}
+            onClick={() => {
+              handleTabChange(tab);
+            }}
+          >
+            {tab.category}
+          </Tabs.Tab>
+        ))}
       </Tabs>
-      {ability_list[tab].map((ability, i) => (
+
+      {abilities.map((ability, i) => (
         <Box key={i} p={0.5} mx={-1} className="candystripe">
           <Flex align="center">
             <Flex.Item ml={0.5} color="#dedede">

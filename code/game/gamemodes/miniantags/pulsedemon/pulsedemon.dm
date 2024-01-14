@@ -656,7 +656,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/proc/is_under_tile()
 	var/turf/T = get_turf(src)
-	return T.transparent_floor || T.intact || HAS_TRAIT(T, TRAIT_TURF_COVERED)
+	return T.intact || HAS_TRAIT(T, TRAIT_TURF_COVERED)
 
 // cable (and hijacked APC) view helper
 /mob/living/simple_animal/demon/pulse_demon/proc/update_cableview()

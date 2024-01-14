@@ -23,7 +23,7 @@
 /obj/structure/spawner/lavaland/legion
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril)
 
-GLOBAL_LIST_INIT(tendrils, list())
+GLOBAL_LIST_EMPTY(tendrils)
 
 /obj/structure/spawner/lavaland/Initialize(mapload)
 	. = ..()

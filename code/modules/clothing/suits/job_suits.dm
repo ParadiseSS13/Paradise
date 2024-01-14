@@ -259,12 +259,26 @@
 	resistance_flags = NONE
 
 //Head of Personnel
-/obj/item/clothing/suit/mantle/armor/head_of_personnel
+/obj/item/clothing/suit/mantle/armor/hop
 	name = "head of personnel's shawl"
 	desc = "An armored shawl for the head of personnel. It's remarkably well kept."
 	icon_state = "hopmantle"
 	item_state = "hopmantle"
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+
+/obj/item/clothing/suit/hopcoat
+	name = "head of personnel's coat"
+	desc = "A big coat for the Head of Personnel who wants to make a fashion statement. Has armour woven within the fabric."
+	icon_state = "hopcoat"
+	item_state = "hopcoat"
+	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
+	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi'
+	)
 
 //Dignitaries
 /obj/item/clothing/suit/storage/ntrep

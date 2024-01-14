@@ -18,7 +18,7 @@ field_generator power level display
 #define FG_CHARGING 1
 #define FG_ONLINE 2
 
-GLOBAL_LIST_INIT(field_generator_fields, list())
+GLOBAL_LIST_EMPTY(field_generator_fields)
 
 /obj/machinery/field/generator
 	name = "Field Generator"

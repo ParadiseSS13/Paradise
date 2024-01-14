@@ -75,9 +75,9 @@
 		QDEL_NULL(noz)
 	return ..()
 
-/obj/item/watertank/attack_hand(mob/user as mob)
-	if(src.loc == user)
-		ui_action_click()
+/obj/item/watertank/attack_hand(mob/user)
+	if(loc == user)
+		toggle_mister(user)
 		return
 	..()
 
@@ -226,7 +226,6 @@
 	item_state = "nozzleatmos"
 	safety = 0
 	max_water = 500
-	power = 8
 	precision = 1
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE

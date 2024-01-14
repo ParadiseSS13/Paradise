@@ -329,7 +329,7 @@
 			L[S.name] = S
 
 	playsound(console, 'sound/machines/terminal_prompt.ogg', 25, 0)
-	var/selected = input("Choose location to jump to", "Locations", null) as null|anything in L
+	var/selected = tgui_input_list(target, "Choose location to jump to", "Locations", L)
 	if(QDELETED(src) || QDELETED(target) || !isliving(target))
 		return
 	playsound(src, "terminal_type", 25, 0)
