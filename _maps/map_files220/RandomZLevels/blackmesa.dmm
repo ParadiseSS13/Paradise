@@ -2343,7 +2343,7 @@
 "cTV" = (
 /obj/structure/alien/xenoweeds,
 /obj/effect/bump_teleporter{
-	id = "lambda_xen";
+	id = "lambda_lab_gate";
 	density = 0
 	},
 /turf/simulated/floor/engine,
@@ -3619,6 +3619,11 @@
 /mob/living/simple_animal/hostile/blackmesa/xen/headcrab/fast,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/black_mesa/entrance)
+"etS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel/dark,
+/area/awaymission/black_mesa/xen/acid_lake_building)
 "etZ" = (
 /obj/effect/bump_teleporter{
 	id = "lambda2";
@@ -3697,6 +3702,10 @@
 /obj/machinery/door/airlock/public,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/black_ops_science_room)
+"exS" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel/smooth,
+/area/awaymission/black_mesa/deep_sci_storage)
 "eyf" = (
 /obj/structure/flora/biolumini/mine,
 /turf/simulated/floor/beach/away/coastline/xen{
@@ -7864,6 +7873,14 @@
 	icon_state = "alienvault"
 	},
 /area/awaymission/black_mesa/xen/nihilanth_arena)
+"jLi" = (
+/obj/structure/inflatable{
+	opacity = 1;
+	color = "#556B2F"
+	},
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plating,
+/area/awaymission/black_mesa/xen/acid_lake_building)
 "jLu" = (
 /obj/structure/sign/chemistry{
 	pixel_y = -32
@@ -8333,6 +8350,10 @@
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/black_ops_armory)
+"koI" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel/smooth,
+/area/awaymission/black_mesa/cryo_room)
 "kpg" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -10322,8 +10343,8 @@
 /area/awaymission/black_mesa/science_labs)
 "mMa" = (
 /obj/effect/bump_teleporter/lambda{
-	id = "lambda_xen2";
-	id_target = "lambda2";
+	id = "lambda_xen3";
+	id_target = "lambda_lab_gate";
 	color = "lime"
 	},
 /turf/simulated/floor/vault{
@@ -15256,6 +15277,10 @@
 /obj/structure/alien/xenoweeds,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/science_decon_room)
+"sCM" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/awaymission/black_mesa/xen/vortigaunt_village_nihilanth)
 "sCN" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -17450,6 +17475,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/security_outpost)
+"vug" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plating,
+/area/awaymission/black_mesa/xen/acid_lake_building)
 "vuI" = (
 /obj/structure/flora/biolumini/mine/weaklight,
 /turf/simulated/floor/plating/xen,
@@ -19251,6 +19280,10 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/tram_room)
+"xGZ" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel/smooth,
+/area/awaymission/black_mesa/cryo_storage)
 "xHI" = (
 /obj/effect/landmark/awaymissions/black_mesa/random_mob_placer/xen,
 /turf/simulated/floor/plasteel,
@@ -32451,7 +32484,7 @@ qeH
 rvt
 pTC
 uzo
-uzo
+etS
 pzr
 uzo
 lUJ
@@ -32563,7 +32596,7 @@ qQx
 lQm
 lQm
 nmA
-aHI
+sCM
 aHI
 aHI
 nmA
@@ -32966,9 +32999,9 @@ pzr
 aNx
 pzr
 pzr
-pzr
+jLi
 uzo
-xlP
+vug
 pzr
 jSI
 uCx
@@ -57660,7 +57693,7 @@ cBU
 cBU
 cBU
 dgN
-sHE
+exS
 mIc
 wBx
 mIc
@@ -65679,9 +65712,9 @@ ptr
 ptr
 uDt
 pOl
-pOl
+koI
 xZT
-bBe
+xGZ
 xzz
 bBe
 bBe

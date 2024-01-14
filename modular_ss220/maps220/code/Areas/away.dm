@@ -50,7 +50,7 @@
 	icon_state = "awaycontent9"
 
 /area/ruin/space/spacehotelv1/entryhallway
-	name = "awaycontent17"
+	name = "Hotel Entry Hallway"
 	icon_state = "awaycontent10"
 
 /area/ruin/space/spacehotelv1/restoraunt3
