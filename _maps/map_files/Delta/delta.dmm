@@ -94218,7 +94218,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -94227,6 +94226,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "tzC" = (
