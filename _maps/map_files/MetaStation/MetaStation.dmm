@@ -55886,21 +55886,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/telecomms/chamber)
 "hxz" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
-/obj/item/food/snacks/grown/poppy,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/grille/broken,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "hxD" = (
