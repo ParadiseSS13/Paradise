@@ -524,9 +524,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
@@ -566,9 +564,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "bK" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
@@ -813,9 +809,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "ct" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -1300,9 +1294,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot/strong,
@@ -1538,9 +1530,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -1707,9 +1697,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3831,9 +3819,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jd" = (
@@ -3858,9 +3844,7 @@
 /area/ruin/ancientstation)
 "jg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jh" = (
@@ -3871,9 +3855,7 @@
 	tag = "90Curve"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "ji" = (
@@ -3928,9 +3910,7 @@
 /area/ruin/ancientstation/thetacorridor)
 "jo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "jp" = (
