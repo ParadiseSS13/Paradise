@@ -462,7 +462,6 @@
 	#ifdef MULTIINSTANCE
 	SSinstancing.update_playercache() // Clear us out
 	#endif
-	QDEL_NULL(chatOutput)
 	QDEL_NULL(pai_save)
 
 	if(movingmob)
