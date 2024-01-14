@@ -93011,7 +93011,7 @@
 	name = "Robotics Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics{
-	dir = 5
+	dir = 1
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
