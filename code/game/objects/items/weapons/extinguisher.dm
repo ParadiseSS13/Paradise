@@ -102,10 +102,10 @@
 		to_chat(user, "<span class='danger'>[src] is empty.</span>")
 		return
 
-		if(!COOLDOWN_FINISHED(src, last_use))
-			return
+	if(!COOLDOWN_FINISHED(src, last_use))
+		return
 
-		COOLDOWN_START(src, last_use, 2 SECONDS)
+	COOLDOWN_START(src, last_use, 2 SECONDS)
 
 	if(reagents.chem_temp > 300 || reagents.chem_temp < 280)
 		add_attack_logs(user, target, "Sprayed with superheated or cooled fire extinguisher at Temperature [reagents.chem_temp]K")
