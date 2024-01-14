@@ -61845,9 +61845,6 @@
 /area/station/maintenance/aft2)
 "kej" = (
 /obj/item/kirbyplants/plant24,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
 /obj/machinery/camera{
 	c_tag = "Science Hallway - Research";
 	network = list("Research","SS13")
