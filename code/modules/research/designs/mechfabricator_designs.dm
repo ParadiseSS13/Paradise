@@ -821,7 +821,7 @@
 	build_type = MECHFAB
 	req_tech = list("materials" = 5, "combat" = 5, "engineering" = 3)
 	build_path = /obj/item/stack/sheet/animalhide/armour_plate
-	materials = list(MAT_METAL=20000,MAT_TITANIUM=5000)
+	materials = list(MAT_METAL = 20000, MAT_TITANIUM = 5000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
