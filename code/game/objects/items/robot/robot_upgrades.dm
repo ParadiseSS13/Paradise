@@ -263,14 +263,14 @@
 		F.emag_act()
 
 /obj/item/borg/upgrade/incision_management
-    name = "medical cyborg IMS upgrade"
-    desc = "An Incision Managment System replacment for the medical cyborg's standard scapel."
-    icon_state = "cyborg_upgrade3"
-    require_module = TRUE
-    module_type = /obj/item/robot_module/medical
-    items_to_replace = list(
-        /obj/item/scalpel = /obj/item/scalpel/laser/manager
-    )
+	name = "medical cyborg IMS upgrade"
+	desc = "An Incision Managment System replacment for the medical cyborg's standard scapel."
+	icon_state = "cyborg_upgrade3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/medical
+	items_to_replace = list(
+		/obj/item/scalpel = /obj/item/scalpel/laser/manager
+	)
 
 /obj/item/borg/upgrade/syndicate
 	name = "safety override module"
