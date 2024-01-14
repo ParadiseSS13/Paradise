@@ -262,6 +262,16 @@
 	for(var/obj/item/reagent_containers/borghypo/F in R.module.modules)
 		F.emag_act()
 
+/obj/item/borg/upgrade/incision_management
+    name = "medical cyborg IMS upgrade"
+    desc = "An Incision Managment System replacment for the medical cyborg's standard scapel."
+    icon_state = "cyborg_upgrade3"
+    require_module = TRUE
+    module_type = /obj/item/robot_module/medical
+    items_to_replace = list(
+        /obj/item/scalpel = /obj/item/scalpel/laser/manager
+    )
+
 /obj/item/borg/upgrade/syndicate
 	name = "safety override module"
 	desc = "Unlocks the hidden, deadlier functions of a cyborg."
@@ -428,7 +438,7 @@
 	items_to_replace = list(
 		/obj/item/soap/nanotrasen = /obj/item/soap/syndie
 	)
-	
+
 /obj/item/borg/upgrade/bluespace_trash_bag
 	name = "janitor cyborg trash bag of holding upgrade"
 	desc = "An advanced trash bag upgrade board with bluespace properties that can be attached to janitorial cyborgs."
