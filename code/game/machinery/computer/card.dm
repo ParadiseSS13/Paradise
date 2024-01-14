@@ -564,7 +564,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name, reason)
 			modify.lastlog = "[station_time_timestamp()]: TERMINATED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
 			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
-			if(modify.assignment != "Demoted" && !(SSjobs.GetJob(modify.rank).title in GLOB.command_positions))
+			var/datum/job/job = SSjobs.GetJob(modify.rank)
+			if(modify.assignment != "Demoted" && !(job.title in GLOB.command_positions))
 				SSjobs.GetJob(modify.rank).current_positions--
 			modify.assignment = "Terminated"
 			modify.access = list()
