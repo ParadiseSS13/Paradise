@@ -277,7 +277,7 @@
 
 /obj/item/food/snacks/pie
 	name = "banana cream pie"
-	desc = "Just like back home, on clown planet! HONK!"
+	desc = "One of the five essential food groups of clowns."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "pie"
 	trash = /obj/item/trash/plate

@@ -359,9 +359,9 @@
 
 			var/medicine_name = patchname
 			var/count = patchamount
-			if(length(medicine_name) <= 0 || isnull(medicine_name))
-				medicine_name = reagents.get_master_reagent_name()
 			var/amount_per_patch = clamp(reagents.total_volume / count, 0, MAX_UNITS_PER_PATCH)
+			if(length(medicine_name) <= 0 || isnull(medicine_name))
+				medicine_name = "[reagents.get_master_reagent_name()] ([amount_per_patch]u)"
 			var/is_medical_patch = chemical_safety_check(reagents)
 			for(var/i in 1 to count)
 				if(reagents.total_volume <= 0)

@@ -147,7 +147,9 @@
 /datum/chemical_reaction/slimebork/on_reaction(datum/reagents/holder)
 
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/list/blocked = list(/obj/item/food/snacks,
+
+	var/list/blocked = list(
+		/obj/item/food/snacks,
 		/obj/item/food/snacks/breadslice,
 		/obj/item/food/snacks/sliceable,
 		/obj/item/food/snacks/sliceable/pizza,
@@ -172,7 +174,8 @@
 		/obj/item/food/snacks/chinese,
 		/obj/item/food/snacks/human,
 		/obj/item/food/snacks/monstermeat,
-		/obj/item/food/snacks/meatsteak/stimulating
+		/obj/item/food/snacks/meatsteak/stimulating,
+		/obj/item/food/snacks/egg/watcher
 		)
 	blocked |= typesof(/obj/item/food/snacks/customizable)
 

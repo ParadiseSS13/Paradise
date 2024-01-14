@@ -1649,7 +1649,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/item/grenade/clusterbuster = "CLUSTERBUSTER",
 			/obj/item/grenade = "GRENADE",
 			/obj/item/gun = "GUN",
-			/obj/item/implant = "IMPLANT",
+			/obj/item/bio_chip = "BIO_CHIP",
 			/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack = "MECHA_MISSILE_RACK",
 			/obj/item/mecha_parts/mecha_equipment/weapon = "MECHA_WEAPON",
 			/obj/item/mecha_parts/mecha_equipment = "MECHA_EQUIP",

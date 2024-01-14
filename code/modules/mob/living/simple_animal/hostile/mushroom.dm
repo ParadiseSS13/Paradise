@@ -25,7 +25,7 @@
 	stat_attack = DEAD
 	mouse_opacity = MOUSE_OPACITY_ICON
 	speed = 1
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	robust_searching = TRUE
 	speak_emote = list("squeaks")
 	deathmessage = "fainted"

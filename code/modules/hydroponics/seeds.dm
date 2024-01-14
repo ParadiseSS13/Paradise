@@ -146,7 +146,7 @@
 	var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc // Needed for TK
 	var/product_name
 	for(var/i in 1 to getYield())
-		var/obj/item/food/snacks/grown/produce = new product(output_loc, src)
+		var/obj/item/produce = new product(output_loc, src)
 		if(!produce)
 			return
 

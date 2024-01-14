@@ -260,7 +260,7 @@
 	. = ..()
 
 	if(length(active_nether_portals))
-		icon_state = "redspace_tap"
+		icon_state = "cascade_tap"
 		return
 
 	if(get_available_power() <= 0)
@@ -275,7 +275,7 @@
 	underlays.Cut()
 
 	if(length(active_nether_portals))
-		. += "redspace"
+		. += "cascade"
 		set_light(15, 5, "#ff0000")
 		return
 
@@ -316,12 +316,14 @@
 
 
 /obj/machinery/power/bluespace_tap/connect_to_network()
-	..()
-	update_icon()
+	. = ..()
+	if(.)
+		update_icon()
 
 /obj/machinery/power/bluespace_tap/disconnect_from_network()
-	..()
-	update_icon()
+	. = ..()
+	if(.)
+		update_icon()
 
 /obj/machinery/power/bluespace_tap/Destroy()
 	QDEL_LIST_CONTENTS(fillers)

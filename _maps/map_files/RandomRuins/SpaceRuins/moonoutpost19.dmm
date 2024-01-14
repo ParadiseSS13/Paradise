@@ -5792,6 +5792,23 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
+"ts" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/obj/item/scalpel{
+	pixel_y = 12
+	},
+/obj/item/circular_saw,
+/obj/item/hemostat,
+/obj/item/retractor,
+/obj/item/stack/cable_coil,
+/obj/structure/table/glass,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue";
+	dir = 1
+	},
+/area/ruin/space/moonbase19)
 "tv" = (
 /obj/structure/largecrate,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -10643,23 +10660,6 @@
 	dir = 4
 	},
 /area/ruin/space/moonbase19)
-"OR" = (
-/obj/structure/railing{
-	dir = 10
-	},
-/obj/structure/table/tray,
-/obj/item/scalpel{
-	pixel_y = 12
-	},
-/obj/item/circular_saw,
-/obj/item/hemostat,
-/obj/item/retractor,
-/obj/item/stack/cable_coil,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue";
-	dir = 1
-	},
-/area/ruin/space/moonbase19)
 "OT" = (
 /obj/effect/turf_decal/delivery/partial{
 	dir = 4
@@ -13548,7 +13548,7 @@ vN
 af
 dd
 QI
-OR
+ts
 Wd
 Am
 Ci

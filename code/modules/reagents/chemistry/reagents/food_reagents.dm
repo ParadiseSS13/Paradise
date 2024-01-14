@@ -343,12 +343,6 @@
 	color = "#5F3A13"
 	taste_description = "bitter cocoa"
 
-/datum/reagent/consumable/cocoa/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(isvulpkanin(M) || istajaran(M) || isfarwa(M) || iswolpin(M))
-		update_flags |= M.adjustToxLoss(2, FALSE)
-	return ..() | update_flags
-
 /datum/reagent/consumable/vanilla
 	name = "Vanilla"
 	id = "vanilla"
@@ -603,10 +597,7 @@
 
 /datum/reagent/consumable/chocolate/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 0.8)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(isvulpkanin(M) || istajaran(M) || isfarwa(M) || iswolpin(M)) // chocolate is bad for dogs and cats, ya know
-		update_flags |= M.adjustToxLoss(2, FALSE)
-	return ..() | update_flags
+	return ..()
 
 /datum/reagent/consumable/chocolate/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))

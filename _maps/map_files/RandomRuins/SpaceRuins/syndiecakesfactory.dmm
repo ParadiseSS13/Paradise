@@ -1258,9 +1258,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "YE" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "YQ" = (

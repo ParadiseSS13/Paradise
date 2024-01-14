@@ -341,7 +341,7 @@
 		EQUIPMENT("Cigarettes", /obj/item/storage/fancy/cigarettes, 100),
 		EQUIPMENT("Medical Marijuana", /obj/item/storage/fancy/cigarettes/cigpack_med, 250),
 		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
-		EQUIPMENT("Box of matches", /obj/item/storage/box/matches, 50),
+		EQUIPMENT("Box of matches", /obj/item/storage/fancy/matches, 50),
 		EQUIPMENT("Cheeseburger", /obj/item/food/snacks/burger/cheese, 150),
 		EQUIPMENT("Big Burger", /obj/item/food/snacks/burger/bigbite, 250),
 		EQUIPMENT("Recycled Prisoner", /obj/item/food/snacks/soylentgreen, 500),

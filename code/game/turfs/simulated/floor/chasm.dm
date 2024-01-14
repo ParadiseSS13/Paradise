@@ -32,6 +32,8 @@
 		/obj/machinery/atmospherics/pipe/simple,
 		/obj/effect/projectile,
 		/obj/effect/projectile_lighting,
+		/obj/effect/dummy/slaughter, //no bloodcrawlers into chasms.
+		/obj/effect/dummy/spell_jaunt, //No jaunters into chasms either.
 		/mob/living/simple_animal/hostile/megafauna //failsafe
 		))
 	var/drop_x = 1

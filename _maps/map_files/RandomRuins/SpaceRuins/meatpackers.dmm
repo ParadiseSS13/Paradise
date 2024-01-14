@@ -2412,7 +2412,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/BMPship/Aft)
 "hr" = (
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/item/storage/fancy/cigarettes/dromedaryco,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)

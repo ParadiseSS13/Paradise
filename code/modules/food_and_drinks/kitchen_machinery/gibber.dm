@@ -409,8 +409,8 @@
 	for(var/obj/O in H)
 		if(isclothing(O)) //clothing gets skipped to avoid cleaning out shit
 			continue
-		if(istype(O,/obj/item/implant))
-			var/obj/item/implant/I = O
+		if(istype(O,/obj/item/bio_chip))
+			var/obj/item/bio_chip/I = O
 			if(I.implanted)
 				continue
 		if(O.flags & NODROP || stealthmode)

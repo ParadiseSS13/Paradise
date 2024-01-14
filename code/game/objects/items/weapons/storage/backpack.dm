@@ -267,6 +267,12 @@
 	icon_state = "satchel-norm"
 	item_state = "satchel-norm"
 
+/obj/item/storage/backpack/satchel/clown
+	name = "Tickles Von Squeakerton"
+	desc = "A satchel with extra pockets for all your banana storing needs!"
+	icon_state = "satchel-clown"
+	item_state = "satchel-clown"
+
 /obj/item/storage/backpack/satchel_eng
 	name = "industrial satchel"
 	desc = "A tough satchel with extra pockets."
@@ -713,7 +719,6 @@
 		/obj/item/warp_cube/red = 1,
 		/obj/item/reagent_containers/drinks/everfull = 2,
 		/obj/item/clothing/suit/space/hardsuit/shielded/wizard = 2,
-		/obj/item/jacobs_ladder = 1, //funny
 		/obj/item/immortality_talisman = 1 ) //spells recharge when invincible
 	var/obj/item/pickeda = pick(list_a)
 	value += list_a[pickeda]
