@@ -6,7 +6,7 @@
     "@popperjs/core": "^2.11.8",
     "@types/marked": "^6.0.0",
     "common": "workspace:*",
-    "dompurify": "^3.0.8",
+    "dompurify": "^2.4.7",
     "highlight.js": "^11.9.0",
     "inferno": "^7.4.11",
     "inferno-vnode-flags": "^7.4.11",

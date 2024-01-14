@@ -3658,10 +3658,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:^3.0.8":
-  version: 3.0.8
-  resolution: "dompurify@npm:3.0.8"
-  checksum: 671fa18bd4bcb1a6ff2e59ecf919f807615b551e7add8834b27751d4e0f3d754a67725482d1efdd259317cadcaaccb72a8afc3aba829ac59730e760041591a1a
+"dompurify@npm:^2.4.7":
+  version: 2.4.7
+  resolution: "dompurify@npm:2.4.7"
+  checksum: bf223b4608204b0f4ded4cad2e7711b9afbe4dc9646f645601463629484a6ccc83906571d24340c0df7776a147ceb6d42cc36697e514aa72c865662977164784
   languageName: node
   linkType: hard
 
@@ -7912,7 +7912,7 @@ __metadata:
   resolution: "tgui-panel@workspace:packages/tgui-panel"
   dependencies:
     common: "workspace:*"
-    dompurify: "npm:^3.0.8"
+    dompurify: "npm:^2.4.7"
     inferno: "npm:^7.4.11"
     tgui: "workspace:*"
     tgui-dev-server: "workspace:*"
@@ -7984,7 +7984,7 @@ __metadata:
     "@popperjs/core": "npm:^2.11.8"
     "@types/marked": "npm:^6.0.0"
     common: "workspace:*"
-    dompurify: "npm:^3.0.8"
+    dompurify: "npm:^2.4.7"
     highlight.js: "npm:^11.9.0"
     inferno: "npm:^7.4.11"
     inferno-vnode-flags: "npm:^7.4.11"
