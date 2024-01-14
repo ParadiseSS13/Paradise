@@ -141,7 +141,7 @@
 	items = list(
 		/obj/item/melee/energy/sword/saber/red, // 40TC
 		/obj/item/melee/energy/sword/saber/red, // 40TC
-		/obj/item/clothing/gloves/color/yellow/power, // 50TC
+		/obj/item/bio_chip_implanter/shock, // 50TC
 		/obj/item/dnainjector/telemut/darkbundle, // ?TC
 		/obj/item/clothing/suit/hooded/chaplain_hoodie, // 0TC
 		/obj/item/clothing/glasses/meson/engine/tray, // 0TC

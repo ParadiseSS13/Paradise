@@ -1130,6 +1130,7 @@
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_pad.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_prescan.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_sad_trombone.dm"
+#include "code\game\objects\items\weapons\bio_chips\bio_chip_shock.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_stealth.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_storage.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_supercharge.dm"
