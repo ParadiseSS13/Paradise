@@ -1167,6 +1167,7 @@
 #include "code\game\objects\items\weapons\storage\lockbox.dm"
 #include "code\game\objects\items\weapons\storage\secure.dm"
 #include "code\game\objects\items\weapons\storage\storage_base.dm"
+#include "code\game\objects\items\weapons\storage\surgical_tray.dm"
 #include "code\game\objects\items\weapons\storage\toolbox.dm"
 #include "code\game\objects\items\weapons\storage\uplink_kits.dm"
 #include "code\game\objects\items\weapons\storage\wallets.dm"
