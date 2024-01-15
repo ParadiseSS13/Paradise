@@ -9,7 +9,7 @@
 	invocation = "Yutake Yutendes"
 	invocation_type = "whisper"
 	level_max = 0 //cannot be improved
-	action_icon_state = "chameleon_outfit"
+	action_icon_state = "disguise_self"
 	sound = null
 
 /obj/effect/proc_holder/spell/disguise_self/create_new_targeting()
