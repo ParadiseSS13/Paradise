@@ -9,9 +9,11 @@
 	name = "chaos bolt"
 	icon_state = "ice_1"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/chaos
+	/// Set by random effet to be summoned in target mob's backpack, on the floor under mob, or around mob if explosion_amount is set
 	var/obj/item/item_to_summon
 	/// If left at 0, item goes in backpack or floor, if set, throw that many items around the target
 	var/explosion_amount = 0
+	/// Name of random effect to be applied on target mob
 	var/chaos_effect
 
 /obj/item/projectile/magic/chaos/on_hit(atom/target, blocked = 0)
@@ -19,19 +21,30 @@
 
 	if(iswallturf(target) || isobj(target))
 		target.color = pick(GLOB.random_color_list)
+		return
 
 	if(target && isliving(target))
 		var/mob/living/L = target
 		if(L.stat == DEAD)
 			L.visible_message("<span class='warning'>[target] glows faintly, but nothing else happens.</span>")
 			return
-		chaos_chaos(target)
+		chaos_chaos(L)
 
 /obj/item/projectile/magic/chaos/Initialize(mapload)
 	. = ..()
 	icon_state = pick("bluespace", "pulse1", "magicm", "declone", "fireball", "blood_bolt", "arcane_barrage", "laser", "u_laser")
 
-/obj/item/projectile/magic/chaos/proc/chaos_chaos(mob/living/target, blocked = 0)
+
+ /**
+  * Picks and call a subproc to apply a random effect on mob/living/target.
+  *
+  * First pick a category of random effect,
+  * then calls a sub-proc to pick and apply an effect in that category,
+  * then summons any item_to_summon set by effects.
+  * Arguments:
+  * * target - mob/living that will have effect applied on them
+  */
+/obj/item/projectile/magic/chaos/proc/chaos_chaos(mob/living/target)
 	var/category = pick(prob(CHAOS_STAFF_LETHAL_CHANCE);"lethal", prob(CHAOS_STAFF_NEGATIVE_CHANCE);"negative", prob(CHAOS_STAFF_MISC_CHANCE);"misc",\
 		prob(CHAOS_STAFF_GIFT_CHANCE);"gift", prob(CHAOS_STAFF_GREAT_GIFT_CHANCE);"great gift")
 	switch(category)
@@ -45,39 +58,43 @@
 			apply_gift_effect(target)
 		if("great gift") //Grants a gift or positive effect to the target. Usually a weapon or useful item.
 			apply_great_gift_effect(target)
-	if(item_to_summon)
-		if(!target.mind) //no abusing mindless mobs for free stuff
-			target.visible_message("<span class='warning'>[target] glows faintly, but nothing else happens.</span>")
+	if(!item_to_summon)
+		return
+	if(!target.mind) //no abusing mindless mobs for free stuff
+		target.visible_message("<span class='warning'>[target] glows faintly, but nothing else happens.</span>")
+		return
+	if(explosion_amount)
+		target.visible_message("<span class='chaosneutral'>A bunch of [item_to_summon.name] scatter around [target]!</span>", \
+			"<span class='chaosneutral'>A bunch of [item_to_summon.name] scatter around you!</span>")
+		for(var/i in 1 to explosion_amount)
+			var/obj/item/I = new item_to_summon(get_turf(target))
+			throwforce = 0
+			INVOKE_ASYNC(I, TYPE_PROC_REF(/atom/movable, throw_at), pick(oview(7, get_turf(src))), 10, 1)
+			throwforce = initial(throwforce)
+	else
+		if(!ishuman(target))
+			var/obj/item/I = new item_to_summon(get_turf(target))
+			target.visible_message("<span class='chaosgood'>\A [I] drops next to [target]!</span>", "<span class='chaosgood'>\A [I] drops on the floor!</span>")
 			return
-		if(explosion_amount)
-			target.visible_message("<span class='chaosneutral'>A bunch of [item_to_summon.name] scatter around [target]!</span>", \
-				"<span class='chaosneutral'>A bunch of [item_to_summon.name] scatter around you!</span>")
-			for(var/i in 1 to explosion_amount)
-				var/obj/item/I = new item_to_summon(get_turf(target))
-				throwforce = 0
-				INVOKE_ASYNC(I, TYPE_PROC_REF(/atom/movable, throw_at), pick(oview(7, get_turf(src))), 10, 1)
-				throwforce = initial(throwforce)
-		else
-			if(!ishuman(target))
-				var/obj/item/I = new item_to_summon(get_turf(target))
-				target.visible_message("<span class='chaosgood'>\A [I] drops next to [target]!</span>", "<span class='chaosgood'>\A [I] drops on the floor!</span>")
+		var/mob/living/carbon/human/H = target
+		var/obj/item/I = new item_to_summon(src)
+		if(H.back && isstorage(H.back))
+			var/obj/item/storage/S = H.back
+			S.handle_item_insertion(I, TRUE) //We don't check if it can be inserted because it's magic, GET IN THERE!
+			H.visible_message("<span class='chaosgood'>[H]'s [S.name] glows bright!</span>", "<span class='chaosverygood'>\A [I] suddenly appears in your glowing [S.name]!</span>")
+			return
+		if(H.back && ismodcontrol(H.back))
+			var/obj/item/mod/control/C = H.back
+			if(C.bag)
+				C.handle_item_insertion(I, TRUE)
+				H.visible_message("<span class='chaosgood'>[H]'s [C] glows bright!</span>", "<span class='chaosverygood'>\A [I] suddenly appears in your glowing [C.name]!</span>")
 				return
-			var/mob/living/carbon/human/H = target
-			var/obj/item/I = new item_to_summon(src)
-			if(H.back && isstorage(H.back))
-				var/obj/item/storage/S = H.back
-				S.handle_item_insertion(I, TRUE) //We don't check if it can be inserted because it's magic, GET IN THERE!
-				H.visible_message("<span class='chaosgood'>[H]'s [S.name] glows bright!</span>", "<span class='chaosverygood'>\A [I] suddenly appears in your glowing [S.name]!</span>")
-				return
-			if(H.back && ismodcontrol(H.back))
-				var/obj/item/mod/control/C = H.back
-				if(C.bag)
-					C.handle_item_insertion(I, TRUE)
-					H.visible_message("<span class='chaosgood'>[H]'s [C] glows bright!</span>", "<span class='chaosverygood'>\A [I] suddenly appears in your glowing [C.name]!</span>")
-					return
-			I.forceMove(get_turf(H))
-			H.visible_message("<span class='chaosgood'>\A [I] drops next to [H]!</span>", "<span class='chaosverygood'>\A [I] drops on the floor!</span>")
+		I.forceMove(get_turf(H))
+		H.visible_message("<span class='chaosgood'>\A [I] drops next to [H]!</span>", "<span class='chaosverygood'>\A [I] drops on the floor!</span>")
 
+/**
+  * Picks and apply a lethal effect on mob/living/target. Some are more instantaneous than others.
+  */
 /obj/item/projectile/magic/chaos/proc/apply_lethal_effect(mob/living/target)
 	if(!ishuman(target))
 		target.visible_message("<span class='chaosverybad'>[target] suddenly dies!</span>", "<span class='chaosverybad'>Game over!</span>")
@@ -133,7 +150,7 @@
 			new /obj/item/reagent_containers/food/snacks/cheesewedge(get_turf(H))
 			qdel(H)
 		if("supermattered")
-			var/obj/machinery/atmospherics/supermatter_crystal/supercrystal = locate(/obj/machinery/atmospherics/supermatter_crystal)
+			var/obj/machinery/atmospherics/supermatter_crystal/supercrystal = GLOB.main_supermatter_engine
 			if(!supercrystal)
 				H.visible_message("<span class='chaosverybad'>[H] drops dead!</span>", "<span class='chaosverybad'>Game over!</span>")
 				H.death()
@@ -155,6 +172,9 @@
 			H.visible_message("<span class='chaosverybad'>[H] laughs uncontrollably!</span>", "<span class='chaosverybad'>You feel like you're going to die of laughter!</span>")
 			H.reagents.add_reagent("prions", 5)
 
+/**
+  * Picks and apply a negative effect on mob/living/target. Usually causes damage and/or incapacitating effect.
+  */
 /obj/item/projectile/magic/chaos/proc/apply_negative_effect(mob/living/target)
 	if(!ishuman(target))
 		if(prob(50))
@@ -238,6 +258,9 @@
 	if(T && prob(80))
 		do_teleport(owner, T)
 
+/**
+  * Picks and apply a random miscellaneous effect on mob/living/target. Can be negative or mildly positive.
+  */
 /obj/item/projectile/magic/chaos/proc/apply_misc_effect(mob/living/target)
 	if(!ishuman(target))
 		chaos_effect = pick("recolor", "bark", "confetti", "smoke", "wand of nothing", "bike horn")
@@ -279,6 +302,9 @@
 			item_to_summon = /obj/item/bikehorn
 			explosion_amount = rand(2, 3)
 
+/**
+  * Picks a random gift to be given to mob/living/target. Should be mildly useful and/or funny.
+  */
 /obj/item/projectile/magic/chaos/proc/apply_gift_effect(mob/living/target)
 	chaos_effect = pick("toy sword", "toy revolver", "cheese", "food", "medkit", \
 		"insulated gloves", "wand of doors", "golden bike horn", "ban hammer", "banana")
@@ -314,6 +340,9 @@
 		if("banana")
 			item_to_summon = /obj/item/reagent_containers/food/snacks/grown/banana
 
+/**
+  * Picks a random gift to be given to mob/living/target. Should be valuable and/or threatening to the wizard.
+  */
 /obj/item/projectile/magic/chaos/proc/apply_great_gift_effect(mob/living/target)
 	chaos_effect = pick("esword", "emag", "chaos wand", "revolver", "aeg", \
 		"bluespace banana", "banana grenade", "disco ball", "syndicate minibomb", "crystal ball")

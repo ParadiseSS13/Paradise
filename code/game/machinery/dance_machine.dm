@@ -19,6 +19,7 @@
 		new /datum/track("Engineering's Ultimate High-Energy Hustle",	'sound/misc/boogie2.ogg',	1770, 	5),
 		)
 	var/datum/track/selection = null
+	/// If set to FALSE, the dance4 proc that rests the dancer will be replaced by dance2.
 	var/restdancing = TRUE
 
 /datum/track
@@ -167,6 +168,9 @@
 		if("harm")
 			deejay('sound/AI/harmalarm.ogg')
 
+/**
+ * Starts the dance machine.
+ */
 /obj/machinery/disco/proc/breakitdown()
 	active = TRUE
 	update_icon()
