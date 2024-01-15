@@ -366,6 +366,14 @@
 	R.module.remove_item_from_lists(/obj/item/rcd) // So emagging them in the future won't grant another RCD.
 	..()
 
+/obj/item/borg/upgrade/rped
+	name = "Rapid Part Exchange Device upgrade"
+	desc = "A modified Rapid Part Exchange Device designed to be used by engineering robots."
+	icon_state = "cyborg_upgrade5"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/engineering
+	items_to_add = list(/obj/item/storage/part_replacer)
+
 
 /***********************/
 /****	JANITOR		****/
