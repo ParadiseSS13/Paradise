@@ -223,7 +223,7 @@
 
 /obj/machinery/attack_hand(mob/user as mob)
 	var/attack_result = try_attack_hand(user)
-	if (attack_result != null)
+	if(attack_result != null)
 		return attack_result
 
 	add_fingerprint(user)
