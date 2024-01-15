@@ -122,13 +122,15 @@
 }
 
 .Exofab__building {
-  height: 40px;
+  height: 55px;
 
   .ProgressBar {
     width: 100%;
     height: 100%;
   }
   .ProgressBar__content {
-    line-height: 22px;
+    line-height: 18px;
+    text-align: center;
+    font-size: 12px;
   }
 }
