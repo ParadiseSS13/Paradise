@@ -222,6 +222,15 @@
 		return attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user as mob)
+	var/attack_result = try_attack_hand(user)
+	if (attack_result != null)
+		return attack_result
+
+	add_fingerprint(user)
+
+	return ..()
+
+/obj/machinery/proc/try_attack_hand(mob/user as mob)
 	if(user.incapacitated())
 		return TRUE
 
@@ -244,10 +253,6 @@
 
 	if(!interact_offline && stat & (NOPOWER|BROKEN|MAINT))
 		return TRUE
-
-	add_fingerprint(user)
-
-	return ..()
 
 /obj/machinery/proc/is_operational()
 	return !(stat & (NOPOWER|BROKEN|MAINT))
