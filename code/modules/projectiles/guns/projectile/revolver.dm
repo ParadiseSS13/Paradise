@@ -313,7 +313,7 @@
 /obj/item/gun/projectile/revolver/capgun/chaosprank
 	name = "\improper .357 revolver"
 
-/obj/item/gun/projectile/revolver/capgun/chaosprank/shoot_with_empty_chamber(mob/living/user as mob|obj)
+/obj/item/gun/projectile/revolver/capgun/chaosprank/shoot_with_empty_chamber(mob/living/user)
 	to_chat(user, "<span class='chaosbad'>[src] vanishes in a puff of smoke!</span>")
 	playsound(src, 'sound/items/bikehorn.ogg')
 	qdel(src)
