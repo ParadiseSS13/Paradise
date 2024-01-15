@@ -199,7 +199,7 @@
 	var/list/name_overrides = list()
 	for(var/obj/O in contents)
 		var/display_name = O.name
-		if(istype(O, /obj/item/food))
+		if(isfood(O))
 			var/obj/item/food/food = O
 			if(!items_counts[display_name])
 				if(food.ingredient_name)
