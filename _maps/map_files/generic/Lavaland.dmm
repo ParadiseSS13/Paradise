@@ -7277,10 +7277,6 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/storage)
-"If" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/wall/indestructible/boss,
-/area/lavaland/surface/outdoors/unexplored/danger)
 "Il" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -7961,9 +7957,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"NJ" = (
-/turf/simulated/wall/indestructible/boss,
-/area/lavaland/surface/outdoors/unexplored/danger)
 "NK" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/spawner/random_spawners/dirt_maybe,
@@ -35447,7 +35440,7 @@ BX
 BX
 BX
 BX
-If
+BX
 BX
 ZY
 ZY
@@ -41342,7 +41335,7 @@ mN
 Gb
 QO
 ys
-NJ
+ys
 BX
 GC
 GC
