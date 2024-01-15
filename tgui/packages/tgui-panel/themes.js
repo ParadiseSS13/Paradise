@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-export const THEMES = ['Light', 'Dark', 'NTOS'];
+export const THEMES = ['Light', 'Dark', 'NTOS', 'Paradise'];
 
 const COLOR_DARK_BG = '#202020';
 const COLOR_DARK_BG_DARKER = '#131313';
@@ -20,6 +20,11 @@ const COLOR_NTOS_BG = '#1b2633';
 const COLOR_NTOS_BG_DARKER = '#121922';
 const COLOR_NTOS_BUTTON = '#384e68';
 const COLOR_NTOS_TEXT = '#b8cbe6';
+
+const COLOR_PARADISE_BG = '#800448';
+const COLOR_PARADISE_BG_DARKER = '#400125';
+const COLOR_PARADISE_BUTTON = '#208080';
+const COLOR_PARADISE_TEXT = '#ffffff';
 
 /**
  * Darkmode preference, originally by Kmc2000.
@@ -172,7 +177,6 @@ export const setClientTheme = (name) => {
       'infowindow.info.highlight-color': '#1c71b1',
       'infowindow.info.tab-text-color': COLOR_NTOS_TEXT,
       'infowindow.info.tab-background-color': COLOR_NTOS_BG,
-      'infowindow.info.is-flat': 'false',
       // Say, OOC, me Buttons etc.
       'saybutton.background-color': COLOR_NTOS_BG,
       'saybutton.text-color': COLOR_NTOS_TEXT,
@@ -186,6 +190,58 @@ export const setClientTheme = (name) => {
       'tooltip.text-color': COLOR_NTOS_TEXT,
       'input.background-color': COLOR_NTOS_BG_DARKER,
       'input.text-color': COLOR_NTOS_TEXT,
+    });
+  }
+
+  if (name === 'Paradise') {
+    return Byond.winset({
+      /* Buttons */
+      'rpane.textb.background-color': COLOR_PARADISE_BUTTON,
+      'rpane.textb.text-color': COLOR_PARADISE_TEXT,
+      'rpane.infob.background-color': COLOR_PARADISE_BUTTON,
+      'rpane.infob.text-color': COLOR_PARADISE_TEXT,
+      'rpane.wikib.background-color': COLOR_PARADISE_BUTTON,
+      'rpane.wikib.text-color': COLOR_PARADISE_TEXT,
+      'rpane.forumb.background-color': COLOR_PARADISE_BUTTON,
+      'rpane.forumb.text-color': COLOR_PARADISE_TEXT,
+      'rpane.rulesb.background-color': COLOR_PARADISE_BUTTON,
+      'rpane.rulesb.text-color': COLOR_PARADISE_TEXT,
+      'rpane.githubb.background-color': COLOR_PARADISE_BUTTON,
+      'rpane.githubb.text-color': COLOR_PARADISE_TEXT,
+      'rpane.webmap.background-color': COLOR_PARADISE_BUTTON,
+      'rpane.webmap.text-color': COLOR_PARADISE_TEXT,
+      'rpane.changelog.background-color': COLOR_PARADISE_BUTTON,
+      'rpane.changelog.text-color': COLOR_PARADISE_TEXT,
+      /* Mainwindow */
+      'mainwindow.background-color': COLOR_PARADISE_BG,
+      'mainwindow.mainvsplit.background-color': COLOR_PARADISE_BG,
+      'mainwindow.tooltip.background-color': COLOR_PARADISE_BG,
+      'outputwindow.background-color': COLOR_PARADISE_BG,
+      'outputwindow.text-color': COLOR_PARADISE_TEXT,
+      /* Rpane */
+      'rpane.background-color': COLOR_PARADISE_BG,
+      'rpane.rpanewindow.background-color': COLOR_PARADISE_BG,
+      /* Infowindow */
+      'infowindow.background-color': COLOR_PARADISE_BG,
+      'infowindow.text-color': COLOR_PARADISE_TEXT,
+      'infowindow.info.background-color': COLOR_PARADISE_BG_DARKER,
+      'infowindow.info.text-color': COLOR_PARADISE_TEXT,
+      'infowindow.info.highlight-color': '#ffd319',
+      'infowindow.info.tab-text-color': COLOR_PARADISE_TEXT,
+      'infowindow.info.tab-background-color': COLOR_PARADISE_BG,
+      // Say, OOC, me Buttons etc.
+      'saybutton.background-color': COLOR_PARADISE_BG,
+      'saybutton.text-color': COLOR_PARADISE_TEXT,
+      'oocbutton.background-color': COLOR_PARADISE_BG,
+      'oocbutton.text-color': COLOR_PARADISE_TEXT,
+      'mebutton.background-color': COLOR_PARADISE_BG,
+      'mebutton.text-color': COLOR_PARADISE_TEXT,
+      'asset_cache_browser.background-color': COLOR_PARADISE_BG,
+      'asset_cache_browser.text-color': COLOR_PARADISE_TEXT,
+      'tooltip.background-color': COLOR_PARADISE_BG,
+      'tooltip.text-color': COLOR_PARADISE_TEXT,
+      'input.background-color': COLOR_PARADISE_BG_DARKER,
+      'input.text-color': COLOR_PARADISE_TEXT,
     });
   }
 };

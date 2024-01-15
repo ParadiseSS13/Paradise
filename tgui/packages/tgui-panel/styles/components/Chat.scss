@@ -9,6 +9,8 @@
 
 $text-color: #abc6ec !default;
 $color-bg-section: base.$color-bg-section !default;
+$color-bg-reconnect: $color-bg-section !default;
+$color-text-reconnect: colors.$red !default;
 
 .Chat {
   color: $text-color;
@@ -54,8 +56,8 @@ $color-bg-section: base.$color-bg-section !default;
     display: inline-block;
     border-radius: 1em;
     padding: 0 0.7em;
-    color: colors.$red;
-    background-color: $color-bg-section;
+    color: $color-text-reconnect;
+    background-color: $color-bg-reconnect;
   }
 
   &:after {
