@@ -1146,7 +1146,7 @@
 	build_path = /obj/item/borg/upgrade/rcd
 	req_tech = list("materials" = 6, "engineering" = 5, "powerstorage" = 5)
 	materials = list(MAT_METAL = 30000, MAT_GLASS = 15000)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_rped
