@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-export const THEMES = ['light', 'dark'];
+export const THEMES = ['light', 'dark', 'ntos'];
 
 const COLOR_DARK_BG = '#202020';
 const COLOR_DARK_BG_DARKER = '#131313';
@@ -15,6 +15,11 @@ const COLOR_LIGHT_BG = '#EEEEEE';
 const COLOR_LIGHT_BG_LIGHTER = '#FFFFFF';
 const COLOR_LIGHT_BUTTON = '#EEEEEE';
 const COLOR_LIGHT_TEXT = '#000000';
+
+const COLOR_NTOS_BG = '#1b2633';
+const COLOR_NTOS_BG_DARKER = '#121922';
+const COLOR_NTOS_BUTTON = '#384e68';
+const COLOR_NTOS_TEXT = '#b8cbe6';
 
 /**
  * Darkmode preference, originally by Kmc2000.
@@ -48,7 +53,7 @@ export const setClientTheme = (name) => {
       'rpane.changelog.text-color': COLOR_LIGHT_TEXT,
       /* Mainwindow */
       'mainwindow.background-color': COLOR_LIGHT_BG,
-      'mainwindow.mainvsplit.background-color': COLOR_LIGHT_BG,
+      'mainwindow.mainvsplit.background-color': '#EFEEEE',
       'mainwindow.tooltip.background-color': COLOR_LIGHT_BG,
       'outputwindow.background-color': COLOR_LIGHT_BG,
       'outputwindow.text-color': COLOR_LIGHT_TEXT,
@@ -100,7 +105,7 @@ export const setClientTheme = (name) => {
       'rpane.changelog.text-color': '#FFFFFF',
       /* Mainwindow */
       'mainwindow.background-color': COLOR_DARK_BG_DARKER,
-      'mainwindow.mainvsplit.background-color': COLOR_DARK_BG,
+      'mainwindow.mainvsplit.background-color': '#212020',
       'mainwindow.tooltip.background-color': COLOR_DARK_BG_DARKER,
       'outputwindow.background-color': COLOR_DARK_BG,
       'outputwindow.text-color': COLOR_DARK_TEXT,
@@ -128,6 +133,59 @@ export const setClientTheme = (name) => {
       'tooltip.text-color': COLOR_DARK_TEXT,
       'input.background-color': COLOR_DARK_BG_DARKER,
       'input.text-color': COLOR_DARK_TEXT,
+    });
+  }
+
+  if (name === 'ntos') {
+    return Byond.winset({
+      /* Buttons */
+      'rpane.textb.background-color': COLOR_NTOS_BUTTON,
+      'rpane.textb.text-color': COLOR_NTOS_TEXT,
+      'rpane.infob.background-color': COLOR_NTOS_BUTTON,
+      'rpane.infob.text-color': COLOR_NTOS_TEXT,
+      'rpane.wikib.background-color': COLOR_NTOS_BUTTON,
+      'rpane.wikib.text-color': COLOR_NTOS_TEXT,
+      'rpane.forumb.background-color': COLOR_NTOS_BUTTON,
+      'rpane.forumb.text-color': COLOR_NTOS_TEXT,
+      'rpane.rulesb.background-color': COLOR_NTOS_BUTTON,
+      'rpane.rulesb.text-color': COLOR_NTOS_TEXT,
+      'rpane.githubb.background-color': COLOR_NTOS_BUTTON,
+      'rpane.githubb.text-color': COLOR_NTOS_TEXT,
+      'rpane.webmap.background-color': COLOR_NTOS_BUTTON,
+      'rpane.webmap.text-color': COLOR_NTOS_TEXT,
+      'rpane.changelog.background-color': COLOR_NTOS_BUTTON,
+      'rpane.changelog.text-color': COLOR_NTOS_TEXT,
+      /* Mainwindow */
+      'mainwindow.background-color': COLOR_NTOS_BG,
+      'mainwindow.mainvsplit.background-color': COLOR_NTOS_BG,
+      'mainwindow.tooltip.background-color': COLOR_NTOS_BG,
+      'outputwindow.background-color': COLOR_NTOS_BG,
+      'outputwindow.text-color': COLOR_NTOS_TEXT,
+      /* Rpane */
+      'rpane.background-color': COLOR_NTOS_BG,
+      'rpane.rpanewindow.background-color': COLOR_NTOS_BG,
+      /* Infowindow */
+      'infowindow.background-color': COLOR_NTOS_BG,
+      'infowindow.text-color': COLOR_NTOS_TEXT,
+      'infowindow.info.background-color': COLOR_NTOS_BG_DARKER,
+      'infowindow.info.text-color': COLOR_NTOS_TEXT,
+      'infowindow.info.highlight-color': '#1c71b1',
+      'infowindow.info.tab-text-color': COLOR_NTOS_TEXT,
+      'infowindow.info.tab-background-color': COLOR_NTOS_BG,
+      'infowindow.info.is-flat': 'false',
+      // Say, OOC, me Buttons etc.
+      'saybutton.background-color': COLOR_NTOS_BG,
+      'saybutton.text-color': COLOR_NTOS_TEXT,
+      'oocbutton.background-color': COLOR_NTOS_BG,
+      'oocbutton.text-color': COLOR_NTOS_TEXT,
+      'mebutton.background-color': COLOR_NTOS_BG,
+      'mebutton.text-color': COLOR_NTOS_TEXT,
+      'asset_cache_browser.background-color': COLOR_NTOS_BG,
+      'asset_cache_browser.text-color': COLOR_NTOS_TEXT,
+      'tooltip.background-color': COLOR_NTOS_BG,
+      'tooltip.text-color': COLOR_NTOS_TEXT,
+      'input.background-color': COLOR_NTOS_BG_DARKER,
+      'input.text-color': COLOR_NTOS_TEXT,
     });
   }
 };
