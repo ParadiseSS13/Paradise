@@ -630,6 +630,23 @@
 		cooldown += 200
 		to_chat(owner, "<span class='warning'>WARNING; Reboot Diagnostics Systems encountered an error, restarting.</span>")
 
+/obj/item/organ/internal/cyberimp/chest/ipc_radproof
+	name = "Radioactive Environment Upgrade"
+	desc = "A special lead lining for protecting fragile Positronic brains from radiation. Burning is not recommended."
+	implant_colour = "#eed202"
+	slot = "stomach"
+	requires_machine_person = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/ipc_radproof/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_RADIMMUNE, "ipc_radproof[UID()]")
+	owner.physiology.burn_mod *= 1.10
+
+/obj/item/organ/internal/cyberimp/chest/ipc_radproof/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_RADIMMUNE, "ipc_radproof[UID()]")
+	owner.physiology.burn_mod /= 1.10
+	return ..()
+
 //BOX O' IMPLANTS
 
 /obj/item/storage/box/cyber_implants
