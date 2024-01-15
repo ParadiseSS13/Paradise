@@ -80,7 +80,6 @@
 	R.module?.rebuild_modules()
 	return TRUE
 
-
 /*******************/
 /****	COMMON	****/
 /*******************/
@@ -279,7 +278,6 @@
 
 	return TRUE
 
-
 /***********************/
 /****	SECURITY	****/
 /***********************/
@@ -305,7 +303,6 @@
 	T.charge_delay = max(2 , T.charge_delay - 4)
 
 	return TRUE
-
 
 /*******************/
 /****	MINING	****/
@@ -346,7 +343,6 @@
 		R.weather_immunities += "lava"
 	return TRUE
 
-
 /***********************/
 /****	ENGINEER	****/
 /***********************/
@@ -373,7 +369,6 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/engineering
 	items_to_add = list(/obj/item/storage/part_replacer)
-
 
 /***********************/
 /****	JANITOR		****/
@@ -425,7 +420,6 @@
 		/obj/item/storage/bag/trash/cyborg = /obj/item/storage/bag/trash/bluespace/cyborg
 	)
 
-
 /***********************/
 /****	SYNDIE		****/
 /***********************/
@@ -453,7 +447,6 @@
 	items_to_replace = list(
 		/obj/item/soap/nanotrasen = /obj/item/soap/syndie
 	)
-
 
 /***********************/
 /****	ABDUCTOR	****/
