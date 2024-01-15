@@ -523,7 +523,8 @@
 	icon_state = "light0"
 	anchored = TRUE
 	desc = "A remote control switch for polarized windows."
-	var/range = 7
+	var/area/button_area
+	var/range = 0
 	var/id = 0
 	var/active = FALSE
 
@@ -538,6 +539,10 @@
 			pixel_x = 25
 		if(WEST)
 			pixel_x = -25
+
+/obj/machinery/button/windowtint/New(turf/loc, direction)
+	..()
+	button_area = get_area(src)
 
 /obj/machinery/button/windowtint/attack_hand(mob/user)
 	if(..())
@@ -563,18 +568,29 @@
 /obj/machinery/button/windowtint/proc/toggle_tint()
 	use_power(5)
 
-	active = !active
-	update_icon()
+	if(!range)
+		button_area.window_tint = !button_area.window_tint
+		for(var/obj/machinery/button/windowtint/B in button_area)
+			if (B.range || B.id)
+				continue
+			B.active = button_area.window_tint
+			B.update_icon()
+	else
+		active = !active
+		update_icon()
 
-	for(var/obj/structure/window/reinforced/polarized/W in range(src,range))
+	process_controlled_windows(range ? range(src, range) : button_area)
+
+/obj/machinery/button/windowtint/proc/process_controlled_windows(control_area)
+	for(var/obj/structure/window/reinforced/polarized/W in control_area)
 		if(W.id == src.id || !W.id)
 			W.toggle_polarization()
 
-	for(var/obj/structure/window/full/reinforced/polarized/W in range(src, range))
+	for(var/obj/structure/window/full/reinforced/polarized/W in control_area)
 		if(W.id == id || !W.id)
 			W.toggle_polarization()
 
-	for(var/obj/machinery/door/D in range(src, range))
+	for(var/obj/machinery/door/D in control_area)
 		if(!D.polarized_glass)
 			continue
 		if(D.id == id || !D.id)
