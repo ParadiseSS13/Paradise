@@ -15,10 +15,6 @@
 /area/station/bridge/checkpoint/south
 	name = "\improper South Command Checkpoint"
 
-/area/station/engineering/aitransit
-	name = "\improper AI Satellite Transfer Point"
-	icon_state = "engi"
-
 /area/station/engineering/hallway
 	name = "\improper Engineering Hallway"
 	icon_state = "engine_hallway"
