@@ -486,7 +486,8 @@
 "cg" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /mob/living/simple_animal/pet/cat/Runtime{
-	name = "Witches Familiar"
+	name = "Witches Familiar";
+	desc = "Witch!"
 	},
 /turf/simulated/floor/wood/lavaland_air{
 	icon_state = "wood-broken3"
@@ -7724,10 +7725,6 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
-"Og" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/awaymission/caves)
 "Oi" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/decal/cleanable/generic,
@@ -8478,7 +8475,9 @@
 /mob/living/simple_animal/hostile/hellhound/tear,
 /obj/effect/gibspawner/human,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air,
+/turf/simulated/floor/wood/lavaland_air{
+	icon_state = "wood-broken4"
+	},
 /area/awaymission/caves)
 "Su" = (
 /obj/structure/cable{
@@ -9715,7 +9714,9 @@
 /area/awaymission/caves)
 "XS" = (
 /obj/structure/bookcase/random,
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/wood/lavaland_air{
+	icon_state = "wood-broken4"
+	},
 /area/awaymission/caves)
 "XT" = (
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -9842,8 +9843,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "Yx" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
+/obj/structure/grille/broken,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
 "YC" = (
 /obj/effect/decal/solgov_logo{
@@ -40843,7 +40845,7 @@ BH
 NN
 Do
 BH
-Og
+bt
 dU
 zm
 pZ
@@ -41072,7 +41074,7 @@ BH
 BH
 BH
 BH
-XZ
+Yx
 XL
 BH
 BH
@@ -41771,7 +41773,7 @@ BH
 bt
 au
 oB
-Yx
+pZ
 nu
 aV
 pZ
