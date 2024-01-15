@@ -478,10 +478,9 @@
 		if(spraycan.capped)
 			to_chat(user, "<span class='notice'>You can't spraypaint [src] with the cap still on!</span>")
 			return
-		var/new_color = spraycan.colour
-		color = new_color
+		color = spraycan.colour
 		to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
-		brightness_color = new_color
+		brightness_color = spraycan.colour
 		update(TRUE, TRUE, FALSE)
 		return
 
