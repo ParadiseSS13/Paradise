@@ -421,29 +421,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
-/datum/crafting_recipe/improvisedslug
-	name = "Improvised Shotgun Shell"
-	result = list(/obj/item/ammo_casing/shotgun/improvised)
-	reqs = list(/obj/item/grenade/chem_grenade = 1,
-				/obj/item/stack/sheet/metal = 1,
-				/obj/item/stack/cable_coil = 1,
-				/datum/reagent/fuel = 10)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
-/datum/crafting_recipe/improvisedslugoverload
-	name = "Overload Improvised Shell"
-	result = list(/obj/item/ammo_casing/shotgun/improvised/overload)
-	reqs = list(/obj/item/ammo_casing/shotgun/improvised = 1,
-				/datum/reagent/blackpowder = 10,
-				/datum/reagent/plasma_dust = 20)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
 /datum/crafting_recipe/lasershot
 	name = "Lasershot Shell"
 	result = list(/obj/item/ammo_casing/shotgun/lasershot)

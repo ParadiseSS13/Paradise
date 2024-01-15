@@ -445,10 +445,10 @@
 
 /mob/living/simple_animal/bot/rename_character(oldname, newname)
 	if(!..(oldname, newname))
-		return 0
+		return FALSE
 
 	set_custom_texts()
-	return 1
+	return TRUE
 
 /mob/living/simple_animal/bot/proc/set_custom_texts() //Superclass for setting hack texts. Appears only if a set is not given to a bot locally.
 	text_hack = "You hack [name]."

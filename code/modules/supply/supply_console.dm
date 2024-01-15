@@ -104,7 +104,7 @@
 			"supply_type" = order.object.name,
 			"orderedby" = order.orderedby,
 			"department" = order.ordered_by_department?.department_name,
-			"cost" = order.object.cost,
+			"cost" = order.object.get_cost(),
 			"comment" = order.comment,
 			"req_cargo_approval" = order.requires_cargo_approval,
 			"req_head_approval" = order.requires_head_approval,
@@ -214,7 +214,7 @@
 		if((pack.hidden && hacked) || (pack.contraband && can_order_contraband) || (pack.special && pack.special_enabled) || (!pack.contraband && !pack.hidden && !pack.special))
 			packs_list.Add(list(list(
 				"name" = pack.name,
-				"cost" = pack.cost,
+				"cost" = pack.get_cost(),
 				"ref" = "[pack.UID()]",
 				"contents" = pack.ui_manifest,
 				"cat" = pack.group)))
@@ -333,12 +333,12 @@
 		order.orderedbyaccount = selected_account
 		if(attempt_account_authentification(selected_account, user))
 			var/paid_for = FALSE
-			if(!order.requires_cargo_approval && pay_with_account(selected_account, order.object.cost, "[order.object.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
+			if(!order.requires_cargo_approval && pay_with_account(selected_account, order.object.get_cost(), "[order.object.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
 				paid_for = TRUE
 			SSeconomy.process_supply_order(order, paid_for) //add order to shopping list
 	else //if its a department account with pin or higher security or need QM approval, go ahead and add this to the departments section in request list
 		SSeconomy.process_supply_order(order, FALSE)
-		if(order.ordered_by_department.crate_auto_approve && order.ordered_by_department.auto_approval_cap >= order.object.cost)
+		if(order.ordered_by_department.crate_auto_approve && order.ordered_by_department.auto_approval_cap >= order.object.get_cost())
 			approve_crate(user, order.ordernum)
 		investigate_log("| [key_name(user)] has placed an order for [order.object.amount] [order.object.name] with reason: '[order.comment]'", "cargo")
 
@@ -355,7 +355,7 @@
 				return FALSE
 			order.requires_cargo_approval = FALSE
 			if(account.account_type == ACCOUNT_TYPE_PERSONAL || isnull(order.ordered_by_department))
-				if(pay_with_account(account, order.object.cost, "[pack.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
+				if(pay_with_account(account, order.object.get_cost(), "[pack.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
 					SSeconomy.process_supply_order(order, TRUE) //send 'er back through
 					return TRUE
 				atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
@@ -368,12 +368,12 @@
 			//if they do not have access to this account
 			if(!department_order.ordered_by_department.has_account_access(user.get_access(), user.get_worn_id_account()))
 				//and the dept account doesn't have auto approve enabled (or does and the crate is too expensive for auto approve)
-				if(!department_order.ordered_by_department.crate_auto_approve || department_order.ordered_by_department.auto_approval_cap < pack.cost)
+				if(!department_order.ordered_by_department.crate_auto_approve || department_order.ordered_by_department.auto_approval_cap < pack.get_cost())
 					return //no access!
 
 			///just give the account pin here, its too much work for players to get the department account pin number since approval is access locked anyway
 			if(attempt_account_authentification(account, user, account.account_pin))
-				if(pay_with_account(account, pack.cost, "[pack.name] Crate Purchase", "[src]", user, account_database.vendor_account))
+				if(pay_with_account(account, pack.get_cost(), "[pack.name] Crate Purchase", "[src]", user, account_database.vendor_account))
 					order.requires_head_approval = FALSE
 					SSeconomy.process_supply_order(order, TRUE)
 					investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [cargo_account.credit_balance].", "cargo")
@@ -418,7 +418,7 @@
 		SSshuttle.supply.request(SSshuttle.getDock("supply_home"))
 
 /obj/machinery/computer/supplycomp/proc/pay_for_crate(datum/money_account/customer_account, mob/user, datum/supply_order/order)
-	if(pay_with_account(customer_account, order.object.cost, "Purchase of [order.object.name]", "Cargo Requests Console", user, cargo_account, TRUE))
+	if(pay_with_account(customer_account, order.object.get_cost(), "Purchase of [order.object.name]", "Cargo Requests Console", user, cargo_account, TRUE))
 		return TRUE
 	return FALSE
 
