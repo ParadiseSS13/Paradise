@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/simulated/wall/boss,
+/turf/simulated/wall/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "ab" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -5819,7 +5819,7 @@
 "ya" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/wall/boss,
+/turf/simulated/wall/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "yb" = (
 /obj/structure/table/glass,
@@ -6139,6 +6139,10 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
+"Ad" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors)
 "Ai" = (
 /obj/machinery/alarm{
 	dir = 1;
@@ -7273,6 +7277,10 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/storage)
+"If" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors/unexplored/danger)
 "Il" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -7953,6 +7961,9 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"NJ" = (
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors/unexplored/danger)
 "NK" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/spawner/random_spawners/dirt_maybe,
@@ -35436,7 +35447,7 @@ BX
 BX
 BX
 BX
-BX
+If
 BX
 ZY
 ZY
@@ -41293,7 +41304,7 @@ aa
 aa
 aa
 aa
-Rl
+Ad
 gG
 pP
 kg
@@ -41331,7 +41342,7 @@ mN
 Gb
 QO
 ys
-ys
+NJ
 BX
 GC
 GC
@@ -41557,8 +41568,8 @@ pH
 Ol
 ag
 le
-Rl
-Rl
+Ad
+Ad
 ls
 Aw
 Aw
@@ -41570,8 +41581,8 @@ Aw
 Aw
 Aw
 lI
-Rl
-Rl
+Ad
+Ad
 wr
 Ly
 Ly
@@ -41828,7 +41839,7 @@ XU
 KO
 KO
 Eq
-Rl
+Ad
 hF
 Ly
 Ly
@@ -42342,7 +42353,7 @@ pS
 bc
 Qr
 bc
-Rl
+Ad
 IZ
 Ly
 Ly
@@ -42585,8 +42596,8 @@ Pl
 hk
 gr
 hH
-Rl
-Rl
+Ad
+Ad
 lw
 Aw
 Aw
@@ -42598,8 +42609,8 @@ Aw
 Aw
 lw
 Aw
-Rl
-Rl
+Ad
+Ad
 Vq
 Ly
 Ly
@@ -42835,7 +42846,7 @@ aa
 aa
 aa
 aa
-Rl
+Ad
 gr
 pP
 kl
