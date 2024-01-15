@@ -132,27 +132,46 @@
 	implant_color = "#FFFF00"
 	slot = "brain_antistun"
 	origin_tech = "materials=5;programming=4;biotech=5"
-	var/last_stamina_damage = 0
-	var/max_stamina_increment = 40
+	/// How much we multiply the owners stamina regen block modifier by.
+	var/stamina_crit_time_multiplier = 0.4
+	/// Are we currently modifying somoeones stamina regen block modifier? If so, we will want to undo it on removal.
+	var/currently_modifying_stamina = FALSE
+	COOLDOWN_DECLARE(implant_cooldown)
 
-/obj/item/organ/internal/cyberimp/brain/anti_stam/on_life()
+/obj/item/organ/internal/cyberimp/brain/anti_stam/insert(mob/living/carbon/M, special = FALSE)
 	..()
-	if(crit_fail)
-		return
-	if(last_stamina_damage + max_stamina_increment < owner.getStaminaLoss())
-		owner.setStaminaLoss(last_stamina_damage + max_stamina_increment)
-	last_stamina_damage = owner.getStaminaLoss()
+	RegisterSignal(M, COMSIG_CARBON_ENTER_STAMINACRIT, PROC_REF(on_enter))
+	RegisterSignal(M, COMSIG_CARBON_EXIT_STAMINACRIT, PROC_REF(on_exit))
+	RegisterSignal(M, COMSIG_CARBON_STAMINA_REGENERATED, PROC_REF(on_regen))
 
+/obj/item/organ/internal/cyberimp/brain/anti_stam/remove(mob/living/carbon/M, special = FALSE)
+	UnregisterSignal(M, COMSIG_CARBON_ENTER_STAMINACRIT)
+	UnregisterSignal(M, COMSIG_CARBON_EXIT_STAMINACRIT)
+	RegisterSignal(M, COMSIG_CARBON_STAMINA_REGENERATED)
+	on_exit()
+	return ..()
+
+/obj/item/organ/internal/cyberimp/brain/anti_stam/proc/on_enter()
+	SIGNAL_HANDLER
+	if(currently_modifying_stamina || !COOLDOWN_FINISHED(src, implant_cooldown))
+		return
+	owner.stamina_regen_block_modifier *= stamina_crit_time_multiplier
+	currently_modifying_stamina = TRUE
+
+/obj/item/organ/internal/cyberimp/brain/anti_stam/proc/on_exit()
+	SIGNAL_HANDLER
+	if(!currently_modifying_stamina)
+		return
+	owner.stamina_regen_block_modifier /= stamina_crit_time_multiplier
+	currently_modifying_stamina = FALSE
+
+/obj/item/organ/internal/cyberimp/brain/anti_stam/proc/on_regen()
+	SIGNAL_HANDLER
+	owner.update_stamina() //This is here so they actually get unstaminacrit when it triggers, vs 2-4 seconds later
 
 /obj/item/organ/internal/cyberimp/brain/anti_stam/emp_act(severity)
 	..()
-	if(crit_fail || emp_proof)
-		return
-	crit_fail = TRUE
-	addtimer(CALLBACK(src, PROC_REF(reboot)), 90 / severity)
-
-/obj/item/organ/internal/cyberimp/brain/anti_stam/proc/reboot()
-	crit_fail = FALSE
+	COOLDOWN_START(src, implant_cooldown, 1 MINUTES / severity)
 
 /obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
 	name = "Hardened CNS Rebooter implant"

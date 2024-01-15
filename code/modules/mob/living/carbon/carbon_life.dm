@@ -251,6 +251,7 @@
 			update_stamina()
 		if(staminaloss)
 			setStaminaLoss(0, FALSE)
+			SEND_SIGNAL(src, COMSIG_CARBON_STAMINA_REGENERATED)
 			update_health_hud()
 
 	// Keep SSD people asleep
