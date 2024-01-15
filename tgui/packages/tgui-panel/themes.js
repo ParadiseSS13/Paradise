@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-export const THEMES = ['light', 'dark', 'ntos'];
+export const THEMES = ['Light', 'Dark', 'NTOS'];
 
 const COLOR_DARK_BG = '#202020';
 const COLOR_DARK_BG_DARKER = '#131313';
@@ -32,7 +32,7 @@ const COLOR_NTOS_TEXT = '#b8cbe6';
  * It's painful but it works, and is the way Lummox suggested.
  */
 export const setClientTheme = (name) => {
-  if (name === 'light') {
+  if (name === 'Light') {
     return Byond.winset({
       /* Buttons */
       'rpane.textb.background-color': COLOR_LIGHT_BUTTON,
@@ -84,7 +84,7 @@ export const setClientTheme = (name) => {
     });
   }
 
-  if (name === 'dark') {
+  if (name === 'Dark') {
     Byond.winset({
       /* Buttons */
       'rpane.textb.background-color': COLOR_DARK_BG_BUTTON,
@@ -136,7 +136,7 @@ export const setClientTheme = (name) => {
     });
   }
 
-  if (name === 'ntos') {
+  if (name === 'NTOS') {
     return Byond.winset({
       /* Buttons */
       'rpane.textb.background-color': COLOR_NTOS_BUTTON,
