@@ -279,7 +279,7 @@
 			items_counts[display_name] += S.amount
 			continue
 
-		else if(istype(O, /obj/item/food))
+		else if(isfood(O))
 			var/obj/item/food/food = O
 			if(!items_counts[display_name])
 				if(food.ingredient_name)
