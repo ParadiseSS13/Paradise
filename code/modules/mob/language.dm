@@ -22,8 +22,8 @@
 	var/list/scramble_cache = list()
 	/// Do we want to override the word-join character for scrambled text? If null, defaults to " " or ". "
 	var/join_override
-	var/list/partial_understanding				  // List of languages that can /somehwat/ understand it, format is: name = chance of understanding a word
-	var/culture
+	var/list/partial_understanding              // List of languages that can /somehwat/ understand it, format is: name = chance of understanding a word
+	var/culture                                 // List of cultural languages, these are restricted to species
 
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len || english_names)
