@@ -59,8 +59,9 @@
 #define INIT_ORDER_SOUNDS 16
 #define INIT_ORDER_INSTRUMENTS 15
 #define INIT_ORDER_RESEARCH 14 // SoonTM
-#define INIT_ORDER_EVENTS 13
-#define INIT_ORDER_JOBS 12
+#define INIT_ORDER_STATION 13 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
+#define INIT_ORDER_EVENTS 12
+#define INIT_ORDER_JOBS 11
 #define INIT_ORDER_TICKER 10
 #define INIT_ORDER_MAPPING 9
 #define INIT_ORDER_ATOMS 7

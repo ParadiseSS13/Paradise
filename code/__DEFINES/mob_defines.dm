@@ -199,6 +199,9 @@
 #define INVISIBILITY_ABSTRACT 101
 #define UNHEALING_EAR_DAMAGE 100
 
+/// If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()
+#define EXAMINE_MORE_WINDOW 1 SECONDS
+
 #define DIRECTION_LOCK_SLOWDOWN 3
 
 //Human sub-species

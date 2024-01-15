@@ -286,7 +286,7 @@
 		if(stat == UNCONSCIOUS || just_sleeping)
 			msg += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep.\n"
 		else if(getBrainLoss() >= 60)
-			msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
+			msg += "[p_they(TRUE)] [p_are()] staring forward with a blank expression.\n"
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			msg += examine_show_ssd()

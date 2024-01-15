@@ -116,13 +116,13 @@
 		O.backpack_contents = typecounts
 		// TODO : Copy varedits from backpack stuff too.
 
-	// Copy implants
-	O.implants = list()
-	for(var/obj/item/implant/I in contents)
+	//Copy biochips
+	O.bio_chips = list()
+	for(var/obj/item/bio_chip/I in contents)
 		if(istype(I))
-			O.implants |= I.type
+			O.bio_chips |= I.type
 
-	// Copy cybernetic implants
+	// Copy cybernetic biochips
 	O.cybernetic_implants = list()
 	for(var/org in internal_organs)
 		var/obj/item/organ/internal/aug = org
