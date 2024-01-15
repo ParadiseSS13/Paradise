@@ -356,7 +356,7 @@
 			to_chat(user, "<span class='warning'>Close [box] first!</span>")
 		return
 
-	if(istype(I, /obj/item/food/snacks/sliceable/pizza/)) // Long ass fucking object name
+	if(istype(I, /obj/item/food/snacks/sliceable/pizza)) // Long ass fucking object name
 		if(open)
 			user.drop_item()
 			I.loc = src
