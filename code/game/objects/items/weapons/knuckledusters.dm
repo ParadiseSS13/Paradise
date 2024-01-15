@@ -25,14 +25,13 @@
 		gripped = TRUE
 		to_chat(user, "You tighten your grip on [src], ensuring you won't drop it.")
 		flags |= NODROP
-		return
-	if(gripped)
+	else
 		gripped = FALSE
 		to_chat(user, "You relax your grip on [src].")
 		flags &= ~NODROP
 		return
 
-/obj/item/melee/knuckleduster/attack(mob/living/target, mob/living/user, obj/item/organ/external, obj/item/organ/internal/)
+/obj/item/melee/knuckleduster/attack(mob/living/target, mob/living/user)
 	. = ..()
 	if(!ishuman(target))
 		return
@@ -49,7 +48,7 @@
 		return
 
 	var/obj/item/organ/internal/squishy = pick(punched.internal_organs)
-	if(gripped & elite && target.health < 90)
+	if(gripped && elite && target.health < 90)
 		squishy.receive_damage(trauma)
 	if(punched.is_broken())
 		squishy.receive_damage(trauma) // Probably not so good for your organs to have your already broken ribs punched hard again
