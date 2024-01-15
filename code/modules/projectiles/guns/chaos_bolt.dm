@@ -9,11 +9,11 @@
 	name = "chaos bolt"
 	icon_state = "ice_1"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/chaos
-	/// Set by random effet to be summoned in target mob's backpack, on the floor under mob, or around mob if explosion_amount is set
+	/// Set by random effet to be summoned in target mob's backpack, on the floor under mob, or around mob if explosion_amount is set.
 	var/obj/item/item_to_summon
-	/// If left at 0, item goes in backpack or floor, if set, throw that many items around the target
+	/// If left at 0, item goes in backpack or floor, if set, throw that many items around the target.
 	var/explosion_amount = 0
-	/// Name of random effect to be applied on target mob
+	/// Name of random effect to be applied on target mob.
 	var/chaos_effect
 
 /obj/item/projectile/magic/chaos/on_hit(atom/target, blocked = 0)
