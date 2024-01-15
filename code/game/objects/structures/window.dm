@@ -571,7 +571,7 @@
 	if(!range)
 		button_area.window_tint = !button_area.window_tint
 		for(var/obj/machinery/button/windowtint/B in button_area)
-			if (B.range || B.id)
+			if(B.range || B.id)
 				continue
 			B.active = button_area.window_tint
 			B.update_icon()
