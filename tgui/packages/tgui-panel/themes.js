@@ -7,9 +7,10 @@
 export const THEMES = ['light', 'dark'];
 
 const COLOR_DARK_BG = '#202020';
-const COLOR_DARK_BG_DARKER = '#171717';
+const COLOR_DARK_BG_DARKER = '#131313';
 const COLOR_DARK_BG_BUTTON = '#4C4C4D';
 const COLOR_DARK_TEXT = '#A4BAD6';
+
 const COLOR_LIGHT_BG = '#EEEEEE';
 const COLOR_LIGHT_BG_LIGHTER = '#FFFFFF';
 const COLOR_LIGHT_BUTTON = '#EEEEEE';
@@ -77,6 +78,7 @@ export const setClientTheme = (name) => {
       'input.text-color': COLOR_LIGHT_TEXT,
     });
   }
+
   if (name === 'dark') {
     Byond.winset({
       /* Buttons */
@@ -98,21 +100,21 @@ export const setClientTheme = (name) => {
       'rpane.changelog.text-color': '#FFFFFF',
       /* Mainwindow */
       'mainwindow.background-color': COLOR_DARK_BG_DARKER,
-      'mainwindow.mainvsplit.background-color': COLOR_DARK_BG_DARKER,
+      'mainwindow.mainvsplit.background-color': COLOR_DARK_BG,
       'mainwindow.tooltip.background-color': COLOR_DARK_BG_DARKER,
       'outputwindow.background-color': COLOR_DARK_BG,
       'outputwindow.text-color': COLOR_DARK_TEXT,
       /* Rpane */
-      'rpane.background-color': COLOR_DARK_BG_DARKER,
-      'rpane.rpanewindow.background-color': COLOR_DARK_BG_DARKER,
+      'rpane.background-color': COLOR_DARK_BG,
+      'rpane.rpanewindow.background-color': COLOR_DARK_BG,
       /* Infowindow */
-      'infowindow.background-color': COLOR_DARK_BG_DARKER,
+      'infowindow.background-color': COLOR_DARK_BG,
       'infowindow.text-color': COLOR_DARK_TEXT,
       'infowindow.info.background-color': COLOR_DARK_BG_DARKER,
       'infowindow.info.text-color': COLOR_DARK_TEXT,
       'infowindow.info.highlight-color': '#009900',
       'infowindow.info.tab-text-color': COLOR_DARK_TEXT,
-      'infowindow.info.tab-background-color': COLOR_DARK_BG_DARKER,
+      'infowindow.info.tab-background-color': COLOR_DARK_BG,
       // Say, OOC, me Buttons etc.
       'saybutton.background-color': COLOR_DARK_BG_DARKER,
       'saybutton.text-color': COLOR_DARK_TEXT,

@@ -53,12 +53,6 @@ SUBSYSTEM_DEF(changelog)
 	if(!ss_ready)
 		return // Only return here, we dont have to worry about a queue list because this will be called from ShowChangelog()
 
-	if(C.prefs.toggles & PREFTOGGLE_UI_DARKMODE)
-		winset(C, "rpane.changelog", "background-color=#40628a;font-color=#ffffff;font-style=none")
-	else
-		winset(C, "rpane.changelog", "background-color=none;font-style=none")
-
-
 	C.prefs.lastchangelog = current_cl_timestamp
 
 	var/datum/db_query/updatePlayerCLTime = SSdbcore.NewQuery(
@@ -80,7 +74,7 @@ SUBSYSTEM_DEF(changelog)
 
 	// If we are ready, process the button style
 	if(C.prefs.lastchangelog != current_cl_timestamp)
-		winset(C, "rpane.changelog", "background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
+		winset(C, "rpane.changelog", "border=line;font-style=bold")
 		to_chat(C, "<span class='boldnotice'>Changelog has changed since your last visit.</span>")
 
 /datum/controller/subsystem/changelog/proc/OpenChangelog(client/C)
