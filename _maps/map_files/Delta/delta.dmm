@@ -9381,14 +9381,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/security/permabrig)
-"aGW" = (
-/obj/structure/lattice,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
-/turf/space,
-/area/space/nearstation)
 "aGY" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/auxsolarport)
@@ -45227,10 +45219,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "ctS" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -49668,10 +49657,7 @@
 	},
 /area/station/security/brig)
 "cFR" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -59981,10 +59967,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "drs" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -60545,10 +60528,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "dtU" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "dtY" = (
@@ -66571,10 +66551,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/hallway/secondary/exit)
 "dXo" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -66602,10 +66579,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "dXs" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -69245,10 +69219,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "fhI" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
 /turf/simulated/floor/plating,
@@ -73790,10 +73761,7 @@
 	},
 /area/station/medical/cryo)
 "ieW" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard{
 	icon_state = "small"
@@ -117627,7 +117595,7 @@ aaa
 aaa
 dij
 dij
-aGW
+sso
 dij
 dij
 aaa
@@ -121739,7 +121707,7 @@ aaa
 aaa
 dij
 dij
-aGW
+sso
 dij
 abj
 aaa
@@ -121749,7 +121717,7 @@ abj
 aaa
 abj
 dij
-aGW
+sso
 dij
 dij
 abj
@@ -145364,7 +145332,7 @@ aaa
 aaa
 dij
 dij
-aGW
+sso
 dij
 abj
 adg
@@ -146892,7 +146860,7 @@ aaa
 aaa
 aaa
 dij
-aGW
+sso
 dij
 dij
 abj
@@ -148436,7 +148404,7 @@ aaa
 aaa
 aaa
 aaa
-aGW
+sso
 abj
 ace
 aco
@@ -157221,7 +157189,7 @@ aaa
 aaa
 aaa
 aaa
-aGW
+sso
 abj
 abj
 abj
