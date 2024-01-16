@@ -544,7 +544,7 @@
 		items_list.Add(new emag_item)
 		emagged = TRUE
 		user.visible_message("<span class='warning'>Sparks fly out of [src.name]!</span>", "<span class='notice'>You short out the safeties on [src.name].</span>")
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
+		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		update_equip_info()
 
 #undef MECH_RCD_MODE_DECONSTRUCT
