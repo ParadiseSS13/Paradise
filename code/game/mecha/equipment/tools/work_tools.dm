@@ -275,8 +275,8 @@
 					chassis.spark_system.start()
 					var/obj/machinery/door/airlock/T = new /obj/machinery/door/airlock(target)
 					T.autoclose = TRUE
-					playsound(target, usesound, 50, 1)
-					playsound(target, 'sound/effects/sparks2.ogg', 50, 1)
+					playsound(target, usesound, 50, TRUE)
+					playsound(target, 'sound/effects/sparks2.ogg', 50, TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/rcd/proc/check_menu(mob/living/carbon/user)
 	return (user && chassis.occupant == user && user.stat != DEAD)
