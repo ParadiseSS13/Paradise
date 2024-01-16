@@ -450,7 +450,7 @@
 		update_flags |= M.adjustToxLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		M.fakevomit(0)
 		M.adjust_nutrition(-1)
-	return ..() | update_flags
+	return ..()
 	
 /datum/reagent/medicine/pen_acid
 	name = "Pentetic Acid"
