@@ -234,11 +234,11 @@
 			chassis.occupant_message("A bone-chillingly thick plasteel needle protracts from the exosuit's palm.")
 	chassis.damtype = new_damtype
 	button_icon_state = "mech_damtype_[new_damtype]"
-	playsound(src, 'sound/mecha/mechmove01.ogg', 50, 1)
+	playsound(src, 'sound/mecha/mechmove01.ogg', 50, TRUE)
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/select_module
-	name = "Hey, you shouldn't see it"
+	name = "Hey, you shouldn't see this"
 	var/obj/item/mecha_parts/mecha_equipment/equipment
 
 /datum/action/innate/mecha/select_module/Grant(mob/living/L, obj/mecha/M, obj/item/mecha_parts/mecha_equipment/_equipment)

@@ -640,7 +640,7 @@
 	build_type = MECHFAB
 	req_tech = list("materials" = 6, "engineering" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/eng_toolset
-	materials = list(MAT_METAL=10000,MAT_TITANIUM =2000,MAT_PLASMA=2000)
+	materials = list(MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_PLASMA = 2000)
 	construction_time = 20 SECONDS
 	category = list("Exosuit Equipment")
 

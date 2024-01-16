@@ -275,13 +275,13 @@
 					chassis.spark_system.start()
 					var/obj/machinery/door/airlock/T = new /obj/machinery/door/airlock(target)
 					T.autoclose = TRUE
-					playsound(target, usesound, 50, 1)
-					playsound(target, 'sound/effects/sparks2.ogg', 50, 1)
+					playsound(target, usesound, 50, TRUE)
+					playsound(target, 'sound/effects/sparks2.ogg', 50, TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/rcd/proc/check_menu(mob/living/carbon/user)
 	return (user && chassis.occupant == user && user.stat != DEAD)
 
-/obj/item/mecha_parts/mecha_equipment/rcd/Topic(href,href_list)
+/obj/item/mecha_parts/mecha_equipment/rcd/Topic(href, href_list)
 	..()
 	if(href_list["mode"])
 		mode = text2num(href_list["mode"])
@@ -545,8 +545,8 @@
 	if(!emagged)
 		items_list.Add(new emag_item)
 		emagged = TRUE
-		user.visible_message("<span class='warning'>Sparks fly out of [src.name]!</span>", "<span class='notice'>You short out the safeties on [src.name].</span>")
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
+		user.visible_message("<span class='warning'>Sparks fly out of [name]!</span>", "<span class='notice'>You short out the safeties on [name].</span>")
+		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		update_equip_info()
 
 #undef MECH_RCD_MODE_DECONSTRUCT
