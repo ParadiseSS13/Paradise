@@ -15213,16 +15213,6 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
-"bfO" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/central/north)
 "bfR" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -15270,18 +15260,6 @@
 /area/station/hallway/primary/central/north)
 "bfY" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/central/north)
-"bfZ" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -66232,6 +66210,10 @@
 /area/station/security/storage)
 "lKK" = (
 /obj/machinery/light,
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
@@ -119094,7 +119076,7 @@ sPp
 bbh
 bcM
 bel
-bfO
+jmL
 bhq
 bhq
 bkO
@@ -125262,7 +125244,7 @@ aMk
 aMk
 qmI
 hdw
-bfZ
+uSx
 bhw
 bjh
 byk
