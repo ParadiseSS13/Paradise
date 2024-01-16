@@ -111,39 +111,10 @@
 		add_attack_logs(user, target, "Sprayed with superheated or cooled fire extinguisher at Temperature [reagents.chem_temp]K")
 	playsound(loc, 'sound/effects/extinguish.ogg', 75, TRUE, -3)
 
-	var/direction = get_dir(src,target)
+	var/direction = get_dir(src, target)
 
 	if(isobj(user.buckled) && !user.buckled.anchored && !istype(user.buckled, /obj/vehicle))
-		spawn(0)
-			var/obj/structure/chair/C = user.buckled
-			var/movementdirection = turn(direction, 180)
-			if(istype(C))
-				C.propelled = 4
-			step(C, movementdirection)
-			sleep(1)
-			step(C, movementdirection)
-			if(istype(C))
-				C.propelled = 3
-			sleep(1)
-			step(C, movementdirection)
-			sleep(1)
-			step(C, movementdirection)
-			if(istype(C))
-				C.propelled = 2
-			sleep(2)
-			step(C, movementdirection)
-			if(istype(C))
-				C.propelled = 1
-			sleep(2)
-			step(C, movementdirection)
-			if(istype(C))
-				C.propelled = 0
-			sleep(3)
-			step(C, movementdirection)
-			sleep(3)
-			step(C, movementdirection)
-			sleep(3)
-			step(C, movementdirection)
+		INVOKE_ASYNC(src, PROC_REF(buckled_speed_move), user.buckled, direction)
 	else
 		user.newtonian_move(turn(direction, 180))
 
@@ -157,13 +128,43 @@
 		the_targets = list(T, T1, T2, T3, T4)
 
 	for(var/a in 1 to 5)
-		var/obj/effect/particle_effect/water/Water = new /obj/effect/particle_effect/water(get_turf(src))
-		Water.create_reagents(5)
-		reagents.trans_to(Water, 1)
+		var/obj/effect/particle_effect/water/water = new /obj/effect/particle_effect/water(get_turf(src))
+		water.create_reagents(5)
+		reagents.trans_to(water, 1)
 		var/turf/new_target = pick(the_targets)
 		if(precision)
 			the_targets -= new_target
-		INVOKE_ASYNC(Water, TYPE_PROC_REF(/obj/effect/particle_effect/water, extinguish_move), new_target)
+		INVOKE_ASYNC(water, TYPE_PROC_REF(/obj/effect/particle_effect/water, extinguish_move), new_target)
 
 /obj/item/extinguisher/cyborg_recharge(coeff, emagged)
 	reagents.check_and_add("water", max_water, 5 * coeff)
+
+/obj/item/extinguisher/proc/buckled_speed_move(obj/structure/chair/buckled_to, direction) // Buckled_to may not be a chair here, but we're assuming so because it makes it easier to typecheck
+	var/movementdirection = turn(direction, 180)
+	if(istype(buckled_to))
+		buckled_to.propelled = 4
+	step(buckled_to, movementdirection)
+	sleep(1)
+	step(buckled_to, movementdirection)
+	if(istype(buckled_to))
+		buckled_to.propelled = 3
+	sleep(1)
+	step(buckled_to, movementdirection)
+	sleep(1)
+	step(buckled_to, movementdirection)
+	if(istype(buckled_to))
+		buckled_to.propelled = 2
+	sleep(2)
+	step(buckled_to, movementdirection)
+	if(istype(buckled_to))
+		buckled_to.propelled = 1
+	sleep(2)
+	step(buckled_to, movementdirection)
+	if(istype(buckled_to))
+		buckled_to.propelled = 0
+	sleep(3)
+	step(buckled_to, movementdirection)
+	sleep(3)
+	step(buckled_to, movementdirection)
+	sleep(3)
+	step(buckled_to, movementdirection)
