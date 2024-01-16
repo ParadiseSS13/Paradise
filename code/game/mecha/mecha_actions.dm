@@ -238,7 +238,7 @@
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/select_module
-	name = "Hey, you shouldn't see it"
+	name = "Hey, you shouldn't see this"
 	var/obj/item/mecha_parts/mecha_equipment/equipment
 
 /datum/action/innate/mecha/select_module/Grant(mob/living/L, obj/mecha/M, obj/item/mecha_parts/mecha_equipment/_equipment)
