@@ -46,7 +46,7 @@
 		target = AM
 		loc = null
 		if(hacked)
-			message_admins("[ADMIN_LOOKUPFLW(user)] planted [src.name] on [target.name] at [ADMIN_COORDJMP(target)]")
+			message_admins("[ADMIN_LOOKUPFLW(user)] planted [name] on [target.name] at [ADMIN_COORDJMP(target)]")
 			log_game("planted [name] on [target.name] at [COORD(target)]", user)
 		installed = TRUE
 		target.overlays += image_overlay
@@ -107,7 +107,7 @@
 	if(location)
 		explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3], cause = src)
 		location.ex_act(2, target)
-	if(ismob(target, /mob))
+	if(ismob(target))
 		var/mob/M = target
 		M.gib()
 	qdel(src)
@@ -163,7 +163,7 @@
 		return
 	charge.override_safety()
 	visible_message("<span class='warning'>Sparks fly out of [src]!</span>")
-	playsound(src, "sparks", 50, 1)
+	playsound(src, "sparks", 50, TRUE)
 	charges--
 	if(charges <= 0)
 		to_chat(user ,"<span class='warning'>[src]'s internal battery for overriding mining charges has run dry!</span>")
@@ -177,7 +177,8 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Detonator-0"
 
-	var/list/bombs = list() // list of all bombs connected to a detonator for a moment
+	/// list of all bombs connected to a detonator for a moment
+	var/list/bombs = list() 
 
 /obj/item/detonator/examine(mob/user)
 	. = ..()
@@ -208,4 +209,4 @@
 	else
 		to_chat(user, "<span class='warning'>There is no charges linked to a detonator!</span>")
 	update_icon()
-	. = ..()
+	return ..()
