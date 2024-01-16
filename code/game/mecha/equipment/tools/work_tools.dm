@@ -502,6 +502,8 @@
 		selected_item = locateUID(href_list["select"])
 		occupant_message("Switched to [selected_item]")
 		update_equip_info()
+	if(!istype(selected_item))
+   		return
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/action(atom/target)
 	if(!action_checks(target))
