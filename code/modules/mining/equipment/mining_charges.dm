@@ -3,6 +3,7 @@
 	desc = "Used to make big holes in rocks. Only works on rocks!"
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "mining-charge-2"
+	item_state = "charge_indust"
 	det_time = 5
 	notify_admins = FALSE // no need to make adminlogs on lavaland, while they are "safe" to use
 	var/timer_off = FALSE
@@ -127,6 +128,7 @@
 	name = "mining charge"
 	desc = "A mining charge. This one seems less powerful than industrial. Only works on rocks!"
 	icon_state = "mining-charge-1"
+	item_state = "charge_lesser"
 	smoke_amount = 1
 	boom_sizes = list(1, 2, 3)
 
@@ -134,6 +136,7 @@
 	name = "experimental mining charge"
 	desc = "A mining charge. This one seems much more powerful than normal!"
 	icon_state = "mining-charge-3"
+	item_state = "charge_mega"
 	smoke_amount = 5
 	boom_sizes = list(4, 6, 8)
 
@@ -178,7 +181,7 @@
 	icon_state = "Detonator-0"
 
 	/// list of all bombs connected to a detonator for a moment
-	var/list/bombs = list() 
+	var/list/bombs = list()
 
 /obj/item/detonator/examine(mob/user)
 	. = ..()
