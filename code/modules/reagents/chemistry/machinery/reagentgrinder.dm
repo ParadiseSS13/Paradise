@@ -435,8 +435,8 @@
 	if(!beaker || (beaker && beaker.reagents.holder_full()))
 		return
 	playsound(src.loc, 'sound/machines/blender.ogg', 50, 1)
-	var/offset = prob(50) ? -2 : 2
-	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
+	animate(src, pixel_x = pick(-3, -2, 2, 3), pixel_y = pick(-3, -2, 2, 3), time = 2 DECISECONDS, loop = 16, easing = JUMP_EASING)
+	animate(pixel_x = 0, pixel_y = 0, time = 1 DECISECONDS, easing = JUMP_EASING)
 	operating = TRUE
 	SStgui.update_uis(src)
 	spawn(60)
