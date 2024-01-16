@@ -5,7 +5,7 @@
 	var/list/human_powers = list()
 	tough = TRUE
 	sterile = TRUE
-	/// Amount of credits that will be recived by selling this in the cargo shuttle
+	/// Amount of credits that will be received by selling this in the cargo shuttle
 	var/cargo_profit = 100
 	/// Has this organ been hijacked? Stores a ref of the hijacking item
 	var/obj/hijacked
