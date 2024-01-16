@@ -718,13 +718,6 @@
 	name = "Prisoner [random_number]"
 	registered_name = name
 
-/obj/item/card/id/salvage_captain
-	name = "Captain's ID"
-	registered_name = "Captain"
-	icon_state = "centcom"
-	desc = "Finders, keepers."
-	access = list(ACCESS_SALVAGE_CAPTAIN)
-
 /obj/item/card/id/medical
 	name = "Medical ID"
 	registered_name = "Medic"
