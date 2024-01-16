@@ -65,7 +65,6 @@
 #define ACCESS_XENOARCH 65
 #define ACCESS_PARAMEDIC 66
 #define ACCESS_BLUESHIELD 67
-// #define ACCESS_SALVAGE_CAPTAIN 69 // Salvage ship captain's quarters
 // #define ACCESS_MECHANIC 70 // AA07 2021-10-02 - Removed: Kept for history sake
 // #define ACCESS_PILOT 71 // AA07 2021-10-02 - Removed: Kept for history sake
 #define ACCESS_NTREP 73
