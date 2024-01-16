@@ -127,8 +127,6 @@
 	department_head = list("Quartermaster")
 	selection_color = "#eeddbe"
 	access = list(
-		ACCESS_CARGO_BAY,
-		ACCESS_CARGO,
 		ACCESS_MAILSORTING,
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MINERAL_STOREROOM,
@@ -138,9 +136,6 @@
 		ACCESS_QM,
 	)
 	minimal_access = list(
-		ACCESS_CARGO_BAY,
-		ACCESS_CARGO,
-		ACCESS_MAILSORTING,
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_MINING_STATION,

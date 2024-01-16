@@ -61654,14 +61654,14 @@
 	dir = 1;
 	name = "Cargo Bay Desk"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/general{
-	dir = 1
-	},
 /obj/effect/turf_decal/delivery,
 /obj/item/desk_bell{
 	pixel_x = -6;
 	pixel_y = 3;
 	anchored = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"

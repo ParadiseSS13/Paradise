@@ -30364,7 +30364,8 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrownfull"
 	},
@@ -53723,7 +53724,10 @@
 	pixel_y = 7;
 	anchored = 1
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/general{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mining{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -87161,7 +87165,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
-/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
