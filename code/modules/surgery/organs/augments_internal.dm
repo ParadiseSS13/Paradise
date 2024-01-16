@@ -145,7 +145,7 @@
 	RegisterSignal(M, COMSIG_CARBON_STAMINA_REGENERATED, PROC_REF(on_regen))
 
 /obj/item/organ/internal/cyberimp/brain/anti_stam/remove(mob/living/carbon/M, special = FALSE)
-	UnregisterSignal(M, list(COMSIG_CARBON_ENTER_STAMINACRIT, COMSIG_CARBON_EXIT_STAMINACRIT, COMSIG_CARBON_STAMINA_REGENERATED)
+	UnregisterSignal(M, list(COMSIG_CARBON_ENTER_STAMINACRIT, COMSIG_CARBON_EXIT_STAMINACRIT, COMSIG_CARBON_STAMINA_REGENERATED))
 	on_exit()
 	return ..()
 
