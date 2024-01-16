@@ -192,11 +192,37 @@
 	cost = 100
 	containername = "replacement lights crate"
 
+/datum/supply_packs/misc/janicart
+	name = "Janicart Crate"
+	contains = list(/obj/vehicle/janicart,
+					/obj/item/key/janitor)
+	cost = 500
+	containertype = /obj/structure/largecrate
+	containername = "Janicart. Caution while driving is advised."
+	department_restrictions = list(DEPARTMENT_SERVICE)
+
 /datum/supply_packs/misc/noslipfloor
 	name = "High-traction Floor Tiles"
 	contains = list(/obj/item/stack/tile/noslip/loaded)
 	cost = 200
 	containername = "high-traction floor tiles"
+
+/datum/supply_packs/misc/soap
+	name = "Assorted Soap Crate"
+	contains = list(/obj/item/soap,
+					/obj/item/soap,
+					/obj/item/soap,
+					/obj/item/soap/nanotrasen)
+	cost = 250
+	containername = "soap crate"
+
+/datum/supply_packs/misc/sus_soap
+	name = "Suspicious Soap Crate"
+	contains = list(/obj/item/soap/syndie,
+					/obj/item/soap/syndie)
+	cost = 250
+	containername = "suspicious soap crate"
+	hidden = TRUE
 
 ///////////// Costumes
 

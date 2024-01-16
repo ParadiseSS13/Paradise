@@ -93,32 +93,6 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
 	qdel(src)
 
-//Jacob's ladder
-
-/obj/item/jacobs_ladder
-	name = "jacob's ladder"
-	desc = "A celestial ladder that violates the laws of physics."
-	icon = 'icons/obj/structures.dmi'
-	icon_state = "ladder00"
-
-/obj/item/jacobs_ladder/attack_self(mob/user)
-	var/turf/T = get_turf(src)
-	var/ladder_x = T.x
-	var/ladder_y = T.y
-	to_chat(user, "<span class='notice'>You unfold the ladder. It extends much farther than you were expecting.</span>")
-	var/last_ladder = null
-	for(var/i in 1 to world.maxz)
-		if(is_admin_level(i) || is_away_level(i))
-			continue
-		var/turf/T2 = locate(ladder_x, ladder_y, i)
-		last_ladder = new /obj/structure/ladder/unbreakable/jacob(T2, null, last_ladder)
-	qdel(src)
-
-// Inherit from unbreakable but don't set ID, to suppress the default Z linkage
-/obj/structure/ladder/unbreakable/jacob
-	name = "jacob's ladder"
-	desc = "An indestructible celestial ladder that violates the laws of physics."
-
 //Boat
 
 /obj/vehicle/lavaboat
@@ -135,7 +109,7 @@
 	var/turf/next = get_step(src, direction)
 	var/turf/current = get_turf(src)
 
-	if(istype(next, /turf/simulated/floor/plating/lava/smooth) || istype(current, /turf/simulated/floor/plating/lava/smooth)) //We can move from land to lava, or lava to land, but not from land to land
+	if(istype(next, /turf/simulated/floor/lava) || istype(current, /turf/simulated/floor/lava)) //We can move from land to lava, or lava to land, but not from land to land
 		..()
 	else
 		if(last_message_time + 1 SECONDS < world.time)
@@ -408,7 +382,7 @@
 	if(cooldown < world.time)
 		SSblackbox.record_feedback("amount", "immortality_talisman_uses", 1) // usage
 		cooldown = world.time + 600
-		user.visible_message("<span class='danger'>[user] vanishes from reality, leaving a a hole in [user.p_their()] place!</span>")
+		user.visible_message("<span class='danger'>[user] vanishes from reality, leaving a hole in [user.p_their()] place!</span>")
 		var/obj/effect/immortality_talisman/Z = new(get_turf(src.loc))
 		Z.name = "hole in reality"
 		Z.desc = "It's shaped an awful lot like [user.name]."

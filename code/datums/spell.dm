@@ -198,7 +198,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/invocation(mob/user) //spelling the spell out and setting it on recharge/reducing charges amount
 	switch(invocation_type)
 		if("shout")
-			if(!user.IsVocal())
+			if(!user.IsVocal() || user.cannot_speak_loudly())
 				user.custom_emote(EMOTE_VISIBLE, "makes frantic gestures!")
 			else
 				if(prob(50))//Auto-mute? Fuck that noise

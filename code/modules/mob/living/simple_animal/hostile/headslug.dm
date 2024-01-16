@@ -22,7 +22,7 @@
 	speak_emote = list("squeaks")
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	a_intent = INTENT_HARM
 	speed = 0.3
 	can_hide = TRUE

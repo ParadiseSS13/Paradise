@@ -333,10 +333,10 @@
 			visible_message("<span class='warning'>[H] looks to be stunned by the energy!</span>")
 			H.Weaken(40 SECONDS)
 		return
-	for(var/obj/item/implant/mindshield/L in H)
+	for(var/obj/item/bio_chip/mindshield/L in H)
 		if(L && L.implanted)
 			qdel(L)
-	for(var/obj/item/implant/traitor/T in H)
+	for(var/obj/item/bio_chip/traitor/T in H)
 		if(T && T.implanted)
 			qdel(T)
 	visible_message("<span class='warning'>[H] gets an eerie red glow in their eyes!</span>")

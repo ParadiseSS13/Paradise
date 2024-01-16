@@ -547,7 +547,7 @@
 	unlockPortDoors(S1)
 
 /obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
-	var/static/list/blacklisted_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/plating/lava, /turf/simulated/floor/plating/asteroid))
+	var/static/list/blacklisted_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/lava, /turf/simulated/floor/plating/asteroid))
 	return is_type_in_typecache(T, blacklisted_turf_types)
 
 
