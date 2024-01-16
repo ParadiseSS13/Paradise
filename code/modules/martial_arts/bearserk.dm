@@ -38,7 +38,7 @@
 
 // The Pelt
 
-/obj/item/clothing/head/bearpelt/
+/obj/item/clothing/head/bearpelt/bearserk
 	strip_delay = 80
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, RAD = 0, FIRE = INFINITY, ACID = 75)
 	resistance_flags = FIRE_PROOF
