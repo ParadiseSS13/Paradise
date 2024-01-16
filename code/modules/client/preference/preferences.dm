@@ -71,7 +71,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	/// Volume mixer, indexed by channel as TEXT (numerical indexes will not work). Volume goes from 0 to 100.
 	var/list/volume_mixer = list(
-		"1012" = 100, // CHANNEL_GENERAL
+		"1012" = 100, // CHANNEL_GENERAL	//Note: This should stay on top because order in this list defines order of sliders in mixer's interface.
 		"1024" = 100, // CHANNEL_LOBBYMUSIC
 		"1023" = 100, // CHANNEL_ADMIN
 		"1022" = 100, // CHANNEL_VOX
