@@ -47,7 +47,7 @@
 	if(player_logged > 0 && stat != DEAD && job)
 		handle_ssd()
 
-	if(mind && !mind.antag_datums) // Only humans with a mind and no antags
+	if(mind) // Only humans with a mind
 		handle_light_adjustment()
 
 	if(stat != DEAD)
