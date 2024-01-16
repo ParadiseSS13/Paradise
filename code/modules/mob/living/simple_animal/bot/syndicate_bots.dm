@@ -12,7 +12,7 @@
 	idcheck = TRUE
 	arrest_type = TRUE
 	auto_patrol = TRUE
-	emagged = 2
+	emagged = TRUE
 	faction = list("syndicate")
 	shoot_sound = 'sound/weapons/wave.ogg'
 	anchored = TRUE
@@ -162,7 +162,7 @@
 		wreck.name = "sentry bot wreckage"
 
 		raise_alert("[src] destroyed.")
-		..()
+		qdel(src)
 
 /mob/living/simple_animal/bot/ed209/syndicate/set_weapon()
 	projectile = /obj/item/projectile/bullet/a40mm

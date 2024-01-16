@@ -1,2 +1,3 @@
-# Ignore built packages:
+# Ignore built packages and styles:
 packages/tgui/public
+packages/tgui/styles

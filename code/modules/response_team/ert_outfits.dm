@@ -84,14 +84,14 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 /datum/outfit/job/centcom/response_team/commander/gamma
 	name = "RT Commander (Gamma)"
-	shoes = /obj/item/clothing/shoes/magboots/advance
+	shoes = /obj/item/clothing/shoes/magboots/elite
 	back = /obj/item/mod/control/pre_equipped/responsory/commander
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
@@ -113,9 +113,9 @@
 		/obj/item/organ/internal/cyberimp/arm/flash
 	)
 
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 //////////////////// SECURITY ///////////////////
@@ -169,14 +169,14 @@
 		/obj/item/organ/internal/cyberimp/eyes/hud/security
 	)
 
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 /datum/outfit/job/centcom/response_team/security/gamma
 	name = "RT Security (Gamma)"
-	shoes = /obj/item/clothing/shoes/magboots/advance
+	shoes = /obj/item/clothing/shoes/magboots/elite
 	belt = /obj/item/storage/belt/security/response_team_gamma
 	back = /obj/item/mod/control/pre_equipped/responsory/security
 	glasses = /obj/item/clothing/glasses/night
@@ -201,9 +201,9 @@
 		/obj/item/organ/internal/cyberimp/chest/reviver/hardened
 	)
 
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 //////////////////// ENGINEER ///////////////////
@@ -223,7 +223,7 @@
 	name = "RT Engineer (Amber)"
 	shoes = /obj/item/clothing/shoes/magboots
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
-	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 	l_pocket = /obj/item/gun/energy/gun/mini
@@ -246,7 +246,7 @@
 	name = "RT Engineer (Red)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
-	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 	l_pocket = /obj/item/t_scanner
@@ -256,7 +256,7 @@
 		/obj/item/rcd/preloaded = 1,
 		/obj/item/rcd_ammo = 3,
 		/obj/item/gun/energy/gun = 1,
-		/obj/item/rpd = 1
+		/obj/item/rpd/bluespace = 1
 	)
 
 	cybernetic_implants = list(
@@ -265,15 +265,16 @@
 	/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened
 	)
 
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 /datum/outfit/job/centcom/response_team/engineer/gamma
 	name = "RT Engineer (Gamma)"
-	shoes = /obj/item/clothing/shoes/magboots/advance
+	shoes = /obj/item/clothing/shoes/magboots/elite
 	back = /obj/item/mod/control/pre_equipped/responsory/engineer
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/t_scanner
@@ -283,7 +284,7 @@
 		/obj/item/rcd/combat = 1,
 		/obj/item/rcd_ammo/large = 3,
 		/obj/item/gun/energy/gun/blueshield/pdw9 = 1,
-		/obj/item/rpd = 1
+		/obj/item/rpd/bluespace = 1
 	)
 
 	cybernetic_implants = list(
@@ -295,8 +296,8 @@
 		/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened
 	)
 
-	implants = list(/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	bio_chips = list(/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 //////////////////// MEDIC ///////////////////
@@ -361,14 +362,14 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 /datum/outfit/job/centcom/response_team/medic/gamma
 	name = "RT Medic (Gamma)"
-	shoes = /obj/item/clothing/shoes/magboots/advance
+	shoes = /obj/item/clothing/shoes/magboots/elite
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	back = /obj/item/mod/control/pre_equipped/responsory/medic
@@ -396,9 +397,9 @@
 		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
 	)
 
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 //////////////////// PARANORMAL ///////////////////
@@ -420,13 +421,14 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
-		/obj/item/flashlight/seclite = 1
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/storage/bible = 1
 	)
 
 /datum/outfit/job/centcom/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	if(H.mind)
-		H.mind.isholy = TRUE
+	if(istype(H.mind))
+		ADD_TRAIT(H.mind, TRAIT_HOLY, ROUNDSTART_TRAIT)
 
 /datum/outfit/job/centcom/response_team/paranormal/amber
 	name = "RT Paranormal (Amber)"
@@ -447,23 +449,24 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 /datum/outfit/job/centcom/response_team/paranormal/gamma
 	name = "RT Paranormal (Gamma)"
 	l_pocket = /obj/item/grenade/clusterbuster/holy
 	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
-	shoes = /obj/item/clothing/shoes/magboots/advance
+	shoes = /obj/item/clothing/shoes/magboots/elite
 	glasses = /obj/item/clothing/glasses/night
 	r_pocket = /obj/item/nullrod/ert
 
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/flashlight/seclite = 1,
-		/obj/item/gun/energy/gun/nuclear = 1
+		/obj/item/gun/energy/gun/nuclear = 1,
+		/obj/item/storage/bible = 1
 	)
 
 	cybernetic_implants = list(
@@ -472,9 +475,9 @@
 		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
 	)
 
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 //////////////////// JANITORIAL ///////////////////
@@ -487,7 +490,7 @@
 	uniform = /obj/item/clothing/under/rank/centcom/ert/janitor
 	back = /obj/item/storage/backpack/ert/janitor
 	belt = /obj/item/storage/belt/janitor/full
-	shoes = /obj/item/clothing/shoes/galoshes
+	shoes = /obj/item/clothing/shoes/galoshes/dry
 	l_ear = /obj/item/radio/headset/ert/alt
 	id = /obj/item/card/id/ert/janitorial
 	pda = /obj/item/pda/heads/ert/janitor
@@ -495,9 +498,7 @@
 
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/antiweed = 2,
-		/obj/item/lightreplacer = 1,
-		/obj/item/storage/bag/trash = 1,
-		/obj/item/push_broom,
+		/obj/item/push_broom = 1,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/melee/flyswatter = 1
 	)
@@ -506,55 +507,55 @@
 	name = "RT Janitor (Amber)"
 	suit = /obj/item/clothing/suit/armor/vest/ert/janitor
 	head = /obj/item/clothing/head/helmet/ert/janitor
-	glasses = /obj/item/clothing/glasses/sunglasses
-	r_pocket = /obj/item/flashlight
+	glasses = /obj/item/clothing/glasses/hud/janitor/sunglasses
+	r_pocket = /obj/item/flashlight/seclite
 	suit_store = /obj/item/gun/energy/disabler
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/advmop
+		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced
 	)
 
 /datum/outfit/job/centcom/response_team/janitorial/red
 	name = "RT Janitor (Red)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	glasses = /obj/item/clothing/glasses/hud/janitor/sunglasses
+	shoes = /obj/item/clothing/shoes/galoshes/dry/lightweight
 	r_pocket = /obj/item/scythe/tele
-	suit_store = /obj/item/gun/energy/gun/mini
+	suit_store = /obj/item/gun/energy/gun
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/janitorial,
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 /datum/outfit/job/centcom/response_team/janitorial/gamma
 	name = "RT Janitor (Gamma)"
-	glasses = /obj/item/clothing/glasses/night
+	glasses = /obj/item/clothing/glasses/hud/janitor/night
 	back = /obj/item/mod/control/pre_equipped/responsory/janitor
 	r_pocket = /obj/item/scythe/tele
-	shoes = /obj/item/clothing/shoes/magboots/advance
+	shoes = /obj/item/clothing/shoes/magboots/elite
 
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/antiweed = 2,
 		/obj/item/grenade/clusterbuster/cleaner = 1,
 		/obj/item/storage/box/lights/mixed = 1,
-		/obj/item/storage/bag/trash/bluespace = 1,
-		/obj/item/lightreplacer/bluespace = 1,
-		/obj/item/melee/flyswatter = 1,
-		/obj/item/gun/energy/gun = 1
+		/obj/item/push_broom = 1,
+		/obj/item/gun/energy/gun/nuclear = 1
 	)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
-		/obj/item/organ/internal/cyberimp/arm/advmop,
+		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced,
 		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
 	)
 
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)

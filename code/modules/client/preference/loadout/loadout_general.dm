@@ -42,7 +42,7 @@
 
 /datum/gear/matches
 	display_name = "Box of matches"
-	path = /obj/item/storage/box/matches
+	path = /obj/item/storage/fancy/matches
 
 /datum/gear/candlebox
 	display_name = "Box of candles"
@@ -92,11 +92,6 @@
 /datum/gear/sharkplushie
 	display_name = "Shark plushie"
 	path = /obj/item/toy/plushie/shark
-
-/datum/gear/sechud
-	display_name = "Classic security HUD"
-	path = /obj/item/clothing/glasses/hud/security
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Internal Affairs Agent","Magistrate")
 
 /datum/gear/cryaonbox
 	display_name = "Box of crayons"
@@ -161,6 +156,11 @@
 /datum/gear/skullbandana
 	display_name = "Bandana, skull"
 	path = /obj/item/clothing/mask/bandana/skull
+
+/datum/gear/pAI
+	display_name = "Personal Artificial Intelligence"
+	path = /obj/item/paicard
+	cost = 2
 
 /datum/gear/mob_hunt_game
 	display_name = "Nano-Mob Hunter GO! Cartridge"

@@ -151,9 +151,7 @@
 			return TRUE
 
 		if("remove_tank")
-			if(holding_tank)
-				holding_tank.forceMove(get_turf(src))
-				holding_tank = null
+			replace_tank(ui.user, TRUE)
 			update_icon()
 			return TRUE
 
@@ -202,10 +200,7 @@
 	if(on)
 		to_chat(user, "<span class='warning'>Turn it off first!</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	anchored = !anchored
-	to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] [src].</span>")
+	default_unfasten_wrench(user, I, 4 SECONDS)
 
 /obj/machinery/atmospherics/portable/scrubber/huge/stationary
 	name = "Stationary Air Scrubber"

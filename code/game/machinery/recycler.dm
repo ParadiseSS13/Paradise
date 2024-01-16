@@ -50,6 +50,7 @@
 	. += "<span class='notice'>The power light is [(stat & NOPOWER) ? "<b>off</b>" : "<b>on</b>"]."
 	. += "The operation light is [emergency_mode ? "<b>off</b>. [src] has detected a forbidden object with its sensors, and has shut down temporarily." : "<b>on</b>. [src] is active."]"
 	. += "The safety sensor light is [emagged ? "<b>off</b>!" : "<b>on</b>."]</span>"
+	. += "The recycler current accepts items from [dir2text(eat_dir)]."
 
 /obj/machinery/recycler/power_change()
 	if(!..())
@@ -205,38 +206,12 @@
 		L.adjustBruteLoss(crush_damage)
 
 
-/obj/machinery/recycler/verb/rotate()
-	set name = "Rotate Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	var/mob/living/user = usr
-
-	if(usr.incapacitated())
+/obj/machinery/recycler/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(anchored)
-		to_chat(usr, "[src] is fastened to the floor!")
-		return 0
-	eat_dir = turn(eat_dir, 270)
-	to_chat(user, "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>")
-	return 1
 
-/obj/machinery/recycler/verb/rotateccw()
-	set name = "Rotate Counter Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	var/mob/living/user = usr
-
-	if(usr.incapacitated())
-		return
-	if(anchored)
-		to_chat(usr, "[src] is fastened to the floor!")
-		return 0
 	eat_dir = turn(eat_dir, 90)
 	to_chat(user, "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>")
-	return 1
-
 
 /obj/machinery/recycler/deathtrap
 	name = "dangerous old crusher"

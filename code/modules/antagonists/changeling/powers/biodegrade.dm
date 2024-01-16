@@ -4,9 +4,10 @@
 	helptext = "This is obvious to nearby people, and can destroy standard restraints and closets, and break you out of grabs."
 	button_icon_state = "biodegrade"
 	chemical_cost = 30 //High cost to prevent spam
-	dna_cost = 2
+	dna_cost = 4
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
+	category = /datum/changeling_power_category/defence
 	/// Type of acid hand we give to person
 	var/hand = /obj/item/melee/changeling_corrosive_acid
 	/// Current hand given to human, null is we did not give hand, object if hand is given

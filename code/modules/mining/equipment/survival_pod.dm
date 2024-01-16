@@ -228,7 +228,7 @@
 		var/obj/item/reagent_containers/food/snacks/warmdonkpocket_weak/W = new(src)
 		load(W)
 	if(prob(50))
-		var/obj/item/storage/pill_bottle/dice/D = new(src)
+		var/obj/item/storage/bag/dice/D = new(src)
 		load(D)
 	else
 		var/obj/item/instrument/guitar/G = new(src)

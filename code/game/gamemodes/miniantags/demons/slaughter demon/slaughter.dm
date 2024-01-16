@@ -156,7 +156,7 @@
 		AddSpell(SV)
 
 		S.mind.add_mind_objective(/datum/objective/cult_slaughter)
-		var/list/messages = list(S.mind.prepare_announce_objectives(FALSE))
+		var/list/messages = S.mind.prepare_announce_objectives(FALSE)
 		to_chat(S, chat_box_red(messages.Join("<br>")))
 
 ////////////////////The Powers
@@ -185,7 +185,7 @@
 		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
 		return
 
-	var/mob/living/target = input("Choose the target to talk to.", "Targeting") as null|mob in validtargets
+	var/mob/living/target = tgui_input_list(user, "Choose the target to talk to", "Targeting", validtargets)
 	return target
 
 /datum/action/innate/demon/whisper/Activate()
@@ -261,7 +261,7 @@
 		M.mind.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
 
 /obj/item/organ/internal/heart/demon/slaughter/remove(mob/living/carbon/M, special = 0)
-	..()
+	. = ..()
 	if(M.mind)
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL, "bloodcrawl")
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")

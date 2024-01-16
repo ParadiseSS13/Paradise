@@ -470,7 +470,7 @@
 	return FALSE
 
 #define DOAFTERONCE_MAGIC "Magic~~"
-GLOBAL_LIST_INIT(do_after_once_tracker, list())
+GLOBAL_LIST_EMPTY(do_after_once_tracker)
 /proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.", special_identifier)
 	if(!user || !target)
 		return

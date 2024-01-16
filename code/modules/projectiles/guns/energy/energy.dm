@@ -10,6 +10,7 @@
 	flight_x_offset = 20
 	flight_y_offset = 10
 	shaded_charge = TRUE
+	execution_speed = 5 SECONDS
 
 
 /obj/item/gun/energy/gun/cyborg
@@ -34,6 +35,7 @@
 	actions_types = list(/datum/action/item_action/toggle_gunlight)
 	shaded_charge = FALSE
 	can_holster = TRUE  // Pistol sized, so it should fit into a holster
+	execution_speed = 4 SECONDS
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
 	gun_light = new /obj/item/flashlight/seclite(src)
@@ -74,6 +76,7 @@
 	ammo_x_offset = 1
 	shaded_charge = TRUE
 	can_holster = TRUE
+	execution_speed = 5 SECONDS
 
 /obj/item/gun/energy/gun/blueshield/pdw9
 	name = "\improper PDW-9 energy pistol"
@@ -94,6 +97,7 @@
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
 	shaded_charge = FALSE
+	execution_speed = 8 SECONDS
 
 /obj/item/gun/energy/gun/nuclear
 	name = "advanced energy gun"

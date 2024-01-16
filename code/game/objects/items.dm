@@ -133,7 +133,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
 
-
 /obj/item/New()
 	..()
 
@@ -152,6 +151,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		new path(src, action_icon[path], action_icon_state[path])
 	if(isstorage(loc)) //marks all items in storage as being such
 		in_storage = TRUE
+
+// this proc is used to add text for items with ABSTRACT flag after default examine text
+/obj/item/proc/customised_abstract_text(mob/living/carbon/owner)
+	return
 
 /obj/item/proc/determine_move_resist()
 	switch(w_class)
@@ -192,20 +195,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
 		qdel(src)
-
-/obj/item/verb/move_to_top()
-	set name = "Move To Top"
-	set category = null
-	set src in oview(1)
-
-	if(!isturf(src.loc) || usr.stat || usr.restrained() )
-		return
-
-	var/turf/T = src.loc
-
-	src.loc = null
-
-	src.loc = T
 
 /obj/item/examine(mob/user)
 	var/size
@@ -303,7 +292,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			if(!H.gloves || (!(H.gloves.resistance_flags & (UNACIDABLE|ACID_PROOF))))
 				to_chat(user, "<span class='warning'>The acid on [src] burns your hand!</span>")
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
-				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
+				if(affecting && affecting.receive_damage(0, 5))		// 5 burn damage
 					H.UpdateDamageIcon()
 
 	if(isstorage(src.loc))
@@ -656,7 +645,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(w_class < WEIGHT_CLASS_BULKY)
 			itempush = FALSE //too light to push anything
 		if(isliving(hit_atom)) //Living mobs handle hit sounds differently.
-			if(is_hot(src))
+			if(get_heat())
 				var/mob/living/L = hit_atom
 				L.IgniteMob()
 			var/volume = get_volume_by_throwforce_and_or_w_class()
@@ -912,3 +901,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			H.regenerate_icons()
+
+/obj/item/proc/get_heat()
+	return

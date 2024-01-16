@@ -132,8 +132,8 @@
 	new /obj/item/gun/projectile/revolver/capgun(src)
 
 /obj/item/storage/backpack/mime
-	name = "Parcel Parceaux"
-	desc = "A silent backpack made for those silent workers. Silence Co."
+	name = "Pierre the Panda"
+	desc = "A backpack modelled after Pierre the Panda - the official mascot for the Université du Mime."
 	icon_state = "mimepack"
 	item_state = "mimepack"
 
@@ -213,6 +213,13 @@
 	icon_state = "blueshieldpack"
 	item_state = "blueshieldpack"
 
+/obj/item/storage/backpack/robotics
+	name = "robotics backpack"
+	desc = "A specially designed backpack. It's fire resistant and smells vaguely of welding fuel."
+	icon_state = "robopack"
+	item_state = "robopack"
+	resistance_flags = FIRE_PROOF
+
 /*
  * Satchel Types
  */
@@ -225,20 +232,19 @@
 	resistance_flags = FIRE_PROOF
 	var/strap_side_straight = FALSE
 
-/obj/item/storage/backpack/satchel/verb/switch_strap()
-	set name = "Switch Strap Side"
-	set category = "Object"
-	set src in usr
+/obj/item/storage/backpack/satchel/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Shift-Click</b> [src] to flip it's strap side.</span>"
 
-	if(usr.incapacitated())
+/obj/item/storage/backpack/satchel/AltShiftClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
+
 	strap_side_straight = !strap_side_straight
 	item_state = strap_side_straight ? "satchel-flipped" : "satchel"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_back()
-
-
 
 /obj/item/storage/backpack/satcheldeluxe
 	name = "leather satchel"
@@ -260,6 +266,12 @@
 	desc = "A deluxe NT Satchel, made of the highest quality leather."
 	icon_state = "satchel-norm"
 	item_state = "satchel-norm"
+
+/obj/item/storage/backpack/satchel/clown
+	name = "Tickles Von Squeakerton"
+	desc = "A satchel with extra pockets for all your banana storing needs!"
+	icon_state = "satchel-clown"
+	item_state = "satchel-clown"
 
 /obj/item/storage/backpack/satchel_eng
 	name = "industrial satchel"
@@ -336,6 +348,13 @@
 	desc = "A robust satchel issued to Nanotrasen's finest."
 	icon_state = "satchel-blueshield"
 	item_state = "satchel-blueshield"
+
+/obj/item/storage/backpack/satchel_robo
+	name = "bioengineer satchel"
+	desc = "A black satchel designed for holding repair equipment."
+	icon_state = "satchel-robo"
+	item_state = "satchel-robo"
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel_flat
 	name = "smuggler's satchel"
@@ -700,7 +719,6 @@
 		/obj/item/warp_cube/red = 1,
 		/obj/item/reagent_containers/food/drinks/everfull = 2,
 		/obj/item/clothing/suit/space/hardsuit/shielded/wizard = 2,
-		/obj/item/jacobs_ladder = 1, //funny
 		/obj/item/immortality_talisman = 1 ) //spells recharge when invincible
 	var/obj/item/pickeda = pick(list_a)
 	value += list_a[pickeda]
@@ -781,6 +799,7 @@
 /obj/item/reagent_containers/food/snacks/plum_pie
 	name = "perfect plum pie"
 	desc = "The Jack Horner brand of pie. 2 big thumbs up."
+	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "plump_pie"
 	filling_color = "#B8279B"
 	bitesize = 10
@@ -861,6 +880,12 @@
 	desc = "A robust duffelbag issued to Nanotrasen's finest."
 	icon_state = "duffel-blueshield"
 	item_state = "duffel-blueshield"
+
+/obj/item/storage/backpack/duffel/robotics
+	name = "roboticist duffelbag"
+	desc = "A duffelbag designed to hold tools."
+	icon_state = "duffel-robo"
+	item_state = "duffel-robo"
 
 //ERT backpacks.
 /obj/item/storage/backpack/ert

@@ -613,7 +613,7 @@
 			to_chat(user, "<span class='notice'>You load [src] with [I].</span>")
 			ttv = I
 			I.forceMove(src)
-		else if (ttv)
+		else if(ttv)
 			to_chat(user, "<span class='warning'>Another tank transfer valve is already loaded.</span>")
 		else
 			to_chat(user, "<span class='warning'>Remove the attached assembly component first.</span>")
@@ -632,7 +632,7 @@
 
 
 /obj/item/bombcore/toxins/proc/check_attached(obj/item/transfer_valve/ttv)
-	if (ttv.attached_device)
+	if(ttv.attached_device)
 		return TRUE
 	else
 		return FALSE

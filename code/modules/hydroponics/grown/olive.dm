@@ -12,7 +12,7 @@
 	growthstages = 6
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	mutatelist = list(/obj/item/seeds/apple)
+	mutatelist = list()
 	reagents_add = list("vitamin" = 0.02, "plantmatter" = 0.2, "sodiumchloride" = 0.2)
 
 /obj/item/reagent_containers/food/snacks/grown/olive

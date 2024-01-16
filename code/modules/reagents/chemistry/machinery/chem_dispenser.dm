@@ -237,10 +237,6 @@
 	if(isrobot(user))
 		return
 
-	if(beaker)
-		to_chat(user, "<span class='warning'>Something is already loaded into the machine.</span>")
-		return
-
 	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks)) && user.a_intent != INTENT_HARM)
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
@@ -248,12 +244,18 @@
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
-		beaker =  I
 		I.forceMove(src)
-		to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
+		if(beaker)
+			user.put_in_hands(beaker)
+			to_chat(user, "<span class='notice'>You swap [I] with [beaker].</span>")
+		else
+			to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
+		beaker = I
+
 		SStgui.update_uis(src) // update all UIs attached to src
 		update_icon(UPDATE_ICON_STATE)
 		return
+
 	return ..()
 
 /obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)
@@ -292,14 +294,7 @@
 
 /obj/machinery/chem_dispenser/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
-		return
-	if(anchored)
-		anchored = FALSE
-		WRENCH_UNANCHOR_MESSAGE
-	else if(!anchored)
-		anchored = TRUE
-		WRENCH_ANCHOR_MESSAGE
+	default_unfasten_wrench(user, I, 4 SECONDS)
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user)
 	return attack_hand(user)

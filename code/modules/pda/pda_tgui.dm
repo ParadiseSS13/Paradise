@@ -62,7 +62,7 @@
 	if(..())
 		return
 
-	add_fingerprint(usr)
+	add_fingerprint(ui.user)
 
 	. = TRUE
 	switch(action)
@@ -93,11 +93,13 @@
 				update_shortcuts()
 				playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
 		if("Authenticate") //Checks for ID
-			id_check(usr, 1)
+			id_check(ui.user, 1)
+		if("Available_Ringtones")
+			ttone = params["selected_ringtone"]
 		if("Ringtone")
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
-			return set_ringtone()
+			return set_ringtone(ui.user)
 		else
 			if(current_app)
 				. = current_app.ui_act(action, params, ui, state) // It needs proxying through down here so apps actually have their interacts called

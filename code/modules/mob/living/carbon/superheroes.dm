@@ -8,7 +8,6 @@
 	var/desc
 	var/class
 	var/list/default_spells = list()
-	var/activated = FALSE //for wishgranters to not give an option if someone already has it.
 
 /datum/superheroes/proc/create(mob/living/carbon/human/H)
 	assign_mutations(H)
@@ -97,7 +96,7 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings(H), SLOT_HUD_OUTER_SUIT)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin/(H), SLOT_HUD_HEAD)
 
-	var/obj/item/implant/freedom/L = new/obj/item/implant/freedom(H)
+	var/obj/item/bio_chip/freedom/L = new/obj/item/bio_chip/freedom(H)
 	L.implant(H)
 
 

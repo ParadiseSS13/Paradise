@@ -559,6 +559,14 @@
 	build_path = /obj/item/assembly/voice/noise
 	category = list("initial", "Miscellaneous")
 
+/datum/design/goggles
+	name = "Goggles"
+	id = "goggles"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	build_path = /obj/item/clothing/glasses/goggles
+	category = list("initial", "Miscellaneous")
+
 /datum/design/light_tube
 	name = "Light Tube"
 	id = "light_tube"

@@ -7,6 +7,7 @@ SUBSYSTEM_DEF(ticker)
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
 	cpu_display = SS_CPUDISPLAY_LOW
+	wait = 1 SECONDS
 
 	/// Time the game should start, relative to world.time
 	var/round_start_time = 0
@@ -88,7 +89,7 @@ SUBSYSTEM_DEF(ticker)
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
 			for(var/mob/new_player/N in GLOB.player_list)
-				if (N.client)
+				if(N.client)
 					N.new_player_panel_proc() // to enable the observe option
 		if(GAME_STATE_PREGAME)
 			if(!SSticker.ticker_going) // This has to be referenced like this, and I dont know why. If you dont put SSticker. it will break
@@ -98,7 +99,7 @@ SUBSYSTEM_DEF(ticker)
 			if(!delay_end)
 				pregame_timeleft = max(0, round_start_time - world.time) // Normal lobby countdown when roundstart was not delayed
 			else
-				pregame_timeleft = max(0, pregame_timeleft - 20) // If roundstart was delayed, we should resume the countdown where it left off
+				pregame_timeleft = max(0, pregame_timeleft - wait) // If roundstart was delayed, we should resume the countdown where it left off
 
 			if(pregame_timeleft <= 600 && !tipped) // 60 seconds
 				send_tip_of_the_round()
@@ -127,6 +128,8 @@ SUBSYSTEM_DEF(ticker)
 			if(game_finished || force_ending)
 				current_state = GAME_STATE_FINISHED
 		if(GAME_STATE_FINISHED)
+			if(SSshuttle.emergency.mode >= SHUTTLE_ENDGAME && !mode.station_was_nuked)
+				event_blackbox(outcome = ROUND_END_CREW_TRANSFER)
 			current_state = GAME_STATE_FINISHED
 			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
 			auto_toggle_ooc(TRUE) // Turn it on
@@ -142,7 +145,7 @@ SUBSYSTEM_DEF(ticker)
 				var/list/pickable_types = list()
 				for(var/x in subtypesof(/datum/map))
 					var/datum/map/M = x
-					if(initial(M.voteable))
+					if(initial(M.voteable) && length(GLOB.clients) >= initial(M.min_players_random))
 						pickable_types += M
 
 				var/datum/map/target_map = pick(pickable_types)
@@ -263,10 +266,6 @@ SUBSYSTEM_DEF(ticker)
 	create_characters() // Create player characters and transfer clients
 	log_debug("Creating characters took [stop_watch(watch)]s")
 
-	watch = start_watch()
-	populate_spawn_points() // Put mobs in their spawn locations
-	log_debug("Populating spawn points took [stop_watch(watch)]s")
-
 	// Gather everyones minds
 	for(var/mob/living/player in GLOB.player_list)
 		if(player.mind)
@@ -279,6 +278,7 @@ SUBSYSTEM_DEF(ticker)
 	watch = start_watch()
 	GLOB.data_core.manifest() // Create the manifest
 	log_debug("Manifest creation took [stop_watch(watch)]s")
+	SEND_SIGNAL(src, COMSIG_TICKER_ROUND_STARTING, world.time)
 
 	// Update the MC and state to game playing
 	current_state = GAME_STATE_PLAYING
@@ -529,26 +529,31 @@ SUBSYSTEM_DEF(ticker)
 	ending_station_state.count()
 	var/station_integrity = min(round( 100.0 *  GLOB.start_state.score(ending_station_state), 0.1), 100.0)
 
-	to_chat(world, "<BR>[TAB]Shift Duration: <B>[round(ROUND_TIME / 36000)]:[add_zero("[ROUND_TIME / 600 % 60]", 2)]:[ROUND_TIME / 100 % 6][ROUND_TIME / 100 % 10]</B>")
-	to_chat(world, "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>")
-	to_chat(world, "<BR>")
+	var/list/end_of_round_info = list()
+	end_of_round_info += "<BR>[TAB]Shift Duration: <B>[round(ROUND_TIME / 36000)]:[add_zero("[ROUND_TIME / 600 % 60]", 2)]:[ROUND_TIME / 100 % 6][ROUND_TIME / 100 % 10]</B>"
+	end_of_round_info += "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>"
+	end_of_round_info += "<BR>"
 
 	//Silicon laws report
 	for(var/mob/living/silicon/ai/aiPlayer in GLOB.mob_list)
 		var/ai_ckey = safe_get_ckey(aiPlayer)
 
-		if(aiPlayer.stat != 2)
-			to_chat(world, "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws at the end of the game were:</b>")
+		if(aiPlayer.stat != DEAD)
+			end_of_round_info += "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws at the end of the game were:</b>"
 		else
-			to_chat(world, "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws when it was deactivated were:</b>")
-		aiPlayer.show_laws(TRUE)
+			end_of_round_info += "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws when it was deactivated were:</b>"
+		aiPlayer.laws_sanity_check()
+		for(var/datum/ai_law/law as anything in aiPlayer.laws.sorted_laws)
+			if(law == aiPlayer.laws.zeroth_law)
+				end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+			else
+				end_of_round_info += "[law.get_index()]. [law.law]"
 
-		if(aiPlayer.connected_robots.len)
-			var/robolist = "<b>The AI's loyal minions were:</b> "
+		if(length(aiPlayer.connected_robots))
+			end_of_round_info += "<b>The AI's loyal minions were:</b> "
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
 				var/robo_ckey = safe_get_ckey(robo)
-				robolist += "[robo.name][robo.stat ? " (Deactivated)" : ""] (Played by: [robo_ckey])"
-			to_chat(world, "[robolist]")
+				end_of_round_info += "[robo.name][robo.stat ? " (Deactivated)" : ""] (Played by: [robo_ckey])"
 
 	var/dronecount = 0
 
@@ -561,36 +566,37 @@ SUBSYSTEM_DEF(ticker)
 		var/robo_ckey = safe_get_ckey(robo)
 
 		if(!robo.connected_ai)
-			if(robo.stat != 2)
-				to_chat(world, "<b>[robo.name] (Played by: [robo_ckey]) survived as an AI-less borg! Its laws were:</b>")
+			if(robo.stat != DEAD)
+				end_of_round_info += "<b>[robo.name] (Played by: [robo_ckey]) survived as an AI-less borg! Its laws were:</b>"
 			else
-				to_chat(world, "<b>[robo.name] (Played by: [robo_ckey]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>")
+				end_of_round_info += "<b>[robo.name] (Played by: [robo_ckey]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>"
 
-			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
-				robo.laws.show_laws(world)
+			robo.laws_sanity_check()
+			for(var/datum/ai_law/law as anything in robo.laws.sorted_laws)
+				if(law == robo.laws.zeroth_law)
+					end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+				else
+					end_of_round_info += "[law.get_index()]. [law.law]"
 
 	if(dronecount)
-		to_chat(world, "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round.")
+		end_of_round_info += "<b>There [dronecount > 1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount > 1 ? "drones" : "drone"] this round.</b>"
 
-	if(mode.eventmiscs.len)
-		var/emobtext = ""
+	if(length(mode.eventmiscs))
 		for(var/datum/mind/eventmind in mode.eventmiscs)
-			emobtext += printeventplayer(eventmind)
-			emobtext += "<br>"
-			emobtext += printobjectives(eventmind)
-			emobtext += "<br>"
-		emobtext += "<br>"
-		to_chat(world, emobtext)
+			end_of_round_info += printeventplayer(eventmind)
+			end_of_round_info += printobjectives(eventmind)
+		end_of_round_info += "<br>"
 
 	mode.declare_completion()//To declare normal completion.
 
-	//calls auto_declare_completion_* for all modes
-	for(var/handler in typesof(/datum/game_mode/proc))
-		if(findtext("[handler]","auto_declare_completion_"))
-			call(mode, handler)()
+	end_of_round_info += mode.get_end_of_round_antagonist_statistics()
 
 	for(var/datum/team/team in GLOB.antagonist_teams)
 		team.on_round_end()
+
+	// Save the data before end of the round griefing
+	SSpersistent_data.save()
+	to_chat(world, end_of_round_info.Join("<br>"))
 
 	// Display the scoreboard window
 	score.scoreboard()
@@ -600,9 +606,6 @@ SUBSYSTEM_DEF(ticker)
 
 	//Ask the event manager to print round end information
 	SSevents.RoundEnd()
-
-	// Save the data before end of the round griefing
-	SSpersistent_data.save()
 
 	//make big obvious note in game logs that round ended
 	log_game("///////////////////////////////////////////////////////")
@@ -655,11 +658,18 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/setup_news_feeds()
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
-	newChannel.channel_name = "Public Station Announcements"
+	newChannel.channel_name = "Station Announcements Log"
 	newChannel.author = "Automated Announcement Listing"
 	newChannel.icon = "bullhorn"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
+	GLOB.news_network.channels += newChannel
+
+	newChannel = new /datum/feed_channel
+	newChannel.channel_name = "Public Station Announcements"
+	newChannel.author = "Automated Announcement Listing"
+	newChannel.icon = "users"
+	newChannel.is_public = TRUE
 	GLOB.news_network.channels += newChannel
 
 	newChannel = new /datum/feed_channel
@@ -767,3 +777,77 @@ SUBSYSTEM_DEF(ticker)
 	QDEL_LIST_ASSOC_VAL(load_queries)
 	records.Cut()
 	flagged_antag_rollers.Cut()
+
+/// This proc is for recording biohazard events, and blackboxing if they lived, died, or ended the round. This currently applies to: Terror spiders, Xenomorphs, and Blob.
+/datum/controller/subsystem/ticker/proc/event_blackbox(outcome = ROUND_END_CREW_TRANSFER)
+	for(var/I in SSevents.biohazards_this_round)
+		switch(I)
+			if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_PRINCE_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
+				var/output = "unknown spider type"
+				switch(I)
+					if(TS_INFESTATION_GREEN_SPIDER)
+						output = "Green Terrors"
+					if(TS_INFESTATION_PRINCE_SPIDER)
+						output = "Prince Terror"
+					if(TS_INFESTATION_WHITE_SPIDER)
+						output = "White Terrors"
+					if(TS_INFESTATION_PRINCESS_SPIDER)
+						output = "Princess Terrors"
+					if(TS_INFESTATION_QUEEN_SPIDER)
+						output = "Queen Terrors"
+				var/spiders = 0
+				for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
+					if(S.ckey)
+						spiders++
+				if(spiders >= 5 || (output == "Prince Terror" && spiders == 1)) //If a prince lives, record as win.
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard nuclear victories", 1, output)
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard survives to normal round end", 1, output)
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard survives to admin round end", 1, output)
+				else
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard dies station nuked", 1, output)
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard dies normal end", 1, output)
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, output)
+			if("Xenomorphs")
+				if(length(SSticker.mode.xenos) > 5)
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard nuclear victories", 1, "Xenomorphs")
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard survives to normal round end", 1, "Xenomorphs")
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard survives to admin round end", 1, "Xenomorphs")
+				else
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard dies station nuked", 1, "Xenomorphs")
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard dies normal end", 1, "Xenomorphs")
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, "Xenomorphs")
+
+			if("Blob")
+				if(length(SSticker.mode.blob_overminds))
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard nuclear victories", 1, "Blob")
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard survives to normal round end", 1, "Blob")
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard survives to admin round end", 1, "Blob")
+				else
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard dies station nuked", 1, "Blob")
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard dies normal end", 1, "Blob")
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, "Blob")
+

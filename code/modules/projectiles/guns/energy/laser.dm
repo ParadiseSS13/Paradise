@@ -9,6 +9,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
+	execution_speed = 5 SECONDS
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -86,6 +87,7 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/accelerator)
 	ammo_x_offset = 3
+	execution_speed = 8 SECONDS
 
 /obj/item/ammo_casing/energy/laser/accelerator
 	projectile_type = /obj/item/projectile/beam/laser/accelerator
@@ -130,6 +132,7 @@
 	/// Is the scope fully online or not?
 	var/scope_active = FALSE
 	var/stored_dir
+	execution_speed = 8 SECONDS
 
 /obj/item/gun/energy/lwap/zoom(mob/living/user, forced_zoom)
 	. = ..()
@@ -194,8 +197,20 @@
 	can_knockdown = FALSE //Projectiles that pierce can not knockdown, no wall knockdowns.
 
 /obj/item/projectile/beam/laser/sniper/pierce
-	forcedodge = 1 // Can pierce one mob.
+	forcedodge = 1 // Can pierce one non wall thing.
 	speed = 0.5
+	/// Have we hit an r_wall? If we have, don't pierce it again so we don't become too effective on reinforced locations (AI sat)
+	var/hit_a_r_wall = FALSE
+
+/obj/item/projectile/beam/laser/sniper/pierce/prehit(atom/target)
+	if(istype(target, /turf/simulated/wall/r_wall))
+		if(!hit_a_r_wall)
+			hit_a_r_wall = TRUE
+			if(!forcedodge)
+				forcedodge++
+	else if((isturf(target) || istype(target, /obj/structure/alien/resin)) && !forcedodge)
+		forcedodge++
+	..()
 
 /obj/item/gun/energy/xray
 	name = "xray laser gun"

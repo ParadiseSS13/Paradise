@@ -19,6 +19,11 @@
 	flight_x_offset = 17
 	flight_y_offset = 9
 
+/obj/item/gun/energy/ionrifle/Initialize(mapload)
+	. = ..()
+	if(mapload && HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION) && is_station_level(z)) //No ion rifle when everyone has cybernetic organs, sorry!
+		return INITIALIZE_HINT_QDEL
+
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
 
@@ -190,6 +195,9 @@
 /obj/item/gun/energy/plasmacutter/update_overlays()
 	return list()
 
+/obj/item/gun/energy/plasmacutter/get_heat()
+	return 3800
+
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
@@ -272,6 +280,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
 	origin_tech = "combat=7;magnets=6"
+	execution_speed = 2 SECONDS
 
 /obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
 	return
@@ -291,7 +300,7 @@
 // HONK Rifle //
 /obj/item/gun/energy/clown
 	name = "\improper HONK rifle"
-	desc = "Clown Planet's finest."
+	desc = "Clown University's finest."
 	icon_state = "honkrifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = FALSE
@@ -319,6 +328,7 @@
 	var/charging = FALSE
 	var/charge_failure = FALSE
 	var/mob/living/carbon/holder = null
+	execution_speed = 4 SECONDS
 
 /obj/item/gun/energy/plasma_pistol/Initialize(mapload)
 	. = ..()
@@ -415,42 +425,11 @@
 	reset_overloaded()
 	do_sparks(2, 1, src)
 	update_icon()
-	if(prob(25))
-		visible_message("<span class='danger'>[src] vents heated plasma!</span>")
-		var/turf/simulated/T = get_turf(src)
-		if(istype(T))
-			T.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,15)
-		return
-	if(prob(50))
-		var/list/mob_targets = list()
-		for(var/mob/living/M in oview(get_turf(src), 7))
-			mob_targets += M
-		if(length(mob_targets))
-			var/mob/living/target = pick(mob_targets)
-			shootAt(target)
-			visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
-			return
+	visible_message("<span class='danger'>[src] vents heated plasma!</span>")
+	var/turf/simulated/T = get_turf(src)
+	if(istype(T))
+		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C, 20)
 
-	visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
-	var/list/turf_targets = list()
-	for(var/turf/T in orange(get_turf(src), 7))
-		turf_targets += T
-	if(length(turf_targets))
-		var/turf/target = pick(turf_targets)
-		shootAt(target)
-
-
-/obj/item/gun/energy/plasma_pistol/proc/shootAt(atom/movable/target)
-	var/turf/T = get_turf(src)
-	var/turf/U = get_turf(target)
-	if(!T || !U)
-		return
-	var/obj/item/projectile/energy/charged_plasma/O = new /obj/item/projectile/energy/charged_plasma(T)
-	playsound(get_turf(src), 'sound/weapons/marauder.ogg', 75, 1)
-	O.current = T
-	O.yo = U.y - T.y
-	O.xo = U.x - T.x
-	O.fire()
 
 /obj/item/gun/energy/bsg
 	name = "\improper B.S.G"
@@ -574,7 +553,6 @@
 	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
-	selfcharge = TRUE
 
 	// Measured in Kelvin
 	var/temperature = T20C
@@ -582,8 +560,8 @@
 	var/min_temp = 0
 	var/max_temp = 500
 
-	/// How fast the gun recharges
-	var/recharge_multiplier = 1
+	/// How fast the gun changes temperature
+	var/temperature_multiplier = 10
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
 	. = ..()
@@ -623,20 +601,20 @@
 /obj/item/gun/energy/temperature/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='caution'>You remove the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
+		to_chat(user, "<span class='warning'>You remove the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
 		desc += " Its temperature cap has been removed."
 		max_temp = 1000
-		recharge_multiplier = 5  //so emagged temp guns adjust their temperature much more quickly
+		temperature_multiplier *= 5  //so emagged temp guns adjust their temperature much more quickly
 
 /obj/item/gun/energy/temperature/process()
 	..()
 	if(target_temperature != temperature)
 		var/difference = abs(target_temperature - temperature)
-		if(difference >= (10 * recharge_multiplier))
+		if(difference >= temperature_multiplier)
 			if(target_temperature < temperature)
-				temperature -= (10 * recharge_multiplier)
+				temperature -= temperature_multiplier
 			else
-				temperature += (10 * recharge_multiplier)
+				temperature += temperature_multiplier
 		else
 			temperature = target_temperature
 		update_icon()

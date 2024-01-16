@@ -39,7 +39,7 @@
 		show_contents(user)
 
 /obj/structure/ore_box/proc/show_contents(mob/user)
-	var/dat = text("<b>The contents of the ore box reveal...</b><br>")
+	var/dat = "<b>The contents of the ore box reveal...</b><br>"
 	var/list/assembled = list()
 	for(var/obj/item/stack/ore/O in src)
 		assembled[O.type] += O.amount
@@ -47,7 +47,7 @@
 		var/obj/item/stack/ore/O = type
 		dat += "[initial(O.name)] - [assembled[type]]<br>"
 
-	dat += text("<br><br><A href='?src=[UID()];removeall=1'>Empty box</A>")
+	dat += "<br><br><A href='?src=[UID()];removeall=1'>Empty box</A>"
 	var/datum/browser/popup = new(user, "orebox", name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)

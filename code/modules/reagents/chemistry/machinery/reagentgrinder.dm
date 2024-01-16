@@ -53,7 +53,9 @@
 
 		//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
 		/obj/item/slime_extract = list(),
-		/obj/item/reagent_containers/food = list()
+		/obj/item/reagent_containers/food = list(),
+		/obj/item/reagent_containers/pill = list(),
+		/obj/item/reagent_containers/patch = list()
 	)
 
 	var/list/juice_items = list (
@@ -160,6 +162,7 @@
 /obj/machinery/reagentgrinder/attackby(obj/item/I, mob/user, params)
 
 	if(exchange_parts(user, I))
+		SStgui.update_uis(src)
 		return
 
 	if((istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER)) && user.a_intent != INTENT_HARM)
@@ -173,7 +176,7 @@
 			beaker =  I
 			beaker.loc = src
 			update_icon(UPDATE_ICON_STATE)
-			updateUsrDialog()
+			SStgui.update_uis(src)
 		return TRUE //no afterattack
 
 	if(is_type_in_list(I, dried_items))
@@ -212,7 +215,7 @@
 		else
 			to_chat(user, "<span class='notice'>You empty some of [B]'s contents into the All-In-One grinder.</span>")
 
-		updateUsrDialog()
+		SStgui.update_uis(src)
 		return TRUE
 
 	if(!is_type_in_list(I, blend_items) && !is_type_in_list(I, juice_items))
@@ -225,7 +228,7 @@
 	if(user.drop_item())
 		I.loc = src
 		holdingitems += I
-		src.updateUsrDialog()
+		SStgui.update_uis(src)
 		return FALSE
 
 
@@ -234,104 +237,126 @@
 	return FALSE
 
 /obj/machinery/reagentgrinder/attack_hand(mob/user)
-	user.set_machine(src)
-	interact(user)
+	ui_interact(user)
 
-/obj/machinery/reagentgrinder/interact(mob/user) // The microwave Menu
-	var/is_chamber_empty = 0
-	var/is_beaker_ready = 0
-	var/processing_chamber = ""
-	var/beaker_contents = ""
-	var/dat = ""
+/obj/machinery/reagentgrinder/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "ReagentGrinder", name, 400, 500, master_ui, state)
+		ui.open()
 
-	if(!operating)
-		for (var/obj/item/O in holdingitems)
-			processing_chamber += "\A [html_encode(O.name)]<BR>"
+/obj/machinery/reagentgrinder/ui_data(mob/user)
+	var/list/data = list()
+	data["operating"] = operating
+	data["inactive"] = length(holdingitems) == 0 ? TRUE : FALSE
+	data["limit"] = limit
+	data["count"] = length(holdingitems)
+	data["beaker_loaded"] = beaker ? TRUE : FALSE
+	data["beaker_current_volume"] = beaker ? beaker.reagents.total_volume : null
+	data["beaker_max_volume"] = beaker ? beaker.reagents.maximum_volume : null
+	var/list/beakerContents = list()
+	if(beaker)
+		for(var/datum/reagent/R in beaker.reagents.reagent_list)
+			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume))) // list in a list because Byond merges the first list...
+	data["beaker_contents"] = beakerContents
 
-		if(!processing_chamber)
-			is_chamber_empty = 1
-			processing_chamber = "Nothing."
-		if(!beaker)
-			beaker_contents = "<B>No beaker attached.</B><br>"
+
+	var/list/items_counts = list()
+	var/list/name_overrides = list()
+	for(var/obj/O in holdingitems)
+		var/display_name = O.name
+		if(istype(O, /obj/item/stack))
+			var/obj/item/stack/S = O
+			if(!items_counts[display_name])
+				items_counts[display_name] = 0
+				if(S.singular_name)
+					name_overrides[display_name] = S.singular_name
+				else
+					name_overrides[display_name] = display_name
+				if(S.amount > 1)
+					name_overrides[display_name] = "[name_overrides[display_name]]s" //name_overrides[display_name] Will be set on the first time as the singular form
+
+			items_counts[display_name] += S.amount
+			continue
+
+		else if(istype(O, /obj/item/reagent_containers/food))
+			var/obj/item/reagent_containers/food/food = O
+			if(!items_counts[display_name])
+				if(food.ingredient_name)
+					name_overrides[display_name] = food.ingredient_name
+				else
+					name_overrides[display_name] = display_name
+			else
+				if(food.ingredient_name_plural)
+					name_overrides[display_name] = food.ingredient_name_plural
+				else if(items_counts[display_name] == 1) // Must only add "s" once or you get stuff like "eggsssss"
+					name_overrides[display_name] = "[name_overrides[display_name]]s" //name_overrides[display_name] Will be set on the first time as the singular form
+
+		items_counts[display_name]++
+
+	data["contents"] = list()
+	for(var/item in items_counts)
+		var/N = items_counts[item]
+		var/units
+		if(!(item in name_overrides))
+			units = "[lowertext(item)]"
 		else
-			is_beaker_ready = 1
-			beaker_contents = "<B>The beaker contains:</B><br>"
-			var/anything = 0
-			for(var/datum/reagent/R in beaker.reagents.reagent_list)
-				anything = 1
-				beaker_contents += "[R.volume] - [R.name]<br>"
-			if(!anything)
-				beaker_contents += "Nothing<br>"
+			units = "[name_overrides[item]]"
 
+		var/list/data_pr = list(
+			"name" = capitalize(item),
+			"amount" = N,
+			"units" = units
+		)
 
-		dat = {"
-	<b>Processing chamber contains:</b><br>
-	[processing_chamber]<br>
-	[beaker_contents]<hr>
-	"}
-		if(is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
-			dat += "<A href='?src=[src.UID()];action=grind'>Grind the reagents</a><BR>"
-			dat += "<A href='?src=[src.UID()];action=juice'>Juice the reagents</a><BR><BR>"
-		if(holdingitems && holdingitems.len > 0)
-			dat += "<A href='?src=[src.UID()];action=eject'>Eject the reagents</a><BR>"
-		if(beaker)
-			dat += "<A href='?src=[src.UID()];action=detach'>Detach the beaker</a><BR>"
-	else
-		dat += "Please wait..."
+		data["contents"] += list(data_pr)
+	return data
 
-	var/datum/browser/popup = new(user, "reagentgrinder", "All-In-One Grinder")
-	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
-	popup.open(1)
-	return
-
-/obj/machinery/reagentgrinder/Topic(href, href_list)
-	if(..())
+/obj/machinery/reagentgrinder/ui_act(action, params, datum/tgui/ui)
+	. = ..()
+	if(.)
 		return
-	usr.set_machine(src)
-	if(operating)
-		updateUsrDialog()
-		return
-	switch(href_list["action"])
+
+	switch(action)
+		if("detach")
+			detach(ui.user)
+		if("eject")
+			eject(ui.user)
 		if("grind")
 			grind()
 		if("juice")
 			juice()
-		if("eject")
-			eject()
-		if("detach")
-			detach()
 
-/obj/machinery/reagentgrinder/proc/detach()
-	if(usr.stat != 0)
+/obj/machinery/reagentgrinder/proc/detach(mob/user)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(!beaker)
 		return
-	beaker.loc = src.loc
+	beaker.forceMove(loc)
 	beaker = null
 	update_icon(UPDATE_ICON_STATE)
-	updateUsrDialog()
+	SStgui.update_uis(src)
 
-/obj/machinery/reagentgrinder/proc/eject()
-	if(usr.stat != 0)
+/obj/machinery/reagentgrinder/proc/eject(mob/user)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(holdingitems && holdingitems.len == 0)
 		return
 
 	for(var/obj/item/O in holdingitems)
-		O.loc = src.loc
+		O.forceMove(loc)
 		holdingitems -= O
 	holdingitems = list()
-	updateUsrDialog()
+	SStgui.update_uis(src)
 
 /obj/machinery/reagentgrinder/proc/is_allowed(obj/item/reagent_containers/O)
-	for (var/i in blend_items)
+	for(var/i in blend_items)
 		if(istype(O, i))
 			return TRUE
 	return FALSE
 
 /obj/machinery/reagentgrinder/proc/get_allowed_by_id(obj/item/O)
-	for (var/i in blend_items)
+	for(var/i in blend_items)
 		if(istype(O, i))
 			return blend_items[i]
 
@@ -375,14 +400,14 @@
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
 	operating = TRUE
-	updateUsrDialog()
+	SStgui.update_uis(src)
 	spawn(50)
 		pixel_x = initial(pixel_x) //return to its spot after shaking
 		operating = FALSE
-		updateUsrDialog()
+		SStgui.update_uis(src)
 
 	//Snacks
-	for (var/obj/item/reagent_containers/food/snacks/O in holdingitems)
+	for(var/obj/item/reagent_containers/food/snacks/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 
@@ -390,7 +415,7 @@
 		if(isnull(allowed))
 			break
 
-		for (var/r_id in allowed)
+		for(var/r_id in allowed)
 
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 			var/amount = get_juice_amount(O)
@@ -413,14 +438,14 @@
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
 	operating = TRUE
-	updateUsrDialog()
+	SStgui.update_uis(src)
 	spawn(60)
 		pixel_x = initial(pixel_x) //return to its spot after shaking
 		operating = FALSE
-		updateUsrDialog()
+		SStgui.update_uis(src)
 
 	//Snacks and Plants
-	for (var/obj/item/reagent_containers/food/snacks/O in holdingitems)
+	for(var/obj/item/reagent_containers/food/snacks/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 
@@ -428,7 +453,7 @@
 		if(isnull(allowed))
 			break
 
-		for (var/r_id in allowed)
+		for(var/r_id in allowed)
 
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 			var/amount = allowed[r_id]
@@ -459,7 +484,7 @@
 			remove_object(O)
 
 	//Sheets and rods(!)
-	for (var/obj/item/stack/O in holdingitems)
+	for(var/obj/item/stack/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 
@@ -472,7 +497,7 @@
 			if(!space) //if no free space - exit
 				break
 			O.amount -= 1 //remove one from stack
-			for (var/r_id in allowed)
+			for(var/r_id in allowed)
 				var/spaceused = min(allowed[r_id] * efficiency, space)
 				space -= spaceused
 				beaker.reagents.add_reagent(r_id, spaceused)
@@ -481,11 +506,11 @@
 				break
 
 	//Plants
-	for (var/obj/item/grown/O in holdingitems)
+	for(var/obj/item/grown/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 		var/allowed = get_allowed_by_id(O)
-		for (var/r_id in allowed)
+		for(var/r_id in allowed)
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 			var/amount = allowed[r_id]
 			if(amount == 0)
@@ -499,7 +524,7 @@
 		remove_object(O)
 
 	//Slime Extractis
-	for (var/obj/item/slime_extract/O in holdingitems)
+	for(var/obj/item/slime_extract/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 		var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
@@ -511,7 +536,7 @@
 		remove_object(O)
 
 	//Everything else - Transfers reagents from it into beaker
-	for (var/obj/item/reagent_containers/O in holdingitems)
+	for(var/obj/item/reagent_containers/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 		var/amount = O.reagents.total_volume

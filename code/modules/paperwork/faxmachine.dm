@@ -48,6 +48,10 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	GLOB.allfaxes -= src
 	return ..()
 
+/obj/machinery/photocopier/faxmachine/examine(mob/user)
+	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> [src] to remove its currently stored ID.</span>"
+
 /obj/machinery/photocopier/faxmachine/proc/update_network()
 	if(department != "Unknown")
 		if(!(("[department]" in GLOB.alldepartments) || ("[department]" in GLOB.hidden_departments) || ("[department]" in GLOB.admin_departments) || ("[department]" in GLOB.hidden_admin_departments)))
@@ -196,12 +200,12 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				var/n_name = sanitize(copytext(input(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)  as text, 1, MAX_MESSAGE_LEN))
 				if((copyitem && copyitem.loc == src && usr.stat == 0))
 					if(istype(copyitem, /obj/item/paper))
-						copyitem.name = "[(n_name ? text("[n_name]") : initial(copyitem.name))]"
+						copyitem.name = "[(n_name ? "[n_name]" : initial(copyitem.name))]"
 						copyitem.desc = "This is a paper titled '" + copyitem.name + "'."
 					else if(istype(copyitem, /obj/item/photo))
-						copyitem.name = "[(n_name ? text("[n_name]") : "photo")]"
+						copyitem.name = "[(n_name ? "[n_name]" : "photo")]"
 					else if(istype(copyitem, /obj/item/paper_bundle))
-						copyitem.name = "[(n_name ? text("[n_name]") : "paper")]"
+						copyitem.name = "[(n_name ? "[n_name]" : "paper")]"
 					else
 						. = FALSE
 				else
@@ -223,7 +227,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 					for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 						if(F.emagged)//we can contact emagged faxes on the station
 							combineddepartments |= F.department
-				destination = input(usr, "To which department?", "Choose a department", "") as null|anything in combineddepartments
+				destination = tgui_input_list(usr, "To which department?", "Choose a department", combineddepartments)
 				if(!destination)
 					destination = lastdestination
 		if("send") // actually send the fax
@@ -267,22 +271,19 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			scan = card
 	SStgui.update_uis(src)
 
-/obj/machinery/photocopier/faxmachine/verb/eject_id()
-	set category = null
-	set name = "Eject ID Card"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/machinery/photocopier/faxmachine/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(scan)
-		to_chat(usr, "You remove [scan] from [src].")
-		scan.forceMove(get_turf(src))
-		if(!usr.get_active_hand() && Adjacent(usr))
-			usr.put_in_hands(scan)
+		to_chat(user, "<span class='notice'>You remove [scan] from [src].</span>")
+		if(!user.get_active_hand())
+			user.put_in_hands(scan)
+		else if(!user.put_in_inactive_hand(scan))
+			scan.forceMove(get_turf(src))
 		scan = null
 	else
-		to_chat(usr, "There is nothing to remove from [src].")
+		to_chat(user, "<span class='notice'>There is nothing to remove from [src].</span>")
 
 /obj/machinery/photocopier/faxmachine/proc/sendfax(destination, mob/sender)
 	use_power(active_power_consumption)

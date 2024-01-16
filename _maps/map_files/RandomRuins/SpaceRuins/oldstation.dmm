@@ -272,7 +272,7 @@
 /obj/structure/table,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/coin,
+/obj/item/coin/gold,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "aU" = (
@@ -524,9 +524,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
@@ -566,9 +564,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "bK" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
@@ -639,13 +635,13 @@
 /turf/template_noop,
 /area/template_noop)
 "bW" = (
-/obj/structure/transit_tube,
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/betanorth)
 "bX" = (
-/obj/structure/transit_tube,
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
 "bY" = (
@@ -656,7 +652,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -742,8 +738,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "cj" = (
-/obj/structure/transit_tube,
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
 "ck" = (
@@ -813,9 +809,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "ct" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -1088,9 +1082,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
 "de" = (
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
-	},
+/obj/structure/transit_tube/crossing/horizontal,
 /turf/template_noop,
 /area/space/nearstation)
 "df" = (
@@ -1145,12 +1137,6 @@
 /obj/machinery/door/airlock/research,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
-"dn" = (
-/obj/structure/transit_tube{
-	icon_state = "N-S"
-	},
-/turf/template_noop,
-/area/space/nearstation)
 "do" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -1241,7 +1227,7 @@
 "dz" = (
 /obj/structure/transit_tube/station/reverse,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/arrow,
+/obj/effect/turf_decal/arrows/black,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "dA" = (
@@ -1308,9 +1294,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot/strong,
@@ -1546,9 +1530,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -1715,9 +1697,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3839,9 +3819,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jd" = (
@@ -3866,9 +3844,7 @@
 /area/ruin/ancientstation)
 "jg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jh" = (
@@ -3879,9 +3855,7 @@
 	tag = "90Curve"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "ji" = (
@@ -3936,9 +3910,7 @@
 /area/ruin/ancientstation/thetacorridor)
 "jo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "jp" = (
@@ -4059,7 +4031,9 @@
 	in_use = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "jE" = (
@@ -4115,7 +4089,9 @@
 	in_use = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "jJ" = (
@@ -4162,16 +4138,24 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jP" = (
-/obj/effect/decal/warning_stripes/southeast,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/showcase/machinery/oldpod,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/warning_stripes/southeast,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/showcase/machinery/oldpod,
 /turf/simulated/floor/plasteel,
@@ -4202,7 +4186,9 @@
 /area/ruin/ancientstation/proto)
 "jU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "jV" = (
@@ -4211,7 +4197,9 @@
 /area/ruin/ancientstation/proto)
 "jW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "jX" = (
@@ -4300,8 +4288,12 @@
 /area/ruin/ancientstation)
 "ki" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/southwestcorner,
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
@@ -4311,8 +4303,12 @@
 /area/ruin/ancientstation/proto)
 "kj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/northeastcorner,
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "kk" = (
@@ -4482,7 +4478,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -4498,23 +4494,35 @@
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/unpowered)
 "kI" = (
-/obj/effect/decal/warning_stripes/southeast,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/human/alive/old/sec,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "kJ" = (
-/obj/effect/decal/warning_stripes/southeast,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/human/alive/old/sci,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "kK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/warning_stripes/southeast,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/human/alive/old/eng,
 /turf/simulated/floor/plasteel,
@@ -5029,7 +5037,7 @@
 "lO" = (
 /obj/structure/transit_tube/station/reverse,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/arrow,
+/obj/effect/turf_decal/arrows/black,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "rN" = (
@@ -5055,6 +5063,16 @@
 /obj/machinery/power/tesla_coil,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
+"Db" = (
+/obj/structure/transit_tube/crossing,
+/turf/template_noop,
+/area/space/nearstation)
+"Lu" = (
+/obj/structure/transit_tube/horizontal{
+	dir = 4
+	},
+/turf/template_noop,
+/area/space/nearstation)
 "LD" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -5070,6 +5088,10 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/betanorth)
+"VT" = (
+/obj/structure/transit_tube/horizontal,
+/turf/template_noop,
+/area/space/nearstation)
 "Xq" = (
 /mob/living/simple_animal/hostile/hivebot,
 /obj/effect/decal/cleanable/dirt,
@@ -5571,7 +5593,7 @@ aa
 aa
 aa
 aa
-cX
+VT
 aH
 bf
 aW
@@ -5619,7 +5641,7 @@ aa
 uQ
 aa
 aa
-cX
+VT
 aa
 aa
 uQ
@@ -5667,7 +5689,7 @@ aa
 aa
 aa
 aa
-de
+VT
 aa
 aa
 uQ
@@ -5715,7 +5737,7 @@ aa
 aa
 aa
 aa
-cX
+VT
 aa
 aa
 ae
@@ -5763,7 +5785,7 @@ aa
 aa
 aa
 aa
-cX
+Lu
 aa
 uQ
 ck
@@ -5811,7 +5833,7 @@ aa
 aa
 aa
 aa
-cX
+VT
 aa
 aa
 ae
@@ -5859,7 +5881,7 @@ aa
 aa
 aa
 aa
-cX
+de
 aa
 uQ
 ck
@@ -5907,7 +5929,7 @@ aa
 aa
 aa
 aa
-cX
+VT
 aa
 aa
 ae
@@ -5955,7 +5977,7 @@ aa
 aa
 aa
 aa
-cX
+VT
 aa
 uQ
 eK
@@ -6003,7 +6025,7 @@ aa
 aa
 aa
 aa
-cX
+VT
 aa
 aa
 dp
@@ -6051,7 +6073,7 @@ aa
 aa
 aa
 aa
-cX
+VT
 aa
 aa
 uQ
@@ -6099,7 +6121,7 @@ aa
 aa
 aa
 aa
-cX
+VT
 aa
 aa
 uQ
@@ -6147,7 +6169,7 @@ aa
 aa
 aa
 aa
-de
+VT
 aa
 aa
 cU
@@ -6195,7 +6217,7 @@ aa
 aa
 aa
 aa
-cX
+VT
 aa
 aa
 cU
@@ -6243,7 +6265,7 @@ aa
 aa
 aa
 aa
-cX
+VT
 aa
 cU
 cU
@@ -7395,7 +7417,7 @@ aa
 aa
 aa
 aa
-cX
+VT
 aa
 dg
 dA
@@ -7411,7 +7433,7 @@ lH
 dg
 dg
 aa
-cX
+VT
 aa
 aa
 aa
@@ -7442,7 +7464,7 @@ aa
 aa
 aa
 aa
-cX
+VT
 aa
 aa
 aa
@@ -7459,7 +7481,7 @@ lI
 dg
 aa
 aa
-cX
+VT
 aa
 aa
 aa
@@ -7492,7 +7514,7 @@ aa
 aa
 aa
 dk
-cX
+Db
 aa
 dg
 dg
@@ -7507,7 +7529,7 @@ dg
 dg
 aa
 aa
-cX
+VT
 aa
 aa
 aa
@@ -7591,7 +7613,7 @@ aa
 aa
 aa
 aa
-dn
+VT
 aa
 aa
 uQ
@@ -7603,7 +7625,7 @@ aa
 aa
 aa
 aa
-cX
+VT
 aa
 aa
 aa
@@ -7635,7 +7657,7 @@ aa
 aa
 aa
 aa
-dn
+aa
 aa
 aa
 ab
@@ -7651,7 +7673,7 @@ aa
 aa
 aa
 aa
-cX
+VT
 aa
 aa
 aa
@@ -7683,7 +7705,7 @@ aa
 aa
 aa
 aa
-cX
+VT
 aa
 aa
 ab
@@ -7699,7 +7721,7 @@ aa
 aa
 aa
 aa
-cX
+VT
 aa
 aa
 aa

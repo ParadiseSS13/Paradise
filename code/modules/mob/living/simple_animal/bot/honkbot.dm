@@ -69,22 +69,37 @@
 	text_dehack = "You reboot [name] and restore the sound control system."
 	text_dehack_fail = "[name] refuses to accept your authority!"
 
-/mob/living/simple_animal/bot/honkbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += text({"
-	<TT><B>Honkomatic Bike Horn Unit v1.0.7 controls</B></TT><BR><BR>
-	Status: []<BR>
-	Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
-	Maintenance panel is [open ? "opened" : "closed"]<BR>"},
+/mob/living/simple_animal/bot/honkbot/show_controls(mob/user)
+	ui_interact(user)
 
-	"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>")
+/mob/living/simple_animal/bot/honkbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "BotHonk", name, 500, 220)
+		ui.open()
 
-	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += "Auto Patrol <A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A><BR>"
-
-	return	dat
+/mob/living/simple_animal/bot/honkbot/ui_act(action, params, datum/tgui/ui)
+	if(..())
+		return
+	var/mob/user = ui.user
+	if(topic_denied(user))
+		to_chat(user, "<span class='warning'>[src]'s interface is not responding!</span>")
+		return
+	add_fingerprint(user)
+	. = TRUE
+	switch(action)
+		if("power")
+			if(on)
+				turn_off()
+			else
+				turn_on()
+		if("autopatrol")
+			auto_patrol = !auto_patrol
+			bot_reset()
+		if("hack")
+			handle_hacking(user)
+		if("disableremote")
+			remote_disabled = !remote_disabled
 
 /mob/living/simple_animal/bot/honkbot/proc/retaliate(mob/living/carbon/human/H)
 	threatlevel = 6
@@ -107,7 +122,7 @@
 
 /mob/living/simple_animal/bot/honkbot/emag_act(mob/user)
 	..()
-	if(emagged == 2)
+	if(emagged)
 		if(user)
 			to_chat(user, "<span class='warning'>You short out [src]'s target assessment circuits. It gives out an evil laugh!!</span>")
 			oldtarget_name = user.name
@@ -125,7 +140,7 @@
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if(emagged <= 1)
+		if(!emagged)
 			honk_attack(A)
 		else
 			if(!C.IsStunned() || arrest_type)
@@ -144,13 +159,13 @@
 	..()
 
 /mob/living/simple_animal/bot/honkbot/proc/bike_horn() //use bike_horn
-	if(emagged <= 1)
+	if(!emagged)
 		if(!spam_flag)
 			playsound(src, honksound, 50, TRUE, -1)
 			spam_flag = TRUE //prevent spam
 			sensor_blink()
 			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntimehorn)
-	else if(emagged == 2) //emagged honkbots will spam short and memorable sounds.
+	else if(emagged) //emagged honkbots will spam short and memorable sounds.
 		if(!spam_flag)
 			playsound(src, "honkbot_e", 50, 0)
 			spam_flag = TRUE // prevent spam
@@ -180,7 +195,7 @@
 			C.Weaken(10 SECONDS)
 			if(client) //prevent spam from players..
 				spam_flag = TRUE
-			if(emagged <= 1) //HONK once, then leave
+			if(!emagged) //HONK once, then leave
 				threatlevel -= 6
 				target = oldtarget_name
 			else // you really don't want to hit an emagged honkbot
@@ -264,12 +279,12 @@
 		if((C.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
 
-		if(threatlevel <= 3 && emagged <= 1)
+		if(threatlevel <= 3 && !emagged)
 			if(C in view(4, src)) //keep the range short for patrolling
 				if(!spam_flag)
 					bike_horn()
 		else if(threatlevel >= 4)
-			if(!spam_flag || emagged > 1)
+			if(!spam_flag || emagged)
 				target = C
 				oldtarget_name = C.name
 				bike_horn()
@@ -280,7 +295,7 @@
 				break
 			else
 				continue
-		else if(emagged > 1)
+		else if(emagged)
 			bike_horn() //just spam the shit outta this
 
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.

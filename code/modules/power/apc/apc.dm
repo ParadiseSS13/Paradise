@@ -520,7 +520,7 @@
 	if(istype(H))
 		if(H.getBrainLoss() >= 60)
 			for(var/mob/M in viewers(src, null))
-				to_chat(M, "<span class='danger'>[H] stares cluelessly at [src] and drools.</span>")
+				to_chat(M, "<span class='danger'>[H] stares cluelessly at [src].</span>")
 			return FALSE
 		else if(prob(H.getBrainLoss()))
 			to_chat(user, "<span class='danger'>You momentarily forget how to use [src].</span>")
@@ -1060,10 +1060,28 @@
 	start_charge = 0
 
 /obj/machinery/power/apc/syndicate //general syndicate access
+	name = "Main branch, do not use"
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
 
+/obj/machinery/power/apc/syndicate/north
+	name = "north bump"
+	pixel_y = 24
+
+/obj/machinery/power/apc/syndicate/south
+	name = "south bump"
+	pixel_y = -24
+
+/obj/machinery/power/apc/syndicate/east
+	name = "east bump"
+	pixel_x = 24
+
+/obj/machinery/power/apc/syndicate/west
+	name = "west bump"
+	pixel_x = -24
+
 /obj/machinery/power/apc/syndicate/off
+	name = "APC off"
 	environment_channel = 0
 	equipment_channel = 0
 	lighting_channel = 0

@@ -335,8 +335,10 @@
 	if(length(related_accounts_cid))
 		log_admin("[key_name(src)] Alts by CID: [jointext(related_accounts_cid, " ")]")
 
+	#ifdef MULTIINSTANCE
 	// This sleeps so it has to go here. Dont fucking move it.
 	SSinstancing.update_playercache(ckey)
+	#endif
 
 	// This has to go here to avoid issues
 	// If you sleep past this point, you will get SSinput errors as well as goonchat errors
@@ -434,7 +436,7 @@
 	// Tell client about their connection
 	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")
 	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")
-
+	display_job_bans(TRUE)
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
@@ -462,7 +464,9 @@
 
 	GLOB.directory -= ckey
 	GLOB.clients -= src
+	#ifdef MULTIINSTANCE
 	SSinstancing.update_playercache() // Clear us out
+	#endif
 	QDEL_NULL(chatOutput)
 	QDEL_NULL(pai_save)
 

@@ -11,14 +11,17 @@
 	can_charge = FALSE
 	max_charges = 100 //100, 50, 50, 34 (max charge distribution by 25%ths)
 	var/variable_charges = 1
+	execution_speed = 3 SECONDS
 
 /obj/item/gun/magic/wand/Initialize(mapload)
 	. = ..()
 	if(prob(75) && variable_charges) //25% chance of listed max charges, 50% chance of 1/2 max charges, 25% chance of 1/3 max charges
 		if(prob(33))
 			max_charges = CEILING(max_charges / 3, 1)
+			charges = max_charges
 		else
 			max_charges = CEILING(max_charges / 2, 1)
+			charges = max_charges
 
 /obj/item/gun/magic/wand/examine(mob/user)
 	. = ..()

@@ -1129,6 +1129,16 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_syndie_soap
+	name = "Cyborg Upgrade (Syndicate Soap)"
+	id = "borg_upgrade_syndie_soap"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/syndie_soap
+	req_tech = list("syndicate" = 2)
+	materials = list(MAT_GOLD = 1250, MAT_PLASMA = 2500, MAT_SILVER = 1250)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+	
 /datum/design/borg_upgrade_rcd
 	name = "Cyborg Upgrade (Rapid Construction Device)"
 	id = "borg_upgrade_RCD"

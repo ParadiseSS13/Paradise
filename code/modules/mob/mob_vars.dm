@@ -40,9 +40,8 @@
 
 	var/last_log = 0
 	var/obj/machinery/machine = null
-	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
+	var/list/grab_do_not_move = list()  /// other mobs we wont move when we're grab pulled. Not empty only when being grab pulled
 	var/memory = ""
-	var/next_move = null
 	var/notransform = FALSE	//Carbon
 	/// True for left hand active, otherwise for right hand active
 	var/hand = null
@@ -55,7 +54,6 @@
 	var/lastpuke = 0
 	var/can_strip = TRUE
 	var/list/languages = list()         // For speaking/listening.
-	var/list/abilities = list()         // For species-derived or admin-given powers.
 	var/list/speak_emote = list("says") // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
 	var/emote_type = EMOTE_VISIBLE		// Define emote default type, 1 for seen emotes, 2 for heard emotes
 	var/name_archive //For admin things like possession
@@ -123,8 +121,6 @@
 
 	var/move_on_shuttle = TRUE // Can move on the shuttle.
 
-	/// Whether antagHUD has been enabled previously.
-	var/has_enabled_antagHUD = FALSE
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
 	var/can_change_intents = TRUE //all mobs can change intents by default.
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
@@ -205,7 +201,6 @@
 
 	var/list/tkgrabbed_objects = list() // Assoc list of items to TK grabs
 
-	var/forced_look = null // This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
 	var/registered_z
 
 	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
@@ -216,8 +211,44 @@
 	var/runechat_msg_location
 	/// The datum receiving keyboard input. parent mob by default.
 	var/datum/input_focus = null
-
-	/// lazy list. contains /obj/screen/alert only. On /mob so clientless mobs will throw alerts properly
-	var/list/alerts
-
+	/// Is our mob currently suiciding? Used for suicide code along with many different revival checks
+	var/suiciding = FALSE
+	/// Used for some screen objects, such as
 	var/list/screens = list()
+	/// lazy list. contains /obj/screen/alert only,  On /mob so clientless mobs will throw alerts properly
+	var/list/alerts
+	/// Makes items bloody if you touch them
+	var/bloody_hands = 0
+	/// Basically a lazy list, copies the DNA of blood you step in
+	var/list/feet_blood_DNA
+	/// affects the blood color of your feet, color taken from the blood you step in
+	var/feet_blood_color
+	/// Weirdly named, effects how blood transfers onto objects
+	var/blood_state = BLOOD_STATE_NOT_BLOODY
+	/// Assoc list for tracking how "bloody" a mobs feet are, used for creating bloody foot/shoeprints on turfs when moving
+	var/list/bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
+	/// set when typing in an input window instead of chatline, this var could probably be removed soon enough
+	var/hud_typing = 0
+	/// Affects if you have a typing indicator
+	var/typing
+	/// Last thing we typed in to the typing indicator, probably does not need to exist
+	var/last_typed
+	/// Last time we typed something in to the typing popup
+	var/last_typed_time
+	// Ran after next_click on most item interactions, used in any case where we aren't required to use next click Eg: Action buttons
+	var/next_move
+	/// Unused, used to adjust our next move on a linar skill world.time + (how_many_deciseconds + Next move adjust) = Next move
+	var/next_move_adjust = 0
+	/// Value to multiply action delays by, actually used world.time + (how_many_deciseconds * Next move Adjust) = Next move
+	var/next_move_modifier = 1
+	// 1 decisecond click delay (above and beyond mob/next_move)
+	/// This is mainly modified by click code, to modify click delays elsewhere, use next_move and changeNext_move(), Controls the click delay. Changed with
+	var/next_click	= 0
+
+	// Does not effect the build in tick delay of click, can't go below 1 click per tick
+	/// Unused
+	var/next_click_adjust = 0
+	/// Unused
+	var/next_click_modifier = 1
+	/// Tracks the open UIs that a mob has, used in TGUI for various things, such as updating UIs
+	var/list/open_uis = list()

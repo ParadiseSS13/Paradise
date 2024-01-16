@@ -214,7 +214,7 @@
 
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye, target)
 	var/turf/point = get_front_turf()
-	for(var/turf/T in getline(get_step(point,dir),get_target_turf()))
+	for(var/turf/T in get_line(get_step(point,dir),get_target_turf()))
 		T.ex_act(1)
 		for(var/atom/A in T)
 			A.ex_act(1)

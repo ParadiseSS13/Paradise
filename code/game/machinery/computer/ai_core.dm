@@ -205,8 +205,6 @@
 
 /obj/structure/AIcore/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
 	default_unfasten_wrench(user, I, 20)
 
 /obj/structure/AIcore/update_icon_state()

@@ -129,12 +129,7 @@
 	if(operating)
 		return
 
-	I.play_tool_sound(src)
-	if(anchored)
-		to_chat(user, "<span class='alert'>[src] can now be moved.</span>")
-	else
-		to_chat(user, "<span class='alert'>[src] is now secured.</span>")
-	anchored = !anchored
+	default_unfasten_wrench(user, I, 0)
 	return TRUE
 
 /obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
@@ -526,11 +521,6 @@
 
 		data["ingredients"] += list(data_pr)
 
-	return data
-
-/obj/machinery/kitchen_machine/ui_static_data(mob/user)
-	var/list/data = list()
-	data["name"] = name
 	return data
 
 /obj/machinery/kitchen_machine/ui_act(action, params, datum/tgui/ui)

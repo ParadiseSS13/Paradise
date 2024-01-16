@@ -46,17 +46,17 @@
 	return data
 
 /obj/machinery/computer/brigcells/ui_act(action, params)
-	if (..())
+	if(..())
 		return FALSE
 
 	if(!allowed(usr))
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
 		return FALSE
 
-	if (action == "release")
+	if(action == "release")
 		var/ref = params["ref"]
 		var/obj/machinery/door_timer/T = locate(ref)
-		if (T)
+		if(T)
 			T.timer_end()
 			T.Radio.autosay("Timer stopped manually from a cell management console.", T.name, "Security", list(z))
 		return TRUE

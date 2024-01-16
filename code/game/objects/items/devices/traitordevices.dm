@@ -145,7 +145,7 @@
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 			playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
-		else if (EMP_D == FALSE && !(bagholding.len && !flawless)) // This is where the fun begins
+		else if(EMP_D == FALSE && !(bagholding.len && !flawless)) // This is where the fun begins
 			var/direction = get_dir(user, destination)
 			panic_teleport(user, destination, direction)
 		else // Emp activated? Bag of holding? No saving throw for you
@@ -416,6 +416,7 @@
 /obj/item/handheld_mirror/attack_self(mob/user)
 	if(ishuman(user))
 		appearance_changer_holder = new(src, user)
+		appearance_changer_holder.flags = APPEARANCE_ALL_BODY
 		ui_interact(user)
 
 /obj/item/handheld_mirror/Initialize(mapload)

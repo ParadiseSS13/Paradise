@@ -41,10 +41,10 @@
 			var/mob/M = has_suit.loc
 			A.Grant(M)
 
-	if (islist(has_suit.armor) || isnull(has_suit.armor)) 	// This proc can run before /obj/Initialize has run for U and src,
+	if(islist(has_suit.armor) || isnull(has_suit.armor)) 	// This proc can run before /obj/Initialize has run for U and src,
 		has_suit.armor = getArmor(arglist(has_suit.armor))	// we have to check that the armor list has been transformed into a datum before we try to call a proc on it
 															// This is safe to do as /obj/Initialize only handles setting up the datum if actually needed.
-	if (islist(armor) || isnull(armor))
+	if(islist(armor) || isnull(armor))
 		armor = getArmor(arglist(armor))
 
 	has_suit.armor = has_suit.armor.attachArmor(armor)
@@ -576,6 +576,14 @@
 	item_color = "necklace"
 	slot_flags = SLOT_FLAG_TIE
 
+/obj/item/clothing/accessory/necklace/long
+	name = "large necklace"
+	desc = "A large necklace."
+	icon_state = "necklacelong"
+	item_state = "necklacelong"
+	item_color = "necklacelong"
+
+
 /obj/item/clothing/accessory/necklace/dope
 	name = "gold necklace"
 	desc = "Damn, it feels good to be a gangster."
@@ -604,9 +612,9 @@
 /obj/item/clothing/accessory/necklace/locket
 	name = "gold locket"
 	desc = "A gold locket that seems to have space for a photo within."
-	icon_state = "locket"
-	item_state = "locket"
-	item_color = "locket"
+	icon_state = "locketgold"
+	item_state = "locketgold"
+	item_color = "locketgold"
 	slot_flags = SLOT_FLAG_TIE
 	var/base_icon
 	var/open
@@ -651,6 +659,13 @@
 			held = O
 	else
 		return ..()
+
+/obj/item/clothing/accessory/necklace/locket/silver
+	name = "silver locket"
+	desc = "A silver locket that seems to have space for a photo within."
+	icon_state = "locketsilver"
+	item_state = "locketsilver"
+	item_color = "locketsilver"
 
 //Cowboy Shirts
 /obj/item/clothing/accessory/cowboyshirt

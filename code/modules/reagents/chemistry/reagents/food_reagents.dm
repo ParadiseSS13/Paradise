@@ -222,14 +222,14 @@
 			var/mouth_covered = 0
 			var/eyes_covered = 0
 			var/obj/item/safe_thing = null
-			if( victim.wear_mask )
+			if(victim.wear_mask)
 				if(victim.wear_mask.flags_cover & MASKCOVERSEYES)
 					eyes_covered = 1
 					safe_thing = victim.wear_mask
 				if(victim.wear_mask.flags_cover & MASKCOVERSMOUTH)
 					mouth_covered = 1
 					safe_thing = victim.wear_mask
-			if( victim.head )
+			if(victim.head)
 				if(victim.head.flags_cover & MASKCOVERSEYES)
 					eyes_covered = 1
 					safe_thing = victim.head
@@ -238,12 +238,12 @@
 					safe_thing = victim.head
 			if(victim.glasses)
 				eyes_covered = 1
-				if( !safe_thing )
+				if(!safe_thing)
 					safe_thing = victim.glasses
-			if( eyes_covered && mouth_covered )
+			if(eyes_covered && mouth_covered)
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protects you from the pepperspray!</span>")
 				return
-			else if( mouth_covered )	// Reduced effects if partially protected
+			else if(mouth_covered)	// Reduced effects if partially protected
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protect you from most of the pepperspray!</span>")
 				if(prob(5))
 					victim.emote("scream")
@@ -254,7 +254,7 @@
 				victim.Weaken(6 SECONDS)
 				victim.drop_item()
 				return
-			else if( eyes_covered ) // Eye cover is better than mouth cover
+			else if(eyes_covered) // Eye cover is better than mouth cover
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protects your eyes from the pepperspray!</span>")
 				victim.EyeBlurry(6 SECONDS)
 				victim.damageoverlaytemp = 30
@@ -342,12 +342,6 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#5F3A13"
 	taste_description = "bitter cocoa"
-
-/datum/reagent/consumable/cocoa/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(isvulpkanin(M) || istajaran(M) || isfarwa(M) || iswolpin(M))
-		update_flags |= M.adjustToxLoss(2, FALSE)
-	return ..() | update_flags
 
 /datum/reagent/consumable/vanilla
 	name = "Vanilla"
@@ -603,10 +597,7 @@
 
 /datum/reagent/consumable/chocolate/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 0.8)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(isvulpkanin(M) || istajaran(M) || isfarwa(M) || iswolpin(M)) // chocolate is bad for dogs and cats, ya know
-		update_flags |= M.adjustToxLoss(2, FALSE)
-	return ..() | update_flags
+	return ..()
 
 /datum/reagent/consumable/chocolate/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
@@ -618,6 +609,7 @@
 	description = "A rather bitter herb once thought to hold magical protective properties."
 	reagent_state = LIQUID
 	color = "#21170E"
+	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "tea"
 	harmless = TRUE
 

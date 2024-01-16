@@ -26,6 +26,8 @@
 	var/last_injection
 	var/injection_cooldown = 34 SECONDS
 	var/efficiency
+	/// Timer that we use to remove people that are in us for too long
+	var/removal_timer
 
 	light_color = LIGHT_COLOR_WHITE
 
@@ -38,9 +40,7 @@
 			. += "<span class='notice'>You see [occupant.name] inside.</span>"
 	. += "<span class='notice'>The Cryogenic cell chamber is effective at treating those with genetic damage, but all other damage types at a moderate rate.</span>"
 	. += "<span class='notice'>Mostly using cryogenic chemicals, such as cryoxadone for it's medical purposes, requires that the inside of the cell be kept cool at all times. Hooking up a freezer and cooling the pipeline will do this nicely.</span>"
-	. += "<span class='notice'><b>Click-drag</b> someone to a cell to place them in it, use the 'Eject occupant' verb to remove them.</span>"
-	if(user.loc == src)
-		. += "<span class='notice'>You can use the 'Eject occupant' verb to eject yourself. This will take roughly 2 minutes.</span>"
+	. += "<span class='info'><b>Click-drag</b> someone to a cell to place them in it, <b>Alt-Click</b> it to remove it.</span>"
 
 /obj/machinery/atmospherics/unary/cryo_cell/power_change()
 	..()
@@ -414,6 +414,7 @@
 
 	occupant = null
 	update_icon(UPDATE_OVERLAYS)
+	deltimer(removal_timer)
 
 /obj/machinery/atmospherics/unary/cryo_cell/force_eject_occupant(mob/target)
 	go_out()
@@ -451,56 +452,21 @@
 	add_fingerprint(usr)
 	update_icon(UPDATE_OVERLAYS)
 	M.ExtinguishMob()
+	removal_timer = addtimer(CALLBACK(src, PROC_REF(auto_eject)), 1 MINUTES, TIMER_STOPPABLE)
 	return TRUE
 
-/obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()
-	set name = "Eject occupant"
-	set category = "Object"
-	set src in oview(1)
+/obj/machinery/atmospherics/unary/cryo_cell/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
-	if(usr == occupant)//If the user is inside the tube...
-		if(usr.stat == DEAD)
-			return
-		to_chat(usr, "<span class='notice'>Release sequence activated. This will take one minute.</span>")
-		sleep(600)
-		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
-			return
-		go_out()//and release him from the eternal prison.
-	else
-		if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
-			return
-		if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
-			return
-		add_attack_logs(usr, occupant, "Ejected from cryo cell at [COORD(src)]")
-		go_out()
-	add_fingerprint(usr)
-	return
+	go_out()
+	add_fingerprint(user)
 
 /obj/machinery/atmospherics/unary/cryo_cell/narsie_act()
 	go_out()
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	color = "red"//force the icon to red
 	light_color = LIGHT_COLOR_RED
-
-/obj/machinery/atmospherics/unary/cryo_cell/verb/move_inside()
-	set name = "Move Inside"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
-		return
-
-	if(stat & (NOPOWER | BROKEN))
-		return
-
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-
-	put_mob(usr)
-	return
-
-
 
 /datum/data/function/proc/reset()
 	return

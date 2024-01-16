@@ -114,7 +114,7 @@
 		for(var/datum/recipe/recipe in possible_recipes)
 			var/N_i = (recipe.items)?(recipe.items.len):0
 			var/N_r = (recipe.reagents)?(recipe.reagents.len):0
-			if(N_i > i_count || (N_i== i_count && N_r > r_count ))
+			if(N_i > i_count || (N_i== i_count && N_r > r_count))
 				r_count = N_r
 				i_count = N_i
 				. = recipe

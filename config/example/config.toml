@@ -144,7 +144,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 52
+sql_version = 53
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -306,6 +306,8 @@ disable_cid_warning_popup = false
 base_loadout_points = 5
 # Respawnability loss penalty if you cryo below this threshold (Minutes)
 cryo_penalty_period = 30
+# Observers count as roundstart if they join from the main menu before this time (in minutes). Set to 0 to allow only-pregame start observers.
+roundstart_observer_period = 5
 # Enable twitter emojis in OOC?
 enable_ooc_emoji = true
 # Auto start the game if running a local test server
@@ -676,8 +678,6 @@ active_lava_ruins = [
 	##MISC
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_excavation.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_facility.dmm",
-	# Cube blacklisted on production because it contains a wishgranter that gives you hijack on use
-	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cube.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cultaltar.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_dead_ratvar.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_elite_tumor.dmm",
@@ -688,6 +688,7 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_random_ripley.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_survivalpod.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ufo_crash.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_watcher_grave.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_xeno_nest.dmm",
 ]
 # Budget for lavaland ruins. A higher number means more will spawn
@@ -766,6 +767,8 @@ wiki_url = "https://www.paradisestation.org/wiki"
 rules_url = "https://www.paradisestation.org/rules"
 # Github address
 github_url = "https://github.com/ParadiseSS13/Paradise"
+# Exploit address
+exploit_url = "https://www.paradisestation.org/forum/179-exploit-reports/"
 # Discord address
 #discord_url = "http://example.org"
 # Discord address (forum-based invite)

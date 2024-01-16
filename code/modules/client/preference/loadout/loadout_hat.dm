@@ -146,6 +146,10 @@
 	display_name = "Beret, black"
 	path = /obj/item/clothing/head/beret/black
 
+/datum/gear/hat/beret_white
+	display_name = "Beret, white"
+	path = /obj/item/clothing/head/beret/white
+
 /datum/gear/hat/beret_blue
 	display_name = "Beret, blue"
 	path = /obj/item/clothing/head/beret/blue
@@ -172,6 +176,11 @@
 	display_name = "Beret, security"
 	path = /obj/item/clothing/head/beret/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+
+/datum/gear/hat/beret_job/hop
+	display_name = "Beret, head of personnel"
+	path = /obj/item/clothing/head/hop/beret
+	allowed_roles = list("Head of Personnel")
 
 /datum/gear/hat/beret_job/sci
 	display_name = "Beret, science"

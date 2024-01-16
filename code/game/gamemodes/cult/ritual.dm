@@ -116,7 +116,7 @@
 	if(!length(possible_runes))
 		return
 
-	var/chosen_rune = input(user, "Choose a rite to scribe.", "Sigils of Power") as null|anything in possible_runes
+	var/chosen_rune = tgui_input_list(user, "Choose a rite to scribe.", "Sigils of Power", possible_runes)
 	if(!chosen_rune)
 		return
 	var/obj/effect/rune/rune = possible_runes[chosen_rune]

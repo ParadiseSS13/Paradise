@@ -30,10 +30,16 @@
 	var/emp_proof = FALSE //is the organ immune to EMPs?
 	var/hidden_pain = FALSE //will it skip pain messages?
 	var/requires_robotic_bodypart = FALSE
+	/// When this variable is true, it can only be installed on the machine person species.
+	var/requires_machine_person = FALSE
 
 	///Should this organ be destroyed on removal?
 	var/destroy_on_removal = FALSE
 
+	/// What was the last pain message that was sent?
+	var/last_pain_message
+	/// When can we get the next pain message?
+	var/next_pain_time
 
 /obj/item/organ/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -50,17 +56,14 @@
 	..(holder)
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
-	if(istype(holder))
+	if(ishuman(holder))
 		if(holder.dna)
 			dna = holder.dna.Clone()
+			if(!blood_DNA)
+				blood_DNA = list()
+			blood_DNA[dna.unique_enzymes] = dna.blood_type
 		else
 			stack_trace("[holder] spawned without a proper DNA.")
-		var/mob/living/carbon/human/H = holder
-		if(istype(H))
-			if(dna)
-				if(!blood_DNA)
-					blood_DNA = list()
-				blood_DNA[dna.unique_enzymes] = dna.blood_type
 	else
 		dna = new /datum/dna(null)
 		if(species_override)
@@ -219,7 +222,7 @@
 	if(owner && parent_organ && amount > 0)
 		var/obj/item/organ/external/parent = owner.get_organ(parent_organ)
 		if(parent && !silent)
-			owner.custom_pain("Something inside your [parent.name] hurts a lot.")
+			custom_pain("Something inside your [parent.name] hurts a lot.")
 
 		//check if we've hit max_damage
 	if(damage >= max_damage)
@@ -306,3 +309,16 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 			robotize()
 		status = data["status"]
 	..()
+
+// A proc to send a pain message to the owner.
+/obj/item/organ/proc/custom_pain(message)
+	if(!owner.can_feel_pain() || !message)
+		return
+
+	var/msg = "<span class='userdanger'>[message]</span>"
+
+	// Anti message spam checks
+	if(msg != last_pain_message || world.time >= next_pain_time)
+		last_pain_message = msg
+		to_chat(owner, msg)
+		next_pain_time = world.time + 10 SECONDS

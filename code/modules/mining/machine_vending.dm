@@ -48,6 +48,7 @@
 		EQUIPMENT("Brute First-Aid Kit", /obj/item/storage/firstaid/brute, 600),
 		EQUIPMENT("Fulton Pack", /obj/item/extraction_pack, 1000),
 		EQUIPMENT("Jaunter", /obj/item/wormhole_jaunter, 750),
+		EQUIPMENT("Chasm Jaunter Recovery Grenade", /obj/item/grenade/jaunter_grenade, 1500),
 		EQUIPMENT("Lazarus Injector", /obj/item/lazarus_injector, 1000),
 		EQUIPMENT("Point Transfer Card", /obj/item/card/mining_point_card, 500),
 		EQUIPMENT("Shelter Capsule", /obj/item/survivalcapsule, 400),
@@ -91,7 +92,7 @@
 		EQUIPMENT("Soap", /obj/item/soap/nanotrasen, 200),
 		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/c200, 2000),
 		EQUIPMENT("Whiskey", /obj/item/reagent_containers/food/drinks/bottle/whiskey, 100),
-		EQUIPMENT("HRD-MDE Project Box", /obj/item/storage/box/hardmode_box, 5000) //I want miners have to pay a lot to get this, but be set once they do.
+		EQUIPMENT("HRD-MDE Project Box", /obj/item/storage/box/hardmode_box, 3500) //I want miners have to pay a lot to get this, but be set once they do.
 	)
 	prize_list["Extra"] = list() // Used in child vendors
 
@@ -239,9 +240,9 @@
   * * redeemer - The person holding it
   */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Plasma Cutter Kit", "Jaunter Kit", "Mining Conscription Kit")
+	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Plasma Cutter", "Jaunter Kit", "Mining Conscription Kit")
 
-	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
+	var/selection = tgui_input_list(redeemer, "Pick your equipment", "Mining Voucher Redemption", items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
 		return
 
@@ -263,9 +264,8 @@
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/kinetic_crusher(drop_location)
-		if("Plasma Cutter Kit")
+		if("Plasma Cutter")
 			new /obj/item/gun/energy/plasmacutter(drop_location)
-			new /obj/item/survivalcapsule(drop_location)
 		if("Jaunter Kit")
 			new /obj/item/wormhole_jaunter(drop_location)
 			new /obj/item/stack/medical/bruise_pack/advanced(drop_location)
@@ -341,9 +341,9 @@
 		EQUIPMENT("Cigarettes", /obj/item/storage/fancy/cigarettes, 100),
 		EQUIPMENT("Medical Marijuana", /obj/item/storage/fancy/cigarettes/cigpack_med, 250),
 		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
-		EQUIPMENT("Box of matches", /obj/item/storage/box/matches, 50),
-		EQUIPMENT("Cheeseburger", /obj/item/reagent_containers/food/snacks/cheeseburger, 150),
-		EQUIPMENT("Big Burger", /obj/item/reagent_containers/food/snacks/bigbiteburger, 250),
+		EQUIPMENT("Box of matches", /obj/item/storage/fancy/matches, 50),
+		EQUIPMENT("Cheeseburger", /obj/item/reagent_containers/food/snacks/burger/cheese, 150),
+		EQUIPMENT("Big Burger", /obj/item/reagent_containers/food/snacks/burger/bigbite, 250),
 		EQUIPMENT("Recycled Prisoner", /obj/item/reagent_containers/food/snacks/soylentgreen, 500),
 		EQUIPMENT("Crayons", /obj/item/storage/fancy/crayons, 350),
 		EQUIPMENT("Plushie", /obj/random/plushie, 750),
@@ -374,7 +374,7 @@
 /obj/item/mining_voucher
 	name = "mining voucher"
 	desc = "A token to redeem a piece of equipment. Use it on a mining equipment vendor."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/mining_tool.dmi'
 	icon_state = "mining_voucher"
 	w_class = WEIGHT_CLASS_TINY
 

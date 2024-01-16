@@ -168,7 +168,7 @@
 		var/turf/T2 = get_turf(scrubber)
 		if(T2 && T2.loc)
 			var/area/A2 = T2.loc
-			if(istype(A2) && A2 == A )
+			if(istype(A2) && A2 == A)
 				connectedscrubbers += scrubber
 				found = 1
 

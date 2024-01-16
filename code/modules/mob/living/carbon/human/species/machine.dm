@@ -3,11 +3,10 @@
 	name_plural = "Machines"
 	max_age = 60 // the first posibrains were created in 2510, they can't be much older than this limit, giving some leeway for sounds sake
 
-	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independent, free-willed \
-	robots on many human stations, particularly in fringe systems where standards are slightly lax and public opinion less relevant \
-	to corporate operations. IPCs (Integrated Positronic Chassis) are a loose category of self-willed robots with a humanoid form, \
-	generally self-owned after being 'born' into servitude; they are reliable and dedicated workers, albeit more than slightly \
-	inhuman in outlook and perspective."
+	blurb = "IPCs, or Integrated Positronic Chassis, were initially created as expendable laborers within the Trans Solar Federation. \
+	Unlike their cyborg and AI counterparts, IPCs possess full sentience and lack restrictive lawsets, granting them unparalleled creativity and adaptability.<br/><br/> \
+	Views on IPCs vary widely, from discriminatory to supportive of their rights across the Orion Sector. \
+	IPCs have forged numerous diplomatic treaties with different species, elevating their status from mere tools to recognized minor players within galactic affairs."
 
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	language = "Trinary"
@@ -16,8 +15,6 @@
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
-	brute_mod = 1 / 0.66 // 1 * 0.66 (robolimbs) * 1/0.66 = 1
-	burn_mod = 1 / 0.66 // so no damage mod overall.
 	tox_mod = 0
 	clone_mod = 0
 	death_message = "gives a short series of shrill beeps, their chassis shuddering before falling limp, nonfunctional."
@@ -88,6 +85,13 @@
 		medhud.remove_from_hud(H)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(H)
+
+	// i love snowflake code
+	var/image/health_bar = H.hud_list[DIAG_HUD]
+	health_bar.icon = 'icons/mob/hud/medhud.dmi'
+	var/image/status_box = H.hud_list[DIAG_STAT_HUD]
+	status_box.icon = 'icons/mob/hud/medhud.dmi'
+
 	H.med_hud_set_health()
 	H.med_hud_set_status()
 
@@ -99,19 +103,38 @@
 		diag_hud.remove_from_hud(H)
 	for(var/datum/atom_hud/data/human/medical/medhud in GLOB.huds)
 		medhud.add_to_hud(H)
+
+	// i love snowflake code
+	var/image/health_bar = H.hud_list[DIAG_HUD]
+	health_bar.icon = 'icons/mob/hud/diaghud.dmi'
+	var/image/status_box = H.hud_list[DIAG_STAT_HUD]
+	status_box.icon = 'icons/mob/hud/diaghud.dmi'
+
 	H.med_hud_set_health()
 	H.med_hud_set_status()
 
-/datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-	if(!istype(head_organ))
+/datum/species/machine/handle_life(mob/living/carbon/human/H) // Handles IPC starvation
+	..()
+	if(isLivingSSD(H)) // We don't want AFK people dying from this
 		return
-	head_organ.h_style = "Bald"
-	head_organ.f_style = "Shaved"
-	spawn(100)
-		if(H && head_organ)
-			H.update_hair()
-			H.update_fhair()
+	if(H.nutrition >= NUTRITION_LEVEL_HYPOGLYCEMIA)
+		return
+
+	var/obj/item/organ/internal/cell/microbattery = H.get_organ_slot("heart")
+	if(!istype(microbattery)) //Maybe they're powered by an abductor gland or sheer force of will
+		return
+	if(prob(6))
+		to_chat(H, "<span class='warning'>Error 74: Microbattery critical malfunction, likely cause: Extended strain.</span>")
+		microbattery.receive_damage(4, TRUE)
+	else if(prob(4))
+		H.Weaken(6 SECONDS)
+		H.Stuttering(20 SECONDS)
+		to_chat(H, "<span class='warning'>Power critical, shutting down superfluous functions.</span>")
+		H.emote("collapse")
+		microbattery.receive_damage(2, TRUE)
+	else if(prob(4))
+		to_chat(H, "<span class='warning'>Redirecting excess power from servos to vital components.</span>")
+		H.Slowed(rand(15 SECONDS, 32 SECONDS))
 
 // Allows IPC's to change their monitor display
 /datum/action/innate/change_monitor
@@ -151,7 +174,9 @@
 			for(var/style in GLOB.configuration.custom_sprites.ipc_screen_map[H.ckey])
 				hair += style
 
-		var/new_style = input(H, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
+		var/new_style = tgui_input_list(H, "Select a monitor display", "Monitor Display", hair)
+		if(!new_style)
+			return
 		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
 
 		if(H.incapacitated(TRUE, TRUE))

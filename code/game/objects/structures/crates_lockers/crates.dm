@@ -229,24 +229,12 @@
 
 /obj/structure/closet/crate/secure/AltClick(mob/user)
 	if(Adjacent(user) && !opened)
-		verb_togglelock()
+		if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.stat) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
+			return
+		togglelock(user)
 		return
 
 	. = ..()
-
-/obj/structure/closet/crate/secure/verb/verb_togglelock()
-	set src in oview(1) // One square distance
-	set category = null
-	set name = "Toggle Lock"
-
-	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
-		return
-
-	if(ishuman(usr) || isrobot(usr))
-		add_fingerprint(usr)
-		togglelock(usr)
-		return
-	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
 /obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)

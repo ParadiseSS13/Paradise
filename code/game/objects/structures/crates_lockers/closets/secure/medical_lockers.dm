@@ -97,25 +97,25 @@
 
 // Why the hell is this in the closets folder?
 /obj/item/storage/pill_bottle/psychiatrist/populate_contents()
-	new /obj/item/reagent_containers/food/pill/haloperidol(src)
-	new /obj/item/reagent_containers/food/pill/haloperidol(src)
-	new /obj/item/reagent_containers/food/pill/haloperidol(src)
-	new /obj/item/reagent_containers/food/pill/methamphetamine(src)
-	new /obj/item/reagent_containers/food/pill/methamphetamine(src)
-	new /obj/item/reagent_containers/food/pill/methamphetamine(src)
-	new /obj/item/reagent_containers/food/pill/happy_psych(src)
-	new /obj/item/reagent_containers/food/pill/happy_psych(src)
-	new /obj/item/reagent_containers/food/pill/happy_psych(src)
-	new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
-	new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
-	new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
-	new /obj/item/reagent_containers/food/pill/hydrocodone(src)
-	new /obj/item/reagent_containers/food/pill/hydrocodone(src)
-	new /obj/item/reagent_containers/food/pill/mannitol(src)
-	new /obj/item/reagent_containers/food/pill/mannitol(src)
-	new /obj/item/reagent_containers/food/pill/mannitol(src)
-	new /obj/item/reagent_containers/food/pill/mannitol(src)
-	new /obj/item/reagent_containers/food/pill/mannitol(src)
+	new /obj/item/reagent_containers/pill/haloperidol(src)
+	new /obj/item/reagent_containers/pill/haloperidol(src)
+	new /obj/item/reagent_containers/pill/haloperidol(src)
+	new /obj/item/reagent_containers/pill/methamphetamine(src)
+	new /obj/item/reagent_containers/pill/methamphetamine(src)
+	new /obj/item/reagent_containers/pill/methamphetamine(src)
+	new /obj/item/reagent_containers/pill/happy_psych(src)
+	new /obj/item/reagent_containers/pill/happy_psych(src)
+	new /obj/item/reagent_containers/pill/happy_psych(src)
+	new /obj/item/reagent_containers/patch/nicotine(src)
+	new /obj/item/reagent_containers/patch/nicotine(src)
+	new /obj/item/reagent_containers/patch/nicotine(src)
+	new /obj/item/reagent_containers/pill/hydrocodone(src)
+	new /obj/item/reagent_containers/pill/hydrocodone(src)
+	new /obj/item/reagent_containers/pill/mannitol(src)
+	new /obj/item/reagent_containers/pill/mannitol(src)
+	new /obj/item/reagent_containers/pill/mannitol(src)
+	new /obj/item/reagent_containers/pill/mannitol(src)
+	new /obj/item/reagent_containers/pill/mannitol(src)
 
 /obj/structure/closet/secure_closet/psychiatrist
 	name = "psychiatrist's locker"
@@ -215,7 +215,7 @@
 	new /obj/item/fulton_core(src)
 	new /obj/item/extraction_pack(src)
 	new /obj/item/gps/mining(src)
-	new /obj/item/gun/energy/plasmacutter(src)
+	new /obj/item/pickaxe/drill(src)
 
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"

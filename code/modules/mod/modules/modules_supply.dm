@@ -21,7 +21,6 @@
 		However, this design has been locked by Nanotrasen to be primarily utilized for lifting various crates. \
 		A lot of people would say that loading cargo is a dull job, but you could not disagree more."
 	icon_state = "clamp"
-	flags = NODROP
 	module_type = MODULE_ACTIVE
 	complexity = 3
 	use_power_cost = DEFAULT_CHARGE_DRAIN
@@ -325,8 +324,9 @@
 		))
 	if(!keep_turfs)
 		keep_turfs = typecacheof(list(
-			/turf/simulated/floor/plating/lava,
-			/turf/simulated/floor/indestructible/hierophant
+			/turf/simulated/floor/lava,
+			/turf/simulated/floor/indestructible/hierophant,
+			/turf/simulated/floor/indestructible/necropolis
 			))
 
 /obj/item/mod/module/ash_accretion/on_suit_activation()

@@ -177,6 +177,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon_state = "gps-m"
 	gpstag = "MOD0"
 	desc = "A positioning system helpful for rescuing trapped or injured miners, after you have become lost from rolling around at the speed of sound."
+	flags = NODROP
 
 /obj/item/gps/cyborg
 	icon_state = "gps-b"

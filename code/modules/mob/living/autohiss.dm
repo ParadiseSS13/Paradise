@@ -23,11 +23,6 @@
 			prefs.active_character.autohiss_mode = AUTOHISS_OFF
 			to_chat(src, "Auto-hiss is now OFF.")
 
-/datum/species
-	var/list/autohiss_basic_map = null
-	var/list/autohiss_extra_map = null
-	var/list/autohiss_exempt = null
-
 /datum/species/unathi
 	autohiss_basic_map = list(
 			"s" = list("ss", "sss", "ssss")
@@ -95,8 +90,8 @@
 			. += message
 			break
 		. += copytext(message, 1, min_index)
-		if(copytext(message, min_index, min_index+1) == uppertext(min_char))
-			. += capitalize(pick(map[min_char]))
+		if(copytext(message, min_index, min_index + 1) == uppertext(min_char))
+			. += uppertext(pick(map[min_char]))
 		else
 			. += pick(map[min_char])
 		message = copytext(message, min_index + 1)

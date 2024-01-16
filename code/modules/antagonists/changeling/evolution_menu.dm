@@ -12,23 +12,8 @@
 	var/view_mode = EXPANDED_MODE
 	/// A list containing the typepaths of bought changeling abilities. For use with the UI.
 	var/list/purchased_abilities = list()
-	/// A list containing every purchasable changeling power. Includes its name, description, helptext and cost.
-	var/static/list/ability_list = list()
-
-/datum/action/changeling/evolution_menu/Grant(mob/M)
-	..()
-	if(length(ability_list))
-		return // List is already populated.
-
-	for(var/power_path in cling.purchaseable_powers)
-		var/datum/action/changeling/C = power_path
-		ability_list += list(list(
-			"name" = initial(C.name),
-			"description" = initial(C.desc),
-			"helptext" = initial(C.helptext),
-			"cost" = initial(C.dna_cost),
-			"power_path" = power_path
-		))
+	/// A list containing lists of category and abilities, related to this category. For each ability includes its name, description, helptext and cost. For use with the UI.
+	var/static/list/ability_tabs = list()
 
 /datum/action/changeling/evolution_menu/try_to_sting(mob/user, mob/target)
 	ui_interact(user)
@@ -51,7 +36,7 @@
 
 /datum/action/changeling/evolution_menu/ui_static_data(mob/user)
 	var/list/data = list(
-		"ability_list" = ability_list
+		"ability_tabs" = get_ability_tabs()
 	)
 	return data
 
@@ -81,6 +66,8 @@
 			return TRUE
 
 /datum/action/changeling/evolution_menu/proc/try_purchase_power(power_type)
+	PRIVATE_PROC(TRUE)
+
 	if(!(power_type in cling.purchaseable_powers))
 		return FALSE
 	if(power_type in purchased_abilities)
@@ -99,3 +86,55 @@
 
 	cling.give_power(new power_type)
 	return TRUE
+
+/datum/action/changeling/evolution_menu/proc/get_ability_tabs()
+	PRIVATE_PROC(TRUE)
+
+	if(!length(ability_tabs))
+		ability_tabs = build_ability_tabs()
+
+	return ability_tabs
+
+/datum/action/changeling/evolution_menu/proc/build_ability_tabs()
+	PRIVATE_PROC(TRUE)
+
+	var/list/abilities_by_category_name = get_abilities_grouped_by_category_name()
+	if(!length(abilities_by_category_name))
+		return list()
+
+	var/list/sorted_ability_categories = sortTim(subtypesof(/datum/changeling_power_category), GLOBAL_PROC_REF(cmp_changeling_power_category_asc))
+
+	var/list/sorted_ability_tabs = list()
+	for(var/datum/changeling_power_category/category as anything in sorted_ability_categories)
+		var/list/abilities = abilities_by_category_name[initial(category.name)]
+		sorted_ability_tabs += list(list(
+			"category" = initial(category.name),
+			"abilities" = abilities))
+
+	return sorted_ability_tabs
+
+/datum/action/changeling/evolution_menu/proc/get_abilities_grouped_by_category_name()
+	PRIVATE_PROC(TRUE)
+
+	var/list/abilities_by_category_name = list()
+	for(var/power_path in cling.purchaseable_powers)
+		var/datum/action/changeling/changeling_ability = power_path
+
+		if(!changeling_ability.category)
+			stack_trace("Cling power [changeling_ability], [changeling_ability.type] had no assigned category!")
+			continue
+
+		var/category_name = initial(changeling_ability.category.name)
+		var/list/abilities = abilities_by_category_name[category_name]
+		if(!islist(abilities))
+			abilities_by_category_name[category_name] = abilities = list()
+
+		abilities += list(list(
+			"name" = initial(changeling_ability.name),
+			"description" = initial(changeling_ability.desc),
+			"helptext" = initial(changeling_ability.helptext),
+			"cost" = initial(changeling_ability.dna_cost),
+			"power_path" = power_path
+		))
+
+	return abilities_by_category_name

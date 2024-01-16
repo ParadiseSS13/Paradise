@@ -1,13 +1,15 @@
-/obj/item/storage/pill_bottle/dice //But why is this a pill bottle
+/obj/item/storage/bag/dice //Thankfully no longer a pill bottle.
 	name = "bag of dice"
 	desc = "Contains all the luck you'll ever need."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
-	can_hold = list(/obj/item/dice)
-	allow_wrap = FALSE
 	use_sound = "rustle"
+	storage_slots = 50
+	max_combined_w_class = 50
+	can_hold = list(/obj/item/dice)
+	resistance_flags = FLAMMABLE
 
-/obj/item/storage/pill_bottle/dice/populate_contents()
+/obj/item/storage/bag/dice/populate_contents()
 	var/special_die = pick("1","2","fudge","00","100")
 	if(special_die == "1")
 		new /obj/item/dice/d1(src)
@@ -26,7 +28,7 @@
 	if(special_die == "100")
 		new /obj/item/dice/d100(src)
 
-/obj/item/storage/pill_bottle/dice/suicide_act(mob/user)
+/obj/item/storage/bag/dice/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (OXYLOSS)
 
@@ -188,7 +190,7 @@
 			//Destroy Equipment
 			T.visible_message("<span class='userdanger'>Everything [user] is holding and wearing disappears!</span>")
 			for(var/obj/item/I in user)
-				if(istype(I, /obj/item/implant))
+				if(istype(I, /obj/item/bio_chip))
 					continue
 				qdel(I)
 		if(5)
@@ -248,7 +250,7 @@
 				/obj/item/chameleon_counterfeiter,
 				/obj/item/clothing/shoes/chameleon/noslip,
 				/obj/item/pinpointer/advpinpointer,
-				/obj/item/storage/box/syndie_kit/bonerepair,
+				/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
 				/obj/item/storage/backpack/duffel/syndie/med/surgery,
 				/obj/item/storage/toolbox/syndicate,
 				/obj/item/storage/backpack/clown/syndie,
@@ -258,8 +260,8 @@
 				/obj/item/clothing/glasses/chameleon/thermal,
 				/obj/item/borg/upgrade/modkit/indoors,
 				/obj/item/storage/box/syndie_kit/chameleon,
-				/obj/item/storage/box/syndie_kit/modsuit,
-				/obj/item/implanter/storage,
+				/obj/item/mod/control/pre_equipped/traitor,
+				/obj/item/bio_chip_implanter/storage,
 				/obj/item/toy/syndicateballoon)
 			var/selected_item = pick(traitor_items)
 			T.visible_message("<span class='userdanger'>A suspicious item appears!</span>")

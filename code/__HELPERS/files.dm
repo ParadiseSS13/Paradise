@@ -62,7 +62,7 @@
 
 	var/list/exploded = splittext(path, ".")
 	var/extension = exploded[length(exploded)]
-	if( !fexists(path) || !(extension in valid_extensions) )
+	if(!fexists(path) || !(extension in valid_extensions))
 		to_chat(src, "<font color='red'>Error: browse_files(): File not found/Invalid file([path]).</font>")
 		return
 

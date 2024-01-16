@@ -385,7 +385,7 @@
 	name = "engineering robot module"
 	module_type = "Engineer"
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
-	module_actions = list(/datum/action/innate/robot_sight/meson)
+	module_actions = list(/datum/action/innate/robot_sight/meson, /datum/action/innate/robot_magpulse)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
 		/obj/item/rpd,
@@ -513,7 +513,7 @@
 		/obj/item/flash/cyborg,
 		/obj/item/handheld_chem_dispenser/booze,
 		/obj/item/handheld_chem_dispenser/soda,
-		/obj/item/pen,
+		/obj/item/pen/multi,
 		/obj/item/razor,
 		/obj/item/instrument/piano_synth,
 		/obj/item/healthanalyzer/advanced,
@@ -615,7 +615,7 @@
 /obj/item/robot_module/deathsquad
 	name = "NT advanced combat module"
 	module_type = "Malf"
-	module_actions = list(/datum/action/innate/robot_sight/thermal)
+	module_actions = list(/datum/action/innate/robot_sight/thermal, /datum/action/innate/robot_magpulse)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
 		/obj/item/melee/energy/sword/cyborg,
@@ -706,7 +706,7 @@
 /obj/item/robot_module/destroyer
 	name = "destroyer robot module"
 	module_type = "Malf"
-	module_actions = list(/datum/action/innate/robot_sight/thermal)
+	module_actions = list(/datum/action/innate/robot_sight/thermal, /datum/action/innate/robot_magpulse)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
 		/obj/item/gun/energy/immolator/multi/cyborg, // See comments on /robot_module/combat below
@@ -723,6 +723,7 @@
 /obj/item/robot_module/combat
 	name = "combat robot module"
 	module_type = "Malf"
+	module_actions = list(/datum/action/innate/robot_magpulse)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
 		/obj/item/gun/energy/immolator/multi/cyborg, // primary weapon, strong at close range (ie: against blob/terror/xeno), but consumes a lot of energy per shot.

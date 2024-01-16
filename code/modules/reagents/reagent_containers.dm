@@ -15,12 +15,8 @@
 	var/temperature_min = 0 // To limit the temperature of a reagent container can atain when exposed to heat/cold
 	var/temperature_max = 10000
 
-/obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
-	set name = "Set transfer amount"
-	set category = "Object"
-	set src in usr
-
-	if(!usr.Adjacent(src) || !ishuman(usr) || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+/obj/item/reagent_containers/AltClick(mob/user)
+	if(!Adjacent(user) || !length(possible_transfer_amounts) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/default = null
@@ -30,25 +26,20 @@
 	if(!new_transfer_rate)
 		return
 
-	if(!usr.Adjacent(src))
-		to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
+	if(!Adjacent(user))
+		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
-	if(!ishuman(usr) || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		to_chat(usr, "<span class='warning'>You can't use your hands!</span>")
+	if(!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't use your hands!</span>")
 		return
 
 	amount_per_transfer_from_this = new_transfer_rate
-	to_chat(usr, "<span class='notice'>[src] will now transfer [amount_per_transfer_from_this] units at a time.</span>")
-
-/obj/item/reagent_containers/AltClick()
-	set_APTFT()
+	to_chat(user, "<span class='notice'>[src] will now transfer [amount_per_transfer_from_this] units at a time.</span>")
 
 /obj/item/reagent_containers/Initialize(mapload)
 	. = ..()
 	if(!reagents) // Some subtypes create their own reagents
 		create_reagents(volume, temperature_min, temperature_max)
-	if(!possible_transfer_amounts)
-		verbs -= /obj/item/reagent_containers/verb/set_APTFT
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease(0)
 		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808")
@@ -109,4 +100,4 @@
 
 	// Items that have no valid possible_transfer_amounts shouldn't say their transfer rate is variable
 	if(possible_transfer_amounts)
-		. += "<span class='notice'>Alt-click to change the transfer amount.</span>"
+		. += "<span class='info'><b>Alt-Click</b> to change the transfer amount.</span>"

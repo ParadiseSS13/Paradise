@@ -87,39 +87,13 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	icon_state = "end_cap"
 	reference = "end_cap"
 
-/obj/structure/particle_accelerator/verb/rotate()
-	set name = "Rotate Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
-		return
-	if(anchored)
-		to_chat(usr, "It is fastened to the floor!")
-		return 0
-	dir = turn(dir, 270)
-	return 1
-
 /obj/structure/particle_accelerator/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!Adjacent(user))
-		return
-	rotate()
-
-/obj/structure/particle_accelerator/verb/rotateccw()
-	set name = "Rotate Counter Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
-		to_chat(usr, "It is fastened to the floor!")
-		return 0
-	dir = turn(dir, 90)
-	return 1
+		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")
+		return
+	dir = turn(dir, 270)
 
 /obj/structure/particle_accelerator/examine(mob/user)
 	. = ..()
@@ -135,7 +109,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 			if(powered)
 				desc = desc_holder
 	if(!anchored)
-		. += "<span class='notice'>Alt-click to rotate it.</span>"
+		. += "<span class='notice'><b>Alt-Click</b> to rotate it.</span>"
 
 /obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -260,32 +234,17 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	var/strength = 0
 	var/desc_holder = null
 
+/obj/structure/particle_accelerator/examine(mob/user)
+	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> to rotate it.</span>"
 
-/obj/machinery/particle_accelerator/verb/rotate()
-	set name = "Rotate Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
+/obj/machinery/particle_accelerator/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
-		to_chat(usr, "It is fastened to the floor!")
-		return 0
+		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")
+		return
 	dir = turn(dir, 270)
-	return 1
-
-/obj/machinery/particle_accelerator/verb/rotateccw()
-	set name = "Rotate Counter-Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
-		return
-	if(anchored)
-		to_chat(usr, "It is fastened to the floor!")
-		return 0
-	dir = turn(dir, 90)
-	return 1
 
 /obj/machinery/particle_accelerator/attackby(obj/item/W, mob/user, params)
 	if(!iscoil(W))

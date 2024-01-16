@@ -231,6 +231,9 @@
 
 	refill_canister = /obj/item/vending_refill/hatdispenser
 
+/obj/machinery/economy/vending/hatdispenser/free
+	prices = list()
+
 /obj/machinery/economy/vending/suitdispenser
 	name = "\improper Suitlord 9000"
 	desc = "You wonder for a moment why all of your shirts and pants come conjoined. This hurts your head and you stop thinking about it."
@@ -298,6 +301,9 @@
 
 	refill_canister = /obj/item/vending_refill/suitdispenser
 
+/obj/machinery/economy/vending/suitdispenser/free
+	prices = list()
+
 /obj/machinery/economy/vending/shoedispenser
 	name = "\improper Shoelord 9000"
 	desc = "Wow, hatlord looked fancy, suitlord looked streamlined, and this is just normal. The guy who designed these must be an idiot."
@@ -348,6 +354,9 @@
 				/obj/item/clothing/shoes/rainbow = 40)
 
 	refill_canister = /obj/item/vending_refill/shoedispenser
+
+/obj/machinery/economy/vending/shoedispenser/free
+	prices = list()
 
 //don't forget to change the refill size if you change the machine's contents!
 /obj/machinery/economy/vending/clothing
@@ -436,6 +445,7 @@
 					/obj/item/clothing/mask/bandana/black = 2,
 					/obj/item/clothing/glasses/regular = 2,
 					/obj/item/clothing/glasses/sunglasses_fake = 2,
+					/obj/item/clothing/glasses/goggles = 2,
 					/obj/item/clothing/gloves/fingerless = 2,
 					/obj/item/storage/belt/fannypack = 1,
 					/obj/item/storage/belt/fannypack/blue = 1,
@@ -519,6 +529,7 @@
 				/obj/item/clothing/suit/browntrenchcoat = 75,
 				/obj/item/clothing/glasses/regular = 20,
 				/obj/item/clothing/glasses/sunglasses_fake = 20,
+				/obj/item/clothing/glasses/goggles = 40,
 				/obj/item/clothing/suit/ianshirt = 75,
 				/obj/item/clothing/mask/bandana = 30,
 				/obj/item/clothing/mask/bandana/black = 30,
@@ -532,6 +543,9 @@
 				/obj/item/clothing/under/misc/mailman = 100)
 
 	refill_canister = /obj/item/vending_refill/clothing
+
+/obj/machinery/economy/vending/clothing/free
+	prices = list()
 
 /obj/machinery/economy/vending/magivend
 	name = "\improper MagiVend"
@@ -563,7 +577,7 @@
 					/obj/item/clothing/mask/gas/clownwiz = 1,
 					/obj/item/clothing/shoes/clown_shoes/magical = 1,
 					/obj/item/dnainjector/comic = 1,
-					/obj/item/implanter/sad_trombone = 1,
+					/obj/item/bio_chip_implanter/sad_trombone = 1,
 					/obj/item/clothing/suit/wizrobe/mime = 1,
 					/obj/item/clothing/head/wizard/mime = 1,
 					/obj/item/clothing/mask/gas/mime/wizard = 1,
@@ -821,6 +835,8 @@
 
 	refill_canister = /obj/item/vending_refill/autodrobe
 
+/obj/machinery/economy/vending/autodrobe/free
+	prices = list()
 
 //Generic food vendors
 
@@ -1044,6 +1060,9 @@
 				/obj/item/toner = 40,
 				/obj/item/pen/fancy = 40)
 
+/obj/machinery/economy/vending/artvend/free
+	prices = list()
+
 /obj/machinery/economy/vending/tool
 	name = "\improper YouTool"
 	desc = "Tools for tools."
@@ -1173,8 +1192,8 @@
 					/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 					/obj/item/clothing/mask/cigarette/cigar/havana = 2,
-					/obj/item/reagent_containers/food/pill/patch/nicotine = 10,
-					/obj/item/storage/box/matches = 10,
+					/obj/item/reagent_containers/patch/nicotine = 10,
+					/obj/item/storage/fancy/matches = 10,
 					/obj/item/lighter/random = 4,
 					/obj/item/lighter/zippo = 2)
 
@@ -1186,8 +1205,8 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 60,
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 80,
 				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 120,
-				/obj/item/reagent_containers/food/pill/patch/nicotine = 70,
-				/obj/item/storage/box/matches = 20,
+				/obj/item/reagent_containers/patch/nicotine = 70,
+				/obj/item/storage/fancy/matches = 20,
 				/obj/item/lighter/random = 40,
 				/obj/item/lighter/zippo = 80,
 				/obj/item/storage/fancy/rollingpapers = 30,
@@ -1204,7 +1223,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_robust = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 1,
-				/obj/item/storage/box/matches = 10,
+				/obj/item/storage/fancy/matches = 10,
 				/obj/item/storage/fancy/rollingpapers = 5)
 
 	contraband = list(/obj/item/lighter/zippo = 4)
@@ -1231,7 +1250,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 3,
 				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 				/obj/item/clothing/mask/cigarette/cigar/havana = 2,
-				/obj/item/storage/box/matches = 10,
+				/obj/item/storage/fancy/matches = 10,
 				/obj/item/lighter/zippo = 4,
 				/obj/item/storage/fancy/rollingpapers = 5)
 
@@ -1263,7 +1282,7 @@
 					/obj/item/healthanalyzer = 1)
 
 	contraband = list(/obj/item/reagent_containers/syringe/antiviral = 4,
-					/obj/item/reagent_containers/food/pill/tox = 1)
+					/obj/item/reagent_containers/pill/tox = 1)
 
 	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	//this shouldn't be priced

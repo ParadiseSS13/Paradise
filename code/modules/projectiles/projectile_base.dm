@@ -1,3 +1,8 @@
+/// Is this a hitscan projectile or not, if so move like one
+#define MOVES_HITSCAN -1
+/// How many pixels to move the muzzle flash up so your character doesn't look like they're shitting out lasers.
+#define MUZZLE_EFFECT_PIXEL_INCREMENT 17
+
 /obj/item/projectile
 	name = "projectile"
 	icon = 'icons/obj/projectiles.dmi'
@@ -26,6 +31,7 @@
 	var/p_y = 16 // the pixel location of the tile that the player clicked. Default is the center
 	var/speed = 1			//Amount of deciseconds it takes for projectile to travel
 	var/Angle = null
+	var/original_angle = null //Angle at firing
 	var/spread = 0			//amount (in degrees) of projectile spread
 	animate_movement = 0
 
@@ -80,6 +86,32 @@
 	var/shield_buster = FALSE
 	var/forced_accuracy = FALSE
 
+	///Has the projectile been fired?
+	var/has_been_fired = FALSE
+
+	//Hitscan
+	var/hitscan = FALSE //Whether this is hitscan. If it is, speed is basically ignored.
+	var/list/beam_segments //assoc list of datum/point_precise or datum/point_precise/vector, start = end. Used for hitscan effect generation.
+	/// Last turf an angle was changed in for hitscan projectiles.
+	var/turf/last_angle_set_hitscan_store
+	var/datum/point_precise/beam_index
+	var/turf/hitscan_last //last turf touched during hitscanning.
+	var/tracer_type
+	var/muzzle_type
+	var/impact_type
+
+	//Fancy hitscan lighting effects!
+	var/hitscan_light_intensity = 1.5
+	var/hitscan_light_range = 0.75
+	var/hitscan_light_color_override
+	var/muzzle_flash_intensity = 3
+	var/muzzle_flash_range = 1.5
+	var/muzzle_flash_color_override
+	var/impact_light_intensity = 3
+	var/impact_light_range = 2
+	var/impact_light_color_override
+	var/hitscan_duration = 0.3 SECONDS
+
 /obj/item/projectile/New()
 	return ..()
 
@@ -112,7 +144,7 @@
 		hity = target.pixel_y + rand(-8, 8)
 	if(!nodamage && (damage_type == BRUTE || damage_type == BURN) && iswallturf(target_loca) && prob(75))
 		var/turf/simulated/wall/W = target_loca
-		if(impact_effect_type)
+		if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
 
 		W.add_dent(WALL_DENT_SHOT, hitx, hity)
@@ -120,7 +152,7 @@
 	if(alwayslog)
 		add_attack_logs(firer, target, "Shot with a [type]")
 	if(!isliving(target))
-		if(impact_effect_type)
+		if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
 		return 0
 	var/mob/living/L = target
@@ -152,7 +184,7 @@
 						M.bloody_hands(H)
 						/* Uncomment when bloody_body stops randomly not transferring blood colour.
 						M.bloody_body(H) */
-		else if(impact_effect_type)
+		else if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
 		var/organ_hit_text = ""
 		if(L.has_limbs)
@@ -199,11 +231,18 @@
 	else
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
 
+/obj/item/projectile/proc/store_hitscan_collision(datum/point_precise/point_cache)
+	beam_segments[beam_index] = point_cache
+	beam_index = point_cache
+	beam_segments[beam_index] = null
+
 /obj/item/projectile/Bump(atom/A, yes)
 	if(!yes) //prevents double bumps.
 		return
 
 	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
+		if(hitscan && ricochets_max > 10)
+			ricochets_max = 10 //I do not want a chucklefuck editing this higher, sorry.
 		ricochets++
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
@@ -265,7 +304,9 @@
 		return
 	var/elapsed_time_deciseconds = (world.time - last_projectile_move) + time_offset
 	time_offset = 0
-	var/required_moves = FLOOR(elapsed_time_deciseconds / speed, 1)
+	var/required_moves = hitscan ? MOVES_HITSCAN : FLOOR(elapsed_time_deciseconds / speed, 1)
+	if(required_moves == MOVES_HITSCAN)
+		required_moves = SSprojectiles.global_max_tick_moves
 	if(required_moves > SSprojectiles.global_max_tick_moves)
 		var/overrun = required_moves - SSprojectiles.global_max_tick_moves
 		required_moves = SSprojectiles.global_max_tick_moves
@@ -275,14 +316,15 @@
 	for(var/i in 1 to required_moves)
 		pixel_move(1)
 
-/obj/item/projectile/proc/pixel_move(trajectory_multiplier)
+/obj/item/projectile/proc/pixel_move(trajectory_multiplier, hitscanning = FALSE)
 	if(!loc || !trajectory)
 		return
 	last_projectile_move = world.time
 	// Keep on course
-	var/matrix/M = new
-	M.Turn(Angle)
-	transform = M
+	if(!hitscanning)
+		var/matrix/M = new
+		M.Turn(Angle)
+		transform = M
 	// Iterate
 	var/forcemoved = FALSE
 	for(var/i in 1 to SSprojectiles.global_iterations_per_move)
@@ -297,17 +339,20 @@
 			trajectory_ignore_forcemove = TRUE
 			forceMove(T)
 			trajectory_ignore_forcemove = FALSE
-			pixel_x = trajectory.return_px()
-			pixel_y = trajectory.return_py()
+			if(!hitscanning)
+				pixel_x = trajectory.return_px()
+				pixel_y = trajectory.return_py()
 			forcemoved = TRUE
+			hitscan_last = loc
 		else if(T != loc)
 			step_towards(src, T)
+			hitscan_last = loc
 		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER || ismob(original)))
 			if(loc == get_turf(original) && !(original in permutated))
 				Bump(original, TRUE)
 	if(QDELETED(src)) //deleted on last move
 		return
-	if(!forcemoved)
+	if(!hitscanning && !forcemoved)
 		pixel_x = trajectory.return_px() - trajectory.mpx * trajectory_multiplier * SSprojectiles.global_iterations_per_move
 		pixel_y = trajectory.return_py() - trajectory.mpy * trajectory_multiplier * SSprojectiles.global_iterations_per_move
 		animate(src, pixel_x = trajectory.return_px(), pixel_y = trajectory.return_py(), time = 1, flags = ANIMATION_END_NOW)
@@ -320,6 +365,7 @@
 		current = locate(clamp(x + xo, 1, world.maxx), clamp(y + yo, 1, world.maxy), z)
 	if(isnull(Angle))
 		Angle = round(get_angle(src, current))
+	original_angle = Angle
 	if(spread)
 		Angle += (rand() - 0.5) * spread
 	// Turn right away
@@ -329,6 +375,9 @@
 	// Start flying
 	trajectory = new(x, y, z, pixel_x, pixel_y, Angle, SSprojectiles.global_pixel_speed)
 	last_projectile_move = world.time
+	has_been_fired = TRUE
+	if(hitscan)
+		process_hitscan()
 	START_PROCESSING(SSprojectiles, src)
 	pixel_move(1, FALSE)
 
@@ -358,6 +407,8 @@
 		Bump(AM, 1)
 
 /obj/item/projectile/Destroy()
+	if(hitscan)
+		finalize_hitscan_and_generate_tracers()
 	STOP_PROCESSING(SSprojectiles, src)
 	ammo_casing = null
 	firer_source_atom = null
@@ -386,11 +437,22 @@
 	..()
 	Angle = new_angle
 	trajectory.set_angle(new_angle)
+	if(has_been_fired && hitscan && isloc(loc) && (loc != last_angle_set_hitscan_store))
+		last_angle_set_hitscan_store = loc
+		var/datum/point/point_cache = new (src)
+		point_cache = trajectory.copy_to()
+		store_hitscan_collision(point_cache)
 
 /obj/item/projectile/proc/set_angle_centered(new_angle)
 	set_angle(new_angle)
 	var/list/coordinates = trajectory.return_coordinates()
 	trajectory.set_location(coordinates[1], coordinates[2], coordinates[3]) // Sets the trajectory to the center of the tile it bounced at
+	if(has_been_fired && hitscan && isloc(loc))// Handles hitscan projectiles
+		last_angle_set_hitscan_store = loc
+		var/datum/point_precise/point_cache = new (src)
+		point_cache.initialize_location(coordinates[1], coordinates[2], coordinates[3]) // Take the center of the hitscan collision tile
+		store_hitscan_collision(point_cache)
+	return TRUE
 
 /obj/item/projectile/experience_pressure_difference()
 	return
@@ -400,7 +462,11 @@
 	if(QDELETED(src)) // we coulda bumped something
 		return
 	if(trajectory && !trajectory_ignore_forcemove && isturf(target))
+		if(hitscan)
+			finalize_hitscan_and_generate_tracers(FALSE)
 		trajectory.initialize_location(target.x, target.y, target.z, 0, 0)
+		if(hitscan)
+			record_hitscan_start(RETURN_PRECISE_POINT(src))
 
 /obj/item/projectile/proc/is_reflectable(desired_reflectability_level)
 	if(reflectability == REFLECTABILITY_NEVER) //You'd trust coders not to try and override never reflectable things, but heaven help us I do not
@@ -408,3 +474,67 @@
 	if(reflectability < desired_reflectability_level)
 		return FALSE
 	return TRUE
+
+/obj/item/projectile/proc/record_hitscan_start(datum/point_precise/point_cache)
+	if(point_cache)
+		beam_segments = list()
+		beam_index = point_cache
+		beam_segments[beam_index] = null //record start.
+
+/obj/item/projectile/proc/process_hitscan()
+	//Safety here is to make hitscan stop if something goes wrong. Why is it equal to range * 10, when range is the maximum amount of tiles it can go? No clue.
+	var/safety = range * 10
+	record_hitscan_start(RETURN_POINT_VECTOR_INCREMENT(src, Angle, MUZZLE_EFFECT_PIXEL_INCREMENT, 1))
+	while(loc && !QDELETED(src))
+		if(paused)
+			stoplag(1)
+			continue
+		if(safety-- <= 0)
+			if(loc)
+				Bump(loc)
+			if(!QDELETED(src))
+				qdel(src)
+			return //Kill!
+		pixel_move(1, TRUE)
+
+/obj/item/projectile/proc/finalize_hitscan_and_generate_tracers(impacting = TRUE)
+	if(trajectory && beam_index)
+		var/datum/point_precise/point_cache = trajectory.copy_to()
+		beam_segments[beam_index] = point_cache
+	generate_hitscan_tracers(null, hitscan_duration, impacting)
+
+/obj/item/projectile/proc/generate_hitscan_tracers(cleanup = TRUE, duration = 3, impacting = TRUE)
+	if(!length(beam_segments))
+		return
+	if(tracer_type)
+		var/tempuid = UID()
+		for(var/datum/point_precise/p in beam_segments)
+			generate_tracer_between_points(p, beam_segments[p], tracer_type, color, duration, hitscan_light_range, hitscan_light_color_override, hitscan_light_intensity, tempuid)
+	if(muzzle_type && duration > 0)
+		var/datum/point_precise/p = beam_segments[1]
+		var/atom/movable/thing = new muzzle_type
+		p.move_atom_to_src(thing)
+		var/matrix/matrix = new
+		matrix.Turn(original_angle)
+		thing.transform = matrix
+		thing.color = color
+		thing.set_light(muzzle_flash_range, muzzle_flash_intensity, muzzle_flash_color_override? muzzle_flash_color_override : color)
+		QDEL_IN(thing, duration)
+	if(impacting && impact_type && duration > 0)
+		var/datum/point_precise/p = beam_segments[beam_segments[beam_segments.len]]
+		var/atom/movable/thing = new impact_type
+		p.move_atom_to_src(thing)
+		var/matrix/matrix = new
+		matrix.Turn(Angle)
+		thing.transform = matrix
+		thing.color = color
+		thing.set_light(impact_light_range, impact_light_intensity, impact_light_color_override? impact_light_color_override : color)
+		QDEL_IN(thing, duration)
+	if(cleanup)
+		cleanup_beam_segments()
+
+/obj/item/projectile/proc/cleanup_beam_segments()
+	QDEL_LIST_ASSOC(beam_segments)
+
+#undef MOVES_HITSCAN
+#undef MUZZLE_EFFECT_PIXEL_INCREMENT

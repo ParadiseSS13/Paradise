@@ -59,8 +59,9 @@
 #define INIT_ORDER_SOUNDS 16
 #define INIT_ORDER_INSTRUMENTS 15
 #define INIT_ORDER_RESEARCH 14 // SoonTM
-#define INIT_ORDER_EVENTS 13
-#define INIT_ORDER_JOBS 12
+#define INIT_ORDER_STATION 13 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
+#define INIT_ORDER_EVENTS 12
+#define INIT_ORDER_JOBS 11
 #define INIT_ORDER_TICKER 10
 #define INIT_ORDER_MAPPING 9
 #define INIT_ORDER_ATOMS 7
@@ -127,7 +128,7 @@
 
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME)
 
-// This do{} WHILE (FALSE) syntax may look stupid, but it speeds things up because BYOND memes
+// This do{} WHILE(FALSE) syntax may look stupid, but it speeds things up because BYOND memes
 #define COMPILE_OVERLAYS(A)\
 	do { \
 		var/list/ad = A.add_overlays;\
@@ -145,7 +146,7 @@
 			A.overlays |= po;\
 		}\
 		A.flags_2 &= ~OVERLAY_QUEUED_2;\
-} while (FALSE)
+} while(FALSE)
 
 // SS CPU display category flags
 #define SS_CPUDISPLAY_LOW 1

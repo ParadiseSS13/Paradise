@@ -16,6 +16,8 @@
 	var/rules_url
 	/// URL for the server github repository
 	var/github_url
+	/// URL for the server exploit report locaion
+	var/exploit_url
 	/// URL for server donations
 	var/donations_url
 	/// URL for a direct discord invite
@@ -41,6 +43,7 @@
 	CONFIG_LOAD_STR(forum_url, data["forum_url"])
 	CONFIG_LOAD_STR(rules_url, data["rules_url"])
 	CONFIG_LOAD_STR(github_url, data["github_url"])
+	CONFIG_LOAD_STR(exploit_url, data["exploit_url"])
 	CONFIG_LOAD_STR(donations_url, data["donations_url"])
 	CONFIG_LOAD_STR(discord_url, data["discord_url"])
 	CONFIG_LOAD_STR(discord_forum_url, data["discord_forum_url"])

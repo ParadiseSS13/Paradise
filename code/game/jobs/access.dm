@@ -291,7 +291,7 @@
 		if(ACCESS_RESEARCH)
 			return "Science"
 		if(ACCESS_MINING)
-			return "Mining"
+			return "Mining Dock"
 		if(ACCESS_MINING_OFFICE)
 			return "Mining Office"
 		if(ACCESS_MAILSORTING)
@@ -303,7 +303,7 @@
 		if(ACCESS_HEADS_VAULT)
 			return "Main Vault"
 		if(ACCESS_MINING_STATION)
-			return "Mining EVA"
+			return "Mining Outpost"
 		if(ACCESS_XENOBIOLOGY)
 			return "Xenobiology Lab"
 		if(ACCESS_XENOARCH)
@@ -417,7 +417,7 @@
 			available_accesses = get_region_accesses(i)
 		for(var/access in available_accesses)
 			var/access_desc = (i == REGION_CENTCOMM) ? get_centcom_access_desc(access) : get_access_desc(access)
-			if (access_desc)
+			if(access_desc)
 				accesses += list(list(
 					"desc" = replacetext(access_desc, "&nbsp", " "),
 					"ref" = access,

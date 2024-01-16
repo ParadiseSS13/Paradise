@@ -38,6 +38,10 @@
 	occupant = null
 	return ..()
 
+/obj/machinery/gibber/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>You can <b>Alt-Click</b> [src] to empty it.</span>"
+
 /obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
@@ -160,16 +164,12 @@
 	INVOKE_ASYNC(src, PROC_REF(feedinTopanim))
 
 
-/obj/machinery/gibber/verb/eject()
-	set category = "Object"
-	set name = "Empty Gibber"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/machinery/gibber/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	go_out()
-	add_fingerprint(usr)
+	add_fingerprint(user)
 
 /obj/machinery/gibber/proc/go_out()
 	if(operating || !occupant) //no going out if operating, just in case they manage to trigger go_out before being dead
@@ -179,14 +179,12 @@
 		return
 
 	for(var/obj/O in src)
-		O.loc = loc
+		O.forceMove(get_turf(src))
 
 	occupant.forceMove(get_turf(src))
 	occupant = null
 
 	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
-
-	return
 
 /obj/machinery/gibber/proc/feedinTopanim()
 	if(!occupant)
@@ -411,8 +409,8 @@
 	for(var/obj/O in H)
 		if(isclothing(O)) //clothing gets skipped to avoid cleaning out shit
 			continue
-		if(istype(O,/obj/item/implant))
-			var/obj/item/implant/I = O
+		if(istype(O,/obj/item/bio_chip))
+			var/obj/item/bio_chip/I = O
 			if(I.implanted)
 				continue
 		if(O.flags & NODROP || stealthmode)

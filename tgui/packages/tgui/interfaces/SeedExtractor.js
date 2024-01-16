@@ -77,7 +77,7 @@ const SeedsContent = (props, context) => {
               onClick={() =>
                 act('vend', {
                   seedid: seed.id,
-				  seedvariant: seed.variant,
+                  seedvariant: seed.variant,
                 })
               }
             />

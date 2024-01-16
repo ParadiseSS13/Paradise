@@ -9,13 +9,14 @@
 	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Requires at least 7 stored DNA. Their orders can be changed via remote hivemind (Alt+Shift click)."
 	button_icon_state = "spread_infestation"
 	chemical_cost = 45
-	dna_cost = 2
+	dna_cost = 4
 	req_dna = 7
 	/// This var keeps track of the changeling's spider count
 	var/spider_counter = 0
 	/// Checks if changeling is already spawning a spider
 	var/is_operating = FALSE
 	power_type = CHANGELING_PURCHASABLE_POWER
+	category = /datum/changeling_power_category/utility
 
 /// Makes a spider. Good for setting traps and combat.
 /datum/action/changeling/spiders/sting_action(mob/user)

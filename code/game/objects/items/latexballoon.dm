@@ -40,10 +40,10 @@
 /obj/item/latexballon/ex_act(severity)
 	burst()
 	switch(severity)
-		if (1)
+		if(1)
 			qdel(src)
-		if (2)
-			if (prob(50))
+		if(2)
+			if(prob(50))
 				qdel(src)
 
 /obj/item/latexballon/bullet_act(obj/item/projectile/P)
@@ -61,5 +61,5 @@
 		var/obj/item/tank/T = W
 		blow(T, user)
 		return
-	if(is_sharp(W) || is_hot(W) || is_pointed(W))
+	if(is_sharp(W) || W.get_heat() || is_pointed(W))
 		burst()

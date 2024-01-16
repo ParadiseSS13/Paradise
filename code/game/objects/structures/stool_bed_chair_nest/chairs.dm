@@ -21,6 +21,10 @@
 	/// Used to handle rotation properly, should only be 1, 4, or 8
 	var/possible_dirs = 4
 
+/obj/structure/chair/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>You can <b>Alt-Click</b> [src] to rotate it.</span>"
+
 /obj/structure/chair/narsie_act()
 	if(prob(20))
 		var/obj/structure/chair/wood/W = new/obj/structure/chair/wood(get_turf(src))
@@ -123,29 +127,21 @@
 	..()
 	handle_rotation(newdir)
 
-/obj/structure/chair/verb/rotate()
-	set name = "Rotate Chair"
-	set category = "Object"
-	set src in oview(1)
+/obj/structure/chair/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
+	rotate()
+
+/obj/structure/chair/attack_ghost(mob/user)
 	if(GLOB.configuration.general.ghost_interaction)
-		setDir(turn(dir, (360 / possible_dirs))) //90 for 4 possible dirs, 45 for 8.
-		handle_rotation()
+		rotate()
 		return
+	..()
 
-	if(usr.incapacitated())
-		return
-
+/obj/structure/chair/proc/rotate()
 	setDir(turn(dir, (360 / possible_dirs)))
 	handle_rotation()
-
-/obj/structure/chair/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	rotate()
 
 // Chair types
 /obj/structure/chair/light

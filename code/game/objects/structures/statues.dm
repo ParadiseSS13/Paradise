@@ -125,11 +125,11 @@
 	..()
 
 /obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
-	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
+	if(W.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("[key_name_admin(user)] ignited a plasma statue at [COORD(loc)]")
 		log_game("[key_name(user)] ignited plasma a statue at [COORD(loc)]")
 		investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", "atmos")
-		ignite(is_hot(W))
+		ignite(W.get_heat())
 		return
 	return ..()
 
@@ -349,3 +349,80 @@
 	..()
 	qdel(src)
 
+/obj/structure/statue/cyberiad
+	name = "NSS Cyberiad"
+	desc = "A giant model of the Cyberiad science station. Judging by the differences in design, the station has been rebuilt several times."
+	icon = 'icons/obj/station_statue.dmi'
+	icon_state = "center"
+	flags = NODECONSTRUCT
+	anchored = TRUE
+	max_integrity = 500
+	oreAmount = 0
+
+/obj/structure/statue/cyberiad/Destroy()
+	. = ..()
+	// Delete all the nearby cyberiad statue parts
+	for(var/obj/structure/statue/cyberiad/bigass_statue in range(2))
+		qdel(bigass_statue)
+
+// Top layer of the statue is not dense
+/obj/structure/statue/cyberiad/north
+	icon_state = "north"
+	density = FALSE
+	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/structure/statue/cyberiad/north/west
+	icon_state = "nw"
+
+/obj/structure/statue/cyberiad/north/east
+	icon_state = "ne"
+
+/obj/structure/statue/cyberiad/north/Initialize(mapload)
+	. = ..()
+	if(GetExactComponent(/datum/component/largetransparency)) //already have it, lets yeet
+		return
+	AddComponent(/datum/component/largetransparency, -1, -2, 2, 2)
+
+// Adds transparency to said top layer when the player gets behind or near it
+/obj/structure/statue/cyberiad/north/west/Initialize(mapload)
+	AddComponent(/datum/component/largetransparency, 0, -2, 2, 2)
+	return ..()
+
+/obj/structure/statue/cyberiad/north/east/Initialize(mapload)
+	AddComponent(/datum/component/largetransparency, -2, -2, 2, 2)
+	return ..()
+
+/obj/structure/statue/cyberiad/center
+	icon_state = "center"
+	density = FALSE
+	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/structure/statue/cyberiad/center/west
+	icon_state = "west"
+
+/obj/structure/statue/cyberiad/center/east
+	icon_state = "east"
+
+/obj/structure/statue/cyberiad/center/Initialize(mapload)
+	. = ..()
+	if(GetExactComponent(/datum/component/largetransparency)) //already have it, lets yeet
+		return
+	AddComponent(/datum/component/largetransparency, -1, -1, 2, 2)
+
+// Adds transparency to said top layer when the player gets behind or near it
+/obj/structure/statue/cyberiad/center/west/Initialize(mapload)
+	AddComponent(/datum/component/largetransparency, 0, -1, 2, 2)
+	return ..()
+
+/obj/structure/statue/cyberiad/center/east/Initialize(mapload)
+	AddComponent(/datum/component/largetransparency, -2, -1, 2, 2)
+	return ..()
+
+/obj/structure/statue/cyberiad/south
+	icon_state = "south"
+
+/obj/structure/statue/cyberiad/south/west
+	icon_state = "sw"
+
+/obj/structure/statue/cyberiad/south/east
+	icon_state = "se"

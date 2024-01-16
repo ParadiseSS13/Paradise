@@ -43,7 +43,7 @@
 
 /// See atom/movable/proc/orbit for parameter definitions
 /datum/component/orbiter/Initialize(atom/movable/orbiter, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lock_in_orbit = FALSE, force_move = FALSE, orbit_layer = FLY_LAYER)
-	if (!istype(orbiter) || !isatom(parent) || isarea(parent))
+	if(!istype(orbiter) || !isatom(parent) || isarea(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	orbiter_list = list()

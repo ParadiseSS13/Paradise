@@ -100,7 +100,7 @@
 
 	var/output_starting_pressure = air3.return_pressure()
 
-	if(output_starting_pressure >= target_pressure || air2.return_pressure() >= target_pressure )
+	if(output_starting_pressure >= target_pressure || air2.return_pressure() >= target_pressure)
 		//No need to mix if target is already full!
 		return 1
 

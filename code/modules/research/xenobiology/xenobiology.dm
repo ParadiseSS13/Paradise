@@ -228,11 +228,12 @@
 			explosion(T, -1, -1, 2, 3)
 		qdel(src)
 		return
+	var/reason_text = input(user, "Enter reason for giving sentience", "Reason for sentience potion", "") as null|text
 	to_chat(user, "<span class='notice'>You offer [src] sentience potion to [SM]...</span>")
 	being_used = TRUE
 
-	var/ghostmsg = "Play as [SM.name], pet of [user.name]?"
-	var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M)
+	var/ghostmsg = "Play as [SM.name], pet of [user.name]?[reason_text ? "\nReason: [sanitize(reason_text)]\n" : ""]"
+	var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M, reason = reason_text)
 
 	if(QDELETED(src) || QDELETED(SM))
 		return

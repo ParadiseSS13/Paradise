@@ -84,7 +84,7 @@
 	if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
-	if(!user.mind?.isholy)
+	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='warning'>The book sizzles in your hands.</span>")
 		user.take_organ_damage(0, 10)
 		return
@@ -118,16 +118,16 @@
 
 	if(isfloorturf(target))
 		to_chat(user, "<span class='notice'>You hit the floor with the bible.</span>")
-		if(user.mind?.isholy)
+		if(HAS_MIND_TRAIT(user, TRAIT_HOLY))
 			for(var/obj/O in target)
 				O.cult_reveal()
 	if(istype(target, /obj/machinery/door/airlock))
 		to_chat(user, "<span class='notice'>You hit the airlock with the bible.</span>")
-		if(user.mind?.isholy)
+		if(HAS_MIND_TRAIT(user, TRAIT_HOLY))
 			var/obj/airlock = target
 			airlock.cult_reveal()
 
-	if(user.mind?.isholy && target.reagents)
+	if(HAS_MIND_TRAIT(user, TRAIT_HOLY) && target.reagents)
 		if(target.reagents.has_reagent("water")) //blesses all the water in the holder
 			to_chat(user, "<span class='notice'>You bless [target].</span>")
 			var/water2holy = target.reagents.get_reagent_amount("water")
@@ -142,7 +142,7 @@
 
 /obj/item/storage/bible/attack_self(mob/user)
 	. = ..()
-	if(!customisable || !user.mind?.isholy)
+	if(!customisable || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		return
 
 	var/list/skins = list()
@@ -183,7 +183,7 @@
 		SSticker.Bible_item_state = item_state
 
 /obj/item/storage/bible/proc/radial_check(mob/user)
-	if(!user?.mind.isholy || !ishuman(user))
+	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY) || !ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/H = user
 	if(!src || !H.is_in_hands(src) || H.incapacitated())
