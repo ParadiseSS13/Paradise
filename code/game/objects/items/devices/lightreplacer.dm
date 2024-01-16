@@ -231,13 +231,16 @@
 	. = ..()
 	if(!proximity && !bluespace_toggle)
 		return
-	if(!isturf(T))
+	if(!isobj(T) || !isturf(T))
 		return
+	var/turf/replace_turf = T
+	if(isobj(T))
+		replace_turf = get_turf(T)
 	if(get_dist(src, T) >= (U.client.maxview() + 2)) // To prevent people from using it over cameras
 		return
 
 	var/used = FALSE
-	for(var/atom/A in T)
+	for(var/atom/A in replace_turf)
 		if(!CanUse(U))
 			break
 		used = TRUE
