@@ -450,8 +450,14 @@
 			break
 
 		var/allowed = get_allowed_snack_by_id(O)
-		if(isnull(allowed))
-			break
+		if(!length(allowed))
+			if(beaker.reagents.holder_full())
+				continue
+			var/amount = O.reagents.total_volume
+			O.reagents.trans_to(beaker, amount)
+			if(!O.reagents.total_volume)
+				remove_object(O)
+			continue
 
 		for(var/r_id in allowed)
 
