@@ -21264,13 +21264,13 @@
 	},
 /area/station/command/bridge)
 "bvs" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_x = -32
-	},
 /obj/machinery/camera{
 	c_tag = "Central Primary Hallway - Starboard - Art Storage";
 	dir = 4
+	},
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -91678,6 +91678,10 @@
 /area/station/maintenance/fore)
 "wVL" = (
 /obj/machinery/door/firedoor,
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
