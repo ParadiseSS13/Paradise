@@ -450,7 +450,7 @@
 			break
 
 		var/allowed = get_allowed_snack_by_id(O)
-		if(!length(allowed))
+		if(!length(allowed)) // We don't have anything specific allowed therefore we can just transfer everything
 			if(beaker.reagents.holder_full())
 				continue
 			var/amount = O.reagents.total_volume
