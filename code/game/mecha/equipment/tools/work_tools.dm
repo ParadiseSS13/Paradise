@@ -543,7 +543,7 @@
 	if(!emagged)
 		items_list.Add(new emag_item)
 		emagged = TRUE
-		user.visible_message("<span class='warning'>Sparks fly out of [src.name]!</span>", "<span class='notice'>You short out the safeties on [src.name].</span>")
+		user.visible_message("<span class='warning'>Sparks fly out of [name]!</span>", "<span class='notice'>You short out the safeties on [name].</span>")
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		update_equip_info()
 
