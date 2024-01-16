@@ -12,7 +12,7 @@
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
 
-	playsound(loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+	playsound(loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
 
 	for(var/mob/M in stomach_contents) //Release eaten mobs when Beno is gibbed
 		LAZYREMOVE(stomach_contents, M)
