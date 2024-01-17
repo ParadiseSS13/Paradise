@@ -33,7 +33,6 @@ const VendingRow = (props, context) => {
         <img
           src={`data:image/jpeg;base64,${productImage}`}
           style={{
-            'background-color': 'red',
             'vertical-align': 'middle',
             width: '32px',
             margin: '0px',

@@ -43,6 +43,7 @@ export const Panel = (props, context) => {
               </Stack.Item>
               <Stack.Item>
                 <Button
+                  color="grey"
                   selected={audio.visible}
                   icon="music"
                   tooltip="Music player"
