@@ -633,7 +633,7 @@
 /obj/item/organ/internal/cyberimp/chest/ipc_radproof
 	name = "Radioactive Environment Upgrade"
 	desc = "A special lead lining for protecting fragile Positronic brains from radiation. Burning is not recommended."
-	implant_colour = "#eed202"
+	implant_color = "#eed202"
 	slot = "stomach"
 	requires_machine_person = TRUE
 
@@ -646,6 +646,34 @@
 	REMOVE_TRAIT(M, TRAIT_RADIMMUNE, "ipc_radproof[UID()]")
 	owner.physiology.burn_mod /= 1.10
 	return ..()
+
+// Admin-only IPC-exclusive Implants
+
+/obj/item/organ/internal/cyberimp/chest/lazrestarter
+	name = "Lazarus Restarter"
+	desc = "The highly restricted brainchild of researchers at the Canaan University of Technology, this implant makes the user effectively immortal. However, they say it takes quite the toll on the mind."
+	implant_color = "#ffffff"
+	slot = "heartdrive"
+	requires_machine_person = TRUE
+	var/lazrestarted = FALSE
+
+/obj/item/organ/internal/cyberimp/chest/lazrestarter/on_life()
+	owner.adjustBruteLoss(-4, robotic = TRUE)
+	owner.adjustFireLoss(-4, robotic = TRUE)
+	owner.adjustBrainLoss(-4)
+	if(owner.health <= HEALTH_THRESHOLD_CRIT)
+		owner.adjustBruteLoss(-4, robotic = TRUE)
+		owner.adjustFireLoss(-4, robotic = TRUE)
+		owner.adjustBrainLoss(-4)
+	if(owner.stat == DEAD && !lazrestarted)
+		owner.adjustBruteLoss(-25, robotic = TRUE)
+		owner.adjustFireLoss(-25, robotic = TRUE)
+		owner.update_revive()
+		lazrestarted = TRUE
+		addtimer(CALLBACK(src, PROC_REF(lazarusrestarted)), 60)
+
+/obj/item/organ/internal/cyberimp/chest/lazrestarter/proc/lazarusrestarted()
+	lazrestarted = FALSE
 
 //BOX O' IMPLANTS
 
