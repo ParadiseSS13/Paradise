@@ -381,7 +381,7 @@
 	tastes = list("тесто" = 2, "собачатина" = 3, "сыр" = 2)
 
 /datum/recipe/oven/vulpixcheese
-	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "cheesesauce" = 1, "cream" = 5)
+	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "cheese_sauce" = 1, "cream" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/meat,
@@ -399,7 +399,7 @@
 	tastes = list("тесто" = 2, "собачатина" = 3, "бекон" = 2, "грибы" = 2)
 
 /datum/recipe/oven/vulpixbacon
-	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "mushroomsauce" = 1, "cream" = 5)
+	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "mushroom_sauce" = 1, "cream" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/meat,
@@ -418,7 +418,7 @@
 	tastes = list("тесто" = 2, "собачатина" = 3, "чилли" = 2)
 
 /datum/recipe/oven/vulpixchilli
-	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "diablosauce" = 1, "cream" = 5)
+	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "diablo_sauce" = 1, "cream" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/meat,
