@@ -19,3 +19,4 @@
 #include "code/key.dm"
 #include "code/musician.dm"
 #include "code/flag.dm"
+#include "code/wallets.dm"

@@ -8,7 +8,6 @@
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
 	icon_state = "hev"
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
-	item_state = "hev"
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 	resistance_flags = FIRE_PROOF | ACID_PROOF | FREEZE_PROOF | STOPSPRESSUREDMAGE

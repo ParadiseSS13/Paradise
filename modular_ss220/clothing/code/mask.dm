@@ -60,7 +60,6 @@
 	icon = 'modular_ss220/clothing/icons/object/masks.dmi'
 	icon_state = "red_gas"
 	icon_override = 'modular_ss220/clothing/icons/mob/mask.dmi'
-	item_state = "red_gas"
 
 /obj/item/clothing/mask/breath/breathscarf
 	name = "шарф с системой дыхания"
@@ -68,4 +67,3 @@
 	icon = 'modular_ss220/clothing/icons/object/masks.dmi'
 	icon_override = 'modular_ss220/clothing/icons/mob/mask.dmi'
 	icon_state = "breathscarf"
-	item_state = "breathscarf"

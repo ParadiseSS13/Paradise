@@ -4,7 +4,6 @@
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
 	icon_state = "v_jacket"
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
-	item_state = "v_jacket"
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 	flags_inv = HIDEJUMPSUIT
@@ -15,7 +14,6 @@
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
 	icon_state = "takemura_jacket"
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
-	item_state = "takemura_jacket"
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 	flags_inv = HIDEJUMPSUIT
@@ -26,7 +24,6 @@
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
 	icon_state = "katarina_jacket"
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
-	item_state = "katarina_jacket"
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 	flags_inv = HIDEJUMPSUIT
@@ -37,7 +34,6 @@
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
 	icon_state = "katarina_cyberjacket"
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
-	item_state = "katarina_cyberjacket"
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 	flags_inv = HIDEJUMPSUIT
@@ -48,7 +44,6 @@
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
 	icon_state = "shark_casual"
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
-	item_state = "shark_casual"
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -63,7 +58,6 @@
 	icon = 'modular_ss220/clothing/icons/object/hats.dmi'
 	icon_state = "shark_casual"
 	icon_override = 'modular_ss220/clothing/icons/mob/hats.dmi'
-	item_state = "shark_casual"
 	body_parts_covered = HEAD
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -73,13 +67,11 @@
 /obj/item/clothing/suit/hooded/shark_costume/light
 	name = "светло-голубой костюм акулы"
 	icon_state = "shark_casual_light"
-	item_state = "shark_casual_light"
 	hoodtype = /obj/item/clothing/head/hooded/shark_hood/light
 
 /obj/item/clothing/head/hooded/shark_hood/light
 	name = "светло-голубой акулий капюшон"
 	icon_state = "shark_casual_light"
-	item_state = "shark_casual_light"
 
 /obj/item/clothing/suit/space/deathsquad/officer/syndie
 	name = "куртка офицера синдиката"
@@ -87,7 +79,6 @@
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
 	icon_state = "jacket_syndie"
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
-	item_state = "jacket_syndie"
 
 /obj/item/clothing/suit/space/deathsquad/officer/field
 	name = "полевая форма офицера флота Нанотрейзен"
@@ -95,7 +86,6 @@
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
 	icon_state = "ntsc_uniform"
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
-	item_state = "ntsc_uniform"
 
 /obj/item/clothing/suit/hooded/vi_arcane
 	name = "куртка Вай"
@@ -103,7 +93,6 @@
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
 	icon_state = "vi_arcane"
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
-	item_state = "vi_arcane"
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 	flags_inv = HIDEJUMPSUIT
@@ -115,7 +104,6 @@
 	icon = 'modular_ss220/clothing/icons/object/hats.dmi'
 	icon_state = "vi_arcane"
 	icon_override = 'modular_ss220/clothing/icons/mob/hats.dmi'
-	item_state = "vi_arcane"
 	body_parts_covered = HEAD
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -125,13 +113,11 @@
 /obj/item/clothing/suit/hooded/vi_arcane
 	name = "жакет Вай"
 	icon_state = "vi_arcane"
-	item_state = "vi_arcane"
 	hoodtype = /obj/item/clothing/head/hooded/vi_arcane
 
 /obj/item/clothing/head/hooded/vi_arcane
 	name = "капюшон Вай"
 	icon_state = "vi_arcane"
-	item_state = "vi_arcane"
 
 /obj/item/clothing/suit/soundhand_black_jacket
 	name = "черная куртка группы Саундхэнд."
@@ -139,7 +125,6 @@
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
 	icon_state = "soundhand_black_jacket"
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
-	item_state = "soundhand_black_jacket"
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 
@@ -159,7 +144,6 @@
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
 	icon_state = "soundhand_olive_jacket"
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
-	item_state = "soundhand_olive_jacket"
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 
@@ -179,7 +163,6 @@
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
 	icon_state = "soundhand_brown_jacket"
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
-	item_state = "soundhand_brown_jacket"
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 
@@ -192,3 +175,30 @@
 	item_state = "soundhand_brown_jacket"
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
+
+/obj/item/clothing/suit/chef/red
+	name = "chef's red apron"
+	desc = "Хорошо скроенный поварской китель."
+	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
+	icon_state = "chef_red"
+	sprite_sheets = list(
+		"Abductor" 			= 	'modular_ss220/clothing/icons/mob/suits.dmi',
+		"Ancient Skeleton" 	= 	'modular_ss220/clothing/icons/mob/suits.dmi',
+		"Diona" 			= 	'modular_ss220/clothing/icons/mob/suits.dmi',
+		"Drask" 			= 	'modular_ss220/clothing/icons/mob/species/drask/suits.dmi',
+		"Golem" 			= 	'modular_ss220/clothing/icons/mob/suits.dmi',
+		"Grey" 				= 	'modular_ss220/clothing/icons/mob/species/grey/suits.dmi',
+		"Human" 			= 	'modular_ss220/clothing/icons/mob/suits.dmi',
+		"Kidan" 			= 	'modular_ss220/clothing/icons/mob/suits.dmi',
+		"Machine"			= 	'modular_ss220/clothing/icons/mob/suits.dmi',
+		"Monkey" 			= 	'modular_ss220/clothing/icons/mob/species/monkey/suits.dmi',
+		"Nian" 				= 	'modular_ss220/clothing/icons/mob/suits.dmi',
+		"Plasmaman" 		= 	'modular_ss220/clothing/icons/mob/suits.dmi',
+		"Shadow" 			= 	'modular_ss220/clothing/icons/mob/suits.dmi',
+		"Skrell" 			= 	'modular_ss220/clothing/icons/mob/suits.dmi',
+		"Slime People" 		= 	'modular_ss220/clothing/icons/mob/suits.dmi',
+		"Tajaran" 			= 	'modular_ss220/clothing/icons/mob/suits.dmi',
+		"Unathi" 			= 	'modular_ss220/clothing/icons/mob/suits.dmi',
+		"Vox" 				= 	'modular_ss220/clothing/icons/mob/species/vox/suits.dmi',
+		"Vulpkanin" 		= 	'modular_ss220/clothing/icons/mob/suits.dmi',
+		)

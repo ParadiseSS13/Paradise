@@ -1,5 +1,6 @@
 #include "_clothing.dm"
 
+#include "code/accessories.dm"
 #include "code/suits.dm"
 #include "code/shoes.dm"
 #include "code/gloves.dm"
@@ -9,4 +10,5 @@
 #include "code/cloaks.dm"
 #include "code/garment_bag.dm"
 #include "code/hev_suit.dm"
-#include "code/wallets.dm"
+#include "code/hats.dm"
+#include "code/clothing_vendors.dm"

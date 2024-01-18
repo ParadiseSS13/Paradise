@@ -7,7 +7,6 @@
 	icon = 'modular_ss220/clothing/icons/object/shoes.dmi'
 	icon_state = "neon"
 	icon_override = 'modular_ss220/clothing/icons/mob/shoes.dmi'
-	item_color = "neon"
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 	actions_types = list(/datum/action/item_action/toggle_light, /datum/action/item_action/change_color)
@@ -58,11 +57,9 @@
 	icon = 'modular_ss220/clothing/icons/object/shoes.dmi'
 	icon_state = "shark"
 	icon_override = 'modular_ss220/clothing/icons/mob/shoes.dmi'
-	item_state = "shark"
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 
 /obj/item/clothing/shoes/shark/light
 	name = "светло-голубые акульи тапочки"
 	icon_state = "shark_light"
-	item_state = "shark_light"

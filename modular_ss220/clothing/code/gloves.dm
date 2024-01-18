@@ -4,4 +4,3 @@
 	icon = 'modular_ss220/clothing/icons/object/gloves.dmi'
 	icon_state = "bike_gloves"
 	icon_override = 'modular_ss220/clothing/icons/mob/hands.dmi'
-	item_state = "bike_gloves"
