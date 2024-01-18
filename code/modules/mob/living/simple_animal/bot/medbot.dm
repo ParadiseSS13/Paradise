@@ -101,7 +101,7 @@
 	Radio.syndiekey = new /obj/item/encryptionkey/syndicate
 
 /mob/living/simple_animal/bot/medbot/syndicate/emagged
-	emagged = 2
+	emagged = TRUE
 	declare_crit = FALSE
 	drops_parts = FALSE
 
@@ -258,7 +258,7 @@
 
 /mob/living/simple_animal/bot/medbot/emag_act(mob/user)
 	..()
-	if(emagged == 2)
+	if(emagged)
 		declare_crit = FALSE
 		if(user)
 			to_chat(user, "<span class='notice'>You short out [src]'s reagent synthesis circuits.</span>")
@@ -412,7 +412,7 @@
 		if(H.dna.species && H.dna.species.reagent_tag == PROCESS_SYN)
 			return FALSE
 
-	if(emagged == 2 || hijacked) //Everyone needs our medicine. (Our medicine is toxins)
+	if(emagged || hijacked) //Everyone needs our medicine. (Our medicine is toxins)
 		return TRUE
 
 	if(syndicate_aligned && !("syndicate" in C.faction))
@@ -461,7 +461,7 @@
 	var/reagent_id
 	var/beaker_injection //If and what kind of beaker reagent needs to be injected
 
-	if(emagged == 2 || hijacked) //Emagged! Time to poison everybody.
+	if(emagged || hijacked) //Emagged! Time to poison everybody.
 		reagent_id = "pancuronium"
 	else
 		beaker_injection = assess_beaker_injection(C)

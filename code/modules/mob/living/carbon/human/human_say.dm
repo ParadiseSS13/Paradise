@@ -69,12 +69,12 @@
 		return FALSE
 	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
 		return FALSE
-	if(getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS)
-		emote("gasp")
-		return FALSE
 	if(mind)
 		return !mind.miming
 	return TRUE
+
+/mob/living/carbon/human/cannot_speak_loudly()
+	return getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS
 
 /mob/living/carbon/human/proc/SetSpecialVoice(new_voice)
 	if(new_voice)
@@ -158,7 +158,7 @@ GLOBAL_LIST_INIT(soapy_words, list(
 			if(prob(braindam / 4))
 				S.message = stutter(S.message)
 				verb = "gibbers"
-			if(prob(braindam))
+			else if(prob(braindam / 2))
 				S.message = uppertext(S.message)
 				verb = "yells loudly"
 

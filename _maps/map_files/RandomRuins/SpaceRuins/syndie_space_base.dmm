@@ -1506,7 +1506,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered/syndicate_space_base/inner)
 "ig" = (
-/obj/structure/kitchenspike,
+/obj/machinery/kitchen_machine/candy_maker,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1665,9 +1665,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 5
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -4493,9 +4491,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "yR" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/service)
 "za" = (
@@ -5033,8 +5029,8 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "BJ" = (
-/obj/machinery/kitchen_machine/candy_maker,
 /obj/machinery/light,
+/obj/machinery/kitchen_machine/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -8576,9 +8572,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 9
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

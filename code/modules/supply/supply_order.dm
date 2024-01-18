@@ -34,7 +34,7 @@
 
 	//create the manifest slip
 	var/obj/item/paper/manifest/slip = new
-	slip.points = object.cost
+	slip.points = object.get_cost()
 	slip.ordernumber = ordernum
 
 	var/stationName = station_name()

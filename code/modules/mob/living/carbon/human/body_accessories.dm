@@ -1,6 +1,6 @@
 
 GLOBAL_LIST_INIT(body_accessory_by_name, list("None" = null))
-GLOBAL_LIST_INIT(body_accessory_by_species, list())
+GLOBAL_LIST_EMPTY(body_accessory_by_species)
 
 /proc/initialize_body_accessory_by_species()
 	for(var/B in GLOB.body_accessory_by_name)
