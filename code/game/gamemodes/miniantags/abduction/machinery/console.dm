@@ -140,7 +140,7 @@
 
 /obj/machinery/abductor/console/proc/TeleporterRetrieve()
 	if(pad && gizmo && gizmo.marked)
-		pad.Retrieve(gizmo.marked)
+		return pad.Retrieve(gizmo.marked)
 
 /obj/machinery/abductor/console/proc/TeleporterSend()
 	if(pad)
