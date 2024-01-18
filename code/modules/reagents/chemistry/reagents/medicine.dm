@@ -1017,9 +1017,8 @@
 		M.AdjustDrowsy(-20 SECONDS)
 		M.SetConfused(0)
 		M.SetSleeping(0)
-		var/status = CANPARALYSE
 		M.add_stun_absorption("stimulants", INFINITY, 5)
-		M.status_flags &= ~status
+		M.status_flags &= ~CANPARALYSE
 	else
 		M.status_flags |= CANPARALYSE
 		if(islist(M.stun_absorption) && M.stun_absorption["stimulants"])
