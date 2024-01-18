@@ -73,7 +73,7 @@
 		return
 
 	if(used)
-		to_chat(user, "<span class='warning'> You've already summoned an apprentice or you are in process of summoning one. </span>")
+		to_chat(user, "<span class='warning'> You've already summoned an apprentice or you are in process of summoning one.</span>")
 		return
 
 	ui_interact(user)

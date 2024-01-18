@@ -20,7 +20,7 @@
 		icon_state = "[initial(icon_state)]"
 
 /obj/item/jammer/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You [active ? "deactivate [src]. It goes quiet with a small click." : "activate [src]. It starts to hum softly."] </span>")
+	to_chat(user, "<span class='notice'>You [active ? "deactivate [src]. It goes quiet with a small click." : "activate [src]. It starts to hum softly."]</span>")
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
 	if(active)
