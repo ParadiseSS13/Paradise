@@ -11088,7 +11088,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc{
-	dir = 8;
 	name = "west bump";
 	pixel_x = -24
 	},
@@ -30605,7 +30604,6 @@
 	dir = 4
 	},
 /obj/machinery/power/apc{
-	dir = 8;
 	name = "west bump";
 	pixel_x = -24
 	},
@@ -47250,7 +47248,6 @@
 /area/station/security/main)
 "dKB" = (
 /obj/machinery/power/apc{
-	dir = 8;
 	name = "west bump";
 	pixel_x = -24
 	},
@@ -64000,7 +63997,6 @@
 /area/station/medical/virology)
 "kSz" = (
 /obj/machinery/power/apc{
-	dir = 8;
 	name = "west bump";
 	pixel_x = -24
 	},
@@ -71952,7 +71948,6 @@
 /area/station/hallway/primary/central/north)
 "ofu" = (
 /obj/machinery/power/apc{
-	dir = 8;
 	name = "west bump";
 	pixel_x = -24
 	},
