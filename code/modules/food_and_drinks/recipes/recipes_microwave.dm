@@ -87,7 +87,7 @@
 /datum/recipe/microwave/xenoburger
 	items = list(
 		/obj/item/food/snacks/bun,
-		/obj/item/food/snacks/monstermeat/xenomeat	)
+		/obj/item/food/snacks/monstermeat/xenomeat)
 	result = /obj/item/food/snacks/burger/xeno
 
 /datum/recipe/microwave/fishburger

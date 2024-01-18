@@ -17,7 +17,7 @@
 /obj/item/gun/throw/piecannon/Initialize(mapload)
 	. = ..()
 	for(var/i in 1 to max_capacity)
-		var/obj/item/food/snacks/pie/P = new /obj/item/food/snacks/pie(src)
+		var/obj/item/food/snacks/pie/P = new (src)
 		loaded_projectiles += P
 	process_chamber()
 

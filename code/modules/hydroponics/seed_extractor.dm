@@ -16,7 +16,7 @@
 	if(extractor)
 		seedloc = extractor.loc
 
-	if(istype(O, /obj/item/food/snacks/grown/))
+	if(istype(O, /obj/item/food/snacks/grown))
 		var/obj/item/food/snacks/grown/F = O
 		if(F.seed)
 			if(user && !user.drop_item()) //couldn't drop the item

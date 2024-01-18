@@ -182,7 +182,7 @@
 /mob/living/simple_animal/hostile/mushroom/harvest()
 	var/counter
 	for(counter=0, counter<=powerlevel, counter++)
-		var/obj/item/food/snacks/hugemushroomslice/S = new /obj/item/food/snacks/hugemushroomslice(src.loc)
+		var/obj/item/food/snacks/hugemushroomslice/S = new (src.loc)
 		S.reagents.add_reagent("psilocybin", powerlevel)
 		S.reagents.add_reagent("omnizine", powerlevel)
 		S.reagents.add_reagent("synaptizine", powerlevel)

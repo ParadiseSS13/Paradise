@@ -329,7 +329,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 			if(GLOB.chicken_count < MAX_CHICKENS && prob(25))
 				START_PROCESSING(SSobj, E)
 
-/obj/item/food/snacks/egg/var/amount_grown = 0
 /obj/item/food/snacks/egg/process()
 	if(isturf(loc))
 		amount_grown += rand(1,2)
