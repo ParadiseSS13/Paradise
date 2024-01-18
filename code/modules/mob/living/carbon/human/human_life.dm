@@ -79,9 +79,8 @@
 	if(!S)
 		return
 	var/current = S.alpha / 255		//Our current adjustedness.
-	var/brightness = 0				//We'll assume it's superdark if we can't find something else..
 	var/turf/T = get_turf(src)
-	brightness = T.get_lumcount()
+	var/brightness = T.get_lumcount()
 	var/darkness = 1 - brightness	//Silly, I know, but 'alpha' and 'darkness' go the same direction on a number line.
 	var/distance = abs(current - darkness) //Used for how long to animate for.
 	if(distance < 0.01)				//We're already all set.
