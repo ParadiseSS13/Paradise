@@ -1017,10 +1017,13 @@
 		M.AdjustDrowsy(-20 SECONDS)
 		M.SetConfused(0)
 		M.SetSleeping(0)
-		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
+		var/status = CANPARALYSE
+		M.add_stun_absorption("stimulants", INFINITY, 5)
 		M.status_flags &= ~status
 	else
-		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+		M.status_flags |= CANPARALYSE
+		if(islist(M.stun_absorption) && M.stun_absorption["stimulants"])
+			M.remove_stun_absorption("stimulants")
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		if(prob(10))
