@@ -53,8 +53,7 @@
 "cz" = (
 /obj/machinery/status_display{
 	mode = 0;
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -72,7 +71,6 @@
 	},
 /obj/machinery/status_display{
 	mode = 0;
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -90,9 +88,7 @@
 /area/ruin/space/abandoned_engi_sat)
 "dk" = (
 /obj/machinery/power/solar,
-/obj/structure/cable{
-	icon_state = "0-1"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel";
 	name = "floor"
@@ -154,7 +150,6 @@
 "ex" = (
 /obj/item/radio/intercom{
 	dir = 1;
-	name = "station intercom (General)";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel,
@@ -212,7 +207,6 @@
 /area/ruin/space/abandoned_engi_sat)
 "gi" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cmo"
 	},
 /area/ruin/space/abandoned_engi_sat)
@@ -260,7 +254,6 @@
 "hP" = (
 /obj/machinery/status_display{
 	mode = 0;
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /obj/effect/landmark/damageturf,
@@ -283,12 +276,10 @@
 "jk" = (
 /obj/machinery/shower{
 	dir = 4;
-	icon_state = "shower";
 	pixel_x = 5
 	},
 /obj/structure/curtain/open/shower/engineering,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cmo"
 	},
 /area/ruin/space/abandoned_engi_sat)
@@ -324,7 +315,6 @@
 /obj/machinery/light,
 /obj/item/radio/intercom{
 	dir = 1;
-	name = "station intercom (General)";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel,
@@ -336,8 +326,7 @@
 "kg" = (
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 0
+	icon_state = "0-2"
 	},
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
@@ -520,8 +509,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -612,7 +600,6 @@
 	desc = "A warning sign which reads 'HIGH VOLTAGE'";
 	icon_state = "shock";
 	name = "HIGH VOLTAGE";
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -670,9 +657,7 @@
 /turf/simulated/floor/wood/airless,
 /area/ruin/space/abandoned_engi_sat)
 "to" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -696,7 +681,6 @@
 /obj/machinery/light,
 /obj/item/radio/intercom{
 	dir = 1;
-	name = "station intercom (General)";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plating,
@@ -707,7 +691,6 @@
 	icon_state = "space";
 	layer = 4;
 	name = "EXTERNAL AIRLOCK";
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -746,27 +729,22 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "xp" = (
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 1
 	},
 /obj/machinery/status_display{
 	mode = 0;
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /obj/structure/closet/crate/internals,
@@ -839,9 +817,7 @@
 "zb" = (
 /obj/item/radio/intercom{
 	dir = 1;
-	name = "station intercom (General)";
-	pixel_x = -28;
-	pixel_y = 0
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
@@ -947,9 +923,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "Db" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1045,8 +1019,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1061,8 +1034,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
@@ -1084,7 +1056,6 @@
 "Ha" = (
 /obj/item/radio/intercom{
 	dir = 1;
-	name = "station intercom (General)";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plating,
@@ -1093,7 +1064,6 @@
 /obj/machinery/light,
 /obj/item/radio/intercom{
 	dir = 1;
-	name = "station intercom (General)";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -1108,9 +1078,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "HX" = (
-/obj/structure/cable{
-	icon_state = "0-1"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel";
 	name = "floor"
@@ -1152,7 +1120,6 @@
 	},
 /obj/item/soap/nanotrasen,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cmo"
 	},
 /area/ruin/space/abandoned_engi_sat)
@@ -1263,8 +1230,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -1293,8 +1259,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -1308,8 +1273,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
@@ -1332,9 +1296,7 @@
 "QJ" = (
 /obj/structure/sink{
 	dir = 4;
-	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
+	pixel_x = 11
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
@@ -1501,12 +1463,10 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced/tinted{
-	dir = 4;
-	icon_state = "twindow"
+	dir = 4
 	},
 /obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "cmo"
 	},
 /area/ruin/space/abandoned_engi_sat)
@@ -1544,17 +1504,14 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "ZS" = (
 /obj/structure/sink{
 	dir = 4;
-	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
+	pixel_x = 11
 	},
 /obj/structure/sign/poster/random{
 	pixel_x = 32
