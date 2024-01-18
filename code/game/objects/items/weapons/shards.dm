@@ -108,7 +108,7 @@
 
 /obj/item/shard/scrap
 	name = "sharpened scrap"
-	desc = "Some discarded scrap metal, it has sharp, jagged edges."
+	desc = "Some discarded scrap metal. It has sharp, jagged edges."
 	icon_state = "scrap"
 	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT)
 	welded_type = /obj/item/stack/sheet/metal
