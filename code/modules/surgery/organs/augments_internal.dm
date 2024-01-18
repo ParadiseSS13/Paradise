@@ -647,33 +647,64 @@
 	owner.physiology.burn_mod /= 1.10
 	return ..()
 
-// Admin-only IPC-exclusive Implants
+// Admin-discretion IPC-exclusive Implants
 
 /obj/item/organ/internal/cyberimp/chest/lazrestarter
 	name = "Lazarus Restarter"
-	desc = "The highly restricted brainchild of researchers at the Canaan University of Technology, this implant makes the user effectively immortal. However, they say it takes quite the toll on the mind."
+	desc = "The brainchild of researchers at the Canaan University of Technology, this implant makes the user effectively immortal at the cost of becoming essentially a shambling zombie."
 	implant_color = "#ffffff"
 	slot = "heartdrive"
 	requires_machine_person = TRUE
-	var/lazrestarted = FALSE
+	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/lazrestarter/on_life()
-	owner.adjustBruteLoss(-4, robotic = TRUE)
-	owner.adjustFireLoss(-4, robotic = TRUE)
-	owner.adjustBrainLoss(-4)
+	owner.adjustBruteLoss(-10, robotic = TRUE)
+	owner.adjustFireLoss(-10, robotic = TRUE)
+	owner.adjustBrainLoss(-25)
 	if(owner.health <= HEALTH_THRESHOLD_CRIT)
-		owner.adjustBruteLoss(-4, robotic = TRUE)
-		owner.adjustFireLoss(-4, robotic = TRUE)
-		owner.adjustBrainLoss(-4)
-	if(owner.stat == DEAD && !lazrestarted)
 		owner.adjustBruteLoss(-25, robotic = TRUE)
 		owner.adjustFireLoss(-25, robotic = TRUE)
-		owner.update_revive()
-		lazrestarted = TRUE
-		addtimer(CALLBACK(src, PROC_REF(lazarusrestarted)), 60)
+		owner.adjustBrainLoss(-50)
 
-/obj/item/organ/internal/cyberimp/chest/lazrestarter/proc/lazarusrestarted()
-	lazrestarted = FALSE
+/obj/item/organ/internal/cyberimp/chest/lazrestarter/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	RegisterSignal(M, COMSIG_MOB_DEATH, PROC_REF(on_death))
+
+/obj/item/organ/internal/cyberimp/chest/lazrestarter/proc/on_death()
+	addtimer(CALLBACK(src, PROC_REF(lazrestart)), 120)
+
+/obj/item/organ/internal/cyberimp/chest/lazrestarter/proc/lazrestart()
+	owner.adjustBruteLoss(-50, robotic = TRUE)
+	owner.adjustFireLoss(-50, robotic = TRUE)
+	owner.adjustBrainLoss(-100)
+	owner.grab_ghost()
+	owner.update_revive()
+
+/obj/item/organ/internal/cyberimp/chest/titanplate
+	name = "Canaanite Titan Plating"
+	desc = "Highly specialized armor plating often found used by certain elite units in the New Canaanite Armed Forces. This type is meant for high- and low-pressure hazardous environments."
+	implant_color = "#383838"
+	slot = "stomach"
+	requires_machine_person = TRUE
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/titanplate/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	owner.physiology.brute_mod *= 0.5
+	owner.physiology.burn_mod *= 0.5
+	ADD_TRAIT(M, TRAIT_RESISTLOWPRESSURE, "titanplate[UID()]")
+	ADD_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, "titanplate[UID()]")
+	ADD_TRAIT(M, TRAIT_RESISTCOLD, "titanplate[UID()]")
+	ADD_TRAIT(M, TRAIT_RESISTHEAT, "titanplate[UID()]")
+
+/obj/item/organ/internal/cyberimp/chest/titanplate/remove(mob/living/carbon/M, special = FALSE)
+	owner.physiology.brute_mod /= 0.5
+	owner.physiology.burn_mod /= 0.5
+	REMOVE_TRAIT(M, TRAIT_RESISTLOWPRESSURE, "titanplate[UID()]")
+	REMOVE_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, "titanplate[UID()]")
+	REMOVE_TRAIT(M, TRAIT_RESISTCOLD, "titanplate[UID()]")
+	REMOVE_TRAIT(M, TRAIT_RESISTHEAT, "titanplate[UID()]")
+	return ..()
 
 //BOX O' IMPLANTS
 

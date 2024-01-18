@@ -496,3 +496,56 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 /obj/item/organ/internal/vocal_cords/colossus/wizard/attack_self(mob/living/user)
 	user.drop_item()
 	insert(user)
+
+// Admin-discretion IPC-exclusive
+/obj/item/organ/internal/vocal_cords/badassreciever
+	name = "ECommand Reciever"
+	desc = "A communications reciever installed in non-leader elite units in the New Canaanite Armed Forces. Also gives the user a badass voice."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "voice_changer_off"
+	parent_organ = "head"
+	slot = "badassrec"
+	requires_machine_person = TRUE
+	emp_proof = TRUE
+
+/obj/item/organ/internal/vocal_cords/badassreciever/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_BADASS, "badasssender[UID()]")
+
+/obj/item/organ/internal/vocal_cords/badassreciever/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_BADASS, "badasssender[UID()]")
+	return ..()
+
+/obj/item/organ/internal/vocal_cords/badasssender
+	name = "ECommand Transmitter"
+	desc = "Used by leaders of elite units in the New Canaanite Armed Forces, this is able to send orders to units installed with reciever units. Also gives them a badass voice."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "voice_changer_off"
+	slot = "badassrec"
+	actions_types = list(/datum/action/item_action/organ_action/use/badasssender)
+	requires_machine_person = TRUE
+	emp_proof = TRUE
+
+/obj/item/organ/internal/vocal_cords/badasssender/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_BADASS, "badasssender[UID()]")
+
+/obj/item/organ/internal/vocal_cords/badasssender/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_BADASS, "badasssender[UID()]")
+	return ..()
+
+/datum/action/item_action/organ_action/use/badasssender/Trigger(left_click)
+	if(!IsAvailable())
+		return
+	var/message = input(owner, "Send orders to subordinates.", "Transmit")
+	if(QDELETED(src) || QDELETED(owner) || !message)
+		return
+	owner.say(".~[message]")
+
+/obj/item/organ/internal/vocal_cords/badasssender/handle_speech(message)
+	var/msg = "<span class='rose'><span class='name'>[owner.real_name]</span> <span class='message'>transmits, \"[message]\"</span></span>"
+	for(var/m in GLOB.player_list)
+		if(iscarbon(m))
+			var/mob/living/carbon/C = m
+			if(C.get_organ_slot("badassrec"))
+				to_chat(C, msg)
