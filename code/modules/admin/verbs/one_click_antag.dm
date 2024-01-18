@@ -137,7 +137,7 @@
 	if(confirm != "Yes")
 		return 0
 	var/image/I = new('icons/mob/simple_human.dmi', "wizard")
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", "wizard", source = I)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", ROLE_WIZARD, source = I)
 
 	log_admin("[key_name(owner)] tried making a Wizard with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a Wizard with One-Click-Antag")
