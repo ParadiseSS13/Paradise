@@ -27,7 +27,7 @@ export const ExosuitFabricator = (properties, context) => {
   const { act, data } = useBackend(context);
   const { building } = data;
   return (
-    <Window width={800} height={600}>
+    <Window width={950} height={625}>
       <Window.Content className="Exofab">
         <Stack fill>
           <Stack.Item grow>
@@ -89,6 +89,7 @@ const Materials = (properties, context) => {
         'plastic',
       ].map((name) => (
         <MaterialCount
+          mt={-2}
           key={name}
           id={name}
           bold={name === 'metal' || name === 'glass'}
@@ -118,7 +119,7 @@ const Designs = (properties, context) => {
       className="Exofab__designs"
       title={
         <Dropdown
-          width="150px"
+          className="Exofab__dropdown"
           selected={curCategory}
           options={categories}
           onSelected={(cat) =>
@@ -172,19 +173,22 @@ const Building = (properties, context) => {
         start={buildStart}
         current={worldTime}
         end={buildEnd}
-        bold
       >
-        <Box float="left">
-          <Icon name="cog" spin />
-        </Box>
-        Building {building}
-        &nbsp;(
-        <Countdown
-          current={worldTime}
-          timeLeft={buildEnd - worldTime}
-          format={(v, f) => f.substr(3)}
-        />
-        )
+        <Stack>
+          <Stack.Item>
+            <Icon name="cog" spin />
+          </Stack.Item>
+          <Stack.Item>
+            Building {building}
+            &nbsp;(
+            <Countdown
+              current={worldTime}
+              timeLeft={buildEnd - worldTime}
+              format={(v, f) => f.substr(3)}
+            />
+            )
+          </Stack.Item>
+        </Stack>
       </ProgressBar.Countdown>
     </Section>
   );
@@ -333,6 +337,8 @@ const MaterialCount = (properties, context) => {
           <Stack.Item
             className="Exofab__material--amount"
             color={insufficient && 'bad'}
+            ml={0}
+            mr={1}
           >
             {curAmount.toLocaleString('en-US')}
           </Stack.Item>
@@ -372,10 +378,12 @@ const Design = (properties, context) => {
           </Box>
         ))}
       </Box>
-      <Box className="Exofab__design--time">
-        <Icon name="clock" />
-        {design.time > 0 ? <>{design.time / 10} seconds</> : 'Instant'}
-      </Box>
+      <Stack className="Exofab__design--time">
+        <Stack.Item>
+          <Icon name="clock" />
+          {design.time > 0 ? <>{design.time / 10} seconds</> : 'Instant'}
+        </Stack.Item>
+      </Stack>
     </Box>
   );
 };

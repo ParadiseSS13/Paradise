@@ -93,7 +93,7 @@
   &--cost {
     display: inline-block;
     vertical-align: middle;
-    margin-top: 0.33rem;
+    margin-top: 0.25rem;
 
     & > div {
       display: inline-block;
@@ -122,15 +122,26 @@
 }
 
 .Exofab__building {
-  height: 55px;
+  height: 45px;
 
   .ProgressBar {
     width: 100%;
-    height: 100%;
+    height: 75%;
   }
   .ProgressBar__content {
-    line-height: 18px;
-    text-align: center;
+    line-height: 26px;
+    text-align: right;
     font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    justify-content: flex-end;
   }
+}
+
+.Exofab__dropdown {
+  line-height: 14px;
+  font-size: 12px;
+  width: 225px;
+  height: 85%;
+  margin-top: 1.5px;
 }
