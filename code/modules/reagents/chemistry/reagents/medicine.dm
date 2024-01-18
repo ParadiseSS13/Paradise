@@ -1034,7 +1034,9 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulants/on_mob_delete(mob/living/M)
-	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+	M.status_flags |= CANPARALYSE
+	if(islist(M.stun_absorption) && M.stun_absorption["stimulants"])
+			M.remove_stun_absorption("stimulants")
 	..()
 
 //the highest end antistun chem, removes stun and stamina rapidly.
