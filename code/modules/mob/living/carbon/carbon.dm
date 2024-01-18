@@ -1194,7 +1194,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(to_eat.reagents.total_volume)
 		taste(to_eat.reagents)
 		var/fraction = min(1 / to_eat.reagents.total_volume, 1)
-		var/drink_size = to_eat.amount_per_transfer_from_this < 5 ? 5 : to_eat.amount_per_transfer_from_this
+		var/drink_size = to_eat.amount_per_transfer_from_this > 5 ? 5 : to_eat.amount_per_transfer_from_this
 		if(fraction)
 			to_eat.reagents.reaction(src, REAGENT_INGEST, fraction)
 			to_eat.reagents.trans_to(src, drink_size)

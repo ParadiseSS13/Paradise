@@ -7,11 +7,11 @@
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = null
 	container_type = OPENCONTAINER
-	var/consume_sound = 'sound/items/drink.ogg'
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	visible_transfer_rate = TRUE
 	volume = 50
 	resistance_flags = NONE
+	var/consume_sound = 'sound/items/drink.ogg'
 	var/chugging = FALSE
 
 /obj/item/reagent_containers/drinks/attack_self(mob/user)
