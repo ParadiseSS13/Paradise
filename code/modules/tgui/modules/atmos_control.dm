@@ -12,8 +12,6 @@
 				alarm.ui_interact(usr)
 
 /datum/ui_module/atmos_control/ui_state(mob/user)
-	if(issilicon(usr))
-		return GLOB.self_state
 	if(isliving(usr))
 		return GLOB.human_adjacent_state
 	return GLOB.default_state

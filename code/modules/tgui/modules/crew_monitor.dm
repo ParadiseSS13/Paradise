@@ -28,8 +28,6 @@
 			viewing_current_z_level = text2num(params["new_level"])
 
 /datum/ui_module/crew_monitor/ui_state(mob/user)
-	if(issilicon(user))
-		return GLOB.self_state
 	return GLOB.default_state
 
 /datum/ui_module/crew_monitor/ui_interact(mob/user, datum/tgui/ui = null)
