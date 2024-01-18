@@ -964,7 +964,7 @@
 			l_power = 3,
 			l_color = SUPERMATTER_SINGULARITY_LIGHT_COLOUR,
 		)
-	if(!combined_gas > MOLE_PENALTY_THRESHOLD || get_integrity() > SUPERMATTER_DANGER_PERCENT)
+	if(!combined_gas > MOLE_PENALTY_THRESHOLD || !get_integrity() < SUPERMATTER_DANGER_PERCENT)
 		for(var/obj/D in darkness_effects)
 			qdel(D)
 		return
@@ -975,7 +975,7 @@
 		l_range = 4 + darkness_aoe,
 		l_power = -1 - darkness_strength,
 		l_color = "#ddd6cf")
-	if(!length(darkness_effects) && !moveable) //Don't do this on movable sms oh god. Ideally don't do this at all, but hey, that's lightning for you
+	if(!length(darkness_effects) && moveable) //Don't do this on movable sms oh god. Ideally don't do this at all, but hey, that's lightning for you
 		darkness_effects += new /obj/effect/abstract(locate(x-3,y+3,z))
 		darkness_effects += new /obj/effect/abstract(locate(x+3,y+3,z))
 		darkness_effects += new /obj/effect/abstract(locate(x-3,y-3,z))
