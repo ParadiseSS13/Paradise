@@ -25,7 +25,7 @@
 	/// The list of reagents to create on Initialize()
 	var/list/list_reagents = list()
 
-	var/temperature_min = 0 // To limit the temperature of a reagent container can atain when exposed to heat/cold
+	var/temperature_min = 0 // To limit the temperature of a reagent container can attain when exposed to heat/cold
 	var/temperature_max = 10000
 
 /obj/item/food/Initialize(mapload)
