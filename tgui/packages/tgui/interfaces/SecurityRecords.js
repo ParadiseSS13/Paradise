@@ -8,8 +8,8 @@ import {
   LabeledList,
   Section,
   Stack,
-  Table,
   Tabs,
+  Table,
 } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
@@ -201,6 +201,7 @@ const SecurityRecordsActions = (properties, context) => {
     <Stack fill>
       <Stack.Item>
         <Button
+          ml="0.25rem"
           content="New Record"
           icon="plus"
           onClick={() => act('new_general')}
