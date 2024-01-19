@@ -232,7 +232,7 @@
 	if(!proximity && !bluespace_toggle)
 		return
 	var/turf/replace_turf = get_turf(T)
-	if(!istype(T))
+	if(!istype(replace_turf))
 		return
 	if(get_dist(src, T) >= (U.client.maxview() + 2)) // To prevent people from using it over cameras
 		return
