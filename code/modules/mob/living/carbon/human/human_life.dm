@@ -146,14 +146,15 @@
 	if(dna.species)
 		var/datum/species/S = dna.species
 
-		if(S.breathid == "o2")
-			throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
-		else if(S.breathid == "tox")
-			throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
-		else if(S.breathid == "co2") // currently unused
-			throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2)
-		else if(S.breathid == "n2")
-			throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
+		switch(S.breathid)
+			if("o2")
+				throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+			if("tox")
+				throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
+			if("co2") // currently unused
+				throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2)
+			if("n2")
+				throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
 	return FALSE
 
 // USED IN DEATHWHISPERS

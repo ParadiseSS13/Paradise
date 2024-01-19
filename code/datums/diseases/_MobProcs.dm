@@ -153,12 +153,12 @@
 	if(HAS_TRAIT(src, TRAIT_VIRUSIMMUNE) && !D.bypasses_immunity)
 		return FALSE
 
-	for(var/thing in D.required_organs)
-		if(istext(thing) && get_int_organ_datum(thing))
+	for(var/organ in D.required_organs)
+		if(istext(organ) && get_int_organ_datum(organ))
 			continue
-		if(locate(thing) in internal_organs)
+		if(locate(organ) in internal_organs)
 			continue
-		if(locate(thing) in bodyparts)
+		if(locate(organ) in bodyparts)
 			continue
 		return FALSE
 	return ..()
