@@ -34033,16 +34033,9 @@
 	},
 /area/station/security/processing)
 "cGX" = (
-/obj/machinery/power/treadmill{
-	dir = 4;
-	id = "treadmill2"
-	},
-/obj/machinery/treadmill_monitor{
-	pixel_x = 32;
-	id = "treadmill2"
-	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/radio/intercom/directional/south,
+/obj/structure/closet/masks,
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "cGY" = (
@@ -76569,15 +76562,8 @@
 	},
 /area/station/maintenance/starboard2)
 "mYH" = (
-/obj/machinery/power/treadmill{
-	dir = 4;
-	id = "treadmill1"
-	},
-/obj/machinery/treadmill_monitor{
-	pixel_x = 32;
-	id = "treadmill1"
-	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/boxinggloves,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
