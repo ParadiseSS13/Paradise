@@ -50036,11 +50036,6 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_4)
 "dgH" = (
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/mug,
 /obj/machinery/power/apc{
@@ -50213,6 +50208,11 @@
 	},
 /obj/structure/chair/wood{
 	dir = 8
+	},
+/obj/machinery/newscaster{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/wood,
 /area/station/public/mrchangs)
