@@ -61,9 +61,9 @@
 		timer_off = TRUE
 		to_chat(user, "<span class='notice'>You synchronized [src] to a detonator.</span>")
 		playsound(src, 'sound/machines/twobeep.ogg', 50)
+		detonator.update_icon()
 	else
 		to_chat(user, "<span class='warning'>[src] was already synchronized to a existing detonator!</span>")
-	detonator.update_icon()
 
 /obj/item/grenade/plastic/miningcharge/proc/detonate()
 	addtimer(CALLBACK(src, PROC_REF(prime)), 3 SECONDS)
@@ -78,13 +78,13 @@
 	S.start()
 	//location.attempt_drill(null,TRUE,3) //Ru-paradise uses special hardness system - some rocks can be destroyed only after 2 or 3 hits. It stays here as the reminder that ss220 lavaland is better.
 	for(var/turf/simulated/mineral/rock in circlerangeturfs(location, boom_sizes[3]))
-		var/distance = get_dist_euclidian(location,rock)
+		var/distance = get_dist_euclidian(location, rock)
 		if(distance <= boom_sizes[3])
 			rock.mineralAmt += 3 // if rock is going to get drilled, add bonus mineral amount
 			rock.gets_drilled()
-	for(var/mob/living/carbon/C in circlerange(location,boom_sizes[3]))
+	for(var/mob/living/carbon/C in circlerange(location, boom_sizes[3]))
 		if(ishuman(C)) //working on everyone
-			var/distance = get_dist_euclidian(location,C)
+			var/distance = get_dist_euclidian(location, C)
 			C.flash_eyes()
 			C.Weaken((boom_sizes[2] - distance) * 1 SECONDS) //1 second for how close you are to center if you're in range
 			C.AdjustDeaf((boom_sizes[3] - distance) * 10 SECONDS)
@@ -169,7 +169,7 @@
 	playsound(src, "sparks", 50, TRUE)
 	charges--
 	if(charges <= 0)
-		to_chat(user ,"<span class='warning'>[src]'s internal battery for overriding mining charges has run dry!</span>")
+		to_chat(user, "<span class='warning'>[src]'s internal battery for overriding mining charges has run dry!</span>")
 
 // MINING CHARGES DETONATOR
 
