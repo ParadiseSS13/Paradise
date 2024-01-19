@@ -193,7 +193,7 @@
 	locked = TRUE //lock gibber
 	occupant.dir = SOUTH
 
-	var/image/victim = image(icon = getFlatIcon(occupant, 2), loc = src, layer = MOB_LAYER, pixel_y = 25) // Copies the look of the victim and places them above the gibber, can't grab the exact icon because it needs to be considered as static to mask the feet later on
+	var/image/victim = image(icon = getFlatIcon(occupant, SOUTH), loc = src, layer = MOB_LAYER, pixel_y = 25) // Copies the look of the victim and places them above the gibber, can't grab the exact icon because it needs to be considered as static to mask the feet later on
 	var/image/grinder_overlay = image(icon = 'icons/obj/kitchen.dmi', loc = src, icon_state = "grinder_overlay")
 	if(dirty)
 		grinder_overlay.overlays += image(icon = 'icons/obj/kitchen.dmi', icon_state = "grinder_bloody")
