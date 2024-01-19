@@ -9,6 +9,7 @@ import { Box, Tabs, Flex, Button } from 'tgui/components';
 import { changeChatPage, addChatPage } from './actions';
 import { selectChatPages, selectCurrentChatPage } from './selectors';
 import { openChatSettings } from '../settings/actions';
+import { useSettings } from 'tgui-panel/settings';
 
 const UnreadCountWidget = ({ value }) => (
   <Box
@@ -29,6 +30,7 @@ export const ChatTabs = (props, context) => {
   const pages = useSelector(context, selectChatPages);
   const currentPage = useSelector(context, selectCurrentChatPage);
   const dispatch = useDispatch(context);
+  const settings = useSettings(context);
   return (
     <Flex align="center">
       <Flex.Item>
@@ -42,13 +44,7 @@ export const ChatTabs = (props, context) => {
                   <UnreadCountWidget value={page.unreadCount} />
                 )
               }
-              onClick={() =>
-                dispatch(
-                  changeChatPage({
-                    pageId: page.id,
-                  })
-                )
-              }
+              onClick={() => OpenSettingsOrSwapTab(page, currentPage, context)}
             >
               {page.name}
             </Tabs.Tab>
@@ -67,4 +63,15 @@ export const ChatTabs = (props, context) => {
       </Flex.Item>
     </Flex>
   );
+};
+
+// Handles switching to a new tab or closing/opening settings by just double clicking on the chat tab
+const OpenSettingsOrSwapTab = (our_page, ourCurrentPage, our_context) => {
+  const settings = useSettings(our_context);
+  const dispatch = useDispatch(our_context);
+  if (ourCurrentPage === our_page) {
+    return settings.toggle();
+  } else {
+    return dispatch(changeChatPage({ pageId: our_page.id }));
+  }
 };

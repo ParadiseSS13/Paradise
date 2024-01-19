@@ -82,7 +82,7 @@ export const SettingsGeneral = (props, context) => {
   const dispatch = useDispatch(context);
   const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
   return (
-    <Section height="150px">
+    <Section height="175px">
       <LabeledList>
         <LabeledList.Item label="Theme">
           <Dropdown
@@ -196,7 +196,7 @@ const TextHighlightSettings = (props, context) => {
   const highlightSettings = useSelector(context, selectHighlightSettings);
   const dispatch = useDispatch(context);
   return (
-    <Section fill scrollable height="230px">
+    <Section fill scrollable height="175px">
       <Section>
         <Stack vertical>
           {highlightSettings.map((id, i) => (

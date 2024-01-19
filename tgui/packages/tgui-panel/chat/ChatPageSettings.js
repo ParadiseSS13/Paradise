@@ -21,7 +21,7 @@ export const ChatPageSettings = (props, context) => {
   const page = useSelector(context, selectCurrentChatPage);
   const dispatch = useDispatch(context);
   return (
-    <Section fill>
+    <Section fill height="175px">
       <Stack align="center">
         <Stack.Item grow>
           <Input
