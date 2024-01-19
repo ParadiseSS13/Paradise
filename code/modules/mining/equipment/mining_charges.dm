@@ -6,7 +6,7 @@
 	item_state = "charge_indust"
 	det_time = 5
 	notify_admins = FALSE // no need to make adminlogs on lavaland, while they are "safe" to use
-	var/timer_off = FALSE
+	var/timer_off = FALSE // when TRUE, charges won't detonate on it's own. Used for mining detonator
 	var/installed = FALSE
 	var/smoke_amount = 3
 	/// list of sizes for explosion. Third number is used for actual rock explosion size, second number is radius for Weaken() effects, first is used for hacked charges
@@ -69,14 +69,14 @@
 	addtimer(CALLBACK(src, PROC_REF(prime)), 3 SECONDS)
 
 /obj/item/grenade/plastic/miningcharge/prime()
-	if(hacked) //explosion
+	if(hacked) //try not to blow your fingers off
 		explode()
 		return
 	var/turf/simulated/mineral/location = get_turf(target)
 	var/datum/effect_system/smoke_spread/S = new
 	S.set_up(smoke_amount, 0, location, null)
 	S.start()
-	//location.attempt_drill(null,TRUE,3) //orange says it doesnt include the actual middle
+	//location.attempt_drill(null,TRUE,3) //Ru-paradise uses special hardness system - some rocks can be destroyed only after 2 or 3 hits. It stays here as the reminder that ss220 lavaland is better.
 	for(var/turf/simulated/mineral/rock in circlerangeturfs(location, boom_sizes[3]))
 		var/distance = get_dist_euclidian(location,rock)
 		if(distance <= boom_sizes[3])
@@ -205,11 +205,12 @@
 			if(QDELETED(charge))
 				to_chat(user, "<span class='notice'>Can't reach [charge]. Deleting from the list...</span>")
 				bombs -= charge
+				update_icon() //if the last bomb was qdeleted, detonator icon should change after activating
 				return
 			if(charge.installed)
 				bombs -= charge
 				charge.detonate()
+				update_icon()
 	else
 		to_chat(user, "<span class='warning'>There is no charges linked to a detonator!</span>")
-	update_icon()
 	return ..()
