@@ -93,7 +93,7 @@
 	Use it on a mining charge to override its safeties. Reduces explosive power of mining charges due to the modification of their internals."
 	reference = "MCH"
 	item = /obj/item/t_scanner/adv_mining_scanner/syndicate
-	cost = 25 //I'm not really good at balancing build that I don't even play..
+	cost = 25
 	job = list("Shaft Miner")
 
 //Chef
