@@ -53,7 +53,7 @@
 		affected_mob.overlays.Cut()
 		affected_mob.invisibility = 101
 		for(var/obj/item/W in affected_mob)
-			if(istype(W, /obj/item/implant))
+			if(istype(W, /obj/item/bio_chip))
 				qdel(W)
 				continue
 			W.layer = initial(W.layer)
@@ -71,6 +71,8 @@
 				affected_mob.mind.transfer_to(new_mob)
 			else
 				new_mob.key = affected_mob.key
+			if(isrobot(new_mob))
+				new_mob.rename_self("Cyborg", TRUE, TRUE)
 		qdel(affected_mob)
 
 

@@ -113,7 +113,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/implant/explosive/E = new(H)
+	var/obj/item/bio_chip/explosive/E = new(H)
 	E.implant(H)
 
 
@@ -136,8 +136,8 @@
 	uplink_uses = 200
 	id_access = "Syndicate Agent"
 
-	implants = list(
-		/obj/item/implant/dust
+	bio_chips = list(
+		/obj/item/bio_chip/dust
 	)
 
 
@@ -181,11 +181,11 @@
 	pda = /obj/item/pda/centcom
 	backpack_contents = list(
 		/obj/item/storage/box/centcomofficer = 1,
-		/obj/item/implanter/death_alarm = 1
+		/obj/item/bio_chip_implanter/death_alarm = 1
 	)
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/dust
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/dust
 	)
 
 /datum/outfit/admin/nt_navy_captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -212,11 +212,11 @@
 	pda = /obj/item/pda/centcom
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
-		/obj/item/implanter/death_alarm = 1,
+		/obj/item/bio_chip_implanter/death_alarm = 1,
 	)
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/dust
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/dust
 	)
 
 /datum/outfit/admin/nt_diplomat/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -246,8 +246,8 @@
 		/obj/item/flashlight = 1,
 		/obj/item/pinpointer/crew = 1
 	)
-	implants = list(
-		/obj/item/implant/dust
+	bio_chips = list(
+		/obj/item/bio_chip/dust
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
@@ -299,9 +299,9 @@
 		/obj/item/shield/energy,
 	)
 
-	implants = list(
-		/obj/item/implant/mindshield, // No death alarm, Deathsquad are silent
-		/obj/item/implant/dust
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield, // No death alarm, Deathsquad are silent
+		/obj/item/bio_chip/dust
 	)
 
 /datum/outfit/admin/deathsquad_commando/leader
@@ -701,12 +701,12 @@
 	pda = /obj/item/pda
 	backpack_contents = list(
 		/obj/item/storage/box/responseteam = 1,
-		/obj/item/implanter/dust = 1,
-		/obj/item/implanter/death_alarm = 1,
+		/obj/item/bio_chip_implanter/dust = 1,
+		/obj/item/bio_chip_implanter/death_alarm = 1,
 	)
 
-	implants = list(/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	bio_chips = list(/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 /datum/outfit/admin/solgov_rep/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -749,8 +749,8 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security
 	)
-	implants = list(/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	bio_chips = list(/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 	var/is_solgov_lieutenant = FALSE
@@ -911,58 +911,57 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Space Explorer")
 
-/datum/outfit/admin/hardsuit
-	name = "Hardsuit - Generic"
-	back = /obj/item/tank/jetpack/oxygen
+/datum/outfit/admin/modsuit
+	name = "MODsuit - Generic"
+	back = /obj/item/mod/control/pre_equipped/standard
+	suit_store = /obj/item/tank/internals/oxygen
 	mask = /obj/item/clothing/mask/breath
 	shoes = /obj/item/clothing/shoes/magboots
 	id = /obj/item/card/id
 
-/datum/outfit/admin/hardsuit/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admin/modsuit/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
 
-	if(istype(H.back, /obj/item/tank/jetpack))
-		var/obj/item/tank/jetpack/J = H.back
-		J.turn_on()
+	if(istype(H.back, /obj/item/tank/internals/oxygen))
+		var/obj/item/tank/internals/oxygen/J = H.back
 		J.toggle_internals(H)
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Hardsuit Tester")
+		apply_to_card(I, H, get_all_accesses(), "MODsuit Tester")
 
-/datum/outfit/admin/hardsuit/engineer
-	name = "Hardsuit - Engineer"
-	suit = /obj/item/clothing/suit/space/hardsuit/engine
+/datum/outfit/admin/modsuit/engineer
+	name = "MODsuit - Engineer"
+	back = /obj/item/mod/control/pre_equipped/engineering
 
-/datum/outfit/admin/hardsuit/ce
-	name = "Hardsuit - CE"
-	suit = /obj/item/clothing/suit/space/hardsuit/engine/elite
+/datum/outfit/admin/modsuit/ce
+	name = "MODsuit - CE"
+	back = /obj/item/mod/control/pre_equipped/advanced
 	shoes = /obj/item/clothing/shoes/magboots/advance
 
-/datum/outfit/admin/hardsuit/mining
-	name = "Hardsuit - Mining"
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
+/datum/outfit/admin/modsuit/mining
+	name = "MODsuit - Mining"
+	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 
-/datum/outfit/admin/hardsuit/syndi
-	name = "Hardsuit - Syndi"
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
+/datum/outfit/admin/modsuit/syndi
+	name = "MODsuit - Syndi"
+	back = /obj/item/mod/control/pre_equipped/traitor
 	shoes = /obj/item/clothing/shoes/magboots/syndie
 
-/datum/outfit/admin/hardsuit/wizard
+/datum/outfit/admin/modsuit/wizard // Technically not a MODsuit, we'll bundle it up in here for the future when it does become one
 	name = "Hardsuit - Wizard"
 	suit = /obj/item/clothing/suit/space/hardsuit/wizard
 	shoes = /obj/item/clothing/shoes/magboots/wizard
 
-/datum/outfit/admin/hardsuit/medical
-	name = "Hardsuit - Medical"
-	suit = /obj/item/clothing/suit/space/hardsuit/medical
+/datum/outfit/admin/modsuit/medical
+	name = "MODsuit - Medical"
+	back = /obj/item/mod/control/pre_equipped/medical
 
-/datum/outfit/admin/hardsuit/atmos
-	name = "Hardsuit - Atmos"
-	suit = /obj/item/clothing/suit/space/hardsuit/engine/atmos
-
+/datum/outfit/admin/modsuit/atmos
+	name = "MODsuit - Atmos"
+	back = /obj/item/mod/control/pre_equipped/atmospheric
 
 /datum/outfit/admin/tournament
 	name = "Tournament Generic"
@@ -1042,7 +1041,7 @@
 	. = ..()
 
 	for(var/obj/item/I in H.contents)
-		if(!istype(I, /obj/item/implant))
+		if(!istype(I, /obj/item/bio_chip))
 			I.add_mob_blood(H)
 
 	if(visualsOnly)
@@ -1077,7 +1076,7 @@
 	. = ..()
 
 	for(var/obj/item/I in H.contents)
-		if(!istype(I, /obj/item/implant))
+		if(!istype(I, /obj/item/bio_chip))
 			I.add_mob_blood(H)
 
 	if(visualsOnly)
@@ -1274,8 +1273,8 @@
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
 	)
-	implants = list(
-		/obj/item/implant/dust
+	bio_chips = list(
+		/obj/item/bio_chip/dust
 	)
 
 /datum/outfit/admin/dark_priest/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -1372,7 +1371,7 @@
 	shoes = /obj/item/clothing/shoes/black
 	box = /obj/item/storage/box/survival
 	backpack_contents = list(
-		/obj/item/implanter/dust = 1
+		/obj/item/bio_chip_implanter/dust = 1
 		)
 
 /datum/outfit/admin/observer/plasmaman

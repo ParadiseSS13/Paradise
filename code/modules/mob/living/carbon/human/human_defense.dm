@@ -749,10 +749,8 @@ emp_act
 
 /mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
-	if(shoes && isclothing(shoes))
-		var/obj/item/clothing/S = shoes
-		if(S.flags & NOSLIP)
-			return FALSE
+	if(HAS_TRAIT(src, TRAIT_NOSLIP))
+		return FALSE
 	return ..()
 
 /mob/living/carbon/human/water_act(volume, temperature, source, method = REAGENT_TOUCH)

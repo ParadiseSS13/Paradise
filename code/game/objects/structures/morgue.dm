@@ -152,6 +152,10 @@
 	update_state()
 	return
 
+/obj/structure/morgue/attack_ai(mob/user)
+	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
+		attack_hand(user)
+
 /obj/structure/morgue/attack_animal(mob/living/user)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -265,22 +269,6 @@
 		add_fingerprint(user)
 		qdel(src)
 		return
-
-/obj/structure/m_tray/attack_animal(mob/living/user)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
-	if(user.mob_size < MOB_SIZE_HUMAN)
-		return ..()
-	if(!user.mind) //Stops mindless mobs from doing weird stuff with them
-		return ..()
-	attack_hand(user)
-
-/obj/structure/m_tray/attack_alien(mob/user)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
-	if(!user.mind)
-		return ..()
-	attack_hand(user)
 
 /obj/structure/m_tray/MouseDrop_T(atom/movable/O, mob/living/user)
 	if((!(istype(O, /atom/movable)) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src) || user.contents.Find(O)))
