@@ -30,9 +30,9 @@
 	dir = 1
 	},
 /obj/structure/curtain/open{
-	color = "#222222";
 	name = "wizard council curtain";
-	pixel_y = -2
+	pixel_y = -2;
+	color = "#222222"
 	},
 /turf/simulated/floor/carpet/red,
 /area/wizard_station)
@@ -95,8 +95,8 @@
 /obj/structure/table/holotable,
 /obj/machinery/readybutton,
 /turf/simulated/floor/holofloor{
-	dir = 9;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 9
 	},
 /area/holodeck/source_knightarena)
 "at" = (
@@ -123,8 +123,8 @@
 /area/abductor_ship)
 "ax" = (
 /turf/simulated/floor/holofloor{
-	icon_state = "engine";
-	name = "Holodeck Projector Floor"
+	name = "Holodeck Projector Floor";
+	icon_state = "engine"
 	},
 /area/holodeck/source_wildlife)
 "ay" = (
@@ -135,18 +135,18 @@
 /area/abductor_ship)
 "az" = (
 /turf/simulated/floor/holofloor{
-	icon_state = "engine";
-	name = "Holodeck Projector Floor"
+	name = "Holodeck Projector Floor";
+	icon_state = "engine"
 	},
 /area/holodeck/source_plating)
 "aA" = (
 /turf/simulated/floor/holofloor{
-	icon_state = "engine";
 	name = "Burn-Mix Floor";
-	nitrogen = 0;
+	icon_state = "engine";
 	oxygen = 2500;
 	temperature = 370;
-	toxins = 5000
+	toxins = 5000;
+	nitrogen = 0
 	},
 /area/holodeck/source_burntest)
 "aB" = (
@@ -154,14 +154,14 @@
 /area/ninja/outpost)
 "aC" = (
 /turf/simulated/floor/holofloor{
-	dir = 1;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 1
 	},
 /area/holodeck/source_emptycourt)
 "aD" = (
 /turf/simulated/floor/holofloor{
-	dir = 9;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 9
 	},
 /area/holodeck/source_emptycourt)
 "aE" = (
@@ -182,8 +182,8 @@
 "aK" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 1
 	},
 /area/centcom/specops)
 "aL" = (
@@ -213,25 +213,25 @@
 "aP" = (
 /obj/effect/landmark/spawner/holocarp,
 /turf/simulated/floor/holofloor{
-	icon_state = "engine";
-	name = "Holodeck Projector Floor"
+	name = "Holodeck Projector Floor";
+	icon_state = "engine"
 	},
 /area/holodeck/source_wildlife)
 "aQ" = (
 /obj/effect/landmark/spawner/atmos_test,
 /turf/simulated/floor/holofloor{
-	icon_state = "engine";
 	name = "Burn-Mix Floor";
-	nitrogen = 0;
+	icon_state = "engine";
 	oxygen = 2500;
 	temperature = 370;
-	toxins = 5000
+	toxins = 5000;
+	nitrogen = 0
 	},
 /area/holodeck/source_burntest)
 "aR" = (
 /turf/simulated/floor/holofloor{
-	dir = 8;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 8
 	},
 /area/holodeck/source_emptycourt)
 "aT" = (
@@ -252,8 +252,8 @@
 /area/abductor_ship)
 "aW" = (
 /turf/simulated/floor/holofloor{
-	dir = 5;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 5
 	},
 /area/holodeck/source_emptycourt)
 "aX" = (
@@ -289,8 +289,8 @@
 /area/holodeck/source_meetinghall)
 "bc" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "browncorner"
+	icon_state = "browncorner";
+	dir = 4
 	},
 /area/shuttle/escape)
 "bd" = (
@@ -330,8 +330,8 @@
 /area/shuttle/assault_pod)
 "bo" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "wood"
+	icon_state = "wood";
+	dir = 4
 	},
 /area/holodeck/source_theatre)
 "bp" = (
@@ -355,8 +355,8 @@
 /area/holodeck/source_picnicarea)
 "bu" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 4
 	},
 /area/holodeck/source_emptycourt)
 "bv" = (
@@ -383,8 +383,8 @@
 /area/abductor_ship)
 "bC" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 4
 	},
 /area/holodeck/source_emptycourt)
 "bE" = (
@@ -406,8 +406,8 @@
 "bI" = (
 /obj/structure/holowindow,
 /turf/simulated/floor/holofloor{
-	dir = 8;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 8
 	},
 /area/holodeck/source_knightarena)
 "bJ" = (
@@ -446,8 +446,8 @@
 /area/ninja/holding)
 "bS" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "propulsion_r"
+	icon_state = "propulsion_r";
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
@@ -456,8 +456,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "blue"
+	icon_state = "blue";
+	dir = 4
 	},
 /area/holodeck/source_knightarena)
 "bU" = (
@@ -482,8 +482,8 @@
 /area/ninja/holding)
 "ca" = (
 /turf/simulated/floor/holofloor{
-	dir = 6;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 6
 	},
 /area/holodeck/source_emptycourt)
 "cc" = (
@@ -563,8 +563,8 @@
 /area/holodeck/source_meetinghall)
 "cn" = (
 /turf/simulated/floor/holofloor{
-	dir = 9;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 9
 	},
 /area/holodeck/source_basketball)
 "co" = (
@@ -585,8 +585,8 @@
 /area/abductor_ship)
 "cq" = (
 /turf/simulated/floor/holofloor{
-	dir = 5;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 5
 	},
 /area/holodeck/source_basketball)
 "cr" = (
@@ -609,8 +609,8 @@
 /area/ninja/holding)
 "cu" = (
 /turf/simulated/floor/holofloor{
-	dir = 8;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 8
 	},
 /area/holodeck/source_thunderdomecourt)
 "cv" = (
@@ -621,16 +621,16 @@
 /area/ninja/holding)
 "cw" = (
 /turf/simulated/floor/holofloor{
-	dir = 1;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 1
 	},
 /area/holodeck/source_boxingcourt)
 "cx" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/gloves/boxing/hologlove,
 /turf/simulated/floor/holofloor{
-	dir = 9;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 9
 	},
 /area/holodeck/source_boxingcourt)
 "cy" = (
@@ -649,9 +649,9 @@
 /area/holodeck/source_snowfield)
 "cB" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
 	icon = 'icons/turf/floors/plating.dmi';
-	icon_state = "asteroid3"
+	icon_state = "asteroid3";
+	dir = 4
 	},
 /area/holodeck/source_desert)
 "cC" = (
@@ -667,14 +667,14 @@
 /area/ghost_bar)
 "cE" = (
 /turf/simulated/floor/holofloor{
-	dir = 8;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 8
 	},
 /area/holodeck/source_basketball)
 "cF" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 4
 	},
 /area/holodeck/source_basketball)
 "cG" = (
@@ -701,8 +701,8 @@
 	dir = 8
 	},
 /obj/structure/window/plasmareinforced{
-	color = "#FF0000";
-	dir = 4
+	dir = 4;
+	color = "#FF0000"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
@@ -712,8 +712,8 @@
 /area/wizard_station)
 "cL" = (
 /turf/simulated/floor/holofloor{
-	dir = 8;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 8
 	},
 /area/holodeck/source_boxingcourt)
 "cN" = (
@@ -736,8 +736,8 @@
 /area/wizard_station)
 "cQ" = (
 /turf/simulated/floor/holofloor{
-	dir = 1;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 1
 	},
 /area/holodeck/source_basketball)
 "cR" = (
@@ -747,12 +747,8 @@
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "cS" = (
-/obj/effect/landmark/spawner/teleport_scroll,
 /obj/structure/table/wood/fancy/black,
-/obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet{
-	name = "our demands";
-	info = "Deliver five cream pies to the agreed place or your apprentice gets honked again"
-	},
+/obj/structure/pondering_orb,
 /turf/simulated/floor/carpet/purple,
 /area/wizard_station)
 "cU" = (
@@ -810,8 +806,8 @@
 /area/ninja/holding)
 "dj" = (
 /turf/simulated/floor/holofloor{
-	dir = 8;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 8
 	},
 /area/holodeck/source_knightarena)
 "dk" = (
@@ -840,14 +836,14 @@
 /area/holodeck/source_basketball)
 "dq" = (
 /turf/simulated/floor/holofloor{
-	dir = 10;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 10
 	},
 /area/holodeck/source_basketball)
 "dr" = (
 /turf/simulated/floor/holofloor{
-	dir = 6;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 6
 	},
 /area/holodeck/source_basketball)
 "ds" = (
@@ -861,8 +857,8 @@
 "dv" = (
 /obj/machinery/atmospherics/unary/cryo_cell/upgraded,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
+	icon_state = "whiteblue";
+	dir = 1
 	},
 /area/centcom/control)
 "dw" = (
@@ -897,12 +893,12 @@
 "dD" = (
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_x = 25;
-	req_access_txt = "150";
-	vent_link_id = "syndishuttle_vent";
 	ext_door_link_id = "syndishuttle_door_ext";
 	int_door_link_id = "syndishuttle_door_int";
 	ext_button_link_id = "syndishuttle_btn_ext";
-	int_button_link_id = "syndishuttle_btn_int"
+	int_button_link_id = "syndishuttle_btn_int";
+	vent_link_id = "syndishuttle_vent";
+	req_access_txt = "150"
 	},
 /obj/machinery/light{
 	dir = 4
@@ -926,8 +922,8 @@
 /area/ninja/holding)
 "dG" = (
 /turf/simulated/floor/holofloor{
-	dir = 1;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 1
 	},
 /area/holodeck/source_basketball)
 "dH" = (
@@ -945,26 +941,26 @@
 /area/centcom)
 "dJ" = (
 /turf/simulated/floor/holofloor{
-	dir = 9;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 9
 	},
 /area/holodeck/source_basketball)
 "dK" = (
 /turf/simulated/floor/holofloor{
-	dir = 5;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 5
 	},
 /area/holodeck/source_basketball)
 "dL" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 4
 	},
 /area/holodeck/source_boxingcourt)
 "dO" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 4
 	},
 /area/holodeck/source_boxingcourt)
 "dR" = (
@@ -973,12 +969,12 @@
 /area/ghost_bar)
 "dS" = (
 /obj/docking_port/stationary/transit{
+	name = "pod 3 in transit";
 	dir = 4;
-	dwidth = 1;
+	width = 3;
 	height = 4;
 	id = "pod3_transit";
-	name = "pod 3 in transit";
-	width = 3
+	dwidth = 1
 	},
 /turf/space/transit/east{
 	dir = 8
@@ -1015,14 +1011,14 @@
 /area/ninja/holding)
 "dY" = (
 /turf/simulated/floor/holofloor{
-	dir = 8;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 8
 	},
 /area/holodeck/source_basketball)
 "dZ" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 4
 	},
 /area/holodeck/source_basketball)
 "eb" = (
@@ -1061,8 +1057,8 @@
 /area/ninja/holding)
 "ei" = (
 /obj/machinery/door/airlock/centcom{
-	id_tag = "adminshuttle";
 	name = "Workshop";
+	id_tag = "adminshuttle";
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -1078,8 +1074,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 8
 	},
 /area/centcom/evac)
 "el" = (
@@ -1089,19 +1085,19 @@
 /area/holodeck/source_basketball)
 "em" = (
 /turf/simulated/floor/holofloor{
-	icon_state = "sand";
-	name = "Soft sand"
+	name = "Soft sand";
+	icon_state = "sand"
 	},
 /area/holodeck/source_beach)
 "en" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/candle/eternal/wizard{
-	pixel_y = 5;
-	pixel_x = -7
+	pixel_x = -7;
+	pixel_y = 5
 	},
 /obj/item/reagent_containers/food/drinks/mugwort{
-	pixel_y = 6;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 6
 	},
 /turf/simulated/floor/carpet/purple,
 /area/wizard_station)
@@ -1129,21 +1125,21 @@
 /area/ghost_bar)
 "ex" = (
 /obj/docking_port/stationary/transit{
+	name = "mining in transit";
 	dir = 8;
-	dwidth = 3;
+	width = 7;
 	height = 5;
 	id = "mining_transit";
-	name = "mining in transit";
-	width = 7
+	dwidth = 3
 	},
 /turf/space/transit,
 /area/space/centcomm)
 "ey" = (
 /obj/structure/chair/stool,
 /obj/machinery/computer/security/telescreen{
+	name = "Entertainment monitor";
 	desc = "Damn, they better have /tg/thechannel on these things.";
 	icon_state = "entertainment";
-	name = "Entertainment monitor";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -1167,14 +1163,14 @@
 /area/ghost_bar)
 "eB" = (
 /turf/simulated/floor/holofloor{
-	dir = 10;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 10
 	},
 /area/holodeck/source_basketball)
 "eC" = (
 /turf/simulated/floor/holofloor{
-	dir = 6;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 6
 	},
 /area/holodeck/source_basketball)
 "eE" = (
@@ -1186,8 +1182,8 @@
 /area/ninja/holding)
 "eG" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 8
 	},
 /area/centcom/specops)
 "eH" = (
@@ -1213,8 +1209,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 4
 	},
 /area/holodeck/source_thunderdomecourt)
 "eM" = (
@@ -1224,8 +1220,8 @@
 	item_state = "boxinggreen"
 	},
 /turf/simulated/floor/holofloor{
-	dir = 6;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 6
 	},
 /area/holodeck/source_boxingcourt)
 "eN" = (
@@ -1245,20 +1241,20 @@
 /area/holodeck/source_boxingcourt)
 "eU" = (
 /obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'FOURTH WALL'.";
 	name = "\improper FOURTH WALL";
+	desc = "A warning sign which reads 'FOURTH WALL'.";
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
 "eV" = (
 /obj/docking_port/stationary/transit{
+	name = "supply in transit";
 	dir = 8;
-	dwidth = 5;
+	width = 12;
 	height = 7;
 	id = "supply_transit";
-	name = "supply in transit";
-	width = 12
+	dwidth = 5
 	},
 /turf/space/transit,
 /area/space/centcomm)
@@ -1273,11 +1269,11 @@
 /area/tdome/tdomeobserve)
 "eX" = (
 /obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
-	id_tag = "adminshuttleshutters";
 	name = "Blast Shutters";
-	opacity = 0
+	icon_state = "open";
+	opacity = 0;
+	density = 0;
+	id_tag = "adminshuttleshutters"
 	},
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
@@ -1344,10 +1340,10 @@
 /area/ninja/holding)
 "fk" = (
 /obj/machinery/door/airlock/hatch/syndicate{
-	autoclose = 0;
-	id_tag = "syndijail_door_int";
+	name = "Syndicate Jail Internal Airlock";
 	locked = 1;
-	name = "Syndicate Jail Internal Airlock"
+	id_tag = "syndijail_door_int";
+	autoclose = 0
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
@@ -1376,12 +1372,12 @@
 /area/space/nearstation)
 "fr" = (
 /obj/docking_port/stationary/transit{
+	name = "pod 4 in transit";
 	dir = 4;
-	dwidth = 1;
+	width = 3;
 	height = 4;
 	id = "pod4_transit";
-	name = "pod 4 in transit";
-	width = 3
+	dwidth = 1
 	},
 /turf/space/transit/east{
 	dir = 8
@@ -1389,12 +1385,12 @@
 /area/space/centcomm)
 "fs" = (
 /obj/docking_port/stationary/transit{
+	name = "labor in transit";
 	dir = 8;
-	dwidth = 2;
+	width = 9;
 	height = 5;
 	id = "laborcamp_transit";
-	name = "labor in transit";
-	width = 9
+	dwidth = 2
 	},
 /turf/space/transit,
 /area/space/centcomm)
@@ -1479,12 +1475,12 @@
 /area/ghost_bar)
 "fH" = (
 /obj/docking_port/stationary/transit{
+	name = "emergency in transit";
 	dir = 4;
-	dwidth = 11;
+	width = 24;
 	height = 13;
 	id = "emergency_transit";
-	name = "emergency in transit";
-	width = 24
+	dwidth = 11
 	},
 /turf/space/transit,
 /area/space/centcomm)
@@ -1554,14 +1550,14 @@
 /area/tdome/arena_source)
 "fT" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 4
 	},
 /area/holodeck/source_thunderdomecourt)
 "fU" = (
 /obj/machinery/flasher{
-	id = "tdomeflash";
-	name = "Thunderdome Flash"
+	name = "Thunderdome Flash";
+	id = "tdomeflash"
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
@@ -1616,11 +1612,11 @@
 /area/tdome/tdomeobserve)
 "gc" = (
 /obj/docking_port/stationary/transit{
-	dwidth = 3;
+	name = "steel_rain in transit";
+	width = 7;
 	height = 7;
 	id = "steel_rain_transit";
-	name = "steel_rain in transit";
-	width = 7
+	dwidth = 3
 	},
 /turf/space/transit/horizontal,
 /area/space/centcomm)
@@ -1630,12 +1626,12 @@
 /area/syndicate_mothership)
 "gf" = (
 /obj/docking_port/stationary/transit{
+	name = "whiteship in transit";
 	dir = 8;
-	dwidth = 10;
+	width = 21;
 	height = 35;
 	id = "whiteship_transit";
-	name = "whiteship in transit";
-	width = 21
+	dwidth = 10
 	},
 /turf/space/transit/horizontal{
 	dir = 4
@@ -1664,8 +1660,8 @@
 /area/shuttle/syndicate_sit)
 "gl" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	icon_state = "propulsion_r"
+	icon_state = "propulsion_r";
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_sit)
@@ -1681,8 +1677,8 @@
 /area/shuttle/syndicate_sit)
 "gp" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	icon_state = "propulsion_l"
+	icon_state = "propulsion_l";
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_sit)
@@ -1698,8 +1694,8 @@
 /area/centcom)
 "gt" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	icon_state = "propulsion_r"
+	icon_state = "propulsion_r";
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_elite)
@@ -1711,8 +1707,8 @@
 /area/shuttle/syndicate_elite)
 "gw" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	icon_state = "propulsion_l"
+	icon_state = "propulsion_l";
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_elite)
@@ -1748,13 +1744,13 @@
 /area/wizard_station)
 "gC" = (
 /obj/docking_port/stationary/transit{
-	dheight = 9;
+	name = "syndicate in transit";
 	dir = 2;
-	dwidth = 5;
+	width = 18;
 	height = 22;
 	id = "syndicate_transit";
-	name = "syndicate in transit";
-	width = 18
+	dwidth = 5;
+	dheight = 9
 	},
 /turf/space/transit,
 /area/space/centcomm)
@@ -1763,9 +1759,9 @@
 /area/shuttle/syndicate_sit)
 "gF" = (
 /obj/effect/forcefield{
+	name = "Blocker";
 	desc = "You can't get in. Heh.";
-	layer = 1;
-	name = "Blocker"
+	layer = 1
 	},
 /turf/simulated/wall/indestructible/opsglass,
 /area/centcom)
@@ -1892,21 +1888,21 @@
 /area/shuttle/syndicate_elite)
 "hf" = (
 /obj/docking_port/stationary/transit{
-	dwidth = 1;
+	name = "pod 1 in transit";
+	width = 3;
 	height = 4;
 	id = "pod1_transit";
-	name = "pod 1 in transit";
-	width = 3
+	dwidth = 1
 	},
 /turf/space/transit,
 /area/space/centcomm)
 "hh" = (
 /obj/docking_port/stationary/transit{
-	dwidth = 1;
+	name = "pod 2 in transit";
+	width = 3;
 	height = 4;
 	id = "pod2_transit";
-	name = "pod 2 in transit";
-	width = 3
+	dwidth = 1
 	},
 /turf/space/transit,
 /area/space/centcomm)
@@ -1931,54 +1927,54 @@
 /area/tdome/arena)
 "hl" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
 	name = "Shuttle Airlock";
+	id_tag = "s_docking_airlock";
 	req_access_txt = "150"
 	},
 /obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "syndicate_sit_1";
 	name = "Side Hull Door";
+	icon_state = "open";
 	opacity = 0;
+	density = 0;
+	id_tag = "syndicate_sit_1";
 	req_access_txt = "150"
 	},
 /obj/docking_port/mobile{
+	name = "SIT shuttle";
 	dir = 8;
-	dwidth = 3;
+	width = 11;
 	height = 5;
 	id = "sit";
-	name = "SIT shuttle";
-	width = 11
+	dwidth = 3
 	},
 /obj/structure/fans/tiny,
 /obj/machinery/door_control/no_emag{
-	id = "syndicate_sit_1";
 	name = "Blast Doors";
 	pixel_y = -23;
+	id = "syndicate_sit_1";
 	req_access_txt = "150"
 	},
 /obj/docking_port/stationary{
+	name = "Syndicate Base";
 	dir = 8;
-	dwidth = 3;
+	width = 11;
 	height = 5;
 	id = "sit_away";
-	name = "Syndicate Base";
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/airless;
-	width = 11
+	dwidth = 3
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate_sit)
 "hm" = (
 /obj/machinery/door_control/no_emag{
-	pixel_y = 24;
-	req_access_txt = "114";
 	name = "Engineering Storage Shutters";
-	id = "SpecopsEngineering"
+	pixel_y = 24;
+	id = "SpecopsEngineering";
+	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/centcom/specops)
 "ho" = (
@@ -1993,13 +1989,13 @@
 /obj/item/radio,
 /obj/structure/table/wood,
 /obj/machinery/door_control/no_emag{
-	id = "tdome1";
 	pixel_x = 24;
+	id = "tdome1";
 	req_access_txt = "102"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 9
 	},
 /area/tdome/tdomeadmin)
 "hp" = (
@@ -2044,26 +2040,26 @@
 /area/syndicate_mothership)
 "hx" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch"
+	name = "Shuttle Hatch";
+	id_tag = "s_docking_airlock"
 	},
 /obj/docking_port/mobile{
+	name = "administration shuttle";
 	dir = 2;
-	dwidth = 8;
+	width = 18;
 	height = 15;
 	id = "admin";
-	name = "administration shuttle";
-	timid = 1;
-	width = 18
+	dwidth = 8;
+	timid = 1
 	},
 /obj/docking_port/stationary{
+	name = "centcom bay 1";
 	dir = 2;
-	dwidth = 9;
+	width = 19;
 	height = 18;
 	id = "admin_away";
-	name = "centcom bay 1";
-	timid = 1;
-	width = 19
+	dwidth = 9;
+	timid = 1
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
@@ -2084,35 +2080,35 @@
 /area/syndicate_mothership)
 "hB" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
 	name = "Shuttle Airlock";
+	id_tag = "s_docking_airlock";
 	req_access_txt = "150"
 	},
 /obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "syndicate_elite";
 	name = "Side Hull Door";
+	icon_state = "open";
 	opacity = 0;
+	density = 0;
+	id_tag = "syndicate_elite";
 	req_access_txt = "150"
 	},
 /obj/docking_port/mobile{
+	name = "SST shuttle";
 	dir = 4;
-	dwidth = 7;
+	width = 11;
 	height = 5;
 	id = "sst";
-	name = "SST shuttle";
-	width = 11
+	dwidth = 7
 	},
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
+	name = "Syndicate Base";
 	dir = 4;
-	dwidth = 7;
+	width = 11;
 	height = 5;
 	id = "sst_away";
-	name = "Syndicate Base";
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/airless;
-	width = 11
+	dwidth = 7
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate_elite)
@@ -2126,18 +2122,18 @@
 /area/shuttle/syndicate_sit)
 "hE" = (
 /obj/machinery/door/airlock/centcom{
-	id_tag = "adminshuttle";
 	name = "Holding Cell";
+	id_tag = "adminshuttle";
 	req_access_txt = "104"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "hF" = (
 /obj/machinery/door_control/no_emag{
-	id = "syndicate_sit_1";
 	name = "Shuttle Blast Doors";
 	pixel_x = -26;
 	pixel_y = -2;
+	id = "syndicate_sit_1";
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2162,8 +2158,8 @@
 /area/abductor_ship)
 "hK" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "greencorner"
+	icon_state = "greencorner";
+	dir = 8
 	},
 /area/centcom/evac)
 "hL" = (
@@ -2171,10 +2167,10 @@
 /area/centcom)
 "hN" = (
 /obj/machinery/door_control/no_emag{
-	id = "syndicate_elite";
 	name = "Shuttle Blast Doors";
 	pixel_x = 26;
 	pixel_y = -2;
+	id = "syndicate_elite";
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2215,13 +2211,13 @@
 /obj/item/radio,
 /obj/structure/table/wood,
 /obj/machinery/door_control/no_emag{
-	id = "tdome2";
 	pixel_x = -24;
+	id = "tdome2";
 	req_access_txt = "102"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 9
 	},
 /area/tdome/tdomeadmin)
 "hU" = (
@@ -2243,22 +2239,22 @@
 /area/abductor_ship)
 "hX" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
 	name = "Shuttle Airlock";
+	id_tag = "s_docking_airlock";
 	req_access_txt = "150"
 	},
 /obj/machinery/door_control/no_emag{
-	id = "syndicate_elite";
 	name = "Blast Doors";
 	pixel_x = -25;
+	id = "syndicate_elite";
 	req_access_txt = "150"
 	},
 /obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "syndicate_elite";
 	name = "Front Hull Door";
+	icon_state = "open";
 	opacity = 0;
+	density = 0;
+	id_tag = "syndicate_elite";
 	req_access_txt = "150"
 	},
 /obj/structure/fans/tiny,
@@ -2266,23 +2262,23 @@
 /area/shuttle/syndicate_elite)
 "hY" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
 	name = "Shuttle Airlock";
+	id_tag = "s_docking_airlock";
 	req_access_txt = "150"
 	},
 /obj/machinery/door_control/no_emag{
-	id = "syndicate_sit_1";
 	name = "Blast Doors";
 	pixel_x = -25;
+	id = "syndicate_sit_1";
 	req_access_txt = "150"
 	},
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "syndicate_sit_1";
 	name = "Front Hull Door";
+	icon_state = "open";
 	opacity = 0;
+	density = 0;
+	id_tag = "syndicate_sit_1";
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plating,
@@ -2345,8 +2341,8 @@
 /area/syndicate_mothership)
 "in" = (
 /obj/machinery/door/poddoor/impassable{
-	id_tag = "sit_tele";
-	name = "Teleporter"
+	name = "Teleporter";
+	id_tag = "sit_tele"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2361,8 +2357,8 @@
 /area/ghost_bar)
 "iq" = (
 /obj/machinery/door/poddoor/impassable{
-	id_tag = "sst_tele";
-	name = "Teleporter"
+	name = "Teleporter";
+	id_tag = "sst_tele"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2377,8 +2373,8 @@
 "it" = (
 /obj/structure/railing/corner,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 8
 	},
 /area/centcom/evac)
 "iu" = (
@@ -2406,9 +2402,9 @@
 /area/syndicate_mothership)
 "ix" = (
 /obj/machinery/door/poddoor/shutters{
+	name = "Privacy Shutters";
 	dir = 2;
-	id_tag = "commandcenter";
-	name = "Privacy Shutters"
+	id_tag = "commandcenter"
 	},
 /turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership)
@@ -2441,17 +2437,17 @@
 "iE" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door_control/no_emag{
-	id = "sit_ready";
 	name = "SIT Base Access";
 	pixel_x = -6;
 	pixel_y = 6;
+	id = "sit_ready";
 	req_access_txt = "153"
 	},
 /obj/machinery/door_control/no_emag{
-	id = "sit_tele";
 	name = "SIT Teleporter Access";
 	pixel_x = 6;
 	pixel_y = 6;
+	id = "sit_tele";
 	req_access_txt = "153"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2475,31 +2471,31 @@
 "iL" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door_control/no_emag{
-	id = "sst_armory";
 	name = "SST Extra Weapons";
 	pixel_x = -6;
 	pixel_y = -4;
+	id = "sst_armory";
 	req_access_txt = "153"
 	},
 /obj/machinery/door_control/no_emag{
-	id = "sst_ready";
 	name = "SST Base Access";
 	pixel_x = -6;
 	pixel_y = 6;
+	id = "sst_ready";
 	req_access_txt = "153"
 	},
 /obj/machinery/door_control/no_emag{
-	id = "sst_tele";
 	name = "SST Teleporter Access";
 	pixel_x = 6;
 	pixel_y = 6;
+	id = "sst_tele";
 	req_access_txt = "153"
 	},
 /obj/machinery/door_control/no_emag{
-	id = "sst_mechbay";
 	name = "SST Mech Bay";
 	pixel_x = 6;
 	pixel_y = -4;
+	id = "sst_mechbay";
 	req_access_txt = "153"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2592,9 +2588,9 @@
 /area/syndicate_mothership)
 "jg" = (
 /obj/machinery/door/poddoor/shutters{
+	name = "Privacy Shutters";
 	dir = 8;
-	id_tag = "commandcenter";
-	name = "Privacy Shutters"
+	id_tag = "commandcenter"
 	},
 /turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership)
@@ -2606,8 +2602,8 @@
 /area/syndicate_mothership)
 "ji" = (
 /obj/machinery/door/poddoor/shutters{
-	id_tag = "commandcenter";
-	name = "Privacy Shutters"
+	name = "Privacy Shutters";
+	id_tag = "commandcenter"
 	},
 /turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership)
@@ -2655,8 +2651,8 @@
 /area/syndicate_mothership)
 "jt" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "propulsion_l"
+	icon_state = "propulsion_l";
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
@@ -2664,11 +2660,11 @@
 /obj/machinery/airlock_controller/access_controller{
 	name = "Syndicate Jail Access Controller";
 	pixel_y = 24;
-	req_access_txt = "150";
 	ext_door_link_id = "syndijail_door_ext";
 	int_door_link_id = "syndijail_door_int";
 	ext_button_link_id = "syndijail_btn_ext";
-	int_button_link_id = "syndijail_btn_int"
+	int_button_link_id = "syndijail_btn_int";
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2700,8 +2696,8 @@
 "jB" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control/no_emag{
-	id = "commandcenter";
 	name = "Privacy Shutters";
+	id = "commandcenter";
 	req_access_txt = "153"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2726,23 +2722,23 @@
 /area/ghost_bar)
 "jH" = (
 /obj/docking_port/stationary/transit{
+	name = "sit in transit";
 	dir = 8;
-	dwidth = 7;
+	width = 11;
 	height = 5;
 	id = "sit_transit";
-	name = "sit in transit";
-	width = 11
+	dwidth = 7
 	},
 /turf/space/transit,
 /area/space/centcomm)
 "jI" = (
 /obj/docking_port/stationary/transit{
+	name = "sst in transit";
 	dir = 4;
-	dwidth = 7;
+	width = 11;
 	height = 5;
 	id = "sst_transit";
-	name = "sst in transit";
-	width = 11
+	dwidth = 7
 	},
 /turf/space/transit,
 /area/space/centcomm)
@@ -2779,25 +2775,25 @@
 /area/wizard_station)
 "jO" = (
 /obj/machinery/computer/shuttle/syndicate{
-	dir = 1;
-	name = "Nuclear Operatives Shuttle Console"
+	name = "Nuclear Operatives Shuttle Console";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "jP" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door_control/no_emag{
-	id = "nukeop_base";
 	name = "Nuclear Base Access";
 	pixel_x = -6;
 	pixel_y = 6;
+	id = "nukeop_base";
 	req_access_txt = "153"
 	},
 /obj/machinery/door_control/no_emag{
-	id = "nukeop_ready";
 	name = "Nuclear Shuttle Access";
 	pixel_x = 6;
 	pixel_y = 6;
+	id = "nukeop_ready";
 	req_access_txt = "153"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2839,8 +2835,8 @@
 /area/syndicate_mothership)
 "jX" = (
 /obj/machinery/door/poddoor/impassable{
-	id_tag = "sst_mechbay";
-	name = "Mech Bay"
+	name = "Mech Bay";
+	id_tag = "sst_mechbay"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2866,8 +2862,8 @@
 /area/syndicate_mothership)
 "kb" = (
 /obj/machinery/door/poddoor/impassable{
-	id_tag = "sst_armory";
-	name = "Armory"
+	name = "Armory";
+	id_tag = "sst_armory"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2889,13 +2885,13 @@
 /area/syndicate_mothership)
 "kf" = (
 /obj/docking_port/stationary{
-	area_type = /area/syndicate_mothership;
-	dwidth = 11;
+	name = "404 Not Found";
+	width = 29;
 	height = 18;
 	id = "emergency_syndicate";
-	name = "404 Not Found";
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/airless;
-	width = 29
+	dwidth = 11;
+	area_type = /area/syndicate_mothership
 	},
 /turf/simulated/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
@@ -2948,8 +2944,8 @@
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 10
 	},
 /area/centcom/specops)
 "kq" = (
@@ -2986,12 +2982,12 @@
 /area/syndicate_mothership)
 "kx" = (
 /obj/docking_port/stationary/transit{
+	name = "admin in transit";
 	dir = 2;
-	dwidth = 8;
+	width = 18;
 	height = 15;
 	id = "admin_transit";
-	name = "admin in transit";
-	width = 18
+	dwidth = 8
 	},
 /turf/space/transit/horizontal,
 /area/space/centcomm)
@@ -3011,12 +3007,12 @@
 /area/syndicate_mothership)
 "kC" = (
 /obj/docking_port/stationary{
+	name = "recovery ship bay 2";
 	dir = 2;
-	dwidth = 1;
+	width = 3;
 	height = 4;
 	id = "pod2_away";
-	name = "recovery ship bay 2";
-	width = 3
+	dwidth = 1
 	},
 /turf/space,
 /area/space/centcomm)
@@ -3050,13 +3046,13 @@
 /area/syndicate_mothership/jail)
 "kH" = (
 /obj/docking_port/stationary/transit{
+	name = "trade_sol in transit";
 	dir = 8;
-	dwidth = 2;
+	width = 5;
 	height = 11;
 	id = "trade_sol_transit";
-	name = "trade_sol in transit";
 	turf_type = /turf/space/transit/horizontal;
-	width = 5
+	dwidth = 2
 	},
 /turf/space/transit/horizontal,
 /area/space/centcomm)
@@ -3076,8 +3072,8 @@
 "kL" = (
 /obj/structure/filingcabinet/medical,
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 10
 	},
 /area/centcom/specops)
 "kM" = (
@@ -3231,30 +3227,30 @@
 /area/centcom/specops)
 "lo" = (
 /obj/machinery/door/airlock/hatch/syndicate{
-	damage_deflection = 75;
-	id_tag = "syndicate_jail_cell";
+	name = "Syndicate Jail Cell";
 	locked = 1;
-	name = "Syndicate Jail Cell"
+	id_tag = "syndicate_jail_cell";
+	damage_deflection = 75
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "lp" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control/no_emag{
-	id = "syndicate_jail_cell";
 	name = "Bolt Cell Doors";
-	normaldoorcontrol = 1;
 	pixel_x = 6;
-	req_access_txt = "150";
-	specialfunctions = 4
+	id = "syndicate_jail_cell";
+	normaldoorcontrol = 1;
+	specialfunctions = 4;
+	req_access_txt = "150"
 	},
 /obj/machinery/door_control/no_emag{
-	id = "syndicate_jail";
 	name = "Bolt Jail Door";
-	normaldoorcontrol = 1;
 	pixel_x = -5;
-	req_access_txt = "150";
-	specialfunctions = 4
+	id = "syndicate_jail";
+	normaldoorcontrol = 1;
+	specialfunctions = 4;
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
@@ -3267,10 +3263,10 @@
 /area/syndicate_mothership/jail)
 "lt" = (
 /obj/machinery/door/airlock/hatch/syndicate{
-	damage_deflection = 75;
-	id_tag = "syndicate_jail";
+	name = "Syndicate Jail";
 	locked = 1;
-	name = "Syndicate Jail"
+	id_tag = "syndicate_jail";
+	damage_deflection = 75
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
@@ -3295,12 +3291,12 @@
 /area/abductor_ship)
 "lA" = (
 /obj/machinery/door/poddoor/shutters{
+	name = "Blast Shutters";
+	icon_state = "open";
+	opacity = 0;
 	density = 0;
 	dir = 2;
-	icon_state = "open";
-	id_tag = "syndieshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	id_tag = "syndieshutters"
 	},
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
@@ -3436,8 +3432,8 @@
 "lS" = (
 /obj/structure/table,
 /obj/machinery/door_control/no_emag{
-	id = "syndieshutters";
 	name = "remote shutter control";
+	id = "syndieshutters";
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -3620,9 +3616,9 @@
 	pixel_x = -5
 	},
 /obj/item/assembly/signaler{
-	code = 2;
+	pixel_x = 8;
 	frequency = 1449;
-	pixel_x = 8
+	code = 2
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
@@ -3638,8 +3634,8 @@
 /area/admin)
 "mt" = (
 /obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
+	icon_state = "0-2";
+	d2 = 2
 	},
 /obj/machinery/mech_bay_recharge_port/upgraded,
 /turf/simulated/floor/plasteel,
@@ -3653,8 +3649,8 @@
 /area/shuttle/administration)
 "mw" = (
 /obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
+	icon_state = "0-2";
+	d2 = 2
 	},
 /obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/plasteel,
@@ -3855,8 +3851,8 @@
 /area/abductor_ship)
 "mX" = (
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Cockpit";
+	dir = 2;
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -3929,8 +3925,8 @@
 	},
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whiteblue"
+	icon_state = "whiteblue";
+	dir = 9
 	},
 /area/centcom/control)
 "nl" = (
@@ -4040,20 +4036,20 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/docking_port/mobile{
+	name = "ferry shuttle";
 	dir = 8;
-	dwidth = 2;
+	width = 5;
 	height = 12;
 	id = "ferry";
-	name = "ferry shuttle";
-	width = 5
+	dwidth = 2
 	},
 /obj/docking_port/stationary{
+	name = "centcom bay 2";
 	dir = 8;
-	dwidth = 2;
+	width = 5;
 	height = 12;
 	id = "ferry_away";
-	name = "centcom bay 2";
-	width = 5
+	dwidth = 2
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/transport)
@@ -4132,9 +4128,9 @@
 	dir = 1
 	},
 /obj/machinery/door/window{
-	dir = 8;
 	name = "Tactical Toilet";
 	opacity = 1;
+	dir = 8;
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel/freezer,
@@ -4155,8 +4151,8 @@
 /obj/structure/table,
 /obj/item/gun/projectile/shotgun/toy/crossbow,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 5
 	},
 /area/centcom/evac)
 "nQ" = (
@@ -4211,8 +4207,8 @@
 	id = "QMLoad"
 	},
 /obj/machinery/door/poddoor{
-	id_tag = "QMLoaddoor";
-	name = "Supply Dock Loading Door"
+	name = "Supply Dock Loading Door";
+	id_tag = "QMLoaddoor"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
@@ -4271,11 +4267,11 @@
 "oi" = (
 /obj/machinery/door/airlock/external,
 /obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "ADMINLOCKDOWN";
 	name = "Security Doors";
-	opacity = 0
+	icon_state = "open";
+	opacity = 0;
+	density = 0;
+	id_tag = "ADMINLOCKDOWN"
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -4304,8 +4300,8 @@
 /obj/item/surgical_drapes,
 /obj/machinery/optable,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whiteblue"
+	icon_state = "whiteblue";
+	dir = 8
 	},
 /area/centcom/control)
 "ot" = (
@@ -4333,8 +4329,8 @@
 /area/admin)
 "oz" = (
 /obj/machinery/door/airlock/centcom{
-	aiControlDisabled = 1;
 	name = "Assault Pod";
+	aiControlDisabled = 1;
 	req_one_access_txt = "150"
 	},
 /turf/simulated/floor/plating,
@@ -4362,8 +4358,8 @@
 	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellowfull"
+	icon_state = "darkyellowfull";
+	dir = 8
 	},
 /area/centcom/suppy)
 "oE" = (
@@ -4372,15 +4368,15 @@
 /area/admin)
 "oF" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "burst_l"
+	icon_state = "burst_l";
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/trade/sol)
 "oG" = (
 /obj/machinery/door/poddoor/impassable{
-	id_tag = "nukeop_ready";
-	name = "Shuttle Dock Door"
+	name = "Shuttle Dock Door";
+	id_tag = "nukeop_ready"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -4407,8 +4403,8 @@
 	},
 /obj/item/kitchen/knife,
 /obj/machinery/newscaster{
-	dir = 4;
 	name = "west bump";
+	dir = 4;
 	pixel_x = -28
 	},
 /obj/item/reagent_containers/food/condiment/enzyme{
@@ -4439,8 +4435,8 @@
 "oN" = (
 /obj/machinery/cryopod/offstation/right,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 4
 	},
 /area/centcom/specops)
 "oO" = (
@@ -4448,15 +4444,15 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whiteblue"
+	icon_state = "whiteblue";
+	dir = 10
 	},
 /area/centcom/control)
 "oP" = (
 /obj/machinery/teleport/station,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 4
 	},
 /area/centcom/specops)
 "oQ" = (
@@ -4487,8 +4483,8 @@
 "oW" = (
 /obj/machinery/computer/shuttle/white_ship,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 1
 	},
 /area/centcom/gamma)
 "oX" = (
@@ -4515,8 +4511,8 @@
 "pg" = (
 /obj/machinery/door/airlock/titanium/glass{
 	name = "trader shuttle airlock";
-	req_access_txt = "160";
-	security_level = 6
+	security_level = 6;
+	req_access_txt = "160"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
@@ -4630,8 +4626,8 @@
 "pH" = (
 /obj/structure/table/wood,
 /obj/item/candle/eternal/wizard{
-	pixel_y = 5;
-	pixel_x = -7
+	pixel_x = -7;
+	pixel_y = 5
 	},
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
@@ -4665,18 +4661,18 @@
 /area/shuttle/trade/sol)
 "pP" = (
 /obj/machinery/door_control/no_emag{
-	id = "soltrader_north";
 	name = "Trade Deposits Door";
-	normaldoorcontrol = 1;
 	pixel_x = 24;
 	pixel_y = -8;
+	id = "soltrader_north";
+	normaldoorcontrol = 1;
 	req_access_txt = "160"
 	},
 /obj/machinery/door_control/no_emag{
-	id = "trader_privacy";
 	name = "Privacy Shutters Control";
 	pixel_x = 24;
 	pixel_y = 8;
+	id = "trader_privacy";
 	req_access_txt = "160"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -4704,9 +4700,9 @@
 /area/centcom/specops)
 "pU" = (
 /obj/machinery/door_control/no_emag{
-	id = "adminshuttleblast";
 	name = "blast door control";
 	pixel_x = -30;
+	id = "adminshuttleblast";
 	req_access_txt = "101"
 	},
 /obj/machinery/light{
@@ -4716,14 +4712,14 @@
 /area/shuttle/administration)
 "pV" = (
 /obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the Thunderdome.";
 	name = "Thunderdome Telescreen";
+	desc = "Used for watching the Thunderdome.";
 	network = list("Thunderdome")
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 9
 	},
 /area/tdome/tdomeadmin)
 "pW" = (
@@ -4755,8 +4751,8 @@
 /obj/item/reagent_containers/iv_bag/blood/OPlus,
 /obj/structure/closet/crate/freezer,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whiteblue"
+	icon_state = "whiteblue";
+	dir = 8
 	},
 /area/centcom/control)
 "qd" = (
@@ -4785,8 +4781,8 @@
 "qh" = (
 /obj/structure/holowindow,
 /turf/simulated/floor/holofloor{
-	dir = 8;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 8
 	},
 /area/holodeck/source_thunderdomecourt)
 "ql" = (
@@ -4818,17 +4814,17 @@
 /area/centcom/control)
 "qq" = (
 /obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "soltradeship_north";
 	name = "Security Doors";
-	opacity = 0
+	icon_state = "open";
+	opacity = 0;
+	density = 0;
+	id_tag = "soltradeship_north"
 	},
 /obj/machinery/door/airlock/titanium/glass{
-	id_tag = "soltrader_north";
 	name = "trader shuttle airlock";
-	req_access_txt = "160";
-	security_level = 6
+	security_level = 6;
+	id_tag = "soltrader_north";
+	req_access_txt = "160"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
@@ -4859,8 +4855,8 @@
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/item/reagent_containers/glass/rag,
 /obj/machinery/newscaster{
-	dir = 1;
 	name = "south bump";
+	dir = 1;
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -4873,16 +4869,16 @@
 /area/trader_station/sol)
 "qC" = (
 /obj/structure/window/plasmareinforced{
-	color = "#FF0000";
-	dir = 8
+	dir = 8;
+	color = "#FF0000"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "qD" = (
 /obj/structure/table/reinforced,
 /obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the Special Ops.";
 	name = "Special Ops. Monitor";
+	desc = "Used for watching the Special Ops.";
 	network = list("ERT")
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -4916,10 +4912,10 @@
 /area/admin)
 "qK" = (
 /obj/machinery/door_control/no_emag{
-	id = "nukeop_ready";
 	name = "Mission Launch Control";
 	pixel_x = -26;
 	pixel_y = -2;
+	id = "nukeop_ready";
 	req_access_txt = "151"
 	},
 /obj/item/kirbyplants,
@@ -5163,25 +5159,25 @@
 "rt" = (
 /obj/machinery/photocopier,
 /obj/machinery/door_control/no_emag{
-	id = "sec";
 	name = "CentCom Security Shutters";
 	pixel_x = 8;
 	pixel_y = 36;
+	id = "sec";
 	req_access_txt = "101"
 	},
 /obj/machinery/door_control/no_emag{
-	id = "CC";
 	name = "Thunderdome Shutters";
 	pixel_x = 8;
 	pixel_y = 24;
+	id = "CC";
 	req_access_txt = "114"
 	},
 /obj/machinery/door_control/no_emag{
-	desc = "A remote control switch to connect the ready room to the rest of Centcom.";
-	id = "SPECOPS";
 	name = "Nanotrasen Asset Protection Shutters";
+	desc = "A remote control switch to connect the ready room to the rest of Centcom.";
 	pixel_x = -8;
 	pixel_y = 30;
+	id = "SPECOPS";
 	req_access_txt = "114"
 	},
 /turf/simulated/floor/wood,
@@ -5210,8 +5206,8 @@
 /area/centcom/evac)
 "ry" = (
 /obj/structure/window/plasmareinforced{
-	color = "#FF0000";
-	dir = 8
+	dir = 8;
+	color = "#FF0000"
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -5235,8 +5231,8 @@
 /area/shuttle/specops)
 "rC" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "ferry_away";
-	name = "Ferry Airlock"
+	name = "Ferry Airlock";
+	id_tag = "ferry_away"
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating,
@@ -5249,8 +5245,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 4
 	},
 /area/centcom/evac)
 "rG" = (
@@ -5355,8 +5351,8 @@
 /area/ghost_bar)
 "rV" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch"
+	name = "Shuttle Hatch";
+	id_tag = "s_docking_airlock"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -5406,12 +5402,12 @@
 "sh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
+	name = "Privacy Shutters";
+	icon_state = "open";
+	opacity = 0;
 	density = 0;
 	dir = 2;
-	icon_state = "open";
-	id_tag = "trader_privacy";
-	name = "Privacy Shutters";
-	opacity = 0
+	id_tag = "trader_privacy"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
@@ -5459,15 +5455,15 @@
 "st" = (
 /obj/structure/table/wood,
 /obj/item/clothing/accessory/lawyers_badge{
-	desc = "A badge of upmost glory.";
-	name = "thunderdome badge"
+	name = "thunderdome badge";
+	desc = "A badge of upmost glory."
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
 "su" = (
 /obj/machinery/door/airlock/centcom{
-	id_tag = "adminshuttle";
 	name = "Bridge";
+	id_tag = "adminshuttle";
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -5483,8 +5479,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/centcom/specops)
 "sx" = (
@@ -5620,8 +5616,8 @@
 /area/syndicate_mothership)
 "tc" = (
 /obj/machinery/door/airlock/centcom{
-	aiControlDisabled = 1;
 	name = "Assault Pod";
+	aiControlDisabled = 1;
 	req_one_access_txt = "150"
 	},
 /obj/docking_port/mobile/assault_pod,
@@ -5648,9 +5644,9 @@
 /area/shuttle/syndicate)
 "th" = (
 /obj/machinery/door/window/reinforced/normal{
+	dir = 8;
 	color = "#d70000";
-	req_access_txt = "104";
-	dir = 8
+	req_access_txt = "104"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -5666,8 +5662,8 @@
 /area/trader_station/sol)
 "tm" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 1
 	},
 /area/centcom/specops)
 "tn" = (
@@ -5776,11 +5772,11 @@
 /area/trader_station/sol)
 "tJ" = (
 /obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "ADMINCHEMLOCKDOWN";
 	name = "Security Doors";
-	opacity = 0
+	icon_state = "open";
+	opacity = 0;
+	density = 0;
+	id_tag = "ADMINCHEMLOCKDOWN"
 	},
 /obj/machinery/door/airlock/hatch{
 	name = "Chem Lab"
@@ -5792,9 +5788,9 @@
 	dir = 8
 	},
 /obj/machinery/door_control/no_emag{
-	id = "ASSAULT";
 	name = "Mech Storage";
 	pixel_y = -24;
+	id = "ASSAULT";
 	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel{
@@ -5820,12 +5816,12 @@
 /area/shuttle/syndicate)
 "tQ" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
-	dir = 8;
-	name = "Mech Bay Power Port"
+	name = "Mech Bay Power Port";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 5
 	},
 /area/centcom/specops)
 "tU" = (
@@ -5849,31 +5845,31 @@
 /area/syndicate_mothership)
 "tY" = (
 /obj/docking_port/mobile{
+	name = "sol trade shuttle";
 	dir = 8;
-	dwidth = 4;
+	width = 9;
 	height = 11;
 	id = "trade_sol";
-	name = "sol trade shuttle";
-	width = 9
+	dwidth = 4
 	},
 /obj/machinery/door/airlock/titanium/glass{
 	id_tag = "s_docking_airlock"
 	},
 /obj/docking_port/stationary{
+	name = "docking bay 2 at Jupiter Station";
 	dir = 8;
-	dwidth = 4;
+	width = 9;
 	height = 11;
 	id = "trade_sol_base";
-	name = "docking bay 2 at Jupiter Station";
-	width = 9
+	dwidth = 4
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
 "tZ" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "trade_sol_base";
-	name = "Docking Port"
+	name = "Docking Port";
+	id_tag = "trade_sol_base"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/wood,
@@ -5889,8 +5885,8 @@
 /area/shuttle/syndicate)
 "ue" = (
 /obj/machinery/door/window{
-	dir = 8;
 	name = "Tool Storage";
+	dir = 8;
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -5999,8 +5995,8 @@
 /area/shuttle/syndicate)
 "uq" = (
 /obj/machinery/door/window{
-	dir = 1;
 	name = "Secure Storage";
+	dir = 1;
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -6039,10 +6035,10 @@
 /obj/structure/table,
 /obj/item/gun/energy/pulse/pistol,
 /obj/machinery/door_control/no_emag{
-	desc = "A remote control switch to lock down the admin lab.";
-	id = "ADMINCHEMLOCKDOWN";
 	name = "Lockdown";
-	pixel_y = 24
+	desc = "A remote control switch to lock down the admin lab.";
+	pixel_y = 24;
+	id = "ADMINCHEMLOCKDOWN"
 	},
 /turf/simulated/floor/carpet,
 /area/admin)
@@ -6058,8 +6054,8 @@
 /area/admin)
 "uB" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "burst_r"
+	icon_state = "burst_r";
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/trade/sol)
@@ -6071,12 +6067,12 @@
 /area/centcom/control)
 "uD" = (
 /obj/docking_port/stationary/transit{
+	name = "free golem in transit";
 	dir = 8;
-	dwidth = 8;
+	width = 16;
 	height = 20;
 	id = "freegolem_transit";
-	name = "free golem in transit";
-	width = 16
+	dwidth = 8
 	},
 /turf/space/transit/horizontal{
 	dir = 4
@@ -6084,13 +6080,13 @@
 /area/space/centcomm)
 "uG" = (
 /obj/docking_port/stationary/transit{
+	name = "specops in transit";
 	dir = 8;
-	dwidth = 2;
+	width = 5;
 	height = 11;
 	id = "specops_transit";
-	name = "specops in transit";
 	turf_type = /turf/space/transit/horizontal;
-	width = 5
+	dwidth = 2
 	},
 /turf/space/transit/horizontal,
 /area/space/centcomm)
@@ -6130,8 +6126,8 @@
 /area/shuttle/syndicate)
 "uO" = (
 /turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 0
 	},
 /area/centcom/evac)
 "uP" = (
@@ -6183,8 +6179,8 @@
 /area/shuttle/trade/sol)
 "vc" = (
 /obj/machinery/flasher{
-	id = "soltraderflash";
-	pixel_y = -28
+	pixel_y = -28;
+	id = "soltraderflash"
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -6243,17 +6239,17 @@
 /area/admin)
 "vo" = (
 /obj/machinery/door_control/no_emag{
-	id = "soltrader_south";
 	name = "Trade Deposits Door";
-	normaldoorcontrol = 1;
 	pixel_x = 24;
 	pixel_y = 8;
+	id = "soltrader_south";
+	normaldoorcontrol = 1;
 	req_access_txt = "160"
 	},
 /obj/machinery/flasher_button{
-	id = "soltraderflash";
 	pixel_x = 24;
-	pixel_y = -8
+	pixel_y = -8;
+	id = "soltraderflash"
 	},
 /obj/machinery/computer/shuttle/trade/sol{
 	dir = 8
@@ -6262,17 +6258,17 @@
 /area/shuttle/trade/sol)
 "vp" = (
 /obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "soltradeship_south";
 	name = "Security Doors";
-	opacity = 0
+	icon_state = "open";
+	opacity = 0;
+	density = 0;
+	id_tag = "soltradeship_south"
 	},
 /obj/machinery/door/airlock/titanium/glass{
-	id_tag = "soltrader_south";
 	name = "trader shuttle airlock";
-	req_access_txt = "160";
-	security_level = 6
+	security_level = 6;
+	id_tag = "soltrader_south";
+	req_access_txt = "160"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
@@ -6303,8 +6299,8 @@
 /area/trader_station/sol)
 "vw" = (
 /obj/machinery/access_button{
-	pixel_y = -22;
 	pixel_x = 8;
+	pixel_y = -22;
 	autolink_id = "syndijail_btn_ext"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -6320,13 +6316,13 @@
 /area/shuttle/escape)
 "vz" = (
 /obj/docking_port/stationary/transit{
+	name = "ferry in transit";
 	dir = 8;
-	dwidth = 2;
+	width = 5;
 	height = 12;
 	id = "ferry_transit";
-	name = "ferry in transit";
 	turf_type = /turf/space/transit/horizontal;
-	width = 5
+	dwidth = 2
 	},
 /turf/space/transit/horizontal,
 /area/space/centcomm)
@@ -6405,12 +6401,12 @@
 /area/admin)
 "vL" = (
 /obj/docking_port/stationary{
+	name = "recovery ship bay 1";
 	dir = 2;
-	dwidth = 1;
+	width = 3;
 	height = 4;
 	id = "pod1_away";
-	name = "recovery ship bay 1";
-	width = 3
+	dwidth = 1
 	},
 /turf/space,
 /area/space/centcomm)
@@ -6563,8 +6559,8 @@
 	},
 /obj/effect/landmark/spawner/tdomeadmin,
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 9
 	},
 /area/tdome/tdomeadmin)
 "wu" = (
@@ -6680,9 +6676,9 @@
 	},
 /obj/structure/window/reinforced/tinted,
 /obj/machinery/door/window{
-	dir = 8;
 	name = "Toilet";
-	opacity = 1
+	opacity = 1;
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
@@ -6779,15 +6775,15 @@
 /area/admin)
 "wY" = (
 /obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "ADMINCHEMLOCKDOWN";
 	name = "Security Doors";
-	opacity = 0
+	icon_state = "open";
+	opacity = 0;
+	density = 0;
+	id_tag = "ADMINCHEMLOCKDOWN"
 	},
 /obj/machinery/door/airlock/hatch{
-	desc = "Uh oh.";
-	name = "Operating Theater"
+	name = "Operating Theater";
+	desc = "Uh oh."
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
@@ -6802,16 +6798,16 @@
 	dir = 1
 	},
 /obj/machinery/door/window{
-	dir = 8;
 	name = "Toilet";
-	opacity = 1
+	opacity = 1;
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
 "xb" = (
 /obj/machinery/door/airlock/hatch{
-	desc = "You've heard rumors of the horrors that go on within this lab.";
-	name = "Laboratory (DANGER!)"
+	name = "Laboratory (DANGER!)";
+	desc = "You've heard rumors of the horrors that go on within this lab."
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -6843,8 +6839,8 @@
 /area/admin)
 "xg" = (
 /obj/machinery/computer/rdservercontrol{
-	badmin = 1;
-	name = "Master R&amp;D Server Controller"
+	name = "Master R&amp;D Server Controller";
+	badmin = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -6910,9 +6906,9 @@
 	autolink_id = "syndishuttle_vent"
 	},
 /obj/machinery/access_button{
-	autolink_id = "syndishuttle_btn_ext";
 	pixel_x = -25;
-	pixel_y = 25
+	pixel_y = 25;
+	autolink_id = "syndishuttle_btn_ext"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -6924,9 +6920,9 @@
 /area/ghost_bar)
 "xF" = (
 /obj/machinery/access_button{
-	autolink_id = "syndishuttle_btn_int";
 	pixel_x = 25;
-	pixel_y = 25
+	pixel_y = 25;
+	autolink_id = "syndishuttle_btn_int"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -6945,8 +6941,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/centcom/specops)
 "xO" = (
@@ -6966,20 +6962,20 @@
 /area/centcom/control)
 "xR" = (
 /obj/docking_port/stationary{
+	name = "recovery ship bay 4";
 	dir = 2;
-	dwidth = 1;
+	width = 3;
 	height = 4;
 	id = "pod4_away";
-	name = "recovery ship bay 4";
-	width = 3
+	dwidth = 1
 	},
 /turf/space,
 /area/space/centcomm)
 "xS" = (
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 10
 	},
 /area/centcom/evac)
 "xT" = (
@@ -7012,8 +7008,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellow"
+	icon_state = "darkyellow";
+	dir = 8
 	},
 /area/centcom/suppy)
 "ya" = (
@@ -7157,8 +7153,8 @@
 	item_state = "boxinggreen"
 	},
 /turf/simulated/floor/holofloor{
-	dir = 10;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 10
 	},
 /area/holodeck/source_boxingcourt)
 "zj" = (
@@ -7240,11 +7236,11 @@
 	name = "Computer Hub"
 	},
 /obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "ADMINLOCKDOWN";
 	name = "Security Doors";
-	opacity = 0
+	icon_state = "open";
+	opacity = 0;
+	density = 0;
+	id_tag = "ADMINLOCKDOWN"
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -7283,8 +7279,8 @@
 /area/ghost_bar)
 "zM" = (
 /obj/machinery/door/airlock/hatch{
-	desc = "For all your shady business needs";
-	name = "Gambling Den"
+	name = "Gambling Den";
+	desc = "For all your shady business needs"
 	},
 /turf/simulated/floor/wood,
 /area/admin)
@@ -7309,15 +7305,15 @@
 	},
 /obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+	icon_state = "whiteblue";
+	dir = 4
 	},
 /area/centcom/control)
 "zW" = (
 /obj/machinery/door/window{
 	name = "Uplink Management Control";
-	req_access_txt = "151";
-	dir = 4
+	dir = 4;
+	req_access_txt = "151"
 	},
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
@@ -7390,8 +7386,8 @@
 "Am" = (
 /obj/machinery/door/window/classic/normal{
 	name = "cell door";
-	req_access_txt = "150";
-	dir = 1
+	dir = 1;
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -7514,8 +7510,8 @@
 /area/admin)
 "AI" = (
 /obj/machinery/computer/account_database{
-	dir = 1;
-	name = "Admin Accounts Database"
+	name = "Admin Accounts Database";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -7527,9 +7523,9 @@
 "AK" = (
 /obj/structure/table,
 /obj/machinery/door_control/no_emag{
+	name = "Lockdown";
 	desc = "A remote control switch to lock down external access to the admin room.";
-	id = "ADMINLOCKDOWN";
-	name = "Lockdown"
+	id = "ADMINLOCKDOWN"
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -7543,8 +7539,8 @@
 /area/admin)
 "AM" = (
 /obj/machinery/door/airlock/hatch{
-	desc = "Danger: May contain robustness";
-	name = "Dojo"
+	name = "Dojo";
+	desc = "Danger: May contain robustness"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
@@ -7617,9 +7613,9 @@
 /area/centcom/suppy)
 "Bf" = (
 /obj/item/storage/toolbox/syndicate{
+	name = "toolbox of robustness";
 	desc = "A powerful relic many men worked long and hard to keep safe and away from the forces of evil.";
-	force = 1e+008;
-	name = "toolbox of robustness"
+	force = 1e+08
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -7650,11 +7646,11 @@
 /area/ghost_bar)
 "Bk" = (
 /obj/machinery/door/window{
-	base_state = "right";
-	icon_state = "right";
 	name = "Infirmary";
-	req_access_txt = "150";
-	dir = 4
+	icon_state = "right";
+	dir = 4;
+	base_state = "right";
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -7663,14 +7659,14 @@
 	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkyellow"
+	icon_state = "darkyellow";
+	dir = 9
 	},
 /area/centcom/suppy)
 "Bm" = (
 /obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
-	id_tag = "SpecopsEngineering";
-	name = "Special Operations Engineering Storage"
+	name = "Special Operations Engineering Storage";
+	id_tag = "SpecopsEngineering"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -7723,8 +7719,8 @@
 /obj/item/stamp,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkyellow"
+	icon_state = "darkyellow";
+	dir = 10
 	},
 /area/centcom/suppy)
 "Bv" = (
@@ -7745,8 +7741,8 @@
 /area/admin)
 "Bz" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch"
+	name = "Shuttle Hatch";
+	id_tag = "s_docking_airlock"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/structure/fans/tiny,
@@ -7795,18 +7791,18 @@
 	dir = 4
 	},
 /obj/machinery/door_control/no_emag{
-	id = "QMLoaddoor2";
-	layer = 3;
 	name = "Loading Doors";
+	layer = 3;
 	pixel_x = 24;
-	pixel_y = 8
+	pixel_y = 8;
+	id = "QMLoaddoor2"
 	},
 /obj/machinery/door_control/no_emag{
-	id = "QMLoaddoor";
-	layer = 3;
 	name = "Loading Doors";
+	layer = 3;
 	pixel_x = 24;
-	pixel_y = -8
+	pixel_y = -8;
+	id = "QMLoaddoor"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
@@ -7853,14 +7849,14 @@
 "Cf" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 10
 	},
 /area/centcom/specops)
 "Cg" = (
 /obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the Thunderdome.";
 	name = "Thunderdome Telescreen";
+	desc = "Used for watching the Thunderdome.";
 	network = list("Thunderdome")
 	},
 /obj/structure/table/reinforced,
@@ -7868,25 +7864,25 @@
 /area/tdome/tdomeobserve)
 "Ch" = (
 /obj/machinery/door_control/no_emag{
-	id = "QMLoaddoor";
-	layer = 4;
 	name = "Loading Doors";
+	layer = 4;
 	pixel_x = -27;
-	pixel_y = -5
+	pixel_y = -5;
+	id = "QMLoaddoor"
 	},
 /obj/machinery/door_control/no_emag{
-	id = "QMLoaddoor2";
-	layer = 4;
 	name = "Loading Doors";
+	layer = 4;
 	pixel_x = -27;
-	pixel_y = 5
+	pixel_y = 5;
+	id = "QMLoaddoor2"
 	},
 /obj/machinery/computer/supplycomp{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellowfull"
+	icon_state = "darkyellowfull";
+	dir = 8
 	},
 /area/centcom/suppy)
 "Ci" = (
@@ -7894,8 +7890,8 @@
 	id = "QMLoad2"
 	},
 /obj/machinery/door/poddoor{
-	id_tag = "QMLoaddoor";
-	name = "Supply Dock Loading Door"
+	name = "Supply Dock Loading Door";
+	id_tag = "QMLoaddoor"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
@@ -7920,8 +7916,8 @@
 "Cm" = (
 /obj/structure/table/holotable,
 /turf/simulated/floor/holofloor{
-	dir = 5;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 5
 	},
 /area/holodeck/source_thunderdomecourt)
 "Cn" = (
@@ -7948,8 +7944,8 @@
 /area/centcom/specops)
 "Cr" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "browncorner"
+	icon_state = "browncorner";
+	dir = 1
 	},
 /area/shuttle/escape)
 "Cs" = (
@@ -7994,8 +7990,8 @@
 /area/admin)
 "Cz" = (
 /obj/machinery/door/window{
-	dir = 1;
-	name = "Suit Storage"
+	name = "Suit Storage";
+	dir = 1
 	},
 /turf/simulated/floor/engine,
 /area/admin)
@@ -8005,8 +8001,8 @@
 /area/ghost_bar)
 "CB" = (
 /obj/machinery/door_control/no_emag{
-	id = "thunderdome";
 	name = "Main Blast Doors Control";
+	id = "thunderdome";
 	req_access_txt = "102"
 	},
 /obj/structure/table/reinforced,
@@ -8016,26 +8012,26 @@
 /area/tdome/tdomeadmin)
 "CD" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch"
+	name = "Shuttle Hatch";
+	id_tag = "s_docking_airlock"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/docking_port/mobile/supply,
 /obj/docking_port/stationary{
+	name = "supply centcom";
 	dir = 8;
-	dwidth = 5;
+	width = 12;
 	height = 7;
 	id = "supply_away";
-	name = "supply centcom";
-	width = 12
+	dwidth = 5
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/supply)
 "CF" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "blue"
+	icon_state = "blue";
+	dir = 4
 	},
 /area/holodeck/source_knightarena)
 "CG" = (
@@ -8079,14 +8075,14 @@
 /area/ghost_bar)
 "CJ" = (
 /obj/machinery/door_control/no_emag{
-	id = "CCcustoms2";
 	name = "CentCom Inner Customs Shutters";
 	pixel_x = 24;
+	id = "CCcustoms2";
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgreen"
+	icon_state = "darkgreen";
+	dir = 4
 	},
 /area/centcom/control)
 "CK" = (
@@ -8110,20 +8106,20 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellowfull"
+	icon_state = "darkyellowfull";
+	dir = 8
 	},
 /area/centcom/suppy)
 "CQ" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellow"
+	icon_state = "darkyellow";
+	dir = 8
 	},
 /area/centcom/suppy)
 "CR" = (
 /turf/simulated/floor/holofloor{
-	dir = 8;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 8
 	},
 /area/holodeck/source_boxingcourt)
 "CU" = (
@@ -8188,16 +8184,16 @@
 "Dn" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control/no_emag{
-	id = "specopsoffice";
 	name = "Privacy Shutters";
 	pixel_x = 6;
 	pixel_y = 10;
+	id = "specopsoffice";
 	req_access_txt = "114"
 	},
 /obj/machinery/door_control/no_emag{
+	name = "Engineering Storage";
 	pixel_x = -6;
 	pixel_y = -17;
-	name = "Engineering Storage";
 	id = "SpecopsEngineering";
 	req_access_txt = "114"
 	},
@@ -8213,8 +8209,8 @@
 /obj/item/clothing/under/color/red,
 /obj/item/holo/esword/red,
 /turf/simulated/floor/holofloor{
-	dir = 1;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 1
 	},
 /area/holodeck/source_thunderdomecourt)
 "Dq" = (
@@ -8251,8 +8247,8 @@
 	},
 /obj/structure/plasticflaps/mining,
 /obj/machinery/door/poddoor{
-	id_tag = "QMLoaddoor";
-	name = "Supply Dock Loading Door"
+	name = "Supply Dock Loading Door";
+	id_tag = "QMLoaddoor"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
@@ -8267,8 +8263,8 @@
 	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellowfull"
+	icon_state = "darkyellowfull";
+	dir = 8
 	},
 /area/centcom/suppy)
 "DB" = (
@@ -8279,8 +8275,8 @@
 	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkyellow"
+	icon_state = "darkyellow";
+	dir = 10
 	},
 /area/centcom/suppy)
 "DD" = (
@@ -8289,8 +8285,8 @@
 	pixel_y = -24
 	},
 /obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+	icon_state = "0-4";
+	d2 = 4
 	},
 /obj/structure/sign/securearea{
 	pixel_x = -32
@@ -8336,13 +8332,13 @@
 /area/admin)
 "DL" = (
 /obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
+	icon_state = "0-8";
+	d2 = 8
 	},
 /obj/structure/cable{
+	icon_state = "4-8";
 	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	d2 = 8
 	},
 /obj/machinery/mech_bay_recharge_port/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -8355,9 +8351,9 @@
 "DN" = (
 /obj/mecha/combat/marauder/ares/loaded,
 /obj/structure/cable{
+	icon_state = "4-8";
 	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	d2 = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
@@ -8389,8 +8385,8 @@
 	},
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 10
 	},
 /area/centcom/specops)
 "DT" = (
@@ -8402,9 +8398,9 @@
 	dir = 8
 	},
 /obj/machinery/door/window{
-	dir = 8;
 	name = "Toilet";
-	opacity = 1
+	opacity = 1;
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
@@ -8414,8 +8410,8 @@
 	req_access_txt = "114"
 	},
 /obj/machinery/door/poddoor/impassable{
-	id_tag = "specopsoffice";
-	name = "Super Privacy Shutters"
+	name = "Super Privacy Shutters";
+	id_tag = "specopsoffice"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -8432,8 +8428,8 @@
 /area/admin)
 "DY" = (
 /obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
+	icon_state = "0-8";
+	d2 = 8
 	},
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 1
@@ -8451,16 +8447,16 @@
 	req_access_txt = "109"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellowfull"
+	icon_state = "darkyellowfull";
+	dir = 8
 	},
 /area/centcom/suppy)
 "Ec" = (
 /obj/structure/railing,
 /obj/structure/sign/directions/engineering{
+	name = "WARNING: BLAST DOORS";
 	desc = "A sign that shows there are doors here. There are doors everywhere!";
 	icon_state = "doors";
-	name = "WARNING: BLAST DOORS";
 	pixel_x = 32
 	},
 /turf/simulated/floor/wood,
@@ -8474,8 +8470,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 4
 	},
 /area/shuttle/escape)
 "Ei" = (
@@ -8488,8 +8484,8 @@
 /area/holodeck/source_basketball)
 "Ej" = (
 /obj/machinery/door/window/reinforced/normal{
-	dir = 2;
 	name = "Cell Door";
+	dir = 2;
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -8501,12 +8497,12 @@
 "El" = (
 /obj/effect/mapping_helpers/airlock/unres,
 /obj/machinery/door/airlock/centcom{
-	aiControlDisabled = 1;
-	auto_close_time = 25;
-	hackProof = 1;
-	max_integrity = 3000;
 	name = "Escape Pod Dock";
-	req_access_txt = "101"
+	aiControlDisabled = 1;
+	hackProof = 1;
+	auto_close_time = 25;
+	req_access_txt = "101";
+	max_integrity = 3000
 	},
 /turf/simulated/floor/wood,
 /area/centcom/evac)
@@ -8535,8 +8531,8 @@
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteblue"
+	icon_state = "whiteblue";
+	dir = 5
 	},
 /area/shuttle/escape)
 "Er" = (
@@ -8555,8 +8551,8 @@
 "Et" = (
 /obj/machinery/computer/robotics,
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+	icon_state = "darkblue";
+	dir = 9
 	},
 /area/shuttle/escape)
 "Eu" = (
@@ -8582,8 +8578,8 @@
 "Ew" = (
 /obj/machinery/computer/crew,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+	icon_state = "darkblue";
+	dir = 1
 	},
 /area/shuttle/escape)
 "Ex" = (
@@ -8593,15 +8589,15 @@
 "Ez" = (
 /obj/machinery/computer/emergency_shuttle,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+	icon_state = "darkblue";
+	dir = 1
 	},
 /area/shuttle/escape)
 "EA" = (
 /obj/machinery/computer/communications,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+	icon_state = "darkblue";
+	dir = 5
 	},
 /area/shuttle/escape)
 "ED" = (
@@ -8618,14 +8614,14 @@
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 4
 	},
 /area/shuttle/escape)
 "EG" = (
 /obj/machinery/door/airlock/hatch{
-	desc = "Uh oh. You'd better hope you aren't going in here!";
-	name = "Prisoner Treatment"
+	name = "Prisoner Treatment";
+	desc = "Uh oh. You'd better hope you aren't going in here!"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
@@ -8641,8 +8637,8 @@
 /area/ghost_bar)
 "EL" = (
 /obj/machinery/door/airlock/hatch{
-	desc = "Uh oh. You'd better hope you aren't going in here!";
-	name = "Detainment"
+	name = "Detainment";
+	desc = "Uh oh. You'd better hope you aren't going in here!"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
@@ -8713,21 +8709,21 @@
 /obj/structure/table/reinforced,
 /obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkyellow"
+	icon_state = "darkyellow";
+	dir = 9
 	},
 /area/centcom/suppy)
 "Fe" = (
 /obj/structure/table/holotable,
 /turf/simulated/floor/holofloor{
-	dir = 10;
-	icon_state = "blue"
+	icon_state = "blue";
+	dir = 10
 	},
 /area/holodeck/source_knightarena)
 "Fg" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkyellow"
+	icon_state = "darkyellow";
+	dir = 1
 	},
 /area/centcom/suppy)
 "Fj" = (
@@ -8735,8 +8731,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteblue"
+	icon_state = "whiteblue";
+	dir = 5
 	},
 /area/centcom/control)
 "Fk" = (
@@ -8753,8 +8749,8 @@
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 4
 	},
 /area/shuttle/escape)
 "Fo" = (
@@ -8763,8 +8759,8 @@
 "Fp" = (
 /obj/machinery/door/window/classic/reversed{
 	name = "Tool Storage";
-	req_access_txt = "150";
-	dir = 8
+	dir = 8;
+	req_access_txt = "150"
 	},
 /obj/machinery/light/spot{
 	dir = 1
@@ -8792,8 +8788,8 @@
 "Ft" = (
 /obj/machinery/door/window{
 	name = "Infirmary";
-	req_access_txt = "150";
-	dir = 4
+	dir = 4;
+	req_access_txt = "150"
 	},
 /obj/machinery/light/spot{
 	dir = 1
@@ -8802,9 +8798,9 @@
 /area/shuttle/syndicate)
 "Fu" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "admin_away";
 	name = "Administration Shuttle";
-	opacity = 0
+	opacity = 0;
+	id_tag = "admin_away"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel/dark,
@@ -8818,8 +8814,8 @@
 "Fx" = (
 /obj/structure/table/holotable,
 /turf/simulated/floor/holofloor{
-	dir = 5;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 5
 	},
 /area/holodeck/source_knightarena)
 "Fy" = (
@@ -8844,18 +8840,18 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 4
 	},
 /area/shuttle/escape)
 "FC" = (
 /obj/docking_port/stationary{
+	name = "recovery ship bay 3";
 	dir = 2;
-	dwidth = 1;
+	width = 3;
 	height = 4;
 	id = "pod3_away";
-	name = "recovery ship bay 3";
-	width = 3
+	dwidth = 1
 	},
 /turf/space,
 /area/space/centcomm)
@@ -8869,8 +8865,8 @@
 "FF" = (
 /obj/structure/table/holotable,
 /turf/simulated/floor/holofloor{
-	dir = 10;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 10
 	},
 /area/holodeck/source_thunderdomecourt)
 "FG" = (
@@ -8894,8 +8890,8 @@
 /area/admin)
 "FK" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
+	icon_state = "whiteblue";
+	dir = 1
 	},
 /area/shuttle/escape)
 "FL" = (
@@ -8954,8 +8950,8 @@
 "FY" = (
 /obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 6
 	},
 /area/centcom/specops)
 "FZ" = (
@@ -8982,8 +8978,8 @@
 "Gd" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier{
-	icon_state = "fax";
-	name = "fax machine"
+	name = "fax machine";
+	icon_state = "fax"
 	},
 /obj/item/photo{
 	name = "butts"
@@ -9005,9 +9001,9 @@
 /area/shuttle/supply)
 "Gg" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
 	icon = 'icons/turf/floors/plating.dmi';
-	icon_state = "asteroid11"
+	icon_state = "asteroid11";
+	dir = 4
 	},
 /area/holodeck/source_desert)
 "Gh" = (
@@ -9015,8 +9011,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellow"
+	icon_state = "darkyellow";
+	dir = 8
 	},
 /area/centcom/suppy)
 "Gi" = (
@@ -9065,15 +9061,15 @@
 "Gq" = (
 /obj/machinery/computer/arcade,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 1
 	},
 /area/centcom/evac)
 "Gr" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/centcom/specops)
 "Gs" = (
@@ -9088,8 +9084,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 9
 	},
 /area/shuttle/escape)
 "Gt" = (
@@ -9122,8 +9118,8 @@
 /area/shuttle/escape)
 "GA" = (
 /obj/item/radio/intercom{
-	dir = 4;
 	name = "Station Intercom (General)";
+	dir = 4;
 	pixel_x = 29;
 	pixel_y = -60
 	},
@@ -9131,8 +9127,8 @@
 /area/shuttle/escape)
 "GB" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+	icon_state = "whiteblue";
+	dir = 4
 	},
 /area/centcom/control)
 "GC" = (
@@ -9172,8 +9168,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkyellow"
+	icon_state = "darkyellow";
+	dir = 5
 	},
 /area/shuttle/escape)
 "GK" = (
@@ -9189,8 +9185,8 @@
 /area/admin)
 "GM" = (
 /obj/machinery/door/window{
-	dir = 1;
 	name = "Cell A";
+	dir = 1;
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -9200,10 +9196,10 @@
 /area/wizard_station)
 "GO" = (
 /obj/machinery/door_control/no_emag{
-	pixel_y = -24;
-	req_access_txt = "114";
 	name = "Engineering Storage Shutters";
-	id = "SpecopsEngineering"
+	pixel_y = -24;
+	id = "SpecopsEngineering";
+	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -9266,8 +9262,8 @@
 /area/centcom/specops)
 "GW" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/centcom/specops)
 "GX" = (
@@ -9302,18 +9298,18 @@
 	},
 /obj/structure/plasticflaps/mining,
 /obj/machinery/door/poddoor{
-	id_tag = "QMLoaddoor";
-	name = "Supply Dock Loading Door"
+	name = "Supply Dock Loading Door";
+	id_tag = "QMLoaddoor"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
 "He" = (
 /obj/docking_port/stationary{
-	dwidth = 3;
+	name = "Backup Shuttle Dock";
+	width = 8;
 	height = 8;
 	id = "backup_away";
-	name = "Backup Shuttle Dock";
-	width = 8
+	dwidth = 3
 	},
 /obj/docking_port/mobile/emergency/backup{
 	dir = 1;
@@ -9341,16 +9337,16 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 10
 	},
 /area/shuttle/escape)
 "Hm" = (
 /obj/effect/spawner/window,
 /obj/structure/sign/directions/engineering{
+	name = "WARNING: BLAST DOORS";
 	desc = "A sign that shows there are doors here. There are doors everywhere!";
-	icon_state = "doors";
-	name = "WARNING: BLAST DOORS"
+	icon_state = "doors"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/control)
@@ -9384,15 +9380,15 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkyellow"
+	icon_state = "darkyellow";
+	dir = 6
 	},
 /area/shuttle/escape)
 "Hv" = (
 /obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 4
 	},
 /area/centcom/specops)
 "Hy" = (
@@ -9466,8 +9462,8 @@
 /obj/item/clothing/head/helmet/riot/knight/red,
 /obj/item/holo/claymore/red,
 /turf/simulated/floor/holofloor{
-	dir = 1;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 1
 	},
 /area/holodeck/source_knightarena)
 "HL" = (
@@ -9510,8 +9506,8 @@
 "HR" = (
 /obj/structure/reagent_dispensers/watertank/high,
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 6
 	},
 /area/centcom/specops)
 "HT" = (
@@ -9531,8 +9527,8 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 4
 	},
 /area/centcom/specops)
 "HW" = (
@@ -9563,14 +9559,14 @@
 /area/centcom/evac)
 "Ib" = (
 /obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the Thunderdome.";
 	name = "Thunderdome Telescreen";
+	desc = "Used for watching the Thunderdome.";
 	network = list("Thunderdome")
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/tdome/tdomeadmin)
 "Id" = (
@@ -9593,9 +9589,9 @@
 /area/tdome/tdomeobserve)
 "Ih" = (
 /obj/machinery/door_control/no_emag{
-	id = "adminshuttleblast";
 	name = "blast door control";
 	pixel_x = -30;
+	id = "adminshuttleblast";
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -9697,8 +9693,8 @@
 /area/centcom/control)
 "ID" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+	icon_state = "darkblue";
+	dir = 1
 	},
 /area/centcom/control)
 "IE" = (
@@ -9761,8 +9757,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 8
 	},
 /area/centcom/evac)
 "IO" = (
@@ -9779,8 +9775,8 @@
 "IQ" = (
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 6
 	},
 /area/centcom/specops)
 "IR" = (
@@ -9806,34 +9802,34 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
+	icon_state = "redcorner";
+	dir = 1
 	},
 /area/shuttle/escape)
 "IV" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
+	icon_state = "blue";
+	dir = 1
 	},
 /area/shuttle/escape)
 "IW" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "burst_l"
+	icon_state = "burst_l";
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/specops)
 "IY" = (
 /obj/machinery/computer/shuttle/ferry,
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 10
 	},
 /area/centcom/specops)
 "Jb" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch";
+	id_tag = "s_docking_airlock";
 	req_access_txt = "109"
 	},
 /obj/structure/fans/tiny,
@@ -9851,16 +9847,16 @@
 	},
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
+	icon_state = "neutralcorner";
+	dir = 4
 	},
 /area/shuttle/escape)
 "Jf" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/directions/engineering{
+	name = "WARNING: EXTERNAL AIRLOCK";
 	desc = "A sign that shows there are doors here. There are doors everywhere!";
-	icon_state = "doors";
-	name = "WARNING: EXTERNAL AIRLOCK"
+	icon_state = "doors"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/specops)
@@ -9879,8 +9875,8 @@
 /area/tdome/tdomeadmin)
 "Ji" = (
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/centcom/specops)
 "Jk" = (
@@ -9975,8 +9971,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 4
 	},
 /area/centcom/specops)
 "JB" = (
@@ -10020,8 +10016,8 @@
 "JD" = (
 /obj/machinery/computer/shuttle/ferry,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 1
 	},
 /area/centcom/gamma)
 "JE" = (
@@ -10042,8 +10038,8 @@
 /area/centcom/evac)
 "JH" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 1
 	},
 /area/centcom/gamma)
 "JI" = (
@@ -10059,15 +10055,15 @@
 /area/tdome/tdomeobserve)
 "JK" = (
 /obj/machinery/door_control/no_emag{
-	id = "CCGAMMA";
 	name = "Gamma Lockdown";
 	pixel_x = 32;
+	id = "CCGAMMA";
 	req_access_txt = "114"
 	},
 /obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 5
 	},
 /area/centcom/gamma)
 "JM" = (
@@ -10126,8 +10122,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/holofloor{
-	dir = 8;
-	icon_state = "blue"
+	icon_state = "blue";
+	dir = 8
 	},
 /area/holodeck/source_knightarena)
 "JV" = (
@@ -10165,8 +10161,8 @@
 "Kb" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
-	id_tag = "sec";
-	name = "CentCom Security"
+	name = "CentCom Security";
+	id_tag = "sec"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
@@ -10205,8 +10201,8 @@
 "Ki" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
-	id_tag = "CC";
-	name = "Thunderdome Access"
+	name = "Thunderdome Access";
+	id_tag = "CC"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
@@ -10249,8 +10245,8 @@
 /obj/item/radio,
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 10
 	},
 /area/centcom/specops)
 "Ku" = (
@@ -10259,8 +10255,8 @@
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+	icon_state = "whiteblue";
+	dir = 4
 	},
 /area/shuttle/escape)
 "Kv" = (
@@ -10307,8 +10303,8 @@
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whiteblue"
+	icon_state = "whiteblue";
+	dir = 6
 	},
 /area/centcom/control)
 "KA" = (
@@ -10337,8 +10333,8 @@
 /area/centcom/evac)
 "KH" = (
 /obj/item/radio/intercom{
-	dir = 4;
 	name = "Station Intercom (General)";
+	dir = 4;
 	pixel_x = 29;
 	pixel_y = -30
 	},
@@ -10371,8 +10367,8 @@
 /obj/item/restraints/handcuffs,
 /obj/item/flash,
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 10
 	},
 /area/centcom/specops)
 "KL" = (
@@ -10384,8 +10380,8 @@
 	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkyellow"
+	icon_state = "darkyellow";
+	dir = 1
 	},
 /area/centcom/suppy)
 "KN" = (
@@ -10411,8 +10407,8 @@
 "KS" = (
 /obj/structure/chair/sofa/corp/right,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 1
 	},
 /area/centcom/evac)
 "KU" = (
@@ -10447,8 +10443,8 @@
 "La" = (
 /obj/structure/chair/sofa/corp,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 1
 	},
 /area/centcom/evac)
 "Lb" = (
@@ -10461,15 +10457,15 @@
 "Le" = (
 /obj/structure/chair/sofa/corp/left,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 1
 	},
 /area/centcom/evac)
 "Lf" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
 	icon = 'icons/turf/floors/plating.dmi';
-	icon_state = "asteroid8"
+	icon_state = "asteroid8";
+	dir = 4
 	},
 /area/holodeck/source_desert)
 "Lg" = (
@@ -10492,16 +10488,16 @@
 /area/ghost_bar)
 "Lj" = (
 /obj/machinery/door/poddoor/impassable{
-	id_tag = "SPECOPS";
-	name = "Nanotrasen Asset Protection"
+	name = "Nanotrasen Asset Protection";
+	id_tag = "SPECOPS"
 	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Lk" = (
 /obj/machinery/door_control/no_emag{
-	id = "thunderdomehea";
 	name = "Heavy Supply Control";
+	id = "thunderdomehea";
 	req_access_txt = "102"
 	},
 /obj/structure/table/reinforced,
@@ -10511,8 +10507,8 @@
 /area/tdome/tdomeadmin)
 "Ll" = (
 /turf/simulated/floor/holofloor{
-	dir = 8;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 8
 	},
 /area/holodeck/source_emptycourt)
 "Lm" = (
@@ -10524,10 +10520,10 @@
 /area/wizard_station)
 "Lp" = (
 /obj/machinery/door/airlock/hatch/syndicate{
-	autoclose = 0;
-	id_tag = "syndijail_door_ext";
+	name = "Syndicate Jail External Airlock";
 	locked = 1;
-	name = "Syndicate Jail External Airlock"
+	id_tag = "syndijail_door_ext";
+	autoclose = 0
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -10537,9 +10533,9 @@
 /area/ghost_bar)
 "Ls" = (
 /obj/machinery/door_control/no_emag{
-	id = "ASSAULT";
 	name = "Mech Storage";
 	pixel_y = -24;
+	id = "ASSAULT";
 	req_access_txt = "114"
 	},
 /obj/effect/turf_decal/caution/stand_clear{
@@ -10554,8 +10550,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 1
 	},
 /area/centcom/evac)
 "Lu" = (
@@ -10582,8 +10578,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/holofloor{
-	dir = 8;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 8
 	},
 /area/holodeck/source_thunderdomecourt)
 "LA" = (
@@ -10597,8 +10593,8 @@
 	},
 /obj/effect/landmark/spawner/tdomeadmin,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/tdome/tdomeadmin)
 "LF" = (
@@ -10622,8 +10618,8 @@
 "LH" = (
 /obj/machinery/economy/vending/cigarette/free,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 5
 	},
 /area/centcom/evac)
 "LI" = (
@@ -10644,8 +10640,8 @@
 "LL" = (
 /obj/structure/holowindow,
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 4
 	},
 /area/holodeck/source_knightarena)
 "LM" = (
@@ -10667,8 +10663,8 @@
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
+	icon_state = "redcorner";
+	dir = 1
 	},
 /area/shuttle/escape)
 "LQ" = (
@@ -10685,8 +10681,8 @@
 /area/shuttle/escape)
 "LS" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
+	icon_state = "neutralcorner";
+	dir = 4
 	},
 /area/shuttle/escape)
 "LT" = (
@@ -10712,8 +10708,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 4
 	},
 /area/centcom/evac)
 "LZ" = (
@@ -10735,8 +10731,8 @@
 /area/shuttle/escape)
 "Mc" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
+	icon_state = "neutralcorner";
+	dir = 8
 	},
 /area/shuttle/escape)
 "Md" = (
@@ -10759,8 +10755,8 @@
 /obj/item/folder/red,
 /obj/item/lighter,
 /obj/machinery/newscaster{
-	dir = 1;
 	name = "south bump";
+	dir = 1;
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -10775,14 +10771,14 @@
 /area/centcom/gamma)
 "Mi" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 4
 	},
 /area/centcom/gamma)
 "Mk" = (
 /obj/machinery/door_control/no_emag{
-	id = "thunderdomegen";
 	name = "General Supply Control";
+	id = "thunderdomegen";
 	req_access_txt = "102"
 	},
 /obj/structure/table/reinforced,
@@ -10811,8 +10807,8 @@
 	req_access_txt = "114"
 	},
 /obj/machinery/door/poddoor/impassable{
-	id_tag = "CCGAMMA";
-	name = "Gamma Security"
+	name = "Gamma Security";
+	id_tag = "CCGAMMA"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel/dark,
@@ -10861,8 +10857,8 @@
 "Mv" = (
 /obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 10
 	},
 /area/centcom/specops)
 "Mx" = (
@@ -10926,9 +10922,9 @@
 /area/centcom/control)
 "MD" = (
 /obj/machinery/door/airlock/centcom{
-	hackProof = 1;
+	name = "CentCom Auxiliary Announcement Closet (Steve)";
 	locked = 1;
-	name = "CentCom Auxiliary Announcement Closet (Steve)"
+	hackProof = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
@@ -10963,8 +10959,8 @@
 /area/centcom/specops)
 "ML" = (
 /obj/machinery/flasher{
-	id = "tdomeflash";
-	name = "Thunderdome Flash"
+	name = "Thunderdome Flash";
+	id = "tdomeflash"
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
@@ -10977,16 +10973,16 @@
 "MN" = (
 /obj/machinery/cryopod/robot/offstation,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 4
 	},
 /area/centcom/specops)
 "MO" = (
 /obj/mecha/combat/marauder/loaded,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 1
 	},
 /area/centcom/specops)
 "MP" = (
@@ -10994,89 +10990,89 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 1
 	},
 /area/centcom/specops)
 "MQ" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control/no_emag{
-	desc = "A remote control switch to connect the ready room to the rest of Centcom.";
-	id = "SPECOPS";
 	name = "Station Access";
+	desc = "A remote control switch to connect the ready room to the rest of Centcom.";
 	pixel_x = -6;
 	pixel_y = 6;
+	id = "SPECOPS";
 	req_access_txt = "114"
 	},
 /obj/machinery/door_control/no_emag{
-	id = "CCGAMMA";
 	name = "Gamma Lockdown";
 	pixel_x = -6;
 	pixel_y = -3;
+	id = "CCGAMMA";
 	req_access_txt = "114"
 	},
 /obj/machinery/door_control/no_emag{
-	id = "ASSAULT";
 	name = "Mech Storage";
 	pixel_x = 6;
 	pixel_y = 6;
+	id = "ASSAULT";
 	req_access_txt = "114"
 	},
 /obj/machinery/door_control/no_emag{
-	id = "CCDOCK2";
 	name = "Special Operations Secondary Dock";
 	pixel_x = 6;
 	pixel_y = -3;
+	id = "CCDOCK2";
 	req_access_txt = "114"
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
 "MR" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
 	icon = 'icons/turf/floors/plating.dmi';
-	icon_state = "asteroid1"
+	icon_state = "asteroid1";
+	dir = 4
 	},
 /area/holodeck/source_desert)
 "MS" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "syndishuttle_door_ext";
 	name = "Ship External Access";
+	id_tag = "syndishuttle_door_ext";
 	req_access_txt = "150"
 	},
 /obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "smindicate";
 	name = "Outer Airlock";
-	opacity = 0
+	icon_state = "open";
+	opacity = 0;
+	density = 0;
+	id_tag = "smindicate"
 	},
 /obj/machinery/door_control/no_emag{
-	id = "smindicate";
 	name = "External Door Control";
 	pixel_x = -26;
 	pixel_y = 2;
+	id = "smindicate";
 	req_access_txt = "150"
 	},
 /obj/docking_port/mobile{
-	dheight = 9;
+	name = "syndicate infiltrator";
 	dir = 2;
-	dwidth = 5;
+	width = 18;
 	height = 22;
 	id = "syndicate";
-	name = "syndicate infiltrator";
-	width = 18
+	dwidth = 5;
+	dheight = 9
 	},
 /obj/docking_port/stationary{
-	area_type = /area/syndicate_mothership;
-	dheight = 9;
+	name = "syndicate base";
 	dir = 2;
-	dwidth = 5;
+	width = 18;
 	height = 22;
 	id = "syndicate_away";
-	name = "syndicate base";
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/airless;
-	width = 18
+	dwidth = 5;
+	dheight = 9;
+	area_type = /area/syndicate_mothership
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate)
@@ -11095,8 +11091,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellowfull"
+	icon_state = "darkyellowfull";
+	dir = 8
 	},
 /area/centcom/suppy)
 "MY" = (
@@ -11143,8 +11139,8 @@
 "Ne" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the Special Ops.";
 	name = "Special Ops. Monitor";
+	desc = "Used for watching the Special Ops.";
 	network = list("ERT")
 	},
 /turf/simulated/floor/carpet,
@@ -11218,8 +11214,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 8
 	},
 /area/centcom/evac)
 "Nv" = (
@@ -11245,8 +11241,8 @@
 "Nz" = (
 /obj/structure/filingcabinet/security,
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 10
 	},
 /area/centcom/specops)
 "NA" = (
@@ -11255,8 +11251,8 @@
 /area/tdome/arena)
 "NB" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 4
 	},
 /area/centcom/evac)
 "ND" = (
@@ -11274,8 +11270,8 @@
 /area/shuttle/escape)
 "NG" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
+	icon_state = "redcorner";
+	dir = 8
 	},
 /area/shuttle/escape)
 "NH" = (
@@ -11285,14 +11281,14 @@
 /area/ghost_bar)
 "NI" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+	icon_state = "neutral";
+	dir = 1
 	},
 /area/shuttle/escape)
 "NK" = (
 /obj/machinery/computer/shuttle/admin{
-	dir = 8;
-	name = "NTV Argos shuttle console"
+	name = "NTV Argos shuttle console";
+	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -11303,9 +11299,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
 /obj/machinery/door_control/no_emag{
-	id = "SpecopsFerry";
 	name = "Hanger Bay Shutters";
-	pixel_y = -38
+	pixel_y = -38;
+	id = "SpecopsFerry"
 	},
 /obj/item/radio/headset/centcom,
 /turf/simulated/floor/plasteel{
@@ -11314,8 +11310,8 @@
 /area/centcom/gamma)
 "NM" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+	icon_state = "neutralcorner";
+	dir = 1
 	},
 /area/shuttle/escape)
 "NO" = (
@@ -11323,11 +11319,11 @@
 	name = "Teleporter Access"
 	},
 /obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "ADMINLOCKDOWN";
 	name = "Security Doors";
-	opacity = 0
+	icon_state = "open";
+	opacity = 0;
+	density = 0;
+	id_tag = "ADMINLOCKDOWN"
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -11344,8 +11340,8 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 4
 	},
 /area/centcom/gamma)
 "NT" = (
@@ -11397,8 +11393,8 @@
 "Of" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/centcom/specops)
 "Og" = (
@@ -11446,8 +11442,8 @@
 "Ol" = (
 /obj/structure/holohoop,
 /turf/simulated/floor/holofloor{
-	dir = 1;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 1
 	},
 /area/holodeck/source_basketball)
 "Om" = (
@@ -11473,8 +11469,8 @@
 /area/tdome/tdomeobserve)
 "Oq" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 1
 	},
 /area/centcom/control)
 "Or" = (
@@ -11551,8 +11547,8 @@
 "OD" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
+	icon_state = "whiteblue";
+	dir = 1
 	},
 /area/centcom/control)
 "OE" = (
@@ -11563,36 +11559,36 @@
 "OF" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 8
 	},
 /area/centcom/evac)
 "OG" = (
 /obj/machinery/door/airlock/external{
+	name = "Arrival Airlock";
 	aiControlDisabled = 1;
 	hackProof = 1;
-	id_tag = "emergency_away";
-	name = "Arrival Airlock"
+	id_tag = "emergency_away"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/centcom/evac)
 "OH" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
-	dir = 8;
-	name = "Mech Bay Power Port"
+	name = "Mech Bay Power Port";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 6
 	},
 /area/centcom/specops)
 "OI" = (
 /obj/machinery/door/airlock/titanium{
+	name = "Shuttle Hatch";
 	aiControlDisabled = 1;
 	hackProof = 1;
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch"
+	id_tag = "s_docking_airlock"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
@@ -11619,8 +11615,8 @@
 "OM" = (
 /obj/machinery/door/window/classic/reversed{
 	name = "In";
-	req_access_txt = "150";
-	dir = 1
+	dir = 1;
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -11635,8 +11631,8 @@
 "OO" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
+	icon_state = "redcorner";
+	dir = 8
 	},
 /area/shuttle/escape)
 "OP" = (
@@ -11647,28 +11643,28 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkredcorners"
+	icon_state = "darkredcorners";
+	dir = 4
 	},
 /area/centcom/specops)
 "OR" = (
 /obj/machinery/door/poddoor/preopen{
-	id_tag = "adminshuttleblast";
 	name = "Blast Doors";
+	id_tag = "adminshuttleblast";
 	req_access_txt = "101"
 	},
 /obj/machinery/door/airlock/centcom{
-	id_tag = "adminshuttle";
 	name = "General Access";
+	id_tag = "adminshuttle";
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "OT" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
 	icon = 'icons/turf/floors/plating.dmi';
-	icon_state = "asteroid2"
+	icon_state = "asteroid2";
+	dir = 4
 	},
 /area/holodeck/source_desert)
 "OU" = (
@@ -11679,14 +11675,14 @@
 "OV" = (
 /obj/item/kirbyplants,
 /obj/machinery/door_control/no_emag{
-	id = "CCDOCK2";
 	name = "Special Operations Secondary Dock";
 	pixel_y = 24;
+	id = "CCDOCK2";
 	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 6
 	},
 /area/centcom/specops)
 "OW" = (
@@ -11801,8 +11797,8 @@
 /area/shuttle/administration)
 "Pp" = (
 /obj/machinery/door/window{
-	dir = 8;
-	opacity = 1
+	opacity = 1;
+	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
@@ -11835,8 +11831,8 @@
 	dir = 1
 	},
 /obj/machinery/newscaster/security_unit{
-	dir = 1;
 	name = "south bump";
+	dir = 1;
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -11864,8 +11860,8 @@
 /obj/structure/table,
 /obj/item/gun/projectile/shotgun/toy/crossbow,
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 9
 	},
 /area/centcom/evac)
 "PA" = (
@@ -11905,8 +11901,8 @@
 /area/centcom/gamma)
 "PH" = (
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 6
 	},
 /area/centcom/gamma)
 "PI" = (
@@ -11952,8 +11948,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 4
 	},
 /area/centcom/evac)
 "PS" = (
@@ -12028,17 +12024,17 @@
 	dir = 1
 	},
 /obj/machinery/door_control/no_emag{
-	id = "adminshuttleblast";
 	name = "Blast door control";
 	pixel_x = -5;
 	pixel_y = 35;
+	id = "adminshuttleblast";
 	req_access = list(101)
 	},
 /obj/machinery/door_control/no_emag{
-	id = "adminshuttleshutters";
 	name = "Shutter control";
 	pixel_x = 5;
 	pixel_y = 35;
+	id = "adminshuttleshutters";
 	req_access = list(101)
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -12075,15 +12071,15 @@
 /area/wizard_station)
 "Qr" = (
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 9
 	},
 /area/centcom/specops)
 "Qs" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/multi_tile/impassable/three_tile_ver{
-	id_tag = "CCTELE";
-	name = "Specops Teleporter"
+	name = "Specops Teleporter";
+	id_tag = "CCTELE"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -12101,8 +12097,8 @@
 /area/ghost_bar)
 "Qx" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+	icon_state = "darkblue";
+	dir = 4
 	},
 /area/centcom/control)
 "Qy" = (
@@ -12122,8 +12118,8 @@
 /obj/structure/table/holotable,
 /obj/item/clothing/gloves/boxing/hologlove,
 /turf/simulated/floor/holofloor{
-	dir = 5;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 5
 	},
 /area/holodeck/source_boxingcourt)
 "QC" = (
@@ -12136,8 +12132,8 @@
 /area/tdome/tdomeadmin)
 "QD" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+	icon_state = "darkblue";
+	dir = 8
 	},
 /area/centcom/control)
 "QE" = (
@@ -12154,37 +12150,37 @@
 /area/tdome/tdomeobserve)
 "QG" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 8
 	},
 /area/centcom/evac)
 "QH" = (
 /obj/docking_port/mobile/emergency{
-	dwidth = 11;
+	width = 29;
 	height = 18;
-	width = 29
+	dwidth = 11
 	},
 /obj/machinery/door/airlock/titanium{
+	name = "Shuttle Hatch";
 	aiControlDisabled = 1;
 	hackProof = 1;
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch"
+	id_tag = "s_docking_airlock"
 	},
 /obj/docking_port/stationary{
+	name = "emergency centcom";
 	dir = 4;
-	dwidth = 11;
+	width = 29;
 	height = 18;
 	id = "emergency_away";
-	name = "emergency centcom";
-	width = 29
+	dwidth = 11
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "QI" = (
 /obj/machinery/door_control/no_emag{
-	id = "sec";
 	name = "CentCom Security Shutters";
-	pixel_x = -24
+	pixel_x = -24;
+	id = "sec"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
@@ -12202,8 +12198,8 @@
 "QN" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 1
 	},
 /area/centcom/evac)
 "QP" = (
@@ -12266,9 +12262,9 @@
 	},
 /obj/structure/window/reinforced/tinted,
 /obj/machinery/door/window{
-	dir = 8;
 	name = "Toilet";
-	opacity = 1
+	opacity = 1;
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
@@ -12332,8 +12328,8 @@
 "Rl" = (
 /obj/machinery/door/window/classic/normal{
 	name = "Out";
-	req_access_txt = "150";
-	dir = 1
+	dir = 1;
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -12343,8 +12339,8 @@
 	},
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 4
 	},
 /area/centcom/evac)
 "Rn" = (
@@ -12390,8 +12386,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 4
 	},
 /area/centcom/specops)
 "Rv" = (
@@ -12399,8 +12395,8 @@
 /area/shuttle/administration)
 "Rw" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "specops_away";
-	name = "Shuttle Hatch"
+	name = "Shuttle Hatch";
+	id_tag = "specops_away"
 	},
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/line{
@@ -12430,10 +12426,10 @@
 	dir = 5
 	},
 /obj/machinery/door_control/no_emag{
-	id = "SpecopsFerry";
 	name = "Hanger Bay Shutters";
 	pixel_x = 24;
 	pixel_y = null;
+	id = "SpecopsFerry";
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -12443,8 +12439,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 8
 	},
 /area/centcom/evac)
 "RD" = (
@@ -12458,8 +12454,8 @@
 "RG" = (
 /obj/item/flag/command,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 8
 	},
 /area/centcom/control)
 "RI" = (
@@ -12489,15 +12485,15 @@
 /area/centcom/control)
 "RP" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgreen"
+	icon_state = "darkgreen";
+	dir = 4
 	},
 /area/centcom/control)
 "RS" = (
 /obj/machinery/door/poddoor/preopen{
-	id_tag = "CCcustoms2";
 	name = "CC Customs Inner Shutters";
-	resistance_flags = 115
+	resistance_flags = 115;
+	id_tag = "CCcustoms2"
 	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
@@ -12516,20 +12512,20 @@
 /obj/structure/table,
 /obj/item/storage/firstaid/adv,
 /obj/machinery/door_control/no_emag{
-	id = "CCcustoms2";
 	name = "CentCom Inner Customs Shutters";
 	pixel_x = -24;
+	id = "CCcustoms2";
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 1
 	},
 /area/centcom/control)
 "RW" = (
 /obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
-	id_tag = "specopsoffice";
-	name = "Privacy Shield"
+	name = "Privacy Shield";
+	id_tag = "specopsoffice"
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
@@ -12542,8 +12538,8 @@
 "RZ" = (
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 1
 	},
 /area/centcom/control)
 "Sa" = (
@@ -12551,21 +12547,21 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/door_control/no_emag{
-	id = "CCcustoms1";
 	name = "CentCom Outer Customs Shutters";
 	pixel_x = 24;
+	id = "CCcustoms1";
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 1
 	},
 /area/centcom/control)
 "Sb" = (
 /obj/machinery/door/poddoor/preopen{
-	id_tag = "CCcustoms1";
 	name = "CC Customs Outer Shutters";
-	resistance_flags = 115
+	resistance_flags = 115;
+	id_tag = "CCcustoms1"
 	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
@@ -12573,8 +12569,8 @@
 "Sf" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 8
 	},
 /area/centcom/evac)
 "Sg" = (
@@ -12611,8 +12607,8 @@
 "Sn" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 4
 	},
 /area/centcom/evac)
 "So" = (
@@ -12636,8 +12632,8 @@
 /area/shuttle/specops)
 "Ss" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 4
 	},
 /area/holodeck/source_knightarena)
 "Su" = (
@@ -12656,15 +12652,15 @@
 /area/shuttle/administration)
 "Sz" = (
 /obj/machinery/door_control/no_emag{
-	id = "CCTELE";
 	name = "Specops Teleporter Shutters";
 	pixel_x = -24;
 	pixel_y = null;
+	id = "CCTELE";
 	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 8
 	},
 /area/centcom/specops)
 "SA" = (
@@ -12713,8 +12709,8 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 6
 	},
 /area/centcom/specops)
 "SL" = (
@@ -12735,8 +12731,8 @@
 /area/shuttle/escape)
 "SQ" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "browncorner"
+	icon_state = "browncorner";
+	dir = 8
 	},
 /area/shuttle/escape)
 "ST" = (
@@ -12784,8 +12780,8 @@
 "Tl" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 1
 	},
 /area/centcom/control)
 "Tn" = (
@@ -12812,19 +12808,19 @@
 /obj/item/folder/red,
 /obj/item/lighter,
 /obj/machinery/newscaster{
-	dir = 1;
 	name = "south bump";
+	dir = 1;
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 10
 	},
 /area/centcom/specops)
 "Tr" = (
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin{
-	dir = 8;
-	name = "NTV Argos shuttle navigation computer"
+	name = "NTV Argos shuttle navigation computer";
+	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -12856,18 +12852,18 @@
 "Ty" = (
 /obj/machinery/computer/shuttle/ert,
 /obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the Special Ops.";
 	name = "Special Ops. Monitor";
-	network = list("ERT");
+	desc = "Used for watching the Special Ops.";
 	pixel_x = null;
-	pixel_y = 30
+	pixel_y = 30;
+	network = list("ERT")
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
 "Tz" = (
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 4
 	},
 /area/holodeck/source_thunderdomecourt)
 "TA" = (
@@ -12900,8 +12896,8 @@
 "TM" = (
 /obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 6
 	},
 /area/centcom/evac)
 "TN" = (
@@ -12946,14 +12942,14 @@
 /area/shuttle/escape)
 "TT" = (
 /obj/machinery/door_control/no_emag{
-	id = "SpecopsFerry";
 	name = "Hanger Bay Shutters";
 	pixel_y = 24;
+	id = "SpecopsFerry";
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/centcom/specops)
 "TU" = (
@@ -12961,17 +12957,17 @@
 /area/centcom/evac)
 "TW" = (
 /obj/structure/sign/directions/engineering{
+	name = "WARNING: BLAST DOORS";
 	desc = "A sign that shows there are doors here. There are doors everywhere!";
 	icon_state = "doors";
-	name = "WARNING: BLAST DOORS";
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "TX" = (
 /turf/simulated/floor/holofloor{
-	dir = 8;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 8
 	},
 /area/holodeck/source_thunderdomecourt)
 "TY" = (
@@ -13039,8 +13035,8 @@
 /area/ghost_bar)
 "Ui" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 8
 	},
 /area/centcom/control)
 "Uj" = (
@@ -13100,14 +13096,14 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whiteblue"
+	icon_state = "whiteblue";
+	dir = 6
 	},
 /area/shuttle/escape)
 "Us" = (
 /obj/machinery/door/airlock/centcom{
-	id_tag = "adminshuttle";
 	name = "Medbay";
+	id_tag = "adminshuttle";
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -13126,8 +13122,8 @@
 /obj/structure/table/holotable,
 /obj/machinery/readybutton,
 /turf/simulated/floor/holofloor{
-	dir = 6;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 6
 	},
 /area/holodeck/source_thunderdomecourt)
 "Uz" = (
@@ -13137,8 +13133,8 @@
 	pixel_y = 5
 	},
 /obj/machinery/newscaster/security_unit{
-	dir = 8;
 	name = "east bump";
+	dir = 8;
 	pixel_x = 28
 	},
 /obj/item/storage/lockbox/medal/cc,
@@ -13146,10 +13142,10 @@
 /area/centcom/specops)
 "UA" = (
 /obj/machinery/door/airlock/external{
+	name = "Arrival Airlock";
 	aiControlDisabled = 1;
 	hackProof = 1;
-	id_tag = "emergency_away";
-	name = "Arrival Airlock"
+	id_tag = "emergency_away"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
@@ -13162,8 +13158,8 @@
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+	icon_state = "whiteblue";
+	dir = 4
 	},
 /area/shuttle/escape)
 "UH" = (
@@ -13172,8 +13168,8 @@
 /area/ghost_bar)
 "UI" = (
 /turf/simulated/floor/holofloor{
-	dir = 8;
-	icon_state = "blue"
+	icon_state = "blue";
+	dir = 8
 	},
 /area/holodeck/source_knightarena)
 "UJ" = (
@@ -13207,8 +13203,8 @@
 "UT" = (
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/centcom/specops)
 "UU" = (
@@ -13219,8 +13215,8 @@
 "UV" = (
 /obj/structure/holowindow,
 /turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 4
 	},
 /area/holodeck/source_thunderdomecourt)
 "UW" = (
@@ -13248,22 +13244,22 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/centcom/specops)
 "Vf" = (
 /obj/structure/statue/sandstone/venus{
-	color = "#5c5c5c";
 	desc = "She lies just out of reach, as always. She somehow has your only toolbox.";
-	dir = 1
+	dir = 1;
+	color = "#5c5c5c"
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/wizard_station)
 "Vg" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 8
 	},
 /area/centcom/evac)
 "Vi" = (
@@ -13282,8 +13278,8 @@
 "Vk" = (
 /obj/machinery/economy/vending/coffee/free,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 4
 	},
 /area/centcom/evac)
 "Vl" = (
@@ -13312,11 +13308,11 @@
 /area/centcom/specops)
 "Vq" = (
 /obj/machinery/door/window{
-	base_state = "right";
-	icon_state = "right";
 	name = "Equipment Room";
-	req_access_txt = "150";
-	dir = 4
+	icon_state = "right";
+	dir = 4;
+	base_state = "right";
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -13337,8 +13333,8 @@
 /area/centcom/evac)
 "Vu" = (
 /obj/machinery/door/poddoor/impassable{
-	id_tag = "tdome2";
-	name = "Corpse Retreival Entrance"
+	name = "Corpse Retreival Entrance";
+	id_tag = "tdome2"
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/tdomeadmin)
@@ -13372,8 +13368,8 @@
 /area/centcom/specops)
 "VD" = (
 /obj/machinery/door/poddoor/multi_tile/impassable/two_tile_hor{
-	id_tag = "CCDOCK2";
-	name = "Special Operations Secondary Dock"
+	name = "Special Operations Secondary Dock";
+	id_tag = "CCDOCK2"
 	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
@@ -13400,8 +13396,8 @@
 /area/centcom/specops)
 "VJ" = (
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/tdome/tdomeadmin)
 "VL" = (
@@ -13409,8 +13405,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 4
 	},
 /area/centcom/evac)
 "VM" = (
@@ -13447,12 +13443,12 @@
 /area/shuttle/escape)
 "VS" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
-	dir = 8;
-	name = "Mech Bay Power Port"
+	name = "Mech Bay Power Port";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 4
 	},
 /area/centcom/specops)
 "VT" = (
@@ -13463,8 +13459,8 @@
 /area/shuttle/escape)
 "VU" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+	icon_state = "brown";
+	dir = 4
 	},
 /area/shuttle/escape)
 "VX" = (
@@ -13477,8 +13473,8 @@
 "VY" = (
 /obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 6
 	},
 /area/centcom/specops)
 "VZ" = (
@@ -13518,8 +13514,8 @@
 /area/ruin/space/bubblegum_arena)
 "Wh" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+	icon_state = "brown";
+	dir = 8
 	},
 /area/shuttle/escape)
 "Wi" = (
@@ -13532,8 +13528,8 @@
 /obj/item/toy/katana,
 /obj/item/toy/plushie/carpplushie,
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 9
 	},
 /area/centcom/evac)
 "Wk" = (
@@ -13543,14 +13539,14 @@
 "Wl" = (
 /obj/item/kirbyplants,
 /obj/machinery/door_control/no_emag{
-	id = "CCcustoms1";
 	name = "CentCom Outer Customs Shutters";
 	pixel_x = -24;
+	id = "CCcustoms1";
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 8
 	},
 /area/centcom/evac)
 "Wp" = (
@@ -13581,8 +13577,8 @@
 "Ws" = (
 /obj/effect/landmark/spawner/nuclear_bomb/death_squad,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/centcom/specops)
 "Wt" = (
@@ -13651,26 +13647,26 @@
 /area/admin)
 "WD" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch";
+	id_tag = "s_docking_airlock";
 	req_access_txt = "109"
 	},
 /obj/docking_port/mobile{
+	name = "ert shuttle";
 	dir = 8;
-	dwidth = 2;
+	width = 5;
 	height = 11;
 	id = "specops";
-	name = "ert shuttle";
-	width = 5
+	dwidth = 2
 	},
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
+	name = "centcom bay 3";
 	dir = 8;
-	dwidth = 2;
+	width = 5;
 	height = 11;
 	id = "specops_away";
-	name = "centcom bay 3";
-	width = 5
+	dwidth = 2
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/specops)
@@ -13703,8 +13699,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 4
 	},
 /area/centcom/specops)
 "WI" = (
@@ -13717,8 +13713,8 @@
 	},
 /obj/effect/landmark/spawner/tdomeadmin,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/tdome/tdomeadmin)
 "WK" = (
@@ -13786,25 +13782,25 @@
 /obj/structure/table/holotable,
 /obj/machinery/readybutton,
 /turf/simulated/floor/holofloor{
-	dir = 6;
-	icon_state = "blue"
+	icon_state = "blue";
+	dir = 6
 	},
 /area/holodeck/source_knightarena)
 "WQ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/directions/engineering{
+	name = "WARNING: BLAST DOORS";
 	desc = "A sign that shows there are doors here. There are doors everywhere!";
-	icon_state = "doors";
-	name = "WARNING: BLAST DOORS"
+	icon_state = "doors"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/specops)
 "WS" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/directions/engineering{
+	name = "WARNING: BLAST DOORS";
 	desc = "A sign that shows there are doors here. There are doors everywhere!";
-	icon_state = "doors";
-	name = "WARNING: BLAST DOORS"
+	icon_state = "doors"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/control)
@@ -13843,8 +13839,8 @@
 "WW" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 10
 	},
 /area/centcom/specops)
 "WX" = (
@@ -13871,16 +13867,16 @@
 /area/tdome/tdomeobserve)
 "Xc" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
+	icon_state = "whiteblue";
+	dir = 1
 	},
 /area/centcom/control)
 "Xd" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/directions/engineering{
+	name = "WARNING: BLAST DOORS";
 	desc = "A sign that shows there are doors here. There are doors everywhere!";
-	icon_state = "doors";
-	name = "WARNING: BLAST DOORS"
+	icon_state = "doors"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/evac)
@@ -13889,8 +13885,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 8
 	},
 /area/centcom/evac)
 "Xf" = (
@@ -13900,14 +13896,14 @@
 "Xg" = (
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 4
 	},
 /area/centcom/evac)
 "Xh" = (
 /obj/machinery/door/poddoor/multi_tile/impassable/two_tile_ver{
-	id_tag = "specopsoffice";
-	name = "Privacy Shield"
+	name = "Privacy Shield";
+	id_tag = "specopsoffice"
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
@@ -13928,8 +13924,8 @@
 "Xl" = (
 /obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 8
 	},
 /area/centcom/evac)
 "Xm" = (
@@ -13939,26 +13935,26 @@
 "Xn" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/multi_tile/impassable/three_tile_ver{
-	id_tag = "SpecopsFerry";
-	name = "Special Operations Ferry Hangar"
+	name = "Special Operations Ferry Hangar";
+	id_tag = "SpecopsFerry"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Xo" = (
 /obj/machinery/door_control/no_emag{
-	id = "SPECOPS";
 	name = "Nanotrasen Asset Protection Shutters";
-	pixel_y = -24
+	pixel_y = -24;
+	id = "SPECOPS"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 10
 	},
 /area/centcom/specops)
 "Xp" = (
 /obj/machinery/door/poddoor/impassable{
-	id_tag = "tdome1";
-	name = "Corpse Retreival Entrance"
+	name = "Corpse Retreival Entrance";
+	id_tag = "tdome1"
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/tdomeadmin)
@@ -13993,14 +13989,14 @@
 /area/centcom/specops)
 "Xv" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "greencorner"
+	icon_state = "greencorner";
+	dir = 4
 	},
 /area/centcom/evac)
 "Xx" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 1
 	},
 /area/centcom/evac)
 "Xy" = (
@@ -14012,8 +14008,8 @@
 /area/centcom/specops)
 "Xz" = (
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 10
 	},
 /area/centcom/specops)
 "XB" = (
@@ -14027,8 +14023,8 @@
 /area/shuttle/escape)
 "XC" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "greencorner"
+	icon_state = "greencorner";
+	dir = 1
 	},
 /area/centcom/evac)
 "XD" = (
@@ -14100,8 +14096,8 @@
 /area/shuttle/escape)
 "XQ" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "burst_r"
+	icon_state = "burst_r";
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/specops)
@@ -14157,8 +14153,8 @@
 /obj/structure/table/holotable,
 /obj/machinery/readybutton,
 /turf/simulated/floor/holofloor{
-	dir = 9;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 9
 	},
 /area/holodeck/source_thunderdomecourt)
 "Yd" = (
@@ -14171,8 +14167,8 @@
 /obj/item/clothing/mask/gas,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 4
 	},
 /area/centcom/specops)
 "Ye" = (
@@ -14186,9 +14182,9 @@
 	dir = 6
 	},
 /obj/machinery/door_control/no_emag{
-	id = "CCDOCK2";
 	name = "Special Operations Secondary Dock";
 	pixel_y = -24;
+	id = "CCDOCK2";
 	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -14250,8 +14246,8 @@
 "Ys" = (
 /obj/machinery/door/window{
 	name = "Equipment Room";
-	req_access_txt = "150";
-	dir = 4
+	dir = 4;
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -14339,8 +14335,8 @@
 "YJ" = (
 /obj/machinery/door/window/classic/normal{
 	name = "Cell B";
-	req_access_txt = "101";
-	dir = 2
+	dir = 2;
+	req_access_txt = "101"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
@@ -14349,8 +14345,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+	icon_state = "red";
+	dir = 8
 	},
 /area/centcom/evac)
 "YL" = (
@@ -14381,9 +14377,9 @@
 /area/centcom/evac)
 "YS" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "syndishuttle_door_int";
-	locked = 1;
 	name = "Ship External Access";
+	locked = 1;
+	id_tag = "syndishuttle_door_int";
 	req_access_txt = "150"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -14402,8 +14398,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "greencorner"
+	icon_state = "greencorner";
+	dir = 4
 	},
 /area/centcom/evac)
 "YV" = (
@@ -14461,8 +14457,8 @@
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/centcom/specops)
 "Zd" = (
@@ -14486,8 +14482,8 @@
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/centcom/specops)
 "Ze" = (
@@ -14495,10 +14491,10 @@
 /area/shuttle/transport)
 "Zg" = (
 /obj/machinery/door_control/no_emag{
-	id = "CCTELE";
 	name = "Specops Teleporter Shutters";
 	pixel_x = 24;
 	pixel_y = null;
+	id = "CCTELE";
 	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -14506,15 +14502,15 @@
 "Zi" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 6
 	},
 /area/centcom/specops)
 "Zj" = (
 /obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/centcom/specops)
 "Zl" = (
@@ -14523,16 +14519,16 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/centcom/specops)
 "Zm" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 5
 	},
 /area/centcom/specops)
 "Zn" = (
@@ -14580,8 +14576,8 @@
 	pixel_y = -6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 9
 	},
 /area/centcom/specops)
 "Zu" = (
@@ -14603,8 +14599,8 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 1
 	},
 /area/centcom/specops)
 "Zx" = (
@@ -14633,15 +14629,15 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 1
 	},
 /area/centcom/specops)
 "ZF" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver{
-	id_tag = "ASSAULT";
-	name = "Assault Armor"
+	name = "Assault Armor";
+	id_tag = "ASSAULT"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -14667,8 +14663,8 @@
 	},
 /obj/item/storage/firstaid/adv,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 5
 	},
 /area/centcom/specops)
 "ZK" = (
@@ -14695,13 +14691,13 @@
 /area/shuttle/transport)
 "ZP" = (
 /obj/machinery/door_control/no_emag{
-	id = "tdomeflash";
-	name = "Flash control"
+	name = "Flash control";
+	id = "tdomeflash"
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 9
 	},
 /area/tdome/tdomeadmin)
 "ZQ" = (
@@ -14709,8 +14705,8 @@
 /area/centcom/specops)
 "ZR" = (
 /turf/simulated/floor/holofloor{
-	dir = 10;
-	icon_state = "green"
+	icon_state = "green";
+	dir = 10
 	},
 /area/holodeck/source_emptycourt)
 "ZS" = (
@@ -14718,8 +14714,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 10
 	},
 /area/centcom/specops)
 "ZT" = (
