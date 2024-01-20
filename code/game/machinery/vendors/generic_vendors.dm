@@ -577,7 +577,7 @@
 					/obj/item/clothing/mask/gas/clownwiz = 1,
 					/obj/item/clothing/shoes/clown_shoes/magical = 1,
 					/obj/item/dnainjector/comic = 1,
-					/obj/item/implanter/sad_trombone = 1,
+					/obj/item/bio_chip_implanter/sad_trombone = 1,
 					/obj/item/clothing/suit/wizrobe/mime = 1,
 					/obj/item/clothing/head/wizard/mime = 1,
 					/obj/item/clothing/mask/gas/mime/wizard = 1,
@@ -1192,8 +1192,8 @@
 					/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 					/obj/item/clothing/mask/cigarette/cigar/havana = 2,
-					/obj/item/reagent_containers/food/pill/patch/nicotine = 10,
-					/obj/item/storage/box/matches = 10,
+					/obj/item/reagent_containers/patch/nicotine = 10,
+					/obj/item/storage/fancy/matches = 10,
 					/obj/item/lighter/random = 4,
 					/obj/item/lighter/zippo = 2)
 
@@ -1205,8 +1205,8 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 60,
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 80,
 				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 120,
-				/obj/item/reagent_containers/food/pill/patch/nicotine = 70,
-				/obj/item/storage/box/matches = 20,
+				/obj/item/reagent_containers/patch/nicotine = 70,
+				/obj/item/storage/fancy/matches = 20,
 				/obj/item/lighter/random = 40,
 				/obj/item/lighter/zippo = 80,
 				/obj/item/storage/fancy/rollingpapers = 30,
@@ -1223,7 +1223,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_robust = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 1,
-				/obj/item/storage/box/matches = 10,
+				/obj/item/storage/fancy/matches = 10,
 				/obj/item/storage/fancy/rollingpapers = 5)
 
 	contraband = list(/obj/item/lighter/zippo = 4)
@@ -1250,7 +1250,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 3,
 				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 				/obj/item/clothing/mask/cigarette/cigar/havana = 2,
-				/obj/item/storage/box/matches = 10,
+				/obj/item/storage/fancy/matches = 10,
 				/obj/item/lighter/zippo = 4,
 				/obj/item/storage/fancy/rollingpapers = 5)
 
@@ -1282,7 +1282,7 @@
 					/obj/item/healthanalyzer = 1)
 
 	contraband = list(/obj/item/reagent_containers/syringe/antiviral = 4,
-					/obj/item/reagent_containers/food/pill/tox = 1)
+					/obj/item/reagent_containers/pill/tox = 1)
 
 	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	//this shouldn't be priced

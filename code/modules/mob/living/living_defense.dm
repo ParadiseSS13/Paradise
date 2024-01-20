@@ -42,6 +42,7 @@
 	return FALSE
 
 /mob/living/bullet_act(obj/item/projectile/P, def_zone)
+	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	//Armor
 	var/armor = run_armor_check(def_zone, P.flag, armour_penetration_flat = P.armour_penetration_flat, armour_penetration_percentage = P.armour_penetration_percentage)
 	if(!P.nodamage)

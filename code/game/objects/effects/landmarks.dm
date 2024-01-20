@@ -24,17 +24,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 /obj/effect/landmark/lightsout
 	name = "Electrical Storm Epicentre"
 
-/obj/effect/landmark/awaystart
-	name = "awaystart"
-	icon = 'icons/effects/spawner_icons.dmi'
-	icon_state = "Assistant"
-
-INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away missions break
-
-/obj/effect/landmark/awaystart/Initialize(mapload)
-	GLOB.awaydestinations.Add(src)
-	return ..()
-
 /obj/effect/landmark/spawner
 	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "questionmark"
@@ -107,7 +96,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/spawner/rev
 	name = "revenantspawn"
 	icon_state = "Rev"
-	
+
 /obj/effect/landmark/spawner/bubblegum_arena
 	name = "bubblegum_arena_human"
 	icon_state = "Explorer"
@@ -278,10 +267,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/start/blueshield
 	name = "Blueshield"
 	icon_state = "BS"
-
-/obj/effect/landmark/start/barber
-	name = "Barber"
-	icon_state = "Barber"
 
 /obj/effect/landmark/start/bartender
 	name = "Bartender"

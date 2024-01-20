@@ -56,7 +56,7 @@
 	if(!length(contents))
 		return
 
-	var/obj/item/book/choice = input(user, "Which book would you like to remove from [src]?") as null|anything in contents
+	var/obj/item/book/choice = tgui_input_list(user, "Which book would you like to remove from [src]?", "Bookcase", contents)
 	if(!choice)
 		return
 	if(user.incapacitated() || !Adjacent(user))

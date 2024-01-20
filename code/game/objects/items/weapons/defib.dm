@@ -59,7 +59,7 @@
 
 /obj/item/defibrillator/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Ctrl-click to remove the paddles from the defibrillator.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to remove the paddles from the defibrillator.</span>"
 
 /obj/item/defibrillator/proc/update_power()
 	if(cell)
@@ -90,10 +90,10 @@
 	cell = locate(/obj/item/stock_parts/cell) in contents
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/defibrillator/ui_action_click()
-	toggle_paddles()
+/obj/item/defibrillator/ui_action_click(mob/user)
+	toggle_paddles(user)
 
-/obj/item/defibrillator/CtrlClick(mob/user)
+/obj/item/defibrillator/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user))
 		toggle_paddles(user)
 
@@ -106,13 +106,14 @@
 			if(C.maxcharge < paddles.revivecost)
 				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
 				return
-			user.drop_item()
-			W.loc = src
-			cell = W
-			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
+			if(user.drop_item(C))
+				W.forceMove(src)
+				cell = C
+				to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
+	if(W == paddles)
+		toggle_paddles(user)
 
 	update_icon(UPDATE_OVERLAYS)
-	return
 
 /obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
@@ -248,11 +249,6 @@
 
 /obj/item/defibrillator/compact/advanced/screwdriver_act(mob/living/user, obj/item/I)
 	return // The cell is too strong roundstart and we dont want the adv defib to become useless
-
-/obj/item/defibrillator/compact/advanced/attackby(obj/item/W, mob/user, params)
-	if(W == paddles)
-		toggle_paddles()
-		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/compact/advanced/loaded/Initialize(mapload)
 	. = ..()

@@ -766,6 +766,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if((istype(living_mover) && HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))) // We really dont want people to get shocked on a door they're passing through
 			if(density && !do_mob(living_mover, living_mover, 2 SECONDS, requires_upright = FALSE))
 				return FALSE
+			if(!IS_HORIZONTAL(living_mover) || locked) // Checking if the user has gotten up or the airlock was bolted after we tried to crawl underneath
+				return FALSE
 			living_mover.forceMove(get_turf(src))
 			return TRUE
 	if(isElectrified() && density && isitem(mover) && !on_spark_cooldown)
@@ -1489,7 +1491,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		safe = TRUE
 
 /obj/machinery/door/airlock/obj_break(damage_flag)
-	if(!(flags & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
 		stat |= BROKEN
 		if(!panel_open)
 			panel_open = TRUE

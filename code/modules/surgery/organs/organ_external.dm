@@ -164,6 +164,28 @@
 	if(!HAS_TRAIT(owner, TRAIT_IB_IMMUNE))
 		limb_flags &= ~CANNOT_INT_BLEED
 
+/obj/item/organ/external/attack(mob/M, mob/living/user)
+	if(!ishuman(M))
+		return ..()
+	var/mob/living/carbon/human/C = M
+	if(is_robotic() && HAS_TRAIT(C, TRAIT_IPC_JOINTS_MAG) && isnull(C.bodyparts_by_name[limb_name]))
+		user.unEquip(src)
+		replaced(C)
+		C.update_body()
+		C.updatehealth()
+		C.UpdateDamageIcon()
+		if(limb_name == BODY_ZONE_HEAD)
+			var/obj/item/organ/external/head/H = C.get_organ(BODY_ZONE_HEAD)
+			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
+			if(robohead.is_monitor) //Ensures that if an IPC gets a head that's got a human hair wig attached to their body, the hair won't wipe.
+				H.h_style = "Bald"
+				H.f_style = "Shaved"
+				C.m_styles["head"] = "None"
+		user.visible_message(
+			"<span class='notice'>[user] has attached [C]'s [src] to the [amputation_point].</span>",
+			"<span class='notice'>You have attached [C]'s [src] to the [amputation_point].</span>")
+		return TRUE
+
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
 	loc = null
@@ -198,6 +220,9 @@
 ****************************************************/
 
 /obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
+	var/max_limb_damage = max_damage
+	if(owner)
+		max_limb_damage -= (HAS_TRAIT(owner, TRAIT_IPC_JOINTS_MAG) ? max_damage * 0.25 : 0)
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
@@ -226,7 +251,7 @@
 	// Probability of taking internal damage from sufficient force, while otherwise healthy
 #define LIMB_DMG_PROB 5
 	// High brute damage or sharp objects may damage internal organs
-	if(internal_organs && (brute_dam >= max_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG) && prob(LIMB_DMG_PROB))))
+	if(internal_organs && (brute_dam >= max_limb_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG) && prob(LIMB_DMG_PROB))))
 		// Damage an internal organ
 		if(internal_organs && internal_organs.len)
 			var/obj/item/organ/internal/I = pick(internal_organs)
@@ -244,14 +269,14 @@
 		add_autopsy_data(null, brute + burn)
 
 	// Make sure we don't exceed the maximum damage a limb can take before dismembering
-	if((brute_dam + burn_dam + brute + burn) < max_damage)
+	if((brute_dam + burn_dam + brute + burn) < max_limb_damage)
 		brute_dam += brute
 		burn_dam += burn
 		check_for_internal_bleeding(brute)
 	else
 		//If we can't inflict the full amount of damage, spread the damage in other ways
 		//How much damage can we actually cause?
-		var/can_inflict = max_damage - (brute_dam + burn_dam)
+		var/can_inflict = max_limb_damage - (brute_dam + burn_dam)
 		if(can_inflict)
 			if(brute > 0)
 				//Inflict all burte damage we can
@@ -284,8 +309,7 @@
 				//And pass the pain around
 				var/obj/item/organ/external/target = pick(possible_points)
 				target.receive_damage(brute, burn, sharp, used_weapon, forbidden_limbs + src, ignore_resists = TRUE) //If the damage was reduced before, don't reduce it again
-
-			if(dismember_at_max_damage && body_part != UPPER_TORSO && body_part != LOWER_TORSO) // We've ensured all damage to the mob is retained, now let's drop it, if necessary.
+			if(owner && dismember_at_max_damage && body_part != UPPER_TORSO && body_part != LOWER_TORSO && !HAS_TRAIT(owner, TRAIT_IPC_JOINTS_SEALED)) // We've ensured all damage to the mob is retained, now let's drop it, if necessary.
 				droplimb(1) //Clean loss, just drop the limb and be done
 
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.

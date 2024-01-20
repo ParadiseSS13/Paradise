@@ -294,14 +294,7 @@
 
 /obj/machinery/chem_dispenser/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
-		return
-	if(anchored)
-		anchored = FALSE
-		WRENCH_UNANCHOR_MESSAGE
-	else if(!anchored)
-		anchored = TRUE
-		WRENCH_ANCHOR_MESSAGE
+	default_unfasten_wrench(user, I, 4 SECONDS)
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user)
 	return attack_hand(user)

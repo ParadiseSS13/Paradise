@@ -7,7 +7,7 @@
 	dna_cost = 4
 	req_stat = UNCONSCIOUS
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_DEFENSE
+	category = /datum/changeling_power_category/defence
 
 //Starts healing you every second for 10 seconds. Can be used whilst unconscious.
 /datum/action/changeling/fleshmend/sting_action(mob/living/user)

@@ -131,6 +131,14 @@
 		stat |= NOPOWER
 	return old_stat != stat //performance saving for machines that use power_change() to update icons!
 
+/obj/machinery/proc/reregister_machine()
+	if(machine_powernet?.powernet_area != get_area(src))
+		var/area/machine_area = get_area(src)
+		if(machine_area)
+			machine_powernet?.unregister_machine(src)
+			machine_powernet = machine_area.powernet
+			machine_powernet.register_machine(src)
+
 /// Helper proc to change the machines power usage mode, automatically adjusts static power usage to maintain perfect parity
 /obj/machinery/proc/change_power_mode(use_type = IDLE_POWER_USE)
 	if(isnull(use_type) || use_type == power_state || !machine_powernet || !power_channel) //if there is no powernet/channel, just end it here
@@ -224,7 +232,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= 60)
-			visible_message("<span class='warning'>[H] stares cluelessly at [src] and drools.</span>")
+			visible_message("<span class='warning'>[H] stares cluelessly at [src].</span>")
 			return TRUE
 		else if(prob(H.getBrainLoss()))
 			to_chat(user, "<span class='warning'>You momentarily forget how to use [src].</span>")
@@ -320,6 +328,7 @@
 /obj/machinery/default_unfasten_wrench(mob/user, obj/item/I, time)
 	. = ..()
 	if(.)
+		reregister_machine()
 		power_change()
 
 /obj/machinery/attackby(obj/item/O, mob/user, params)

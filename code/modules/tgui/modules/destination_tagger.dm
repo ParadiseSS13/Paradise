@@ -5,8 +5,9 @@
 /datum/ui_module/destination_tagger/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "DestinationTagger", name, 395, 350, master_ui, state)
+		ui = new(user, src, ui_key, "DestinationTagger", name, 400, 350, master_ui, state)
 		ui.open()
+		ui.set_autoupdate(FALSE)
 
 /datum/ui_module/destination_tagger/ui_data(mob/user)
 	var/list/data = list()
@@ -35,7 +36,7 @@
 
 		my_tag = destination_id
 		playsound(host, 'sound/machines/terminal_select.ogg', 15, TRUE)
-
+		. = TRUE
 		// Handle setting tags (and flushing for drones)
 		if(istype(host, /obj/item/destTagger))
 			var/obj/item/destTagger/O = host

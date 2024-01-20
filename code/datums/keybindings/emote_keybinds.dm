@@ -296,31 +296,31 @@
 	return isbrain(M) && ..()
 
 /datum/keybinding/emote/carbon/brain/alarm
-	linked_emote = /datum/emote/living/carbon/brain/alarm
+	linked_emote = /datum/emote/living/brain/alarm
 	name = "Alarm"
 
 /datum/keybinding/emote/carbon/brain/alert
-	linked_emote = /datum/emote/living/carbon/brain/alert
+	linked_emote = /datum/emote/living/brain/alert
 	name = "Alert"
 
 /datum/keybinding/emote/carbon/brain/notice
-	linked_emote = /datum/emote/living/carbon/brain/notice
+	linked_emote = /datum/emote/living/brain/notice
 	name = "Notice"
 
 /datum/keybinding/emote/carbon/brain/flash
-	linked_emote = /datum/emote/living/carbon/brain/flash
+	linked_emote = /datum/emote/living/brain/flash
 	name = "Flash"
 
 /datum/keybinding/emote/carbon/brain/whistle
-	linked_emote = /datum/emote/living/carbon/brain/whistle
+	linked_emote = /datum/emote/living/brain/whistle
 	name = "Whistle"
 
 /datum/keybinding/emote/carbon/brain/beep
-	linked_emote = /datum/emote/living/carbon/brain/beep
+	linked_emote = /datum/emote/living/brain/beep
 	name = "Beep"
 
 /datum/keybinding/emote/carbon/brain/boop
-	linked_emote = /datum/emote/living/carbon/brain/boop
+	linked_emote = /datum/emote/living/brain/boop
 	name = "Boop"
 
 /datum/keybinding/emote/carbon/human

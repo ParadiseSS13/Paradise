@@ -520,7 +520,10 @@
 	storage_slots = 50
 	max_combined_w_class = 200
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/reagent_containers/food/pill,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle)
+	can_hold = list(/obj/item/reagent_containers/pill,
+					/obj/item/reagent_containers/patch,
+					/obj/item/reagent_containers/glass/beaker,
+					/obj/item/reagent_containers/glass/bottle)
 	resistance_flags = FLAMMABLE
 /*
  *  Biowaste bag (mostly for xenobiologists)

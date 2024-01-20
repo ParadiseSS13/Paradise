@@ -174,7 +174,7 @@
 			players += player
 	//players -= usr
 
-	var/mob/living/M = input("Who do you wish to deal a card to?") as null|anything in players
+	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal a card to?", "Deal Card", players)
 	if(!usr || !src || !M) return
 
 	deal_at(usr, M, 1)
@@ -195,7 +195,7 @@
 	var/dcard = input("How many card(s) do you wish to deal? You may deal up to [maxcards] cards.") as num
 	if(dcard > maxcards)
 		return
-	var/mob/living/M = input("Who do you wish to deal [dcard] card(s)?") as null|anything in players
+	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal [dcard] card(s)?", "Deal Card", players)
 	if(!usr || !src || !M || !Adjacent(usr))
 		return
 
@@ -424,7 +424,7 @@
 	for(var/datum/playingcard/P in cards)
 		pickablecards[P.name] = P
 	if(!pickedcard)
-		pickedcard = input("Which card do you want to remove from the hand?") as null|anything in pickablecards
+		pickedcard = tgui_input_list(usr, "Which card do you want to remove from the hand?", "Remove Card", pickablecards)
 		if(!pickedcard)
 			return
 
@@ -461,7 +461,7 @@
 		var/list/to_discard = list()
 		for(var/datum/playingcard/P in cards)
 			to_discard[P.name] = P
-		var/discarding = input("Which card do you wish to put down?") as null|anything in to_discard
+		var/discarding = tgui_input_list(usr, "Which card do you wish to put down?", "Discard", to_discard)
 
 		if(!discarding)
 			continue

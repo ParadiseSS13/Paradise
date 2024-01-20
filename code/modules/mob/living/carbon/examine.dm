@@ -119,13 +119,13 @@
 	msg += "<em>[name]</em>"
 
 	// Show what you are
-	msg += examine_what_am_i()
+	msg += examine_what_am_i(skipgloves, skipsuitstorage, skipjumpsuit, skipshoes, skipmask, skipears, skipeyes, skipface)
 	msg += "\n"
 
 	// All the things wielded/worn that can be reasonably described with a common template:
 	var/list/message_parts = examine_visible_clothing(skipgloves, skipsuitstorage, skipjumpsuit, skipshoes, skipmask, skipears, skipeyes, skipface)
-
 	var/list/abstract_items = list()
+	var/list/grab_items = list()
 
 	for(var/parts in message_parts)
 		var/action = parts[1]
@@ -137,6 +137,8 @@
 			accessories = parts[5]
 
 		if(item)
+			if(istype(item, /obj/item/grab))
+				grab_items |= item
 			if(item.flags & ABSTRACT)
 				abstract_items |= item
 			else
@@ -176,10 +178,19 @@
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] legcuffed!</span>\n"
 
 	for(var/obj/item/abstract_item in abstract_items)
-		var/text = abstract_item.customised_abstract_text()
+		var/text = abstract_item.customised_abstract_text(src)
 		if(!text)
 			continue
 		msg += "[text]\n"
+
+	for(var/obj/item/grab/grab in grab_items)
+		switch(grab.state)
+			if(GRAB_AGGRESSIVE)
+				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] holding [grab.affecting]'s hands!</span>\n"
+			if(GRAB_NECK)
+				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] holding [grab.affecting]'s neck!</span>\n"
+			if(GRAB_KILL)
+				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] strangling [grab.affecting]!</span>\n"
 
 	//Jitters
 	switch(AmountJitter())
@@ -275,7 +286,7 @@
 		if(stat == UNCONSCIOUS || just_sleeping)
 			msg += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep.\n"
 		else if(getBrainLoss() >= 60)
-			msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
+			msg += "[p_they(TRUE)] [p_are()] staring forward with a blank expression.\n"
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			msg += examine_show_ssd()
@@ -293,7 +304,7 @@
 	if(pose)
 		if(findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0)
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
-		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
+		msg += "\n[p_they(TRUE)] [pose]"
 
 	. = list(msg)
 
@@ -314,15 +325,23 @@
 		if(CIH?.examine_extensions)
 			have_hudtypes += CIH.examine_extensions
 
+		var/user_accesses = M.get_access()
+		var/secwrite = has_access(null, list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS), user_accesses) // same as obj/machinery/computer/secure_data/req_one_access
+		var/medwrite = has_access(null, list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS), user_accesses) // same access as obj/machinery/computer/med_data/req_one_access
+		if(secwrite)
+			have_hudtypes += EXAMINE_HUD_SECURITY_WRITE
+		if(medwrite)
+			have_hudtypes += EXAMINE_HUD_MEDICAL_WRITE
+
 		return (hudtype in have_hudtypes)
 
 	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
-		return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL))
+		return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE))
 
 	else if(isobserver(M))
 		var/mob/dead/observer/O = M
 		if(DATA_HUD_SECURITY_ADVANCED in O.data_hud_seen)
-			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SKILLS))
+			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_SKILLS))
 
 	return FALSE
 

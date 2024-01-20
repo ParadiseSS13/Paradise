@@ -148,6 +148,7 @@ REAGENT SCANNER
 		msgs += "<span class='warning'><b>Warning: Blood Level ERROR: --% --cl.</span><span class='notice'>Type: ERROR</span>"
 		msgs += "<span class='notice'>Subject's pulse: <font color='red'>-- bpm.</font></span>"
 		to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
+		return
 
 	var/mob/living/carbon/human/H = M
 	var/fake_oxy = max(rand(1,40), H.getOxyLoss(), (300 - (H.getToxLoss() + H.getFireLoss() + H.getBruteLoss())))

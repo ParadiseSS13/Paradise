@@ -242,7 +242,7 @@
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Plasma Cutter", "Jaunter Kit", "Mining Conscription Kit")
 
-	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
+	var/selection = tgui_input_list(redeemer, "Pick your equipment", "Mining Voucher Redemption", items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
 		return
 
@@ -341,7 +341,7 @@
 		EQUIPMENT("Cigarettes", /obj/item/storage/fancy/cigarettes, 100),
 		EQUIPMENT("Medical Marijuana", /obj/item/storage/fancy/cigarettes/cigpack_med, 250),
 		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
-		EQUIPMENT("Box of matches", /obj/item/storage/box/matches, 50),
+		EQUIPMENT("Box of matches", /obj/item/storage/fancy/matches, 50),
 		EQUIPMENT("Cheeseburger", /obj/item/reagent_containers/food/snacks/burger/cheese, 150),
 		EQUIPMENT("Big Burger", /obj/item/reagent_containers/food/snacks/burger/bigbite, 250),
 		EQUIPMENT("Recycled Prisoner", /obj/item/reagent_containers/food/snacks/soylentgreen, 500),
@@ -374,7 +374,7 @@
 /obj/item/mining_voucher
 	name = "mining voucher"
 	desc = "A token to redeem a piece of equipment. Use it on a mining equipment vendor."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/mining_tool.dmi'
 	icon_state = "mining_voucher"
 	w_class = WEIGHT_CLASS_TINY
 

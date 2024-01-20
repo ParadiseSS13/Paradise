@@ -1,5 +1,4 @@
 GLOBAL_LIST_EMPTY(all_robolimbs)
-GLOBAL_LIST_EMPTY(chargen_robolimbs)
 GLOBAL_LIST_EMPTY(selectable_robolimbs)
 GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 

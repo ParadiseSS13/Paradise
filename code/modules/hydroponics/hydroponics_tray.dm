@@ -901,24 +901,7 @@
 		if(using_irrigation)
 			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
 			return
-
-		if(!anchored && !isinspace())
-			user.visible_message("[user] begins to wrench [src] into place.", "<span class='notice'>You begin to wrench [src] in place...</span>")
-			if(I.use_tool(src, user, 20, volume = I.tool_volume))
-				if(anchored)
-					return
-				anchored = TRUE
-				user.visible_message("[user] wrenches [src] into place.", \
-									"<span class='notice'>You wrench [src] in place.</span>")
-		else if(anchored)
-			user.visible_message("[user] begins to unwrench [src].", \
-								"<span class='notice'>You begin to unwrench [src]...</span>")
-			if(I.use_tool(src, user, 20, volume = I.tool_volume))
-				if(!anchored)
-					return
-				anchored = FALSE
-				user.visible_message("[user] unwrenches [src].", \
-									"<span class='notice'>You unwrench [src].</span>")
+		default_unfasten_wrench(user, I)
 
 /obj/machinery/hydroponics/attack_hand(mob/user)
 	if(issilicon(user)) //How does AI know what plant is?

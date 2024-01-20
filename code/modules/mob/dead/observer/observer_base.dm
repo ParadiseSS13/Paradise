@@ -401,7 +401,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(!QDELETED(mind.current)) // Could change while they're choosing
 			mind.current.remove_status_effect(STATUS_EFFECT_REVIVABLE)
 		SEND_SIGNAL(mind.current, COMSIG_LIVING_SET_DNR)
-		
 
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"
@@ -438,7 +437,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 		names[name] = ruin_landmark
 
-	var/ruinname = input("Select ruin", "Jump to Ruin") as null|anything in names
+	var/ruinname = tgui_input_list(usr, "Select ruin", "Jump to Ruin", names)
 
 	var/obj/effect/landmark/ruin/landmark = names[ruinname]
 
@@ -828,3 +827,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
 	menu.ui_interact(src)
+
+/**
+ * Check if a player has antag-hudded, and if so, if they can rejoin.
+ * Returns TRUE if the player can rejoin, and FALSE if the player is ineligible to rejoin.
+ * If allow_roundstart_observers is FALSE (TRUE by default), then any observers who were able to ahud due to joining roundstart will be excluded as well.
+ */
+/mob/dead/observer/proc/check_ahud_rejoin_eligibility(allow_roundstart_observers = TRUE)
+	if(!GLOB.configuration.general.restrict_antag_hud_rejoin || !has_ahudded())
+		return TRUE
+
+	if(is_roundstart_observer())
+		return allow_roundstart_observers
+	return FALSE
+

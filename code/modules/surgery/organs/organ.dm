@@ -30,6 +30,8 @@
 	var/emp_proof = FALSE //is the organ immune to EMPs?
 	var/hidden_pain = FALSE //will it skip pain messages?
 	var/requires_robotic_bodypart = FALSE
+	/// When this variable is true, it can only be installed on the machine person species.
+	var/requires_machine_person = FALSE
 
 	///Should this organ be destroyed on removal?
 	var/destroy_on_removal = FALSE
@@ -54,17 +56,14 @@
 	..(holder)
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
-	if(istype(holder))
+	if(ishuman(holder))
 		if(holder.dna)
 			dna = holder.dna.Clone()
+			if(!blood_DNA)
+				blood_DNA = list()
+			blood_DNA[dna.unique_enzymes] = dna.blood_type
 		else
 			stack_trace("[holder] spawned without a proper DNA.")
-		var/mob/living/carbon/human/H = holder
-		if(istype(H))
-			if(dna)
-				if(!blood_DNA)
-					blood_DNA = list()
-				blood_DNA[dna.unique_enzymes] = dna.blood_type
 	else
 		dna = new /datum/dna(null)
 		if(species_override)

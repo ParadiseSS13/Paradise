@@ -175,6 +175,11 @@
 	..()
 
 /obj/item/flashlight/flare/update_icon_state()
+	if(on)
+		item_state = "[initial(item_state)]-on"
+	else
+		item_state = "[initial(item_state)]"
+
 	if(!fuel)
 		icon_state = "[initial(icon_state)]-empty"
 		return
@@ -218,12 +223,15 @@
 		START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/flare/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!fuel)
+	if(isdrone(user) && !fuel)
 		C.stored_comms["metal"] += 1
 		C.stored_comms["glass"] += 1
 		qdel(src)
 		return TRUE
 	return ..()
+
+/obj/item/flashlight/flare/get_heat()
+	return produce_heat * on * 1000
 
 // GLOWSTICKS
 

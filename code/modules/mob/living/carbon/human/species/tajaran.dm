@@ -7,11 +7,10 @@
 	skinned_type = /obj/item/stack/sheet/fur
 	unarmed_type = /datum/unarmed_attack/claws
 
-	blurb = "The Tajaran race is a species of feline-like bipeds hailing from the planet of Ahdomai in the \
-	S'randarr system. They have been brought up into the space age by the Humans and Skrell, and have been \
-	influenced heavily by their long history of Slavemaster rule. They have a structured, clan-influenced way \
-	of family and politics. They prefer colder environments, and speak a variety of languages, mostly Siik'Maas, \
-	using unique inflections their mouths form."
+	blurb = "Tajaran hail from the mineral-rich arctic moon of Ahdomai. \
+	They were introduced into the galactic scene after the Skrellian discovery and were elevated to be associates to the Solar-Central Compact.<br/><br/> \
+	The teachings of S'randarr and solar iconography dominate their religious practices, \
+	and Tajaran often speak in the third person due to the lack of first-person references in their native tongue."
 
 	cold_level_1 = 240
 	cold_level_2 = 180
