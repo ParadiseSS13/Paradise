@@ -15,7 +15,7 @@ export const Wires = (props, context) => {
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item grow>
-            <Section fill>
+            <Section fill scrollable>
               <LabeledList>
                 {wires.map((wire) => (
                   <LabeledList.Item
