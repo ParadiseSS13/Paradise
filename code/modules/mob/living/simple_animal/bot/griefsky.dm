@@ -170,7 +170,7 @@
 		target = C
 		oldtarget_name = C.name
 		speak("You are a bold one")
-		playsound(src,'sound/weapons/saberon.ogg',50,TRUE,-1)
+		playsound(src,'sound/weapons/saberon.ogg', 50, TRUE, -1)
 		visible_message("[src] ignites his energy swords!")
 		icon_state = "griefsky-c"
 		visible_message("<b>[src]</b> points at [C.name]!")
