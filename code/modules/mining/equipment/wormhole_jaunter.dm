@@ -122,7 +122,7 @@
 			areaindex[tmpname] = 1
 		L[tmpname] = R
 
-	var/desc = tgui_input_list("Please select a location to target.", "Flare Target Interface", L)
+	var/desc = tgui_input_list(user, "Please select a location to target.", "Flare Target Interface", L)
 	if(!desc)
 		return
 	destination = L[desc]

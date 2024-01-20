@@ -141,6 +141,8 @@
 		return
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 	var/selected = tgui_input_list(user, "Select a direction for the connector.", "Connector Direction", choices)
+	if(!selected)
+		return
 	dir = choices[selected]
 	var/node_connect = dir
 	initialize_directions = dir
