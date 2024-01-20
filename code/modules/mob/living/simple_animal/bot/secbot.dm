@@ -323,7 +323,7 @@
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
-				playsound(loc, 'sound/machines/buzz-two.ogg', 25, 0)
+				playsound(loc, 'sound/machines/buzz-two.ogg', 25, FALSE)
 				walk_to(src, 0)
 				set_path(null)
 				back_to_idle()
