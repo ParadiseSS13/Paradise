@@ -302,7 +302,7 @@
 		playsound(loc, 'sound/machines/synth_no.ogg', 50, 0)
 		played_sound_this_hunt = TRUE
 	if(!lost_target && played_sound_this_hunt)
-		playsound(loc, 'sound/machines/synth_yes.ogg', 50, 0)
+		playsound(loc, 'sound/machines/synth_yes.ogg', 50, FALSE)
 		played_sound_this_hunt = FALSE
 
 /mob/living/simple_animal/bot/secbot/handle_automated_action()
