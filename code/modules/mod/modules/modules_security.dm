@@ -200,7 +200,7 @@
 /// Vortex arm mounted shotgun. Fucks up reality in front of it, very power draining. Compeating with the vortex arm and stealth armor after all
 /obj/item/mod/module/anomaly_locked/vortex_shotgun
 	name = "MOD vortex shotgun module"
-	desc = "A module that uses a vortex core to rend the fabric of space time in front of it" //change
+	desc = "A module that uses a vortex core to rend the fabric of space time in front of it." //change
 	icon_state = "vortex"
 	module_type = MODULE_ACTIVE
 	complexity = 3
