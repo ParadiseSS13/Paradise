@@ -488,7 +488,7 @@
 
 // SPACE SUITS
 
-/datum/uplink_item/suits/hardsuit/elite
+/datum/uplink_item/suits/elite_nukie
 	name = "Elite Syndicate MODsuit"
 	desc = "An advanced MODsuit with superior armor and mobility to the standard Syndicate MODsuit."
 	item = /obj/item/mod/control/pre_equipped/elite
@@ -497,7 +497,7 @@
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/suits/hardsuit/shielded
+/datum/uplink_item/suits/shielded
 	name = "Energy Shield Module"
 	desc = "A personal, protective forcefield typically seen in military applications. \
 		This advanced deflector shield is essentially a scaled down version of those seen on starships, \

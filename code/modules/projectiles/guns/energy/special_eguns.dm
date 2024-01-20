@@ -882,7 +882,7 @@
 
 /obj/item/gun/energy/vortex_shotgun
 	name = "reality vortex wrist mounted shotgun"
-	desc = "Some energy blast that shatters reality."
+	desc = "This weapon uses the power of the vortex core to rip apart the fabric of reality in front of it."
 	icon_state = "flayer" //Sorta wrist mounted? Sorta? Not really but we work with what we got.
 	ammo_type = list(/obj/item/ammo_casing/energy/vortex_blast)
 	fire_sound = 'sound/weapons/bladeslice.ogg'
