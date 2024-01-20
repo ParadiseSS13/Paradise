@@ -250,14 +250,14 @@
 					var/obj/item/organ/external/EO = new EO_path(clone) //Passing a human to a limb's New() proc automatically attaches it
 					desc_flavor = "You see \a [EO.name] growing from [clone]'[clone.p_s()] [EO.amputation_point]."
 					current_limb = null
-					clone.adjustCloneLoss(8/speed_modifier)
+					clone.adjustCloneLoss(8 / speed_modifier)
 					clone.regenerate_icons()
 					return
 
 			if(91 to 100)
 				if(eject_clone())
 					return
-				clone.adjustCloneLoss(-5*speed_modifier) //rapidly heal clone damage
+				clone.adjustCloneLoss(-5 * speed_modifier) //rapidly heal clone damage
 				desc_flavor = "You see [src] finalizing the cloning process."
 				return
 			if(101 to INFINITY) //this state can be reached with an upgraded cloner

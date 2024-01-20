@@ -27,7 +27,7 @@
 /obj/item/disk/data/demo/New()
 	. = ..()
 	initialize()
-	buf.types=DNA2_BUF_UE|DNA2_BUF_UI
+	buf.types = DNA2_BUF_UE|DNA2_BUF_UI
 	//data = "066000033000000000AF00330660FF4DB002690"
 	//data = "0C80C80C80C80C80C8000000000000161FBDDEF" - Farmer Jeff
 	buf.dna.real_name = "God Emperor of Mankind"
