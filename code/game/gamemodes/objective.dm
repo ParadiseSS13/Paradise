@@ -631,7 +631,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			if(kit_receiver_mind == objective_owner || !objective_owner.current)
 				continue
 
-			to_chat(objective_owner.current, "<br><br>[kit_receiver] has received box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
+			to_chat(objective_owner.current, "<br><br>[kit_receiver] has received a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
 
 		return
 
