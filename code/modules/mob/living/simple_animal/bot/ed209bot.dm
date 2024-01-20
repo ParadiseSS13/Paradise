@@ -73,7 +73,7 @@
 
 /mob/living/simple_animal/bot/ed209/Destroy()
 	QDEL_NULL(baton)
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/bot/ed209/proc/setup_access()
 	if(access_card)
