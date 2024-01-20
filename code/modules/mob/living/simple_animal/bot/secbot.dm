@@ -263,10 +263,7 @@
 /mob/living/simple_animal/bot/secbot/proc/stun_attack(mob/living/carbon/C)
 	var/threat = C.assess_threat(src)
 	var/prev_intent = a_intent
-	if(harmbaton)
-		a_intent = INTENT_HARM
-	else
-		a_intent = INTENT_HELP
+	a_intent = harmbaton ? INTENT_HARM : INTENT_HELP
 	baton.attack(C, src)
 	a_intent = prev_intent
 	baton_delayed = TRUE
