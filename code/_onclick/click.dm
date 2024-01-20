@@ -164,6 +164,7 @@
 
 	return
 
+/// Can this mob use keybinded click actions? (Altclick, Ctrlclick, ect)
 /mob/proc/can_use_clickbinds()
 	return TRUE
 
