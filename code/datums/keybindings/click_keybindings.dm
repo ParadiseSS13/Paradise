@@ -8,7 +8,7 @@
 	return M.can_use_clickbinds() && ..()
 
 /datum/keybinding/clickbind/down(client/C)
-	. = ..()
+	..()
 	return locateUID(C.moused_over)
 
 /datum/keybinding/clickbind/alt_click
