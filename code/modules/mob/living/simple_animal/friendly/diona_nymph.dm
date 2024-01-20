@@ -127,11 +127,11 @@
 			continue
 		choices += H
 
-	if(!choices.len)
+	if(!length(choices))
 		to_chat(src, "<span class='warning'>No suitable diona nearby.</span>")
 		return FALSE
 
-	var/mob/living/M = input(src,"Who do you wish to merge with?") in null|choices
+	var/mob/living/M = tgui_input_list(src, "Who do you wish to merge with?", "Nymph Merging", choices)
 
 	if(!M || !src || !(Adjacent(M)) || stat != CONSCIOUS) //input can take a while, so re-validate
 		return FALSE
@@ -232,11 +232,11 @@
 		if(Adjacent(H) && H.dna && !(NO_BLOOD in H.dna.species.species_traits))
 			choices += H
 
-	if(!choices.len)
+	if(!length(choices))
 		to_chat(src, "<span class='warning'>No suitable blood donors nearby.</span>")
 		return FALSE
 
-	var/mob/living/carbon/human/M = input(src,"Who do you wish to take a sample from?") in null|choices
+	var/mob/living/carbon/human/M = tgui_input_list(src, "Who do you wish to take a sample from?", "Blood Sampling", choices)
 
 	if(!M || !src || !(Adjacent(M)) || stat != CONSCIOUS) //input can take a while, so re-validate
 		return FALSE

@@ -124,7 +124,7 @@
 	if(!target || !iscarbon(owner))
 		return
 	var/obj/machinery/abductor/console/console = target
-	console.SelectDisguise(remote=1)
+	console.SelectDisguise(TRUE, usr)
 
 /datum/action/innate/set_droppoint
 	name = "Set Experiment Release Point"

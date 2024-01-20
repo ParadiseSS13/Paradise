@@ -322,7 +322,7 @@
 	..()
 	if(length(boxes) || !Adjacent(user))
 		return
-	open = !open 
+	open = !open
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/pizzabox/attack_self(mob/user)
@@ -515,7 +515,7 @@
 /obj/item/pizzabox/pizza_bomb/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/wirecutters) && primed)
 		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
-		var/chosen_wire = input(user, "OH GOD OH GOD", "WHAT WIRE?!") in wires
+		var/chosen_wire = tgui_input_list(user, "OH GOD OH GOD", "WHAT WIRE?!", wires)
 		if(!in_range(src, user) || issilicon(usr) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained())
 			return
 		playsound(src, I.usesound, 50, 1, 1)

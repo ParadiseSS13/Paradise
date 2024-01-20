@@ -414,7 +414,7 @@
 						RebuildHTML()
 
 					if("Appearance")
-						var/list/appearances = list(
+						var/static/list/appearances = list(
 							"data",
 							"id",
 							"gold",
@@ -465,7 +465,7 @@
 							"ERT_janitorial",
 							"ERT_paranormal",
 						)
-						var/choice = input(user, "Select the appearance for this card.", "Agent Card Appearance") in appearances
+						var/choice = tgui_input_list(user, "Select the appearance for this card.", "Agent Card Appearance", appearances)
 						if(!Adjacent(user))
 							return
 						if(!choice)
@@ -509,7 +509,7 @@
 						RebuildHTML()
 
 					if("Occupation")
-						var/list/departments = list(
+						var/static/list/departments = list(
 							"Assistant" = null,
 							"Engineering" = GLOB.engineering_positions,
 							"Medical" = GLOB.medical_positions,
@@ -521,13 +521,13 @@
 							"Custom" = null,
 						)
 
-						var/department = input(user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
+						var/department = tgui_input_list(user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", departments)
 						var/new_job = "Assistant"
 
 						if(department == "Custom")
 							new_job = sanitize(stripped_input(user,"Choose a custom job title:","Agent Card Occupation", "Assistant", MAX_MESSAGE_LEN))
 						else if(department != "Assistant" && !isnull(departments[department]))
-							new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments[department]
+							new_job = tgui_input_list(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", departments[department])
 
 						if(!Adjacent(user))
 							return

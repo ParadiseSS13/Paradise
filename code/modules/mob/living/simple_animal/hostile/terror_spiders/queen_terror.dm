@@ -255,24 +255,19 @@
 	var/list/eggtypes = ListAvailableEggTypes()
 	var/list/eggtypes_uncapped = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
 
-	var/eggtype = input("What kind of eggs?") as null|anything in eggtypes
+	var/eggtype = tgui_input_list(src, "What kind of eggs?", "Laying Eggs", eggtypes)
 	if(canlay < 1)
 		// this was checked before input() but we have to check again to prevent them spam-clicking the popup.
 		to_chat(src, "<span class='danger'>Too soon to lay another egg.</span>")
 		return
 	if(!(eggtype in eggtypes))
 		to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
-		return 0
+		return FALSE
 
 	// Multiple of eggtypes_uncapped can be laid at once. Other types must be laid one at a time (to prevent exploits)
 	var/numlings = 1
 	if(eggtype in eggtypes_uncapped)
-		if(canlay >= 5)
-			numlings = input("How many in the batch?") as null|anything in list(1, 2, 3, 4, 5)
-		else if(canlay >= 3)
-			numlings = input("How many in the batch?") as null|anything in list(1, 2, 3)
-		else if(canlay == 2)
-			numlings = input("How many in the batch?") as null|anything in list(1, 2)
+		numlings = input("How many in this batch? You have [canlay] eggs stored") as null|num
 	if(eggtype == null || numlings == null)
 		to_chat(src, "<span class='danger'>Cancelled.</span>")
 		return

@@ -334,7 +334,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	if(!ismultitool(I)) // Should never happen
 		return
 
-	var/choice = input(user, "Configure what", "Configuration") in list("Inlet", "Outlet", "Sensors", "Cancel")
+	var/choice = tgui_input_list(user, "Configure what", "Configuration", list("Inlet", "Outlet", "Sensors", "Cancel"))
 	if((!choice) || (choice == "Cancel") || !Adjacent(user))
 		return
 
