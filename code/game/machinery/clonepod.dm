@@ -1,6 +1,6 @@
 #define VALID_REAGENTS list("sanguine_reagent", "osseous_reagent")
 
-#define VALID_BIOMASSABLES list(/obj/item/reagent_containers/food/snacks/meat,\
+#define VALID_BIOMASSABLES list(/obj/item/reagent_containers/food/snacks/meat, \
 								/obj/item/reagent_containers/food/snacks/monstermeat, \
 								/obj/item/reagent_containers/food/snacks/carpmeat, \
 								/obj/item/reagent_containers/food/snacks/salmonmeat, \
@@ -341,30 +341,7 @@
 		desc_flavor = initial(desc_flavor)
 		return TRUE
 
-	if(clone.cloneloss)
-		if(force)
-			clone.forceMove(src.loc)
-			new /obj/effect/gibspawner/generic(get_turf(src), clone)
-			playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
-
-			var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
-			patient_mind.transfer_to(clone)
-			clone.grab_ghost()
-			clone.update_revive()
-			to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!")
-			to_chat(clone, "<span class='danger'>You're ripped out of blissful oblivion! You feel like shit.</span>")
-
-			currently_cloning = FALSE
-			clone = null
-			patient_data = null
-			desired_data = null
-			clone_progress = 0
-			desc_flavor = initial(desc_flavor)
-			update_icon_state()
-			return TRUE
-		else
-			return FALSE
-	else
+	if(!clone.cloneloss)
 		clone.forceMove(src.loc)
 		var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
 		patient_mind.transfer_to(clone)
@@ -381,6 +358,29 @@
 		desc_flavor = initial(desc_flavor)
 		update_icon_state()
 		return TRUE
+
+	if(!force)
+		return FALSE
+
+	clone.forceMove(src.loc)
+	new /obj/effect/gibspawner/generic(get_turf(src), clone)
+	playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
+
+	var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
+	patient_mind.transfer_to(clone)
+	clone.grab_ghost()
+	clone.update_revive()
+	to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!")
+	to_chat(clone, "<span class='danger'>You're ripped out of blissful oblivion! You feel like shit.</span>")
+
+	currently_cloning = FALSE
+	clone = null
+	patient_data = null
+	desired_data = null
+	clone_progress = 0
+	desc_flavor = initial(desc_flavor)
+	update_icon_state()
+	return TRUE
 
 //This gets the cost of cloning, in a list with the form (biomass, sanguine reagent, osseous reagent).
 /obj/machinery/clonepod/proc/get_cloning_cost(datum/cloning_data/_patient_data, datum/cloning_data/_desired_data)
