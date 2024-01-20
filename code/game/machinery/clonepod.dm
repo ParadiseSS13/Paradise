@@ -242,7 +242,7 @@
 						desc_flavor = "You see [src] attaching \a [EO.name] to [clone]."
 						EO.replaced(clone)
 						current_limb = null
-						clone.adjustCloneLoss(8/speed_modifier) //4 cycles to repair this normally, 2 at tier 2, 1 at tier 4. tier 3 is a decimal so essentially 2
+						clone.adjustCloneLoss(8 / speed_modifier) //4 cycles to repair this normally, 2 at tier 2, 1 at tier 4. tier 3 is a decimal so essentially 2
 						clone.regenerate_icons()
 						return
 
