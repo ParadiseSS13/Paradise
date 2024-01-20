@@ -7,6 +7,9 @@
 // Themes
 import './styles/main.scss';
 import './styles/themes/light.scss';
+import './styles/themes/ntos.scss';
+import './styles/themes/syndicate.scss';
+import './styles/themes/paradise.scss';
 
 import { perf } from 'common/perf';
 import { combineReducers } from 'common/redux';

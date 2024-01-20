@@ -59,7 +59,6 @@ const FutureStationTraitsPage = (props, context) => {
             width="100%"
           />
         </Stack.Item>
-
         <Stack.Item>
           <Button
             color="green"
@@ -95,9 +94,7 @@ const FutureStationTraitsPage = (props, context) => {
           </Button>
         </Stack.Item>
       </Stack>
-
       <Divider />
-
       {Array.isArray(future_station_traits) ? (
         future_station_traits.length > 0 ? (
           <Stack vertical fill>
@@ -105,7 +102,6 @@ const FutureStationTraitsPage = (props, context) => {
               <Stack.Item key={trait.path}>
                 <Stack fill>
                   <Stack.Item grow>{trait.name}</Stack.Item>
-
                   <Stack.Item>
                     <Button
                       color="red"
@@ -133,39 +129,37 @@ const FutureStationTraitsPage = (props, context) => {
             ))}
           </Stack>
         ) : (
-          <>
+          <Box textAlign="center">
             <Box>No station traits will run next round.</Box>
-
-            <Box>
-              <Button
-                color="red"
-                icon="times"
-                tooltip="The next round will roll station traits randomly, just like normal"
-                onClick={() => act('clear_future_traits')}
-              >
-                Run Station Traits Normally
-              </Button>
-            </Box>
-          </>
-        )
-      ) : (
-        <>
-          <Box>No future station traits are planned.</Box>
-
-          <Box>
             <Button
-              color="red"
+              mt={1}
+              fluid
+              color="good"
               icon="times"
-              onClick={() =>
-                act('setup_future_traits', {
-                  station_traits: [],
-                })
-              }
+              tooltip="The next round will roll station traits randomly, just like normal"
+              onClick={() => act('clear_future_traits')}
             >
-              Prevent station traits from running next round
+              Run Station Traits Normally
             </Button>
           </Box>
-        </>
+        )
+      ) : (
+        <Box textAlign="center">
+          <Box>No future station traits are planned.</Box>
+          <Button
+            mt={1}
+            fluid
+            color="red"
+            icon="times"
+            onClick={() =>
+              act('setup_future_traits', {
+                station_traits: [],
+              })
+            }
+          >
+            Prevent station traits from running next round
+          </Button>
+        </Box>
       )}
     </Box>
   );
@@ -180,7 +174,6 @@ const ViewStationTraitsPage = (props, context) => {
         <Stack.Item key={stationTrait.ref}>
           <Stack fill>
             <Stack.Item grow>{stationTrait.name}</Stack.Item>
-
             <Stack.Item>
               <Button.Confirm
                 content="Revert"
@@ -205,7 +198,7 @@ const ViewStationTraitsPage = (props, context) => {
       ))}
     </Stack>
   ) : (
-    <Box>There are no active station traits.</Box>
+    <Box textAlign="center">There are no active station traits.</Box>
   );
 };
 
@@ -232,27 +225,31 @@ export const StationTraitsPanel = (props, context) => {
   return (
     <Window title="Modify Station Traits" height={350} width={350}>
       <Window.Content scrollable>
-        <Tabs>
-          <Tabs.Tab
-            icon="eye"
-            selected={currentTab === Tab.ViewStationTraits}
-            onClick={() => setCurrentTab(Tab.ViewStationTraits)}
-          >
-            View
-          </Tabs.Tab>
+        <Stack fill vertical>
+          <Stack.Item>
+            <Tabs>
+              <Tabs.Tab
+                icon="eye"
+                selected={currentTab === Tab.ViewStationTraits}
+                onClick={() => setCurrentTab(Tab.ViewStationTraits)}
+              >
+                View
+              </Tabs.Tab>
 
-          <Tabs.Tab
-            icon="edit"
-            selected={currentTab === Tab.SetupFutureStationTraits}
-            onClick={() => setCurrentTab(Tab.SetupFutureStationTraits)}
-          >
-            Edit
-          </Tabs.Tab>
-        </Tabs>
-
-        <Divider />
-
-        {currentPage}
+              <Tabs.Tab
+                icon="edit"
+                selected={currentTab === Tab.SetupFutureStationTraits}
+                onClick={() => setCurrentTab(Tab.SetupFutureStationTraits)}
+              >
+                Edit
+              </Tabs.Tab>
+            </Tabs>
+          </Stack.Item>
+          <Stack.Item m={0}>
+            <Divider />
+            {currentPage}
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
