@@ -58,7 +58,7 @@
 			return
 
 	// Rate limiting
-	var/mtl = 100 // 100 topics per minute
+	var/mtl = 150 // 150 topics per minute
 	if(!holder) // Admins are allowed to spam click, deal with it.
 		var/minute = round(world.time, 600)
 		if(!topiclimiter)
