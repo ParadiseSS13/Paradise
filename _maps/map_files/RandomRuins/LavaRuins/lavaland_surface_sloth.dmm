@@ -25,7 +25,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "f" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/citrus/orange,
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
 /turf/simulated/floor/sepia{
 	slowdown = 10
 	},

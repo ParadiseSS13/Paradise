@@ -91,7 +91,7 @@
 	name = "Chef Excellence's Special Sauce"
 	desc = "A custom sauce made from the highly poisonous fly amanita mushrooms. Anyone who ingests it will take variable toxin damage depending on how long it has been in their system, with a higher dosage taking longer to metabolize."
 	reference = "CESS"
-	item = /obj/item/reagent_containers/condiment/syndisauce
+	item = /obj/item/reagent_containers/food/condiment/syndisauce
 	cost = 10
 	job = list("Chef")
 	surplus = 0 // Far too specific in its use.

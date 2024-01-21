@@ -83,7 +83,7 @@
 		EQUIPMENT("Minebot Melee Upgrade", /obj/item/mine_bot_upgrade, 400),
 	)
 	prize_list["Miscellaneous"] = list(
-		EQUIPMENT("Absinthe", /obj/item/reagent_containers/drinks/bottle/absinthe/premium, 100),
+		EQUIPMENT("Absinthe", /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium, 100),
 		EQUIPMENT("Alien Toy", /obj/item/clothing/mask/facehugger/toy, 300),
 		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
 		EQUIPMENT("GAR Meson Scanners", /obj/item/clothing/glasses/meson/gar, 500),
@@ -91,7 +91,7 @@
 		EQUIPMENT("Luxury Shelter Capsule", /obj/item/survivalcapsule/luxury, 3000),
 		EQUIPMENT("Soap", /obj/item/soap/nanotrasen, 200),
 		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/c200, 2000),
-		EQUIPMENT("Whiskey", /obj/item/reagent_containers/drinks/bottle/whiskey, 100),
+		EQUIPMENT("Whiskey", /obj/item/reagent_containers/food/drinks/bottle/whiskey, 100),
 		EQUIPMENT("HRD-MDE Project Box", /obj/item/storage/box/hardmode_box, 3500) //I want miners have to pay a lot to get this, but be set once they do.
 	)
 	prize_list["Extra"] = list() // Used in child vendors
@@ -307,7 +307,7 @@
 		EQUIPMENT("Extra ID", /obj/item/card/id/golem, 250),
 		EQUIPMENT("Science Backpack", /obj/item/storage/backpack/science, 250),
 		EQUIPMENT("Full Toolbelt", /obj/item/storage/belt/utility/full/multitool, 250),
-		EQUIPMENT("Monkey Cube", /obj/item/food/snacks/monkeycube, 250),
+		EQUIPMENT("Monkey Cube", /obj/item/reagent_containers/food/snacks/monkeycube, 250),
 		EQUIPMENT("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape, 500),
 		EQUIPMENT("Grey Slime Extract", /obj/item/slime_extract/grey, 1000),
 		EQUIPMENT("KA Trigger Modification Kit", /obj/item/borg/upgrade/modkit/trigger_guard, 1000),
@@ -336,16 +336,16 @@
 	prize_list = list()
 	prize_list["Scum"] += list(
 		EQUIPMENT("Trauma Kit", /obj/item/stack/medical/bruise_pack/advanced, 150),
-		EQUIPMENT("Whisky", /obj/item/reagent_containers/drinks/bottle/whiskey, 100),
-		EQUIPMENT("Beer", /obj/item/reagent_containers/drinks/cans/beer, 50),
-		EQUIPMENT("Absinthe", /obj/item/reagent_containers/drinks/bottle/absinthe/premium, 250),
+		EQUIPMENT("Whisky", /obj/item/reagent_containers/food/drinks/bottle/whiskey, 100),
+		EQUIPMENT("Beer", /obj/item/reagent_containers/food/drinks/cans/beer, 50),
+		EQUIPMENT("Absinthe", /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium, 250),
 		EQUIPMENT("Cigarettes", /obj/item/storage/fancy/cigarettes, 100),
 		EQUIPMENT("Medical Marijuana", /obj/item/storage/fancy/cigarettes/cigpack_med, 250),
 		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
 		EQUIPMENT("Box of matches", /obj/item/storage/fancy/matches, 50),
-		EQUIPMENT("Cheeseburger", /obj/item/food/snacks/burger/cheese, 150),
-		EQUIPMENT("Big Burger", /obj/item/food/snacks/burger/bigbite, 250),
-		EQUIPMENT("Recycled Prisoner", /obj/item/food/snacks/soylentgreen, 500),
+		EQUIPMENT("Cheeseburger", /obj/item/reagent_containers/food/snacks/burger/cheese, 150),
+		EQUIPMENT("Big Burger", /obj/item/reagent_containers/food/snacks/burger/bigbite, 250),
+		EQUIPMENT("Recycled Prisoner", /obj/item/reagent_containers/food/snacks/soylentgreen, 500),
 		EQUIPMENT("Crayons", /obj/item/storage/fancy/crayons, 350),
 		EQUIPMENT("Plushie", /obj/random/plushie, 750),
 		EQUIPMENT("Dnd set", /obj/item/storage/box/characters, 500),

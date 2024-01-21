@@ -98,5 +98,5 @@
 	id = "bluespaceshotglass"
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_BLUESPACE = 500)
-	build_path = /obj/item/reagent_containers/drinks/drinkingglass/shotglass/bluespace
+	build_path = /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/bluespace
 	category = list("Bluespace")

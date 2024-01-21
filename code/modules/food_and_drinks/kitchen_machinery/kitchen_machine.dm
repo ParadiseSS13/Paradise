@@ -65,7 +65,7 @@
 					GLOB.cooking_reagents[recipe_type] |= reagent
 			else
 				qdel(recipe)
-		GLOB.cooking_ingredients[recipe_type] |= /obj/item/food/snacks/grown
+		GLOB.cooking_ingredients[recipe_type] |= /obj/item/reagent_containers/food/snacks/grown
 
 /*******************
 *   Item Adding
@@ -108,7 +108,7 @@
 				add_item(S, user)
 		else
 			add_item(O, user)
-	else if(is_type_in_list(O, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/drinks, /obj/item/reagent_containers/condiment)))
+	else if(is_type_in_list(O, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/food/drinks, /obj/item/reagent_containers/food/condiment)))
 		if(!O.reagents)
 			return TRUE
 		for(var/datum/reagent/R in O.reagents.reagent_list)
@@ -199,8 +199,8 @@
 	var/list/name_overrides = list()
 	for(var/obj/O in contents)
 		var/display_name = O.name
-		if(isfood(O))
-			var/obj/item/food/food = O
+		if(istype(O, /obj/item/reagent_containers/food))
+			var/obj/item/reagent_containers/food/food = O
 			if(!items_counts[display_name])
 				if(food.ingredient_name)
 					name_overrides[display_name] = food.ingredient_name
@@ -364,7 +364,7 @@
 
 /obj/machinery/kitchen_machine/proc/has_extra_item()
 	for(var/obj/O in contents)
-		if(!is_type_in_list(O, list(/obj/item/food, /obj/item/grown, /obj/item/mixing_bowl)))
+		if(!is_type_in_list(O, list(/obj/item/reagent_containers/food, /obj/item/grown, /obj/item/mixing_bowl)))
 			return TRUE
 	return FALSE
 
@@ -416,7 +416,7 @@
 		amount += reagents.total_volume
 	reagents.clear_reagents()
 	if(amount)
-		var/obj/item/food/snacks/badrecipe/mysteryfood = new(src)
+		var/obj/item/reagent_containers/food/snacks/badrecipe/mysteryfood = new(src)
 		mysteryfood.reagents.add_reagent("carbon", amount / 2)
 		mysteryfood.reagents.add_reagent("????", amount / 15)
 		mysteryfood.forceMove(get_turf(src))
@@ -476,8 +476,8 @@
 	var/list/name_overrides = list()
 	for(var/obj/O in contents)
 		var/display_name = O.name
-		if(istype(O, /obj/item/food))
-			var/obj/item/food/food = O
+		if(istype(O, /obj/item/reagent_containers/food))
+			var/obj/item/reagent_containers/food/food = O
 			if(!items_counts[display_name])
 				if(food.ingredient_name)
 					name_overrides[display_name] = food.ingredient_name

@@ -1,17 +1,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// Food.
 ////////////////////////////////////////////////////////////////////////////////
-
-/obj/item/food
-	resistance_flags = FLAMMABLE
-	container_type = INJECTABLE
-	var/filling_color = "#FFFFFF" //Used by sandwiches.
-	var/junkiness = 0  //for junk food. used to lower human satiety.
+/obj/item/reagent_containers/food
+	possible_transfer_amounts = null
+	visible_transfer_rate = FALSE
+	volume = 50
+	/// Used by sandwiches
+	var/filling_color = "#FFFFFF"
+	/// Used by junk food to lower satiety
+	var/junkiness = 0
 	var/bitesize = 2
 	var/consume_sound = 'sound/items/eatfood.ogg'
-	/// Will ants come near it?
+	/// Will ants infest it?
 	var/antable = TRUE
-	/// location checked every 5 minutes. If its the same place, the food has a chance to spawn ants
+	/// Location checked every 5 minutes. If its the same place, the food has a chance to spawn ants
 	var/ant_location
 	/// Things that suppress food from being infested by ants when on the same turf
 	var/static/list/ant_suppressors
@@ -20,15 +22,10 @@
 	/// Name of the food to show up in kitchen machines (microwaves, ovens, etc)
 	var/ingredient_name
 	var/ingredient_name_plural
-	/// Sets the default container amount for all food items.
-	var/volume = 50
-	/// The list of reagents to create on Initialize()
-	var/list/list_reagents = list()
+	resistance_flags = FLAMMABLE
+	container_type = INJECTABLE
 
-	var/temperature_min = 0 // To limit the temperature of a reagent container can attain when exposed to heat/cold
-	var/temperature_max = 10000
-
-/obj/item/food/Initialize(mapload)
+/obj/item/reagent_containers/food/Initialize(mapload)
 	. = ..()
 	if(!antable)
 		return
@@ -43,27 +40,19 @@
 	ant_location = get_turf(src)
 	last_ant_time = world.time
 
-	if(!reagents) // Some subtypes create their own reagents
-		create_reagents(volume, temperature_min, temperature_max)
-	add_initial_reagents()
-
-/obj/item/food/Destroy()
+/obj/item/reagent_containers/food/Destroy()
 	ant_location = null
 	if(isprocessing)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/food/proc/add_initial_reagents() // This literally is only a proc for junk food
-	if(list_reagents)
-		reagents.add_reagent_list(list_reagents)
-
-/obj/item/food/process()
+/obj/item/reagent_containers/food/process()
 	if(!antable)
 		return PROCESS_KILL
 	if(world.time > last_ant_time + 5 MINUTES)
 		check_for_ants()
 
-/obj/item/food/proc/check_for_ants()
+/obj/item/reagent_containers/food/proc/check_for_ants()
 	last_ant_time = world.time
 
 	// Are we unshielded from the fury of space ants?
@@ -88,10 +77,3 @@
 	antable = FALSE
 	desc += " It appears to be infested with ants. Yuck!"
 	reagents.add_reagent("ants", 1) // Don't eat things with ants in it you weirdo.
-
-/obj/item/food/ex_act()
-	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			R.on_ex_act()
-	if(!QDELETED(src))
-		..()

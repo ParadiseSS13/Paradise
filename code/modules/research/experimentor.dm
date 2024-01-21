@@ -30,8 +30,8 @@
 	var/list/item_reactions = list()
 	var/list/valid_items = list() //valid items for special reactions like transforming
 	var/list/critical_items = list() //items that can cause critical reactions
-	var/list/blocked_items = list(/obj/item/reagent_containers/drinks/bottle/dragonsbreath,
-									/obj/item/reagent_containers/drinks/bottle/immortality)
+	var/list/blocked_items = list(/obj/item/reagent_containers/food/drinks/bottle/dragonsbreath,
+									/obj/item/reagent_containers/food/drinks/bottle/immortality)
 	/// Used for linking with rnd consoles
 	var/range = 5
 
@@ -55,7 +55,7 @@
 				valid_items += I
 				probWeight++
 
-		if(ispath(I,/obj/item/food))
+		if(ispath(I,/obj/item/reagent_containers/food))
 			var/obj/item/tempCheck = I
 			if(I in blocked_items)
 				continue
@@ -340,7 +340,7 @@
 		if(prob(EFFECT_PROB_LOW) && criticalReaction)
 			visible_message("<span class='warning'>[src]'s emergency coolant system gives off a small ding!</span>")
 			playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-			var/obj/item/reagent_containers/drinks/coffee/C = new /obj/item/reagent_containers/drinks/coffee(get_turf(pick(oview(1,src))))
+			var/obj/item/reagent_containers/food/drinks/coffee/C = new /obj/item/reagent_containers/food/drinks/coffee(get_turf(pick(oview(1,src))))
 			chosenchem = pick("plasma","capsaicin","ethanol")
 			C.reagents.remove_any(25)
 			C.reagents.add_reagent(chosenchem , 50)
@@ -391,7 +391,7 @@
 		visible_message("[src] lowers [exp_on]'s temperature.")
 		if(prob(EFFECT_PROB_LOW) && criticalReaction)
 			visible_message("<span class='warning'>[src]'s emergency coolant system gives off a small ding!</span>")
-			var/obj/item/reagent_containers/drinks/coffee/C = new /obj/item/reagent_containers/drinks/coffee(get_turf(pick(oview(1,src))))
+			var/obj/item/reagent_containers/food/drinks/coffee/C = new /obj/item/reagent_containers/food/drinks/coffee(get_turf(pick(oview(1,src))))
 			playsound(loc, 'sound/machines/ding.ogg', 50, 1) //Ding! Your death coffee is ready!
 			chosenchem = pick("uranium","frostoil","ephedrine")
 			C.reagents.remove_any(25)

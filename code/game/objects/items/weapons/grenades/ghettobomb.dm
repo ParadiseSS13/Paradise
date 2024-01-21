@@ -27,7 +27,7 @@
 
 /obj/item/grenade/iedcasing/CheckParts(list/parts_list)
 	..()
-	var/obj/item/reagent_containers/drinks/cans/can = locate() in contents
+	var/obj/item/reagent_containers/food/drinks/cans/can = locate() in contents
 	if(can)
 		can.pixel_x = 0 //Reset the sprite's position to make it consistent with the rest of the IED
 		can.pixel_y = 0

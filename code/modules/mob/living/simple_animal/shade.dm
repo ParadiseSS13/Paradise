@@ -29,7 +29,7 @@
 	faction = list("cult")
 	status_flags = CANPUSH
 	flying = TRUE
-	loot = list(/obj/item/food/snacks/ectoplasm)
+	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = TRUE
 	deathmessage = "lets out a contented sigh as their form unwinds."
 	var/holy = FALSE

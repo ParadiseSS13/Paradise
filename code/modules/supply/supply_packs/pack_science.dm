@@ -107,7 +107,7 @@
 /datum/supply_packs/science/oil
 	name = "Oil Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/oil,
-					/obj/item/reagent_containers/drinks/oilcan)
+					/obj/item/reagent_containers/food/drinks/oilcan)
 	cost = 150
 	containertype = /obj/structure/largecrate
 	containername = "oil tank crate"

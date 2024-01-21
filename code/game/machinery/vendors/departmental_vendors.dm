@@ -100,13 +100,13 @@
 					/obj/item/kitchen/knife = 3,
 					/obj/item/kitchen/rollingpin = 2,
 					/obj/item/kitchen/sushimat = 3,
-					/obj/item/reagent_containers/drinks/drinkingglass = 8,
+					/obj/item/reagent_containers/food/drinks/drinkingglass = 8,
 					/obj/item/clothing/suit/chef/classic = 2,
 					/obj/item/storage/belt/chef = 2,
-					/obj/item/reagent_containers/condiment/pack/ketchup = 5,
-					/obj/item/reagent_containers/condiment/pack/hotsauce = 5,
-					/obj/item/reagent_containers/condiment/saltshaker =5,
-					/obj/item/reagent_containers/condiment/peppermill =5,
+					/obj/item/reagent_containers/food/condiment/pack/ketchup = 5,
+					/obj/item/reagent_containers/food/condiment/pack/hotsauce = 5,
+					/obj/item/reagent_containers/food/condiment/saltshaker =5,
+					/obj/item/reagent_containers/food/condiment/peppermill =5,
 					/obj/item/whetstone = 2,
 					/obj/item/mixing_bowl = 10,
 					/obj/item/kitchen/mould/bear = 1,
@@ -328,7 +328,7 @@
 					/obj/item/grenade/flashbang = 4,
 					/obj/item/flash = 5,
 					/obj/item/reagent_containers/spray/pepper = 5,
-					/obj/item/food/snacks/donut = 12,
+					/obj/item/reagent_containers/food/snacks/donut = 12,
 					/obj/item/storage/box/evidence = 6,
 					/obj/item/flashlight/seclite = 4,
 					/obj/item/restraints/legcuffs/bola/energy = 7,
@@ -340,5 +340,5 @@
 					/obj/item/hailer = 5)
 
 	refill_canister = /obj/item/vending_refill/security
-	prices = list(/obj/item/food/snacks/donut = 40,
+	prices = list(/obj/item/reagent_containers/food/snacks/donut = 40,
 				/obj/item/storage/fancy/donut_box = 200) //Bulk discount

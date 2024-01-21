@@ -269,9 +269,9 @@
 	storage_slots = 3
 
 /obj/item/storage/toolbox/fluff/lunchbox/populate_contents()
-	new /obj/item/food/snacks/sandwich(src)
-	new /obj/item/food/snacks/chips(src)
-	new /obj/item/reagent_containers/drinks/cans/cola(src)
+	new /obj/item/reagent_containers/food/snacks/sandwich(src)
+	new /obj/item/reagent_containers/food/snacks/chips(src)
+	new /obj/item/reagent_containers/food/drinks/cans/cola(src)
 
 
 /obj/item/fluff/wingler_comb

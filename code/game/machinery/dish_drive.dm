@@ -14,7 +14,7 @@
 		/obj/item/trash/plate,
 		/obj/item/trash/tray,
 		/obj/item/trash/snack_bowl,
-		/obj/item/reagent_containers/drinks/drinkingglass,
+		/obj/item/reagent_containers/food/drinks/drinkingglass,
 		/obj/item/kitchen/utensil/fork,
 		/obj/item/shard,
 		/obj/item/broken_bottle)

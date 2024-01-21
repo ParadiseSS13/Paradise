@@ -165,16 +165,16 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/reagent_containers/drinks/drinkingglass{
+/obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_x = 6;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/drinks/bottle/wine,
+/obj/item/reagent_containers/food/drinks/bottle/wine,
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
 "B" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/drinks/drinkingglass{
+/obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_x = -4;
 	pixel_y = 1
 	},

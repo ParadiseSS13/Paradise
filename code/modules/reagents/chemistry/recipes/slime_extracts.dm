@@ -38,7 +38,7 @@
 /datum/chemical_reaction/slimemonkey/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	for(var/i = 1, i <= 3, i++)
-		var/obj/item/food/snacks/monkeycube/M = new /obj/item/food/snacks/monkeycube
+		var/obj/item/reagent_containers/food/snacks/monkeycube/M = new /obj/item/reagent_containers/food/snacks/monkeycube
 		M.forceMove(get_turf(holder.my_atom))
 
 //Green
@@ -147,39 +147,37 @@
 /datum/chemical_reaction/slimebork/on_reaction(datum/reagents/holder)
 
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-
-	var/list/blocked = list(
-		/obj/item/food/snacks,
-		/obj/item/food/snacks/breadslice,
-		/obj/item/food/snacks/sliceable,
-		/obj/item/food/snacks/sliceable/pizza,
-		/obj/item/food/snacks/margheritapizzaslice,
-		/obj/item/food/snacks/meatpizzaslice,
-		/obj/item/food/snacks/mushroompizzaslice,
-		/obj/item/food/snacks/vegetablepizzaslice,
-		/obj/item/food/snacks/cheesepizzaslice,
-		/obj/item/food/snacks/garlicpizzaslice,
-		/obj/item/food/snacks/donkpocketpizzaslice,
-		/obj/item/food/snacks/dankpizzaslice,
-		/obj/item/food/snacks/macpizzaslice,
-		/obj/item/food/snacks/firecrackerpizzaslice,
-		/obj/item/food/snacks/pestopizzaslice,
-		/obj/item/food/snacks/pepperonipizzaslice,
-		/obj/item/food/snacks/meat,
-		/obj/item/food/snacks/meat/slab,
-		/obj/item/food/snacks/grown,
-		/obj/item/food/snacks/grown/shell,
-		/obj/item/food/snacks/grown/mushroom,
-		/obj/item/food/snacks/deepfryholder,
-		/obj/item/food/snacks/chinese,
-		/obj/item/food/snacks/human,
-		/obj/item/food/snacks/monstermeat,
-		/obj/item/food/snacks/meatsteak/stimulating,
-		/obj/item/food/snacks/egg/watcher
+	var/list/blocked = list(/obj/item/reagent_containers/food/snacks,
+		/obj/item/reagent_containers/food/snacks/breadslice,
+		/obj/item/reagent_containers/food/snacks/sliceable,
+		/obj/item/reagent_containers/food/snacks/sliceable/pizza,
+		/obj/item/reagent_containers/food/snacks/margheritapizzaslice,
+		/obj/item/reagent_containers/food/snacks/meatpizzaslice,
+		/obj/item/reagent_containers/food/snacks/mushroompizzaslice,
+		/obj/item/reagent_containers/food/snacks/vegetablepizzaslice,
+		/obj/item/reagent_containers/food/snacks/cheesepizzaslice,
+		/obj/item/reagent_containers/food/snacks/garlicpizzaslice,
+		/obj/item/reagent_containers/food/snacks/donkpocketpizzaslice,
+		/obj/item/reagent_containers/food/snacks/dankpizzaslice,
+		/obj/item/reagent_containers/food/snacks/macpizzaslice,
+		/obj/item/reagent_containers/food/snacks/firecrackerpizzaslice,
+		/obj/item/reagent_containers/food/snacks/pestopizzaslice,
+		/obj/item/reagent_containers/food/snacks/pepperonipizzaslice,
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab,
+		/obj/item/reagent_containers/food/snacks/grown,
+		/obj/item/reagent_containers/food/snacks/grown/shell,
+		/obj/item/reagent_containers/food/snacks/grown/mushroom,
+		/obj/item/reagent_containers/food/snacks/deepfryholder,
+		/obj/item/reagent_containers/food/snacks/chinese,
+		/obj/item/reagent_containers/food/snacks/human,
+		/obj/item/reagent_containers/food/snacks/monstermeat,
+		/obj/item/reagent_containers/food/snacks/meatsteak/stimulating,
+		/obj/item/reagent_containers/food/snacks/egg/watcher
 		)
-	blocked |= typesof(/obj/item/food/snacks/customizable)
+	blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 
-	var/list/borks = typesof(/obj/item/food/snacks) - blocked
+	var/list/borks = typesof(/obj/item/reagent_containers/food/snacks) - blocked
 	// BORK BORK BORK
 
 	playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
@@ -209,24 +207,24 @@
 /datum/chemical_reaction/slimebork2/on_reaction(datum/reagents/holder)
 
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/list/borks = subtypesof(/obj/item/reagent_containers/drinks)
-	var/list/blocked = list(/obj/item/reagent_containers/drinks/cans/adminbooze,
-							/obj/item/reagent_containers/drinks/cans/madminmalt,
-							/obj/item/reagent_containers/drinks/shaker,
-							/obj/item/reagent_containers/drinks/britcup,
-							/obj/item/reagent_containers/drinks/sillycup,
-							/obj/item/reagent_containers/drinks/cans,
-							/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
-							/obj/item/reagent_containers/drinks/drinkingglass,
-							/obj/item/reagent_containers/drinks/bottle,
-							/obj/item/reagent_containers/drinks/everfull,
-							/obj/item/reagent_containers/drinks/bottle/dragonsbreath,
-							/obj/item/reagent_containers/drinks/bottle/immortality,
-							/obj/item/reagent_containers/drinks/mushroom_bowl
+	var/list/borks = subtypesof(/obj/item/reagent_containers/food/drinks)
+	var/list/blocked = list(/obj/item/reagent_containers/food/drinks/cans/adminbooze,
+							/obj/item/reagent_containers/food/drinks/cans/madminmalt,
+							/obj/item/reagent_containers/food/drinks/shaker,
+							/obj/item/reagent_containers/food/drinks/britcup,
+							/obj/item/reagent_containers/food/drinks/sillycup,
+							/obj/item/reagent_containers/food/drinks/cans,
+							/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+							/obj/item/reagent_containers/food/drinks/drinkingglass,
+							/obj/item/reagent_containers/food/drinks/bottle,
+							/obj/item/reagent_containers/food/drinks/everfull,
+							/obj/item/reagent_containers/food/drinks/bottle/dragonsbreath,
+							/obj/item/reagent_containers/food/drinks/bottle/immortality,
+							/obj/item/reagent_containers/food/drinks/mushroom_bowl
 							)
-	blocked += typesof(/obj/item/reagent_containers/drinks/flask)
-	blocked += typesof(/obj/item/reagent_containers/drinks/trophy)
-	blocked += typesof(/obj/item/reagent_containers/drinks/cans/bottler)
+	blocked += typesof(/obj/item/reagent_containers/food/drinks/flask)
+	blocked += typesof(/obj/item/reagent_containers/food/drinks/trophy)
+	blocked += typesof(/obj/item/reagent_containers/food/drinks/cans/bottler)
 	borks -= blocked
 	// BORK BORK BORK
 

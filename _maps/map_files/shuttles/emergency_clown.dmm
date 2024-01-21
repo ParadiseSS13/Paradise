@@ -148,7 +148,7 @@
 	icon_state = "greentext";
 	name = "greentext"
 	},
-/obj/item/reagent_containers/condiment/saltshaker,
+/obj/item/reagent_containers/food/condiment/saltshaker,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aI" = (

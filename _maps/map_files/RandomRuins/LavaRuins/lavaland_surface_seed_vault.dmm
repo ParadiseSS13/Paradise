@@ -115,7 +115,7 @@
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mob_spawn/human/corpse/seed_vault_diona,
 /obj/item/pickaxe/mini,
-/obj/item/food/snacks/grown/mushroom/glowshroom{
+/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom{
 	pixel_x = 8;
 	pixel_y = -8
 	},

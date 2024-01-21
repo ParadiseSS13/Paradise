@@ -135,7 +135,7 @@
 	new /obj/item/storage/pill_bottle/psychiatrist(src)
 	new /obj/random/plushie(src)
 	for(var/i in 0 to 3)
-		var/candy = pick(subtypesof(/obj/item/food/snacks/candy/fudge))
+		var/candy = pick(subtypesof(/obj/item/reagent_containers/food/snacks/candy/fudge))
 		new candy(src)
 
 /obj/structure/closet/secure_closet/CMO
@@ -163,7 +163,7 @@
 	new /obj/item/reagent_containers/hypospray/CMO(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/medical(src)
 	new /obj/item/door_remote/chief_medical_officer(src)
-	new /obj/item/reagent_containers/drinks/mug/cmo(src)
+	new /obj/item/reagent_containers/food/drinks/mug/cmo(src)
 	new /obj/item/clothing/accessory/medal/medical(src)
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/clothing/mask/gas(src)

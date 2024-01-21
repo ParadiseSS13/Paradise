@@ -57,7 +57,7 @@
 			return ..()
 
 	if(length(contents))
-		var/obj/item/food/snacks/toEat = contents[1]
+		var/obj/item/reagent_containers/food/snacks/toEat = contents[1]
 		if(istype(toEat))
 			if(C.eat(toEat, user))
 				toEat.On_Consume(C, user)

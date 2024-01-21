@@ -1,6 +1,6 @@
 #define MAX_WEIGHT_CLASS WEIGHT_CLASS_SMALL
 //Food items that are eaten normally and don't leave anything behind.
-/obj/item/food/snacks
+/obj/item/reagent_containers/food/snacks
 	name = "snack"
 	desc = "yummy"
 	icon = 'icons/obj/food/food.dmi'
@@ -16,8 +16,8 @@
 	var/total_w_class = 0 //for the total weight an item of food can carry
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
 
-/obj/item/food/snacks/add_initial_reagents()
-	if(tastes && length(tastes))
+/obj/item/reagent_containers/food/snacks/add_initial_reagents()
+	if(tastes && tastes.len)
 		if(list_reagents)
 			for(var/rid in list_reagents)
 				var/amount = list_reagents[rid]
@@ -29,13 +29,13 @@
 		..()
 
 //Placeholder for effect that trigger on eating that aren't tied to reagents.
-/obj/item/food/snacks/proc/On_Consume(mob/M, mob/user)
+/obj/item/reagent_containers/food/snacks/proc/On_Consume(mob/M, mob/user)
 	if(!user)
 		return
 	if(!reagents.total_volume)
 		if(M == user)
-			to_chat(user, "<span class='notice'>You finish eating [src].</span>")
-		user.visible_message("<span class='notice'>[M] finishes eating [src].</span>")
+			to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
+		user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
 		user.unEquip(src)	//so icons update :[
 		Post_Consume(M)
 		var/obj/item/trash_item = generate_trash(usr)
@@ -43,13 +43,13 @@
 		qdel(src)
 	return
 
-/obj/item/food/snacks/proc/Post_Consume(mob/living/M)
+/obj/item/reagent_containers/food/snacks/proc/Post_Consume(mob/living/M)
 	return
 
-/obj/item/food/snacks/attack_self(mob/user)
+/obj/item/reagent_containers/food/snacks/attack_self(mob/user)
 	return
 
-/obj/item/food/snacks/attack(mob/M, mob/user, def_zone)
+/obj/item/reagent_containers/food/snacks/attack(mob/M, mob/user, def_zone)
 	if(reagents && !reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
 		M.unEquip(src)	//so icons update :[
@@ -64,10 +64,10 @@
 			return TRUE
 	return FALSE
 
-/obj/item/food/snacks/afterattack(obj/target, mob/user, proximity)
+/obj/item/reagent_containers/food/snacks/afterattack(obj/target, mob/user, proximity)
 	return
 
-/obj/item/food/snacks/examine(mob/user)
+/obj/item/reagent_containers/food/snacks/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
 		if(bitecount > 0)
@@ -79,7 +79,7 @@
 				. += "<span class='notice'>[src] was bitten multiple times!</span>"
 
 
-/obj/item/food/snacks/attackby(obj/item/W, mob/user, params)
+/obj/item/reagent_containers/food/snacks/attackby(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		rename_interactive(user, W, use_prefix = FALSE, prompt = "What would you like to name this dish?")
 		return
@@ -105,7 +105,7 @@
 		I.color = filling_color
 		U.overlays += I
 
-		var/obj/item/food/snacks/collected = new type
+		var/obj/item/reagent_containers/food/snacks/collected = new type
 		collected.name = name
 		collected.loc = U
 		collected.reagents.remove_any(collected.reagents.total_volume)
@@ -126,7 +126,7 @@
 	else
 		return ..()
 
-/obj/item/food/snacks/proc/generate_trash(atom/location)
+/obj/item/reagent_containers/food/snacks/proc/generate_trash(atom/location)
 	if(trash)
 		if(ispath(trash, /obj/item))
 			. = new trash(location)
@@ -139,13 +139,13 @@
 			trash = null
 			return
 
-/obj/item/food/snacks/Destroy()
+/obj/item/reagent_containers/food/snacks/Destroy()
 	if(contents)
 		for(var/atom/movable/something in contents)
 			something.loc = get_turf(src)
 	return ..()
 
-/obj/item/food/snacks/attack_animal(mob/M)
+/obj/item/reagent_containers/food/snacks/attack_animal(mob/M)
 	if(isanimal(M))
 		M.changeNext_move(CLICK_CD_MELEE)
 		if(isdog(M))
@@ -173,11 +173,11 @@
 			N.adjustHealth(-2)
 			N.taste(reagents)
 
-/obj/item/food/snacks/sliceable/examine(mob/user)
+/obj/item/reagent_containers/food/snacks/sliceable/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Alt-click to put something small inside.</span>"
 
-/obj/item/food/snacks/sliceable/AltClick(mob/user)
+/obj/item/reagent_containers/food/snacks/sliceable/AltClick(mob/user)
 	var/obj/item/I = user.get_active_hand()
 	if(!I)
 		return
@@ -199,7 +199,7 @@
 	add_fingerprint(user)
 	I.forceMove(src)
 
-/obj/item/food/snacks/sliceable/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/sliceable/attackby(obj/item/I, mob/user, params)
 	if((slices_num <= 0 || !slices_num) || !slice_path)
 		return FALSE
 
@@ -259,14 +259,25 @@
 //	bitesize of 2, then it'll take 3 bites to eat. Unlike the old system, the contained reagents are evenly spread among all
 //	the bites. No more contained reagents = no more bites.
 
-/obj/item/food/snacks/badrecipe
+//Here is an example of the new formatting for anyone who wants to add more food items.
+///obj/item/reagent_containers/food/snacks/xenoburger			//Identification path for the object.
+//	name = "Xenoburger"													//Name that displays in the UI.
+//	desc = "Smells caustic. Tastes like heresy."						//Duh
+//	icon_state = "xburger"												//Refers to an icon in food/food.dmi
+//	New()																//Don't mess with this.
+//		..()															//Same here.
+//		reagents.add_reagent("xenomicrobes", 10)						//This is what is in the food item. you may copy/paste
+//		reagents.add_reagent("nutriment", 2)							//	this line of code for all the contents.
+//		bitesize = 3													//This is the amount each bite consumes.
+
+/obj/item/reagent_containers/food/snacks/badrecipe
 	name = "burned mess"
 	desc = "Someone should be demoted from chef for this."
 	icon_state = "badrecipe"
 	filling_color = "#211F02"
 	list_reagents = list("????" = 30)
 
-/obj/item/food/snacks/badrecipe/Initialize(mapload)
+/obj/item/reagent_containers/food/snacks/badrecipe/Initialize(mapload)
 	. = ..()
 	// it's burned! it should start off being classed as any cooktype that burns
 	cooktype["grilled"] = TRUE
@@ -274,14 +285,14 @@
 
 // MISC
 
-/obj/item/food/snacks/cereal
+/obj/item/reagent_containers/food/snacks/cereal
 	name = "box of cereal"
 	desc = "A box of cereal."
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "cereal_box"
 	list_reagents = list("nutriment" = 3)
 
-/obj/item/food/snacks/deepfryholder
+/obj/item/reagent_containers/food/snacks/deepfryholder
 	name = "Deep Fried Foods Holder Obj"
 	desc = "If you can see this description the code for the deep fryer fucked up."
 	icon = 'icons/obj/food/food.dmi'

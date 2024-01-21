@@ -276,7 +276,7 @@
 	id = "drinking_glass"
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 100)
-	build_path = /obj/item/reagent_containers/drinks/drinkingglass
+	build_path = /obj/item/reagent_containers/food/drinks/drinkingglass
 	category = list("initial","Dinnerware")
 
 /datum/design/shot_glass
@@ -284,7 +284,7 @@
 	id = "shot_glass"
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 50)
-	build_path = /obj/item/reagent_containers/drinks/drinkingglass/shotglass
+	build_path = /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass
 	category = list("initial","Dinnerware")
 
 /datum/design/shaker
@@ -292,7 +292,7 @@
 	id = "shaker"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 1500)
-	build_path = /obj/item/reagent_containers/drinks/shaker
+	build_path = /obj/item/reagent_containers/food/drinks/shaker
 	category = list("initial","Dinnerware")
 
 /datum/design/cultivator

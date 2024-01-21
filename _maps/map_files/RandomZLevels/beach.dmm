@@ -474,7 +474,7 @@
 /area/awaymission/beach)
 "cX" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/shaker,
+/obj/item/reagent_containers/food/drinks/shaker,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "cY" = (
@@ -827,7 +827,7 @@
 /area/awaymission/beach)
 "ev" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/pie,
+/obj/item/reagent_containers/food/snacks/pie,
 /turf/simulated/floor/beach/away/sand,
 /area/awaymission/beach)
 "ew" = (

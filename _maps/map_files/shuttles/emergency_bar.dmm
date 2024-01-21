@@ -45,7 +45,7 @@
 /area/shuttle/escape)
 "an" = (
 /obj/structure/table/wood/poker,
-/obj/item/reagent_containers/drinks/bottle/whiskey,
+/obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "ao" = (
@@ -245,7 +245,7 @@
 "aU" = (
 /obj/structure/table,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/drinks/shaker,
+/obj/item/reagent_containers/food/drinks/shaker,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -296,7 +296,7 @@
 "bd" = (
 /obj/structure/table,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/drinks/shaker,
+/obj/item/reagent_containers/food/drinks/shaker,
 /obj/item/clothing/mask/cigarette/cigar,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"

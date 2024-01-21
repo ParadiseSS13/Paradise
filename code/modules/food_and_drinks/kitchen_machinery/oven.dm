@@ -22,7 +22,7 @@
 		return
 	else
 		var/obj/item/F = I
-		var/obj/item/food/snacks/customizable/C
+		var/obj/item/reagent_containers/food/snacks/customizable/C
 		C = input("Select food to make.", "Cooking", C) in food_choices
 		if(!C)
 			return
@@ -59,8 +59,8 @@
 /obj/machinery/cooking/oven/updatefood()
 	for(var/U in food_choices)
 		food_choices.Remove(U)
-	for(var/U in subtypesof(/obj/item/food/snacks/customizable/cook))
-		var/obj/item/food/snacks/customizable/cook/V = new U
+	for(var/U in subtypesof(/obj/item/reagent_containers/food/snacks/customizable/cook))
+		var/obj/item/reagent_containers/food/snacks/customizable/cook/V = new U
 		food_choices += V
 	return
 
@@ -74,7 +74,7 @@
 /obj/machinery/cooking/candy/updatefood()
 	for(var/U in food_choices)
 		food_choices.Remove(U)
-	for(var/U in subtypesof(/obj/item/food/snacks/customizable/candy))
-		var/obj/item/food/snacks/customizable/candy/V = new U
+	for(var/U in subtypesof(/obj/item/reagent_containers/food/snacks/customizable/candy))
+		var/obj/item/reagent_containers/food/snacks/customizable/candy/V = new U
 		food_choices += V
 	return

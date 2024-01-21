@@ -6,9 +6,9 @@
 	name = "grown_weapon"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	resistance_flags = FLAMMABLE
-	var/obj/item/seeds/seed // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
+	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
 
-/obj/item/grown/Initialize(mapload, obj/item/seeds/new_seed)
+/obj/item/grown/Initialize(mapload, obj/item/seeds/new_seed = null)
 	. = ..()
 	create_reagents(50)
 

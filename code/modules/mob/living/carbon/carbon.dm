@@ -1158,22 +1158,26 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/proc/can_eat(flags = 255)
 	return TRUE
 
-/mob/living/carbon/proc/eat(obj/item/food/to_eat, mob/user, bitesize_override)
-	if(ispill(to_eat) || ispatch(to_eat)) // We first have to know if it's either a pill or a patch, only then can we check if it's a food item
+/mob/living/carbon/proc/eat(obj/item/reagent_containers/to_eat, mob/user, bitesize_override)
+	if(ispill(to_eat) || ispatch(to_eat))
 		return consume_patch_or_pill(to_eat, user)
 
-	if(!isfood(to_eat))
+	if(!isfood(to_eat)) // We first have to know if it's either a pill or a patch, only then can we check if it's a food item
 		return FALSE
 
-	var/obj/item/food/food = to_eat // It's not a patch or a pill so it must be food
+	var/obj/item/reagent_containers/food/food = to_eat // It's not a patch or a pill so it must be food
 	var/fullness = nutrition + 10
-	if(istype(food, /obj/item/food/snacks))
+	if(istype(food, /obj/item/reagent_containers/food/snacks))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
 			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency)
 
 	if(user == src)
-		if(!selfFeed(food, fullness))
-			return FALSE
+		if(istype(food, /obj/item/reagent_containers/food/drinks))
+			if(!selfDrink(food))
+				return FALSE
+		else
+			if(!selfFeed(food, fullness))
+				return FALSE
 	else
 		if(!forceFed(food, user, fullness))
 			return FALSE
@@ -1182,27 +1186,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	SSticker.score.score_food_eaten++
 	return TRUE
 
-/mob/living/carbon/proc/drink(obj/item/reagent_containers/drinks/to_eat, mob/user)
-	if(user == src)
-		if(!selfDrink(to_eat))
-			return FALSE
-	else if(!forceFed(to_eat, user, nutrition))
-		return FALSE
-
-	if(to_eat.consume_sound)
-		playsound(loc, to_eat.consume_sound, rand(10, 50), TRUE)
-	if(to_eat.reagents.total_volume)
-		taste(to_eat.reagents)
-		var/fraction = min(1 / to_eat.reagents.total_volume, 1)
-		var/drink_size = to_eat.amount_per_transfer_from_this > 5 ? 5 : to_eat.amount_per_transfer_from_this
-		if(fraction)
-			to_eat.reagents.reaction(src, REAGENT_INGEST, fraction)
-			to_eat.reagents.trans_to(src, drink_size)
-
-	SSticker.score.score_food_eaten++
-	return TRUE
-
-/mob/living/carbon/proc/selfFeed(obj/item/food/to_eat, fullness)
+/mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/to_eat, fullness)
 	if(ispill(to_eat))
 		to_chat(src, "<span class='notify'>You swallow [to_eat].</span>")
 	else if(ispatch(to_eat))
@@ -1224,7 +1208,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			return FALSE
 	return TRUE
 
-/mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/drinks/toDrink, mob/user)
+/mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/food/drinks/toDrink, mob/user)
 	return TRUE
 
 /mob/living/carbon/proc/forceFed(obj/item/reagent_containers/to_eat, mob/user, fullness)
@@ -1244,7 +1228,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
 so that different stomachs can handle things in different ways VB*/
-/mob/living/carbon/proc/consume(obj/item/food/to_eat, bitesize_override)
+/mob/living/carbon/proc/consume(obj/item/reagent_containers/food/to_eat, bitesize_override)
 	var/this_bite = bitesize_override ? bitesize_override : to_eat.bitesize
 	if(!to_eat.reagents)
 		return

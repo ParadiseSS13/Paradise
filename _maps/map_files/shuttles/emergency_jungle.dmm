@@ -607,7 +607,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/reagent_containers/drinks/mug/med,
+/obj/item/reagent_containers/food/drinks/mug/med,
 /mob/living/carbon/human/monkey,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)

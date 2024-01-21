@@ -377,11 +377,11 @@
 	name = "implant an organ"
 	allowed_tools = list(
 		/obj/item/organ/internal = 100,
-		/obj/item/food/snacks/organ = 0  // there for the flavor text
+		/obj/item/reagent_containers/food/snacks/organ = 0  // there for the flavor text
 	)
 
 /datum/surgery_step/internal/manipulate_organs/implant/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(istype(tool, /obj/item/food/snacks/organ))
+	if(istype(tool, /obj/item/reagent_containers/food/snacks/organ))
 		to_chat(user, "<span class='warning'>[tool] was bitten by someone! It's too damaged to use!</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
@@ -469,8 +469,8 @@
 		/obj/item/reagent_containers/dropper = 100,
 		/obj/item/reagent_containers/syringe = 100,
 		/obj/item/reagent_containers/glass/bottle = 90,
-		/obj/item/reagent_containers/drinks/drinkingglass = 85,
-		/obj/item/reagent_containers/drinks/bottle = 80,
+		/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
+		/obj/item/reagent_containers/food/drinks/bottle = 80,
 		/obj/item/reagent_containers/glass/beaker = 75,
 		/obj/item/reagent_containers/spray = 60,
 		/obj/item/reagent_containers/glass/bucket = 50

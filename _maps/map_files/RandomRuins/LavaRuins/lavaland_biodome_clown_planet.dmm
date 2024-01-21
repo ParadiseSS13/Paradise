@@ -979,7 +979,7 @@
 /turf/simulated/floor/mineral/bananium/lubed,
 /area/ruin/powered/clownplanet)
 "bL" = (
-/obj/item/reagent_containers/drinks/trophy/gold_cup,
+/obj/item/reagent_containers/food/drinks/trophy/gold_cup,
 /obj/structure/table/glass,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/clownplanet)

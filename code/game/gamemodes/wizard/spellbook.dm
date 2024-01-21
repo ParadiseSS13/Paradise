@@ -469,7 +469,7 @@
 /datum/spellbook_entry/item/everfull_mug
 	name = "Everfull Mug"
 	desc = "A magical mug that can be filled with omnizine at will, though beware of addiction! It can also produce alchohol and other less useful substances."
-	item_path = /obj/item/reagent_containers/drinks/everfull
+	item_path = /obj/item/reagent_containers/food/drinks/everfull
 	cost = 1
 	category = "Artefacts"
 
