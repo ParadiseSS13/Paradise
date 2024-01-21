@@ -203,7 +203,6 @@
 				inv3.icon_state = "inv3"
 				module_active = null
 	update_icons()
-	
 	return
 
 //toggle_module(module) - Toggles the selection of the module slot specified by "module".
@@ -238,7 +237,6 @@
 			select_module(slot_num)
 			return
 	while(slot_start != slot_num) //If we wrap around without finding any free slots, just give up.
-
 	return
 
 /mob/living/silicon/robot/unEquip(obj/item/I, force, silent = FALSE)

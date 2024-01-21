@@ -74,7 +74,7 @@
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
 	collar_type = "corgi"
-	var/obj/item/inventory_head
+	var/obj/item/silicon_hat
 	var/obj/item/inventory_back
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
@@ -84,13 +84,13 @@
 	regenerate_icons()
 
 /mob/living/simple_animal/pet/dog/corgi/Destroy()
-	QDEL_NULL(inventory_head)
+	QDEL_NULL(silicon_hat)
 	QDEL_NULL(inventory_back)
 	return ..()
 
 /mob/living/simple_animal/pet/dog/corgi/handle_atom_del(atom/A)
-	if(A == inventory_head)
-		inventory_head = null
+	if(A == silicon_hat)
+		silicon_hat = null
 		regenerate_icons()
 	if(A == inventory_back)
 		inventory_back = null
@@ -142,19 +142,19 @@
 				possible_headwear += item
 	if(!length(possible_headwear))
 		return
-	if(inventory_head)
-		inventory_head.forceMove(drop_location())
-		inventory_head = null
+	if(silicon_hat)
+		silicon_hat.forceMove(drop_location())
+		silicon_hat = null
 	place_on_head(pick(possible_headwear))
-	visible_message("<span class='notice'>[src] puts [inventory_head] on [p_their()] own head, somehow.</span>")
+	visible_message("<span class='notice'>[src] puts [silicon_hat] on [p_their()] own head, somehow.</span>")
 
 ///Deadchat plays command that drops the current hat off Ian.
 /mob/living/simple_animal/pet/dog/corgi/proc/drop_hat()
-	if(!inventory_head)
+	if(!silicon_hat)
 		return
-	visible_message("<span class='notice'>[src] vigorously shakes [p_their()] head, dropping [inventory_head] to the ground.</span>")
-	inventory_head.forceMove(drop_location())
-	inventory_head = null
+	visible_message("<span class='notice'>[src] vigorously shakes [p_their()] head, dropping [silicon_hat] to the ground.</span>")
+	silicon_hat.forceMove(drop_location())
+	silicon_hat = null
 	update_corgi_fluff()
 	regenerate_icons()
 
@@ -171,7 +171,7 @@
 	popup.open()
 
 /mob/living/simple_animal/pet/dog/corgi/proc/get_invslot_content()
-	var/dat = "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[html_encode(inventory_head)]" : "add_inv=head'>Nothing"]</A>"
+	var/dat = "<br><B>Head:</B> <A href='?src=[UID()];[silicon_hat ? "remove_inv=head'>[html_encode(silicon_hat)]" : "add_inv=head'>Nothing"]</A>"
 	dat += "<br><B>Back:</B> <A href='?src=[UID()];[inventory_back ? "remove_inv=back'>[html_encode(inventory_back)]" : "add_inv=back'>Nothing"]</A>"
 	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
 
@@ -182,15 +182,15 @@
 
 	if(def_zone)
 		if(def_zone == "head")
-			if(inventory_head)
-				armorval = inventory_head.armor.getRating(type)
+			if(silicon_hat)
+				armorval = silicon_hat.armor.getRating(type)
 		else
 			if(inventory_back)
 				armorval = inventory_back.armor.getRating(type)
 		return armorval
 	else
-		if(inventory_head)
-			armorval += inventory_head.armor.getRating(type)
+		if(silicon_hat)
+			armorval += silicon_hat.armor.getRating(type)
 		if(inventory_back)
 			armorval += inventory_back.armor.getRating(type)
 	return armorval * 0.5
@@ -229,12 +229,12 @@
 		var/remove_from = href_list["remove_inv"]
 		switch(remove_from)
 			if("head")
-				if(inventory_head)
-					if(inventory_head.flags & NODROP)
-						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
+				if(silicon_hat)
+					if(silicon_hat.flags & NODROP)
+						to_chat(usr, "<span class='warning'>\The [silicon_hat] is stuck too hard to [src] for you to remove!</span>")
 						return
-					usr.put_in_hands(inventory_head)
-					inventory_head = null
+					usr.put_in_hands(silicon_hat)
+					silicon_hat = null
 					update_corgi_fluff()
 					regenerate_icons()
 				else
@@ -243,7 +243,7 @@
 			if("back")
 				if(inventory_back)
 					if(inventory_back.flags & NODROP)
-						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
+						to_chat(usr, "<span class='warning'>\The [silicon_hat] is stuck too hard to [src] for you to remove!</span>")
 						return
 					usr.put_in_hands(inventory_back)
 					inventory_back = null
@@ -329,7 +329,7 @@
 		item_to_add.afterattack(src,user,1)
 		return
 
-	if(inventory_head)
+	if(silicon_hat)
 		if(user)
 			to_chat(user, "<span class='warning'>You can't put more than one hat on [src]!</span>")
 		return
@@ -357,7 +357,7 @@
 				"<span class='notice'>You put [item_to_add] on [real_name]'s head. [src] gives you a peculiar look, then wags [p_their()] tail once and barks.</span>",
 				"<span class='italics'>You hear a friendly-sounding bark.</span>")
 		item_to_add.forceMove(src)
-		inventory_head = item_to_add
+		silicon_hat = item_to_add
 		update_corgi_fluff()
 		regenerate_icons()
 	else
@@ -386,8 +386,8 @@
 	REMOVE_TRAIT(src, TRAIT_NOBREATH, DOGGO_SPACESUIT)
 	minbodytemp = initial(minbodytemp)
 
-	if(inventory_head && inventory_head.dog_fashion)
-		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
+	if(silicon_hat && silicon_hat.dog_fashion)
+		var/datum/dog_fashion/DF = new silicon_hat.dog_fashion(src)
 		DF.apply(src)
 
 	if(inventory_back && inventory_back.dog_fashion)
@@ -396,16 +396,16 @@
 
 /mob/living/simple_animal/pet/dog/corgi/regenerate_icons()
 	..()
-	if(inventory_head)
+	if(silicon_hat)
 		var/image/head_icon
-		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
+		var/datum/dog_fashion/DF = new silicon_hat.dog_fashion(src)
 
 		if(!DF.obj_icon_state)
-			DF.obj_icon_state = inventory_head.icon_state
+			DF.obj_icon_state = silicon_hat.icon_state
 		if(!DF.obj_alpha)
-			DF.obj_alpha = inventory_head.alpha
+			DF.obj_alpha = silicon_hat.alpha
 		if(!DF.obj_color)
-			DF.obj_color = inventory_head.color
+			DF.obj_color = silicon_hat.color
 
 		if(health <= 0)
 			head_icon = DF.get_overlay(dir = EAST)
@@ -520,8 +520,8 @@
 			file_data["record_age"] = record_age + 1
 		else
 			file_data["record_age"] = record_age
-		if(inventory_head)
-			file_data["saved_head"] = inventory_head.type
+		if(silicon_hat)
+			file_data["saved_head"] = silicon_hat.type
 		else
 			file_data["saved_head"] = null
 	else

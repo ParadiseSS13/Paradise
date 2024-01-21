@@ -19,13 +19,14 @@
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
-	/// Cooldown for law syncs
-	var/sync_cooldown = 0
-
 	hat_offset_y = -15
 	is_centered = TRUE
 	can_be_hatted = TRUE
-	can_wear_blacklisted_hats = TRUE
+	can_wear_restricted_hats = TRUE
+	/// Cooldown for law syncs
+	var/sync_cooldown = 0
+
+
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
