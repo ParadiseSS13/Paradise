@@ -287,7 +287,6 @@ SUBSYSTEM_DEF(tgui)
  * required ui datum/tgui The UI to be added.
  */
 /datum/controller/subsystem/tgui/proc/on_open(datum/tgui/ui)
-	PRIVATE_PROC(TRUE)
 	var/key = "[ui.src_object.UID()]"
 	if(isnull(open_uis_by_src[key]) || !islist(open_uis_by_src[key]))
 		open_uis_by_src[key] = list()
@@ -306,7 +305,6 @@ SUBSYSTEM_DEF(tgui)
  * return bool If the UI was removed or not.
  */
 /datum/controller/subsystem/tgui/proc/on_close(datum/tgui/ui)
-	PRIVATE_PROC(TRUE)
 	var/key = "[ui.src_object.UID()]"
 	if(isnull(open_uis_by_src[key]) || !islist(open_uis_by_src[key]))
 		return FALSE
@@ -331,7 +329,6 @@ SUBSYSTEM_DEF(tgui)
  * return int The number of UIs closed.
  */
 /datum/controller/subsystem/tgui/proc/on_logout(mob/user)
-	PRIVATE_PROC(TRUE)
 	close_user_uis(user)
 
 /**
@@ -345,7 +342,6 @@ SUBSYSTEM_DEF(tgui)
  * return bool If the UIs were transferred.
  */
 /datum/controller/subsystem/tgui/proc/on_transfer(mob/source, mob/target)
-	PRIVATE_PROC(TRUE)
 	// The old mob had no open UIs.
 	if(length(source?.tgui_open_uis) == 0)
 		return FALSE
