@@ -132,7 +132,7 @@
 		overlays += "eyes-[icon_state]"
 	else
 		overlays -= "eyes"
-	hat_icons()
+	update_hat_icons()
 
 /mob/living/silicon/robot/drone/pick_module()
 	return

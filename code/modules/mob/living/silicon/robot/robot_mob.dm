@@ -514,10 +514,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			can_wear_restricted_hats = TRUE
-			hat_offset_y = -3
+			hat_offset_y = -4
 		if("landmate", "syndi-engi")
 			can_be_hatted = TRUE
-			hat_offset_y = -3
+			hat_offset_y = -7
 		if("mopgearrex")
 			can_be_hatted = TRUE
 			hat_offset_y = -6
@@ -1194,7 +1194,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			overlays += "[panelprefix]-openpanel -c"
 	robot_module_hat_offset(icon_state)
-	hat_icons()
+	update_hat_icons()
 	update_fire()
 
 /mob/living/silicon/robot/proc/borg_icons() // Exists so that robot/destroyer can override it

@@ -382,6 +382,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(powered_ai.anchored)
 		change_power_mode(ACTIVE_POWER_USE)
 
+/mob/living/silicon/ai/update_icons()
+	. = ..()
+	update_hat_icons()
+
 /mob/living/silicon/ai/proc/pick_icon()
 	set category = "AI Commands"
 	set name = "Set AI Core Display"

@@ -463,7 +463,7 @@
 /mob/living/silicon/on_standing_up()
 	return // Silicons are always standing by default.
 
-/mob/living/silicon/proc/hat_icons()
+/mob/living/silicon/proc/update_hat_icons()
 	if(!silicon_hat)
 		return
 	var/image/head_icon
@@ -575,4 +575,4 @@
 	. = ..()
 	if(silicon_hat)
 		. += "<span class='notice'>They are wearing a [bicon(silicon_hat)] [silicon_hat.name].<span>"
-		. += "<span class='notice'>Use an empty hand on [src] on grab mode to remove [silicon_hat].<span>y"
+		. += "<span class='notice'>Use an empty hand on [src] on grab mode to remove [silicon_hat].<span>"
