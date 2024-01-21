@@ -153,9 +153,14 @@
 	if(HAS_TRAIT(src, TRAIT_VIRUSIMMUNE) && !D.bypasses_immunity)
 		return FALSE
 
-	for(var/thing in D.required_organs)
-		if(!((locate(thing) in bodyparts) || (locate(thing) in internal_organs)))
-			return FALSE
+	for(var/organ in D.required_organs)
+		if(istext(organ) && get_int_organ_datum(organ))
+			continue
+		if(locate(organ) in internal_organs)
+			continue
+		if(locate(organ) in bodyparts)
+			continue
+		return FALSE
 	return ..()
 
 /mob/living/carbon/human/monkey/CanContractDisease(datum/disease/D)

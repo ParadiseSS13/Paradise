@@ -706,7 +706,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 				// Do a little check here
 				if(GLOB.configuration.system.is_production && (GLOB.admin_ranks[rank] & R_ADMIN) && prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
-					to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
+					to_chat(src,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 					return
 				D = new(rank, GLOB.admin_ranks[rank], ckey)
 			else
@@ -741,7 +741,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 					var/client/check_client = GLOB.directory[ckey]
 					// Do a little check here
 					if(GLOB.configuration.system.is_production && (flags & R_ADMIN) && check_client.prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
-						to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
+						to_chat(src,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 						qdel(admin_read)
 						return
 					D = new(admin_rank, flags, ckey)
