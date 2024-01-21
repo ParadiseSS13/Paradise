@@ -139,7 +139,7 @@
 
 /obj/machinery/suit_storage_unit/gamma
 	name = "gamma shielded suit storage unit"
-	suit_type = /obj/item/clothing/suit/space/hardsuit/shielded/gamma
+	suit_type = /obj/item/mod/control/pre_equipped/safeguard/gamma
 	mask_type = /obj/item/clothing/mask/gas/sechailer/swat
 	req_access = list(ACCESS_SECURITY)
 
