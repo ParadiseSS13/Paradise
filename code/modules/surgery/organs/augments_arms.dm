@@ -166,7 +166,7 @@
 	var/list/choices = list()
 	for(var/obj/I in items_list)
 		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+	var/choice = show_radial_menu(user, user, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 	var/obj/item/selected
@@ -294,7 +294,7 @@
 /obj/item/organ/internal/cyberimp/arm/combat/centcom
 	name = "NT specops cybernetics implant"
 	desc = "An extremely powerful cybernetic implant that contains combat and utility modules used by NT special forces."
-	contents = newlist(/obj/item/gun/energy/pulse/pistol/m1911, /obj/item/door_remote/omni, /obj/item/melee/energy/blade/hardlight, /obj/item/reagent_containers/hypospray/combat/nanites, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/implanter/mindshield, /obj/item/flash/armimplant)
+	contents = newlist(/obj/item/gun/energy/pulse/pistol/m1911, /obj/item/door_remote/omni, /obj/item/melee/energy/blade/hardlight, /obj/item/reagent_containers/hypospray/combat/nanites, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/bio_chip_implanter/mindshield, /obj/item/flash/armimplant)
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "m1911"
 	emp_proof = 1
@@ -387,7 +387,12 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/obj/machinery/power/apc/A = target
 	var/mob/living/carbon/human/H = user
-	if(H.get_int_organ(/obj/item/organ/internal/cell))
+	if(H.get_int_organ(/obj/item/organ/internal/cell) || H.get_int_organ(/obj/item/organ/internal/heart))
+		var/obj/item/organ/internal/heart/robotic = H.get_int_organ(/obj/item/organ/internal/heart)
+		if(robotic)
+			if(!(robotic.status & ORGAN_ROBOT) && !H.get_int_organ(/obj/item/organ/internal/heart/demon/pulse))
+				to_chat(user, "<span class='warning'>You lack a cell in which to store charge!</span>")
+				return
 		if(A.emagged || A.stat & BROKEN)
 			do_sparks(3, 1, A)
 			to_chat(H, "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>")
@@ -481,6 +486,7 @@
 	desc = "A modification to a users arm, allowing them to use a vortex core energy feedback, to parry, reflect, and even empower projectile attacks. Rumors that it runs on the user's blood are unconfirmed."
 	icon_state = "v1_arm"
 	item_state = "v1_arm"
+	icon = 'icons/obj/items.dmi'
 	sprite_sheets_inhand = list("Drask" = 'icons/mob/clothing/species/drask/held.dmi', "Vox" = 'icons/mob/clothing/species/vox/held.dmi')
 	force = 20 //bonk, not sharp
 	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interrupted", "gored")

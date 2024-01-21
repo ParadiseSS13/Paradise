@@ -88,8 +88,9 @@
 	U.swap_hand()
 
 	if(G && istype(G))
-		if(improvised) // Improvised garrotes start you off with a passive grab, but keep you stunned like an agressive grab.
-			M.Stun(2 SECONDS)
+		if(improvised) // Improvised garrotes start you off with a passive grab, but will lock you in place. A quick stun to drop items but not to make it unescapable
+			M.Stun(1 SECONDS)
+			M.Immobilize(2 SECONDS)
 		else
 			G.state = GRAB_NECK
 			G.hud.icon_state = "kill"
@@ -153,7 +154,7 @@
 		return
 
 	if(G.state < GRAB_NECK) // Only possible with improvised garrotes, essentially this will stun people as if they were aggressively grabbed. Allows for resisting out if you're quick, but not running away.
-		strangling.Stun(6 SECONDS)
+		strangling.Immobilize(3 SECONDS)
 
 	if(improvised)
 		strangling.Stuttering(6 SECONDS)

@@ -109,6 +109,22 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/plaincake
 
+/datum/recipe/oven/clowncake
+	reagents = list("milk" = 5, "sugar" = 15)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/frozen/sundae,
+		/obj/item/reagent_containers/food/snacks/frozen/sundae,
+		/obj/item/reagent_containers/food/snacks/grown/banana,
+		/obj/item/reagent_containers/food/snacks/grown/banana,
+		/obj/item/reagent_containers/food/snacks/grown/banana,
+		/obj/item/reagent_containers/food/snacks/grown/banana,
+		/obj/item/reagent_containers/food/snacks/grown/banana
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/clowncake
+
 /datum/recipe/oven/meatpie
 	items = list(
 		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,

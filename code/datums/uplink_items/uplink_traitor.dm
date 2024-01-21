@@ -206,12 +206,12 @@
 //Engineer
 
 /datum/uplink_item/jobspecific/powergloves
-	name = "Power Gloves"
-	desc = "Insulated gloves that can utilize the power of the station to deliver a short arc of electricity at a target. \
+	name = "Power Bio-Chip"
+	desc = "A Bio-Chip that can utilize the power of the station to deliver a short arc of electricity at a target. \
 			Must be standing on a powered cable to use. \
-			Activated by alt-clicking, or pressing the middle mouse button. Disarm intent will deal stamina damage and cause jittering, while harm intent will deal damage based on the power of the cable you're standing on."
+			Activated by alt-clicking, or pressing the middle mouse button. Disarm intent will deal stamina damage and cause jittering, while harm intent will deal damage based on the power of the cable you're standing on. Can be toggled on / off via the action button."
 	reference = "PG"
-	item = /obj/item/clothing/gloves/color/yellow/power
+	item = /obj/item/bio_chip_implanter/shock
 	cost = 50
 	job = list("Station Engineer", "Chief Engineer")
 
@@ -290,7 +290,7 @@
 	desc = "A single-use bio-chip which contains an experimental serum that causes rapid muscular growth in Hominidae. \
 			Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
 	reference = "MAG"
-	item = /obj/item/implanter/gorilla_rampage
+	item = /obj/item/bio_chip_implanter/gorilla_rampage
 	cost = 25
 	job = list("Research Director", "Geneticist")
 
@@ -340,7 +340,7 @@
 	name = "Synthetic Supercharge Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated manually to inject a chemical cocktail, which has the effect of removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
 	reference = "SSI"
-	item = /obj/item/implanter/supercharge
+	item = /obj/item/bio_chip_implanter/supercharge
 	cost = 40
 	species = list("Machine")
 	surplus = 0
@@ -364,6 +364,16 @@
 	item = /obj/item/clothing/mask/holo_cigar
 	cost = 10
 	species = list("Human")
+
+//Gr(e)(a)y
+/datum/uplink_item/species_restricted/prescan
+	name = "Technocracy Advanced Cloning System"
+	desc = "This kit will give you the parts to build an advanced automatic cloning system, to clone whoever has the linked implant installed on death. \
+	Power intensive, implant must be recovered for reuse, and implanter must be linked to cloner."
+	reference = "TACS"
+	item = /obj/item/storage/box/syndie_kit/prescan
+	cost = 25 /// A fresh start, but a start with nothing. Hard to use as well
+	species = list("Grey")
 
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS
@@ -401,6 +411,16 @@
 	cost = 65
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	cant_discount = TRUE
+
+/datum/uplink_item/stealthy_weapons/bearserk
+	name = "Bearserker Pelt"
+	desc = "A bear pelt that infuses the wearer with bear spirits and knowledge on an occultic martial art known as Rage of the Space Bear. \
+			The pelt itself is also armored, providing the wearer great longevity. \
+			Made with love, lots of spirits and lots of the other kind of spirits by the Sydnicate-affiliated cult, Children of Ursa Major."
+	reference = "BSP"
+	item = /obj/item/clothing/head/bearpelt/bearserk
+	cost = 65
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/traitor_belt
 	name = "Traitor's Toolbelt"
@@ -496,11 +516,11 @@
 	surplus = 60
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/implants/uplink // Nukies get Nuclear Uplink Bio-chip instead
+/datum/uplink_item/bio_chips/uplink // Nukies get Nuclear Uplink Bio-chip instead
 	name = "Uplink Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated manually to open an uplink with 50 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
 	reference = "UI"
-	item = /obj/item/implanter/uplink
+	item = /obj/item/bio_chip_implanter/uplink
 	cost = 70
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
@@ -558,9 +578,9 @@
 
 /datum/uplink_item/bundles_TC/badass
 	name = "Syndicate Bundle"
-	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 100 telecrystals, but you do not know which specialisation you will receive."
+	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 100 telecrystals. You can select one out of three specialisations after purchase."
 	reference = "SYB"
-	item = /obj/item/storage/box/syndie_kit/bundle
+	item = /obj/item/radio/beacon/syndicate/bundle
 	cost = 100
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -573,13 +593,6 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	var/crate_value = 250
 	uses_special_spawn = TRUE
-
-/datum/uplink_item/bundles_TC/surplus_crate/super
-	name = "Syndicate Super Surplus Crate"
-	desc = "A crate containing 625 telecrystals worth of random syndicate leftovers."
-	reference = "SYSS"
-	cost = 200
-	crate_value = 625
 
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	if(..() != UPLINK_SPECIAL_SPAWNING)
@@ -623,6 +636,11 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 	cant_discount = TRUE
+
+/datum/uplink_item/explosives/emp_bomb/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		cost *= 1.25 //ok this thing is already very expencive it doesnt need much more
 
 /datum/uplink_item/explosives/atmosfiregrenades
 	name = "Plasma Fire Grenades"

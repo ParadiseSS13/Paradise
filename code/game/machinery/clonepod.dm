@@ -284,7 +284,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)
 		H.ckey = R.ckey
-		update_clone_antag(H) //Since the body's got the mind, update their antag stuff right now. Otherwise, wait until they get kicked out (as per the CLONER_MATURE_CLONE business) to do it.
 		var/message
 		message += "<b>Consciousness slowly creeps over you as your body regenerates.</b><br>"
 		message += "<i>So this is what cloning feels like?</i>"
@@ -436,18 +435,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	to_chat(user, "<span class='warning'>A droplet of bananium ooze seeps into the synthmeat storage chamber...</span>")
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 
-/obj/machinery/clonepod/proc/update_clone_antag(mob/living/carbon/human/H)
-	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
-	if(H.mind in SSticker.mode.syndicates)
-		SSticker.mode.update_synd_icons_added()
-	if(H.mind in SSticker.mode.cult)
-		SSticker.mode.update_cult_icons_added(H.mind) // Adds the cult antag hud
-		SSticker.mode.add_cult_actions(H.mind) // And all the actions
-		if(SSticker.mode.cult_risen)
-			SSticker.mode.rise(H)
-			if(SSticker.mode.cult_ascendant)
-				SSticker.mode.ascend(H)
-
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)
 	if((isnull(connected)) || (!istype(connected, /obj/machinery/computer/cloning)))
@@ -481,7 +468,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
 		clonemind.transfer_to(occupant)
 		occupant.grab_ghost()
-		update_clone_antag(occupant)
 		to_chat(occupant, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
 			<i>You feel like a new being.</i></span>")
@@ -608,18 +594,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	for(var/bt in brine_types)
 		if(occupant.reagents.get_reagent_amount(bt) < 1)
 			occupant.reagents.add_reagent(bt, 1)
-
-/*
- *	Genetics Diskette Box
- */
-
-/obj/item/storage/box/disks
-	name = "Genetics Diskette Box"
-	icon_state = "disk_kit"
-
-/obj/item/storage/box/disks/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/disk/data(src)
 
 /*
  *	Manual -- A big ol' manual.

@@ -1,62 +1,81 @@
 /obj/item/storage/box/syndie_kit
 	desc = "A sleek, sturdy box."
-	icon_state = "box_of_doom"
+	icon_state = "doom_box"
 
 /obj/item/storage/box/syndie_kit/bundle // Traitor bundles
+	var/list/items = list()
 
-	var/static/list/spy = list( // 37TC
-		/obj/item/clothing/under/chameleon, // 1TC
-		/obj/item/clothing/mask/chameleon, // 1TC
-		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
-		/obj/item/clothing/glasses/hud/security/chameleon, // 2TC
-		/obj/item/implanter/storage, // 8TC
-		/obj/item/pen/edagger, // 2TC
-		/obj/item/pinpointer/advpinpointer, // 4TC
-		/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 2TC
-		/obj/item/flashlight/emp, // 4TC
-		/obj/item/chameleon, // 7TC
-		/obj/item/encryptionkey/syndicate) // 2TC
+/obj/item/storage/box/syndie_kit/bundle/spy // 172TC
+	name = "Spy Bundle"
+	desc = "Complete your objectives quietly with this compilation of stealthy items."
+	items = list(
+		/obj/item/storage/box/syndie_kit/chameleon, // 20 TC
+		/obj/item/card/id/syndicate, // 10TC
+		/obj/item/clothing/shoes/chameleon/noslip, // 10TC
+		/obj/item/clothing/glasses/hud/security/chameleon, // 10TC
+		/obj/item/bio_chip_implanter/storage, // 40TC
+		/obj/item/pen/edagger, // 10TC
+		/obj/item/pinpointer/advpinpointer, // 20TC
+		/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 7TC
+		/obj/item/flashlight/emp, // 20TC
+		/obj/item/chameleon, // 25TC
+		/obj/item/garrote, // 30 TC
+		/obj/item/door_remote/omni/access_tuner, // 30 TC
+		/obj/item/encryptionkey/syndicate) // 10TC
 
-	var/static/list/agent13 = list( // 36TC
-		/obj/item/clothing/under/chameleon, // 1TC
-		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/gun/projectile/automatic/pistol, // 4TC
-		/obj/item/suppressor, // 1TC
-		/obj/item/ammo_box/magazine/m10mm,  // 1TC
-		/obj/item/ammo_box/magazine/m10mm/hp, // 2TC
-		/obj/item/garrote, // 6TC
-		/obj/item/door_remote/omni/access_tuner, // 6TC
-		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
-		/obj/item/implanter/freedom, // 5TC
+/obj/item/storage/box/syndie_kit/bundle/agent13 // 159
+	name = "Agent 13 Bundle"
+	desc = "Find and eliminate your targets quietly and effectively with this kit."
+	items = list(
+		/obj/item/clothing/under/chameleon, // 5TC
+		/obj/item/card/id/syndicate, // 10TC
+		/obj/item/storage/box/syndie_kit/stechkin, // 20TC
+		/obj/item/suppressor, // 5TC
+		/obj/item/ammo_box/magazine/m10mm,  // 3TC
+		/obj/item/ammo_box/magazine/m10mm/hp, // 6TC
+		/obj/item/garrote, // 30TC
+		/obj/item/door_remote/omni/access_tuner, // 30TC
+		/obj/item/clothing/glasses/chameleon/thermal, // 15TC
+		/obj/item/storage/briefcase/false_bottomed, // 10 TC
+		/obj/item/bio_chip_implanter/freedom, // 25TC
 		/obj/item/coin/gold, // 0TC
-		/obj/item/encryptionkey/syndicate) // 2TC
+		/obj/item/encryptionkey/syndicate) // 10TC
 
-	var/static/list/thief = list( // 37TC
-		/obj/item/gun/energy/kinetic_accelerator/crossbow, // 12TC
-		/obj/item/chameleon, // 7TC
-		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
-		/obj/item/clothing/gloves/color/black/thief, // 6TC
-		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/storage/backpack/satchel_flat, // 2TC
-		/obj/item/encryptionkey/syndicate) // 2TC
+/obj/item/storage/box/syndie_kit/bundle/thief // 160TC
+	name = "Thief Bundle"
+	desc = "Steal from friends, enemies, and interstellar megacorporations alike!"
+	items = list(
+		/obj/item/gun/energy/kinetic_accelerator/crossbow, // 60TC
+		/obj/item/chameleon, // 25TC
+		/obj/item/clothing/glasses/chameleon/thermal, // 15TC
+		/obj/item/clothing/gloves/color/black/thief, // 30TC
+		/obj/item/card/id/syndicate, // 10TC
+		/obj/item/storage/backpack/satchel_flat, // 10TC
+		/obj/item/encryptionkey/syndicate) // 10TC
 
-	var/static/list/bond = list( // 32TC
-		/obj/item/gun/projectile/automatic/pistol, // 4TC
-		/obj/item/suppressor, // 1TC
-		/obj/item/ammo_box/magazine/m10mm/ap, // 2TC
-		/obj/item/ammo_box/magazine/m10mm/ap, // 2TC
+/obj/item/storage/box/syndie_kit/bundle/bond // 137TC
+	name = "Agent 007 Bundle"
+	desc = "Shake your Martini and stir up trouble with this bundle of lethal equipment mixed with a spritz of gadgetry to keep things interesting."
+	items = list(
+		/obj/item/storage/briefcase/false_bottomed, // 20TC
+		/obj/item/suppressor, // 5TC
+		/obj/item/storage/box/syndie_kit/stechkin, // 20TC
+		/obj/item/ammo_box/magazine/m10mm/ap, // 6TC
+		/obj/item/ammo_box/magazine/m10mm/ap, // 6TC
 		/obj/item/clothing/under/suit/really_black, // 0TC
-		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 0TC
-		/obj/item/storage/box/syndie_kit/emp, // 2TC
-		/obj/item/clothing/glasses/hud/security/chameleon, // 2TC
-		/obj/item/encryptionkey/syndicate, // 2TC
+		/obj/item/card/id/syndicate, // 10TC
+		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 3TC
+		/obj/item/storage/box/syndie_kit/emp, // 10TC
+		/obj/item/clothing/glasses/hud/security/chameleon, // 10TC
+		/obj/item/encryptionkey/syndicate, // 10TC
 		/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail,	// 0TC
-		/obj/item/dnascrambler, // 2TC
+		/obj/item/storage/box/syndie_kit/pen_bomb, // 30 TC
 		/obj/item/CQC_manual) // 13TC
 
-	var/static/list/infiltrator = list( // 34TC + RCD & Mesons Autoimplanter
+/obj/item/storage/box/syndie_kit/bundle/infiltrator // 155TC + RCD & Mesons Autoimplanter
+	name = "Infiltration Bundle"
+	desc = "Use your teleporter, krav maga and other support tools to jump right into your desired location, quickly leaving as though you were never there."
+	items = list(
 		/obj/item/storage/box/syndie_kit/teleporter, // 8TC
 		/obj/item/clothing/gloves/color/black/krav_maga, // 10TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
@@ -66,7 +85,10 @@
 		/obj/item/autosurgeon/organ/syndicate/meson_eyes, // 0TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/static/list/payday = list( // 35TC
+/obj/item/storage/box/syndie_kit/bundle/payday // 175TC
+	name = "Heist Bundle"
+	desc = "Alright guys, today we're performing a heist on a space station owned by a greedy corporation. Drain the vault of all its worth so we can get that pay dirt!11"
+	items = list(
 		/obj/item/gun/projectile/revolver, // 13TC
 		/obj/item/ammo_box/a357, // 3TC
 		/obj/item/ammo_box/a357, // 3TC
@@ -79,83 +101,103 @@
 		/obj/item/clothing/mask/gas/clown_hat, // 0TC
 		/obj/item/grenade/plastic/c4, // 1TC
 		/obj/item/thermal_drill/diamond_drill/syndicate, // 1TC
-		/obj/item/encryptionkey/syndicate) // 2TC
+		/obj/item/bio_chip_implanter/freedom/prototype, // 10 TC
+		/obj/item/encryptionkey/syndicate) // 10TC
 
-	var/static/list/implant = list( // 40TC
-		/obj/item/implanter/freedom, // 5TC
-		/obj/item/implanter/uplink, // 14TC (ten free TC)
-		/obj/item/implanter/emp, // 1TC
-		/obj/item/implanter/adrenalin, // 8TC
-		/obj/item/implanter/explosive, // 2TC
-		/obj/item/implanter/storage, // 8TC
-		/obj/item/encryptionkey/syndicate) // 2TC
+/obj/item/storage/box/syndie_kit/bundle/implant // 200TC
+	name = "Bio-chip Bundle"
+	desc = "A few useful bio-chips to give you some options for when you inevitably get captured by the Security."
+	items = list(
+		/obj/item/bio_chip_implanter/freedom, // 25TC
+		/obj/item/bio_chip_implanter/stealth, // 45 TC
+		/obj/item/bio_chip_implanter/emp, // 5TC (half of EMP kit)
+		/obj/item/bio_chip_implanter/adrenalin, // 40TC
+		/obj/item/bio_chip_implanter/explosive, // 10TC
+		/obj/item/bio_chip_implanter/storage, // 40TC
+		/obj/item/encryptionkey/syndicate) // 10TC
 
-	var/static/list/hacker = list( // 39TC + Toy AI Uploader
-		/obj/item/melee/energy/sword/saber/blue, // 8TC
-		/obj/item/card/emag, // 6TC
-		/obj/item/encryptionkey/syndicate, // 2TC
-		/obj/item/encryptionkey/binary, // 5TC
-		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/storage/box/syndie_kit/emp, // 2TC
+/obj/item/storage/box/syndie_kit/bundle/hacker // 180TC
+	name = "Hacker Bundle"
+	desc = "A kit with everything you need to hack into and disrupt the Station, AI, its cyborgs and the Security team. HACK THE PLANET!"
+	items = list(
+		/obj/item/melee/energy/sword/saber/blue, // 40TC
+		/obj/item/card/emag, // 30TC
+		/obj/item/door_remote/omni/access_tuner, // 30 TC, HACK EVERYTHING
+		/obj/item/encryptionkey/syndicate, // 10TC
+		/obj/item/encryptionkey/binary, // 25TC
+		/obj/item/card/id/syndicate, // 10TC
+		/obj/item/storage/box/syndie_kit/emp, // 10TC
 		/obj/item/aiModule/toyAI, // 0TC
-		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
-		/obj/item/storage/belt/military/traitor/hacker, // 3TC
-		/obj/item/clothing/gloves/combat, // 0TC
-		/obj/item/multitool/ai_detect, // 1TC
+		/obj/item/aiModule/syndicate, // 15 TC
+		/obj/item/storage/box/syndie_kit/camera_bug, // 5 TC
+		/obj/item/bio_chip_implanter/freedom/prototype, // 10 TC
+		/obj/item/storage/belt/military/traitor/hacker, // 15TC + AI detector for 5 TC
+		/obj/item/clothing/gloves/combat, // accounted in belt + toolbox
 		/obj/item/flashlight/emp) // 4TC
 
-	var/static/list/darklord = list( // 33TC + TK
-		/obj/item/melee/energy/sword/saber/red, // 8TC
-		/obj/item/melee/energy/sword/saber/red, // 8TC
-		/obj/item/clothing/gloves/color/yellow/power, // 10TC
-		/obj/item/dnainjector/telemut/darkbundle, // 0TC
+/obj/item/storage/box/syndie_kit/bundle/darklord // 168TC + Telekinesis
+	name = "Dark Lord Bundle"
+	desc = "Turn your anger into hate and your hate into suffering with a mix of energy swords and magical powers. DO IT."
+	items = list(
+		/obj/item/melee/energy/sword/saber/red, // 40TC
+		/obj/item/melee/energy/sword/saber/red, // 40TC
+		/obj/item/bio_chip_implanter/shock, // 50TC
+		/obj/item/dnainjector/telemut/darkbundle, // ?TC
 		/obj/item/clothing/suit/hooded/chaplain_hoodie, // 0TC
 		/obj/item/clothing/glasses/meson/engine/tray, // 0TC
-		/obj/item/clothing/mask/chameleon, // 1TC
-		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
-		/obj/item/encryptionkey/syndicate) // 2TC
+		/obj/item/clothing/mask/chameleon, // 8TC
+		/obj/item/card/id/syndicate, // 10TC
+		/obj/item/clothing/shoes/chameleon/noslip, // 10TC
+		/obj/item/encryptionkey/syndicate) // 10TC
 
-	var/static/list/professional = list( // 38TC
-		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate, // 16TC
-		/obj/item/ammo_box/magazine/sniper_rounds, // 4TC
-		/obj/item/ammo_box/magazine/sniper_rounds/penetrator, // 5TC
-		/obj/item/ammo_box/magazine/sniper_rounds/penetrator, // 5TC
-		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
-		/obj/item/clothing/gloves/combat, // 0 TC
-		/obj/item/clothing/under/suit/really_black, // 0 TC
-		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 0TC
-		/obj/item/encryptionkey/syndicate) // 2TC
+/obj/item/storage/box/syndie_kit/bundle/professional // 164TC
+	name = "Sniper Bundle"
+	desc = "Suit up and handle yourself like a professional with a long-distance sniper rifle, additional .50 standard and penetrator rounds and thermal glasses to easily scope out your target."
+	items = list(
+		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate, // 80TC
+		/obj/item/ammo_box/magazine/sniper_rounds, // 15TC
+		/obj/item/ammo_box/magazine/sniper_rounds/penetrator, // 20TC
+		/obj/item/ammo_box/magazine/sniper_rounds/penetrator, // 20TC
+		/obj/item/clothing/glasses/chameleon/thermal, // 15TC
+		/obj/item/clothing/gloves/combat, // ~1TC
+		/obj/item/clothing/under/suit/really_black, // 0TC
+		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 3TC
+		/obj/item/encryptionkey/syndicate) // 15TC
 
-	var/static/list/grenadier = list( // 20TC + Tactical Grenadier Belt
+/obj/item/storage/box/syndie_kit/bundle/grenadier // 133TC + Tactical Grenadier Belt
+	name = "Grenade Bundle"
+	desc = "A variety of grenades and pyrotechnics to ensure you can blast your way through any situation. "
+	items = list(
 		/obj/item/storage/belt/grenade/tactical, // Contains 2 Frag and EMP grenades, 5 C4 Explosives, 5 Smoke and Gluon grenades and 1 Minibomb grenade ~20TC Estimate
-		/obj/item/gun/projectile/automatic/pistol, // 4TC
-		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
-		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
-		/obj/item/mod/control/pre_equipped/traitor, // 6TC
-		/obj/item/clothing/gloves/combat, // 0TC
-		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
-		/obj/item/encryptionkey/syndicate) // 2TC
+		/obj/item/storage/box/syndie_kit/stechkin, // 20TC
+		/obj/item/ammo_box/magazine/m10mm/fire, // 6TC
+		/obj/item/ammo_box/magazine/m10mm/fire, // 6TC
+		/obj/item/mod/control/pre_equipped/traitor, // 30TC
+		/obj/item/clothing/gloves/combat, // ~1TC
+		/obj/item/card/id/syndicate, // 10TC
+		/obj/item/clothing/shoes/chameleon/noslip, // 10TC
+		/obj/item/storage/box/syndidonkpockets, // 10 TC
+		/obj/item/storage/box/syndie_kit/frag_grenades, // One box, as a treat
+		/obj/item/encryptionkey/syndicate) // 10TC
 
-	var/static/list/metroid = list( // 21 + modules + laser gun
-		/obj/item/mod/control/pre_equipped/traitor_elite, // 9TC
-		/obj/item/mod/module/visor/thermal, // 3 TC
-		/obj/item/mod/module/stealth, //0 TC but strong
-		/obj/item/mod/module/power_kick, //0 TC but funny
-		/obj/item/mod/module/sphere_transform, //0TC but should not be allowed to normally be installed
-		/obj/item/autosurgeon/organ/syndicate/laser_arm, //0 TC but otherwise not obtainable.
-		/obj/item/pinpointer/advpinpointer, //4 TC
-		/obj/item/storage/box/syndidonkpockets, //2TC, otherwise they will just die in the first combat to disabler.
-		/obj/item/storage/belt/utility/full/multitool, //0 TC
-		/obj/item/clothing/head/collectable/slime,  //Priceless (0 TC)
-		/obj/item/encryptionkey/syndicate) //2 TC
-
-
+/obj/item/storage/box/syndie_kit/bundle/metroid // 115TC + modules + laser gun
+	name = "Modsuit Bundle"
+	desc = "Don the equipment of an intergalactic bounty hunter and blast your way through the station!"
+	items = list(
+		/obj/item/mod/control/pre_equipped/traitor_elite, // 45TC
+		/obj/item/mod/module/visor/thermal, // 15TC
+		/obj/item/mod/module/stealth, // ?TC
+		/obj/item/mod/module/power_kick, // ?TC
+		/obj/item/mod/module/sphere_transform, // ?TC
+		/obj/item/autosurgeon/organ/syndicate/laser_arm, // ?TC
+		/obj/item/pinpointer/advpinpointer, // 20TC
+		/obj/item/bio_chip_implanter/adrenalin, // 40TC
+		/obj/item/storage/belt/utility/full/multitool, // 15TC
+		/obj/item/clothing/head/collectable/slime,  // 0TC priceless
+		/obj/item/encryptionkey/syndicate) // 10TC
 
 /obj/item/storage/box/syndie_kit/bundle/populate_contents()
-	var/list/bundle = pick(spy, agent13, thief, bond, infiltrator, payday, implant, hacker, darklord, professional, grenadier, metroid)
-	for(var/item in bundle)
+	for(var/obj/item/item as anything in items)
 		new item(src)
 
 /obj/item/storage/box/syndie_kit/space
@@ -185,7 +227,7 @@
 /obj/item/storage/box/syndie_kit/emp/populate_contents()
 	new /obj/item/grenade/empgrenade(src)
 	new /obj/item/grenade/empgrenade(src)
-	new /obj/item/implanter/emp/(src)
+	new /obj/item/bio_chip_implanter/emp/(src)
 
 /obj/item/storage/box/syndie_kit/poisoner
 	name = "poisoner's kit"
@@ -390,3 +432,16 @@
 	new /obj/item/paper/camera_bug(src)
 	for(var/i in 1 to 5)
 		new /obj/item/wall_bug(src, camera)
+
+/obj/item/storage/box/syndie_kit/prescan
+	name = "\improper Technocracy Advanced Cloning System Kit"
+
+/obj/item/storage/box/syndie_kit/prescan/populate_contents()
+	new /obj/item/bio_chip_implanter/grey_autocloner(src)
+	new /obj/item/radio/beacon/syndicate/bomb/grey_autocloner(src)
+
+/obj/item/storage/box/syndie_kit/pen_bomb
+	name = "\improper Pen bomb"
+
+/obj/item/storage/box/syndie_kit/pen_bomb/populate_contents()
+	new /obj/item/grenade/syndieminibomb/pen(src)

@@ -137,7 +137,7 @@
 		to_chat(user, "<span class='italics'>You add a rod to [src].")
 		var/image/U = image(icon='icons/obj/hydroponics/equipment.dmi',icon_state="bonfire_rod",pixel_y=16)
 		underlays += U
-	if(is_hot(W))
+	if(W.get_heat())
 		lighter = user.ckey
 		user.create_log(MISC_LOG, "lit a bonfire", src)
 		StartBurning()

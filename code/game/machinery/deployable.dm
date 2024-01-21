@@ -414,6 +414,23 @@
 	for(var/I in 1 to 5)
 		new /obj/item/grenade/barrier/dropwall(src)
 
+/obj/item/grenade/turret
+	name = "Pop-Up Turret grenade"
+	desc = "Inflates into a Pop-Up turret, shoots everyone on sight who wasn't the primer."
+	icon = 'icons/obj/grenade.dmi'
+	icon_state = "wallbang"
+	item_state = "flashbang"
+	var/owner_uid
+
+/obj/item/grenade/turret/attack_self(mob/user)
+	owner_uid = user.UID()
+	return ..()
+
+/obj/item/grenade/turret/prime()
+	var/obj/machinery/porta_turret/inflatable_turret/turret = new(get_turf(loc))
+	turret.owner_uid = owner_uid
+	qdel(src)
+
 #undef SINGLE
 #undef VERTICAL
 #undef HORIZONTAL

@@ -125,11 +125,11 @@
 	..()
 
 /obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
-	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
+	if(W.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("[key_name_admin(user)] ignited a plasma statue at [COORD(loc)]")
 		log_game("[key_name(user)] ignited plasma a statue at [COORD(loc)]")
 		investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", "atmos")
-		ignite(is_hot(W))
+		ignite(W.get_heat())
 		return
 	return ..()
 

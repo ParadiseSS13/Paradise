@@ -307,7 +307,7 @@
 		organs -= O
 		organs[O.name] = O
 
-	var/obj/item/organ/internal/I = input("Remove which organ?", "Surgery", null, null) as null|anything in organs
+	var/obj/item/organ/internal/I = tgui_input_list(user, "Remove which organ?", "Surgery", organs)
 	if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
 		extracting = organs[I]
 		if(!extracting)
