@@ -1002,7 +1002,6 @@
 		M.say(soup_talk)
 	if(prob(33))
 		M.emote("fart")
-	return ..()
 
 /obj/item/trash/pan
 	name = "дырявая сковорода"
