@@ -4,7 +4,10 @@
 
 	//handle muting and automuting
 	if(check_mute(ckey, MUTE_ADMINHELP))
-		to_chat(src, "<font color='red'>Error: Admin-PM: You cannot send adminhelps (Muted).</font>")
+		to_chat(src,
+			type = MESSAGE_TYPE_ADMINPM,
+			html = "<font color='red'>Error: Admin-PM: You cannot send adminhelps (Muted).</font>",
+			confidential = TRUE)
 		return
 
 	adminhelped = TRUE //Determines if they get the message to reply by clicking the name.
@@ -31,7 +34,10 @@
 		SStickets.newHelpRequest(src, msg) // Ahelp
 
 	//show it to the person adminhelping too
-	to_chat(src, "<span class='boldnotice'>[selected_type]</b>: [msg]</span>")
+	to_chat(src,
+		type = MESSAGE_TYPE_ADMINPM,
+		html = "<span class='boldnotice'>[selected_type]</b>: [msg]</span>",
+		confidential = TRUE)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Adminhelp") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 	switch(selected_type)

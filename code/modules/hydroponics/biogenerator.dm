@@ -166,7 +166,7 @@
 			files.AddDesign2Known(D.blueprint)
 
 		processing = FALSE
-		update_ui_product_list()
+		update_ui_product_list(user)
 		return TRUE
 	else
 		to_chat(user, "<span class='warning'>You cannot put this in [name]!</span>")
@@ -174,7 +174,7 @@
 /**
  * Builds/Updates the `product_list` used by the UI.
  */
-/obj/machinery/biogenerator/proc/update_ui_product_list()
+/obj/machinery/biogenerator/proc/update_ui_product_list(mob/user)
 	product_list = list()
 	for(var/category in categories)
 		product_list[category] = list()
@@ -190,7 +190,8 @@
 				"cost" = D.materials[MAT_BIOMASS] / efficiency
 			)
 
-	SStgui.update_uis(src, update_static_data = TRUE)
+	update_static_data(user)
+	SStgui.update_uis(src)
 
 /obj/machinery/biogenerator/attack_hand(mob/user)
 	if(..())
@@ -200,10 +201,13 @@
 /obj/machinery/biogenerator/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/biogenerator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/biogenerator/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/biogenerator/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Biogenerator", "Biogenerator", 390, 600, master_ui, state)
+		ui = new(user, src, "Biogenerator", "Biogenerator")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

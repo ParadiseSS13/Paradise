@@ -158,19 +158,20 @@
 		dirty_items = TRUE
 	return ..()
 
-/obj/machinery/mineral/equipment_vendor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/mineral/equipment_vendor/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/mineral/equipment_vendor/ui_interact(mob/user, datum/tgui/ui = null)
 	// Update static data if need be
 	if(dirty_items)
 		if(!ui)
-			ui = SStgui.get_open_ui(user, src, ui_key)
-		if(ui) // OK so ui?. somehow breaks the implied src so this is needed
-			ui.initial_static_data = ui_static_data(user)
+			ui = SStgui.get_open_ui(user, src)
 		dirty_items = FALSE
 
 	// Open the window
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "MiningVendor", name, 400, 450)
+		ui = new(user, src, "MiningVendor", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
