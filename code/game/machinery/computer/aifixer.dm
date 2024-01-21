@@ -135,9 +135,9 @@
 			occupant = null
 			update_icon(UPDATE_OVERLAYS)
 		else if(active)
-			to_chat(user, "<span class='boldannounce'>ERROR</span>: Reconstruction in progress.")
+			to_chat(user, "<span class='boldannounceic'>ERROR</span>: Reconstruction in progress.")
 		else if(!occupant)
-			to_chat(user, "<span class='boldannounce'>ERROR</span>: Unable to locate artificial intelligence.")
+			to_chat(user, "<span class='boldannounceic'>ERROR</span>: Unable to locate artificial intelligence.")
 
 /obj/machinery/computer/aifixer/Destroy()
 	if(occupant)

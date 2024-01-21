@@ -7,20 +7,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_ADMINLOGS))
-				to_chat(C,
-					type = MESSAGE_TYPE_ADMINLOG,
-					html = msg,
-					confidential = TRUE)
+				to_chat(C, msg, MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 
 /proc/msg_admin_attack(text, loglevel)
 	if(!GLOB.nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in GLOB.admins)
 			if((C.holder.rights & R_ADMIN) && (C.prefs?.atklog <= loglevel))
-				to_chat(C,
-					type = MESSAGE_TYPE_ATTACKLOG,
-					html = rendered,
-					confidential = TRUE)
+				to_chat(C, rendered, MESSAGE_TYPE_ATTACKLOG, confidential = TRUE)
 
 /**
  * Sends a message to the staff able to see admin tickets
@@ -33,10 +27,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
-				to_chat(C,
-					type = MESSAGE_TYPE_ADMINPM,
-					html = msg,
-					confidential = TRUE)
+				to_chat(C, msg, MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 			if(important)
 				if(C.prefs?.sound & SOUND_ADMINHELP)
 					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
@@ -53,10 +44,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN | R_MENTOR | R_MOD, 0, C.mob))
 			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
-				to_chat(C,
-					type = MESSAGE_TYPE_MENTORCHAT,
-					html = msg,
-					confidential = TRUE)
+				to_chat(C, msg, MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
 			if(important)
 				if(C.prefs?.sound & SOUND_MENTORHELP)
 					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
@@ -68,21 +56,12 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			for(var/mob/O in GLOB.mob_list)
 				if(O.ckey && O.ckey == ckey_to_find)
 					if(admin_to_notify)
-						to_chat(admin_to_notify,
-							type = MESSAGE_TYPE_ADMINLOG,
-							html = "<span class='warning'>admin_ban_mobsearch: Player [ckey_to_find] is now in mob [O]. Pulling data from new mob.</span>",
-							confidential = TRUE)
+						to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: Player [ckey_to_find] is now in mob [O]. Pulling data from new mob.</span>", MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 						return O
 			if(admin_to_notify)
-				to_chat(admin_to_notify,
-							type = MESSAGE_TYPE_ADMINLOG,
-							html = "<span class='warning'>admin_ban_mobsearch: Player [ckey_to_find] does not seem to have any mob, anywhere. This is probably an error.</span>",
-							confidential = TRUE)
+				to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: Player [ckey_to_find] does not seem to have any mob, anywhere. This is probably an error.</span>", MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 		else if(admin_to_notify)
-			to_chat(admin_to_notify,
-							type = MESSAGE_TYPE_ADMINLOG,
-							html = "<span class='warning'>admin_ban_mobsearch: No mob or ckey detected.</span>",
-							confidential = TRUE)
+			to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: No mob or ckey detected.</span>", MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 	return M
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
