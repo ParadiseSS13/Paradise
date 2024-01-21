@@ -1114,6 +1114,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			overlays += "[panelprefix]-openpanel +c"
 		else
 			overlays += "[panelprefix]-openpanel -c"
+	robot_module_hat_offset(icon_state)
 	hat_icons()
 	update_fire()
 

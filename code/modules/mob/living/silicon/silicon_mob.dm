@@ -491,10 +491,12 @@
 			can_be_hatted = TRUE
 			hat_alpha = 255
 			hat_offset_y = 2
+			to_chat(world, "[module], [hat_alpha]")
 		if("droidcombat-roll")
 			can_be_hatted = TRUE
 			hat_alpha = 0
 			hat_offset_y = 2
+			to_chat(world, "[module], [hat_alpha]")
 		if("syndi-medi", "surgeon", "toiletbot")
 			can_be_hatted = TRUE
 			is_centered = TRUE
@@ -537,8 +539,6 @@
 			remove_from_head(usr)
 			return
 
-	update_icons()
-
 /mob/living/silicon/proc/hat_icons()
 	if(inventory_head)
 		var/image/head_icon
@@ -547,7 +547,7 @@
 			hat_icon_file = inventory_head.icon_override
 		if(!hat_icon_state)
 			hat_icon_state = inventory_head.icon_state
-		if(!hat_alpha)
+		if(isnull(hat_alpha))
 			hat_alpha = inventory_head.alpha
 		if(!hat_color)
 			hat_color = inventory_head.color
