@@ -23,7 +23,7 @@
 "bp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/britcup,
+/obj/item/reagent_containers/drinks/britcup,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "bx" = (
@@ -787,7 +787,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "Hl" = (
 /obj/structure/table/glass/plasma,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_y = 6
 	},
 /obj/effect/decal/cleanable/dust,

@@ -674,22 +674,22 @@
 /area/shuttle/mining)
 "bG" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = -1;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = -8
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = -7
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = 7;
 	pixel_y = 5
 	},
@@ -974,7 +974,7 @@
 /area/mine/outpost/storage)
 "cl" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/item/reagent_containers/food/snacks/fortunecookie{
+/obj/item/food/snacks/fortunecookie{
 	pixel_y = -5;
 	pixel_x = -6
 	},
@@ -2388,11 +2388,11 @@
 /area/mine/outpost/hallway/west)
 "eW" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/food/condiment/peppermill{
 	pixel_x = 2;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/food/condiment/saltshaker{
 	pixel_x = -2;
 	pixel_y = 4
 	},
@@ -2438,7 +2438,7 @@
 /area/mine/outpost/hallway/west)
 "fb" = (
 /obj/structure/reagent_dispensers/oil,
-/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/item/reagent_containers/drinks/oilcan,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "fc" = (
@@ -5301,7 +5301,7 @@
 "oB" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/food/snacks/grown/harebell,
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)

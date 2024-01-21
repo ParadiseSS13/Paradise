@@ -150,7 +150,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "ajt" = (
-/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/item/reagent_containers/drinks/oilcan,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -309,7 +309,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "ati" = (
-/obj/item/reagent_containers/food/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
@@ -324,7 +324,7 @@
 "atT" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box/empty,
-/obj/item/reagent_containers/food/drinks/cans/cola{
+/obj/item/reagent_containers/drinks/cans/cola{
 	pixel_y = 9;
 	pixel_x = 13
 	},
@@ -1005,9 +1005,9 @@
 /area/awaymission/jungle_planet/outside/river)
 "bru" = (
 /obj/structure/closet/crate/wooden/barrel,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "brT" = (
@@ -1219,13 +1219,13 @@
 	},
 /area/awaymission/jungle_planet/outside)
 "bBR" = (
-/obj/item/reagent_containers/food/snacks/grown/chili,
-/obj/item/reagent_containers/food/snacks/grown/carrot,
-/obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle,
-/obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle,
-/obj/item/reagent_containers/food/snacks/grown/onion,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/chili,
+/obj/item/food/snacks/grown/carrot,
+/obj/item/food/snacks/grown/mushroom/chanterelle,
+/obj/item/food/snacks/grown/mushroom/chanterelle,
+/obj/item/food/snacks/grown/onion,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
 /obj/structure/closet/crate/wooden/wooden_crate,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/small)
@@ -1411,7 +1411,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "bNN" = (
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/food/snacks/grown/harebell,
 /obj/structure/stone_tile/slab/cracked{
 	dir = 4
 	},
@@ -1574,7 +1574,7 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "caT" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = -5
 	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
@@ -1607,7 +1607,7 @@
 /area/awaymission/jungle_planet/outside)
 "ccc" = (
 /obj/structure/closet/crate/wooden/barrel,
-/obj/item/reagent_containers/food/snacks/monkeykabob,
+/obj/item/food/snacks/monkeykabob,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "cco" = (
@@ -2613,7 +2613,7 @@
 /area/awaymission/jungle_planet/outside)
 "dpL" = (
 /obj/structure/closet,
-/obj/item/reagent_containers/food/snacks/candy/candybar,
+/obj/item/food/snacks/candy/candybar,
 /obj/item/stack/spacecash/c10,
 /obj/item/flashlight/seclite,
 /obj/item/clothing/shoes/combat,
@@ -3130,7 +3130,7 @@
 /obj/structure/table/reinforced,
 /obj/item/trash/chips,
 /obj/item/stack/tape_roll,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	desc = "Its cold like the space outside noo!";
 	list_reagents = list("coffee" = 0)
 	},
@@ -3168,7 +3168,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "efS" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "egj" = (
@@ -3588,9 +3588,9 @@
 	name = "kitchen Cabinet";
 	req_access = list(201)
 	},
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/sugar,
+/obj/item/food/condiment/flour,
+/obj/item/food/condiment/flour,
+/obj/item/food/condiment/sugar,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -3623,7 +3623,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "eJx" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	list_reagents = list("rum" = 50)
 	},
 /obj/item/clothing/mask/cigarette/pipe,
@@ -4124,7 +4124,7 @@
 /turf/simulated/floor/beach/away/water/deep/dense_canpass,
 /area/awaymission/jungle_planet/outside/river)
 "frZ" = (
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	list_reagents = list("beer"=0)
 	},
 /turf/simulated/floor/plating/asteroid/ancient{
@@ -4305,12 +4305,12 @@
 	icon_state = "telescreen_console";
 	pixel_x = -32
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "fFa" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/item/reagent_containers/drinks/oilcan,
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_y = 30
 	},
@@ -4599,7 +4599,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "fYG" = (
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/item/reagent_containers/food/drinks/bottle/rum{
+/obj/item/reagent_containers/drinks/bottle/rum{
 	list_reagents = list("rum" = 0)
 	},
 /obj/effect/landmark/damageturf,
@@ -4623,11 +4623,11 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/small)
 "gaG" = (
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	list_reagents = list("beer"=0);
 	pixel_x = 9
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	list_reagents = list("beer"=0)
 	},
 /turf/simulated/floor/wood/oak,
@@ -4822,7 +4822,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "gpD" = (
-/obj/item/reagent_containers/food/condiment/enzyme{
+/obj/item/food/condiment/enzyme{
 	layer = 5;
 	pixel_y = 14
 	},
@@ -4964,7 +4964,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "gAD" = (
 /obj/structure/curtain/black,
-/obj/item/reagent_containers/food/drinks/bottle/rum{
+/obj/item/reagent_containers/drinks/bottle/rum{
 	list_reagents = list("rum" = 0)
 	},
 /obj/effect/mob_spawn/human/corpse/skeleton,
@@ -5296,8 +5296,8 @@
 /area/awaymission/jungle_planet/inside/complex)
 "gYH" = (
 /obj/structure/stone_tile/slab/cracked,
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
-/obj/item/reagent_containers/food/snacks/grown/moonflower,
+/obj/item/food/snacks/grown/poppy/lily,
+/obj/item/food/snacks/grown/moonflower,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "gZm" = (
@@ -5755,10 +5755,10 @@
 /area/awaymission/jungle_planet/outside/abandoned)
 "hws" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "hwW" = (
@@ -6008,11 +6008,11 @@
 /area/awaymission/jungle_planet/outside/cave)
 "hOx" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+/obj/item/reagent_containers/drinks/mushroom_bowl{
 	pixel_y = -23;
 	pixel_x = 9
 	},
-/obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle,
+/obj/item/food/snacks/grown/mushroom/chanterelle,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "hPx" = (
@@ -7149,7 +7149,7 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "jie" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mushroom_bowl,
+/obj/item/reagent_containers/drinks/mushroom_bowl,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "jiu" = (
@@ -7590,8 +7590,8 @@
 /obj/item/reagent_containers/glass/beaker/waterbottle/large,
 /obj/item/reagent_containers/glass/beaker/waterbottle/large,
 /obj/item/reagent_containers/glass/beaker/waterbottle/large,
-/obj/item/reagent_containers/food/drinks/cans/cola,
-/obj/item/reagent_containers/food/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "jIo" = (
@@ -8182,10 +8182,10 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "kvb" = (
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/food/condiment/peppermill{
 	pixel_x = 3
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/food/condiment/saltshaker{
 	pixel_x = -3
 	},
 /obj/structure/table,
@@ -8392,7 +8392,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "kHh" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/monkeysdelight,
+/obj/item/food/snacks/monkeysdelight,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "kHP" = (
@@ -8616,7 +8616,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "kUl" = (
-/obj/item/reagent_containers/food/drinks/bottle/tequila,
+/obj/item/reagent_containers/drinks/bottle/tequila,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/structure/closet/crate/wooden/wooden_crate,
 /turf/simulated/floor/wood/oak,
@@ -8805,12 +8805,12 @@
 "lfb" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/structure/closet/cardboard,
-/obj/item/reagent_containers/food/snacks/beans,
-/obj/item/reagent_containers/food/snacks/beans,
-/obj/item/reagent_containers/food/snacks/beans,
-/obj/item/reagent_containers/food/snacks/beans,
-/obj/item/reagent_containers/food/snacks/candy/donor,
-/obj/item/reagent_containers/food/snacks/candy/donor,
+/obj/item/food/snacks/beans,
+/obj/item/food/snacks/beans,
+/obj/item/food/snacks/beans,
+/obj/item/food/snacks/beans,
+/obj/item/food/snacks/candy/donor,
+/obj/item/food/snacks/candy/donor,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "lfj" = (
@@ -8876,19 +8876,19 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "liO" = (
-/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+/obj/item/reagent_containers/drinks/mushroom_bowl{
 	pixel_y = -11;
 	pixel_x = -11
 	},
-/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+/obj/item/reagent_containers/drinks/mushroom_bowl{
 	pixel_y = -23;
 	pixel_x = 9
 	},
-/obj/item/reagent_containers/food/snacks/grown/mushroom/libertycap,
-/obj/item/reagent_containers/food/snacks/grown/mushroom/reishi{
+/obj/item/food/snacks/grown/mushroom/libertycap,
+/obj/item/food/snacks/grown/mushroom/reishi{
 	pixel_x = -7
 	},
-/obj/item/reagent_containers/food/snacks/grown/mushroom/amanita,
+/obj/item/food/snacks/grown/mushroom/amanita,
 /obj/structure/stone_tile/block/cracked,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
@@ -9991,7 +9991,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "mBN" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/plating/asteroid/ancient{
 	name = "ground"
 	},
@@ -10197,8 +10197,8 @@
 /area/awaymission/jungle_planet/outside/cave)
 "mMo" = (
 /obj/structure/closet/crate/wooden/barrel,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
@@ -10306,7 +10306,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "mSW" = (
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+/obj/item/reagent_containers/drinks/bottle/whiskey,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/structure/closet/crate/wooden/wooden_crate,
 /obj/effect/landmark/damageturf,
@@ -10613,7 +10613,7 @@
 /area/awaymission/jungle_planet/outside/abandoned)
 "njL" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/monkeysdelight,
+/obj/item/food/snacks/monkeysdelight,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "njP" = (
@@ -10630,8 +10630,8 @@
 /area/awaymission/jungle_planet/outside/river)
 "nok" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mushroom_bowl,
-/obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle,
+/obj/item/reagent_containers/drinks/mushroom_bowl,
+/obj/item/food/snacks/grown/mushroom/chanterelle,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "nou" = (
@@ -11118,7 +11118,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/jungle_planet/outside/abandoned)
 "nZe" = (
-/obj/item/reagent_containers/food/drinks/trophy/silver_cup,
+/obj/item/reagent_containers/drinks/trophy/silver_cup,
 /obj/item/clothing/gloves/ring/gold,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/structure/closet/crate/wooden/wooden_crate,
@@ -11269,7 +11269,7 @@
 /turf/simulated/floor/beach/away/sand,
 /area/awaymission/jungle_planet/outside/waterfall)
 "oke" = (
-/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/item/reagent_containers/drinks/oilcan,
 /turf/simulated/floor/beach/away/sand,
 /area/awaymission/jungle_planet/outside/river)
 "okx" = (
@@ -11299,11 +11299,11 @@
 "omT" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/closet/crate/wooden/wooden_crate,
-/obj/item/reagent_containers/food/snacks/grown/cannabis,
-/obj/item/reagent_containers/food/snacks/grown/cannabis,
-/obj/item/reagent_containers/food/snacks/grown/cannabis/ultimate,
-/obj/item/reagent_containers/food/snacks/grown/cannabis/ultimate,
-/obj/item/reagent_containers/food/snacks/grown/cannabis/ultimate,
+/obj/item/food/snacks/grown/cannabis,
+/obj/item/food/snacks/grown/cannabis,
+/obj/item/food/snacks/grown/cannabis/ultimate,
+/obj/item/food/snacks/grown/cannabis/ultimate,
+/obj/item/food/snacks/grown/cannabis/ultimate,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
@@ -11736,7 +11736,7 @@
 "oMg" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	list_reagents = list("beer" = 0);
 	pixel_x = -11;
 	pixel_y = 2
@@ -11877,7 +11877,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "oTJ" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+/obj/item/reagent_containers/drinks/mushroom_bowl{
 	pixel_y = -11;
 	pixel_x = -11
 	},
@@ -12205,7 +12205,7 @@
 /obj/structure/table,
 /obj/item/wrench,
 /obj/item/screwdriver,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	desc = "Its cold like the space outside noo!";
 	pixel_x = -6;
 	pixel_y = 8;
@@ -12632,7 +12632,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "pZY" = (
-/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/item/reagent_containers/drinks/oilcan,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "qaT" = (
@@ -12715,11 +12715,11 @@
 /area/awaymission/jungle_planet/outside/cave)
 "qgA" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/food/condiment/milk,
+/obj/item/food/condiment/milk,
+/obj/item/food/condiment/milk,
 /obj/item/storage/fancy/egg_box,
-/obj/item/reagent_containers/food/drinks/bottle/cream,
+/obj/item/reagent_containers/drinks/bottle/cream,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -13291,11 +13291,11 @@
 /area/awaymission/jungle_planet/inside/complex)
 "qOH" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/meat{
+/obj/item/food/snacks/meat{
 	pixel_y = -22;
 	pixel_x = -7
 	},
-/obj/item/reagent_containers/food/snacks/monkeysdelight,
+/obj/item/food/snacks/monkeysdelight,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "qOM" = (
@@ -13438,7 +13438,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "qVY" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "qVZ" = (
@@ -13580,7 +13580,7 @@
 	},
 /obj/item/coin/gold,
 /obj/item/clothing/mask/cigarette/pipe/cobpipe,
-/obj/item/reagent_containers/food/drinks/bottle/rum{
+/obj/item/reagent_containers/drinks/bottle/rum{
 	list_reagents = list("rum" = 0)
 	},
 /turf/simulated/floor/wood/oak,
@@ -14011,7 +14011,7 @@
 /area/awaymission/jungle_planet/outside/abandoned)
 "rHT" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 /obj/item/storage/fancy/matches,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/clothing/mask/cigarette/pipe,
@@ -14846,8 +14846,8 @@
 /area/awaymission/jungle_planet/inside/complex)
 "sDQ" = (
 /obj/structure/stone_tile/slab/cracked,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy/geranium,
+/obj/item/food/snacks/grown/poppy,
+/obj/item/food/snacks/grown/poppy/geranium,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "sFa" = (
@@ -14884,8 +14884,8 @@
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "sIz" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/shaker,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/drinks/shaker,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_x = -4
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
@@ -15220,13 +15220,13 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "tey" = (
-/obj/item/reagent_containers/food/snacks/grown/chili,
-/obj/item/reagent_containers/food/snacks/grown/carrot,
-/obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle,
-/obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle,
-/obj/item/reagent_containers/food/snacks/grown/onion,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/chili,
+/obj/item/food/snacks/grown/carrot,
+/obj/item/food/snacks/grown/mushroom/chanterelle,
+/obj/item/food/snacks/grown/mushroom/chanterelle,
+/obj/item/food/snacks/grown/onion,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/closet/crate/wooden/wooden_crate,
 /turf/simulated/floor/wood/oak,
@@ -17310,7 +17310,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "vCb" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/fried_vox{
+/obj/item/food/snacks/fried_vox{
 	pixel_y = 5
 	},
 /turf/simulated/floor/wood/oak,
@@ -17409,7 +17409,7 @@
 	pixel_x = -3;
 	pixel_y = 18
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/drinks/drinkingglass,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "vHh" = (
@@ -18249,7 +18249,7 @@
 /area/awaymission/jungle_planet/inside)
 "wMk" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	list_reagents = list("rum" = 50)
 	},
 /turf/simulated/floor/wood/oak,
@@ -18702,8 +18702,8 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "xmJ" = (
-/obj/item/reagent_containers/food/drinks/mushroom_bowl,
-/obj/item/reagent_containers/food/snacks/badrecipe,
+/obj/item/reagent_containers/drinks/mushroom_bowl,
+/obj/item/food/snacks/badrecipe,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "xmQ" = (
@@ -19184,7 +19184,7 @@
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
 /obj/item/pen/fancy,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/drinks/bottle/whiskey{
 	list_reagents = list("whiskey" = 0);
 	pixel_x = -9
 	},
@@ -19192,8 +19192,8 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "xSz" = (
-/obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/reagent_containers/food/drinks/bottle/rum{
+/obj/item/reagent_containers/drinks/bottle/rum,
+/obj/item/reagent_containers/drinks/bottle/rum{
 	list_reagents = list("rum" = 0)
 	},
 /obj/structure/closet/crate/wooden/wooden_crate,

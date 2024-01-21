@@ -458,7 +458,7 @@
 	pixel_y = 10
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/item/reagent_containers/food/snacks/grown/apple/poisoned,
+/obj/item/food/snacks/grown/apple/poisoned,
 /turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "bY" = (
@@ -1790,7 +1790,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
 "iy" = (
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/food/snacks/grown/poppy{
 	pixel_y = -15;
 	pixel_x = -5
 	},
@@ -2185,7 +2185,7 @@
 /area/awaymission/caves/build)
 "kC" = (
 /obj/effect/decal/remains/human,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/food/snacks/grown/harebell,
 /obj/item/clothing/suit/armor/riot/knight/red,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
@@ -2348,13 +2348,13 @@
 /area/awaymission/caves/build/reqpower_build)
 "lw" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/snacks/candy/cotton/poison,
-/obj/item/reagent_containers/food/snacks/candy/jellybean/poison{
+/obj/item/food/snacks/candy/cotton/poison,
+/obj/item/food/snacks/candy/jellybean/poison{
 	pixel_x = -5;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/candy/gummyworm/poison,
-/obj/item/reagent_containers/food/snacks/candy/gummybear/poison{
+/obj/item/food/snacks/candy/gummyworm/poison,
+/obj/item/food/snacks/candy/gummybear/poison{
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -9360,8 +9360,8 @@
 /area/awaymission/caves)
 "Wr" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = 5;
 	pixel_y = 7
 	},
@@ -9996,8 +9996,8 @@
 "Zz" = (
 /obj/structure/closet/crate/wooden/wooden_crate,
 /obj/structure/stone_tile/slab,
-/obj/item/reagent_containers/food/drinks/trophy/bronze_cup,
-/obj/item/reagent_containers/food/drinks/bottle/wine{
+/obj/item/reagent_containers/drinks/trophy/bronze_cup,
+/obj/item/reagent_containers/drinks/bottle/wine{
 	name = "Thousand-year-old wine";
 	icon_state = "patronbottle"
 	},

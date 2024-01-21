@@ -269,8 +269,8 @@
 /area/awaymission/BMPship/Gate)
 "bi" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -290,7 +290,7 @@
 /area/awaymission/BMPship/Fore)
 "bl" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/reagent_containers/food/drinks/bottle/patron,
+/obj/item/reagent_containers/drinks/bottle/patron,
 /obj/item/flashlight/lamp/green{
 	pixel_x = -5;
 	pixel_y = 12;
@@ -580,7 +580,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
-/obj/item/reagent_containers/food/drinks/sillycup,
+/obj/item/reagent_containers/drinks/sillycup,
 /obj/item/reagent_containers/pill/methamphetamine,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
@@ -722,10 +722,10 @@
 	dir = 2
 	},
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/monstermeat/bearmeat,
-/obj/item/reagent_containers/food/snacks/monstermeat/bearmeat,
-/obj/item/reagent_containers/food/snacks/monstermeat/bearmeat,
-/obj/item/reagent_containers/food/snacks/monstermeat/bearmeat,
+/obj/item/food/snacks/monstermeat/bearmeat,
+/obj/item/food/snacks/monstermeat/bearmeat,
+/obj/item/food/snacks/monstermeat/bearmeat,
+/obj/item/food/snacks/monstermeat/bearmeat,
 /obj/item/clothing/gloves/furgloves,
 /obj/item/clothing/head/furcap,
 /obj/item/clothing/shoes/furboots,
@@ -776,7 +776,7 @@
 "cB" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/greenglow,
-/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
+/obj/item/food/snacks/monstermeat/spiderleg,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "cC" = (
@@ -831,7 +831,7 @@
 "cH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/south,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/cocoon,
 /turf/simulated/floor/plating,
@@ -899,7 +899,7 @@
 "cR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/south,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "cS" = (
@@ -958,8 +958,8 @@
 /area/awaymission/BMPship/Fore)
 "cZ" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
-/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
+/obj/item/food/snacks/monstermeat/lizardmeat,
+/obj/item/food/snacks/monstermeat/lizardmeat,
 /obj/item/stack/sheet/animalhide/lizard,
 /obj/effect/spawner/lootdrop/lizardboots,
 /obj/effect/decal/cleanable/dirt,
@@ -1139,8 +1139,8 @@
 /area/awaymission/BMPship/Engines)
 "dA" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1242,7 +1242,7 @@
 /obj/item/kitchen/utensil/fork{
 	pixel_x = 7
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_y = 15
 	},
 /turf/simulated/floor/plasteel{
@@ -1258,11 +1258,11 @@
 /obj/item/clothing/glasses/sunglasses/noir{
 	pixel_y = -3
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_x = 10;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/drinks/bottle/whiskey{
 	pixel_y = 10;
 	layer = 2.9
 	},
@@ -1319,7 +1319,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "dU" = (
-/obj/item/reagent_containers/food/drinks/sillycup,
+/obj/item/reagent_containers/drinks/sillycup,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
@@ -1513,7 +1513,7 @@
 "ey" = (
 /obj/structure/table,
 /obj/item/kitchen/knife/butcher,
-/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
+/obj/item/food/snacks/monstermeat/lizardmeat,
 /obj/item/trash/plate{
 	pixel_x = -5;
 	pixel_y = -1;
@@ -1619,7 +1619,7 @@
 	layer = 2.9
 	},
 /obj/item/kitchen/utensil/fork,
-/obj/item/reagent_containers/food/drinks/britcup{
+/obj/item/reagent_containers/drinks/britcup{
 	pixel_x = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -1643,7 +1643,7 @@
 	color = "yellow";
 	layer = 2.9
 	},
-/obj/item/reagent_containers/food/snacks/grown/wheat,
+/obj/item/food/snacks/grown/wheat,
 /turf/simulated/floor/grass,
 /area/awaymission/BMPship/Kitchen)
 "eR" = (
@@ -1902,7 +1902,7 @@
 "fy" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
-/obj/item/reagent_containers/food/snacks/fried_vox{
+/obj/item/food/snacks/fried_vox{
 	pixel_x = 4;
 	pixel_y = 12;
 	layer = 2.9
@@ -2250,7 +2250,7 @@
 /area/space)
 "gv" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread,
+/obj/item/food/snacks/sliceable/xenomeatbread,
 /obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -2352,7 +2352,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "gM" = (
-/obj/item/reagent_containers/food/snacks/hugemushroomslice,
+/obj/item/food/snacks/hugemushroomslice,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Kitchen)
@@ -2561,7 +2561,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/greenglow,
-/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
+/obj/item/food/snacks/monstermeat/spiderleg,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
@@ -2787,12 +2787,12 @@
 /area/awaymission/BMPship/Kitchen)
 "it" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/hugemushroomslice,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/hugemushroomslice,
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
-/obj/item/reagent_containers/food/snacks/monstermeat/spidermeat,
+/obj/item/food/snacks/monstermeat/spidermeat,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -2902,7 +2902,7 @@
 /area/awaymission/BMPship/ChemLab)
 "iL" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer,
 /obj/item/grenade/chem_grenade/drugs,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/ChemLab)
@@ -2978,7 +2978,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/ChemLab)
 "iZ" = (
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/snacks/chips,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/ChemLab)
 "ja" = (
@@ -3040,7 +3040,7 @@
 /obj/item/kitchen/utensil/fork{
 	pixel_x = -2
 	},
-/obj/item/reagent_containers/food/snacks/pastatomato,
+/obj/item/food/snacks/pastatomato,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -3099,9 +3099,9 @@
 "jB" = (
 /obj/structure/window/reinforced,
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/candy/candycane,
-/obj/item/reagent_containers/food/snacks/candy/confectionery/caramel_nougat,
-/obj/item/reagent_containers/food/snacks/candy/confectionery/toffee,
+/obj/item/food/snacks/candy/candycane,
+/obj/item/food/snacks/candy/confectionery/caramel_nougat,
+/obj/item/food/snacks/candy/confectionery/toffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber";
 	tag = "icon-barber"
@@ -3114,7 +3114,7 @@
 /area/space)
 "jF" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/xenomeatbreadslice{
+/obj/item/food/snacks/xenomeatbreadslice{
 	pixel_x = -8
 	},
 /obj/item/trash/plate{
@@ -3134,7 +3134,7 @@
 "jG" = (
 /obj/effect/decal/cleanable/blood/gibs/xeno,
 /obj/structure/alien/weeds,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /obj/machinery/light_construct/small/north,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
@@ -3227,7 +3227,7 @@
 "kx" = (
 /obj/structure/table/survival_pod,
 /obj/item/reagent_containers/glass/beaker/drugs/meth,
-/obj/item/reagent_containers/food/drinks/bottle/rum{
+/obj/item/reagent_containers/drinks/bottle/rum{
 	pixel_x = -3;
 	pixel_y = 4;
 	layer = 2.9
@@ -3360,7 +3360,7 @@
 /obj/structure/closet/critter{
 	opened = 1
 	},
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "lL" = (
@@ -3696,7 +3696,7 @@
 	icon_state = "small"
 	},
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_x = 11;
 	pixel_y = 13
 	},
@@ -3730,12 +3730,12 @@
 /turf/space,
 /area/space)
 "pc" = (
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/item/reagent_containers/food/snacks/grown/banana{
+/obj/item/food/snacks/grown/banana,
+/obj/item/food/snacks/grown/banana{
 	pixel_x = -6;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/grown/banana{
+/obj/item/food/snacks/grown/banana{
 	pixel_x = 7;
 	pixel_y = 3
 	},
@@ -3832,14 +3832,14 @@
 /area/awaymission/BMPship/Dormitories)
 "pG" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = 3;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = -3;
 	pixel_y = 5;
 	layer = 2.9
@@ -4604,7 +4604,7 @@
 /area/awaymission/BMPship/CommonArea)
 "wG" = (
 /obj/effect/decal/cleanable/greenglow,
-/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
+/obj/item/food/snacks/monstermeat/spiderleg,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
@@ -4800,7 +4800,7 @@
 /turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
 /area/awaymission/BMPship/Fore)
 "yu" = (
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/north,
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter{
@@ -4916,7 +4916,7 @@
 	opened = 1
 	},
 /obj/structure/spider/stickyweb,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
@@ -4999,7 +4999,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "Aw" = (
@@ -5076,7 +5076,7 @@
 /obj/structure/table,
 /obj/item/kitchen/utensil/fork,
 /obj/item/trash/snack_bowl,
-/obj/item/reagent_containers/food/drinks/mug/cap{
+/obj/item/reagent_containers/drinks/mug/cap{
 	pixel_x = 5;
 	pixel_y = 6
 	},
@@ -5235,7 +5235,7 @@
 /area/awaymission/BMPship/Buffer)
 "CI" = (
 /obj/structure/alien/weeds,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = 8;
 	pixel_y = 2
 	},
@@ -5304,7 +5304,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "Dr" = (
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
@@ -5489,7 +5489,7 @@
 /turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
 /area/awaymission/BMPship/Kitchen)
 "EO" = (
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/engine,
@@ -5651,7 +5651,7 @@
 /area/awaymission/BMPship/Containment)
 "Gu" = (
 /obj/item/assembly/mousetrap/armed,
-/obj/item/reagent_containers/food/snacks/breadslice{
+/obj/item/food/snacks/breadslice{
 	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6171,7 +6171,7 @@
 /area/awaymission/BMPship/Gate)
 "Md" = (
 /obj/structure/alien/weeds,
-/obj/item/reagent_containers/food/drinks/mug/novelty{
+/obj/item/reagent_containers/drinks/mug/novelty{
 	pixel_y = 10;
 	pixel_x = 10
 	},
@@ -6496,12 +6496,12 @@
 /area/awaymission/BMPship/CommonArea)
 "Qi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "Qj" = (
 /obj/structure/alien/weeds,
-/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
+/obj/item/food/snacks/monstermeat/spiderleg,
 /obj/effect/decal/cleanable/greenglow,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -6556,7 +6556,7 @@
 /area/awaymission/BMPship/Containment)
 "QT" = (
 /obj/structure/rack,
-/obj/item/reagent_containers/food/drinks/trophy/gold_cup,
+/obj/item/reagent_containers/drinks/trophy/gold_cup,
 /obj/item/storage/box/flashbangs,
 /obj/item/fluff/dogwhistle,
 /obj/structure/alien/weeds,
@@ -6748,16 +6748,16 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/meat/corgi,
-/obj/item/reagent_containers/food/snacks/meat/corgi,
-/obj/item/reagent_containers/food/snacks/meat/corgi,
-/obj/item/reagent_containers/food/snacks/meat/corgi,
-/obj/item/reagent_containers/food/snacks/meat/corgi,
+/obj/item/food/snacks/meat/corgi,
+/obj/item/food/snacks/meat/corgi,
+/obj/item/food/snacks/meat/corgi,
+/obj/item/food/snacks/meat/corgi,
+/obj/item/food/snacks/meat/corgi,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "Tv" = (
 /mob/living/simple_animal/hostile/retaliate/poison/snake,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /obj/item/shard,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
@@ -6876,7 +6876,7 @@
 /area/awaymission/BMPship/Engines)
 "UI" = (
 /obj/structure/alien/weeds,
-/obj/item/reagent_containers/food/drinks/mug{
+/obj/item/reagent_containers/drinks/mug{
 	pixel_x = -8
 	},
 /turf/simulated/floor/plating/airless,
@@ -6969,7 +6969,7 @@
 /area/awaymission/BMPship/CommonArea)
 "VG" = (
 /obj/effect/decal/cleanable/greenglow,
-/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
+/obj/item/food/snacks/monstermeat/spiderleg,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -7219,7 +7219,7 @@
 "Yh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/south,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/cocoon,
 /turf/simulated/floor/engine,
@@ -7318,7 +7318,7 @@
 "Zg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "Zj" = (

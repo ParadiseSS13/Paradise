@@ -52,7 +52,7 @@
 /obj/structure/chair/plastic{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/drinks/cans/thirteenloko{
+/obj/item/reagent_containers/drinks/cans/thirteenloko{
 	pixel_x = -18;
 	pixel_y = 8
 	},
@@ -357,19 +357,19 @@
 /area/awaymission/beach)
 "ew" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/drinks/cans/cola{
+/obj/item/reagent_containers/drinks/cans/cola{
 	pixel_y = 16;
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/drinks/cans/cola{
+/obj/item/reagent_containers/drinks/cans/cola{
 	pixel_y = 14;
 	pixel_x = 8
 	},
-/obj/item/reagent_containers/food/drinks/cans/cola{
+/obj/item/reagent_containers/drinks/cans/cola{
 	pixel_y = 9;
 	pixel_x = -2
 	},
-/obj/item/reagent_containers/food/drinks/cans/cola{
+/obj/item/reagent_containers/drinks/cans/cola{
 	pixel_y = 5;
 	pixel_x = 11
 	},
@@ -407,7 +407,7 @@
 /area/awaymission/beach)
 "eT" = (
 /obj/structure/fluff/beach_umbrella/syndi,
-/obj/item/reagent_containers/food/drinks/cans/cola{
+/obj/item/reagent_containers/drinks/cans/cola{
 	pixel_x = -6;
 	pixel_y = -6
 	},
@@ -444,11 +444,11 @@
 /obj/structure/table/wood{
 	color = "#ffcc33"
 	},
-/obj/item/reagent_containers/food/condiment/capsaicin{
+/obj/item/food/condiment/capsaicin{
 	pixel_y = 8;
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/condiment/bbqsauce{
+/obj/item/food/condiment/bbqsauce{
 	pixel_x = 8;
 	pixel_y = 4
 	},
@@ -518,10 +518,10 @@
 /obj/structure/table/wood{
 	color = "#ffcc33"
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/food/condiment/saltshaker{
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/food/condiment/peppermill{
 	pixel_y = 4;
 	pixel_x = -8
 	},
@@ -732,15 +732,15 @@
 /area/awaymission/beach)
 "iy" = (
 /obj/structure/table/wood/fancy/orange,
-/obj/item/reagent_containers/food/drinks/bottle/wine{
+/obj/item/reagent_containers/drinks/bottle/wine{
 	pixel_y = 20;
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_y = 6;
 	pixel_x = -6
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_y = 14;
 	pixel_x = 8
 	},
@@ -936,7 +936,7 @@
 /obj/structure/chair/plastic{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/drinks/cans/space_up{
+/obj/item/reagent_containers/drinks/cans/space_up{
 	pixel_y = 12;
 	pixel_x = -8
 	},
@@ -960,15 +960,15 @@
 /area/awaymission/beach)
 "lM" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_y = 7;
 	pixel_x = -7
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_y = 15;
 	pixel_x = 2
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_y = 5;
 	pixel_x = 7
 	},
@@ -1051,7 +1051,7 @@
 	pixel_y = 7;
 	pixel_x = 11
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_y = 12;
 	pixel_x = -8
 	},
@@ -1062,11 +1062,11 @@
 /area/awaymission/beach)
 "nb" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/drinks/cans/cola{
+/obj/item/reagent_containers/drinks/cans/cola{
 	pixel_y = 8;
 	pixel_x = 7
 	},
-/obj/item/reagent_containers/food/drinks/cans/cola{
+/obj/item/reagent_containers/drinks/cans/cola{
 	pixel_y = 13;
 	pixel_x = -11
 	},
@@ -1217,7 +1217,7 @@
 "pm" = (
 /obj/item/storage/bag/tray,
 /obj/effect/turf_decal/stripes/red/box,
-/obj/item/reagent_containers/food/snacks/grown/watermelon{
+/obj/item/food/snacks/grown/watermelon{
 	pixel_y = 2;
 	pixel_x = 1
 	},
@@ -1235,7 +1235,7 @@
 /area/awaymission/beach)
 "pp" = (
 /obj/structure/chair/plastic,
-/obj/item/reagent_containers/food/drinks/cans/dr_gibb{
+/obj/item/reagent_containers/drinks/cans/dr_gibb{
 	pixel_x = 20;
 	pixel_y = -4
 	},
@@ -1257,7 +1257,7 @@
 /obj/structure/chair/plastic{
 	dir = 4
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = 16;
 	pixel_y = -16
 	},
@@ -1317,7 +1317,7 @@
 /obj/structure/table/wood{
 	color = "#ffcc33"
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_x = -8;
 	pixel_y = 8
 	},
@@ -1340,7 +1340,7 @@
 /area/awaymission/beach)
 "qB" = (
 /obj/structure/fluff/beach_umbrella/science,
-/obj/item/reagent_containers/food/drinks/cans/starkist{
+/obj/item/reagent_containers/drinks/cans/starkist{
 	pixel_x = 11;
 	pixel_y = -2
 	},
@@ -1407,7 +1407,7 @@
 /area/awaymission/beach)
 "rI" = (
 /obj/structure/chair/plastic,
-/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind{
+/obj/item/reagent_containers/drinks/cans/space_mountain_wind{
 	pixel_x = 18;
 	pixel_y = 4
 	},
@@ -1429,7 +1429,7 @@
 	pixel_y = 18;
 	pixel_x = -5
 	},
-/obj/item/reagent_containers/food/drinks/shaker{
+/obj/item/reagent_containers/drinks/shaker{
 	pixel_x = -6;
 	pixel_y = 2
 	},
@@ -1552,21 +1552,21 @@
 /area/awaymission/beach)
 "va" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/item/reagent_containers/food/snacks/catfishmeat,
-/obj/item/reagent_containers/food/snacks/catfishmeat,
-/obj/item/reagent_containers/food/snacks/catfishmeat,
-/obj/item/reagent_containers/food/snacks/catfishmeat,
-/obj/item/reagent_containers/food/snacks/catfishmeat,
-/obj/item/reagent_containers/food/snacks/salmonmeat,
-/obj/item/reagent_containers/food/snacks/salmonmeat,
-/obj/item/reagent_containers/food/snacks/salmonmeat,
-/obj/item/reagent_containers/food/snacks/salmonmeat,
-/obj/item/reagent_containers/food/snacks/salmonmeat,
+/obj/item/food/snacks/catfishmeat,
+/obj/item/food/snacks/catfishmeat,
+/obj/item/food/snacks/catfishmeat,
+/obj/item/food/snacks/catfishmeat,
+/obj/item/food/snacks/catfishmeat,
+/obj/item/food/snacks/salmonmeat,
+/obj/item/food/snacks/salmonmeat,
+/obj/item/food/snacks/salmonmeat,
+/obj/item/food/snacks/salmonmeat,
+/obj/item/food/snacks/salmonmeat,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/beach)
 "vq" = (
 /obj/structure/chair/plastic,
-/obj/item/reagent_containers/food/drinks/cans/starkist{
+/obj/item/reagent_containers/drinks/cans/starkist{
 	pixel_x = 20;
 	pixel_y = -8
 	},
@@ -1594,7 +1594,7 @@
 	pixel_x = -6;
 	pixel_y = -5
 	},
-/obj/item/reagent_containers/food/snacks/donut{
+/obj/item/food/snacks/donut{
 	pixel_x = 13
 	},
 /obj/item/folder/blue{
@@ -1623,7 +1623,7 @@
 	},
 /area/awaymission/beach)
 "vR" = (
-/obj/item/reagent_containers/food/drinks/cans/tonic{
+/obj/item/reagent_containers/drinks/cans/tonic{
 	pixel_x = -12;
 	pixel_y = 2
 	},
@@ -1827,7 +1827,7 @@
 	pixel_x = -2
 	},
 /obj/machinery/cell_charger,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_y = 12;
 	pixel_x = 6
 	},
@@ -2109,11 +2109,11 @@
 /area/awaymission/beach)
 "Cf" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/watermelon{
+/obj/item/food/snacks/grown/watermelon{
 	pixel_y = 8;
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/snacks/grown/watermelon{
+/obj/item/food/snacks/grown/watermelon{
 	pixel_y = 3;
 	pixel_x = -3
 	},
@@ -2176,7 +2176,7 @@
 /area/awaymission/beach)
 "Dg" = (
 /obj/structure/chair/plastic,
-/obj/item/reagent_containers/food/drinks/cans/dr_gibb{
+/obj/item/reagent_containers/drinks/cans/dr_gibb{
 	pixel_x = -16;
 	pixel_y = -6
 	},
@@ -2205,11 +2205,11 @@
 /area/awaymission/beach)
 "DH" = (
 /obj/structure/fluff/beach_umbrella/syndi,
-/obj/item/reagent_containers/food/drinks/cans/cola{
+/obj/item/reagent_containers/drinks/cans/cola{
 	pixel_x = -10;
 	pixel_y = -6
 	},
-/obj/item/reagent_containers/food/drinks/cans/dr_gibb{
+/obj/item/reagent_containers/drinks/cans/dr_gibb{
 	pixel_x = 12
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
@@ -2238,7 +2238,7 @@
 "Eg" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger,
-/obj/item/reagent_containers/food/drinks/mug{
+/obj/item/reagent_containers/drinks/mug{
 	pixel_x = -9;
 	pixel_y = 13
 	},
@@ -2252,7 +2252,7 @@
 /area/awaymission/beach)
 "Ek" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/enzyme{
+/obj/item/food/condiment/enzyme{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -2271,15 +2271,15 @@
 /area/awaymission/beach)
 "Ez" = (
 /obj/structure/table/holotable,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/food/condiment/peppermill{
 	pixel_y = 8;
 	pixel_x = -8
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/food/condiment/saltshaker{
 	pixel_x = 6;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_y = 4;
 	pixel_x = -1
 	},
@@ -2460,7 +2460,7 @@
 	pixel_y = 10;
 	pixel_x = 11
 	},
-/obj/item/reagent_containers/food/snacks/donut/sprinkles{
+/obj/item/food/snacks/donut/sprinkles{
 	pixel_x = -8;
 	pixel_y = 4
 	},
@@ -2503,7 +2503,7 @@
 /area/awaymission/beach)
 "Hg" = (
 /obj/structure/chair/plastic,
-/obj/item/reagent_containers/food/drinks/cans/lemon_lime{
+/obj/item/reagent_containers/drinks/cans/lemon_lime{
 	pixel_y = -6;
 	pixel_x = 16
 	},
@@ -2706,7 +2706,7 @@
 /obj/structure/chair/plastic{
 	dir = 4
 	},
-/obj/item/reagent_containers/food/drinks/cans/lemon_lime{
+/obj/item/reagent_containers/drinks/cans/lemon_lime{
 	pixel_x = 14;
 	pixel_y = -12
 	},
@@ -2805,7 +2805,7 @@
 /area/awaymission/beach)
 "KB" = (
 /obj/structure/fluff/beach_umbrella/syndi,
-/obj/item/reagent_containers/food/drinks/cans/dr_gibb{
+/obj/item/reagent_containers/drinks/cans/dr_gibb{
 	pixel_x = -6;
 	pixel_y = -6
 	},
@@ -2814,7 +2814,7 @@
 "KE" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_y = 16;
 	pixel_x = -7
 	},
@@ -2829,15 +2829,15 @@
 /area/awaymission/beach)
 "KK" = (
 /obj/structure/table/wood/fancy/orange,
-/obj/item/reagent_containers/food/snacks/grown/banana{
+/obj/item/food/snacks/grown/banana{
 	pixel_y = 8;
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/snacks/grown/banana{
+/obj/item/food/snacks/grown/banana{
 	pixel_y = 6;
 	pixel_x = -1
 	},
-/obj/item/reagent_containers/food/snacks/grown/banana{
+/obj/item/food/snacks/grown/banana{
 	pixel_y = 4;
 	pixel_x = 3
 	},
@@ -2893,13 +2893,13 @@
 /area/awaymission/beach)
 "LI" = (
 /obj/structure/closet/crate/hydroponics,
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/rice,
-/obj/item/reagent_containers/food/condiment/rice,
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/food/condiment/flour,
+/obj/item/food/condiment/flour,
+/obj/item/food/condiment/rice,
+/obj/item/food/condiment/rice,
+/obj/item/food/snacks/grown/banana,
+/obj/item/food/snacks/grown/banana,
+/obj/item/food/snacks/grown/banana,
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "LM" = (
@@ -3032,7 +3032,7 @@
 /area/awaymission/beach)
 "Ne" = (
 /obj/structure/fluff/beach_umbrella/syndi,
-/obj/item/reagent_containers/food/drinks/cans/space_up{
+/obj/item/reagent_containers/drinks/cans/space_up{
 	pixel_x = 11;
 	pixel_y = -2
 	},
@@ -3130,11 +3130,11 @@
 	color = "#ffcc33"
 	},
 /obj/machinery/light/directional/east,
-/obj/item/reagent_containers/food/condiment/ketchup{
+/obj/item/food/condiment/ketchup{
 	pixel_y = 8;
 	pixel_x = -2
 	},
-/obj/item/reagent_containers/food/condiment/mayonnaise{
+/obj/item/food/condiment/mayonnaise{
 	pixel_x = 6;
 	pixel_y = 6
 	},
@@ -3222,18 +3222,18 @@
 /area/awaymission/beach)
 "QH" = (
 /obj/structure/fluff/beach_umbrella/science,
-/obj/item/reagent_containers/food/drinks/cans/cola{
+/obj/item/reagent_containers/drinks/cans/cola{
 	pixel_x = -10;
 	pixel_y = -6
 	},
-/obj/item/reagent_containers/food/drinks/cans/space_up{
+/obj/item/reagent_containers/drinks/cans/space_up{
 	pixel_x = 12
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "QJ" = (
 /obj/structure/chair/plastic,
-/obj/item/reagent_containers/food/drinks/cans/cola{
+/obj/item/reagent_containers/drinks/cans/cola{
 	pixel_x = 18;
 	pixel_y = -3
 	},
@@ -3381,7 +3381,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/beach)
 "Ss" = (
-/obj/item/reagent_containers/food/drinks/cans/cola{
+/obj/item/reagent_containers/drinks/cans/cola{
 	pixel_y = 16;
 	pixel_x = -8
 	},
@@ -3415,7 +3415,7 @@
 	pixel_y = 4;
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/condiment/soymilk{
+/obj/item/food/condiment/soymilk{
 	pixel_y = 8;
 	pixel_x = 8
 	},
@@ -3471,7 +3471,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/beach)
 "Us" = (
-/obj/item/reagent_containers/food/drinks/cans/starkist{
+/obj/item/reagent_containers/drinks/cans/starkist{
 	pixel_x = -6
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
@@ -3552,7 +3552,7 @@
 	pixel_y = 6;
 	pixel_x = 4
 	},
-/obj/item/reagent_containers/food/drinks/cans/grape_juice{
+/obj/item/reagent_containers/drinks/cans/grape_juice{
 	pixel_x = -8;
 	pixel_y = 9
 	},
@@ -3816,12 +3816,12 @@
 /area/awaymission/beach)
 "XW" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/salmonmeat,
-/obj/item/reagent_containers/food/snacks/salmonmeat,
-/obj/item/reagent_containers/food/snacks/salmonmeat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/salmonmeat,
+/obj/item/food/snacks/salmonmeat,
+/obj/item/food/snacks/salmonmeat,
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "Ya" = (
@@ -3894,11 +3894,11 @@
 /area/awaymission/beach)
 "Ze" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/watermelon{
+/obj/item/food/snacks/grown/watermelon{
 	pixel_y = 6;
 	pixel_x = 6
 	},
-/obj/item/reagent_containers/food/snacks/watermelonslice{
+/obj/item/food/snacks/watermelonslice{
 	pixel_x = -6
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
