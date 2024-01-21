@@ -382,7 +382,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 	cant_discount = TRUE
 
-
 // GRENADES AND EXPLOSIVES
 
 /datum/uplink_item/explosives
