@@ -32,9 +32,6 @@
 	var/pose //Yes, now AIs can pose too.
 	var/death_sound = 'sound/voice/borg_deathsound.ogg'
 
-	var/obj/item/silicon_hat
-	var/hat_offset_y = -3
-	var/is_centered = FALSE
 	var/static/list/restricted_hats = list(
 		/obj/item/clothing/head/helmet,
 		/obj/item/clothing/head/welding,
@@ -51,9 +48,12 @@
 		/obj/item/clothing/head/human_head,
 		/obj/item/clothing/head/kitty,
 		/obj/item/clothing/head/hardhat/reindeer,
-		/obj/item/clothing/head/cardborg,
+		/obj/item/clothing/head/cardborg
 	)
 
+	var/obj/item/silicon_hat
+	var/hat_offset_y = -3
+	var/is_centered = FALSE
 	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
 	var/hat_icon_state
 	var/hat_alpha

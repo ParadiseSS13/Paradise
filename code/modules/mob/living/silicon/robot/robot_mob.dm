@@ -636,7 +636,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	status_flags |= CANPUSH
 
-
 //for borg hotkeys, here module refers to borg inv slot, not core module
 /mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
 	set name = "Toggle Module"
