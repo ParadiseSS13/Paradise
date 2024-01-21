@@ -444,11 +444,11 @@
 /obj/structure/table/wood{
 	color = "#ffcc33"
 	},
-/obj/item/food/condiment/capsaicin{
+/obj/item/reagent_containers/condiment/capsaicin{
 	pixel_y = 8;
 	pixel_x = -4
 	},
-/obj/item/food/condiment/bbqsauce{
+/obj/item/reagent_containers/condiment/bbqsauce{
 	pixel_x = 8;
 	pixel_y = 4
 	},
@@ -518,10 +518,10 @@
 /obj/structure/table/wood{
 	color = "#ffcc33"
 	},
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_y = 8
 	},
-/obj/item/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_y = 4;
 	pixel_x = -8
 	},
@@ -2252,7 +2252,7 @@
 /area/awaymission/beach)
 "Ek" = (
 /obj/structure/table/wood,
-/obj/item/food/condiment/enzyme{
+/obj/item/reagent_containers/condiment/enzyme{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -2271,11 +2271,11 @@
 /area/awaymission/beach)
 "Ez" = (
 /obj/structure/table/holotable,
-/obj/item/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_y = 8;
 	pixel_x = -8
 	},
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = 6;
 	pixel_y = 8
 	},
@@ -2893,10 +2893,10 @@
 /area/awaymission/beach)
 "LI" = (
 /obj/structure/closet/crate/hydroponics,
-/obj/item/food/condiment/flour,
-/obj/item/food/condiment/flour,
-/obj/item/food/condiment/rice,
-/obj/item/food/condiment/rice,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/rice,
+/obj/item/reagent_containers/condiment/rice,
 /obj/item/food/snacks/grown/banana,
 /obj/item/food/snacks/grown/banana,
 /obj/item/food/snacks/grown/banana,
@@ -3130,11 +3130,11 @@
 	color = "#ffcc33"
 	},
 /obj/machinery/light/directional/east,
-/obj/item/food/condiment/ketchup{
+/obj/item/reagent_containers/condiment/ketchup{
 	pixel_y = 8;
 	pixel_x = -2
 	},
-/obj/item/food/condiment/mayonnaise{
+/obj/item/reagent_containers/condiment/mayonnaise{
 	pixel_x = 6;
 	pixel_y = 6
 	},
@@ -3415,7 +3415,7 @@
 	pixel_y = 4;
 	pixel_x = -4
 	},
-/obj/item/food/condiment/soymilk{
+/obj/item/reagent_containers/condiment/soymilk{
 	pixel_y = 8;
 	pixel_x = 8
 	},

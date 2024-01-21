@@ -385,15 +385,15 @@
 /area/centcom/ss220/admin3)
 "anM" = (
 /obj/structure/table/reinforced,
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -8;
 	pixel_y = 5
 	},
-/obj/item/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -8
 	},
 /obj/item/kitchen/knife,
-/obj/item/food/condiment/enzyme{
+/obj/item/reagent_containers/condiment/enzyme{
 	pixel_y = 5
 	},
 /obj/machinery/reagentgrinder{
@@ -1669,13 +1669,13 @@
 /area/shuttle/trade/sol)
 "bjU" = (
 /obj/structure/table/reinforced,
-/obj/item/food/condiment/enzyme{
+/obj/item/reagent_containers/condiment/enzyme{
 	pixel_x = 10
 	},
-/obj/item/food/condiment/enzyme{
+/obj/item/reagent_containers/condiment/enzyme{
 	pixel_x = 5
 	},
-/obj/item/food/condiment/enzyme,
+/obj/item/reagent_containers/condiment/enzyme,
 /turf/simulated/floor/plating{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
@@ -4778,10 +4778,10 @@
 /obj/item/reagent_containers/drinks/bottle/cream{
 	pixel_y = 8
 	},
-/obj/item/food/condiment/soysauce{
+/obj/item/reagent_containers/condiment/soysauce{
 	pixel_x = 12
 	},
-/obj/item/food/condiment/sugar{
+/obj/item/reagent_containers/condiment/sugar{
 	pixel_x = -9;
 	pixel_y = -4
 	},
@@ -5418,11 +5418,11 @@
 /area/shuttle/syndicate)
 "dIR" = (
 /obj/structure/table/reinforced,
-/obj/item/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 4;
 	pixel_y = 6
 	},
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -4;
 	pixel_y = 6
 	},
@@ -12002,7 +12002,7 @@
 /area/space/centcomm)
 "hVt" = (
 /obj/structure/table/reinforced,
-/obj/item/food/condiment/enzyme{
+/obj/item/reagent_containers/condiment/enzyme{
 	layer = 5;
 	pixel_x = 12;
 	pixel_y = 8
@@ -24945,7 +24945,7 @@
 "rqA" = (
 /obj/structure/table/wood/fancy,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
+	loot = list(/obj/item/food/snacks/baguette=10,/obj/item/food/snacks/applepie=10,/obj/item/food/snacks/applepie=10,/obj/item/food/snacks/soup/bloodsoup=10,/obj/item/food/snacks/boiledrice=10,/obj/item/food/snacks/carrotfries=10,/obj/item/reagent_containers/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/simulated/floor/wood,
@@ -32761,9 +32761,9 @@
 /obj/structure/closet/secure_closet/freezer/kitchen{
 	req_access = null
 	},
-/obj/item/food/condiment/flour,
-/obj/item/food/condiment/flour,
-/obj/item/food/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
 /obj/structure/curtain/black{
 	pixel_y = 32;
 	anchored = 1

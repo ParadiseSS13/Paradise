@@ -38,11 +38,11 @@
 /obj/item/candle/eternal{
 	pixel_y = 4
 	},
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = 9;
 	pixel_y = 12
 	},
-/obj/item/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 9;
 	pixel_y = 6
 	},
@@ -165,11 +165,11 @@
 /obj/item/candle/eternal{
 	pixel_y = 4
 	},
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -9;
 	pixel_y = 12
 	},
-/obj/item/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -9;
 	pixel_y = 6
 	},
@@ -1179,7 +1179,7 @@
 /area/ruin/space/spacehotelv1/forehallway)
 "jb" = (
 /obj/structure/table/reinforced,
-/obj/item/food/condiment/enzyme{
+/obj/item/reagent_containers/condiment/enzyme{
 	pixel_x = -5;
 	pixel_y = 5
 	},
@@ -1627,12 +1627,12 @@
 /obj/item/food/snacks/grown/rice,
 /obj/item/food/snacks/grown/rice,
 /obj/item/food/snacks/grown/rice,
-/obj/item/food/condiment/milk,
-/obj/item/food/condiment/milk,
-/obj/item/food/condiment/milk,
-/obj/item/food/condiment/soymilk,
-/obj/item/food/condiment/soymilk,
-/obj/item/food/condiment/soymilk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/soymilk,
+/obj/item/reagent_containers/condiment/soymilk,
+/obj/item/reagent_containers/condiment/soymilk,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/spacehotelv1/kitchen)
 "lU" = (
@@ -1940,11 +1940,11 @@
 /area/ruin/space/spacehotelv1/restoraunt3)
 "oa" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 16
 	},
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 16
 	},
@@ -2272,11 +2272,11 @@
 /obj/item/candle/eternal{
 	pixel_y = 4
 	},
-/obj/item/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 2
 	},
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 2
 	},
@@ -2308,11 +2308,11 @@
 /obj/item/candle/eternal{
 	pixel_y = 4
 	},
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = 9;
 	pixel_y = 12
 	},
-/obj/item/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 9;
 	pixel_y = 6
 	},
@@ -2717,10 +2717,10 @@
 /obj/machinery/door/window/reinforced/normal{
 	dir = 8
 	},
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = 3
 	},
-/obj/item/food/condiment/peppermill,
+/obj/item/reagent_containers/condiment/peppermill,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacehotelv1/kitchen)
 "tI" = (
@@ -2845,7 +2845,7 @@
 	pixel_y = 6
 	},
 /obj/item/kitchen/rollingpin,
-/obj/item/food/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacehotelv1/kitchen)
 "uB" = (
@@ -2960,11 +2960,11 @@
 /obj/item/candle/eternal{
 	pixel_y = 4
 	},
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -9;
 	pixel_y = 12
 	},
-/obj/item/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -9;
 	pixel_y = 6
 	},
@@ -3070,11 +3070,11 @@
 	icon_state = "4-8"
 	},
 /obj/structure/table/wood/fancy/red,
-/obj/item/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 16
 	},
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 16
 	},
@@ -3574,11 +3574,11 @@
 	pixel_y = -1;
 	pixel_x = -9
 	},
-/obj/item/food/condiment/mushroom_sauce{
+/obj/item/reagent_containers/condiment/mushroom_sauce{
 	pixel_x = 10;
 	pixel_y = 5
 	},
-/obj/item/food/condiment/garlic_sauce{
+/obj/item/reagent_containers/condiment/garlic_sauce{
 	pixel_x = 6;
 	pixel_y = 3
 	},
@@ -4921,11 +4921,11 @@
 /area/ruin/space/spacehotelv1/barber)
 "IW" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 16
 	},
-/obj/item/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 16
 	},
@@ -5042,11 +5042,11 @@
 /obj/item/candle/eternal{
 	pixel_y = 4
 	},
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -9;
 	pixel_y = 12
 	},
-/obj/item/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -9;
 	pixel_y = 6
 	},
@@ -5900,11 +5900,11 @@
 /obj/item/candle/eternal{
 	pixel_y = 4
 	},
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = 9;
 	pixel_y = 12
 	},
-/obj/item/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 9;
 	pixel_y = 6
 	},
@@ -6556,11 +6556,11 @@
 /obj/item/candle/eternal{
 	pixel_y = 4
 	},
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = 9;
 	pixel_y = 12
 	},
-/obj/item/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 9;
 	pixel_y = 6
 	},

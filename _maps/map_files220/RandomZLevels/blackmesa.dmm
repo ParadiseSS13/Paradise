@@ -3820,7 +3820,7 @@
 /area/awaymission/black_mesa/entrance_internal_hall)
 "eHp" = (
 /obj/structure/table,
-/obj/item/food/condiment/soymilk{
+/obj/item/reagent_containers/condiment/soymilk{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -3828,7 +3828,7 @@
 	pixel_y = 4;
 	pixel_x = -4
 	},
-/obj/item/food/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark"
@@ -8805,12 +8805,12 @@
 /area/awaymission/black_mesa/resonant_chamber)
 "kRb" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
-/obj/item/food/condiment/milk,
-/obj/item/food/condiment/milk,
-/obj/item/food/condiment/bbqsauce,
-/obj/item/food/condiment/diablo_sauce,
-/obj/item/food/condiment/tomato_sauce,
-/obj/item/food/condiment/garlic_sauce,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/bbqsauce,
+/obj/item/reagent_containers/condiment/diablo_sauce,
+/obj/item/reagent_containers/condiment/tomato_sauce,
+/obj/item/reagent_containers/condiment/garlic_sauce,
 /obj/item/reagent_containers/drinks/chicken_soup,
 /obj/item/reagent_containers/drinks/chicken_soup,
 /obj/item/reagent_containers/drinks/chicken_soup,
@@ -9863,10 +9863,10 @@
 /area/awaymission/black_mesa/entrance_large_office)
 "mdX" = (
 /obj/structure/table,
-/obj/item/food/condiment/pack/ketchup,
-/obj/item/food/condiment/pack/hotsauce,
-/obj/item/food/condiment/pack/hotsauce,
-/obj/item/food/condiment/pack/ketchup,
+/obj/item/reagent_containers/condiment/pack/ketchup,
+/obj/item/reagent_containers/condiment/pack/hotsauce,
+/obj/item/reagent_containers/condiment/pack/hotsauce,
+/obj/item/reagent_containers/condiment/pack/ketchup,
 /obj/item/trash/plate,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
@@ -17807,8 +17807,8 @@
 /area/awaymission/black_mesa/xen/village_hallway)
 "vPn" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/food/condiment/flour,
-/obj/item/food/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
 /obj/machinery/light/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
