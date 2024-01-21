@@ -1,7 +1,7 @@
 /obj/structure/pondering_orb
 	name = "pondering orb"
-	icon = 'icons/obj/wizard.dmi'
 	desc = "Ponder your plans for the station using this farsight artefact."
+	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scrying_orb" //TODO : Placeholder sprite
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -11,7 +11,7 @@
 	ADD_TRAIT(user, SCRYING, SCRYING_ORB)
 	user.add_atom_colour(COLOR_BLUE, ADMIN_COLOUR_PRIORITY) // stolen spirit rune code
 	user.visible_message("<span class='notice'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>",
-					"<span class='danger'> You stare into [src], you can see the entire universe!</span>")
+					"<span class='danger'>You stare into [src], you can see the entire universe!</span>")
 	ghost = user.ghostize(TRUE)
 	ghost.name = "Magic Spirit of [ghost.name]"
 	ghost.color = COLOR_BLUE
