@@ -2756,11 +2756,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "jL" = (
-/obj/structure/chair/brass{
-	name = "arch wizard's throne"
-	},
 /obj/effect/turf_decal/woodsiding{
 	dir = 4
+	},
+/obj/structure/chair/brass{
+	name = "arch wizard's throne";
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
