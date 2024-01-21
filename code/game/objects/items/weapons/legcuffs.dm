@@ -2,7 +2,6 @@
 	name = "leg cuffs"
 	desc = "Use this to keep prisoners in line."
 	gender = PLURAL
-	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
 	cuffed_state = "legcuff"
 	flags = CONDUCT
@@ -154,7 +153,7 @@
 /obj/item/restraints/legcuffs/beartrap/energy
 	name = "energy snare"
 	armed = TRUE
-	icon_state = "e_snare"
+	icon_state = "e_snare1"
 	trap_damage = 0
 	flags = DROPDEL
 	breakouttime = 6 SECONDS

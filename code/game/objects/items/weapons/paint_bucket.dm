@@ -3,7 +3,7 @@
 /obj/item/reagent_containers/glass/paint
 	desc = "It's a paint bucket."
 	name = "paint bucket"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/paint.dmi'
 	icon_state = "paint_neutral"
 	item_state = "paintcan"
 	materials = list(MAT_METAL = 400)

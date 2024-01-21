@@ -109,7 +109,8 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/outfit_manager,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
-	/client/proc/change_human_appearance_self	/* Allows the human-based mob itself to change its basic appearance */
+	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself to change its basic appearance */
+	/datum/admins/proc/station_traits_panel
 	))
 
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -253,10 +254,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/debug_timers,
 	/client/proc/timer_log
 ))
-
-/client/proc/on_holder_add()
-	if(chatOutput && chatOutput.loaded)
-		chatOutput.loadAdmin()
 
 /client/proc/add_admin_verbs()
 	if(holder)
@@ -537,7 +534,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	var/turf/epicenter = mob.loc
 	var/list/choices = list("Small Bomb", "Medium Bomb", "Big Bomb", "Custom Bomb")
-	var/choice = input("What size explosion would you like to produce?") as null|anything in choices
+	var/choice = tgui_input_list(src, "What size explosion would you like to produce?", "Drop Bomb", choices)
 	switch(choice)
 		if(null)
 			return 0
@@ -800,7 +797,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!S) return
 
 	var/datum/ui_module/law_manager/L = new(S)
-	L.ui_interact(usr, state = GLOB.admin_state)
+	L.ui_interact(usr)
 	log_and_message_admins("has opened [S]'s law manager.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Silicon Laws") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -814,7 +811,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	if(!istype(H))
 		if(isbrain(H))
-			var/mob/living/carbon/brain/B = H
+			var/mob/living/brain/B = H
 			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
 				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
@@ -840,7 +837,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	if(!istype(H))
 		if(isbrain(H))
-			var/mob/living/carbon/brain/B = H
+			var/mob/living/brain/B = H
 			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
 				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc

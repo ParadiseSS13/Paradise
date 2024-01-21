@@ -71,7 +71,9 @@
 	var/check_mutations=0 // Check mutations on next life tick
 
 	var/heartbeat = 0
-	var/receiving_cpr = FALSE
+
+	/// UID of the person who is giving this mob CPR.
+	var/receiving_cpr_from
 
 	var/fire_dmi = 'icons/mob/OnFire.dmi'
 	var/fire_sprite = "Standing"

@@ -51,7 +51,7 @@
 		possible_spells[cult_name] = J
 	if(length(spells))
 		possible_spells += "(REMOVE SPELL)"
-	entered_spell_name = input(owner, "Pick a blood spell to prepare...", "Spell Choices") as null|anything in possible_spells
+	entered_spell_name = tgui_input_list(owner, "Pick a blood spell to prepare...", "Spell Choices", possible_spells)
 	if(entered_spell_name == "(REMOVE SPELL)")
 		remove_spell()
 		return
@@ -80,8 +80,8 @@
 		SSblackbox.record_feedback("tally", "cult_spells_prepared", 1, "[new_spell.name]")
 	channeling = FALSE
 
-/datum/action/innate/cult/blood_magic/proc/remove_spell(message = "Pick a spell to remove.")
-	var/nullify_spell = input(owner, message, "Current Spells") as null|anything in spells
+/datum/action/innate/cult/blood_magic/proc/remove_spell()
+	var/nullify_spell = tgui_input_list(owner, "Pick a spell to remove", "Current Spells", spells)
 	if(nullify_spell)
 		qdel(nullify_spell)
 
@@ -401,10 +401,7 @@
 			source.UpdateButtonIcon()
 	return ..()
 
-/obj/item/melee/blood_magic/customised_abstract_text()
-	if(!ishuman(loc))
-		return
-	var/mob/living/carbon/human/owner = loc
+/obj/item/melee/blood_magic/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in blood-red fire.</span>"
 
 /obj/item/melee/blood_magic/attack_self(mob/living/user)
@@ -521,7 +518,7 @@
 		log_game("Teleport spell failed - user in away mission")
 		return
 
-	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
+	var/input_rune_key = tgui_input_list(user, "Choose a rune to teleport to", "Rune to Teleport to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	if(QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
 		return
@@ -704,22 +701,8 @@
 		return
 	if(proximity_flag)
 
-		// Shielded suit
-		if(istype(target, /obj/item/clothing/suit/hooded/cultrobes/cult_shield))
-			var/obj/item/clothing/suit/hooded/cultrobes/cult_shield/C = target
-			if(C.current_charges < 3)
-				uses--
-				to_chat(user, "<span class='warning'>You empower [target] with blood, recharging its shields!</span>")
-				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(7))
-				C.current_charges = 3
-				C.shield_state = "shield-cult"
-				user.update_inv_wear_suit() // The only way a suit can be clicked on is if its on the floor, in the users bag, or on the user, so we will play it safe if it is on the user.
-			else
-				to_chat(user, "<span class='warning'>[target] is already at full charge!</span>")
-				return
-
 		// Veil Shifter
-		else if(istype(target, /obj/item/cult_shift))
+		if(istype(target, /obj/item/cult_shift))
 			var/obj/item/cult_shift/S = target
 			if(S.uses < 4)
 				uses--

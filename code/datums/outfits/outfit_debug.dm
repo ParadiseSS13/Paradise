@@ -26,9 +26,9 @@
 	toggle_helmet = TRUE
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/surgery/advanced,
+		/obj/item/organ/internal/cyberimp/arm/surgery/debug,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
-		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced
+		/obj/item/organ/internal/cyberimp/arm/janitorial/debug
 	)
 
 
@@ -97,7 +97,7 @@
 	prescription_upgradable = FALSE
 
 	hud_types = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED, DATA_HUD_HYDROPONIC)
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL, EXAMINE_HUD_SKILLS)
+	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE, EXAMINE_HUD_SKILLS)
 
 	var/xray = FALSE
 
@@ -144,19 +144,33 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	var/datum/species/selected_species
-	var/valid_species = list()
+	var/activate_mind = FALSE
+
+/obj/item/debug/human_spawner/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'><b>Alt-Click</b> to toggle mind-activation on spawning.</span>"
 
 /obj/item/debug/human_spawner/afterattack(atom/target, mob/user, proximity)
 	..()
-	if(isturf(target))
-		var/mob/living/carbon/human/H = new /mob/living/carbon/human(target)
-		if(selected_species)
-			H.setup_dna(selected_species.type)
+	if(!isturf(target))
+		return
+	var/mob/living/carbon/human/H = new /mob/living/carbon/human(target)
+	if(selected_species)
+		H.setup_dna(selected_species.type)
+	if(activate_mind)
+		H.mind_initialize()
 
 /obj/item/debug/human_spawner/attack_self(mob/user)
 	..()
 	var/choice = input("Select a species", "Human Spawner", null) in GLOB.all_species
 	selected_species = GLOB.all_species[choice]
+
+/obj/item/debug/human_spawner/AltClick(mob/user)
+	. = ..()
+	if(!Adjacent(user))
+		return
+	activate_mind = !activate_mind
+	to_chat(user, "<span class='notice'>Any humans spawned will [activate_mind ? "" : "not "]spawn with an initialized mind.</span>")
 
 /obj/item/rcd/combat/admin
 	name = "AVD-CNED RCD"
@@ -185,7 +199,7 @@
 	to_chat(user, "[src] is now set to toolspeed [toolspeed]")
 	playsound(src, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
 
-/obj/item/organ/internal/cyberimp/arm/surgery/advanced
+/obj/item/organ/internal/cyberimp/arm/surgery/debug
 	name = "AVD-CNED surgical toolset implant"
 	contents = newlist(
 		/obj/item/scalpel/laser/manager/debug,
@@ -197,7 +211,7 @@
 		/obj/item/bodyanalyzer/debug
 	)
 
-/obj/item/organ/internal/cyberimp/arm/janitorial/advanced
+/obj/item/organ/internal/cyberimp/arm/janitorial/debug
 	name = "AVD-CNED janitorial toolset implant... is that a... tazer?"
 	desc = "A set of advanced janitorial tools hidden behind a concealed panel on the user's arm with a tazer? What the fuck."
 	parent_organ = "l_arm" // left arm by default cuz im lazy
@@ -299,7 +313,7 @@
 // put cool admin-only shit here :)
 /obj/item/storage/box/debug/misc_debug/populate_contents()
 	new /obj/item/badminBook(src)
-	new /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka(src)
+	new /obj/item/reagent_containers/drinks/bottle/vodka/badminka(src)
 	new /obj/item/crowbar/power(src) // >admin only lol
 	new /obj/item/clothing/gloves/fingerless/rapid/admin(src)
 	new /obj/item/clothing/under/misc/acj(src)

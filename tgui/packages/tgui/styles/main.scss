@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 @use 'sass:meta';
 @use './base.scss';
 
@@ -8,10 +13,7 @@
 @include meta.load-css('./atomic/candystripe.scss');
 @include meta.load-css('./atomic/color.scss');
 @include meta.load-css('./atomic/debug-layout.scss');
-@include meta.load-css('./atomic/display.scss');
-@include meta.load-css('./atomic/margin.scss');
 @include meta.load-css('./atomic/outline.scss');
-@include meta.load-css('./atomic/position.scss');
 @include meta.load-css('./atomic/text.scss');
 
 // Components
@@ -22,8 +24,8 @@
 @include meta.load-css('./components/Dimmer.scss');
 @include meta.load-css('./components/Divider.scss');
 @include meta.load-css('./components/Dropdown.scss');
-@include meta.load-css('./components/FatalError.scss');
 @include meta.load-css('./components/Flex.scss');
+@include meta.load-css('./components/Icon.scss');
 @include meta.load-css('./components/Input.scss');
 @include meta.load-css('./components/Knob.scss');
 @include meta.load-css('./components/LabeledList.scss');
@@ -32,10 +34,13 @@
 @include meta.load-css('./components/NoticeBox.scss');
 @include meta.load-css('./components/NumberInput.scss');
 @include meta.load-css('./components/ProgressBar.scss');
+@include meta.load-css('./components/RoundGauge.scss');
 @include meta.load-css('./components/Section.scss');
 @include meta.load-css('./components/Slider.scss');
+@include meta.load-css('./components/Stack.scss');
 @include meta.load-css('./components/Table.scss');
 @include meta.load-css('./components/Tabs.scss');
+@include meta.load-css('./components/TextArea.scss');
 @include meta.load-css('./components/Tooltip.scss');
 
 // Interfaces
@@ -46,6 +51,7 @@
 @include meta.load-css('./interfaces/ExosuitFabricator.scss');
 @include meta.load-css('./interfaces/KitchenMachine.scss');
 @include meta.load-css('./interfaces/LibraryComputer.scss');
+@include meta.load-css('./interfaces/ListInput.scss');
 @include meta.load-css('./interfaces/Newscaster.scss');
 @include meta.load-css('./interfaces/NuclearBomb.scss');
 @include meta.load-css('./interfaces/OreRedemption.scss');
@@ -66,7 +72,8 @@
 
 // NT Theme
 .Layout__content {
-  background-image: url('../assets/bg-nanotrasen.svg');
+  // From 'packages/tgui/assets/bg-nanotrasen.svg', converted to base64 manually to stop webpack exploding
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+DQo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4wIiB2aWV3Qm94PSIwIDAgNDI1IDIwMCIgb3BhY2l0eT0iLjMzIj4NCiAgPHBhdGggZD0ibSAxNzguMDAzOTksMC4wMzg2OSAtNzEuMjAzOTMsMCBhIDYuNzYxMzQyMiw2LjAyNTU0OTUgMCAwIDAgLTYuNzYxMzQsNi4wMjU1NSBsIDAsMTg3Ljg3MTQ3IGEgNi43NjEzNDIyLDYuMDI1NTQ5NSAwIDAgMCA2Ljc2MTM0LDYuMDI1NTQgbCA1My4xMDcyLDAgYSA2Ljc2MTM0MjIsNi4wMjU1NDk1IDAgMCAwIDYuNzYxMzUsLTYuMDI1NTQgbCAwLC0xMDEuNTQ0MDE4IDcyLjIxNjI4LDEwNC42OTkzOTggYSA2Ljc2MTM0MjIsNi4wMjU1NDk1IDAgMCAwIDUuNzYwMTUsMi44NzAxNiBsIDczLjU1NDg3LDAgYSA2Ljc2MTM0MjIsNi4wMjU1NDk1IDAgMCAwIDYuNzYxMzUsLTYuMDI1NTQgbCAwLC0xODcuODcxNDcgYSA2Ljc2MTM0MjIsNi4wMjU1NDk1IDAgMCAwIC02Ljc2MTM1LC02LjAyNTU1IGwgLTU0LjcxNjQ0LDAgYSA2Ljc2MTM0MjIsNi4wMjU1NDk1IDAgMCAwIC02Ljc2MTMzLDYuMDI1NTUgbCAwLDEwMi42MTkzNSBMIDE4My43NjQxMywyLjkwODg2IGEgNi43NjEzNDIyLDYuMDI1NTQ5NSAwIDAgMCAtNS43NjAxNCwtMi44NzAxNyB6IiAvPg0KICA8cGF0aCBkPSJNIDQuODQ0NjMzMywyMi4xMDg3NSBBIDEzLjQxMjAzOSwxMi41MDE4NDIgMCAwIDEgMTMuNDc3NTg4LDAuMDM5MjQgbCA2Ni4xMTgzMTUsMCBhIDUuMzY0ODE1OCw1LjAwMDczNyAwIDAgMSA1LjM2NDgyMyw1LjAwMDczIGwgMCw3OS44NzkzMSB6IiAvPg0KICA8cGF0aCBkPSJtIDQyMC4xNTUzNSwxNzcuODkxMTkgYSAxMy40MTIwMzgsMTIuNTAxODQyIDAgMCAxIC04LjYzMjk1LDIyLjA2OTUxIGwgLTY2LjExODMyLDAgYSA1LjM2NDgxNTIsNS4wMDA3MzcgMCAwIDEgLTUuMzY0ODIsLTUuMDAwNzQgbCAwLC03OS44NzkzMSB6IiAvPg0KPC9zdmc+DQo8IS0tIFRoaXMgd29yayBpcyBsaWNlbnNlZCB1bmRlciBhIENyZWF0aXZlIENvbW1vbnMgQXR0cmlidXRpb24tU2hhcmVBbGlrZSA0LjAgSW50ZXJuYXRpb25hbCBMaWNlbnNlLiAtLT4NCjwhLS0gaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbGljZW5zZXMvYnktc2EvNC4wLyAtLT4NCg==');
   background-size: 70%;
   background-position: center;
   background-repeat: no-repeat;

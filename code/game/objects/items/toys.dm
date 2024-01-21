@@ -68,7 +68,7 @@
 	return
 
 /obj/item/toy/balloon/attackby(obj/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/reagent_containers/glass) || istype(O, /obj/item/reagent_containers/food/drinks/drinkingglass))
+	if(istype(O, /obj/item/reagent_containers/glass) || istype(O, /obj/item/reagent_containers/drinks/drinkingglass))
 		if(O.reagents)
 			if(O.reagents.total_volume < 1)
 				to_chat(user, "[O] is empty.")
@@ -176,6 +176,7 @@
 /obj/item/toy/sword
 	name = "toy sword"
 	desc = "A cheap, plastic replica of an energy sword. Realistic sounds! Ages 8 and up."
+	icon = 'icons/obj/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "sword0"
@@ -780,8 +781,8 @@
 	item_state = "plushie_ipc"
 
 /obj/item/toy/plushie/ipcplushie/attackby(obj/item/B, mob/user, params)
-	if(istype(B, /obj/item/reagent_containers/food/snacks/breadslice))
-		new /obj/item/reagent_containers/food/snacks/toast(get_turf(loc))
+	if(istype(B, /obj/item/food/snacks/breadslice))
+		new /obj/item/food/snacks/toast(get_turf(loc))
 		to_chat(user, "<span class='notice'> You insert bread into the toaster. </span>")
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 		qdel(B)
@@ -1033,22 +1034,8 @@
 	name = "Lich Miniature"
 	desc = "Murderboner extraordinaire."
 	icon_state = "lichcharacter"
-/obj/item/storage/box/characters
-	name = "Box of Miniatures"
-	desc = "The nerd's best friends."
-	icon_state = "box"
-/obj/item/storage/box/characters/populate_contents()
-	new /obj/item/toy/character/alien(src)
-	new /obj/item/toy/character/cleric(src)
-	new /obj/item/toy/character/warrior(src)
-	new /obj/item/toy/character/thief(src)
-	new /obj/item/toy/character/wizard(src)
-	new /obj/item/toy/character/cthulhu(src)
-	new /obj/item/toy/character/lich(src)
 
-
-//Pet Rocks, just like from the 70's!
-
+// Pet Rocks, just like from the 70's!
 /obj/item/toy/pet_rock
 	name = "pet rock"
 	desc = "The perfect pet!"
@@ -1070,8 +1057,7 @@
 	desc = "Roxie, the bestest girl pet in the whole wide universe!"
 	icon_state = "roxie"
 
-//minigibber, so cute
-
+// Minigibber, so cute
 /obj/item/toy/minigibber
 	name = "miniature gibber"
 	desc = "A miniature recreation of Nanotrasen's famous meat grinder."

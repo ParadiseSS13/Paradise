@@ -40,13 +40,13 @@
 		return
 
 	// Its custom, lets ask
-	var/question = html_encode(input(usr, "What is the vote for?") as text|null)
+	var/question = input(usr, "What is the vote for?") as text|null
 	if(!question)
 		return
 
 	var/list/choices = list()
 	for(var/i in 1 to 10)
-		var/option = capitalize(html_encode(input(usr, "Please enter an option or hit cancel to finish") as text|null))
+		var/option = capitalize(input(usr, "Please enter an option or hit cancel to finish") as text|null)
 		if(!option || !usr.client)
 			break
 		choices |= option

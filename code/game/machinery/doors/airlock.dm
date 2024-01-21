@@ -664,10 +664,13 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/attack_ai(mob/user)
 	ui_interact(user)
 
-/obj/machinery/door/airlock/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/door/airlock/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/door/airlock/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AiAirlock", name, 600, 400, master_ui, state)
+		ui = new(user, src, "AiAirlock", name)
 		ui.open()
 
 
@@ -765,6 +768,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		var/mob/living/living_mover = mover
 		if((istype(living_mover) && HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))) // We really dont want people to get shocked on a door they're passing through
 			if(density && !do_mob(living_mover, living_mover, 2 SECONDS, requires_upright = FALSE))
+				return FALSE
+			if(!IS_HORIZONTAL(living_mover) || locked) // Checking if the user has gotten up or the airlock was bolted after we tried to crawl underneath
 				return FALSE
 			living_mover.forceMove(get_turf(src))
 			return TRUE
@@ -1489,7 +1494,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		safe = TRUE
 
 /obj/machinery/door/airlock/obj_break(damage_flag)
-	if(!(flags & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
 		stat |= BROKEN
 		if(!panel_open)
 			panel_open = TRUE

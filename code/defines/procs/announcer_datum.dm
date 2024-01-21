@@ -62,6 +62,12 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 
 	Message(formatted_message, garbled_formatted_message, receivers, garbled_receivers)
 
+	var/datum/feed_message/FM = new
+	FM.author = author ? author : "Automated Announcement System"
+	FM.title = subtitle ? "[title]: [subtitle]" : "[title]"
+	FM.body = message
+	GLOB.news_network.get_channel_by_name("Station Announcements Log")?.add_message(FM)
+
 	Sound(message_sound, combined_receivers[1] + combined_receivers[2])
 	if(message_sound2)
 		Sound(message_sound2, combined_receivers[1] + combined_receivers[2])
