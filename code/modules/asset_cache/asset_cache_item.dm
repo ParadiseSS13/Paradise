@@ -51,4 +51,4 @@
  * Admins should not be deleting asset cache items through VV
  */
 /datum/asset_cache_item/can_vv_delete()
-	.return FALSE
+	return FALSE
