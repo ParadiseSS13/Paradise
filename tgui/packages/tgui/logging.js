@@ -1,5 +1,10 @@
-import { sendLogEntry } from 'tgui-dev-server/link/client';
-import { callByond } from './byond';
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
+import { sendLogEntry } from 'tgui-dev-server/link/client.cjs';
 
 const LEVEL_DEBUG = 0;
 const LEVEL_LOG = 1;
@@ -29,10 +34,9 @@ const log = (level, ns, ...args) => {
         .join(' ') +
       '\nUser Agent: ' +
       navigator.userAgent;
-    callByond('', {
-      src: window.__ref__,
-      action: 'tgui:log',
-      log: logEntry,
+    Byond.sendMessage({
+      type: 'log',
+      message: logEntry,
     });
   }
 };

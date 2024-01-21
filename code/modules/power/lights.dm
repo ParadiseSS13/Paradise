@@ -470,6 +470,20 @@
 		LR.ReplaceLight(src, user)
 		return
 
+	// Attack with Spray Can! Coloring time.
+	if(istype(W, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/spraycan = W
+
+		// quick check to disable capped spraypainting, aesthetic reasons
+		if(spraycan.capped)
+			to_chat(user, "<span class='notice'>You can't spraypaint [src] with the cap still on!</span>")
+			return
+		color = spraycan.colour
+		to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
+		brightness_color = spraycan.colour
+		update(TRUE, TRUE, FALSE)
+		return
+
 	// attempt to insert light
 	if(istype(W, /obj/item/light))
 		if(status != LIGHT_EMPTY)

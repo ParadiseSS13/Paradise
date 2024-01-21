@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   Button,
@@ -7,7 +6,7 @@ import {
   Section,
   Collapsible,
   Input,
-  Flex,
+  Stack,
   Dropdown,
 } from '../components';
 import { Window } from '../layouts';
@@ -19,7 +18,13 @@ const PickWindow = (index) => {
     case 2:
       return <StatusScreens />;
     case 3:
-      return <MessageView />;
+      return (
+        <Stack.Item grow>
+          <Section fill>
+            <MessageView />
+          </Section>
+        </Stack.Item>
+      );
     case 4:
       return <AdminAnnouncePage />;
     default:
@@ -33,10 +38,12 @@ export const CommunicationsComputer = (props, context) => {
   const { menu_state } = data;
 
   return (
-    <Window resizable>
+    <Window width={500} height={600}>
       <Window.Content scrollable>
-        <AuthBlock />
-        {PickWindow(menu_state)}
+        <Stack fill vertical>
+          <AuthBlock />
+          {PickWindow(menu_state)}
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -75,61 +82,65 @@ const AuthBlock = (props, context) => {
   }
 
   return (
-    <Fragment>
-      <Section title="Authentication">
-        <LabeledList>
-          {(hideLogButton && (
-            <LabeledList.Item label="Access">{authReadable}</LabeledList.Item>
-          )) || (
-            <LabeledList.Item label="Actions">
-              <Button
-                icon={authenticated ? 'sign-out-alt' : 'id-card'}
-                selected={authenticated}
-                disabled={noauthbutton}
-                content={
-                  authenticated ? 'Log Out (' + authReadable + ')' : 'Log In'
-                }
-                onClick={() => act('auth')}
-              />
-            </LabeledList.Item>
-          )}
-        </LabeledList>
-      </Section>
-      {!!esc_section && (
-        <Section title="Escape Shuttle">
+    <>
+      <Stack.Item>
+        <Section title="Authentication">
           <LabeledList>
-            {!!esc_status && (
-              <LabeledList.Item label="Status">{esc_status}</LabeledList.Item>
-            )}
-            {!!esc_callable && (
-              <LabeledList.Item label="Options">
+            {(hideLogButton && (
+              <LabeledList.Item label="Access">{authReadable}</LabeledList.Item>
+            )) || (
+              <LabeledList.Item label="Actions">
                 <Button
-                  icon="rocket"
-                  content="Call Shuttle"
-                  disabled={!authhead}
-                  onClick={() => act('callshuttle')}
+                  icon={authenticated ? 'sign-out-alt' : 'id-card'}
+                  selected={authenticated}
+                  disabled={noauthbutton}
+                  content={
+                    authenticated ? 'Log Out (' + authReadable + ')' : 'Log In'
+                  }
+                  onClick={() => act('auth')}
                 />
-              </LabeledList.Item>
-            )}
-            {!!esc_recallable && (
-              <LabeledList.Item label="Options">
-                <Button
-                  icon="times"
-                  content="Recall Shuttle"
-                  disabled={!authhead || is_ai}
-                  onClick={() => act('cancelshuttle')}
-                />
-              </LabeledList.Item>
-            )}
-            {!!lastCallLoc && (
-              <LabeledList.Item label="Last Call/Recall From">
-                {lastCallLoc}
               </LabeledList.Item>
             )}
           </LabeledList>
         </Section>
-      )}
-    </Fragment>
+      </Stack.Item>
+      <Stack.Item>
+        {!!esc_section && (
+          <Section fill title="Escape Shuttle">
+            <LabeledList>
+              {!!esc_status && (
+                <LabeledList.Item label="Status">{esc_status}</LabeledList.Item>
+              )}
+              {!!esc_callable && (
+                <LabeledList.Item label="Options">
+                  <Button
+                    icon="rocket"
+                    content="Call Shuttle"
+                    disabled={!authhead}
+                    onClick={() => act('callshuttle')}
+                  />
+                </LabeledList.Item>
+              )}
+              {!!esc_recallable && (
+                <LabeledList.Item label="Options">
+                  <Button
+                    icon="times"
+                    content="Recall Shuttle"
+                    disabled={!authhead || is_ai}
+                    onClick={() => act('cancelshuttle')}
+                  />
+                </LabeledList.Item>
+              )}
+              {!!lastCallLoc && (
+                <LabeledList.Item label="Last Call/Recall From">
+                  {lastCallLoc}
+                </LabeledList.Item>
+              )}
+            </LabeledList>
+          </Section>
+        )}
+      </Stack.Item>
+    </>
   );
 };
 
@@ -155,7 +166,7 @@ const AdminPage = (props, context) => {
   } = data;
 
   return (
-    <Fragment>
+    <Stack.Item>
       <Section title="CentComm Actions">
         <LabeledList>
           <LabeledList.Item label="Change Alert">
@@ -242,7 +253,7 @@ const AdminPage = (props, context) => {
       <Collapsible title="View Command accessible controls">
         <PlayerPage />
       </Collapsible>
-    </Fragment>
+    </Stack.Item>
   );
 };
 
@@ -274,91 +285,98 @@ const PlayerPage = (props, context) => {
   }
 
   return (
-    <Fragment>
-      <Section title="Captain-Only Actions">
-        <LabeledList>
-          <LabeledList.Item label="Current Alert" color={security_level_color}>
-            {str_security_level}
-          </LabeledList.Item>
-          <LabeledList.Item label="Change Alert">
-            <MappedAlertLevelButtons
-              levels={levels}
-              required_access={authcapt}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Announcement">
-            <Button
-              icon="bullhorn"
-              content={announceText}
-              disabled={!authcapt || msg_cooldown > 0}
-              onClick={() => act('announce')}
-            />
-          </LabeledList.Item>
-          {(!!emagged && (
-            <LabeledList.Item label="Transmit">
-              <Button
-                icon="broadcast-tower"
-                color="red"
-                content={ccMessageText}
-                disabled={!authcapt || cc_cooldown > 0}
-                onClick={() => act('MessageSyndicate')}
+    <>
+      <Stack.Item grow>
+        <Section fill title="Captain-Only Actions">
+          <LabeledList>
+            <LabeledList.Item
+              label="Current Alert"
+              color={security_level_color}
+            >
+              {str_security_level}
+            </LabeledList.Item>
+            <LabeledList.Item label="Change Alert">
+              <MappedAlertLevelButtons
+                levels={levels}
+                required_access={authcapt}
               />
+            </LabeledList.Item>
+            <LabeledList.Item label="Announcement">
+              <Button
+                icon="bullhorn"
+                content={announceText}
+                disabled={!authcapt || msg_cooldown > 0}
+                onClick={() => act('announce')}
+              />
+            </LabeledList.Item>
+            {(!!emagged && (
+              <LabeledList.Item label="Transmit">
+                <Button
+                  icon="broadcast-tower"
+                  color="red"
+                  content={ccMessageText}
+                  disabled={!authcapt || cc_cooldown > 0}
+                  onClick={() => act('MessageSyndicate')}
+                />
+                <Button
+                  icon="sync-alt"
+                  content="Reset Relays"
+                  disabled={!authcapt}
+                  onClick={() => act('RestoreBackup')}
+                />
+              </LabeledList.Item>
+            )) || (
+              <LabeledList.Item label="Transmit">
+                <Button
+                  icon="broadcast-tower"
+                  content={ccMessageText}
+                  disabled={!authcapt || cc_cooldown > 0}
+                  onClick={() => act('MessageCentcomm')}
+                />
+              </LabeledList.Item>
+            )}
+            <LabeledList.Item label="Nuclear Device">
+              <Button
+                icon="bomb"
+                content={nukeRequestText}
+                disabled={!authcapt || cc_cooldown > 0}
+                onClick={() => act('nukerequest')}
+              />
+            </LabeledList.Item>
+          </LabeledList>
+        </Section>
+      </Stack.Item>
+      <Stack.Item>
+        <Section fill title="Command Staff Actions">
+          <LabeledList>
+            <LabeledList.Item label="Displays">
+              <Button
+                icon="tv"
+                content="Change Status Displays"
+                disabled={!authhead}
+                onClick={() => act('status')}
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Incoming Messages">
+              <Button
+                icon="folder-open"
+                content={'View (' + messages.length + ')'}
+                disabled={!authhead}
+                onClick={() => act('messagelist')}
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Misc">
               <Button
                 icon="sync-alt"
-                content="Reset Relays"
-                disabled={!authcapt}
-                onClick={() => act('RestoreBackup')}
+                content="Restart Nano-Mob Hunter GO! Server"
+                disabled={!authhead}
+                onClick={() => act('RestartNanoMob')}
               />
             </LabeledList.Item>
-          )) || (
-            <LabeledList.Item label="Transmit">
-              <Button
-                icon="broadcast-tower"
-                content={ccMessageText}
-                disabled={!authcapt || cc_cooldown > 0}
-                onClick={() => act('MessageCentcomm')}
-              />
-            </LabeledList.Item>
-          )}
-          <LabeledList.Item label="Nuclear Device">
-            <Button
-              icon="bomb"
-              content={nukeRequestText}
-              disabled={!authcapt || cc_cooldown > 0}
-              onClick={() => act('nukerequest')}
-            />
-          </LabeledList.Item>
-        </LabeledList>
-      </Section>
-      <Section title="Command Staff Actions">
-        <LabeledList>
-          <LabeledList.Item label="Displays">
-            <Button
-              icon="tv"
-              content="Change Status Displays"
-              disabled={!authhead}
-              onClick={() => act('status')}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Incoming Messages">
-            <Button
-              icon="folder-open"
-              content={'View (' + messages.length + ')'}
-              disabled={!authhead}
-              onClick={() => act('messagelist')}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Misc">
-            <Button
-              icon="sync-alt"
-              content="Restart Nano-Mob Hunter GO! Server"
-              disabled={!authhead}
-              onClick={() => act('RestartNanoMob')}
-            />
-          </LabeledList.Item>
-        </LabeledList>
-      </Section>
-    </Fragment>
+          </LabeledList>
+        </Section>
+      </Stack.Item>
+    </>
   );
 };
 
@@ -391,37 +409,40 @@ const StatusScreens = (props, context) => {
   });
 
   return (
-    <Section
-      title="Modify Status Screens"
-      buttons={
-        <Button
-          icon="arrow-circle-left"
-          content="Back To Main Menu"
-          onClick={() => act('main')}
-        />
-      }
-    >
-      <LabeledList>
-        <LabeledList.Item label="Presets">{presetButtons}</LabeledList.Item>
-        <LabeledList.Item label="Alerts">{iconButtons}</LabeledList.Item>
-        <LabeledList.Item label="Message Line 1">
+    <Stack.Item grow>
+      <Section
+        fill
+        title="Modify Status Screens"
+        buttons={
           <Button
-            icon="pencil-alt"
-            content={stat_display.line_1}
-            disabled={!authhead}
-            onClick={() => act('setmsg1')}
+            icon="arrow-circle-left"
+            content="Back To Main Menu"
+            onClick={() => act('main')}
           />
-        </LabeledList.Item>
-        <LabeledList.Item label="Message Line 2">
-          <Button
-            icon="pencil-alt"
-            content={stat_display.line_2}
-            disabled={!authhead}
-            onClick={() => act('setmsg2')}
-          />
-        </LabeledList.Item>
-      </LabeledList>
-    </Section>
+        }
+      >
+        <LabeledList>
+          <LabeledList.Item label="Presets">{presetButtons}</LabeledList.Item>
+          <LabeledList.Item label="Alerts">{iconButtons}</LabeledList.Item>
+          <LabeledList.Item label="Message Line 1">
+            <Button
+              icon="pencil-alt"
+              content={stat_display.line_1}
+              disabled={!authhead}
+              onClick={() => act('setmsg1')}
+            />
+          </LabeledList.Item>
+          <LabeledList.Item label="Message Line 2">
+            <Button
+              icon="pencil-alt"
+              content={stat_display.line_2}
+              disabled={!authhead}
+              onClick={() => act('setmsg2')}
+            />
+          </LabeledList.Item>
+        </LabeledList>
+      </Section>
+    </Stack.Item>
   );
 };
 
@@ -439,19 +460,21 @@ const MessageView = (props, context) => {
   let messageView;
   if (current_message_title) {
     messageView = (
-      <Section
-        title={current_message_title}
-        buttons={
-          <Button
-            icon="times"
-            content="Return To Message List"
-            disabled={!authhead}
-            onClick={() => act('messagelist')}
-          />
-        }
-      >
-        <Box>{current_message}</Box>
-      </Section>
+      <Stack.Item>
+        <Section
+          title={current_message_title}
+          buttons={
+            <Button
+              icon="times"
+              content="Return To Message List"
+              disabled={!authhead}
+              onClick={() => act('messagelist')}
+            />
+          }
+        >
+          <Box>{current_message}</Box>
+        </Section>
+      </Stack.Item>
     );
   } else {
     let messageRows = messages.map((m) => {
@@ -540,81 +563,83 @@ const AdminAnnouncePage = (props, context) => {
   const [beepsound, setBeepsound] = useLocalState(context, 'beepsound', 'Beep');
 
   return (
-    <Section
-      title="Central Command Report"
-      buttons={
-        <Button
-          icon="arrow-circle-left"
-          content="Back To Main Menu"
-          onClick={() => act('main')}
-        />
-      }
-    >
-      <Input
-        placeholder="Enter Subtitle here."
-        fluid
-        value={subtitle}
-        onChange={(e, value) => setSubtitle(value)}
-        mb="5px"
-      />
-      <Input
-        placeholder="Enter Announcement here,\nMultiline input is accepted."
-        rows={10}
-        fluid
-        multiline={1}
-        value={text}
-        onChange={(e, value) => setText(value)}
-      />
-      <Button.Confirm
-        content="Send Announcement"
-        fluid
-        icon="paper-plane"
-        center
-        mt="5px"
-        textAlign="center"
-        onClick={() =>
-          act('make_cc_announcement', {
-            subtitle: subtitle,
-            text: text,
-            classified: classified,
-            beepsound: beepsound,
-          })
-        }
-      />
-      <Flex mt="5px">
-        <Flex.Item>
-          <Dropdown
-            width="260px"
-            height="20px"
-            options={possible_cc_sounds}
-            selected={beepsound}
-            onSelected={(val) => setBeepsound(val)}
-            disabled={classified}
-          />
-        </Flex.Item>
-        <Flex.Item>
+    <Stack.Item>
+      <Section
+        title="Central Command Report"
+        buttons={
           <Button
-            icon="volume-up"
-            mx="5px"
-            disabled={classified}
-            tooltip="Test sound"
-            onClick={() => act('test_sound', { sound: beepsound })}
+            icon="arrow-circle-left"
+            content="Back To Main Menu"
+            onClick={() => act('main')}
           />
-        </Flex.Item>
-        <Flex.Item>
-          <Button.Checkbox
-            checked={classified}
-            content="Classified"
-            fluid
-            tooltip={
-              classified
-                ? 'Sent to station communications consoles'
-                : 'Publically announced'
-            }
-            onClick={() => setClassified(!classified)}
-          />
-        </Flex.Item>
-      </Flex>
-    </Section>
+        }
+      >
+        <Input
+          placeholder="Enter Subtitle here."
+          fluid
+          value={subtitle}
+          onChange={(e, value) => setSubtitle(value)}
+          mb="5px"
+        />
+        <Input
+          placeholder="Enter Announcement here,\nMultiline input is accepted."
+          rows={10}
+          fluid
+          multiline={1}
+          value={text}
+          onChange={(e, value) => setText(value)}
+        />
+        <Button.Confirm
+          content="Send Announcement"
+          fluid
+          icon="paper-plane"
+          center
+          mt="5px"
+          textAlign="center"
+          onClick={() =>
+            act('make_cc_announcement', {
+              subtitle: subtitle,
+              text: text,
+              classified: classified,
+              beepsound: beepsound,
+            })
+          }
+        />
+        <Stack>
+          <Stack.Item>
+            <Dropdown
+              width="260px"
+              height="20px"
+              options={possible_cc_sounds}
+              selected={beepsound}
+              onSelected={(val) => setBeepsound(val)}
+              disabled={classified}
+            />
+          </Stack.Item>
+          <Stack.Item>
+            <Button
+              icon="volume-up"
+              mx="5px"
+              disabled={classified}
+              tooltip="Test sound"
+              onClick={() => act('test_sound', { sound: beepsound })}
+            />
+          </Stack.Item>
+          <Stack.Item>
+            <Button.Checkbox
+              checked={classified}
+              content="Classified"
+              fluid
+              tooltip={
+                classified
+                  ? 'Sent to station communications consoles'
+                  : 'Publically announced'
+              }
+              onClick={() => setClassified(!classified)}
+            />
+          </Stack.Item>
+        </Stack>
+      </Section>
+    </Stack.Item>
   );
 };

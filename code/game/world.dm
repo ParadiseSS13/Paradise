@@ -155,15 +155,12 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		to_chat(world, "<span class='notice'>Stats for this round can be viewed at <a href=\"[stats_link]\">[stats_link]</a></span>")
 
 	// If the server has been gracefully shutdown in TGS, have a 60 seconds grace period for SQL updates and stuff
-	var/secs_before_auto_reconnect = 10
 	if(GLOB.slower_restart)
-		secs_before_auto_reconnect = 60
 		server_announce_global("Reboot will take a little longer due to pending backend changes.")
-
 
 	// Send the reboot banner to all players
 	for(var/client/C in GLOB.clients)
-		C << output(list2params(list(secs_before_auto_reconnect)), "browseroutput:reboot")
+		C?.tgui_panel?.send_roundrestart()
 		if(C.prefs.server_region)
 			// Keep them on the same relay
 			C << link(GLOB.configuration.system.region_map[C.prefs.server_region])
