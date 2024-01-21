@@ -838,7 +838,6 @@
 		to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")
 		to_chat(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
 		to_chat(user, "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>")
-		to_chat(user, "")
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)

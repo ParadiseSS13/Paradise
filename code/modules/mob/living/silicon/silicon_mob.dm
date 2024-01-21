@@ -327,7 +327,7 @@
 
 // this function displays the stations manifest in a separate window
 /mob/living/silicon/proc/show_station_manifest()
-	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.not_incapacitated_state)
+	GLOB.generic_crew_manifest.ui_interact(usr)
 
 /mob/living/silicon/assess_threat() //Secbots won't hunt silicon units
 	return -10

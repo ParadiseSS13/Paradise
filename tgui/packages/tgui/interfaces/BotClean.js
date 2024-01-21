@@ -1,6 +1,5 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Button, LabeledList, NoticeBox, Section, Box } from '../components';
+import { Button, Section } from '../components';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 
@@ -19,7 +18,7 @@ export const BotClean = (props, context) => {
     cleanblood,
   } = data;
   return (
-    <Window>
+    <Window width={500} height={310}>
       <Window.Content scrollable>
         <BotStatus />
         <Section title="Cleaning Settings">
