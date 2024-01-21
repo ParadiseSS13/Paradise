@@ -303,7 +303,7 @@
 
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
 	walk_to(src, 0)
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	visible_message("<span class='boldannounceic'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/bikehorn(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)

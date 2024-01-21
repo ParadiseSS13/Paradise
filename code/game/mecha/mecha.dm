@@ -950,7 +950,7 @@
 				to_chat(user, "<span class='warning'>No AI detected in the [name] onboard computer.</span>")
 				return
 			if(AI.mind.special_role) //Malf AIs cannot leave mechs. Except through death.
-				to_chat(user, "<span class='boldannounce'>ACCESS DENIED.</span>")
+				to_chat(user, "<span class='boldannounceic'>ACCESS DENIED.</span>")
 				return
 			AI.aiRestorePowerRoutine = 0//So the AI initially has power.
 			AI.control_disabled = TRUE

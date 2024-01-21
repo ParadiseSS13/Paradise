@@ -73,7 +73,7 @@ REAGENT SCANNER
 			if(H.reagents.reagent_list.len)
 				msgs += "<span class='boldnotice'>Subject contains the following reagents:</span>"
 				for(var/datum/reagent/R in H.reagents.reagent_list)
-					msgs += "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - <span class = 'boldannounce'>OVERDOSING</span>" : ".</span>"]"
+					msgs += "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - <span class = 'boldannounceic'>OVERDOSING</span>" : ".</span>"]"
 			else
 				msgs += "<span class='notice'>Subject contains no reagents.</span>"
 			if(H.reagents.addiction_list.len)

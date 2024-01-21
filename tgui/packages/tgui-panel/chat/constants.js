@@ -44,7 +44,7 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_SYSTEM,
     name: 'System Messages',
     description: 'Messages from your client, always enabled',
-    selector: '.boldannounce',
+    selector: '.boldannounceooc',
     important: true,
   },
   // Basic types
@@ -71,7 +71,8 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_WARNING,
     name: 'Warnings',
     description: 'Urgent messages from the game and items',
-    selector: '.warning:not(.pm), .critical, .userdanger, .italics',
+    selector:
+      '.warning:not(.pm), .critical, .userdanger, .italics, .boldannounceic, .boldwarning',
   },
   {
     type: MESSAGE_TYPE_DEADCHAT,
@@ -134,6 +135,7 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_DEBUG,
     name: 'Debug Log',
     description: 'DEBUG: SSPlanets subsystem Recover().',
+    selector: '.pr_announce, .debug',
     admin: true,
   },
 ];
