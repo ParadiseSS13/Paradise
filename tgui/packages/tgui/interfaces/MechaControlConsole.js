@@ -1,5 +1,4 @@
 import { round } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -21,7 +20,7 @@ export const MechaControlConsole = (props, context) => {
 
   if (stored_data.length) {
     return (
-      <Window resizable>
+      <Window width={420} height={500}>
         <Window.Content scrollable>
           <Section
             title="Log"
@@ -41,7 +40,7 @@ export const MechaControlConsole = (props, context) => {
     );
   }
   return (
-    <Window resizable>
+    <Window width={420} height={500}>
       <Window.Content scrollable>
         {(beacons.length &&
           beacons.map((beacon) => (
@@ -49,7 +48,7 @@ export const MechaControlConsole = (props, context) => {
               key={beacon.name}
               title={beacon.name}
               buttons={
-                <Fragment>
+                <>
                   <Button
                     icon="comment"
                     onClick={() => act('send_message', { mt: beacon.uid })}
@@ -68,7 +67,7 @@ export const MechaControlConsole = (props, context) => {
                     icon="bomb"
                     onClick={() => act('shock', { mt: beacon.uid })}
                   />
-                </Fragment>
+                </>
               }
             >
               <LabeledList>

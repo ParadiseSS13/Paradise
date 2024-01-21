@@ -48,9 +48,15 @@
 
 /obj/item/storage/box/survival/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/tank/internals/emergency_oxygen/engi(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+		new /obj/item/flashlight/flare(src)
+	else
+		new /obj/item/tank/internals/emergency_oxygen(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+		new /obj/item/flashlight/flare/glowstick/emergency(src)
+
 
 /obj/item/storage/box/survival_vox
 	icon_state = "vox_box"
@@ -58,8 +64,12 @@
 /obj/item/storage/box/survival_vox/populate_contents()
 	new /obj/item/clothing/mask/breath/vox(src)
 	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+		new /obj/item/flashlight/flare(src)
+	else
+		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_plasmaman
 	icon_state = "plasma_box"
@@ -67,26 +77,40 @@
 /obj/item/storage/box/survival_plasmaman/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+		new /obj/item/flashlight/flare(src)
+	else
+		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/engineer
 	icon_state = "eng_box"
 
 /obj/item/storage/box/engineer/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/tank/internals/emergency_oxygen/double(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+		new /obj/item/flashlight/flare(src)
+	else
+		new /obj/item/tank/internals/emergency_oxygen/engi(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_mining
 	icon_state = "min_box"
 
 /obj/item/storage/box/survival_mining/populate_contents()
 	new /obj/item/clothing/mask/gas/explorer(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/tank/internals/emergency_oxygen/double(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+		new /obj/item/flashlight/flare(src)
+	else
+		new /obj/item/tank/internals/emergency_oxygen/engi(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_syndi
 	icon_state = "syndi_box"
@@ -278,7 +302,7 @@
 
 /obj/item/storage/box/cups/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/food/drinks/sillycup(src)
+		new /obj/item/reagent_containers/drinks/sillycup(src)
 
 /obj/item/storage/box/drinkingglasses
 	name = "box of drinking glasses"
@@ -286,7 +310,7 @@
 
 /obj/item/storage/box/drinkingglasses/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/drinks/drinkingglass(src)
+		new /obj/item/reagent_containers/drinks/drinkingglass(src)
 
 /obj/item/storage/box/condimentbottles
 	name = "box of condiment bottles"
@@ -294,7 +318,7 @@
 
 /obj/item/storage/box/condimentbottles/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/condiment(src)
+		new /obj/item/reagent_containers/condiment(src)
 
 /obj/item/storage/box/mousetraps
 	name = "box of Pest-B-Gon mousetraps"
@@ -400,9 +424,9 @@
 	desc = "A box intended for experienced chefs."
 
 /obj/item/storage/box/chef_rare_ingredients_kit/populate_contents()
-	new /obj/item/reagent_containers/food/condiment/soysauce(src)
-	new /obj/item/reagent_containers/food/condiment/enzyme(src)
-	new /obj/item/reagent_containers/food/condiment/pack/hotsauce(src)
+	new /obj/item/reagent_containers/condiment/soysauce(src)
+	new /obj/item/reagent_containers/condiment/enzyme(src)
+	new /obj/item/reagent_containers/condiment/pack/hotsauce(src)
 	new /obj/item/kitchen/knife/butcher(src)
 	var/list/reagent_list = list("msg", "triple_citrus", "salglu_solution", "nutriment", "gravy", "honey", "vitfro")
 	for(var/reag in reagent_list)
@@ -466,8 +490,8 @@
 	desc = "Drymate brand monkey cubes. Just add water!"
 	icon_state = "monkey_box"
 	storage_slots = 7
-	can_hold = list(/obj/item/reagent_containers/food/snacks/monkeycube)
-	var/monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
+	can_hold = list(/obj/item/food/snacks/monkeycube)
+	var/monkey_cube_type = /obj/item/food/snacks/monkeycube
 
 /obj/item/storage/box/monkeycubes/populate_contents()
 	for(var/I in 1 to 5)
@@ -475,31 +499,31 @@
 
 /obj/item/storage/box/monkeycubes/syndicate
 	desc = "Waffle Co. brand monkey cubes. Just add water and a dash of subterfuge!"
-	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/syndicate
+	monkey_cube_type = /obj/item/food/snacks/monkeycube/syndicate
 
 /obj/item/storage/box/monkeycubes/farwacubes
 	name = "farwa cube box"
 	desc = "Drymate brand farwa cubes. Just add water!"
 	icon_state = "farwa_box"
-	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
+	monkey_cube_type = /obj/item/food/snacks/monkeycube/farwacube
 
 /obj/item/storage/box/monkeycubes/stokcubes
 	name = "stok cube box"
 	desc = "Drymate brand stok cubes. Just add water!"
 	icon_state = "stok_box"
-	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
+	monkey_cube_type = /obj/item/food/snacks/monkeycube/stokcube
 
 /obj/item/storage/box/monkeycubes/neaeracubes
 	name = "neaera cube box"
 	desc = "Drymate brand neaera cubes. Just add water!"
 	icon_state = "neaera_box"
-	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/neaeracube
+	monkey_cube_type = /obj/item/food/snacks/monkeycube/neaeracube
 
 /obj/item/storage/box/monkeycubes/wolpincubes
 	name = "wolpin cube box"
 	desc = "Drymate brand wolpin cubes. Just add water!"
 	icon_state = "wolpin_box"
-	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
+	monkey_cube_type = /obj/item/food/snacks/monkeycube/wolpincube
 
 ///////////////////
 /* Medical Boxes */
@@ -840,14 +864,14 @@
 	icon_state = "donk_box"
 	storage_slots = 6
 	can_hold = list(
-		/obj/item/reagent_containers/food/snacks/donkpocket,
-		/obj/item/reagent_containers/food/snacks/warmdonkpocket,
-		/obj/item/reagent_containers/food/snacks/warmdonkpocket_weak,
-		/obj/item/reagent_containers/food/snacks/syndidonkpocket)
+		/obj/item/food/snacks/donkpocket,
+		/obj/item/food/snacks/warmdonkpocket,
+		/obj/item/food/snacks/warmdonkpocket_weak,
+		/obj/item/food/snacks/syndidonkpocket)
 
 /obj/item/storage/box/donkpockets/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/snacks/donkpocket(src)
+		new /obj/item/food/snacks/donkpocket(src)
 
 /obj/item/storage/box/donkpockets/empty/populate_contents()
 	return
@@ -859,7 +883,7 @@
 
 /obj/item/storage/box/syndidonkpockets/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/snacks/syndidonkpocket(src)
+		new /obj/item/food/snacks/syndidonkpocket(src)
 
 ////////////////
 /* Misc Boxes */
@@ -1154,7 +1178,7 @@
 	icon_state = "wizard_box"
 
 /obj/item/storage/box/wizard/hardsuit/populate_contents()
-	new /obj/item/clothing/suit/space/hardsuit/shielded/wizard(src)
+	new /obj/item/clothing/suit/space/hardsuit/wizard(src)
 	new /obj/item/clothing/shoes/magboots/wizard(src)
 
 /obj/item/storage/box/breaching

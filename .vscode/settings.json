@@ -4,8 +4,16 @@
 	],
 	// ESLint settings:
 	"eslint.workingDirectories": [
-		"tgui/"
+		"./tgui"
 	],
+	"search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+	},
+	"eslint.nodePath": "tgui/.yarn/sdks",
+	"prettier.prettierPath": "tgui/.yarn/sdks/prettier/index.cjs",
+	"typescript.tsdk": "tgui/.yarn/sdks/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"eslint.rules.customizations": [
 		// We really want to fail the CI builds on styling errors,
 		// but it's better to show them as yellow squigglies in IDE
@@ -22,5 +30,6 @@
 	},
 	"[scss]": {
 		"editor.rulers": [80]
-	}
+	},
+	"editor.formatOnSave": true
 }

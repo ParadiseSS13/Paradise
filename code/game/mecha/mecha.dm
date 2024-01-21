@@ -355,7 +355,7 @@
 		if(phasing && get_charge() >= phasing_energy_drain)
 			if(can_move < world.time)
 				. = FALSE // We lie to mech code and say we didn't get to move, because we want to handle power usage + cooldown ourself
-				flick("phazon-phase", src)
+				flick("[initial_icon]-phase", src)
 				forceMove(get_step(src, direction))
 				use_power(phasing_energy_drain)
 				playsound(src, stepsound, 40, 1)
@@ -614,7 +614,7 @@
 /obj/mecha/handle_atom_del(atom/A)
 	if(A == occupant)
 		occupant = null
-		icon_state = initial(icon_state)+"-open"
+		icon_state = reset_icon(icon_state)+"-open"
 		setDir(dir_in)
 	if(A in trackers)
 		trackers -= A
@@ -777,14 +777,13 @@
 			return
 
 		user.visible_message("[user] opens [P] and spends some quality time customising [src].")
-
-		name = P.new_name
-		desc = P.new_desc
-		initial_icon = P.new_icon
-		reset_icon()
-
-		user.drop_item()
-		qdel(P)
+		if(do_after_once(user, 3 SECONDS, target = src))
+			name = P.new_name
+			desc = P.new_desc
+			initial_icon = P.new_icon
+			reset_icon()
+			user.drop_item()
+			qdel(P)
 
 	else if(istype(W, /obj/item/mecha_modkit))
 		if(occupant)
@@ -959,7 +958,7 @@
 			occupant = null
 			AI.controlled_mech = null
 			AI.remote_control = null
-			icon_state = initial(icon_state)+"-open"
+			icon_state = reset_icon(icon_state)+"-open"
 			to_chat(AI, "You have been downloaded to a mobile storage device. Wireless connection offline.")
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
@@ -993,7 +992,7 @@
 	AI.aiRestorePowerRoutine = 0
 	AI.forceMove(src)
 	occupant = AI
-	icon_state = initial(icon_state)
+	icon_state = reset_icon(icon_state)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
 		SEND_SOUND(occupant, sound(nominalsound, volume = 50))
@@ -1304,7 +1303,7 @@
 				var/obj/item/mmi/robotic_brain/R = mmi
 				if(R.imprinted_master)
 					to_chat(L, "<span class='notice'>Imprint re-enabled, you are once again bound to [R.imprinted_master]'s commands.</span>")
-		icon_state = initial(icon_state)+"-open"
+		icon_state = reset_icon(icon_state)+"-open"
 		dir = dir_in
 
 	if(L && L.client)
@@ -1413,7 +1412,7 @@
 	if(initial_icon)
 		icon_state = initial_icon
 	else
-		icon_state = initial(icon_state)
+		icon_state = reset_icon(icon_state)
 	return icon_state
 
 //////////////////////////////////////////
@@ -1536,6 +1535,7 @@
 			AI = occupant
 			occupant = null
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
+		WR.icon_state = "[reset_icon(loc, AI)]-broken"
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			if(E.salvageable && prob(30))
 				WR.crowbar_salvage += E

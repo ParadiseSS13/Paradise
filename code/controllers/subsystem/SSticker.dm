@@ -278,6 +278,7 @@ SUBSYSTEM_DEF(ticker)
 	watch = start_watch()
 	GLOB.data_core.manifest() // Create the manifest
 	log_debug("Manifest creation took [stop_watch(watch)]s")
+	SEND_SIGNAL(src, COMSIG_TICKER_ROUND_STARTING, world.time)
 
 	// Update the MC and state to game playing
 	current_state = GAME_STATE_PLAYING
@@ -295,9 +296,25 @@ SUBSYSTEM_DEF(ticker)
 
 	// Generate code phrases and responses
 	if(!GLOB.syndicate_code_phrase)
-		GLOB.syndicate_code_phrase = generate_code_phrase()
+		var/temp_syndicate_code_phrase = generate_code_phrase(return_list = TRUE)
+
+		var/codewords = jointext(temp_syndicate_code_phrase, "|")
+		var/regex/codeword_match = new("([codewords])", "ig")
+
+		GLOB.syndicate_code_phrase_regex = codeword_match
+		temp_syndicate_code_phrase = jointext(temp_syndicate_code_phrase, ", ")
+		GLOB.syndicate_code_phrase = temp_syndicate_code_phrase
+
+
 	if(!GLOB.syndicate_code_response)
-		GLOB.syndicate_code_response = generate_code_phrase()
+		var/temp_syndicate_code_response = generate_code_phrase(return_list = TRUE)
+
+		var/codewords = jointext(temp_syndicate_code_response, "|")
+		var/regex/codeword_match = new("([codewords])", "ig")
+
+		GLOB.syndicate_code_response_regex = codeword_match
+		temp_syndicate_code_response = jointext(temp_syndicate_code_response, ", ")
+		GLOB.syndicate_code_response = temp_syndicate_code_response
 
 	// Run post setup stuff
 	mode.post_setup()

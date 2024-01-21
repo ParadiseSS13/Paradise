@@ -281,12 +281,12 @@
 	id = /obj/item/card/id/clown
 	pda = /obj/item/pda/clown
 	backpack_contents = list(
-		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
+		/obj/item/food/snacks/grown/banana = 1,
 		/obj/item/stamp/clown = 1,
 		/obj/item/toy/crayon/rainbow = 1,
 		/obj/item/storage/fancy/crayons = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
+		/obj/item/reagent_containers/drinks/bottle/bottleofbanana = 1,
 		/obj/item/instrument/bikehorn = 1
 	)
 
@@ -298,6 +298,8 @@
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_BANANIUM_SHIPMENTS))
+		backpack_contents += /obj/item/stack/sheet/mineral/bananium/fifty
 	if(H.gender == FEMALE)
 		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
 		uniform = /obj/item/clothing/under/rank/civilian/clown/sexy
@@ -375,7 +377,7 @@
 	pda = /obj/item/pda/mime
 	backpack_contents = list(
 		/obj/item/toy/crayon/mime = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
+		/obj/item/reagent_containers/drinks/bottle/bottleofnothing = 1,
 		/obj/item/cane = 1
 	)
 
@@ -384,6 +386,8 @@
 
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_TRANQUILITE_SHIPMENTS))
+		backpack_contents += /obj/item/stack/sheet/mineral/tranquillite/fifty
 	if(H.gender == FEMALE)
 		uniform = /obj/item/clothing/under/rank/civilian/mime/sexy
 		suit = /obj/item/clothing/mask/gas/sexymime
