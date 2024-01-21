@@ -87,9 +87,9 @@
 			var/distance = get_dist_euclidian(location, C)
 			C.flash_eyes()
 			C.Weaken((boom_sizes[2] - distance) * 1 SECONDS) //1 second for how close you are to center if you're in range
-			C.AdjustDeaf((boom_sizes[3] - distance) * 10 SECONDS)
+			C.AdjustDeaf((boom_sizes[3] - distance) * 5 SECONDS) //guaranteed deafness
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
-			if(istype(ears))
+			if(istype(ears) && C.check_ear_prot() < HEARING_PROTECTION_MINOR) //headsets should be enough to avoid taking damage
 				ears.receive_damage((boom_sizes[3] - distance) * 2) //something like that i guess. Mega charge makes 12 damage to ears if nearby
 			to_chat(C, "<span class='userwarning'>You are knocked down by the power of the mining charge!</span>")
 	qdel(src)
