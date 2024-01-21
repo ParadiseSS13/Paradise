@@ -27,6 +27,9 @@
 	return ..()
 
 /mob/living/carbon/human/proc/HasVoiceChanger()
+	var/datum/status_effect/magic_disguise/S = has_status_effect(/datum/status_effect/magic_disguise)
+	if(S && S.disguise && S.disguise.name)
+		return S.disguise.name
 	for(var/obj/item/gear in list(wear_mask, wear_suit, head))
 		if(!gear)
 			continue
