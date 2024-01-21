@@ -3421,12 +3421,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
-"sX" = (
-/mob/living/simple_animal/bot/ed209/syndicate,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "tb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -12374,7 +12368,7 @@ kE
 kE
 kE
 RX
-sX
+am
 am
 FV
 am
