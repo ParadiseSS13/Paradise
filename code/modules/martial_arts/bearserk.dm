@@ -17,12 +17,12 @@
 	return TRUE
 
 /datum/martial_art/bearserk/explaination_header(user)
-	to_chat(usr, "<b><i>Quelling the ursine rage for a moment, you ponder on how a Space Bear fights...</i></b>")
+	to_chat(user, "<b><i>Quelling the ursine rage for a moment, you ponder on how a Space Bear fights...</i></b>")
 
 /datum/martial_art/bearserk/explaination_footer(user)
-	to_chat(user, "<b>All combos recover stamina and grant a stamina resistance buff, so get aggressive!.</b>")
+	to_chat(user, "<b>Most combos recover stamina and grant a stamina resistance buff, so get aggressive!</b>")
 
-/datum/martial_art/bearserk/teach(mob/living/carbon/human/H, make_temporary=0)
+/datum/martial_art/bearserk/teach(mob/living/carbon/human/H, make_temporary = 0)
 	..()
 	if(HAS_TRAIT(H, TRAIT_PACIFISM))
 		to_chat(H, "<span class='warning'>You feel otherworldly rage flicker briefly in your mind, before you reject such violent thoughts and calm down. \
@@ -65,6 +65,7 @@
 	if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
 		H.faction -= "russian" // Hardbass stops
 		H.physiology.stun_mod /= 0.80
+		style.remove(H)
 
 /obj/item/clothing/head/bearpelt/bearserk/examine(mob/user)
 	. = ..()

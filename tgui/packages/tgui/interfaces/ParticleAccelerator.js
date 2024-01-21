@@ -6,7 +6,7 @@ export const ParticleAccelerator = (props, context) => {
   const { act, data } = useBackend(context);
   const { assembled, power, strength, max_strength } = data;
   return (
-    <Window>
+    <Window width={350} height={160}>
       <Window.Content>
         <Section
           title="Control Panel"

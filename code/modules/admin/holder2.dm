@@ -48,7 +48,6 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 	if(istype(C))
 		owner = C
 		owner.holder = src
-		owner.on_holder_add()
 		owner.add_admin_verbs()	//TODO
 		owner.verbs -= /client/proc/readmin
 		GLOB.admins |= C

@@ -14,7 +14,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/bearmeat= 5, /obj/item/clothing/head/bearpelt = 1)
+	butcher_results = list(/obj/item/food/snacks/monstermeat/bearmeat = 5, /obj/item/clothing/head/bearpelt = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"

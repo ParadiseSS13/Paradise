@@ -98,6 +98,7 @@
 	bundle = new bundle(user.loc)
 	to_chat(user, "<span class='notice'>Welcome to [station_name()], [bundle_name]!</span>")
 	user.drop_item()
+	SSblackbox.record_feedback("tally", "syndicate_bundle_pick", 1, "[bundle]")
 	qdel(src)
 	user.put_in_hands(bundle)
 

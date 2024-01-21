@@ -1,3 +1,4 @@
+#ifdef MULTIINSTANCE
 SUBSYSTEM_DEF(instancing)
 	name = "Instancing"
 	runlevels = RUNLEVEL_INIT | RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME
@@ -182,3 +183,4 @@ SUBSYSTEM_DEF(instancing)
 
 	qdel(dbq1)
 	return null // If we are here, it means we didnt find our player on another server
+#endif

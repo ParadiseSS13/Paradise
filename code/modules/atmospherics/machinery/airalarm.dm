@@ -704,7 +704,7 @@
 			vent_info["id_tag"] = P.UID()
 			vent_info["name"] = sanitize(P.name)
 			vent_info["power"] = P.on
-			vent_info["direction"] = P.releasing ? "release" : "siphon"
+			vent_info["direction"] = P.releasing
 			vent_info["checks"] = P.pressure_checks
 			vent_info["external"] = P.external_pressure_bound
 			vents += list(vent_info)
@@ -776,16 +776,29 @@
 
 	return thresholds
 
-/obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/alarm/ui_state(mob/user)
+	if(isAI(user))
+		var/mob/living/silicon/ai/AI = user
+		if(!AI.lacks_power() || AI.apc_override)
+			return GLOB.always_state
+
+	else if(ishuman(user))
+		for(var/obj/machinery/computer/atmoscontrol/AC in range(1, user))
+			if(!AC.stat)
+				return GLOB.always_state
+
+	return GLOB.default_state
+
+/obj/machinery/alarm/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AirAlarm", name, 570, 410, master_ui, state)
+		ui = new(user, src, "AirAlarm", name)
 		ui.open()
 
-/obj/machinery/alarm/proc/is_authenticated(mob/user, datum/tgui/ui=null)
+/obj/machinery/alarm/proc/is_authenticated(mob/user, datum/tgui/ui = null, bypass = FALSE)
 	// Return true if they are connecting with a remote console
-	// DO NOT CHANGE THIS TO USE ISTYPE, IT WILL NOT WORK
-	if(ui?.master_ui?.src_object.type == /datum/ui_module/atmos_control)
+	// lol this is a wank hack, please don't shoot me
+	for(var/obj/machinery/computer/atmoscontrol/control in orange(1, user))
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
@@ -796,13 +809,13 @@
 
 /obj/machinery/alarm/ui_status(mob/user, datum/ui_state/state)
 	if(buildstage != 2)
-		return STATUS_CLOSE
+		return UI_CLOSE
 
 	if(aidisabled && (isAI(user) || isrobot(user)))
 		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
-		return STATUS_CLOSE
+		return UI_CLOSE
 
-	. = shorted ? STATUS_DISABLED : STATUS_INTERACTIVE
+	. = shorted ? UI_DISABLED : UI_INTERACTIVE
 
 	return min(..(), .)
 
@@ -849,10 +862,8 @@
 					"widenet",
 					"scrubbing",
 					"direction")
-					var/val
-					if(params["val"])
-						val = text2num(params["val"])
-					else
+					var/val = isnum(params["val"]) ? params["val"] : text2num(params["val"])
+					if(isnull(val))
 						var/newval = input("Enter new value") as num|null
 						if(isnull(newval))
 							return

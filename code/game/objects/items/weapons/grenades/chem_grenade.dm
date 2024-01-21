@@ -324,8 +324,8 @@
 	desc = "A custom made large grenade. It affects a larger area."
 	icon_state = "large_grenade"
 	bomb_state = "largebomb"
-	allowed_containers = list(/obj/item/reagent_containers/glass,/obj/item/reagent_containers/food/condiment,
-								/obj/item/reagent_containers/food/drinks)
+	allowed_containers = list(/obj/item/reagent_containers/glass,/obj/item/reagent_containers/condiment,
+								/obj/item/reagent_containers/drinks)
 	origin_tech = "combat=3;engineering=3"
 	affected_area = 5
 	ignition_temp = 25 // Large grenades are slightly more effective at setting off heat-sensitive mixtures than smaller grenades.
