@@ -6,7 +6,7 @@ export const WizardApprenticeContract = (props, context) => {
   const { act, data } = useBackend(context);
   const { used } = data;
   return (
-    <Window resizable>
+    <Window width={500} height={555}>
       <Window.Content scrollable>
         <Section title="Contract of Apprenticeship">
           Using this contract, you may summon an apprentice to aid you on your

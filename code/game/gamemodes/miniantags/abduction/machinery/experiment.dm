@@ -9,7 +9,7 @@
 	var/credits = 0
 	var/list/history = list()
 	var/list/abductee_minds = list()
-	var/flash = " - || - "
+	var/flash = "Idle."
 	var/obj/machinery/abductor/console/console
 	var/mob/living/carbon/human/occupant
 
@@ -40,15 +40,16 @@
 
 	target.forceMove(src)
 	occupant = target
+	flash = "Machine ready."
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
 	return TRUE
 
 /obj/machinery/abductor/experiment/attack_hand(mob/user)
-	if(..())
+	if(!isabductor(user))
+		to_chat(user, "<span class='warning'>You don't understand any of the alien writing!</span>")
 		return
-
-	experimentUI(user)
+	ui_interact(user)
 
 /obj/machinery/abductor/experiment/proc/dissection_icon(mob/living/carbon/human/H)
 	var/icon/I = icon(H.stand_icon)
@@ -60,75 +61,62 @@
 
 	return I
 
-/obj/machinery/abductor/experiment/proc/experimentUI(mob/user)
-	var/dat
-	dat += "<h3> Experiment </h3>"
+/obj/machinery/abductor/experiment/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/abductor/experiment/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/machinery/abductor/experiment/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "ExperimentConsole", name)
+		ui.open()
+
+/obj/machinery/abductor/experiment/ui_data(mob/user)
+	var/list/data = list()
+	data["open"] = occupant ? TRUE : FALSE
+	data["feedback"] = flash
+	data["occupant"] = occupant ? TRUE : FALSE
+	data["occupant_name"] = null
+	data["occupant_status"] = null
 	if(occupant)
-		var/icon/H = icon(dissection_icon(occupant), dir = SOUTH)
-		if(H)
-			user << browse_rsc(H, "dissection_img.png")
-			dat += "<table><tr><td>"
-			dat += "<img src='dissection_img.png' height='80' width='80'>"
-			dat += "</td><td>"
-		else
-			dat += "ERR: Unable to retrieve image data for occupant."
-		dat += "<a href='?src=[UID()];experiment=1'>Probe</a><br>"
-		dat += "<a href='?src=[UID()];experiment=2'>Dissect</a><br>"
-		dat += "<a href='?src=[UID()];experiment=3'>Analyze</a><br>"
-		dat += "</td></tr></table>"
-	else
-		dat += "<span class='linkOff'>Experiment </span>"
+		var/mob/living/mob_occupant = occupant
+		data["occupant_name"] = mob_occupant.name
+		data["occupant_status"] = mob_occupant.stat
+	return data
 
-	if(!occupant)
-		dat += "<h3>Machine Unoccupied</h3>"
-	else
-		dat += "<h3>Subject Status : </h3>"
-		dat += "[occupant.name] => "
-		switch(occupant.stat)
-			if(0)
-				dat += "<span class='good'>Conscious</span>"
-			if(1)
-				dat += "<span class='average'>Unconscious</span>"
-			else
-				dat += "<span class='bad'>Deceased</span>"
-	dat += "<br>"
-	dat += "[flash]"
-	dat += "<br>"
-	dat += "<a href='?src=[UID()];refresh=1'>Scan</a>"
-	dat += "<a href='?src=[UID()];[occupant ? "eject=1'>Eject Occupant</a>" : "unoccupied=1'>Unoccupied</a>"]"
-	var/datum/browser/popup = new(user, "experiment", "Probing Console", 300, 300)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
-	popup.set_content(dat)
-	popup.open()
+/obj/machinery/abductor/experiment/ui_act(action, list/params)
+	. = ..()
+	if(.)
+		return
 
-/obj/machinery/abductor/experiment/Topic(href, href_list)
-	if(..() || usr == occupant)
-		return
-	usr.set_machine(src)
-	if(href_list["refresh"])
-		updateUsrDialog()
-		return
-	if(href_list["eject"])
-		eject_abductee()
-		return
-	if(occupant && occupant.stat != DEAD)
-		if(href_list["experiment"])
-			flash = Experiment(occupant,href_list["experiment"])
-	updateUsrDialog()
-	add_fingerprint(usr)
+	switch(action)
+		if("door")
+			eject_abductee()
+			flash = "Specimen ejected!"
 
-/obj/machinery/abductor/experiment/proc/Experiment(mob/occupant,type)
+		if("experiment")
+			if(!occupant)
+				return
+			var/mob/living/mob_occupant = occupant
+			if(mob_occupant.stat == DEAD)
+				return
+			flash = experiment(mob_occupant, params["experiment_type"], usr)
+			return TRUE
+
+/obj/machinery/abductor/experiment/proc/experiment(mob/occupant,type)
 	var/mob/living/carbon/human/H = occupant
 	var/point_reward = 0
 	if(H in history)
-		return "<span class='bad'>Specimen already in database.</span>"
+		return "Specimen already in database."
 	if(H.stat == DEAD)
 		atom_say("Specimen deceased - please provide fresh sample.")
-		return "<span class='bad'>Specimen deceased.</span>"
+		return "Specimen deceased."
 	var/obj/item/organ/internal/heart/gland/GlandTest = locate() in H.internal_organs
 	if(!GlandTest)
 		atom_say("Experimental dissection not detected!")
-		return "<span class='bad'>No glands detected!</span>"
+		return "No glands detected!"
 	if(H.mind != null && H.ckey != null)
 		history += H
 		abductee_minds += H.mind
@@ -158,22 +146,22 @@
 			point_reward++
 		if(point_reward > 0)
 			eject_abductee()
-			SendBack(H)
-			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
+			send_back(H)
+			playsound(src.loc, 'sound/machines/ding.ogg', 50, TRUE)
 			points += point_reward
 			credits += point_reward
-			return "<span class='good'>Experiment successful! [point_reward] new data-points collected.</span>"
+			return "Experiment successful! [point_reward] new data-points collected."
 		else
-			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
-			return "<span class='bad'>Experiment failed! No replacement organ detected.</span>"
+			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+			return "Experiment failed! No replacement organ detected."
 	else
 		atom_say("Brain activity nonexistent - disposing sample...")
 		eject_abductee()
-		SendBack(H)
-		return "<span class='bad'>Specimen braindead - disposed.</span>"
+		send_back(H)
+		return "Specimen braindead - disposed."
 
 
-/obj/machinery/abductor/experiment/proc/SendBack(mob/living/carbon/human/H)
+/obj/machinery/abductor/experiment/proc/send_back(mob/living/carbon/human/H)
 	H.Sleeping(16 SECONDS)
 	if(console && console.pad && console.pad.teleport_target)
 		H.forceMove(console.pad.teleport_target)
@@ -201,6 +189,7 @@
 		var/mob/living/carbon/human/H = grabbed.affecting
 		H.forceMove(src)
 		occupant = H
+		flash = "Machine ready."
 		update_icon(UPDATE_ICON_STATE)
 		add_fingerprint(user)
 		qdel(G)

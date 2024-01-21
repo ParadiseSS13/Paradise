@@ -50,7 +50,7 @@ export const AtmosControl = (props, context) => {
   };
 
   return (
-    <Window resizable>
+    <Window width={800} height={600}>
       <Window.Content scrollable={tabIndex === 0}>
         <Box fillPositionedParent>
           <Tabs>
