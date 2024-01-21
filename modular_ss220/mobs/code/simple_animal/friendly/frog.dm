@@ -22,7 +22,7 @@
 	maxHealth = 10
 	health = 10
 	blood_volume = BLOOD_VOLUME_SURVIVE
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat = 1)
+	butcher_results = list(/obj/item/food/snacks/monstermeat/lizardmeat = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"

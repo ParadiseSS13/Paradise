@@ -71,7 +71,7 @@
 	taste_description = "сухая приправа"
 
 // Slices
-/obj/item/reagent_containers/food/snacks/cucumberslice
+/obj/item/food/snacks/cucumberslice
 	name = "ломтик огурца"
 	desc = "Нарезанный огурец, неожиданно, правда?"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -82,7 +82,7 @@
 	tastes = list("cucumber" = 1)
 
 // Tomato Sauce
-/obj/item/reagent_containers/food/condiment/tomato_sauce
+/obj/item/reagent_containers/condiment/tomato_sauce
 	name = "томатный соус"
 	desc = "Отец всех соусов. Помидоры, немного специй и ничего лишнего."
 	icon = 'modular_ss220/food/icons/containers.dmi'
@@ -93,12 +93,12 @@
 /datum/recipe/microwave/tomato_sauce
 	reagents = list("water" = 15, "sodiumchloride" = 1, "blackpepper" = 1, "herbsmix" = 1)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/grown/garlic,
-		/obj/item/reagent_containers/food/snacks/grown/tomato)
-	result = /obj/item/reagent_containers/food/condiment/tomato_sauce
+		/obj/item/food/snacks/grown/garlic,
+		/obj/item/food/snacks/grown/tomato)
+	result = /obj/item/reagent_containers/condiment/tomato_sauce
 
 // Diablo Sauce
-/obj/item/reagent_containers/food/condiment/diablo_sauce
+/obj/item/reagent_containers/condiment/diablo_sauce
 	name = "соус 'Диабло'"
 	desc = "Старинный жгучий соус, рецепт которого практически не изменился с момента его создания."
 	icon = 'modular_ss220/food/icons/containers.dmi'
@@ -109,12 +109,12 @@
 /datum/recipe/microwave/diablo_sauce
 	reagents = list("water" = 15, "sodiumchloride" = 1, "blackpepper" = 2, "herbsmix" = 1)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/grown/tomato,
-		/obj/item/reagent_containers/food/snacks/grown/chili)
-	result = /obj/item/reagent_containers/food/condiment/diablo_sauce
+		/obj/item/food/snacks/grown/tomato,
+		/obj/item/food/snacks/grown/chili)
+	result = /obj/item/reagent_containers/condiment/diablo_sauce
 
 // Cheese Sauce
-/obj/item/reagent_containers/food/condiment/cheese_sauce
+/obj/item/reagent_containers/condiment/cheese_sauce
 	name = "сырный соус"
 	desc = "Сыр, сливки и молоко... максимальная концентрация белка!"
 	icon = 'modular_ss220/food/icons/containers.dmi'
@@ -125,12 +125,12 @@
 /datum/recipe/microwave/cheese_sauce
 	reagents = list("milk" = 15, "cream" = 5)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/cheesewedge)
-	result = /obj/item/reagent_containers/food/condiment/cheese_sauce
+		/obj/item/food/snacks/cheesewedge,
+		/obj/item/food/snacks/cheesewedge)
+	result = /obj/item/reagent_containers/condiment/cheese_sauce
 
 // Mushroom Sauce
-/obj/item/reagent_containers/food/condiment/mushroom_sauce
+/obj/item/reagent_containers/condiment/mushroom_sauce
 	name = "грибной соус"
 	desc = "Сливочный соус с грибами, имеет довольно резкий запах."
 	icon = 'modular_ss220/food/icons/containers.dmi'
@@ -141,12 +141,12 @@
 /datum/recipe/microwave/mushroom_sauce
 	reagents = list("milk" = 15, "cream" = 5, "sodiumchloride" = 1,)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/grown/onion,
-		/obj/item/reagent_containers/food/snacks/grown/mushroom)
-	result = /obj/item/reagent_containers/food/condiment/mushroom_sauce
+		/obj/item/food/snacks/grown/onion,
+		/obj/item/food/snacks/grown/mushroom)
+	result = /obj/item/reagent_containers/condiment/mushroom_sauce
 
 // Garlic Sauce
-/obj/item/reagent_containers/food/condiment/garlic_sauce
+/obj/item/reagent_containers/condiment/garlic_sauce
 	name = "чесночный соус"
 	desc = "Сильный соус с чесноком, его запах бьет в нос. Некоторые члены экипажа, вероятно, будут шипеть на вас и уходить."
 	icon = 'modular_ss220/food/icons/containers.dmi'
@@ -157,12 +157,12 @@
 /datum/recipe/microwave/garlic_sauce
 	reagents = list("water" = 15, "sodiumchloride" = 1, "herbsmix" = 1)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/grown/garlic,
-		/obj/item/reagent_containers/food/snacks/grown/cucumber)
-	result = /obj/item/reagent_containers/food/condiment/garlic_sauce
+		/obj/item/food/snacks/grown/garlic,
+		/obj/item/food/snacks/grown/cucumber)
+	result = /obj/item/reagent_containers/condiment/garlic_sauce
 
 // Custard
-/obj/item/reagent_containers/food/condiment/custard
+/obj/item/reagent_containers/condiment/custard
 	name = "заварной крем"
 	desc = "Мягкий и сладкий крем, используемый в кондитерском производстве."
 	icon = 'modular_ss220/food/icons/containers.dmi'
@@ -172,11 +172,11 @@
 
 /datum/recipe/microwave/custard
 	reagents = list("sugar" = 10, "milk" = 10, "cream" = 5, "vanilla" = 5)
-	items = list(/obj/item/reagent_containers/food/snacks/egg)
-	result = /obj/item/reagent_containers/food/condiment/custard
+	items = list(/obj/item/food/snacks/egg)
+	result = /obj/item/reagent_containers/condiment/custard
 
 // Herbs
-/obj/item/reagent_containers/food/condiment/herbs
+/obj/item/reagent_containers/condiment/herbs
 	name = "приправа"
 	desc = "Смесь различных трав. Идеально подходит для пиццы!"
 	icon = 'modular_ss220/food/icons/containers.dmi'

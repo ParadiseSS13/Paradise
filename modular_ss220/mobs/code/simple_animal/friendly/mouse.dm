@@ -5,7 +5,7 @@
 	talk_sound = list('modular_ss220/mobs/sound/creatures/rat_talk.ogg')
 	damaged_sound = list('modular_ss220/mobs/sound/creatures/rat_wound.ogg')
 	blood_volume = BLOOD_VOLUME_SURVIVE
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/mouse)
+	butcher_results = list(/obj/item/food/snacks/meat/mouse)
 	tts_seed = "Gyro"
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
