@@ -45,7 +45,7 @@
 	)
 
 	holder_type = /obj/item/holder/drone
-	var/pathfinding = FALSE
+	var/datum/pathfinding_mover/pathfinding
 
 
 /mob/living/silicon/robot/drone/New()
@@ -429,22 +429,24 @@
 	// I originally only wanted to make it use an ID if it couldnt pathfind otherwise, but that means it could take multiple minutes if both searches failed
 	var/obj/item/card/id/temp_id = new(src)
 	temp_id.access = get_all_accesses()
-	set_pathfinding(TRUE)
-	var/found_path = pathfind.generate_path(150, null, temp_id) // one last try
+	set_pathfinding(pathfind)
+	var/found_path = pathfind.generate_path(150, null, temp_id)
 	qdel(temp_id)
 	if(!found_path)
-		qdel(pathfind)
-		set_pathfinding(FALSE)
+		set_pathfinding(null)
 		return FALSE
 
-	pathfind.on_set_path_null = CALLBACK(src, PROC_REF(death))
+	pathfind.on_set_path_null = CALLBACK(src, PROC_REF(pathfind_failed_cleanup))
 	pathfind.on_success = CALLBACK(src, PROC_REF(at_dronefab))
 	pathfind.start()
 	return TRUE
 
+/mob/living/silicon/robot/drone/proc/pathfind_failed_cleanup(pathfind)
+	set_pathfinding(null)
+	death()
+
 /mob/living/silicon/robot/drone/proc/at_dronefab(pathfind)
-	set_pathfinding(FALSE)
-	qdel(pathfind)
+	set_pathfinding(null)
 	cryo_with_dronefab()
 
 /mob/living/silicon/robot/drone/proc/cryo_with_dronefab(obj/machinery/drone_fabricator/drone_fab)
@@ -459,7 +461,9 @@
 	qdel(src)
 	return TRUE
 
-/mob/living/silicon/robot/drone/proc/set_pathfinding(value)
-	pathfinding = value
-	notransform = value // prevent them from moving themselves while pathfinding
+/mob/living/silicon/robot/drone/proc/set_pathfinding(/datum/pathfinding_mover/new_pathfind)
+	if(isnull(new_pathfind) && istype(pathfinding))
+		qdel(pathfinding)
+	pathfinding = new_pathfind
+	notransform = istype(new_pathfind) ? TRUE : FALSE // prevent them from moving themselves while pathfinding.
 	update_icons()

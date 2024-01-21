@@ -11,7 +11,7 @@
 	/// List of turfs through which a mod 'steps' to reach the waypoint
 	VAR_PRIVATE/list/path = list()
 	/// max amount of tries before resetting path to null
-	var/max_tries = 5
+	var/max_tries = 10
 	/// How many times have we tried to move?
 	VAR_PRIVATE/tries = 0
 	/// How many 2-tick delays per move (5 = 1 second)
