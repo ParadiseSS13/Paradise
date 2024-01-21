@@ -160,13 +160,13 @@
 	. = FALSE
 	switch(action)
 		if("vend")
-			vend_seed(text2num(params["seedid"]), params["seedvariant"], vend_amount)
+			vend_seed(params["seedid"], params["seedvariant"], vend_amount)
 			add_fingerprint(usr)
 			. = TRUE
 		if("set_vend_amount")
 			if(!length(params["vend_amount"]))
 				return
-			vend_amount = clamp(text2num(params["vend_amount"]), 1, MAX_DISPENSE_SEEDS)
+			vend_amount = clamp(params["vend_amount"], 1, MAX_DISPENSE_SEEDS)
 			add_fingerprint(usr)
 			. = TRUE
 
