@@ -9,7 +9,7 @@
 	attacktext = "кусает"
 	var/growl_sound = list('modular_ss220/mobs/sound/creatures/dog_grawl1.ogg','modular_ss220/mobs/sound/creatures/dog_grawl2.ogg') //Used in emote.
 
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/dog = 4)
+	butcher_results = list(/obj/item/food/snacks/meat/dog = 4)
 	collar_type = "dog"
 
 /mob/living/simple_animal/pet/dog/wuv(change, mob/M)
@@ -67,7 +67,7 @@
 /mob/living/simple_animal/pet/dog/corgi/puppy
 	maxHealth = 20
 	health = 20
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/corgi = 1)
+	butcher_results = list(/obj/item/food/snacks/meat/corgi = 1)
 	tts_seed = "Jaina"
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void
