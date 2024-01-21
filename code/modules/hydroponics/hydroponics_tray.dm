@@ -756,7 +756,7 @@
 		var/irrigate = 0	//How am I supposed to irrigate pill contents?
 		var/transfer_amount
 
-		if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || ispill(reagent_source))
+		if(istype(reagent_source, /obj/item/food/snacks) || ispill(reagent_source))
 			visi_msg="[user] composts [reagent_source], spreading it through [target]"
 			transfer_amount = reagent_source.reagents.total_volume
 		else
@@ -794,7 +794,7 @@
 			S.my_atom = H
 
 			reagent_source.reagents.trans_to(S,split)
-			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || ispill(reagent_source))
+			if(istype(reagent_source, /obj/item/food/snacks) || ispill(reagent_source))
 				qdel(reagent_source)
 
 			H.applyChemicals(S, user)
@@ -850,7 +850,7 @@
 	else if(istype(O, /obj/item/storage/bag/plants))
 		attack_hand(user)
 		var/obj/item/storage/bag/plants/S = O
-		for(var/obj/item/reagent_containers/food/snacks/grown/G in locate(user.x,user.y,user.z))
+		for(var/obj/item/food/snacks/grown/G in locate(user.x,user.y,user.z))
 			if(!S.can_be_inserted(G))
 				return
 			S.handle_item_insertion(G, 1)

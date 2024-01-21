@@ -39,7 +39,7 @@
 				return add_item(S, user)
 		else
 			return add_item(I, user)
-	else if(is_type_in_list(I, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/food/drinks, /obj/item/reagent_containers/food/condiment)))
+	else if(is_type_in_list(I, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/drinks, /obj/item/reagent_containers/condiment)))
 		if(!I.reagents)
 			return 1
 		for(var/datum/reagent/R in I.reagents.reagent_list)
@@ -68,20 +68,20 @@
 		var/list/items_measures_p = new
 		for(var/obj/O in contents)
 			var/display_name = O.name
-			if(istype(O,/obj/item/reagent_containers/food/snacks/egg))
+			if(istype(O,/obj/item/food/snacks/egg))
 				items_measures[display_name] = "egg"
 				items_measures_p[display_name] = "eggs"
-			if(istype(O,/obj/item/reagent_containers/food/snacks/tofu))
+			if(istype(O,/obj/item/food/snacks/tofu))
 				items_measures[display_name] = "tofu chunk"
 				items_measures_p[display_name] = "tofu chunks"
-			if(istype(O,/obj/item/reagent_containers/food/snacks/meat)) //any meat
+			if(istype(O,/obj/item/food/snacks/meat)) //any meat
 				items_measures[display_name] = "slab of meat"
 				items_measures_p[display_name] = "slabs of meat"
-			if(istype(O,/obj/item/reagent_containers/food/snacks/donkpocket))
+			if(istype(O,/obj/item/food/snacks/donkpocket))
 				display_name = "Turnovers"
 				items_measures[display_name] = "turnover"
 				items_measures_p[display_name] = "turnovers"
-			if(istype(O,/obj/item/reagent_containers/food/snacks/carpmeat))
+			if(istype(O,/obj/item/food/snacks/carpmeat))
 				items_measures[display_name] = "fillet of meat"
 				items_measures_p[display_name] = "fillets of meat"
 			items_counts[display_name]++
@@ -165,7 +165,7 @@
 		if(id)
 			amount += reagents.get_reagent_amount(id)
 	reagents.clear_reagents()
-	var/obj/item/reagent_containers/food/snacks/badrecipe/mysteryfood = new(get_turf(source))
+	var/obj/item/food/snacks/badrecipe/mysteryfood = new(get_turf(source))
 	mysteryfood.reagents.add_reagent("carbon", amount)
 	mysteryfood.reagents.add_reagent("????", amount / 10)
 	make_dirty(75)

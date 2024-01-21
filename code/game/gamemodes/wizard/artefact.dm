@@ -880,12 +880,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 	heal_burn = 25
 	heal_oxy = 25
 
-/obj/item/reagent_containers/food/drinks/everfull
+/obj/item/reagent_containers/drinks/everfull
 	name = "everfull mug"
 	desc = "An enchanted mug which can be filled with any of various liquids on command."
 	icon_state = "evermug"
 
-/obj/item/reagent_containers/food/drinks/everfull/attack_self(mob/user)
+/obj/item/reagent_containers/drinks/everfull/attack_self(mob/user)
 	var/static/list/options = list("Omnizine" = image(icon = 'icons/obj/storage.dmi', icon_state = "firstaid"),
 							"Ale" = image(icon = 'icons/obj/drinks.dmi', icon_state = "alebottle"),
 							"Wine" = image(icon = 'icons/obj/drinks.dmi', icon_state = "wineglass"),
@@ -911,7 +911,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	to_chat(user, "<span class='notice'>The [name] fills to brimming with [options_to_descriptions[choice]].</span>")
 	magic_fill(options_to_reagent[choice])
 
-/obj/item/reagent_containers/food/drinks/everfull/proc/magic_fill(reagent_choice)
+/obj/item/reagent_containers/drinks/everfull/proc/magic_fill(reagent_choice)
 	reagents.clear_reagents()
 	reagents.add_reagent(reagent_choice, volume)
 

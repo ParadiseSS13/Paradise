@@ -421,20 +421,20 @@
 	lootcount = 3
 	lootdoubles = FALSE
 	var/soups = list(
-			/obj/item/reagent_containers/food/snacks/soup/beetsoup,
-			/obj/item/reagent_containers/food/snacks/soup/stew,
-			/obj/item/reagent_containers/food/snacks/soup/hotchili,
-			/obj/item/reagent_containers/food/snacks/soup/nettlesoup,
-			/obj/item/reagent_containers/food/snacks/soup/meatballsoup)
+			/obj/item/food/snacks/soup/beetsoup,
+			/obj/item/food/snacks/soup/stew,
+			/obj/item/food/snacks/soup/hotchili,
+			/obj/item/food/snacks/soup/nettlesoup,
+			/obj/item/food/snacks/soup/meatballsoup)
 	var/salads = list(
-			/obj/item/reagent_containers/food/snacks/salad/herb,
-			/obj/item/reagent_containers/food/snacks/salad/valid,
-			/obj/item/reagent_containers/food/snacks/salad/aesir)
+			/obj/item/food/snacks/salad/herb,
+			/obj/item/food/snacks/salad/valid,
+			/obj/item/food/snacks/salad/aesir)
 	var/mains = list(
-			/obj/item/reagent_containers/food/snacks/enchiladas,
-			/obj/item/reagent_containers/food/snacks/stewedsoymeat,
-			/obj/item/reagent_containers/food/snacks/burger/bigbite,
-			/obj/item/reagent_containers/food/snacks/burger/superbite)
+			/obj/item/food/snacks/enchiladas,
+			/obj/item/food/snacks/stewedsoymeat,
+			/obj/item/food/snacks/burger/bigbite,
+			/obj/item/food/snacks/burger/superbite)
 
 /obj/effect/spawner/lootdrop/three_course_meal/Initialize(mapload)
 	loot = list(pick(soups) = 1,pick(salads) = 1,pick(mains) = 1)

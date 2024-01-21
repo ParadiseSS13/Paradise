@@ -122,7 +122,7 @@
 		to_chat(user, "<span class='warning'>You can't use [src] while it's panel is opened!</span>")
 		return TRUE
 
-	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass)) && user.a_intent != INTENT_HARM)
+	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks/drinkingglass)) && user.a_intent != INTENT_HARM)
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
@@ -327,7 +327,7 @@
 		if("create_condi_bottle")
 			if(!condi || !reagents.total_volume)
 				return
-			var/obj/item/reagent_containers/food/condiment/P = new(loc)
+			var/obj/item/reagent_containers/condiment/P = new(loc)
 			reagents.trans_to(P, 50)
 		if("create_pills")
 			var/medicine_name = pillname
@@ -577,7 +577,7 @@
 						return
 					if(!length(answer))
 						answer = reagents.get_master_reagent_name()
-					var/obj/item/reagent_containers/food/condiment/pack/P = new(loc)
+					var/obj/item/reagent_containers/condiment/pack/P = new(loc)
 					P.originalname = answer
 					P.name = "[answer] pack"
 					P.desc = "A small condiment pack. The label says it contains [answer]."
