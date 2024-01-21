@@ -313,7 +313,7 @@
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
 
-// These comments mirror the below proc in the order of operations to help you understand what it is doing
+// These comments mirror the below define in the order of operations to help you understand what it is doing
 		// Check if datum I is a mob
 		// If I is a mob, return the client of mob I
 		// Else, check to see if I is a client
