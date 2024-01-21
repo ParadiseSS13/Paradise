@@ -12,9 +12,6 @@
 		powermonitor = ui_host()
 
 /datum/ui_module/power_monitor/ui_state(mob/user)
-	if(issilicon(user))
-		return GLOB.self_state
-
 	return GLOB.default_state
 
 /datum/ui_module/power_monitor/ui_interact(mob/user, datum/tgui/ui = null)

@@ -620,7 +620,7 @@ const manageChannelModalBodyOverride = (modal, context) => {
   return (
     <Section
       m="-1rem"
-      pb="1rem"
+      pb="1.5rem"
       title={isEditing ? 'Manage ' + channel.name : 'Create New Channel'}
     >
       <Box mx="0.5rem">
@@ -748,7 +748,7 @@ const createStoryModalBodyOverride = (modal, context) => {
     false
   );
   return (
-    <Section m="-1rem" pb="1rem" title="Create New Story">
+    <Section m="-1rem" pb="1.5rem" title="Create New Story">
       <Box mx="0.5rem">
         <LabeledList>
           <LabeledList.Item label="Author">
@@ -892,7 +892,7 @@ const wantedNoticeModalBodyOverride = (modal, context) => {
     wanted?.admin_locked === 1 || false
   );
   return (
-    <Section m="-1rem" pb="1rem" title="Manage Wanted Notice">
+    <Section m="-1rem" pb="1.5rem" title="Manage Wanted Notice">
       <Box mx="0.5rem">
         <LabeledList>
           <LabeledList.Item label="Authority">

@@ -46,7 +46,7 @@ const doEdit = (context, field) => {
 const virusModalBodyOverride = (modal, context) => {
   const virus = modal.args;
   return (
-    <Section m="-1rem" pb="1rem" title={virus.name || 'Virus'}>
+    <Section m="-1rem" pb="1.5rem" title={virus.name || 'Virus'}>
       <Box mx="0.5rem">
         <LabeledList>
           <LabeledList.Item label="Number of stages">

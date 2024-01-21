@@ -76,15 +76,16 @@ export const ComplexModal = (props, context) => {
   const { id, text, type } = data.modal;
 
   let modalOnEnter;
-  let modalBody;
-  let modalFooter = (
+  let modalHeader = (
     <Button
+      className="Button--modal"
       icon="arrow-left"
       content="Cancel"
-      color="grey"
       onClick={() => modalClose(context)}
     />
   );
+  let modalBody;
+  let modalFooter;
   let overflowY = 'auto';
 
   // Different contents depending on the type
@@ -185,8 +186,10 @@ export const ComplexModal = (props, context) => {
       onEnter={modalOnEnter}
       mx="auto"
       overflowY={overflowY}
+      padding-bottom="5px"
     >
-      <Box inline>{text}</Box>
+      {text && <Box inline>{text}</Box>}
+      {bodyOverrides[id] && modalHeader}
       {modalBody}
       {modalFooter}
     </Modal>
