@@ -1,9 +1,12 @@
 // All the TGUI interactions are in their own file to keep things simpler
 
-/obj/item/pda/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/pda/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/pda/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PDA", name, 600, 650, master_ui, state)
+		ui = new(user, src, "PDA", name)
 		ui.open()
 
 
@@ -56,6 +59,11 @@
 	current_app.update_ui(user, data)
 
 	return data
+
+/obj/item/pda/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/mob_hunt)
+	)
 
 // Yes the stupid amount of args here is important, see L102
 /obj/item/pda/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)

@@ -624,8 +624,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, chat_box_regular("<span class='notice'>Something is there but you can't see it.</span>"))
-		return 1
+		to_chat(src,
+			type = MESSAGE_TYPE_INFO,
+			html = chat_box_regular("<span class='notice'>Something is there but you can't see it.</span>"),
+			confidential = TRUE)
+		return TRUE
 
 	face_atom(A)
 	if(!client)
@@ -647,7 +650,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		result = A.examine(src)
 		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
 
-	to_chat(src, chat_box_examine(result.Join("\n")))
+	to_chat(src,
+		type = MESSAGE_TYPE_INFO,
+		html = chat_box_examine(result.Join("\n")),
+		confidential = TRUE)
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!istype(l_hand, /obj/item/grab) && !istype(r_hand, /obj/item/grab)))

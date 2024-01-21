@@ -72,10 +72,13 @@
 /mob/living/simple_animal/bot/honkbot/show_controls(mob/user)
 	ui_interact(user)
 
-/mob/living/simple_animal/bot/honkbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/simple_animal/bot/honkbot/ui_state(mob/user)
+	return GLOB.default_state
+
+/mob/living/simple_animal/bot/honkbot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotHonk", name, 500, 220)
+		ui = new(user, src, "BotHonk", name)
 		ui.open()
 
 /mob/living/simple_animal/bot/honkbot/ui_act(action, params, datum/tgui/ui)

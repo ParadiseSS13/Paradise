@@ -673,7 +673,7 @@
 /area/lavaland/surface/outdoors)
 "ie" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/badrecipe,
+/obj/item/food/snacks/badrecipe,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/althland_excavation)
 "iv" = (
@@ -959,7 +959,7 @@
 "wi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/item/reagent_containers/drinks/oilcan,
 /obj/machinery/constructable_frame,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
@@ -1101,8 +1101,8 @@
 "Cs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table_frame,
-/obj/item/reagent_containers/food/snacks/badrecipe,
-/obj/item/reagent_containers/food/snacks/badrecipe{
+/obj/item/food/snacks/badrecipe,
+/obj/item/food/snacks/badrecipe{
 	pixel_y = 14;
 	pixel_x = 14
 	},
@@ -1324,7 +1324,7 @@
 /area/lavaland/surface/outdoors)
 "OX" = (
 /obj/structure/table_frame,
-/obj/item/reagent_containers/food/snacks/badrecipe,
+/obj/item/food/snacks/badrecipe,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/althland_excavation)
 "Pe" = (
