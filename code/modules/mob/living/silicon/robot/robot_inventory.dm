@@ -182,7 +182,6 @@
 				inv3.icon_state = "inv3 +a"
 				module_active = module_state_3
 	update_icons()
-
 	return
 
 //deselect_module(module) - Deselects the module slot specified by "module"
