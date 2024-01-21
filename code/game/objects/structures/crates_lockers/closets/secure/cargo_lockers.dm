@@ -31,6 +31,7 @@
 	new /obj/item/flash(src)
 	new /obj/item/cartridge/qm(src)
 	new /obj/item/storage/bag/mail(src)
+	new /obj/item/melee/knuckleduster/nanotrasen(src)
 
 /obj/structure/closet/secure_closet/quartermaster/lavaland //used in mining outpost
 	name = "quartermaster's secondary locker"

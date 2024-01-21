@@ -1089,6 +1089,7 @@
 #include "code\game\objects\items\weapons\holosign_projector.dm"
 #include "code\game\objects\items\weapons\holy_weapons.dm"
 #include "code\game\objects\items\weapons\kitchen.dm"
+#include "code\game\objects\items\weapons\knuckledusters.dm"
 #include "code\game\objects\items\weapons\legcuffs.dm"
 #include "code\game\objects\items\weapons\lighters.dm"
 #include "code\game\objects\items\weapons\manuals.dm"
