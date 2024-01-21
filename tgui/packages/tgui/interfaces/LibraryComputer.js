@@ -107,7 +107,7 @@ const reportModalBodyOverride = (modal, context) => {
     <Section
       level={2}
       m="-1rem"
-      pb="1rem"
+      pb="1.5rem"
       title="Report this book for Rule Violations"
     >
       <LabeledList>
@@ -187,7 +187,7 @@ const rateModalBodyOverride = (modal, context) => {
   const { user_ckey } = data;
 
   return (
-    <Section level={2} m="-1rem" pb="1rem">
+    <Section level={2} m="-1rem" pb="1.5rem">
       <LabeledList>
         <LabeledList.Item label="Title">{rate_content.title}</LabeledList.Item>
         <LabeledList.Item label="Author">

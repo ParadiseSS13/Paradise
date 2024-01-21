@@ -153,3 +153,9 @@ $bg-map: colors.$bg-map !default;
 .Button--selected {
   @include button-color($color-selected);
 }
+
+.Button--modal {
+  float: right;
+  z-index: 1;
+  margin-top: -0.5rem;
+}
