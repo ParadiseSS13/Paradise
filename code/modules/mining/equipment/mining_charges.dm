@@ -91,7 +91,7 @@
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 			if(istype(ears))
 				ears.receive_damage((boom_sizes[3] - distance) * 2) //something like that i guess. Mega charge makes 12 damage to ears if nearby
-			to_chat(C, "<span class='warning'><font size='2'><b>You are knocked down by the power of the mining charge!</font></b></span>")
+			to_chat(C, "<span class='userwarning'>You are knocked down by the power of the mining charge!</span>")
 	qdel(src)
 
 /obj/item/grenade/plastic/miningcharge/proc/explode() //c4 code
@@ -203,7 +203,6 @@
 		to_chat(user, "<span class='notice'>Activating explosives...</span>")
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
 			if(QDELETED(charge))
-				to_chat(user, "<span class='notice'>Can't reach [charge]. Deleting from the list...</span>")
 				bombs -= charge
 				update_icon() //if the last bomb was qdeleted, detonator icon should change after activating
 				return
