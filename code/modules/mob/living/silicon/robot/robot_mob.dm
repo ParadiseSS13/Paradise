@@ -458,26 +458,25 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
   */
 /mob/living/silicon/robot/proc/robot_module_hat_offset(module)
 	switch(module)
-		// хуманоидные броботы с шляпами
 		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot")
 			can_be_hatted = FALSE
 			hat_offset_y = -1
-		if("Noble-CLN", "Noble-SRV", "Noble-DIG", "Noble-MED", "Noble-SEC", "Noble-ENG", "Noble-STD") //Height: 32 pixels
+		if("Noble-CLN", "Noble-SRV", "Noble-DIG", "Noble-MED", "Noble-SEC", "Noble-ENG", "Noble-STD")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
 			hat_offset_y = 4
-		if("droid-medical") //Height: 32 pixels
+		if("droid-medical")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
 			hat_offset_y = 4
-		if("droid-miner", "mk2", "mk3") //Height: 32 pixels
+		if("droid-miner", "mk2", "mk3")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			hat_offset_y = 3
-		if("bloodhound", "nano_bloodhound", "syndie_bloodhound", "ertgamma") //Height: 31 pixels
+		if("bloodhound", "nano_bloodhound", "syndie_bloodhound", "ertgamma")
 			can_be_hatted = TRUE
 			hat_offset_y = 1
-		if("Cricket-SEC", "Cricket-MEDI", "Cricket-JANI", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV") //Height: 31 pixels
+		if("Cricket-SEC", "Cricket-MEDI", "Cricket-JANI", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV")
 			can_be_hatted = TRUE
 			hat_offset_y = 2
 		if("droidcombat-shield", "droidcombat")
@@ -497,8 +496,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			is_centered = TRUE
 			can_wear_restricted_hats = TRUE
 			hat_offset_y = -1
-		if("Brobot", "Service", "robot+o+c", "robot_old", "securityrobot",
-			"rowtree-engineering", "rowtree-lucy", "rowtree-medical", "rowtree-security")
+		if("Brobot", "Service", "robot_old", "securityrobot")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			can_wear_restricted_hats = TRUE
