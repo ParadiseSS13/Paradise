@@ -461,7 +461,7 @@
 	qdel(src)
 	return TRUE
 
-/mob/living/silicon/robot/drone/proc/set_pathfinding(/datum/pathfinding_mover/new_pathfind)
+/mob/living/silicon/robot/drone/proc/set_pathfinding(datum/pathfinding_mover/new_pathfind)
 	if(isnull(new_pathfind) && istype(pathfinding))
 		qdel(pathfinding)
 	pathfinding = new_pathfind
