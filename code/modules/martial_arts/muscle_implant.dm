@@ -12,7 +12,7 @@
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to hurt [target]!</span>")
 		return FALSE
-	var/picked_hit_type = pick("punch", "smash", "kick")
+	var/picked_hit_type = pick("punch", "smash")
 	if(ishuman(target) && target.check_shields(user, punch_damage, "[user]'s' [picked_hit_type]"))
 		user.do_attack_animation(target)
 		playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
