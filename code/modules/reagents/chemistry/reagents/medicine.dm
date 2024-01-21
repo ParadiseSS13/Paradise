@@ -284,7 +284,7 @@
 	penetrates_skin = TRUE
 	taste_description = "blood"
 
-/datum/reagent/medicine/heal_on_apply/synthflesh/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
+/datum/reagent/medicine/heal_on_apply/synthflesh/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = 1)
 	var/mob/living/carbon/human/H = M
 	if(ishuman(H) && HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() <= UNHUSK_DAMAGE_THRESHOLD && H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT)
 		H.cure_husk(BURN)
@@ -324,12 +324,12 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/heal_on_apply/styptic_powder/heal_external_limb(obj/item/organ/external/organ, volume)
-	organ.heal_damage(volume, 0, updating_health=FALSE)
+	organ.heal_damage(volume, 0, updating_health = FALSE)
 
 /datum/reagent/medicine/heal_on_apply/styptic_powder/heal_overall_damage(mob/living/M, volume)
 	M.adjustBruteLoss(-volume)
 
-/datum/reagent/medicine/heal_on_apply/styptic_powder/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
+/datum/reagent/medicine/heal_on_apply/styptic_powder/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = 1)
 	if(show_message)
 		to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
 		M.emote("scream")
