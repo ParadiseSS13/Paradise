@@ -25,7 +25,7 @@ export const TEG = (props, context) => {
     );
   }
   return (
-    <Window>
+    <Window width={500} height={400}>
       <Window.Content>
         <Section title={'Cold Loop (' + data.cold_dir + ')'}>
           <LabeledList>

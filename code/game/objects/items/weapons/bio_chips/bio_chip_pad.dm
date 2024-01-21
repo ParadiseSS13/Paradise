@@ -72,7 +72,7 @@
 /obj/item/bio_chip_pad/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ImplantPad", name)
+		ui = new(user, src, "BioChipPad", name)
 		ui.open()
 
 /obj/item/bio_chip_pad/ui_data(mob/user)

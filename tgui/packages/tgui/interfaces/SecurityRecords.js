@@ -8,8 +8,8 @@ import {
   LabeledList,
   Section,
   Stack,
-  Table,
   Tabs,
+  Table,
 } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
@@ -42,7 +42,7 @@ export const SecurityRecords = (properties, context) => {
   let body;
   if (!loginState.logged_in) {
     return (
-      <Window theme="security" width={800} height={800}>
+      <Window theme="security" width={800} height={900}>
         <Window.Content>
           <LoginScreen />
         </Window.Content>
@@ -57,16 +57,14 @@ export const SecurityRecords = (properties, context) => {
   }
 
   return (
-    <Window theme="security" width={800} height={800}>
+    <Window theme="security" width={800} height={900}>
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>
           <LoginInfo />
           <TemporaryNotice />
           <SecurityRecordsNavigation />
-          <Section fill scrollable>
-            {body}
-          </Section>
+          {body}
         </Stack>
       </Window.Content>
     </Window>
@@ -77,24 +75,22 @@ const SecurityRecordsNavigation = (properties, context) => {
   const { act, data } = useBackend(context);
   const { currentPage, general } = data;
   return (
-    <Stack vertical mb={1}>
-      <Stack.Item>
-        <Tabs>
-          <Tabs.Tab
-            icon="list"
-            selected={currentPage === 1}
-            onClick={() => act('page', { page: 1 })}
-          >
-            List Records
+    <Stack.Item m={0}>
+      <Tabs>
+        <Tabs.Tab
+          icon="list"
+          selected={currentPage === 1}
+          onClick={() => act('page', { page: 1 })}
+        >
+          List Records
+        </Tabs.Tab>
+        {currentPage === 2 && general && !general.empty && (
+          <Tabs.Tab icon="file" selected={currentPage === 2}>
+            Record: {general.fields[0].value}
           </Tabs.Tab>
-          {currentPage === 2 && general && !general.empty && (
-            <Tabs.Tab icon="file" selected={currentPage === 2}>
-              Record: {general.fields[0].value}
-            </Tabs.Tab>
-          )}
-        </Tabs>
-      </Stack.Item>
-    </Stack>
+        )}
+      </Tabs>
+    </Stack.Item>
   );
 };
 
@@ -105,10 +101,12 @@ const SecurityRecordsPageList = (properties, context) => {
   const [sortId, _setSortId] = useLocalState(context, 'sortId', 'name');
   const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
   return (
-    <Stack fill vertical>
-      <SecurityRecordsActions />
-      <Stack.Item grow>
-        <Section>
+    <>
+      <Stack.Item>
+        <SecurityRecordsActions />
+      </Stack.Item>
+      <Stack.Item grow mt={0.5}>
+        <Section fill scrollable>
           <Table className="SecurityRecords__list">
             <Table.Row bold>
               <SortButton id="name">Name</SortButton>
@@ -162,7 +160,7 @@ const SecurityRecordsPageList = (properties, context) => {
           </Table>
         </Section>
       </Stack.Item>
-    </Stack>
+    </>
   );
 };
 
@@ -171,25 +169,27 @@ const SortButton = (properties, context) => {
   const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
   const { id, children } = properties;
   return (
-    <Table.Cell>
-      <Button
-        color={sortId !== id && 'transparent'}
-        width="100%"
-        onClick={() => {
-          if (sortId === id) {
-            setSortOrder(!sortOrder);
-          } else {
-            setSortId(id);
-            setSortOrder(true);
-          }
-        }}
-      >
-        {children}
-        {sortId === id && (
-          <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
-        )}
-      </Button>
-    </Table.Cell>
+    <Stack.Item grow>
+      <Table.Cell>
+        <Button
+          color={sortId !== id && 'transparent'}
+          fluid
+          onClick={() => {
+            if (sortId === id) {
+              setSortOrder(!sortOrder);
+            } else {
+              setSortId(id);
+              setSortOrder(true);
+            }
+          }}
+        >
+          {children}
+          {sortId === id && (
+            <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
+          )}
+        </Button>
+      </Table.Cell>
+    </Stack.Item>
   );
 };
 
@@ -198,26 +198,28 @@ const SecurityRecordsActions = (properties, context) => {
   const { isPrinting } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   return (
-    <Stack>
+    <Stack fill>
       <Stack.Item>
         <Button
+          ml="0.25rem"
           content="New Record"
           icon="plus"
           onClick={() => act('new_general')}
         />
+      </Stack.Item>
+      <Stack.Item>
         <Button
           disabled={isPrinting}
           icon={isPrinting ? 'spinner' : 'print'}
           iconSpin={!!isPrinting}
           content="Print Cell Log"
-          ml="0.25rem"
           onClick={() => modalOpen(context, 'print_cell_log')}
         />
       </Stack.Item>
       <Stack.Item grow>
         <Input
           placeholder="Search by Name, ID, Assignment, Fingerprint, Status"
-          width="100%"
+          fluid
           onInput={(e, value) => setSearchText(value)}
         />
       </Stack.Item>
@@ -232,9 +234,11 @@ const SecurityRecordsPageView = (properties, context) => {
     return <Box color="bad">General records lost!</Box>;
   }
   return (
-    <Stack fill vertical>
-      <Stack.Item>
+    <>
+      <Stack.Item grow>
         <Section
+          fill
+          scrollable
           title="General Data"
           buttons={
             <>
@@ -249,7 +253,7 @@ const SecurityRecordsPageView = (properties, context) => {
                 icon="trash"
                 tooltip={
                   'WARNING: This will also delete the Security ' +
-                  'and Medical records associated to this crew member!'
+                  'and Medical records associated with this crew member!'
                 }
                 tooltipPosition="bottom-start"
                 content="Delete Record"
@@ -261,22 +265,77 @@ const SecurityRecordsPageView = (properties, context) => {
           <SecurityRecordsViewGeneral />
         </Section>
       </Stack.Item>
-      <Stack.Item>
-        <Section
-          title="Security Data"
-          buttons={
-            <Button.Confirm
-              icon="trash"
-              disabled={security.empty}
-              content="Delete Record"
-              onClick={() => act('delete_security')}
-            />
-          }
-        >
+      {!security || !security.fields ? (
+        <Stack.Item grow color="bad">
+          <Section
+            fill
+            title="Security Data"
+            buttons={
+              <Button
+                icon="pen"
+                content="Create New Record"
+                onClick={() => act('new_security')}
+              />
+            }
+          >
+            <Stack fill>
+              <Stack.Item
+                bold
+                grow
+                textAlign="center"
+                fontSize={1.75}
+                align="center"
+                color="label"
+              >
+                <Icon.Stack>
+                  <Icon name="scroll" size={5} color="gray" />
+                  <Icon name="slash" size={5} color="red" />
+                </Icon.Stack>
+                <br />
+                Security records lost!
+              </Stack.Item>
+            </Stack>
+          </Section>
+        </Stack.Item>
+      ) : (
+        <>
+          <Stack.Item grow>
+            <Section
+              fill
+              scrollable
+              title="Security Data"
+              buttons={
+                <Button.Confirm
+                  icon="trash"
+                  disabled={security.empty}
+                  content="Delete Record"
+                  onClick={() => act('delete_security')}
+                />
+              }
+            >
+              <Stack.Item>
+                <LabeledList>
+                  {security.fields.map((field, i) => (
+                    <LabeledList.Item key={i} label={field.field} prewrap>
+                      {decodeHtmlEntities(field.value)}
+                      {!!field.edit && (
+                        <Button
+                          icon="pen"
+                          ml="0.5rem"
+                          mb={field.line_break ? '1rem' : 'initial'}
+                          onClick={() => doEdit(context, field)}
+                        />
+                      )}
+                    </LabeledList.Item>
+                  ))}
+                </LabeledList>
+              </Stack.Item>
+            </Section>
+          </Stack.Item>
           <SecurityRecordsViewSecurity />
-        </Section>
-      </Stack.Item>
-    </Stack>
+        </>
+      )}
+    </>
   );
 };
 
@@ -284,7 +343,13 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
   const { data } = useBackend(context);
   const { general } = data;
   if (!general || !general.fields) {
-    return <Box color="bad">General records lost!</Box>;
+    return (
+      <Stack fill vertical>
+        <Stack.Item grow color="bad">
+          <Section fill>General records lost!</Section>
+        </Stack.Item>
+      </Stack>
+    );
   }
   return (
     <Stack>
@@ -328,38 +393,11 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
 const SecurityRecordsViewSecurity = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { security } = data;
-  if (!security || !security.fields) {
-    return (
-      <Box color="bad">
-        Security records lost!
-        <br />
-        <Button
-          icon="pen"
-          content="Create New Record"
-          mt="0.5rem"
-          onClick={() => act('new_security')}
-        />
-      </Box>
-    );
-  }
   return (
-    <Stack vertical>
-      <LabeledList>
-        {security.fields.map((field, i) => (
-          <LabeledList.Item key={i} label={field.field} prewrap>
-            {decodeHtmlEntities(field.value)}
-            {!!field.edit && (
-              <Button
-                icon="pen"
-                ml="0.5rem"
-                mb={field.line_break ? '1rem' : 'initial'}
-                onClick={() => doEdit(context, field)}
-              />
-            )}
-          </LabeledList.Item>
-        ))}
-      </LabeledList>
+    <Stack.Item height="150px">
       <Section
+        fill
+        scrollable
         title="Comments/Log"
         buttons={
           <Button
@@ -389,6 +427,6 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
           ))
         )}
       </Section>
-    </Stack>
+    </Stack.Item>
   );
 };

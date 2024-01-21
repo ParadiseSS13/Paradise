@@ -68,7 +68,7 @@
 		if(ACI.legacy)
 			legacy_assets[asset_name] = ACI
 	if(length(legacy_assets))
-		. = ..(client, legacy_assets)
+		return ..(client, legacy_assets)
 
 
 /// webroot slow asset sending - does nothing.

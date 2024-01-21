@@ -307,7 +307,7 @@ SUBSYSTEM_DEF(ticker)
 
 
 	if(!GLOB.syndicate_code_response)
-		var/temp_syndicate_code_response = generate_code_phrase(return_list=TRUE)
+		var/temp_syndicate_code_response = generate_code_phrase(return_list = TRUE)
 
 		var/codewords = jointext(temp_syndicate_code_response, "|")
 		var/regex/codeword_match = new("([codewords])", "ig")

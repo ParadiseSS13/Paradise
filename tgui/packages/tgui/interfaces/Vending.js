@@ -98,7 +98,7 @@ export const Vending = (props, context) => {
     <Window
       title="Vending Machine"
       width={450}
-      height={Math.min((chargesMoney ? 230 : 115) + inventory.length * 30, 600)}
+      height={Math.min((chargesMoney ? 171 : 89) + inventory.length * 32, 585)}
     >
       <Window.Content scrollable>
         <Stack fill vertical>

@@ -25,7 +25,6 @@ const hotKeysAcquired = [
   keycodes.KEY_DOWN,
   keycodes.KEY_LEFT,
   keycodes.KEY_RIGHT,
-  keycodes.KEY_F5,
 ];
 
 // State of passed-through keys.
@@ -68,7 +67,7 @@ const keyCodeToByond = (keyCode: number) => {
  */
 const handlePassthrough = (key: KeyEvent) => {
   const keyString = String(key);
-  // In addition to F5, support reloading with Ctrl+R and Ctrl+F5
+  // Support reloading with Ctrl+R and Ctrl+F5
   if (keyString === 'Ctrl+F5' || keyString === 'Ctrl+R') {
     location.reload();
     return;
@@ -84,6 +83,11 @@ const handlePassthrough = (key: KeyEvent) => {
     hotKeysAcquired.includes(key.code)
   ) {
     return;
+  }
+  if (keyString === 'F5') {
+    // Hacky prevention of F5 reloading
+    key.event.preventDefault();
+    key.event.returnValue = false;
   }
   const byondKeyCode = keyCodeToByond(key.code);
   if (!byondKeyCode) {

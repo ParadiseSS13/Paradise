@@ -1,8 +1,11 @@
 /client
-	var/list/sent_assets = list() // List of all asset filenames sent to this client by the asset cache, along with their assoicated md5s
-	var/list/completed_asset_jobs = list() /// List of all completed blocking send jobs awaiting acknowledgement by send_asset
+	/// List of all asset filenames sent to this client by the asset cache, along with their assoicated md5s
+	var/list/sent_assets = list()
+	/// List of all completed blocking send jobs awaiting acknowledgement by send_asset
+	var/list/completed_asset_jobs = list()
 
-	var/last_asset_job = 0 /// Last asset send job id.
+	/// Last asset send job id
+	var/last_asset_job = 0
 	var/last_completed_asset_job = 0
 
 /// Process asset cache client topic calls for "asset_cache_confirm_arrival=[INT]"

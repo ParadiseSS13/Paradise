@@ -1,4 +1,4 @@
-//Pill sprites for UIs
+/// Pill sprites for UIs
 /datum/asset/spritesheet/chem_master
 	name = "chem_master"
 

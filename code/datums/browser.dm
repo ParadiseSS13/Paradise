@@ -1,15 +1,23 @@
 /datum/browser
 	var/mob/user
 	var/title
-	var/window_id // window_id is used as the window name for browse and onclose
+	/// window_id is used as the window name for browse and onclose calls
+	var/window_id
 	var/width = 0
 	var/height = 0
+	/// UID of the host atom
 	var/atom_uid = null
+	/// Various options to control elements such as titlebar buttons for the window
 	var/list/window_options = list("focus=0;can_close=1;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;") // window option is set using window_id
+	/// Assoc list of stylesheets for use by the datum
 	var/stylesheets[0]
+	/// Assoc list of script files for use by the datum
 	var/scripts[0]
+	/// Should default stylesheets be loaded
 	var/include_default_stylesheet = TRUE
+	/// Header HTML content of the browser datum
 	var/list/head_content = list()
+	/// HTML content of the browser datum
 	var/list/content = list()
 
 

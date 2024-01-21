@@ -11,9 +11,7 @@ import {
   Tabs,
   Table,
   Divider,
-  Flex,
 } from '../../components';
-import { FlexItem } from '../../components/Flex';
 
 export const pda_nanobank = (props, context) => {
   const { act, data } = useBackend(context);
@@ -249,7 +247,6 @@ const AccountActions = (props, context) => {
           />
         </LabeledList.Item>
       </LabeledList>
-
       {Boolean(is_department_account) && (
         <>
           <Divider />
@@ -261,10 +258,8 @@ const AccountActions = (props, context) => {
                 onClick={() => act('toggle_auto_approve')}
               />
             </LabeledList.Item>
-          </LabeledList>
-          <Flex mt={1}>
-            <FlexItem mr={0.5}>{'Auto Approve Purchases when <='}</FlexItem>
-            <FlexItem>
+
+            <LabeledList.Item label="Auto Approve Purchases when">
               <Input
                 placeholder="# Credits"
                 value={auto_approve_amount}
@@ -274,9 +269,8 @@ const AccountActions = (props, context) => {
                   })
                 }
               />
-            </FlexItem>
-          </Flex>
-
+            </LabeledList.Item>
+          </LabeledList>
           <Divider />
           <Table>
             <Table.Row header>

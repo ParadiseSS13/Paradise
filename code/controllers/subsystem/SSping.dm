@@ -9,8 +9,10 @@ SUBSYSTEM_DEF(ping)
 	wait = 4 SECONDS
 	flags = SS_NO_INIT
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	offline_implications = "Chat ping system will no longer function correctly. No immediate action is needed."
 
-	var/list/currentrun = list()
+	/// List used each time SS fires to track which clients have been processed so far
+	var/list/current_run = list()
 
 /datum/controller/subsystem/ping/stat_entry()
 	..("P:[length(GLOB.clients)]")
@@ -18,14 +20,14 @@ SUBSYSTEM_DEF(ping)
 /datum/controller/subsystem/ping/fire(resumed = FALSE)
 	// Prepare the new batch of clients
 	if(!resumed)
-		src.currentrun = GLOB.clients.Copy()
+		src.current_run = GLOB.clients.Copy()
 
 	// De-reference the list for sanic speeds
-	var/list/currentrun = src.currentrun
+	var/list/current_run = src.current_run
 
-	while(length(currentrun))
-		var/client/client = currentrun[currentrun.len]
-		currentrun.len--
+	while(length(current_run))
+		var/client/client = current_run[current_run.len]
+		current_run.len--
 
 		if(client?.tgui_panel?.is_ready())
 			// Send a soft ping

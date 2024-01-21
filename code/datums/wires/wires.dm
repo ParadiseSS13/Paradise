@@ -19,7 +19,6 @@
 	var/list/colors
 	/// An associative list of signalers attached to the wires. The wire color is the key, and the signaler object reference is the value.
 	var/list/assemblies
-	/// The width of the wire TGUI window.
 
 /datum/wires/New(atom/_holder)
 	..()

@@ -243,33 +243,31 @@ window "rpane"
 		command = "forum"
 	elem "rulesb"
 		type = BUTTON
-		pos = 222,7
+		pos = 221,7
 		size = 50x16
 		text = "Rules"
 		command = "rules"
 	elem "githubb"
 		type = BUTTON
-		pos = 274,7
+		pos = 273,7
 		size = 50x16
 		text = "GitHub"
 		command = "github"
 	elem "webmap"
 		type = BUTTON
-		pos = 326,7
+		pos = 325,7
 		size = 50x16
 		text = "Map"
 		command = "webmap"
 	elem "changelog"
 		type = BUTTON
-		pos = 388,7
+		pos = 387,7
 		size = 70x16
-		font-style = "bold"
-		text-color = #ffffff
 		text = "Changelog"
 		command = "Changelog"
 	elem "discordb"
 		type = BUTTON
-		pos = 460,7
+		pos = 459,7
 		size = 60x16
 		font-style = "bold"
 		text-color = #ffffff
@@ -278,7 +276,7 @@ window "rpane"
 		command = "discord"
 	elem "donate"
 		type = BUTTON
-		pos = 522,7
+		pos = 521,7
 		size = 60x16
 		font-style = "bold"
 		text-color = #ffffff
