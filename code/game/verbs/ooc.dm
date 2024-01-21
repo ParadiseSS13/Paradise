@@ -173,10 +173,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!mob)
 		return
 	if(IsGuestKey(key))
-		to_chat(src,
-			"<span class='danger'>Guests may not use LOOC.</span>",
-			MESSAGE_TYPE_WARNING,
-			confidential = TRUE)
+		to_chat(src, "<span class='danger'>Guests may not use LOOC.</span>", MESSAGE_TYPE_WARNING, confidential = TRUE)
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
