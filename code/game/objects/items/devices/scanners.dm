@@ -200,11 +200,11 @@ REAGENT SCANNER
 	if(H.undergoing_cardiac_arrest())
 		var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
 		if(heart && !(heart.status & ORGAN_DEAD))
-			msgs += "<span class='notice'><font color='red'><b>The patient's heart has stopped.</b>\nPossible Cure: Electric Shock</font></span>"
+			msgs += "<span class='notice'><font color='red'><b>The patient's heart has stopped.</b>\nPossible Cure: Electric Shock</font>"
 		else if(heart && (heart.status & ORGAN_DEAD))
-			msgs += "<span class='notice'><font color='red'><b>Subject's heart is necrotic.</b></font></span>"
+			msgs += "<span class='notice'><font color='red'><b>Subject's heart is necrotic.</b></font>"
 		else if(!heart)
-			msgs += "<span class='notice'><font color='red'><b>Subject has no heart.</b></font></span>"
+			msgs += "<span class='notice'><font color='red'><b>Subject has no heart.</b></font>"
 
 	if(H.getStaminaLoss())
 		msgs += "<span class='info'>Subject appears to be suffering from fatigue.</span>"
