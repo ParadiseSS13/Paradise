@@ -313,7 +313,14 @@
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
 
-#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
+// Return a Client
+#define CLIENT_FROM_VAR(I) (ismob(I) \  // Check if datum I is a mob
+		? I:client \ // If I is a mob, return the client of mob I
+		: istype(I, /client) \ // Else, check to see if I is a client
+				? I \  // If I is a client, return I
+				: istype(I, /datum/mind \ // Else, check to see if I is a mind
+						? I:current?:client \  // If I is a mind, try and return the mind's current mob's client
+						: null)) // If this does not exist, return null
 
 // Macro to get the current elapsed round time, rather than total world runtime
 #define ROUND_TIME (SSticker.time_game_started ? (world.time - SSticker.time_game_started) : 0)

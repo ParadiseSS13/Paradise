@@ -470,7 +470,7 @@
 
 	SSambience.ambience_listening_clients -= src
 	SSinput.processing -= src
-	SSping.currentrun -= src
+	SSping.current_run -= src
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW

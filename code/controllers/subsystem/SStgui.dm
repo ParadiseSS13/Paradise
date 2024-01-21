@@ -64,7 +64,7 @@ SUBSYSTEM_DEF(tgui)
  */
 /datum/controller/subsystem/tgui/proc/request_pooled_window(mob/user)
 	if(!user.client)
-		return null
+		return
 	var/list/windows = user.client.tgui_windows
 	var/window_id
 	var/datum/tgui_window/window
@@ -87,7 +87,7 @@ SUBSYSTEM_DEF(tgui)
 			break
 	if(!window_found)
 		log_tgui(user, "Error: Pool exhausted")
-		return null
+		return
 	return window
 
 /**
@@ -136,17 +136,13 @@ SUBSYSTEM_DEF(tgui)
  *
  * return datum/tgui The found UI.
  */
-/datum/controller/subsystem/tgui/proc/try_update_ui(
-		mob/user,
-		datum/src_object,
-		datum/tgui/ui,
-		force_open = FALSE)
+/datum/controller/subsystem/tgui/proc/try_update_ui(mob/user, datum/src_object, datum/tgui/ui, force_open = FALSE)
 	// Look up a UI if it wasn't passed
 	if(isnull(ui))
 		ui = get_open_ui(user, src_object)
 	// Couldn't find a UI.
 	if(isnull(ui))
-		return null
+		return
 	var/data = src_object.ui_data(user) // Get data from the src_object.
 	if(force_open) // UI is already open; update it.
 		ui.send_full_update(data, TRUE)
@@ -157,7 +153,7 @@ SUBSYSTEM_DEF(tgui)
 	// FIXME: Doesn't actually fix the paper bug.
 	if(ui.status <= UI_CLOSE)
 		ui.close()
-		return null
+		return
 	ui.send_update()
 	return ui
 
@@ -174,13 +170,13 @@ SUBSYSTEM_DEF(tgui)
 /datum/controller/subsystem/tgui/proc/get_open_ui(mob/user, datum/src_object)
 	var/key = "[src_object.UID()]"
 	// No UIs opened for this src_object
-	if(isnull(open_uis_by_src[key]) || !istype(open_uis_by_src[key], /list))
-		return null
+	if(isnull(open_uis_by_src[key]) || !islist(open_uis_by_src[key]))
+		return
 	for(var/datum/tgui/ui in open_uis_by_src[key])
 		// Make sure we have the right user
 		if(ui.user == user)
 			return ui
-	return null
+	return
 
 /**
  * public
@@ -195,7 +191,7 @@ SUBSYSTEM_DEF(tgui)
 	var/count = 0
 	var/key = "[src_object.UID()]"
 	// No UIs opened for this src_object
-	if(isnull(open_uis_by_src[key]) || !istype(open_uis_by_src[key], /list))
+	if(isnull(open_uis_by_src[key]) || !islist(open_uis_by_src[key]))
 		return count
 	for(var/datum/tgui/ui in open_uis_by_src[key])
 		// Check if UI is valid.
@@ -214,17 +210,17 @@ SUBSYSTEM_DEF(tgui)
  * return int The number of UIs closed.
  */
 /datum/controller/subsystem/tgui/proc/close_uis(datum/src_object)
-	var/count = 0
+	. = 0
 	var/key = "[src_object.UID()]"
 	// No UIs opened for this src_object
-	if(isnull(open_uis_by_src[key]) || !istype(open_uis_by_src[key], /list))
-		return count
+	if(isnull(open_uis_by_src[key]) || !islist(open_uis_by_src[key]))
+		return
 	for(var/datum/tgui/ui in open_uis_by_src[key])
 		// Check if UI is valid.
 		if(ui && ui.src_object && ui.user && ui.src_object.ui_host(ui.user))
 			ui.close()
-			count++
-	return count
+			.++
+	return
 
 /**
  * public
@@ -291,8 +287,9 @@ SUBSYSTEM_DEF(tgui)
  * required ui datum/tgui The UI to be added.
  */
 /datum/controller/subsystem/tgui/proc/on_open(datum/tgui/ui)
+	PRIVATE_PROC(TRUE)
 	var/key = "[ui.src_object.UID()]"
-	if(isnull(open_uis_by_src[key]) || !istype(open_uis_by_src[key], /list))
+	if(isnull(open_uis_by_src[key]) || !islist(open_uis_by_src[key]))
 		open_uis_by_src[key] = list()
 	ui.user.tgui_open_uis |= ui
 	var/list/uis = open_uis_by_src[key]
@@ -309,8 +306,9 @@ SUBSYSTEM_DEF(tgui)
  * return bool If the UI was removed or not.
  */
 /datum/controller/subsystem/tgui/proc/on_close(datum/tgui/ui)
+	PRIVATE_PROC(TRUE)
 	var/key = "[ui.src_object.UID()]"
-	if(isnull(open_uis_by_src[key]) || !istype(open_uis_by_src[key], /list))
+	if(isnull(open_uis_by_src[key]) || !islist(open_uis_by_src[key]))
 		return FALSE
 	// Remove it from the list of processing UIs.
 	open_uis.Remove(ui)
@@ -333,6 +331,7 @@ SUBSYSTEM_DEF(tgui)
  * return int The number of UIs closed.
  */
 /datum/controller/subsystem/tgui/proc/on_logout(mob/user)
+	PRIVATE_PROC(TRUE)
 	close_user_uis(user)
 
 /**
@@ -346,6 +345,7 @@ SUBSYSTEM_DEF(tgui)
  * return bool If the UIs were transferred.
  */
 /datum/controller/subsystem/tgui/proc/on_transfer(mob/source, mob/target)
+	PRIVATE_PROC(TRUE)
 	// The old mob had no open UIs.
 	if(length(source?.tgui_open_uis) == 0)
 		return FALSE

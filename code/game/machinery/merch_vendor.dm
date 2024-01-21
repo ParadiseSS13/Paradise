@@ -78,7 +78,7 @@
 	SSeconomy.total_vendor_transactions++
 
 /obj/machinery/economy/merch/ui_state(mob/user)
-	return GLOB.physical_state
+	return GLOB.default_state
 
 /obj/machinery/economy/merch/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)

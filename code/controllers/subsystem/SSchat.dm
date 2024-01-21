@@ -9,14 +9,15 @@ SUBSYSTEM_DEF(chat)
 	wait = 1
 	priority = FIRE_PRIORITY_CHAT
 	init_order = INIT_ORDER_CHAT
+	offline_implications = "Chat will no longer function correctly. Immediate server restart recommended."
 
-	/// Assosciates a ckey with a list of messages to send to them.
+	/// Associates a ckey with a list of messages to send to them.
 	var/list/list/datum/chat_payload/client_to_payloads = list()
 
-	/// Associates a ckey with an assosciative list of their last CHAT_RELIABILITY_HISTORY_SIZE messages.
+	/// Associates a ckey with an associative list of their last CHAT_RELIABILITY_HISTORY_SIZE messages.
 	var/list/list/datum/chat_payload/client_to_reliability_history = list()
 
-	/// Assosciates a ckey with their next sequence number.
+	/// Associates a ckey with their next sequence number.
 	var/list/client_to_sequence_number = list()
 
 /datum/controller/subsystem/chat/proc/generate_payload(client/target, message_data)

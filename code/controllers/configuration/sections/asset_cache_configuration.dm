@@ -1,7 +1,8 @@
 /datum/configuration_section/asset_cache_configuration
-	/// Type of asset transport that will be used for asset delivery
+	/// Type of asset transport that will be used for asset delivery.
+	/// Available options are "simple" or "webroot".
 	var/asset_transport = "simple"
-	/// Whether to make server passively send all browser assets to each client in the background.
+	/// Whether to make server passively send all browser assets to each client in the background
 	/// (instead of waiting for them to be needed)
 	var/asset_simple_preload = TRUE
 	/// Local folder to save assets to.

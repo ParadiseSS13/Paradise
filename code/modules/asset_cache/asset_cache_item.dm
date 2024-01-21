@@ -45,3 +45,10 @@
 
 /datum/asset_cache_item/CanProcCall(procname)
 	return FALSE
+
+/*
+ * can_vv_delete override
+ * Admins should not be deleting asset cache items through VV
+ */
+/datum/asset_cache_item/can_vv_delete()
+	.return FALSE

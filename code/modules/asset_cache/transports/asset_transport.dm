@@ -151,3 +151,5 @@
 /// Returns TRUE or FALSE
 /datum/asset_transport/proc/validate_config(log = TRUE)
 	return TRUE
+
+#undef ASSET_CACHE_TELL_CLIENT_AMOUNT

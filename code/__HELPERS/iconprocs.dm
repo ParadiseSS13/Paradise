@@ -300,7 +300,7 @@ world
 		// apply mask
 		Blend(M, ICON_ADD)
 
-//Converts an icon to base64. Operates by putting the icon in the iconCache savefile,
+// Converts an icon to base64. Operates by putting the icon in the iconCache savefile,
 // exporting it as text, and then parsing the base64 from that.
 // (This relies on byond automatically storing icons in savefiles as base64)
 GLOBAL_DATUM_INIT(iconCache, /savefile, new /savefile("data/iconCache.sav"))

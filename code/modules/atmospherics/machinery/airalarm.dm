@@ -782,7 +782,7 @@
 		if(!AI.lacks_power() || AI.apc_override)
 			return GLOB.always_state
 
-	if(ishuman(user))
+	else if(ishuman(user))
 		for(var/obj/machinery/computer/atmoscontrol/AC in range(1, user))
 			var/datum/tgui/active_ui = SStgui.get_open_ui(user, AC)
 			if(istype(active_ui) && !AC.stat && is_authenticated(user, active_ui))

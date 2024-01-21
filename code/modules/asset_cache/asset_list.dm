@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		.[asset_name] = SSassets.transport.get_asset_url(asset_name, assets[asset_name])
 
 
-// For registering or sending multiple others at once
+/// For registering or sending multiple others at once
 /datum/asset/group
 	_abstract = /datum/asset/group
 	var/list/children
@@ -101,8 +101,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/spritesheet
 	_abstract = /datum/asset/spritesheet
 	var/name
-	var/list/sizes = list()    // "32x32" -> list(10, icon/normal, icon/stripped)
-	var/list/sprites = list()  // "foo_bar" -> list("32x32", 5)
+	/// "32x32" -> list(10, icon/normal, icon/stripped)
+	var/list/sizes = list()
+	/// "foo_bar" -> list("32x32", 5)
+	var/list/sprites = list()
 
 /datum/asset/spritesheet/register()
 	SHOULD_NOT_OVERRIDE(TRUE)
@@ -181,8 +183,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 	return out.Join("\n")
 
-/// Override this in order to start the creation of the spritehseet.
-/// This is where all your Insert, InsertAll, etc calls should be inside.
+/*
+ * Override this in order to start the creation of the spritehseet.
+ * This is where all your Insert, InsertAll, etc calls should be inside.
+ */
 /datum/asset/spritesheet/proc/create_spritesheets()
 	SHOULD_CALL_PARENT(FALSE)
 	CRASH("create_spritesheets() not implemented for [type]!")
@@ -191,7 +195,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	I = icon(I, icon_state=icon_state, dir=dir, frame=frame, moving=moving)
 	if(!I || !length(icon_states(I)))  // that direction or state doesn't exist
 		return
-	//any sprite modifications we want to do (aka, coloring a greyscaled asset)
+	// any sprite modifications we want to do (aka, coloring a greyscaled asset)
 	I = ModifyInserted(I)
 	var/size_id = "[I.Width()]x[I.Height()]"
 	var/size = sizes[size_id]
@@ -236,7 +240,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 	for(var/icon_state_name in icon_states(I))
 		for(var/direction in directions)
-			var/prefix2 = (directions.len > 1) ? "[dir2text(direction)]-" : ""
+			var/prefix2 = length(directions) ? "[dir2text(direction)]-" : ""
 			Insert("[prefix][prefix2][icon_state_name]", I, icon_state=icon_state_name, dir=direction)
 
 /datum/asset/spritesheet/proc/css_tag()
@@ -287,7 +291,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	for(var/key in assets)
 		Insert(key, assets[key])
 
-//Generates assets based on iconstates of a single icon
+/// Generates assets based on iconstates of a single icon
 /datum/asset/simple/icon_states
 	_abstract = /datum/asset/simple/icon_states
 	var/icon
@@ -295,8 +299,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/frame = 1
 	var/movement_states = FALSE
 
-	var/prefix = "default" //asset_name = "[prefix].[icon_state_name].png"
-	var/generic_icon_names = FALSE //generate icon filenames using generate_asset_name() instead the above format
+	/// Used in asset name generation, (asset_name = "[prefix].[icon_state_name].png")
+	var/prefix = "default"
+	/// Generate icon filenames using GENERATE_ASSET_NAME instead the "[prefix].[icon_state_name].png" format
+	var/generic_icon_names = FALSE
 
 /datum/asset/simple/icon_states/register(_icon = icon)
 	for(var/icon_state_name in icon_states(_icon))
@@ -308,7 +314,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 			var/prefix2 = (directions.len > 1) ? "[dir2text(direction)]." : ""
 			var/asset_name = "[prefix].[prefix2][icon_state_name].png"
 			if(generic_icon_names)
-				asset_name = "[generate_asset_name(asset)].png"
+				asset_name = "[GENERATE_ASSET_NAME(asset)].png"
 
 			SSassets.transport.register_asset(asset_name, asset)
 
@@ -364,7 +370,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	assets = sorted_assets
 	..()
 
-/// Get a html string that will load a html asset.
-/// Needed because byond doesn't allow you to browse() to a url.
+/*
+ * Get a html string that will load a html asset.
+ * Needed because byond doesn't allow you to browse() to a url.
+ */
 /datum/asset/simple/namespaced/proc/get_htmlloader(filename)
-	return url2htmlloader(SSassets.transport.get_asset_url(filename, assets[filename]))
+	return URL2HTMLLOADER(SSassets.transport.get_asset_url(filename, assets[filename]))
