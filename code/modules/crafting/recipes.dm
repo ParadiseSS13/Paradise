@@ -31,19 +31,19 @@
 	reqs = list(/datum/reagent/fuel = 50,
 				/obj/item/stack/cable_coil = 1,
 				/obj/item/assembly/igniter = 1,
-				/obj/item/reagent_containers/food/drinks/cans = 1)
-	parts = list(/obj/item/reagent_containers/food/drinks/cans = 1)
+				/obj/item/reagent_containers/drinks/cans = 1)
+	parts = list(/obj/item/reagent_containers/drinks/cans = 1)
 	time = 15
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
 /datum/crafting_recipe/molotov
 	name = "Molotov"
-	result = list(/obj/item/reagent_containers/food/drinks/bottle/molotov)
+	result = list(/obj/item/reagent_containers/drinks/bottle/molotov)
 	reqs = list(/obj/item/reagent_containers/glass/rag = 1,
-				/obj/item/reagent_containers/food/drinks/bottle = 1)
-	blacklist = list(/obj/item/reagent_containers/food/drinks/bottle/molotov)
-	parts = list(/obj/item/reagent_containers/food/drinks/bottle = 1)
+				/obj/item/reagent_containers/drinks/bottle = 1)
+	blacklist = list(/obj/item/reagent_containers/drinks/bottle/molotov)
+	parts = list(/obj/item/reagent_containers/drinks/bottle = 1)
 	time = 40
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
@@ -91,10 +91,10 @@
 /datum/crafting_recipe/throwing_croissant
 	name = "Throwing croissant"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/croissant = 1,
+		/obj/item/food/snacks/croissant = 1,
 		/obj/item/stack/rods = 1
 	)
-	result = list(/obj/item/reagent_containers/food/snacks/croissant/throwing)
+	result = list(/obj/item/food/snacks/croissant/throwing)
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 	always_available = FALSE
@@ -888,7 +888,7 @@
 	name = "Snowman"
 	result = list(/obj/structure/snowman/built)
 	reqs = list(/obj/item/snowball = 10,
-				/obj/item/reagent_containers/food/snacks/grown/carrot = 1,
+				/obj/item/food/snacks/grown/carrot = 1,
 				/obj/item/grown/log = 2)
 	time = 50
 	category = CAT_MISC

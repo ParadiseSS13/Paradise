@@ -127,7 +127,7 @@
 			return
 
 		var/obj/item/storage/bag/plants/PB = O
-		for(var/obj/item/reagent_containers/food/snacks/grown/G in PB.contents)
+		for(var/obj/item/food/snacks/grown/G in PB.contents)
 			if(length(stored_plants) >= max_storable_plants)
 				break
 			PB.remove_from_storage(G, src)
@@ -141,7 +141,7 @@
 		SStgui.update_uis(src)
 		return TRUE
 
-	else if(istype(O, /obj/item/reagent_containers/food/snacks/grown))
+	else if(istype(O, /obj/item/food/snacks/grown))
 		if(length(stored_plants) >= max_storable_plants)
 			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
 			return
