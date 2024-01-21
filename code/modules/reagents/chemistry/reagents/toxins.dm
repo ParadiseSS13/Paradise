@@ -1233,10 +1233,9 @@
 
 /datum/reagent/ants/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //NOT THE ANTS
 	if(iscarbon(M))
-		if(method == REAGENT_TOUCH || method==REAGENT_INGEST)
-			to_chat(M, "<span class='warning'>OH SHIT ANTS!!!!</span>")
-			M.emote("scream")
-			M.adjustBruteLoss(4)
+		to_chat(M, "<span class='warning'>OH SHIT ANTS!!!!</span>")
+		M.emote("scream")
+		M.adjustBruteLoss(4)
 
 /datum/reagent/teslium //Teslium. Causes periodic shocks, and makes shocks against the target much more effective.
 	name = "Teslium"
