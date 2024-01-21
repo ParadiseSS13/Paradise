@@ -190,7 +190,7 @@
 
 /obj/item/organ/internal/heart/gland/ventcrawling/activate()
 	to_chat(owner, "<span class='notice'>You feel very stretchy.</span>")
-	owner.ventcrawler = 2
+	owner.ventcrawler = VENTCRAWLER_ALWAYS
 
 
 /obj/item/organ/internal/heart/gland/viral
@@ -265,7 +265,7 @@
 
 /obj/item/organ/internal/heart/gland/egg/activate()
 	owner.visible_message("<span class='alertalien'>[owner] [pick(EGG_LAYING_MESSAGES)]</span>")
-	new /obj/item/reagent_containers/food/snacks/egg/gland(get_turf(owner))
+	new /obj/item/food/snacks/egg/gland(get_turf(owner))
 
 /obj/item/organ/internal/heart/gland/electric
 	cooldown_low = 800

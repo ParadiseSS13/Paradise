@@ -20,7 +20,7 @@
 	var/loudspeaker = FALSE
 	var/heat_protection = 0.5
 	var/leaping = FALSE
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
 
@@ -181,7 +181,7 @@
 		return threatcount
 
 	//Check for weapons
-	if(judgebot.weaponscheck)
+	if(judgebot.weapons_check)
 		if(judgebot.check_for_weapons(l_hand))
 			threatcount += 4
 		if(judgebot.check_for_weapons(r_hand))
@@ -290,3 +290,22 @@ and carry the owner just to make sure*/
 /mob/living/carbon/alien/on_lying_down(new_lying_angle)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT) //Xenos can't crawl
+
+/mob/living/carbon/alien/consume_patch_or_pill(obj/item/reagent_containers/medicine, mob/user)
+	var/apply_method = "swallow"
+	var/how_many_reagents = medicine.reagents.total_volume
+	var/reagent_application = REAGENT_INGEST
+	if(ispatch(medicine))
+		apply_method = "apply"
+		how_many_reagents = clamp(medicine.reagents.total_volume, 0.1, 2)
+		reagent_application = REAGENT_TOUCH
+
+	visible_message("<span class='warning'>[user] attempts to force [src] to [apply_method] [medicine].</span>")
+	if(!do_after(user, 5 SECONDS, TRUE, src)) // You try feeding a xenomorph a pill
+		return
+
+	visible_message("<span class='warning'>[user] forces [src] to [apply_method] [medicine].</span>")
+	var/fraction = min(1 / medicine.reagents.total_volume, 1)
+	medicine.reagents.reaction(src, reagent_application, fraction)
+	medicine.reagents.trans_to(src, how_many_reagents)
+	return TRUE
