@@ -450,6 +450,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	return module_sprites
 
+/**
+  * Sets the offset for a cyborg's hats based on their module icon.
+  *
+  * Arguments:
+  * * module - An `icon_state` for which the offset needs to be calculated.
+  */
 /mob/living/silicon/robot/proc/robot_module_hat_offset(module)
 	switch(module)
 		// хуманоидные броботы с шляпами
@@ -478,12 +484,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			can_be_hatted = TRUE
 			hat_alpha = 255
 			hat_offset_y = 2
-			to_chat(world, "[module], [hat_alpha]")
 		if("droidcombat-roll")
 			can_be_hatted = TRUE
 			hat_alpha = 0
 			hat_offset_y = 2
-			to_chat(world, "[module], [hat_alpha]")
 		if("syndi-medi", "surgeon", "toiletbot")
 			can_be_hatted = TRUE
 			is_centered = TRUE
