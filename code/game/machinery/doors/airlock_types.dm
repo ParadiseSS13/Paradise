@@ -201,12 +201,12 @@
 	DA.update_name()
 	qdel(src)
 
-/obj/machinery/door/airlock/plasma/attackby(obj/C, mob/user, params)
-	if(is_hot(C) > 300)
-		message_admins("Plasma airlock ignited by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+/obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)
+	if(C.get_heat() > 300)
+		message_admins("Plasma airlock ignited by [key_name_admin(user)] in ([x],[y],[z] - <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		log_game("Plasma airlock ignited by [key_name(user)] in ([x],[y],[z])")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
-		ignite(is_hot(C))
+		ignite(C.get_heat())
 	else
 		return ..()
 
@@ -554,6 +554,9 @@
 	desc = initial(desc)
 	stealthy = initial(stealthy)
 	update_icon()
+
+/obj/machinery/door/airlock/cult/arePowerSystemsOn()
+	return !(stat & BROKEN)
 
 /obj/machinery/door/airlock/cult/narsie_act()
 	return

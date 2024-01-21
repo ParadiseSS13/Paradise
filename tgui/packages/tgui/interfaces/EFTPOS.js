@@ -14,7 +14,7 @@ export const EFTPOS = (props, context) => {
   const { act, data } = useBackend(context);
   const { transaction_locked, machine_name } = data;
   return (
-    <Window>
+    <Window width={500} height={250}>
       <Window.Content>
         <Section
           title={'POS Terminal ' + machine_name}

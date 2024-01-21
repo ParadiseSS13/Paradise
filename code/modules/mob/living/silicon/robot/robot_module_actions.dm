@@ -35,3 +35,25 @@
 	sight_mode = BORGMESON
 	icon_icon = 'icons/obj/clothing/glasses.dmi'
 	button_icon_state = "meson"
+
+/datum/action/innate/robot_magpulse
+	name = "Magnetic pulse"
+	icon_icon = 'icons/obj/clothing/shoes.dmi'
+	button_icon_state = "magboots0"
+	var/slowdown_active = 2 // Same as magboots
+
+/datum/action/innate/robot_magpulse/Activate()
+	ADD_TRAIT(owner, TRAIT_MAGPULSE, "innate boots")
+	to_chat(owner, "You turn your magboots on.")
+	var/mob/living/silicon/robot/robot = owner
+	robot.speed += slowdown_active
+	button_icon_state = "magboots1"
+	active = TRUE
+
+/datum/action/innate/robot_magpulse/Deactivate()
+	REMOVE_TRAIT(owner, TRAIT_MAGPULSE, "innate boots")
+	to_chat(owner, "You turn your magboots off.")
+	var/mob/living/silicon/robot/robot = owner
+	robot.speed -= slowdown_active
+	button_icon_state = initial(button_icon_state)
+	active = FALSE

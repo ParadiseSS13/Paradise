@@ -149,25 +149,25 @@
 	name = "fancy food"
 	lootcount = 3
 	loot = list(
-		/obj/item/reagent_containers/food/snacks/wingfangchu,
-		/obj/item/reagent_containers/food/snacks/hotdog,
-		/obj/item/reagent_containers/food/snacks/sliceable/turkey,
-		/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit,
-		/obj/item/reagent_containers/food/snacks/appletart,
-		/obj/item/reagent_containers/food/snacks/sliceable/cheesecake,
-		/obj/item/reagent_containers/food/snacks/sliceable/bananacake,
-		/obj/item/reagent_containers/food/snacks/sliceable/chocolatecake,
-		/obj/item/reagent_containers/food/snacks/soup/meatballsoup,
-		/obj/item/reagent_containers/food/snacks/soup/mysterysoup,
-		/obj/item/reagent_containers/food/snacks/soup/stew,
-		/obj/item/reagent_containers/food/snacks/soup/hotchili,
-		/obj/item/reagent_containers/food/snacks/burrito,
-		/obj/item/reagent_containers/food/snacks/fishburger,
-		/obj/item/reagent_containers/food/snacks/cubancarp,
-		/obj/item/reagent_containers/food/snacks/fishandchips,
-		/obj/item/reagent_containers/food/snacks/meatpie,
+		/obj/item/food/snacks/wingfangchu,
+		/obj/item/food/snacks/hotdog,
+		/obj/item/food/snacks/sliceable/turkey,
+		/obj/item/food/snacks/plumphelmetbiscuit,
+		/obj/item/food/snacks/appletart,
+		/obj/item/food/snacks/sliceable/cheesecake,
+		/obj/item/food/snacks/sliceable/bananacake,
+		/obj/item/food/snacks/sliceable/chocolatecake,
+		/obj/item/food/snacks/soup/meatballsoup,
+		/obj/item/food/snacks/soup/mysterysoup,
+		/obj/item/food/snacks/soup/stew,
+		/obj/item/food/snacks/soup/hotchili,
+		/obj/item/food/snacks/burrito,
+		/obj/item/food/snacks/fishburger,
+		/obj/item/food/snacks/cubancarp,
+		/obj/item/food/snacks/fishandchips,
+		/obj/item/food/snacks/meatpie,
 		/obj/item/pizzabox/hawaiian, //it ONLY gives hawaiian. MUHAHAHA
-		/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
+		/obj/item/food/snacks/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
 	)
 
 #define kW *1000
@@ -260,7 +260,7 @@
 	. = ..()
 
 	if(length(active_nether_portals))
-		icon_state = "redspace_tap"
+		icon_state = "cascade_tap"
 		return
 
 	if(get_available_power() <= 0)
@@ -275,7 +275,7 @@
 	underlays.Cut()
 
 	if(length(active_nether_portals))
-		. += "redspace"
+		. += "cascade"
 		set_light(15, 5, "#ff0000")
 		return
 
@@ -316,12 +316,14 @@
 
 
 /obj/machinery/power/bluespace_tap/connect_to_network()
-	..()
-	update_icon()
+	. = ..()
+	if(.)
+		update_icon()
 
 /obj/machinery/power/bluespace_tap/disconnect_from_network()
-	..()
-	update_icon()
+	. = ..()
+	if(.)
+		update_icon()
 
 /obj/machinery/power/bluespace_tap/Destroy()
 	QDEL_LIST_CONTENTS(fillers)
@@ -492,10 +494,13 @@
 			var/key = text2num(params["target"])
 			produce(key)
 
-/obj/machinery/power/bluespace_tap/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/power/bluespace_tap/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/power/bluespace_tap/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BluespaceTap", name, 650, 400, master_ui, state)
+		ui = new(user, src, "BluespaceTap", name)
 		ui.open()
 
 //emaging provides slightly more points but at much greater risk

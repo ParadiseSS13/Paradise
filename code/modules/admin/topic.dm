@@ -1786,10 +1786,10 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), SLOT_HUD_LEFT_HAND )
-		if(!(istype(H.l_hand,/obj/item/reagent_containers/food/snacks/cookie)))
-			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), SLOT_HUD_RIGHT_HAND )
-			if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
+		H.equip_to_slot_or_del( new /obj/item/food/snacks/cookie(H), SLOT_HUD_LEFT_HAND )
+		if(!(istype(H.l_hand,/obj/item/food/snacks/cookie)))
+			H.equip_to_slot_or_del( new /obj/item/food/snacks/cookie(H), SLOT_HUD_RIGHT_HAND )
+			if(!(istype(H.r_hand,/obj/item/food/snacks/cookie)))
 				log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name(src.owner)].")
 				message_admins("[key_name_admin(H)] has [H.p_their()] hands full, so [H.p_they()] did not receive [H.p_their()] cookie, spawned by [key_name_admin(src.owner)].")
 				return
@@ -2119,7 +2119,7 @@
 				ADD_TRAIT(H, TRAIT_BADDNA, "smiting")
 				logmsg = "cluwned."
 			if("Mutagen Cookie")
-				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
+				var/obj/item/food/snacks/cookie/evilcookie = new /obj/item/food/snacks/cookie
 				evilcookie.reagents.add_reagent("mutagen", 10)
 				evilcookie.desc = "It has a faint green glow."
 				evilcookie.bitesize = 100
@@ -2128,7 +2128,7 @@
 				H.equip_to_slot_or_del(evilcookie, SLOT_HUD_LEFT_HAND)
 				logmsg = "a mutagen cookie."
 			if("Hellwater Cookie")
-				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
+				var/obj/item/food/snacks/cookie/evilcookie = new /obj/item/food/snacks/cookie
 				evilcookie.reagents.add_reagent("hell_water", 25)
 				evilcookie.desc = "Sulphur-flavored."
 				evilcookie.bitesize = 100
@@ -2192,7 +2192,7 @@
 
 			if("Bread")
 				var/mob/living/simple_animal/shade/sword/bread/breadshade = new(H.loc)
-				var/bready = pick(/obj/item/reagent_containers/food/snacks/customizable/cook/bread, /obj/item/reagent_containers/food/snacks/sliceable/meatbread, /obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread, /obj/item/reagent_containers/food/snacks/sliceable/spidermeatbread, /obj/item/reagent_containers/food/snacks/sliceable/bananabread, /obj/item/reagent_containers/food/snacks/sliceable/tofubread, /obj/item/reagent_containers/food/snacks/sliceable/bread, /obj/item/reagent_containers/food/snacks/sliceable/creamcheesebread, /obj/item/reagent_containers/food/snacks/sliceable/banarnarbread, /obj/item/reagent_containers/food/snacks/flatbread, /obj/item/reagent_containers/food/snacks/baguette)
+				var/bready = pick(/obj/item/food/snacks/customizable/cook/bread, /obj/item/food/snacks/sliceable/meatbread, /obj/item/food/snacks/sliceable/xenomeatbread, /obj/item/food/snacks/sliceable/spidermeatbread, /obj/item/food/snacks/sliceable/bananabread, /obj/item/food/snacks/sliceable/tofubread, /obj/item/food/snacks/sliceable/bread, /obj/item/food/snacks/sliceable/creamcheesebread, /obj/item/food/snacks/sliceable/banarnarbread, /obj/item/food/snacks/flatbread, /obj/item/food/snacks/baguette)
 				var/obj/item/bread = new bready(get_turf(H))
 				breadshade.forceMove(bread)
 				breadshade.key = H.key
@@ -2678,8 +2678,8 @@
 		if(!paths)
 			alert("The path list you sent is empty")
 			return
-		if(length(paths) > 5)
-			alert("Select fewer object types, (max 5)")
+		if(length(paths) > 20)
+			alert("Select fewer object types, (max 20)")
 			return
 
 		var/list/offset = splittext(href_list["offset"],",")
@@ -2800,7 +2800,7 @@
 		qdel(query_memoedits)
 
 	else if(href_list["secretsfun"])
-		if(!check_rights(R_SERVER|R_EVENT))	
+		if(!check_rights(R_SERVER|R_EVENT))
 			return
 		var/ok = 0
 		switch(href_list["secretsfun"])
@@ -3182,7 +3182,7 @@
 				to_chat(world, "<b>A secret has been activated by [usr.key]!</b>")
 
 	else if(href_list["secretsadmin"])
-		if(!check_rights(R_ADMIN))	
+		if(!check_rights(R_ADMIN))
 			return
 		var/ok = 0
 		switch(href_list["secretsadmin"])
@@ -3505,8 +3505,8 @@
 	N.target = H
 	N.point_at(N.target)
 	N.modelocked = TRUE
-	if(!locate(/obj/item/implant/dust, hunter_mob))
-		var/obj/item/implant/dust/D = new /obj/item/implant/dust(hunter_mob)
+	if(!locate(/obj/item/bio_chip/dust, hunter_mob))
+		var/obj/item/bio_chip/dust/D = new /obj/item/bio_chip/dust(hunter_mob)
 		D.implant(hunter_mob)
 	if(killthem)
 		var/datum/objective/assassinate/kill_objective = new

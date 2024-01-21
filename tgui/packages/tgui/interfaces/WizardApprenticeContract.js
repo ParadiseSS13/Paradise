@@ -6,7 +6,7 @@ export const WizardApprenticeContract = (props, context) => {
   const { act, data } = useBackend(context);
   const { used } = data;
   return (
-    <Window resizable>
+    <Window width={500} height={555}>
       <Window.Content scrollable>
         <Section title="Contract of Apprenticeship">
           Using this contract, you may summon an apprentice to aid you on your
@@ -26,49 +26,69 @@ export const WizardApprenticeContract = (props, context) => {
         </Section>
         <Section title="Which school of magic is your apprentice studying?">
           <LabeledList>
-            <LabeledList.Item label="Destruction">
-              Your apprentice is skilled in offensive magic. They know Magic
-              Missile and Fireball.
+            <LabeledList.Item label="Fire">
+              Your apprentice is skilled in bending fire. <br />
+              They know Fireball, Sacred Flame, and Ethereal Jaunt.
               <br />
               <Button
                 content="Select"
                 disabled={used}
-                onClick={() => act('destruction')}
+                onClick={() => act('fire')}
               />
             </LabeledList.Item>
             <LabeledList.Divider />
-            <LabeledList.Item label="Bluespace Manipulation">
-              Your apprentice is able to defy physics, melting through solid
-              objects and travelling great distances in the blink of an eye.
-              They know Teleport and Ethereal Jaunt.
+            <LabeledList.Item label="Translocation">
+              Your apprentice is able to defy physics, learning how to move
+              through bluespace. <br />
+              They know Teleport, Blink and Ethereal Jaunt.
               <br />
               <Button
                 content="Select"
                 disabled={used}
-                onClick={() => act('bluespace')}
+                onClick={() => act('translocation')}
               />
             </LabeledList.Item>
             <LabeledList.Divider />
-            <LabeledList.Item label="Healing">
-              Your apprentice is training to cast spells that will aid your
-              survival. They know Forcewall and Charge and come with a Staff of
-              Healing.
+            <LabeledList.Item label="Restoration">
+              Your apprentice is dedicated to supporting your magical prowess.
+              <br />
+              They come equipped with a Staff of Healing, have the unique
+              ability to teleport back to you, and know Charge and Knock.
               <br />
               <Button
                 content="Select"
                 disabled={used}
-                onClick={() => act('healing')}
+                onClick={() => act('restoration')}
               />
             </LabeledList.Item>
             <LabeledList.Divider />
-            <LabeledList.Item label="Robeless">
-              Your apprentice is training to cast spells without their robes.
-              They know Knock and Mindswap.
+            <LabeledList.Item label="Stealth">
+              Your apprentice is learning the art of infiltrating mundane
+              facilities. <br />
+              They know Mindswap, Knock, Homing Toolbox, and Disguise Self, all
+              of which can be cast without robes. They also join you in a
+              Maintenance Dweller disguise, complete with Gloves of Shock
+              Immunity and a Belt of Tools.
               <br />
               <Button
                 content="Select"
                 disabled={used}
-                onClick={() => act('robeless')}
+                onClick={() => act('stealth')}
+              />
+            </LabeledList.Item>
+            <LabeledList.Divider />
+            <LabeledList.Item label="Honk">
+              Your apprentice is here to spread the Honkmother&apos;s blessings.
+              <br />
+              They know Banana Touch, Instant Summons, Ethereal Jaunt, and come
+              equipped with a Staff of Slipping. <br />
+              While under your tutelage, they have been &apos;blessed&apos; with
+              clown shoes that are impossible to remove.
+              <br />
+              <Button
+                content="Select"
+                disabled={used}
+                onClick={() => act('honk')}
               />
             </LabeledList.Item>
             <LabeledList.Divider />

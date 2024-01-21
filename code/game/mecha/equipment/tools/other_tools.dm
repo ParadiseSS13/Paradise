@@ -227,7 +227,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
 	name = "exosuit energy relay"
-	desc = "An exosuit module that wirelessly drains energy from any available power channel in area. The performance index is quite low."
+	desc = "An exosuit module that wirelessly drains energy from any available power channel in an area. The performance index barely compensates for movement costs."
 	icon_state = "tesla"
 	origin_tech = "magnets=4;powerstorage=4;engineering=4"
 	energy_drain = 0
@@ -299,7 +299,7 @@
 					pow_chan = c
 					break
 			if(pow_chan)
-				var/delta = min(20, chassis.cell.maxcharge-cur_charge)
+				var/delta = min(60, chassis.cell.maxcharge - cur_charge)
 				chassis.give_power(delta)
 				A.powernet.use_active_power(pow_chan, delta * coeff)
 
@@ -311,14 +311,15 @@
 	icon_state = "tesla"
 	origin_tech = "plasmatech=2;powerstorage=2;engineering=2"
 	range = MECHA_MELEE
+	energy_drain = 0 //for allow load fuel without energy
 	var/coeff = 100
 	var/fuel_type = MAT_PLASMA
-	var/max_fuel = 150000
+	var/max_fuel = 150000 // 45k energy for 75 plasma/ 375 cr.
 	var/fuel_name = "plasma" // Our fuel name as a string
 	var/fuel_amount = 0
 	var/fuel_per_cycle_idle = 10
-	var/fuel_per_cycle_active = 100
-	var/power_per_cycle = 30
+	var/fuel_per_cycle_active = 500
+	var/power_per_cycle = 150
 
 
 /obj/item/mecha_parts/mecha_equipment/generator/Destroy()
@@ -424,10 +425,10 @@
 	origin_tech = "powerstorage=4;engineering=4"
 	fuel_name = "uranium" // Our fuel name as a string
 	fuel_type = MAT_URANIUM
-	max_fuel = 50000
+	max_fuel = 50000 // around 83k energy for 25 uranium/ 0 cr.
 	fuel_per_cycle_idle = 10
-	fuel_per_cycle_active = 30
-	power_per_cycle = 50
+	fuel_per_cycle_active = 150
+	power_per_cycle = 250
 	var/rad_per_cycle = 30
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()

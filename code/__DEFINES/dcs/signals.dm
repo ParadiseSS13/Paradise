@@ -23,8 +23,13 @@
 	#define COMPONENT_GLOB_BLOCK_CINEMATIC (1<<0)
 /// ingame button pressed (/obj/machinery/button/button)
 #define COMSIG_GLOB_BUTTON_PRESSED "!button_pressed"
+
+/// job subsystem has spawned and equipped a new mob
+#define COMSIG_GLOB_JOB_AFTER_SPAWN "!job_after_spawn"
+
 /// cable was placed or joined somewhere : (turf)
 #define COMSIG_GLOB_CABLE_UPDATED "!cable_updated"
+
 
 /// signals from globally accessible objects
 
@@ -488,6 +493,10 @@
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
 
+///from base of mob/living/Write_Memory()
+#define COMSIG_LIVING_WRITE_MEMORY "living_write_memory"
+	#define COMPONENT_DONT_WRITE_MEMORY (1<<0)
+
 // /mob/living/carbon signals
 
 ///from base of mob/living/carbon/soundbang_act(): (list(intensity))
@@ -564,6 +573,8 @@
 ///from base of obj/item/pre_attack(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_PRE_ATTACK "item_pre_attack"
 	#define COMPONENT_NO_ATTACK (1<<0)
+///from base of obj/item/pre_attack(): (atom/target, mob/user, params)
+#define COMSIG_ITEM_BEING_ATTACKED "item_being_attacked"
 ///from base of obj/item/afterattack(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_AFTERATTACK "item_afterattack"
 ///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, params)
@@ -647,12 +658,13 @@
 #define COMSIG_SUIT_SPACE_TOGGLE "suit_space_toggle"
 
 // /obj/item/implant signals
-///from base of /obj/item/implant/proc/activate(): ()
+
+///from base of /obj/item/bio_chip/proc/activate(): ()
 #define COMSIG_IMPLANT_ACTIVATED "implant_activated"
-///from base of /obj/item/implant/proc/implant(): (list/args)
+///from base of /obj/item/bio_chip/proc/implant(): (list/args)
 #define COMSIG_IMPLANT_IMPLANTING "implant_implanting"
 	#define COMPONENT_STOP_IMPLANTING (1<<0)
-///called on already installed implants when a new one is being added in /obj/item/implant/proc/implant(): (list/args, obj/item/implant/new_implant)
+///called on already installed implants when a new one is being added in /obj/item/bio_chip/proc/implant(): (list/args, obj/item/bio_chip/new_implant)
 #define COMSIG_IMPLANT_OTHER "implant_other"
 	//#define COMPONENT_STOP_IMPLANTING (1<<0) //The name makes sense for both
 	#define COMPONENT_DELETE_NEW_IMPLANT (1<<1)
@@ -660,6 +672,12 @@
 ///called on implants being implanted into someone with an uplink implant: (datum/component/uplink)
 #define COMSIG_IMPLANT_EXISTING_UPLINK "implant_uplink_exists"
 	//This uses all return values of COMSIG_IMPLANT_OTHER
+
+/// called on implants, after a successful implantation: (mob/living/target, mob/user, silent, force)
+#define COMSIG_IMPLANT_IMPLANTED "implant_implanted"
+
+/// called on implants, after an implant has been removed: (mob/living/source, silent, special)
+#define COMSIG_IMPLANT_REMOVED "implant_removed"
 
 // /obj/item/pda signals
 
@@ -683,6 +701,9 @@
 
 ///called in /obj/item/gun/process_fire (user, target, params, zone_override)
 #define COMSIG_MOB_FIRED_GUN "mob_fired_gun"
+
+///called in /obj/item/gun/process_fire (user, target)
+#define COMSIG_GUN_FIRED "gun_fired"
 
 // /obj/item/grenade signals
 
@@ -747,6 +768,10 @@
 ///From mob/living/carbon/human/attackedby(): (mob/living/carbon/human/attacker). Also found on species/disarm and species/harm
 #define COMSIG_HUMAN_ATTACKED "human_attacked"
 
+///from /mob/living/carbon/human/proc/check_shields(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
+#define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"
+	#define SHIELD_BLOCK (1<<0)
+
 // /datum/species signals
 
 ///from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)
@@ -778,7 +803,7 @@
 
 //Food
 
-///from base of obj/item/reagent_containers/food/snacks/attack(): (mob/living/eater, mob/feeder)
+///from base of obj/item/food/snacks/attack(): (mob/living/eater, mob/feeder)
 #define COMSIG_FOOD_EATEN "food_eaten"
 
 //Reagent
@@ -962,6 +987,9 @@
 #define COMSIG_MOD_WEARER_SET "mod_wearer_set"
 /// Called when the MODsuit wearer is unset.
 #define COMSIG_MOD_WEARER_UNSET "mod_wearer_unset"
+
+/// Called when the round has started, but before GAME_STATE_PLAYING.
+#define COMSIG_TICKER_ROUND_STARTING "comsig_ticker_round_starting"
 
 /// from /obj/structure/cursed_slot_machine/handle_status_effect() when someone pulls the handle on the slot machine
 #define COMSIG_CURSED_SLOT_MACHINE_USE "cursed_slot_machine_use"
