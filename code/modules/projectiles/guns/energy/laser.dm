@@ -1,6 +1,6 @@
 /obj/item/gun/energy/laser
-	name = "laser gun"
-	desc = "A WT-650 'Sentinel' laser carbine manufactured by Warp-Tac Inc. The golden shield of Nanotrasen Security is visible."
+	name = "LG-5"
+	desc = "A compact and lightweight laser rifle manufactured by Shellguard Munitions Co. Considered the most widely used laserarm in the Orion Sector, it only fires lethal rounds and requires a recharger to reload."
 	icon_state = "laser"
 	item_state = "laser"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -10,6 +10,16 @@
 	ammo_x_offset = 1
 	shaded_charge = TRUE
 	execution_speed = 5 SECONDS
+
+/obj/item/gun/energy/laser/examine_more(mob/user)
+	. = ..()
+	. += "A compact but versatile laser rifle, among Shellguard Munitions Co. arsenal. Its origins stem back to early corporate expansion, after acquired assets from a defunct laser company which gave it the framework to produce the earliest prototypes in laser weaponry. \
+	The early models would be significant at carving out Shellguard's niche in the arms market and later weapon philosophy around lasers. The LG series was the first mass-produced and iconic laser brand throughout the Orion Sector, thanks to cheapness and excessive overproduction in units. \
+	Crafted for cost-effectiveness and reliability in combat, the LG series boasts a robust philosophy in frame and internal parts. \
+	Lightweight metallic alloys  give it compactness and reduced carry weight, it also has a built-in overheat chamber to reduce possible scorching of the lense within the gun, and to keep the firing battery cooled. \
+	Its frontal foregrip, while ineffective due to lack of recoil produced by the rifle, is a stylistic choice to appear more tactical and militaristic in design for the weapons market. \
+	The LG-5 is prevalent among corporate security forces and PMCs. Thanks to its simplicity, it has been a favorite for modification among laser enthusiasts, making it extremely versatile. \
+	Shellguard discontinued warranties due to widespread customization and has moved its attention to later SG series."
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
