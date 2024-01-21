@@ -117,6 +117,16 @@
 
 	return TRUE
 
+/obj/item/aicard/examine(mob/user)
+	. = ..()
+	var/mob/living/silicon/ai/AI = locate() in src
+	if(!AI)
+		return
+
+	if(!GetComponent(/datum/component/ducttape) && AI.builtInCamera)
+		. += "<span class='notice'>You see a small [AI]'s camera staring at you.</span>"
+		. += "<span class='info'>You can use a <b>tape roll</b> on [src] to tape the camera lens.</span>"
+
 /obj/item/aicard/proc/wipe_ai()
 	var/mob/living/silicon/ai/AI = locate() in src
 	flush = TRUE
@@ -131,12 +141,20 @@
 	var/mob/living/silicon/ai/AI = locate() in src
 	if(!AI)
 		return
+
+	if(AI.cracked_camera)
+		return // we dont crack camera if its already cracked
+
 	QDEL_NULL(AI.builtInCamera)
 
 /obj/item/aicard/remove_tape()
 	var/mob/living/silicon/ai/AI = locate() in src
 	if(!AI)
 		return
+
+	if(AI.cracked_camera)
+		return // we dont fix camera if malf AI cracked it
+
 	AI.builtInCamera = new /obj/machinery/camera/portable(AI)
 	AI.builtInCamera.c_tag = AI.name
 	AI.builtInCamera.network = list("SS13")
