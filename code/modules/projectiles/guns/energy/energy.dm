@@ -13,7 +13,7 @@
 	execution_speed = 5 SECONDS
 
 /obj/item/gun/energy/gun/cyborg
-	desc = "A frame mounted EG series laser gun that draws power from the cyborg's internal energy cell directly. This probably voids the guns warranty."
+	desc = "A frame mounted EG series laser gun that draws power from the cyborg's internal energy cell directly. This probably voids the gun's warranty."
 
 /obj/item/gun/energy/gun/cyborg/newshot()
 	..()
@@ -25,9 +25,9 @@
 /obj/item/gun/energy/gun/examine_more(mob/user)
 	. = ..()
 	. += "A hybrid fire laser gun designed and patentend by Shellguard Munitions Co. Initally designed after market demand for a versatile weapon that merges disabler and laser functions without the need for switching during active threats. \
-	This would cause the company to experiment and produce a weapon to fit between Shellguards own disabler, and LG series weapons. This led to the creation of the EG series, positioning the EG-7 as a flagship model intended to eventually replace Shellguard's disabler pistols and LG series weapons. \
+	This would cause the company to experiment and produce a weapon to fit between Shellguard's own disabler, and LG series weapons. This led to the creation of the EG series, positioning the EG-7 as a flagship model intended to eventually replace Shellguard's disabler pistols and LG series weapons. \
 	Its design is an evolution of the disabler pistol frame, featuring a rotating lens within its firing chamber to toggle between non-lethal and lethal shots. \
-	Further modifications include an extension of the weapon's length, using elements from the LG series, and a transition to carbon alloys for a sleeker, modern look. \
+	Further modifications include an extension of the weapon's length, using elements from the LG series, and a transition to carbon composites for a sleeker, modern look. \
 	This design shift would evolve Shellguard’s traditional military style, aligning more with the aesthetics preferred by corporations which value clean, sharp, and modern looking weapons. \
 	In modern times, the EG-3 is staple weapon among corporate security forces. Due to its cheapness in price, dual fire modes, and modability for customization, despite Shellguard's disclaimer that tampering with the weapon void's its warranty and can potentially damage the gun itself."
 
