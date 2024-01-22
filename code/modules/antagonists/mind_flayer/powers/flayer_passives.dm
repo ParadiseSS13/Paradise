@@ -85,11 +85,11 @@
 		if(POWER_LEVEL_ONE)
 			qdel(owner.GetComponent(/datum/component/footstep))
 		if(POWER_LEVEL_TWO)
-			owner.flags |= NOSLIP // Doesn't work, TODO: refactor noslips to work with traits
+			ADD_TRAIT(owner, TRAIT_NOSLIP, UID())
 
 /datum/mindflayer_passive/fluid_feet/on_remove()
 	owner.AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
-	owner.flags &= ~NOSLIP
+	REMOVE_TRAIT(owner, TRAIT_NOSLIP, UID())
 
 /datum/mindflayer_passive/new_crit
 	name = "NEW CRIT WHOOPEE!"
