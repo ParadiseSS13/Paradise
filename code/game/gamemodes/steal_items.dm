@@ -150,6 +150,12 @@
 	protected_jobs = list("Quartermaster")
 	job_possession = FALSE
 
+/datum/theft_objective/engraved_dusters
+	name = "the quartermaster's engraved knuckledusters"
+	typepath = /obj/item/melee/knuckleduster/nanotrasen
+	protected_jobs = list("Quartermaster")
+	location_override = "the Quartermaster's Cargo Office"
+
 /datum/theft_objective/number
 	var/min=0
 	var/max=0

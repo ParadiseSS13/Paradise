@@ -71,10 +71,6 @@
 	/// Persistent storage for the flavour text of examined atoms.
 	var/list/description_holders = list()
 
-	// Their chat window, sort of important.
-	// See /goon/code/datums/browserOutput.dm
-	var/datum/chatOutput/chatOutput
-
 	// Donator stuff.
 	var/donator_level = 0
 
@@ -102,6 +98,9 @@
 
 	/// Last world/time that a PM was sent to the player by an admin
 	var/received_discord_pm = -99999 // Yes this super low number is intentional
+
+	///world.time they connected
+	var/connection_time
 
 	/// Has the client accepted the TOS about data collection and other stuff
 	var/tos_consent = FALSE

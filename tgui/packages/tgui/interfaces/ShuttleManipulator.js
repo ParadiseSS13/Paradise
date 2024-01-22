@@ -18,7 +18,7 @@ export const ShuttleManipulator = (props, context) => {
   };
 
   return (
-    <Window>
+    <Window width={650} height={700}>
       <Window.Content scrollable>
         <Box fillPositionedParent>
           <Tabs>
@@ -27,22 +27,25 @@ export const ShuttleManipulator = (props, context) => {
               selected={0 === tabIndex}
               onClick={() => setTabIndex(0)}
               icon="info-circle"
-              content="Status"
-            />
+            >
+              Status
+            </Tabs.Tab>
             <Tabs.Tab
               key="Templates"
               selected={1 === tabIndex}
               onClick={() => setTabIndex(1)}
               icon="file-import"
-              content="Templates"
-            />
+            >
+              Templates
+            </Tabs.Tab>
             <Tabs.Tab
               key="Modification"
               selected={2 === tabIndex}
               onClick={() => setTabIndex(2)}
               icon="tools"
-              content="Modification"
-            />
+            >
+              Modification
+            </Tabs.Tab>
           </Tabs>
           {decideTab(tabIndex)}
         </Box>
@@ -101,9 +104,10 @@ const TemplatesView = (props, context) => {
             key={t}
             selected={t === existing_shuttle.id}
             icon="file"
-            content={t}
             onClick={() => act('select_template_category', { cat: t })}
-          />
+          >
+            {t}
+          </Tabs.Tab>
         ))}
       </Tabs>
       {!!existing_shuttle &&

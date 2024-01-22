@@ -95,8 +95,8 @@
 /area/ruin/unpowered/BMPship/Delta)
 "ax" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -104,7 +104,7 @@
 /area/ruin/unpowered/BMPship/Delta)
 "ay" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -446,8 +446,8 @@
 /area/ruin/unpowered/BMPship/Delta)
 "bN" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/hugemushroomslice,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/hugemushroomslice,
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
@@ -564,7 +564,7 @@
 "cb" = (
 /obj/structure/table,
 /obj/item/kitchen/knife/butcher,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -648,7 +648,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/unpowered/BMPship/Aft)
 "cp" = (
-/obj/item/reagent_containers/food/snacks/hugemushroomslice,
+/obj/item/food/snacks/hugemushroomslice,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -750,7 +750,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "cH" = (
-/obj/item/reagent_containers/food/snacks/hugemushroomslice,
+/obj/item/food/snacks/hugemushroomslice,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Midship)
 "cI" = (
@@ -792,8 +792,8 @@
 /area/ruin/unpowered/BMPship/Aft)
 "cP" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -898,7 +898,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "di" = (
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -1944,7 +1944,7 @@
 /area/ruin/unpowered/BMPship/Fore)
 "fS" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -2234,7 +2234,7 @@
 /area/ruin/powered)
 "gO" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer,
 /obj/item/grenade/chem_grenade/drugs,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
@@ -2389,7 +2389,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hn" = (
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/snacks/chips,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "ho" = (

@@ -40,7 +40,7 @@ export const Pacman = (props, context) => {
   let fuel_min = Math.round(fuel_sec / 60);
   let usage = fuel_sec > 120 ? `${fuel_min} minutes` : `${fuel_sec} seconds`;
   return (
-    <Window>
+    <Window width={500} height={225}>
       <Window.Content>
         {(broken || !anchored) && (
           <Section title="Status">
