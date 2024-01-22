@@ -345,7 +345,7 @@
 			status_list += "<a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
 
 	for(var/t in missing)
-		status_list += "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>"
+		status_list += "<span class='boldannounceic'>Your [parse_zone(t)] is missing!</span>"
 
 	if(H.bleed_rate)
 		status_list += "<span class='danger'>You are bleeding!</span>"

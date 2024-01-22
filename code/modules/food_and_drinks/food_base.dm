@@ -30,6 +30,11 @@
 
 /obj/item/food/Initialize(mapload)
 	. = ..()
+
+	if(!reagents) // Some subtypes create their own reagents
+		create_reagents(volume, temperature_min, temperature_max)
+	add_initial_reagents()
+
 	if(!antable)
 		return
 
@@ -42,10 +47,6 @@
 	START_PROCESSING(SSobj, src)
 	ant_location = get_turf(src)
 	last_ant_time = world.time
-
-	if(!reagents) // Some subtypes create their own reagents
-		create_reagents(volume, temperature_min, temperature_max)
-	add_initial_reagents()
 
 /obj/item/food/Destroy()
 	ant_location = null

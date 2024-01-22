@@ -887,3 +887,72 @@
 
 #undef PLASMA_CHARGE_USE_PER_SECOND
 #undef PLASMA_DISCHARGE_LIMIT
+
+/obj/item/gun/energy/vortex_shotgun
+	name = "reality vortex wrist mounted shotgun"
+	desc = "This weapon uses the power of the vortex core to rip apart the fabric of reality in front of it."
+	icon_state = "flayer" //Sorta wrist mounted? Sorta? Not really but we work with what we got.
+	ammo_type = list(/obj/item/ammo_casing/energy/vortex_blast)
+	fire_sound = 'sound/weapons/bladeslice.ogg'
+	cell_type = /obj/item/stock_parts/cell/infinite
+
+/obj/item/ammo_casing/energy/vortex_blast
+	projectile_type = /obj/item/projectile/energy/vortex_blast
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast
+	variance = 70
+	pellets = 8
+	e_cost = 100
+	delay = 1.2 SECONDS //and delay has to be stored here on energy guns
+	select_name = "vortex blast"
+	fire_sound = 'sound/weapons/wave.ogg'
+
+/obj/item/projectile/energy/vortex_blast
+	name = "vortex blast"
+	hitscan = TRUE
+	damage = 2
+	range = 5
+	icon_state = "magspear"
+	hitsound = 'sound/weapons/sear.ogg' //Gets a bit spamy, suppressed is needed to suffer less
+	hitsound_wall = null
+	suppressed = TRUE
+
+/obj/item/projectile/energy/vortex_blast/prehit(atom/target)
+	. = ..()
+	if(ishuman(target))
+		return
+	if(isliving(target))
+		damage *= 4 //Up damage if not a human as we are not doing shenanigins
+		return
+	damage *= 6 //objects tend to fall apart as atoms are ripped up
+
+/obj/item/projectile/energy/vortex_blast/on_hit(atom/target, blocked = 0)
+	if(blocked >= 100)
+		return ..()
+	if(ishuman(target))
+		var/mob/living/carbon/human/L = target
+		var/obj/item/organ/external/affecting = L.get_organ(ran_zone(def_zone))
+		L.apply_damage(2, BRUTE, affecting, L.run_armor_check(affecting, ENERGY))
+		L.apply_damage(2, TOX, affecting, L.run_armor_check(affecting, ENERGY))
+		L.apply_damage(2, CLONE, affecting, L.run_armor_check(affecting, ENERGY))
+		L.adjustBrainLoss(3)
+	..()
+
+/obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast
+	invisibility = 100 // visual is from effect
+
+/obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast/Initialize(mapload, atom/target, duration_override)
+	. = ..()
+	if(target)
+		new /obj/effect/warp_effect/vortex_blast(loc, target)
+
+/obj/effect/warp_effect/vortex_blast
+	icon = 'icons/effects/64x64.dmi'
+	icon_state = "vortex_shotgun"
+
+/obj/effect/warp_effect/vortex_blast/Initialize(mapload, target)
+	. = ..()
+	var/matrix/M = matrix() * 0.5
+	M.Turn(get_angle(src, target) - 45)
+	transform = M
+	animate(src, transform = M * 10, time = 0.3 SECONDS, alpha = 0)
+	QDEL_IN(src, 0.3 SECONDS)

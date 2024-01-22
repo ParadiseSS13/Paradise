@@ -282,7 +282,7 @@
 
 /datum/recipe/oven/slimepie
 	reagents = list("custard" = 1, "milk" = 5, "sugar" = 15)
-	items = list(/obj/item/organ/internal/heart/slime)
+	items = list(/obj/item/organ/internal/brain/slime)
 	result = /obj/item/food/snacks/sliceable/slimepie
 
 // Kidan Ragu

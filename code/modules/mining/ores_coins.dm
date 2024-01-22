@@ -354,6 +354,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(cmineral && name_by_cmineral)
 		name = "[cmineral] coin"
 
+/obj/item/coin/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/surgery_initiator/robo)
+
 /obj/item/coin/gold
 	cmineral = "gold"
 	icon_state = "coin_gold_heads"

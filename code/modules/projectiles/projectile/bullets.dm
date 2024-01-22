@@ -59,13 +59,7 @@
 	damage_type = TOX
 
 /obj/item/projectile/bullet/incendiary
-
-/obj/item/projectile/bullet/incendiary/on_hit(atom/target, blocked = 0)
-	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(4)
-		M.IgniteMob()
+	immolate = 1
 
 /obj/item/projectile/bullet/incendiary/firebullet
 	damage = 10
@@ -132,11 +126,8 @@
 	damage = 27
 	armour_penetration_flat = 40
 
-/obj/item/projectile/bullet/midbullet3/fire/on_hit(atom/target, blocked = 0)
-	if(..(target, blocked))
-		var/mob/living/M = target
-		M.adjust_fire_stacks(1)
-		M.IgniteMob()
+/obj/item/projectile/bullet/midbullet3/fire
+	immolate = 1
 
 /obj/item/projectile/bullet/midbullet3/overgrown
 	icon = 'icons/obj/ammo.dmi'

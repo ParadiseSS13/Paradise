@@ -3734,7 +3734,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
+/obj/item/clothing/suit/space/hardsuit/wizard,
 /obj/item/clothing/suit/space/santa{
 	pixel_x = 3;
 	pixel_y = -3
