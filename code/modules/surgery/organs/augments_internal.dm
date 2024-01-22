@@ -289,7 +289,7 @@
 /obj/item/organ/internal/cyberimp/brain/hackerman_deck
 	name = "Binyat wireless hacking system"
 	desc = "A rare-to-find neural chip that allows its user to interface with nearby machinery \
-		and effect it in (usually) beneficial ways. Due to the wireless connection, fine manipulation \
+		and affect it in (usually) beneficial ways. Due to the wireless connection, fine manipulation \
 		isn't possible, however the deck will drop a payload into the target's systems that will attempt \
 		hacking for you."
 	icon_state = "hackerman"

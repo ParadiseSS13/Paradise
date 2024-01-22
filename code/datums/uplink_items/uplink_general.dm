@@ -809,9 +809,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Cybernetic Implants"
 
 /datum/uplink_item/cyber_implants/hackerman_deck
-	name = "Binyat wireless hacking system autoimplanter"
+	name = "Binyat Wireless Hacking System Autoimplanter"
 	desc = "A rare-to-find neural chip that allows its user to interface with nearby machinery \
-		and effect it in (usually) beneficial ways. Due to the wireless connection, fine manipulation \
+		and affect it in (usually) beneficial ways. Due to the wireless connection, fine manipulation \
 		isn't possible, however the deck will drop a payload into the target's systems that will attempt \
 		hacking for you. \
 		Will not show on unupgraded body scanners."

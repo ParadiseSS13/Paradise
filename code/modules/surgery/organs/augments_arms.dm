@@ -102,7 +102,7 @@
 /obj/item/organ/internal/cyberimp/arm/proc/Extend(obj/item/item)
 	if(!(item in src) || check_cuffs())
 		return
-	if(status & (ORGAN_DEAD))
+	if(status & ORGAN_DEAD)
 		return
 
 	holder = item
@@ -458,8 +458,7 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/shell_launcher
 	name = "shell launch system"
-	desc = "A mounted cannon seated comfortably in a forearm compartment. This humanitarian device is capable in normal \
-		mode of firing essentially any shotgun shell."
+	desc = "A mounted cannon seated comfortably in a forearm compartment. This humanitarian device is capable of firing essentially any shotgun shell."
 	icon_state = "shell_cannon_weapon"
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
@@ -485,7 +484,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/shell_launcher
 	name = "shell launch system implant"
-	desc = "A mounted, single-shot housing for a shell launch cannon; capable of firing either twelve gauge shotgun shells."
+	desc = "A mounted, single-shot housing for a shell launch cannon; capable of firing twelve gauge shotgun shells."
 	contents = newlist(/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher)
 	icon_state = "shell_cannon"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/surgery.dmi')
