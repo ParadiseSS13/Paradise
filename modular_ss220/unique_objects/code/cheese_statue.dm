@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(cheese_recipes, list(
 /datum/recipe/oven/reinforcedcheese
 	reagents = list("sodiumchloride" = 10)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
-		/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel
+		/obj/item/food/snacks/sliceable/cheesewheel,
+		/obj/item/food/snacks/sliceable/cheesewheel
 	)
 	result = /obj/item/stack/sheet/cheese

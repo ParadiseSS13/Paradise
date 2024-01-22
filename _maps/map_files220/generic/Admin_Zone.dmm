@@ -691,13 +691,13 @@
 /area/admin)
 "kQ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/grown/citrus/lemon,
-/obj/item/reagent_containers/food/snacks/grown/berries,
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/item/reagent_containers/food/snacks/grown/cherries,
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
-/obj/item/reagent_containers/food/snacks/grown/corn,
-/obj/item/reagent_containers/food/snacks/grown/mushroom/amanita,
+/obj/item/food/snacks/grown/citrus/lemon,
+/obj/item/food/snacks/grown/berries,
+/obj/item/food/snacks/grown/banana,
+/obj/item/food/snacks/grown/cherries,
+/obj/item/food/snacks/grown/citrus/orange,
+/obj/item/food/snacks/grown/corn,
+/obj/item/food/snacks/grown/mushroom/amanita,
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "kT" = (
@@ -3247,7 +3247,7 @@
 "Vh" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/drinks/bottle/whiskey{
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{

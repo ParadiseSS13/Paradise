@@ -19,7 +19,7 @@
 	gender = FEMALE
 	mob_size = MOB_SIZE_LARGE // THICK!!!
 	//canmove = FALSE
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 8)
+	butcher_results = list(/obj/item/food/snacks/meat = 8)
 	tts_seed = "Huntress"
 	maxHealth = 40 // Sooooo faaaat...
 	health = 40

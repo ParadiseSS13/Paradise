@@ -159,7 +159,7 @@
 /obj/machinery/light_construct/directional/west,
 /obj/structure/table,
 /obj/item/trash/plate,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	desc = "It's cold as dead body.";
 	pixel_x = 8;
 	pixel_y = 8;
@@ -639,7 +639,7 @@
 /area/shuttle/abandoned)
 "oB" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	desc = "It's cold as dead body.";
 	pixel_x = 8;
 	pixel_y = 8;
@@ -1445,7 +1445,7 @@
 "Jn" = (
 /obj/structure/table/glass,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/drinks/mug/cmo,
+/obj/item/reagent_containers/drinks/mug/cmo,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluefull"
@@ -1505,7 +1505,7 @@
 	},
 /obj/item/clothing/accessory/stethoscope,
 /obj/item/flashlight/pen,
-/obj/item/reagent_containers/food/snacks/grown/apple{
+/obj/item/food/snacks/grown/apple{
 	desc = "An apple a day - keeps doctor away...";
 	pixel_x = 2;
 	pixel_y = 6

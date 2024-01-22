@@ -45,10 +45,13 @@
 				emote_param = input(usr, "Дополните эмоцию", emote.message_param)
 			usr.emote(emote_key, message = emote_param, intentional = TRUE)
 
-/datum/emote_panel/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
+/datum/emote_panel/ui_state(mob/user)
+	return GLOB.always_state
+
+/datum/emote_panel/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "EmotePanel", "Панель эмоций", 500, 550, master_ui, state)
+		ui = new(user, src, "EmotePanel", "Панель эмоций")
 		ui.open()
 	ui.set_autoupdate(FALSE)
 

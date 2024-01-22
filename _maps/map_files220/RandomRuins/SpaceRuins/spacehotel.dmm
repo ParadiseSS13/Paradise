@@ -38,11 +38,11 @@
 /obj/item/candle/eternal{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = 9;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 9;
 	pixel_y = 6
 	},
@@ -165,11 +165,11 @@
 /obj/item/candle/eternal{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -9;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -9;
 	pixel_y = 6
 	},
@@ -430,27 +430,27 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate/freezer,
 /obj/item/storage/box/monkeycubes,
-/obj/item/reagent_containers/food/snacks/grown/carrot,
-/obj/item/reagent_containers/food/snacks/grown/carrot,
-/obj/item/reagent_containers/food/snacks/grown/carrot,
-/obj/item/reagent_containers/food/snacks/grown/carrot,
-/obj/item/reagent_containers/food/snacks/grown/carrot,
-/obj/item/reagent_containers/food/snacks/grown/carrot,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/carrot,
+/obj/item/food/snacks/grown/carrot,
+/obj/item/food/snacks/grown/carrot,
+/obj/item/food/snacks/grown/carrot,
+/obj/item/food/snacks/grown/carrot,
+/obj/item/food/snacks/grown/carrot,
+/obj/item/food/snacks/grown/tomato,
+/obj/item/food/snacks/grown/tomato,
+/obj/item/food/snacks/grown/tomato,
+/obj/item/food/snacks/grown/tomato,
+/obj/item/food/snacks/grown/tomato,
+/obj/item/food/snacks/grown/wheat,
+/obj/item/food/snacks/grown/wheat,
+/obj/item/food/snacks/grown/wheat,
+/obj/item/food/snacks/grown/wheat,
+/obj/item/food/snacks/grown/wheat,
+/obj/item/food/snacks/grown/wheat,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/cargostorage)
 "do" = (
@@ -1179,7 +1179,7 @@
 /area/ruin/space/spacehotelv1/forehallway)
 "jb" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/enzyme{
+/obj/item/reagent_containers/condiment/enzyme{
 	pixel_x = -5;
 	pixel_y = 5
 	},
@@ -1589,7 +1589,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/drinks/mug,
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/spacehotelv1/guestroom6)
 "lS" = (
@@ -1603,36 +1603,36 @@
 	dir = 8
 	},
 /obj/structure/closet/secure_closet/freezer/fridge,
-/obj/item/reagent_containers/food/snacks/grown/meatwheat,
-/obj/item/reagent_containers/food/snacks/grown/meatwheat,
-/obj/item/reagent_containers/food/snacks/grown/meatwheat,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
-/obj/item/reagent_containers/food/snacks/grown/whitebeet,
-/obj/item/reagent_containers/food/snacks/grown/whitebeet,
-/obj/item/reagent_containers/food/snacks/grown/whitebeet,
-/obj/item/reagent_containers/food/snacks/grown/redbeet,
-/obj/item/reagent_containers/food/snacks/grown/redbeet,
-/obj/item/reagent_containers/food/snacks/grown/redbeet,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/rice,
-/obj/item/reagent_containers/food/snacks/grown/rice,
-/obj/item/reagent_containers/food/snacks/grown/rice,
-/obj/item/reagent_containers/food/snacks/grown/rice,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/soymilk,
-/obj/item/reagent_containers/food/condiment/soymilk,
-/obj/item/reagent_containers/food/condiment/soymilk,
+/obj/item/food/snacks/grown/meatwheat,
+/obj/item/food/snacks/grown/meatwheat,
+/obj/item/food/snacks/grown/meatwheat,
+/obj/item/food/snacks/grown/wheat,
+/obj/item/food/snacks/grown/wheat,
+/obj/item/food/snacks/grown/wheat,
+/obj/item/food/snacks/grown/tomato,
+/obj/item/food/snacks/grown/tomato,
+/obj/item/food/snacks/grown/tomato,
+/obj/item/food/snacks/grown/tomato,
+/obj/item/food/snacks/grown/whitebeet,
+/obj/item/food/snacks/grown/whitebeet,
+/obj/item/food/snacks/grown/whitebeet,
+/obj/item/food/snacks/grown/redbeet,
+/obj/item/food/snacks/grown/redbeet,
+/obj/item/food/snacks/grown/redbeet,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/rice,
+/obj/item/food/snacks/grown/rice,
+/obj/item/food/snacks/grown/rice,
+/obj/item/food/snacks/grown/rice,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/soymilk,
+/obj/item/reagent_containers/condiment/soymilk,
+/obj/item/reagent_containers/condiment/soymilk,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/spacehotelv1/kitchen)
 "lU" = (
@@ -1806,7 +1806,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/drinks/mug,
 /turf/simulated/floor/carpet/blue,
 /area/ruin/space/spacehotelv1/guestroom3)
 "nj" = (
@@ -1940,11 +1940,11 @@
 /area/ruin/space/spacehotelv1/restoraunt3)
 "oa" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 16
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 16
 	},
@@ -2272,11 +2272,11 @@
 /obj/item/candle/eternal{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 2
 	},
@@ -2308,11 +2308,11 @@
 /obj/item/candle/eternal{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = 9;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 9;
 	pixel_y = 6
 	},
@@ -2717,10 +2717,10 @@
 /obj/machinery/door/window/reinforced/normal{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = 3
 	},
-/obj/item/reagent_containers/food/condiment/peppermill,
+/obj/item/reagent_containers/condiment/peppermill,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacehotelv1/kitchen)
 "tI" = (
@@ -2819,7 +2819,7 @@
 /area/ruin/space/spacehotelv1/reception)
 "uu" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/meatballspaghetti,
+/obj/item/food/snacks/meatballspaghetti,
 /obj/item/kitchen/utensil/fork,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
@@ -2845,7 +2845,7 @@
 	pixel_y = 6
 	},
 /obj/item/kitchen/rollingpin,
-/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacehotelv1/kitchen)
 "uB" = (
@@ -2960,11 +2960,11 @@
 /obj/item/candle/eternal{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -9;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -9;
 	pixel_y = 6
 	},
@@ -3070,11 +3070,11 @@
 	icon_state = "4-8"
 	},
 /obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 16
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 16
 	},
@@ -3121,7 +3121,7 @@
 /area/ruin/space/spacehotelv1/bar)
 "wC" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /obj/item/reagent_containers/glass/rag,
 /obj/item/book/manual/barman_recipes,
 /obj/item/lighter/zippo/engraved,
@@ -3574,11 +3574,11 @@
 	pixel_y = -1;
 	pixel_x = -9
 	},
-/obj/item/reagent_containers/food/condiment/mushroom_sauce{
+/obj/item/reagent_containers/condiment/mushroom_sauce{
 	pixel_x = 10;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/condiment/garlic_sauce{
+/obj/item/reagent_containers/condiment/garlic_sauce{
 	pixel_x = 6;
 	pixel_y = 3
 	},
@@ -4509,7 +4509,7 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced/brass,
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/drinks/mug,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/guestroom1)
 "FS" = (
@@ -4921,11 +4921,11 @@
 /area/ruin/space/spacehotelv1/barber)
 "IW" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 16
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 16
 	},
@@ -5042,11 +5042,11 @@
 /obj/item/candle/eternal{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -9;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -9;
 	pixel_y = 6
 	},
@@ -5900,11 +5900,11 @@
 /obj/item/candle/eternal{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = 9;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 9;
 	pixel_y = 6
 	},
@@ -6473,7 +6473,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/drinks/mug,
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/spacehotelv1/guestroom4)
 "UL" = (
@@ -6556,11 +6556,11 @@
 /obj/item/candle/eternal{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = 9;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 9;
 	pixel_y = 6
 	},
@@ -6658,31 +6658,31 @@
 /area/ruin/space/spacehotelv1/engi2)
 "VM" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/salmonmeat,
-/obj/item/reagent_containers/food/snacks/salmonmeat,
-/obj/item/reagent_containers/food/snacks/salmonmeat,
-/obj/item/reagent_containers/food/snacks/salmonmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/cutlet,
-/obj/item/reagent_containers/food/snacks/cutlet,
-/obj/item/reagent_containers/food/snacks/cutlet,
-/obj/item/reagent_containers/food/snacks/cutlet,
-/obj/item/reagent_containers/food/snacks/cutlet,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/sausage,
-/obj/item/reagent_containers/food/snacks/sausage,
-/obj/item/reagent_containers/food/snacks/sausage,
-/obj/item/reagent_containers/food/snacks/sausage,
-/obj/item/reagent_containers/food/snacks/smokedsausage,
-/obj/item/reagent_containers/food/snacks/smokedsausage,
-/obj/item/reagent_containers/food/snacks/smokedsausage,
+/obj/item/food/snacks/salmonmeat,
+/obj/item/food/snacks/salmonmeat,
+/obj/item/food/snacks/salmonmeat,
+/obj/item/food/snacks/salmonmeat,
+/obj/item/food/snacks/carpmeat,
+/obj/item/food/snacks/carpmeat,
+/obj/item/food/snacks/carpmeat,
+/obj/item/food/snacks/carpmeat,
+/obj/item/food/snacks/cutlet,
+/obj/item/food/snacks/cutlet,
+/obj/item/food/snacks/cutlet,
+/obj/item/food/snacks/cutlet,
+/obj/item/food/snacks/cutlet,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/sausage,
+/obj/item/food/snacks/sausage,
+/obj/item/food/snacks/sausage,
+/obj/item/food/snacks/sausage,
+/obj/item/food/snacks/smokedsausage,
+/obj/item/food/snacks/smokedsausage,
+/obj/item/food/snacks/smokedsausage,
 /obj/item/fish/salmon,
 /obj/item/fish/salmon,
 /obj/item/fish/salmon,
@@ -6923,7 +6923,7 @@
 	dir = 4
 	},
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/drinks/mug,
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom2)
 "XV" = (

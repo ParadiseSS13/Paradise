@@ -56,11 +56,11 @@
 /area/space/nearstation)
 "abv" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -8;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -8;
 	pixel_y = 11
 	},
@@ -229,7 +229,7 @@
 /area/station/security/detective)
 "adc" = (
 /obj/structure/closet/secure_closet/clown,
-/obj/item/reagent_containers/food/snacks/pie,
+/obj/item/food/snacks/pie,
 /obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/wood,
 /area/station/service/clown)
@@ -551,7 +551,7 @@
 /area/shuttle/pod_3)
 "afT" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_x = 5;
 	pixel_y = 12
 	},
@@ -664,7 +664,7 @@
 /obj/item/restraints/handcuffs,
 /obj/item/flash,
 /obj/machinery/alarm/directional/south,
-/obj/item/reagent_containers/food/drinks/flask/detflask,
+/obj/item/reagent_containers/drinks/flask/detflask,
 /obj/item/storage/lockbox/spy_kit,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -750,20 +750,20 @@
 /area/station/public/fitness)
 "aii" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/sillycup{
+/obj/item/reagent_containers/drinks/sillycup{
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/sillycup,
-/obj/item/reagent_containers/food/drinks/sillycup{
+/obj/item/reagent_containers/drinks/sillycup,
+/obj/item/reagent_containers/drinks/sillycup{
 	pixel_x = 5;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/sillycup{
+/obj/item/reagent_containers/drinks/sillycup{
 	pixel_x = 5;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/sillycup{
+/obj/item/reagent_containers/drinks/sillycup{
 	pixel_x = 5;
 	pixel_y = 3
 	},
@@ -4106,7 +4106,7 @@
 /area/station/maintenance/fore)
 "axH" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/food/snacks/grown/banana,
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/virology)
 "axM" = (
@@ -9526,7 +9526,7 @@
 /obj/item/reagent_containers/glass/beaker/waterbottle{
 	pixel_x = -5
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = 5
 	},
 /obj/structure/window/reinforced{
@@ -10176,7 +10176,7 @@
 /area/station/maintenance/fpmaint)
 "aUa" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = 5
 	},
 /obj/item/reagent_containers/glass/beaker/waterbottle{
@@ -13180,24 +13180,24 @@
 /area/station/hallway/primary/central)
 "bcO" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = -4;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = 4;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = -5;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = 6;
 	pixel_y = -1
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 /obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
@@ -17069,7 +17069,7 @@
 "bmV" = (
 /obj/machinery/light_switch/south,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/flask/gold,
+/obj/item/reagent_containers/drinks/flask/gold,
 /obj/item/razor{
 	pixel_x = -4;
 	pixel_y = 2
@@ -17229,7 +17229,7 @@
 	},
 /obj/item/clothing/head/bearpelt,
 /obj/item/folder/documents,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/drinks/bottle/vodka/badminka,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 /obj/item/stack/spacecash/c1000,
@@ -19272,7 +19272,7 @@
 /area/station/hallway/primary/port)
 "btq" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/snacks/chips,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -21222,7 +21222,7 @@
 	known_by = list("captain")
 	},
 /obj/item/gun/projectile/revolver/russian,
-/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
+/obj/item/reagent_containers/drinks/bottle/absinthe/premium,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 /obj/item/toy/figure/crew/captain,
@@ -21997,7 +21997,7 @@
 /area/station/turret_protected/aisat/interior)
 "bAB" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/pie,
+/obj/item/food/snacks/pie,
 /obj/machinery/light/small/directional/north,
 /obj/structure/sign/poster/random{
 	pixel_y = 32
@@ -23217,7 +23217,7 @@
 /area/station/command/office/captain)
 "bEl" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -26240,7 +26240,7 @@
 /area/station/science/research)
 "bPB" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/ale,
+/obj/item/reagent_containers/drinks/cans/ale,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "bPE" = (
@@ -26272,9 +26272,9 @@
 /area/station/public/vacant_office)
 "bPS" = (
 /obj/structure/closet/secure_closet/blueshield,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/drinks/bottle/whiskey,
+/obj/item/reagent_containers/drinks/drinkingglass,
+/obj/item/reagent_containers/drinks/drinkingglass,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "bPT" = (
@@ -26543,12 +26543,12 @@
 /area/station/service/kitchen)
 "bQP" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/snacks/mint,
 /obj/item/kitchen/rollingpin,
 /obj/item/reagent_containers/glass/beaker{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/condiment/enzyme,
+/obj/item/reagent_containers/condiment/enzyme,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -27426,7 +27426,7 @@
 	pixel_x = 5;
 	pixel_y = -1
 	},
-/obj/item/reagent_containers/food/drinks/mug{
+/obj/item/reagent_containers/drinks/mug{
 	pixel_x = -4;
 	pixel_y = 4
 	},
@@ -30573,7 +30573,7 @@
 /area/station/service/hydroponics)
 "cdJ" = (
 /obj/structure/lattice,
-/obj/item/reagent_containers/food/drinks/bottle/goldschlager,
+/obj/item/reagent_containers/drinks/bottle/goldschlager,
 /turf/space,
 /area/space/nearstation)
 "cdM" = (
@@ -30897,7 +30897,7 @@
 "ceW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/gin,
+/obj/item/reagent_containers/drinks/bottle/gin,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "ceY" = (
@@ -31172,10 +31172,10 @@
 	},
 /obj/structure/table/glass,
 /obj/structure/extinguisher_cabinet/directional/west,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
-/obj/item/reagent_containers/food/snacks/grown/grapes,
+/obj/item/food/snacks/grown/wheat,
+/obj/item/food/snacks/grown/watermelon,
+/obj/item/food/snacks/grown/citrus/orange,
+/obj/item/food/snacks/grown/grapes,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "green"
@@ -31707,9 +31707,9 @@
 /obj/item/seeds/potato,
 /obj/item/seeds/apple,
 /obj/item/grown/corncob,
-/obj/item/reagent_containers/food/snacks/grown/carrot,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/pumpkin{
+/obj/item/food/snacks/grown/carrot,
+/obj/item/food/snacks/grown/wheat,
+/obj/item/food/snacks/grown/pumpkin{
 	pixel_y = 5
 	},
 /obj/machinery/light/directional/south,
@@ -32761,7 +32761,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/drinks/bottle/vodka,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -33999,7 +33999,7 @@
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/food/snacks/grown/banana,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
@@ -37360,11 +37360,11 @@
 	},
 /obj/machinery/light/small/directional/north,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/item/food/snacks/grown/poppy,
+/obj/item/food/snacks/grown/poppy,
+/obj/item/food/snacks/grown/poppy,
+/obj/item/food/snacks/grown/poppy,
+/obj/item/food/snacks/grown/poppy,
 /turf/simulated/floor/carpet,
 /area/station/service/chapel)
 "cCu" = (
@@ -37898,7 +37898,7 @@
 	pixel_y = 2
 	},
 /obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "cEk" = (
@@ -38633,7 +38633,7 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/food/snacks/grown/harebell,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkneutralfull"
 	},
@@ -38969,10 +38969,10 @@
 /area/station/science/research)
 "cHO" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3
 	},
 /turf/simulated/floor/plating,
@@ -39432,7 +39432,7 @@
 "cJo" = (
 /obj/machinery/hydroponics/soil,
 /obj/machinery/light/small/directional/north,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/food/snacks/grown/harebell,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -40167,7 +40167,7 @@
 /area/station/maintenance/portsolar)
 "cMF" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/holywater{
+/obj/item/reagent_containers/drinks/bottle/holywater{
 	pixel_x = -2;
 	pixel_y = 2
 	},
@@ -40179,8 +40179,8 @@
 /area/station/service/chapel/office)
 "cMK" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/enzyme{
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/enzyme{
 	pixel_x = 16;
 	pixel_y = 6
 	},
@@ -40198,7 +40198,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/drinks/bottle/tequila,
+/obj/item/reagent_containers/drinks/bottle/tequila,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "cMP" = (
@@ -41704,11 +41704,11 @@
 /area/station/maintenance/apmaint)
 "cSR" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/item/food/snacks/grown/poppy,
+/obj/item/food/snacks/grown/poppy,
+/obj/item/food/snacks/grown/poppy,
+/obj/item/food/snacks/grown/poppy,
+/obj/item/food/snacks/grown/poppy,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkneutralfull"
 	},
@@ -41874,7 +41874,7 @@
 /area/station/security/interrogation)
 "cTz" = (
 /obj/structure/lattice/catwalk,
-/obj/item/reagent_containers/food/drinks/bottle/rum{
+/obj/item/reagent_containers/drinks/bottle/rum{
 	pixel_x = -7;
 	pixel_y = 2
 	},
@@ -49620,7 +49620,7 @@
 /area/station/engineering/control)
 "fCn" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = -5
 	},
 /obj/item/reagent_containers/glass/beaker/waterbottle{
@@ -53628,20 +53628,20 @@
 /area/station/maintenance/starboard)
 "htP" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/milk{
+/obj/item/reagent_containers/condiment/milk{
 	pixel_x = 6;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/condiment/soymilk{
+/obj/item/reagent_containers/condiment/soymilk{
 	pixel_x = -6;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/condiment/sugar,
-/obj/item/reagent_containers/food/drinks/bottle/cream{
+/obj/item/reagent_containers/condiment/sugar,
+/obj/item/reagent_containers/drinks/bottle/cream{
 	pixel_x = 6;
 	pixel_y = -2
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_x = -5;
 	pixel_y = -2
 	},
@@ -54538,11 +54538,11 @@
 /area/station/turret_protected/ai)
 "hLT" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/food/snacks/grown/harebell,
+/obj/item/food/snacks/grown/harebell,
+/obj/item/food/snacks/grown/harebell,
+/obj/item/food/snacks/grown/harebell,
+/obj/item/food/snacks/grown/harebell,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkneutralfull"
 	},
@@ -57672,7 +57672,7 @@
 	pixel_y = -1
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/shaker{
+/obj/item/reagent_containers/drinks/shaker{
 	pixel_x = -6
 	},
 /obj/machinery/requests_console{
@@ -57988,7 +57988,7 @@
 	},
 /area/station/engineering/control)
 "jxj" = (
-/obj/item/reagent_containers/food/snacks/monkeycube,
+/obj/item/food/snacks/monkeycube,
 /turf/simulated/floor/grass,
 /area/station/maintenance/aft2)
 "jyP" = (
@@ -61078,7 +61078,7 @@
 /area/station/maintenance/aft2)
 "kQv" = (
 /obj/structure/grille/broken,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/item/food/snacks/grown/poppy,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "kQx" = (
@@ -62328,15 +62328,15 @@
 "lpp" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced,
-/obj/item/reagent_containers/food/snacks/muffin{
+/obj/item/food/snacks/muffin{
 	pixel_x = -4;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/snacks/carrotcakeslice{
+/obj/item/food/snacks/carrotcakeslice{
 	pixel_x = 8;
 	pixel_y = -2
 	},
-/obj/item/reagent_containers/food/snacks/poppypretzel{
+/obj/item/food/snacks/poppypretzel{
 	pixel_x = -8;
 	pixel_y = -3
 	},
@@ -65987,11 +65987,11 @@
 /area/shuttle/arrival/station)
 "mXE" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_x = 5;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_x = -3;
 	pixel_y = 9
 	},
@@ -66401,7 +66401,7 @@
 /area/station/public/construction)
 "nfj" = (
 /obj/structure/closet,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	desc = "Takes you to a whole new level of thinking.";
 	name = "Meta-Cider"
 	},
@@ -68961,10 +68961,10 @@
 /area/station/public/locker)
 "orV" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3
 	},
 /obj/machinery/door/window/classic/reversed{
@@ -73333,21 +73333,21 @@
 "qvp" = (
 /obj/structure/closet/crate,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/snacks/breadslice,
-/obj/item/reagent_containers/food/snacks/breadslice,
-/obj/item/reagent_containers/food/snacks/breadslice,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/onion,
-/obj/item/reagent_containers/food/snacks/grown/onion,
+/obj/item/food/snacks/breadslice,
+/obj/item/food/snacks/breadslice,
+/obj/item/food/snacks/breadslice,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/onion,
+/obj/item/food/snacks/grown/onion,
 /obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
 /obj/item/storage/fancy/egg_box,
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/rice,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/rice,
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -74670,7 +74670,7 @@
 /obj/structure/rack,
 /obj/item/clothing/mask/gas,
 /obj/item/storage/box/lights/mixed,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /obj/item/cultivator,
 /obj/item/clothing/head/chefhat,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -75363,7 +75363,7 @@
 /area/station/engineering/engine/supermatter)
 "rwj" = (
 /obj/structure/safe/floor,
-/obj/item/reagent_containers/food/snacks/fortunecookie,
+/obj/item/food/snacks/fortunecookie,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "rwk" = (
@@ -76743,7 +76743,7 @@
 /area/station/public/mrchangs)
 "sdj" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/britcup,
+/obj/item/reagent_containers/drinks/britcup,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
@@ -78601,7 +78601,7 @@
 "sXU" = (
 /obj/machinery/light/directional/north,
 /mob/living/carbon/human/monkey,
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/food/snacks/grown/banana,
 /turf/simulated/floor/grass/no_creep,
 /area/station/science/genetics)
 "sXZ" = (
@@ -80524,12 +80524,12 @@
 /area/station/security/permabrig)
 "tYV" = (
 /obj/structure/rack,
-/obj/item/reagent_containers/food/drinks/bottle/rum{
+/obj/item/reagent_containers/drinks/bottle/rum{
 	pixel_x = -7;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/vodka,
+/obj/item/reagent_containers/drinks/cans/beer,
 /obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
@@ -83333,15 +83333,15 @@
 /area/station/security/detective)
 "voT" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = 4;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = 6;
 	pixel_y = -1
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = -4;
 	pixel_y = 6
 	},
@@ -83354,7 +83354,7 @@
 /area/station/maintenance/starboard2)
 "voV" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/pie,
+/obj/item/food/snacks/pie,
 /obj/machinery/door/window/classic/normal{
 	name = "Kitchen"
 	},
@@ -83672,10 +83672,10 @@
 /area/station/engineering/atmos)
 "vwA" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/snacks/chips{
+/obj/item/food/snacks/chips{
 	pixel_x = 8
 	},
-/obj/item/reagent_containers/food/drinks/cans/thirteenloko{
+/obj/item/reagent_containers/drinks/cans/thirteenloko{
 	pixel_x = -6;
 	pixel_y = 6
 	},
@@ -84338,15 +84338,15 @@
 "vSE" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced,
-/obj/item/reagent_containers/food/drinks/tea{
+/obj/item/reagent_containers/drinks/tea{
 	pixel_x = 7;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/food/drinks/tea{
+/obj/item/reagent_containers/drinks/tea{
 	pixel_x = -5;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_x = -5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -85105,7 +85105,7 @@
 /area/station/security/prisonlockers)
 "wnD" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/drinks/drinkingglass,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -87843,10 +87843,10 @@
 /area/station/hallway/primary/central)
 "xFW" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3
 	},
 /obj/machinery/door/window/classic/reversed{
@@ -87975,11 +87975,11 @@
 /area/station/engineering/atmos)
 "xIx" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -8;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -8;
 	pixel_y = 11
 	},
@@ -88070,10 +88070,10 @@
 /area/station/service/bar)
 "xLw" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3
 	},
 /obj/structure/window/reinforced{

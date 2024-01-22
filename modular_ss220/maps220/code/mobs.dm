@@ -954,7 +954,7 @@
 	retreat_distance = 5
 	minimum_distance = 5
 	dodging = TRUE
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 2)
+	butcher_results = list(/obj/item/food/snacks/monstermeat/xenomeat = 2)
 	projectiletype = /obj/item/projectile/bullet/bullsquid
 	projectilesound = 'modular_ss220/aesthetics_sounds/sound/mobs/bullsquid/goo_attack3.ogg'
 	melee_damage_upper = 18
@@ -1006,7 +1006,7 @@
 	melee_damage_upper = 20
 	rapid_melee = 2
 	del_on_death = FALSE
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 3)
+	butcher_results = list(/obj/item/food/snacks/monstermeat/xenomeat = 3)
 	attack_sound = 'sound/weapons/bite.ogg'
 	gold_core_spawnable = HOSTILE_SPAWN
 	minbodytemp = 0

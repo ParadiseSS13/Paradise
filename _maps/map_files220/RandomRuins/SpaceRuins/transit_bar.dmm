@@ -18,7 +18,7 @@
 	pixel_y = -2;
 	pixel_x = 6
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_y = 5;
 	pixel_x = -2
 	},
@@ -80,8 +80,8 @@
 /area/ruin/space/powered)
 "r" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer{
 	list_reagents = list("beer"=0);
 	pixel_x = 9;
 	pixel_y = -3
@@ -175,7 +175,7 @@
 /area/ruin/space/powered)
 "G" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_y = 8;
 	pixel_x = -7
 	},
@@ -202,7 +202,7 @@
 /obj/item/reagent_containers/glass/rag{
 	pixel_x = -7
 	},
-/obj/item/reagent_containers/food/drinks/shaker{
+/obj/item/reagent_containers/drinks/shaker{
 	pixel_x = 7;
 	pixel_y = 5
 	},
@@ -236,7 +236,7 @@
 /obj/structure/table/wood,
 /obj/machinery/light/small/directional/east,
 /obj/item/ashtray/bronze,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_y = 12;
 	pixel_x = 7;
 	list_reagents = list("innocent_erp = 50")

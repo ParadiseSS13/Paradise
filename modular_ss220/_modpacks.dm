@@ -69,9 +69,12 @@ SUBSYSTEM_DEF(modpacks)
 			))
 	return modpacks
 
-/datum/controller/subsystem/modpacks/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state = GLOB.always_state)
+/datum/controller/subsystem/modpacks/ui_state(mob/user)
+	return GLOB.always_state
+
+/datum/controller/subsystem/modpacks/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ModpacksList", "Modpacks List", 500, 550, master_ui, state)
+		ui = new(user, src, "ModpacksList", name)
 		ui.open()
 	ui.set_autoupdate(FALSE)

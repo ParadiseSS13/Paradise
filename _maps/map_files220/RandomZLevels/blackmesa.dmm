@@ -44,7 +44,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/lambda_hallway)
 "aez" = (
-/obj/item/reagent_containers/food/snacks/choccherrycakeslice,
+/obj/item/food/snacks/choccherrycakeslice,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/black_mesa/xen/vortigaunt_village_nihilanth)
@@ -1226,8 +1226,8 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/drinks/coffee,
-/obj/item/reagent_containers/food/drinks/tea{
+/obj/item/reagent_containers/drinks/coffee,
+/obj/item/reagent_containers/drinks/tea{
 	pixel_x = 5;
 	pixel_y = 10
 	},
@@ -1992,8 +1992,8 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/grown/coffee/robusta,
-/obj/item/reagent_containers/food/snacks/grown/coffee{
+/obj/item/food/snacks/grown/coffee/robusta,
+/obj/item/food/snacks/grown/coffee{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -2024,7 +2024,7 @@
 /area/awaymission/black_mesa/xen/vortigaunt_village)
 "cvC" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread,
+/obj/item/food/snacks/sliceable/xenomeatbread,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/black_mesa/xen/vortigaunt_village)
 "cwd" = (
@@ -2467,7 +2467,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/black_ops_entrance)
 "cZn" = (
-/obj/item/reagent_containers/food/snacks/beans,
+/obj/item/food/snacks/beans,
 /turf/simulated/floor/plating/xen,
 /area/awaymission/black_mesa/xen/freeman_puzzle)
 "cZp" = (
@@ -2626,7 +2626,7 @@
 /area/awaymission/black_mesa/equipment_room)
 "dko" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/tea,
+/obj/item/reagent_containers/drinks/tea,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "dkq" = (
@@ -2716,7 +2716,7 @@
 /turf/simulated/floor/beach/away/coastline/xen,
 /area/awaymission/black_mesa/xen/entering_zone)
 "dpl" = (
-/obj/item/reagent_containers/food/snacks/popcorn,
+/obj/item/food/snacks/popcorn,
 /turf/simulated/floor/wood,
 /area/awaymission/black_mesa/employee_dorm_room)
 "dpo" = (
@@ -2977,12 +2977,12 @@
 /area/awaymission/black_mesa/black_ops_armory)
 "dGp" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/candy/candybar,
-/obj/item/reagent_containers/food/snacks/candy/confectionery{
+/obj/item/food/snacks/candy/candybar,
+/obj/item/food/snacks/candy/confectionery{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/candy/confectionery{
+/obj/item/food/snacks/candy/confectionery{
 	pixel_x = 6;
 	pixel_y = 6
 	},
@@ -3002,7 +3002,7 @@
 /area/awaymission/black_mesa/entrance_internal_hall)
 "dGU" = (
 /obj/structure/alien/xenoweeds,
-/obj/item/reagent_containers/food/drinks/cans/sodawater,
+/obj/item/reagent_containers/drinks/cans/sodawater,
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/black_mesa)
 "dGY" = (
@@ -3677,7 +3677,7 @@
 /area/awaymission/black_mesa/high_security_hallway)
 "ewJ" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/xenomeatbreadslice,
+/obj/item/food/snacks/xenomeatbreadslice,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/black_mesa/xen/vortigaunt_village)
 "ewP" = (
@@ -3820,15 +3820,15 @@
 /area/awaymission/black_mesa/entrance_internal_hall)
 "eHp" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/soymilk{
+/obj/item/reagent_containers/condiment/soymilk{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/bottle/cream{
+/obj/item/reagent_containers/drinks/bottle/cream{
 	pixel_y = 4;
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark"
@@ -4256,7 +4256,7 @@
 /area/awaymission/black_mesa/entrance_lobby)
 "fiC" = (
 /obj/structure/closet/crate/wooden/wooden_crate,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/black_mesa/xen/vortigaunt_village)
 "fje" = (
@@ -4373,7 +4373,7 @@
 /area/awaymission/black_mesa/xen/freeman_hallway)
 "frM" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/doshik_spicy,
+/obj/item/food/snacks/doshik_spicy,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/lost_camp)
@@ -5749,7 +5749,7 @@
 /area/awaymission/black_mesa/xen/lost_camp)
 "han" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
+/obj/item/food/snacks/monstermeat/xenomeat,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/black_mesa/xen/vortigaunt_village)
 "haK" = (
@@ -6269,7 +6269,7 @@
 /obj/item/storage/fancy/cigarettes/cigpack_uplift{
 	pixel_x = 10
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_y = 10;
 	pixel_x = -9
 	},
@@ -6525,7 +6525,7 @@
 /area/awaymission/black_mesa/xen/nihilanth_computer)
 "ieG" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/tea,
+/obj/item/reagent_containers/drinks/tea,
 /turf/simulated/floor/plasteel{
 	icon_state = "green";
 	dir = 4
@@ -6588,7 +6588,7 @@
 /area/awaymission/black_mesa/black_ops_armory)
 "ikb" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel,
@@ -6788,7 +6788,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "ixB" = (
-/obj/item/reagent_containers/food/snacks/beans,
+/obj/item/food/snacks/beans,
 /turf/simulated/floor/plating/xen,
 /area/awaymission/black_mesa/xen/nihilanth_computer)
 "iyO" = (
@@ -6866,13 +6866,13 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/snacks/muffin,
-/obj/item/reagent_containers/food/snacks/muffin{
+/obj/item/food/snacks/muffin,
+/obj/item/food/snacks/muffin{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/poppypretzel,
-/obj/item/reagent_containers/food/snacks/plum_pie,
+/obj/item/food/snacks/poppypretzel,
+/obj/item/food/snacks/plum_pie,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark"
 	},
@@ -7438,7 +7438,7 @@
 /area/awaymission/black_mesa/xen/acid_lake_building)
 "jka" = (
 /obj/structure/closet/crate/wooden/wooden_crate,
-/obj/item/reagent_containers/food/snacks/doshik_spicy,
+/obj/item/food/snacks/doshik_spicy,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_storage)
 "jkk" = (
@@ -7748,11 +7748,11 @@
 /area/awaymission/black_mesa/dorm_computers)
 "jFG" = (
 /obj/structure/closet,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/bottle/whiskey,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 /turf/simulated/floor/plasteel{
 	icon_state = "brownfull"
 	},
@@ -8382,7 +8382,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_external_hall)
 "kqh" = (
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/drinks/bottle/vodka,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/security_outpost)
 "kqI" = (
@@ -8805,19 +8805,19 @@
 /area/awaymission/black_mesa/resonant_chamber)
 "kRb" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/bbqsauce,
-/obj/item/reagent_containers/food/condiment/diablo_sauce,
-/obj/item/reagent_containers/food/condiment/tomato_sauce,
-/obj/item/reagent_containers/food/condiment/garlic_sauce,
-/obj/item/reagent_containers/food/drinks/chicken_soup,
-/obj/item/reagent_containers/food/drinks/chicken_soup,
-/obj/item/reagent_containers/food/drinks/chicken_soup,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/bbqsauce,
+/obj/item/reagent_containers/condiment/diablo_sauce,
+/obj/item/reagent_containers/condiment/tomato_sauce,
+/obj/item/reagent_containers/condiment/garlic_sauce,
+/obj/item/reagent_containers/drinks/chicken_soup,
+/obj/item/reagent_containers/drinks/chicken_soup,
+/obj/item/reagent_containers/drinks/chicken_soup,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -9699,7 +9699,7 @@
 /area/awaymission/black_mesa/science_labs)
 "lTy" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/doshik,
+/obj/item/food/snacks/doshik,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/lost_camp)
@@ -9730,7 +9730,7 @@
 /area/awaymission/black_mesa/xen/vortigaunt_village)
 "lWK" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_y = 10;
 	pixel_x = 9
 	},
@@ -9772,7 +9772,7 @@
 /area/awaymission/black_mesa/xen/nihilanth_computer)
 "lZi" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/drinks/coffee,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark"
 	},
@@ -9863,10 +9863,10 @@
 /area/awaymission/black_mesa/entrance_large_office)
 "mdX" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/pack/ketchup,
-/obj/item/reagent_containers/food/condiment/pack/hotsauce,
-/obj/item/reagent_containers/food/condiment/pack/hotsauce,
-/obj/item/reagent_containers/food/condiment/pack/ketchup,
+/obj/item/reagent_containers/condiment/pack/ketchup,
+/obj/item/reagent_containers/condiment/pack/hotsauce,
+/obj/item/reagent_containers/condiment/pack/hotsauce,
+/obj/item/reagent_containers/condiment/pack/ketchup,
 /obj/item/trash/plate,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
@@ -10257,7 +10257,7 @@
 /area/awaymission/black_mesa/security_outpost)
 "mHz" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/drinks/coffee,
 /obj/structure/alien/xenoweeds,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_large_office)
@@ -10692,12 +10692,12 @@
 /area/awaymission/black_mesa/xen/vortigaunt_village)
 "ncG" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/beans,
+/obj/item/food/snacks/beans,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/lost_camp)
 "ncU" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/black_mesa/xen/vortigaunt_village)
 "ndr" = (
@@ -12132,12 +12132,12 @@
 /area/awaymission/black_mesa/hecu_zone_camp)
 "oNw" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/item/reagent_containers/food/snacks/grown/banana{
+/obj/item/food/snacks/grown/banana,
+/obj/item/food/snacks/grown/banana{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/grown/banana{
+/obj/item/food/snacks/grown/banana{
 	pixel_x = 6;
 	pixel_y = 6
 	},
@@ -12567,7 +12567,7 @@
 /area/awaymission/black_mesa/entrance_large_office)
 "pnW" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/black_mesa/xen/vortigaunt_village_nihilanth)
 "ppc" = (
@@ -12793,7 +12793,7 @@
 /area/awaymission/black_mesa/deep_sci_turret)
 "pDq" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/donut/sprinkles,
+/obj/item/food/snacks/donut/sprinkles,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "pDE" = (
@@ -13190,7 +13190,7 @@
 /area/awaymission/black_mesa/hecu_zone_camp)
 "qeH" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/doshik_spicy,
+/obj/item/food/snacks/doshik_spicy,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/acid_lake_building)
 "qfg" = (
@@ -13834,7 +13834,7 @@
 /area/awaymission/black_mesa/entrance_large_office)
 "qPE" = (
 /obj/structure/closet/crate/wooden/wooden_crate,
-/obj/item/reagent_containers/food/snacks/doshik,
+/obj/item/food/snacks/doshik,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_storage)
 "qPF" = (
@@ -14665,7 +14665,7 @@
 /area/awaymission/black_mesa/hecu_zone_external_hall)
 "rSI" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/beans,
+/obj/item/food/snacks/beans,
 /turf/simulated/floor/plating/xen,
 /area/awaymission/black_mesa/xen/vortigaunt_village)
 "rSN" = (
@@ -15146,11 +15146,11 @@
 /area/awaymission/black_mesa/black_ops_turret_blockade)
 "swo" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee,
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_x = 10
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	desc = "Its cold like the space outside noo!";
 	pixel_x = -6;
 	pixel_y = 8;
@@ -15187,22 +15187,22 @@
 /area/awaymission/black_mesa/hecu_zone_infirmary)
 "szl" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/drinks/cans/sodawater,
-/obj/item/reagent_containers/food/drinks/cans/sodawater,
-/obj/item/reagent_containers/food/drinks/cans/sodawater,
-/obj/item/reagent_containers/food/drinks/cans/sodawater,
-/obj/item/reagent_containers/food/drinks/cans/sodawater,
-/obj/item/reagent_containers/food/drinks/cans/lemon_lime,
-/obj/item/reagent_containers/food/drinks/cans/lemon_lime,
-/obj/item/reagent_containers/food/drinks/cans/lemon_lime,
-/obj/item/reagent_containers/food/drinks/cans/cola,
-/obj/item/reagent_containers/food/drinks/cans/cola,
-/obj/item/reagent_containers/food/drinks/cans/cola,
-/obj/item/reagent_containers/food/drinks/cans/grape_juice,
-/obj/item/reagent_containers/food/drinks/cans/grape_juice,
-/obj/item/reagent_containers/food/drinks/cans/grape_juice,
-/obj/item/reagent_containers/food/drinks/cans/dr_gibb,
-/obj/item/reagent_containers/food/drinks/cans/dr_gibb,
+/obj/item/reagent_containers/drinks/cans/sodawater,
+/obj/item/reagent_containers/drinks/cans/sodawater,
+/obj/item/reagent_containers/drinks/cans/sodawater,
+/obj/item/reagent_containers/drinks/cans/sodawater,
+/obj/item/reagent_containers/drinks/cans/sodawater,
+/obj/item/reagent_containers/drinks/cans/lemon_lime,
+/obj/item/reagent_containers/drinks/cans/lemon_lime,
+/obj/item/reagent_containers/drinks/cans/lemon_lime,
+/obj/item/reagent_containers/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/grape_juice,
+/obj/item/reagent_containers/drinks/cans/grape_juice,
+/obj/item/reagent_containers/drinks/cans/grape_juice,
+/obj/item/reagent_containers/drinks/cans/dr_gibb,
+/obj/item/reagent_containers/drinks/cans/dr_gibb,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -15438,7 +15438,7 @@
 /area/awaymission/black_mesa/entrance_lobby)
 "sNn" = (
 /obj/structure/closet/crate/can,
-/obj/item/reagent_containers/food/snacks/donut/sprinkles,
+/obj/item/food/snacks/donut/sprinkles,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/gas_emitter_chamber)
 "sNG" = (
@@ -16055,7 +16055,7 @@
 "tGv" = (
 /obj/structure/table,
 /obj/item/clothing/glasses/regular,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_x = 10;
 	pixel_y = 10
 	},
@@ -16424,7 +16424,7 @@
 /area/awaymission/black_mesa/entrance_lobby)
 "uhs" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/candy/taffy,
+/obj/item/food/snacks/candy/taffy,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_infirmary)
 "uhN" = (
@@ -17431,7 +17431,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/entrance_internal_hall)
 "vrW" = (
-/obj/item/reagent_containers/food/snacks/donut/sprinkles,
+/obj/item/food/snacks/donut/sprinkles,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/black_mesa/xen/vortigaunt_village_nihilanth)
@@ -17807,8 +17807,8 @@
 /area/awaymission/black_mesa/xen/village_hallway)
 "vPn" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
 /obj/machinery/light/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -17948,7 +17948,7 @@
 /obj/structure/table,
 /obj/item/paper,
 /obj/item/pen,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_x = 10
 	},
 /turf/simulated/floor/plasteel,
@@ -18140,11 +18140,11 @@
 /area/awaymission/black_mesa/xen/acid_lake_building)
 "wnV" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = 8;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/snacks/chips,
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "woi" = (
@@ -19351,7 +19351,7 @@
 /area/awaymission/black_mesa/employee_dorm_room)
 "xKX" = (
 /obj/structure/closet/crate/wooden/wooden_crate,
-/obj/item/reagent_containers/food/snacks/beans,
+/obj/item/food/snacks/beans,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_storage)
 "xMb" = (

@@ -1,4 +1,4 @@
-/obj/item/reagent_containers/food/drinks/drinkingglass/on_reagent_change()
+/obj/item/reagent_containers/drinks/drinkingglass/on_reagent_change()
 	. = ..()
 	if(!reagents.reagent_list.len)
 		icon = initial(icon)

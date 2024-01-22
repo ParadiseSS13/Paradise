@@ -20,7 +20,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = 2
 	mob_size = MOB_SIZE_TINY
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 1)
+	butcher_results = list(/obj/item/food/snacks/monstermeat/xenomeat = 1)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	holder_type = /obj/item/holder/moth
 	tts_seed = "Tychus"
@@ -49,6 +49,6 @@
 	density = 0
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 1)
+	butcher_results = list(/obj/item/food/snacks/monstermeat/xenomeat = 1)
 	holder_type = /obj/item/holder/mothroach
 	tts_seed = "Tychus"
