@@ -87,7 +87,10 @@
 	cure_chance = 10
 	stage_prob = 5
 	severity = HARMFUL
-	required_organs = list(/obj/item/organ/internal/heart)
+	disease_flags = CURABLE
+	required_organs = list(ORGAN_DATUM_HEART)
+	bypasses_immunity = TRUE
+	virus_heal_resistant = TRUE
 
 /datum/disease/critical/heart_failure/stage_act()
 	if(..())

@@ -335,7 +335,7 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
 	if(!panel_open)
-		return ui_interact(user, state = GLOB.viewer_state)
+		return ui_interact(user)
 	if(removal_stage != NUKE_CORE_FULLY_EXPOSED || !core)
 		return wires.Interact(user)
 
@@ -356,10 +356,13 @@ GLOBAL_VAR(bomb_set)
 		core = null
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/nuclearbomb/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/machinery/nuclearbomb/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "NuclearBomb", name, 450, 300, master_ui, state)
+		ui = new(user, src, "NuclearBomb", name)
 		ui.open()
 
 /obj/machinery/nuclearbomb/ui_data(mob/user)
