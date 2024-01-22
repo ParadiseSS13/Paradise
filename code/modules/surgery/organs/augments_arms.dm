@@ -284,6 +284,7 @@
 	desc = "A powerful cybernetic implant that contains combat modules built into the user's arm"
 	contents = newlist(/obj/item/melee/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/flash/armimplant)
 	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
+	stealth_level = 4 //Max level body scanner.
 
 /obj/item/organ/internal/cyberimp/arm/combat/New()
 	..()
@@ -448,6 +449,39 @@
 	contents = newlist(/obj/item/mop/advanced)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/janitor.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "advmop")
+
+// Shell launch system, an arm mounted single-shot shotgun that comes out of your arm
+
+/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher
+	name = "shell launch system"
+	desc = "A mounted cannon seated comfortably in a forearm compartment. This humanitarian device is capable in normal \
+		mode of firing essentially any shotgun shell, and can be wrenched to a .980 Tydhouer grenade mode, \
+		shells famously seen in the 'Kiboko' launcher."
+	icon_state = "shell_cannon_weapon"
+	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
+	inhand_x_dimension = 32
+	inhand_y_dimension = 32
+	item_state = "shell_cannon"
+	w_class = WEIGHT_CLASS_BULKY
+	force = 10
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/shell_cannon
+	unique_reskin = FALSE
+	sawoffable = FALSE
+
+/obj/item/ammo_box/magazine/internal/shot/shell_cannon
+	name = "shell launch system internal magazine"
+	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
+	max_ammo = 1
+	multiload = FALSE
+
+/obj/item/organ/internal/cyberimp/arm/shell_launcher
+	name = "shell launch system implant"
+	desc = "A mounted, single-shot housing for a shell launch cannon; capable of firing either twelve gauge shotgun shells."
+	contents = newlist(/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher)
+	icon_state = "shell_cannon"
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/surgery.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "shell_cannon")
 
 /obj/item/organ/internal/cyberimp/arm/v1_arm
 	name = "vortex feedback arm implant"

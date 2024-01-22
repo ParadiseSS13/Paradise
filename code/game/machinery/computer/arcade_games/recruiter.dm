@@ -312,6 +312,7 @@
 	desc = "The advanced version of Nanotrasen's recruiting simulator, used to train the highest echelon of Nanotrasen recruiters. Has double the application count, and supposedly includes some routines to weed out the less skilled."
 	total_curriculums = 14
 	emagged = TRUE
+	return TRUE
 
 #undef PROB_CANDIDATE_ERRORS
 #undef PROB_UNIQUE_CANDIDATE

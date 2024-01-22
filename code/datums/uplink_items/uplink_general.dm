@@ -803,6 +803,22 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/bio_chip_implanter/stealth
 	cost = 45
 
+// CYBERNETICS
+
+/datum/uplink_item/cyber_implants
+	category = "Cybernetic Implants"
+
+/datum/uplink_item/cyber_implants/hackerman_deck
+	name = "Binyat wireless hacking system autoimplanter"
+	desc = "A rare-to-find neural chip that allows its user to interface with nearby machinery \
+		and effect it in (usually) beneficial ways. Due to the wireless connection, fine manipulation \
+		isn't possible, however the deck will drop a payload into the target's systems that will attempt \
+		hacking for you. \
+		Will not show on unupgraded body scanners."
+	reference = "hkr"
+	item = /obj/item/autosurgeon/organ/syndicate/hackerman_deck
+	cost = 30 // Probably slightly less useful than an emag with heat / cooldown, but I am not going to make it cheaper or everyone picks it over emag
+
 // POINTLESS BADASSERY
 
 /datum/uplink_item/badass

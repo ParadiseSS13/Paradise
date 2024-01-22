@@ -358,6 +358,7 @@
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You you disable the security protocols</span>")
+		return TRUE
 	src.updateUsrDialog()
 
 /obj/machinery/r_n_d/server/core

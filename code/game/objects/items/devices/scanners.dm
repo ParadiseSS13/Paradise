@@ -268,7 +268,7 @@ REAGENT SCANNER
 
 	var/implant_detect
 	for(var/obj/item/organ/internal/O in H.internal_organs)
-		if(O.is_robotic())
+		if(O.is_robotic() && O.stealth_level == 0)
 			implant_detect += "[H.name] is modified with a [O.name].<br>"
 	if(implant_detect)
 		msgs += "<span class='notice'>Detected cybernetic modifications:</span>"

@@ -10,6 +10,8 @@
 	active_power_consumption = 2500
 	light_color = "#00FF00"
 	var/mob/living/carbon/human/occupant
+	///What level of scanner does the body scanner have?
+	var/scan_level = 1
 	var/known_implants = list(/obj/item/bio_chip/chem, /obj/item/bio_chip/death_alarm, /obj/item/bio_chip/mindshield, /obj/item/bio_chip/tracking, /obj/item/bio_chip/health)
 
 /obj/machinery/bodyscanner/examine(mob/user)
@@ -51,6 +53,11 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
+
+
+/obj/machinery/bodyscanner/RefreshParts()
+	for(var/obj/item/stock_parts/scanning_module/S in component_parts)
+		scan_level = S.rating
 
 /obj/machinery/bodyscanner/update_icon_state()
 	if(occupant)
@@ -332,6 +339,8 @@
 
 		var/intOrganData[0]
 		for(var/obj/item/organ/internal/I in occupant.internal_organs)
+			if(I.stealth_level > scan_level)
+				continue
 			var/organData[0]
 			organData["name"] = I.name
 			organData["desc"] = I.desc
@@ -510,6 +519,8 @@
 		dat += "</tr>"
 
 		for(var/obj/item/organ/internal/i in occupant.internal_organs)
+			if(i.stealth_level > scan_level)
+				continue
 			var/list/ailments = list()
 
 			if(i.status & ORGAN_DEAD)

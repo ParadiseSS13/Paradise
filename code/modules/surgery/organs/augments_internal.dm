@@ -286,6 +286,72 @@
 	origin_tech = "materials=6;programming=6;biotech=6"
 	emp_proof = TRUE
 
+/obj/item/organ/internal/cyberimp/brain/hackerman_deck
+	name = "Binyat wireless hacking system"
+	desc = "A rare-to-find neural chip that allows its user to interface with nearby machinery \
+		and effect it in (usually) beneficial ways. Due to the wireless connection, fine manipulation \
+		isn't possible, however the deck will drop a payload into the target's systems that will attempt \
+		hacking for you."
+	icon_state = "hackerman"
+	implant_overlay = null
+	implant_color = null
+	slot = "brain_antistun"
+	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "materials=4;combat=6;biotech=6;powerstorage=2;syndicate=3"
+	stealth_level = 4 //Max level body scanner.
+
+/obj/item/organ/internal/cyberimp/brain/hackerman_deck/insert(mob/living/carbon/M, special = 0)
+	. = ..()
+	if(M.mind)
+		M.mind.AddSpell(new /obj/effect/proc_holder/spell/hackerman_deck(null))
+
+/obj/item/organ/internal/cyberimp/brain/hackerman_deck/remove(mob/living/carbon/M, special = 0)
+	. = ..()
+	if(M.mind)
+		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/hackerman_deck)
+
+/obj/effect/proc_holder/spell/hackerman_deck
+	name = "Activate Ranged Hacking"
+	desc = "This spell creates your ethereal form, temporarily making you invisible and able to pass through walls."
+	base_cooldown = 10 SECONDS
+	clothes_req = FALSE
+	invocation = "none"
+	invocation_type = "none"
+	selection_activated_message	= "You warm up your Binyat deck, there's an idle buzzing at the back of your mind as it awaits a target."
+	selection_deactivated_message = "Your hacking deck makes an almost disappointed sounding buzz at the back of your mind as it powers down."
+	action_icon_state = "hackerman"
+	action_background_icon_state = "bg_pulsedemon"
+
+/obj/effect/proc_holder/spell/hackerman_deck/create_new_targeting()
+	var/datum/spell_targeting/clicked_atom/C = new()
+	C.range = 2
+	C.try_auto_target = FALSE
+	return C
+
+/obj/effect/proc_holder/spell/hackerman_deck/cast(list/targets, mob/user)
+	var/atom/target = targets[1]
+	var/beam = user.Beam(target, icon_state = "light_beam", time = 3 SECONDS)
+
+	user.visible_message("<span class='warning'>[user] makes an unusual buzzing sound as the air between them and [target] crackles.</span>", \
+			"<span class='warning'>The air between you and [target] begins to crackle audibly as the Binyat gets to work and heats up in your head!</span>")
+
+	if(!do_after(user, 3 SECONDS, target))
+		qdel(beam)
+		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.1)
+		return
+
+	if(!target.emag_act(user))
+		to_chat(user, "<span class='warning'>You are unable to hack this!</span>")
+		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.1)
+		return
+
+	target.add_hiddenprint(user)
+
+	playsound(target, 'sound/machines/terminal_processing.ogg', 15, TRUE)
+
+	var/mob/living/carbon/human/human_owner = user
+
+	human_owner.adjust_bodytemperature(400)
 
 //[[[[MOUTH]]]]
 /obj/item/organ/internal/cyberimp/mouth

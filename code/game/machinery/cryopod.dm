@@ -161,6 +161,7 @@
 	do_sparks(5, 1, src)
 	for(var/obj/item/I in objective_items)
 		dispense_item(I)
+	return TRUE
 
 /obj/item/circuitboard/cryopodcontrol
 	board_name = "Cryogenic Oversight Console"

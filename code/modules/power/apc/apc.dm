@@ -1026,6 +1026,7 @@
 			locked = FALSE
 			to_chat(user, "You emag the APC interface.")
 			update_icon()
+			return TRUE
 
 /obj/machinery/power/apc/proc/apc_short()
 	// if it has internal wires, cut the power wires
