@@ -129,7 +129,7 @@
 				H.visible_message("<span class='chaosverybad'>[H] drops dead!</span>", "<span class='chaosverybad'>Game over!</span>")
 				H.death(FALSE)
 			else
-				H.visible_message("<span class='chaosverybad'>[H] disappears!</span>", "<span class='chaosverybad'>COLD! CAN'T BREATH!</span>")
+				H.visible_message("<span class='chaosverybad'>[H] disappears!</span>", "<span class='chaosverybad'>COLD! CAN'T BREATHE!</span>")
 				do_teleport(H, T)
 		if("decapitated")
 			H.visible_message("<span class='chaosverybad'>[H]'s head goes flying!'</span>", \
@@ -193,7 +193,7 @@
 			H.apply_damage(CHAOS_STAFF_DAMAGE / 3, BRUTE)
 			explosion(get_turf(H), -1, 0, 2, 3, flame_range = 2, cause = "staff of chaos fireball effect")
 		if("ice spiked")
-			H.visible_message("<span class='chaosbad'>[H]'s chest get pierced by an ice spike! </span>", "<span class='chaosverybad'>An ice spike pierces your chest!</span>")
+			H.visible_message("<span class='chaosbad'>[H]'s chest get pierced by an ice spike!</span>", "<span class='chaosverybad'>An ice spike pierces your chest!</span>")
 			H.apply_damage(CHAOS_STAFF_DAMAGE, BRUTE, "chest")
 			H.bodytemperature = 250
 		if("rathend")
@@ -317,7 +317,7 @@
 			item_to_summon = /obj/item/food/snacks/cheesewedge
 			explosion_amount = rand(5, 10)
 		if("food")
-			target.visible_message("<span class='chaosneutral'>Food scatter around [target]!</span>", "<span class='chaosneutral'>A bunch of food scatter around you!</span>")
+			target.visible_message("<span class='chaosneutral'>Food scatters around [target]!</span>", "<span class='chaosneutral'>A bunch of food scatters around you!</span>")
 			var/limit = rand(5, 10)
 			for(var/i in 1 to limit)
 				var/type = pick(typesof(/obj/item/food/snacks))
