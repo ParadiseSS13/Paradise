@@ -708,7 +708,7 @@
 						active_character.height = new_height
 
 				if("flavor_text")
-					var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.","Flavor Text",html_decode(active_character.flavor_text)) as message
+					var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", active_character.flavor_text, multiline = TRUE)
 
 					if(msg != null)
 						msg = copytext(msg, 1, MAX_MESSAGE_LEN)

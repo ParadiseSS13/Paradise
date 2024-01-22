@@ -92,8 +92,11 @@
  * the window was closed by the user.
  */
 /datum/tgui_alert/proc/wait()
-	while (!choice && !closed && !QDELETED(src))
+	while(!choice && !closed && !QDELETED(src))
 		stoplag(1)
+
+/datum/tgui_alert/ui_state(mob/user)
+	return state
 
 /datum/tgui_alert/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -104,9 +107,6 @@
 /datum/tgui_alert/ui_close(mob/user)
 	. = ..()
 	closed = TRUE
-
-/datum/tgui_alert/ui_state(mob/user)
-	return state
 
 /datum/tgui_alert/ui_static_data(mob/user)
 	var/list/data = list()

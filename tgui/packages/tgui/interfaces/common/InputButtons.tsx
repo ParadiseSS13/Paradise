@@ -10,12 +10,13 @@ type InputButtonsData = {
 type InputButtonsProps = {
   input: string | number | string[];
   message?: string;
+  disabled?: boolean;
 };
 
 export const InputButtons = (props: InputButtonsProps, context) => {
   const { act, data } = useBackend<InputButtonsData>(context);
   const { large_buttons, swapped_buttons } = data;
-  const { input, message } = props;
+  const { input, message, disabled } = props;
   const submitButton = (
     <Button
       color="good"
@@ -25,6 +26,7 @@ export const InputButtons = (props: InputButtonsProps, context) => {
       onClick={() => act('submit', { entry: input })}
       textAlign="center"
       tooltip={large_buttons && message}
+      disabled={disabled}
       width={!large_buttons && 6}
     />
   );
