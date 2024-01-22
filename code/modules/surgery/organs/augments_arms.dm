@@ -83,6 +83,8 @@
 /obj/item/organ/internal/cyberimp/arm/proc/Retract()
 	if(!holder || (holder in src) || check_cuffs())
 		return
+	if(status & (ORGAN_DEAD))
+		return
 
 	owner.visible_message("<span class='notice'>[owner] retracts [holder] back into [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
 		"<span class='notice'>[holder] snaps back into your [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
@@ -99,6 +101,8 @@
 
 /obj/item/organ/internal/cyberimp/arm/proc/Extend(obj/item/item)
 	if(!(item in src) || check_cuffs())
+		return
+	if(status & (ORGAN_DEAD))
 		return
 
 	holder = item
@@ -455,8 +459,7 @@
 /obj/item/gun/projectile/revolver/doublebarrel/shell_launcher
 	name = "shell launch system"
 	desc = "A mounted cannon seated comfortably in a forearm compartment. This humanitarian device is capable in normal \
-		mode of firing essentially any shotgun shell, and can be wrenched to a .980 Tydhouer grenade mode, \
-		shells famously seen in the 'Kiboko' launcher."
+		mode of firing essentially any shotgun shell."
 	icon_state = "shell_cannon_weapon"
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
@@ -464,10 +467,15 @@
 	inhand_y_dimension = 32
 	item_state = "shell_cannon"
 	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_LIGHT
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/shell_cannon
 	unique_reskin = FALSE
 	sawoffable = FALSE
+
+/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher/proc/missfire(mob/living/carbon/human/H, our_organ)
+	to_chat(H, "<span class='warning'>Your [src] missfires!</span>")
+	process_fire(H, H, 1, zone_override = our_organ)
 
 /obj/item/ammo_box/magazine/internal/shot/shell_cannon
 	name = "shell launch system internal magazine"
@@ -482,6 +490,39 @@
 	icon_state = "shell_cannon"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/surgery.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "shell_cannon")
+
+/obj/item/organ/internal/cyberimp/arm/shell_launcher/emp_act(severity)
+	if(!owner)
+		return
+	if(emp_proof)
+		return
+	Retract()
+	for(var/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher/SL in contents)
+		if(SL.chambered)
+			if(!SL.chambered.BB)//found a spent ammo
+				return
+
+			if(istype(SL.chambered, /obj/item/ammo_casing/shotgun/ion))
+				emp_proof = TRUE //This kills the server without it. Do not remove this.
+				SL.missfire(owner, parent_organ)
+				emp_proof = FALSE
+				to_chat(owner, "<span class='warning'>The missfired [SL.chambered] causes your [src] to break!</span>")
+				necrotize()
+				return
+			if(istype(SL.chambered, /obj/item/ammo_casing/shotgun/frag12))
+				SL.missfire(owner, parent_organ)
+				var/obj/item/organ/external/probable_organ = owner.get_limb_by_name(parent_organ)
+				if(probable_organ) //In case it gets popped off by the damage
+					probable_organ.droplimb(FALSE, DROPLIMB_BLUNT)
+				return
+			if(istype(SL.chambered, /obj/item/ammo_casing/shotgun/pulseslug))
+				SL.missfire(owner, parent_organ)
+				var/obj/item/organ/external/probable_organ = owner.get_limb_by_name(parent_organ)
+				if(probable_organ) //In case it gets popped off by the damage
+					probable_organ.droplimb(FALSE, DROPLIMB_BURN)
+				return
+			SL.chambered.BB.damage *= 2 //Stronger since it is inside you
+			SL.missfire(owner, parent_organ)
 
 /obj/item/organ/internal/cyberimp/arm/v1_arm
 	name = "vortex feedback arm implant"

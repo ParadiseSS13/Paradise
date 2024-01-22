@@ -310,6 +310,12 @@
 	if(M.mind)
 		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/hackerman_deck)
 
+/obj/item/organ/internal/cyberimp/brain/hackerman_deck/emp_act(severity)
+	owner.adjustStaminaLoss(40 / severity)
+	owner.adjust_bodytemperature(400 / severity)
+	to_chat(owner, "<span class='warning'>Your [src] heats up drastically!</span>")
+	return TRUE
+
 /obj/effect/proc_holder/spell/hackerman_deck
 	name = "Activate Ranged Hacking"
 	desc = "This spell creates your ethereal form, temporarily making you invisible and able to pass through walls."
@@ -337,12 +343,12 @@
 
 	if(!do_after(user, 3 SECONDS, target))
 		qdel(beam)
-		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.1)
+		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.3)
 		return
 
 	if(!target.emag_act(user))
 		to_chat(user, "<span class='warning'>You are unable to hack this!</span>")
-		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.1)
+		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.3)
 		return
 
 	target.add_hiddenprint(user)
@@ -351,7 +357,7 @@
 
 	var/mob/living/carbon/human/human_owner = user
 
-	human_owner.adjust_bodytemperature(400)
+	human_owner.adjust_bodytemperature(375)
 
 //[[[[MOUTH]]]]
 /obj/item/organ/internal/cyberimp/mouth
