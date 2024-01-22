@@ -523,4 +523,4 @@
 /obj/machinery/disco/chaos_staff/Initialize(mapload)
 	. = ..()
 	selection = pick(songs)
-	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/disco/chaos_staff, breakitdown))
+	INVOKE_ASYNC(src, PROC_REF(breakitdown))
