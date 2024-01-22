@@ -8,10 +8,7 @@
 			if(AM.GetComponent(/datum/component/two_handed))
 				if(get_inactive_hand())
 					return FALSE
-			if(mind.martial_art.try_deflect(src))
-				var/obj/item/TT = AM
-				addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), pick(GLOB.alldirs), 10, 4, src), 0.2 SECONDS) //Timer set to 0.2 seconds to ensure item finshes the throwing to prevent double embeds
-				return FALSE
+
 			throw_mode_off()
 			put_in_active_hand(AM)
 			visible_message("<span class='warning'>[src] catches [AM]!</span>")
