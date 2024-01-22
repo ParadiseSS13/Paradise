@@ -71,26 +71,26 @@
 			throwforce = 0
 			INVOKE_ASYNC(I, TYPE_PROC_REF(/atom/movable, throw_at), pick(oview(7, get_turf(src))), 10, 1)
 			throwforce = initial(throwforce)
-	else
-		if(!ishuman(target))
-			var/obj/item/I = new item_to_summon(get_turf(target))
-			target.visible_message("<span class='chaosgood'>\A [I] drops next to [target]!</span>", "<span class='chaosgood'>\A [I] drops on the floor!</span>")
+		return
+	if(!ishuman(target))
+		var/obj/item/I = new item_to_summon(get_turf(target))
+		target.visible_message("<span class='chaosgood'>\A [I] drops next to [target]!</span>", "<span class='chaosgood'>\A [I] drops on the floor!</span>")
+		return
+	var/mob/living/carbon/human/H = target
+	var/obj/item/I = new item_to_summon(src)
+	if(H.back && isstorage(H.back))
+		var/obj/item/storage/S = H.back
+		S.handle_item_insertion(I, TRUE) //We don't check if it can be inserted because it's magic, GET IN THERE!
+		H.visible_message("<span class='chaosgood'>[H]'s [S.name] glows bright!</span>", "<span class='chaosverygood'>\A [I] suddenly appears in your glowing [S.name]!</span>")
+		return
+	if(H.back && ismodcontrol(H.back))
+		var/obj/item/mod/control/C = H.back
+		if(C.bag)
+			C.handle_item_insertion(I, TRUE)
+			H.visible_message("<span class='chaosgood'>[H]'s [C] glows bright!</span>", "<span class='chaosverygood'>\A [I] suddenly appears in your glowing [C.name]!</span>")
 			return
-		var/mob/living/carbon/human/H = target
-		var/obj/item/I = new item_to_summon(src)
-		if(H.back && isstorage(H.back))
-			var/obj/item/storage/S = H.back
-			S.handle_item_insertion(I, TRUE) //We don't check if it can be inserted because it's magic, GET IN THERE!
-			H.visible_message("<span class='chaosgood'>[H]'s [S.name] glows bright!</span>", "<span class='chaosverygood'>\A [I] suddenly appears in your glowing [S.name]!</span>")
-			return
-		if(H.back && ismodcontrol(H.back))
-			var/obj/item/mod/control/C = H.back
-			if(C.bag)
-				C.handle_item_insertion(I, TRUE)
-				H.visible_message("<span class='chaosgood'>[H]'s [C] glows bright!</span>", "<span class='chaosverygood'>\A [I] suddenly appears in your glowing [C.name]!</span>")
-				return
-		I.forceMove(get_turf(H))
-		H.visible_message("<span class='chaosgood'>\A [I] drops next to [H]!</span>", "<span class='chaosverygood'>\A [I] drops on the floor!</span>")
+	I.forceMove(get_turf(H))
+	H.visible_message("<span class='chaosgood'>\A [I] drops next to [H]!</span>", "<span class='chaosverygood'>\A [I] drops on the floor!</span>")
 
 /**
   * Picks and apply a lethal effect on mob/living/target. Some are more instantaneous than others.
@@ -198,18 +198,18 @@
 			H.bodytemperature = 250
 		if("rathend")
 			var/obj/item/organ/internal/appendix/A = H.get_int_organ(/obj/item/organ/internal/appendix)
-			if(A)
-				A.remove(H)
-				A.forceMove(get_turf(H))
-				A.throw_at(get_edge_target_turf(H, pick(GLOB.alldirs)), rand(1, 10), 5)
-				H.visible_message("<span class='chaosbad'>[H]'s [A.name] flies out of their body in a magical explosion!</span>",\
-								"<span class='chaosbad'>Your [A.name] flies out of your body in a magical explosion!</span>")
-				H.KnockDown(4 SECONDS)
-			else
+			if(!A)
 				H.apply_damage(CHAOS_STAFF_DAMAGE / 3, BRUTE, "chest")
 				new/obj/effect/decal/cleanable/blood/gibs(get_turf(H))
 				to_chat(H, "<span class='chaosbad'>Blood flows out of your body!</span>")
 				H.KnockDown(6 SECONDS)
+				return
+			A.remove(H)
+			A.forceMove(get_turf(H))
+			A.throw_at(get_edge_target_turf(H, pick(GLOB.alldirs)), rand(1, 10), 5)
+			H.visible_message("<span class='chaosbad'>[H]'s [A.name] flies out of their body in a magical explosion!</span>",\
+							"<span class='chaosbad'>Your [A.name] flies out of your body in a magical explosion!</span>")
+			H.KnockDown(4 SECONDS)
 		if("stabbed")
 			H.visible_message("<span class='chaosbad'>[H] gets stabbed by a magical knife!</span>", "<span class='chaosbad'>You get stabbed by a magical knife!</span>")
 			H.apply_damage(CHAOS_STAFF_DAMAGE, BRUTE, "chest")
