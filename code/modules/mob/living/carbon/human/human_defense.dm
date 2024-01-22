@@ -54,8 +54,9 @@ emp_act
 
 			visible_message("<span class='danger'>[src] deflects the projectile!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 			if(mind.martial_art.reroute_deflection)
+				var/refl_angle = get_angle(loc, get_step(src, dir))
 				P.firer = src
-				P.set_angle(rand(0, 360))
+				P.set_angle(rand(refl_angle - 10, refl_angle + 10))
 				return -1
 			else
 				return FALSE
