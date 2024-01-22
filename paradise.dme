@@ -2799,6 +2799,7 @@
 #include "code\modules\tgui\states\physical.dm"
 #include "code\modules\tgui\states\self.dm"
 #include "code\modules\tgui\states\viewer_state.dm"
+#include "code\modules\tgui\tgui_input\alert.dm"
 #include "code\modules\tgui\tgui_input\list.dm"
 #include "code\modules\tgui\tgui_panel\audio.dm"
 #include "code\modules\tgui\tgui_panel\telemetry.dm"
