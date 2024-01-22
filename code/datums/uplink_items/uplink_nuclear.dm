@@ -553,6 +553,7 @@
 	item = /obj/item/autosurgeon/organ/syndicate/thermal_eyes
 	cost = 40
 	surplus = 0
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/cyber_implants/xray
 	name = "X-Ray Vision Implant"
@@ -561,6 +562,7 @@
 	item = /obj/item/autosurgeon/organ/syndicate/xray_eyes
 	cost = 50
 	surplus = 0
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/cyber_implants/antistun
 	name = "Hardened CNS Rebooter Implant"
@@ -569,6 +571,7 @@
 	item = /obj/item/autosurgeon/organ/syndicate/anti_stam
 	cost = 60
 	surplus = 0
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/cyber_implants/reviver
 	name = "Hardened Reviver Implant"
@@ -577,6 +580,7 @@
 	item = /obj/item/autosurgeon/organ/syndicate/reviver
 	cost = 40
 	surplus = 0
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // BUNDLES
 

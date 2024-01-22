@@ -318,7 +318,7 @@
 
 /obj/effect/proc_holder/spell/hackerman_deck
 	name = "Activate Ranged Hacking"
-	desc = "This spell creates your ethereal form, temporarily making you invisible and able to pass through walls."
+	desc = "Click on any machine, to hack them. Has a short range, only three tiles."
 	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
@@ -327,16 +327,22 @@
 	selection_deactivated_message = "Your hacking deck makes an almost disappointed sounding buzz at the back of your mind as it powers down."
 	action_icon_state = "hackerman"
 	action_background_icon_state = "bg_pulsedemon"
+	/// How many times have we successfully hacked in the last minute? Increases burn damage by 3 for each value above 0.
+	var/recent_hacking = 0
 
 /obj/effect/proc_holder/spell/hackerman_deck/create_new_targeting()
 	var/datum/spell_targeting/clicked_atom/C = new()
-	C.range = 2
+	C.range = 3
 	C.try_auto_target = FALSE
 	return C
 
 /obj/effect/proc_holder/spell/hackerman_deck/cast(list/targets, mob/user)
 	var/atom/target = targets[1]
-	var/beam = user.Beam(target, icon_state = "light_beam", time = 3 SECONDS)
+	if(get_dist(user, target) > 3) //fucking cameras holy shit
+		to_chat(user, "<span class='warning'>Your implant is not robust enough to hack at that distance!</span>")
+		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.3)
+		return
+	var/beam = user.Beam(target, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
 
 	user.visible_message("<span class='warning'>[user] makes an unusual buzzing sound as the air between them and [target] crackles.</span>", \
 			"<span class='warning'>The air between you and [target] begins to crackle audibly as the Binyat gets to work and heats up in your head!</span>")
@@ -356,8 +362,12 @@
 	playsound(target, 'sound/machines/terminal_processing.ogg', 15, TRUE)
 
 	var/mob/living/carbon/human/human_owner = user
+	human_owner.adjustFireLoss(5 + (recent_hacking * 3))
+	recent_hacking++
+	addtimer(CALLBACK(src, PROC_REF(lower_recent_hacking)), 1 MINUTES)
 
-	human_owner.adjust_bodytemperature(375)
+/obj/effect/proc_holder/spell/hackerman_deck/proc/lower_recent_hacking()
+	recent_hacking--
 
 //[[[[MOUTH]]]]
 /obj/item/organ/internal/cyberimp/mouth

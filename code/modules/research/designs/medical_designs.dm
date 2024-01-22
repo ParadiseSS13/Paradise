@@ -379,7 +379,7 @@
 	name = "Shell Launch System Implant"
 	desc = "A mounted, single-shot housing for a shell launch cannon; capable of firing twelve gauge shotgun shells."
 	id = "ci-shell_launcher"
-	req_tech = list("materials" = 7, "engineering" = 6, "combat" = 7)
+	req_tech = list("materials" = 7, "engineering" = 5, "combat" = 5)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
 	construction_time = 20 SECONDS

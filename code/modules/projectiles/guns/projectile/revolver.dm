@@ -333,7 +333,7 @@
 	sawn_desc = "Omar's coming!"
 	can_holster = FALSE
 	unique_reskin = TRUE
-	var/sawoffable = TRUE
+	var/can_sawoff = TRUE
 
 /obj/item/gun/projectile/revolver/doublebarrel/Initialize(mapload)
 	. = ..()
@@ -347,7 +347,7 @@
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
-	if(!sawoffable)
+	if(!can_sawoff)
 		return ..()
 	if(istype(A, /obj/item/melee/energy))
 		var/obj/item/melee/energy/W = A

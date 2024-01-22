@@ -470,7 +470,7 @@
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/shell_cannon
 	unique_reskin = FALSE
-	sawoffable = FALSE
+	can_sawoff = FALSE
 
 /obj/item/gun/projectile/revolver/doublebarrel/shell_launcher/proc/missfire(mob/living/carbon/human/H, our_organ)
 	to_chat(H, "<span class='warning'>Your [src] missfires!</span>")
