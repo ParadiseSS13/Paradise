@@ -326,7 +326,7 @@
 /area/ruin/space/syndicate_druglab)
 "JP" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = -5;
 	pixel_y = 7
 	},

@@ -187,13 +187,14 @@
 /obj/item/organ/internal/brain/prepare_eat()
 	return // Too important to eat.
 
+// Hello I am from the ministry of rubber forehead aliens how are you
 /obj/item/organ/internal/brain/slime
 	name = "slime core"
 	desc = "A complex, organic knot of jelly and crystalline particles."
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "green slime extract"
 	mmi_icon_state = "slime_mmi"
-//	parent_organ = "chest" Hello I am from the ministry of rubber forehead aliens how are you
+	organ_datums = list(/datum/organ/heart, /datum/organ/lungs)
 
 /obj/item/organ/internal/brain/golem
 	name = "Runic mind"
