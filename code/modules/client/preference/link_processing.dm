@@ -943,8 +943,14 @@
 				if("tgui")
 					toggles2 ^= PREFTOGGLE_2_FANCYUI
 
-				if("input_lists")
-					toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_LISTS
+				if("tgui_input")
+					toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_INPUT
+
+				if("tgui_input_large")
+					toggles2 ^= PREFTOGGLE_2_LARGE_INPUT_BUTTONS
+
+				if("tgui_input_swap")
+					toggles2 ^= PREFTOGGLE_2_SWAP_INPUT_BUTTONS
 
 				if("ghost_att_anim")
 					toggles2 ^= PREFTOGGLE_2_ITEMATTACK

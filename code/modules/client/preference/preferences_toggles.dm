@@ -227,12 +227,12 @@
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Instruments") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggle_input()
-	set name = "Toggle TGUI Input Lists"
+	set name = "Toggle TGUI Input"
 	set category = "Preferences"
-	set desc = "Switches input lists between the TGUI and the standard one"
-	prefs.toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_LISTS
+	set desc = "Switches inputs between the TGUI and the standard one"
+	prefs.toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_INPUT
 	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_LISTS) ? "no longer" : "now"] use TGUI Input Lists.")
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT) ? "no longer" : "now"] use TGUI Inputs.")
 
 /client/verb/Toggle_disco() //to toggle off the disco machine locally, in case it gets too annoying
 	set name = "Hear/Silence Dance Machine"
