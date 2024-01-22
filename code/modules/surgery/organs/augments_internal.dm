@@ -150,21 +150,21 @@
 	return ..()
 
 /obj/item/organ/internal/cyberimp/brain/anti_stam/proc/on_enter()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_CARBON_ENTER_STAMINACRIT
 	if(currently_modifying_stamina || !COOLDOWN_FINISHED(src, implant_cooldown))
 		return
 	owner.stamina_regen_block_modifier *= stamina_crit_time_multiplier
 	currently_modifying_stamina = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/anti_stam/proc/on_exit()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_CARBON_EXIT_STAMINACRIT
 	if(!currently_modifying_stamina)
 		return
 	owner.stamina_regen_block_modifier /= stamina_crit_time_multiplier
 	currently_modifying_stamina = FALSE
 
 /obj/item/organ/internal/cyberimp/brain/anti_stam/proc/on_regen()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_CARBON_STAMINA_REGENERATED
 	owner.update_stamina() //This is here so they actually get unstaminacrit when it triggers, vs 2-4 seconds later
 
 /obj/item/organ/internal/cyberimp/brain/anti_stam/emp_act(severity)
