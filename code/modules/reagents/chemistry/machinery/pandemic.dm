@@ -15,7 +15,7 @@
 
 /obj/machinery/computer/pandemic/Initialize(mapload)
 	. = ..()
-	GLOB.pandemics += src
+	GLOB.pandemics |= src
 	update_icon()
 
 /obj/machinery/computer/pandemic/Destroy()
@@ -231,7 +231,7 @@
 
 	var/info_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
 	info_text += "<h3>Viral Sample Orders</h3></div><hr>"
-	info_text += "<b>Viral Sample Orders for [station_name()] Virologists:</b><br><br>"
+	info_text += "<b>Viral Sample Orders for [station_name()]'s Virologist:</b><br><br>"
 
 	for(var/datum/virology_goal/G in GLOB.virology_goals)
 		info_text += G.get_report()

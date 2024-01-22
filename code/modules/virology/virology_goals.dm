@@ -23,16 +23,13 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	return TRUE
 
 /proc/check_total_virology_goals_completion()
-	var/all_completed = TRUE
 	for(var/datum/virology_goal/V in GLOB.virology_goals)
 		if(!V.completed)
-			all_completed = FALSE
-			break
-	if(all_completed)
-		GLOB.archived_virology_goals += GLOB.virology_goals
-		GLOB.virology_goals = list(new/datum/virology_goal/propertysymptom, new/datum/virology_goal/virus, new/datum/virology_goal/virus/stealth)
-		for(var/obj/machinery/computer/pandemic/P in GLOB.pandemics)
-			P.print_goal_orders()
+			return
+	GLOB.archived_virology_goals += GLOB.virology_goals
+	GLOB.virology_goals = list(new /datum/virology_goal/property_symptom, new /datum/virology_goal/virus, new /datum/virology_goal/virus/stealth)
+	for(var/obj/machinery/computer/pandemic/P in GLOB.pandemics)
+		P.print_goal_orders()
 
 /datum/virology_goal/Destroy()
 	LAZYREMOVE(GLOB.virology_goals, src)
@@ -47,15 +44,14 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	if(href_list["remove"])
 		qdel(src)
 
-/datum/virology_goal/propertysymptom
+/datum/virology_goal/property_symptom
 	name = "Symptom With Properties Viral Sample Request"
 	var/goal_symptom //Type path of the symptom
 	var/goal_symptom_name
 	var/goal_property
-	var/goal_property_text
 	var/goal_property_value
 
-/datum/virology_goal/propertysymptom/New()
+/datum/virology_goal/property_symptom/New()
 	var/first_loop = TRUE
 	while(check_for_duplicate() || first_loop)
 		first_loop = FALSE
@@ -63,42 +59,38 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		var/datum/symptom/S = new type()
 		goal_symptom = S.type
 		goal_symptom_name = S.name
-		goal_property = pick("resistance", "stealth", "stage_rate", "transmittable")
-		if(goal_property == "stage_rate")
-			goal_property_text = "stage rate"
-		else
-			goal_property_text = goal_property
+		goal_property = pick("resistance", "stealth", "stage rate", "transmittable")
 		goal_property_value = rand(-18 , 11)
 		switch(goal_property)
 			if("resistance")
 				goal_property_value += S.resistance
 			if("stealth")
 				goal_property_value += S.stealth
-			if("stage_rate")
+			if("stage rate")
 				goal_property_value += S.stage_speed
 			if("transmittable")
 				goal_property_value += S.transmittable
 		qdel(S)
 
-/datum/virology_goal/propertysymptom/check_for_duplicate()
+/datum/virology_goal/property_symptom/check_for_duplicate()
 	. = FALSE
 	if(!goal_symptom || !goal_property || !goal_property_value)
 		return
 	var/goals = GLOB.archived_virology_goals + GLOB.virology_goals
-	for(var/datum/virology_goal/propertysymptom/V in goals)
+	for(var/datum/virology_goal/property_symptom/V in goals)
 		if(goal_symptom == V.goal_symptom && goal_property == V.goal_property && goal_property_value == V.goal_property_value)
 			return TRUE
 
-/datum/virology_goal/propertysymptom/get_report()
-	return {"<b>Effects of [goal_symptom_name] symptom and level [goal_property_value] [goal_property_text]</b><br>
-	Viral samples with a specific symptom and properties are required to study the effects of this symptom in various conditions. We need you to deliver [delivery_goal]u of viral samples containing the [goal_symptom_name] symptom and with the [goal_property_text] property at level [goal_property_value] along with 3 other symptoms to us through the cargo shuttle.
+/datum/virology_goal/property_symptom/get_report()
+	return {"<b>Effects of [goal_symptom_name] symptom and level [goal_property_value] [goal_property]</b><br>
+	Viral samples with a specific symptom and properties are required to study the effects of this symptom in various conditions. We need you to deliver [delivery_goal]u of viral samples containing the [goal_symptom_name] symptom and with the [goal_property] property at level [goal_property_value] along with 3 other symptoms to us through the cargo shuttle.
 	<br>
 	-Nanotrasen Virology Research"}
 
-/datum/virology_goal/propertysymptom/get_ui_report()
-	return {"Viral samples with a specific symptom and properties are required to study the effects of this symptom in various conditions. We need you to deliver [delivery_goal]u of viral samples containing the [goal_symptom_name] symptom and with the [goal_property_text] property at level [goal_property_value] along with 3 other symptoms to us through the cargo shuttle."}
+/datum/virology_goal/property_symptom/get_ui_report()
+	return {"Viral samples with a specific symptom and properties are required to study the effects of this symptom in various conditions. We need you to deliver [delivery_goal]u of viral samples containing the [goal_symptom_name] symptom and with the [goal_property] property at level [goal_property_value] along with 3 other symptoms to us through the cargo shuttle."}
 
-/datum/virology_goal/propertysymptom/check_completion(list/datum/reagent/reagent_list)
+/datum/virology_goal/property_symptom/check_completion(list/datum/reagent/reagent_list)
 	. = FALSE
 	var/datum/reagent/blood/BL = locate() in reagent_list
 	if(BL && BL.data && BL.data["viruses"])
@@ -107,19 +99,18 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 				continue
 			var/properties = D.GenerateProperties()
 			var/property = properties[goal_property]
-			if(!(property == goal_property_value))
+			if(property != goal_property_value)
 				continue
 			for(var/datum/symptom/S in D.symptoms)
 				if(!goal_symptom)
 					return
-				if(S.type == goal_symptom)
-					delivered_amount += BL.volume
-					if(delivered_amount >= delivery_goal)
-						delivered_amount = delivery_goal
-						completed = TRUE
-						return TRUE
-				else
+				if(S.type != goal_symptom)
 					continue
+				delivered_amount += BL.volume
+				if(delivered_amount >= delivery_goal)
+					delivered_amount = delivery_goal
+					completed = TRUE
+					return TRUE
 	check_total_virology_goals_completion()
 
 /datum/virology_goal/virus
@@ -165,10 +156,8 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal/virus/proc/symptoms_list2text()
 	var/list/msg = list()
-	for(var/S in goal_symptoms)
-		var/datum/symptom/SY = new S()
-		msg += "[SY]"
-		qdel(SY)
+	for(var/datum/symptom/S as anything in goal_symptoms)
+		msg += initial(S.name)
 	return jointext(msg, ", ")
 
 /datum/virology_goal/virus/check_completion(list/datum/reagent/reagent_list)

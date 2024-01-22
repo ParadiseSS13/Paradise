@@ -10,6 +10,4 @@
 	for(var/datum/virology_goal/goal in goals)
 		if(goal.completed)
 			completed_goals++
-	if(completed_goals >= 2)
-		return TRUE
-	return FALSE
+	return completed_goals >= 2
