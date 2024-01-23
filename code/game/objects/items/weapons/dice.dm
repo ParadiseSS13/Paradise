@@ -190,7 +190,7 @@
 			//Destroy Equipment
 			T.visible_message("<span class='userdanger'>Everything [user] is holding and wearing disappears!</span>")
 			for(var/obj/item/I in user)
-				if(istype(I, /obj/item/implant))
+				if(istype(I, /obj/item/bio_chip))
 					continue
 				qdel(I)
 		if(5)
@@ -225,7 +225,7 @@
 		if(11)
 			//Cookie
 			T.visible_message("<span class='userdanger'>A cookie appears out of thin air!</span>")
-			var/obj/item/reagent_containers/food/snacks/cookie/C = new(drop_location())
+			var/obj/item/food/snacks/cookie/C = new(drop_location())
 			create_smoke(2)
 			C.name = "Cookie of Fate"
 		if(12)
@@ -261,7 +261,7 @@
 				/obj/item/borg/upgrade/modkit/indoors,
 				/obj/item/storage/box/syndie_kit/chameleon,
 				/obj/item/mod/control/pre_equipped/traitor,
-				/obj/item/implanter/storage,
+				/obj/item/bio_chip_implanter/storage,
 				/obj/item/toy/syndicateballoon)
 			var/selected_item = pick(traitor_items)
 			T.visible_message("<span class='userdanger'>A suspicious item appears!</span>")

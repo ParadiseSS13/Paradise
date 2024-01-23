@@ -1,15 +1,6 @@
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  LabeledList,
-  Section,
-  Grid,
-  Dropdown,
-  Flex,
-} from '../components';
+import { Box, Button, Section, Dropdown, Stack } from '../components';
 import { Window } from '../layouts';
-import { GridColumn } from '../components/Grid';
 
 export const Teleporter = (props, context) => {
   const { act, data } = useBackend(context);
@@ -27,135 +18,162 @@ export const Teleporter = (props, context) => {
     locked,
   } = data;
   return (
-    <Window>
+    <Window width={350} height={270}>
       <Window.Content>
-        {(!powerstation || !teleporterhub) && (
-          <Section title="Error">
-            {teleporterhub}
-            {!powerstation && <Box color="bad"> Powerstation not linked </Box>}
-            {powerstation && !teleporterhub && (
-              <Box color="bad"> Teleporter hub not linked </Box>
+        <Stack fill vertical>
+          <Stack.Item grow>
+            {(!powerstation || !teleporterhub) && (
+              <Section fill title="Error">
+                {teleporterhub}
+                {!powerstation && (
+                  <Box color="bad"> Powerstation not linked </Box>
+                )}
+                {powerstation && !teleporterhub && (
+                  <Box color="bad"> Teleporter hub not linked </Box>
+                )}
+              </Section>
             )}
-          </Section>
-        )}
-        {powerstation && teleporterhub && (
-          <Section title="Status">
-            <LabeledList>
-              <LabeledList.Item label="Regime">
-                <Button
-                  tooltip="Teleport to another teleport hub. "
-                  color={regime === REGIME_GATE ? 'good' : null}
-                  onClick={() => act('setregime', { regime: REGIME_GATE })}
-                >
-                  Gate
-                </Button>
-                <Button
-                  tooltip="One-way teleport. "
-                  color={regime === REGIME_TELEPORT ? 'good' : null}
-                  onClick={() => act('setregime', { regime: REGIME_TELEPORT })}
-                >
-                  Teleporter
-                </Button>
-                <Button
-                  tooltip="Teleport to a location stored in a GPS device. "
-                  color={regime === REGIME_GPS ? 'good' : null}
-                  disabled={locked ? false : true}
-                  onClick={() => act('setregime', { regime: REGIME_GPS })}
-                >
-                  GPS
-                </Button>
-              </LabeledList.Item>
-              <LabeledList.Item label="Teleport target">
-                {/* The duplication of the dropdowns is due to the
+            {powerstation && teleporterhub && (
+              <Section fill scrollable title="Status">
+                <Stack mb={1}>
+                  <Stack.Item width={8.5} color="label">
+                    Teleport target:
+                  </Stack.Item>
+                  <Stack.Item>
+                    {/* The duplication of the dropdowns is due to the
                   updates of selected not affecting the state
                   of the dropdown */}
-                {regime === REGIME_TELEPORT && (
-                  <Dropdown
-                    width="220px"
-                    selected={target}
-                    options={Object.keys(targetsTeleport)}
-                    color={target !== 'None' ? 'default' : 'bad'}
-                    onSelected={(val) =>
-                      act('settarget', {
-                        x: targetsTeleport[val]['x'],
-                        y: targetsTeleport[val]['y'],
-                        z: targetsTeleport[val]['z'],
-                      })
-                    }
-                  />
-                )}
-                {regime === REGIME_GATE && (
-                  <Dropdown
-                    width="220px"
-                    selected={target}
-                    options={Object.keys(targetsTeleport)}
-                    color={target !== 'None' ? 'default' : 'bad'}
-                    onSelected={(val) =>
-                      act('settarget', {
-                        x: targetsTeleport[val]['x'],
-                        y: targetsTeleport[val]['y'],
-                        z: targetsTeleport[val]['z'],
-                      })
-                    }
-                  />
-                )}
-                {regime === REGIME_GPS && <Box>{target}</Box>}
-              </LabeledList.Item>
-              <LabeledList.Item label="Calibration">
-                {target !== 'None' && (
-                  <Grid>
-                    <GridColumn size="2">
-                      {(calibrating && (
-                        <Box color="average">In Progress</Box>
-                      )) ||
-                        (calibrated && <Box color="good">Optimal</Box>) || (
-                          <Box color="bad">Sub-Optimal</Box>
-                        )}
-                    </GridColumn>
-                    <GridColumn size="3">
-                      <Box class="ml-1">
-                        <Button
-                          icon="sync-alt"
-                          tooltip="Calibrates the hub. \
+                    {regime === REGIME_TELEPORT && (
+                      <Dropdown
+                        width={18.2}
+                        selected={target}
+                        options={Object.keys(targetsTeleport)}
+                        color={target !== 'None' ? 'default' : 'bad'}
+                        onSelected={(val) =>
+                          act('settarget', {
+                            x: targetsTeleport[val]['x'],
+                            y: targetsTeleport[val]['y'],
+                            z: targetsTeleport[val]['z'],
+                          })
+                        }
+                      />
+                    )}
+                    {regime === REGIME_GATE && (
+                      <Dropdown
+                        width={18.2}
+                        selected={target}
+                        options={Object.keys(targetsTeleport)}
+                        color={target !== 'None' ? 'default' : 'bad'}
+                        onSelected={(val) =>
+                          act('settarget', {
+                            x: targetsTeleport[val]['x'],
+                            y: targetsTeleport[val]['y'],
+                            z: targetsTeleport[val]['z'],
+                          })
+                        }
+                      />
+                    )}
+                    {regime === REGIME_GPS && <Box>{target}</Box>}
+                  </Stack.Item>
+                </Stack>
+                <Stack>
+                  <Stack.Item width={8.5} color="label">
+                    Regime:
+                  </Stack.Item>
+                  <Stack.Item grow textAlign="center">
+                    <Button
+                      fluid
+                      content="Gate"
+                      tooltip="Teleport to another teleport hub."
+                      tooltipPosition="top"
+                      color={regime === REGIME_GATE ? 'good' : null}
+                      onClick={() => act('setregime', { regime: REGIME_GATE })}
+                    />
+                  </Stack.Item>
+                  <Stack.Item grow textAlign="center">
+                    <Button
+                      fluid
+                      content="Teleporter"
+                      tooltip="One-way teleport."
+                      tooltipPosition="top"
+                      color={regime === REGIME_TELEPORT ? 'good' : null}
+                      onClick={() =>
+                        act('setregime', { regime: REGIME_TELEPORT })
+                      }
+                    />
+                  </Stack.Item>
+                  <Stack.Item grow textAlign="center">
+                    <Button
+                      fluid
+                      content="GPS"
+                      tooltip="Teleport to a location stored in a GPS device."
+                      tooltipPosition="top-end"
+                      color={regime === REGIME_GPS ? 'good' : null}
+                      disabled={locked ? false : true}
+                      onClick={() => act('setregime', { regime: REGIME_GPS })}
+                    />
+                  </Stack.Item>
+                </Stack>
+                <Stack label="Calibration" mt={1}>
+                  <Stack.Item width={8.5} color="label">
+                    Calibration:
+                  </Stack.Item>
+                  <Stack.Item>
+                    {target !== 'None' && (
+                      <Stack fill>
+                        <Stack.Item width={15.8} textAlign="center" mt={0.5}>
+                          {(calibrating && (
+                            <Box color="average">In Progress</Box>
+                          )) ||
+                            (calibrated && <Box color="good">Optimal</Box>) || (
+                              <Box color="bad">Sub-Optimal</Box>
+                            )}
+                        </Stack.Item>
+                        <Stack.Item grow>
+                          <Button
+                            icon="sync-alt"
+                            tooltip="Calibrates the hub. \
                           Accidents may occur when the \
                           calibration is not optimal."
-                          disabled={calibrated || calibrating ? true : false}
-                          onClick={() => act('calibrate')}
-                        />
-                      </Box>
-                    </GridColumn>
-                  </Grid>
-                )}
-                {target === 'None' && (
-                  <Box lineHeight="21px">No target set</Box>
-                )}
-              </LabeledList.Item>
-            </LabeledList>
-          </Section>
-        )}
-        {!!(
-          locked &&
-          powerstation &&
-          teleporterhub &&
-          regime === REGIME_GPS
-        ) && (
-          <Section title="GPS">
-            <Flex direction="row" justify="space-around">
-              <Button
-                content="Upload GPS data"
-                tooltip="Loads the GPS data from the device."
-                icon="upload"
-                onClick={() => act('load')}
-              />
-              <Button
-                content="Eject"
-                tooltip="Ejects the GPS device"
-                icon="eject"
-                onClick={() => act('eject')}
-              />
-            </Flex>
-          </Section>
-        )}
+                            tooltipPosition="bottom-end"
+                            disabled={calibrated || calibrating ? true : false}
+                            onClick={() => act('calibrate')}
+                          />
+                        </Stack.Item>
+                      </Stack>
+                    )}
+                    {target === 'None' && (
+                      <Box lineHeight="21px">No target set</Box>
+                    )}
+                  </Stack.Item>
+                </Stack>
+              </Section>
+            )}
+            {!!(
+              locked &&
+              powerstation &&
+              teleporterhub &&
+              regime === REGIME_GPS
+            ) && (
+              <Section title="GPS">
+                <Stack>
+                  <Button
+                    content="Upload GPS data"
+                    tooltip="Loads the GPS data from the device."
+                    icon="upload"
+                    onClick={() => act('load')}
+                  />
+                  <Button
+                    content="Eject"
+                    tooltip="Ejects the GPS device"
+                    icon="eject"
+                    onClick={() => act('eject')}
+                  />
+                </Stack>
+              </Section>
+            )}
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );

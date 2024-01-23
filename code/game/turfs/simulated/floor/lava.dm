@@ -1,8 +1,15 @@
-/turf/simulated/floor/plating/lava
+/**
+ * Lava turf, burns things that are on it.
+ * Currently a subtype of floor so that footsteps work on it.
+ * Perhaps we could move it down to /turf/simulated/lava someday, as I dont think footsteps over lava are very important.
+ */
+/turf/simulated/floor/lava
 	name = "lava"
-	icon_state = "lava"
+	icon = 'icons/turf/floors/lava.dmi'
+	icon_state = "lava-255"
+	base_icon_state = "lava"
 	gender = PLURAL //"That's some lava."
-	baseturf = /turf/simulated/floor/plating/lava //lava all the way down
+	baseturf = /turf/simulated/floor/lava //lava all the way down
 	slowdown = 2
 	light_range = 2
 	light_power = 0.75
@@ -11,32 +18,36 @@
 	barefootstep = FOOTSTEP_LAVA
 	clawfootstep = FOOTSTEP_LAVA
 	heavyfootstep = FOOTSTEP_LAVA
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_FLOOR_LAVA)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_LAVA)
+	intact = FALSE
+	floor_tile = null
+	real_layer = PLATING_LAYER
 
-/turf/simulated/floor/plating/lava/ex_act()
+
+/turf/simulated/floor/lava/ex_act()
 	return
 
-/turf/simulated/floor/plating/lava/acid_act(acidpwr, acid_volume)
+/turf/simulated/floor/lava/acid_act(acidpwr, acid_volume)
 	return
 
-/turf/simulated/floor/plating/lava/airless
-	temperature = TCMB
-
-/turf/simulated/floor/plating/lava/Entered(atom/movable/AM)
+/turf/simulated/floor/lava/Entered(atom/movable/AM)
 	if(burn_stuff(AM))
 		START_PROCESSING(SSprocessing, src)
 
-/turf/simulated/floor/plating/lava/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+/turf/simulated/floor/lava/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(burn_stuff(AM))
 		START_PROCESSING(SSprocessing, src)
 
-/turf/simulated/floor/plating/lava/process()
+/turf/simulated/floor/lava/process()
 	if(!burn_stuff())
 		STOP_PROCESSING(SSprocessing, src)
 
-/turf/simulated/floor/plating/lava/singularity_act()
+/turf/simulated/floor/lava/singularity_act()
 	return
 
-/turf/simulated/floor/plating/lava/singularity_pull(S, current_size)
+/turf/simulated/floor/lava/singularity_pull(S, current_size)
 	return
 
 /turf/simulated/floor/plating/lava/make_plating()
@@ -50,12 +61,12 @@
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
-/turf/simulated/floor/plating/lava/is_safe()
+/turf/simulated/floor/lava/is_safe()
 	if(find_safeties() && ..())
 		return TRUE
 	return FALSE
 
-/turf/simulated/floor/plating/lava/proc/burn_stuff(AM)
+/turf/simulated/floor/lava/proc/burn_stuff(AM)
 	. = FALSE
 
 	if(find_safeties())
@@ -108,7 +119,7 @@
 				L.IgniteMob()
 
 
-/turf/simulated/floor/plating/lava/attackby(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
+/turf/simulated/floor/lava/attackby(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
 	if(istype(C, /obj/item/stack/rods/lava))
 		var/obj/item/stack/rods/lava/R = C
 		var/obj/structure/lattice/lava/H = locate(/obj/structure/lattice/lava, src)
@@ -136,57 +147,42 @@
 		else
 			to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
 
-/turf/simulated/floor/plating/lava/screwdriver_act()
+/turf/simulated/floor/lava/screwdriver_act()
 	return
 
-/turf/simulated/floor/plating/lava/welder_act()
+/turf/simulated/floor/lava/welder_act()
 	return
 
-/turf/simulated/floor/plating/lava/break_tile()
+/turf/simulated/floor/lava/break_tile()
 	return
 
-/turf/simulated/floor/plating/lava/burn_tile()
+/turf/simulated/floor/lava/burn_tile()
 	return
 
-/turf/simulated/floor/plating/lava/smooth
-	name = "lava"
-	baseturf = /turf/simulated/floor/plating/lava/smooth
-	icon = 'icons/turf/floors/lava.dmi'
-	icon_state = "lava-255"
-	base_icon_state = "lava"
-	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
-	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_FLOOR_LAVA)
-	canSmoothWith = list(SMOOTH_GROUP_FLOOR_LAVA)
-
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface
+/turf/simulated/floor/lava/lava_land_surface
 	temperature = 300
 	oxygen = 14
 	nitrogen = 23
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
-/turf/simulated/floor/plating/lava/smooth/airless
-	temperature = TCMB
-	oxygen = 0
-	nitrogen = 0
-
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma
+/turf/simulated/floor/lava/lava_land_surface/plasma
 	name = "liquid plasma"
 	desc = "A flowing stream of chilled liquid plasma. You probably shouldn't get in."
 	icon = 'icons/turf/floors/liquidplasma.dmi'
 	icon_state = "liquidplasma-255"
 	base_icon_state = "liquidplasma"
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma
+	baseturf = /turf/simulated/floor/lava/lava_land_surface/plasma
 
 	light_range = 3
 	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
 
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/examine(mob/user)
+/turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
 	. = ..()
 	. += "<span class='info'>Some <b>liquid plasma<b> could probably be scooped up with a <b>container</b>.</span>"
 
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/lava/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)
 	if(!I.is_open_container())
 		return ..()
 	if(!I.reagents.add_reagent("plasma", 10))
@@ -194,7 +190,7 @@
 		return
 	to_chat(user, "<span class='notice'>You scoop out some plasma from the [src] using [I].</span>")
 
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/burn_stuff(AM)
+/turf/simulated/floor/lava/lava_land_surface/plasma/burn_stuff(AM)
 	. = FALSE
 	if(find_safeties())
 		return FALSE
@@ -255,23 +251,22 @@
 		burn_human.adjustToxLoss(15) //Cold mutagen is bad for you, more at 11.
 		burn_human.adjustFireLoss(15)
 
-/turf/simulated/floor/plating/lava/smooth/mapping_lava
+/turf/simulated/floor/lava/mapping_lava
 	name = "Adaptive lava / chasm / plasma"
 	icon_state = "mappinglava"
 	base_icon_state = "mappinglava"
-	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	baseturf = /turf/simulated/floor/lava/mapping_lava
 	temperature = 300
 	oxygen = 14
 	nitrogen = 23
 	planetary_atmos = TRUE
 
 
-/turf/simulated/floor/plating/lava/smooth/mapping_lava/Initialize(mapload)
+/turf/simulated/floor/lava/mapping_lava/Initialize(mapload)
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD //Lateload is needed, otherwise atmos does not setup right on the turf roundstart, leading it to be vacume. This is bad.
 
-/turf/simulated/floor/plating/lava/smooth/mapping_lava/LateInitialize()
+/turf/simulated/floor/lava/mapping_lava/LateInitialize()
 	. = ..()
-	ChangeTurf(SSmapping.lavaland_theme, ignore_air = TRUE)
-
-
+	if(SSmapping.lavaland_theme?.primary_turf_type)
+		ChangeTurf(SSmapping.lavaland_theme.primary_turf_type, ignore_air = TRUE)

@@ -43,7 +43,6 @@ GLOBAL_LIST_EMPTY(global_radios)				//list of all radios, across all z-levels
 GLOBAL_LIST_EMPTY(meteor_list)				//list of all meteors
 GLOBAL_LIST_EMPTY(poi_list)					//list of points of interest for observe/follow
 GLOBAL_LIST_EMPTY(active_jammers)             // List of active radio jammers
-GLOBAL_LIST_EMPTY(ladders)
 GLOBAL_LIST_EMPTY(mirrors) //list of all mirrors and mirror shields.
 GLOBAL_LIST_EMPTY(arc_emitters) 					//list of all arc emitters
 
