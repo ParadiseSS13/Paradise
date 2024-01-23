@@ -254,7 +254,10 @@
 	///////////
 /client/New(TopicData)
 	var/tdata = TopicData //save this for later use
-	tgui_panel = new(src)
+
+	tgui_panel = new(src, "browseroutput")
+	tgui_say = new(src, "tgui_say")
+
 	TopicData = null							//Prevent calls to client.Topic from connect
 
 	if(connection != "seeker")					//Invalid connection type.
@@ -391,6 +394,9 @@
 
 	// Initialize tgui panel
 	tgui_panel.initialize()
+
+	// Initialize tgui say
+	tgui_say.initialize()
 
 	check_ip_intel()
 	send_resources()

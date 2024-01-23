@@ -20,3 +20,49 @@
 			active_keybindings[linked_bind.binded_to] += list(linked_bind)
 
 	return active_keybindings
+
+/**
+ * Updates the keybinds for special keys
+ *
+ * Handles adding macros for the keys that need it
+ * At the time of writing this, communication(OOC, Say, IC, LOOC, ASAY, MSAY) require macros
+ */
+/client/proc/update_special_keybinds()
+	if(!length(prefs?.keybindings) || !mob)
+		return
+	for(var/key in prefs.keybindings)
+		for(var/kb in prefs.keybindings[key])
+			switch("[kb]")
+				if(SAY_CHANNEL)
+					var/say = tgui_say_create_open_command(SAY_CHANNEL)
+					winset(src, "default-[key]", "parent=default;name=[key];command=[say]")
+				if(RADIO_CHANNEL)
+					var/radio = tgui_say_create_open_command(RADIO_CHANNEL)
+					winset(src, "default-[key]", "parent=default;name=[key];command=[radio]")
+				if(ME_CHANNEL)
+					var/me = tgui_say_create_open_command(ME_CHANNEL)
+					winset(src, "default-[key]", "parent=default;name=[key];command=[me]")
+				if(OOC_CHANNEL)
+					var/ooc = tgui_say_create_open_command(OOC_CHANNEL)
+					winset(src, "default-[key]", "parent=default;name=[key];command=[ooc]")
+				if(LOOC_CHANNEL)
+					var/looc = tgui_say_create_open_command(LOOC_CHANNEL)
+					winset(src, "default-[key]", "parent=default;name=[key];command=[looc]")
+				if(ADMIN_CHANNEL)
+					if(check_rights(R_ADMIN, FALSE))
+						var/asay = tgui_say_create_open_command(ADMIN_CHANNEL)
+						winset(src, "default-[key]", "parent=default;name=[key];command=[asay]")
+					else
+						winset(src, "default-[key]", "parent=default;name=[key];command=")
+				if(DSAY_CHANNEL)
+					if(check_rights(R_ADMIN, FALSE))
+						var/dsay = tgui_say_create_open_command(DSAY_CHANNEL)
+						winset(src, "default-[key]", "parent=default;name=[key];command=[dsay]")
+					else
+						winset(src, "default-[key]", "parent=default;name=[key];command=")
+				if(MENTOR_CHANNEL)
+					if(check_rights(R_MENTOR, FALSE))
+						var/msay = tgui_say_create_open_command(MENTOR_CHANNEL)
+						winset(src, "default-[key]", "parent=default;name=[key];command=[msay]")
+					else
+						winset(src, "default-[key]", "parent=default;name=[key];command=")

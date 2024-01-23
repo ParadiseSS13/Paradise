@@ -67,6 +67,7 @@
 		client.verbs += /client/proc/readmin
 
 	client.update_active_keybindings()
+	client.update_special_keybinds()
 
 	//HUD updates (antag hud, etc)
 	//readd this mob's HUDs (antag, med, etc)

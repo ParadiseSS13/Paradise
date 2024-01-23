@@ -21,20 +21,20 @@
 	SSdebugview.start_processing(C)
 
 /datum/keybinding/admin/msay
-	name = "Msay"
+	name = MENTOR_CHANNEL
 	keys = list("F4")
 
-/datum/keybinding/admin/msay/down(client/C)
-	. = ..()
-	C.get_mentor_say()
-
 /datum/keybinding/admin/asay
-	name = "Asay"
+	name = ADMIN_CHANNEL
 	keys = list("F5")
 
-/datum/keybinding/admin/asay/down(client/C)
+/datum/keybinding/admin/dsay
+	name = "Dsay"
+	keys = list("F10")
+
+/datum/keybinding/admin/dsay/down(client/C)
 	. = ..()
-	C.get_admin_say()
+	C.get_dead_say()
 
 /datum/keybinding/admin/aghost
 	name = "Aghost"
@@ -68,11 +68,3 @@
 /datum/keybinding/admin/invisimin/down(client/C)
 	. = ..()
 	C.invisimin()
-
-/datum/keybinding/admin/dsay
-	name = "Dsay"
-	keys = list("F10")
-
-/datum/keybinding/admin/dsay/down(client/C)
-	. = ..()
-	C.get_dead_say()
