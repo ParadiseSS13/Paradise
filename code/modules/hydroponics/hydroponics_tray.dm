@@ -764,7 +764,7 @@
 
 		else if(istype(reagent_source, /obj/item/reagent_containers/spray))
 			visi_msg = "[user] sprays [target] with [reagent_source]"
-			playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
+			playsound(loc, 'sound/effects/spray3.ogg', 50, TRUE, -6)
 			irrigate = TRUE
 
 		else if(transfer_amount) // Droppers, cans, beakers, what have you.
