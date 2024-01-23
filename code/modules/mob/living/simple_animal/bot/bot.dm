@@ -23,7 +23,7 @@
 	bubble_icon = "machine"
 	faction = list("neutral", "silicon")
 
-	var/list/users = list() //for dialog updates
+	var/list/users = list() //For dialog updates
 	var/window_id = "bot_control"
 	var/window_name = "Protobot 1.0" //Popup title
 	var/window_width = 0 //0 for default size
@@ -35,7 +35,7 @@
 	var/disabling_timer_id = null
 	var/list/player_access = list()
 	var/emagged = FALSE
-	var/obj/item/card/id/access_card			// the ID card that the bot "holds"
+	var/obj/item/card/id/access_card //The ID card that the bot "holds"
 	var/list/prev_access = list()
 	var/on = TRUE
 	var/open = FALSE //Maint panel
@@ -53,31 +53,32 @@
 	var/list/path = list() //List of turfs through which a bot 'steps' to reach the waypoint
 	var/pathset = FALSE
 	var/list/ignore_list = list() //List of unreachable targets for an ignore-list enabled bot to ignore.
+	var/list/bot_assigned = list() //List of jobs claimed by bot
 	var/mode = BOT_IDLE //Standardizes the vars that indicate the bot is busy with its function.
 	var/tries = 0 //Number of times the bot tried and failed to move.
 	var/remote_disabled = FALSE //If enabled, the AI cannot *Remotely* control a bot. It can still control it through cameras.
-	var/mob/living/silicon/ai/calling_ai //Links a bot to the AI calling it.
+	var/mob/living/silicon/ai/calling_ai // Links a bot to the AI calling it.
 	var/obj/item/radio/Radio //The bot's radio, for speaking to people.
 	var/list/radio_config = null //which channels can the bot listen to
 	var/radio_channel = "Common" //The bot's default radio channel
-	var/auto_patrol = FALSE // set to make bot automatically patrol
-	var/turf/patrol_target	// this is turf to navigate to (location of beacon)
+	var/auto_patrol = FALSE // Set to make bot automatically patrol
+	var/turf/patrol_target	// This is turf to navigate to (location of beacon)
 	var/turf/summon_target	// The turf of a user summoning a bot.
-	var/new_destination		// pending new destination (waiting for beacon response)
-	var/destination			// destination description tag
-	var/next_destination	// the next destination in the patrol route
+	var/new_destination		// Pending new destination (waiting for beacon response)
+	var/destination			// Destination description tag
+	var/next_destination	// The next destination in the patrol route
 	var/ignorelistcleanuptimer = 1 // This ticks up every automated action, at 300 we clean the ignore list
 	var/robot_arm = /obj/item/robot_parts/r_arm
 
-	var/blockcount = 0		//number of times retried a blocked path
-	var/awaiting_beacon	= 0	// count of pticks awaiting a beacon response
+	var/blockcount = 0		// Number of times retried a blocked path
+	var/awaiting_beacon	= 0	// Count of pticks awaiting a beacon response
 
-	var/nearest_beacon			// the nearest beacon's tag
-	var/turf/nearest_beacon_loc	// the nearest beacon's location
+	var/nearest_beacon			// The nearest beacon's tag
+	var/turf/nearest_beacon_loc	// The nearest beacon's location
 
 	var/model = "" //The type of bot it is.
 	var/bot_purpose = "improve the station to the best of your ability"
-	var/control_freq = BOT_FREQ		// bot control frequency
+	var/control_freq = BOT_FREQ		// Bot control frequency
 	var/bot_filter 				// The radio filter the bot uses to identify itself on the network.
 	var/bot_type = 0 //The type of bot it is, for radio control.
 	/// The type of data HUD the bot uses. Diagnostic by default.
@@ -485,7 +486,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			continue //If not, keep searching!
 		if((A.UID() in ignore_list) || (A == old_target)) //Filter for blacklisted elements, usually unreachable or previously processed oness
 			continue
-		if(turf_has_bot(avoid_bot, get_turf(A))) //Ignores targets that already have a bot of the same type on it, meant for cleanbot and floorbot seperation
+		if(assign_bot(A.UID(), avoid_bot)) //This bullshit aint working
 			continue
 		var/scan_result = process_scan(A) //Some bots may require additional processing when a result is selected.
 		if(scan_result)
@@ -494,13 +495,17 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			continue //The current element failed assessment, move on to the next.
 		return final_result
 
-/mob/living/simple_animal/bot/proc/turf_has_bot(avoid_bot, turf/turf_to_search)
-	if(!avoid_bot)
-		return FALSE
-	for(var/bot in turf_to_search)
-		if(istype(bot, avoid_bot))
+/mob/living/simple_animal/bot/proc/assign_bot(atom/A, avoid_bot)
+	if(avoid_bot)
+		claim_job(A)
+		if(A.UID() in bot_assigned)
 			return TRUE
 	return FALSE
+
+
+/mob/living/simple_animal/bot/proc/claim_job(atom/A)
+	message_admins("bot assign [A.UID()]")
+	bot_assigned |= A.UID()
 
 //When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
 /mob/living/simple_animal/bot/proc/process_scan(atom/scan_target)
