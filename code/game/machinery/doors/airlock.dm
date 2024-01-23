@@ -1710,7 +1710,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		locked = FALSE
 		playsound(src, boltUp, 30, FALSE, 3)
 		update_icon()
-	return
 
 #undef AIRLOCK_CLOSED
 #undef AIRLOCK_CLOSING
