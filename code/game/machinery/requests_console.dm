@@ -332,15 +332,16 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(mainmenu)
 		screen = RCS_MAINMENU
 
-/obj/machinery/requests_console/proc/createMessage(source, title, message, priority)
+/obj/machinery/requests_console/proc/createMessage(source, title, message, priority, forced = FALSE)
 	var/linkedSender
+	if(inoperable() && !forced)
+		message_log.Add(list(list("Message lost due to console failure. Please contact [station_name()]'s system administrator or AI for technical assistance.")))
+		return
 	if(istype(source, /obj/machinery/requests_console))
 		var/obj/machinery/requests_console/sender = source
 		linkedSender = sender.department
 	else
-		capitalize(source)
 		linkedSender = source
-	capitalize(title)
 	if(newmessagepriority < priority)
 		newmessagepriority = priority
 		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
@@ -350,9 +351,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	switch(priority)
 		if(RQ_HIGHPRIORITY) // High
-			message_log.Add(list(list("High Priority - From: [linkedSender]") + message)) // List in a list for passing into TGUI
+			message_log.Add(list(list("High Priority - From: [linkedSender]", message))) // List in a list for passing into TGUI
 		else // Normal
-			message_log.Add(list(list("From: [linkedSender]") + message)) // List in a list for passing into TGUI
+			message_log.Add(list(list("From: [linkedSender]", message))) // List in a list for passing into TGUI
 	set_light(2)
 
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)
