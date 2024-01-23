@@ -773,7 +773,7 @@
 
 		// Beakers, bottles, buckets, etc.
 		if(reagent_source.is_drainable())
-			playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
+			playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 
 		add_compost(reagent_source, user, transfer_amount, visi_msg, irrigate)
 		return TRUE
