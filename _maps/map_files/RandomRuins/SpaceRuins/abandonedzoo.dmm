@@ -545,7 +545,7 @@
 /area/ruin/space/unpowered)
 "bn" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/carrotfries,
+/obj/item/food/snacks/carrotfries,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

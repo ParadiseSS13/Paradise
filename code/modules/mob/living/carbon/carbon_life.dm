@@ -105,7 +105,7 @@
 	if(status_flags & GODMODE)
 		return FALSE
 
-	var/lungs = get_organ_slot("lungs")
+	var/lungs = get_int_organ_datum(ORGAN_DATUM_LUNGS)
 	if(!lungs)
 		adjustOxyLoss(2)
 
@@ -201,6 +201,9 @@
 	for(var/thing in internal_organs)
 		var/obj/item/organ/internal/O = thing
 		O.on_life()
+	for(var/organ_tag in internal_organ_datums)
+		var/datum/organ/datum_organ_var_name_idk = internal_organ_datums[organ_tag]
+		datum_organ_var_name_idk.on_life()
 
 /mob/living/carbon/handle_diseases()
 	for(var/thing in viruses)
