@@ -36996,6 +36996,7 @@
 /obj/structure/chair/wheelchair{
 	dir = 4
 	},
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreen"
@@ -58817,6 +58818,7 @@
 /obj/machinery/camera{
 	c_tag = "Virology Airlock"
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitegreen"
@@ -97316,6 +97318,7 @@
 	pixel_y = 4
 	},
 /obj/structure/table/glass,
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitegreen"
