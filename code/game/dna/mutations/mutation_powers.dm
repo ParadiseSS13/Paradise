@@ -918,7 +918,7 @@
 	if(user.mind?.miming) // Dont let mimes telepathically talk
 		to_chat(user,"<span class='warning'>You can't communicate without breaking your vow of silence.</span>")
 		return
-	var/say = input("What do you wish to say") as text|null
+	var/say = tgui_input_text(user, "What do you wish to say?", "Project Mind")
 	if(!say || usr.stat)
 		return
 	say = strip_html(say)
@@ -977,7 +977,7 @@
 		if(!(target in available_targets))
 			return
 		available_targets -= target
-		var/say = input("What do you wish to say") as text|null
+		var/say = tgui_input_text(user, "What do you wish to say?", "Scan Mind")
 		if(!say)
 			return
 		say = strip_html(say)

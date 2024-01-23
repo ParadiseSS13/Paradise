@@ -208,7 +208,7 @@
 /mob/living/simple_animal/hostile/guardian/proc/Communicate(message)
 	var/input
 	if(!message)
-		input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
+		input = tgui_input_text(src, "Please enter a message to tell your summoner.", "Guardian")
 	else
 		input = message
 	if(!input || !summoner)

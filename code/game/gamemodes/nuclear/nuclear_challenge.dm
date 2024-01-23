@@ -42,7 +42,7 @@
 
 	if(custom_threat == "Yes")
 		declaring_war = TRUE
-		war_declaration = stripped_input(user, "Insert your custom declaration", "Declaration")
+		war_declaration = tgui_input_text(user, "Insert your custom declaration", "Declaration")
 		declaring_war = FALSE
 
 	if(!check_allowed(user) || !war_declaration)

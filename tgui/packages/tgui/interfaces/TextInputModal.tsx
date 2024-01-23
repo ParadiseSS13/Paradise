@@ -49,13 +49,12 @@ export const TextInputModal = (props, context) => {
     setInput(sanitizedInput);
   };
 
-  const visualMultiline = multiline || input.length >= 30;
+  const visualMultiline = multiline || input.length >= 40;
   // Dynamically changes the window height based on the message.
   const windowHeight =
-    135 +
-    (message.length > 30 ? Math.ceil(message.length / 4) : 0) +
-    (visualMultiline ? 75 : 0) +
-    (message.length && large_buttons ? 5 : 0);
+    130 +
+    (message.length > 40 ? Math.ceil(message.length / 4) : 0) +
+    (visualMultiline ? 80 : 0);
 
   return (
     <Window title={title} width={325} height={windowHeight}>
@@ -81,7 +80,6 @@ export const TextInputModal = (props, context) => {
             </Stack.Item>
             <Stack.Item>
               <InputButtons
-                disabled={input.length > max_length}
                 input={input}
                 message={`${input.length}/${max_length}`}
               />
@@ -99,13 +97,13 @@ const InputArea = (props, context) => {
   const { max_length, multiline } = data;
   const { input, onType } = props;
 
-  const visualMultiline = multiline || input.length >= 30;
+  const visualMultiline = multiline || input.length >= 40;
 
   return (
     <TextArea
       autoFocus
       autoSelect
-      height={multiline || input.length >= 30 ? '100%' : '1.8rem'}
+      height={multiline || input.length >= 40 ? '100%' : '1.8rem'}
       maxLength={max_length}
       onEscape={() => act('cancel')}
       onEnter={(event) => {

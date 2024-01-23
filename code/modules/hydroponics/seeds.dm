@@ -327,7 +327,7 @@
 
 /obj/item/seeds/proc/variant_prompt(mob/user, obj/item/container = null)
 	var/prev = variant
-	var/V = input(user, "Choose variant name:", "Plant Variant Naming", variant) as text|null
+	var/V = tgui_input_text(user, "Choose variant name:", "Plant Variant Naming", variant)
 	if(isnull(V)) // Did the user cancel?
 		return
 	if(container && (loc != container)) // Was the seed removed from the container, if there is a container?

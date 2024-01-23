@@ -75,7 +75,10 @@ const InputArea = (props, context) => {
   const { act, data } = useBackend<NumberInputData>(context);
   const { min_value, max_value, init_value, round_value } = data;
   const { input, onClick, onChange } = props;
-  const split_value = Math.round((input !== min_value ? input : max_value) / 2);
+  const split_value = Math.round(
+    input !== min_value ? Math.max(input / 2, min_value) : max_value / 2
+  );
+  const split_disabled = (input === min_value && min_value > 0) || input === 1;
   return (
     <Stack fill>
       <Stack.Item>
@@ -83,7 +86,7 @@ const InputArea = (props, context) => {
           disabled={input === min_value}
           icon="angle-double-left"
           onClick={() => onClick(min_value)}
-          tooltip={min_value ? `Min (${min_value})` : 'Min'}
+          tooltip={input === min_value ? 'Min' : `Min (${min_value})`}
         />
       </Stack.Item>
       <Stack.Item grow>
@@ -104,15 +107,15 @@ const InputArea = (props, context) => {
           disabled={input === max_value}
           icon="angle-double-right"
           onClick={() => onClick(max_value)}
-          tooltip={max_value ? `Max (${max_value})` : 'Max'}
+          tooltip={input === max_value ? 'Max' : `Max (${max_value})`}
         />
       </Stack.Item>
       <Stack.Item>
         <Button
-          disabled={input === 1}
+          disabled={split_disabled}
           icon="divide"
           onClick={() => onClick(split_value)}
-          tooltip={input !== 1 ? `Split (${split_value})` : 'Split'}
+          tooltip={split_disabled ? 'Split' : `Split (${split_value})`}
         />
       </Stack.Item>
       <Stack.Item>

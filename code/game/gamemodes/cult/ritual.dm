@@ -124,7 +124,7 @@
 	if(rune == /obj/effect/rune/narsie)
 		narsie_rune = TRUE
 	if(initial(rune.req_keyword))
-		keyword = stripped_input(user, "Please enter a keyword for the rune.", "Enter Keyword")
+		keyword = tgui_input_text(user, "Please enter a keyword for the rune.", "Enter Keyword")
 		if(!keyword)
 			return
 
