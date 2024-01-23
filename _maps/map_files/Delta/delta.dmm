@@ -11599,6 +11599,9 @@
 	},
 /obj/structure/cable,
 /obj/machinery/power/smes,
+/obj/structure/sign/electricshock{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
 "aMV" = (
@@ -128116,7 +128119,7 @@ aJD
 atd
 atd
 atd
-auG
+atd
 aOg
 aOg
 aOg
