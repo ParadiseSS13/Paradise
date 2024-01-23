@@ -106,12 +106,11 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 					return
 				if(S.type != goal_symptom)
 					continue
-				delivered_amount += BL.volume
+				delivered_amount = clamp(delivered_amount + BL.volume, 0, delivery_goal)
 				if(delivered_amount >= delivery_goal)
-					delivered_amount = delivery_goal
 					completed = TRUE
+					check_total_virology_goals_completion()
 					return TRUE
-	check_total_virology_goals_completion()
 
 /datum/virology_goal/virus
 	name = "Specific Viral Sample Request (Non-Stealth)"
@@ -167,19 +166,15 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		for(var/datum/disease/advance/D in BL.data["viruses"])
 			if(length(D.symptoms) != length(goal_symptoms)) //This is here so viruses with extra symptoms dont get approved
 				return
-			var/skip = FALSE
 			for(var/S in goal_symptoms)
 				var/datum/symptom/SY = locate(S) in D.symptoms
 				if(!SY)
-					skip = TRUE
-					break
-			if(!skip)
-				delivered_amount += BL.volume
+					return
+				delivered_amount = clamp(delivered_amount + BL.volume, 0, delivery_goal)
 				if(delivered_amount >= delivery_goal)
-					delivered_amount = delivery_goal
 					completed = TRUE
+					check_total_virology_goals_completion()
 					return TRUE
-	check_total_virology_goals_completion()
 
 /datum/virology_goal/virus/stealth
 	name = "Specific Viral Sample Request (Stealth)"
