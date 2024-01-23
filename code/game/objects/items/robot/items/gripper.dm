@@ -190,9 +190,6 @@
 					/obj/item/reagent_containers/syringe,
 					)
 
-/obj/item/gripper/medical/attack_self(mob/user)
-	return
-
 /obj/item/gripper/service
 	name = "Card gripper"
 	desc = "A grasping tool used to take IDs for paying taxes and waking up drunken crewmates"
@@ -219,21 +216,3 @@
 	desc = "A grasping tool used to help patients up once surgery is complete, or to substitute for hands in surgical operations."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gripper"
-
-/obj/item/gripper/medical/afterattack(atom/target, mob/living/user, proximity, params)
-	if(!proximity || !target || !ishuman(target))
-		return
-	var/mob/living/carbon/human/pickup_target = target
-	if(!IS_HORIZONTAL(pickup_target))
-		return
-	pickup_target.AdjustSleeping(-10 SECONDS)
-	pickup_target.AdjustParalysis(-6 SECONDS)
-	pickup_target.AdjustStunned(-6 SECONDS)
-	pickup_target.AdjustWeakened(-6 SECONDS)
-	pickup_target.AdjustKnockDown(-6 SECONDS)
-	pickup_target.stand_up()
-	playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-	user.visible_message( \
-		"<span class='notice'>[user] shakes [pickup_target] trying to wake [pickup_target.p_them()] up!</span>",\
-		"<span class='notice'>You shake [pickup_target] trying to wake [pickup_target.p_them()] up!</span>",\
-		)
