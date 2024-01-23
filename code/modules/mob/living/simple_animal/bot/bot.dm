@@ -53,7 +53,7 @@
 	var/list/path = list() //List of turfs through which a bot 'steps' to reach the waypoint
 	var/pathset = FALSE
 	var/list/ignore_list = list() //List of unreachable targets for an ignore-list enabled bot to ignore.
-	var/list/bot_assigned = list() //List of jobs claimed by bot
+	var/list/ignore_job = list() //List of jobs claimed by bot
 	var/mode = BOT_IDLE //Standardizes the vars that indicate the bot is busy with its function.
 	var/tries = 0 //Number of times the bot tried and failed to move.
 	var/remote_disabled = FALSE //If enabled, the AI cannot *Remotely* control a bot. It can still control it through cameras.
@@ -497,14 +497,14 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 /mob/living/simple_animal/bot/proc/assign_bot(atom/A, avoid_bot)
 	if(avoid_bot)
-		claim_job(A)
-		if(A.UID() in bot_assigned)
-			return TRUE
+		if(!(A.UID() in ignore_job))
+			claim_job(A)
+			return FALSE
+		return TRUE
 	return FALSE
 
-
 /mob/living/simple_animal/bot/proc/claim_job(atom/A)
-	bot_assigned |= A.UID()
+	ignore_job |= A.UID()
 
 //When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
 /mob/living/simple_animal/bot/proc/process_scan(atom/scan_target)
