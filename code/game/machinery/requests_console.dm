@@ -243,7 +243,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				else if(recipient in SUPPLY_ROLES)
 					radiochannel = "Supply"
 				message_log.Add(list(list("Message sent to [recipient] at [station_time_timestamp()]", "[message]")))
-				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
+				Radio.autosay("Alert; a new message has been received from [department]", "[recipient] Requests Console", "[radiochannel]")
 			else
 				atom_say("No server detected!")
 
