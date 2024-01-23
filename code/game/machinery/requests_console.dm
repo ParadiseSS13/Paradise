@@ -65,6 +65,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/print_cooldown = 0	//cooldown on shipping label printer, stores the  in-game time of when the printer will next be ready
 	var/obj/item/radio/Radio
 	var/radiochannel = ""
+	var/reminder_timer_id = TIMER_ID_NULL
 
 /obj/machinery/requests_console/power_change()
 	if(!..())
@@ -259,6 +260,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 						Console.newmessagepriority = RQ_NONEW_MESSAGES
 						Console.update_icon(UPDATE_OVERLAYS)
 						Console.set_light(1)
+						if (reminder_timer_id != TIMER_ID_NULL)
+							deltimer(reminder_timer_id)
+							reminder_timer_id = TIMER_ID_NULL
 			if(tempScreen == RCS_MAINMENU)
 				reset_message()
 			screen = tempScreen
@@ -348,6 +352,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(!silent)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 		atom_say(title)
+		if (reminder_timer_id == TIMER_ID_NULL)
+			reminder_timer_id = addtimer(CALLBACK(src, PROC_REF(remind_unread_messages)), 5 MINUTES, TIMER_STOPPABLE | TIMER_LOOP)
 
 	switch(priority)
 		if(RQ_HIGHPRIORITY) // High
@@ -355,6 +361,14 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		else // Normal
 			message_log.Add(list(list("From: [linkedSender]", message))) // List in a list for passing into TGUI
 	set_light(2)
+
+/obj/machinery/requests_console/proc/remind_unread_messages()
+	if (newmessagepriority == RQ_NONEW_MESSAGES)
+		deltimer(reminder_timer_id)
+		reminder_timer_id = TIMER_ID_NULL
+		return
+
+	atom_say("Unread message(s) available.")
 
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)
 	var/obj/item/shippingPackage/sp = new /obj/item/shippingPackage(get_turf(src))
