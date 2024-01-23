@@ -606,7 +606,7 @@
 	muscle_implant.emp_act(severity, owner)
 
 /obj/item/organ/internal/cyberimp/arm/power_cord_cell
-	name = "cell-compatible power adapter implant"
+	name = "Cell-compatible power adapter implant"
 	desc = "This is a recently developed implant for IPCs in order to allow them to easily collect energy from cells."
 	origin_tech = "materials=3;biotech=2;powerstorage=3"
 	contents = newlist(/obj/item/cell_power_cord)
