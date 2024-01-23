@@ -234,10 +234,10 @@
 		to_chat(H, "<span class='boldwarning'>[error_message]</span>")
 
 /datum/species/machine/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-    var/charger_pref = H.client.prefs.active_character.speciesprefs
-    if(charger_pref == "APC-compatible power adapter implant")
-        var/obj/item/organ/internal/cyberimp/arm/power_cord_apc/apc_pw = new
-        apc_pw.insert(H)
-    else
-        var/obj/item/organ/internal/cyberimp/arm/power_cord_cell/cell_pw = new
-        cell_pw.insert(H)
+	var/charger_pref = H.client.prefs.active_character.speciesprefs
+	if(charger_pref == "APC-compatible power adapter implant")
+		var/obj/item/organ/internal/cyberimp/arm/power_cord_apc/apc_pw = new
+		apc_pw.insert(H)
+	else
+		var/obj/item/organ/internal/cyberimp/arm/power_cord_cell/cell_pw = new
+		cell_pw.insert(H)
