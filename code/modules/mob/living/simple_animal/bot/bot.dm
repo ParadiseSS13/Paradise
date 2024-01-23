@@ -53,7 +53,7 @@
 	var/list/path = list() //List of turfs through which a bot 'steps' to reach the waypoint
 	var/pathset = FALSE
 	var/list/ignore_list = list() //List of unreachable targets for an ignore-list enabled bot to ignore.
-	var/list/ignore_job = list() //List of jobs claimed by bot
+	var/static/list/ignore_job = list() //List of jobs claimed by bot
 	var/mode = BOT_IDLE //Standardizes the vars that indicate the bot is busy with its function.
 	var/tries = 0 //Number of times the bot tried and failed to move.
 	var/remote_disabled = FALSE //If enabled, the AI cannot *Remotely* control a bot. It can still control it through cameras.
@@ -501,7 +501,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	if(!(A.UID() in ignore_job))
 		claim_job(A)
 		return TRUE
-
+	return FALSE
 
 /mob/living/simple_animal/bot/proc/claim_job(atom/A)
 	ignore_job |= A.UID()
