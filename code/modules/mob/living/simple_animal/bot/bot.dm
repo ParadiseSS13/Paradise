@@ -486,7 +486,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			continue //If not, keep searching!
 		if((A.UID() in ignore_list) || (A == old_target)) //Filter for blacklisted elements, usually unreachable or previously processed oness
 			continue
-		if(assign_bot(A.UID(), avoid_bot)) //This bullshit aint working
+		if(assign_bot(A, avoid_bot)) //This bullshit aint working
 			continue
 		var/scan_result = process_scan(A) //Some bots may require additional processing when a result is selected.
 		if(scan_result)
@@ -504,7 +504,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 
 /mob/living/simple_animal/bot/proc/claim_job(atom/A)
-	message_admins("bot assign [A.UID()]")
 	bot_assigned |= A.UID()
 
 //When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
