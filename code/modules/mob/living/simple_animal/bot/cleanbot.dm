@@ -164,6 +164,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/target)
 	if(mode == BOT_CLEANING)
+		ignore_job -= target.UID()
 		QDEL_NULL(target)
 		anchored = FALSE
 	mode = BOT_IDLE
