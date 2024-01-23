@@ -6,6 +6,7 @@
 	var/real_name							//our character's name
 	var/be_random_name = FALSE				//whether we are a random name every round
 	var/gender = MALE						//gender of character (well duh)
+	var/body_type = MALE					//body sprite variant
 	var/age = 30							//age of character
 	var/b_type = "A+"						//blood type (not-chooseable)
 	var/underwear = "Nude"					//underwear type
@@ -140,6 +141,7 @@
 					real_name=:real_name,
 					name_is_always_random=:be_random_name,
 					gender=:gender,
+					body_type=:body_type,
 					age=:age,
 					species=:species,
 					language=:language,
@@ -199,6 +201,7 @@
 						"real_name" = real_name,
 						"be_random_name" = be_random_name,
 						"gender" = gender,
+						"body_type" = body_type,
 						"age" = age,
 						"species" = species,
 						"language" = language,
@@ -266,7 +269,7 @@
 	qdel(firstquery)
 
 	var/datum/db_query/query = SSdbcore.NewQuery({"
-		INSERT INTO characters (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender,
+		INSERT INTO characters (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender, body_type,
 			age, species, language,
 			hair_colour, secondary_hair_colour,
 			facial_hair_colour, secondary_facial_hair_colour,
@@ -293,7 +296,7 @@
 			socks, body_accessory, gear, autohiss,
 			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes)
 		VALUES
-			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
+			(:ckey, :slot, :metadata, :name, :be_random_name, :gender, :body_type,
 			:age, :species, :language,
 			:h_colour, :h_sec_colour,
 			:f_colour, :f_sec_colour,
@@ -327,6 +330,7 @@
 		"name" = real_name,
 		"be_random_name" = be_random_name,
 		"gender" = gender,
+		"body_type" = body_type
 		"age" = age,
 		"species" = species,
 		"language" = language,
@@ -466,6 +470,7 @@
 	var/custom_emotes_tmp = query.item[55]
 	physique = query.item[56]
 	height = query.item[57]
+	body_type = query.item[58]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -585,6 +590,7 @@
 		gender = gender_override
 	else
 		gender = pick(MALE, FEMALE)
+	body_type = pick(MALE, FEMALE)
 	underwear = random_underwear(gender, species)
 	undershirt = random_undershirt(gender, species)
 	socks = random_socks(gender, species)

@@ -27,6 +27,7 @@ CREATE TABLE `characters` (
   `real_name` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name_is_always_random` tinyint(1) NOT NULL,
   `gender` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `body_type` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   `age` smallint(4) NOT NULL,
   `species` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `language` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,

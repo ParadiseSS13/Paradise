@@ -23,15 +23,20 @@
 
 
 //more specialised stuff
-/proc/sanitize_gender(gender,neuter=0,plural=0, default="male")
+/proc/sanitize_gender(gender, neuter=FALSE, plural=FALSE, default="male")
 	switch(gender)
-		if(MALE, FEMALE)return gender
+		if(MALE, FEMALE, PLURAL)
+			return gender
 		if(NEUTER)
-			if(neuter)	return gender
-			else		return default
+			if(neuter)
+				return gender
+			else
+				return default
 		if(PLURAL)
-			if(plural)	return gender
-			else		return default
+			if(plural)
+				return gender
+			else
+				return default
 	return default
 
 /proc/sanitize_hexcolor(color, default="#000000")

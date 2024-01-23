@@ -154,6 +154,12 @@
 
 		H.s_tone   = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
 
+		switch(dna.GetUIState(DNA_UI_BODY_TYPE))
+			if(DNA_GENDER_FEMALE)
+				H.change_body_type(FEMALE, FALSE)
+			if(DNA_GENDER_MALE)
+				H.change_body_type(MALE, FALSE)
+
 		switch(dna.GetUITriState(DNA_UI_GENDER))
 			if(DNA_GENDER_FEMALE)
 				H.change_gender(FEMALE, FALSE)

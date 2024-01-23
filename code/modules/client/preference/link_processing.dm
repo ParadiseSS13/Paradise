@@ -613,10 +613,6 @@
 					var/list/valid_underwear = list()
 					for(var/underwear in GLOB.underwear_list)
 						var/datum/sprite_accessory/SA = GLOB.underwear_list[underwear]
-						if(active_character.gender == MALE && SA.gender == FEMALE)
-							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
-							continue
 						if(!(active_character.species in SA.species_allowed))
 							continue
 						valid_underwear[underwear] = GLOB.underwear_list[underwear]
@@ -629,10 +625,6 @@
 					var/list/valid_undershirts = list()
 					for(var/undershirt in GLOB.undershirt_list)
 						var/datum/sprite_accessory/SA = GLOB.undershirt_list[undershirt]
-						if(active_character.gender == MALE && SA.gender == FEMALE)
-							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
-							continue
 						if(!(active_character.species in SA.species_allowed))
 							continue
 						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
@@ -646,10 +638,6 @@
 					var/list/valid_sockstyles = list()
 					for(var/sockstyle in GLOB.socks_list)
 						var/datum/sprite_accessory/SA = GLOB.socks_list[sockstyle]
-						if(active_character.gender == MALE && SA.gender == FEMALE)
-							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
-							continue
 						if(!(active_character.species in SA.species_allowed))
 							continue
 						valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
@@ -915,6 +903,12 @@
 						else
 							active_character.gender = MALE
 					active_character.underwear = random_underwear(active_character.gender)
+
+				if("body_type")
+					if(active_character.body_type == MALE)
+							active_character.body_type = FEMALE
+						else
+							active_character.body_type = MALE
 
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
