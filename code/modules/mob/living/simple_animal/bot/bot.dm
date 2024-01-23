@@ -500,7 +500,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return FALSE
 	if(A.UID() in ignore_job)
 		return TRUE
-
 	claim_job(A)
 
 /mob/living/simple_animal/bot/proc/claim_job(atom/A)
