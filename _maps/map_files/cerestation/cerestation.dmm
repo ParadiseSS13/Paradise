@@ -76396,10 +76396,6 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
-"rDJ" = (
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
 "rDY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -156117,7 +156113,7 @@ dOa
 lzf
 lzf
 lzf
-rDJ
+qJG
 rNK
 rNK
 rNK
