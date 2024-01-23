@@ -1207,20 +1207,16 @@
 	..()
 
 /mob/living/carbon/human/proc/is_lung_ruptured()
-	var/obj/item/organ/internal/lungs/L = get_int_organ(/obj/item/organ/internal/lungs)
-	if(!L)
-		return 0
+	var/datum/organ/lungs/L = get_int_organ_datum(ORGAN_DATUM_LUNGS)
 
-	return L.is_bruised()
+	return L?.linked_organ.is_bruised()
 
 /mob/living/carbon/human/proc/rupture_lung()
-	var/obj/item/organ/internal/lungs/L = get_int_organ(/obj/item/organ/internal/lungs)
-	if(!L)
-		return 0
-
-	if(!L.is_bruised())
-		L.custom_pain("You feel a stabbing pain in your chest!")
-		L.damage = L.min_bruised_damage
+	var/datum/organ/lungs/L = get_int_organ_datum(ORGAN_DATUM_LUNGS)
+	if(L && !L.linked_organ.is_bruised())
+		var/obj/item/organ/external/affected = get_organ("chest")
+		affected.custom_pain("You feel a stabbing pain in your chest!")
+		L.linked_organ.damage = L.linked_organ.min_bruised_damage
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
 	if(HAS_TRAIT(src, TRAIT_HULK))
@@ -1623,7 +1619,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 					threatcount += 2
 
 	//Check for dresscode violations
-	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard))
+	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
 		threatcount += 2
 
 
@@ -1867,20 +1863,20 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/can_eat(flags = 255)
 	return dna.species && (dna.species.dietflags & flags)
 
-/mob/living/carbon/human/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
+/mob/living/carbon/human/selfFeed(obj/item/food/toEat, fullness)
 	if(!check_has_mouth())
 		to_chat(src, "Where do you intend to put \the [toEat]? You don't have a mouth!")
 		return 0
 	return ..()
 
-/mob/living/carbon/human/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
+/mob/living/carbon/human/forceFed(obj/item/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
-		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachineperson(src)))))
+		if(!((istype(toEat, /obj/item/reagent_containers/drinks) && (ismachineperson(src)))))
 			to_chat(user, "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!")
 			return 0
 	return ..()
 
-/mob/living/carbon/human/selfDrink(obj/item/reagent_containers/food/drinks/toDrink)
+/mob/living/carbon/human/selfDrink(obj/item/reagent_containers/drinks/toDrink)
 	if(!check_has_mouth())
 		if(!ismachineperson(src))
 			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")
@@ -1987,7 +1983,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(thing != null)
 			equip_list[i] = thing.serialize()
 
-	for(var/obj/item/implant/implant in src)
+	for(var/obj/item/bio_chip/implant in src)
 		implant_list[implant] = implant.serialize()
 
 	return data
@@ -2031,7 +2027,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	for(var/thing in implant_list)
 		var/implant_data = implant_list[thing]
 		var/path = text2path(implant_data["type"])
-		var/obj/item/implant/implant = new path(T)
+		var/obj/item/bio_chip/implant = new path(T)
 		if(!implant.implant(src, src))
 			qdel(implant)
 
@@ -2074,7 +2070,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		makeCluwne()
 
 /mob/living/carbon/human/is_literate()
-	return getBrainLoss() < 100
+	return getBrainLoss() < 90
 
 
 /mob/living/carbon/human/fakefire(fire_icon = "Generic_mob_burning")

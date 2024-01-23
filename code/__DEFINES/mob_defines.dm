@@ -11,6 +11,10 @@
 #define ORGAN_BURNT		   (1 << 7)
 #define ORGAN_SALVED	   (1 << 8)
 
+// Organ datum defines. Each one of these represents a slot for organ datums in internal_organ_datums
+#define ORGAN_DATUM_HEART	"heart"
+#define ORGAN_DATUM_LUNGS	"lungs"
+
 // For limb resistance flags
 #define CANNOT_BREAK		(1 << 0)
 #define CANNOT_DISMEMBER 	(1 << 1)
@@ -198,6 +202,9 @@
 #define STATUS_UPDATE_ALL (~0)
 #define INVISIBILITY_ABSTRACT 101
 #define UNHEALING_EAR_DAMAGE 100
+
+/// If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()
+#define EXAMINE_MORE_WINDOW 1 SECONDS
 
 #define DIRECTION_LOCK_SLOWDOWN 3
 

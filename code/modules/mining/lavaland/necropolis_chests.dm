@@ -63,7 +63,7 @@
 		if(20)
 			new /obj/item/grenade/clusterbuster/inferno(src)
 		if(21)
-			new /obj/item/reagent_containers/food/drinks/bottle/holywater/hell(src)
+			new /obj/item/reagent_containers/drinks/bottle/holywater/hell(src)
 		if(22)
 			new /obj/item/spellbook/oneuse/summonitem(src)
 		if(23)

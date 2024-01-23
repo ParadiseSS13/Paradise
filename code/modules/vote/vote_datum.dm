@@ -117,9 +117,10 @@
 
 
 /datum/vote/proc/announce(start_text)
-	to_chat(world, {"<font color='purple'><b>[start_text]</b>
-		<a href='?src=[SSvote.UID()];vote=open'>Click here or type <code>Vote</code> to place your vote.</a>
-		You have [GLOB.configuration.vote.vote_time / 10] seconds to vote.</font>"})
+	to_chat(world, chat_box_purple(
+		"<span><font color='purple'><b>[start_text]</b></br></br>\
+		<a href='?src=[SSvote.UID()];vote=open'>Click here or type <code>Vote</code> to place your vote.</a></br>\
+		You have [GLOB.configuration.vote.vote_time / 10] seconds to vote.</span>"))
 	SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
 
 
@@ -149,10 +150,13 @@
 /*
 	UI STUFFS
 */
-/datum/vote/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/vote/ui_state(mob/user)
+	return GLOB.always_state
+
+/datum/vote/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "VotePanel", "VotePanel", 400, 500, master_ui, state)
+		ui = new(user, src, "VotePanel", "Vote Panel")
 		ui.open()
 
 /datum/vote/ui_data(mob/user)
@@ -195,5 +199,5 @@
 			if(params["target"] in choices)
 				voted[usr.ckey] = params["target"]
 			else
-				message_admins("<span class='boldannounce'>\[EXPLOIT]</span> User [key_name_admin(usr)] spoofed a vote in the vote panel!")
+				message_admins("<span class='boldannounceooc'>\[EXPLOIT]</span> User [key_name_admin(usr)] spoofed a vote in the vote panel!")
 

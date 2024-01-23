@@ -52,7 +52,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/soulstone
 	name = "Summon Soulstone"
-	desc = "This spell reaches into Redspace, summoning one of the legendary fragments across time and space"
+	desc = "This spell uses vile sorcery to create a spirit-trapping soulstone."
 	action_icon_state = "summonsoulstone"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
@@ -71,7 +71,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/pylon
 	name = "Cult Pylon"
-	desc = "This spell conjures a fragile crystal from Redspace. Makes for a convenient light source."
+	desc = "This spell uses dark magic to craft an unholy beacon. Heals cultists, and makes a handy light source."
 	action_icon_state = "pylon"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
