@@ -613,7 +613,7 @@
 	requires_robotic_bodypart = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/power_cord_cell/emp_act(severity)
-// Allowing to repair implant
+	// Allowing to repair implant
 	if(emp_proof)
 		return
 	damage = 1
