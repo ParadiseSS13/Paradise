@@ -496,12 +496,12 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return final_result
 
 /mob/living/simple_animal/bot/proc/assign_bot(atom/A, avoid_bot)
-	if(avoid_bot)
-		if(!(A.UID() in ignore_job))
-			claim_job(A)
-			return FALSE
+	if(!avoid_bot)
+		return FALSE
+	if(!(A.UID() in ignore_job))
+		claim_job(A)
 		return TRUE
-	return FALSE
+
 
 /mob/living/simple_animal/bot/proc/claim_job(atom/A)
 	ignore_job |= A.UID()
