@@ -3270,11 +3270,16 @@
 "aoL" = (
 /obj/structure/table,
 /obj/item/taperecorder,
-/obj/machinery/light_switch/west,
 /obj/item/radio/intercom/department/security{
 	pixel_y = 22
 	},
 /obj/machinery/light/directional/north,
+/obj/machinery/requests_console{
+	department = "Security";
+	departmentType = 5;
+	name = "Security Requests Console";
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/main)
 "aoM" = (
@@ -5010,9 +5015,11 @@
 	dir = 4
 	},
 /obj/machinery/light/directional/west,
-/obj/machinery/button/windowtint/west{
-	id = "Processing";
-	req_one_access_txt = "63"
+/obj/machinery/requests_console{
+	department = "Security";
+	departmentType = 5;
+	name = "Security Requests Console";
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
@@ -5037,6 +5044,10 @@
 "auW" = (
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable,
+/obj/machinery/button/windowtint/south{
+	id = "Processing";
+	req_one_access_txt = "63"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "auX" = (
@@ -60349,6 +60360,17 @@
 /obj/item/seeds/corn,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
+"iZR" = (
+/obj/machinery/requests_console{
+	department = "Security";
+	departmentType = 5;
+	name = "Security Requests Console";
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredcorners"
+	},
+/area/station/security/brig)
 "iZV" = (
 /obj/effect/spawner/random_spawners/grille_often,
 /obj/effect/decal/cleanable/dirt,
@@ -81922,6 +81944,7 @@
 	},
 /obj/effect/landmark/start/security_officer,
 /obj/machinery/light/directional/south,
+/obj/machinery/light_switch/south,
 /turf/simulated/floor/plasteel,
 /area/station/security/main)
 "qQO" = (
@@ -130386,7 +130409,7 @@ ojV
 alT
 rHa
 tgF
-akY
+iZR
 auc
 ujD
 kSz
