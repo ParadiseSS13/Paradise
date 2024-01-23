@@ -341,7 +341,7 @@
 	if(panel_open)
 		if(istype(I, /obj/item/crowbar))
 			if(occupant || helmet || suit || storage || boots)
-				to_chat(user, "<span class='warning'>There are contents that prevent you form deconstructing [src]!</span>")
+				to_chat(user, "<span class='warning'>There are contents that prevent you from deconstructing [src]!</span>")
 				return
 			if(locked)
 				to_chat(user, "<span class='warning'>The security system prevents you from deconstructing [src]!</span>")
@@ -751,20 +751,17 @@
 
 /obj/machinery/suit_storage_unit/emag_act(mob/user)
 	if(uv)
-		to_chat(user, "<span class='warning'>\The [src] is currently undergoing a disinfection cycle, it wont open.</span>")
+		to_chat(user, "<span class='warning'>[src] is currently undergoing a disinfection cycle, it wont open.</span>")
 		return
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	to_chat(user, "<span class='warning'>You short out \the [src]'s internal circuitry, causing its safties to fail, and dumping it's contents.</span>")
+	to_chat(user, "<span class='warning'>You short out [src]'s internal circuitry, causing its safeties to fail, and dumping it's contents.</span>")
 	open_machine()
 	dump_contents()
 	eject_occupant()
 	update_icon(UPDATE_OVERLAYS)
-	if(locked)
-		locked = FALSE
+	locked = FALSE
 	if(safeties)
 		togglesafeties(FALSE)
 	if(!uv_super)
 		toggleUV(TRUE)
-	if(secure)
-		secure = FALSE
-	return
+	secure = FALSE
