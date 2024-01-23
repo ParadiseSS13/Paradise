@@ -220,8 +220,8 @@
 	allowed_tools = list(
 		/obj/item/reagent_containers/dropper = 100,
 		/obj/item/reagent_containers/glass/bottle = 90,
-		/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
-		/obj/item/reagent_containers/food/drinks/bottle = 80,
+		/obj/item/reagent_containers/drinks/drinkingglass = 85,
+		/obj/item/reagent_containers/drinks/bottle = 80,
 		/obj/item/reagent_containers/glass/beaker = 75,
 		/obj/item/reagent_containers/spray = 60,
 		/obj/item/reagent_containers/glass/bucket = 50

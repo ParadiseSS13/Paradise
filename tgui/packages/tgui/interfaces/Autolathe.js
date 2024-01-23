@@ -4,10 +4,10 @@ import { useBackend, useSharedState } from '../backend';
 import {
   Box,
   Button,
-  Flex,
   Input,
   LabeledList,
   Section,
+  Stack,
   Dropdown,
 } from '../components';
 import { Window } from '../layouts';
@@ -71,8 +71,10 @@ export const Autolathe = (props, context) => {
       return (
         <Box key={i}>
           <Button
+            fluid
             key={a}
             icon="times"
+            color="transparent"
             content={buildQueue[i][0]}
             onClick={() =>
               act('remove_from_queue', {
@@ -101,38 +103,32 @@ export const Autolathe = (props, context) => {
   } else if (category) {
     rText = 'Build (' + category + ')';
   }
-  const styleLeftDiv = {
-    float: 'left',
-    width: '68%',
-  };
-  const styleRightDiv = {
-    float: 'right',
-    width: '30%',
-  };
   return (
-    <Window resizable>
+    <Window width={750} height={525}>
       <Window.Content scrollable>
-        <div style={styleLeftDiv}>
-          <Section
-            title={rText}
-            buttons={
-              <Dropdown
-                width="190px"
-                options={categories}
-                selected={category}
-                onSelected={(val) => setCategory(val)}
+        <Stack fill horizontal>
+          <Stack.Item width="70%">
+            <Section
+              fill
+              scrollable
+              title={rText}
+              buttons={
+                <Dropdown
+                  width="150px"
+                  options={categories}
+                  selected={category}
+                  onSelected={(val) => setCategory(val)}
+                />
+              }
+            >
+              <Input
+                fluid
+                placeholder="Search for..."
+                onInput={(e, v) => setSearchText(v)}
+                mb={1}
               />
-            }
-          >
-            <Input
-              fluid
-              placeholder="Search for..."
-              onInput={(e, v) => setSearchText(v)}
-              mb={1}
-            />
-            {recipesToShow.map((recipe) => (
-              <Flex justify="space-between" align="center" key={recipe.ref}>
-                <Flex.Item>
+              {recipesToShow.map((recipe) => (
+                <Stack.Item grow key={recipe.ref}>
                   <img
                     src={`data:image/jpeg;base64,${recipe.image}`}
                     style={{
@@ -143,6 +139,7 @@ export const Autolathe = (props, context) => {
                     }}
                   />
                   <Button
+                    mr={1}
                     icon="hammer"
                     selected={
                       data.busyname === recipe.name && data.busyamt === 1
@@ -166,6 +163,7 @@ export const Autolathe = (props, context) => {
                   </Button>
                   {recipe.max_multiplier >= 10 && (
                     <Button
+                      mr={1}
                       icon="hammer"
                       selected={
                         data.busyname === recipe.name && data.busyamt === 10
@@ -190,6 +188,7 @@ export const Autolathe = (props, context) => {
                   )}
                   {recipe.max_multiplier >= 25 && (
                     <Button
+                      mr={1}
                       icon="hammer"
                       selected={
                         data.busyname === recipe.name && data.busyamt === 25
@@ -214,6 +213,7 @@ export const Autolathe = (props, context) => {
                   )}
                   {recipe.max_multiplier > 25 && (
                     <Button
+                      mr={1}
                       icon="hammer"
                       selected={
                         data.busyname === recipe.name &&
@@ -237,8 +237,6 @@ export const Autolathe = (props, context) => {
                       {recipe.max_multiplier}x
                     </Button>
                   )}
-                </Flex.Item>
-                <Flex.Item>
                   {(recipe.requirements &&
                     Object.keys(recipe.requirements)
                       .map(
@@ -246,39 +244,46 @@ export const Autolathe = (props, context) => {
                           toTitleCase(mat) + ': ' + recipe.requirements[mat]
                       )
                       .join(', ')) || <Box>No resources required.</Box>}
-                </Flex.Item>
-              </Flex>
-            ))}
-          </Section>
-        </div>
-        <div style={styleRightDiv}>
-          <Section title="Materials">
-            <LabeledList>
-              <LabeledList.Item label="Metal">{metalReadable}</LabeledList.Item>
-              <LabeledList.Item label="Glass">{glassReadable}</LabeledList.Item>
-              <LabeledList.Item label="Total">{totalReadable}</LabeledList.Item>
-              <LabeledList.Item label="Storage">
-                {data.fill_percent}% Full
-              </LabeledList.Item>
-            </LabeledList>
-          </Section>
-          <Section title="Building">
-            <Box color={busyname ? 'green' : ''}>
-              {busyname ? busyname : 'Nothing'}
-            </Box>
-          </Section>
-          <Section title="Build Queue">
-            {buildQueueItems}
-            <div align="right">
+                </Stack.Item>
+              ))}
+            </Section>
+          </Stack.Item>
+          <Stack.Item width="30%">
+            <Section title="Materials">
+              <LabeledList>
+                <LabeledList.Item label="Metal">
+                  {metalReadable}
+                </LabeledList.Item>
+                <LabeledList.Item label="Glass">
+                  {glassReadable}
+                </LabeledList.Item>
+                <LabeledList.Item label="Total">
+                  {totalReadable}
+                </LabeledList.Item>
+                <LabeledList.Item label="Storage">
+                  {data.fill_percent}% Full
+                </LabeledList.Item>
+              </LabeledList>
+            </Section>
+            <Section title="Building">
+              <Box color={busyname ? 'green' : ''}>
+                {busyname ? busyname : 'Nothing'}
+              </Box>
+            </Section>
+            <Section title="Build Queue" height={23.7}>
+              {buildQueueItems}
               <Button
+                mt={0.5}
+                fluid
                 icon="times"
                 content="Clear All"
+                color="red"
                 disabled={!data.buildQueueLen}
                 onClick={() => act('clear_queue')}
               />
-            </div>
-          </Section>
-        </div>
+            </Section>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );

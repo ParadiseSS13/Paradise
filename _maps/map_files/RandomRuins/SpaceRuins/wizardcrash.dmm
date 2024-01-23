@@ -224,7 +224,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "aP" = (
-/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/item/reagent_containers/drinks/oilcan,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -290,7 +290,7 @@
 /area/ruin/space/unpowered)
 "bc" = (
 /obj/effect/decal/remains/human,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
+/obj/item/food/snacks/meat/monkey,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bd" = (
@@ -312,7 +312,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bg" = (
-/obj/item/reagent_containers/food/snacks/meat/monkey,
+/obj/item/food/snacks/meat/monkey,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bh" = (
@@ -328,7 +328,7 @@
 	},
 /area/ruin/space/unpowered)
 "bj" = (
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/food/snacks/meat/human,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"

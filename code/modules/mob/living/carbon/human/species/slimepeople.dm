@@ -49,9 +49,7 @@
 
 	vision_organ = null
 	has_organ = list(
-		"heart" = /obj/item/organ/internal/heart/slime,
-		"brain" = /obj/item/organ/internal/brain/slime,
-		"lungs" = /obj/item/organ/internal/lungs/slime
+		"brain" = /obj/item/organ/internal/brain/slime
 		)
 	mutantears = null
 	suicide_messages = list(

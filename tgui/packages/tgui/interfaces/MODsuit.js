@@ -8,7 +8,7 @@ import {
   Collapsible,
   Box,
   Icon,
-  Flex,
+  Stack,
   Table,
   Dimmer,
   NumberInput,
@@ -111,16 +111,16 @@ const RadCounter = (props, context) => {
   const { active, userradiated, usertoxins, usermaxtoxins, threatlevel } =
     props;
   return (
-    <Flex fill textAlign="center">
-      <Flex.Item grow>
+    <Stack fill textAlign="center">
+      <Stack.Item grow>
         <Section
           title="Radiation Level"
           color={active && userradiated ? 'bad' : 'good'}
         >
           {active && userradiated ? 'IRRADIATED!' : 'RADIATION-FREE'}
         </Section>
-      </Flex.Item>
-      <Flex.Item grow>
+      </Stack.Item>
+      <Stack.Item grow>
         <Section title="Toxins Level">
           <ProgressBar
             value={active ? usertoxins / usermaxtoxins : 0}
@@ -133,8 +133,8 @@ const RadCounter = (props, context) => {
             <AnimatedNumber value={usertoxins} />
           </ProgressBar>
         </Section>
-      </Flex.Item>
-      <Flex.Item grow>
+      </Stack.Item>
+      <Stack.Item grow>
         <Section
           title="Hazard Level"
           color={active && threatlevel ? 'bad' : 'good'}
@@ -142,8 +142,8 @@ const RadCounter = (props, context) => {
         >
           {active && threatlevel ? threatlevel : 0}
         </Section>
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -171,8 +171,8 @@ const HealthAnalyzer = (props, context) => {
           <AnimatedNumber value={active ? userhealth : 0} />
         </ProgressBar>
       </Section>
-      <Flex textAlign="center">
-        <Flex.Item grow>
+      <Stack textAlign="center">
+        <Stack.Item grow>
           <Section title="Brute">
             <ProgressBar
               value={active ? userbrute / usermaxhealth : 0}
@@ -185,8 +185,8 @@ const HealthAnalyzer = (props, context) => {
               <AnimatedNumber value={active ? userbrute : 0} />
             </ProgressBar>
           </Section>
-        </Flex.Item>
-        <Flex.Item grow>
+        </Stack.Item>
+        <Stack.Item grow>
           <Section title="Burn">
             <ProgressBar
               value={active ? userburn / usermaxhealth : 0}
@@ -199,8 +199,8 @@ const HealthAnalyzer = (props, context) => {
               <AnimatedNumber value={active ? userburn : 0} />
             </ProgressBar>
           </Section>
-        </Flex.Item>
-        <Flex.Item grow>
+        </Stack.Item>
+        <Stack.Item grow>
           <Section title="Toxin">
             <ProgressBar
               value={active ? usertoxin / usermaxhealth : 0}
@@ -213,8 +213,8 @@ const HealthAnalyzer = (props, context) => {
               <AnimatedNumber value={active ? usertoxin : 0} />
             </ProgressBar>
           </Section>
-        </Flex.Item>
-        <Flex.Item grow>
+        </Stack.Item>
+        <Stack.Item grow>
           <Section title="Suffocation">
             <ProgressBar
               value={active ? useroxy / usermaxhealth : 0}
@@ -227,8 +227,8 @@ const HealthAnalyzer = (props, context) => {
               <AnimatedNumber value={active ? useroxy : 0} />
             </ProgressBar>
           </Section>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </>
   );
 };
@@ -252,18 +252,18 @@ const StatusReadout = (props, context) => {
   } = props;
   return (
     <>
-      <Flex textAlign="center">
-        <Flex.Item grow>
+      <Stack textAlign="center">
+        <Stack.Item grow>
           <Section title="Operation Time">
             {active ? statustime : '00:00:00'}
           </Section>
-        </Flex.Item>
-        <Flex.Item grow>
+        </Stack.Item>
+        <Stack.Item grow>
           <Section title="Operation Number">
             {active ? statusid || '0' : '???'}
           </Section>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
       <Section title="Health">
         <ProgressBar
           value={active ? statushealth / statusmaxhealth : 0}
@@ -276,8 +276,8 @@ const StatusReadout = (props, context) => {
           <AnimatedNumber value={active ? statushealth : 0} />
         </ProgressBar>
       </Section>
-      <Flex textAlign="center">
-        <Flex.Item grow>
+      <Stack textAlign="center">
+        <Stack.Item grow>
           <Section title="Brute">
             <ProgressBar
               value={active ? statusbrute / statusmaxhealth : 0}
@@ -290,8 +290,8 @@ const StatusReadout = (props, context) => {
               <AnimatedNumber value={active ? statusbrute : 0} />
             </ProgressBar>
           </Section>
-        </Flex.Item>
-        <Flex.Item grow>
+        </Stack.Item>
+        <Stack.Item grow>
           <Section title="Burn">
             <ProgressBar
               value={active ? statusburn / statusmaxhealth : 0}
@@ -304,8 +304,8 @@ const StatusReadout = (props, context) => {
               <AnimatedNumber value={active ? statusburn : 0} />
             </ProgressBar>
           </Section>
-        </Flex.Item>
-        <Flex.Item grow>
+        </Stack.Item>
+        <Stack.Item grow>
           <Section title="Toxin">
             <ProgressBar
               value={active ? statustoxin / statusmaxhealth : 0}
@@ -318,8 +318,8 @@ const StatusReadout = (props, context) => {
               <AnimatedNumber value={statustoxin} />
             </ProgressBar>
           </Section>
-        </Flex.Item>
-        <Flex.Item grow>
+        </Stack.Item>
+        <Stack.Item grow>
           <Section title="Suffocation">
             <ProgressBar
               value={active ? statusoxy / statusmaxhealth : 0}
@@ -332,18 +332,18 @@ const StatusReadout = (props, context) => {
               <AnimatedNumber value={statusoxy} />
             </ProgressBar>
           </Section>
-        </Flex.Item>
-      </Flex>
-      <Flex textAlign="center">
-        <Flex.Item grow>
+        </Stack.Item>
+      </Stack>
+      <Stack textAlign="center">
+        <Stack.Item grow>
           <Section title="Body Temperature">{active ? statustemp : 0}</Section>
-        </Flex.Item>
-        <Flex.Item grow>
+        </Stack.Item>
+        <Stack.Item grow>
           <Section title="Nutrition Status">
             {active ? statusnutrition : 0}
           </Section>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
       <Section title="DNA">
         <LabeledList>
           <LabeledList.Item label="Fingerprints">
@@ -429,11 +429,11 @@ const LockedModule = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Dimmer>
-      <Flex>
-        <Flex.Item fontSize="16px" color="blue">
+      <Stack>
+        <Stack.Item fontSize="16px" color="blue">
           SUIT UNPOWERED
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Dimmer>
   );
 };
@@ -443,11 +443,11 @@ const ConfigureScreen = (props, context) => {
   const configuration_keys = Object.keys(configuration_data);
   return (
     <Dimmer backgroundColor="rgba(0, 0, 0, 0.8)">
-      <Flex direction="column">
+      <Stack vertical>
         {configuration_keys.map((key) => {
           const data = configuration_data[key];
           return (
-            <Flex.Item key={data.key}>
+            <Stack.Item key={data.key}>
               <ConfigureDataEntry
                 name={key}
                 display_name={data.display_name}
@@ -456,10 +456,10 @@ const ConfigureScreen = (props, context) => {
                 values={data.values}
                 module_ref={module_ref}
               />
-            </Flex.Item>
+            </Stack.Item>
           );
         })}
-        <Flex.Item>
+        <Stack.Item>
           <Box>
             <Button
               fluid
@@ -470,8 +470,8 @@ const ConfigureScreen = (props, context) => {
               Exit
             </Button>
           </Box>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Dimmer>
   );
 };
@@ -503,8 +503,8 @@ const ParametersSection = (props, context) => {
   const status = malfunctioning
     ? 'Malfunctioning'
     : active
-    ? 'Active'
-    : 'Inactive';
+      ? 'Active'
+      : 'Inactive';
   return (
     <Section title="Parameters">
       <LabeledList>
@@ -609,18 +609,18 @@ const InfoSection = (props, context) => {
 
   return (
     <Section title="Info">
-      <Flex direction="column">
+      <Stack vertical>
         {(info_modules.length !== 0 &&
           info_modules.map((module) => {
             const Module = ID2MODULE[module.id];
             return (
-              <Flex.Item key={module.ref}>
+              <Stack.Item key={module.ref}>
                 {!active && <LockedModule />}
                 <Module {...module} active={active} />
-              </Flex.Item>
+              </Stack.Item>
             );
           })) || <Box textAlign="center">No Info Modules Detected</Box>}
-      </Flex>
+      </Stack>
     </Section>
   );
 };
@@ -635,11 +635,11 @@ const ModuleSection = (props, context) => {
   );
   return (
     <Section title="Modules" fill>
-      <Flex direction="column">
+      <Stack vertical>
         {(modules.length !== 0 &&
           modules.map((module) => {
             return (
-              <Flex.Item key={module.ref}>
+              <Stack.Item key={module.ref}>
                 <Collapsible title={module.module_name}>
                   <Section>
                     {configureState === module.ref && (
@@ -748,14 +748,14 @@ const ModuleSection = (props, context) => {
                     <Box>{module.description}</Box>
                   </Section>
                 </Collapsible>
-              </Flex.Item>
+              </Stack.Item>
             );
           })) || (
-          <Flex.Item>
+          <Stack.Item>
             <Box textAlign="center">No Modules Detected</Box>
-          </Flex.Item>
+          </Stack.Item>
         )}
-      </Flex>
+      </Stack>
     </Section>
   );
 };
@@ -764,22 +764,22 @@ export const MODsuitContent = (props, context) => {
   const { act, data } = useBackend(context);
   const { ui_theme, interface_break } = data;
   return (
-    <Section>
+    <Section fill scrollable={!interface_break}>
       {(!!interface_break && <LockedInterface />) || (
-        <Flex direction="column">
-          <Flex.Item>
+        <Stack vertical>
+          <Stack.Item>
             <ParametersSection />
-          </Flex.Item>
-          <Flex.Item>
+          </Stack.Item>
+          <Stack.Item>
             <HardwareSection />
-          </Flex.Item>
-          <Flex.Item>
+          </Stack.Item>
+          <Stack.Item>
             <InfoSection />
-          </Flex.Item>
-          <Flex.Item grow>
+          </Stack.Item>
+          <Stack.Item grow>
             <ModuleSection />
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       )}
     </Section>
   );
@@ -789,9 +789,11 @@ export const MODsuit = (props, context) => {
   const { act, data } = useBackend(context);
   const { ui_theme, interface_break } = data;
   return (
-    <Window theme={ui_theme} resizable>
-      <Window.Content scrollable={!interface_break}>
-        <MODsuitContent />
+    <Window theme={ui_theme} width={400} height={620}>
+      <Window.Content>
+        <Stack fill vertical>
+          <MODsuitContent />
+        </Stack>
       </Window.Content>
     </Window>
   );
