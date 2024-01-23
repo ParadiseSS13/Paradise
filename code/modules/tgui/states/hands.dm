@@ -1,3 +1,8 @@
+/*!
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 /**
  * tgui state: hands_state
  *
@@ -8,21 +13,21 @@ GLOBAL_DATUM_INIT(hands_state, /datum/ui_state/hands_state, new)
 
 /datum/ui_state/hands_state/can_use_topic(src_object, mob/user)
 	. = user.shared_ui_interaction(src_object)
-	if(. > STATUS_CLOSE)
+	if(. > UI_CLOSE)
 		return min(., user.hands_can_use_topic(src_object))
 
 /mob/proc/hands_can_use_topic(src_object)
-	return STATUS_CLOSE
+	return UI_CLOSE
 
 /mob/living/hands_can_use_topic(src_object)
-	if(is_in_active_hand(src_object) || is_in_inactive_hand(src_object))
-		return STATUS_INTERACTIVE
-	return STATUS_CLOSE
-
-/mob/living/simple_animal/revenant/hands_can_use_topic(src_object)
-	return STATUS_UPDATE
+	if(is_holding(src_object))
+		return UI_INTERACTIVE
+	return UI_CLOSE
 
 /mob/living/silicon/robot/hands_can_use_topic(src_object)
 	if(activated(src_object))
-		return STATUS_INTERACTIVE
-	return STATUS_CLOSE
+		return UI_INTERACTIVE
+	return UI_CLOSE
+
+/mob/living/simple_animal/revenant/hands_can_use_topic(src_object)
+	return UI_UPDATE

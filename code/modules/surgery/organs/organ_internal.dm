@@ -7,11 +7,33 @@
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/non_primary = 0
 	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
+	/// An associated list of organ datums that this organ has.
+	var/list/datum/organ/organ_datums
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)
 	..()
 	if(istype(holder))
 		insert(holder)
+
+/obj/item/organ/internal/Initialize(mapload)
+	. = ..()
+	if(!organ_datums)
+		return
+	var/list/temp_list = organ_datums.Copy()
+	organ_datums = list()
+	for(var/path in temp_list)
+		var/datum/organ/organ_datum = new path(src)
+		if(!organ_datum.organ_tag)
+			stack_trace("There was an organ datum [organ_datum] ([organ_datum.type]), that had no organ tag.")
+			continue
+		organ_datums[organ_datum.organ_tag] = organ_datum
+
+/obj/item/organ/internal/Destroy()
+	if(owner) // we have to remove BEFORE organ_datums are qdel'd, or we can just live even if our heart organ got deleted
+		remove(owner, TRUE)
+	QDEL_LIST_ASSOC_VAL(organ_datums) // The removal from internal_organ_datums should be handled when the organ is removed
+	. = ..()
+
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
@@ -28,6 +50,12 @@
 
 	M.internal_organs |= src
 	M.internal_organs_slot[slot] = src
+
+	for(var/organ_tag in organ_datums)
+		var/datum/organ/new_organ = organ_datums[organ_tag]
+		M.internal_organ_datums[new_organ.organ_tag] = new_organ
+		new_organ.on_insert(M)
+
 	var/obj/item/organ/external/parent
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
@@ -56,6 +84,23 @@
 		M.internal_organs -= src
 		if(M.internal_organs_slot[slot] == src)
 			M.internal_organs_slot.Remove(slot)
+
+
+		for(var/removal_tag in organ_datums)
+			if(M.internal_organ_datums[removal_tag] == organ_datums[removal_tag])
+				M.internal_organ_datums -= removal_tag
+				var/datum/organ/removed = organ_datums[removal_tag]
+				removed.on_remove(M)
+
+		// Lets see if we have any backup organ datums from other internal organs.
+		for(var/obj/item/organ/internal/backup_organ in M.internal_organs)
+			for(var/replacement_tag in backup_organ.organ_datums)
+				if(M.internal_organ_datums[replacement_tag]) // some other organ is already covering it
+					continue
+				var/datum/organ/replacement_organ = backup_organ.organ_datums[replacement_tag]
+				M.internal_organ_datums[replacement_organ.organ_tag] = replacement_organ
+				replacement_organ.on_replace(M)
+
 		if(vital && !special)
 			if(M.stat != DEAD)//safety check!
 				M.death()
@@ -90,6 +135,12 @@
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target)
 	insert(target)
 
+/obj/item/organ/internal/necrotize(update_sprite)
+	for(var/organ_tag in organ_datums) // let the organ datums handle first
+		var/datum/organ/dead_organ = organ_datums[organ_tag]
+		dead_organ.on_necrotize()
+	return ..()
+
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user)
 	return
 
@@ -106,13 +157,17 @@
 /obj/item/organ/internal/proc/prepare_eat()
 	if(is_robotic())
 		return //no eating cybernetic implants!
-	var/obj/item/reagent_containers/food/snacks/organ/S = new
+	var/obj/item/food/snacks/organ/S = new
 	S.name = name
 	S.desc = desc
 	S.icon = icon
 	S.icon_state = icon_state
 	S.origin_tech = origin_tech
 	S.w_class = w_class
+
+	for(var/organ_tag in organ_datums)
+		var/datum/organ/delicious = organ_datums[organ_tag]
+		delicious.on_prepare_eat(S)
 
 	return S
 
@@ -126,19 +181,19 @@
 /obj/item/organ/internal/proc/render()
 	return
 
-/obj/item/reagent_containers/food/snacks/organ
+/obj/item/food/snacks/organ
 	name = "appendix"
 	icon_state = "appendix"
 	icon = 'icons/obj/surgery.dmi'
 
-/obj/item/reagent_containers/food/snacks/organ/Initialize(mapload)
+/obj/item/food/snacks/organ/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent("nutriment", 5)
 
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/reagent_containers/food/snacks/S = prepare_eat()
+		var/obj/item/food/snacks/S = prepare_eat()
 		if(S)
 			H.drop_item()
 			H.put_in_active_hand(S)
@@ -160,7 +215,7 @@
 		if(slot == "heart" && ("[slot]-c-on" in states) && ("[slot]-c-off" in states)) //Give the robotic heart its robotic heart icons if they exist.
 			var/obj/item/organ/internal/heart/H = src
 			H.icon = icon('icons/obj/surgery.dmi')
-			H.icon_base = "[slot]-c"
+			H.base_icon_state = "[slot]-c"
 			H.dead_icon = "[slot]-c-off"
 			H.update_icon()
 		else if("[slot]-c" in states) //Give the robotic organ its robotic organ icons if they exist.
@@ -318,6 +373,17 @@
 /obj/item/organ/internal/emp_act(severity)
 	if(!is_robotic() || emp_proof)
 		return
+
+	var/we_done = FALSE
+	for(var/organ_tag in organ_datums)
+		var/datum/organ/borgan = organ_datums[organ_tag]
+		if(borgan.on_successful_emp())
+			we_done = TRUE
+
+	if(we_done)
+		return
+
+	// No EMP handling was done, lets just give em damage
 	switch(severity)
 		if(1)
 			receive_damage(20, 1)

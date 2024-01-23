@@ -1,7 +1,13 @@
-import { clamp01, keyOfMatchingRange, scale, toFixed } from 'common/math';
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
+import { clamp01, scale, keyOfMatchingRange, toFixed } from 'common/math';
 import { classes, pureComponentHooks } from 'common/react';
-import { Component } from 'inferno';
 import { computeBoxClassName, computeBoxProps } from './Box';
+import { Component } from 'inferno';
 
 export const ProgressBar = (props) => {
   const {

@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { clamp, round, toFixed } from 'common/math';
 
 const SI_SYMBOLS = [
@@ -32,6 +38,9 @@ export const formatSiUnit = (
   minBase1000 = -SI_BASE_INDEX,
   unit = ''
 ) => {
+  if (typeof value !== 'number' || !Number.isFinite(value)) {
+    return value;
+  }
   const realBase10 = Math.floor(Math.log10(value));
   const base10 = Math.floor(Math.max(minBase1000 * 3, realBase10));
   const realBase1000 = Math.floor(realBase10 / 3);
@@ -77,4 +86,19 @@ export const formatMoney = (value, precision = 0) => {
     result += fixed.charAt(i);
   }
   return result;
+};
+
+/**
+ * Formats a floating point number as a number on the decibel scale.
+ */
+export const formatDb = (value) => {
+  const db = (20 * Math.log(value)) / Math.log(10);
+  const sign = db >= 0 ? '+' : db < 0 ? '–' : '';
+  let formatted = Math.abs(db);
+  if (formatted === Infinity) {
+    formatted = 'Inf';
+  } else {
+    formatted = toFixed(formatted, 2);
+  }
+  return sign + formatted + ' dB';
 };

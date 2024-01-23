@@ -82,7 +82,7 @@
 	update_icon(UPDATE_OVERLAYS)
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
-		/obj/item/reagent_containers/food/snacks/grown,
+		/obj/item/food/snacks/grown,
 		/obj/item/seeds,
 		/obj/item/grown,
 	))
@@ -248,10 +248,13 @@
 		to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
 	return TRUE
 
-/obj/machinery/smartfridge/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/smartfridge/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/smartfridge/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Smartfridge", name, 500, 500)
+		ui = new(user, src, "Smartfridge", name)
 		ui.open()
 
 /obj/machinery/smartfridge/ui_data(mob/user)
@@ -418,18 +421,18 @@
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/kitchen,
-		/obj/item/reagent_containers/food))
+		/obj/item/food))
 
 // Syndicate Druglab Ruin
 /obj/machinery/smartfridge/food/syndicate_druglab
 	starting_items = list(
-		/obj/item/reagent_containers/food/snacks/boiledrice = 2,
-		/obj/item/reagent_containers/food/snacks/macncheese = 1,
-		/obj/item/reagent_containers/food/snacks/syndicake = 3,
-		/obj/item/reagent_containers/food/snacks/beans = 4,
+		/obj/item/food/snacks/boiledrice = 2,
+		/obj/item/food/snacks/macncheese = 1,
+		/obj/item/food/snacks/syndicake = 3,
+		/obj/item/food/snacks/beans = 4,
 		/obj/item/reagent_containers/glass/beaker/waterbottle/large = 7,
-		/obj/item/reagent_containers/food/drinks/bottle/kahlua = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/orangejuice = 2)
+		/obj/item/reagent_containers/drinks/bottle/kahlua = 1,
+		/obj/item/reagent_containers/drinks/bottle/orangejuice = 2)
 
 /**
   * # Seed Storage
@@ -471,9 +474,9 @@
 /obj/machinery/smartfridge/foodcart/Initialize(mapload)
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
-		/obj/item/reagent_containers/food/snacks,
-		/obj/item/reagent_containers/food/drinks,
-		/obj/item/reagent_containers/food/condiment,
+		/obj/item/food/snacks,
+		/obj/item/reagent_containers/drinks,
+		/obj/item/reagent_containers/condiment,
 	))
 
 /obj/machinery/smartfridge/foodcart/screwdriver_act(mob/living/user, obj/item/I)
@@ -802,8 +805,8 @@
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/reagent_containers/glass,
-		/obj/item/reagent_containers/food/drinks,
-		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/drinks,
+		/obj/item/reagent_containers/condiment,
 	))
 
 /**
@@ -832,7 +835,7 @@
 	component_parts = null
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
-		/obj/item/reagent_containers/food/snacks,
+		/obj/item/food/snacks,
 		/obj/item/stack/sheet/wetleather,
 	))
 
@@ -881,8 +884,8 @@
 /obj/machinery/smartfridge/drying_rack/accept_check(obj/item/O)
 	. = ..()
 	// If it's a food, reject non driable ones
-	if(istype(O, /obj/item/reagent_containers/food/snacks))
-		var/obj/item/reagent_containers/food/snacks/S = O
+	if(istype(O, /obj/item/food/snacks))
+		var/obj/item/food/snacks/S = O
 		if(!S.dried_type)
 			return FALSE
 
@@ -903,7 +906,7 @@
   * Called in [/obj/machinery/smartfridge/drying_rack/process] to dry the contents.
   */
 /obj/machinery/smartfridge/drying_rack/proc/rack_dry()
-	for(var/obj/item/reagent_containers/food/snacks/S in contents)
+	for(var/obj/item/food/snacks/S in contents)
 		if(S.dried_type == S.type)//if the dried type is the same as the object's type, don't bother creating a whole new item...
 			S.color = "#ad7257"
 			S.dry = TRUE
