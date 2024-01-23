@@ -385,7 +385,7 @@
 		if(!registered_user)
 			registered_user = user.mind.current
 
-		switch(alert(user,"Would you like to display \the [src] or edit it?","Choose","Show","Edit"))
+		switch(tgui_alert(user, "Would you like to display \the [src] or edit it?", "Choose", list("Show", "Edit")))
 			if("Show")
 				return ..()
 			if("Edit")
@@ -585,13 +585,13 @@
 						RebuildHTML()
 
 					if("Reset Access")
-						var/response = alert(user, "Are you sure you want to reset access saved on the card?","Reset Access", "No", "Yes")
+						var/response = tgui_alert(user, "Are you sure you want to reset access saved on the card?", "Reset Access", list("No", "Yes"))
 						if(response == "Yes")
 							access = initial_access.Copy() // Initial() doesn't work on lists
 							to_chat(user, "<span class='notice'>Card access reset.</span>")
 
 					if("Delete Card Information")
-						var/response = alert(user, "Are you sure you want to delete all information saved on the card?","Delete Card Information", "No", "Yes")
+						var/response = tgui_alert(user, "Are you sure you want to delete all information saved on the card?", "Delete Card Information", list("No", "Yes"))
 						if(response == "Yes")
 							name = initial(name)
 							registered_name = initial(registered_name)

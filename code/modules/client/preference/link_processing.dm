@@ -13,7 +13,7 @@
 				active_character.SetChoices(user)
 			if("learnaboutselection")
 				if(GLOB.configuration.url.wiki_url)
-					if(alert("Would you like to open the Job selection info in your browser?", "Open Job Selection", "Yes", "No") == "Yes")
+					if(tgui_alert(user, "Would you like to open the Job selection info in your browser?", "Open Job Selection", list("Yes", "No")) == "Yes")
 						user << link("[GLOB.configuration.url.wiki_url]/index.php/Job_Selection_and_Assignment")
 				else
 					to_chat(user, "<span class='danger'>The Wiki URL is not set in the server configuration.</span>")
@@ -1237,7 +1237,7 @@
 								keybindings_overrides -= KB.name
 
 					else if(href_list["all"])
-						var/yes = alert(user, "Really [href_list["all"]] all key bindings?", "Confirm", "Yes", "No") == "Yes"
+						var/yes = tgui_alert(user, "Really [href_list["all"]] all key bindings?", "Confirm", list("Yes", "No")) == "Yes"
 						if(yes)
 							switch(href_list["all"])
 								if("reset")

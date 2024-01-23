@@ -516,7 +516,7 @@
 		catastasis = "STANDARD"
 		opposite_catastasis = "BROAD"
 
-	var/choice = alert("Current receiver spectrum is set to: [catastasis]", "Multitool-Circuitboard interface", "Switch to [opposite_catastasis]", "Cancel")
+	var/choice = tgui_alert(user, "Current receiver spectrum is set to: [catastasis]", "Multitool-Circuitboard interface", list("Switch to [opposite_catastasis]", "Cancel"))
 	if(choice == "Cancel")
 		return
 

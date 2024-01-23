@@ -186,7 +186,7 @@
 	target = null
 	location = null
 
-	switch(alert("Please select the mode you want to put the pinpointer in.", "Pinpointer Mode Select", "Location", "Disk Recovery", "Other Signature"))
+	switch(tgui_alert("Please select the mode you want to put the pinpointer in.", "Pinpointer Mode Select", list("Location", "Disk Recovery", "Other Signature")))
 		if("Location")
 			setting = SETTING_LOCATION
 
@@ -211,7 +211,7 @@
 
 		if("Other Signature")
 			setting = SETTING_OBJECT
-			switch(alert("Search for item signature or DNA fragment?" , "Signature Mode Select" , "Item" , "DNA"))
+			switch(tgui_alert("Search for item signature or DNA fragment?", "Signature Mode Select", list("Item", "DNA")))
 				if("Item")
 					var/list/item_names[0]
 					var/list/item_paths[0]

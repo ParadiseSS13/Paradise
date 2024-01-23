@@ -278,7 +278,7 @@
 		to_chat(user, "<span class='notice'>The injector is empty!</span>")
 		return
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once.
-	var/choice = alert(user, "The injector is still unused. Do you wish to use it?", "Fireproofing injector", "Yes", "No")
+	var/choice = tgui_alert(user, "The injector is still unused. Do you wish to use it?", "Fireproofing injector", list("Yes", "No"))
 	if(choice == "No")
 		to_chat(user, "<span class='notice'>You decide against using [src].</span>")
 		used = FALSE

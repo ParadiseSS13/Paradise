@@ -189,7 +189,7 @@
 
 
 		var/signature
-		if(alert(user,"Would you like to add your signature?",,"Yes","No") == "Yes")
+		if(tgui_alert(user, "Would you like to add your signature?", "Signature", list("Yes","No")) == "Yes")
 			signature = "<font face=\"[SIGNFONT]\"><i>[user ? user.real_name : "Anonymous"]</i></font>"
 		else
 			signature = "<span class=\"paper_field\"></span>"

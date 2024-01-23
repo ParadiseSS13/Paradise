@@ -282,7 +282,7 @@
 		to_chat(user, "[used_message]")
 		return
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once, polling ghosts multiple times, and receiving multiple guardians.
-	var/choice = alert(user, "[confirmation_message]",, "Yes", "No")
+	var/choice = tgui_alert(user, "[confirmation_message]", "Confirm", list("Yes", "No"))
 	if(choice == "No")
 		to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
 		used = FALSE

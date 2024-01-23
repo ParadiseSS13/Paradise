@@ -456,7 +456,7 @@
 	if(IsSleeping())
 		to_chat(src, "<span class='notice'>You are already sleeping.</span>")
 		return
-	if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
+	if(tgui_alert(src, "You sure you want to sleep for a while?", "Sleep", list("Yes", "No")) == "Yes")
 		SetSleeping(40 SECONDS, voluntary = TRUE) //Short nap
 
 /mob/living/verb/rest()

@@ -19,7 +19,7 @@
 	set desc = "Visit the forum."
 	set hidden = 1
 	if(GLOB.configuration.url.forum_url)
-		if(alert("Open the forum in your browser?", null, "Yes", "No") == "Yes")
+		if(tgui_alert(src, "Open the forum in your browser?", "Forum", list("Yes", "No")) == "Yes")
 			if(GLOB.configuration.url.forum_link_url && prefs && !prefs.fuid)
 				link_forum_account()
 			src << link(GLOB.configuration.url.forum_url)
@@ -31,7 +31,7 @@
 	set desc = "View the server rules."
 	set hidden = 1
 	if(GLOB.configuration.url.rules_url)
-		if(alert("This will open the rules in your browser. Are you sure?", null, "Yes", "No") == "No")
+		if(tgui_alert(src, "This will open the rules in your browser. Are you sure?", "Rules", list("Yes", "No")) == "No")
 			return
 		src << link(GLOB.configuration.url.rules_url)
 	else
@@ -42,7 +42,7 @@
 	set desc = "Visit the GitHub page."
 	set hidden = 1
 	if(GLOB.configuration.url.github_url)
-		if(alert("This will open our GitHub repository in your browser. Are you sure?", null, "Yes", "No") == "No")
+		if(tgui_alert(src, "This will open our GitHub repository in your browser. Are you sure?", "GitHub", list("Yes", "No")) == "No")
 			return
 		src << link(GLOB.configuration.url.github_url)
 	else
@@ -65,7 +65,7 @@
 	if(!durl)
 		to_chat(src, "<span class='danger'>The Discord URL is not set in the server configuration.</span>")
 		return
-	if(alert("This will invite you to our Discord server. Are you sure?", null, "Yes", "No") == "No")
+	if(tgui_alert(src, "This will invite you to our Discord server. Are you sure?", "Discord", list("Yes", "No")) == "No")
 		return
 	src << link(durl)
 
@@ -74,7 +74,7 @@
 	set desc = "Donate to help with hosting costs."
 	set hidden = 1
 	if(GLOB.configuration.url.donations_url)
-		if(alert("This will open the donation page in your browser. Are you sure?", null, "Yes", "No") == "No")
+		if(tgui_alert(src, "This will open the donation page in your browser. Are you sure?", "Donate", list("Yes", "No")) == "No")
 			return
 		src << link(GLOB.configuration.url.donations_url)
 	else

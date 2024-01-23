@@ -368,12 +368,12 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		if(!C)	return
 		asked.Add(C.key)
 		asked[C.key] = world.time
-		var/response = alert(C, "Someone is requesting a pAI personality. Would you like to play as a personal AI?", "pAI Request", "Yes", "No", "Never for this round")
+		var/response = tgui_alert(C, "Someone is requesting a pAI personality. Would you like to play as a personal AI?", "pAI Request", list("Yes", "No", "Never for this round"))
 		if(!C)	return		//handle logouts that happen whilst the alert is waiting for a response.
 		if(response == "Yes")
 			recruitWindow(C.mob)
 		else if(response == "Never for this round")
-			var/warning = alert(C, "Are you sure? This action will be undoable and you will need to wait until next round.", "You sure?", "Yes", "No")
+			var/warning = tgui_alert(C, "Are you sure? This action will be undoable and you will need to wait until next round.", "You sure?", list("Yes", "No"))
 			if(warning == "Yes")
 				asked[C.key] = INFINITY
 			else

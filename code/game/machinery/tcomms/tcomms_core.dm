@@ -302,7 +302,7 @@
 		if("unlink")
 			var/obj/machinery/tcomms/relay/R = locate(params["addr"])
 			if(istype(R, /obj/machinery/tcomms/relay))
-				var/confirm = alert("Are you sure you want to unlink this relay?\nID: [R.network_id]\nADDR: \ref[R]", "Relay Unlink", "Yes", "No")
+				var/confirm = tgui_alert(usr, "Are you sure you want to unlink this relay?\nID: [R.network_id]\nADDR: \ref[R]", "Relay Unlink", list("Yes", "No"))
 				if(confirm == "Yes")
 					log_action(usr, "has unlinked tcomms relay with ID [R.network_id] from tcomms core with ID [network_id]", TRUE)
 					R.Reset()
@@ -332,7 +332,7 @@
 			if(!(name_to_remove in nttc.filtering))
 				to_chat(usr, "<span class='alert'><b>ERROR:</b> Name does not exist in filter list. Please file an issue report.</span>")
 			else
-				var/confirm = alert(usr, "Are you sure you want to remove [name_to_remove] from the filtering list?", "Confirm Removal", "Yes", "No")
+				var/confirm = tgui_alert(usr, "Are you sure you want to remove [name_to_remove] from the filtering list?", "Confirm Removal", list("Yes", "No"))
 				if(confirm == "Yes")
 					nttc.filtering -= name_to_remove
 					log_action(usr, "has removed [name_to_remove] from the NTTC filter list on core with ID [network_id]", TRUE)

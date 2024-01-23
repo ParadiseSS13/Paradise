@@ -66,7 +66,7 @@
 			return
 
 		if(length(H.cards) > 1)
-			var/confirm = alert("Are you sure you want to put your [length(H.cards)] cards back into the deck?", "Return Hand", "Yes", "No")
+			var/confirm = tgui_alert(user, "Are you sure you want to put your [length(H.cards)] cards back into the deck?", "Return Hand", list("Yes", "No"))
 			if(confirm == "No" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 				return
 		for(var/datum/playingcard/P in H.cards)

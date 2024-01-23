@@ -76,7 +76,7 @@
 		to_chat(owner, "<span class='warning'>This ability is still recharging.</span>")
 		return
 
-	var/confirm = alert("Are you sure you want replace your guardian's player?", "Confirm", "Yes", "No")
+	var/confirm = tgui_alert(owner, "Are you sure you want replace your guardian's player?", "Confirm", list("Yes", "No"))
 	if(confirm == "No")
 		return
 

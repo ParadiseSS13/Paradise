@@ -10,7 +10,7 @@
  * * timeout - The timeout of the alert, after which the modal will close and qdel itself. Set to zero for no timeout.
  * * autofocus - The bool that controls if this alert should grab window focus.
  */
-/proc/tgui_alert(mob/user, message = "", title, list/buttons = list("Ok"), timeout = 0, autofocus = TRUE, ui_state = GLOB.always_state)
+/proc/tgui_alert(mob/user, message = "", title = "Alert", list/buttons = list("Ok"), timeout = 0, autofocus = TRUE, ui_state = GLOB.always_state)
 	if(!user)
 		user = usr
 

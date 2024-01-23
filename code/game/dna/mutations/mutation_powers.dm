@@ -734,7 +734,7 @@
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = M.get_int_organ(/obj/item/organ/internal/eyes)
 
-	var/new_gender = alert(user, "Please select gender.", "Character Generation", "Male", "Female")
+	var/new_gender = tgui_alert(user, "Please select gender.", "Character Generation", list("Male", "Female"))
 	if(new_gender)
 		if(new_gender == "Male")
 			M.change_gender(MALE)

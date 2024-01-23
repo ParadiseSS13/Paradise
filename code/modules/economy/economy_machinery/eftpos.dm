@@ -198,7 +198,7 @@
 	if(!GLOB.station_money_database.try_authenticate_login(D, attempt_pin, restricted_bypass = FALSE))
 		to_chat(user, "[bicon(src)]<span class='warning'>Unable to access account, insufficient access.</span>")
 		return
-	if(alert("Are you sure you want to pay $[transaction_amount] to: [linked_account.account_name] ", "Confirm transaction", "Yes", "No") != "Yes")
+	if(tgui_alert(user, "Are you sure you want to pay $[transaction_amount] to: [linked_account.account_name]", "Confirm transaction", list("Yes", "No")) != "Yes")
 		return
 	if(!Adjacent(user))
 		return

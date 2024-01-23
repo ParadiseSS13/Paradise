@@ -186,7 +186,7 @@
 			if(isAI(ui.user) || isrobot(ui.user))
 				to_chat(ui.user, "<span class='warning'>Firewalls prevent you from recalling the shuttle.</span>")
 				return
-			var/response = alert("Are you sure you wish to recall the shuttle?", "Confirm", "Yes", "No")
+			var/response = tgui_alert(usr, "Are you sure you wish to recall the shuttle?", "Confirm", list("Yes", "No"))
 			if(response == "Yes")
 				cancel_call_proc(ui.user)
 				if(SSshuttle.emergency.timer)

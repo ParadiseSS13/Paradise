@@ -748,11 +748,11 @@
 		return
 	var/tracking_target = locateUID(tracking_target_UID)
 	if(tracking_target)
-		if(alert("Do you want to clear the tracker?", "Tracker reset", "Yes", "No") == "Yes")
+		if(tgui_alert(user, "Do you want to clear the tracker?", "Tracker reset", list("Yes", "No")) == "Yes")
 			to_chat(user, "<span class='notice'>[src] stops tracking [tracking_target]</span>")
 			stop_pointing()
 	if(linked_pinpointer_UID)
-		if(alert("Do you want to clear the linked pinpointer?", "Pinpointer reset", "Yes", "No") == "Yes")
+		if(tgui_alert(user, "Do you want to clear the linked pinpointer?", "Pinpointer reset", list("Yes", "No")) == "Yes")
 			to_chat(user, "<span class='notice'>[src] is ready to be linked to a new pinpointer.</span>")
 			unlink()
 
