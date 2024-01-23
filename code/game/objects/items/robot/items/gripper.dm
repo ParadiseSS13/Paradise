@@ -142,24 +142,6 @@
 
 
 // ===================
-// interactions
-// ===================
-/mob/living/silicon/robot/proc/module_gripper_drop()
-	var/obj/item/gripper/G = locate(/obj/item/gripper) in module.modules
-	if(G?.drop_gripped_item(silent = TRUE))
-		return TRUE
-	return FALSE
-
-/datum/keybinding/mob/drop_held_object/can_use(client/C, mob/M)
-	return !isrobot(M) && ..()   // robots on 'q' have their own proc for drop, in keybindinds/robot.dm
-
-/obj/structure/morgue/attack_ai(mob/user)
-	add_hiddenprint(user)
-	return attack_hand(user)
-
-
-
-// ===================
 // different grippers
 // ===================
 /obj/item/gripper/engineering

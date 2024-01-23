@@ -257,3 +257,9 @@
 		hands.icon_state = "nomod"
 	else
 		hands.icon_state = lowertext(module.module_type)
+
+/mob/living/silicon/robot/proc/module_gripper_drop()
+	var/obj/item/gripper/G = locate(/obj/item/gripper) in module.modules
+	if(G?.drop_gripped_item(silent = TRUE))
+		return TRUE
+	return FALSE
