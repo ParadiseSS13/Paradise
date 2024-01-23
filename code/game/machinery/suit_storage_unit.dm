@@ -173,6 +173,7 @@
 	req_access = list(ACCESS_MINING_STATION)
 
 /obj/machinery/suit_storage_unit/cmo
+	name = "chief medical officer's suit storage unit"
 	mask_type = /obj/item/clothing/mask/breath
 	suit_type = /obj/item/mod/control/pre_equipped/medical
 	req_access = list(ACCESS_CMO)
