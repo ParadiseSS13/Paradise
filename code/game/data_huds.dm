@@ -503,7 +503,7 @@
 	holder.icon_state = "hudjani"
 	holder.alpha = 130
 	holder.plane = ABOVE_LIGHTING_PLANE
-	holder.appearance_flags = RESET_COLOR | RESET_ALPHA
+	holder.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	I'll just put this somewhere near the end...
