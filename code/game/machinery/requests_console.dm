@@ -352,7 +352,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(!silent)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 		atom_say(title)
-		if (reminder_timer_id == TIMER_ID_NULL)
+		if(reminder_timer_id == TIMER_ID_NULL)
 			reminder_timer_id = addtimer(CALLBACK(src, PROC_REF(remind_unread_messages)), 5 MINUTES, TIMER_STOPPABLE | TIMER_LOOP)
 
 	switch(priority)
