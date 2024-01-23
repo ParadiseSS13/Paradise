@@ -88,7 +88,7 @@
 	src.title = title
 	src.state = ui_state
 
-	if (timeout)
+	if(timeout)
 		src.timeout = timeout
 		start_time = world.time
 		QDEL_IN(src, timeout)
@@ -138,7 +138,7 @@
 
 /datum/tgui_input_text/ui_act(action, list/params)
 	. = ..()
-	if (.)
+	if(.)
 		return
 
 	switch(action)

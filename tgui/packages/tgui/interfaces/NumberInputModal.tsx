@@ -2,7 +2,7 @@ import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { KEY_ENTER, KEY_ESCAPE } from '../../common/keycodes';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, NumberInput, Section, Stack } from '../components';
+import { Box, Button, RestrictedInput, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 type NumberInputData = {
@@ -75,6 +75,7 @@ const InputArea = (props, context) => {
   const { act, data } = useBackend<NumberInputData>(context);
   const { min_value, max_value, init_value, round_value } = data;
   const { input, onClick, onChange } = props;
+  const split_value = Math.round((input !== min_value ? input : max_value) / 2);
   return (
     <Stack fill>
       <Stack.Item>
@@ -86,7 +87,7 @@ const InputArea = (props, context) => {
         />
       </Stack.Item>
       <Stack.Item grow>
-        <NumberInput
+        <RestrictedInput
           autoFocus
           autoSelect
           fluid
@@ -104,6 +105,14 @@ const InputArea = (props, context) => {
           icon="angle-double-right"
           onClick={() => onClick(max_value)}
           tooltip={max_value ? `Max (${max_value})` : 'Max'}
+        />
+      </Stack.Item>
+      <Stack.Item>
+        <Button
+          disabled={input === 1}
+          icon="divide"
+          onClick={() => onClick(split_value)}
+          tooltip={input !== 1 ? `Split (${split_value})` : 'Split'}
         />
       </Stack.Item>
       <Stack.Item>
