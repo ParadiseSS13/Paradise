@@ -154,7 +154,7 @@
 				var/attempt_code = input("Enter EFTPOS access code", "Reset Transaction") as num
 				if(!check_user_position(user))
 					return
-				if(attempt_code == access_code)
+				if(attempt_code == access_code || isrobot(user))
 					transaction_locked = FALSE
 					transaction_paid = FALSE
 			else if(linked_account)

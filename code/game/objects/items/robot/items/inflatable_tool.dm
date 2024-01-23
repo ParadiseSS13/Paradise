@@ -1,0 +1,46 @@
+/obj/item/inflatable/cyborg
+	name = "inflatable wall"
+	desc = "A folded membrane which rapidly expands into a large cubical shape on activation."
+	var/power_use = 400
+	var/structure_type = /obj/structure/inflatable
+	var/delay = 1 SECONDS
+
+/obj/item/inflatable/cyborg/door
+	name = "inflatable door"
+	desc = "A folded membrane which rapidly expands into a simple door on activation."
+	icon_state = "folded_door"
+	power_use = 600
+	structure_type = /obj/structure/inflatable/door
+
+/obj/item/inflatable/cyborg/examine(mob/user)
+	. = ..()
+	. += span_notice("As a synthetic, you can restore them to <b>cyborg recharger</b>")
+
+/obj/item/inflatable/cyborg/attack_self(mob/user)
+	if(locate(/obj/structure/inflatable) in get_turf(user))
+		to_chat(user, span_warning("There's already an inflatable wall!"))
+		return FALSE
+
+	if(!do_after(user, delay))
+		return FALSE
+
+	playsound(loc, 'sound/items/zip.ogg', 75, 1)
+	to_chat(user, span_notice("You inflate [name]"))
+	var/obj/structure/inflatable/R = new structure_type(user.loc)
+	transfer_fingerprints_to(R)
+	R.add_fingerprint(user)
+	useResource(user)
+
+/obj/item/inflatable/cyborg/proc/useResource(mob/user)
+	if(!isrobot(user))
+		return FALSE
+	var/mob/living/silicon/robot/R = user
+	if(R.cell.charge < power_use)
+		to_chat(user, span_warning("Not enough power!"))
+		return FALSE
+	return R.cell.use(power_use)
+
+// Небольшой багфикс "непрозрачного открытого шлюза"
+/obj/structure/inflatable/door/operate()
+	. = ..()
+	opacity = FALSE

@@ -147,7 +147,6 @@
 		flick("door_closing",src)
 	sleep(10)
 	density = !density
-	opacity = !opacity
 	state_open = !state_open
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE

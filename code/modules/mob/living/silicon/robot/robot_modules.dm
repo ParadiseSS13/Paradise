@@ -333,7 +333,7 @@
 		/obj/item/handheld_defibrillator,
 		/obj/item/roller_holder,
 		/obj/item/borg/cyborghug,
-		/obj/item/reagent_containers/borghypo,
+		/obj/item/reagent_containers/borghypo/basic,
 		/obj/item/scalpel/laser/laser1,
 		/obj/item/hemostat,
 		/obj/item/retractor,
@@ -350,7 +350,10 @@
 		/obj/item/stack/medical/ointment/advanced/cyborg,
 		/obj/item/stack/medical/splint/cyborg,
 		/obj/item/stack/nanopaste/cyborg,
-		/obj/item/gripper_medical
+		/obj/item/crowbar/cyborg,
+		/obj/item/gps/cyborg,
+		/obj/item/rlf,
+		/obj/item/gripper/medical,
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_facid)
 	special_rechargables = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/extinguisher/mini)
@@ -400,7 +403,7 @@
 		/obj/item/analyzer,
 		/obj/item/geiger_counter/cyborg,
 		/obj/item/holosign_creator/engineering,
-		/obj/item/gripper_engineering,
+		/obj/item/gripper/engineering,
 		/obj/item/matter_decompiler,
 		/obj/item/painter,
 		/obj/item/areaeditor/blueprints/cyborg,
@@ -410,17 +413,16 @@
 		/obj/item/stack/tile/catwalk/cyborg,
 		/obj/item/stack/cable_coil/cyborg,
 		/obj/item/stack/sheet/glass/cyborg,
-		/obj/item/stack/sheet/rglass/cyborg
+		/obj/item/stack/sheet/rglass/cyborg,
+		/obj/item/inflatable/cyborg,
+		/obj/item/inflatable/cyborg/door,
+		/obj/item/gps/cyborg,
 	)
 	emag_modules = list(/obj/item/borg/stun, /obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/rcd/borg)
 	override_modules = list(/obj/item/gun/energy/emitter/cyborg/proto)
 	malf_modules = list(/obj/item/gun/energy/emitter/cyborg)
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg)
 
-/obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper_engineering/G = locate(/obj/item/gripper_engineering) in modules
-	if(G)
-		G.drop_gripped_item(silent = TRUE)
 
 // Security cyborg module.
 /obj/item/robot_module/security
@@ -433,7 +435,9 @@
 		/obj/item/melee/baton/loaded,
 		/obj/item/gun/energy/disabler/cyborg,
 		/obj/item/holosign_creator/security,
-		/obj/item/clothing/mask/gas/sechailer/cyborg
+		/obj/item/clothing/mask/gas/sechailer/cyborg,
+		/obj/item/crowbar/cyborg,
+		/obj/item/gps/cyborg,
 	)
 	emag_override_modules = list(/obj/item/gun/energy/laser/cyborg)
 	special_rechargables = list(
@@ -458,7 +462,9 @@
 		/obj/item/mop/advanced/cyborg,
 		/obj/item/lightreplacer/cyborg,
 		/obj/item/holosign_creator/janitor,
-		/obj/item/extinguisher/mini
+		/obj/item/extinguisher/mini,
+		/obj/item/crowbar/cyborg,
+		/obj/item/gps/cyborg,
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_lube)
 	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg)
@@ -522,7 +528,11 @@
 		/obj/item/reagent_containers/dropper/cyborg,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/bag/tray/cyborg,
-		/obj/item/reagent_containers/drinks/shaker
+		/obj/item/reagent_containers/drinks/shaker,
+		/obj/item/crowbar/cyborg,
+		/obj/item/gps/cyborg,
+		/obj/item/gripper/service,
+		/obj/item/eftpos/cyborg,
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer)
 	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg)
@@ -582,7 +592,8 @@
 		/obj/item/storage/bag/sheetsnatcher/borg,
 		/obj/item/t_scanner/adv_mining_scanner/cyborg,
 		/obj/item/gun/energy/kinetic_accelerator/cyborg,
-		/obj/item/gps/cyborg
+		/obj/item/gps/cyborg,
+		/obj/item/crowbar/cyborg,
 	)
 	emag_modules = list(/obj/item/borg/stun, /obj/item/pickaxe/drill/cyborg/diamond, /obj/item/restraints/handcuffs/cable/zipties/cyborg)
 	special_rechargables = list(/obj/item/extinguisher/mini, /obj/item/weldingtool/mini)
@@ -620,7 +631,10 @@
 		/obj/item/flash/cyborg,
 		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/gun/energy/pulse/cyborg,
-		/obj/item/crowbar/cyborg
+		/obj/item/crowbar/cyborg,
+		/obj/item/gripper/nuclear,
+		/obj/item/gps/cyborg,
+		/obj/item/pinpointer/operative/nad,
 	)
 	special_rechargables = list(/obj/item/gun/energy/pulse/cyborg)
 
@@ -635,7 +649,10 @@
 		/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg,
 		/obj/item/card/emag,
 		/obj/item/crowbar/cyborg,
-		/obj/item/pinpointer/operative
+		/obj/item/pinpointer/operative,
+		/obj/item/crowbar/cyborg,
+		/obj/item/gps/cyborg,
+		/obj/item/gripper/nuclear,
 	)
 
 // Sydicate medical cyborg module.
@@ -668,7 +685,8 @@
 		/obj/item/stack/nanopaste/cyborg/syndicate,
 		/obj/item/gun/medbeam,
 		/obj/item/extinguisher/mini,
-		/obj/item/gripper_medical
+		/obj/item/gripper/medical,
+		/obj/item/crowbar/cyborg,
 	)
 	special_rechargables = list(/obj/item/extinguisher/mini)
 
@@ -689,7 +707,7 @@
 		/obj/item/multitool/cyborg,
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
-		/obj/item/gripper_engineering,
+		/obj/item/gripper/engineering,
 		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/card/emag,
 		/obj/item/borg_chameleon,
@@ -699,7 +717,9 @@
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/cable_coil/cyborg,
 		/obj/item/stack/sheet/glass/cyborg,
-		/obj/item/stack/sheet/rglass/cyborg
+		/obj/item/stack/sheet/rglass/cyborg,
+		/obj/item/gripper/nuclear,
+		/obj/item/holosign_creator/atmos,
 	)
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg)
 
@@ -713,7 +733,12 @@
 		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
-		/obj/item/borg/destroyer/mobility
+		/obj/item/borg/destroyer/mobility,
+		/obj/item/gripper/nuclear,
+		/obj/item/crowbar/cyborg,
+		/obj/item/gps/cyborg,
+		/obj/item/pinpointer,
+		/obj/item/pinpointer/operative/nad,
 	)
 	special_rechargables = list(
 		/obj/item/melee/baton/loaded,
@@ -734,6 +759,10 @@
 		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		/obj/item/pickaxe/drill/jackhammer // for breaking walls to execute flanking moves
+		/obj/item/gripper/nuclear,
+		/obj/item/crowbar/cyborg,
+		/obj/item/gps/cyborg,
+		/obj/item/pinpointer/operative/nad,
 	)
 	special_rechargables = list(
 		/obj/item/melee/baton/loaded,
@@ -750,6 +779,9 @@
 		/obj/item/flash/cyborg/alien,
 		/obj/item/reagent_containers/spray/alien/stun,
 		/obj/item/reagent_containers/spray/alien/smoke,
+		/obj/item/crowbar/cyborg,
+		/obj/item/gps/cyborg,
+		/obj/item/pinpointer/operative/nad,
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/alien/acid)
 	special_rechargables = list(
@@ -774,7 +806,7 @@
 		/obj/item/wirecutters/cyborg/drone,
 		/obj/item/multitool/cyborg/drone,
 		/obj/item/lightreplacer/cyborg,
-		/obj/item/gripper_engineering,
+		/obj/item/gripper/engineering,
 		/obj/item/matter_decompiler,
 		/obj/item/reagent_containers/spray/cleaner/drone,
 		/obj/item/soap,
@@ -789,18 +821,14 @@
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg,
 		/obj/item/stack/sheet/wood/cyborg,
-		/obj/item/stack/tile/wood/cyborg
+		/obj/item/stack/tile/wood/cyborg,
+		/obj/item/holosign_creator/atmos,
 	)
 	special_rechargables = list(
 		/obj/item/reagent_containers/spray/cleaner/drone,
 		/obj/item/weldingtool/largetank/cyborg,
 		/obj/item/lightreplacer/cyborg
 	)
-
-/obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper_engineering/G = locate(/obj/item/gripper_engineering) in modules
-	if(G)
-		G.drop_gripped_item(silent = TRUE)
 
 /// Checks whether this item is a module of the robot it is located in.
 /obj/item/proc/is_robot_module()
