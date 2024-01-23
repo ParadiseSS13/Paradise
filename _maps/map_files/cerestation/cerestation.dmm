@@ -77446,6 +77446,15 @@
 "rWb" = (
 /turf/simulated/mineral/ancient,
 /area/station/maintenance/fsmaint)
+"rWp" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/disposal/external/southeast)
 "rWs" = (
 /obj/machinery/light,
 /obj/structure/disposalpipe/segment{
@@ -156428,7 +156437,7 @@ cBe
 cBe
 cBe
 fyo
-fXl
+rWp
 gTd
 gTd
 gTd
@@ -156697,12 +156706,12 @@ rUX
 rUX
 rUX
 rUX
-rUX
 cMv
 rUX
 rUX
 rUX
 rUX
+cMv
 rUX
 rUX
 rZc
