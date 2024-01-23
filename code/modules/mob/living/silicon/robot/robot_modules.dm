@@ -317,7 +317,7 @@
 	return FALSE
 
 /obj/item/robot_module/proc/handle_death(mob/living/silicon/robot/R, gibbed)
-	return
+	R.module_gripper_drop()
 
 // Medical cyborg module.
 /obj/item/robot_module/medical
@@ -574,6 +574,7 @@
 	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
 	if(istype(T))
 		T.drop_inventory(R)
+	. = ..()
 
 
 /obj/item/robot_module/miner
@@ -758,7 +759,7 @@
 		// Overall, gamma borg has higher skill floor but lower skill ceiling.
 		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
-		/obj/item/pickaxe/drill/jackhammer // for breaking walls to execute flanking moves
+		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
 		/obj/item/gripper/nuclear,
 		/obj/item/crowbar/cyborg,
 		/obj/item/gps/cyborg,

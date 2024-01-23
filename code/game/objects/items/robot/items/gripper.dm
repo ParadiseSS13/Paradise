@@ -31,7 +31,7 @@
 
 /obj/item/gripper/attack_self(mob/user)
 	if(!gripped_item)
-		to_chat(user, span_warning("[src] is empty."))
+		to_chat(user, "<span class='warning'>[src] is empty.</span>")
 		return
 	gripped_item.attack_self(user)
 
@@ -53,7 +53,7 @@
 	if(!gripped_item)
 		return FALSE
 	if(!silent)
-		to_chat(loc, span_warning("You drop [gripped_item]."))
+		to_chat(loc, "<span class='warning'>You drop [gripped_item].</span>")
 	gripped_item.forceMove(get_turf(src))
 	gripped_item = null
 	return TRUE
@@ -90,11 +90,11 @@
 	else if(istype(target, /obj/item)) // Check that we're not pocketing a mob.
 		var/obj/item/I = target
 		if(is_type_in_typecache(I, can_hold)) // Make sure the item is something the gripper can hold
-			to_chat(user, span_notice("You collect [I]."))
+			to_chat(user, "<span class='notice'>You collect [I].</span>")
 			I.forceMove(src)
 			gripped_item = I
 		else
-			to_chat(user, span_warning("Your gripper cannot hold [target]."))
+			to_chat(user, "<span class='warning'>Your gripper cannot hold [target].</span>")
 			return FALSE
 
 	else if(istype(target, /obj/machinery/power/apc))
@@ -112,7 +112,7 @@
 				A.charging = APC_NOT_CHARGING
 				A.update_icon()
 
-				user.visible_message(span_warning("[user] removes the power cell from [A]!"), "You remove the power cell.")
+				user.visible_message("<span class='warning'>[user] removes the power cell from [A]!", "You remove the power cell.")
 
 	else if(istype(target, /obj/machinery/cell_charger))
 		var/obj/machinery/cell_charger/cell_charger = target
@@ -134,8 +134,8 @@
 		pickup_target.stand_up()
 		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		user.visible_message( \
-			span_notice("[user] shakes [pickup_target] trying to wake [pickup_target.p_them()] up!"),\
-			span_notice("You shake [pickup_target] trying to wake [pickup_target.p_them()] up!"),\
+			"<span class='notice'>[user] shakes [pickup_target] trying to wake [pickup_target.p_them()] up!",\
+			"<span class='notice'>You shake [pickup_target] trying to wake [pickup_target.p_them()] up!",\
 			)
 
 	return TRUE
@@ -144,51 +144,14 @@
 // ===================
 // interactions
 // ===================
-/turf/simulated/wall/attackby(obj/item/I, mob/user, params)
-	// The magnetic gripper does a separate attackby, so bail from this one
-	if(istype(I, /obj/item/gripper))
-		return
-
-	. = ..()
-
-/datum/surgery_step/is_valid_tool(mob/living/user, obj/item/tool)
-	if(..())
-		return TRUE
-
-	var/success = FALSE
-	if(accept_hand)
-		if(isrobot(user) && istype(tool, /obj/item/gripper/medical))
-			success = TRUE
-	return success
-
-
-// Returns the thing in our gripper
-/mob/living/silicon/robot/get_active_hand()
-	if(istype(module_active, /obj/item/gripper))
-		var/obj/item/gripper/M = module_active
-		if(M.gripped_item)
-			return M.gripped_item
-		return M
-	. = ..()
-
 /mob/living/silicon/robot/proc/module_gripper_drop()
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in module.modules
 	if(G?.drop_gripped_item(silent = TRUE))
 		return TRUE
 	return FALSE
 
-/obj/item/robot_module/handle_death(mob/living/silicon/robot/R, gibbed)
-	R.module_gripper_drop()
-
-/obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
-	R.module_gripper_drop()
-
 /datum/keybinding/mob/drop_held_object/can_use(client/C, mob/M)
 	return !isrobot(M) && ..()   // robots on 'q' have their own proc for drop, in keybindinds/robot.dm
-
-/obj/machinery/reagentgrinder/attack_ai(mob/user)
-	add_hiddenprint(user)
-	return attack_hand(user)
 
 /obj/structure/morgue/attack_ai(mob/user)
 	add_hiddenprint(user)
@@ -264,7 +227,7 @@
 /obj/item/gripper/nuclear
 	name = "Nuclear gripper"
 	desc = "Designed for all your nuclear needs."
-	icon = 'modular_ss220/silicons/icons/robot_tools.dmi'
+	icon = 'icons/mob/robot_items.dmi'
 	icon_state = "diskgripper"
 	can_hold = list(/obj/item/disk/nuclear)
 

@@ -135,8 +135,16 @@
 /obj/item/reagent_containers/borghypo/basic
 	name = "Basic Medical Hypospray"
 	desc = "A very basic medical hypospray, capable of providing simple medical treatment in emergencies."
-	reagent_ids = list("salglu_solution", "epinephrine")
+	reagent_ids = list("salglu_solution", "epinephrine", "sal_acid", "charcoal")
 	total_reagents = 30
 	maximum_reagents = 30
+
+/obj/item/reagent_containers/borghypo/basic/upgraded
+	name = "Upgraded Medical Hypospray"
+	desc = "Upgraded medical hypospray, capable of providing standart medical treatment."
+	reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "sal_acid",
+	"charcoal", "hydrocodone", "mannitol", "salbutamol", "styptic_powder")
+	total_reagents = 60
+	maximum_reagents = 60
 
 #undef BORGHYPO_REFILL_VALUE

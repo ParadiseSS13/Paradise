@@ -14,18 +14,18 @@
 
 /obj/item/inflatable/cyborg/examine(mob/user)
 	. = ..()
-	. += span_notice("As a synthetic, you can restore them to <b>cyborg recharger</b>")
+	. += "<span class='notice'>As a synthetic, you can restore them to <b>cyborg recharger</b></span>"
 
 /obj/item/inflatable/cyborg/attack_self(mob/user)
 	if(locate(/obj/structure/inflatable) in get_turf(user))
-		to_chat(user, span_warning("There's already an inflatable wall!"))
+		to_chat(user, "<span class='warning'>There's already an inflatable wall!</span>")
 		return FALSE
 
-	if(!do_after(user, delay))
+	if(!do_after(user, delay, FALSE, user))
 		return FALSE
 
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
-	to_chat(user, span_notice("You inflate [name]"))
+	to_chat(user, "<span class='notice'>You inflate [name]</span>")
 	var/obj/structure/inflatable/R = new structure_type(user.loc)
 	transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
@@ -36,11 +36,6 @@
 		return FALSE
 	var/mob/living/silicon/robot/R = user
 	if(R.cell.charge < power_use)
-		to_chat(user, span_warning("Not enough power!"))
+		to_chat(user, "<span class='warning'>Not enough power!</span>")
 		return FALSE
 	return R.cell.use(power_use)
-
-// Небольшой багфикс "непрозрачного открытого шлюза"
-/obj/structure/inflatable/door/operate()
-	. = ..()
-	opacity = FALSE

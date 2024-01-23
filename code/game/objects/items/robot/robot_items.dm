@@ -141,11 +141,9 @@
 	icon = 'icons/obj/decals.dmi'
 	icon_state = "shock"
 
-
 /obj/item/eftpos/cyborg
 	name = "Silicon EFTPOS"
 	transaction_purpose = "Robotic purchases."
-
 
 /obj/item/eftpos/cyborg/Initialize(mapload)
 	. = ..()
