@@ -358,7 +358,6 @@ REAGENT SCANNER
 	robot_healthscan(user, M)
 	add_fingerprint(user)
 
-
 /proc/robot_healthscan(mob/user, mob/living/M)
 	var/scan_type
 	var/list/msgs = list()
