@@ -68,7 +68,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
  * This is for objectives that have reason to update their text, such as target changes.
  */
 /datum/objective/proc/update_explanation_text()
-	return
+	stack_trace("Objective [type]'s update_explanation_text was not overridden.")
 
 /**
  * Get all owners of the objective, including ones from the objective's team, if it has one.
@@ -558,20 +558,25 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Free Objective."
 
 /datum/objective/steal/proc/select_target()
-	var/list/possible_items_all = GLOB.potential_theft_objectives+"custom"
+	var/list/possible_items_all = GLOB.potential_theft_objectives + "custom"
 	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
-	if(!new_target) return
+	if(!new_target)
+		return
+
 	if(new_target == "custom")
-		var/datum/theft_objective/O=new
-		O.typepath = input("Select type:","Type") as null|anything in typesof(/obj/item)
-		if(!O.typepath) return
-		var/tmp_obj = new O.typepath
-		var/custom_name = tmp_obj:name
-		qdel(tmp_obj)
-		O.name = sanitize(copytext(input("Enter target name:", "Objective target", custom_name) as text|null,1,MAX_NAME_LEN))
-		if(!O.name) return
-		steal_target = O
-		explanation_text = "Steal [O.name]."
+		var/obj/item/steal_target_path = input("Select type:","Type") as null|anything in typesof(/obj/item)
+		if(!steal_target_path)
+			return
+
+		var/theft_objective_name = sanitize(copytext(input("Enter target name:", "Objective target", initial(steal_target_path.name)) as text|null, 1, MAX_NAME_LEN))
+		if(!theft_objective_name)
+			return
+
+		var/datum/theft_objective/target_theft_objective = new
+		target_theft_objective.typepath = steal_target_path
+		target_theft_objective.name = theft_objective_name
+		steal_target = target_theft_objective
+		explanation_text = "Steal [theft_objective_name]."
 	else
 		steal_target = new new_target
 		update_explanation_text()
@@ -597,23 +602,46 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return FALSE
 
 /datum/objective/steal/proc/give_kit(obj/item/item_path)
-	var/I = new item_path
-	var/list/slots = list(
+	var/list/datum/mind/objective_owners = get_owners()
+	if(!length(objective_owners))
+		return
+
+	var/obj/item/item_to_give = new item_path
+	var/static/list/slots = list(
 		"backpack" = SLOT_HUD_IN_BACKPACK,
 		"left pocket" = SLOT_HUD_LEFT_STORE,
 		"right pocket" = SLOT_HUD_RIGHT_STORE,
 		"left hand" = SLOT_HUD_LEFT_HAND,
 		"right hand" = SLOT_HUD_RIGHT_HAND,
 	)
-	for(var/datum/mind/M in get_owners())
-		var/mob/living/carbon/human/H = M.current
-		var/where = H.equip_in_one_of_slots(I, slots)
-		if(where)
-			to_chat(H, "<br><br><span class='info'>In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
-		else
-			to_chat(H, "<span class='userdanger'>Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
-			message_admins("[ADMIN_LOOKUPFLW(H)] Failed to spawn with their [item_path] theft kit.")
-			qdel(I)
+
+	for(var/datum/mind/kit_receiver_mind as anything in shuffle(objective_owners))
+		var/mob/living/carbon/human/kit_receiver = kit_receiver_mind.current
+		if(!kit_receiver)
+			continue
+
+		var/where = kit_receiver.equip_in_one_of_slots(item_to_give, slots)
+		if(!where)
+			continue
+
+		to_chat(kit_receiver, "<br><br><span class='info'>In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
+		for(var/datum/mind/objective_owner as anything in objective_owners)
+			if(kit_receiver_mind == objective_owner || !objective_owner.current)
+				continue
+
+			to_chat(objective_owner.current, "<br><br>[kit_receiver] has received a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
+
+		return
+
+	qdel(item_to_give)
+
+	for(var/datum/mind/objective_owner as anything in objective_owners)
+		var/mob/living/carbon/human/failed_receiver = objective_owner.current
+		if(!failed_receiver)
+			continue
+
+		to_chat(failed_receiver, "<span class='userdanger'>Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
+		message_admins("[ADMIN_LOOKUPFLW(failed_receiver)] Failed to spawn with their [item_path] theft kit.")
 
 
 /datum/objective/absorb
@@ -665,11 +693,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	update_explanation_text()
 	return target
 
-/datum/objective/destory/update_explanation_text()
-	var/target_real_name
+/datum/objective/destroy/update_explanation_text()
 	if(target?.current)
-		target_real_name = target.current.real_name
-		explanation_text = "Destroy [target_real_name], the AI."
+		explanation_text = "Destroy [target.current.real_name], the AI."
 	else
 		explanation_text = "Free Objective"
 

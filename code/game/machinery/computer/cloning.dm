@@ -142,8 +142,13 @@
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "CloningConsole", "Cloning Console", 640, 520)
+		ui = new(user, src, "CloningConsole", "Cloning Console")
 		ui.open()
+
+/obj/machinery/computer/cloning/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/cloning)
+	)
 
 /obj/machinery/computer/cloning/ui_data(mob/user)
 	var/list/data = list()

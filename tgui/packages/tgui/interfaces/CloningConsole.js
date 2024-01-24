@@ -11,6 +11,7 @@ import {
   Icon,
 } from '../components';
 import { Window } from '../layouts';
+import { resolveAsset } from '../assets';
 
 const brokenFlag = 1 << 0;
 const internalBleedingFlag = 1 << 5;

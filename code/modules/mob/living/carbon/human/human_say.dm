@@ -27,6 +27,9 @@
 	return ..()
 
 /mob/living/carbon/human/proc/HasVoiceChanger()
+	var/datum/status_effect/magic_disguise/S = has_status_effect(/datum/status_effect/magic_disguise)
+	if(S && S.disguise && S.disguise.name)
+		return S.disguise.name
 	for(var/obj/item/gear in list(wear_mask, wear_suit, head))
 		if(!gear)
 			continue
@@ -64,10 +67,10 @@
 		return TRUE
 	// how do species that don't breathe talk? magic, that's what.
 	var/breathes = (!HAS_TRAIT(src, TRAIT_NOBREATH))
-	var/obj/item/organ/internal/L = get_organ_slot("lungs")
+	var/datum/organ/lungs/L = get_int_organ_datum(ORGAN_DATUM_LUNGS)
 	if(HAS_TRAIT(src, TRAIT_MUTE))
 		return FALSE
-	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
+	if(breathes && (!L || L.linked_organ.status & ORGAN_DEAD))
 		return FALSE
 	if(mind)
 		return !mind.miming
@@ -158,7 +161,7 @@ GLOBAL_LIST_INIT(soapy_words, list(
 			if(prob(braindam / 4))
 				S.message = stutter(S.message)
 				verb = "gibbers"
-			if(prob(braindam))
+			else if(prob(braindam / 2))
 				S.message = uppertext(S.message)
 				verb = "yells loudly"
 

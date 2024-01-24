@@ -544,7 +544,7 @@
 
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	belt = /obj/item/storage/belt/utility/full
-	suit = /obj/item/clothing/suit/space/hardsuit/engine
+	back = /obj/item/mod/control/pre_equipped/engineering
 	shoes = /obj/item/clothing/shoes/workboots
 	mask = /obj/item/clothing/mask/breath
 	id = /obj/item/card/id/engineering
@@ -576,7 +576,7 @@
 
 /datum/outfit/job/mining/suit
 	name = "Shaft Miner"
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
+	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	uniform = /obj/item/clothing/under/rank/cargo/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots

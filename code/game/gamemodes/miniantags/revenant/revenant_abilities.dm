@@ -67,7 +67,7 @@
 			if(do_after(src, 20, 0, target = target)) //how about now
 				if(!target.stat)
 					to_chat(src, "<span class='revenwarning'>They are now powerful enough to fight off your draining.</span>")
-					to_chat(target, "<span class='boldannounce'>You feel something tugging across your body before subsiding.</span>")
+					to_chat(target, "<span class='boldannounceic'>You feel something tugging across your body before subsiding.</span>")
 					draining = FALSE
 					return //hey, wait a minute...
 				to_chat(src, "<span class='revenminor'>You begin siphoning essence from [target]'s soul.</span>")

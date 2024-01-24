@@ -49,7 +49,9 @@
 		3 = "Brown",
 		4 = "Grey",
 		5 = "Emerald",
-		6 = "Azure"
+		6 = "Azure",
+		7 = "Crimson",
+		8 = "Nebula"
 		)
 
 	has_organ = list(
@@ -89,7 +91,7 @@
 		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.unEquip(H.l_hand)
 			H.equip_or_collect(internal_tank, SLOT_HUD_LEFT_HAND)
-			to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug</span>")
+			to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug</span>")
 	H.internal = internal_tank
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from [internal_tank]. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
 	H.update_action_buttons_icon()
@@ -103,6 +105,12 @@
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 		var/new_icobase = 'icons/mob/human_races/vox/r_vox.dmi' //Default Green Vox.
 		switch(H.s_tone)
+			if(8) //Nebula Vox.
+				new_icobase = 'icons/mob/human_races/vox/r_voxpurp.dmi'
+				H.tail = "voxtail_purp"
+			if(7) //Crimson Vox.
+				new_icobase = 'icons/mob/human_races/vox/r_voxcrim.dmi'
+				H.tail = "voxtail_crim"
 			if(6) //Azure Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxazu.dmi'
 				H.tail = "voxtail_azu"

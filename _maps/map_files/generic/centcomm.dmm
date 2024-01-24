@@ -855,7 +855,7 @@
 /area/centcom)
 "du" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /turf/simulated/floor/plasteel/freezer,
 /area/ninja/holding)
 "dv" = (
@@ -876,7 +876,7 @@
 /area/ninja/holding)
 "dy" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
 /turf/simulated/floor/plasteel/freezer,
 /area/ninja/holding)
 "dz" = (
@@ -1099,7 +1099,7 @@
 	pixel_y = 5;
 	pixel_x = -7
 	},
-/obj/item/reagent_containers/food/drinks/mugwort{
+/obj/item/reagent_containers/drinks/mugwort{
 	pixel_y = 6;
 	pixel_x = 8
 	},
@@ -1413,7 +1413,7 @@
 /area/ninja/holding)
 "fv" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/novelty,
+/obj/item/reagent_containers/drinks/mug/novelty,
 /obj/item/candle/eternal/wizard{
 	pixel_y = 11
 	},
@@ -1449,24 +1449,24 @@
 /area/shuttle/administration)
 "fF" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/reagent_containers/food/snacks/raw_bacon,
-/obj/item/reagent_containers/food/snacks/raw_bacon,
-/obj/item/reagent_containers/food/snacks/raw_bacon,
-/obj/item/reagent_containers/food/snacks/raw_bacon,
-/obj/item/reagent_containers/food/snacks/sausage,
-/obj/item/reagent_containers/food/snacks/sausage,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/catfishmeat,
-/obj/item/reagent_containers/food/snacks/catfishmeat,
-/obj/item/reagent_containers/food/snacks/catfishmeat,
-/obj/item/reagent_containers/food/snacks/catfishmeat,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/spaghetti,
-/obj/item/reagent_containers/food/snacks/spaghetti,
+/obj/item/food/snacks/raw_bacon,
+/obj/item/food/snacks/raw_bacon,
+/obj/item/food/snacks/raw_bacon,
+/obj/item/food/snacks/raw_bacon,
+/obj/item/food/snacks/sausage,
+/obj/item/food/snacks/sausage,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/catfishmeat,
+/obj/item/food/snacks/catfishmeat,
+/obj/item/food/snacks/catfishmeat,
+/obj/item/food/snacks/catfishmeat,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/spaghetti,
+/obj/item/food/snacks/spaghetti,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1823,6 +1823,7 @@
 	dir = 4;
 	pixel_y = 8
 	},
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "gT" = (
@@ -2390,11 +2391,11 @@
 /area/ghost_bar)
 "iv" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/tonic{
+/obj/item/reagent_containers/drinks/cans/tonic{
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "iw" = (
@@ -2633,7 +2634,7 @@
 /area/syndicate_mothership)
 "jo" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss,
+/obj/item/reagent_containers/drinks/drinkingglass/devilskiss,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "jp" = (
@@ -3686,7 +3687,7 @@
 /area/admin)
 "mz" = (
 /obj/machinery/economy/vending/boozeomat,
-/turf/simulated/wall/indestructible/riveted,
+/turf/simulated/floor/wood,
 /area/ghost_bar)
 "mA" = (
 /obj/structure/sign/poster/official/fruit_bowl,
@@ -3733,7 +3734,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
+/obj/item/clothing/suit/space/hardsuit/wizard,
 /obj/item/clothing/suit/space/santa{
 	pixel_x = 3;
 	pixel_y = -3
@@ -3843,7 +3844,7 @@
 /area/admin)
 "mV" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/trophy/bronze_cup/toolbox_win,
+/obj/item/reagent_containers/drinks/trophy/bronze_cup/toolbox_win,
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
 "mW" = (
@@ -3977,32 +3978,32 @@
 /area/abductor_ship)
 "ns" = (
 /obj/structure/rack,
-/obj/item/implanter/adrenalin{
+/obj/item/bio_chip_implanter/adrenalin{
 	pixel_x = 12;
 	pixel_y = -12
 	},
-/obj/item/implanter/emp{
+/obj/item/bio_chip_implanter/emp{
 	pixel_x = 9;
 	pixel_y = -9
 	},
-/obj/item/implanter/explosive{
+/obj/item/bio_chip_implanter/explosive{
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/obj/item/implanter/explosive_macro{
+/obj/item/bio_chip_implanter/explosive_macro{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/implanter/freedom,
-/obj/item/implanter/krav_maga{
+/obj/item/bio_chip_implanter/freedom,
+/obj/item/bio_chip_implanter/krav_maga{
 	pixel_x = -9;
 	pixel_y = 9
 	},
-/obj/item/implanter/mindshield{
+/obj/item/bio_chip_implanter/mindshield{
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/item/implanter/storage{
+/obj/item/bio_chip_implanter/storage{
 	pixel_x = -3;
 	pixel_y = 3
 	},
@@ -4103,7 +4104,7 @@
 /area/shuttle/administration)
 "nI" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = -2;
 	pixel_y = 5
 	},
@@ -4212,7 +4213,7 @@
 /area/centcom/suppy)
 "nY" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/mushroompizzaslice{
+/obj/item/food/snacks/mushroompizzaslice{
 	pixel_x = -5;
 	pixel_y = 5
 	},
@@ -4227,7 +4228,7 @@
 /area/admin)
 "ob" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = 5;
 	pixel_y = -2
 	},
@@ -4287,7 +4288,7 @@
 /area/ghost_bar)
 "om" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/trophy/gold_cup,
+/obj/item/reagent_containers/drinks/trophy/gold_cup,
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
 "on" = (
@@ -4392,11 +4393,11 @@
 /area/shuttle/trade/sol)
 "oJ" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -8;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -8
 	},
 /obj/item/kitchen/knife,
@@ -4405,7 +4406,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/item/reagent_containers/food/condiment/enzyme{
+/obj/item/reagent_containers/condiment/enzyme{
 	pixel_y = 5
 	},
 /obj/machinery/reagentgrinder{
@@ -4785,7 +4786,7 @@
 /area/holodeck/source_thunderdomecourt)
 "ql" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/mug/med,
+/obj/item/reagent_containers/drinks/mug/med,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -4795,7 +4796,7 @@
 /area/shuttle/escape)
 "qm" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "qn" = (
@@ -4850,7 +4851,7 @@
 /area/syndicate_mothership)
 "qw" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /obj/item/reagent_containers/glass/rag,
 /obj/machinery/newscaster{
 	dir = 1;
@@ -4969,7 +4970,7 @@
 "qT" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/item/reagent_containers/drinks/bottle/rum,
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "qU" = (
@@ -5110,13 +5111,13 @@
 /area/admin)
 "ro" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/grown/citrus/lemon,
-/obj/item/reagent_containers/food/snacks/grown/berries,
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/item/reagent_containers/food/snacks/grown/cherries,
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
-/obj/item/reagent_containers/food/snacks/grown/corn,
-/obj/item/reagent_containers/food/snacks/grown/mushroom/amanita,
+/obj/item/food/snacks/grown/citrus/lemon,
+/obj/item/food/snacks/grown/berries,
+/obj/item/food/snacks/grown/banana,
+/obj/item/food/snacks/grown/cherries,
+/obj/item/food/snacks/grown/citrus/orange,
+/obj/item/food/snacks/grown/corn,
+/obj/item/food/snacks/grown/mushroom/amanita,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "rp" = (
@@ -5135,6 +5136,12 @@
 /obj/item/stack/sheet/metal/fifty,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"rq" = (
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "rr" = (
 /obj/structure/table,
 /obj/item/storage/box/beakers,
@@ -5338,7 +5345,7 @@
 "rT" = (
 /obj/structure/table/wood/poker,
 /obj/item/clothing/mask/cigarette/cigar/havana,
-/obj/item/reagent_containers/food/drinks/bottle/cognac,
+/obj/item/reagent_containers/drinks/bottle/cognac,
 /turf/simulated/floor/transparent/glass,
 /area/tdome/tdomeobserve)
 "rU" = (
@@ -5505,7 +5512,7 @@
 	pixel_y = -32
 	},
 /obj/structure/rack/skeletal_bar/left,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/drinks/bottle/vodka,
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "sD" = (
@@ -5513,7 +5520,7 @@
 	pixel_y = -32
 	},
 /obj/structure/rack/skeletal_bar/right,
-/obj/item/reagent_containers/food/drinks/bottle/gin,
+/obj/item/reagent_containers/drinks/bottle/gin,
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "sE" = (
@@ -5527,7 +5534,7 @@
 /area/syndicate_mothership)
 "sF" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -5677,10 +5684,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "tr" = (
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
+/obj/machinery/light/small{
+	dir = 1
 	},
+/turf/simulated/floor/wood,
 /area/ghost_bar)
 "ts" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
@@ -6686,21 +6693,22 @@
 /area/ghost_bar)
 "wN" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -8;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -8
 	},
 /obj/item/kitchen/knife,
-/obj/item/reagent_containers/food/condiment/enzyme{
+/obj/item/reagent_containers/condiment/enzyme{
 	pixel_y = 5
 	},
 /obj/machinery/reagentgrinder{
 	desc = "Used to grind things up into raw materials and liquids.";
 	pixel_y = 5
 	},
+/obj/item/reagent_containers/glass/beaker/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6985,7 +6993,6 @@
 "xU" = (
 /obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave/upgraded,
-/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6995,10 +7002,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "xY" = (
-/obj/machinery/economy/vending/cigarette,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/structure/closet/crate/can,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "xZ" = (
@@ -7157,22 +7161,22 @@
 /area/holodeck/source_boxingcourt)
 "zj" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/whitebeet,
-/obj/item/reagent_containers/food/snacks/grown/whitebeet,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
-/obj/item/reagent_containers/food/snacks/grown/rice,
-/obj/item/reagent_containers/food/snacks/grown/rice,
-/obj/item/reagent_containers/food/snacks/grown/icepepper,
-/obj/item/reagent_containers/food/snacks/grown/icepepper,
-/obj/item/reagent_containers/food/snacks/grown/citrus/lemon,
-/obj/item/reagent_containers/food/snacks/grown/citrus/lime,
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
-/obj/item/reagent_containers/food/snacks/grown/cherries,
-/obj/item/reagent_containers/food/snacks/grown/apple,
-/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/whitebeet,
+/obj/item/food/snacks/grown/whitebeet,
+/obj/item/food/snacks/grown/tomato,
+/obj/item/food/snacks/grown/tomato,
+/obj/item/food/snacks/grown/rice,
+/obj/item/food/snacks/grown/rice,
+/obj/item/food/snacks/grown/icepepper,
+/obj/item/food/snacks/grown/icepepper,
+/obj/item/food/snacks/grown/citrus/lemon,
+/obj/item/food/snacks/grown/citrus/lime,
+/obj/item/food/snacks/grown/citrus/orange,
+/obj/item/food/snacks/grown/cherries,
+/obj/item/food/snacks/grown/apple,
+/obj/item/food/snacks/grown/ambrosia/deus,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -7286,6 +7290,13 @@
 /obj/machinery/computer/cryopod/robot,
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/specops)
+"zP" = (
+/obj/machinery/light/small,
+/obj/machinery/economy/vending/dinnerware,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "zQ" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel/freezer,
@@ -7394,6 +7405,7 @@
 /obj/item/surgicaldrill,
 /obj/item/bonegel,
 /obj/item/FixOVein,
+/obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -7444,7 +7456,7 @@
 /area/admin)
 "As" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss,
+/obj/item/reagent_containers/drinks/drinkingglass/devilskiss,
 /turf/simulated/floor/wood,
 /area/admin)
 "At" = (
@@ -7522,9 +7534,9 @@
 "AL" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes/syndicate,
-/obj/item/reagent_containers/food/drinks/cans/adminbooze,
-/obj/item/reagent_containers/food/drinks/cans/badminbrew,
-/obj/item/reagent_containers/food/drinks/cans/madminmalt,
+/obj/item/reagent_containers/drinks/cans/adminbooze,
+/obj/item/reagent_containers/drinks/cans/badminbrew,
+/obj/item/reagent_containers/drinks/cans/madminmalt,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "AM" = (
@@ -7663,7 +7675,7 @@
 "Bo" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/drinks/bottle/whiskey{
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
@@ -7887,7 +7899,7 @@
 /area/centcom/suppy)
 "Cj" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/madminmalt{
+/obj/item/reagent_containers/drinks/cans/madminmalt{
 	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel,
@@ -9878,22 +9890,22 @@
 /area/shuttle/escape)
 "Jl" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/whitebeet,
-/obj/item/reagent_containers/food/snacks/grown/whitebeet,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
-/obj/item/reagent_containers/food/snacks/grown/rice,
-/obj/item/reagent_containers/food/snacks/grown/rice,
-/obj/item/reagent_containers/food/snacks/grown/icepepper,
-/obj/item/reagent_containers/food/snacks/grown/icepepper,
-/obj/item/reagent_containers/food/snacks/grown/citrus/lemon,
-/obj/item/reagent_containers/food/snacks/grown/citrus/lime,
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
-/obj/item/reagent_containers/food/snacks/grown/cherries,
-/obj/item/reagent_containers/food/snacks/grown/apple,
-/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/whitebeet,
+/obj/item/food/snacks/grown/whitebeet,
+/obj/item/food/snacks/grown/tomato,
+/obj/item/food/snacks/grown/tomato,
+/obj/item/food/snacks/grown/rice,
+/obj/item/food/snacks/grown/rice,
+/obj/item/food/snacks/grown/icepepper,
+/obj/item/food/snacks/grown/icepepper,
+/obj/item/food/snacks/grown/citrus/lemon,
+/obj/item/food/snacks/grown/citrus/lime,
+/obj/item/food/snacks/grown/citrus/orange,
+/obj/item/food/snacks/grown/cherries,
+/obj/item/food/snacks/grown/apple,
+/obj/item/food/snacks/grown/ambrosia/deus,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -9964,24 +9976,24 @@
 /area/centcom/specops)
 "JB" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/reagent_containers/food/snacks/raw_bacon,
-/obj/item/reagent_containers/food/snacks/raw_bacon,
-/obj/item/reagent_containers/food/snacks/raw_bacon,
-/obj/item/reagent_containers/food/snacks/raw_bacon,
-/obj/item/reagent_containers/food/snacks/sausage,
-/obj/item/reagent_containers/food/snacks/sausage,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/catfishmeat,
-/obj/item/reagent_containers/food/snacks/catfishmeat,
-/obj/item/reagent_containers/food/snacks/catfishmeat,
-/obj/item/reagent_containers/food/snacks/catfishmeat,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
-/obj/item/reagent_containers/food/snacks/spaghetti,
-/obj/item/reagent_containers/food/snacks/spaghetti,
+/obj/item/food/snacks/raw_bacon,
+/obj/item/food/snacks/raw_bacon,
+/obj/item/food/snacks/raw_bacon,
+/obj/item/food/snacks/raw_bacon,
+/obj/item/food/snacks/sausage,
+/obj/item/food/snacks/sausage,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/catfishmeat,
+/obj/item/food/snacks/catfishmeat,
+/obj/item/food/snacks/catfishmeat,
+/obj/item/food/snacks/catfishmeat,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/rawcutlet,
+/obj/item/food/snacks/spaghetti,
+/obj/item/food/snacks/spaghetti,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -10252,25 +10264,25 @@
 /area/centcom/evac)
 "Kw" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/vanillapod,
-/obj/item/reagent_containers/food/snacks/grown/vanillapod,
-/obj/item/reagent_containers/food/snacks/grown/sugarcane,
-/obj/item/reagent_containers/food/snacks/grown/sugarcane,
-/obj/item/reagent_containers/food/snacks/grown/oat,
-/obj/item/reagent_containers/food/snacks/grown/oat,
-/obj/item/reagent_containers/food/snacks/grown/grapes,
-/obj/item/reagent_containers/food/snacks/grown/grapes,
-/obj/item/reagent_containers/food/snacks/grown/corn,
-/obj/item/reagent_containers/food/snacks/grown/corn,
-/obj/item/reagent_containers/food/snacks/grown/chili,
-/obj/item/reagent_containers/food/snacks/grown/chili,
-/obj/item/reagent_containers/food/snacks/grown/carrot,
-/obj/item/reagent_containers/food/snacks/grown/apple,
-/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
+/obj/item/food/snacks/grown/banana,
+/obj/item/food/snacks/grown/banana,
+/obj/item/food/snacks/grown/wheat,
+/obj/item/food/snacks/grown/wheat,
+/obj/item/food/snacks/grown/vanillapod,
+/obj/item/food/snacks/grown/vanillapod,
+/obj/item/food/snacks/grown/sugarcane,
+/obj/item/food/snacks/grown/sugarcane,
+/obj/item/food/snacks/grown/oat,
+/obj/item/food/snacks/grown/oat,
+/obj/item/food/snacks/grown/grapes,
+/obj/item/food/snacks/grown/grapes,
+/obj/item/food/snacks/grown/corn,
+/obj/item/food/snacks/grown/corn,
+/obj/item/food/snacks/grown/chili,
+/obj/item/food/snacks/grown/chili,
+/obj/item/food/snacks/grown/carrot,
+/obj/item/food/snacks/grown/apple,
+/obj/item/food/snacks/grown/ambrosia/vulgaris,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -10674,7 +10686,7 @@
 /area/shuttle/escape)
 "LT" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
 	},
@@ -10923,8 +10935,8 @@
 /area/centcom/evac)
 "MF" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/bottle/cognac{
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/bottle/cognac{
 	pixel_x = 10
 	},
 /turf/simulated/floor/carpet/black,
@@ -10937,7 +10949,7 @@
 /area/centcom/specops)
 "MH" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 /turf/simulated/floor/carpet/black,
 /area/centcom/evac)
 "MI" = (
@@ -11084,8 +11096,8 @@
 /area/centcom/suppy)
 "MY" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/bottle/vodka/badminka{
 	pixel_x = -12
 	},
 /turf/simulated/floor/carpet/black,
@@ -11333,11 +11345,11 @@
 /area/centcom/gamma)
 "NT" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/sodawater{
+/obj/item/reagent_containers/drinks/cans/sodawater{
 	pixel_x = 6;
 	pixel_y = -3
 	},
-/obj/item/reagent_containers/food/drinks/cans/starkist,
+/obj/item/reagent_containers/drinks/cans/starkist,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "NU" = (
@@ -11395,25 +11407,25 @@
 /obj/structure/closet/secure_closet/freezer/kitchen{
 	req_access = null
 	},
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/vanillapod,
-/obj/item/reagent_containers/food/snacks/grown/vanillapod,
-/obj/item/reagent_containers/food/snacks/grown/sugarcane,
-/obj/item/reagent_containers/food/snacks/grown/sugarcane,
-/obj/item/reagent_containers/food/snacks/grown/oat,
-/obj/item/reagent_containers/food/snacks/grown/oat,
-/obj/item/reagent_containers/food/snacks/grown/grapes,
-/obj/item/reagent_containers/food/snacks/grown/grapes,
-/obj/item/reagent_containers/food/snacks/grown/corn,
-/obj/item/reagent_containers/food/snacks/grown/corn,
-/obj/item/reagent_containers/food/snacks/grown/chili,
-/obj/item/reagent_containers/food/snacks/grown/chili,
-/obj/item/reagent_containers/food/snacks/grown/carrot,
-/obj/item/reagent_containers/food/snacks/grown/apple,
-/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
+/obj/item/food/snacks/grown/banana,
+/obj/item/food/snacks/grown/banana,
+/obj/item/food/snacks/grown/wheat,
+/obj/item/food/snacks/grown/wheat,
+/obj/item/food/snacks/grown/vanillapod,
+/obj/item/food/snacks/grown/vanillapod,
+/obj/item/food/snacks/grown/sugarcane,
+/obj/item/food/snacks/grown/sugarcane,
+/obj/item/food/snacks/grown/oat,
+/obj/item/food/snacks/grown/oat,
+/obj/item/food/snacks/grown/grapes,
+/obj/item/food/snacks/grown/grapes,
+/obj/item/food/snacks/grown/corn,
+/obj/item/food/snacks/grown/corn,
+/obj/item/food/snacks/grown/chili,
+/obj/item/food/snacks/grown/chili,
+/obj/item/food/snacks/grown/carrot,
+/obj/item/food/snacks/grown/apple,
+/obj/item/food/snacks/grown/ambrosia/vulgaris,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -11481,13 +11493,13 @@
 /area/wizard_station)
 "Ov" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/madminmalt,
+/obj/item/reagent_containers/drinks/cans/madminmalt,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "Ow" = (
 /obj/structure/table,
 /obj/item/lighter/zippo,
-/obj/item/reagent_containers/food/drinks/cans/dr_gibb,
+/obj/item/reagent_containers/drinks/cans/dr_gibb,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "Ox" = (
@@ -11499,12 +11511,12 @@
 /area/tdome/arena)
 "Oy" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "Oz" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "OA" = (
@@ -11538,7 +11550,7 @@
 /area/centcom/control)
 "OE" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind,
+/obj/item/reagent_containers/drinks/cans/space_mountain_wind,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "OF" = (
@@ -11827,7 +11839,7 @@
 "Pw" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/drinks/bottle/whiskey{
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -12886,7 +12898,7 @@
 	},
 /area/centcom/evac)
 "TN" = (
-/obj/item/storage/box/matches{
+/obj/item/storage/fancy/matches{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -13307,7 +13319,7 @@
 /area/ghost_bar)
 "Vs" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/badminbrew,
+/obj/item/reagent_containers/drinks/cans/badminbrew,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "Vt" = (
@@ -13325,7 +13337,7 @@
 /area/tdome/tdomeadmin)
 "Vv" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/madminmalt,
+/obj/item/reagent_containers/drinks/cans/madminmalt,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "Vx" = (
@@ -13334,7 +13346,7 @@
 "Vy" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/drinks/bottle/whiskey{
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
@@ -13372,7 +13384,7 @@
 /area/centcom/evac)
 "VH" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/tonic,
+/obj/item/reagent_containers/drinks/cans/tonic,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "VI" = (
@@ -13547,14 +13559,14 @@
 /area/shuttle/escape)
 "Wr" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -8;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -8
 	},
-/obj/item/reagent_containers/food/drinks/britcup,
+/obj/item/reagent_containers/drinks/britcup,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -13844,6 +13856,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/closet/crate/can,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Xb" = (
@@ -72227,7 +72240,7 @@ Jy
 vd
 vd
 vd
-Jy
+rf
 Me
 EX
 Jy
@@ -72484,7 +72497,7 @@ Jy
 vd
 cX
 vd
-rf
+xY
 Me
 wh
 rd
@@ -73777,8 +73790,8 @@ Me
 Me
 Me
 Me
-xY
-Jy
+Me
+tr
 Jy
 qH
 Nm
@@ -74033,8 +74046,8 @@ es
 Oj
 zj
 fF
-Me
-Jy
+rq
+aT
 Jy
 ip
 Jy
@@ -74290,8 +74303,8 @@ es
 es
 es
 es
+es
 Uk
-Jy
 Jy
 ol
 ol
@@ -74547,8 +74560,8 @@ wN
 Dk
 zY
 xU
+zP
 Me
-tr
 Jy
 rG
 hU
@@ -74804,8 +74817,8 @@ Me
 Me
 Me
 Me
-aT
-Jy
+Me
+Me
 Jy
 RX
 RX
@@ -75062,9 +75075,9 @@ ps
 ps
 ps
 Me
-Jy
+Me
 gS
-Jy
+xY
 Me
 Me
 Me
