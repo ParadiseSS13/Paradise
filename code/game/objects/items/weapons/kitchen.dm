@@ -70,6 +70,20 @@
 	desc = "It's a fork. Sure is pointy."
 	icon_state = "fork"
 
+/obj/item/kitchen/utensil/fork/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is putting the [src] into the garbage disposal!</span>")
+	var/message = "DING DING DING DING DING DING DING DING DING"
+	var/span = "reallybig"
+	sleep(2 SECONDS)
+	user.emote("scream")
+	playsound(src.loc, 'sound/machines/juicer.ogg',50, TRUE, -1)
+	animate_fading_leap_up(user)
+	user.create_chat_message(user, message, FALSE, "big")
+	audible_message("<span class='[span]'>\"[message]\"</span>", hearing_distance = 14)
+	sleep(1 SECONDS)
+	user.gib()
+	return OBLITERATION
+
 /obj/item/kitchen/utensil/pfork
 	name = "plastic fork"
 	desc = "Yay, no washing up to do."
