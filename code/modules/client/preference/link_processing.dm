@@ -177,13 +177,13 @@
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 						active_character.m_colours["tail"] = rand_hex_color()
 				if("underwear")
-					active_character.underwear = random_underwear(active_character.gender, active_character.species)
+					active_character.underwear = random_underwear(active_character.body_type, active_character.species)
 					ShowChoices(user)
 				if("undershirt")
-					active_character.undershirt = random_undershirt(active_character.gender, active_character.species)
+					active_character.undershirt = random_undershirt(active_character.body_type, active_character.species)
 					ShowChoices(user)
 				if("socks")
-					active_character.socks = random_socks(active_character.gender, active_character.species)
+					active_character.socks = random_socks(active_character.body_type, active_character.species)
 					ShowChoices(user)
 				if("eyes")
 					active_character.e_colour = rand_hex_color()
@@ -607,6 +607,11 @@
 					var/list/valid_underwear = list()
 					for(var/underwear in GLOB.underwear_list)
 						var/datum/sprite_accessory/SA = GLOB.underwear_list[underwear]
+						// soon...
+						if(active_character.gender == MALE && SA.gender == FEMALE)
+							continue
+						if(active_character.gender == FEMALE && SA.gender == MALE)
+							continue
 						if(!(active_character.species in SA.species_allowed))
 							continue
 						valid_underwear[underwear] = GLOB.underwear_list[underwear]
@@ -621,6 +626,10 @@
 						var/datum/sprite_accessory/SA = GLOB.undershirt_list[undershirt]
 						if(!(active_character.species in SA.species_allowed))
 							continue
+						if(active_character.gender == MALE && SA.gender == FEMALE)
+							continue
+						if(active_character.gender == FEMALE && SA.gender == MALE)
+							continue
 						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
 					sortTim(valid_undershirts, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_undershirt = tgui_input_list(user, "Choose your character's undershirt", "Character Preference", valid_undershirts)
@@ -633,6 +642,10 @@
 					for(var/sockstyle in GLOB.socks_list)
 						var/datum/sprite_accessory/SA = GLOB.socks_list[sockstyle]
 						if(!(active_character.species in SA.species_allowed))
+							continue
+						if(active_character.gender == MALE && SA.gender == FEMALE)
+							continue
+						if(active_character.gender == FEMALE && SA.gender == MALE)
 							continue
 						valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
 					sortTim(valid_sockstyles, GLOBAL_PROC_REF(cmp_text_asc))
