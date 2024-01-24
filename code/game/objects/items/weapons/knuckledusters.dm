@@ -62,7 +62,7 @@
 	force = 10
 	throwforce = 5
 	origin_tech = "combat=3"
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Copied from Rapier, I figure this should be made hard-to-destroy as well
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Steal objectives shouldnt be easy to destroy.
 	materials = list(MAT_GOLD = 500)
 	trauma = 10
 
