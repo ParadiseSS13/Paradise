@@ -58,7 +58,7 @@
 
 /obj/machinery/suit_storage_unit/standard_unit
 	suit_type = /obj/item/clothing/suit/space/eva
-	helmet_type	= /obj/item/clothing/head/helmet/space/eva
+	helmet_type = /obj/item/clothing/head/helmet/space/eva
 	mask_type = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/standard_unit/secure
@@ -67,7 +67,7 @@
 /obj/machinery/suit_storage_unit/captain
 	name = "captain's suit storage unit"
 	desc = "An U-Stor-It Storage unit designed to accommodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\". This one looks kind of fancy."
-	helmet_type	= /obj/item/clothing/head/helmet/space/capspace //Looks like they couldn't handle the Neutron Style
+	helmet_type = /obj/item/clothing/head/helmet/space/capspace //Looks like they couldn't handle the Neutron Style
 	mask_type = /obj/item/clothing/mask/gas
 	suit_type = /obj/item/mod/control/pre_equipped/magnate
 	req_access = list(ACCESS_CAPTAIN)
