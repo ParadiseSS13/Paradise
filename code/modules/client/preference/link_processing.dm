@@ -234,8 +234,6 @@
 						return
 					if(prev_species != active_character.species)
 						active_character.age = clamp(active_character.age, NS.min_age, NS.max_age)
-						if(NS.has_gender && active_character.gender == PLURAL)
-							active_character.gender = pick(MALE,FEMALE)
 						var/datum/robolimb/robohead
 						if(NS.bodyflags & ALL_RPARTS)
 							var/head_model = "[!active_character.rlimb_data["head"] ? "Morpheus Cyberkinetics" : active_character.rlimb_data["head"]]"
@@ -584,10 +582,6 @@
 						if(facialhairstyle == "Shaved") //Just in case.
 							valid_facial_hairstyles += facialhairstyle
 							continue
-						if(active_character.gender == MALE && SA.gender == FEMALE)
-							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
-							continue
 						if(S.bodyflags & ALL_RPARTS) //Species that can use prosthetic heads.
 							var/head_model
 							if(!active_character.rlimb_data["head"]) //Handle situations where the head is default.
@@ -886,29 +880,26 @@
 						toggles ^= PREFTOGGLE_DONATOR_PUBLIC
 
 				if("gender")
-					if(!S.has_gender)
-						var/newgender = tgui_input_list(user, "Who are you?", "Choose Gender", list("Male", "Female", "Genderless"))
-						if(!newgender)
-							return
-						switch(newgender)
-							if("Male")
-								active_character.gender = MALE
-							if("Female")
-								active_character.gender = FEMALE
-							if("Genderless")
-								active_character.gender = PLURAL
-					else
-						if(active_character.gender == MALE)
-							active_character.gender = FEMALE
-						else
+					var/newgender = tgui_input_list(user, "Who are you?", "Choose Gender", list("Male", "Female", "Genderless"))
+					if(!newgender)
+						return
+					switch(newgender)
+						if("Male")
+
 							active_character.gender = MALE
+						if("Female")
+							active_character.gender = FEMALE
+						if("Genderless")
+							active_character.gender = PLURAL
 					active_character.underwear = random_underwear(active_character.gender)
 
 				if("body_type")
 					if(active_character.body_type == MALE)
-							active_character.body_type = FEMALE
-						else
-							active_character.body_type = MALE
+						active_character.body_type = FEMALE
+					else
+						active_character.body_type = MALE
+
+					active_character.update_preview_icon()
 
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP

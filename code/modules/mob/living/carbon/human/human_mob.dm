@@ -1286,9 +1286,6 @@
 		if(oldspecies.default_language)
 			remove_language(oldspecies.default_language)
 
-		if(gender == PLURAL && oldspecies.has_gender)
-			change_gender(pick(MALE, FEMALE))
-
 		oldspecies.handle_dna(src, TRUE) // Remove any mutations that belong to the old species
 
 		oldspecies.on_species_loss(src)

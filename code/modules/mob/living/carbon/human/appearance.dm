@@ -5,7 +5,7 @@
 
 /mob/living/carbon/human/proc/change_gender(new_gender, update_dna = TRUE)
 	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
-	if(gender == new_gender || (gender == PLURAL && !dna.species.has_gender))
+	if(gender == new_gender)
 		return
 
 	gender = new_gender
@@ -24,6 +24,17 @@
 	sync_organ_dna(assimilate = FALSE)
 	update_body()
 	return TRUE
+
+/mob/living/carbon/human/proc/change_body_type(new_body, update_dna = TRUE)
+	if(!new_body || new_body == body_type)
+		return
+
+	body_type = new_body
+
+	if(update_dna)
+		update_dna()
+	sync_organ_dna(FALSE)
+	update_body(TRUE)
 
 /mob/living/carbon/human/proc/change_hair(hair_style, fluff)
 	var/obj/item/organ/external/head/H = get_organ("head")

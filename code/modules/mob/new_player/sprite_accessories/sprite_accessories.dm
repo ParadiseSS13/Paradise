@@ -74,7 +74,7 @@
 	glasses_over = 1
 
 /datum/sprite_accessory/facial_hair
-	gender = MALE // barf (unless you're a dorf, dorfs dig chix /w beards :P)
+	gender = MALE
 	icon = 'icons/mob/sprite_accessories/human/human_facial_hair.dmi'
 	var/over_hair
 

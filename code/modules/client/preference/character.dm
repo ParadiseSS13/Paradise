@@ -330,7 +330,7 @@
 		"name" = real_name,
 		"be_random_name" = be_random_name,
 		"gender" = gender,
-		"body_type" = body_type
+		"body_type" = body_type,
 		"age" = age,
 		"species" = species,
 		"language" = language,
@@ -504,7 +504,7 @@
 		real_name = random_name(gender, species)
 
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
-	gender			= sanitize_gender(gender, FALSE, !SP.has_gender)
+	gender			= sanitize_gender(gender, FALSE)
 	age				= sanitize_integer(age, SP.min_age, SP.max_age, initial(age))
 	h_colour		= sanitize_hexcolor(h_colour)
 	h_sec_colour	= sanitize_hexcolor(h_sec_colour)
@@ -795,7 +795,8 @@
 	qdel(preview_icon)
 
 	var/g = "m"
-	if(gender == FEMALE)	g = "f"
+	if(body_type == FEMALE)
+		g = "f"
 
 	var/icon/icobase
 	var/datum/species/current_species = GLOB.all_species[species]
@@ -1810,6 +1811,7 @@
 	character.gen_record = gen_record
 
 	character.change_gender(gender)
+	character.body_type = body_type  // TODO does this update the character properly or do we need a setter here
 	character.age = age
 
 	//Head-specific
@@ -1887,10 +1889,10 @@
 	character.backbag = backbag
 
 	//Debugging report to track down a bug, which randomly assigned the plural gender to people.
-	if(character.dna.species.has_gender && (character.gender in list(PLURAL, NEUTER)))
+	if(character.gender == NEUTER)
 		if(isliving(src)) //Ghosts get neuter by default
-			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
-			character.change_gender(MALE)
+			message_admins("[key_name_admin(character)] has spawned with their gender as neuter. Please notify coders.")
+			character.change_gender(PLURAL)
 
 	character.change_eye_color(e_colour)
 	character.original_eye_color = e_colour

@@ -1,5 +1,7 @@
 /mob/living/carbon
 	gender = MALE
+	/// The body type associated with the body
+	var/body_type = MALE
 	pressure_resistance = 15
 	var/list/stomach_contents
 	var/list/processing_patches

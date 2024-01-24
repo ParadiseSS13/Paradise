@@ -105,11 +105,6 @@
 	else
 		cand_species = pick(hirable_species)
 
-	candidate_gender = pick(MALE, FEMALE, NEUTER) // Gender
-
-	if(candidate_gender == NEUTER && initial(cand_species.has_gender)) // If the species has a gender it cannot be neuter!
-		good_candidate = FALSE
-
 	if(prob(PROB_CANDIDATE_ERRORS)) // Age
 		age = pick(initial(cand_species.max_age) + rand(20, 100), (initial(cand_species.min_age) - rand(1, 7))) // Its either too young or too old for the job
 		good_candidate = FALSE
