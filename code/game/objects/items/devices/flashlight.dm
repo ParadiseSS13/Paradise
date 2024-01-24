@@ -202,6 +202,8 @@
 	on = FALSE
 	force = initial(force)
 	damtype = initial(damtype)
+	hitsound = "swing_hit"
+	attack_verb = list()
 	update_brightness()
 
 /obj/item/flashlight/flare/attack_self(mob/user)
@@ -220,6 +222,8 @@
 		if(produce_heat)
 			force = on_damage
 			damtype = "fire"
+			hitsound = 'sound/items/welder.ogg'
+			attack_verb = list("burnt", "singed")
 		START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/flare/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -229,6 +233,9 @@
 		qdel(src)
 		return TRUE
 	return ..()
+
+/obj/item/flashlight/flare/get_heat()
+	return produce_heat * on * 1000
 
 // GLOWSTICKS
 

@@ -66,18 +66,6 @@
 	protected_jobs = list("Captain", "Research Director", "Chief Engineer")
 	location_override = "Teleporter"
 
-/datum/theft_objective/ai
-	name = "a functional AI"
-	typepath = /obj/item/aicard
-	location_override = "AI Satellite. An intellicard for transportation can be found in Tech Storage, Science Department or manufactured"
-
-/datum/theft_objective/ai/check_special_completion(obj/item/aicard/C)
-	if(..())
-		for(var/mob/living/silicon/ai/A in C)
-			if(isAI(A) && A.stat != 2) //See if any AI's are alive inside that card.
-				return 1
-	return 0
-
 /datum/theft_objective/defib
 	name = "the chief medical officer's advanced compact defibrillator"
 	typepath = /obj/item/defibrillator/compact/advanced
@@ -161,6 +149,12 @@
 	special_equipment = /obj/item/storage/box/syndie_kit/nuke
 	protected_jobs = list("Quartermaster")
 	job_possession = FALSE
+
+/datum/theft_objective/engraved_dusters
+	name = "the quartermaster's engraved knuckledusters"
+	typepath = /obj/item/melee/knuckleduster/nanotrasen
+	protected_jobs = list("Quartermaster")
+	location_override = "the Quartermaster's Cargo Office"
 
 /datum/theft_objective/number
 	var/min=0

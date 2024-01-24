@@ -3,8 +3,6 @@
 	randomize = TRUE //Every modsuit is personalised
 	wire_count = 6 // 4 actual, 2 duds
 	proper_name = "MOD control unit"
-	window_x = 345
-	window_y = 90
 
 /datum/wires/mod/New(atom/holder)
 	wires = list(WIRE_HACK, WIRE_DISABLE, WIRE_ELECTRIFY, WIRE_INTERFACE)

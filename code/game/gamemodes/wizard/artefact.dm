@@ -10,10 +10,13 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/used = FALSE
 
-/obj/item/contract/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/contract/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/contract/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "WizardApprenticeContract", name, 400, 600, master_ui, state)
+		ui = new(user, src, "WizardApprenticeContract", name)
 		ui.open()
 
 /obj/item/contract/ui_data(mob/user)
@@ -40,34 +43,8 @@
 		new /obj/effect/particle_effect/smoke(H.loc)
 		var/mob/living/carbon/human/M = new/mob/living/carbon/human(H.loc)
 		M.key = C.key
-		to_chat(M, "<B>You are the [H.real_name]'s apprentice! You are bound by magic contract to follow [H.p_their()] orders and help [H.p_them()] in accomplishing their goals.")
-		switch(action)
-			if("destruction")
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/projectile/magic_missile(null))
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball(null))
-				to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned powerful, destructive spells. You are able to cast magic missile and fireball.")
-			if("bluespace")
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/area_teleport/teleport(null))
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt(null))
-				to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned reality bending mobility spells. You are able to cast teleport and ethereal jaunt.")
-			if("healing")
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/charge(null))
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall(null))
-				M.equip_to_slot_or_del(new /obj/item/gun/magic/staff/healing(M), SLOT_HUD_RIGHT_HAND)
-				to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned livesaving survival spells. You are able to cast charge and forcewall.")
-			if("robeless")
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/mind_transfer(null))
-				to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned stealthy, robeless spells. You are able to cast knock and mindswap.")
-
-		M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
-		M.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(M), SLOT_HUD_JUMPSUIT)
-		M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), SLOT_HUD_SHOES)
-		M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(M), SLOT_HUD_OUTER_SUIT)
-		M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(M), SLOT_HUD_HEAD)
-		M.equip_to_slot_or_del(new /obj/item/storage/backpack(M), SLOT_HUD_BACK)
-		M.equip_to_slot_or_del(new /obj/item/storage/box(M), SLOT_HUD_IN_BACKPACK)
-		M.equip_to_slot_or_del(new /obj/item/teleportation_scroll/apprentice(M), SLOT_HUD_RIGHT_STORE)
+		to_chat(M, "<b>You are [H.real_name]'s apprentice! You are bound by magic contract to follow [H.p_their()] orders and help [H.p_them()] in accomplishing [H.p_their()] goals.</b>")
+		equip_apprentice(action, M, H)
 		var/wizard_name_first = pick(GLOB.wizard_first)
 		var/wizard_name_second = pick(GLOB.wizard_second)
 		var/randomname = "[wizard_name_first] [wizard_name_second]"
@@ -80,9 +57,8 @@
 		M.name = newname
 
 		var/datum/objective/protect/new_objective = new /datum/objective/protect
-		new_objective.owner = M.mind
 		new_objective.target = H.mind
-		new_objective.explanation_text = "Protect [H.real_name], the wizard."
+		new_objective.explanation_text = "Protect and obey [H.real_name], your teacher."
 		M.mind.add_mind_objective(new_objective)
 
 		SSticker.mode.apprentices += M.mind
@@ -104,6 +80,68 @@
 		return
 
 	ui_interact(user)
+
+/obj/item/contract/proc/equip_apprentice(action, mob/living/carbon/human/M, mob/living/carbon/human/H)
+	M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
+	if(action == "stealth")
+		M.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(M), SLOT_HUD_JUMPSUIT)
+	else
+		M.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(M), SLOT_HUD_JUMPSUIT)
+	M.equip_to_slot_or_del(new /obj/item/storage/backpack(M), SLOT_HUD_BACK)
+	M.equip_to_slot_or_del(new /obj/item/storage/box(M), SLOT_HUD_IN_BACKPACK)
+	M.equip_to_slot_or_del(new /obj/item/teleportation_scroll/apprentice(M), SLOT_HUD_RIGHT_STORE)
+	switch(action)
+		if("fire")
+			M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/apprentice(null))
+			M.mind.AddSpell(new  /obj/effect/proc_holder/spell/sacred_flame(null))
+			ADD_TRAIT(M, TRAIT_RESISTHEAT, MAGIC_TRAIT)
+			ADD_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
+			M.mind.AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt(null))
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), SLOT_HUD_SHOES)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red(M), SLOT_HUD_OUTER_SUIT)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red(M), SLOT_HUD_HEAD)
+			to_chat(M, "<b>Your service has not gone unrewarded. Under the tutelage of [H.real_name], you've acquired proficiency in the fundamentals of Firebending, enabling you to cast spells like Fireball, Sacred Flame, and Ethereal Jaunt.</b>")
+			to_chat(M, "<b>You are immune to fire, but you are NOT immune to the explosions caused by your fireballs. Neither is your teacher, for that matter. Be careful!</b>")
+		if("translocation")
+			M.mind.AddSpell(new /obj/effect/proc_holder/spell/area_teleport/teleport(null))
+			M.mind.AddSpell(new /obj/effect/proc_holder/spell/turf_teleport/blink(null))
+			M.mind.AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt(null))
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), SLOT_HUD_SHOES)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(M), SLOT_HUD_OUTER_SUIT)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(M), SLOT_HUD_HEAD)
+			to_chat(M, "<b>Your service has not gone unrewarded. While studying under [H.real_name], you mastered reality-bending mobility spells, allowing you to cast Teleport, Blink, and Ethereal Jaunt.</b>")
+		if("restoration")
+			M.mind.AddSpell(new /obj/effect/proc_holder/spell/charge(null))
+			M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
+			var/obj/effect/proc_holder/spell/return_to_teacher/S = new /obj/effect/proc_holder/spell/return_to_teacher(null)
+			S.teacher = H.mind
+			M.mind.AddSpell(S)
+			M.equip_to_slot_or_del(new /obj/item/gun/magic/staff/healing(M), SLOT_HUD_RIGHT_HAND)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal/marisa(M), SLOT_HUD_SHOES)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/marisa(M), SLOT_HUD_OUTER_SUIT)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/marisa(M), SLOT_HUD_HEAD)
+			to_chat(M, "<b>Your service has not gone unrewarded. Under the guidance of [H.real_name], you've acquired life-saving survival spells. You can now cast Charge and Knock, and possess the ability to teleport back to your mentor.</b>")
+			to_chat(M, "<b>Your Charge spell can be used to recharge your Staff of Healing or reduce the cooldowns of your teacher, if you are grabbing them with empty hands.</b>")
+		if("stealth")
+			M.mind.AddSpell(new /obj/effect/proc_holder/spell/mind_transfer(null))
+			M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
+			M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/toolbox(null))
+			M.mind.AddSpell(new /obj/effect/proc_holder/spell/disguise_self(null))
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), SLOT_HUD_SHOES)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas(M), SLOT_HUD_WEAR_MASK)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(M), SLOT_HUD_GLOVES)
+			M.equip_to_slot_or_del(new /obj/item/storage/belt/utility/full(M), SLOT_HUD_BELT)
+			to_chat(M, "<b>Your service has not gone unrewarded. Under the mentorship of [H.real_name], you've mastered stealthy, robeless spells. You can now cast Mindswap, Knock, Homing Toolbox, and Disguise Self without the need for wizard robes.</b>")
+		if("honk")
+			M.mind.AddSpell(new /obj/effect/proc_holder/spell/touch/banana/apprentice(null))
+			M.mind.AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt(null))
+			M.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
+			M.equip_to_slot_or_del(new /obj/item/gun/magic/staff/slipping(M), SLOT_HUD_RIGHT_HAND)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes/magical/nodrop(M), SLOT_HUD_SHOES)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/clown(M), SLOT_HUD_OUTER_SUIT)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/clown(M), SLOT_HUD_HEAD)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clownwiz(M), SLOT_HUD_WEAR_MASK)
+			to_chat(M, "<b>Your dedication pays off! Under [H.real_name]'s guidance, you've mastered magical honkings, seamlessly casting spells like Banana Touch, Ethereal Jaunt, and Instant Summons, while skillfully wielding a Staff of Slipping. Honk!</b>")
 
 ///////////////////////////Veil Render//////////////////////
 
@@ -595,7 +633,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(new /obj/item/scalpel(M), SLOT_HUD_RIGHT_STORE)
 				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
 				for(var/obj/item/carried_item in M.contents)
-					if(!istype(carried_item, /obj/item/implant))
+					if(!istype(carried_item, /obj/item/bio_chip))
 						carried_item.add_mob_blood(M)
 
 			if("pirate")
@@ -842,12 +880,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 	heal_burn = 25
 	heal_oxy = 25
 
-/obj/item/reagent_containers/food/drinks/everfull
+/obj/item/reagent_containers/drinks/everfull
 	name = "everfull mug"
 	desc = "An enchanted mug which can be filled with any of various liquids on command."
 	icon_state = "evermug"
 
-/obj/item/reagent_containers/food/drinks/everfull/attack_self(mob/user)
+/obj/item/reagent_containers/drinks/everfull/attack_self(mob/user)
 	var/static/list/options = list("Omnizine" = image(icon = 'icons/obj/storage.dmi', icon_state = "firstaid"),
 							"Ale" = image(icon = 'icons/obj/drinks.dmi', icon_state = "alebottle"),
 							"Wine" = image(icon = 'icons/obj/drinks.dmi', icon_state = "wineglass"),
@@ -867,13 +905,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 												"Welder Fuel" = "a dark, pungent, oily substance",
 												"Vomit" = "warm chunky vomit")
 
-	var/choice = show_radial_menu(user, src, options)
+	var/choice = show_radial_menu(user, src, options, require_near = TRUE)
 	if(!choice || user.stat || !in_range(user, src) || QDELETED(src))
 		return
 	to_chat(user, "<span class='notice'>The [name] fills to brimming with [options_to_descriptions[choice]].</span>")
 	magic_fill(options_to_reagent[choice])
 
-/obj/item/reagent_containers/food/drinks/everfull/proc/magic_fill(reagent_choice)
+/obj/item/reagent_containers/drinks/everfull/proc/magic_fill(reagent_choice)
 	reagents.clear_reagents()
 	reagents.add_reagent(reagent_choice, volume)
 

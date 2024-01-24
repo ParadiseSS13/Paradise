@@ -59,8 +59,9 @@
 #define INIT_ORDER_SOUNDS 16
 #define INIT_ORDER_INSTRUMENTS 15
 #define INIT_ORDER_RESEARCH 14 // SoonTM
-#define INIT_ORDER_EVENTS 13
-#define INIT_ORDER_JOBS 12
+#define INIT_ORDER_STATION 13 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
+#define INIT_ORDER_EVENTS 12
+#define INIT_ORDER_JOBS 11
 #define INIT_ORDER_TICKER 10
 #define INIT_ORDER_MAPPING 9
 #define INIT_ORDER_ATOMS 7
@@ -83,10 +84,12 @@
 #define INIT_ORDER_LATE_MAPPING -40
 #define INIT_ORDER_PATH -50
 #define INIT_ORDER_PERSISTENCE -95
+#define INIT_ORDER_CHAT -100 // Should be last to ensure chat remains smooth during init.
 
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
 
+#define FIRE_PRIORITY_PING			10
 #define FIRE_PRIORITY_NANOMOB       10
 #define FIRE_PRIORITY_NIGHTSHIFT	10
 #define FIRE_PRIORITY_IDLE_NPC		10
@@ -111,6 +114,7 @@
 #define FIRE_PRIORITY_MOBS			100
 #define FIRE_PRIORITY_TGUI			110
 #define FIRE_PRIORITY_TICKER		200
+#define FIRE_PRIORITY_CHAT 			400
 #define FIRE_PRIORITY_RUNECHAT		410 // I hate how high the fire priority on this is -aa
 #define FIRE_PRIORITY_OVERLAYS		500
 #define FIRE_PRIORITY_DELAYED_VERBS 950

@@ -1,20 +1,17 @@
 import { useBackend } from '../backend';
-import { Button, Flex, Section, Divider } from '../components';
+import { Button, Stack, Section, Divider } from '../components';
 import { Window } from '../layouts';
 
 export const SpecMenu = (props, context) => {
   return (
-    <Window resizable theme="nologo">
+    <Window width={1100} height={600} theme="nologo">
       <Window.Content>
-        <Flex justify="space-around">
+        <Stack fill>
           <HemoMenu />
-          <Divider vertical={1} />
           <UmbrMenu />
-          <Divider vertical={1} />
           <GarMenu />
-          <Divider vertical={1} />
           <DantMenu />
-        </Flex>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -24,8 +21,13 @@ const HemoMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
-    <Flex.Item grow={1} basis="25%">
-      <Section title="Hemomancer">
+    <Stack.Item grow basis="25%">
+      <Section
+        fill
+        scrollable
+        title="Hemomancer"
+        buttons={<Button content="Choose" onClick={() => act('hemomancer')} />}
+      >
         <h3>
           Focuses on blood magic and the manipulation of blood around you.
         </h3>
@@ -64,9 +66,8 @@ const HemoMenu = (props, context) => {
           the blood of everyone who is nearby and use it to heal yourself
           slightly and remove any incapacitating effects rapidly.
         </p>
-        <Button content="Hemomancer" onClick={() => act('hemomancer')} />
       </Section>
-    </Flex.Item>
+    </Stack.Item>
   );
 };
 
@@ -74,8 +75,13 @@ const UmbrMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
-    <Flex.Item grow={1} basis="25%">
-      <Section title="Umbrae">
+    <Stack.Item grow basis="25%">
+      <Section
+        fill
+        scrollable
+        title="Umbrae"
+        buttons={<Button content="Choose" onClick={() => act('umbrae')} />}
+      >
         <h3>Focuses on darkness, stealth ambushing and mobility.</h3>
         <p>
           <b>Cloak of darkness</b>: Unlocked at 150 blood, when toggled, allows
@@ -114,9 +120,8 @@ const UmbrMenu = (props, context) => {
           will deal less damage.
         </p>
         <p>In addition, you also gain permanent X-ray vision.</p>
-        <Button content="Umbrae" onClick={() => act('umbrae')} />
       </Section>
-    </Flex.Item>
+    </Stack.Item>
   );
 };
 
@@ -124,8 +129,13 @@ const GarMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
-    <Flex.Item grow={1} basis="25%">
-      <Section title="Gargantua">
+    <Stack.Item grow basis="25%">
+      <Section
+        fill
+        scrollable
+        title="Gargantua"
+        buttons={<Button content="Choose" onClick={() => act('gargantua')} />}
+      >
         <h3>Focuses on tenacity and melee damage.</h3>
         <p>
           <b>Rejuvenate</b>: Will heal you at an increased rate based on how
@@ -170,9 +180,8 @@ const GarMenu = (props, context) => {
           arena upon landing, infusing you with increased regeneration, and
           granting you resistance to internal damages.
         </p>
-        <Button content="Gargantua" onClick={() => act('gargantua')} />
       </Section>
-    </Flex.Item>
+    </Stack.Item>
   );
 };
 
@@ -180,8 +189,13 @@ const DantMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
-    <Flex.Item grow={1} basis="25%">
-      <Section title="Dantalion">
+    <Stack.Item grow basis="25%">
+      <Section
+        fill
+        scrollable
+        title="Dantalion"
+        buttons={<Button content="Choose" onClick={() => act('dantalion')} />}
+      >
         <h3>Focuses on thralling and illusions.</h3>
         <p>
           <b>Enthrall</b>: Unlocked at 150 blood, Thralls your target to your
@@ -225,8 +239,7 @@ const DantMenu = (props, context) => {
           <b>Mass Hysteria</b>: Casts a powerful illusion that blinds and then
           makes everyone nearby perceive others as random animals.
         </p>
-        <Button content="Dantalion" onClick={() => act('dantalion')} />
       </Section>
-    </Flex.Item>
+    </Stack.Item>
   );
 };

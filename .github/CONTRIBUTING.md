@@ -753,7 +753,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 `Headcoders` are the overarching "administrators" of the repository. People included in this role are:
 
 * [farie82](https://github.com/farie82)
-* [Fox P McCloud](https://github.com/Fox-McCloud)
+* [Charliminator](https://github.com/hal9000PR)
 * [SteelSlayer](https://github.com/SteelSlayer)
 
 ---
@@ -762,7 +762,6 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 
 
 * [AffectedArc07](https://github.com/AffectedArc07)
-* [Charliminator](https://github.com/hal9000PR)
 * [lewcc](https://github.com/lewcc)
 * [S34N](https://github.com/S34NW)
 
@@ -776,6 +775,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 * [Contrabang](https://github.com/Contrabang)
 * [Burzah](https://github.com/Burzah)
 * [DGamerL](https://github.com/DGamerL)
+* [Warriorstar](https://github.com/warriorstar-orion)
 
 ---
 

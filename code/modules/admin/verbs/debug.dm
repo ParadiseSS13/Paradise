@@ -141,7 +141,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else if(target != world)
 		return call(target, procname)(arglist(arguments))
 	else
-		to_chat(usr, "<span class='boldannounce'>Call to world/proc/[procname] blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>Call to world/proc/[procname] blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
 		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]l")
 
@@ -663,7 +663,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	)
 
 	var/list/outfits = list()
-	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job)
+	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job) - list(/datum/outfit/varedit, /datum/outfit/admin)
 	for(var/path in paths)
 		var/datum/outfit/O = path //not much to initalize here but whatever
 		if(initial(O.can_be_admin_equipped))

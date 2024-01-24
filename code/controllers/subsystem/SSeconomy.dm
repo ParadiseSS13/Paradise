@@ -87,6 +87,8 @@ SUBSYSTEM_DEF(economy)
 		SUPPLY_VEND,
 		SUPPLY_SHUTTLE
 	)
+	///The modifier on crate prices to multiple the price by.
+	var/pack_price_modifier = 1
 
 	//////Paycheck Variables/////
 	/// time to next payday

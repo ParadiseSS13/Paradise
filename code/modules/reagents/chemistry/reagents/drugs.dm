@@ -741,8 +741,7 @@
 	return ..() | update_flags
 
 /datum/reagent/fliptonium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_INGEST || method == REAGENT_TOUCH)
-		M.SpinAnimation(speed = 12, loops = -1, parallel = FALSE)
+	M.SpinAnimation(speed = 12, loops = -1, parallel = FALSE)
 	..()
 
 /datum/reagent/fliptonium/on_mob_delete(mob/living/M)

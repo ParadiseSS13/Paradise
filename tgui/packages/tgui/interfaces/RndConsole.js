@@ -36,7 +36,7 @@ export const RndConsole = (properties, context) => {
   const { wait_message } = data;
 
   return (
-    <Window>
+    <Window width={800} height={550}>
       <Window.Content>
         <Box className="RndConsole">
           <RndNavbar />

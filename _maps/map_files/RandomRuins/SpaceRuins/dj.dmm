@@ -7,10 +7,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "ac" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/template_noop,
 /area/space/nearstation)
 "ad" = (
@@ -43,10 +40,7 @@
 /turf/template_noop,
 /area/ruin/space/djstation/solars)
 "ag" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
@@ -64,10 +58,7 @@
 /area/ruin/space/djstation)
 "aj" = (
 /obj/structure/lattice,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/template_noop,
 /area/space/nearstation)
 "al" = (
@@ -565,15 +556,15 @@
 /area/ruin/space/djstation)
 "bw" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/drinks/bottle/vodka{
 	pixel_x = 7;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_x = 28;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
