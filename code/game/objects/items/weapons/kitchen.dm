@@ -76,7 +76,7 @@
 	var/span = "reallybig"
 	sleep(2 SECONDS)
 	user.emote("scream")
-	playsound(src.loc, 'sound/machines/juicer.ogg',50, TRUE, -1)
+	playsound(get_turf(src), 'sound/machines/juicer.ogg',50, TRUE, -1)
 	animate_fading_leap_up(user)
 	user.create_chat_message(user, message, FALSE, "big")
 	audible_message("<span class='[span]'>\"[message]\"</span>", hearing_distance = 14)
