@@ -5,7 +5,7 @@ import { Window } from '../layouts';
 export const FaxMachine = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window>
+    <Window width={540} height={295}>
       <Window.Content>
         <Section title="Authorization">
           <LabeledList>

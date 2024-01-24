@@ -912,13 +912,13 @@
 /area/ruin/space/derelict/bridge)
 "cr" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "cs" = (
 /obj/structure/rack,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/drinks/bottle/vodka/badminka,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
 	broken = 1;
@@ -1160,7 +1160,7 @@
 /area/ruin/space/derelict/bridge)
 "cV" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/drinks/bottle/vodka,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -1347,10 +1347,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "du" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
@@ -1461,10 +1458,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/arrival)
 "dG" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -1849,7 +1843,7 @@
 /area/space/nearstation)
 "eB" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/peanuts,
+/obj/item/food/snacks/grown/peanuts,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
@@ -2783,11 +2777,11 @@
 /area/ruin/space/derelict/crew_quarters)
 "gI" = (
 /obj/structure/closet/secure_closet/bar,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/reagent_containers/food/drinks/bottle/kahlua,
+/obj/item/reagent_containers/drinks/bottle/vodka,
+/obj/item/reagent_containers/drinks/bottle/vodka,
+/obj/item/reagent_containers/drinks/bottle/vodka,
+/obj/item/reagent_containers/drinks/bottle/rum,
+/obj/item/reagent_containers/drinks/bottle/kahlua,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/derelict/crew_quarters)
 "gJ" = (
@@ -3017,7 +3011,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "hn" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/derelict/crew_quarters)
 "ho" = (
@@ -5756,7 +5750,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "nS" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/soup/beetsoup,
+/obj/item/food/snacks/soup/beetsoup,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -6031,8 +6025,8 @@
 /area/ruin/space/derelict/hallway/primary)
 "oA" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/derelict/hallway/primary)
 "oB" = (
@@ -6530,11 +6524,11 @@
 	layer = 2.9
 	},
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},

@@ -4,7 +4,7 @@
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
 	language = "Chittin"
 
-	blurb = "The Kidan are ant-like beings possessing a hardened exoskeleton and a strict adherence to social castes. \
+	blurb = "The Kidan are ant-like beings possessing a hardened exoskeleton and strict adherence to social castes. \
 	They originate from the planet Aurum — a barren bombarded world that suffered after the war with the Solar-Central Compact, having lost decisively after the Battle of Argos.<br/><br/> \
 	They are relatively minor players in galactic affairs and presently suffer heavy sanctions from the SCC, \
 	though they are tentatively re-establishing relations with other galactic powers, even after the crumbling of their once powerful empire."
