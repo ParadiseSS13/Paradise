@@ -755,7 +755,7 @@
 		to_chat(user, "<span class='warning'>[src] is currently undergoing a disinfection cycle, it wont open.</span>")
 		return
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	to_chat(user, "<span class='warning'>You short out [src]'s internal circuitry, causing its safeties to fail, and dumping it's contents.</span>")
+	to_chat(user, "<span class='warning'>You short out [src]'s internal circuitry, causing its safeties to fail, and dumping its contents.</span>")
 	open_machine()
 	dump_contents()
 	eject_occupant()
