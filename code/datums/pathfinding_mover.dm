@@ -28,7 +28,7 @@
 	VAR_PRIVATE/atom/movable/owner_move_delay = 0
 	/// Do we consider movement delay? Disable for non-mobs
 	var/consider_movement_delay = TRUE
-	/// requires `consider_movement_delay = TRUE`, saves the last movement delay to prevent diagonal weirdness
+	/// Requires `consider_movement_delay = TRUE`, saves the last movement delay to prevent diagonal weirdness
 	VAR_PRIVATE/last_movement_delay
 
 
@@ -60,9 +60,9 @@
 	PRIVATE_PROC(TRUE)
 
 	if(newpath == null)
-		on_set_path_null?.Invoke() // this is seperate to prevent invoking the callback if calling from generate_path
+		on_set_path_null?.Invoke() // This is seperate to prevent invoking the callback if calling from generate_path
 	path = newpath ? newpath : list()
-	if(!length(path)) // because newpath could be an empty list
+	if(!length(path)) // Because newpath could be an empty list
 		STOP_PROCESSING(SSfastprocess, src)
 	tries = 0
 
@@ -74,8 +74,8 @@
 		set_path(null)
 		return FALSE
 
-	var/turf/last_node = get_turf(path[length(path)]) //This is the turf at the end of the path
-	if(target != last_node) //The path should lead us to our given destination. If this is not true, we must stop.
+	var/turf/last_node = get_turf(path[length(path)]) // This is the turf at the end of the path
+	if(target != last_node) // The path should lead us to our given destination. If this is not true, we must stop.
 		set_path(null)
 		return FALSE
 
@@ -97,7 +97,7 @@
 		set_path(null)
 		return // PROCESS_KILL called with set_path(null)
 
-	if(get_turf(owner) == target) //We have arrived, no need to move again.
+	if(get_turf(owner) == target) // We have arrived, no need to move again.
 		on_success?.Invoke(src)
 		return PROCESS_KILL
 
@@ -106,7 +106,7 @@
 /**
  * Take our next step in our pathfinding algorithm
  */
-/datum/pathfinding_mover/proc/generalized_step() //Step, increase tries if failed
+/datum/pathfinding_mover/proc/generalized_step() // Step, increase tries if failed
 	PRIVATE_PROC(TRUE)
 	if(!length(path))
 		return
@@ -124,5 +124,5 @@
 	if(consider_movement_delay)
 		last_movement_delay = delay
 
-	// increment the path
+	// Increment the path
 	path.Cut(1, 2)
