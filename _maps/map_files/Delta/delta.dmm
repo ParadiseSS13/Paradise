@@ -64966,11 +64966,6 @@
 	c_tag = "Central Ring Hallway East";
 	dir = 9
 	},
-/obj/item/storage/lockbox/vials{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/storage/lockbox/vials,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -94438,6 +94433,11 @@
 	network = list("SS13","Medical");
 	dir = 1
 	},
+/obj/item/storage/lockbox/vials{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/lockbox/vials,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitegreen"
