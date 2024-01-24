@@ -46,7 +46,10 @@
 	. = ..()
 	baton = new(src)
 	icon_state = "[base_icon][on]"
-
+	var/datum/job/detective/J = new/datum/job/detective
+	access_card.access += J.get_access()
+	prev_access = access_card.access
+	
 /mob/living/simple_animal/bot/secbot/Destroy()
 	QDEL_NULL(baton)
 	return ..()
