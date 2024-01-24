@@ -187,7 +187,7 @@
 					/obj/item/reagent_containers/pill,
 					/obj/item/reagent_containers/drinks,
 					/obj/item/reagent_containers/glass,
-					/obj/item/reagent_containers/syringe,
+					/obj/item/reagent_containers/syringe
 					)
 
 /obj/item/gripper/service
