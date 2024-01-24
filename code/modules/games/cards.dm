@@ -191,9 +191,8 @@
 	for(var/mob/living/player in viewers(3))
 		if(!player.incapacitated())
 			players += player
-	var/maxcards = clamp(length(cards), 1, 10)
-	var/dcard = input("How many card(s) do you wish to deal? You may deal up to [maxcards] cards.") as num
-	if(dcard > maxcards)
+	var/dcard = tgui_input_number(usr, "How many card(s) do you wish to deal? You may deal up to [length(cards)] cards.", "Deal Cards", max_value = length(cards))
+	if(!dcard)
 		return
 	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal [dcard] card(s)?", "Deal Card", players)
 	if(!usr || !src || !M || !Adjacent(usr))
@@ -453,7 +452,7 @@
 	var/mob/living/carbon/user = usr
 
 	var/maxcards = min(length(cards), 5)
-	var/discards = input("How many cards do you want to discard? You may discard up to [maxcards] card(s)") as num
+	var/discards = tgui_input_number(usr, "How many cards do you want to discard? You may discard up to [maxcards] card(s)", "Discard Cards", max_value = maxcards)
 	if(discards > maxcards)
 		return
 	for(var/i in 1 to discards)

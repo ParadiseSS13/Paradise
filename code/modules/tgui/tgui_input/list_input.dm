@@ -79,6 +79,7 @@
 	src.items_map = list()
 	src.default = default
 	src.state = ui_state
+	var/list/repeat_items = list()
 
 	// Gets rid of illegal characters
 	var/static/regex/whitelistedWords = regex(@{"([^\u0020-\u8000]+)"})
@@ -86,6 +87,8 @@
 	for(var/i in items)
 		var/string_key = whitelistedWords.Replace("[i]", "")
 
+		// Avoids duplicated keys E.g: when areas have the same name
+		string_key = avoid_assoc_duplicate_keys(string_key, repeat_items)
 		src.items += string_key
 		src.items_map[string_key] = i
 
