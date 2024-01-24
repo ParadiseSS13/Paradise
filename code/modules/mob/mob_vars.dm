@@ -231,6 +231,8 @@
 	var/hud_typing = 0
 	/// Affects if you have a typing indicator
 	var/typing
+	/// Affects if you have a thinking indicator
+	var/thinking
 	/// Last thing we typed in to the typing indicator, probably does not need to exist
 	var/last_typed
 	/// Last time we typed something in to the typing popup

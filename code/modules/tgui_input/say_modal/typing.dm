@@ -14,13 +14,14 @@
 	/// Special exemptions
 	if(isabductor(client.mob))
 		return FALSE
-	client.mob.set_typing_indicator(TRUE, TRUE)
+	client.mob.set_thinking_indicator(TRUE)
+	addtimer(CALLBACK(src, PROC_REF(stop_thinking)), 5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
 
 /** Removes typing/thinking indicators and flags the mob as not thinking */
 /datum/tgui_say/proc/stop_thinking()
 	if(!client?.mob)
 		return FALSE
-	client.mob.set_typing_indicator(FALSE)
+	client.mob.set_thinking_indicator(FALSE)
 
 /**
  * Handles the user typing. After a brief period of inactivity,
@@ -30,6 +31,7 @@
 	if(!client?.mob)
 		return FALSE
 	client.mob.set_typing_indicator(FALSE)
+	client.mob.set_thinking_indicator(FALSE)
 	if(!window_open)
 		return FALSE
 	client.mob.set_typing_indicator(TRUE)
@@ -45,4 +47,4 @@
 	client.mob.set_typing_indicator(FALSE)
 	if(!window_open)
 		return FALSE
-	client.mob.set_typing_indicator(TRUE, TRUE)
+	client.mob.set_thinking_indicator(TRUE)

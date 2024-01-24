@@ -91,9 +91,9 @@
 	if(!payload?["channel"])
 		CRASH("No channel provided to an open TGUI-Say")
 	window_open = TRUE
-
-	if(payload["channel"] == ME_CHANNEL || payload["channel"] ==  RADIO_CHANNEL || payload["channel"] ==  SAY_CHANNEL)
-		start_thinking()
+	switch(payload["channel"])
+		if(ME_CHANNEL, RADIO_CHANNEL, SAY_CHANNEL)
+			start_thinking()
 	return TRUE
 
 /**

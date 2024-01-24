@@ -1,6 +1,7 @@
 #define TYPING_INDICATOR_LIFETIME 30 * 10	//grace period after which typing indicator disappears regardless of text in chatbar
 
 GLOBAL_LIST_EMPTY(typing_indicator)
+GLOBAL_LIST_EMPTY(thinking_indicator)
 
 /**
   * Toggles the floating chat bubble above a players head.
@@ -10,7 +11,6 @@ GLOBAL_LIST_EMPTY(typing_indicator)
   * * me - Is the bubble being caused by the 'me' emote command
   */
 /mob/proc/set_typing_indicator(state, me)
-
 	if(!GLOB.typing_indicator[bubble_icon])
 		GLOB.typing_indicator[bubble_icon] = image('icons/mob/talk.dmi', null, "[bubble_icon]typing", FLY_LAYER)
 		var/image/I = GLOB.typing_indicator[bubble_icon]
@@ -34,6 +34,26 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 				if(typing)
 					overlays -= GLOB.typing_indicator[bubble_icon]
 					typing = FALSE
+			return state
+
+/mob/proc/set_thinking_indicator(state)
+	if(!GLOB.thinking_indicator[bubble_icon])
+		GLOB.thinking_indicator[bubble_icon] = image('icons/mob/talk.dmi', null, "[bubble_icon]thinking", FLY_LAYER)
+		var/image/I = GLOB.thinking_indicator[bubble_icon]
+		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+
+	if(client)
+		if(stat != CONSCIOUS)
+			overlays -= GLOB.thinking_indicator[bubble_icon]
+		else
+			if(state)
+				if(!thinking)
+					overlays += GLOB.thinking_indicator[bubble_icon]
+					thinking = TRUE
+			else
+				if(thinking)
+					overlays -= GLOB.thinking_indicator[bubble_icon]
+					thinking = FALSE
 			return state
 
 /mob/verb/say_wrapper()
