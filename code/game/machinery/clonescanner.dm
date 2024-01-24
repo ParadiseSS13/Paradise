@@ -61,7 +61,7 @@
 	name = "cloning scanner"
 	desc = "An advanced machine that thoroughly scans the current state of a cadaver for use in cloning."
 	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "scanner_0" //temp.. maybe? probably? i dunno
+	icon_state = "scanner_0"
 	density = TRUE
 	anchored = TRUE
 
