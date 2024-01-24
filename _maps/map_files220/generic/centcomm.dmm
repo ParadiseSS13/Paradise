@@ -12880,7 +12880,7 @@
 /area/syndicate_mothership)
 "ize" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/surgery{
+/obj/item/storage/surgical_tray{
 	pixel_y = 6
 	},
 /obj/item/clothing/gloves/color/latex/nitrile,

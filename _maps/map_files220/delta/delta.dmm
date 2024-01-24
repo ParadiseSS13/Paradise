@@ -51122,8 +51122,8 @@
 /area/station/hallway/secondary/entry)
 "eQP" = (
 /obj/structure/table/tray,
-/obj/item/storage/firstaid/surgery{
-	pixel_y = 6
+/obj/item/storage/surgical_tray{
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -53347,8 +53347,8 @@
 /area/station/maintenance/starboard)
 "fDY" = (
 /obj/structure/table/tray,
-/obj/item/storage/firstaid/surgery{
-	pixel_y = 6
+/obj/item/storage/surgical_tray{
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -66351,8 +66351,8 @@
 /area/station/service/theatre)
 "jHK" = (
 /obj/structure/table/tray,
-/obj/item/storage/firstaid/surgery{
-	pixel_y = 6
+/obj/item/storage/surgical_tray{
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -104058,8 +104058,8 @@
 /area/station/hallway/secondary/bridge)
 "vCt" = (
 /obj/structure/table/tray,
-/obj/item/storage/firstaid/surgery{
-	pixel_y = 6
+/obj/item/storage/surgical_tray{
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;

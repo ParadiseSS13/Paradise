@@ -31463,7 +31463,7 @@
 "cgH" = (
 /obj/machinery/light/directional/north,
 /obj/structure/table/tray,
-/obj/item/storage/firstaid/surgery{
+/obj/item/storage/surgical_tray{
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -40123,7 +40123,7 @@
 "cMx" = (
 /obj/machinery/light/directional/north,
 /obj/structure/table/tray,
-/obj/item/storage/firstaid/surgery{
+/obj/item/storage/surgical_tray{
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
