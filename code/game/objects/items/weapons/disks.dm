@@ -42,22 +42,22 @@
 	read_only = 1
 
 /obj/item/disk/data/monkey/New()
-	..()
+	. = ..()
 	initialize()
 	buf.types = DNA2_BUF_SE
 	var/list/new_SE = list(0x098,0x3E8,0x403,0x44C,0x39F,0x4B0,0x59D,0x514,0x5FC,0x578,0x5DC,0x640,0x6A4)
-	for(var/i = length(new_SE); i<=DNA_SE_LENGTH; i++)
+	for(var/i = length(new_SE); i <= DNA_SE_LENGTH; i++)
 		new_SE += rand(1, 1024)
 	buf.dna.SE = new_SE
 	buf.dna.SetSEValueRange(GLOB.monkeyblock, 0xDAC, 0xFFF)
 
 //Disk stuff.
 /obj/item/disk/data/New()
-	..()
+	. = ..()
 	var/diskcolor = pick(0, 1, 2)
 	icon_state = "datadisk[diskcolor]"
 
-/obj/item/disk/data/attack_self(mob/user as mob)
+/obj/item/disk/data/attack_self(mob/user)
 	read_only = !read_only
 	to_chat(user, "You flip the write-protect tab to [read_only ? "protected" : "unprotected"].")
 

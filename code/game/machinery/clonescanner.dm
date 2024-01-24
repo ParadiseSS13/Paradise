@@ -93,10 +93,8 @@
 	RefreshParts()
 
 /obj/machinery/clonescanner/RefreshParts()
-	for(var/part in component_parts)
-		var/obj/item/stock_parts/SP = part
-		if(istype(SP))
-			scanning_tier += SP.rating
+	for(var/obj/item/stock_parts/SP in component_parts)
+		scanning_tier += SP.rating
 
 
 /obj/machinery/clonescanner/MouseDrop_T(atom/movable/O, mob/user)
@@ -105,7 +103,7 @@
 	if(!ishuman(O))
 		return
 	var/mob/living/carbon/human/H = O
-	if(!(H.stat == DEAD))
+	if(H.stat != DEAD)
 		to_chat(user, "<span class='warning'>You don't think it'd be wise to scan a living being.</span>")
 		return TRUE
 	if(occupant)
@@ -155,7 +153,7 @@
 	return scan(scanned)
 
 /obj/machinery/clonescanner/proc/scan(mob/living/carbon/human/scanned)
-	var/datum/cloning_data/scan_result = new /datum/cloning_data
+	var/datum/cloning_data/scan_result = new
 
 	scan_result.name = scanned.dna.real_name
 	scan_result.mindUID = scanned.mind.UID()

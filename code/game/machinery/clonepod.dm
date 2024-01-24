@@ -146,13 +146,12 @@
 
 /obj/machinery/clonepod/RefreshParts()
 	speed_modifier = 0 //Since we have multiple manipulators, which affect this modifier, we reset here so we can just use += later
-	for(var/part in component_parts)
-		var/obj/item/stock_parts/SP = part
+	for(var/obj/item/stock_parts/SP as anything in component_parts)
 		if(istype(SP, /obj/item/stock_parts/matter_bin/)) //Matter bins for storage modifier
 			storage_modifier = round(10 * (SP.rating / 2)) //5 at tier 1, 10 at tier 2, 15 at tier 3, 20 at tier 4
-		if(istype(SP, /obj/item/stock_parts/scanning_module)) //Scanning modules for price modifier (more accurate scans = more efficient)
+		else if(istype(SP, /obj/item/stock_parts/scanning_module)) //Scanning modules for price modifier (more accurate scans = more efficient)
 			price_modifier = round(-(SP.rating / 10) + 1.2) //1.1 at tier 1, 1 at tier 2, 0.9 at tier 3, 0.8 at tier 4
-		if(istype(SP, /obj/item/stock_parts/manipulator)) //Manipulators for speed modifier
+		else if(istype(SP, /obj/item/stock_parts/manipulator)) //Manipulators for speed modifier
 			speed_modifier += SP.rating / 2 //1 at tier 1, 2 at tier 2, et cetera
 
 		var/obj/item/reagent_containers/glass/beaker/B = part
@@ -186,23 +185,24 @@
 
 	//If we're cloning someone, we haven't generated a list of limbs to grow, and we're before any possibility of not having any limbs left to grow.
 	if(currently_cloning && !length(limbs_to_grow) && clone_progress < 20)
-		limb_loop:
-			for(var/limb in desired_data.limbs)
-				if(desired_data.limbs[limb][4])
-					continue //We're not growing this limb, since in the desired state it's missing.
+		for(var/limb in desired_data.limbs)
+			if(desired_data.limbs[limb][4])
+				continue //We're not growing this limb, since in the desired state it's missing.
 
-				var/obj/item/organ/external/limb_typepath = patient_data.genetic_info.species.has_limbs[limb]["path"]
-				if(initial(limb_typepath.vital)) //I hate everything about this check, but it sees if the current organ is vital..
-					continue //and continues if it is, since the proc that creates the clone mob will make these all at once.
-
-				for(var/organ in desired_data.organs)
-					var/obj/item/organ/external/organ_typepath = patient_data.genetic_info.species.has_organ[organ]
-					if(!initial(organ_typepath.vital)) //I hate this check too. We loop through all the organs the cloned species should have.
-						continue //If it's not a vital organ, continue looping through the organs.
-					if(initial(organ_typepath.parent_organ) == limb)
-						continue limb_loop //If it's a vital organ, and belongs to the current limb, we don't want this limb.
-
-				limbs_to_grow += limb //It's not supposed to be missing and it's not vital - so we'll be growing it.
+			var/obj/item/organ/external/limb_typepath = patient_data.genetic_info.species.has_limbs[limb]["path"]
+			if(initial(limb_typepath.vital)) //I hate everything about this check, but it sees if the current organ is vital..
+				continue //and continues if it is, since the proc that creates the clone mob will make these all at once.
+			var/parent_organ_is_limb = FALSE
+			for(var/organ in desired_data.organs)
+				var/obj/item/organ/external/organ_typepath = patient_data.genetic_info.species.has_organ[organ]
+				if(!initial(organ_typepath.vital)) //I hate this check too. We loop through all the organs the cloned species should have.
+					continue //If it's not a vital organ, continue looping through the organs.
+				if(initial(organ_typepath.parent_organ) == limb)
+					parent_organ_is_limb = TRUE //If it's a vital organ, and belongs to the current limb, we don't want this limb.
+					break
+			if(parent_organ_is_limb)
+				continue
+			limbs_to_grow += limb //It's not supposed to be missing and it's not vital - so we'll be growing it.
 
 	if(clone)
 		clone.Weaken(4 SECONDS) //make sure they stay in the pod
@@ -342,7 +342,7 @@
 		return TRUE
 
 	if(!clone.cloneloss)
-		clone.forceMove(src.loc)
+		clone.forceMove(loc)
 		var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
 		patient_mind.transfer_to(clone)
 		clone.grab_ghost()
@@ -362,7 +362,7 @@
 	if(!force)
 		return FALSE
 
-	clone.forceMove(src.loc)
+	clone.forceMove(loc)
 	new /obj/effect/gibspawner/generic(get_turf(src), clone)
 	playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 
@@ -504,7 +504,7 @@
 
 	if(ismob(inserted.loc))
 		var/mob/M = inserted.loc
-		if((!M.get_active_hand() == inserted))
+		if(!M.get_active_hand() == inserted)
 			return //not sure how this would happen, but smartfridges check for it so
 		if(!M.drop_item())
 			to_chat(inserter, "<span class='warning'>[inserted] is stuck to you!</span>")
@@ -581,7 +581,7 @@
 /obj/machinery/clonepod/emp_act(severity)
 	if(prob(50))
 		eject_clone(TRUE)
-	..()
+	return ..()
 
 //TGUI
 /obj/machinery/clonepod/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -615,7 +615,7 @@
 			if(!O) //This shouldn't happen
 				return FALSE
 			if(!usr.put_in_hands(O))
-				O.forceMove(src.loc)
+				O.forceMove(loc)
 			return TRUE
 		if("purge_reagent")
 			reagents.del_reagent(params["reagent"])
