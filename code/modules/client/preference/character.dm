@@ -118,13 +118,13 @@
 
 	var/markingcolourslist = list2params(m_colours)
 	var/markingstyleslist = list2params(m_styles)
-	if(!isemptylist(organ_data))
+	if(length(organ_data))
 		organlist = list2params(organ_data)
-	if(!isemptylist(rlimb_data))
+	if(length(rlimb_data))
 		rlimblist = list2params(rlimb_data)
-	if(!isemptylist(player_alt_titles))
+	if(length(player_alt_titles))
 		playertitlelist = list2params(player_alt_titles)
-	if(!isemptylist(loadout_gear))
+	if(length(loadout_gear))
 		gearlist = json_encode(loadout_gear)
 
 	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM characters WHERE ckey=:ckey ORDER BY slot", list(
