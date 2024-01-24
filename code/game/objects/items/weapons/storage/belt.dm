@@ -597,7 +597,6 @@
 			if(shell)
 				shell.maptext = ""
 				return shell
-	return null
 
 /obj/item/storage/belt/holster
 	name = "shoulder holster"

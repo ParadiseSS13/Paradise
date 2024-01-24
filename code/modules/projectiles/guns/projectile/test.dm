@@ -2,12 +2,12 @@
 	var/num_unloaded = 0
 	while(get_ammo() > 0)
 		var/obj/item/ammo_casing/CB
-		CB = magazine.get_round(0)
+		CB = magazine.get_round(FALSE)
 		chambered = null
-		CB.loc = get_turf(loc)
+		CB.forceMove(get_turf(loc))
 		CB.SpinAnimation(10, 1)
 		CB.update_icon()
-		playsound(get_turf(CB), 'sound/weapons/gun_interactions/shotgun_fall.ogg', 70, 1)
+		playsound(get_turf(CB), 'sound/weapons/gun_interactions/shotgun_fall.ogg', 70, TRUE)
 		num_unloaded++
 
 	var/obj/item/storage/belt/bandolier/bando = user.find_in_storage(/obj/item/storage/belt/bandolier)
