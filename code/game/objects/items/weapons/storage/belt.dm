@@ -588,16 +588,6 @@
 		update_icon()
 		orient2hud(user)  // Update the displayed items and their counts
 
-/obj/item/storage/belt/bandolier/proc/retrieve_item_of_type(item_type)
-	for(var/obj/item/I in contents)
-		if(istype(I, item_type))
-			contents -= I
-			update_icon() // Update the bandolier's icon to reflect the change in contents.
-			var/obj/item/ammo_casing/shotgun/shell = I
-			if(shell)
-				shell.maptext = ""
-				return shell
-
 /obj/item/storage/belt/holster
 	name = "shoulder holster"
 	desc = "A holster to conceal a carried handgun. WARNING: Badasses only."
