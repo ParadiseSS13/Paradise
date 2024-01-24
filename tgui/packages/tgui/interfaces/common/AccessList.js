@@ -1,13 +1,13 @@
 import { sortBy } from 'common/collections';
-import { Fragment } from 'inferno';
 import { useLocalState } from '../../backend';
 import {
   Box,
   Button,
-  Flex,
+  Stack,
   LabeledList,
   Section,
   Tabs,
+  Divider,
 } from '../../components';
 
 const diffMap = {
@@ -28,7 +28,6 @@ const diffMap = {
 export const AccessList = (props, context) => {
   const {
     sectionButtons = null,
-    sectionFlexGrow = null,
     usedByRcd,
     rcdButtons,
     accesses = [],
@@ -73,10 +72,11 @@ export const AccessList = (props, context) => {
 
   return (
     <Section
+      fill
+      scrollable
       title="Access"
-      flexGrow={sectionFlexGrow}
       buttons={
-        <Fragment>
+        <>
           <Button
             icon="check-double"
             content="Select All"
@@ -90,11 +90,11 @@ export const AccessList = (props, context) => {
             onClick={() => denyAll()}
           />
           {sectionButtons}
-        </Fragment>
+        </>
       }
     >
-      <Flex>
-        <Flex.Item>
+      <Stack>
+        <Stack.Item grow basis="25%">
           <Tabs vertical>
             {accesses.map((access) => {
               const entries = access.accesses || [];
@@ -114,10 +114,13 @@ export const AccessList = (props, context) => {
               );
             })}
           </Tabs>
-        </Flex.Item>
-        <Flex.Item grow={1}>
-          <Flex>
-            <Flex.Item width="50%" mr={0.45}>
+        </Stack.Item>
+        <Stack.Item>
+          <Divider vertical />
+        </Stack.Item>
+        <Stack.Item grow basis="80%">
+          <Stack mb={1}>
+            <Stack.Item grow>
               <Button
                 fluid
                 icon="check"
@@ -125,8 +128,8 @@ export const AccessList = (props, context) => {
                 color="good"
                 onClick={() => grantDep(selectedAccess.regid)}
               />
-            </Flex.Item>
-            <Flex.Item width="50%" ml={0}>
+            </Stack.Item>
+            <Stack.Item grow>
               <Button
                 fluid
                 icon="times"
@@ -134,8 +137,8 @@ export const AccessList = (props, context) => {
                 color="bad"
                 onClick={() => denyDep(selectedAccess.regid)}
               />
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
           {!!usedByRcd && (
             <Box my={1.5}>
               <LabeledList>
@@ -159,8 +162,8 @@ export const AccessList = (props, context) => {
               onClick={() => accessMod(entry.ref)}
             />
           ))}
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

@@ -16,6 +16,7 @@
 
 	no_spin_thrown = TRUE
 	del_on_death = TRUE
+	weather_immunities = list("ash")
 
 	/// The probability % of us escaping if stuffed into a bag/toolbox/etc
 	var/escape_chance = 10

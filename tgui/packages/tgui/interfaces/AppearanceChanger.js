@@ -67,7 +67,7 @@ export const AppearanceChanger = (props, context) => {
   }
 
   return (
-    <Window>
+    <Window width={800} height={450}>
       <Window.Content scrollable>
         <LabeledList>
           {!!change_race && (

@@ -47,7 +47,7 @@
 		return
 	return ..()
 
-/obj/machinery/computer/prisoner/proc/check_implant(obj/item/implant/I)
+/obj/machinery/computer/prisoner/proc/check_implant(obj/item/bio_chip/I)
 	var/turf/implant_location = get_turf(I)
 	if(!implant_location || implant_location.z != z)
 		return FALSE
@@ -55,10 +55,13 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/prisoner/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/prisoner/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/prisoner/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PrisonerImplantManager", name, 500, 500, master_ui, state)
+		ui = new(user, src, "PrisonerImplantManager", name)
 		ui.open()
 
 /obj/machinery/computer/prisoner/ui_data(mob/user)
@@ -72,7 +75,7 @@
 	)
 
 	data["chemicalInfo"] = list()
-	for(var/obj/item/implant/chem/C in GLOB.tracked_implants)
+	for(var/obj/item/bio_chip/chem/C in GLOB.tracked_implants)
 		if(!check_implant(C))
 			continue
 		var/list/implant_info = list(
@@ -83,7 +86,7 @@
 		data["chemicalInfo"] += list(implant_info)
 
 	data["trackingInfo"] = list()
-	for(var/obj/item/implant/tracking/T in GLOB.tracked_implants)
+	for(var/obj/item/bio_chip/tracking/T in GLOB.tracked_implants)
 		if(!check_implant(T))
 			continue
 		var/mob/living/carbon/M = T.imp_in
@@ -137,7 +140,7 @@
 			else
 				to_chat(user, "<span class='warning'>No valid ID.</span>")
 		if("inject")
-			var/obj/item/implant/chem/implant = locateUID(params["uid"])
+			var/obj/item/bio_chip/chem/implant = locateUID(params["uid"])
 			if(!implant)
 				return
 			implant.activate(text2num(params["amount"]))
@@ -167,7 +170,7 @@
 			var/answer = params["answer"]
 			switch(id)
 				if("warn")
-					var/obj/item/implant/tracking/implant = locateUID(arguments["uid"])
+					var/obj/item/bio_chip/tracking/implant = locateUID(arguments["uid"])
 					if(!implant)
 						return
 					if(implant.warn_cooldown >= world.time)

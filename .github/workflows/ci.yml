@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: $HOME/SpacemanDMM
           key: ${{ runner.os }}-spacemandmm
@@ -63,7 +63,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond
@@ -72,7 +72,7 @@ jobs:
           tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/generate_maplist.sh
-          tools/ci/dm.sh -DCIMAP paradise.dme
+          DreamMaker -DMULTIINSTANCE -DCIMAP paradise.dme
 
   unit_tests_and_sql:
     name: Unit Tests + SQL Validation
@@ -93,7 +93,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond
@@ -112,7 +112,7 @@ jobs:
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/ci/dm.sh -DCIBUILDING paradise.dme
+          DreamMaker -DMULTIINSTANCE -DCIBUILDING paradise.dme
           echo '${{ matrix.maptype }}' > data/next_map.txt
           tools/ci/run_server.sh
 

@@ -106,10 +106,13 @@
 /obj/effect/proc_holder/spell/vampire/self/specialize/cast(mob/user)
 	ui_interact(user)
 
-/obj/effect/proc_holder/spell/vampire/self/specialize/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/effect/proc_holder/spell/vampire/self/specialize/ui_state(mob/user)
+	return GLOB.always_state
+
+/obj/effect/proc_holder/spell/vampire/self/specialize/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SpecMenu", "Specialisation Menu", 1200, 760, master_ui, state)
+		ui = new(user, src, "SpecMenu", "Specialisation Menu")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -333,10 +336,10 @@
 			visible_message("<span class='warning'>[H] looks to be stunned by the energy!</span>")
 			H.Weaken(40 SECONDS)
 		return
-	for(var/obj/item/implant/mindshield/L in H)
+	for(var/obj/item/bio_chip/mindshield/L in H)
 		if(L && L.implanted)
 			qdel(L)
-	for(var/obj/item/implant/traitor/T in H)
+	for(var/obj/item/bio_chip/traitor/T in H)
 		if(T && T.implanted)
 			qdel(T)
 	visible_message("<span class='warning'>[H] gets an eerie red glow in their eyes!</span>")

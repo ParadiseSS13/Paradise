@@ -254,18 +254,6 @@
 	prefs.current_tab = 1
 	prefs.ShowChoices(usr)
 
-/client/verb/toggle_darkmode()
-	set name = "Toggle Darkmode"
-	set category = "Preferences"
-	set desc = "Toggles UI style between dark and light"
-	prefs.toggles ^= PREFTOGGLE_UI_DARKMODE
-	prefs.save_preferences(src)
-	if(prefs.toggles & PREFTOGGLE_UI_DARKMODE)
-		activate_darkmode()
-	else
-		deactivate_darkmode()
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Darkmode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /client/verb/toggle_popup_limiter()
 	set name = "Toggle Text Popup Limiter"
 	set category = "Preferences"

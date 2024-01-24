@@ -98,6 +98,7 @@
 	bundle = new bundle(user.loc)
 	to_chat(user, "<span class='notice'>Welcome to [station_name()], [bundle_name]!</span>")
 	user.drop_item()
+	SSblackbox.record_feedback("tally", "syndicate_bundle_pick", 1, "[bundle]")
 	qdel(src)
 	user.put_in_hands(bundle)
 
@@ -130,6 +131,11 @@
 /obj/item/radio/beacon/syndicate/bomb/emp
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance EMP explosive to your location</i>."
 	bomb = /obj/machinery/syndicatebomb/emp
+
+/obj/item/radio/beacon/syndicate/bomb/grey_autocloner
+	desc = "A label on it reads: <i>Warning: Activating this device will send an expensive cloner to your location</i>."
+	origin_tech = "bluespace=2;syndicate=2"
+	bomb = /obj/machinery/grey_autocloner
 
 /obj/item/radio/beacon/engine
 	desc = "A label on it reads: <i>Warning: This device is used for transportation of high-density objects used for high-yield power generation. Stay away!</i>."

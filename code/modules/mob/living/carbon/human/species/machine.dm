@@ -112,17 +112,6 @@
 	H.med_hud_set_health()
 	H.med_hud_set_status()
 
-/datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-	if(!istype(head_organ))
-		return
-	head_organ.h_style = "Bald"
-	head_organ.f_style = "Shaved"
-	spawn(100)
-		if(H && head_organ)
-			H.update_hair()
-			H.update_fhair()
-
 /datum/species/machine/handle_life(mob/living/carbon/human/H) // Handles IPC starvation
 	..()
 	if(isLivingSSD(H)) // We don't want AFK people dying from this

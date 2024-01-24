@@ -138,3 +138,6 @@
 /obj/item/organ/internal/regenerative_core/legion/preserved(implanted = 0)
 	..()
 	desc = "[src] has been stabilized. It is preserved, allowing you to use it to heal completely without danger of decay."
+
+/obj/item/organ/internal/regenerative_core/legion/already_preserved
+	preserved = TRUE

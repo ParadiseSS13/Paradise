@@ -445,10 +445,10 @@
 
 /mob/living/simple_animal/bot/rename_character(oldname, newname)
 	if(!..(oldname, newname))
-		return 0
+		return FALSE
 
 	set_custom_texts()
-	return 1
+	return TRUE
 
 /mob/living/simple_animal/bot/proc/set_custom_texts() //Superclass for setting hack texts. Appears only if a set is not given to a bot locally.
 	text_hack = "You hack [name]."
@@ -837,7 +837,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/datum/browser/popup = new(M,window_id,window_name,350,600)
 	popup.set_content(dat)
 	popup.open()
-	onclose(M,window_id,ref=src)
+	onclose(M, window_id, src)
 	return
 
 /mob/living/simple_animal/bot/proc/update_controls()
