@@ -4,7 +4,7 @@
 	icon = 'icons/mob/robot_items.dmi'
 	icon_state = "rlf"
 
-/obj/item/rlf/afterattack(atom/A, mob/user as mob, proximity)
+/obj/item/rlf/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
 	if(!isrobot(user))

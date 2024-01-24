@@ -97,7 +97,7 @@
 			var/attempt_code = input("Re-enter the current EFTPOS access code", "Confirm old EFTPOS code") as num
 			if(attempt_code == access_code)
 				if(isrobot(user))
-					alert("The system doesn't need new code! Current code: 0101")
+					alert("The system doesn't need a new code! Current code: 0101")
 					access_code = 0101
 					return
 				var/trycode = input("Enter a new access code for this device (4 digits, numbers only)", "Enter new EFTPOS code") as num

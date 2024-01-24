@@ -763,7 +763,7 @@
 		/obj/item/gripper/nuclear,
 		/obj/item/crowbar/cyborg,
 		/obj/item/gps/cyborg,
-		/obj/item/pinpointer/operative/nad,
+		/obj/item/pinpointer/operative/nad
 	)
 	special_rechargables = list(
 		/obj/item/melee/baton/loaded,
@@ -781,8 +781,7 @@
 		/obj/item/reagent_containers/spray/alien/stun,
 		/obj/item/reagent_containers/spray/alien/smoke,
 		/obj/item/crowbar/cyborg,
-		/obj/item/gps/cyborg,
-		/obj/item/pinpointer/operative/nad,
+		/obj/item/gps/cyborg
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/alien/acid)
 	special_rechargables = list(

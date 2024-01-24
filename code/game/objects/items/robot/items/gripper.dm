@@ -81,7 +81,7 @@
 			gripped_item?.afterattack(target, user, 1, params)
 
 		// If gripped_item either didn't get deleted, or it failed to be transfered to its target
-		if(!gripped_item && contents.len)
+		if(!gripped_item && length(contents))
 			gripped_item = contents[1]
 			return FALSE
 		else if(gripped_item && !contents.len)
@@ -173,7 +173,7 @@
 		/obj/item/stack/tile/light,
 		/obj/item/stack/ore/bluespace_crystal,
 		/obj/item/assembly/igniter,
-		/obj/item/flash,
+		/obj/item/flash
 	)
 
 /obj/item/gripper/medical
@@ -191,7 +191,7 @@
 					)
 
 /obj/item/gripper/service
-	name = "Card gripper"
+	name = "card gripper"
 	desc = "A grasping tool used to take IDs for paying taxes and waking up drunken crewmates"
 	can_hold = list(/obj/item/card,
 					/obj/item/camera_film,
@@ -200,11 +200,11 @@
 					/obj/item/toy/plushie,
 					/obj/item/disk/data,
 					/obj/item/disk/design_disk,
-					/obj/item/disk/plantgene,
+					/obj/item/disk/plantgene
 					)
 
 /obj/item/gripper/nuclear
-	name = "Nuclear gripper"
+	name = "nuclear authentication disk gripper"
 	desc = "Designed for all your nuclear needs."
 	icon = 'icons/mob/robot_items.dmi'
 	icon_state = "diskgripper"

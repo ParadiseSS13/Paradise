@@ -14,7 +14,7 @@
 
 /obj/item/inflatable/cyborg/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>As a synthetic, you can restore them to <b>cyborg recharger</b></span>"
+	. += "<span class='notice'>As a synthetic, you can restore them at a <b>cyborg recharger</b></span>"
 
 /obj/item/inflatable/cyborg/attack_self(mob/user)
 	if(locate(/obj/structure/inflatable) in get_turf(user))

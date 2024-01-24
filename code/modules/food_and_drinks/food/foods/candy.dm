@@ -217,7 +217,7 @@
 
 /obj/item/food/snacks/candy/sucker/lollipop
 	name = "lollipop"
-	desc = "For being such a courage patient!"
+	desc = "For being a brave patient!"
 	icon_state = "sucker"
 	filling_color = "#60A584"
 

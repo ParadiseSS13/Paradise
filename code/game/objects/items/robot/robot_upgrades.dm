@@ -283,8 +283,8 @@
 /***********************/
 
 /obj/item/borg/upgrade/storage_increaser
-	name = "storage increaser"
-	desc = "Improves cyborg storage with bluespace technology to store more medicines"
+	name = "storage upgrade"
+	desc = "Improves cyborg storage with bluespace technology."
 	icon_state = "cyborg_upgrade2"
 	origin_tech = "bluespace=4;materials=5;engineering=3"
 	require_module = TRUE
@@ -417,7 +417,6 @@
 	items_to_replace = list(
 		/obj/item/reagent_containers/borghypo/basic = /obj/item/reagent_containers/borghypo/basic/upgraded
 	)
-
 
 /***********************/
 /****	JANITOR		****/
