@@ -45,28 +45,13 @@
 /datum/data/pda/messenger_plugin/virus/detonate/user_act(mob/user as mob, obj/item/pda/P)
 	. = ..(user, P)
 	if(.)
-		var/difficulty = 0
-
-		if(pda.cartridge)
-			difficulty += pda.cartridge.programs.len / 2
-		else
-			difficulty += 2
-
 		if(!P.detonate || P.hidden_uplink)
 			user.show_message("<span class='warning'>The target PDA does not seem to respond to the detonation command.</span>", 1)
 			pda.cartridge.charges++
-		else if(prob(difficulty * 12))
-			user.show_message("<span class='warning'>An error flashes on your [pda].</span>", 1)
-		else if(prob(difficulty * 3))
-			user.show_message("<span class='danger'>Energy feeds back into your [pda]!</span>", 1)
-			pda.close(user)
-			pda.explode()
-			log_admin("[key_name(user)] just attempted to blow up [P] with the Detomatix cartridge but failed, blowing themselves up")
-			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge but failed, blowing themselves up", 1)
 		else
 			user.show_message("<span class='notice'>Success!</span>", 1)
-			log_admin("[key_name(user)] just attempted to blow up [P] with the Detomatix cartridge and succeeded")
-			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge and succeeded", 1)
+			log_admin("[key_name(user)] just blew up [P] with the Detomatix cartridge")
+			message_admins("[key_name_admin(user)] just blew up [P] with the Detomatix cartridge", 1)
 			P.explode()
 
 /datum/data/pda/messenger_plugin/virus/frame
