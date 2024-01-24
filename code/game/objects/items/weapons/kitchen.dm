@@ -71,7 +71,7 @@
 	icon_state = "fork"
 
 /obj/item/kitchen/utensil/fork/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting the [src] into the garbage disposal!</span>")
+	user.visible_message("<span class='suicide'>[user] is putting the [src] into the garbage disposal! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	var/message = "DING DING DING DING DING DING DING DING DING"
 	var/span = "reallybig"
 	sleep(2 SECONDS)
