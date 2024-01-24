@@ -16,7 +16,7 @@
 		if(MALE)	pick_list = GLOB.underwear_m
 		if(FEMALE)	pick_list = GLOB.underwear_f
 		else		pick_list = GLOB.underwear_list
-	return pick_species_allowed_underwear(GLOB.underwear_list, species)
+	return pick_species_allowed_underwear(pick_list, species)
 
 /proc/random_undershirt(gender, species = "Human")
 	var/list/pick_list = list()
@@ -24,7 +24,7 @@
 		if(MALE)	pick_list = GLOB.undershirt_m
 		if(FEMALE)	pick_list = GLOB.undershirt_f
 		else		pick_list = GLOB.undershirt_list
-	return pick_species_allowed_underwear(GLOB.undershirt_list, species)
+	return pick_species_allowed_underwear(pick_list, species)
 
 /proc/random_socks(gender, species = "Human")
 	var/list/pick_list = list()
@@ -32,7 +32,7 @@
 		if(MALE)	pick_list = GLOB.socks_m
 		if(FEMALE)	pick_list = GLOB.socks_f
 		else		pick_list = GLOB.socks_list
-	return pick_species_allowed_underwear(GLOB.socks_list, species)
+	return pick_species_allowed_underwear(pick_list, species)
 
 /proc/pick_species_allowed_underwear(list/all_picks, species)
 	var/list/valid_picks = list()
