@@ -162,8 +162,8 @@ const CloningConsoleDamage = (props, context) => {
   } = data;
   return (
     <Box>
-      {!hasScanner && <Box color='average'>Notice: No scanner connected.</Box>}
-      {!!hasScanner &&
+      {!hasScanner && <Box color="average">Notice: No scanner connected.</Box>}
+      {!!hasScanner && (
         <Box>
           <Section
             layer={2}
@@ -213,12 +213,14 @@ const CloningConsoleDamage = (props, context) => {
                         maxValue={selectedPodData['biomass_storage_capacity']}
                         ranges={{
                           bad: [
-                            (2 * selectedPodData['biomass_storage_capacity']) / 3,
+                            (2 * selectedPodData['biomass_storage_capacity']) /
+                              3,
                             selectedPodData['biomass_storage_capacity'],
                           ],
                           average: [
                             selectedPodData['biomass_storage_capacity'] / 3,
-                            (2 * selectedPodData['biomass_storage_capacity']) / 3,
+                            (2 * selectedPodData['biomass_storage_capacity']) /
+                              3,
                           ],
                           good: [
                             0,
@@ -226,7 +228,9 @@ const CloningConsoleDamage = (props, context) => {
                           ],
                         }}
                         color={
-                          cloningCost[0] > selectedPodData['biomass'] ? 'bad' : null
+                          cloningCost[0] > selectedPodData['biomass']
+                            ? 'bad'
+                            : null
                         }
                       >
                         Biomass: {cloningCost[0]}/{selectedPodData['biomass']}/
@@ -246,7 +250,10 @@ const CloningConsoleDamage = (props, context) => {
                             selectedPodData['max_reagent_capacity'] / 3,
                             (2 * selectedPodData['max_reagent_capacity']) / 3,
                           ],
-                          good: [0, selectedPodData['max_reagent_capacity'] / 3],
+                          good: [
+                            0,
+                            selectedPodData['max_reagent_capacity'] / 3,
+                          ],
                         }}
                         color={
                           cloningCost[1] > selectedPodData['sanguine_reagent']
@@ -272,7 +279,10 @@ const CloningConsoleDamage = (props, context) => {
                             selectedPodData['max_reagent_capacity'] / 3,
                             (2 * selectedPodData['max_reagent_capacity']) / 3,
                           ],
-                          good: [0, selectedPodData['max_reagent_capacity'] / 3],
+                          good: [
+                            0,
+                            selectedPodData['max_reagent_capacity'] / 3,
+                          ],
                         }}
                         color={
                           cloningCost[1] > selectedPodData['osseous_reagent']
@@ -293,7 +303,7 @@ const CloningConsoleDamage = (props, context) => {
             </Box>
           </Section>
         </Box>
-      }
+      )}
     </Box>
   );
 };
