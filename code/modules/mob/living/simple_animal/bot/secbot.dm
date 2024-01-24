@@ -96,9 +96,6 @@
 	no_handcuffs = TRUE
 	weapons_check = TRUE
 
-	var/datum/job/detective/J = new/datum/job/detective
-	access_card.access += J.get_access()
-	prev_access = access_card.access
 
 /mob/living/simple_animal/bot/secbot/turn_on()
 	..()
