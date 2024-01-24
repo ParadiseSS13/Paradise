@@ -110,7 +110,7 @@
 		to_chat(user, "<span class='warning'>[src]'s ID scanner is already broken!</span>")
 
 /obj/machinery/computer/cloning/proc/generate_healthy_data(datum/cloning_data/patient_data)
-	var/datum/cloning_data/desired_data = new /datum/cloning_data()
+	var/datum/cloning_data/desired_data = new
 
 	for(var/limb in patient_data.limbs)
 		desired_data.limbs[limb] = list(0,
@@ -237,7 +237,7 @@
 			return TRUE
 		if("clone")
 			var/cost = selected_pod.get_cloning_cost(scanner.last_scan, desired_data)
-			if((selected_pod.biomass < cost[1]) || (selected_pod.reagents.get_reagent_amount("sanguine_reagent") < cost[2]) || (selected_pod.reagents.get_reagent_amount("osseous_reagent") < cost[3]))
+			if(selected_pod.biomass < cost[1] || (selected_pod.reagents.get_reagent_amount("sanguine_reagent") < cost[2]) || selected_pod.reagents.get_reagent_amount("osseous_reagent") < cost[3])
 				feedback = list("text" = "The cloning operation is too expensive!", "color" = "bad")
 			else
 				selected_pod.start_cloning(scanner.last_scan, desired_data)
@@ -326,7 +326,7 @@
 			return TRUE
 
 
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 
 #undef TAB_MAIN
 #undef TAB_DAMAGES_BREAKDOWN
