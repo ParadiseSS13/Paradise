@@ -45,6 +45,7 @@
 /mob/living/simple_animal/bot/secbot/Initialize(mapload)
 	. = ..()
 	baton = new(src)
+	icon_state = "[base_icon][on]"
 
 /mob/living/simple_animal/bot/secbot/Destroy()
 	QDEL_NULL(baton)
@@ -94,10 +95,6 @@
 	idcheck = TRUE
 	no_handcuffs = TRUE
 	weapons_check = TRUE
-
-/mob/living/simple_animal/bot/secbot/Initialize(mapload)
-	. = ..()
-	icon_state = "[base_icon][on]"
 
 	var/datum/job/detective/J = new/datum/job/detective
 	access_card.access += J.get_access()
