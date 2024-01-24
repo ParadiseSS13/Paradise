@@ -1,5 +1,9 @@
 #include "_objects.dm"
 
+// Mechs
+#include "code/mecha/lockermech.dm"
+
+// Miscellaneous
 #include "code/beach_umbrella.dm"
 #include "code/beretta.dm"
 #include "code/big_bed.dm"
