@@ -36,6 +36,7 @@
 /datum/tgui_say/New(client/client, id)
 	src.client = client
 	window = new(client, id)
+	winset(client, "tgui_say", "size=1,1;is-visible=0;")
 	window.subscribe(src, PROC_REF(on_message))
 	window.is_browser = TRUE
 
@@ -64,11 +65,19 @@
 	window_open = FALSE
 	winset(client, "tgui_say", "pos=848,500;size=231,30;is-visible=0;")
 	window.send_message("props", list(
-		lightMode = (client.prefs?.toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE),
+		lightMode = (client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE),
 		maxLength = max_length,
 	))
 	stop_thinking()
 	return TRUE
+
+/**
+ * Toggles between light and dark mode, triggered by a change in prefs.
+ */
+/datum/tgui_say/proc/toggle_dark_light_mode()
+	window.send_message("props", list(
+		lightMode = (client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE),
+	))
 
 /**
  * Sets the window as "opened" server side, though it is already
@@ -82,7 +91,8 @@
 	if(!payload?["channel"])
 		CRASH("No channel provided to an open TGUI-Say")
 	window_open = TRUE
-	if(payload["channel"] != (OOC_CHANNEL || LOOC_CHANNEL || ADMIN_CHANNEL))
+
+	if(payload["channel"] == ME_CHANNEL || payload["channel"] ==  RADIO_CHANNEL || payload["channel"] ==  SAY_CHANNEL)
 		start_thinking()
 	return TRUE
 
@@ -99,27 +109,29 @@
  * and delegates actions.
  */
 /datum/tgui_say/proc/on_message(type, payload)
-	if(type == "ready")
-		load()
-		return TRUE
-	if(type == "open")
-		open(payload)
-		return TRUE
-	if(type == "close")
-		close()
-		return TRUE
-	if(type == "thinking")
-		if(payload["visible"] == TRUE)
-			start_thinking()
+	switch(type)
+		if("ready")
+			load()
 			return TRUE
-		if(payload["visible"] == FALSE)
-			stop_thinking()
+		if("open")
+			open(payload)
 			return TRUE
-		return FALSE
-	if(type == "typing")
-		start_typing()
-		return TRUE
-	if(type == "entry" || type == "force")
-		handle_entry(type, payload)
-		return TRUE
+		if("close")
+			close()
+			return TRUE
+		if("thinking")
+			if(payload["visible"] == TRUE)
+				start_thinking()
+				return TRUE
+			if(payload["visible"] == FALSE)
+				stop_thinking()
+				return TRUE
+			return FALSE
+		if("typing")
+			start_typing()
+			return TRUE
+		if("entry", "force")
+			handle_entry(type, payload)
+			return TRUE
+
 	return FALSE

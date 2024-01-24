@@ -29,12 +29,8 @@
 	keys = list("F5")
 
 /datum/keybinding/admin/dsay
-	name = "Dsay"
+	name = DSAY_CHANNEL
 	keys = list("F10")
-
-/datum/keybinding/admin/dsay/down(client/C)
-	. = ..()
-	C.get_dead_say()
 
 /datum/keybinding/admin/aghost
 	name = "Aghost"

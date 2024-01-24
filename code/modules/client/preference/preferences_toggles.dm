@@ -240,7 +240,8 @@
 	set desc = "Switches TGUI Say between light and dark modes"
 	prefs.toggles2 ^= PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE
 	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE) ? "no longer" : "now"] use light mode for TGUI Say.")
+	tgui_say?.toggle_dark_light_mode()
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE) ? "now" : "no longer"] use light mode for TGUI Say.")
 
 /client/verb/Toggle_disco() //to toggle off the disco machine locally, in case it gets too annoying
 	set name = "Hear/Silence Dance Machine"

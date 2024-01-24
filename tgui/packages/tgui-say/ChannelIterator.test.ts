@@ -12,7 +12,8 @@ describe('ChannelIterator', () => {
     expect(channelIterator.next()).toBe('Radio');
     expect(channelIterator.next()).toBe('Me');
     expect(channelIterator.next()).toBe('OOC');
-    expect(channelIterator.next()).toBe('Say'); // Admin is blacklisted so it should be skipped
+    expect(channelIterator.next()).toBe('LOOC');
+    expect(channelIterator.next()).toBe('Say'); // Admin, Mentor, and Dsay are blacklisted so should be skipped
   });
 
   it('should set a channel properly', () => {

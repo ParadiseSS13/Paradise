@@ -22,7 +22,8 @@ type State = {
   size: WINDOW_SIZES;
 };
 
-const CHANNEL_REGEX = /^:\w\s/;
+// Picks out radio channel keycodes
+const CHANNEL_REGEX = /^[:#.][^\s]\s/;
 
 export class TguiSay extends Component<{}, State> {
   private channelIterator: ChannelIterator;
@@ -168,7 +169,10 @@ export class TguiSay extends Component<{}, State> {
 
   handleIncrementChannel() {
     // Binary talk is a special case, tell byond to show thinking indicators
-    if (this.channelIterator.isSay() && this.currentPrefix === ':b ') {
+    if (
+      this.channelIterator.isSay() &&
+      this.currentPrefix === (':+ ' || '.+ ' || '#+ ')
+    ) {
       this.messages.channelIncrementMsg(true);
     }
 
@@ -188,7 +192,10 @@ export class TguiSay extends Component<{}, State> {
     const typed = this.innerRef.current?.value;
 
     // If we're typing, send the message
-    if (this.channelIterator.isVisible() && this.currentPrefix !== ':b ') {
+    if (
+      this.channelIterator.isVisible() &&
+      this.currentPrefix !== (':+ ' || '.+ ' || '#+ ')
+    ) {
       this.messages.typingMsg();
     }
 
@@ -212,7 +219,7 @@ export class TguiSay extends Component<{}, State> {
     }
 
     // If we're in binary, hide the thinking indicator
-    if (prefix === ':b ') {
+    if (prefix === (':+ ' || '.+ ' || '#+ ')) {
       Byond.sendMessage('thinking', { visible: false });
     }
 

@@ -10,7 +10,7 @@
 /datum/tgui_say/proc/alter_entry(payload)
 	var/entry = payload["entry"]
 	/// No OOC leaks
-	if(!entry || payload["channel"] == OOC_CHANNEL || payload["channel"] == ME_CHANNEL)
+	if(!entry || (payload["channel"] != SAY_CHANNEL && payload["channel"] != RADIO_CHANNEL))
 		return pick(hurt_phrases)
 	/// Random trimming for larger sentences
 	if(length(entry) > 50)
@@ -36,7 +36,7 @@
 			client.mob.say_verb(entry)
 			return TRUE
 		if(RADIO_CHANNEL)
-			client.mob.say_verb(";" + entry)
+			client.mob.say_verb((isliving(client.mob) ? ";" : "") + entry)
 			return TRUE
 		if(ME_CHANNEL)
 			client.mob.me_verb(entry)
@@ -93,7 +93,7 @@
 		return TRUE
 	if(type == "force")
 		var/target_channel = payload["channel"]
-		if(target_channel == ME_CHANNEL || target_channel == OOC_CHANNEL)
+		if(target_channel != SAY_CHANNEL && target_channel != RADIO_CHANNEL)
 			target_channel = SAY_CHANNEL // No ooc leaks
 		delegate_speech(alter_entry(payload), target_channel)
 		return TRUE

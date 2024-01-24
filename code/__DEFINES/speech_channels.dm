@@ -4,7 +4,7 @@
 #define ME_CHANNEL "Me"
 #define OOC_CHANNEL "OOC"
 #define LOOC_CHANNEL "LOOC"
-#define MENTOR_CHANNEL "msay"
-#define ADMIN_CHANNEL "asay"
-#define DSAY_CHANNEL "dsay"
+#define MENTOR_CHANNEL "Mentor"
+#define ADMIN_CHANNEL "Admin"
+#define DSAY_CHANNEL "Dsay"
 

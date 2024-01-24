@@ -7,7 +7,7 @@
 	set_typing_indicator(FALSE)
 	return ..()
 
-/** Sets the mob as "thinking" - with indicator and variable thinking_IC */
+/** Sets the mob as "thinking" - with indicator */
 /datum/tgui_say/proc/start_thinking()
 	if(!client?.mob || !window_open)
 		return FALSE
