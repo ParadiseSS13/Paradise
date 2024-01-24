@@ -213,7 +213,7 @@
 	var/choice = tgui_input_list(user, "What would you like to edit?", "Book Edit", list("Title", "Edit Current Page", "Author", "Summary", "Add Page", "Remove Page"))
 	switch(choice)
 		if("Title")
-			var/newtitle = reject_bad_text(stripped_input(user, "Write a new title:"))
+			var/newtitle = reject_bad_text(tgui_input_text(user, "Write a new title:", "Title", title))
 			if(!newtitle)
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
@@ -222,13 +222,13 @@
 			name = "Book: " + newtitle
 			title = newtitle
 		if("Author")
-			var/newauthor = stripped_input(user, "Write the author's name:")
+			var/newauthor = tgui_input_text(user, "Write the author's name:", "Author", author, MAX_NAME_LEN)
 			if(!newauthor)
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			author = newauthor
 		if("Summary")
-			var/newsummary = strip_html(input(user, "Write the new summary:") as message|null, MAX_SUMMARY_LEN)
+			var/newsummary = tgui_input_text(user, "Write the new summary:", "Summary", summary, MAX_SUMMARY_LEN)
 			if(!newsummary)
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
@@ -244,7 +244,7 @@
 			if(character_space_remaining <= 0)
 				to_chat(user, "<span class='notice'>There's not enough space left on this page to write anything!</span>")
 				return
-			var/content = strip_html(input(user, "Add Text to this page, you have [character_space_remaining] characters of space left:") as message|null, MAX_CHARACTERS_PER_BOOKPAGE)
+			var/content = tgui_input_text(user, "Add Text to this page, you have [character_space_remaining] characters of space left:", "Edit Current Page", max_length = MAX_CHARACTERS_PER_BOOKPAGE)
 			if(!content)
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
@@ -267,7 +267,7 @@
 			if(!length(pages))
 				to_chat(user, "<span class='notice'>There aren't any pages in this book!</span>")
 				return
-			var/page_choice = input(user, "There are [length(pages)] pages, which page number would you like to remove?", "Input Page Number", null) as num|null
+			var/page_choice = tgui_input_number(user, "There are [length(pages)] pages, which page number would you like to remove?", "Input Page Number", max_value = length(pages))
 			if(!page_choice)
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return

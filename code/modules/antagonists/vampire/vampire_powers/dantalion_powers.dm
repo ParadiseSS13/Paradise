@@ -111,7 +111,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/vampire/thrall_commune/cast(list/targets, mob/user)
-	var/input = stripped_input(user, "Enter a message to relay to the other thralls", "Thrall Commune", "")
+	var/input = tgui_input_text(user, "Enter a message to relay to the other thralls", "Thrall Commune")
 	if(!input)
 		revert_cast(user)
 		return

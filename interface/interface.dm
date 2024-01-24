@@ -4,7 +4,7 @@
 	set desc = "Type what you want to know about.  This will open the wiki in your web browser."
 	set hidden = 1
 	if(GLOB.configuration.url.wiki_url)
-		var/query = stripped_input(src, "Enter Search:", "Wiki Search", "Homepage")
+		var/query = tgui_input_text(src, "Enter Search:", "Wiki Search", "Homepage")
 		if(query == "Homepage")
 			src << link(GLOB.configuration.url.wiki_url)
 		else if(query)

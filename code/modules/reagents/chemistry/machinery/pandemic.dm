@@ -114,7 +114,7 @@
 					D = new type(0, null)
 			if(!D)
 				return
-			var/name = stripped_input(usr,"Name:","Name the culture",D.name,MAX_NAME_LEN)
+			var/name = tgui_input_text(usr, "Name:", "Name the culture", D.name, MAX_NAME_LEN)
 			if(name == null || wait)
 				return
 			var/obj/item/reagent_containers/glass/bottle/B = new/obj/item/reagent_containers/glass/bottle(loc)
@@ -145,7 +145,7 @@
 		updateUsrDialog()
 		return
 	else if(href_list["name_disease"])
-		var/new_name = stripped_input(usr, "Name the Disease", "New Name", "", MAX_NAME_LEN)
+		var/new_name = tgui_input_text(usr, "Name the Disease", "New Name", max_length = MAX_NAME_LEN)
 		if(!new_name)
 			return
 		if(..())
