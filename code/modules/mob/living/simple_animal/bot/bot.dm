@@ -96,8 +96,10 @@
 
 	hud_possible = list(DIAG_STAT_HUD, DIAG_BOT_HUD, DIAG_HUD)//Diagnostic HUD views
 
-	var/turf/last_target_location // storing last chased target known location
-	var/lost_target = FALSE // will be true if we lost target we were chasing
+	/// storing last chased target known location
+	var/turf/last_target_location
+	/// will be true if we lost target we were chasing
+	var/lost_target = FALSE
 
 /obj/item/radio/headset/bot
 	requires_tcomms = FALSE

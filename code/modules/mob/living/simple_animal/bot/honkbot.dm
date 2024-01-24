@@ -234,7 +234,6 @@
 					honk_attack(target)
 				else
 					if(threatlevel >= 6)
-						set waitfor = 0
 						stun_attack(target)
 						anchored = FALSE
 						target_lastloc = target.loc
