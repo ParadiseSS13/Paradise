@@ -42,7 +42,7 @@
 	name = "*Detonate*"
 	icon = "exclamation-circle"
 
-/datum/data/pda/messenger_plugin/virus/detonate/user_act(mob/user as mob, obj/item/pda/P)
+/datum/data/pda/messenger_plugin/virus/detonate/user_act(mob/user, obj/item/pda/P)
 	. = ..(user, P)
 	if(.)
 		if(!P.detonate || P.hidden_uplink)
