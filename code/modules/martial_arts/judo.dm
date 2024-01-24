@@ -77,20 +77,14 @@
 
 /datum/martial_art/judo/under_siege/teach(mob/living/carbon/human/H, make_temporary)
 	RegisterSignal(H, COMSIG_AREA_ENTERED, PROC_REF(bar_check))
-	if(HAS_TRAIT(H, TRAIT_TABLE_LEAP) == FALSE)
-		ADD_TRAIT(H, TRAIT_TABLE_LEAP,ROUNDSTART_TRAIT)
 	return ..()
 
 /datum/martial_art/judo/under_siege/remove(mob/living/carbon/human/H)
 	UnregisterSignal(H, COMSIG_AREA_ENTERED)
-	if(HAS_TRAIT(H, TRAIT_TABLE_LEAP) == TRUE)
-		REMOVE_TRAIT(H, TRAIT_TABLE_LEAP,ROUNDSTART_TRAIT)
 	return ..()
 
 /datum/martial_art/judo/under_siege/proc/bar_check(mob/living/carbon/human/H, area/entered_area)
 	SIGNAL_HANDLER
-	if(HAS_TRAIT(H, TRAIT_TABLE_LEAP) == FALSE)
-		ADD_TRAIT(H, TRAIT_TABLE_LEAP,ROUNDSTART_TRAIT)
 	if(!is_type_in_typecache(entered_area, areas_under_siege))
 		var/list/held_items = list(H.get_active_hand(), H.get_inactive_hand())
 		for(var/obj/item/slapper/parry/smacking_hand in held_items)
@@ -103,8 +97,6 @@
 
 /datum/martial_art/judo/under_siege/can_use(mob/living/carbon/human/H)
 	var/area/A = get_area(H)
-	if(HAS_TRAIT(H, TRAIT_TABLE_LEAP) == FALSE)
-		ADD_TRAIT(H, TRAIT_TABLE_LEAP,ROUNDSTART_TRAIT)
 	if(!(is_type_in_typecache(A, areas_under_siege)))
 		return FALSE
 	return ..()
