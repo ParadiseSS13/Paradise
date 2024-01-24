@@ -12,7 +12,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	SSmetrics.world_init_time = REALTIMEOFDAY
 
 	// Do sanity checks to ensure RUST actually exists
-	if(!fexists(RUST_G))
+	if((!fexists(RUST_G)) && world.system_type == MS_WINDOWS)
 		DIRECT_OUTPUT(world.log, "ERROR: RUSTG was not found and is required for the game to function. Server will now exit.")
 		del(world)
 
@@ -31,7 +31,9 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	// Right off the bat, load up the DB
 	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
 	SSdbcore.SetRoundID() // Set the round ID here
+	#ifdef MULTIINSTANCE
 	SSinstancing.seed_data() // Set us up in the DB
+	#endif
 
 	// Setup all log paths and stamp them with startups, including round IDs
 	SetupLogs()
@@ -294,7 +296,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 /world/Del()
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
 	disable_auxtools_debugger() // Disables the debugger if running. See above comment
-	rustg_redis_disconnect() // Disconnects the redis connection. See above.
+
+	if(SSredis.connected)
+		rustg_redis_disconnect() // Disconnects the redis connection. See above.
+
 	#ifdef ENABLE_BYOND_TRACY
 	CALL_EXT("prof.dll", "destroy")() // Setup Tracy integration
 	#endif

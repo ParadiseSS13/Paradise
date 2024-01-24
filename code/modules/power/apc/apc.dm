@@ -520,7 +520,7 @@
 	if(istype(H))
 		if(H.getBrainLoss() >= 60)
 			for(var/mob/M in viewers(src, null))
-				to_chat(M, "<span class='danger'>[H] stares cluelessly at [src] and drools.</span>")
+				to_chat(M, "<span class='danger'>[H] stares cluelessly at [src].</span>")
 			return FALSE
 		else if(prob(H.getBrainLoss()))
 			to_chat(user, "<span class='danger'>You momentarily forget how to use [src].</span>")

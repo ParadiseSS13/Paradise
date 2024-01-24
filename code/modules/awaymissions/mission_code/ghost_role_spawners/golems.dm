@@ -69,6 +69,7 @@
 	move_resist = MOVE_FORCE_NORMAL
 	density = FALSE
 	death_cooldown = 300 SECONDS
+	STATIC_COOLDOWN_DECLARE(ghost_flash_cooldown)
 	var/has_owner = FALSE
 	var/can_transfer = TRUE //if golems can switch bodies to this new shell
 	var/mob/living/owner = null //golem's owner if it has one
@@ -85,7 +86,11 @@
 	. = ..()
 	var/area/A = get_area(src)
 	if(!mapload && A)
-		notify_ghosts("\A [initial(species.prefix)] golem shell has been completed in [A.name].", source = src)
+		if(COOLDOWN_FINISHED(src, ghost_flash_cooldown))
+			notify_ghosts("\A [initial(species.prefix)] golem shell has been completed in [A.name].", source = src)
+			COOLDOWN_START(src, ghost_flash_cooldown, 20 MINUTES)
+		else
+			notify_ghosts("\A [initial(species.prefix)] golem shell has been completed in [A.name].", source = src, flashwindow = FALSE)
 	if(has_owner && creator)
 		important_info = "Serve your creator, even if they are an antag."
 		flavour_text = "You are a golem created to serve your creator."

@@ -110,3 +110,13 @@
 	materials = list(MAT_METAL = 8000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs
 	category = list("Mining", "Cyborg Upgrade Modules")
+
+/datum/design/lavarods
+	name = "Lava-Resistant Iron Rods"
+	desc = "Treated, specialized iron rods. When exposed to the vacuum of space their coating breaks off, but they can hold up against the extreme heat of molten liquids."
+	id = "lavarod"
+	req_tech = list("materials" = 7, "engineering" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_PLASMA = 1000, MAT_TITANIUM = 1000)
+	build_path = /obj/item/stack/rods/lava
+	category = list("Mining")

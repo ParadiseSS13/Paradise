@@ -47,7 +47,7 @@
 		return
 	for(var/datum/picture/t in cam.aipictures)
 		nametemp += t.fields["name"]
-	find = input("Select image (numbered in order taken)") in nametemp
+	find = tgui_input_list(usr, "Select image (numbered in order taken)", "Pick Image", nametemp)
 
 	for(var/datum/picture/q in cam.aipictures)
 		if(q.fields["name"] == find)

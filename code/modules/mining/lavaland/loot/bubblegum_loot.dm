@@ -109,7 +109,7 @@
 		return
 
 	used = TRUE
-	var/choice = input(user,"Who do you want dead?","Choose Your Victim") as null|anything in GLOB.player_list
+	var/choice = tgui_input_list(user, "Who do you want dead?", "Choose Your Victim", GLOB.player_list)
 
 	if(!choice)
 		used = FALSE

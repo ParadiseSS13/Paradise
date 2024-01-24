@@ -121,3 +121,7 @@
 	l_ear = /obj/item/radio/headset/headset_sci
 	id = /obj/item/card/id/roboticist
 	pda = /obj/item/pda/roboticist
+
+	backpack = /obj/item/storage/backpack/robotics
+	satchel = /obj/item/storage/backpack/satchel_robo
+	dufflebag = /obj/item/storage/backpack/duffel/robotics

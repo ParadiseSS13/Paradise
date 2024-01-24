@@ -128,6 +128,8 @@ SUBSYSTEM_DEF(ticker)
 			if(game_finished || force_ending)
 				current_state = GAME_STATE_FINISHED
 		if(GAME_STATE_FINISHED)
+			if(SSshuttle.emergency.mode >= SHUTTLE_ENDGAME && !mode.station_was_nuked)
+				event_blackbox(outcome = ROUND_END_CREW_TRANSFER)
 			current_state = GAME_STATE_FINISHED
 			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
 			auto_toggle_ooc(TRUE) // Turn it on
@@ -264,10 +266,6 @@ SUBSYSTEM_DEF(ticker)
 	create_characters() // Create player characters and transfer clients
 	log_debug("Creating characters took [stop_watch(watch)]s")
 
-	watch = start_watch()
-	populate_spawn_points() // Put mobs in their spawn locations
-	log_debug("Populating spawn points took [stop_watch(watch)]s")
-
 	// Gather everyones minds
 	for(var/mob/living/player in GLOB.player_list)
 		if(player.mind)
@@ -280,6 +278,7 @@ SUBSYSTEM_DEF(ticker)
 	watch = start_watch()
 	GLOB.data_core.manifest() // Create the manifest
 	log_debug("Manifest creation took [stop_watch(watch)]s")
+	SEND_SIGNAL(src, COMSIG_TICKER_ROUND_STARTING, world.time)
 
 	// Update the MC and state to game playing
 	current_state = GAME_STATE_PLAYING
@@ -580,7 +579,7 @@ SUBSYSTEM_DEF(ticker)
 					end_of_round_info += "[law.get_index()]. [law.law]"
 
 	if(dronecount)
-		end_of_round_info += "<b>There [dronecount > 1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount > 1 ? "drones" : "drone"] this round."
+		end_of_round_info += "<b>There [dronecount > 1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount > 1 ? "drones" : "drone"] this round.</b>"
 
 	if(length(mode.eventmiscs))
 		for(var/datum/mind/eventmind in mode.eventmiscs)
@@ -659,11 +658,18 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/setup_news_feeds()
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
-	newChannel.channel_name = "Public Station Announcements"
+	newChannel.channel_name = "Station Announcements Log"
 	newChannel.author = "Automated Announcement Listing"
 	newChannel.icon = "bullhorn"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
+	GLOB.news_network.channels += newChannel
+
+	newChannel = new /datum/feed_channel
+	newChannel.channel_name = "Public Station Announcements"
+	newChannel.author = "Automated Announcement Listing"
+	newChannel.icon = "users"
+	newChannel.is_public = TRUE
 	GLOB.news_network.channels += newChannel
 
 	newChannel = new /datum/feed_channel
@@ -771,3 +777,77 @@ SUBSYSTEM_DEF(ticker)
 	QDEL_LIST_ASSOC_VAL(load_queries)
 	records.Cut()
 	flagged_antag_rollers.Cut()
+
+/// This proc is for recording biohazard events, and blackboxing if they lived, died, or ended the round. This currently applies to: Terror spiders, Xenomorphs, and Blob.
+/datum/controller/subsystem/ticker/proc/event_blackbox(outcome = ROUND_END_CREW_TRANSFER)
+	for(var/I in SSevents.biohazards_this_round)
+		switch(I)
+			if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_PRINCE_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
+				var/output = "unknown spider type"
+				switch(I)
+					if(TS_INFESTATION_GREEN_SPIDER)
+						output = "Green Terrors"
+					if(TS_INFESTATION_PRINCE_SPIDER)
+						output = "Prince Terror"
+					if(TS_INFESTATION_WHITE_SPIDER)
+						output = "White Terrors"
+					if(TS_INFESTATION_PRINCESS_SPIDER)
+						output = "Princess Terrors"
+					if(TS_INFESTATION_QUEEN_SPIDER)
+						output = "Queen Terrors"
+				var/spiders = 0
+				for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
+					if(S.ckey)
+						spiders++
+				if(spiders >= 5 || (output == "Prince Terror" && spiders == 1)) //If a prince lives, record as win.
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard nuclear victories", 1, output)
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard survives to normal round end", 1, output)
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard survives to admin round end", 1, output)
+				else
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard dies station nuked", 1, output)
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard dies normal end", 1, output)
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, output)
+			if("Xenomorphs")
+				if(length(SSticker.mode.xenos) > 5)
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard nuclear victories", 1, "Xenomorphs")
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard survives to normal round end", 1, "Xenomorphs")
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard survives to admin round end", 1, "Xenomorphs")
+				else
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard dies station nuked", 1, "Xenomorphs")
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard dies normal end", 1, "Xenomorphs")
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, "Xenomorphs")
+
+			if("Blob")
+				if(length(SSticker.mode.blob_overminds))
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard nuclear victories", 1, "Blob")
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard survives to normal round end", 1, "Blob")
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard survives to admin round end", 1, "Blob")
+				else
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard dies station nuked", 1, "Blob")
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard dies normal end", 1, "Blob")
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, "Blob")
+

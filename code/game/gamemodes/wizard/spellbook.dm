@@ -302,6 +302,7 @@
 	name = "Remove Clothes Requirement"
 	spell_type = /obj/effect/proc_holder/spell/noclothes
 	category = "Assistance"
+	cost = 1
 
 //Rituals
 /datum/spellbook_entry/summon
@@ -614,6 +615,8 @@
 	desc = "A magical contract binding an apprentice wizard to your service, using it will summon them to your side."
 	item_path = /obj/item/contract
 	category = "Summons"
+	limit = 1
+	is_ragin_restricted = TRUE //We have enough wizards already! Sheesh!
 
 /datum/spellbook_entry/item/tarotdeck
 	name = "Guardian Deck"

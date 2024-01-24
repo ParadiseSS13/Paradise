@@ -576,6 +576,14 @@
 	item_color = "necklace"
 	slot_flags = SLOT_FLAG_TIE
 
+/obj/item/clothing/accessory/necklace/long
+	name = "large necklace"
+	desc = "A large necklace."
+	icon_state = "necklacelong"
+	item_state = "necklacelong"
+	item_color = "necklacelong"
+
+
 /obj/item/clothing/accessory/necklace/dope
 	name = "gold necklace"
 	desc = "Damn, it feels good to be a gangster."
@@ -604,9 +612,9 @@
 /obj/item/clothing/accessory/necklace/locket
 	name = "gold locket"
 	desc = "A gold locket that seems to have space for a photo within."
-	icon_state = "locket"
-	item_state = "locket"
-	item_color = "locket"
+	icon_state = "locketgold"
+	item_state = "locketgold"
+	item_color = "locketgold"
 	slot_flags = SLOT_FLAG_TIE
 	var/base_icon
 	var/open
@@ -651,6 +659,13 @@
 			held = O
 	else
 		return ..()
+
+/obj/item/clothing/accessory/necklace/locket/silver
+	name = "silver locket"
+	desc = "A silver locket that seems to have space for a photo within."
+	icon_state = "locketsilver"
+	item_state = "locketsilver"
+	item_color = "locketsilver"
 
 //Cowboy Shirts
 /obj/item/clothing/accessory/cowboyshirt

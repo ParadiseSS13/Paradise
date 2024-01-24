@@ -4,6 +4,7 @@
  * Only checks that the Z-level of the user and src_object are the same.
  */
 
+/*
 GLOBAL_DATUM_INIT(z_state, /datum/ui_state/z_state, new)
 
 /datum/ui_state/z_state/can_use_topic(src_object, mob/user)
@@ -12,3 +13,4 @@ GLOBAL_DATUM_INIT(z_state, /datum/ui_state/z_state, new)
 	if(turf_obj && turf_usr && turf_obj.z == turf_usr.z)
 		return STATUS_INTERACTIVE
 	return STATUS_CLOSE
+*/

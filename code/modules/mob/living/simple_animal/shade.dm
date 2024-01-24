@@ -62,6 +62,7 @@
 	can_change_intents = FALSE // same here
 	health = 100
 	maxHealth = 100
+	weather_immunities = list("ash")
 
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()
