@@ -383,6 +383,8 @@
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
 
 /obj/item/gun/projectile/revolver/doublebarrel/proc/sleight_of_handling(mob/living/carbon/human/user)
+	if(!istype(get_area(user), /area/station/service/bar))
+		return FALSE
 	if(!HAS_TRAIT(user, TRAIT_SLEIGHT_OF_HAND) || !istype(user))
 		return FALSE
 	if(!istype(user.belt, /obj/item/storage/belt/bandolier))
