@@ -217,6 +217,11 @@ SUBSYSTEM_DEF(economy)
 	if(!order)
 		CRASH("process_supply_order() called with a null datum/supply_order")
 
+	// remove any other items we share a group with, so only one of these can be ordered at once.
+	for(var/datum/supply_order/other_order in SSeconomy.request_list)
+		if(other_order.object.singleton_group_id && other_order.object.singleton_group_id == order.object.singleton_group_id)
+			SSeconomy.request_list -= other_order
+
 	if(!paid_for && !(order in request_list))
 		request_list += order //submit a request but do not finalize it
 		return TRUE

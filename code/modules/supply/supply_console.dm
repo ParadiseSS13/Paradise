@@ -111,7 +111,8 @@
 			"req_cargo_approval" = order.requires_cargo_approval,
 			"req_head_approval" = order.requires_head_approval,
 			"can_approve" = can_approve,
-			"can_deny" = can_deny
+			"can_deny" = can_deny,
+			"singleton_id" = initial(order.object?.singleton_group_id)
 		)
 		//The way approval rights is determined
 		//If a crate requires CT approval and head approval - Only CTs can approve it for now, heads can still deny it at this point however
@@ -167,7 +168,8 @@
 			"ordernum" = order.ordernum,
 			"supply_type" = order.object.name,
 			"orderedby" = order.orderedby,
-			"comment" = order.comment
+			"comment" = order.comment,
+			"singleton_id" = initial(order.object?.singleton_group_id)
 		)
 		orders += list(order_data)
 	return orders
@@ -231,6 +233,7 @@
 				"cost" = pack.get_cost(),
 				"ref" = "[pack.UID()]",
 				"contents" = pack.ui_manifest,
+				"singleton" = pack.singleton,
 				"cat" = pack.group)))
 
 	static_data["supply_packs"] = packs_list
@@ -383,7 +386,8 @@
 			if(account.account_type == ACCOUNT_TYPE_PERSONAL || isnull(order.ordered_by_department))
 				if(pay_with_account(account, order.object.get_cost(), "[pack.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
 					SSeconomy.process_supply_order(order, TRUE) //send 'er back through
-					SStgui.update_uis(src, update_static_data = TRUE)
+					update_static_data(user)
+					SStgui.update_uis(src)
 					return TRUE
 				atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
 				SSeconomy.request_list -= order //just remove order at this poin
@@ -403,7 +407,8 @@
 				if(pay_with_account(account, pack.get_cost(), "[pack.name] Crate Purchase", "[src]", user, account_database.vendor_account))
 					order.requires_head_approval = FALSE
 					SSeconomy.process_supply_order(order, TRUE)
-					SStgui.update_uis(src, update_static_data = TRUE)  // TODO FIND A CLEANER WAY TO DO THIS
+					update_static_data(user)
+					SStgui.update_uis(src)
 					investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [cargo_account.credit_balance].", "cargo")
 					SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, pack.name)
 				else
@@ -506,7 +511,8 @@
 	if(!hacked)
 		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
 		hacked = TRUE
-		SStgui.update_uis(src, update_static_data = TRUE)
+		update_static_data(user)
+		SStgui.update_uis(src)
 
 /obj/machinery/computer/supplycomp/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))

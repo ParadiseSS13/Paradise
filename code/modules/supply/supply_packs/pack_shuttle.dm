@@ -5,6 +5,8 @@
 	cost = 1
 	containertype = null
 	group = SUPPLY_SHUTTLE
+	singleton = TRUE
+	singleton_group_id = "shuttle"
 	department_restrictions = list(DEPARTMENT_COMMAND)
 	// these are special, but start enabled. As soon as one is ordered, all variants of this should be disabled.
 	special = TRUE

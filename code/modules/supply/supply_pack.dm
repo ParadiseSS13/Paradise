@@ -30,6 +30,9 @@
 	var/special_enabled = FALSE
 	/// If true, this pack can only be ordered in units of 1.
 	var/singleton = FALSE
+	/// Identifier indicating the specific "set" of singletons that this belongs to.
+	/// Only one item in this set can be in the shopping cart at once.
+	var/singleton_group_id
 	/// The pack group this should appear in.
 	var/group = SUPPLY_MISC
 	///Determines which departments do not need QM approval to order this supply pack
