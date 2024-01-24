@@ -371,7 +371,6 @@ REAGENT SCANNER
 		to_chat(user, "<span class='warning'>You can't analyze non-robotic things!</span>")
 		return
 
-
 	switch(scan_type)
 		if("robot")
 			var/burn = M.getFireLoss() > 50 	? 	"<b>[M.getFireLoss()]</b>" 		: M.getFireLoss()
