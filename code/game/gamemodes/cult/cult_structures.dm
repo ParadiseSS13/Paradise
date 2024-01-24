@@ -70,7 +70,7 @@
 		to_chat(user, "[heathen_message]")
 		return
 	if(invisibility)
-		to_chat(user, "<span class='cultitalic'>The magic in [src] is being channeled into Redspace, reveal the structure first!</span>")
+		to_chat(user, "<span class='cultitalic'>The magic in [src] is being suppressed, reveal the structure first!</span>")
 		return
 	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='danger'>You cannot seem to manipulate this structure with your bulky hands!</span>")
@@ -145,7 +145,7 @@
 	selection_prompt = "You study the rituals on the altar..."
 	selection_title = "Altar"
 	creation_message = "<span class='cultitalic'>You kneel before the altar and your faith is rewarded with a %ITEM%!</span>"
-	choosable_items = list("Eldritch Whetstone" = /obj/item/whetstone/cult, "Flask of Unholy Water" = /obj/item/reagent_containers/food/drinks/bottle/unholywater,
+	choosable_items = list("Eldritch Whetstone" = /obj/item/whetstone/cult, "Flask of Unholy Water" = /obj/item/reagent_containers/drinks/bottle/unholywater,
 							"Construct Shell" = /obj/structure/constructshell)
 
 /obj/structure/cult/functional/altar/Initialize(mapload)
@@ -212,7 +212,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	/turf/simulated/floor/engine/cult,
 	/turf/space,
 	/turf/simulated/wall/indestructible,
-	/turf/simulated/floor/plating/lava,
+	/turf/simulated/floor/lava,
 	/turf/simulated/floor/chasm,
 	/turf/simulated/wall/cult,
 	/turf/simulated/wall/cult/artificer

@@ -255,6 +255,9 @@ emp_act
 	if(head && head.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
 		return TRUE
 
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, AM, attack_text, 0, damage, attack_type) & SHIELD_BLOCK)
+		return TRUE
+
 	return FALSE
 
 /mob/living/carbon/human/proc/get_best_shield()
@@ -455,7 +458,7 @@ emp_act
 		return FALSE
 
 	if(HAS_TRAIT(I, TRAIT_BUTCHERS_HUMANS) && stat == DEAD && user.a_intent == INTENT_HARM)
-		var/obj/item/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/reagent_containers/food/snacks/meat/human(get_turf(loc))
+		var/obj/item/food/snacks/meat/human/newmeat = new /obj/item/food/snacks/meat/human(get_turf(loc))
 		newmeat.name = real_name + newmeat.name
 		newmeat.subjectname = real_name
 		newmeat.subjectjob = job
@@ -746,10 +749,8 @@ emp_act
 
 /mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
-	if(shoes && isclothing(shoes))
-		var/obj/item/clothing/S = shoes
-		if(S.flags & NOSLIP)
-			return FALSE
+	if(HAS_TRAIT(src, TRAIT_NOSLIP))
+		return FALSE
 	return ..()
 
 /mob/living/carbon/human/water_act(volume, temperature, source, method = REAGENT_TOUCH)
@@ -759,11 +760,11 @@ emp_act
 		return
 
 	for(var/obj/O in list(head, wear_suit, back, l_hand, r_hand))
-		O.water_act(src, volume, temperature, source, method)
+		O.water_act(volume, temperature, source, method)
 	if((head?.flags & THICKMATERIAL) && (wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
 		return
 	for(var/obj/O in list(w_uniform, shoes, belt, gloves, glasses, l_ear, r_ear, wear_id, wear_pda, r_store, l_store, s_store))
-		O.water_act(src, volume, temperature, source, method)
+		O.water_act(volume, temperature, source, method)
 
 
 

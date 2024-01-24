@@ -13,13 +13,6 @@
 	var/gravity_check = TRUE
 	hud_possible = list(JANI_HUD)
 
-/obj/effect/decal/cleanable/Initialize(mapload)
-	. = ..()
-	var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
-	prepare_huds()
-	jani_hud.add_to_hud(src)
-	jani_hud_set_sign()
-
 /obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal
 	if(mergeable_decal)
 		return TRUE
@@ -94,6 +87,10 @@
 
 /obj/effect/decal/cleanable/Initialize(mapload)
 	. = ..()
+	var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
+	prepare_huds()
+	jani_hud.add_to_hud(src)
+	jani_hud_set_sign()
 	if(try_merging_decal())
 		return TRUE
 	if(random_icon_states && length(src.random_icon_states) > 0)
@@ -107,6 +104,8 @@
 /obj/effect/decal/cleanable/Destroy()
 	if(smoothing_flags)
 		QUEUE_SMOOTH_NEIGHBORS(src)
+	var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
+	jani_hud.remove_from_hud(src)
 	return ..()
 
 /obj/effect/decal/cleanable/proc/try_merging_decal(turf/T)

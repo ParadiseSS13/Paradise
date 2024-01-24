@@ -12,7 +12,7 @@
 	inherent_factions = list("nian")
 	species_traits = list(NO_HAIR)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
-	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_WING | BALD | SHAVED
 	reagent_tag = PROCESS_ORG
 	dietflags = DIET_HERB

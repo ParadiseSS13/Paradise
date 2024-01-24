@@ -6,7 +6,7 @@ import {
   Slider,
   Box,
   ProgressBar,
-  Flex,
+  Stack,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -15,19 +15,21 @@ export const PortableScrubber = (props, context) => {
   const { has_holding_tank } = data;
 
   return (
-    <Window>
+    <Window width={435} height={300}>
       <Window.Content>
-        <PumpSettings />
-        <PressureSettings />
-        {has_holding_tank ? (
-          <HoldingTank />
-        ) : (
-          <Section title="Holding Tank">
-            <Box color="average" bold={1}>
-              No Holding Tank Inserted.
-            </Box>
-          </Section>
-        )}
+        <Stack fill vertical>
+          <PumpSettings />
+          <PressureSettings />
+          {has_holding_tank ? (
+            <HoldingTank />
+          ) : (
+            <Section fill title="Holding Tank">
+              <Box color="average" bold={1} textAlign="center" mt={2.5}>
+                No Holding Tank Inserted.
+              </Box>
+            </Section>
+          )}
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -38,29 +40,29 @@ const PumpSettings = (props, context) => {
   const { on, port_connected } = data;
 
   return (
-    <Section title="Pump Settings">
-      <Flex>
-        <Flex.Item mb={2.5} mt={0.5} mr={11.9} color="label">
-          Power:
-        </Flex.Item>
-        <Flex.Item>
-          <Button
-            icon={on ? 'power-off' : 'power-off'}
-            content={on ? 'On' : 'Off'}
-            color={on ? null : 'red'}
-            selected={on}
-            onClick={() => act('power')}
-          />
-        </Flex.Item>
-      </Flex>
-      <Flex>
-        <Flex.Item mr={6.8} color="label">
-          Port Status:
-        </Flex.Item>
-        <Flex.Item color={port_connected ? 'green' : 'average'} bold={1}>
+    <Section
+      title="Pump Settings"
+      buttons={
+        <Button
+          width={4}
+          icon={on ? 'power-off' : 'power-off'}
+          content={on ? 'On' : 'Off'}
+          color={on ? null : 'red'}
+          selected={on}
+          onClick={() => act('power')}
+        />
+      }
+    >
+      <Stack>
+        <Stack.Item color="label">Port Status:</Stack.Item>
+        <Stack.Item
+          color={port_connected ? 'green' : 'average'}
+          bold={1}
+          ml={6}
+        >
           {port_connected ? 'Connected' : 'Disconnected'}
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };
@@ -90,11 +92,11 @@ const PressureSettings = (props, context) => {
           </ProgressBar>
         </LabeledList.Item>
       </LabeledList>
-      <Flex mt={2}>
-        <Flex.Item mt={0.4} grow={1} color="label">
+      <Stack mt={1}>
+        <Stack.Item grow color="label" mt={0.3}>
           Target pressure:
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             icon="undo"
             mr={0.5}
@@ -117,12 +119,12 @@ const PressureSettings = (props, context) => {
               })
             }
           />
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Slider
             animated
             unit="kPa"
-            width={17.3}
+            width={16.5}
             stepPixelSize={0.22}
             minValue={0}
             maxValue={max_rate}
@@ -133,8 +135,8 @@ const PressureSettings = (props, context) => {
               })
             }
           />
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             icon="fast-forward"
             ml={0.5}
@@ -146,8 +148,8 @@ const PressureSettings = (props, context) => {
               })
             }
           />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };
@@ -161,6 +163,7 @@ const HoldingTank = (props, context) => {
 
   return (
     <Section
+      fill
       title="Holding Tank"
       buttons={
         <Button onClick={() => act('remove_tank')} icon="eject">
@@ -168,19 +171,17 @@ const HoldingTank = (props, context) => {
         </Button>
       }
     >
-      <Flex>
-        <Flex.Item color="label" mr={7.2} mb={2.2}>
-          Tank Label:
-        </Flex.Item>
-        <Flex.Item mb={1} color="silver">
+      <Stack>
+        <Stack.Item color="label">Tank Label:</Stack.Item>
+        <Stack.Item color="silver" ml={4.5}>
           {holding_tank.name}
-        </Flex.Item>
-      </Flex>
-      <Flex>
-        <Flex.Item color="label" mt={0.5} mr={3.8}>
+        </Stack.Item>
+      </Stack>
+      <Stack>
+        <Stack.Item color="label" mt={2}>
           Tank Pressure:
-        </Flex.Item>
-        <Flex.Item grow={1}>
+        </Stack.Item>
+        <Stack.Item grow mt={1.5}>
           <ProgressBar
             value={holding_tank.tank_pressure}
             minValue={0}
@@ -193,8 +194,8 @@ const HoldingTank = (props, context) => {
           >
             {holding_tank.tank_pressure} kPa
           </ProgressBar>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

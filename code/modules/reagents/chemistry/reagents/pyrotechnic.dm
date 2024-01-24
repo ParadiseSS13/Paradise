@@ -251,9 +251,8 @@
 	fireflash_sm(T, radius, 4500 + volume * 500, 350)
 
 /datum/reagent/clf3/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH || method == REAGENT_INGEST)
-		M.adjust_fire_stacks(10)
-		M.IgniteMob()
+	M.adjust_fire_stacks(10)
+	M.IgniteMob()
 	if(method == REAGENT_INGEST)
 		M.adjustFireLoss(min(max(15, volume * 2.5), 90))
 		to_chat(M, "<span class='warning'>It burns!</span>")

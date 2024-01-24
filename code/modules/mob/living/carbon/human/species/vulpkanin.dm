@@ -11,7 +11,7 @@
 	blurb = "Vulpkanin are bipedal canid-like beings from the Vazzend binary system, having been forced from their homeworld by a cataclysmic event and scattered throughout the Orion Sector. \
 	While Vulpkanin are chiefly led by independent planetary governments, they also serve under a loose federation known as The Assembly.<br/><br/> \
 	Their religious systems traditionally pay tribute to an all-infusing universal will called 'Racht'. \
-	Vulpkanin groups are minor players in galactic affairs, and are largely concerned with the focus of restoration of their homeworld."
+	Vulpkanin groups are minor players in galactic affairs, as they are largely concerned with the restoration of their homeworld."
 
 	species_traits = list(LIPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS

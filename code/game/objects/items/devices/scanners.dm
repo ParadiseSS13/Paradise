@@ -74,7 +74,7 @@ REAGENT SCANNER
 			if(H.reagents.reagent_list.len)
 				msgs += "<span class='boldnotice'>Subject contains the following reagents:</span>"
 				for(var/datum/reagent/R in H.reagents.reagent_list)
-					msgs += "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - <span class = 'boldannounce'>OVERDOSING</span>" : ".</span>"]"
+					msgs += "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - <span class = 'boldannounceic'>OVERDOSING</span>" : ".</span>"]"
 			else
 				msgs += "<span class='notice'>Subject contains no reagents.</span>"
 			if(H.reagents.addiction_list.len)
@@ -115,9 +115,9 @@ REAGENT SCANNER
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		var/list/msgs = list()
 		user.visible_message("<span class='warning'>[user] analyzes the floor's vitals!</span>", "<span class='notice'>You stupidly try to analyze the floor's vitals!</span>")
-		msgs += "<span class='info'>Analyzing results for The floor:\n\tOverall status: Healthy</span>"
+		msgs += "<span class='info'>Analyzing results for The floor:\nOverall status: Healthy</span>"
 		msgs += "<span class='info'>Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burn</font>/<font color='red'>Brute</font></span>"
-		msgs += "<span class='info'>\tDamage specifics: <font color='blue'>0</font> - <font color='green'>0</font> - <font color='#FFA500'>0</font> - <font color='red'>0</font></span>"
+		msgs += "<span class='info'>Damage specifics: <font color='blue'>0</font> - <font color='green'>0</font> - <font color='#FFA500'>0</font> - <font color='red'>0</font></span>"
 		msgs += "<span class='info'>Body temperature: ???</span>"
 		to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 		return
@@ -134,17 +134,17 @@ REAGENT SCANNER
 	if(issimple_animal(M))
 		// no box here, keep it simple.
 		if(M.stat == DEAD)
-			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: <font color='red'>Dead</font></span>")
+			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\nOverall Status: <font color='red'>Dead</font></span>")
 		else
-			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [round(M.health / M.maxHealth * 100, 0.1)]% Healthy")
+			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\nOverall Status: [round(M.health / M.maxHealth * 100, 0.1)]% Healthy")
 		to_chat(user, "\t Damage Specifics: <font color='red'>[M.maxHealth - M.health]</font>")
 		return
 	if(!ishuman(M) || ismachineperson(M))
 		//these sensors are designed for organic life
 
-		msgs += "<span class='notice'>Analyzing Results for ERROR:\n\t Overall Status: ERROR</span>"
-		msgs += "\t Key: <span class='healthscan_oxy'>Suffocation</span>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>"
-		msgs += "\t Damage Specifics: <span class='healthscan_oxy'>?</span> - <font color='green'>?</font> - <font color='#FFA500'>?</font> - <font color='red'>?</font>"
+		msgs += "<span class='notice'>Analyzing Results for ERROR:\nOverall Status: ERROR</span>"
+		msgs += "Key: <span class='healthscan_oxy'>Suffocation</span>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>"
+		msgs += "Damage Specifics: <span class='healthscan_oxy'>?</span> - <font color='green'>?</font> - <font color='#FFA500'>?</font> - <font color='red'>?</font>"
 		msgs += "<span class='notice'>Body Temperature: [M.bodytemperature-T0C]&deg;C ([M.bodytemperature*1.8-459.67]&deg;F)</span>"
 		msgs += "<span class='warning'><b>Warning: Blood Level ERROR: --% --cl.</span><span class='notice'>Type: ERROR</span>"
 		msgs += "<span class='notice'>Subject's pulse: <font color='red'>-- bpm.</font></span>"
@@ -169,9 +169,9 @@ REAGENT SCANNER
 		else
 			status = "[H.health]% Healthy"
 
-	msgs += "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: [status]"
-	msgs += "\t Key: <span class='healthscan_oxy'>Suffocation</span>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>"
-	msgs += "\t Damage Specifics: <span class='healthscan_oxy'>[OX]</span> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>"
+	msgs += "<span class='notice'>Analyzing Results for [H]:\nOverall Status: [status]"
+	msgs += "Key: <span class='healthscan_oxy'>Suffocation</span>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>"
+	msgs += "Damage Specifics: <span class='healthscan_oxy'>[OX]</span> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>"
 	if(H.timeofdeath && (H.stat == DEAD || (HAS_TRAIT(H, TRAIT_FAKEDEATH))))
 		msgs += "<span class='notice'>Time of Death: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]</span>"
 		var/tdelta = round(world.time - H.timeofdeath)
@@ -185,7 +185,7 @@ REAGENT SCANNER
 		if(length(damaged))
 			msgs += "<span class='notice'>Localized Damage, Brute/Burn:</span>"
 			for(var/obj/item/organ/external/org in damaged)
-				msgs += "\t\t<span class='info'>[capitalize(org.name)]: [(org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font></span>" : "<font color='red'>0</font>"]-[(org.burn_dam > 0) ? "<font color='#FF8000'>[org.burn_dam]</font>" : "<font color='#FF8000'>0</font>"]"
+				msgs += "<span class='info'>[capitalize(org.name)]: [(org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font></span>" : "<font color='red'>0</font>"]-[(org.burn_dam > 0) ? "<font color='#FF8000'>[org.burn_dam]</font>" : "<font color='#FF8000'>0</font>"]"
 
 	if(advanced)
 		msgs.Add(get_chemscan_results(user, H))
@@ -195,17 +195,17 @@ REAGENT SCANNER
 			continue
 		// Snowflaking heart problems, because they are special (and common).
 		if(istype(D, /datum/disease/critical))
-			msgs += "<span class='alert'><b>Warning: Subject is undergoing [D.name].</b>\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>"
+			msgs += "<span class='notice'><font color='red'><b>Warning: Subject is undergoing [D.name].</b>\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
 			continue
-		msgs += "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>"
+		msgs += "<span class='notice'><font color='red'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
 	if(H.undergoing_cardiac_arrest())
 		var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
 		if(heart && !(heart.status & ORGAN_DEAD))
-			msgs += "<span class='alert'><b>The patient's heart has stopped.</b>\nPossible Cure: Electric Shock</span>"
+			msgs += "<span class='notice'><font color='red'><b>The patient's heart has stopped.</b>\nPossible Cure: Electric Shock</font>"
 		else if(heart && (heart.status & ORGAN_DEAD))
-			msgs += "<span class='alert'><b>Subject's heart is necrotic.</b></span>"
+			msgs += "<span class='notice'><font color='red'><b>Subject's heart is necrotic.</b></font>"
 		else if(!heart)
-			msgs += "<span class='alert'><b>Subject has no heart.</b></span>"
+			msgs += "<span class='notice'><font color='red'><b>Subject has no heart.</b></font>"
 
 	if(H.getStaminaLoss())
 		msgs += "<span class='info'>Subject appears to be suffering from fatigue.</span>"

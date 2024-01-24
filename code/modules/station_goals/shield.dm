@@ -52,10 +52,13 @@
 		return 1
 	ui_interact(user)
 
-/obj/machinery/computer/sat_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/sat_control/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/sat_control/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SatelliteControl", name, 475, 400)
+		ui = new(user, src, "SatelliteControl", name)
 		ui.open()
 
 /obj/machinery/computer/sat_control/ui_data(mob/user)
@@ -170,7 +173,7 @@
 		if(!emagged && space_los(M))
 			Beam(get_turf(M), icon_state = "sat_beam", time = 5, maxdistance = kill_range)
 			if(istype(M, /obj/effect/space_dust/meaty))
-				new /obj/item/reagent_containers/food/snacks/meatsteak(get_turf(M))
+				new /obj/item/food/snacks/meatsteak(get_turf(M))
 			qdel(M)
 
 /obj/machinery/satellite/meteor_shield/toggle(user)

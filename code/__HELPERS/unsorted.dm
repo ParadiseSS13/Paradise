@@ -46,98 +46,99 @@
 	else if(dx < 0)
 		. += 360
 
-//Returns location. Returns null if no location was found.
-/proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = TRUE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
-/*
-Location where the teleport begins, target that will teleport, distance to go, density checking 0/1(yes/no).
-Random error in tile placement x, error in tile placement y, and block offset.
-Block offset tells the proc how to place the box. Behind teleport location, relative to starting location, forward, etc.
-Negative values for offset are accepted, think of it in relation to North, -x is west, -y is south. Error defaults to positive.
-Turf and target are seperate in case you want to teleport some distance from a turf the target is not standing on or something.
-*/
+// Returns location. Returns null if no location was found.
+/proc/get_teleport_loc(turf/location, mob/target, distance = 1, density = TRUE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
+	/*
+	Location where the teleport begins, target that will teleport, distance to go, density checking 0/1(yes/no).
+	Random error in tile placement x, error in tile placement y, and block offset.
+	Block offset tells the proc how to place the box. Behind teleport location, relative to starting location, forward, etc.
+	Negative values for offset are accepted, think of it in relation to North, -x is west, -y is south. Error defaults to positive.
+	Turf and target are seperate in case you want to teleport some distance from a turf the target is not standing on or something.
+	*/
 
-	var/dirx = 0//Generic location finding variable.
+	var/dirx = 0 // Generic location finding variable.
 	var/diry = 0
 
-	var/xoffset = 0//Generic counter for offset location.
+	var/xoffset = 0 // Generic counter for offset location.
 	var/yoffset = 0
 
-	var/b1xerror = 0//Generic placing for point A in box. The lower left.
+	var/b1xerror = 0 // Generic placing for point A in box. The lower left.
 	var/b1yerror = 0
-	var/b2xerror = 0//Generic placing for point B in box. The upper right.
+	var/b2xerror = 0 // Generic placing for point B in box. The upper right.
 	var/b2yerror = 0
 
-	errorx = abs(errorx)//Error should never be negative.
+	errorx = abs(errorx) // Error should never be negative.
 	errory = abs(errory)
-	//var/errorxy = round((errorx+errory)/2)//Used for diagonal boxes.
 
-	switch(target.dir)//This can be done through equations but switch is the simpler method. And works fast to boot.
-	//Directs on what values need modifying.
-		if(1)//North
-			diry+=distance
-			yoffset+=eoffsety
-			xoffset+=eoffsetx
-			b1xerror-=errorx
-			b1yerror-=errory
-			b2xerror+=errorx
-			b2yerror+=errory
-		if(2)//South
-			diry-=distance
-			yoffset-=eoffsety
-			xoffset+=eoffsetx
-			b1xerror-=errorx
-			b1yerror-=errory
-			b2xerror+=errorx
-			b2yerror+=errory
-		if(4)//East
-			dirx+=distance
-			yoffset+=eoffsetx//Flipped.
-			xoffset+=eoffsety
-			b1xerror-=errory//Flipped.
-			b1yerror-=errorx
-			b2xerror+=errory
-			b2yerror+=errorx
-		if(8)//West
-			dirx-=distance
-			yoffset-=eoffsetx//Flipped.
-			xoffset+=eoffsety
-			b1xerror-=errory//Flipped.
-			b1yerror-=errorx
-			b2xerror+=errory
-			b2yerror+=errorx
+	switch(target.dir) // This can be done through equations but switch is the simpler method. And works fast to boot.
+		// Directs on what values need modifying.
+		if(NORTH)
+			diry += distance
+			yoffset += eoffsety
+			xoffset += eoffsetx
+			b1xerror -= errorx
+			b1yerror -= errory
+			b2xerror += errorx
+			b2yerror += errory
+		if(SOUTH)
+			diry -= distance
+			yoffset -= eoffsety
+			xoffset += eoffsetx
+			b1xerror -= errorx
+			b1yerror -= errory
+			b2xerror += errorx
+			b2yerror += errory
+		if(EAST)
+			dirx += distance
+			yoffset += eoffsetx // Flipped.
+			xoffset += eoffsety
+			b1xerror -= errory // Flipped.
+			b1yerror -= errorx
+			b2xerror += errory
+			b2yerror += errorx
+		if(WEST)
+			dirx -= distance
+			yoffset -= eoffsetx // Flipped.
+			xoffset += eoffsety
+			b1xerror -= errory // Flipped.
+			b1yerror -= errorx
+			b2xerror += errory
+			b2yerror += errorx
 
-	var/turf/destination=locate(location.x+dirx,location.y+diry,location.z)
+	var/turf/destination = locate(location.x + dirx, location.y + diry, location.z)
 
-	if(destination)//If there is a destination.
-		if(errorx||errory)//If errorx or y were specified.
-			var/destination_list[] = list()//To add turfs to list.
-			//destination_list = new()
-			/*This will draw a block around the target turf, given what the error is.
-			Specifying the values above will basically draw a different sort of block.
-			If the values are the same, it will be a square. If they are different, it will be a rectengle.
-			In either case, it will center based on offset. Offset is position from center.
-			Offset always calculates in relation to direction faced. In other words, depending on the direction of the teleport,
-			the offset should remain positioned in relation to destination.*/
+	if(!destination)
+		return
 
-			var/turf/center = locate((destination.x+xoffset),(destination.y+yoffset),location.z)//So now, find the new center.
+	if(!errorx && !errory)
+		if(density && destination.density)
+			return
+		if(destination.x > world.maxx || destination.x < 1 || destination.y > world.maxy || destination.y < 1)
+			return
+		return destination
 
-			//Now to find a box from center location and make that our destination.
-			for(var/turf/T in block(locate(center.x+b1xerror,center.y+b1yerror,location.z), locate(center.x+b2xerror,center.y+b2yerror,location.z)))
-				if(density&&T.density)	continue//If density was specified.
-				if(T.x>world.maxx || T.x<1)	continue//Don't want them to teleport off the map.
-				if(T.y>world.maxy || T.y<1)	continue
-				destination_list += T
-			if(destination_list.len)
-				destination = pick(destination_list)
-			else	return
+	var/list/destination_list = list()
 
-		else//Same deal here.
-			if(density&&destination.density)	return
-			if(destination.x>world.maxx || destination.x<1)	return
-			if(destination.y>world.maxy || destination.y<1)	return
-	else	return
+	/*
+	This will draw a block around the target turf, given what the error is.
+	Specifying `errorx` and `errory` will basically draw a different sort of block.
+	If the values are the same, it will be a square. If they are different, it will be a rectengle.
+	In either case, it will center based on offset. Offset is position from center.
+	Offset always calculates in relation to direction faced. In other words, depending on the direction of the teleport,
+	the offset should remain positioned in relation to destination.
+	*/
+	var/turf/center = locate((destination.x + xoffset), (destination.y + yoffset), location.z) // So now, find the new center.
 
-	return destination
+	// Now to find a box from center location and make that our destination.
+	for(var/turf/T in block(locate(center.x + b1xerror, center.y + b1yerror, location.z), locate(center.x + b2xerror, center.y + b2yerror, location.z)))
+		if(density && T.density)
+			continue
+		if(T.x > world.maxx || T.x < 1 || T.y > world.maxy || T.y < 1)
+			continue // Don't want them to teleport off the map.
+		destination_list += T
+	if(!length(destination_list))
+		return
+	return pick(destination_list)
 
 
 /proc/is_in_teleport_proof_area(atom/O)
@@ -301,7 +302,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 //When an AI is activated, it can choose from a list of non-slaved borgs to have as a slave.
 /proc/freeborg()
-	var/select = null
+	var/select
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
 		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || isdrone(A))
@@ -309,7 +310,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
 
-	if(borgs.len)
+	if(length(borgs))
 		select = input("Unshackled borg signals detected:", "Borg selection", null, null) as null|anything in borgs
 		return borgs[select]
 
@@ -337,7 +338,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 /proc/select_active_ai(mob/user)
 	var/list/ais = active_ais()
-	if(ais.len)
+	if(length(ais))
 		if(user)	. = input(usr,"AI signals detected:", "AI selection") in ais
 		else		. = pick(ais)
 	return .
@@ -599,7 +600,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	for(var/atom/part in contents)
 		toReturn += part
-		if(part.contents.len && searchDepth)
+		if(length(part.contents) && searchDepth)
 			toReturn += part.GetAllContents(searchDepth - 1)
 
 	return toReturn
@@ -660,7 +661,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		var/dir_alt2 = turn(base_dir, -90)
 		var/turf/turf_last1 = temp
 		var/turf/turf_last2 = temp
-		var/free_tile = null
+		var/free_tile
 		var/breakpoint = 0
 
 		while(!free_tile && breakpoint < 10)
@@ -705,7 +706,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
-	var/list/areas = new/list()
+	var/list/areas = list()
 	for(var/area/N in world)
 		if(istype(N, areatype)) areas += N
 	return areas
@@ -719,7 +720,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	for(var/area/N in world)
 		if(istype(N, areatype))
 			for(var/turf/T in N) turfs += T
@@ -734,7 +735,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
-	var/list/atoms = new/list()
+	var/list/atoms = list()
 	for(var/area/N in world)
 		if(istype(N, areatype))
 			for(var/atom/A in N)
@@ -742,11 +743,11 @@ Returns 1 if the chain up to the area contains the given typepath
 	return atoms
 
 /datum/coords //Simple datum for storing coordinates.
-	var/x_pos = null
-	var/y_pos = null
-	var/z_pos = null
+	var/x_pos
+	var/y_pos
+	var/z_pos
 
-/area/proc/move_contents_to(area/A, turftoleave=null, direction = null)
+/area/proc/move_contents_to(area/A, turf_to_leave, direction)
 	//Takes: Area. Optional: turf type to leave behind.
 	//Returns: Nothing.
 	//Notes: Attempts to move the contents of one area to another area.
@@ -770,7 +771,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		if(T.x < trg_min_x || !trg_min_x) trg_min_x	= T.x
 		if(T.y < trg_min_y || !trg_min_y) trg_min_y	= T.y
 
-	var/list/refined_src = new/list()
+	var/list/refined_src = list()
 	for(var/turf/T in turfs_src)
 		refined_src += T
 		refined_src[T] = new/datum/coords
@@ -778,7 +779,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		C.x_pos = (T.x - src_min_x)
 		C.y_pos = (T.y - src_min_y)
 
-	var/list/refined_trg = new/list()
+	var/list/refined_trg = list()
 	for(var/turf/T in turfs_trg)
 		refined_trg += T
 		refined_trg[T] = new/datum/coords
@@ -786,8 +787,8 @@ Returns 1 if the chain up to the area contains the given typepath
 		C.x_pos = (T.x - trg_min_x)
 		C.y_pos = (T.y - trg_min_y)
 
-	var/list/fromupdate = new/list()
-	var/list/toupdate = new/list()
+	var/list/from_update = list()
+	var/list/to_update = list()
 
 	moving:
 		for(var/turf/T in refined_src)
@@ -803,19 +804,17 @@ Returns 1 if the chain up to the area contains the given typepath
 					var/turf/X = B.ChangeTurf(T.type)
 					X.dir = old_dir1
 					X.icon_state = old_icon_state1
-					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
+					X.icon = old_icon1 // Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
 
 					// Give the new turf our air, if simulated
 					if(issimulatedturf(X) && issimulatedturf(T))
 						var/turf/simulated/sim = X
 						sim.copy_air_with_tile(T)
 
-
-					/* Quick visual fix for some weird shuttle corner artefacts when on transit space tiles */
+					// Quick visual fix for some weird shuttle corner artefacts when on transit space tiles
 					if(direction && findtext(X.icon_state, "swall_s"))
-
 						// Spawn a new shuttle corner object
-						var/obj/corner = new()
+						var/obj/corner = new
 						corner.loc = X
 						corner.density = TRUE
 						corner.anchored = TRUE
@@ -834,35 +833,31 @@ Returns 1 if the chain up to the area contains the given typepath
 						X.icon = nextturf.icon
 						X.icon_state = nextturf.icon_state
 
-
 					for(var/obj/O in T)
-
 						// Reset the shuttle corners
 						if(O.tag == "delete me")
 							X.icon = 'icons/turf/shuttle.dmi'
-							X.icon_state = replacetext(O.icon_state, "_f", "_s") // revert the turf to the old icon_state
+							X.icon_state = replacetext(O.icon_state, "_f", "_s") // Revert the turf to the old icon_state
 							X.name = "wall"
-							qdel(O) // prevents multiple shuttle corners from stacking
+							qdel(O) // Prevents multiple shuttle corners from stacking
 							continue
-						if(!isobj(O)) continue
+
+						if(QDELETED(O))
+							continue
+
 						O.loc.Exited(O)
-						O.setLoc(X,teleported=1)
+						O.setLoc(X)
 						O.loc.Entered(O)
+
 					for(var/mob/M in T)
 						if(!M.move_on_shuttle)
 							continue
 						M.loc = X
 
-//					var/area/AR = X.loc
+					to_update += X
 
-//					if(AR.lighting_use_dynamic)							//TODO: rewrite this code so it's not messed by lighting ~Carn
-//						X.opacity = !X.opacity
-//						X.set_opacity(!X.opacity)
-
-					toupdate += X
-
-					if(turftoleave)
-						fromupdate += T.ChangeTurf(turftoleave)
+					if(turf_to_leave)
+						from_update += T.ChangeTurf(turf_to_leave)
 					else
 						T.ChangeTurf(T.baseturf)
 
@@ -870,51 +865,49 @@ Returns 1 if the chain up to the area contains the given typepath
 					refined_trg -= B
 					continue moving
 
-	if(toupdate.len)
-		for(var/turf/simulated/T1 in toupdate)
+	if(length(to_update))
+		for(var/turf/simulated/T1 in to_update)
 			SSair.remove_from_active(T1)
 			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1,1)
+			SSair.add_to_active(T1, TRUE)
 
-	if(fromupdate.len)
-		for(var/turf/simulated/T2 in fromupdate)
+	if(length(from_update))
+		for(var/turf/simulated/T2 in from_update)
 			SSair.remove_from_active(T2)
 			T2.CalculateAdjacentTurfs()
-			SSair.add_to_active(T2,1)
+			SSair.add_to_active(T2, TRUE)
 
 
-
-
-/proc/DuplicateObject(obj/original, perfectcopy = 0 , sameloc = 0, atom/newloc = null)
+/proc/DuplicateObject(obj/original, perfectcopy = 0, sameloc = 0, atom/newloc)
 	if(!original)
-		return null
+		return
 
-	var/obj/O = null
+	var/obj/O
 
 	if(sameloc)
-		O=new original.type(original.loc)
+		O = new original.type(original.loc)
 	else
-		O=new original.type(newloc)
+		O = new original.type(newloc)
 
 	if(perfectcopy)
-		if((O) && (original))
-			var/static/list/forbidden_vars = list("type","loc","locs","vars", "parent","parent_type", "verbs","ckey","key","power_supply","contents","reagents","stat","x","y","z","group", "comp_lookup", "datum_components")
+		if(O && original)
+			var/static/list/forbidden_vars = list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "power_supply", "contents", "reagents", "stat", "x", "y", "z", "group", "comp_lookup", "datum_components")
 
 			for(var/V in original.vars - forbidden_vars)
-				if(istype(original.vars[V],/list))
+				if(islist(original.vars[V]))
 					var/list/L = original.vars[V]
 					O.vars[V] = L.Copy()
-				else if(istype(original.vars[V],/datum))
-					continue	// this would reference the original's object, that will break when it is used or deleted.
+				else if(istype(original.vars[V], /datum))
+					continue // This would reference the original's object, that will break when it is used or deleted.
 				else
 					O.vars[V] = original.vars[V]
 	if(istype(O))
 		O.update_icon()
 	return O
 
-/area/proc/copy_contents_to(area/A , platingRequired = 0, perfect_copy = TRUE)
+/area/proc/copy_contents_to(area/A, platingRequired = FALSE, perfect_copy = TRUE)
 	//Takes: Area. Optional: If it should copy to areas that don't have plating
-	//Returns: Nothing.
+	//Returns: List containing copied objects or `FALSE` if source/target area are null.
 	//Notes: Attempts to move the contents of one area to another area.
 	//       Movement based on lower left corner. Tiles that do not fit
 	//		 into the new area will not be moved.
@@ -941,7 +934,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		if(T.y < trg_min_y || !trg_min_y)
 			trg_min_y	= T.y
 
-	var/list/refined_src = new/list()
+	var/list/refined_src = list()
 	for(var/turf/T in turfs_src)
 		refined_src += T
 		refined_src[T] = new/datum/coords
@@ -949,7 +942,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		C.x_pos = (T.x - src_min_x)
 		C.y_pos = (T.y - src_min_y)
 
-	var/list/refined_trg = new/list()
+	var/list/refined_trg = list()
 	for(var/turf/T in turfs_trg)
 		refined_trg += T
 		refined_trg[T] = new/datum/coords
@@ -957,87 +950,59 @@ Returns 1 if the chain up to the area contains the given typepath
 		C.x_pos = (T.x - trg_min_x)
 		C.y_pos = (T.y - trg_min_y)
 
-	var/list/toupdate = new/list()
-
-	var/copiedobjs = list()
-
+	var/list/to_update = list()
+	var/list/copied_objects = list()
 
 	moving:
 		for(var/turf/T in refined_src)
 			var/datum/coords/C_src = refined_src[T]
+
 			for(var/turf/B in refined_trg)
 				var/datum/coords/C_trg = refined_trg[B]
+
 				if(C_src.x_pos == C_trg.x_pos && C_src.y_pos == C_trg.y_pos)
+					if(platingRequired && isspaceturf(B))
+						continue moving
 
 					var/old_dir1 = T.dir
 					var/old_icon_state1 = T.icon_state
 					var/old_icon1 = T.icon
 
-					if(platingRequired)
-						if(isspaceturf(B))
-							continue moving
 					var/turf/X = new T.type(B)
 					X.dir = old_dir1
 					X.icon_state = old_icon_state1
-					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
+					X.icon = old_icon1 // Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
 
-					var/list/objs = new/list()
-					var/list/newobjs = new/list()
-					var/list/mobs = new/list()
-					var/list/newmobs = new/list()
+					var/list/newobjs = list()
+					var/list/newmobs = list()
 
 					for(var/obj/O in T)
-
-						if(!isobj(O))
-							continue
-
-						objs += O
-
-
-					for(var/obj/O in objs)
-						newobjs += DuplicateObject(O , perfect_copy)
-
-
-					for(var/obj/O in newobjs)
-						O.loc = X
+						newobjs += DuplicateObject(O, perfect_copy, FALSE, X)
 
 					for(var/mob/M in T)
-
 						if(!M.move_on_shuttle)
 							continue
-						mobs += M
+						newmobs += DuplicateObject(M, TRUE, FALSE, X)
 
-					for(var/mob/M in mobs)
-						newmobs += DuplicateObject(M , 1)
-
-					for(var/mob/M in newmobs)
-						M.loc = X
-
-					copiedobjs += newobjs
-					copiedobjs += newmobs
-
-
+					copied_objects += newobjs
+					copied_objects += newmobs
 
 					for(var/V in T.vars)
-						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","destination_z", "destination_x", "destination_y","contents", "luminosity", "group")))
+						if(!(V in list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "x", "y", "z", "destination_z", "destination_x", "destination_y", "contents", "luminosity", "group")))
 							X.vars[V] = T.vars[V]
 
-					toupdate += X
+					to_update += X
 
 					refined_src -= T
 					refined_trg -= B
 					continue moving
 
-
-
-	if(toupdate.len)
-		for(var/turf/simulated/T1 in toupdate)
+	if(length(to_update))
+		for(var/turf/simulated/T1 in to_update)
 			T1.CalculateAdjacentTurfs()
 			SSair.add_to_active(T1,1)
 
-
-	return copiedobjs
-
+	return copied_objects
 
 
 /proc/get_cardinal_dir(atom/A, atom/B)
@@ -1251,7 +1216,7 @@ Standard way to write links -Sayu
 */
 
 /proc/topic_link(datum/D, arglist, content)
-	if(istype(arglist,/list))
+	if(islist(arglist))
 		arglist = list2params(arglist)
 	return "<a href='?src=[D.UID()];[arglist]'>[content]</a>"
 
@@ -1336,9 +1301,9 @@ Standard way to write links -Sayu
 	var/list/processing_list = list(src)
 	var/list/processed = list()
 
-	var/atom/found = null
+	var/atom/found
 
-	while(processing_list.len && found==null)
+	while(length(processing_list) && isnull(found))
 		var/atom/A = processing_list[1]
 		if(istype(A, typepath))
 			found = A
@@ -1644,11 +1609,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(!isnull(value) && value != "")
 		matches = filter_fancy_list(matches, value)
 
-	if(matches.len == 0)
+	if(!length(matches))
 		return
 
 	var/chosen
-	if(matches.len == 1)
+	if(length(matches) == 1)
 		chosen = matches[1]
 	else
 		chosen = input("Select a type", "Pick Type", matches[1]) as null|anything in matches
@@ -1684,7 +1649,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/item/grenade/clusterbuster = "CLUSTERBUSTER",
 			/obj/item/grenade = "GRENADE",
 			/obj/item/gun = "GUN",
-			/obj/item/implant = "IMPLANT",
+			/obj/item/bio_chip = "BIO_CHIP",
 			/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack = "MECHA_MISSILE_RACK",
 			/obj/item/mecha_parts/mecha_equipment/weapon = "MECHA_WEAPON",
 			/obj/item/mecha_parts/mecha_equipment = "MECHA_EQUIP",
@@ -1702,8 +1667,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/item/reagent_containers/glass/bottle = "BOTTLE",
 			/obj/item/reagent_containers/patch = "PATCH",
 			/obj/item/reagent_containers/pill = "PILL",
-			/obj/item/reagent_containers/food/drinks = "DRINK",
-			/obj/item/reagent_containers/food = "FOOD",
+			/obj/item/reagent_containers/drinks = "DRINK",
+			/obj/item/food = "FOOD",
 			/obj/item/reagent_containers/syringe = "SYRINGE",
 			/obj/item/reagent_containers = "REAGENT_CONTAINERS",
 			/obj/item/robot_parts = "ROBOT_PARTS",
@@ -1778,7 +1743,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 
 /proc/filter_fancy_list(list/L, filter as text)
-	var/list/matches = new
+	var/list/matches = list()
 	for(var/key in L)
 		var/value = L[key]
 		if(findtext("[key]", filter) || findtext("[value]", filter))
@@ -1882,7 +1847,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return living_players
 
 /proc/make_bit_triplet()
-	var/list/num_sample  = list(1, 2, 3, 4, 5, 6, 7, 8, 9)
+	var/list/num_sample = list(1, 2, 3, 4, 5, 6, 7, 8, 9)
 	var/result = 0
 	for(var/i = 0, i < 3, i++)
 		var/num = pick(num_sample)
@@ -2000,6 +1965,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
   */
 /proc/get_channel_name(channel)
 	switch(channel)
+		if(CHANNEL_GENERAL)
+			return "General Sounds"
 		if(CHANNEL_LOBBYMUSIC)
 			return "Lobby Music"
 		if(CHANNEL_ADMIN)
@@ -2066,7 +2033,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
   * * url - URL to GET
   */
 /proc/HTTPGet(url)
-	var/datum/http_request/req = new()
+	var/datum/http_request/req = new
 	req.prepare(RUSTG_HTTP_METHOD_GET, url)
 	req.begin_async()
 

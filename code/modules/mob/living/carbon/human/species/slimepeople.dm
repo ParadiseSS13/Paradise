@@ -13,7 +13,7 @@
 	language = "Bubblish"
 
 	blurb = "Slime People are gelatinous and translucent beings from the vast oceans of Xarxis 5. \
-	They are recent entrants to the galactic scene, having been discovered by a TSF exploratory company during space expedetions.<br/><br/> \
+	They are recent entrants to the galactic scene, having been discovered by a TSF exploratory company during space expeditions.<br/><br/> \
 	Slime People traditionally operate in roaming bands and tribes that migrate according to orbital patterns and tides. \
 	A great deal of Slime People prefer the comforts and traditions of their homeworld, though many more have decided to take their chances among the stars, trying \
 	to find a better life for themselves and their species."
@@ -49,9 +49,7 @@
 
 	vision_organ = null
 	has_organ = list(
-		"heart" = /obj/item/organ/internal/heart/slime,
-		"brain" = /obj/item/organ/internal/brain/slime,
-		"lungs" = /obj/item/organ/internal/lungs/slime
+		"brain" = /obj/item/organ/internal/brain/slime
 		)
 	mutantears = null
 	suicide_messages = list(
