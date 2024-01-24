@@ -42,17 +42,17 @@
 	name = "*Detonate*"
 	icon = "exclamation-circle"
 
-/datum/data/pda/messenger_plugin/virus/detonate/user_act(mob/user, obj/item/pda/P)
-	. = ..(user, P)
+/datum/data/pda/messenger_plugin/virus/detonate/user_act(mob/user, obj/item/pda/pda_to_detonate)
+	. = ..()
 	if(.)
-		if(!P.detonate || P.hidden_uplink)
+		if(!pda_to_detonate.detonate || pda_to_detonate.hidden_uplink)
 			user.show_message("<span class='warning'>The target PDA does not seem to respond to the detonation command.</span>", 1)
 			pda.cartridge.charges++
 		else
 			user.show_message("<span class='notice'>Success!</span>", 1)
-			log_admin("[key_name(user)] just blew up [P] with the Detomatix cartridge")
-			message_admins("[key_name_admin(user)] just blew up [P] with the Detomatix cartridge", 1)
-			P.explode()
+			log_admin("[key_name(user)] just blew up [pda_to_detonate] with the Detomatix cartridge")
+			message_admins("[key_name_admin(user)] just blew up [pda_to_detonate] with the Detomatix cartridge", 1)
+			pda_to_detonate.explode()
 
 /datum/data/pda/messenger_plugin/virus/frame
 	icon = "exclamation-circle"
