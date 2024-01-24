@@ -1201,8 +1201,8 @@
 	id = "ipc_charger"
 	build_type = MECHFAB
 	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord_apc
-	materials = list(MAT_METAL=2000, MAT_GLASS=1000)
-	construction_time = 200
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
+	construction_time = 20 SECONDS
 	category = list("Misc")
 
 /datum/design/ipc_charger_cell
@@ -1211,7 +1211,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord_cell
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
-	construction_time = 200
+	construction_time = 20 SECONDS
 	category = list("Misc")
 
 /datum/design/ipc_optics
