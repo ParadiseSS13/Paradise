@@ -137,7 +137,7 @@
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 
-	var/datum/asset/cloning/assets = get_asset_datum(/datum/asset/cloning)
+	var/datum/asset/simple/cloning/assets = get_asset_datum(/datum/asset/simple/cloning)
 	assets.send(user)
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)

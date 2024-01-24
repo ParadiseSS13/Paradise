@@ -1,12 +1,15 @@
+/// Reagents that can be inserted into the cloning pod (and not deleted by it).
 #define VALID_REAGENTS list("sanguine_reagent", "osseous_reagent")
 
-#define VALID_BIOMASSABLES list(/obj/item/reagent_containers/food/snacks/meat, \
-								/obj/item/reagent_containers/food/snacks/monstermeat, \
-								/obj/item/reagent_containers/food/snacks/carpmeat, \
-								/obj/item/reagent_containers/food/snacks/salmonmeat, \
-								/obj/item/reagent_containers/food/snacks/catfishmeat, \
-								/obj/item/reagent_containers/food/snacks/tofurkey)
+/// Meats that can be used as biomass for the cloner.
+#define VALID_BIOMASSABLES list(/obj/item/food/snacks/meat, \
+								/obj/item/food/snacks/monstermeat, \
+								/obj/item/food/snacks/carpmeat, \
+								/obj/item/food/snacks/salmonmeat, \
+								/obj/item/food/snacks/catfishmeat, \
+								/obj/item/food/snacks/tofurkey)
 
+/// Internal organs the cloner will *never* accept for insertion.
 #define FORBIDDEN_INTERNAL_ORGANS list(/obj/item/organ/internal/regenerative_core, \
 									/obj/item/organ/internal/alien, \
 									/obj/item/organ/internal/body_egg, \
@@ -18,15 +21,18 @@
 									/obj/item/organ/internal/eyes/optical_sensor, \
 									/obj/item/organ/internal/ears/microphone)
 
+/// Internal organs the cloner will only accept when fully upgraded.
 #define UPGRADE_LOCKED_ORGANS list(/obj/item/organ/internal/heart/gland, \
 								/obj/item/organ/internal/heart/demon, \
 								/obj/item/organ/internal/heart/cursed, \
 								/obj/item/organ/internal/eyes/cybernetic/eyesofgod)
 
+/// Limbs that the cloner won't accept.
 #define FORBIDDEN_LIMBS list(/obj/item/organ/external/head, \
 							/obj/item/organ/external/chest, \
 							/obj/item/organ/external/groin) //you can't even get chests and groins normally
 
+/// A list of robot parts for use later, so that you can put them straight into the cloner from the exosuit fabricator.
 #define ALLOWED_ROBOT_PARTS list(/obj/item/robot_parts/r_arm, \
 								/obj/item/robot_parts/l_arm, \
 								/obj/item/robot_parts/r_leg, \
@@ -40,7 +46,7 @@
 #define BIOMASS_NEW_LIMB_COST 100
 #define BIOMASS_NEW_ORGAN_COST 100
 #define BIOMASS_BURN_WOUND_COST 25
-//These 3 are for every point of the respective damage type
+//These next 3 are for every point of the respective damage type
 #define BIOMASS_BRUTE_COST 0.5
 #define BIOMASS_BURN_COST 0.5
 #define BIOMASS_ORGAN_DAMAGE_COST 1
@@ -154,12 +160,12 @@
 		else if(istype(SP, /obj/item/stock_parts/manipulator)) //Manipulators for speed modifier
 			speed_modifier += SP.rating / 2 //1 at tier 1, 2 at tier 2, et cetera
 
-		var/obj/item/reagent_containers/glass/beaker/B = part
+	for(var/obj/item/reagent_containers/glass/beaker/B as anything in component_parts)
 		if(istype(B))
 			reagents.maximum_volume = B.volume //The default cloning pod has a large beaker in it, so 100u.
 
-		organ_storage_capacity = storage_modifier
-		biomass_storage_capacity = storage_modifier * 400
+	organ_storage_capacity = storage_modifier
+	biomass_storage_capacity = storage_modifier * 400
 
 
 
