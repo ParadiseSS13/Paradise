@@ -33,7 +33,7 @@
 				L[D.name] = D
 				full_list[D.name] = D
 
-			switch(D.gender)
+			switch(D.body_type)
 				if(MALE)	male[D.name] = D
 				if(FEMALE)	female[D.name] = D
 				else
@@ -45,7 +45,7 @@
 	var/icon			//the icon file the accessory is located in
 	var/icon_state		//the icon_state of the accessory
 	var/name			//the preview name of the accessory
-	var/gender = NEUTER	//Determines if the accessory will be skipped or included in random hair generations
+	var/body_type = NEUTER	//Determines if the accessory will be skipped or included in random hair generations
 
 	// Restrict some styles to specific species
 	var/list/species_allowed = list("Human", "Slime People")
@@ -74,7 +74,6 @@
 	glasses_over = 1
 
 /datum/sprite_accessory/facial_hair
-	gender = MALE
 	icon = 'icons/mob/sprite_accessories/human/human_facial_hair.dmi'
 	var/over_hair
 
@@ -174,7 +173,6 @@
 	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi',
 	"Kidan" = 'icons/mob/clothing/species/kidan/underwear.dmi'
 	)
-	gender = NEUTER
 
 /datum/sprite_accessory/underwear/nude
 	name = "Nude"
@@ -182,7 +180,7 @@
 	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 
 /datum/sprite_accessory/underwear/male
-	gender = MALE
+	body_type = MALE
 
 /datum/sprite_accessory/underwear/male/male_white
 	name = "Mens White"
@@ -233,7 +231,7 @@
 	icon_state = "male_mankini"
 
 /datum/sprite_accessory/underwear/female
-	gender = FEMALE
+	body_type = FEMALE
 
 /datum/sprite_accessory/underwear/female/female_red
 	name = "Ladies Red"
@@ -305,7 +303,6 @@
 	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi',
 	"Kidan" = 'icons/mob/clothing/species/kidan/underwear.dmi'
 	)
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/nude
 	name = "Nude"
@@ -494,17 +491,17 @@
 /datum/sprite_accessory/undershirt/tank_redtop
 	name = "Red Crop-Top"
 	icon_state = "tank_redtop"
-	gender = FEMALE
+	body_type = FEMALE
 
 /datum/sprite_accessory/undershirt/tank_whitetop
 	name = "White Crop-Top"
 	icon_state = "tank_whitetop"
-	gender = FEMALE
+	body_type = FEMALE
 
 /datum/sprite_accessory/undershirt/tank_midriff
 	name = "White Mid Tank-Top"
 	icon_state = "tank_midriff"
-	gender = FEMALE
+	body_type = FEMALE
 
 /datum/sprite_accessory/undershirt/tank_white
 	name = "White Tank-Top"
@@ -547,7 +544,6 @@
 	"Nian" = 'icons/mob/clothing/species/nian/underwear.dmi'
 
 	)
-	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude
 	name = "Nude"
@@ -581,7 +577,7 @@
 /datum/sprite_accessory/socks/thin_knee
 	name = "Knee-high Thin"
 	icon_state = "thin_knee"
-	gender = FEMALE
+	body_type = FEMALE
 
 /datum/sprite_accessory/socks/striped_norm
 	name = "Normal Striped"
@@ -606,7 +602,7 @@
 /datum/sprite_accessory/socks/thin_thigh
 	name = "Thigh-high Thin"
 	icon_state = "thin_thigh"
-	gender = FEMALE
+	body_type = FEMALE
 
 /datum/sprite_accessory/socks/striped_thigh
 	name = "Thigh-high Striped"
@@ -619,7 +615,7 @@
 /datum/sprite_accessory/socks/pantyhose
 	name = "Pantyhose"
 	icon_state = "pantyhose"
-	gender = FEMALE
+	body_type = FEMALE
 
 /datum/sprite_accessory/socks/black_fishnet
 	name = "Black Fishnet"

@@ -271,15 +271,15 @@
 						// Don't wear another species' underwear!
 						var/datum/sprite_accessory/SA = GLOB.underwear_list[active_character.underwear]
 						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.underwear = random_underwear(active_character.gender, active_character.species)
+							active_character.underwear = random_underwear(active_character.body_type, active_character.species)
 
 						SA = GLOB.undershirt_list[active_character.undershirt]
 						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.undershirt = random_undershirt(active_character.gender, active_character.species)
+							active_character.undershirt = random_undershirt(active_character.body_type, active_character.species)
 
 						SA = GLOB.socks_list[active_character.socks]
 						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.socks = random_socks(active_character.gender, active_character.species)
+							active_character.socks = random_socks(active_character.body_type, active_character.species)
 
 						//reset skin tone and colour
 						if(NS.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
@@ -608,9 +608,9 @@
 					for(var/underwear in GLOB.underwear_list)
 						var/datum/sprite_accessory/SA = GLOB.underwear_list[underwear]
 						// soon...
-						if(active_character.gender == MALE && SA.gender == FEMALE)
+						if(active_character.body_type == MALE && SA.body_type == FEMALE)
 							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
+						if(active_character.body_type == FEMALE && SA.body_type == MALE)
 							continue
 						if(!(active_character.species in SA.species_allowed))
 							continue
@@ -626,9 +626,9 @@
 						var/datum/sprite_accessory/SA = GLOB.undershirt_list[undershirt]
 						if(!(active_character.species in SA.species_allowed))
 							continue
-						if(active_character.gender == MALE && SA.gender == FEMALE)
+						if(active_character.body_type == MALE && SA.body_type == FEMALE)
 							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
+						if(active_character.body_type == FEMALE && SA.body_type == MALE)
 							continue
 						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
 					sortTim(valid_undershirts, GLOBAL_PROC_REF(cmp_text_asc))
@@ -643,9 +643,9 @@
 						var/datum/sprite_accessory/SA = GLOB.socks_list[sockstyle]
 						if(!(active_character.species in SA.species_allowed))
 							continue
-						if(active_character.gender == MALE && SA.gender == FEMALE)
+						if(active_character.body_type == MALE && SA.body_type == FEMALE)
 							continue
-						if(active_character.gender == FEMALE && SA.gender == MALE)
+						if(active_character.body_type == FEMALE && SA.body_type == MALE)
 							continue
 						valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
 					sortTim(valid_sockstyles, GLOBAL_PROC_REF(cmp_text_asc))
@@ -904,7 +904,6 @@
 							active_character.gender = FEMALE
 						if("Genderless")
 							active_character.gender = PLURAL
-					active_character.underwear = random_underwear(active_character.gender)
 
 				if("body_type")
 					if(active_character.body_type == MALE)
@@ -912,7 +911,7 @@
 					else
 						active_character.body_type = MALE
 
-					active_character.update_preview_icon()
+					active_character.underwear = random_underwear(active_character.body_type)
 
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP

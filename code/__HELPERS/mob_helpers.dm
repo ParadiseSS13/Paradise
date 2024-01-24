@@ -82,8 +82,6 @@
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
 			continue
-		if((gender == MALE && S.gender == FEMALE) || (gender == FEMALE && S.gender == MALE))
-			continue
 		if(species == "Machine") //If the user is a species who can have a robotic head...
 			if(!robohead)
 				robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]

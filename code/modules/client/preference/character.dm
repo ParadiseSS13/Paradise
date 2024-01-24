@@ -591,9 +591,9 @@
 	else
 		gender = pick(MALE, FEMALE)
 	body_type = pick(MALE, FEMALE)
-	underwear = random_underwear(gender, species)
-	undershirt = random_undershirt(gender, species)
-	socks = random_socks(gender, species)
+	underwear = random_underwear(body_type, species)
+	undershirt = random_undershirt(body_type, species)
+	socks = random_socks(body_type, species)
 	if(length(GLOB.body_accessory_by_species[species]))
 		body_accessory = random_body_accessory(species, S.optional_body_accessory)
 	if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))

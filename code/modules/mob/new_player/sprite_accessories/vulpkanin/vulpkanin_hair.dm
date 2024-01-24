@@ -84,7 +84,6 @@
 /datum/sprite_accessory/hair/vulpkanin/vulp_hair_raine
 	name = "Raine"
 	icon_state = "raine"
-	gender = FEMALE
 
 /datum/sprite_accessory/hair/vulpkanin/vulp_hair_jeremy
 	name = "Jeremy"

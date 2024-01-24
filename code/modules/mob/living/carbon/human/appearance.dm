@@ -10,15 +10,6 @@
 
 	gender = new_gender
 
-	if(istype(H))
-		var/datum/sprite_accessory/hair/current_hair = GLOB.hair_styles_full_list[H.h_style]
-		if(current_hair.gender != NEUTER && current_hair.gender != gender)
-			reset_head_hair()
-
-		var/datum/sprite_accessory/hair/current_fhair = GLOB.facial_hair_styles_list[H.f_style]
-		if(current_fhair.gender != NEUTER && current_fhair.gender != gender)
-			reset_facial_hair()
-
 	if(update_dna)
 		update_dna()
 	sync_organ_dna(assimilate = FALSE)
@@ -382,8 +373,6 @@
 		if(hairstyle == "Bald") //Just in case.
 			valid_hairstyles += hairstyle
 			continue
-		if((H.gender == MALE && S.gender == FEMALE) || (H.gender == FEMALE && S.gender == MALE))
-			continue
 		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
 			if((H.dna.species.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
@@ -409,8 +398,6 @@
 
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
-			continue
-		if((H.gender == MALE && S.gender == FEMALE) || (H.gender == FEMALE && S.gender == MALE))
 			continue
 		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]

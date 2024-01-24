@@ -563,7 +563,6 @@
 /datum/sprite_accessory/hair/joestar
 	name = "Joestar"
 	icon_state = "joestar"
-	gender = MALE
 	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin")
 
 /datum/sprite_accessory/hair/nitori
