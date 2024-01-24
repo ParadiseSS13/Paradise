@@ -173,8 +173,7 @@
 	to_chat(M, "<span class='warning'>You absorb the potion and feel your intense desire to feed melt away.</span>")
 	to_chat(user, "<span class='notice'>You feed the slime the potion, removing its hunger and calming it.</span>")
 	being_used = TRUE
-	var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
-
+	var/newname = tgui_input_text(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime", MAX_NAME_LEN, 1)
 	if(!newname)
 		newname = "pet slime"
 	M.name = newname
@@ -228,7 +227,9 @@
 			explosion(T, -1, -1, 2, 3)
 		qdel(src)
 		return
-	var/reason_text = input(user, "Enter reason for giving sentience", "Reason for sentience potion", "") as null|text
+	var/reason_text = tgui_input_text(user, "Enter reason for giving sentience", "Reason for sentience potion")
+	if(!reason_text)
+		return
 	to_chat(user, "<span class='notice'>You offer [src] sentience potion to [SM]...</span>")
 	being_used = TRUE
 

@@ -127,7 +127,7 @@
 	var/old_name = mob_info.mob_name
 	if(mob_info.nickname)
 		old_name = mob_info.nickname
-	mob_info.nickname = input("Give a nickname to [old_name]?", "Nickname", old_name)
+	mob_info.nickname = tgui_input_text(usr, "Give a nickname to [old_name]?", "Nickname", old_name)
 
 /datum/data/pda/app/mob_hunter_game/proc/release()
 	if(!my_collection.len)

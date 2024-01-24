@@ -435,7 +435,7 @@
 		return
 	if(stat & (BROKEN|NOPOWER))
 		return
-	var/text = input("Enter what you want to write:", "Write", null, null) as message
+	var/text = tgui_input_text(user, "Enter what you want to write:", "Write", multiline = TRUE)
 	if(!text)
 		return
 	if(toner < 1 || !user)

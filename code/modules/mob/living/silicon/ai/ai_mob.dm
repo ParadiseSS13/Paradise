@@ -568,7 +568,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "<span class='warning'>Please allow one minute to pass between announcements.</span>")
 		return
 
-	var/input = input(usr, "Please write a message to announce to the station crew.", "A.I. Announcement") as message|null
+	var/input = tgui_input_text(usr, "Please write a message to announce to the station crew.", "A.I. Announcement", multiline = TRUE)
 	if(!input)
 		return
 
@@ -1231,13 +1231,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
 	set category = "AI Commands"
 
-	var/newmsg = clean_input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg)
-	if(!newmsg)
+	var/newmsg = tgui_input_text(usr, "What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg, encode = FALSE)
+	if(!newmsg || newmsg == arrivalmsg)
 		return
-	newmsg = html_decode(newmsg) // This feels a bit redundant, but sanitisation is (probably) important.
-	if(newmsg != arrivalmsg)
-		arrivalmsg = newmsg
-		to_chat(usr, "The arrival message has been successfully changed.")
+
+	arrivalmsg = newmsg
+	to_chat(usr, "The arrival message has been successfully changed.")
 
 // Handled camera lighting, when toggled.
 // It will get the nearest camera from the eyeobj, lighting it.

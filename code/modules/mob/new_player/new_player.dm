@@ -180,7 +180,7 @@
 			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
 			return FALSE
 
-		if(tgui_alert(usr, "Are you sure you wish to observe? You cannot normally join the round after doing this!", "Observe", list("Yes", "No")) == "Yes")
+		if(alert(usr, "Are you sure you wish to observe? You cannot normally join the round after doing this!", "Observe", "Yes", "No") == "Yes")
 			if(!client)
 				return TRUE
 			var/mob/dead/observer/observer = new(src)

@@ -372,7 +372,9 @@
 	if(is_pen(I))
 		if(open)
 			return
-		var/t = clean_input("Enter what you want to set the tag to:", "Write", null)
+		var/t = tgui_input_text(usr, "Enter what you want to set the tag to:", "Write")
+		if(!t)
+			return
 		var/obj/item/pizzabox/boxtotagto = src
 		if(boxes.len > 0)
 			boxtotagto = boxes[boxes.len]
