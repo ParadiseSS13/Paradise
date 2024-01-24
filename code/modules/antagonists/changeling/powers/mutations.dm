@@ -582,3 +582,4 @@
 	flags = BLOCKHAIR | NODROP | DROPDEL
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, RAD = 0, FIRE = 90, ACID = 90)
 	flags_inv = HIDEEARS
+	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH

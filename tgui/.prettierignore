@@ -1,3 +1,4 @@
-# Ignore built packages and styles:
-packages/tgui/public
-packages/tgui/styles
+# Ignore built packages:
+public
+**.cjs
+packages/tgui-dev-server

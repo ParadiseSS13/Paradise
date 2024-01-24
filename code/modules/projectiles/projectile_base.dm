@@ -62,6 +62,8 @@
 	var/jitter = 0
 	/// Number of times an object can pass through an object. -1 is infinite
 	var/forcedodge = 0
+	/// Does the projectile increase fire stacks / immolate mobs on hit? Applies fire stacks equal to the number on hit.
+	var/immolate = 0
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 	var/impact_effect_type //what type of impact effect to show when hitting something
 	var/ricochets = 0
@@ -198,6 +200,9 @@
 				playsound(loc, hitsound, volume, 1, -1)
 			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+		if(immolate)
+			L.adjust_fire_stacks(immolate)
+			L.IgniteMob()
 
 	var/additional_log_text
 	if(blocked)
