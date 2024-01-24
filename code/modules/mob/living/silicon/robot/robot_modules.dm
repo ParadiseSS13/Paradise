@@ -739,7 +739,6 @@
 		/obj/item/crowbar/cyborg,
 		/obj/item/gps/cyborg,
 		/obj/item/pinpointer,
-		/obj/item/pinpointer/operative/nad,
 	)
 	special_rechargables = list(
 		/obj/item/melee/baton/loaded,
