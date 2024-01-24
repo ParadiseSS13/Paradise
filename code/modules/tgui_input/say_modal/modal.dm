@@ -36,7 +36,6 @@
 /datum/tgui_say/New(client/client, id)
 	src.client = client
 	window = new(client, id)
-	winset(client, "tgui_say", "size=1,1;is-visible=0;")
 	window.subscribe(src, PROC_REF(on_message))
 	window.is_browser = TRUE
 
@@ -49,6 +48,7 @@
 	// Sleep to defer initialization to after client constructor
 	sleep(3 SECONDS)
 	window.initialize(
+			strict_mode = TRUE,
 			fancy = TRUE,
 			inline_css = file("tgui/public/tgui-say.bundle.css"),
 			inline_js = file("tgui/public/tgui-say.bundle.js"),
