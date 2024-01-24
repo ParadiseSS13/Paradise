@@ -30552,7 +30552,6 @@
 /area/station/command/office/captain)
 "bHA" = (
 /obj/machinery/power/apc{
-	dir = 8;
 	name = "west bump";
 	pixel_x = -24
 	},
@@ -70741,7 +70740,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc{
-	dir = 8;
 	name = "west bump";
 	pixel_x = -24
 	},
@@ -75353,7 +75351,6 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc{
-	dir = 1;
 	name = "north bump";
 	pixel_y = 24
 	},
@@ -77418,7 +77415,6 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc{
-	dir = 4;
 	name = "east bump";
 	pixel_x = 24
 	},
@@ -84137,7 +84133,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc{
-	dir = 8;
 	name = "west bump";
 	pixel_x = -24
 	},
@@ -84755,7 +84750,6 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc{
-	dir = 4;
 	name = "east bump";
 	pixel_x = 24
 	},
@@ -86392,7 +86386,6 @@
 /area/station/maintenance/theatre)
 "pPE" = (
 /obj/machinery/power/apc{
-	dir = 4;
 	name = "east bump";
 	pixel_x = 24
 	},
