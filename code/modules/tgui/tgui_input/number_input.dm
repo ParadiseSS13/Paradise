@@ -21,7 +21,7 @@
 
 	if(!istype(user))
 		if(!isclient(user))
-			return
+			CRASH("We passed something that wasn't a user/client in a tgui alert! The passed user was [user]!")
 		var/client/client = user
 		user = client.mob
 
@@ -118,7 +118,6 @@
 		ui.open()
 
 /datum/tgui_input_number/ui_close(mob/user)
-	. = ..()
 	closed = TRUE
 
 /datum/tgui_input_number/ui_state(mob/user)

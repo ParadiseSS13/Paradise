@@ -305,7 +305,7 @@
 		return
 
 	prompted = TRUE
-	if(tgui_alert(user, "This will permanently transfer your consciousness to [SM]. Are you sure you want to do this?", buttons = list("Yes", "No")) == "No")
+	if(tgui_alert(user, "This will permanently transfer your consciousness to [SM]. Are you sure you want to do this?", "Consciousness Transfer", list("Yes", "No")) == "No")
 		prompted = FALSE
 		return
 
