@@ -226,6 +226,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
+#define TRAIT_KINDACOOL // For janitors landing disposal throws
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.

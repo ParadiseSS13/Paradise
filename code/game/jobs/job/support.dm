@@ -429,6 +429,11 @@
 	pda = /obj/item/pda/janitor
 	r_pocket = /obj/item/door_remote/janikeyring
 
+/datum/outfit/job/janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	ADD_TRAIT(H, TRAIT_KINDACOOL, ROUNDSTART_TRAIT)
 
 //More or less assistants
 /datum/job/librarian
