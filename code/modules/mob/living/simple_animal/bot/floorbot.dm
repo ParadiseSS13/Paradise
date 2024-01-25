@@ -211,7 +211,7 @@
 		if(loc == target || loc == target.loc)
 
 			if(istype(target, /obj/item/stack/tile/plasteel))
-				start_eattile(target)
+				start_eat_tile(target)
 
 			if(istype(target, /obj/item/stack/sheet/metal))
 				start_maketile(target)
@@ -339,15 +339,15 @@
 	anchored = FALSE
 	target = null
 
-/mob/living/simple_animal/bot/floorbot/proc/start_eattile(obj/item/stack/tile/plasteel/T)
+/mob/living/simple_animal/bot/floorbot/proc/start_eat_tile(obj/item/stack/tile/plasteel/T)
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		return
 	visible_message("<span class='notice'>[src] begins to collect tiles.</span>")
 	mode = BOT_EAT_TILE
 	update_icon(UPDATE_OVERLAYS)
-	addtimer(CALLBACK(src, PROC_REF(do_eattile), T), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(do_eat_tile), T), 2 SECONDS)
 
-/mob/living/simple_animal/bot/floorbot/proc/do_eattile(obj/item/stack/tile/plasteel/T)
+/mob/living/simple_animal/bot/floorbot/proc/do_eat_tile(obj/item/stack/tile/plasteel/T)
 	if(isnull(T))
 		target = null
 		mode = BOT_IDLE
@@ -440,9 +440,9 @@
 /mob/living/simple_animal/bot/floorbot/UnarmedAttack(atom/A)
 	if(isturf(A))
 		repair(A)
-	else if(istype(A,/obj/item/stack/tile/plasteel))
-		start_eattile(A)
-	else if(istype(A,/obj/item/stack/sheet/metal))
+	if(istype(A,/obj/item/stack/tile/plasteel))
+		start_eat_tile(A)
+	if(istype(A,/obj/item/stack/sheet/metal))
 		start_maketile(A)
 	else
 		..()
