@@ -480,6 +480,7 @@ If the bot has avoid_bot, includes its own path, it will avoid other bots of sam
 Example usage: patient = scan(/mob/living/carbon/human, oldpatient, 1)
 The proc would return a human next to the bot to be set to the patient var.
 Pass the desired type path itself, declaring a temporary var beforehand is not required.
+TRUE to skip target, FALSE for the next check
 */
 /mob/living/simple_animal/bot/proc/scan(atom/scan_type, atom/old_target, scan_range = DEFAULT_SCAN_RANGE, avoid_bot)
 	var/final_result
@@ -489,7 +490,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			continue // If not, keep searching!
 		if((A.UID() in ignore_list) || (A == old_target)) // Filter for blacklisted elements, usually unreachable or previously processed oness
 			continue
-		if(assign_bot(A, avoid_bot)) // This bullshit IS working
+		if(assign_bot(A, avoid_bot)) // Is the target claimed by a bot
 			continue
 		var/scan_result = process_scan(A) // Some bots may require additional processing when a result is selected.
 		if(scan_result)
