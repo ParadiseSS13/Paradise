@@ -25390,6 +25390,10 @@
 	c_tag = "Bar - Counter";
 	dir = 1
 	},
+/obj/item/clothing/head/that{
+	pixel_y = 7;
+	pixel_x = -6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -69460,12 +69464,17 @@
 /area/station/medical/reception)
 "nhP" = (
 /obj/structure/table,
-/obj/item/book/manual/wiki/sop_service,
-/obj/item/book/manual/barman_recipes{
-	pixel_x = -4;
-	pixel_y = 7
+/obj/item/book/manual/wiki/sop_service{
+	pixel_x = -6
 	},
-/obj/item/clothing/head/that,
+/obj/item/book/manual/barman_recipes{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/drinks/shaker{
+	pixel_x = 6;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -73368,16 +73377,15 @@
 /turf/simulated/wall,
 /area/station/maintenance/starboard)
 "oXP" = (
-/obj/machinery/reagentgrinder{
-	pixel_x = 6;
-	pixel_y = 6
-	},
 /obj/machinery/camera{
 	c_tag = "Bar - Counter";
 	dir = 1
 	},
 /obj/structure/table,
 /obj/item/storage/bag/tray,
+/obj/item/reagent_containers/condiment/enzyme{
+	layer = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -81113,7 +81121,8 @@
 "soT" = (
 /obj/structure/table,
 /obj/machinery/processor{
-	pixel_y = 12
+	pixel_y = 3;
+	pixel_x = 1
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
@@ -82965,7 +82974,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "tfp" = (
 /obj/structure/cable/yellow{
