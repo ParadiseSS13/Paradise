@@ -1,4 +1,4 @@
-//Floorbot
+// Floorbot
 /mob/living/simple_animal/bot/floorbot
 	name = "\improper Floorbot"
 	desc = "A little floor repairing robot, he looks so excited!"
@@ -167,34 +167,34 @@
 	if(prob(5))
 		audible_message("[src] makes an excited booping beeping sound!")
 
-	//Normal scanning procedure. We have tiles loaded, are not emagged.
+	// Normal scanning procedure. We have tiles loaded, are not emagged.
 	if(!target && !emagged && amount)
 		if(!target)
-			process_type = HULL_BREACH //Ensures the floorbot does not try to "fix" space areas or shuttle docking zones.
+			process_type = HULL_BREACH // Ensures the floorbot does not try to "fix" space areas or shuttle docking zones.
 			target = scan(/turf/space, avoid_bot = /mob/living/simple_animal/bot/floorbot)
 
-		if(!target && replace_tiles) //Finds a floor without a tile and gives it one.
-			process_type = REPLACE_TILE //The target must be the floor and not a tile. The floor must not already have a floortile.
+		if(!target && replace_tiles) // Finds a floor without a tile and gives it one.
+			process_type = REPLACE_TILE // The target must be the floor and not a tile. The floor must not already have a floortile.
 			target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
 
-		if(!target && fix_floor) //Repairs damaged floors and tiles.
+		if(!target && fix_floor) // Repairs damaged floors and tiles.
 			process_type = FIX_TILE
 			target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
 
-	if(!target && emagged) //We are emagged! Time to rip up the floors!
+	if(!target && emagged) // We are emagged! Time to rip up the floors!
 		process_type = TILE_EMAG
 		target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
 
-	if(amount < MAX_AMOUNT && !target) //Out of tiles! We must refill!
-		if(eat_tiles) //Configured to find and consume floortiles!
+	if(amount < MAX_AMOUNT && !target) // Out of tiles! We must refill!
+		if(eat_tiles) // Configured to find and consume floortiles!
 			target = scan(/obj/item/stack/tile/plasteel)
 			process_type = null
 
-		if(!target && make_tiles) //We did not manage to find any floor tiles! Scan for metal stacks and make our own!
+		if(!target && make_tiles) // We did not manage to find any floor tiles! Scan for metal stacks and make our own!
 			target = scan(/obj/item/stack/sheet/metal)
 			process_type = null
 
-		if(!target && nag_on_empty) //Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
+		if(!target && nag_on_empty) // Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
 			nag()
 
 
@@ -257,42 +257,42 @@
 	mode = BOT_IDLE
 	target = null
 
-/mob/living/simple_animal/bot/floorbot/proc/nag() //Annoy everyone on the channel to refill us!
+/mob/living/simple_animal/bot/floorbot/proc/nag() // Annoy everyone on the channel to refill us!
 	if(!nagged)
 		speak("Requesting refill [MAX_AMOUNT - amount] at <b>[get_area(src)]</b>!", radio_channel)
 		nagged = TRUE
 
-/mob/living/simple_animal/bot/floorbot/proc/is_hull_breach(turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
+/mob/living/simple_animal/bot/floorbot/proc/is_hull_breach(turf/t) // Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
 	return !istype(get_area(t), /area/space)
 
-//Floorbots, having several functions, need sort out special conditions here.
+// Floorbots, having several functions, need sort out special conditions here.
 /mob/living/simple_animal/bot/floorbot/process_scan(atom/scan_target)
 	var/result
 	var/turf/simulated/floor/F
 	switch(process_type)
-		if(HULL_BREACH) //The most common job, patching breaches in the station's hull.
-			if(is_hull_breach(scan_target)) //Ensure that the targeted space turf is actually part of the station, and not random space.
+		if(HULL_BREACH) // The most common job, patching breaches in the station's hull.
+			if(is_hull_breach(scan_target)) // Ensure that the targeted space turf is actually part of the station, and not random space.
 				result = scan_target
-				anchored = TRUE //Prevent the floorbot being blown off-course while trying to reach a hull breach.
+				anchored = TRUE // Prevent the floorbot being blown off-course while trying to reach a hull breach.
 		if(REPLACE_TILE)
 			F = scan_target
 			if(istype(F, /turf/simulated/floor/plating)) //The floor must not already have a tile.
 				result = F
-		if(FIX_TILE)	//Selects only damaged floors.
+		if(FIX_TILE)	// Selects only damaged floors.
 			F = scan_target
 			if(istype(F) && (F.broken || F.burnt))
 				result = F
-		if(TILE_EMAG) //Emag mode! Rip up the floor and cause breaches to space!
+		if(TILE_EMAG) // Emag mode! Rip up the floor and cause breaches to space!
 			F = scan_target
 			if(!istype(F, /turf/simulated/floor/plating))
 				result = F
-		else //If no special processing is needed, simply return the result.
+		else // If no special processing is needed, simply return the result.
 			result = scan_target
 	return result
 
 /mob/living/simple_animal/bot/floorbot/proc/repair(turf/target_turf)
 	if(isspaceturf(target_turf))
-		//Must be a hull breach to continue.
+		// Must be a hull breach to continue.
 		if(!is_hull_breach(target_turf))
 			target = null
 			return
@@ -307,7 +307,7 @@
 
 	anchored = TRUE
 
-	if(isspaceturf(target_turf)) //If we are fixing an area not part of pure space, it is
+	if(isspaceturf(target_turf)) // If we are fixing an area not part of pure space, it is
 		visible_message("<span class='notice'>[src] begins to repair the hole.</span>")
 		mode = BOT_REPAIRING
 		update_icon(UPDATE_OVERLAYS)
@@ -424,7 +424,7 @@
 	if(prob(50))
 		drop_part(robot_arm, Tsec)
 
-	while(amount)//Dumps the tiles into the appropriate sized stacks
+	while(amount)// Dumps the tiles into the appropriate sized stacks
 		if(amount >= 16)
 			var/obj/item/stack/tile/plasteel/T = new (Tsec)
 			T.amount = 16
