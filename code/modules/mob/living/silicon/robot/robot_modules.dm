@@ -38,9 +38,8 @@
 	var/module_type = "NoMod"
 
 
-/obj/item/robot_module/New()
-	..()
-
+/obj/item/robot_module/Initialize(mapload)
+	. = ..()
 	// Creates new objects from the type lists.
 	for(var/i in basic_modules)
 		var/obj/item/I = new i(src)
@@ -352,7 +351,7 @@
 		/obj/item/stack/nanopaste/cyborg,
 		/obj/item/crowbar/cyborg,
 		/obj/item/gps/cyborg,
-		/obj/item/rlf,
+		/obj/item/rapid_lollipop_fabricator,
 		/obj/item/gripper/medical,
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_facid)
@@ -635,7 +634,6 @@
 		/obj/item/crowbar/cyborg,
 		/obj/item/gripper/nuclear,
 		/obj/item/gps/cyborg,
-		/obj/item/pinpointer/operative/nad,
 	)
 	special_rechargables = list(/obj/item/gun/energy/pulse/cyborg)
 
@@ -761,8 +759,7 @@
 		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
 		/obj/item/gripper/nuclear,
 		/obj/item/crowbar/cyborg,
-		/obj/item/gps/cyborg,
-		/obj/item/pinpointer/operative/nad
+		/obj/item/gps/cyborg
 	)
 	special_rechargables = list(
 		/obj/item/melee/baton/loaded,

@@ -209,10 +209,3 @@
 	icon = 'icons/mob/robot_items.dmi'
 	icon_state = "diskgripper"
 	can_hold = list(/obj/item/disk/nuclear)
-
-
-/obj/item/gripper/medical
-	name = "medical gripper"
-	desc = "A grasping tool used to help patients up once surgery is complete, or to substitute for hands in surgical operations."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "gripper"

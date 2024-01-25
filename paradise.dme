@@ -1045,7 +1045,7 @@
 #include "code\game\objects\items\robot\robot_upgrades.dm"
 #include "code\game\objects\items\robot\items\gripper.dm"
 #include "code\game\objects\items\robot\items\inflatable_tool.dm"
-#include "code\game\objects\items\robot\items\rlf.dm"
+#include "code\game\objects\items\robot\items\rapid_lollipop_fabricator.dm"
 #include "code\game\objects\items\stacks\medical_packs.dm"
 #include "code\game\objects\items\stacks\nanopaste.dm"
 #include "code\game\objects\items\stacks\rods.dm"

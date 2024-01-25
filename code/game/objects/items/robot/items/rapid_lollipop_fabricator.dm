@@ -1,10 +1,10 @@
-/obj/item/rlf
+/obj/item/rapid_lollipop_fabricator
 	name = "Rapid Lollipop Fabricator"
 	desc = "A device used to rapidly deploy lollipop."
 	icon = 'icons/mob/robot_items.dmi'
 	icon_state = "rlf"
 
-/obj/item/rlf/afterattack(atom/A, mob/user, proximity)
+/obj/item/rapid_lollipop_fabricator/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
 	if(!isrobot(user))

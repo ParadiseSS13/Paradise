@@ -211,7 +211,7 @@
 	filling_color = "#FFFFFF"
 	list_reagents = list("sugar" = 10)
 
-/obj/item/food/snacks/candy/sucker/New()
+/obj/item/food/snacks/candy/sucker/Initialize(mapload)
 	. = ..()
 	icon_state = pick("sucker", "sucker_blue", "sucker_green", "sucker_orange", "sucker_purple", "sucker_red", "sucker_yellow")
 

@@ -24,12 +24,14 @@
 	if(!do_after(user, delay, FALSE, user))
 		return FALSE
 
+	if(!useResource(user))
+		return FALSE
+
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
 	to_chat(user, "<span class='notice'>You inflate [name]</span>")
 	var/obj/structure/inflatable/R = new structure_type(user.loc)
 	transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
-	useResource(user)
 
 /obj/item/inflatable/cyborg/proc/useResource(mob/user)
 	if(!isrobot(user))
