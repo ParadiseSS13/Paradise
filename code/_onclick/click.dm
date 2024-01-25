@@ -129,7 +129,7 @@
 		return
 
 	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
-	if(CanReach(A,W))
+	if(can_reach(A,W))
 		if(W)
 			W.melee_attack_chain(src, A, params)
 		else
@@ -154,14 +154,14 @@
  * A backwards depth-limited breadth-first-search to see if the target is
  * logically "in" anything adjacent to us.
  */
-/atom/movable/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE) //This might break mod storage. If it does, we hardcode mods / funny bag in here
-	var/list/direct_access = DirectAccess()
+/atom/movable/proc/can_reach(atom/ultimate_target, obj/item/tool, view_only = FALSE) //This might break mod storage. If it does, we hardcode mods / funny bag in here
+	var/list/direct_access = direct_access()
 	var/depth = 1 + (view_only ? STORAGE_VIEW_DEPTH : INVENTORY_DEPTH)
 
 	var/list/closed = list()
 	var/list/checking = list(ultimate_target)
 
-	while (checking.len && depth > 0)
+	while(length(checking) && depth > 0)
 		var/list/next = list()
 		--depth
 
@@ -175,7 +175,7 @@
 
 			closed[target] = TRUE
 
-			if (!target.loc)
+			if(!target.loc)
 				continue
 
 			if(istype(target.loc, /obj/item/storage))
@@ -184,15 +184,14 @@
 		checking = next
 	return FALSE
 
-/atom/movable/proc/DirectAccess()
+/atom/movable/proc/direct_access()
 	return list(src, loc)
 
-/mob/DirectAccess(atom/target)
+/mob/direct_access(atom/target)
 	return ..() + contents
 
-/mob/living/DirectAccess(atom/target)
+/mob/living/direct_access(atom/target)
 	return ..() + get_contents()
-
 
 /proc/CheckToolReach(atom/movable/here, atom/movable/there, reach)
 	if(!here || !there)
@@ -208,12 +207,12 @@
 			dummy.invisibility = 120
 			for(var/i in 1 to reach) //Limit it to that many tries
 				var/turf/T = get_step(dummy, get_dir(dummy, there))
-				if(dummy.CanReach(there))
+				if(dummy.can_reach(there))
 					qdel(dummy)
 					return TRUE
 				if(!dummy.Move(T)) //we're blocked!
 					qdel(dummy)
-					return
+					return FALSE
 			qdel(dummy)
 
 //Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
