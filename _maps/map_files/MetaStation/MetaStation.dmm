@@ -78123,6 +78123,16 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"rad" = (
+/obj/machinery/alarm{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/service/kitchen)
 "rak" = (
 /obj/structure/table/glass,
 /obj/structure/window/reinforced{
@@ -80728,10 +80738,6 @@
 /area/station/hallway/primary/aft)
 "sgk" = (
 /obj/machinery/smartfridge/foodcart,
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -131052,7 +131058,7 @@ nhP
 bQI
 alI
 bQS
-bQS
+rad
 mSm
 mxb
 uXs
