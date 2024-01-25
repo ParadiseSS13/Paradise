@@ -391,6 +391,7 @@
 
 	// Initialize tgui panel
 	tgui_panel.initialize()
+	src << browse(file('html/statbrowser.html'), "window=statbrowser")
 
 	check_ip_intel()
 	send_resources()
