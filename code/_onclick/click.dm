@@ -129,7 +129,7 @@
 		return
 
 	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
-	if(can_reach(A,W))
+	if(can_reach(A, W))
 		if(W)
 			W.melee_attack_chain(src, A, params)
 		else
@@ -146,8 +146,6 @@
 			W.afterattack(A,src,0,params) // 0: not Adjacent
 		else
 			RangedAttack(A, params)
-
-	return
 
 
 /**
@@ -195,7 +193,7 @@
 
 /proc/CheckToolReach(atom/movable/here, atom/movable/there, reach)
 	if(!here || !there)
-		return
+		return FALSE
 	switch(reach)
 		if(0)
 			return FALSE
