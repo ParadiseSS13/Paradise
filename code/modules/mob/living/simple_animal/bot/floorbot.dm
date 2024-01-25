@@ -349,6 +349,7 @@
 
 /mob/living/simple_animal/bot/floorbot/proc/do_eat_tile(obj/item/stack/tile/plasteel/T)
 	if(isnull(T))
+		ignore_job -= target.UID()
 		target = null
 		mode = BOT_IDLE
 		return
@@ -359,6 +360,7 @@
 	else
 		amount += T.amount
 		qdel(T)
+	ignore_job -= target.UID()
 	target = null
 	mode = BOT_IDLE
 	update_icon(UPDATE_OVERLAYS)
@@ -373,6 +375,7 @@
 
 /mob/living/simple_animal/bot/floorbot/proc/do_make_tile(obj/item/stack/sheet/metal/M)
 	if(isnull(M))
+		ignore_job -= target.UID()
 		target = null
 		mode = BOT_IDLE
 		return
@@ -388,6 +391,7 @@
 		M.amount --
 	else
 		qdel(M)
+	ignore_job -= target.UID()
 	target = null
 	mode = BOT_IDLE
 	update_icon(UPDATE_OVERLAYS)
