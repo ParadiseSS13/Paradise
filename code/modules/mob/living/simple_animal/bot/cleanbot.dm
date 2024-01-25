@@ -164,6 +164,10 @@
 
 /mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/target)
 	if(mode == BOT_CLEANING)
+/*													// Delete depending on cleanbot vote
+		var/turf/clean_turf = get_turf(target)
+		ignore_jon-b -= clean_turf.UID()
+*/
 		ignore_job -= target.UID()
 		QDEL_NULL(target)
 		anchored = FALSE
