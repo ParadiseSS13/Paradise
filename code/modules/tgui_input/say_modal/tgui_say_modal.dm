@@ -74,7 +74,7 @@
  */
 /datum/tgui_say/proc/toggle_dark_light_mode()
 	window.send_message("props", list(
-		lightMode = (client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE),
+		"lightMode" = (client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE),
 	))
 
 /**
