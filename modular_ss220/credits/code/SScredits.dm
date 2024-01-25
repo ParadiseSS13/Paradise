@@ -39,4 +39,7 @@ SUBSYSTEM_DEF(credits)
 	if(!client?.credits)
 		return
 
+	for(var/credit in client.credits)
+		client.screen -= credit
+
 	client.credits.Cut()
