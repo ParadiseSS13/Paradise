@@ -286,6 +286,95 @@
 	origin_tech = "materials=6;programming=6;biotech=6"
 	emp_proof = TRUE
 
+// An implant that injects you with twitch on demand, acting like a bootleg sandevistan
+
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer
+	name = "\improper Qani-Laaca sensory computer"
+	desc = "An experimental implant replacing the spine of organics. When activated, it can give a temporary boost to mental processing speed, \
+		Which many users percieve as a slowing of time and quickening of their ability to act. Due to its nature, it is incompatible with \
+		system that heavily influence the user's nervous system, like the central nervous system rebooter. \
+		As a bonus effect, you are immune to the burst of heart damage that comes at the end of twitch usage, as the computer is able to regulate \
+		your heart's rhythm back to normal after its use."
+	icon_state = "sandy"
+	implant_overlay = null
+	implant_color = null
+	slot = "brain_antistun"
+	actions_types = list(/datum/action/item_action/organ_action/toggle/sensory_enhancer)
+	COOLDOWN_DECLARE(sensory_enhancer_cooldown)
+
+
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/insert(mob/living/carbon/M, special = 0)
+	. = ..()
+	ADD_TRAIT(M, TRAIT_TWITCH_ADAPTED, "[UID()]")
+
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/remove(mob/living/carbon/M, special = 0)
+	. = ..()
+	REMOVE_TRAIT(M, TRAIT_TWITCH_ADAPTED, "[UID()]")
+
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/render()
+	var/mutable_appearance/our_MA = mutable_appearance('icons/mob/human_races/robotic.dmi', icon_state, layer = -INTORGAN_LAYER)
+	return our_MA
+
+/datum/action/item_action/organ_action/toggle/sensory_enhancer
+	name = "Activate Qani-Laaca System"
+	desc = "Activates your Qani-Laaca computer and grants you its powers. LMB: Short, safer activation. ALT/MIDDLE: Longer, more powerful, more dangerous activation."
+	button_icon = 'icons/obj/surgery.dmi'
+	button_icon_state = "sandy"
+	check_flags = AB_CHECK_CONSCIOUS
+	/// Keeps track of how much twitch we inject into people on activation
+	var/injection_amount = 10
+
+
+/datum/action/item_action/organ_action/toggle/sensory_enhancer/AltTrigger()
+	Trigger(FALSE, TRUE)
+
+/datum/action/item_action/organ_action/toggle/sensory_enhancer/Trigger(left_click, attack_self)
+	. = ..()
+	if(istype(target, /obj/item/organ/internal/cyberimp/brain/sensory_enhancer))
+		var/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/ourtarget = target
+		if(!COOLDOWN_FINISHED(ourtarget, sensory_enhancer_cooldown))
+			to_chat(owner, "<span class='warning'> [ourtarget] is still on cooldown for another [round(COOLDOWN_TIMELEFT(ourtarget, sensory_enhancer_cooldown), 1 SECONDS) / 10] seconds! </span>")
+			return
+
+		COOLDOWN_START(ourtarget, sensory_enhancer_cooldown, 5 MINUTES)
+
+		injection_amount = 10
+
+		if(!left_click)
+			injection_amount = 20
+		Activate()
+
+
+/datum/action/item_action/organ_action/toggle/sensory_enhancer/proc/Activate(atom/target)
+
+	var/mob/living/carbon/human/human_owner = owner
+
+	human_owner.reagents.add_reagent("twitch", injection_amount)
+
+	owner.visible_message("<span class='danger'>[owner.name] jolts suddenly as two small glass vials are fired from ports in the implant on their spine, shattering as they land.</span>", \
+			"<span class='userdanger'>You jolt suddenly as your Qani-Laaca system ejects two empty glass vials rearward, shattering as they land.</span>")
+	playsound(human_owner, 'sound/goonstation/items/hypo.ogg', 80, TRUE)
+
+	var/obj/item/telegraph_vial = new /obj/item/qani_laaca_telegraph(get_turf(owner))
+	var/turf/turf_we_throw_at = get_edge_target_turf(owner, (((owner.dir & 85) << 1)|((owner.dir & 170) >> 1)))
+	telegraph_vial.throw_at(turf_we_throw_at, 5, 3)
+
+	// Safety net in case the injection amount doesn't get reset. Apparently it happened to someone in a round.
+	injection_amount = initial(injection_amount)
+
+/obj/item/qani_laaca_telegraph
+	name = "spent Qani-Laaca cartridge"
+	desc = "A small glass vial, usually kept in a large stack inside a Qani-Laaca implant, that is broken open and ejected \
+		each time the implant is used. If you're looking at one long enough to think about it this long, you either have fast eyes \
+		or were lucky enough to catch one before it broke."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "blastoff_ampoule_empty"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/qani_laaca_telegraph/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/shatters_when_thrown, /obj/effect/decal/cleanable/glass, 1, "shatter")
+	transform = transform.Scale(0.75, 0.75)
 
 //[[[[MOUTH]]]]
 /obj/item/organ/internal/cyberimp/mouth

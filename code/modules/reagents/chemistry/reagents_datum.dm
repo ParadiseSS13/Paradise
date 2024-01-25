@@ -204,6 +204,9 @@
 /datum/reagent/proc/overdose_start(mob/living/M)
 	return
 
+/datum/reagent/proc/overdose_end(mob/living/M)
+	return
+
 /datum/reagent/proc/addiction_act_stage1(mob/living/M)
 	return STATUS_UPDATE_NONE
 

@@ -1287,3 +1287,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(caller && (caller.pass_flags & pass_flags_self))
 		return TRUE
 	. = !density
+
+/atom/proc/atom_prehit()
+	return SEND_SIGNAL(src, COMSIG_ATOM_PREHIT)
