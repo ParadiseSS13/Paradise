@@ -449,6 +449,39 @@
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/janitor.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "advmop")
 
+// Razorwire implant, long reach whip made of extremely thin wire, ouch!
+
+/obj/item/melee/razorwire
+	name = "implanted razorwire"
+	desc = "A long length of monomolecular filament, built into the back of your hand. \
+		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
+		even from a few steps away. However, results against anything more durable will heavily vary."
+	icon_state = "razorwire_weapon"
+	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
+	icon_state = "razorwire_weapon"
+	item_state = "razorwire"
+	w_class = WEIGHT_CLASS_BULKY
+	sharp = TRUE
+	force = 18
+	armour_penetration_percentage = -100 //This should mean armor is twice as effective. Should. testing needed
+	reach = 2
+	hitsound = 'sound/weapons/whip.ogg'
+	attack_verb = list("slashes", "whips", "lashes", "lacerates")
+
+/obj/item/melee/razorwire/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
+
+/obj/item/organ/internal/cyberimp/arm/razorwire
+	name = "razorwire spool implant"
+	desc = "An integrated spool of razorwire, capable of being used as a weapon when whipped at your foes. \
+		Built into the back of your hand, try your best to not get it tangled."
+	contents = newlist(/obj/item/melee/razorwire)
+	icon_state = "razorwire"
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/surgery.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "razorwire")
+
 /obj/item/organ/internal/cyberimp/arm/v1_arm
 	name = "vortex feedback arm implant"
 	desc = "An implant, that when deployed surrounds the users arm in armor and circuitry, allowing them to redirect nearby projectiles with feedback from the vortex anomaly core."
