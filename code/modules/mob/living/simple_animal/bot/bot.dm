@@ -56,7 +56,8 @@
 	var/list/ignore_list = list() 			// List of unreachable targets for an ignore-list enabled bot to ignore.
 	var/static/list/ignore_job = list() 	// List of jobs claimed by bot
 	var/mode = BOT_IDLE 					// Standardizes the vars that indicate the bot is busy with its function.
-	var/tries = 0 							// Number of times the bot tried and failed to move.
+	/// Number of times the bot tried and failed to move.
+	var/tries = 0
 	var/remote_disabled = FALSE 			// If enabled, the AI cannot *Remotely* control a bot. It can still control it through cameras.
 	var/mob/living/silicon/ai/calling_ai 	// Links a bot to the AI calling it.
 	var/obj/item/radio/Radio 				// The bot's radio, for speaking to people.
