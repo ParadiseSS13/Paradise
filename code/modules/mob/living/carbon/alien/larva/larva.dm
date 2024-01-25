@@ -39,9 +39,9 @@
 	. += /obj/item/organ/internal/alien/plasmavessel/larva
 
 
-/mob/living/carbon/alien/larva/Stat()
-	..()
-	stat(null, "Progress: [amount_grown]/[max_grown]")
+/mob/living/carbon/alien/larva/get_status_tab_items()
+	. = ..()
+	. += "Progress: [amount_grown]/[max_grown]"
 
 /mob/living/carbon/alien/larva/add_plasma(amount)
 	if(stat != DEAD && amount > 0)

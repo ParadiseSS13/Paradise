@@ -74,7 +74,7 @@
 		var/datum/robot_component/C = components[V]
 		C.max_damage = 10
 
-	verbs -= /mob/living/silicon/robot/verb/Namepick
+	remove_verb(src, /mob/living/silicon/robot/verb/Namepick)
 	module = new /obj/item/robot_module/drone(src)
 	// Give us our action button
 	var/datum/action/innate/hide/drone_hide/hide = new()
@@ -362,10 +362,10 @@
 			to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
-	verbs |= silicon_subsystems
+	add_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/drone/remove_robot_verbs()
-	verbs -= silicon_subsystems
+	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/drone/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
 	..()

@@ -27,8 +27,8 @@
 /mob/living/carbon/alien/Initialize(mapload)
 	. = ..()
 	create_reagents(1000)
-	verbs += /mob/living/verb/mob_sleep
-	verbs += /mob/living/verb/rest
+	add_verb(src, /mob/living/verb/mob_sleep)
+	add_verb(src, /mob/living/verb/rest)
 
 	for(var/organ_path in get_caste_organs())
 		var/obj/item/organ/internal/organ = new organ_path()
@@ -118,12 +118,11 @@
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
 
-/mob/living/carbon/alien/Stat()
-	..()
-	if(statpanel("Status"))
-		stat(null, "Intent: [a_intent]")
-		stat(null, "Move Mode: [m_intent]")
-		show_stat_emergency_shuttle_eta()
+/mob/living/carbon/alien/get_status_tab_items()
+	. = ..()
+	. += "Intent: [a_intent]"
+	. += "Move Mode: [m_intent]"
+	show_stat_emergency_shuttle_eta()
 
 /mob/living/carbon/alien/SetStunned(amount, updating = TRUE, force = 0)
 	..()

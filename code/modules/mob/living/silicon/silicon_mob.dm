@@ -277,18 +277,17 @@
 
 // this function shows the health of the pAI in the Status panel
 /mob/living/silicon/proc/show_system_integrity()
-	if(!src.stat)
-		stat(null, text("System integrity: [round((health/maxHealth)*100)]%"))
+	if(!stat)
+		. += "System integrity: [round((health/maxHealth)*100)]%"
 	else
-		stat(null, text("Systems nonfunctional"))
+		. += "Systems nonfunctional"
 
 
 // This adds the basic clock, shuttle recall timer, and malf_ai info to all silicon lifeforms
-/mob/living/silicon/Stat()
-	..()
-	if(statpanel("Status"))
-		show_stat_emergency_shuttle_eta()
-		show_system_integrity()
+/mob/living/silicon/get_status_tab_items()
+	. = ..()
+	. += show_stat_emergency_shuttle_eta()
+	. += show_system_integrity()
 
 //Silicon mob language procs
 

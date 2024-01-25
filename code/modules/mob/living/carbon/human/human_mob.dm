@@ -179,43 +179,41 @@
 	if(!body_accessory)
 		change_body_accessory("Plain Wings")
 
-/mob/living/carbon/human/Stat()
-	..()
-	if(!statpanel("Status"))
-		return
+/mob/living/carbon/human/get_status_tab_items()
+	. = ..()
 
-	stat(null, "Intent: [a_intent]")
-	stat(null, "Move Mode: [m_intent]")
+	. += "Intent: [a_intent]"
+	. += "Move Mode: [m_intent]"
 
 	show_stat_emergency_shuttle_eta()
 
 	if(HAS_TRAIT(src, TRAIT_HAS_GPS))
 		var/turf/T = get_turf(src)
-		stat(null, "GPS: [COORD(T)]")
+		. += "GPS: [COORD(T)]"
 	if(HAS_TRAIT(src, TRAIT_CAN_VIEW_HEALTH))
-		stat(null, "Health: [health]")
+		. += "Health: [health]"
 
 	if(internal)
 		if(!internal.air_contents)
 			qdel(internal)
 		else if(client?.prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL)
-			stat(null, "Internals Tank Connected")
+			. += "Internals Tank Connected"
 		else
-			stat("Internal Atmosphere Info", internal.name)
-			stat("Tank Pressure", internal.air_contents.return_pressure())
-			stat("Distribution Pressure", internal.distribute_pressure)
+			. += "Internal Atmosphere Info: [internal.name]"
+			. += "Tank Pressure: [internal.air_contents.return_pressure()]"
+			. += "Distribution Pressure: [internal.distribute_pressure]"
 
 	// I REALLY need to split up status panel things into datums
 	if(mind)
 		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(cling)
-			stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
-			stat("Absorbed DNA", cling.absorbed_count)
+			. += "Chemical Storage: [cling.chem_charges]/[cling.chem_storage]"
+			. += "Absorbed DNA: [cling.absorbed_count]"
 
 		var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
 		if(V)
-			stat("Total Blood", "[V.bloodtotal]")
-			stat("Usable Blood", "[V.bloodusable]")
+			. += "Total Blood: [V.bloodtotal]"
+			. += "Usable Blood: [V.bloodusable]"
 
 /mob/living/carbon/human/ex_act(severity)
 	if(status_flags & GODMODE)
@@ -1479,7 +1477,7 @@
 		to_chat(src, "<span class='warning'>You can't write on the floor in your current state!</span>")
 		return
 	if(!bloody_hands)
-		verbs -= /mob/living/carbon/human/proc/bloody_doodle
+		remove_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 
 	if(gloves)
 		to_chat(src, "<span class='warning'>[gloves] are preventing you from writing anything down!</span>")

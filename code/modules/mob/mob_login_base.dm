@@ -64,7 +64,7 @@
 
 
 	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors))
-		client.verbs += /client/proc/readmin
+		add_verb(client, /client/proc/readmin)
 
 	client.update_active_keybindings()
 

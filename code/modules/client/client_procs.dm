@@ -356,7 +356,7 @@
 			_2fa_alert = TRUE
 			// This also has to be manually done since no mob to use check_rights() on
 			deadmin()
-			verbs += /client/proc/readmin
+			add_verb(src, /client/proc/readmin)
 			GLOB.de_admins += ckey
 
 		else
@@ -1176,6 +1176,24 @@
 /client/proc/maxview()
 	var/list/screensize = getviewsize(view)
 	return max(screensize[1], screensize[2])
+
+/// Compiles a full list of verbs and sends it to the browser
+/client/proc/init_verbs()
+	if(IsAdminAdvancedProcCall())
+		return
+	var/list/verblist = list()
+	verb_tabs.Cut()
+	for(var/thing in (verbs + mob?.verbs))
+		var/procpath/verb_to_init = thing
+		if(!verb_to_init)
+			continue
+		if(verb_to_init.hidden)
+			continue
+		if(!istext(verb_to_init.category))
+			continue
+		verb_tabs |= verb_to_init.category
+		verblist[++verblist.len] = list(verb_to_init.category, verb_to_init.name)
+	src << output("[url_encode(json_encode(verb_tabs))];[url_encode(json_encode(verblist))]", "statbrowser:init_verbs")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

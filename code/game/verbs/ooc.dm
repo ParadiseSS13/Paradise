@@ -324,3 +324,9 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(eyeobj)
 		return eyeobj
 	return src
+
+/client/verb/fix_stat_panel()
+	set name = "Fix Stat Panel"
+	set hidden = TRUE
+
+	init_verbs()

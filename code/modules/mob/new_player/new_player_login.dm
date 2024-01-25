@@ -27,7 +27,7 @@
 	new_player_panel()
 
 	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors))
-		client.verbs += /client/proc/readmin
+		add_verb(client, /client/proc/readmin)
 
 	client.playtitlemusic()
 	client.update_active_keybindings()

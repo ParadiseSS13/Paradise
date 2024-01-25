@@ -6,6 +6,8 @@
 		////////////////
 		//ADMIN THINGS//
 		////////////////
+	/// hides the byond verb panel as we use our own custom version
+	show_verb_panel = FALSE
 	var/datum/admins/holder = null
 
 	var/last_message	= "" //contains the last message sent by this client - used to protect against copy-paste spamming.
@@ -79,6 +81,11 @@
 
 	/// Messages currently seen by this client
 	var/list/seen_messages
+
+	/// list of tabs containing spells and abilities
+	var/list/spell_tabs = list()
+	/// list of tabs containing verbs
+	var/list/verb_tabs = list()
 
 	// Last world.time that the player tried to request their resources.
 	var/last_ui_resource_send = 0

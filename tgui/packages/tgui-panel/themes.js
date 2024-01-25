@@ -31,6 +31,8 @@ const COLOR_PARADISE_BG_DARKER = '#400125';
 const COLOR_PARADISE_BUTTON = '#208080';
 const COLOR_PARADISE_TEXT = '#ffffff';
 
+let setClientThemeTimer = null;
+
 /**
  * Darkmode preference, originally by Kmc2000.
  *
@@ -42,6 +44,13 @@ const COLOR_PARADISE_TEXT = '#ffffff';
  * It's painful but it works, and is the way Lummox suggested.
  */
 export const setClientTheme = (name) => {
+  // Transmit once for fast updates and again in a little while in case we won
+  // the race against statbrowser init.
+  clearInterval(setClientThemeTimer);
+  Byond.command(`.output statbrowser:set_theme ${name}`);
+  setClientThemeTimer = setTimeout(() => {
+    Byond.command(`.output statbrowser:set_theme ${name}`);
+  }, 1500);
   if (name === 'light') {
     return Byond.winset({
       /* Buttons */

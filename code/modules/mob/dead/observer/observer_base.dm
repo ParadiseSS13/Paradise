@@ -42,10 +42,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
 	see_in_dark = 100
-	verbs += list(
+	add_verb(src, list(
 		/mob/dead/observer/proc/dead_tele,
 		/mob/dead/observer/proc/jump_to_ruin,
-		/mob/dead/observer/proc/open_spawners_menu)
+		/mob/dead/observer/proc/open_spawners_menu))
 
 	// Our new boo spell.
 	AddSpell(new /obj/effect/proc_holder/spell/boo(null))
@@ -187,6 +187,7 @@ Works together with spawning an observer, noted above.
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
 		ghost.key = key
+		ghost.client.init_verbs()
 		return ghost
 
 /*
@@ -274,11 +275,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/can_use_hands()	return 0
 
-/mob/dead/observer/Stat()
-	..()
-	if(statpanel("Status"))
-		show_stat_emergency_shuttle_eta()
-		stat(null, "Respawnability: [HAS_TRAIT(src, TRAIT_RESPAWNABLE) ? "Yes" : "No"]")
+/mob/dead/observer/get_status_tab_items()
+	. = ..()
+	show_stat_emergency_shuttle_eta()
+	. += "Respawnability: [HAS_TRAIT(src, TRAIT_RESPAWNABLE) ? "Yes" : "No"]"
 
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"
@@ -296,6 +296,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	mind.current.key = key
+	mind.current.client.init_verbs()
 
 	SEND_SIGNAL(mind.current, COMSIG_LIVING_REENTERED_BODY)
 

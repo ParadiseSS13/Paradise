@@ -7,7 +7,7 @@
 	master_item = MI
 	loc = master_item
 	name = master_item.name
-	verbs -= /obj/item/verb/verb_pickup	//make sure this is never picked up.
+	remove_verb(src, /obj/item/verb/verb_pickup)	//make sure this is never picked up.
 	..()
 
 /obj/item/storage/internal/Destroy()

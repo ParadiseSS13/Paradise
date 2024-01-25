@@ -49,7 +49,8 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 		owner = C
 		owner.holder = src
 		owner.add_admin_verbs()	//TODO
-		owner.verbs -= /client/proc/readmin
+		remove_verb(owner, /client/proc/readmin)
+		owner.init_verbs() //re-initialize the verb list
 		GLOB.admins |= C
 
 /datum/admins/proc/disassociate()
@@ -61,6 +62,7 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 	if(owner)
 		GLOB.admins -= owner
 		owner.remove_admin_verbs()
+		owner.init_verbs()
 		owner.holder = null
 		owner = null
 

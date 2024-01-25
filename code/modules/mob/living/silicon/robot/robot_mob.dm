@@ -165,8 +165,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	add_robot_verbs()
 
 	// Remove inherited verbs that effectively do nothing for cyborgs, or lead to unintended behaviour.
-	verbs -= /mob/living/verb/rest
-	verbs -= /mob/living/verb/mob_sleep
+	remove_verb(src, /mob/living/verb/rest)
+	remove_verb(src, /mob/living/verb/mob_sleep)
 
 	// Install a default cell into the borg if none is there yet
 	var/datum/robot_component/cell_component = components["power cell"]
@@ -597,12 +597,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	toggle_sensor_mode()
 
 /mob/living/silicon/robot/proc/add_robot_verbs()
-	src.verbs |= GLOB.robot_verbs_default
-	src.verbs |= silicon_subsystems
+	add_verb(src, GLOB.robot_verbs_default)
+	add_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/proc/remove_robot_verbs()
-	src.verbs -= GLOB.robot_verbs_default
-	src.verbs -= silicon_subsystems
+	remove_verb(src, GLOB.robot_verbs_default)
+	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/verb/cmd_robot_alerts()
 	set category = "Robot Commands"
@@ -672,31 +672,29 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 // this function displays the cyborgs current cell charge in the stat panel
 /mob/living/silicon/robot/proc/show_cell_power()
 	if(cell)
-		stat(null, "Charge Left: [cell.charge]/[cell.maxcharge]")
+		. += "Charge Left: [cell.charge]/[cell.maxcharge]"
 	else
-		stat(null, "No Cell Inserted!")
+		. += "No Cell Inserted!"
 
 /mob/living/silicon/robot/proc/show_gps_coords()
 	if(locate(/obj/item/gps/cyborg) in module.modules)
 		var/turf/T = get_turf(src)
-		stat(null, "GPS: [COORD(T)]")
+		. += "GPS: [COORD(T)]"
 
 /mob/living/silicon/robot/proc/show_stack_energy()
 	for(var/storage in module.storages) // Storages should only contain `/datum/robot_energy_storage`
 		var/datum/robot_energy_storage/R = storage
-		stat(null, "[R.statpanel_name]: [R.energy] / [R.max_energy]")
+		. += "[R.statpanel_name]: [R.energy] / [R.max_energy]"
 
 // update the status screen display
-/mob/living/silicon/robot/Stat()
-	..()
-	if(!statpanel("Status"))
-		return // They aren't looking at the status panel.
+/mob/living/silicon/robot/get_status_tab_items()
+	. = ..()
 
-	show_cell_power()
+	. += show_cell_power()
 
 	if(module)
-		show_gps_coords()
-		show_stack_energy()
+		. += show_gps_coords()
+		. += show_stack_energy()
 
 /mob/living/silicon/robot/restrained()
 	return 0
@@ -1280,7 +1278,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(R)
 		R.UnlinkSelf()
 		to_chat(R, "Buffers flushed and reset. Camera system shutdown. All systems operational.")
-		src.verbs -= /mob/living/silicon/robot/proc/ResetSecurityCodes
+		remove_verb(src, /mob/living/silicon/robot/proc/ResetSecurityCodes)
 
 /mob/living/silicon/robot/mode()
 	set name = "Activate Held Object"

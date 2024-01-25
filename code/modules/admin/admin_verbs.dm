@@ -70,7 +70,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/view_instances,
 	/client/proc/start_vote,
 	/client/proc/ping_all_admins,
-	/client/proc/show_watchlist
+	/client/proc/show_watchlist,
+	/client/proc/debugstatpanel
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -259,46 +260,46 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(holder)
 		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES (65536), then give them the default admin verbs
 		if(holder.rights != R_VIEWRUNTIMES)
-			verbs += GLOB.admin_verbs_default
+			add_verb(src, GLOB.admin_verbs_default)
 		if(holder.rights & R_BUILDMODE)
-			verbs += /client/proc/togglebuildmodeself
+			add_verb(src, /client/proc/togglebuildmodeself)
 		if(holder.rights & R_ADMIN)
-			verbs += GLOB.admin_verbs_admin
-			verbs += GLOB.admin_verbs_ticket
+			add_verb(src, GLOB.admin_verbs_admin)
+			add_verb(src, GLOB.admin_verbs_ticket)
 			spawn(1)
 				control_freak = 0
 		if(holder.rights & R_BAN)
-			verbs += GLOB.admin_verbs_ban
+			add_verb(src, GLOB.admin_verbs_ban)
 		if(holder.rights & R_EVENT)
-			verbs += GLOB.admin_verbs_event
+			add_verb(src, GLOB.admin_verbs_event)
 		if(holder.rights & R_SERVER)
-			verbs += GLOB.admin_verbs_server
+			add_verb(src, GLOB.admin_verbs_server)
 		if(holder.rights & R_DEBUG)
-			verbs += GLOB.admin_verbs_debug
+			add_verb(src, GLOB.admin_verbs_debug)
 			spawn(1)
 				control_freak = 0 // Setting control_freak to 0 allows you to use the Profiler and other client-side tools
 		if(holder.rights & R_POSSESS)
-			verbs += GLOB.admin_verbs_possess
+			add_verb(src, GLOB.admin_verbs_possess)
 		if(holder.rights & R_PERMISSIONS)
-			verbs += GLOB.admin_verbs_permissions
+			add_verb(src, GLOB.admin_verbs_permissions)
 		if(holder.rights & R_STEALTH)
-			verbs += /client/proc/stealth
+			add_verb(src, /client/proc/stealth)
 		if(holder.rights & R_REJUVINATE)
-			verbs += GLOB.admin_verbs_rejuv
+			add_verb(src, GLOB.admin_verbs_rejuv)
 		if(holder.rights & R_SOUNDS)
-			verbs += GLOB.admin_verbs_sounds
+			add_verb(src, GLOB.admin_verbs_sounds)
 		if(holder.rights & R_SPAWN)
-			verbs += GLOB.admin_verbs_spawn
+			add_verb(src, GLOB.admin_verbs_spawn)
 		if(holder.rights & R_MOD)
-			verbs += GLOB.admin_verbs_mod
+			add_verb(src, GLOB.admin_verbs_mod)
 		if(holder.rights & R_MENTOR)
-			verbs += GLOB.admin_verbs_mentor
+			add_verb(src, GLOB.admin_verbs_mentor)
 		if(holder.rights & R_PROCCALL)
-			verbs += GLOB.admin_verbs_proccall
+			add_verb(src, GLOB.admin_verbs_proccall)
 		if(holder.rights & R_MAINTAINER)
-			verbs += GLOB.admin_verbs_maintainer
+			add_verb(src, GLOB.admin_verbs_maintainer)
 		if(holder.rights & R_VIEWRUNTIMES)
-			verbs += GLOB.view_runtimes_verbs
+			add_verb(src, GLOB.view_runtimes_verbs)
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
@@ -335,7 +336,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		return
 
 	remove_admin_verbs()
-	verbs += /client/proc/show_verbs
+	add_verb(src, /client/proc/show_verbs)
 
 	to_chat(src, "<span class='interface'>Almost all of your adminverbs have been hidden.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Hide Admin Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -348,7 +349,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!holder)
 		return
 
-	verbs -= /client/proc/show_verbs
+	remove_verb(src, /client/proc/show_verbs)
 	add_admin_verbs()
 
 	to_chat(src, "<span class='interface'>All of your adminverbs are now visible.</span>")
@@ -381,6 +382,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		//ghostize
 		var/mob/body = mob
 		body.ghostize(1)
+		init_verbs()
 		if(body && !body.key)
 			body.key = "@[key]"	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
 		log_admin("[key_name(usr)] has admin-ghosted")
@@ -659,7 +661,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	else
 		GLOB.de_mentors += ckey
 	deadmin()
-	verbs += /client/proc/readmin
+	add_verb(src, /client/proc/readmin)
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -757,7 +759,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		return
 	else
 		to_chat(src, "You are already an admin.")
-		verbs -= /client/proc/readmin
+		remove_verb(src, /client/proc/readmin)
 		GLOB.de_admins -= ckey
 		GLOB.de_mentors -= ckey
 		return
@@ -1053,3 +1055,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, 1)
 			log_admin("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
 			message_admins("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+
+/client/proc/debugstatpanel()
+	set name = "Debug Stat Panel"
+	set category = "Debug"
+
+	src << output("", "statbrowser:create_debug")

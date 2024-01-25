@@ -123,12 +123,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/cracked_camera = FALSE // will be true if malf AI break its camera
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
-	verbs |= GLOB.ai_verbs_default
-	verbs |= silicon_subsystems
+	add_verb(src, GLOB.ai_verbs_default)
+	add_verb(src, silicon_subsystems)
 
 /mob/living/silicon/ai/proc/remove_ai_verbs()
-	verbs -= GLOB.ai_verbs_default
-	verbs -= silicon_subsystems
+	remove_verb(src, GLOB.ai_verbs_default)
+	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/ai/New(loc, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
 	announcer = new(config_type = /datum/announcement_configuration/ai)
@@ -160,7 +160,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	else
 		make_laws()
 
-	verbs += /mob/living/silicon/ai/proc/show_laws_verb
+	add_verb(src, /mob/living/silicon/ai/proc/show_laws_verb)
 
 	aiMulti = new(src)
 	aiRadio = new(src)
@@ -174,11 +174,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		add_ai_verbs(src)
 
 	// Remove inherited verbs that effectively do nothing for AIs, or lead to unintended behaviour.
-	verbs -= /mob/living/verb/rest
-	verbs -= /mob/living/verb/mob_sleep
-	verbs -= /mob/living/verb/stop_pulling1
-	verbs -= /mob/living/silicon/verb/pose
-	verbs -= /mob/living/silicon/verb/set_flavor
+	remove_verb(src, /mob/living/verb/rest)
+	remove_verb(src, /mob/living/verb/mob_sleep)
+	remove_verb(src, /mob/living/verb/stop_pulling1)
+	remove_verb(src, /mob/living/silicon/verb/pose)
+	remove_verb(src, /mob/living/silicon/verb/set_flavor)
 
 	//Languages
 	add_language("Robot Talk", 1)
@@ -268,13 +268,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	job = "AI"
 
-/mob/living/silicon/ai/Stat()
-	..()
-	if(statpanel("Status"))
-		if(stat)
-			stat(null, "Systems nonfunctional")
-			return
-		show_borg_info()
+/mob/living/silicon/ai/get_status_tab_items()
+	. = ..()
+	if(stat)
+		. += "Systems nonfunctional"
+		return
+	. += show_borg_info()
 
 /mob/living/silicon/ai/proc/ai_alerts()
 	var/list/dat = list("<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n")
@@ -317,7 +316,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	src << browse(dat_text, "window=aialerts&can_close=0")
 
 /mob/living/silicon/ai/proc/show_borg_info()
-	stat(null, "Connected cyborgs: [connected_robots.len]")
+	. += "Connected cyborgs: [connected_robots.len]"
 	for(var/thing in connected_robots)
 		var/mob/living/silicon/robot/R = thing
 		var/robot_status = "Nominal"
@@ -328,8 +327,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
 		var/area/A = get_area(R)
 		var/area_name = A ? sanitize(A.name) : "Unknown"
-		stat(null, "[R.name] | S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
-		Module: [R.designation] | Loc: [area_name] | Status: [robot_status]")
+		. += "[R.name] | S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
+		Module: [R.designation] | Loc: [area_name] | Status: [robot_status]"
 
 /mob/living/silicon/ai/rename_character(oldname, newname)
 	if(!..(oldname, newname))

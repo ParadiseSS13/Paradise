@@ -657,13 +657,12 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	log_world("MC: SoftReset: Finished.")
 	. = 1
 
-/datum/controller/master/stat_entry()
-	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
+/datum/controller/master/stat_entry(msg)
 	if(last_init_info)
-		stat("Last Init Info", last_init_info)
-	stat("Byond:", "(FPS:[world.fps]) (TickCount:[world.time / world.tick_lag]) (TickDrift:[round(Master.tickdrift, 1)]([round((Master.tickdrift / (world.time / world.tick_lag)) * 100, 0.1)]%))")
-	stat("Master Controller:", statclick.update("(TickRate:[Master.processing]) (Iteration:[Master.iteration]) (TickLimit: [round(Master.current_ticklimit, 0.1)])"))
+		msg += "Last Init Info: [last_init_info]"
+	msg += "Byond: (FPS:[world.fps]) (TickCount:[world.time / world.tick_lag]) (TickDrift:[round(Master.tickdrift, 1)]([round((Master.tickdrift / (world.time / world.tick_lag)) * 100, 0.1)]%))"
+	msg += "Master Controller: [statclick.update("(TickRate:[Master.processing]) (Iteration:[Master.iteration]) (TickLimit: [round(Master.current_ticklimit, 0.1)])")]"
+	return ..()
 
 // Currently unimplemented
 /datum/controller/master/StartLoadingMap()

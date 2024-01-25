@@ -16,7 +16,10 @@
 
 /datum/controller/proc/Recover()
 
-/datum/controller/proc/stat_entry()
+/datum/controller/proc/stat_entry(msg)
+	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_NOT_SLEEP(TRUE)
+	return msg
 
 /**
  * Standardized method for tracking startup times.

@@ -92,28 +92,28 @@
 	popup.set_content(output)
 	popup.open(FALSE)
 
-/mob/new_player/Stat()
-	..()
-	if(statpanel("Status") && SSticker)
+/mob/new_player/get_status_tab_items()
+	. = ..()
+	if(SSticker)
 		if(!SSticker.hide_mode)
-			stat("Game Mode: [GLOB.master_mode]")
+			. += "Game Mode: [GLOB.master_mode]"
 		else
-			stat("Game Mode: Secret")
+			. += "Game Mode: Secret"
 
 		if(SSticker.current_state == GAME_STATE_PREGAME)
 			if(SSticker.ticker_going)
-				stat("Time To Start: [round(SSticker.pregame_timeleft/10)]")
+				. += "Time To Start: [round(SSticker.pregame_timeleft/10)]"
 			else
-				stat("Time To Start:", "DELAYED")
+				. += "Time To Start: DELAYED"
 
-			stat("Players: [totalPlayers]")
+			. += "Players: [totalPlayers]"
 			if(check_rights(R_ADMIN, 0, src))
-				stat("Players Ready: [totalPlayersReady]")
+				. += "Players Ready: [totalPlayersReady]"
 			totalPlayers = 0
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in GLOB.player_list)
 				if(check_rights(R_ADMIN, 0, src))
-					stat("[player.key] [(player.ready) ? ("(Playing)") : (null)]")
+					. += "[player.key] [(player.ready) ? ("(Playing)") : (null)]"
 				totalPlayers++
 				if(player.ready)
 					totalPlayersReady++
@@ -207,6 +207,7 @@
 				client.prefs.active_character.real_name = random_name(client.prefs.active_character.gender,client.prefs.active_character.species)
 			observer.real_name = client.prefs.active_character.real_name
 			observer.name = observer.real_name
+			observer.client.init_verbs()
 			observer.key = key
 			ADD_TRAIT(observer, TRAIT_RESPAWNABLE, GHOSTED)
 			qdel(src)
@@ -377,6 +378,7 @@
 		AnnounceCyborg(character, rank, join_message)
 	else
 		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
+		character.client.init_verbs() // init verbs for the late join
 		if(!IsAdminJob(rank))
 			GLOB.data_core.manifest_inject(character)
 			AnnounceArrival(character, rank, join_message)
@@ -556,6 +558,7 @@
 		H.reset_markings()
 		H.dna.ResetUIFrom(H)
 		H.flavor_text = ""
+	client.init_verbs()
 	stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
 

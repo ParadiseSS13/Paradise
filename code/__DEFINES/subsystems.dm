@@ -84,6 +84,7 @@
 #define INIT_ORDER_LATE_MAPPING -40
 #define INIT_ORDER_PATH -50
 #define INIT_ORDER_PERSISTENCE -95
+#define INIT_ORDER_STATPANELS -98
 #define INIT_ORDER_CHAT -100 // Should be last to ensure chat remains smooth during init.
 
 // Subsystem fire priority, from lowest to highest priority

@@ -10,11 +10,11 @@
 	var/bomb_cooldown = 0
 	var/default_bomb_cooldown = 20 SECONDS
 
-/mob/living/simple_animal/hostile/guardian/bomb/Stat()
-	..()
-	if(statpanel("Status"))
-		if(bomb_cooldown >= world.time)
-			stat(null, "Bomb Cooldown Remaining: [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] seconds")
+/mob/living/simple_animal/hostile/guardian/bomb/get_status_tab_items()
+	. = ..()
+	. += ""
+	if(bomb_cooldown >= world.time)
+		. += "Bomb Cooldown Remaining: [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] seconds"
 
 /mob/living/simple_animal/hostile/guardian/bomb/AltClickOn(atom/movable/A)
 	if(!istype(A))

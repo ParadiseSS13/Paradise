@@ -366,8 +366,8 @@ window "infowindow"
 		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
-	elem "info"
-		type = INFO
+	elem "statbrowser"
+		type = BROWSER
 		pos = 0,0
 		size = 0x0
 		anchor1 = 0,0

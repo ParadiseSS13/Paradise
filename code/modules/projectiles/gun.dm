@@ -74,7 +74,7 @@
 /obj/item/gun/Initialize(mapload)
 	. = ..()
 	if(gun_light)
-		verbs += /obj/item/gun/proc/toggle_gunlight
+		add_verb(src, /obj/item/gun/proc/toggle_gunlight)
 	build_zooming()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 

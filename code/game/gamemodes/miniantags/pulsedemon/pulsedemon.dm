@@ -267,15 +267,14 @@
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/remotedrain)
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/open_upgrades)
 
-/mob/living/simple_animal/demon/pulse_demon/Stat()
+/mob/living/simple_animal/demon/pulse_demon/get_status_tab_items()
 	. = ..()
-	if(statpanel("Status"))
-		stat(null, "Charge: [format_si_suffix(charge)]W")
-		stat(null, "Maximum Charge: [format_si_suffix(maxcharge)]W")
-		stat(null, "Drained Charge: [format_si_suffix(charge_drained)]W")
-		stat(null, "Hijacked APCs: [length(hijacked_apcs)]")
-		stat(null, "Drain Rate: [format_si_suffix(power_drain_rate)]W")
-		stat(null, "Hijack Time: [hijack_time / 10] seconds")
+	. += "Charge: [format_si_suffix(charge)]W"
+	. += "Maximum Charge: [format_si_suffix(maxcharge)]W"
+	. += "Drained Charge: [format_si_suffix(charge_drained)]W"
+	. += "Hijacked APCs: [length(hijacked_apcs)]"
+	. += "Drain Rate: [format_si_suffix(power_drain_rate)]W"
+	. += "Hijack Time: [hijack_time / 10] seconds"
 
 /mob/living/simple_animal/demon/pulse_demon/dust()
 	return death()

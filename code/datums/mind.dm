@@ -174,6 +174,8 @@
 				SSticker.mode.rise(H)
 				if(SSticker.mode.cult_ascendant)
 					SSticker.mode.ascend(H)
+	if(new_character.client)
+		new_character.client.init_verbs() // re-initialize character specific verbs
 
 /datum/mind/proc/store_memory(new_text)
 	memory += "[new_text]<br>"

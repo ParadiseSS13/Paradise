@@ -54,11 +54,11 @@
 	DropSpiderlings()
 	. = ..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/mother/Stat()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/mother/get_status_tab_items()
+	. = ..()
 	// Provides a status panel indicator, showing mothers how many regen points they have.
-	if(statpanel("Status") && ckey && stat == CONSCIOUS)
-		stat(null, "Regeneration Points: [regen_points]")
+	if(ckey && stat == CONSCIOUS)
+		. +=  "Regeneration Points: [regen_points]"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/examine(mob/user)
 	. = ..()
