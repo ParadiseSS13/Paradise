@@ -186,7 +186,7 @@
 		target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
 
 	if(amount < MAX_AMOUNT && !target) // Out of tiles! We must refill!
-		if(eat_tiles) // Configured to find and consume floortiles!
+		if(!target && eat_tiles) // Configured to find and consume floortiles!
 			target = scan(/obj/item/stack/tile/plasteel)
 			process_type = null
 
@@ -349,7 +349,6 @@
 
 /mob/living/simple_animal/bot/floorbot/proc/do_eat_tile(obj/item/stack/tile/plasteel/T)
 	if(isnull(T))
-		ignore_job -= target.UID()
 		target = null
 		mode = BOT_IDLE
 		return
@@ -375,7 +374,6 @@
 
 /mob/living/simple_animal/bot/floorbot/proc/do_make_tile(obj/item/stack/sheet/metal/M)
 	if(isnull(M))
-		ignore_job -= target.UID()
 		target = null
 		mode = BOT_IDLE
 		return
