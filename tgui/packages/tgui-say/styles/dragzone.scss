@@ -5,14 +5,19 @@ $dragSize: 0.6rem;
 $borderSize: 0.2rem;
 
 .dragzone-horizontal {
+  cursor: all-scroll;
   border-left: $borderSize solid;
   border-right: $borderSize solid;
   color: transparent;
   width: 100%;
   height: $dragSize;
 }
+
 .dragzone-left {
-  border-left: $borderSize solid;
+  width: $dragSize * 2 !important;
+  height: 150% !important;
+  margin-top: -($borderSize * 2);
+  margin-right: $borderSize;
 }
 
 .dragzone-right {
@@ -20,6 +25,7 @@ $borderSize: 0.2rem;
 }
 
 .dragzone-vertical {
+  cursor: all-scroll;
   color: transparent;
   height: 100%;
   width: $dragSize;

@@ -2,6 +2,7 @@
 @use './colors.scss';
 
 .button {
+  cursor: alias;
   align-items: center;
   background-color: colors.$button;
   border-radius: 0.3rem;

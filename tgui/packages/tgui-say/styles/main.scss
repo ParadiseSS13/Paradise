@@ -41,6 +41,10 @@
     border-color: $darkened;
   }
 
+  .dragzone-left.dragzone-#{$channel} {
+    background-color: $darkened;
+  }
+
   .textarea-#{$channel} {
     color: $color;
   }
