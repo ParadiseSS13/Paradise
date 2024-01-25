@@ -82,7 +82,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 /obj/machinery/message_server/proc/send_pda_message(recipient = "", sender = "", message = "")
 	pda_msgs += new/datum/data_pda_msg(recipient,sender,message)
 
-/obj/machinery/message_server/proc/send_rc_message(recipient = "", sender = "", message = "", stamp = "", id_auth = "", priority = 1)
+/obj/machinery/message_server/proc/send_rc_message(recipient = "", sender = "", message = "", stamp = "", id_auth = "", priority = RQ_NORMALPRIORITY)
 	rc_msgs += new/datum/data_rc_msg(recipient,sender,message,stamp,id_auth)
 	var/authmsg = "[message]"
 	if(id_auth)
@@ -94,7 +94,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 		if(ckey(RC.department) == ckey(recipient))
 			var/title
 			switch(priority)
-				if(2)
+				if(RQ_HIGHPRIORITY)
 					title = "PRIORITY Alert in [sender]"
 				else
 					title = "Message from [sender]"

@@ -191,9 +191,11 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 					message = new_message
 					screen = RCS_MESSAUTH
 					switch(params["priority"])
-						if("1")
+						if(num2text(RQ_LOWPRIORITY))
+							priority = RQ_LOWPRIORITY
+						if(num2text(RQ_NORMALPRIORITY))
 							priority = RQ_NORMALPRIORITY
-						if("2")
+						if(num2text(RQ_HIGHPRIORITY))
 							priority = RQ_HIGHPRIORITY
 						else
 							priority = RQ_NONEW_MESSAGES
