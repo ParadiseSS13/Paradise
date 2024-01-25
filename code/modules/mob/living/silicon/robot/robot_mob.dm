@@ -471,7 +471,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			hat_offset_y = 4
 		if("droid-miner", "mk2", "mk3")
 			can_be_hatted = TRUE
-			is_centered = TRUE
+			stretched_hat = TRUE
 			hat_offset_y = 3
 		if("bloodhound", "nano_bloodhound", "syndie_bloodhound", "ertgamma")
 			can_be_hatted = TRUE
@@ -489,16 +489,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			hat_offset_y = 2
 		if("syndi-medi", "surgeon", "toiletbot")
 			can_be_hatted = TRUE
-			is_centered = TRUE
+			stretched_hat = TRUE
 			hat_offset_y = 1
 		if("Security", "janitorrobot", "medicalrobot")
 			can_be_hatted = TRUE
-			is_centered = TRUE
+			stretched_hat = TRUE
 			can_wear_restricted_hats = TRUE
 			hat_offset_y = -1
 		if("Brobot", "Service", "robot_old", "securityrobot")
 			can_be_hatted = TRUE
-			is_centered = TRUE
+			stretched_hat = TRUE
 			can_wear_restricted_hats = TRUE
 			hat_offset_y = -1
 		if("Miner", "lavaland")
@@ -510,7 +510,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			hat_offset_y = -3
 		if("droid")
 			can_be_hatted = TRUE
-			is_centered = TRUE
+			stretched_hat = TRUE
 			can_wear_restricted_hats = TRUE
 			hat_offset_y = -4
 		if("landmate", "syndi-engi")

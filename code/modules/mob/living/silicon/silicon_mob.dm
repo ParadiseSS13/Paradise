@@ -53,7 +53,7 @@
 
 	var/obj/item/silicon_hat
 	var/hat_offset_y = -3
-	var/is_centered = FALSE
+	var/stretched_hat = FALSE /// For cyborgs with wide "heads", causes the hat icon to be stretched.
 	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
 	var/hat_icon_state
 	var/hat_alpha
@@ -488,10 +488,18 @@
 	borgI.alpha = hat_alpha
 	borgI.color = hat_color
 	borgI.pixel_y = hat_offset_y
-	if(!is_centered)
+	if(!stretched_hat)
 		borgI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)
 	return borgI
 
+/**
+  * Attempts to put an item on a silicon's head.
+  *
+  * Arguments:
+  * * item_to_add - The item we're attempting to place on a silicon.
+  * * user - Mob trying to put a hat on a silicon.
+  * Returns boolean reflecting if a hat was succesfully placed on the silicon.
+  */
 /mob/living/silicon/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
 		user.visible_message(
@@ -514,12 +522,12 @@
 			to_chat(user, "<span class='warning'>[src] can't wear more than one hat!</span>")
 		return FALSE
 
-	if(user && !user.unEquip(item_to_add))
-		to_chat(user, "<span class='warning'>[item_to_add] is stuck to your hand, you cannot put it on [src]!</span>")
-		return FALSE
-
 	if(!can_wear_restricted_hats && is_type_in_list(item_to_add, restricted_hats))
 		to_chat(user, "<span class='warning'>[item_to_add] does not fit on the head of [src]!</span>")
+		return FALSE
+
+	if(user && !user.unEquip(item_to_add))
+		to_chat(user, "<span class='warning'>[item_to_add] is stuck to your hand, you cannot put it on [src]!</span>")
 		return FALSE
 
 	user.visible_message(
@@ -532,6 +540,13 @@
 
 	return TRUE
 
+/**
+  * Attempts to remove any hats a silicon is wearing.
+  *
+  * Arguments:
+  * * user - Mob trying to remove a silicon's hat.
+  * Returns boolean reflecting if a hat was successfully removed from the silicon.
+  */
 /mob/living/silicon/proc/remove_from_head(mob/user)
 	if(silicon_hat)
 		if(silicon_hat.flags & NODROP)
