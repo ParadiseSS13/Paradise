@@ -1062,7 +1062,8 @@
 /obj/machinery/power/apc/off_station/empty_charge
 	start_charge = 0
 
-/obj/machinery/power/apc/syndicate //general syndicate access
+/// general syndicate access
+/obj/machinery/power/apc/syndicate
 	name = "Main branch, do not use"
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE

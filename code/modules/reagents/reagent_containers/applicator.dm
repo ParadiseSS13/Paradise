@@ -143,5 +143,6 @@
 	name = "dual auto-mender"
 	list_reagents = list("synthflesh" = 200)
 
-/obj/item/reagent_containers/applicator/dual/syndi // It magically goes through hardsuits. Don't ask how.
+/// It magically goes through hardsuits. Don't ask how.
+/obj/item/reagent_containers/applicator/dual/syndi
 	ignore_flags = TRUE

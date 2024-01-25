@@ -424,7 +424,8 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	else
 		. = ..()
 
-/obj/item/stack/sheet/cardboard	//BubbleWrap
+/// BubbleWrap
+/obj/item/stack/sheet/cardboard
 	name = "cardboard"
 	desc = "Large sheets of card, like boxes folded flat."
 	singular_name = "cardboard sheet"

@@ -19,7 +19,8 @@
 			H.adjust_nutrition(nutriment_factor)	// For hunger and fatness
 	return ..()
 
-/datum/reagent/consumable/nutriment		// Pure nutriment, universally digestable and thus slightly less effective
+/// Pure nutriment, universally digestable and thus slightly less effective
+/datum/reagent/consumable/nutriment
 	name = "Nutriment"
 	id = "nutriment"
 	description = "A questionable mixture of various pure nutrients commonly found in processed foods."
@@ -62,13 +63,15 @@
 	counterlist_normalise(taste_amounts)
 	data = taste_amounts
 
-/datum/reagent/consumable/nutriment/protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
+/// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
+/datum/reagent/consumable/nutriment/protein
 	name = "Protein"
 	id = "protein"
 	description = "Various essential proteins and fats commonly found in animal flesh and blood."
 	diet_flags = DIET_CARN | DIET_OMNI
 
-/datum/reagent/consumable/nutriment/plantmatter		// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
+/// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
+/datum/reagent/consumable/nutriment/plantmatter
 	name = "Plant-matter"
 	id = "plantmatter"
 	description = "Vitamin-rich fibers and natural sugars commonly found in fresh produce."
@@ -833,7 +836,8 @@
 
 ///Food Related, but non-nutritious
 
-/datum/reagent/questionmark // food poisoning
+/// food poisoning
+/datum/reagent/questionmark
 	name = "????"
 	id = "????"
 	description = "A gross and unidentifiable substance."

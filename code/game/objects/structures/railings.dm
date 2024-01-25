@@ -12,12 +12,14 @@
 	var/currently_climbed = FALSE
 	var/mover_dir = null
 
-/obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
+/// aesthetic corner sharp edges hurt oof ouch
+/obj/structure/railing/corner
 	icon_state = "railing_corner"
 	density = FALSE
 	climbable = FALSE
 
-/obj/structure/railing/cap //aestetic "end" for railing
+/// aestetic "end" for railing
+/obj/structure/railing/cap
 	icon_state = "railing_cap"
 	density = FALSE
 	climbable = FALSE

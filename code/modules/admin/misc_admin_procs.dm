@@ -281,10 +281,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Player Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-/datum/player_info/var/author // admin who authored the information
-/datum/player_info/var/rank //rank of admin who made the notes
-/datum/player_info/var/content // text content of the information
-/datum/player_info/var/timestamp // Because this is bloody annoying
+/// admin who authored the information
+/datum/player_info/var/author
+/// rank of admin who made the notes
+/datum/player_info/var/rank
+/// text content of the information
+/datum/player_info/var/content
+/// Because this is bloody annoying
+/datum/player_info/var/timestamp
 
 #define PLAYER_NOTES_ENTRIES_PER_PAGE 50
 /datum/admins/proc/PlayerNotes()

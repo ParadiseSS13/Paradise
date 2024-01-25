@@ -146,7 +146,8 @@
 	update_icon()
 	//much roomier now that we've managed to remove two tools
 
-/obj/item/storage/belt/utility/syndi_researcher // A cool looking belt thats essentially a syndicate toolbox
+/// A cool looking belt thats essentially a syndicate toolbox
+/obj/item/storage/belt/utility/syndi_researcher
 	desc = "A belt for holding tools, but with style."
 	icon_state = "assaultbelt"
 	item_state = "assault"
@@ -436,7 +437,8 @@
 	new /obj/item/grenade/chem_grenade/facid(src) //1
 	new /obj/item/grenade/chem_grenade/saringas(src) //1
 
-/obj/item/storage/belt/grenade/tactical // Traitor bundle version
+/// Traitor bundle version
+/obj/item/storage/belt/grenade/tactical
 	name = "tactical grenadier belt"
 	storage_slots = 20 // Not as many slots as the nukie one
 	max_combined_w_class = 40

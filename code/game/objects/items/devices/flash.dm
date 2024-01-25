@@ -264,4 +264,5 @@
 	implant = null
 	return ..()
 
-/obj/item/flash/synthetic //just a regular flash now
+/// just a regular flash now
+/obj/item/flash/synthetic

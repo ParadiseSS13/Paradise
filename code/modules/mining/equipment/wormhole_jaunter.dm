@@ -165,7 +165,8 @@
 /obj/effect/portal/advanced/getaway
 	one_use = TRUE
 
-/obj/effect/temp_visual/getaway_flare // Because the original contractor flare is not a temp visual, for some reason.
+/// Because the original contractor flare is not a temp visual, for some reason.
+/obj/effect/temp_visual/getaway_flare
 	name = "contractor extraction flare"
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flare-contractor-on"

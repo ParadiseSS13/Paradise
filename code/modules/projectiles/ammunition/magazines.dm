@@ -571,7 +571,8 @@
 	multi_sprite_step = 5
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/ammo_box/magazine/laser/ert //Used by red ERT. Keeps the size for them
+/// Used by red ERT. Keeps the size for them
+/obj/item/ammo_box/magazine/laser/ert
 	name = "compact laser carbine projector magazine"
 	desc = "By use of bluespace technology, the ammo casings are stored in a pocket dimension, saving on space and making them EMP proof."
 	w_class = WEIGHT_CLASS_TINY
@@ -589,7 +590,8 @@
 /obj/item/ammo_box/magazine/toy/smgm45/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
-/obj/item/ammo_box/magazine/detective/speedcharger //yes this doesn't really belong here but nowhere else works
+/// yes this doesn't really belong here but nowhere else works
+/obj/item/ammo_box/magazine/detective/speedcharger
 	name = "DL-88 charge pack"
 	desc = "One-use charge pack for the DL-88 energy revolver."
 	icon_state = "handgun_ammo_battery"

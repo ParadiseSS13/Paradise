@@ -182,7 +182,8 @@
 	name = "cyborg mining satchel"
 	flags = NODROP
 
-/obj/item/storage/bag/ore/holding //miners, your messiah has arrived
+/// miners, your messiah has arrived
+/obj/item/storage/bag/ore/holding
 	name = "mining satchel of holding"
 	desc = "A revolution in convenience, this satchel allows for infinite ore storage. It's been outfitted with anti-malfunction safety measures."
 	storage_slots = INFINITY
@@ -244,7 +245,8 @@
 // Because it stacks stacks, this doesn't operate normally.
 // However, making it a storage/bag allows us to reuse existing code in some places. -Sayu
 
-/obj/item/storage/bag/sheetsnatcher // what is this even used for
+/// what is this even used for
+/obj/item/storage/bag/sheetsnatcher
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sheetsnatcher"
 	name = "Sheet Snatcher"

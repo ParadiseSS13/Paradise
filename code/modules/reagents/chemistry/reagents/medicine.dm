@@ -1254,7 +1254,8 @@
 			M.Drowsy(40 SECONDS)
 	return ..() | update_flags
 
-/datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs
+/// Used exclusively by Syndicate medical cyborgs
+/datum/reagent/medicine/syndicate_nanites
 	name = "Restorative Nanites"
 	id = "syndicate_nanites"
 	description = "Miniature medical robots that swiftly restore bodily damage. May begin to attack their host's cells in high amounts."
@@ -1396,7 +1397,8 @@
 	return ..() | update_flags
 
 
-/datum/reagent/medicine/earthsblood //Created by ambrosia gaia plants
+/// Created by ambrosia gaia plants
+/datum/reagent/medicine/earthsblood
 	name = "Earthsblood"
 	id = "earthsblood"
 	description = "Ichor from an extremely powerful plant. Great for restoring wounds, but it's a little heavy on the brain."

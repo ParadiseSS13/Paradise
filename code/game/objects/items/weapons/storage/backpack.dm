@@ -600,7 +600,8 @@
 	new /obj/item/clothing/mask/muzzle(src)
 	new /obj/item/reagent_containers/glass/bottle/reagent/hydrocodone(src)
 
-/obj/item/storage/backpack/duffel/syndie/med/surgery_fake //for maint spawns
+/// for maint spawns
+/obj/item/storage/backpack/duffel/syndie/med/surgery_fake
 	name = "surgery duffelbag"
 	desc = "A suspicious looking duffelbag for holding surgery tools."
 

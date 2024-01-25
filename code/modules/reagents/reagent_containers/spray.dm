@@ -267,7 +267,8 @@
 
 
 // Plant-B-Gone
-/obj/item/reagent_containers/spray/plantbgone // -- Skie
+/// -- Skie
+/obj/item/reagent_containers/spray/plantbgone
 	name = "Plant-B-Gone"
 	desc = "Kills those pesky weeds!"
 	icon = 'icons/obj/hydroponics/equipment.dmi'

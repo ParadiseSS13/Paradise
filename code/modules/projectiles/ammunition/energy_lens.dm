@@ -13,7 +13,8 @@
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
 	select_name = "kill"
 
-/obj/item/ammo_casing/energy/laser/cyborg //to balance cyborg energy cost seperately
+/// to balance cyborg energy cost seperately
+/obj/item/ammo_casing/energy/laser/cyborg
 	e_cost = 250
 
 /obj/item/ammo_casing/energy/lasergun
@@ -166,7 +167,8 @@
 	harmful = FALSE
 	delay = 0.6 SECONDS
 
-/obj/item/ammo_casing/energy/disabler/cyborg //seperate balancing for cyborg, again
+/// seperate balancing for cyborg, again
+/obj/item/ammo_casing/energy/disabler/cyborg
 	e_cost = 250
 
 /obj/item/ammo_casing/energy/disabler/hos
@@ -297,7 +299,8 @@
 	e_cost = 350 // about 42 shots on an engineering borg from a borging machine, Reads a lot better than it actually is because people miss shots and often your better abilities require charge as well
 	delay = 1 SECONDS
 
-/obj/item/ammo_casing/energy/emitter/cyborg/proto // needed a slightly weaker ranged option to give to Safety Overriden borgs. The fire rate is about the same as an emitter if you put it on the ground.
+/// needed a slightly weaker ranged option to give to Safety Overriden borgs. The fire rate is about the same as an emitter if you put it on the ground.
+/obj/item/ammo_casing/energy/emitter/cyborg/proto
 	e_cost = 500
 	delay = 2 SECONDS
 

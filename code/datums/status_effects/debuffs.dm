@@ -1,6 +1,7 @@
 //OTHER DEBUFFS
 
-/datum/status_effect/his_wrath //does minor damage over time unless holding His Grace
+/// does minor damage over time unless holding His Grace
+/datum/status_effect/his_wrath
 	id = "his_wrath"
 	duration = -1
 	tick_interval = 4
@@ -23,7 +24,8 @@
 	owner.adjustFireLoss(0.1)
 	owner.adjustToxLoss(0.2)
 
-/datum/status_effect/cultghost //is a cult ghost and can't use manifest runes, can see ghosts and dies if too far from summoner
+/// is a cult ghost and can't use manifest runes, can see ghosts and dies if too far from summoner
+/datum/status_effect/cultghost
 	id = "cult_ghost"
 	duration = -1
 	alert_type = null
@@ -679,7 +681,8 @@
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_MUTE, id)
 
-/datum/status_effect/transient/silence/absolute // this one will mute all emote sounds including gasps
+/// this one will mute all emote sounds including gasps
+/datum/status_effect/transient/silence/absolute
 	id = "abssilenced"
 
 /datum/status_effect/transient/deaf

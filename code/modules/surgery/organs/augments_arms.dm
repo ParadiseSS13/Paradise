@@ -323,7 +323,8 @@
 	parent_organ = "l_arm"
 	slot = "l_arm_device"
 
-/obj/item/organ/internal/cyberimp/arm/janitorial/advanced /// ERT implant, i dont overly expect this to get into the hands of crew
+/// / ERT implant, i dont overly expect this to get into the hands of crew
+/obj/item/organ/internal/cyberimp/arm/janitorial/advanced
 	name = "advanced janitorial toolset implant"
 	desc = "A set of advanced janitorial tools hidden behind a concealed panel on the user's arm."
 	contents = newlist(/obj/item/mop/advanced, /obj/item/soap/deluxe, /obj/item/lightreplacer/bluespace, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/advanced)
@@ -332,7 +333,8 @@
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt")
 	emp_proof = TRUE
 
-/obj/item/organ/internal/cyberimp/arm/janitorial/advanced/l /// its for ERT, but still probably a good idea.
+/// / its for ERT, but still probably a good idea.
+/obj/item/organ/internal/cyberimp/arm/janitorial/advanced/l
 	parent_organ = "l_arm"
 	slot = "l_arm_device"
 

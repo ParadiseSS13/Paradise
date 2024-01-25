@@ -705,7 +705,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/multisword/pure_evil
 	probability_evil = 100
 
-/obj/item/multisword/pike //If We are to be used and spent, let it be for a noble purpose.
+/// If We are to be used and spent, let it be for a noble purpose.
+/obj/item/multisword/pike
 	name = "phantom pike"
 	desc = "A fishing pike that appears to be imbued with a peculiar energy."
 	icon = 'icons/obj/items.dmi'

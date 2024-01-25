@@ -223,7 +223,8 @@
 	REMOVE_TRAIT(M, TRAIT_COMIC_SANS, "augment")
 	return ..()
 
-/obj/item/organ/internal/cyberimp/brain/speech_translator //actual translating done in human/handle_speech_problems
+/// actual translating done in human/handle_speech_problems
+/obj/item/organ/internal/cyberimp/brain/speech_translator
 	name = "Speech translator implant"
 	desc = "While known as a translator, this implant actually generates speech based on the user's thoughts when activated, completely bypassing the need to speak."
 	implant_color = "#C0C0C0"

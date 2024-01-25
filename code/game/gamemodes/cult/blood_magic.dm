@@ -1,4 +1,5 @@
-/datum/action/innate/cult/blood_magic //Blood magic handles the creation of blood spells (formerly talismans)
+/// Blood magic handles the creation of blood spells (formerly talismans)
+/datum/action/innate/cult/blood_magic
 	name = "Prepare Blood Magic"
 	button_icon_state = "carve"
 	desc = "Prepare blood magic by carving runes into your flesh. This is easier with an <b>empowering rune</b>."
@@ -85,7 +86,8 @@
 	if(nullify_spell)
 		qdel(nullify_spell)
 
-/datum/action/innate/cult/blood_spell //The next generation of talismans, handles storage/creation of blood magic
+/// The next generation of talismans, handles storage/creation of blood magic
+/datum/action/innate/cult/blood_spell
 	name = "Blood Magic"
 	button_icon_state = "telerune"
 	desc = "Fear the Old Blood."
@@ -588,7 +590,8 @@
 		to_chat(user, "<span class='warning'>[C] is already bound.</span>")
 
 
-/obj/item/restraints/handcuffs/energy/cult //For the shackling spell
+/// For the shackling spell
+/obj/item/restraints/handcuffs/energy/cult
 	name = "shadow shackles"
 	desc = "Shackles that bind the wrists with sinister magic."
 	trashtype = /obj/item/restraints/handcuffs/energy/used

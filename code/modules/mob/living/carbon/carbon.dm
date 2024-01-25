@@ -49,7 +49,8 @@
 
 #define STOMACH_ATTACK_DELAY 4
 
-/mob/living/carbon/var/last_stomach_attack //defining this here because no one would look in carbon_defines for it
+/// defining this here because no one would look in carbon_defines for it
+/mob/living/carbon/var/last_stomach_attack
 
 /mob/living/carbon/relaymove(mob/user, direction)
 	if(LAZYLEN(stomach_contents))

@@ -112,7 +112,8 @@
 	user.bleed(BLOOD_VOLUME_NORMAL)
 	user.death() // Just in case
 
-/obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
+/// Summoned by the Finger Gun spell, from advanced mimery traitor item
+/obj/item/gun/projectile/revolver/fingergun
 	name = "\improper finger gun"
 	desc = "Bang bang bang!"
 	icon_state = "fingergun"

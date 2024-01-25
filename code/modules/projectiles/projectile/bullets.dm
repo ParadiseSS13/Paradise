@@ -7,7 +7,8 @@
 	hitsound_wall = "ricochet"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
 
-/obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
+/// beanbag, heavy stamina damage
+/obj/item/projectile/bullet/weakbullet
 	name = "beanbag slug"
 	damage = 5
 	stamina = 40
@@ -138,7 +139,8 @@
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
 
-/obj/item/projectile/bullet/stunshot //taser slugs for shotguns, nothing special
+/// taser slugs for shotguns, nothing special
+/obj/item/projectile/bullet/stunshot
 	name = "stunshot"
 	damage = 5
 	weaken = 10 SECONDS

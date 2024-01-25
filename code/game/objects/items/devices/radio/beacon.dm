@@ -29,7 +29,8 @@
 /obj/item/radio/beacon/send_hear()
 	return null
 
-/obj/item/radio/beacon/bacon //Probably a better way of doing this, I'm lazy.
+/// Probably a better way of doing this, I'm lazy.
+/obj/item/radio/beacon/bacon
 
 /obj/item/radio/beacon/bacon/proc/digest_delay()
 	QDEL_IN(src, 600)

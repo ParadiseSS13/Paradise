@@ -449,7 +449,8 @@
 	S.set_up(G.reagents, splat_location)
 	S.start(smoke_amount)
 
-/datum/plant_gene/trait/fire_resistance // Lavaland
+/// Lavaland
+/datum/plant_gene/trait/fire_resistance
 	name = "Fire Resistance"
 
 /datum/plant_gene/trait/fire_resistance/apply_vars(obj/item/seeds/S)
@@ -460,7 +461,8 @@
 	if(!(G.resistance_flags & FIRE_PROOF))
 		G.resistance_flags |= FIRE_PROOF
 
-/datum/plant_gene/trait/plant_type // Parent type
+/// Parent type
+/datum/plant_gene/trait/plant_type
 	name = "you shouldn't see this"
 	trait_id = "plant_type"
 

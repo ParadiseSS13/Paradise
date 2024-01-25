@@ -133,7 +133,8 @@
 	icon_state = "horribletie"
 	item_color = "horribletie"
 
-/obj/item/clothing/accessory/waistcoat // No overlay
+/// No overlay
+/obj/item/clothing/accessory/waistcoat
 	name = "waistcoat"
 	desc = "For some classy, murderous fun."
 	icon_state = "waistcoat"
@@ -311,7 +312,8 @@
 	desc = "An award issued by the Quartermaster to supply staff dedicated to being effective."
 	channel = "Supply"
 
-/obj/item/clothing/accessory/medal/recruiter // Prize for the NT Recruiter emagged arcade
+/// Prize for the NT Recruiter emagged arcade
+/obj/item/clothing/accessory/medal/recruiter
 	name = "nanotrasen recruiter medal"
 	desc = "A prize for those who completed the company's most difficult training, use it to earn the respect of everyone in human resources."
 
@@ -363,7 +365,8 @@
 	desc = "An award which represents magnificant contributions to the HRD-MDE project in the form of analysing Bubblegum, and the related blood space."
 	channel = null
 
-/obj/item/clothing/accessory/medal/gold/heroism/hardmode_full //Kill every hardmode boss. In a shift. Good luck.
+/// Kill every hardmode boss. In a shift. Good luck.
+/obj/item/clothing/accessory/medal/gold/heroism/hardmode_full
 	name = "medal of incredible dedication"
 	desc = "An extremely rare golden medal awarded only by CentComm. This medal was issued for miners who went above and beyond for the HRD-MDE project. Engraved on it is the phrase <i>'mori quam foedari'...</i>"
 	channel = null
@@ -488,7 +491,8 @@
 //SCARVES//
 ///////////
 
-/obj/item/clothing/accessory/scarf // No overlay
+/// No overlay
+/obj/item/clothing/accessory/scarf
 	name = "scarf"
 	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
 	dog_fashion = /datum/dog_fashion/head

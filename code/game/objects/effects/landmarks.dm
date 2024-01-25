@@ -11,7 +11,8 @@
 	invisibility = 101
 	GLOB.landmarks_list += src
 
-/obj/effect/landmark/newplayer_start //There should only be one of these, in the lobby art area
+/// There should only be one of these, in the lobby art area
+/obj/effect/landmark/newplayer_start
 	name = "start"
 
 INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you spawn in the corner of the map and things break horribly

@@ -837,7 +837,8 @@
 	tracking_target_UID = null
 
 
-/obj/item/gun/energy/spikethrower //It's like the cyborg LMG, uses energy to make spikes
+/// It's like the cyborg LMG, uses energy to make spikes
+/obj/item/gun/energy/spikethrower
 	name = "\improper Vox spike thrower"
 	desc = "A vicious alien projectile weapon. Parts of it quiver gelatinously, as though the thing is insectile and alive."
 	icon = 'icons/obj/guns/projectile.dmi'
