@@ -5,6 +5,7 @@
 /obj/item/food
 	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
+	w_class = WEIGHT_CLASS_TINY
 	var/filling_color = "#FFFFFF" //Used by sandwiches.
 	var/junkiness = 0  //for junk food. used to lower human satiety.
 	var/bitesize = 2

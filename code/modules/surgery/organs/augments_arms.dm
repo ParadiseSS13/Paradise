@@ -645,7 +645,7 @@
 
 /obj/item/v1_arm_shell
 	name = "vortex feedback arm implant frame"
-	desc = "An implant awaiting installation of a vortex anomaly core"
+	desc = "An implant awaiting installation of a vortex anomaly core."
 	icon_state = "v1_arm"
 
 /obj/item/v1_arm_shell/attackby(obj/item/I, mob/user, params)
