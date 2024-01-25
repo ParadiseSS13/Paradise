@@ -376,12 +376,17 @@
 		target = null
 		mode = BOT_IDLE
 		return
+
 	if((amount + 4) > MAX_AMOUNT) // 1 metal = 4 tiles, hence + 4
 		var/i = MAX_AMOUNT - amount
 		amount += i
-		new /obj/item/stack/tile/plasteel (src, i)
+		new /obj/item/stack/tile/plasteel (get_turf(src), i)
 	else
 		amount += 4
+
+	if(M.amount > 1)
+		M.amount --
+	else
 		qdel(M)
 	target = null
 	mode = BOT_IDLE
