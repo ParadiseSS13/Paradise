@@ -36,15 +36,15 @@
 
 /obj/item/skeleton/r_leg
 	name = "skeleton right leg"
-	desc = "a skeleton right leg"
+	desc = "a skeleton right leg."
 	icon_state = "r_leg"
 
 /obj/item/skeleton/l_foot
 	name = "skeleton left foot"
-	desc = "a skeleton left foot"
+	desc = "a skeleton left foot."
 	icon_state = "l_foot"
 
 /obj/item/skeleton/l_leg
 	name = "skeleton left leg"
-	desc = "a skeleton left leg"
+	desc = "a skeleton left leg."
 	icon_state = "l_leg"
