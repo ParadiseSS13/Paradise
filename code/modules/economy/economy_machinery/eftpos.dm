@@ -134,7 +134,7 @@
 			linked_account = target_account
 			to_chat(user, "[bicon(src)]<span class='warning'>Linked account successfully set to [target_account.account_name]</span>")
 		if("trans_purpose")
-			var/purpose = tgui_input_text(user, "Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose)
+			var/purpose = tgui_input_text(user, "Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose, encode = FALSE)
 			if(!check_user_position(user) || !purpose)
 				return
 			transaction_purpose = purpose

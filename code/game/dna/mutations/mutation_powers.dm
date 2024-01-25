@@ -921,8 +921,7 @@
 	var/say = tgui_input_text(user, "What do you wish to say?", "Project Mind")
 	if(!say || usr.stat)
 		return
-	say = strip_html(say)
-	say = pencode_to_html(say, usr, format = 0, fields = 0)
+	say = pencode_to_html(say, usr, format = FALSE, fields = FALSE)
 
 	for(var/mob/living/target in targets)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
@@ -980,8 +979,7 @@
 		var/say = tgui_input_text(user, "What do you wish to say?", "Scan Mind")
 		if(!say)
 			return
-		say = strip_html(say)
-		say = pencode_to_html(say, target, format = 0, fields = 0)
+		say = pencode_to_html(say, target, format = FALSE, fields = FALSE)
 		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))

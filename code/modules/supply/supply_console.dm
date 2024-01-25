@@ -264,7 +264,7 @@
 			if(!istype(P))
 				return
 			var/timeout = world.time + (60 SECONDS) // If you dont type the reason within a minute, theres bigger problems here
-			var/reason = tgui_input_text(user, "Reason", "Why do you require this item?")
+			var/reason = tgui_input_text(user, "Reason", "Why do you require this item?", encode = FALSE)
 			if(world.time > timeout || !reason || (!is_public && !is_authorized(user)) || ..())
 				// Cancel if they take too long, they dont give a reason, they aint authed, or if they walked away
 				return

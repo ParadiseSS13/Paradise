@@ -26,7 +26,6 @@ export const removeAllSkiplines = (toSanitize: string) => {
 export const TextInputModal = (props, context) => {
   const { act, data } = useBackend<TextInputData>(context);
   const {
-    large_buttons,
     max_length,
     message = '',
     multiline,

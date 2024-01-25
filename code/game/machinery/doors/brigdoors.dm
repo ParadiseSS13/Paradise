@@ -345,7 +345,7 @@
 			if(params["prisoner_name"])
 				prisoner_name = params["prisoner_name"]
 			else
-				prisoner_name = tgui_input_text(usr, "Prisoner Name:", name, prisoner_name)
+				prisoner_name = tgui_input_text(usr, "Prisoner Name:", name, prisoner_name, MAX_NAME_LEN, encode = FALSE)
 			if(prisoner_name)
 				var/datum/data/record/R = find_security_record("name", prisoner_name)
 				if(istype(R))
@@ -353,7 +353,7 @@
 				else
 					prisoner_hasrecord = FALSE
 		if("prisoner_charge")
-			prisoner_charge = tgui_input_text(usr, "Prisoner Charge:", name, prisoner_charge)
+			prisoner_charge = tgui_input_text(usr, "Prisoner Charge:", name, prisoner_charge, encode = FALSE)
 		if("prisoner_time")
 			prisoner_time = tgui_input_number(usr, "Prisoner Time (in minutes):", name, prisoner_time, 60)
 		if("start")

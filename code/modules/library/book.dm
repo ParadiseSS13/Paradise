@@ -228,7 +228,7 @@
 				return
 			author = newauthor
 		if("Summary")
-			var/newsummary = tgui_input_text(user, "Write the new summary:", "Summary", summary, MAX_SUMMARY_LEN)
+			var/newsummary = tgui_input_text(user, "Write the new summary:", "Summary", summary, MAX_SUMMARY_LEN, multiline = TRUE)
 			if(!newsummary)
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
@@ -244,7 +244,7 @@
 			if(character_space_remaining <= 0)
 				to_chat(user, "<span class='notice'>There's not enough space left on this page to write anything!</span>")
 				return
-			var/content = tgui_input_text(user, "Add Text to this page, you have [character_space_remaining] characters of space left:", "Edit Current Page", max_length = MAX_CHARACTERS_PER_BOOKPAGE)
+			var/content = tgui_input_text(user, "Add Text to this page, you have [character_space_remaining] characters of space left:", "Edit Current Page", max_length = MAX_CHARACTERS_PER_BOOKPAGE, multiline = TRUE)
 			if(!content)
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
