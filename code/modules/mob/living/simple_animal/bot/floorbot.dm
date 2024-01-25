@@ -214,7 +214,7 @@
 				start_eat_tile(target)
 
 			if(istype(target, /obj/item/stack/sheet/metal))
-				start_maketile(target)
+				start_make_tile(target)
 
 			if(isturf(target) && !emagged)
 				repair(target)
@@ -363,15 +363,15 @@
 	mode = BOT_IDLE
 	update_icon(UPDATE_OVERLAYS)
 
-/mob/living/simple_animal/bot/floorbot/proc/start_maketile(obj/item/stack/sheet/metal/M)
+/mob/living/simple_animal/bot/floorbot/proc/start_make_tile(obj/item/stack/sheet/metal/M)
 	if(!istype(M, /obj/item/stack/sheet/metal))
 		return
 	visible_message("<span class='notice'>[src] begins to create tiles.</span>")
 	mode = BOT_MAKE_TILE
 	update_icon(UPDATE_OVERLAYS)
-	addtimer(CALLBACK(src, PROC_REF(do_maketile), M), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(do_make_tile), M), 2 SECONDS)
 
-/mob/living/simple_animal/bot/floorbot/proc/do_maketile(obj/item/stack/sheet/metal/M)
+/mob/living/simple_animal/bot/floorbot/proc/do_make_tile(obj/item/stack/sheet/metal/M)
 	if(isnull(M))
 		target = null
 		mode = BOT_IDLE
@@ -443,7 +443,7 @@
 	if(istype(A,/obj/item/stack/tile/plasteel))
 		start_eat_tile(A)
 	if(istype(A,/obj/item/stack/sheet/metal))
-		start_maketile(A)
+		start_make_tile(A)
 	else
 		..()
 
