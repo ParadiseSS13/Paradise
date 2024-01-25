@@ -376,6 +376,19 @@
 		target = null
 		mode = BOT_IDLE
 		return
+	if((amount + 4) > MAX_AMOUNT) // 1 metal = 4 tiles, hence + 4
+		var/i = MAX_AMOUNT - amount
+		amount += i
+		new /obj/item/stack/tile/plasteel (src, i)
+	else
+		amount += 4
+		qdel(M)
+	target = null
+	mode = BOT_IDLE
+	update_icon(UPDATE_OVERLAYS)
+
+// Commented for future reference
+/*
 	var/obj/item/stack/tile/plasteel/T = new /obj/item/stack/tile/plasteel
 	T.amount = 4
 	T.forceMove(M.loc)
@@ -383,9 +396,7 @@
 		M.amount--
 	else
 		qdel(M)
-	target = null
-	mode = BOT_IDLE
-	update_icon(UPDATE_OVERLAYS)
+*/
 
 /mob/living/simple_animal/bot/floorbot/update_icon_state()
 	return
