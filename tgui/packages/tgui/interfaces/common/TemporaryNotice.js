@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Box, Button, NoticeBox } from '../../components';
+import { Button, NoticeBox, Stack } from '../../components';
 
 /**
  * Displays a notice box with text and style dictated by the
@@ -23,15 +23,14 @@ export const TemporaryNotice = (_properties, context) => {
   const temporaryProperty = { [temp.style]: true };
   return (
     <NoticeBox {...temporaryProperty}>
-      <Box display="inline-block" verticalAlign="middle">
-        {temp.text}
-      </Box>
-      <Button
-        icon="times-circle"
-        float="right"
-        onClick={() => act('cleartemp')}
-      />
-      <Box clear="both" />
+      <Stack>
+        <Stack.Item grow mt={0.5}>
+          {temp.text}
+        </Stack.Item>
+        <Stack.Item>
+          <Button icon="times-circle" onClick={() => act('cleartemp')} />
+        </Stack.Item>
+      </Stack>
     </NoticeBox>
   );
 };

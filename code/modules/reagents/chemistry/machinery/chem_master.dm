@@ -122,7 +122,7 @@
 		to_chat(user, "<span class='warning'>You can't use [src] while it's panel is opened!</span>")
 		return TRUE
 
-	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass)) && user.a_intent != INTENT_HARM)
+	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks/drinkingglass)) && user.a_intent != INTENT_HARM)
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
@@ -327,7 +327,7 @@
 		if("create_condi_bottle")
 			if(!condi || !reagents.total_volume)
 				return
-			var/obj/item/reagent_containers/food/condiment/P = new(loc)
+			var/obj/item/reagent_containers/condiment/P = new(loc)
 			reagents.trans_to(P, 50)
 		if("create_pills")
 			var/medicine_name = pillname
@@ -413,14 +413,19 @@
 		return TRUE
 	ui_interact(user)
 
-/obj/machinery/chem_master/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	var/datum/asset/chem_master/assets = get_asset_datum(/datum/asset/chem_master)
-	assets.send(user)
+/obj/machinery/chem_master/ui_state(mob/user)
+	return GLOB.default_state
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/chem_master/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ChemMaster", name, 575, 600)
+		ui = new(user, src, "ChemMaster", name)
 		ui.open()
+
+/obj/machinery/chem_master/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/chem_master)
+	)
 
 /obj/machinery/chem_master/ui_data(mob/user)
 	var/data[0]
@@ -486,7 +491,7 @@
 	for(var/i in 1 to MAX_PILL_SPRITE)
 		pill_styles += list(list(
 			"id" = i,
-			"sprite" = "pill[i].png",
+			"sprite" = "pill[i]",
 		))
 	data["pillstyles"] = pill_styles
 
@@ -496,7 +501,7 @@
 		bottle_style_indexer++
 		bottle_styles_with_sprite += list(list(
 			"id" = bottle_style_indexer,
-			"sprite" = "[style].png",
+			"sprite" = "[style]",
 		))
 	data["bottlestyles"] = bottle_styles_with_sprite
 
@@ -572,7 +577,7 @@
 						return
 					if(!length(answer))
 						answer = reagents.get_master_reagent_name()
-					var/obj/item/reagent_containers/food/condiment/pack/P = new(loc)
+					var/obj/item/reagent_containers/condiment/pack/P = new(loc)
 					P.originalname = answer
 					P.name = "[answer] pack"
 					P.desc = "A small condiment pack. The label says it contains [answer]."

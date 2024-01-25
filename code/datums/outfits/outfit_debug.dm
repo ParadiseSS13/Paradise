@@ -313,7 +313,7 @@
 // put cool admin-only shit here :)
 /obj/item/storage/box/debug/misc_debug/populate_contents()
 	new /obj/item/badminBook(src)
-	new /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka(src)
+	new /obj/item/reagent_containers/drinks/bottle/vodka/badminka(src)
 	new /obj/item/crowbar/power(src) // >admin only lol
 	new /obj/item/clothing/gloves/fingerless/rapid/admin(src)
 	new /obj/item/clothing/under/misc/acj(src)

@@ -269,9 +269,9 @@
 	storage_slots = 3
 
 /obj/item/storage/toolbox/fluff/lunchbox/populate_contents()
-	new /obj/item/reagent_containers/food/snacks/sandwich(src)
-	new /obj/item/reagent_containers/food/snacks/chips(src)
-	new /obj/item/reagent_containers/food/drinks/cans/cola(src)
+	new /obj/item/food/snacks/sandwich(src)
+	new /obj/item/food/snacks/chips(src)
+	new /obj/item/reagent_containers/drinks/cans/cola(src)
 
 
 /obj/item/fluff/wingler_comb
@@ -469,13 +469,13 @@
 	else
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-
+// These two fluff items are commented out due to the transfer to MODsuits breaking these. Sprites are still in custom_items.dmi , but they need a resprite to work with MODsuits.
 /obj/item/fluff/pyro_wintersec_kit //DarkLordpyro: Valthorne Haliber
 	name = "winter sec conversion kit"
 	desc = "A securirty hardsuit conversion kit."
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
-
+/*
 /obj/item/fluff/pyro_wintersec_kit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
@@ -521,14 +521,14 @@
 			H.update_inv_wear_suit()
 		return
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
+*/
 
 /obj/item/fluff/sylus_conversion_kit //Decemviri: Sylus Cain
 	name = "cerberus pattern conversion kit"
 	desc = "A securirty hardsuit conversion kit."
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
-
+/*
 /obj/item/fluff/sylus_conversion_kit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
@@ -581,7 +581,7 @@
 
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-
+*/
 //////////////////////////////////
 //////////// Clothing ////////////
 //////////////////////////////////
