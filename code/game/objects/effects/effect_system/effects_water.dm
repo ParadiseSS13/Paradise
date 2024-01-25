@@ -24,6 +24,22 @@
 		AM.water_act(life, COLD_WATER_TEMPERATURE, src)
 	return ..()
 
+/obj/effect/particle_effect/water/proc/extinguish_move(turf/target)
+	for(var/counter in 1 to 5)
+		if(!step_towards(src, target))
+			return
+		var/turf/current_turf = get_turf(src)
+		reagents.reaction(current_turf)
+		for(var/atom/atm in current_turf)
+			reagents.reaction(atm)
+			if(isliving(atm)) //For extinguishing mobs on fire
+				var/mob/living/M = atm
+				M.ExtinguishMob()
+
+		if(current_turf == target)
+			return
+		sleep(2)
+
 /////////////////////////////////////////////
 // GENERIC STEAM SPREAD SYSTEM
 

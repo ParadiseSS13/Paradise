@@ -2,8 +2,6 @@
 	holder_type = /obj/machinery/smartfridge
 	wire_count = 3
 	proper_name = "Smartfridge"
-	window_x = 340
-	window_y = 103
 
 /datum/wires/smartfridge/New(atom/_holder)
 	wires = list(WIRE_ELECTRIFY, WIRE_IDSCAN, WIRE_THROW_ITEM)
@@ -12,7 +10,6 @@
 /datum/wires/smartfridge/secure
 	randomize = TRUE
 	wire_count = 4 // 3 actual, 1 dud.
-	window_y = 97
 
 /datum/wires/smartfridge/interactable(mob/user)
 	var/obj/machinery/smartfridge/S = holder

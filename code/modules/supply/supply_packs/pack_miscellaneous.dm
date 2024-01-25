@@ -48,8 +48,8 @@
 
 /datum/supply_packs/misc/religious_supplies
 	name = "Religious Supplies Crate"
-	contains = list(/obj/item/reagent_containers/food/drinks/bottle/holywater,
-					/obj/item/reagent_containers/food/drinks/bottle/holywater,
+	contains = list(/obj/item/reagent_containers/drinks/bottle/holywater,
+					/obj/item/reagent_containers/drinks/bottle/holywater,
 					/obj/item/storage/bible/booze,
 					/obj/item/storage/bible/booze,
 					/obj/item/clothing/suit/hooded/chaplain_hoodie,
@@ -240,8 +240,8 @@
 					/obj/item/clothing/mask/gas/mime,
 					/obj/item/clothing/head/beret,
 					/obj/item/clothing/suit/suspenders,
-					/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
-					/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana
+					/obj/item/reagent_containers/drinks/bottle/bottleofnothing,
+					/obj/item/reagent_containers/drinks/bottle/bottleofbanana
 					)
 	cost = 250
 	containertype = /obj/structure/closet/crate/secure

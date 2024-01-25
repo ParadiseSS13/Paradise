@@ -53,7 +53,7 @@
 			players_to_spawn += candidate
 	else
 		to_chat(src, "Polling candidates...")
-		players_to_spawn = SSghost_spawns.poll_candidates("Do you want to play as \a [initial(O.name)]?")
+		players_to_spawn = SSghost_spawns.poll_candidates("Do you want to play as \a [initial(O.name)]?", ROLE_GHOST)
 
 	if(!players_to_spawn.len)
 		to_chat(src, "Nobody volunteered.")

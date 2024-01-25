@@ -150,9 +150,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
-	var/current_charges = 3
-	var/shield_state = "shield-cult"
-	var/shield_on = "shield-cult"
 
 /obj/item/clothing/head/hooded/cult_hoodie
 	name = "empowered cultist hood"
@@ -174,25 +171,16 @@
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
 
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(current_charges && !owner.holy_check())
-		owner.visible_message("<span class='danger'>[attack_text] is deflected in a burst of blood-red sparks!</span>")
-		current_charges--
-		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
-		if(istype(hitby, /obj/item/projectile))
-			var/obj/item/projectile/P = hitby
-			if(P.shield_buster)
-				current_charges = 0 //Change it to remove 3 charges if it ever has its max shield limit increased above 3.
-		if(!current_charges)
-			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
-			shield_state = "broken"
-			owner.update_inv_wear_suit()
-		return TRUE
-	return FALSE
 
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/special_overlays()
-	return mutable_appearance('icons/effects/cult_effects.dmi', shield_state, MOB_LAYER + 0.01)
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/setup_shielding()
+	AddComponent(/datum/component/shielded, recharge_start_delay = 0 SECONDS, shield_icon_file = 'icons/effects/cult_effects.dmi', shield_icon = "shield-cult", run_hit_callback = CALLBACK(src, PROC_REF(shield_damaged)))
+
+/// A proc for callback when the shield breaks, since cult robes are stupid and have different effects
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/proc/shield_damaged(mob/living/wearer, attack_text, new_current_charges)
+	wearer.visible_message("<span class='danger'>[attack_text] is deflected in a burst of blood-red sparks!</span>")
+	new /obj/effect/temp_visual/cult/sparks(get_turf(wearer))
+	if(new_current_charges == 0)
+		wearer.visible_message("<span class='danger'>The runed shield around [wearer] suddenly disappears!</span>")
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe
 	name = "flagellant's robes"
@@ -260,7 +248,7 @@
 		to_chat(user, "<span class='notice'>[src] crumbles to ashes.</span>")
 		qdel(src)
 
-/obj/item/reagent_containers/food/drinks/bottle/unholywater
+/obj/item/reagent_containers/drinks/bottle/unholywater
 	name = "flask of unholy water"
 	desc = "Toxic to nonbelievers; this water renews and reinvigorates the faithful of a cult."
 	icon_state = "holyflask"

@@ -16,10 +16,13 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 		"diagnostic" = DATA_HUD_DIAGNOSTIC_ADVANCED
 	)
 
-/datum/ui_module/ghost_hud_panel/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.observer_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui)
+/datum/ui_module/ghost_hud_panel/ui_state(mob/user)
+	return GLOB.observer_state
+
+/datum/ui_module/ghost_hud_panel/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "GhostHudPanel", name, 250, 207, master_ui, state)
+		ui = new(user, src, "GhostHudPanel", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
