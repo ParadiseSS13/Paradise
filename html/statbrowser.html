@@ -393,8 +393,8 @@ function init_verbs(c, v) {
 	}
 }
 
-function update(global_data, ping_entry, other_entries) {
-	status_tab_parts = [ping_entry];
+function update(global_data, other_entries) {
+	status_tab_parts = [];
 	var parsed = JSON.parse(global_data);
 	for(var i = 0; i < parsed.length; i++) if(parsed[i] != null) status_tab_parts.push(parsed[i]);
 	parsed = JSON.parse(other_entries);
@@ -609,34 +609,6 @@ function draw_mc() {
 		table.appendChild(tr);
 	}
 	document.getElementById("statcontent").appendChild(table);
-}
-function update_tickets(T){
-	tickets = JSON.parse(T);
-	if(!verb_tabs.includes("Tickets")) {
-		verb_tabs.push("Tickets");
-		addPermanentTab("Tickets");
-	}
-	if(current_tab == "Tickets")
-		draw_tickets();
-}
-function update_sqdl2(S) {
-	sqdl2 = JSON.parse(S);
-	if(sqdl2.length > 0 && !verb_tabs.includes("SQDL2")) {
-		verb_tabs.push("SQDL2");
-		addPermanentTab("SQDL2");
-	}
-	if(current_tab == "SQDL2")
-		draw_sqdl2();
-}
-
-function remove_sqdl2() {
-	if(sqdl2) {
-		sqdl2 = [];
-		removePermanentTab("SQDL2");
-		if(current_tab == "SQDL2")
-			tab_change("Status");
-	}
-	checkStatusTab();
 }
 
 function remove_tickets() {
