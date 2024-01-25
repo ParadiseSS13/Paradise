@@ -234,63 +234,6 @@
 /area/shuttle/research/outpost
 	icon_state = "shuttle"
 
-/area/shuttle/salvage
-	name = "\improper Salvage Ship"
-	icon_state = "yellow"
-
-/area/shuttle/salvage/start
-	name = "\improper Middle of Nowhere"
-	icon_state = "yellow"
-
-/area/shuttle/salvage/arrivals
-	name = "\improper Space Station Auxiliary Docking"
-	icon_state = "yellow"
-
-/area/shuttle/salvage/derelict
-	name = "\improper Derelict Station"
-	icon_state = "yellow"
-
-/area/shuttle/salvage/djstation
-	name = "\improper Ruskie DJ Station"
-	icon_state = "yellow"
-
-/area/shuttle/salvage/north
-	name = "\improper North of the Station"
-	icon_state = "yellow"
-
-/area/shuttle/salvage/east
-	name = "\improper East of the Station"
-	icon_state = "yellow"
-
-/area/shuttle/salvage/south
-	name = "\improper South of the Station"
-	icon_state = "yellow"
-
-/area/shuttle/salvage/commssat
-	name = "\improper The Communications Satellite"
-	icon_state = "yellow"
-
-/area/shuttle/salvage/mining
-	name = "\improper South-West of the Mining Asteroid"
-	icon_state = "yellow"
-
-/area/shuttle/salvage/abandoned_ship
-	name = "\improper Abandoned Ship"
-	icon_state = "yellow"
-	parallax_movedir = WEST
-
-/area/shuttle/salvage/clown_asteroid
-	name = "\improper Clown Asteroid"
-	icon_state = "yellow"
-
-/area/shuttle/salvage/trading_post
-	name = "\improper Trading Post"
-	icon_state = "yellow"
-
-/area/shuttle/salvage/transit
-	name = "\improper hyperspace"
-	icon_state = "shuttle"
-
 /area/shuttle/supply
 	name = "Supply Shuttle"
 	icon_state = "shuttle3"

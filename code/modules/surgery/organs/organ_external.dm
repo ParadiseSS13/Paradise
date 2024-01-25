@@ -359,11 +359,11 @@
 	else if(emp_resistant) // IPC limbs
 		switch(severity)
 			if(1)
-				// 5.28 (9 * 0.66 burn_mod) burn damage, 65.34 damage with 11 limbs.
-				receive_damage(0, 9)
+				// 5.9 burn damage, 64.9 damage with 11 limbs.
+				receive_damage(0, 5.9)
 			if(2)
-				// 3.63 (5 * 0.66 burn_mod) burn damage, 39.93 damage with 11 limbs.
-				receive_damage(0, 5.5)
+				// 3.63 burn damage, 39.93 damage with 11 limbs.
+				receive_damage(0, 3.63)
 	else // Basic prosthetic limbs
 		switch(severity)
 			if(1)
