@@ -86,7 +86,7 @@
 	var/bot_type = 0
 	/// The type of data HUD the bot uses. Diagnostic by default.
 	var/data_hud_type = DATA_HUD_DIAGNOSTIC_BASIC
-	//This holds text for what the bot is mode doing, reported on the remote bot control interface.
+	// This holds text for what the bot is mode doing, reported on the remote bot control interface.
 	var/list/mode_name = list("In Pursuit","Preparing to Arrest", "Arresting", \
 	"Beginning Patrol", "Patrolling", "Summoned by PDA", \
 	"Cleaning", "Repairing", "Proceeding to work site", "Healing", \
@@ -468,7 +468,7 @@
 		say(message)
 	return
 
-//Generalized behavior code, override where needed!
+// Generalized behavior code, override where needed!
 
 /*
 scan() will search for a given type (such as turfs, human mobs, or objects) in the bot's view range, and return a single result.
