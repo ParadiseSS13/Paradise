@@ -16,7 +16,7 @@
 /datum/tgui_panel/New(client/client, id)
 	if(!id)
 		qdel(src)
-		CRASH("New TGUI panel created but no id supplied, deleting")
+		CRASH("New TGUI panel created for [client] but no id supplied, deleting.")
 	src.client = client
 	window = new(client, id)
 	window.subscribe(src, PROC_REF(on_message))
