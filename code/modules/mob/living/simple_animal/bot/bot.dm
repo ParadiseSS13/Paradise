@@ -71,15 +71,15 @@
 	var/ignorelistcleanuptimer = 1 			// This ticks up every automated action, at 300 we clean the ignore list
 	var/robot_arm = /obj/item/robot_parts/r_arm
 
-	var/blockcount = 0			// Number of times retried a blocked path
-	var/awaiting_beacon	= 0		// Count of pticks awaiting a beacon response
+	var/blockcount = 0						// Number of times retried a blocked path
+	var/awaiting_beacon	= 0					// Count of pticks awaiting a beacon response
 
-	var/nearest_beacon			// The nearest beacon's tag
-	var/turf/nearest_beacon_loc	// The nearest beacon's location
+	var/nearest_beacon						// The nearest beacon's tag
+	var/turf/nearest_beacon_loc				// The nearest beacon's location
 
 	var/model = "" //The type of bot it is.
 	var/bot_purpose = "improve the station to the best of your ability"
-	var/control_freq = BOT_FREQ		// Bot control frequency
+	var/control_freq = BOT_FREQ				// Bot control frequency
 	/// The radio filter the bot uses to identify itself on the network.
 	var/bot_filter
 	/// The type of bot it is, for radio control.
@@ -98,7 +98,7 @@
 	/// List of access values you can have to access the bot. Consider this as req_one_access
 	var/list/req_access = list()
 
-	hud_possible = list(DIAG_STAT_HUD, DIAG_BOT_HUD, DIAG_HUD)// Diagnostic HUD views
+	hud_possible = list(DIAG_STAT_HUD, DIAG_BOT_HUD, DIAG_HUD) // Diagnostic HUD views
 
 /obj/item/radio/headset/bot
 	requires_tcomms = FALSE
@@ -753,17 +753,17 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(!on)
 		return FALSE
 
-	// check to see if we are the commanded bot
-	if(emagged || remote_disabled || hijacked) //Emagged bots do not respect anyone's authority! Bots with their remote controls off cannot get commands.
+	// Check to see if we are the commanded bot
+	if(emagged || remote_disabled || hijacked) // Emagged bots do not respect anyone's authority! Bots with their remote controls off cannot get commands.
 		return FALSE
 
 	if(client)
 		bot_control_message(command, user, params["target"] ? params["target"] : "Unknown")
 
-	// process control input
+	// Process control input
 	switch(command)
 		if("stop")
-			bot_reset() //HOLD IT!!
+			bot_reset() // HOLD IT!!
 			auto_patrol = FALSE
 
 		if("go")
@@ -775,7 +775,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			summon_target = params["target"] // Location of the user
 
 			if(length(user_access))
-				access_card.access = user_access + prev_access //Adds the user's access, if any.
+				access_card.access = user_access + prev_access // Adds the user's access, if any.
 
 			mode = BOT_SUMMON
 			calc_summon_path()
@@ -784,11 +784,11 @@ Pass a positive integer as an argument to override a bot's default speed.
 	return TRUE
 
 
-/mob/living/simple_animal/bot/proc/bot_summon() // summoned to PDA
+/mob/living/simple_animal/bot/proc/bot_summon() // Summoned to PDA
 	summon_step()
 
-// calculates a path to the current destination
-// given an optional turf to avoid
+// Calculates a path to the current destination
+// Given an optional turf to avoid
 /mob/living/simple_animal/bot/proc/calc_path(turf/avoid)
 	check_bot_access()
 	set_path(get_path_to(src, patrol_target, 120, id=access_card, exclude=avoid))
@@ -797,7 +797,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	set waitfor = FALSE
 	check_bot_access()
 	set_path(get_path_to(src, summon_target, 150, id=access_card, exclude=avoid))
-	if(!length(path)) //Cannot reach target. Give up and announce the issue.
+	if(!length(path)) // Cannot reach target. Give up and announce the issue.
 		speak("Summon command failed, destination unreachable.",radio_channel)
 		bot_reset()
 
@@ -821,7 +821,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			addtimer(CALLBACK(src, PROC_REF(try_calc_path)), 2)
 
 
-	else	// no path, so calculate new one
+	else	// No path, so calculate new one
 		calc_summon_path()
 
 /mob/living/simple_animal/bot/proc/try_calc_path()
@@ -853,15 +853,15 @@ Pass a positive integer as an argument to override a bot's default speed.
 	return "PROTOBOT - NOT FOR USE"
 
 /mob/living/simple_animal/bot/proc/allowed(mob/M)
-	var/acc = M.get_access() //see mob.dm
+	var/acc = M.get_access() // See mob.dm
 
 	if(acc == IGNORE_ACCESS || M.can_admin_interact())
-		return TRUE //Mob ignores access
+		return TRUE // Mob ignores access
 
 	return has_access(list(), req_access, acc)
 
 /mob/living/simple_animal/bot/Topic(href, href_list)
-	if(href_list["close"])// HUE HUE
+	if(href_list["close"]) // HUE HUE
 		if(usr in users)
 			users.Remove(usr)
 		return 1
@@ -894,7 +894,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/canhack(mob/M)
 	return ((issilicon(M) && (!emagged || hacked)) || M.can_admin_interact())
 
-/mob/living/simple_animal/bot/proc/handle_hacking(mob/M) // refactored out of Topic/ to allow re-use by TGUIs
+/mob/living/simple_animal/bot/proc/handle_hacking(mob/M) // Refactored out of Topic/ to allow re-use by TGUIs
 	if(!canhack(M))
 		return
 	if(!emagged)
@@ -918,15 +918,15 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/update_icon_state()
 	icon_state = "[initial(icon_state)][on]"
 
-/mob/living/simple_animal/bot/proc/topic_denied(mob/user) //Access check proc for bot topics! Remember to place in a bot's individual Topic if desired.
+/mob/living/simple_animal/bot/proc/topic_denied(mob/user) // Access check proc for bot topics! Remember to place in a bot's individual Topic if desired.
 	if(user.can_admin_interact())
 		return FALSE
 	if(user.incapacitated() || !(issilicon(user) || in_range(src, user)))
 		return TRUE
-	if(emagged) //An emagged bot cannot be controlled by humans, silicons can if one hacked it.
-		if(!hacked) //Manually emagged by a human - access denied to all.
+	if(emagged) // An emagged bot cannot be controlled by humans, silicons can if one hacked it.
+		if(!hacked) // Manually emagged by a human - access denied to all.
 			return TRUE
-		else if(!(issilicon(user) || ispulsedemon(user))) //Bot is hacked, so only silicons are allowed access.
+		else if(!(issilicon(user) || ispulsedemon(user))) // Bot is hacked, so only silicons are allowed access.
 			return TRUE
 	if(hijacked && !ispulsedemon(user))
 		return FALSE
@@ -936,10 +936,10 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/hack(mob/user)
 	var/hack
-	if(issilicon(user) || user.can_admin_interact()) //Allows silicons or admins to toggle the emag status of a bot.
+	if(issilicon(user) || user.can_admin_interact()) // Allows silicons or admins to toggle the emag status of a bot.
 		hack += "[emagged ? "Software compromised! Unit may exhibit dangerous or erratic behavior." : "Unit operating normally. Release safety lock?"]<BR>"
 		hack += "Harm Prevention Safety System: <A href='?src=[UID()];operation=hack'>[emagged ? "<span class='bad'>DANGER</span>" : "Engaged"]</A><BR>"
-	else if(!locked) //Humans with access can use this option to hide a bot from the AI's remote control panel and PDA control.
+	else if(!locked) // Humans with access can use this option to hide a bot from the AI's remote control panel and PDA control.
 		hack += "Remote network control radio: <A href='?src=[UID()];operation=remote'>[remote_disabled ? "Disconnected" : "Connected"]</A><BR>"
 	return hack
 
@@ -1079,13 +1079,13 @@ Pass a positive integer as an argument to override a bot's default speed.
 // Common data shared among all the bots, used by BotStatus.js
 /mob/living/simple_animal/bot/ui_data(mob/user)
 	var/list/data = list()
-	data["locked"] = locked // controls, locked or not
-	data["noaccess"] = topic_denied(user) // does the current user have access? admins, silicons etc can still access bots with locked controls
+	data["locked"] = locked // Controls, locked or not
+	data["noaccess"] = topic_denied(user) // Does the current user have access? admins, silicons etc can still access bots with locked controls
 	data["maintpanel"] = open
 	data["on"] = on
 	data["autopatrol"] = auto_patrol
 	data["painame"] = paicard ? paicard.pai.name : null
 	data["canhack"] = canhack(user)
-	data["emagged"] = emagged // this is an int, NOT a boolean
+	data["emagged"] = emagged // This is an int, NOT a boolean
 	data["remote_disabled"] = remote_disabled
 	return data
