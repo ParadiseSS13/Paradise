@@ -14,11 +14,11 @@
 		return pick(hurt_phrases)
 	/// Random trimming for larger sentences
 	if(length(entry) > 50)
-		entry = trim(entry, rand(40, 50))
+		entry = trim_length(trim(entry), rand(40, 50))
 	else
 		/// Otherwise limit trim to just last letter
 		if(length(entry) > 1)
-			entry = trim(entry, length(entry))
+			entry = trim_length(trim(entry), rand(length(entry) / 2, length(entry)))
 	return entry + "-" + pick(hurt_phrases)
 
 /**
@@ -86,7 +86,7 @@
 /datum/tgui_say/proc/handle_entry(type, payload)
 	if(!payload?["channel"] || !payload["entry"])
 		CRASH("[usr] entered in a null payload to the chat window.")
-	if(length(payload["entry"]) > max_length)
+	if(length(payload["entry"]) > MAX_MESSAGE_LEN)
 		CRASH("[usr] has entered more characters than allowed into a TGUI-Say")
 	if(type == "entry")
 		delegate_speech(payload["entry"], payload["channel"])

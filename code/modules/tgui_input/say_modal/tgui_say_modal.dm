@@ -24,9 +24,7 @@
 	/// The user who opened the window
 	var/client/client
 	/// Injury phrases to blurt out
-	var/list/hurt_phrases = list("GACK!", "GLORF!", "OOF!", "AUGH!", "OW!", "URGH!", "HRNK!")
-	/// Max message length
-	var/max_length = MAX_MESSAGE_LEN
+	var/static/list/hurt_phrases = list("AGH!", "OUF!", "OOF!", "AUGH!", "OW!", "URGH!", "ACK!")
 	/// The modal window
 	var/datum/tgui_window/window
 	/// Boolean for whether the tgui_say was opened by the user.
@@ -66,7 +64,7 @@
 	winset(client, "tgui_say", "pos=848,500;size=231,30;is-visible=0;")
 	window.send_message("props", list(
 		lightMode = (client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE),
-		maxLength = max_length,
+		maxLength = MAX_MESSAGE_LEN,
 	))
 	stop_thinking()
 	return TRUE

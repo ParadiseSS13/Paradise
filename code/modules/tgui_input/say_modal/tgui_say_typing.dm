@@ -1,12 +1,3 @@
-/mob/set_stat(new_stat)
-	. = ..()
-	if(.)
-		set_typing_indicator(FALSE)
-
-/mob/Logout()
-	set_typing_indicator(FALSE)
-	return ..()
-
 /** Sets the mob as "thinking" - with indicator */
 /datum/tgui_say/proc/start_thinking()
 	if(!client?.mob || !window_open)
