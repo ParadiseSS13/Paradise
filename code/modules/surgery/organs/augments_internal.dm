@@ -291,7 +291,7 @@
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer
 	name = "\improper Qani-Laaca sensory computer"
 	desc = "An experimental implant replacing the spine of organics. When activated, it can give a temporary boost to mental processing speed, \
-		Which many users percieve as a slowing of time and quickening of their ability to act. Due to its nature, it is incompatible with \
+		Which many users perceive as a slowing of time and quickening of their ability to act. Due to its nature, it is incompatible with \
 		system that heavily influence the user's nervous system, like the central nervous system rebooter. \
 		As a bonus effect, you are immune to the burst of heart damage that comes at the end of twitch usage, as the computer is able to regulate \
 		your heart's rhythm back to normal after its use."
@@ -333,7 +333,7 @@
 	if(istype(target, /obj/item/organ/internal/cyberimp/brain/sensory_enhancer))
 		var/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/ourtarget = target
 		if(!COOLDOWN_FINISHED(ourtarget, sensory_enhancer_cooldown))
-			to_chat(owner, "<span class='warning'> [ourtarget] is still on cooldown for another [round(COOLDOWN_TIMELEFT(ourtarget, sensory_enhancer_cooldown), 1 SECONDS) / 10] seconds! </span>")
+			to_chat(owner, "<span class='warning'>[ourtarget] is still on cooldown for another [round(COOLDOWN_TIMELEFT(ourtarget, sensory_enhancer_cooldown), 1 SECONDS) / 10] seconds!</span>")
 			return
 
 		COOLDOWN_START(ourtarget, sensory_enhancer_cooldown, 5 MINUTES)

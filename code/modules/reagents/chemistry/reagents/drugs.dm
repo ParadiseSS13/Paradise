@@ -818,7 +818,7 @@
 	id = "twitch"
 	description = "A drug originally developed by and for plutonians to assist them during raids. \
 		Does not see wide use due to the whole reality-disassociation and heart disease thing afterwards. \
-		Can be intentionally overdosed to increase the drug's effects"
+		Can be intentionally overdosed to increase the drug's effects."
 	reagent_state = LIQUID
 	color = "#c22a44"
 	taste_description = "television static"

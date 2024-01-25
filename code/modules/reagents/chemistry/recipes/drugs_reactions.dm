@@ -75,7 +75,7 @@
 	required_reagents = list("bath_salts" = 5, "carpotoxin" = 5, "teslium" = 5)
 	result_amount = 10
 	min_temp = T0C + 100
-	mix_message = "The mixture fizzes into a vibrant red solution that doesn't stay still"
+	mix_message = "The mixture fizzes into a vibrant red solution that doesn't stay still."
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
 /datum/chemical_reaction/jenkem
