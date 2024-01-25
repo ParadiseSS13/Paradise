@@ -484,8 +484,7 @@ TRUE to skip target, FALSE for the next check
 */
 /mob/living/simple_animal/bot/proc/scan(atom/scan_type, atom/old_target, scan_range = DEFAULT_SCAN_RANGE, avoid_bot)
 	var/final_result
-	for(var/scan in view(scan_range, src)) // Search for something in range!
-		var/atom/A = scan
+	for(var/atom/A in view(scan_range, src)) //Search for something in range!
 		if(!istype(A, scan_type)) // Check that the thing we found is the type we want!
 			continue // If not, keep searching!
 		if((A.UID() in ignore_list) || (A == old_target)) // Filter for blacklisted elements, usually unreachable or previously processed oness
