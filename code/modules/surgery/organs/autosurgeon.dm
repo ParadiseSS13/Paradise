@@ -93,7 +93,7 @@
 	uses = 1
 	starting_organ = /obj/item/organ/internal/eyes/cybernetic/meson
 
-/obj/item/autosurgeon/organ/syndicate/hackerman_deck
+/obj/item/autosurgeon/organ/syndicate/razorwire
 	desc = "A single use autosurgeon that contains a Razorwire arm implant A screwdriver can be used to remove it, but implants can't be placed back in."
 	uses = 1
 	starting_organ = /obj/item/organ/internal/cyberimp/arm/razorwire

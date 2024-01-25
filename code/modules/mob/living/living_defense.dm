@@ -18,7 +18,7 @@
 		return armor
 	if(armor <= 0)
 		return armor
-	if(!armour_penetration_flat && armour_penetration_percentage <= 0)
+	if(!armour_penetration_flat && !armour_penetration_percentage)
 		to_chat(src, "<span class='userdanger'>[soften_text]</span>")
 		return armor
 
