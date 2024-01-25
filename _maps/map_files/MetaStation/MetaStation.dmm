@@ -26548,9 +26548,8 @@
 /area/station/security/brig)
 "bLA" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	name = "Kitchen"
-	},
+/obj/machinery/door/window/classic/reversed,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -49552,6 +49551,7 @@
 "eNT" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -49559,9 +49559,7 @@
 	name = "Kitchen Counter Shutters"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
-/obj/machinery/door/window/classic/normal{
-	name = "Kitchen"
-	},
+/obj/machinery/door/window/classic/normal,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -61268,9 +61266,8 @@
 /area/station/security/range)
 "jQx" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/normal{
-	name = "Kitchen"
-	},
+/obj/machinery/door/window/classic/normal,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -67360,9 +67357,8 @@
 "mor" = (
 /obj/structure/table/reinforced,
 /obj/item/food/snacks/pie,
-/obj/machinery/door/window/classic/normal{
-	name = "Kitchen"
-	},
+/obj/machinery/door/window/classic/normal,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -72035,9 +72031,8 @@
 /area/station/public/locker)
 "orV" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	name = "Kitchen"
-	},
+/obj/machinery/door/window/classic/reversed,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -80418,9 +80413,8 @@
 /obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3
 	},
-/obj/machinery/door/window/classic/reversed{
-	name = "Kitchen"
-	},
+/obj/machinery/door/window/classic/reversed,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -91745,9 +91739,8 @@
 /area/station/security/execution)
 "xhN" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	name = "Kitchen"
-	},
+/obj/machinery/door/window/classic/reversed,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
