@@ -379,7 +379,7 @@ REAGENT SCANNER
 			msgs += "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
 			msgs += "\t Damage Specifics: <font color='#FFA500'>[burn]</font> - <font color='red'>[brute]</font>"
 			if(M.timeofdeath && M.stat == DEAD)
-				msgs += "<span class='notice'>Time of Disable: [station_time_timestamp("hh:mm:ss", M.timeofdeath)]</span>"
+				msgs += "<span class='notice'>Time of disable: [station_time_timestamp("hh:mm:ss", M.timeofdeath)]</span>"
 			var/mob/living/silicon/robot/H = M
 			var/list/damaged = H.get_damaged_components(TRUE, TRUE, TRUE) // Get all except the missing ones
 			var/list/missing = H.get_missing_components()
