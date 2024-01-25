@@ -507,15 +507,15 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 /mob/living/simple_animal/bot/proc/claim_job(atom/A)
 	ignore_job |= A.UID()
 
-//When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
+// When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
 /mob/living/simple_animal/bot/proc/process_scan(atom/scan_target)
 	return scan_target
 
 
 /mob/living/simple_animal/bot/proc/add_to_ignore(atom/A)
-	if(ignore_list.len < 50) //This will help keep track of them, so the bot is always trying to reach a blocked spot.
+	if(ignore_list.len < 50) // This will help keep track of them, so the bot is always trying to reach a blocked spot.
 		ignore_list |= A.UID()
-	else  //If the list is full, insert newest, delete oldest.
+	else  // If the list is full, insert newest, delete oldest.
 		ignore_list.Cut(1, 2)
 		ignore_list |= A.UID()
 /*
@@ -523,20 +523,20 @@ Movement proc for stepping a bot through a path generated through A-star.
 Pass a positive integer as an argument to override a bot's default speed.
 */
 /mob/living/simple_animal/bot/proc/bot_move(dest, move_speed)
-	if(!dest || !path || !length(path)) //A-star failed or a path/destination was not set.
+	if(!dest || !path || !length(path)) // A-star failed or a path/destination was not set.
 		set_path(null)
 		return FALSE
 
-	dest = get_turf(dest) //We must always compare turfs, so get the turf of the dest var if dest was originally something else.
-	var/turf/last_node = get_turf(path[length(path)]) //This is the turf at the end of the path, it should be equal to dest.
-	if(get_turf(src) == dest) //We have arrived, no need to move again.
+	dest = get_turf(dest) // We must always compare turfs, so get the turf of the dest var if dest was originally something else.
+	var/turf/last_node = get_turf(path[length(path)]) // This is the turf at the end of the path, it should be equal to dest.
+	if(get_turf(src) == dest) // We have arrived, no need to move again.
 		return TRUE
 
-	else if(dest != last_node) //The path should lead us to our given destination. If this is not true, we must stop.
+	else if(dest != last_node) // The path should lead us to our given destination. If this is not true, we must stop.
 		set_path(null)
 		return FALSE
 
-	var/step_count = move_speed ? move_speed : base_speed //If a value is passed into move_speed, use that instead of the default speed var.
+	var/step_count = move_speed ? move_speed : base_speed // If a value is passed into move_speed, use that instead of the default speed var.
 
 	if(step_count >= 1 && tries < BOT_STEP_MAX_RETRIES)
 		for(var/step_number in 1 to step_count)
@@ -547,7 +547,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	return TRUE
 
 
-/mob/living/simple_animal/bot/proc/bot_step() //Step,increase tries if failed
+/mob/living/simple_animal/bot/proc/bot_step() // Step,increase tries if failed
 	if(!length(path))
 		return FALSE
 
@@ -565,19 +565,19 @@ Pass a positive integer as an argument to override a bot's default speed.
 		access_card.access = prev_access
 
 /mob/living/simple_animal/bot/proc/call_bot(caller, turf/waypoint, message=TRUE)
-	bot_reset() //Reset a bot before setting it to call mode.
+	bot_reset() // Reset a bot before setting it to call mode.
 	var/area/end_area = get_area(waypoint)
 
 	var/datum/job/captain/All = new/datum/job/captain
 	access_card.access = All.get_access() // Give the bot temporary all access
 
 	set_path(get_path_to(src, waypoint, 200, id = access_card))
-	calling_ai = caller //Link the AI to the bot!
+	calling_ai = caller // Link the AI to the bot!
 	ai_waypoint = waypoint
 
-	if(path && length(path)) //Ensures that a valid path is calculated!
+	if(path && length(path)) // Ensures that a valid path is calculated!
 		if(!on)
-			turn_on() //Saves the AI the hassle of having to activate a bot manually.
+			turn_on() // Saves the AI the hassle of having to activate a bot manually.
 		if(client)
 			reset_access_timer_id = addtimer(CALLBACK(src, PROC_REF(bot_reset)), 600, TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
 			to_chat(src, "<span class='notice'><span class='big'>Priority waypoint set by [calling_ai] <b>[caller]</b>. Proceed to <b>[end_area.name]</b>.</span><br>[length(path)-1] meters to destination. You have been granted additional door access for 60 seconds.</span>")
@@ -593,8 +593,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 		access_card.access = prev_access // Don't forget to reset it
 		set_path(null)
 
-/mob/living/simple_animal/bot/proc/call_mode() //Handles preparing a bot for a call, as well as calling the move proc.
-//Handles the bot's movement during a call.
+/mob/living/simple_animal/bot/proc/call_mode() // Handles preparing a bot for a call, as well as calling the move proc.
+// Handles the bot's movement during a call.
 	var/success = bot_move(ai_waypoint, 3)
 	if(!success)
 		if(calling_ai)
@@ -603,7 +603,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		bot_reset()
 
 /mob/living/simple_animal/bot/proc/bot_reset()
-	if(calling_ai) //Simple notification to the AI if it called a bot. It will not know the cause or identity of the bot.
+	if(calling_ai) // Simple notification to the AI if it called a bot. It will not know the cause or identity of the bot.
 		to_chat(calling_ai, "<span class='danger'>Call command to a bot has been reset.</span>")
 		calling_ai = null
 	if(reset_access_timer_id)
@@ -635,21 +635,21 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/start_patrol()
 	set_path(null)
-	if(tries >= BOT_STEP_MAX_RETRIES) //Bot is trapped, so stop trying to patrol.
+	if(tries >= BOT_STEP_MAX_RETRIES) // Bot is trapped, so stop trying to patrol.
 		auto_patrol = FALSE
 		tries = 0
 		speak("Unable to start patrol.")
 
 		return
 
-	if(!auto_patrol) //A bot not set to patrol should not be patrolling.
+	if(!auto_patrol) // A bot not set to patrol should not be patrolling.
 		mode = BOT_IDLE
 		return
 
 
 	if(patrol_target) // has patrol target
 		INVOKE_ASYNC(src, PROC_REF(target_patrol))
-	else // no patrol target, so need a new one
+	else // No patrol target, so need a new one
 		speak("Engaging patrol mode.")
 		find_patrol_target()
 		tries++
@@ -661,30 +661,30 @@ Pass a positive integer as an argument to override a bot's default speed.
 		return
 	mode = BOT_PATROL
 
-// perform a single patrol step
+// Perform a single patrol step
 
 /mob/living/simple_animal/bot/proc/patrol_step()
 
 	if(client) // In use by player, don't actually move.
 		return
 
-	if(loc == patrol_target) // reached target
-		//Find the next beacon matching the target.
+	if(loc == patrol_target) // Reached target
+		// Find the next beacon matching the target.
 		if(!get_next_patrol_target())
-			find_patrol_target() //If it fails, look for the nearest one instead.
+			find_patrol_target() // If it fails, look for the nearest one instead.
 		return
 
-	else if(length(path) && patrol_target) // valid path
+	else if(length(path) && patrol_target) // Valid path
 		if(path[1] == loc)
 			increment_path()
 			return
 
 
-		var/moved = bot_move(patrol_target)//step_towards(src, next) // attempt to move
-		if(!moved) //Couldn't proceed the next step of the path BOT_STEP_MAX_RETRIES times
+		var/moved = bot_move(patrol_target) // Step_towards(src, next) // attempt to move
+		if(!moved) // Couldn't proceed the next step of the path BOT_STEP_MAX_RETRIES times
 			addtimer(CALLBACK(src, PROC_REF(patrol_step_not_moved)), 2)
 
-	else // no path, so calculate new one
+	else // No path, so calculate new one
 		mode = BOT_START_PATROL
 
 /mob/living/simple_animal/bot/proc/patrol_step_not_moved()
@@ -693,7 +693,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		find_patrol_target()
 	tries = 0
 
-// finds the nearest beacon to self
+// Finds the nearest beacon to self
 /mob/living/simple_animal/bot/proc/find_patrol_target()
 	nearest_beacon = null
 	new_destination = null
@@ -707,12 +707,12 @@ Pass a positive integer as an argument to override a bot's default speed.
 		speak("Disengaging patrol mode.")
 
 /mob/living/simple_animal/bot/proc/get_next_patrol_target()
-	// search the beacon list for the next target in the list.
+	// Search the beacon list for the next target in the list.
 	for(var/obj/machinery/navbeacon/NB in GLOB.navbeacons["[z]"])
-		if(NB.location == next_destination) //Does the Beacon location text match the destination?
-			destination = new_destination //We now know the name of where we want to go.
-			patrol_target = NB.loc //Get its location and set it as the target.
-			next_destination = NB.codes["next_patrol"] //Also get the name of the next beacon in line.
+		if(NB.location == next_destination) // Does the Beacon location text match the destination?
+			destination = new_destination // We now know the name of where we want to go.
+			patrol_target = NB.loc // Get its location and set it as the target.
+			next_destination = NB.codes["next_patrol"] // Also get the name of the next beacon in line.
 			return 1
 
 /mob/living/simple_animal/bot/proc/find_nearest_beacon()
