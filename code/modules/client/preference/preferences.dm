@@ -168,7 +168,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GEAR]' 	[current_tab == TAB_GEAR 	? "class='linkOn'" : ""]>Loadout</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_KEYS]' 	[current_tab == TAB_KEYS 	? "class='linkOn'" : ""]>Key Bindings</a>"
 	dat += "</center>"
-	dat += "<HR>"
+	dat += "<hr>"
 
 	switch(current_tab)
 		if(TAB_CHAR) // Character Settings
