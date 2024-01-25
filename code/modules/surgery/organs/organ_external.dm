@@ -362,7 +362,7 @@
 				// 5.9 burn damage, 64.9 damage with 11 limbs.
 				receive_damage(0, 5.9)
 			if(2)
-				// 3.63ds burn damage, 39.93 damage with 11 limbs.
+				// 3.63 burn damage, 39.93 damage with 11 limbs.
 				receive_damage(0, 3.63)
 	else // Basic prosthetic limbs
 		switch(severity)
