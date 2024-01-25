@@ -64,6 +64,7 @@ export class TguiSay extends Component<{}, State> {
     this.reset = this.reset.bind(this);
     this.setSize = this.setSize.bind(this);
     this.setValue = this.setValue.bind(this);
+    this.handleButtonClick = this.handleButtonClick.bind(this);
   }
 
   componentDidMount() {
@@ -118,6 +119,13 @@ export class TguiSay extends Component<{}, State> {
       typed?.length === 0
     ) {
       this.currentPrefix = null;
+      this.setState({ buttonContent: this.channelIterator.current() });
+    } else if (
+      this.innerRef.current?.selectionStart === 0 &&
+      this.innerRef.current?.selectionEnd === 0
+    ) {
+      this.currentPrefix = null;
+      this.channelIterator.set('Say');
       this.setState({ buttonContent: this.channelIterator.current() });
     }
 
@@ -188,6 +196,16 @@ export class TguiSay extends Component<{}, State> {
     this.setState({ buttonContent: this.channelIterator.current() });
   }
 
+  // Throw focus back on the text area while executing button function as expecrted
+  handleButtonClick(selectionStart, selectionEnd) {
+    this.handleIncrementChannel();
+    const textArea = this.innerRef?.current;
+    if (textArea) {
+      textArea.focus();
+      textArea.setSelectionRange(selectionStart, selectionEnd);
+    }
+  }
+
   handleInput() {
     const typed = this.innerRef.current?.value;
 
@@ -200,6 +218,15 @@ export class TguiSay extends Component<{}, State> {
     }
 
     this.setSize(typed?.length);
+
+    // Early check for standard radio channel key
+    if (typed && typed.slice(0, 2) === '; ') {
+      this.channelIterator.set('Radio');
+      this.currentPrefix = null;
+      this.setValue(typed.slice(2));
+      this.setState({ buttonContent: this.channelIterator.current() });
+      return;
+    }
 
     // Is there a value? Is it long enough to be a prefix?
     if (!typed || typed.length < 3) {
@@ -328,7 +355,12 @@ export class TguiSay extends Component<{}, State> {
           <div className="input" $HasKeyedChildren>
             <button
               className={`button button-${theme}`}
-              onClick={this.handleIncrementChannel}
+              onClick={() =>
+                this.handleButtonClick(
+                  this.innerRef.current.selectionStart,
+                  this.innerRef.current.selectionEnd
+                )
+              }
               type="button"
             >
               {this.state.buttonContent}
