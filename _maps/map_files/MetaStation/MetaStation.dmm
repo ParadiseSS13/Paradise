@@ -26551,7 +26551,6 @@
 /obj/machinery/door/window/classic/reversed{
 	name = "Kitchen"
 	},
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -49553,7 +49552,6 @@
 "eNT" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -61273,7 +61271,6 @@
 /obj/machinery/door/window/classic/normal{
 	name = "Kitchen"
 	},
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -67366,7 +67363,6 @@
 /obj/machinery/door/window/classic/normal{
 	name = "Kitchen"
 	},
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -72042,7 +72038,6 @@
 /obj/machinery/door/window/classic/reversed{
 	name = "Kitchen"
 	},
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -80426,7 +80421,6 @@
 /obj/machinery/door/window/classic/reversed{
 	name = "Kitchen"
 	},
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -91754,7 +91748,6 @@
 /obj/machinery/door/window/classic/reversed{
 	name = "Kitchen"
 	},
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
