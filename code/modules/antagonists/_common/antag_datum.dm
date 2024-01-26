@@ -340,7 +340,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/farewell()
 	if(owner && owner.current)
-		to_chat(owner.current,"<span class='userdanger'>You are no longer a [special_role]! </span>")
+		to_chat(owner.current,"<span class='userdanger'>You are no longer a [special_role]!</span>")
 
 /**
  * Creates a new antagonist team.
