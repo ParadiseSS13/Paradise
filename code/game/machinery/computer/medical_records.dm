@@ -170,7 +170,7 @@
 					qdel(DS)
 			if(MED_DATA_GOAL_DATA)
 				data["goals"] = list()
-				for(var/datum/virology_goal/G in GLOB.virology_goals)
+				for(var/datum/virology_goal/G as anything in GLOB.virology_goals)
 					var/list/payload = list(
 						"name" = G.name,
 						"delivered" = G.delivered_amount,

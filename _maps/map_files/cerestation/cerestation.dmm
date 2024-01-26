@@ -11940,11 +11940,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/item/storage/lockbox/vials{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/storage/lockbox/vials,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

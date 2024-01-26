@@ -19,8 +19,8 @@
 	update_icon()
 
 /obj/machinery/computer/pandemic/Destroy()
-	. = ..()
 	GLOB.pandemics -= src
+	return ..()
 
 /obj/machinery/computer/pandemic/set_broken()
 	stat |= BROKEN

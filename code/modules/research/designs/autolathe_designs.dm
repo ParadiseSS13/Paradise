@@ -440,7 +440,7 @@
 	category = list("initial", "Medical")
 
 /datum/design/lockbox_vial
-	name = "Secure vial storage Box"
+	name = "Secure Vial Storage Box"
 	id = "lockbox_vial"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 200, MAT_GLASS = 1000)

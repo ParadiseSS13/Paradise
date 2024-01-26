@@ -85208,11 +85208,6 @@
 	pixel_y = 2
 	},
 /obj/item/storage/box/syringes,
-/obj/item/storage/lockbox/vials{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/storage/lockbox/vials,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},

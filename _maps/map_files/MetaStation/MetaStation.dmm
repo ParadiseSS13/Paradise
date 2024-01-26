@@ -75521,11 +75521,6 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/item/storage/lockbox/vials{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/storage/lockbox/vials,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"

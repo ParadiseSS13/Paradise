@@ -6,8 +6,7 @@
 
 /datum/job_objective/virus_samples/check_for_completion()
 	var/completed_goals = 0
-	var/goals = GLOB.virology_goals + GLOB.archived_virology_goals
-	for(var/datum/virology_goal/goal in goals)
+	for(var/datum/virology_goal/goal in (GLOB.virology_goals + GLOB.archived_virology_goals))
 		if(goal.completed)
 			completed_goals++
 	return completed_goals >= 2
