@@ -49,37 +49,61 @@
 	var/text_hack = ""
 	/// Text shown when resetting a bots hacked status to normal.
 	var/text_dehack = ""
-	var/text_dehack_fail = "" 				// Shown when a silicon tries to reset a bot emagged with the emag item, which cannot be reset.
-	var/declare_message = "" 				// What the bot will display to the HUD user.
-	var/frustration = 0 					// Used by some bots for tracking failures to reach their target.
-	var/base_speed = 2 						// The speed at which the bot moves, or the number of times it moves per process() tick.
-	var/turf/ai_waypoint					// The end point of a bot's path, or the target location.
-	var/list/path = list() 					// List of turfs through which a bot 'steps' to reach the waypoint
+	/// Shown when a silicon tries to reset a bot emagged with the emag item, which cannot be reset.
+	var/text_dehack_fail = ""
+	/// What the bot will display to the HUD user.
+	var/declare_message = ""
+	/// Used by some bots for tracking failures to reach their target.
+	var/frustration = 0
+	/// The speed at which the bot moves, or the number of times it moves per process() tick.
+	var/base_speed = 2
+	/// The end point of a bot's path, or the target location.
+	var/turf/ai_waypoint
+	/// List of turfs through which a bot 'steps' to reach the waypoint
+	var/list/path = list()
 	var/pathset = FALSE
-	var/list/ignore_list = list() 			// List of unreachable targets for an ignore-list enabled bot to ignore.
-	var/static/list/ignore_job = list() 	// List of jobs claimed by bot
+	/// List of unreachable targets for an ignore-list enabled bot to ignore.
+	var/list/ignore_list = list()
+	/// List of jobs claimed by bot
+	var/static/list/ignore_job = list()
 	var/mode = BOT_IDLE 					// Standardizes the vars that indicate the bot is busy with its function.
 	/// Number of times the bot tried and failed to move.
 	var/tries = 0
-	var/remote_disabled = FALSE 			// If enabled, the AI cannot *Remotely* control a bot. It can still control it through cameras.
-	var/mob/living/silicon/ai/calling_ai 	// Links a bot to the AI calling it.
-	var/obj/item/radio/Radio 				// The bot's radio, for speaking to people.
-	var/list/radio_config = null 			// Which channels can the bot listen to
-	var/radio_channel = "Common" 			// The bot's default radio channel
-	var/auto_patrol = FALSE 				// Set to make bot automatically patrol
-	var/turf/patrol_target					// This is turf to navigate to (location of beacon)
-	var/turf/summon_target					// The turf of a user summoning a bot.
-	var/new_destination						// Pending new destination (waiting for beacon response)
-	var/destination							// Destination description tag
-	var/next_destination					// The next destination in the patrol route
-	var/ignorelistcleanuptimer = 1 			// This ticks up every automated action, at 300 we clean the ignore list
+	/// If enabled, the AI cannot *Remotely* control a bot. It can still control it through cameras.
+	var/remote_disabled = FALSE
+	/// Links a bot to the AI calling it.
+	var/mob/living/silicon/ai/calling_ai
+	/// The bot's radio, for speaking to people.
+	var/obj/item/radio/Radio
+	/// Which channels can the bot listen to
+	var/list/radio_config = null
+	/// The bot's default radio channel
+	var/radio_channel = "Common"
+	/// Set to make bot automatically patrol
+	var/auto_patrol = FALSE
+	/// This is turf to navigate to (location of beacon)
+	var/turf/patrol_target
+	/// The turf of a user summoning a bot.
+	var/turf/summon_target
+	/// Pending new destination (waiting for beacon response)
+	var/new_destination
+	/// Destination description tag
+	var/destination
+	/// The next destination in the patrol route
+	var/next_destination
+	/// This ticks up every automated action, at 300 we clean the ignore list
+	var/ignorelistcleanuptimer = 1
 	var/robot_arm = /obj/item/robot_parts/r_arm
 
-	var/blockcount = 0						// Number of times retried a blocked path
-	var/awaiting_beacon	= 0					// Count of pticks awaiting a beacon response
+	/// Number of times retried a blocked path
+	var/blockcount = 0
+	/// Count of pticks awaiting a beacon response
+	var/awaiting_beacon	= 0
 
-	var/nearest_beacon						// The nearest beacon's tag
-	var/turf/nearest_beacon_loc				// The nearest beacon's location
+	/// The nearest beacon's tag
+	var/nearest_beacon
+	/// The nearest beacon's location
+	var/turf/nearest_beacon_loc
 
 	var/model = "" //The type of bot it is.
 	var/bot_purpose = "improve the station to the best of your ability"
