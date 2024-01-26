@@ -682,9 +682,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		stat(null, "GPS: [COORD(T)]")
 
 /mob/living/silicon/robot/proc/show_stack_energy()
-	for(var/storage in module.storages) // Storages should only contain `/datum/robot_energy_storage`
-		var/datum/robot_energy_storage/R = storage
-		stat(null, "[R.statpanel_name]: [R.energy] / [R.max_energy]")
+	for(var/storage in module.storages) // Storages should only contain `/datum/robot_storage`
+		var/datum/robot_storage/S = storage
+		stat(null, "[S.statpanel_name]: [S.amount] / [S.max_amount]")
 
 // update the status screen display
 /mob/living/silicon/robot/Stat()

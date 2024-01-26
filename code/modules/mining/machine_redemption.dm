@@ -207,6 +207,12 @@
 		user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>",
 							"<span class='notice'>You insert [I] into [src].</span>")
 		return
+
+	else if(istype(I, /obj/item/gripper_engineering))
+		if(!try_refill_storage(user))
+			to_chat(user, "You fail to retrieve any sheets from [src].")
+		return
+
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/crowbar_act(mob/user, obj/item/I)
@@ -499,6 +505,36 @@
 	user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>", \
 							"<span class='notice'>You insert [I] into [src].</span>")
 	return TRUE
+
+/obj/machinery/mineral/ore_redemption/proc/try_refill_storage(mob/living/silicon/robot/robot)
+	. = FALSE
+	if(!istype(robot))
+		return
+	if(!istype(robot.module, /obj/item/robot_module/engineering)) // Should only happen for drones
+		return
+
+	for(var/datum/robot_storage/material/mat_store in robot.module.material_storages)
+		if(mat_store.amount == mat_store.max_amount) // Already full, no need to run a check
+			to_chat(robot, "[mat_store] could not be filled due to it already being full.")
+			continue
+		var/datum/component/material_container/container_component = GetComponent(/datum/component/material_container)
+		for(var/mat_id as anything in container_component.materials)
+			var/datum/material/stack = container_component.materials[mat_id] // Should have only `/datum/material` in the list
+			var/obj/item/stack/sheet/sheet = stack.sheet_type
+			if(ispath(mat_store.stack, sheet))
+				var/amount_to_add
+				if(stack.amount >= (mat_store.max_amount - mat_store.amount))
+					amount_to_add = mat_store.max_amount - mat_store.amount
+					mat_store.amount = mat_store.max_amount
+					stack.amount -= amount_to_add
+					to_chat(robot, "You refill [mat_store] to full.")
+				else
+					amount_to_add = round(stack.amount) // In case we have half a sheet stored
+					mat_store.amount += amount_to_add
+					to_chat(robot, "You refill [round(stack.amount)] sheets to [mat_store].")
+					stack.amount -= amount_to_add
+				. = TRUE
+				continue // We found our match for this material storage, so we go to the next one
 
 /**
   * Called when an item is inserted manually as material.

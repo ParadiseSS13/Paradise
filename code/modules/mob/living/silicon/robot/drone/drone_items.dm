@@ -40,6 +40,11 @@
 	//Item currently being held.
 	var/obj/item/gripped_item = null
 
+/obj/item/gripper_engineering/afterattack(atom/target, mob/living/user, proximity, params)
+	if(!proximity || !target)
+		return
+
+
 /obj/item/gripper_medical
 	name = "medical gripper"
 	desc = "A grasping tool used to help patients up once surgery is complete, or to substitute for hands in surgical operations."

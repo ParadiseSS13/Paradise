@@ -48,14 +48,13 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	amount = 50
 
 /obj/item/stack/sheet/glass/cyborg
-	energy_type = /datum/robot_energy_storage/glass
+	energy_type = /datum/robot_storage/material/glass
 	is_cyborg = TRUE
 	materials = list()
 
 /obj/item/stack/sheet/glass/cyborg/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>As a synthetic, you can regain sheets of glass by recharging in a <b>cyborg recharger</b>.</span>"
-
+	. += "<span class='notice'>You can refill your glass by using your <b>magnetic gripper</b> on the Ore Redemption machine, or by picking it up from the ground.</span>"
 
 /obj/item/stack/sheet/glass/New(loc, amount)
 	recipes = GLOB.glass_recipes
@@ -133,7 +132,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 ))
 
 /obj/item/stack/sheet/rglass/cyborg
-	energy_type = /datum/robot_energy_storage/rglass
+	energy_type = /datum/robot_storage/material/rglass
 	is_cyborg = TRUE
 	materials = list()
 
