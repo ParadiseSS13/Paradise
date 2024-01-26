@@ -506,7 +506,7 @@ TRUE to skip target, FALSE for the next check
 	claim_job(A)
 
 /mob/living/simple_animal/bot/proc/claim_job(atom/A)
-		ignore_job |= A.UID()
+	ignore_job |= A.UID()
 
 // When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
 /mob/living/simple_animal/bot/proc/process_scan(atom/scan_target)
