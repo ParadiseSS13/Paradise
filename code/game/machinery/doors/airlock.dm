@@ -1695,21 +1695,21 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!istype(tool, /obj/item/wrench/bolter))
 		return
 	if(!locked)
-		return
+		return TRUE
 	if(!panel_open)
 		to_chat(user, "<span class='notice'>You do not have access to [src]'s bolts, open the panel first!</span>")
-		return
+		return TRUE
 	if(security_level != AIRLOCK_SECURITY_NONE)
 		to_chat(user, "<span class='notice'>You do not have access to [src]'s bolts, remove the reinforcements first!</span>")
-		return
+		return TRUE
 
-	if(istype(tool, /obj/item/wrench/bolter))
-		user.visible_message("<span class='alert'>[user] has stuck a wrench into [src] and is struggling to raise the bolts!</span>", "<span class='alert'>You struggle to raise the bolts of [src].</span>")
-		if(!do_after(user, 5 SECONDS, target = src))
-			return
-		locked = FALSE
-		playsound(src, boltUp, 30, FALSE, 3)
-		update_icon()
+	user.visible_message("<span class='alert'>[user] has stuck a wrench into [src] and is struggling to raise the bolts!</span>", "<span class='alert'>You struggle to raise the bolts of [src].</span>")
+	if(!do_after(user, 5 SECONDS, target = src))
+		return TRUE
+	locked = FALSE
+	playsound(src, boltUp, 30, FALSE, 3)
+	update_icon()
+	return TRUE // Prevents you hitting the door if you're on harm intent, and you do the unbolt do_after.
 
 #undef AIRLOCK_CLOSED
 #undef AIRLOCK_CLOSING
