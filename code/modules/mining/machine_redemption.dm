@@ -328,12 +328,14 @@
 					return FALSE
 				var/stored = get_num_smeltable_alloy(D)
 				var/desired = min(amount, stored, MAX_STACK_SIZE)
+				if(!desired)
+					return FALSE
 				materials.use_amount(D.materials, desired)
 				// Spawn the alloy
 				var/result = new D.build_path(src)
 				if(istype(result, /obj/item/stack/sheet))
 					var/obj/item/stack/sheet/mineral/A = result
-					A.amount = amount
+					A.amount = desired
 					unload_mineral(A)
 				else
 					unload_mineral(result)
