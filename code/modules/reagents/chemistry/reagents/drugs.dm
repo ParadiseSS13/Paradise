@@ -839,6 +839,7 @@
 	L.sound_environment_override = SOUND_ENVIRONMENT_DIZZY
 
 	RegisterSignal(L, COMSIG_MOVABLE_MOVED, PROC_REF(on_movement))
+	RegisterSignal(L, COMSIG_HUMAN_CREATE_MOB_HUD, PROC_REF(no_hud_cheese))
 
 	if(!L.hud_used)
 		return
@@ -854,6 +855,10 @@
 	for(var/filter in game_plane_master_controller.get_filters(TWITCH_SCREEN_BLUR))
 		animate(filter, loop = -1, size = 0.2, time = 2 SECONDS, easing = ELASTIC_EASING|EASE_OUT, flags = ANIMATION_PARALLEL)
 		animate(size = 0.1, time = 6 SECONDS, easing = CIRCULAR_EASING|EASE_IN)
+	if(!ischangeling(L) || HAS_TRAIT(L, TRAIT_TWITCH_ADAPTED))
+		return
+	var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
+	cling.chem_recharge_slowdown += 1
 
 
 /datum/reagent/twitch/on_mob_delete(mob/living/carbon/L)
@@ -927,6 +932,35 @@
 	addtimer(CALLBACK(source, TYPE_PROC_REF(/atom, remove_filter), TWITCH_BLUR_EFFECT), 0.5 SECONDS)
 	return ATOM_PREHIT_FALSE
 
+/datum/reagent/twitch/proc/no_hud_cheese(mob/living/carbon/L)
+	SIGNAL_HANDLER
+	addtimer(CALLBACK(src, PROC_REF(no_hud_cheese_2), L), 2 SECONDS) //Calling it instantly will not work, need to give it a moment
+
+
+/datum/reagent/twitch/proc/no_hud_cheese_2(mob/living/carbon/L) //Basically if you change the UI you would remove the visuals. This fixes that.
+	var/atom/movable/plane_master_controller/game_plane_master_controller = L.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
+	game_plane_master_controller.remove_filter(TWITCH_SCREEN_FILTER)
+	game_plane_master_controller.remove_filter(TWITCH_SCREEN_BLUR)
+
+	var/static/list/col_filter_green = list(0.5,0,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1)
+
+	game_plane_master_controller.add_filter(TWITCH_SCREEN_FILTER, 10, color_matrix_filter(col_filter_green, FILTER_COLOR_RGB))
+
+	game_plane_master_controller.add_filter(TWITCH_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
+
+	for(var/filter in game_plane_master_controller.get_filters(TWITCH_SCREEN_BLUR))
+		animate(filter, loop = -1, size = 0.2, time = 2 SECONDS, easing = ELASTIC_EASING|EASE_OUT, flags = ANIMATION_PARALLEL)
+		animate(size = 0.1, time = 6 SECONDS, easing = CIRCULAR_EASING|EASE_IN)
+	var/overdosed = (id in L.reagents.overdose_list())
+	if(overdosed)
+		addtimer(CALLBACK(src, PROC_REF(no_hud_cheese_3), L), 1 SECONDS) //still needs a moment
+
+/datum/reagent/twitch/proc/no_hud_cheese_3(mob/living/carbon/L)
+	var/atom/movable/plane_master_controller/game_plane_master_controller = L?.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+	var/list/col_filter_ourple = list(1,0,0,0, 0,0.5,0,0, 0,0,1,0, 0,0,0,1)
+
+	for(var/filter in game_plane_master_controller.get_filters(TWITCH_SCREEN_FILTER))
+		animate(filter, loop = -1, color = col_filter_ourple, time = 4 SECONDS, easing = BOUNCE_EASING)
 
 /datum/reagent/twitch/on_mob_life(mob/living/carbon/L)
 	. = ..()
@@ -938,10 +972,6 @@
 		var/datum/organ/heart/datum_heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
 		var/obj/item/organ/internal/our_heart = datum_heart.linked_organ
 		our_heart.receive_damage(0.1, TRUE)
-	if(!ischangeling(L) || HAS_TRAIT(L, TRAIT_TWITCH_ADAPTED))
-		return
-	var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
-	cling.chem_recharge_slowdown += 1
 
 /datum/reagent/twitch/overdose_start(mob/living/L)
 

@@ -776,6 +776,9 @@
 #define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"
 	#define SHIELD_BLOCK (1<<0)
 
+///from /mob/living/carbon/human/create_mob_hud()
+#define COMSIG_HUMAN_CREATE_MOB_HUD "human_create_mob_hud"
+
 // /datum/species signals
 
 ///from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)
