@@ -56,7 +56,7 @@
 		visible_message("<span class='notice'>The locker has been [locked ? null : "un"]locked by [user].</span>")
 		update_icon()
 	else
-		to_chat(user, "<span class='notice'>Access Denied</span>")
+		to_chat(user, "<span class='notice'>Access Denied.</span>")
 
 /obj/structure/closet/secure_closet/closed_item_click(mob/user)
 	togglelock(user)
