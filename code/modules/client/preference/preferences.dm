@@ -469,7 +469,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						else
 							dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[ERROR]</b></font><br>"
 					else
-						dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;role=[i]'><b>[(i in src.be_special) ? "Yes" : "No"]</b></a><br>"
+						var/is_special = (i in src.be_special)
+						dat += "<b>Be [capitalize(i)]:</b><a class=[is_special ? "green" : "red"] href='?_src_=prefs;preference=be_special;role=[i]'><b>[(is_special) ? "Yes" : "No"]</b></a><br>"
 			dat += "</td></tr></table>"
 
 		if(TAB_GEAR)
