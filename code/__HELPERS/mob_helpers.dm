@@ -582,7 +582,6 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
 
 // Suppress the mouse macros
-/client/var/next_mouse_macro_warning
 /mob/proc/LogMouseMacro(verbused, params)
 	if(!client)
 		return
@@ -592,14 +591,17 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 	if(client.next_mouse_macro_warning < world.time) // Warn occasionally
 		SEND_SOUND(usr, sound('sound/misc/sadtrombone.ogg'))
 		client.next_mouse_macro_warning = world.time + 600
+
 /mob/verb/ClickSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".click"
 	LogMouseMacro(".click", params)
+
 /mob/verb/DblClickSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".dblclick"
 	LogMouseMacro(".dblclick", params)
+
 /mob/verb/MouseSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".mouse"

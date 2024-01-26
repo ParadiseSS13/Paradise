@@ -38,6 +38,26 @@
 	/// Icon state for thought bubbles. Normally set by mobs.
 	var/thought_bubble_image = "thought_bubble"
 
+	/*
+	Buckling Vars
+	*/
+	var/can_buckle = FALSE
+	/// Bed-like behaviour, forces the mob to lie down if buckle_lying != -1
+	var/buckle_lying = -1
+	/// Require people to be handcuffed before being able to buckle. eg: pipes
+	var/buckle_requires_restraints = 0
+	/// Lazylist of the mobs buckled to this object.
+	var/list/buckled_mobs = null
+	/// The Pixel_y to offset the buckled mob by
+	var/buckle_offset = 0
+	/// The max amount of mobs that can be buckled to this object. Currently set to 1 on every movable
+	var/max_buckled_mobs = 1
+	/// Can we pull the mob while they're buckled. Currently set to false on every movable
+	var/buckle_prevents_pull = FALSE
+
+	/// Used for icon smoothing. Won't smooth if it ain't anchored and can be unanchored. Only set to true on windows
+	var/can_be_unanchored = FALSE
+
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
 	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))

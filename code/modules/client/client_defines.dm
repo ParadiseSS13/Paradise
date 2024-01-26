@@ -1,7 +1,5 @@
 /client
-		//////////////////////
-		//BLACK MAGIC THINGS//
-		//////////////////////
+	/// Client is casted to /datum so that we're able to use datum variables, search for clients through datums, and not need to duplicate code for GCing
 	parent_type = /datum
 		////////////////
 		//ADMIN THINGS//
@@ -39,7 +37,7 @@
 		//SECURITY//
 		////////////
 
-	///Used for limiting the rate of topic sends by the client to avoid abuse
+	/// Used for limiting the rate of topic sends by the client to avoid abuse
 	var/list/topiclimiter
 
 	// comment out the line below when debugging locally to enable the options & messages menu
@@ -124,8 +122,64 @@
 	/// The client's movement keybindings to directions, which work regardless of modifiers.
 	var/list/movement_kb_dirs = list()
 
-	///A lazy list of atoms we've examined in the last RECENT_EXAMINE_MAX_WINDOW (default 2) seconds, so that we will call [/atom/proc/examine_more] instead of [/atom/proc/examine] on them when examining
+	/// A lazy list of atoms we've examined in the last RECENT_EXAMINE_MAX_WINDOW (default 2) seconds, so that we will call [/atom/proc/examine_more] instead of [/atom/proc/examine] on them when examining
 	var/list/recent_examines
+
+	/// Used to throw an admin warning if someone used a mouse macro. Also stores the world time so we can send funny noises to them
+	var/next_mouse_macro_warning
+
+	/*
+	DEPRECIATED VIEWMODS
+	*/
+	/// Was used to handle view modifications. Now only used for a mecha module. Please just edit the string in the future
+	var/list/ViewMods = list()
+	/// Stores the viewmod we set using this system. Only used for a mecha module
+	var/ViewModsActive = FALSE
+	/// Stores the icon size we use for skins. As the server has control freak enabled, this is always static
+	var/ViewPreferedIconSize = 0
+
+	/// Basically a local variable on a client datum. Used when setting macros and nowhere else
+	var/list/macro_sets
+
+	/// List of all asset filenames sent to this client by the asset cache, along with their assoicated md5s
+	var/list/sent_assets = list()
+	/// List of all completed blocking send jobs awaiting acknowledgement by send_asset
+	var/list/completed_asset_jobs = list()
+
+	/*
+	ASSET SENDING
+	*/
+	/// The ID of the last asset job
+	var/last_asset_job = 0
+	/// The ID of the last asset job that was properly finished
+	var/last_completed_asset_job = 0
+
+	/*
+	PARALAX RELATED VARIABLES
+	*/
+	/// List of parallax layers a client is viewing. Accessed when paralax is updated
+	var/list/parallax_layers
+	/// A cached list of available parallax layers. This may potentially be changeable to a static variable. Updated upon changing parallax prefs
+	var/list/parallax_layers_cached
+	/// Added to parallax layers when parallax settings are changed
+	var/static/list/parallax_static_layers_tail = newlist(/obj/screen/parallax_pmaster, /obj/screen/parallax_space_whitifier)
+	/// Used with parallax to update the parallax offsets when the subsystem fires. Compared to the clients Eye variable
+	var/atom/movable/movingmob
+	/// Used with parallax to grab the offset needed. Uses the X and Y coords of the turf stored here
+	var/turf/previous_turf
+	/// Stored world.tim of the last parallax update. Used to make sure parallax isn't updated too often
+	var/last_parallax_shift
+	/// Deciseconds of added delay to parallax by client preferences
+	var/parallax_throttle = 0
+	/// The direction parallax will be moved it. References parallax_move_direction on areas
+	var/parallax_movedir = 0
+	/// The amount of parallax layers that will exist on your screen. Affected by the parallax preference
+	var/parallax_layers_max = 4
+	/// Handles how parallax loops in situations like shuttles leaving. Stores the timer that handles that
+	var/parallax_animate_timer
+	/// Used with the camera console to clear out the screen objects it adds to the client when the console is deleted
+	var/list/screen_maps = list()
+
 
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)

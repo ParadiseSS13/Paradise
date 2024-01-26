@@ -50,6 +50,7 @@
 	// separate APCs, and so on)
 	var/there_can_be_many = FALSE
 
+	/// Static var that is incremented when the UID of a area is being assigned.
 	var/global/global_uid = 0
 	var/uid
 
@@ -60,29 +61,46 @@
 	var/list/firealarms
 	var/firedoors_last_closed_on = 0
 
-	var/fast_despawn = FALSE
-	var/can_get_auto_cryod = TRUE
-	var/hide_attacklogs = FALSE // For areas such as thunderdome, lavaland syndiebase, etc which generate a lot of spammy attacklogs. Reduces log priority.
+	/// The air alarm to use for atmos_alert consoles
+	var/obj/machinery/alarm/master_air_alarm
+	/// The list of vents in our area.
+	var/list/obj/machinery/atmospherics/unary/vent_pump/vents = list()
+	/// The list of scrubbers in our area.
+	var/list/obj/machinery/atmospherics/unary/vent_scrubber/scrubbers = list()
 
-	var/parallax_movedir = 0
+	/// Do we quickly despawn the person in this area? Pretty much just used in permabrig
+	var/fast_despawn = FALSE
+	/// Do we despawn the person in this area? Pretty much just used in security areas that aren't permabrig
+	var/can_get_auto_cryod = TRUE
+	/// For areas such as thunderdome which generate a lot of spammy attacklogs. Reduces log priority.
+	var/hide_attacklogs = FALSE
+	/// Handles the direction parallax will be moved in. References
+	var/parallax_move_direction = 0
+	/// Is a shuttle moving to our area?
 	var/moving = FALSE
 	/// "Haunted" areas such as the morgue and chapel are easier to boo. Because flavor.
 	var/is_haunted = FALSE
 	///Used to decide what kind of reverb the area makes sound have
 	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
-	///Used to decide what the minimum time between ambience is
+	/// Used to decide what the minimum time between ambience is
 	var/min_ambience_cooldown = 30 SECONDS
-	///Used to decide what the maximum time between ambience is
+	/// Used to decide what the maximum time between ambience is
 	var/max_ambience_cooldown = 90 SECONDS
 
-	var/area/area_limited_icon_smoothing
+	/// Turrets use this list to see if individual power/lethal settings are allowed. Contains the /obj/machinery/turretid for this area
+	var/list/turret_controls = list()
+
+	/*
+	Lighting Vars
+	*/
+	luminosity = TRUE
+	var/dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
 		GLOB.all_unique_areas[type] = src
 	..()
-
 
 /area/Initialize(mapload)
 	if(is_station_level(z))

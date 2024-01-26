@@ -1,11 +1,3 @@
-
-
-/turf
-	var/pressure_difference = 0
-	var/pressure_direction = 0
-	var/list/atmos_adjacent_turfs = list()
-	var/atmos_supeconductivity = 0
-
 /turf/assume_air(datum/gas_mixture/giver) //use this for machines to adjust air
 	qdel(giver)
 	return 0
@@ -41,23 +33,6 @@
 	GM.temperature = temperature
 
 	return GM
-
-
-/turf/simulated
-	var/datum/excited_group/excited_group
-	var/excited = 0
-	var/recently_active = 0
-	var/datum/gas_mixture/air
-	var/archived_cycle = 0
-	var/current_cycle = 0
-	var/icy = 0
-	var/icyoverlay
-	var/obj/effect/hotspot/active_hotspot
-	var/planetary_atmos = FALSE //air will revert to its initial mix over time
-
-	var/temperature_archived //USED ONLY FOR SOLIDS
-
-	var/atmos_overlay_type = null //current active overlay
 
 /turf/simulated/Initialize(mapload)
 	. = ..()
@@ -137,11 +112,6 @@
 
 		temperature -= heat/heat_capacity
 		sharer.temperature += heat/sharer.heat_capacity
-
-
-
-
-
 
 /turf/proc/process_cell(fire_count)
 	SSair.remove_from_active(src)
@@ -332,9 +302,6 @@
 			continue
 		if(M.last_high_pressure_movement_air_cycle < SSair.times_fired)
 			M.experience_pressure_difference(pressure_difference, pressure_direction)
-
-
-
 
 /atom/movable/var/pressure_resistance = 10
 /atom/movable/var/last_high_pressure_movement_air_cycle = 0

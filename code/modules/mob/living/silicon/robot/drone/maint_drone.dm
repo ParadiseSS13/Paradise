@@ -45,8 +45,11 @@
 	)
 
 	holder_type = /obj/item/holder/drone
-//	var/sprite[0]
-
+	silicon_subsystems = list(
+		/mob/living/silicon/robot/proc/set_mail_tag,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager,
+		/mob/living/silicon/proc/subsystem_power_monitor)
 
 /mob/living/silicon/robot/drone/New()
 	..()
