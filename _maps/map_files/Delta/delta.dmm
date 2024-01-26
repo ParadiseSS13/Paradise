@@ -1934,8 +1934,8 @@
 /area/station/hallway/secondary/entry)
 "aoa" = (
 /obj/structure/table/reinforced,
-/obj/item/food/condiment/saltshaker,
-/obj/item/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/saltshaker,
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -4;
 	pixel_y = 2
 	},
@@ -12681,11 +12681,11 @@
 /area/station/service/bar)
 "aQc" = (
 /obj/structure/table/wood,
-/obj/item/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -7;
 	pixel_y = 7
 	},
-/obj/item/food/condiment/peppermill,
+/obj/item/reagent_containers/condiment/peppermill,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -19560,7 +19560,7 @@
 /area/station/service/kitchen)
 "bhN" = (
 /obj/structure/table/reinforced,
-/obj/item/food/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -21035,7 +21035,7 @@
 "blk" = (
 /obj/structure/table/reinforced,
 /obj/item/food/snacks/mint,
-/obj/item/food/condiment/enzyme,
+/obj/item/reagent_containers/condiment/enzyme,
 /obj/machinery/reagentgrinder,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -21866,8 +21866,8 @@
 /area/station/hallway/primary/fore)
 "bne" = (
 /obj/structure/table/reinforced,
-/obj/item/food/condiment/saltshaker,
-/obj/item/food/condiment/peppermill,
+/obj/item/reagent_containers/condiment/saltshaker,
+/obj/item/reagent_containers/condiment/peppermill,
 /obj/item/kitchen/knife,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
@@ -74604,7 +74604,7 @@
 /area/station/service/bar)
 "iUZ" = (
 /obj/structure/table/reinforced,
-/obj/item/food/condiment/peppermill,
+/obj/item/reagent_containers/condiment/peppermill,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window,
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
@@ -81551,7 +81551,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/item/reagent_containers/drinks/britcup,
-/obj/item/food/condiment/saltshaker,
+/obj/item/reagent_containers/condiment/saltshaker,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
