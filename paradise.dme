@@ -30,7 +30,6 @@
 #include "code\__DEFINES\access_defines.dm"
 #include "code\__DEFINES\admin_defines.dm"
 #include "code\__DEFINES\announce_defines.dm"
-#include "code\__DEFINES\antagonists.dm"
 #include "code\__DEFINES\armour.dm"
 #include "code\__DEFINES\asset_defines.dm"
 #include "code\__DEFINES\atmospherics_defines.dm"
