@@ -26519,7 +26519,7 @@
 	dir = 9
 	},
 /obj/structure/displaycase{
-	start_showpiece_type = /obj/item/reagent_containers/food/snacks/donut/sprinkles
+	start_showpiece_type = /obj/item/food/snacks/donut/sprinkles
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
