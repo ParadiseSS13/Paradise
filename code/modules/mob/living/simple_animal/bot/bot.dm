@@ -38,14 +38,17 @@
 	var/obj/item/card/id/access_card 		// The ID card that the bot "holds"
 	var/list/prev_access = list()
 	var/on = TRUE
-	var/open = FALSE 						// Maint panel
+	/// Maint panel
+	var/open = FALSE
 	var/locked = TRUE
 	/// Used to differentiate between being hacked by silicons and emagged by humans.
 	var/hacked = FALSE
 	/// Is currently hijacked by a pulse demon?
 	var/hijacked = FALSE
-	var/text_hack = ""						// Custom text returned to a silicon upon hacking a bot.
-	var/text_dehack = "" 					// Text shown when resetting a bots hacked status to normal.
+	/// Custom text returned to a silicon upon hacking a bot.
+	var/text_hack = ""
+	/// Text shown when resetting a bots hacked status to normal.
+	var/text_dehack = ""
 	var/text_dehack_fail = "" 				// Shown when a silicon tries to reset a bot emagged with the emag item, which cannot be reset.
 	var/declare_message = "" 				// What the bot will display to the HUD user.
 	var/frustration = 0 					// Used by some bots for tracking failures to reach their target.
