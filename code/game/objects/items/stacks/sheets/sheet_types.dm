@@ -142,7 +142,12 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 /obj/item/stack/sheet/metal/cyborg/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can refill your metal by using your <b>magnetic gripper</b> on the Ore Redemption machine, or by picking it up from the ground.</span>"
+	var/mob/living/silicon/robot/robot = user
+	if(!istype(robot.module, /obj/item/robot_module/drone))
+		. += "<span class='notice'>You can refill your metal by using your <b>magnetic gripper</b> on the Ore Redemption machine, or by picking it up from the ground.</span>"
+
+/obj/item/stack/sheet/metal/cyborg/drone
+	energy_type = /datum/robot_storage/material/metal
 
 /obj/item/stack/sheet/metal/fifty
 	amount = 50

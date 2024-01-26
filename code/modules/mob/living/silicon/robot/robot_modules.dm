@@ -786,13 +786,13 @@
 		/obj/item/t_scanner,
 		/obj/item/rpd,
 		/obj/item/analyzer,
-		/obj/item/stack/sheet/metal/cyborg,
+		/obj/item/stack/sheet/metal/cyborg/drone,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/tile/catwalk/cyborg,
 		/obj/item/stack/cable_coil/cyborg,
-		/obj/item/stack/sheet/glass/cyborg,
-		/obj/item/stack/sheet/rglass/cyborg,
+		/obj/item/stack/sheet/glass/cyborg/drone,
+		/obj/item/stack/sheet/rglass/cyborg/drone,
 		/obj/item/stack/sheet/wood/cyborg,
 		/obj/item/stack/tile/wood/cyborg
 	)
@@ -953,16 +953,20 @@
 	name = "Generic material storage"
 	/// What stacktype do we originally have
 	var/stack
+	/// Does this get added to the autorefill from the ORM
+	var/add_to_storage = FALSE
 
 /datum/robot_storage/material/New(obj/item/robot_module/R)
-	. = ..()
 	if(R)
 		R.material_storages += src
+	if(add_to_storage)
+		..()
 
 /datum/robot_storage/material/glass
 	name = "Glass Storage"
 	statpanel_name = "Glass"
-	stack = /obj/item/stack/sheet/metal
+	stack = /obj/item/stack/sheet/glass
+	add_to_storage = TRUE
 
 /datum/robot_storage/material/rglass
 	name = "Reinforced glass Storage"
@@ -973,3 +977,4 @@
 	name = "Metal Storage"
 	statpanel_name = "Metal"
 	stack = /obj/item/stack/sheet/metal
+	add_to_storage = TRUE
