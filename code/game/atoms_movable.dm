@@ -38,6 +38,13 @@
 	/// Icon state for thought bubbles. Normally set by mobs.
 	var/thought_bubble_image = "thought_bubble"
 
+	// Atmos
+	var/pressure_resistance = 10
+	var/last_high_pressure_movement_air_cycle = 0
+
+	/// UID for the atom which the current atom is orbiting
+	var/orbiting_uid = null
+
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
 	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))

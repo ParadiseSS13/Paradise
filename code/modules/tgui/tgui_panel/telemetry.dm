@@ -15,11 +15,11 @@
 #define TGUI_TELEMETRY_RESPONSE_WINDOW 30 SECONDS
 
 /// Time of telemetry request
-/datum/tgui_panel/var/telemetry_requested_at
+/* check_grep:ignore */ /datum/tgui_panel/var/telemetry_requested_at
 /// Time of telemetry analysis completion
-/datum/tgui_panel/var/telemetry_analyzed_at
+/* check_grep:ignore */ /datum/tgui_panel/var/telemetry_analyzed_at
 /// List of previous client connections
-/datum/tgui_panel/var/list/telemetry_connections
+/* check_grep:ignore */ /datum/tgui_panel/var/list/telemetry_connections
 
 /**
  * private
