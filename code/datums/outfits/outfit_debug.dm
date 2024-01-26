@@ -36,6 +36,10 @@
 	. = ..()
 	if(visualsOnly)
 		return
+	H.dna.SetSEState(GLOB.breathlessblock,1)
+	singlemutcheck(H, GLOB.breathlessblock, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(GLOB.soberblock)
+	H.check_mutations = 1
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Debugger", "admin")
