@@ -476,7 +476,7 @@ scan() will search for a given type (such as turfs, human mobs, or objects) in t
 Arguments: The object type to be searched (such as "/mob/living/carbon/human"), the old scan result to be ignored, if one exists,
 and the view range, which defaults to 7 (full screen) if an override is not passed.
 If the bot maintains an ignore list, it is also checked here.
-If the bot has avoid_bot, includes its own path, it will avoid other bots of same type and won't target the same job
+If avoid_bot = TRUE, it will claim it's target. List of bots that use it: Cleanbot and Floorbot
 Example usage: patient = scan(/mob/living/carbon/human, oldpatient, 1)
 The proc would return a human next to the bot to be set to the patient var.
 Pass the desired type path itself, declaring a temporary var beforehand is not required.
