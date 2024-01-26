@@ -394,17 +394,6 @@
 	mode = BOT_IDLE
 	update_icon(UPDATE_OVERLAYS)
 
-// Commented for future reference
-/*
-	var/obj/item/stack/tile/plasteel/T = new /obj/item/stack/tile/plasteel
-	T.amount = 4
-	T.forceMove(M.loc)
-	if(M.amount > 1)
-		M.amount--
-	else
-		qdel(M)
-*/
-
 /mob/living/simple_animal/bot/floorbot/update_icon_state()
 	return
 
