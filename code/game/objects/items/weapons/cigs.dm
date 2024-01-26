@@ -139,7 +139,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 			F.charges--
 
 	else if(istype(I, /obj/item/nullrod/godhand))
-		var/obj/item/nullrod/godhand/G = I
 		light("<span class='rose'>[user] calmly raises [user.p_their()] hand to their [name], and it suddenly ignites.</span>")
 
 	//can't think of any other way to update the overlays :<

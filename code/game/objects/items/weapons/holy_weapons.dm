@@ -137,21 +137,21 @@
 /obj/item/nullrod/godhand/attack(mob/living/carbon/M, mob/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
-	if(!isliving(M) || !ismob(M))
+		return
+	if(!isliving(M))
 		return
 	M.IgniteMob()
+	if(!ismob(M))
+		return
 
 	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth")
 		var/obj/item/clothing/mask/cigarette/cig = M.wear_mask
 		if(M == user)
 			cig.attackby(src, user)
-		else
-			if(istype(src, /obj/item/nullrod/godhand))
-				cig.light("<span class='rose'>[user] extends [user.p_their()] hand out to [M], and [cig] ignites.</span>")
-			else
-				cig.light("<span class='notice'>[user] reaches out to [M] with [user.p_their()] hand, and [cig] suddenly ignites.</span>")
-			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
-			M.update_inv_wear_mask()
+		else if(istype(src, /obj/item/nullrod/godhand))
+			cig.light("<span class='notice'>[user] reaches out to [M] with [user.p_their()] hand, and [cig] suddenly ignites.</span>")
+		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
+		M.update_inv_wear_mask()
 	else
 		..()
 
