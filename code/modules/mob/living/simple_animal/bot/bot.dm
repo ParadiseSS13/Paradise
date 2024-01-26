@@ -499,27 +499,13 @@ TRUE to skip target, FALSE for the next check
 		return final_result
 
 /mob/living/simple_animal/bot/proc/assign_bot(atom/A, avoid_bot)
-//	var/turf/target_turf = get_turf(A)								// Uncomment if cleanbot gets to clean full tile
 	if(!avoid_bot)
 		return FALSE
-/*
-	if(avoid_bot == /mob/living/simple_animal/bot/cleanbot)
-		if(target_turf.UID() in ignore_job)
-			return TRUE
-		else
-			claim_job(A, avoid_bot)
-*/
 	if(A.UID() in ignore_job)
 		return TRUE
-	claim_job(A, avoid_bot)											// Delete "avoid" depends on cleanbot
+	claim_job(A)
 
-/mob/living/simple_animal/bot/proc/claim_job(atom/A, avoid_bot)		// Delete "avoid" depends on cleanbot
-/*																	// Uncomment if cleanbot gets to clean full tile
-	var/turf/target_turf = get_turf(A)
-	if(avoid_bot == /mob/living/simple_animal/bot/cleanbot)
-		ignore_job |= target_turf.UID()
-	else
-*/
+/mob/living/simple_animal/bot/proc/claim_job(atom/A)
 		ignore_job |= A.UID()
 
 // When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
