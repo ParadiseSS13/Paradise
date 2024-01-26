@@ -51,7 +51,6 @@ a:hover
 a.red
 {
 	background: #b30000;
-	justify-content: right;
 }
 
 a.red:hover
@@ -63,7 +62,6 @@ a.red:hover
 a.green
 {
 	background: #408000;
-	justify-content: right;
 }
 
 a.green:hover
