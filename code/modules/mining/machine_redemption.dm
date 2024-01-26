@@ -531,8 +531,8 @@
 				else
 					amount_to_add = round(stack.amount) // In case we have half a sheet stored
 					mat_store.amount += amount_to_add
-					to_chat(robot, "You refill [round(stack.amount)] sheets to [mat_store].")
 					stack.amount -= amount_to_add
+					to_chat(robot, "You refill [round(stack.amount)] sheets to [mat_store].")
 				. = TRUE
 				continue // We found our match for this material storage, so we go to the next one
 
