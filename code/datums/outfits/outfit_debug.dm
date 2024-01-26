@@ -36,7 +36,7 @@
 	. = ..()
 	if(visualsOnly)
 		return
-	H.dna.SetSEState(GLOB.breathlessblock,1)
+	H.dna.SetSEState(GLOB.breathlessblock, 1)
 	singlemutcheck(H, GLOB.breathlessblock, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(GLOB.soberblock)
 	H.check_mutations = 1
