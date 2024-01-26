@@ -36575,15 +36575,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/exam_room)
-"cve" = (
-/obj/structure/girder,
-/obj/effect/spawner/lootdrop{
-	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
-	name = "normal or broken grille spawner"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "cvg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -47860,14 +47851,6 @@
 	icon_state = "red"
 	},
 /area/station/security/warden)
-"dZP" = (
-/obj/effect/spawner/lootdrop{
-	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
-	name = "normal or broken grille spawner"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/port)
 "dZZ" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
@@ -51112,11 +51095,7 @@
 	},
 /area/station/security/range)
 "fuy" = (
-/obj/effect/spawner/lootdrop{
-	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
-	name = "normal or broken grille spawner"
-	},
+/obj/effect/spawner/random_spawners/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "fuC" = (
@@ -64061,12 +64040,7 @@
 	},
 /area/station/medical/chemistry)
 "laH" = (
-/obj/structure/lattice,
-/obj/effect/spawner/lootdrop{
-	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
-	name = "normal or broken grille spawner"
-	},
+/obj/structure/grille,
 /turf/space,
 /area/space/nearstation)
 "laR" = (
@@ -74931,11 +74905,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "pHF" = (
-/obj/effect/spawner/lootdrop{
-	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
-	name = "normal or broken grille spawner"
-	},
+/obj/effect/spawner/random_spawners/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_south)
 "pHM" = (
@@ -76299,15 +76269,11 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "qiP" = (
+/obj/effect/spawner/random_spawners/grille_often,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/effect/spawner/lootdrop{
-	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
-	name = "normal or broken grille spawner"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
@@ -82654,15 +82620,11 @@
 	},
 /area/station/hallway/primary/aft)
 "sZV" = (
+/obj/effect/spawner/random_spawners/grille_often,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/effect/spawner/lootdrop{
-	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
-	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -83518,15 +83480,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"tsE" = (
-/obj/structure/girder,
-/obj/effect/spawner/lootdrop{
-	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
-	name = "normal or broken grille spawner"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
 "ttA" = (
 /obj/structure/rack,
 /obj/item/hand_labeler,
@@ -86316,14 +86269,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
-"uNk" = (
-/obj/effect/spawner/lootdrop{
-	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
-	name = "normal or broken grille spawner"
-	},
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "uNl" = (
 /obj/structure/toilet{
 	pixel_y = 8
@@ -88132,11 +88077,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "vxx" = (
-/obj/effect/spawner/lootdrop{
-	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
-	name = "normal or broken grille spawner"
-	},
+/obj/effect/spawner/random_spawners/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "vxI" = (
@@ -88707,16 +88648,12 @@
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom)
 "vOJ" = (
+/obj/effect/spawner/random_spawners/grille_often,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
-	},
-/obj/effect/spawner/lootdrop{
-	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
-	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -89381,12 +89318,7 @@
 	},
 /area/station/science/research)
 "wfa" = (
-/obj/structure/girder,
-/obj/effect/spawner/lootdrop{
-	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
-	name = "normal or broken grille spawner"
-	},
+/obj/effect/spawner/random_spawners/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "wfi" = (
@@ -107660,7 +107592,7 @@ lvE
 cdT
 cdT
 cRV
-dZP
+wfa
 bBz
 bWm
 cdT
@@ -108174,10 +108106,10 @@ eBk
 aoX
 auC
 bTY
-dZP
+wfa
 bVR
 rvu
-dZP
+wfa
 clT
 bTY
 cQb
@@ -108689,7 +108621,7 @@ cdT
 cdT
 cdT
 cdT
-dZP
+wfa
 rvu
 cdT
 cKB
@@ -110496,7 +110428,7 @@ bZP
 bZP
 bZP
 bZP
-cve
+vxx
 bZP
 bZP
 bZP
@@ -111524,9 +111456,9 @@ crG
 wjL
 fkr
 bZP
-cve
-cve
-cve
+vxx
+vxx
+vxx
 clK
 cSg
 bZP
@@ -112030,10 +111962,10 @@ bRI
 bRH
 bWm
 cdT
-dZP
+wfa
 avU
 bTY
-dZP
+wfa
 naY
 bZP
 cQu
@@ -112753,7 +112685,7 @@ adY
 aKy
 aDB
 fuy
-tsE
+fuy
 aOB
 aOB
 aMq
@@ -112790,7 +112722,7 @@ bxZ
 cdT
 bBN
 cms
-dZP
+wfa
 bHp
 bWi
 bTY
@@ -112799,11 +112731,11 @@ bTY
 cms
 auC
 bTr
-dZP
+wfa
 aqB
 cdG
-dZP
-dZP
+wfa
+wfa
 piE
 avU
 bZP
@@ -115119,7 +115051,7 @@ bzK
 cdT
 cdT
 bqQ
-dZP
+wfa
 cdT
 cel
 cJR
@@ -115374,7 +115306,7 @@ bXy
 nBj
 cgt
 cdT
-dZP
+wfa
 oDZ
 cCj
 cdT
@@ -117858,9 +117790,9 @@ aaa
 aaa
 aaa
 hxz
-uNk
-uNk
-uNk
+laH
+laH
+laH
 kbN
 kbN
 kbN
