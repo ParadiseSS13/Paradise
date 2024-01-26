@@ -73291,9 +73291,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/exit)
-"dXK" = (
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
 "dXQ" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/delivery,
@@ -138137,8 +138134,8 @@ dNa
 dKo
 dXJ
 uaj
-dXK
-dXK
+dKo
+dKo
 dUT
 dIH
 abj
