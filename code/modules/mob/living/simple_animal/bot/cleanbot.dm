@@ -124,7 +124,7 @@
 		audible_message("[src] makes an excited beeping booping sound!")
 
 	if(!target) //Search for cleanables it can see.
-		target = scan(/obj/effect/decal/cleanable, avoid_bot = /mob/living/simple_animal/bot/cleanbot)
+		target = scan(/obj/effect/decal/cleanable, avoid_bot = TRUE)
 
 	if(!target && auto_patrol) //Search for cleanables it can see.
 		if(mode == BOT_IDLE || mode == BOT_START_PATROL)
