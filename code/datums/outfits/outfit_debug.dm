@@ -38,7 +38,7 @@
 		return
 	H.dna.SetSEState(GLOB.breathlessblock,1)
 	singlemutcheck(H, GLOB.breathlessblock, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(GLOB.soberblock)
+	H.dna.default_blocks.Add(GLOB.breathlessblock)
 	H.check_mutations = 1
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
