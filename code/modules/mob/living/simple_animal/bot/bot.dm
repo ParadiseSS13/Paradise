@@ -483,7 +483,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 TRUE to skip target, FALSE for the next check
 */
 /mob/living/simple_animal/bot/proc/scan(atom/scan_type, atom/old_target, scan_range = DEFAULT_SCAN_RANGE, avoid_bot)
-	var/final_result
 	for(var/atom/A in view(scan_range, src)) //Search for something in range!
 		if(!istype(A, scan_type)) // Check that the thing we found is the type we want!
 			continue // If not, keep searching!
@@ -492,11 +491,9 @@ TRUE to skip target, FALSE for the next check
 		if(assign_bot(A, avoid_bot)) // Is the target claimed by a bot
 			continue
 		var/scan_result = process_scan(A) // Some bots may require additional processing when a result is selected.
-		if(scan_result)
-			final_result = scan_result
-		else
+		if(!scan_result)
 			continue // The current element failed assessment, move on to the next.
-		return final_result
+		return scan_result
 
 /mob/living/simple_animal/bot/proc/assign_bot(atom/A, avoid_bot)
 	if(!avoid_bot)
