@@ -556,7 +556,7 @@
 	loadout_gear = sanitize_json(loadout_gear)
 	custom_emotes_tmp = sanitize_json(custom_emotes_tmp)
 	custom_emotes = init_custom_emotes(custom_emotes_tmp)
-	cyborg_brain_type = sanitize_integer(cyborg_brain_type, 0, 2, initial(cyborg_brain_type))
+	cyborg_brain_type = sanitize_text(cyborg_brain_type, initial(cyborg_brain_type))
 	if(!player_alt_titles)
 		player_alt_titles = new()
 	if(!organ_data)
