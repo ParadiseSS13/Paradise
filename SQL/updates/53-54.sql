@@ -2,4 +2,4 @@
 #Add a choice for what type of brain borgs want to have
 
 ALTER TABLE 'characters'
-	ADD COLUMN 'cyborg_brain_type' INT(1) NOT NULL AFTER 'height'
+	ADD COLUMN 'cyborg_brain_type' INT(1) NOT NULL DEFAULT '0' AFTER 'height'
