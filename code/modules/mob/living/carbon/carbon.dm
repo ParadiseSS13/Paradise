@@ -1182,7 +1182,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	SSticker.score.score_food_eaten++
 	return TRUE
 
-/mob/living/carbon/proc/drink(obj/item/reagent_containers/drinks/to_eat, mob/user)
+/mob/living/carbon/proc/drink(obj/item/reagent_containers/drinks/to_eat, mob/user, drinksize_override)
 	if(user == src)
 		if(!selfDrink(to_eat))
 			return FALSE
@@ -1197,7 +1197,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		var/drink_size = to_eat.amount_per_transfer_from_this > 5 ? 5 : to_eat.amount_per_transfer_from_this
 		if(fraction)
 			to_eat.reagents.reaction(src, REAGENT_INGEST, fraction)
-			to_eat.reagents.trans_to(src, drink_size)
+			if(drinksize_override)
+				to_eat.reagents.trans_to(src, drinksize_override)
+			else
+				to_eat.reagents.trans_to(src, drink_size)
 
 	SSticker.score.score_food_eaten++
 	return TRUE
