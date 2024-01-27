@@ -85,7 +85,7 @@
 					var/mob/living/carbon/human/H = L
 					if(H.gloves && H.gloves.siemens_coefficient == 0) //No throwing with insulated gloves (you still get stamina however)
 						break
-				L.throw_at(throw_target, powergrid / 150000, powergrid / 300000) //150 kW in grid throws 1 tile, 300 throws 2, etc.
+				L.throw_at(throw_target, powergrid / (150 KW), powergrid / (300 KW)) //150 kW in grid throws 1 tile, 300 throws 2, etc.
 
 			else
 				add_attack_logs(user, L, "electrocuted with[P.unlimited_power ? " unlimited" : null] power bio-chip")
