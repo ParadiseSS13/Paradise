@@ -957,10 +957,9 @@
 	var/add_to_storage = FALSE
 
 /datum/robot_storage/material/New(obj/item/robot_module/R)
-	if(R)
+	if(R && add_to_storage)
 		R.material_storages += src
-	if(add_to_storage)
-		..()
+	..()
 
 /datum/robot_storage/material/glass
 	name = "Glass Storage"
