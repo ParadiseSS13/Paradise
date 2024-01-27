@@ -918,7 +918,7 @@
 	new /obj/effect/temp_visual/decoy/twitch_afterimage(old_loc, L)
 
 /// Tries to dodge incoming bullets if we aren't disabled for any reasons
-/datum/reagent/twitch/proc/dodge_bullets(mob/living/carbon/human/source, obj/item/projectile/hitting_projectile, def_zone)
+/datum/reagent/twitch/proc/dodge_bullets(mob/living/carbon/human/source, obj/item/projectile/hitting_projectile)
 	SIGNAL_HANDLER
 
 	if(HAS_TRAIT(source, TRAIT_IMMOBILIZED))

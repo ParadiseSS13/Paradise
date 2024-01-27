@@ -188,7 +188,7 @@
 #define COMSIG_ATOM_HITBY "atom_hitby"
 /// Called when an atom is sharpened or dulled.
 #define COMSIG_ATOM_UPDATE_SHARPNESS "atom_update_sharpness"
-///from base of atom/atom_prehit():
+///from base of atom/atom_prehit(obj/item/projectile/P):
 #define COMSIG_ATOM_PREHIT "atom_prehit"
 	#define ATOM_PREHIT_TRUE (1<<0)
 	#define ATOM_PREHIT_FALSE (1<<1)

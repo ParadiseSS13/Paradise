@@ -279,7 +279,7 @@
 
 	var/turf/target_turf = get_turf(A)
 	prehit(A)
-	var/pre_permutation = A.atom_prehit()
+	var/pre_permutation = A.atom_prehit(src)
 	var/permutation = -1
 	if(pre_permutation != ATOM_PREHIT_FALSE)
 		permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null

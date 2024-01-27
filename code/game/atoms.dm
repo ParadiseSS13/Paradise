@@ -1288,5 +1288,5 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return TRUE
 	. = !density
 
-/atom/proc/atom_prehit()
-	return SEND_SIGNAL(src, COMSIG_ATOM_PREHIT)
+/atom/proc/atom_prehit(obj/item/projectile.P)
+	return SEND_SIGNAL(src, COMSIG_ATOM_PREHIT, P)
