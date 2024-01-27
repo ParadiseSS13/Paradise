@@ -71,7 +71,7 @@
 	var/atom/beam_from = user
 	var/atom/target_atom = A
 
-	for(var/i in 0 to 3)
+	for(var/i in 0 to 2)
 		beam_from.Beam(target_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 6)
 		if(isliving(target_atom))
 			var/mob/living/L = target_atom
@@ -81,7 +81,12 @@
 				L.adjustStaminaLoss(60)
 				L.Jitter(10 SECONDS)
 				var/atom/throw_target = get_edge_target_turf(user, get_dir(user, get_step_away(L, user)))
-				L.throw_at(throw_target, powergrid / 100000, powergrid / 100000) //100 kW in grid throws 1 tile, 200 throws 2, etc.
+				if(ishuman(L))
+					var/mob/living/carbon/human/H = L
+					if(H.gloves && H.gloves.siemens_coefficient == 0) //No throwing with insulated gloves (you still get stamina however)
+						break
+				L.throw_at(throw_target, powergrid / 150000, powergrid / 300000) //150 kW in grid throws 1 tile, 300 throws 2, etc.
+
 			else
 				add_attack_logs(user, L, "electrocuted with[P.unlimited_power ? " unlimited" : null] power bio-chip")
 				if(P.unlimited_power)
@@ -90,13 +95,13 @@
 					electrocute_mob(L, C.powernet, P)
 			break
 		var/list/next_shocked = list()
-		for(var/mob/M in range(3, target_atom)) //Try to jump to a mob first
+		for(var/mob/M in range(1, target_atom)) //Try to jump to a mob first
 			if(M == user || isobserver(M))
 				continue
 			next_shocked.Add(M)
 			break //Break this so it gets the closest, thank you
 		if(!length(next_shocked)) //No mob? Random bullshit go, try to get closer to a mob with luck
-			for(var/atom/movable/AM in orange(3, target_atom))
+			for(var/atom/movable/AM in orange(1, target_atom))
 				if(AM == user || iseffect(AM) || isobserver(AM))
 					continue
 				next_shocked.Add(AM)
