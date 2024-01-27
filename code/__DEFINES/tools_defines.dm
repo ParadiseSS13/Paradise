@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(surgery_tool_behaviors, list(
 
 //Wirecutter messages
 #define WIRECUTTER_SNIP_MESSAGE					user.visible_message("<span class='notice'>[user] cuts the wires from [src]!</span>", "<span class='notice'>You cut the wires from [src]!</span>", "<span class='warning'>You hear snipping.</span>")
-#define WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE	user.visible_message("<span class='notice'>[user] begins cutting [src] apart... </span>", "<span class='notice'>You begin cutting [src] apart...</span>", "<span class='warning'>You hear snipping.</span>")
+#define WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE	user.visible_message("<span class='notice'>[user] begins cutting [src] apart...</span>", "<span class='notice'>You begin cutting [src] apart...</span>", "<span class='warning'>You hear snipping.</span>")
 #define WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE	user.visible_message("<span class='notice'>[user] cuts [src] apart!</span>", "<span class='notice'>You cut [src] apart!</span>", "<span class='warning'>You hear snipping.</span>")
 
 //Welder messages and other stuff
