@@ -253,7 +253,7 @@
 						"h_grad_colour" = h_grad_colour,
 						"h_grad_alpha" = h_grad_alpha,
 						"custom_emotes" = json_encode(custom_emotes),
-						"cyborg_brain_type" = cyborg_brain_type
+						"cyborg_brain_type" = cyborg_brain_type,
 						"ckey" = C.ckey,
 						"slot" = slot_number
 					))
