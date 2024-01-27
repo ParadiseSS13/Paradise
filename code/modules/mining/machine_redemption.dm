@@ -517,14 +517,11 @@
 		if(mat_store.amount == mat_store.max_amount) // Already full, no need to run a check
 			to_chat(robot, "[mat_store] could not be filled due to it already being full.")
 			continue
-		message_admins(mat_store)
 		var/datum/component/material_container/container_component = GetComponent(/datum/component/material_container)
 		for(var/mat_id as anything in container_component.materials)
 			var/datum/material/stack = container_component.materials[mat_id] // Should have only `/datum/material` in the list
 			var/obj/item/stack/sheet/sheet = stack.sheet_type
 			if(ispath(mat_store.stack, sheet))
-				message_admins(mat_store.stack)
-				message_admins(sheet)
 				var/amount_to_add
 				if(stack.amount >= (mat_store.max_amount - mat_store.amount))
 					amount_to_add = mat_store.max_amount - mat_store.amount
