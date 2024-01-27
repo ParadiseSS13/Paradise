@@ -24911,6 +24911,12 @@
 /obj/machinery/computer/guestpass{
 	pixel_y = -28
 	},
+/obj/machinery/requests_console{
+	department = "Warden";
+	departmentType = 7;
+	name = "Warden's Requests Console";
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -67063,6 +67069,12 @@
 /area/station/maintenance/storage)
 "ozW" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/machinery/requests_console{
+	department = "Kitchen";
+	departmentType = 2;
+	name = "Kitchen Requests Console";
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -67175,6 +67187,12 @@
 /obj/structure/table,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/metal/fifty,
+/obj/machinery/requests_console{
+	department = "Engineering";
+	departmentType = 3;
+	name = "Engineering Requests Console";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -82189,6 +82207,11 @@
 	pixel_y = -6;
 	pixel_x = 6
 	},
+/obj/machinery/requests_console{
+	department = "Tech Storage";
+	name = "Tech Storage Requests Console";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "twx" = (
@@ -91780,6 +91803,23 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
+"wwh" = (
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/requests_console{
+	department = "Security";
+	departmentType = 5;
+	name = "Security Requests Console";
+	pixel_x = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkredcorners"
+	},
+/area/station/security/brig)
 "wwl" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -96638,6 +96678,14 @@
 "xYM" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_1)
+"xYV" = (
+/obj/machinery/requests_console{
+	department = "Locker Room";
+	name = "Locker Room Requests Console";
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel,
+/area/station/public/locker)
 "xYZ" = (
 /turf/simulated/wall,
 /area/station/command/bridge)
@@ -115769,7 +115817,7 @@ rZn
 rZn
 rZn
 rZn
-rZn
+wwh
 hRW
 owb
 rZn
@@ -123229,7 +123277,7 @@ pNo
 mmS
 ksl
 ksl
-qSK
+xYV
 aqC
 aqC
 fQm

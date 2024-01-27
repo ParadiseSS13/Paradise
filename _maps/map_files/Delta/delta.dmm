@@ -31091,6 +31091,11 @@
 /obj/item/stack/sheet/glass,
 /obj/item/stack/sheet/glass,
 /obj/item/stack/sheet/glass,
+/obj/machinery/requests_console{
+	department = "Tech Storage";
+	name = "Tech Storage Requests Console";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
 "bIS" = (
@@ -40680,6 +40685,11 @@
 /area/station/legal/lawoffice)
 "chP" = (
 /obj/structure/filingcabinet/security,
+/obj/machinery/requests_console{
+	department = "Internal Affairs Office";
+	name = "Internal Affairs Requests Console";
+	pixel_x = 30
+	},
 /turf/simulated/floor/wood,
 /area/station/legal/lawoffice)
 "chS" = (
@@ -55046,6 +55056,11 @@
 /area/station/maintenance/port)
 "cYh" = (
 /obj/structure/closet/wardrobe/yellow,
+/obj/machinery/requests_console{
+	department = "Locker Room";
+	name = "Locker Room Requests Console";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -98781,6 +98796,12 @@
 /obj/structure/reagent_dispensers/virusfood{
 	pixel_x = -30
 	},
+/obj/machinery/requests_console{
+	department = "Virology";
+	departmentType = 3;
+	name = "Virology Requests Console";
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitegreen"
@@ -99217,6 +99238,15 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/ai_monitored/storage/eva)
+"xPh" = (
+/obj/item/kirbyplants,
+/obj/machinery/requests_console{
+	department = "Arrival Shuttle";
+	name = "Arrival Shuttle Requests Console";
+	pixel_x = 30
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "xPn" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
@@ -140177,7 +140207,7 @@ aim
 aim
 aim
 aim
-ahV
+xPh
 ahC
 akA
 agE

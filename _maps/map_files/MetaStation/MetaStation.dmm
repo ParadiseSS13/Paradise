@@ -12974,6 +12974,11 @@
 	},
 /area/station/hallway/secondary/bridge)
 "bad" = (
+/obj/machinery/requests_console{
+	department = "Locker Room";
+	name = "Dorms Requests Console";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -14168,6 +14173,11 @@
 /obj/item/circuitboard/smes{
 	pixel_x = 6;
 	pixel_y = -6
+	},
+/obj/machinery/requests_console{
+	department = "Tech Storage";
+	name = "Tech Storage Requests Console";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -64733,6 +64743,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
+"llW" = (
+/obj/machinery/requests_console{
+	department = "Locker Room";
+	name = "Dorms Requests Console";
+	pixel_x = -30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/public/dorms)
 "lmi" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -129208,7 +129229,7 @@ bgb
 aHV
 iKF
 aIk
-aFG
+llW
 aLd
 aMt
 aGM
