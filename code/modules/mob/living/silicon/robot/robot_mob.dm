@@ -149,10 +149,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(wires.is_cut(WIRE_BORG_CAMERA)) // 5 = BORG CAMERA
 			camera.status = FALSE
 
-	if(mmi == null)
-		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
-		mmi.icon_state = "boris"
-
 	initialize_components()
 	//if(!unfinished)
 	// Create all the robot parts.
@@ -179,6 +175,18 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scanner = new(src)
 	scanner.Grant(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
+
+/mob/living/silicon/robot/Login()
+	. = ..()
+	if(mmi == null)
+	switch(src.client.prefs.active_character.cyborg_brain_type)
+		if("MMI")
+			mmi = new /obj/item/mmi(src)
+		if("Robobrain")
+			mmi = new /obj/item/mmi/robotic_brain(src)
+			mmi.icon_state = "boris"
+		if("Positronic")
+			mmi = new /obj/item/mmi/robotic_brain/positronic(src)
 
 /mob/living/silicon/robot/get_radio()
 	return radio
