@@ -61,7 +61,7 @@
 					else
 						winset(src, "default-[key]", "parent=default;name=[key];command=")
 				if(MENTOR_CHANNEL)
-					if(check_rights(R_MENTOR, FALSE))
+					if(check_rights(R_MENTOR | R_ADMIN, FALSE))
 						var/msay = tgui_say_create_open_command(MENTOR_CHANNEL)
 						winset(src, "default-[key]", "parent=default;name=[key];command=[msay]")
 					else
