@@ -22,6 +22,10 @@
 	if(!istype(C))
 		return FALSE
 
+	if(ismachineperson(C))
+		to_chat(user, "<span class='warning'>[user == C ? "You" : C] can't use [src]!</span>")
+		return FALSE
+
 	if(user == C)
 		to_chat(user, "<span class='notice'>You apply [src].</span>")
 	else
