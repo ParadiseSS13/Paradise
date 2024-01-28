@@ -30,5 +30,5 @@
 #define SYRINGE_INJECT 1
 #define SYRINGE_BROKEN 2
 
-// Like O- blood but doesn't contribute to blood_volume or vampire nutrition
+/// Like O- blood but doesn't contribute to blood_volume or vampire nutrition
 #define BLOOD_TYPE_FAKE_BLOOD	"Vh Null"
