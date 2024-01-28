@@ -58,6 +58,7 @@
 
 	if(!allowed(user) && (wires & 1) && !user.can_advanced_admin_interact())
 		to_chat(user, "<span class='warning'>Access Denied.</span>")
+		playsound(src, pick('sound/items/button/button.ogg', 'sound/items/button/button1.ogg', 'sound/items/button/button2.ogg'), 20)
 		flick("doorctrl-denied",src)
 		return
 

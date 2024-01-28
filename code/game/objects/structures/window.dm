@@ -519,8 +519,8 @@
 
 /obj/machinery/button/windowtint
 	name = "window tint control"
-	icon = 'icons/obj/power.dmi'
-	icon_state = "light0"
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "polarizer"
 	anchored = TRUE
 	desc = "A remote control switch for polarized windows."
 	var/range = 7
@@ -542,6 +542,12 @@
 /obj/machinery/button/windowtint/attack_hand(mob/user)
 	if(..())
 		return TRUE
+
+	if(!allowed(user) && !user.can_advanced_admin_interact())
+		flick("polarizer-denied", src)
+		to_chat(user, "<span class='warning'>Access Denied.</span>")
+		playsound(src, pick('sound/items/button/button.ogg', 'sound/items/button/button1.ogg', 'sound/items/button/button2.ogg'), 20)
+		return
 
 	toggle_tint()
 
@@ -583,11 +589,15 @@
 /obj/machinery/button/windowtint/power_change()
 	if(!..())
 		return
-	if(active && (stat & NOPOWER))
-		toggle_tint()
+	if(stat & NOPOWER)
+		if(active)
+			toggle_tint()
+		icon_state = "[initial(icon_state)]-p"
+	else
+		icon_state = "[initial(icon_state)]"
 
 /obj/machinery/button/windowtint/update_icon_state()
-	icon_state = "light[active]"
+	icon_state = "[initial(icon_state)]-[active]"
 
 /obj/structure/window/plasmabasic
 	name = "plasma window"
