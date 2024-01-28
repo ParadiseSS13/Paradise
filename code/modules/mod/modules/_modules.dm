@@ -68,6 +68,7 @@
 		device.slot_flags = null
 		device.w_class = WEIGHT_CLASS_HUGE
 		device.materials = null
+		device.flags |= NODROP
 		RegisterSignal(device, COMSIG_PARENT_QDELETING, PROC_REF(on_device_deletion))
 		RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 
