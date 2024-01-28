@@ -53,7 +53,6 @@
 	if(!QDELETED(src))
 		..()
 
-
 /obj/item/reagent_containers/proc/add_lid()
 	if(has_lid)
 		container_type ^= REFILLABLE | DRAINABLE

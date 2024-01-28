@@ -488,7 +488,7 @@
 
 // SPACE SUITS
 
-/datum/uplink_item/suits/hardsuit/elite
+/datum/uplink_item/suits/elite_nukie
 	name = "Elite Syndicate MODsuit"
 	desc = "An advanced MODsuit with superior armor and mobility to the standard Syndicate MODsuit."
 	item = /obj/item/mod/control/pre_equipped/elite
@@ -497,11 +497,14 @@
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/suits/hardsuit/shielded
-	name = "Shielded Hardsuit"
-	desc = "An advanced hardsuit with built in energy shielding. The shields will rapidly recharge when not under fire."
-	item = /obj/item/clothing/suit/space/hardsuit/shielded/syndi
-	cost = 150
+/datum/uplink_item/suits/shielded
+	name = "Energy Shield Module"
+	desc = "A personal, protective forcefield typically seen in military applications. \
+		This advanced deflector shield is essentially a scaled down version of those seen on starships, \
+		and the power cost can be an easy indicator of this. However, it is capable of blocking nearly any incoming attack, \
+		though with its' low amount of separate charges, the user remains mortal."
+	item = /obj/item/mod/module/energy_shield
+	cost = 200
 	reference = "SHS"
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)

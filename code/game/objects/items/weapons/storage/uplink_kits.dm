@@ -68,7 +68,7 @@
 		/obj/item/storage/box/syndie_kit/emp, // 10TC
 		/obj/item/clothing/glasses/hud/security/chameleon, // 10TC
 		/obj/item/encryptionkey/syndicate, // 10TC
-		/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail,	// 0TC
+		/obj/item/reagent_containers/drinks/drinkingglass/alliescocktail,	// 0TC
 		/obj/item/storage/box/syndie_kit/pen_bomb, // 30 TC
 		/obj/item/CQC_manual) // 13TC
 
@@ -310,9 +310,9 @@
 	name = "combat bakery kit"
 
 /obj/item/storage/box/syndie_kit/combat_baking/populate_contents()
-	new /obj/item/reagent_containers/food/snacks/baguette/combat(src)
+	new /obj/item/food/snacks/baguette/combat(src)
 	for(var/i in 1 to 2)
-		new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
+		new /obj/item/food/snacks/croissant/throwing(src)
 	new /obj/item/book/granter/crafting_recipe/combat_baking(src)
 
 /obj/item/storage/box/syndie_kit/atmosn2ogrenades
