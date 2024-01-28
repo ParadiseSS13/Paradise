@@ -828,6 +828,7 @@
 	addiction_threshold = 15
 	shock_reduction = 40 // Slight shock reduction to assist with damage / disablers
 	allowed_overdose_process = TRUE
+	process_flags = ORGANIC | SYNTHETIC
 	/// How much time has the drug been in them?
 	var/constant_dose_time = 0
 
@@ -898,8 +899,12 @@
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
 				var/datum/organ/heart/datum_heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
-				var/obj/item/organ/internal/our_heart = datum_heart.linked_organ
-				our_heart.receive_damage(0.15 * constant_dose_time, TRUE) // Basically you might die. Especially if you are a slime.
+				if(datum_heart)
+					var/obj/item/organ/internal/our_heart = datum_heart.linked_organ
+					our_heart.receive_damage(0.15 * constant_dose_time, TRUE) // Basically you might die. Especially if you are a slime.
+				else
+					handle_heartless(L, 0.15 * constant_dose_time)
+
 
 	if(!L.hud_used)
 		return
@@ -970,8 +975,11 @@
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		var/datum/organ/heart/datum_heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
-		var/obj/item/organ/internal/our_heart = datum_heart.linked_organ
-		our_heart.receive_damage(0.1, TRUE)
+		if(datum_heart)
+			var/obj/item/organ/internal/our_heart = datum_heart.linked_organ
+			our_heart.receive_damage(0.1, TRUE)
+		else
+			handle_heartless(L, 0.1)
 
 /datum/reagent/twitch/overdose_start(mob/living/L)
 
@@ -1027,8 +1035,12 @@
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		var/datum/organ/heart/datum_heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
-		var/obj/item/organ/internal/our_heart = datum_heart.linked_organ
-		our_heart.receive_damage(0.9, TRUE)
+		if(datum_heart)
+			var/obj/item/organ/internal/our_heart = datum_heart.linked_organ
+			our_heart.receive_damage(0.9, TRUE)
+		else
+			handle_heartless(L, 0.9)
+
 
 	if(prob(5))
 		L.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
@@ -1043,6 +1055,20 @@
 	update_flags |= L.adjustToxLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
+//This proc is for IPCS, skeletons, golems, and people with corazone. IPCS are treated lightly, power loss and brain damage.
+//IPC brain damage gets an increase with liquid solder, so it matters
+//Otherwise, the user hallucinates a bunch, and as well takes stamina damage. This will block passive stamina regen, and most likely require antistun drugs to use as well
+
+/datum/reagent/twitch/proc/handle_heartless(mob/living/carbon/L, damage_input)
+	if(ismachineperson(L))
+		L.adjust_nutrition(-damage_input * 7.5)
+		if(damage_input == 0.9) //This is the input from the OD
+			L.adjustBrainLoss(1.75)
+			if(L.reagents.has_reagent("liquid_solder"))
+				L.adjustBrainLoss(2.75)
+	else //Corazone or skeletons. We go hard on them.
+		L.Hallucinate(damage_input * 50 SECONDS)
+		L.apply_damage(damage_input * 3, STAMINA)
 
 /// Cool filter that I'm using for some of this :)))
 /proc/phase_filter(size)
