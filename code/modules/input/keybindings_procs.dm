@@ -22,7 +22,7 @@
 	return active_keybindings
 
 /**
- * Updates the keybinds for special keys
+ * Updates the keybinds for special keys, do not call this by itself as it will clear user hotkeys, call via update_all_keybinds()
  *
  * Handles adding macros for the keys that need it
  * At the time of writing this, communication(OOC, Say, IC, LOOC, ASAY, MSAY) require macros
@@ -31,8 +31,8 @@
 	if(!length(prefs?.keybindings) || !mob)
 		return
 	for(var/key in prefs.keybindings)
-		for(var/kb in prefs.keybindings[key])
-			switch("[kb]")
+		for(var/datum/keybinding/client/communication/kb in prefs.keybindings[key])
+			switch(kb.name)
 				if(SAY_CHANNEL)
 					var/say = tgui_say_create_open_command(SAY_CHANNEL)
 					winset(src, "default-[key]", "parent=default;name=[key];command=[say]")
@@ -66,3 +66,12 @@
 						winset(src, "default-[key]", "parent=default;name=[key];command=[msay]")
 					else
 						winset(src, "default-[key]", "parent=default;name=[key];command=")
+
+
+/**
+ * Updates the keybinds for special and regular keys
+ * Used when you want to call update_special_keybinds() as that clears default macro sets
+ */
+/client/proc/update_all_keybinds()
+	update_special_keybinds()
+	update_active_keybindings()

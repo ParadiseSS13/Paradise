@@ -720,8 +720,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		for(var/key in keys)
 			LAZYADD(keybindings[key], kb)
 
-	parent?.update_active_keybindings()
-	parent?.update_special_keybinds()
+	parent?.update_all_keybinds()
 	return keybindings
 
 /datum/preferences/proc/capture_keybinding(mob/user, datum/keybinding/KB, old)

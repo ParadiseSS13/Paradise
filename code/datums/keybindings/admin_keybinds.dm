@@ -20,18 +20,6 @@
 		return
 	SSdebugview.start_processing(C)
 
-/datum/keybinding/admin/msay
-	name = MENTOR_CHANNEL
-	keys = list("F4")
-
-/datum/keybinding/admin/asay
-	name = ADMIN_CHANNEL
-	keys = list("F5")
-
-/datum/keybinding/admin/dsay
-	name = DSAY_CHANNEL
-	keys = list("F10")
-
 /datum/keybinding/admin/aghost
 	name = "Aghost"
 	keys = list("F6")

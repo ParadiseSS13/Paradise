@@ -1259,6 +1259,10 @@
 							active_character.custom_emotes.Remove(custom_emote_keybind.name)
 							active_character.save(user)
 
+					for(var/key in user.client.prefs.keybindings) // Clear winset macros for existing TGUIsay keybinds before rebuilding
+						for(var/datum/keybinding/client/communication/kb in user.client.prefs.keybindings[key])
+							winset(user.client, "default-[key]", "parent=default;name=[key];command=")
+
 					init_keybindings(keybindings_overrides)
 					save_preferences(user) //Ideally we want to save people's keybinds when they enter them
 
