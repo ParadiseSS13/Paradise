@@ -474,7 +474,7 @@
 
 /datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
-		explosion(get_turf(M), 0,1,1,0)
+		explosion(get_turf(M), 0,3,5,0)
 		if(M) //to check if the explosion killed it before we try to delete it
 			qdel(M)
 
