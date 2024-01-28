@@ -1,51 +1,51 @@
 /datum/keybinding/emote/carbon/human/hem
 	linked_emote = /datum/emote/living/carbon/human/hem
-	name = "Хныкать"
+	name = EMOTE_HUMAN_HEM
 
 /datum/keybinding/emote/carbon/human/scratch
 	linked_emote = /datum/emote/living/carbon/human/scratch
-	name = "Чесаться"
+	name = EMOTE_HUMAN_SCRATCH
 
 /datum/keybinding/emote/carbon/human/whistle
 	linked_emote = /datum/emote/living/carbon/human/whistle
-	name = "Свистеть"
+	name = EMOTE_HUMAN_WHISTLE
 
 /datum/keybinding/emote/carbon/human/snuffle
 	linked_emote = /datum/emote/living/carbon/human/snuffle
-	name = "Шмыгать носом"
+	name = EMOTE_HUMAN_SNUFFLE
 
 /datum/keybinding/emote/carbon/human/roar
 	linked_emote = /datum/emote/living/carbon/human/roar
-	name = "Рычать"
+	name = EMOTE_HUMAN_ROAR
 
 /datum/keybinding/emote/carbon/human/rumble
 	linked_emote = /datum/emote/living/carbon/human/rumble
-	name = "Урчать"
+	name = EMOTE_HUMAN_RUMBLE
 
 /datum/keybinding/emote/carbon/human/threat
 	linked_emote = /datum/emote/living/carbon/human/threat
-	name = "Угрожающе рычать"
+	name = EMOTE_HUMAN_THREAT
 
 /datum/keybinding/emote/carbon/human/purr
 	linked_emote = /datum/emote/living/carbon/human/purr
-	name = "Мурчать"
+	name = EMOTE_HUMAN_PURR
 
 /datum/keybinding/emote/carbon/human/purrl
 	linked_emote = /datum/emote/living/carbon/human/purrl
-	name = "Мурчать подольше"
+	name = EMOTE_HUMAN_PURRL
 
 /datum/keybinding/emote/carbon/human/waves
 	linked_emote = /datum/emote/living/carbon/human/waves_k
-	name = "Взмахнуть усиками"
+	name = EMOTE_HUMAN_WAVES_K
 
 /datum/keybinding/emote/carbon/human/wiggles
 	linked_emote = /datum/emote/living/carbon/human/wiggles
-	name = "Шевелить усиками"
+	name = EMOTE_HUMAN_WIGGLES
 
-/datum/keybinding/emote/carbon/human/whip_l
-	linked_emote = /datum/emote/living/carbon/human/whip/whip_l
-	name = "Хлестать хвостом"
+/datum/keybinding/emote/carbon/human/whips
+	linked_emote = /datum/emote/living/carbon/human/whip/whips
+	name = EMOTE_HUMAN_WHIPS
 
 /datum/keybinding/emote/carbon/human/whip
 	linked_emote = /datum/emote/living/carbon/human/whip
-	name = "Ударять хвостом"
+	name = EMOTE_HUMAN_WHIP

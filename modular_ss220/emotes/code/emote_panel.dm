@@ -41,7 +41,7 @@
 			var/useTarget = params["useTarget"]
 			var/datum/emote/emote = GLOB.emote_list[emote_key][1]
 			var/emote_param
-			if(emote.message_param && useTarget == "true")
+			if(emote.message_param && useTarget)
 				emote_param = input(usr, "Дополните эмоцию", emote.message_param)
 			usr.emote(emote_key, message = emote_param, intentional = TRUE)
 

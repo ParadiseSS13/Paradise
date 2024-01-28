@@ -62,11 +62,11 @@
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_flap
+	H.verbs |= /mob/living/carbon/human/proc/emote_flutter
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_flap
+	H.verbs -= /mob/living/carbon/human/proc/emote_flutter
 
 /datum/species/skrell/on_species_gain(mob/living/carbon/human/H)
 	..()
@@ -90,7 +90,7 @@
 	H.verbs |= /mob/living/carbon/human/proc/emote_swag
 	H.verbs |= /mob/living/carbon/human/proc/emote_purr
 	H.verbs |= /mob/living/carbon/human/proc/emote_purrl
-	H.verbs |= /mob/living/carbon/human/proc/emote_hisses
+	H.verbs |= /mob/living/carbon/human/proc/emote_hiss
 
 /datum/species/tajaran/on_species_loss(mob/living/carbon/human/H)
 	..()
@@ -98,13 +98,13 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_swag
 	H.verbs -= /mob/living/carbon/human/proc/emote_purr
 	H.verbs -= /mob/living/carbon/human/proc/emote_purrl
-	H.verbs -= /mob/living/carbon/human/proc/emote_hisses
+	H.verbs -= /mob/living/carbon/human/proc/emote_hiss
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_wag
 	H.verbs |= /mob/living/carbon/human/proc/emote_swag
-	H.verbs |= /mob/living/carbon/human/proc/emote_hiss
+	H.verbs |= /mob/living/carbon/human/proc/emote_unathi_hiss
 	H.verbs |= /mob/living/carbon/human/proc/emote_roar
 	H.verbs |= /mob/living/carbon/human/proc/emote_threat
 	H.verbs |= /mob/living/carbon/human/proc/emote_whip
@@ -115,7 +115,7 @@
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_wag
 	H.verbs -= /mob/living/carbon/human/proc/emote_swag
-	H.verbs -= /mob/living/carbon/human/proc/emote_hiss
+	H.verbs -= /mob/living/carbon/human/proc/emote_unathi_hiss
 	H.verbs -= /mob/living/carbon/human/proc/emote_roar
 	H.verbs -= /mob/living/carbon/human/proc/emote_threat
 	H.verbs -= /mob/living/carbon/human/proc/emote_whip

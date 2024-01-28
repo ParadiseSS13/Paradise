@@ -204,8 +204,8 @@
 /datum/emote/living/carbon/human/snuffle
 	key = "snuffle"
 	key_third_person = "snuffles"
-	message = "шмыгает носом."
-	message_param = "шмыгает носом на %t."
+	message = "нюхает."
+	message_param = "нюхает %t."
 
 /datum/emote/living/carbon/human/hem
 	key = "hem"

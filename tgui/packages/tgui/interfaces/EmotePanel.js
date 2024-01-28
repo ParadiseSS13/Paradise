@@ -165,7 +165,7 @@ export const EmotePanelContent = (props, context) => {
                     {emote.sound ? <Icon name="volume-up" /> : ''}
                     {emote.hands ? <Icon name="hand-paper" /> : ''}
                     {emote.targettable ? <Icon name="crosshairs" /> : ''}
-                    {capitalize(emote.name)}
+                    {emote.name}
                   </Button>
                 ))}
             </Stack.Item>

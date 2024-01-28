@@ -6,426 +6,441 @@
 	if(!name)
 		name = key
 
-// Emote Living
+/// Emote Living
 
 /datum/emote/flip
-	name = "кувырнуться"
+	name = EMOTE_FLIP
 
 /datum/emote/spin
-	name = "покрутиться"
+	name = EMOTE_SPIN
 
 /datum/emote/living/blush
-	name = "покраснеть"
+	name = EMOTE_BLUSH
 
 /datum/emote/living/bow
-	name = "покланиться"
+	name = EMOTE_BOW
 
 /datum/emote/living/burp
-	name = "рыгнуть"
+	name = EMOTE_BURP
 
 /datum/emote/living/choke
-	name = "подавиться"
+	name = EMOTE_CHOKE
 
 /datum/emote/living/collapse
-	name = "упасть"
+	name = EMOTE_COLLAPSE
 
 /datum/emote/living/dance
-	name = "потанцевать"
+	name = EMOTE_DANCE
 
 /datum/emote/living/deathgasp
-	name = "последнее дыхание"
+	name = EMOTE_DEATHGASP
 
 /datum/emote/living/drool
-	name = "пустить слюни"
+	name = EMOTE_DROOL
 
 /datum/emote/living/quiver
-	name = "трепетать"
+	name = EMOTE_QUIVER
 
 /datum/emote/living/frown
-	name = "похмуриться"
+	name = EMOTE_FROWN
 
 /datum/emote/living/gag
-	name = "gag"
+	name = EMOTE_GAG
 
 /datum/emote/living/glare
-	name = "просверлить взглядом"
+	name = EMOTE_GLARE
 
 /datum/emote/living/grin
-	name = "ухмыльнуться"
+	name = EMOTE_GRIN
 
 /datum/emote/living/groan
-	name = "болезненно простонать"
+	name = EMOTE_GROAN
 
 /datum/emote/living/grimace
-	name = "построить гримасу"
+	name = EMOTE_GRIMACE
 
 /datum/emote/living/jump
-	name = "прыгнуть"
-
-/datum/emote/living/kiss
-	name = "подготовить поцелуй"
+	name = EMOTE_JUMP
 
 /datum/emote/living/look
-	name = "посмотреть"
+	name = EMOTE_LOOK
+
+/datum/emote/living/nightmare
+	name = EMOTE_NIGHTMARE
 
 /datum/emote/living/bshake
-	name = "потрястись"
+	name = EMOTE_BSHAKE
 
 /datum/emote/living/shudder
-	name = "содрогнуться"
+	name = EMOTE_SHUDDER
 
 /datum/emote/living/point
-	name = "указать"
+	name = EMOTE_POINT
 
 /datum/emote/living/pout
-	name = "надуть губы"
+	name = EMOTE_POUT
 
 /datum/emote/living/scream
-	name = "покричать"
+	name = EMOTE_SCREAM
 
 /datum/emote/living/shake
-	name = "покачать головой"
+	name = EMOTE_SHAKE
 
 /datum/emote/living/shiver
-	name = "подрожать"
+	name = EMOTE_SHIVER
 
 /datum/emote/living/sigh
-	name = "вздохнуть"
+	name = EMOTE_SIGH
 
 /datum/emote/living/sigh/happy
-	name = "удовлетворённо вздохнуть"
+	name = EMOTE_SIGH_HAPPY
 
 /datum/emote/living/sit
-	name = "сесть"
+	name = EMOTE_SIT
 
 /datum/emote/living/smile
-	name = "улыбнуться"
+	name = EMOTE_SMILE
 
 /datum/emote/living/smug
-	name = "самодовольно улыбнуться"
+	name = EMOTE_SMUG
 
 /datum/emote/living/sniff
-	name = "понюхать"
+	name = EMOTE_SNIFF
 
 /datum/emote/living/snore
-	name = "похрапеть"
+	name = EMOTE_SNORE
 
 /datum/emote/living/stare
-	name = "уставиться"
+	name = EMOTE_STARE
 
 /datum/emote/living/strech
-	name = "протянуть руки"
+	name = EMOTE_STRECH
 
 /datum/emote/living/sulk
-	name = "обидеться"
+	name = EMOTE_SULK
 
 /datum/emote/living/sway
-	name = "покачаться"
+	name = EMOTE_SWAY
 
 /datum/emote/living/tilt
-	name = "наклонить голову"
+	name = EMOTE_TILT
 
 /datum/emote/living/tremble
-	name = "подрожать в страхе"
+	name = EMOTE_TREMBLE
 
 /datum/emote/living/twitch
-	name = "сильно дернуться"
+	name = EMOTE_TWITCH
 
 /datum/emote/living/twitch_s
-	name = "дернуться"
+	name = EMOTE_TWITCHS
 
 /datum/emote/living/carbon/wave
-	name = "помахать рукой"
+	name = EMOTE_CARBON_WAVE
 
 /datum/emote/living/whimper
-	name = "поскулить"
+	name = EMOTE_WHIMPER
 
 /datum/emote/living/wsmile
-	name = "слабо улыбнуться"
+	name = EMOTE_WSMILE
 
 /datum/emote/living/swear
-	name = "поругаться"
+	name = EMOTE_SWEAR
 
-// Emote Brain
+/// Emote Brain
 
 /datum/emote/living/carbon/brain/alarm
-	name = "alarm"
+	name = EMOTE_BRAIN_ALARM
 
 /datum/emote/living/carbon/brain/alert
-	name = "alert"
+	name = EMOTE_BRAIN_ALERT
 
 /datum/emote/living/carbon/brain/flash
-	name = "flash"
+	name = EMOTE_BRAIN_FLASH
 
 /datum/emote/living/carbon/brain/notice
-	name = "notice"
+	name = EMOTE_BRAIN_NOTICE
 
 /datum/emote/living/carbon/brain/whistle
-	name = "whistle"
+	name = EMOTE_BRAIN_WHISTLE
 
 /datum/emote/living/carbon/brain/beep
-	name = "издать сигнал"
+	name = EMOTE_BRAIN_BEEP
+
+/datum/emote/living/carbon/brain/boop
+	name = EMOTE_BRAIN_BOOP
 
 // Emote Carbon
 
 /datum/emote/living/carbon/blink
-	name = "моргнуть"
+	name = EMOTE_CARBON_BLINK
 
 /datum/emote/living/carbon/blink_r
-	name = "быстро моргать"
+	name = EMOTE_CARBON_BLINKR
 
 /datum/emote/living/carbon/cough
-	name = "покашлять"
+	name = EMOTE_CARBON_COUGH
 
 /datum/emote/living/carbon/cross
-	name = "скрестить руки"
+	name = EMOTE_CARBON_CROSS
 
 /datum/emote/living/carbon/chuckle
-	name = "усмехнуться"
+	name = EMOTE_CARBON_CHUCKLE
 
 /datum/emote/living/carbon/faint
-	name = "потерять сознание"
+	name = EMOTE_CARBON_FAINT
 
 /datum/emote/living/carbon/giggle
-	name = "похихикать"
+	name = EMOTE_CARBON_GIGGLE
 
 /datum/emote/living/carbon/moan
-	name = "постонать"
-
-/datum/emote/living/carbon/roll
-	name = "покатиться"
+	name = EMOTE_CARBON_MOAN
 
 /datum/emote/living/carbon/sign
-	name = "показать число"
-
-/datum/emote/living/carbon/sign/signal
-	name = "показать пальцы"
+	name = EMOTE_CARBON_SIGN
 
 /datum/emote/living/carbon/yawn
-	name = "зевнуть"
+	name = EMOTE_CARBON_YAWN
 
 /datum/emote/living/carbon/gurgle
-	name = "побулькать"
+	name = EMOTE_CARBON_GURGLE
 
 /datum/emote/living/carbon/inhale
-	name = "вдохнуть"
+	name = EMOTE_CARBON_INHALE
 
 /datum/emote/living/carbon/inhale/sharp
-	name = "глубоко вдохнуть"
+	name = EMOTE_CARBON_INHALE_SHARP
 
 /datum/emote/living/carbon/kiss
-	name = "поцеловать"
+	name = EMOTE_CARBON_KISS
 
 /datum/emote/living/carbon/exhale
-	name = "выдохнуть"
+	name = EMOTE_CARBON_EXHALE
 
 /datum/emote/living/carbon/laugh
-	name = "посмеяться"
+	name = EMOTE_CARBON_LAUGH
 
 /datum/emote/living/carbon/scowl
-	name = "сердито посмотреть"
+	name = EMOTE_CARBON_SCOWL
 
-// Emote Alien
+/datum/emote/living/carbon/twirl
+	name = EMOTE_CARBON_TWIRL
+
+/// Emote Alien
 
 /datum/emote/living/carbon/alien/humanoid/gnarl
-	name = "оскалиться"
+	name = EMOTE_ALIEN_GNARL
 
 /datum/emote/living/carbon/alien/humanoid/hiss
-	name = "пошипеть"
+	name = EMOTE_ALIEN_HISS
 
 /datum/emote/living/carbon/alien/humanoid/roar
-	name = "прорычать"
+	name = EMOTE_ALIEN_ROAR
 
-// Emote Human
+/// Emote Human
 
 /datum/emote/living/carbon/human/airguitar
-	name = "поиграть на воображаемой гитаре"
+	name = EMOTE_HUMAN_AIRGUITAR
 
 /datum/emote/living/carbon/human/clap
-	name = "похлопать"
+	name = EMOTE_HUMAN_CLAP
 
 /datum/emote/living/carbon/human/crack
-	name = "похрустеть пальцами"
+	name = EMOTE_HUMAN_CRACK
 
 /datum/emote/living/carbon/human/cry
-	name = "поплакать"
+	name = EMOTE_HUMAN_CRY
 
 /datum/emote/living/carbon/human/eyebrow
-	name = "приподнять бровь"
+	name = EMOTE_HUMAN_EYEBROW
 
 /datum/emote/living/carbon/human/wince
-	name = "поморщиться"
+	name = EMOTE_HUMAN_WINCE
 
 /datum/emote/living/carbon/human/squint
-	name = "прищуриться"
+	name = EMOTE_HUMAN_SQUINT
 
 /datum/emote/living/carbon/human/facepalm
-	name = "хлопнуть по лбу"
+	name = EMOTE_HUMAN_FACEPALM
 
 /datum/emote/living/carbon/human/palm
-	name = "протянуть руку"
+	name = EMOTE_HUMAN_PALM
+
+/datum/emote/living/carbon/sign/signal
+	name = EMOTE_HUMAN_SIGNAL
 
 /datum/emote/living/carbon/human/flap
-	name = "хлопнуть крыльями"
+	name = EMOTE_HUMAN_FLAP
 
 /datum/emote/living/carbon/human/flutter
-	name = "сердито хлопнуть крыльями"
+	name = EMOTE_HUMAN_FLUTTER
+
+/datum/emote/living/carbon/human/flap/aflap
+	name = EMOTE_HUMAN_AFLAP
 
 /datum/emote/living/carbon/human/gasp
-	name = "задохнуться"
+	name = EMOTE_HUMAN_GASP
 
 /datum/emote/living/carbon/human/grumble
-	name = "поворчать"
+	name = EMOTE_HUMAN_GRUMBLE
 
 /datum/emote/living/carbon/human/highfive/handshake
-	name = "дать рукопожатие"
+	name = EMOTE_HUMAN_HANDSHAKE
 
 /datum/emote/living/carbon/human/hug
-	name = "обнять"
+	name = EMOTE_HUMAN_HUG
 
 /datum/emote/living/carbon/human/mumble
-	name = "пробормотать"
+	name = EMOTE_HUMAN_MUMBLE
 
 /datum/emote/living/carbon/human/scratch
-	name = "почесаться"
+	name = EMOTE_HUMAN_SCRATCH
 
 /datum/emote/living/carbon/human/scream
-	name = "покричать"
+	name = EMOTE_HUMAN_SCREAM
 
 /datum/emote/living/carbon/human/scream/screech
-	name = "повизжать"
+	name = EMOTE_HUMAN_SCREECH
 
 /datum/emote/living/carbon/human/sneeze
-	name = "чихнуть"
+	name = EMOTE_HUMAN_SNEEZE
 
 /datum/emote/living/carbon/human/slap
-	name = "подготовить шлепок"
+	name = EMOTE_HUMAN_SLAP
 
 /datum/emote/living/carbon/human/snap
-	name = "щелкнуть пальцами"
+	name = EMOTE_HUMAN_SNAP
 
 /datum/emote/living/carbon/human/fart
-	name = "пёрнуть"
+	name = EMOTE_HUMAN_FART
 
 /datum/emote/living/carbon/human/wag
-	name = "помахать хвостом"
+	name = EMOTE_HUMAN_WAG
 
 /datum/emote/living/carbon/human/wag/stop
-	name = "остановить хвост"
+	name = EMOTE_HUMAN_WAG_STOP
 
 /datum/emote/living/carbon/human/wink
-	name = "подмигнуть"
+	name = EMOTE_HUMAN_WINK
 
 /datum/emote/living/carbon/human/highfive
-	name = "предоставить пятюню"
+	name = EMOTE_HUMAN_HIGHFIVE
 
 /datum/emote/living/carbon/human/highfive/dap
-	name = "предоставить кулак"
+	name = EMOTE_HUMAN_DAP
 
 /datum/emote/living/carbon/human/pale
-	name = "побледнеть"
+	name = EMOTE_HUMAN_PALE
 
 /datum/emote/living/carbon/human/raise
-	name = "поднять руку"
+	name = EMOTE_HUMAN_RAISE
 
 /datum/emote/living/carbon/human/salute
-	name = "салютировать"
+	name = EMOTE_HUMAN_SALUTE
 
 /datum/emote/living/carbon/human/shrug
-	name = "пожать плечами"
-
-/datum/emote/living/carbon/human/wag
-	name = "махать хвостом"
+	name = EMOTE_HUMAN_SHRUG
 
 /datum/emote/living/carbon/human/nod
-	name = "кивнуть"
+	name = EMOTE_HUMAN_NOD
 
 /datum/emote/living/carbon/human/monkey/gnarl
-	name = "оскалиться"
+	name = EMOTE_HUMAN_GNARL
 
 /datum/emote/living/carbon/human/monkey/roll
-	name = "покатиться"
+	name = EMOTE_HUMAN_ROLL
 
 /datum/emote/living/carbon/human/monkey/tail
-	name = "помахать хвостом"
+	name = EMOTE_HUMAN_TAIL
 
-// Emote Silicon
+/// Emote Silicon
 
 /datum/emote/living/silicon/scream
-	name = "покричать"
+	name = EMOTE_SILICON_SCREAM
 
 /datum/emote/living/silicon/ping
-	name = "посигналить"
+	name = EMOTE_SILICON_PING
 
 /datum/emote/living/silicon/buzz
-	name = "пожжужать"
+	name = EMOTE_SILICON_BUZZ
 
 /datum/emote/living/silicon/buzz2
-	name = "пожжуать громко"
+	name = EMOTE_SILICON_BUZZ2
 
 /datum/emote/living/silicon/beep
-	name = "бип"
+	name = EMOTE_SILICON_BEEP
 
 /datum/emote/living/silicon/boop
-	name = "буп"
+	name = EMOTE_SILICON_BOOP
 
 /datum/emote/living/silicon/yes
-	name = "положительно"
+	name = EMOTE_SILICON_YES
 
 /datum/emote/living/silicon/no
-	name = "отрицательно"
+	name = EMOTE_SILICON_NO
 
 /datum/emote/living/silicon/law
-	name = "закон"
+	name = EMOTE_SILICON_LAW
 
 /datum/emote/living/silicon/halt
-	name = "остановитесь"
+	name = EMOTE_SILICON_HALT
 
-// Species specific
+/// Species specific
 
 /datum/emote/living/carbon/human/howl
-	name = "повыть"
+	name = EMOTE_HUMAN_HOWL
 
 /datum/emote/living/carbon/human/growl
-	name = "порычать"
+	name = EMOTE_HUMAN_GROWL
 
-// New Emotes
+/datum/emote/living/carbon/human/slime/squish
+	name = EMOTE_HUMAN_SQUISH
+
+/datum/emote/living/carbon/human/slime/bubble
+	name = EMOTE_HUMAN_BUBBLE
+
+/datum/emote/living/carbon/human/slime/pop
+	name = EMOTE_HUMAN_POP
+
+/// New Emotes
 
 /datum/emote/living/carbon/human/whistle
-	name = "Свистеть"
+	name = EMOTE_HUMAN_WHISTLE
+
+/datum/emote/living/carbon/human/johnny
+	name = EMOTE_HUMAN_JOHNNY
 
 /datum/emote/living/carbon/human/snuffle
-	name = "Шмыгать"
+	name = EMOTE_HUMAN_SNUFFLE
 
 /datum/emote/living/carbon/human/hem
-	name = "Хмыкнуть"
+	name = EMOTE_HUMAN_HEM
 
 /datum/emote/living/carbon/human/scratch
-	name = "Почесаться"
+	name = EMOTE_HUMAN_SCRATCH
 
 /datum/emote/living/carbon/human/roar
-	name = "Рычать"
+	name = EMOTE_HUMAN_ROAR
 
 /datum/emote/living/carbon/human/rumble
-	name = "Ворчать"
+	name = EMOTE_HUMAN_RUMBLE
 
 /datum/emote/living/carbon/human/threat
-	name = "Угрожать"
+	name = EMOTE_HUMAN_THREAT
 
 /datum/emote/living/carbon/human/purr
-	name = "Мурчать"
+	name = EMOTE_HUMAN_PURR
 
 /datum/emote/living/carbon/human/purrl
-	name = "Мурчать+"
+	name = EMOTE_HUMAN_PURRL
 
 /datum/emote/living/carbon/human/waves_k
-	name = "Взмах усиков"
+	name = EMOTE_HUMAN_WAVES_K
 
 /datum/emote/living/carbon/human/wiggles
-	name = "Шевелить усики"
+	name = EMOTE_HUMAN_WIGGLES
 
 /datum/emote/living/carbon/human/whip
-	name = "Ударять хвостом"
+	name = EMOTE_HUMAN_WHIP
 
-/datum/emote/living/carbon/human/whip/whip_l
-	name = "Хлестать хвостом"
+/datum/emote/living/carbon/human/whip/whips
+	name = EMOTE_HUMAN_WHIPS

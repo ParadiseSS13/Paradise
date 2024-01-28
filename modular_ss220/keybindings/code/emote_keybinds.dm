@@ -1,429 +1,461 @@
 /datum/keybinding/emote/flip
-	name = "Кувырок"
+	name = EMOTE_FLIP
 
 /datum/keybinding/emote/spin
-	name = "Крутиться"
+	name = EMOTE_SPIN
 
 /datum/keybinding/emote/blush
-	name = "Краснеть"
+	name = EMOTE_BLUSH
 
 /datum/keybinding/emote/bow
-	name = "Поклониться"
+	name = EMOTE_BOW
 
 /datum/keybinding/emote/burp
-	name = "Рыгнуть"
+	name = EMOTE_BURP
 
 /datum/keybinding/emote/choke
-	name = "Подавиться"
+	name = EMOTE_CHOKE
 
 /datum/keybinding/emote/collapse
-	name = "Рухнуть"
+	name = EMOTE_COLLAPSE
 
 /datum/keybinding/emote/dance
-	name = "Танцевать"
+	name = EMOTE_DANCE
 
 /datum/keybinding/emote/jump
-	name = "Прыгать"
+	name = EMOTE_JUMP
 
 /datum/keybinding/emote/deathgasp
-	name = "Предсмертное дыхание"
+	name = EMOTE_DEATHGASP
 
 /datum/keybinding/emote/drool
-	name = "Нести чепуху"
+	name = EMOTE_DROOL
 
 /datum/keybinding/emote/quiver
-	name = "Трепетать"
+	name = EMOTE_QUIVER
 
 /datum/keybinding/emote/frown
-	name = "Хмуриться"
+	name = EMOTE_FROWN
 
 /datum/keybinding/emote/glare
-	name = "Недовольно смотреть"
+	name = EMOTE_GLARE
 
 /datum/keybinding/emote/gag
-	name = "Подавиться"
+	name = EMOTE_GAG
 
 /datum/keybinding/emote/grin
-	name = "Оскалиться в улыбке"
+	name = EMOTE_GRIN
 
 /datum/keybinding/emote/grimace
-	name = "Корчиться"
+	name = EMOTE_GRIMACE
 
 /datum/keybinding/emote/groan
-	name = "Болезненно вздохнуть"
+	name = EMOTE_GROAN
 
 /datum/keybinding/emote/look
-	name = "Смотреть"
+	name = EMOTE_LOOK
 
 /datum/keybinding/emote/bshake
-	name = "Трястись"
+	name = EMOTE_BSHAKE
 
 /datum/keybinding/emote/shudder
-	name = "Содрогаться"
+	name = EMOTE_SHUDDER
 
 /datum/keybinding/emote/point
-	name = "Указать пальцем"
+	name = EMOTE_POINT
 
 /datum/keybinding/emote/pout
-	name = "Надуть губы"
+	name = EMOTE_POUT
 
 /datum/keybinding/emote/scream
-	name = "Кричать"
+	name = EMOTE_SCREAM
 
 /datum/keybinding/emote/shake
-	name = "Трясти головой"
+	name = EMOTE_SHAKE
 
 /datum/keybinding/emote/shiver
-	name = "Дрожать"
+	name = EMOTE_SHIVER
 
 /datum/keybinding/emote/sigh
-	name = "Вздыхать"
+	name = EMOTE_SIGH
 
 /datum/keybinding/emote/happy
-	name = "Вздыхать (счастливо)"
+	name = EMOTE_SIGH_HAPPY
 
 /datum/keybinding/emote/sit
-	name = "Сесть"
+	name = EMOTE_SIT
 
 /datum/keybinding/emote/smile
-	name = "Улыбнуться"
+	name = EMOTE_SMILE
 
 /datum/keybinding/emote/smug
-	name = "Самодовольно"
+	name = EMOTE_SMUG
 
 /datum/keybinding/emote/sniff
-	name = "Нюхать"
+	name = EMOTE_SNIFF
 
 /datum/keybinding/emote/snore
-	name = "Храпеть"
+	name = EMOTE_SNORE
 
 /datum/keybinding/emote/nightmare
-	name = "Кошмар"
+	name = EMOTE_NIGHTMARE
 
 /datum/keybinding/emote/stare
-	name = "Пялиться"
+	name = EMOTE_STARE
 
 /datum/keybinding/emote/stretch
-	name = "Растянуться"
+	name = EMOTE_STRECH
 
 /datum/keybinding/emote/sulk
-	name = "Дуться"
+	name = EMOTE_SULK
 
 /datum/keybinding/emote/sway
-	name = "Покачиваться"
+	name = EMOTE_SWAY
 
 /datum/keybinding/emote/swear
-	name = "Ругаться"
+	name = EMOTE_SWEAR
 
 /datum/keybinding/emote/tilt
-	name = "Наклонить голову"
+	name = EMOTE_TILT
 
 /datum/keybinding/emote/tremble
-	name = "Дрожать в ужасе"
+	name = EMOTE_TREMBLE
 
 /datum/keybinding/emote/twitch
-	name = "Дёргаться (сильно)"
+	name = EMOTE_TWITCH
 
 /datum/keybinding/emote/twitch_s
-	name = "Дёргаться"
+	name = EMOTE_TWITCHS
 
 /datum/keybinding/emote/whimper
-	name = "Хныкать"
+	name = EMOTE_WHIMPER
 
 /datum/keybinding/emote/wsmile
-	name = "Улыбаться (слабо)"
+	name = EMOTE_WSMILE
 
 /datum/keybinding/emote/carbon/blink
-	name = "Моргать"
+	name = EMOTE_CARBON_BLINK
 
 /datum/keybinding/emote/carbon/blink_r
-	name = "Моргать (быстро)"
+	name = EMOTE_CARBON_BLINKR
 
 /datum/keybinding/emote/carbon/clap
-	name = "Хлопать"
+	name = EMOTE_CARBON_CLAP
 
 /datum/keybinding/emote/carbon/cross
-	name = "Скрестить руки"
+	name = EMOTE_CARBON_CROSS
 
 /datum/keybinding/emote/carbon/chuckle
-	name = "Усмехнуться"
+	name = EMOTE_CARBON_CHUCKLE
 
 /datum/keybinding/emote/carbon/cough
-	name = "Кашлять"
+	name = EMOTE_CARBON_COUGH
 
 /datum/keybinding/emote/carbon/moan
-	name = "Стонать"
+	name = EMOTE_CARBON_MOAN
 
 /datum/keybinding/emote/carbon/giggle
-	name = "Хихикать"
+	name = EMOTE_CARBON_GIGGLE
 
 /datum/keybinding/emote/carbon/gurgle
-	name = "Булькать"
+	name = EMOTE_CARBON_GURGLE
 
 /datum/keybinding/emote/carbon/inhale
-	name = "Вдохнуть"
+	name = EMOTE_CARBON_INHALE
 
 /datum/keybinding/emote/carbon/inhale/sharp
-	name = "Вдохнуть (резко)"
+	name = EMOTE_CARBON_INHALE_SHARP
 
 /datum/keybinding/emote/carbon/kiss
-	name = "Поцеловать"
+	name = EMOTE_CARBON_KISS
 
 /datum/keybinding/emote/carbon/wave
-	name = "Махать"
+	name = EMOTE_CARBON_WAVE
 
 /datum/keybinding/emote/carbon/yawn
-	name = "Зевать"
+	name = EMOTE_CARBON_YAWN
 
 /datum/keybinding/emote/carbon/exhale
-	name = "Выдохнуть"
+	name = EMOTE_CARBON_EXHALE
 
 /datum/keybinding/emote/carbon/laugh
-	name = "Смеяться"
+	name = EMOTE_CARBON_LAUGH
 
 /datum/keybinding/emote/carbon/scowl
-	name = "Хмуриться"
+	name = EMOTE_CARBON_SCOWL
 
 /datum/keybinding/emote/carbon/faint
-	name = "Потерять сознание"
+	name = EMOTE_CARBON_FAINT
 
 /datum/keybinding/emote/carbon/sign
-	name = "Знак"
+	name = EMOTE_CARBON_SIGN
+
+/datum/keybinding/emote/carbon/twirl
+	name = EMOTE_CARBON_TWIRL
 
 /datum/keybinding/emote/carbon/alien/humanoid/roar
-	name = "Рычать"
+	name = EMOTE_ALIEN_ROAR
 
 /datum/keybinding/emote/carbon/alien/humanoid/hiss
-	name = "Шипеть"
+	name = EMOTE_ALIEN_HISS
 
 /datum/keybinding/emote/carbon/alien/humanoid/gnarl
+	name = EMOTE_ALIEN_GNARL
 
 /datum/keybinding/emote/carbon/brain/alarm
-	name = "Тревога"
+	name = EMOTE_BRAIN_ALARM
 
 /datum/keybinding/emote/carbon/brain/alert
-	name = "Предупреждение"
+	name = EMOTE_BRAIN_ALERT
 
 /datum/keybinding/emote/carbon/brain/notice
-	name = "Оповещение"
+	name = EMOTE_BRAIN_NOTICE
 
 /datum/keybinding/emote/carbon/brain/flash
-	name = "Моргать"
+	name = EMOTE_BRAIN_FLASH
 
 /datum/keybinding/emote/carbon/brain/whistle
-	name = "Свист"
+	name = EMOTE_BRAIN_WHISTLE
 
 /datum/keybinding/emote/carbon/brain/beep
-	name = "Бип"
+	name = EMOTE_BRAIN_BEEP
 
 /datum/keybinding/emote/carbon/brain/boop
-	name = "Буп"
+	name = EMOTE_BRAIN_BOOP
 
 /datum/keybinding/emote/carbon/human/airguitar
-	name = "Запил на гитаре"
+	name = EMOTE_HUMAN_AIRGUITAR
 
 /datum/keybinding/emote/carbon/human/cry
-	name = "Плакать"
+	name = EMOTE_HUMAN_CRY
 
 /datum/keybinding/emote/carbon/human/dap
+	name = EMOTE_HUMAN_DAP
 
 /datum/keybinding/emote/carbon/human/eyebrow
-	name = "Приподнять бровь"
+	name = EMOTE_HUMAN_EYEBROW
 
 /datum/keybinding/emote/carbon/human/grumble
-	name = "Ворчать"
+	name = EMOTE_HUMAN_GRUMBLE
 
 /datum/keybinding/emote/carbon/human/hug
-	name = "Обнимать"
+	name = EMOTE_HUMAN_HUG
+
+/datum/keybinding/emote/carbon/human/facepalm
+	name = EMOTE_HUMAN_FACEPALM
+
+/datum/keybinding/emote/carbon/human/palm
+	name = EMOTE_HUMAN_PALM
+
+/datum/keybinding/emote/carbon/human/wince
+	name = EMOTE_HUMAN_WINCE
 
 /datum/keybinding/emote/carbon/human/mumble
-	name = "Бормотать"
+	name = EMOTE_HUMAN_MUMBLE
 
 /datum/keybinding/emote/carbon/human/nod
-	name = "Кивнуть"
+	name = EMOTE_HUMAN_NOD
 
 /datum/keybinding/emote/carbon/human/scream
-	name = "Кричать"
+	name = EMOTE_HUMAN_SCREAM
 
 /datum/keybinding/emote/carbon/human/gasp
-	name = "Задыхаться"
+	name = EMOTE_HUMAN_GASP
 
 /datum/keybinding/emote/carbon/human/shake
-	name = "Трясти головой"
+	name = EMOTE_HUMAN_SHAKE
 
 /datum/keybinding/emote/carbon/human/pale
-	name = "Бледнеть"
+	name = EMOTE_HUMAN_PALE
 
 /datum/keybinding/emote/carbon/human/raise
-	name = "Поднять руку"
+	name = EMOTE_HUMAN_RAISE
 
 /datum/keybinding/emote/carbon/human/salute
-	name = "Салютовать"
+	name = EMOTE_HUMAN_SALUTE
 
 /datum/keybinding/emote/carbon/human/sign/signal
-	name = "Сигналить"
+	name = EMOTE_HUMAN_SIGNAL
 
 /datum/keybinding/emote/carbon/human/shrug
-	name = "Пожать плечами"
+	name = EMOTE_HUMAN_SHRUG
 
 /datum/keybinding/emote/carbon/human/sniff
-	name = "Понюхать"
+	name = EMOTE_HUMAN_SNIFF
 
 /datum/keybinding/emote/carbon/human/johnny
-	name = "Джонни"
+	name = EMOTE_HUMAN_JOHNNY
 
 /datum/keybinding/emote/carbon/human/sneeze
-	name = "Чихнуть"
+	name = EMOTE_HUMAN_SNEEZE
 
 /datum/keybinding/emote/carbon/human/slap
-	name = "Шлёпнуть"
+	name = EMOTE_HUMAN_SLAP
 
 /datum/keybinding/emote/carbon/human/wink
-	name = "Подмигнуть"
+	name = EMOTE_HUMAN_WINK
+
+/datum/keybinding/emote/carbon/human/clap
+	name = EMOTE_HUMAN_CLAP
 
 /datum/keybinding/emote/carbon/human/highfive
-	name = "Дать Пять"
+	name = EMOTE_HUMAN_HIGHFIVE
 
 /datum/keybinding/emote/carbon/human/handshake
-	name = "Пожать руку"
+	name = EMOTE_HUMAN_HANDSHAKE
 
 /datum/keybinding/emote/carbon/human/snap
-	name = "Щёлкнуть пальцами"
+	name = EMOTE_HUMAN_SNAP
 
 /datum/keybinding/emote/carbon/human/crack
-	name = "Хрустеть"
+	name = EMOTE_HUMAN_CRACK
 
 /datum/keybinding/emote/carbon/human/fart
-	name = "Пёрнуть"
+	name = EMOTE_HUMAN_FART
 
 /datum/keybinding/emote/carbon/human/wag
-	name = "Махать хвостом"
+	name = EMOTE_HUMAN_WAG
 
 /datum/keybinding/emote/carbon/human/wag/stop
-	name = "Перестать махать хвостом"
+	name = EMOTE_HUMAN_WAG_STOP
 
 /datum/keybinding/emote/carbon/human/flap
-	name = "Махать крыльями"
-
-/datum/keybinding/emote/carbon/human/flap/angry
-	name = "Агрессивно махать крыльями"
+	name = EMOTE_HUMAN_FLAP
 
 /datum/keybinding/emote/carbon/human/flutter
-	name = "Трепетать"
+	name = EMOTE_HUMAN_FLUTTER
+
+/datum/keybinding/emote/carbon/human/flap/angry
+	name = EMOTE_HUMAN_AFLAP
 
 /datum/keybinding/emote/carbon/human/quill
-	name = "Шуршать перьями"
+	name = EMOTE_HUMAN_QUILL
 
 /datum/keybinding/emote/carbon/human/warble
-	name = "Трель"
+	name = EMOTE_HUMAN_WARBLE
 
 /datum/keybinding/emote/carbon/human/clack
-	name = "Трещать"
+	name = EMOTE_HUMAN_CLACK
 
 /datum/keybinding/emote/carbon/human/clack/click
-	name = "Щёлкать"
+	name = EMOTE_HUMAN_CLICK
 
 /datum/keybinding/emote/carbon/human/drask_talk/drone
-	name = "Гудеть"
+	name = EMOTE_HUMAN_DRONE + " (драск)"
 
 /datum/keybinding/emote/carbon/human/drask_talk/hum
-	name = "Жужжать"
+	name = EMOTE_HUMAN_HUM + " (драск)"
 
 /datum/keybinding/emote/carbon/human/drask_talk/rumble
-	name = "Урчать"
+	name = EMOTE_HUMAN_RUMBLE + " (драск)"
 
 /datum/keybinding/emote/carbon/human/hiss
-	name = "Шипеть"
+	name = EMOTE_HUMAN_HISS
+
+/datum/keybinding/emote/carbon/human/hiss/tajaran
+	name = EMOTE_HUMAN_HISS + " (таяр)"
 
 /datum/keybinding/emote/carbon/human/creak
-	name = "Скрипеть"
+	name = EMOTE_HUMAN_CREAK
 
-/datum/keybinding/emote/carbon/human/squish
-	name = "Хлюпать"
+/datum/keybinding/emote/carbon/human/slime/squish
+	name = EMOTE_HUMAN_SQUISH
+
+/datum/keybinding/emote/carbon/human/squint
+	name = EMOTE_HUMAN_SQUINT
+
+/datum/keybinding/emote/carbon/human/bubble
+	name = EMOTE_HUMAN_BUBBLE
+
+/datum/keybinding/emote/carbon/human/pop
+	name = EMOTE_HUMAN_POP
 
 /datum/keybinding/emote/carbon/human/howl
-	name = "Выть"
+	name = EMOTE_HUMAN_HOWL
 
 /datum/keybinding/emote/carbon/human/growl
-	name = "Рычать"
+	name = EMOTE_HUMAN_GROWL
 
 /datum/keybinding/emote/carbon/human/rattle
-	name = "Греметь"
+	name = EMOTE_HUMAN_RATTLE
 
 /datum/keybinding/emote/carbon/human/monkey/gnarl
+	name = EMOTE_HUMAN_GNARL + " (мартышка)"
 
 /datum/keybinding/emote/carbon/human/monkey/roll
-	name = "Крутиться (мартышка)"
+	name = EMOTE_HUMAN_ROLL + " (мартышка)"
 
 /datum/keybinding/emote/carbon/human/monkey/scratch
-	name = "Почесаться"
+	name = EMOTE_HUMAN_SCRATCH + " (мартышка)"
 
 /datum/keybinding/emote/carbon/human/monkey/tail
-	name = "Хвост (мартышка)"
+	name = EMOTE_HUMAN_TAIL + " (мартышка)"
 
 /datum/keybinding/emote/carbon/human/monkey/scream/screech
-	name = "Визжать (мартышка)"
+	name = EMOTE_HUMAN_SCREECH + " (мартышка)"
 
 /datum/keybinding/emote/carbon/human/monkey/scream/screech/roar
-	name = "Рычать (мартышка)"
+	name = EMOTE_HUMAN_ROAR + " (мартышка)"
 
 /datum/keybinding/emote/silicon/scream
-	name = "Кричать"
+	name = EMOTE_SILICON_SCREAM
 
 /datum/keybinding/emote/silicon/ping
-	name = "Звенеть"
+	name = EMOTE_SILICON_PING
 
 /datum/keybinding/emote/silicon/buzz
-	name = "Жужжать"
+	name = EMOTE_SILICON_BUZZ
 
 /datum/keybinding/emote/silicon/buzz2
-	name = "Жужжать раздражённо"
+	name = EMOTE_SILICON_BUZZ2
 
 /datum/keybinding/emote/silicon/beep
-	name = "Пищать"
+	name = EMOTE_SILICON_BEEP
 
 /datum/keybinding/emote/silicon/boop
-	name = "Буп"
+	name = EMOTE_SILICON_BOOP
 
 /datum/keybinding/emote/silicon/yes
-	name = "Утвердительно"
+	name = EMOTE_SILICON_YES
 
 /datum/keybinding/emote/silicon/no
-	name = "Отрицательно"
+	name = EMOTE_SILICON_NO
 
 /datum/keybinding/emote/silicon/law
-	name = "Law"
+	name = EMOTE_SILICON_LAW
 
 /datum/keybinding/emote/silicon/halt
-	name = "Halt"
+	name = EMOTE_SILICON_HALT
 
 /datum/keybinding/emote/simple_animal/diona_chirp
+	name = EMOTE_ANIMAL_CHIRP + " (нимфа)"
 
 /datum/keybinding/emote/simple_animal/gorilla_ooga
+	name = EMOTE_ANIMAL_OOGA + " (горилла)"
 
 /datum/keybinding/emote/simple_animal/pet/dog/bark
-	name = "Лаять (пёс)"
+	name = EMOTE_ANIMAL_BARK + " (пёс)"
 
 /datum/keybinding/emote/simple_animal/pet/dog/yelp
-	name = "Визг (пёс)"
+	name = EMOTE_ANIMAL_YELP + " (пёс)"
 
 /datum/keybinding/emote/simple_animal/pet/dog/growl
-	name = "Рычать (пёс)"
+	name = EMOTE_ANIMAL_GROWL + " (пёс)"
 
 /datum/keybinding/emote/simple_animal/mouse/squeak
-	name = "Пищать (мышь)"
+	name = EMOTE_ANIMAL_SQUEAK + " (мышь)"
 
 /datum/keybinding/emote/simple_animal/pet/cat/meow
-	name = "Мяукать (кот)"
+	name = EMOTE_ANIMAL_MEOW + " (кот)"
 
 /datum/keybinding/emote/simple_animal/pet/cat/hiss
-	name = "Шипеть (кот)"
+	name = EMOTE_ANIMAL_HISS + " (кот)"
 
 /datum/keybinding/emote/simple_animal/pet/cat/purr
-	name = "Мурчать (кот)"
+	name = EMOTE_ANIMAL_PURR + " (кот)"
 
 /datum/keybinding/emote/simple_animal/pet/cat/sit
-	name = "Сесть/встать (кот)"
+	name = EMOTE_ANIMAL_SIT + " (кот)"
 
 /datum/keybinding/custom
 	default_emote_text = "Введите текст вашей эмоции"
