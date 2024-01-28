@@ -1,6 +1,7 @@
 export type Channel =
   | 'Say'
   | 'Radio'
+  | 'Whisper'
   | 'Me'
   | 'OOC'
   | 'LOOC'
@@ -19,6 +20,7 @@ export class ChannelIterator {
   private readonly channels: Channel[] = [
     'Say',
     'Radio',
+    'Whisper',
     'Me',
     'OOC',
     'LOOC',

@@ -8,4 +8,10 @@
   font-size: 1.1rem;
   overflow: hidden;
   margin: 0.1rem 0 0 0.4rem;
+
+  &:-ms-input-placeholder {
+    font-style: italic;
+    color: #777;
+    color: rgba(255, 255, 255, 0.45);
+  }
 }

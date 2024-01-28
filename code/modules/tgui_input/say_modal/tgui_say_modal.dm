@@ -90,7 +90,7 @@
 		CRASH("No channel provided to an open TGUI-Say")
 	window_open = TRUE
 	switch(payload["channel"])
-		if(ME_CHANNEL, RADIO_CHANNEL, SAY_CHANNEL)
+		if(ME_CHANNEL, RADIO_CHANNEL, SAY_CHANNEL, WHISPER_CHANNEL)
 			start_thinking()
 	return TRUE
 

@@ -38,6 +38,9 @@
 		if(RADIO_CHANNEL)
 			client.mob.say_verb((isliving(client.mob) ? ";" : "") + entry)
 			return TRUE
+		if(WHISPER_CHANNEL)
+			client.mob.whisper(entry)
+			return TRUE
 		if(ME_CHANNEL)
 			client.mob.me_verb(entry)
 			return TRUE
@@ -93,7 +96,7 @@
 		return TRUE
 	if(type == "force")
 		var/target_channel = payload["channel"]
-		if(target_channel != SAY_CHANNEL && target_channel != RADIO_CHANNEL)
+		if(target_channel != SAY_CHANNEL && target_channel != RADIO_CHANNEL && target_channel != WHISPER_CHANNEL)
 			target_channel = SAY_CHANNEL // No ooc leaks
 		delegate_speech(alter_entry(payload), target_channel)
 		return TRUE

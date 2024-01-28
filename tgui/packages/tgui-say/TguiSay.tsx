@@ -198,7 +198,7 @@ export class TguiSay extends Component<{}, State> {
   }
 
   // Throw focus back on the text area while executing button function as expecrted
-  handleButtonClick(selectionStart, selectionEnd) {
+  handleButtonClick(selectionStart: number, selectionEnd: number) {
     this.handleIncrementChannel();
     const textArea = this.innerRef?.current;
     if (textArea) {
@@ -372,6 +372,7 @@ export class TguiSay extends Component<{}, State> {
               onInput={this.handleInput}
               onKeyDown={this.handleKeyDown}
               ref={this.innerRef}
+              placeholder="Press ESC to cancel."
             />
           </div>
           <Dragzone position="right" theme={theme} />

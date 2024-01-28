@@ -17,6 +17,10 @@
 	name = ME_CHANNEL
 	keys = list("M")
 
+/datum/keybinding/client/communication/whisper
+	name = "Whisper"
+	keys = list("U")
+
 /datum/keybinding/client/communication/radio
 	name = RADIO_CHANNEL
 	keys = list("Y")
