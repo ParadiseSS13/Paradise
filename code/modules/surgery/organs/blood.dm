@@ -234,7 +234,7 @@
 
 // This is has more potential uses, and is probably faster than the old proc.
 /proc/get_safe_blood(bloodtype)
-	. = list("Vh Null")
+	. = list(BLOOD_TYPE_FAKE_BLOOD)
 	if(!bloodtype)
 		return
 	switch(bloodtype)

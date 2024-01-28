@@ -78,7 +78,7 @@
 		if(id == "blood" && !(data?["blood_type"] in get_safe_blood(C.dna?.blood_type)) || C.dna?.species.name != data?["species"] && (data?["species_only"] || C.dna?.species.own_species_blood))
 			C.reagents.add_reagent("toxin", volume * 0.5)
 		else
-			if(data?["blood_type"] != "Vh Null")
+			if(data?["blood_type"] != BLOOD_TYPE_FAKE_BLOOD)
 				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 		// This does not absorb the blood we are getting in *this* reagent transfer operation,
 		// (because the actual transfer has not happened yet. Because reasons) but it does process
