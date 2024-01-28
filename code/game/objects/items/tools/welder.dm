@@ -146,8 +146,8 @@
 		return
 	remove_fuel(0.5)
 
-/obj/item/weldingtool/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && tool_enabled) // For lighting other people's cigarettes.
+/obj/item/weldingtool/attack(mob/living/carbon/M, mob/living/carbon/user)
+	if(istype(M) && istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && tool_enabled) // For lighting other people's cigarettes.
 		var/obj/item/clothing/mask/cigarette/cig = M.wear_mask
 		if(M == user)
 			cig.attackby(src, user)
