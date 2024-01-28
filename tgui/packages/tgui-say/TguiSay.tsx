@@ -372,7 +372,6 @@ export class TguiSay extends Component<{}, State> {
               onInput={this.handleInput}
               onKeyDown={this.handleKeyDown}
               ref={this.innerRef}
-              placeholder="Press ESC to cancel."
             />
           </div>
           <Dragzone position="right" theme={theme} />
