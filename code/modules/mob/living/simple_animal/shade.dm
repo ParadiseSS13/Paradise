@@ -29,7 +29,7 @@
 	faction = list("cult")
 	status_flags = CANPUSH
 	flying = TRUE
-	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
+	loot = list(/obj/item/food/snacks/ectoplasm)
 	del_on_death = TRUE
 	deathmessage = "lets out a contented sigh as their form unwinds."
 	var/holy = FALSE
@@ -62,6 +62,7 @@
 	can_change_intents = FALSE // same here
 	health = 100
 	maxHealth = 100
+	weather_immunities = list("ash")
 
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()
@@ -69,6 +70,16 @@
 	var/obj/item/nullrod/scythe/talking/host_sword = loc
 	if(istype(host_sword))
 		health = host_sword.obj_integrity
+
+/mob/living/simple_animal/shade/sword/bread
+	name = "Bread spirit"
+
+/mob/living/simple_animal/shade/sword/bread/update_runechat_msg_location()
+	runechat_msg_location = loc.UID()
+
+/mob/living/simple_animal/shade/sword/bread/proc/handle_bread_deletion(source)
+	SIGNAL_HANDLER
+	qdel(src)
 
 /mob/living/simple_animal/shade/update_runechat_msg_location()
 	if(istype(loc, /obj/item/soulstone) || istype(loc, /obj/item/nullrod/scythe/talking))

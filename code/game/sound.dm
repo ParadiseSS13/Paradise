@@ -92,9 +92,6 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	S.channel = channel || SSsounds.random_available_channel()
 	S.volume = vol
 
-	if(channel)
-		S.volume *= client.prefs.get_channel_volume(channel)
-
 	if(vary)
 		if(frequency)
 			S.frequency = frequency
@@ -159,7 +156,18 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 				S.echo[3] = 0 //Room setting, 0 means normal reverb
 				S.echo[4] = 0 //RoomHF setting, 0 means normal reverb.
 
+	S.volume *= USER_VOLUME(src, CHANNEL_GENERAL)
+	if(channel)
+		S.volume *= USER_VOLUME(src, channel)
+
 	SEND_SOUND(src, S)
+
+/proc/sound_to_playing_players_on_station_level(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/S)
+	if(!S)
+		S = sound(get_sfx(soundin))
+	for(var/mob/m as anything in GLOB.player_list)
+		if(!isnewplayer(m) && is_station_level(m.z))
+			m.playsound_local(m, null, volume, vary, frequency, null, channel, pressure_affected, S)
 
 /proc/sound_to_playing_players(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/S)
 	if(!S)

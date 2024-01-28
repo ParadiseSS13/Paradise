@@ -505,16 +505,18 @@
 /proc/spread_germs_by_incision(obj/item/organ/external/E, obj/item/tool)
 	if(!isorgan(E))
 		return
+	if(!E.owner)
+		return
 
 	var/germs = 0
 
-	for(var/mob/living/carbon/human/H in view(2, E.loc))//germs from people
-		if(length(get_path_to(E.loc, H.loc, max_distance = 2, simulated_only = FALSE)))
+	for(var/mob/living/carbon/human/H in view(2, E.owner))//germs from people
+		if(length(get_path_to(E.owner, H.loc, max_distance = 2, simulated_only = FALSE)))
 			if(!HAS_TRAIT(H, TRAIT_NOBREATH) && !H.wear_mask) //wearing a mask helps preventing people from breathing cooties into open incisions
 				germs += H.germ_level * 0.25
 
-	for(var/obj/effect/decal/cleanable/M in view(2, E.loc))//germs from messes
-		if(length(get_path_to(E.loc, M.loc, 2, simulated_only = FALSE)))
+	for(var/obj/effect/decal/cleanable/M in view(2, E.owner))//germs from messes
+		if(length(get_path_to(E.owner, M.loc, 2, simulated_only = FALSE)))
 			germs++
 
 	if(tool && tool.blood_DNA && length(tool.blood_DNA)) //germs from blood-stained tools

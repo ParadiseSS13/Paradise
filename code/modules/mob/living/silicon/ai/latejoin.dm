@@ -21,14 +21,19 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 
 	SSjobs.FreeRole(job)
 
-	if(mind.objectives.len)
-		mind.objectives.Cut()
+	if(mind.objective_holder.clear())
 		mind.special_role = null
 	else
 		if(SSticker.mode.name == "AutoTraitor")
 			var/datum/game_mode/traitor/autotraitor/current_mode = SSticker.mode
 			current_mode.possible_traitors.Remove(src)
 
+	for(var/datum/objective/destroy/O in GLOB.all_objectives)
+		if(O.target != mind)
+			continue
+		O.on_target_cryo()
+
+	view_core()
 	// Ghost the current player and disallow them to return to the body
 	if(TOO_EARLY_TO_GHOST)
 		ghostize(FALSE)

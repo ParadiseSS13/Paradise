@@ -6,14 +6,15 @@
 	dead_icon = null
 	status = ORGAN_ROBOT
 	origin_tech = "materials=4;biotech=7;abductor=3"
-	beating = TRUE
+	organ_datums = list(/datum/organ/heart/always_beating) // alien glands are immune to stopping
+	tough = TRUE //not easily broken by combat damage
+
 	var/cooldown_low = 300
 	var/cooldown_high = 300
 	var/next_activation = 0
 	var/uses // -1 For inifinite
 	var/human_only = FALSE
 	var/active = FALSE
-	tough = TRUE //not easily broken by combat damage
 
 	var/mind_control_uses = 1
 	var/mind_control_duration = 1800
@@ -84,9 +85,6 @@
 	update_gland_hud()
 
 /obj/item/organ/internal/heart/gland/on_life()
-	if(!beating)
-		// alien glands are immune to stopping.
-		beating = TRUE
 	if(!active)
 		return
 	if(!ownerCheck())
@@ -136,9 +134,7 @@
 	to_chat(owner, "<span class='warning'>You feel nauseous!</span>")
 	owner.vomit(20)
 
-	var/mob/living/simple_animal/slime/Slime = new(get_turf(owner), "grey")
-	Slime.Friends = list(owner)
-	Slime.Leader = owner
+	new /mob/living/simple_animal/slime(get_turf(owner), "grey")
 
 /obj/item/organ/internal/heart/gland/mindshock
 	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"
@@ -192,7 +188,7 @@
 
 /obj/item/organ/internal/heart/gland/ventcrawling/activate()
 	to_chat(owner, "<span class='notice'>You feel very stretchy.</span>")
-	owner.ventcrawler = 2
+	owner.ventcrawler = VENTCRAWLER_ALWAYS
 
 
 /obj/item/organ/internal/heart/gland/viral
@@ -267,7 +263,7 @@
 
 /obj/item/organ/internal/heart/gland/egg/activate()
 	owner.visible_message("<span class='alertalien'>[owner] [pick(EGG_LAYING_MESSAGES)]</span>")
-	new /obj/item/reagent_containers/food/snacks/egg/gland(get_turf(owner))
+	new /obj/item/food/snacks/egg/gland(get_turf(owner))
 
 /obj/item/organ/internal/heart/gland/electric
 	cooldown_low = 800

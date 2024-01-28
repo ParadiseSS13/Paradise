@@ -19,6 +19,17 @@
 	icon_state = "banana_touch"
 	item_state = "banana_touch"
 
+/obj/effect/proc_holder/spell/touch/banana/apprentice
+	hand_path = /obj/item/melee/touch_attack/banana/apprentice
+
+/obj/item/melee/touch_attack/banana/apprentice
+
+/obj/item/melee/touch_attack/banana/apprentice/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(iswizard(target) && target != user)
+		to_chat(user, "<span class='danger'>Seriously?! Honk THEM, not me!</span>")
+		return
+	..()
+
 /obj/item/melee/touch_attack/banana/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
@@ -43,17 +54,17 @@
 		unEquip(wear_mask, TRUE)
 		unEquip(head, TRUE)
 		unEquip(wear_suit, TRUE)
-		equip_to_slot_if_possible(new /obj/item/clothing/head/wizard/clown, slot_head, TRUE, TRUE)
-		equip_to_slot_if_possible(new /obj/item/clothing/suit/wizrobe/clown, slot_wear_suit, TRUE, TRUE)
-		equip_to_slot_if_possible(new /obj/item/clothing/shoes/clown_shoes/magical, slot_shoes, TRUE, TRUE)
-		equip_to_slot_if_possible(new /obj/item/clothing/mask/gas/clownwiz, slot_wear_mask, TRUE, TRUE)
+		equip_to_slot_if_possible(new /obj/item/clothing/head/wizard/clown, SLOT_HUD_HEAD, TRUE, TRUE)
+		equip_to_slot_if_possible(new /obj/item/clothing/suit/wizrobe/clown, SLOT_HUD_OUTER_SUIT, TRUE, TRUE)
+		equip_to_slot_if_possible(new /obj/item/clothing/shoes/clown_shoes/magical, SLOT_HUD_SHOES, TRUE, TRUE)
+		equip_to_slot_if_possible(new /obj/item/clothing/mask/gas/clownwiz, SLOT_HUD_WEAR_MASK, TRUE, TRUE)
 	else
 		qdel(shoes)
 		qdel(wear_mask)
 		qdel(w_uniform)
-		equip_to_slot_if_possible(new /obj/item/clothing/under/rank/civilian/clown/nodrop, slot_w_uniform, TRUE, TRUE)
-		equip_to_slot_if_possible(new /obj/item/clothing/shoes/clown_shoes/nodrop, slot_shoes, TRUE, TRUE)
-		equip_to_slot_if_possible(new /obj/item/clothing/mask/gas/clown_hat/nodrop, slot_wear_mask, TRUE, TRUE)
+		equip_to_slot_if_possible(new /obj/item/clothing/under/rank/civilian/clown/nodrop, SLOT_HUD_JUMPSUIT, TRUE, TRUE)
+		equip_to_slot_if_possible(new /obj/item/clothing/shoes/clown_shoes/nodrop, SLOT_HUD_SHOES, TRUE, TRUE)
+		equip_to_slot_if_possible(new /obj/item/clothing/mask/gas/clown_hat/nodrop, SLOT_HUD_WEAR_MASK, TRUE, TRUE)
 	dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
 	dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
 	singlemutcheck(src, GLOB.clumsyblock, MUTCHK_FORCED)

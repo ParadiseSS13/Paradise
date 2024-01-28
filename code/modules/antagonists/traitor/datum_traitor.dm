@@ -24,6 +24,18 @@
 	owner.som.masters += owner
 	..()
 
+/datum/antagonist/traitor/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/living/datum_owner = mob_override || owner.current
+	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_phrase_regex, "codephrases", src)
+	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_response_regex, "coderesponses", src)
+
+/datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/living/datum_owner = mob_override || owner.current
+	for(var/datum/component/codeword_hearing/component in datum_owner.GetComponents(/datum/component/codeword_hearing))
+		component.delete_if_from_source(src)
+
 /datum/antagonist/traitor/Destroy(force, ...)
 	// Remove all associated malf AI abilities.
 	if(isAI(owner.current))
@@ -44,8 +56,8 @@
 		slaved.leave_serv_hud(owner)
 		owner.som = null
 
-	owner.current.client?.chatOutput?.clear_syndicate_codes()
-
+	// Need to bring this functionality back to TGchat
+	// owner.current.client?.chatOutput?.clear_syndicate_codes()
 	// Try removing their uplink, check PDA
 	var/mob/M = owner.current
 	var/obj/item/uplink_holder = locate(/obj/item/pda) in M.contents
@@ -61,7 +73,7 @@
 		qdel(uplink)
 
 	// Check for an uplink implant
-	var/uplink_implant = locate(/obj/item/implant/uplink) in M.contents
+	var/uplink_implant = locate(/obj/item/bio_chip/uplink) in M.contents
 	if(uplink_implant)
 		qdel(uplink_implant)
 
@@ -93,7 +105,7 @@
 /datum/antagonist/traitor/proc/forge_human_objectives()
 	// Hijack objective.
 	if(prob(10) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
-		add_objective(/datum/objective/hijack)
+		add_antag_objective(/datum/objective/hijack)
 		return // Hijack should be their only objective (normally), so return.
 
 	// Will give normal steal/kill/etc. type objectives.
@@ -109,15 +121,15 @@
 
 	// Give them an escape objective if they don't have one already.
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
-		add_objective(/datum/objective/escape)
+		add_antag_objective(/datum/objective/escape)
 
 /**
  * Create and assign a full set of AI traitor objectives.
  */
 /datum/antagonist/traitor/proc/forge_ai_objectives()
-	add_objective(/datum/objective/block)
-	add_objective(/datum/objective/assassinate)
-	add_objective(/datum/objective/survive)
+	add_antag_objective(/datum/objective/block)
+	add_antag_objective(/datum/objective/assassinate)
+	add_antag_objective(/datum/objective/survive)
 
 /**
  * Create and assign a single randomized human traitor objective.
@@ -125,22 +137,25 @@
 /datum/antagonist/traitor/proc/forge_single_human_objective()
 	if(prob(50))
 		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
-			add_objective(/datum/objective/destroy)
+			add_antag_objective(/datum/objective/destroy)
 		else if(prob(5))
-			add_objective(/datum/objective/debrain)
+			add_antag_objective(/datum/objective/debrain)
 		else if(prob(30))
-			add_objective(/datum/objective/maroon)
+			add_antag_objective(/datum/objective/maroon)
+		else if(prob(30))
+			add_antag_objective(/datum/objective/assassinateonce)
 		else
-			add_objective(/datum/objective/assassinate)
+			add_antag_objective(/datum/objective/assassinate)
 	else
-		add_objective(/datum/objective/steal)
+		add_antag_objective(/datum/objective/steal)
 
 /**
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.
  */
 /datum/antagonist/traitor/finalize_antag()
+	var/list/messages = list()
 	if(give_codewords)
-		give_codewords()
+		messages.Add(give_codewords())
 	if(isAI(owner.current))
 		add_law_zero()
 		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
@@ -151,28 +166,33 @@
 			give_uplink()
 		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
+	return messages
+
 /**
  * Notify the traitor of their codewords and write them to `antag_memory` (notes).
  */
 /datum/antagonist/traitor/proc/give_codewords()
 	if(!owner.current)
 		return
-	var/mob/traitor_mob = owner.current
+	// Need to bring this functionality back to TGchat
+	// var/mob/traitor_mob = owner.current
 
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
-
-	to_chat(traitor_mob, "<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
-	to_chat(traitor_mob, "<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
-	to_chat(traitor_mob, "<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
+	var/list/messages = list()
+	messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
+	messages.Add("<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
+	messages.Add("<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
 
 	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
 
-	to_chat(traitor_mob, "Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
-	to_chat(traitor_mob, "<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
+	messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
+	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
 
-	traitor_mob.client.chatOutput?.notify_syndicate_codes()
+	// Need to bring this functionality back to TGchat
+	// traitor_mob.client.chatOutput?.notify_syndicate_codes()
+	return messages
 
 /**
  * Gives traitor AIs, and their connected cyborgs, a law 0. Additionally gives the AI their choose modules action button.

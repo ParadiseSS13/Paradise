@@ -49,7 +49,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		var/mob/dead/observer/O = locate(href_list["signup"])
 		if(!O)
 			return
-		if(!(O in GLOB.respawnable_list))
+		if(!HAS_TRAIT(O, TRAIT_RESPAWNABLE))
 			to_chat(O, "You've given up your ability to respawn!")
 			return
 		if(!check_recruit(O))
@@ -232,7 +232,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 	var/list/available = list()
 	for(var/datum/pai_save/c in GLOB.paiController.pai_candidates)
 		var/found = 0
-		for(var/mob/o in GLOB.respawnable_list)
+		for(var/mob/dead/observer/o in GLOB.player_list)
 			if(o.ckey == c.owner.ckey)
 				found = 1
 		if(found)
@@ -355,9 +355,9 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		return 0
 	if(!player_old_enough_antag(O.client,ROLE_PAI))
 		return 0
-	if(cannotPossess(O))
+	if(!O.check_ahud_rejoin_eligibility())
 		return 0
-	if(!(O in GLOB.respawnable_list))
+	if(!HAS_TRAIT(O, TRAIT_RESPAWNABLE))
 		return 0
 	if(O.client)
 		return 1

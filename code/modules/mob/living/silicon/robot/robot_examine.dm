@@ -45,15 +45,15 @@
 				msg += "<span class='deadsay'>It looks like its internal subsystems are beyond repair and require replacing.</span>\n"
 			else
 				msg += "<span class='warning'>It looks like its system is corrupted beyond repair. There is no hope of recovery.</span>\n"
-	msg += "*---------*</span>"
+	msg += "</span>"
 
 	if(print_flavor_text())
 		msg += "\n[print_flavor_text()]\n"
 
 	if(pose)
-		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
+		if(findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0)
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
-		msg += "\nIt is [pose]"
+		msg += "\nIt [pose]"
 
 	. += msg
 	user.showLaws(src)

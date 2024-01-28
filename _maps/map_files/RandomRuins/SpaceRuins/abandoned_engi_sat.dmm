@@ -1,0 +1,2652 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ao" = (
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"aN" = (
+/obj/machinery/computer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"bi" = (
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/turf/simulated/floor/wood/airless,
+/area/ruin/space/abandoned_engi_sat)
+"bx" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "blue"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"bE" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"cm" = (
+/obj/machinery/mass_driver{
+	dir = 4;
+	id_tag = "constructiondriver1";
+	name = "construction driver #1"
+	},
+/obj/machinery/door/window{
+	dir = 8;
+	name = "Construction Driver"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/construction{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"cz" = (
+/obj/machinery/status_display{
+	mode = 0;
+	pixel_x = 32;
+	pixel_y = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "delivery"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"cD" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"cH" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/status_display{
+	mode = 0;
+	pixel_x = 0;
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"cK" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/turf/simulated/wall,
+/area/ruin/space/abandoned_engi_sat)
+"dk" = (
+/obj/machinery/power/solar,
+/obj/structure/cable{
+	icon_state = "0-1"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"dq" = (
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "blue"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"dx" = (
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_x = -5;
+	pixel_y = -1
+	},
+/obj/item/shard{
+	pixel_x = -5;
+	pixel_y = -4
+	},
+/obj/item/stack/cable_coil,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"dz" = (
+/obj/structure/table/reinforced,
+/obj/item/lipstick/random,
+/obj/item/lipstick/random,
+/obj/item/storage/fancy/cigarettes/cigpack_carp,
+/turf/simulated/floor/plasteel{
+	icon_state = "vault";
+	dir = 5
+	},
+/area/ruin/space/abandoned_engi_sat)
+"dB" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/abandoned_engi_sat)
+"dN" = (
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"es" = (
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube-broken";
+	status = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"et" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"ex" = (
+/obj/item/radio/intercom{
+	dir = 1;
+	name = "station intercom (General)";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"eG" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"eP" = (
+/obj/machinery/light{
+	dir = 1;
+	icon_state = "tube-broken";
+	status = 2
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"eQ" = (
+/obj/structure/grille/broken,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/abandoned_engi_sat)
+"fc" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/obj/structure/sign/singulo{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"fe" = (
+/obj/structure/cable{
+	icon_state = "0-4";
+	d2 = 4
+	},
+/obj/machinery/power/apc/off_station/empty_charge{
+	pixel_y = -24
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"fA" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"fY" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "blue"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"gi" = (
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cmo"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"gq" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/abandoned_engi_sat)
+"gr" = (
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"gC" = (
+/obj/structure/sign/nosmoking_2{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_stairs"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"gL" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"hy" = (
+/obj/machinery/driver_button{
+	id_tag = "constructiondriver1";
+	name = "Construction Driver #1";
+	pixel_x = 25
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"hB" = (
+/obj/structure/table,
+/turf/simulated/floor/carpet/airless,
+/area/ruin/space/abandoned_engi_sat)
+"hE" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/template_noop,
+/area/template_noop)
+"hP" = (
+/obj/machinery/status_display{
+	mode = 0;
+	pixel_x = 0;
+	pixel_y = 32
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"iO" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "engineering_away";
+	name = "Engineering Dock Airlock"
+	},
+/obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"iV" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/abandoned_engi_sat)
+"jk" = (
+/obj/machinery/shower{
+	dir = 4;
+	icon_state = "shower";
+	pixel_x = 5
+	},
+/obj/structure/curtain/open/shower/engineering,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cmo"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"jm" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"jG" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"jK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"jR" = (
+/obj/machinery/status_display{
+	mode = 0;
+	pixel_y = 32
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/abandoned_engi_sat)
+"jS" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light,
+/obj/item/radio/intercom{
+	dir = 1;
+	name = "station intercom (General)";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"kd" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"kg" = (
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2";
+	pixel_y = 0
+	},
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"kt" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall,
+/area/ruin/space/abandoned_engi_sat)
+"kw" = (
+/obj/item/stack/ore/iron{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation)
+"ky" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"kI" = (
+/obj/structure/table,
+/obj/item/toy/plushie/carpplushie{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/airless,
+/area/ruin/space/abandoned_engi_sat)
+"kJ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/sign/poster/ripped{
+	pixel_y = 32;
+	name = "torn sign";
+	pixel_x = -1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"kT" = (
+/obj/structure/mirror,
+/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/turf/simulated/wall,
+/area/ruin/space/abandoned_engi_sat)
+"kZ" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"lf" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"lu" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-8";
+	d1 = 1;
+	d2 = 8
+	},
+/obj/structure/cable{
+	icon_state = "2-8";
+	d1 = 2;
+	d2 = 8
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	d1 = 4;
+	d2 = 8
+	},
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"lQ" = (
+/obj/machinery/driver_button{
+	id_tag = "constructiondriver0";
+	name = "Construction Driver #0";
+	pixel_x = 25
+	},
+/obj/structure/engineeringcart,
+/turf/simulated/floor/plasteel{
+	icon_state = "bot";
+	dir = 1
+	},
+/area/ruin/space/abandoned_engi_sat)
+"lT" = (
+/obj/item/stack/ore/iron{
+	pixel_x = -1;
+	pixel_y = -2
+	},
+/turf/template_noop,
+/area/space/nearstation)
+"mB" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"mG" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/abandoned_engi_sat)
+"mQ" = (
+/obj/structure/lattice,
+/obj/item/stack/sheet/metal{
+	dir = 4
+	},
+/obj/structure/table_frame{
+	dir = 4
+	},
+/obj/item/bedsheet/orange{
+	dir = 8
+	},
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"mW" = (
+/obj/machinery/suit_storage_unit{
+	state_open = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "delivery"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"mY" = (
+/obj/machinery/power/terminal{
+	dir = 8
+	},
+/obj/structure/cable,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"ne" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-8";
+	d1 = 2;
+	d2 = 8
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	d1 = 4;
+	d2 = 8
+	},
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"ni" = (
+/obj/machinery/door/poddoor{
+	id_tag = "constructiondriver0";
+	name = "Construction Driver Door";
+	protected = 0
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"nn" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/abandoned_engi_sat)
+"nH" = (
+/turf/simulated/floor/carpet/airless,
+/area/ruin/space/abandoned_engi_sat)
+"nR" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"oG" = (
+/obj/structure/closet{
+	icon_state = "atmos_wardrobe";
+	name = "atmospherics wardrobe"
+	},
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"oL" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
+/area/ruin/space/abandoned_engi_sat)
+"oW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/poster/random_contraband,
+/obj/item/poster/random_contraband,
+/obj/item/poster/random_contraband,
+/obj/item/reagent_containers/drinks/bottle/whiskey,
+/obj/item/reagent_containers/drinks/bottle/vodka,
+/obj/item/reagent_containers/drinks/bottle/vodka,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"pb" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"ps" = (
+/obj/structure/table,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 28
+	},
+/obj/machinery/cell_charger,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"px" = (
+/turf/simulated/wall,
+/area/ruin/space/abandoned_engi_sat)
+"pM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"pX" = (
+/obj/structure/closet{
+	icon_state = "eng_secure";
+	opened = 1;
+	open_door_sprite = "eng_secure_door";
+	name = "engineer's locker"
+	},
+/turf/simulated/floor/wood/airless,
+/area/ruin/space/abandoned_engi_sat)
+"qu" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/abandoned_engi_sat)
+"rr" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation)
+"rw" = (
+/obj/structure/lattice,
+/obj/item/stack/sheet/metal,
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"rE" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'HIGH VOLTAGE'";
+	icon_state = "shock";
+	name = "HIGH VOLTAGE";
+	pixel_x = 0;
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"rI" = (
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/obj/item/light/tube{
+	icon_state = "ltube-broken"
+	},
+/obj/item/stack/cable_coil,
+/obj/structure/lattice,
+/obj/item/stack/sheet/metal,
+/turf/template_noop,
+/area/space/nearstation)
+"si" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "blue";
+	dir = 4
+	},
+/area/ruin/space/abandoned_engi_sat)
+"sm" = (
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"st" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-8";
+	d1 = 1;
+	d2 = 8
+	},
+/obj/structure/cable{
+	icon_state = "2-8";
+	d1 = 2;
+	d2 = 8
+	},
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"sO" = (
+/obj/structure/table/wood,
+/obj/item/ashtray/plastic{
+	pixel_x = 2;
+	pixel_y = 1
+	},
+/turf/simulated/floor/wood/airless,
+/area/ruin/space/abandoned_engi_sat)
+"to" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"tO" = (
+/obj/machinery/computer{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"uC" = (
+/obj/item/stack/ore/iron{
+	pixel_x = 6;
+	pixel_y = -5
+	},
+/obj/structure/lattice,
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"uO" = (
+/obj/machinery/light,
+/obj/item/radio/intercom{
+	dir = 1;
+	name = "station intercom (General)";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"uQ" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK";
+	pixel_x = 0;
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"vn" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/multitool,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"wl" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"wu" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/abandoned_engi_sat)
+"wV" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"xp" = (
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 1
+	},
+/obj/machinery/status_display{
+	mode = 0;
+	pixel_x = 0;
+	pixel_y = 32
+	},
+/obj/structure/closet/crate/internals,
+/turf/simulated/floor/plasteel{
+	icon_state = "bot";
+	dir = 1
+	},
+/area/ruin/space/abandoned_engi_sat)
+"xW" = (
+/obj/machinery/power/solar,
+/obj/structure/cable{
+	icon_state = "0-2";
+	d2 = 2
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"ya" = (
+/obj/structure/lattice,
+/obj/structure/disposaloutlet{
+	dir = 8
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"yj" = (
+/obj/machinery/door/airlock{
+	name = "Restroom"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"yq" = (
+/obj/item/shard{
+	icon_state = "small";
+	pixel_x = -8;
+	pixel_y = 4
+	},
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_x = 6;
+	pixel_y = -7
+	},
+/obj/item/stack/cable_coil,
+/obj/structure/lattice,
+/obj/item/stack/sheet/metal,
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"yt" = (
+/obj/machinery/door/poddoor{
+	id_tag = "constructiondriver2";
+	name = "Construction Driver Door";
+	protected = 0
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"yE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"yJ" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"zb" = (
+/obj/item/radio/intercom{
+	dir = 1;
+	name = "station intercom (General)";
+	pixel_x = -28;
+	pixel_y = 0
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"zp" = (
+/obj/structure/dispenser,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/plasteel{
+	icon_state = "delivery"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"zv" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/obj/machinery/newscaster{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"zZ" = (
+/obj/item/stack/sheet/metal,
+/obj/structure/girder,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/abandoned_engi_sat)
+"Ak" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Kitchen"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"Al" = (
+/obj/item/stack/cable_coil,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation)
+"AD" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8";
+	d1 = 4;
+	d2 = 8
+	},
+/obj/structure/cable{
+	icon_state = "2-4";
+	d1 = 2;
+	d2 = 4
+	},
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"Bu" = (
+/obj/machinery/door/poddoor{
+	id_tag = "constructiondriver1";
+	name = "Construction Driver Door";
+	protected = 0
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"BR" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"CN" = (
+/obj/machinery/light,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = -28
+	},
+/turf/simulated/floor/wood/airless,
+/area/ruin/space/abandoned_engi_sat)
+"CP" = (
+/obj/machinery/light{
+	dir = 8;
+	icon_state = "tube-broken";
+	status = 2
+	},
+/obj/structure/closet{
+	icon_state = "fire";
+	name = "fire-safety closet";
+	desc = "It's a storage unit for fire-fighting supplies."
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bot";
+	dir = 1
+	},
+/area/ruin/space/abandoned_engi_sat)
+"CS" = (
+/obj/structure/lattice/catwalk,
+/obj/item/stack/sheet/metal{
+	dir = 1
+	},
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"CY" = (
+/obj/machinery/computer{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"Db" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"De" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/abandoned_engi_sat)
+"Dj" = (
+/obj/machinery/power/solar,
+/obj/structure/cable{
+	icon_state = "0-4";
+	d2 = 4
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"DJ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"DO" = (
+/turf/simulated/floor/wood/airless,
+/area/ruin/space/abandoned_engi_sat)
+"Eh" = (
+/obj/machinery/light/small{
+	dir = 4;
+	icon_state = "bulb-broken";
+	status = 2
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"Er" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "vault";
+	dir = 5
+	},
+/area/ruin/space/abandoned_engi_sat)
+"EC" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Cabin"
+	},
+/turf/simulated/floor/wood/airless,
+/area/ruin/space/abandoned_engi_sat)
+"EQ" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "vault";
+	dir = 5
+	},
+/area/ruin/space/abandoned_engi_sat)
+"EU" = (
+/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/abandoned_engi_sat)
+"Fm" = (
+/obj/machinery/power/solar,
+/obj/structure/cable{
+	icon_state = "0-8";
+	d2 = 8
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"FQ" = (
+/obj/machinery/door/airlock/engineering{
+	name = "Construction Area"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"Gg" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"Gi" = (
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"Gt" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"Gy" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-8";
+	d1 = 2;
+	d2 = 8
+	},
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"GP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"Ha" = (
+/obj/item/radio/intercom{
+	dir = 1;
+	name = "station intercom (General)";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"HK" = (
+/obj/machinery/light,
+/obj/item/radio/intercom{
+	dir = 1;
+	name = "station intercom (General)";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "vault";
+	dir = 5
+	},
+/area/ruin/space/abandoned_engi_sat)
+"HL" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "blue";
+	dir = 8
+	},
+/area/ruin/space/abandoned_engi_sat)
+"HX" = (
+/obj/structure/cable{
+	icon_state = "0-1"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"Iz" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/abandoned_engi_sat)
+"IC" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "bot";
+	dir = 1
+	},
+/area/ruin/space/abandoned_engi_sat)
+"IF" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-2";
+	pixel_y = 1;
+	d2 = 2
+	},
+/obj/machinery/computer,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"IM" = (
+/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/turf/simulated/wall,
+/area/ruin/space/abandoned_engi_sat)
+"Jo" = (
+/obj/structure/window/reinforced/tinted{
+	dir = 1
+	},
+/obj/item/soap/nanotrasen,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cmo"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"Kj" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"LL" = (
+/obj/structure/toilet{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "vault";
+	dir = 5
+	},
+/area/ruin/space/abandoned_engi_sat)
+"LP" = (
+/turf/template_noop,
+/area/template_noop)
+"Mv" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-4";
+	d1 = 2;
+	d2 = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-4";
+	d1 = 1;
+	d2 = 4
+	},
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"MK" = (
+/obj/machinery/mass_driver{
+	dir = 4;
+	id_tag = "constructiondriver2";
+	name = "construction driver #2"
+	},
+/obj/machinery/door/window{
+	dir = 8;
+	name = "Construction Driver"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/construction{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"NM" = (
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/plasteel{
+	icon_state = "delivery"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"NY" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2";
+	d1 = 1;
+	d2 = 2
+	},
+/obj/structure/cable{
+	icon_state = "2-8";
+	d1 = 2;
+	d2 = 8
+	},
+/obj/structure/cable{
+	icon_state = "2-4";
+	d1 = 2;
+	d2 = 4
+	},
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"OG" = (
+/obj/structure/table,
+/obj/structure/sign/fire{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "blue"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"OZ" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-4";
+	d1 = 2;
+	d2 = 4
+	},
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"Pa" = (
+/obj/machinery/driver_button{
+	id_tag = "constructiondriver2";
+	name = "Construction Driver #2";
+	pixel_x = 25
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"Pb" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"Pj" = (
+/obj/item/stack/rods{
+	icon_state = "rods-1"
+	},
+/obj/item/stack/sheet/metal{
+	dir = 1
+	},
+/turf/template_noop,
+/area/space/nearstation)
+"PH" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"Qa" = (
+/obj/machinery/door/airlock/external,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"QI" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-8";
+	d1 = 2;
+	d2 = 8
+	},
+/obj/structure/cable{
+	icon_state = "2-4";
+	d1 = 2;
+	d2 = 4
+	},
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"QJ" = (
+/obj/structure/sink{
+	dir = 4;
+	icon_state = "sink";
+	pixel_x = 11;
+	pixel_y = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "vault";
+	dir = 5
+	},
+/area/ruin/space/abandoned_engi_sat)
+"QK" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_stairs"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"Ro" = (
+/obj/effect/landmark/damageturf,
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"Rq" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"Rs" = (
+/obj/item/stack/sheet/metal,
+/turf/template_noop,
+/area/space/nearstation)
+"RP" = (
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "vault";
+	dir = 5
+	},
+/area/ruin/space/abandoned_engi_sat)
+"Sa" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	icon_state = "blue";
+	dir = 4
+	},
+/area/ruin/space/abandoned_engi_sat)
+"SI" = (
+/obj/machinery/light_switch{
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"Tw" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"Ud" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"Ux" = (
+/obj/item/stack/sheet/metal{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/abandoned_engi_sat)
+"Vn" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"Vt" = (
+/obj/item/stack/rods{
+	icon_state = "rods-1"
+	},
+/turf/template_noop,
+/area/space/nearstation)
+"Vx" = (
+/obj/item/stack/sheet/metal{
+	dir = 8
+	},
+/turf/template_noop,
+/area/space/nearstation)
+"VJ" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2";
+	d1 = 1;
+	d2 = 2
+	},
+/obj/structure/cable{
+	icon_state = "2-8";
+	d1 = 2;
+	d2 = 8
+	},
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"VZ" = (
+/obj/item/stack/sheet/metal,
+/obj/item/stack/cable_coil,
+/turf/template_noop,
+/area/space/nearstation)
+"WJ" = (
+/obj/machinery/washing_machine,
+/turf/simulated/floor/wood/airless,
+/area/ruin/space/abandoned_engi_sat)
+"Xn" = (
+/obj/structure/bed,
+/turf/simulated/floor/carpet/airless,
+/area/ruin/space/abandoned_engi_sat)
+"XP" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"Yz" = (
+/obj/structure/closet{
+	icon_state = "emergency";
+	open_door_sprite = "emergency_door";
+	name = "emergency closet";
+	desc = "It's a storage unit for emergency breathmasks and o2 tanks.";
+	opened = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bot";
+	dir = 1
+	},
+/area/ruin/space/abandoned_engi_sat)
+"YE" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"YG" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8";
+	d1 = 4;
+	d2 = 8
+	},
+/obj/structure/cable{
+	icon_state = "2-4";
+	d1 = 2;
+	d2 = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-4";
+	d1 = 1;
+	d2 = 4
+	},
+/turf/template_noop,
+/area/ruin/space/abandoned_engi_sat)
+"YV" = (
+/obj/structure/window/reinforced/tinted{
+	dir = 1
+	},
+/obj/structure/window/reinforced/tinted{
+	dir = 4;
+	icon_state = "twindow"
+	},
+/obj/item/bikehorn/rubberducky,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cmo"
+	},
+/area/ruin/space/abandoned_engi_sat)
+"Zq" = (
+/obj/machinery/mass_driver{
+	dir = 4;
+	id_tag = "constructiondriver0";
+	name = "construction driver #0"
+	},
+/obj/machinery/door/window{
+	dir = 8;
+	name = "Construction Driver"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/construction{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"Zs" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+"ZA" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
+"ZS" = (
+/obj/structure/sink{
+	dir = 4;
+	icon_state = "sink";
+	pixel_x = 11;
+	pixel_y = 0
+	},
+/obj/structure/sign/poster/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
+
+(1,1,1) = {"
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(2,1,1) = {"
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(3,1,1) = {"
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+rr
+rr
+rr
+LP
+LP
+LP
+LP
+LP
+LP
+rr
+oL
+oL
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(4,1,1) = {"
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+rr
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+oL
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(5,1,1) = {"
+LP
+rr
+rr
+LP
+LP
+LP
+rr
+rr
+rr
+LP
+LP
+rr
+Gi
+Gi
+rr
+rr
+rr
+rr
+rr
+rr
+LP
+LP
+Gi
+rr
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(6,1,1) = {"
+LP
+rr
+Gi
+Gi
+rw
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+qu
+ky
+ky
+ky
+ky
+ky
+qu
+LP
+LP
+Gi
+rr
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(7,1,1) = {"
+LP
+rr
+Gi
+rr
+Vt
+LP
+rr
+Gi
+xW
+Mv
+Al
+OZ
+dk
+oL
+OG
+HL
+HL
+et
+et
+qu
+rr
+rr
+Gi
+oL
+ya
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(8,1,1) = {"
+LP
+LP
+Gi
+rr
+Vt
+Vt
+rr
+Gi
+xW
+YG
+Al
+AD
+dk
+oL
+zv
+fA
+fA
+fA
+uO
+De
+Iz
+Iz
+Iz
+Iz
+hE
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(9,1,1) = {"
+LP
+LP
+Gi
+LP
+rr
+LP
+Vt
+Gi
+xW
+YG
+lT
+AD
+dk
+oL
+cH
+fA
+fA
+et
+fY
+cK
+LL
+Jo
+jk
+qu
+rr
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(10,1,1) = {"
+LP
+LP
+Gi
+rr
+rr
+rr
+Rs
+kw
+VZ
+YG
+HX
+AD
+dk
+oL
+fc
+Rq
+Rq
+fA
+dq
+IM
+RP
+YV
+gi
+qu
+dB
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(11,1,1) = {"
+LP
+Vt
+Gi
+Gi
+Gi
+Gi
+Gi
+qu
+ky
+Gt
+qu
+Gt
+ky
+kt
+bx
+Sa
+Sa
+si
+et
+yj
+Er
+Er
+HK
+qu
+dB
+rr
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(12,1,1) = {"
+LP
+Vt
+Rs
+Dj
+Dj
+Dj
+Dj
+ky
+pM
+Pb
+wl
+mB
+fe
+kt
+ky
+ky
+ky
+ky
+Ak
+IM
+EQ
+QJ
+dz
+qu
+dB
+rr
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(13,1,1) = {"
+LP
+rr
+yJ
+Rs
+uC
+VJ
+VJ
+pb
+wl
+ZA
+jm
+et
+nR
+kt
+gr
+fA
+fA
+et
+Ha
+IM
+IM
+kT
+IM
+qu
+qu
+rr
+rr
+rr
+LP
+LP
+rr
+LP
+"}
+(14,1,1) = {"
+LP
+rr
+Gi
+yq
+dx
+Dj
+Dj
+qu
+IF
+wV
+kg
+lf
+rE
+kt
+eP
+fA
+XP
+et
+et
+Yz
+CP
+tO
+IM
+oW
+qu
+rr
+rr
+rr
+rr
+rr
+rr
+LP
+"}
+(15,1,1) = {"
+LP
+rr
+Gi
+QI
+NY
+NY
+NY
+pb
+wl
+PH
+mY
+XP
+Ro
+kt
+jK
+cD
+cD
+GP
+fA
+fA
+fA
+ao
+IM
+IM
+oL
+oL
+oL
+oL
+oL
+oL
+oL
+LP
+"}
+(16,1,1) = {"
+LP
+rr
+Gi
+Fm
+Fm
+Fm
+Fm
+ky
+vn
+Gg
+wl
+kZ
+Tw
+YE
+jG
+XP
+XP
+Ud
+fA
+fA
+fA
+Ud
+Vn
+gC
+zb
+fA
+SI
+iO
+et
+yE
+iO
+LP
+"}
+(17,1,1) = {"
+LP
+rr
+Gi
+Gi
+Gi
+Gi
+Gi
+qu
+ky
+Gt
+qu
+Gt
+ky
+kt
+hP
+et
+XP
+XP
+XP
+es
+et
+kd
+Kj
+QK
+bE
+CY
+cz
+ky
+Eh
+et
+ky
+LP
+"}
+(18,1,1) = {"
+LP
+LP
+Gi
+LP
+LP
+rr
+Gi
+Gi
+xW
+lu
+dk
+ne
+dk
+zZ
+Kj
+kt
+ky
+ky
+EC
+ky
+ky
+ky
+IM
+IM
+Kj
+IM
+qu
+qu
+oL
+oL
+oL
+LP
+"}
+(19,1,1) = {"
+LP
+LP
+Gi
+LP
+rr
+rr
+rr
+Gi
+xW
+lu
+dk
+ne
+dk
+gq
+rI
+gq
+DO
+WJ
+DO
+DO
+DO
+sO
+IM
+BR
+kd
+oG
+qu
+LP
+eQ
+rr
+rr
+LP
+"}
+(20,1,1) = {"
+LP
+LP
+yJ
+Vt
+Vt
+Vt
+Vt
+Rs
+Vt
+dN
+Vt
+yJ
+Pj
+nn
+Ux
+Vx
+mQ
+DO
+DO
+DO
+DO
+bi
+IM
+ps
+fA
+jS
+qu
+mG
+rr
+LP
+rr
+LP
+"}
+(21,1,1) = {"
+LP
+LP
+Gi
+rr
+rr
+LP
+rr
+Gi
+xW
+st
+dk
+Gy
+dk
+gq
+nn
+gq
+jR
+mG
+DO
+Xn
+nH
+CN
+IM
+zp
+ZS
+BR
+qu
+dB
+rr
+LP
+LP
+LP
+"}
+(22,1,1) = {"
+LP
+LP
+Gi
+LP
+LP
+LP
+LP
+Gi
+Gi
+Gi
+Gi
+Gi
+CS
+gq
+wu
+kt
+kI
+mG
+pX
+hB
+nH
+pX
+EU
+EU
+EU
+EU
+qu
+dB
+rr
+LP
+LP
+LP
+"}
+(23,1,1) = {"
+LP
+LP
+Gi
+LP
+qu
+ky
+ky
+oL
+oL
+oL
+oL
+oL
+oL
+oL
+Kj
+iV
+ky
+ky
+ky
+ky
+ky
+ky
+EU
+Gi
+LP
+LP
+LP
+rr
+LP
+LP
+LP
+LP
+"}
+(24,1,1) = {"
+LP
+LP
+Gi
+LP
+qu
+aN
+sm
+oL
+mW
+NM
+mW
+BR
+IC
+IC
+ao
+iV
+rr
+rr
+rr
+rr
+rr
+LP
+LP
+Gi
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(25,1,1) = {"
+LP
+LP
+Gi
+LP
+qu
+to
+Tw
+FQ
+fA
+fA
+fA
+fA
+fA
+fA
+ex
+iV
+iV
+LP
+LP
+LP
+rr
+rr
+LP
+Gi
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(26,1,1) = {"
+LP
+LP
+Gi
+LP
+qu
+Db
+Tw
+oL
+xp
+gL
+fA
+kd
+fA
+fA
+fA
+eG
+iV
+LP
+LP
+LP
+LP
+rr
+rr
+Gi
+rr
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(27,1,1) = {"
+LP
+rr
+Gi
+LP
+qu
+ky
+ky
+oL
+lQ
+cD
+hy
+cD
+Pa
+DJ
+fA
+Zs
+qu
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+px
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(28,1,1) = {"
+LP
+rr
+Gi
+Gi
+Gi
+Gi
+Gi
+qu
+qu
+Zq
+oL
+cm
+oL
+MK
+qu
+Qa
+qu
+LP
+LP
+LP
+LP
+LP
+rr
+px
+px
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(29,1,1) = {"
+LP
+rr
+rr
+LP
+LP
+LP
+rr
+rr
+qu
+uQ
+oL
+uQ
+oL
+kJ
+qu
+uQ
+qu
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(30,1,1) = {"
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+qu
+ni
+qu
+Bu
+qu
+yt
+qu
+Qa
+qu
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(31,1,1) = {"
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}
+(32,1,1) = {"
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+LP
+"}

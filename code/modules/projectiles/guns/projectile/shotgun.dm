@@ -11,7 +11,7 @@
 	force = 10
 	flags = CONDUCT
 	can_holster = FALSE
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
@@ -141,8 +141,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	current_skin = "riotshotgun_sawn"
 	item_state = "riotshotgun_sawn"			//phil235 is it different with different skin?
-	slot_flags &= ~SLOT_BACK    //you can't sling it on your back
-	slot_flags |= SLOT_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
+	slot_flags &= ~SLOT_FLAG_BACK    //you can't sling it on your back
+	slot_flags |= SLOT_FLAG_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 	sawn_state = SAWN_OFF
 	magazine.max_ammo = 3
 	update_appearance()
@@ -182,8 +182,8 @@
 	w_class = initial(w_class)
 	current_skin = "riotshotgun"
 	item_state = initial(item_state)
-	slot_flags &= ~SLOT_BELT
-	slot_flags |= SLOT_BACK
+	slot_flags &= ~SLOT_FLAG_BELT
+	slot_flags |= SLOT_FLAG_BACK
 	sawn_state = SAWN_INTACT
 	magazine.max_ammo = 6
 	update_appearance()
@@ -220,6 +220,7 @@
 	can_bayonet = TRUE
 	knife_x_offset = 27
 	knife_y_offset = 13
+	execution_speed = 7 SECONDS
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, 1)
@@ -296,7 +297,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/examine(mob/user)
-	. = desc // Override since magical hand lasers don't have chambers or bolts
+	return build_base_description() // Override since magical hand lasers don't have chambers or bolts
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/discard_gun(mob/living/user)
 	qdel(src)
@@ -319,7 +320,8 @@
 	item_state = "shotgun_combat"
 	origin_tech = "combat=6"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
-	w_class = WEIGHT_CLASS_HUGE
+	w_class = WEIGHT_CLASS_BULKY
+	execution_speed = 5 SECONDS
 
 //Dual Feed Shotgun
 

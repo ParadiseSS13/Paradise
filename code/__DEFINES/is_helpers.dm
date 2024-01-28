@@ -1,3 +1,6 @@
+// Datums
+#define isdatum(thing) (istype(thing, /datum))
+
 // Atoms
 #define isatom(A) (isloc(A))
 
@@ -7,7 +10,7 @@
 
 #define isliving(A) (istype(A, /mob/living))
 
-#define isbrain(A) (istype(A, /mob/living/carbon/brain))
+#define isbrain(A) (istype(A, /mob/living/brain))
 
 // Carbon mobs
 #define iscarbon(A) (istype(A, /mob/living/carbon))
@@ -99,7 +102,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define ismineralturf(A) istype(A, /turf/simulated/mineral)
 
-#define islava(A) (istype(A, /turf/simulated/floor/plating/lava))
+#define islava(A) (istype(A, /turf/simulated/floor/lava))
 
 #define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
 
@@ -114,7 +117,17 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 // Misc
 #define isclient(A) istype(A, /client)
 #define isradio(A) istype(A, /obj/item/radio)
-#define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
+#define ispill(A) istype(A, /obj/item/reagent_containers/pill)
+#define ispatch(A) istype(A, /obj/item/reagent_containers/patch)
+#define isfood(A) istype(A, /obj/item/food)
 
 // Modsuits
 #define ismodcontrol(A) istype(A, /obj/item/mod/control)
+
+// Meteors
+GLOBAL_LIST_INIT(turfs_pass_meteor, typecacheof(list(
+	/turf/simulated/floor/plating/asteroid,
+	/turf/space
+)))
+
+#define ispassmeteorturf(A) (is_type_in_typecache(A, GLOB.turfs_pass_meteor))

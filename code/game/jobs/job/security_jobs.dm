@@ -4,7 +4,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	is_security = 1
+	job_department_flags = DEP_FLAG_COMMAND | DEP_FLAG_SECURITY
 	supervisors = "the captain"
 	department_head = list("Captain")
 	selection_color = "#ffdddd"
@@ -44,7 +44,7 @@
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
 
-	implants = list(/obj/item/implant/mindshield)
+	bio_chips = list(/obj/item/bio_chip/mindshield)
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
@@ -58,7 +58,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	is_security = 1
+	job_department_flags = DEP_FLAG_SECURITY
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
@@ -89,7 +89,7 @@
 		/obj/item/restraints/handcuffs = 1
 	)
 
-	implants = list(/obj/item/implant/mindshield)
+	bio_chips = list(/obj/item/bio_chip/mindshield)
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
@@ -103,7 +103,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	is_security = 1
+	job_department_flags = DEP_FLAG_SECURITY
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
@@ -139,7 +139,7 @@
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
 
-	implants = list(/obj/item/implant/mindshield)
+	bio_chips = list(/obj/item/bio_chip/mindshield)
 
 /datum/outfit/job/detective/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -163,7 +163,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 7
 	spawn_positions = 7
-	is_security = 1
+	job_department_flags = DEP_FLAG_SECURITY
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
@@ -192,7 +192,7 @@
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1
 	)
-	implants = list(/obj/item/implant/mindshield)
+	bio_chips = list(/obj/item/bio_chip/mindshield)
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security

@@ -20,6 +20,10 @@ SUBSYSTEM_DEF(jobs)
 
 	///list of station departments and their associated roles and economy payments
 	var/list/station_departments = list()
+	/// Do we spawn everyone at shuttle due to late arivals?
+	var/late_arrivals_spawning = FALSE
+	/// Do we spawn people drunkenly due to the party last night?
+	var/drunken_spawning = FALSE
 
 /datum/controller/subsystem/jobs/Initialize()
 	if(!length(occupations))
@@ -38,7 +42,7 @@ SUBSYSTEM_DEF(jobs)
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
-		to_chat(world, "<span class='warning'>Error setting up jobs, no job datums found</span>")
+		to_chat(world, "<span class='warning'>Error setting up jobs, no job datums found.</span>")
 		return 0
 
 	for(var/J in all_jobs)
@@ -74,6 +78,8 @@ SUBSYSTEM_DEF(jobs)
 		var/datum/job/job = GetJob(rank)
 		if(!job)
 			return FALSE
+		if(job.job_banned_gamemode)
+			return FALSE
 		if(jobban_isbanned(player, rank))
 			return FALSE
 		if(!job.player_old_enough(player.client))
@@ -105,12 +111,19 @@ SUBSYSTEM_DEF(jobs)
 	Debug("AR has failed, Player: [player], Rank: [rank]")
 	return 0
 
-/datum/controller/subsystem/jobs/proc/FreeRole(rank)	//making additional slot on the fly
+/datum/controller/subsystem/jobs/proc/FreeRole(rank, force = FALSE)	//making additional slot on the fly
 	var/datum/job/job = GetJob(rank)
-	if(job && job.current_positions >= job.total_positions && job.total_positions != -1)
+	if(!job)
+		return FALSE
+	if(job.job_banned_gamemode)
+		if(!force)
+			return FALSE
+		job.job_banned_gamemode = FALSE // If admins want to force it, they can reopen banned job slots
+
+	if(job.current_positions >= job.total_positions && job.total_positions != -1)
 		job.total_positions++
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/controller/subsystem/jobs/proc/FindOccupationCandidates(datum/job/job, level, flag)
 	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
@@ -422,34 +435,33 @@ SUBSYSTEM_DEF(jobs)
 
 		CreateMoneyAccount(H, rank, job)
 
-	var/list/L = list("<br><br><center><span class='green'>----------------</span>")
+	var/list/L = list()
 	L.Add("<b>Your role on the station is: [alt_title ? alt_title : rank].")
 	L.Add("You answer directly to [job.supervisors]. Special circumstances may change this.")
-	L.Add("For more information on how the station works, see <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a>.")
-	if(job.is_service)
-		L.Add("As a member of Service, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">Department SOP</a>.")
-	if(job.is_supply)
-		L.Add("As a member of Supply, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">Department SOP</a>.")
-	if(job.is_command)
-		L.Add("As an important member of Command, read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">Department SOP</a>.")
-	if(job.is_legal)
-		L.Add("Your job requires complete knowledge of <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a> and <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>.")
-	if(job.is_engineering)
-		L.Add("As a member of Engineering, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">Department SOP</a>.")
-	if(job.is_medical)
-		L.Add("As a member of Medbay, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">Department SOP</a>.")
-	if(job.is_science)
-		L.Add("As a member of Science, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">Department SOP</a>.")
-	if(job.is_security)
-		L.Add("As a member of Security, you are to know <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a>.")
+	L.Add("For more information on how the station works, see [wiki_link("Standard_Operating_Procedure", "Standard Operating Procedure (SOP)")].")
+	if(job.job_department_flags & DEP_FLAG_SERVICE)
+		L.Add("As a member of Service, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Service)", "Department SOP")].")
+	if(job.job_department_flags & DEP_FLAG_SUPPLY)
+		L.Add("As a member of Supply, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Supply)", "Department SOP")].")
+	if(job.job_department_flags == DEP_FLAG_COMMAND) // Check if theyre only command, like captain/hop/bs/ntrep, to not spam their chatbox
+		L.Add("As an important member of Command, read up on your [wiki_link("Standard_Operating_Procedure_(Command)", "Department SOP")].")
+	if(job.job_department_flags & DEP_FLAG_LEGAL)
+		L.Add("Your job requires complete knowledge of [wiki_link("Space Law", "Space Law")] and [wiki_link("Legal_Standard_Operating_Procedure", "Legal Standard Operating Procedure")].")
+	if(job.job_department_flags & DEP_FLAG_ENGINEERING)
+		L.Add("As a member of Engineering, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Engineering)", "Department SOP")].")
+	if(job.job_department_flags & DEP_FLAG_MEDICAL)
+		L.Add("As a member of Medbay, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Medical)", "Department SOP")].")
+	if(job.job_department_flags & DEP_FLAG_SCIENCE) // geneticist gets both, yeah sure why not
+		L.Add("As a member of Science, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Science)", "Department SOP")].")
+	if(job.job_department_flags & DEP_FLAG_SECURITY)
+		L.Add("As a member of Security, you are to know [wiki_link("Space Law", "Space Law")] and [wiki_link("Legal_Standard_Operating_Procedure", "Legal Standard Operating Procedure")], as well as your [wiki_link("Standard_Operating_Procedure_(Security)", "Department SOP")].")
 	if(job.req_admin_notify)
 		L.Add("You are playing a job that is important for the game progression. If you have to disconnect, please go to cryo and inform command. If you are unable to do so, please notify the admins via adminhelp.")
-	L.Add("<br>If you need help, check the <a href=\"https://paradisestation.org/wiki/index.php/Main_Page\">wiki</a> or use Mentorhelp(F1)!</b>")
+	L.Add("<br>If you need help, check the [wiki_link("Main_Page", "wiki")] or use Mentorhelp(F1)!</b>")
 	if(job.important_information)
 		L.Add("</b><span class='userdanger' style='width: 80%'>[job.important_information]</span>")
-	L.Add("<span class='green'>----------------</span></center><br><br>")
 
-	to_chat(H, L.Join("<br>"))
+	to_chat(H, chat_box_green(L.Join("<br>")))
 
 	return H
 
@@ -461,11 +473,15 @@ SUBSYSTEM_DEF(jobs)
 
 	H.job = rank
 
-	if(!joined_late)
+	if(!joined_late && !late_arrivals_spawning)
 		var/turf/T = null
 		var/obj/S = null
-		for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
-			if(sloc.name != rank)
+		var/list/landmarks = GLOB.landmarks_list
+		if(drunken_spawning)
+			landmarks = shuffle(landmarks) //Shuffle it so it's random
+
+		for(var/obj/effect/landmark/start/sloc in landmarks)
+			if(sloc.name != rank && !drunken_spawning)
 				continue
 			if(locate(/mob/living) in sloc.loc)
 				continue
@@ -507,14 +523,28 @@ SUBSYSTEM_DEF(jobs)
 
 		//Gives glasses to the vision impaired
 		if(HAS_TRAIT(H, TRAIT_NEARSIGHT))
-			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), slot_glasses)
+			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), SLOT_HUD_GLASSES)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
 				if(istype(G) && !G.prescription)
 					G.upgrade_prescription()
 					H.update_nearsighted_effects()
-
-	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
+	if(joined_late || job.admin_only)
+		H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
+		return H
+	if(late_arrivals_spawning)
+		H.forceMove(pick(GLOB.latejoin))
+	if(drunken_spawning)
+		var/obj/item/organ/internal/liver/L
+		var/liver_multiplier = 1
+		L = H.get_int_organ(/obj/item/organ/internal/liver)
+		if(L)
+			liver_multiplier = L.alcohol_intensity
+		if(isslimeperson(H) || isrobot(H))
+			liver_multiplier = 5
+		H.Sleeping(5 SECONDS)
+		H.Drunk((2 / liver_multiplier) MINUTES)
+	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. Roundstart joined as job: [rank].")
 	return H
 
 /datum/controller/subsystem/jobs/proc/LoadJobs(highpop = FALSE) //ran during round setup, reads info from jobs list
@@ -586,17 +616,15 @@ SUBSYSTEM_DEF(jobs)
 
 //fuck
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
+	if(!job.has_bank_account)
+		return
 	var/starting_balance = job?.department_account_access ? COMMAND_MEMBER_STARTING_BALANCE : CREW_MEMBER_STARTING_BALANCE
 	var/datum/money_account/account = GLOB.station_money_database.create_account(H.real_name, starting_balance, ACCOUNT_SECURITY_ID, "NAS Trurl Accounting", TRUE)
 
 	for(var/datum/job_objective/objective as anything in H.mind.job_objectives)
 		objective.owner_account = account
 
-	var/remembered_info = ""
-	remembered_info += "<b>Your account number is:</b> #[account.account_number]<br>"
-	remembered_info += "<b>Your account pin is:</b> [account.account_pin]<br>"
-
-	H.mind.store_memory(remembered_info)
+	H.mind.store_memory("<b>Your account number is:</b> #[account.account_number]<br><b>Your account pin is:</b> [account.account_pin]")
 	H.mind.set_initial_account(account)
 
 	to_chat(H, "<span class='boldnotice'>As an employee of Nanotrasen you will receive a paycheck of $[account.payday_amount] credits every 30 minutes</span>")
@@ -818,11 +846,24 @@ SUBSYSTEM_DEF(jobs)
 			else if(C.mob.mind.assigned_role)
 				myrole = C.mob.mind.assigned_role
 
-		var/added_living = 0
-		var/added_ghost = 0
+		// Track all the added ammounts for a mega update query
+		var/list/added_differential = list(
+			EXP_TYPE_LIVING = 0,
+			EXP_TYPE_CREW = 0,
+			EXP_TYPE_SPECIAL = 0,
+			EXP_TYPE_GHOST = 0,
+			EXP_TYPE_COMMAND = 0,
+			EXP_TYPE_ENGINEERING = 0,
+			EXP_TYPE_MEDICAL = 0,
+			EXP_TYPE_SCIENCE = 0,
+			EXP_TYPE_SUPPLY = 0,
+			EXP_TYPE_SECURITY = 0,
+			EXP_TYPE_SILICON = 0,
+			EXP_TYPE_SERVICE = 0
+		)
 		if(C.mob.stat == CONSCIOUS && myrole)
 			play_records[C.ckey][EXP_TYPE_LIVING] += minutes
-			added_living += minutes
+			added_differential[EXP_TYPE_LIVING] += minutes
 
 			if(announce)
 				to_chat(C.mob, "<span class='notice'>You got: [minutes] Living EXP!</span>")
@@ -831,6 +872,7 @@ SUBSYSTEM_DEF(jobs)
 				if(GLOB.exp_jobsmap[category]["titles"])
 					if(myrole in GLOB.exp_jobsmap[category]["titles"])
 						play_records[C.ckey][category] += minutes
+						added_differential[category] += minutes
 						if(announce)
 							to_chat(C.mob, "<span class='notice'>You got: [minutes] [category] EXP!</span>")
 
@@ -841,7 +883,7 @@ SUBSYSTEM_DEF(jobs)
 
 		else if(isobserver(C.mob))
 			play_records[C.ckey][EXP_TYPE_GHOST] += minutes
-			added_ghost += minutes
+			added_differential[EXP_TYPE_GHOST] += minutes
 			if(announce)
 				to_chat(C.mob, "<span class='notice'>You got: [minutes] Ghost EXP!</span>")
 		else
@@ -861,14 +903,25 @@ SUBSYSTEM_DEF(jobs)
 
 		player_update_queries += update_query
 
+		// This gets hellish
 		var/datum/db_query/update_query_history = SSdbcore.NewQuery({"
-			INSERT INTO playtime_history (ckey, date, time_living, time_ghost)
-			VALUES (:ckey, CURDATE(), :addedliving, :addedghost)
-			ON DUPLICATE KEY UPDATE time_living=time_living + VALUES(time_living), time_ghost=time_ghost + VALUES(time_ghost)"},
+			INSERT INTO playtime_history (ckey, date, time_living, time_crew, time_special, time_ghost, time_command, time_engineering, time_medical, time_science, time_supply, time_security, time_silicon, time_service)
+			VALUES (:ckey, CURDATE(), :addedliving, :addedcrew, :addedspecial, :addedghost, :addedcommand, :addedengineering, :addedmedical, :addedscience, :addedsupply, :addedsecurity, :addedsilicon, :addedservice)
+			ON DUPLICATE KEY UPDATE time_living=time_living + VALUES(time_living), time_crew=time_crew + VALUES(time_crew), time_crew=time_special + VALUES(time_special), time_ghost=time_ghost + VALUES(time_ghost), time_command=time_command + VALUES(time_command), time_engineering=time_engineering + VALUES(time_engineering), time_medical=time_medical + VALUES(time_medical), time_science=time_science + VALUES(time_science), time_supply=time_supply + VALUES(time_supply), time_security=time_security + VALUES(time_security), time_silicon=time_silicon + VALUES(time_silicon), time_service=time_service + VALUES(time_service)"},
 			list(
 				"ckey" = C.ckey,
-				"addedliving" = added_living,
-				"addedghost" = added_ghost
+				"addedliving" = added_differential[EXP_TYPE_LIVING],
+				"addedcrew" = added_differential[EXP_TYPE_CREW],
+				"addedspecial" = added_differential[EXP_TYPE_SPECIAL],
+				"addedghost" = added_differential[EXP_TYPE_GHOST],
+				"addedcommand" = added_differential[EXP_TYPE_COMMAND],
+				"addedengineering" = added_differential[EXP_TYPE_ENGINEERING],
+				"addedmedical" = added_differential[EXP_TYPE_MEDICAL],
+				"addedscience" = added_differential[EXP_TYPE_SCIENCE],
+				"addedsupply" = added_differential[EXP_TYPE_SUPPLY],
+				"addedsecurity" = added_differential[EXP_TYPE_SECURITY],
+				"addedsilicon" = added_differential[EXP_TYPE_SILICON],
+				"addedservice" = added_differential[EXP_TYPE_SERVICE]
 			)
 		)
 

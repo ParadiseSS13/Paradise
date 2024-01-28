@@ -3,6 +3,12 @@
 	name_plural = "Greys"
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	language = "Psionic Communication"
+
+	blurb = "The Grey, known for their psionic abilities and unique appearance, hail from beyond the Milky Way and have an undisclosed homeworld. \
+	They rely heavily on cloning technology and are governed by a technocratic council of scientists.<br/><br/> \
+	Focused on technological advancement and the study of the universe, the Grey lack religious or spiritual beliefs. \
+	Their objective perspective and advanced knowledge often position them to focus on their own projects rather than the disputes of other species."
+
 	eyes = "grey_eyes_s"
 	butt_sprite = "grey"
 
@@ -60,7 +66,7 @@
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.active_character.speciesprefs
-	if(translator_pref || ((ismindshielded(H) || J.is_command || J.supervisors == "the captain") && HAS_TRAIT(H, TRAIT_WINGDINGS)))
+	if(translator_pref || ((ismindshielded(H) || J.job_department_flags & DEP_FLAG_COMMAND) && HAS_TRAIT(H, TRAIT_WINGDINGS)))
 		if(J.title == "Mime")
 			return
 		if(J.title == "Clown")

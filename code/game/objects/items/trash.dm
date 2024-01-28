@@ -9,11 +9,13 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/trash/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	C.stored_comms["metal"] += 2
-	C.stored_comms["wood"] += 1
-	C.stored_comms["glass"] += 1
-	qdel(src)
-	return TRUE
+	if(isdrone(user))
+		C.stored_comms["metal"] += 2
+		C.stored_comms["wood"] += 1
+		C.stored_comms["glass"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/item/trash/raisins
 	name = "4no raisins"
@@ -68,7 +70,7 @@
 	name = "Kentucky Fried Vox"
 	icon_state = "fried_vox_empty"
 	item_state = "fried_vox_empty"
-	slot_flags = SLOT_HEAD
+	slot_flags = SLOT_FLAG_HEAD
 	dog_fashion = /datum/dog_fashion/head/fried_vox_empty
 	sprite_sheets = list(
 	"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
@@ -125,6 +127,11 @@
 	icon_state = "tape"
 	desc = "Not sticky anymore."
 	throw_range = 1
+
+/obj/item/trash/popsicle_stick
+	name = "used popsicle stick"
+	icon_state = "popsicle_stick_s"
+	desc = "Still tastes sweet."
 
 /obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
 	return

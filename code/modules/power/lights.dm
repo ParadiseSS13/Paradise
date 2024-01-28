@@ -256,6 +256,11 @@
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)
 	. = ..()
+
+	if(is_station_level(z))
+		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGE_PLANNED, PROC_REF(on_security_level_change_planned))
+		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
+
 	var/area/A = get_area(src)
 	if(A && !A.requires_power)
 		on = TRUE
@@ -272,11 +277,39 @@
 				break_light_tube(TRUE)
 	update(FALSE, TRUE, FALSE)
 
+/obj/machinery/light/proc/on_security_level_change_planned(datum/source, previous_level_number, new_level_number)
+	SIGNAL_HANDLER
+
+	if(status != LIGHT_OK)
+		return
+
+	if(new_level_number == SEC_LEVEL_EPSILON)
+		fire_mode = FALSE
+		emergency_mode = TRUE
+		on = FALSE
+		INVOKE_ASYNC(src, PROC_REF(update), FALSE)
+
+/obj/machinery/light/proc/on_security_level_update(datum/source, previous_level_number, new_level_number)
+	SIGNAL_HANDLER
+
+	if(status != LIGHT_OK)
+		return
+
+	if(new_level_number >= SEC_LEVEL_EPSILON)
+		fire_mode = TRUE
+		emergency_mode = TRUE
+		on = FALSE
+	else
+		fire_mode = FALSE
+		emergency_mode = FALSE
+		on = TRUE
+
+	INVOKE_ASYNC(src, PROC_REF(update), FALSE)
+
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
 	if(A)
 		on = FALSE
-//		A.update_lights()
 	return ..()
 
 /obj/machinery/light/update_icon_state()
@@ -435,6 +468,24 @@
 	if(istype(W, /obj/item/lightreplacer))
 		var/obj/item/lightreplacer/LR = W
 		LR.ReplaceLight(src, user)
+		return
+
+	// Attack with Spray Can! Coloring time.
+	if(istype(W, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/spraycan = W
+
+		// quick check to disable capped spraypainting, aesthetic reasons
+		if(spraycan.capped)
+			to_chat(user, "<span class='notice'>You can't spraypaint [src] with the cap still on!</span>")
+			return
+		var/list/hsl = rgb2hsl(hex2num(copytext(spraycan.colour, 2, 4)), hex2num(copytext(spraycan.colour, 4, 6)), hex2num(copytext(spraycan.colour, 6, 8)))
+		hsl[3] = max(hsl[3], 0.4)
+		var/list/rgb = hsl2rgb(arglist(hsl))
+		var/new_color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+		color = new_color
+		to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
+		brightness_color = new_color
+		update(TRUE, TRUE, FALSE)
 		return
 
 	// attempt to insert light

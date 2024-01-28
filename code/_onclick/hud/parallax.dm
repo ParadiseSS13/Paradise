@@ -17,10 +17,13 @@
 		return
 	// this is needed so it blends properly with the space plane and blackness plane.
 	var/obj/screen/plane_master/space/S = plane_masters["[PLANE_SPACE]"]
-	S.color = list(1, 1, 1, 1,
-				1, 1, 1, 1,
-				1, 1, 1, 1,
-				1, 1, 1, 1,)
+	if(C.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS)
+		S.color = rgb(0, 0, 0, 0)
+	else
+		S.color = list(1, 1, 1, 1,
+					1, 1, 1, 1,
+					1, 1, 1, 1,
+					1, 1, 1, 1,)
 	S.appearance_flags |= NO_CLIENT_COLOR
 	if(!length(C.parallax_layers_cached))
 		C.parallax_layers_cached = list()
@@ -32,6 +35,12 @@
 		C.parallax_layers_cached += new /obj/screen/parallax_layer/layer_3(null, C.view)
 
 	C.parallax_layers = C.parallax_layers_cached.Copy()
+
+	var/obj/screen/plane_master/parallax/parallax_plane_master = plane_masters["[PLANE_SPACE_PARALLAX]"]
+	if(C.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS)
+		parallax_plane_master.blend_mode = BLEND_ADD
+	else
+		parallax_plane_master.blend_mode = BLEND_MULTIPLY
 
 	if(length(C.parallax_layers) > C.parallax_layers_max)
 		C.parallax_layers.len = C.parallax_layers_max
@@ -53,22 +62,22 @@
 		if(isnull(pref))
 			pref = PARALLAX_HIGH
 		switch(C.prefs.parallax)
-			if (PARALLAX_INSANE)
+			if(PARALLAX_INSANE)
 				C.parallax_throttle = FALSE
 				C.parallax_layers_max = 5
 				return TRUE
 
-			if (PARALLAX_MED)
+			if(PARALLAX_MED)
 				C.parallax_throttle = PARALLAX_DELAY_MED
 				C.parallax_layers_max = 3
 				return TRUE
 
-			if (PARALLAX_LOW)
+			if(PARALLAX_LOW)
 				C.parallax_throttle = PARALLAX_DELAY_LOW
 				C.parallax_layers_max = 1
 				return TRUE
 
-			if (PARALLAX_DISABLE)
+			if(PARALLAX_DISABLE)
 				return FALSE
 
 	//This is high parallax.
@@ -304,11 +313,16 @@
 	layer = 4
 
 /obj/screen/parallax_layer/planet
-	icon_state = "planet"
+	icon_state = "planet_lava"
 	blend_mode = BLEND_OVERLAY
 	absolute = TRUE //Status of seperation
 	speed = 3
 	layer = 30
+
+/obj/screen/parallax_layer/planet/Initialize(mapload)
+	. = ..()
+	if(SSmapping.lavaland_theme?.planet_icon_state)
+		icon_state = SSmapping.lavaland_theme.planet_icon_state
 
 /obj/screen/parallax_layer/planet/update_status(mob/M)
 	var/turf/T = get_turf(M)

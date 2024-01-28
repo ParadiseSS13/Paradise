@@ -100,12 +100,12 @@
 		if(ishuman(src) && !internal && environment.temperature < 273 && environment.return_pressure() > 20) //foggy breath :^)
 			new /obj/effect/frosty_breath(loc, src)
 
-//Third link in a breath chain, calls handle_breath_temperature()
+//Third and last link in a breath chain
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
 	if(status_flags & GODMODE)
 		return FALSE
 
-	var/lungs = get_organ_slot("lungs")
+	var/lungs = get_int_organ_datum(ORGAN_DATUM_LUNGS)
 	if(!lungs)
 		adjustOxyLoss(2)
 
@@ -181,14 +181,7 @@
 			if(prob(20))
 				emote(pick("giggle","laugh"))
 
-	//BREATH TEMPERATURE
-	handle_breath_temperature(breath)
-
 	return TRUE
-
-//Fourth and final link in a breath chain
-/mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
-	return
 
 /mob/living/carbon/proc/get_breath_from_internal(volume_needed)
 	if(internal)
@@ -208,6 +201,9 @@
 	for(var/thing in internal_organs)
 		var/obj/item/organ/internal/O = thing
 		O.on_life()
+	for(var/organ_tag in internal_organ_datums)
+		var/datum/organ/datum_organ_var_name_idk = internal_organ_datums[organ_tag]
+		datum_organ_var_name_idk.on_life()
 
 /mob/living/carbon/handle_diseases()
 	for(var/thing in viruses)
@@ -364,7 +360,7 @@
 	var/applied_amount = 0.35 * multiple_patch_multiplier
 
 	for(var/patch in processing_patches)
-		var/obj/item/reagent_containers/food/pill/patch/P = patch
+		var/obj/item/reagent_containers/patch/P = patch
 
 		if(P.reagents && P.reagents.total_volume)
 			var/fractional_applied_amount = applied_amount  / P.reagents.total_volume

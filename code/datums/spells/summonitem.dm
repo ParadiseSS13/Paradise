@@ -28,6 +28,9 @@
 			for(var/obj/item in hand_items)
 				if(istype(item, /obj/item/organ/internal/brain)) //Yeah, sadly this doesn't work due to the organ system.
 					break
+				if(istype(item, /obj/item/disk/nuclear)) //Let's not make nukies suffer with this bullshit.
+					to_chat(user, "<span class='notice'>[item] has some built in protections against such summoning magic.</span>")
+					break
 				if(ABSTRACT in item.flags)
 					continue
 				if(NODROP in item.flags)
@@ -55,9 +58,22 @@
 
 		else	//Getting previously marked item
 			var/obj/item_to_retrieve = marked_item
+			var/visible_item = TRUE //Items that silently disappear will have the message suppressed
 			var/infinite_recursion = 0 //I don't want to know how someone could put something inside itself but these are wizards so let's be safe
 
 			while(!isturf(item_to_retrieve.loc) && infinite_recursion < 10) //if it's in something you get the whole thing.
+				if(istype(item_to_retrieve.loc, /obj/item/organ/internal/headpocket))
+					var/obj/item/organ/internal/headpocket/pocket = item_to_retrieve.loc
+					if(pocket.owner)
+						to_chat(pocket.owner, "<span class='warning'>Your [pocket.name] suddenly feels lighter. How strange!</span>")
+					visible_item = FALSE
+					break
+				if(istype(item_to_retrieve.loc, /obj/item/storage/hidden/implant)) //The implant should be left alone
+					var/obj/item/storage/S = item_to_retrieve.loc
+					for(var/mob/M in S.mobs_viewing)
+						to_chat(M, "<span class='warning'>[item_to_retrieve] suddenly disappears!</span>")
+					visible_item = FALSE
+					break
 				if(ismob(item_to_retrieve.loc)) //If its on someone, properly drop it
 					var/mob/M = item_to_retrieve.loc
 
@@ -78,9 +94,14 @@
 								if(!C.has_embedded_objects())
 									C.clear_alert("embeddedobject")
 								break
+							if(item_to_retrieve == part.hidden)
+								visible_item = FALSE
+								part.hidden = null
+								to_chat(C, "<span class='warning'>Your [part.name] suddenly feels emptier. How weird!</span>")
+								break
 
 				else
-					if(istype(item_to_retrieve.loc,/obj/machinery/atmospherics/portable/)) //Edge cases for moved machinery
+					if(istype(item_to_retrieve.loc, /obj/machinery/atmospherics/portable/)) //Edge cases for moved machinery
 						var/obj/machinery/atmospherics/portable/P = item_to_retrieve.loc
 						P.disconnect()
 						P.update_icon()
@@ -100,17 +121,21 @@
 			if(!isturf(target.loc))
 				to_chat(target, "<span class='caution'>You attempt to cast the spell, but it fails! Perhaps you aren't available?</span>")
 				return
-
-			item_to_retrieve.loc.visible_message("<span class='warning'>[item_to_retrieve] suddenly disappears!</span>")
-
-
+			if(visible_item)
+				item_to_retrieve.loc.visible_message("<span class='warning'>[item_to_retrieve] suddenly disappears!</span>")
+			var/list/heres_disky = item_to_retrieve.search_contents_for(/obj/item/disk/nuclear)
+			heres_disky += item_to_retrieve.loc.search_contents_for(/obj/item/disk/nuclear) //So if you mark another item in a bag, we don't pull
+			for(var/obj/item/disk/nuclear/N in heres_disky)
+				N.forceMove(get_turf(item_to_retrieve))
+				N.visible_message("<span class='warning'>As [item_to_retrieve] vanishes, [N] remains behind!</span>")
+				break //If you have 2 nads, well, congrats? Keeps message from doubling up
 			if(target.hand) //left active hand
-				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, FALSE, TRUE))
-					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, FALSE, TRUE))
+				if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_LEFT_HAND, FALSE, TRUE))
+					if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_RIGHT_HAND, FALSE, TRUE))
 						butterfingers = TRUE
 			else			//right active hand
-				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, FALSE, TRUE))
-					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, FALSE, TRUE))
+				if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_RIGHT_HAND, FALSE, TRUE))
+					if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_LEFT_HAND, FALSE, TRUE))
 						butterfingers = TRUE
 			if(butterfingers)
 				item_to_retrieve.loc = target.loc

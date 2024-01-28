@@ -1,6 +1,3 @@
-#define NUKE_INTACT 0
-#define NUKE_CORE_MISSING 1
-#define NUKE_MISSING 2
 /*
  * GAMEMODES (by Rastaf0)
  *
@@ -84,6 +81,8 @@
 	INVOKE_ASYNC(src, PROC_REF(set_mode_in_db)) // Async query), dont bother slowing roundstart
 
 	generate_station_goals()
+	generate_station_trait_report()
+
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
 	return 1
@@ -108,9 +107,6 @@
 	if((SSshuttle.emergency && SSshuttle.emergency.mode >= SHUTTLE_ENDGAME) || station_was_nuked)
 		return 1
 	return 0
-
-/datum/game_mode/proc/cleanup()	//This is called when the round has ended but not the game, if any cleanup would be necessary in that case.
-	return
 
 /datum/game_mode/proc/declare_completion()
 	var/clients = 0
@@ -388,15 +384,6 @@
 		Think through your actions and make the roleplay immersive! <b>Please remember all \
 		rules aside from those without explicit exceptions apply to antagonists.</b>")
 
-/proc/show_objectives(datum/mind/player)
-	if(!player || !player.current) return
-
-	var/obj_count = 1
-	to_chat(player.current, "<span class='notice'>Your current objectives:</span>")
-	for(var/datum/objective/objective in player.objectives)
-		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
-
 /proc/get_roletext(role)
 	return role
 
@@ -413,7 +400,7 @@
 		if(is_station_level(bomb.z))
 			nuke_status = NUKE_CORE_MISSING
 			if(bomb.core)
-				nuke_status = NUKE_INTACT
+				nuke_status = NUKE_STATUS_INTACT
 	return nuke_status
 
 /datum/game_mode/proc/replace_jobbanned_player(mob/living/M, role_type)
@@ -425,6 +412,7 @@
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)]) to replace a jobbanned player.")
 		M.ghostize()
 		M.key = theghost.key
+		dust_if_respawnable(theghost)
 	else
 		message_admins("[M] ([M.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [M.p_their()] place.")
 		to_chat(M, "<span class='biggerdanger'>You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban.</span>")
@@ -466,7 +454,7 @@
 /proc/printobjectives(datum/mind/ply)
 	var/list/objective_parts = list()
 	var/count = 1
-	for(var/datum/objective/objective in ply.objectives)
+	for(var/datum/objective/objective in ply.get_all_objectives(include_team = FALSE))
 		if(objective.check_completion())
 			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
 		else
@@ -507,6 +495,18 @@
 		var/datum/station_goal/G = V
 		G.print_result()
 
+/datum/game_mode/proc/generate_station_trait_report()
+	var/something_to_print = FALSE
+	var/list/trait_list_desc = list("<hr><b>Identified shift divergencies:</b>")
+	for(var/datum/station_trait/station_trait as anything in SSstation.station_traits)
+		if(!station_trait.show_in_report)
+			continue
+		trait_list_desc += station_trait.get_report()
+		something_to_print = TRUE
+	if(something_to_print)
+		print_command_report(trait_list_desc.Join("<br>"), "NAS Trurl Detected Divergencies", FALSE)
+
+
 /datum/game_mode/proc/update_eventmisc_icons_added(datum/mind/mob_mind)
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.join_hud(mob_mind.current)
@@ -517,6 +517,15 @@
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)
 
-#undef NUKE_INTACT
-#undef NUKE_CORE_MISSING
-#undef NUKE_MISSING
+/// Gets the value of all end of round stats through auto_declare and returns them
+/datum/game_mode/proc/get_end_of_round_antagonist_statistics()
+	. = list()
+	. += auto_declare_completion_traitor()
+	. += auto_declare_completion_vampire()
+	. += auto_declare_completion_enthralled()
+	. += auto_declare_completion_changeling()
+	. += auto_declare_completion_nuclear()
+	. += auto_declare_completion_wizard()
+	. += auto_declare_completion_revolution()
+	. += auto_declare_completion_abduction()
+	listclearnulls(.)

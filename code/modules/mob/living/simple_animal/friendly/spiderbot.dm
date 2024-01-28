@@ -30,7 +30,7 @@
 	maxbodytemp = 500
 
 	can_hide = TRUE
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	del_on_death = TRUE
 
@@ -63,7 +63,7 @@
 						ghost_can_reenter = 1
 						break
 				for(var/mob/living/simple_animal/S in GLOB.player_list)
-					if(S in GLOB.respawnable_list)
+					if(HAS_TRAIT(S, TRAIT_RESPAWNABLE))
 						ghost_can_reenter = 1
 						break
 			if(!ghost_can_reenter)

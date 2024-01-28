@@ -15,7 +15,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 /datum/event/traders/fake_announce()
 	. = TRUE
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		GLOB.minor_announcement.Announce("A trading shuttle from Jupiter Station has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused")
 		return
 	GLOB.minor_announcement.Announce("A trading shuttle from Jupiter Station has been granted docking permission at [station_name()] arrivals port 4.", "Trader Shuttle Docking Request Accepted")
@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 /datum/event/traders/start()
 	if(!station) // If there are no unused stations, just no.
 		return
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		GLOB.minor_announcement.Announce("A trading shuttle from Jupiter Station has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused")
 		// if the docking request was refused, fire another major event in 60 seconds
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
@@ -53,12 +53,13 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 		var/mob/C = pick_n_take(candidates)
 		spawn_count--
 		if(C)
-			C.remove_from_respawnable_list()
 			var/mob/living/carbon/human/M = new /mob/living/carbon/human(picked_loc)
 			M.ckey = C.ckey // must be before equipOutfit, or that will runtime due to lack of mind
+			dust_if_respawnable(C)
 			M.equipOutfit(/datum/outfit/admin/sol_trader)
 			M.dna.species.after_equip_job(null, M)
-			M.mind.objectives += trader_objectives
+			for(var/datum/objective/O in trader_objectives)
+				M.mind.objective_holder.add_objective(O) // traders dont have a team, so we manually have to add this objective to all of their minds, without setting an owner
 			M.mind.offstation_role = TRUE
 			greet_trader(M)
 			success_spawn = TRUE
@@ -68,21 +69,16 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 		GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
 
 /datum/event/traders/proc/greet_trader(mob/living/carbon/human/M)
-	to_chat(M, "<span class='boldnotice'>You are a trader!</span>")
-	to_chat(M, "<span class='notice'>You are currently docked at [get_area(M)].</span>")
-	to_chat(M, "<span class='notice'>You are about to trade with [station_name()].</span>")
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(show_objectives), M.mind), 25)
+	var/list/messages = list()
+	messages.Add("<span class='boldnotice'>You are a trader!</span><span class='notice'>You are currently docked at [get_area(M)].<br>You are about to trade with [station_name()].</span><br>")
+	messages.Add(M.mind.prepare_announce_objectives())
+	to_chat(M, chat_box_green(messages.Join("<br>")))
 	M.create_log(MISC_LOG, "[M] was made into a Sol Trader")
 
 /datum/event/traders/proc/forge_trader_objectives()
 	var/list/objs = list()
 
-	var/datum/objective/trade/plasma/P = new /datum/objective/trade/plasma
-	P.choose_target()
-	objs += P
-
-	var/datum/objective/trade/credits/C = new /datum/objective/trade/credits
-	C.choose_target()
-	objs += C
+	objs += new /datum/objective/trade/plasma
+	objs += new /datum/objective/trade/credits
 
 	return objs

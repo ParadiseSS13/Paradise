@@ -44,6 +44,18 @@
 		to_chat(user, "<span class='warning'>It's locked!</span>")
 	return
 
+/obj/item/storage/lockbox/AltClick(mob/user)
+	if(!Adjacent(user))
+		return
+	if(broken)
+		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
+		return
+	if(allowed(user))
+		locked = !locked
+		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src].</span>")
+		icon_state = "[locked ? icon_locked : icon_closed]"
+	else
+		to_chat(user, "<span class='warning'>Access denied.</span>")
 
 /obj/item/storage/lockbox/show_to(mob/user as mob)
 	if(locked)
@@ -78,10 +90,10 @@
 	req_access = list(ACCESS_SECURITY)
 
 /obj/item/storage/lockbox/mindshield/populate_contents()
-	new /obj/item/implantcase/mindshield(src)
-	new /obj/item/implantcase/mindshield(src)
-	new /obj/item/implantcase/mindshield(src)
-	new /obj/item/implanter/mindshield(src)
+	new /obj/item/bio_chip_case/mindshield(src)
+	new /obj/item/bio_chip_case/mindshield(src)
+	new /obj/item/bio_chip_case/mindshield(src)
+	new /obj/item/bio_chip_implanter/mindshield(src)
 
 /obj/item/storage/lockbox/clusterbang
 	name = "lockbox (clusterbang)"
@@ -111,6 +123,60 @@
 	new /obj/item/clothing/accessory/medal/silver/valor(src)
 	new /obj/item/clothing/accessory/medal/heart(src)
 
+/obj/item/storage/lockbox/medal/cc
+	name = "central command medal box"
+	desc = "A locked box used to store ALL the medals you could ever need."
+	max_combined_w_class = 30
+	storage_slots = 15
+	req_access = list(ACCESS_CENT_COMMANDER)
+
+/obj/item/storage/lockbox/medal/cc/populate_contents()
+	new /obj/item/clothing/accessory/medal/gold/heroism(src)
+	..()
+	new /obj/item/clothing/accessory/medal/gold(src)
+	new /obj/item/clothing/accessory/medal/silver(src)
+	new /obj/item/clothing/accessory/medal(src)
+
+	// Departmental medals
+	new /obj/item/clothing/accessory/medal/security(src)
+	new /obj/item/clothing/accessory/medal/science(src)
+	new /obj/item/clothing/accessory/medal/engineering(src)
+	new /obj/item/clothing/accessory/medal/service(src)
+	new /obj/item/clothing/accessory/medal/medical(src)
+	new /obj/item/clothing/accessory/medal/legal(src)
+	new /obj/item/clothing/accessory/medal/supply(src)
+
+/obj/item/storage/lockbox/medal/hardmode_box
+	name = "\improper HRD-MDE program medal box"
+	desc = "A locked box used to store medals of pride. Use a fauna research disk on the box to transmit the data and print a medal."
+	req_access = list(ACCESS_MINING) //No grubby assistant hands on my hard earned medals
+	can_hold = list(/obj/item/clothing/accessory, /obj/item/coin) //Whoops almost gave miners boxes that could store 12 legion cores. Scoped to accessory if they want to store neclaces or hope or something in there. Or a coin collection.
+	var/list/completed_fauna = list()
+	var/number_of_megafauna = 7 //Increase this if new megafauna are added.
+
+/obj/item/storage/lockbox/medal/hardmode_box/Initialize(mapload)
+	. = ..()
+	number_of_megafauna = length(subtypesof(/obj/item/disk/fauna_research))
+
+/obj/item/storage/lockbox/medal/hardmode_box/populate_contents()
+	return
+
+/obj/item/storage/lockbox/medal/hardmode_box/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/disk/fauna_research))
+		var/obj/item/disk/fauna_research/disky = W
+		var/obj/item/pride = new disky.output(get_turf(src))
+		to_chat(user, "<span class='notice'>[src] accepts [disky], and prints out [pride]!</span>")
+		qdel(disky)
+		if(!is_type_in_list(pride, completed_fauna))
+			completed_fauna += pride.type
+			if(length(completed_fauna) == number_of_megafauna)
+				to_chat(user, "<span class='notice'>[src] prints out a very fancy medal!</span>")
+				var/obj/item/accomplishment = new /obj/item/clothing/accessory/medal/gold/heroism/hardmode_full(get_turf(src))
+				user.put_in_hands(accomplishment)
+		user.put_in_hands(pride)
+		return
+	return ..()
+
 /obj/item/storage/lockbox/t4
 	name = "lockbox (T4)"
 	desc = "Contains three T4 breaching charges."
@@ -135,3 +201,30 @@
 		locked = FALSE
 		icon_state = icon_broken
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
+
+/obj/item/storage/lockbox/experimental_weapon
+	name = "A-113 classified lockbox"
+	desc = "Contains a classifed item for experimental purposes. Looks like some acid was spilt on it."
+	req_access = list(ACCESS_SEC_DOORS) //officers, heads
+
+/obj/item/storage/lockbox/experimental_weapon/populate_contents()
+	if(prob(10))
+		new /obj/item/clothing/mask/facehugger(src) //Suprise! Storing facehuggers improperly is what lead to this mess.
+		return
+	var/spawn_type = pick(/obj/item/gun/energy/kinetic_accelerator/experimental, /obj/item/surveillance_upgrade, /obj/item/mod/module/stealth/ninja)
+	if(prob(25))
+		if(rand(1, 6) == 1) //organ time. I want this to be more balanced in distribution, so organs are under a prob 25
+			new /obj/item/organ/internal/alien/plasmavessel/drone(src)  //Disected drone before the place got wiped. No hivenode.
+			new /obj/item/organ/internal/alien/acidgland(src)
+			new /obj/item/organ/internal/alien/resinspinner(src)
+			return
+		var/list/organ_loot = list(
+			/obj/item/organ/internal/cyberimp/arm/katana,
+			/obj/item/organ/internal/cyberimp/arm/toolset_abductor,
+			/obj/item/organ/internal/cyberimp/arm/esword,
+			/obj/item/organ/internal/heart/demon/pulse,
+			/obj/item/organ/internal/eyes/cybernetic/eyesofgod
+		)
+
+		spawn_type = pick(organ_loot)
+	new spawn_type(src)

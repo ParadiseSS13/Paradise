@@ -154,7 +154,7 @@
 
 /mob/living/simple_animal/bot/secbot/griefsky/look_for_perp()
 	anchored = FALSE
-	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
+	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue
 
@@ -182,7 +182,7 @@
 
 /mob/living/simple_animal/bot/secbot/griefsky/explode()
 	walk_to(src,0)
-	visible_message("<span class='boldannounce'>[src] lets out a huge cough as it blows apart!</span>")
+	visible_message("<span class='boldannounceic'>[src] lets out a huge cough as it blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/assembly/prox_sensor(Tsec)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)

@@ -11,7 +11,7 @@
 	throw_speed = 3
 	var/obj/item/pen/containedpen
 	var/obj/item/toppaper
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	resistance_flags = FLAMMABLE
 
 /obj/item/clipboard/New()
@@ -27,9 +27,7 @@
 		return
 	. = ..()
 
-/obj/item/clipboard/verb/removePen(mob/user)
-	set category = "Object"
-	set name = "Remove clipboard pen"
+/obj/item/clipboard/proc/removePen(mob/user)
 	if(!ishuman(user) || user.incapacitated())
 		return
 	penPlacement(user, containedpen, FALSE)
@@ -42,6 +40,7 @@
 
 /obj/item/clipboard/examine(mob/user)
 	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> to remove its pen.</span>"
 	if(in_range(user, src) && toppaper)
 		. += toppaper.examine(user)
 

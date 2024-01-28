@@ -37,12 +37,12 @@
 	ai_announcer.author = "AI-NAME-0345"
 	ai_announcer.Announce("AI only get one input box so here ya go")
 
-	set_security_level(SEC_LEVEL_RED)
-	set_security_level(SEC_LEVEL_GAMMA)
-	set_security_level(SEC_LEVEL_EPSILON)
-	set_security_level(SEC_LEVEL_RED)
-	set_security_level(SEC_LEVEL_BLUE)
-	set_security_level(SEC_LEVEL_GREEN)
+	SSsecurity_level.set_level(SEC_LEVEL_RED)
+	SSsecurity_level.set_level(SEC_LEVEL_GAMMA)
+	SSsecurity_level.set_level(SEC_LEVEL_EPSILON)
+	SSsecurity_level.set_level(SEC_LEVEL_RED)
+	SSsecurity_level.set_level(SEC_LEVEL_BLUE)
+	SSsecurity_level.set_level(SEC_LEVEL_GREEN)
 
 	var/reason = "We're getting the fuck out of here"
 	var/redAlert = TRUE

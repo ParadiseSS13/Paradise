@@ -14,6 +14,7 @@
 	Newton Cradle
 	PAI cable
 	Red Phone
+	Popsicle Sticks
 */
 
 /obj/item/balltoy
@@ -51,14 +52,57 @@
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_METAL = 500)
 	attack_verb = list("bludgeoned", "whacked", "cracked")
+	/// Is the secret compartment open?
+	var/is_open = FALSE
+	/// Tiny item that can be hidden on crutches with a screwdriver
+	var/obj/item/hidden = null
 
 /obj/item/crutches/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded = 5, force_wielded = 5, icon_wielded = "crutches1")
 
-/obj/item/crutches/update_icon_state()  //Currently only here to fuck with the on-mob icons.
+/obj/item/crutches/Destroy()
+	if(hidden)
+		hidden.forceMove(get_turf(src))
+		hidden = null
+	return ..()
+
+/obj/item/crutches/update_icon_state() //Currently only here to fuck with the on-mob icons.
 	icon_state = "crutches0"
 	return ..()
+
+/obj/item/crutches/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(!is_open)
+		return
+	if(!hidden && I.tool_behaviour != TOOL_SCREWDRIVER && I.w_class == WEIGHT_CLASS_TINY)
+		if(istype(I, /obj/item/disk/nuclear))
+			to_chat(user, "<span class='warning'>You think you're gonna need more than crutches if your employers find out what you just tried to do...</span>")
+			return
+		if(I.flags & ABSTRACT)
+			return
+		if(!user.unEquip(I))
+			to_chat(user, "<span class='notice'>[I] doesn't seem to want to go into [src]!</span>")
+			return
+		I.forceMove(src)
+		hidden = I
+		to_chat(user, "<span class='notice'>You hide [I] inside the crutch tip.</span>")
+
+/obj/item/crutches/attack_hand(mob/user, pickupfireoverride)
+	if(!is_open)
+		return ..()
+	if(hidden)
+		user.put_in_hands(hidden)
+		to_chat(user, "<span class='notice'>You remove [hidden] from the crutch tip!</span>")
+		hidden = null
+
+	add_fingerprint(user)
+
+/obj/item/crutches/screwdriver_act(mob/living/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You screw the crutch tip [is_open ? "closed" : "open"].</span>")
+	is_open = !is_open
 
 /obj/item/crutches/get_crutch_efficiency()
 	// 6 when wielded, 2 when not. Basically a small upgrade to just having 2 canes in each hand
@@ -173,3 +217,9 @@
 	if(cooldown < world.time - 20)
 		playsound(user.loc, 'sound/weapons/ring.ogg', 50, 1)
 		cooldown = world.time
+
+/obj/item/popsicle_stick
+	name = "popsicle stick"
+	desc = "A small wooden stick, usually topped by popsicles or other frozen treats."
+	icon = 'icons/obj/food/frozen_treats.dmi'
+	icon_state = "popsicle_stick"

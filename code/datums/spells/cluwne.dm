@@ -12,6 +12,11 @@
 	action_icon_state = "cluwne"
 
 /mob/living/carbon/human/proc/makeCluwne()
+	if(istype(back, /obj/item/mod/control)) // Check if the target is wearing a modsuit
+		var/obj/item/mod/control/modsuit_control = back
+		if(istype(wear_suit, /obj/item/clothing/suit/mod)) // Check if the modsuit is deployed
+			modsuit_control.active = FALSE // Instantly deactivate the modsuit - if it was activated
+			modsuit_control.quick_deploy(src) // The modsuit is no longer deployed
 	to_chat(src, "<span class='danger'>You feel funny.</span>")
 	if(!get_int_organ(/obj/item/organ/internal/brain/cluwne))
 		var/obj/item/organ/internal/brain/cluwne/idiot_brain = new
@@ -36,10 +41,10 @@
 	tumor.insert(src)
 	if(!istype(wear_mask, /obj/item/clothing/mask/cursedclown)) //Infinite loops otherwise
 		unEquip(wear_mask, 1)
-	equip_to_slot_if_possible(new /obj/item/clothing/under/cursedclown, slot_w_uniform, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/gloves/cursedclown, slot_gloves, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/mask/cursedclown, slot_wear_mask, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/shoes/cursedclown, slot_shoes, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/under/cursedclown, SLOT_HUD_JUMPSUIT, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/gloves/cursedclown, SLOT_HUD_GLOVES, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/mask/cursedclown, SLOT_HUD_WEAR_MASK, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/shoes/cursedclown, SLOT_HUD_SHOES, TRUE, TRUE)
 
 /mob/living/carbon/human/proc/makeAntiCluwne()
 	to_chat(src, "<span class='danger'>You don't feel very funny.</span>")
@@ -80,5 +85,5 @@
 		unEquip(gloves, 1)
 		qdel(G)
 
-	equip_to_slot_if_possible(new /obj/item/clothing/under/rank/civilian/lawyer/black, slot_w_uniform, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/shoes/black, slot_shoes, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/under/rank/procedure/lawyer/black, SLOT_HUD_JUMPSUIT, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/shoes/black, SLOT_HUD_SHOES, TRUE, TRUE)

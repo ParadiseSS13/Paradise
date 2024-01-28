@@ -1,5 +1,3 @@
-GLOBAL_LIST_EMPTY(all_cults)
-
 /datum/game_mode
 	/// A list of all minds currently in the cult
 	var/list/datum/mind/cult = list()
@@ -27,7 +25,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		return FALSE
 	if(iscultist(mind.current))
 		return TRUE //If they're already in the cult, assume they are convertable
-	if(mind.isholy)
+	if(HAS_MIND_TRAIT(mind.current, TRAIT_HOLY))
 		return FALSE
 	if(ishuman(mind.current))
 		var/mob/living/carbon/human/H = mind.current
@@ -87,9 +85,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		to_chat(cult_mind.current, CULT_GREETING)
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
-		var/datum/objective/servecult/obj = new
-		obj.owner = cult_mind
-		cult_mind.objectives += obj
+		cult_mind.add_mind_objective(/datum/objective/servecult)
 
 		if(cult_mind.assigned_role == "Clown")
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
@@ -98,7 +94,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
 
-		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
 		cult_objs.study(cult_mind.current)
 		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
@@ -116,9 +111,9 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 /datum/game_mode/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/H)
 	var/list/slots = list(
-		"backpack" = slot_in_backpack,
-		"left pocket" = slot_l_store,
-		"right pocket" = slot_r_store)
+		"backpack" = SLOT_HUD_IN_BACKPACK,
+		"left pocket" = SLOT_HUD_LEFT_STORE,
+		"right pocket" = SLOT_HUD_RIGHT_STORE)
 	var/T = new item_path(H)
 	var/item_name = initial(item_path.name)
 	var/where = H.equip_in_one_of_slots(T, slots)
@@ -151,7 +146,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			A.Grant(cult_mind.current)
 		SEND_SOUND(cult_mind.current, sound('sound/ambience/antag/bloodcult.ogg'))
 		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
-		cult_mind.current.create_log(CONVERSION_LOG, "converted to the cult")
+		cult_mind.current.create_log(CONVERSION_LOG, "Converted to the cult")
 
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
@@ -159,9 +154,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			cult_objs.setup()
 		update_cult_icons_added(cult_mind)
 		add_cult_actions(cult_mind)
-		var/datum/objective/servecult/obj = new
-		obj.owner = cult_mind
-		cult_mind.objectives += obj
+		cult_mind.add_mind_objective(/datum/objective/servecult)
 
 		if(cult_risen)
 			rise(cult_mind.current)
@@ -170,6 +163,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		check_cult_size()
 		cult_objs.study(cult_mind.current)
 		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
+		RegisterSignal(cult_mind.current, COMSIG_MOB_STATCHANGE, PROC_REF(cultist_stat_change))
 		return TRUE
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE, mob/target_mob)
@@ -182,9 +176,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	cult -= cult_mind
 	cultist.faction -= "cult"
 	cult_mind.special_role = null
-	for(var/datum/objective/servecult/S in cult_mind.objectives)
-		cult_mind.objectives -= S
-		qdel(S)
+	cult_mind.objective_holder.clear(/datum/objective/servecult)
 	for(var/datum/action/innate/cult/C in cultist.actions)
 		qdel(C)
 	update_cult_icons_removed(cult_mind)
@@ -206,10 +198,12 @@ GLOBAL_LIST_EMPTY(all_cults)
 			singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 			for(var/datum/action/innate/toggle_clumsy/A in H.actions)
 				A.Remove(H)
+		cult_mind.current.create_log(CONVERSION_LOG, "Deconverted from the cult")
 	check_cult_size()
 	if(show_message)
 		cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
 		"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
+	UnregisterSignal(cult_mind.current, COMSIG_MOB_STATCHANGE)
 
 /datum/game_mode/proc/add_cult_immunity(mob/living/target)
 	ADD_TRAIT(target, TRAIT_CULT_IMMUNITY, CULT_TRAIT)
@@ -253,23 +247,32 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/proc/get_cultists(separate = FALSE)
 	var/cultists = 0
 	var/constructs = 0
-	for(var/I in cult)
-		var/datum/mind/M = I
+	for(var/datum/mind/M as anything in cult)
+		if(QDELETED(M) || M.current?.stat == DEAD)
+			continue
 		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 			cultists++
 		else if(isconstruct(M.current))
 			constructs++
 	if(separate)
 		return list(cultists, constructs)
-	else
-		return cultists + constructs
+	return cultists + constructs
+
+/datum/game_mode/proc/cultist_stat_change(mob/target_cultist, new_stat, old_stat)
+	SIGNAL_HANDLER // COMSIG_MOB_STATCHANGE from cultists
+	if(new_stat == old_stat) // huh, how? whatever, we ignore it
+		return
+	if(new_stat != DEAD && old_stat != DEAD)
+		return // switching between alive and unconcious
+	// switching between dead and alive/unconcious
+	check_cult_size()
 
 /datum/game_mode/proc/check_cult_size()
 	var/cult_players = get_cultists()
 
 	if(cult_ascendant)
 		// The cult only falls if below 1/2 of the rising, usually pretty low. e.g. 5% on highpop, 10% on lowpop
-		if(cult_players < rise_number / 2)
+		if(cult_players < (rise_number / 2))
 			cult_fall()
 		return
 
@@ -381,7 +384,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		SSticker.mode_result = "cult loss - staff stopped the cult"
 		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")
 
-	var/endtext
+	var/list/endtext = list()
 	endtext += "<br><b>The cultists' objectives were:</b>"
 	for(var/datum/objective/obj in cult_objs.presummon_objs)
 		endtext += "<br>[obj.explanation_text] - "
@@ -396,5 +399,5 @@ GLOBAL_LIST_EMPTY(all_cults)
 		else
 			endtext += "<font color='green'><B>Success!</B></font>"
 
-	to_chat(world, endtext)
+	to_chat(world, endtext.Join(""))
 	..()

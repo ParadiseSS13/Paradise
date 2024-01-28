@@ -31,6 +31,7 @@
 # - system_configuration
 # - url_configuration
 # - voting_configuration
+# -
 
 
 ################################################################
@@ -144,7 +145,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 51
+sql_version = 53
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -306,6 +307,8 @@ disable_cid_warning_popup = false
 base_loadout_points = 5
 # Respawnability loss penalty if you cryo below this threshold (Minutes)
 cryo_penalty_period = 30
+# Observers count as roundstart if they join from the main menu before this time (in minutes). Set to 0 to allow only-pregame start observers.
+roundstart_observer_period = 5
 # Enable twitter emojis in OOC?
 enable_ooc_emoji = true
 # Auto start the game if running a local test server
@@ -624,6 +627,7 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/wizardcrash.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/voyager.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/wreckedcargoship.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/abandoned_engi_sat.dmm",
 
 	### The following ruins are based from past pre-spawned Zlevel content ###
 	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
@@ -651,7 +655,6 @@ active_space_ruins = [
 # Commenting something out in here DISABLES IT FROM SPAWNING
 active_lava_ruins = [
 	##BIODOMES
-	"_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_beach.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_clown_planet.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_winter.dmm",
 	##RESPAWN
@@ -674,9 +677,8 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm",
 
 	##MISC
-	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_animal_hospital.dmm",
-	# Cube blacklisted on production because it contains a wishgranter that gives you hijack on use
-	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cube.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_excavation.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_facility.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cultaltar.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_dead_ratvar.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_elite_tumor.dmm",
@@ -687,6 +689,7 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_random_ripley.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_survivalpod.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ufo_crash.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_watcher_grave.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_xeno_nest.dmm",
 ]
 # Budget for lavaland ruins. A higher number means more will spawn
@@ -765,6 +768,8 @@ wiki_url = "https://www.paradisestation.org/wiki"
 rules_url = "https://www.paradisestation.org/rules"
 # Github address
 github_url = "https://github.com/ParadiseSS13/Paradise"
+# Exploit address
+exploit_url = "https://www.paradisestation.org/forum/179-exploit-reports/"
 # Discord address
 #discord_url = "http://example.org"
 # Discord address (forum-based invite)
@@ -819,5 +824,25 @@ map_vote_day_types = [
 
 
 ################################################################
+
+
+[asset_cache_configuration]
+# Browser assets are any file included in interfaces. css, images, javascript, etc.
+# This handles configuring how we get these to the player so interfaces can access them.
+
+# The normal way of getting assets to clients is to use the internal byond system. This can be slow and delay the opening of interface windows. It also doesn't allow the internal IE windows byond uses to cache anything.
+# You can instead have the server save them to a website via a folder within the game server that the web server can read. This could be a simple webserver or something backed by a CDN.
+# Valid values: simple, webroot. Simple is the default.
+asset_transport = "simple"
+# Uncomment this to have the server passively send all browser assets to each client in the background. (instead of waiting for them to be needed)
+# This should be uncommented in production and commented in development
+asset_simple_preload = true
+# Local folder to save assets to.
+# Assets will be saved in the format of asset.MD5HASH.EXT or in namespaces/hash/ as ASSET_FILE_NAME or asset.MD5HASH.EXT
+# asset_cdn_webroot = "data/asset-store/"
+# for best results the webserver powering this should return a long cache validity time, as all assets sent via this transport use hash based urls
+# if you want to test this locally, you simpily run the `localhost-asset-webroot-server.py` python3 script to host assets stored in `data/asset-store/` via http://localhost:58715/
+# asset_cdn_url = "http://localhost:58715/"
+
 
 # Congratulations. You reached the end. heres a cookie.

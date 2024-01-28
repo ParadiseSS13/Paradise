@@ -49,7 +49,7 @@
 	var/datum/action/innate/ai/return_to_core/R = new
 	R.Grant(occupier)
 	occupier.cancel_camera()
-	if((seclevel2num(get_security_level()) == SEC_LEVEL_DELTA) && malf.nuking)
+	if((SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA) && malf.nuking)
 		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 			point.the_disk = src //the pinpointer will detect the shunted AI
 
@@ -62,7 +62,7 @@
 		occupier.parent.adjustOxyLoss(occupier.getOxyLoss())
 		occupier.parent.cancel_camera()
 		qdel(occupier)
-		if(seclevel2num(get_security_level()) == SEC_LEVEL_DELTA)
+		if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA)
 			for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 				for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 					if((A.stat != DEAD) && A.nuking)

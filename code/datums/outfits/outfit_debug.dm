@@ -22,13 +22,13 @@
 	id = /obj/item/card/id/admin
 	pda = /obj/item/pda/centcom
 
-	internals_slot = slot_s_store
+	internals_slot = SLOT_HUD_SUIT_STORE
 	toggle_helmet = TRUE
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/surgery/advanced,
+		/obj/item/organ/internal/cyberimp/arm/surgery/debug,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
-		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced
+		/obj/item/organ/internal/cyberimp/arm/janitorial/debug
 	)
 
 
@@ -42,18 +42,30 @@
 
 /obj/item/radio/headset/centcom/debug
 	name = "AVD-CNED bowman headset"
-	ks2type = /obj/item/encryptionkey/all
+	ks2type = /obj/item/encryptionkey/syndicate/all_channels
 
-/obj/item/encryptionkey/all
+/obj/item/encryptionkey/syndicate/all_channels // has to be a subtype and stuff
 	name = "AVD-CNED Encryption Key"
+	desc = "Lets you listen to <b>everything</b>. Use in hand to toggle voice changing. Alt-click to change your fake name."
+	icon_state = "com_cypherkey"
 	channels = list("Response Team" = 1, "Special Ops" = 1, "Science" = 1, "Command" = 1, "Medical" = 1, "Engineering" = 1, "Security" = 1, "Supply" = 1, "Service" = 1, "Procedure" = 1) // just in case
+	syndie = TRUE
+	change_voice = FALSE
 
-/obj/item/encryptionkey/all/Initialize(mapload)
+/obj/item/encryptionkey/syndicate/all_channels/Initialize(mapload)
 	. = ..()
 	for(var/channel in SSradio.radiochannels)
 		channels[channel] = 1 // yeah, all channels, sure, probably fine
 
-	// todo syndicomms doesn't work right now currenty
+/obj/item/encryptionkey/syndicate/all_channels/attack_self(mob/user, pickupfireoverride)
+	change_voice = !change_voice
+	to_chat(user, "You switch [src] to [change_voice ? "" : "not "]change your voice on syndicate communications.")
+
+/obj/item/encryptionkey/syndicate/all_channels/AltClick(mob/user)
+	var/new_name = stripped_input(user, "Enter new fake agent name...", "New name")
+	if(!new_name)
+		return
+	fake_name = copytext(new_name, 1, MAX_NAME_LEN + 1)
 
 /obj/item/clothing/mask/gas/welding/advanced
 	name = "AVD-CNED welding mask"
@@ -85,7 +97,7 @@
 	prescription_upgradable = FALSE
 
 	hud_types = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED, DATA_HUD_HYDROPONIC)
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL, EXAMINE_HUD_SKILLS)
+	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE, EXAMINE_HUD_SKILLS)
 
 	var/xray = FALSE
 
@@ -110,7 +122,7 @@
 	else
 		add_xray(human_user)
 	xray = !xray
-	to_chat(user, "<span class='notice'>You [!xray ? "de" : ""]activate the x-ray setting on [src]</span>") // ctodo test
+	to_chat(user, "<span class='notice'>You [!xray ? "de" : ""]activate the x-ray setting on [src]</span>")
 	human_user.update_sight()
 
 /obj/item/clothing/glasses/hud/debug/proc/remove_xray(mob/user)
@@ -132,19 +144,33 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	var/datum/species/selected_species
-	var/valid_species = list()
+	var/activate_mind = FALSE
+
+/obj/item/debug/human_spawner/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'><b>Alt-Click</b> to toggle mind-activation on spawning.</span>"
 
 /obj/item/debug/human_spawner/afterattack(atom/target, mob/user, proximity)
 	..()
-	if(isturf(target))
-		var/mob/living/carbon/human/H = new /mob/living/carbon/human(target)
-		if(selected_species)
-			H.setup_dna(selected_species.type)
+	if(!isturf(target))
+		return
+	var/mob/living/carbon/human/H = new /mob/living/carbon/human(target)
+	if(selected_species)
+		H.setup_dna(selected_species.type)
+	if(activate_mind)
+		H.mind_initialize()
 
 /obj/item/debug/human_spawner/attack_self(mob/user)
 	..()
 	var/choice = input("Select a species", "Human Spawner", null) in GLOB.all_species
 	selected_species = GLOB.all_species[choice]
+
+/obj/item/debug/human_spawner/AltClick(mob/user)
+	. = ..()
+	if(!Adjacent(user))
+		return
+	activate_mind = !activate_mind
+	to_chat(user, "<span class='notice'>Any humans spawned will [activate_mind ? "" : "not "]spawn with an initialized mind.</span>")
 
 /obj/item/rcd/combat/admin
 	name = "AVD-CNED RCD"
@@ -173,7 +199,7 @@
 	to_chat(user, "[src] is now set to toolspeed [toolspeed]")
 	playsound(src, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
 
-/obj/item/organ/internal/cyberimp/arm/surgery/advanced
+/obj/item/organ/internal/cyberimp/arm/surgery/debug
 	name = "AVD-CNED surgical toolset implant"
 	contents = newlist(
 		/obj/item/scalpel/laser/manager/debug,
@@ -185,7 +211,7 @@
 		/obj/item/bodyanalyzer/debug
 	)
 
-/obj/item/organ/internal/cyberimp/arm/janitorial/advanced
+/obj/item/organ/internal/cyberimp/arm/janitorial/debug
 	name = "AVD-CNED janitorial toolset implant... is that a... tazer?"
 	desc = "A set of advanced janitorial tools hidden behind a concealed panel on the user's arm with a tazer? What the fuck."
 	parent_organ = "l_arm" // left arm by default cuz im lazy
@@ -287,7 +313,7 @@
 // put cool admin-only shit here :)
 /obj/item/storage/box/debug/misc_debug/populate_contents()
 	new /obj/item/badminBook(src)
-	new /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka(src)
+	new /obj/item/reagent_containers/drinks/bottle/vodka/badminka(src)
 	new /obj/item/crowbar/power(src) // >admin only lol
 	new /obj/item/clothing/gloves/fingerless/rapid/admin(src)
 	new /obj/item/clothing/under/misc/acj(src)

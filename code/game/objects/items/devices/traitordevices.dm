@@ -20,7 +20,7 @@
 		icon_state = "[initial(icon_state)]"
 
 /obj/item/jammer/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You [active ? "deactivate [src]. It goes quiet with a small click." : "activate [src]. It starts to hum softly."] </span>")
+	to_chat(user, "<span class='notice'>You [active ? "deactivate [src]. It goes quiet with a small click." : "activate [src]. It starts to hum softly."]</span>")
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
 	if(active)
@@ -102,6 +102,8 @@
 	icon_state = icons_charges[charges + 1]
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
+	for(var/obj/item/grab/G in user)
+		qdel(G)
 	dir_correction(user)
 	if(!charges && !EMP_D) //If it's empd, you are moving no matter what.
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
@@ -143,7 +145,7 @@
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 			playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
-		else if (EMP_D == FALSE && !(bagholding.len && !flawless)) // This is where the fun begins
+		else if(EMP_D == FALSE && !(bagholding.len && !flawless)) // This is where the fun begins
 			var/direction = get_dir(user, destination)
 			panic_teleport(user, destination, direction)
 		else // Emp activated? Bag of holding? No saving throw for you
@@ -408,12 +410,16 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/datum/ui_module/appearance_changer/appearance_changer_holder
 
-/obj/item/handheld_mirror/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.hands_state)
-	appearance_changer_holder.ui_interact(user, ui_key, ui, force_open, master_ui, state = GLOB.hands_state)
+/obj/item/handheld_mirror/ui_state(mob/user)
+	return GLOB.hands_state
+
+/obj/item/handheld_mirror/ui_interact(mob/user, datum/tgui/ui = null)
+	appearance_changer_holder.ui_interact(user, ui)
 
 /obj/item/handheld_mirror/attack_self(mob/user)
 	if(ishuman(user))
 		appearance_changer_holder = new(src, user)
+		appearance_changer_holder.flags = APPEARANCE_ALL_BODY
 		ui_interact(user)
 
 /obj/item/handheld_mirror/Initialize(mapload)

@@ -1,3 +1,8 @@
+#define MEDBOT_MIN_HEALING_THRESHOLD 5
+#define MEDBOT_MAX_HEALING_THRESHOLD 75
+#define MEDBOT_MIN_INJECTION_AMOUNT 5
+#define MEDBOT_MAX_INJECTION_AMOUNT 15
+
 //Medbot
 /mob/living/simple_animal/bot/medbot
 	name = "\improper Medibot"
@@ -96,7 +101,7 @@
 	Radio.syndiekey = new /obj/item/encryptionkey/syndicate
 
 /mob/living/simple_animal/bot/medbot/syndicate/emagged
-	emagged = 2
+	emagged = TRUE
 	declare_crit = FALSE
 	drops_parts = FALSE
 
@@ -149,88 +154,87 @@
 	text_dehack = "You reset [name]'s reagent processor circuits."
 	text_dehack_fail = "[name] seems damaged and does not respond to reprogramming!"
 
-/mob/living/simple_animal/bot/medbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<TT><B>Medical Unit Controls v1.1</B></TT><BR><BR>"
-	dat += "Status: <A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A><BR>"
-	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
-	dat += "Beaker: "
-	if(reagent_glass)
-		dat += "<A href='?src=[UID()];eject=1'>Loaded \[[reagent_glass.reagents.total_volume]/[reagent_glass.reagents.maximum_volume]\]</a>"
-	else
-		dat += "None Loaded"
-	dat += "<br>Behaviour controls are [locked ? "locked" : "unlocked"]<hr>"
-	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += "<TT>Healing Threshold: "
-		dat += "<a href='?src=[UID()];adj_threshold=-10'>--</a> "
-		dat += "<a href='?src=[UID()];adj_threshold=-5'>-</a> "
-		dat += "[heal_threshold] "
-		dat += "<a href='?src=[UID()];adj_threshold=5'>+</a> "
-		dat += "<a href='?src=[UID()];adj_threshold=10'>++</a>"
-		dat += "</TT><br>"
+/mob/living/simple_animal/bot/medbot/show_controls(mob/user)
+	ui_interact(user)
 
-		dat += "<TT>Injection Level: "
-		dat += "<a href='?src=[UID()];adj_inject=-5'>-</a> "
-		dat += "[injection_amount] "
-		dat += "<a href='?src=[UID()];adj_inject=5'>+</a> "
-		dat += "</TT><br>"
+/mob/living/simple_animal/bot/medbot/ui_state(mob/user)
+	return GLOB.default_state
 
-		dat += "Reagent Source: "
-		dat += "<a href='?src=[UID()];use_beaker=1'>[use_beaker ? "Loaded Beaker (When available)" : "Internal Synthesizer"]</a><br>"
+/mob/living/simple_animal/bot/medbot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "BotMed", name)
+		ui.open()
 
-		dat += "Treat Viral Infections: <a href='?src=[UID()];virus=1'>[treat_virus ? "Yes" : "No"]</a><br>"
-		dat += "The speaker switch is [shut_up ? "off" : "on"]. <a href='?src=[UID()];togglevoice=[1]'>Toggle</a><br>"
-		dat += "Critical Patient Alerts: <a href='?src=[UID()];critalerts=1'>[declare_crit ? "Yes" : "No"]</a><br>"
-		dat += "Patrol Station: <a href='?src=[UID()];operation=patrol'>[auto_patrol ? "Yes" : "No"]</a><br>"
-		dat += "Stationary Mode: <a href='?src=[UID()];stationary=1'>[stationary_mode ? "Yes" : "No"]</a><br>"
+/mob/living/simple_animal/bot/medbot/ui_data(mob/user)
+	var/list/data = ..()
+	data["shut_up"] = shut_up
+	data["declare_crit"] = declare_crit
+	data["stationary_mode"] = stationary_mode
+	data["heal_threshold"] = list(
+		"value" = heal_threshold,
+		"min" = MEDBOT_MIN_HEALING_THRESHOLD,
+		"max" = MEDBOT_MAX_HEALING_THRESHOLD,
+	)
+	data["injection_amount"] = list(
+		"value" = injection_amount,
+		"min" = MEDBOT_MIN_INJECTION_AMOUNT,
+		"max" = MEDBOT_MAX_INJECTION_AMOUNT,
+	)
+	data["use_beaker"] = use_beaker
+	data["treat_virus"] = treat_virus
+	data["reagent_glass"] = !reagent_glass ? null : list(
+		"amount" = reagent_glass.reagents.total_volume,
+		"max_amount" = reagent_glass.reagents.maximum_volume,
+	)
+	return data
 
-	return dat
-
-/mob/living/simple_animal/bot/medbot/Topic(href, href_list)
+/mob/living/simple_animal/bot/medbot/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
-		return 1
-
-	if(href_list["adj_threshold"])
-		var/adjust_num = text2num(href_list["adj_threshold"])
-		heal_threshold += adjust_num
-		if(heal_threshold < 5)
-			heal_threshold = 5
-		if(heal_threshold > 75)
-			heal_threshold = 75
-
-	else if(href_list["adj_inject"])
-		var/adjust_num = text2num(href_list["adj_inject"])
-		injection_amount += adjust_num
-		if(injection_amount < 5)
-			injection_amount = 5
-		if(injection_amount > 15)
-			injection_amount = 15
-
-	else if(href_list["use_beaker"])
-		use_beaker = !use_beaker
-
-	else if(href_list["eject"] && (!isnull(reagent_glass)))
-		reagent_glass.forceMove(get_turf(src))
-		reagent_glass = null
-
-	else if(href_list["togglevoice"])
-		shut_up = !shut_up
-
-	else if(href_list["critalerts"])
-		declare_crit = !declare_crit
-
-	else if(href_list["stationary"])
-		stationary_mode = !stationary_mode
-		path = list()
-		update_icon()
-
-	else if(href_list["virus"])
-		treat_virus = !treat_virus
-
-	update_controls()
-	return
+		return
+	if(topic_denied(usr))
+		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		return
+	add_fingerprint(usr)
+	. = TRUE
+	switch(action)
+		if("power")
+			if(on)
+				turn_off()
+			else
+				turn_on()
+		if("autopatrol")
+			auto_patrol = !auto_patrol
+			bot_reset()
+		if("hack")
+			handle_hacking(usr)
+		if("disableremote")
+			remote_disabled = !remote_disabled
+		if("toggle_speaker")
+			shut_up = !shut_up
+		if("toggle_critical_alerts")
+			declare_crit = !declare_crit
+		if("set_heal_threshold")
+			var/new_heal_threshold = text2num(params["target"])
+			if(new_heal_threshold == null)
+				return
+			heal_threshold = clamp(new_heal_threshold, MEDBOT_MIN_HEALING_THRESHOLD, MEDBOT_MAX_HEALING_THRESHOLD)
+		if("set_injection_amount")
+			var/new_injection_amount = text2num(params["target"])
+			if(new_injection_amount == null)
+				return
+			injection_amount = clamp(new_injection_amount, MEDBOT_MIN_INJECTION_AMOUNT, MEDBOT_MAX_INJECTION_AMOUNT)
+		if("toggle_use_beaker")
+			use_beaker = !use_beaker
+		if("toggle_treat_viral")
+			treat_virus = !treat_virus
+		if("toggle_stationary_mode")
+			stationary_mode = !stationary_mode
+			path = list()
+			update_icon()
+		if("eject_reagent_glass")
+			reagent_glass.forceMove(get_turf(src))
+			reagent_glass = null
 
 /mob/living/simple_animal/bot/medbot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/glass))
@@ -247,7 +251,7 @@
 		W.forceMove(src)
 		reagent_glass = W
 		to_chat(user, "<span class='notice'>You insert [W].</span>")
-		show_controls(user)
+		ui_interact(user)
 
 	else
 		var/current_health = health
@@ -257,7 +261,7 @@
 
 /mob/living/simple_animal/bot/medbot/emag_act(mob/user)
 	..()
-	if(emagged == 2)
+	if(emagged)
 		declare_crit = FALSE
 		if(user)
 			to_chat(user, "<span class='notice'>You short out [src]'s reagent synthesis circuits.</span>")
@@ -411,7 +415,7 @@
 		if(H.dna.species && H.dna.species.reagent_tag == PROCESS_SYN)
 			return FALSE
 
-	if(emagged == 2 || hijacked) //Everyone needs our medicine. (Our medicine is toxins)
+	if(emagged || hijacked) //Everyone needs our medicine. (Our medicine is toxins)
 		return TRUE
 
 	if(syndicate_aligned && !("syndicate" in C.faction))
@@ -460,7 +464,7 @@
 	var/reagent_id
 	var/beaker_injection //If and what kind of beaker reagent needs to be injected
 
-	if(emagged == 2 || hijacked) //Emagged! Time to poison everybody.
+	if(emagged || hijacked) //Emagged! Time to poison everybody.
 		reagent_id = "pancuronium"
 	else
 		beaker_injection = assess_beaker_injection(C)

@@ -17,6 +17,7 @@
 
 	var/datum/mind/player_mind = new /datum/mind(key_of_slaughter)
 	player_mind.active = TRUE
+	dust_if_respawnable(C)
 	var/turf/spawn_loc = get_spawn_loc(player_mind.current)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(spawn_loc)
 	var/mob/living/simple_animal/demon/S = new demon(holder)

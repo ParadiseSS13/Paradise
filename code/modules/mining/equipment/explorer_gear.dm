@@ -53,12 +53,17 @@
 	slowdown = 0
 	armor = list(MELEE = 120, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/melee/spellblade)
+	hide_tail_by_species = list("Vox", "Vulpkanin", "Unathi", "Tajaran")
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi'
+	)
 
-/obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
-	. = ..()
-	START_PROCESSING(SSobj, src)
-	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/suit/space/hostile_environment/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -77,18 +82,18 @@
 	desc = "Hostile Environment Cross-Kinetic Helmet: A helmet designed to withstand the wide variety of hazards from Lavaland. It wasn't enough for its last owner."
 	icon_state = "hostile_env"
 	item_state = "hostile_env"
+	body_parts_covered = HEAD
+	flags = BLOCKHAIR
 	w_class = WEIGHT_CLASS_NORMAL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	armor = list(MELEE = 120, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 
-/obj/item/clothing/head/helmet/space/hostile_environment/Initialize(mapload)
-	. = ..()
-	update_icon()
-	AddComponent(/datum/component/spraycan_paintable)
-
-/obj/item/clothing/head/helmet/space/hostile_environment/update_overlays()
-	. = ..()
-	var/mutable_appearance/glass_overlay = mutable_appearance(icon, "hostile_env_glass")
-	glass_overlay.appearance_flags = RESET_COLOR
-	. += glass_overlay
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi'
+	)

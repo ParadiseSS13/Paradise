@@ -63,7 +63,7 @@
 		if(20)
 			new /obj/item/grenade/clusterbuster/inferno(src)
 		if(21)
-			new /obj/item/reagent_containers/food/drinks/bottle/holywater/hell(src)
+			new /obj/item/reagent_containers/drinks/bottle/holywater/hell(src)
 		if(22)
 			new /obj/item/spellbook/oneuse/summonitem(src)
 		if(23)
@@ -106,6 +106,7 @@
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
 	category = list("Mining", "Cyborg Upgrade Modules")
 	build_type = PROTOLATHE | MECHFAB
+	requires_whitelist = TRUE
 
 /datum/design/rapid_repeater_modkit
 	name = "Kinetic Accelerator Rapid Repeater Mod"
@@ -115,6 +116,7 @@
 	build_path = /obj/item/borg/upgrade/modkit/cooldown/repeater
 	category = list("Mining", "Cyborg Upgrade Modules")
 	build_type = PROTOLATHE | MECHFAB
+	requires_whitelist = TRUE
 
 /datum/design/resonator_blast_modkit
 	name = "Kinetic Accelerator Resonator Blast Mod"
@@ -124,6 +126,7 @@
 	build_path = /obj/item/borg/upgrade/modkit/resonator_blasts
 	category = list("Mining", "Cyborg Upgrade Modules")
 	build_type = PROTOLATHE | MECHFAB
+	requires_whitelist = TRUE
 
 /datum/design/bounty_modkit
 	name = "Kinetic Accelerator Death Syphon Mod"
@@ -134,6 +137,7 @@
 	build_path = /obj/item/borg/upgrade/modkit/bounty
 	category = list("Mining", "Cyborg Upgrade Modules")
 	build_type = PROTOLATHE | MECHFAB
+	requires_whitelist = TRUE
 
 //Spooky special loot
 
@@ -148,7 +152,7 @@
 #define BERSERK_COLOUR "#950a0a"
 
 /obj/item/clothing/suit/hooded/berserker
-	name = "champion's hardsuit"
+	name = "berserker hardsuit"
 	desc = "Voices echo from the hardsuit, driving the user insane. Is not space-proof."
 	icon_state = "hardsuit-berserker"
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/spear)
@@ -166,7 +170,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
-	hide_tail_by_species = list("Unathi, Tajaran, Vox, Vulpkanin")
+	hide_tail_by_species = list("Unathi", "Tajaran", "Vox", "Vulpkanin")
 
 /obj/item/clothing/head/hooded/berserker
 	name = "berserker helmet"
@@ -487,8 +491,8 @@
 	Even with the weapon destroyed, all the pieces containing the creature have coagulated back together to find a new host."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "cursed_katana"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	force = 15
 	armour_penetration_percentage = 40
 	armour_penetration_flat = 10

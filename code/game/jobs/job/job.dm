@@ -17,6 +17,8 @@
 	var/job_departments = list()
 	///Can this role access its department money account?
 	var/department_account_access = FALSE
+	/// Does this job get a bank account?
+	var/has_bank_account = TRUE
 	//How many players can be this job
 	var/total_positions = 0
 
@@ -41,15 +43,8 @@
 	//If this is set to 1, a text is printed to the player when jobs are assigned, telling him that he should let admins know that he has to disconnect.
 	var/req_admin_notify
 
-	//Various Departmental identifiers
-	var/is_supply
-	var/is_service
-	var/is_command
-	var/is_legal
-	var/is_engineering
-	var/is_medical
-	var/is_science
-	var/is_security
+	/// Flags for identifying by department, because we need other shit that isnt for the database
+	var/job_department_flags
 
 	//If you have use_age_restriction_for_jobs config option enabled and the database set up, this option will add a requirement for players to be at least minimal_player_age days old. (meaning they first signed in at least that many days before.)
 	var/minimal_player_age = 0
@@ -74,8 +69,13 @@
 	///Job Objectives that crew with this job will have a roundstart
 	var/required_objectives = list()
 
+	/// Boolean detailing if this job has been banned because of a gamemode restriction i.e. The revolution has won, no more command
+	var/job_banned_gamemode = FALSE
+
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H)
+
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 
@@ -142,9 +142,13 @@
 	return FALSE
 
 /datum/job/proc/is_position_available()
+	if(job_banned_gamemode)
+		return FALSE
 	return (current_positions < total_positions) || (total_positions == -1)
 
 /datum/job/proc/is_spawn_position_available()
+	if(job_banned_gamemode)
+		return FALSE
 	return (current_positions < spawn_positions) || (spawn_positions == -1)
 
 /datum/outfit/job

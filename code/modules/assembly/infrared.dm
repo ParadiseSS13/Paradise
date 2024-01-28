@@ -28,6 +28,7 @@
 /obj/item/assembly/infra/examine(mob/user)
 	. = ..()
 	. += "The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"]."
+	. += "<span class='info'><b>Alt-Click</b> to rotate it.</span>"
 
 /obj/item/assembly/infra/activate()
 	if(!..())
@@ -159,25 +160,24 @@
 		if(first)
 			first.vis_spread(visible)
 	if(href_list["rotate"])
-		rotate()
+		rotate(usr)
 	if(href_list["close"])
 		usr << browse(null, "window=infra")
 		return
 	if(usr)
 		attack_self(usr)
 
-/obj/item/assembly/infra/verb/rotate()//This could likely be better
-	set name = "Rotate Infrared Laser"
-	set category = "Object"
-	set src in usr
+/obj/item/assembly/infra/AltClick(mob/user)
+	rotate(user)
 
-	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
+/obj/item/assembly/infra/proc/rotate(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	dir = turn(dir, 90)
 
-	if(usr.machine == src)
-		interact(usr)
+	if(user.machine == src)
+		interact(user)
 
 	if(first)
 		qdel(first)

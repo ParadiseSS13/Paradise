@@ -113,6 +113,7 @@
 			return
 		var/mob/dead/observer/O = pick(candidates)
 		R.key = O.key
+		dust_if_respawnable(O)
 
 /obj/machinery/transformer/mime
 	name = "Mimetech Greyscaler"
@@ -252,7 +253,7 @@
 
 	if(prestrip)
 		for(var/obj/item/I in H)
-			if(istype(I, /obj/item/implant))
+			if(istype(I, /obj/item/bio_chip))
 				continue
 			qdel(I)
 

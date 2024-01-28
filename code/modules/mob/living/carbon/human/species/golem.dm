@@ -15,7 +15,7 @@
 	punchdamagelow = 5
 	punchdamagehigh = 14
 	punchstunthreshold = 11 //about 40% chance to stun
-	no_equip = list(slot_wear_mask, slot_wear_suit, slot_gloves, slot_shoes, slot_w_uniform, slot_s_store)
+	no_equip = list(SLOT_HUD_WEAR_MASK, SLOT_HUD_OUTER_SUIT, SLOT_HUD_GLOVES, SLOT_HUD_SHOES, SLOT_HUD_JUMPSUIT, SLOT_HUD_SUIT_STORE)
 	nojumpsuit = TRUE
 
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
@@ -268,6 +268,7 @@
 
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/handle_life(mob/living/carbon/human/H)
+	SHOULD_CALL_PARENT(FALSE)
 	if(H.stat == DEAD)
 		return
 	H.adjustBruteLoss(-2)
@@ -571,8 +572,8 @@
 	..()
 	last_banana = world.time
 	last_honk = world.time
-	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), slot_r_store)
-	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), slot_l_store)
+	H.equip_to_slot_or_del(new /obj/item/reagent_containers/drinks/bottle/bottleofbanana(H), SLOT_HUD_RIGHT_STORE)
+	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), SLOT_HUD_LEFT_STORE)
 	H.AddElement(/datum/element/waddling)
 
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
@@ -649,9 +650,9 @@
 
 /datum/species/golem/tranquillite/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.equip_to_slot_or_del(new 	/obj/item/clothing/head/beret(H), slot_head)
-	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), slot_r_store)
-	H.equip_to_slot_or_del(new 	/obj/item/cane(H), slot_l_hand)
+	H.equip_to_slot_or_del(new 	/obj/item/clothing/head/beret(H), SLOT_HUD_HEAD)
+	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/drinks/bottle/bottleofnothing(H), SLOT_HUD_RIGHT_STORE)
+	H.equip_to_slot_or_del(new 	/obj/item/cane(H), SLOT_HUD_LEFT_HAND)
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
@@ -760,6 +761,6 @@
 	if(resistance_flags & ON_FIRE)
 		return
 
-	if(is_hot(P))
+	if(P.get_heat())
 		visible_message("<span class='danger'>[src] bursts into flames!</span>")
 		fire_act()

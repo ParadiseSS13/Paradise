@@ -13,8 +13,6 @@ GLOBAL_LIST_INIT(meteors_catastrophic, list(/obj/effect/meteor/medium = 3, /obj/
 
 GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/meteor/meaty/xeno = 1)) //for meaty ore event
 
-GLOBAL_LIST_INIT(meteors_dust, list(/obj/effect/meteor/dust)) //for space dust event
-
 GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 
@@ -111,7 +109,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 		var/turf/T = get_turf(loc)
 		ram_turf(T)
 
-		if(prob(10) && !isspaceturf(T))//randomly takes a 'hit' from ramming
+		if(prob(10) && !ispassmeteorturf(T))//randomly takes a 'hit' from ramming
 			get_hit()
 
 /obj/effect/meteor/Destroy()
@@ -133,7 +131,8 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	if(A)
 		ram_turf(get_turf(A))
 		playsound(loc, meteorsound, 40, TRUE)
-		get_hit()
+		if(!istype(A, /obj/structure/railing))
+			get_hit()
 
 /obj/effect/meteor/proc/ram_turf(turf/T)
 	//first bust whatever is in the turf
@@ -305,7 +304,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	hits = 2
 	heavy = TRUE
 	meteorsound = 'sound/effects/blobattack.ogg'
-	meteordrop = list(/obj/item/reagent_containers/food/snacks/meat/human, /obj/item/organ/internal/heart, /obj/item/organ/internal/lungs, /obj/item/organ/internal/appendix)
+	meteordrop = list(/obj/item/food/snacks/meat/human, /obj/item/organ/internal/heart, /obj/item/organ/internal/lungs, /obj/item/organ/internal/appendix)
 	var/meteorgibs = /obj/effect/gibspawner/generic
 
 /obj/effect/meteor/meaty/make_debris()
@@ -324,7 +323,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 //Meaty Ore Xeno edition
 /obj/effect/meteor/meaty/xeno
 	color = "#5EFF00"
-	meteordrop = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat)
+	meteordrop = list(/obj/item/food/snacks/monstermeat/xenomeat)
 	meteorgibs = /obj/effect/gibspawner/xeno
 
 /obj/effect/meteor/meaty/xeno/Initialize(mapload, target)
@@ -343,7 +342,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	hits = 10
 	hitpwr = EXPLODE_DEVASTATE
 	meteorsound = 'sound/effects/blobattack.ogg'
-	meteordrop = list(/obj/item/reagent_containers/food/snacks/meat)
+	meteordrop = list(/obj/item/food/snacks/meat)
 	var/meteorgibs = /obj/effect/gibspawner/generic
 
 /obj/effect/meteor/goreops/make_debris()
@@ -363,8 +362,6 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 //Spookoween meteors
 /////////////////////////
 
-GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
-
 /obj/effect/meteor/pumpkin
 	name = "PUMPKING"
 	desc = "THE PUMPKING'S COMING!"
@@ -373,7 +370,7 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	hits = 10
 	heavy = TRUE
 	dropamt = 1
-	meteordrop = list(/obj/item/clothing/head/hardhat/pumpkinhead, /obj/item/reagent_containers/food/snacks/grown/pumpkin)
+	meteordrop = list(/obj/item/clothing/head/hardhat/pumpkinhead, /obj/item/food/snacks/grown/pumpkin)
 
 /obj/effect/meteor/pumpkin/Initialize(mapload, target)
 	. = ..()

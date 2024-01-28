@@ -14,7 +14,7 @@
 	throw_range = 1
 	throw_speed = 1
 	pressure_resistance = 0
-	slot_flags = SLOT_HEAD
+	slot_flags = SLOT_FLAG_HEAD
 	body_parts_covered = HEAD
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
@@ -50,9 +50,6 @@
 
 /obj/item/paper/New()
 	..()
-	pixel_y = rand(-8, 8)
-	pixel_x = rand(-9, 9)
-
 	spawn(2)
 		update_icon()
 		updateinfolinks()
@@ -65,6 +62,7 @@
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
 	if(user.is_literate())
 		if(in_range(user, src) || isobserver(user))
 			show_content(user)
@@ -85,7 +83,7 @@
 		data = "[header]<div id='markdown'>[infolinks ? info_links : info]</div>[footer][stamps]"
 	if(view)
 		var/datum/browser/popup = new(user, "Paper[UID()]", , paper_width, paper_height)
-		popup.stylesheets = list()
+		popup.include_default_stylesheet = FALSE
 		popup.set_content(data)
 		if(!stars)
 			popup.add_script("marked.js", 'html/browser/marked.js')
@@ -94,16 +92,27 @@
 		popup.open()
 	return data
 
-/obj/item/paper/verb/rename()
-	set name = "Rename paper"
-	set category = "Object"
-	set src in usr
-
-	if(HAS_TRAIT(usr, TRAIT_CLUMSY) && prob(50))
-		to_chat(usr, "<span class='warning'>You cut yourself on the paper.</span>")
+/obj/item/paper/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(!usr.is_literate())
-		to_chat(usr, "<span class='notice'>You don't know how to read.</span>")
+
+	if(is_pen(user.get_active_hand()))
+		rename(user)
+		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/I = H.is_in_hands(/obj/item/paper)
+		if(I)
+			ProcFoldPlane(H, I)
+			return
+	return ..()
+
+/obj/item/paper/proc/rename(mob/user)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		to_chat(user, "<span class='warning'>You cut yourself on the paper.</span>")
+		return
+	if(!user.is_literate())
+		to_chat(user, "<span class='notice'>You don't know how to read.</span>")
 		return
 	var/n_name = rename_interactive(usr)
 	if(isnull(n_name))
@@ -112,8 +121,7 @@
 		desc = "This is a paper titled '" + name + "'."
 	else
 		desc = initial(desc)
-	add_fingerprint(usr)
-	return
+	add_fingerprint(user)
 
 /obj/item/paper/attack_self(mob/living/user as mob)
 	user.examinate(src)
@@ -336,7 +344,7 @@
 		var/const/station_text = "\[Station name\]"
 		var/list/menu_list = list() //text items in the menu
 		menu_list.Add(usr.real_name) //the real name of the character, even if it is hidden
-		if(usr.real_name != usr.name || usr.name != "unknown") //if the player is masked or the name is different a new answer option is added
+		if(usr.real_name != usr.name) //if the player is masked or the name is different a new answer option is added
 			menu_list.Add("[usr.name]")
 		menu_list.Add(usr.job, //current job
 			num_text, //account number
@@ -348,7 +356,7 @@
 			usr.gender, //current gender
 			usr.dna.species //current species
 		)
-		var/input_element = input("Select the text you want to add:", "Select item") as null|anything in menu_list
+		var/input_element = tgui_input_list(usr, "Select the text you want to add", "Select item", menu_list)
 		switch(input_element) //format selected menu items in pencode and internal data
 			if(sign_text)
 				input_element = "\[sign\]"
@@ -363,7 +371,7 @@
 			if(pin_text)
 				input_element = usr.mind.initial_account.account_pin
 		topic_href_write(id, input_element)
-	if(href_list["write"] )
+	if(href_list["write"])
 		var/id = href_list["write"]
 		var/input_element = input("Enter what you want to write:", "Write", null, null) as message
 		topic_href_write(id, input_element)
@@ -439,7 +447,7 @@
 			to_chat(user, "<span class='warning'>You don't know how to write!</span>")
 
 	else if(istype(P, /obj/item/stamp))
-		if((!in_range(src, usr) && loc != user && !( istype(loc, /obj/item/clipboard) ) && loc.loc != user && user.get_active_hand() != P))
+		if((!in_range(src, usr) && loc != user && !( istype(loc, /obj/item/clipboard)) && loc.loc != user && user.get_active_hand() != P))
 			return
 
 		if(istype(P, /obj/item/stamp/clown))
@@ -452,7 +460,7 @@
 		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
 		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 
-	if(is_hot(P))
+	if(P.get_heat())
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
@@ -556,12 +564,23 @@
 		icon_state = "scrap_words"
 
 /obj/item/paper/crumpled/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	C.stored_comms["wood"] += 1
-	qdel(src)
-	return TRUE
+	if(isdrone(user))
+		C.stored_comms["wood"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/item/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"
+
+/obj/item/paper/crumpled/ruins/lavaland/seed_vault/discovery
+	name = "discoveries and thoughts"
+	info = "As the Diona species, we awoke aboard our terraformation vessel with the primary goal of reshaping the alien world. Our endeavors were highly successful, as we cultivated various plant species and made astonishing discoveries throughout our journey. We seeded a remarkable 'special' grass around our ship, which thrived splendidly. However, as time passed, we faced a growing challenge - a shortage of oxygen in our containment tanks hindered our ability to spread the grass further. In response, we embarked on a series of trials and experiments to engineer plants with the capacity to survive in low-oxygen environments, thus extending our breath of life. <br>Through a series of trials, combining failures and successes, we unveiled several plant species with unique attributes. Some proved to be valuable for healing purposes, while others offered addictive properties. Glowing mushrooms emerged as a source of vital light, preventing us from succumbing to the darkness. Among these discoveries, one plant commanded our utmost attention – the 'space tobacco.' While this species did not generate oxygen, it contained a chemical known as Salbutamol, enabling us to respire in low-oxygen conditions when consumed. The only drawback was the need to meticulously extract harmful compounds for its safe utilization. <br>Amid our efforts to expand the greenery, an unexpected encounter transpired. I found myself under assault by an enigmatic creature, and I was forced to flee in haste, straying too far from our vessel. As I stand now, my supplies of life-sustaining plants are dwindling, as is my ability to endure in this low-oxygen environment. Suffocation looms, and I must hasten my return to the safety of our ship to avert this dire fate."
+
+/obj/item/paper/crumpled/bloody/hacker
+	name = "burned paper scrap"
+	icon_state = "scrap_bloodied"
+	info = "<p style='text-align:center;font-family;font-size:120%;font-weight:bold;'>FINALLY, I DECIPHERED NTS' FAXING NETWO-</p>"
 
 /obj/item/paper/fortune
 	name = "fortune"
@@ -677,6 +696,18 @@
 	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Nanotrasen Central Command</h3><p style='text-align: center;font-family:Verdana;'>Official Expedited Memorandum</p></b><hr />"
 	info = ""
 	footer = "<hr /><p style='font-family:Verdana;'><em>Failure to adhere appropriately to orders that may be contained herein is in violation of Space Law, and punishments may be administered appropriately upon return to Central Command.</em><br /><em>The recipient(s) of this memorandum acknowledge by reading it that they are liable for any and all damages to crew or station that may arise from ignoring suggestions or advice given herein.</em></p>"
+
+/obj/item/paper/seed_vault
+	name = "Seed Vault Objective"
+	info = "<center><i>Seed Vault objective:</i></center> \ Your creator send you to planet SN-856B in Jansev4 system to preform terraformation. <br>To Help you with terraforming we provided you with: <br>- 4 compact pickaxes <br>- 4 extended-capacity emergency oxygen tank <br>- 4 breathing masks <br>- 4 bees starter kits <br>- Full botanical setup <br><br>Introduction for Experimental terraformation you will find inside Pilot room."
+
+/obj/item/paper/seed_vault/terraformation
+	name = "Terraformation Experiment for SN-856B"
+	info = "Thanks to genetic engineering, we modified this grass to be able grow on a rocky, waterless environment. Remember to grow the grass seeds first and when it matures, weave them together to create patches of grass; after you place them down, anchor it down to the terrain so they will start to spread roots deep inside. After all steps are done, repeat it until you cover as much ground as possible. After a certain amount of time it will start producing oxygen, with will begin to increase the density of the atmosphere."
+
+/obj/item/paper/seed_vault/autopilot_logs
+	name = "Automatical Logs Printout"
+	info = "<center>Hoverhock 'Bumblebee Bee' Online</center> <br><i>Auto-Pilot online.</i> <br><i>Loading destination...</i> Planet SN-856B in Jansev4 System <br><i>Loaging planet statistics...</i> <br><br><center>Planet SN-856B</center><br>    Planet Size: Small <br>    Planet Type: Rocky <br>    Planet Atmosphere: 76.325kpa (Thin) <br>    Contain Breathable Gasses: YES <br>    Contain Liquids: NO <br>    Terraformation: Possible <br><br><i>Destination Loaded, Departing.</i> <br><br><br><center>Traveled Distance: 143LY</center> \ <br>Auto-Log: Ship was traversing trough dense asteroid field, minor hull damage detected, initiating auto-repair module. <br><br><center>Traveled Distance: 255LY</center> \ <br>Auto-Log: Ship is passing through dead star nebula, detected high space radiation.  <br><br><center>Traveled Distance: 427LY</center> \ <br>Auto-Log: Ship is passing trough -/&^-/#@, detected malfunction of components, receiving signal from nearby planet bzz -/!#D^%- <br><center>System Reboot</center> <br><center>Aquired new destination: Lavaland</center> <br><center>Initiating Terraforming Protocole.</center> <br><br><center>End Logs</center>"
 
 /obj/item/paper/syndicate_druglab
 	name = "paper - 'Excerpt from a Diary'"
@@ -824,3 +855,10 @@
 	var/mylevel = rand(7, 9)
 	origin_tech = "[mytech]=[mylevel]"
 	name = "research notes - [mytech] [mylevel]"
+
+/obj/item/paper/instruction
+	name = "Instruction Notes"
+
+/obj/item/paper/instruction/pacman_generator
+	name = "Instructions for P.A.C.M.A.N. Generator series"
+	info = "P.A.C.M.A.N. are commonly used as 'Emergency' power generators, with its upgraded version being capable of utilizing uranium and plasma sheets to function. Simply anchor on the power cable node, insert the plasma sheet, select the level and turn it ON to generate power, just make sure to not overheat it or it will explode."

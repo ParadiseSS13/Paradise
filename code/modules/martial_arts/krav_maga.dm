@@ -5,6 +5,7 @@
 	var/datum/action/leg_sweep/legsweep = new/datum/action/leg_sweep()
 	var/datum/action/lung_punch/lungpunch = new/datum/action/lung_punch()
 	var/datum/action/neutral_stance/neutral = new/datum/action/neutral_stance()
+	can_horizontally_grab = FALSE
 
 /datum/action/neutral_stance
 	name = "Neutral Stance - You relax, cancelling your last Krav Maga stance attack."
@@ -107,15 +108,15 @@
 	if(IS_HORIZONTAL(D))
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
-	D.apply_damage(bonus_damage, BRUTE)
-	if(picked_hit_type == "kicks" || picked_hit_type == "stomps")
+	if(picked_hit_type == "kicks" || IS_HORIZONTAL(D))
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-		playsound(get_turf(D), 'sound/effects/hit_kick.ogg', 50, 1, -1)
+		playsound(get_turf(D), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	else
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-		playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+	D.apply_damage(bonus_damage, BRUTE)
 	return TRUE
 
 /datum/martial_art/krav_maga/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -131,33 +132,37 @@
 	else
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", \
 							"<span class='userdanger'>[A] attempted to disarm [D]!</span>")
-		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+		playsound(D, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 	return TRUE
 
 //Krav Maga Gloves
 
 /obj/item/clothing/gloves/color/black/krav_maga
-	var/datum/martial_art/krav_maga/style = new
+	var/datum/martial_art/krav_maga/style
 	can_be_cut = FALSE
 	resistance_flags = NONE
+
+/obj/item/clothing/gloves/color/black/krav_maga/Initialize()
+	. = ..()
+	style = new()
 
 /obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
-	if(slot == slot_gloves)
+	if(slot == SLOT_HUD_GLOVES)
 		var/mob/living/carbon/human/H = user
-		style.teach(H,1)
+		style.teach(H, TRUE)
 
 /obj/item/clothing/gloves/color/black/krav_maga/dropped(mob/user)
 	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_gloves) == src)
+	if(H.get_item_by_slot(SLOT_HUD_GLOVES) == src)
 		style.remove(H)
 
 /obj/item/clothing/gloves/color/black/krav_maga/sec//more obviously named, given to sec
-	name = "krav maga gloves"
+	name = "Krav Maga gloves"
 	desc = "These gloves can teach you to perform Krav Maga using nanochips."
 	icon_state = "fightgloves"
 	item_state = "fightgloves"
@@ -167,7 +172,7 @@
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/clothing/gloves/color/black/krav_maga/combat // for nukies
-	name = "combat gloves plus"
+	name = "Combat gloves plus"
 	desc = "These combat gloves have been upgraded with nanochips that teach the wearer Krav Maga."
 	icon_state = "combat"
 	item_state = "swat_gl"

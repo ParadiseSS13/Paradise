@@ -1,4 +1,5 @@
 /obj/item/melee/energy
+	icon = 'icons/obj/energy_melee.dmi'
 	var/active = FALSE
 	var/force_on = 30 //force when active
 	var/throwforce_on = 20
@@ -83,6 +84,9 @@
 		H.update_inv_r_hand()
 	add_fingerprint(user)
 	return
+
+/obj/item/melee/energy/get_heat()
+	return active * 3500
 
 /obj/item/melee/energy/axe
 	name = "energy axe"
@@ -292,7 +296,7 @@
 	inhand_y_dimension = 64
 	icon_state = "cleaving_saw"
 	icon_state_on = "cleaving_saw_open"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	var/attack_verb_off = list("attacked", "sawed", "sliced", "torn", "ripped", "diced", "cut")
 	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")
 	hitsound = 'sound/weapons/bladeslice.ogg'

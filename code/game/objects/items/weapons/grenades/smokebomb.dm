@@ -5,7 +5,7 @@
 	icon_state = "smoke"
 	det_time = 20
 	item_state = "smoke"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	var/datum/effect_system/smoke_spread/bad/smoke
 
 /obj/item/grenade/smokebomb/Initialize(mapload)

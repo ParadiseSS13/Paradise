@@ -38,10 +38,10 @@
 
 /obj/item/storage/firstaid/fire/populate_contents()
 	new /obj/item/reagent_containers/applicator/burn(src)
-	new /obj/item/reagent_containers/food/pill/patch/silver_sulf/small(src)
+	new /obj/item/reagent_containers/patch/silver_sulf/small(src)
 	new /obj/item/healthanalyzer(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
 
 /obj/item/storage/firstaid/fire/empty/populate_contents()
 	return
@@ -51,11 +51,11 @@
 	icon_state = "firstaid"
 
 /obj/item/storage/firstaid/regular/populate_contents()
-	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
-	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
-	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/patch/styptic(src)
+	new /obj/item/reagent_containers/patch/styptic(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
+	new /obj/item/reagent_containers/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/patch/silver_sulf(src)
 	new /obj/item/healthanalyzer(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
@@ -69,9 +69,9 @@
 /obj/item/storage/firstaid/doctor/populate_contents()
 	new /obj/item/reagent_containers/applicator/brute(src)
 	new /obj/item/reagent_containers/applicator/burn(src)
-	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
-	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/reagent_containers/patch/styptic(src)
+	new /obj/item/reagent_containers/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
 	new /obj/item/healthanalyzer/advanced(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
@@ -89,7 +89,7 @@
 /obj/item/storage/firstaid/toxin/populate_contents()
 	for(var/I in 1 to 3)
 		new /obj/item/reagent_containers/syringe/charcoal(src)
-		new /obj/item/reagent_containers/food/pill/charcoal(src)
+		new /obj/item/reagent_containers/pill/charcoal(src)
 	new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/firstaid/toxin/empty/populate_contents()
@@ -103,10 +103,10 @@
 	med_bot_skin = "o2"
 
 /obj/item/storage/firstaid/o2/populate_contents()
-	new /obj/item/reagent_containers/food/pill/salbutamol(src)
-	new /obj/item/reagent_containers/food/pill/salbutamol(src)
-	new /obj/item/reagent_containers/food/pill/salbutamol(src)
-	new /obj/item/reagent_containers/food/pill/salbutamol(src)
+	new /obj/item/reagent_containers/pill/salbutamol(src)
+	new /obj/item/reagent_containers/pill/salbutamol(src)
+	new /obj/item/reagent_containers/pill/salbutamol(src)
+	new /obj/item/reagent_containers/pill/salbutamol(src)
 	new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/firstaid/o2/empty/populate_contents()
@@ -125,7 +125,7 @@
 
 /obj/item/storage/firstaid/brute/populate_contents()
 	new /obj/item/reagent_containers/applicator/brute(src)
-	new /obj/item/reagent_containers/food/pill/patch/styptic/small(src)
+	new /obj/item/reagent_containers/patch/styptic/small(src)
 	new /obj/item/healthanalyzer(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/stack/medical/bruise_pack(src)
@@ -257,8 +257,8 @@
 	belt_icon = "pill_bottle"
 	use_sound = "pillbottle"
 	w_class = WEIGHT_CLASS_SMALL
-	can_hold = list(/obj/item/reagent_containers/food/pill)
-	cant_hold = list(/obj/item/reagent_containers/food/pill/patch)
+	can_hold = list(/obj/item/reagent_containers/pill)
+	cant_hold = list(/obj/item/reagent_containers/patch)
 	allow_quick_gather = TRUE
 	use_to_pickup = TRUE
 	storage_slots = 50
@@ -295,7 +295,7 @@
 			to_chat(user, "<span class='warning'>You are already applying meds.</span>")
 			return
 		applying_meds = TRUE
-		for(var/obj/item/reagent_containers/food/pill/P in contents)
+		for(var/obj/item/reagent_containers/pill/P in contents)
 			if(P.attack(M, user))
 				applying_meds = FALSE
 			else
@@ -309,31 +309,31 @@
 
 /obj/item/storage/pill_bottle/ert_red/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/pill/pentetic(src)
-		new /obj/item/reagent_containers/food/pill/ironsaline(src)
-		new /obj/item/reagent_containers/food/pill/salicylic(src)
-		new /obj/item/reagent_containers/food/pill/mannitol(src)
+		new /obj/item/reagent_containers/pill/pentetic(src)
+		new /obj/item/reagent_containers/pill/ironsaline(src)
+		new /obj/item/reagent_containers/pill/salicylic(src)
+		new /obj/item/reagent_containers/pill/mannitol(src)
 
 /obj/item/storage/pill_bottle/ert_amber
 	wrapper_color = COLOR_ORANGE
 
 /obj/item/storage/pill_bottle/ert_amber/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/pill/salbutamol(src)
-		new /obj/item/reagent_containers/food/pill/charcoal(src)
-		new /obj/item/reagent_containers/food/pill/salicylic(src)
+		new /obj/item/reagent_containers/pill/salbutamol(src)
+		new /obj/item/reagent_containers/pill/charcoal(src)
+		new /obj/item/reagent_containers/pill/salicylic(src)
 
 /obj/item/storage/pill_bottle/ert_gamma
 	wrapper_color = COLOR_YELLOW_GRAY
 
 /obj/item/storage/pill_bottle/ert_gamma/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/pill/pentetic(src)
-		new /obj/item/reagent_containers/food/pill/ironsaline(src)
-		new /obj/item/reagent_containers/food/pill/hydrocodone(src)
-		new /obj/item/reagent_containers/food/pill/mannitol(src)
-		new /obj/item/reagent_containers/food/pill/lazarus_reagent(src)
-		new /obj/item/reagent_containers/food/pill/rezadone(src)
+		new /obj/item/reagent_containers/pill/pentetic(src)
+		new /obj/item/reagent_containers/pill/ironsaline(src)
+		new /obj/item/reagent_containers/pill/hydrocodone(src)
+		new /obj/item/reagent_containers/pill/mannitol(src)
+		new /obj/item/reagent_containers/pill/lazarus_reagent(src)
+		new /obj/item/reagent_containers/pill/rezadone(src)
 
 /obj/item/storage/pill_bottle/MouseDrop(obj/over_object) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
 	if(iscarbon(over_object))
@@ -344,7 +344,7 @@
 				return
 			C.visible_message("<span class='danger'>[C] [rapid_intake_message]</span>")
 			if(do_mob(C, C, 100)) // 10 seconds
-				for(var/obj/item/reagent_containers/food/pill/P in contents)
+				for(var/obj/item/reagent_containers/pill/P in contents)
 					P.attack(C, C)
 				C.visible_message("<span class='danger'>[C] [rapid_post_instake_message]</span>")
 			return
@@ -363,7 +363,7 @@
 	icon_state = "patch_pack"
 	belt_icon = "patch_pack"
 	use_sound = "patchpack"
-	can_hold = list(/obj/item/reagent_containers/food/pill/patch)
+	can_hold = list(/obj/item/reagent_containers/patch)
 	cant_hold = list()
 	rapid_intake_message = "flips the lid of the patch pack open and begins rapidly stamping patches on themselves!"
 	rapid_post_instake_message = "stamps the entire contents of the patch pack all over their entire body!"
@@ -376,7 +376,7 @@
 
 /obj/item/storage/pill_bottle/charcoal/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/food/pill/charcoal(src)
+		new /obj/item/reagent_containers/pill/charcoal(src)
 
 /obj/item/storage/pill_bottle/painkillers
 	name = "Pill Bottle (Salicylic Acid)"
@@ -385,15 +385,15 @@
 
 /obj/item/storage/pill_bottle/painkillers/populate_contents()
 	for(var/I in 1 to 8)
-		new /obj/item/reagent_containers/food/pill/salicylic(src)
+		new /obj/item/reagent_containers/pill/salicylic(src)
 
 /obj/item/storage/pill_bottle/fakedeath
 	allow_wrap = FALSE
 
 /obj/item/storage/pill_bottle/fakedeath/populate_contents()
-	new /obj/item/reagent_containers/food/pill/fakedeath(src)
-	new /obj/item/reagent_containers/food/pill/fakedeath(src)
-	new /obj/item/reagent_containers/food/pill/fakedeath(src)
+	new /obj/item/reagent_containers/pill/fakedeath(src)
+	new /obj/item/reagent_containers/pill/fakedeath(src)
+	new /obj/item/reagent_containers/pill/fakedeath(src)
 
 /obj/item/storage/pill_bottle/patch_pack/ert
 	name = "ert red patch pack"
@@ -402,9 +402,9 @@
 
 /obj/item/storage/pill_bottle/patch_pack/ert/populate_contents()
 	for(var/I in 1 to 5)
-		new /obj/item/reagent_containers/food/pill/patch/perfluorodecalin(src)
-		new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
-		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+		new /obj/item/reagent_containers/patch/perfluorodecalin(src)
+		new /obj/item/reagent_containers/patch/silver_sulf(src)
+		new /obj/item/reagent_containers/patch/styptic(src)
 
 /obj/item/storage/pill_bottle/patch_pack/ert/gamma
 	name = "ert gamma patch pack"
@@ -418,5 +418,5 @@
 
 /obj/item/storage/pill_bottle/patch_pack/ert_amber/populate_contents()
 	for(var/I in 1 to 5)
-		new /obj/item/reagent_containers/food/pill/patch/silver_sulf/small(src)
-		new /obj/item/reagent_containers/food/pill/patch/styptic/small(src)
+		new /obj/item/reagent_containers/patch/silver_sulf/small(src)
+		new /obj/item/reagent_containers/patch/styptic/small(src)

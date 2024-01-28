@@ -5,7 +5,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = TRUE
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -33,8 +33,8 @@
 	if(visualsOnly)
 		return
 
-	if(H.mind)
-		H.mind.isholy = TRUE
+	if(istype(H.mind))
+		ADD_TRAIT(H.mind, TRAIT_HOLY, ROUNDSTART_TRAIT)
 
 	INVOKE_ASYNC(src, PROC_REF(religion_pick), H)
 

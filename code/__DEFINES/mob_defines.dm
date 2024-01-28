@@ -11,6 +11,10 @@
 #define ORGAN_BURNT		   (1 << 7)
 #define ORGAN_SALVED	   (1 << 8)
 
+// Organ datum defines. Each one of these represents a slot for organ datums in internal_organ_datums
+#define ORGAN_DATUM_HEART	"heart"
+#define ORGAN_DATUM_LUNGS	"lungs"
+
 // For limb resistance flags
 #define CANNOT_BREAK		(1 << 0)
 #define CANNOT_DISMEMBER 	(1 << 1)
@@ -61,11 +65,6 @@
 #define PULSE_2FAST		4	//>120 bpm
 #define PULSE_THREADY	5	//occurs during hypovolemic shock
 //feel free to add shit to lists below
-
-
-//proc/get_pulse methods
-#define GETPULSE_HAND	0	//less accurate (hand)
-#define GETPULSE_TOOL	1	//more accurate (med scanner, sleeper, etc)
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORG 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
@@ -132,15 +131,6 @@
 
 //Slime extract crossing. Controls how many extracts is required to feed to a slime to core-cross.
 #define SLIME_EXTRACT_CROSSING_REQUIRED 10
-
-//Slime commands defines
-#define SLIME_FRIENDSHIP_FOLLOW 			3 //Min friendship to order it to follow
-#define SLIME_FRIENDSHIP_STOPEAT 			5 //Min friendship to order it to stop eating someone
-#define SLIME_FRIENDSHIP_STOPEAT_NOANGRY	7 //Min friendship to order it to stop eating someone without it losing friendship
-#define SLIME_FRIENDSHIP_STOPCHASE			4 //Min friendship to order it to stop chasing someone (their target)
-#define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY	6 //Min friendship to order it to stop chasing someone (their target) without it losing friendship
-#define SLIME_FRIENDSHIP_STAY				3 //Min friendship to order it to stay
-#define SLIME_FRIENDSHIP_ATTACK				8 //Min friendship to order it to attack
 
 //If you add a new status, be sure to add a list for it to the simple_animals global in _globalvars/lists/mobs.dm
 //Hostile Mob AI Status
@@ -213,6 +203,11 @@
 #define INVISIBILITY_ABSTRACT 101
 #define UNHEALING_EAR_DAMAGE 100
 
+/// If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()
+#define EXAMINE_MORE_WINDOW 1 SECONDS
+
+#define DIRECTION_LOCK_SLOWDOWN 3
+
 //Human sub-species
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))
@@ -261,7 +256,7 @@
 
 // For the tcomms monitor
 #define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))
-#define ispathbrain(A)		(ispath(A, /mob/living/carbon/brain))
+#define ispathbrain(A)		(ispath(A, /mob/living/brain))
 #define ispathslime(A)		(ispath(A, /mob/living/simple_animal/slime))
 #define ispathbot(A)			(ispath(A, /mob/living/simple_animal/bot))
 #define ispathsilicon(A)	(ispath(A, /mob/living/silicon))

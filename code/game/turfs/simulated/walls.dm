@@ -45,6 +45,10 @@
 	var/rusted = FALSE
 	/// Have we got a rusty overlay?
 	var/rusted_overlay
+	/// Are we a explodable turf?
+	var/explodable = FALSE
+	/// Do we have a explodable overlay?
+	var/explodable_overlay
 
 /turf/simulated/wall/Initialize(mapload)
 	. = ..()
@@ -82,7 +86,8 @@
 
 	if(rotting)
 		. += "<span class='warning'>There is fungus growing on [src].</span>"
-	. += "<span class='notice'>Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.</span>"
+	if(can_dismantle_with_welder)
+		. += "<span class='notice'>Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.</span>"
 
 /// Apply rust effects to the wall
 /turf/simulated/wall/proc/rust()
@@ -104,6 +109,10 @@
 	if(rusted && !rusted_overlay)
 		rusted_overlay = icon('icons/turf/overlays.dmi', pick("rust", "rust2"), pick(NORTH, SOUTH, EAST, WEST))
 		. += rusted_overlay
+
+	if(explodable && !explodable_overlay)
+		explodable_overlay = icon('icons/turf/overlays.dmi', pick("explodable"), pick(NORTH, SOUTH, EAST, WEST))
+		. += explodable_overlay
 
 	if(!damage)
 		. += dent_decals
@@ -185,6 +194,7 @@
 	new /obj/item/stack/sheet/metal(src)
 
 /turf/simulated/wall/ex_act(severity)
+	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity)
 	switch(severity)
 		if(1.0)
 			ChangeTurf(baseturf)
@@ -307,7 +317,7 @@
 			dismantle_wall(1)
 			to_chat(M, "<span class='info'>You smash through the wall.</span>")
 		else
-			to_chat(M, text("<span class='notice'>You smash against the wall.</span>"))
+			to_chat(M, "<span class='notice'>You smash against the wall.</span>")
 			take_damage(rand(25, 75))
 			return
 
@@ -324,7 +334,7 @@
 	else
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
 		add_dent(WALL_DENT_HIT)
-		to_chat(user, text("<span class='notice'>You punch the wall.</span>"))
+		to_chat(user, "<span class='notice'>You punch the wall.</span>")
 	return TRUE
 
 /turf/simulated/wall/attack_hand(mob/user)
@@ -548,5 +558,17 @@
 		dent_decals = list(decal)
 
 	update_icon()
+
+/turf/simulated/wall/MouseEntered(location, control, params)
+	var/datum/hud/active_hud = usr.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
+	var/screentip_mode = usr.client.prefs.screentip_mode
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
+		active_hud.screentip_text.maptext = ""
+		return
+	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[name]</span>"
+
+/turf/simulated/wall/MouseExited(location, control, params)
+	usr.hud_used.screentip_text.maptext = ""
 
 #undef MAX_DENT_DECALS

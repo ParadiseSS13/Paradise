@@ -1,13 +1,18 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { clamp01, keyOfMatchingRange, scale } from 'common/math';
 import { classes } from 'common/react';
-import { IS_IE8 } from '../byond';
 import { computeBoxClassName, computeBoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
 import { NumberInput } from './NumberInput';
 
 export const Slider = (props) => {
   // IE8: I don't want to support a yet another component on IE8.
-  if (IS_IE8) {
+  if (Byond.IS_LTE_IE8) {
     return <NumberInput {...props} />;
   }
   const {
@@ -29,6 +34,7 @@ export const Slider = (props) => {
     color,
     ranges = {},
     children,
+    disabled,
     ...rest
   } = props;
   const hasContent = children !== undefined;
@@ -47,6 +53,7 @@ export const Slider = (props) => {
         suppressFlicker,
         unit,
         value,
+        disabled,
       }}
     >
       {(control) => {
@@ -73,11 +80,17 @@ export const Slider = (props) => {
           <div
             className={classes([
               'Slider',
+              disabled && 'Slider__disabled',
               'ProgressBar',
-              'ProgressBar--color--' + effectiveColor,
+              disabled
+                ? 'ProgressBar--color--disabled'
+                : 'ProgressBar--color--' + effectiveColor,
               className,
               computeBoxClassName(rest),
             ])}
+            // Added for the sake of backward compatibility.
+            // Inferno ignores clicks inside elements marked with disabled
+            disabled={disabled}
             {...computeBoxProps(rest)}
             onMouseDown={handleDragStart}
           >

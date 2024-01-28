@@ -62,9 +62,9 @@
 
 /obj/machinery/hydroponics/constructable/RefreshParts()
 	var/tmp_capacity = 0
-	for (var/obj/item/stock_parts/matter_bin/M in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		tmp_capacity += M.rating
-	for (var/obj/item/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		rating = M.rating
 	maxwater = tmp_capacity * 50 // Up to 300
 	maxnutri = tmp_capacity * 5 // Up to 30
@@ -79,14 +79,9 @@
 	return ..()
 
 /obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I))
+	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I) || exchange_parts(user, I))
 		return
-
-	if(exchange_parts(user, I))
-		return
-
-	else
-		return ..()
+	return ..()
 
 /obj/machinery/hydroponics/constructable/crowbar_act(mob/user, obj/item/I)
 
@@ -252,20 +247,20 @@
 			else
 				weedinvasion() // Weed invasion into empty tray
 			needs_update = 1
-		if (needs_update)
+		if(needs_update)
 			update_state()
 	return
 
 /obj/machinery/hydroponics/proc/nutrimentMutation()
-	if (mutmod == 0)
+	if(mutmod == 0)
 		return
-	if (mutmod == 1)
+	if(mutmod == 1)
 		if(prob(80))		//80%
 			mutate()
 		else if(prob(75))	//15%
 			hardmutate()
 		return
-	if (mutmod == 2)
+	if(mutmod == 2)
 		if(prob(50))		//50%
 			mutate()
 		else if(prob(50))	//25%
@@ -347,11 +342,11 @@
 			. += "<span class='info'>It has the <span class='name'>[myseed.variant]</span> variant of <span class='name'>[myseed.plantname]</span> planted.</span>"
 		else
 			. += "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
-		if (dead)
+		if(dead)
 			. += "<span class='warning'>It's dead!</span>"
-		else if (harvest)
+		else if(harvest)
 			. += "<span class='info'>It's ready to harvest.</span>"
-		else if (plant_health <= (myseed.endurance / 2))
+		else if(plant_health <= (myseed.endurance / 2))
 			. += "<span class='warning'>It looks unhealthy.</span>"
 	else
 		. += "<span class='info'>[src] is empty.</span>"
@@ -445,7 +440,7 @@
 
 
 /obj/machinery/hydroponics/proc/mutateweed() // If the weeds gets the mutagent instead. Mind you, this pretty much destroys the old plant
-	if( weedlevel > 5 )
+	if(weedlevel > 5)
 		QDEL_NULL(myseed)
 		var/newWeed = pick(/obj/item/seeds/liberty, /obj/item/seeds/angel, /obj/item/seeds/nettle/death, /obj/item/seeds/kudzu)
 		myseed = new newWeed
@@ -673,7 +668,7 @@
 	if(S.has_reagent("saltpetre", 1))
 		var/salt = S.get_reagent_amount("saltpetre")
 		adjustHealth(round(salt * 0.25))
-		if (myseed)
+		if(myseed)
 			myseed.adjust_production(-round(salt/100)-prob(salt%100))
 			myseed.adjust_potency(round(salt*0.50))
 	// Ash is also used IRL in gardening, as a fertilizer enhancer and weed killer
@@ -756,7 +751,7 @@
 		var/irrigate = 0	//How am I supposed to irrigate pill contents?
 		var/transfer_amount
 
-		if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || ispill(reagent_source))
+		if(istype(reagent_source, /obj/item/food/snacks) || ispill(reagent_source))
 			visi_msg="[user] composts [reagent_source], spreading it through [target]"
 			transfer_amount = reagent_source.reagents.total_volume
 		else
@@ -779,7 +774,7 @@
 
 		if(irrigate && transfer_amount > 30 && reagent_source.reagents.total_volume >= 30 && using_irrigation)
 			trays = FindConnected()
-			if (trays.len > 1)
+			if(trays.len > 1)
 				visi_msg += ", setting off the irrigation system"
 
 		if(visi_msg)
@@ -794,7 +789,7 @@
 			S.my_atom = H
 
 			reagent_source.reagents.trans_to(S,split)
-			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || ispill(reagent_source))
+			if(istype(reagent_source, /obj/item/food/snacks) || ispill(reagent_source))
 				qdel(reagent_source)
 
 			H.applyChemicals(S, user)
@@ -838,7 +833,6 @@
 		to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")
 		to_chat(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
 		to_chat(user, "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>")
-		to_chat(user, "")
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)
@@ -851,7 +845,7 @@
 	else if(istype(O, /obj/item/storage/bag/plants))
 		attack_hand(user)
 		var/obj/item/storage/bag/plants/S = O
-		for(var/obj/item/reagent_containers/food/snacks/grown/G in locate(user.x,user.y,user.z))
+		for(var/obj/item/food/snacks/grown/G in locate(user.x,user.y,user.z))
 			if(!S.can_be_inserted(G))
 				return
 			S.handle_item_insertion(G, 1)
@@ -901,24 +895,7 @@
 		if(using_irrigation)
 			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
 			return
-
-		if(!anchored && !isinspace())
-			user.visible_message("[user] begins to wrench [src] into place.", "<span class='notice'>You begin to wrench [src] in place...</span>")
-			if(I.use_tool(src, user, 20, volume = I.tool_volume))
-				if(anchored)
-					return
-				anchored = TRUE
-				user.visible_message("[user] wrenches [src] into place.", \
-									"<span class='notice'>You wrench [src] in place.</span>")
-		else if(anchored)
-			user.visible_message("[user] begins to unwrench [src].", \
-								"<span class='notice'>You begin to unwrench [src]...</span>")
-			if(I.use_tool(src, user, 20, volume = I.tool_volume))
-				if(!anchored)
-					return
-				anchored = FALSE
-				user.visible_message("[user] unwrenches [src].", \
-									"<span class='notice'>You unwrench [src].</span>")
+		default_unfasten_wrench(user, I)
 
 /obj/machinery/hydroponics/attack_hand(mob/user)
 	if(issilicon(user)) //How does AI know what plant is?

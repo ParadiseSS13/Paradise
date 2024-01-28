@@ -15,6 +15,7 @@
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
+	input_focus = src
 	GLOB.mob_list += src
 	return INITIALIZE_HINT_NORMAL
 
@@ -57,16 +58,20 @@
 	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
 	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
-		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
-		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
+		if(!ready)
+			output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
+		else
+			output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
 		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
 
 	var/list/antags = client.prefs.be_special
-	if(antags && antags.len)
-		if(!client.skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
-		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
+	if(length(antags))
+		if(!client.skip_antag)
+			output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
+		else
+			output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
 		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 
 	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
@@ -85,42 +90,33 @@
 	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 240, 340)
 	popup.set_window_options("can_close=0")
 	popup.set_content(output)
-	popup.open(0)
-	return
+	popup.open(FALSE)
 
 /mob/new_player/Stat()
-	statpanel("Status")
-
 	..()
-
-	statpanel("Lobby")
-	if(client.statpanel=="Lobby" && SSticker)
-		if(SSticker.hide_mode)
-			stat("Game Mode:", "Secret")
+	if(statpanel("Status") && SSticker)
+		if(!SSticker.hide_mode)
+			stat("Game Mode: [GLOB.master_mode]")
 		else
-			if(SSticker.hide_mode == 0)
-				stat("Game Mode:", "[GLOB.master_mode]") // Old setting for showing the game mode
-			else
-				stat("Game Mode: ", "Secret")
-
-		if((SSticker.current_state == GAME_STATE_PREGAME) && SSticker.ticker_going)
-			stat("Time To Start:", round(SSticker.pregame_timeleft/10))
-		if((SSticker.current_state == GAME_STATE_PREGAME) && !SSticker.ticker_going)
-			stat("Time To Start:", "DELAYED")
+			stat("Game Mode: Secret")
 
 		if(SSticker.current_state == GAME_STATE_PREGAME)
-			stat("Players:", "[totalPlayers]")
+			if(SSticker.ticker_going)
+				stat("Time To Start: [round(SSticker.pregame_timeleft/10)]")
+			else
+				stat("Time To Start:", "DELAYED")
+
+			stat("Players: [totalPlayers]")
 			if(check_rights(R_ADMIN, 0, src))
-				stat("Players Ready:", "[totalPlayersReady]")
+				stat("Players Ready: [totalPlayersReady]")
 			totalPlayers = 0
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in GLOB.player_list)
 				if(check_rights(R_ADMIN, 0, src))
-					stat("[player.key]", (player.ready)?("(Playing)"):(null))
+					stat("[player.key] [(player.ready) ? ("(Playing)") : (null)]")
 				totalPlayers++
 				if(player.ready)
 					totalPlayersReady++
-
 
 /mob/new_player/Topic(href, href_list[])
 	if(!client)
@@ -135,8 +131,6 @@
 		qdel(query)
 		src << browse(null, "window=privacy_consent")
 		client.tos_consent = TRUE
-		// Now they have accepted TOS, we can log data
-		client.chatOutput.sendClientData()
 		new_player_panel_proc()
 	if(href_list["consent_rejected"])
 		client.tos_consent = FALSE
@@ -193,8 +187,12 @@
 			src << browse(null, "window=playersetup")
 			spawning = TRUE
 			stop_sound_channel(CHANNEL_LOBBYMUSIC)
-
-
+			if(ROUND_TIME <= (GLOB.configuration.general.roundstart_observer_period MINUTES))
+				GLOB.roundstart_observer_keys |= ckey
+				var/period_human_readable = "within [GLOB.configuration.general.roundstart_observer_period] minute\s"
+				if(GLOB.configuration.general.roundstart_observer_period == 0)
+					period_human_readable = "before the round started"
+				to_chat(src, "<span class='notice'>As you observed [period_human_readable], you can freely toggle antag-hud without losing respawnability.</span>")
 			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/O = locate("landmark*Observer-Start")
@@ -210,7 +208,7 @@
 			observer.real_name = client.prefs.active_character.real_name
 			observer.name = observer.real_name
 			observer.key = key
-			observer.add_to_respawnable_list()
+			ADD_TRAIT(observer, TRAIT_RESPAWNABLE, GHOSTED)
 			qdel(src)
 			return TRUE
 		return FALSE
@@ -453,7 +451,7 @@
 
 	var/dat = "<html><body><center>"
 	dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
-	dat += "<b>The station alert level is: [get_security_level_colors()]</b><br>"
+	dat += "<b>The station alert level is: [SSsecurity_level.get_colored_current_security_level_name()]</b><br>"
 
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"
@@ -547,12 +545,17 @@
 	check_prefs_are_sane()
 	var/mob/living/carbon/human/new_character = new(loc)
 	new_character.lastarea = get_area(loc)
-
-	if(SSticker.random_players)
-		client.prefs.active_character.randomise()
-		client.prefs.active_character.real_name = random_name(client.prefs.active_character.gender)
 	client.prefs.active_character.copy_to(new_character)
-
+	if(SSticker.random_players)
+		var/mob/living/carbon/human/H = new_character
+		scramble(1, H, 100)
+		H.real_name = random_name(H.gender, H.dna.species.name)
+		H.sync_organ_dna(assimilate = 1)
+		H.update_body()
+		H.reset_hair()
+		H.reset_markings()
+		H.dna.ResetUIFrom(H)
+		H.flavor_text = ""
 	stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
 
@@ -590,7 +593,7 @@
 		client.prefs.active_character.language = "None"
 
 /mob/new_player/proc/ViewManifest()
-	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.always_state)
+	GLOB.generic_crew_manifest.ui_interact(usr)
 
 /mob/new_player/Move()
 	return 0

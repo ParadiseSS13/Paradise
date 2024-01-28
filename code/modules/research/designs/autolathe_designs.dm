@@ -276,7 +276,7 @@
 	id = "drinking_glass"
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 100)
-	build_path = /obj/item/reagent_containers/food/drinks/drinkingglass
+	build_path = /obj/item/reagent_containers/drinks/drinkingglass
 	category = list("initial","Dinnerware")
 
 /datum/design/shot_glass
@@ -284,7 +284,7 @@
 	id = "shot_glass"
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 50)
-	build_path = /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass
+	build_path = /obj/item/reagent_containers/drinks/drinkingglass/shotglass
 	category = list("initial","Dinnerware")
 
 /datum/design/shaker
@@ -292,7 +292,7 @@
 	id = "shaker"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 1500)
-	build_path = /obj/item/reagent_containers/food/drinks/shaker
+	build_path = /obj/item/reagent_containers/drinks/shaker
 	category = list("initial","Dinnerware")
 
 /datum/design/cultivator
@@ -557,6 +557,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 210, MAT_GLASS = 50)
 	build_path = /obj/item/assembly/voice/noise
+	category = list("initial", "Miscellaneous")
+
+/datum/design/goggles
+	name = "Goggles"
+	id = "goggles"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	build_path = /obj/item/clothing/glasses/goggles
 	category = list("initial", "Miscellaneous")
 
 /datum/design/light_tube
@@ -941,3 +949,11 @@
 	materials = list(MAT_METAL = 1500, MAT_GLASS = 500)
 	build_path = /obj/item/mail_scanner
 	category = list("initial", "Miscellaneous")
+
+/datum/design/knuckleduster
+	name = "Knuckleduster"
+	id = "knuckleduster"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500)
+	build_path = /obj/item/melee/knuckleduster
+	category = list("hacked", "Security")

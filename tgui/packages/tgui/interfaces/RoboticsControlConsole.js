@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend, useSharedState } from '../backend';
 import {
   Box,
@@ -13,12 +12,12 @@ import { Window } from '../layouts';
 
 export const RoboticsControlConsole = (props, context) => {
   const { act, data } = useBackend(context);
-  const { can_hack, safety, show_detonate_all, cyborgs = [] } = data;
+  const { can_hack, safety, show_lock_all, cyborgs = [] } = data;
   return (
-    <Window resizable>
+    <Window width={500} height={460}>
       <Window.Content scrollable>
-        {!!show_detonate_all && (
-          <Section title="Emergency Self Destruct">
+        {!!show_lock_all && (
+          <Section title="Emergency Lock Down">
             <Button
               icon={safety ? 'lock' : 'unlock'}
               content={safety ? 'Disable Safety' : 'Enable Safety'}
@@ -26,11 +25,11 @@ export const RoboticsControlConsole = (props, context) => {
               onClick={() => act('arm', {})}
             />
             <Button
-              icon="bomb"
+              icon="lock"
               disabled={safety}
-              content="Destroy ALL Cyborgs"
+              content="Lock ALL Cyborgs"
               color="bad"
-              onClick={() => act('nuke', {})}
+              onClick={() => act('masslock', {})}
             />
           </Section>
         )}
@@ -43,6 +42,10 @@ export const RoboticsControlConsole = (props, context) => {
 const Cyborgs = (props, context) => {
   const { cyborgs, can_hack } = props;
   const { act, data } = useBackend(context);
+  let detonateText = 'Detonate';
+  if (data.detonate_cooldown > 0) {
+    detonateText += ' (' + data.detonate_cooldown + 's)';
+  }
   if (!cyborgs.length) {
     return (
       <NoticeBox>No cyborg units detected within access parameters.</NoticeBox>
@@ -54,7 +57,7 @@ const Cyborgs = (props, context) => {
         key={cyborg.uid}
         title={cyborg.name}
         buttons={
-          <Fragment>
+          <>
             {!!cyborg.hackable && !cyborg.emagged && (
               <Button
                 icon="terminal"
@@ -80,8 +83,8 @@ const Cyborgs = (props, context) => {
             />
             <Button.Confirm
               icon="bomb"
-              content="Detonate"
-              disabled={!data.auth}
+              content={detonateText}
+              disabled={!data.auth || data.detonate_cooldown > 0}
               color="bad"
               onClick={() =>
                 act('killbot', {
@@ -89,7 +92,7 @@ const Cyborgs = (props, context) => {
                 })
               }
             />
-          </Fragment>
+          </>
         }
       >
         <LabeledList>
@@ -102,8 +105,8 @@ const Cyborgs = (props, context) => {
               {cyborg.status
                 ? 'Not Responding'
                 : cyborg.locked_down
-                ? 'Locked Down'
-                : 'Nominal'}
+                  ? 'Locked Down'
+                  : 'Nominal'}
             </Box>
           </LabeledList.Item>
           <LabeledList.Item label="Location">
@@ -116,7 +119,7 @@ const Cyborgs = (props, context) => {
             />
           </LabeledList.Item>
           {(typeof cyborg.charge === 'number' && (
-            <Fragment>
+            <>
               <LabeledList.Item label="Cell Charge">
                 <ProgressBar
                   color={cyborg.charge > 30 ? 'good' : 'bad'}
@@ -128,7 +131,7 @@ const Cyborgs = (props, context) => {
                   {cyborg.cell_capacity}
                 </Box>
               </LabeledList.Item>
-            </Fragment>
+            </>
           )) || (
             <LabeledList.Item label="Cell">
               <Box color="bad">No Power Cell</Box>

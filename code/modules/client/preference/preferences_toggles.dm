@@ -173,6 +173,19 @@
 	update_ambience_pref()
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Ambience") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/verb/Toggle_Parallax_Dark() //All new ambience should be added here so it works with this verb until someone better at things comes up with a fix that isn't awful
+	set name = "Show/Hide Parallax in darkness"
+	set category = "Preferences"
+	set desc = "If enabled, drawing parallax if you see in dark instead of black tiles."
+	prefs.toggles2 ^= PREFTOGGLE_2_PARALLAX_IN_DARKNESS
+	prefs.save_preferences(src)
+	if(prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS)
+		to_chat(src, "You will now see parallax in dark with nightvisions.")
+	else
+		to_chat(src, "You will no longer see parallax in dark with nightvisions.")
+	usr.hud_used?.update_parallax_pref()
+	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Parallax Darkness") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/verb/Toggle_Buzz() //No more headaches because headphones bump up shipambience.ogg to insanity levels.
 	set name = "Hear/Silence White Noise"
 	set category = "Preferences"
@@ -213,6 +226,14 @@
 		to_chat(src, "You will no longer hear musical instruments.")
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Instruments") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/verb/toggle_input()
+	set name = "Toggle TGUI Input Lists"
+	set category = "Preferences"
+	set desc = "Switches input lists between the TGUI and the standard one"
+	prefs.toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_LISTS
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_LISTS) ? "no longer" : "now"] use TGUI Input Lists.")
+
 /client/verb/Toggle_disco() //to toggle off the disco machine locally, in case it gets too annoying
 	set name = "Hear/Silence Dance Machine"
 	set category = "Preferences"
@@ -232,18 +253,6 @@
 	set desc = "Allows you to access the Setup Character screen. Changes to your character won't take effect until next round, but other changes will."
 	prefs.current_tab = 1
 	prefs.ShowChoices(usr)
-
-/client/verb/toggle_darkmode()
-	set name = "Toggle Darkmode"
-	set category = "Preferences"
-	set desc = "Toggles UI style between dark and light"
-	prefs.toggles ^= PREFTOGGLE_UI_DARKMODE
-	prefs.save_preferences(src)
-	if(prefs.toggles & PREFTOGGLE_UI_DARKMODE)
-		activate_darkmode()
-	else
-		deactivate_darkmode()
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Darkmode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggle_popup_limiter()
 	set name = "Toggle Text Popup Limiter"

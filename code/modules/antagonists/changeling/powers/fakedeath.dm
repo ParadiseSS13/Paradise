@@ -35,4 +35,10 @@
 		switch(alert("Are we sure we wish to fake our death?",,"Yes","No"))
 			if("No")
 				return FALSE
+		// Do the checks again since we had user input
+		if(cling.owner != user.mind)
+			return FALSE
+		if(HAS_TRAIT(user, TRAIT_FAKEDEATH))
+			to_chat(user, "<span class='warning'>We are already regenerating.</span>")
+			return FALSE
 	return ..()

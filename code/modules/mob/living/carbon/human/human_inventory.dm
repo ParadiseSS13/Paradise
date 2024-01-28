@@ -20,50 +20,50 @@
 
 /mob/living/carbon/human/proc/has_organ_for_slot(slot)
 	switch(slot)
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			return has_organ("chest")
-		if(slot_wear_mask)
+		if(SLOT_HUD_WEAR_MASK)
 			return has_organ("head")
-		if(slot_handcuffed)
+		if(SLOT_HUD_HANDCUFFED)
 			return has_organ("l_hand") && has_organ("r_hand")
-		if(slot_legcuffed)
+		if(SLOT_HUD_LEGCUFFED)
 			return has_organ("l_leg") && has_organ("r_leg")
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			return has_organ("l_hand")
-		if(slot_r_hand)
+		if(SLOT_HUD_RIGHT_HAND)
 			return has_organ("r_hand")
-		if(slot_belt)
+		if(SLOT_HUD_BELT)
 			return has_organ("chest")
-		if(slot_wear_id)
+		if(SLOT_HUD_WEAR_ID)
 			// the only relevant check for this is the uniform check
 			return TRUE
-		if(slot_wear_pda)
+		if(SLOT_HUD_WEAR_PDA)
 			return TRUE
-		if(slot_l_ear)
+		if(SLOT_HUD_LEFT_EAR)
 			return has_organ("head")
-		if(slot_r_ear)
+		if(SLOT_HUD_RIGHT_EAR)
 			return has_organ("head")
-		if(slot_glasses)
+		if(SLOT_HUD_GLASSES)
 			return has_organ("head")
-		if(slot_gloves)
+		if(SLOT_HUD_GLOVES)
 			return has_organ("l_hand") && has_organ("r_hand")
-		if(slot_head)
+		if(SLOT_HUD_HEAD)
 			return has_organ("head")
-		if(slot_shoes)
+		if(SLOT_HUD_SHOES)
 			return has_organ("r_foot") && has_organ("l_foot")
-		if(slot_wear_suit)
+		if(SLOT_HUD_OUTER_SUIT)
 			return has_organ("chest")
-		if(slot_w_uniform)
+		if(SLOT_HUD_JUMPSUIT)
 			return has_organ("chest")
-		if(slot_l_store)
+		if(SLOT_HUD_LEFT_STORE)
 			return has_organ("chest")
-		if(slot_r_store)
+		if(SLOT_HUD_RIGHT_STORE)
 			return has_organ("chest")
-		if(slot_s_store)
+		if(SLOT_HUD_SUIT_STORE)
 			return has_organ("chest")
-		if(slot_in_backpack)
+		if(SLOT_HUD_IN_BACKPACK)
 			return TRUE
-		if(slot_tie)
+		if(SLOT_HUD_TIE)
 			return TRUE
 
 /mob/living/carbon/human/unEquip(obj/item/I, force, silent = FALSE)
@@ -87,7 +87,7 @@
 			unEquip(l_store, 1)
 		if(wear_id)
 			unEquip(wear_id)
-		if(belt)
+		if(belt && !(belt.flags_2 & ALLOW_BELT_NO_JUMPSUIT_2))
 			unEquip(belt)
 		w_uniform = null
 		update_inv_w_uniform()
@@ -168,9 +168,6 @@
 		update_inv_l_hand()
 	update_action_buttons_icon()
 
-
-
-
 //This is an UNSAFE proc. Use mob_can_equip() before calling this one! Or rather use equip_to_slot_if_possible() or advanced_equip_to_slot_if_possible()
 // Initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
 /mob/living/carbon/human/equip_to_slot(obj/item/I, slot, initial = FALSE)
@@ -195,10 +192,10 @@
 	I.plane = ABOVE_HUD_PLANE
 
 	switch(slot)
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			back = I
 			update_inv_back()
-		if(slot_wear_mask)
+		if(SLOT_HUD_WEAR_MASK)
 			wear_mask = I
 			if((wear_mask.flags & BLOCKHAIR) || (wear_mask.flags & BLOCKHEADHAIR))
 				update_hair()	//rebuild hair
@@ -208,48 +205,48 @@
 				sec_hud_set_ID()
 			wear_mask_update(I, toggle_off = TRUE)
 			update_inv_wear_mask()
-		if(slot_handcuffed)
+		if(SLOT_HUD_HANDCUFFED)
 			handcuffed = I
 			update_inv_handcuffed()
-		if(slot_legcuffed)
+		if(SLOT_HUD_LEGCUFFED)
 			legcuffed = I
 			update_inv_legcuffed()
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			l_hand = I
 			update_inv_l_hand()
-		if(slot_r_hand)
+		if(SLOT_HUD_RIGHT_HAND)
 			r_hand = I
 			update_inv_r_hand()
-		if(slot_belt)
+		if(SLOT_HUD_BELT)
 			belt = I
 			update_inv_belt()
-		if(slot_wear_id)
+		if(SLOT_HUD_WEAR_ID)
 			wear_id = I
 			if(hud_list.len)
 				sec_hud_set_ID()
 			update_inv_wear_id()
-		if(slot_wear_pda)
+		if(SLOT_HUD_WEAR_PDA)
 			wear_pda = I
 			update_inv_wear_pda()
-		if(slot_l_ear)
+		if(SLOT_HUD_LEFT_EAR)
 			l_ear = I
-			if(l_ear.slot_flags & SLOT_TWOEARS)
+			if(l_ear.slot_flags & SLOT_FLAG_TWOEARS)
 				var/obj/item/clothing/ears/offear/O = new(I)
 				O.forceMove(src)
 				r_ear = O
 				O.layer = ABOVE_HUD_LAYER
 				O.plane = ABOVE_HUD_PLANE
 			update_inv_ears()
-		if(slot_r_ear)
+		if(SLOT_HUD_RIGHT_EAR)
 			r_ear = I
-			if(r_ear.slot_flags & SLOT_TWOEARS)
+			if(r_ear.slot_flags & SLOT_FLAG_TWOEARS)
 				var/obj/item/clothing/ears/offear/O = new(I)
 				O.forceMove(src)
 				l_ear = O
 				O.layer = ABOVE_HUD_LAYER
 				O.plane = ABOVE_HUD_PLANE
 			update_inv_ears()
-		if(slot_glasses)
+		if(SLOT_HUD_GLASSES)
 			glasses = I
 			var/obj/item/clothing/glasses/G = I
 			if(G.tint)
@@ -260,10 +257,10 @@
 				update_sight()
 			update_inv_glasses()
 			update_client_colour()
-		if(slot_gloves)
+		if(SLOT_HUD_GLOVES)
 			gloves = I
 			update_inv_gloves()
-		if(slot_head)
+		if(SLOT_HUD_HEAD)
 			head = I
 			if((head.flags & BLOCKHAIR) || (head.flags & BLOCKHEADHAIR))
 				update_hair()	//rebuild hair
@@ -276,27 +273,27 @@
 					update_sight()
 			head_update(I)
 			update_inv_head()
-		if(slot_shoes)
+		if(SLOT_HUD_SHOES)
 			shoes = I
 			update_inv_shoes()
-		if(slot_wear_suit)
+		if(SLOT_HUD_OUTER_SUIT)
 			wear_suit = I
 			if(wear_suit.flags_inv & HIDESHOES)
 				update_inv_shoes()
 			update_inv_wear_suit()
-		if(slot_w_uniform)
+		if(SLOT_HUD_JUMPSUIT)
 			w_uniform = I
 			update_inv_w_uniform()
-		if(slot_l_store)
+		if(SLOT_HUD_LEFT_STORE)
 			l_store = I
 			update_inv_pockets()
-		if(slot_r_store)
+		if(SLOT_HUD_RIGHT_STORE)
 			r_store = I
 			update_inv_pockets()
-		if(slot_s_store)
+		if(SLOT_HUD_SUIT_STORE)
 			s_store = I
 			update_inv_s_store()
-		if(slot_in_backpack)
+		if(SLOT_HUD_IN_BACKPACK)
 			if(get_active_hand() == I)
 				unEquip(I)
 			if(ismodcontrol(back))
@@ -305,7 +302,7 @@
 					I.forceMove(C.bag)
 			else
 				I.forceMove(back)
-		if(slot_tie)
+		if(SLOT_HUD_TIE)
 			var/obj/item/clothing/under/uniform = src.w_uniform
 			uniform.attackby(I, src)
 		else
@@ -329,45 +326,45 @@
 // Return the item currently in the slot ID
 /mob/living/carbon/human/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			return back
-		if(slot_wear_mask)
+		if(SLOT_HUD_WEAR_MASK)
 			return wear_mask
-		if(slot_handcuffed)
+		if(SLOT_HUD_HANDCUFFED)
 			return handcuffed
-		if(slot_legcuffed)
+		if(SLOT_HUD_LEGCUFFED)
 			return legcuffed
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			return l_hand
-		if(slot_r_hand)
+		if(SLOT_HUD_RIGHT_HAND)
 			return r_hand
-		if(slot_belt)
+		if(SLOT_HUD_BELT)
 			return belt
-		if(slot_wear_id)
+		if(SLOT_HUD_WEAR_ID)
 			return wear_id
-		if(slot_wear_pda)
+		if(SLOT_HUD_WEAR_PDA)
 			return wear_pda
-		if(slot_l_ear)
+		if(SLOT_HUD_LEFT_EAR)
 			return l_ear
-		if(slot_r_ear)
+		if(SLOT_HUD_RIGHT_EAR)
 			return r_ear
-		if(slot_glasses)
+		if(SLOT_HUD_GLASSES)
 			return glasses
-		if(slot_gloves)
+		if(SLOT_HUD_GLOVES)
 			return gloves
-		if(slot_head)
+		if(SLOT_HUD_HEAD)
 			return head
-		if(slot_shoes)
+		if(SLOT_HUD_SHOES)
 			return shoes
-		if(slot_wear_suit)
+		if(SLOT_HUD_OUTER_SUIT)
 			return wear_suit
-		if(slot_w_uniform)
+		if(SLOT_HUD_JUMPSUIT)
 			return w_uniform
-		if(slot_l_store)
+		if(SLOT_HUD_LEFT_STORE)
 			return l_store
-		if(slot_r_store)
+		if(SLOT_HUD_RIGHT_STORE)
 			return r_store
-		if(slot_s_store)
+		if(SLOT_HUD_SUIT_STORE)
 			return s_store
 	return null
 
@@ -447,6 +444,11 @@
 	var/obj/item/storage/equipped_item = get_item_by_slot(slot_item)
 	if(ismecha(loc) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
+	if(ismodcontrol(equipped_item)) // Check if the item is a MODsuit
+		if(thing && equipped_item.can_be_inserted(thing)) // Check if the item can be inserted into the MODsuit
+			equipped_item.handle_item_insertion(thing) // Insert the item into the MODsuit
+			playsound(loc, "rustle", 50, TRUE, -5)
+			return
 	if(!istype(equipped_item)) // We also let you equip things like this
 		equip_to_slot_if_possible(thing, slot_item)
 		return

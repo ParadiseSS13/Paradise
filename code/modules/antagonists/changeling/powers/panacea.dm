@@ -4,9 +4,10 @@
 	helptext = "Can be used while unconscious."
 	button_icon_state = "panacea"
 	chemical_cost = 20
-	dna_cost = 1
+	dna_cost = 2
 	req_stat = UNCONSCIOUS
 	power_type = CHANGELING_PURCHASABLE_POWER
+	category = /datum/changeling_power_category/defence
 
 //Heals the things that the other regenerative abilities don't.
 /datum/action/changeling/panacea/sting_action(mob/living/user)

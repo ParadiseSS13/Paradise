@@ -3,7 +3,6 @@
 // Just make sure the converter is a head before you call it!
 // To remove a rev (from brainwashing or w/e), call SSticker.mode.remove_revolutionary(_THE_PLAYERS_MIND_),
 // this will also check they're not a head, so it can just be called freely
-// If the game somtimes isn't registering a win properly, then SSticker.mode.check_win() isn't being called somewhere.
 
 #define REV_VICTORY 1
 #define STATION_VICTORY 2
@@ -76,7 +75,7 @@
 	check_counter++
 	if(check_counter >= 5)
 		if(!finished)
-			rev_team.update_team_objectives()
+			rev_team.check_all_victory()
 		check_counter = 0
 	return FALSE
 
@@ -128,6 +127,7 @@
 	conversion_target.Silence(10 SECONDS)
 	conversion_target.Stun(10 SECONDS)
 	return TRUE
+
 //////////////////////////////////////////////////////////////////////////////
 //Deals with players being converted from the revolution (Not a rev anymore)//  // Modified to handle borged MMIs.  Accepts another var if the target is being borged at the time  -- Polymorph.
 //////////////////////////////////////////////////////////////////////////////
@@ -182,23 +182,22 @@
 				num_revs++
 		if(num_survivors)
 			to_chat(world, "[TAB]Command's Approval Rating: <B>[100 - round((num_revs/num_survivors)*100, 0.1)]%</B>") // % of loyal crew
-		var/text = "<br><font size=3><b>The head revolutionaries were:</b></font>"
+		var/list/text = list("<br><font size=3><b>The head revolutionaries were:</b></font>")
 		for(var/datum/mind/headrev in head_revolutionaries)
 			text += printplayer(headrev, 1)
 		text += "<br>"
-		to_chat(world, text)
 
 		// we dont show the revolutionaries because there are a LOT of them
 
-		text = "<br><font size=3><b>The heads of staff were:</b></font>"
+		text = list("<br><font size=3><b>The heads of staff were:</b></font>")
 		var/list/heads = get_all_heads()
 		for(var/datum/mind/head in heads)
 			var/target = (head in targets)
 			if(target)
-				text += "<span class='boldannounce'>Target</span>"
+				text += "<span class='boldannounceic'>Target</span>"
 			text += printplayer(head, 1)
 		text += "<br>"
-		to_chat(world, text)
+		return text.Join("")
 
 /datum/game_mode/revolution/set_scoreboard_vars() // this proc is never called, someone remove it
 	var/datum/scoreboard/scoreboard = SSticker.score

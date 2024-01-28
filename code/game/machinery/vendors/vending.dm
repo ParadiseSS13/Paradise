@@ -1,11 +1,3 @@
-// Using these to decide how a vendor crush should be handled after crushing a carbon.
-/// Just jump ship, the crit handled everything it needs to.
-#define VENDOR_CRUSH_HANDLED 0
-/// Throw the vendor at the target's tile.
-#define VENDOR_THROW_AT_TARGET 1
-/// Don't actually throw at the target, just tip it in place.
-#define VENDOR_TIP_IN_PLACE 2
-
 /**
  *  Datum used to hold information about a product in a vending machine
  */
@@ -132,16 +124,6 @@
 	var/crit_damage_factor = 2
 	/// Factor of extra damage to deal when you knock it over onto yourself
 	var/self_knockover_factor = 1.5
-	/// All possible crits that could be applied. We only need to build this up once
-	var/static/list/all_possible_crits = list()
-	/// Possible crit effects from this vending machine tipping.
-	var/list/possible_crits = list(
-		/datum/vendor_crit/pop_head,
-		/datum/vendor_crit/embed,
-		/datum/vendor_crit/pin,
-		/datum/vendor_crit/shatter,
-		/datum/vendor_crit/lucky
-	)
 	/// number of shards to apply when a crit embeds
 	var/num_shards = 7
 	/// Last time the machine was punched
@@ -189,14 +171,11 @@
 	if(account_database)
 		vendor_account = account_database.vendor_account
 
-
-	if(!length(all_possible_crits))
-		for(var/typepath in subtypesof(/datum/vendor_crit))
-			all_possible_crits[typepath] = new typepath()
-
 	update_icon(UPDATE_OVERLAYS)
 	reconnect_database()
 	power_change()
+	RegisterSignal(src, COMSIG_MOVABLE_UNTILTED, PROC_REF(on_untilt))
+	RegisterSignal(src, COMSIG_MOVABLE_TRY_UNTILT, PROC_REF(on_try_untilt))
 
 /obj/machinery/economy/vending/Destroy()
 	SStgui.close_uis(wires)
@@ -206,10 +185,6 @@
 
 /obj/machinery/economy/vending/examine(mob/user)
 	. = ..()
-	if(tilted)
-		. += "<span class='warning'>It's been tipped over and won't be usable unless it's righted.</span>"
-		. += "<span class='notice'>You can <b>Alt-Click</b> it to right it when adjacent.</span>"
-
 	if(aggressive)
 		. += "<span class='warning'>Its product lights seem to be blinking ominously...</span>"
 
@@ -359,11 +334,9 @@
 	else
 		..()
 
-/obj/machinery/economy/vending/AltClick(mob/user)
-	if(!tilted || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-
-	untilt(user)
+/obj/machinery/economy/vending/proc/on_try_untilt(atom/source, mob/user)
+	if(user && (!Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
+		return COMPONENT_BLOCK_UNTILT
 
 /obj/machinery/economy/vending/attackby(obj/item/I, mob/user, params)
 	if(tilted)
@@ -381,19 +354,18 @@
 	if(refill_canister && istype(I, refill_canister))
 		if(stat & (BROKEN|NOPOWER))
 			to_chat(user, "<span class='notice'>[src] does not respond.</span>")
-		else
-			//if the panel is open we attempt to refill the machine
-			var/obj/item/vending_refill/canister = I
-			if(canister.get_part_rating() == 0)
-				to_chat(user, "<span class='warning'>[canister] is empty!</span>")
-			else
-				// instantiate canister if needed
-				var/transferred = restock(canister)
-				if(transferred)
-					to_chat(user, "<span class='notice'>You loaded [transferred] items in [src].</span>")
-				else
-					to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
+			return
+
+		var/obj/item/vending_refill/canister = I
+		var/transferred = restock(canister)
+		if(!transferred && !canister.get_part_rating()) // It transferred no products and has no products left, thus it is empty
+			to_chat(user, "<span class='warning'>[canister] is empty!</span>")
+		else if(transferred) // We transferred some items
+			to_chat(user, "<span class='notice'>You loaded [transferred] items in [src].</span>")
+		else // Nothing transferred, parts are still left, nothing to restock!
+			to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
 		return
+
 	if(item_slot_check(user, I))
 		insert_item(user, I)
 		return
@@ -617,13 +589,13 @@
 	ui_interact(user)
 	wires.Interact(user)
 
-/obj/machinery/economy/vending/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/economy/vending/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/economy/vending/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		var/estimated_height = 100 + min(length(product_records) * 34, 500)
-		if(length(prices) > 0)
-			estimated_height += 100 // to account for the "current user" interface
-		ui = new(user, src, ui_key, "Vending",  name, 470, estimated_height, master_ui, state)
+		ui = new(user, src, "Vending",  name)
 		ui.open()
 
 /obj/machinery/economy/vending/ui_data(mob/user)
@@ -649,7 +621,7 @@
 				data["user"]["job"] = C.rank ? C.rank : "No Job"
 
 	data["stock"] = list()
-	for (var/datum/data/vending_product/R in product_records + hidden_records)
+	for(var/datum/data/vending_product/R in product_records + hidden_records)
 		data["stock"][R.name] = R.amount
 	data["extended_inventory"] = extended_inventory
 	data["vend_ready"] = vend_ready
@@ -676,7 +648,7 @@
 		)
 		data["product_records"] += list(data_pr)
 	data["hidden_records"] = list()
-	for (var/datum/data/vending_product/R in hidden_records)
+	for(var/datum/data/vending_product/R in hidden_records)
 		var/list/data_hr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
@@ -846,6 +818,8 @@
 		if(put_on_turf)
 			var/turf/T = get_turf(src)
 			vended.forceMove(T)
+			vended.pixel_x = rand(-5, 5)
+			vended.pixel_y = rand(-5, 5)
 		return TRUE
 	return FALSE
 
@@ -938,6 +912,10 @@
 			if(dump_amount >= 16)
 				return
 
+/obj/machinery/economy/vending/proc/on_untilt(atom/source, mob/user)
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_UNTILTED
+	tilted = FALSE
+
 //Somebody cut an important wire and now we're following a new definition of "pitch."
 /obj/machinery/economy/vending/proc/throw_item()
 	var/obj/throw_item = null
@@ -963,171 +941,58 @@
 /obj/machinery/economy/vending/onTransitZ()
 	return
 
-/**
- * Select a random valid crit.
- */
-/obj/machinery/economy/vending/proc/choose_crit(mob/living/carbon/victim)
-	if(!length(possible_crits))
-		return
-	for(var/crit_path in shuffle(possible_crits))
-		var/datum/vendor_crit/C = all_possible_crits[crit_path]
-		if(C.is_valid(src, victim))
-			return C
-
-/obj/machinery/economy/vending/proc/handle_squish_carbon(mob/living/carbon/victim, damage_to_deal, crit, from_combat)
-
-	// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
-	var/crit_rebate = 0
-
-	var/should_throw_at_target = TRUE
-
-	if(HAS_TRAIT(victim, TRAIT_DWARF))
-		// also double damage if you're short
-		damage_to_deal *= 2
-
-	var/datum/vendor_crit/critical_attack = choose_crit(victim)
-	if(!from_combat && crit && critical_attack)
-		crit_rebate = critical_attack.tip_crit_effect(src, victim)
-		if(critical_attack.harmless)
-			tilt_over(critical_attack.fall_towards_mob ? victim : null)
-			return VENDOR_CRUSH_HANDLED
-
-		should_throw_at_target = critical_attack.fall_towards_mob
-		add_attack_logs(null, victim, "critically crushed by [src] causing [critical_attack]")
-	else
-		victim.visible_message(
-			"<span class='danger'>[victim] is crushed by [src]!</span>",
-			"<span class='userdanger'>[src] crushes you!</span>",
-			"<span class='warning'>You hear a loud crunch!</span>"
-		)
-		add_attack_logs(null, victim, "crushed by [src]")
-
-	// 30% chance to spread damage across the entire body, 70% chance to target two limbs in particular
-	damage_to_deal = max(damage_to_deal - crit_rebate, 0)
-	if(prob(30))
-		victim.apply_damage(damage_to_deal, BRUTE, BODY_ZONE_CHEST, spread_damage = TRUE)
-	else
-		var/picked_zone
-		var/num_parts_to_pick = 2
-		for(var/i = 1 to num_parts_to_pick)
-			picked_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG)
-			victim.apply_damage((damage_to_deal) * (1 / num_parts_to_pick), BRUTE, picked_zone)
-
-	victim.AddElement(/datum/element/squish, 80 SECONDS)
-	victim.emote("scream")
-
-	return should_throw_at_target ? VENDOR_THROW_AT_TARGET : VENDOR_TIP_IN_PLACE
-
-/**
- * Tilts the machine onto the atom passed in.
- *
- * Arguments:
- * * victim - The thing the machine is falling on top of
- * * crit - if true, some special damage effects might happen.
- * * from_combat - If true, hold off on some of the additional damage and extra effects.
- */
-/obj/machinery/economy/vending/proc/tilt(atom/victim, crit = FALSE, from_combat = FALSE)
+/obj/machinery/economy/vending/proc/tilt(atom/victim, crit = FALSE, from_combat = FALSE, from_anywhere = FALSE)
 	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)
 		return
 
-	tilted = TRUE
-	layer = ABOVE_MOB_LAYER
+
+	if(from_anywhere)
+		forceMove(get_turf(victim))
+
+
+	if(Adjacent(victim))
+		var/damage = squish_damage
+		var/picked_angle = pick(90, 270)
+		var/should_crit = !from_combat && crit
+		if(!crit && !from_combat)
+			// only deal this extra bit of damage if they wouldn't otherwise be taking the double damage from critting
+			damage *= self_knockover_factor
+
+		. = fall_and_crush(get_turf(victim), damage, should_crit, crit_damage_factor, null, from_combat ? 4 SECONDS : 6 SECONDS, 12 SECONDS, FALSE, picked_angle)
+		if(.)
+			tilted = TRUE
+			layer = ABOVE_MOB_LAYER
 
 	var/should_throw_at_target = TRUE
 
 	. = FALSE
 
-	if(!victim || !in_range(victim, src))
-		tilt_over()
-		return
-	for(var/mob/living/L in get_turf(victim))
-		// Damage to deal outright
-		var/damage_to_deal = squish_damage
-		if(!from_combat)
-			L.Weaken(6 SECONDS)
-			if(crit)
-				// increase damage if you knock it over onto yourself
-				damage_to_deal *= crit_damage_factor
-			else
-				damage_to_deal *= self_knockover_factor
-		else
-			L.Weaken(4 SECONDS)
 
-		if(iscarbon(L))
-			var/throw_spec = handle_squish_carbon(victim, damage_to_deal, crit, from_combat)
-			switch(throw_spec)
-				if(VENDOR_CRUSH_HANDLED)
-					return TRUE
-				if(VENDOR_THROW_AT_TARGET)
-					should_throw_at_target = TRUE
-				if(VENDOR_TIP_IN_PLACE)
-					should_throw_at_target = FALSE
-		else
-			L.visible_message(
-				"<span class='danger'>[L] is crushed by [src]!</span>",
-				"<span class='userdanger'>[src] falls on top of you, crushing you!</span>"
-			)
-			L.apply_damage(damage_to_deal, BRUTE)
-
-			add_attack_logs(null, L, "crushed by [src]")
-
-		. = TRUE
-		L.KnockDown(12 SECONDS)
-
-		playsound(L, "sound/effects/blobattack.ogg", 40, TRUE)
-		playsound(L, "sound/effects/splat.ogg", 50, TRUE)
-
-	tilt_over(should_throw_at_target ? victim : null)
-
-/obj/machinery/economy/vending/proc/tilt_over(mob/victim)
-	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
-	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
-	var/matrix/M = matrix()
-	M.Turn(pick(90, 270))
-	transform = M
-	if(victim && get_turf(victim) != get_turf(src))
+	if(get_turf(victim) != get_turf(src))
 		throw_at(get_turf(victim), 1, 1, spin = FALSE)
 
-/obj/machinery/economy/vending/proc/untilt(mob/user)
-	if(!tilted)
-		return
-
-	if(user)
-		user.visible_message(
-			"[user] begins to right [src].",
-			"You begin to right [src]."
-		)
-		if(!do_after(user, 7 SECONDS, TRUE, src))
-			return
-		user.visible_message(
-			"<span class='notice'>[user] rights [src].</span>",
-			"<span class='notice'>You right [src].</span>",
-			"<span class='notice'>You hear a loud clang.</span>"
-		)
-
-	unbuckle_all_mobs(TRUE)
-
-	tilted = FALSE
-	layer = initial(layer)
-
-	var/matrix/M = matrix()
-	M.Turn(0)
-	transform = M
+	tilt_over(should_throw_at_target ? victim : null)
 
 /obj/machinery/economy/vending/shove_impact(mob/living/target, mob/living/attacker)
 	if(HAS_TRAIT(target, TRAIT_FLATTENED))
 		return
-	add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
-	tilt(target, from_combat = TRUE)
+
+	if(!HAS_TRAIT(attacker, TRAIT_PACIFISM))
+		add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
+		tilt(target, from_combat = TRUE)
+	else if(HAS_TRAIT_FROM(attacker, TRAIT_PACIFISM, GHOST_ROLE))  // should only apply to the ghost bar
+		add_attack_logs(attacker, target, "shoved into a vending machine ([src]), but flattened themselves.")
+		tilt(attacker, crit = TRUE, from_anywhere = TRUE) // get fucked
+	else
+		attacker.visible_message("<span class='notice'>[attacker] lightly presses [target] against [src].</span>", "<span class='warning'>You lightly press [target] against [src], you don't want to hurt [target.p_them()]!</span>")
 	return TRUE
 
-/obj/machinery/economy/vending/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/obj/machinery/economy/vending/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(HAS_TRAIT(C, TRAIT_FLATTENED))
 		return ..()
 	tilt(C, from_combat = TRUE)
 	mob_hurt = TRUE
 	return ..()
-
 
 /*
  * Vending machine types
@@ -1146,8 +1011,3 @@
 	premium = list()
 
 */
-
-
-#undef VENDOR_CRUSH_HANDLED
-#undef VENDOR_THROW_AT_TARGET
-#undef VENDOR_TIP_IN_PLACE

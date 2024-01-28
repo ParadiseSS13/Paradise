@@ -31,7 +31,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	else
 		var/A
 
-		A = input("Select a beacon to connect to", "Balloon Extraction Pack", A) as null|anything in possible_beacons
+		A = tgui_input_list(user, "Select a beacon to connect to", "Balloon Extraction Pack", possible_beacons)
 
 		if(!A)
 			return
@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		to_chat(user, "<span class='notice'>You start attaching the pack to [A]...</span>")
 		if(do_after(user, 50, target = A))
 			to_chat(user, "<span class='notice'>You attach the pack to [A] and activate it.</span>")
-			user.equip_to_slot_if_possible(src, slot_in_backpack, FALSE, TRUE)
+			user.equip_to_slot_if_possible(src, SLOT_HUD_IN_BACKPACK, FALSE, TRUE)
 			uses_left--
 			if(uses_left <= 0)
 				user.drop_item(src)
@@ -74,7 +74,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			if(isliving(A))
 				var/mob/living/M = A
 				M.Weaken(32 SECONDS) // Keep them from moving during the duration of the extraction
-				M.buckled = 0 // Unbuckle them to prevent anchoring problems
+				unbuckle_mob(M, force = TRUE) // Unbuckle them to prevent anchoring problems
 			else
 				A.anchored = TRUE
 				A.density = FALSE

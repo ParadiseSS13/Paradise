@@ -44,7 +44,7 @@
 	item_state = "chaplain_hoodie"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
@@ -59,7 +59,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	hoodtype = /obj/item/clothing/head/hooded/nun_hood
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
@@ -74,7 +74,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	hoodtype = /obj/item/clothing/head/hooded/monk_hood
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 /obj/item/clothing/suit/witchhunter
 	name = "witchhunter garb"
@@ -82,7 +82,7 @@
 	icon_state = "witchhunter"
 	item_state = "witchhunter"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 
 	//Chef
@@ -208,43 +208,40 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
-//Lawyer
-/obj/item/clothing/suit/storage/lawyer
+//Internal Affairs
+/obj/item/clothing/suit/storage/iaa
+	desc = "A snappy dress jacket."
+	blood_overlay_type = "coat"
+	body_parts_covered = UPPER_TORSO | ARMS
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi'
 		)
 
-/obj/item/clothing/suit/storage/lawyer/blackjacket
+/obj/item/clothing/suit/storage/iaa/blackjacket
 	name = "black suit jacket"
-	desc = "A snappy dress jacket."
 	icon_state = "suitjacket_black_open"
 	item_state = "suitjacket_black_open"
-	blood_overlay_type = "coat"
-	body_parts_covered = UPPER_TORSO|ARMS
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
-/obj/item/clothing/suit/storage/lawyer/bluejacket
+/obj/item/clothing/suit/storage/iaa/bluejacket
 	name = "blue suit jacket"
-	desc = "A snappy dress jacket."
 	icon_state = "suitjacket_blue_open"
 	item_state = "suitjacket_blue_open"
-	blood_overlay_type = "coat"
-	body_parts_covered = UPPER_TORSO|ARMS
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
-/obj/item/clothing/suit/storage/lawyer/purpjacket
+/obj/item/clothing/suit/storage/iaa/purplejacket
 	name = "purple suit jacket"
-	desc = "A snappy dress jacket."
-	icon_state = "suitjacket_purp"
-	item_state = "suitjacket_purp"
-	blood_overlay_type = "coat"
-	body_parts_covered = UPPER_TORSO|ARMS
+	icon_state = "suitjacket_purple"
+	item_state = "suitjacket_purple"
 
 //Head of Security
 /obj/item/clothing/suit/mantle/armor
@@ -262,30 +259,28 @@
 	resistance_flags = NONE
 
 //Head of Personnel
-/obj/item/clothing/suit/mantle/armor/head_of_personnel
+/obj/item/clothing/suit/mantle/armor/hop
 	name = "head of personnel's shawl"
 	desc = "An armored shawl for the head of personnel. It's remarkably well kept."
 	icon_state = "hopmantle"
 	item_state = "hopmantle"
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 
-//Internal Affairs
-/obj/item/clothing/suit/storage/internalaffairs
-	name = "\improper Internal Affairs jacket"
-	desc = "A smooth black jacket."
-	icon_state = "ia_jacket_open"
-	item_state = "ia_jacket_open"
-	blood_overlay_type = "coat"
-	body_parts_covered = UPPER_TORSO|ARMS
-	ignore_suitadjust = 0
-	suit_adjusted = 1
-	actions_types = list(/datum/action/item_action/button)
-	adjust_flavour = "unbutton"
-
+/obj/item/clothing/suit/hopcoat
+	name = "head of personnel's coat"
+	desc = "A big coat for the Head of Personnel who wants to make a fashion statement. Has armour woven within the fabric."
+	icon_state = "hopcoat"
+	item_state = "hopcoat"
+	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
+	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi'
+	)
 
+//Dignitaries
 /obj/item/clothing/suit/storage/ntrep
 	name = "\improper Nanotrasen Representative jacket"
 	desc = "A fancy black jacket; standard issue to Nanotrasen Representatives."
@@ -367,5 +362,5 @@
 	desc = "A tweed mantle, worn by the Research Director. Smells like science."
 	icon_state = "rdmantle"
 	item_state = "rdmantle"
-	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/food/pill, /obj/item/storage/pill_bottle, /obj/item/paper)
+	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/pill, /obj/item/storage/pill_bottle, /obj/item/paper)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)

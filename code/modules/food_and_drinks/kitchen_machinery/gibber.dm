@@ -38,6 +38,10 @@
 	occupant = null
 	return ..()
 
+/obj/machinery/gibber/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>You can <b>Alt-Click</b> [src] to empty it.</span>"
+
 /obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
@@ -160,16 +164,12 @@
 	INVOKE_ASYNC(src, PROC_REF(feedinTopanim))
 
 
-/obj/machinery/gibber/verb/eject()
-	set category = "Object"
-	set name = "Empty Gibber"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/machinery/gibber/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	go_out()
-	add_fingerprint(usr)
+	add_fingerprint(user)
 
 /obj/machinery/gibber/proc/go_out()
 	if(operating || !occupant) //no going out if operating, just in case they manage to trigger go_out before being dead
@@ -179,14 +179,12 @@
 		return
 
 	for(var/obj/O in src)
-		O.loc = loc
+		O.forceMove(get_turf(src))
 
 	occupant.forceMove(get_turf(src))
 	occupant = null
 
 	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
-
-	return
 
 /obj/machinery/gibber/proc/feedinTopanim()
 	if(!occupant)
@@ -261,13 +259,13 @@
 
 	var/slab_name = occupant.name
 	var/slab_count = 3
-	var/slab_type = /obj/item/reagent_containers/food/snacks/meat/human //gibber can only gib humans on paracode, no need to check meat type
+	var/slab_type = /obj/item/food/snacks/meat/human //gibber can only gib humans on paracode, no need to check meat type
 	var/slab_nutrition = occupant.nutrition / 15
 
 	slab_nutrition /= slab_count
 
 	for(var/i=1 to slab_count)
-		var/obj/item/reagent_containers/food/snacks/meat/new_meat = new slab_type(src)
+		var/obj/item/food/snacks/meat/new_meat = new slab_type(src)
 		new_meat.name = "[slab_name] [new_meat.name]"
 		new_meat.reagents.add_reagent("nutriment", slab_nutrition)
 
@@ -297,18 +295,18 @@
 		for(var/obj/item/I in H.get_contents())
 			if(I.resistance_flags & INDESTRUCTIBLE)
 				I.forceMove(get_turf(src))
-		if(H.get_item_by_slot(slot_s_store))
-			var/obj/item/ws = H.get_item_by_slot(slot_s_store)
+		if(H.get_item_by_slot(SLOT_HUD_SUIT_STORE))
+			var/obj/item/ws = H.get_item_by_slot(SLOT_HUD_SUIT_STORE)
 			if(ws.resistance_flags & INDESTRUCTIBLE)
 				ws.forceMove(get_turf(src))
 				H.s_store = null
-		if(H.get_item_by_slot(slot_l_store))
-			var/obj/item/ls = H.get_item_by_slot(slot_l_store)
+		if(H.get_item_by_slot(SLOT_HUD_LEFT_STORE))
+			var/obj/item/ls = H.get_item_by_slot(SLOT_HUD_LEFT_STORE)
 			if(ls.resistance_flags & INDESTRUCTIBLE)
 				ls.forceMove(get_turf(src))
 				H.l_store = null
-		if(H.get_item_by_slot(slot_r_store))
-			var/obj/item/rs = H.get_item_by_slot(slot_r_store)
+		if(H.get_item_by_slot(SLOT_HUD_RIGHT_STORE))
+			var/obj/item/rs = H.get_item_by_slot(SLOT_HUD_RIGHT_STORE)
 			if(rs.resistance_flags & INDESTRUCTIBLE)
 				rs.forceMove(get_turf(src))
 				H.r_store = null
@@ -411,8 +409,8 @@
 	for(var/obj/O in H)
 		if(isclothing(O)) //clothing gets skipped to avoid cleaning out shit
 			continue
-		if(istype(O,/obj/item/implant))
-			var/obj/item/implant/I = O
+		if(istype(O,/obj/item/bio_chip))
+			var/obj/item/bio_chip/I = O
 			if(I.implanted)
 				continue
 		if(O.flags & NODROP || stealthmode)

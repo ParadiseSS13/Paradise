@@ -4,7 +4,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
-	is_medical = 1
+	job_department_flags = DEP_FLAG_COMMAND | DEP_FLAG_MEDICAL
 	supervisors = "the captain"
 	department_head = list("Captain")
 	selection_color = "#ffddf0"
@@ -48,7 +48,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 5
 	spawn_positions = 3
-	is_medical = 1
+	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
@@ -82,7 +82,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
-	is_medical = 1
+	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
@@ -113,6 +113,7 @@
 					/obj/item/clothing/head/surgery/black = 1,
 					/obj/item/autopsy_scanner = 1,
 					/obj/item/reagent_scanner = 1,
+					/obj/item/healthanalyzer = 1,
 					/obj/item/storage/box/bodybags = 1)
 
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -143,7 +144,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
 	spawn_positions = 2
-	is_medical = 1
+	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
@@ -176,7 +177,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
 	spawn_positions = 2
-	is_medical = 1
+	job_department_flags = DEP_FLAG_MEDICAL | DEP_FLAG_SCIENCE
 	supervisors = "the chief medical officer and the research director"
 	department_head = list("Chief Medical Officer", "Research Director")
 	selection_color = "#ffeef0"
@@ -209,7 +210,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
-	is_medical = 1
+	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
@@ -243,7 +244,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
-	is_medical = 1
+	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
@@ -281,7 +282,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
-	is_medical = 1
+	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"

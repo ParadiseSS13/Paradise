@@ -97,7 +97,7 @@
 		qdel(B)
 	for(var/mob/living/simple_animal/hostile/carp/holocarp/C in linkedholodeck)
 		qdel(C)
-	holographic_items = A.copy_contents_to(linkedholodeck, platingRequired = TRUE, perfect_copy = FALSE)
+	holographic_items = A.copy_contents_to(linkedholodeck, platingRequired = TRUE)
 
 	if(emagged)
 		for(var/obj/item/holo/H in linkedholodeck)
@@ -143,10 +143,13 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/HolodeckControl/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/HolodeckControl/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/HolodeckControl/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Holodeck", name, 400, 500, master_ui, state)
+		ui = new(user, src, "Holodeck", name)
 		ui.autoupdate = TRUE
 		ui.open()
 
@@ -331,6 +334,8 @@
 /obj/item/holo/claymore
 	name = "claymore"
 	desc = "What are you standing around staring at this for? Get to killing!"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "claymore"
 	item_state = "claymore"
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -355,6 +360,9 @@
 /obj/item/holo/esword
 	name = "holographic energy sword"
 	desc = "This looks like a real energy sword!"
+	icon = 'icons/obj/energy_melee.dmi'
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "sword0"
 	hitsound = "swing_hit"
 	force = 3.0

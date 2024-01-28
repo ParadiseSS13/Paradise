@@ -85,6 +85,10 @@
 			/datum/job/syndicateofficer
 		)
 
+/obj/machinery/newscaster/examine(mob/user)
+	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> to remove the photo currently inside it.</span>"
+
 /obj/machinery/newscaster/Destroy()
 	GLOB.allNewscasters -= src
 	viewing_channel = null
@@ -187,12 +191,15 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/newscaster/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/newscaster/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/newscaster/ui_interact(mob/user, datum/tgui/ui = null)
 	if(can_scan(user))
 		scanned_user = get_scanned_user(user)["name"]
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Newscaster", name, 800, 600)
+		ui = new(user, src, "Newscaster", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -262,22 +269,22 @@
 				if(job.is_position_available())
 					var/list/opening_data = list("title" = job.title)
 					// Is the job a command job?
-					if(job.title in GLOB.command_positions)
+					if(job.job_department_flags & DEP_FLAG_COMMAND)
 						opening_data["is_command"] = TRUE
 					// Add the job opening to the corresponding categories
 					// Ugly!
 					opening_data = list(opening_data)
-					if(job.is_security)
+					if(job.job_department_flags & DEP_FLAG_SECURITY)
 						jobs["security"] += opening_data
-					if(job.is_engineering)
+					if(job.job_department_flags & DEP_FLAG_ENGINEERING)
 						jobs["engineering"] += opening_data
-					if(job.is_medical)
+					if(job.job_department_flags & DEP_FLAG_MEDICAL)
 						jobs["medical"] += opening_data
-					if(job.is_science)
+					if(job.job_department_flags & DEP_FLAG_SCIENCE)
 						jobs["science"] += opening_data
-					if(job.is_service)
+					if(job.job_department_flags & DEP_FLAG_SERVICE)
 						jobs["service"] += opening_data
-					if(job.is_supply)
+					if(job.job_department_flags & DEP_FLAG_SUPPLY)
 						jobs["supply"] += opening_data
 
 	// Append temp photo
@@ -510,7 +517,7 @@
 						// Redirect
 						screen = NEWSCASTER_CHANNEL
 						viewing_channel = FC
-					else if (id == "manage_channel") // Channel management
+					else if(id == "manage_channel") // Channel management
 						FC = locateUID(arguments["uid"])
 						if(!FC || !FC.can_modify(usr, get_scanned_user(usr)["name"]))
 							return
@@ -723,15 +730,10 @@
 /**
   * Ejects the currently loaded photo if there is one.
   */
-/obj/machinery/newscaster/verb/eject_photo_verb()
-	set name = "Eject Photo"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/machinery/newscaster/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-
-	eject_photo(usr)
+	eject_photo(user)
 
 #undef CHANNEL_NAME_MAX_LENGTH
 #undef CHANNEL_DESC_MAX_LENGTH

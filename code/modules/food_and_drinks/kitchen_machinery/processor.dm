@@ -88,36 +88,40 @@
 /////OBJECT RECIPIES/////
 /////////////////////////
 /datum/food_processor_process/meat
-	input = /obj/item/reagent_containers/food/snacks/meat
-	output = /obj/item/reagent_containers/food/snacks/meatball
+	input = /obj/item/food/snacks/meat
+	output = /obj/item/food/snacks/meatball
 
 /datum/food_processor_process/potato
-	input = /obj/item/reagent_containers/food/snacks/grown/potato
-	output = /obj/item/reagent_containers/food/snacks/rawsticks
+	input = /obj/item/food/snacks/grown/potato
+	output = /obj/item/food/snacks/rawsticks
 
 /datum/food_processor_process/rawsticks
-	input = /obj/item/reagent_containers/food/snacks/rawsticks
-	output = /obj/item/reagent_containers/food/snacks/tatortot
+	input = /obj/item/food/snacks/rawsticks
+	output = /obj/item/food/snacks/tatortot
 
 /datum/food_processor_process/soybeans
-	input = /obj/item/reagent_containers/food/snacks/grown/soybeans
-	output = /obj/item/reagent_containers/food/snacks/soydope
+	input = /obj/item/food/snacks/grown/soybeans
+	output = /obj/item/food/snacks/soydope
 
 /datum/food_processor_process/spaghetti
-	input = /obj/item/reagent_containers/food/snacks/doughslice
-	output = /obj/item/reagent_containers/food/snacks/spaghetti
+	input = /obj/item/food/snacks/doughslice
+	output = /obj/item/food/snacks/spaghetti
 
 /datum/food_processor_process/macaroni
-	input = /obj/item/reagent_containers/food/snacks/spaghetti
-	output = /obj/item/reagent_containers/food/snacks/macaroni
+	input = /obj/item/food/snacks/spaghetti
+	output = /obj/item/food/snacks/macaroni
 
 /datum/food_processor_process/parsnip
-	input = /obj/item/reagent_containers/food/snacks/grown/parsnip
-	output = /obj/item/reagent_containers/food/snacks/roastparsnip
+	input = /obj/item/food/snacks/grown/parsnip
+	output = /obj/item/food/snacks/roastparsnip
 
 /datum/food_processor_process/carrot
-	input =  /obj/item/reagent_containers/food/snacks/grown/carrot
-	output = /obj/item/reagent_containers/food/snacks/grown/carrot/wedges
+	input =  /obj/item/food/snacks/grown/carrot
+	output = /obj/item/food/snacks/grown/carrot/wedges
+
+/datum/food_processor_process/towercap
+	input = /obj/item/grown/log
+	output = /obj/item/popsicle_stick
 
 /////////////////////////
 ///END OBJECT RECIPIES///

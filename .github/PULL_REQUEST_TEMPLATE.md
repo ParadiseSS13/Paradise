@@ -1,4 +1,4 @@
-<!-- By ticking or leaving ticked the option "Allow edits and access to secrets by maintainers" you give permission for repository maintainers to push changes to your branch without explicilty asking. -->
+<!-- By ticking or leaving ticked the option "Allow edits and access to secrets by maintainers" you give permission for repository maintainers to push changes to your branch without explicitly asking. -->
 
 <!-- Write **BELOW** The Headers and **ABOVE** The comments else it may not be viewable. -->
 <!-- You can view Contributing.MD for a detailed description of the pull request process. -->

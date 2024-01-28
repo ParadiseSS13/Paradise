@@ -6,7 +6,7 @@
 	item_state = "flashlight"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	actions_types = list(/datum/action/item_action/toggle_light)
 	var/on = FALSE
@@ -93,7 +93,7 @@
 	icon_state = "penlight"
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT | SLOT_EARS
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_EARS
 	flags = CONDUCT
 	brightness_on = 2
 	var/colour = "blue" // Ink color
@@ -128,6 +128,10 @@
 	materials = list()
 	on = TRUE
 
+/obj/item/flashlight/lamp/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to turn it on/off.</span>"
+
 // green-shaded desk lamp
 /obj/item/flashlight/lamp/green
 	desc = "A classic green-shaded desk lamp."
@@ -137,13 +141,11 @@
 /obj/item/flashlight/lamp/green/off
 	on = FALSE
 
-/obj/item/flashlight/lamp/verb/toggle_light()
-	set name = "Toggle light"
-	set category = "Object"
-	set src in oview(1)
+/obj/item/flashlight/lamp/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
-	if(!usr.stat)
-		attack_self(usr)
+	attack_self(user)
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp
@@ -173,6 +175,11 @@
 	..()
 
 /obj/item/flashlight/flare/update_icon_state()
+	if(on)
+		item_state = "[initial(item_state)]-on"
+	else
+		item_state = "[initial(item_state)]"
+
 	if(!fuel)
 		icon_state = "[initial(icon_state)]-empty"
 		return
@@ -195,6 +202,8 @@
 	on = FALSE
 	force = initial(force)
 	damtype = initial(damtype)
+	hitsound = "swing_hit"
+	attack_verb = list()
 	update_brightness()
 
 /obj/item/flashlight/flare/attack_self(mob/user)
@@ -213,15 +222,20 @@
 		if(produce_heat)
 			force = on_damage
 			damtype = "fire"
+			hitsound = 'sound/items/welder.ogg'
+			attack_verb = list("burnt", "singed")
 		START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/flare/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!fuel)
+	if(isdrone(user) && !fuel)
 		C.stored_comms["metal"] += 1
 		C.stored_comms["glass"] += 1
 		qdel(src)
 		return TRUE
 	return ..()
+
+/obj/item/flashlight/flare/get_heat()
+	return produce_heat * on * 1000
 
 // GLOWSTICKS
 

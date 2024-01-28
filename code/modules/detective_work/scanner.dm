@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "electronic"
 	flags = CONDUCT | NOBLUDGEON
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "engineering=4;biotech=2;programming=5"
 	var/scanning = FALSE
 	var/list/log = list()

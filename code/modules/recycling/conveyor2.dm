@@ -3,8 +3,8 @@
 #define DIRECTION_REVERSED	-1
 #define IS_OPERATING		(operating && can_conveyor_run())
 
-GLOBAL_LIST_INIT(conveyor_belts, list()) //Saves us having to look through the entire machines list for our things
-GLOBAL_LIST_INIT(conveyor_switches, list())
+GLOBAL_LIST_EMPTY(conveyor_belts) //Saves us having to look through the entire machines list for our things
+GLOBAL_LIST_EMPTY(conveyor_switches)
 
 //conveyor2 is pretty much like the original, except it supports corners, but not diverters.
 //Except this is pretty heavily modified so it's more like conveyor2.5
@@ -210,7 +210,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		return
 
 	var/move_time = 0
-	if (slow_factor>1) // yes, 1 is special
+	if(slow_factor>1) // yes, 1 is special
 		move_time=CEILING(slow_factor, 2) // yes.
 	AM.Move(get_step(loc, forwards), forwards, move_time)
 
@@ -369,10 +369,13 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		return
 	ui_interact(user)
 
-/obj/machinery/conveyor_switch/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/conveyor_switch/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/conveyor_switch/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ConveyorSwitch", name, 350, 150, master_ui, state)
+		ui = new(user, src, "ConveyorSwitch", name)
 		ui.open()
 
 /obj/machinery/conveyor_switch/ui_data(mob/user)
@@ -390,7 +393,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	switch(action)
 		if("slowFactor")
 			var/value = text2num(params["value"])
-			if (value!=null)
+			if(value!=null)
 				slow_factor = clamp(value, 1, 50)
 		if("toggleOneWay")
 			if(position != DIRECTION_REVERSED) // If you want to forbid reversing - stop using reverse first!

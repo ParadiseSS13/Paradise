@@ -141,7 +141,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else if(target != world)
 		return call(target, procname)(arglist(arguments))
 	else
-		to_chat(usr, "<span class='boldannounce'>Call to world/proc/[procname] blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>Call to world/proc/[procname] blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
 		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]l")
 
@@ -471,7 +471,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			id.registered_name = H.real_name
 			id.assignment = "Captain"
 			id.name = "[id.registered_name]'s ID Card ([id.assignment])"
-			H.equip_to_slot_or_del(id, slot_wear_id)
+			H.equip_to_slot_or_del(id, SLOT_HUD_WEAR_ID)
 			H.update_inv_wear_id()
 	else
 		alert("Invalid mob")
@@ -497,7 +497,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_admin("[key_name(usr)] assumed direct control of [M].")
 	var/mob/adminmob = src.mob
 	M.ckey = src.ckey
-	if( isobserver(adminmob) )
+	if(isobserver(adminmob))
 		qdel(adminmob)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Assume Direct Control") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -644,7 +644,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			if(alert("Should the items in their pockets be dropped? Selecting \"No\" will delete them.", "Robust quick dress shop", "Yes", "No") == "No")
 				delete_pocket = TRUE
 
-	for (var/obj/item/I in H.get_equipped_items(delete_pocket))
+	for(var/obj/item/I in H.get_equipped_items(delete_pocket))
 		qdel(I)
 	if(dresscode != "Naked")
 		H.equipOutfit(dresscode)
@@ -663,7 +663,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	)
 
 	var/list/outfits = list()
-	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job)
+	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job) - list(/datum/outfit/varedit, /datum/outfit/admin)
 	for(var/path in paths)
 		var/datum/outfit/O = path //not much to initalize here but whatever
 		if(initial(O.can_be_admin_equipped))
@@ -776,7 +776,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if("Clients")
 			to_chat(usr, jointext(GLOB.clients, ","))
 		if("Respawnable Mobs")
-			to_chat(usr, jointext(GLOB.respawnable_list, ","))
+			var/list/respawnable_mobs
+			for(var/mob/potential_respawnable in GLOB.player_list)
+				if(HAS_TRAIT(potential_respawnable, TRAIT_RESPAWNABLE))
+					respawnable_mobs += potential_respawnable
+			to_chat(usr, jointext(respawnable_mobs, ", "))
 
 /client/proc/cmd_display_del_log()
 	set category = "Debug"
@@ -864,7 +868,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	// Iterate that target and see whats what
 	for(var/queue_entry in target_queue)
-		var/datum/D = locate(queue_entry[1])
+		var/datum/D = locate(queue_entry[GC_QUEUE_ITEM_REF])
 		if(!istype(D))
 			continue
 
@@ -912,54 +916,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	GLOB.error_cache.showTo(usr)
 
-/client/proc/jump_to_ruin()
-	set category = "Debug"
-	set name = "Jump to Ruin"
-	set desc = "Displays a list of all placed ruins to teleport to."
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	var/list/names = list()
-	for(var/i in GLOB.ruin_landmarks)
-		var/obj/effect/landmark/ruin/ruin_landmark = i
-		var/datum/map_template/ruin/template = ruin_landmark.ruin_template
-
-		var/count = 1
-		var/name = template.name
-		var/original_name = name
-
-		while(name in names)
-			count++
-			name = "[original_name] ([count])"
-
-		names[name] = ruin_landmark
-
-	var/ruinname = input("Select ruin", "Jump to Ruin") as null|anything in names
-
-	var/obj/effect/landmark/ruin/landmark = names[ruinname]
-
-	if(istype(landmark))
-		var/datum/map_template/ruin/template = landmark.ruin_template
-		if(isobj(usr.loc))
-			var/obj/O = usr.loc
-			O.force_eject_occupant(usr)
-		admin_forcemove(usr, get_turf(landmark))
-
-		to_chat(usr, "<span class='name'>[template.name]</span>")
-		to_chat(usr, "<span class='italics'>[template.description]</span>")
-
-		log_admin("[key_name(usr)] jumped to ruin [ruinname]")
-		if(!isobserver(usr))
-			message_admins("[key_name_admin(usr)] jumped to ruin [ruinname]", 1)
-
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Ruin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /client/proc/visualise_active_turfs()
 	set category = "Debug"
 	set name = "Visualise Active Turfs"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
 		return
 
 	// This can potentially iterate through a list thats 20k things long. Give ample warning to the user

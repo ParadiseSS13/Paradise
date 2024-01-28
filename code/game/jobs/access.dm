@@ -144,7 +144,7 @@
 	return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND)
 
 /proc/get_all_misc_access()
-	return list(ACCESS_SALVAGE_CAPTAIN, ACCESS_TRADE_SOL, ACCESS_CRATE_CASH, ACCESS_AWAY01)
+	return list(ACCESS_TRADE_SOL, ACCESS_CRATE_CASH, ACCESS_AWAY01)
 
 /proc/get_absolutely_all_accesses()
 	return (get_all_accesses() | get_all_centcom_access() | get_all_syndicate_access() | get_all_misc_access())
@@ -291,7 +291,7 @@
 		if(ACCESS_RESEARCH)
 			return "Science"
 		if(ACCESS_MINING)
-			return "Mining"
+			return "Mining Dock"
 		if(ACCESS_MINING_OFFICE)
 			return "Mining Office"
 		if(ACCESS_MAILSORTING)
@@ -303,7 +303,7 @@
 		if(ACCESS_HEADS_VAULT)
 			return "Main Vault"
 		if(ACCESS_MINING_STATION)
-			return "Mining EVA"
+			return "Mining Outpost"
 		if(ACCESS_XENOBIOLOGY)
 			return "Xenobiology Lab"
 		if(ACCESS_XENOARCH)
@@ -417,7 +417,7 @@
 			available_accesses = get_region_accesses(i)
 		for(var/access in available_accesses)
 			var/access_desc = (i == REGION_CENTCOMM) ? get_centcom_access_desc(access) : get_access_desc(access)
-			if (access_desc)
+			if(access_desc)
 				accesses += list(list(
 					"desc" = replacetext(access_desc, "&nbsp", " "),
 					"ref" = access,

@@ -2,7 +2,12 @@
 
 //If someone can do this in a neater way, be my guest-Kor
 
-//To do: Allow corpses to appear mangled, bloody, etc. Allow customizing the bodies appearance (they're all bald and white right now).
+// To do: Allow customizing the bodies appearance (they're all bald and white right now).
+
+/// this mob spawn creates the corpse instantly
+#define CORPSE_INSTANT 1
+/// this mob spawn creates the corpse during GAME_STATE_PLAYING
+#define CORPSE_ROUNDSTART 2
 
 /obj/effect/mob_spawn
 	name = "Unknown"
@@ -36,29 +41,17 @@
 	var/death_cooldown = 0 // How long you have to wait after dying before using it again, in deciseconds. People that join as observers are not included.
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
-	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
-		return
-	if(!uses)
-		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
-		return
-	if(jobban_isbanned(user, banType) || jobban_isbanned(user, ROLE_SYNDICATE))
-		to_chat(user, "<span class='warning'>You are jobanned!</span>")
-		return
-	if(cannotPossess(user))
-		to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
-		return
-	if(time_check(user))
+	if(!valid_to_spawn(user))
 		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role == "No")
 		return
 	if(!species_prompt())
 		return
-	if(!loc || !uses || QDELETED(src) || QDELETED(user))
+	if(!loc || !uses && !permanent || QDELETED(src) || QDELETED(user))
 		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
 		return
-	log_game("[user.ckey] became [mob_name]")
-	create(ckey = user.ckey)
+	create(ckey = user.ckey, user = user)
 
 /obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
@@ -85,6 +78,27 @@
 /obj/effect/mob_spawn/proc/equip(mob/M)
 	return
 
+/obj/effect/mob_spawn/proc/valid_to_spawn(mob/user)
+	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
+		return FALSE
+	if(!uses && !permanent)
+		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
+		return FALSE
+	if(jobban_isbanned(user, banType) || jobban_isbanned(user, ROLE_SYNDICATE))
+		to_chat(user, "<span class='warning'>You are jobanned!</span>")
+		return FALSE
+	if(!HAS_TRAIT(user, TRAIT_RESPAWNABLE))
+		to_chat(user, "<span class='warning'>You currently do not have respawnability!</span>")
+		return FALSE
+	if(isobserver(user))
+		var/mob/dead/observer/O = user
+		if(!O.check_ahud_rejoin_eligibility())
+			to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			return FALSE
+	if(time_check(user))
+		return FALSE
+	return TRUE
+
 /obj/effect/mob_spawn/proc/time_check(mob/user)
 	var/deathtime = world.time - user.timeofdeath
 	var/joinedasobserver = FALSE
@@ -109,7 +123,8 @@
 		return TRUE
 	return FALSE
 
-/obj/effect/mob_spawn/proc/create(ckey, flavour = TRUE, name)
+/obj/effect/mob_spawn/proc/create(ckey, flavour = TRUE, name, mob/user = usr)
+	log_game("[ckey] became [mob_name]")
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
@@ -136,12 +151,14 @@
 		var/datum/mind/MM = M.mind
 		if(objectives)
 			for(var/objective in objectives)
-				MM.objectives += new/datum/objective(objective)
+				M.mind.add_mind_objective(new /datum/objective(objective))
 		if(assignedrole)
 			M.mind.assigned_role = assignedrole
 		M.mind.offstation_role = offstation_role
 		special(M, name)
 		MM.name = M.real_name
+	else
+		special(M)
 	if(uses > 0)
 		uses--
 	if(!permanent && !uses)
@@ -302,41 +319,6 @@
 
 
 //////////Alive ones, used as "core" for ghost roles now and in future.//////////
-
-//Lavaland Bartender (ghost role).
-/obj/effect/mob_spawn/human/alive/bartender
-	random = TRUE
-	allow_species_pick = TRUE
-	name = "bartender sleeper"
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
-	description = "Stuck on Lavaland, you could try getting back to civilisation...or serve drinks to those that wander by."
-	flavour_text = "You are a space bartender! Time to mix drinks and change lives. Wait, where did your bar just get transported to?"
-	assignedrole = "Space Bartender"
-	outfit = /datum/outfit/spacebartender
-
-//Lavaland Beach Turist(?) (ghost role).
-/obj/effect/mob_spawn/human/alive/beach
-	random = TRUE
-	allow_species_pick = TRUE
-	mob_name = "Beach Bum"
-	name = "beach bum sleeper"
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
-	flavour_text = "You are a beach bum! You think something just happened to the beach but you don't really pay too much attention."
-	description = "Try to survive on lavaland or just enjoy the beach, waiting for visitors."
-	assignedrole = "Beach Bum"
-	outfit = /datum/outfit/beachbum
-
-//Lavaland Beach Guard (ghost role).
-/obj/effect/mob_spawn/human/alive/beach/lifeguard
-	flavour_text = "You're a spunky lifeguard! It's up to you to make sure nobody drowns or gets eaten by sharks and stuff. Then suddenly your entire beach was transported to this strange hell. \
-	You aren't trained for this, but you'll still keep your guests alive!"
-	description = "Try to survive on lavaland with the pitiful equipment of a lifeguard. Or hide in your biodome."
-	mob_gender = "female"
-	name = "lifeguard sleeper"
-	id_job = "Lifeguard"
-	uniform = /obj/item/clothing/under/pants/shorts/red
 
 //Space(?) Bar Patron (ghost role).
 /obj/effect/mob_spawn/human/alive/space_bar_patron
@@ -562,7 +544,7 @@
 
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	belt = /obj/item/storage/belt/utility/full
-	suit = /obj/item/clothing/suit/space/hardsuit/engine
+	back = /obj/item/mod/control/pre_equipped/engineering
 	shoes = /obj/item/clothing/shoes/workboots
 	mask = /obj/item/clothing/mask/breath
 	id = /obj/item/card/id/engineering
@@ -594,13 +576,13 @@
 
 /datum/outfit/job/mining/suit
 	name = "Shaft Miner"
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
+	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	uniform = /obj/item/clothing/under/rank/cargo/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
 	l_ear = /obj/item/radio/headset/headset_cargo/mining
 	id = /obj/item/card/id/shaftminer
-	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
+	l_pocket = /obj/item/reagent_containers/patch/styptic
 	r_pocket = /obj/item/flashlight/seclite
 
 //Scientist corpse.
@@ -639,8 +621,49 @@
 	icon_state = "sleeper"
 	flavour_text = "Moo!"
 
+/// these mob spawn subtypes trigger immediately (New or Initialize) and are not player controlled... since they're dead, you know?
+/obj/effect/mob_spawn/corpse
+	/// when this mob spawn should auto trigger.
+	var/spawn_when = CORPSE_INSTANT
+
+	/// what environmental storytelling script should this corpse have
+	var/corpse_description = ""
+	/// optionally different text to display if the target is a clown
+	var/naive_corpse_description = ""
+
+/obj/effect/mob_spawn/corpse/Initialize(mapload, no_spawn)
+	. = ..()
+	if(no_spawn)
+		return
+	switch(spawn_when)
+		if(CORPSE_INSTANT)
+			INVOKE_ASYNC(src, PROC_REF(create))
+		if(CORPSE_ROUNDSTART)
+			if(mapload || (SSticker && SSticker.current_state > GAME_STATE_SETTING_UP))
+				INVOKE_ASYNC(src, PROC_REF(create))
+
+/obj/effect/mob_spawn/corpse/special(mob/living/spawned_mob)
+	. = ..()
+	spawned_mob.death(TRUE)
+	if(corpse_description)
+		spawned_mob.AddComponent(/datum/component/corpse_description, corpse_description, naive_corpse_description)
+
+/obj/effect/mob_spawn/corpse/create(ckey, flavour, name, user)
+	. = ..()
+	qdel(src)
+
+/obj/effect/mob_spawn/corpse/watcher
+	mob_type = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
+	icon = 'icons/mob/lavaland/watcher.dmi'
+	icon_state = "watcher_dead"
+	pixel_x = -12
+
+/obj/effect/mob_spawn/corpse/goliath
+	mob_type = /mob/living/simple_animal/hostile/asteroid/goliath/beast
+	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	icon_state = "goliath_dead"
+	pixel_x = -12
 
 
-
-
-
+#undef CORPSE_INSTANT
+#undef CORPSE_ROUNDSTART

@@ -16,6 +16,17 @@
 	var/max_items = 7
 	var/obj/item/storage/backpack/modstorage/bag
 
+/obj/item/mod/module/storage/serialize()
+	var/list/data = ..()
+	data["bag"] = bag.serialize()
+	return data
+
+/obj/item/mod/module/storage/deserialize(list/data)
+	. = ..()
+	qdel(bag)
+	bag = list_to_object(data["bag"], src)
+	bag.source = src
+
 /obj/item/mod/module/storage/Initialize(mapload)
 	. = ..()
 	var/obj/item/storage/backpack/modstorage/S = new(src)
@@ -223,11 +234,19 @@
 	var/min_range = 2
 	/// Maximum range we can set.
 	var/max_range = 5
+	/// The cooldown before we can re-activate this after having it forcefully extinguished
+	COOLDOWN_DECLARE(activation_cooldown)
 
 /obj/item/mod/module/flashlight/on_activation()
+	if(!COOLDOWN_FINISHED(src, activation_cooldown))
+		to_chat(mod.wearer, "<span class='warning'>[src] isn't ready after being shut down!</span>")
+		return
 	. = ..()
 	if(!.)
 		return
+
+	COOLDOWN_RESET(src, activation_cooldown)
+
 	active_power_cost = base_power * mod_light_range
 	mod.set_light(mod_light_range, mod_light_power, light_color)
 
@@ -263,6 +282,13 @@
 	mod_color_overide = light_color
 	on_deactivation()
 
+/obj/item/mod/module/flashlight/extinguish_light(force)
+	. = ..()
+	on_deactivation(FALSE)
+	COOLDOWN_START(src, activation_cooldown, 20 SECONDS)
+
+	to_chat(mod.wearer, "<span class='warning'>Your [name] shuts off!</span>")
+
 ///Dispenser - Dispenses an item after a time passes.
 /obj/item/mod/module/dispenser
 	name = "MOD burger dispenser module"
@@ -277,7 +303,7 @@
 	incompatible_modules = list(/obj/item/mod/module/dispenser)
 	cooldown_time = 5 SECONDS
 	/// Path we dispense.
-	var/dispense_type = /obj/item/reagent_containers/food/snacks/cheeseburger
+	var/dispense_type = /obj/item/food/snacks/burger/cheese
 	/// Time it takes for us to dispense.
 	var/dispense_time = 0 SECONDS
 

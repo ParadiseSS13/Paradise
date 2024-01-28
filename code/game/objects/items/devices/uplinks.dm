@@ -104,12 +104,28 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(UI.limited_stock == 0)
 		to_chat(usr, "<span class='warning'>You have redeemed this discount already.</span>")
 		return
-	UI.buy(src,usr)
-	if(UI.limited_stock > 0) // only decrement it if it's actually limited
-		UI.limited_stock--
+	UI.buy_uplink_item(src,usr)
 	SStgui.update_uis(src)
 
 	return TRUE
+
+/obj/item/uplink/proc/mass_purchase(datum/uplink_item/UI, reference, quantity = 1)
+	// jamming check happens in ui_act
+	if(!UI)
+		return
+	if(quantity <= 0)
+		return
+	if(UI.limited_stock == 0)
+		return
+	if(UI.limited_stock > 0 && UI.limited_stock < quantity)
+		quantity = UI.limited_stock
+	var/list/bought_things = list()
+	for(var/i in 1 to quantity)
+		var/item = UI.buy_uplink_item(src, usr, put_in_hands = FALSE)
+		if(isnull(item))
+			break
+		bought_things += item
+	return bought_things
 
 /obj/item/uplink/proc/refund(mob/user as mob)
 	var/obj/item/I = user.get_active_hand()
@@ -144,6 +160,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	name = "hidden uplink"
 	desc = "There is something wrong if you're examining this."
 	var/active = FALSE
+	/// An assoc list of references (the variable called reference on an uplink item) and its value being how many of the item
+	var/list/shopping_cart
+	/// A cached version of shopping_cart containing all the data for the tgui side
+	var/list/cached_cart
+	/// A list of 3 categories and item indexes in uplink_cats, to show as recommendedations
+	var/list/lucky_numbers
 
 // The hidden uplink MUST be inside an obj/item's contents.
 /obj/item/uplink/hidden/New(loc)
@@ -173,16 +195,23 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		return TRUE
 	return FALSE
 
-/obj/item/uplink/hidden/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/uplink/hidden/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/uplink/hidden/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Uplink", name, 900, 600, master_ui, state)
+		ui = new(user, src, "Uplink", name)
 		ui.open()
 
 /obj/item/uplink/hidden/ui_data(mob/user)
 	var/list/data = list()
 
 	data["crystals"] = uses
+
+	data["cart"] = generate_tgui_cart()
+	data["cart_price"] = calculate_cart_tc()
+	data["lucky_numbers"] = lucky_numbers
 
 	return data
 
@@ -192,6 +221,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	// Actual items
 	if(!uplink_cats || !uplink_items)
 		generate_item_lists(user)
+	if(!lucky_numbers) // Make sure these are generated AFTER the categories, otherwise shit will get messed up
+		shuffle_lucky_numbers()
 	data["cats"] = uplink_cats
 
 	// Exploitable info
@@ -210,26 +241,57 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	return data
 
+/obj/item/uplink/hidden/proc/calculate_cart_tc()
+	. = 0
+	for(var/reference in shopping_cart)
+		var/datum/uplink_item/item = uplink_items[reference]
+		var/purchase_amt = shopping_cart[reference]
+		. += item.cost * purchase_amt
+
+/obj/item/uplink/hidden/proc/generate_tgui_cart(update = FALSE)
+	if(!update)
+		return cached_cart
+
+	if(!length(shopping_cart))
+		shopping_cart = null
+		cached_cart = null
+		return cached_cart
+
+	cached_cart = list()
+	for(var/reference in shopping_cart)
+		var/datum/uplink_item/I = uplink_items[reference]
+		cached_cart += list(list(
+			"name" = sanitize(I.name),
+			"desc" = sanitize(I.description()),
+			"cost" = I.cost,
+			"hijack_only" = I.hijack_only,
+			"obj_path" = I.reference,
+			"amount" = shopping_cart[reference],
+			"limit" = I.limited_stock))
 
 // Interaction code. Gathers a list of items purchasable from the paren't uplink and displays it. It also adds a lock button.
 /obj/item/uplink/hidden/interact(mob/user)
 	ui_interact(user)
 
 // The purchasing code.
-/obj/item/uplink/hidden/ui_act(action, list/params)
+/obj/item/uplink/hidden/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
 
 	. = TRUE
+
 	switch(action)
 		if("lock")
 			toggle()
 			uses += hidden_crystals
 			hidden_crystals = 0
 			SStgui.close_uis(src)
+			for(var/reference in shopping_cart)
+				if(shopping_cart[reference] == 0) // I know this isn't lazy, but this should runtime on purpose if we can't access this for some reason
+					remove_from_cart(reference)
 
 		if("refund")
-			refund(usr)
+			refund(ui.user)
 
 		if("buyRandom")
 			var/datum/uplink_item/UI = chooseRandomItem()
@@ -238,6 +300,87 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		if("buyItem")
 			var/datum/uplink_item/UI = uplink_items[params["item"]]
 			return buy(UI, UI ? UI.reference : "")
+
+		if("add_to_cart")
+			var/datum/uplink_item/UI = uplink_items[params["item"]]
+			if(LAZYIN(shopping_cart, params["item"]))
+				to_chat(ui.user, "<span class='warning'>[UI.name] is already in your cart!</span>")
+				return
+			var/startamount = 1
+			if(UI.limited_stock == 0)
+				startamount = 0
+			LAZYSET(shopping_cart, params["item"], startamount)
+			generate_tgui_cart(TRUE)
+
+		if("remove_from_cart")
+			remove_from_cart(params["item"])
+
+		if("set_cart_item_quantity")
+			var/amount = text2num(params["quantity"])
+			LAZYSET(shopping_cart, params["item"], max(amount, 0))
+			generate_tgui_cart(TRUE)
+
+		if("purchase_cart")
+			if(!LAZYLEN(shopping_cart)) // sanity check
+				return
+			if(calculate_cart_tc() > uses)
+				to_chat(ui.user, "<span class='warning'>[src] buzzes, it doesn't contain enough telecrystals!</span>")
+				return
+			if(is_jammed)
+				to_chat(ui.user, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
+				return
+
+			// Buying of the uplink stuff
+			var/list/bought_things = list()
+			for(var/reference in shopping_cart)
+				var/datum/uplink_item/item = uplink_items[reference]
+				var/purchase_amt = shopping_cart[reference]
+				if(purchase_amt <= 0)
+					continue
+				bought_things += mass_purchase(item, item ? item.reference : "", purchase_amt)
+
+			// Check how many of them are items
+			var/list/obj/item/items_for_crate = list()
+			for(var/obj/item/thing in bought_things)
+				// because sometimes you can buy items like crates from surpluses and stuff
+				// the crates will already be on the ground, so we dont need to worry about them
+				if(isitem(thing))
+					items_for_crate += thing
+
+			// If we have more than 2 of them, put them in a crate
+			if(length(items_for_crate) > 2)
+				var/obj/structure/closet/crate/C = new(get_turf(src))
+				for(var/obj/item/item as anything in items_for_crate)
+					item.forceMove(C)
+			// Otherwise, just put the items in their hands
+			else if(length(items_for_crate))
+				for(var/obj/item/item as anything in items_for_crate)
+					ui.user.put_in_any_hand_if_possible(item)
+
+			empty_cart()
+			SStgui.update_uis(src)
+
+		if("empty_cart")
+			empty_cart()
+
+		if("shuffle_lucky_numbers")
+			// lets see paul allen's random uplink item
+			shuffle_lucky_numbers()
+
+/obj/item/uplink/hidden/proc/shuffle_lucky_numbers()
+	lucky_numbers = list()
+	for(var/i in 1 to 4)
+		var/cate_number = rand(1, length(uplink_cats))
+		var/item_number = rand(1, length(uplink_cats[cate_number]["items"]))
+		lucky_numbers += list(list("cat" = cate_number - 1, "item" = item_number - 1)) // dm lists are 1 based, js lists are 0 based, gotta -1
+
+/obj/item/uplink/hidden/proc/remove_from_cart(item_reference) // i want to make it eventually remove all instances
+	LAZYREMOVE(shopping_cart, item_reference)
+	generate_tgui_cart(TRUE)
+
+/obj/item/uplink/hidden/proc/empty_cart()
+	shopping_cart = null
+	generate_tgui_cart(TRUE)
 
 // I placed this here because of how relevant it is.
 // You place this in your uplinkable item to check if an uplink is active or not.

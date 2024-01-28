@@ -12,7 +12,7 @@
 	inherent_factions = list("nian")
 	species_traits = list(NO_HAIR)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
-	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_WING | BALD | SHAVED
 	reagent_tag = PROCESS_ORG
 	dietflags = DIET_HERB
@@ -28,6 +28,10 @@
 	eyes = "moth_eyes_s"
 	butt_sprite = "nian"
 	siemens_coeff = 1.5
+	blurb = "Nians are large bipedal invertebrates that come from an unknown homeworld. \
+	Known for spendthrift behavior, the Nian civilization has been pressed to the fore of developed space in an effort to resolve material shortages in homeworld sectors.<br/><br/> \
+	Unlike most species in the galactic fold, Nian do not recognize the authority of the Trans-Solar Federation: \
+	having instead established close diplomatic relationships with their splinter faction, the USSP."
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/nian,

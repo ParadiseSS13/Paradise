@@ -65,7 +65,7 @@
 					GLOB.cooking_reagents[recipe_type] |= reagent
 			else
 				qdel(recipe)
-		GLOB.cooking_ingredients[recipe_type] |= /obj/item/reagent_containers/food/snacks/grown
+		GLOB.cooking_ingredients[recipe_type] |= /obj/item/food/snacks/grown
 
 /*******************
 *   Item Adding
@@ -108,7 +108,7 @@
 				add_item(S, user)
 		else
 			add_item(O, user)
-	else if(is_type_in_list(O, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/food/drinks, /obj/item/reagent_containers/food/condiment)))
+	else if(is_type_in_list(O, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/drinks, /obj/item/reagent_containers/condiment)))
 		if(!O.reagents)
 			return TRUE
 		for(var/datum/reagent/R in O.reagents.reagent_list)
@@ -117,6 +117,9 @@
 				return TRUE
 	else if(istype(O, /obj/item/grab))
 		var/obj/item/grab/G = O
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='danger'>Slamming [G.affecting] into [src] might hurt them!</span>")
+			return
 		return special_attack_grab(G, user)
 	else
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with [O].</span>")
@@ -126,12 +129,7 @@
 	if(operating)
 		return
 
-	I.play_tool_sound(src)
-	if(anchored)
-		to_chat(user, "<span class='alert'>[src] can now be moved.</span>")
-	else
-		to_chat(user, "<span class='alert'>[src] is now secured.</span>")
-	anchored = !anchored
+	default_unfasten_wrench(user, I, 0)
 	return TRUE
 
 /obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
@@ -201,8 +199,8 @@
 	var/list/name_overrides = list()
 	for(var/obj/O in contents)
 		var/display_name = O.name
-		if(istype(O, /obj/item/reagent_containers/food))
-			var/obj/item/reagent_containers/food/food = O
+		if(isfood(O))
+			var/obj/item/food/food = O
 			if(!items_counts[display_name])
 				if(food.ingredient_name)
 					name_overrides[display_name] = food.ingredient_name
@@ -285,6 +283,8 @@
 /obj/machinery/kitchen_machine/proc/dispose(mob/user)
 	for(var/obj/O in contents)
 		O.forceMove(loc)
+		O.pixel_y = rand(-5, 5)
+		O.pixel_x = rand(-5, 5)
 	if(reagents.total_volume)
 		dirty++
 	reagents.clear_reagents()
@@ -338,6 +338,8 @@
 		var/reagents_per_serving = temp_reagents.total_volume / portions
 		for(var/i in 1 to portions) // Extra servings when upgraded, ingredient reagents split equally
 			var/obj/cooked = new recipe.result(loc)
+			cooked.pixel_y = rand(-5, 5)
+			cooked.pixel_x = rand(-5, 5)
 			temp_reagents.trans_to(cooked, reagents_per_serving, no_react = TRUE) // Don't react with the abstract holder please
 		temp_reagents.clear_reagents()
 
@@ -362,7 +364,7 @@
 
 /obj/machinery/kitchen_machine/proc/has_extra_item()
 	for(var/obj/O in contents)
-		if(!is_type_in_list(O, list(/obj/item/reagent_containers/food, /obj/item/grown, /obj/item/mixing_bowl)))
+		if(!is_type_in_list(O, list(/obj/item/food, /obj/item/grown, /obj/item/mixing_bowl)))
 			return TRUE
 	return FALSE
 
@@ -414,7 +416,7 @@
 		amount += reagents.total_volume
 	reagents.clear_reagents()
 	if(amount)
-		var/obj/item/reagent_containers/food/snacks/badrecipe/mysteryfood = new(src)
+		var/obj/item/food/snacks/badrecipe/mysteryfood = new(src)
 		mysteryfood.reagents.add_reagent("carbon", amount / 2)
 		mysteryfood.reagents.add_reagent("????", amount / 15)
 		mysteryfood.forceMove(get_turf(src))
@@ -444,10 +446,16 @@
 
 	ui_interact(user)
 
-/obj/machinery/kitchen_machine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/kitchen_machine/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/machinery/kitchen_machine/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/kitchen_machine/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "KitchenMachine",  name, 400, 300, master_ui, state)
+		ui = new(user, src, "KitchenMachine",  name)
 		ui.open()
 
 /obj/machinery/kitchen_machine/ui_data(mob/user)
@@ -468,8 +476,8 @@
 	var/list/name_overrides = list()
 	for(var/obj/O in contents)
 		var/display_name = O.name
-		if(istype(O, /obj/item/reagent_containers/food))
-			var/obj/item/reagent_containers/food/food = O
+		if(istype(O, /obj/item/food))
+			var/obj/item/food/food = O
 			if(!items_counts[display_name])
 				if(food.ingredient_name)
 					name_overrides[display_name] = food.ingredient_name
@@ -519,11 +527,6 @@
 
 		data["ingredients"] += list(data_pr)
 
-	return data
-
-/obj/machinery/kitchen_machine/ui_static_data(mob/user)
-	var/list/data = list()
-	data["name"] = name
 	return data
 
 /obj/machinery/kitchen_machine/ui_act(action, params, datum/tgui/ui)

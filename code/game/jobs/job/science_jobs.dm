@@ -4,7 +4,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
-	is_science = 1
+	job_department_flags = DEP_FLAG_COMMAND | DEP_FLAG_SCIENCE
 	supervisors = "the captain"
 	department_head = list("Captain")
 	selection_color = "#ffddff"
@@ -55,7 +55,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 6
 	spawn_positions = 6
-	is_science = 1
+	job_department_flags = DEP_FLAG_SCIENCE
 	supervisors = "the research director"
 	department_head = list("Research Director")
 	selection_color = "#ffeeff"
@@ -93,7 +93,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
 	spawn_positions = 2
-	is_science = 1
+	job_department_flags = DEP_FLAG_SCIENCE
 	supervisors = "the research director"
 	department_head = list("Research Director")
 	selection_color = "#ffeeff"
@@ -121,3 +121,7 @@
 	l_ear = /obj/item/radio/headset/headset_sci
 	id = /obj/item/card/id/roboticist
 	pda = /obj/item/pda/roboticist
+
+	backpack = /obj/item/storage/backpack/robotics
+	satchel = /obj/item/storage/backpack/satchel_robo
+	dufflebag = /obj/item/storage/backpack/duffel/robotics

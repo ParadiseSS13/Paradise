@@ -14,7 +14,7 @@
 
 
 /obj/item/clothing/under/pants/equipped(mob/user, slot)
-	if(ishuman(user) && slot == slot_w_uniform)
+	if(ishuman(user) && slot == SLOT_HUD_JUMPSUIT)
 		var/mob/living/carbon/human/H = user
 		if(H.undershirt != "Nude")
 			var/additional_body_parts = UPPER_TORSO|ARMS

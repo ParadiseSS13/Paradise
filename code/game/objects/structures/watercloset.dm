@@ -78,6 +78,9 @@
 	if(istype(I, /obj/item/grab))
 		user.changeNext_move(CLICK_CD_MELEE)
 		var/obj/item/grab/G = I
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='danger'>Swirling [G.affecting] might hurt them!</span>")
+			return
 		if(!G.confirm())
 			return
 		if(isliving(G.affecting))
@@ -136,7 +139,7 @@
 		choices += "Connect"
 		choices += "Rotate"
 
-	var/response = input(user, "What do you want to do?", "[src]") as null|anything in choices
+	var/response = tgui_input_list(user, "What do you want to do?", "[src]", choices)
 	if(!Adjacent(user) || !response)	//moved away or cancelled
 		return
 	switch(response)
@@ -203,6 +206,9 @@
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(!G.confirm())
+			return
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='danger'>Slamming [G.affecting] into [src] might hurt them!</span>")
 			return
 		if(isliving(G.affecting))
 			var/mob/living/GM = G.affecting
@@ -539,7 +545,7 @@
 		if(can_rotate)
 			choices += "Rotate"
 
-	var/response = input(user, "What do you want to do?", "[src]") as null|anything in choices
+	var/response = tgui_input_list(user, "What do you want to do?", "[src]", choices)
 	if(!Adjacent(user) || !response)	//moved away or cancelled
 		return
 	switch(response)
@@ -651,8 +657,8 @@
 /obj/item/bathroom_parts
 	name = "toilet in a box"
 	desc = "An entire toilet in a box, straight from Space Sweden. It has an unpronounceable name."
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "largebox"
+	icon = 'icons/obj/boxes.dmi'
+	icon_state = "large_box"
 	w_class = WEIGHT_CLASS_BULKY
 	var/result = /obj/structure/toilet
 	var/result_name = "toilet"

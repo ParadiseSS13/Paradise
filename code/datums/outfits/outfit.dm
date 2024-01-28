@@ -25,7 +25,7 @@
 	var/internals_slot = null //ID of slot containing a gas tank
 	var/list/backpack_contents = list() // In the list(path=count,otherpath=count) format
 	var/box // Internals box. Will be inserted at the start of backpack_contents
-	var/list/implants = list()
+	var/list/bio_chips = list()
 	var/list/cybernetic_implants = list()
 	var/list/accessories = list()
 
@@ -57,29 +57,29 @@
 
 	//Start with uniform,suit,backpack for additional slots
 	if(uniform)
-		equip_item(H, uniform, slot_w_uniform)
+		equip_item(H, uniform, SLOT_HUD_JUMPSUIT)
 	if(suit)
-		equip_item(H, suit, slot_wear_suit)
+		equip_item(H, suit, SLOT_HUD_OUTER_SUIT)
 	if(back)
-		equip_item(H, back, slot_back)
+		equip_item(H, back, SLOT_HUD_BACK)
 	if(belt)
-		equip_item(H, belt, slot_belt)
+		equip_item(H, belt, SLOT_HUD_BELT)
 	if(gloves)
-		equip_item(H, gloves, slot_gloves)
+		equip_item(H, gloves, SLOT_HUD_GLOVES)
 	if(shoes)
-		equip_item(H, shoes, slot_shoes)
+		equip_item(H, shoes, SLOT_HUD_SHOES)
 	if(head)
-		equip_item(H, head, slot_head)
+		equip_item(H, head, SLOT_HUD_HEAD)
 	if(mask)
-		equip_item(H, mask, slot_wear_mask)
+		equip_item(H, mask, SLOT_HUD_WEAR_MASK)
 	if(l_ear)
-		equip_item(H, l_ear, slot_l_ear)
+		equip_item(H, l_ear, SLOT_HUD_LEFT_EAR)
 	if(r_ear)
-		equip_item(H, r_ear, slot_r_ear)
+		equip_item(H, r_ear, SLOT_HUD_RIGHT_EAR)
 	if(glasses)
-		equip_item(H, glasses, slot_glasses)
+		equip_item(H, glasses, SLOT_HUD_GLASSES)
 	if(id)
-		equip_item(H, id, slot_wear_id)
+		equip_item(H, id, SLOT_HUD_WEAR_ID)
 
 	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
 		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit
@@ -89,7 +89,7 @@
 		C.quick_activation()
 
 	if(suit_store)
-		equip_item(H, suit_store, slot_s_store)
+		equip_item(H, suit_store, SLOT_HUD_SUIT_STORE)
 
 	if(l_hand)
 		H.put_in_l_hand(new l_hand(H))
@@ -97,7 +97,7 @@
 		H.put_in_r_hand(new r_hand(H))
 
 	if(pda)
-		equip_item(H, pda, slot_wear_pda)
+		equip_item(H, pda, SLOT_HUD_WEAR_PDA)
 
 	if(uniform)
 		for(var/path in accessories)
@@ -107,9 +107,9 @@
 
 	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
 		if(l_pocket)
-			equip_item(H, l_pocket, slot_l_store)
+			equip_item(H, l_pocket, SLOT_HUD_LEFT_STORE)
 		if(r_pocket)
-			equip_item(H, r_pocket, slot_r_store)
+			equip_item(H, r_pocket, SLOT_HUD_RIGHT_STORE)
 
 		if(box)
 			if(!backpack_contents)
@@ -122,7 +122,7 @@
 			if(!number)
 				number = 1
 			for(var/i in 1 to number)
-				H.equip_or_collect(new path(H), slot_in_backpack)
+				H.equip_or_collect(new path(H), SLOT_HUD_IN_BACKPACK)
 
 		for(var/path in cybernetic_implants)
 			var/obj/item/organ/internal/O = new path
@@ -136,9 +136,9 @@
 			H.internal = H.get_item_by_slot(internals_slot)
 			H.update_action_buttons_icon()
 
-	if(implants)
-		for(var/implant_type in implants)
-			var/obj/item/implant/I = new implant_type(H)
+	if(bio_chips)
+		for(var/bio_chip_type in bio_chips)
+			var/obj/item/bio_chip/I = new bio_chip_type(H)
 			I.implant(H, null)
 
 	H.update_body()
@@ -232,12 +232,12 @@
 			backpack_contents[itype] = backpack[item]
 	box = text2path(outfit_data["box"])
 
-	var/list/impl = outfit_data["implants"]
-	implants = list()
+	var/list/impl = outfit_data["bio_chips"]
+	bio_chips = list()
 	for(var/I in impl)
 		var/imptype = text2path(I)
 		if(imptype)
-			implants += imptype
+			bio_chips += imptype
 
 	var/list/cybernetic_impl = outfit_data["cybernetic_implants"]
 	cybernetic_implants = list()
@@ -281,7 +281,7 @@
 	.["internals_slot"] = internals_slot
 	.["backpack_contents"] = backpack_contents
 	.["box"] = box
-	.["implants"] = implants
+	.["bio_chips"] = bio_chips
 	.["cybernetic_implants"] = cybernetic_implants
 	.["accessories"] = accessories
 

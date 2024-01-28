@@ -296,9 +296,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 		for(var/obj/item/radio/R in new_connection.devices["[RADIO_CHAT]"])
 
-			if(istype(R, /obj/item/radio/headset))
-				continue
-
 			if(R.receive_range(display_freq, tcm.zlevels) > -1)
 				radios += R
 

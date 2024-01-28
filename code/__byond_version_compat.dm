@@ -1,5 +1,5 @@
 // This file contains defines allowing targeting byond versions newer than the supported
-
+//TODO: REMOVE THE 514 STUFF WHEN DREAMCHECKER AND DM LANG SERVER GET THEIR ACT TOGETHER
 // So we want to have compile time guarantees these procs exist on local type, unfortunately 515 killed the .proc/procname syntax so we have to use nameof()
 #if DM_VERSION < 515
 #define PROC_REF(X) (.proc/##X)

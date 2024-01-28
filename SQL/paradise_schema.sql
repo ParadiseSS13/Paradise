@@ -67,6 +67,8 @@ CREATE TABLE `characters` (
   `organ_data` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `rlimb_data` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `nanotrasen_relation` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `physique` varchar(45) NULL DEFAULT NULL COLLATE utf8mb4_unicode_ci,
+  `height` varchar(45) NULL DEFAULT NULL COLLATE utf8mb4_unicode_ci,
   `speciesprefs` int(1) NOT NULL,
   `socks` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `body_accessory` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -474,7 +476,17 @@ CREATE TABLE `playtime_history` (
   `ckey` varchar(32) NOT NULL,
   `date` DATE NOT NULL,
   `time_living` SMALLINT NOT NULL,
+  `time_crew` SMALLINT NOT NULL,
+  `time_special` SMALLINT NOT NULL,
   `time_ghost` SMALLINT NOT NULL,
+  `time_command` SMALLINT NOT NULL,
+  `time_engineering` SMALLINT NOT NULL,
+  `time_medical` SMALLINT NOT NULL,
+  `time_science` SMALLINT NOT NULL,
+  `time_supply` SMALLINT NOT NULL,
+  `time_security` SMALLINT NOT NULL,
+  `time_silicon` SMALLINT NOT NULL,
+  `time_service` SMALLINT NOT NULL,
   PRIMARY KEY (`ckey`, `date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

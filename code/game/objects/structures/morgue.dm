@@ -43,16 +43,33 @@
 	update_icon(update_state())
 	set_light(1, LIGHTING_MINIMUM_POWER)
 
-/obj/structure/morgue/proc/update_state()
-	. = UPDATE_OVERLAYS
+/obj/structure/morgue/proc/get_revivable(closing)
+	var/mob/living/M = locate() in contents
+	var/obj/structure/closet/body_bag/B = locate() in contents
 
+	if(!M)
+		M = locate() in B
+
+	if(!M)
+		return
+
+	if(closing)
+		RegisterSignal(M, COMSIG_LIVING_GHOSTIZED, PROC_REF(update_state))
+		RegisterSignal(M, COMSIG_LIVING_REENTERED_BODY, PROC_REF(update_state))
+		RegisterSignal(M, COMSIG_LIVING_SET_DNR, PROC_REF(update_state))
+	else
+		UnregisterSignal(M, COMSIG_LIVING_GHOSTIZED)
+		UnregisterSignal(M, COMSIG_LIVING_REENTERED_BODY)
+		UnregisterSignal(M, COMSIG_LIVING_SET_DNR)
+
+/obj/structure/morgue/proc/update_state()
 	if(connected)
 		status = EXTENDED_TRAY
-		return
+		return update_icon(UPDATE_OVERLAYS)
 
 	if(!length(contents))
 		status = EMPTY_MORGUE
-		return
+		return update_icon(UPDATE_OVERLAYS)
 
 	var/mob/living/M = locate() in contents
 	var/obj/structure/closet/body_bag/B = locate() in contents
@@ -62,20 +79,21 @@
 
 	if(!M)
 		status = NOT_BODY
-		return
+		return update_icon(UPDATE_OVERLAYS)
 
 	var/mob/dead/observer/G = M.get_ghost()
 
 	if(M.mind && !M.mind.suicided && !M.suiciding)
 		if(M.client)
 			status = REVIVABLE
-			return
+			return update_icon(UPDATE_OVERLAYS)
 
 		if(G && G.client) //There is a ghost and it is connected to the server
 			status = GHOST_CONNECTED
-			return
+			return update_icon(UPDATE_OVERLAYS)
 
 	status = UNREVIVABLE
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/morgue/update_overlays()
 	. = ..()
@@ -120,17 +138,39 @@
 /obj/structure/morgue/attack_hand(mob/user as mob)
 	if(connected)
 		for(var/atom/movable/A in connected.loc)
-			if(!( A.anchored ))
+			if(!A.anchored)
 				A.forceMove(src)
+		get_revivable(TRUE)
 		playsound(loc, open_sound, 50, 1)
 		QDEL_NULL(connected)
 	else
 		playsound(loc, open_sound, 50, 1)
+		get_revivable(FALSE)
 		connect()
 
 	add_fingerprint(user)
-	update_icon(update_state())
+	update_state()
 	return
+
+/obj/structure/morgue/attack_ai(mob/user)
+	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
+		attack_hand(user)
+
+/obj/structure/morgue/attack_animal(mob/living/user)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+	if(user.mob_size < MOB_SIZE_HUMAN)
+		return ..()
+	if(!user.mind) //Stops mindless mobs from doing weird stuff with them
+		return ..()
+	attack_hand(user)
+
+/obj/structure/morgue/attack_alien(mob/user)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+	if(!user.mind)
+		return ..()
+	attack_hand(user)
 
 /obj/structure/morgue/attackby(P as obj, mob/user as mob, params)
 	if(is_pen(P))
@@ -221,7 +261,7 @@
 /obj/structure/m_tray/attack_hand(mob/user as mob)
 	if(connected)
 		for(var/atom/movable/A as mob|obj in loc)
-			if(!( A.anchored ))
+			if(!A.anchored)
 				A.forceMove(connected)
 		connected.connected = null
 		connected.update_icon(connected.update_state())
@@ -524,7 +564,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 
 /obj/structure/c_tray/MouseDrop_T(atom/movable/O, mob/living/user)
-	if((!( istype(O, /atom/movable) ) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src) || user.contents.Find(O)))
+	if((!istype(O, /atom/movable) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src) || user.contents.Find(O)))
 		return
 	if(!ismob(O) && !istype(O, /obj/structure/closet/body_bag))
 		return

@@ -27,8 +27,11 @@
 	if(owner.som)
 		owner.som.serv -= owner
 		owner.som.leave_serv_hud(owner)
-	// Remove the reference but turn this into a string so it can still be used in /datum/antagonist/mindslave/farewell().
-	master = "[master.current.real_name]"
+	// Remove the master reference but turn this into a string so it can still be used in /datum/antagonist/mindslave/farewell().
+	if(master.current)
+		master = "[master.current.real_name]"
+	else
+		master = "[master]"
 	return ..()
 
 /datum/antagonist/mindslave/on_gain()
@@ -55,16 +58,15 @@
 
 /datum/antagonist/mindslave/give_objectives()
 	var/explanation_text = "Obey every order from and protect [master.current.real_name], the [master.assigned_role ? master.assigned_role : master.special_role]."
-	add_objective(/datum/objective/protect/mindslave, explanation_text, master)
+	add_antag_objective(/datum/objective/protect/mindslave, explanation_text, master)
 
 /datum/antagonist/mindslave/greet()
-	var/mob/living/carbon/human/mindslave = owner.current
 	// Show them the custom greeting text if it exists.
 	if(greet_text)
-		to_chat(mindslave, "<span class='biggerdanger'>[greet_text]</span>")
+		return "<span class='biggerdanger'>[greet_text]</span>"
 	else // Default greeting text if nothing is given.
-		to_chat(mindslave, "<span class='biggerdanger'><B>You are now completely loyal to [master.current.name]!</B> \
-							You must lay down your life to protect [master.current.p_them()] and assist in [master.current.p_their()] goals at any cost.</span>")
+		return "<span class='biggerdanger'><b>You are now completely loyal to [master.current.name]!</b> \
+							You must lay down your life to protect [master.current.p_them()] and assist in [master.current.p_their()] goals at any cost.</span>"
 
 /datum/antagonist/mindslave/farewell()
 	if(owner && owner.current)

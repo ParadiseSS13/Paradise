@@ -4,7 +4,7 @@
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "s-casing"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
 	var/fire_sound = null						//What sound should play when this ammo is fired
@@ -100,7 +100,7 @@
 
 
 /obj/item/ammo_casing/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!BB)
+	if(isdrone(user) && !BB)
 		C.stored_comms["metal"] += 1
 		qdel(src)
 		return TRUE
@@ -119,7 +119,7 @@
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "10mmbox" // placeholder icon
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	item_state = "syringe_kit"
 	materials = list(MAT_METAL = 30000)
 	throwforce = 2

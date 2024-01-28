@@ -19,7 +19,7 @@
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
 	armor = list(MELEE = 35, BULLET = 20, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 20, FIRE = 450, ACID = 50)
-	flags = NOSLIP
+	no_slip = TRUE
 
 /obj/item/clothing/shoes/sandal
 	name = "sandals"
@@ -45,7 +45,7 @@
 	desc = "A pair of yellow rubber boots, designed to prevent slipping on wet surfaces."
 	icon_state = "galoshes"
 	permeability_coefficient = 0.05
-	flags = NOSLIP
+	no_slip = TRUE
 	slowdown = SHOES_SLOWDOWN+1
 	strip_delay = 50
 	put_on_delay = 50
@@ -56,6 +56,11 @@
 	name = "absorbent galoshes"
 	desc = "A pair of purple rubber boots, designed to prevent slipping on wet surfaces while also drying them."
 	icon_state = "galoshes_dry"
+
+/obj/item/clothing/shoes/galoshes/dry/lightweight /// for red janitor ert.
+	name = "lightweight absorbent galoshes"
+	desc = "A pair of expensive looking lightweight rubber boots, designed to prevent slipping on wet surfaces while also drying them."
+	slowdown = NONE
 
 /obj/item/clothing/shoes/galoshes/dry/Initialize(mapload)
 	. = ..()
@@ -83,7 +88,7 @@
 
 /obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot)
 	. = ..()
-	if(slot == slot_shoes && enabled_waddle)
+	if(slot == SLOT_HUD_SHOES && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/clown_shoes/dropped(mob/user)
@@ -114,6 +119,10 @@
 	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And powerful! Somehow."
 	magical = TRUE
 
+/obj/item/clothing/shoes/clown_shoes/magical/nodrop
+	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And stuck to your feet!"
+	flags = NODROP
+
 /obj/item/clothing/shoes/clown_shoes/slippers
 	actions_types = list(/datum/action/item_action/slipping)
 	enabled_waddle = FALSE
@@ -123,12 +132,14 @@
 	var/recharging_time = 0
 
 /obj/item/clothing/shoes/clown_shoes/slippers/item_action_slot_check(slot, mob/user)
-	if(slot == slot_shoes)
+	if(slot == SLOT_HUD_SHOES)
 		return TRUE
 
 /obj/item/clothing/shoes/clown_shoes/slippers/proc/slide_one(mob/living/user, progress, prev_dir , prev_flags)
 	user.dir = prev_dir
 	step(user, user.dir)
+	for(var/mob/living/carbon/crossed in user.loc)
+		crossed.slip(src, 16 SECONDS, 0, FALSE, TRUE, "trip")
 	if(progress == slide_distance)
 		user.stand_up()
 		user.pass_flags = prev_flags
@@ -174,6 +185,14 @@
 	can_cut_open = 0
 	icon_state = "jacksandal"
 	item_color = "jacksandal"
+
+/obj/item/clothing/shoes/jackboots/noisy
+	name = "heavy jackboots"
+	desc = "Outdated heavier versions of the standard Nanotrasen-issue Security combat boots. Pick up that can."
+
+/obj/item/clothing/shoes/jackboots/noisy/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/effects/jackboot1.ogg' = 1, 'sound/effects/jackboot2.ogg' = 1), 50, falloff_exponent = 20)
 
 /obj/item/clothing/shoes/workboots
 	name = "work boots"
@@ -391,7 +410,7 @@
 	var/recharging_time = 0 //time until next dash
 
 /obj/item/clothing/shoes/bhop/item_action_slot_check(slot)
-	if(slot == slot_shoes)
+	if(slot == SLOT_HUD_SHOES)
 		return TRUE
 
 /obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)

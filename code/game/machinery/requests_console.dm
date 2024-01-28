@@ -1,7 +1,8 @@
 /******************** Requests Console ********************/
 /** Originally written by errorage, updated by: Carn, needs more work though. I just added some security fixes */
 
-//Request Console Department Types
+//Request Console Department Types.
+//For one console to be under multiple categories, you need to add the numbers with each other. For example, value of 6 will allow you to request supplies and relay info to that specific console.
 #define RC_ASSIST 1		//Request Assistance
 #define RC_SUPPLY 2		//Request Supplies
 #define RC_INFO   4		//Relay Info
@@ -19,13 +20,14 @@
 #define RCS_SHIPPING 9	// Print Shipping Labels/Packages
 #define RCS_SHIP_LOG 10	// View Shipping Label Log
 
-//Radio list
+//Radio list. For a console to announce messages on a specific radio, it's "department" variable must be in the list below.
 #define ENGI_ROLES list("Atmospherics", "Engineering", "Chief Engineer's Desk")
 #define SEC_ROLES list("Warden", "Security", "Detective", "Head of Security's Desk")
 #define MISC_ROLES list("Bar", "Chapel", "Kitchen", "Hydroponics", "Janitorial")
 #define MED_ROLES list("Virology", "Chief Medical Officer's Desk", "Medbay")
 #define COM_ROLES list("Blueshield", "NT Representative", "Head of Personnel's Desk", "Captain's Desk", "Bridge")
 #define SCI_ROLES list("Robotics", "Science", "Research Director's Desk")
+#define SUPPLY_ROLES list("Cargo Bay", "Mining Dock", "Mining Outpost", "Quartermaster's Desk")
 
 GLOBAL_LIST_EMPTY(req_console_assistance)
 GLOBAL_LIST_EMPTY(req_console_supplies)
@@ -37,7 +39,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	desc = "A console intended to send requests to different departments on the station."
 	anchored = TRUE
 	icon = 'icons/obj/terminals.dmi'
-	icon_state = "req_comp0"
+	icon_state = "req_comp_off"
 	max_integrity = 300
 	armor = list(MELEE = 70, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, RAD = 0, FIRE = 90, ACID = 90)
 	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
@@ -73,13 +75,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
-/obj/machinery/requests_console/update_icon_state()
-	if(stat & NOPOWER)
-		if(icon_state != "req_comp_off")
-			icon_state = "req_comp_off"
-	else
-		icon_state = "req_comp[newmessagepriority]"
-
 /obj/machinery/requests_console/update_overlays()
 	. = ..()
 	underlays.Cut()
@@ -87,11 +82,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(stat & NOPOWER)
 		return
 
-	if(newmessagepriority == RQ_NONEW_MESSAGES)
-		underlays += emissive_appearance(icon, "req_comp_lightmask")
-	else
-		underlays += emissive_appearance(icon, "req_comp2_lightmask")
+	. += "req_comp[newmessagepriority]"
 
+	underlays += emissive_appearance(icon, "req_comp_lightmask")
 
 /obj/machinery/requests_console/Initialize(mapload)
 	Radio = new /obj/item/radio(src)
@@ -144,10 +137,13 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	ui_interact(user)
 
-/obj/machinery/requests_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/requests_console/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/requests_console/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RequestConsole", "[department] Request Console", 520, 410, master_ui, state)
+		ui = new(user, src, "RequestConsole", "[department] Request Console")
 		ui.open()
 
 /obj/machinery/requests_console/ui_data(mob/user)
@@ -244,7 +240,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 					radiochannel = "Science"
 				else if(recipient == "AI")
 					radiochannel = "AI Private"
-				else if(recipient == "Cargo Bay")
+				else if(recipient in SUPPLY_ROLES)
 					radiochannel = "Supply"
 				message_log.Add(list(list("Message sent to [recipient] at [station_time_timestamp()]", "[message]")))
 				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
@@ -261,7 +257,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
 					if(Console.department == department)
 						Console.newmessagepriority = RQ_NONEW_MESSAGES
-						Console.icon_state = "req_comp0"
+						Console.update_icon(UPDATE_OVERLAYS)
 						Console.set_light(1)
 			if(tempScreen == RCS_MAINMENU)
 				reset_message()

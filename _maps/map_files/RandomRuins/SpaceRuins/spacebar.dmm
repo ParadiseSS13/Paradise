@@ -23,11 +23,8 @@
 	},
 /area/ruin/space/powered/bar)
 "af" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
-/area/ruin/space/powered)
-"ag" = (
-/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
 "ah" = (
 /obj/effect/decal/remains/human,
@@ -168,12 +165,14 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "aP" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/marker_beacon/dock_marker,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "aQ" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "aS" = (
@@ -324,7 +323,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "bo" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "bq" = (
@@ -335,8 +336,10 @@
 /turf/template_noop,
 /area/space/nearstation)
 "bt" = (
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plating/airless,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "bF" = (
 /obj/machinery/light/small{
@@ -368,7 +371,7 @@
 	pixel_y = -3
 	},
 /obj/item/clothing/suit/hgpirate,
-/obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer,
+/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer,
 /obj/item/clothing/gloves/ring/gold,
 /obj/item/id_decal/gold,
 /obj/item/screwdriver,
@@ -465,7 +468,7 @@
 /area/space/nearstation)
 "mb" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "mu" = (
@@ -541,7 +544,7 @@
 /area/ruin/space/powered/bar)
 "vD" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "vE" = (
@@ -608,7 +611,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "zy" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/space/nearstation)
 "zC" = (
@@ -663,8 +666,12 @@
 	id_tag = "pod cycle";
 	name = "airlock dock"
 	},
-/obj/effect/decal/warning_stripes/south,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "DT" = (
@@ -892,9 +899,11 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "RX" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/marker_beacon/dock_marker,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Sy" = (
 /turf/simulated/floor/plasteel{
@@ -958,8 +967,12 @@
 	id_tag = "pod cycle";
 	name = "airlock dock"
 	},
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "ZM" = (
@@ -1136,7 +1149,7 @@ ac
 ac
 ab
 ab
-ag
+JK
 ai
 ai
 aG
@@ -1187,24 +1200,24 @@ ad
 ab
 ab
 ab
-ag
+JK
 bj
 ai
-ag
+JK
 Nr
-ag
-ag
-ag
+JK
+JK
+JK
 aG
 af
 af
 af
 af
 aG
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
 aG
 ab
 ab
@@ -1240,23 +1253,23 @@ ab
 ab
 ab
 ai
-ag
+JK
 Ow
-ag
-ag
-ag
+JK
+JK
+JK
 bj
-ag
+JK
 Nr
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
 Nr
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
 QG
 ai
 ai
@@ -1290,29 +1303,29 @@ ad
 ad
 ab
 ab
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
 ai
 ai
-ag
+JK
 bj
 ai
 ai
-ag
+JK
 ai
-ag
-ag
+JK
+JK
 Ow
 bj
-ag
+JK
 af
 ad
 ad
@@ -1343,26 +1356,26 @@ ab
 ab
 ab
 bj
-ag
+JK
 aj
 aj
 aj
 aA
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
 bj
 ai
 ai
 ai
 ai
 Ow
-ag
+JK
 bj
-ag
-ag
-ag
+JK
+JK
+JK
 bq
 aJ
 aJ
@@ -1395,27 +1408,27 @@ ab
 ab
 ab
 ai
-ag
+JK
 ak
 Cx
 ax
 aB
-ag
-ag
-ag
+JK
+JK
+JK
 ai
-ag
-ag
-ai
-ai
+JK
+JK
 ai
 ai
-ag
-ag
-ag
-ag
-ag
-ag
+ai
+ai
+JK
+JK
+JK
+JK
+JK
+JK
 RX
 au
 aP
@@ -1447,27 +1460,27 @@ ab
 ac
 ab
 ab
-ag
+JK
 aj
 aj
 aj
 aA
-ag
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
+JK
 ai
 ai
-ag
+JK
 bj
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
 bj
-ag
-ag
+JK
+JK
 bt
 au
 bo
@@ -1501,25 +1514,25 @@ ac
 ab
 ai
 Ow
-ag
-ag
-ag
+JK
+JK
+JK
 bj
-ag
-ag
-ag
+JK
+JK
+JK
 Ow
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
 bt
 au
 bo
@@ -1553,25 +1566,25 @@ ab
 ab
 ai
 ai
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
 bt
 au
 bo
@@ -1603,27 +1616,27 @@ ab
 ab
 ab
 ab
-ag
-ag
-ag
+JK
+JK
+JK
 aj
 aj
 aj
 aA
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
 aj
 aj
 aj
 aA
-ag
-ag
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
+JK
+JK
 RX
 au
 aP
@@ -1655,26 +1668,26 @@ ac
 ab
 ab
 Ow
-ag
+JK
 bj
-ag
+JK
 ak
 ax
 ax
 aB
-ag
-ag
+JK
+JK
 bj
-ag
+JK
 ak
 ax
 ax
 aB
-ag
-ag
-ag
+JK
+JK
+JK
 bj
-ag
+JK
 bq
 aJ
 aJ
@@ -1706,25 +1719,25 @@ ac
 ab
 ab
 ab
-ag
+JK
 Nl
-ag
-ag
+JK
+JK
 aj
 aj
 aj
 aA
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
 aj
 aj
 aj
 aA
-ag
-ag
-ag
+JK
+JK
+JK
 Ow
 Nl
 Ow
@@ -1761,20 +1774,20 @@ Np
 ai
 Ow
 Ow
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
 bj
-ag
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
+JK
 Ow
 bj
 ai
@@ -1813,20 +1826,20 @@ ab
 ab
 ab
 ai
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
 ai
 ai
 ai
@@ -1864,16 +1877,16 @@ ab
 ab
 ab
 ai
-ag
+JK
 ai
-ag
+JK
 ai
 vT
 FO
 rN
-ag
-ag
-ag
+JK
+JK
+JK
 JW
 KO
 ai
@@ -1881,8 +1894,8 @@ ai
 ai
 ai
 ai
-ag
-ag
+JK
+JK
 ai
 ai
 ab
@@ -1917,7 +1930,7 @@ ab
 ab
 ab
 ab
-ag
+JK
 ai
 ai
 am
@@ -1934,8 +1947,8 @@ ai
 ai
 JK
 ai
-ag
-ag
+JK
+JK
 ab
 ab
 ab

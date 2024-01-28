@@ -5,7 +5,7 @@
 	icon_state = "revolver_bright"
 	item_state = "gun"
 	flags =  CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	materials = list(MAT_METAL=2000)
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
@@ -33,6 +33,7 @@
 	var/fire_delay = 0					//rate of fire for burst firing and semi auto
 	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
 	var/semicd = 0						//cooldown handler
+	var/execution_speed = 6 SECONDS
 	var/weapon_weight = WEAPON_LIGHT
 	var/list/restricted_species
 
@@ -75,6 +76,7 @@
 	if(gun_light)
 		verbs += /obj/item/gun/proc/toggle_gunlight
 	build_zooming()
+	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
 /obj/item/gun/Destroy()
 	QDEL_NULL(bayonet)
@@ -115,6 +117,7 @@
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
+
 	if(recoil)
 		shake_camera(user, recoil + 1, recoil)
 
@@ -186,7 +189,7 @@
 				user.drop_item()
 				return
 
-	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_hand())
+	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && user.get_inactive_hand())
 		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")
 		return
 
@@ -222,7 +225,7 @@
 
 	if(semicd)
 		return
-
+	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
 	var/sprd = 0
 	var/randomized_gun_spread = 0
 	if(spread)
@@ -239,7 +242,7 @@
 			if(!user)
 				break
 			if(!issilicon(user))
-				if( i>1 && !(src in get_both_hands(user))) //for burst firing
+				if(i>1 && !(src in get_both_hands(user))) //for burst firing
 					break
 			if(chambered)
 				sprd = round((pick(0.5, -0.5)) * (randomized_gun_spread + randomized_bonus_spread))
@@ -365,10 +368,6 @@
 		clear_bayonet()
 
 /obj/item/gun/proc/toggle_gunlight()
-	set name = "Toggle Gun Light"
-	set category = "Object"
-	set desc = "Click to toggle your weapon's attached flashlight."
-
 	if(!gun_light)
 		return
 	gun_light.on = !gun_light.on
@@ -422,14 +421,25 @@
 		reskin_gun(user)
 
 /obj/item/gun/proc/reskin_gun(mob/M)
-	var/choice = input(M,"Warning, you can only reskin your weapon once!","Reskin Gun") in options
+	var/list/skins = list()
+	for(var/I in options)
+		skins[I] = image(icon, icon_state = options[I])
+	var/choice = show_radial_menu(M, src, skins, radius = 40, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), M), require_near = TRUE)
 
-	if(src && choice && !current_skin && !M.incapacitated() && in_range(M,src))
-		if(options[choice] == null)
-			return
+	if(choice && reskin_radial_check(M) && !current_skin)
 		current_skin = options[choice]
 		to_chat(M, "Your gun is now skinned as [choice]. Say hello to your new friend.")
 		update_icon()
+		M.update_inv_r_hand()
+		M.update_inv_l_hand()
+
+/obj/item/gun/proc/reskin_radial_check(mob/user)
+	if(!ishuman(user))
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	if(!src || !H.is_in_hands(src) || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
+		return FALSE
+	return TRUE
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params)
 	if(!ishuman(user) || !ishuman(target))
@@ -447,7 +457,7 @@
 
 	semicd = 1
 
-	if(!do_mob(user, target, 120) || user.zone_selected != "mouth")
+	if(!do_mob(user, target, execution_speed) || user.zone_selected != "mouth")
 		if(user)
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] decided life was worth living.</span>")
@@ -547,7 +557,7 @@
  */
 /obj/item/gun/proc/ZoomGrantCheck(datum/source, mob/user, slot)
 	// Checks if the gun got equipped into either of the user's hands.
-	if(slot != slot_r_hand && slot != slot_l_hand)
+	if(slot != SLOT_HUD_RIGHT_HAND && slot != SLOT_HUD_LEFT_HAND)
 		// If its not in their hands, un-zoom, and remove the zoom action button.
 		zoom(user, FALSE)
 		azoom.Remove(user)

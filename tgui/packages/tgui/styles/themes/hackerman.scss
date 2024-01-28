@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 @use 'sass:color';
 @use 'sass:meta';
 
@@ -8,8 +13,7 @@
 );
 @use '../base.scss' with (
   $color-bg: #121b12,
-  $color-bg-grad-spread: 0%,
-  $border-radius: 2px
+  $color-bg-grad-spread: 0%
 );
 
 .theme-hackerman {
@@ -21,13 +25,17 @@
     '../components/Button.scss',
     $with: (
       'color-default': colors.$primary,
-      'color-disabled': #4a6a4a,
+      'color-disabled': #363636,
       'color-selected': #00ff00
     )
   );
   @include meta.load-css(
     '../components/Input.scss',
     $with: ('border-color': colors.$primary)
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: ('color-disabled': #363636)
   );
   @include meta.load-css('../components/Modal.scss');
   @include meta.load-css('../components/Section.scss');
@@ -37,7 +45,7 @@
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('color-background': #223d22)
+    $with: ('background-color': #223d22)
   );
 
   .Layout__content {
@@ -46,10 +54,10 @@
 
   .Button {
     font-family: monospace;
-    border-width: 2px;
+    border-width: base.em(2px);
     border-style: outset;
     border-color: #00aa00;
-    outline: 1px solid rgb(0, 122, 0);
+    outline: base.em(1px) solid rgb(0, 122, 0);
   }
 
   .candystripe:nth-child(odd) {

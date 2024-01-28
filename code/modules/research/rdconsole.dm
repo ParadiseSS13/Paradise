@@ -96,39 +96,22 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return initial(tt.name)
 
 /proc/CallMaterialName(ID)
-	if(copytext(ID, 1, 2) == "$")
-		var/return_name = copytext(ID, 2)
-		switch(return_name)
-			if("metal")
-				return_name = "Metal"
-			if("glass")
-				return_name = "Glass"
-			if("gold")
-				return_name = "Gold"
-			if("silver")
-				return_name = "Silver"
-			if("plasma")
-				return_name = "Solid Plasma"
-			if("uranium")
-				return_name = "Uranium"
-			if("diamond")
-				return_name = "Diamond"
-			if("clown")
-				return_name = "Bananium"
-			if("mime")
-				return_name = "Tranquillite"
-			if("titanium")
-				return_name = "Titanium"
-			if("bluespace")
-				return_name = "Bluespace Mesh"
-			if("plastic")
-				return_name = "Plastic"
-		return return_name
-	else
-		for(var/R in subtypesof(/datum/reagent))
-			var/datum/reagent/rt = R
-			if(initial(rt.id) == ID)
-				return initial(rt.name)
+	var/return_name = ID
+	switch(return_name)
+		if("plasma")
+			return_name = "Solid Plasma"
+		if("clown")
+			return_name = "Bananium"
+		if("mime")
+			return_name = "Tranquillite"
+		if("bluespace")
+			return_name = "Bluespace Mesh"
+		else
+			for(var/R in subtypesof(/datum/reagent))
+				var/datum/reagent/rt = R
+				if(initial(rt.id) == ID)
+					return_name = initial(rt.name)
+	return capitalize(return_name)
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
 	for(var/obj/machinery/r_n_d/D in range(range, src))
@@ -372,7 +355,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	linked_destroy.busy = FALSE
 	use_power(DECONSTRUCT_POWER)
-	menu = MENU_MAIN
+	menu = MENU_DESTROY
 	submenu = SUBMENU_MAIN
 	SStgui.update_uis(src)
 
@@ -459,8 +442,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/proc/finish_machine(key, amount, enough_materials,  obj/machinery/r_n_d/machine, datum/design/being_built, list/efficient_mats)
 	if(machine)
 		if(enough_materials && being_built)
+			SSblackbox.record_feedback("nested tally", "RND Production List", amount, list("[being_built.category]", "[being_built.name]"))
 			for(var/i in 1 to amount)
 				var/obj/item/new_item = new being_built.build_path(src)
+				new_item.pixel_x = rand(-5, 5)
+				new_item.pixel_y = rand(-5, 5)
 				if(istype(new_item, /obj/item/storage/backpack/holding))
 					new_item.investigate_log("built by [key]","singulo")
 				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
@@ -703,10 +689,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return TRUE
 	ui_interact(user)
 
-/obj/machinery/computer/rdconsole/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/rdconsole/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/rdconsole/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RndConsole", name, 800, 550, master_ui, state)
+		ui = new(user, src, "RndConsole", name)
 		ui.open()
 
 /obj/machinery/computer/rdconsole/proc/ui_machine_data(obj/machinery/r_n_d/machine, list/data)
@@ -729,7 +718,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/is_lathe = istype(machine, /obj/machinery/r_n_d/protolathe)
 	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
 
-	if (!is_lathe && !is_imprinter)
+	if(!is_lathe && !is_imprinter)
 		return
 
 	var/coeff = machine.efficiency_coeff

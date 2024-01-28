@@ -10,7 +10,7 @@
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "bluespace=2"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
 	user.visible_message("<span class='notice'>[user.name] activates the [name]!</span>")
@@ -52,7 +52,7 @@
 	qdel(src)
 
 /obj/item/wormhole_jaunter/proc/chasm_react(mob/user)
-	if(user.get_item_by_slot(slot_belt) == src)
+	if(user.get_item_by_slot(SLOT_HUD_BELT) == src)
 		to_chat(user, "Your [name] activates, saving you from the chasm!</span>")
 		activate(user, FALSE)
 	else
@@ -98,10 +98,13 @@
 	item_state = "flare"
 	var/destination
 
-/obj/item/wormhole_jaunter/contractor/verb/set_destination()
-	set category = "Object"
-	set name = "Change Portal Destination"
-	set src in usr
+/obj/item/wormhole_jaunter/contractor/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>You can <b>Alt-Click</b> [src] to change its destination!</span>"
+
+/obj/item/wormhole_jaunter/contractor/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
 	var/list/L = list()
 	var/list/areaindex = list()
@@ -121,7 +124,6 @@
 
 	var/desc = input("Please select a location to target.", "Flare Target Interface") in L
 	destination = L[desc]
-	return
 
 /obj/item/wormhole_jaunter/contractor/attack_self(mob/user) // message is later down
 	activate(user, TRUE)
@@ -144,7 +146,7 @@
 
 /obj/item/wormhole_jaunter/contractor/proc/create_portal(turf/destination)
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
-	new /obj/effect/portal/redspace/getaway(get_turf(src), get_turf(destination), src, 100)
+	new /obj/effect/portal/advanced/getaway(get_turf(src), get_turf(destination), src, 100)
 	qdel(src)
 
 /obj/item/wormhole_jaunter/contractor/emag_act(mob/user)
@@ -160,7 +162,7 @@
 	new /obj/item/wormhole_jaunter/contractor(src)
 	new /obj/item/radio/beacon/emagged(src)
 
-/obj/effect/portal/redspace/getaway
+/obj/effect/portal/advanced/getaway
 	one_use = TRUE
 
 /obj/effect/temp_visual/getaway_flare // Because the original contractor flare is not a temp visual, for some reason.
@@ -173,3 +175,49 @@
 	. = ..()
 	playsound(loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
 	set_light(8, l_color = "#FFD165")
+
+/obj/item/grenade/jaunter_grenade
+	name = "chasm jaunter recovery grenade"
+	desc = "NT-Drunk Dialer Grenade. Originally built by NT for locating all beacons in an area and creating wormholes to them, it now finds use to miners for recovering allies from chasms."
+	icon_state = "mirage"
+	/// Mob that threw the grenade.
+	var/mob/living/thrower
+
+/obj/item/grenade/jaunter_grenade/Destroy()
+	thrower = null
+	return ..()
+
+/obj/item/grenade/jaunter_grenade/attack_self(mob/user)
+	. = ..()
+	thrower = user
+
+/obj/item/grenade/jaunter_grenade/prime()
+	update_mob()
+	var/list/destinations = list()
+	for(var/obj/item/radio/beacon/B in GLOB.global_radios)
+		var/turf/BT = get_turf(B)
+		if(is_station_level(BT.z))
+			destinations += BT
+	var/turf/T = get_turf(src)
+	if(istype(T, /turf/simulated/floor/chasm/straight_down/lava_land_surface))
+		for(var/obj/effect/abstract/chasm_storage/C in T)
+			var/found_mob = FALSE
+			for(var/mob/M in C)
+				found_mob = TRUE
+				do_teleport(M, pick(destinations))
+			if(found_mob)
+				new /obj/effect/temp_visual/thunderbolt(T) //Visual feedback it worked.
+				playsound(src, 'sound/magic/lightningbolt.ogg', 100, TRUE)
+		qdel(src)
+		return
+
+	var/list/portal_turfs = list()
+	for(var/turf/PT in circleviewturfs(T, 3))
+		if(!PT.density)
+			portal_turfs += PT
+	playsound(src, 'sound/magic/lightningbolt.ogg', 100, TRUE)
+	for(var/turf/drunk_dial in shuffle(destinations))
+		var/drunken_opening = pick_n_take(portal_turfs)
+		new /obj/effect/portal/jaunt_tunnel(drunken_opening, drunk_dial, src, 100, thrower)
+		new /obj/effect/temp_visual/thunderbolt(drunken_opening)
+	qdel(src)

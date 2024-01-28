@@ -55,6 +55,14 @@
 		audible_message("[bicon(src)] *beep* *beep*")
 		toggle_scan()
 
+/obj/item/assembly/health/pickup(mob/user)
+	..()
+	ADD_TRAIT(user, TRAIT_CAN_VIEW_HEALTH, "HEALTH[UID()]")
+
+/obj/item/gps/dropped(mob/user, silent)
+	REMOVE_TRAIT(user, TRAIT_CAN_VIEW_HEALTH, "HEALTH[UID()]")
+	return ..()
+
 /obj/item/assembly/health/proc/toggle_scan()
 	if(!secured)
 		return FALSE
@@ -68,10 +76,13 @@
 /obj/item/assembly/health/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/assembly/health/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.deep_inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/assembly/health/ui_state(mob/user)
+	return GLOB.deep_inventory_state
+
+/obj/item/assembly/health/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "HealthSensor", name, 300, 140, master_ui, state)
+		ui = new(user, src, "HealthSensor", name)
 		ui.open()
 
 /obj/item/assembly/health/ui_data(mob/user)

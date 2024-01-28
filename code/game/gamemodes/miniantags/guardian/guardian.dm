@@ -29,7 +29,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/ectoplasm = 1)
+	butcher_results = list(/obj/item/food/snacks/ectoplasm = 1)
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
@@ -98,18 +98,17 @@
 /mob/living/simple_animal/hostile/guardian/proc/snapback()
 	// If the summoner dies instantly, the summoner's ghost may be drawn into null space as the protector is deleted. This check should prevent that.
 	if(summoner && loc && summoner.loc)
-		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
+		if(get_dist(get_turf(summoner), get_turf(src)) <= range)
 			return
+		to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
+		visible_message("<span class='danger'>[src] jumps back to its user.</span>")
+		if(iseffect(summoner.loc) || istype(summoner.loc, /obj/machinery/atmospherics))
+			Recall(TRUE)
 		else
-			to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
-			visible_message("<span class='danger'>\The [src] jumps back to its user.</span>")
-			if(iseffect(summoner.loc))
-				Recall(TRUE)
-			else
-				if(!stealthy_deploying)
-					new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
-					new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))
-				forceMove(summoner.loc) //move to summoner's tile, don't recall
+			if(!stealthy_deploying)
+				new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
+				new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))
+			forceMove(summoner.loc) //move to summoner's tile, don't recall
 
 /mob/living/simple_animal/hostile/guardian/proc/is_deployed()
 	return loc != summoner
@@ -198,7 +197,8 @@
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
 	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
 		return
-	if(!summoner) return
+	if(!summoner)
+		return
 	if(!stealthy_deploying)
 		new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
 	forceMove(summoner)
@@ -310,6 +310,7 @@
 			to_chat(user, "You already have a [mob_name]!")
 			used = FALSE
 			return
+		dust_if_respawnable(theghost)
 		spawn_guardian(user, theghost.key, guardian_type)
 	else
 		to_chat(user, "[failure_message]")

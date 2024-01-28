@@ -38,7 +38,7 @@
   );
   @include meta.load-css(
     '../components/NoticeBox.scss',
-    $with: ('color-background': #a82d55)
+    $with: ('background-color': #a82d55)
   );
   @include meta.load-css(
     '../components/NumberInput.scss',
@@ -46,12 +46,12 @@
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: ('color-background': rgba(0, 0, 0, 0.5))
+    $with: ('background-color': rgba(0, 0, 0, 0.5), 'color-disabled': #363636)
   );
   @include meta.load-css('../components/Section.scss');
   @include meta.load-css(
     '../components/Tooltip.scss',
-    $with: ('color-background': #a82d55)
+    $with: ('background-color': #a82d55)
   );
 
   // Layouts
@@ -59,7 +59,7 @@
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('color-background': #9e1b46)
+    $with: ('background-color': #9e1b46)
   );
 
   .Layout__content {

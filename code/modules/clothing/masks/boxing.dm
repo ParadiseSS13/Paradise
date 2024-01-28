@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	can_toggle = TRUE
 	actions_types = list(/datum/action/item_action/adjust)
-	adjusted_flags = SLOT_HEAD
+	adjusted_flags = SLOT_FLAG_HEAD
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',

@@ -42,15 +42,42 @@
 
 /atom/proc/prepare_huds()
 	hud_list = list()
+	var/static/list/hud_dmis = list(
+		SPECIALROLE_HUD = 'icons/mob/hud/antaghud.dmi',
+
+		DIAG_TRACK_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_AIRLOCK_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_STAT_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_BATT_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_MECH_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_BOT_HUD = 'icons/mob/hud/diaghud.dmi',
+
+		PLANT_NUTRIENT_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_WATER_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_STATUS_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_HEALTH_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_TOXIN_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_PEST_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_WEED_HUD = 'icons/mob/hud/hydrohud.dmi',
+
+		HEALTH_HUD = 'icons/mob/hud/medhud.dmi',
+		STATUS_HUD = 'icons/mob/hud/medhud.dmi',
+
+		ID_HUD = 'icons/mob/hud/sechud.dmi',
+		WANTED_HUD = 'icons/mob/hud/sechud.dmi',
+		IMPMINDSHIELD_HUD = 'icons/mob/hud/sechud.dmi',
+		IMPCHEM_HUD = 'icons/mob/hud/sechud.dmi',
+		IMPTRACK_HUD = 'icons/mob/hud/sechud.dmi',
+	)
+
 	for(var/hud in hud_possible)
-		var/hint = hud_possible[hud]
-		switch(hint)
-			if(HUD_LIST_LIST)
-				hud_list[hud] = list()
-			else
-				var/image/I = image('icons/mob/hud.dmi', src, "")
-				I.appearance_flags = RESET_COLOR | RESET_TRANSFORM
-				hud_list[hud] = I
+		var/use_this_dmi = hud_dmis[hud]
+		if(!use_this_dmi)
+			use_this_dmi = 'icons/mob/hud/hud_misc.dmi'
+		var/image/I = image(use_this_dmi, src, "")
+		I.appearance_flags = RESET_COLOR | RESET_TRANSFORM
+		hud_list[hud] = I
 
 /mob/proc/generate_name()
 	return name
@@ -83,13 +110,13 @@
 
 	if(type)
 		if(type & EMOTE_VISIBLE && !has_vision(information_only=TRUE))//Vision related
-			if(!(alt))
+			if(!alt)
 				return
 			else
 				msg = alt
 				type = alt_type
 		if(type & EMOTE_AUDIBLE && !can_hear())//Hearing related
-			if(!( alt ))
+			if(!alt)
 				return
 			else
 				msg = alt
@@ -183,7 +210,7 @@
 
 /mob/proc/findname(msg)
 	for(var/mob/M in GLOB.mob_list)
-		if(M.real_name == text("[]", msg))
+		if(M.real_name == "[msg]")
 			return M
 	return 0
 
@@ -206,9 +233,9 @@
 		src:update_fhair()
 
 /mob/proc/put_in_any_hand_if_possible(obj/item/W as obj, del_on_fail = 0, disable_warning = 1)
-	if(equip_to_slot_if_possible(W, slot_l_hand, del_on_fail, disable_warning))
+	if(equip_to_slot_if_possible(W, SLOT_HUD_LEFT_HAND, del_on_fail, disable_warning))
 		return 1
-	else if(equip_to_slot_if_possible(W, slot_r_hand, del_on_fail, disable_warning))
+	else if(equip_to_slot_if_possible(W, SLOT_HUD_RIGHT_HAND, del_on_fail, disable_warning))
 		return 1
 	return 0
 
@@ -268,23 +295,23 @@
 
 //The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
 GLOBAL_LIST_INIT(slot_equipment_priority, list( \
-		slot_back,\
-		slot_wear_pda,\
-		slot_wear_id,\
-		slot_w_uniform,\
-		slot_wear_suit,\
-		slot_wear_mask,\
-		slot_head,\
-		slot_shoes,\
-		slot_gloves,\
-		slot_l_ear,\
-		slot_r_ear,\
-		slot_glasses,\
-		slot_belt,\
-		slot_s_store,\
-		slot_tie,\
-		slot_l_store,\
-		slot_r_store\
+		SLOT_HUD_BACK,\
+		SLOT_HUD_WEAR_PDA,\
+		SLOT_HUD_WEAR_ID,\
+		SLOT_HUD_JUMPSUIT,\
+		SLOT_HUD_OUTER_SUIT,\
+		SLOT_HUD_WEAR_MASK,\
+		SLOT_HUD_HEAD,\
+		SLOT_HUD_SHOES,\
+		SLOT_HUD_GLOVES,\
+		SLOT_HUD_LEFT_EAR,\
+		SLOT_HUD_RIGHT_EAR,\
+		SLOT_HUD_GLASSES,\
+		SLOT_HUD_BELT,\
+		SLOT_HUD_SUIT_STORE,\
+		SLOT_HUD_TIE,\
+		SLOT_HUD_LEFT_STORE,\
+		SLOT_HUD_RIGHT_STORE\
 	))
 
 //puts the item "W" into an appropriate slot in a human's inventory
@@ -293,7 +320,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!istype(W)) return 0
 
 	for(var/slot in GLOB.slot_equipment_priority)
-		if(isstorage(W) && slot == slot_head) // Storage items should be put on the belt before the head
+		if(isstorage(W) && slot == SLOT_HUD_HEAD) // Storage items should be put on the belt before the head
 			continue
 		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE)) //del_on_fail = 0; disable_warning = 0
 			return 1
@@ -317,22 +344,22 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		var/mob/living/carbon/human/H = M
 
 		switch(slot)
-			if(slot_l_hand)
+			if(SLOT_HUD_LEFT_HAND)
 				if(H.l_hand)
 					return 0
 				return 1
-			if(slot_r_hand)
+			if(SLOT_HUD_RIGHT_HAND)
 				if(H.r_hand)
 					return 0
 				return 1
-			if(slot_wear_mask)
-				if( !(slot_flags & SLOT_MASK) )
+			if(SLOT_HUD_WEAR_MASK)
+				if(!(slot_flags & SLOT_FLAG_MASK))
 					return 0
 				if(H.wear_mask)
 					return 0
 				return 1
-			if(slot_back)
-				if( !(slot_flags & SLOT_BACK) )
+			if(SLOT_HUD_BACK)
+				if(!(slot_flags & SLOT_FLAG_BACK))
 					return 0
 				if(H.back)
 					if(!(H.back.flags & NODROP))
@@ -340,8 +367,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_wear_suit)
-				if( !(slot_flags & SLOT_OCLOTHING) )
+			if(SLOT_HUD_OUTER_SUIT)
+				if(!(slot_flags & SLOT_FLAG_OCLOTHING))
 					return 0
 				if(H.wear_suit)
 					if(!(H.wear_suit.flags & NODROP))
@@ -349,8 +376,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_gloves)
-				if( !(slot_flags & SLOT_GLOVES) )
+			if(SLOT_HUD_GLOVES)
+				if(!(slot_flags & SLOT_FLAG_GLOVES))
 					return 0
 				if(H.gloves)
 					if(!(H.gloves.flags & NODROP))
@@ -358,8 +385,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_shoes)
-				if( !(slot_flags & SLOT_FEET) )
+			if(SLOT_HUD_SHOES)
+				if(!(slot_flags & SLOT_FLAG_FEET))
 					return 0
 				if(H.shoes)
 					if(!(H.shoes.flags & NODROP))
@@ -367,12 +394,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_belt)
+			if(SLOT_HUD_BELT)
 				if(!H.w_uniform)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if( !(slot_flags & SLOT_BELT) )
+				if(!(slot_flags & SLOT_FLAG_BELT))
 					return 0
 				if(H.belt)
 					if(!(H.belt.flags & NODROP))
@@ -380,8 +407,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_glasses)
-				if( !(slot_flags & SLOT_EYES) )
+			if(SLOT_HUD_GLASSES)
+				if(!(slot_flags & SLOT_FLAG_EYES))
 					return 0
 				if(H.glasses)
 					if(!(H.glasses.flags & NODROP))
@@ -389,8 +416,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_head)
-				if( !(slot_flags & SLOT_HEAD) )
+			if(SLOT_HUD_HEAD)
+				if(!(slot_flags & SLOT_FLAG_HEAD))
 					return 0
 				if(H.head)
 					if(!(H.head.flags & NODROP))
@@ -398,8 +425,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_l_ear)
-				if( !(slot_flags & slot_l_ear) )
+			if(SLOT_HUD_LEFT_EAR)
+				if(!(slot_flags & SLOT_HUD_LEFT_EAR))
 					return 0
 				if(H.l_ear)
 					if(!(H.l_ear.flags & NODROP))
@@ -407,8 +434,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_r_ear)
-				if( !(slot_flags & slot_r_ear) )
+			if(SLOT_HUD_RIGHT_EAR)
+				if(!(slot_flags & SLOT_HUD_RIGHT_EAR))
 					return 0
 				if(H.r_ear)
 					if(!(H.r_ear.flags & NODROP))
@@ -416,8 +443,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_w_uniform)
-				if( !(slot_flags & SLOT_ICLOTHING) )
+			if(SLOT_HUD_JUMPSUIT)
+				if(!(slot_flags & SLOT_FLAG_ICLOTHING))
 					return 0
 				if(H.w_uniform)
 					if(!(H.w_uniform.flags & NODROP))
@@ -425,12 +452,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_wear_id)
+			if(SLOT_HUD_WEAR_ID)
 				if(!H.w_uniform)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if( !(slot_flags & SLOT_ID) )
+				if(!(slot_flags & SLOT_FLAG_ID))
 					return 0
 				if(H.wear_id)
 					if(!(H.wear_id.flags & NODROP))
@@ -438,26 +465,26 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_l_store)
+			if(SLOT_HUD_LEFT_STORE)
 				if(H.l_store)
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_POCKET) )
+				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET))
 					return 1
-			if(slot_r_store)
+			if(SLOT_HUD_RIGHT_STORE)
 				if(H.r_store)
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_POCKET) )
+				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET))
 					return 1
 				return 0
-			if(slot_s_store)
+			if(SLOT_HUD_SUIT_STORE)
 				if(!H.wear_suit)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a suit before you can attach this [name].</span>")
@@ -470,7 +497,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(usr, "The [name] is too big to attach.")
 					return 0
-				if( istype(src, /obj/item/pda) || is_pen(src) || is_type_in_list(src, H.wear_suit.allowed) )
+				if(istype(src, /obj/item/pda) || is_pen(src) || is_type_in_list(src, H.wear_suit.allowed))
 					if(H.s_store)
 						if(!(H.s_store.flags & NODROP))
 							return 2
@@ -479,19 +506,19 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 1
 				return 0
-			if(slot_handcuffed)
+			if(SLOT_HUD_HANDCUFFED)
 				if(H.handcuffed)
 					return 0
 				if(!istype(src, /obj/item/restraints/handcuffs))
 					return 0
 				return 1
-			if(slot_legcuffed)
+			if(SLOT_HUD_LEGCUFFED)
 				if(H.legcuffed)
 					return 0
 				if(!istype(src, /obj/item/restraints/legcuffs))
 					return 0
 				return 1
-			if(slot_in_backpack)
+			if(SLOT_HUD_IN_BACKPACK)
 				if(H.back && istype(H.back, /obj/item/storage/backpack))
 					var/obj/item/storage/backpack/B = H.back
 					if(B.contents.len < B.storage_slots && w_class <= B.max_w_class)
@@ -574,22 +601,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
 
-/mob/setDir(new_dir)
-	if(forced_look)
-		if(isnum(forced_look))
-			dir = forced_look
-		else
-			var/atom/A = locateUID(forced_look)
-			if(istype(A))
-				dir = get_cardinal_dir(src, A)
-		return
-	. = ..()
-
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_RIGHT_HAND]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -608,37 +624,55 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
-		return 1
+		to_chat(src, chat_box_regular("<span class='notice'>Something is there but you can't see it.</span>"), MESSAGE_TYPE_INFO, confidential = TRUE)
+		return TRUE
 
 	face_atom(A)
-	var/list/result = A.examine(src)
-	to_chat(src, result.Join("\n"))
+	if(!client)
+		var/list/result = A.examine(src)
+		to_chat(src, chat_box_examine(result.Join("\n")))
+		return
+
+	var/list/result
+	LAZYINITLIST(client.recent_examines)
+	for(var/key in client.recent_examines)
+		if(client.recent_examines[key] < world.time)
+			client.recent_examines -= key
+	var/ref_to_atom = A.UID()
+	if(LAZYACCESS(client.recent_examines, ref_to_atom))
+		result = A.examine_more(src)
+		if(!length(result))
+			result += "<span class='notice'><i>You examine [A] closer, but find nothing of interest...</i></span>"
+	else
+		result = A.examine(src)
+		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
+
+	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
-	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab) )))
-		if(!( L ))
+	if((!istype(l_hand, /obj/item/grab) && !istype(r_hand, /obj/item/grab)))
+		if(!L)
 			return null
 		else
 			return L.container
 	else
-		if(!( L ))
+		if(!L)
 			L = new /obj/effect/list_container/mobl( null )
 			L.container += src
 			L.master = src
 		if(istype(l_hand, /obj/item/grab))
 			var/obj/item/grab/G = l_hand
-			if(!( L.container.Find(G.affecting) ))
+			if(!L.container.Find(G.affecting))
 				L.container += G.affecting
 				if(G.affecting)
 					G.affecting.ret_grab(L, 1)
 		if(istype(r_hand, /obj/item/grab))
 			var/obj/item/grab/G = r_hand
-			if(!( L.container.Find(G.affecting) ))
+			if(!L.container.Find(G.affecting))
 				L.container += G.affecting
 				if(G.affecting)
 					G.affecting.ret_grab(L, 1)
-		if(!( flag ))
+		if(!flag)
 			if(L.master == src)
 				var/list/temp = list(  )
 				temp += L.container
@@ -754,9 +788,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/is_dead()
 	return stat == DEAD
 
-/mob
-	var/newPlayerType = /mob/new_player
-
+// Nobody in their right mind will have this enabled on the production server, uncomment if you want this for some reason
+/*
 /mob/verb/abandon_mob()
 	set name = "Respawn"
 	set category = "OOC"
@@ -792,6 +825,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	M.key = key
 	return
 
+*/
 /mob/verb/observe()
 	set name = "Observe"
 	set category = "OOC"
@@ -872,7 +906,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/Topic(href, href_list)
 	if(href_list["mach_close"])
-		var/t1 = text("window=[href_list["mach_close"]]")
+		var/t1 = "window=[href_list["mach_close"]]"
 		unset_machine()
 		src << browse(null, t1)
 
@@ -897,7 +931,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			usr << browse(null,"window=mob\ref[src]")
 
 	if(href_list["flavor_more"])
-		usr << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", name, replacetext(flavor_text, "\n", "<BR>")), text("window=[];size=500x200", name))
+		usr << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", name, replacetext(flavor_text, "\n", "<BR>")), "window=[name];size=500x200")
 		onclose(usr, "[name]")
 	if(href_list["flavor_change"])
 		update_flavor_text()
@@ -930,7 +964,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!Adjacent(usr))
 		return
 	if(IsFrozen(src) && !is_admin(usr))
-		to_chat(usr, "<span class='boldannounce'>Interacting with admin-frozen players is not permitted.</span>")
+		to_chat(usr, "<span class='boldannounceic'>Interacting with admin-frozen players is not permitted.</span>")
 		return
 	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
 		return
@@ -971,20 +1005,21 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return FALSE
 
 /mob/Stat()
-	..()
-
 	show_stat_turf_contents()
 
-	statpanel("Status") // We only want alt-clicked turfs to come before Status
-	stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
-	stat(null, "Map: [SSmapping.map_datum.fluff_name]")
-	if(SSmapping.next_map)
-		stat(null, "Next Map: [SSmapping.next_map.fluff_name]")
+	if(statpanel("Status"))
+		stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
+		stat(null, "Map: [SSmapping.map_datum.fluff_name]")
+		if(SSmapping.next_map)
+			stat(null, "Next Map: [SSmapping.next_map.fluff_name]")
+		if(SSticker)
+			show_stat_station_time()
+		stat(null, "Players Connected: [length(GLOB.clients)]")
 
-	if(mob_spell_list && mob_spell_list.len)
+	if(length(mob_spell_list))
 		for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
 			add_spell_to_statpanel(S)
-	if(mind && isliving(src) && mind.spell_list && mind.spell_list.len)
+	if(length(mind.spell_list))
 		for(var/obj/effect/proc_holder/spell/S in mind.spell_list)
 			add_spell_to_statpanel(S)
 
@@ -1042,13 +1077,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
 					if((SS.cpu_display == SS_CPUDISPLAY_HIGH) && !(SS.flags & SS_NO_FIRE))
 						SS.stat_entry()
-
-	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
-
-	if(client?.statpanel == "Status")
-		if(SSticker)
-			show_stat_station_time()
-		stat(null, "Players Connected: [length(GLOB.clients)]")
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
@@ -1148,14 +1176,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/activate_hand(selhand)
 	return
 
-/mob/proc/add_to_respawnable_list()
-	GLOB.respawnable_list += src
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(remove_from_respawnable_list))
-
-/mob/proc/remove_from_respawnable_list()
-	GLOB.respawnable_list -= src
-	UnregisterSignal(src, COMSIG_PARENT_QDELETING)
-
 /mob/dead/observer/verb/respawn()
 	set name = "Respawn as NPC"
 	set category = "Ghost"
@@ -1168,22 +1188,20 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
-	if((usr in GLOB.respawnable_list) && (stat == DEAD || isobserver(usr)))
+	if((HAS_TRAIT(usr, TRAIT_RESPAWNABLE)) && (stat == DEAD || isobserver(usr)))
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
 			if(!(is_station_level(L.z) || is_admin_level(L.z))) // Prevents players from spawning in space
 				continue
 			if(L.npc_safe(src) && L.stat != DEAD && !L.key)
 				creatures += L
-		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
+		var/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", creatures)
 		switch(picked)
 			if("Mouse")
-				if(become_mouse()) // Only remove respawnability if the player successfully becomes a mouse
-					remove_from_respawnable_list()
+				become_mouse()
 			else
 				var/mob/living/NPC = picked
 				if(istype(NPC) && !NPC.key)
-					remove_from_respawnable_list()
 					NPC.key = key
 	else
 		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
@@ -1325,6 +1343,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/IsVocal()
 	return TRUE
+
+/mob/proc/cannot_speak_loudly()
+	return FALSE
 
 /mob/proc/get_access()
 	return list() //must return list or IGNORE_ACCESS
@@ -1537,7 +1558,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/show_rads(range)
 	for(var/turf/place in range(range, src))
 		var/rads = SSradiation.get_turf_radiation(place)
-		if (rads < RAD_BACKGROUND_RADIATION)
+		if(rads < RAD_BACKGROUND_RADIATION)
 			continue
 
 		var/strength = round(rads / 1000, 0.1)
@@ -1595,7 +1616,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 /world/proc/invoke_callback_with_usr(mob/user_mob, datum/callback/invoked_callback, ...)
 	var/temp = usr
 	usr = user_mob
-	if (length(args) > 2)
+	if(length(args) > 2)
 		. = invoked_callback.Invoke(arglist(args.Copy(3)))
 	else
 		. = invoked_callback.Invoke()

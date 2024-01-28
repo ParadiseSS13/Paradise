@@ -13,7 +13,7 @@
 	/// Whether this should auto-eject the beaker once done heating/cooling.
 	var/auto_eject = FALSE
 	/// The higher this number, the faster reagents will heat/cool.
-	var/speed_increase = 0
+	var/speed_increase = 40
 
 /obj/machinery/chem_heater/Initialize(mapload)
 	. = ..()
@@ -26,7 +26,7 @@
 /obj/machinery/chem_heater/RefreshParts()
 	speed_increase = initial(speed_increase)
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
-		speed_increase += 5 * (M.rating - 1)
+		speed_increase += 20 * (M.rating - 1)
 
 /obj/machinery/chem_heater/process()
 	..()
@@ -37,7 +37,8 @@
 			if(!beaker.reagents.total_volume)
 				on = FALSE
 				return
-			beaker.reagents.temperature_reagents(desired_temp, max(1, 35 - speed_increase))
+			var/sign = SIGN(desired_temp - beaker.reagents.chem_temp)
+			beaker.reagents.adjust_reagent_temp(speed_increase * sign, desired_temp)
 			if(round(beaker.reagents.chem_temp) == round(desired_temp))
 				playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 				on = FALSE
@@ -128,13 +129,16 @@
 			return FALSE
 	add_fingerprint(usr)
 
-/obj/machinery/chem_heater/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/chem_heater/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/chem_heater/ui_interact(mob/user, datum/tgui/ui = null)
 	if(user.stat || user.restrained())
 		return
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ChemHeater", "Chemical Heater", 350, 270, master_ui, state)
+		ui = new(user, src, "ChemHeater", "Chemical Heater")
 		ui.open()
 
 /obj/machinery/chem_heater/ui_data(mob/user)

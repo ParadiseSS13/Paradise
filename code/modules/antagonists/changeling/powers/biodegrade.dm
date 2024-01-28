@@ -4,9 +4,10 @@
 	helptext = "This is obvious to nearby people, and can destroy standard restraints and closets, and break you out of grabs."
 	button_icon_state = "biodegrade"
 	chemical_cost = 30 //High cost to prevent spam
-	dna_cost = 2
+	dna_cost = 4
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
+	category = /datum/changeling_power_category/defence
 	/// Type of acid hand we give to person
 	var/hand = /obj/item/melee/changeling_corrosive_acid
 	/// Current hand given to human, null is we did not give hand, object if hand is given
@@ -16,7 +17,7 @@
 	var/used = FALSE // only one form of shackles removed per use
 
 	if(user.handcuffed)
-		var/obj/O = user.get_item_by_slot(slot_handcuffed)
+		var/obj/O = user.get_item_by_slot(SLOT_HUD_HANDCUFFED)
 		if(!istype(O))
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid on [user.p_their()] [O.name]!</span>", \
@@ -25,7 +26,7 @@
 		used = TRUE
 
 	if(user.legcuffed)
-		var/obj/O = user.get_item_by_slot(slot_legcuffed)
+		var/obj/O = user.get_item_by_slot(SLOT_HUD_LEGCUFFED)
 		if(!istype(O))
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid on [user.p_their()] [O.name]!</span>", \
@@ -34,7 +35,7 @@
 		used = TRUE
 
 	if(user.wear_suit && user.wear_suit.breakouttime && !used)
-		var/obj/item/clothing/suit/S = user.get_item_by_slot(slot_wear_suit)
+		var/obj/item/clothing/suit/S = user.get_item_by_slot(SLOT_HUD_OUTER_SUIT)
 		if(!istype(S))
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid across the front of [user.p_their()] [S.name]!</span>", \

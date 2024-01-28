@@ -58,6 +58,9 @@
 		if(pda.cartridge)
 			data["charges"] = pda.cartridge.charges ? pda.cartridge.charges : 0
 
+	data["ringtone"] = pda.ttone
+	data["ringtone_list"] = pda.ttone_sound
+
 /datum/data/pda/app/messenger/ui_act(action, list/params)
 	if(..())
 		return
@@ -236,7 +239,7 @@
 		var/name = P.owner
 		if(name in names)
 			namecounts[name]++
-			name = text("[name] ([namecounts[name]])")
+			name = "[name] ([namecounts[name]])"
 		else
 			names.Add(name)
 			namecounts[name] = 1

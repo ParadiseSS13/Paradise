@@ -20,6 +20,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	num2text(MED_I_FREQ) = list(ACCESS_MEDICAL)
 ))
 
+GLOBAL_LIST_EMPTY(deadsay_radio_systems)
+
 /obj/item/radio
 	icon = 'icons/obj/radio.dmi'
 	name = "station bounced radio"
@@ -59,10 +61,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	/// How many times this is disabled by EMPs
 	var/disable_timer = 0
 	/// Areas in which this radio cannot send messages
-	var/static/list/blacklisted_areas = list(/area/adminconstruction, /area/tdome)
+	var/static/list/blacklisted_areas = list(/area/adminconstruction, /area/tdome, /area/ruin/space/bubblegum_arena)
 
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throw_speed = 2
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL
@@ -129,13 +131,13 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		return
 	ui_interact(user)
 
-/obj/item/radio/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/radio/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/item/radio/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		var/list/schannels = list_secure_channels(user)
-		var/list/ichannels = list_internal_channels(user)
-		var/calc_height = 150 + (schannels.len * 20) + (ichannels.len * 10)
-		ui = new(user, src, ui_key, "Radio", name, 400, calc_height, master_ui, state)
+		ui = new(user, src, "Radio", name)
 		ui.open()
 
 /obj/item/radio/ui_data(mob/user)
@@ -160,16 +162,16 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		return
 	. = TRUE
 	switch(action)
-		if("frequency")
+		if("frequency") // Available to both headsets and non-headset radios
 			if(freqlock)
 				return
-			var/tune = params["tune"]
-			var/adjust = text2num(params["adjust"])
+			var/tune = isnum(params["tune"]) ? params["tune"] : text2num(params["tune"])
+			var/adjust = isnum(params["adjust"]) ? params["adjust"] : text2num(params["adjust"])
 			if(tune == "reset")
 				tune = initial(frequency)
 			else if(adjust)
 				tune = frequency + adjust * 10
-			else if(text2num(tune) != null)
+			else if(!isnull(tune))
 				tune = tune * 10
 			else
 				. = FALSE
@@ -178,17 +180,17 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 					usr << browse(null, "window=radio")
 			if(.)
 				set_frequency(sanitize_frequency(tune, freerange))
-		if("ichannel") // change primary frequency to an internal channel authorized by access
+		if("ichannel") // Change primary frequency to an internal channel authorized by access, for non-headset radios only
 			if(freqlock)
 				return
-			var/freq = params["ichannel"]
-			if(has_channel_access(usr, freq))
-				set_frequency(text2num(freq))
+			var/freq = isnum(params["ichannel"]) ? params["ichannel"] : text2num(params["ichannel"])
+			if(has_channel_access(usr, num2text(freq)))
+				set_frequency(freq)
 		if("listen")
 			listening = !listening
 		if("broadcast")
 			broadcasting = !broadcasting
-		if("channel")
+		if("channel") // For keyed channels on headset radios only
 			var/channel = params["channel"]
 			if(!(channel in channels))
 				return
@@ -196,8 +198,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 				channels[channel] &= ~FREQ_LISTENING
 			else
 				channels[channel] |= FREQ_LISTENING
-		if("loudspeaker")
-			// Toggle loudspeaker mode, AKA everyone around you hearing your radio.
+		if("loudspeaker") // Toggle loudspeaker mode, AKA everyone around you hearing your radio.
 			if(has_loudspeaker)
 				loudspeaker = !loudspeaker
 				if(loudspeaker)
@@ -364,7 +365,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(wires.is_cut(WIRE_RADIO_TRANSMIT)) // The device has to have all its wires and shit intact
 		return 0
 
-	if(!M.IsVocal())
+	if(!M.IsVocal() || M.cannot_speak_loudly())
 		return 0
 
 	if(is_type_in_list(get_area(src), blacklisted_areas))
@@ -655,8 +656,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/borg/syndicate/ui_status(mob/user, datum/ui_state/state)
 	. = ..()
-	if(. == STATUS_UPDATE && istype(user, /mob/living/silicon/robot/syndicate))
-		. = STATUS_INTERACTIVE
+	if(. == UI_UPDATE && istype(user, /mob/living/silicon/robot/syndicate))
+		. = UI_INTERACTIVE
 
 /obj/item/radio/borg/Destroy()
 	myborg = null
@@ -795,3 +796,48 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/phone/medbay/New()
 	..()
 	internal_channels = GLOB.default_medbay_channels.Copy()
+
+/obj/item/radio/proc/attempt_send_deadsay_message(mob/subject, message)
+	return
+
+/obj/item/radio/headset/deadsay
+	name = "spectral radio"
+	ks2type = /obj/item/encryptionkey/centcom
+
+/obj/item/radio/headset/deadsay/New()
+	..()
+	GLOB.deadsay_radio_systems.Add(src)
+	make_syndie()
+
+/obj/item/radio/headset/deadsay/Destroy()
+	GLOB.deadsay_radio_systems.Remove(src)
+	return ..()
+
+/obj/item/radio/headset/deadsay/screwdriver_act(mob/user, obj/item/I)
+	return
+
+/obj/item/radio/headset/deadsay/attempt_send_deadsay_message(mob/subject, message)
+	if(!listening)
+		return
+	var/mob/hearer = loc // if people want dchat to shut up, they shouldn't need to deal with other people's headsets
+	if(!istype(hearer) || hearer.stat || !hearer.can_hear())
+		return
+
+	if(!hearer.get_preference(PREFTOGGLE_CHAT_DEAD))
+		return
+
+	var/speaker_name
+	if(!subject || subject.client.prefs.toggles2 & PREFTOGGLE_2_ANON)
+		subject ? (speaker_name = "<i>Anon</i> ([subject.mind.name])") : (speaker_name = "<i>Anon</i>")
+	else
+		speaker_name = "[subject.client.key] ([subject.mind.name])"
+
+	to_chat(hearer, "<span class='deadsay'><b>[speaker_name]</b> ([ghost_follow_link(subject, hearer)]) [message]</span>")
+
+/obj/item/radio/headset/deadsay/talk_into(mob/living/M, list/message_pieces, channel, verbage)
+	var/message = sanitize(copytext(multilingual_to_message(message_pieces), 1, MAX_MESSAGE_LEN))
+
+	if(!message)
+		return
+
+	return M.say_dead(message)

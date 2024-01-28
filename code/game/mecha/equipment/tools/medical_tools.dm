@@ -299,6 +299,7 @@
 	var/turf/trg = get_turf(target)
 	var/obj/item/reagent_containers/syringe/mechsyringe = syringes[1]
 	mechsyringe.forceMove(get_turf(chassis))
+	mechsyringe.mode = SYRINGE_INJECT
 	reagents.trans_to(mechsyringe, min(mechsyringe.volume, reagents.total_volume))
 	syringes -= mechsyringe
 	mechsyringe.icon = 'icons/obj/chemical.dmi'
@@ -331,6 +332,8 @@
 					add_attack_logs(originaloccupant, M, "Shot with [src] containing [R], transferred [mechsyringe.reagents.total_volume] units")
 					mechsyringe.reagents.reaction(M, REAGENT_INGEST)
 					mechsyringe.reagents.trans_to(M, mechsyringe.reagents.total_volume)
+					if(!mechsyringe.reagents.total_volume)
+						mechsyringe.mode = SYRINGE_DRAW
 					M.take_organ_damage(2)
 				break
 			else if(mechsyringe.loc == trg)

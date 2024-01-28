@@ -31,10 +31,10 @@
 
 /obj/item/clothing/glasses/meson/engine/equipped(mob/user, slot, initial)
 	. = ..()
-	if(active_on_equip && mode == MODE_MESON && slot == slot_glasses)
+	if(active_on_equip && mode == MODE_MESON && slot == SLOT_HUD_GLASSES)
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
-	if(active_on_equip_rad && mode == MODE_RAD && slot == slot_glasses)
+	if(active_on_equip_rad && mode == MODE_RAD && slot == SLOT_HUD_GLASSES)
 		ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, "meson_glasses[UID()]")
 
 /obj/item/clothing/glasses/meson/engine/proc/toggle_mode(mob/user, voluntary)
@@ -95,7 +95,7 @@
 	item_state = icon_state
 	if(isliving(loc))
 		var/mob/living/user = loc
-		if(user.get_item_by_slot(slot_glasses) == src)
+		if(user.get_item_by_slot(SLOT_HUD_GLASSES) == src)
 			user.update_inv_glasses()
 		else
 			user.update_inv_l_hand()

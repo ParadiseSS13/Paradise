@@ -14,12 +14,12 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "ac" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "ad" = (
@@ -67,7 +67,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "ag" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "ah" = (
@@ -81,12 +81,12 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "ak" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "al" = (
@@ -545,7 +545,7 @@
 /area/ruin/space/unpowered)
 "bn" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/carrotfries,
+/obj/item/food/snacks/carrotfries,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

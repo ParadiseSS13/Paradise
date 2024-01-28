@@ -234,6 +234,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(boosted)
 		mychild.key = elitemind.key
 		mychild.sentience_act()
+		dust_if_respawnable(elitemind)
 		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	icon_state = "tumor_popped"
 	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, PROC_REF(onEliteLoss))
@@ -473,6 +474,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(isliving(mover))
 		return FALSE
 
+/obj/effect/temp_visual/elite_tumor_wall/gargantua/CanPass(atom/movable/mover, border_dir)
+	. = ..()
+	if(istype(mover, /obj/item/projectile))
+		return FALSE
+		
 /obj/item/gps/internal/tumor
 	icon_state = null
 	gpstag = "Cancerous Signal"

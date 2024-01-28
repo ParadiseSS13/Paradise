@@ -168,30 +168,28 @@
 			key = theghost.key
 			giveObjectivesandGoals()
 			giveSpells()
+			dust_if_respawnable(theghost)
 		else
 			message_admins("No ghost was willing to take control of a mindless revenant. Deleting...")
 			qdel(src)
 
 /mob/living/simple_animal/revenant/proc/giveObjectivesandGoals()
-			mind.wipe_memory()
-			SEND_SOUND(src, sound('sound/effects/ghost.ogg'))
-			to_chat(src, "<br>")
-			to_chat(src, "<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")
-			to_chat(src, "<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")
-			to_chat(src, "<b>You are not dead, not alive, but somewhere in between. You are capable of limited interaction with both worlds.</b>")
-			to_chat(src, "<b>You are invincible and invisible to everyone but other ghosts. Most abilities will reveal you, rendering you vulnerable.</b>")
-			to_chat(src, "<b>To function, you are to drain the life essence from humans. This essence is a resource, as well as your health, and will power all of your abilities.</b>")
-			to_chat(src, "<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>")
-			to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Revenant)</span>")
-			var/datum/objective/revenant/objective = new
-			objective.owner = mind
-			mind.objectives += objective
-			to_chat(src, "<b>Objective #1</b>: [objective.explanation_text]")
-			var/datum/objective/revenantFluff/objective2 = new
-			objective2.owner = mind
-			mind.objectives += objective2
-			to_chat(src, "<b>Objective #2</b>: [objective2.explanation_text]")
-			SSticker.mode.traitors |= mind //Necessary for announcing
+	mind.wipe_memory() // someone kill this and give revenants their own minds please
+	SEND_SOUND(src, sound('sound/effects/ghost.ogg'))
+	var/list/messages = list()
+	messages.Add("<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")
+	messages.Add("<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")
+	messages.Add("<b>You are not dead, not alive, but somewhere in between. You are capable of limited interaction with both worlds.</b>")
+	messages.Add("<b>You are invincible and invisible to everyone but other ghosts. Most abilities will reveal you, rendering you vulnerable.</b>")
+	messages.Add("<b>To function, you are to drain the life essence from humans. This essence is a resource, as well as your health, and will power all of your abilities.</b>")
+	messages.Add("<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>")
+	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Revenant)</span>")
+
+	SSticker.mode.traitors |= mind //Necessary for announcing
+	mind.add_mind_objective(/datum/objective/revenant)
+	mind.add_mind_objective(/datum/objective/revenantFluff)
+	messages.Add(mind.prepare_announce_objectives(FALSE))
+	to_chat(src, chat_box_red(messages.Join("<br>")))
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
 	mind.AddSpell(new /obj/effect/proc_holder/spell/night_vision/revenant(null))
@@ -314,6 +312,7 @@
 		icon_state = icon_idle
 
 /datum/objective/revenant
+	needs_target = FALSE
 	var/targetAmount = 100
 
 /datum/objective/revenant/New()
@@ -333,6 +332,7 @@
 	return TRUE
 
 /datum/objective/revenantFluff
+	needs_target = FALSE
 
 /datum/objective/revenantFluff/New()
 	var/list/explanationTexts = list("Assist and exacerbate existing threats at critical moments.", \
@@ -399,7 +399,7 @@
 	else if(reforming)
 		. += "<span class='revenwarning'>It is shifting and distorted. It would be wise to destroy this.</span>"
 
-/obj/item/ectoplasm/revenant/proc/reform()
+/obj/item/ectoplasm/revenant/proc/reform() // Unused proc, production doesn't have revenants revive
 	if(inert || !src)
 		return
 	var/key_of_revenant

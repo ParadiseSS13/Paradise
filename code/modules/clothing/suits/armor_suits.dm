@@ -190,7 +190,7 @@
 	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 450)
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
-	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/food/drinks/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/flash, /obj/item/storage/box/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen, /obj/item/gun/energy, /obj/item/gun/projectile)
+	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/drinks/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/flash, /obj/item/storage/fancy/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen, /obj/item/gun/energy, /obj/item/gun/projectile)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -279,7 +279,7 @@
 	desc = "God wills it!"
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
-	allowed = list(/obj/item/nullrod/claymore)
+	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/bible)
 	armor = list(MELEE = 15, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 200, ACID = 200)
 
 /obj/item/clothing/suit/armor/vest/durathread
@@ -496,7 +496,7 @@
 
 /obj/item/clothing/suit/armor/reactive/fire/equipped(mob/user, slot)
 	..()
-	if(slot != slot_wear_suit)
+	if(slot != SLOT_HUD_OUTER_SUIT)
 		return
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, "[UID()]")
 
@@ -523,7 +523,7 @@
 
 /obj/item/clothing/suit/armor/reactive/cryo/equipped(mob/user, slot)
 	..()
-	if(slot != slot_wear_suit)
+	if(slot != SLOT_HUD_OUTER_SUIT)
 		return
 	ADD_TRAIT(user, TRAIT_RESISTCOLD, "[UID()]")
 
@@ -537,7 +537,7 @@
 	if(reaction_check(hitby) && use_power())
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out freezing bolts!</span>")
 
-		for(var/mob/M in oview(get_turf(src), 7))
+		for(var/mob/living/M in oview(get_turf(src), 7))
 			shootAt(M)
 
 		if(prob(10)) //rarely vent gasses
@@ -626,9 +626,8 @@
 			for(var/atom/movable/AM in T)
 				thrown_atoms += AM
 
-		for(var/am in thrown_atoms)
-			var/atom/movable/AM = am
-			if(AM == owner || AM.anchored)
+		for(var/atom/movable/AM as anything in thrown_atoms)
+			if(AM == owner || AM.anchored || (ismob(AM) && !isliving(AM)))
 				continue
 
 			var/throw_target = get_edge_target_turf(owner, get_dir(owner, get_step_away(AM, owner)))
@@ -757,7 +756,7 @@
 	icon_state = "ertarmor_jan"
 
 //same defense as basic sec armor
-/obj/item/clothing/suit/storage/lawyer/blackjacket/armored
+/obj/item/clothing/suit/storage/iaa/blackjacket/armored
 	desc = "A snappy dress jacket, reinforced with a layer of armor protecting the torso."
 	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/gun/projectile/revolver, /obj/item/gun/projectile/automatic/pistol)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO

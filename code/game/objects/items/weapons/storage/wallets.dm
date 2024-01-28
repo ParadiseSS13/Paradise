@@ -17,7 +17,7 @@
 		/obj/item/coin,
 		/obj/item/dice,
 		/obj/item/disk,
-		/obj/item/implanter,
+		/obj/item/bio_chip_implanter,
 		/obj/item/lighter,
 		/obj/item/match,
 		/obj/item/paper,
@@ -29,7 +29,7 @@
 	cant_hold = list(
 		/obj/item/screwdriver/power
 	)
-	slot_flags = SLOT_ID
+	slot_flags = SLOT_FLAG_ID
 
 	var/obj/item/card/id/front_id = null
 

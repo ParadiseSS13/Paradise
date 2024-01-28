@@ -9,11 +9,9 @@
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
 
-	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
-	Uuosa-Eso system, which roughly translates to 'burning mother'.<br/><br/>Coming from a harsh, radioactive \
-	desert planet, they mostly hold ideals of honesty, virtue, martial combat and bravery above all \
-	else, frequently even their own lives. They prefer warmer temperatures than most species and \
-	their native tongue is a heavy hissing laungage called Sinta'Unathi."
+	blurb = "Unathi are a scaled species of reptilian beings from the desert world of Moghes, within the Uuosa-Eso system. \
+	Organizing themselves in highly competitive feudal kingdoms, the Unathi lack any sort of wide-scale unification, and their culture and history consist of centuries of internal conflict and struggle.<br/><br/> \
+	Despite clans having a sizeable military force, inter-clan rivalries and constant civil war prevent the Unathi from achieving much more in the wider galactic scene."
 
 	species_traits = list(LIPS)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_REPTILE
@@ -104,6 +102,7 @@
 /datum/species/unathi/ashwalker
 	name = "Ash Walker"
 	name_plural = "Ash Walkers"
+	sprite_sheet_name = "Unathi" // We have the same sprite sheets as unathi
 	article_override = null
 
 	blurb = "These reptillian creatures appear to be related to the Unathi, but seem significantly less evolved. \
@@ -127,6 +126,9 @@
 		)
 
 /datum/species/unathi/ashwalker/on_species_gain(mob/living/carbon/human/H)
+	..()
+	for(var/datum/action/innate/ignite/fire in H.actions)
+		fire.Remove(H)
 	var/datum/action/innate/ignite/ash_walker/fire = new()
 	fire.Grant(H)
 
@@ -134,6 +136,12 @@
 	..()
 	for(var/datum/action/innate/ignite/ash_walker/fire in H.actions)
 		fire.Remove(H)
+
+/datum/species/unathi/ashwalker/movement_delay(mob/living/carbon/human/H)
+	. = ..()
+	var/turf/our_turf = get_turf(H)
+	if(!is_mining_level(our_turf.z))
+		. -= speed_mod
 
 /datum/action/innate/ignite/ash_walker
 	desc = "You form a fire in your mouth, fierce enough to... light a cigarette."

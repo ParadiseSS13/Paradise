@@ -136,3 +136,10 @@
 
 /area/trader_station/sol
 	name = "Jupiter Station 6"
+
+/area/ghost_bar
+	name = "Ghost Bar"
+	icon_state = "observatory"
+	requires_power = FALSE
+	has_gravity = TRUE
+	hide_attacklogs = TRUE

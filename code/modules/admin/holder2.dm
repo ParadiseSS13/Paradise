@@ -17,7 +17,7 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 
 /datum/admins/New(initial_rank = "Temporary Admin", initial_rights = 0, ckey)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Admin rank creation blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>Admin rank creation blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to create a new admin rank via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to edit feedback a new admin rank via advanced proc-call")
 		return
@@ -32,7 +32,7 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 
 /datum/admins/Destroy()
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Admin rank deletion blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>Admin rank deletion blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to delete an admin rank via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to delete an admin rank via advanced proc-call")
 		return
@@ -41,21 +41,20 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 
 /datum/admins/proc/associate(client/C)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Rank association blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>Rank association blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to associate an admin rank to a new client via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to associate an admin rank to a new client via advanced proc-call")
 		return
 	if(istype(C))
 		owner = C
 		owner.holder = src
-		owner.on_holder_add()
 		owner.add_admin_verbs()	//TODO
 		owner.verbs -= /client/proc/readmin
 		GLOB.admins |= C
 
 /datum/admins/proc/disassociate()
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Rank disassociation blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>Rank disassociation blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to disassociate an admin rank from a client via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to disassociate an admin rank from a client via advanced proc-call")
 		return
@@ -120,14 +119,14 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 			if(!other || !other.holder)
 				return 1
 			if(usr.client.holder.rights != other.holder.rights)
-				if( (usr.client.holder.rights & other.holder.rights) == other.holder.rights )
+				if((usr.client.holder.rights & other.holder.rights) == other.holder.rights)
 					return 1	//we have all the rights they have and more
 		to_chat(usr, "<font color='red'>Error: Cannot proceed. They have more or equal rights to us.</font>")
 	return 0
 
 /client/proc/deadmin()
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Deadmin blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>Deadmin blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to de-admin a client via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to de-admin a client via advanced proc-call")
 		return
@@ -144,6 +143,29 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 			return 0
 		return 1
 	return 0
+
+/**
+ * Requires the holder to have all the rights specified
+ *
+ * rights_required = R_ADMIN|R_EVENT means they must have both flags, or it will return false
+ */
+/proc/check_rights_all(rights_required, show_msg = TRUE, mob/user = usr)
+	if(!user?.client)
+		return FALSE
+	if(!rights_required)
+		if(user.client.holder)
+			return TRUE
+		if(show_msg)
+			to_chat(user, "<font color='red'>Error: You are not an admin.</font>")
+		return FALSE
+
+	if(!user.client.holder)
+		return FALSE
+	if((user.client.holder.rights & rights_required) == rights_required)
+		return TRUE
+	if(show_msg)
+		to_chat(user, "<font color='red'>Error: You do not have sufficient rights to do that. You require all of the following flags:[rights2text(rights_required, " ")].</font>")
+	return FALSE
 
 /datum/admins/vv_edit_var(var_name, var_value)
 	return FALSE // no admin abuse

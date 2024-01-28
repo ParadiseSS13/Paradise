@@ -36,9 +36,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "j" = (
-/obj/effect/spawner/window/reinforced{
-	useFull = 0
-	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "k" = (
@@ -120,6 +118,10 @@
 /area/ruin/space/abandtele)
 "F" = (
 /obj/machinery/door/airlock/external,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/abandtele)
+"M" = (
+/obj/machinery/atmospherics/binary/volume_pump,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 
@@ -214,7 +216,7 @@ g
 k
 p
 t
-h
+w
 b
 b
 c
@@ -282,8 +284,8 @@ c
 b
 b
 n
+M
 r
-w
 b
 b
 c

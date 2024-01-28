@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/bloodcrawl
 	name = "Blood Crawl"
 	desc = "Use pools of blood to phase out of existence."
-	base_cooldown = 0
+	base_cooldown = 1 SECONDS
 	clothes_req = FALSE
 	cooldown_min = 0
 	should_recharge_after_cast = FALSE
@@ -33,13 +33,16 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/cast(list/targets, mob/living/user)
 	var/atom/target = targets[1]
-	if(phased)
-		if(phasein(target, user))
-			phased = FALSE
-	else
+	if(!phased)
 		if(phaseout(target, user))
 			phased = TRUE
-	cooldown_handler.start_recharge()
+			cooldown_handler.revert_cast()
+	else
+		if(phasein(target, user))
+			phased = FALSE
+			cooldown_handler.start_recharge()
+
+
 
 //Travel through pools of blood. Slaughter Demon powers for everyone!
 #define BLOODCRAWL     1
@@ -134,17 +137,22 @@
 	if(!victim)
 		to_chat(L, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
 		return
-
-	if(ishuman(victim) || isrobot(victim))
+	if(victim.mind)
 		to_chat(L, "<span class='warning'>You devour [victim]. Your health is fully restored.</span>")
 		L.adjustBruteLoss(-1000)
 		L.adjustFireLoss(-1000)
 		L.adjustOxyLoss(-1000)
 		L.adjustToxLoss(-1000)
-	else
+	else if((ishuman(victim) || isrobot(victim)))
+		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence renders their flesh dull and unappetising, leaving you wanting for more.</span>")
+		L.adjustBruteLoss(-50)
+		if(!isslaughterdemon(L))
+			L.adjustFireLoss(-50)
+	else if(isanimal(victim))
 		to_chat(L, "<span class='warning'>You devour [victim], but this measly meal barely sates your appetite!</span>")
 		L.adjustBruteLoss(-25)
-		L.adjustFireLoss(-25)
+		if(!isslaughterdemon(L))
+			L.adjustFireLoss(-25)
 
 	if(isslaughterdemon(L))
 		var/mob/living/simple_animal/demon/slaughter/demon = L
@@ -174,7 +182,6 @@
 
 	if(iscarbon(L) && !block_hands(L))
 		return FALSE
-
 	L.notransform = TRUE
 	INVOKE_ASYNC(src, PROC_REF(async_phase), B, L)
 	return TRUE
@@ -240,7 +247,7 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl
 	name = "Shadow Crawl"
-	desc = "Use darkness to phase out of existence."
+	desc = "Fade into the shadows, increasing your speed and making you incomprehensible. Will not work in brightened terrane."
 	allowed_type = /turf
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_crawl"

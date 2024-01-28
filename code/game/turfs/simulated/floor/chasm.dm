@@ -29,7 +29,12 @@
 		/obj/effect/ebeam,
 		/obj/effect/spawner,
 		/obj/structure/railing,
-		/obj/machinery/atmospherics/pipe/simple
+		/obj/machinery/atmospherics/pipe/simple,
+		/obj/effect/projectile,
+		/obj/effect/projectile_lighting,
+		/obj/effect/dummy/slaughter, //no bloodcrawlers into chasms.
+		/obj/effect/dummy/spell_jaunt, //No jaunters into chasms either.
+		/mob/living/simple_animal/hostile/megafauna //failsafe
 		))
 	var/drop_x = 1
 	var/drop_y = 1
@@ -44,6 +49,12 @@
 	if(!drop_stuff())
 		STOP_PROCESSING(SSprocessing, src)
 
+/turf/simulated/floor/chasm/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+	if(!isliving(caller))
+		return TRUE
+	var/mob/living/L = caller
+	return (L.flying || ismegafauna(caller))
+
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "basalt"
@@ -52,19 +63,26 @@
 /turf/simulated/floor/chasm/attackby(obj/item/C, mob/user, params, area/area_restriction)
 	..()
 	if(istype(C, /obj/item/stack/rods))
-		var/obj/item/stack/rods/R = C
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-		var/obj/item/O = user.get_inactive_hand()
 		if(!L)
-			if(O?.tool_behaviour == TOOL_SCREWDRIVER)
-				if(R.use(1))
-					to_chat(user, "<span class='notice'>You construct a lattice.</span>")
-					playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
-					ReplaceWithLattice()
-				else
-					to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
-			else
+			var/obj/item/inactive = user.get_inactive_hand()
+
+			if(isrobot(user))
+				for(var/obj/item/thing in user.get_all_slots())
+					if(thing.tool_behaviour == TOOL_SCREWDRIVER)
+						inactive = thing
+						break
+
+			if(!inactive || inactive.tool_behaviour != TOOL_SCREWDRIVER)
 				to_chat(user, "<span class='warning'>You need to hold a screwdriver in your other hand to secure this lattice.</span>")
+				return
+			var/obj/item/stack/rods/R = C
+			if(R.use(1))
+				to_chat(user, "<span class='notice'>You construct a lattice.</span>")
+				playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+				ReplaceWithLattice()
+			else
+				to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
 			return
 	if(istype(C, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
@@ -138,8 +156,18 @@
 			L.adjustBruteLoss(30)
 	falling_atoms -= AM
 
+/turf/simulated/floor/chasm/straight_down
+	var/obj/effect/abstract/chasm_storage/storage
+
 /turf/simulated/floor/chasm/straight_down/Initialize()
 	. = ..()
+	var/found_storage = FALSE
+	for(var/obj/effect/abstract/chasm_storage/C in contents)
+		storage = C
+		found_storage = TRUE
+		break
+	if(!found_storage)
+		storage = new /obj/effect/abstract/chasm_storage(src)
 	drop_x = x
 	drop_y = y
 	drop_z = z - 1
@@ -152,7 +180,11 @@
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface //Chasms should not turn into lava
 	light_range = 2
 	light_power = 0.75
-	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right
+	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right. Ignore the fact the people you pull out are not burning.
+
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/Initialize()
+	. = ..()
+	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/drop(atom/movable/AM)
 	//Make sure the item is still there after our sleep
@@ -164,7 +196,7 @@
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.notransform = TRUE
-		L.Weaken(400 SECONDS)
+		L.Weaken(20 SECONDS)
 	var/oldtransform = AM.transform
 	var/oldcolor = AM.color
 	var/oldalpha = AM.alpha
@@ -180,20 +212,67 @@
 	if(!AM || QDELETED(AM))
 		return
 
-	if(isrobot(AM))
-		var/mob/living/silicon/robot/S = AM
-		qdel(S.mmi)
-
 	falling_atoms -= AM
-
-	qdel(AM)
-
-	if(AM && !QDELETED(AM))	//It's indestructible
-		visible_message("<span class='boldwarning'>[src] spits out [AM]!</span>")
+	if(isliving(AM))
 		AM.alpha = oldalpha
 		AM.color = oldcolor
 		AM.transform = oldtransform
-		AM.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1, 10),rand(1, 10))
+		var/mob/living/fallen_mob = AM
+		fallen_mob.notransform = FALSE
+		if(fallen_mob.stat != DEAD)
+			fallen_mob.death()
+			fallen_mob.adjustBruteLoss(1000) //crunch from long fall, want it to be like legion in damage
+		fallen_mob.forceMove(storage)
+		return
+
+	if(istype(AM, /obj/item/grenade/jaunter_grenade))
+		AM.forceMove(storage)
+		return
+	for(var/mob/M in AM.contents)
+		M.forceMove(src)
+
+	qdel(AM)
+
+/**
+ * An abstract object which is basically just a bag that the chasm puts people inside
+ */
+
+/obj/effect/abstract/chasm_storage
+	name = "chasm depths"
+	desc = "The bottom of a hole. You shouldn't be able to interact with this."
+	anchored = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/abstract/chasm_storage/Entered(atom/movable/arrived)
+	. = ..()
+	if(isliving(arrived))
+		RegisterSignal(arrived, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
+
+/obj/effect/abstract/chasm_storage/Exited(atom/movable/gone)
+	. = ..()
+	if(isliving(gone))
+		UnregisterSignal(gone, COMSIG_LIVING_REVIVE)
+
+/**
+ * Called if something comes back to life inside the pit. Expected sources are badmins and changelings.
+ * Ethereals should take enough damage to be smashed and not revive.
+ * Arguments
+ * escapee - Lucky guy who just came back to life at the bottom of a hole.
+ */
+/obj/effect/abstract/chasm_storage/proc/on_revive(mob/living/escapee)
+	SIGNAL_HANDLER
+	var/turf/ourturf = get_turf(src)
+	if(istype(ourturf, /turf/simulated/floor/chasm/straight_down/lava_land_surface))
+		ourturf.visible_message("<span class='boldwarning'>After a long climb, [escapee] leaps out of [ourturf]!</span>")
+	else
+		playsound(ourturf, 'sound/effects/bang.ogg', 50, TRUE)
+		ourturf.visible_message("<span class='boldwarning'>[escapee] busts through [ourturf], leaping out of the chasm below!</span>")
+		ourturf.ChangeTurf(ourturf.baseturf)
+	escapee.flying = TRUE
+	escapee.forceMove(ourturf)
+	escapee.throw_at(get_edge_target_turf(ourturf, pick(GLOB.alldirs)), rand(2, 10), rand(2, 10))
+	escapee.flying = FALSE
+	escapee.Sleeping(20 SECONDS)
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
 	oxygen = MOLES_O2STANDARD

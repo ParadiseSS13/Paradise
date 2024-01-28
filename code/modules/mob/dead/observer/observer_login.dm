@@ -4,6 +4,9 @@
 		ghostimage.icon_state = src.icon_state
 	updateghostimages()
 
+	if(isliving(mind?.current))
+		mind.current.med_hud_set_status()
+
 	if(GLOB.non_respawnable_keys[ckey])
 		can_reenter_corpse = 0
-		remove_from_respawnable_list()
+		REMOVE_TRAIT(src, TRAIT_RESPAWNABLE, GHOSTED)

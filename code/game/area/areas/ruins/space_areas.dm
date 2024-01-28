@@ -150,6 +150,9 @@
 	icon_state = "dark"
 	requires_power = FALSE
 
+/area/ruin/space/bubblegum_arena
+	name = "Bubblegum Arena"
+
 /area/ruin/space/wreck_cargoship
 	name = "Faint Signal"
 	icon_state = "yellow"
@@ -164,3 +167,11 @@
 	name = "Listening Post Asteroid"
 	icon_state = "dark"
 	requires_power = FALSE
+
+/area/ruin/space/abandoned_engi_sat
+	name = "Abandoned NT Engineering Satellite"
+	apc_starts_off = TRUE
+
+/area/ruin/space/moonbase19
+	name = "Moon Base 19"
+	apc_starts_off = TRUE

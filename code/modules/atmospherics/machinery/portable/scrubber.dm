@@ -2,7 +2,7 @@
 #define MAX_RATE 10 * ONE_ATMOSPHERE
 
 /obj/machinery/atmospherics/portable/scrubber
-	name = "Portable Air Scrubber"
+	name = "portable air scrubber"
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "pscrubber:0"
 	density = TRUE
@@ -16,8 +16,9 @@
 /obj/machinery/atmospherics/portable/scrubber/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Filters the air, placing harmful gases into the internal gas container. The container can be emptied by \
-			connecting it to a connector port. The pump can pump the air in (sucking) or out (blowing), at a specific target pressure. The powercell inside can be \
-			replaced by using a screwdriver, and then adding a new cell. A tank of gas can also be attached to the scrubber.</span>"
+			connecting it to a connector port, you're unable to have [src] both connected, and on at the same time. \
+			Changing the target pressure will result in faster or slower filter speeds, higher pressure is faster. \
+			A tank of gas can also be attached, allowing you to remove harmful gases from the attached tank.</span>"
 
 /obj/machinery/atmospherics/portable/scrubber/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -113,10 +114,13 @@
 	ui_interact(user)
 	return
 
-/obj/machinery/atmospherics/portable/scrubber/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/atmospherics/portable/scrubber/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/atmospherics/portable/scrubber/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PortableScrubber", "Portable Scrubber", 433, 346, master_ui, state)
+		ui = new(user, src, "PortableScrubber", "Portable Scrubber")
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
@@ -150,9 +154,7 @@
 			return TRUE
 
 		if("remove_tank")
-			if(holding_tank)
-				holding_tank.forceMove(get_turf(src))
-				holding_tank = null
+			replace_tank(ui.user, TRUE)
 			update_icon()
 			return TRUE
 
@@ -201,10 +203,7 @@
 	if(on)
 		to_chat(user, "<span class='warning'>Turn it off first!</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	anchored = !anchored
-	to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] [src].</span>")
+	default_unfasten_wrench(user, I, 4 SECONDS)
 
 /obj/machinery/atmospherics/portable/scrubber/huge/stationary
 	name = "Stationary Air Scrubber"

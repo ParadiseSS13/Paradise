@@ -342,7 +342,7 @@
 	exclaim_verbs = list("imparts")
 	colour = "abductor"
 	key = "^"
-	flags = RESTRICTED | HIVEMIND
+	flags = RESTRICTED | HIVEMIND | NOLIBRARIAN
 	follow = TRUE
 
 /datum/language/grey/broadcast(mob/living/speaker, message, speaker_mask)
@@ -463,7 +463,7 @@
 
 /datum/language/clown
 	name = "Clownish"
-	desc = "The language of clown planet. Mother tongue of clowns throughout the Galaxy."
+	desc = "The language of Clown University. Mother tongue of clowns throughout the galaxy."
 	speech_verb = "honks"
 	ask_verb = "honks"
 	exclaim_verbs = list("toots", "wubs", "honks")
@@ -499,7 +499,7 @@
 	ask_verb = "hisses"
 	exclaim_verbs = list("hisses")
 	key = "6"
-	flags = RESTRICTED
+	flags = RESTRICTED | NOLIBRARIAN
 	syllables = list("sss","sSs","SSS")
 
 /datum/language/xenos
@@ -608,23 +608,31 @@
 	log_say(log_message, speaker)
 	speaker.create_log(SAY_LOG, log_message)
 
-	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
-	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i><span class='robot'>\"[message]\"</span></span></span>"
+	var/list/message_start = list("<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>") //Strings as lists lets you add blocks of text much easier
+	var/list/message_body = list("<span class='message'>[speaker.say_quote(message)],</i><span class='robot'>\"[message]\"</span></span></span>")
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
-			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
-			M.show_message("[message_start_dead] [message_body]", 2)
+			var/list/message_start_dead = list("<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>")
+			var/list/dead_message = message_start_dead + message_body
+			M.show_message(dead_message.Join(" "), 2)
 
 	for(var/mob/living/S in GLOB.alive_mob_list)
-		if(drone_only && !isdrone(S))
+		if(!S.binarycheck())
+			continue
+		else if(drone_only && !isdrone(S))
 			continue
 		else if(isAI(S))
-			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
-		else if(!S.binarycheck())
-			continue
-
-		S.show_message("[message_start] [message_body]", 2)
+			message_start = list("<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>")
+		else if(isrobot(S))
+			var/mob/living/silicon/robot/borg = S
+			if(borg.connected_ai?.name == speaker.name)
+				var/list/big_font_prefix = list("<font size=4>")
+				var/list/big_font_suffix = list("</font>")
+				message_start = big_font_prefix + message_start
+				message_body = message_body + big_font_suffix
+		var/list/final_message = message_start + message_body
+		S.show_message(final_message.Join(" "), 2)
 
 	var/list/listening = hearers(1, src)
 	listening -= src
@@ -653,7 +661,7 @@
 	ask_verb = "queries"
 	exclaim_verbs = list("declares")
 	key = "]"
-	flags = RESTRICTED
+	flags = RESTRICTED | NOLIBRARIAN
 	follow = TRUE
 	syllables = list ("beep", "boop")
 

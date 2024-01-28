@@ -9,6 +9,13 @@
 	var/var_edited = FALSE //Warranty void if seal is broken
 	var/tmp/unique_datum_id = null
 
+/**
+  * A cached version of our \ref
+  * The brunt of \ref costs are in creating entries in the string tree (a tree of immutable strings)
+  * This avoids doing that more then once per datum by ensuring ref strings always have a reference to them after they're first pulled
+  */
+	var/cached_ref
+
 #ifdef REFERENCE_TRACKING
 	var/running_find_references
 	var/last_find_references = 0

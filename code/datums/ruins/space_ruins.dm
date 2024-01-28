@@ -168,7 +168,8 @@
 	name = "Ancient Space Station"
 	description = "The crew of a space station awaken one hundred years after a crisis. Awaking to a derelict space station on the verge of collapse, and a hostile force of invading \
 	hivebots. Can the surviving crew overcome the odds and survive and rebuild, or will the cold embrace of the stars become their new home?"
-	cost = 2
+	cost = 0
+	always_place = TRUE
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/wizardcrash
@@ -326,3 +327,11 @@
 	description = "A cargo shuttle in a wrecked condition. There are many unknown horrors in space and looks like its last crew has faced one of them."
 	allow_duplicates = FALSE
 	cost = 1 // With the loot it contains it shouldn't be found frequently
+
+/datum/map_template/ruin/space/abandoned_engi_sat
+	id = "abandoned_engi_sat"
+	suffix = "abandoned_engi_sat.dmm"
+	name = "Abandoned NT Engineering Satellite"
+	description = "A derelict operating base for NT engineering crew."
+	allow_duplicates = FALSE
+	cost = 1

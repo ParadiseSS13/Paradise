@@ -51,6 +51,7 @@
 	has_unlimited_silicon_privilege = TRUE
 	// this makes the demon able to speak through holopads, due to the overriden say, PD cannot speak normally regardless
 	universal_speak = TRUE
+	loot = list(/obj/item/organ/internal/heart/demon/pulse)
 
 	/// List of sounds that is picked from when the demon speaks.
 	var/list/speech_sounds = list("sound/voice/pdvoice1.ogg", "sound/voice/pdvoice2.ogg", "sound/voice/pdvoice3.ogg")
@@ -241,22 +242,18 @@
 	if(!mind)
 		return
 	mind.wipe_memory()
-	var/list/greeting = list(src, "<br>")
+	var/list/greeting = list()
 	greeting.Add("<span class='warning'><font size=3><b>You are a pulse demon.</b></font></span>")
 	greeting.Add("<b>A being made of pure electrical energy, you travel through the station's wires and infest machinery.</b>")
 	greeting.Add("<b>Navigate the station's power cables to find power sources to steal from, and hijack APCs to interact with their connected machines.</b>")
 	greeting.Add("<b>If the wire or power source you're connected to runs out of power you'll start losing health and eventually die, but you are otherwise immune to damage.</b>")
 	greeting.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Pulse_Demon)</span>")
-	to_chat(src, greeting.Join("<br>"))
-	var/amount_of_objectives = 1
-	var/list/objective_types = list(/datum/objective/pulse_demon/infest, /datum/objective/pulse_demon/drain, /datum/objective/pulse_demon/tamper)
-	for(var/p in objective_types)
-		var/datum/objective/objective_to_give = new p
-		objective_to_give.owner = mind
-		mind.objectives += objective_to_give
-		to_chat(src, "<b>Objective #[amount_of_objectives++]</b>: [objective_to_give.explanation_text]")
+	for(var/datum/objective/new_obj in list(/datum/objective/pulse_demon/infest, /datum/objective/pulse_demon/drain, /datum/objective/pulse_demon/tamper))
+		mind.add_mind_objective(new_obj)
+	greeting.Add(mind.prepare_announce_objectives(FALSE))
+	to_chat(src, chat_box_red(greeting.Join("<br>")))
 	SSticker.mode.traitors |= mind
-	return amount_of_objectives
+	return
 
 /mob/living/simple_animal/demon/pulse_demon/proc/give_spells()
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/cycle_camera)
@@ -659,7 +656,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/proc/is_under_tile()
 	var/turf/T = get_turf(src)
-	return T.transparent_floor || T.intact || HAS_TRAIT(T, TRAIT_TURF_COVERED)
+	return T.intact || HAS_TRAIT(T, TRAIT_TURF_COVERED)
 
 // cable (and hijacked APC) view helper
 /mob/living/simple_animal/demon/pulse_demon/proc/update_cableview()
@@ -806,6 +803,43 @@
 
 /mob/living/simple_animal/demon/pulse_demon/mob_has_gravity()
 	return TRUE
+
+/obj/item/organ/internal/heart/demon/pulse
+	name = "perpetual pacemaker"
+	desc = "It still beats furiously, thousands of bright lights shine within it."
+	color = COLOR_YELLOW
+
+/obj/item/organ/internal/heart/demon/pulse/Initialize(mapload)
+	. = ..()
+	set_light(13, 2, "#bbbb00")
+
+/obj/item/organ/internal/heart/demon/pulse/attack_self(mob/living/user)
+	. = ..()
+	user.drop_item()
+	insert(user)
+
+/obj/item/organ/internal/heart/demon/pulse/insert(mob/living/carbon/M, special, dont_remove_slot)
+	. = ..()
+	M.AddComponent(/datum/component/cross_shock, 30, 500, 2 SECONDS)
+	ADD_TRAIT(M, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
+	M.set_light(3, 2, "#bbbb00")
+
+/obj/item/organ/internal/heart/demon/pulse/remove(mob/living/carbon/M, special)
+	. = ..()
+	REMOVE_TRAIT(M, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
+	M.remove_light()
+
+/obj/item/organ/internal/heart/demon/pulse/on_life()
+	if(!owner)
+		return
+	for(var/obj/item/stock_parts/cell/cell_to_charge in owner.GetAllContents())
+		var/newcharge = min(0.05 * cell_to_charge.maxcharge + cell_to_charge.charge, cell_to_charge.maxcharge)
+		if(cell_to_charge.charge < newcharge)
+			cell_to_charge.charge = newcharge
+			if(isobj(cell_to_charge.loc))
+				var/obj/cell_location = cell_to_charge.loc
+				cell_location.update_icon() //update power meters and such
+			cell_to_charge.update_icon()
 
 /obj/screen/alert/pulse_nopower
 	name = "No Power"

@@ -5,7 +5,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_supply = 1
+	job_department_flags = DEP_FLAG_SUPPLY | DEP_FLAG_COMMAND
 	supervisors = "the captain"
 	department_head = list("Captain")
 	department_account_access = TRUE
@@ -42,7 +42,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
 	spawn_positions = 2
-	is_supply = 1
+	job_department_flags = DEP_FLAG_SUPPLY
 	supervisors = "the quartermaster"
 	department_head = list("Quartermaster")
 	selection_color = "#eeddbe"
@@ -70,7 +70,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 6
 	spawn_positions = 8
-	is_supply = 1
+	job_department_flags = DEP_FLAG_SUPPLY
 	supervisors = "the quartermaster"
 	department_head = list("Quartermaster")
 	selection_color = "#eeddbe"
@@ -109,7 +109,7 @@
 	mask = /obj/item/clothing/mask/gas/explorer
 	glasses = /obj/item/clothing/glasses/meson
 	suit_store = /obj/item/tank/internals/emergency_oxygen
-	internals_slot = slot_s_store
+	internals_slot = SLOT_HUD_SUIT_STORE
 	backpack_contents = list(
 		/obj/item/flashlight/seclite=1,\
 		/obj/item/kitchen/knife/combat/survival=1,
@@ -127,9 +127,9 @@
 		var/obj/item/clothing/suit/hooded/S = H.wear_suit
 		S.ToggleHood()
 
-/datum/outfit/job/miner/equipped/hardsuit
-	name = "Shaft Miner (Equipment + Hardsuit)"
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
+/datum/outfit/job/miner/equipped/modsuit
+	name = "Shaft Miner (Equipment + MODsuit)"
+	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	mask = /obj/item/clothing/mask/breath
 
 
@@ -141,7 +141,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -185,7 +185,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -226,7 +226,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 3
 	spawn_positions = 2
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -261,7 +261,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -281,23 +281,25 @@
 	id = /obj/item/card/id/clown
 	pda = /obj/item/pda/clown
 	backpack_contents = list(
-		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
+		/obj/item/food/snacks/grown/banana = 1,
 		/obj/item/stamp/clown = 1,
 		/obj/item/toy/crayon/rainbow = 1,
 		/obj/item/storage/fancy/crayons = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
+		/obj/item/reagent_containers/drinks/bottle/bottleofbanana = 1,
 		/obj/item/instrument/bikehorn = 1
 	)
 
-	implants = list(/obj/item/implant/sad_trombone)
+	bio_chips = list(/obj/item/bio_chip/sad_trombone)
 
 	backpack = /obj/item/storage/backpack/clown
-	satchel = /obj/item/storage/backpack/clown
+	satchel = /obj/item/storage/backpack/satchel/clown
 	dufflebag = /obj/item/storage/backpack/duffel/clown
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_BANANIUM_SHIPMENTS))
+		backpack_contents += /obj/item/stack/sheet/mineral/bananium/fifty
 	if(H.gender == FEMALE)
 		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
 		uniform = /obj/item/clothing/under/rank/civilian/clown/sexy
@@ -351,7 +353,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -375,12 +377,17 @@
 	pda = /obj/item/pda/mime
 	backpack_contents = list(
 		/obj/item/toy/crayon/mime = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
+		/obj/item/reagent_containers/drinks/bottle/bottleofnothing = 1,
 		/obj/item/cane = 1
 	)
 
+	backpack = /obj/item/storage/backpack/mime
+	satchel = /obj/item/storage/backpack/mime
+
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_TRANQUILITE_SHIPMENTS))
+		backpack_contents += /obj/item/stack/sheet/mineral/tranquillite/fifty
 	if(H.gender == FEMALE)
 		uniform = /obj/item/clothing/under/rank/civilian/mime/sexy
 		suit = /obj/item/clothing/mask/gas/sexymime
@@ -402,7 +409,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -430,7 +437,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -454,33 +461,15 @@
 	backpack_contents = list(
 		/obj/item/videocam/advanced = 1)
 
-/datum/job/barber
-	title = "Barber"
-	flag = JOB_BARBER
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
-	spawn_positions = 1
-	is_service = TRUE
-	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
-	alt_titles = list("Hair Stylist","Beautician")
-	access = list(ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS)
-	outfit = /datum/outfit/job/barber
-
-/datum/outfit/job/barber
-	name = "Barber"
-	jobtype = /datum/job/barber
-
-	uniform = /obj/item/clothing/under/rank/civilian/barber
-	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/radio/headset/headset_service
-	id = /obj/item/card/id/barber
-	backpack_contents = list(
-		/obj/item/storage/box/lip_stick = 1,
-		/obj/item/storage/box/barber = 1
-	)
+/datum/outfit/job/librarian/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(!H.mind)
+		return
+	for(var/la in GLOB.all_languages)
+		var/datum/language/new_language = GLOB.all_languages[la]
+		if(new_language.flags & (HIVEMIND|NOLIBRARIAN))
+			continue
+		H.add_language(la)
 
 /datum/job/explorer
 	title = "Explorer"

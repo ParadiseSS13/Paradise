@@ -39,7 +39,7 @@
 	/// If the changeling is in the process of absorbing someone.
 	var/is_absorbing = FALSE
 	/// The amount of points available to purchase changeling abilities.
-	var/genetic_points = 10
+	var/genetic_points = 20
 	/// A name that will display in place of the changeling's real name when speaking.
 	var/mimicing = ""
 	/// If the changeling can respec their purchased abilities.
@@ -84,9 +84,9 @@
 	return ..()
 
 /datum/antagonist/changeling/greet()
-	..()
+	. = ..()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/ling_alert.ogg'))
-	to_chat(owner.current, "<span class='danger'>Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>")
+	. += "<span class='danger'>Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>"
 
 /datum/antagonist/changeling/farewell()
 	to_chat(owner.current, "<span class='biggerdanger'><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")
@@ -149,33 +149,29 @@
  * If they have two objectives as well as absorb, they must survive rather than escape.
  */
 /datum/antagonist/changeling/give_objectives()
-	var/datum/objective/absorb/absorb = new
-	absorb.gen_amount_goal(6, 8)
-	absorb.owner = owner
-	objectives += absorb
+	add_antag_objective(/datum/objective/absorb)
 
 	if(prob(60))
-		add_objective(/datum/objective/steal)
+		add_antag_objective(/datum/objective/steal)
 	else
-		add_objective(/datum/objective/debrain)
+		add_antag_objective(/datum/objective/debrain)
 
 	var/list/active_ais = active_ais()
 	if(length(active_ais) && prob(4)) // Leaving this at a flat chance for now, problems with the num_players() proc due to latejoin antags.
-		add_objective(/datum/objective/destroy)
+		add_antag_objective(/datum/objective/destroy)
 	else
-		var/datum/objective/assassinate/kill_objective = add_objective(/datum/objective/assassinate)
+		var/datum/objective/assassinate/kill_objective = add_antag_objective(/datum/objective/assassinate)
 		var/mob/living/carbon/human/H = kill_objective.target?.current
 
-		if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && H && !HAS_TRAIT(H, TRAIT_GENELESS))
+		if(!(locate(/datum/objective/escape) in owner.get_all_objectives(include_team = FALSE)) && H && !HAS_TRAIT(H, TRAIT_GENELESS))
 			var/datum/objective/escape/escape_with_identity/identity_theft = new(assassinate = kill_objective)
-			identity_theft.owner = owner
-			objectives += identity_theft
+			add_antag_objective(identity_theft)
 
-	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()))
+	if(!(locate(/datum/objective/escape) in owner.get_all_objectives(include_team = FALSE)))
 		if(prob(70))
-			add_objective(/datum/objective/escape)
+			add_antag_objective(/datum/objective/escape)
 		else
-			add_objective(/datum/objective/escape/escape_with_identity) // If our kill target has no genes, 30% time pick someone else to steal the identity of
+			add_antag_objective(/datum/objective/escape/escape_with_identity) // If our kill target has no genes, 30% time pick someone else to steal the identity of
 
 /datum/antagonist/changeling/process()
 	if(!owner || !owner.current)
@@ -329,7 +325,7 @@
  * * datum/dna/new_dna - the DNA to store
  */
 /datum/antagonist/changeling/proc/store_dna(datum/dna/new_dna)
-	for(var/datum/objective/escape/escape_with_identity/E in objectives)
+	for(var/datum/objective/escape/escape_with_identity/E in owner.get_all_objectives()) // this should consider all objectives, in case admins reroll it
 		if(E.target_real_name == new_dna.real_name)
 			protected_dna |= new_dna
 			return
@@ -351,7 +347,7 @@
 			continue
 		names[DNA.real_name] = DNA
 
-	var/chosen_name = input(message, title, null) as null|anything in names
+	var/chosen_name = tgui_input_list(owner.current, message, title, names)
 	if(!chosen_name)
 		return
 

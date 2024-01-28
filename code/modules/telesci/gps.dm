@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "gps-c"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "materials=2;magnets=1;bluespace=2"
 	/// Whether the GPS is on.
 	var/tracking = TRUE
@@ -48,13 +48,21 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	else if(tracking)
 		. += "working"
 
+/obj/item/gps/pickup(mob/user)
+	..()
+	ADD_TRAIT(user, TRAIT_HAS_GPS, "GPS[UID()]")
+
+/obj/item/gps/dropped(mob/user, silent)
+	REMOVE_TRAIT(user, TRAIT_HAS_GPS, "GPS[UID()]")
+	return ..()
+
 /obj/item/gps/emp_act(severity)
 	emped = TRUE
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), EMP_DISABLE_TIME)
 
 /obj/item/gps/AltClick(mob/user)
-	if(ui_status(user, GLOB.inventory_state) != STATUS_INTERACTIVE)
+	if(ui_status(user, GLOB.inventory_state) != UI_INTERACTIVE)
 		return //user not valid to use gps
 	if(emped)
 		to_chat(user, "<span class='warning'>It's busted!</span>")
@@ -112,10 +120,13 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/gps/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/gps/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/gps/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "GPS", "GPS", 450, 700)
+		ui = new(user, src, "GPS", "GPS")
 		ui.open()
 
 /obj/item/gps/ui_act(action, list/params)
@@ -168,7 +179,8 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/mod
 	icon_state = "gps-m"
 	gpstag = "MOD0"
-	desc = "A positioning system helpful for rescuing trapped or injured miners, after you have become lost from rolling around at the speed of sound."	
+	desc = "A positioning system helpful for rescuing trapped or injured miners, after you have become lost from rolling around at the speed of sound."
+	flags = NODROP
 
 /obj/item/gps/cyborg
 	icon_state = "gps-b"

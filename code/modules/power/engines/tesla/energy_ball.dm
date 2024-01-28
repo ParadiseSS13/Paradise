@@ -2,10 +2,10 @@
 #define TESLA_MINI_POWER 869130
 //Zap constants, speeds up targeting
 #define COIL (ROD + 1)
-#define ROD (APC + 1)
-#define APC (RIDE + 1)
+#define ROD (RIDE + 1)
 #define RIDE (LIVING + 1)
-#define LIVING (MACHINERY + 1)
+#define LIVING (APC + 1)
+#define APC (MACHINERY + 1)
 #define MACHINERY (BLOB + 1)
 #define BLOB (STRUCTURE + 1)
 #define STRUCTURE (1)
@@ -296,10 +296,6 @@
 			closest_type = ROD
 			closest_atom = A
 
-		else if(istype(A, /obj/machinery/power/apc))
-			closest_type = APC
-			closest_atom = A
-
 		else if(closest_type >= RIDE)
 			continue
 
@@ -317,6 +313,13 @@
 			if(L.stat != DEAD && !(HAS_TRAIT(L, TRAIT_TESLA_SHOCKIMMUNE)) && !(L.flags_2 & SHOCKED_2))
 				closest_type = LIVING
 				closest_atom = A
+
+		else if(closest_type >= APC)
+			continue
+
+		else if(istype(A, /obj/machinery/power/apc))
+			closest_type = APC
+			closest_atom = A
 
 		else if(closest_type >= MACHINERY)
 			continue
@@ -385,9 +388,9 @@
 
 #undef COIL
 #undef ROD
-#undef APC
 #undef RIDE
 #undef LIVING
+#undef APC
 #undef MACHINERY
 #undef BLOB
 #undef STRUCTURE

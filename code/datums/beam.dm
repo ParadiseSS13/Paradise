@@ -131,6 +131,11 @@
 	..()
 	A.ex_act(1)
 
+/obj/effect/ebeam/vetus/Destroy()
+	for(var/mob/living/M in get_turf(src))
+		M.electrocute_act(20, "the giant arc", flags = SHOCK_NOGLOVES) //fuck your gloves.
+	return ..()
+
 /obj/effect/ebeam/disintegration_telegraph
 	alpha = 100
 	layer = ON_EDGED_TURF_LAYER

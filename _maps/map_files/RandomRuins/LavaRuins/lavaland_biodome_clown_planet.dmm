@@ -979,7 +979,7 @@
 /turf/simulated/floor/mineral/bananium/lubed,
 /area/ruin/powered/clownplanet)
 "bL" = (
-/obj/item/reagent_containers/food/drinks/trophy/gold_cup,
+/obj/item/reagent_containers/drinks/trophy/gold_cup,
 /obj/structure/table/glass,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/clownplanet)
@@ -1156,7 +1156,7 @@
 /turf/simulated/floor/light,
 /area/ruin/powered/clownplanet)
 "ye" = (
-/turf/simulated/floor/plating/lava/smooth,
+/turf/simulated/floor/lava,
 /area/ruin/powered/clownplanet)
 "CB" = (
 /obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet/hope,

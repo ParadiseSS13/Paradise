@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(garbage)
 	offline_implications = "Garbage collection is no longer functional, and objects will not be qdel'd. Immediate server restart recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
 
-	var/list/collection_timeout = list(2 MINUTES, 10 SECONDS)	// deciseconds to wait before moving something up in the queue to the next level
+	var/list/collection_timeout = list(GC_FILTER_QUEUE, GC_CHECK_QUEUE, GC_DEL_QUEUE) // deciseconds to wait before moving something up in the queue to the next level
 
 	//Stat tracking
 	var/delslasttick = 0			// number of del()'s we've done this tick
@@ -34,13 +34,7 @@ SUBSYSTEM_DEF(garbage)
 
 
 /datum/controller/subsystem/garbage/PreInit()
-	queues = new(GC_QUEUE_COUNT)
-	pass_counts = new(GC_QUEUE_COUNT)
-	fail_counts = new(GC_QUEUE_COUNT)
-	for(var/i in 1 to GC_QUEUE_COUNT)
-		queues[i] = list()
-		pass_counts[i] = 0
-		fail_counts[i] = 0
+	InitQueues()
 
 /datum/controller/subsystem/garbage/get_stat_details()
 	var/list/msg = list()
@@ -105,10 +99,13 @@ SUBSYSTEM_DEF(garbage)
 
 /datum/controller/subsystem/garbage/fire()
 	//the fact that this resets its processing each fire (rather then resume where it left off) is intentional.
-	var/queue = GC_QUEUE_CHECK
+	var/queue = GC_QUEUE_FILTER
 
 	while(state == SS_RUNNING)
 		switch(queue)
+			if(GC_QUEUE_FILTER)
+				HandleQueue(GC_QUEUE_FILTER)
+				queue = GC_QUEUE_FILTER + 1
 			if(GC_QUEUE_CHECK)
 				HandleQueue(GC_QUEUE_CHECK)
 				queue = GC_QUEUE_CHECK + 1
@@ -118,11 +115,20 @@ SUBSYSTEM_DEF(garbage)
 					state = SS_RUNNING
 				break
 
+/datum/controller/subsystem/garbage/proc/InitQueues()
+	if(isnull(queues)) // Only init the queues if they don't already exist, prevents overriding of recovered lists
+		queues = new(GC_QUEUE_COUNT)
+		pass_counts = new(GC_QUEUE_COUNT)
+		fail_counts = new(GC_QUEUE_COUNT)
+		for(var/i in 1 to GC_QUEUE_COUNT)
+			queues[i] = list()
+			pass_counts[i] = 0
+			fail_counts[i] = 0
 
+#define IS_DELETED(datum, gcd_at_time) (isnull(##datum) || ##datum.gc_destroyed != gcd_at_time)
 
-
-/datum/controller/subsystem/garbage/proc/HandleQueue(level = GC_QUEUE_CHECK)
-	if(level == GC_QUEUE_CHECK)
+/datum/controller/subsystem/garbage/proc/HandleQueue(level = GC_QUEUE_FILTER)
+	if(level == GC_QUEUE_FILTER)
 		delslasttick = 0
 		gcedlasttick = 0
 	var/cut_off_time = world.time - collection_timeout[level] //ignore entries newer then this
@@ -137,33 +143,33 @@ SUBSYSTEM_DEF(garbage)
 
 	lastlevel = level
 
-	// The instinct is to use a for in loop here, to walk the entries in the queue
-	// The trouble is this performs a copy of the queue list, and since this can in theory balloon a LOT
-	// It's better to just go index by index. It's not a huge deal but it's worth doin IMO
+	//We do this rather then for(var/refID in queue) because that sort of for loop copies the whole list.
+	//Normally this isn't expensive, but the gc queue can grow to 40k items, and that gets costly/causes overrun.
 	for(var/i in 1 to length(queue))
-		var/list/packet = queue[i]
-		if(length(packet) != 2)
+		var/list/L = queue[i]
+		if(length(L) < GC_QUEUE_ITEM_INDEX_COUNT)
 			count++
 			if(MC_TICK_CHECK)
 				return
 			continue
 
-		var/GCd_at_time = packet[2]
-		if(GCd_at_time > cut_off_time)
+		var/queued_at_time = L[GC_QUEUE_ITEM_QUEUE_TIME]
+		if(queued_at_time > cut_off_time)
 			break // Everything else is newer, skip them
 		count++
 
-		var/refID = packet[1]
+		var/GCd_at_time = L[GC_QUEUE_ITEM_GCD_DESTROYED]
 
+		var/refID = L[GC_QUEUE_ITEM_REF]
 		var/datum/D
 		D = locate(refID)
 
-		if(!D || D.gc_destroyed != GCd_at_time) // So if something else coincidently gets the same ref, it's not deleted by mistake
+		if(IS_DELETED(D, GCd_at_time)) // So if something else coincidently gets the same ref, it's not deleted by mistake
 			++gcedlasttick
 			++totalgcs
 			pass_counts[level]++
 			#ifdef REFERENCE_TRACKING
-			reference_find_on_fail -= refID		//It's deleted we don't care anymore.
+			reference_find_on_fail -= text_ref(D) //It's deleted we don't care anymore.
 			#endif
 			if(MC_TICK_CHECK)
 				return
@@ -171,26 +177,28 @@ SUBSYSTEM_DEF(garbage)
 
 		// Something's still referring to the qdel'd object.
 		fail_counts[level]++
+
 		#ifdef REFERENCE_TRACKING
 		var/ref_searching = FALSE
 		#endif
+
 		switch(level)
 			if(GC_QUEUE_CHECK)
 				#ifdef REFERENCE_TRACKING
-				if(reference_find_on_fail[refID] && !ref_search_stop)
+				if(reference_find_on_fail[text_ref(D)] && !ref_search_stop)
 					INVOKE_ASYNC(D, TYPE_PROC_REF(/datum, find_references))
 					ref_searching = TRUE
 				#ifdef GC_FAILURE_HARD_LOOKUP
-				else if (!ref_search_stop)
+				else if(!ref_search_stop)
 					INVOKE_ASYNC(D, TYPE_PROC_REF(/datum, find_references))
 					ref_searching = TRUE
 				#endif
-				reference_find_on_fail -= refID
+				reference_find_on_fail -= text_ref(D)
 				#endif
 				var/type = D.type
 				var/datum/qdel_item/I = items[type]
 				#ifdef REFERENCE_TRACKING
-				log_gc("GC: -- \ref[src] | [type] was unable to be GC'd --")
+				log_gc("GC: -- [text_ref(D)] | [type] was unable to be GC'd --")
 				#endif
 				I.failures++
 			if(GC_QUEUE_HARDDELETE)
@@ -212,19 +220,25 @@ SUBSYSTEM_DEF(garbage)
 		queue.Cut(1, count + 1)
 		count = 0
 
-/datum/controller/subsystem/garbage/proc/Queue(datum/D, level = GC_QUEUE_CHECK)
+#undef IS_DELETED
+
+/datum/controller/subsystem/garbage/proc/Queue(datum/D, level = GC_QUEUE_FILTER)
 	if(isnull(D))
 		return
 	if(level > GC_QUEUE_COUNT)
 		HardDelete(D)
 		return
-	var/gctime = world.time
+	var/queue_time = world.time
 
-	D.gc_destroyed = gctime
+	var/refid = text_ref(D)
+	var/static/uid = 0
+	if(D.gc_destroyed <= 0)
+		uid = WRAP(uid + 1, 1, SHORT_REAL_LIMIT - 1)
+		D.gc_destroyed = uid
 
 	var/list/queue = queues[level]
-	// I hate byond lists so much man
-	queue[++queue.len] = list("\ref[D]", gctime)
+
+	queue[++queue.len] = list(queue_time, refid, D.gc_destroyed) // not += for byond reasons
 
 //this is mainly to separate things profile wise.
 /datum/controller/subsystem/garbage/proc/HardDelete(datum/D)
@@ -234,7 +248,7 @@ SUBSYSTEM_DEF(garbage)
 	++delslasttick
 	++totaldels
 	var/type = D.type
-	var/refID = "\ref[D]"
+	var/refID = text_ref(D)
 
 	del(D)
 
@@ -259,6 +273,7 @@ SUBSYSTEM_DEF(garbage)
 		postpone(time)
 
 /datum/controller/subsystem/garbage/Recover()
+	InitQueues() //We first need to create the queues before recovering data
 	if(istype(SSgarbage.queues))
 		for(var/i in 1 to SSgarbage.queues.len)
 			queues[i] |= SSgarbage.queues[i]
@@ -283,7 +298,7 @@ SUBSYSTEM_DEF(garbage)
 	thing_to_del.qdel_and_find_ref_if_fail(force)
 
 /datum/proc/qdel_and_find_ref_if_fail(force = FALSE)
-	SSgarbage.reference_find_on_fail["\ref[src]"] = TRUE
+	SSgarbage.reference_find_on_fail[text_ref(src)] = TRUE
 	qdel(src, force)
 
 #endif
@@ -294,11 +309,11 @@ SUBSYSTEM_DEF(garbage)
 	if(!istype(D))
 		del(D)
 		return
+
 	var/datum/qdel_item/I = SSgarbage.items[D.type]
 	if(!I)
 		I = SSgarbage.items[D.type] = new /datum/qdel_item(D.type)
 	I.qdels++
-
 
 	if(isnull(D.gc_destroyed))
 		if(SEND_SIGNAL(D, COMSIG_PARENT_PREQDELETED, force)) // Give the components a chance to prevent their parent from being deleted
@@ -349,7 +364,7 @@ SUBSYSTEM_DEF(garbage)
 			if(QDEL_HINT_IFFAIL_FINDREFERENCE)
 				SSgarbage.Queue(D)
 				#ifdef REFERENCE_TRACKING
-				SSgarbage.reference_find_on_fail["\ref[D]"] = TRUE
+				SSgarbage.reference_find_on_fail[text_ref(D)] = TRUE
 				#endif
 			else
 				#ifdef REFERENCE_TRACKING
@@ -474,11 +489,11 @@ SUBSYSTEM_DEF(garbage)
 			var/variable = vars_list[varname]
 
 			if(variable == src)
-				log_gc("Found [type] \ref[src] in [datum_container.type]'s \ref[datum_container] [varname] var. [container_name]")
+				log_gc("Found [type] [text_ref(src)] in [datum_container.type]'s [text_ref(datum_container)] [varname] var. [container_name]")
 				continue
 
 			if(islist(variable))
-				DoSearchVar(variable, "[container_name] \ref[datum_container] -> [varname] (list)", recursive_limit - 1, search_time)
+				DoSearchVar(variable, "[container_name] [text_ref(datum_container)] -> [varname] (list)", recursive_limit - 1, search_time)
 
 	else if(islist(potential_container))
 		var/normal = IS_NORMAL_LIST(potential_container)
@@ -489,7 +504,7 @@ SUBSYSTEM_DEF(garbage)
 			#endif
 			//Check normal entrys
 			if(element_in_list == src)
-				log_gc("Found [type] \ref[src] in list [container_name].")
+				log_gc("Found [type] [text_ref(src)] in list [container_name].")
 				continue
 
 			var/assoc_val = null
@@ -497,7 +512,7 @@ SUBSYSTEM_DEF(garbage)
 				assoc_val = potential_cache[element_in_list]
 			//Check assoc entrys
 			if(assoc_val == src)
-				log_gc("Found [type] \ref[src] in list [container_name]\[[element_in_list]\]")
+				log_gc("Found [type] [text_ref(src)] in list [container_name]\[[element_in_list]\]")
 				continue
 			//We need to run both of these checks, since our object could be hiding in either of them
 			//Check normal sublists

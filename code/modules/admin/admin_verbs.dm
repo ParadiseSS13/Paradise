@@ -109,7 +109,8 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/outfit_manager,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
-	/client/proc/change_human_appearance_self	/* Allows the human-based mob itself to change its basic appearance */
+	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself to change its basic appearance */
+	/datum/admins/proc/station_traits_panel
 	))
 
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -164,7 +165,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/map_template_upload,
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
-	/client/proc/jump_to_ruin,
 	/client/proc/uid_log,
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
@@ -180,7 +180,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debug_timers,
 	/client/proc/force_verb_bypass,
 	/client/proc/show_gc_queues,
-	/client/proc/toggle_mctabs
+	/client/proc/toggle_mctabs,
+	/client/proc/debug_global_variables
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -239,10 +240,20 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	/client/proc/cinematic, // This will break everyone's screens in the round. Dont use this for adminbus.
 	/client/proc/throw_runtime, // Do I even need to explain why this is locked?
 ))
-
-/client/proc/on_holder_add()
-	if(chatOutput && chatOutput.loaded)
-		chatOutput.loadAdmin()
+GLOBAL_LIST_INIT(view_runtimes_verbs, list(
+	/client/proc/view_runtimes,
+	/client/proc/cmd_display_del_log,
+	/client/proc/cmd_display_del_log_simple,
+	/client/proc/toggledebuglogs,
+	/client/proc/debug_variables, /*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
+	/client/proc/ss_breakdown,
+	/client/proc/show_gc_queues,
+	/client/proc/toggle_mctabs,
+	/client/proc/debug_global_variables,
+	/client/proc/visualise_active_turfs,
+	/client/proc/debug_timers,
+	/client/proc/timer_log
+))
 
 /client/proc/add_admin_verbs()
 	if(holder)
@@ -287,16 +298,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 		if(holder.rights & R_MAINTAINER)
 			verbs += GLOB.admin_verbs_maintainer
 		if(holder.rights & R_VIEWRUNTIMES)
-			// TODO - Make a viewruntimes list at this point - its getting silly
-			verbs += /client/proc/view_runtimes
-			verbs += /client/proc/cmd_display_del_log
-			verbs += /client/proc/cmd_display_del_log_simple
-			verbs += /client/proc/toggledebuglogs
-			verbs += /client/proc/debug_variables /*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
-			verbs += /client/proc/ss_breakdown
-			verbs += /client/proc/show_gc_queues
-			verbs += /client/proc/toggle_mctabs
-			verbs += /client/proc/visualise_active_turfs
+			verbs += GLOB.view_runtimes_verbs
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
@@ -362,6 +364,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	if(isobserver(mob))
 		//re-enter
 		var/mob/dead/observer/ghost = mob
+		var/old_turf = get_turf(ghost)
 		ghost.can_reenter_corpse = 1			//just in-case.
 		ghost.reenter_corpse()
 		log_admin("[key_name(usr)] re-entered their body")
@@ -369,6 +372,9 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 		if(ishuman(mob))
 			var/mob/living/carbon/human/H = mob
 			H.regenerate_icons() // workaround for #13269
+		if(isAI(mob)) // client.mob, built in byond client var
+			var/mob/living/silicon/ai/ai = mob
+			ai.eyeobj.setLoc(old_turf)
 	else if(isnewplayer(mob))
 		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>")
 	else
@@ -528,7 +534,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 
 	var/turf/epicenter = mob.loc
 	var/list/choices = list("Small Bomb", "Medium Bomb", "Big Bomb", "Custom Bomb")
-	var/choice = input("What size explosion would you like to produce?") as null|anything in choices
+	var/choice = tgui_input_list(src, "What size explosion would you like to produce?", "Drop Bomb", choices)
 	switch(choice)
 		if(null)
 			return 0
@@ -700,7 +706,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 
 				// Do a little check here
 				if(GLOB.configuration.system.is_production && (GLOB.admin_ranks[rank] & R_ADMIN) && prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
-					to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
+					to_chat(src,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 					return
 				D = new(rank, GLOB.admin_ranks[rank], ckey)
 			else
@@ -735,7 +741,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 					var/client/check_client = GLOB.directory[ckey]
 					// Do a little check here
 					if(GLOB.configuration.system.is_production && (flags & R_ADMIN) && check_client.prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
-						to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
+						to_chat(src,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 						qdel(admin_read)
 						return
 					D = new(admin_rank, flags, ckey)
@@ -791,7 +797,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	if(!S) return
 
 	var/datum/ui_module/law_manager/L = new(S)
-	L.ui_interact(usr, state = GLOB.admin_state)
+	L.ui_interact(usr)
 	log_and_message_admins("has opened [S]'s law manager.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Silicon Laws") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -805,7 +811,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 
 	if(!istype(H))
 		if(isbrain(H))
-			var/mob/living/carbon/brain/B = H
+			var/mob/living/brain/B = H
 			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
 				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
@@ -831,7 +837,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 
 	if(!istype(H))
 		if(isbrain(H))
-			var/mob/living/carbon/brain/B = H
+			var/mob/living/brain/B = H
 			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
 				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
@@ -871,7 +877,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 		return
 	var/job = input("Please select job slot to free", "Free Job Slot") as null|anything in jobs
 	if(job)
-		SSjobs.FreeRole(job)
+		SSjobs.FreeRole(job, force = TRUE)
 		log_admin("[key_name(usr)] has freed a job slot for [job].")
 		message_admins("[key_name_admin(usr)] has freed a job slot for [job].")
 
@@ -968,8 +974,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	to_chat(T, "<span class='notice'><b><font size=3>Man up and deal with it.</font></b></span>")
-	to_chat(T, "<span class='notice'>Move on.</span>")
+	to_chat(T, chat_box_notice_thick("<span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span>"))
 	SEND_SOUND(T, sound('sound/voice/manup1.ogg'))
 
 	log_admin("[key_name(usr)] told [key_name(T)] to man up and deal with it.")
@@ -988,7 +993,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	if(confirm == "Yes")
 		var/manned_up_sound = sound('sound/voice/manup1.ogg')
 		for(var/sissy in GLOB.player_list)
-			to_chat(sissy, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
+			to_chat(sissy, chat_box_notice_thick("<span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span>"))
 			SEND_SOUND(sissy, manned_up_sound)
 
 		log_admin("[key_name(usr)] told everyone to man up and deal with it.")

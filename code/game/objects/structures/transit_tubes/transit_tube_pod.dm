@@ -1,3 +1,6 @@
+#define MOVE_ANIMATION_STAGE_ONE 1
+#define MOVE_ANIMATION_STAGE_TWO 2
+
 /obj/structure/transit_tube_pod
 	icon = 'icons/obj/pipes/transit_tube_pod.dmi'
 	icon_state = "pod"
@@ -6,21 +9,45 @@
 	density = TRUE
 	var/moving = FALSE
 	var/datum/gas_mixture/air_contents = new()
+	/// The tube we're currently traveling through
+	var/obj/structure/transit_tube/current_tube = null
+	/// The direction of our next transit from pipe to pipe. Stored between process calls here.
+	var/next_dir
+	/// The location of our next target tube. Stored same as above
+	var/next_loc
+	/// How long to wait when entering a new tube
+	var/enter_delay = 0
+	/// How long to wait when exiting a new tube
+	var/exit_delay
+	/// The next time we'll be moving
+	COOLDOWN_DECLARE(move_cooldown)
+	/// The move animation mode for the next processing tick
+	var/current_move_anim_mode = MOVE_ANIMATION_STAGE_ONE
+	/// Icon state in use while we're occupied
+	var/occupied_icon_state = "pod_occupied"
 
-/obj/structure/transit_tube_pod/New(loc)
-	..(loc)
+/obj/structure/transit_tube_pod/Initialize(mapload)
+	. = ..()
 
 	air_contents.oxygen = MOLES_O2STANDARD * 2
 	air_contents.nitrogen = MOLES_N2STANDARD
 	air_contents.temperature = T20C
 
-	// Give auto tubes time to align before trying to start moving
-	spawn(5)
-		follow_tube()
+	for(var/obj/structure/transit_tube/tube in loc)
+		dir = pick(tube.directions())
+		break
+	follow_tube()
+
+/obj/structure/transit_tube_pod/update_icon_state()
+	. = ..()
+	icon_state = length(contents) ? occupied_icon_state : initial(icon_state)
+
+/obj/structure/transit_tube_pod/proc/stop_following()
+	STOP_PROCESSING(SStransit_tube, src)
 
 /obj/structure/transit_tube_pod/Destroy()
-	for(var/atom/movable/AM in contents)
-		AM.forceMove(get_turf(src))
+	empty_pod()
+	stop_following()
 	return ..()
 
 /obj/structure/transit_tube_pod/Process_Spacemove()
@@ -28,65 +55,110 @@
 		return TRUE
 	else return ..()
 
+/obj/structure/transit_tube_pod/proc/empty_pod(atom/location)
+	if(!location)
+		location = get_turf(src)
+	for(var/atom/movable/M in contents)
+		M.forceMove(location)
+	update_appearance()
+
+/obj/structure/transit_tube_pod/crowbar_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(moving)
+		return
+
+	if(length(contents))
+		I.play_tool_sound(src)
+		user.visible_message("<span class='notice'>[user] pries [src] open.</span>")
+		empty_pod()
+
+/obj/structure/transit_tube_pod/process()
+	..()
+
+	if(!COOLDOWN_FINISHED(src, move_cooldown))
+		return
+
+	var/move_result = move_animation(current_move_anim_mode)
+	if(isnull(move_result))
+		if(isnull(current_tube) || (!(dir in current_tube.directions()) && !(reverse_direction(dir) in current_tube.directions())))
+			outside_tube()
+		return PROCESS_KILL
+
+	current_move_anim_mode = move_result
+
+/obj/structure/transit_tube_pod/proc/outside_tube()
+	var/list/savedcontents = contents.Copy()
+	var/saveddir = dir
+	var/turf/destination = get_edge_target_turf(src, saveddir)
+	visible_message("<span class='warning'>[src] ejects its insides out!</span>")
+	for(var/i in savedcontents)
+		var/atom/movable/AM = i
+		AM.throw_at(destination, rand(1, 3), 5)
+
+
+/obj/structure/transit_tube_pod/proc/move_animation(stage = MOVE_ANIMATION_STAGE_ONE)
+	if(stage == MOVE_ANIMATION_STAGE_ONE)
+		next_dir = current_tube.get_exit(dir)
+
+		if(!next_dir)
+			moving = FALSE
+			density = TRUE
+			return
+		exit_delay = current_tube.exit_delay
+		next_loc = get_step(src, next_dir)
+		current_tube = null
+		for(var/obj/structure/transit_tube/tube in next_loc)
+			if(tube.has_entrance(next_dir))
+				current_tube = tube
+				break
+
+		if(isnull(current_tube))
+			setDir(next_dir)
+			Move(get_step(loc, dir), dir) // Allow collisions when leaving the tubes.
+			moving = FALSE
+			density = TRUE
+			return
+
+		enter_delay = current_tube.enter_delay(src, next_dir)
+		if(enter_delay > 0)
+			COOLDOWN_START(src, move_cooldown, enter_delay)
+			return MOVE_ANIMATION_STAGE_TWO
+
+		stage = MOVE_ANIMATION_STAGE_TWO
+
+	if(stage == MOVE_ANIMATION_STAGE_TWO)
+		setDir(next_dir)
+		forceMove(next_loc) // When moving from one tube to another, skip collision and such.
+		density = current_tube.density
+
+		if(current_tube?.should_stop_pod(src, next_dir))
+			current_tube.pod_stopped(src, dir)
+		else
+			COOLDOWN_START(src, move_cooldown, exit_delay)
+			return MOVE_ANIMATION_STAGE_ONE
+
+	density = TRUE
+	moving = FALSE
+
+	return MOVE_ANIMATION_STAGE_ONE
+
+
 /obj/structure/transit_tube_pod/proc/follow_tube(reverse_launch)
 	if(moving)
 		return
 
 	moving = TRUE
 
-	spawn()
-		var/obj/structure/transit_tube/current_tube = null
-		var/next_dir
-		var/next_loc
-		var/last_delay = 0
-		var/exit_delay
+	for(var/obj/structure/transit_tube/tube in loc)
+		if(tube.has_exit(dir))
+			current_tube = tube
+			break
 
-		if(reverse_launch)
-			dir = turn(dir, 180) // Back it up
-
-		for(var/obj/structure/transit_tube/tube in loc)
-			if(tube.has_exit(dir))
-				current_tube = tube
-				break
-
-		while(current_tube)
-			next_dir = current_tube.get_exit(dir)
-
-			if(!next_dir)
-				break
-
-			exit_delay = current_tube.exit_delay(src, dir)
-			last_delay += exit_delay
-
-			sleep(exit_delay)
-
-			next_loc = get_step(loc, next_dir)
-
-			current_tube = null
-			for(var/obj/structure/transit_tube/tube in next_loc)
-				if(tube.has_entrance(next_dir))
-					current_tube = tube
-					break
-
-			if(current_tube == null)
-				setDir(next_dir)
-				Move(get_step(loc, dir), dir) // Allow collisions when leaving the tubes.
-				break
-
-			last_delay = current_tube.enter_delay(src, next_dir)
-			sleep(last_delay)
-			setDir(next_dir)
-			forceMove(next_loc) // When moving from one tube to another, skip collision and such.
-			density = current_tube.density
-
-			if(current_tube && current_tube.should_stop_pod(src, next_dir))
-				current_tube.pod_stopped(src, dir)
-				break
-
-		density = TRUE
-
+	if(!isnull(current_tube))
+		START_PROCESSING(SStransit_tube, src)
+		// move_animation(MOVE_ANIMATION_STAGE_ONE)
+	else
 		moving = FALSE
-
 
 // Should I return a copy here? If the caller edits or qdel()s the returned
 //  datum, there might be problems if I don't...
@@ -153,9 +225,9 @@
 
 		if(!moving)
 			for(var/obj/structure/transit_tube/station/station in loc)
-				if(dir in station.directions())
+				if((dir in station.directions()) || (turn(dir, 180) in station.directions()))
 					if(!station.pod_moving)
-						if(direction == station.dir)
+						if(direction == turn(station.boarding_dir, 180))
 							if(station.hatch_state == TRANSIT_TUBE_OPEN)
 								eject(mob, direction)
 
@@ -174,8 +246,8 @@
 						return
 
 /obj/structure/transit_tube_pod/proc/move_into(atom/movable/A)
-	icon_state = "pod_occupied"
 	A.forceMove(src)
+	update_appearance()
 
 /obj/structure/transit_tube_pod/proc/eject_mindless(direction)
 	for(var/atom/movable/A in contents)
@@ -188,9 +260,24 @@
 
 
 /obj/structure/transit_tube_pod/proc/eject(atom/movable/A, direction)
-	icon_state = "pod"
 	A.forceMove(loc)
+	update_appearance()
 	A.Move(get_step(loc, direction), direction)
 	if(ismob(A))
 		var/mob/M = A
 		M.reset_perspective(null)
+
+
+/obj/structure/transit_tube_pod/dispensed
+	name = "temporary transit tube pod"
+	desc = "Gets you from here to there, and no further."
+	icon_state = "temppod"
+	occupied_icon_state = "temppod_occupied"
+
+
+/obj/structure/transit_tube_pod/dispensed/outside_tube()
+	if(!QDELETED(src))
+		qdel(src)
+
+#undef MOVE_ANIMATION_STAGE_TWO
+#undef MOVE_ANIMATION_STAGE_ONE

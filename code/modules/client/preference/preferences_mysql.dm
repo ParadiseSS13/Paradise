@@ -127,7 +127,7 @@
 			"ckey" = C.ckey,
 			"server_region" = server_region,
 			"muted_adminsounds_ckeys" = json_encode(admin_sound_ckey_ignore),
-			"viewrange" = viewrange,
+			"viewrange" = viewrange
 		))
 
 	if(!query.warn_execute())

@@ -72,6 +72,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	QDEL_NULL(Radio)
 	return ..()
 
+/obj/machinery/computer/card/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to remove the ID cards in it.</span>"
+
 /obj/machinery/computer/card/proc/is_centcom()
 	return FALSE
 
@@ -121,30 +125,29 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			"skin" = skin)))
 	return formatted
 
-/obj/machinery/computer/card/verb/eject_id()
-	set category = null
-	set name = "Eject ID Card"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/machinery/computer/card/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(scan)
-		to_chat(usr, "You remove \the [scan] from \the [src].")
-		scan.forceMove(get_turf(src))
-		if(!usr.get_active_hand() && Adjacent(usr))
-			usr.put_in_hands(scan)
+		to_chat(user, "<span class='notice'>You remove \the [scan] from \the [src].</span>")
+		if(!user.get_active_hand())
+			user.put_in_hands(scan)
+		else if(!user.put_in_inactive_hand(scan))
+			scan.forceMove(get_turf(src))
 		scan = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		return
 	else if(modify)
-		to_chat(usr, "You remove \the [modify] from \the [src].")
-		modify.forceMove(get_turf(src))
-		if(!usr.get_active_hand() && Adjacent(usr))
-			usr.put_in_hands(modify)
+		to_chat(user, "<span class='notice'>You remove \the [modify] from \the [src].</span>")
+		if(!user.get_active_hand())
+			user.put_in_hands(modify)
+		else if(!user.put_in_inactive_hand(modify))
+			modify.forceMove(get_turf(src))
 		modify = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	else
-		to_chat(usr, "There is nothing to remove from the console.")
+		to_chat(user, "There is nothing to remove from the console.")
 
 /obj/machinery/computer/card/attackby(obj/item/card/id/id_card, mob/user, params)
 	if(!istype(id_card))
@@ -181,6 +184,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return FALSE
 		if(!job_in_department(job, FALSE))
 			return FALSE
+		if(job.job_banned_gamemode) // you cannot open a slot for more sec/legal after revs win
+			return FALSE
 		if((job.total_positions > GLOB.player_list.len * (max_relative_positions / 100)))
 			return FALSE
 		if(opened_positions[job.title] < 0)
@@ -198,6 +203,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if(job_blacklisted_partial(job))
 			return FALSE
 		if(!job_in_department(job, FALSE))
+			return FALSE
+		if(job.job_banned_gamemode) // you cannot edit this slot after revs win
 			return FALSE
 		if(job in SSjobs.prioritized_jobs) // different to above
 			return FALSE
@@ -300,10 +307,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	ui_interact(user)
 
-/obj/machinery/computer/card/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/card/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/card/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "CardComputer",  name, 800, 800, master_ui, state)
+		ui = new(user, src, "CardComputer",  name)
 		ui.open()
 
 /obj/machinery/computer/card/ui_data(mob/user)
@@ -377,7 +387,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/proc/regenerate_id_name()
 	if(modify)
-		modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
+		modify.name = "[modify.registered_name]'s ID Card ([modify.assignment])"
 
 /obj/machinery/computer/card/ui_act(action, params)
 	if(..())

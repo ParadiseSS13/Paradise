@@ -43,22 +43,28 @@
 	var/number = 0 // Used to understand when someone is talking to it
 
 	var/mob/living/Target = null // AI variable - tells the slime to hunt this down
-	var/mob/living/Leader = null // AI variable - tells the slime to follow this person
 
 	var/attacked = 0 // Determines if it's been attacked recently. Can be any number, is a cooloff-ish variable
 	var/rabid = FALSE // If set to 1, the slime will attack and eat anything it comes in contact with
-	var/holding_still = 0 // AI variable, cooloff-ish for how long it's going to stay in one place
 	var/target_patience = 0 // AI variable, cooloff-ish for how long it's going to follow its target
-
-	var/list/Friends = list() // A list of friends; they are not considered targets for feeding; passed down after splitting
-
-	var/list/speech_buffer = list() // Last phrase said near it and person who said it
 
 	var/mood = "" // To show its face
 	var/mutator_used = FALSE //So you can't shove a dozen mutators into a single slime
 	var/force_stasis = FALSE
 
 	var/static/regex/slime_name_regex = new("\\w+ (baby|adult) slime \\(\\d+\\)")
+
+	/// Determines if the AI loop is activated
+	var/AIproc = FALSE
+	/// Attack cooldown
+	var/Atkcool = FALSE
+	/// Temporary temperature stuns
+	var/Tempstun = FALSE
+	/// If a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
+	var/Discipline = 0
+	/// Stun variable
+	var/SStun = 0
+
 	///////////TIME FOR SUBSPECIES
 
 	var/colour = "grey"
@@ -101,9 +107,6 @@
 		var/datum/action/AC = A
 		AC.Remove(src)
 	Target = null
-	Leader = null
-	Friends.Cut()
-	speech_buffer.Cut()
 	return ..()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
@@ -213,7 +216,7 @@
 		if(prob(probab))
 			if(istype(O, /obj/structure/window) || istype(O, /obj/structure/grille))
 				if(nutrition <= get_hunger_nutrition() && !Atkcool)
-					if (is_adult || prob(5))
+					if(is_adult || prob(5))
 						O.attack_slime(src)
 						Atkcool = TRUE
 						addtimer(VARSET_CALLBACK(src, Atkcool, FALSE), 4.5 SECONDS)
@@ -360,14 +363,10 @@
 				if(S.next_step(user, src))
 					return 1
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && !stat) //Let's you feed slimes plasma.
-		if(user in Friends)
-			++Friends[user]
-		else
-			Friends[user] = 1
-			RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(clear_friend))
 		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
 		var/obj/item/stack/sheet/mineral/plasma/S = I
 		S.use(1)
+		discipline_slime(user)
 		return
 	if(I.force > 0)
 		attacked += 10
@@ -386,10 +385,6 @@
 			discipline_slime(user)
 	..()
 
-/mob/living/simple_animal/slime/proc/clear_friend(mob/living/friend)
-	UnregisterSignal(friend, COMSIG_PARENT_QDELETING)
-	Friends -= friend
-
 /mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	var/water_damage = rand(10, 15) * volume
@@ -400,7 +395,7 @@
 
 /mob/living/simple_animal/slime/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>*---------*\nThis is [bicon(src)] \a <EM>[src]</EM>!"
+	. += "<span class='info'>This is [bicon(src)] \a <EM>[src]</EM>!"
 	if(stat == DEAD)
 		. += "<span class='deadsay'>It is limp and unresponsive.</span>"
 	else
@@ -408,7 +403,7 @@
 			. += "<span class='deadsay'>It appears to be alive but unresponsive.</span>"
 		if(getBruteLoss())
 			. += "<span class='warning'>"
-			if (getBruteLoss() < 40)
+			if(getBruteLoss() < 40)
 				. += "It has some punctures in its flesh!"
 			else
 				. += "<B>It has severe punctures and tears in its flesh!</B>"
@@ -427,7 +422,7 @@
 			if(10)
 				. += "<span class='warning'><B>It is radiating with massive levels of electrical activity!</B></span>"
 
-	. += "*---------*</span>"
+	. += "</span>"
 
 /mob/living/simple_animal/slime/proc/discipline_slime(mob/user)
 	if(stat)

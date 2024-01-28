@@ -4,6 +4,8 @@
 	name = "slaughter demon"
 	real_name = "slaughter demon"
 	desc = "A large, menacing creature covered in armored black scales. You should run."
+	maxHealth = 240
+	health = 240
 	speak = list("ire", "ego", "nahlizet", "certum", "veri", "jatkaa", "balaq", "mgar", "karazet", "geeri", "orkan", "allaq")
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "daemon"
@@ -46,21 +48,18 @@
 
 /mob/living/simple_animal/demon/slaughter/proc/attempt_objectives()
 	if(mind)
-		to_chat(src, src.playstyle_string)
-		to_chat(src, "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></B>")
+		var/list/messages = list()
+		messages.Add(playstyle_string)
+		messages.Add("<b><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></b>")
 		SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
-		if(!(vialspawned))
-			var/datum/objective/slaughter/objective = new
-			var/datum/objective/demon_fluff/fluffObjective = new
+		if(!vialspawned)
 			SSticker.mode.traitors |= mind
-			objective.owner = mind
-			fluffObjective.owner = mind
-			//Paradise Port:I added the objective for one spawned like this
-			mind.objectives += objective
-			mind.objectives += fluffObjective
-			to_chat(src, "<B>Objective #[1]</B>: [objective.explanation_text]")
-			to_chat(src, "<B>Objective #[2]</B>: [fluffObjective.explanation_text]")
-		to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)</span>")
+			mind.add_mind_objective(/datum/objective/slaughter)
+			mind.add_mind_objective(/datum/objective/demon_fluff)
+			messages.Add(mind.prepare_announce_objectives(FALSE))
+
+		messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)</span>")
+		to_chat(src, chat_box_red(messages.Join("<br>")))
 
 
 /obj/effect/decal/cleanable/blood/innards
@@ -83,16 +82,16 @@
 // Midround slaughter demon, less tanky
 
 /mob/living/simple_animal/demon/slaughter/lesser
-	maxHealth = 130
-	health = 130
+	maxHealth = 170
+	health = 170
 
 // Cult slaughter demon
 /mob/living/simple_animal/demon/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
 	name = "harbinger of the slaughter"
 	real_name = "harbinger of the Slaughter"
 	desc = "An awful creature from beyond the realms of madness."
-	maxHealth = 500
-	health = 500
+	maxHealth = 540
+	health = 540
 	melee_damage_upper = 60
 	melee_damage_lower = 60
 	environment_smash = ENVIRONMENT_SMASH_RWALLS //Smashes through EVERYTHING - r-walls included
@@ -148,17 +147,17 @@
 		var/client/C = M.client
 
 		S.key = C.key
+		dust_if_respawnable(M)
 		S.mind.assigned_role = "Harbinger of the Slaughter"
 		S.mind.special_role = "Harbinger of the Slaughter"
 		to_chat(S, playstyle_string)
 		SSticker.mode.add_cultist(S.mind)
 		var/obj/effect/proc_holder/spell/sense_victims/SV = new
 		AddSpell(SV)
-		var/datum/objective/new_objective = new /datum/objective
-		new_objective.owner = S.mind
-		new_objective.explanation_text = "Bring forth the Slaughter to the nonbelievers."
-		S.mind.objectives += new_objective
-		to_chat(S, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
+
+		S.mind.add_mind_objective(/datum/objective/cult_slaughter)
+		var/list/messages = S.mind.prepare_announce_objectives(FALSE)
+		to_chat(S, chat_box_red(messages.Join("<br>")))
 
 ////////////////////The Powers
 
@@ -186,7 +185,7 @@
 		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
 		return
 
-	var/mob/living/target = input("Choose the target to talk to.", "Targeting") as null|mob in validtargets
+	var/mob/living/target = tgui_input_list(user, "Choose the target to talk to", "Targeting", validtargets)
 	return target
 
 /datum/action/innate/demon/whisper/Activate()
@@ -213,15 +212,13 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "demon_heart"
 	origin_tech = "combat=5;biotech=7"
+	organ_datums = list(/datum/organ/heart/always_beating)
 
 /obj/item/organ/internal/heart/demon/update_icon_state()
 	return //always beating visually
 
 /obj/item/organ/internal/heart/demon/prepare_eat()
 	return // Just so people don't accidentally waste it
-
-/obj/item/organ/internal/heart/demon/Stop()
-	return 0 // Always beating.
 
 /obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
 	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
@@ -247,7 +244,7 @@
 
 	// Eating a 2nd heart. Gives the ability to drag people into blood and eat them.
 	if(HAS_TRAIT(user, TRAIT_BLOODCRAWL))
-		to_chat(user, "You feel differ-<span class = 'danger'> CONSUME THEM! </span>")
+		to_chat(user, "You feel differ-<span class='danger'> CONSUME THEM!</span>")
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
 		qdel(src) // Replacing their demon heart with another demon heart is pointless, just delete this one and return.
 		return TRUE
@@ -262,7 +259,7 @@
 		M.mind.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
 
 /obj/item/organ/internal/heart/demon/slaughter/remove(mob/living/carbon/M, special = 0)
-	..()
+	. = ..()
 	if(M.mind)
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL, "bloodcrawl")
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
@@ -278,8 +275,8 @@
 	emote_hear = list("gaffaws", "laughs")
 	response_help  = "hugs"
 	attacktext = "wildly tickles"
-	maxHealth = 175
-	health = 175
+	maxHealth = 215
+	health = 215
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	playstyle_string = "<B>You are the Laughter Demon, an adorable creature from another existence. You have a single desire: to hug and tickle.  \
@@ -355,3 +352,7 @@
 
 /datum/objective/demon_fluff/check_completion()
 	return TRUE
+
+/datum/objective/cult_slaughter
+	explanation_text = "Bring forth the Slaughter to the nonbelievers."
+	needs_target = FALSE

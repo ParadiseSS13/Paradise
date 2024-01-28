@@ -6,7 +6,7 @@
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	item_state = "staffofstorms"
 	icon = 'icons/obj/guns/magic.dmi'
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN
@@ -85,7 +85,7 @@
 	targeted_turfs += target_turf
 	to_chat(user, "<span class='warning'>You aim at [target_turf]!</span>")
 	new /obj/effect/temp_visual/thunderbolt_targeting(target_turf)
-	addtimer(CALLBACK(src, PROC_REF(throw_thunderbolt), target_turf, power_boosted), 1.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(throw_thunderbolt), target_turf, power_boosted, user), 1.5 SECONDS)
 	thunder_charges--
 	addtimer(CALLBACK(src, PROC_REF(recharge)), thunder_charge_time)
 
@@ -93,7 +93,7 @@
 	thunder_charges = min(thunder_charges + 1, max_thunder_charges)
 	playsound(src, 'sound/magic/charge.ogg', 10, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 
-/obj/item/storm_staff/proc/throw_thunderbolt(turf/target, boosted)
+/obj/item/storm_staff/proc/throw_thunderbolt(turf/target, boosted, mob/caster)
 	targeted_turfs -= target
 	new /obj/effect/temp_visual/thunderbolt(target)
 	var/list/affected_turfs = list(target)
@@ -108,6 +108,14 @@
 		for(var/mob/living/hit_mob in T)
 			to_chat(hit_mob, "<span class='userdanger'>You've been struck by lightning!</span>")
 			hit_mob.electrocute_act(15 * (isanimal(hit_mob) ? 3 : 1) * (T == target ? 2 : 1) * (boosted ? 2 : 1), src, flags = SHOCK_TESLA|SHOCK_NOSTUN)
+			if(ishostile(hit_mob))
+				var/mob/living/simple_animal/hostile/H = hit_mob //mobs find and damage you...
+				if(H.stat == CONSCIOUS && !H.target && H.AIStatus != AI_OFF && !H.client)
+					if(!QDELETED(caster))
+						if(get_dist(H, caster) <= H.aggro_vision_range)
+							H.FindTarget(list(caster), 1)
+						else
+							H.Goto(get_turf(caster), H.move_to_delay, 3)
 
 		for(var/obj/hit_thing in T)
 			hit_thing.take_damage(20, BURN, ENERGY, FALSE)

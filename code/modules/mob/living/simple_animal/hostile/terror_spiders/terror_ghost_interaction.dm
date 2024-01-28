@@ -1,9 +1,9 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Topic(href, href_list)
 	if(href_list["activate"])
-		var/mob/dead/observer/ghost = usr
-		if(istype(ghost))
-			humanize_spider(ghost)
+		var/mob/user = usr
+		if(HAS_TRAIT(user, TRAIT_RESPAWNABLE))
+			humanize_spider(user)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/attack_ghost(mob/user)
 	humanize_spider(user)
@@ -16,15 +16,17 @@
 	humanize_prompt += " Role: [spider_role_summary]"
 	if(user.ckey in GLOB.ts_ckey_blacklist)
 		error_on_humanize = "You are not able to control any terror spider this round."
-	else if(cannotPossess(user))
-		error_on_humanize = "You have enabled antag HUD and are unable to re-enter the round."
+	else if(isobserver(user))
+		var/mob/dead/observer/O = user
+		if(!O.check_ahud_rejoin_eligibility())
+			error_on_humanize = "You have enabled antag HUD and are unable to re-enter the round."
 	else if(!ai_playercontrol_allowtype)
 		error_on_humanize = "This specific type of terror spider is not player-controllable."
 	else if(degenerate)
 		error_on_humanize = "Dying spiders are not player-controllable."
 	else if(stat == DEAD)
 		error_on_humanize = "Dead spiders are not player-controllable."
-	else if(!(user in GLOB.respawnable_list))
+	else if(!HAS_TRAIT(user, TRAIT_RESPAWNABLE))
 		error_on_humanize = "You are not able to rejoin the round."
 	if(jobban_isbanned(user, ROLE_SYNDICATE) || jobban_isbanned(user, ROLE_TSPIDER))
 		to_chat(user, "<span class='warning'>You are jobbanned from role of syndicate and/or terror spider.</span>")

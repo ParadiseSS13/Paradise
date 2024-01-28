@@ -6,7 +6,8 @@
 	item_state = "utility"
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
+	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 | BLOCKS_LIGHT_2
 	attack_verb = list("whipped", "lashed", "disciplined")
 	max_integrity = 300
 	equip_sound = 'sound/items/equip/toolbelt_equip.ogg'
@@ -174,7 +175,7 @@
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/glass/beaker,
 		/obj/item/reagent_containers/glass/bottle,
-		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/fancy/cigarettes,
@@ -226,13 +227,13 @@
 	update_icon()
 
 /obj/item/storage/belt/medical/response_team/populate_contents()
-	new /obj/item/reagent_containers/food/pill/salbutamol(src)
-	new /obj/item/reagent_containers/food/pill/salbutamol(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/reagent_containers/pill/salbutamol(src)
+	new /obj/item/reagent_containers/pill/salbutamol(src)
+	new /obj/item/reagent_containers/pill/charcoal(src)
+	new /obj/item/reagent_containers/pill/charcoal(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
 	update_icon()
 
 /obj/item/storage/belt/botany
@@ -277,7 +278,7 @@
 		/obj/item/clothing/glasses,
 		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_box,
-		/obj/item/reagent_containers/food/snacks/donut,
+		/obj/item/food/snacks/donut,
 		/obj/item/kitchen/knife/combat,
 		/obj/item/melee/baton,
 		/obj/item/melee/classic_baton,
@@ -328,7 +329,7 @@
 		/obj/item/clothing/glasses,
 		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_box,
-		/obj/item/reagent_containers/food/snacks/donut,
+		/obj/item/food/snacks/donut,
 		/obj/item/kitchen/knife/combat,
 		/obj/item/melee/baton,
 		/obj/item/melee/classic_baton,
@@ -377,6 +378,15 @@
 	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 18
 	resistance_flags = FIRE_PROOF
+	use_item_overlays = TRUE // Will show the tools on the sprite
+	w_class_override = list(
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool
+	)
 
 /obj/item/storage/belt/military/sst
 	icon_state = "assaultbelt"
@@ -387,16 +397,7 @@
 	desc = "Can hold various tools. This model seems to have additional compartments and folds up rather nicely into a bag."
 	icon_state = "utilitybelt"
 	item_state = "utility"
-	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
 	storable = TRUE
-	w_class_override = list(
-		/obj/item/crowbar,
-		/obj/item/screwdriver,
-		/obj/item/weldingtool,
-		/obj/item/wirecutters,
-		/obj/item/wrench,
-		/obj/item/multitool
-		)
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()
 	new /obj/item/screwdriver(src, "red")
@@ -405,6 +406,7 @@
 	new /obj/item/crowbar/small(src)
 	new /obj/item/wirecutters(src, "red")
 	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
+	new /obj/item/multitool/ai_detect(src)
 	update_icon()
 
 /obj/item/storage/belt/grenade
@@ -418,7 +420,7 @@
 	can_hold = list(
 		/obj/item/grenade,
 		/obj/item/lighter,
-		/obj/item/reagent_containers/food/drinks/bottle/molotov
+		/obj/item/reagent_containers/drinks/bottle/molotov
 		)
 
 /obj/item/storage/belt/grenade/full/populate_contents()
@@ -522,7 +524,7 @@
 /obj/item/storage/belt/janitor/full/populate_contents()
 	new /obj/item/holosign_creator/janitor(src)
 	new /obj/item/reagent_containers/spray/cleaner/advanced(src)
-	new /obj/item/reagent_containers/spray/cleaner/advanced(src)
+	new /obj/item/storage/bag/trash/bluespace(src)
 	new /obj/item/soap/deluxe(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
@@ -617,6 +619,20 @@
 	new /obj/item/gun/magic/wand/fireball(src)
 
 	for(var/obj/item/gun/magic/wand/W in contents) //All wands in this pack come in the best possible condition
+		W.max_charges = initial(W.max_charges)
+		W.charges = W.max_charges
+	update_icon()
+
+/obj/item/storage/belt/wands/fireballs
+	name = "infernal belt"
+	desc = "\"Use Fireball and only Fireball. Nothing but fireball. Just Fireball. <b>Just Fireball.</b>\""
+	icon_state = "militarybelt"
+	item_state = "military"
+	can_hold = list(/obj/item/gun/magic/wand/fireball)
+
+/obj/item/storage/belt/wands/fireballs/populate_contents()
+	for(var/count in 1 to storage_slots)
+		var/obj/item/gun/magic/wand/fireball/W = new /obj/item/gun/magic/wand/fireball(src)
 		W.max_charges = initial(W.max_charges)
 		W.charges = W.max_charges
 	update_icon()
@@ -903,7 +919,7 @@
 		/obj/item/stack/sheet/bone,
 		/obj/item/lighter,
 		/obj/item/storage/fancy/cigarettes,
-		/obj/item/reagent_containers/food/drinks/bottle,
+		/obj/item/reagent_containers/drinks/bottle,
 		/obj/item/stack/medical,
 		/obj/item/kitchen/knife,
 		/obj/item/reagent_containers/hypospray,
@@ -911,10 +927,10 @@
 		/obj/item/storage/bag/ore,
 		/obj/item/survivalcapsule,
 		/obj/item/t_scanner/adv_mining_scanner,
-		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/pill,
 		/obj/item/storage/pill_bottle,
 		/obj/item/stack/ore,
-		/obj/item/reagent_containers/food/drinks,
+		/obj/item/reagent_containers/drinks,
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
@@ -952,11 +968,11 @@
 		/obj/item/kitchen/cutter,
 		/obj/item/assembly/mousetrap,
 		/obj/item/reagent_containers/spray/pestspray,
-		/obj/item/reagent_containers/food/drinks/flask,
-		/obj/item/reagent_containers/food/drinks/drinkingglass,
-		/obj/item/reagent_containers/food/drinks/bottle,
-		/obj/item/reagent_containers/food/drinks/cans,
-		/obj/item/reagent_containers/food/drinks/shaker,
-		/obj/item/reagent_containers/food/snacks,
-		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/drinks/flask,
+		/obj/item/reagent_containers/drinks/drinkingglass,
+		/obj/item/reagent_containers/drinks/bottle,
+		/obj/item/reagent_containers/drinks/cans,
+		/obj/item/reagent_containers/drinks/shaker,
+		/obj/item/food/snacks,
+		/obj/item/reagent_containers/condiment,
 		/obj/item/reagent_containers/glass/beaker)

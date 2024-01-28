@@ -72,7 +72,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(length(traitors))
-		var/text = "<FONT size = 2><B>The traitors were:</B></FONT><br>"
+		var/list/text = list("<FONT size = 2><B>The traitors were:</B></FONT><br>")
 		for(var/datum/mind/traitor in traitors)
 			var/traitorwin = TRUE
 			text += printplayer(traitor)
@@ -89,7 +89,7 @@
 			if(used_uplink)
 				text += " (used [TC_uses] TC) [purchases]"
 
-			var/all_objectives = traitor.get_all_objectives()
+			var/all_objectives = traitor.get_all_objectives(include_team = FALSE)
 
 			if(length(all_objectives))//If the traitor had no objectives, don't need to process this.
 				var/count = 1
@@ -159,5 +159,4 @@
 		text += "<br><br><b>The code phrases were:</b> <span class='danger'>[phrases]</span><br>\
 					<b>The code responses were:</b> <span class='danger'>[responses]</span><br><br>"
 
-		to_chat(world, text)
-	return TRUE
+		return text.Join("")

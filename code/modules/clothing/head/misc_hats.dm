@@ -33,6 +33,9 @@
 /obj/item/clothing/head/beret/black
 	icon_state = "beret_black"
 
+/obj/item/clothing/head/beret/white
+	icon_state = "beret_white"
+
 /obj/item/clothing/head/beret/purple_normal
 	icon_state = "beret_purple_normal"
 
@@ -284,7 +287,7 @@
 	tip_fedora(user)
 
 /obj/item/clothing/head/fedora/item_action_slot_check(slot)
-	if(slot == slot_head)
+	if(slot == SLOT_HUD_HEAD)
 		return 1
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)

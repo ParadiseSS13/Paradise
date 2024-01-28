@@ -1,7 +1,3 @@
-#define SYRINGE_DRAW 0
-#define SYRINGE_INJECT 1
-#define SYRINGE_BROKEN 2
-
 /obj/item/reagent_containers/syringe
 	name = "syringe"
 	desc = "A syringe."
@@ -26,9 +22,6 @@
 	if(list_reagents) //syringe starts in inject mode if its already got something inside
 		mode = SYRINGE_INJECT
 		update_icon()
-
-/obj/item/reagent_containers/syringe/set_APTFT()
-	set hidden = TRUE
 
 /obj/item/reagent_containers/syringe/on_reagent_change()
 	update_icon()
@@ -142,6 +135,15 @@
 				var/contained = english_list(rinject)
 
 				add_attack_logs(user, L, "Injected with [name] containing [contained], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
+
+			if(isfood(target))
+
+				var/list/chemicals = list()
+				for(var/datum/reagent/chem in reagents.reagent_list)
+					chemicals += chem.name
+				var/contained_chemicals = english_list(chemicals)
+
+				add_attack_logs(user, target, "Injected [amount_per_transfer_from_this]u [contained_chemicals] into food item")
 
 			var/fraction = min(amount_per_transfer_from_this / reagents.total_volume, 1)
 			reagents.reaction(L, REAGENT_INGEST, fraction)

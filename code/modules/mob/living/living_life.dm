@@ -11,7 +11,7 @@
 			message_admins("[src] [ADMIN_FLW(src, "FLW")] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z]. If you could ask them how that happened and notify the coders, it would be appreciated.")
 			log_game("Z-TRACKING: [src] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z].")
 			update_z(T.z)
-		else if (!client && registered_z)
+		else if(!client && registered_z)
 			log_game("Z-TRACKING: [src] of type [src.type] has a Z-registration despite not having a client.")
 			update_z(null)
 
@@ -75,15 +75,18 @@
 		handle_status_effects() //all special effects, stunned, weakened, jitteryness, hallucination, sleeping, etc
 
 	if(stat != DEAD)
+		if(forced_look && !isnum(forced_look))
+			var/atom/A = locateUID(forced_look)
+			if(istype(A))
+				var/view = client ? client.maxview() : world.view
+				if(get_dist(src, A) > view || !(src in viewers(view, A)))
+					clear_forced_look(TRUE)
+					to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
+			else
+				clear_forced_look(TRUE)
+				to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
+		// Make sure it didn't get cleared
 		if(forced_look)
-			if(!isnum(forced_look))
-				var/atom/A = locateUID(forced_look)
-				if(istype(A))
-					var/view = client ? client.maxview() : world.view
-					if(get_dist(src, A) > view || !(src in viewers(view, A)))
-						forced_look = null
-						to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
-						return
 			setDir()
 
 	if(machine)

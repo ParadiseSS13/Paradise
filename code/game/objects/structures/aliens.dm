@@ -350,7 +350,7 @@
 		return
 
 	for(var/turf/T in U.GetAtmosAdjacentTurfs())
-		if(locate(/obj/structure/alien/weeds) in T || isspaceturf(T))
+		if((locate(/obj/structure/alien/weeds) in T) || isspaceturf(T) || islava(T) || ischasm(T))
 			continue
 		new /obj/structure/alien/weeds(T, linked_node)
 		check_surroundings()

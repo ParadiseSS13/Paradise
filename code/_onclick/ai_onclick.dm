@@ -177,6 +177,11 @@
 // APC
 
 /obj/machinery/power/apc/AICtrlClick(mob/living/user) // turns off/on APCs.
+	if(stat & BROKEN)
+		return
+	if(aidisabled)
+		to_chat(user, "<span class='warning'>Unable to interface: Connection refused.</span>")
+		return
 	toggle_breaker(user)
 
 
@@ -206,7 +211,7 @@
 /obj/machinery/door/airlock/AICtrlClick(mob/living/silicon/user) // Bolts doors
 	if(!ai_control_check(user))
 		return
-	if(user.can_instant_lockdown() || do_after_once(user, 3 SECONDS, needhand = FALSE, target = src, allow_moving = TRUE, attempt_cancel_message = "Bolting [src] cancelled.", special_identifier = "Bolt"))
+	if(ispulsedemon(user) || user.can_instant_lockdown() || do_after_once(user, 3 SECONDS, needhand = FALSE, target = src, allow_moving = TRUE, attempt_cancel_message = "Bolting [src] cancelled.", special_identifier = "Bolt"))
 		toggle_bolt(user)
 
 
@@ -218,7 +223,7 @@
 	if(isElectrified())
 		electrify(0, user, TRUE) // un-shock
 	else
-		if(user.can_instant_lockdown() || do_after_once(user, 3 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "Shocking [src] cancelled.", special_identifier = "Shock"))
+		if(ispulsedemon(user) || user.can_instant_lockdown() || do_after_once(user, 3 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "Shocking [src] cancelled.", special_identifier = "Shock"))
 			electrify(-1, user, TRUE) // permanent shock + audio cue
 			playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 

@@ -1,31 +1,36 @@
 /datum/objective/abductee
-	completed = 1
+	completed = TRUE
+	needs_target = FALSE
 
 /datum/objective/abductee/steal
 	explanation_text = "Steal all"
 
 /datum/objective/abductee/steal/New()
+	..()
 	var/target = pick(list("pets","lights","monkeys","fruits","shoes","bars of soap", "weapons", "computers", "organs"))
-	explanation_text+=" [target]."
+	explanation_text +=" [target]."
 
 /datum/objective/abductee/paint
 	explanation_text = "The station is hideous. You must color it all"
 
 /datum/objective/abductee/paint/New()
+	..()
 	var/color = pick(list("red", "blue", "green", "yellow", "orange", "purple", "black", "in rainbows", "in blood"))
-	explanation_text+= " [color]!"
+	explanation_text += " [color]!"
 
 /datum/objective/abductee/speech
 	explanation_text = "Your brain is broken... you can only communicate in"
 
 /datum/objective/abductee/speech/New()
+	..()
 	var/style = pick(list("pantomime", "rhyme", "haiku", "extended metaphors", "riddles", "extremely literal terms", "sound effects", "military jargon"))
-	explanation_text+= " [style]."
+	explanation_text += " [style]."
 
 /datum/objective/abductee/capture
 	explanation_text = "Capture"
 
 /datum/objective/abductee/capture/New()
+	..()
 	var/list/jobs = SSjobs.occupations.Copy()
 	for(var/datum/job/J in jobs)
 		if(J.current_positions < 1)
@@ -88,6 +93,7 @@
 	explanation_text = "Call forth a spirit from the other side."
 
 /datum/objective/abductee/calling/New()
+	..()
 	var/mob/dead/D = pick(GLOB.dead_mob_list)
 	if(D)
 		explanation_text = "You know that [D] has perished. Hold a seance to call them from the spirit realm."
@@ -142,3 +148,68 @@
 
 /datum/objective/abductee/sixthsense
 	explanation_text = "You died back there and went to heaven... or is it hell? No one here seems to know they're dead. Convince them, and maybe you can escape this limbo."
+
+/datum/objective/abductee/forbiddennumber
+	explanation_text = "Ignore anything in a set number of"
+
+/datum/objective/abductee/forbiddennumber/New()
+	..()
+	var/number = pick(list("two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"))
+	explanation_text +=" [number], they don't exist."
+
+/datum/objective/abductee/buddy
+	explanation_text = "Being alone and in large groups are both frightening. Try to be alone with only one other person whenever possible."
+
+/datum/objective/abductee/finality
+	explanation_text = "Death should be final and modern medicine disrupts the natural order. Don't allow anyone to be revived."
+
+/datum/objective/abductee/mispronounced
+	explanation_text = "No matter how they say it, other people keep mispronouncing your name. Be sure to correct them whenever possible."
+
+/datum/objective/abductee/bald
+	explanation_text = "There are alien parasites masquerading as people's hair. Save people from this invasion."
+
+/datum/objective/abductee/one
+	explanation_text = "There is only one other person in existence, they are just really good at pretending to be multiple people."
+
+/datum/objective/abductee/outlaw
+	explanation_text = "You have infiltrated this station as a space-renowned outlaw, commit as many minor crimes as possible while remaining unnoticed by security."
+
+/datum/objective/abductee/rot
+	explanation_text = "Your flesh is rotting from your body. Fight the inevitable, and replace your tainted limbs with entirely new ones."
+
+/datum/objective/abductee/blind
+	explanation_text = "You are blind. Perhaps a new pair of eyes can help."
+
+/datum/objective/abductee/ill
+	explanation_text = "The station is ill. Medicate them until they're cured."
+
+/datum/objective/abductee/game
+	explanation_text = "Convince the crew that we are in a game, without explicitly telling them we are in a game."
+
+/datum/objective/abductee/instructor
+	explanation_text = "You are a military instructor. You must make sure the crew is in top shape for the war against the syndicate!"
+
+/datum/objective/abductee/actor
+	explanation_text = "You are in an action movie. You must say as many cheesy one-liners as possible."
+
+/datum/objective/abductee/writer
+	explanation_text = "You are a writer. Convince the crew of your superb writing skills!"
+
+/datum/objective/abductee/doomed
+	explanation_text = "You know something bad is about to happen to this station. Convince the crew to get off of it while they still can!"
+
+/datum/objective/abductee/proof
+	explanation_text = "You think you were kidnapped by aliens! Ensure that"
+
+/datum/objective/abductee/proof/New()
+	..()
+	var/list/jobs = SSjobs.occupations.Copy()
+	for(var/datum/job/J in jobs)
+		if(J.current_positions < 1)
+			jobs -= J
+	if(length(jobs))
+		var/datum/job/target = pick(jobs)
+		explanation_text += " a [target.title] is also experimented on by an Abductor so they believe you!"
+	else
+		explanation_text += " someone is also experimented on by an Abductor so they believe you!"

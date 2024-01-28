@@ -2,7 +2,6 @@
 	name = "leg cuffs"
 	desc = "Use this to keep prisoners in line."
 	gender = PLURAL
-	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
 	cuffed_state = "legcuff"
 	flags = CONDUCT
@@ -154,7 +153,7 @@
 /obj/item/restraints/legcuffs/beartrap/energy
 	name = "energy snare"
 	armed = TRUE
-	icon_state = "e_snare"
+	icon_state = "e_snare1"
 	trap_damage = 0
 	flags = DROPDEL
 	breakouttime = 6 SECONDS
@@ -177,6 +176,8 @@
 /obj/item/restraints/legcuffs/bola
 	name = "bola"
 	desc = "A restraining device designed to be thrown at the target. Upon connecting with said target, it will wrap around their legs, making it difficult for them to move quickly."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "bola"
 	item_state = "bola"
 	breakouttime = 3.5 SECONDS

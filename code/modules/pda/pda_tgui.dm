@@ -1,9 +1,12 @@
 // All the TGUI interactions are in their own file to keep things simpler
 
-/obj/item/pda/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/pda/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/pda/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PDA", name, 600, 650, master_ui, state)
+		ui = new(user, src, "PDA", name)
 		ui.open()
 
 
@@ -57,12 +60,17 @@
 
 	return data
 
+/obj/item/pda/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/mob_hunt)
+	)
+
 // Yes the stupid amount of args here is important, see L102
 /obj/item/pda/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
-	add_fingerprint(usr)
+	add_fingerprint(ui.user)
 
 	. = TRUE
 	switch(action)
@@ -93,11 +101,13 @@
 				update_shortcuts()
 				playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
 		if("Authenticate") //Checks for ID
-			id_check(usr, 1)
+			id_check(ui.user, 1)
+		if("Available_Ringtones")
+			ttone = params["selected_ringtone"]
 		if("Ringtone")
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
-			return set_ringtone()
+			return set_ringtone(ui.user)
 		else
 			if(current_app)
 				. = current_app.ui_act(action, params, ui, state) // It needs proxying through down here so apps actually have their interacts called

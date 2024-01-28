@@ -5,11 +5,6 @@
 	var/icon_full = ""
 	var/material = /obj/item/stack/sheet/metal
 
-/obj/item/ashtray/Initialize(mapload)
-	. = ..()
-	pixel_y = rand(-5, 5)
-	pixel_x = rand(-6, 6)
-
 /obj/item/ashtray/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/cigbutt) || istype(I, /obj/item/clothing/mask/cigarette) || istype(I, /obj/item/match))
 		if(contents.len >= max_butts)

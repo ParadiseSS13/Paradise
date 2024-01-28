@@ -16,7 +16,7 @@
 	INVOKE_ASYNC(revolting, TYPE_PROC_REF(/datum/team/revolution, process_promotion), REVOLUTION_PROMOTION_AT_LEAST_ONE)
 
 /datum/antagonist/rev/head/greet()
-	to_chat(owner.current, "<span class='userdanger'>You are a member of the revolutionaries' leadership! Mutiny against the station's command and take control!</span>")
+	return "<span class='userdanger'>You are a member of the revolutionaries' leadership! Mutiny against the station's command and take control!</span>"
 
 /datum/antagonist/rev/head/add_owner_to_gamemode()
 	SSticker.mode.head_revolutionaries |= owner
@@ -31,11 +31,11 @@
 		return
 
 	var/list/slots = list(
-		"backpack" = slot_in_backpack,
-		"left pocket" = slot_l_store,
-		"right pocket" = slot_r_store,
-		"left hand" = slot_l_hand,
-		"right hand" = slot_r_hand,
+		"backpack" = SLOT_HUD_IN_BACKPACK,
+		"left pocket" = SLOT_HUD_LEFT_STORE,
+		"right pocket" = SLOT_HUD_RIGHT_STORE,
+		"left hand" = SLOT_HUD_LEFT_HAND,
+		"right hand" = SLOT_HUD_RIGHT_HAND,
 	)
 
 	var/flashloc_name

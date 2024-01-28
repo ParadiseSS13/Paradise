@@ -25,7 +25,7 @@
 			console.vest = V
 			V.flags |= NODROP
 
-		var/obj/item/abductor/gizmo/G = locate() in H.get_item_by_slot(slot_back)
+		var/obj/item/abductor/gizmo/G = locate() in H.get_item_by_slot(SLOT_HUD_BACK)
 		if(G)
 			console.gizmo = G
 			G.console = console
@@ -58,5 +58,5 @@
 /datum/outfit/abductor/scientist/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(!visualsOnly)
-		var/obj/item/implant/abductor/beamplant = new /obj/item/implant/abductor(H)
+		var/obj/item/bio_chip/abductor/beamplant = new /obj/item/bio_chip/abductor(H)
 		beamplant.implant(H)

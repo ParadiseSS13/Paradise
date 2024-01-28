@@ -39,17 +39,17 @@
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/equipped(mob/living/carbon/human/user, slot)
 	if(!user.ventcrawler)
-		user.ventcrawler = 2
+		user.ventcrawler = VENTCRAWLER_ALWAYS
 	..()
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/dropped(mob/living/carbon/human/user)
 	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
-		user.ventcrawler = 0
+		user.ventcrawler = VENTCRAWLER_NONE
 	..()
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/proc/check_clothing(mob/user as mob)
 	//Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
-	var/list/slot_must_be_empty = list(slot_back,slot_handcuffed,slot_legcuffed,slot_l_hand,slot_r_hand,slot_belt,slot_head,slot_wear_suit)
+	var/list/slot_must_be_empty = list(SLOT_HUD_BACK,SLOT_HUD_HANDCUFFED,SLOT_HUD_LEGCUFFED,SLOT_HUD_LEFT_HAND,SLOT_HUD_RIGHT_HAND,SLOT_HUD_BELT,SLOT_HUD_HEAD,SLOT_HUD_OUTER_SUIT)
 	for(var/slot_id in slot_must_be_empty)
 		if(user.get_item_by_slot(slot_id))
 			to_chat(user,"<span class='warning'>You can't fit inside while wearing \the [user.get_item_by_slot(slot_id)].</span>")

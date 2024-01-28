@@ -5,7 +5,7 @@
 	icon_state = "bluetie"
 	item_state = ""	//no inhands
 	item_color = "bluetie"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 	w_class = WEIGHT_CLASS_SMALL
 	var/slot = ACCESSORY_SLOT_DECOR
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
@@ -41,10 +41,10 @@
 			var/mob/M = has_suit.loc
 			A.Grant(M)
 
-	if (islist(has_suit.armor) || isnull(has_suit.armor)) 	// This proc can run before /obj/Initialize has run for U and src,
+	if(islist(has_suit.armor) || isnull(has_suit.armor)) 	// This proc can run before /obj/Initialize has run for U and src,
 		has_suit.armor = getArmor(arglist(has_suit.armor))	// we have to check that the armor list has been transformed into a datum before we try to call a proc on it
 															// This is safe to do as /obj/Initialize only handles setting up the datum if actually needed.
-	if (islist(armor) || isnull(armor))
+	if(islist(armor) || isnull(armor))
 		armor = getArmor(arglist(armor))
 
 	has_suit.armor = has_suit.armor.attachArmor(armor)
@@ -77,17 +77,24 @@
 	if(istype(H) && !ismonkeybasic(H)) //Monkeys are a snowflake because you can't remove accessories once added
 		if(H.wear_suit && H.wear_suit.flags_inv & HIDEJUMPSUIT)
 			to_chat(user, "[H]'s body is covered, and you cannot attach \the [src].")
-			return 1
+			return TRUE
 		var/obj/item/clothing/under/U = H.w_uniform
 		if(istype(U))
+			if(user == H)
+				U.attach_accessory(src, user, TRUE)
+				return
 			user.visible_message("<span class='notice'>[user] is putting a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You begin to put a [src.name] on [H]'s [U.name]...</span>")
-			if(do_after(user, 40, target=H) && H.w_uniform == U)
-				user.visible_message("<span class='notice'>[user] puts a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You finish putting a [src.name] on [H]'s [U.name].</span>")
-				U.attackby(src, user)
+			if(do_after(user, 4 SECONDS, target = H) && H.w_uniform == U)
+				if(U.attach_accessory(src, user, TRUE))
+					user.visible_message("<span class='notice'>[user] puts a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You finish putting a [src.name] on [H]'s [U.name].</span>")
+					after_successful_nonself_attach(H, user)
 		else
 			to_chat(user, "[H] is not wearing anything to attach \the [src] to.")
-		return 1
+		return TRUE
 	return ..()
+
+/obj/item/clothing/accessory/proc/after_successful_nonself_attach(mob/living/carbon/human/H, mob/living/user)
+	return
 
 //default attackby behaviour
 /obj/item/clothing/accessory/attackby(obj/item/I, mob/user, params)
@@ -149,8 +156,10 @@
 			user.visible_message("[user] places [src] against [user.p_their()] chest and listens attentively.", "You place [src] against your chest...")
 		else
 			user.visible_message("[user] places \the [src] against [M]'s chest and listens attentively.", "You place \the [src] against [M]'s chest...")
-		var/obj/item/organ/internal/H = M.get_int_organ(/obj/item/organ/internal/heart)
-		var/obj/item/organ/internal/L = M.get_int_organ(/obj/item/organ/internal/lungs)
+		var/datum/organ/heart/heart_datum = M.get_int_organ_datum(ORGAN_DATUM_HEART)
+		var/obj/item/organ/internal/H = heart_datum.linked_organ
+		var/datum/organ/lungs/lung_datum = M.get_int_organ_datum(ORGAN_DATUM_LUNGS)
+		var/obj/item/organ/internal/L = lung_datum.linked_organ
 		if(M.pulse && (H || (L && !HAS_TRAIT(M, TRAIT_NOBREATH))))
 			var/color = "notice"
 			if(H)
@@ -195,6 +204,29 @@
 	item_color = "bronze"
 	materials = list(MAT_METAL=1000)
 	resistance_flags = FIRE_PROOF
+	/// The channel we will announce on when we are rewarded to someone
+	var/channel
+	/// Will we try to announce, toggled by using in hand
+	var/try_announce = TRUE
+
+/obj/item/clothing/accessory/medal/examine(mob/user)
+	. = ..()
+	if(channel)
+		. += "<span class='notice'>The tiny radio inside seems to be [try_announce ? "active" : "inactive"].</span>"
+
+/obj/item/clothing/accessory/medal/attack_self(mob/user)
+	. = ..()
+	if(channel)
+		try_announce = !try_announce
+		to_chat(user, "<span class='notice'>You silently [try_announce ? "enable" : "disable"] the radio in [src].</span>")
+
+/obj/item/clothing/accessory/medal/after_successful_nonself_attach(mob/living/carbon/human/H, mob/living/user)
+	if(!channel || !try_announce)
+		return
+	if(!is_station_level(user.z))
+		return
+	GLOB.global_announcer.autosay("[H] has been rewarded [src] by [user]!", "Medal Announcer", channel = channel, follow_target_override = src)
+	channel = null
 
 // GOLD (awarded by centcom)
 /obj/item/clothing/accessory/medal/gold
@@ -203,11 +235,13 @@
 	icon_state = "gold"
 	item_color = "gold"
 	materials = list(MAT_GOLD=1000)
+	channel = "Common"
 
 /obj/item/clothing/accessory/medal/gold/captain
 	name = "medal of captaincy"
 	desc = "A golden medal awarded exclusively to those promoted to the rank of captain. It signifies the codified responsibilities of a captain to Nanotrasen, and their undisputable authority over their crew."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	channel = null // captains medal is special :)
 
 /obj/item/clothing/accessory/medal/gold/captain/Initialize(mapload)
 	. = ..()
@@ -216,6 +250,7 @@
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
 	desc = "An extremely rare golden medal awarded only by CentComm. To receive such a medal is the highest honor and as such, very few exist."
+	icon_state = "ion"
 
 // SILVER (awarded by Captain)
 
@@ -225,56 +260,139 @@
 	icon_state = "silver"
 	item_color = "silver"
 	materials = list(MAT_SILVER=1000)
+	channel = "Command"
 
 /obj/item/clothing/accessory/medal/silver/valor
 	name = "medal of valor"
 	desc = "An award issued by Captains to crew members whose exceptional performance and service to the station has been commended by the station's top leadership."
+	channel = "Common"
 
 /obj/item/clothing/accessory/medal/silver/leadership
 	name = "medal of command"
 	desc = "An award issued by Captains to heads of department who do an excellent job managing their department. Made of pure silver."
 
 
-// BRONZE (awarded by heads of department, except for the bronze heart)
+// BRONZE (awarded by heads of department, except for the bronze heart and recruiter medals)
 
 
 
 /obj/item/clothing/accessory/medal/security
 	name = "robust security medal"
 	desc = "An award issued by the HoS to security staff who excel at upholding the law."
+	channel = "Security"
 
 /obj/item/clothing/accessory/medal/science
 	name = "smart science medal"
 	desc = "An award issued by the RD to science staff who advance the frontiers of knowledge."
+	channel = "Science"
 
 /obj/item/clothing/accessory/medal/engineering
 	name = "excellent engineering medal"
 	desc = "An award issued by the CE to engineering staff whose dedication keep the station running at its best."
+	channel = "Engineering"
 
 /obj/item/clothing/accessory/medal/service
 	name = "superior service medal"
 	desc = "An award issued by the HoP to service staff who go above and beyond."
+	channel = "Service"
 
 /obj/item/clothing/accessory/medal/medical
 	name = "magnificient medical medal"
 	desc = "An award issued by the CMO to medical staff who excel at saving lives."
+	channel = "Medical"
 
 /obj/item/clothing/accessory/medal/legal
 	name = "meritous legal medal"
 	desc = "An award issued by the Magistrate to legal staff who uphold the rule of law."
+	channel = "Procedure"
 
 /obj/item/clothing/accessory/medal/supply
 	name = "stable supply medal"
 	desc = "An award issued by the Quartermaster to supply staff dedicated to being effective."
+	channel = "Supply"
+
+/obj/item/clothing/accessory/medal/recruiter // Prize for the NT Recruiter emagged arcade
+	name = "nanotrasen recruiter medal"
+	desc = "A prize for those who completed the company's most difficult training, use it to earn the respect of everyone in human resources."
 
 /obj/item/clothing/accessory/medal/heart
 	name = "bronze heart medal"
 	desc = "A rarely-awarded medal for those who sacrifice themselves in the line of duty to save their fellow crew."
 	icon_state = "bronze_heart"
 	item_color = "bronze_heart"
+	channel = "Common"
 
+// Plasma, from NT research departments. For now, used by the HRD-MDE project for the moderate 2 fauna, drake and hierophant.
 
+/obj/item/clothing/accessory/medal/plasma
+	name = "plasma medal"
+	desc = "An eccentric medal made of plasma."
+	icon_state = "plasma"
+	item_color = "plasma"
+	materials = list(MAT_PLASMA = 1000)
 
+/obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, temperature, volume)
+	..()
+	if(temperature > T0C + 200)
+		burn_up()
+
+/obj/item/clothing/accessory/medal/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+	. = ..()
+	burn_up()
+
+/obj/item/clothing/accessory/medal/plasma/proc/burn_up()
+	var/turf/simulated/T = get_turf(src)
+	if(istype(T))
+		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 10) //Technically twice as much plasma as it should spawn but a little more never hurt anyone.
+	visible_message("<span class='warning'>[src] bursts into flame!</span>")
+	qdel(src)
+
+// Alloy, for the vetus speculator, or abductors I guess.
+
+/obj/item/clothing/accessory/medal/alloy
+	name = "alloy medal"
+	desc = "An eccentric medal made of some strange alloy."
+	icon_state = "alloy"
+	item_color = "alloy"
+	materials = list(MAT_METAL = 500, MAT_PLASMA = 500)
+
+// Mostly mining medals past here
+
+/obj/item/clothing/accessory/medal/gold/bubblegum
+	name = "bubblegum HRD-MDE award"
+	desc = "An award which represents magnificant contributions to the HRD-MDE project in the form of analysing Bubblegum, and the related blood space."
+	channel = null
+
+/obj/item/clothing/accessory/medal/gold/heroism/hardmode_full //Kill every hardmode boss. In a shift. Good luck.
+	name = "medal of incredible dedication"
+	desc = "An extremely rare golden medal awarded only by CentComm. This medal was issued for miners who went above and beyond for the HRD-MDE project. Engraved on it is the phrase <i>'mori quam foedari'...</i>"
+	channel = null
+
+/obj/item/clothing/accessory/medal/silver/colossus
+	name = "colossus HRD-MDE award"
+	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing a colossus."
+	channel = null
+
+/obj/item/clothing/accessory/medal/silver/legion
+	name = "legion HRD-MDE award"
+	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing the Legion."
+	channel = null
+
+/obj/item/clothing/accessory/medal/blood_drunk
+	name = "blood drunk HRD-MDE award"
+	desc = "A award which represents minor contributions to the HRD-MDE project in the form of analysing the blood drunk miner."
+
+/obj/item/clothing/accessory/medal/plasma/hierophant
+	name = "hierophant HRD-MDE award"
+	desc = "An award which represents moderate contributions to the HRD-MDE project in the form of analysing the Hierophant."
+
+/obj/item/clothing/accessory/medal/plasma/ash_drake
+	name = "ash drake HRD-MDE award"
+	desc = "An award which represents moderate contributions to the HRD-MDE project in the form of analysing an ash drake."
+
+/obj/item/clothing/accessory/medal/alloy/vetus
+	name = "vetus speculator HRD-MDE award"
+	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing the Vetus Speculator."
 
 /*
 	Holobadges are worn on the belt or neck, and can be used to show that the holder is an authorized
@@ -287,7 +405,7 @@
 	desc = "This glowing blue badge marks the holder as THE LAW."
 	icon_state = "holobadge"
 	item_color = "holobadge"
-	slot_flags = SLOT_BELT | SLOT_TIE
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_TIE
 
 	var/stored_name = null
 
@@ -458,7 +576,15 @@
 	icon_state = "necklace"
 	item_state = "necklace"
 	item_color = "necklace"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
+
+/obj/item/clothing/accessory/necklace/long
+	name = "large necklace"
+	desc = "A large necklace."
+	icon_state = "necklacelong"
+	item_state = "necklacelong"
+	item_color = "necklacelong"
+
 
 /obj/item/clothing/accessory/necklace/dope
 	name = "gold necklace"
@@ -488,10 +614,10 @@
 /obj/item/clothing/accessory/necklace/locket
 	name = "gold locket"
 	desc = "A gold locket that seems to have space for a photo within."
-	icon_state = "locket"
-	item_state = "locket"
-	item_color = "locket"
-	slot_flags = SLOT_TIE
+	icon_state = "locketgold"
+	item_state = "locketgold"
+	item_color = "locketgold"
+	slot_flags = SLOT_FLAG_TIE
 	var/base_icon
 	var/open
 	var/obj/item/held //Item inside locket.
@@ -535,6 +661,13 @@
 			held = O
 	else
 		return ..()
+
+/obj/item/clothing/accessory/necklace/locket/silver
+	name = "silver locket"
+	desc = "A silver locket that seems to have space for a photo within."
+	icon_state = "locketsilver"
+	item_state = "locketsilver"
+	item_color = "locketsilver"
 
 //Cowboy Shirts
 /obj/item/clothing/accessory/cowboyshirt

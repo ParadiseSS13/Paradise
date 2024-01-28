@@ -58,20 +58,23 @@
 /obj/item/deck/proc/build_deck()
 	return
 
-/obj/item/deck/attackby(obj/O as obj, mob/user as mob)
-	if(istype(O,/obj/item/cardhand))
+/obj/item/deck/attackby(obj/O, mob/user)
+	if(istype(O, /obj/item/cardhand))
 		var/obj/item/cardhand/H = O
-		if(H.parentdeck == src)
-			for(var/datum/playingcard/P in H.cards)
-				cards += P
-			qdel(H)
-			to_chat(user,"<span class='notice'>You place your cards on the bottom of [src].</span>")
-			update_icon(UPDATE_ICON_STATE)
-			return
-		else
+		if(H.parentdeck != src)
 			to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
 			return
 
+		if(length(H.cards) > 1)
+			var/confirm = alert("Are you sure you want to put your [length(H.cards)] cards back into the deck?", "Return Hand", "Yes", "No")
+			if(confirm == "No" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+				return
+		for(var/datum/playingcard/P in H.cards)
+			cards += P
+		qdel(H)
+		to_chat(user, "<span class='notice'>You place your cards on the bottom of [src].</span>")
+		update_icon(UPDATE_ICON_STATE)
+		return
 	..()
 
 /obj/item/deck/examine(mob/user)
@@ -128,13 +131,7 @@
 
 // Datum actions
 
-/obj/item/deck/verb/draw_card(mob/user)
-
-	set category = "Object"
-	set name = "Draw"
-	set desc = "Draw a card from a deck."
-	set src in view(1)
-
+/obj/item/deck/proc/draw_card(mob/user)
 	var/mob/living/carbon/human/M = user
 
 	if(user.incapacitated() || !Adjacent(user))
@@ -147,9 +144,6 @@
 	var/obj/item/cardhand/H = M.is_in_hands(/obj/item/cardhand)
 	if(H && (H.parentdeck != src))
 		to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
-		return
-	if(H && length(H.cards) >= H.maxcardlen)
-		to_chat(user,"<span class = 'warning'>You can't hold that many cards in one hand!</span>")
 		return
 
 	if(!H)
@@ -166,13 +160,7 @@
 	user.visible_message("<span class='notice'>[user] draws a card.</span>","<span class='notice'>You draw a card.</span>")
 	to_chat(user,"<span class='notice'>It's the [P].</span>")
 
-/obj/item/deck/verb/deal_card()
-
-	set category = "Object"
-	set name = "Deal"
-	set desc = "Deal a card from a deck."
-	set src in view(1)
-
+/obj/item/deck/proc/deal_card()
 	if(usr.incapacitated() || !Adjacent(usr))
 		return
 
@@ -186,18 +174,12 @@
 			players += player
 	//players -= usr
 
-	var/mob/living/M = input("Who do you wish to deal a card to?") as null|anything in players
+	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal a card to?", "Deal Card", players)
 	if(!usr || !src || !M) return
 
 	deal_at(usr, M, 1)
 
-/obj/item/deck/verb/deal_card_multi()
-
-	set category = "Object"
-	set name = "Deal Multiple Cards"
-	set desc = "Deal multiple cards from a deck."
-	set src in view(1)
-
+/obj/item/deck/proc/deal_card_multi()
 	if(usr.incapacitated() || !Adjacent(usr))
 		return
 
@@ -213,7 +195,7 @@
 	var/dcard = input("How many card(s) do you wish to deal? You may deal up to [maxcards] cards.") as num
 	if(dcard > maxcards)
 		return
-	var/mob/living/M = input("Who do you wish to deal [dcard] card(s)?") as null|anything in players
+	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal [dcard] card(s)?", "Deal Card", players)
 	if(!usr || !src || !M || !Adjacent(usr))
 		return
 
@@ -239,17 +221,12 @@
 /obj/item/deck/attack_self()
 	deckshuffle()
 
-/obj/item/deck/verb/verb_shuffle()
-	if(!isobserver(usr))
-		set category = "Object"
-		set name = "Shuffle"
-		set desc = "Shuffle the cards in the deck."
-		set src in view(1)
-		deckshuffle()
+/obj/item/deck/AltClick()
+	deckshuffle()
 
 /obj/item/deck/proc/deckshuffle()
 	var/mob/living/user = usr
-	if(cooldown < world.time - 5 SECONDS)
+	if(cooldown < world.time - 1 SECONDS)
 		cards = shuffle(cards)
 		user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
 		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
@@ -311,7 +288,6 @@
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "empty"
 	w_class = WEIGHT_CLASS_TINY
-	var/maxcardlen = 20
 	actions_types = list(/datum/action/item_action/remove_card, /datum/action/item_action/discard)
 
 	var/concealed = FALSE
@@ -348,18 +324,14 @@
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	else if(istype(O,/obj/item/cardhand))
 		var/obj/item/cardhand/H = O
-		if((length(H.cards) + length(cards)) > maxcardlen)
-			to_chat(user,"<span class='warning'>You can't hold that many cards in one hand!</span>")
-			return
 		if(H.parentdeck == parentdeck)
-			for(var/datum/playingcard/P in cards)
-				H.cards += P
 			H.concealed = concealed
-			qdel(src)
-			H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
+			cards.Add(H.cards)
+			qdel(H)
+			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 			return
 		else
-			to_chat(user,"<span class='notice'>You cannot mix cards from other deck!</span>")
+			to_chat(user, "<span class='notice'>You cannot mix cards from other decks!</span>")
 			return
 	..()
 
@@ -382,7 +354,6 @@
 	dat += "Which card will you remove next?<br>"
 	dat += "<a href='?src=[UID()];pick=Turn'>Turn the hand over</a>"
 	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.set_content(dat)
 	popup.open()
 
@@ -396,7 +367,7 @@
 		if(href_list["pick"] == "Turn")
 			turn_hand(usr)
 		else
-			if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
+			if(cardUser.get_item_by_slot(SLOT_HUD_LEFT_HAND) == src || cardUser.get_item_by_slot(SLOT_HUD_RIGHT_HAND) == src)
 				pickedcard = href_list["pick"]
 				Removecard()
 		cardUser << browse(null, "window=cardhand")
@@ -442,13 +413,7 @@
 
 // No more datum action here
 
-/obj/item/cardhand/verb/Removecard()
-
-	set category = "Object"
-	set name = "Remove card"
-	set desc = "Remove a card from the hand."
-	set src in view(1)
-
+/obj/item/cardhand/proc/Removecard()
 	var/mob/living/carbon/user = usr
 
 	if(user.incapacitated() || !Adjacent(user))
@@ -458,7 +423,7 @@
 	for(var/datum/playingcard/P in cards)
 		pickablecards[P.name] = P
 	if(!pickedcard)
-		pickedcard = input("Which card do you want to remove from the hand?") as null|anything in pickablecards
+		pickedcard = tgui_input_list(usr, "Which card do you want to remove from the hand?", "Remove Card", pickablecards)
 		if(!pickedcard)
 			return
 
@@ -484,12 +449,7 @@
 		return
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
-/obj/item/cardhand/verb/discard()
-
-	set category = "Object"
-	set name = "Discard"
-	set desc = "Place (a) card(s) from your hand in front of you."
-
+/obj/item/cardhand/proc/discard()
 	var/mob/living/carbon/user = usr
 
 	var/maxcards = min(length(cards), 5)
@@ -500,7 +460,7 @@
 		var/list/to_discard = list()
 		for(var/datum/playingcard/P in cards)
 			to_discard[P.name] = P
-		var/discarding = input("Which card do you wish to put down?") as null|anything in to_discard
+		var/discarding = tgui_input_list(usr, "Which card do you wish to put down?", "Discard", to_discard)
 
 		if(!discarding)
 			continue
@@ -543,16 +503,20 @@
 /obj/item/cardhand/update_name()
 	. = ..()
 	if(length(cards) > 1)
-		name = "hand of cards"
+		name = "hand of [length(cards)] cards"
 	else
-		name = "a playing card"
+		name = "playing card"
 
 /obj/item/cardhand/update_desc()
 	. = ..()
 	if(length(cards) > 1)
 		desc = "Some playing cards."
 	else
-		desc = "A playing card."
+		if(concealed)
+			desc = "A playing card. You can only see the back."
+		else
+			var/datum/playingcard/card = cards[1]
+			desc = "\A [card.name]."
 
 /obj/item/cardhand/update_icon_state()
 	return
@@ -583,22 +547,29 @@
 		return
 
 	var/offset = FLOOR(20/length(cards) + 1, 1)
-	var/i = 0
-	for(var/datum/playingcard/P in cards)
-		var/image/I = new(icon, (concealed ? "[P.back_icon]" : "[P.card_icon]") )
-		//I.pixel_x = origin+(offset*i)
-		switch(direction)
-			if(SOUTH)
-				I.pixel_x = 8-(offset*i)
-			if(WEST)
-				I.pixel_y = -6+(offset*i)
-			if(EAST)
-				I.pixel_y = 8-(offset*i)
-			else
-				I.pixel_x = -7+(offset*i)
-		I.transform = M
-		. += I
+	// var/i = 0
+	for(var/i in 1 to length(cards))
+		var/datum/playingcard/P = cards[i]
+		if(i >= 20)
+			// skip the rest and just draw the last one on top
+			. += render_card(cards[length(cards)], M, i, offset)
+			break
+		. += render_card(P, M, i, offset)
 		i++
+
+/obj/item/cardhand/proc/render_card(datum/playingcard/card, matrix/mat, index, offset)
+	var/image/I = new(icon, (concealed ? "[card.back_icon]" : "[card.card_icon]") )
+	switch(direction)
+		if(SOUTH)
+			I.pixel_x = 8 - (offset * index)
+		if(WEST)
+			I.pixel_y = -6 + (offset * index)
+		if(EAST)
+			I.pixel_y = 8 - (offset * index)
+		else
+			I.pixel_x = -7 + (offset * index)
+	I.transform = mat
+	return I
 
 /obj/item/cardhand/dropped(mob/user)
 	..()

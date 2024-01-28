@@ -434,7 +434,7 @@
 	//Alright now that we've triple checked that we're ready to do this:
 	//Has this player reported this book already this round?
 	for(var/datum/flagged_book/book in flagged_books)
-		if (book.bookid == bookid && book.reporter == ckey)
+		if(book.bookid == bookid && book.reporter == ckey)
 			return FALSE
 	//If not, have they report this book in a previous round?
 	for(var/datum/flagged_book/book in reportedbook.reports)

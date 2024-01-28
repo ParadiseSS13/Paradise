@@ -410,13 +410,6 @@
 	var/middle = L.len / 2 + 1 // Copy is first,second-1
 	return mergeLists(sortList(L.Copy(0,middle)), sortList(L.Copy(middle))) //second parameter null = to end of list
 
-//Mergsorge: uses sortAssoc() but uses the var's name specifically. This should probably be using mergeAtom() instead
-/proc/sortNames(list/L)
-	var/list/Q = new()
-	for(var/atom/x in L)
-		Q[x.name] = x
-	return sortAssoc(Q)
-
 /proc/mergeLists(list/L, list/R)
 	var/Li=1
 	var/Ri=1
@@ -678,9 +671,9 @@
 //Picks from the list, with some safeties, and returns the "default" arg if it fails
 #define DEFAULTPICK(L, default) ((istype(L, /list) && L:len) ? pick(L) : default)
 
-#define LAZYINITLIST(L) if (!L) L = list()
+#define LAZYINITLIST(L) if(!L) L = list()
 
-#define UNSETEMPTY(L) if (L && !L.len) L = null
+#define UNSETEMPTY(L) if(L && !L.len) L = null
 #define LAZYREMOVE(L, I) if(L) { L -= I; if(!L.len) { L = null; } }
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
 /// Adds I to L, initializing L if necessary, if I is not already in L

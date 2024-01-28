@@ -101,8 +101,8 @@
 				if(isobj(H.wear_suit))
 					Cl = H.wear_suit
 					passed = prob((Cl.permeability_coefficient*100) - 1)
-				if(passed && isobj(slot_w_uniform))
-					Cl = slot_w_uniform
+				if(passed && isobj(SLOT_HUD_JUMPSUIT))
+					Cl = SLOT_HUD_JUMPSUIT
 					passed = prob((Cl.permeability_coefficient*100) - 1)
 			if(3)
 				if(isobj(H.wear_suit) && H.wear_suit.body_parts_covered&HANDS)
@@ -153,9 +153,14 @@
 	if(HAS_TRAIT(src, TRAIT_VIRUSIMMUNE) && !D.bypasses_immunity)
 		return FALSE
 
-	for(var/thing in D.required_organs)
-		if(!((locate(thing) in bodyparts) || (locate(thing) in internal_organs)))
-			return FALSE
+	for(var/organ in D.required_organs)
+		if(istext(organ) && get_int_organ_datum(organ))
+			continue
+		if(locate(organ) in internal_organs)
+			continue
+		if(locate(organ) in bodyparts)
+			continue
+		return FALSE
 	return ..()
 
 /mob/living/carbon/human/monkey/CanContractDisease(datum/disease/D)

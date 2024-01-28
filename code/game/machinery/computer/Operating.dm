@@ -59,10 +59,13 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/computer/operating/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/operating/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/operating/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "OperatingComputer", "Patient Monitor", 650, 455, master_ui, state)
+		ui = new(user, src, "OperatingComputer", "Patient Monitor")
 		ui.open()
 
 /obj/machinery/computer/operating/ui_data(mob/user)
@@ -115,7 +118,7 @@
 
 		if(ishuman(occupant) && !(NO_BLOOD in occupant.dna.species.species_traits))
 			var/mob/living/carbon/human/H = occupant
-			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
+			occupantData["pulse"] = occupant.get_pulse()
 			occupantData["hasBlood"] = 1
 			occupantData["bloodLevel"] = round(occupant.blood_volume)
 			occupantData["bloodMax"] = H.max_blood
@@ -216,7 +219,7 @@
 
 	if(nextTick < world.time)
 		nextTick=world.time + OP_COMPUTER_COOLDOWN
-		if(crit && table.patient.health <= -50 )
+		if(crit && table.patient.health <= -50)
 			playsound(src.loc, 'sound/machines/defib_success.ogg', 50, 0)
 		if(oxy && table.patient.getOxyLoss()>oxyAlarm)
 			playsound(src.loc, 'sound/machines/defib_saftyoff.ogg', 50, 0)

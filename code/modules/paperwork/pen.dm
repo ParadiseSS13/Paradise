@@ -15,7 +15,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
-	slot_flags = SLOT_BELT | SLOT_EARS
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_EARS
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
@@ -69,7 +69,7 @@
 	update_icon()
 
 /obj/item/pen/multi/proc/select_colour(mob/user as mob)
-	var/newcolour = input(user, "Which colour would you like to use?", name, colour) as null|anything in colour_choices
+	var/newcolour = tgui_input_list(user, "Which colour would you like to use?", name, colour_choices)
 	if(newcolour)
 		colour = newcolour
 		playsound(loc, 'sound/effects/pop.ogg', 50, 1)
@@ -110,6 +110,7 @@
 /obj/item/pen/sleepy
 	container_type = OPENCONTAINER
 	origin_tech = "engineering=4;syndicate=2"
+	var/transfer_amount = 50
 
 
 /obj/item/pen/sleepy/attack(mob/living/M, mob/user)
@@ -126,13 +127,13 @@
 		contained += "[round(reagent.volume, 0.01)]u [reagent]"
 
 	if(reagents.total_volume && M.reagents)
-		transfered = reagents.trans_to(M, 50)
+		transfered = reagents.trans_to(M, transfer_amount)
 	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
 	for(var/datum/reagent/R as anything in reagents.reagent_list)
 		if(initial(R.id) == "????") // Yes this is a specific case that we don't really want
-			return TRUE
-	reagents.reaction(M, REAGENT_INGEST, 0.1)
+			continue
+		reagents.reaction(M, REAGENT_INGEST, 0.1)
 	return TRUE
 
 
@@ -150,6 +151,7 @@
 	icon_state = "fancypen"
 	container_type = DRAINABLE //cannot be refilled, love can be extracted for use in other items with syringe
 	origin_tech = "engineering=4;syndicate=2"
+	transfer_amount = 25 // 4 Dosages instead of 2
 
 /obj/item/pen/sleepy/love/attack(mob/living/M, mob/user)
 	var/can_transfer = reagents.total_volume && M.reagents

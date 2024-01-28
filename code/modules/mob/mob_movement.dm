@@ -16,8 +16,8 @@
 		return TRUE
 	if(ismob(mover))
 		var/mob/moving_mob = mover
-		if((currently_grab_pulled && moving_mob.currently_grab_pulled))
-			return FALSE
+		if(src in moving_mob.grab_do_not_move)
+			return TRUE
 		if(mover in buckled_mobs)
 			return TRUE
 	return (!mover.density || !density || horizontal)
@@ -180,8 +180,6 @@
 
 	if(prev_pulling_loc && mob.pulling?.face_while_pulling && (mob.pulling.loc != prev_pulling_loc))
 		mob.setDir(get_dir(mob, mob.pulling)) // Face welding tanks and stuff when pulling
-	else
-		mob.setDir(direct)
 
 	moving = 0
 	if(mob && .)
@@ -206,6 +204,8 @@
 	if(mob.grabbed_by.len)
 		if(mob.incapacitated(FALSE, TRUE)) // Can't break out of grabs if you're incapacitated
 			return TRUE
+		if(HAS_TRAIT(mob, TRAIT_IMMOBILIZED))
+			return TRUE //You can't move, so you can't break it by trying to move.
 		var/list/grabbing = list()
 
 		if(istype(mob.l_hand, /obj/item/grab))
@@ -282,7 +282,7 @@
 				L.forceMove(locate(locx,locy,mobloc.z))
 				spawn(0)
 					var/limit = 2//For only two trailing shadows.
-					for(var/turf/T in getline(mobloc, L.loc))
+					for(var/turf/T in get_line(mobloc, L.loc))
 						new /obj/effect/temp_visual/dir_setting/ninja/shadow(T, L.dir)
 						limit--
 						if(limit<=0)

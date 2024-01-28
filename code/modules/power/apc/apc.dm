@@ -346,7 +346,7 @@
 
 	else if(istype(W, /obj/item/mounted/frame/apc_frame) && opened)
 		if(!(stat & BROKEN || opened == APC_COVER_OFF || obj_integrity < max_integrity)) // There is nothing to repair
-			to_chat(user, "<span class='warning'>You found no reason for repairing this APC</span>")
+			to_chat(user, "<span class='warning'>You found no reason for repairing this APC.</span>")
 			return
 		if(!(stat & BROKEN) && opened == APC_COVER_OFF) // Cover is the only thing broken, we do not need to remove elctronicks to replace cover
 			user.visible_message("[user.name] replaces missing APC's cover.",\
@@ -422,10 +422,13 @@
 
 	return ui_interact(user)
 
-/obj/machinery/power/apc/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/power/apc/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/power/apc/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "APC", name, 510, 460, master_ui, state)
+		ui = new(user, src, "APC", name)
 		ui.open()
 
 /obj/machinery/power/apc/ui_data(mob/user)
@@ -520,7 +523,7 @@
 	if(istype(H))
 		if(H.getBrainLoss() >= 60)
 			for(var/mob/M in viewers(src, null))
-				to_chat(M, "<span class='danger'>[H] stares cluelessly at [src] and drools.</span>")
+				to_chat(M, "<span class='danger'>[H] stares cluelessly at [src].</span>")
 			return FALSE
 		else if(prob(H.getBrainLoss()))
 			to_chat(user, "<span class='danger'>You momentarily forget how to use [src].</span>")
@@ -1060,10 +1063,28 @@
 	start_charge = 0
 
 /obj/machinery/power/apc/syndicate //general syndicate access
+	name = "Main branch, do not use"
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
 
+/obj/machinery/power/apc/syndicate/north
+	name = "north bump"
+	pixel_y = 24
+
+/obj/machinery/power/apc/syndicate/south
+	name = "south bump"
+	pixel_y = -24
+
+/obj/machinery/power/apc/syndicate/east
+	name = "east bump"
+	pixel_x = 24
+
+/obj/machinery/power/apc/syndicate/west
+	name = "west bump"
+	pixel_x = -24
+
 /obj/machinery/power/apc/syndicate/off
+	name = "APC off"
 	environment_channel = 0
 	equipment_channel = 0
 	lighting_channel = 0

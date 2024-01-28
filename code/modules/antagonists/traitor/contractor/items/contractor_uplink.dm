@@ -9,7 +9,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "contractor_uplink"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "programming=5;syndicate=4" // Hackerman encryption
 	/// The Contractor Hub associated with this uplink.
 	var/datum/contractor_hub/hub = null

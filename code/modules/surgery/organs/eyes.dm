@@ -112,6 +112,7 @@
 	desc = "An electronic device designed to mimic the functions of a pair of human eyes. It has no benefits over organic eyes, but is easy to produce."
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
+	var/flash_intensity = 1
 
 /obj/item/organ/internal/eyes/cybernetic/emp_act(severity)
 	if(!owner || emp_proof)
@@ -119,7 +120,7 @@
 	if(prob(10 * severity))
 		return
 	to_chat(owner, "<span class='warning'>Static obfuscates your vision!</span>")
-	owner.flash_eyes(visual = TRUE)
+	owner.flash_eyes(flash_intensity, visual = TRUE)
 	..()
 
 /obj/item/organ/internal/eyes/cybernetic/meson
@@ -204,9 +205,7 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	eye_color = "#101010"
 	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
-
-/obj/item/organ/internal/eyes/cybernetic/shield/emp_act(severity)
-	return
+	flash_intensity = 3
 
 #define INTACT 0
 #define ONE_SHATTERED 1
@@ -214,11 +213,12 @@
 
 /obj/item/organ/internal/eyes/cybernetic/eyesofgod //no occuline allowed
 	name = "\improper Eyes of the Gods"
-	desc = "Two eyes said to belong to the gods. But such vision comes at a price"
+	desc = "Two eyes said to belong to the gods. But such vision comes at a price."
 	icon_state = "eyesofgod"
 	eye_color = "#58a5ec"
 	see_in_dark = 8
 	flash_protect = FLASH_PROTECTION_SENSITIVE
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	emp_proof = TRUE //They are crystal artifacts, not metal
 	min_bruised_damage = 30
 	min_broken_damage = 60
@@ -239,7 +239,7 @@
 /obj/item/organ/internal/eyes/cybernetic/eyesofgod/on_life()
 	. = ..()
 	if(is_mining_level(owner.z)) //More lavaland use cause magic or something. Don't worry about the ash in peoples eyes.
-		heal_internal_damage(1, 1)
+		heal_internal_damage(0.75, 1)
 	if(!active)
 		switch(damage)
 			if(0 to 10)
@@ -249,17 +249,17 @@
 					owner.cure_blind()
 					unshatter()
 			if(10 to 30)
-				heal_internal_damage(0.5, 1)
+				heal_internal_damage(0.75, 1)
 				if(prob(10))
 					owner.cure_blind()
 					unshatter()
 			if(30 to 60)
-				heal_internal_damage(0.33, 1)
+				heal_internal_damage(0.5, 1)
 			if(60 to INFINITY)
-				heal_internal_damage(0.25, 1)
+				heal_internal_damage(0.33, 1)
 	else
 		owner.mob_light("#58a5ec", 3, _duration = 2 SECONDS)
-		receive_damage(1.5, 1)
+		receive_damage(1, 1)
 		for(var/obj/O in range(7, owner))
 			var/turf/T = get_turf(O)
 			for(var/mob/M in O.contents)
@@ -270,12 +270,17 @@
 		switch(damage)
 			if(25 to 30)
 				if(prob(50))
-					to_chat(owner, "<span class='warning'>Your eyes are hurting a lot!</span>")
+					to_chat(owner, "<span class='warning'>Your eyes are burning in your skull!</span>")
+					owner.apply_damage(0.5, BURN, parent_organ)
 			if(30 to 54)
-				receive_damage(0.75, 1) //more pain when damaged
+				receive_damage(0.25, 1) //more pain when damaged
+				if(prob(15)) //Warning that you are still hurting yourself still
+					to_chat(owner, "<span class='warning'>Your eyes are burning in your skull!</span>")
+					owner.apply_damage(0.5, BURN, parent_organ)
 			if(55 to 60)
 				if(prob(50))
 					to_chat(owner, "<span class='warning'>Your eyes feel like they are going to explode!</span>")
+					owner.apply_damage(1, BURN, parent_organ)
 
 
 /obj/item/organ/internal/eyes/cybernetic/eyesofgod/proc/unshatter()
@@ -352,3 +357,7 @@
 	icon_state = "shield_reversed"
 	duration = 2 SECONDS
 	invisibility = INVISIBILITY_LEVEL_TWO
+
+#undef INTACT
+#undef ONE_SHATTERED
+#undef BOTH_SHATTERED

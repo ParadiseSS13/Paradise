@@ -52,7 +52,7 @@
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/storage/belt/military/sst(src)
 	new /obj/item/clothing/glasses/thermal(src)
-	new /obj/item/clothing/shoes/magboots/syndie/advance(src)
+	new /obj/item/clothing/shoes/magboots/elite(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst(src)
 

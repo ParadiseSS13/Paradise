@@ -28,10 +28,13 @@
 /obj/machinery/computer/aifixer/attack_hand(mob/user as mob)
 	ui_interact(user)
 
-/obj/machinery/computer/aifixer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/aifixer/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/aifixer/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AIFixer", name, 550, 500, master_ui, state)
+		ui = new(user, src, "AIFixer", name)
 		ui.open()
 
 /obj/machinery/computer/aifixer/ui_data(mob/user)
@@ -95,6 +98,8 @@
 
 /obj/machinery/computer/aifixer/update_overlays()
 	. = ..()
+	if(stat & (BROKEN|NOPOWER))
+		return
 	if(active)
 		. += "ai-fixer-on"
 	if(occupant)
@@ -130,9 +135,9 @@
 			occupant = null
 			update_icon(UPDATE_OVERLAYS)
 		else if(active)
-			to_chat(user, "<span class='boldannounce'>ERROR</span>: Reconstruction in progress.")
+			to_chat(user, "<span class='boldannounceic'>ERROR</span>: Reconstruction in progress.")
 		else if(!occupant)
-			to_chat(user, "<span class='boldannounce'>ERROR</span>: Unable to locate artificial intelligence.")
+			to_chat(user, "<span class='boldannounceic'>ERROR</span>: Unable to locate artificial intelligence.")
 
 /obj/machinery/computer/aifixer/Destroy()
 	if(occupant)

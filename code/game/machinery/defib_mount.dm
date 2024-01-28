@@ -38,6 +38,9 @@
 	defib = new/obj/item/defibrillator/loaded(src)
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/defibrillator_mount/loaded/locked
+	clamps_locked = TRUE
+
 /obj/machinery/defibrillator_mount/Destroy()
 	QDEL_NULL(defib)
 	return ..()
@@ -46,7 +49,7 @@
 	. = ..()
 	if(defib)
 		. += "<span class='notice'>There is a defib unit hooked up. Alt-click to remove it.<span>"
-		if(GLOB.security_level >= SEC_LEVEL_RED)
+		if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 			. += "<span class='notice'>Due to a security situation, its locking clamps can be toggled by swiping any ID.</span>"
 		else
 			. += "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>"
@@ -101,7 +104,7 @@
 		return
 	var/obj/item/card/id = I.GetID()
 	if(id)
-		if(check_access(id) || GLOB.security_level >= SEC_LEVEL_RED) //anyone can toggle the clamps in red alert!
+		if(check_access(id) || SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED) //anyone can toggle the clamps in red alert!
 			if(!defib)
 				to_chat(user, "<span class='warning'>You can't engage the clamps on a defibrillator that isn't there.</span>")
 				return

@@ -53,7 +53,8 @@
 		"Grey" = 'icons/mob/clothing/modsuit/species/grey_mod_modules.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/modules_vulp.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/modules_taj.dmi',
-		"Unathi" = 'icons/mob/clothing/modsuit/species/modules_unathi.dmi'
+		"Unathi" = 'icons/mob/clothing/modsuit/species/modules_unathi.dmi',
+		"Vox" = 'icons/mob/clothing/modsuit/species/modules_vox.dmi'
 		)
 
 /obj/item/mod/module/Initialize(mapload)
@@ -63,7 +64,6 @@
 		return
 	if(ispath(device))
 		device = new device(src)
-		device.flags |= NODROP
 		device.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		device.slot_flags = null
 		device.w_class = WEIGHT_CLASS_HUGE
@@ -303,8 +303,8 @@
 	else
 		return
 	var/image/final_overlay
-	if(sprite_sheets && sprite_sheets[user.dna.species.name])
-		final_overlay = image(icon = sprite_sheets[user.dna.species.name], icon_state = used_overlay, layer = EFFECTS_LAYER)
+	if(sprite_sheets && sprite_sheets[user.dna.species.sprite_sheet_name])
+		final_overlay = image(icon = sprite_sheets[user.dna.species.sprite_sheet_name], icon_state = used_overlay, layer = EFFECTS_LAYER)
 	else
 		final_overlay = image(icon = overlay_icon_file, icon_state = used_overlay, layer = EFFECTS_LAYER)
 	if(mod_color_overide)

@@ -248,6 +248,17 @@
 
 	handle_reactions()
 
+/datum/reagents/proc/adjust_reagent_temp(amount, temperature_bound)
+	if(chem_temp == temperature_bound || !amount) // We don't need to do the mathy math
+		return
+	if(!isnull(temperature_bound)) // If we have a target temp, we only go until that temperature
+		chem_temp = directional_bounded_sum(chem_temp, amount, temperature_bound, temperature_bound)
+	else
+		chem_temp += amount
+	chem_temp = clamp(chem_temp, temperature_min, temperature_max)
+	temperature_react()
+	handle_reactions()
+
 /**
  * Same as [/datum/reagents/proc/trans_to] but only for a specific reagent in
  * the reagent list. If the specified amount is greater than what is available,
@@ -705,7 +716,12 @@
 		cached_reagents += R
 		R.holder = src
 		R.volume = amount
-		R.on_new(data)
+		if(ishuman(my_atom))
+			if(can_metabolize(my_atom, R))
+				R.on_new(data)
+		else
+			R.on_new(data)
+
 		if(data)
 			R.data = data
 

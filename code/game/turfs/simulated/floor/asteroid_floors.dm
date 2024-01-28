@@ -111,7 +111,7 @@
 	digResult = /obj/item/stack/ore/glass/basalt
 
 /turf/simulated/floor/plating/asteroid/basalt/lava //lava underneath
-	baseturf = /turf/simulated/floor/plating/lava/smooth
+	baseturf = /turf/simulated/floor/lava
 
 /turf/simulated/floor/plating/asteroid/basalt/airless
 	temperature = TCMB
@@ -149,7 +149,15 @@
 	nitrogen = 23
 	temperature = 300
 	planetary_atmos = TRUE
-	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	baseturf = /turf/simulated/floor/lava/mapping_lava
+
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+	planetary_atmos = TRUE
+	color = COLOR_FLOOR_HARD_ROCK
+	baseturf = /turf/simulated/floor/lava/lava_land_surface
 
 /turf/simulated/floor/plating/asteroid/airless
 	temperature = TCMB
@@ -184,7 +192,8 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	mob_spawn_list = list(/obj/effect/landmark/mob_spawner/goliath = 50, /obj/structure/spawner/lavaland/goliath = 3,
 		/obj/effect/landmark/mob_spawner/watcher = 40, /obj/structure/spawner/lavaland = 2,
 		/obj/effect/landmark/mob_spawner/legion = 30, /obj/structure/spawner/lavaland/legion = 3,
-		SPAWN_MEGAFAUNA = 6, /obj/effect/landmark/mob_spawner/goldgrub = 10, /obj/effect/landmark/mob_spawner/gutlunch = 4)
+		SPAWN_MEGAFAUNA = 6, /obj/effect/landmark/mob_spawner/goldgrub = 10, /obj/effect/landmark/mob_spawner/gutlunch = 4,
+		/obj/effect/landmark/mob_spawner/abandoned_minebot = 6)
 
 	data_having_type = /turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
@@ -196,11 +205,11 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	has_data = TRUE
 
 /turf/simulated/floor/plating/asteroid/airless/cave/Initialize(mapload)
-	if (!mob_spawn_list)
+	if(!mob_spawn_list)
 		mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goldgrub = 1, /mob/living/simple_animal/hostile/asteroid/goliath = 5, /mob/living/simple_animal/hostile/asteroid/basilisk = 4, /mob/living/simple_animal/hostile/asteroid/hivelord = 3)
-	if (!megafauna_spawn_list)
+	if(!megafauna_spawn_list)
 		megafauna_spawn_list = GLOB.megafauna_spawn_list
-	if (!flora_spawn_list)
+	if(!flora_spawn_list)
 		flora_spawn_list = list(/obj/structure/flora/ash/leaf_shroom = 2, /obj/structure/flora/ash/cap_shroom = 2, /obj/structure/flora/ash/stem_shroom = 2, /obj/structure/flora/ash/cacti = 1, /obj/structure/flora/ash/tall_shroom = 2, /obj/structure/flora/ash/rock/style_random = 1)
 		if(SSmapping.cave_theme == BLOCKED_BURROWS)
 			flora_spawn_list += list(/obj/structure/flora/ash/rock/style_random = 3) //Let us see how this goes
@@ -252,7 +261,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 			break
 
 		var/list/L = list(45)
-		if(ISODD(dir2angle(dir)) && (!SSmapping.cave_theme == BLOCKED_BURROWS || prob(33))) // We're going at an angle and we want thick angled tunnels.
+		if(ISODD(dir2angle(dir)) && (!(SSmapping.cave_theme == BLOCKED_BURROWS) || prob(15)))
 			L += -45
 
 		// Expand the edges of our tunnel
@@ -299,17 +308,17 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		if(DEADLY_DEEPROCK)
 			var/tempradius = rand(10, 15)
 			var/probmodifer = 43 * tempradius //Yes this is a magic number, it is a magic number that works well.
-			for(var/turf/NT in circleviewturfs(T, tempradius))
+			for(var/turf/NT in circlerangeturfs(T, tempradius))
 				var/distance = (max(get_dist(T, NT), 1)) //Get dist throws -1 if same turf
 				if(prob(min(probmodifer / distance, 100)))
 					if((ismineralturf(NT) || istype(NT, /turf/simulated/floor/plating/asteroid)) && !istype(NT.loc, /area/ruin)) //No spawning on lava / other ruins
 						SpawnFloor(NT, 50) //Room has higher probabilty.
 			if(prob(25))
 				tempradius = round(tempradius / 3)
-				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/plating/lava/smooth/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/mapping_lava = 6, /turf/simulated/floor/beach/away/water/lavaland_air = 1, /turf/simulated/floor/plating/asteroid = 1))
+				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/lava/lava_land_surface = 4, /turf/simulated/floor/lava/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/lava/mapping_lava = 6, /turf/simulated/floor/beach/away/water/lavaland_air = 1, /turf/simulated/floor/plating/asteroid = 1))
 				if(oasis_lake == /turf/simulated/floor/plating/asteroid)
 					new /obj/effect/spawner/oasisrock(T, tempradius)
-				for(var/turf/oasis in circleviewturfs(T, tempradius))
+				for(var/turf/oasis in circlerangeturfs(T, tempradius))
 					if(istype(oasis.loc, /area/ruin))
 						continue
 					oasis.ChangeTurf(oasis_lake, ignore_air = TRUE)

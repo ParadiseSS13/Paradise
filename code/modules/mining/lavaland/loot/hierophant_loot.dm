@@ -10,7 +10,7 @@
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 15
 	attack_verb = list("clubbed", "beat", "pummeled")
@@ -52,7 +52,11 @@
 	if(world.time < timer)
 		return
 
-	if(!is_mining_level(user.z) && !iswizard(user)) //Will only spawn a few sparks if not on mining z level, unless a wizard uses it.
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+		return
+	
+	if((!is_mining_level(user.z) && !iswizard(user) && !istype(get_area(user), /area/ruin/space/bubblegum_arena))) //Will only spawn a few sparks if not on mining z level, unless a wizard uses it.
 		timer = world.time + cooldown_time
 		user.visible_message("<span class='danger'>[user]'s hierophant club malfunctions!</span>")
 		do_sparks(5, FALSE, user)

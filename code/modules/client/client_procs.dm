@@ -50,16 +50,15 @@
 				stack_trace("Got \\ref-based src in topic from [src] for [hsrc_info], should be UID: [href]")
 
 
+	// asset_cache
+	var/asset_cache_job
 	if(href_list["asset_cache_confirm_arrival"])
-		var/job = text2num(href_list["asset_cache_confirm_arrival"])
-		completed_asset_jobs += job
-		return
-
-	if(href_list["_src_"] == "chat")
-		return chatOutput.Topic(href, href_list)
+		asset_cache_job = asset_cache_confirm_arrival(href_list["asset_cache_confirm_arrival"])
+		if(!asset_cache_job)
+			return
 
 	// Rate limiting
-	var/mtl = 100 // 100 topics per minute
+	var/mtl = 150 // 150 topics per minute
 	if(!holder) // Admins are allowed to spam click, deal with it.
 		var/minute = round(world.time, 600)
 		if(!topiclimiter)
@@ -152,22 +151,25 @@
 
 			// I know its a very rare occurance, but I wouldnt doubt people using this to withdraw consent right when sec captures them
 			message_admins("[key_name_admin(usr)] was disconnected due to withdrawing their ToS consent.")
-			to_chat(usr, "<span class='boldannounce'>Your ToS consent has been withdrawn. You have been kicked from the server</span>")
+			to_chat(usr, "<span class='boldannounceooc'>Your ToS consent has been withdrawn. You have been kicked from the server</span>")
 			qdel(src)
 			return
 
-	if(href_list["__keydown"])
-		var/keycode = href_list["__keydown"]
-		if(keycode)
-			KeyDown(keycode)
+	// Tgui Topic middleware
+	if(tgui_Topic(href_list))
+		return
+	if(href_list["reload_tguipanel"])
+		nuke_chat()
+
+	//byond bug ID:2256651
+	if(asset_cache_job && (asset_cache_job in completed_asset_jobs))
+		to_chat(src, "<span class='danger'> An error has been detected in how your client is receiving resources. Attempting to correct.... (If you keep seeing these messages you might want to close byond and reconnect)</span>")
+		src << browse("...", "window=asset_cache_browser")
 		return
 
-	if(href_list["__keyup"])
-		var/keycode = href_list["__keyup"]
-		if(keycode)
-			KeyUp(keycode)
+	if(href_list["asset_cache_preload_data"])
+		asset_cache_preload_data(href_list["asset_cache_preload_data"])
 		return
-
 
 	switch(href_list["action"])
 		if("openLink")
@@ -252,7 +254,7 @@
 	///////////
 /client/New(TopicData)
 	var/tdata = TopicData //save this for later use
-	chatOutput = new /datum/chatOutput(src) // Right off the bat.
+	tgui_panel = new(src)
 	TopicData = null							//Prevent calls to client.Topic from connect
 
 	if(connection != "seeker")					//Invalid connection type.
@@ -276,7 +278,7 @@
 	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
 
 	GLOB.directory[ckey] = src
-	//Admin Authorisation
+	// Admin Authorisation
 	// Automatically makes localhost connection an admin
 	try_localhost_autoadmin()
 
@@ -326,8 +328,6 @@
 	view = prefs.viewrange
 
 	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
-	prefs.last_ip = address				//these are gonna be used for banning
-	prefs.last_id = computer_id			//these are gonna be used for banning
 	fps = prefs.clientfps
 
 	// Log alts
@@ -337,18 +337,17 @@
 	if(length(related_accounts_cid))
 		log_admin("[key_name(src)] Alts by CID: [jointext(related_accounts_cid, " ")]")
 
+	#ifdef MULTIINSTANCE
 	// This sleeps so it has to go here. Dont fucking move it.
 	SSinstancing.update_playercache(ckey)
+	#endif
 
 	// This has to go here to avoid issues
 	// If you sleep past this point, you will get SSinput errors as well as goonchat errors
 	// DO NOT STUFF RANDOM SQL QUERIES BELOW THIS POINT WITHOUT USING `INVOKE_ASYNC()` OR SIMILAR
 	// YOU WILL BREAK STUFF. SERIOUSLY. -aa07
 	GLOB.clients += src
-
-
-	spawn() // Goonchat does some non-instant checks in start()
-		chatOutput.start()
+	connection_time = world.time
 
 	var/_2fa_alert = FALSE // This is so we can display the message where it will be seen
 	if(holder)
@@ -361,7 +360,6 @@
 			GLOB.de_admins += ckey
 
 		else
-			on_holder_add()
 			add_admin_verbs()
 			// Must be async because any sleeps (happen in sql queries) will break connectings clients
 			INVOKE_ASYNC(src, PROC_REF(admin_memo_output), "Show", FALSE, TRUE)
@@ -391,15 +389,12 @@
 	if(SSinput.initialized)
 		set_macros()
 
+	// Initialize tgui panel
+	tgui_panel.initialize()
+
 	check_ip_intel()
 	send_resources()
-
-	if(prefs.toggles & PREFTOGGLE_UI_DARKMODE) // activates dark mode if its flagged. -AA07
-		activate_darkmode()
-
-	else
-		// activate_darkmode() calls the CL update button proc, so we dont want it double called
-		SSchangelog.UpdatePlayerChangelogButton(src)
+	SSchangelog.UpdatePlayerChangelogButton(src)
 
 	if(show_update_prompt)
 		show_update_notice()
@@ -431,12 +426,12 @@
 		to_chat(src, "The queue server is currently [SSqueue.queue_enabled ? "<font color='green'>enabled</font>" : "<font color='disabled'>disabled</font>"], with a threshold of <b>[SSqueue.queue_threshold]</b>. This <b>[SSqueue.persist_queue ? "will" : "will not"]</b> persist through rounds.")
 
 	if(_2fa_alert)
-		to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
+		to_chat(src,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 
 	// Tell client about their connection
 	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")
 	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")
-
+	display_job_bans(TRUE)
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
@@ -464,8 +459,9 @@
 
 	GLOB.directory -= ckey
 	GLOB.clients -= src
+	#ifdef MULTIINSTANCE
 	SSinstancing.update_playercache() // Clear us out
-	QDEL_NULL(chatOutput)
+	#endif
 	QDEL_NULL(pai_save)
 
 	if(movingmob)
@@ -474,6 +470,7 @@
 
 	SSambience.ambience_listening_clients -= src
 	SSinput.processing -= src
+	SSping.current_run -= src
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
@@ -733,7 +730,7 @@
 	if(fromban)
 		url += "&fwd=appeal"
 		to_chat(src, {"Now opening a window to verify your information with the forums, so that you can appeal your ban. If the window does not load, please copy/paste this link: <a href="[url]">[url]</a>"})
-		to_chat(src, "<span class='boldannounce'>If you are screenshotting this screen for your ban appeal, please blur/draw over the token in the above link.</span>")
+		to_chat(src, "<span class='boldannounceooc'>If you are screenshotting this screen for your ban appeal, please blur/draw over the token in the above link.</span>")
 	else
 		to_chat(src, {"Now opening a window to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>"})
 
@@ -904,19 +901,17 @@
 	// Change the way they should download resources.
 	if(length(GLOB.configuration.url.rsc_urls))
 		preload_rsc = pick(GLOB.configuration.url.rsc_urls)
-
 	else
 		preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 
-	// Most assets are now handled through global_cache.dm
-	getFiles(
-		'html/search.js', // Used in various non-TGUI HTML windows for search functionality
-		'html/panels.css' // Used for styling certain panels, such as in the new player panel
-	)
-
 	spawn (10) //removing this spawn causes all clients to not get verbs.
+
+		//load info on what assets the client has
+		src << browse('code/modules/asset_cache/validate_assets.html', "window=asset_cache_browser")
+
 		//Precache the client with all other assets slowly, so as to not block other browse() calls
-		getFilesSlow(src, SSassets.preload, register_asset = FALSE)
+		if(GLOB.configuration.asset_cache.asset_simple_preload)
+			addtimer(CALLBACK(SSassets.transport, TYPE_PROC_REF(/datum/asset_transport, send_assets_slow), src, SSassets.transport.preload), 5 SECONDS)
 
 //For debugging purposes
 /client/proc/list_all_languages()
@@ -934,78 +929,6 @@
 
 /client/proc/on_varedit()
 	var_edited = TRUE
-
-/////////////////
-// DARKMODE UI //
-/////////////////
-// IF YOU CHANGE ANYTHING IN ACTIVATE, MAKE SURE IT HAS A DEACTIVATE METHOD, -AA07
-/client/proc/activate_darkmode()
-	///// BUTTONS /////
-	SSchangelog.UpdatePlayerChangelogButton(src)
-	/* Rpane */
-	winset(src, "rpane.textb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.infob", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.wikib", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.forumb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.rulesb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.githubb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.webmap", "background-color=#494949;text-color=#a4bad6")
-	/* Outputwindow */
-	winset(src, "outputwindow.saybutton", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "outputwindow.mebutton", "background-color=#494949;text-color=#a4bad6")
-	///// UI ELEMENTS /////
-	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=#171717")
-	winset(src, "mainwindow.mainvsplit", "background-color=#202020")
-	winset(src, "mainwindow.tooltip", "background-color=#171717")
-	/* Outputwindow */
-	winset(src, "outputwindow", "background-color=#202020")
-	winset(src, "outputwindow.browseroutput", "background-color=#202020")
-	/* Rpane */
-	winset(src, "rpane", "background-color=#202020")
-	winset(src, "rpane.rpanewindow", "background-color=#202020")
-	/* Browserwindow */
-	winset(src, "browserwindow", "background-color=#171717")
-	winset(src, "browserwindow.browser", "background-color=#171717")
-	/* Infowindow */
-	winset(src, "infowindow", "background-color=#202020;text-color=#a4bad6")
-	winset(src, "infowindow.info", "background-color=#171717;text-color=#a4bad6;highlight-color=#009900;tab-text-color=#a4bad6;tab-background-color=#202020")
-	// NOTIFY USER
-	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
-
-/client/proc/deactivate_darkmode()
-	///// BUTTONS /////
-	SSchangelog.UpdatePlayerChangelogButton(src)
-	/* Rpane */
-	winset(src, "rpane.textb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.infob", "background-color=none;text-color=#000000")
-	winset(src, "rpane.wikib", "background-color=none;text-color=#000000")
-	winset(src, "rpane.forumb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.rulesb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.githubb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.webmap", "background-color=none;text-color=#000000")
-	/* Outputwindow */
-	winset(src, "outputwindow.saybutton", "background-color=none;text-color=#000000")
-	winset(src, "outputwindow.mebutton", "background-color=none;text-color=#000000")
-	///// UI ELEMENTS /////
-	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=none")
-	winset(src, "mainwindow.mainvsplit", "background-color=none")
-	winset(src, "mainwindow.tooltip", "background-color=none")
-	/* Outputwindow */
-	winset(src, "outputwindow", "background-color=none")
-	winset(src, "outputwindow.browseroutput", "background-color=none")
-	/* Rpane */
-	winset(src, "rpane", "background-color=none")
-	winset(src, "rpane.rpanewindow", "background-color=none")
-	/* Browserwindow */
-	winset(src, "browserwindow", "background-color=none")
-	winset(src, "browserwindow.browser", "background-color=none")
-	/* Infowindow */
-	winset(src, "infowindow", "background-color=none;text-color=#000000")
-	winset(src, "infowindow.info", "background-color=none;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=none")
-	///// NOTIFY USER /////
-	to_chat(src, "<span class='notice'>Darkmode Disabled</span>") // what a sick fuck
 
 /client/proc/generate_clickcatcher()
 	if(!void)
@@ -1032,6 +955,8 @@
 
 #undef SSD_WARNING_TIMER
 
+
+//
 /client/verb/resend_ui_resources()
 	set name = "Reload UI Resources"
 	set desc = "Reload your UI assets if they are not working"
@@ -1041,7 +966,7 @@
 		to_chat(usr, "<span class='warning'>You requested your UI resource files too quickly. Please try again in [(last_ui_resource_send - world.time)/10] seconds.</span>")
 		return
 
-	var/choice = alert(usr, "This will reload your TGUI resources. If you have any open UIs this may break them. Are you sure?", "Resource Reloading", "Yes", "No")
+	var/choice = alert(usr, "This will reload your TGUI resources. If you have any open UIs, they will be closed. Are you sure?", "Resource Reloading", "Yes", "No")
 	if(choice == "Yes")
 		// 600 deciseconds = 1 minute
 		last_ui_resource_send = world.time + 60 SECONDS
@@ -1049,18 +974,9 @@
 		// Close their open UIs
 		SStgui.close_user_uis(usr)
 
-		// Resend the resources
-
-		var/datum/asset/tgui_assets = get_asset_datum(/datum/asset/simple/tgui)
-		tgui_assets.register()
-
-		var/datum/asset/nanomaps = get_asset_datum(/datum/asset/simple/nanomaps)
-		nanomaps.register()
-
 		// Clear the user's cache so they get resent.
 		// This is not fully clearing their BYOND cache, just their assets sent from the server this round
-		cache = list()
-
+		sent_assets = list()
 		to_chat(usr, "<span class='notice'>UI resource files resent successfully. If you are still having issues, please try manually clearing your BYOND cache. <b>This can be achieved by opening your BYOND launcher, pressing the cog in the top right, selecting preferences, going to the Games tab, and pressing 'Clear Cache'.</b></span>")
 
 

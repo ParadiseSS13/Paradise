@@ -32,6 +32,8 @@
 	name = "nettle"
 	desc = "It's probably <B>not</B> wise to touch it with bare hands..."
 	icon = 'icons/obj/items.dmi'
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "nettle"
 	damtype = "fire"
 	force = 15
@@ -86,7 +88,7 @@
 /obj/item/grown/nettle/death
 	seed = /obj/item/seeds/nettle/death
 	name = "deathnettle"
-	desc = "The <span class='danger'>glowing</span> nettle incites <span class='boldannounce'>rage</span> in you just from looking at it!"
+	desc = "The <span class='danger'>glowing</span> nettle incites <span class='boldannounceic'>rage</span> in you just from looking at it!"
 	icon_state = "deathnettle"
 	force = 25
 	throwforce = 10

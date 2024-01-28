@@ -215,18 +215,21 @@
 	reagent_state = LIQUID
 	color = "#757547"
 	taste_description = "puke"
+	harmless = FALSE
 
 /datum/reagent/fishwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
 		to_chat(M, "Oh god, why did you drink that?")
 
 /datum/reagent/fishwater/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(30))		// Nasty, you drank this stuff? 30% chance of the fakevomit (non-stunning version)
 		if(prob(50))	// 50/50 chance of green vomit vs normal vomit
 			M.fakevomit(1)
 		else
 			M.fakevomit(0)
-	return ..()
+	update_flags |= M.adjustToxLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/fishwater/toiletwater
 	name = "Toilet Water"

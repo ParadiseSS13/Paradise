@@ -206,14 +206,14 @@
 	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	item_state = "lavastaff"
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	needs_permit = TRUE
-	var/turf_type = /turf/simulated/floor/plating/lava/smooth
+	var/turf_type = /turf/simulated/floor/lava
 	var/transform_string = "lava"
 	var/reset_turf_type = /turf/simulated/floor/plating/asteroid/basalt
 	var/reset_string = "basalt"

@@ -40,11 +40,11 @@
 	cooktime = (200 - (E * 20))		//Effectively each laser improves cooktime by 20 per rating beyond the first (200 base, 80 max upgrade)
 
 /obj/machinery/cooker/deepfryer/gettype()
-	var/obj/item/reagent_containers/food/snacks/deepfryholder/type = new(get_turf(src))
+	var/obj/item/food/snacks/deepfryholder/type = new(get_turf(src))
 	return type
 
 /obj/machinery/cooker/deepfryer/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/ice))
+	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks/ice))
 		var/ice_amount = I.reagents.get_reagent_amount("ice")
 		if(ice_amount)
 			I.reagents.remove_all(I.reagents.total_volume)
@@ -156,44 +156,44 @@
 	return istype(I, input)
 
 /datum/deepfryer_special/shrimp
-	input = /obj/item/reagent_containers/food/snacks/shrimp
-	output = /obj/item/reagent_containers/food/snacks/fried_shrimp
+	input = /obj/item/food/snacks/shrimp
+	output = /obj/item/food/snacks/fried_shrimp
 
 /datum/deepfryer_special/banana
-	input = /obj/item/reagent_containers/food/snacks/grown/banana
-	output = /obj/item/reagent_containers/food/snacks/friedbanana
+	input = /obj/item/food/snacks/grown/banana
+	output = /obj/item/food/snacks/friedbanana
 
 /datum/deepfryer_special/fries
-	input = /obj/item/reagent_containers/food/snacks/rawsticks
-	output = /obj/item/reagent_containers/food/snacks/fries
+	input = /obj/item/food/snacks/rawsticks
+	output = /obj/item/food/snacks/fries
 
 /datum/deepfryer_special/corn_chips
-	input = /obj/item/reagent_containers/food/snacks/grown/corn
-	output = /obj/item/reagent_containers/food/snacks/cornchips
+	input = /obj/item/food/snacks/grown/corn
+	output = /obj/item/food/snacks/cornchips
 
 /datum/deepfryer_special/fried_tofu
-	input = /obj/item/reagent_containers/food/snacks/tofu
-	output = /obj/item/reagent_containers/food/snacks/fried_tofu
+	input = /obj/item/food/snacks/tofu
+	output = /obj/item/food/snacks/fried_tofu
 
 /datum/deepfryer_special/chimichanga
-	input = /obj/item/reagent_containers/food/snacks/burrito
-	output = /obj/item/reagent_containers/food/snacks/chimichanga
+	input = /obj/item/food/snacks/burrito
+	output = /obj/item/food/snacks/chimichanga
 
 /datum/deepfryer_special/potato_chips
-	input = /obj/item/reagent_containers/food/snacks/grown/potato/wedges
-	output = /obj/item/reagent_containers/food/snacks/chips
+	input = /obj/item/food/snacks/grown/potato/wedges
+	output = /obj/item/food/snacks/chips
 
 /datum/deepfryer_special/carrotfries
-	input = /obj/item/reagent_containers/food/snacks/grown/carrot/wedges
-	output = /obj/item/reagent_containers/food/snacks/carrotfries
+	input = /obj/item/food/snacks/grown/carrot/wedges
+	output = /obj/item/food/snacks/carrotfries
 
 /datum/deepfryer_special/onionrings
-	input = /obj/item/reagent_containers/food/snacks/onion_slice
-	output = /obj/item/reagent_containers/food/snacks/onionrings
+	input = /obj/item/food/snacks/onion_slice
+	output = /obj/item/food/snacks/onionrings
 
 /datum/deepfryer_special/fried_vox
 	input = /obj/item/organ/external
-	output = /obj/item/reagent_containers/food/snacks/fried_vox
+	output = /obj/item/food/snacks/fried_vox
 
 /datum/deepfryer_special/fried_vox/validate(obj/item/I)
 	if(!..())
@@ -203,6 +203,4 @@
 
 /obj/machinery/cooker/deepfryer/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
 	default_unfasten_wrench(user, I, 30)

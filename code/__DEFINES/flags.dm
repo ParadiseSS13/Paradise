@@ -2,7 +2,7 @@
 #define NONE 0
 
 //FLAGS BITMASK
-#define STOPSPRESSUREDMAGE		1		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
+#define STOPSPRESSUREDMAGE		1		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_FLAG_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
 #define NODROP					2		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
 #define NOBLUDGEON  			4		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
 #define AIRTIGHT				8		// mask allows internals
@@ -81,6 +81,8 @@
 #define CRITICAL_ATOM_2			(1<<18)
 /// Use this flag for items that can block randomly
 #define RANDOM_BLOCKER_2		(1<<19)
+/// This flag allows for wearing of a belt item, even if you're not wearing a jumpsuit
+#define ALLOW_BELT_NO_JUMPSUIT_2	(1<<20)
 
 //Reagent flags
 #define REAGENT_NOREACT			1
@@ -127,14 +129,15 @@
 #define SAFE	16
 
 //flags for pass_flags
-#define PASSTABLE		1
-#define PASSGLASS		2
-#define PASSGRILLE		4
-#define PASSBLOB		8
-#define PASSMOB			16
-#define LETPASSTHROW	32
-#define PASSFENCE		64
-#define PASSDOOR		128
+#define PASSTABLE		(1<<0)
+#define PASSGLASS		(1<<1)
+#define PASSGRILLE		(1<<2)
+#define PASSBLOB		(1<<3)
+#define PASSMOB			(1<<4)
+#define LETPASSTHROW	(1<<5)
+#define PASSFENCE		(1<<6)
+#define PASSDOOR		(1<<7)
+#define PASSGIRDER		(1<<8)
 
 //turf-only flags
 #define NOJAUNT		1
@@ -142,21 +145,21 @@
 #define NO_RUINS 	4
 
 //ITEM INVENTORY SLOT BITMASKS
-#define SLOT_OCLOTHING	(1<<0)
-#define SLOT_ICLOTHING	(1<<1)
-#define SLOT_GLOVES		(1<<2)
-#define SLOT_EYES		(1<<3)
-#define SLOT_EARS		(1<<4)
-#define SLOT_MASK		(1<<5)
-#define SLOT_HEAD		(1<<6)
-#define SLOT_FEET		(1<<7)
-#define SLOT_ID			(1<<8)
-#define SLOT_BELT		(1<<9)
-#define SLOT_BACK		(1<<10)
-#define SLOT_POCKET 	(1<<11)	//this is to allow items with a w_class of 3 or 4 to fit in pockets.
-#define SLOT_TWOEARS	(1<<12)
-#define SLOT_PDA		(1<<13)
-#define SLOT_TIE		(1<<14)
+#define SLOT_FLAG_OCLOTHING	(1<<0)
+#define SLOT_FLAG_ICLOTHING	(1<<1)
+#define SLOT_FLAG_GLOVES		(1<<2)
+#define SLOT_FLAG_EYES		(1<<3)
+#define SLOT_FLAG_EARS		(1<<4)
+#define SLOT_FLAG_MASK		(1<<5)
+#define SLOT_FLAG_HEAD		(1<<6)
+#define SLOT_FLAG_FEET		(1<<7)
+#define SLOT_FLAG_ID			(1<<8)
+#define SLOT_FLAG_BELT		(1<<9)
+#define SLOT_FLAG_BACK		(1<<10)
+#define SLOT_FLAG_POCKET 	(1<<11)	//this is to allow items with a w_class of 3 or 4 to fit in pockets.
+#define SLOT_FLAG_TWOEARS	(1<<12)
+#define SLOT_FLAG_PDA		(1<<13)
+#define SLOT_FLAG_TIE		(1<<14)
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1

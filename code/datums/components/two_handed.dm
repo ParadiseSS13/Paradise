@@ -126,7 +126,7 @@
 /datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER  // COMSIG_ITEM_EQUIPPED
 
-	if(require_twohands && (slot == slot_l_hand || slot == slot_r_hand)) // force equip the item
+	if(require_twohands && (slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND)) // force equip the item
 		INVOKE_ASYNC(src, PROC_REF(wield), user)
 	if(!user.is_holding(parent) && wielded && !require_twohands)
 		INVOKE_ASYNC(src, PROC_REF(unwield), user)
@@ -277,7 +277,7 @@
 	parent_item.update_appearance()
 
 	if(istype(user)) // tk showed that we might not have a mob here
-		if(user.get_item_by_slot(slot_back) == parent)
+		if(user.get_item_by_slot(SLOT_HUD_BACK) == parent)
 			user.update_inv_back()
 		else
 			user.update_inv_l_hand()

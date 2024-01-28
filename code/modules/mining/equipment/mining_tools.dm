@@ -1,10 +1,10 @@
 /*****************Pickaxes & Drills & Shovels****************/
 /obj/item/pickaxe
 	name = "pickaxe"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/mining_tool.dmi'
 	icon_state = "pickaxe"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 15
 	throwforce = 10
 	item_state = "pickaxe"
@@ -124,10 +124,10 @@
 /obj/item/shovel
 	name = "shovel"
 	desc = "A large tool for digging and moving dirt."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/mining_tool.dmi'
 	icon_state = "shovel"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 8
 	throwforce = 4
 	item_state = "shovel"

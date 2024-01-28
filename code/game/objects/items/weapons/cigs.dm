@@ -19,7 +19,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigoff"
 	throw_speed = 0.5
 	item_state = "cigoff"
-	slot_flags = SLOT_MASK
+	slot_flags = SLOT_FLAG_MASK
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
 	attack_verb = null
@@ -47,16 +47,25 @@ LIGHTERS ARE IN LIGHTERS.DM
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
+	RegisterSignal(src, COMSIG_ITEM_BEING_ATTACKED, PROC_REF(can_light))
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	QDEL_NULL(reagents)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/clothing/mask/cigarette/proc/can_light(obj/item/cigarette, obj/item/lighting_item)
+	SIGNAL_HANDLER
+	if(lighting_item.get_heat())
+		light()
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
 /obj/item/clothing/mask/cigarette/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	C.stored_comms["wood"] += 1
-	qdel(src)
-	return TRUE
+	if(isdrone(user))
+		C.stored_comms["wood"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/item/clothing/mask/cigarette/attack(mob/living/M, mob/living/user, def_zone)
 	if(istype(M) && M.on_fire)
@@ -248,6 +257,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 
+/obj/item/clothing/mask/cigarette/get_heat()
+	return lit * 1000
 
 /obj/item/clothing/mask/cigarette/menthol
 	list_reagents = list("nicotine" = 40, "menthol" = 20)
@@ -348,9 +359,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	transform = turn(transform,rand(0,360))
 
 /obj/item/cigbutt/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	C.stored_comms["wood"] += 1
-	qdel(src)
-	return TRUE
+	if(isdrone(user))
+		C.stored_comms["wood"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/item/cigbutt/cigarbutt
 	name = "cigar butt"
@@ -405,7 +418,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/holo_cigar/equipped(mob/user, slot, initial)
 	. = ..()
-	if(enabled && slot == slot_wear_mask)
+	if(enabled && slot == SLOT_HUD_WEAR_MASK)
 		if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
 			ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
 			to_chat(user, "<span class='notice'>You feel more badass while smoking [src].</span>")
@@ -521,8 +534,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
-	if(istype(target, /obj/item/reagent_containers/food/snacks/grown))
-		var/obj/item/reagent_containers/food/snacks/grown/O = target
+	if(istype(target, /obj/item/food/snacks/grown))
+		var/obj/item/food/snacks/grown/O = target
 		if(O.dry)
 			user.unEquip(target, 1)
 			user.unEquip(src, 1)

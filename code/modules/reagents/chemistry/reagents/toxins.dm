@@ -284,33 +284,37 @@
 	return ..() | update_flags
 
 /datum/reagent/acid/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	if(ishuman(M) && !isgrey(M))
-		var/mob/living/carbon/human/H = M
-		if(method == REAGENT_TOUCH)
-			if(volume > 25)
-				if(H.wear_mask)
-					to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
-					return
+	if(!ishuman(M) || isgrey(M))
+		return
 
-				if(H.head)
-					to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
-					return
+	var/mob/living/carbon/human/H = M
+	if(method != REAGENT_TOUCH)
+		to_chat(H, "<span class='warning'>The greenish acidic substance stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+		if(volume >= 10)
+			H.adjustFireLoss(clamp((volume * 2), 4, 20))
+			H.emote("scream")
+		return
 
-				if(prob(75))
-					H.take_organ_damage(5, 10)
-					H.emote("scream")
-					var/obj/item/organ/external/affecting = H.get_organ("head")
-					if(istype(affecting))
-						affecting.disfigure()
-				else
-					H.take_organ_damage(5, 10)
-			else
-				H.take_organ_damage(5, 10)
+	if(volume < 25) // Need at least 10 units to do a little bit of damage
+		if(volume > 10)
+			H.take_organ_damage(5, 10)
 		else
-			to_chat(H, "<span class='warning'>The greenish acidic substance stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
-			if(volume >= 10)
-				H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
-				H.emote("scream")
+			H.adjustFireLoss(clamp(volume, 1, 5))
+		return
+
+	if(H.wear_mask)
+		to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+		return
+	if(H.head)
+		to_chat(H, "<span class='danger'>Your [H.head] protects you from the acid!</span>")
+		return
+
+	H.take_organ_damage(10, 15)
+	H.emote("scream")
+	if(prob(75))
+		var/obj/item/organ/external/affecting = H.get_organ("head")
+		if(istype(affecting))
+			affecting.disfigure()
 
 /datum/reagent/acid/reaction_obj(obj/O, volume)
 	if(ismob(O.loc)) //handled in human acid_act()
@@ -337,42 +341,44 @@
 	return ..() | update_flags
 
 /datum/reagent/acid/facid/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	if(ishuman(M) && !isgrey(M))
-		var/mob/living/carbon/human/H = M
-		if(method == REAGENT_TOUCH)
-			if(volume > 9)
-				if(!H.wear_mask && !H.head)
-					var/obj/item/organ/external/affecting = H.get_organ("head")
-					if(istype(affecting))
-						affecting.disfigure()
-					H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
-					H.emote("scream")
-					return
-				else
-					var/melted_something = FALSE
-					if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
-						to_chat(H, "<span class='danger'>Your [H.wear_mask.name] melts away!</span>")
-						qdel(H.wear_mask)
-						melted_something = TRUE
+	if(!ishuman(M) || isgrey(M))
+		return
 
-					if(H.head && !(H.head.resistance_flags & ACID_PROOF))
-						melted_something = TRUE
-						if(istype(H.head, /obj/item/clothing/head/mod) && ismodcontrol(H.back))
-							var/obj/item/mod/control/C = H.back
-							var/name = H.head.name
-							C.seal_part(H.head, FALSE)
-							C.retract(null, H.head)
-							to_chat(H, "<span class='danger'>Your [name] melts away as your [C.name] performs emergency cleaning on the helmet, deactivating the suit!</span>")
-						else
-							to_chat(H, "<span class='danger'>Your [H.head.name] melts away!</span>")
-							qdel(H.head)
-					if(melted_something)
-						return
+	var/mob/living/carbon/human/H = M
+	if(method == REAGENT_TOUCH && volume > 9)
+		if(!H.wear_mask && !H.head)
+			var/obj/item/organ/external/affecting = H.get_organ("head")
+			if(istype(affecting))
+				affecting.disfigure()
+				H.emote("scream")
+			H.adjustFireLoss(clamp((volume - 5) * 3, 8, 75))
+			return
 
-		if(volume >= 5)
-			H.emote("scream")
-			H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
-		to_chat(H, "<span class='warning'>The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+		var/has_melted_something = FALSE
+		if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
+			to_chat(H, "<span class='danger'>Your [H.wear_mask.name] melts away!</span>")
+			qdel(H.wear_mask)
+			has_melted_something = TRUE
+
+		if(H.head && !(H.head.resistance_flags & ACID_PROOF))
+			if(istype(H.head, /obj/item/clothing/head/mod) && ismodcontrol(H.back))
+				var/obj/item/mod/control/C = H.back
+				var/name = H.head.name
+				C.seal_part(H.head, FALSE)
+				C.retract(null, H.head)
+				to_chat(H, "<span class='danger'>Your [name] melts away as your [C.name] performs emergency cleaning on the helmet, deactivating the suit!</span>")
+			else
+				to_chat(H, "<span class='danger'>Your [H.head.name] melts away!</span>")
+				qdel(H.head)
+			has_melted_something = TRUE
+
+		if(has_melted_something)
+			return
+
+	if(volume >= 5)
+		H.emote("scream")
+		H.adjustFireLoss(clamp((volume - 5) * 3, 4, 75))
+	to_chat(H, "<span class='warning'>The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
 
 /datum/reagent/acetic_acid
 	name = "Acetic acid"
@@ -382,27 +388,26 @@
 	reagent_state = LIQUID
 	taste_description = "vinegar"
 
-/datum/reagent/acetic_acid/reaction_mob(mob/M, method = REAGENT_TOUCH, volume)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(method == REAGENT_TOUCH)
-			if(H.wear_mask || H.head)
-				return
-			if(volume >= 50 && prob(75))
-				var/obj/item/organ/external/affecting = H.get_organ("head")
-				if(istype(affecting))
-					affecting.disfigure()
-				H.adjustBruteLoss(5)
-				H.adjustFireLoss(15)
-				H.emote("scream")
-			else
-				H.adjustBruteLoss(min(5, volume * 0.25))
-		else
-			to_chat(H, "<span class='warning'>The transparent acidic substance stings[volume < 25 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
-			if(volume >= 25)
-				H.adjustBruteLoss(2)
-				H.emote("scream")
+/datum/reagent/acetic_acid/reaction_mob(mob/living/carbon/human/H, method = REAGENT_TOUCH, volume)
+	if(method != REAGENT_TOUCH)
+		to_chat(H, "<span class='warning'>The transparent acidic substance stings[volume < 25 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+		if(volume >= 25)
+			H.adjustBruteLoss(2)
+			H.emote("scream")
+		return
 
+	if(H.wear_mask || H.head)
+		return
+
+	if(volume >= 50 && prob(75))
+		var/obj/item/organ/external/affecting = H.get_organ("head")
+		if(istype(affecting))
+			affecting.disfigure()
+		H.adjustBruteLoss(5)
+		H.adjustFireLoss(15)
+		H.emote("scream")
+	else
+		H.adjustBruteLoss(min(5, volume * 0.25))
 
 /datum/reagent/carpotoxin
 	name = "Carpotoxin"
@@ -1101,10 +1106,12 @@
 			M.adjustToxLoss(damage)
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
+			var/damage = 1
 			if(!C.wear_mask) // If not wearing a mask
-				C.adjustToxLoss(2)
+				damage *= 2
 			if(iskidan(C)) //RIP
-				C.adjustToxLoss(18)
+				damage *= 10
+			C.adjustToxLoss(damage) // Kidan get 10 damage if they're wearing a mask, and 20 if they're not
 
 /datum/reagent/capulettium
 	name = "Capulettium"
@@ -1226,10 +1233,9 @@
 
 /datum/reagent/ants/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //NOT THE ANTS
 	if(iscarbon(M))
-		if(method == REAGENT_TOUCH || method==REAGENT_INGEST)
-			to_chat(M, "<span class='warning'>OH SHIT ANTS!!!!</span>")
-			M.emote("scream")
-			M.adjustBruteLoss(4)
+		to_chat(M, "<span class='warning'>OH SHIT ANTS!!!!</span>")
+		M.emote("scream")
+		M.adjustBruteLoss(4)
 
 /datum/reagent/teslium //Teslium. Causes periodic shocks, and makes shocks against the target much more effective.
 	name = "Teslium"

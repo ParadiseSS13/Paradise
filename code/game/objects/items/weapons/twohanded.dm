@@ -3,6 +3,8 @@
  */
 /obj/item/fireaxe  // DEM AXES MAN, marker -Agouri
 	base_icon_state = "fireaxe"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "fireaxe0"
 	name = "fire axe"
 	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
@@ -10,7 +12,7 @@
 	throwforce = 15
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	toolspeed = 0.25
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -94,6 +96,9 @@
 /obj/item/dualsaber
 	name = "double-bladed energy sword"
 	desc = "Handle with care."
+	icon = 'icons/obj/energy_melee.dmi'
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "dualsaber0"
 	force = 3
 	throwforce = 5
@@ -103,6 +108,7 @@
 	var/w_class_on = WEIGHT_CLASS_BULKY
 
 	armour_penetration_flat = 10
+	armour_penetration_percentage = 50
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	max_integrity = 200
@@ -225,12 +231,16 @@
 
 //spears
 /obj/item/spear
-	icon_state = "spearglass0"
 	name = "spear"
 	desc = "A haphazardly-constructed yet still deadly weapon of ancient design."
+	icon = 'icons/obj/spear.dmi'
+	base_icon_state = "spearglass"
+	icon_state = "spearglass0"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	var/force_unwielded = 10
 	var/force_wielded = 18
 	throwforce = 20
@@ -245,7 +255,6 @@
 	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	needs_permit = TRUE
-	base_icon_state = "spearglass"
 
 /obj/item/spear/Initialize(mapload)
 	. = ..()
@@ -392,6 +401,8 @@
 /obj/item/chainsaw
 	name = "chainsaw"
 	desc = "A versatile power tool. Useful for limbing trees and delimbing humans."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "gchainsaw_off"
 	flags = CONDUCT
 	force = 13
@@ -462,6 +473,8 @@
 /obj/item/butcher_chainsaw
 	name = "chainsaw"
 	desc = "Perfect for felling trees or fellow spacemen."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	base_icon_state = "chainsaw"
 	icon_state = "chainsaw0"
 	force = 15
@@ -527,10 +540,12 @@
 /obj/item/singularityhammer
 	name = "singularity hammer"
 	desc = "The pinnacle of close combat technology, the hammer harnesses the power of a miniaturized singularity to deal crushing blows."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "singulohammer0"
 	base_icon_state = "singulohammer"
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force = 5
 	throwforce = 15
 	throw_range = 1
@@ -560,7 +575,7 @@
 	icon_state = "singulohammer0"
 
 /obj/item/singularityhammer/proc/vortex(turf/pull, mob/wielder)
-	for(var/atom/movable/X in orange(5, pull))
+	for(var/atom/movable/X in range(5, pull))
 		if(X.move_resist == INFINITY)
 			continue
 		if(X == wielder)
@@ -596,10 +611,12 @@
 /obj/item/mjollnir
 	name = "Mjolnir"
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "mjollnir0"
 	base_icon_state = "mjollnir"
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force = 5
 	throwforce = 30
 	throw_range = 7
@@ -641,10 +658,12 @@
 /obj/item/knighthammer
 	name = "singuloth knight's hammer"
 	desc = "A hammer made of sturdy metal with a golden skull adorned with wings on either side of the head. <br>This weapon causes devastating damage to those it hits due to a power field sustained by a mini-singularity inside of the hammer."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "knighthammer0"
 	base_icon_state = "knighthammer"
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force = 5
 	throwforce = 15
 	throw_range = 1
@@ -707,6 +726,8 @@
 /obj/item/pyro_claws
 	name = "hardplasma energy claws"
 	desc = "The power of the sun, in the claws of your hand."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "pyro_claws"
 	flags = ABSTRACT | NODROP | DROPDEL
 	force = 22
@@ -730,6 +751,9 @@
 /obj/item/pyro_claws/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/item/pyro_claws/customised_abstract_text(mob/living/carbon/owner)
+	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] energy claws extending [owner.p_their(FALSE)] wrists.</span>"
 
 /obj/item/pyro_claws/process()
 	lifetime -= 2 SECONDS
@@ -790,7 +814,7 @@
 		. += "<span class='warning'>It is missing a pyroclastic anomaly core.</span>"
 
 /obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot)
-	if(slot == slot_gloves)
+	if(slot == SLOT_HUD_GLOVES)
 		return TRUE
 
 /obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user)
@@ -887,16 +911,21 @@
 	var/obj/vehicle/janicart/jani_vehicle = locate(/obj/vehicle/janicart) in new_item_loc.contents
 	var/trash_amount = 1
 	for(var/obj/item/garbage in current_item_loc.contents)
-		if(!garbage.anchored)
-			if(jani_vehicle?.mybag && garbage.w_class <= WEIGHT_CLASS_SMALL)
-				move_into_storage(user, jani_vehicle.mybag, garbage)
-			else if(jani_cart?.mybag && garbage.w_class <= WEIGHT_CLASS_SMALL)
-				move_into_storage(user, jani_cart.mybag, garbage)
-			else if(target_bin)
-				move_into_storage(user, target_bin, garbage)
-			else
-				garbage.Move(new_item_loc, user.dir)
-			trash_amount++
+		if(garbage.anchored)
+			continue
+		var/obj/item/storage/bag/trash/bag = jani_vehicle?.mybag || jani_cart?.mybag
+		var/obj/trashed_into
+		if(bag?.can_be_inserted(garbage, TRUE))
+			bag.handle_item_insertion(garbage, TRUE)
+			trashed_into = bag
+		else if(target_bin)
+			move_into_storage(user, target_bin, garbage)
+			trashed_into = target_bin
+		else
+			garbage.Move(new_item_loc, user.dir)
+		if(trashed_into)
+			to_chat(user, "<span class='notice'>You sweep the pile of garbage into [trashed_into].</span>")
+		trash_amount++
 		if(trash_amount > BROOM_PUSH_LIMIT)
 			break
 	if(trash_amount > 1)
@@ -905,7 +934,6 @@
 /obj/item/push_broom/proc/move_into_storage(mob/user, obj/storage, obj/trash)
 	trash.forceMove(storage)
 	storage.update_icon()
-	to_chat(user, "<span class='notice'>You sweep the pile of garbage into [storage].</span>")
 
 /obj/item/push_broom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/cart)
 	cart.mybroom = src
@@ -992,13 +1020,15 @@
 /obj/item/supermatter_halberd  //Supermatter Halberd, used by Oblivion Enforcers
 	name = "supermatter halberd"
 	desc = "The revered weapon of Oblivion Enforcers, used to enforce the Order's will."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "smhalberd0"
 	base_icon_state = "smhalberd"
 	force = 5
 	sharp = TRUE
 	damtype = BURN
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	throwforce = 15
 	toolspeed = 0.25
 	attack_verb = list("enlightened", "enforced", "cleaved", "stabbed", "whacked")

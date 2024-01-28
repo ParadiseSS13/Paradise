@@ -27,7 +27,6 @@
 					amount *= dna.species.brain_mod
 			sponge.damage = clamp(sponge.damage + amount, 0, 120)
 			if(sponge.damage >= 120)
-				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 				death()
 	if(updating)
 		update_stat("adjustBrainLoss")
@@ -45,7 +44,6 @@
 					amount *= dna.species.brain_mod
 			sponge.damage = clamp(amount, 0, 120)
 			if(sponge.damage >= 120)
-				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 				death()
 	if(updating)
 		update_stat("setBrainLoss")
@@ -266,7 +264,7 @@
 	var/list/obj/item/organ/external/parts = get_damaged_organs(brute,burn)
 
 	var/update = 0
-	while(parts.len && ( brute > 0 || burn > 0) )
+	while(parts.len && ( brute > 0 || burn > 0))
 		var/obj/item/organ/external/picked = pick(parts)
 
 		var/brute_was = picked.brute_dam
@@ -291,7 +289,7 @@
 	var/list/obj/item/organ/external/parts = get_damageable_organs()
 
 	var/update = 0
-	while(parts.len && (brute>0 || burn>0) )
+	while(parts.len && (brute>0 || burn>0))
 		var/obj/item/organ/external/picked = pick(parts)
 		var/brute_per_part = brute/parts.len
 		var/burn_per_part = burn/parts.len

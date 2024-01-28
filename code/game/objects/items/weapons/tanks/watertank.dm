@@ -6,7 +6,7 @@
 	icon_state = "waterbackpack"
 	item_state = "waterbackpack"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
 	max_integrity = 200
@@ -26,26 +26,22 @@
 	QDEL_NULL(noz)
 	return ..()
 
-/obj/item/watertank/ui_action_click()
-	toggle_mister()
+/obj/item/watertank/ui_action_click(mob/user)
+	toggle_mister(user)
 
 /obj/item/watertank/item_action_slot_check(slot, mob/user)
-	if(slot == slot_back)
-		return 1
+	if(slot == SLOT_HUD_BACK)
+		return TRUE
 
-/obj/item/watertank/verb/toggle_mister()
-	set name = "Toggle Mister"
-	set category = "Object"
-	if(usr.get_item_by_slot(slot_back) != src)
-		to_chat(usr, "<span class='notice'>The watertank needs to be on your back to use.</span>")
+/obj/item/watertank/proc/toggle_mister(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(usr.incapacitated())
+	if(user.get_item_by_slot(SLOT_HUD_BACK) != src)
+		to_chat(user, "<span class='notice'>The watertank needs to be on your back to use.</span>")
 		return
 	on = !on
-
-	var/mob/living/carbon/human/user = usr
 	if(on)
-		if(noz == null)
+		if(!noz)
 			noz = make_noz()
 
 		//Detach the nozzle into the user's hands
@@ -53,7 +49,7 @@
 			on = FALSE
 			to_chat(user, "<span class='notice'>You need a free hand to hold the mister.</span>")
 			return
-		noz.loc = user
+		noz.forceMove(user)
 	else
 		//Remove from their hands and put back "into" the tank
 		remove_noz()
@@ -64,7 +60,7 @@
 
 /obj/item/watertank/equipped(mob/user, slot)
 	..()
-	if(slot != slot_back)
+	if(slot != SLOT_HUD_BACK)
 		remove_noz()
 
 /obj/item/watertank/proc/remove_noz()
@@ -79,9 +75,9 @@
 		QDEL_NULL(noz)
 	return ..()
 
-/obj/item/watertank/attack_hand(mob/user as mob)
-	if(src.loc == user)
-		ui_action_click()
+/obj/item/watertank/attack_hand(mob/user)
+	if(loc == user)
+		toggle_mister(user)
 		return
 	..()
 
@@ -230,7 +226,6 @@
 	item_state = "nozzleatmos"
 	safety = 0
 	max_water = 500
-	power = 8
 	precision = 1
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE

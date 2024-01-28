@@ -11,27 +11,21 @@
 	/// The below is a toggle for if sec cyborgs are enabled or not
 	var/cyborg_security = FALSE
 
-/datum/ui_module/ert_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/ui_module/ert_manager/ui_state(mob/user)
+	return GLOB.admin_state
+
+/datum/ui_module/ert_manager/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ERTManager", name, 350, 540, master_ui, state)
+		ui = new(user, src, "ERTManager", name)
 		ui.autoupdate = TRUE
 		ui.open()
 
 /datum/ui_module/ert_manager/ui_data(mob/user)
 	var/list/data = list()
-	data["str_security_level"] = capitalize(get_security_level())
-	switch(GLOB.security_level)
-		if(SEC_LEVEL_GREEN)
-			data["security_level_color"] = "green"
-		if(SEC_LEVEL_BLUE)
-			data["security_level_color"] = "blue"
-		if(SEC_LEVEL_RED)
-			data["security_level_color"] = "red"
-		else
-			data["security_level_color"] = "purple"
+	data["str_security_level"] = capitalize(SSsecurity_level.get_current_level_as_text())
+	data["security_level_color"] = SSsecurity_level.current_security_level.color
 	data["ert_request_answered"] = GLOB.ert_request_answered
-
 	data["ert_type"] = ert_type
 	data["com"] = commander_slots
 	data["sec"] = security_slots
@@ -105,7 +99,7 @@
 			if(cyborg_slots > 0)
 				slots_list += "cyborg: [cyborg_slots]"
 
-			var/silenced = text2bool(params["silent"])
+			var/silenced = (params["silent"])
 			D.silent = silenced
 
 			var/slot_text = english_list(slots_list)

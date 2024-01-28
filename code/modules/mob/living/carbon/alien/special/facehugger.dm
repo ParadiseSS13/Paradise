@@ -53,11 +53,11 @@
 	if(real)//So that giant red text about probisci doesn't show up for fake ones
 		switch(stat)
 			if(DEAD,UNCONSCIOUS)
-				. += "<span class='boldannounce'>[src] is not moving.</span>"
+				. += "<span class='boldannounceic'>[src] is not moving.</span>"
 			if(CONSCIOUS)
-				. += "<span class='boldannounce'>[src] seems to be active!</span>"
+				. += "<span class='boldannounceic'>[src] seems to be active!</span>"
 		if(sterile)
-			. += "<span class='boldannounce'>It looks like the proboscis has been removed.</span>"
+			. += "<span class='boldannounceic'>It looks like the proboscis has been removed.</span>"
 
 /obj/item/clothing/mask/facehugger/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -138,7 +138,7 @@
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
 
 		src.loc = target
-		target.equip_to_slot_if_possible(src, slot_wear_mask, FALSE, TRUE)
+		target.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK, FALSE, TRUE)
 		if(!sterile)
 			M.KnockDown(impregnation_time + 2 SECONDS)
 			M.EyeBlind(impregnation_time + 2 SECONDS)

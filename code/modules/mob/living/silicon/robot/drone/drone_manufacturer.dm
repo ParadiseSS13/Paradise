@@ -49,8 +49,11 @@
 
 /obj/machinery/drone_fabricator/examine(mob/user)
 	. = ..()
-	if(produce_drones && drone_progress >= 100 && isobserver(user) && count_drones() < MAX_MAINT_DRONES)
+	if(isobserver(user) && drone_prepared())
 		. += "<BR><B>A drone is prepared. Select 'Join As Drone' from the Ghost tab to spawn as a maintenance drone.</B>"
+
+/obj/machinery/drone_fabricator/proc/drone_prepared()
+	return (produce_drones && drone_progress >= 100 && (count_drones() < MAX_MAINT_DRONES))
 
 /obj/machinery/drone_fabricator/proc/count_drones()
 	var/drones = 0
@@ -78,7 +81,11 @@
 
 	drone_progress = 0
 
-
+/obj/machinery/drone_fabricator/attack_ghost(mob/user as mob)
+	if(!drone_prepared() || !isobserver(user))
+		return
+	var/mob/dead/observer/ghost = user
+	ghost.join_as_drone()
 
 /mob/dead/verb/join_as_drone()
 	set category = "Ghost"
@@ -114,7 +121,7 @@
 	var/joinedasobserver = FALSE
 	if(isobserver(src))
 		var/mob/dead/observer/G = src
-		if(cannotPossess(G))
+		if(!G.check_ahud_rejoin_eligibility())
 			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return
 		if(G.started_as_observer == TRUE)

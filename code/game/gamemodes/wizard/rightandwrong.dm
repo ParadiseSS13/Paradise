@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(summoned_magic, list(
 	/obj/item/gun/magic/staff/healing,
 	/obj/item/gun/magic/staff/door,
 	/obj/item/scrying,
-	/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
+	/obj/item/clothing/suit/space/hardsuit/wizard,
 	/obj/item/immortality_talisman,
 	/obj/item/melee/ghost_sword))
 
@@ -81,7 +81,7 @@ GLOBAL_LIST_INIT(summoned_special_magic, list(
 GLOBAL_LIST_INIT(summoned_magic_objectives, list(
 	/obj/item/contract,
 	/obj/item/blood_contract,
-	/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
+	/obj/item/clothing/suit/space/hardsuit/wizard,
 	/obj/item/gun/magic,
 	/obj/item/immortality_talisman,
 	/obj/item/melee/ghost_sword,
@@ -98,7 +98,7 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 	if(H.stat == DEAD || !(H.client))
 		return
 	if(H.mind)
-		if(iswizard(H))
+		if(iswizard(H) || H.mind.offstation_role)
 			return
 
 	if(prob(GLOB.summon_guns_triggered) && !(H.mind in SSticker.mode.traitors))
@@ -120,7 +120,7 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 	if(H.stat == DEAD || !(H.client))
 		return
 	if(H.mind)
-		if(iswizard(H))
+		if(iswizard(H) || H.mind.offstation_role)
 			return
 
 	if(prob(GLOB.summon_magic_triggered) && !(H.mind in SSticker.mode.traitors) && !jobban_isbanned(H, ROLE_SYNDICATE))

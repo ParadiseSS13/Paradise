@@ -103,7 +103,7 @@
 
 /obj/item/clothing/glasses/meson/equipped(mob/user, slot, initial)
 	. = ..()
-	if(active_on_equip && slot == slot_glasses)
+	if(active_on_equip && slot == SLOT_HUD_GLASSES)
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
 /obj/item/clothing/glasses/meson/dropped(mob/user)
@@ -162,7 +162,7 @@
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
-	if(slot == slot_glasses)
+	if(slot == SLOT_HUD_GLASSES)
 		return 1
 
 /obj/item/clothing/glasses/science/night
@@ -190,6 +190,7 @@
 	item_state = "glasses"
 	origin_tech = "materials=4;magnets=4;plasmatech=4;engineering=4"
 	see_in_dark = 8
+	prescription_upgradable = TRUE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 	sprite_sheets = list(
@@ -279,6 +280,19 @@
 	icon_state = "hipster_glasses"
 	item_state = "hipster_glasses"
 
+/obj/item/clothing/glasses/goggles
+	name = "goggles"
+	desc = "Just some basic goggles, rather fashionable."
+	icon_state = "goggles"
+	item_state = "goggles"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
+		)
+
 /obj/item/clothing/glasses/threedglasses
 	name = "\improper 3D glasses"
 	desc = "A long time ago, people used these glasses to makes images from screens threedimensional."
@@ -349,7 +363,7 @@
 	toggle_noir(user)
 
 /obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
-	if(slot == slot_glasses)
+	if(slot == SLOT_HUD_GLASSES)
 		return 1
 
 /obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir(mob/user)
@@ -383,7 +397,7 @@
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
 /obj/item/clothing/glasses/sunglasses/reagent/item_action_slot_check(slot)
-	if(slot == slot_glasses)
+	if(slot == SLOT_HUD_GLASSES)
 		return TRUE
 
 /obj/item/clothing/glasses/virussunglasses
@@ -408,7 +422,7 @@
 	flags = NODROP
 
 /obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot) //grant them laser eyes upon equipping it.
-	if(slot == slot_glasses)
+	if(slot == SLOT_HUD_GLASSES)
 		ADD_TRAIT(user, TRAIT_LASEREYES, "admin_zapglasses")
 		user.regenerate_icons()
 	..(user, slot)

@@ -40,7 +40,7 @@
 		to_chat(user, "<span class='notice'>You add [I] to [src]</span>")
 		updateUsrDialog()
 		return
-	if(istype(I, /obj/item/reagent_containers/food/snacks/icecream))
+	if(istype(I, /obj/item/food/snacks/frozen/icecream))
 		if(!I.reagents.has_reagent("sprinkles"))
 			if(I.reagents.total_volume > 29)
 				I.reagents.remove_any(1)
@@ -147,7 +147,7 @@
 	else if(href_list["createchoco"])
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Chocolate Cone"
-		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcup/C = new(loc)
+		var/obj/item/food/snacks/frozen/icecream/icecreamcup/C = new(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
@@ -159,7 +159,7 @@
 	else if(href_list["createcone"])
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Cone"
-		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcone/C = new(loc)
+		var/obj/item/food/snacks/frozen/icecream/icecreamcone/C = new(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
@@ -171,7 +171,7 @@
 	else if(href_list["createwaffle"])
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Waffle Cone"
-		var/obj/item/reagent_containers/food/snacks/icecream/wafflecone/C = new(loc)
+		var/obj/item/food/snacks/frozen/icecream/wafflecone/C = new(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
@@ -263,7 +263,5 @@
 
 /obj/machinery/icemachine/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
 	default_unfasten_wrench(user, I, 30)
 

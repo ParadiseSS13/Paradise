@@ -7,7 +7,7 @@
 	belt_icon = "crowbar"
 	usesound = 'sound/items/crowbar.ogg'
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
