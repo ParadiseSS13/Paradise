@@ -84,6 +84,8 @@
 		to_chat(owner, "<span class='userdanger'>Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!</span>")
 		RegisterSignal(owner, COMSIG_LIVING_PRE_DEFIB, PROC_REF(just_before_revive))
 		RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, PROC_REF(on_defib_revive))
+		in_grace_period = TRUE
+		addtimer(VARSET_CALLBACK(src, in_grace_period, FALSE), 10 SECONDS)
 
 /obj/item/organ/internal/heart/cursed/remove(mob/living/carbon/M, special)
 	if(owner?.client?.prefs.colourblind_mode == COLOURBLIND_MODE_NONE)
@@ -171,6 +173,14 @@
 				H.adjustBruteLoss(-cursed_heart.heal_brute)
 				H.adjustFireLoss(-cursed_heart.heal_burn)
 				H.adjustOxyLoss(-cursed_heart.heal_oxy)
+
+/datum/action/item_action/organ_action/cursed_heart/Grant(mob/M)
+	..()
+	INVOKE_ASYNC(src, PROC_REF(poll_keybinds))
+
+/datum/action/item_action/organ_action/cursed_heart/proc/poll_keybinds()
+	if(alert(owner, "You've been given a cursed heart! Do you want to bind it's action to a keybind?", "Cursed Heart", "Yes", "No") == "Yes")
+		button.set_to_keybind(owner)
 
 /obj/item/organ/internal/heart/cybernetic
 	name = "cybernetic heart"
