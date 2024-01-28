@@ -26,6 +26,9 @@
 /obj/item/radio/beacon/hear_talk()
 	return
 
+/obj/item/radio/beacon/talk_into(verbage)
+	return FALSE
+
 /// Probably a better way of doing this, I'm lazy.
 /obj/item/radio/beacon/bacon
 
