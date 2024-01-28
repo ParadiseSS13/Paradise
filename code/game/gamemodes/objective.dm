@@ -32,6 +32,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/completed = FALSE
 	/// If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 	var/martyr_compatible = FALSE
+	/// List of jobs that the objective will target if possible, any crew if not.
+	var/list/target_jobs
+	/// If set to TRUE, this objective will target mindshielded crew if possible, any crew if not.
+	var/mindshielded_target = FALSE
 
 	var/datum/objective_holder/holder
 
@@ -117,9 +121,17 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 			continue
-
+		if(mindshielded_target && !ismindshielded(possible_target.current))
+			continue
+		if(target_jobs.len && !(possible_target.assigned_role in target_jobs))
+			continue
 		possible_targets += possible_target
 
+	if((mindshielded_target || target_jobs.len) && possible_targets.len == 0) //If we can't find anyone, try with less restrictions
+		for(var/datum/mind/possible_target in SSticker.minds)
+			if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
+				continue
+			possible_targets += possible_target
 
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
@@ -177,6 +189,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return TRUE
 		return FALSE
 	return TRUE
+
+/datum/objective/assassinate/mindshielded
+	name = "Assassinate Mindshielded"
+	mindshielded_target = TRUE
 
 /datum/objective/assassinateonce
 	name = "Assassinate once"
@@ -296,6 +312,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return TRUE
 	return FALSE
 
+/datum/objective/debrain/command
+	name = "Debrain Command"
+	target_jobs = list("Captain", "Head of Personnel", "Head of Security", "Research Director", "Chief Engineer", "Chief Medical Officer", "Quartermaster")
 
 /datum/objective/protect //The opposite of killing a dude.
 	name = "Protect"

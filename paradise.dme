@@ -1382,6 +1382,8 @@
 #include "code\modules\antagonists\_common\antag_hud.dm"
 #include "code\modules\antagonists\_common\antag_spawner.dm"
 #include "code\modules\antagonists\_common\antag_team.dm"
+#include "code\modules\antagonists\antag_org\antag_org_datum.dm"
+#include "code\modules\antagonists\antag_org\antag_org_syndicate.dm"
 #include "code\modules\antagonists\changeling\changeling_power.dm"
 #include "code\modules\antagonists\changeling\changeling_power_category.dm"
 #include "code\modules\antagonists\changeling\datum_changeling.dm"

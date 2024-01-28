@@ -79,6 +79,9 @@
 
 	return ..()
 
+/datum/antagonist/traitor/select_organisation()
+	return
+
 /datum/antagonist/traitor/add_owner_to_gamemode()
 	SSticker.mode.traitors |= owner
 
@@ -106,6 +109,7 @@
 	// Hijack objective.
 	if(prob(10) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
 		add_antag_objective(/datum/objective/hijack)
+		organisation = new /datum/antag_org/syndicate/gorlex_marauders
 		return // Hijack should be their only objective (normally), so return.
 
 	// Will give normal steal/kill/etc. type objectives.

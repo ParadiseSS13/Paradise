@@ -35,6 +35,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/clown_removal_text = "You are clumsy again."
 	/// The url page name for this antagonist, appended to the end of the wiki url in the form of: [GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name]
 	var/wiki_page_name
+	/// The organisation, if any, this antag is associated with
+	var/datum/antag_org/organisation
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -142,6 +144,13 @@ GLOBAL_LIST_EMPTY(antagonists)
 	// If `mob_override` exists it means we're only transferring this datum, we don't need to show the clown any text.
 	handle_clown_mutation(L, mob_override ? null : clown_removal_text)
 	return L
+
+/**
+ * Selects and set the organisation this antag is associated with.
+ * Base proc, override as needed
+ */
+/datum/antagonist/proc/select_organisation()
+	return
 
 /**
  * Adds this datum's antag hud to `antag_mob`.
@@ -261,6 +270,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/on_gain()
 	owner.special_role = special_role
 	add_owner_to_gamemode()
+	select_organisation()
 	if(give_objectives)
 		give_objectives()
 	var/list/messages = list()
