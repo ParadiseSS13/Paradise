@@ -16,7 +16,7 @@
 		Ethereal Jaunt provides escape, Fireball and Rod Form are your offensive spells, and Disable Tech and Forcewall provides utility in disabling sec equipment or blocking their path. <br> \
 		Care should be taken in hiding the item you choose as your phylactery after using Bind Soul, as you cannot revive if it destroyed or too far from your body! <br><br> \
 		</i>Provides Bind Soul, Ethereal Jaunt,  Fireball, Rod Form, Disable Tech, and Greater Forcewall.<i>"
-	spells_path = list(/obj/effect/proc_holder/spell/lichdom, /obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/fireball, \
+	spells_path = list(/obj/effect/proc_holder/spell/lichdom, /obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/infinite_guns/fireball/basic, \
 		/obj/effect/proc_holder/spell/rod_form, /obj/effect/proc_holder/spell/emplosion/disable_tech, /obj/effect/proc_holder/spell/forcewall)
 	is_ragin_restricted = TRUE
 
@@ -125,7 +125,7 @@
 	name = "Fireball. Fireball. Fireball."
 	desc = "Who cares about the rest of the spells. Become an expert in fire magic. Devote yourself to the craft. The only spell you need anyways is <b>Fireball.</b><br>\
 		</i>Provides fire immunity, homing fireballs, rapid-fire fireballs, and some fireball wands. Provides no mobility spells. Replaces your robes with infernal versions.<i>"
-	spells_path = list(/obj/effect/proc_holder/spell/sacred_flame, /obj/effect/proc_holder/spell/fireball/homing, /obj/effect/proc_holder/spell/infinite_guns/fireball)
+	spells_path = list(/obj/effect/proc_holder/spell/sacred_flame, /obj/effect/proc_holder/spell/infinite_guns/fireball/basic/greater, /obj/effect/proc_holder/spell/infinite_guns/fireball)
 	category = "Unique"
 	destroy_spellbook = TRUE
 
