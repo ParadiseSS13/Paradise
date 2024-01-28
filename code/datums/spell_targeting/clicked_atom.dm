@@ -12,6 +12,5 @@
 	. = ..()
 	if(!.)
 		return list()
-	message_admins("clicked_atom [clicked_atom] [isturf(clicked_atom)] clicked_atom.loc [clicked_atom.loc] [isturf(clicked_atom.loc)]")
 	if(!isturf(clicked_atom.loc) && !isturf(clicked_atom))
 		return list()
