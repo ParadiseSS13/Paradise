@@ -51,6 +51,10 @@ export class ChannelIterator {
     return this.channels[this.index];
   }
 
+  public isCurrentChannelBlacklisted(): boolean {
+    return this.blacklist.includes(this.channels[this.index]);
+  }
+
   public set(channel: Channel): void {
     this.index = this.channels.indexOf(channel) || 0;
   }

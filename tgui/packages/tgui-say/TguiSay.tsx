@@ -122,7 +122,8 @@ export class TguiSay extends Component<{}, State> {
       this.setState({ buttonContent: this.channelIterator.current() });
     } else if (
       this.innerRef.current?.selectionStart === 0 &&
-      this.innerRef.current?.selectionEnd === 0
+      this.innerRef.current?.selectionEnd === 0 &&
+      !this.channelIterator.isCurrentChannelBlacklisted()
     ) {
       this.currentPrefix = null;
       this.channelIterator.set('Say');
