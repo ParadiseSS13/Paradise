@@ -892,7 +892,7 @@
 			"<span class='danger'>As you snap back to normal speed you cough up a worrying amount of blood. You feel like you've just been run over by a power loader.</span>")
 		L.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
 		L.bleed(25)
-		L.adjustStaminaLoss(max(constant_dose_time / 3, 60))
+		L.apply_damage(max(constant_dose_time / 3, 60), STAMINA)
 		L.KnockDown((constant_dose_time / 15) SECONDS) // a minute is a 4 second knockdown, 2 is 8, etc
 		if(!HAS_TRAIT(L, TRAIT_TWITCH_ADAPTED) || constant_dose_time >= CONSTANT_DOSE_DEATH_LIMIT) //If you are going infinite with mito and you run out, you deserve this even with an implant
 			if(ishuman(L))
