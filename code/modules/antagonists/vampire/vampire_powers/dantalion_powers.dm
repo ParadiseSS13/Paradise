@@ -120,7 +120,7 @@
 	for(var/mob/M in targets)
 		to_chat(M, "<span class='dantalion'>[full_title]: [input]</span>")
 	for(var/mob/M in GLOB.dead_mob_list)
-		to_chat(M, "<span class='dantalion'>[full_title] ([ghost_follow_link(user, ghost=M)]): [input] </span>")
+		to_chat(M, "<span class='dantalion'>[full_title] ([ghost_follow_link(user, ghost=M)]): [input]</span>")
 	log_say("(DANTALION) [input]", user)
 	user.create_log(SAY_LOG, "(DANTALION) [input]")
 
