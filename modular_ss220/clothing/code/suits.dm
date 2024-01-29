@@ -119,16 +119,16 @@
 	name = "капюшон Вай"
 	icon_state = "vi_arcane"
 
-/obj/item/clothing/suit/soundhand_black_jacket
-	name = "черная куртка группы Саундхэнд."
-	desc = "Легендарная черная куртка группы Саундхэнд."
+/obj/item/clothing/suit/storage/soundhand_black_jacket
+	name = "фанатская черная куртка группы Саундхэнд."
+	desc = "Фанатская черная куртка группы Саундхэнд."
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
 	icon_state = "soundhand_black_jacket"
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 
-/obj/item/clothing/suit/soundhand_black_jacket/soundhand_black_jacket_tag
+/obj/item/clothing/suit/storage/soundhand_black_jacket/soundhand_black_jacket_tag
 	name = "черная куртка с тэгом группы Саундхэнд."
 	desc = "Легендарная черная куртка с тэгом группы Саундхэнд."
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
@@ -138,16 +138,16 @@
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 
-/obj/item/clothing/suit/soundhand_olive_jacket
-	name = "оливковая куртка группы Саундхэнд."
-	desc = "Легендарная оливковая куртка группы Саундхэнд."
+/obj/item/clothing/suit/storage/soundhand_olive_jacket
+	name = "фанатская оливковая куртка группы Саундхэнд."
+	desc = "Фанатская оливковая куртка группы Саундхэнд."
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
 	icon_state = "soundhand_olive_jacket"
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 
-/obj/item/clothing/suit/soundhand_olive_jacket/soundhand_olive_jacket_tag
+/obj/item/clothing/suit/storage/soundhand_olive_jacket/soundhand_olive_jacket_tag
 	name = "оливковая куртка с тэгом группы Саундхэнд."
 	desc = "Легендарная оливковая куртка с тэгом группы Саундхэнд."
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
@@ -157,16 +157,16 @@
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 
-/obj/item/clothing/suit/soundhand_brown_jacket
-	name = "коричневая куртка группы Саундхэнд."
-	desc = "Легендарная коричневая куртка группы Саундхэнд."
+/obj/item/clothing/suit/storage/soundhand_brown_jacket
+	name = "фанатская коричневая куртка группы Саундхэнд."
+	desc = "Фанатская коричневая куртка группы Саундхэнд."
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
 	icon_state = "soundhand_brown_jacket"
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 
-/obj/item/clothing/suit/soundhand_brown_jacket/soundhand_brown_jacket_tag
+/obj/item/clothing/suit/storage/soundhand_brown_jacket/soundhand_brown_jacket_tag
 	name = "коричневая куртка с тэгом группы Саундхэнд."
 	desc = "Легендарная коричневая куртка с тэгом группы Саундхэнд."
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
@@ -202,3 +202,11 @@
 		"Vox" 				= 	'modular_ss220/clothing/icons/mob/species/vox/suits.dmi',
 		"Vulpkanin" 		= 	'modular_ss220/clothing/icons/mob/suits.dmi',
 		)
+
+/datum/supply_packs/misc/soundhand
+	name = "Soundhand Fan Crate"
+	contains = list(/obj/item/clothing/suit/storage/soundhand_black_jacket,
+					/obj/item/clothing/suit/storage/soundhand_olive_jacket,
+					/obj/item/clothing/suit/storage/soundhand_brown_jacket)
+	cost = 600
+	containername = "soundhand fan crate"

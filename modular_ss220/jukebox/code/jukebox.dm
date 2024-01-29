@@ -594,3 +594,7 @@
 	name = "\improper синий барабан"
 	icon_state = "drum_blue"
 
+/datum/supply_packs/misc/bigband/New()
+	. = ..()
+
+	contains |= /obj/machinery/jukebox/drum_red

@@ -130,6 +130,21 @@
 	donator_tier = 2
 	cost = 1
 
+/datum/gear/donor/soundhand_black_jacket
+	display_name = "Черная куртка с тэгом группы Саундхэнд."
+	path = /obj/item/clothing/suit/storage/soundhand_black_jacket/soundhand_black_jacket_tag
+	cost = 2
+
+/datum/gear/donor/soundhand_olive_jacket
+	display_name = "Оливковая куртка с тэгом группы Саундхэнд."
+	path = /obj/item/clothing/suit/storage/soundhand_olive_jacket/soundhand_olive_jacket_tag
+	cost = 2
+
+/datum/gear/donor/soundhand_brown_jacket
+	display_name = "Коричневая куртка с тэгом группы Саундхэнд."
+	path = /obj/item/clothing/suit/storage/soundhand_brown_jacket/soundhand_brown_jacket_tag
+	cost = 2
+
 // ID Skins
 /datum/gear/donor/id_decal_colored
 	display_name = "Наклейка на карту (Голографическая)"
