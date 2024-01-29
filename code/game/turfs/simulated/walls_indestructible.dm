@@ -16,6 +16,7 @@
 	return
 
 /turf/simulated/wall/indestructible/ex_act(severity)
+	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity)
 	return
 
 /turf/simulated/wall/indestructible/blob_act(obj/structure/blob/B)

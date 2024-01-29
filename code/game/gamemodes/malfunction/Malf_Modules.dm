@@ -851,6 +851,7 @@
 
 /datum/AI_Module/cameracrack/upgrade(mob/living/silicon/ai/AI)
 	if(AI.builtInCamera)
+		AI.cracked_camera = TRUE
 		QDEL_NULL(AI.builtInCamera)
 
 /datum/AI_Module/engi_upgrade

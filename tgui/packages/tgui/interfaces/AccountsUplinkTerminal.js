@@ -1,4 +1,4 @@
-import { Fragment } from 'inferno';
+import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
 import {
   Button,
@@ -6,13 +6,14 @@ import {
   Input,
   LabeledList,
   Section,
+  Stack,
   Table,
   Tabs,
 } from '../components';
+import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
-import { RecordsTable } from './common/RecordsTable';
 
 export const AccountsUplinkTerminal = (properties, context) => {
   const { act, data } = useBackend(context);
@@ -21,9 +22,11 @@ export const AccountsUplinkTerminal = (properties, context) => {
   let body;
   if (!loginState.logged_in) {
     return (
-      <Window resizable>
+      <Window width={800} height={600}>
         <Window.Content>
-          <LoginScreen />
+          <Stack fill vertical>
+            <LoginScreen />
+          </Stack>
         </Window.Content>
       </Window>
     );
@@ -38,11 +41,15 @@ export const AccountsUplinkTerminal = (properties, context) => {
   }
 
   return (
-    <Window resizable>
-      <Window.Content scrollable className="Layout__content--flexColumn">
-        <LoginInfo />
-        <AccountsUplinkTerminalNavigation />
-        {body}
+    <Window width={800} height={600}>
+      <Window.Content scrollable>
+        <Stack fill vertical>
+          <LoginInfo />
+          <AccountsUplinkTerminalNavigation />
+          <Section fill scrollable>
+            {body}
+          </Section>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -53,16 +60,26 @@ const AccountsUplinkTerminalNavigation = (properties, context) => {
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
   const { login_state } = data;
   return (
-    <Tabs>
-      <Tabs.Tab selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
-        <Icon name="list" />
-        User Accounts
-      </Tabs.Tab>
-      <Tabs.Tab selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
-        <Icon name="list" />
-        Department Accounts
-      </Tabs.Tab>
-    </Tabs>
+    <Stack vertical mb={1}>
+      <Stack.Item>
+        <Tabs>
+          <Tabs.Tab
+            icon="list"
+            selected={0 === tabIndex}
+            onClick={() => setTabIndex(0)}
+          >
+            User Accounts
+          </Tabs.Tab>
+          <Tabs.Tab
+            icon="list"
+            selected={1 === tabIndex}
+            onClick={() => setTabIndex(1)}
+          >
+            Department Accounts
+          </Tabs.Tab>
+        </Tabs>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -78,95 +95,158 @@ const AccountsUplinkTerminalContent = (props, context) => {
   }
 };
 
-const AccountsRecordList = (props, context) => {
+const AccountsRecordList = (properties, context) => {
   const { act, data } = useBackend(context);
   const { accounts } = data;
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [sortId, _setSortId] = useLocalState(context, 'sortId', 'owner_name');
+  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
   return (
-    <RecordsTable
-      columns={[
-        {
-          id: 'owner_name',
-          name: 'Account Holder',
-          datum: {
-            children: (value) => (
-              <>
-                <Icon name="user" /> {value}
-              </>
-            ),
-          },
-        },
-        {
-          id: 'account_number',
-          name: 'Account Number',
-          datum: { children: (value) => <>#{value}</> },
-        },
-        { id: 'suspended', name: 'Account Status' },
-        { id: 'money', name: 'Account Balance' },
-      ]}
-      data={accounts}
-      datumID={(datum) => datum.account_number}
-      leftButtons={
-        <Button
-          content="New Account"
-          icon="plus"
-          onClick={() => act('create_new_account')}
-        />
-      }
-      searchPlaceholder="Search by account holder, number, status"
-      datumRowProps={(datum) => ({
-        className: `AccountsUplinkTerminal__listRow--${datum.suspended}`,
-        onClick: () =>
-          act('view_account_detail', {
-            account_num: datum.account_number,
-          }),
-      })}
-    />
+    <Stack fill vertical>
+      <AccountsActions />
+      <Stack.Item grow>
+        <Section fill scrollable>
+          <Table className="AccountsUplinkTerminal__list">
+            <Table.Row bold>
+              <SortButton id="owner_name">Account Holder</SortButton>
+              <SortButton id="account_number">Account Number</SortButton>
+              <SortButton id="suspended">Account Status</SortButton>
+              <SortButton id="money">Account Balance</SortButton>
+            </Table.Row>
+            {accounts
+              .filter(
+                createSearch(searchText, (account) => {
+                  return (
+                    account.owner_name +
+                    '|' +
+                    account.account_number +
+                    '|' +
+                    account.suspended +
+                    '|' +
+                    account.money
+                  );
+                })
+              )
+              .sort((a, b) => {
+                const i = sortOrder ? 1 : -1;
+                return a[sortId].localeCompare(b[sortId]) * i;
+              })
+              .map((account) => (
+                <Table.Row
+                  key={account.account_number}
+                  className={
+                    'AccountsUplinkTerminal__listRow--' + account.suspended
+                  }
+                  onClick={() =>
+                    act('view_account_detail', {
+                      account_num: account.account_number,
+                    })
+                  }
+                >
+                  <Table.Cell>
+                    <Icon name="user" /> {account.owner_name}
+                  </Table.Cell>
+                  <Table.Cell>#{account.account_number}</Table.Cell>
+                  <Table.Cell>{account.suspended}</Table.Cell>
+                  <Table.Cell>{account.money}</Table.Cell>
+                </Table.Row>
+              ))}
+          </Table>
+        </Section>
+      </Stack.Item>
+    </Stack>
   );
 };
 
-const DepartmentAccountsList = (props, context) => {
+const DepartmentAccountsList = (properties, context) => {
   const { act, data } = useBackend(context);
   const { department_accounts } = data;
   return (
-    <RecordsTable
-      columns={[
-        {
-          id: 'name',
-          name: 'Department Name',
-          datum: {
-            children: (value) => (
-              <>
-                <Icon name="wallet" /> {value}
-              </>
-            ),
-          },
-        },
-        {
-          id: 'account_number',
-          name: 'Account Number',
-          datum: { children: (value) => <>#{value}</> },
-        },
-        { id: 'suspended', name: 'Account Status' },
-        { id: 'money', name: 'Account Balance' },
-      ]}
-      data={department_accounts}
-      datumID={(datum) => datum.account_number}
-      leftButtons={
+    <Stack fill vertical>
+      <Stack.Item grow>
+        <Section>
+          <Table className="AccountsUplinkTerminal__list">
+            <Table.Row bold>
+              <TableCell>Department Name</TableCell>
+              <TableCell>Account Number</TableCell>
+              <TableCell>Account Status</TableCell>
+              <TableCell>Account Balance</TableCell>
+            </Table.Row>
+            {department_accounts.map((account) => (
+              <Table.Row
+                key={account.account_number}
+                className={
+                  'AccountsUplinkTerminal__listRow--' + account.suspended
+                }
+                onClick={() =>
+                  act('view_account_detail', {
+                    account_num: account.account_number,
+                  })
+                }
+              >
+                <Table.Cell>
+                  <Icon name="wallet" /> {account.name}
+                </Table.Cell>
+                <Table.Cell>#{account.account_number}</Table.Cell>
+                <Table.Cell>{account.suspended}</Table.Cell>
+                <Table.Cell>{account.money}</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table>
+        </Section>
+      </Stack.Item>
+    </Stack>
+  );
+};
+
+const SortButton = (properties, context) => {
+  const [sortId, setSortId] = useLocalState(context, 'sortId', 'name');
+  const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const { id, children } = properties;
+  return (
+    <Table.Cell>
+      <Button
+        color={sortId !== id && 'transparent'}
+        width="100%"
+        onClick={() => {
+          if (sortId === id) {
+            setSortOrder(!sortOrder);
+          } else {
+            setSortId(id);
+            setSortOrder(true);
+          }
+        }}
+      >
+        {children}
+        {sortId === id && (
+          <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
+        )}
+      </Button>
+    </Table.Cell>
+  );
+};
+
+const AccountsActions = (properties, context) => {
+  const { act, data } = useBackend(context);
+  const { is_printing } = data;
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  return (
+    <Stack>
+      <Stack.Item>
         <Button
           content="New Account"
           icon="plus"
           onClick={() => act('create_new_account')}
         />
-      }
-      searchPlaceholder="Search by department name, account number, status, and balance"
-      datumRowProps={(datum) => ({
-        className: `AccountsUplinkTerminal__listRow--${datum.suspended}`,
-        onClick: () =>
-          act('view_account_detail', {
-            account_num: datum.account_number,
-          }),
-      })}
-    />
+      </Stack.Item>
+      <Stack.Item grow>
+        <Input
+          placeholder="Search by account holder, number, status"
+          width="100%"
+          onInput={(e, value) => setSearchText(value)}
+        />
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -182,79 +262,82 @@ const DetailedAccountInfo = (properties, context) => {
     is_department_account,
   } = data;
   return (
-    <Fragment>
-      <Section
-        title={'#' + account_number + ' / ' + owner_name}
-        mt={1}
-        buttons={
-          <Button
-            icon="arrow-left"
-            content="Back"
-            onClick={() => act('back')}
-          />
-        }
-      >
-        <LabeledList>
-          <LabeledList.Item label="Account Number">
-            #{account_number}
-          </LabeledList.Item>
-          {!!is_department_account && (
-            <LabeledList.Item label="Account Pin">
-              {account_pin}
+    <Stack fill vertical>
+      <Stack.Item>
+        <Section
+          title={'#' + account_number + ' / ' + owner_name}
+          buttons={
+            <Button
+              icon="arrow-left"
+              content="Back"
+              onClick={() => act('back')}
+            />
+          }
+        >
+          <LabeledList>
+            <LabeledList.Item label="Account Number">
+              #{account_number}
             </LabeledList.Item>
-          )}
-          <LabeledList.Item label="Account Pin Actions">
-            <Button
-              ml={1}
-              icon="user-cog"
-              content="Set New Pin"
-              disabled={Boolean(is_department_account)}
-              onClick={() =>
-                act('set_account_pin', {
-                  account_number: account_number,
-                })
-              }
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Account Holder">
-            {owner_name}
-          </LabeledList.Item>
-          <LabeledList.Item label="Account Balance">{money}</LabeledList.Item>
-          <LabeledList.Item
-            label="Account Status"
-            color={suspended ? 'red' : 'green'}
-          >
-            {suspended ? 'Suspended' : 'Active'}
-            <Button
-              ml={1}
-              content={suspended ? 'Unsuspend' : 'Suspend'}
-              icon={suspended ? 'unlock' : 'lock'}
-              onClick={() => act('toggle_suspension')}
-            />
-          </LabeledList.Item>
-        </LabeledList>
-      </Section>
-      <Section title="Transactions">
-        <Table>
-          <Table.Row header>
-            <Table.Cell>Timestamp</Table.Cell>
-            <Table.Cell>Reason</Table.Cell>
-            <Table.Cell>Value</Table.Cell>
-            <Table.Cell>Terminal</Table.Cell>
-          </Table.Row>
-          {transactions.map((t) => (
-            <Table.Row key={t}>
-              <Table.Cell>{t.time}</Table.Cell>
-              <Table.Cell>{t.purpose}</Table.Cell>
-              <Table.Cell color={t.is_deposit ? 'green' : 'red'}>
-                ${t.amount}
-              </Table.Cell>
-              <Table.Cell>{t.target_name}</Table.Cell>
+            {!!is_department_account && (
+              <LabeledList.Item label="Account Pin">
+                {account_pin}
+              </LabeledList.Item>
+            )}
+            <LabeledList.Item label="Account Pin Actions">
+              <Button
+                ml={1}
+                icon="user-cog"
+                content="Set New Pin"
+                disabled={Boolean(is_department_account)}
+                onClick={() =>
+                  act('set_account_pin', {
+                    account_number: account_number,
+                  })
+                }
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Account Holder">
+              {owner_name}
+            </LabeledList.Item>
+            <LabeledList.Item label="Account Balance">{money}</LabeledList.Item>
+            <LabeledList.Item
+              label="Account Status"
+              color={suspended ? 'red' : 'green'}
+            >
+              {suspended ? 'Suspended' : 'Active'}
+              <Button
+                ml={1}
+                content={suspended ? 'Unsuspend' : 'Suspend'}
+                icon={suspended ? 'unlock' : 'lock'}
+                onClick={() => act('toggle_suspension')}
+              />
+            </LabeledList.Item>
+          </LabeledList>
+        </Section>
+      </Stack.Item>
+      <Stack.Item>
+        <Section fill title="Transactions">
+          <Table>
+            <Table.Row header>
+              <Table.Cell>Timestamp</Table.Cell>
+              <Table.Cell>Reason</Table.Cell>
+              <Table.Cell>Value</Table.Cell>
+              <Table.Cell>Terminal</Table.Cell>
             </Table.Row>
-          ))}
-        </Table>
-      </Section>
-    </Fragment>
+            {transactions.map((t) => (
+              <Table.Row key={t}>
+                <Table.Cell>{t.time}</Table.Cell>
+                <Table.Cell>{t.purpose}</Table.Cell>
+                <Table.Cell color={t.is_deposit ? 'green' : 'red'}>
+                  ${t.amount}
+                </Table.Cell>
+                <Table.Cell>{t.target_name}</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table>
+        </Section>
+      </Stack.Item>
+    </Stack>
   );
 };
 

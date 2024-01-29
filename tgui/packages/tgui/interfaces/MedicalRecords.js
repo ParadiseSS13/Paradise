@@ -1,13 +1,14 @@
-import { Fragment } from 'inferno';
-import { useBackend } from '../backend';
+import { createSearch } from 'common/string';
+import { useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
   Icon,
+  Input,
   LabeledList,
   Section,
+  Stack,
   Tabs,
-  Flex,
   Table,
 } from '../components';
 import {
@@ -19,7 +20,6 @@ import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 import { TemporaryNotice } from './common/TemporaryNotice';
-import { RecordsTable } from './common/RecordsTable';
 
 const severities = {
   'Minor': 'lightgray',
@@ -46,7 +46,7 @@ const doEdit = (context, field) => {
 const virusModalBodyOverride = (modal, context) => {
   const virus = modal.args;
   return (
-    <Section level={2} m="-1rem" pb="1rem" title={virus.name || 'Virus'}>
+    <Section m="-1rem" pb="1.5rem" title={virus.name || 'Virus'}>
       <Box mx="0.5rem">
         <LabeledList>
           <LabeledList.Item label="Number of stages">
@@ -73,7 +73,7 @@ export const MedicalRecords = (_properties, context) => {
   const { loginState, screen } = data;
   if (!loginState.logged_in) {
     return (
-      <Window resizable>
+      <Window width={800} height={900}>
         <Window.Content>
           <LoginScreen />
         </Window.Content>
@@ -100,79 +100,141 @@ export const MedicalRecords = (_properties, context) => {
   }
 
   return (
-    <Window resizable>
+    <Window width={800} height={900}>
       <ComplexModal />
-      <Window.Content className="Layout__content--flexColumn">
-        <LoginInfo />
-        <TemporaryNotice />
-        <MedicalRecordsNavigation />
-        <Section height="100%" flexGrow="1">
+      <Window.Content>
+        <Stack fill vertical>
+          <LoginInfo />
+          <TemporaryNotice />
+          <MedicalRecordsNavigation />
           {body}
-        </Section>
+        </Stack>
       </Window.Content>
     </Window>
   );
 };
 
-const MedicalRecordsList = (props, context) => {
+const MedicalRecordsList = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { records } = data;
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [sortId, _setSortId] = useLocalState(context, 'sortId', 'name');
+  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
   return (
-    <RecordsTable
-      columns={[
-        {
-          id: 'name',
-          name: 'Name',
-          datum: {
-            children: (value) => (
-              <>
-                <Icon name="user" /> {value}
-              </>
-            ),
-          },
-        },
-        { id: 'id', name: 'ID' },
-        { id: 'rank', name: 'Assignment' },
-        { id: 'p_stat', name: 'Patient Status' },
-        { id: 'm_stat', name: 'Mental Status' },
-      ]}
-      data={records}
-      datumID={(datum) => datum.ref}
-      leftButtons={
-        <Button
-          content="Manage Records"
-          icon="wrench"
-          onClick={() => act('screen', { screen: 3 })}
-        />
-      }
-      searchPlaceholder="Search by Name, ID, Physical Status, or Mental Status"
-      datumRowProps={(datum) => ({
-        className: `MedicalRecords__listRow--${medStatusStyles[datum.p_stat]}`,
-        onClick: () => act('view_record', { view_record: datum.ref }),
-      })}
-    />
+    <>
+      <Stack.Item>
+        <Stack fill>
+          <Stack.Item>
+            <Button
+              content="Manage Records"
+              icon="wrench"
+              ml="0.25rem"
+              onClick={() => act('screen', { screen: 3 })}
+            />
+          </Stack.Item>
+          <Stack.Item grow>
+            <Input
+              fluid
+              placeholder="Search by Name, ID, Physical Status, or Mental Status"
+              onInput={(e, value) => setSearchText(value)}
+            />
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+      <Stack.Item grow mt={0.5}>
+        <Section fill scrollable>
+          <Table className="MedicalRecords__list">
+            <Table.Row bold>
+              <SortButton id="name">Name</SortButton>
+              <SortButton id="id">ID</SortButton>
+              <SortButton id="rank">Assignment</SortButton>
+              <SortButton id="p_stat">Patient Status</SortButton>
+              <SortButton id="m_stat">Mental Status</SortButton>
+            </Table.Row>
+            {records
+              .filter(
+                createSearch(searchText, (record) => {
+                  return (
+                    record.name +
+                    '|' +
+                    record.id +
+                    '|' +
+                    record.rank +
+                    '|' +
+                    record.p_stat +
+                    '|' +
+                    record.m_stat
+                  );
+                })
+              )
+              .sort((a, b) => {
+                const i = sortOrder ? 1 : -1;
+                return a[sortId].localeCompare(b[sortId]) * i;
+              })
+              .map((record) => (
+                <Table.Row
+                  key={record.id}
+                  className={
+                    'MedicalRecords__listRow--' + medStatusStyles[record.p_stat]
+                  }
+                  onClick={() =>
+                    act('view_record', { view_record: record.ref })
+                  }
+                >
+                  <Table.Cell>
+                    <Icon name="user" /> {record.name}
+                  </Table.Cell>
+                  <Table.Cell>{record.id}</Table.Cell>
+                  <Table.Cell>{record.rank}</Table.Cell>
+                  <Table.Cell>{record.p_stat}</Table.Cell>
+                  <Table.Cell>{record.m_stat}</Table.Cell>
+                </Table.Row>
+              ))}
+          </Table>
+        </Section>
+      </Stack.Item>
+    </>
   );
 };
 
 const MedicalRecordsMaintenance = (_properties, context) => {
   const { act } = useBackend(context);
   return (
-    <Fragment>
-      <Button icon="download" content="Backup to Disk" disabled />
-      <br />
-      <Button
-        icon="upload"
-        content="Upload from Disk"
-        my="0.5rem"
-        disabled
-      />{' '}
-      <br />
-      <Button.Confirm
-        icon="trash"
-        content="Delete All Medical Records"
-        onClick={() => act('del_all_med_records')}
-      />
-    </Fragment>
+    <Stack.Item grow textAlign="center">
+      <Section fill>
+        <Stack.Item grow>
+          <Button
+            fluid
+            lineHeight={3}
+            color="translucent"
+            icon="download"
+            content="Backup to Disk"
+            disabled
+          />
+        </Stack.Item>
+        <Stack.Item grow>
+          <Button
+            fluid
+            lineHeight={3}
+            color="translucent"
+            icon="upload"
+            content="Upload from Disk"
+            my="0.5rem"
+            disabled
+          />{' '}
+        </Stack.Item>
+        <Stack.Item grow>
+          <Button.Confirm
+            fluid
+            lineHeight={3}
+            icon="trash"
+            color="translucent"
+            content="Delete All Medical Records"
+            onClick={() => act('del_all_med_records')}
+          />
+        </Stack.Item>
+      </Section>
+    </Stack.Item>
   );
 };
 
@@ -180,39 +242,79 @@ const MedicalRecordsView = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { medical, printing } = data;
   return (
-    <Fragment>
-      <Section
-        title="General Data"
-        level={2}
-        mt="-6px"
-        buttons={
-          <Button
-            icon={printing ? 'spinner' : 'print'}
-            disabled={printing}
-            iconSpin={!!printing}
-            content="Print Record"
-            ml="0.5rem"
-            onClick={() => act('print_record')}
-          />
-        }
-      >
-        <MedicalRecordsViewGeneral />
-      </Section>
-      <Section
-        title="Medical Data"
-        level={2}
-        buttons={
-          <Button.Confirm
-            icon="trash"
-            disabled={!!medical.empty}
-            content="Delete Medical Record"
-            onClick={() => act('del_med_record')}
-          />
-        }
-      >
-        <MedicalRecordsViewMedical />
-      </Section>
-    </Fragment>
+    <>
+      <Stack.Item height="235px">
+        <Section
+          fill
+          scrollable
+          title="General Data"
+          buttons={
+            <Button
+              icon={printing ? 'spinner' : 'print'}
+              disabled={printing}
+              iconSpin={!!printing}
+              content="Print Record"
+              ml="0.5rem"
+              onClick={() => act('print_record')}
+            />
+          }
+        >
+          <MedicalRecordsViewGeneral />
+        </Section>
+      </Stack.Item>
+      {!medical || !medical.fields ? (
+        <Stack.Item grow color="bad">
+          <Section
+            fill
+            title="Medical Data"
+            buttons={
+              <Button
+                icon="pen"
+                content="Create New Record"
+                onClick={() => act('new_med_record')}
+              />
+            }
+          >
+            <Stack fill>
+              <Stack.Item
+                bold
+                grow
+                textAlign="center"
+                fontSize={1.75}
+                align="center"
+                color="label"
+              >
+                <Icon.Stack>
+                  <Icon name="scroll" size={5} color="gray" />
+                  <Icon name="slash" size={5} color="red" />
+                </Icon.Stack>
+                <br />
+                Medical records lost!
+              </Stack.Item>
+            </Stack>
+          </Section>
+        </Stack.Item>
+      ) : (
+        <>
+          <Stack.Item grow>
+            <Section
+              fill
+              scrollable
+              title="Medical Data"
+              buttons={
+                <Button.Confirm
+                  icon="trash"
+                  disabled={!!medical.empty}
+                  content="Delete Medical Record"
+                  onClick={() => act('del_med_record')}
+                />
+              }
+            />
+          </Stack.Item>
+          <MedicalRecordsViewMedical />
+        </>
+      )}
+    </>
   );
 };
 
@@ -220,15 +322,21 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
   const { data } = useBackend(context);
   const { general } = data;
   if (!general || !general.fields) {
-    return <Box color="bad">General records lost!</Box>;
+    return (
+      <Stack fill vertical>
+        <Stack.Item grow color="bad">
+          <Section fill>General records lost!</Section>
+        </Stack.Item>
+      </Stack>
+    );
   }
   return (
-    <Fragment>
-      <Box width="50%" float="left">
+    <Stack>
+      <Stack.Item grow>
         <LabeledList>
           {general.fields.map((field, i) => (
             <LabeledList.Item key={i} label={field.field}>
-              <Box height="20px" display="inline-block">
+              <Box height="20px" inline>
                 {field.value}
               </Box>
               {!!field.edit && (
@@ -241,67 +349,36 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
             </LabeledList.Item>
           ))}
         </LabeledList>
-      </Box>
-      <Box width="50%" float="right" textAlign="right">
-        {!!general.has_photos &&
-          general.photos.map((p, i) => (
-            <Box
-              key={i}
-              display="inline-block"
-              textAlign="center"
-              color="label"
-            >
-              <img
-                src={p}
-                style={{
-                  width: '96px',
-                  'margin-bottom': '0.5rem',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
-                }}
-              />
-              <br />
-              Photo #{i + 1}
-            </Box>
-          ))}
-      </Box>
-    </Fragment>
+      </Stack.Item>
+      {!!general.has_photos &&
+        general.photos.map((p, i) => (
+          <Stack.Item key={i} inline textAlign="center" color="label" ml={0}>
+            <img
+              src={p}
+              style={{
+                width: '96px',
+                'margin-top': '2.5rem',
+                'margin-bottom': '0.5rem',
+                '-ms-interpolation-mode': 'nearest-neighbor',
+              }}
+            />
+            <br />
+            Photo #{i + 1}
+          </Stack.Item>
+        ))}
+    </Stack>
   );
 };
 
 const MedicalRecordsViewMedical = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { medical } = data;
-  if (!medical || !medical.fields) {
-    return (
-      <Box color="bad">
-        Medical records lost!
-        <Button
-          icon="pen"
-          content="New Record"
-          ml="0.5rem"
-          onClick={() => act('new_med_record')}
-        />
-      </Box>
-    );
-  }
   return (
-    <Fragment>
-      <LabeledList>
-        {medical.fields.map((field, i) => (
-          <LabeledList.Item key={i} label={field.field} prewrap>
-            {field.value}
-            <Button
-              icon="pen"
-              ml="0.5rem"
-              mb={field.line_break ? '1rem' : 'initial'}
-              onClick={() => doEdit(context, field)}
-            />
-          </LabeledList.Item>
-        ))}
-      </LabeledList>
+    <Stack.Item height="150px">
       <Section
+        fill
+        scrollable
         title="Comments/Log"
-        level={2}
         buttons={
           <Button
             icon="comment"
@@ -315,7 +392,7 @@ const MedicalRecordsViewMedical = (_properties, context) => {
         ) : (
           medical.comments.map((comment, i) => (
             <Box key={i} prewrap>
-              <Box color="label" display="inline">
+              <Box color="label" inline>
                 {comment.header}
               </Box>
               <br />
@@ -330,46 +407,69 @@ const MedicalRecordsViewMedical = (_properties, context) => {
           ))
         )}
       </Section>
-    </Fragment>
+    </Stack.Item>
   );
 };
 
-const MedicalRecordsViruses = (props, context) => {
+const MedicalRecordsViruses = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { virus } = data;
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [sortId2, _setSortId2] = useLocalState(context, 'sortId2', 'name');
+  const [sortOrder2, _setSortOrder2] = useLocalState(
+    context,
+    'sortOrder2',
+    true
+  );
   return (
-    <RecordsTable
-      columns={[
-        {
-          id: 'name',
-          name: 'Name',
-          datum: {
-            children: (value) => (
-              <>
-                <Icon name="virus" /> {value}
-              </>
-            ),
-          },
-        },
-        { id: 'max_stages', name: 'Max Stages' },
-        {
-          id: 'severity',
-          name: 'Severity',
-          datum: {
-            props: (value) => ({
-              color: severities[value],
-            }),
-          },
-        },
-      ]}
-      data={virus}
-      datumID={(datum) => datum.id}
-      searchPlaceholder="Search by Name, Max Stages, or Severity"
-      datumRowProps={(datum) => ({
-        className: `MedicalRecords__listVirus--${datum.severity}`,
-        onClick: () => act('vir', { vir: datum.D }),
-      })}
-    />
+    <>
+      <Stack.Item grow>
+        <Input
+          ml="0.25rem"
+          fluid
+          placeholder="Search by Name, Max Stages, or Severity"
+          onInput={(e, value) => setSearchText(value)}
+        />
+      </Stack.Item>
+      <Stack fill vertical mt={0.5}>
+        <Stack.Item grow>
+          <Section fill scrollable>
+            <Table className="MedicalRecords__list">
+              <Table.Row bold>
+                <SortButton2 id="name">Name</SortButton2>
+                <SortButton2 id="max_stages">Max Stages</SortButton2>
+                <SortButton2 id="severity">Severity</SortButton2>
+              </Table.Row>
+              {virus
+                .filter(
+                  createSearch(searchText, (vir) => {
+                    return vir.name + '|' + vir.max_stages + '|' + vir.severity;
+                  })
+                )
+                .sort((a, b) => {
+                  const i = sortOrder2 ? 1 : -1;
+                  return a[sortId2].localeCompare(b[sortId2]) * i;
+                })
+                .map((vir) => (
+                  <Table.Row
+                    key={vir.id}
+                    className={'MedicalRecords__listVirus--' + vir.severity}
+                    onClick={() => act('vir', { vir: vir.D })}
+                  >
+                    <Table.Cell>
+                      <Icon name="virus" /> {vir.name}
+                    </Table.Cell>
+                    <Table.Cell>{vir.max_stages}</Table.Cell>
+                    <Table.Cell color={severities[vir.severity]}>
+                      {vir.severity}
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+            </Table>
+          </Section>
+        </Stack.Item>
+      </Stack>
+    </>
   );
 };
 
@@ -377,11 +477,33 @@ const MedicalRecordsMedbots = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { medbots } = data;
   if (medbots.length === 0) {
-    return <Box color="label">There are no Medibots.</Box>;
+    return (
+      <Stack.Item grow color="bad">
+        <Section fill>
+          <Stack fill>
+            <Stack.Item
+              bold
+              grow
+              textAlign="center"
+              fontSize={1.75}
+              align="center"
+              color="label"
+            >
+              <Icon.Stack>
+                <Icon name="robot" size={5} color="gray" />
+                <Icon name="slash" size={5} color="red" />
+              </Icon.Stack>
+              <br />
+              There are no Medibots.
+            </Stack.Item>
+          </Stack>
+        </Section>
+      </Stack.Item>
+    );
   }
   return (
-    <Flex direction="column" height="100%">
-      <Section flexGrow="1" mt="0.5rem">
+    <Stack.Item grow>
+      <Section fill scrollable>
         <Table className="MedicalRecords__list">
           <Table.Row bold>
             <Table.Cell>Name</Table.Cell>
@@ -419,7 +541,65 @@ const MedicalRecordsMedbots = (_properties, context) => {
           ))}
         </Table>
       </Section>
-    </Flex>
+    </Stack.Item>
+  );
+};
+
+const SortButton = (properties, context) => {
+  const [sortId, setSortId] = useLocalState(context, 'sortId', 'name');
+  const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const { id, children } = properties;
+  return (
+    <Table.Cell>
+      <Button
+        fluid
+        color={sortId !== id && 'transparent'}
+        onClick={() => {
+          if (sortId === id) {
+            setSortOrder(!sortOrder);
+          } else {
+            setSortId(id);
+            setSortOrder(true);
+          }
+        }}
+      >
+        {children}
+        {sortId === id && (
+          <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
+        )}
+      </Button>
+    </Table.Cell>
+  );
+};
+
+const SortButton2 = (properties, context) => {
+  const [sortId2, setSortId2] = useLocalState(context, 'sortId2', 'name');
+  const [sortOrder2, setSortOrder2] = useLocalState(
+    context,
+    'sortOrder2',
+    true
+  );
+  const { id, children } = properties;
+  return (
+    <Table.Cell>
+      <Button
+        fluid
+        color={sortId2 !== id && 'transparent'}
+        onClick={() => {
+          if (sortId2 === id) {
+            setSortOrder2(!sortOrder2);
+          } else {
+            setSortId2(id);
+            setSortOrder2(true);
+          }
+        }}
+      >
+        {children}
+        {sortId2 === id && (
+          <Icon name={sortOrder2 ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
+        )}
+      </Button>
+    </Table.Cell>
   );
 };
 
@@ -427,45 +607,45 @@ const MedicalRecordsNavigation = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { screen, general } = data;
   return (
-    <Tabs>
-      <Tabs.Tab
-        selected={screen === 2}
-        onClick={() => {
-          act('screen', { screen: 2 });
-        }}
-      >
-        <Icon name="list" />
-        List Records
-      </Tabs.Tab>
-      <Tabs.Tab
-        selected={screen === 5}
-        onClick={() => {
-          act('screen', { screen: 5 });
-        }}
-      >
-        <Icon name="database" />
-        Virus Database
-      </Tabs.Tab>
-      <Tabs.Tab
-        selected={screen === 6}
-        onClick={() => act('screen', { screen: 6 })}
-      >
-        <Icon name="plus-square" />
-        Medibot Tracking
-      </Tabs.Tab>
-      {screen === 3 && (
-        <Tabs.Tab selected={screen === 3}>
-          <Icon name="wrench" />
-          Record Maintenance
+    <Stack.Item m={0}>
+      <Tabs>
+        <Tabs.Tab
+          icon="list"
+          selected={screen === 2}
+          onClick={() => {
+            act('screen', { screen: 2 });
+          }}
+        >
+          List Records
         </Tabs.Tab>
-      )}
-      {screen === 4 && general && !general.empty && (
-        <Tabs.Tab selected={screen === 4}>
-          <Icon name="file" />
-          Record: {general.fields[0].value}
+        <Tabs.Tab
+          icon="database"
+          selected={screen === 5}
+          onClick={() => {
+            act('screen', { screen: 5 });
+          }}
+        >
+          Virus Database
         </Tabs.Tab>
-      )}
-    </Tabs>
+        <Tabs.Tab
+          icon="plus-square"
+          selected={screen === 6}
+          onClick={() => act('screen', { screen: 6 })}
+        >
+          Medibot Tracking
+        </Tabs.Tab>
+        {screen === 3 && (
+          <Tabs.Tab icon="wrench" selected={screen === 3}>
+            Record Maintenance
+          </Tabs.Tab>
+        )}
+        {screen === 4 && general && !general.empty && (
+          <Tabs.Tab icon="file" selected={screen === 4}>
+            Record: {general.fields[0].value}
+          </Tabs.Tab>
+        )}
+      </Tabs>
+    </Stack.Item>
   );
 };
 

@@ -123,6 +123,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	//Used with the hotkeys on 2-5 to store locations.
 	var/list/stored_locations = list()
+	var/cracked_camera = FALSE // will be true if malf AI break its camera
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default

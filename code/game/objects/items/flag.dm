@@ -54,13 +54,13 @@
 	icon_state = "ntflag"
 
 /obj/item/flag/clown
-	name = "\improper Clown Planet flag"
-	desc = "The banner of His Majesty, King Squiggles the Eighth."
+	name = "\improper Clown Unity flag"
+	desc = "The universal banner of clowns everywhere. It smells faintly of bananas."
 	icon_state = "clownflag"
 
 /obj/item/flag/mime
-	name = "\improper Mime Revolution flag"
-	desc = "The banner of the glorious revolutionary forces fighting the oppressors on Clown Planet."
+	name = "\improper Mime Unity flag"
+	desc = "The standard by which all mimes march to war, as cold as ice and silent as the grave."
 	icon_state = "mimeflag"
 
 /obj/item/flag/ian
