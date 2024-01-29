@@ -94,7 +94,6 @@
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
 
-		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
 		cult_objs.study(cult_mind.current)
 		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
