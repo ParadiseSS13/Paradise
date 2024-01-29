@@ -18,7 +18,6 @@
 	cling.headslugged = TRUE
 	..()
 
-
 /datum/action/changeling/headslug/sting_action(mob/user)
 	var/datum/mind/M = user.mind
 	var/list/organs = user.get_organs_zone("head", 1)
