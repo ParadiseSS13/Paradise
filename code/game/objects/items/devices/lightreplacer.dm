@@ -227,17 +227,18 @@
 	else
 		return 0
 
-/obj/item/lightreplacer/afterattack(atom/T, mob/U, proximity)
+/obj/item/lightreplacer/afterattack(atom/target_turf, mob/U, proximity)
 	. = ..()
 	if(!proximity && !bluespace_toggle)
 		return
-	if(!isturf(T))
+	var/turf/replace_turf = get_turf(target_turf)
+	if(!istype(replace_turf))
 		return
-	if(get_dist(src, T) >= (U.client.maxview() + 2)) // To prevent people from using it over cameras
+	if(get_dist(src, target_turf) >= (U.client.maxview() + 2)) // To prevent people from using it over cameras
 		return
 
 	var/used = FALSE
-	for(var/atom/A in T)
+	for(var/atom/A in replace_turf)
 		if(!CanUse(U))
 			break
 		used = TRUE
