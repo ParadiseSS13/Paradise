@@ -67,24 +67,10 @@ admin_ranks = [
   # Format: {name = "My Rank", rights = ["+LIST", "+OF", "+RIGHTS"]}
   {name = "Mentor", rights = ["+MENTOR"]},
   {name = "Trial Admin", rights = ["+ADMIN", "+BAN", "+STEALTH", "+REJUVINATE"]},
-  {name = "Game Admin", rights = [
-    "+ADMIN",
-    "+BAN",
-    "+STEALTH",
-    "+REJUVINATE",
-    "+DEBUG",
-    "+BUILDMODE",
-    "+EVENT",
-    "+SERVER",
-    "+POSSESS",
-    "+PROCCALL",
-    "+VAREDIT",
-    "+SOUND",
-    "+SPAWN",
-  ]},
+  {name = "Game Admin", rights = ["+ADMIN", "+BAN", "+STEALTH", "+REJUVINATE", "+DEBUG", "+BUILDMODE", "+EVENT", "+SERVER", "+POSSESS", "+PROCCALL", "+VAREDIT", "+SOUND", "+SPAWN"]},
   {name = "Head of Staff", rights = ["+EVERYTHING"]},
   {name = "Hosting Provider", rights = ["+EVERYTHING"]},
-  {name = "Maintainers", rights = ["+EVERYTHING"]},
+  {name = "Maintainers", rights = ["+EVERYTHING"]}
 ]
 # List of people and the admin rank they are assigned to
 admin_assignments = [
