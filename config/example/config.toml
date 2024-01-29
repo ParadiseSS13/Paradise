@@ -33,7 +33,9 @@
 # - voting_configuration
 # -
 
+
 ################################################################
+
 
 [admin_configuration]
 # This section contains all information regarding admin setup. This includes ranks, rights, and if you are using the database-backed admin system
@@ -64,37 +66,39 @@ enable_localhost_autoadmin = true
 # +PROCCALL = Access to call procs on anything. Be careful who you grant this too!
 # +VIEWRUNTIMES = Allows a player to view the runtimes of the server, but not use other debug verbs
 admin_ranks = [
-  # Format: {name = "My Rank", rights = ["+LIST", "+OF", "+RIGHTS"]}
-  {name = "Mentor", rights = ["+MENTOR"]},
-  {name = "Trial Admin", rights = ["+ADMIN", "+BAN", "+STEALTH", "+REJUVINATE"]},
-  {name = "Game Admin", rights = ["+ADMIN", "+BAN", "+STEALTH", "+REJUVINATE", "+DEBUG", "+BUILDMODE", "+EVENT", "+SERVER", "+POSSESS", "+PROCCALL", "+VAREDIT", "+SOUND", "+SPAWN"]},
-  {name = "Head of Staff", rights = ["+EVERYTHING"]},
-  {name = "Hosting Provider", rights = ["+EVERYTHING"]},
-  {name = "Maintainers", rights = ["+EVERYTHING"]}
+	# Format: {name = "My Rank", rights = ["+LIST", "+OF", "+RIGHTS"]}
+	{name = "Mentor", rights = ["+MENTOR"]},
+	{name = "Trial Admin", rights = ["+ADMIN", "+BAN", "+STEALTH", "+REJUVINATE"]},
+	{name = "Game Admin", rights = ["+ADMIN", "+BAN", "+STEALTH", "+REJUVINATE", "+DEBUG", "+BUILDMODE", "+EVENT", "+SERVER", "+POSSESS", "+PROCCALL", "+VAREDIT", "+SOUND", "+SPAWN"]},
+	{name = "Head of Staff", rights = ["+EVERYTHING"]},
+	{name = "Hosting Provider", rights = ["+EVERYTHING"]},
+	{name = "Maintainers", rights = ["+EVERYTHING"]}
 ]
 # List of people and the admin rank they are assigned to
 admin_assignments = [
-  #{ckey = "Your Name Here", rank = "Hosting Provider"}
+	#{ckey = "Your Name Here", rank = "Hosting Provider"}
 ]
 # Allow admins to set their own OOC colour
 allow_admin_ooc_colour = true
 # Map of admin rank colours to their respective rank. Note you can use hex or colour name here.
 admin_rank_colour_map = [
-  {name = "Head of Staff", colour = "#e74c3c"},
-  {name = "Maintainer", colour = "#992d22"},
-  {name = "Server Dev", colour = "#1abc9c"},
-  {name = "Community Manager", colour = "#e91e63"},
-  {name = "Game Admin", colour = "#238afa"},
-  {name = "Trial Admin", colour = "#7fb6fc"},
-  {name = "PR Reviewer", colour = "#c27c0e"},
-  {name = "Mentor", colour = "#f1c40f"},
+	{name = "Head of Staff", colour = "#e74c3c"},
+	{name = "Maintainer", colour = "#992d22"},
+	{name = "Server Dev", colour = "#1abc9c"},
+	{name = "Community Manager", colour = "#e91e63"},
+	{name = "Game Admin", colour = "#238afa"},
+	{name = "Trial Admin", colour = "#7fb6fc"},
+	{name = "PR Reviewer", colour = "#c27c0e"},
+	{name = "Mentor", colour = "#f1c40f"},
 ]
 # Map of common CIDs that should not be banned, plus their reasons
 common_cid_map = [
-  {cid = "3923664137", reason = "Mass-Match related to Walmart branded prebuilt PCs"},
+	{cid = "3923664137", reason = "Mass-Match related to Walmart branded prebuilt PCs"}
 ]
 
+
 ################################################################
+
 
 [afk_configuration]
 # This section contains options for the auto AFK cryo system
@@ -108,7 +112,9 @@ afk_auto_despawn_minutes = 21
 # Amount of time before SSD people are auto cryo'd
 ssd_auto_cryo_minutes = 15
 
+
 ################################################################
+
 
 [custom_sprites_configuration]
 # This section contains a list of information for people with custom sprites for mobs, if they donated
@@ -125,10 +131,12 @@ ai_hologram = ["ckeyhere"]
 pai_holoform = ["ckeyhere"]
 # List of dictionary entries for ckeys with a custom IPC screean
 ipc_screens = [
-  {ckey = "ckeyhere", screens = ["Icon State 1", "Icon State 2"]},
+	{ckey = "ckeyhere", screens = ["Icon State 1", "Icon State 2"]}
 ]
 
+
 ################################################################
+
 
 [database_configuration]
 # This section contains all the settings for the ingame database
@@ -137,7 +145,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 54
+sql_version = 53
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -153,7 +161,9 @@ async_query_timeout = 10
 # How many threads is the async SQL engine allowed to open. 50 is normal. Trust me.
 async_thread_limit = 50
 
+
 ################################################################
+
 
 [discord_configuration]
 # This section contains all the information related to Discord webhook sending from the code
@@ -162,18 +172,18 @@ async_thread_limit = 50
 enable_discord_webhooks = false
 # List of all webhooks for the primary feed (public channels)
 main_webhook_urls = [
-  "https://webhook.one",
-  "https://webhook.two",
+	"https://webhook.one",
+	"https://webhook.two"
 ]
 # List of all webhook URLs for the mentor feed (mentorhelps relay)
 mentor_webhook_urls = [
-  "https://mentor.webhook.one",
-  "https://mentor.webhook.two",
+	"https://mentor.webhook.one",
+	"https://mentor.webhook.two"
 ]
 # List of all webhook URLs for the admin feed (round alerts, ahelps, etc)
 admin_webhook_urls = [
-  "https://admin.webhook.one",
-  "https://admin.webhook.two",
+	"https://admin.webhook.one",
+	"https://admin.webhook.two"
 ]
 # Role ID for the admin role on the discord. Set to "" to disable.
 # THESE MUST BOTH BE STRINGS. BYOND DOESNT LIKE NUMBERS THIS BIG
@@ -184,7 +194,9 @@ mentor_role_id = ""
 # Forward all ahelps to the discord? If disabled, ahelps are only forwarded if admins are AFK/Offline
 forward_all_ahelps = true
 
+
 ################################################################
+
 
 [event_configuration]
 # This section contains settings for ingame random events
@@ -201,12 +213,14 @@ expected_round_length = 120
 # You must specify an upper and lower bound, or the code cries a lot. The events system is so bad good god.
 # Values are in minutes
 event_initial_delays = [
-  #{severity = "mundane", lower_bound = 10, upper_bound = 15},
-  {severity = "moderate", lower_bound = 25, upper_bound = 40},
-  {severity = "major", lower_bound = 55, upper_bound = 75},
+	#{severity = "mundane", lower_bound = 10, upper_bound = 15},
+	{severity = "moderate", lower_bound = 25, upper_bound = 40},
+	{severity = "major", lower_bound = 55, upper_bound = 75},
 ]
 
+
 ################################################################
+
 
 [gamemode_configuration]
 # This section contains setups for the gamemodes, as well as their probabilities
@@ -215,20 +229,20 @@ event_initial_delays = [
 antag_account_age_restrictions = false
 # Gamemode probabilities map for if you are using secret or random
 gamemode_probabilities = [
-  {gamemode = "abduction", probability = 0},
-  {gamemode = "changeling", probability = 3},
-  {gamemode = "cult", probability = 3},
-  {gamemode = "extend-a-traitormongous", probability = 2}, # Autotraitor
-  {gamemode = "extended", probability = 3},
-  {gamemode = "nuclear", probability = 2},
-  {gamemode = "raginmages", probability = 0},
-  {gamemode = "revolution", probability = 0},
-  {gamemode = "traitor", probability = 2},
-  {gamemode = "traitorchan", probability = 3},
-  {gamemode = "traitorvamp", probability = 3},
-  {gamemode = "vampire", probability = 3},
-  {gamemode = "wizard", probability = 2},
-  {gamemode = "trifecta", probability = 3},
+	{gamemode = "abduction", probability = 0},
+	{gamemode = "changeling", probability = 3},
+	{gamemode = "cult", probability = 3},
+	{gamemode = "extend-a-traitormongous", probability = 2}, # Autotraitor
+	{gamemode = "extended", probability = 3},
+	{gamemode = "nuclear", probability = 2},
+	{gamemode = "raginmages", probability = 0},
+	{gamemode = "revolution", probability = 0},
+	{gamemode = "traitor", probability = 2},
+	{gamemode = "traitorchan", probability = 3},
+	{gamemode = "traitorvamp", probability = 3},
+	{gamemode = "vampire", probability = 3},
+	{gamemode = "wizard", probability = 2},
+	{gamemode = "trifecta", probability = 3},
 ]
 # Do we want the amount of traitors to scale with population?
 traitor_scaling = true
@@ -241,7 +255,9 @@ traitor_objective_amount = 2
 # Enable player limits on gamemodes. Disable if testing
 enable_gamemode_player_limit = true
 
+
 ################################################################
+
 
 [general_configuration]
 # General setup for the server (branding, options, etc)
@@ -330,7 +346,9 @@ revival_brain_life = 6000 # 10 minutes
 # Enable random silicon lawset (If said lawset has default = TRUE in the code). Disable for always crewsimov
 random_ai_lawset = true
 
+
 ################################################################
+
 
 [ipintel_configuration]
 # This section contains all the information for IPIntel (The Anti VPN system)
@@ -354,7 +372,9 @@ playtime_ignore_threshold = 10
 # Details URL for more info on an IP (such as ASN). IP is tacked on the end.
 details_url = "https://iphub.info/?ip="
 
+
 ################################################################
+
 
 [job_configuration]
 # This section contains information on job configuartion, as well as the jon amounts
@@ -386,40 +406,50 @@ assistant_security_ratio = 2
 enable_job_amount_overrides = true
 # Job slot amount map. These are overrides. If you dont specify a value here, the code will be used as default. -1 is infinite
 job_slot_amounts = [
-  # Commmand
-  {name = "Captain", lowpop = 1, highpop = 1},
-  {name = "Head of Personnel", lowpop = 1, highpop = 1},
-  {name = "Head of Security", lowpop = 1, highpop = 1},
-  {name = "Chief Engineer", lowpop = 1, highpop = 1},
-  {name = "Research Director", lowpop = 1, highpop = 1},
-  {name = "Chief Medical Officer", lowpop = 1, highpop = 1}, # Engineering
-  {name = "Life Support Specialist", lowpop = 3, highpop = 4},
-  {name = "Station Engineer", lowpop = 5, highpop = 6}, # Medical
-  {name = "Chemist", lowpop = 2, highpop = 2},
-  {name = "Geneticist", lowpop = 2, highpop = 2},
-  {name = "Medical Doctor", lowpop = 5, highpop = 6},
-  {name = "Virologist", lowpop = 1, highpop = 1}, # Science
-  {name = "Roboticist", lowpop = 2, highpop = 2},
-  {name = "Scientist", lowpop = 6, highpop = 7}, # Security
-  {name = "Detective", lowpop = 1, highpop = 1},
-  {name = "Security Officer", lowpop = 8, highpop = 9},
-  {name = "Warden", lowpop = 1, highpop = 1},
-  {name = "Internal Affairs Agent", lowpop = 2, highpop = 2}, # Service
-  {name = "Bartender", lowpop = 1, highpop = 1},
-  {name = "Botanist", lowpop = 2, highpop = 2},
-  {name = "Chaplain", lowpop = 1, highpop = 1},
-  {name = "Chef", lowpop = 1, highpop = 1},
-  {name = "Janitor", lowpop = 1, highpop = 2},
-  {name = "Librarian", lowpop = 1, highpop = 1}, # Cargo/Supply
-  {name = "Quartermaster", lowpop = 1, highpop = 1},
-  {name = "Shaft Miner", lowpop = 6, highpop = 6},
-  {name = "Cargo Technician", lowpop = 3, highpop = 4}, # Silicon
-  {name = "AI", lowpop = 1, highpop = 1},
-  {name = "Cyborg", lowpop = 1, highpop = 1}, # Misc
-  {name = "Assistant", lowpop = -1, highpop = -1},
+	# Commmand
+	{name = "Captain", lowpop = 1, highpop = 1},
+	{name = "Head of Personnel", lowpop = 1, highpop = 1},
+	{name = "Head of Security", lowpop = 1, highpop = 1},
+	{name = "Chief Engineer", lowpop = 1, highpop = 1},
+	{name = "Research Director", lowpop = 1, highpop = 1},
+	{name = "Chief Medical Officer", lowpop = 1, highpop = 1},
+	# Engineering
+	{name = "Life Support Specialist", lowpop = 3, highpop = 4},
+	{name = "Station Engineer", lowpop = 5, highpop = 6},
+	# Medical
+	{name = "Chemist", lowpop = 2, highpop = 2},
+	{name = "Geneticist", lowpop = 2, highpop = 2},
+	{name = "Medical Doctor", lowpop = 5, highpop = 6},
+	{name = "Virologist", lowpop = 1, highpop = 1},
+	# Science
+	{name = "Roboticist", lowpop = 2, highpop = 2},
+	{name = "Scientist", lowpop = 6, highpop = 7},
+	# Security
+	{name = "Detective", lowpop = 1, highpop = 1},
+	{name = "Security Officer", lowpop = 8, highpop = 9},
+	{name = "Warden", lowpop = 1, highpop = 1},
+	{name = "Internal Affairs Agent", lowpop = 2, highpop = 2},
+	# Service
+	{name = "Bartender", lowpop = 1, highpop = 1},
+	{name = "Botanist", lowpop = 2, highpop = 2},
+	{name = "Chaplain", lowpop = 1, highpop = 1},
+	{name = "Chef", lowpop = 1, highpop = 1},
+	{name = "Janitor", lowpop = 1, highpop = 2},
+	{name = "Librarian", lowpop = 1, highpop = 1},
+	# Cargo/Supply
+	{name = "Quartermaster", lowpop = 1, highpop = 1},
+	{name = "Shaft Miner", lowpop = 6, highpop = 6},
+	{name = "Cargo Technician", lowpop = 3, highpop = 4},
+	# Silicon
+	{name = "AI", lowpop = 1, highpop = 1},
+	{name = "Cyborg", lowpop = 1, highpop = 1},
+	# Misc
+	{name = "Assistant", lowpop = -1, highpop = -1},
 ]
 
+
 ################################################################
+
 
 [logging_configuration]
 # Configuration for all things related to logging data to disk
@@ -458,7 +488,9 @@ enable_adminchat_logging = true
 # Log debug messages
 enable_debug_logging = true
 
+
 ################################################################
+
 
 [metrics_configuration]
 # This section contains values for all metrics storing.
@@ -472,7 +504,9 @@ metrics_endpoint = "http://elastic-host:9200/your_index/_doc"
 # Metrics API token. Placed into the auth header
 metrics_api_token = "your_base64_encoded_thingy=="
 
+
 ################################################################
+
 
 [mc_configuration]
 # This section is settings for the MC
@@ -491,7 +525,9 @@ mc_highpop_threshold_enable = 65
 # Threshold to disable MC highpop mode
 mc_highpop_threshold_disable = 60
 
+
 ################################################################
+
 
 [movement_configuration]
 # This section contains values for all mob movement stuff.
@@ -515,7 +551,9 @@ slime_delay = 1.5
 # Move delay for other simple animals
 animal_delay = 2.5
 
+
 ################################################################
+
 
 [overflow_configuration]
 # This contains information for re-routing players to an overflow server
@@ -528,7 +566,9 @@ overflow_server = "byond://yourdomain.com:1111"
 # List of ckeys who will not get rerouted to the overflow server
 overflow_whitelist = ["keyhere", "anotherhere"]
 
+
 ################################################################
+
 
 [redis_configuration]
 # This section contains all the settings for using redis.
@@ -539,7 +579,9 @@ redis_enabled = false
 # Redis connection string. Include your passphrase if needed
 redis_connstring = "redis://127.0.0.1/"
 
+
 ################################################################
+
 
 [ruin_configuration]
 # This section contains configuration for all space ruins and lava ruins
@@ -555,90 +597,107 @@ maximum_zlevels = 4
 # List of all space ruins that can generate in the world
 # Commenting something out in here DISABLES IT FROM SPAWNING
 active_space_ruins = [
-  "_maps/map_files/RandomRuins/SpaceRuins/way_home.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/asteroid1.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/asteroid2.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/asteroid3.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/asteroid4.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/asteroid5.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/derelict1.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/derelict2.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/derelict3.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/derelict4.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/derelict5.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/spacebar.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/abandonedzoo.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/deepstorage.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/emptyshell.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/intactemptyship.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/meatpackers.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/mechtransport.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/turretedoutpost.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/debris1.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/debris2.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/debris3.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/listeningpost.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/moonoutpost19.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/oldstation.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/onehalf.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/syndiecakesfactory.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/wizardcrash.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/voyager.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/wreckedcargoship.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/abandoned_engi_sat.dmm", ### The following ruins are based from past pre-spawned Zlevel content ###
-  "_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/blowntcommsat.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/clownmime.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/dj.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/druglab.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/syndicatedruglab.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/syndiedepot.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/syndie_space_base.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/ussp_tele.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/ussp.dmm", # The following is the white ship ruin. Its force-spawned and is required to stop SSshuttle runtiming on startup  # Its also important incase a white-ship console is ever built midround
-  # DO NOT DISABLE THIS UNLESS YOU HAVE A GOOD REASON
-  "_maps/map_files/RandomRuins/SpaceRuins/whiteship.dmm", # The following is a force-spawned ruin consisting mostly of empty space with a shuttle docking port for the free golem shuttle
-  # Disabling it will lead to the free golem shuttle sometimes being stuck on lavaland.
-  "_maps/map_files/RandomRuins/SpaceRuins/golemtarget.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/way_home.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/asteroid1.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/asteroid2.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/asteroid3.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/asteroid4.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/asteroid5.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/derelict1.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/derelict2.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/derelict3.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/derelict4.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/derelict5.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/spacebar.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/abandonedzoo.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/deepstorage.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/emptyshell.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/intactemptyship.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/meatpackers.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/mechtransport.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/turretedoutpost.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/debris1.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/debris2.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/debris3.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/listeningpost.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/moonoutpost19.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/oldstation.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/onehalf.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/syndiecakesfactory.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/wizardcrash.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/voyager.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/wreckedcargoship.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/abandoned_engi_sat.dmm",
+
+	### The following ruins are based from past pre-spawned Zlevel content ###
+	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/blowntcommsat.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/clownmime.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/dj.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/druglab.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/syndicatedruglab.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/syndiedepot.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/syndie_space_base.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/ussp_tele.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/ussp.dmm",
+
+
+	# The following is the white ship ruin. Its force-spawned and is required to stop SSshuttle runtiming on startup
+	# Its also important incase a white-ship console is ever built midround
+	# DO NOT DISABLE THIS UNLESS YOU HAVE A GOOD REASON
+	"_maps/map_files/RandomRuins/SpaceRuins/whiteship.dmm",
+
+	# The following is a force-spawned ruin consisting mostly of empty space with a shuttle docking port for the free golem shuttle
+	# Disabling it will lead to the free golem shuttle sometimes being stuck on lavaland.
+	"_maps/map_files/RandomRuins/SpaceRuins/golemtarget.dmm",
 ]
 # List of all ruins that can generate on lavaland
 # Commenting something out in here DISABLES IT FROM SPAWNING
 active_lava_ruins = [
-  ##BIODOMES
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_clown_planet.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_winter.dmm", ##RESPAWN
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ash_walker1.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_golem_ship.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hermit.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_seed_vault.dmm", ##SIN
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_envy.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_gluttony.dmm", # Greed blacklisted on production because its reward (dice) has a 1/20 chance of making you a wizard
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_greed.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pride.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_sloth.dmm", ##MEGAFAUNA
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk1.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk2.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk3.dmm", # Re-removed 7/24/2020, I ran a month-long test of hierophant Jun-Jul and the staff was still too strong. https://github.com/ParadiseSS13/Paradise/pull/13542
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm", ##MISC
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_excavation.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_facility.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cultaltar.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_dead_ratvar.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_elite_tumor.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_fountain_hall.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_monster_nest.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pizzaparty.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_puzzle.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_random_ripley.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_survivalpod.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ufo_crash.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_watcher_grave.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_xeno_nest.dmm",
+	##BIODOMES
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_clown_planet.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_winter.dmm",
+	##RESPAWN
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ash_walker1.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_golem_ship.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hermit.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_seed_vault.dmm",
+	##SIN
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_envy.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_gluttony.dmm",
+	# Greed blacklisted on production because its reward (dice) has a 1/20 chance of making you a wizard
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_greed.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pride.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_sloth.dmm",
+	##MEGAFAUNA
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk1.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk2.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk3.dmm",
+	# Re-removed 7/24/2020, I ran a month-long test of hierophant Jun-Jul and the staff was still too strong. https://github.com/ParadiseSS13/Paradise/pull/13542
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm",
+
+	##MISC
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_excavation.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_facility.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cultaltar.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_dead_ratvar.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_elite_tumor.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_fountain_hall.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_monster_nest.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pizzaparty.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_puzzle.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_random_ripley.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_survivalpod.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ufo_crash.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_watcher_grave.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_xeno_nest.dmm",
 ]
 # Budget for lavaland ruins. A higher number means more will spawn
 lavaland_ruin_budget = 60
 
+
 ################################################################
+
 
 [system_configuration]
 # This contains stuff that the host should fill out, relating to backend stuff
@@ -676,12 +735,14 @@ external_tos_handler = false
 # This is not for separate DD instances per region, but if you have a geo-routing setup deployed to optimise routing for players
 # I am 99.9% certain you will never need to fill this out
 regional_servers = [
-  #{name = "UK", ip = "byond://uk.paradisestation.org:6666"},
+	#{name = "UK", ip = "byond://uk.paradisestation.org:6666"},
 ]
 # Send a toast on server init completion. You probably dont need this on in production
 toast_on_init_complete = true
 
+
 ################################################################
+
 
 [url_configuration]
 # Configuration for all the URLs used by the server
@@ -722,7 +783,9 @@ centcomm_ban_db_url = "https://centcom.melonmesa.com/ban/search/"
 # URL for the game stats page, if applicable. Round ID is appended right on the end. Include a trailing slash if necessary.
 #round_stats_url = "https://affectedarc07.github.io/ParaStats/#/round/"
 
+
 ################################################################
+
 
 [voting_configuration]
 # This section contains all settings relating to the ingame voting system
@@ -750,16 +813,18 @@ non_repeating_maps = true
 # - "Random" = no vote, map is random
 # If you dont enter one correctly, it will whine on startup
 map_vote_day_types = [
-  {day_number = 1, rotation_type = "Vote"}, # Monday
-  {day_number = 2, rotation_type = "Random"}, # Tuesday
-  {day_number = 3, rotation_type = "Vote"}, # Wednesday
-  {day_number = 4, rotation_type = "Random"}, # Thursday
-  {day_number = 5, rotation_type = "Vote"}, # Friday
-  {day_number = 6, rotation_type = "Nodupes"}, # Saturday
-  {day_number = 7, rotation_type = "Nodupes"}, # Sunday
+	{ day_number = 1, rotation_type = "Vote" }, # Monday
+	{ day_number = 2, rotation_type = "Random" }, # Tuesday
+	{ day_number = 3, rotation_type = "Vote" }, # Wednesday
+	{ day_number = 4, rotation_type = "Random" }, # Thursday
+	{ day_number = 5, rotation_type = "Vote" }, # Friday
+	{ day_number = 6, rotation_type = "Nodupes" }, # Saturday
+	{ day_number = 7, rotation_type = "Nodupes" }, # Sunday
 ]
 
+
 ################################################################
+
 
 [asset_cache_configuration]
 # Browser assets are any file included in interfaces. css, images, javascript, etc.
@@ -778,5 +843,6 @@ asset_simple_preload = true
 # for best results the webserver powering this should return a long cache validity time, as all assets sent via this transport use hash based urls
 # if you want to test this locally, you simpily run the `localhost-asset-webroot-server.py` python3 script to host assets stored in `data/asset-store/` via http://localhost:58715/
 # asset_cdn_url = "http://localhost:58715/"
+
 
 # Congratulations. You reached the end. heres a cookie.
