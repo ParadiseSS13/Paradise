@@ -39,7 +39,8 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
 	flags_2 = RANDOM_BLOCKER_2
 	var/summon_cooldown = 0
-	var/list/mob/dead/observer/spirits
+	// var/list/mob/dead/observer/spirits
+	var/list/obj/effect/wisp/ghost/spirits
 
 /obj/item/melee/ghost_sword/New()
 	..()
@@ -51,7 +52,6 @@
 /obj/item/melee/ghost_sword/Destroy()
 	for(var/mob/dead/observer/G in spirits)
 		remove_ghost(G)
-	spirits.Cut()
 	remove_signals(src)
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 	GLOB.poi_list -= src
@@ -93,7 +93,10 @@
 
 	register_signals(ghost) // Pull in any ghosts that may be orbiting other ghosts TODO THIS MIGHT BE THE FUCKIN PROBLEM
 
-	spirits |= ghost
+	var/obj/effect/wisp/ghost/orb = new(src)
+	orb.color = ghost.get_runechat_color()
+	orb.orbit(src, clockwise = FALSE)
+	spirits[ghost] = orb
 	ghost.invisibility = 0
 
 /obj/item/melee/ghost_sword/proc/remove_ghost(atom/movable/orbited, atom/orbiter)
@@ -106,8 +109,9 @@
 
 	remove_signals(ghost)
 
+	var/attached_orb = spirits[ghost]
+	qdel(attached_orb)
 	spirits -= ghost
-	ghost.invisibility = initial(ghost.invisibility)
 
 /obj/item/melee/ghost_sword/proc/remove_signals(atom/A)
 	UnregisterSignal(A, COMSIG_ATOM_ORBIT_STOP)
