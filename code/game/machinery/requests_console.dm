@@ -363,7 +363,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	set_light(2)
 
 /obj/machinery/requests_console/proc/remind_unread_messages()
-	if(newmessagepriority == RQ_NONEW_MESSAGES)
+	if(newmessagepriority == RQ_NONEW_MESSAGES && reminder_timer_id != TIMER_ID_NULL)
 		deltimer(reminder_timer_id)
 		reminder_timer_id = TIMER_ID_NULL
 		return
