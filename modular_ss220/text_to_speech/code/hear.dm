@@ -30,6 +30,10 @@
 	return trim(msg)
 
 
+/mob/combine_message(list/message_pieces, verb, mob/speaker, always_stars)
+	. = ..()
+	return replace_characters(., list("+"))
+
 /mob/hear_say(list/message_pieces, verb, italics, mob/speaker, sound/speech_sound, sound_vol, sound_frequency, use_voice)
 	. = ..()
 	if(!can_hear())

@@ -52,6 +52,75 @@ SUBSYSTEM_DEF(tts220)
 
 	var/debug_mode_enabled = FALSE
 
+	var/static/tts_acronym_replacements = list(
+		"нт" = "Эн Тэ",
+		"смо" = "Эс Мэ О",
+		"гп" = "Гэ Пэ",
+		"рд" = "Эр Дэ",
+		"гсб" = "Гэ Эс Бэ",
+		"срп" = "Эс Эр Пэ",
+		"цк" = "Цэ Каа",
+		"рнд" = "Эр Эн Дэ",
+		"сб" = "Эс Бэ",
+		"рцд" = "Эр Цэ Дэ",
+		"брпд" = "Бэ Эр Пэ Дэ",
+		"рпд" = "Эр Пэ Дэ",
+		"рпед" = "Эр Пед",
+		"тсф" = "Тэ Эс Эф",
+		"срт" = "Эс Эр Тэ",
+		"обр" = "О Бэ Эр",
+		"кпк" = "Кэ Пэ Каа",
+		"пда" = "Пэ Дэ А",
+		"id" = "Ай Ди",
+		"мщ" = "Эм Ще",
+		"вт" = "Вэ Тэ",
+		"ерп" = "Йе Эр Пэ",
+		"се" = "Эс Йе",
+		"апц" = "А Пэ Цэ",
+		"лкп" = "Эл Ка Пэ",
+		"см" = "Эс Эм",
+		"ека" = "Йе Ка",
+		"ка" = "Кэ А",
+		"бса" = "Бэ Эс Аа",
+		"днк" = "Дэ Эн Ка",
+		"тк" = "Тэ Ка",
+		"бфл" = "Бэ Эф Эл",
+		"бщ" = "Бэ Щэ",
+		"кк" = "Кэ Ка",
+		"ск" = "Эс Ка",
+		"зк" = "Зэ Ка",
+		"ерт" = "Йе Эр Тэ",
+		"вкд" = "Вэ Ка Дэ",
+		"нтр" = "Эн Тэ Эр",
+		"пнт" = "Пэ Эн Тэ",
+		"авд" = "А Вэ Дэ",
+		"пнв" = "Пэ Эн Вэ",
+		"ссд" = "Эс Эс Дэ",
+		"кпб" = "Кэ Пэ Бэ",
+		"сссп" = "Эс Эс Эс Пэ",
+		"крб" = "Ка Эр Бэ",
+		"бд" = "Бэ Дэ",
+		"сст" = "Эс Эс Тэ",
+		"скс" = "Эс Ка Эс",
+		"икн" = "И Ка Эн",
+		"нсс" = "Эн Эс Эс",
+		"емп" = "Йе Эм Пэ",
+		"бс" = "Бэ Эс",
+		"цкс" = "Цэ Ка Эс",
+		"срд" = "Эс Эр Дэ",
+		"жпс" = "Джи Пи Эс",
+		"gps" = "Джи Пи Эс",
+		"ннксс" = "Эн Эн Ка Эс Эс",
+		"ss" = "Эс Эс",
+		"сс" = "Эс Эс",
+		"тесла" = "тэсла",
+		"трейзен" = "трэйзэн",
+		"нанотрейзен" = "нанотрэйзэн",
+		"мед" = "м ед",
+		"меде" = "м еде",
+		"кз" = "Кэ Зэ",
+	)
+
 	var/static/list/tts_job_replacements = list(
 		"nanotrasen navy field officer" = "Полевой офицер флота Нанотрэйзен",
 		"nanotrasen navy officer" = "Офицер флота nanotrasen",
@@ -115,18 +184,18 @@ SUBSYSTEM_DEF(tts220)
 		"warden" = "Смотритель",
 		"detective" = "Детектив",
 		"forensic technician" = "Криминалист",
+		"junior security officer" = "Младший офицер службы безопасности",
 		"security officer" = "Офицер службы безопасности",
 		"security trainer" = "Тренер службы безопасности",
-		"junior security officer" = "Младший офицер службы безопасности",
 		"security cadet" = "Кадет службы безопасности",
 		"Security Assistant" = "Ассистент службы безопасности",
 		"Security Graduate" = "Выпускник кадетской академии",
 		"brig physician" = "Врач брига",
 		"security pod pilot" = "Пилот пода службы безопасности",
+		"captain" = "Капитан",
 		"ai" = "И И",
 		"cyborg" = "Киборг",
 		"robot" = "Робот",
-		"captain" = "Капитан",
 		"head of personnel" = "Глава персонала",
 		"nanotrasen representative" = "Представитель Нанотрэйзен",
 		"blueshield" = "Блюшилд",
@@ -471,106 +540,33 @@ SUBSYSTEM_DEF(tts220)
 		sanitized_messages_cache_miss++
 	. = message
 	. = trim(.)
-
 	var/static/regex/punctuation_check = new(@"[.,?!]\Z")
 	if(!punctuation_check.Find(.))
 		. += "."
-
 	var/static/regex/html_tags = new(@"<[^>]*>", "g")
 	. = html_tags.Replace(., "")
 	. = html_decode(.)
-
 	var/static/regex/forbidden_symbols = new(@"[^a-zA-Z0-9а-яА-ЯёЁ,!?+./ \r\n\t:—()-]", "g")
 	. = forbidden_symbols.Replace(., "")
-
-	var/static/regex/words = new(@"(?<![a-zA-Zа-яёА-ЯЁ])[a-zA-Zа-яёА-ЯЁ]+?(?![a-zA-Zа-яёА-ЯЁ])", "igm")
-	. = replacetext(., words, /proc/tts_word_replacer)
+	var/static/regex/acronyms = new(@"(?<![a-zA-Zа-яёА-ЯЁ])[a-zA-Zа-яёА-ЯЁ]+?(?![a-zA-Zа-яёА-ЯЁ])", "gm")
+	. = replacetext_char(., acronyms, /proc/tts_acronym_replacer)
 	for(var/job in tts_job_replacements)
-		. = replacetext(., regex(job, "igm"), tts_job_replacements[job])
+		. = replacetext_char(., job, tts_job_replacements[job])
 	. = rustg_ss220_latin_to_cyrillic(.)
 
 	var/static/regex/decimals = new(@"-?\d+\.\d+", "g")
-	. = replacetext(., decimals, /proc/dec_in_words)
+	. = replacetext_char(., decimals, /proc/dec_in_words)
 
 	var/static/regex/numbers = new(@"-?\d+", "g")
-	. = replacetext(., numbers, /proc/num_in_words)
+	. = replacetext_char(., numbers, /proc/num_in_words)
 	if(sanitized_messages_caching)
 		sanitized_messages_cache[hash] = .
 
 /proc/tts_cast(atom/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
 	SStts220.get_tts(speaker, listener, message, seed_name, is_local, effect, traits, preSFX, postSFX)
 
-/proc/tts_word_replacer(word)
-	var/static/list/tts_replacement_list
-	if(!tts_replacement_list)
-		tts_replacement_list = list(
-			"нт" = "Эн Тэ",
-			"смо" = "Эс Мэ О",
-			"гп" = "Гэ Пэ",
-			"рд" = "Эр Дэ",
-			"гсб" = "Гэ Эс Бэ",
-			"срп" = "Эс Эр Пэ",
-			"цк" = "Цэ Каа",
-			"рнд" = "Эр Эн Дэ",
-			"сб" = "Эс Бэ",
-			"рцд" = "Эр Цэ Дэ",
-			"брпд" = "Бэ Эр Пэ Дэ",
-			"рпд" = "Эр Пэ Дэ",
-			"рпед" = "Эр Пед",
-			"тсф" = "Тэ Эс Эф",
-			"срт" = "Эс Эр Тэ",
-			"обр" = "О Бэ Эр",
-			"кпк" = "Кэ Пэ Каа",
-			"пда" = "Пэ Дэ А",
-			"id" = "Ай Ди",
-			"мщ" = "Эм Ще",
-			"вт" = "Вэ Тэ",
-			"ерп" = "Йе Эр Пэ",
-			"се" = "Эс Йе",
-			"апц" = "А Пэ Цэ",
-			"лкп" = "Эл Ка Пэ",
-			"см" = "Эс Эм",
-			"ека" = "Йе Ка",
-			"ка" = "Кэ А",
-			"бса" = "Бэ Эс Аа",
-			"тк" = "Тэ Ка",
-			"бфл" = "Бэ Эф Эл",
-			"бщ" = "Бэ Щэ",
-			"кк" = "Кэ Ка",
-			"ск" = "Эс Ка",
-			"зк" = "Зэ Ка",
-			"ерт" = "Йе Эр Тэ",
-			"вкд" = "Вэ Ка Дэ",
-			"нтр" = "Эн Тэ Эр",
-			"пнт" = "Пэ Эн Тэ",
-			"авд" = "А Вэ Дэ",
-			"пнв" = "Пэ Эн Вэ",
-			"ссд" = "Эс Эс Дэ",
-			"кпб" = "Кэ Пэ Бэ",
-			"сссп" = "Эс Эс Эс Пэ",
-			"крб" = "Ка Эр Бэ",
-			"бд" = "Бэ Дэ",
-			"сст" = "Эс Эс Тэ",
-			"скс" = "Эс Ка Эс",
-			"икн" = "И Ка Эн",
-			"нсс" = "Эн Эс Эс",
-			"емп" = "Йе Эм Пэ",
-			"бс" = "Бэ Эс",
-			"цкс" = "Цэ Ка Эс",
-			"срд" = "Эс Эр Дэ",
-			"жпс" = "Джи Пи Эс",
-			"gps" = "Джи Пи Эс",
-			"ннксс" = "Эн Эн Ка Эс Эс",
-			"ss" = "Эс Эс",
-			"сс" = "Эс Эс",
-			"тесла" = "тэсла",
-			"трейзен" = "трэйзэн",
-			"нанотрейзен" = "нанотрэйзэн",
-			"мед" = "м ед",
-			"меде" = "м еде",
-			"кз" = "Кэ Зэ",
-		)
-	var/match = tts_replacement_list[lowertext(word)]
+/proc/tts_acronym_replacer(word)
+	var/match = SStts220.tts_acronym_replacements[lowertext(word)]
 	if(match)
 		return match
 	return word
