@@ -89,8 +89,6 @@
 
 // Uses client.typing to check if the popup should appear or not
 /proc/typing_input(mob/user, message = "", title = "", default = "")
-	if(user.client.checkTyping()) // Prevent double windows
-		return null
 	var/client/C = user.client // Save it in a var in case the client disconnects from the mob
 	C.typing = TRUE
 	var/msg = input(user, message, title, html_decode(default)) as text|null

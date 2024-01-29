@@ -24,7 +24,7 @@ GLOBAL_VAR(thinking_indicator)
 	if(!client)
 		return FALSE
 
-	if(stat != CONSCIOUS || is_muzzled() || (client.prefs.toggles & PREFTOGGLE_SHOW_TYPING) || (me && (client.prefs.toggles2 & PREFTOGGLE_2_EMOTE_BUBBLE)))
+	if(stat != CONSCIOUS || is_muzzled() || (client.prefs.toggles & PREFTOGGLE_SHOW_TYPING))
 		overlays -= GLOB.typing_indicator[bubble_icon]
 		typing = FALSE
 		return FALSE
@@ -54,7 +54,7 @@ GLOBAL_VAR(thinking_indicator)
 	if(!client && !isliving(src))
 		return FALSE
 
-	if(stat != CONSCIOUS)
+	if(stat != CONSCIOUS || (client.prefs.toggles & PREFTOGGLE_SHOW_TYPING))
 		overlays -= GLOB.thinking_indicator
 		thinking = FALSE
 		return FALSE
@@ -96,29 +96,15 @@ GLOBAL_VAR(thinking_indicator)
 /client/verb/typing_indicator()
 	set name = "Show/Hide Typing Indicator"
 	set category = "Preferences"
-	set desc = "Toggles showing an indicator when you are typing a message."
+	set desc = "Toggles showing a typing/thought indicator when you have TGUIsay open."
 	prefs.toggles ^= PREFTOGGLE_SHOW_TYPING
 	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_SHOW_TYPING) ? "no longer" : "now"] display a typing indicator.")
+	to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_SHOW_TYPING) ? "no longer" : "now"] display a typing/thought indicator when you have TGUIsay open.")
 
 	// Clear out any existing typing indicator.
 	if(prefs.toggles & PREFTOGGLE_SHOW_TYPING)
 		if(istype(mob))
 			mob.set_typing_indicator(FALSE)
+			mob.set_thinking_indicator(FALSE)
 
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Typing Indicator (Speech)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/verb/emote_indicator()
-	set name = "Show/Hide Emote Typing Indicator"
-	set category = "Preferences"
-	set desc = "Toggles showing an indicator when you are typing an emote."
-	prefs.toggles2 ^= PREFTOGGLE_2_EMOTE_BUBBLE
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_EMOTE_BUBBLE) ? "no longer" : "now"] display a typing indicator for emotes.")
-
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Typing Indicator (Emote)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-	// Clear out any existing emote typing indicator.
-	if(prefs.toggles & PREFTOGGLE_2_EMOTE_BUBBLE)
-		if(istype(mob))
-			mob.set_typing_indicator(FALSE, TRUE)
