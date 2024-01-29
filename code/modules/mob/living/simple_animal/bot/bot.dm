@@ -35,7 +35,8 @@
 	var/disabling_timer_id = null
 	var/list/player_access = list()
 	var/emagged = FALSE
-	var/obj/item/card/id/access_card 		// The ID card that the bot "holds"
+	/// The ID card that the bot "holds"
+	var/obj/item/card/id/access_card
 	var/list/prev_access = list()
 	var/on = TRUE
 	/// Maint panel
@@ -66,7 +67,8 @@
 	var/list/ignore_list = list()
 	/// List of jobs claimed by bot
 	var/static/list/ignore_job = list()
-	var/mode = BOT_IDLE 					// Standardizes the vars that indicate the bot is busy with its function.
+	/// Standardizes the vars that indicate the bot is busy with its function.
+	var/mode = BOT_IDLE
 	/// Number of times the bot tried and failed to move.
 	var/tries = 0
 	/// If enabled, the AI cannot *Remotely* control a bot. It can still control it through cameras.
@@ -105,9 +107,13 @@
 	/// The nearest beacon's location
 	var/turf/nearest_beacon_loc
 
-	var/model = "" //The type of bot it is.
+	///The type of bot it is.
+	var/model = ""
+	/// Bot Purpose under Show Laws
 	var/bot_purpose = "improve the station to the best of your ability"
-	var/control_freq = BOT_FREQ				// Bot control frequency
+	/// Bot control frequency
+	var/control_freq = BOT_FREQ
+
 	/// The radio filter the bot uses to identify itself on the network.
 	var/bot_filter
 	/// The type of bot it is, for radio control.
