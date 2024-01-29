@@ -15,5 +15,8 @@ export const byondMessages = {
     true
   ),
   // Throttle: Prevents spamming the server
-  typingMsg: throttle(() => Byond.sendMessage('typing'), 4 * SECONDS),
+  typingMsg: throttle(
+    (isMeChannel: boolean) => Byond.sendMessage('typing', { isMeChannel }),
+    4 * SECONDS
+  ),
 } as const;

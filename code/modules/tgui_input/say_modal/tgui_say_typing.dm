@@ -18,14 +18,14 @@
  * Handles the user typing. After a brief period of inactivity,
  * signals the client mob to revert to the "thinking" icon.
  */
-/datum/tgui_say/proc/start_typing()
+/datum/tgui_say/proc/start_typing(me = FALSE)
 	if(!client?.mob)
 		return FALSE
 	client.mob.set_typing_indicator(FALSE)
 	client.mob.set_thinking_indicator(FALSE)
 	if(!window_open)
 		return FALSE
-	client.mob.set_typing_indicator(TRUE)
+	client.mob.set_typing_indicator(TRUE, me)
 	addtimer(CALLBACK(src, PROC_REF(stop_typing)), 5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
 
 /**

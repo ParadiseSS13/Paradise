@@ -70,14 +70,6 @@
 	return TRUE
 
 /**
- * Toggles between light and dark mode, triggered by a change in prefs.
- */
-/datum/tgui_say/proc/toggle_dark_light_mode()
-	window.send_message("props", list(
-		"lightMode" = (client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE),
-	))
-
-/**
  * Sets the window as "opened" server side, though it is already
  * visible to the user. We do this to set local vars &
  * start typing (if enabled and in an IC channel).
@@ -101,6 +93,7 @@
 /datum/tgui_say/proc/close()
 	window_open = FALSE
 	stop_thinking()
+	stop_typing()
 
 /**
  * The equivalent of ui_act, this waits on messages from the window
@@ -126,7 +119,7 @@
 				return TRUE
 			return FALSE
 		if("typing")
-			start_typing()
+			start_typing(payload["isMeChannel"])
 			return TRUE
 		if("entry", "force")
 			handle_entry(type, payload)

@@ -215,7 +215,7 @@ export class TguiSay extends Component<{}, State> {
       this.channelIterator.isVisible() &&
       this.currentPrefix !== (':+ ' || '.+ ' || '#+ ')
     ) {
-      this.messages.typingMsg();
+      this.messages.typingMsg(this.channelIterator.isMe());
     }
 
     this.setSize(typed?.length);

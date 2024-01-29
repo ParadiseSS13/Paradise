@@ -65,6 +65,10 @@ export class ChannelIterator {
     return this.channels[this.index];
   }
 
+  public isMe(): boolean {
+    return this.channels[this.index] === 'Me';
+  }
+
   public isSay(): boolean {
     return this.channels[this.index] === 'Say';
   }
