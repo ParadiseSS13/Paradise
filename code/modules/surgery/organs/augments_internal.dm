@@ -1,6 +1,6 @@
 /obj/item/organ/internal/cyberimp
 	name = "cybernetic implant"
-	desc = "a state-of-the-art implant that improves a baseline's functionality"
+	desc = "a state-of-the-art implant that improves a baseline's functionality."
 	status = ORGAN_ROBOT
 	var/implant_color = "#FFFFFF"
 	var/implant_overlay
@@ -21,7 +21,7 @@
 
 /obj/item/organ/internal/cyberimp/brain
 	name = "cybernetic brain implant"
-	desc = "injectors of extra sub-routines for the brain"
+	desc = "injectors of extra sub-routines for the brain."
 	icon_state = "brain_implant"
 	implant_overlay = "brain_implant_overlay"
 	parent_organ = "head"
@@ -204,7 +204,7 @@
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible
 	name = "Hardened Neural Jumpstarter implant"
-	desc = "A military-grade version of the standard implant, for NT's more elite forces. This one is compatible with the CNS Rebooter implant"
+	desc = "A military-grade version of the standard implant, for NT's more elite forces. This one is compatible with the CNS Rebooter implant."
 	slot = "brain_antisleep"
 	emp_proof = TRUE
 
@@ -273,8 +273,8 @@
 	origin_tech = "materials=5;programming=4;biotech=4"
 
 /obj/item/organ/internal/cyberimp/brain/wire_interface/insert(mob/living/carbon/M, special = FALSE)
+	..()
 	ADD_TRAIT(M, TRAIT_SHOW_WIRE_INFO, "show_wire_info[UID()]")
-	return ..()
 
 /obj/item/organ/internal/cyberimp/brain/wire_interface/remove(mob/living/carbon/M, special = FALSE)
 	REMOVE_TRAIT(M, TRAIT_SHOW_WIRE_INFO, "show_wire_info[UID()]")
@@ -309,7 +309,7 @@
 //[[[[CHEST]]]]
 /obj/item/organ/internal/cyberimp/chest
 	name = "cybernetic torso implant"
-	desc = "implants for the organs in your torso"
+	desc = "implants for the organs in your torso."
 	icon_state = "chest_implant"
 	implant_overlay = "chest_implant_overlay"
 	parent_organ = "chest"
@@ -504,8 +504,8 @@
 				E.droplimb(TRUE) //lego disasemble sound
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/insert(mob/living/carbon/M, special = FALSE)
+	..()
 	ADD_TRAIT(M, TRAIT_IPC_JOINTS_MAG, "ipc_joint[UID()]")
-	return ..()
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/remove(mob/living/carbon/M, special = FALSE)
 	REMOVE_TRAIT(M, TRAIT_IPC_JOINTS_MAG, "ipc_joint[UID()]")
@@ -526,9 +526,9 @@
 	return weaken_time
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/insert(mob/living/carbon/M, special = FALSE)
+	..()
 	ADD_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
 	owner.physiology.stamina_mod *= 1.15 //15% more stamina damage, representing extra friction in limbs. I guess.
-	return ..()
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/remove(mob/living/carbon/M, special = FALSE)
 	REMOVE_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
@@ -540,7 +540,7 @@
 /obj/item/storage/box/cyber_implants
 	name = "boxed cybernetic implants"
 	desc = "A sleek, sturdy box."
-	icon_state = "cyber_implants"
+	icon_state = "cyber_implants_box"
 	var/list/boxed = list(
 		/obj/item/autosurgeon/organ/syndicate/thermal_eyes,
 		/obj/item/autosurgeon/organ/syndicate/xray_eyes,

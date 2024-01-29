@@ -95,7 +95,7 @@
 	if(queen_bee)
 		if(bee_resources >= BEE_RESOURCE_HONEYCOMB_COST && honeycombs.len < get_max_honeycomb())
 			bee_resources = max(bee_resources-BEE_RESOURCE_HONEYCOMB_COST, 0)
-			var/obj/item/reagent_containers/food/snacks/honeycomb/HC = new(src)
+			var/obj/item/food/snacks/honeycomb/HC = new(src)
 			if(queen_bee.beegent)
 				HC.set_reagent(queen_bee.beegent.id)
 			honeycombs += HC
@@ -222,7 +222,7 @@
 			if(bees)
 				visible_message("<span class='danger'>[user] disturbs the bees!</span>")
 		else
-			var/option = input(user, "What Action do you wish to perform?", "Apiary") as null|anything in list("Remove a Honey Frame","Remove the Queen Bee")
+			var/option = tgui_input_list(user, "What Action do you wish to perform?", "Apiary", list("Remove a Honey Frame", "Remove the Queen Bee"))
 			if(!Adjacent(user) || !option)
 				return
 			switch(option)
@@ -240,7 +240,7 @@
 						var/amtH = HF.honeycomb_capacity
 						var/fallen = 0
 						while(honeycombs.len && amtH) //let's pretend you always grab the frame with the most honeycomb on it
-							var/obj/item/reagent_containers/food/snacks/honeycomb/HC = pick_n_take(honeycombs)
+							var/obj/item/food/snacks/honeycomb/HC = pick_n_take(honeycombs)
 							if(HC)
 								HC.forceMove(get_turf(src))
 								amtH--

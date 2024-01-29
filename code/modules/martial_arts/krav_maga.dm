@@ -108,15 +108,15 @@
 	if(IS_HORIZONTAL(D))
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
-	D.apply_damage(bonus_damage, BRUTE)
-	if(picked_hit_type == "kicks" || picked_hit_type == "stomps")
+	if(picked_hit_type == "kicks" || IS_HORIZONTAL(D))
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-		playsound(get_turf(D), 'sound/effects/hit_kick.ogg', 50, 1, -1)
+		playsound(get_turf(D), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	else
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-		playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+	D.apply_damage(bonus_damage, BRUTE)
 	return TRUE
 
 /datum/martial_art/krav_maga/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -132,7 +132,7 @@
 	else
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", \
 							"<span class='userdanger'>[A] attempted to disarm [D]!</span>")
-		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+		playsound(D, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 	return TRUE
 
 //Krav Maga Gloves

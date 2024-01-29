@@ -47,11 +47,18 @@ LIGHTERS ARE IN LIGHTERS.DM
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
+	RegisterSignal(src, COMSIG_ITEM_BEING_ATTACKED, PROC_REF(can_light))
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	QDEL_NULL(reagents)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/item/clothing/mask/cigarette/proc/can_light(obj/item/cigarette, obj/item/lighting_item)
+	SIGNAL_HANDLER
+	if(lighting_item.get_heat())
+		light()
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/item/clothing/mask/cigarette/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(isdrone(user))
@@ -250,6 +257,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 
+/obj/item/clothing/mask/cigarette/get_heat()
+	return lit * 1000
 
 /obj/item/clothing/mask/cigarette/menthol
 	list_reagents = list("nicotine" = 40, "menthol" = 20)
@@ -525,8 +534,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
-	if(istype(target, /obj/item/reagent_containers/food/snacks/grown))
-		var/obj/item/reagent_containers/food/snacks/grown/O = target
+	if(istype(target, /obj/item/food/snacks/grown))
+		var/obj/item/food/snacks/grown/O = target
 		if(O.dry)
 			user.unEquip(target, 1)
 			user.unEquip(src, 1)

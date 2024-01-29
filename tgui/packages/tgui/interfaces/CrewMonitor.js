@@ -5,17 +5,16 @@ import {
   Box,
   Button,
   Dropdown,
-  Flex,
-  Icon,
   Input,
   NanoMap,
+  Section,
+  Stack,
   Table,
   Tabs,
 } from '../components';
 import { TableCell } from '../components/Table';
-import { COLORS } from '../constants.js';
+import { COLORS } from '../constants';
 import { Window } from '../layouts';
-import { FlexItem } from '../components/Flex';
 
 const getStatText = (cm, critThreshold) => {
   if (cm.dead) {
@@ -49,7 +48,6 @@ const getStatColor = (cm, critThreshold) => {
 
 export const CrewMonitor = (props, context) => {
   const { act, data } = useBackend(context);
-  const { possible_levels, viewing_current_z_level, is_advanced } = data;
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
   const decideTab = (index) => {
     switch (index) {
@@ -63,42 +61,31 @@ export const CrewMonitor = (props, context) => {
   };
 
   return (
-    <Window resizable>
+    <Window width={800} height={600}>
       <Window.Content>
-        <Box fillPositionedParent>
-          <Tabs>
-            <Flex>
-              <FlexItem grow basis={100}>
-                <Tabs.Tab
-                  key="DataView"
-                  selected={0 === tabIndex}
-                  onClick={() => setTabIndex(0)}
-                >
-                  <Icon name="table" /> Data View
-                </Tabs.Tab>
-                <Tabs.Tab
-                  key="MapView"
-                  selected={1 === tabIndex}
-                  onClick={() => setTabIndex(1)}
-                >
-                  <Icon name="map-marked-alt" /> Map View
-                </Tabs.Tab>
-              </FlexItem>
-              {is_advanced ? (
-                <FlexItem>
-                  <Dropdown
-                    options={possible_levels}
-                    selected={viewing_current_z_level}
-                    onSelected={(val) =>
-                      act('switch_level', { new_level: val })
-                    }
-                  />
-                </FlexItem>
-              ) : null}
-            </Flex>
-          </Tabs>
+        <Stack fill vertical fillPositionedParent>
+          <Stack.Item>
+            <Tabs>
+              <Tabs.Tab
+                key="DataView"
+                icon="table"
+                selected={0 === tabIndex}
+                onClick={() => setTabIndex(0)}
+              >
+                Data View
+              </Tabs.Tab>
+              <Tabs.Tab
+                key="MapView"
+                icon="map-marked-alt"
+                selected={1 === tabIndex}
+                onClick={() => setTabIndex(1)}
+              >
+                Map View
+              </Tabs.Tab>
+            </Tabs>
+          </Stack.Item>
           {decideTab(tabIndex)}
-        </Box>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -107,17 +94,33 @@ export const CrewMonitor = (props, context) => {
 const CrewMonitorDataView = (_properties, context) => {
   const { act, data } = useBackend(context);
   const crew = sortBy((cm) => cm.name)(data.crewmembers || []);
+  const { possible_levels, viewing_current_z_level, is_advanced } = data;
   const [search, setSearch] = useLocalState(context, 'search', '');
   const searcher = createSearch(search, (cm) => {
     return cm.name + '|' + cm.assignment + '|' + cm.area;
   });
   return (
-    <Box>
-      <Input
-        placeholder="Search by name, assignment or location.."
-        width="100%"
-        onInput={(_e, value) => setSearch(value)}
-      />
+    <Section fill scrollable backgroundColor="transparent">
+      <Stack>
+        <Stack.Item width="100%" ml="5px">
+          <Input
+            placeholder="Search by name, assignment or location.."
+            width="100%"
+            onInput={(_e, value) => setSearch(value)}
+          />
+        </Stack.Item>
+        <Stack.Item>
+          {is_advanced ? (
+            <Dropdown
+              mr="5px"
+              width="50px"
+              options={possible_levels}
+              selected={viewing_current_z_level}
+              onSelected={(val) => act('switch_level', { new_level: val })}
+            />
+          ) : null}
+        </Stack.Item>
+      </Stack>
       <Table m="0.5rem">
         <Table.Row header>
           <Table.Cell>Name</Table.Cell>
@@ -180,7 +183,7 @@ const CrewMonitorDataView = (_properties, context) => {
           </Table.Row>
         ))}
       </Table>
-    </Box>
+    </Section>
   );
 };
 

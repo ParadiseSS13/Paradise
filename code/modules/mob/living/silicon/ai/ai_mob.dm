@@ -123,6 +123,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	//Used with the hotkeys on 2-5 to store locations.
 	var/list/stored_locations = list()
+	var/cracked_camera = FALSE // will be true if malf AI break its camera
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
@@ -938,7 +939,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			for(var/i in tempnetwork)
 				cameralist[i] = i
 	var/old_network = network
-	network = input(U, "Which network would you like to view?") as null|anything in cameralist
+	network = tgui_input_list(U, "Which network would you like to view?", "Jump To Network", cameralist)
 
 	if(check_unable())
 		return
@@ -1018,7 +1019,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["photo"]//Pull names, rank, and id photo.
 
 			if(personnel_list.len)
-				input = input("Select a crew member:") as null|anything in personnel_list
+				input = tgui_input_list(usr, "Select a crew member", "Change Hologram", personnel_list)
 				var/icon/character_icon = personnel_list[input]
 				if(character_icon)
 					qdel(holo_icon)//Clear old icon so we're not storing it in memory.
@@ -1061,7 +1062,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			"Roller-Monkey"
 			)
 
-			input = input("Please select a hologram:") as null|anything in icon_list
+			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)
@@ -1148,7 +1149,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			if(custom_hologram) //insert custom hologram
 				icon_list.Add("custom")
 
-			input = input("Please select a hologram:") as null|anything in icon_list
+			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)

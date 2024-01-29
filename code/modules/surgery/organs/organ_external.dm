@@ -182,9 +182,10 @@
 				H.f_style = "Shaved"
 				C.m_styles["head"] = "None"
 		user.visible_message(
-	"<span class='notice'>[user] has attached [C]'s [src] to the [amputation_point].</span>",
-	"<span class='notice'>You have attached [C]'s [src] to the [amputation_point].</span>")
-	return TRUE
+			"<span class='notice'>[user] has attached [C]'s [src] to the [amputation_point].</span>",
+			"<span class='notice'>You have attached [C]'s [src] to the [amputation_point].</span>")
+		return TRUE
+
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
 	loc = null
@@ -219,7 +220,9 @@
 ****************************************************/
 
 /obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
-	var/max_limb_damage = max_damage - (HAS_TRAIT(owner, TRAIT_IPC_JOINTS_MAG) ? max_damage * 0.25 : 0)
+	var/max_limb_damage = max_damage
+	if(owner)
+		max_limb_damage -= (HAS_TRAIT(owner, TRAIT_IPC_JOINTS_MAG) ? max_damage * 0.25 : 0)
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
@@ -306,8 +309,7 @@
 				//And pass the pain around
 				var/obj/item/organ/external/target = pick(possible_points)
 				target.receive_damage(brute, burn, sharp, used_weapon, forbidden_limbs + src, ignore_resists = TRUE) //If the damage was reduced before, don't reduce it again
-
-			if(dismember_at_max_damage && body_part != UPPER_TORSO && body_part != LOWER_TORSO && !HAS_TRAIT(owner, TRAIT_IPC_JOINTS_SEALED)) // We've ensured all damage to the mob is retained, now let's drop it, if necessary.
+			if(owner && dismember_at_max_damage && body_part != UPPER_TORSO && body_part != LOWER_TORSO && !HAS_TRAIT(owner, TRAIT_IPC_JOINTS_SEALED)) // We've ensured all damage to the mob is retained, now let's drop it, if necessary.
 				droplimb(1) //Clean loss, just drop the limb and be done
 
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
@@ -357,11 +359,11 @@
 	else if(emp_resistant) // IPC limbs
 		switch(severity)
 			if(1)
-				// 5.28 (9 * 0.66 burn_mod) burn damage, 65.34 damage with 11 limbs.
-				receive_damage(0, 9)
+				// 5.9 burn damage, 64.9 damage with 11 limbs.
+				receive_damage(0, 5.9)
 			if(2)
-				// 3.63 (5 * 0.66 burn_mod) burn damage, 39.93 damage with 11 limbs.
-				receive_damage(0, 5.5)
+				// 3.63 burn damage, 39.93 damage with 11 limbs.
+				receive_damage(0, 3.63)
 	else // Basic prosthetic limbs
 		switch(severity)
 			if(1)

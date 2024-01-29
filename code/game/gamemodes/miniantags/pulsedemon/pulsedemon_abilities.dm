@@ -441,7 +441,7 @@
 		to_chat(user, "<span class='warning'>You have already fully upgraded everything available!</span>")
 		return FALSE
 
-	var/raw_choice = show_radial_menu(user, isturf(user.loc) ? user : user.loc, upgrades, radius = 48)
+	var/raw_choice = show_radial_menu(user, user, upgrades, radius = 48)
 	if(!raw_choice)
 		return
 	var/choice = splittext(raw_choice, " ")[1]

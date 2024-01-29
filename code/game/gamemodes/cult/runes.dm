@@ -1,5 +1,4 @@
 GLOBAL_LIST_EMPTY(sacrificed) // A mixed list of minds and mobs
-GLOBAL_LIST_EMPTY(wall_runes) // A list of all cult shield walls
 GLOBAL_LIST_EMPTY(teleport_runes) // I'll give you two guesses
 
 /*
@@ -194,7 +193,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 			ghost_invokers++
 		if(invocation)
-			if(!L.IsVocal())
+			if(!L.IsVocal() || L.cannot_speak_loudly())
 				L.custom_emote(EMOTE_VISIBLE, message = pick("draws arcane sigils in the air.","gestures ominously.","silently mouths out an invocation.","places their hands on the rune, activating it."))
 			else
 				L.say(invocation)
@@ -290,7 +289,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	// Offering a head/brain
 	for(var/obj/item/organ/O in T)
-		var/mob/living/carbon/brain/b_mob
+		var/mob/living/brain/b_mob
 		if(istype(O, /obj/item/organ/external/head)) // Offering a head
 			var/obj/item/organ/external/head/H = O
 			for(var/obj/item/organ/internal/brain/brain in H.contents)
@@ -370,7 +369,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 			var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
 			if(H.equip_to_slot_if_possible(D, SLOT_HUD_IN_BACKPACK, FALSE, TRUE))
-				to_chat(H, "<span class='cultlarge'>You have a dagger in your backpack. Use it to do [SSticker.cultdat.entity_title1]'s bidding. </span>")
+				to_chat(H, "<span class='cultlarge'>You have a dagger in your backpack. Use it to do [SSticker.cultdat.entity_title1]'s bidding.</span>")
 			else
 				to_chat(H, "<span class='cultlarge'>There is a dagger on the floor. Use it to do [SSticker.cultdat.entity_title1]'s bidding.</span>")
 
@@ -490,7 +489,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		return
 
-	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
+	var/input_rune_key = tgui_input_list(user, "Choose a rune to teleport to.", "Rune to Teleport to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	if(QDELETED(src) || QDELETED(actual_selected_rune) ||!Adjacent(user) || user.incapacitated())
 		fail_invoke()
@@ -632,7 +631,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		return
 	if(length(potential_revive_mobs) > 1)
-		mob_to_revive = input(user, "Choose a cultist to revive.", "Cultist to Revive") as null|anything in potential_revive_mobs
+		mob_to_revive = tgui_input_list(user, "Choose a cultist to revive.", "Cultist to Revive", potential_revive_mobs)
 	else // If there's only one, no need for a menu
 		mob_to_revive = potential_revive_mobs[1]
 	if(!validness_checks(mob_to_revive, user))
@@ -716,12 +715,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/wall/Initialize(mapload)
 	. = ..()
-	GLOB.wall_runes += src
 	B = new /obj/machinery/shield/cult/barrier(loc)
 	B.parent_rune = src
 
 /obj/effect/rune/wall/Destroy()
-	GLOB.wall_runes -= src
 	if(B && !QDELETED(B))
 		QDEL_NULL(B)
 	return ..()
@@ -756,7 +753,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	for(var/datum/mind/M in SSticker.mode.cult)
 		if(!(M.current in invokers) && M.current && M.current.stat != DEAD)
 			cultists[M.current.real_name] = M.current
-	var/input = input(user, "Who do you wish to call to [src]?", "Acolytes") as null|anything in cultists
+	var/input = tgui_input_list(user, "Who do you wish to call to [src]?", "Acolytes", cultists)
 	var/mob/living/cultist_to_summon = cultists[input]
 	if(QDELETED(src) || !Adjacent(user) || user.incapacitated())
 		return

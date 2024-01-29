@@ -26,7 +26,7 @@
 	regen_points_per_tick = 3
 	melee_damage_lower = 10
 	melee_damage_upper = 20
-	ventcrawler = 1
+	ventcrawler = VENTCRAWLER_NUDE
 	ai_break_lights = FALSE
 	ai_spins_webs = FALSE
 	ai_ventcrawls = FALSE
@@ -236,7 +236,7 @@
 	queensense_action.Grant(src)
 	queennest_action.Remove(src)
 	hasnested = TRUE
-	ventcrawler = 0
+	ventcrawler = VENTCRAWLER_NONE
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	DoQueenScreech(8, 100, 8, 100)

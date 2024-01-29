@@ -41,6 +41,8 @@ GLOBAL_LIST_INIT(silver_recipes, list (
 		new /datum/stack_recipe("Monkey Statue", /obj/structure/statue/silver/monkey, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("Corgi Statue", /obj/structure/statue/silver/corgi, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		)),
+	null,
+	new /datum/stack_recipe("Silver Locket", /obj/item/clothing/accessory/necklace/locket/silver, 1),
 	))
 
 GLOBAL_LIST_INIT(diamond_recipes, list (
@@ -82,7 +84,13 @@ GLOBAL_LIST_INIT(gold_recipes, list (
 		new /datum/stack_recipe("CMO Statue", /obj/structure/statue/gold/cmo, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		)),
 	null,
-	new /datum/stack_recipe("Simple Crown", /obj/item/clothing/head/crown, 5),
+	new /datum/stack_recipe_list("gold clothing", list(
+		new /datum/stack_recipe("Simple Crown", /obj/item/clothing/head/crown, 5),
+		null,
+		new /datum/stack_recipe("Simple Necklace", /obj/item/clothing/accessory/necklace, 1),
+		new /datum/stack_recipe("Large Necklace", /obj/item/clothing/accessory/necklace/long, 2),
+		new /datum/stack_recipe("Gold Locket", /obj/item/clothing/accessory/necklace/locket, 1),
+		)),
 	))
 
 GLOBAL_LIST_INIT(plasma_recipes, list (
@@ -264,7 +272,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	return TRUE
 
 /obj/item/stack/sheet/mineral/plasma/attackby(obj/item/I, mob/living/user, params)
-	if(is_hot(I))
+	if(I.get_heat())
 		log_and_set_aflame(user, I)
 	else
 		return ..()

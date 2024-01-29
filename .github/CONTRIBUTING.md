@@ -163,6 +163,22 @@ eg: `/datum/thing`, not `datum/thing`
 In DM, this is optional, but omitting it makes finding definitions harder. To be specific, you can declare the path `/arbitrary`, but it
 will still be, in actuality, `/datum/arbitrary`. Write your code to reflect this.
 
+### Do not use list operators in strings
+
+The use of list operators to augment strings is not allowed. This is roughly 10 times slower than using a list with a Join() Function.
+
+```dm
+//Bad
+var/text = "text"
+text += "More text"
+to_chat(world, text)
+
+//Good
+var/list/text = list("text")
+text += "More text"
+to_chat(world, text.Join(""))
+```
+
 ### Do not use text/string based type paths
 
 It is rarely allowed to put type paths in a text format, as there are no compile errors if the type path no longer exists. Here is an example:
@@ -737,7 +753,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 `Headcoders` are the overarching "administrators" of the repository. People included in this role are:
 
 * [farie82](https://github.com/farie82)
-* [Fox P McCloud](https://github.com/Fox-McCloud)
+* [Charliminator](https://github.com/hal9000PR)
 * [SteelSlayer](https://github.com/SteelSlayer)
 
 ---
@@ -746,7 +762,6 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 
 
 * [AffectedArc07](https://github.com/AffectedArc07)
-* [Charliminator](https://github.com/hal9000PR)
 * [lewcc](https://github.com/lewcc)
 * [S34N](https://github.com/S34NW)
 
@@ -760,6 +775,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 * [Contrabang](https://github.com/Contrabang)
 * [Burzah](https://github.com/Burzah)
 * [DGamerL](https://github.com/DGamerL)
+* [Warriorstar](https://github.com/warriorstar-orion)
 
 ---
 

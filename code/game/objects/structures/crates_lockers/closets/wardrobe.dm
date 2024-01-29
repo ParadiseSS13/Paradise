@@ -118,6 +118,8 @@
 /obj/structure/closet/wardrobe/xenos/populate_contents()
 	new /obj/item/clothing/suit/unathi/mantle(src)
 	new /obj/item/clothing/suit/unathi/robe(src)
+	new /obj/item/clothing/gloves/handwraps(src)
+	new /obj/item/clothing/gloves/handwraps(src)
 	new /obj/item/clothing/shoes/sandal(src)
 	new /obj/item/clothing/shoes/sandal(src)
 	new /obj/item/clothing/shoes/sandal(src)
@@ -447,3 +449,4 @@
 	new /obj/item/clothing/head/surgery/black(src)
 	new /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde(src)
 	new /obj/item/reagent_containers/dropper(src)
+	new /obj/item/healthanalyzer(src)
