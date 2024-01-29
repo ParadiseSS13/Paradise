@@ -120,6 +120,22 @@
 	set category = "Эмоции"
 	emote("slap", intentional = TRUE)
 
+/// Exercise Emotes ///
+/mob/living/carbon/human/verb/emote_exercise()
+	set name = "⚝ Упражнения"
+	set category = "Эмоции"
+	emote("exercise", intentional = TRUE)
+
+/mob/living/carbon/human/verb/emote_pushup()
+	set name = "⚝ Отжимания"
+	set category = "Эмоции"
+	emote("pushup", intentional = TRUE)
+
+/mob/living/carbon/human/verb/emote_squat()
+	set name = "⚝ Приседания"
+	set category = "Эмоции"
+	emote("squat", intentional = TRUE)
+
 /// ME Emotes ///
 /mob/living/carbon/human/verb/emote_scratch()
 	set name = "◦ " + EMOTE_HUMAN_SCRATCH + " "

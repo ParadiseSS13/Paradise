@@ -1,5 +1,11 @@
 #include "_emotes.dm"
 
+#include "code/exercise/exercises/exercise.dm"
+#include "code/exercise/exercises/pushup.dm"
+#include "code/exercise/exercises/squat.dm"
+#include "code/exercise/exercise_animation.dm"
+#include "code/exercise/exercise_datum.dm"
+#include "code/exercise/exercise_emotes.dm"
 #include "code/emote_keybindings.dm"
 #include "code/emote_panel_names.dm"
 #include "code/emote_panel.dm"

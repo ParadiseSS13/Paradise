@@ -49,3 +49,15 @@
 /datum/keybinding/emote/carbon/human/whip
 	linked_emote = /datum/emote/living/carbon/human/whip
 	name = EMOTE_HUMAN_WHIP
+
+/datum/keybinding/emote/exercise
+	linked_emote = /datum/emote/exercise
+	name = "Упражнения"
+
+/datum/keybinding/emote/exercise/squat
+	linked_emote = /datum/emote/exercise/squat
+	name = "Приседания"
+
+/datum/keybinding/emote/exercise/pushup
+	linked_emote = /datum/emote/exercise/pushup
+	name = "Отжимания"
