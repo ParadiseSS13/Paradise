@@ -48,6 +48,8 @@
 	var/datum/action/changeling/sting/chosen_sting
 	/// If the changeling is in the process of regenerating from their fake death.
 	var/regenerating = FALSE
+	/// Did changeling use headslug?
+	var/headslugged = FALSE
 
 
 /datum/antagonist/changeling/New()
