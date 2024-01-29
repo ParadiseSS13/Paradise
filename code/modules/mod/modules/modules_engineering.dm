@@ -145,7 +145,7 @@
 	if(firer && isliving(firer))
 		var/mob/living/L = firer
 		L.apply_status_effect(STATUS_EFFECT_IMPACT_IMMUNE)
-		L.throw_at(target, 15, 1, L, FALSE, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_IMPACT_IMMUNE))
+		L.throw_at(target, 15, 1, L, FALSE, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_IMPACT_IMMUNE), block_movement = FALSE)
 
 /obj/item/projectile/tether/Destroy()
 	QDEL_NULL(chain)
