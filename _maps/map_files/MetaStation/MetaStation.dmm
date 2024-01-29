@@ -56181,7 +56181,11 @@
 "hDY" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/windoor/access/all/security/brig{
+/obj/machinery/door/window/reinforced/normal{
+	name = "Security Desk";
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -69196,19 +69200,19 @@
 	name = "Outer Window";
 	dir = 8
 	},
-/obj/machinery/door/window/reinforced/normal{
-	name = "Security Desk";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
-	dir = 4
-	},
 /obj/item/folder/red,
 /obj/item/pen{
 	pixel_x = -3;
 	pixel_y = 5
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
+	dir = 4
+	},
+/obj/machinery/door/window/reinforced/normal{
+	name = "Security Desk";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "ncG" = (
@@ -72348,10 +72352,6 @@
 "oDf" = (
 /obj/item/paper,
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/reinforced/normal{
-	name = "Arrivals Security Checkpoint";
-	pixel_y = -8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
