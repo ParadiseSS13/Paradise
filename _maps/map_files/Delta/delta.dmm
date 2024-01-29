@@ -71993,9 +71993,8 @@
 "dTh" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/camera{
-	c_tag = "Virology south";
-	dir = 4;
-	network = list("Medical","SS13")
+	c_tag = "Departure Lounge North";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
