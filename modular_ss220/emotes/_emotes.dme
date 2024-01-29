@@ -5,6 +5,5 @@
 #include "code/emote_panel.dm"
 #include "code/emote.dm"
 #include "code/emote_verbs.dm"
-#include "code/emote_translations.dm"
 #include "code/species.dm"
 #include "code/racial_emotes.dm"
