@@ -19,7 +19,7 @@
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
 	hat_offset_y = -15
-	is_centered = TRUE
+	stretched_hat = TRUE
 	can_be_hatted = TRUE
 	can_wear_restricted_hats = TRUE
 	/// Cooldown for law syncs
