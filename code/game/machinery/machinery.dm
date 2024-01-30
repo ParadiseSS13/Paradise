@@ -221,7 +221,7 @@
 	else
 		return attack_hand(user)
 
-/obj/machinery/attack_hand(mob/user)
+/obj/machinery/attack_hand(mob/user as mob)
 	if(user.incapacitated())
 		return TRUE
 
