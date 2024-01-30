@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 @use 'sass:color';
 @use 'sass:meta';
 
@@ -8,8 +13,7 @@
 );
 @use '../base.scss' with (
   $color-bg: #550202,
-  $color-bg-grad-spread: 6%,
-  $border-radius: 2px
+  $color-bg-grad-spread: 6%
 );
 
 .theme-syndicate {
@@ -33,7 +37,7 @@
   );
   @include meta.load-css(
     '../components/NoticeBox.scss',
-    $with: ('color-background': #910101)
+    $with: ('background-color': #910101)
   );
   @include meta.load-css(
     '../components/NumberInput.scss',
@@ -41,12 +45,12 @@
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: ('color-background': rgba(0, 0, 0, 0.5), 'color-disabled': #363636)
+    $with: ('background-color': rgba(0, 0, 0, 0.5))
   );
   @include meta.load-css('../components/Section.scss');
   @include meta.load-css(
     '../components/Tooltip.scss',
-    $with: ('color-background': #4a0202)
+    $with: ('background-color': #4a0202)
   );
 
   // Layouts
@@ -54,16 +58,17 @@
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('color-background': #910101)
+    $with: ('background-color': #910101)
   );
 
   .Layout__content {
+    // From 'packages/tgui/assets/bg-syndicate.svg', converted to base64 manually to stop webpack exploding
     background-image: url('../../assets/bg-syndicate.svg');
   }
-
   .candystripe:nth-child(odd) {
     background-color: rgba(0, 0, 0, 0.4);
   }
+
   .candystripe:nth-child(even) {
     background-color: rgba(0, 0, 0, 0.25);
   }

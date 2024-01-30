@@ -143,10 +143,10 @@
 	origin_tech = "syndicate=1"
 
 /obj/item/mod/module/noslip/on_suit_activation()
-	mod.boots.flags |= NOSLIP
+	ADD_TRAIT(mod.wearer, TRAIT_NOSLIP, UID())
 
 /obj/item/mod/module/noslip/on_suit_deactivation(deleting = FALSE)
-	mod.boots.flags ^= NOSLIP
+	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIP, UID())
 
 //Bite of 87 Springlock - Equips faster, disguised as DNA lock, can block retracting for 10 seconds.
 /obj/item/mod/module/springlock/bite_of_87
@@ -272,7 +272,7 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 10
 	incompatible_modules = list(/obj/item/mod/module/stealth)
-	cooldown_time = 5 SECONDS
+	cooldown_time = 10 SECONDS
 	origin_tech = "combat=6;materials=6;powerstorage=5;bluespace=5;syndicate=2" //Printable at 3
 	/// Whether or not the cloak turns off on bumping.
 	var/bumpoff = TRUE
@@ -286,7 +286,7 @@
 	if(bumpoff)
 		RegisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP, PROC_REF(unstealth))
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
-	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act)) //TODO QWERTY: A LOT OF THESE SIGNALS AINT TRIGGERING. or at least this one.
+	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
 	RegisterSignals(mod.wearer, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW), PROC_REF(unstealth))
 	animate(mod.wearer, alpha = stealth_alpha, time = 1.5 SECONDS)
 	drain_power(use_power_cost)
@@ -306,6 +306,7 @@
 	to_chat(mod.wearer, "<span class='warning'>[src] gets discharged from contact!</span>")
 	do_sparks(2, TRUE, src)
 	drain_power(use_power_cost)
+	COOLDOWN_START(src, cooldown_timer, cooldown_time) //Put it on cooldown.
 	on_deactivation(display_message = TRUE, deleting = FALSE)
 
 /obj/item/mod/module/stealth/proc/on_unarmed_attack(datum/source, atom/target)
@@ -330,6 +331,7 @@
 	icon_state = "cloak_ninja"
 	bumpoff = FALSE
 	stealth_alpha = 10
+	cooldown_time = 5 SECONDS
 	active_power_cost = DEFAULT_CHARGE_DRAIN
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	cooldown_time = 3 SECONDS
@@ -407,3 +409,153 @@
 
 /obj/item/mod/module/ert_camera/on_suit_deactivation(deleting = FALSE)
 	QDEL_NULL(camera)
+
+///Energy Shield - Gives you a rechargeable energy shield that nullifies attacks.
+/obj/item/mod/module/energy_shield
+	name = "MOD energy shield module"
+	desc = "A personal, protective forcefield typically seen in military applications. \
+		This advanced deflector shield is essentially a scaled down version of those seen on starships, \
+		and the power cost can be an easy indicator of this. However, it is capable of blocking nearly any incoming attack, \
+		though with its' low amount of separate charges, the user remains mortal."
+	icon_state = "energy_shield"
+	complexity = 3
+	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 2
+	incompatible_modules = list(/obj/item/mod/module/energy_shield)
+	/// Max charges of the shield.
+	var/max_charges = 3
+	/// The time it takes for the first charge to recover.
+	var/recharge_start_delay = 20 SECONDS
+	/// How much time it takes for charges to recover after they started recharging.
+	var/charge_increment_delay = 1 SECONDS
+	/// How much charge is recovered per recovery.
+	var/charge_recovery = 1
+	/// Whether or not this shield can lose multiple charges.
+	var/lose_multiple_charges = FALSE
+	/// The item path to recharge this shield.
+	var/recharge_path = null
+	/// The icon file of the shield.
+	var/shield_icon_file = 'icons/effects/effects.dmi'
+	/// The icon_state of the shield.
+	var/shield_icon = "shield-red"
+	/// Charges the shield should start with.
+	var/charges
+
+/obj/item/mod/module/energy_shield/Initialize(mapload)
+	. = ..()
+	charges = max_charges
+
+/obj/item/mod/module/energy_shield/on_suit_activation()
+	mod.AddComponent(/datum/component/shielded, max_charges = max_charges, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
+	charge_recovery = charge_recovery, lose_multiple_charges = lose_multiple_charges, recharge_path = recharge_path, starting_charges = charges, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
+	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
+
+/obj/item/mod/module/energy_shield/on_suit_deactivation(deleting = FALSE)
+	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
+	charges = shield.current_charges
+	qdel(shield)
+	UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
+
+/obj/item/mod/module/energy_shield/proc/shield_reaction(mob/living/carbon/human/owner,
+	atom/movable/hitby,
+	attack_text = "the attack",
+	final_block_chance = 0,
+	damage = 0,
+	attack_type = MELEE_ATTACK,
+	damage_type = BRUTE
+)
+	SIGNAL_HANDLER
+
+	if(SEND_SIGNAL(mod, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL)
+		drain_power(use_power_cost)
+		return SHIELD_BLOCK
+	return NONE
+
+/obj/item/mod/module/energy_shield/gamma
+	shield_icon = "shield-old"
+
+/obj/item/mod/module/anomaly_locked/teslawall
+	name = "MOD arc-shield module" // temp
+	desc = "A module that uses a flux core to project an unstable protective shield." //change
+	icon_state = "tesla"
+	complexity = 3
+	idle_power_cost = DEFAULT_CHARGE_DRAIN * 3
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 75
+	accepted_anomalies = list(/obj/item/assembly/signaler/anomaly/flux)
+	incompatible_modules = list(/obj/item/mod/module/energy_shield, /obj/item/mod/module/anomaly_locked)
+	///Copy paste of shielded code wheeeey
+	/// Max charges of the shield.
+	var/max_charges = 80 // Less charges because not gamma / this one is real shocking
+	/// The time it takes for the first charge to recover.
+	var/recharge_start_delay = 10 SECONDS
+	/// How much time it takes for charges to recover after they started recharging.
+	var/charge_increment_delay = 10 SECONDS
+	/// How much charge is recovered per recovery.
+	var/charge_recovery = 20
+	/// Whether or not this shield can lose multiple charges.
+	var/lose_multiple_charges = TRUE
+	/// The item path to recharge this shield.
+	var/recharge_path = null
+	/// The icon file of the shield.
+	var/shield_icon_file = 'icons/effects/effects.dmi'
+	/// The icon_state of the shield.
+	var/shield_icon = "electricity3"
+	/// Charges the shield should start with.
+	var/charges
+
+	/// Teslawall specific variables.
+	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+	var/zap_range = 5
+	var/power = 12500
+	var/shock_damage = 30
+
+/obj/item/mod/module/anomaly_locked/teslawall/Initialize(mapload)
+	. = ..()
+	charges = max_charges
+
+/obj/item/mod/module/anomaly_locked/teslawall/on_suit_activation()
+	mod.AddComponent(/datum/component/shielded, max_charges = max_charges, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
+	charge_recovery = charge_recovery, lose_multiple_charges = lose_multiple_charges, show_charge_as_alpha = lose_multiple_charges, recharge_path = recharge_path, starting_charges = charges, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
+	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
+	ADD_TRAIT(mod.wearer, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/item/mod/module/anomaly_locked/teslawall/on_suit_deactivation(deleting = FALSE)
+	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
+	charges = shield.current_charges
+	qdel(shield)
+	UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
+	REMOVE_TRAIT(mod.wearer, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/item/mod/module/anomaly_locked/teslawall/proc/shield_reaction(mob/living/carbon/human/owner,
+	atom/movable/hitby,
+	attack_text = "the attack",
+	final_block_chance = 0,
+	damage = 0,
+	attack_type = MELEE_ATTACK,
+	damage_type = BRUTE
+)
+	SIGNAL_HANDLER
+
+	if(SEND_SIGNAL(mod, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL)
+		drain_power(use_power_cost)
+		arc_flash(owner, hitby, damage, attack_type)
+		return SHIELD_BLOCK
+	return NONE
+
+/obj/item/mod/module/anomaly_locked/teslawall/proc/arc_flash(mob/owner, atom/movable/hitby, damage, attack_type)
+	if((attack_type == PROJECTILE_ATTACK || attack_type == THROWN_PROJECTILE_ATTACK) && prob(33))
+		tesla_zap(owner, zap_range, power, zap_flags)
+		return
+	if(isitem(hitby))
+		if(isliving(hitby.loc))
+			var/mob/living/M = hitby.loc
+			M.electrocute_act(shock_damage, owner, flags = SHOCK_NOGLOVES)
+			M.KnockDown(3 SECONDS)
+	else if(isliving(hitby))
+		var/mob/living/M = hitby
+		M.electrocute_act(shock_damage, owner, flags = SHOCK_NOGLOVES)
+		M.KnockDown(3 SECONDS)
+
+/obj/item/mod/module/anomaly_locked/teslawall/prebuilt
+	prebuilt = TRUE
+	removable = FALSE // No switching it into another suit / no free anomaly core

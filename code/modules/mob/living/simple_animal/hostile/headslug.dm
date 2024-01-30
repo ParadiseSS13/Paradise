@@ -22,7 +22,7 @@
 	speak_emote = list("squeaks")
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	a_intent = INTENT_HARM
 	speed = 0.3
 	can_hide = TRUE
@@ -113,7 +113,7 @@
 	if(!ishuman(owner))
 		owner.gib()
 		return
-		
+
 	owner.apply_damage(300, BRUTE, BODY_ZONE_CHEST)
 	owner.bleed(BLOOD_VOLUME_NORMAL)
 	var/obj/item/organ/external/chest = owner.get_organ(BODY_ZONE_CHEST)

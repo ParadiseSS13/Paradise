@@ -149,14 +149,14 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		richest_cash = cash_score
 		richest_name = H.real_name
 		richest_job = H.job
-		richest_key = H.key
+		richest_key = (H.client?.prefs.toggles2 & PREFTOGGLE_2_ANON) ? "Anon" : H.key
 
 	var/damage_score = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss() + H.getOxyLoss()
 	if(damage_score > damaged_health)
 		damaged_health = damage_score
 		damaged_name = H.real_name
 		damaged_job = H.job
-		damaged_key = H.key
+		damaged_key = (H.client?.prefs.toggles2 & PREFTOGGLE_2_ANON) ? "Anon" : H.key
 
 /// A function to determine the cash plus the account balance of the wealthiest escapee
 /datum/scoreboard/proc/get_score_person_worth(mob/living/carbon/human/H)

@@ -119,10 +119,13 @@
 /obj/machinery/atmospherics/portable/pump/attack_hand(mob/user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/portable/pump/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/atmospherics/portable/pump/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/atmospherics/portable/pump/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PortablePump", "Portable Pump", 434, 377, master_ui, state)
+		ui = new(user, src, "PortablePump", "Portable Pump")
 		ui.open()
 
 /obj/machinery/atmospherics/portable/pump/ui_data(mob/user)

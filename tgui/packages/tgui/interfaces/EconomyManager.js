@@ -9,11 +9,10 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
-import { LabeledListItem } from '../components/LabeledList';
 
 export const EconomyManager = (props, context) => {
   return (
-    <Window resizable>
+    <Window width={600} height={350}>
       <ComplexModal />
       <Window.Content scrollable className="Layout__content--flexColumn">
         <EconomyButtons />
@@ -36,7 +35,7 @@ const EconomyButtons = (properties, context) => {
         </Box>
         <br />
         <LabeledList label="Pay Bonuses and Deductions">
-          <LabeledListItem label="Global">
+          <LabeledList.Item label="Global">
             <Button
               icon="dollar-sign"
               width="auto"
@@ -47,8 +46,8 @@ const EconomyButtons = (properties, context) => {
                 })
               }
             />
-          </LabeledListItem>
-          <LabeledListItem label="Department Accounts">
+          </LabeledList.Item>
+          <LabeledList.Item label="Department Accounts">
             <Button
               icon="dollar-sign"
               width="auto"
@@ -59,8 +58,8 @@ const EconomyButtons = (properties, context) => {
                 })
               }
             />
-          </LabeledListItem>
-          <LabeledListItem label="Department Members">
+          </LabeledList.Item>
+          <LabeledList.Item label="Department Members">
             <Button
               icon="dollar-sign"
               width="auto"
@@ -71,8 +70,8 @@ const EconomyButtons = (properties, context) => {
                 })
               }
             />
-          </LabeledListItem>
-          <LabeledListItem label="Single Accounts">
+          </LabeledList.Item>
+          <LabeledList.Item label="Single Accounts">
             <Button
               icon="dollar-sign"
               width="auto"
@@ -83,7 +82,7 @@ const EconomyButtons = (properties, context) => {
                 })
               }
             />
-          </LabeledListItem>
+          </LabeledList.Item>
         </LabeledList>
         <hr />
         <Box mb={0.5}>Next Payroll in: {next_payroll_time} Minutes</Box>

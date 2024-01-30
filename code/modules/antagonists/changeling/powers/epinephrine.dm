@@ -8,7 +8,7 @@
 	req_human = TRUE
 	req_stat = UNCONSCIOUS
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_DEFENSE
+	category = /datum/changeling_power_category/defence
 
 //Recover from stuns.
 /datum/action/changeling/epinephrine/sting_action(mob/living/user)

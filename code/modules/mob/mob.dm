@@ -601,17 +601,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
 
-/mob/setDir(new_dir)
-	if(forced_look)
-		if(isnum(forced_look))
-			dir = forced_look
-		else
-			var/atom/A = locateUID(forced_look)
-			if(istype(A))
-				dir = get_cardinal_dir(src, A)
-		return
-	. = ..()
-
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
 	var/dat = {"<table>
@@ -635,12 +624,30 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, chat_box_regular("<span class='notice'>Something is there but you can't see it.</span>"))
-		return 1
+		to_chat(src, chat_box_regular("<span class='notice'>Something is there but you can't see it.</span>"), MESSAGE_TYPE_INFO, confidential = TRUE)
+		return TRUE
 
 	face_atom(A)
-	var/list/result = A.examine(src)
-	to_chat(src, chat_box_examine(result.Join("\n")))
+	if(!client)
+		var/list/result = A.examine(src)
+		to_chat(src, chat_box_examine(result.Join("\n")))
+		return
+
+	var/list/result
+	LAZYINITLIST(client.recent_examines)
+	for(var/key in client.recent_examines)
+		if(client.recent_examines[key] < world.time)
+			client.recent_examines -= key
+	var/ref_to_atom = A.UID()
+	if(LAZYACCESS(client.recent_examines, ref_to_atom))
+		result = A.examine_more(src)
+		if(!length(result))
+			result += "<span class='notice'><i>You examine [A] closer, but find nothing of interest...</i></span>"
+	else
+		result = A.examine(src)
+		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
+
+	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!istype(l_hand, /obj/item/grab) && !istype(r_hand, /obj/item/grab)))
@@ -957,7 +964,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!Adjacent(usr))
 		return
 	if(IsFrozen(src) && !is_admin(usr))
-		to_chat(usr, "<span class='boldannounce'>Interacting with admin-frozen players is not permitted.</span>")
+		to_chat(usr, "<span class='boldannounceic'>Interacting with admin-frozen players is not permitted.</span>")
 		return
 	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
 		return
@@ -1188,7 +1195,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				continue
 			if(L.npc_safe(src) && L.stat != DEAD && !L.key)
 				creatures += L
-		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
+		var/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", creatures)
 		switch(picked)
 			if("Mouse")
 				become_mouse()
@@ -1336,6 +1343,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/IsVocal()
 	return TRUE
+
+/mob/proc/cannot_speak_loudly()
+	return FALSE
 
 /mob/proc/get_access()
 	return list() //must return list or IGNORE_ACCESS

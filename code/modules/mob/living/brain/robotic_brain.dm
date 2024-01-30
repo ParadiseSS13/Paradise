@@ -72,18 +72,6 @@
 		return TRUE
 	return FALSE
 
-/obj/item/mmi/robotic_brain/proc/question(client/C)
-	spawn(0)
-		if(!C)
-			return
-		var/response = alert(C, "Someone is requesting a personality for a [src]. Would you like to play as one?", "[src] request", "Yes", "No", "Never for this round")
-		if(!C || brainmob.key || !searching)
-			return		//handle logouts that happen whilst the alert is waiting for a response, and responses issued after a brain has been located.
-		if(response == "Yes")
-			transfer_personality(C.mob)
-		else if(response == "Never for this round")
-			C.prefs.be_special -= ROLE_POSIBRAIN
-
 // This should not ever happen, but let's be safe
 /obj/item/mmi/robotic_brain/dropbrain(turf/dropspot)
 	CRASH("[src] at [loc] attempted to drop brain without a contained brain.")

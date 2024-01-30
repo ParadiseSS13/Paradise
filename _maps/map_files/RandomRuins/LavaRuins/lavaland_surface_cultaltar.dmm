@@ -6,7 +6,7 @@
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "c" = (
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/ruin/unpowered/misc_lavaruin)
 "d" = (
 /turf/simulated/wall/cult,
