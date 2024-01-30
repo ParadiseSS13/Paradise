@@ -342,7 +342,7 @@
 
 /mob/living/simple_animal/bot/ed209/proc/find_new_target()
 	if(disabled)
-		return
+		return FALSE
 	anchored = FALSE
 	threatlevel = 0
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
