@@ -80,7 +80,6 @@
 	R.module?.rebuild_modules()
 	return TRUE
 
-
 /*******************/
 /****	COMMON	****/
 /*******************/
@@ -279,7 +278,6 @@
 
 	return TRUE
 
-
 /***********************/
 /****	SECURITY	****/
 /***********************/
@@ -305,7 +303,6 @@
 	T.charge_delay = max(2 , T.charge_delay - 4)
 
 	return TRUE
-
 
 /*******************/
 /****	MINING	****/
@@ -346,7 +343,6 @@
 		R.weather_immunities += "lava"
 	return TRUE
 
-
 /***********************/
 /****	ENGINEER	****/
 /***********************/
@@ -366,6 +362,13 @@
 	R.module.remove_item_from_lists(/obj/item/rcd) // So emagging them in the future won't grant another RCD.
 	..()
 
+/obj/item/borg/upgrade/rped
+	name = "Rapid Part Exchange Device upgrade"
+	desc = "A modified Rapid Part Exchange Device designed to be used by engineering robots."
+	icon_state = "cyborg_upgrade5"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/engineering
+	items_to_add = list(/obj/item/storage/part_replacer)
 
 /***********************/
 /****	JANITOR		****/
@@ -417,7 +420,6 @@
 		/obj/item/storage/bag/trash/cyborg = /obj/item/storage/bag/trash/bluespace/cyborg
 	)
 
-
 /***********************/
 /****	SYNDIE		****/
 /***********************/
@@ -445,7 +447,6 @@
 	items_to_replace = list(
 		/obj/item/soap/nanotrasen = /obj/item/soap/syndie
 	)
-
 
 /***********************/
 /****	ABDUCTOR	****/

@@ -194,7 +194,7 @@
 		for(var/datum/mind/head in heads)
 			var/target = (head in targets)
 			if(target)
-				text += "<span class='boldannounce'>Target</span>"
+				text += "<span class='boldannounceic'>Target</span>"
 			text += printplayer(head, 1)
 		text += "<br>"
 		return text.Join("")

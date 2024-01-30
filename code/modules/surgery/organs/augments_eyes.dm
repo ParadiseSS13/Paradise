@@ -1,6 +1,6 @@
 /obj/item/organ/internal/cyberimp/eyes
 	name = "cybernetic eyes"
-	desc = "artificial photoreceptors with specialized functionality"
+	desc = "artificial photoreceptors with specialized functionality."
 	icon_state = "eye_implant"
 	implant_overlay = "eye_implant_overlay"
 	slot = "eye_sight"
