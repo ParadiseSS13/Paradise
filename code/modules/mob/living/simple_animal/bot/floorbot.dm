@@ -241,10 +241,12 @@
 
 			if(!bot_move(target))
 				add_to_ignore(target)
+				ignore_job -= target.UID()
 				target = null
 				mode = BOT_IDLE
 				return
 		else if(!bot_move(target))
+			ignore_job -= target.UID()
 			target = null
 			mode = BOT_IDLE
 			return
@@ -255,6 +257,7 @@
 	amount ++
 	anchored = FALSE
 	mode = BOT_IDLE
+	ignore_job -= target.UID()
 	target = null
 
 /mob/living/simple_animal/bot/floorbot/proc/nag() // Annoy everyone on the channel to refill us!
@@ -294,6 +297,7 @@
 	if(isspaceturf(target_turf))
 		// Must be a hull breach to continue.
 		if(!is_hull_breach(target_turf))
+			ignore_job -= target.UID()
 			target = null
 			return
 
@@ -302,6 +306,7 @@
 
 	if(amount <= 0)
 		mode = BOT_IDLE
+		ignore_job -= target.UID()
 		target = null
 		return
 
@@ -337,6 +342,7 @@
 	amount--
 	update_icon(UPDATE_OVERLAYS)
 	anchored = FALSE
+	ignore_job -= target.UID()
 	target = null
 
 /mob/living/simple_animal/bot/floorbot/proc/start_eat_tile(obj/item/stack/tile/plasteel/T)
