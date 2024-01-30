@@ -173,12 +173,12 @@
 			process_type = HULL_BREACH // Ensures the floorbot does not try to "fix" space areas or shuttle docking zones.
 			target = scan(/turf/space, avoid_bot = TRUE)
 
-		if(!target && replace_tiles) // Finds a floor without a tile and gives it one.
-			process_type = REPLACE_TILE // The target must be the floor and not a tile. The floor must not already have a floortile.
-			target = scan(/turf/simulated/floor, avoid_bot = TRUE)
-
 		if(!target && fix_floor) // Repairs damaged floors and tiles.
 			process_type = FIX_TILE
+			target = scan(/turf/simulated/floor, avoid_bot = TRUE)
+
+		if(!target && replace_tiles) // Finds a floor without a tile and gives it one.
+			process_type = REPLACE_TILE // The target must be the floor and not a tile. The floor must not already have a floortile.
 			target = scan(/turf/simulated/floor, avoid_bot = TRUE)
 
 	if(!target && emagged) // We are emagged! Time to rip up the floors!
