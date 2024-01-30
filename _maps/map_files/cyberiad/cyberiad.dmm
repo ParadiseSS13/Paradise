@@ -36152,7 +36152,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Teleporter Room"
+	c_tag = "Medbay"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -37858,10 +37858,6 @@
 	},
 /area/station/medical/surgery/observation)
 "crw" = (
-/obj/machinery/camera{
-	c_tag = "Aft Primary Hallway 1";
-	dir = 4
-	},
 /obj/structure/table/glass,
 /obj/item/storage/surgical_tray,
 /turf/simulated/floor/plasteel{
@@ -58070,6 +58066,11 @@
 /obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -62074,7 +62075,6 @@
 /obj/structure/chair/sofa/corp{
 	dir = 1
 	},
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -64200,7 +64200,6 @@
 /obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
-/obj/structure/closet/walllocker/emerglocker/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -72411,11 +72410,6 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -75369,18 +75363,11 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/hop)
 "oaY" = (
-/obj/structure/chair/sofa/corp{
-	dir = 1
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "Surgery 2"
 	},
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/station/medical/surgery/observation)
+/turf/simulated/floor/plating,
+/area/station/medical/surgery/secondary)
 "obP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -77103,6 +77090,9 @@
 	id = "surgery2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Surgery 2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -79998,7 +79988,7 @@
 "qkz" = (
 /obj/structure/chair/comfy/corp,
 /obj/machinery/camera{
-	c_tag = "Virology Monkey Pen"
+	c_tag = "science hallway"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -84564,14 +84554,20 @@
 /obj/machinery/holosign_switch{
 	id = "surgery2";
 	pixel_x = -24;
-	pixel_y = 4;
-	dir = 4
+	dir = 4;
+	pixel_y = -8
+	},
+/obj/machinery/button/windowtint{
+	dir = 4;
+	id = "Surgery 2";
+	pixel_x = -24;
+	pixel_y = 8;
+	req_access_txt = "38"
 	},
 /obj/machinery/light_switch{
 	pixel_x = -24;
 	dir = 4;
-	name = "custom placement";
-	pixel_y = -4
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -85285,8 +85281,8 @@
 	},
 /obj/item/trash/gum,
 /obj/machinery/camera{
-	c_tag = "Engineering Construction Area";
-	dir = 8
+	dir = 8;
+	c_tag = virology
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -96068,6 +96064,12 @@
 /obj/machinery/camera/autoname{
 	dir = 10
 	},
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -132030,7 +132032,7 @@ cuh
 csY
 cuh
 hpR
-cDf
+oaY
 dRz
 crw
 suJ
@@ -132287,7 +132289,7 @@ crt
 ctb
 cum
 iuF
-cDf
+oaY
 cxt
 cGw
 cyV
@@ -132801,7 +132803,7 @@ crv
 ctd
 cup
 myq
-cDf
+oaY
 cFz
 cxP
 cyX
@@ -133057,8 +133059,8 @@ cum
 cuh
 ctc
 cuh
+hpR
 oaY
-cDf
 cxu
 cxL
 cyW
