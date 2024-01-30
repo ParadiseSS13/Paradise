@@ -16,7 +16,7 @@
 	pass_flags = PASSTABLE | PASSMOB
 	mob_biotypes = MOB_ORGANIC | MOB_PLANT
 	mob_size = MOB_SIZE_SMALL
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
@@ -147,8 +147,8 @@
 	else
 		return FALSE
 
-/mob/living/simple_animal/diona/proc/split()
-	if((stat != CONSCIOUS) || !isdiona(loc))
+/mob/living/simple_animal/diona/proc/split(forced = FALSE)
+	if((stat != CONSCIOUS && !forced) || !isdiona(loc))
 		return FALSE
 	var/mob/living/carbon/human/D = loc
 	var/turf/T = get_turf(src)
@@ -210,7 +210,7 @@
 	return TRUE
 
 // Consumes plant matter other than weeds to evolve
-/mob/living/simple_animal/diona/proc/consume(obj/item/reagent_containers/food/snacks/grown/G)
+/mob/living/simple_animal/diona/proc/consume(obj/item/food/snacks/grown/G)
 	if(nutrition >= nutrition_need) // Prevents griefing by overeating plant items without evolving.
 		to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
 	else

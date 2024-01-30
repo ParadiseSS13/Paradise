@@ -31,17 +31,18 @@
 	if((signal_out & COMPONENT_BLOCK_SHARPEN_ALREADY) || (I.force > initial(I.force) && !(signal_out & COMPONENT_SHARPEN_APPLIED))) //No sharpening stuff twice
 		to_chat(user, "<span class='warning'>[I] has already been refined before. It cannot be sharpened further!</span>")
 		return
-	if(!(signal_out & COMPONENT_SHARPEN_APPLIED)) //If the item has a relevant component and COMPONENT_BLOCK_SHARPEN_APPLIED is returned, the item only gets the throw force increase
-		I.force = clamp(I.force + increment, 0, max)
 	if(istype(I, /obj/item/melee/energy))
 		var/obj/item/melee/energy/E = I
-		if(E.force_on > initial(E.force_on) || (E.force > initial(E.force)))
+		if(E.force_on > initial(E.force_on))
 			to_chat(user, "<span class='warning'>[E] is much too powerful to sharpen further!</span>")
 			return
 		E.throwforce_on = clamp(E.throwforce_on + increment, 0, max)
 		E.throwforce_off = clamp(E.throwforce_off + increment, 0, max)
 		E.force_on = clamp(E.force_on + increment, 0, max)
 		E.force_off = clamp(E.force_off + increment, 0, max)
+
+	if(!(signal_out & COMPONENT_SHARPEN_APPLIED)) //If the item has a relevant component and COMPONENT_BLOCK_SHARPEN_APPLIED is returned, the item only gets the throw force increase
+		I.force = clamp(I.force + increment, 0, max)
 
 	user.visible_message("<span class='notice'>[user] sharpens [I] with [src]!</span>", "<span class='notice'>You sharpen [I], making it much more deadly than before.</span>")
 	if(!requires_sharpness)

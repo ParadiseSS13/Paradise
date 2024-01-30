@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -15,7 +14,7 @@ export const LawManager = (props, context) => {
   const { isAdmin, isSlaved, isMalf, isAIMalf, view } = data;
 
   return (
-    <Window>
+    <Window width={800} height={isMalf ? 620 : 365}>
       <Window.Content scrollable>
         {!!(isAdmin && isSlaved) && (
           <NoticeBox>This unit is slaved to {isSlaved}.</NoticeBox>
@@ -64,7 +63,7 @@ const LawManagementView = (props, context) => {
     supplied_law_position,
   } = data;
   return (
-    <Fragment>
+    <>
       {!!has_zeroth_laws && (
         <LawTable title="ERR_NULL_VALUE" laws={zeroth_laws} ctx={context} />
       )}
@@ -184,7 +183,7 @@ const LawManagementView = (props, context) => {
           </Table>
         </Section>
       )}
-    </Fragment>
+    </>
   );
 };
 
@@ -261,7 +260,7 @@ const LawTable = (props, context) => {
                 }
               />
               {!!isMalf && (
-                <Fragment>
+                <>
                   <Button
                     content="Edit"
                     icon="pencil-alt"
@@ -273,7 +272,7 @@ const LawTable = (props, context) => {
                     color="red"
                     onClick={() => act('delete_law', { delete_law: l.ref })}
                   />
-                </Fragment>
+                </>
               )}
             </Table.Cell>
           </Table.Row>

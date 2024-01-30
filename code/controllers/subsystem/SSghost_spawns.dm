@@ -59,7 +59,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 	var/category = "[P.hash]_notify_action"
 
-	var/notice_sound = sound('sound/misc/notice2.ogg')
+	var/notice_sound = sound('sound/effects/ghost_ping.ogg')
 	for(var/mob/M in (GLOB.player_list))
 		if(!is_eligible(M, role, antag_age_check, role, min_hours, check_antaghud))
 			continue

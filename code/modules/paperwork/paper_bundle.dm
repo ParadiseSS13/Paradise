@@ -53,7 +53,7 @@
 		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		user.unEquip(W)
 		W.loc = src
-	else if(is_hot(W))
+	else if(W.get_heat())
 		burnpaper(W, user)
 	else if(istype(W, /obj/item/paper_bundle))
 		user.unEquip(W)
@@ -85,7 +85,7 @@
 
 	user.visible_message("<span class='[class]'>[user] holds [heating_object] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", "<span class='[class]'>You hold [heating_object] up to [src], burning it slowly.</span>")
 
-	if(!do_after(user, 2 SECONDS, target = src) || !is_hot(heating_object))
+	if(!do_after(user, 2 SECONDS, target = src) || !heating_object.get_heat())
 		return
 	user.visible_message("<span class='[class]'>[user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
 	"<span class='[class]'>You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")

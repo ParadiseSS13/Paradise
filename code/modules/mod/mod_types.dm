@@ -187,6 +187,20 @@
 		/obj/item/mod/module/jetpack/advanced,
 	)
 
+/obj/item/mod/control/pre_equipped/safeguard/gamma
+	applied_cell = /obj/item/stock_parts/cell/hyper
+	applied_modules = list(
+		/obj/item/mod/module/storage/large_capacity,
+		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/dispenser/mirage,
+		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/holster,
+		/obj/item/mod/module/energy_shield/gamma,
+	)
+	default_pins = list(
+		/obj/item/mod/module/jetpack/advanced,
+	)
+
 /obj/item/mod/control/pre_equipped/magnate
 	theme = /datum/mod_theme/magnate
 	applied_cell = /obj/item/stock_parts/cell/hyper
@@ -332,7 +346,7 @@
 
 /obj/item/mod/control/pre_equipped/responsory/security
 	insignia_type = /obj/item/mod/module/insignia/security
-	additional_module = /obj/item/mod/module/dispenser/mirage
+	additional_module = /obj/item/mod/module/anomaly_locked/firewall/prebuilt //Defence and flaming hot offence. Good for reflective blob, xenos, antagonists with guns
 
 /obj/item/mod/control/pre_equipped/responsory/engineer
 	insignia_type = /obj/item/mod/module/insignia/engineer

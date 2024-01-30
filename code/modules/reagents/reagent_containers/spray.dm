@@ -19,6 +19,10 @@
 	possible_transfer_amounts = null
 	var/delay = CLICK_CD_RANGE * 2
 
+/obj/item/reagent_containers/spray/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
+
 /obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)
 	if(isstorage(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
 	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
@@ -75,7 +79,9 @@
 	D.icon += mix_color_from_reagents(D.reagents.reagent_list)
 
 	for(var/i in 1 to spray_currentrange)
-		step_towards(D, A)
+		if(!step_towards(D, A) && i != 1)
+			qdel(D)
+			return
 		D.reagents.reaction(get_turf(D))
 		for(var/atom/T in get_turf(D))
 			D.reagents.reaction(T)

@@ -747,3 +747,28 @@
 /datum/status_effect/bookwyrm
 	duration = BRAIN_DAMAGE_MOB_TIME
 	alert_type = null
+
+/datum/status_effect/bearserker_rage
+	id = "bearserker rage"
+	duration = 5 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /obj/screen/alert/status_effect/bearserker_rage
+
+/obj/screen/alert/status_effect/bearserker_rage
+	name = "Bearserker Rage"
+	desc = "<span class='danger'>Blood flows between your fingers, and Foh'Sie roars; \"MORE BLOOD!\"</span>"
+	icon_state = "bearserker"
+
+/datum/status_effect/bearserker_rage/on_apply()
+	. = ..()
+	if(. && ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.physiology.stamina_mod *= 0.75
+		add_attack_logs(owner, owner, "gained bearserker rage resistances", ATKLOG_ALL)
+		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
+
+/datum/status_effect/bearserker_rage/on_remove()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.physiology.stamina_mod /= 0.75
+		add_attack_logs(owner, owner, "lost bearserker rage resistances", ATKLOG_ALL)

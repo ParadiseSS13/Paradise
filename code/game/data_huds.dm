@@ -57,6 +57,9 @@
 /datum/atom_hud/data/hydroponic
 	hud_icons = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
 
+/datum/atom_hud/data/janitor
+	hud_icons = list(JANI_HUD)
+
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*
@@ -235,15 +238,15 @@
 	for(var/i in list(IMPTRACK_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD))
 		holder = hud_list[i]
 		holder.icon_state = null
-	for(var/obj/item/implant/I in src)
+	for(var/obj/item/bio_chip/I in src)
 		if(I.implanted)
-			if(istype(I,/obj/item/implant/tracking))
+			if(istype(I,/obj/item/bio_chip/tracking))
 				holder = hud_list[IMPTRACK_HUD]
 				holder.icon_state = "hud_imp_tracking"
-			else if(istype(I,/obj/item/implant/mindshield))
+			else if(istype(I,/obj/item/bio_chip/mindshield))
 				holder = hud_list[IMPMINDSHIELD_HUD]
 				holder.icon_state = "hud_imp_loyal"
-			else if(istype(I,/obj/item/implant/chem))
+			else if(istype(I,/obj/item/bio_chip/chem))
 				holder = hud_list[IMPCHEM_HUD]
 				holder.icon_state = "hud_imp_chem"
 
@@ -394,7 +397,7 @@
 	switch(mode)
 		if(BOT_SUMMON, BOT_RESPONDING) //Responding to PDA or AI summons
 			holder.icon_state = "hudcalled"
-		if(BOT_CLEANING, BOT_REPAIRING, BOT_HEALING) //Cleanbot cleaning, Floorbot fixing, or Medibot Healing
+		if(BOT_CLEANING, BOT_REPAIRING, BOT_MAKE_TILE, BOT_EAT_TILE, BOT_HEALING) //Cleanbot cleaning, Floorbot fixing, or Medibot Healing
 			holder.icon_state = "hudworking"
 		if(BOT_PATROL, BOT_START_PATROL) //Patrol mode
 			holder.icon_state = "hudpatrol"
@@ -491,6 +494,16 @@
 		holder.icon_state = "electrified"
 	else
 		holder.icon_state = ""
+
+/*~~~~~~~~~~~~~~
+	JANI HUD
+~~~~~~~~~~~~~~~*/
+/obj/effect/decal/cleanable/proc/jani_hud_set_sign()
+	var/image/holder = hud_list[JANI_HUD]
+	holder.icon_state = "hudjani"
+	holder.alpha = 130
+	holder.plane = ABOVE_LIGHTING_PLANE
+	holder.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	I'll just put this somewhere near the end...

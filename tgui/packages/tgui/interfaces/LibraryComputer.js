@@ -4,7 +4,7 @@ import {
   Box,
   Button,
   Dropdown,
-  Flex,
+  Stack,
   Icon,
   LabeledList,
   Section,
@@ -18,15 +18,16 @@ import {
   modalOpen,
   modalRegisterBodyOverride,
 } from './common/ComplexModal';
-import { FlexItem } from '../components/Flex';
 
 export const LibraryComputer = (props, context) => {
   return (
-    <Window resizable>
+    <Window width={1050} height={600}>
       <ComplexModal />
-      <Window.Content scrollable className="Layout__content--flexColumn">
-        <LibraryComputerNavigation />
-        <LibraryPageContent />
+      <Window.Content>
+        <Stack fill vertical>
+          <LibraryComputerNavigation />
+          <LibraryPageContent />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -39,7 +40,7 @@ const expandModalBodyOverride = (modal, context) => {
   const { user_ckey } = data;
 
   return (
-    <Section level={2} m="-1rem" pb="1rem">
+    <Section>
       <LabeledList>
         <LabeledList.Item label="Title">{expandinfo.title}</LabeledList.Item>
         <LabeledList.Item label="Author">{expandinfo.author}</LabeledList.Item>
@@ -106,7 +107,7 @@ const reportModalBodyOverride = (modal, context) => {
     <Section
       level={2}
       m="-1rem"
-      pb="1rem"
+      pb="1.5rem"
       title="Report this book for Rule Violations"
     >
       <LabeledList>
@@ -156,9 +157,9 @@ const RatingTools = (properties, context) => {
     .fill()
     .map((_, n) => 1 + n);
   return (
-    <Flex>
+    <Stack>
       {ratingVals.map((rating_num, index) => (
-        <FlexItem key={index}>
+        <Stack.Item key={index}>
           <Button
             bold
             icon="star"
@@ -169,13 +170,13 @@ const RatingTools = (properties, context) => {
               })
             }
           />
-        </FlexItem>
+        </Stack.Item>
       ))}
-      <FlexItem bold ml={2} fontSize="150%">
+      <Stack.Item bold ml={2} fontSize="150%">
         {selected_rating + '/10'}
         <Icon name="star" color="yellow" ml={0.5} verticalAlign="top" />
-      </FlexItem>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -186,7 +187,7 @@ const rateModalBodyOverride = (modal, context) => {
   const { user_ckey } = data;
 
   return (
-    <Section level={2} m="-1rem" pb="1rem">
+    <Section level={2} m="-1rem" pb="1.5rem">
       <LabeledList>
         <LabeledList.Item label="Title">{rate_content.title}</LabeledList.Item>
         <LabeledList.Item label="Author">
@@ -221,30 +222,27 @@ const LibraryComputerNavigation = (properties, context) => {
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
   const { login_state } = data;
   return (
-    <Tabs>
-      <Tabs.Tab selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
-        <Icon name="list" />
-        Book Archives
-      </Tabs.Tab>
-      <Tabs.Tab selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
-        <Icon name="list" />
-        Corporate Literature
-      </Tabs.Tab>
-      <Tabs.Tab selected={2 === tabIndex} onClick={() => setTabIndex(2)}>
-        <Icon name="list" />
-        Upload Book
-      </Tabs.Tab>
-      {login_state === 1 && (
-        <Tabs.Tab selected={3 === tabIndex} onClick={() => setTabIndex(3)}>
-          <Icon name="list" />
-          Patron Manager
+    <Stack.Item mb={1}>
+      <Tabs fluid textAlign="center">
+        <Tabs.Tab selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
+          Book Archives
         </Tabs.Tab>
-      )}
-      <Tabs.Tab selected={4 === tabIndex} onClick={() => setTabIndex(4)}>
-        <Icon name="list" />
-        Inventory
-      </Tabs.Tab>
-    </Tabs>
+        <Tabs.Tab selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
+          Corporate Literature
+        </Tabs.Tab>
+        <Tabs.Tab selected={2 === tabIndex} onClick={() => setTabIndex(2)}>
+          Upload Book
+        </Tabs.Tab>
+        {login_state === 1 && (
+          <Tabs.Tab selected={3 === tabIndex} onClick={() => setTabIndex(3)}>
+            Patron Manager
+          </Tabs.Tab>
+        )}
+        <Tabs.Tab selected={4 === tabIndex} onClick={() => setTabIndex(4)}>
+          Inventory
+        </Tabs.Tab>
+      </Tabs>
+    </Stack.Item>
   );
 };
 
@@ -279,8 +277,8 @@ const SearchTools = (properties, context) => {
   }
 
   return (
-    <Flex flex-direction="row">
-      <FlexItem width="40%">
+    <Stack>
+      <Stack.Item width="35%">
         <Box fontSize="1.2rem" m=".5em" bold>
           <Icon name="edit" verticalAlign="middle" size={1.5} mr="1rem" />
           Search Inputs
@@ -290,7 +288,7 @@ const SearchTools = (properties, context) => {
             <Button
               textAlign="left"
               icon="pen"
-              width="auto"
+              width={20}
               content={searchcontent.title || 'Input Title'}
               onClick={() => modalOpen(context, 'edit_search_title')}
             />
@@ -299,35 +297,35 @@ const SearchTools = (properties, context) => {
             <Button
               textAlign="left"
               icon="pen"
-              width="auto"
+              width={20}
               content={searchcontent.author || 'Input Author'}
               onClick={() => modalOpen(context, 'edit_search_author')}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Ratings">
-            <Flex>
-              <FlexItem>
+            <Stack>
+              <Stack.Item>
                 <Button
                   mr={1}
                   width="min-content"
                   content={searchcontent.ratingmin}
                   onClick={() => modalOpen(context, 'edit_search_ratingmin')}
                 />
-              </FlexItem>
-              <FlexItem>To</FlexItem>
-              <FlexItem>
+              </Stack.Item>
+              <Stack.Item>To</Stack.Item>
+              <Stack.Item>
                 <Button
                   ml={1}
                   width="min-content"
                   content={searchcontent.ratingmax}
                   onClick={() => modalOpen(context, 'edit_search_ratingmax')}
                 />
-              </FlexItem>
-            </Flex>
+              </Stack.Item>
+            </Stack>
           </LabeledList.Item>
         </LabeledList>
-      </FlexItem>
-      <FlexItem width="40%">
+      </Stack.Item>
+      <Stack.Item width="40%">
         <Box fontSize="1.2rem" m=".5em" bold>
           <Icon
             name="clipboard-list"
@@ -371,8 +369,8 @@ const SearchTools = (properties, context) => {
               }
             />
           ))}
-      </FlexItem>
-      <FlexItem>
+      </Stack.Item>
+      <Stack.Item>
         <Box fontSize="1.2rem" m=".5em" bold>
           <Icon
             name="search-plus"
@@ -406,8 +404,8 @@ const SearchTools = (properties, context) => {
             }
           />
         )}
-      </FlexItem>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -418,36 +416,42 @@ const LibraryBooksList = (properties, context) => {
     data;
 
   return (
-    <Section title="Book System Access">
+    <Section
+      fill
+      scrollable
+      title="Book System Access"
+      buttons={
+        <div>
+          <Button
+            icon="angle-double-left"
+            disabled={archive_pagenumber === 1}
+            onClick={() => act('deincrementpagemax')}
+          />
+          <Button
+            icon="chevron-left"
+            disabled={archive_pagenumber === 1}
+            onClick={() => act('deincrementpage')}
+          />
+          <Button
+            bold
+            content={archive_pagenumber}
+            onClick={() => modalOpen(context, 'setpagenumber')}
+          />
+          <Button
+            icon="chevron-right"
+            disabled={archive_pagenumber === num_pages}
+            onClick={() => act('incrementpage')}
+          />
+          <Button
+            icon="angle-double-right"
+            disabled={archive_pagenumber === num_pages}
+            onClick={() => act('incrementpagemax')}
+          />
+        </div>
+      }
+    >
       <SearchTools />
       <hr />
-      <div className="CameraConsole__toolbarRight">
-        <Button
-          icon="angle-double-left"
-          disabled={archive_pagenumber === 1}
-          onClick={() => act('deincrementpagemax')}
-        />
-        <Button
-          icon="chevron-left"
-          disabled={archive_pagenumber === 1}
-          onClick={() => act('deincrementpage')}
-        />
-        <Button
-          bold
-          content={archive_pagenumber}
-          onClick={() => modalOpen(context, 'setpagenumber')}
-        />
-        <Button
-          icon="chevron-right"
-          disabled={archive_pagenumber === num_pages}
-          onClick={() => act('incrementpage')}
-        />
-        <Button
-          icon="angle-double-right"
-          disabled={archive_pagenumber === num_pages}
-          onClick={() => act('incrementpagemax')}
-        />
-      </div>
       <Table className="Library__Booklist">
         <Table.Row bold>
           <Table.Cell>SSID</Table.Cell>
@@ -517,7 +521,7 @@ const ProgramatticBooks = (properties, context) => {
   const { programmatic_booklist, login_state } = data;
 
   return (
-    <Section title="Corporate Book Catalog">
+    <Section fill scrollable title="Corporate Book Catalog">
       <Table className="Library__Booklist">
         <Table.Row bold>
           <Table.Cell>SSID</Table.Cell>
@@ -575,7 +579,25 @@ const UploadBooks = (properties, context) => {
   }
 
   return (
-    <Section title="Book System Upload">
+    <Section
+      fill
+      scrollable
+      title="Book System Upload"
+      buttons={
+        <Button.Confirm
+          bold
+          width={9.5}
+          icon="upload"
+          disabled={selectedbook.copyright}
+          content="Upload Book"
+          onClick={() =>
+            act('uploadbook', {
+              user_ckey: user_ckey,
+            })
+          }
+        />
+      }
+    >
       {selectedbook.copyright ? (
         <NoticeBox color="red">
           WARNING: You cannot upload or modify the attributes of a copyrighted
@@ -584,15 +606,16 @@ const UploadBooks = (properties, context) => {
       ) : (
         <br />
       )}
-      <Box fontSize="1.2rem" bold>
-        <Icon name="search-plus" verticalAlign="middle" size={3} mr="1rem" />
+      <Box ml={15} mb={3} fontSize="1.2rem" bold>
+        <Icon name="search-plus" verticalAlign="middle" size={3} mr={2} />
         Book Uploader
       </Box>
-      <Flex>
-        <FlexItem>
+      <Stack>
+        <Stack.Item>
           <LabeledList>
             <LabeledList.Item label="Title">
               <Button
+                width={20}
                 textAlign="left"
                 icon="pen"
                 disabled={selectedbook.copyright}
@@ -602,6 +625,7 @@ const UploadBooks = (properties, context) => {
             </LabeledList.Item>
             <LabeledList.Item label="Author">
               <Button
+                width={20}
                 textAlign="left"
                 icon="pen"
                 disabled={selectedbook.copyright}
@@ -610,9 +634,9 @@ const UploadBooks = (properties, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Select Categories">
-              <Box mt={2}>
+              <Box>
                 <Dropdown
-                  mt={0.6}
+                  width="240px"
                   options={book_categories.map((c) => c.description)}
                   onSelected={(val) =>
                     act('toggle_upload_category', {
@@ -642,8 +666,8 @@ const UploadBooks = (properties, context) => {
                 }
               />
             ))}
-        </FlexItem>
-        <FlexItem>
+        </Stack.Item>
+        <Stack.Item mr={75}>
           <LabeledList>
             <LabeledList.Item label="Summary">
               <Button
@@ -656,21 +680,8 @@ const UploadBooks = (properties, context) => {
             </LabeledList.Item>
             <LabeledList.Item>{selectedbook.summary}</LabeledList.Item>
           </LabeledList>
-        </FlexItem>
-      </Flex>
-      <Button.Confirm
-        bold
-        mt={16}
-        icon="upload"
-        width="auto"
-        disabled={selectedbook.copyright}
-        content="Upload Book"
-        onClick={() =>
-          act('uploadbook', {
-            user_ckey: user_ckey,
-          })
-        }
-      />
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };
@@ -681,7 +692,7 @@ const PatronManager = (properties, context) => {
   const { checkout_data } = data;
 
   return (
-    <Section title="Checked Out Books">
+    <Section fill scrollable title="Checked Out Books">
       <Table className="Library__Booklist">
         <Table.Row bold>
           <Table.Cell>Patron</Table.Cell>
@@ -725,7 +736,7 @@ const Inventory = (properties, context) => {
   const { inventory_list } = data;
 
   return (
-    <Section title="Library Inventory">
+    <Section fill scrollable title="Library Inventory">
       <Table className="Library__Booklist">
         <Table.Row bold>
           <Table.Cell>LIB ID</Table.Cell>

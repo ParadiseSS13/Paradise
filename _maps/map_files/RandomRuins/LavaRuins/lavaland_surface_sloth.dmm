@@ -3,7 +3,7 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/unpowered/misc_lavaruin)
 "b" = (
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/ruin/unpowered/misc_lavaruin)
 "c" = (
 /obj/item/paper/fluff/stations/lavaland/sloth/note,
@@ -25,7 +25,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "f" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
+/obj/item/food/snacks/grown/citrus/orange,
 /turf/simulated/floor/sepia{
 	slowdown = 10
 	},

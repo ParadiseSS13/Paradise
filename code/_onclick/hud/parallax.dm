@@ -313,11 +313,16 @@
 	layer = 4
 
 /obj/screen/parallax_layer/planet
-	icon_state = "planet"
+	icon_state = "planet_lava"
 	blend_mode = BLEND_OVERLAY
 	absolute = TRUE //Status of seperation
 	speed = 3
 	layer = 30
+
+/obj/screen/parallax_layer/planet/Initialize(mapload)
+	. = ..()
+	if(SSmapping.lavaland_theme?.planet_icon_state)
+		icon_state = SSmapping.lavaland_theme.planet_icon_state
 
 /obj/screen/parallax_layer/planet/update_status(mob/M)
 	var/turf/T = get_turf(M)

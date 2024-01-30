@@ -128,5 +128,10 @@
 	desc = "Not sticky anymore."
 	throw_range = 1
 
+/obj/item/trash/popsicle_stick
+	name = "used popsicle stick"
+	icon_state = "popsicle_stick_s"
+	desc = "Still tastes sweet."
+
 /obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
 	return
