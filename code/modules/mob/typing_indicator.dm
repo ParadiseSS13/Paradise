@@ -1,5 +1,5 @@
 GLOBAL_LIST_EMPTY(typing_indicator)
-GLOBAL_VAR(thinking_indicator)
+GLOBAL_LIST_EMPTY(thinking_indicator)
 
 /**
   * Toggles the floating chat bubble above a players head.
@@ -10,7 +10,7 @@ GLOBAL_VAR(thinking_indicator)
   */
 /mob/proc/set_typing_indicator(state, me)
 	if(!GLOB.typing_indicator[bubble_icon])
-		GLOB.typing_indicator[bubble_icon] = image('icons/mob/talk.dmi', null, "[bubble_icon]typing", FLY_LAYER)
+		GLOB.typing_indicator[bubble_icon] = image('icons/mob/talk.dmi', null, "[bubble_icon]_typing", ABOVE_HUD_LAYER)
 		var/image/I = GLOB.typing_indicator[bubble_icon]
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
@@ -46,25 +46,25 @@ GLOBAL_VAR(thinking_indicator)
   * * state - Should a thought bubble be shown or hidden
   */
 /mob/proc/set_thinking_indicator(state)
-	if(!GLOB.thinking_indicator)
-		GLOB.thinking_indicator = image('icons/mob/talk.dmi', null, "defaultthinking", FLY_LAYER)
-		var/image/I = GLOB.thinking_indicator
+	if(!GLOB.thinking_indicator[bubble_icon])
+		GLOB.thinking_indicator[bubble_icon] = image('icons/mob/talk.dmi', null, "[bubble_icon]_thinking", ABOVE_HUD_LAYER)
+		var/image/I = GLOB.thinking_indicator[bubble_icon]
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
 	if(!client && !isliving(src))
 		return FALSE
 
 	if(stat != CONSCIOUS || (client.prefs.toggles & PREFTOGGLE_SHOW_TYPING))
-		overlays -= GLOB.thinking_indicator
+		overlays -= GLOB.thinking_indicator[bubble_icon]
 		thinking = FALSE
 		return FALSE
 
 	if(!state && thinking)
-		overlays -= GLOB.thinking_indicator
+		overlays -= GLOB.thinking_indicator[bubble_icon]
 		thinking = FALSE
 
 	if(state && !thinking)
-		overlays += GLOB.thinking_indicator
+		overlays += GLOB.thinking_indicator[bubble_icon]
 		thinking = TRUE
 
 	return state
