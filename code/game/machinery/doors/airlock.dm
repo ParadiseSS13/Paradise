@@ -1366,8 +1366,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	return 1
 
 /obj/machinery/door/airlock/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-//Airlock is passable if it is open (!density), bot has access, and is not bolted or welded shut)
-	return !density || (check_access(ID) && !locked && !welded && arePowerSystemsOn() && !no_id)
+	if(!density)
+		return TRUE
+	if(caller?.checkpass(PASSDOOR) && !locked)
+		return TRUE
+	//Airlock is passable if it is open (!density), bot has access, and is not bolted or welded shut)
+	return check_access(ID) && !locked && !welded && arePowerSystemsOn() && !no_id
 
 /obj/machinery/door/airlock/emag_act(mob/user)
 	if(!operating && density && arePowerSystemsOn() && !emagged)
