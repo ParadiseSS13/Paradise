@@ -664,10 +664,13 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/attack_ai(mob/user)
 	ui_interact(user)
 
-/obj/machinery/door/airlock/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/door/airlock/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/door/airlock/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AiAirlock", name, 600, 400, master_ui, state)
+		ui = new(user, src, "AiAirlock", name)
 		ui.open()
 
 
@@ -1491,7 +1494,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		safe = TRUE
 
 /obj/machinery/door/airlock/obj_break(damage_flag)
-	if(!(flags & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
 		stat |= BROKEN
 		if(!panel_open)
 			panel_open = TRUE
@@ -1690,6 +1693,26 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
+
+/obj/machinery/door/airlock/wrench_act(mob/living/user, obj/item/tool)
+	if(!istype(tool, /obj/item/wrench/bolter))
+		return
+	if(!locked)
+		return TRUE
+	if(!panel_open)
+		to_chat(user, "<span class='notice'>You do not have access to [src]'s bolts, open the panel first!</span>")
+		return TRUE
+	if(security_level != AIRLOCK_SECURITY_NONE)
+		to_chat(user, "<span class='notice'>You do not have access to [src]'s bolts, remove the reinforcements first!</span>")
+		return TRUE
+
+	user.visible_message("<span class='alert'>[user] has stuck a wrench into [src] and is struggling to raise the bolts!</span>", "<span class='alert'>You struggle to raise the bolts of [src].</span>")
+	if(!do_after(user, 5 SECONDS, target = src))
+		return TRUE
+	locked = FALSE
+	playsound(src, boltUp, 30, FALSE, 3)
+	update_icon()
+	return TRUE // Prevents you hitting the door if you're on harm intent, and you do the unbolt do_after.
 
 #undef AIRLOCK_CLOSED
 #undef AIRLOCK_CLOSING

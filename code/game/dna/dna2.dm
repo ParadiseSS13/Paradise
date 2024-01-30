@@ -418,7 +418,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	SE_original = SE.Copy()
 
 	unique_enzymes = md5(character.real_name)
-	GLOB.reg_dna[unique_enzymes] = character.real_name
 
 // Hmm, I wonder how to go about this without a huge convention break
 /datum/dna/serialize()

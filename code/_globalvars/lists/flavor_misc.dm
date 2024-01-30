@@ -27,10 +27,6 @@ GLOBAL_LIST_EMPTY(socks_f)	 //stores only socks name
 	//Alt Heads
 GLOBAL_LIST_EMPTY(alt_heads_list)	//stores /datum/sprite_accessory/alt_heads indexed by name
 
-GLOBAL_LIST_INIT(scarySounds, list('sound/weapons/thudswoosh.ogg','sound/weapons/taser.ogg','sound/weapons/armbomb.ogg','sound/voice/hiss1.ogg','sound/voice/hiss2.ogg', \
-'sound/voice/hiss3.ogg','sound/voice/hiss4.ogg','sound/voice/hiss5.ogg','sound/voice/hiss6.ogg','sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg', \
-'sound/items/welder.ogg','sound/items/welder2.ogg','sound/machines/airlock_open.ogg','sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg'))
-
 // Reference list for disposal sort junctions. Set the sort_type_txt variable on disposal sort junctions to
 // the index of the sort department that you want. For example, adding "2" to sort_type_txt will reroute all packages
 // tagged for the Cargo Bay. Multiple destinations can be added by separating them with ;, like "2;8" for Cargo Bay and Security.
@@ -56,12 +52,7 @@ GLOBAL_LIST_INIT(phonetic_alphabet, list("Alpha", "Bravo", "Charlie",
 	"Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray",
 	"Yankee", "Zulu"))
 
-GLOBAL_LIST_INIT(numbers_as_words, list("One", "Two", "Three", "Four",
-	"Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve",
-	"Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen",
-	"Eighteen", "Nineteen"))
-
-	//Backpacks
+//Backpacks
 #define GBACKPACK "Grey Backpack"
 #define GSATCHEL "Grey Satchel"
 #define GDUFFLEBAG "Grey Dufflebag"

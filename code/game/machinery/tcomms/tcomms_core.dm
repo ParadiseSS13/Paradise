@@ -175,14 +175,17 @@
 // UI STUFF //
 //////////////
 
-/obj/machinery/tcomms/core/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/tcomms/core/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/tcomms/core/ui_interact(mob/user, datum/tgui/ui = null)
 	// This needs to happen here because of how late the language datum initializes. I dont like it
 	if(length(nttc.valid_languages) == 1)
 		nttc.update_languages()
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TcommsCore", name, 900, 600, master_ui, state)
+		ui = new(user, src, "TcommsCore", name)
 		ui.open()
 
 /obj/machinery/tcomms/core/ui_data(mob/user)
@@ -259,7 +262,7 @@
 
 		// Job Format
 		if("nttc_job_indicator_type")
-			var/card_style = input(usr, "Pick a job card format.", "Job Card Format") as null|anything in nttc.job_card_styles
+			var/card_style = tgui_input_list(usr, "Pick a job card format", "Job Card Format", nttc.job_card_styles)
 			if(!card_style)
 				return
 			nttc.job_indicator_type = card_style
@@ -268,7 +271,7 @@
 
 		// Language Settings
 		if("nttc_setting_language")
-			var/new_language = input(usr, "Pick a language to convert messages to.", "Language Conversion") as null|anything in nttc.valid_languages
+			var/new_language = tgui_input_list(usr, "Pick a language to convert messages to", "Language Conversion", nttc.valid_languages)
 			if(!new_language)
 				return
 			if(new_language == "--DISABLE--")

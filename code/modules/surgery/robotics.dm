@@ -472,7 +472,7 @@
 			organs -= O
 			organs[O.name] = O
 
-		I = input("Remove which organ?", "Surgery", null, null) as null|anything in organs
+		I = tgui_input_list(user, "Remove which organ?", "Surgery", organs)
 		if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
 			I = organs[I]
 			if(!I)
@@ -644,7 +644,7 @@
 	return ..()
 
 /datum/surgery_step/robotics/external/customize_appearance/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/chosen_appearance = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in GLOB.selectable_robolimbs
+	var/chosen_appearance = tgui_input_list(user, "Select the company appearance for this limb.", "Limb Company Selection", GLOB.selectable_robolimbs)
 	if(!chosen_appearance)
 		return SURGERY_STEP_INCOMPLETE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -701,7 +701,7 @@
 		to_chat(user, "<span class='warning'>The multitool is out of range! Please try again.</span>")
 		return SURGERY_STEP_INCOMPLETE
 	var/static/list/gender_list = list("Male" = MALE, "Female" = FEMALE, "Genderless" = PLURAL, "Object" = NEUTER)
-	var/gender_key = input(user, "Choose a gender for this machine.", "Select Gender", target.gender) as null|anything in gender_list
+	var/gender_key = tgui_input_list(user, "Choose a gender for this machine", "Select Gender", gender_list)
 	if(!gender_key)
 		to_chat(user, "<span class='warning'>You must choose a gender! Please try again.</span>")
 		return SURGERY_STEP_INCOMPLETE

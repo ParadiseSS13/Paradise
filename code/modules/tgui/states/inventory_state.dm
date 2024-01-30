@@ -12,5 +12,5 @@ GLOBAL_DATUM_INIT(inventory_state, /datum/ui_state/inventory_state, new)
 			var/mob/living/silicon/robot/R = user
 			if(src_object in R.module_active) // Magnetic grippers
 				return user.shared_ui_interaction(src_object)
-		return STATUS_CLOSE
+		return UI_CLOSE
 	return user.shared_ui_interaction(src_object)
