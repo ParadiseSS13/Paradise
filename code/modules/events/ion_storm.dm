@@ -35,7 +35,7 @@
 					to_chat(player, "<span class='deadsay'><b>[M] ([ghost_follow_link(M, player)])</b> has received an ion law:\n<b>'[message]'</b></span>")
 
 	if(botEmagChance)
-		for(var/mob/living/simple_animal/bot/bot in GLOB.machines)
+		for(var/mob/living/simple_animal/bot/bot as anything in SSmachines.get_machinery_of_type(/mob/living/simple_animal/bot))
 			if(prob(botEmagChance))
 				bot.emag_act()
 

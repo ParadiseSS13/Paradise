@@ -237,7 +237,7 @@
 	alert_log += "Code RED: [reason]"
 	called_backup = TRUE
 	lockout_computers()
-	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
+	for(var/obj/machinery/door/poddoor/P as anything in SSmachines.get_machinery_of_type(/obj/machinery/door/poddoor))
 		if(P.density && P.id_tag == "syndi_depot_lvl2" && !P.operating)
 			spawn(0)
 				P.open()

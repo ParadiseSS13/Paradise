@@ -13,14 +13,6 @@
 
 	light_color = LIGHT_COLOR_DARKRED
 
-/obj/machinery/computer/prisoner/Initialize(mapload)
-	. = ..()
-	GLOB.prisoncomputer_list += src
-
-/obj/machinery/computer/prisoner/Destroy()
-	GLOB.prisoncomputer_list -= src
-	return ..()
-
 /obj/machinery/computer/prisoner/attackby(obj/item/O, mob/user, params)
 	var/datum/ui_login/state = ui_login_get()
 	if(state.logged_in)

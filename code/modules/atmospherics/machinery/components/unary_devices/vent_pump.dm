@@ -54,7 +54,6 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/Initialize(mapload)
 	. = ..()
-	GLOB.all_vent_pumps += src
 	icon = null
 	initial_loc = get_area(loc)
 	if(!autolink_id) // Autolink vents are externally managed, and should not show up on the air alarm
@@ -251,7 +250,6 @@
 	update_icon()
 
 /obj/machinery/atmospherics/unary/vent_pump/Destroy()
-	GLOB.all_vent_pumps -= src
 	if(initial_loc)
 		initial_loc.vents -= src
 	return ..()

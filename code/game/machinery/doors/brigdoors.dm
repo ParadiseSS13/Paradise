@@ -42,7 +42,6 @@
 	targets.Cut()
 	prisoner = null
 	qdel(Radio)
-	GLOB.celltimers_list -= src
 	return ..()
 
 /obj/machinery/door_timer/proc/print_report()
@@ -52,7 +51,7 @@
 	time = timetoset
 	officer = usr.name
 
-	for(var/obj/machinery/computer/prisoner/C in GLOB.prisoncomputer_list)
+	for(var/obj/machinery/computer/prisoner/C as anything in SSmachines.get_machinery_of_type(/obj/machinery/computer/prisoner))
 		var/obj/item/paper/P = new /obj/item/paper(C.loc)
 		P.name = "[id] log - [occupant] [station_time_timestamp()]"
 		P.info =  "<center><b>[id] - Brig record</b></center><br><hr><br>"
@@ -116,7 +115,6 @@
 /obj/machinery/door_timer/Initialize(mapload)
 	..()
 
-	GLOB.celltimers_list += src
 	Radio = new /obj/item/radio(src)
 	Radio.listening = FALSE
 	Radio.config(list("Security" = 0))
@@ -125,12 +123,12 @@
 
 /obj/machinery/door_timer/LateInitialize()
 	..()
-	for(var/obj/machinery/door/window/brigdoor/M in GLOB.airlocks)
+	for(var/obj/machinery/door/window/brigdoor/M as anything in SSmachines.get_machinery_of_type(/obj/machinery/door/window/brigdoor))
 		if(M.id == id)
 			targets += M
 			RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
 
-	for(var/obj/machinery/flasher/F in GLOB.machines)
+	for(var/obj/machinery/flasher/F as anything in SSmachines.get_machinery_of_type(/obj/machinery/flasher))
 		if(F.id == id)
 			targets += F
 			RegisterSignal(F, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
@@ -140,7 +138,7 @@
 			targets += C
 			RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
 
-	for(var/obj/machinery/treadmill_monitor/T in GLOB.machines)
+	for(var/obj/machinery/treadmill_monitor/T as anything in SSmachines.get_machinery_of_type(/obj/machinery/treadmill_monitor))
 		if(T.id == id)
 			targets += T
 			RegisterSignal(T, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))

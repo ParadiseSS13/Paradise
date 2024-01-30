@@ -182,7 +182,7 @@
 	abductor.current.create_log(MISC_LOG, "[abductor.current] was made into an abductor scientist")
 
 /datum/game_mode/abduction/proc/get_team_console(team_number)
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C as anything in SSmachines.get_machinery_of_type(/obj/machinery/abductor/console))
 		if(C.team == team_number)
 			return C
 
@@ -266,7 +266,7 @@
 		var/mob/living/carbon/human/H = M.current
 		var/datum/species/abductor/S = H.dna.species
 		ab_team = S.team
-	for(var/obj/machinery/abductor/experiment/E in GLOB.machines)
+	for(var/obj/machinery/abductor/experiment/E as anything in SSmachines.get_machinery_of_type(/obj/machinery/abductor/experiment))
 		if(E.team == ab_team)
 			if(E.points >= target_amount)
 				return TRUE

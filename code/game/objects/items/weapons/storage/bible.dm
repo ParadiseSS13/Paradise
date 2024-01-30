@@ -160,21 +160,6 @@
 	item_state = choice_icons["inhand"]
 	customisable = FALSE
 
-	// Carpet symbol icons are currently broken, so commented out until it's fixed
-	/*var/carpet_dir
-	switch(choice)
-		if("Bible")
-			carpet_dir = 2
-		if("Koran")
-			carpet_dir = 4
-		if("Scientology")
-			carpet_dir = 8
-	if(carpet_dir)
-		for(var/area/station/service/chapel/main/A in world)
-			for(var/turf/T in A.contents)
-				if(T.icon_state == "carpetsymbol")
-					T.dir = carpet_dir*/
-
 	SSblackbox.record_feedback("text", "religion_book", 1, "[choice]", 1)
 
 	if(SSticker)

@@ -7,7 +7,7 @@
 
 	switch(action)
 		if("open_alarm")
-			var/obj/machinery/alarm/alarm = locate(params["aref"]) in GLOB.air_alarms
+			var/obj/machinery/alarm/alarm = locate(params["aref"]) in SSmachines.get_machinery_of_type(/obj/machinery/alarm)
 			if(alarm)
 				alarm.ui_interact(usr)
 
@@ -29,6 +29,6 @@
 
 /datum/ui_module/atmos_control/ui_data(mob/user)
 	var/list/data = list()
-	data["alarms"] = GLOB.air_alarm_repository.air_alarm_data(GLOB.air_alarms, target_z=level_name_to_num(MAIN_STATION))
+	data["alarms"] = GLOB.air_alarm_repository.air_alarm_data(SSmachines.get_machinery_of_type(/obj/machinery/alarm), target_z=level_name_to_num(MAIN_STATION))
 
 	return data

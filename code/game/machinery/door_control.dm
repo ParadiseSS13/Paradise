@@ -66,7 +66,7 @@
 	add_fingerprint(user)
 
 	if(normaldoorcontrol)
-		for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
+		for(var/obj/machinery/door/airlock/D as anything in SSmachines.get_machinery_of_type(/obj/machinery/door/airlock))
 			if(safety_z_check && D.z != z)
 				continue
 			if(D.id_tag == id)
@@ -99,7 +99,7 @@
 						D.safe = 1
 
 	else
-		for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
+		for(var/obj/machinery/door/poddoor/M as anything in SSmachines.get_machinery_of_type(/obj/machinery/door/poddoor))
 			if(safety_z_check && M.z != z)
 				continue
 			if(M.id_tag == id)

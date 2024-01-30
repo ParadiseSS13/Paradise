@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 /obj/machinery/monkey_recycler/proc/locate_camera_console()
 	if(length(connected))
 		return // we're already connected!
-	for(var/obj/machinery/computer/camera_advanced/xenobio/xeno_camera in GLOB.machines)
+	for(var/obj/machinery/computer/camera_advanced/xenobio/xeno_camera as anything in SSmachines.get_machinery_of_type(/obj/machinery/computer/camera_advanced/xenobio))
 		if(get_area(xeno_camera) == get_area(loc))
 			xeno_camera.connected_recycler = src
 			connected |= xeno_camera

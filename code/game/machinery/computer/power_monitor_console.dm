@@ -32,8 +32,6 @@
 
 /obj/machinery/computer/monitor/Initialize(mapload)
 	. = ..()
-	GLOB.power_monitors += src
-	GLOB.power_monitors = sortAtom(GLOB.power_monitors)
 	power_monitor = new(src)
 
 	GLOB.powermonitor_repository.update_cache()
@@ -42,7 +40,6 @@
 	history["demand"] = list()
 
 /obj/machinery/computer/monitor/Destroy()
-	GLOB.power_monitors -= src
 	GLOB.powermonitor_repository.update_cache()
 	QDEL_NULL(power_monitor)
 	return ..()

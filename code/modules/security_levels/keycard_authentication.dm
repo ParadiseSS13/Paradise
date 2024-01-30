@@ -143,7 +143,7 @@
 /obj/machinery/keycard_auth/proc/broadcast_request()
 	update_icon()
 	set_light(1, LIGHTING_MINIMUM_POWER)
-	for(var/obj/machinery/keycard_auth/KA in GLOB.machines)
+	for(var/obj/machinery/keycard_auth/KA as anything in SSmachines.get_machinery_of_type(/obj/machinery/keycard_auth))
 		if(KA == src)
 			continue
 		KA.receive_request(src)
@@ -221,7 +221,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 
 // Why are these global procs?
 /proc/make_maint_all_access()
-	for(var/area/station/maintenance/A in world) // Why are these global lists? AAAAAAAAAAAAAA
+	for(var/area/station/maintenance/A in GLOB.all_areas) // Why are these global lists? AAAAAAAAAAAAAA
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 1
 			D.update_icon()
@@ -230,7 +230,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
 /proc/revoke_maint_all_access()
-	for(var/area/station/maintenance/A in world)
+	for(var/area/station/maintenance/A in GLOB.all_areas)
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 0
 			D.update_icon()
@@ -239,7 +239,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))
 
 /proc/make_station_all_access()
-	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
+	for(var/obj/machinery/door/airlock/D as anything in SSmachines.get_machinery_of_type(/obj/machinery/door/airlock))
 		if(is_station_level(D.z))
 			D.emergency = 1
 			D.update_icon()
@@ -248,7 +248,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "enabled"))
 
 /proc/revoke_station_all_access()
-	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
+	for(var/obj/machinery/door/airlock/D as anything in SSmachines.get_machinery_of_type(/obj/machinery/door/airlock))
 		if(is_station_level(D.z))
 			D.emergency = 0
 			D.update_icon()

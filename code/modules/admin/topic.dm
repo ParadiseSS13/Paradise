@@ -2864,7 +2864,7 @@
 					to_chat(usr, "<span class='warning'>Please wait until the game starts! Not sure how it will work otherwise.</span>")
 					return
 				GLOB.gravity_is_on = !GLOB.gravity_is_on
-				for(var/area/A in world)
+				for(var/area/A in GLOB.all_areas)
 					A.gravitychange(GLOB.gravity_is_on,A)
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Gravity")
 				if(GLOB.gravity_is_on)
@@ -3020,12 +3020,12 @@
 			if("blackout")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Black Out")
 				message_admins("[key_name_admin(usr)] broke all lights", 1)
-				for(var/obj/machinery/light/L in GLOB.machines)
+				for(var/obj/machinery/light/L as anything in SSmachines.get_machinery_of_type(/obj/machinery/light))
 					L.break_light_tube()
 			if("whiteout")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fix All Lights")
 				message_admins("[key_name_admin(usr)] fixed all lights", 1)
-				for(var/obj/machinery/light/L in GLOB.machines)
+				for(var/obj/machinery/light/L as anything in SSmachines.get_machinery_of_type(/obj/machinery/light))
 					L.fix()
 					L.switchcount = 0
 			if("floorlava")
@@ -3079,7 +3079,7 @@
 				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Egalitarian Station")
-				for(var/obj/machinery/door/airlock/W in GLOB.airlocks)
+				for(var/obj/machinery/door/airlock/W as anything in SSmachines.get_machinery_of_type(/obj/machinery/door/airlock))
 					if(is_station_level(W.z) && !istype(get_area(W), /area/station/command/bridge) && !istype(get_area(W), /area/station/public) && !istype(get_area(W), /area/station/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
@@ -3286,12 +3286,12 @@
 					dat += "No-one has done anything this round!"
 				usr << browse(dat, "window=admin_log")
 			if("maint_ACCESS_BRIG")
-				for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
+				for(var/obj/machinery/door/airlock/maintenance/M as anything in SSmachines.get_machinery_of_type(/obj/machinery/door/airlock/maintenance))
 					if(ACCESS_MAINT_TUNNELS in M.req_access)
 						M.req_access = list(ACCESS_BRIG)
 				message_admins("[key_name_admin(usr)] made all maint doors brig access-only.")
 			if("maint_access_engiebrig")
-				for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
+				for(var/obj/machinery/door/airlock/maintenance/M as anything in SSmachines.get_machinery_of_type(/obj/machinery/door/airlock/maintenance))
 					if(ACCESS_MAINT_TUNNELS in M.req_access)
 						M.req_access = list()
 						M.req_one_access = list(ACCESS_BRIG,ACCESS_ENGINE)

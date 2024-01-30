@@ -18,7 +18,7 @@ GLOBAL_DATUM_INIT(air_alarm_repository, /datum/repository/air_alarm, new())
 		if(is_station_contact(passed_alarm.z) && passed_alarm.remote_control) // Still need sanity checks
 			alarms[++alarms.len] = passed_alarm.get_console_data()
 	else
-		for(var/obj/machinery/alarm/alarm in (monitored_alarms ? monitored_alarms : GLOB.air_alarms)) // Generating the whole list again is a bad habit but I can't be bothered to fix it right now
+		for(var/obj/machinery/alarm/alarm in (monitored_alarms ? monitored_alarms : SSmachines.get_machinery_of_type(/obj/machinery/alarm))) // Generating the whole list again is a bad habit but I can't be bothered to fix it right now
 			if(!monitored_alarms && !is_station_contact(alarm.z))
 				continue
 			// We only care about checking target Z if its actually set

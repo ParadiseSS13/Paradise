@@ -6,28 +6,17 @@ GLOBAL_LIST_EMPTY(landmarks_list)				//list of all landmarks created
 GLOBAL_LIST_EMPTY(surgery_steps)				//list of all surgery steps  |BS12
 GLOBAL_LIST_EMPTY(mechas_list)				//list of all mechs. Used by hostile mobs target tracking.
 GLOBAL_LIST_EMPTY(joblist)					//list of all jobstypes, minus borg and AI
-GLOBAL_LIST_EMPTY(airlocks)					//list of all airlocks
 GLOBAL_LIST_EMPTY(singularities)				//list of all singularities
 GLOBAL_LIST_EMPTY(janitorial_equipment)		//list of janitorial equipment
 GLOBAL_LIST_EMPTY(crafting_recipes) //list of all crafting recipes
-GLOBAL_LIST_EMPTY(prisoncomputer_list)
-GLOBAL_LIST_EMPTY(celltimers_list) // list of all cell timers
 GLOBAL_LIST_EMPTY(cell_logs)
-GLOBAL_LIST_EMPTY(navigation_computers)
 GLOBAL_LIST_EMPTY(hierophant_walls)
 
 GLOBAL_LIST_EMPTY(all_areas)
 GLOBAL_LIST_EMPTY(all_unique_areas) // List of all unique areas. AKA areas with there_can_be_many = FALSE
-GLOBAL_LIST_EMPTY(machines)
 GLOBAL_LIST_EMPTY(rcd_list) //list of Rapid Construction Devices.
 
-GLOBAL_LIST_EMPTY(apcs)
-GLOBAL_LIST_EMPTY(air_alarms)
-GLOBAL_LIST_EMPTY(power_monitors)
-GLOBAL_LIST_EMPTY(all_vent_pumps)
-
 GLOBAL_LIST_EMPTY(navbeacons)					//list of all bot nagivation beacons, used for patrolling.
-GLOBAL_LIST_EMPTY(deliverybeacons)			//list of all MULEbot delivery beacons.
 GLOBAL_LIST_EMPTY(deliverybeacontags)			//list of all tags associated with delivery beacons.
 
 GLOBAL_LIST_EMPTY(beacons)

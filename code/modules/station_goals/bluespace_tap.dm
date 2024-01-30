@@ -22,7 +22,7 @@
 	if(..())
 		return TRUE
 	var/highscore = 0
-	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
+	for(var/obj/machinery/power/bluespace_tap/T as anything in SSmachines.get_machinery_of_type(/obj/machinery/power/bluespace_tap))
 		highscore = max(highscore, T.total_points)
 	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounceic'>"][highscore]</span>")
 	if(highscore >= goal)

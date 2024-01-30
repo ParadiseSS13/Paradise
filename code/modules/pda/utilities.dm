@@ -35,7 +35,7 @@
 	var/remote_door_id = ""
 
 /datum/data/pda/utility/toggle_door/start()
-	for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
+	for(var/obj/machinery/door/poddoor/M as anything in SSmachines.get_machinery_of_type(/obj/machinery/door/poddoor))
 		if(M.id_tag == remote_door_id)
 			if(M.density)
 				M.open()

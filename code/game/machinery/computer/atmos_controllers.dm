@@ -324,7 +324,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 	// Setup outlet
 	if(outlet_vent_autolink_id)
-		for(var/obj/machinery/atmospherics/unary/vent_pump/VP as anything in GLOB.all_vent_pumps)
+		for(var/obj/machinery/atmospherics/unary/vent_pump/VP as anything in SSmachines.get_machinery_of_type(/obj/machinery/atmospherics/unary/vent_pump))
 			if(VP.autolink_id == outlet_vent_autolink_id)
 				outlet_vent_uid = VP.UID()
 				get_area(VP).vents -= VP

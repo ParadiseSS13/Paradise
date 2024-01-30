@@ -500,8 +500,7 @@
 	ASSERT(min_network_size >= 0)
 
 	. = list()
-	for(var/object in GLOB.all_vent_pumps) // This only contains vent_pumps so don't bother with type checking
-		var/obj/machinery/atmospherics/unary/vent_pump/vent = object
+	for(var/obj/machinery/atmospherics/unary/vent_pump/vent as anything in SSmachines.get_machinery_of_type(/obj/machinery/atmospherics/unary/vent_pump)) // This only contains vent_pumps so don't bother with type checking
 		var/vent_z = vent.z
 		if(!is_station_level(vent_z))
 			continue

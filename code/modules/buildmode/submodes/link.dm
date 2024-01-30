@@ -95,9 +95,9 @@
 
 	if(istype(link_obj, /obj/machinery/door_control))
 		var/obj/machinery/door_control/M = link_obj
-		for(var/obj/machinery/door/airlock/P in GLOB.airlocks)
+		for(var/obj/machinery/door/airlock/P as anything in SSmachines.get_machinery_of_type(/obj/machinery/door/airlock))
 			if(P.id_tag == M.id)
 				form_connection(M, P, M.normaldoorcontrol)
-		for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
+		for(var/obj/machinery/door/poddoor/P as anything in SSmachines.get_machinery_of_type(/obj/machinery/door/poddoor))
 			if(P.id_tag == M.id)
 				form_connection(M, P, !M.normaldoorcontrol)

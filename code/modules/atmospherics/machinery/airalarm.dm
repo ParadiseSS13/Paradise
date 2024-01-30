@@ -216,9 +216,6 @@
 		wiresexposed = TRUE
 		set_pixel_offsets_from_dir(-24, 24, -24, 24)
 
-	GLOB.air_alarms += src
-	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
-
 	wires = new(src)
 
 	if(!building)
@@ -226,7 +223,6 @@
 
 /obj/machinery/alarm/Destroy()
 	SStgui.close_uis(wires)
-	GLOB.air_alarms -= src
 	GLOB.air_alarm_repository.update_cache(src)
 	QDEL_NULL(wires)
 	if(alarm_area && alarm_area.master_air_alarm == src)

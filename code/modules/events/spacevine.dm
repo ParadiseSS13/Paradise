@@ -8,7 +8,7 @@
 
 	var/obj/structure/spacevine/SV = new()
 
-	for(var/area/station/hallway/A in world)
+	for(var/area/station/hallway/A in GLOB.all_areas)
 		for(var/turf/F in A)
 			if(F.Enter(SV))
 				turfs += F

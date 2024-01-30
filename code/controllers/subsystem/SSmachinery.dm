@@ -9,6 +9,12 @@ SUBSYSTEM_DEF(machines)
 	offline_implications = "Machinery will no longer process. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
 
+	/// List of all machines that exist in world
+	VAR_PRIVATE/list/all_machinery = list()
+
+	/// List of all machines that exist in world by type, as `machine_type => list_of_machinery_of_type
+	VAR_PRIVATE/list/machinery_by_type = list()
+
 	var/list/processing = list()
 	var/list/currentrun = list()
 	/// All regional powernets (/datum/regional_powernet) in the world
@@ -27,6 +33,47 @@ SUBSYSTEM_DEF(machines)
 	cust["processing"] = length(processing)
 	.["custom"] = cust
 
+/datum/controller/subsystem/machines/proc/register_machine(obj/machinery/machine)
+	if(!machine)
+		CRASH("Non existing machinery was tried to be registered")
+
+	LAZYADD(machinery_by_type[machine.type], machine)
+	all_machinery |= machine
+
+/datum/controller/subsystem/machines/proc/unregister_machine(obj/machinery/machine)
+	if(!machine)
+		CRASH("Non existing machinery was tried to be unregistered")
+
+	var/list/existing = machinery_by_type[machine.type]
+	existing -= machine
+	if(!length(existing))
+		machinery_by_type -= machine.type
+	all_machinery -= machine
+
+/datum/controller/subsystem/machines/proc/get_machinery_of_type(obj/machinery/machinery_type)
+	if(!machinery_type)
+		return list()
+
+	if(!ispath(machinery_type))
+		machinery_type = machinery_type.type
+
+	if(!ispath(machinery_type, /obj/machinery))
+		CRASH("Non-machinery type passed in `/datum/controller/subsystem/machines/proc/get_machinery_of_type`")
+
+	if(machinery_type == /obj/machinery)
+		return get_all_machinery()
+
+	var/list/machinery = list()
+	for(var/type in typesof(machinery_type))
+		var/list/machinery_of_type = machinery_by_type[type]
+		if(machinery_of_type)
+			machinery += machinery_of_type
+
+	return machinery
+
+/datum/controller/subsystem/machines/proc/get_all_machinery()
+	return all_machinery.Copy()
+
 /datum/controller/subsystem/machines/proc/makepowernets()
 	for(var/datum/regional_powernet/PN in powernets)
 		qdel(PN)
@@ -39,15 +86,15 @@ SUBSYSTEM_DEF(machines)
 			propagate_network(PC, PC.powernet)
 
 /datum/controller/subsystem/machines/get_stat_details()
-	return "Machines: [processing.len] | Powernets: [powernets.len] | Deferred: [deferred_powernet_rebuilds.len]"
+	return "Machines: [length(processing)] | Powernets: [length(powernets)] | Deferred: [length(deferred_powernet_rebuilds)]"
 
 /datum/controller/subsystem/machines/proc/process_defered_powernets(resumed = 0)
 	if(!resumed)
 		src.currentrun = deferred_powernet_rebuilds.Copy()
 	//cache for sanid speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
-	while(currentrun.len)
-		var/obj/O = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/obj/O = currentrun[length(currentrun)]
 		currentrun.len--
 		if(O && !QDELETED(O))
 			var/datum/regional_powernet/newPN = new() // create a new powernet...
@@ -62,8 +109,8 @@ SUBSYSTEM_DEF(machines)
 		src.currentrun = powernets.Copy()
 	//cache for sanid speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
-	while(currentrun.len)
-		var/datum/regional_powernet/P = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/datum/regional_powernet/P = currentrun[length(currentrun)]
 		currentrun.len--
 		if(P)
 			P.process_power() // reset the power state
@@ -78,8 +125,8 @@ SUBSYSTEM_DEF(machines)
 		src.currentrun = processing.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
-	while(currentrun.len)
-		var/obj/machinery/thing = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/obj/machinery/thing = currentrun[length(currentrun)]
 		currentrun.len--
 		if(!QDELETED(thing) && thing.process(seconds) != PROCESS_KILL)
 			if(prob(MACHINE_FLICKER_CHANCE))
@@ -127,3 +174,7 @@ SUBSYSTEM_DEF(machines)
 		processing = SSmachines.processing
 	if(istype(SSmachines.powernets))
 		powernets = SSmachines.powernets
+	if(istype(SSmachines.all_machinery))
+		all_machinery = SSmachines.all_machinery
+	if(istype(SSmachines.machinery_by_type))
+		machinery_by_type = SSmachines.machinery_by_type

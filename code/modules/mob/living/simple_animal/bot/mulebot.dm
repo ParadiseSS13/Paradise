@@ -804,7 +804,7 @@
 	if(!on || wires.is_cut(WIRE_BEACON_RX))
 		return
 
-	for(var/obj/machinery/navbeacon/NB in GLOB.deliverybeacons)
+	for(var/obj/machinery/navbeacon/NB as anything in SSmachines.get_machinery_of_type(/obj/machinery/navbeacon))
 		if(NB.location == new_destination)	// if the beacon location matches the set destination
 			destination = new_destination	// the we will navigate there
 			target = NB.loc

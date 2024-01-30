@@ -160,7 +160,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	diag_hud_set_electrified()
 
 /obj/machinery/door/airlock/proc/update_other_id()
-	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
+	for(var/obj/machinery/door/airlock/A as anything in SSmachines.get_machinery_of_type(/obj/machinery/door/airlock))
 		if(A.closeOtherId == closeOtherId && A != src)
 			closeOther = A
 			break

@@ -54,7 +54,7 @@
 	to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
 	to_chat(user, "<b>Your bonus telecrystals have been split between your team's uplinks.</b>")
 
-	for(var/obj/machinery/computer/shuttle/syndicate/S in GLOB.machines)
+	for(var/obj/machinery/computer/shuttle/syndicate/S as anything in SSmachines.get_machinery_of_type(/obj/machinery/computer/shuttle/syndicate))
 		S.challenge = TRUE
 		S.challenge_time = world.time
 
@@ -93,7 +93,7 @@
 	if((world.time - SSticker.round_start_time) > CHALLENGE_TIME_LIMIT) // Only count after the round started
 		to_chat(user, "It's too late to declare hostilities. Your benefactors are already busy with other schemes. You'll have to make do with what you have on hand.")
 		return FALSE
-	for(var/obj/machinery/computer/shuttle/syndicate/S in GLOB.machines)
+	for(var/obj/machinery/computer/shuttle/syndicate/S as anything in SSmachines.get_machinery_of_type(/obj/machinery/computer/shuttle/syndicate))
 		if(S.moved)
 			to_chat(user, "The shuttle has already been moved! You have forfeit the right to declare war.")
 			return FALSE

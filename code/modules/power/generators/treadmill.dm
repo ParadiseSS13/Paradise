@@ -139,7 +139,7 @@
 /obj/machinery/treadmill_monitor/Initialize(mapload)
 	. = ..()
 	if(id)
-		for(var/obj/machinery/power/treadmill/T in GLOB.machines)
+		for(var/obj/machinery/power/treadmill/T as anything in SSmachines.get_machinery_of_type(/obj/machinery/power/treadmill))
 			if(T.id == id)
 				treadmill = T
 				break

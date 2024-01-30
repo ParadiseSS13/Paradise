@@ -222,13 +222,13 @@
 			CHECK_TICK
 
 	else if(ispath(T, /obj/machinery/door))
-		for(var/obj/machinery/door/thing in GLOB.airlocks)
+		for(var/obj/machinery/door/thing as anything in SSmachines.get_machinery_of_type(/obj/machinery/door))
 			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK
 
 	else if(ispath(T, /obj/machinery))
-		for(var/obj/machinery/thing in GLOB.machines)
+		for(var/obj/machinery/thing as anything in SSmachines.get_all_machinery())
 			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK

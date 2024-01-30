@@ -151,8 +151,6 @@
 	if(!armor)
 		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, RAD = 100, FIRE = 90, ACID = 50)
 	..()
-	GLOB.apcs += src
-	GLOB.apcs = sortAtom(GLOB.apcs)
 
 	wires = new(src)
 
@@ -173,7 +171,6 @@
 
 /obj/machinery/power/apc/Destroy()
 	SStgui.close_uis(wires)
-	GLOB.apcs -= src
 
 	machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
 	machine_powernet.set_power_channel(PW_CHANNEL_EQUIPMENT, FALSE)

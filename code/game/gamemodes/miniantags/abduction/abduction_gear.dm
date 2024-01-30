@@ -124,7 +124,7 @@
 
 /obj/item/clothing/suit/armor/abductor/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C as anything in SSmachines.get_machinery_of_type(/obj/machinery/abductor/console))
 		if(C.vest == src)
 			C.vest = null
 			break

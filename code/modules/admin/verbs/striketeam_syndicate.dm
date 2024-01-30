@@ -38,7 +38,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	// Find the nuclear auth code
 	var/nuke_code
 	var/temp_code
-	for(var/obj/machinery/nuclearbomb/N in GLOB.machines)
+	for(var/obj/machinery/nuclearbomb/N as anything in SSmachines.get_machinery_of_type(/obj/machinery/nuclearbomb))
 		temp_code = text2num(N.r_code)
 		if(temp_code)//if it's actually a number. It won't convert any non-numericals.
 			nuke_code = N.r_code

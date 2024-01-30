@@ -586,7 +586,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		camera.c_tag = null
 		QDEL_NULL(camera)
 	visible_message("<span class='notice'>The video camera has been turned [on ? "on" : "off"].</span>")
-	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
+	for(var/obj/machinery/computer/security/telescreen/entertainment/TV as anything in SSmachines.get_machinery_of_type(/obj/machinery/computer/security/telescreen/entertainment))
 		if(on)
 			TV.feeds_on++
 		else
@@ -616,13 +616,13 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	if(camera && on)
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg)
-		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
+		for(var/obj/machinery/computer/security/telescreen/T as anything in SSmachines.get_machinery_of_type(/obj/machinery/computer/security/telescreen))
 			if(T.watchers[M] == camera)
 				T.atom_say(msg)
 
 /obj/item/videocam/hear_message(mob/M as mob, msg)
 	if(camera && on)
-		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
+		for(var/obj/machinery/computer/security/telescreen/T as anything in SSmachines.get_machinery_of_type(/obj/machinery/computer/security/telescreen))
 			if(T.watchers[M] == camera)
 				T.atom_say(msg)
 

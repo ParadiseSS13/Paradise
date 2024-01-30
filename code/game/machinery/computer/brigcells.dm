@@ -34,7 +34,7 @@
 /obj/machinery/computer/brigcells/ui_data(mob/user)
 	var/list/data = list()
 	var/list/timers = list()
-	for(var/obj/machinery/door_timer/T in GLOB.celltimers_list)
+	for(var/obj/machinery/door_timer/T as anything in SSmachines.get_machinery_of_type(/obj/machinery/door_timer))
 		var/timer = list()
 		timer["cell_id"] = T.name
 		timer["occupant"] = T.occupant

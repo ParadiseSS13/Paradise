@@ -51,7 +51,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 	// Find the nuclear auth code
 	var/nuke_code
 	var/new_nuke = FALSE
-	for(var/obj/machinery/nuclearbomb/N in GLOB.machines)
+	for(var/obj/machinery/nuclearbomb/N as anything in SSmachines.get_machinery_of_type(/obj/machinery/nuclearbomb))
 		if(istype(N, /obj/machinery/nuclearbomb/syndicate) || !N.core)
 			continue
 		var/temp_code = text2num(N.r_code)

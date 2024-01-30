@@ -177,8 +177,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		. += .(S, level + 1)
 
 /datum/scoreboard/proc/check_apc_power()
-	for(var/_A in GLOB.apcs)
-		var/obj/machinery/power/apc/A = _A
+	for(var/obj/machinery/power/apc/A as anything in SSmachines.get_machinery_of_type(/obj/machinery/power/apc))
 		if(!is_station_level(A.z))
 			continue
 		var/obj/item/stock_parts/cell/C = A.cell

@@ -81,8 +81,11 @@ SUBSYSTEM_DEF(air)
 	setup_allturfs()
 	if(length(active_turfs))
 		throw_error_on_active_roundstart_turfs()
-	setup_atmos_machinery(GLOB.machines)
-	setup_pipenets(GLOB.machines)
+
+	var/list/atmospheric_machinery = SSmachines.get_machinery_of_type(/obj/machinery/atmospherics)
+	setup_atmos_machinery(atmospheric_machinery)
+	setup_pipenets(atmospheric_machinery)
+
 	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
 		A.initialize_atmos_network()
 

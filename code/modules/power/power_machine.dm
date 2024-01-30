@@ -103,7 +103,6 @@
 	return null
 
 /area/proc/get_apc()
-	for(var/thing in GLOB.apcs)
-		var/obj/machinery/power/apc/APC = thing
+	for(var/obj/machinery/power/apc/APC as anything in SSmachines.get_machinery_of_type(/obj/machinery/power/apc))
 		if(APC.apc_area == src)
 			return APC

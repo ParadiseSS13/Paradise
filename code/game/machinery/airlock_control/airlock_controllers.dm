@@ -45,7 +45,7 @@
 
 // Do setup of stuff here
 /obj/machinery/airlock_controller/LateInitialize()
-	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
+	for(var/obj/machinery/door/airlock/A as anything in SSmachines.get_machinery_of_type(/obj/machinery/door/airlock))
 		if(A.id_tag == int_door_link_id)
 			interior_doors += A.UID()
 		if(A.id_tag == ext_door_link_id)
@@ -373,7 +373,7 @@ send an additional command to open the door again.
 /* =============================== AIR CYCLER - Ensures internal pressure matches (just about) the void or the normal atmosphere */
 /obj/machinery/airlock_controller/air_cycler/LateInitialize()
 	..()
-	for(var/obj/machinery/atmospherics/unary/vent_pump/V as anything in GLOB.all_vent_pumps)
+	for(var/obj/machinery/atmospherics/unary/vent_pump/V as anything in SSmachines.get_machinery_of_type(/obj/machinery/atmospherics/unary/vent_pump))
 		if(V.autolink_id == vent_link_id)
 			vents += V.UID()
 

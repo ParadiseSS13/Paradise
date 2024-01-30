@@ -135,7 +135,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 //Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
-	for(var/obj/machinery/r_n_d/server/centcom/C in GLOB.machines)
+	for(var/obj/machinery/r_n_d/server/centcom/C as anything in SSmachines.get_machinery_of_type(/obj/machinery/r_n_d/server/centcom))
 		files.push_data(C.files)
 
 /obj/machinery/computer/rdconsole/proc/Maximize()
@@ -253,7 +253,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/list/temp_unblacklist = files.unblacklisted_designs
 	files.unblacklisted_designs = list() //Remove this asap, else it will stick around
 	clear_wait_message()
-	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+	for(var/obj/machinery/r_n_d/server/S as anything in SSmachines.get_machinery_of_type(/obj/machinery/r_n_d/server))
 		var/server_processed = FALSE
 
 		if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))

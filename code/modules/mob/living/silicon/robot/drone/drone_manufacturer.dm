@@ -155,7 +155,7 @@
 	if(alert("Are you sure you want to respawn as a drone?", "Are you sure?", "Yes", "No") != "Yes")
 		return
 
-	for(var/obj/machinery/drone_fabricator/DF in GLOB.machines)
+	for(var/obj/machinery/drone_fabricator/DF as anything in SSmachines.get_machinery_of_type(/obj/machinery/drone_fabricator))
 		if(DF.stat & NOPOWER || !DF.produce_drones)
 			continue
 

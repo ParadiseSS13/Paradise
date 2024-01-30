@@ -36,12 +36,10 @@
 			GLOB.navbeacons["[z]"] = list()
 		GLOB.navbeacons["[z]"] += src //Register with the patrol list!
 	if("delivery" in codes)
-		GLOB.deliverybeacons += src
 		GLOB.deliverybeacontags += location
 
 /obj/machinery/navbeacon/Destroy()
 	GLOB.navbeacons["[z]"] -= src //Remove from beacon list, if in one.
-	GLOB.deliverybeacons -= src
 	return ..()
 
 /obj/machinery/navbeacon/serialize()

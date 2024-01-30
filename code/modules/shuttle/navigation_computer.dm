@@ -24,15 +24,10 @@
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/Initialize()
 	. = ..()
-	GLOB.navigation_computers += src
 	if(access_station)
 		jumpto_ports += list("nav_z[level_name_to_num(MAIN_STATION)]" = 1)
 	if(access_mining && GLOB.configuration.ruins.enable_lavaland)
 		jumpto_ports += list("nav_z[level_name_to_num(MINING)]" = 1)
-
-/obj/machinery/computer/camera_advanced/shuttle_docker/Destroy()
-	GLOB.navigation_computers -= src
-	return ..()
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/attack_hand(mob/user)
 	if(!shuttle_port && !SSshuttle.getShuttle(shuttleId))

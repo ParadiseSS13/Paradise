@@ -28,7 +28,7 @@
 
 /datum/station_goal/proc/get_coverage()
 	var/list/coverage = list()
-	for(var/obj/machinery/satellite/meteor_shield/A in GLOB.machines)
+	for(var/obj/machinery/satellite/meteor_shield/A as anything in SSmachines.get_machinery_of_type(/obj/machinery/satellite))
 		if(!A.active || !is_station_level(A.z))
 			continue
 		coverage |= view(A.kill_range, A)
@@ -65,7 +65,7 @@
 	var/list/data = list()
 
 	data["satellites"] = list()
-	for(var/obj/machinery/satellite/S in GLOB.machines)
+	for(var/obj/machinery/satellite/S as anything in SSmachines.get_machinery_of_type(/obj/machinery/satellite))
 		data["satellites"] += list(list(
 			"id" = S.id,
 			"active" = S.active,
@@ -91,7 +91,7 @@
 			. = TRUE
 
 /obj/machinery/computer/sat_control/proc/toggle(id)
-	for(var/obj/machinery/satellite/S in GLOB.machines)
+	for(var/obj/machinery/satellite/S as anything in SSmachines.get_machinery_of_type(/obj/machinery/satellite))
 		if(S.id == id && atoms_share_level(src, S))
 			if(!S.toggle())
 				notice = "You can only activate satellites which are in space"

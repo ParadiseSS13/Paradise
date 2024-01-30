@@ -143,7 +143,7 @@
 /obj/item/pinpointer/examine(mob/user)
 	. = ..()
 	if(shows_nuke_timer)
-		for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+		for(var/obj/machinery/nuclearbomb/bomb as anything in SSmachines.get_machinery_of_type(/obj/machinery/nuclearbomb))
 			if(bomb.timing)
 				. += "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]"
 

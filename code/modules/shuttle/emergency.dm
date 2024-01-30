@@ -393,7 +393,7 @@
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
 				sound_played = 1
 				var/hyperspace_sound = sound('sound/effects/hyperspace_begin.ogg')
-				for(var/area/shuttle/escape/E in world)
+				for(var/area/shuttle/escape/E in GLOB.all_areas)
 					SEND_SOUND(E, hyperspace_sound)
 
 			if(time_left <= 0 && !length(SSshuttle.hostile_environments))
@@ -403,7 +403,7 @@
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
 				var/hyperspace_progress_sound = sound('sound/effects/hyperspace_progress.ogg')
-				for(var/area/shuttle/escape/E in world)
+				for(var/area/shuttle/escape/E in GLOB.all_areas)
 					SEND_SOUND(E, hyperspace_progress_sound)
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
@@ -420,7 +420,7 @@
 					M.dock(SSshuttle.getDock("[M.id]_away"))
 
 				var/hyperspace_end_sound = sound('sound/effects/hyperspace_end.ogg')
-				for(var/area/shuttle/escape/E in world)
+				for(var/area/shuttle/escape/E in GLOB.all_areas)
 					SEND_SOUND(E, hyperspace_end_sound)
 
 				// now move the actual emergency shuttle to centcomm

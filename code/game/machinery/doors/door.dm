@@ -55,7 +55,6 @@
 	spark_system.set_up(2, 1, src)
 	// Yes I know this isnt an airlock but its required because of the dumb reason of
 	// pod doors and shutters similar using this list as well
-	GLOB.airlocks += src
 
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
@@ -92,7 +91,6 @@
 	density = FALSE
 	air_update_turf(1)
 	update_freelook_sight()
-	GLOB.airlocks -= src
 	QDEL_NULL(spark_system)
 	return ..()
 

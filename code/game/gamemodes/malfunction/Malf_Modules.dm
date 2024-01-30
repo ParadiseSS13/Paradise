@@ -335,7 +335,7 @@
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/AI_Module/upgrade_turrets/upgrade(mob/living/silicon/ai/AI)
-	for(var/obj/machinery/porta_turret/ai_turret/turret in GLOB.machines)
+	for(var/obj/machinery/porta_turret/ai_turret/turret as anything in SSmachines.get_machinery_of_type(/obj/machinery/porta_turret/ai_turret))
 		var/turf/T = get_turf(turret)
 		if(is_station_level(T.z))
 			turret.health += 30
@@ -423,7 +423,7 @@
 	uses = 1
 
 /datum/action/innate/ai/break_fire_alarms/Activate()
-	for(var/obj/machinery/firealarm/F in GLOB.machines)
+	for(var/obj/machinery/firealarm/F as anything in SSmachines.get_machinery_of_type(/obj/machinery/firealarm/))
 		if(!is_station_level(F.z))
 			continue
 		F.emagged = TRUE
@@ -448,7 +448,7 @@
 	uses = 1
 
 /datum/action/innate/ai/break_air_alarms/Activate()
-	for(var/obj/machinery/alarm/AA in GLOB.machines)
+	for(var/obj/machinery/alarm/AA as anything in SSmachines.get_machinery_of_type(/obj/machinery/alarm))
 		if(!is_station_level(AA.z))
 			continue
 		AA.emagged = TRUE
@@ -643,8 +643,7 @@
 	auto_use_uses = FALSE
 
 /datum/action/innate/ai/blackout/Activate()
-	for(var/thing in GLOB.apcs)
-		var/obj/machinery/power/apc/apc = thing
+	for(var/obj/machinery/power/apc/apc as anything in SSmachines.get_machinery_of_type(/obj/machinery/power/apc))
 		if(prob(30 * apc.overload))
 			INVOKE_ASYNC(apc, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting))
 		else
