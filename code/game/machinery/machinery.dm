@@ -240,7 +240,7 @@
   * Arguments:
   * * user - the mob interacting with this machinery
   */
-/obj/machinery/proc/try_attack_hand(mob/user as mob)
+/obj/machinery/proc/try_attack_hand(mob/user)
 	if(user.incapacitated())
 		return TRUE
 
