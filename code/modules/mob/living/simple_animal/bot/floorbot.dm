@@ -348,6 +348,7 @@
 /mob/living/simple_animal/bot/floorbot/proc/start_eat_tile(obj/item/stack/tile/plasteel/T)
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		return
+	anchored = TRUE
 	visible_message("<span class='notice'>[src] begins to collect tiles.</span>")
 	mode = BOT_EAT_TILE
 	update_icon(UPDATE_OVERLAYS)
@@ -365,6 +366,7 @@
 	else
 		amount += T.amount
 		qdel(T)
+	anchored = FALSE
 	ignore_job -= target.UID()
 	target = null
 	mode = BOT_IDLE
@@ -373,6 +375,7 @@
 /mob/living/simple_animal/bot/floorbot/proc/start_make_tile(obj/item/stack/sheet/metal/M)
 	if(!istype(M, /obj/item/stack/sheet/metal))
 		return
+	anchored = TRUE
 	visible_message("<span class='notice'>[src] begins to create tiles.</span>")
 	mode = BOT_MAKE_TILE
 	update_icon(UPDATE_OVERLAYS)
@@ -395,6 +398,7 @@
 		M.amount --
 	else
 		qdel(M)
+	anchored = FALSE
 	ignore_job -= target.UID()
 	target = null
 	mode = BOT_IDLE
