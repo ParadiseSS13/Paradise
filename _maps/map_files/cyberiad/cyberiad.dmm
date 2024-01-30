@@ -64185,12 +64185,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
-"iuF" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "Surgery 2"
-	},
-/turf/simulated/floor/plating,
-/area/station/medical/surgery/secondary)
 "ivc" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -72394,10 +72388,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "myq" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "Surgery 2"
 	},
-/area/station/medical/surgery/observation)
+/turf/simulated/floor/plating,
+/area/station/medical/surgery/secondary)
 "myP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -75346,6 +75341,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/hop)
+"oaY" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/station/medical/surgery/observation)
 "obP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -85260,7 +85260,7 @@
 /obj/item/trash/gum,
 /obj/machinery/camera{
 	dir = 8;
-	c_tag = virology
+	c_tag = "Virology Observation"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -132006,8 +132006,8 @@ cup
 cuh
 csY
 cuh
+oaY
 myq
-iuF
 dRz
 crw
 suJ
@@ -132263,8 +132263,8 @@ cpM
 crt
 ctb
 cum
+oaY
 myq
-iuF
 cxt
 cGw
 cyV
@@ -132777,8 +132777,8 @@ yif
 crv
 ctd
 cup
+oaY
 myq
-iuF
 cFz
 cxP
 cyX
@@ -133034,8 +133034,8 @@ cum
 cuh
 ctc
 cuh
+oaY
 myq
-iuF
 cxu
 cxL
 cyW
