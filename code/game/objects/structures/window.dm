@@ -523,9 +523,13 @@
 	icon_state = "light0"
 	anchored = TRUE
 	desc = "A remote control switch for polarized windows."
+	/// The area where the button is located.
 	var/area/button_area
-	var/range = 0
-	var/id = 0
+	/// Windows in this range are controlled by this button. If it equals TINT_CONTROL_RANGE_AREA, the button controls only windows at button_area.
+	var/range = TINT_CONTROL_RANGE_AREA
+	/// If equals TINT_CONTROL_GROUP_NONE, only windows with 'null-like' id are controlled by this button. Otherwise, windows with corresponding or 'null-like' id are controlled by this button.
+	var/id = TINT_CONTROL_GROUP_NONE
+	/// The button toggle state. If range equals TINT_CONTROL_RANGE_AREA and id equals TINT_CONTROL_GROUP_NONE or is same with other button, it is shared between all such buttons in its area.
 	var/active = FALSE
 
 /obj/machinery/button/windowtint/Initialize(mapload, w_dir = null)
@@ -567,34 +571,30 @@
 
 /obj/machinery/button/windowtint/proc/toggle_tint()
 	use_power(5)
-
-	if(!range)
+	if(range == TINT_CONTROL_RANGE_AREA)
 		button_area.window_tint = !button_area.window_tint
-		for(var/obj/machinery/button/windowtint/B in button_area)
-			if(B.range || B.id)
+		for(var/obj/machinery/button/windowtint/button in button_area)
+			if(button.range != TINT_CONTROL_RANGE_AREA || (button.id != id && button.id != TINT_CONTROL_GROUP_NONE))
 				continue
-			B.active = button_area.window_tint
-			B.update_icon()
+			button.active = button_area.window_tint
+			button.update_icon()
 	else
 		active = !active
 		update_icon()
-
-	process_controlled_windows(range ? range(src, range) : button_area)
+	process_controlled_windows(range != TINT_CONTROL_RANGE_AREA ? range(src, range) : button_area)
 
 /obj/machinery/button/windowtint/proc/process_controlled_windows(control_area)
-	for(var/obj/structure/window/reinforced/polarized/W in control_area)
-		if(W.id == src.id || !W.id)
-			W.toggle_polarization()
-
-	for(var/obj/structure/window/full/reinforced/polarized/W in control_area)
-		if(W.id == id || !W.id)
-			W.toggle_polarization()
-
-	for(var/obj/machinery/door/D in control_area)
-		if(!D.polarized_glass)
+	for(var/obj/structure/window/reinforced/polarized/window in control_area)
+		if(window.id == id || !window.id)
+			window.toggle_polarization()
+	for(var/obj/structure/window/full/reinforced/polarized/window in control_area)
+		if(window.id == id || !window.id)
+			window.toggle_polarization()
+	for(var/obj/machinery/door/door in control_area)
+		if(!door.polarized_glass)
 			continue
-		if(D.id == id || !D.id)
-			D.toggle_polarization()
+		if(door.id == id || !door.id)
+			door.toggle_polarization()
 
 /obj/machinery/button/windowtint/power_change()
 	if(!..())
