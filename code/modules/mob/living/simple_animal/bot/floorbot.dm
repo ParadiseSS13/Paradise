@@ -366,8 +366,9 @@
 	else
 		amount += T.amount
 		qdel(T)
+	if(target)
+		ignore_job -= target.UID()
 	anchored = FALSE
-	ignore_job -= target.UID()
 	target = null
 	mode = BOT_IDLE
 	update_icon(UPDATE_OVERLAYS)
@@ -398,8 +399,9 @@
 		M.amount --
 	else
 		qdel(M)
+	if(target)
+		ignore_job -= target.UID()
 	anchored = FALSE
-	ignore_job -= target.UID()
 	target = null
 	mode = BOT_IDLE
 	update_icon(UPDATE_OVERLAYS)
