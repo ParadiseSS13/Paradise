@@ -23,8 +23,5 @@
  */
 /datum/controller/proc/log_startup_progress(message)
 	Master.last_init_info = "([name]): [message]"
-	to_chat(world,
-		type = MESSAGE_TYPE_DEBUG,
-		html = "<span class='danger'><small>\[[name]]</small> [message]</span>",
-		confidential = TRUE)
+	to_chat(world, "<span class='danger'><small>\[[name]]</small> [message]</span>", MESSAGE_TYPE_DEBUG, confidential = TRUE)
 	log_world("\[[name]] [message]")

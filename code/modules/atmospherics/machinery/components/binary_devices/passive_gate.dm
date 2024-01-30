@@ -13,6 +13,15 @@
 
 	var/id = null
 
+/obj/machinery/atmospherics/binary/volume_pump/can_be_pulled(user, grab_state, force, show_message)
+	return FALSE
+
+/obj/machinery/atmospherics/binary/passive_gate/CtrlClick(mob/living/user)
+	if(can_use_shortcut(user))
+		toggle(user)
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
+	return ..()
+
 /obj/machinery/atmospherics/binary/passive_gate/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This is a one-way regulator, allowing gas to flow only at a specific pressure and flow rate. If the light is green, gas is flowing.</span>"

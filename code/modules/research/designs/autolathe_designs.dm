@@ -949,3 +949,11 @@
 	materials = list(MAT_METAL = 1500, MAT_GLASS = 500)
 	build_path = /obj/item/mail_scanner
 	category = list("initial", "Miscellaneous")
+
+/datum/design/knuckleduster
+	name = "Knuckleduster"
+	id = "knuckleduster"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500)
+	build_path = /obj/item/melee/knuckleduster
+	category = list("hacked", "Security")

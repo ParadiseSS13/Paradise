@@ -249,7 +249,7 @@ SUBSYSTEM_DEF(dbcore)
   */
 /datum/controller/subsystem/dbcore/proc/NewQuery(sql_query, arguments)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>DB query blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>DB query blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to create a DB query via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to create a DB query via advanced proc-call")
 		return FALSE
@@ -386,10 +386,7 @@ SUBSYSTEM_DEF(dbcore)
 	if(!.)
 		SSdbcore.total_errors++
 		if(usr)
-			to_chat(usr,
-				type = MESSAGE_TYPE_ADMINLOG,
-				html = "<span class='danger'>A SQL error occurred during this operation, please inform an admin or a coder.</span>",
-				confidential = TRUE)
+			to_chat(usr, "<span class='danger'>A SQL error occurred during this operation, please inform an admin or a coder.</span>", MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 		message_admins("An SQL error has occurred. Please check the server logs, with the following timestamp ID: \[[time_stamp()]]")
 
 /**

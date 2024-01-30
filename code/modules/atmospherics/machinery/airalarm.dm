@@ -880,7 +880,7 @@
 						return
 
 					if(!((U in alarm_area.vents) || (U in alarm_area.scrubbers)))
-						message_admins("<span class='boldannounce'>[key_name_admin(usr)] attempted to href-exploit an air alarm to control another object!!!</span>")
+						message_admins("<span class='boldannounceooc'>[key_name_admin(usr)] attempted to href-exploit an air alarm to control another object!!!</span>")
 						return
 
 					// Its a vent. Handle

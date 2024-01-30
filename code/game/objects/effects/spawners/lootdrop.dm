@@ -136,6 +136,7 @@
 				/obj/item/caution = 10,
 				/obj/item/mod/construction/broken_core = 4,
 				/obj/effect/spawner/random_spawners/mod/maint = 10,
+				/obj/item/melee/knuckleduster = 10,
 				////////////////CONTRABAND STUFF//////////////////
 				/obj/item/grenade/clown_grenade = 3,
 				/obj/item/grenade/smokebomb = 3,
@@ -165,6 +166,7 @@
 				/obj/item/storage/pill_bottle/fakedeath = 2,
 				/obj/item/clothing/suit/jacket/syndicatebomber = 5,
 				/obj/item/clothing/suit/storage/iaa/blackjacket/armored = 2, // More armored than bomber and has pockets, so it is rarer
+				/obj/item/melee/knuckleduster/syndie = 2,
 				"" = 61 // This should be a decently high number for chances where no loot will spawn
 				)
 
