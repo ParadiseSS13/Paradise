@@ -34011,18 +34011,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/research)
-"clc" = (
-/obj/structure/table/glass,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/obj/item/paicard,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whitepurple"
-	},
-/area/station/science/research)
 "cle" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
@@ -47166,6 +47154,17 @@
 	icon_state = "grimy"
 	},
 /area/station/security/detective)
+"dJC" = (
+/obj/structure/table/glass,
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/obj/item/paicard,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/science/research)
 "dKd" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -123978,7 +123977,7 @@ cft
 cgF
 rFe
 cjN
-clb
+dJC
 cmz
 fwz
 daG
@@ -124492,7 +124491,7 @@ cfw
 cgu
 qnt
 qnt
-clc
+oic
 uxR
 cic
 bVj
