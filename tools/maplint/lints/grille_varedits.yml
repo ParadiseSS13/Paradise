@@ -1,0 +1,6 @@
+help: "Use the broken grille subtype. Run updatepaths script 23331_grille_varedits.txt to fix this."
+/obj/structure/grille:
+  banned_variables:
+  - icon_state
+  - density
+  - broken

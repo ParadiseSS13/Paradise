@@ -28,9 +28,9 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/dust
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/dust
 	)
 	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
@@ -81,16 +81,16 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
-	r_pocket = /obj/item/storage/box/matches
+	r_pocket = /obj/item/storage/fancy/matches
 	back = /obj/item/storage/backpack/satchel
 	box = /obj/item/storage/box/centcomofficer
 	backpack_contents = list(
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/storage/box/zipties = 1
 	)
-	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/dust
+	bio_chips = list(
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/dust
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/eyes/cybernetic/xray/hardened,

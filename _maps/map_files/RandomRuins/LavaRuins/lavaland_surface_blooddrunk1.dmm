@@ -108,7 +108,7 @@
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "r" = (
 /obj/structure/stone_tile/block{
@@ -122,7 +122,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "t" = (
 /obj/structure/stone_tile/surrounding/cracked{
@@ -131,14 +131,14 @@
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "u" = (
 /obj/structure/stone_tile{
 	dir = 1
 	},
 /obj/structure/stone_tile/block/cracked,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "v" = (
 /obj/structure/stone_tile{
@@ -153,7 +153,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "x" = (
 /obj/structure/stone_tile{
