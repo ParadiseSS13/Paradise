@@ -58063,9 +58063,6 @@
 /area/station/medical/storage)
 "fuy" = (
 /obj/machinery/light,
-/obj/structure/chair/sofa/corp/left{
-	dir = 1
-	},
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
@@ -62071,14 +62068,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/station/medical/surgery)
-"hpR" = (
-/obj/structure/chair/sofa/corp{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/station/medical/surgery/observation)
 "hpY" = (
 /obj/structure/chair/sofa/bench{
 	dir = 4
@@ -64196,14 +64185,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
-"iuF" = (
-/obj/structure/chair/sofa/corp/left{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/station/medical/surgery/observation)
 "ivc" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -72407,9 +72388,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "myq" = (
-/obj/structure/chair/sofa/corp/right{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -77075,9 +77053,6 @@
 /area/station/engineering/atmos)
 "oLC" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
-	name = "Operating Theatre 2"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/surgery,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -77092,6 +77067,9 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "Surgery 2"
+	},
+/obj/machinery/door/airlock/medical/glass{
+	name = "Operating Theatre 2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -96058,9 +96036,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "ygX" = (
-/obj/structure/chair/sofa/corp/right{
-	dir = 1
-	},
 /obj/machinery/camera/autoname{
 	dir = 10
 	},
@@ -132031,7 +132006,7 @@ cup
 cuh
 csY
 cuh
-hpR
+myq
 oaY
 dRz
 crw
@@ -132288,7 +132263,7 @@ cpM
 crt
 ctb
 cum
-iuF
+myq
 oaY
 cxt
 cGw
@@ -133059,7 +133034,7 @@ cum
 cuh
 ctc
 cuh
-hpR
+myq
 oaY
 cxu
 cxL
