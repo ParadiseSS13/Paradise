@@ -21,7 +21,7 @@
 
 	if(!istype(user))
 		if(!isclient(user))
-			CRASH("We passed something that wasn't a user/client in a tgui alert! The passed user was [user]!")
+			CRASH("We passed something that wasn't a user/client in a TGUI Input Number! The passed user was [user]!")
 		var/client/client = user
 		user = client.mob
 
@@ -149,12 +149,12 @@
 	switch(action)
 		if("submit")
 			if(!isnum(params["entry"]))
-				CRASH("A non number was input into tgui input number by [usr]")
+				CRASH("A non number was input into TGUI Input Number by [usr]")
 			var/choice = round_value ? round(params["entry"]) : params["entry"]
 			if(choice > max_value)
-				CRASH("A number greater than the max value was input into tgui input number by [usr]")
+				CRASH("A number greater than the max value was input into TGUI Input Number by [usr]")
 			if(choice < min_value)
-				CRASH("A number less than the min value was input into tgui input number by [usr]")
+				CRASH("A number less than the min value was input into TGUI Input Number by [usr]")
 			set_entry(choice)
 			closed = TRUE
 			SStgui.close_uis(src)

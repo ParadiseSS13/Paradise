@@ -16,7 +16,7 @@
 
 	if(!istype(user))
 		if(!isclient(user))
-			CRASH("We passed something that wasn't a user/client in a tgui alert! The passed user was [user]!")
+			CRASH("We passed something that wasn't a user/client in a TGUI Alert! The passed user was [user]!")
 		var/client/client = user
 		user = client.mob
 
