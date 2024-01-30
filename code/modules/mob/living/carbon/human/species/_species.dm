@@ -284,7 +284,7 @@
 
 	if(!has_gravity(H))
 		return
-	if(!IS_HORIZONTAL(H))
+	if(!IS_HORIZONTAL(H) || (HAS_TRAIT(H, TRAIT_NOKNOCKDOWNSLOWDOWN) && !H.resting)) //You are slowed if crawling without noknockdownslowdown. However, if you are self crawling, you don't ignore it, so no self crawling to not drop items
 		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
 			. -= 1
 		else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))

@@ -835,6 +835,7 @@
 
 /datum/reagent/twitch/on_mob_add(mob/living/carbon/L)
 	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
+	ADD_TRAIT(L, TRAIT_NOKNOCKDOWNSLOWDOWN, id)
 	L.next_move_modifier -= 0.3 // For the duration of this you move and attack faster
 
 	L.sound_environment_override = SOUND_ENVIRONMENT_DIZZY
@@ -864,6 +865,7 @@
 
 /datum/reagent/twitch/on_mob_delete(mob/living/carbon/L)
 	REMOVE_TRAIT(L, TRAIT_GOTTAGOFAST, id)
+	REMOVE_TRAIT(L, TRAIT_NOKNOCKDOWNSLOWDOWN, id)
 	var/overdosed = (id in L.reagents.overdose_list())
 	L.next_move_modifier += (overdosed ? 0.5 : 0.3)
 
@@ -973,13 +975,16 @@
 	constant_dose_time += 2
 
 	if(ishuman(L))
+		var/heart_damage = 0.1
+		if(L.reagents.has_reagent("methamphetamine")) //We want people to use something other than meth, since meths downside is knockdowns / be orginal
+			heart_damage = 1.1
 		var/mob/living/carbon/human/H = L
 		var/datum/organ/heart/datum_heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
 		if(datum_heart)
 			var/obj/item/organ/internal/our_heart = datum_heart.linked_organ
-			our_heart.receive_damage(0.1, TRUE)
+			our_heart.receive_damage(heart_damage, TRUE)
 		else
-			handle_heartless(L, 0.1)
+			handle_heartless(L, heart_damage)
 
 /datum/reagent/twitch/overdose_start(mob/living/L)
 
