@@ -64185,6 +64185,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
+"iuF" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "Surgery 2"
+	},
+/turf/simulated/floor/plating,
+/area/station/medical/surgery/secondary)
 "ivc" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -75340,12 +75346,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/hop)
-"oaY" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "Surgery 2"
-	},
-/turf/simulated/floor/plating,
-/area/station/medical/surgery/secondary)
 "obP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -132007,7 +132007,7 @@ cuh
 csY
 cuh
 myq
-oaY
+iuF
 dRz
 crw
 suJ
@@ -132264,7 +132264,7 @@ crt
 ctb
 cum
 myq
-oaY
+iuF
 cxt
 cGw
 cyV
@@ -132778,7 +132778,7 @@ crv
 ctd
 cup
 myq
-oaY
+iuF
 cFz
 cxP
 cyX
@@ -133035,7 +133035,7 @@ cuh
 ctc
 cuh
 myq
-oaY
+iuF
 cxu
 cxL
 cyW
