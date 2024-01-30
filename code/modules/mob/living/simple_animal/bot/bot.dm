@@ -536,6 +536,8 @@ TRUE to skip target, FALSE for the next check
 	claim_job(A)
 
 /mob/living/simple_animal/bot/proc/claim_job(atom/A)
+	if(length(ignore_job) >= 30) // Something went wrong, cull the herd
+		ignore_job.cut(1, 2)
 	ignore_job |= A.UID()
 
 // When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
@@ -544,7 +546,7 @@ TRUE to skip target, FALSE for the next check
 
 
 /mob/living/simple_animal/bot/proc/add_to_ignore(atom/A)
-	if(ignore_list.len < 50) // This will help keep track of them, so the bot is always trying to reach a blocked spot.
+	if(length(ignore_list) < 50) // This will help keep track of them, so the bot is always trying to reach a blocked spot.
 		ignore_list |= A.UID()
 	else  // If the list is full, insert newest, delete oldest.
 		ignore_list.Cut(1, 2)

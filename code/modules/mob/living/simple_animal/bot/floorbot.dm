@@ -331,6 +331,8 @@
 	if(mode != BOT_REPAIRING)
 		return
 
+	ignore_job -= target_turf.UID() // If called after the tile fix, turf changes and the UID with it
+
 	if(autotile || replace_tiles)
 		if(process_type != HULL_BREACH)
 			F.break_tile_to_plating()
@@ -342,7 +344,6 @@
 	amount--
 	update_icon(UPDATE_OVERLAYS)
 	anchored = FALSE
-	ignore_job -= target.UID()
 	target = null
 
 /mob/living/simple_animal/bot/floorbot/proc/start_eat_tile(obj/item/stack/tile/plasteel/T)
