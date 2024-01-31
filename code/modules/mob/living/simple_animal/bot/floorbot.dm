@@ -191,7 +191,7 @@
 
 		if(!target && replace_tiles) // Finds a floor without a tile and gives it one.
 			process_type = REPLACE_TILE // The target must be the floor and not a tile. The floor must not already have a floortile.
-			target = scan(/turf/simulated/floor, avoid_bot = TRUE)
+			target = scan(/turf/simulated/floor/plating, avoid_bot = TRUE)
 
 	if(!target && emagged) // We are emagged! Time to rip up the floors!
 		process_type = TILE_EMAG
