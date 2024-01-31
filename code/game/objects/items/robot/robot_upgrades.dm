@@ -279,6 +279,39 @@
 	return TRUE
 
 /***********************/
+/****	FOR ALL		****/
+/***********************/
+
+/obj/item/borg/upgrade/storage
+	name = "storage upgrade"
+	desc = "Improves cyborg storage with bluespace technology."
+	icon_state = "cyborg_upgrade2"
+	origin_tech = "bluespace=4;materials=5;engineering=3"
+	require_module = TRUE
+	var/max_energy_multiplication = 3
+	var/recharge_rate_multiplication = 2
+
+/obj/item/borg/upgrade/storage/do_install(mob/living/silicon/robot/R)
+	for(var/obj/item/borg/upgrade/storage/U in R.contents)
+		to_chat(R, "<span class='notice'>A [name] unit is already installed!</span>")
+		to_chat(usr, "<span class='notice'>There's no room for another [name] unit!</span>")
+		return FALSE
+
+	for(var/datum/robot_energy_storage/ES in R.module.storages)
+		// Reset
+		ES.max_energy = initial(ES.max_energy)
+		ES.recharge_rate = initial(ES.recharge_rate)
+		ES.energy = initial(ES.max_energy)
+
+		// Modifier
+		ES.max_energy *= max_energy_multiplication
+		ES.recharge_rate *= recharge_rate_multiplication
+		ES.energy = ES.max_energy
+
+	return TRUE
+
+
+/***********************/
 /****	SECURITY	****/
 /***********************/
 

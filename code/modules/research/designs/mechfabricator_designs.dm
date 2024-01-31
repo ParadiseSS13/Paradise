@@ -1159,6 +1159,16 @@
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_storage
+	name = "Cyborg Upgrade (Storage upgrade)"
+	id = "borg_upgrade_storage"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/storage
+	req_tech = list("bluespace" = 5, "materials" = 7, "engineering" = 5)
+	materials = list(MAT_METAL=15000, MAT_BLUESPACE=2000, MAT_SILVER=6000)
+	construction_time = 12 SECONDS
+	category = list("Cyborg Upgrade Modules")
+
 //Misc
 /datum/design/mecha_tracking
 	name = "Exosuit Tracking Beacon"
