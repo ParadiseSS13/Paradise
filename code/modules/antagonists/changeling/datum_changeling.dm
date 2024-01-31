@@ -50,6 +50,8 @@
 	var/regenerating = FALSE
 	/// Did changeling use headslug?
 	var/headslugged = FALSE
+	/// Can you use abilities due to a recent revival?
+	var/can_use_powers = TRUE
 
 
 /datum/antagonist/changeling/New()
