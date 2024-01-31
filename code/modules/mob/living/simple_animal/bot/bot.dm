@@ -715,7 +715,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			return
 
 
-		var/moved = bot_move(patrol_target) // Step_towards(src, next) // attempt to move
+		var/moved = bot_move(patrol_target) // step_towards(src, next) // attempt to move
 		if(!moved) // Couldn't proceed the next step of the path BOT_STEP_MAX_RETRIES times
 			addtimer(CALLBACK(src, PROC_REF(patrol_step_not_moved)), 2)
 
