@@ -314,7 +314,7 @@
 		if(BOT_SUMMON)		// Called by PDA
 			bot_summon()
 			return
-	return 1 // Successful completion. Used to prevent child process() continuing if this one is ended early.
+	return TRUE // Successful completion. Used to prevent child process() continuing if this one is ended early.
 
 /mob/living/simple_animal/bot/attack_alien(mob/living/carbon/alien/user)
 	user.changeNext_move(CLICK_CD_MELEE)
