@@ -333,7 +333,7 @@
 		/obj/item/handheld_defibrillator,
 		/obj/item/roller_holder,
 		/obj/item/borg/cyborghug,
-		/obj/item/reagent_containers/borghypo,
+		/obj/item/reagent_containers/borghypo/basic,
 		/obj/item/scalpel/laser/laser1,
 		/obj/item/hemostat,
 		/obj/item/retractor,

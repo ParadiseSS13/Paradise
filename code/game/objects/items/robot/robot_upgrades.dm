@@ -371,6 +371,21 @@
 	items_to_add = list(/obj/item/storage/part_replacer)
 
 /***********************/
+/****	MEDICAL		****/
+/***********************/
+
+/obj/item/borg/upgrade/hypospray
+	name = "cyborg hypospray upgrade"
+	desc = "Adds and replaces some reagents with better ones"
+	icon_state = "cyborg_upgrade2"
+	origin_tech = "biotech=6;materials=5"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/medical
+	items_to_replace = list(
+		/obj/item/reagent_containers/borghypo/basic = /obj/item/reagent_containers/borghypo/basic/upgraded
+	)
+
+/***********************/
 /****	JANITOR		****/
 /***********************/
 
