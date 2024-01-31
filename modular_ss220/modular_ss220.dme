@@ -77,6 +77,7 @@
 #include "phrases/_phrases.dme"
 #include "species_whitelist/_species_whitelist.dme"
 #include "antagonists/_antagonists.dme"
+#include "loc_blurb/_loc_blurb.dme"
 
 // --- PRIME --- //
 // #define MODPACK_MAIN_ONLY
