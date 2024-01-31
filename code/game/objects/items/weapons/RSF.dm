@@ -67,7 +67,6 @@
 		to_chat(user, "<span class='notice'>Your RSF has been configured to now dispense a [initial(currently_dispensing.name)]!</span>")
 	return TRUE
 
-
 /obj/item/rsf/afterattack(atom/A, mob/user, proximity)
 	if(!currently_dispensing)
 		return
