@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(tts220)
 	var/list/tts_seeds_names_by_donator_levels = list()
 	var/list/datum/tts_provider/tts_providers = list()
 
-	var/list/tts_list_names_gender = list(TTS_GENDER_ANY = list(), TTS_GENDER_MALE = list(), TTS_GENDER_FEMALE = list())
+	var/list/tts_seeds_by_gender = list(TTS_GENDER_ANY = list(), TTS_GENDER_MALE = list(), TTS_GENDER_FEMALE = list())
 
 	var/list/tts_local_channels_by_owner = list()
 
@@ -253,7 +253,7 @@ SUBSYSTEM_DEF(tts220)
 		tts_seeds[seed.name] = seed
 		tts_seeds_names += seed.name
 		tts_seeds_names_by_donator_levels["[seed.required_donator_level]"] += list(seed.name)
-		tts_list_names_gender[seed.gender] += seed.name
+		tts_seeds_by_gender[seed.gender] += seed.name
 	tts_seeds_names = sortTim(tts_seeds_names, /proc/cmp_text_asc)
 
 /datum/controller/subsystem/tts220/Initialize(start_timeofday)
