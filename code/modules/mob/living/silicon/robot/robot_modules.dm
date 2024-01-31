@@ -689,6 +689,7 @@
 		/obj/item/multitool/cyborg,
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
+		/obj/item/holosign_creator/atmos,
 		/obj/item/gripper_engineering,
 		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/card/emag,
@@ -789,7 +790,8 @@
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg,
 		/obj/item/stack/sheet/wood/cyborg,
-		/obj/item/stack/tile/wood/cyborg
+		/obj/item/stack/tile/wood/cyborg,
+		/obj/item/holosign_creator/atmos,
 	)
 	special_rechargables = list(
 		/obj/item/reagent_containers/spray/cleaner/drone,
