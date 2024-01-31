@@ -188,12 +188,12 @@
 	if(amount < MAX_AMOUNT && !target) // Out of tiles! We must refill!
 
 		if(!target && eat_tiles) // Configured to find and consume floortiles!
-			target = scan(/obj/item/stack/tile/plasteel)
 			process_type = null
+			target = scan(/obj/item/stack/tile/plasteel)
 
 		if(!target && make_tiles) // We did not manage to find any floor tiles! Scan for metal stacks and make our own!
-			target = scan(/obj/item/stack/sheet/metal)
 			process_type = null
+			target = scan(/obj/item/stack/sheet/metal)
 
 		if(!target && nag_on_empty) // Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
 			nag()

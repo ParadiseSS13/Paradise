@@ -533,13 +533,11 @@ TRUE to skip target, FALSE for the next check
 		return FALSE
 	if(A.UID() in ignore_job)
 		return TRUE
-	to_chat(world, A)
-	to_chat(world, A.UID())
 	claim_job(A)
 
 /mob/living/simple_animal/bot/proc/claim_job(atom/A)
 	if(length(ignore_job) >= 30) // Something went wrong, cull the herd
-		ignore_job.Cut(1, 0)
+		ignore_job.Cut()
 	ignore_job |= A.UID()
 
 // When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
@@ -644,6 +642,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		deltimer(reset_access_timer_id)
 		reset_access_timer_id = null
 	set_path(null)
+	ignore_job.Cut()
 	summon_target = null
 	pathset = FALSE
 	access_card.access = prev_access
