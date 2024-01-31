@@ -36152,7 +36152,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Medbay"
+	c_tag = "Medbay Treatment Room West"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
