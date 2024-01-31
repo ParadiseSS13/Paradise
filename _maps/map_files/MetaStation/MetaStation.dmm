@@ -73768,7 +73768,7 @@
 /area/station/engineering/engine/supermatter)
 "pfa" = (
 /obj/structure/table,
-/obj/item/storage/belt,
+/obj/item/storage/belt/utility,
 /obj/item/robotanalyzer,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel,
