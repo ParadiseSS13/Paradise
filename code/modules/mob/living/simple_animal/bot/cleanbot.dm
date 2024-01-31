@@ -133,7 +133,7 @@
 		if(mode == BOT_PATROL)
 			bot_patrol()
 
-	if(target && loc == get_turf(target))
+	if(target && loc == target.loc)
 		start_clean(target)
 		path = list()
 		target = null
