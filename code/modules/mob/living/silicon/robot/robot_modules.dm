@@ -325,6 +325,7 @@
 	module_type = "Medical"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	basic_modules = list(
+		/obj/item/gps/cyborg,
 		/obj/item/flash/cyborg,
 		/obj/item/healthanalyzer/advanced,
 		/obj/item/robotanalyzer,
@@ -387,6 +388,7 @@
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
 	module_actions = list(/datum/action/innate/robot_sight/meson, /datum/action/innate/robot_magpulse)
 	basic_modules = list(
+		/obj/item/gps/cyborg,
 		/obj/item/flash/cyborg,
 		/obj/item/rpd,
 		/obj/item/extinguisher,
@@ -428,6 +430,7 @@
 	module_type = "Security"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	basic_modules = list(
+		/obj/item/gps/cyborg,
 		/obj/item/flash/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		/obj/item/melee/baton/loaded,
@@ -452,6 +455,7 @@
 	name = "janitorial robot module"
 	module_type = "Janitor"
 	basic_modules = list(
+		/obj/item/gps/cyborg,
 		/obj/item/flash/cyborg,
 		/obj/item/soap/nanotrasen,
 		/obj/item/storage/bag/trash/cyborg,
@@ -510,6 +514,7 @@
 	name = "service robot module"
 	module_type = "Service"
 	basic_modules = list(
+		/obj/item/gps/cyborg,
 		/obj/item/flash/cyborg,
 		/obj/item/handheld_chem_dispenser/booze,
 		/obj/item/handheld_chem_dispenser/soda,
@@ -617,6 +622,7 @@
 	module_type = "Malf"
 	module_actions = list(/datum/action/innate/robot_sight/thermal, /datum/action/innate/robot_magpulse)
 	basic_modules = list(
+		/obj/item/gps/cyborg,
 		/obj/item/flash/cyborg,
 		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/gun/energy/pulse/cyborg,
@@ -708,6 +714,7 @@
 	module_type = "Malf"
 	module_actions = list(/datum/action/innate/robot_sight/thermal, /datum/action/innate/robot_magpulse)
 	basic_modules = list(
+		/obj/item/gps/cyborg,
 		/obj/item/flash/cyborg,
 		/obj/item/gun/energy/immolator/multi/cyborg, // See comments on /robot_module/combat below
 		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
@@ -725,6 +732,7 @@
 	module_type = "Malf"
 	module_actions = list(/datum/action/innate/robot_magpulse)
 	basic_modules = list(
+		/obj/item/gps/cyborg,
 		/obj/item/flash/cyborg,
 		/obj/item/gun/energy/immolator/multi/cyborg, // primary weapon, strong at close range (ie: against blob/terror/xeno), but consumes a lot of energy per shot.
 		// Borg gets 40 shots of this weapon. Gamma Sec ERT gets 10.
