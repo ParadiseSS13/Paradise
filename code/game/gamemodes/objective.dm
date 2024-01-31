@@ -33,10 +33,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	/// If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 	var/martyr_compatible = FALSE
 	/// List of jobs that the objective will target if possible, any crew if not.
-	var/list/target_jobs
+	var/list/target_jobs = list()
 	/// If set to TRUE, this objective will target mindshielded crew if possible, any crew if not.
 	var/mindshielded_target = FALSE
-
+	/// If set to TRUE, this objective will target non-mindshielded crew if possible, any crew if not.
+	var/not_mindshielded_target = FALSE
+	/// If set to TRUE, this objective will target a syndicate agent if possible, any crew if not.
+	var/syndicate_target = FALSE
 	var/datum/objective_holder/holder
 
 /datum/objective/New(text, datum/team/team_to_join)
@@ -123,11 +126,15 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			continue
 		if(mindshielded_target && !ismindshielded(possible_target.current))
 			continue
+		if(not_mindshielded_target && ismindshielded(possible_target.current))
+			continue
+		if(syndicate_target && possible_target.special_role != SPECIAL_ROLE_TRAITOR)
+			continue
 		if(target_jobs.len && !(possible_target.assigned_role in target_jobs))
 			continue
 		possible_targets += possible_target
 
-	if((mindshielded_target || target_jobs.len) && possible_targets.len == 0) //If we can't find anyone, try with less restrictions
+	if(!possible_targets.len) //If we can't find anyone, try with less restrictions
 		for(var/datum/mind/possible_target in SSticker.minds)
 			if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 				continue
@@ -189,11 +196,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return TRUE
 		return FALSE
 	return TRUE
-
-/datum/objective/assassinate/mindshielded
-	name = "Assassinate Mindshielded"
-	mindshielded_target = TRUE
-
 /datum/objective/assassinateonce
 	name = "Assassinate once"
 	martyr_compatible = TRUE
@@ -220,7 +222,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(won)
 		return
 	return ..()
-
 
 /datum/objective/mutiny
 	name = "Mutiny"
@@ -311,10 +312,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(target.current in M.current.GetAllContents())
 			return TRUE
 	return FALSE
-
-/datum/objective/debrain/command
-	name = "Debrain Command"
-	target_jobs = list("Captain", "Head of Personnel", "Head of Security", "Research Director", "Chief Engineer", "Chief Medical Officer", "Quartermaster")
 
 /datum/objective/protect //The opposite of killing a dude.
 	name = "Protect"

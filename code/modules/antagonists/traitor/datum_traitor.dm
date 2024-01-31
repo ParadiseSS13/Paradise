@@ -109,7 +109,7 @@
 	// Hijack objective.
 	if(prob(10) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
 		add_antag_objective(/datum/objective/hijack)
-		organisation = new /datum/antag_org/syndicate/gorlex_marauders
+		organisation = new /datum/antag_org/syndicate/gorlex
 		return // Hijack should be their only objective (normally), so return.
 
 	// Will give normal steal/kill/etc. type objectives.
@@ -139,19 +139,22 @@
  * Create and assign a single randomized human traitor objective.
  */
 /datum/antagonist/traitor/proc/forge_single_human_objective()
-	if(prob(50))
-		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
-			add_antag_objective(/datum/objective/destroy)
-		else if(prob(5))
-			add_antag_objective(/datum/objective/debrain)
-		else if(prob(30))
-			add_antag_objective(/datum/objective/maroon)
-		else if(prob(30))
-			add_antag_objective(/datum/objective/assassinateonce)
-		else
-			add_antag_objective(/datum/objective/assassinate)
+	if(organisation && organisation.objectives.len && prob(organisation.focus))
+		add_antag_objective(pick(organisation.objectives))
 	else
-		add_antag_objective(/datum/objective/steal)
+		if(prob(50))
+			if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
+				add_antag_objective(/datum/objective/destroy)
+			else if(prob(5))
+				add_antag_objective(/datum/objective/debrain)
+			else if(prob(30))
+				add_antag_objective(/datum/objective/maroon)
+			else if(prob(30))
+				add_antag_objective(/datum/objective/assassinateonce)
+			else
+				add_antag_objective(/datum/objective/assassinate)
+		else
+			add_antag_objective(/datum/objective/steal)
 
 /**
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.

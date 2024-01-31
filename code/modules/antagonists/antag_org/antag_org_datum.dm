@@ -4,7 +4,7 @@
 
 /// Antag hunting antag. Might help security overall.
 #define ORG_CHAOS_HUNTER -1
-/// Will steal items, might kill low importance crew, usually not much trouble
+/// Will steal items/kill low importance crew, usually not much trouble
 #define ORG_CHAOS_MILD 0
 /// Your average tator, will be an issue
 #define ORG_CHAOS_AVERAGE 1
@@ -19,12 +19,16 @@
 	/// Text given as introduction. 'You are...'
 	var/you_are = "a generic bad guy"
 	/// Description given to the antagonist on gain
-	var/intro_desc = "Please tell admins/coders that the antag_group wasn't set properly."
+	var/intro_desc = "Please tell admins/coders that the antag_org wasn't set properly."
+	/// Used for prob() for objectives, discounts, and steal targets. Higher focus means the org is less likely to diverge from their favorites.
+	var/focus = 100
+	/// If set, the antag's first objective will be forced to this.
+	var/forced_objective
 	/// List of objectives favored by this org
 	var/list/objectives
 	/// List of steal targets favored by this org
 	var/list/steals
-	/// List of discount items favored by this org. Only one out of three discounts will be from this list, rest is completely random.
+	/// List of discount item categories favored by this org.
 	var/list/discount
 	/// Estimated difficulty of playing this group, displayed when selecting your favorite.
 	var/difficulty
