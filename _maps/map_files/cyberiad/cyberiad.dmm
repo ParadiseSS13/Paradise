@@ -37860,6 +37860,9 @@
 "crw" = (
 /obj/structure/table/glass,
 /obj/item/storage/surgical_tray,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -39585,9 +39588,6 @@
 "cxt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
-	},
-/obj/machinery/light{
-	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -79966,7 +79966,7 @@
 "qkz" = (
 /obj/structure/chair/comfy/corp,
 /obj/machinery/camera{
-	c_tag = "science hallway"
+	c_tag = "Research Hallway Center"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -96044,7 +96044,6 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
