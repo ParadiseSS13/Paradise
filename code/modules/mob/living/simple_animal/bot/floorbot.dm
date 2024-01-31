@@ -167,8 +167,8 @@
 	if(prob(5))
 		audible_message("[src] makes an excited booping beeping sound!")
 
-	// Normal scanning procedure. We have tiles loaded, are not emagged.
 	if(amount < MAX_AMOUNT && !target) // Out of tiles! We must refill!
+
 		if(!target && eat_tiles) // Configured to find and consume floortiles!
 			target = scan(/obj/item/stack/tile/plasteel)
 			process_type = null
@@ -180,6 +180,7 @@
 		if(!target && nag_on_empty) // Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
 			nag()
 
+	// Normal scanning procedure. We have tiles loaded, are not emagged.
 	if(!target && !emagged && amount)
 		if(!target)
 			process_type = HULL_BREACH // Ensures the floorbot does not try to "fix" space areas or shuttle docking zones.
