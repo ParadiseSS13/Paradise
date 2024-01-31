@@ -168,6 +168,18 @@
 		audible_message("[src] makes an excited booping beeping sound!")
 
 	// Normal scanning procedure. We have tiles loaded, are not emagged.
+	if(amount < MAX_AMOUNT && !target) // Out of tiles! We must refill!
+		if(!target && eat_tiles) // Configured to find and consume floortiles!
+			target = scan(/obj/item/stack/tile/plasteel)
+			process_type = null
+
+		if(!target && make_tiles) // We did not manage to find any floor tiles! Scan for metal stacks and make our own!
+			target = scan(/obj/item/stack/sheet/metal)
+			process_type = null
+
+		if(!target && nag_on_empty) // Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
+			nag()
+
 	if(!target && !emagged && amount)
 		if(!target)
 			process_type = HULL_BREACH // Ensures the floorbot does not try to "fix" space areas or shuttle docking zones.
@@ -184,19 +196,6 @@
 	if(!target && emagged) // We are emagged! Time to rip up the floors!
 		process_type = TILE_EMAG
 		target = scan(/turf/simulated/floor, avoid_bot = TRUE)
-
-	if(amount < MAX_AMOUNT && !target) // Out of tiles! We must refill!
-		if(!target && eat_tiles) // Configured to find and consume floortiles!
-			target = scan(/obj/item/stack/tile/plasteel)
-			process_type = null
-
-		if(!target && make_tiles) // We did not manage to find any floor tiles! Scan for metal stacks and make our own!
-			target = scan(/obj/item/stack/sheet/metal)
-			process_type = null
-
-		if(!target && nag_on_empty) // Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
-			nag()
-
 
 	if(!target)
 
