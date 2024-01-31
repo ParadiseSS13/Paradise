@@ -246,7 +246,6 @@
 				mode = BOT_IDLE
 				return
 		else if(!bot_move(target))
-			ignore_job -= target.UID()
 			target = null
 			mode = BOT_IDLE
 			return
