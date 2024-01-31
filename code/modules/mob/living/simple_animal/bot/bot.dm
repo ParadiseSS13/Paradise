@@ -562,6 +562,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	dest = get_turf(dest) // We must always compare turfs, so get the turf of the dest var if dest was originally something else.
 	var/turf/last_node = get_turf(path[length(path)]) // This is the turf at the end of the path, it should be equal to dest.
 	if(get_turf(src) == dest) // We have arrived, no need to move again.
+		move_speed = null
 		return TRUE
 
 	else if(dest != last_node) // The path should lead us to our given destination. If this is not true, we must stop.
@@ -575,6 +576,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			// Hopefully this wont fill the buckets too much
 			addtimer(CALLBACK(src, PROC_REF(bot_step)), BOT_STEP_DELAY * (step_number - 1))
 	else
+		move_speed = null
 		return FALSE
 	return TRUE
 

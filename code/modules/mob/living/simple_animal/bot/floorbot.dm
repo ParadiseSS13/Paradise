@@ -232,20 +232,21 @@
 
 			path = list()
 			return
-		if(!length(path))
+		if(!length(path)) // No path, need a new one
 			if(!isturf(target))
 				var/turf/TL = get_turf(target)
 				path = get_path_to(src, TL, 30, id = access_card, simulated_only = 0)
 			else
 				path = get_path_to(src, target, 30, id = access_card, simulated_only = 0)
 
-			if(!bot_move(target))
+			if(!bot_move(target, move_speed = 1))
 				add_to_ignore(target)
 				ignore_job -= target.UID()
 				target = null
 				mode = BOT_IDLE
 				return
-		else if(!bot_move(target))
+		else if(!bot_move(target, move_speed = 1))
+			ignore_job -= target.UID()
 			target = null
 			mode = BOT_IDLE
 			return
