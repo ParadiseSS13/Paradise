@@ -15,7 +15,7 @@
 		user = usr
 
 	if(!length(items))
-		CRASH("[user] tried to open an empty TGUI input list. Contents are: [items]")
+		CRASH("[user] tried to open an empty TGUI Input List. Contents are: [items]")
 
 	if(!istype(user))
 		if(!isclient(user))
