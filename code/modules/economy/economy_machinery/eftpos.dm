@@ -30,7 +30,8 @@
 	reconnect_database()
 	//linked account starts as service account by default
 	linked_account = account_database.get_account_by_department(DEPARTMENT_SERVICE)
-	print_reference()
+	if(!isrobot(loc)) // robot don't need parcel
+		print_reference()
 	return ..()
 
 /obj/item/eftpos/proc/reconnect_database()
@@ -95,6 +96,10 @@
 		if("change_code")
 			var/attempt_code = input("Re-enter the current EFTPOS access code", "Confirm old EFTPOS code") as num
 			if(attempt_code == access_code)
+				if(isrobot(user))
+					alert("The system doesn't need a new code! Current code: 0101")
+					access_code = 0101
+					return
 				var/trycode = input("Enter a new access code for this device (4 digits, numbers only)", "Enter new EFTPOS code") as num
 				if(trycode < 1000 || trycode > 9999)
 					alert("That is not a valid code!")
@@ -154,7 +159,7 @@
 				var/attempt_code = input("Enter EFTPOS access code", "Reset Transaction") as num
 				if(!check_user_position(user))
 					return
-				if(attempt_code == access_code)
+				if(attempt_code == access_code || isrobot(user))
 					transaction_locked = FALSE
 					transaction_paid = FALSE
 			else if(linked_account)
