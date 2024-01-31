@@ -20,7 +20,7 @@
 	var/static/tts_test_str = "Так звучит мой голос."
 
 	var/tts_seeds
-	var/tts_gender = get_converted_tts_seed_gender(user.gender)
+	var/tts_gender = get_converted_tts_seed_gender(gender)
 	var/list/tts_seeds_by_gender = SStts220.tts_seeds_by_gender[tts_gender]
 	if(user && (check_rights(R_ADMIN, FALSE, user) || override))
 		tts_seeds = tts_seeds_by_gender
@@ -131,7 +131,7 @@
 	..()
 
 /datum/surgery_step/tune_vocal_cords/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	target.change_voice(user, TRUE)
+	target.change_voice(user, TRUE, TRUE)
 	user.visible_message("[user] tunes [target]'s vocals completely!", span_notice("You tune [target]'s vocals completely."))
 	return TRUE
 

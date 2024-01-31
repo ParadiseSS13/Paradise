@@ -22,4 +22,4 @@
 
 /obj/structure/mirror/magic/proc/tts_choose(choice, mob/living/carbon/human/human_to_update)
 	if(choice == "Voice TTS")
-		human_to_update.change_voice(human_to_update, TRUE)
+		human_to_update.change_voice(human_to_update, TRUE, TRUE)
