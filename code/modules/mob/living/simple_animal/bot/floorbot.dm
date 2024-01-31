@@ -161,7 +161,7 @@
 	if(!.)
 		return
 
-	if(mode == BOT_REPAIRING || mode == BOT_EAT_TILE || mode == BOT_MAKE_TILE)
+	if(!(mode == BOT_IDLE))
 		return
 
 	if(prob(5))
