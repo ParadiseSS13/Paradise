@@ -521,11 +521,11 @@ TRUE to skip target, FALSE for the next check
 			continue // If not, keep searching!
 		if((A.UID() in ignore_list) || (A == old_target)) // Filter for blacklisted elements, usually unreachable or previously processed oness
 			continue
-		if(assign_bot(A, avoid_bot)) // Is the target claimed by a bot
-			continue
 		var/scan_result = process_scan(A) // Some bots may require additional processing when a result is selected.
 		if(!scan_result)
 			continue // The current element failed assessment, move on to the next.
+		if(assign_bot(A, avoid_bot)) // Is the target claimed by a bot
+			continue
 		return scan_result
 
 /mob/living/simple_animal/bot/proc/assign_bot(atom/A, avoid_bot)
@@ -540,8 +540,7 @@ TRUE to skip target, FALSE for the next check
 /mob/living/simple_animal/bot/proc/claim_job(atom/A)
 	if(length(ignore_job) >= 30) // Something went wrong, cull the herd
 		ignore_job.Cut(1, 0)
-	else
-		ignore_job |= A.UID()
+	ignore_job |= A.UID()
 
 // When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
 /mob/living/simple_animal/bot/proc/process_scan(atom/scan_target)
@@ -549,11 +548,10 @@ TRUE to skip target, FALSE for the next check
 
 
 /mob/living/simple_animal/bot/proc/add_to_ignore(atom/A)
-	if(length(ignore_list) < 50) // This will help keep track of them, so the bot is always trying to reach a blocked spot.
-		ignore_list |= A.UID()
-	else  // If the list is full, insert newest, delete oldest.
-		ignore_list.Cut(1, 2)
-		ignore_list |= A.UID()
+	if(length(ignore_list) >= 50) // This will help keep track of them, so the bot is always trying to reach a blocked spot.
+		ignore_list.Cut(1, 2) // If the list is full, insert newest, delete oldest.
+	ignore_list |= A.UID()
+
 /*
 Movement proc for stepping a bot through a path generated through A-star.
 Pass a positive integer as an argument to override a bot's default speed.
