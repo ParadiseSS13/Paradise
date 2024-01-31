@@ -521,7 +521,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	var/list/areas_with_multiple_APCs = list()
 	var/list/areas_with_multiple_air_alarms = list()
 
-	for(var/area/A in GLOB.all_areas)
+	for(var/area/A as anything in GLOB.all_areas)
 		areas_all |= A.type
 
 	for(var/obj/machinery/power/apc/APC as anything in SSmachines.get_machinery_of_type(/obj/machinery/power/apc))

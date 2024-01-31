@@ -83,7 +83,7 @@ SUBSYSTEM_DEF(mapping)
 
 	// Now we make a list of areas for teleport locs
 	teleportlocs = list()
-	for(var/area/AR in world)
+	for(var/area/AR as anything in GLOB.all_areas)
 		if(AR.no_teleportlocs)
 			continue
 		if(teleportlocs[AR.name])
@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(mapping)
 
 
 	ghostteleportlocs = list()
-	for(var/area/AR in world)
+	for(var/area/AR as anything in GLOB.all_areas)
 		if(ghostteleportlocs[AR.name])
 			continue
 		var/list/turfs = get_area_turfs(AR.type)
@@ -107,7 +107,7 @@ SUBSYSTEM_DEF(mapping)
 
 	// Now we make a list of areas that exist on the station. Good for if you don't want to select areas that exist for one station but not others. Directly references
 	existing_station_areas = list()
-	for(var/area/AR in world)
+	for(var/area/AR as anything in GLOB.all_areas)
 		var/turf/picked = safepick(get_area_turfs(AR.type))
 		if(picked && is_station_level(picked.z))
 			existing_station_areas += AR

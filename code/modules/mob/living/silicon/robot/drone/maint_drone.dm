@@ -410,10 +410,10 @@
 		return FALSE // Pretty damn hard to path through space
 
 	var/turf/target
-	for(var/obj/machinery/drone_fabricator/DF in GLOB.machines)
-		if(DF.z != z)
+	for(var/obj/machinery/drone_fabricator/drone_fabricator as anything in SSmachines.get_machinery_of_type(/obj/machinery/drone_fabricator))
+		if(atoms_share_level(drone_fabricator, src))
 			continue
-		target = get_turf(DF)
+		target = get_turf(drone_fabricator)
 		target = get_step(target, EAST)
 		break
 

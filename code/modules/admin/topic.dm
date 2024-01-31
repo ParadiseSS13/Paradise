@@ -2864,7 +2864,7 @@
 					to_chat(usr, "<span class='warning'>Please wait until the game starts! Not sure how it will work otherwise.</span>")
 					return
 				GLOB.gravity_is_on = !GLOB.gravity_is_on
-				for(var/area/A in GLOB.all_areas)
+				for(var/area/A as anything in GLOB.all_areas)
 					A.gravitychange(GLOB.gravity_is_on,A)
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Gravity")
 				if(GLOB.gravity_is_on)

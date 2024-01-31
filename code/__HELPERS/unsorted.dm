@@ -689,7 +689,7 @@ Returns 1 if the chain up to the area contains the given typepath
 //Returns: all the areas in the world
 /proc/return_areas()
 	var/list/area/areas = list()
-	for(var/area/A in GLOB.all_areas)
+	for(var/area/A as anything in GLOB.all_areas)
 		areas += A
 	return areas
 
@@ -707,7 +707,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		areatype = areatemp.type
 
 	var/list/areas = list()
-	for(var/area/N in GLOB.all_areas)
+	for(var/area/N as anything in GLOB.all_areas)
 		if(istype(N, areatype)) areas += N
 	return areas
 
@@ -721,7 +721,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		areatype = areatemp.type
 
 	var/list/turfs = list()
-	for(var/area/N in GLOB.all_areas)
+	for(var/area/N as anything in GLOB.all_areas)
 		if(istype(N, areatype))
 			for(var/turf/T in N) turfs += T
 	return turfs
@@ -736,7 +736,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		areatype = areatemp.type
 
 	var/list/atoms = list()
-	for(var/area/N in GLOB.all_areas)
+	for(var/area/N as anything in GLOB.all_areas)
 		if(istype(N, areatype))
 			for(var/atom/A in N)
 				atoms += A
