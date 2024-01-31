@@ -3,6 +3,12 @@
 
 //Returns the thing in our active hand (whatever is in our active module-slot, in this case)
 /mob/living/silicon/robot/get_active_hand()
+	// Returns the thing in our gripper
+	if(istype(module_active, /obj/item/gripper))
+		var/obj/item/gripper/M = module_active
+		if(M.gripped_item)
+			return M.gripped_item
+		return M
 	return module_active
 
 /mob/living/silicon/robot/get_all_slots()
@@ -116,11 +122,7 @@
 		return 0
 
 /mob/living/silicon/robot/drop_item()
-	var/obj/item/gripper_engineering/G = get_active_hand()
-	if(istype(G))
-		G.drop_gripped_item(silent = TRUE)
-		return TRUE // The gripper is special because it has a normal item inside that we can drop.
-	return FALSE // All robot inventory items have NODROP, so they should return FALSE.
+	return module_gripper_drop()
 
 //Helper procs for cyborg modules on the UI.
 //These are hackish but they help clean up code elsewhere.
@@ -255,3 +257,9 @@
 		hands.icon_state = "nomod"
 	else
 		hands.icon_state = lowertext(module.module_type)
+
+/mob/living/silicon/robot/proc/module_gripper_drop()
+	var/obj/item/gripper/G = locate(/obj/item/gripper) in module.modules
+	if(G?.drop_gripped_item(silent = TRUE))
+		return TRUE
+	return FALSE

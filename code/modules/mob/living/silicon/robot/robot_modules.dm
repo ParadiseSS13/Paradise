@@ -38,9 +38,8 @@
 	var/module_type = "NoMod"
 
 
-/obj/item/robot_module/New()
-	..()
-
+/obj/item/robot_module/Initialize(mapload)
+	. = ..()
 	// Creates new objects from the type lists.
 	for(var/i in basic_modules)
 		var/obj/item/I = new i(src)
@@ -317,7 +316,7 @@
 	return FALSE
 
 /obj/item/robot_module/proc/handle_death(mob/living/silicon/robot/R, gibbed)
-	return
+	R.module_gripper_drop()
 
 // Medical cyborg module.
 /obj/item/robot_module/medical
@@ -350,7 +349,7 @@
 		/obj/item/stack/medical/ointment/advanced/cyborg,
 		/obj/item/stack/medical/splint/cyborg,
 		/obj/item/stack/nanopaste/cyborg,
-		/obj/item/gripper_medical
+		/obj/item/gripper/medical,
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_facid)
 	special_rechargables = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/extinguisher/mini)
@@ -400,7 +399,7 @@
 		/obj/item/analyzer,
 		/obj/item/geiger_counter/cyborg,
 		/obj/item/holosign_creator/engineering,
-		/obj/item/gripper_engineering,
+		/obj/item/gripper/engineering,
 		/obj/item/matter_decompiler,
 		/obj/item/painter,
 		/obj/item/areaeditor/blueprints/cyborg,
@@ -417,10 +416,6 @@
 	malf_modules = list(/obj/item/gun/energy/emitter/cyborg)
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg)
 
-/obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper_engineering/G = locate(/obj/item/gripper_engineering) in modules
-	if(G)
-		G.drop_gripped_item(silent = TRUE)
 
 // Security cyborg module.
 /obj/item/robot_module/security
@@ -522,7 +517,9 @@
 		/obj/item/reagent_containers/dropper/cyborg,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/bag/tray/cyborg,
-		/obj/item/reagent_containers/drinks/shaker
+		/obj/item/reagent_containers/drinks/shaker,
+		/obj/item/gripper/service,
+		/obj/item/eftpos/cyborg,
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer)
 	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg)
@@ -564,6 +561,7 @@
 	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
 	if(istype(T))
 		T.drop_inventory(R)
+	. = ..()
 
 
 /obj/item/robot_module/miner
@@ -620,7 +618,8 @@
 		/obj/item/flash/cyborg,
 		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/gun/energy/pulse/cyborg,
-		/obj/item/crowbar/cyborg
+		/obj/item/crowbar/cyborg,
+		/obj/item/gripper/nuclear,
 	)
 	special_rechargables = list(/obj/item/gun/energy/pulse/cyborg)
 
@@ -635,7 +634,8 @@
 		/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg,
 		/obj/item/card/emag,
 		/obj/item/crowbar/cyborg,
-		/obj/item/pinpointer/operative
+		/obj/item/pinpointer/operative,
+		/obj/item/gripper/nuclear,
 	)
 
 // Sydicate medical cyborg module.
@@ -668,7 +668,7 @@
 		/obj/item/stack/nanopaste/cyborg/syndicate,
 		/obj/item/gun/medbeam,
 		/obj/item/extinguisher/mini,
-		/obj/item/gripper_medical
+		/obj/item/gripper/medical,
 	)
 	special_rechargables = list(/obj/item/extinguisher/mini)
 
@@ -689,7 +689,7 @@
 		/obj/item/multitool/cyborg,
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
-		/obj/item/gripper_engineering,
+		/obj/item/gripper/engineering,
 		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/card/emag,
 		/obj/item/borg_chameleon,
@@ -699,7 +699,8 @@
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/cable_coil/cyborg,
 		/obj/item/stack/sheet/glass/cyborg,
-		/obj/item/stack/sheet/rglass/cyborg
+		/obj/item/stack/sheet/rglass/cyborg,
+		/obj/item/gripper/nuclear,
 	)
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg)
 
@@ -713,7 +714,8 @@
 		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
-		/obj/item/borg/destroyer/mobility
+		/obj/item/borg/destroyer/mobility,
+		/obj/item/gripper/nuclear,
 	)
 	special_rechargables = list(
 		/obj/item/melee/baton/loaded,
@@ -733,7 +735,8 @@
 		// Overall, gamma borg has higher skill floor but lower skill ceiling.
 		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
-		/obj/item/pickaxe/drill/jackhammer // for breaking walls to execute flanking moves
+		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
+		/obj/item/gripper/nuclear,
 	)
 	special_rechargables = list(
 		/obj/item/melee/baton/loaded,
@@ -774,7 +777,7 @@
 		/obj/item/wirecutters/cyborg/drone,
 		/obj/item/multitool/cyborg/drone,
 		/obj/item/lightreplacer/cyborg,
-		/obj/item/gripper_engineering,
+		/obj/item/gripper/engineering,
 		/obj/item/matter_decompiler,
 		/obj/item/reagent_containers/spray/cleaner/drone,
 		/obj/item/soap,
@@ -796,11 +799,6 @@
 		/obj/item/weldingtool/largetank/cyborg,
 		/obj/item/lightreplacer/cyborg
 	)
-
-/obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper_engineering/G = locate(/obj/item/gripper_engineering) in modules
-	if(G)
-		G.drop_gripped_item(silent = TRUE)
 
 /// Checks whether this item is a module of the robot it is located in.
 /obj/item/proc/is_robot_module()

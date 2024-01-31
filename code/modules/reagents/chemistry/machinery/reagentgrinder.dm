@@ -234,7 +234,8 @@
 
 
 /obj/machinery/reagentgrinder/attack_ai(mob/user)
-	return FALSE
+	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
+		attack_hand(user)
 
 /obj/machinery/reagentgrinder/attack_hand(mob/user)
 	ui_interact(user)

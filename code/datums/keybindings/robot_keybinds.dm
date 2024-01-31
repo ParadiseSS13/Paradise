@@ -54,3 +54,7 @@
 	. = ..()
 	var/mob/living/silicon/robot/M = C.mob
 	M.on_drop_hotkey_press()
+
+// We don't throw away the full robot-hand, just the item.
+/datum/keybinding/mob/drop_held_object/can_use(client/C, mob/M)
+	return !isrobot(M) && ..()
