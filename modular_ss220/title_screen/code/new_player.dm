@@ -1,3 +1,3 @@
 /mob/new_player/Login()
 	. = ..()
-	show_title_screen()
+	SStitle.show_title_screen_to(client)

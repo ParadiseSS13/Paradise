@@ -16,9 +16,10 @@
 			var/file = input(usr) as icon|null
 			if(!file)
 				return
-			SStitle.change_title_screen(file)
+
+			SStitle.set_title_image(file)
 		if("Reset")
-			SStitle.change_title_screen()
+			SStitle.set_title_image()
 		if("Cancel")
 			return
 
@@ -49,12 +50,12 @@
 /client/verb/fix_title_screen()
 	set name = "Fix Lobby Screen"
 	set desc = "Lobbyscreen broke? Press this."
-	set category = "OOC"
+	set category = "Special Verbs"
 
 	if(istype(mob, /mob/new_player))
-		mob.show_title_screen()
+		SStitle.show_title_screen_to(src)
 	else
-		mob.hide_title_screen()
+		SStitle.hide_title_screen_from(src)
 
 /**
  * An admin debug command that enables you to change the HTML on the go.
@@ -74,7 +75,6 @@
 	if(!new_html)
 		return
 
-	SStitle.title_html = new_html
-	SStitle.show_title_screen()
+	SStitle.set_title_html(new_html)
 
 	message_admins("[key_name_admin(usr)] has changed the title screen HTML.")

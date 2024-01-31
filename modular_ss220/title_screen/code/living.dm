@@ -1,3 +1,3 @@
 /mob/living/Login()
 	. = ..()
-	hide_title_screen()
+	SStitle.hide_title_screen_from(client)
