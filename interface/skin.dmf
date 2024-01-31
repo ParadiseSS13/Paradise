@@ -268,21 +268,22 @@ window "rpane"
 		font-style = "bold"
 		text-color = #ffffff
 		background-color = #ef642b
-		text = "Бусти"
+		text = "Boosty"
 		command = "Donate"
 	elem "changelog"
 		type = BUTTON
-		pos = 393,7
+		pos = 392,7
 		size = 70x16
 		font-style = "bold"
 		text-color = #ffffff
-		text = "Чейнджлог"
+		text = "Changelog"
 		command = "Changelog"
 	elem "fullscreenb"
 		type = BUTTON
-		pos = 469,7
+		pos = 467,7
 		size = 70x16
-		text-color = #FFFFFF
+		font-style = "bold"
+		text-color = #ffffff
 		background-color = #40628A
 		saved-params = "is-checked"
 		text = "Fullscreen"
