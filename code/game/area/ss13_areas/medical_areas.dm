@@ -48,6 +48,7 @@
 	name = "\improper Patient's Rooms"
 	icon_state = "patients"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
+
 /area/station/medical/ward
 	name = "\improper Medbay Patient Ward"
 	icon_state = "patientsward"
