@@ -223,6 +223,9 @@
 				to_chat(owner.current, "<span class='boldnotice'>[power.gain_desc]</span>")
 
 /datum/antagonist/vampire/proc/check_sun()
+	if(istype(owner.current.loc, /obj/structure/transit_tube_pod))
+		return
+
 	var/ax = owner.current.x
 	var/ay = owner.current.y
 
