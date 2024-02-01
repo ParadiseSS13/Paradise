@@ -55,6 +55,7 @@ export const ChatPageSettings = (props, context) => {
         </Stack.Item>
         <Stack.Item>
           <Button
+            content="Remove"
             icon="times"
             color="red"
             onClick={() =>
@@ -64,9 +65,7 @@ export const ChatPageSettings = (props, context) => {
                 })
               )
             }
-          >
-            Remove
-          </Button>
+          />
         </Stack.Item>
       </Stack>
       <Divider />
