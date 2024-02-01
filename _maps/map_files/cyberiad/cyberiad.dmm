@@ -30487,7 +30487,9 @@
 /area/station/medical/reception)
 "bQV" = (
 /turf/simulated/wall,
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "bQX" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -35175,7 +35177,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "chx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -35988,7 +35992,9 @@
 /area/station/supply/miningdock)
 "ckr" = (
 /turf/simulated/wall,
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "ckt" = (
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/blueshield)
@@ -36128,14 +36134,18 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "ckV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "ckW" = (
 /obj/machinery/economy/vending/medical,
 /obj/item/radio/intercom{
@@ -36146,7 +36156,9 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "ckX" = (
 /obj/machinery/computer/crew{
 	dir = 8
@@ -36158,7 +36170,9 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "ckZ" = (
 /obj/structure/railing{
 	dir = 1
@@ -36192,7 +36206,9 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "cle" = (
 /obj/machinery/defibrillator_mount/loaded{
 	pixel_y = 30
@@ -36201,7 +36217,9 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "clf" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
@@ -36213,7 +36231,9 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "clg" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7"
@@ -36501,7 +36521,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "cmm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -36527,7 +36549,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "cmo" = (
 /obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
 /obj/machinery/camera{
@@ -36654,7 +36678,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "cmM" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -36852,14 +36878,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "cnF" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "cnH" = (
 /obj/machinery/bodyscanner,
 /obj/machinery/light{
@@ -36868,14 +36898,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "cnI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "cnJ" = (
 /obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
 /turf/simulated/floor/plasteel{
@@ -36980,7 +37014,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "cnX" = (
 /obj/structure/closet/secure_closet/ntrep,
 /turf/simulated/floor/carpet/royalblack,
@@ -36996,7 +37032,9 @@
 	id = "med1"
 	},
 /turf/simulated/floor/plating,
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "coa" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -37036,13 +37074,17 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "cof" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "med2"
 	},
 /turf/simulated/floor/plating,
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "cog" = (
 /obj/machinery/mineral/equipment_vendor,
 /turf/simulated/floor/plasteel{
@@ -37217,7 +37259,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "cpa" = (
 /obj/structure/table,
 /obj/machinery/firealarm{
@@ -37229,7 +37273,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "cpb" = (
 /obj/machinery/alarm{
 	dir = 8;
@@ -37240,7 +37286,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "cpc" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -37248,7 +37296,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "cpd" = (
 /obj/structure/mopbucket/full,
 /obj/item/mop,
@@ -38826,7 +38876,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "cup" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -38928,7 +38980,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "cuD" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
@@ -38957,7 +39011,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "cuI" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -39276,7 +39332,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "cvU" = (
 /obj/structure/bed,
 /turf/simulated/floor/plasteel{
@@ -49413,7 +49471,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "deu" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -54856,7 +54916,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "dYV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -59347,7 +59409,9 @@
 	dir = 10;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "gcJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -65169,7 +65233,9 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "iUo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -65806,7 +65872,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "jnA" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -66596,7 +66664,9 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "jFC" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -68372,7 +68442,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "kBl" = (
 /obj/structure/table/reinforced,
 /obj/machinery/flasher{
@@ -70655,7 +70727,9 @@
 	dir = 6;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "lFP" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/machinery/door/poddoor/preopen{
@@ -70892,7 +70966,9 @@
 	dir = 10;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "lLn" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
@@ -74457,7 +74533,9 @@
 	dir = 6;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "nEK" = (
 /obj/structure/chair/sofa/corp/corner{
 	dir = 6
@@ -74510,7 +74588,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "nFG" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -75539,7 +75619,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "ogr" = (
 /obj/structure/table,
 /obj/item/storage/belt/medical,
@@ -76392,7 +76474,9 @@
 	dir = 5;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "oxX" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -79171,7 +79255,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "pRD" = (
 /obj/machinery/computer/supplycomp,
 /obj/machinery/light{
@@ -79957,7 +80043,9 @@
 	dir = 9;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "qky" = (
 /obj/structure/closet/firecloset,
 /obj/effect/decal/cleanable/dirt,
@@ -87610,7 +87698,9 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay3)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 2"
+	})
 "tYe" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -88971,7 +89061,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "uIo" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -90436,7 +90528,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "vwg" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -96319,7 +96413,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/medical/medbay)
+/area/station/medical/patients_rooms{
+	name = "\improper Patient's Rooms 1"
+	})
 "ylC" = (
 /obj/structure/chair/sofa/corp,
 /turf/simulated/floor/plasteel,
