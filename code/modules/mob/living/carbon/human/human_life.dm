@@ -47,7 +47,7 @@
 	if(player_logged > 0 && stat != DEAD && job)
 		handle_ssd()
 
-	if(mind) // Only humans with a mind
+	if(mind && see_in_dark < 8) // Only humans with a mind
 		handle_light_adjustment()
 
 	if(stat != DEAD)
@@ -75,18 +75,23 @@
 			force_cryo_human(src)
 
 /mob/living/carbon/human/proc/handle_light_adjustment()
-	var/obj/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
-	if(!S)
+	var/obj/screen/fullscreen/adjust_eye/already_present = screens["adjust_vision"]
+	if(already_present) // Don't do it again, they're still adjusting
 		return
-	var/current = S.alpha / 255		//Our current adjustedness.
+
 	var/turf/T = get_turf(src)
 	var/brightness = T.get_lumcount()
 	var/darkness = 1 - brightness	//Silly, I know, but 'alpha' and 'darkness' go the same direction on a number line.
-	var/distance = abs(current - darkness) //Used for how long to animate for.
+	var/distance = abs(-darkness) //Used for how long to animate for.
 	if(distance < 0.01)				//We're already all set.
 		return
 
-	animate(S, alpha = (darkness * 255), time = (distance * 10 SECONDS)) //Vite in umbra!
+	overlay_fullscreen("adjust_vision", /obj/screen/fullscreen/see_through_darkness)
+	var/obj/screen/fullscreen/adjust_eye/screen = screens["adjust_vision"]
+
+	var/time = (distance * 10 SECONDS)
+	animate(screen, alpha = 0, time)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel)), time)
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	..()

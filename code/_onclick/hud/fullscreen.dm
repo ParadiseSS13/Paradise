@@ -148,6 +148,12 @@
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
 
+/obj/screen/fullscreen/adjust_eye
+	icon_state = "adjusting_overlay"
+	plane = LIGHTING_PLANE
+	layer = LIGHTING_LAYER + 0.1 // Make sure it goes above the nightvision overlay
+	blend_mode = BLEND_ADD
+
 /// An effect which tracks the cursor's location on the screen
 /obj/screen/fullscreen/cursor_catcher
 	icon_state = "fullscreen_blocker" // Fullscreen semi transparent icon
