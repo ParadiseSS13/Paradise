@@ -91,7 +91,8 @@
 
 /obj/machinery/porta_turret/Destroy()
 	QDEL_NULL(spark_system)
-	targets_being_processed = null
+	if(targets_being_processed)
+		targets_being_processed = null
 	return ..()
 
 /obj/machinery/porta_turret/centcom/Initialize(mapload)
