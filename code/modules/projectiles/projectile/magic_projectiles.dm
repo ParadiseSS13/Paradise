@@ -315,7 +315,6 @@
 	damage_type = BURN
 
 /obj/item/projectile/magic/animate/Bump(atom/change)
-	..()
 	if(isitem(change) || isstructure(change) && !is_type_in_list(change, GLOB.protected_objects))
 		if(istype(change, /obj/structure/closet/statue))
 			for(var/mob/living/carbon/human/H in change.contents)
@@ -340,6 +339,7 @@
 		// Change our allegiance!
 		var/mob/living/simple_animal/hostile/mimic/copy/C = change
 		C.ChangeOwner(firer)
+	return ..()
 
 /obj/item/projectile/magic/slipping
 	name = "magical banana"
