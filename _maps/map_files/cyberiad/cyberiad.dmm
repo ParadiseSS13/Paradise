@@ -12962,6 +12962,18 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
+"aPh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/station/medical/medbay)
 "aPi" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
@@ -27088,9 +27100,6 @@
 	icon_state = "dark"
 	},
 /area/station/medical/morgue)
-"bEL" = (
-/turf/simulated/wall,
-/area/station/medical/patients_rooms2)
 "bEM" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
@@ -30457,7 +30466,7 @@
 /area/station/medical/reception)
 "bQV" = (
 /turf/simulated/wall,
-/area/station/medical/patients_rooms1)
+/area/station/medical/medbay)
 "bQX" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -33806,6 +33815,11 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/firealarm{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgreen"
@@ -35844,11 +35858,6 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgreen"
@@ -59321,19 +59330,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/patients_rooms1)
-"gcF" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
-	},
-/area/station/medical/medbay)
 "gcJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -68873,18 +68869,6 @@
 	icon_state = "brown"
 	},
 /area/station/supply/miningdock)
-"kMW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
-	},
-/area/station/medical/medbay)
 "kNq" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -75350,9 +75334,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
-"oas" = (
-/turf/simulated/wall,
-/area/space)
 "oaA" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -76383,20 +76364,6 @@
 	icon_state = "darkred"
 	},
 /area/station/hallway/secondary/exit)
-"owg" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whiteblue"
-	},
-/area/station/medical/medbay)
 "owy" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -78190,6 +78157,20 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
+"poJ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whiteblue"
+	},
+/area/station/medical/medbay)
 "ppo" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -88376,6 +88357,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"uqP" = (
+/turf/simulated/wall,
+/area/station/medical/patients_rooms1)
 "ure" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -90896,6 +90880,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
+"vFi" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/station/medical/medbay)
 "vFk" = (
 /obj/item/kirbyplants,
 /obj/machinery/light,
@@ -91674,6 +91671,9 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
+"vYT" = (
+/turf/simulated/wall,
+/area/station/medical/patients_rooms2)
 "vZD" = (
 /obj/machinery/computer/scan_consolenew{
 	dir = 4
@@ -130250,10 +130250,10 @@ pZl
 tfv
 kAp
 bWa
-bQV
+uqP
 oDG
-bQV
-bQV
+uqP
+uqP
 cCW
 xTJ
 pNL
@@ -131781,7 +131781,7 @@ ogI
 ogI
 ogI
 bZJ
-kMW
+aPh
 bWu
 bXF
 bZh
@@ -132037,7 +132037,7 @@ bPh
 bSq
 rdL
 kSv
-owg
+poJ
 jAv
 bWt
 cnY
@@ -132808,7 +132808,7 @@ can
 bNz
 can
 iev
-gcF
+vFi
 kFS
 cnY
 cfI
@@ -133331,9 +133331,9 @@ bTZ
 bWd
 bWd
 cfK
-oas
+bQV
 kUE
-bEL
+vYT
 cof
 jnh
 cuB
@@ -133590,7 +133590,7 @@ sZh
 bWd
 chp
 ciJ
-bEL
+vYT
 clc
 kBk
 cnD
@@ -133847,7 +133847,7 @@ oPO
 bWd
 cht
 geX
-bEL
+vYT
 clf
 nFp
 cuG
@@ -134104,7 +134104,7 @@ eGV
 sqx
 chs
 ciP
-bEL
+vYT
 cle
 lFH
 cnF
@@ -134618,7 +134618,7 @@ hNr
 bWd
 cfJ
 ciR
-bEL
+vYT
 jFo
 cmn
 cnH
