@@ -206,7 +206,7 @@
 		if(console.experiment.points >= objective.target_amount)
 			to_chat(world, "<span class='greenannounce'>[team_name] team fulfilled its mission!</span>")
 		else
-			to_chat(world, "<span class='boldannounce'>[team_name] team failed its mission.</span>")
+			to_chat(world, "<span class='boldannounceic'>[team_name] team failed its mission.</span>")
 	..()
 	return 1
 
