@@ -40,7 +40,7 @@
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/station/medical/patients_rooms1
-	name = "\improper Patient's Rooms"
+	name = "\improper Patient Room"
 	icon_state = "patients"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
