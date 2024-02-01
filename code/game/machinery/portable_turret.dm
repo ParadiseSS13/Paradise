@@ -72,7 +72,7 @@
 	/// What non-lethal mode projectile with the turret start with?
 	var/initial_projectile = null
 	/// Assoc of targets, currently processed by turret targeting system as `target_priority => list(targets)`
-	var/list/targets_being_processed = list()
+	var/list/targets_being_processed
 	/// Typecache of all things, that are valid for turret's targeting system
 	var/list/valid_targets_typecache = list(/obj/mecha, /obj/vehicle, /mob/living, /obj/structure/blob)
 
