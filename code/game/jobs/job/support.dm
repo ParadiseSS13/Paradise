@@ -10,8 +10,8 @@
 	department_head = list("Captain")
 	department_account_access = TRUE
 	selection_color = "#e2c59d"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_HEADS_VAULT)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_HEADS_VAULT)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_HEADS_VAULT, ACCESS_EXPEDITION, ACCESS_TELEPORTER)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_HEADS_VAULT, ACCESS_EXPEDITION, ACCESS_TELEPORTER)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/qm
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Supply), basic job duties, and act professionally (roleplay)."
@@ -132,7 +132,33 @@
 	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	mask = /obj/item/clothing/mask/breath
 
+/datum/job/explorer
+	title = "Explorer"
+	flag = JOB_EXPLORER
+	department_flag = JOBCAT_SUPPORT
+	total_positions = 4
+	spawn_positions = 4
+	supervisors = "the quartermaster"
+	department_head = list("Quartermaster")
+	selection_color = "#eeddbe"
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_EXPEDITION, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_TELEPORTER, ACCESS_MAILSORTING)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_EXPEDITION, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_TELEPORTER, ACCESS_MAILSORTING)
+	alt_titles = list("Spacer", "Surveyor")
+	outfit = /datum/outfit/job/explorer
 
+/datum/outfit/job/explorer
+	name = "Explorer"
+	jobtype = /datum/job/explorer
+	l_ear = /obj/item/radio/headset/headset_cargo/expedition
+	head = /obj/item/clothing/head/expedition
+	uniform = /obj/item/clothing/under/rank/cargo/expedition
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/jackboots
+	belt = /obj/item/storage/belt/utility/expedition
+	id = /obj/item/card/id/explorer
+	backpack = /obj/item/storage/backpack/explorer
+	satchel = /obj/item/storage/backpack/satchel/explorer
+	box = /obj/item/storage/box/survival_mining
 
 //Food
 /datum/job/bartender
@@ -470,27 +496,3 @@
 		if(new_language.flags & (HIVEMIND|NOLIBRARIAN))
 			continue
 		H.add_language(la)
-
-/datum/job/explorer
-	title = "Explorer"
-	flag = JOB_EXPLORER
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 4
-	spawn_positions = 4
-	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_EXPEDITION, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_EXPEDITION, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	outfit = /datum/outfit/job/explorer
-
-/datum/outfit/job/explorer
-	name = "Explorer"
-	jobtype = /datum/job/explorer
-	uniform = /obj/item/clothing/under/color/orange
-	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/workboots
-	glasses = /obj/item/clothing/glasses/welding
-	belt = /obj/item/storage/belt/utility
-	l_pocket = /obj/item/gps
-	id = /obj/item/card/id/explorer

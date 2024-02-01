@@ -1035,6 +1035,16 @@
 				return
 	return ..()
 
+/obj/item/storage/box/relay_kit
+	name = "Telecommunications Relay Kit"
+	desc = "Contains everything you need to set up your own telecommunications array!"
+
+/obj/item/storage/box/relay_kit/populate_contents()
+	new /obj/item/paper/tcommskey(src)
+	new /obj/item/stack/sheet/metal/(src, 5)
+	new /obj/item/circuitboard/tcomms/relay(src)
+	new /obj/item/stock_parts/manipulator(src, 2)
+	new /obj/item/stack/cable_coil(src, 7)
 
 /obj/item/storage/box/centcomofficer
 	name = "officer kit"

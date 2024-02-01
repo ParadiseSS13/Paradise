@@ -25,10 +25,16 @@
 	faction = list("syndicate")
 	check_friendly_fire = TRUE
 	status_flags = CANPUSH
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+				/obj/item/sellable/salvage/loot/syndicate,
+				/obj/effect/decal/cleanable/blood/innards,
+				/obj/effect/decal/cleanable/blood,
+				/obj/effect/gibspawner/generic,
+				/obj/effect/gibspawner/generic)
 	del_on_death = TRUE
 	sentience_type = SENTIENCE_OTHER
 	footstep_type = FOOTSTEP_MOB_SHOE
+	robust_searching = TRUE
 
 ///////////////Sword and shield////////////
 
@@ -42,7 +48,12 @@
 	armour_penetration_percentage = 40
 	armour_penetration_flat = 10
 	status_flags = 0
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+				/obj/item/sellable/salvage/loot/syndicate,
+				/obj/effect/decal/cleanable/blood/innards,
+				/obj/effect/decal/cleanable/blood,
+				/obj/effect/gibspawner/generic,
+				/obj/effect/gibspawner/generic)
 	var/melee_block_chance = 20
 	var/ranged_block_chance = 35
 
@@ -78,7 +89,12 @@
 	return 0
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib
-	loot = list()//no loot, its gonna delete and gib.
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+				/obj/item/sellable/salvage/loot/syndicate,
+				/obj/effect/decal/cleanable/blood/innards,
+				/obj/effect/decal/cleanable/blood,
+				/obj/effect/gibspawner/generic,
+				/obj/effect/gibspawner/generic)
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot
 	name = "Syndicate Operative"
@@ -238,7 +254,7 @@
 		attack_sound = 'sound/weapons/punch1.ogg'
 		ranged = TRUE
 		rapid = 3
-		retreat_distance = 3
+		retreat_distance = 5
 		minimum_distance = 3
 		melee_block_chance = 0
 		ranged_block_chance = 0
@@ -257,6 +273,8 @@
 	health = 200
 	melee_block_chance = 40
 	alert_on_shield_breach = TRUE
+	death_sound = 'sound/mecha/mechmove03.ogg'
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatequartermaster, /obj/item/sellable/salvage/loot/syndicate, /obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic)
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize(mapload)
 	. = ..()
@@ -267,14 +285,21 @@
 		attacktext = "punches"
 		attack_sound = 'sound/weapons/punch1.ogg'
 		ranged = TRUE
-		retreat_distance = 3
-		minimum_distance = 3
+			retreat_distance = 2
+		minimum_distance = 2
 		melee_block_chance = 0
 		ranged_block_chance = 0
 		icon_state = "syndicate_stormtrooper_shotgun"
 		icon_living = "syndicate_stormtrooper_shotgun"
+		speed = 2
 		projectiletype = /obj/item/projectile/bullet/sniper/penetrator // Ignores cover.
 		projectilesound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
+		loot = list(/obj/effect/mob_spawn/human/corpse/syndicatequartermaster,
+					/obj/item/sellable/salvage/loot/syndicate,
+					/obj/effect/decal/cleanable/blood/innards,
+					/obj/effect/decal/cleanable/blood,
+					/obj/effect/gibspawner/generic,
+					/obj/effect/gibspawner/generic)
 	return INITIALIZE_HINT_LATELOAD
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/LateInitialize()
@@ -294,9 +319,15 @@
 	minbodytemp = 0
 	icon_state = "syndicate_space_sword"
 	icon_living = "syndicate_space_sword"
-	speed = 1
+	speed = 1.5
 	wander = FALSE
 	alert_on_spacing = FALSE
+	death_sound = 'sound/mecha/mechmove03.ogg'
+	loot = list(/obj/item/sellable/salvage/loot/syndicate,
+				/obj/effect/decal/cleanable/blood/innards,
+				/obj/effect/decal/cleanable/blood,
+				/obj/effect/gibspawner/generic,
+				/obj/effect/gibspawner/generic)
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
@@ -309,8 +340,14 @@
 	minbodytemp = 0
 	icon_state = "syndicate_space_sword"
 	icon_living = "syndicate_space_sword"
-	speed = 1
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
+	speed = 1.5
+	death_sound = 'sound/mecha/mechmove03.ogg'
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+				/obj/item/sellable/salvage/loot/syndicate,
+				/obj/effect/decal/cleanable/blood/innards,
+				/obj/effect/decal/cleanable/blood,
+				/obj/effect/gibspawner/generic,
+				/obj/effect/gibspawner/generic)
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
@@ -325,7 +362,12 @@
 	icon_living = "syndicate_smg"
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	casingtype = /obj/item/ammo_casing/c45
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/gun/projectile/automatic/c20r)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+				/obj/item/sellable/salvage/loot/syndicate,
+				/obj/effect/decal/cleanable/blood/innards,
+				/obj/effect/decal/cleanable/blood,
+				/obj/effect/gibspawner/generic,
+				/obj/effect/gibspawner/generic)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space
 	icon_state = "syndicate_space_smg"
@@ -333,14 +375,25 @@
 	name = "Syndicate Commando"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	speed = 1
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/gun/projectile/automatic/c20r)
+	speed = 1.5
+	death_sound = 'sound/mecha/mechmove03.ogg'
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+				/obj/item/sellable/salvage/loot/syndicate,
+				/obj/effect/decal/cleanable/blood/innards,
+				/obj/effect/decal/cleanable/blood,
+				/obj/effect/gibspawner/generic,
+				/obj/effect/gibspawner/generic)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib
-	loot = list()//gonna gibe, no loot.
+	loot = list(/obj/item/sellable/salvage/loot/syndicate,
+				/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+				/obj/effect/decal/cleanable/blood/innards,
+				/obj/effect/decal/cleanable/blood,
+				/obj/effect/gibspawner/generic,
+				/obj/effect/gibspawner/generic)
 
 /mob/living/simple_animal/hostile/viscerator
 	name = "viscerator"

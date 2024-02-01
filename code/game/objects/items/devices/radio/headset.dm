@@ -288,6 +288,11 @@
 	desc = "Headset used by shaft miners."
 	icon_state = "mine_headset"
 
+/obj/item/radio/headset/headset_cargo/expedition
+	name = "expedition radio headset"
+	desc = "Headset used by space explorers."
+	icon_state = "exp_headset"
+
 /obj/item/radio/headset/headset_service
 	name = "service radio headset"
 	desc = "Headset used by the service staff, tasked with keeping the station full, happy and clean."

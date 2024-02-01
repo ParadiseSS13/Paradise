@@ -115,6 +115,7 @@
 	var/plasma_count = 0
 	var/intel_count = 0
 	var/crate_count = 0
+	var/salvage_count = 0
 	var/total_crate_value = 0
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
@@ -156,6 +157,10 @@
 				if(istype(thing, /obj/item/stack/sheet/mineral/plasma))
 					var/obj/item/stack/sheet/mineral/plasma/P = thing
 					plasma_count += P.amount
+
+				// Sell salvage
+				if(istype(thing, /obj/item/sellable/salvage))
+					++salvage_count
 
 				// Sell syndicate intel
 				if(istype(thing, /obj/item/documents/syndicate))
@@ -213,6 +218,11 @@
 		var/credits_from_plasma = plasma_count * SSeconomy.credits_per_plasma
 		msg += "<span class='good'>+[credits_from_plasma]</span>: Received [plasma_count] unit(s) of exotic material.<br>"
 		credits_to_deposit += credits_from_plasma
+
+	if(salvage_count > 0)
+		var/credits_from_salvage = salvage_count * SSeconomy.credits_per_salvage
+		msg += "<span class='good'>+[credits_from_salvage]</span>: Received [salvage_count] tonne(s) of salvage.<br>"
+		credits_to_deposit += credits_from_salvage
 
 	if(intel_count > 0)
 		var/credits_from_intel = intel_count * SSeconomy.credits_per_intel

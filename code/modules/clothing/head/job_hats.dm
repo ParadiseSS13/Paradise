@@ -300,3 +300,19 @@
 	icon_state = "solgovceliteberet"
 	item_color = "solgovcelite"
 	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/head/beret/expedition
+	name = "expedition beret"
+	desc = "A grey beret with a blue Nanotrasen insignia emblazoned on it. Not much good for space protection, but stylish all the same."
+	icon_state = "beret_expedition"
+	item_color = "beret_expedition"
+	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
+	strip_delay = 60
+
+/obj/item/clothing/head/expedition
+	name = "expedition cap"
+	desc = "It's a baseball hat in the grey and blue markings of the expedition team."
+	icon_state = "expeditionsoft"
+	item_color = "expeditionsoft"
+	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
+	strip_delay = 60
