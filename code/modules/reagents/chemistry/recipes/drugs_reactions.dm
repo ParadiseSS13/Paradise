@@ -68,10 +68,10 @@
 	mix_message = "Tiny cubic crystals precipitate out of the mixture. Huh."
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
-/datum/chemical_reaction/bath_salts
-	name = "twitch"
-	id = "twitch"
-	result = "twitch"
+/datum/chemical_reaction/mephedrone
+	name = "mephedrone"
+	id = "mephedrone"
+	result = "mephedrone"
 	required_reagents = list("bath_salts" = 5, "carpotoxin" = 5, "teslium" = 5)
 	result_amount = 10
 	min_temp = T0C + 100

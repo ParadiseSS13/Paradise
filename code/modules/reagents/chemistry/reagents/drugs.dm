@@ -806,16 +806,16 @@
 #define CONSTANT_DOSE_SAFE_LIMIT 60
 #define CONSTANT_DOSE_DEATH_LIMIT 600
 
-#define TWITCH_SCREEN_FILTER "twitch_screen_filter"
-#define TWITCH_SCREEN_BLUR "twitch_screen_blur"
+#define MEPHEDRONE_SCREEN_FILTER "twitch_screen_filter"
+#define MEPHEDRONE_SCREEN_BLUR "twitch_screen_blur"
 
-#define TWITCH_BLUR_EFFECT "twitch_dodge_blur"
-#define TWITCH_OVERDOSE_BLUR_EFFECT "twitch_overdose_blur"
+#define MEPHEDRONE_BLUR_EFFECT "twitch_dodge_blur"
+#define MEPHEDRONE_OVERDOSE_BLUR_EFFECT "twitch_overdose_blur"
 
-// Twitch drug, makes the takers of it faster and able to dodge bullets while in their system, to potentially bad side effects
+// Mephedrone drug, makes the takers of it faster and able to dodge bullets while in their system, to potentially bad side effects
 /datum/reagent/twitch
-	name = "TWitch"
-	id = "twitch"
+	name = "Mephedrone"
+	id = "mephedrone"
 	description = "A drug originally developed by and for plutonians to assist them during raids. \
 		Does not see wide use due to the whole reality-disassociation and heart disease thing afterwards. \
 		Can be intentionally overdosed to increase the drug's effects."
@@ -850,14 +850,14 @@
 
 	var/static/list/col_filter_green = list(0.5,0,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1)
 
-	game_plane_master_controller.add_filter(TWITCH_SCREEN_FILTER, 10, color_matrix_filter(col_filter_green, FILTER_COLOR_RGB))
+	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_FILTER, 10, color_matrix_filter(col_filter_green, FILTER_COLOR_RGB))
 
-	game_plane_master_controller.add_filter(TWITCH_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
+	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
 
-	for(var/filter in game_plane_master_controller.get_filters(TWITCH_SCREEN_BLUR))
+	for(var/filter in game_plane_master_controller.get_filters(MEPHEDRONE_SCREEN_BLUR))
 		animate(filter, loop = -1, size = 0.15, time = 2 SECONDS, easing = ELASTIC_EASING|EASE_OUT, flags = ANIMATION_PARALLEL)
 		animate(size = 0.075, time = 6 SECONDS, easing = CIRCULAR_EASING|EASE_IN)
-	if(!ischangeling(L) || HAS_TRAIT(L, TRAIT_TWITCH_ADAPTED))
+	if(!ischangeling(L) || HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED))
 		return
 	var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 	cling.chem_recharge_slowdown += 1
@@ -877,11 +877,11 @@
 
 	if(ischangeling(L))
 		var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
-		if(HAS_TRAIT(L, TRAIT_TWITCH_ADAPTED) && overdosed) //If we OD with implant, we have one slowdown
+		if(HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED) && overdosed) //If we OD with implant, we have one slowdown
 			cling.chem_recharge_slowdown -= 1
 		else if(overdosed) //Otherwise we have two
 			cling.chem_recharge_slowdown -= 2
-		else if(!HAS_TRAIT(L, TRAIT_TWITCH_ADAPTED)) //And if we are not oding without impant, we have one
+		else if(!HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED)) //And if we are not oding without impant, we have one
 			cling.chem_recharge_slowdown -= 1
 
 	if(constant_dose_time < CONSTANT_DOSE_SAFE_LIMIT) // Anything less than this and you'll come out fiiiine, aside from a big hit of stamina damage
@@ -897,7 +897,7 @@
 		L.bleed(25)
 		L.apply_damage(max(constant_dose_time / 3, 60), STAMINA)
 		L.KnockDown((constant_dose_time / 15) SECONDS) // a minute is a 4 second knockdown, 2 is 8, etc
-		if(!HAS_TRAIT(L, TRAIT_TWITCH_ADAPTED) || constant_dose_time >= CONSTANT_DOSE_DEATH_LIMIT) //If you are going infinite with mito and you run out, you deserve this even with an implant
+		if(!HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED) || constant_dose_time >= CONSTANT_DOSE_DEATH_LIMIT) //If you are going infinite with mito and you run out, you deserve this even with an implant
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
 				var/datum/organ/heart/datum_heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
@@ -913,8 +913,8 @@
 
 	var/atom/movable/plane_master_controller/game_plane_master_controller = L.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
 
-	game_plane_master_controller.remove_filter(TWITCH_SCREEN_FILTER)
-	game_plane_master_controller.remove_filter(TWITCH_SCREEN_BLUR)
+	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_FILTER)
+	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_BLUR)
 
 
 /// Leaves an afterimage behind the mob when they move
@@ -922,7 +922,8 @@
 	SIGNAL_HANDLER
 	if(HAS_TRAIT(L, TRAIT_IMMOBILIZED)) //No, dead people floating through space do not need afterimages
 		return NONE
-	new /obj/effect/temp_visual/decoy/twitch_afterimage(old_loc, L)
+	var/overdosed = (id in L.reagents.overdose_list())
+	new /obj/effect/temp_visual/decoy/twitch_afterimage(old_loc, L, overdosed? 1.25 SECONDS : 0.75 SECONDS)
 
 /// Tries to dodge incoming bullets if we aren't disabled for any reasons
 /datum/reagent/twitch/proc/dodge_bullets(mob/living/carbon/human/source, obj/item/projectile/hitting_projectile)
@@ -935,8 +936,8 @@
 		"<span class='userdanger'>You effortlessly evade [hitting_projectile]!</span>",
 	)
 	playsound(source, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
-	source.add_filter(TWITCH_BLUR_EFFECT, 2, gauss_blur_filter(5))
-	addtimer(CALLBACK(source, TYPE_PROC_REF(/atom, remove_filter), TWITCH_BLUR_EFFECT), 0.5 SECONDS)
+	source.add_filter(MEPHEDRONE_BLUR_EFFECT, 2, gauss_blur_filter(5))
+	addtimer(CALLBACK(source, TYPE_PROC_REF(/atom, remove_filter), MEPHEDRONE_BLUR_EFFECT), 0.5 SECONDS)
 	return ATOM_PREHIT_FALSE
 
 /datum/reagent/twitch/proc/no_hud_cheese(mob/living/carbon/L)
@@ -946,16 +947,16 @@
 
 /datum/reagent/twitch/proc/no_hud_cheese_2(mob/living/carbon/L) //Basically if you change the UI you would remove the visuals. This fixes that.
 	var/atom/movable/plane_master_controller/game_plane_master_controller = L.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
-	game_plane_master_controller.remove_filter(TWITCH_SCREEN_FILTER)
-	game_plane_master_controller.remove_filter(TWITCH_SCREEN_BLUR)
+	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_FILTER)
+	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_BLUR)
 
 	var/static/list/col_filter_green = list(0.5,0,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1)
 
-	game_plane_master_controller.add_filter(TWITCH_SCREEN_FILTER, 10, color_matrix_filter(col_filter_green, FILTER_COLOR_RGB))
+	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_FILTER, 10, color_matrix_filter(col_filter_green, FILTER_COLOR_RGB))
 
-	game_plane_master_controller.add_filter(TWITCH_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
+	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
 
-	for(var/filter in game_plane_master_controller.get_filters(TWITCH_SCREEN_BLUR))
+	for(var/filter in game_plane_master_controller.get_filters(MEPHEDRONE_SCREEN_BLUR))
 		animate(filter, loop = -1, size = 0.15, time = 2 SECONDS, easing = ELASTIC_EASING|EASE_OUT, flags = ANIMATION_PARALLEL)
 		animate(size = 0.075, time = 6 SECONDS, easing = CIRCULAR_EASING|EASE_IN)
 	var/overdosed = (id in L.reagents.overdose_list())
@@ -966,7 +967,7 @@
 	var/atom/movable/plane_master_controller/game_plane_master_controller = L?.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 	var/list/col_filter_ourple = list(1,0,0,0, 0,0.5,0,0, 0,0,1,0, 0,0,0,1)
 
-	for(var/filter in game_plane_master_controller.get_filters(TWITCH_SCREEN_FILTER))
+	for(var/filter in game_plane_master_controller.get_filters(MEPHEDRONE_SCREEN_FILTER))
 		animate(filter, loop = -1, color = col_filter_ourple, time = 4 SECONDS, easing = BOUNCE_EASING)
 
 /datum/reagent/twitch/on_mob_life(mob/living/carbon/L)
@@ -1002,7 +1003,7 @@
 
 	var/list/col_filter_ourple = list(1,0,0,0, 0,0.5,0,0, 0,0,1,0, 0,0,0,1)
 
-	for(var/filter in game_plane_master_controller.get_filters(TWITCH_SCREEN_FILTER))
+	for(var/filter in game_plane_master_controller.get_filters(MEPHEDRONE_SCREEN_FILTER))
 		animate(filter, loop = -1, color = col_filter_ourple, time = 4 SECONDS, easing = BOUNCE_EASING)
 	..()
 
@@ -1021,17 +1022,17 @@
 
 	var/atom/movable/plane_master_controller/game_plane_master_controller = L.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME] //Restart the base filters.
 
-	game_plane_master_controller.remove_filter(TWITCH_SCREEN_FILTER)
+	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_FILTER)
 
-	game_plane_master_controller.remove_filter(TWITCH_SCREEN_BLUR)
+	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_BLUR)
 
 	var/static/list/col_filter_green = list(0.5,0,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1)
 
-	game_plane_master_controller.add_filter(TWITCH_SCREEN_FILTER, 10, color_matrix_filter(col_filter_green, FILTER_COLOR_RGB))
+	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_FILTER, 10, color_matrix_filter(col_filter_green, FILTER_COLOR_RGB))
 
-	game_plane_master_controller.add_filter(TWITCH_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
+	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
 
-	for(var/filter in game_plane_master_controller.get_filters(TWITCH_SCREEN_BLUR))
+	for(var/filter in game_plane_master_controller.get_filters(MEPHEDRONE_SCREEN_BLUR))
 		animate(filter, loop = -1, size = 0.2, time = 2 SECONDS, easing = ELASTIC_EASING|EASE_OUT, flags = ANIMATION_PARALLEL)
 		animate(size = 0.1, time = 6 SECONDS, easing = CIRCULAR_EASING|EASE_IN)
 
@@ -1052,8 +1053,8 @@
 		L.bleed(5)
 
 	if(prob(10))
-		L.add_filter(TWITCH_OVERDOSE_BLUR_EFFECT, 2, phase_filter(8))
-		addtimer(CALLBACK(L, TYPE_PROC_REF(/atom, remove_filter), TWITCH_OVERDOSE_BLUR_EFFECT), 0.5 SECONDS)
+		L.add_filter(MEPHEDRONE_OVERDOSE_BLUR_EFFECT, 2, phase_filter(8))
+		addtimer(CALLBACK(L, TYPE_PROC_REF(/atom, remove_filter), MEPHEDRONE_OVERDOSE_BLUR_EFFECT), 0.5 SECONDS)
 
 	var/update_flags = STATUS_UPDATE_NONE
 	L.Jitter(2.2 SECONDS) // Slowly will build up over time due to low process rate
@@ -1091,17 +1092,18 @@
 	/// The color matrix it should be by the time it despawns
 	var/list/matrix_end = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1, 0,0.5,0,0)
 
-/obj/effect/temp_visual/decoy/twitch_afterimage/Initialize(mapload)
+/obj/effect/temp_visual/decoy/twitch_afterimage/Initialize(mapload, atom/mimiced_atom, our_duration = 0.75 SECONDS)
+	duration = our_duration
 	. = ..()
 	color = matrix_start
 	animate(src, color = matrix_end, time = duration, easing = EASE_OUT)
 	animate(src, alpha = 0, time = duration, easing = EASE_OUT)
 
-#undef TWITCH_SCREEN_FILTER
-#undef TWITCH_SCREEN_BLUR
+#undef MEPHEDRONE_SCREEN_FILTER
+#undef MEPHEDRONE_SCREEN_BLUR
 
-#undef TWITCH_BLUR_EFFECT
-#undef TWITCH_OVERDOSE_BLUR_EFFECT
+#undef MEPHEDRONE_BLUR_EFFECT
+#undef MEPHEDRONE_OVERDOSE_BLUR_EFFECT
 
 
 //////////////////////////////

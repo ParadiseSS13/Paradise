@@ -305,11 +305,11 @@
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/insert(mob/living/carbon/M, special = 0)
 	. = ..()
-	ADD_TRAIT(M, TRAIT_TWITCH_ADAPTED, "[UID()]")
+	ADD_TRAIT(M, TRAIT_MEPHEDRONE_ADAPTED, "[UID()]")
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/remove(mob/living/carbon/M, special = 0)
 	. = ..()
-	REMOVE_TRAIT(M, TRAIT_TWITCH_ADAPTED, "[UID()]")
+	REMOVE_TRAIT(M, TRAIT_MEPHEDRONE_ADAPTED, "[UID()]")
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/render()
 	var/mutable_appearance/our_MA = mutable_appearance('icons/mob/human_races/robotic.dmi', icon_state, layer = -INTORGAN_LAYER)
@@ -349,7 +349,7 @@
 
 	var/mob/living/carbon/human/human_owner = owner
 
-	human_owner.reagents.add_reagent("twitch", injection_amount)
+	human_owner.reagents.add_reagent("mephedrone", injection_amount)
 
 	owner.visible_message("<span class='danger'>[owner.name] jolts suddenly as two small glass vials are fired from ports in the implant on their spine, shattering as they land.</span>", \
 			"<span class='userdanger'>You jolt suddenly as your Qani-Laaca system ejects two empty glass vials rearward, shattering as they land.</span>")
