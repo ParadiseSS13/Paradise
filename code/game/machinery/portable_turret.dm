@@ -95,6 +95,7 @@
 
 /obj/machinery/porta_turret/Destroy()
 	QDEL_NULL(spark_system)
+	targets_being_processed = null
 	return ..()
 
 /obj/machinery/porta_turret/centcom/Initialize(mapload)
@@ -104,109 +105,32 @@
 	req_access = list(ACCESS_CENT_SPECOPS)
 	one_access = FALSE
 
-/obj/machinery/porta_turret/proc/setup()
-	var/obj/item/gun/energy/E = new installation	//All energy-based weapons are applicable
-	var/obj/item/ammo_casing/shottype = E.ammo_type[1]
+/obj/machinery/porta_turret/process()
+	if(!enabled || (stat & (NOPOWER|BROKEN)))
+		if(!always_up)
+			pop_down()
+		return
 
-	projectile = shottype.projectile_type
-	eprojectile = projectile
-	shot_sound = shottype.fire_sound
-	eshot_sound = shot_sound
+	if(!LAZYLEN(targets_being_processed))
+		return
 
-	weapon_setup(installation)
+	if(process_targets(LAZYACCESS(targets_being_processed, TURRET_PRIMARY_TARGET), TURRET_PRIMARY_TARGET))
+		return
 
-/obj/machinery/porta_turret/proc/weapon_setup(guntype)
-	switch(guntype)
-		if(/obj/item/gun/energy/laser/practice)
-			lethal_is_configurable = FALSE
-			iconholder = 1
-			eprojectile = /obj/item/projectile/beam
+	if(process_targets(LAZYACCESS(targets_being_processed, TURRET_SECONDARY_TARGET), TURRET_SECONDARY_TARGET))
+		return
 
-		if(/obj/item/gun/energy/laser/retro)
-			iconholder = 1
+	pop_down()
 
-		if(/obj/item/gun/energy/laser/captain)
-			iconholder = 1
+/obj/machinery/porta_turret/HasProximity(atom/movable/AM)
+	add_target(AM)
 
-		if(/obj/item/gun/energy/lasercannon)
-			iconholder = 1
+/obj/machinery/porta_turret/on_assess_perp(mob/living/carbon/human/perp)
+	if((check_access || attacked) && !allowed(perp))
+		//if the turret has been attacked or is angry, target all non-authorized personnel, see req_access
+		return 10
 
-		if(/obj/item/gun/energy/taser)
-			lethal_is_configurable = FALSE
-			eprojectile = /obj/item/projectile/beam
-			eshot_sound = 'sound/weapons/laser.ogg'
-
-		if(/obj/item/gun/energy/gun)
-			eprojectile = /obj/item/projectile/beam	//If it has, going to kill mode
-			eshot_sound = 'sound/weapons/laser.ogg'
-			egun = 1
-
-		if(/obj/item/gun/energy/gun/nuclear)
-			eprojectile = /obj/item/projectile/beam	//If it has, going to kill mode
-			eshot_sound = 'sound/weapons/laser.ogg'
-			egun = 1
-
-		if(/obj/item/gun/energy/gun/turret)
-			eprojectile = /obj/item/projectile/beam	//If it has, going to copypaste mode
-			eshot_sound = 'sound/weapons/laser.ogg'
-			egun = 1
-
-		if(/obj/item/gun/energy/pulse/turret)
-			eprojectile = /obj/item/projectile/beam/pulse/hitscan
-			eshot_sound = 'sound/weapons/pulse.ogg'
-	if(initial_eprojectile)
-		eprojectile = initial_eprojectile
-	if(initial_projectile)
-		projectile = initial_projectile
-
-GLOBAL_LIST_EMPTY(turret_icons)
-/obj/machinery/porta_turret/update_icon_state()
-	if(!GLOB.turret_icons)
-		GLOB.turret_icons = list()
-		GLOB.turret_icons["open"] = image(icon, "openTurretCover")
-
-	underlays.Cut()
-	underlays += GLOB.turret_icons["open"]
-
-	if(stat & BROKEN)
-		icon_state = "destroyed_target_prism"
-	else if(raised || raising)
-		if(has_power() && enabled)
-			if(iconholder)
-				//lasers have a orange icon
-				icon_state = "orange_target_prism"
-			else
-				//almost everything has a blue icon
-				icon_state = "target_prism"
-		else
-			icon_state = "grey_target_prism"
-	else
-		icon_state = "turretCover"
-
-/obj/machinery/porta_turret/proc/HasController()
-	var/area/A = get_area(src)
-	return A && A.turret_controls.len > 0
-
-/obj/machinery/porta_turret/proc/access_is_configurable()
-	return targetting_is_configurable && !HasController()
-
-/obj/machinery/porta_turret/proc/isLocked(mob/user)
-	if(HasController())
-		return TRUE
-	if(isrobot(user) || isAI(user))
-		if(ailock)
-			to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
-			return TRUE
-		else
-			return FALSE
-	if(isobserver(user))
-		if(user.can_admin_interact())
-			return FALSE
-		else
-			return TRUE
-	if(locked)
-		return TRUE
-	return FALSE
+	return ..()
 
 /obj/machinery/porta_turret/attack_ai(mob/user)
 	ui_interact(user)
@@ -509,8 +433,109 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		spark_system.start()	//creates some sparks because they look cool
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/porta_turret/HasProximity(atom/movable/AM)
-	add_target(AM)
+/obj/machinery/porta_turret/proc/setup()
+	var/obj/item/gun/energy/E = new installation	//All energy-based weapons are applicable
+	var/obj/item/ammo_casing/shottype = E.ammo_type[1]
+
+	projectile = shottype.projectile_type
+	eprojectile = projectile
+	shot_sound = shottype.fire_sound
+	eshot_sound = shot_sound
+
+	weapon_setup(installation)
+
+/obj/machinery/porta_turret/proc/weapon_setup(guntype)
+	switch(guntype)
+		if(/obj/item/gun/energy/laser/practice)
+			lethal_is_configurable = FALSE
+			iconholder = 1
+			eprojectile = /obj/item/projectile/beam
+
+		if(/obj/item/gun/energy/laser/retro)
+			iconholder = 1
+
+		if(/obj/item/gun/energy/laser/captain)
+			iconholder = 1
+
+		if(/obj/item/gun/energy/lasercannon)
+			iconholder = 1
+
+		if(/obj/item/gun/energy/taser)
+			lethal_is_configurable = FALSE
+			eprojectile = /obj/item/projectile/beam
+			eshot_sound = 'sound/weapons/laser.ogg'
+
+		if(/obj/item/gun/energy/gun)
+			eprojectile = /obj/item/projectile/beam	//If it has, going to kill mode
+			eshot_sound = 'sound/weapons/laser.ogg'
+			egun = 1
+
+		if(/obj/item/gun/energy/gun/nuclear)
+			eprojectile = /obj/item/projectile/beam	//If it has, going to kill mode
+			eshot_sound = 'sound/weapons/laser.ogg'
+			egun = 1
+
+		if(/obj/item/gun/energy/gun/turret)
+			eprojectile = /obj/item/projectile/beam	//If it has, going to copypaste mode
+			eshot_sound = 'sound/weapons/laser.ogg'
+			egun = 1
+
+		if(/obj/item/gun/energy/pulse/turret)
+			eprojectile = /obj/item/projectile/beam/pulse/hitscan
+			eshot_sound = 'sound/weapons/pulse.ogg'
+	if(initial_eprojectile)
+		eprojectile = initial_eprojectile
+	if(initial_projectile)
+		projectile = initial_projectile
+
+GLOBAL_LIST_EMPTY(turret_icons)
+/obj/machinery/porta_turret/update_icon_state()
+	if(!GLOB.turret_icons)
+		GLOB.turret_icons = list()
+		GLOB.turret_icons["open"] = image(icon, "openTurretCover")
+
+	underlays.Cut()
+	underlays += GLOB.turret_icons["open"]
+
+	if(stat & BROKEN)
+		icon_state = "destroyed_target_prism"
+	else if(raised || raising)
+		if(has_power() && enabled)
+			if(iconholder)
+				//lasers have a orange icon
+				icon_state = "orange_target_prism"
+			else
+				//almost everything has a blue icon
+				icon_state = "target_prism"
+		else
+			icon_state = "grey_target_prism"
+	else
+		icon_state = "turretCover"
+
+/obj/machinery/porta_turret/proc/HasController()
+	var/area/A = get_area(src)
+	return A && A.turret_controls.len > 0
+
+/obj/machinery/porta_turret/proc/access_is_configurable()
+	return targetting_is_configurable && !HasController()
+
+/obj/machinery/porta_turret/proc/isLocked(mob/user)
+	if(HasController())
+		return TRUE
+	if(isrobot(user) || isAI(user))
+		if(ailock)
+			to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
+			return TRUE
+		else
+			return FALSE
+	if(isobserver(user))
+		if(user.can_admin_interact())
+			return FALSE
+		else
+			return TRUE
+	if(locked)
+		return TRUE
+	return FALSE
 
 /obj/machinery/porta_turret/proc/add_target(atom/movable/new_target)
 	if(!is_type_in_typecache(new_target, valid_targets_typecache))
@@ -552,23 +577,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/proc/is_valid_target(atom/movable/target_to_check)
 	return target_to_check.invisibility <= SEE_INVISIBLE_LIVING && can_see(src, target_to_check, scan_range)
-
-/obj/machinery/porta_turret/process()
-	if(!enabled || (stat & (NOPOWER|BROKEN)))
-		if(!always_up)
-			pop_down()
-		return
-
-	if(!LAZYLEN(targets_being_processed))
-		return
-
-	if(process_targets(LAZYACCESS(targets_being_processed, TURRET_PRIMARY_TARGET), TURRET_PRIMARY_TARGET))
-		return
-
-	if(process_targets(LAZYACCESS(targets_being_processed, TURRET_SECONDARY_TARGET), TURRET_SECONDARY_TARGET))
-		return
-
-	pop_down()
 
 /obj/machinery/porta_turret/proc/in_faction(mob/living/target)
 	return faction in target.faction
@@ -734,13 +742,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	set_raised_raising(FALSE, FALSE)
 	set_angle(0)
 	update_icon(UPDATE_ICON_STATE)
-
-/obj/machinery/porta_turret/on_assess_perp(mob/living/carbon/human/perp)
-	if((check_access || attacked) && !allowed(perp))
-		//if the turret has been attacked or is angry, target all non-authorized personnel, see req_access
-		return 10
-
-	return ..()
 
 /obj/machinery/porta_turret/proc/set_raised_raising(is_raised, is_raising)
 	raised = is_raised
