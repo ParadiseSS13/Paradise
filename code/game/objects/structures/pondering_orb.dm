@@ -17,6 +17,11 @@
 			user.visible_message("<span class='notice'>[user] blinks, returning to the world around [user.p_them()].</span>",
 								"<span class='danger'>You look away from [src].</span>")
 			break
+		if(!Adjacent(user))
+			user.grab_ghost()
+			user.visible_message("<span class='notice'>[user]'s focus is forced away from [src].</span>",
+								"<span class='userdanger'>Your vision is ripped away from [src].</span>")
+			break
 		sleep(5)
 	if(QDELETED(user))
 		return
