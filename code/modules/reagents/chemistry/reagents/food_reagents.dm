@@ -222,13 +222,13 @@
 			var/eyes_covered = FALSE
 			var/obj/item/safe_thing = null
 			if(victim.wear_mask && victim.wear_mask.flags_cover & MASKCOVERSEYES)
-				eyes_covered = 1
+				eyes_covered = TRUE
 				safe_thing = victim.wear_mask
 			if(victim.head && victim.head.flags_cover & MASKCOVERSEYES)
-				eyes_covered = 1
+				eyes_covered = TRUE
 				safe_thing = victim.head
 			if(victim.glasses)
-				eyes_covered = 1
+				eyes_covered = TRUE
 				if(!safe_thing)
 					safe_thing = victim.glasses
 
