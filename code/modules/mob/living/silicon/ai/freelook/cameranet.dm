@@ -8,12 +8,31 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 
 	// The cameras on the map, no matter if they work or not. Updated in obj/machinery/camera.dm by New() and Destroy().
 	var/list/cameras = list()
+	/// Assoc list of camera tags associated with cameras: `c_tag => camera`
+	var/list/cameras_by_tag = list()
 	// The chunks of the map, mapping the areas that the cameras can see.
 	var/list/chunks = list()
 	var/ready = FALSE
 
 	// The object used for the clickable stat() button.
 	var/obj/effect/statclick/statclick
+
+/datum/cameranet/proc/register_camera(obj/machinery/camera/camera)
+	if(!istype(camera))
+		CRASH("Not `/obj/machinery/camera` was tried to be registered")
+
+	cameras |= camera
+	cameras_by_tag[camera.c_tag] = camera
+
+/datum/cameranet/proc/unregister_camera(obj/machinery/camera/camera)
+	if(!istype(camera))
+		CRASH("Not `/obj/machinery/camera` was tried to be unregistered")
+
+	cameras -= camera
+	cameras_by_tag -= camera.c_tag
+
+/datum/cameranet/proc/get_camera_by_tag(c_tag)
+	return cameras_by_tag[c_tag]
 
 // Checks if a chunk has been Generated in x, y, z.
 /datum/cameranet/proc/chunkGenerated(x, y, z)
@@ -178,21 +197,3 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 		if(chunk.visibleTurfs[position])
 			return 1
 	return 0
-
-/*
-/datum/cameranet/proc/stat_entry()
-	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
-
-	stat(name, statclick.update("Cameras: [cameranet.cameras.len] | Chunks: [cameranet.chunks.len]"))
-*/
-
-// Debug verb for VVing the chunk that the turf is in.
-/*
-/turf/verb/view_chunk()
-	set src in world
-
-	if(cameranet.chunkGenerated(x, y, z))
-		var/datum/camerachunk/chunk = cameranet.getCameraChunk(x, y, z)
-		usr.client.debug_variables(chunk)
-*/

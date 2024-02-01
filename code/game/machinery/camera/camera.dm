@@ -45,7 +45,7 @@
 	assembly.anchored = TRUE
 	assembly.update_icon()
 
-	GLOB.cameranet.cameras += src
+	GLOB.cameranet.register_camera(src)
 	part_of_camera_network = should_add_to_cameranet
 	if(part_of_camera_network)
 		GLOB.cameranet.addCamera(src)
@@ -67,7 +67,7 @@
 	kick_out_watchers()
 	QDEL_NULL(assembly)
 	QDEL_NULL(wires)
-	GLOB.cameranet.cameras -= src
+	GLOB.cameranet.unregister_camera(src)
 	if(isarea(get_area(src)))
 		LAZYREMOVE(get_area(src).cameras, UID())
 	var/area/station/ai_monitored/A = get_area(src)
@@ -315,11 +315,7 @@
 			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/can_use()
-	if(!status)
-		return 0
-	if(stat & EMPED)
-		return 0
-	return 1
+	return status && !(stat & EMPED)
 
 /obj/machinery/camera/proc/can_see()
 	var/list/see = null

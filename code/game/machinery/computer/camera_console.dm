@@ -119,10 +119,12 @@
 		return
 
 	if(action == "switch_camera")
-		var/c_tag = params["name"]
-		var/list/cameras = get_available_cameras()
-		var/obj/machinery/camera/C = cameras[c_tag]
-		active_camera = C
+		active_camera = GLOB.cameranet.get_camera_by_tag(params["name"])
+
+		/// Sanity check
+		if(!is_camera_available(active_camera, is_away_level(z)))
+			return TRUE
+
 		if(!silent_console)
 			playsound(src, get_sfx("terminal_type"), 25, FALSE)
 
@@ -132,7 +134,7 @@
 			return TRUE
 
 		var/list/visible_turfs = list()
-		for(var/turf/T in view(C.view_range, get_turf(C)))
+		for(var/turf/T in view(active_camera.view_range, get_turf(active_camera)))
 			visible_turfs += T
 
 		var/list/bbox = get_bbox_of_atoms(visible_turfs)
@@ -147,23 +149,30 @@
 
 // Returns the list of cameras accessible from this computer
 /obj/machinery/computer/security/proc/get_available_cameras()
-	var/list/L = list()
-	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-		if((is_away_level(z) || is_away_level(C.z)) && (C.z != z))//if on away mission, can only receive feed from same z_level cameras
+	var/list/cameras_by_tag = list()
+	var/console_on_away_level = is_away_level(z)
+	for(var/obj/machinery/camera/camera as anything in GLOB.cameranet.cameras)
+		if(!is_camera_available(camera, console_on_away_level))
 			continue
-		L.Add(C)
-	var/list/D = list()
-	for(var/obj/machinery/camera/C in L)
-		if(!C.network)
-			stack_trace("Camera in a cameranet has no camera network")
-			continue
-		if(!(islist(C.network)))
-			stack_trace("Camera in a cameranet has a non-list camera network")
-			continue
-		var/list/tempnetwork = C.network & network
-		if(tempnetwork.len)
-			D["[C.c_tag]"] = C
-	return D
+
+		cameras_by_tag["[camera.c_tag]"] = camera
+
+	return cameras_by_tag
+
+/obj/machinery/computer/security/proc/is_camera_available(obj/machinery/camera/camera_to_check, console_on_away_level)
+	if((camera_to_check.z != z) && (console_on_away_level || is_away_level(camera_to_check.z)))
+		return FALSE
+
+	var/camera_network = camera_to_check.network
+	if(!camera_network)
+		stack_trace("Camera in a cameranet has no camera network")
+		return FALSE
+
+	if(!(islist(camera_network)))
+		stack_trace("Camera in a cameranet has a non-list camera network: [camera_network]")
+		return FALSE
+
+	return length(camera_network & network)
 
 /obj/machinery/computer/security/attack_hand(mob/user)
 	if(stat || ..())
