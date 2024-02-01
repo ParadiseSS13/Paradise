@@ -87,7 +87,6 @@
 	spark_system.attach(src)
 
 	setup()
-	valid_targets_typecache = typecacheof(valid_targets_typecache)
 	AddComponent(/datum/component/proximity_monitor, scan_range)
 
 /obj/machinery/porta_turret/Destroy()
