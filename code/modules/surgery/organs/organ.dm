@@ -217,6 +217,7 @@
 	if(tough)
 		return
 	damage = clamp(damage + amount, 0, max_damage)
+	damage = round(damage, 0.1)
 
 	//only show this if the organ is not robotic
 	if(owner && parent_organ && amount > 0)
