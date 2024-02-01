@@ -32,43 +32,55 @@
 		return
 	for(var/key in prefs.keybindings)
 		for(var/datum/keybinding/client/communication/kb in prefs.keybindings[key])
+			var/list/modifiers = list()
+			var/modified_key
+			if(findtext("[key]", regex("Shift(?!$)")))
+				modifiers += "SHIFT+"
+			if(findtext("[key]", regex("Ctrl(?!$)")))
+				modifiers += "CTRL+"
+			if(findtext("[key]", regex("Alt(?!$)")))
+				modifiers += "ALT+"
+			if(length(modifiers))
+				modifiers += replacetext("[key]", regex("Shift|Ctrl|Alt(?!$)"), "")
+				modified_key = modifiers.Join("")
+
 			switch(kb.name)
 				if(SAY_CHANNEL)
 					var/say = tgui_say_create_open_command(SAY_CHANNEL)
-					winset(src, "default-[key]", "parent=default;name=[key];command=[say]")
+					winset(src, "default-[modified_key ? modified_key : key]", "parent=default;name=[modified_key ? modified_key : key];command=[say]")
 				if(RADIO_CHANNEL)
 					var/radio = tgui_say_create_open_command(RADIO_CHANNEL)
-					winset(src, "default-[key]", "parent=default;name=[key];command=[radio]")
+					winset(src, "default-[modified_key ? modified_key : key]", "parent=default;name=[modified_key ? modified_key : key];command=[radio]")
 				if(WHISPER_CHANNEL)
 					var/whisper = tgui_say_create_open_command(WHISPER_CHANNEL)
-					winset(src, "default-[key]", "parent=default;name=[key];command=[whisper]")
+					winset(src, "default-[modified_key ? modified_key : key]", "parent=default;name=[modified_key ? modified_key : key];command=[whisper]")
 				if(ME_CHANNEL)
 					var/me = tgui_say_create_open_command(ME_CHANNEL)
-					winset(src, "default-[key]", "parent=default;name=[key];command=[me]")
+					winset(src, "default-[modified_key ? modified_key : key]", "parent=default;name=[modified_key ? modified_key : key];command=[me]")
 				if(OOC_CHANNEL)
 					var/ooc = tgui_say_create_open_command(OOC_CHANNEL)
-					winset(src, "default-[key]", "parent=default;name=[key];command=[ooc]")
+					winset(src, "default-[modified_key ? modified_key : key]", "parent=default;name=[modified_key ? modified_key : key];command=[ooc]")
 				if(LOOC_CHANNEL)
 					var/looc = tgui_say_create_open_command(LOOC_CHANNEL)
-					winset(src, "default-[key]", "parent=default;name=[key];command=[looc]")
+					winset(src, "default-[modified_key ? modified_key : key]", "parent=default;name=[modified_key ? modified_key : key];command=[looc]")
 				if(ADMIN_CHANNEL)
 					if(check_rights(R_ADMIN, FALSE))
 						var/asay = tgui_say_create_open_command(ADMIN_CHANNEL)
-						winset(src, "default-[key]", "parent=default;name=[key];command=[asay]")
+						winset(src, "default-[modified_key ? modified_key : key]", "parent=default;name=[modified_key ? modified_key : key];command=[asay]")
 					else
-						winset(src, "default-[key]", "parent=default;name=[key];command=")
+						winset(src, "default-[modified_key ? modified_key : key]", "parent=default;name=[modified_key ? modified_key : key];command=")
 				if(DSAY_CHANNEL)
 					if(check_rights(R_ADMIN, FALSE))
 						var/dsay = tgui_say_create_open_command(DSAY_CHANNEL)
-						winset(src, "default-[key]", "parent=default;name=[key];command=[dsay]")
+						winset(src, "default-[modified_key ? modified_key : key]", "parent=default;name=[modified_key ? modified_key : key];command=[dsay]")
 					else
-						winset(src, "default-[key]", "parent=default;name=[key];command=")
+						winset(src, "default-[modified_key ? modified_key : key]", "parent=default;name=[modified_key ? modified_key : key];command=")
 				if(MENTOR_CHANNEL)
 					if(check_rights(R_MENTOR | R_ADMIN, FALSE))
 						var/msay = tgui_say_create_open_command(MENTOR_CHANNEL)
-						winset(src, "default-[key]", "parent=default;name=[key];command=[msay]")
+						winset(src, "default-[modified_key ? modified_key : key]", "parent=default;name=[modified_key ? modified_key : key];command=[msay]")
 					else
-						winset(src, "default-[key]", "parent=default;name=[key];command=")
+						winset(src, "default-[modified_key ? modified_key : key]", "parent=default;name=[modified_key ? modified_key : key];command=")
 
 
 /**
