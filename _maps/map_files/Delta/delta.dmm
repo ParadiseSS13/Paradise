@@ -37033,9 +37033,9 @@
 	},
 /area/station/legal/magistrate)
 "bXY" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/fire,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "bYa" = (
@@ -37518,11 +37518,10 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/control)
 "bZs" = (
-/obj/machinery/atmospherics/portable/canister/air,
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel,
@@ -46689,8 +46688,12 @@
 /area/station/engineering/control)
 "cxF" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/delivery,
+/obj/item/storage/firstaid/fire{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "cxG" = (
