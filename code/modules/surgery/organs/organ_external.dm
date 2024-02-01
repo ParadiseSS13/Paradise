@@ -323,6 +323,8 @@
 
 	if(owner_old)
 		owner_old.updatehealth("limb receive damage")
+	brute_dam = round(brute_dam, 0.1)
+	burn_dam = round(burn_dam, 0.1)
 	return update_state()
 
 #undef LIMB_SHARP_THRESH_INT_DMG
@@ -343,6 +345,8 @@
 	if(updating_health)
 		owner.updatehealth("limb heal damage")
 
+	brute_dam = round(brute_dam, 0.1)
+	burn_dam = round(burn_dam, 0.1)
 	return update_state()
 
 /obj/item/organ/external/emp_act(severity)
