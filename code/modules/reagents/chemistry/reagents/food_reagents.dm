@@ -240,7 +240,7 @@
 				victim.apply_status_effect(STATUS_EFFECT_PEPPERSPRAYED)
 
 			if(!eyes_covered)
-				to_chat(victim, "<span class='bolddanger'>Your eyes burns!</span>")
+				to_chat(victim, "<span class='danger'>Your eyes burns!</span>")
 				victim.Stun(0.5 SECONDS)
 				victim.EyeBlurry(20 SECONDS)
 				victim.EyeBlind(8 SECONDS)
