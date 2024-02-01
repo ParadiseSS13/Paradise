@@ -91,8 +91,7 @@
 
 /obj/machinery/porta_turret/Destroy()
 	QDEL_NULL(spark_system)
-	if(targets_being_processed)
-		targets_being_processed = null
+	targets_being_processed = null
 	return ..()
 
 /obj/machinery/porta_turret/centcom/Initialize(mapload)
@@ -111,10 +110,10 @@
 	if(!LAZYLEN(targets_being_processed))
 		return
 
-	if(process_targets(LAZYACCESS(targets_being_processed, TURRET_PRIMARY_TARGET), TURRET_PRIMARY_TARGET))
+	if(process_targets(TURRET_PRIMARY_TARGET))
 		return
 
-	if(process_targets(LAZYACCESS(targets_being_processed, TURRET_SECONDARY_TARGET), TURRET_SECONDARY_TARGET))
+	if(process_targets(TURRET_SECONDARY_TARGET))
 		return
 
 	pop_down()
@@ -552,14 +551,18 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		targets_to_add += new_target
 
 	for(var/atom/movable/target as anything in targets_to_add)
-		var/target_priority = asses_target(target)
+		var/target_priority = assess_target(target)
 		if(!target_priority || target_priority == TURRET_NOT_TARGET)
 			continue
 
 		LAZYDISTINCTADDASSOC(targets_being_processed, target_priority, target)
 
-/obj/machinery/porta_turret/proc/process_targets(list/targets_to_process, priority)
-	if(!length(targets_to_process) || !priority)
+/obj/machinery/porta_turret/proc/process_targets(priority)
+	if(!priority)
+		return FALSE
+
+	var/list/targets_to_process = LAZYACCESS(targets_being_processed, priority)
+	if(!length(targets_to_process))
 		return FALSE
 
 	var/list/filtered_targets = list()
@@ -579,14 +582,14 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/proc/in_faction(mob/living/target)
 	return faction in target.faction
 
-/obj/machinery/porta_turret/proc/asses_target(atom/movable/target_to_asses)
-	if(isliving(target_to_asses))
-		return assess_living(target_to_asses)
-	else if(isobj(target_to_asses))
-		return assess_obj(target_to_asses)
-	else
-		stack_trace("A non-living and non-obj atom (name:[target_to_asses], type:[target_to_asses.type]) was considered for turret assessment.")
-		return TURRET_NOT_TARGET
+/obj/machinery/porta_turret/proc/assess_target(atom/movable/target_to_assess)
+	if(isliving(target_to_assess))
+		return assess_living(target_to_assess)
+	else if(isobj(target_to_assess))
+		return assess_obj(target_to_assess)
+
+	stack_trace("A non-living and non-obj atom (name:[target_to_assess], type:[target_to_assess.type]) was considered for turret assessment.")
+	return TURRET_NOT_TARGET
 
 /obj/machinery/porta_turret/proc/pre_assess_checks(atom/movable/AM)
 	if(!AM)
@@ -662,8 +665,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 		if(target(target_to_shoot_at))
 			return TRUE
-		else
-			targets -= target_to_shoot_at
+
+		targets -= target_to_shoot_at
 
 	return FALSE
 
