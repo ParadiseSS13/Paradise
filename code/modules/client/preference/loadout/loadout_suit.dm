@@ -116,6 +116,36 @@
 	path = /obj/item/clothing/suit/jacket/atmosbomber
 	allowed_roles = list("Chief Engineer", "Life Support Specialist")
 
+/datum/gear/suit/bomber/job/hydro
+	display_name = "Bomber jacket, hydroponics"
+	path = /obj/item/clothing/suit/jacket/hydrobomber
+	allowed_roles = list("Botanist")
+
+/datum/gear/suit/bomber/job/medical
+	display_name = "Bomber jacket, medical"
+	path = /obj/item/clothing/suit/jacket/medbomber
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
+
+/datum/gear/suit/bomber/job/chemist
+	display_name = "Bomber jacket, chemist"
+	path = /obj/item/clothing/suit/jacket/chembomber
+	allowed_roles = list("Chemist")
+
+/datum/gear/suit/bomber/job/coroner
+	display_name = "Bomber jacket, coroner"
+	path = /obj/item/clothing/suit/jacket/coronerbomber
+	allowed_roles = list("Coroner")
+
+/datum/gear/suit/bomber/job/science
+	display_name = "Bomber jacket, science"
+	path = /obj/item/clothing/suit/jacket/scibomber
+	allowed_roles = list("Research Director", "Scientist")
+
+/datum/gear/suit/bomber/job/robotics
+	display_name = "Bomber jacket, robotics"
+	path = /obj/item/clothing/suit/jacket/robobomber
+	allowed_roles = list("Research Director", "Roboticist")
+
 //JACKETS
 /datum/gear/suit/leather_jacket
 	display_name = "Leather jacket"
@@ -251,7 +281,7 @@
 
 /datum/gear/suit/mantle/job/hop
 	display_name = "Mantle, head of personnel"
-	path = /obj/item/clothing/suit/mantle/armor/head_of_personnel
+	path = /obj/item/clothing/suit/mantle/armor/hop
 	allowed_roles = list("Head of Personnel")
 
 /datum/gear/suit/mantle/job/rd

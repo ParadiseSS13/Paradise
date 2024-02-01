@@ -47,7 +47,7 @@
 		return
 	for(var/datum/picture/t in cam.aipictures)
 		nametemp += t.fields["name"]
-	find = input("Select image (numbered in order taken)") in nametemp
+	find = tgui_input_list(usr, "Select image (numbered in order taken)", "Pick Image", nametemp)
 
 	for(var/datum/picture/q in cam.aipictures)
 		if(q.fields["name"] == find)
@@ -59,10 +59,11 @@
 	if(!selection)
 		return
 
-	var/obj/item/photo/P = new/obj/item/photo()
+	var/obj/item/photo/P = new /obj/item/photo()
 	P.construct(selection)
 	P.show(usr)
-	to_chat(usr, P.desc)
+	if(P.desc)
+		to_chat(usr, P.desc, MESSAGE_TYPE_INFO)
 
 	// TG uses a special garbage collector.. qdel(P)
 	qdel(P) //so 10 thousand pictures items are not left in memory should an AI take them and then view them all.

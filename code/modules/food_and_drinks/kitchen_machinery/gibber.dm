@@ -191,45 +191,28 @@
 		return
 
 	locked = TRUE //lock gibber
+	occupant.dir = SOUTH
 
-	var/image/gibberoverlay = new //used to simulate 3D effects
-	gibberoverlay.icon = icon
-	gibberoverlay.icon_state = "grinder_overlay"
-	gibberoverlay.overlays += image('icons/obj/kitchen.dmi', "grinder_idle")
-	icon_state = "grinder_on"
-
-	var/image/feedee = new
-	occupant.dir = 2
-	feedee.icon = getFlatIcon(occupant, 2) //makes the image a copy of the occupant
-
-	var/atom/movable/holder = new //holder for occupant image
-	holder.name = null //make unclickable
-	holder.overlays += feedee //add occupant to holder overlays
-	holder.pixel_y = 25 //above the gibber
-	holder.loc = get_turf(src)
-	holder.layer = MOB_LAYER //simulate mob-like layering
-	holder.anchored = TRUE
-
-	var/atom/movable/holder2 = new //holder for gibber overlay, used to simulate 3D effect
-	holder2.name = null
-	holder2.overlays += gibberoverlay
-	holder2.loc = get_turf(src)
-	holder2.layer = MOB_LAYER + 0.1 //3D, it's above the mob, rest of the gibber is behind
-	holder2.anchored = TRUE
-
-	animate(holder, pixel_y = 16, time = animation_delay) //animate going down
-
+	var/image/victim = image(icon = getFlatIcon(occupant, SOUTH), loc = src, layer = MOB_LAYER, pixel_y = 25) // Copies the look of the victim and places them above the gibber, can't grab the exact icon because it needs to be considered as static to mask the feet later on
+	var/image/grinder_overlay = image(icon = 'icons/obj/kitchen.dmi', loc = src, icon_state = "grinder_overlay")
+	if(dirty)
+		grinder_overlay.overlays += image(icon = 'icons/obj/kitchen.dmi', icon_state = "grinder_bloody")
+	/// Here's the part where I do something silly
+	var/list/gibber_viewers = list()
+	for(var/mob/viewer as anything in viewers(src))
+		gibber_viewers += viewer.client
+	for(var/client/viewer as anything in gibber_viewers)
+		viewer.images += victim
+	flick_overlay(grinder_overlay, gibber_viewers, animation_delay * 2)
+	animate(victim, pixel_y = 16, time = animation_delay)
 	sleep(animation_delay)
-
-	holder.overlays -= feedee //reset static icon
-	feedee.icon += icon('icons/obj/kitchen.dmi', "footicon") //this is some byond magic; += to the icon var with a black and white image will mask it
-	holder.overlays += feedee
-	animate(holder, pixel_y = -3, time = animation_delay) //animate going down further
-
-	sleep(animation_delay) //time everything right, animate doesn't prevent proc from continuing
-
-	qdel(holder) //get rid of holder object
-	qdel(holder2) //get rid of holder object
+	victim.icon += icon('icons/obj/kitchen.dmi', "footicon") //this is some byond magic; += to the icon var with a black and white image will mask it
+	animate(victim, pixel_y = -3, time = animation_delay) // Animate going down further
+	sleep(animation_delay)
+	for(var/client/viewer as anything in gibber_viewers)
+		viewer.images -= victim
+	qdel(victim)
+	qdel(grinder_overlay)
 	locked = FALSE //unlock
 	dirty = TRUE //dirty gibber
 
@@ -259,13 +242,13 @@
 
 	var/slab_name = occupant.name
 	var/slab_count = 3
-	var/slab_type = /obj/item/reagent_containers/food/snacks/meat/human //gibber can only gib humans on paracode, no need to check meat type
+	var/slab_type = /obj/item/food/snacks/meat/human //gibber can only gib humans on paracode, no need to check meat type
 	var/slab_nutrition = occupant.nutrition / 15
 
 	slab_nutrition /= slab_count
 
 	for(var/i=1 to slab_count)
-		var/obj/item/reagent_containers/food/snacks/meat/new_meat = new slab_type(src)
+		var/obj/item/food/snacks/meat/new_meat = new slab_type(src)
 		new_meat.name = "[slab_name] [new_meat.name]"
 		new_meat.reagents.add_reagent("nutriment", slab_nutrition)
 
@@ -409,8 +392,8 @@
 	for(var/obj/O in H)
 		if(isclothing(O)) //clothing gets skipped to avoid cleaning out shit
 			continue
-		if(istype(O,/obj/item/implant))
-			var/obj/item/implant/I = O
+		if(istype(O,/obj/item/bio_chip))
+			var/obj/item/bio_chip/I = O
 			if(I.implanted)
 				continue
 		if(O.flags & NODROP || stealthmode)

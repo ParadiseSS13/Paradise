@@ -71,42 +71,32 @@
 		return FALSE
 	var/blocking_object = density_check()
 	if(blocking_object)
-		to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [blocking_object]!</span>")
+		to_chat(user, "<span class='warning'>You cannot climb onto [src], as it is blocked by \a [blocking_object]!</span>")
 		return FALSE
 
-	var/turf/T = src.loc
-	if(!T || !istype(T)) return FALSE
+	if(!isturf(loc))
+		return FALSE
 
-	climber = user
-	if(HAS_TRAIT(climber, TRAIT_TABLE_LEAP))
+	if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
 		user.visible_message("<span class='warning'>[user] gets ready to vault up onto [src]!</span>")
 		if(!do_after(user, 0.5 SECONDS, target = src))
-			climber = null
 			return FALSE
 	else
 		user.visible_message("<span class='warning'>[user] starts climbing onto [src]!</span>")
 		if(!do_after(user, 5 SECONDS, target = src))
-			climber = null
 			return FALSE
 
 	if(!can_touch(user) || !climbable)
-		climber = null
 		return FALSE
 
-	var/old_loc = usr.loc
-	user.loc = get_turf(src)
-	user.Moved(old_loc, get_dir(old_loc, usr.loc), FALSE)
+	user.forceMove(get_turf(src))
 	if(get_turf(user) == get_turf(src))
-		if(HAS_TRAIT(climber, TRAIT_TABLE_LEAP))
+		if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
 			user.visible_message("<span class='warning'>[user] leaps up onto [src]!</span>")
 		else
 			user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
 
-	climber = null
-	return TRUE
-
 /obj/structure/proc/structure_shaken()
-
 	for(var/mob/living/M in get_turf(src))
 
 		if(IS_HORIZONTAL(M))
@@ -148,22 +138,21 @@
 				H.adjustBruteLoss(damage)
 
 			H.UpdateDamageIcon()
-	return
 
 /obj/structure/proc/can_touch(mob/living/user)
 	if(!istype(user))
-		return 0
+		return FALSE
 	if(!Adjacent(user))
-		return 0
+		return FALSE
 	if(user.restrained() || user.buckled)
 		to_chat(user, "<span class='notice'>You need your hands and legs free for this.</span>")
-		return 0
+		return FALSE
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return 0
+		return FALSE
 	if(issilicon(user))
 		to_chat(user, "<span class='notice'>You need hands for this.</span>")
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /obj/structure/examine(mob/user)
 	. = ..()

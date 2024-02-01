@@ -16,8 +16,8 @@
 		return TRUE
 	if(ismob(mover))
 		var/mob/moving_mob = mover
-		if((currently_grab_pulled && moving_mob.currently_grab_pulled))
-			return FALSE
+		if(src in moving_mob.grab_do_not_move)
+			return TRUE
 		if(mover in buckled_mobs)
 			return TRUE
 	return (!mover.density || !density || horizontal)
@@ -67,6 +67,9 @@
 
 	if(mob.notransform)
 		return 0 //This is sota the goto stop mobs from moving var
+
+	if(mob.throwing && mob.throwing.block_movement)
+		return
 
 	if(mob.control_object)
 		return Move_object(direct)
@@ -180,13 +183,10 @@
 
 	if(prev_pulling_loc && mob.pulling?.face_while_pulling && (mob.pulling.loc != prev_pulling_loc))
 		mob.setDir(get_dir(mob, mob.pulling)) // Face welding tanks and stuff when pulling
-	else
-		mob.setDir(direct)
 
 	moving = 0
-	if(mob && .)
-		if(mob.throwing)
-			mob.throwing.finalize(FALSE)
+	if(mob && . && mob.throwing)
+		mob.throwing.finalize(FALSE)
 
 	for(var/obj/O in mob)
 		O.on_mob_move(direct, mob)
@@ -206,6 +206,8 @@
 	if(mob.grabbed_by.len)
 		if(mob.incapacitated(FALSE, TRUE)) // Can't break out of grabs if you're incapacitated
 			return TRUE
+		if(HAS_TRAIT(mob, TRAIT_IMMOBILIZED))
+			return TRUE //You can't move, so you can't break it by trying to move.
 		var/list/grabbing = list()
 
 		if(istype(mob.l_hand, /obj/item/grab))
