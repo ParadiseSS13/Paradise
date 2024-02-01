@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import {
   Button,
   Section,
-  Flex,
+  Stack,
   Icon,
   Collapsible,
   LabeledList,
@@ -15,11 +15,13 @@ export const GeneModder = (props, context) => {
   const { has_seed } = data;
 
   return (
-    <Window resizable>
-      <Window.Content className="Layout__content--flexColumn">
-        <Storage />
-        <ComplexModal maxWidth="75%" maxHeight="75%" />
-        {has_seed === 0 ? <MissingSeed /> : <Genes />}
+    <Window width={500} height={650}>
+      <Window.Content>
+        <Stack fill vertical>
+          <Storage />
+          <ComplexModal maxWidth="75%" maxHeight="75%" />
+          {has_seed === 0 ? <MissingSeed /> : <Genes />}
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -32,7 +34,8 @@ const Genes = (props, context) => {
   return (
     <Section
       title="Genes"
-      flexGrow="1"
+      fill
+      scrollable
       buttons={
         <Button
           content="Insert Gene from Disk"
@@ -51,9 +54,9 @@ const Genes = (props, context) => {
 
 const MissingSeed = (props, context) => {
   return (
-    <Section flexGrow="1">
-      <Flex height="100%">
-        <Flex.Item
+    <Section fill height="85%">
+      <Stack height="100%">
+        <Stack.Item
           bold
           grow="1"
           textAlign="center"
@@ -63,8 +66,8 @@ const MissingSeed = (props, context) => {
           <Icon name="leaf" size={5} mb="10px" />
           <br />
           The plant DNA manipulator is missing a seed.
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };
@@ -78,14 +81,14 @@ const Storage = (props, context) => {
 
   if (has_seed) {
     show_seed = (
-      <Flex.Item mb="-6px" mt="-4px">
+      <Stack.Item mb="-6px" mt="-4px">
         <img
           src={`data:image/jpeg;base64,${seed.image}`}
           style={{
             'vertical-align': 'middle',
             width: '32px',
-            margin: '0px',
-            'margin-left': '0px',
+            margin: '-1px',
+            'margin-left': '-11px',
           }}
         />
         <Button content={seed.name} onClick={() => act('eject_seed')} />
@@ -95,13 +98,13 @@ const Storage = (props, context) => {
           tooltip="Name Variant"
           onClick={() => act('variant_name')}
         />
-      </Flex.Item>
+      </Stack.Item>
     );
   } else {
     show_seed = (
-      <Flex.Item>
-        <Button content="None" onClick={() => act('eject_seed')} />
-      </Flex.Item>
+      <Stack.Item>
+        <Button ml={3.3} content="None" onClick={() => act('eject_seed')} />
+      </Stack.Item>
     );
   }
 
@@ -116,9 +119,13 @@ const Storage = (props, context) => {
       <LabeledList>
         <LabeledList.Item label="Plant Sample">{show_seed}</LabeledList.Item>
         <LabeledList.Item label="Data Disk">
-          <Flex.Item>
-            <Button content={show_disk} onClick={() => act('eject_disk')} />
-          </Flex.Item>
+          <Stack.Item>
+            <Button
+              ml={3.3}
+              content={show_disk}
+              onClick={() => act('eject_disk')}
+            />
+          </Stack.Item>
         </LabeledList.Item>
       </LabeledList>
     </Section>
@@ -132,27 +139,27 @@ const CoreGenes = (props, context) => {
   return (
     <Collapsible key="Core Genes" title="Core Genes" open>
       {core_genes.map((gene) => (
-        <Flex key={gene} py="2px" className="candystripe">
-          <Flex.Item width="100%" ml="2px">
+        <Stack key={gene} py="2px" className="candystripe">
+          <Stack.Item width="100%" ml="2px">
             {gene.name}
-          </Flex.Item>
-          <Flex.Item pr="5px">
+          </Stack.Item>
+          <Stack.Item>
             <Button
               content="Extract"
               disabled={!disk?.can_extract}
               icon="save"
               onClick={() => act('extract', { id: gene.id })}
             />
-          </Flex.Item>
-          <Flex.Item>
+          </Stack.Item>
+          <Stack.Item>
             <Button
               content="Replace"
               disabled={!gene.is_type || !disk.can_insert}
               icon="arrow-circle-down"
               onClick={() => act('replace', { id: gene.id })}
             />
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       ))}
     </Collapsible>
   );
@@ -193,29 +200,29 @@ const OtherGenes = (props, context) => {
     <Collapsible key={title} title={title} open>
       {do_we_show ? (
         gene_set.map((gene) => (
-          <Flex key={gene} py="2px" className="candystripe">
-            <Flex.Item width="100%" ml="2px">
+          <Stack key={gene} py="2px" className="candystripe">
+            <Stack.Item width="100%" ml="2px">
               {gene.name}
-            </Flex.Item>
-            <Flex.Item pr="5px">
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 content="Extract"
                 disabled={!disk?.can_extract}
                 icon="save"
                 onClick={() => act('extract', { id: gene.id })}
               />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 content="Remove"
                 icon="times"
                 onClick={() => act('remove', { id: gene.id })}
               />
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         ))
       ) : (
-        <Flex.Item>No Genes Detected</Flex.Item>
+        <Stack.Item>No Genes Detected</Stack.Item>
       )}
     </Collapsible>
   );

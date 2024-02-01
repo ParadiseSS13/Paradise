@@ -18,7 +18,7 @@ export const RobotSelfDiagnosis = (props, context) => {
   const { data } = useBackend(context);
   const { component_data } = data;
   return (
-    <Window>
+    <Window width={280} height={480}>
       <Window.Content scrollable>
         {component_data.map((entry, i) => (
           <Section key={i} title={capitalize(entry.name)}>

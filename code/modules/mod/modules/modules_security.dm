@@ -166,3 +166,126 @@
 /// Remove the image from the modsuit wearer's screen
 /obj/effect/temp_visual/sonar_ping/proc/remove_mind(mob/living/looker)
 	looker?.client?.images -= modsuit_image
+
+///Firewall. Deployable dropwall that lights projectiles on fire.
+/obj/item/mod/module/anomaly_locked/firewall
+	name = "MOD firewall module"
+	desc = "A module that uses a pyroclastic core to make immolating dropwalls."
+	icon_state = "firewall"
+	overlay_state_inactive = "module_mirage_grenade"
+	module_type = MODULE_ACTIVE
+	complexity = 3
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
+	cooldown_time = 20 SECONDS
+	accepted_anomalies = list(/obj/item/assembly/signaler/anomaly/pyro)
+	/// Path we dispense.
+	var/dispense_type = /obj/item/grenade/barrier/dropwall/firewall
+
+/obj/item/mod/module/anomaly_locked/firewall/on_use()
+	. = ..()
+	if(!.)
+		return
+	var/obj/item/dispensed = new dispense_type(mod.wearer.loc)
+	mod.wearer.put_in_hands(dispensed)
+	playsound(src, 'sound/machines/click.ogg', 100, TRUE)
+	drain_power(use_power_cost)
+	var/obj/item/grenade/grenade = dispensed
+	grenade.attack_self(mod.wearer)
+	return grenade
+
+/obj/item/mod/module/anomaly_locked/firewall/prebuilt
+	prebuilt = TRUE
+	removable = FALSE // No switching it into another suit / no free anomaly core
+
+/// Vortex arm mounted shotgun. Fucks up reality in front of it, very power draining. Compeating with the vortex arm and stealth armor after all
+/obj/item/mod/module/anomaly_locked/vortex_shotgun
+	name = "MOD vortex shotgun module"
+	desc = "A module that uses a vortex core to rend the fabric of space time in front of it."
+	icon_state = "vortex"
+	module_type = MODULE_ACTIVE
+	complexity = 3
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 750
+	device = /obj/item/gun/energy/vortex_shotgun
+	accepted_anomalies = list(/obj/item/assembly/signaler/anomaly/vortex)
+
+/obj/item/mod/module/anomaly_locked/vortex_shotgun/Initialize(mapload)
+	. = ..()
+	RegisterSignal(device, COMSIG_GUN_FIRED, PROC_REF(on_gun_fire))
+
+/obj/item/mod/module/anomaly_locked/vortex_shotgun/proc/on_gun_fire()
+	SIGNAL_HANDLER
+	if(!drain_power(use_power_cost)) //Drain the rest dry
+		drain_power(mod.core.check_charge())
+
+/obj/item/mod/module/anomaly_locked/vortex_shotgun/prebuilt
+	prebuilt = TRUE
+	removable = FALSE // No switching it into another suit / no free anomaly core
+
+///Cryogrenade. Freezes foes in place, cools them
+/obj/item/mod/module/anomaly_locked/cryogrenade
+	name = "MOD Cryogrenade module"
+	desc = "A module that uses a cryogenic core to make freezing grenades."
+	icon_state = "cryogrenade"
+	overlay_state_inactive = "module_mirage_grenade"
+	module_type = MODULE_ACTIVE
+	complexity = 3
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
+	cooldown_time = 20 SECONDS
+	accepted_anomalies = list(/obj/item/assembly/signaler/anomaly/cryo)
+	/// Path we dispense.
+	var/dispense_type = /obj/item/grenade/cryogrenade_mod
+
+/obj/item/mod/module/anomaly_locked/cryogrenade/on_use()
+	. = ..()
+	if(!.)
+		return
+	var/obj/item/dispensed = new dispense_type(mod.wearer.loc)
+	mod.wearer.put_in_hands(dispensed)
+	playsound(src, 'sound/machines/click.ogg', 100, TRUE)
+	drain_power(use_power_cost)
+	var/obj/item/grenade/grenade = dispensed
+	grenade.attack_self(mod.wearer)
+	return grenade
+
+/obj/item/mod/module/anomaly_locked/cryogrenade/prebuilt
+	prebuilt = TRUE
+	removable = FALSE // No switching it into another suit / no free anomaly core
+
+/obj/item/grenade/cryogrenade_mod
+	name = "cryogenic grenade"
+	desc = "A very cold grenade."
+	icon = 'icons/obj/grenade.dmi'
+	icon_state = "gluon"
+	item_state = "grenade"
+	var/freeze_range = 4
+	var/stamina_damage = 60
+	var/body_adjustment = -230
+	var/reagent_volume = 15
+	/// Mob that threw the grenade.
+	var/mob/living/thrower
+
+
+/obj/item/grenade/cryogrenade_mod/Destroy()
+	thrower = null
+	return ..()
+
+/obj/item/grenade/cryogrenade_mod/attack_self(mob/user)
+	. = ..()
+	thrower = user
+
+/obj/item/grenade/cryogrenade_mod/prime()
+	update_mob()
+	playsound(loc, 'sound/effects/empulse.ogg', 50, TRUE)
+	for(var/turf/simulated/floor/T in view(freeze_range, loc))
+		T.MakeSlippery(TURF_WET_ICE)
+		for(var/mob/living/carbon/C in T)
+			if(C == thrower)
+				continue
+			C.adjustStaminaLoss(stamina_damage)
+			C.adjust_bodytemperature(body_adjustment)
+			C.apply_status_effect(/datum/status_effect/freon)
+			if(C.reagents)
+				C.reagents.add_reagent("frostoil", reagent_volume)
+				C.reagents.add_reagent("ice", reagent_volume)
+	qdel(src)
+
