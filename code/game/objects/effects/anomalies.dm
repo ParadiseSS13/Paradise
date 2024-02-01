@@ -129,7 +129,7 @@
 	for(var/mob/living/M in range(0, src))
 		gravShock(M)
 	for(var/mob/living/M in orange(4, src))
-		if(!M.mob_negates_gravity())
+		if(!M.mob_negates_gravity() && !issilicon(M))
 			step_towards(M,src)
 	for(var/obj/O in range(0, src))
 		if(!O.anchored && O.loc != src && O.move_resist < MOVE_FORCE_OVERPOWERING) // so it cannot throw the anomaly core or super big things

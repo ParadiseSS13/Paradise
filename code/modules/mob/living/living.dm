@@ -101,7 +101,7 @@
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 			return TRUE
 
-		if(pulledby == L && a_intent != INTENT_HELP) //prevents boosting the person pulling you, but you can still move through them on help intent
+		if(pulledby == L && (a_intent != INTENT_HELP || L.a_intent != INTENT_HELP)) //prevents boosting the person pulling you, but you can still move through them on help intent
 			return TRUE
 
 		if(L.pulling)
@@ -268,11 +268,12 @@
 /mob/living/run_pointed(atom/A)
 	if(!..())
 		return FALSE
-	var/obj/item/hand_item = get_active_hand()
 	var/pointed_object = "\the [A]"
 	if(A.loc in src)
 		pointed_object += " inside [A.loc]"
-	if(HAS_TRAIT(hand_item, TRAIT_CAN_POINT_WITH) && A != hand_item)
+
+	var/obj/item/hand_item = get_active_hand()
+	if(!QDELETED(hand_item) && istype(hand_item) && HAS_TRAIT(hand_item, TRAIT_CAN_POINT_WITH) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
 			visible_message("<b>[src]</b> points to [pointed_object] with [hand_item]")
 			return TRUE
@@ -289,19 +290,36 @@
 	return TRUE
 
 /mob/living/verb/succumb()
-	set hidden = 1
-	if(InCritical())
-		create_attack_log("[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!")
-		create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
-		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
-		// super check for weird mobs, including ones that adjust hp
-		// we don't want to go overboard and gib them, though
-		for(var/i = 1 to 5)
-			if(health < HEALTH_THRESHOLD_DEAD)
-				break
-			take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
+	set hidden = TRUE
+	if(health >= HEALTH_THRESHOLD_CRIT)
+		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
+		return
+
+	var/last_words = input(src, "Do you have any last words?", "Goodnight, Sweet Prince") as text|null
+
+	if(stat == DEAD)
+		// cancel em out if they died while they had the message box up
+		last_words = null
+
+	if(!isnull(last_words))
+		create_log(MISC_LOG, "gave their final words, [last_words]")
+		whisper(last_words)
+
+	add_attack_logs(src, src, "[src] has [!isnull(last_words) ? "whispered [p_their()] final words" : "succumbed to death"] with [round(health, 0.1)] points of health!")
+
+	create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
+	adjustOxyLoss(max(health - HEALTH_THRESHOLD_DEAD, 0))
+	// super check for weird mobs, including ones that adjust hp
+	// we don't want to go overboard and gib them, though
+	for(var/i in 1 to 5)
+		if(health < HEALTH_THRESHOLD_DEAD)
+			break
+		take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
+	if(!isnull(last_words))
+		addtimer(CALLBACK(src, PROC_REF(death)), 1 SECONDS)
+	else
 		death()
-		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
+	to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
 
 /mob/living/proc/InCritical()
@@ -396,7 +414,7 @@
 			L += get_contents(S)
 		for(var/obj/item/clothing/accessory/storage/S in contents)//Check for holsters
 			L += get_contents(S)
-		for(var/obj/item/implant/storage/I in contents) //Check for storage implants.
+		for(var/obj/item/bio_chip/storage/I in contents) //Check for storage implants.
 			L += I.get_contents()
 		for(var/obj/item/gift/G in contents) //Check for gift-wrapped items
 			L += G.gift
@@ -1098,11 +1116,11 @@
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
 
-/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable, block_movement)
 	stop_pulling()
 	return ..()
 
-/mob/living/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/mob/living/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(C == src || flying || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
@@ -1110,8 +1128,12 @@
 		return
 	if(!self_hurt)
 		take_organ_damage(damage)
-	C.take_organ_damage(damage)
-	C.KnockDown(3 SECONDS)
+	if(issilicon(C))
+		C.adjustBruteLoss(damage)
+		C.Weaken(3 SECONDS)
+	else
+		C.take_organ_damage(damage)
+		C.KnockDown(3 SECONDS)
 	C.visible_message("<span class='danger'>[C] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")
 
 /**

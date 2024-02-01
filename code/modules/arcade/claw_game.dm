@@ -8,14 +8,8 @@ GLOBAL_VAR(claw_game_html)
 	token_price = 5
 	window_name = "Claw Game"
 	var/machine_image = "_1"
-	var/bonus_prize_chance = 5		//chance to dispense a SECOND prize if you win, increased by matter bin rating
-	//This is to make sure the images are available
-	var/list/img_resources = list('icons/obj/arcade_images/backgroundsprite.png',
-								'icons/obj/arcade_images/clawpieces.png',
-								'icons/obj/arcade_images/crane_bot.png',
-								'icons/obj/arcade_images/crane_top.png',
-								'icons/obj/arcade_images/prize_inside.png',
-								'icons/obj/arcade_images/prizeorbs.png')
+	/// Chance to dispense a SECOND prize if you win, increased by matter bin rating
+	var/bonus_prize_chance = 5
 
 /obj/machinery/economy/arcade/claw/Initialize(mapload)
 	. = ..()
@@ -62,16 +56,16 @@ GLOBAL_VAR(claw_game_html)
 
 /obj/machinery/economy/arcade/claw/start_play(mob/user as mob)
 	..()
-	user << browse_rsc('page.css')
-	for(var/i in 1 to img_resources.len)
-		user << browse_rsc(img_resources[i])
+	var/datum/asset/claw_game_page_asset = get_asset_datum(/datum/asset/group/claw_game)
+	claw_game_page_asset.send(user)
+
 	var/my_game_html = replacetext(GLOB.claw_game_html, "/* ref src */", UID())
 	var/datum/browser/popup = new(user, window_name, name, 915, 700, src)
 	popup.set_content(my_game_html)
-	popup.add_stylesheet("page.css", 'code/modules/arcade/page.css')
-	popup.add_stylesheet("Button.scss", 'tgui/packages/tgui/styles/components/Button.scss')
-	popup.add_script("jquery-1.8.2.min.js", 'html/browser/jquery-1.8.2.min.js')
-	popup.add_script("jquery-ui-1.8.24.custom.min.js", 'html/browser/jquery-ui-1.8.24.custom.min.js')
+	popup.add_stylesheet("page", 'code/modules/arcade/page.css')
+	popup.add_scss_stylesheet("Button", 'tgui/packages/tgui/styles/components/Button.scss')
+	popup.add_script("jquery-1.8.2.min", 'html/browser/jquery-1.8.2.min.js')
+	popup.add_script("jquery-ui-1.8.24.custom.min", 'html/browser/jquery-ui-1.8.24.custom.min.js')
 	popup.open()
 	user.set_machine(src)
 

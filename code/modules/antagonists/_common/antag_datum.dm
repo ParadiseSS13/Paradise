@@ -55,19 +55,30 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 /datum/antagonist/Destroy(force, ...)
 	qdel(objective_holder)
-	remove_owner_from_gamemode()
 	GLOB.antagonists -= src
+	if(!QDELETED(owner))
+		detach_from_owner()
+
+	return ..()
+
+/**
+ * Removes owner's dependencies on this antag datum.
+ * For example: removal of antag datum from owner's `antag_datums`, antag datum related teams etc.
+ * If your `/datum/antagonist`  subtype adds more dependencies on `owner` - they should be cleared there.
+ */
+/datum/antagonist/proc/detach_from_owner()
+	SHOULD_CALL_PARENT(TRUE)
+
+	remove_owner_from_gamemode()
 	if(!silent)
 		farewell()
 	remove_innate_effects()
 	antag_memory = null
 	var/datum/team/team = get_team()
 	team?.remove_member(owner)
-	if(owner)
-		LAZYREMOVE(owner.antag_datums, src)
+	LAZYREMOVE(owner.antag_datums, src)
 	restore_last_hud_and_role()
 	owner = null
-	return ..()
 
 /**
  * Adds the owner to their respective gamemode's list. For example `SSticker.mode.traitors |= owner`.
@@ -338,7 +349,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/farewell()
 	if(owner && owner.current)
-		to_chat(owner.current,"<span class='userdanger'>You are no longer a [special_role]! </span>")
+		to_chat(owner.current,"<span class='userdanger'>You are no longer a [special_role]!</span>")
 
 /**
  * Creates a new antagonist team.

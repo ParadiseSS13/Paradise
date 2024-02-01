@@ -19,7 +19,7 @@
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
 	armor = list(MELEE = 35, BULLET = 20, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 20, FIRE = 450, ACID = 50)
-	flags = NOSLIP
+	no_slip = TRUE
 
 /obj/item/clothing/shoes/sandal
 	name = "sandals"
@@ -45,7 +45,7 @@
 	desc = "A pair of yellow rubber boots, designed to prevent slipping on wet surfaces."
 	icon_state = "galoshes"
 	permeability_coefficient = 0.05
-	flags = NOSLIP
+	no_slip = TRUE
 	slowdown = SHOES_SLOWDOWN+1
 	strip_delay = 50
 	put_on_delay = 50
@@ -118,6 +118,10 @@
 	name = "magical clown shoes"
 	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And powerful! Somehow."
 	magical = TRUE
+
+/obj/item/clothing/shoes/clown_shoes/magical/nodrop
+	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And stuck to your feet!"
+	flags = NODROP
 
 /obj/item/clothing/shoes/clown_shoes/slippers
 	actions_types = list(/datum/action/item_action/slipping)

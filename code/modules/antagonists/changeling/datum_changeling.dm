@@ -87,7 +87,7 @@
 /datum/antagonist/changeling/greet()
 	. = ..()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/ling_alert.ogg'))
-	return . += "<span class='danger'>Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>"
+	. += "<span class='danger'>Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>"
 
 /datum/antagonist/changeling/farewell()
 	to_chat(owner.current, "<span class='biggerdanger'><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")

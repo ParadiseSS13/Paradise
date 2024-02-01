@@ -267,7 +267,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			return B.blob_reagent_datum.description
 	return "something unknown"
 
-/obj/structure/blob/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/obj/structure/blob/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	damage *= 0.25 // Lets not have sorium be too much of a blender / rapidly kill itself
 	return ..()
 

@@ -193,7 +193,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 			ghost_invokers++
 		if(invocation)
-			if(!L.IsVocal())
+			if(!L.IsVocal() || L.cannot_speak_loudly())
 				L.custom_emote(EMOTE_VISIBLE, message = pick("draws arcane sigils in the air.","gestures ominously.","silently mouths out an invocation.","places their hands on the rune, activating it."))
 			else
 				L.say(invocation)
@@ -369,7 +369,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 			var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
 			if(H.equip_to_slot_if_possible(D, SLOT_HUD_IN_BACKPACK, FALSE, TRUE))
-				to_chat(H, "<span class='cultlarge'>You have a dagger in your backpack. Use it to do [SSticker.cultdat.entity_title1]'s bidding. </span>")
+				to_chat(H, "<span class='cultlarge'>You have a dagger in your backpack. Use it to do [SSticker.cultdat.entity_title1]'s bidding.</span>")
 			else
 				to_chat(H, "<span class='cultlarge'>There is a dagger on the floor. Use it to do [SSticker.cultdat.entity_title1]'s bidding.</span>")
 
