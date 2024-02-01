@@ -66,7 +66,7 @@
 	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors))
 		client.verbs += /client/proc/readmin
 
-	client.update_all_keybinds()
+	client.update_active_keybindings()
 
 	//HUD updates (antag hud, etc)
 	//readd this mob's HUDs (antag, med, etc)

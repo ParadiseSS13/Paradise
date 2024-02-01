@@ -1260,22 +1260,6 @@
 							active_character.custom_emotes.Remove(custom_emote_keybind.name)
 							active_character.save(user)
 
-					for(var/key in user.client.prefs.keybindings) // Clear winset macros for existing TGUIsay keybinds before rebuilding
-						for(var/datum/keybinding/client/communication/kb in user.client.prefs.keybindings[key])
-							var/list/modifiers = list()
-							var/modified_key
-							if(findtext("[key]", regex("Shift(?!$)")))
-								modifiers += "SHIFT+"
-							if(findtext("[key]", regex("Ctrl(?!$)")))
-								modifiers += "CTRL+"
-							if(findtext("[key]", regex("Alt(?!$)")))
-								modifiers += "ALT+"
-							if(length(modifiers))
-								modifiers += replacetext("[key]", regex("Shift|Ctrl|Alt(?!$)"), "")
-								modified_key = modifiers.Join("")
-							winset(user.client, "default-[modified_key ? modified_key : key]", "parent=default;name=[modified_key ? modified_key : key];command=")
-
-
 					init_keybindings(keybindings_overrides)
 					save_preferences(user) //Ideally we want to save people's keybinds when they enter them
 
