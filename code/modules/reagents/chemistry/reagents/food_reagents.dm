@@ -219,7 +219,7 @@
 	if(method == REAGENT_TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/victim = M
-			var/eyes_covered = 0
+			var/eyes_covered = FALSE
 			var/obj/item/safe_thing = null
 			if(victim.wear_mask && victim.wear_mask.flags_cover & MASKCOVERSEYES)
 				eyes_covered = 1
