@@ -73027,7 +73027,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/armory,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/any/security/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
