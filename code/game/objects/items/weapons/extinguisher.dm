@@ -113,7 +113,7 @@
 
 	var/direction = get_dir(src, target)
 
-	if(isobj(user.buckled) && !user.buckled.anchored && !istype(user.buckled, /obj/vehicle))
+	if(isobj(user.buckled) && !user.buckled.anchored && !isvehicle(user.buckled))
 		INVOKE_ASYNC(src, PROC_REF(buckled_speed_move), user.buckled, direction)
 	else
 		user.newtonian_move(turn(direction, 180))

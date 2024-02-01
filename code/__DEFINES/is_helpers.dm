@@ -52,6 +52,8 @@
 
 #define ismecha(A) (istype(A, /obj/mecha))
 
+#define isvehicle(A) (istype(A, /obj/vehicle))
+
 #define iseffect(A) (istype(A, /obj/effect))
 
 #define isclothing(A) (istype(A, /obj/item/clothing))

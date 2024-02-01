@@ -66,9 +66,9 @@
 #define DOOR_CLOSING 2
 #define DOOR_MALF 3
 
-#define TURRET_PRIORITY_TARGET 2
-#define TURRET_SECONDARY_TARGET 1
-#define TURRET_NOT_TARGET 0
+#define TURRET_PRIMARY_TARGET "turret_primary_target"
+#define TURRET_SECONDARY_TARGET "turret_secondary_target"
+#define TURRET_NOT_TARGET "turret_not_target"
 
 #define TURRET_PREASSESS_VALID 1
 #define TURRET_PREASSESS_INVALID 0

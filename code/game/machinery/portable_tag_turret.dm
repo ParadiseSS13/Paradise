@@ -88,12 +88,12 @@
 
 	if(target_suit)//Lasertag turrets target the opposing team, how great is that? -Sieve
 		if((istype(L.r_hand, target_weapon)) || (istype(L.l_hand, target_weapon)))
-			return TURRET_PRIORITY_TARGET
+			return TURRET_PRIMARY_TARGET
 
 		if(ishuman(L))
 			var/mob/living/carbon/human/H = L
 			if(istype(H.wear_suit, target_suit))
-				return TURRET_PRIORITY_TARGET
+				return TURRET_PRIMARY_TARGET
 			if(istype(H.belt, target_weapon))
 				return TURRET_SECONDARY_TARGET
 

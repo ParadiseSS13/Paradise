@@ -299,7 +299,7 @@
 		else if(closest_type >= RIDE)
 			continue
 
-		else if(istype(A, /obj/vehicle))
+		else if(isvehicle(A))
 			var/obj/vehicle/R = A
 			if(R.can_buckle && !R.being_shocked)
 				closest_type = RIDE
