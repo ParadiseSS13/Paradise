@@ -27,6 +27,8 @@
 ///Whether or not this atom shows screentips when hovered over
 #define NO_SCREENTIPS			32768
 
+#define NOHANDEXAMINE			(1<<16)	// For making it so
+
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
 #define UPDATE_NAME (1<<0)

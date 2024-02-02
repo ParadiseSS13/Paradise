@@ -3,7 +3,7 @@
 	desc = "Simple metal punch enhancers, perfect for bar brawls."
 	icon = 'icons/obj/knuckleduster.dmi'
 	icon_state = "knuckleduster"
-	flags = CONDUCT
+	flags = CONDUCT | NOHANDEXAMINE
 	force = 10
 	throwforce = 3
 	w_class = WEIGHT_CLASS_SMALL
@@ -11,7 +11,7 @@
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=2"
 	attack_verb = list("struck", "bludgeoned", "bashed", "smashed")
-	hitsound = 'sound/weapons/punch1.ogg'
+	hitsound = null
 	/// Is the weapon gripped or not?
 	var/gripped = FALSE
 	/// Can the weapon damage organs directly or not?
@@ -28,7 +28,10 @@
 		gripped = FALSE
 		to_chat(user, "You relax your grip on [src].")
 		flags &= ~NODROP
-		return
+
+/obj/item/melee/knuckleduster/attack/(mob/living/user)
+	hitsound = pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg')
+	return ..()
 
 /obj/item/melee/knuckleduster/attack(mob/living/target, mob/living/user)
 	. = ..()
@@ -43,8 +46,7 @@
 	if(gripped && elite)
 		squishy.receive_damage(trauma)
 	if(punched.is_broken())
-		squishy.receive_damage(trauma) // Probably not so good for your organs to have your already broken ribs punched hard again
-		return
+		squishy.receive_damage(trauma) // Probably not so good for your organs to have your already broken ribs punched hard by a metal object
 
 /obj/item/melee/knuckleduster/syndie
 	name = "syndicate knuckleduster"
