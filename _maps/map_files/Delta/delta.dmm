@@ -79834,6 +79834,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
+"mgV" = (
+/obj/structure/closet,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/item/storage/secure/safe{
+	name = "evidence safe";
+	pixel_y = -27;
+	pixel_x = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/evidence)
 "mhu" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/permasolitary)
@@ -82458,22 +82472,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/exit)
-"nIw" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/landmark/start/security_officer,
-/obj/machinery/power/apc{
-	cell_type = 25000;
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24;
-	shock_proof = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/main)
 "nIz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -95997,20 +95995,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"vVH" = (
-/obj/structure/closet,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/item/storage/secure/safe{
-	name = "evidence safe";
-	pixel_y = -27;
-	pixel_x = 5
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/evidence)
 "vVU" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -153853,7 +153837,7 @@ bRe
 cgr
 spP
 ccQ
-vVH
+mgV
 jIs
 cjz
 xhy
@@ -156676,7 +156660,7 @@ ohh
 weF
 boI
 lFi
-nIw
+bbm
 boI
 bTr
 tdA
