@@ -166,7 +166,7 @@
 	var/question = "Do you want to play as [M.real_name ? M.real_name : M.name][M.job ? " ([M.job])" : ""]"
 	if(alert("Do you want to show the antag status?","Show antag status","Yes","No") == "Yes")
 		question += ", [M.mind?.special_role ? M.mind?.special_role : "No special role"]"
-	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("[question]?", poll_time = 10 SECONDS, min_hours = minhours, source = M)
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("[question]?", ROLE_GHOST, poll_time = 10 SECONDS, min_hours = minhours, source = M)
 	var/mob/dead/observer/theghost = null
 
 	if(length(candidates))
