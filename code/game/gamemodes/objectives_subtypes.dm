@@ -18,6 +18,11 @@
 	name = "Assassinate syndicate agent"
 	syndicate_target = TRUE
 
+/datum/objective/assassinate/syndicate/update_explanation_text()
+	..()
+	if(target?.current)
+		explanation_text = "Assassinate [target.current.real_name], the Syndicate agent undercover as the [target.assigned_role]."
+
 /datum/objective/assassinate/medical
 	name = "Assassinate medical"
 	target_jobs = list("Chief Medical Officer", "Medical Doctor", "Paramedic", "Chemist", "Virologist", "Psychologist", "Coroner")
