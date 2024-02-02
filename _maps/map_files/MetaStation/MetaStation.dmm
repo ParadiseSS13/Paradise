@@ -48124,7 +48124,7 @@
 	},
 /area/station/maintenance/asmaint)
 "egC" = (
-/obj/item/slime_extract/oil,
+/obj/item/slime_extract,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plasteel{
@@ -53536,7 +53536,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/item/slime_extract/pink,
+/obj/item/slime_extract,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable/yellow{
