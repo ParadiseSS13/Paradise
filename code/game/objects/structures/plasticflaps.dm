@@ -78,7 +78,7 @@
 
 /obj/structure/plasticflaps/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
 	if(isliving(caller))
-		if(isbot(caller))
+		if(isbot(caller) || isdrone(caller))
 			return TRUE
 
 		var/mob/living/M = caller
