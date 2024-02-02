@@ -56,7 +56,6 @@
 		R.dna = new /datum/dna()
 
 	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src)
-	H.set_species(/datum/species/grey) //This is a grey cloner after all. Funnier this way tbh
 	occupant = H
 
 	if(!R.dna.real_name)	//to prevent null names
@@ -68,6 +67,8 @@
 
 	for(var/datum/language/L in R.languages)
 		H.add_language(L.name)
+
+	H.set_species(/datum/species/grey) //This is a grey cloner after all. Funnier this way tbh
 
 	domutcheck(H, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 
