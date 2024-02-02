@@ -224,7 +224,7 @@ SUBSYSTEM_DEF(timer)
   * Generates a string with details about the timed event for debugging purposes
   */
 /datum/controller/subsystem/timer/proc/get_timer_debug_string(datum/timedevent/TE)
-	. = "Timer: [TE]"
+	. = "Timer: [TE.getTimerInfo()]"
 	. += "Prev: [TE.prev ? TE.prev : "NULL"], Next: [TE.next ? TE.next : "NULL"]"
 	if(TE.spent)
 		. += ", SPENT([TE.spent])"
