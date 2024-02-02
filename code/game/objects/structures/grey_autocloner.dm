@@ -65,10 +65,10 @@
 
 	H.dna = R.dna.Clone()
 
+	H.set_species(/datum/species/grey) //This is a grey cloner after all. Funnier this way tbh
+
 	for(var/datum/language/L in R.languages)
 		H.add_language(L.name)
-
-	H.set_species(/datum/species/grey) //This is a grey cloner after all. Funnier this way tbh
 
 	domutcheck(H, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 
