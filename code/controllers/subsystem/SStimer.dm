@@ -380,7 +380,7 @@ SUBSYSTEM_DEF(timer)
 	/// Time at which the timer was invoked or destroyed
 	var/spent = 0
 	/// An informative name generated for the timer as its representation in strings, useful for debugging
-	var/name
+	var/name = "Unnamed Timer"
 	/// Next timed event in the bucket
 	var/datum/timedevent/next
 	/// Previous timed event in the bucket
@@ -502,13 +502,6 @@ SUBSYSTEM_DEF(timer)
   * If the timed event is tracking client time, it will be added to a special bucket.
   */
 /datum/timedevent/proc/bucketJoin()
-	// Generate debug-friendly name for timer, uncomment for explicit debug
-	/*
-	var/static/list/bitfield_flags = list("TIMER_UNIQUE", "TIMER_OVERRIDE", "TIMER_CLIENT_TIME", "TIMER_STOPPABLE", "TIMER_NO_HASH_WAIT", "TIMER_LOOP")
-	name = "Timer: [id] (\ref[src]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield2list(flags, bitfield_flags), ", ")], \
-		callBack: \ref[callBack], callBack.object: [callBack.object]\ref[callBack.object]([getcallingtype()]), \
-		callBack.delegate:[callBack.delegate]([callBack.arguments ? callBack.arguments.Join(", ") : ""]), source: [source]"
-	*/
 	if(bucket_joined)
 		stack_trace("Bucket already joined! [getTimerInfo()]")
 
@@ -551,11 +544,19 @@ SUBSYSTEM_DEF(timer)
 	prev = null
 	bucket_list[bucket_pos] = src
 
+/**
+ * Returns debug information about timer
+ */
 /datum/timedevent/proc/getTimerInfo()
 	var/static/list/bitfield_flags = list("TIMER_UNIQUE", "TIMER_OVERRIDE", "TIMER_CLIENT_TIME", "TIMER_STOPPABLE", "TIMER_NO_HASH_WAIT", "TIMER_LOOP")
-	return "Timer: [id] (\ref[src]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield2list(flags, bitfield_flags), ", ")], \
+	name = "Timer: [id] (\ref[src]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield2list(flags, bitfield_flags), ", ")], \
 		callBack: \ref[callBack], callBack.object: [callBack.object]\ref[callBack.object]([getcallingtype()]), \
 		callBack.delegate:[callBack.delegate]([callBack.arguments ? callBack.arguments.Join(", ") : ""]), source: [source]"
+	return name
+
+/datum/timedevent/can_vv_get(var_name)
+	getTimerInfo()
+	return ..()
 
 /**
   * Returns a string of the type of the callback for this timer
