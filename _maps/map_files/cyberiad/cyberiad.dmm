@@ -4489,6 +4489,10 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/item/storage/secure/safe{
+	name = "evidence safe";
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
