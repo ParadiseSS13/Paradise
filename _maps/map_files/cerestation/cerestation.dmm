@@ -5484,9 +5484,11 @@
 /turf/simulated/floor/plating,
 /area/station/supply/miningdock)
 "aJz" = (
-/obj/structure/closet,
 /obj/structure/window/reinforced{
 	dir = 4
+	},
+/obj/structure/safe{
+	known_by = list("warden")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11204,13 +11206,15 @@
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/starboard)
 "bnv" = (
-/obj/structure/closet,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/item/radio/intercom{
 	pixel_y = -28;
 	name = "custom placement"
+	},
+/obj/structure/safe{
+	known_by = list("warden")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -32856,10 +32860,6 @@
 "dvF" = (
 /obj/machinery/light/small{
 	dir = 8
-	},
-/obj/item/storage/secure/safe{
-	name = "evidence safe";
-	pixel_x = -23
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -85306,6 +85306,9 @@
 	dir = 1;
 	name = "disposal pipe - Security";
 	sort_type_txt = "7"
+	},
+/obj/item/paper/safe_code{
+	owner = "warden"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"

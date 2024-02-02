@@ -3108,9 +3108,11 @@
 	},
 /area/station/security/armory/secure)
 "ama" = (
-/obj/structure/closet,
 /obj/structure/window/reinforced{
 	dir = 8
+	},
+/obj/structure/safe{
+	known_by = list("warden")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4294,6 +4296,9 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
+/obj/item/paper/safe_code{
+	owner = "warden"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -4488,10 +4493,6 @@
 "apG" = (
 /obj/machinery/light/small{
 	dir = 4
-	},
-/obj/item/storage/secure/safe{
-	name = "evidence safe";
-	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

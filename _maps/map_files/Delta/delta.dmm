@@ -68853,6 +68853,9 @@
 	},
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/warden,
+/obj/item/paper/safe_code{
+	owner = "warden"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -79835,14 +79838,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "mgV" = (
-/obj/structure/closet,
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/storage/secure/safe{
-	name = "evidence safe";
-	pixel_y = -27;
-	pixel_x = 5
+/obj/structure/safe{
+	known_by = list("warden")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -153835,9 +153835,9 @@ bLB
 bQn
 bRe
 cgr
-spP
-ccQ
 mgV
+ccQ
+spP
 jIs
 cjz
 xhy
