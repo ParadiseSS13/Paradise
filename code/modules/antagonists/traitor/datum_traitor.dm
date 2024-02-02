@@ -120,7 +120,7 @@
 		i++
 
 	// Will give objectives from our org or random objectives.
-	while (i < GLOB.configuration.gamemode.traitor_objectives_amount)
+	while(i < GLOB.configuration.gamemode.traitor_objectives_amount)
 		forge_single_human_objective()
 		i++
 
