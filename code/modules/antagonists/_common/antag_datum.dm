@@ -338,6 +338,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	. = messages
 	if(owner && owner.current)
 		messages.Add("<span class='userdanger'>You are a [special_role]!</span>")
+		if(organisation && organisation.intro_desc)
+			messages.Add("<span class='boldnotice'>[organisation.intro_desc]</span>")
 
 /**
  * Displays a message to the antag mob while the datum is being deleted, i.e. "Your powers are gone and you're no longer a vampire!"

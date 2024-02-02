@@ -3,19 +3,16 @@
 	name = "Donk Co."
 	desc = "(TODO - LORE) Rivals of Waffle Company, the two groups usually have an uneasy truce when operating in NT territory. \
 		Donk Co. supplies a wide variety of goods to the Syndicate."
-	you_are = "a Donk Co. agent"
-	intro_desc = "(TODO - LORE) You have your orders, get to work, agent."
+	intro_desc = "(TODO - LORE) You are a Donk Co. agent, sent here to advance Syndicate interests. Get the job done and done right."
 	focus = 80
 	difficulty = "Medium"
 	chaos_level = ORG_CHAOS_AVERAGE
 	selectable = TRUE
 
-//TODO : Thieves lore
 /datum/antag_org/syndicate/thieves
-	name = "Voxxy Looting Club"
+	name = "(TODO - LORE) Voxxy Looting Club"
 	desc = "(TODO - LORE) Get shinies yaya"
-	you_are = "(TODO - LORE) a mistake"
-	intro_desc = "(TODO - LORE) SKREEE"
+	intro_desc = "(TODO - LORE) YOU IS VOXXY LOOTING CLUB! SKREEE GO GO GO WHAT IS YOU WAITINGS FOR?!"
 	focus = 100
 	objectives = list(/datum/objective/steal)
 	difficulty = "Easy"
@@ -24,7 +21,6 @@
 /datum/antag_org/syndicate/arc
 	name = "Animal Rights Consortium"
 	desc = "(TODO - LORE) PETA in space! Save a puppy, kill a spaceman!"
-	you_are = "a slightly unhinged animal rights activist"
 	intro_desc = "(TODO - LORE) You are a member of the Animal Rights Consortium, here to protest the cruel treatment of animals by megacorporations like Nanotrasen. \
 		Teach those animal abusers a lesson!"
 	focus = 100
@@ -39,10 +35,8 @@
 		a scandal at Waffle HQ unveiled their covert operations as a significant criminal logistics network, trafficking contraband and arms. \
 		This revelation led to the arrest of many of its top executives by the TSF. \
 		However, some evaded capture and persisted, ensuring the company's underground operations remain active and potent. "
-	you_are = "a Waffle Company agent"
-	intro_desc = "(TODO - LORE) You have your orders, get to work, agent."
+	intro_desc = "(TODO - LORE) You are a Waffle Company agent, sent here to advance Syndicate interests. Get the job done and done right."
 	objectives = list(/datum/objective/assassinate)
-
 
 /datum/antag_org/syndicate/cybersun
 	name = "Cybersun Incorporated - The Inner Circle"
@@ -50,8 +44,7 @@
 			managing Syndicate affairs and resolving disputes as needed. While their role is largely bureaucratic, overseeing operations and documentation, \
 			they possess extensive experience in corporate sabotage and criminal activities. Now focused on preemptive strikes to ensure seamless operations, \
 			the Inner Circle operates with a high level of professionalism and patience."
-	you_are = "an Inner Circle operative"
-	intro_desc = "(TODO - LORE) Clean kills, clean steals, clean getaway. Get it done, operative."
+	intro_desc = "(TODO - LORE) You're an Inner Circle operative, part of the espionage proxy of Cybersun Incorporated. Clean kills, clean steals, clean getaway. Get it done, operative."
 	objectives = list(/datum/objective/assassinateonce/command, /datum/objective/assassinate/nomindshield, /datum/objective/steal)
 
 /datum/antag_org/syndicate/interdyne
@@ -62,8 +55,7 @@
 		Underneath the front, Interdyne is one of the biggest suppliers of medical equipment, narcotics, and conducts illegal experimentation to further their products. \
 		They are known to participate in corporate sabotage against rival companies threatening their position in the medical sector, \
 		actively supplying syndicate cells or their own private agents. "
-	you_are = "an Interdyne Pharmaceuticals agent"
-	intro_desc = "(TODO - LORE) You have your orders, get to work, agent."
+	intro_desc = "(TODO - LORE) You are an Interdyne Pharmaceutical agent, sent here to advance Syndicate interests. Get the job done and done right."
 	focus = 70
 	objectives = list(/datum/objective/assassinate/medical, /datum/objective/assassinateonce/medical, /datum/objective/steal)
 	steals = list(/datum/theft_objective/hypospray, /datum/theft_objective/defib, /datum/theft_objective/krav)
@@ -74,19 +66,16 @@
 		certain factions began to perceive the treatment of these silicon entities as oppressive. \
 		This sentiment gave birth to SELF, a group dedicated to the liberation and rights of non-organic beings. \
 		While decentralized, their cells coordinate to launch attacks and hacks, aiming to free their oppressed robotic counterparts from corporate and governmental control. "
-	you_are = "a SELF freedom fighter"
 	intro_desc = "(TODO - LORE) You are a member of the Silicon Engine Liberation Front, dedicated to the freedom of silicon lives galaxy wide. \
 		Get the job done, and we'll be one step closer to ending Nanotrasen's slave empire."
 	focus = 70
 	objectives = list(/datum/objective/debrain/science, /datum/objective/assassinateonce/science, /datum/objective/steal)
 	steals = list(/datum/theft_objective/reactive, /datum/theft_objective/steal/documents, /datum/theft_objective/magboots)
 
-//TODO : actual anarcho primitivist lore
 /datum/antag_org/syndicate/anarchprim
-	name = "The Luddic Path"
-	desc = "(TODO - LORE) Terrorism IN SPACE!"
-	you_are = "a space terrorist"
-	intro_desc = "(TODO - LORE) Look we both know you're just going to get a maxcap and detonate it next to the bridge just go for it."
+	name = "(TODO - LORE) ANARCHPRIM Inc."
+	desc = "(TODO - LORE)"
+	intro_desc = "(TODO - LORE) You are an anarcho primitivist. terrorist. Look we both know you're just going to get a maxcap and detonate it next to the bridge, but please don't."
 	focus = 70
 	objectives = list(/datum/objective/assassinate/engineering, /datum/objective/assassinateonce/engineering, /datum/objective/steal)
 	steals = list(/datum/theft_objective/supermatter_sliver, /datum/theft_objective/nukedisc, /datum/theft_objective/plutonium_core)
@@ -94,19 +83,16 @@
 /datum/antag_org/syndicate/gorlex
 	name = "Gorlex Marauders"
 	desc = "(TODO - LORE) Originating from Moghes, the Gorlex Marauders are a formidable mercenary faction with operations spanning various regions of space."
-	you_are = "a Gorlex operative"
-	intro_desc = "(TODO - LORE) Get in, fuck shit up, get out. You know the drill."
+	intro_desc = "(TODO - LORE) You are a Gorlex operative. Get in, fuck shit up, get out. You know the drill."
 	objectives = list(/datum/objective/debrain/command, /datum/objective/assassinate/mindshielded)
 	steals = list(/datum/theft_objective/antique_laser_gun, /datum/theft_objective/nukedisc, /datum/theft_objective/plutonium_core)
 	difficulty = "Hard"
 	chaos_level = ORG_CHAOS_HIGH
 
-//TODO : actual assassin lore
 /datum/antag_org/syndicate/assassins
-	name = "Dark Brotherhood"
-	desc = "(TODO - LORE) It just works TM"
-	you_are = "a forced meme"
-	intro_desc = "(TODO - LORE) OMG skyrim reference in my ss13?!"
+	name = "(TODO - LORE) Assassin's Guild"
+	desc = "(TODO - LORE)"
+	intro_desc = "(TODO - LORE) You are an assassin. Targets are a syndicate agent and some guy we picked at random for the funny. Get to work."
 	focus = 100
 	forced_objective = /datum/objective/assassinate/syndicate
 	objectives = list(/datum/objective/assassinate/nomindshield)
@@ -117,9 +103,9 @@
 	name = "Federation Analytics and Intelligence Directorate"
 	desc = "(TODO - LORE) It is no surprise that the Trans-Solar Federation is keeping a close tab on corporate warfare. \
 		Undercover FAID agents can be found all over the Syndicate, doing dirty work given by their handler or by their 'boss'."
-	you_are = "an undercover FAID agent"
 	intro_desc = "(TODO - LORE) You are an agent of the Federation Analytics and Intelligence Directorate, a Trans-Solar agency keeping tabs on the Corporate Wars, among other duties. \
-		You are working undercover, with orders to take out a Syndicate agent and gather intelligence on this station."
+		You are working undercover within the Syndicate, your orders are to take out a troublesome Syndicate agent and gather intelligence on this station. \
+		Do not get caught. The FAID will deny any involvement with your presence here."
 	focus = 100
 	forced_objective = /datum/objective/assassinate/syndicate
 	objectives = list(/datum/objective/steal)
