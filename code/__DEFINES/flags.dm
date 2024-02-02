@@ -27,8 +27,6 @@
 ///Whether or not this atom shows screentips when hovered over
 #define NO_SCREENTIPS			32768
 
-#define ABSTRACTEXAMINE			(1<<16)	// For getting custom examine text (or none at all) on an item
-
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
 #define UPDATE_NAME (1<<0)

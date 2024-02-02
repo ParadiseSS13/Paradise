@@ -3,7 +3,7 @@
 	desc = "Simple metal punch enhancers, perfect for bar brawls."
 	icon = 'icons/obj/knuckleduster.dmi'
 	icon_state = "knuckleduster"
-	flags = CONDUCT | ABSTRACTEXAMINE
+	flags = CONDUCT
 	force = 10
 	throwforce = 3
 	w_class = WEIGHT_CLASS_SMALL
@@ -23,11 +23,11 @@
 	if(!gripped)
 		gripped = TRUE
 		to_chat(user, "You tighten your grip on [src], ensuring you won't drop it.")
-		flags |= NODROP
+		flags |= NODROP | ABSTRACT
 	else
 		gripped = FALSE
 		to_chat(user, "You relax your grip on [src].")
-		flags &= ~NODROP
+		flags &= ~(NODROP | ABSTRACT)
 
 /obj/item/melee/knuckleduster/attack/(mob/living/user)
 	hitsound = pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg')
