@@ -139,7 +139,7 @@
 		if(item)
 			if(istype(item, /obj/item/grab))
 				grab_items |= item
-			if(item.flags & ABSTRACT || item.flags & NOHANDEXAMINE)
+			if(item.flags & ABSTRACT || item.flags & ABSTRACTEXAMINE)
 				abstract_items |= item
 			else
 				var/item_words = item.name

@@ -3,7 +3,7 @@
 	desc = "Simple metal punch enhancers, perfect for bar brawls."
 	icon = 'icons/obj/knuckleduster.dmi'
 	icon_state = "knuckleduster"
-	flags = CONDUCT | NOHANDEXAMINE
+	flags = CONDUCT | ABSTRACTEXAMINE
 	force = 10
 	throwforce = 3
 	w_class = WEIGHT_CLASS_SMALL
