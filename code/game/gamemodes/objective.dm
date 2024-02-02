@@ -541,6 +541,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/datum/theft_objective/steal_target
 	martyr_compatible = FALSE
 	var/theft_area
+	var/list/steal_list = list()
 
 /datum/objective/steal/found_target()
 	return steal_target
@@ -549,7 +550,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return steal_target.location_override || "an unknown area"
 
 /datum/objective/steal/find_target(list/target_blacklist)
-	var/potential = GLOB.potential_theft_objectives.Copy()
+	var/potential
+	if(length(steal_list))
+		potential = steal_list.Copy()
+	else
+		potential = GLOB.potential_theft_objectives.Copy()
 	while(!steal_target && length(potential))
 		var/thefttype = pick_n_take(potential)
 		if(locate(thefttype) in target_blacklist)

@@ -57,8 +57,11 @@
 		actively supplying syndicate cells or their own private agents. "
 	intro_desc = "(TODO - LORE) You are an Interdyne Pharmaceutical agent, sent here to advance Syndicate interests. Get the job done and done right."
 	focus = 70
-	objectives = list(/datum/objective/assassinate/medical, /datum/objective/assassinateonce/medical, /datum/objective/steal)
-	steals = list(/datum/theft_objective/hypospray, /datum/theft_objective/defib, /datum/theft_objective/krav)
+	objectives = list(/datum/objective/assassinate/medical, /datum/objective/assassinateonce/medical, /datum/objective/steal/interdyne)
+
+/datum/objective/steal/interdyne
+	name = "Steal Item (Interdyne)"
+	steal_list = list(/datum/theft_objective/hypospray, /datum/theft_objective/defib, /datum/theft_objective/krav)
 
 /datum/antag_org/syndicate/self
 	name = "Silicon Engine Liberation Front"
@@ -69,25 +72,30 @@
 	intro_desc = "(TODO - LORE) You are a member of the Silicon Engine Liberation Front, dedicated to the freedom of silicon lives galaxy wide. \
 		Get the job done, and we'll be one step closer to ending Nanotrasen's slave empire."
 	focus = 70
-	objectives = list(/datum/objective/debrain/science, /datum/objective/assassinateonce/science, /datum/objective/steal)
-	steals = list(/datum/theft_objective/reactive, /datum/theft_objective/steal/documents, /datum/theft_objective/magboots)
+	objectives = list(/datum/objective/debrain/science, /datum/objective/assassinateonce/science, /datum/objective/steal/self)
+
+/datum/objective/steal/self
+	name = "Steal Item (SELF)"
+	steal_list = list(/datum/theft_objective/reactive, /datum/theft_objective/steal/documents, /datum/theft_objective/magboots)
 
 /datum/antag_org/syndicate/anarchprim
 	name = "(TODO - LORE) ANARCHPRIM Inc."
 	desc = "(TODO - LORE)"
-	intro_desc = "(TODO - LORE) You are an anarcho primitivist. terrorist. Look we both know you're just going to get a maxcap and detonate it next to the bridge, but please don't."
+	intro_desc = "(TODO - LORE) You are an anarcho primitivist terrorist. Look we both know you're just going to get a maxcap and detonate it next to the bridge, but please don't."
 	focus = 70
-	objectives = list(/datum/objective/assassinate/engineering, /datum/objective/assassinateonce/engineering, /datum/objective/steal)
-	steals = list(/datum/theft_objective/supermatter_sliver, /datum/theft_objective/nukedisc, /datum/theft_objective/plutonium_core)
+	objectives = list(/datum/objective/assassinate/engineering, /datum/objective/assassinateonce/engineering, /datum/objective/steal/anarchprim)
+
+/datum/objective/steal/anarchprim
+	name = "Steal Item (ANARCHPRIM)"
+	steal_list = list(/datum/theft_objective/supermatter_sliver, /datum/theft_objective/nukedisc, /datum/theft_objective/plutonium_core)
 
 /datum/antag_org/syndicate/gorlex
 	name = "Gorlex Marauders"
 	desc = "(TODO - LORE) Originating from Moghes, the Gorlex Marauders are a formidable mercenary faction with operations spanning various regions of space."
-	intro_desc = "(TODO - LORE) You are a Gorlex operative. Get in, fuck shit up, get out. You know the drill."
-	objectives = list(/datum/objective/debrain/command, /datum/objective/assassinate/mindshielded)
-	steals = list(/datum/theft_objective/antique_laser_gun, /datum/theft_objective/nukedisc, /datum/theft_objective/plutonium_core)
+	intro_desc = "(TODO - LORE) You are a Gorlex operative. Get in, fuck shit up, get out with a new fancy shuttle. You know the drill."
+	forced_objective = /datum/objective/hijack
 	difficulty = "Hard"
-	chaos_level = ORG_CHAOS_HIGH
+	chaos_level = ORG_CHAOS_HIJACK
 
 /datum/antag_org/syndicate/assassins
 	name = "(TODO - LORE) Assassin's Guild"
@@ -108,6 +116,9 @@
 		Do not get caught. The FAID will deny any involvement with your presence here."
 	focus = 100
 	forced_objective = /datum/objective/assassinate/syndicate
-	objectives = list(/datum/objective/steal)
-	steals = list(/datum/theft_objective/blueprints, /datum/theft_objective/steal/documents)
+	objectives = list(/datum/objective/steal/faid)
 	chaos_level = ORG_CHAOS_HUNTER
+
+/datum/objective/steal/faid
+	name = "Steal Item (FAID)"
+	steal_list = list(/datum/theft_objective/blueprints, /datum/theft_objective/steal/documents)
