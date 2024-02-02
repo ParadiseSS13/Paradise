@@ -64785,6 +64785,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
+"iKJ" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/closet,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/evidence)
 "iKY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/largecrate,
@@ -130913,7 +130922,7 @@ ama
 nSc
 jzv
 voe
-ama
+iKJ
 aFL
 azL
 aAJ

@@ -11213,9 +11213,7 @@
 	pixel_y = -28;
 	name = "custom placement"
 	},
-/obj/structure/safe{
-	known_by = list("warden")
-	},
+/obj/structure/closet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
