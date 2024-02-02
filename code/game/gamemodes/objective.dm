@@ -130,11 +130,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			continue
 		if(syndicate_target && possible_target.special_role != SPECIAL_ROLE_TRAITOR)
 			continue
-		if(target_jobs.len && !(possible_target.assigned_role in target_jobs))
+		if(length(target_jobs) && !(possible_target.assigned_role in target_jobs))
 			continue
 		possible_targets += possible_target
 
-	if(!possible_targets.len) //If we can't find anyone, try with less restrictions
+	if(!length(possible_targets)) //If we can't find anyone, try with less restrictions
 		for(var/datum/mind/possible_target in SSticker.minds)
 			if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 				continue
@@ -196,6 +196,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return TRUE
 		return FALSE
 	return TRUE
+
 /datum/objective/assassinateonce
 	name = "Assassinate once"
 	martyr_compatible = TRUE

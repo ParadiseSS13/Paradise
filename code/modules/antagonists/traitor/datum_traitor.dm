@@ -141,7 +141,7 @@
  */
 /datum/antagonist/traitor/proc/forge_single_human_objective()
 	//If our org has an objectives list, give one to us if we pass a roll on the org's focus
-	if(organisation && organisation.objectives.len && prob(organisation.focus))
+	if(organisation && length(organisation.objectives) && prob(organisation.focus))
 		add_antag_objective(pick(organisation.objectives))
 	else
 		if(prob(50))
