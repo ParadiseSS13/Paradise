@@ -167,14 +167,14 @@
 	if(disabling_timer_id)
 		return FALSE
 	if(stat)
-		return 0
+		return FALSE
 	on = TRUE
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(initial(light_range))
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	update_controls()
 	diag_hud_set_botstat()
-	return 1
+	return TRUE
 
 /mob/living/simple_animal/bot/proc/turn_off()
 	on = FALSE
@@ -748,7 +748,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			destination = new_destination // We now know the name of where we want to go.
 			patrol_target = NB.loc // Get its location and set it as the target.
 			next_destination = NB.codes["next_patrol"] // Also get the name of the next beacon in line.
-			return 1
+			return TRUE
 
 /mob/living/simple_animal/bot/proc/find_nearest_beacon()
 	for(var/obj/machinery/navbeacon/NB in GLOB.navbeacons["[z]"])
@@ -899,11 +899,11 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(href_list["close"]) // HUE HUE
 		if(usr in users)
 			users.Remove(usr)
-		return 1
+		return TRUE
 
 	if(topic_denied(usr))
 		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
-		return 1
+		return TRUE
 	add_fingerprint(usr)
 
 	if((href_list["power"]) && (allowed(usr) || !locked || usr.can_admin_interact()))
@@ -1097,7 +1097,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 				used_radios += Radio
 
 /mob/living/simple_animal/bot/is_mechanical()
-	return 1
+	return TRUE
 
 /mob/living/simple_animal/bot/proc/set_path(list/newpath)
 	path = newpath ? newpath : list()
