@@ -1533,7 +1533,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		ghost.forceMove(old_turf)
 
 /mob/living/silicon/ai/can_vv_get(var_name)
-	if(..())
+	if(!..())
 		return FALSE
 	if(var_name == "ai_announcement_string_menu") // This single var has over 80 thousand characters in it. Not something you really want when VVing the AI
 		return FALSE
