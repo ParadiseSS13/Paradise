@@ -91,12 +91,15 @@
 	var/no_scoop = FALSE   //if it has this, don't let it be scooped up
 	var/no_clear = FALSE    //if it has this, don't delete it when its' scooped up
 	var/list/scoop_reagents = null
+	var/beauty = 0
 
 /obj/effect/decal/Initialize(mapload)
 	. = ..()
 	if(scoop_reagents)
 		create_reagents(100)
 		reagents.add_reagent_list(scoop_reagents)
+
+	AddElement(/datum/element/beauty, beauty)
 
 /obj/effect/decal/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks))

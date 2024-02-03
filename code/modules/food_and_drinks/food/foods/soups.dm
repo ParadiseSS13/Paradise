@@ -12,6 +12,8 @@
 	consume_sound = 'sound/items/drink.ogg'
 	trash = /obj/item/trash/snack_bowl
 	bitesize = 5
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = VEGETABLES_AND_FRUITS | HEALTHFUL
 
 /obj/item/food/snacks/soup/meatballsoup
 	name = "meatball soup"

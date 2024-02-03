@@ -282,6 +282,22 @@
 
 	msg += "</span>"
 
+	if(mob_mood)
+		switch(mob_mood.shown_mood)
+			if(-INFINITY to MOOD_SAD4)
+				msg += "[p_they(TRUE)] [p_are()] look[p_s()] depressed.\n"
+			if(MOOD_SAD4 to MOOD_SAD3)
+				msg += "[p_they(TRUE)] [p_are()] look[p_s()] very sad.\n"
+			if(MOOD_SAD3 to MOOD_SAD2)
+				msg += "[p_they(TRUE)] [p_are()] look[p_s()] a bit down.\n"
+			if(MOOD_HAPPY2 to MOOD_HAPPY3)
+				msg += "[p_they(TRUE)] [p_are()] look[p_s()] quite happy.\n"
+			if(MOOD_HAPPY3 to MOOD_HAPPY4)
+				msg += "[p_they(TRUE)] [p_are()] look[p_s()] very happy.\n"
+			if(MOOD_HAPPY4 to INFINITY)
+				msg += "[p_they(TRUE)] [p_are()] look[p_s()] ecstatic.\n"
+	msg += "</span>"
+
 	if(!appears_dead)
 		if(stat == UNCONSCIOUS || just_sleeping)
 			msg += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep.\n"

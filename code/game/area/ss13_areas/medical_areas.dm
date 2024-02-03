@@ -29,6 +29,8 @@
 /area/station/medical/psych
 	name = "\improper Psych Room"
 	icon_state = "medbaypsych"
+	mood_bonus = 5
+	mood_message = "I feel calmer in this room."
 
 /area/station/medical/break_room
 	name = "\improper Medbay Break Room"

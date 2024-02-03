@@ -81,6 +81,7 @@
 	slowdown = SHOES_SLOWDOWN+1
 	item_color = "clown"
 	var/enabled_waddle = TRUE
+	beauty = 250
 
 /obj/item/clothing/shoes/clown_shoes/Initialize(mapload)
 	. = ..()
@@ -90,10 +91,16 @@
 	. = ..()
 	if(slot == SLOT_HUD_SHOES && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
+	if(isliving(user))
+		var/mob/living/mood_change = user
+		mood_change.add_mood_event("clown shoes", /datum/mood_event/clownshoes)
 
 /obj/item/clothing/shoes/clown_shoes/dropped(mob/user)
 	. = ..()
 	user.RemoveElement(/datum/element/waddling)
+	if(isliving(user))
+		var/mob/living/mood_change = user
+		mood_change.clear_mood_event("clown shoes")
 
 /obj/item/clothing/shoes/clown_shoes/CtrlClick(mob/living/user)
 	if(!isliving(user))

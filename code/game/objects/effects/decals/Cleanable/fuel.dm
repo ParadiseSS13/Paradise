@@ -4,6 +4,7 @@
 	icon_state = "fuel"
 	layer = ABOVE_NORMAL_TURF_LAYER
 	var/amount = 1 //Basically moles.
+	beauty = -50
 
 /obj/effect/decal/cleanable/liquid_fuel/Initialize(mapload, amt = 1)
 	. = ..()

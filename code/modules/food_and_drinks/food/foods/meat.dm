@@ -14,6 +14,8 @@
 	tastes = list("meat" = 1)
 	ingredient_name = "slab of meat"
 	ingredient_name_plural = "slabs of meat"
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT | RAW
 
 /obj/item/food/snacks/meat/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
@@ -87,6 +89,8 @@
 	icon_state = "rawcutlet"
 	bitesize = 1
 	list_reagents = list("protein" = 1)
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT | RAW
 
 /obj/item/food/snacks/rawcutlet/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
@@ -117,7 +121,8 @@
 	desc = "A slab of abstract monster meat. This shouldn't exist, contact a coder about this if you are seeing it in-game."
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "bearmeat"
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT | RAW
 /obj/item/food/snacks/monstermeat/bearmeat
 	name = "bear meat"
 	desc = "A very manly slab of meat."
@@ -201,7 +206,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 5)
 	tastes = list("meat" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT
 /obj/item/food/snacks/bacon
 	name = "bacon"
 	desc = "It looks crispy and tastes amazing! Mmm... Bacon."
@@ -209,7 +215,8 @@
 	icon_state = "bacon"
 	list_reagents = list("nutriment" = 4, "porktonium" = 10, "msg" = 4)
 	tastes = list("bacon" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT
 /obj/item/food/snacks/telebacon
 	name = "tele bacon"
 	desc = "It tastes a little odd but it's still delicious."
@@ -218,7 +225,8 @@
 	var/obj/item/radio/beacon/bacon/baconbeacon
 	list_reagents = list("nutriment" = 4, "porktonium" = 10)
 	tastes = list("bacon" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT
 /obj/item/food/snacks/telebacon/Initialize(mapload)
 	. = ..()
 	baconbeacon = new /obj/item/radio/beacon/bacon(src)
@@ -241,7 +249,8 @@
 	filling_color = "#DB0000"
 	list_reagents = list("protein" = 4, "vitamin" = 1)
 	tastes = list("meat" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT
 /obj/item/food/snacks/sausage
 	name = "sausage"
 	desc = "A piece of mixed and cased meat."
@@ -250,7 +259,8 @@
 	filling_color = "#DB0000"
 	list_reagents = list("protein" = 6, "vitamin" = 1, "porktonium" = 10)
 	tastes = list("meat" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT
 /obj/item/food/snacks/cutlet
 	name = "cutlet"
 	desc = "A tasty meat slice."
@@ -258,7 +268,8 @@
 	icon_state = "cutlet"
 	list_reagents = list("protein" = 2)
 	tastes = list("meat" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT
 /obj/item/food/snacks/spidereggsham
 	name = "green eggs and ham"
 	desc = "Would you eat them on a train? Would you eat them on a plane? Would you eat them on a state of the art corporate deathtrap floating through space?"
@@ -268,7 +279,8 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 6)
 	tastes = list("cobwebs" = 1, "the colour green" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT
 /obj/item/food/snacks/boiledspiderleg
 	name = "boiled spider leg"
 	desc = "A giant spider's leg that's still twitching after being cooked. Gross!"
@@ -278,7 +290,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 3, "capsaicin" = 2)
 	tastes = list("cobwebs" = 1, "hot peppers" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT
 /obj/item/food/snacks/wingfangchu
 	name = "wing fang chu"
 	desc = "A savory dish of alien wing wang in soy. Wait, what?"
@@ -288,7 +301,8 @@
 	filling_color = "#43DE18"
 	list_reagents = list("nutriment" = 6, "soysauce" = 5, "vitamin" = 2)
 	tastes = list("soy" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = VEGETABLES_AND_FRUITS
 /obj/item/food/snacks/goliath_steak
 	name = "goliath steak"
 	desc = "A delicious, lava cooked steak."
@@ -298,7 +312,8 @@
 	trash = null
 	list_reagents = list("protein" = 6, "vitamin" = 2)
 	tastes = list("meat" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT
 /obj/item/food/snacks/fried_vox
 	name = "Kentucky Fried Vox"
 	desc = "Bucket of voxxy, yaya!"
@@ -307,7 +322,8 @@
 	trash = /obj/item/trash/fried_vox
 	list_reagents = list("nutriment" = 3, "protein" = 5)
 	tastes = list("quills" = 1, "the shoal" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT
 //////////////////////
 //		Cubes		//
 //////////////////////
@@ -322,7 +338,8 @@
 	var/datum/species/monkey_type = /datum/species/monkey
 	list_reagents = list("nutriment" = 2)
 	tastes = list("the jungle" = 1, "bananas" = 1)
-
+	quality = FOOD_QUALITY_NICE
+	foodtypes = JUNKFOOD
 /obj/item/food/snacks/monkeycube/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	if(volume >= 1)
@@ -388,6 +405,8 @@
 	list_reagents = list("protein" = 1, "egg" = 5)
 	tastes = list("egg" = 1)
 	var/amount_grown = 0
+	quality = FOOD_QUALITY_NORMAL
+	foodtypes = DAIRY
 
 /obj/item/food/snacks/egg/throw_impact(atom/hit_atom)
 	..()
@@ -463,6 +482,8 @@
 	bitesize = 1
 	list_reagents = list("nutriment" = 3, "egg" = 5)
 	tastes = list("egg" = 1, "salt" = 1, "pepper" = 1)
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = DAIRY | JUNKFOOD
 
 /obj/item/food/snacks/boiledegg
 	name = "boiled egg"
@@ -471,7 +492,8 @@
 	icon_state = "egg"
 	filling_color = "#FFFFFF"
 	list_reagents = list("nutriment" = 2, "egg" = 5, "vitamin" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = DAIRY
 /obj/item/food/snacks/chocolateegg
 	name = "chocolate egg"
 	desc = "Such sweet, fattening food."
@@ -479,7 +501,8 @@
 	icon_state = "chocolateegg"
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 4, "sugar" = 2, "cocoa" = 2)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SUGAR
 /obj/item/food/snacks/omelette
 	name = "omelette du fromage"
 	desc = "That's all you can say!"
@@ -490,7 +513,8 @@
 	list_reagents = list("nutriment" = 8, "vitamin" = 1)
 	bitesize = 1
 	tastes = list("egg" = 1, "cheese" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = DAIRY
 /obj/item/food/snacks/benedict
 	name = "eggs benedict"
 	desc = "There is only one egg on this, how rude."
@@ -499,7 +523,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "egg" = 3, "vitamin" = 4)
 	tastes = list("egg" = 1, "bacon" = 1, "bun" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = DAIRY
 
 //////////////////////
 //		Misc		//
@@ -513,7 +538,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "ketchup" = 3, "vitamin" = 3)
 	tastes = list("bun" = 3, "meat" = 2)
-
+	quality = FOOD_QUALITY_VERYGOOD
+	foodtypes = GRAIN | MEAT | JUNKFOOD
 /obj/item/food/snacks/meatbun
 	name = "meat bun"
 	desc = "Has the potential to not be dog."
@@ -522,7 +548,8 @@
 	bitesize = 6
 	list_reagents = list("nutriment" = 6, "vitamin" = 2)
 	tastes = list("bun" = 3, "meat" = 2)
-
+	quality = FOOD_QUALITY_VERYGOOD
+	foodtypes = GRAIN | MEAT | JUNKFOOD
 /obj/item/food/snacks/sliceable/turkey
 	name = "turkey"
 	desc = "A traditional turkey served with stuffing."
@@ -532,7 +559,8 @@
 	slices_num = 6
 	list_reagents = list("protein" = 24, "nutriment" = 18, "vitamin" = 5)
 	tastes = list("turkey" = 2, "stuffing" = 2)
-
+	quality = FOOD_QUALITY_VERYGOOD
+	foodtypes = GRAIN | MEAT | JUNKFOOD
 /obj/item/food/snacks/turkeyslice
 	name = "turkey serving"
 	desc = "A serving of some tender and delicious turkey."
@@ -541,7 +569,8 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#B97A57"
 	tastes = list("turkey" = 1)
-
+	quality = FOOD_QUALITY_VERYGOOD
+	foodtypes = GRAIN | MEAT | JUNKFOOD
 /obj/item/food/snacks/organ
 	name = "organ"
 	desc = "Technically qualifies as organic."
@@ -550,6 +579,8 @@
 	filling_color = "#E00D34"
 	bitesize = 3
 	list_reagents = list("protein" = 4, "vitamin" = 4)
+	foodtypes = GORE | MEAT
+	beauty = -150
 
 /obj/item/food/snacks/appendix
 //yes, this is the same as meat. I might do something different in future
@@ -560,12 +591,16 @@
 	filling_color = "#E00D34"
 	bitesize = 3
 	list_reagents = list("protein" = 3, "vitamin" = 2)
+	foodtypes = GORE | MEAT
+	beauty = -150
 
 /obj/item/food/snacks/appendix/inflamed
 	name = "inflamed appendix"
 	desc = "An appendix which appears to be inflamed."
 	icon_state = "appendixinflamed"
 	filling_color = "#E00D7A"
+	foodtypes = GORE | MEAT
+	beauty = -150
 
 /obj/item/food/snacks/bbqribs
 	name = "BBQ ribs"
@@ -575,3 +610,5 @@
 	list_reagents = list("nutriment" = 3, "protein" = 10, "bbqsauce" = 10)
 	filling_color = "#FF1C1C"
 	bitesize = 3
+	quality = FOOD_QUALITY_AMAZING
+	foodtypes = MEAT | SUGAR

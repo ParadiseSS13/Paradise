@@ -525,7 +525,10 @@
 #define COMSIG_CARBON_UPDATE_HANDCUFFED "carbon_update_handcuff"
 /// From /mob/living/carbon/regenerate_icons()
 #define COMSIG_CARBON_REGENERATE_ICONS "carbon_regen_icons"
-
+///Called when a carbon updates their mood
+#define COMSIG_CARBON_MOOD_UPDATE "carbon_mood_update"
+///Called when a carbon updates their sanity (source = carbon)
+#define COMSIG_CARBON_SANITY_UPDATE "carbon_sanity_update"
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"

@@ -1,4 +1,5 @@
 /obj/item/clothing/under/rank/centcom
+	beauty = 1000
 	name = "\improper CentComm officer's jumpsuit"
 	desc = "It's a jumpsuit worn by CentComm Officers."
 	icon_state = "officer"

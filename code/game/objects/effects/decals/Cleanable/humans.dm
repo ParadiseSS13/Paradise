@@ -18,6 +18,7 @@
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	var/basecolor = "#A10808" // Color when wet.
 	var/amount = 5
+	beauty = -200
 	var/dry_timer = 0
 	var/off_floor = FALSE
 	var/image/weightless_image
@@ -221,6 +222,7 @@
 	random_icon_states = null
 	blood_DNA = list()
 	var/list/existing_dirs = list()
+	beauty = -150
 
 /obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
 	return TRUE

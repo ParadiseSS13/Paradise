@@ -15,6 +15,7 @@
 	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
 	var/total_w_class = 0 //for the total weight an item of food can carry
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
+	var/quality = FOOD_QUALITY_NORMAL
 
 /obj/item/food/snacks/add_initial_reagents()
 	if(tastes && length(tastes))
@@ -37,6 +38,25 @@
 			to_chat(user, "<span class='notice'>You finish eating [src].</span>")
 		user.visible_message("<span class='notice'>[M] finishes eating [src].</span>")
 		user.unEquip(src)	//so icons update :[
+		if(isliving(user))
+			var/mob/living/food_taster = user
+			if(foodtypes & food_taster.dna.species.foodliked)
+				food_taster.add_mood_event("quality_food", /datum/mood_event/favorite_food)
+			if(foodtypes & food_taster.dna.species.fooddisliked)
+				food_taster.add_mood_event("quality_food", /datum/mood_event/disgusting_food)
+			switch(quality)
+				if (FOOD_QUALITY_NORMAL)
+					food_taster.add_mood_event("quality_food", /datum/mood_event/food/nice)
+				if (FOOD_QUALITY_GOOD)
+					food_taster.add_mood_event("quality_food", /datum/mood_event/food/good)
+				if (FOOD_QUALITY_VERYGOOD)
+					food_taster.add_mood_event("quality_food", /datum/mood_event/food/verygood)
+				if (FOOD_QUALITY_FANTASTIC)
+					food_taster.add_mood_event("quality_food", /datum/mood_event/food/fantastic)
+				if (FOOD_QUALITY_AMAZING)
+					food_taster.add_mood_event("quality_food", /datum/mood_event/food/amazing)
+				if (FOOD_QUALITY_TOP)
+					food_taster.add_mood_event("quality_food", /datum/mood_event/food/top)
 		Post_Consume(M)
 		var/obj/item/trash_item = generate_trash(usr)
 		usr.put_in_hands(trash_item)
@@ -265,6 +285,8 @@
 	icon_state = "badrecipe"
 	filling_color = "#211F02"
 	list_reagents = list("????" = 30)
+	quality = FOOD_QUALITY_NORMAL
+	foodtypes = GROSS
 
 /obj/item/food/snacks/badrecipe/Initialize(mapload)
 	. = ..()
@@ -287,6 +309,7 @@
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "deepfried_holder_icon"
 	list_reagents = list("nutriment" = 3)
+	foodtypes = JUNKFOOD
 
 
 #undef MAX_WEIGHT_CLASS

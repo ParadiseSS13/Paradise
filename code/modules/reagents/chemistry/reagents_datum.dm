@@ -197,6 +197,7 @@
 /datum/reagent/proc/overdose_process(mob/living/M, severity)
 	var/effect = rand(1, 100) - severity
 	var/update_flags = STATUS_UPDATE_NONE
+	M.add_mood_event("[type]_overdose", /datum/mood_event/overdose, name)
 	if(effect <= 8)
 		update_flags |= (M.adjustToxLoss(severity, FALSE) ? STATUS_UPDATE_HEALTH : STATUS_UPDATE_NONE)
 	return list(effect, update_flags)

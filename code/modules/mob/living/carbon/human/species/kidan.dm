@@ -27,6 +27,9 @@
 	default_headacc = "Normal Antennae"
 	butt_sprite = "kidan"
 
+	foodliked = GROSS
+	fooddisliked = HEALTHFUL
+
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/kidan,
 		"lungs" =    /obj/item/organ/internal/lungs/kidan,

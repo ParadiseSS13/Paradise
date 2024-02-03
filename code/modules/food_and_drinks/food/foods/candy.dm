@@ -13,6 +13,8 @@
 	icon = 'icons/obj/food/candy.dmi'
 	icon_state = "candy"
 	tastes = list("candy" = 1)
+	quality = FOOD_QUALITY_NORMAL
+	foodtypes = SUGAR
 
 // ***********************************************************
 // Candy Ingredients / Flavorings / Byproduct
@@ -25,6 +27,8 @@
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 2, "chocolate" = 4)
 	tastes = list("chocolate" = 1)
+	quality = FOOD_QUALITY_NORMAL
+	foodtypes = SUGAR
 
 /obj/item/food/snacks/candy/caramel
 	name = "caramel"

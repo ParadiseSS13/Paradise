@@ -1,4 +1,5 @@
 /obj/item/clothing/under/costume
+	beauty = 100
 	icon = 'icons/obj/clothing/under/costumes.dmi'
 
 	sprite_sheets = list(

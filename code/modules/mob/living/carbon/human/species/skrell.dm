@@ -26,6 +26,9 @@
 	reagent_tag = PROCESS_ORG
 	butt_sprite = "skrell"
 
+	foodliked = SEAFOOD
+	fooddisliked = GRAIN
+
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/skrell,
 		"lungs" =    /obj/item/organ/internal/lungs/skrell,

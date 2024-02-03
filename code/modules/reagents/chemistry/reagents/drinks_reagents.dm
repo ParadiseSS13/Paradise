@@ -84,6 +84,7 @@
 	drink_name = "Doctor's Delight"
 	drink_desc = "A healthy mixture of juices, guaranteed to keep you healthy until the next toolboxing takes place."
 	taste_description = "healthy dietary choices"
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/drink/doctor_delight/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -177,6 +178,7 @@
 	drink_name = "Glass of banana juice"
 	drink_desc = "The raw essence of a banana. HONK"
 	taste_description = "banana juice"
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/drink/banana/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -193,6 +195,7 @@
 	drink_name = "Nothing"
 	drink_desc = "Absolutely nothing."
 	taste_description = "nothing... how?"
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/drink/nothing/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -211,6 +214,7 @@
 	drink_name = "Glass of  potato juice"
 	drink_desc = "Who in the hell requests this? Gross!"
 	taste_description = "puke, you're pretty sure"
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/drink/milk
 	name = "Milk"
@@ -229,6 +233,12 @@
 	if(holder.has_reagent("capsaicin"))
 		holder.remove_reagent("capsaicin", 2)
 	return ..() | update_flags
+
+/datum/reagent/consumable/drink/milk/reaction_mob(mob/living/M, method, volume, show_message)
+	. = ..()
+	if(!(method & REAGENT_INGEST) || !(is_species(M, /datum/species/tajaran)))
+		return
+	M.add_mood_event("tajaran_love_milk", /datum/mood_event/tajaran_love_milk)
 
 /datum/reagent/consumable/drink/milk/soymilk
 	name = "Soy Milk"
@@ -267,6 +277,7 @@
 	drink_name = "Glass of hot coco"
 	drink_desc = "Delicious and cozy."
 	taste_description = "chocolate"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/drink/hot_coco/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 310) // 310 is the normal bodytemp. 310.055
@@ -292,6 +303,13 @@
 	drink_name = "Glass of coffee"
 	drink_desc = "Don't drop it, or you'll send scalding liquid and glass shards everywhere."
 	taste_description = "coffee"
+	quality = DRINK_GOOD
+
+/datum/reagent/consumable/drink/coffee/reaction_mob(mob/living/M, method, volume, show_message)
+	. = ..()
+	if(!(method & REAGENT_INGEST) || !(is_species(M, /datum/species/unathi)))
+		return
+	M.add_mood_event("tajaran_love_milk", /datum/mood_event/love_coffee)
 
 /datum/reagent/consumable/drink/coffee/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -376,6 +394,7 @@
 	drink_name = "Glass of Tea"
 	drink_desc = "A glass of hot tea. Perhaps a cup with a handle would have been smarter?"
 	taste_description = "tea"
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/drink/tea/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -405,6 +424,7 @@
 	drink_name = "Banana Honk"
 	drink_desc = "A drink from Banana Heaven."
 	taste_description = "HONK"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -422,6 +442,7 @@
 	drink_name = "Silencer"
 	drink_desc = "A drink from mime Heaven."
 	taste_description = "mphhhh"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/drink/silencer/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -440,6 +461,7 @@
 	drink_name = "Chocolate Pudding"
 	drink_desc = "A decadent chocolate dessert, in drinkable form."
 	taste_description = "chocolate"
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/drink/vanillapudding
 	name = "Vanilla Pudding"
@@ -451,6 +473,7 @@
 	drink_name = "Vanilla Pudding"
 	drink_desc = "A rich vanilla dessert, in drinkable form."
 	taste_description = "vanilla"
+
 
 /datum/reagent/consumable/drink/cherryshake
 	name = "Cherry Shake"
@@ -484,6 +507,7 @@
 	drink_name = "Pumpkin Latte"
 	drink_desc = "A mix of coffee and pumpkin juice."
 	taste_description = "overpriced hipster spices"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/drink/gibbfloats
 	name = "Gibb Floats"
@@ -596,6 +620,7 @@
 	drink_desc = "Don't cry, Don't raise your eye, It's only nuclear wasteland."
 	harmless = FALSE
 	taste_description = "radioactive cola"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/drink/nuka_cola/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -669,6 +694,7 @@
 	drink_name = "Kira Special"
 	drink_desc = "Long live the guy who everyone had mistaken for a girl. Baka!"
 	taste_description = "citrus soda"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/drink/brownstar
 	name = "Brown Star"
@@ -679,6 +705,7 @@
 	drink_name = "Brown Star"
 	drink_desc = "Its not what it sounds like..."
 	taste_description = "orange soda"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/drink/milkshake
 	name = "Milkshake"
@@ -689,6 +716,7 @@
 	drink_name = "Milkshake"
 	drink_desc = "Glorious brainfreezing mixture."
 	taste_description = "milkshake"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/drink/rewriter
 	name = "Rewriter"
@@ -699,6 +727,7 @@
 	drink_name = "Rewriter"
 	drink_desc = "The secret of the sanctuary of the Librarian..."
 	taste_description = "coffee...soda?"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/drink/rewriter/on_mob_life(mob/living/M)
 	M.Jitter(10 SECONDS)
@@ -751,3 +780,4 @@
 	drink_name = "Lean"
 	drink_desc = "Also known as Purple Drank."
 	taste_description = "sweet druggy soda"
+	quality = DRINK_FANTASTIC

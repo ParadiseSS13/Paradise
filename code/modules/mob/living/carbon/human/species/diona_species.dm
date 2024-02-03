@@ -32,6 +32,9 @@
 	flesh_color = "#907E4A"
 	butt_sprite = "diona"
 
+	foodliked = HEALTHFUL
+	fooddisliked = VEGETABLES_AND_FRUITS
+
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(

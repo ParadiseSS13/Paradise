@@ -345,7 +345,8 @@ bomb_cap = 20
 revival_brain_life = 6000 # 10 minutes
 # Enable random silicon lawset (If said lawset has default = TRUE in the code). Disable for always crewsimov
 random_ai_lawset = true
-
+# Disable human/living mood status. True set to disable mood status gained by a human during initialization.
+disable_human_mood = false
 
 ################################################################
 

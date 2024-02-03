@@ -6,6 +6,7 @@
 	density = FALSE
 	max_integrity = 15
 	var/mob/living/carbon/human/master_commander = null
+	var/beauty = -50
 
 /obj/structure/spider/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type == BURN)//the stickiness of the web mutes all attack sounds except fire damage type
@@ -29,6 +30,11 @@
 	..()
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
+
+/obj/structure/spider/Initialize(mapload)
+	. = ..()
+
+	AddElement(/datum/element/beauty, beauty)
 
 /obj/structure/spider/stickyweb
 	icon_state = "stickyweb1"
@@ -230,6 +236,7 @@
 	desc = "Green squishy mess."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenshatter"
+	beauty = -100
 
 /obj/structure/spider/cocoon
 	name = "cocoon"

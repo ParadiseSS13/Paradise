@@ -562,6 +562,30 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/admin_add_mood_event(mob/living/T in GLOB.mob_list)
+
+	var/list/mood_events = typesof(/datum/mood_event)
+
+	var/chosen = tgui_input_list(usr, "What mood event?", "Add Mood Event", mood_events)
+	if (!chosen || QDELETED(src) || !check_rights(NONE))
+		return
+
+	T.add_mood_event("[rand(1, 50)]", chosen)
+
+/client/proc/admin_remove_mood_event(mob/living/T in GLOB.mob_list)
+
+	var/list/mood_events = list()
+	for (var/category in T.mob_mood.mood_events)
+		var/datum/mood_event/event = T.mob_mood.mood_events[category]
+		mood_events[event] = category
+
+
+	var/datum/mood_event/chosen = tgui_input_list(usr, "What mood event?", "Remove Mood Event", mood_events)
+	if (!chosen || QDELETED(src) || !check_rights(NONE))
+		return
+
+	T.clear_mood_event(mood_events[chosen])
+
 /client/proc/give_spell(mob/T as mob in GLOB.mob_list) // -- Urist
 	set category = "Event"
 	set name = "Give Spell"

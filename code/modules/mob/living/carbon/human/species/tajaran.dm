@@ -29,6 +29,9 @@
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 
+	foodliked = DAIRY
+	fooddisliked = JUNKFOOD
+
 	flesh_color = "#b5a69b"
 	base_color = "#424242"
 	butt_sprite = "tajaran"

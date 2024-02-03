@@ -10,6 +10,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 7, "vitamin" = 1)
 	tastes = list("taco" = 4, "meat" = 2, "cheese" = 2, "lettuce" = 1)
+	quality = FOOD_QUALITY_VERYGOOD
+	foodtypes = GRAIN | DAIRY | MEAT
 
 /obj/item/food/snacks/burrito
 	name = "burrito"
@@ -19,7 +21,8 @@
 	filling_color = "#A36A1F"
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
 	tastes = list("torilla" = 2, "meat" = 3)
-
+	quality = FOOD_QUALITY_VERYGOOD
+	foodtypes = GRAIN | DAIRY | MEAT
 
 /obj/item/food/snacks/chimichanga
 	name = "chimichanga"
@@ -28,7 +31,8 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#A36A1F"
 	list_reagents = list("omnizine" = 4, "cheese" = 2) //Deadpool reference. Deal with it.
-
+	quality = FOOD_QUALITY_VERYGOOD
+	foodtypes = GRAIN | DAIRY
 /obj/item/food/snacks/enchiladas
 	name = "enchiladas"
 	desc = "Viva la Mexico!"
@@ -38,7 +42,8 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 8, "capsaicin" = 6)
 	tastes = list("hot peppers" = 1, "meat" = 3, "cheese" = 1, "sour cream" = 1)
-
+	quality = FOOD_QUALITY_VERYGOOD
+	foodtypes = GRAIN | DAIRY | MEAT
 /obj/item/food/snacks/cornchips
 	name = "corn chips"
 	desc = "Goes great with salsa! OLE!"
@@ -47,7 +52,8 @@
 	trash = /obj/item/trash/chips
 	filling_color = "#E8C31E"
 	list_reagents = list("nutriment" = 3)
-
+	quality = FOOD_QUALITY_VERYGOOD
+	foodtypes = VEGETABLES_AND_FRUITS
 
 //////////////////////
 //		Chinese		//
@@ -61,7 +67,8 @@
 	antable = FALSE
 	list_reagents = list("nutriment" = 1, "beans" = 3, "msg" = 4, "sugar" = 2)
 	tastes = list("noodle" = 1, "vegetables" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = GRAIN | VEGETABLES_AND_FRUITS | JUNKFOOD
 /obj/item/food/snacks/chinese/sweetsourchickenball
 	name = "sweet & sour chicken balls"
 	desc = "Is this chicken cooked? The odds are better than wok paper scissors."
@@ -71,7 +78,8 @@
 	junkiness = 25
 	list_reagents = list("nutriment" = 2, "msg" = 4, "sugar" = 2)
 	tastes = list("chicken" = 1, "sweetness" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT | SUGAR | JUNKFOOD
 /obj/item/food/snacks/chinese/tao
 	name = "Admiral Yamamoto carp"
 	desc = "Tastes like chicken."
@@ -80,7 +88,8 @@
 	antable = FALSE
 	list_reagents = list("nutriment" = 1, "protein" = 1, "msg" = 4, "sugar" = 4)
 	tastes = list("chicken" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT | SUGAR | JUNKFOOD
 /obj/item/food/snacks/chinese/newdles
 	name = "chinese newdles"
 	desc = "Made fresh, weekly!"
@@ -89,6 +98,8 @@
 	antable = FALSE
 	list_reagents = list("nutriment" = 1, "msg" = 4, "sugar" = 3)
 	tastes = list("noodles" = 1)
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SUGAR | JUNKFOOD
 
 /obj/item/food/snacks/chinese/rice
 	name = "fried rice"
@@ -99,7 +110,8 @@
 	junkiness = 20
 	list_reagents = list("nutriment" = 1, "rice" = 3, "msg" = 4, "sugar" = 2)
 	tastes = list("rice" = 1)
-
+	quality = FOOD_QUALITY_NORMAL
+	foodtypes = GRAIN | JUNKFOOD
 
 //////////////////////
 //	Japanese		//
@@ -113,6 +125,8 @@
 	filling_color = "#F0F2E4"
 	list_reagents = list("nutriment" = 5)
 	tastes = list("custard" = 1)
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = DAIRY
 
 /obj/item/food/snacks/yakiimo
 	name = "yaki imo"
@@ -122,7 +136,8 @@
 	list_reagents = list("nutriment" = 5, "vitamin" = 4)
 	filling_color = "#8B1105"
 	tastes = list("sweet potato" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = VEGETABLES_AND_FRUITS
 
 //////////////////////
 //	Middle Eastern	//
@@ -135,7 +150,8 @@
 	trash = /obj/item/stack/rods
 	filling_color = "#A85340"
 	list_reagents = list("nutriment" = 8)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT | GORE
 /obj/item/food/snacks/monkeykabob
 	name = "meat-kabob"
 	icon_state = "kabob"
@@ -143,7 +159,8 @@
 	trash = /obj/item/stack/rods
 	filling_color = "#A85340"
 	list_reagents = list("nutriment" = 8)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT
 /obj/item/food/snacks/tofukabob
 	name = "tofu-kabob"
 	icon_state = "kabob"
@@ -151,7 +168,8 @@
 	trash = /obj/item/stack/rods
 	filling_color = "#FFFEE0"
 	list_reagents = list("nutriment" = 8)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = VEGETABLES_AND_FRUITS
 /obj/item/food/snacks/picoss_kabob
 	name = "picoss-kabob"
 	desc = "A popular Moghes streetfood consisting of vinegar-marinated space carp on a skewer with onion and chillis."
@@ -160,3 +178,5 @@
 	list_reagents = list("protein" = 8, "vitamin" = 4, "vinegar" = 1, "capsaicin" = 1)
 	filling_color = "#A85340"
 	tastes = list("fish" = 4, "acid" = 1, "onion" = 1, "heat" = 1)
+	quality = FOOD_QUALITY_VERYGOOD
+	foodtypes = SEAFOOD

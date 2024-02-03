@@ -135,6 +135,7 @@
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/clown
+	beauty = 250
 
 /obj/item/clothing/mask/gas/clown_hat/attack_self(mob/living/user)
 	var/list/mask_type = list("True Form" = /obj/item/clothing/mask/gas/clown_hat,
@@ -194,6 +195,7 @@
 	icon_state = "mime"
 	item_state = "mime"
 	resistance_flags = FLAMMABLE
+	beauty = 250
 
 /obj/item/clothing/mask/gas/mime/wizard
 	name = "magical mime mask"

@@ -93,6 +93,90 @@
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
 
+//Threshold levels for beauty for humans
+#define BEAUTY_LEVEL_HORRID -66
+#define BEAUTY_LEVEL_BAD -33
+#define BEAUTY_LEVEL_DECENT 33
+#define BEAUTY_LEVEL_GOOD 66
+#define BEAUTY_LEVEL_GREAT 100
+
+//Moods levels for humans
+#define MOOD_HAPPY4 15
+#define MOOD_HAPPY3 10
+#define MOOD_HAPPY2 6
+#define MOOD_HAPPY1 2
+#define MOOD_NEUTRAL 0
+#define MOOD_SAD1 -3
+#define MOOD_SAD2 -7
+#define MOOD_SAD3 -15
+#define MOOD_SAD4 -20
+
+//Moods levels for humans
+#define MOOD_LEVEL_HAPPY4 9
+#define MOOD_LEVEL_HAPPY3 8
+#define MOOD_LEVEL_HAPPY2 7
+#define MOOD_LEVEL_HAPPY1 6
+#define MOOD_LEVEL_NEUTRAL 5
+#define MOOD_LEVEL_SAD1 4
+#define MOOD_LEVEL_SAD2 3
+#define MOOD_LEVEL_SAD3 2
+#define MOOD_LEVEL_SAD4 1
+
+//Sanity values for humans
+#define SANITY_MAXIMUM 150
+#define SANITY_GREAT 125
+#define SANITY_NEUTRAL 100
+#define SANITY_DISTURBED 75
+#define SANITY_UNSTABLE 50
+#define SANITY_CRAZY 25
+#define SANITY_INSANE 0
+
+//Sanity levels for humans
+#define SANITY_LEVEL_GREAT 1
+#define SANITY_LEVEL_NEUTRAL 2
+#define SANITY_LEVEL_DISTURBED 3
+#define SANITY_LEVEL_UNSTABLE 4
+#define SANITY_LEVEL_CRAZY 5
+#define SANITY_LEVEL_INSANE 6
+
+//Drink quality influences mood increase
+#define DRINK_REVOLTING 1
+#define DRINK_NICE 2
+#define DRINK_GOOD 3
+#define DRINK_VERYGOOD 4
+#define DRINK_FANTASTIC 5
+
+//Food quality influences mood increase
+#define FOOD_QUALITY_NORMAL 1
+#define FOOD_QUALITY_NICE 2
+#define FOOD_QUALITY_GOOD 3
+#define FOOD_QUALITY_VERYGOOD 4
+#define FOOD_QUALITY_FANTASTIC 5
+#define FOOD_QUALITY_AMAZING 6
+#define FOOD_QUALITY_TOP 7
+
+/// Labels for food quality
+GLOBAL_LIST_INIT(food_quality_description, list(
+	FOOD_QUALITY_NORMAL = "okay",
+	FOOD_QUALITY_NICE = "nice",
+	FOOD_QUALITY_GOOD = "good",
+	FOOD_QUALITY_VERYGOOD = "very good",
+	FOOD_QUALITY_FANTASTIC = "fantastic",
+	FOOD_QUALITY_AMAZING = "amazing",
+	FOOD_QUALITY_TOP = "godlike",
+))
+
+/// Mood events for food quality
+GLOBAL_LIST_INIT(food_quality_events, list(
+	FOOD_QUALITY_NORMAL = /datum/mood_event/food,
+	FOOD_QUALITY_NICE = /datum/mood_event/food/nice,
+	FOOD_QUALITY_GOOD = /datum/mood_event/food/good,
+	FOOD_QUALITY_VERYGOOD = /datum/mood_event/food/verygood,
+	FOOD_QUALITY_FANTASTIC = /datum/mood_event/food/fantastic,
+	FOOD_QUALITY_AMAZING = /datum/mood_event/food/amazing,
+	FOOD_QUALITY_TOP = /datum/mood_event/food/top,
+))
+
 // Taste sensitivity - lower is more sensitive
 // Represents the minimum portion of total taste the mob can sense
 #define TASTE_SENSITIVITY_NORMAL 15

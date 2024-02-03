@@ -59,6 +59,7 @@
 			to_chat(H, "<span class='notice'>You make a vow of silence.</span>")
 		else
 			to_chat(H, "<span class='notice'>You break your vow of silence.</span>")
+			H.add_mood_event("vow_break", /datum/mood_event/broken_vow)
 
 //Advanced Mimery traitor item spells
 

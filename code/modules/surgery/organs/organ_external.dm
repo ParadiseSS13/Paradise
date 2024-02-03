@@ -208,6 +208,7 @@
 
 	if(owner.has_embedded_objects())
 		owner.throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+		owner.add_mood_event("embedded", /datum/mood_event/embedded)
 
 /obj/item/organ/external/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
 	if(parent_organ != parent.limb_name)
@@ -925,6 +926,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/add_embedded_object(obj/item/I)
 	owner.throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+	owner.add_mood_event("embedded", /datum/mood_event/embedded)
 	embedded_objects += I
 	I.forceMove(owner)
 	RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(remove_embedded_object))
@@ -938,7 +940,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		for(var/obj/item/I in L.embedded_objects)
 			L.remove_embedded_object(I)
 			I.forceMove(T)
-
+	clear_mood_event("embedded")
 	clear_alert("embeddedobject")
 
 /mob/living/carbon/human/proc/has_embedded_objects()

@@ -10,6 +10,8 @@
 	desc = "If you got this, something broke! Contact a coder if this somehow spawns."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "burger"
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT | GRAIN | JUNKFOOD
 
 /obj/item/food/snacks/burger/plain
 	name = "burger"
@@ -51,7 +53,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "tender meat" = 2)
-
+	foodtypes = MEAT | GORE | GRAIN | JUNKFOOD
 /obj/item/food/snacks/burger/cheese
 	name = "cheeseburger"
 	desc = "The cheese adds a good flavor."
@@ -59,7 +61,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "meat" = 1, "cheese" = 1)
-
+	foodtypes = MEAT | DAIRY | GRAIN | JUNKFOOD
 /obj/item/food/snacks/burger/tofu
 	name = "tofu burger"
 	desc = "Making this should probably be a criminal offense."
@@ -68,7 +70,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "tofu" = 4)
-
+	foodtypes = VEGETABLES_AND_FRUITS | GRAIN | HEALTHFUL
 /obj/item/food/snacks/burger/hamborger
 	name = "hamborger"
 	desc = "Looking at this makes your flesh feel like a weakness."
@@ -77,7 +79,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "nanomachines" = 10, "vitamin" = 1)
 	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
-
+	foodtypes = GROSS
 /obj/item/food/snacks/burger/hamborger/Initialize(mapload)
 	. = ..()
 	message_admins("A [name] has been created at [ADMIN_COORDJMP(src)].")
@@ -90,7 +92,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "acid" = 4)
-
+	foodtypes = MEAT | GROSS | GRAIN | JUNKFOOD
 /obj/item/food/snacks/burger/clown
 	name = "clown burger"
 	desc = "This tastes funny..."
@@ -99,7 +101,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "banana" = 1, "magic" = 2)
-
+	foodtypes = VEGETABLES_AND_FRUITS | GRAIN | JUNKFOOD
 /obj/item/food/snacks/burger/mime
 	name = "mime burger"
 	desc = "Its taste defies language."
@@ -108,6 +110,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "silence" = 2)
+	foodtypes = VEGETABLES_AND_FRUITS | GRAIN | JUNKFOOD
 
 /obj/item/food/snacks/burger/baseball
 	name = "home run baseball burger"

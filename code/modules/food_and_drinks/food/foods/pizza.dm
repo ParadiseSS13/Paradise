@@ -8,6 +8,8 @@
 	slices_num = 6
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = DAIRY | VEGETABLES_AND_FRUITS | GRAIN | JUNKFOOD
 
 // Margherita
 /obj/item/food/snacks/sliceable/pizza/margheritapizza
@@ -33,7 +35,7 @@
 	slice_path = /obj/item/food/snacks/meatpizzaslice
 	list_reagents = list("protein" = 30, "tomatojuice" = 6, "vitamin" = 8)
 	tastes = list("crust" = 1, "cheese" = 1, "meat" = 1)
-
+	foodtypes = MEAT | DAIRY | VEGETABLES_AND_FRUITS | GRAIN | JUNKFOOD
 /obj/item/food/snacks/meatpizzaslice
 	name = "meat pizza slice"
 	desc = "A slice of a meaty pizza."
@@ -41,7 +43,7 @@
 	icon_state = "meatpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "cheese" = 1, "meat" = 1)
-
+	foodtypes = MEAT | DAIRY | VEGETABLES_AND_FRUITS | GRAIN | JUNKFOOD
 // Mushroom Pizza
 /obj/item/food/snacks/sliceable/pizza/mushroompizza
 	name = "mushroom pizza"
@@ -120,7 +122,7 @@
 	list_reagents = list("protein" = 30, "tomatojuice" = 6, "vitamin" = 8)
 	filling_color = "#ffe45d"
 	tastes = list("cheese" = 3, "pepperoni" = 3, "grease" = 1)
-
+	foodtypes = MEAT | DAIRY | VEGETABLES_AND_FRUITS | GRAIN | JUNKFOOD
 /obj/item/food/snacks/pepperonipizzaslice
 	name = "pepperoni pizza slice"
 	desc = "Nice to meat you!"
@@ -128,7 +130,7 @@
 	icon_state = "pepperonipizzaslice"
 	filling_color = "#ffe45d"
 	tastes = list("cheese" = 3, "pepperoni" = 3, "grease" = 1)
-
+	foodtypes = MEAT | DAIRY | VEGETABLES_AND_FRUITS | GRAIN | JUNKFOOD
 // Cheese Pizza
 /obj/item/food/snacks/sliceable/pizza/cheesepizza
 	name = "cheese pizza"
@@ -153,7 +155,7 @@
 	slice_path = /obj/item/food/snacks/donkpocketpizzaslice
 	list_reagents = list("nutriment" = 35, "tomatojuice" = 6, "vitamin" = 2, "weak_omnizine" = 6)
 	tastes = list("crust" = 1, "meat" = 1, "laziness" = 1)
-
+	foodtypes = MEAT | DAIRY | VEGETABLES_AND_FRUITS | GRAIN | JUNKFOOD
 /obj/item/food/snacks/donkpocketpizzaslice
 	name = "donk-pocket pizza slice"
 	desc = "Smells like lukewarm donk-pocket."
@@ -161,7 +163,7 @@
 	icon_state = "donkpocketpizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "meat" = 1, "laziness" = 1)
-
+	foodtypes = MEAT | DAIRY | VEGETABLES_AND_FRUITS | GRAIN | JUNKFOOD
 // Dank Pizza
 /obj/item/food/snacks/sliceable/pizza/dankpizza
 	name = "dank pizza"
