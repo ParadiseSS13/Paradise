@@ -175,6 +175,9 @@
 		if(!D.anchored)
 			QDEL_NULL(D)
 			eaten = TRUE
+	for(var/obj/structure/transit_tube_construction/C in T)
+		QDEL_NULL(C)
+		eaten = TRUE
 	if(eaten)
 		to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [T].")
 		activate_rpd()

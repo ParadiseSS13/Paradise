@@ -46,7 +46,6 @@
 	. = TRUE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		to_chat(user, "You disassemble [src].")
-		new /obj/item/stack/sheet/glass(get_turf(src))
 		qdel(src)
 
 /obj/structure/transit_tube_construction/pod
