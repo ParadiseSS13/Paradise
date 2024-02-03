@@ -57,8 +57,11 @@
 	shuttle.shuttle_speed_factor = speed_factor
 	SSshuttle.replace_shuttle(shuttle)
 
+/// Simple supply pack for easy admin modification
 /datum/supply_packs/abstract/admin_notify/donations
 	name = "Donation to Lonely Corgi Foundation"
+	special = TRUE
+	special_enabled = FALSE
 	manifest = "1% of every donation goes towards supporting corgis in need."
 	cost = 500
 

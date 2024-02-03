@@ -200,10 +200,6 @@ const CataloguePane = (_properties, context) => {
     'selectedAccount'
   );
 
-  const activeSingletonOrderGroups = new Set(
-    requests.map((req) => req.singleton_group_id).filter((e) => e)
-  );
-
   const cratesToShow = flow([
     filter(
       (pack) =>
