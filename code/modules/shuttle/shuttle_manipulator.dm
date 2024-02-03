@@ -220,7 +220,6 @@
 	preview_template = null
 	selected = null
 
-
 /obj/machinery/shuttle_manipulator/proc/action_load_old(datum/map_template/shuttle/loading_template)
 	// Check for an existing preview
 	if(preview_shuttle && (loading_template != preview_template))

@@ -17,7 +17,6 @@
 	/// The base speed multiplier to apply to the shuttle. 2 means it arrives twice as fast.
 	var/speed_factor = 1
 
-
 /datum/supply_packs/abstract/shuttle/New(datum/map_template/shuttle/_template)
 	. = ..()
 	if(_template)
@@ -85,7 +84,6 @@
 	cost = 3750
 	template = /datum/map_template/shuttle/emergency/cramped
 
-
 // these, otoh, have some pretty silly features, and are hidden behind emag
 
 /datum/supply_packs/abstract/shuttle/military
@@ -104,7 +102,6 @@
 	cost = 3000
 	hidden = TRUE
 	template = /datum/map_template/shuttle/emergency/narnar
-
 
 /datum/supply_packs/abstract/shuttle/jungle
 	hidden = TRUE
