@@ -116,7 +116,7 @@ def check_conditional_spacing(lines):
         if CONDITIONAL_ENDING_SPACE.search(line):
             return Failure(idx + 1, "Found a conditional statement matching the format \"if(thing )\" (irregular spacing), please use \"if(thing)\" instead.")
         if CONDITIONAL_DOUBLE_PARENTHESIS.search(line):
-            return Failure(idx + 1, "Found a conditional statement matching the format \"if((thing))\" (unnecessary outer parethesis), please use \"if(thing)\" instead.")
+            return Failure(idx + 1, "Found a conditional statement matching the format \"if((thing))\" (unnecessary outer parentheses), please use \"if(thing)\" instead.")
 
 # makes sure that no global list inits have an empty list in them without using the helper
 GLOBAL_LIST_EMPTY = re.compile(r"(?<!#define GLOBAL_LIST_EMPTY\(X\) )GLOBAL_LIST_INIT([^,]+),.{0,5}list\(\)")

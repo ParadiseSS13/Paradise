@@ -515,7 +515,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /*
 /obj/item/radio/proc/accept_rad(obj/item/radio/R as obj, message)
 
-	if((R.frequency == frequency && message))
+	if(R.frequency == frequency && message)
 		return 1
 	else if
 
