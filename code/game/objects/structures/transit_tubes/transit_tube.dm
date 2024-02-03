@@ -46,16 +46,14 @@
 				AM.loc = loc
 				AM.ex_act(severity++)
 
-			qdel(src)
-			return
+			deconstruct(disassembled = FALSE)
 		if(EXPLODE_HEAVY)
 			if(prob(50))
 				for(var/atom/movable/AM in contents)
 					AM.loc = loc
 					AM.ex_act(severity++)
 
-				qdel(src)
-				return
+				deconstruct(disassembled = FALSE)
 		if(EXPLODE_LIGHT)
 			return
 
@@ -166,6 +164,13 @@
 
 	to_chat(user, "<span class='notice'>You uninstall [src].</span>")
 	qdel(src)
+
+/obj/structure/transit_tube/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT) && !disassembled)
+		playsound(src, "shatter", 70, TRUE)
+		new /obj/effect/decal/cleanable/glass(loc)
+	qdel(src)
+
 
 /obj/structure/transit_tube/proc/create_tube_overlay(direction, shift_dir)
 	// We use image() because a mutable appearance will have its dir mirror the parent which sort of fucks up what we're doing here
