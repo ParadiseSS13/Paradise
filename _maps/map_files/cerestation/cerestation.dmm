@@ -54634,7 +54634,6 @@
 "kxy" = (
 /obj/structure/table,
 /obj/item/weldingtool/mini,
-/obj/item/clothing/suit/space/eva,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/external/southeast)
 "kxH" = (
