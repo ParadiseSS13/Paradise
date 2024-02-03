@@ -19,7 +19,7 @@
 			var/datum/character_save/saves = user.client.prefs.character_saves[index]
 			var/slot_name = "[saves.real_name] (Slot #[index])"
 			our_characters_names += slot_name
-			our_character_saves += list(slot_name = saves)
+			our_character_saves += list("[slot_name]" = saves)
 
 		var/character_name = tgui_input_list(user, "Select a character", "Character selection", our_characters_names)
 		if(!character_name)
@@ -106,5 +106,9 @@
 	qdel(mob_to_delete)
 
 /proc/dust_if_respawnable(mob/M)
+	if(isdrone(M))
+		var/mob/living/silicon/robot/drone/drone = M
+		drone.shut_down(TRUE)
+		return
 	if(HAS_TRAIT_FROM(M, TRAIT_RESPAWNABLE, GHOST_ROLE))
 		M.dust()
