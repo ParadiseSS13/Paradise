@@ -138,7 +138,7 @@
 
 /mob/visible_message(message, self_message, blind_message)
 	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
-		for(var/mob/M in get_mobs_in_view(3, src))
+		for(var/mob/M as anything in get_mobs_in_view(3, src))
 			if(M.see_invisible < invisibility)
 				continue //can't view the invisible
 			var/msg = message
@@ -150,7 +150,7 @@
 				msg = blind_message
 			M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 		return
-	for(var/mob/M in get_mobs_in_view(7, src))
+	for(var/mob/M as anything in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message
@@ -163,7 +163,7 @@
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 /atom/proc/visible_message(message, blind_message)
-	for(var/mob/M in get_mobs_in_view(7, src))
+	for(var/mob/M as anything in get_mobs_in_view(7, src))
 		if(!M.client)
 			continue
 		M.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
@@ -179,7 +179,7 @@
 	if(hearing_distance)
 		range = hearing_distance
 	var/msg = message
-	for(var/mob/M in get_mobs_in_view(range, src))
+	for(var/mob/M as anything in get_mobs_in_view(range, src))
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
@@ -205,7 +205,7 @@
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	for(var/mob/M in get_mobs_in_view(range, src))
+	for(var/mob/M as anything in get_mobs_in_view(range, src))
 		M.show_message(message, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 /mob/proc/findname(msg)

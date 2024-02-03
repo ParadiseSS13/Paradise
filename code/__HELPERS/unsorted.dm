@@ -714,16 +714,19 @@ Returns 1 if the chain up to the area contains the given typepath
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all turfs in areas of that type of that type in the world.
 /proc/get_area_turfs(areatype)
-	if(!areatype) return null
-	if(istext(areatype)) areatype = text2path(areatype)
+	if(!areatype)
+		return
+	if(istext(areatype))
+		areatype = text2path(areatype)
 	if(isarea(areatype))
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
 	var/list/turfs = list()
-	for(var/area/N in world)
+	for(var/area/N as anything in GLOB.all_areas)
 		if(istype(N, areatype))
-			for(var/turf/T in N) turfs += T
+			for(var/turf/T in N)
+				turfs += T
 	return turfs
 
 //Takes: Area type as text string or as typepath OR an instance of the area.
@@ -747,7 +750,7 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/y_pos
 	var/z_pos
 
-/area/proc/move_contents_to(area/A, turf_to_leave, direction)
+/area/proc/move_contents_to(area/A, turf_to_leave, direction) /// someone rewrite this function i beg of you
 	//Takes: Area. Optional: turf type to leave behind.
 	//Returns: Nothing.
 	//Notes: Attempts to move the contents of one area to another area.
@@ -756,7 +759,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	if(!A || !src) return 0
 
-	var/list/turfs_src = get_area_turfs(src.type)
+	var/list/turfs_src = get_area_turfs(type)
 	var/list/turfs_trg = get_area_turfs(A.type)
 
 	var/src_min_x = 0

@@ -25,10 +25,6 @@
 /obj/item/radio/beacon/hear_talk()
 	return
 
-
-/obj/item/radio/beacon/send_hear()
-	return null
-
 /obj/item/radio/beacon/bacon //Probably a better way of doing this, I'm lazy.
 
 /obj/item/radio/beacon/bacon/proc/digest_delay()

@@ -554,11 +554,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 			return -1
 	return canhear_range
 
-/obj/item/radio/proc/send_hear(freq, level)
-	var/range = receive_range(freq, level)
-	if(range > -1)
-		return get_mobs_in_view(canhear_range, src)
-
 /obj/item/radio/proc/is_listening()
 	var/is_listening = TRUE
 	if(!on)
