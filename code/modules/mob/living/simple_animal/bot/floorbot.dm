@@ -444,9 +444,9 @@
 /mob/living/simple_animal/bot/floorbot/UnarmedAttack(atom/A)
 	if(isturf(A))
 		repair(A)
-	if(istype(A,/obj/item/stack/tile/plasteel))
+	else if(istype(A,/obj/item/stack/tile/plasteel))
 		start_eat_tile(A)
-	if(istype(A,/obj/item/stack/sheet/metal))
+	else if(istype(A,/obj/item/stack/sheet/metal))
 		start_make_tile(A)
 	else
 		..()
