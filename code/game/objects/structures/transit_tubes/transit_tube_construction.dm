@@ -46,8 +46,8 @@
 		to_chat(user, "<span class='notice'>You can only install [src] on a floor.</span>")
 		return
 	for(var/obj/turf_contents in T)
-		var/is_tube_part = (istype(turf_contents, /obj/structure/transit_tube_construction) || istype(turf_contents, /obj/structure/transit_tube))
-		if(!(is_tube_part) && turf_contents.density)
+		// It's okay for tube parts to be installed over existing pods.
+		if(!(istype(turf_contents, /obj/structure/transit_tube_pod)) && turf_contents.density)
 			to_chat(user, "<span class='notice'>There is not enough space to install [src] here.</span>")
 			return
 
@@ -70,6 +70,23 @@
 	installed_type = /obj/structure/transit_tube_pod
 	base_icon_state = "transit_pod"
 	icon_state = "transit_pod"
+
+/obj/structure/transit_tube_construction/pod/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	var/turf/T = get_turf(src)
+	if(!isfloorturf(T))
+		to_chat(user, "<span class='notice'>You can only install [src] on a floor.</span>")
+		return
+
+	for(var/obj/turf_contents in T)
+		if(istype(turf_contents, /obj/structure/transit_tube))
+			var/atom/installed = new installed_type(T)
+			installed.dir = dir
+			to_chat(user, "<span class='notice'>You install [src].</span>")
+
+			qdel(src)
+
+	to_chat(user, "<span class='notice'>[src] can only be installed in a transit tube!</span>")
 
 /obj/structure/transit_tube_construction/straight
 	installed_type = /obj/structure/transit_tube
