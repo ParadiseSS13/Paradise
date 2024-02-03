@@ -5,7 +5,7 @@
 		Donk Co. supplies a wide variety of goods to the Syndicate."
 	intro_desc = "(TODO - LORE) You are a Donk Co. agent, sent here to advance Syndicate interests. Get the job done and done right."
 	focus = 80
-	difficulty = "Medium"
+	difficulty = ORG_DIFFICULTY_MEDIUM
 	chaos_level = ORG_CHAOS_AVERAGE
 	selectable = TRUE
 
@@ -15,7 +15,7 @@
 	intro_desc = "(TODO - LORE) YOU IS VOXXY LOOTING CLUB! SKREEE GO GO GO WHAT IS YOU WAITINGS FOR?!"
 	focus = 100
 	objectives = list(/datum/objective/steal)
-	difficulty = "Easy"
+	difficulty = ORG_DIFFICULTY_EASY
 	chaos_level = ORG_CHAOS_MILD
 
 /datum/antag_org/syndicate/arc
@@ -92,9 +92,9 @@
 /datum/antag_org/syndicate/gorlex
 	name = "Gorlex Marauders"
 	desc = "(TODO - LORE) Originating from Moghes, the Gorlex Marauders are a formidable mercenary faction with operations spanning various regions of space."
-	intro_desc = "(TODO - LORE) You are a Gorlex operative. Get in, fuck shit up, get out with a new fancy shuttle. You know the drill."
+	intro_desc = "(TODO - LORE) You are a Gorlex operative. Get in, fuck shit up, get out with a fancy new shuttle. You know the drill."
 	forced_objective = /datum/objective/hijack
-	difficulty = "Hard"
+	difficulty = ORG_DIFFICULTY_HARD
 	chaos_level = ORG_CHAOS_HIJACK
 
 /datum/antag_org/syndicate/assassins
@@ -104,7 +104,7 @@
 	focus = 100
 	forced_objective = /datum/objective/assassinate/syndicate
 	objectives = list(/datum/objective/assassinate/nomindshield)
-	difficulty = "Hard"
+	difficulty = ORG_DIFFICULTY_HARD
 	chaos_level = ORG_CHAOS_HUNTER
 
 /datum/antag_org/syndicate/faid

@@ -10,6 +10,9 @@
 #define ORG_CHAOS_AVERAGE 1
 /// Hijack or hijack-tier antagonists.
 #define ORG_CHAOS_HIJACK 2
+#define ORG_DIFFICULTY_EASY "Easy"
+#define ORG_DIFFICULTY_MEDIUM "Medium"
+#define ORG_DIFFICULTY_HARD "Hard"
 
 /datum/antag_org
 	/// Organisation's name
