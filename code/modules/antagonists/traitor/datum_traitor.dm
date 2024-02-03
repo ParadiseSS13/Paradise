@@ -125,7 +125,7 @@
 		i++
 
 	// Give them an escape objective if they don't have one already.
-	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()))
+	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
 		add_antag_objective(/datum/objective/escape)
 
 /**
