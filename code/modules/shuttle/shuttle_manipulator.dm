@@ -12,7 +12,7 @@
 	icon = 'icons/obj/machines/shuttle_manipulator.dmi'
 	icon_state = "holograph_on"
 	/// Used for cooldown, very obvious name, required due to shuttles spawning in the same location and causing the server to implode
-	var/shuttle_and_preview_cooldown = 0  // TODO MAKE SURE THIS NEW BEHAVIOR IS PRESENT
+	var/shuttle_and_preview_cooldown = 0
 	/// UI state variables
 	var/datum/map_template/shuttle/selected
 
