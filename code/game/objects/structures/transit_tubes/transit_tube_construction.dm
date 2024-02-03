@@ -45,7 +45,7 @@
 /obj/structure/transit_tube_construction/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		to_chat(user, "You disassemble [src].")
+		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 		qdel(src)
 
 /obj/structure/transit_tube_construction/pod
