@@ -27,8 +27,6 @@
 	var/datum/objective/forced_objective
 	/// List of objectives favored by this org
 	var/list/objectives
-	/// List of discount item categories favored by this org.
-	var/list/discount
 	/// Estimated difficulty of playing this group, shown in preference screen
 	var/difficulty
 	/// Estimation of how much trouble this antag will be for security.
