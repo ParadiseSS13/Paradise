@@ -563,18 +563,6 @@ const TransitTubeContent = (props, context) => {
                   )
                   .map((p) => (
                     <Stack.Item key={p.pipe_id}>
-                      <Box>
-                        <Button
-                          fluid
-                          textAlign="center"
-                          content="Orient automatically"
-                          selected={iconrotation === 0}
-                          onClick={() =>
-                            act('iconrotation', { iconrotation: 0 })
-                          }
-                          style={{ 'margin-bottom': '5px' }}
-                        />
-                      </Box>
                       <Grid>
                         <Grid.Column>
                           <Button
