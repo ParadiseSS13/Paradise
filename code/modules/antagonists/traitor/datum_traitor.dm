@@ -114,6 +114,13 @@
 		return // Hijack should be their only objective (normally), so return.
 
 	var/iteration = 0
+	var/can_succeed_if_dead = TRUE
+	for(var/objective in owner.get_all_objectives())
+		var/datum/objective/O = objective
+		if(!O.martyr_compatible) // Check if we need to stay alive in order to accomplish our objectives (Steal item, etc)
+			can_succeed_if_dead  = FALSE
+			break
+
 	//If our org has a forced objective, give it to us guaranteed.
 	if(organisation && organisation.forced_objective)
 		add_antag_objective(organisation.forced_objective)
@@ -124,7 +131,7 @@
 		forge_single_human_objective()
 		iteration++
 
-	// Give them an escape objective if they don't have one already.
+	// Give them an escape objective if they don't have one. 20 percent chance not to have escape if we can greentext without staying alive.
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
 		add_antag_objective(/datum/objective/escape)
 
