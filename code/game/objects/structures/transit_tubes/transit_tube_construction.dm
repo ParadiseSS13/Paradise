@@ -13,6 +13,22 @@
 /obj/structure/transit_tube_construction/proc/rotate()
 	setDir(turn(dir, -90))
 
+/obj/structure/transit_tube_construction/examine(mob/user)
+	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click to flip it.</b></span>"
+
+/obj/structure/transit_tube_construction/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+
+	rotate()
+
+/obj/structure/transit_tube_construction/AltShiftClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+
+	flip()
+
 /obj/structure/transit_tube_construction/update_icon_state()
 	icon_state = "[base_icon_state][flipped ? "_flipped" : ""]"
 
@@ -31,7 +47,7 @@
 		return
 	for(var/obj/turf_contents in T)
 		var/is_tube_part = (istype(turf_contents, /obj/structure/transit_tube_construction) || istype(turf_contents, /obj/structure/transit_tube))
-		if(!(is_tube_part) && turf_contents.density >= 1)
+		if(!(is_tube_part) && turf_contents.density)
 			to_chat(user, "<span class='notice'>There is not enough space to install [src] here.</span>")
 			return
 
