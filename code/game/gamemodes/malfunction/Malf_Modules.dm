@@ -694,7 +694,6 @@
 	if(do_after_once(owner, 5 SECONDS, target = T, allow_moving = TRUE)) //Once this is done, turret is armed and dangerous
 		turret.raised = initial(turret.raised)
 		turret.invisibility = initial(turret.invisibility)
-		qdel(spawning_effect)
 		turret.disabled = initial(turret.disabled)
 		new /obj/effect/temp_visual/rcd_effect/end(T)
 		playsound(T, 'sound/items/deconstruct.ogg', 100, TRUE)
