@@ -223,7 +223,6 @@
 	var/travelDir = 0				//direction the shuttle would travel in
 	var/rebuildable = 0				//can build new shuttle consoles for this one
 
-
 	/// The speed factor for this shuttle. Higher means faster.
 	var/shuttle_speed_factor = 1
 
