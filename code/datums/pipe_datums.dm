@@ -344,7 +344,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/transit/pod
 	pipe_name = "transit pod"
-	construction_type = /obj/structure/construction/transit_tube/pod
+	construction_type = /obj/structure/transit_tube_construction/pod
 	pipe_id = PIPE_TRANSIT_POD
 	orientations = 2
 	pipe_icon = "transit_pod"
@@ -352,7 +352,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/transit/tube
 	pipe_name = "transit tube"
-	construction_type = /obj/structure/construction/transit_tube/straight
+	construction_type = /obj/structure/transit_tube_construction/straight
 	pipe_id = PIPE_TRANSIT_TUBE
 	orientations = 2
 	pipe_icon = "transit_straight"
@@ -360,7 +360,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/transit/tube/crossing
 	pipe_name = "transit tube crossing"
-	construction_type = /obj/structure/construction/transit_tube/straight/crossing
+	construction_type = /obj/structure/transit_tube_construction/straight/crossing
 	pipe_id = PIPE_TRANSIT_TUBE_CROSSING
 	orientations = 2
 	pipe_icon = "transit_straight_crossing"
@@ -368,7 +368,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/transit/tube/diagonal
 	pipe_name = "diagonal transit tube"
-	construction_type = /obj/structure/construction/transit_tube/diagonal
+	construction_type = /obj/structure/transit_tube_construction/diagonal
 	pipe_id = PIPE_TRANSIT_TUBE_DIAGONAL
 	orientations = 2
 	pipe_icon = "transit_diagonal"
@@ -376,7 +376,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/transit/tube/diagonal/crossing
 	pipe_name = "diagonal transit tube crossing"
-	construction_type = /obj/structure/construction/transit_tube/diagonal/crossing
+	construction_type = /obj/structure/transit_tube_construction/diagonal/crossing
 	pipe_id = PIPE_TRANSIT_TUBE_DIAGONAL_CROSSING
 	orientations = 2
 	pipe_icon = "transit_diagonal_crossing"
@@ -384,7 +384,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/transit/tube/curved
 	pipe_name = "curved transit tube"
-	construction_type = /obj/structure/construction/transit_tube/curved
+	construction_type = /obj/structure/transit_tube_construction/curved
 	pipe_id = PIPE_TRANSIT_TUBE_CURVED
 	orientations = 4
 	pipe_icon = "transit_curved"
@@ -392,7 +392,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/transit/tube/junction
 	pipe_name = "junction transit tube"
-	construction_type = /obj/structure/construction/transit_tube/junction
+	construction_type = /obj/structure/transit_tube_construction/junction
 	pipe_id = PIPE_TRANSIT_TUBE_JUNCTION
 	orientations = 4
 	pipe_icon = "transit_junction"
@@ -400,7 +400,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/transit/tube/terminus
 	pipe_name = "transit tube terminus"
-	construction_type = /obj/structure/construction/transit_tube/terminus
+	construction_type = /obj/structure/transit_tube_construction/terminus
 	pipe_id = PIPE_TRANSIT_TUBE_TERMINUS
 	orientations = 4
 	pipe_icon = "transit_terminus"
@@ -408,7 +408,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/transit/tube/station
 	pipe_name = "transit tube station"
-	construction_type = /obj/structure/construction/transit_tube/station
+	construction_type = /obj/structure/transit_tube_construction/station
 	pipe_id = PIPE_TRANSIT_TUBE_STATION
 	orientations = 4
 	pipe_icon = "transit_station"
@@ -416,7 +416,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/transit/tube/terminus_dispenser_station
 	pipe_name= "terminus dispenser tube station"
-	construction_type = /obj/structure/construction/transit_tube/terminus/dispenser
+	construction_type = /obj/structure/transit_tube_construction/terminus/dispenser
 	pipe_id = PIPE_TRANSIT_TUBE_TERMINUS_DISPENSER
 	orientations = 4
 	pipe_icon = "transit_dispenser_terminus"

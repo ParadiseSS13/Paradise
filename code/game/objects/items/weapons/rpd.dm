@@ -133,7 +133,7 @@
 
 	for(var/datum/pipes/transit/T in GLOB.construction_pipe_list)
 		if(T.pipe_id == whatttube)
-			var/obj/structure/construction/transit_tube/S = new T.construction_type(dest)
+			var/obj/structure/transit_tube_construction/S = new T.construction_type(dest)
 			if(!istype(S))
 				CRASH("expected [S] to be a transit_tube construction")
 
@@ -147,7 +147,7 @@
 		P.rotate()
 	for(var/obj/structure/disposalconstruct/D in T)
 		D.rotate()
-	for(var/obj/structure/construction/transit_tube/tube in T)
+	for(var/obj/structure/transit_tube_construction/tube in T)
 		tube.rotate()
 
 /obj/item/rpd/proc/flip_all_pipes(mob/user, turf/T) //Flip all pipes on a turf
@@ -155,7 +155,7 @@
 		P.flip()
 	for(var/obj/structure/disposalconstruct/D in T)
 		D.flip()
-	for(var/obj/structure/construction/transit_tube/tube in T)
+	for(var/obj/structure/transit_tube_construction/tube in T)
 		tube.flip()
 
 /obj/item/rpd/proc/delete_all_pipes(mob/user, turf/T) //Delete all pipes on a turf

@@ -1,4 +1,4 @@
-/obj/structure/construction/transit_tube
+/obj/structure/transit_tube_construction
 	name = "uninstalled transit tube segment"
 	desc = "An uninstalled piece of a transit tube network."
 	anchored = FALSE
@@ -10,31 +10,27 @@
 	var/installed_type_flipped = null
 	var/flipped = FALSE
 
-/obj/structure/construction/transit_tube/Initialize(mapload)
-	. = ..()
-	update_icon_state()
-
-/obj/structure/construction/transit_tube/proc/rotate()
+/obj/structure/transit_tube_construction/proc/rotate()
 	setDir(turn(dir, -90))
 
-/obj/structure/construction/transit_tube/update_icon_state()
+/obj/structure/transit_tube_construction/update_icon_state()
 	icon_state = "[base_icon_state][flipped ? "_flipped" : ""]"
 
-/obj/structure/construction/transit_tube/proc/flip()
+/obj/structure/transit_tube_construction/proc/flip()
 	if(!installed_type_flipped)
 		return
 
 	flipped = !flipped
 	update_icon_state()
 
-/obj/structure/construction/transit_tube/screwdriver_act(mob/living/user, obj/item/I)
+/obj/structure/transit_tube_construction/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
-	if(!isfloorturf(T)
+	if(!isfloorturf(T))
 		to_chat(user, "<span class='notice'>You can only install [src] on a floor.</span>")
 		return
 	for(var/obj/turf_contents in T)
-		var/is_tube_part = (istype(turf_contents, /obj/structure/construction/transit_tube) || istype(turf_contents, /obj/structure/transit_tube))
+		var/is_tube_part = (istype(turf_contents, /obj/structure/transit_tube_construction) || istype(turf_contents, /obj/structure/transit_tube))
 		if(!(is_tube_part) && turf_contents.density >= 1)
 			to_chat(user, "<span class='notice'>There is not enough space to install [src] here.</span>")
 			return
@@ -46,59 +42,70 @@
 
 	qdel(src)
 
-/obj/structure/construction/transit_tube/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/transit_tube_construction/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		to_chat(user, "You disassemble [src].")
 		new /obj/item/stack/sheet/glass(get_turf(src))
 		qdel(src)
 
-/obj/structure/construction/transit_tube/pod
+/obj/structure/transit_tube_construction/pod
 	name = "uninstalled transit pod"
 	layer = 3.2 // Necessary to be able to install them if on the same tile as tube/construction
 	installed_type = /obj/structure/transit_tube_pod
 	base_icon_state = "transit_pod"
+	icon_state = "transit_pod"
 
-/obj/structure/construction/transit_tube/straight
+/obj/structure/transit_tube_construction/straight
 	installed_type = /obj/structure/transit_tube
 	base_icon_state = "transit_straight"
+	icon_state = "transit_straight"
 
-/obj/structure/construction/transit_tube/straight/crossing
+/obj/structure/transit_tube_construction/straight/crossing
 	installed_type = /obj/structure/transit_tube/crossing
 	base_icon_state = "transit_straight_crossing"
+	icon_state = "transit_straight_crossing"
 
-/obj/structure/construction/transit_tube/diagonal
+/obj/structure/transit_tube_construction/diagonal
 	installed_type = /obj/structure/transit_tube/diagonal
 	base_icon_state = "transit_diagonal"
+	icon_state = "transit_diagonal"
 
-/obj/structure/construction/transit_tube/diagonal/crossing
+/obj/structure/transit_tube_construction/diagonal/crossing
 	installed_type = /obj/structure/transit_tube/diagonal/crossing
 	base_icon_state = "transit_diagonal_crossing"
+	icon_state = "transit_diagonal_crossing"
 
-/obj/structure/construction/transit_tube/curved
+/obj/structure/transit_tube_construction/curved
 	installed_type = /obj/structure/transit_tube/curved
 	installed_type_flipped = /obj/structure/transit_tube/curved/flipped
 	base_icon_state = "transit_curved"
+	icon_state = "transit_curved"
 
-/obj/structure/construction/transit_tube/junction
+/obj/structure/transit_tube_construction/junction
 	installed_type = /obj/structure/transit_tube/junction
 	installed_type_flipped = /obj/structure/transit_tube/junction/flipped
 	base_icon_state = "transit_junction"
+	icon_state = "transit_junction"
 
-/obj/structure/construction/transit_tube/terminus
+/obj/structure/transit_tube_construction/terminus
 	installed_type = /obj/structure/transit_tube/station/reverse
 	installed_type_flipped = /obj/structure/transit_tube/station/reverse/flipped
 	base_icon_state = "transit_terminus"
+	icon_state = "transit_terminus"
 
-/obj/structure/construction/transit_tube/station
+/obj/structure/transit_tube_construction/station
 	installed_type = /obj/structure/transit_tube/station
 	base_icon_state = "transit_station"
+	icon_state = "transit_station"
 
-/obj/structure/construction/transit_tube/terminus/dispenser
+/obj/structure/transit_tube_construction/terminus/dispenser
 	installed_type = /obj/structure/transit_tube/station/dispenser/reverse
 	installed_type_flipped = /obj/structure/transit_tube/station/dispenser/reverse/flipped
 	base_icon_state = "transit_dispenser_terminus"
+	icon_state = "transit_dispenser_terminus"
 
-/obj/structure/construction/transit_tube/station/dispenser
+/obj/structure/transit_tube_construction/station/dispenser
 	installed_type = /obj/structure/transit_tube/station/dispenser
 	base_icon_state = "transit_dispenser_station"
+	icon_state = "transit_dispenser_station"

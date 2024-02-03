@@ -14,7 +14,7 @@
 	base_icon_state = "station0"
 	exit_delay = 1
 	enter_delay = 2
-	uninstalled_type = /obj/structure/construction/transit_tube/station
+	uninstalled_type = /obj/structure/transit_tube_construction/station
 	var/pod_moving = FALSE
 	var/launch_cooldown = 0
 	var/reverse_launch = FALSE
@@ -184,7 +184,7 @@
 	icon_state = "closed_terminus0"
 	base_icon_state = "terminus0"
 	reverse_launch = TRUE
-	uninstalled_type = /obj/structure/construction/transit_tube/terminus
+	uninstalled_type = /obj/structure/transit_tube_construction/terminus
 
 /obj/structure/transit_tube/station/reverse/init_tube_dirs()
 	tube_dirs = list(turn(dir, -90))
@@ -207,7 +207,7 @@
 	enter_delay = 1
 	base_icon_state = "dispenser0"
 	hatch_state = TRANSIT_TUBE_OPEN
-	uninstalled_type = /obj/structure/construction/transit_tube/station/dispenser
+	uninstalled_type = /obj/structure/transit_tube_construction/station/dispenser
 
 /obj/structure/transit_tube/station/dispenser/examine(mob/user)
 	. = ..()
@@ -257,7 +257,7 @@
 	reverse_launch = TRUE
 	icon_state = "open_terminusdispenser0"
 	base_icon_state = "terminusdispenser0"
-	uninstalled_type = /obj/structure/construction/transit_tube/terminus/dispenser
+	uninstalled_type = /obj/structure/transit_tube_construction/terminus/dispenser
 
 /obj/structure/transit_tube/station/dispenser/reverse/init_tube_dirs()
 	tube_dirs = list(turn(dir, -90))
