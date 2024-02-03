@@ -416,5 +416,4 @@ SUBSYSTEM_DEF(shuttle)
 	custom_escape_shuttle_loading = FALSE
 	return loaded_shuttle
 
-
 #undef CALL_SHUTTLE_REASON_LENGTH
