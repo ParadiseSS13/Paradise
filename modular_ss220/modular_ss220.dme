@@ -4,6 +4,7 @@
 // #include "example/_example.dme"
 
 // --- MAINTENANCE --- //
+#include "_components/_components.dme"
 #include "_defines220/_defines220.dme"
 #include "_signals220/_signals220.dme"
 #include "_misc/_misc.dme"

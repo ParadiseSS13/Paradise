@@ -2830,8 +2830,8 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "bWK" = (
-/obj/machinery/jukebox/disco/anchored/indestructible,
 /obj/effect/turf_decal/box/white,
+/obj/machinery/jukebox/disco/indestructible,
 /turf/simulated/floor/mineral/abductor,
 /area/centcom/ss220/bar)
 "bWW" = (

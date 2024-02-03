@@ -17,3 +17,4 @@
 #include "code/jobs_defines.dm"
 #include "code/donor.dm"
 #include "code/emote.dm"
+#include "code/lists_TG.dm"

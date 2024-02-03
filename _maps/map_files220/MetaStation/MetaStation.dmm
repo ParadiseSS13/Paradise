@@ -21971,6 +21971,7 @@
 /area/station/service/bar)
 "bAx" = (
 /obj/machinery/light/directional/north,
+/obj/machinery/jukebox/bar,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "bAy" = (

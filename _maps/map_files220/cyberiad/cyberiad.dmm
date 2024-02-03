@@ -53185,6 +53185,7 @@
 	dir = 5
 	},
 /obj/machinery/economy/atm/north,
+/obj/machinery/jukebox/bar,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/service/bar)
 "gvg" = (
