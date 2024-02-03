@@ -21,7 +21,7 @@
 	/// Used for prob() for objectives. Higher focus means the org is less likely to diverge from their favorites.
 	var/focus = 100
 	/// If set, the antag's first objective will be forced to this.
-	var/forced_objective
+	var/datum/objective/forced_objective
 	/// List of objectives favored by this org
 	var/list/objectives
 	/// List of discount item categories favored by this org.
