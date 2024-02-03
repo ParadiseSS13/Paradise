@@ -4389,7 +4389,7 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/emperor_bg3
-	name = "Mind Flayer Emperor"
+	name = "Mind_Flayer_Emperor"
 	value = "en_Emperor"
 	category = TTS_CATEGORY_BALDURS_GATE_3
 	gender = TTS_GENDER_MALE
@@ -4407,7 +4407,7 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/cave_johnson
-	name = "Cave johnson"
+	name = "Cave_Johnson"
 	value = "portal_cave_johnson"
 	category = TTS_CATEGORY_PORTAL
 	gender = TTS_GENDER_MALE
@@ -4419,19 +4419,19 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/han_solo
-	name = "Han Solo"
+	name = "Han_Solo"
 	value = "Star_Wars_Han_Solo"
 	category = TTS_CATEGORY_STAR_WARS
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/darth_sidious
-	name = "Darth Sidious"
+	name = "Darth_Sidious"
 	value = "Star_Wars_Darth_Sidious"
 	category = TTS_CATEGORY_STAR_WARS
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/luke_skywalker
-	name = "Luke Skywalker"
+	name = "Luke_Skywalker"
 	value = "Star_Wars_Luke_Skywalker"
 	category = TTS_CATEGORY_STAR_WARS
 	gender = TTS_GENDER_MALE
@@ -4443,25 +4443,25 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/darth_vader
-	name = "Darth Vader"
+	name = "Darth_Vader"
 	value = "Star_Wars_Darth_Vader"
 	category = TTS_CATEGORY_STAR_WARS
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/obiwan_kenobi
-	name = "Obi-wan Kenobi"
+	name = "Obi-wan_Kenobi"
 	value = "Star_Wars_Obi-Wan_Kenobi"
 	category = TTS_CATEGORY_STAR_WARS
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/anakin_skywalker
-	name = "Anakin Skywalker"
+	name = "Anakin_Skywalker"
 	value = "Star_Wars_Anakin_Skywalker"
 	category = TTS_CATEGORY_STAR_WARS
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/optimus_prime
-	name = "Optimus Prime"
+	name = "Optimus_Prime"
 	value = "Transformers_War_of_Cybertron_optimusprime"
 	category = TTS_CATEGORY_TRANSFORMERS
 	gender = TTS_GENDER_MALE
@@ -4514,9 +4514,8 @@
 	category = TTS_CATEGORY_LOTR
 	gender = TTS_GENDER_MALE
 
-
 /datum/tts_seed/silero/gingerbread_man
-	name = "Gingerbread Man"
+	name = "Gingerbread_Man"
 	value = "Srek_Gingerbread_Man"
 	category = TTS_CATEGORY_SHREK
 	gender = TTS_GENDER_MALE
@@ -4534,7 +4533,7 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/fairy_godmother
-	name = "Fairy Godmother"
+	name = "Fairy_Godmother"
 	value = "Srek_Fairy_Godmother"
 	category = TTS_CATEGORY_SHREK
 	gender = TTS_GENDER_FEMALE
@@ -4546,13 +4545,13 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/srek_narrator
-	name = "Shrek Narrator"
+	name = "Shrek_Narrator"
 	value = "Srek_Narrator"
 	category = TTS_CATEGORY_SHREK
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/puss_in_boots
-	name = "Puss in Boots"
+	name = "Puss_in_Boots"
 	value = "Srek_Puss_in_Boots"
 	category = TTS_CATEGORY_SHREK
 	gender = TTS_GENDER_MALE
@@ -4564,7 +4563,7 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/jack_sparrow
-	name = "Jack Sparrow"
+	name = "Jack_Sparrow"
 	value = "Pirats_of_the_caribbean_Jack_Sparrow"
 	category = TTS_CATEGORY_POTC
 	gender = TTS_GENDER_MALE
@@ -4582,13 +4581,13 @@
 	gender = TTS_GENDER_FEMALE
 
 /datum/tts_seed/silero/davy_jones
-	name = "Davy Jones"
+	name = "Davy_Jones"
 	value = "Pirats_of_the_caribbean_Davy_Jones"
 	category = TTS_CATEGORY_POTC
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/sirius_black
-	name = "Sirius Black"
+	name = "Sirius_Black"
 	value = "Harry_Potter_Sirius_Black"
 	category = TTS_CATEGORY_HARRY_POTTER
 	gender = TTS_GENDER_MALE
@@ -4606,13 +4605,13 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/harry_potter
-	name = "Harry Potter"
+	name = "Harry_Potter"
 	value = "Harry_Potter_Harry_Potter"
 	category = TTS_CATEGORY_HARRY_POTTER
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/dumbledore
-	name = "Albus Dumbledore"
+	name = "Albus_Dumbledore"
 	value = "Harry_Potter_Albus_Dumbledore"
 	category = TTS_CATEGORY_HARRY_POTTER
 	gender = TTS_GENDER_MALE
@@ -4624,25 +4623,25 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/severus_snape
-	name = "Злодеус Злей"
+	name = "Severus_Snape"
 	value = "Harry_Potter_Severus_Snape"
 	category = TTS_CATEGORY_HARRY_POTTER
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/flitwick
-	name = "Filius Flitwick"
+	name = "Filius_Flitwick"
 	value = "Harry_Potter_Filius_Flitwick"
 	category = TTS_CATEGORY_HARRY_POTTER
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/minerva_mcgonagall
-	name = "Minnerva McGonagall"
+	name = "Minnerva_McGonagall"
 	value = "Harry_Potter_Minerva_McGonagall"
 	category = TTS_CATEGORY_HARRY_POTTER
 	gender = TTS_GENDER_FEMALE
 
 /datum/tts_seed/silero/horace_slughorn
-	name = "Horace Slughorn"
+	name = "Horace_Slughorn"
 	value = "Harry_Potter_Horace_Slughorn"
 	category = TTS_CATEGORY_HARRY_POTTER
 	gender = TTS_GENDER_MALE
@@ -4654,7 +4653,7 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/alastor
-	name = "Alastor Mad-eye Moody"
+	name = "Alastor_Mad-eye_Moody"
 	value = "Harry_Potter_Alastor_Mad-Eye_Moody"
 	category = TTS_CATEGORY_HARRY_POTTER
 	gender = TTS_GENDER_MALE
@@ -4672,7 +4671,7 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/tony_stark
-	name = "Tony Stark"
+	name = "Tony_Stark"
 	value = "Marvel_Tony_Stark"
 	category = TTS_CATEGORY_MARVEL
 	gender = TTS_GENDER_MALE
@@ -4810,7 +4809,7 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/wrathion_deathwing
-	name = "Wration Deathwing"
+	name = "Wration_Deathwing"
 	value = "Dragons2_Wrathion_Deathwing"
 	category = TTS_CATEGORY_WOW
 	gender = TTS_GENDER_MALE
@@ -4862,4 +4861,3 @@
 	value = "slovo_patsana_main"
 	category = TTS_CATEGORY_BOYS_WORD
 	gender = TTS_GENDER_MALE
-
