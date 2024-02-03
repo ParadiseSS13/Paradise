@@ -29,11 +29,11 @@
 
 /obj/structure/construction/transit_tube/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
-	var/turf/T = src.loc
-	if(!istype(T, /turf/simulated/floor))
+	var/turf/T = get_turf(src)
+	if(!isfloorturf(T)
 		to_chat(user, "<span class='notice'>You can only install [src] on a floor.</span>")
 		return
-	for(var/obj/turf_contents in T.contents)
+	for(var/obj/turf_contents in T)
 		var/is_tube_part = (istype(turf_contents, /obj/structure/construction/transit_tube) || istype(turf_contents, /obj/structure/transit_tube))
 		if(!(is_tube_part) && turf_contents.density >= 1)
 			to_chat(user, "<span class='notice'>There is not enough space to install [src] here.</span>")
@@ -50,10 +50,8 @@
 	. = TRUE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		to_chat(user, "You disassemble [src].")
-		new /obj/item/stack/sheet/glass(src.loc)
+		new /obj/item/stack/sheet/glass(get_turf(src))
 		qdel(src)
-
-		return
 
 /obj/structure/construction/transit_tube/pod
 	name = "uninstalled transit pod"

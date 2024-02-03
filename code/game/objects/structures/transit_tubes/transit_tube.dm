@@ -152,25 +152,20 @@
 /obj/structure/transit_tube/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	to_chat(user, "<span class='notice'>You must uninstall [src] before disassembling it!</span>")
-	return
 
 /obj/structure/transit_tube/screwdriver_act(mob/living/user, obj/item/I)
-	. = TRUE
-	var/turf/T = src.loc
-
-	var/obj/structure/construction/transit_tube/construction = new uninstalled_type(T)
+	var/obj/structure/construction/transit_tube/construction = new uninstalled_type(get_turf(src))
 	if(!istype(construction))
-		CRASH("expected [construction.type] to be a transit_tube construction")
+		CRASH("expected [construction] to be a transit_tube construction")
+	. = TRUE
 
-	var/leaf = copytext("[src.type]", (findlasttext("[src.type]", "/") + 1))
+	var/leaf = copytext("[type]", (findlasttext("[type]", "/") + 1))
 	construction.dir = dir
 	if(leaf == "flipped")
 		construction.flip()
 
-	to_chat(user, "You uninstall [src].")
+	to_chat(user, "<span class='notice'>You uninstall [src].</span>")
 	qdel(src)
-
-	return
 
 /obj/structure/transit_tube/proc/create_tube_overlay(direction, shift_dir)
 	// We use image() because a mutable appearance will have its dir mirror the parent which sort of fucks up what we're doing here

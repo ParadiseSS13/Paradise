@@ -135,14 +135,12 @@
 		if(T.pipe_id == whatttube)
 			var/obj/structure/construction/transit_tube/S = new T.construction_type(dest)
 			if(!istype(S))
-				CRASH("expected [S.type] to be a transit_tube construction")
+				CRASH("expected [S] to be a transit_tube construction")
 
 			S.dir = iconrotation ? iconrotation : user.dir
 
 			to_chat(user, "<span class='notice'>[src] rapidly dispenses [S]!</span>")
 			activate_rpd(TRUE)
-
-			return
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
 	for(var/obj/item/pipe/P in T)

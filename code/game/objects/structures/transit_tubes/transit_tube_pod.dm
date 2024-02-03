@@ -73,16 +73,14 @@
 		empty_pod()
 
 /obj/structure/transit_tube_pod/screwdriver_act(mob/living/user, obj/item/I)
-	var/turf/T = src.loc
-	var/obj/structure/construction/transit_tube/pod/P = new(T)
+	var/obj/structure/construction/transit_tube/pod/P = new(get_turf(src))
 	P.dir = dir
-	to_chat(user, "You uninstall [src].")
+	to_chat(user, "<span class='notice'>You uninstall [src].</span>")
 	qdel(src)
 
 /obj/structure/transit_tube/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	to_chat(user, "<span class='notice'>You must uninstall [src] before disassembling it!</span>")
-	return
 
 /obj/structure/transit_tube_pod/process()
 	..()
