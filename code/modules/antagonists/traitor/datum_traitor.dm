@@ -113,16 +113,16 @@
 		organisation = new /datum/antag_org/syndicate/gorlex
 		return // Hijack should be their only objective (normally), so return.
 
-	var/i = 0
+	var/iteration = 0
 	//If our org has a forced objective, give it to us guaranteed.
 	if(organisation && organisation.forced_objective)
 		add_antag_objective(organisation.forced_objective)
-		i++
+		iteration++
 
 	// Will give objectives from our org or random objectives.
-	while(i < GLOB.configuration.gamemode.traitor_objectives_amount)
+	while(iteration < GLOB.configuration.gamemode.traitor_objectives_amount)
 		forge_single_human_objective()
-		i++
+		iteration++
 
 	// Give them an escape objective if they don't have one already.
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
