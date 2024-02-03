@@ -74,8 +74,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	set desc = "Display a list of vocal words to announce to the crew."
 	set category = "AI Commands"
 
-	var/static/string_dat
-	if(!string_dat)
+	if(!ai_announcement_string_menu)
 		var/list/dat = list()
 
 		dat += "Here is a list of words you can type into the 'Announcement' button to create sentences to vocally announce to everyone on the same level at you.<BR> \
@@ -90,10 +89,10 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 		dat += "<hr>"
 		dat += help_format(vox_words)
 
-		string_dat = dat.Join("")
+		ai_announcement_string_menu = dat.Join("")
 
 	var/datum/browser/popup = new(src, "announce_help", "Announcement Help", 500, 400)
-	popup.set_content(string_dat)
+	popup.set_content(ai_announcement_string_menu)
 	popup.open()
 
 /mob/living/silicon/ai/proc/help_format(word_list)

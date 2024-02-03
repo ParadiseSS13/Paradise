@@ -122,6 +122,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/stored_locations = list()
 	var/cracked_camera = FALSE // will be true if malf AI break its camera
 
+	/// The cached AI annoucement help menu.
+	var/ai_announcement_string_menu
+
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
 	verbs |= silicon_subsystems
