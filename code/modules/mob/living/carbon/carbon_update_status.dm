@@ -24,6 +24,7 @@
 	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= HEALTH_THRESHOLD_CRIT && !stat)
 		enter_stamcrit()
 	else if(stam_paralyzed)
+		SEND_SIGNAL(src, COMSIG_CARBON_EXIT_STAMINACRIT)
 		stam_paralyzed = FALSE
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "stam_crit") // make defines later
 		REMOVE_TRAIT(src, TRAIT_FLOORED, "stam_crit")
