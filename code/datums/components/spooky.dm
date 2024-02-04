@@ -8,7 +8,7 @@
 	if(ishuman(user)) //this weapon wasn't meant for mortals.
 		var/mob/living/carbon/human/U = user
 		if(!istype(U.dna.species, /datum/species/skeleton))
-			U.adjustStaminaLoss(35) //Extra Damage
+			U.apply_damage(35, STAMINA) //Extra Damage
 			U.Jitter(70 SECONDS)
 			U.SetStuttering(40 SECONDS)
 			if(U.getStaminaLoss() > 95)
@@ -23,7 +23,7 @@
 		C.Jitter(70 SECONDS)
 		C.SetStuttering(40 SECONDS)
 		if(!istype(H.dna.species, /datum/species/diona) && !istype(H.dna.species, /datum/species/machine) && !istype(H.dna.species, /datum/species/slime) && !istype(H.dna.species, /datum/species/golem) && !istype(H.dna.species, /datum/species/plasmaman))
-			C.adjustStaminaLoss(25) //boneless humanoids don't lose the will to live
+			C.apply_damage(25, STAMINA) //boneless humanoids don't lose the will to live
 		to_chat(C, "<font color='red' size='4'><B>DOOT</B></font>")
 		spectral_change(H)
 

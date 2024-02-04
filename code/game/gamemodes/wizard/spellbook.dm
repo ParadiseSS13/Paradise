@@ -556,7 +556,7 @@
 
 /datum/spellbook_entry/item/staffchaos
 	name = "Staff of Chaos"
-	desc = "A caprious tool that can fire all sorts of magic without any rhyme or reason. Using it on people you care about is not recommended."
+	desc = "A curious staff firing bolts of chaotic energy. Any life struck will be the victim of a random effect, usually harming them. No effect on dead targets."
 	item_path = /obj/item/gun/magic/staff/chaos
 	category = "Staves"
 

@@ -927,10 +927,10 @@
 		log_say("(TPATH to [key_name(target)]) [say]", user)
 		user.create_log(SAY_LOG, "Telepathically said '[say]' using [src]", target)
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))
-			target.show_message("<span class='abductor'>You hear [user.real_name]'s voice: [say]</span>")
+			target.show_message("<i><span class='abductor'>You hear [user.real_name]'s voice: [say]</span></i>")
 		else
-			target.show_message("<span class='abductor'>You hear a voice that seems to echo around the room: [say]</span>")
-		user.show_message("<span class='abductor'>You project your mind into [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"]: [say]</span>")
+			target.show_message("<i><span class='abductor'>You hear a voice that seems to echo around the room: [say]</span></i>")
+		user.show_message("<i><span class='abductor'>You project your mind into [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"]: [say]</span></i>")
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			G.show_message("<i>Telepathic message from <b>[user]</b> ([ghost_follow_link(user, ghost=G)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]</i>")
 
@@ -954,8 +954,8 @@
 		var/message = "You feel your mind expand briefly... (Click to send a message.)"
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			message = "You feel [user.real_name] request a response from you... (Click here to project mind.)"
-		user.show_message("<span class='abductor'>You offer your mind to [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"].</span>")
-		target.show_message("<span class='abductor'><A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span>")
+		user.show_message("<i><span class='abductor'>You offer your mind to [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"].</span></i>")
+		target.show_message("<i><span class='abductor'><A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span></i>")
 		available_targets += target
 		addtimer(CALLBACK(src, PROC_REF(removeAvailability), target), 100)
 
@@ -963,7 +963,7 @@
 	if(target in available_targets)
 		available_targets -= target
 		if(!(target in available_targets))
-			target.show_message("<span class='abductor'>You feel the sensation fade...</span>")
+			target.show_message("<i><span class='abductor'>You feel the sensation fade...</span></i>")
 
 /obj/effect/proc_holder/spell/mindscan/Topic(href, href_list)
 	var/mob/living/user
@@ -983,10 +983,10 @@
 		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))
-			target.show_message("<span class='abductor'>You project your mind into [user.name]: [say]</span>")
+			target.show_message("<i><span class='abductor'>You project your mind into [user.name]: [say]</span></i>")
 		else
-			target.show_message("<span class='abductor'>You fill the space in your thoughts: [say]</span>")
-		user.show_message("<span class='abductor'>You hear [target.name]'s voice: [say]</span>")
+			target.show_message("<i><span class='abductor'>You fill the space in your thoughts: [say]</span></i>")
+		user.show_message("<i><span class='abductor'>You hear [target.name]'s voice: [say]</span></i>")
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			G.show_message("<i>Telepathic response from <b>[target]</b> ([ghost_follow_link(target, ghost=G)]) to <b>[user]</b> ([ghost_follow_link(user, ghost=G)]): [say]</i>")
 

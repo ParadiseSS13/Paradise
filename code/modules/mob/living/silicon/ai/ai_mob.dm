@@ -77,6 +77,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/machinery/power/apc/malfhack = null
 	var/explosive = 0 //does the AI explode when it dies?
 
+	///Whether or not the AI has upgraded their turrets
+	var/turrets_upgraded = FALSE
+
 	/// List of modules the AI has purchased malf upgrades for.
 	var/list/purchased_modules = list()
 

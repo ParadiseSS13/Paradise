@@ -497,7 +497,7 @@
 
 /mob/living/carbon/human/defile()
 	to_chat(src, "<span class='warning'>You suddenly feel [pick("sick and tired", "tired and confused", "nauseated", "dizzy")].</span>")
-	adjustStaminaLoss(60)
+	apply_damage(60, STAMINA)
 	adjustToxLoss(5)
 	AdjustConfused(40 SECONDS, bound_lower = 0, bound_upper = 60 SECONDS)
 	new /obj/effect/temp_visual/revenant(loc)
