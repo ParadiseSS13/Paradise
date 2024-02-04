@@ -43,6 +43,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		var/datum/mind/changeling = pick_n_take(possible_changelings)
 		pre_changelings += changeling
 		changeling.restricted_roles = restricted_jobs
+		changeling.single_antag_positions = single_antag_positions
 		changeling.special_role = SPECIAL_ROLE_CHANGELING
 
 	if(!length(pre_changelings))

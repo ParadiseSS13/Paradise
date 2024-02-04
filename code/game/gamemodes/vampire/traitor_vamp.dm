@@ -36,6 +36,7 @@
 			pre_vampires += vampire
 			vampire.special_role = SPECIAL_ROLE_VAMPIRE
 			vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
+			vampire.single_antag_positions = single_antag_positions
 		..()
 		return 1
 	else

@@ -55,6 +55,7 @@
 		if(istype(traitor))
 			traitor.special_role = SPECIAL_ROLE_TRAITOR
 			traitor.restricted_roles = restricted_jobs
+			traitor.single_antag_positions = single_antag_positions
 
 //	if(!traitors.len)
 //		return 0

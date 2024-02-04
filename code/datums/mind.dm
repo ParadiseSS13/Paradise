@@ -50,6 +50,9 @@
 	var/list/datum/objective/special_verbs = list()
 	var/list/targets = list()
 
+	/// Jobs that should only be able to roll antagonist once.
+	var/list/single_antag_positions = list()
+
 	/// Tracks if this mind has been a rev or not
 	var/has_been_rev = FALSE
 
