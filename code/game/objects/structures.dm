@@ -77,7 +77,7 @@
 	if(!isturf(loc))
 		return FALSE
 
-	if(HAS_TRAIT(user, TRAIT_TABLE_LEAP))
+	if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
 		user.visible_message("<span class='warning'>[user] gets ready to vault up onto [src]!</span>")
 		if(!do_after(user, 0.5 SECONDS, target = src))
 			return FALSE
@@ -91,7 +91,7 @@
 
 	user.forceMove(get_turf(src))
 	if(get_turf(user) == get_turf(src))
-		if(HAS_TRAIT(user, TRAIT_TABLE_LEAP))
+		if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
 			user.visible_message("<span class='warning'>[user] leaps up onto [src]!</span>")
 		else
 			user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
