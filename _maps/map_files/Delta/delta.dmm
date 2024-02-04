@@ -233,7 +233,7 @@
 /area/station/hallway/primary/central)
 "adt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
+	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
@@ -954,6 +954,21 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry)
+"ahQ" = (
+/obj/machinery/airlock_controller/air_cycler{
+	pixel_y = -25;
+	vent_link_id = "enginen_vent";
+	ext_door_link_id = "enginen_door_ext";
+	int_door_link_id = "enginen_door_int";
+	ext_button_link_id = "enginen_btn_ext";
+	int_button_link_id = "enginen_btn_int"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	autolink_id = "enginen_vent"
+	},
+/turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
 "ahV" = (
 /obj/item/kirbyplants,
@@ -36233,6 +36248,9 @@
 	pixel_x = -32
 	},
 /obj/machinery/light/small,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -48741,7 +48759,7 @@
 "cDb" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
-	name = "MiniSat External Access"
+	name = "MiniSat Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/structure/cable{
@@ -61371,7 +61389,7 @@
 /area/station/service/chapel)
 "dyW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -66269,6 +66287,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
+/obj/machinery/access_button{
+	autolink_id = "enginen_btn_ext";
+	name = "exterior access button";
+	pixel_x = 20;
+	pixel_y = 20;
+	req_access_txt = "10;13"
+	},
 /turf/space,
 /area/space/nearstation)
 "dWc" = (
@@ -67401,7 +67426,7 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -68364,6 +68389,15 @@
 	icon_state = "neutralfull"
 	},
 /area/station/public/fitness)
+"eKO" = (
+/obj/machinery/door/airlock/external{
+	name = "Arrival Airlock"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry)
 "eKP" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/disposalpipe/segment{
@@ -69035,7 +69069,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
+	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -69773,6 +69807,13 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
+	},
+/obj/machinery/access_button{
+	autolink_id = "engines_btn_int";
+	name = "interior access button";
+	pixel_x = -20;
+	pixel_y = -20;
+	req_access_txt = "10;13"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
@@ -80136,7 +80177,7 @@
 /area/station/command/office/hos)
 "myx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
+	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -80679,6 +80720,35 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
+"mPU" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/machinery/airlock_controller/air_cycler{
+	pixel_y = -57;
+	req_access_txt = "10;13";
+	vent_link_id = "enginen_vent";
+	ext_door_link_id = "enginen_door_ext";
+	int_door_link_id = "enginen_door_int";
+	ext_button_link_id = "enginen_btn_ext";
+	int_button_link_id = "enginen_btn_int"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/ai_transit_tube)
 "mQk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -80959,7 +81029,7 @@
 /area/station/security/permabrig)
 "mUR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
@@ -81358,6 +81428,12 @@
 /obj/item/clothing/mask/gas,
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
+"nii" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/station/command/office/ce)
 "nij" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -85457,7 +85533,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
+	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -86102,6 +86178,12 @@
 	name = "port bay 4 at Kerberos";
 	width = 9
 	},
+/obj/machinery/access_button{
+	autolink_id = "enginen_btn_ext";
+	name = "exterior access button";
+	pixel_x = 23;
+	pixel_y = -23
+	},
 /turf/space,
 /area/space)
 "qcR" = (
@@ -86433,6 +86515,7 @@
 	},
 /area/station/command/bridge)
 "qtk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "arrival"
@@ -88424,7 +88507,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 6
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/medical/virology)
@@ -88599,7 +88682,7 @@
 	color = "#009dff"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -91002,6 +91085,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
+/obj/machinery/door/airlock/external{
+	name = "MiniSat Access"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
 "sXr" = (
@@ -92181,13 +92272,11 @@
 	},
 /area/station/security/warden)
 "tOv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/station/security/permabrig)
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry)
 "tOM" = (
 /obj/machinery/power/apc{
 	name = "south bump";
@@ -94412,10 +94501,23 @@
 	},
 /area/station/security/main)
 "vcx" = (
-/obj/effect/spawner/airlock/e_to_w/engineer{
-	req_access_txt = 13
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/turf/simulated/wall,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/door/airlock/external{
+	name = "MiniSat Access"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
 "vdI" = (
 /obj/machinery/keycard_auth{
@@ -97086,6 +97188,10 @@
 /obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "arrival"
@@ -97521,6 +97627,16 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/access_button{
+	autolink_id = "engines_btn_int";
+	name = "interior access button";
+	pixel_x = -25;
+	pixel_y = -25
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10;
+	initialize_directions = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "xcR" = (
@@ -98831,6 +98947,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"xQX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry)
 "xRk" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Checkpoint Maintenance"
@@ -120485,8 +120608,8 @@ bEI
 bGv
 bwN
 qGf
-sWx
 vcx
+qGf
 qGf
 abj
 giK
@@ -120742,7 +120865,7 @@ bEK
 bGw
 bwN
 bJZ
-sWx
+mPU
 bVt
 qGf
 bZf
@@ -122026,7 +122149,7 @@ bDl
 bGt
 bgJ
 bgJ
-bgJ
+nii
 bgJ
 bgJ
 bgJ
@@ -130446,7 +130569,7 @@ aaa
 aaa
 abj
 grB
-aeN
+ahQ
 grB
 aaa
 aaa
@@ -130703,7 +130826,7 @@ grB
 grB
 adb
 grB
-oMA
+eKO
 grB
 adb
 adb
@@ -130961,9 +131084,9 @@ agA
 agg
 adZ
 xcL
-amL
+tOv
 qtk
-aou
+xQX
 wSO
 adb
 aaa
@@ -151552,7 +151675,7 @@ ygH
 uUu
 kju
 aKU
-tOv
+aOX
 nFh
 aSj
 aTH
