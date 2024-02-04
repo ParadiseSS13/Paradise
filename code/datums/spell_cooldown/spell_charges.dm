@@ -49,7 +49,7 @@
 	..()
 	charge_time = world.time
 
-/datum/spell_cooldown/charges/statpanel_info()
+/datum/spell_cooldown/charges/cooldown_info()
 	var/charge_string = charge_duration != 0 ? round(min(1, (charge_duration - (charge_time - world.time)) / charge_duration), 0.01) * 100 : 100 // need this for possible 0 charge duration
 	var/recharge_string = recharge_duration != 0 ? round(min(1, (recharge_duration - (recharge_time - world.time)) / recharge_duration), 0.01) * 100 : 100
 	return "[charge_string != 100 ? "[charge_string]%\n" : ""][recharge_string != 100 ? "[recharge_string]%\n" : ""][current_charges]/[max_charges]"

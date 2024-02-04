@@ -17,7 +17,7 @@
 #define PREFTOGGLE_CHAT_DEAD				2
 #define PREFTOGGLE_CHAT_GHOSTEARS			4
 #define PREFTOGGLE_CHAT_GHOSTSIGHT			8
-#define PREFTOGGLE_CHAT_PRAYER				16
+#define PREFTOGGLE_CHAT_PRAYER				16 // Defunct
 #define PREFTOGGLE_CHAT_RADIO				32
 #define PREFTOGGLE_AZERTY					64 // obsolete
 #define PREFTOGGLE_CHAT_DEBUGLOGS 			128
@@ -78,6 +78,20 @@
 #error toggles_2 bitflag over 16777215. Please make an issue report and postpone the feature you are working on.
 #endif
 
+#define PREFTOGGLE_CATEGORY_GENERAL		1
+#define PREFTOGGLE_CATEGORY_LIVING		2
+#define PREFTOGGLE_CATEGORY_GHOST		3
+#define PREFTOGGLE_CATEGORY_ADMIN		4
+
+// Preftoggle type defines
+/// Special toggles, stuff that just overrides set_toggles entirely
+#define PREFTOGGLE_SPECIAL		0
+/// Interacts with the sound bitflag
+#define PREFTOGGLE_SOUND		1
+/// Interacts with the toggles bitflag
+#define PREFTOGGLE_TOGGLE1		2
+/// Interacts with the toggles2 bitflag
+#define PREFTOGGLE_TOGGLE2		3
 
 
 // Admin attack logs filter system, see /proc/add_attack_logs and /proc/msg_admin_attack
@@ -129,6 +143,7 @@
 #define TAB_GAME 1
 #define TAB_GEAR 2
 #define TAB_KEYS 3
+#define TAB_TOGGLES 4
 
 // Colourblind modes
 #define COLOURBLIND_MODE_NONE "None"

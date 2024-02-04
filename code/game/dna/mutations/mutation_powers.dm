@@ -280,7 +280,6 @@
 /obj/effect/proc_holder/spell/cryokinesis
 	name = "Cryokinesis"
 	desc = "Drops the bodytemperature of another person."
-	panel = "Abilities"
 
 	base_cooldown = 1200
 
@@ -351,7 +350,6 @@
 /obj/effect/proc_holder/spell/eat
 	name = "Eat"
 	desc = "Eat just about anything!"
-	panel = "Abilities"
 
 	base_cooldown = 300
 
@@ -456,8 +454,6 @@
 /obj/effect/proc_holder/spell/leap
 	name = "Jump"
 	desc = "Leap great distances!"
-	panel = "Abilities"
-
 	base_cooldown = 60
 
 	clothes_req = FALSE
@@ -549,7 +545,6 @@
 /obj/effect/proc_holder/spell/polymorph
 	name = "Polymorph"
 	desc = "Mimic the appearance of others!"
-	panel = "Abilities"
 	base_cooldown = 1800
 
 	clothes_req = FALSE
@@ -711,7 +706,6 @@
 /obj/effect/proc_holder/spell/morph
 	name = "Morph"
 	desc = "Mimic the appearance of your choice!"
-	panel = "Abilities"
 	base_cooldown = 1800
 
 	clothes_req = FALSE

@@ -166,6 +166,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GAME]' [current_tab == TAB_GAME ? "class='linkOn'" : ""]>Game Preferences</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GEAR]' [current_tab == TAB_GEAR ? "class='linkOn'" : ""]>Loadout</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_KEYS]' [current_tab == TAB_KEYS ? "class='linkOn'" : ""]>Key Bindings</a>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_TOGGLES]' [current_tab == TAB_TOGGLES ? "class='linkOn'" : ""]>General Preferences</a>"
 	dat += "</center>"
 	dat += "<HR>"
 
@@ -463,6 +464,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[ERROR]</b></font><br>"
 					else
 						dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;role=[i]'><b>[(i in src.be_special) ? "Yes" : "No"]</b></a><br>"
+
+			dat += "<h2>Total Playtime:</h2>"
+			if(!GLOB.configuration.jobs.enable_exp_tracking)
+				dat += "<span class='warning'>Playtime tracking is not enabled.</span>"
+			else
+				dat += "<b>Your [EXP_TYPE_CREW] playtime is [user.client.get_exp_type(EXP_TYPE_CREW)]<br>"
 			dat += "</td></tr></table>"
 
 		if(TAB_GEAR)
@@ -573,6 +580,46 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<tr><td colspan=4><br></td></tr>"
 
 			dat += "</table>"
+
+		if(TAB_TOGGLES)
+			dat += "<div align='center'><b>Preference Toggles:&nbsp;</b>"
+
+			dat += "<table align='center' width='100%'>"
+
+			// Lookup lists to make our life easier
+			var/static/list/pref_toggles_by_category
+			if(!pref_toggles_by_category)
+				pref_toggles_by_category = list()
+				for(var/datum/preference_toggle/toggle as anything in GLOB.preference_toggles)
+					pref_toggles_by_category["[toggle.preftoggle_category]"] += list(toggle)
+
+			for(var/category in GLOB.preference_toggle_groups)
+				dat += "<tr><td colspan=4><hr></td></tr>"
+				dat += "<tr><td colspan=3><h2>[category]</h2></td></tr>"
+				for(var/datum/preference_toggle/toggle as anything in pref_toggles_by_category["[GLOB.preference_toggle_groups[category]]"])
+					dat += "<tr>"
+					dat += "<td style='width: 25%'>[toggle.name]</td>"
+					dat += "<td style='width: 45%'>[toggle.description]</td>"
+					switch(toggle.preftoggle_toggle)
+						if(PREFTOGGLE_SPECIAL)
+							dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>Adjust</a></td>"
+						if(PREFTOGGLE_TOGGLE1)
+							dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+						if(PREFTOGGLE_TOGGLE2)
+							dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles2 & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+						if(PREFTOGGLE_SOUND)
+							dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(sound & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+					if(toggle.preftoggle_category == PREFTOGGLE_CATEGORY_ADMIN)
+						if(!check_rights(toggle.rights_required, 0, (user)))
+							dat += "</tr>"
+							dat += "<tr>"
+							dat += "<td><b>The use of this preference is restricted to admin level.</b></td>"
+							dat += "</tr>"
+							continue
+						dat += "</tr>"
+						dat += "<tr>"
+					dat += "</tr>"
+				dat += "<tr><td colspan=4><br></td></tr>"
 
 
 	dat += "<hr><center>"

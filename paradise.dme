@@ -179,6 +179,7 @@
 #include "code\_globalvars\lists\mob_lists.dm"
 #include "code\_globalvars\lists\names.dm"
 #include "code\_globalvars\lists\objects.dm"
+#include "code\_globalvars\lists\preference_toggle_lists.dm"
 #include "code\_globalvars\lists\reagents_lists.dm"
 #include "code\_globalvars\lists\typecache.dm"
 #include "code\_onclick\adjacent.dm"

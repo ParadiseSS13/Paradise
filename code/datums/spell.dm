@@ -74,7 +74,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell
 	name = "Spell" // Only rename this if the spell you're making is not abstract
 	desc = "A wizard spell"
-	panel = "Spells"//What panel the proc holder needs to go on.
 	density = FALSE
 	opacity = FALSE
 
