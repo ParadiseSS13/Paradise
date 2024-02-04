@@ -112,6 +112,8 @@
 
 	if(!show_blurb_to.mob)
 		return
+	if(!show_blurb_to)
+		return
 	SEND_SOUND(show_blurb_to, sound('sound/machines/typewriter.ogg'))
 
 	var/obj/screen/text/blurb/location_blurb = new()
@@ -144,11 +146,11 @@
 	if(!length(GLOB.clients))
 		return
 
-	var/obj/screen/text/blurb/server_restart_blurp = new()
-	server_restart_blurp.text_color = COLOR_RED
-	server_restart_blurp.blurb_text = "Round is restarting...\n[reason]"
-	server_restart_blurp.hold_for = 90 SECONDS
-	server_restart_blurp.appear_animation_duration = 1 SECONDS
-	server_restart_blurp.fade_animation_duration = 0.5 SECONDS
+	var/obj/screen/text/blurb/server_restart_blurb = new()
+	server_restart_blurb.text_color = COLOR_RED
+	server_restart_blurb.blurb_text = "Round is restarting...\n[reason]"
+	server_restart_blurb.hold_for = 90 SECONDS
+	server_restart_blurb.appear_animation_duration = 1 SECONDS
+	server_restart_blurb.fade_animation_duration = 0.5 SECONDS
 
-	server_restart_blurp.show_to(GLOB.clients)
+	server_restart_blurb.show_to(GLOB.clients)
