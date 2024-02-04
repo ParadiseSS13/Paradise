@@ -491,7 +491,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	log_game("[key_name(owner)] has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].")
 
 /obj/item/organ/internal/vocal_cords/colossus/wizard
-	desc = "They carry the voice of an ancient god. This one is enchanted to implant it into yourself when used in hand"
+	desc = "They carry the voice of an ancient god. This one is enchanted to implant it into yourself when used in hand."
 
 /obj/item/organ/internal/vocal_cords/colossus/wizard/attack_self(mob/living/user)
 	user.drop_item()
