@@ -161,13 +161,13 @@
 		return
 
 	the_event.category = category
-	if (!isnull(mood_to_copy_from))
+	if(!isnull(mood_to_copy_from))
 		the_event.timeout = mood_to_copy_from.timeout
 	qdel(mood_to_copy_from)
 	mood_events[category] = the_event
 	update_mood()
 
-	if (the_event.timeout)
+	if(the_event.timeout)
 		addtimer(CALLBACK(src, PROC_REF(clear_mood_event), category), the_event.timeout, (TIMER_UNIQUE|TIMER_OVERRIDE))
 
 /**
