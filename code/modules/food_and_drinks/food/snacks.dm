@@ -40,10 +40,6 @@
 		user.unEquip(src)	//so icons update :[
 		if(isliving(user))
 			var/mob/living/food_taster = user
-			if(foodtypes & food_taster.dna.species.foodliked)
-				food_taster.add_mood_event("quality_food", /datum/mood_event/favorite_food)
-			if(foodtypes & food_taster.dna.species.fooddisliked)
-				food_taster.add_mood_event("quality_food", /datum/mood_event/disgusting_food)
 			switch(quality)
 				if (FOOD_QUALITY_NORMAL)
 					food_taster.add_mood_event("quality_food", /datum/mood_event/food/nice)
@@ -57,6 +53,11 @@
 					food_taster.add_mood_event("quality_food", /datum/mood_event/food/amazing)
 				if (FOOD_QUALITY_TOP)
 					food_taster.add_mood_event("quality_food", /datum/mood_event/food/top)
+			if(!isnull(food_taster.dna) && !isnull(food_taster.dna.species))
+				if(foodtypes & food_taster.dna.species.foodliked)
+					food_taster.add_mood_event("quality_food", /datum/mood_event/favorite_food)
+				if(foodtypes & food_taster.dna.species.fooddisliked)
+					food_taster.add_mood_event("quality_food", /datum/mood_event/disgusting_food)
 		Post_Consume(M)
 		var/obj/item/trash_item = generate_trash(usr)
 		usr.put_in_hands(trash_item)

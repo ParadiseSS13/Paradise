@@ -432,7 +432,7 @@
 		amount += clamp(minimum - amount, 0, 0.7)
 	if(amount == sanity) //Prevents stuff from flicking around.
 		return
-	sanity = amount
+	sanity = min(amount, maximum)
 	SEND_SIGNAL(mob_parent, COMSIG_CARBON_SANITY_UPDATE, amount)
 	switch(sanity)
 		if(SANITY_INSANE to SANITY_CRAZY)
