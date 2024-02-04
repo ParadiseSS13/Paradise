@@ -43,6 +43,7 @@
 	tastes = list("cake" = 5, "sweetness" = 2, "brains" = 1)
 	quality = FOOD_QUALITY_VERYGOOD
 	foodtypes = GRAIN | VEGETABLES_AND_FRUITS | SUGAR
+	
 /obj/item/food/snacks/braincakeslice
 	name = "brain cake slice"
 	desc = "Lemme tell you something about brains. THEY'RE DELICIOUS."

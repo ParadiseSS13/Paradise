@@ -6,7 +6,6 @@
 	density = FALSE
 	max_integrity = 15
 	var/mob/living/carbon/human/master_commander = null
-	var/beauty = -50
 
 /obj/structure/spider/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type == BURN)//the stickiness of the web mutes all attack sounds except fire damage type
@@ -34,7 +33,7 @@
 /obj/structure/spider/Initialize(mapload)
 	. = ..()
 
-	AddElement(/datum/element/beauty, beauty)
+	AddElement(/datum/element/beauty, -50)
 
 /obj/structure/spider/stickyweb
 	icon_state = "stickyweb1"

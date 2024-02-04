@@ -387,7 +387,7 @@
 	taste_description = "liberation"
 	quality = DRINK_VERYGOOD
 
-/datum/reagent/consumable/drink/milk/reaction_mob(mob/living/M, method, volume, show_message)
+/datum/reagent/consumable/ethanol/cuba_libre/reaction_mob(mob/living/M, method, volume, show_message)
 	. = ..()
 	if(!(method & REAGENT_INGEST) || !(M.mind.has_antag_datum(/datum/antagonist/rev)))
 		return

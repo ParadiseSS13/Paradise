@@ -89,8 +89,7 @@
 	QDEL_NULL(physiology)
 	GLOB.human_list -= src
 	UnregisterSignal(src, COMSIG_BODY_TRANSFER_TO)
-	if(mob_mood)
-		QDEL_NULL(mob_mood)
+	QDEL_NULL(mob_mood)
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"

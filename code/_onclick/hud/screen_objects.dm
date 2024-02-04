@@ -547,7 +547,7 @@
 	icon_state = "mood5"
 	screen_loc = ui_mood
 
-/obj/screen/mood/Click(location,control,params)
+/obj/screen/mood/Click(location, control, params)
 	SEND_SIGNAL(src, COMSIG_CLICK, location, control, params, usr)
 
 /obj/screen/mood/attack_tk()

@@ -9,7 +9,6 @@
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/does_emissive = FALSE
-	var/beauty = 400
 
 /obj/structure/sign/Initialize(mapload)
 	. = ..()
@@ -17,7 +16,7 @@
 		update_icon()
 		set_light(1, LIGHTING_MINIMUM_POWER)
 
-	AddElement(/datum/element/beauty, beauty)
+	AddElement(/datum/element/beauty, 400)
 
 /obj/structure/sign/update_overlays()
 	. = ..()

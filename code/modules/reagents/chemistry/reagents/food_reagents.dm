@@ -21,7 +21,7 @@
 	return ..()
 
 /datum/reagent/consumable/reaction_mob(mob/living/M, method, volume, show_message)
-	if((!is_species(M, /datum/species/vox)))
+	if(!isvox(M))
 		if(quality && method == REAGENT_INGEST)
 			switch(quality)
 				if (DRINK_REVOLTING)

@@ -236,7 +236,7 @@
 
 /datum/reagent/consumable/drink/milk/reaction_mob(mob/living/M, method, volume, show_message)
 	. = ..()
-	if(!(method & REAGENT_INGEST) || !(is_species(M, /datum/species/tajaran)))
+	if(!(method & REAGENT_INGEST) || !istajaran(M))
 		return
 	M.add_mood_event("tajaran_love_milk", /datum/mood_event/tajaran_love_milk)
 
@@ -307,9 +307,9 @@
 
 /datum/reagent/consumable/drink/coffee/reaction_mob(mob/living/M, method, volume, show_message)
 	. = ..()
-	if(!(method & REAGENT_INGEST) || !(is_species(M, /datum/species/unathi)))
+	if(!(method & REAGENT_INGEST) || !isunathi(M))
 		return
-	M.add_mood_event("tajaran_love_milk", /datum/mood_event/love_coffee)
+	M.add_mood_event("unathi_love_coffee", /datum/mood_event/love_coffee)
 
 /datum/reagent/consumable/drink/coffee/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

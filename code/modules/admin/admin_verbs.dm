@@ -564,10 +564,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/admin_add_mood_event(mob/living/T in GLOB.mob_list)
 
-	var/list/mood_events = typesof(/datum/mood_event)
+	var/list/mood_events = subtypesof(/datum/mood_event)
 
 	var/chosen = tgui_input_list(usr, "What mood event?", "Add Mood Event", mood_events)
-	if (!chosen || QDELETED(src) || !check_rights(NONE))
+	if(!chosen || QDELETED(src) || !check_rights(NONE))
 		return
 
 	T.add_mood_event("[rand(1, 50)]", chosen)
@@ -575,13 +575,13 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 /client/proc/admin_remove_mood_event(mob/living/T in GLOB.mob_list)
 
 	var/list/mood_events = list()
-	for (var/category in T.mob_mood.mood_events)
+	for(var/category in T.mob_mood.mood_events)
 		var/datum/mood_event/event = T.mob_mood.mood_events[category]
 		mood_events[event] = category
 
 
 	var/datum/mood_event/chosen = tgui_input_list(usr, "What mood event?", "Remove Mood Event", mood_events)
-	if (!chosen || QDELETED(src) || !check_rights(NONE))
+	if(!chosen || QDELETED(src) || !check_rights(NONE))
 		return
 
 	T.clear_mood_event(mood_events[chosen])
