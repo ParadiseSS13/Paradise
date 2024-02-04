@@ -22,7 +22,7 @@
 	pressure_resistance = 100
 	universal_speak = TRUE
 	AIStatus = AI_OFF //normal constructs don't have AI
-	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
+	loot = list(/obj/item/food/snacks/ectoplasm)
 	del_on_death = TRUE
 	deathmessage = "collapses in a shattered heap."
 	var/construct_type = "shade"
@@ -197,6 +197,9 @@
 
 /mob/living/simple_animal/hostile/construct/wraith/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
+
+/mob/living/simple_animal/hostile/construct/wraith/hostile/bubblegum //Used in bubblegum summoning. Needs MOB_SIZE_LARGE so crushers don't suffer
+	mob_size =	MOB_SIZE_LARGE
 
 /////////////////////////////Artificer/////////////////////////
 

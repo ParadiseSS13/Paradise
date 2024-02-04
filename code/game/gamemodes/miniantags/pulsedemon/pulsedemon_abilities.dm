@@ -137,7 +137,7 @@
 		return FALSE
 	playsound(T, 'sound/magic/lightningshock.ogg', 50, TRUE)
 	O.Beam(target, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 1 SECONDS)
-	for(var/turf/working in getline(O, T))
+	for(var/turf/working in get_line(O, T))
 		for(var/mob/living/L in working)
 			if(!electrocute_mob(L, C.powernet, user)) // give a little bit of non-lethal counterplay against insuls
 				L.Jitter(5 SECONDS)
@@ -441,7 +441,7 @@
 		to_chat(user, "<span class='warning'>You have already fully upgraded everything available!</span>")
 		return FALSE
 
-	var/raw_choice = show_radial_menu(user, isturf(user.loc) ? user : user.loc, upgrades, radius = 48)
+	var/raw_choice = show_radial_menu(user, user, upgrades, radius = 48)
 	if(!raw_choice)
 		return
 	var/choice = splittext(raw_choice, " ")[1]

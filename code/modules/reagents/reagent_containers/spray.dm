@@ -19,6 +19,10 @@
 	possible_transfer_amounts = null
 	var/delay = CLICK_CD_RANGE * 2
 
+/obj/item/reagent_containers/spray/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
+
 /obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)
 	if(isstorage(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
 	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
@@ -75,7 +79,9 @@
 	D.icon += mix_color_from_reagents(D.reagents.reagent_list)
 
 	for(var/i in 1 to spray_currentrange)
-		step_towards(D, A)
+		if(!step_towards(D, A) && i != 1)
+			qdel(D)
+			return
 		D.reagents.reaction(get_turf(D))
 		for(var/atom/T in get_turf(D))
 			D.reagents.reaction(T)
@@ -95,20 +101,24 @@
 	. = ..()
 	if(get_dist(user, src) && user == loc)
 		. += "[round(reagents.total_volume)] units left."
+	. += "<span class='info'><b>Alt-Click</b> to empty it.</span>"
 
-/obj/item/reagent_containers/spray/verb/empty()
-
-	set name = "Empty Spray Bottle"
-	set category = "Object"
-	set src in usr
-	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
+/obj/item/reagent_containers/spray/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
+	if(alert(user, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
 		return
-	if(isturf(usr.loc) && loc == usr)
-		to_chat(usr, "<span class='notice'>You empty [src] onto the floor.</span>")
-		reagents.reaction(usr.loc)
+	if(isturf(user.loc) && loc == user)
+		to_chat(user, "<span class='notice'>You empty [src] onto the floor.</span>")
+		reagents.reaction(user.loc)
 		reagents.clear_reagents()
+
+/obj/item/reagent_containers/spray/empty
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
+	spray_maxrange = 2
+	spray_currentrange = 2
+	amount_per_transfer_from_this = 10
 
 //space cleaner
 /obj/item/reagent_containers/spray/cleaner

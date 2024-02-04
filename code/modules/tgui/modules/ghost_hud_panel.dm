@@ -16,10 +16,13 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 		"diagnostic" = DATA_HUD_DIAGNOSTIC_ADVANCED
 	)
 
-/datum/ui_module/ghost_hud_panel/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.observer_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui)
+/datum/ui_module/ghost_hud_panel/ui_state(mob/user)
+	return GLOB.observer_state
+
+/datum/ui_module/ghost_hud_panel/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "GhostHudPanel", name, 250, 207, master_ui, state)
+		ui = new(user, src, "GhostHudPanel", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -62,14 +65,22 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 				to_chat(ghost, "<span class='danger'>You have been banned from using this feature.</span>")
 				return FALSE
 			// Check if this is the first time they're turning on Antag HUD.
-			if(!check_rights(R_ADMIN | R_MOD, FALSE) && !ghost.has_enabled_antagHUD && GLOB.configuration.general.restrict_antag_hud_rejoin)
+			if(!check_rights(R_ADMIN | R_MOD, FALSE) && !ghost.is_roundstart_observer() && GLOB.configuration.general.restrict_antag_hud_rejoin && !ghost.has_ahudded())
 				var/response = alert(ghost, "If you turn this on, you will not be able to take any part in the round.", "Are you sure you want to enable antag HUD?", "Yes", "No")
 				if(response == "No")
 					return FALSE
 
-				ghost.has_enabled_antagHUD = TRUE
 				ghost.can_reenter_corpse = FALSE
 				REMOVE_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
+				log_admin("[key_name(ghost)] has enabled antaghud as an observer and forfeited respawnability.")
+				message_admins("[key_name(ghost)] has enabled antaghud as an observer and forfeited respawnability.")
+
+
+			else if(ghost.is_roundstart_observer() && !ghost.has_ahudded())
+				log_admin("[key_name(ghost)] has enabled antaghud for the first time as a roundstart observer, keeping respawnability.")
+
+			GLOB.antag_hud_users |= ghost.ckey
+
 
 			ghost.antagHUD = TRUE
 			for(var/datum/atom_hud/antag/H in GLOB.huds)

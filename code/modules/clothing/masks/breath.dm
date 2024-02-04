@@ -26,7 +26,7 @@
 
 /obj/item/clothing/mask/breath/AltClick(mob/user)
 	..()
-	if( (!in_range(src, user)) || user.stat || user.restrained() )
+	if((!in_range(src, user)) || user.stat || user.restrained())
 		return
 	adjustmask(user)
 

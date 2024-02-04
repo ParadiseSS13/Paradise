@@ -96,7 +96,7 @@
 	//Checks for obstacles from A to B
 	var/obj/dummy = new(source.loc)
 	dummy.pass_flags |= PASSTABLE
-	for(var/turf/turf as anything in getline(source, target))
+	for(var/turf/turf as anything in get_line(source, target))
 		for(var/atom/movable/AM in turf)
 			if(!AM.CanPass(dummy, turf, 1))
 				qdel(dummy)

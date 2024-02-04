@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-import sys
 import collections
-from . import dmm, mapmerge
+from . import dmm
 from hooks.merge_frontend import MergeDriver
 
 
@@ -9,6 +8,17 @@ debug_stats = collections.defaultdict(int)
 
 SELECT_LEFT = 'left'
 SELECT_RIGHT = 'right'
+
+
+def make_conflict_marker(typ, name):
+    # Note that if you do not have an object that matches this path in
+    # your DME, the invalid path may be discarded when the map is loaded
+    # into a map editor. To rectify this, either add an object with this
+    # same path, or create a new object/denote an existing object in the
+    # obj_path define.
+    obj_path = f"{typ}/merge_conflict_marker"
+    obj_name = f"Merge Conflict Marker{(': ' + name) if name else ''}"
+    return f'{obj_path}{{name = "{obj_name}"}}'
 
 
 def select(base, left, right, *, debug=None):
@@ -123,36 +133,24 @@ def three_way_merge(base: dmm.DMM, left: dmm.DMM, right: dmm.DMM):
         elif select_movable == SELECT_RIGHT:
             tile += right_movables
         else:
-            # Note that if you do not have an object that matches this path in
-            # your DME, the invalid path may be discarded when the map is loaded
-            # into a map editor. To rectify this, either add an object with this
-            # same path, or create a new object/denote an existing object in the
-            # obj_path define.
-            obj_path = "/obj/merge_conflict_marker"
-            obj_name = "---Merge Conflict Marker---"
-            obj_desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-            tile += left_movables + [f'{obj_path}{{name = "{obj_name}";\n\tdesc = "{obj_desc}"}}'] + right_movables
-            print(f"    Left and right movable groups are split by an `{obj_path}` named \"{obj_name}\"")
+            tile += [make_conflict_marker("/obj", "<<<")] + left_movables + [make_conflict_marker("/obj", "---")] + right_movables + [make_conflict_marker("/obj", ">>>")]
+            print(f"    Left and right movable groups are split by an object conflict marker.")
 
         if select_turf == SELECT_LEFT:
             tile += left_turfs
         elif select_turf == SELECT_RIGHT:
             tile += right_turfs
         else:
-            print(f"    Saving turf: {', '.join(left_turfs)}")
-            print(f"    Alternative: {', '.join(right_turfs)}")
-            print(f"    Original:    {', '.join(base_turfs)}")
-            tile += left_turfs
+            tile += [make_conflict_marker("/turf", "<<<")] + left_turfs + [make_conflict_marker("/turf", "---")] + right_turfs + [make_conflict_marker("/turf", ">>>")]
+            print(f"    Left and right turfs are split by an object conflict marker.")
 
         if select_area == SELECT_LEFT:
             tile += left_areas
         elif select_area == SELECT_RIGHT:
             tile += right_areas
         else:
-            print(f"    Saving area: {', '.join(left_areas)}")
-            print(f"    Alternative: {', '.join(right_areas)}")
-            print(f"    Original:    {', '.join(base_areas)}")
-            tile += left_areas
+            tile += [make_conflict_marker("/area", "<<<")] + left_areas + [make_conflict_marker("/area", "---")] + right_areas + [make_conflict_marker("/area", ">>>")]
+            print(f"    Left and right areas are split by an object conflict marker.")
 
         merged.set_tile(coord, tile)
 

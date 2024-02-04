@@ -22,7 +22,7 @@
 		"[user] begins to cut through [target]'s [affected.encased] with \the [tool].",
 		"You begin to cut through [target]'s [affected.encased] with \the [tool]."
 	)
-	target.custom_pain("Something hurts horribly in your [affected.name]!")
+	affected.custom_pain("Something hurts horribly in your [affected.name]!")
 	return ..()
 
 /datum/surgery_step/open_encased/saw/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -67,7 +67,7 @@
 		"[user] starts to force open the [affected.encased] in [target]'s [affected.name] with \the [tool].",
 		"You start to force open the [affected.encased] in [target]'s [affected.name] with \the [tool]."
 	)
-	target.custom_pain("Something hurts horribly in your [affected.name]!")
+	affected.custom_pain("Something hurts horribly in your [affected.name]!")
 	return ..()
 
 /datum/surgery_step/open_encased/retract/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -113,7 +113,7 @@
 		"[user] starts bending [target]'s [affected.encased] back into place with \the [tool].",
 		"You start bending [target]'s [affected.encased] back into place with \the [tool]."
 	)
-	target.custom_pain("Something hurts horribly in your [affected.name]!")
+	affected.custom_pain("Something hurts horribly in your [affected.name]!")
 	return ..()
 
 /datum/surgery_step/open_encased/close/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -155,7 +155,7 @@
 		"[user] starts applying \the [tool] to [target]'s [affected.encased].",
 		"You start applying \the [tool] to [target]'s [affected.encased]."
 	)
-	target.custom_pain("Something hurts horribly in your [affected.name]!")
+	affected.custom_pain("Something hurts horribly in your [affected.name]!")
 	return ..()
 
 /datum/surgery_step/open_encased/mend/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

@@ -224,15 +224,17 @@
 			return TRUE
 	return FALSE
 
-/obj/structure/transit_tube/station/dispenser/Bumped(atom/movable/AM)
-	if(!(istype(AM) && AM.dir == boarding_dir) || AM.anchored)
+/obj/structure/transit_tube/station/dispenser/Bumped(mob/living/L)
+	if(!(istype(L) && L.dir == boarding_dir) || L.anchored)
 		return
-	var/obj/structure/transit_tube_pod/dispensed/pod = new(loc)
-	AM.visible_message("<span class='notice'>[pod] forms around [AM].</span>", "<span class='notice'>[pod] materializes around you.</span>")
-	playsound(src, 'sound/weapons/emitter2.ogg', 50, TRUE)
-	pod.dir = turn(dir, -90)
-	pod.move_into(AM)
-	launch_pod()
+
+	if(isliving(L) && !is_type_in_list(L, disallowed_mobs))
+		var/obj/structure/transit_tube_pod/dispensed/pod = new(loc)
+		L.visible_message("<span class='notice'>[pod] forms around [L].</span>", "<span class='notice'>[pod] materializes around you.</span>")
+		playsound(src, 'sound/weapons/emitter2.ogg', 50, TRUE)
+		pod.dir = turn(dir, -90)
+		pod.move_into(L)
+		launch_pod()
 
 /obj/structure/transit_tube/station/dispenser/pod_stopped(obj/structure/transit_tube_pod/pod)
 	playsound(src, 'sound/machines/ding.ogg', 50, TRUE)

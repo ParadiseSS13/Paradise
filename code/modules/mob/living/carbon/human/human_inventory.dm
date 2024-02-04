@@ -87,7 +87,7 @@
 			unEquip(l_store, 1)
 		if(wear_id)
 			unEquip(wear_id)
-		if(belt)
+		if(belt && !(belt.flags_2 & ALLOW_BELT_NO_JUMPSUIT_2))
 			unEquip(belt)
 		w_uniform = null
 		update_inv_w_uniform()
@@ -167,9 +167,6 @@
 		l_hand = null
 		update_inv_l_hand()
 	update_action_buttons_icon()
-
-
-
 
 //This is an UNSAFE proc. Use mob_can_equip() before calling this one! Or rather use equip_to_slot_if_possible() or advanced_equip_to_slot_if_possible()
 // Initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
@@ -447,6 +444,11 @@
 	var/obj/item/storage/equipped_item = get_item_by_slot(slot_item)
 	if(ismecha(loc) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
+	if(ismodcontrol(equipped_item)) // Check if the item is a MODsuit
+		if(thing && equipped_item.can_be_inserted(thing)) // Check if the item can be inserted into the MODsuit
+			equipped_item.handle_item_insertion(thing) // Insert the item into the MODsuit
+			playsound(loc, "rustle", 50, TRUE, -5)
+			return
 	if(!istype(equipped_item)) // We also let you equip things like this
 		equip_to_slot_if_possible(thing, slot_item)
 		return

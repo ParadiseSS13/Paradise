@@ -44,10 +44,13 @@
 
 	return data
 
-/datum/song/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, parent, ui_key, ui, force_open)
+/datum/song/ui_state(mob/user)
+	return GLOB.default_state
+
+/datum/song/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, parent, ui)
 	if(!ui)
-		ui = new(user, parent, ui_key, "Instrument", parent?.name || "Instrument", 700, 500)
+		ui = new(user, parent, "Instrument", parent?.name || "Instrument")
 		ui.open()
 		ui.set_autoupdate(FALSE) // NO!!! Don't auto-update this!!
 
@@ -61,7 +64,7 @@
 		if("import")
 			var/t = ""
 			do
-				t = html_encode(input(usr, "Please paste the entire song, formatted:", text("[]", name), t)  as message)
+				t = html_encode(input(usr, "Please paste the entire song, formatted:", "[name]", t)  as message)
 				if(!in_range(parent, usr))
 					return
 

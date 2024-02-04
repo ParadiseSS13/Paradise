@@ -142,11 +142,14 @@
 	if(A == beaker)
 		beaker = null
 
-/obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/chem_dispenser/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/chem_dispenser/ui_interact(mob/user, datum/tgui/ui = null)
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ChemDispenser", ui_title, 390, 655)
+		ui = new(user, src, "ChemDispenser", ui_title)
 		ui.open()
 
 /obj/machinery/chem_dispenser/ui_data(mob/user)
@@ -237,23 +240,25 @@
 	if(isrobot(user))
 		return
 
-	if(beaker)
-		to_chat(user, "<span class='warning'>Something is already loaded into the machine.</span>")
-		return
-
-	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks)) && user.a_intent != INTENT_HARM)
+	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks)) && user.a_intent != INTENT_HARM)
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
-		beaker =  I
 		I.forceMove(src)
-		to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
+		if(beaker)
+			user.put_in_hands(beaker)
+			to_chat(user, "<span class='notice'>You swap [I] with [beaker].</span>")
+		else
+			to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
+		beaker = I
+
 		SStgui.update_uis(src) // update all UIs attached to src
 		update_icon(UPDATE_ICON_STATE)
 		return
+
 	return ..()
 
 /obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)
@@ -292,14 +297,7 @@
 
 /obj/machinery/chem_dispenser/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
-		return
-	if(anchored)
-		anchored = FALSE
-		WRENCH_UNANCHOR_MESSAGE
-	else if(!anchored)
-		anchored = TRUE
-		WRENCH_ANCHOR_MESSAGE
+	default_unfasten_wrench(user, I, 4 SECONDS)
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user)
 	return attack_hand(user)
@@ -337,7 +335,7 @@
 	ui_title = "Soda Dispens-o-matic"
 	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
 	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
-	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
+	"watermelonjuice", "pineapplejuice", "cream", "berryjuice")
 	upgrade_reagents = list("bananahonk", "milkshake", "cafe_latte", "cafe_mocha", "triple_citrus", "icecoffe","icetea")
 	hacked_reagents = list("thirteenloko")
 	hack_message = "You change the mode from 'McNano' to 'Pizza King'."
@@ -468,10 +466,13 @@
 		to_chat(user, "<span class='warning'>[src] lacks a power cell!</span>")
 
 
-/obj/item/handheld_chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/handheld_chem_dispenser/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/handheld_chem_dispenser/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "HandheldChemDispenser", name, 390, 500)
+		ui = new(user, src, "HandheldChemDispenser", name)
 		ui.open()
 
 /obj/item/handheld_chem_dispenser/ui_data(mob/user)
@@ -599,7 +600,7 @@
 	is_drink = TRUE
 	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
 	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
-	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
+	"watermelonjuice", "pineapplejuice", "cream", "berryjuice")
 
 /obj/item/handheld_chem_dispenser/botanical
 	name = "handheld botanical chemical dispenser"

@@ -3,11 +3,6 @@
 	~Sayu
 */
 
-
-// THESE DO NOT AFFECT THE BASE 1 DECISECOND DELAY OF NEXT_CLICK
-/mob/var/next_move_adjust = 0 //Amount to adjust action delays by, + or -
-/mob/var/next_move_modifier = 1 //Value to multiply action delays by
-
 //Delays the mob's next action by num deciseconds
 // eg: 10-3 = 7 deciseconds of delay
 // eg: 10*0.5 = 5 deciseconds of delay
@@ -15,14 +10,6 @@
 
 /mob/proc/changeNext_move(num)
 	next_move = world.time + ((num+next_move_adjust)*next_move_modifier)
-
-// 1 decisecond click delay (above and beyond mob/next_move)
-//This is mainly modified by click code, to modify click delays elsewhere, use next_move and changeNext_move()
-/mob/var/next_click	= 0
-
-// THESE DO AFFECT THE BASE 1 DECISECOND DELAY OF NEXT_CLICK
-/mob/var/next_click_adjust = 0
-/mob/var/next_click_modifier = 1 //Value to multiply click delays by
 
 //Delays the mob's next click by num deciseconds
 // eg: 10-3 = 7 deciseconds of delay
@@ -74,7 +61,7 @@
 	if(dragged && !modifiers[dragged])
 		return
 	if(IsFrozen(A) && !is_admin(usr))
-		to_chat(usr, "<span class='boldannounce'>Interacting with admin-frozen players is not permitted.</span>")
+		to_chat(usr, "<span class='boldannounceic'>Interacting with admin-frozen players is not permitted.</span>")
 		return
 	if(modifiers["middle"] && modifiers["shift"] && modifiers["ctrl"])
 		MiddleShiftControlClickOn(A)
@@ -265,11 +252,9 @@
 		return
 	var/face_dir = get_cardinal_dir(src, A)
 	if(!face_dir || forced_look == face_dir || A == src)
-		forced_look = null
-		to_chat(src, "<span class='notice'>Cancelled direction lock.</span>")
+		clear_forced_look()
 		return
-	forced_look = face_dir
-	to_chat(src, "<span class='userdanger'>You are now facing [dir2text(forced_look)]. To cancel this, shift-middleclick yourself.</span>")
+	set_forced_look(A, FALSE)
 
 /*
 	Middle shift-control-click
@@ -279,13 +264,13 @@
 	return
 
 /mob/living/MiddleShiftControlClickOn(atom/A)
+	if(incapacitated())
+		return
 	var/face_uid = A.UID()
 	if(forced_look == face_uid || A == src)
-		forced_look = null
-		to_chat(src, "<span class='notice'>Cancelled direction lock.</span>")
+		clear_forced_look()
 		return
-	forced_look = face_uid
-	to_chat(src, "<span class='userdanger'>You are now facing [A]. To cancel this, shift-middleclick yourself.</span>")
+	set_forced_look(A, TRUE)
 
 // In case of use break glass
 /*
@@ -337,7 +322,8 @@
 	..()
 
 /atom/proc/AltClick(mob/user)
-	SEND_SIGNAL(src, COMSIG_CLICK_ALT, user)
+	if(SEND_SIGNAL(src, COMSIG_CLICK_ALT, user) & COMPONENT_CANCEL_ALTCLICK)
+		return
 	var/turf/T = get_turf(src)
 	if(T && (isturf(loc) || isturf(src)) && user.TurfAdjacent(T))
 		user.listed_turf = T
@@ -404,7 +390,7 @@
 
 // Simple helper to face what you clicked on, in case it should be needed in more than one place
 /mob/proc/face_atom(atom/A)
-	if( stat || buckled || !A || !x || !y || !A.x || !A.y ) return
+	if(stat || buckled || !A || !x || !y || !A.x || !A.y) return
 	var/dx = A.x - x
 	var/dy = A.y - y
 	if(!dx && !dy) return

@@ -71,7 +71,7 @@
 		M.take_overall_damage((M.health - obj_integrity - 100),0) //any new damage the statue incurred is transfered to the mob
 
 	..()
-	
+
 /obj/structure/closet/statue/shove_impact(mob/living/target, mob/living/attacker)
 	return FALSE
 
@@ -105,9 +105,6 @@
 /obj/structure/closet/statue/attack_hand()
 	return
 
-/obj/structure/closet/statue/verb_toggleopen()
-	return
-
 /obj/structure/closet/statue/update_icon_state()
 	return
 
@@ -118,4 +115,4 @@
 	if(user)
 		user.dust()
 	dump_contents()
-	visible_message("<span class='warning'>[src] shatters!. </span>")
+	visible_message("<span class='warning'>[src] shatters!</span>")

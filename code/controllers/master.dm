@@ -52,6 +52,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	/// The type of the last subsystem to be fire()'d.
 	var/last_type_processed
 
+	/// Cache for the loading screen - cleared after
+	var/list/ss_in_init_order = list()
+
 	/// Start of queue linked list
 	var/datum/controller/subsystem/queue_head
 	/// End of queue linked list (used for appending to the list)
@@ -157,7 +160,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 /datum/controller/master/Recover()
 	var/msg = "## DEBUG: [time2text(world.timeofday)] MC restarted. Reports:\n"
 	for(var/varname in Master.vars)
-		switch (varname)
+		switch(varname)
 			if("name", "tag", "bestF", "type", "parent_type", "vars", "statclick") // Built-in junk.
 				continue
 			else
@@ -182,7 +185,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				msg = "The [BadBoy.name] subsystem seems to be destabilizing the MC and will be offlined. <span class='info'>The following implications are now in effect: [BadBoy.offline_implications]</span>"
 				BadBoy.flags |= SS_NO_FIRE
 		if(msg)
-			to_chat(GLOB.admins, "<span class='boldannounce'>[msg]</span>")
+			to_chat(GLOB.admins, "<span class='boldannounceooc'>[msg]</span>")
 			log_world(msg)
 
 	if(istype(Master.subsystems))
@@ -192,9 +195,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		current_runlevel = Master.current_runlevel
 		StartProcessing(10)
 	else
-		to_chat(world, "<span class='boldannounce'>The Master Controller is having some issues, we will need to re-initialize EVERYTHING</span>")
+		to_chat(world, "<span class='boldannounceooc'>The Master Controller is having some issues, we will need to re-initialize EVERYTHING</span>")
 		Initialize(20, TRUE)
-
 
 // Please don't stuff random bullshit here,
 // Make a subsystem, give it the SS_NO_FIRE flag, and do your work in it's Initialize()
@@ -215,14 +217,38 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	// Sort subsystems by init_order, so they initialize in the correct order.
 	sortTim(subsystems, GLOBAL_PROC_REF(cmp_subsystem_init))
 
-	var/start_timeofday = REALTIMEOFDAY
-	// Initialize subsystems.
-	current_ticklimit = GLOB.configuration.mc.world_init_tick_limit
+	// Get SSs that will init
 	for(var/datum/controller/subsystem/SS in subsystems)
 		if(SS.flags & SS_NO_INIT)
 			continue
+
+		ss_in_init_order += SS
+
+	// Prepare for init text
+	GLOB.title_splash.maptext_x = 96
+	GLOB.title_splash.maptext_y = 32
+	GLOB.title_splash.maptext_width = 480
+	GLOB.title_splash.maptext_height = 480
+
+	var/start_timeofday = REALTIMEOFDAY
+
+	// Initialize subsystems.
+	current_ticklimit = GLOB.configuration.mc.world_init_tick_limit
+
+	for(var/i in 1 to length(ss_in_init_order))
+		var/datum/controller/subsystem/SS = ss_in_init_order[i]
+
+		// Upate the loading screen
+		update_ss_loadingscreen(SS.ss_id, i)
+
+		// Do the do
 		SS.call_init(REALTIMEOFDAY)
 		CHECK_TICK
+
+	// Clear init text stuff
+	ss_in_init_order.Cut()
+	GLOB.title_splash.maptext = null
+
 	current_ticklimit = TICK_LIMIT_RUNNING
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 
@@ -283,7 +309,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 /datum/controller/master/proc/Loop()
 	. = -1
 	//Prep the loop (most of this is because we want MC restarts to reset as much state as we can, and because
-	// local vars rock
+	// local vars rock)
 
 	//all this shit is here so that flag edits can be refreshed by restarting the MC. (and for speed)
 	var/list/tickersubsystems = list()
@@ -675,3 +701,86 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			. = "<font color='#eb4034'>[cpu_var]</font>"
 		if(100 to INFINITY) // >100 = bold red
 			. = "<font color='#eb4034'><b>[cpu_var]</b></font>"
+
+// Updates SS loading stuff on the lobby
+/datum/controller/master/proc/update_ss_loadingscreen(current_ss_id, loaded_amount)
+	// We are done, clear it
+	if(!length(ss_in_init_order))
+		GLOB.title_splash.maptext = null
+		return
+
+	var/list/columns = list()
+	columns += list(list()) // Init our first column
+
+	var/spacer = "        " // 8 characters width space
+	// You can comfortably fit 33 lines of text on the lobby screen, but having an even number makes this easier
+	var/max_height = 32
+	var/either_side = max_height / 2
+
+	var/list/all_rows = list()
+
+	for(var/datum/controller/subsystem/SS in ss_in_init_order)
+		// Handle SS state
+
+		// Loaded - mark it as DONE
+		if(SS.initialized)
+			all_rows += "\[ <font color='#00ff00'>DONE</font> ] [SS.name]"
+
+		// Loading - mark it as LOAD
+		else if(SS.ss_id == current_ss_id)
+			all_rows += "\[ <font color='#ffaa00'>LOAD</font> ] [SS.name]"
+
+		// Not reached yet - mark it as WAIT
+		else
+			all_rows += "\[ <font color='#ff0000'>WAIT</font> ] [SS.name]"
+
+	// Now render it on the lobby image - turn the columns to rows
+
+	// First figure out max length
+	var/col_max = 0
+	for(var/entry in all_rows)
+		var/col_len = length(entry)
+		if(col_len > col_max)
+			col_max = col_len
+
+	var/list/formatted_rows = list()
+
+	for(var/entry in all_rows)
+		var/spaces_needed = col_max - length(entry)
+		var/this_entry = "[entry][add_tspace("", spaces_needed)][spacer]"
+
+		formatted_rows += this_entry
+
+	// Now we have the rows, decide what to show, it needs to scroll fluidly
+	var/list/output_rows = list()
+
+	var/ss_total = length(formatted_rows)
+	if(ss_total <= max_height)
+		// We have less rows than height - show it all
+		output_rows = formatted_rows
+
+	else if(loaded_amount < either_side)
+		// We have loaded less than half the display - show the first height entries
+		for(var/i in 1 to max_height)
+			output_rows += formatted_rows[i]
+
+	else if(loaded_amount > (ss_total - either_side))
+		// We have loaded more than the remaining half, show the last height entries
+		for(var/i in 1 to max_height)
+			// Invert it
+			var/offset_i = ss_total - max_height
+			output_rows += formatted_rows[i + offset_i]
+
+	else
+		// Get the first half of our offset
+		var/firsthalf_offset = loaded_amount - either_side
+		for(var/i in 1 to either_side)
+			output_rows += formatted_rows[i + firsthalf_offset]
+
+		// Get the last half of our offset
+		// If we are at SS 14, we need to take from SS 15 and take the next half onwards
+		for(var/i in 1 to either_side)
+			output_rows += formatted_rows[i + loaded_amount]
+
+
+	GLOB.title_splash.maptext = "<span style='font-family: Courier New; background-color: rgba(39, 39, 39, 0.5);'>\n[output_rows.Join("\n")]\n</span>"

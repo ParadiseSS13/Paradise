@@ -14,7 +14,8 @@
 	origin_tech = "combat=5;powerstorage=3;syndicate=3"
 	var/click_delay = 1.5
 	var/fisto_setting = 1
-	var/gasperfist = 0.5
+	///base pressure in kpa used by the powerfist per hit
+	var/gasperfist = 17.5
 	var/obj/item/tank/internals/tank = null //Tank used for the gauntlet's piston-ram.
 
 /obj/item/melee/powerfist/Destroy()
@@ -89,7 +90,7 @@
 	if(!tank)
 		to_chat(user, "<span class='warning'>[src] can't operate without a source of gas!</span>")
 		return
-	if(tank && !tank.air_contents.boolean_remove(gasperfist * fisto_setting))
+	if(tank && !tank.air_contents.boolean_remove(((gasperfist * fisto_setting) * tank.air_contents.return_volume()) / (R_IDEAL_GAS_EQUATION * tank.air_contents.return_temperature())))
 		to_chat(user, "<span class='warning'>[src]'s piston-ram lets out a weak hiss, it needs more gas!</span>")
 		playsound(loc, 'sound/effects/refill.ogg', 50, 1)
 		return

@@ -1,5 +1,6 @@
 /obj/item/shield
 	name = "shield"
+	icon = 'icons/obj/shield.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 0, BOMB = 30, RAD = 0, FIRE = 80, ACID = 70)

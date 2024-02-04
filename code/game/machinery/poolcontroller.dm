@@ -161,10 +161,13 @@
 	linkedmist.Cut()
 
 
-/obj/machinery/poolcontroller/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/poolcontroller/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/poolcontroller/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PoolController", "Pool Controller Interface", 520, 410)
+		ui = new(user, src, "PoolController", "Pool Controller Interface")
 		ui.open()
 
 /obj/machinery/poolcontroller/proc/temp_to_str(temp)
@@ -181,7 +184,7 @@
 			return "scalding"
 
 /obj/machinery/poolcontroller/proc/set_temp(val)
-	if (val != WARM && val != NORMAL && val != COOL && !(emagged && (val == SCALDING || val == FRIGID)))
+	if(val != WARM && val != NORMAL && val != COOL && !(emagged && (val == SCALDING || val == FRIGID)))
 		return
 
 	if(val == SCALDING)

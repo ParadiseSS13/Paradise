@@ -110,17 +110,22 @@
 	updatemodules()
 	ui_interact(user)
 
-/obj/machinery/computer/cloning/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/computer/cloning/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/cloning/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	var/datum/asset/cloning/assets = get_asset_datum(/datum/asset/cloning)
-	assets.send(user)
-
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "CloningConsole", "Cloning Console", 640, 520)
+		ui = new(user, src, "CloningConsole", "Cloning Console")
 		ui.open()
+
+/obj/machinery/computer/cloning/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/cloning)
+	)
 
 /obj/machinery/computer/cloning/ui_data(mob/user)
 	var/data[0]
@@ -230,7 +235,7 @@
 					qdel(active_record)
 					set_temp("Error: Record corrupt.", "danger")
 				else
-					var/obj/item/implant/health/H = null
+					var/obj/item/bio_chip/health/H = null
 					if(active_record.implant)
 						H = locate(active_record.implant)
 					var/list/payload = list(
@@ -322,19 +327,27 @@
 		return
 	if(isnull(subject) || (!(ishuman(subject))) || (!subject.dna))
 		if(isalien(subject))
-			set_scan_temp("Xenomorphs are not scannable.", "bad")
+			set_scan_temp("Safety interlocks engaged. Nanotrasen Directive 7b forbids the cloning of biohazardous alien species.", "bad")
 			SStgui.update_uis(src)
 			return
 		// can add more conditions for specific non-human messages here
 		else
-			set_scan_temp("Subject species is not scannable.", "bad")
+			set_scan_temp("Subject species is not clonable.", "bad")
 			SStgui.update_uis(src)
 			return
+	if(NO_CLONESCAN in subject.dna.species.species_traits)
+		set_scan_temp("[subject.dna.species.name_plural] are not clonable. Alternative revival methods recommended.", "bad")
+		SStgui.update_uis(src)
+		return
 	if(subject.get_int_organ(/obj/item/organ/internal/brain))
 		var/obj/item/organ/internal/brain/Brn = subject.get_int_organ(/obj/item/organ/internal/brain)
 		if(istype(Brn))
+			if(Brn.dna.species.name == "Machine")
+				set_scan_temp("No organic tissue detected within subject. Alternative revival methods recommended.", "bad")
+				SStgui.update_uis(src)
+				return
 			if(NO_CLONESCAN in Brn.dna.species.species_traits)
-				set_scan_temp("[Brn.dna.species.name_plural] are not scannable.", "bad")
+				set_scan_temp("[Brn.dna.species.name_plural] are not clonable. Alternative revival methods recommended.", "bad")
 				SStgui.update_uis(src)
 				return
 	if(!subject.get_int_organ(/obj/item/organ/internal/brain))
@@ -342,15 +355,19 @@
 		SStgui.update_uis(src)
 		return
 	if(subject.suiciding)
-		set_scan_temp("Subject has committed suicide and is not scannable.", "bad")
+		set_scan_temp("Subject has committed suicide and is not clonable.", "bad")
+		SStgui.update_uis(src)
+		return
+	if(HAS_TRAIT(subject, TRAIT_BADDNA) && src.scanner.scan_level < 2)
+		set_scan_temp("Insufficient level of biofluids detected within subject. Scanner upgrades may be required to improve scan capabilities.", "bad")
+		SStgui.update_uis(src)
+		return
+	if(HAS_TRAIT(subject, TRAIT_HUSK) && src.scanner.scan_level < 2)
+		set_scan_temp("Subject is husked. Treat condition or upgrade scanning module to proceed with scan.", "bad")
 		SStgui.update_uis(src)
 		return
 	if((!subject.ckey) || (!subject.client))
 		set_scan_temp("Subject's brain is not responding. Further attempts after a short delay may succeed.", "bad")
-		SStgui.update_uis(src)
-		return
-	if(HAS_TRAIT(subject, TRAIT_BADDNA) && src.scanner.scan_level < 2)
-		set_scan_temp("Subject has incompatible genetic mutations.", "bad")
 		SStgui.update_uis(src)
 		return
 	if(!isnull(find_record(subject.ckey)))
@@ -390,9 +407,9 @@
 	R.types=DNA2_BUF_UI|DNA2_BUF_UE|DNA2_BUF_SE
 	R.languages=subject.languages
 	//Add an implant if needed
-	var/obj/item/implant/health/imp = locate(/obj/item/implant/health, subject)
+	var/obj/item/bio_chip/health/imp = locate(/obj/item/bio_chip/health, subject)
 	if(!imp)
-		imp = new /obj/item/implant/health(subject)
+		imp = new /obj/item/bio_chip/health(subject)
 		imp.implant(subject)
 	R.implant = "\ref[imp]"
 

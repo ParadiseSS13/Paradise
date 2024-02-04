@@ -9,7 +9,20 @@
 
 /obj/item/projectile/magic/death
 	name = "bolt of death"
-	icon_state = "pulse1_bl"
+	icon_state = null
+	hitscan = TRUE
+	muzzle_type = /obj/effect/projectile/muzzle/death
+	tracer_type = /obj/effect/projectile/tracer/death
+	impact_type = /obj/effect/projectile/impact/death
+	hitscan_light_intensity = 3
+	hitscan_light_range = 0.75
+	hitscan_light_color_override = LIGHT_COLOR_PURPLE
+	muzzle_flash_intensity = 6
+	muzzle_flash_range = 2
+	muzzle_flash_color_override = LIGHT_COLOR_PURPLE
+	impact_light_intensity = 7
+	impact_light_range =  2.5
+	impact_light_color_override = LIGHT_COLOR_PURPLE
 
 /obj/item/projectile/magic/fireball
 	name = "bolt of fireball"
@@ -298,7 +311,6 @@
 	damage_type = BURN
 
 /obj/item/projectile/magic/animate/Bump(atom/change)
-	..()
 	if(isitem(change) || isstructure(change) && !is_type_in_list(change, GLOB.protected_objects))
 		if(istype(change, /obj/structure/closet/statue))
 			for(var/mob/living/carbon/human/H in change.contents)
@@ -323,6 +335,7 @@
 		// Change our allegiance!
 		var/mob/living/simple_animal/hostile/mimic/copy/C = change
 		C.ChangeOwner(firer)
+	return ..()
 
 /obj/item/projectile/magic/slipping
 	name = "magical banana"

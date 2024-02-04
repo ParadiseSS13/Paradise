@@ -324,7 +324,7 @@
 
 	output_used -= excess
 
-	if(clev != chargedisplay() ) //if needed updates the icons overlay
+	if(clev != chargedisplay()) //if needed updates the icons overlay
 		update_icon()
 	return
 
@@ -339,12 +339,15 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/power/smes/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/power/smes/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/power/smes/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & BROKEN)
 		return
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Smes",  name, 340, 350, master_ui, state)
+		ui = new(user, src, "Smes",  name)
 		ui.open()
 
 /obj/machinery/power/smes/ui_data(mob/user)

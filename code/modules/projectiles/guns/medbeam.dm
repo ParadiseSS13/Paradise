@@ -88,7 +88,7 @@
 		return FALSE
 	var/obj/dummy = new(user_turf)
 	dummy.pass_flags |= PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE //Grille/Glass so it can be used through common windows
-	for(var/turf/turf in getline(user_turf,target))
+	for(var/turf/turf in get_line(user_turf,target))
 		if(turf.density)
 			qdel(dummy)
 			return FALSE
@@ -105,17 +105,17 @@
 	qdel(dummy)
 	return TRUE
 
-/obj/item/gun/medbeam/proc/on_beam_hit(mob/living/target)
-	return
-
 /obj/item/gun/medbeam/proc/on_beam_tick(mob/living/target)
-	target.adjustBruteLoss(-4)
-	target.adjustFireLoss(-4)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
+		H.adjustBruteLoss(-4, robotic = TRUE)
+		H.adjustFireLoss(-4, robotic = TRUE)
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(prob(10))
 				E.mend_fracture()
+	else
+		target.adjustBruteLoss(-4)
+		target.adjustFireLoss(-4)
 
 /obj/item/gun/medbeam/proc/on_beam_release(mob/living/target)
 	return

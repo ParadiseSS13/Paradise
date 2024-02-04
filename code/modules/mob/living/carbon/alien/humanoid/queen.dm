@@ -6,7 +6,7 @@
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
 	loudspeaker = TRUE
-	ventcrawler = 0
+	ventcrawler = VENTCRAWLER_NONE
 	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
 	move_resist = MOVE_FORCE_STRONG //Yes, queenos is huge and heavy
 	alien_disarm_damage = 60 //Queens do higher disarm stamina damage than normal aliens

@@ -52,6 +52,7 @@
 		return
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
+	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity)
 	switch(severity)
 		if(1)
 			take_damage(INFINITY, BRUTE, BOMB, 0)

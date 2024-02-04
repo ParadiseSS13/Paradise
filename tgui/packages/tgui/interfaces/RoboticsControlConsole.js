@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend, useSharedState } from '../backend';
 import {
   Box,
@@ -15,7 +14,7 @@ export const RoboticsControlConsole = (props, context) => {
   const { act, data } = useBackend(context);
   const { can_hack, safety, show_lock_all, cyborgs = [] } = data;
   return (
-    <Window resizable>
+    <Window width={500} height={460}>
       <Window.Content scrollable>
         {!!show_lock_all && (
           <Section title="Emergency Lock Down">
@@ -43,8 +42,8 @@ export const RoboticsControlConsole = (props, context) => {
 const Cyborgs = (props, context) => {
   const { cyborgs, can_hack } = props;
   const { act, data } = useBackend(context);
-  let detonateText = "Detonate";
-  if(data.detonate_cooldown > 0){
+  let detonateText = 'Detonate';
+  if (data.detonate_cooldown > 0) {
     detonateText += ' (' + data.detonate_cooldown + 's)';
   }
   if (!cyborgs.length) {
@@ -58,7 +57,7 @@ const Cyborgs = (props, context) => {
         key={cyborg.uid}
         title={cyborg.name}
         buttons={
-          <Fragment>
+          <>
             {!!cyborg.hackable && !cyborg.emagged && (
               <Button
                 icon="terminal"
@@ -85,7 +84,7 @@ const Cyborgs = (props, context) => {
             <Button.Confirm
               icon="bomb"
               content={detonateText}
-              disabled={!data.auth  || data.detonate_cooldown > 0}
+              disabled={!data.auth || data.detonate_cooldown > 0}
               color="bad"
               onClick={() =>
                 act('killbot', {
@@ -93,7 +92,7 @@ const Cyborgs = (props, context) => {
                 })
               }
             />
-          </Fragment>
+          </>
         }
       >
         <LabeledList>
@@ -106,8 +105,8 @@ const Cyborgs = (props, context) => {
               {cyborg.status
                 ? 'Not Responding'
                 : cyborg.locked_down
-                ? 'Locked Down'
-                : 'Nominal'}
+                  ? 'Locked Down'
+                  : 'Nominal'}
             </Box>
           </LabeledList.Item>
           <LabeledList.Item label="Location">
@@ -120,7 +119,7 @@ const Cyborgs = (props, context) => {
             />
           </LabeledList.Item>
           {(typeof cyborg.charge === 'number' && (
-            <Fragment>
+            <>
               <LabeledList.Item label="Cell Charge">
                 <ProgressBar
                   color={cyborg.charge > 30 ? 'good' : 'bad'}
@@ -132,7 +131,7 @@ const Cyborgs = (props, context) => {
                   {cyborg.cell_capacity}
                 </Box>
               </LabeledList.Item>
-            </Fragment>
+            </>
           )) || (
             <LabeledList.Item label="Cell">
               <Box color="bad">No Power Cell</Box>

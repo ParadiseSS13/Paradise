@@ -10,6 +10,7 @@ GLOBAL_LIST_INIT(huds, list(
 	DATA_HUD_DIAGNOSTIC_BASIC = new/datum/atom_hud/data/diagnostic/basic(),
 	DATA_HUD_DIAGNOSTIC_ADVANCED = new/datum/atom_hud/data/diagnostic/advanced(),
 	DATA_HUD_HYDROPONIC = new/datum/atom_hud/data/hydroponic(),
+	DATA_HUD_JANITOR = new/datum/atom_hud/data/janitor(),
 	ANTAG_HUD_CULT = new/datum/atom_hud/antag(),
 	ANTAG_HUD_REV = new/datum/atom_hud/antag(),
 	ANTAG_HUD_OPS = new/datum/atom_hud/antag(),
@@ -80,6 +81,8 @@ GLOBAL_LIST_INIT(huds, list(
 
 /datum/atom_hud/proc/add_to_single_hud(mob/M, atom/A) //unsafe, no sanity apart from client
 	if(!M || !M.client || !A)
+		return
+	if(A.invisibility > M.see_invisible) // yee yee ass snowflake check for our yee yee ass snowflake huds
 		return
 	for(var/i in hud_icons)
 		if(A.hud_list[i])

@@ -2,7 +2,7 @@
 	name = "alien"
 	icon_state = "alien_s"
 
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 5, /obj/item/stack/sheet/animalhide/xeno = 1)
+	butcher_results = list(/obj/item/food/snacks/monstermeat/xenomeat = 5, /obj/item/stack/sheet/animalhide/xeno = 1)
 	var/obj/item/r_store = null
 	var/obj/item/l_store = null
 	var/caste = ""
@@ -17,7 +17,7 @@
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/humanoid/Initialize(mapload)
 	if(name == "alien")
-		name = text("alien ([rand(1, 1000)])")
+		name = "alien ([rand(1, 1000)])"
 	real_name = name
 	add_language("Xenomorph")
 	add_language("Hivemind")

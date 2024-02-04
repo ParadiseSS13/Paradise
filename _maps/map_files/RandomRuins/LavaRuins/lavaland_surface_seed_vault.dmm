@@ -82,12 +82,13 @@
 /area/ruin/powered/seedvault)
 "gf" = (
 /obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/storage/fancy/rollingpapers,
+/obj/item/storage/fancy/rollingpapers,
+/obj/item/storage/fancy/rollingpapers,
+/obj/item/storage/fancy/rollingpapers,
 /obj/item/lighter,
 /obj/item/lighter,
-/obj/item/storage/fancy/rollingpapers,
-/obj/item/storage/fancy/rollingpapers,
-/obj/item/storage/fancy/rollingpapers,
-/obj/item/storage/fancy/rollingpapers,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "hy" = (
@@ -110,6 +111,16 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
+"iu" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mob_spawn/human/corpse/seed_vault_diona,
+/obj/item/pickaxe/mini,
+/obj/item/food/snacks/grown/mushroom/glowshroom{
+	pixel_x = 8;
+	pixel_y = -8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "iV" = (
 /obj/structure/closet/crate/hydroponics,
 /obj/structure/beebox,
@@ -384,9 +395,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "Pg" = (
-/obj/machinery/cryopod{
-	dir = 2
-	},
+/obj/machinery/cryopod/offstation/right,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "Qb" = (
@@ -414,7 +423,6 @@
 /area/ruin/powered/seedvault)
 "VI" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin,
 /obj/item/paper/seed_vault,
 /obj/item/pen,
 /turf/simulated/floor/plasteel/freezer,
@@ -446,11 +454,19 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "XO" = (
-/obj/structure/table/wood,
+/obj/structure/closet/crate/internals,
 /obj/item/pickaxe/mini,
 /obj/item/pickaxe/mini,
 /obj/item/pickaxe/mini,
 /obj/item/pickaxe/mini,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "ZQ" = (
@@ -986,7 +1002,7 @@ BC
 "}
 (21,1,1) = {"
 yZ
-yZ
+iu
 yZ
 yZ
 no

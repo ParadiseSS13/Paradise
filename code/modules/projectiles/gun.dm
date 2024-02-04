@@ -76,6 +76,7 @@
 	if(gun_light)
 		verbs += /obj/item/gun/proc/toggle_gunlight
 	build_zooming()
+	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
 /obj/item/gun/Destroy()
 	QDEL_NULL(bayonet)
@@ -116,6 +117,7 @@
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
+
 	if(recoil)
 		shake_camera(user, recoil + 1, recoil)
 
@@ -223,7 +225,7 @@
 
 	if(semicd)
 		return
-
+	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
 	var/sprd = 0
 	var/randomized_gun_spread = 0
 	if(spread)
@@ -240,7 +242,7 @@
 			if(!user)
 				break
 			if(!issilicon(user))
-				if( i>1 && !(src in get_both_hands(user))) //for burst firing
+				if(i>1 && !(src in get_both_hands(user))) //for burst firing
 					break
 			if(chambered)
 				sprd = round((pick(0.5, -0.5)) * (randomized_gun_spread + randomized_bonus_spread))
@@ -366,10 +368,6 @@
 		clear_bayonet()
 
 /obj/item/gun/proc/toggle_gunlight()
-	set name = "Toggle Gun Light"
-	set category = "Object"
-	set desc = "Click to toggle your weapon's attached flashlight."
-
 	if(!gun_light)
 		return
 	gun_light.on = !gun_light.on

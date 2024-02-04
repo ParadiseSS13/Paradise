@@ -197,12 +197,19 @@
 	can_knockdown = FALSE //Projectiles that pierce can not knockdown, no wall knockdowns.
 
 /obj/item/projectile/beam/laser/sniper/pierce
-	forcedodge = 1 // Can pierce one mob.
+	forcedodge = 1 // Can pierce one non wall thing.
 	speed = 0.5
+	/// Have we hit an r_wall? If we have, don't pierce it again so we don't become too effective on reinforced locations (AI sat)
+	var/hit_a_r_wall = FALSE
 
 /obj/item/projectile/beam/laser/sniper/pierce/prehit(atom/target)
-	if(isturf(target) && !forcedodge)
-		forcedodge++ //Increases force dodge before turf consumes it.
+	if(istype(target, /turf/simulated/wall/r_wall))
+		if(!hit_a_r_wall)
+			hit_a_r_wall = TRUE
+			if(!forcedodge)
+				forcedodge++
+	else if((isturf(target) || istype(target, /obj/structure/alien/resin)) && !forcedodge)
+		forcedodge++
 	..()
 
 /obj/item/gun/energy/xray

@@ -20,6 +20,10 @@ SUBSYSTEM_DEF(jobs)
 
 	///list of station departments and their associated roles and economy payments
 	var/list/station_departments = list()
+	/// Do we spawn everyone at shuttle due to late arivals?
+	var/late_arrivals_spawning = FALSE
+	/// Do we spawn people drunkenly due to the party last night?
+	var/drunken_spawning = FALSE
 
 /datum/controller/subsystem/jobs/Initialize()
 	if(!length(occupations))
@@ -38,7 +42,7 @@ SUBSYSTEM_DEF(jobs)
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
-		to_chat(world, "<span class='warning'>Error setting up jobs, no job datums found</span>")
+		to_chat(world, "<span class='warning'>Error setting up jobs, no job datums found.</span>")
 		return 0
 
 	for(var/J in all_jobs)
@@ -469,11 +473,15 @@ SUBSYSTEM_DEF(jobs)
 
 	H.job = rank
 
-	if(!joined_late)
+	if(!joined_late && !late_arrivals_spawning)
 		var/turf/T = null
 		var/obj/S = null
-		for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
-			if(sloc.name != rank)
+		var/list/landmarks = GLOB.landmarks_list
+		if(drunken_spawning)
+			landmarks = shuffle(landmarks) //Shuffle it so it's random
+
+		for(var/obj/effect/landmark/start/sloc in landmarks)
+			if(sloc.name != rank && !drunken_spawning)
 				continue
 			if(locate(/mob/living) in sloc.loc)
 				continue
@@ -521,8 +529,22 @@ SUBSYSTEM_DEF(jobs)
 				if(istype(G) && !G.prescription)
 					G.upgrade_prescription()
 					H.update_nearsighted_effects()
-
-	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
+	if(joined_late || job.admin_only)
+		H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
+		return H
+	if(late_arrivals_spawning)
+		H.forceMove(pick(GLOB.latejoin))
+	if(drunken_spawning)
+		var/obj/item/organ/internal/liver/L
+		var/liver_multiplier = 1
+		L = H.get_int_organ(/obj/item/organ/internal/liver)
+		if(L)
+			liver_multiplier = L.alcohol_intensity
+		if(isslimeperson(H) || isrobot(H))
+			liver_multiplier = 5
+		H.Sleeping(5 SECONDS)
+		H.Drunk((2 / liver_multiplier) MINUTES)
+	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. Roundstart joined as job: [rank].")
 	return H
 
 /datum/controller/subsystem/jobs/proc/LoadJobs(highpop = FALSE) //ran during round setup, reads info from jobs list
@@ -594,6 +616,8 @@ SUBSYSTEM_DEF(jobs)
 
 //fuck
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
+	if(!job.has_bank_account)
+		return
 	var/starting_balance = job?.department_account_access ? COMMAND_MEMBER_STARTING_BALANCE : CREW_MEMBER_STARTING_BALANCE
 	var/datum/money_account/account = GLOB.station_money_database.create_account(H.real_name, starting_balance, ACCOUNT_SECURITY_ID, "NAS Trurl Accounting", TRUE)
 

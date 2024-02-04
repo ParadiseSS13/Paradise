@@ -19,14 +19,14 @@
 /* This comment bypasses grep checks */ /var/__rust_g
 
 /proc/__detect_rust_g()
-	if (world.system_type == UNIX)
-		if (fexists("./librust_g.so"))
+	if(world.system_type == UNIX)
+		if(fexists("./librust_g.so"))
 			// No need for LD_LIBRARY_PATH badness.
 			return __rust_g = "./librust_g.so"
-		else if (fexists("./rust_g"))
+		else if(fexists("./rust_g"))
 			// Old dumb filename.
 			return __rust_g = "./rust_g"
-		else if (fexists("[world.GetConfig("env", "HOME")]/.byond/bin/rust_g"))
+		else if(fexists("[world.GetConfig("env", "HOME")]/.byond/bin/rust_g"))
 			// Old dumb filename in `~/.byond/bin`.
 			return __rust_g = "rust_g"
 		else
@@ -134,6 +134,12 @@
 #define rustg_dmi_strip_metadata(fname) RUSTG_CALL(RUST_G, "dmi_strip_metadata")(fname)
 #define rustg_dmi_create_png(path, width, height, data) RUSTG_CALL(RUST_G, "dmi_create_png")(path, width, height, data)
 #define rustg_dmi_resize_png(path, width, height, resizetype) RUSTG_CALL(RUST_G, "dmi_resize_png")(path, width, height, resizetype)
+/**
+ * input: must be a path, not an /icon; you have to do your own handling if it is one, as icon objects can't be directly passed to rustg.
+ *
+ * output: json_encode'd list. json_decode to get a flat list with icon states in the order they're in inside the .dmi
+ */
+#define rustg_dmi_icon_states(fname) RUSTG_CALL(RUST_G, "dmi_icon_states")(fname)
 
 // File Operations //
 
@@ -250,6 +256,45 @@
 /proc/rustg_redis_get_messages() return RUSTG_CALL(RUST_G, "redis_get_messages")()
 #define rustg_redis_publish(channel, message) RUSTG_CALL(RUST_G, "redis_publish")(channel, message)
 
+/**
+ * Connects to a given redis server.
+ *
+ * Arguments:
+ * * addr - The address of the server, for example "redis://127.0.0.1/"
+ */
+#define rustg_redis_connect_rq(addr) RUSTG_CALL(RUST_G, "redis_connect_rq")(addr)
+/**
+ * Disconnects from a previously connected redis server
+ */
+/proc/rustg_redis_disconnect_rq() return RUSTG_CALL(RUST_G, "redis_disconnect_rq")()
+/**
+ * https://redis.io/commands/lpush/
+ *
+ * Arguments
+ * * key (string) - The key to use
+ * * elements (list) - The elements to push, use a list even if there's only one element.
+ */
+#define rustg_redis_lpush(key, elements) RUSTG_CALL(RUST_G, "redis_lpush")(key, json_encode(elements))
+/**
+ * https://redis.io/commands/lrange/
+ *
+ * Arguments
+ * * key (string) - The key to use
+ * * start (string) - The zero-based index to start retrieving at
+ * * stop (string) - The zero-based index to stop retrieving at (inclusive)
+ */
+#define rustg_redis_lrange(key, start, stop) RUSTG_CALL(RUST_G, "redis_lrange")(key, start, stop)
+/**
+ * https://redis.io/commands/lpop/
+ *
+ * Arguments
+ * * key (string) - The key to use
+ * * count (string|null) - The amount to pop off the list, pass null to omit (thus just 1)
+ *
+ * Note: `count` was added in Redis version 6.2.0
+ */
+#define rustg_redis_lpop(key, count) RUSTG_CALL(RUST_G, "redis_lpop")(key, count)
+
 // SQL Operations //
 
 #define rustg_sql_connect_pool(options) RUSTG_CALL(RUST_G, "sql_connect_pool")(options)
@@ -265,8 +310,9 @@
 #define rustg_time_milliseconds(id) text2num(RUSTG_CALL(RUST_G, "time_milliseconds")(id))
 #define rustg_time_reset(id) RUSTG_CALL(RUST_G, "time_reset")(id)
 
+/// Returns the timestamp as a string
 /proc/rustg_unix_timestamp()
-	return text2num(RUSTG_CALL(RUST_G, "unix_timestamp")())
+	return RUSTG_CALL(RUST_G, "unix_timestamp")()
 
 // Toast Operations //
 
@@ -278,7 +324,7 @@
 
 /proc/rustg_read_toml_file(path)
 	var/list/output = rustg_raw_read_toml_file(path)
-	if (output["success"])
+	if(output["success"])
 		return json_decode(output["content"])
 	else
 		CRASH(output["content"])
@@ -287,7 +333,7 @@
 
 /proc/rustg_toml_encode(value)
 	var/list/output = rustg_raw_toml_encode(value)
-	if (output["success"])
+	if(output["success"])
 		return output["content"]
 	else
 		CRASH(output["content"])
@@ -324,3 +370,5 @@
  */
 #define rustg_worley_generate(region_size, threshold, node_per_region_chance, size, node_min, node_max) \
 	RUSTG_CALL(RUST_G, "worley_generate")(region_size, threshold, node_per_region_chance, size, node_min, node_max)
+
+

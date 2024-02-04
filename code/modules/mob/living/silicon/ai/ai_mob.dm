@@ -104,6 +104,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/acceleration = 1
 	var/tracking = FALSE //this is 1 if the AI is currently tracking somebody, but the track has not yet been completed.
 
+	/// If true, this AI core can use the teleporter.
+	var/allow_teleporter = FALSE
+
 	var/obj/machinery/camera/portable/builtInCamera
 
 	var/obj/structure/AIcore/deactivated/linked_core //For exosuit control
@@ -117,6 +120,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	//Used with the hotkeys on 2-5 to store locations.
 	var/list/stored_locations = list()
+	var/cracked_camera = FALSE // will be true if malf AI break its camera
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
@@ -268,7 +272,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	..()
 	if(statpanel("Status"))
 		if(stat)
-			stat(null, text("Systems nonfunctional"))
+			stat(null, "Systems nonfunctional")
 			return
 		show_borg_info()
 
@@ -279,7 +283,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue
-		dat += text("<B>[]</B><BR>\n", cat)
+		dat += "<B>[cat]</B><BR>\n"
 		var/list/list/L = temp_alarm_list[cat].Copy()
 		for(var/alarm in L)
 			var/list/list/alm = L[alarm].Copy()
@@ -297,12 +301,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 					for(var/cam in C)
 						var/obj/machinery/camera/I = locateUID(cam)
 						if(!QDELETED(I))
-							dat2 += text("[]<A HREF=?src=[UID()];switchcamera=[cam]>[]</A>", (dat2 == "") ? "" : " | ", I.c_tag)
-					dat += text("-- [] ([])", area_name, (dat2 != "") ? dat2 : "No Camera")
+							dat2 += "[(dat2 == "") ? "" : " | "]<A HREF=?src=[UID()];switchcamera=[cam]>[I.c_tag]</A>"
+					dat += "-- [area_name] ([(dat2 != "") ? dat2 : "No Camera"])"
 				else
-					dat += text("-- [] (No Camera)", area_name)
+					dat += "-- [area_name] (No Camera)"
 				if(sources.len > 1)
-					dat += text("- [] sources", sources.len)
+					dat += "- [length(sources)] sources"
 				dat += "</NOBR><BR>\n"
 		if(!L.len)
 			dat += "-- All Systems Nominal<BR>\n"
@@ -313,7 +317,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	src << browse(dat_text, "window=aialerts&can_close=0")
 
 /mob/living/silicon/ai/proc/show_borg_info()
-	stat(null, text("Connected cyborgs: [connected_robots.len]"))
+	stat(null, "Connected cyborgs: [connected_robots.len]")
 	for(var/thing in connected_robots)
 		var/mob/living/silicon/robot/R = thing
 		var/robot_status = "Nominal"
@@ -324,8 +328,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
 		var/area/A = get_area(R)
 		var/area_name = A ? sanitize(A.name) : "Unknown"
-		stat(null, text("[R.name] | S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
-		Module: [R.designation] | Loc: [area_name] | Status: [robot_status]"))
+		stat(null, "[R.name] | S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
+		Module: [R.designation] | Loc: [area_name] | Status: [robot_status]")
 
 /mob/living/silicon/ai/rename_character(oldname, newname)
 	if(!..(oldname, newname))
@@ -684,7 +688,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(href_list["mach_close"])
 		if(href_list["mach_close"] == "aialerts")
 			viewalerts = FALSE
-		var/t1 = text("window=[]", href_list["mach_close"])
+		var/t1 = "window=[href_list["mach_close"]]"
 		unset_machine()
 		src << browse(null, t1)
 	if(href_list["switchcamera"])
@@ -864,7 +868,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			for(var/thing in O)
 				var/obj/machinery/camera/I = locateUID(thing)
 				if(!QDELETED(I))
-					dat2 += text("[]<A HREF=?src=[UID()];switchcamera=[thing]>[]</A>", (!foo) ? "" : " | ", I.c_tag)	//I'm not fixing this shit...
+					dat2 += "[(!foo) ? "" : " | "]<A HREF=?src=[UID()];switchcamera=[thing]>[I.c_tag]</A>" //I'm not fixing this shit...
 					foo = 1
 			queueAlarm(text ("--- [] alarm detected in []! ([])", class, A.name, dat2), class)
 		else
@@ -928,7 +932,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			for(var/i in tempnetwork)
 				cameralist[i] = i
 	var/old_network = network
-	network = input(U, "Which network would you like to view?") as null|anything in cameralist
+	network = tgui_input_list(U, "Which network would you like to view?", "Jump To Network", cameralist)
 
 	if(check_unable())
 		return
@@ -1008,7 +1012,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["photo"]//Pull names, rank, and id photo.
 
 			if(personnel_list.len)
-				input = input("Select a crew member:") as null|anything in personnel_list
+				input = tgui_input_list(usr, "Select a crew member", "Change Hologram", personnel_list)
 				var/icon/character_icon = personnel_list[input]
 				if(character_icon)
 					qdel(holo_icon)//Clear old icon so we're not storing it in memory.
@@ -1051,7 +1055,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			"Roller-Monkey"
 			)
 
-			input = input("Please select a hologram:") as null|anything in icon_list
+			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)
@@ -1138,7 +1142,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			if(custom_hologram) //insert custom hologram
 				icon_list.Add("custom")
 
-			input = input("Please select a hologram:") as null|anything in icon_list
+			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)

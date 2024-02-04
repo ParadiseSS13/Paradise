@@ -35,7 +35,8 @@
 		/obj/item/warp_cube,
 		/obj/machinery/quantumpad,
 		/obj/structure/extraction_point,
-		/obj/item/envelope)
+		/obj/item/envelope,
+		/obj/item/paicard)
 	if(A)
 		if(is_type_in_list(A, blacklist))
 			return TRUE

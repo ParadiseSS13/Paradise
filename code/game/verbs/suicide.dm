@@ -1,5 +1,3 @@
-/mob/var/suiciding = 0
-
 /mob/living/verb/suicide() // imagine this shit with BORERS lmao
 	set hidden = 1
 
@@ -33,7 +31,7 @@
 		return
 
 	if(forced || (confirm == "Yes"))
-		if(!forced && isAntag(src))
+		if(!forced && isAntag(src) && !HAS_TRAIT(src, TRAIT_RESPAWNABLE))
 			confirm = alert("Are you absolutely sure? If you do this after you got converted/joined as an antagonist, you could face a jobban!", "Confirm Suicide", "Yes", "No")
 			if(confirm == "Yes")
 				suiciding = TRUE

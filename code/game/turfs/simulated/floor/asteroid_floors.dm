@@ -111,7 +111,7 @@
 	digResult = /obj/item/stack/ore/glass/basalt
 
 /turf/simulated/floor/plating/asteroid/basalt/lava //lava underneath
-	baseturf = /turf/simulated/floor/plating/lava/smooth
+	baseturf = /turf/simulated/floor/lava
 
 /turf/simulated/floor/plating/asteroid/basalt/airless
 	temperature = TCMB
@@ -149,7 +149,15 @@
 	nitrogen = 23
 	temperature = 300
 	planetary_atmos = TRUE
-	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	baseturf = /turf/simulated/floor/lava/mapping_lava
+
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+	planetary_atmos = TRUE
+	color = COLOR_FLOOR_HARD_ROCK
+	baseturf = /turf/simulated/floor/lava/lava_land_surface
 
 /turf/simulated/floor/plating/asteroid/airless
 	temperature = TCMB
@@ -197,11 +205,11 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	has_data = TRUE
 
 /turf/simulated/floor/plating/asteroid/airless/cave/Initialize(mapload)
-	if (!mob_spawn_list)
+	if(!mob_spawn_list)
 		mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goldgrub = 1, /mob/living/simple_animal/hostile/asteroid/goliath = 5, /mob/living/simple_animal/hostile/asteroid/basilisk = 4, /mob/living/simple_animal/hostile/asteroid/hivelord = 3)
-	if (!megafauna_spawn_list)
+	if(!megafauna_spawn_list)
 		megafauna_spawn_list = GLOB.megafauna_spawn_list
-	if (!flora_spawn_list)
+	if(!flora_spawn_list)
 		flora_spawn_list = list(/obj/structure/flora/ash/leaf_shroom = 2, /obj/structure/flora/ash/cap_shroom = 2, /obj/structure/flora/ash/stem_shroom = 2, /obj/structure/flora/ash/cacti = 1, /obj/structure/flora/ash/tall_shroom = 2, /obj/structure/flora/ash/rock/style_random = 1)
 		if(SSmapping.cave_theme == BLOCKED_BURROWS)
 			flora_spawn_list += list(/obj/structure/flora/ash/rock/style_random = 3) //Let us see how this goes
@@ -307,7 +315,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 						SpawnFloor(NT, 50) //Room has higher probabilty.
 			if(prob(25))
 				tempradius = round(tempradius / 3)
-				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/plating/lava/smooth/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/mapping_lava = 6, /turf/simulated/floor/beach/away/water/lavaland_air = 1, /turf/simulated/floor/plating/asteroid = 1))
+				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/lava/lava_land_surface = 4, /turf/simulated/floor/lava/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/lava/mapping_lava = 6, /turf/simulated/floor/beach/away/water/lavaland_air = 1, /turf/simulated/floor/plating/asteroid = 1))
 				if(oasis_lake == /turf/simulated/floor/plating/asteroid)
 					new /obj/effect/spawner/oasisrock(T, tempradius)
 				for(var/turf/oasis in circlerangeturfs(T, tempradius))

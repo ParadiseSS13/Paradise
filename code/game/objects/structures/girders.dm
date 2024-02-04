@@ -107,7 +107,7 @@
 					to_chat(user, "<span class='warning'>You need at least five rods to add plating!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if (do_after(user, 40, target = src))
+				if(do_after(user, 40, target = src))
 					if(!loc || !S || S.get_amount() < 5)
 						return
 					S.use(5)

@@ -38,7 +38,7 @@
 	var/last_found //There's a delay
 	var/declare_arrests = TRUE //When making an arrest, should it notify everyone wearing sechuds?
 	var/idcheck = FALSE //If true, arrest people with no IDs
-	var/weaponscheck = TRUE //If true, arrest people for weapons if they don't have access
+	var/weapons_check = TRUE //If true, arrest people for weapons if they don't have access
 	var/check_records = TRUE //Does it check security records?
 	var/arrest_type = FALSE //If true, don't handcuff
 	var/projectile = /obj/item/projectile/beam/disabler //Holder for projectile type
@@ -66,7 +66,7 @@
 		if(created_name == initial(name) || !created_name)
 			if(lasercolor == "b")
 				name = pick("BLUE BALLER","SANIC","BLUE KILLDEATH MURDERBOT")
-			else if (lasercolor == "r")
+			else if(lasercolor == "r")
 				name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
 
 /mob/living/simple_animal/bot/ed209/proc/setup_access()
@@ -102,23 +102,26 @@
 /mob/living/simple_animal/bot/ed209/show_controls(mob/user)
 	ui_interact(user)
 
-/mob/living/simple_animal/bot/ed209/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/simple_animal/bot/ed209/ui_state(mob/user)
+	return GLOB.default_state
+
+/mob/living/simple_animal/bot/ed209/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotSecurity", name, 500, 500)
+		ui = new(user, src, "BotSecurity", name)
 		ui.open()
 
 /mob/living/simple_animal/bot/ed209/ui_data(mob/user)
 	var/list/data = ..()
 	data["check_id"] = idcheck
-	data["check_weapons"] = weaponscheck
+	data["check_weapons"] = weapons_check
 	data["check_warrant"] = check_records
 	data["arrest_mode"] = arrest_type // detain or arrest
 	data["arrest_declare"] = declare_arrests // announce arrests on radio
 	return data
 
 /mob/living/simple_animal/bot/ed209/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(topic_denied(usr))
 		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
@@ -139,7 +142,7 @@
 		if("disableremote")
 			remote_disabled = !remote_disabled
 		if("authweapon")
-			weaponscheck = !weaponscheck
+			weapons_check = !weapons_check
 		if("authid")
 			idcheck = !idcheck
 		if("authwarrant")
@@ -185,7 +188,7 @@
 
 /mob/living/simple_animal/bot/ed209/emag_act(mob/user)
 	..()
-	if(emagged == 2)
+	if(emagged)
 		if(user)
 			to_chat(user, "<span class='warning'>You short out [src]'s target assessment circuits.</span>")
 			oldtarget_name = user.name
@@ -416,7 +419,7 @@
 
 /mob/living/simple_animal/bot/ed209/proc/set_weapon()  //used to update the projectile type and firing sound
 	shoot_sound = 'sound/weapons/laser.ogg'
-	if(emagged == 2)
+	if(emagged)
 		if(lasercolor)
 			projectile = /obj/item/projectile/beam/disabler
 		else
@@ -435,7 +438,7 @@
 	lastfired = world.time
 	var/turf/T = loc
 	var/atom/U = (istype(target, /atom/movable) ? target.loc : target)
-	if((!( U ) || !( T )))
+	if((!U || !T))
 		return
 	while(!isturf(U))
 		U = U.loc
@@ -482,11 +485,11 @@
 				var/mob/toshoot = pick(targets)
 				if(toshoot)
 					targets-=toshoot
-					if(prob(50) && emagged < 2)
-						emagged = 2
+					if(prob(50) && !emagged && !locked)
+						emagged = TRUE
 						set_weapon()
 						shootAt(toshoot)
-						emagged = 0
+						emagged = FALSE
 						set_weapon()
 					else
 						shootAt(toshoot)

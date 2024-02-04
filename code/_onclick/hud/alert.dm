@@ -337,6 +337,16 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 		var/mob/living/L = usr
 		return L.resist()
 
+/obj/screen/alert/direction_lock
+	name = "Direction Lock"
+	desc = "You are facing only one direction, slowing your movement down. Click here to stop the direction lock."
+	icon_state = "direction_lock"
+
+/obj/screen/alert/direction_lock/Click()
+	if(isliving(usr))
+		var/mob/living/L = usr
+		return L.clear_forced_look()
+
 //Constructs
 /obj/screen/alert/holy_fire
 	name = "Holy Fire"
@@ -401,6 +411,26 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	if(isnymph(usr))
 		var/mob/living/simple_animal/diona/D = usr
 		return D.resist()
+
+/obj/screen/alert/gestalt
+	name = "Merged nymph"
+	desc = "You have merged with one or more diona nymphs. Click here to drop it (or one of them)."
+
+/obj/screen/alert/gestalt/Click()
+	if(!usr || !usr.client)
+		return
+
+	var/list/nymphs = list()
+	for(var/mob/living/simple_animal/diona/D in usr.contents)
+		nymphs += D
+
+	if(length(nymphs) == 1)
+		var/mob/living/simple_animal/diona/D = nymphs[1]
+		D.split(TRUE)
+	else
+		var/mob/living/simple_animal/diona/D = input("Select a nymph to drop:", "Nymph Dropping", nymphs[1]) as anything in nymphs
+		if(D in usr.contents)
+			D.split(TRUE)
 
 //Need to cover all use cases - emag, illegal upgrade module, malf AI hack, traitor cyborg
 /obj/screen/alert/hacked

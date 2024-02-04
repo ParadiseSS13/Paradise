@@ -7,6 +7,7 @@
 	dna_cost = 2
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
+	category = /datum/changeling_power_category/utility
 
 
 // Fake Voice

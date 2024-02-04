@@ -205,8 +205,6 @@
 
 /obj/structure/AIcore/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
 	default_unfasten_wrench(user, I, 20)
 
 /obj/structure/AIcore/update_icon_state()
@@ -301,7 +299,7 @@ That prevents a few funky behaviors.
 /atom/proc/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(istype(card))
 		if(card.flush)
-			to_chat(user, "<span class='boldannounce'>ERROR</span>: AI flush is in progress, cannot execute transfer protocol.")
+			to_chat(user, "<span class='boldannounceic'>ERROR</span>: AI flush is in progress, cannot execute transfer protocol.")
 			return 0
 	return 1
 

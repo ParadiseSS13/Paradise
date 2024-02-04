@@ -4,7 +4,7 @@
 // ***********************************************************
 
 // Base type. Subtypes are found in /grown dir.
-/obj/item/reagent_containers/food/snacks/grown
+/obj/item/food/snacks/grown
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
 	var/plantname = ""
@@ -18,7 +18,7 @@
 	resistance_flags = FLAMMABLE
 	origin_tech = "biotech=1"
 
-/obj/item/reagent_containers/food/snacks/grown/Initialize(mapload, obj/item/seeds/new_seed = null)
+/obj/item/food/snacks/grown/Initialize(mapload, obj/item/seeds/new_seed = null)
 	. = ..()
 	if(!tastes)
 		tastes = list("[name]" = 1)
@@ -45,25 +45,25 @@
 		if(seed.variant)
 			name += " \[[seed.variant]]"
 
-/obj/item/reagent_containers/food/snacks/grown/Destroy()
+/obj/item/food/snacks/grown/Destroy()
 	QDEL_NULL(seed)
 	return ..()
 
-/obj/item/reagent_containers/food/snacks/grown/proc/add_juice()
+/obj/item/food/snacks/grown/proc/add_juice()
 	if(reagents)
 		if(bitesize_mod)
 			bitesize = 1 + round(reagents.total_volume / bitesize_mod)
 		return 1
 	return 0
 
-/obj/item/reagent_containers/food/snacks/grown/examine(user)
+/obj/item/food/snacks/grown/examine(user)
 	. = ..()
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
 			if(T.examine_line)
 				. += T.examine_line
 
-/obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/O, mob/user, params)
+/obj/item/food/snacks/grown/attackby(obj/item/O, mob/user, params)
 	..()
 	if(slices_num && slice_path)
 		var/inaccurate = TRUE
@@ -86,10 +86,12 @@
 			for(var/i = 1 to (slices_num - slices_lost))
 				var/obj/slice = new slice_path (loc)
 				reagents.trans_to(slice, reagents_per_slice)
+				slice.pixel_x = rand(-7, 7)
+				slice.pixel_y = rand(-7, 7)
 			qdel(src)
 			return ..()
 
-	if (istype(O, /obj/item/plant_analyzer))
+	if(istype(O, /obj/item/plant_analyzer))
 		var/msg = "<span class='info'>This is \a <span class='name'>[src].</span>\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
@@ -110,12 +112,12 @@
 
 
 // Various gene procs
-/obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
+/obj/item/food/snacks/grown/attack_self(mob/user)
 	if(seed && seed.get_gene(/datum/plant_gene/trait/squash))
 		squash(user)
 	..()
 
-/obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom)
+/obj/item/food/snacks/grown/throw_impact(atom/hit_atom)
 	if(!..()) //was it caught by a mob?
 		if(seed)
 			log_action(locateUID(thrownby), hit_atom, "Thrown [src] at")
@@ -124,7 +126,7 @@
 			if(seed.get_gene(/datum/plant_gene/trait/squash))
 				squash(hit_atom)
 
-/obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target)
+/obj/item/food/snacks/grown/proc/squash(atom/target)
 	var/turf/T = get_turf(target)
 	if(ispath(splat_type, /obj/effect/decal/cleanable/plant_smudge))
 		if(filling_color)
@@ -149,34 +151,36 @@
 
 	qdel(src)
 
-/obj/item/reagent_containers/food/snacks/grown/On_Consume(mob/M, mob/user)
+/obj/item/food/snacks/grown/On_Consume(mob/M, mob/user)
 	if(iscarbon(M))
 		if(seed)
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_consume(src, M)
 	..()
 
-/obj/item/reagent_containers/food/snacks/grown/after_slip(mob/living/carbon/human/H)
+/obj/item/food/snacks/grown/after_slip(mob/living/carbon/human/H)
 	if(!seed)
 		return
 	for(var/datum/plant_gene/trait/T in seed.genes)
 		T.on_slip(src, H)
 
 // Glow gene procs
-/obj/item/reagent_containers/food/snacks/grown/generate_trash(atom/location)
+/obj/item/food/snacks/grown/generate_trash(atom/location)
 	if(trash && ispath(trash, /obj/item/grown))
 		. = new trash(location, seed)
 		trash = null
 		return
 	return ..()
 
-/obj/item/reagent_containers/food/snacks/grown/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	C.stored_comms["wood"] += 4
-	qdel(src)
-	return TRUE
+/obj/item/food/snacks/grown/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(isdrone(user))
+		C.stored_comms["wood"] += 4
+		qdel(src)
+		return TRUE
+	return ..()
 
 // For item-containing growns such as eggy or gatfruit
-/obj/item/reagent_containers/food/snacks/grown/shell/attack_self(mob/user)
+/obj/item/food/snacks/grown/shell/attack_self(mob/user)
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return
 	user.unEquip(src)
@@ -187,14 +191,14 @@
 	qdel(src)
 
 // Diona Nymphs can eat these as well as weeds to gain nutrition.
-/obj/item/reagent_containers/food/snacks/grown/attack_animal(mob/living/simple_animal/M)
+/obj/item/food/snacks/grown/attack_animal(mob/living/simple_animal/M)
 	if(isnymph(M))
 		var/mob/living/simple_animal/diona/D = M
 		D.consume(src)
 	else
 		return ..()
 
-/obj/item/reagent_containers/food/snacks/grown/proc/log_action(mob/user, atom/target, what_done)
+/obj/item/food/snacks/grown/proc/log_action(mob/user, atom/target, what_done)
 	var/reagent_str = reagents.log_list()
 	var/genes_str = "No genes"
 	if(seed && length(seed.genes))
@@ -207,7 +211,7 @@
 
 	add_attack_logs(user, target, "[what_done] ([reagent_str] | [genes_str])")
 
-/obj/item/reagent_containers/food/snacks/grown/extinguish_light(force = FALSE)
+/obj/item/food/snacks/grown/extinguish_light(force = FALSE)
 	if(!force)
 		return
 	if(seed.get_gene(/datum/plant_gene/trait/glow/shadow))

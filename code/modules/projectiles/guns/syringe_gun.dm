@@ -28,6 +28,7 @@
 
 	chambered.BB = new S.projectile_type(src)
 	S.reagents.trans_to(chambered.BB, S.reagents.total_volume)
+	S.mode = SYRINGE_INJECT
 	chambered.BB.name = S.name
 
 	syringes.Remove(S)
@@ -55,6 +56,7 @@
 		// Remove the chambered syringe only if there's no syringe left
 		S = new()
 		chambered.BB.reagents.trans_to(S, chambered.BB.reagents.total_volume)
+		S.mode = SYRINGE_INJECT
 		qdel(chambered.BB)
 		chambered.BB = null
 		process_chamber()
@@ -66,6 +68,9 @@
 
 /obj/item/gun/syringe/attackby(obj/item/A, mob/user, params, show_msg = TRUE)
 	if(istype(A, /obj/item/reagent_containers/syringe))
+		if(istype(A, /obj/item/reagent_containers/syringe/lethal))
+			to_chat(user, "<span class='warning'>[A] is too big to fit into [src].</span>")
+			return
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
 		if(in_clip < max_syringes)
 			if(!user.unEquip(A))

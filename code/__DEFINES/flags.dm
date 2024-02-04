@@ -81,6 +81,8 @@
 #define CRITICAL_ATOM_2			(1<<18)
 /// Use this flag for items that can block randomly
 #define RANDOM_BLOCKER_2		(1<<19)
+/// This flag allows for wearing of a belt item, even if you're not wearing a jumpsuit
+#define ALLOW_BELT_NO_JUMPSUIT_2	(1<<20)
 
 //Reagent flags
 #define REAGENT_NOREACT			1

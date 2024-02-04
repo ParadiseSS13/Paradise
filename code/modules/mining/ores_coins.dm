@@ -99,6 +99,7 @@
 	singular_name = "sand pile"
 	points = 1
 	refined_type = /obj/item/stack/sheet/glass
+	merge_type = /obj/item/stack/ore/glass
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
 GLOBAL_LIST_INIT(sand_recipes, list(\
@@ -353,6 +354,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(cmineral && name_by_cmineral)
 		name = "[cmineral] coin"
 
+/obj/item/coin/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/surgery_initiator/robo)
+
 /obj/item/coin/gold
 	cmineral = "gold"
 	icon_state = "coin_gold_heads"
@@ -379,21 +384,57 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/coin/plasma
 	cmineral = "plasma"
+	desc = "You really shouldn't keep this in the same pocket as a lighter."
 	icon_state = "coin_plasma_heads"
 	materials = list(MAT_PLASMA = 400)
 	credits = 80
 
+/obj/item/coin/plasma/bullet_act(obj/item/projectile/P)
+	if(!QDELETED(src) && !P.nodamage && (P.damage_type == BURN))
+		log_and_set_aflame(P.firer, P)
+
+/obj/item/coin/plasma/attackby(obj/item/I, mob/living/user, params)
+	if(!I.get_heat())
+		return ..()
+	log_and_set_aflame(user, I)
+
+/obj/item/coin/plasma/proc/log_and_set_aflame(mob/user, obj/item/I)
+	var/turf/T = get_turf(src)
+	message_admins("Plasma coin ignited by [key_name_admin(user)]([ADMIN_QUE(user, "?")]) ([ADMIN_FLW(user, "FLW")]) in ([COORD(T)] - [ADMIN_JMP(T)]")
+	log_game("Plasma coin ignited by [key_name(user)] in [COORD(T)]")
+	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", "atmos")
+	user.create_log(MISC_LOG, "Plasma coin ignited using [I]", src)
+	fire_act()
+
+/obj/item/coin/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
+	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 5) // 2 is the "correct" ammount, but its super lame. Im sure this wont have ramifications on the plasma market.
+	qdel(src)
+
 /obj/item/coin/uranium
 	cmineral = "uranium"
+	desc = "You probably shouldn't keep this in your front pocket."
 	icon_state = "coin_uranium_heads"
 	materials = list(MAT_URANIUM = 400)
 	credits = 160
+	COOLDOWN_DECLARE(radiation_cooldown)
+
+/obj/item/coin/uranium/attack_self(mob/user)
+	..()
+	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
+		return
+	radiation_pulse(src, 50)
+	COOLDOWN_START(src, radiation_cooldown, 1.5 SECONDS)
 
 /obj/item/coin/clown
 	cmineral = "bananium"
 	icon_state = "coin_bananium_heads"
 	materials = list(MAT_BANANIUM = 400)
 	credits = 600 //makes the clown cri
+
+/obj/item/coin/clown/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/slippery, src, 4 SECONDS, 100, 0, FALSE)
 
 /obj/item/coin/mime
 	cmineral = "tranquillite"
@@ -459,7 +500,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		to_chat(user, "<span class='notice'>You detach the string from the coin.</span>")
 	else ..()
 
-/obj/item/coin/welder_act(mob/user, obj/item/I)
+/obj/item/coin/wirecutter_act(mob/user, obj/item/I)
+	if(string_attached)
+		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -470,9 +513,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 						"uranium" = /obj/item/clothing/gloves/ring/uranium)
 	var/typekey = typelist[cmineral]
 	if(ispath(typekey))
-		to_chat(user, "<span class='notice'>You make [src] into a ring.</span>")
-		new typekey(get_turf(loc))
+		to_chat(user, "<span class='notice'>You carefully cut a hole into [src] turning it into a ring.</span>")
+		var/obj/item/clothing/gloves/ring/ring = new typekey()
 		qdel(src)
+		user.put_in_hands(ring)
 
 
 /obj/item/coin/attack_self(mob/user as mob)
@@ -481,11 +525,14 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		cooldown = world.time
 		flick("coin_[cmineral]_flip", src)
 		icon_state = "coin_[cmineral]_[coinflip]"
-		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)
+		var/blind_sound
+		if(cmineral != "tranquillite")
+			playsound(user.loc, 'sound/items/coinflip.ogg', 50, TRUE)
+			blind_sound = "<span class='notice'>You hear the clattering of loose change.</span>"
 		if(do_after(user, 15, target = src))
 			user.visible_message("<span class='notice'>[user] has flipped [src]. It lands on [coinflip].</span>", \
 								"<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
-								"<span class='notice'>You hear the clattering of loose change.</span>")
+								blind_sound)
 
 #undef GIBTONITE_QUALITY_LOW
 #undef GIBTONITE_QUALITY_MEDIUM
