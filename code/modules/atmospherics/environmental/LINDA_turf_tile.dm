@@ -215,12 +215,23 @@
 
 		else
 			if(!air.check_turf(enemy_tile, adjacent_turfs_length))
-				var/difference = air.mimic(enemy_tile, adjacent_turfs_length)
-				if(difference)
-					if(difference > 0)
-						consider_pressure_difference(enemy_tile, difference)
-					else
-						enemy_tile.consider_pressure_difference(src, difference)
+				// SS220 EDIT - START
+				var/current_moles = air.total_moles()
+				if(is_station_level(loc.z) && current_moles > 5 && isspaceturf(enemy_tile))
+					handle_space(enemy_tile)
+					var/pressure_direction = get_dir(src, enemy_tile)
+					for(var/atom/movable/movable in enemy_tile)
+						if(!movable.anchored && !movable.pulledby)
+							movable.experience_pressure_difference(current_moles, pressure_direction)
+				else
+					var/difference = air.mimic(enemy_tile, adjacent_turfs_length)
+					if(difference)
+						if(difference > 0)
+							consider_pressure_difference(enemy_tile, difference)
+						else
+							enemy_tile.consider_pressure_difference(src, difference)
+				// SS220 EDIT - END
+
 				remove = 0
 				if(our_excited_group)
 					last_share_check()
@@ -259,6 +270,41 @@
 
 	if(!our_excited_group && remove == 1)
 		SSair.remove_from_active(src)
+
+// SS220 EDIT - START
+/turf/simulated/proc/handle_space(turf/space/space_turf)
+	var/list/unchecked_turfs = GetAtmosAdjacentTurfs()
+	var/list/checked_turfs = list()
+	while(unchecked_turfs.len)
+		var/turf/current_turf = unchecked_turfs[1]
+		var/list/connected_turfs = current_turf.GetAtmosAdjacentTurfs()
+		if(checked_turfs.len < 30)
+			for(var/turf/simulated/turf in connected_turfs)
+				if(!unchecked_turfs.Find(turf) && !checked_turfs.Find(turf))
+					unchecked_turfs.Add(connected_turfs)
+		checked_turfs.Add(current_turf)
+		unchecked_turfs.Remove(current_turf)
+	decompression(checked_turfs, space_turf)
+
+/turf/simulated/proc/decompression(list/turfs, turf/space/space_turf, turn = 0)
+	for(var/turf/simulated/turf in turfs)
+		var/difference = turf.air.total_moles() / 2
+
+		turf.air.oxygen /= 2
+		turf.air.carbon_dioxide /= 2
+		turf.air.nitrogen /= 2
+		turf.air.toxins /= 2
+		turf.air.sleeping_agent /= 2
+		turf.air.agent_b /= 2
+		turf.air.temperature /= 2
+		turf.archive()
+
+		if(difference)
+			var/decompression_direction = get_dir(turf, get_step_towards(turf, space_turf))
+			if(!decompression_direction)
+				decompression_direction = get_dir(turf, space_turf)
+			turf.consider_pressure_difference(src, difference, decompression_direction)
+// SS220 EDIT - END
 
 
 /turf/simulated/proc/archive()
@@ -310,10 +356,10 @@
 				T.consider_pressure_difference(src, difference)
 		last_share_check()
 
-/turf/proc/consider_pressure_difference(turf/simulated/T, difference)
+/turf/proc/consider_pressure_difference(turf/simulated/T, difference, direction = get_dir(src, T)) // SS220 - EDIT
 	SSair.high_pressure_delta |= src
 	if(difference > pressure_difference)
-		pressure_direction = get_dir(src, T)
+		pressure_direction = direction // SS220 - EDIT
 		pressure_difference = difference
 
 /turf/simulated/proc/last_share_check()
