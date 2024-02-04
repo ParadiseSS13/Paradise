@@ -177,7 +177,7 @@
  * * category - (Text) Removes the mood event with the given category
  */
 /datum/mood/proc/clear_mood_event(category)
-	if (!istext(category))
+	if(!istext(category))
 		category = "\ref[category]"
 
 	var/datum/mood_event/event = mood_events[category]
