@@ -112,7 +112,7 @@
 	return TRUE
 
 /obj/structure/bed/revival_nest
-	name = "alien rejuvination nest"
+	name = "alien rejuvenation nest"
 	desc = "It's a gruesome pile of thick, sticky resin shaped like a flytrap. Heals damaged aliens and slowly revives the dead, breaks down non xenos and uses their genetic soup to make an alien egg."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "placeholder_rejuv_nest"
