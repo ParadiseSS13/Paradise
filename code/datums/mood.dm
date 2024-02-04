@@ -95,9 +95,9 @@
 /datum/mood/proc/handle_mob_death(datum/source)
 	SIGNAL_HANDLER
 
-	if (last_stat == DEAD && mob_parent.stat != DEAD)
+	if(last_stat == DEAD && mob_parent.stat != DEAD)
 		START_PROCESSING(SSmood, src)
-	else if (last_stat != DEAD && mob_parent.stat == DEAD)
+	else if(last_stat != DEAD && mob_parent.stat == DEAD)
 		STOP_PROCESSING(SSmood, src)
 	last_stat = mob_parent.stat
 
