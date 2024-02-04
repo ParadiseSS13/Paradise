@@ -21,8 +21,8 @@
 	return TRUE
 
 /obj/effect/proc_holder/spell/alien_spell/syphon_plasma
-	name = "Syphon Plasma"
-	desc = "Syphons 50 plasma from a nearby alien"
+	name = "Syphon plasma"
+	desc = "Syphons 50 plasma from a nearby alien."
 	action_icon_state = "alien_transfer"
 	plasma_cost = 0
 	base_cooldown = 10 SECONDS
