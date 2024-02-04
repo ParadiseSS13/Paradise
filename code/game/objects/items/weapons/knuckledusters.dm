@@ -23,14 +23,15 @@
 	if(!gripped)
 		gripped = TRUE
 		to_chat(user, "You tighten your grip on [src], ensuring you won't drop it.")
-		flags |= NODROP | ABSTRACT
+		flags |= (NODROP | ABSTRACT)
 	else
 		gripped = FALSE
 		to_chat(user, "You relax your grip on [src].")
 		flags &= ~(NODROP | ABSTRACT)
 
 /obj/item/melee/knuckleduster/attack/(mob/living/user)
-	hitsound = pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg')
+	hitsound = pick('sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 
+'sound/weapons/punch4.ogg')
 	return ..()
 
 /obj/item/melee/knuckleduster/attack(mob/living/target, mob/living/user)
