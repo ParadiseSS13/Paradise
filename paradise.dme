@@ -2513,6 +2513,7 @@
 #include "code\modules\projectiles\ammunition\energy_lens.dm"
 #include "code\modules\projectiles\ammunition\magazines.dm"
 #include "code\modules\projectiles\ammunition\special_ammo.dm"
+#include "code\modules\projectiles\guns\chaos_bolt.dm"
 #include "code\modules\projectiles\guns\energy_guns.dm"
 #include "code\modules\projectiles\guns\grenade_launcher.dm"
 #include "code\modules\projectiles\guns\magic.dm"
