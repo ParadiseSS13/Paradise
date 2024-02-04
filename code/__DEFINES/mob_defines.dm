@@ -100,7 +100,7 @@
 #define BEAUTY_LEVEL_GOOD 66
 #define BEAUTY_LEVEL_GREAT 100
 
-//Moods levels for humans
+//The total sum of all mood events (their strength). Used to calculate the level of mood.
 #define MOOD_HAPPY4 15
 #define MOOD_HAPPY3 10
 #define MOOD_HAPPY2 6
@@ -111,7 +111,7 @@
 #define MOOD_SAD3 -15
 #define MOOD_SAD4 -20
 
-//Moods levels for humans
+//LvL of mood. Used to increase/decrease sanity and display a icon of the current mood on the screen.
 #define MOOD_LEVEL_HAPPY4 9
 #define MOOD_LEVEL_HAPPY3 8
 #define MOOD_LEVEL_HAPPY2 7
@@ -122,7 +122,8 @@
 #define MOOD_LEVEL_SAD3 2
 #define MOOD_LEVEL_SAD4 1
 
-//Sanity values for humans
+//The sanity level is responsible for issuing buffs/debuffs. (current state of the player)
+//changes in ticks(using SSmood) depending on the player’s MOOD LEVEL.
 #define SANITY_MAXIMUM 150
 #define SANITY_GREAT 125
 #define SANITY_NEUTRAL 100
@@ -131,7 +132,7 @@
 #define SANITY_CRAZY 25
 #define SANITY_INSANE 0
 
-//Sanity levels for humans
+//Changing the color of the mood icon.
 #define SANITY_LEVEL_GREAT 1
 #define SANITY_LEVEL_NEUTRAL 2
 #define SANITY_LEVEL_DISTURBED 3

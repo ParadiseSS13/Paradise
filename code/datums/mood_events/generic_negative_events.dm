@@ -17,7 +17,7 @@
 	timeout = 3 MINUTES
 
 /datum/mood_event/embedded
-	description = "Pull it out!"
+	description = "Something is stuck in my body. Pull it out!!"
 	mood_change = -7
 
 /datum/mood_event/jittery
