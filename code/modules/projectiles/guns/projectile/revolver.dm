@@ -385,7 +385,7 @@
 /obj/item/gun/projectile/revolver/doublebarrel/proc/sleight_of_handling(mob/living/carbon/human/user)
 	if(!istype(get_area(user), /area/station/service/bar))
 		return FALSE
-	if(!HAS_TRAIT(user, TRAIT_SLEIGHT_OF_HAND) || !istype(user))
+	if(!istype(user) || !HAS_TRAIT(user, TRAIT_SLEIGHT_OF_HAND))
 		return FALSE
 	if(!istype(user.belt, /obj/item/storage/belt/bandolier))
 		return FALSE
