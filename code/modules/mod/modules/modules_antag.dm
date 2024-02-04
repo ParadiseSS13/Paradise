@@ -514,12 +514,18 @@
 	charges = max_charges
 
 /obj/item/mod/module/anomaly_locked/teslawall/on_suit_activation()
+	. = ..()
+	if(!core)
+		return FALSE
 	mod.AddComponent(/datum/component/shielded, max_charges = max_charges, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
 	charge_recovery = charge_recovery, lose_multiple_charges = lose_multiple_charges, show_charge_as_alpha = lose_multiple_charges, recharge_path = recharge_path, starting_charges = charges, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
 	ADD_TRAIT(mod.wearer, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/mod/module/anomaly_locked/teslawall/on_suit_deactivation(deleting = FALSE)
+	. = ..()
+	if(!core)
+		return FALSE
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
 	charges = shield.current_charges
 	qdel(shield)
