@@ -185,6 +185,8 @@
 #define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope
 /// This status effect allows a mob to be revived with a defibrillator.
 #define STATUS_EFFECT_REVIVABLE /datum/status_effect/limited_bonus/revivable
+/// Causes a random safe teleport every 2 seconds for a limited time
+#define STATUS_EFFECT_TELEPORT_ROULETTE /datum/status_effect/teleport_roulette
 
 /// Status effects for different actions
 #define STATUS_EFFECT_REMOVE_CUFFS /datum/status_effect/action_status_effect/remove_handcuffs

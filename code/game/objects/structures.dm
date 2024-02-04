@@ -154,6 +154,9 @@
 		return FALSE
 	return TRUE
 
+/obj/structure/proc/get_climb_text()
+	return "<span class='info'>You can <b>Click-Drag</b> yourself to [src] to climb on top of it after a short delay.</span>"
+
 /obj/structure/examine(mob/user)
 	. = ..()
 	if(!(resistance_flags & INDESTRUCTIBLE))
@@ -165,7 +168,7 @@
 		if(examine_status)
 			. += examine_status
 	if(climbable)
-		. += "<span class='info'>You can <b>Click-Drag</b> someone to [src] to put them on the table after a short delay.</span>"
+		. += get_climb_text()
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
