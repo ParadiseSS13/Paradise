@@ -47,8 +47,8 @@
 	retreat_distance = 5
 	minimum_distance = 5
 	projectiletype = /obj/item/projectile/beam
-	loot = list	loot = list(/obj/effect/mob_spawn/human/corpse/pirate,
+	loot = list(/obj/effect/mob_spawn/human/corpse/pirate,
 				/obj/item/gun/energy/laser,
 				/obj/item/clothing/head/helmet/space/pirate,
-				/obj/item/sellable/salvage/loot/pirate
+				/obj/item/sellable/salvage/loot/pirate,
 				)

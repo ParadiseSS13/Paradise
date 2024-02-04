@@ -288,7 +288,6 @@
 		/obj/item/stack/sheet/mineral/gold{amount = 20} = 1,
 		/obj/item/stack/sheet/mineral/uranium{amount = 20} = 1,
 		/obj/item/mod/module/noslip = 1,
-		/obj/item/mod/module/visor/night = 1
 		/obj/item/mod/module/visor/night = 1,
 		/obj/item/clothing/gloves/color/black/thief = 1,
 		/obj/item/clothing/suit/storage/iaa/blackjacket/armored = 1,
@@ -317,7 +316,7 @@
 		/obj/item/clothing/glasses/hud/security/chameleon = 1,
 		/obj/item/mod/module/visor/thermal = 1,
 		/obj/item/mod/module/stealth = 1,
-		/obj/item/mod/module/power_kick = 1
+		/obj/item/mod/module/power_kick = 1,
 		/obj/item/storage/box/syndidonkpockets = 1,
 		/obj/item/pen/edagger = 1,
 		/obj/item/door_remote/omni/access_tuner = 1,
