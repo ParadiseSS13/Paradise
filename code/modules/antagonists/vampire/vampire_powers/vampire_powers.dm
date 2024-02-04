@@ -198,6 +198,12 @@
 	for(var/mob/living/target in targets)
 		if(!target.affects_vampire(user))
 			continue
+		if(ishuman(target))
+			var/mob/living/carbon/human/human_target = target
+			if(istype(human_target.glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
+				var/obj/item/clothing/glasses/sunglasses/blindfold/B = human_target.glasses
+				if(B.tint)
+					continue
 
 		var/deviation
 		if(IS_HORIZONTAL(user))
