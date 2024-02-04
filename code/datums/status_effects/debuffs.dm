@@ -1120,6 +1120,17 @@
 		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
 		animate(offset = 0, time = 10 SECONDS)
 
+
+/datum/status_effect/abductor_cooldown
+	id = "abductor_cooldown"
+	alert_type = /obj/screen/alert/status_effect/abductor_cooldown
+	duration = 10 SECONDS
+
+/obj/screen/alert/status_effect/abductor_cooldown
+	name = "Teleportation cooldown"
+	desc = "Per article A-113, all experimentors must wait 10000 milliseconds between teleports in order to ensure no long term genetic or mental damage happens to experimentor or test subjects."
+	icon_state = "bluespace"
+
 #define DEFAULT_MAX_CURSE_COUNT 5
 
 /// Status effect that gives the target miscellanous debuffs while throwing a status alert and causing them to smoke from the damage they're incurring.
