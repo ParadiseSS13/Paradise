@@ -103,7 +103,8 @@
 		/obj/item/geiger_counter,
 		/obj/item/extinguisher/mini,
 		/obj/item/holosign_creator,
-		/obj/item/stack/nanopaste)
+		/obj/item/stack/nanopaste,
+		/obj/item/robotanalyzer)
 
 /obj/item/storage/belt/utility/full/populate_contents()
 	new /obj/item/screwdriver(src)
