@@ -72,9 +72,7 @@
 	var/static/list/resin_objects = list(/obj/structure/alien/resin, /obj/structure/alien/egg, /obj/structure/bed/nest, /obj/structure/bed/revival_nest)
 	for(var/resin_type in resin_objects)
 		if(!istype(target, resin_type))
-			to_chat(user, "type to check: [resin_type]")
 			continue
-			to_chat(user, "Got past the istype checks")
 		user.visible_message("<span class='alertalien'>[user] rips and tears into [target] with their teeth!</span>")
 		if(!do_after(user, 3 SECONDS, target = target))
 			return

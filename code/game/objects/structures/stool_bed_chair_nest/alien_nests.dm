@@ -199,7 +199,7 @@
 /obj/structure/bed/revival_nest/proc/decay_dead_carbon(mob/living/carbon/human/dead_carbon)
 	if(HAS_TRAIT(dead_carbon, TRAIT_SKELETONIZED))
 		return
-	if(ismachineperson(dead_carbon) || isrobot(dead_carbon)) // A potential idea is to make these function like working joes in isolation, but I don't have sprites for em
+	if(dead_carbon.mob_biotypes & MOB_ROBOTIC) // A potential idea is to make these function like working joes in isolation, but I don't have sprites for em
 		return
 	if(istype(dead_carbon))
 		dead_carbon.visible_message("<span class='warning'>[dead_carbon]'s skeleton slides out of the mass slowly... an egg forms in their place.</span>")
