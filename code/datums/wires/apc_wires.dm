@@ -2,8 +2,6 @@
 	holder_type = /obj/machinery/power/apc
 	wire_count = 4
 	proper_name = "APC"
-	window_x = 355
-	window_y = 97
 
 /datum/wires/apc/New(atom/_holder)
 	wires = list(WIRE_IDSCAN, WIRE_MAIN_POWER1, WIRE_MAIN_POWER2, WIRE_AI_CONTROL)

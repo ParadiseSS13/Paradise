@@ -325,7 +325,7 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist.</span>")
+		to_chat(H, "<span class='boldannounceic'>You have learned the ancient martial art of Plasma Fist.</span>")
 		used = TRUE
 		desc = "It's completely blank."
 		name = "empty scroll"
@@ -375,7 +375,7 @@
 			to_chat(user, "<span class='warning'>The mere thought of combat, let alone CQC, makes your head spin!</span>")
 			return
 
-	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
+	to_chat(user, "<span class='boldannounceic'>You remember the basics of CQC.</span>")
 	var/datum/martial_art/cqc/CQC = new(null)
 	CQC.teach(user)
 	user.drop_item()

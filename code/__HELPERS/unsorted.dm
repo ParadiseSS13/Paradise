@@ -1649,7 +1649,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/item/grenade/clusterbuster = "CLUSTERBUSTER",
 			/obj/item/grenade = "GRENADE",
 			/obj/item/gun = "GUN",
-			/obj/item/implant = "IMPLANT",
+			/obj/item/bio_chip = "BIO_CHIP",
 			/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack = "MECHA_MISSILE_RACK",
 			/obj/item/mecha_parts/mecha_equipment/weapon = "MECHA_WEAPON",
 			/obj/item/mecha_parts/mecha_equipment = "MECHA_EQUIP",
@@ -1667,8 +1667,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/item/reagent_containers/glass/bottle = "BOTTLE",
 			/obj/item/reagent_containers/patch = "PATCH",
 			/obj/item/reagent_containers/pill = "PILL",
-			/obj/item/reagent_containers/food/drinks = "DRINK",
-			/obj/item/reagent_containers/food = "FOOD",
+			/obj/item/reagent_containers/drinks = "DRINK",
+			/obj/item/food = "FOOD",
 			/obj/item/reagent_containers/syringe = "SYRINGE",
 			/obj/item/reagent_containers = "REAGENT_CONTAINERS",
 			/obj/item/robot_parts = "ROBOT_PARTS",
@@ -1965,6 +1965,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
   */
 /proc/get_channel_name(channel)
 	switch(channel)
+		if(CHANNEL_GENERAL)
+			return "General Sounds"
 		if(CHANNEL_LOBBYMUSIC)
 			return "Lobby Music"
 		if(CHANNEL_ADMIN)

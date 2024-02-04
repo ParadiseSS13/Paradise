@@ -17,7 +17,7 @@
 	mob_size = MOB_SIZE_SMALL
 	animal_species = /mob/living/simple_animal/pet/cat
 	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
+	butcher_results = list(/obj/item/food/snacks/meat = 3)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -55,6 +55,8 @@
 	deploy_the_cats()
 
 /mob/living/simple_animal/pet/cat/Runtime/persistent_save()
+	if(SEND_SIGNAL(src, COMSIG_LIVING_WRITE_MEMORY) & COMPONENT_DONT_WRITE_MEMORY)
+		return FALSE
 	write_memory(FALSE)
 
 /mob/living/simple_animal/pet/cat/Runtime/make_babies()
@@ -231,8 +233,8 @@
 	butcher_results = list(
 		/obj/item/organ/internal/brain = 1,
 		/obj/item/organ/internal/heart = 1,
-		/obj/item/reagent_containers/food/snacks/birthdaycakeslice = 3,
-		/obj/item/reagent_containers/food/snacks/meat/slab = 2
+		/obj/item/food/snacks/birthdaycakeslice = 3,
+		/obj/item/food/snacks/meat/slab = 2
 	)
 	response_harm = "takes a bite out of"
 	attacked_sound = "sound/items/eatfood.ogg"
@@ -245,7 +247,7 @@
 		return
 	if(health < maxHealth)
 		adjustBruteLoss(-4)
-	for(var/obj/item/reagent_containers/food/snacks/donut/D in range(1, src))
+	for(var/obj/item/food/snacks/donut/D in range(1, src))
 		if(D.icon_state != "donut2")
 			D.name = "frosted donut"
 			D.icon_state = "donut2"

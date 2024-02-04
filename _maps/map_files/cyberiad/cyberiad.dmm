@@ -25901,6 +25901,10 @@
 	icon_state = "browncorner"
 	},
 /area/station/hallway/primary/central/west)
+"bzN" = (
+/obj/effect/spawner/airlock/w_to_e/long,
+/turf/simulated/wall/r_wall,
+/area/station/engineering/ai_transit_tube)
 "bzO" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel,
@@ -61653,10 +61657,6 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
-"hhy" = (
-/obj/effect/spawner/airlock/w_to_e/long,
-/turf/simulated/wall/r_wall,
-/area/station/engineering/ai_transit_tube)
 "hhF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -128109,7 +128109,7 @@ dcq
 dcq
 dcq
 ddr
-hhy
+bzN
 dfx
 eLY
 dOc

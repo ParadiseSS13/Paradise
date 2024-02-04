@@ -18,7 +18,7 @@
 	new /obj/item/gun/energy/gun(src)
 	new /obj/item/flash(src)
 	new /obj/item/door_remote/captain(src)
-	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
+	new /obj/item/reagent_containers/drinks/mug/cap(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 
 /obj/structure/closet/secure_closet/hop
@@ -35,7 +35,7 @@
 	new /obj/item/gun/energy/gun/mini(src)
 	new /obj/item/flash(src)
 	new /obj/item/door_remote/civillian(src)
-	new /obj/item/reagent_containers/food/drinks/mug/hop(src)
+	new /obj/item/reagent_containers/drinks/mug/hop(src)
 	new /obj/item/clothing/accessory/medal/service(src)
 	new /obj/item/storage/bag/garment/head_of_personnel(src)
 
@@ -62,10 +62,10 @@
 	new /obj/item/storage/belt/security/full(src)
 	new /obj/item/gun/energy/gun/hos(src)
 	new /obj/item/door_remote/head_of_security(src)
-	new /obj/item/reagent_containers/food/drinks/mug/hos(src)
+	new /obj/item/reagent_containers/drinks/mug/hos(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
 	new /obj/item/clothing/accessory/medal/security(src)
-	new /obj/item/reagent_containers/food/drinks/flask/barflask(src)
+	new /obj/item/reagent_containers/drinks/flask/barflask(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
 
 /obj/structure/closet/secure_closet/warden
