@@ -132,7 +132,7 @@ SUBSYSTEM_DEF(statpanels)
 	mc_data = list(
 		list("CPU:", Master.formatcpu(world.cpu)),
 		list("Map CPU:", Master.formatcpu(world.map_cpu)),
-		list("Instances:", "[num2text(length(world.contents)), 10)]"),
+		list("Instances:", "[num2text(length(world.contents), 10)]"),
 		list("World Time:", "[world.time]"),
 		list("Server Time:", time_stamp()),
 		list("Globals:", GLOB.stat_entry(), "[GLOB.UID()]"),
