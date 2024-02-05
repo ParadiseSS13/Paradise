@@ -260,7 +260,7 @@
 	var/tdata = TopicData //save this for later use
 	// Instantiate stat panel
 	stat_panel = new(src, "statbrowser")
-	stat_panel.subscribe(src, .proc/on_stat_panel_message)
+	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
 	tgui_panel = new(src, "browseroutput")
 	TopicData = null							//Prevent calls to client.Topic from connect
