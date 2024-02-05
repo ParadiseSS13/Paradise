@@ -672,7 +672,7 @@ emp_act
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			apply_effect(10 SECONDS, KNOCKDOWN, run_armor_check(affecting, MELEE))
-			adjustStaminaLoss(M.alien_disarm_damage)
+			apply_damage(M.alien_disarm_damage, STAMINA)
 			add_attack_logs(M, src, "Alien tackled")
 			visible_message("<span class='danger'>[M] has tackled down [src]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
 
@@ -722,7 +722,7 @@ emp_act
 			var/dmg = rand(M.force/2, M.force)
 			switch(M.damtype)
 				if("brute")
-					adjustStaminaLoss(dmg)
+					apply_damage(dmg, STAMINA)
 					if(M.force > 35) // durand and other heavy mechas
 						KnockDown(6 SECONDS)
 					else if(M.force > 20 && !IsKnockedDown()) // lightweight mechas like gygax
