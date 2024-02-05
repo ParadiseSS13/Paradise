@@ -343,7 +343,6 @@
 
 /obj/item/organ/internal/cyberimp/brain/hackerman_deck/proc/on_body_transfer()
 	SIGNAL_HANDLER
-	message_admins("attempting")
 	for(var/datum/action/A in owner.actions)
 		if(A.name == "Activate Ranged Hacking") //Bit snowflake, but the action doesn't remove right otherwise
 			A.Remove(owner)
@@ -351,7 +350,6 @@
 	add_spell()
 
 /obj/item/organ/internal/cyberimp/brain/hackerman_deck/proc/add_spell()
-	message_admins("doing")
 	if(owner.mind)
 		owner.mind.RemoveSpell(/obj/effect/proc_holder/spell/hackerman_deck) //Just to be sure.
 		owner.mind.AddSpell(new /obj/effect/proc_holder/spell/hackerman_deck(null))
