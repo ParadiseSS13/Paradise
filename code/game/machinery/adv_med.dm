@@ -54,7 +54,6 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 
-
 /obj/machinery/bodyscanner/RefreshParts()
 	for(var/obj/item/stock_parts/scanning_module/S in component_parts)
 		scan_level = S.rating

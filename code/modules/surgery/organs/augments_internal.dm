@@ -318,7 +318,7 @@
 
 /obj/effect/proc_holder/spell/hackerman_deck
 	name = "Activate Ranged Hacking"
-	desc = "Click on any machine, to hack them. Has a short range, only three tiles."
+	desc = "Click on any machine, to hack them. Has a short range of only three tiles."
 	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	invocation = "none"

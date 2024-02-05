@@ -815,7 +815,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		isn't possible, however the deck will drop a payload into the target's systems that will attempt \
 		hacking for you. \
 		Will not show on unupgraded body scanners."
-	reference = "hkr"
+	reference = "HKR"
 	item = /obj/item/autosurgeon/organ/syndicate/hackerman_deck
 	cost = 30 // Probably slightly less useful than an emag with heat / cooldown, but I am not going to make it cheaper or everyone picks it over emag
 
