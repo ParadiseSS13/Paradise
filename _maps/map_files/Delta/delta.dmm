@@ -37436,13 +37436,13 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "bZg" = (
@@ -70523,14 +70523,12 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
 "fYS" = (
-/obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk,
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
@@ -85567,17 +85565,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"pJv" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "pJE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -91871,7 +91858,6 @@
 	},
 /area/station/hallway/primary/fore)
 "tAi" = (
-/obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -120376,7 +120362,7 @@ abj
 dVS
 abj
 abj
-pJv
+fYS
 nmF
 abj
 bXU
