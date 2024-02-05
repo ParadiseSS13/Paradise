@@ -1183,8 +1183,14 @@
 	if(IsAdminAdvancedProcCall())
 		return
 	var/list/verblist = list()
+	var/list/verbstoprocess = verbs.Copy()
+	if(mob)
+		verbstoprocess += mob.verbs
+		for(var/AM in mob.contents)
+			var/atom/movable/thing = AM
+			verbstoprocess += thing.verbs
 	verb_tabs.Cut()
-	for(var/thing in (verbs + mob?.verbs))
+	for(var/thing in verbstoprocess)
 		var/procpath/verb_to_init = thing
 		if(!verb_to_init)
 			continue

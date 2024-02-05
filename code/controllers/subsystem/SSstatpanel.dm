@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(statpanels)
 	name = "Stat Panels"
 	wait = 4
 	init_order = INIT_ORDER_STATPANELS
+	flags = SS_NO_INIT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	var/list/currentrun = list()
 	var/encoded_global_data
@@ -70,10 +71,7 @@ SUBSYSTEM_DEF(statpanels)
 					if(!target_image.loc || target_image.loc.loc != target_mob.listed_turf || !target_image.override)
 						continue
 					overrides += target_image.loc
-				if(!(target_mob.listed_turf.UID() in cached_images))
-					target << browse_rsc(getFlatIcon(target_mob.listed_turf, no_anim = TRUE), "[target_mob.listed_turf.UID()].png")
-					cached_images += target_mob.listed_turf.UID()
-				turfitems[++turfitems.len] = list("[target_mob.listed_turf]", target_mob.listed_turf.UID(), "[target_mob.listed_turf.UID()].png")
+				turfitems[++turfitems.len] = list("[target_mob.listed_turf]", target_mob.listed_turf.UID(), costly_icon2html(target_mob.listed_turf, target, sourceonly=TRUE))
 				for(var/tc in target_mob.listed_turf)
 					var/atom/movable/turf_content = tc
 					if(turf_content.mouse_opacity == MOUSE_OPACITY_TRANSPARENT)
@@ -85,10 +83,7 @@ SUBSYSTEM_DEF(statpanels)
 					if(turf_content.IsObscured())
 						continue
 					if(length(turfitems) < 30) // only create images for the first 30 items on the turf, for performance reasons
-						if(!(turf_content.UID() in cached_images))
-							target << browse_rsc(getFlatIcon(turf_content, no_anim = TRUE), "[turf_content.UID()].png")
-							cached_images += turf_content.UID()
-						turfitems[++turfitems.len] = list("[turf_content.name]", turf_content.UID(), "[turf_content.UID()].png")
+						turfitems[++turfitems.len] = list("[turf_content.name]", turf_content.UID(), costly_icon2html(turf_content, target, sourceonly=TRUE))
 					else
 						turfitems[++turfitems.len] = list("[turf_content.name]", turf_content.UID())
 				turfitems = url_encode(json_encode(turfitems))
