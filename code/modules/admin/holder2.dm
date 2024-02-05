@@ -1,12 +1,22 @@
 GLOBAL_LIST_EMPTY(admin_datums)
 GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people making their own admin ranks, for obvious reasons
 
+GLOBAL_VAR_INIT(href_token, GenerateToken())
+GLOBAL_PROTECT(href_token)
+
+/proc/GenerateToken()
+	. = ""
+	for(var/I in 1 to 32)
+		. += "[rand(10)]"
+
 /datum/admins
 	var/rank			= "Temporary Admin"
 	var/client/owner	= null
 	var/rights = 0
 	var/fakekey			= null
 	var/big_brother		= 0
+
+	var/href_token
 
 	var/datum/marked_datum
 
@@ -28,6 +38,7 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 	admincaster_signature = "Nanotrasen Officer #[rand(0,9)][rand(0,9)][rand(0,9)]"
 	rank = initial_rank
 	rights = initial_rights
+	href_token = GenerateToken()
 	GLOB.admin_datums[ckey] = src
 
 /datum/admins/Destroy()

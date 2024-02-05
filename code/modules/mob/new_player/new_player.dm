@@ -207,8 +207,8 @@
 				client.prefs.active_character.real_name = random_name(client.prefs.active_character.gender,client.prefs.active_character.species)
 			observer.real_name = client.prefs.active_character.real_name
 			observer.name = observer.real_name
-			observer.client.init_verbs()
 			observer.key = key
+			observer.client.init_verbs()
 			ADD_TRAIT(observer, TRAIT_RESPAWNABLE, GHOSTED)
 			qdel(src)
 			return TRUE

@@ -1305,3 +1305,4 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		// first of all make sure we valid
 		var/mouseparams = list2params(paramslist)
 		usr_client.Click(src, loc, null, mouseparams)
+		return TRUE
