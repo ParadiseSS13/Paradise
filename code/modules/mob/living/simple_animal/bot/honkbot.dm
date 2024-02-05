@@ -69,10 +69,13 @@
 /mob/living/simple_animal/bot/honkbot/show_controls(mob/user)
 	ui_interact(user)
 
-/mob/living/simple_animal/bot/honkbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/simple_animal/bot/honkbot/ui_state(mob/user)
+	return GLOB.default_state
+
+/mob/living/simple_animal/bot/honkbot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotHonk", name, 500, 220)
+		ui = new(user, src, "BotHonk", name)
 		ui.open()
 
 /mob/living/simple_animal/bot/honkbot/ui_act(action, params, datum/tgui/ui)
@@ -298,7 +301,7 @@
 
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
 	walk_to(src, 0)
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	visible_message("<span class='boldannounceic'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/bikehorn(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
