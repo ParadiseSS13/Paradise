@@ -36,6 +36,8 @@
 
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
+	/// Materials scannable by detective
+	var/list/suit_fibers
 
 	var/admin_spawned = FALSE	//was this spawned by an admin? used for stat tracking stuff.
 
