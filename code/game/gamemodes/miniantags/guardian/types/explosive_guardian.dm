@@ -14,7 +14,7 @@
 	. = ..()
 	. += ""
 	if(bomb_cooldown >= world.time)
-		. += "Bomb Cooldown Remaining: [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] seconds"
+		. += "Bomb Cooldown Remaining: [max(round((bomb_cooldown - world.time) * 0.1, 0.1), 0)] seconds"
 
 /mob/living/simple_animal/hostile/guardian/bomb/AltClickOn(atom/movable/A)
 	if(!istype(A))

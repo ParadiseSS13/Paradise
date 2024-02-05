@@ -29,9 +29,9 @@ SUBSYSTEM_DEF(statpanels)
 			cached ? "Next Map: [cached.fluff_name]" : null,
 			"Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]",
 			"Server Time: [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]",
-			"Round Time: [round_time > MIDNIGHT_ROLLOVER ? "[round(round_time/MIDNIGHT_ROLLOVER)]:[worldtime2text()]" : worldtime2text()]",
+			"Round Time: [round_time > MIDNIGHT_ROLLOVER ? "[round(round_time / MIDNIGHT_ROLLOVER)]:[worldtime2text()]" : worldtime2text()]",
 			"Station Time: [station_time_timestamp()]",
-			"Time Dilation: [round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)"
+			"Time Dilation: [round(SStime_track.time_dilation_current, 1)]% AVG:([round(SStime_track.time_dilation_avg_fast, 1)]%, [round(SStime_track.time_dilation_avg, 1)]%, [round(SStime_track.time_dilation_avg_slow, 1)]%)"
 		)
 
 		if(SSshuttle.emergency)
@@ -98,7 +98,7 @@ SUBSYSTEM_DEF(statpanels)
 			continue
 		overrides += target_image.loc
 
-	turfitems[++turfitems.len] = list("[target_mob.listed_turf]", target_mob.listed_turf.UID(), icon2html(target_mob.listed_turf, target, sourceonly=TRUE))
+	turfitems[length(turfitems) + 1] = list("[target_mob.listed_turf]", target_mob.listed_turf.UID(), icon2html(target_mob.listed_turf, target, sourceonly=TRUE))
 
 	for(var/atom/movable/turf_content as anything in target_mob.listed_turf)
 		if(turf_content.mouse_opacity == MOUSE_OPACITY_TRANSPARENT)
@@ -117,13 +117,13 @@ SUBSYSTEM_DEF(statpanels)
 				turf_content.RegisterSignal(turf_content, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/atom, remove_from_cache)) // we reset cache if anything in it gets deleted
 
 				if(ismob(turf_content) || length(turf_content.overlays) > 2)
-					turfitems[++turfitems.len] = list("[turf_content.name]", turf_content_ref, costly_icon2html(turf_content, target, sourceonly=TRUE))
+					turfitems[length(turfitems) + 1] = list("[turf_content.name]", turf_content_ref, costly_icon2html(turf_content, target, sourceonly=TRUE))
 				else
-					turfitems[++turfitems.len] = list("[turf_content.name]", turf_content_ref, icon2html(turf_content, target, sourceonly=TRUE))
+					turfitems[length(turfitems) + 1] = list("[turf_content.name]", turf_content_ref, icon2html(turf_content, target, sourceonly=TRUE))
 			else
-				turfitems[++turfitems.len] = list("[turf_content.name]", turf_content_ref)
+				turfitems[length(turfitems) + 1] = list("[turf_content.name]", turf_content_ref)
 		else
-			turfitems[++turfitems.len] = list("[turf_content.name]", turf_content.UID())
+			turfitems[length(turfitems) + 1] = list("[turf_content.name]", turf_content.UID())
 
 	turfitems = turfitems
 	target.stat_panel.send_message("update_listedturf", turfitems)
@@ -132,18 +132,18 @@ SUBSYSTEM_DEF(statpanels)
 	mc_data = list(
 		list("CPU:", Master.formatcpu(world.cpu)),
 		list("Map CPU:", Master.formatcpu(world.map_cpu)),
-		list("Instances:", "[num2text(world.contents.len, 10)]"),
+		list("Instances:", "[num2text(length(world.contents)), 10)]"),
 		list("World Time:", "[world.time]"),
 		list("Server Time:", time_stamp()),
 		list("Globals:", GLOB.stat_entry(), "[GLOB.UID()]"),
-		list("Byond:", "(FPS:[world.fps]) (TickCount:[world.time/world.tick_lag]) (TickDrift:[round(Master.tickdrift,1)]([round((Master.tickdrift/(world.time/world.tick_lag))*100,0.1)]%)) (Internal Tick Usage: [round(MAPTICK_LAST_INTERNAL_TICK_USAGE,0.1)]%)"),
+		list("Byond:", "(FPS:[world.fps]) (TickCount:[world.time / world.tick_lag]) (TickDrift:[round(Master.tickdrift, 1)]([round((Master.tickdrift / (world.time / world.tick_lag)) * 100, 0.1)]%)) (Internal Tick Usage: [round(MAPTICK_LAST_INTERNAL_TICK_USAGE, 0.1)]%)"),
 		list("Master Controller:", Master.stat_entry(), "[Master.UID()]"),
 		list("Failsafe Controller:", Failsafe.stat_entry(), "[Failsafe.UID()]"),
 		list("","")
 	)
 	for(var/datum/controller/subsystem/sub_system as anything in Master.subsystems)
-		mc_data[++mc_data.len] = list("\[[sub_system.state_letter()]][sub_system.name]", sub_system.stat_entry(), "\ref[sub_system]")
-	mc_data[++mc_data.len] = list("Camera Net", "Cameras: [GLOB.cameranet.cameras.len] | Chunks: [GLOB.cameranet.chunks.len]", "\ref[GLOB.cameranet]")
+		mc_data[length(mc_data) + 1] = list("\[[sub_system.state_letter()]][sub_system.name]", sub_system.stat_entry(), "\ref[sub_system]")
+	mc_data[length(mc_data) + 1] = list("Camera Net", "Cameras: [length(GLOB.cameranet.cameras)] | Chunks: [length(GLOB.cameranet.chunks)]", "\ref[GLOB.cameranet]")
 
 ///immediately update the active statpanel tab of the target client
 /datum/controller/subsystem/statpanels/proc/immediate_send_stat_data(client/target)

@@ -316,7 +316,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	src << browse(dat_text, "window=aialerts&can_close=0")
 
 /mob/living/silicon/ai/proc/show_borg_info()
-	. += "Connected cyborgs: [connected_robots.len]"
+	. += "Connected cyborgs: [length(connected_robots)]"
 	for(var/thing in connected_robots)
 		var/mob/living/silicon/robot/R = thing
 		var/robot_status = "Nominal"

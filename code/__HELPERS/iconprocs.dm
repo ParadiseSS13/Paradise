@@ -356,7 +356,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		targets = list(target)
 	else
 		targets = target
-		if(!targets.len)
+		if(!length(targets))
 			return
 	if(!isicon(I))
 		if(isfile(thing)) //special snowflake

@@ -278,7 +278,7 @@
 // this function shows the health of the pAI in the Status panel
 /mob/living/silicon/proc/show_system_integrity()
 	if(!stat)
-		. += "System integrity: [round((health/maxHealth)*100)]%"
+		. += "System integrity: [round((health / maxHealth) * 100)]%"
 	else
 		. += "Systems nonfunctional"
 
