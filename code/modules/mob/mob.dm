@@ -86,7 +86,7 @@
 	return ""
 
 /mob/proc/Cell()
-	set category = "Admin.Game"
+	set category = "Admin"
 	set hidden = 1
 
 	if(!loc) return 0
@@ -1021,58 +1021,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(length(mind.spell_list))
 		. += get_spells_for_statpanel(mind.spell_list)
 
-	// Allow admins + PR reviewers to VIEW the panel. Doesnt mean they can click things.
-	if((is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE)) && client?.prefs.toggles2 & PREFTOGGLE_2_MC_TABS)
-		// Below are checks to see which MC panel you are looking at
-
-		// Shows MC Metadata
-		. += "Info: Showing MC metadata"
-		var/turf/T = get_turf(client.eye)
-		. += "Location: [COORD(T)]"
-		. += "CPU: [Master.formatcpu(world.cpu)]"
-		. += "Map CPU: [Master.formatcpu(world.map_cpu)]"
-		. += "Instances: [num2text(world.contents.len, 10)]"
-		GLOB.stat_entry()
-		. += "Server Time: [time_stamp()]"
-		if(Master)
-			Master.stat_entry()
-		else
-			. += "Master Controller: ERROR"
-		if(Failsafe)
-			Failsafe.stat_entry()
-		else
-			. += "Failsafe Controller: ERROR"
-
-		// Shows subsystems with SS_NO_FIRE
-		. += "Info: Showing subsystems that do not fire"
-		if(Master)
-			for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-				if(SS.flags & SS_NO_FIRE)
-					SS.stat_entry()
-
-		// Shows subsystems with the SS_CPUDISPLAY_LOW flag
-		. += "Info: Showing subsystems marked as low intensity"
-		if(Master)
-			for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-				if((SS.cpu_display == SS_CPUDISPLAY_LOW) && !(SS.flags & SS_NO_FIRE))
-					SS.stat_entry()
-
-		// Shows subsystems with the SS_CPUDISPLAY_DEFAULT flag
-		. += "Info: Showing subsystems marked as default intensity"
-		if(Master)
-			for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-				if((SS.cpu_display == SS_CPUDISPLAY_DEFAULT) && !(SS.flags & SS_NO_FIRE))
-					SS.stat_entry()
-
-		// Shows subsystems with the SS_CPUDISPLAY_HIGH flag
-		. += "Info: Showing subsystems marked as high intensity"
-		if(Master)
-			for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-				if((SS.cpu_display == SS_CPUDISPLAY_HIGH) && !(SS.flags & SS_NO_FIRE))
-					SS.stat_entry()
-
-
-
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
 	. += "Server Uptime: [worldtime2text()]"
@@ -1259,7 +1207,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			qdel(S)
 			mob_spell_list -= S
 	if(client)
-		client << output(null, "statbrowser:check_spells")
+		client.stat_panel.send_message("check_spells")
 
 //override to avoid rotating pixel_xy on mobs
 /mob/shuttleRotate(rotation)

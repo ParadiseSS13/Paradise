@@ -88,9 +88,6 @@
 	/// our current tab
 	var/stat_tab
 
-	/// whether our browser is ready or not yet
-	var/statbrowser_ready = FALSE
-
 	/// list of all tabs
 	var/list/panel_tabs = list()
 

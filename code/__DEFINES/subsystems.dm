@@ -115,6 +115,7 @@
 #define FIRE_PRIORITY_MOBS			100
 #define FIRE_PRIORITY_TGUI			110
 #define FIRE_PRIORITY_TICKER		200
+#define FIRE_PRIORITY_STATPANEL		390
 #define FIRE_PRIORITY_CHAT 			400
 #define FIRE_PRIORITY_RUNECHAT		410 // I hate how high the fire priority on this is -aa
 #define FIRE_PRIORITY_OVERLAYS		500

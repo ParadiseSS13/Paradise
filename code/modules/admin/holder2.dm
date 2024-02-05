@@ -72,7 +72,7 @@ GLOBAL_PROTECT(href_token)
 		return
 	if(owner)
 		GLOB.admins -= owner
-		owner.remove_admin_verbs()
+		owner.hide_verbs()
 		owner.init_verbs()
 		owner.holder = null
 		owner = null

@@ -303,31 +303,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
-
-/client/proc/remove_admin_verbs()
-	verbs.Remove(
-		GLOB.admin_verbs_default,
-		/client/proc/togglebuildmodeself,
-		GLOB.admin_verbs_admin,
-		GLOB.admin_verbs_ban,
-		GLOB.admin_verbs_event,
-		GLOB.admin_verbs_server,
-		GLOB.admin_verbs_debug,
-		GLOB.admin_verbs_possess,
-		GLOB.admin_verbs_permissions,
-		/client/proc/stealth,
-		GLOB.admin_verbs_rejuv,
-		GLOB.admin_verbs_sounds,
-		GLOB.admin_verbs_spawn,
-		GLOB.admin_verbs_mod,
-		GLOB.admin_verbs_mentor,
-		GLOB.admin_verbs_proccall,
-		GLOB.admin_verbs_show_debug_verbs,
-		/client/proc/readmin,
-		GLOB.admin_verbs_ticket,
-		GLOB.admin_verbs_maintainer,
-	)
-
 /client/proc/hide_verbs()
 	set name = "Adminverbs - Hide All"
 	set category = "Admin"
@@ -335,7 +310,28 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!holder)
 		return
 
-	remove_admin_verbs()
+	remove_verb(src, list(
+		/client/proc/togglebuildmodeself,
+		/client/proc/stealth,
+		/client/proc/readmin,
+		GLOB.admin_verbs_default,
+		GLOB.admin_verbs_admin,
+		GLOB.admin_verbs_ban,
+		GLOB.admin_verbs_event,
+		GLOB.admin_verbs_server,
+		GLOB.admin_verbs_debug,
+		GLOB.admin_verbs_possess,
+		GLOB.admin_verbs_permissions,
+		GLOB.admin_verbs_rejuv,
+		GLOB.admin_verbs_sounds,
+		GLOB.admin_verbs_spawn,
+		GLOB.admin_verbs_mod,
+		GLOB.admin_verbs_mentor,
+		GLOB.admin_verbs_proccall,
+		GLOB.admin_verbs_show_debug_verbs,
+		GLOB.admin_verbs_ticket,
+		GLOB.admin_verbs_maintainer
+	))
 	add_verb(src, /client/proc/show_verbs)
 
 	to_chat(src, "<span class='interface'>Almost all of your adminverbs have been hidden.</span>")
@@ -413,7 +409,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/player_panel_new()
 	set name = "Player Panel"
-	set category = "Admin.Game"
+	set category = "Admin"
 
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
@@ -424,7 +420,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/check_antagonists()
 	set name = "Check Antagonists"
-	set category = "Admin.Game"
+	set category = "Admin"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -447,7 +443,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/game_panel()
 	set name = "Game Panel"
-	set category = "Admin.Game"
+	set category = "Admin"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -458,7 +454,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/secrets()
 	set name = "Secrets"
-	set category = "Admin.Game"
+	set category = "Admin"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -601,7 +597,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [D].</span>")
 
 /client/proc/make_sound(obj/O in view()) // -- TLE
-	set category = "Event"
 	set name = "\[Admin\] Make Sound"
 	set desc = "Display a message to everyone who can hear the target"
 
@@ -630,7 +625,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Build Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/object_talk(msg as text) // -- TLE
-	set category = "Event"
 	set name = "oSay"
 	set desc = "Display a message to everyone who can hear the target"
 
@@ -781,7 +775,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/check_ai_laws()
 	set name = "Check AI Laws"
-	set category = "Admin.Game"
+	set category = "Admin"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -790,7 +784,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/manage_silicon_laws()
 	set name = "Manage Silicon Laws"
-	set category = "Admin.Game"
+	set category = "Admin"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -806,7 +800,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 /client/proc/change_human_appearance_admin(mob/living/carbon/human/H in GLOB.mob_list)
 	set name = "\[Admin\] C.M.A. - Admin"
 	set desc = "Allows you to change the mob appearance"
-	set category = null
 
 	if(!check_rights(R_EVENT))
 		return
@@ -832,7 +825,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 /client/proc/change_human_appearance_self(mob/living/carbon/human/H in GLOB.mob_list)
 	set name = "\[Admin\] C.M.A. - Self"
 	set desc = "Allows the mob to change its appearance"
-	set category = null
 
 	if(!check_rights(R_EVENT))
 		return
@@ -865,7 +857,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/free_slot()
 	set name = "Free Job Slot"
-	set category = "Admin.Game"
+	set category = "Admin"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -969,7 +961,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		to_chat(usr, "You now won't get debug log messages")
 
 /client/proc/man_up(mob/T as mob in GLOB.player_list)
-	set category = null
 	set name = "\[Admin\] Man Up"
 	set desc = "Tells mob to man up and deal with it."
 
@@ -1060,4 +1051,4 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set name = "Debug Stat Panel"
 	set category = "Debug"
 
-	src << output("", "statbrowser:create_debug")
+	src.stat_panel.send_message("create_debug")

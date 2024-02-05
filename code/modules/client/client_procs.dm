@@ -160,7 +160,7 @@
 		return
 
 	if(href_list["reload_statbrowser"])
-		src << browse(file('html/statbrowser.html'), "window=statbrowser")
+		stat_panel.reinitialize()
 
 	if(href_list["reload_tguipanel"])
 		nuke_chat()
@@ -258,7 +258,11 @@
 	///////////
 /client/New(TopicData)
 	var/tdata = TopicData //save this for later use
-	tgui_panel = new(src)
+	// Instantiate stat panel
+	stat_panel = new(src, "statbrowser")
+	stat_panel.subscribe(src, .proc/on_stat_panel_message)
+
+	tgui_panel = new(src, "browseroutput")
 	TopicData = null							//Prevent calls to client.Topic from connect
 
 	if(connection != "seeker")					//Invalid connection type.
@@ -395,7 +399,12 @@
 
 	// Initialize tgui panel
 	tgui_panel.initialize()
-	src << browse(file('html/statbrowser.html'), "window=statbrowser")
+	// Initialize stat panel
+	stat_panel.initialize(
+		inline_html = file2text('html/statbrowser.html'),
+		inline_js = file2text('html/statbrowser.js'),
+		inline_css = file2text('html/statbrowser.css'),
+	)
 	addtimer(CALLBACK(src, .proc/check_panel_loaded), 30 SECONDS)
 
 	check_ip_intel()
@@ -1205,12 +1214,29 @@
 			continue
 		panel_tabs |= verb_to_init.category
 		verblist[++verblist.len] = list(verb_to_init.category, verb_to_init.name)
-	src << output("[url_encode(json_encode(panel_tabs))];[url_encode(json_encode(verblist))]", "statbrowser:init_verbs")
+	src.stat_panel.send_message("init_verbs", list(panel_tabs = panel_tabs, verblist = verblist))
 
 /client/proc/check_panel_loaded()
-	if(statbrowser_ready)
+	if(stat_panel.is_ready())
 		return
 	to_chat(src, "<span class='userdanger'>Statpanel failed to load, click <a href='?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel </span>")
+
+/**
+ * Handles incoming messages from the stat-panel TGUI.
+ */
+/client/proc/on_stat_panel_message(type, payload)
+	switch(type)
+		if("Update-Verbs")
+			init_verbs()
+		if("Remove-Tabs")
+			panel_tabs -= payload["tab"]
+		if("Send-Tabs")
+			panel_tabs |= payload["tab"]
+		if("Reset-Tabs")
+			panel_tabs = list()
+		if("Set-Tab")
+			stat_tab = payload["tab"]
+			SSstatpanels.immediate_send_stat_data(src)
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
