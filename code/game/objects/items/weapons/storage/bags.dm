@@ -565,7 +565,7 @@
 
 /obj/item/storage/bag/construction
 	name = "construction bag"
-	desc = "A bag for storing various wiring, circuit boards and other small scale construction supplies."
+	desc = "A bag for storing various small scale construction supplies, such as wiring and circuit boards."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "construction_bag"
 	item_state = "construction_bag"
