@@ -8,6 +8,8 @@
 		return
 	if(!IsWeakened())
 		to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
+	SEND_SIGNAL(src, COMSIG_CARBON_ENTER_STAMINACRIT)
+	stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stamina_regen_block_modifier)
 	var/prev = stam_paralyzed
 	stam_paralyzed = TRUE
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "stam_crit") // make defines later
