@@ -305,7 +305,7 @@
 
 /obj/item/organ/internal/cyberimp/brain/hackerman_deck
 	name = "\improper Binyat wireless hacking system"
-	desc = "A rare-to-find neural chip that allows its user to interface with nearby machinery \
+	desc = "A rare-to-find neural chip that allows its user to interface with nearby machinery from a distance \
 		and affect it in (usually) beneficial ways. Due to the wireless connection, fine manipulation \
 		isn't possible, however the deck will drop a payload into the target's systems that will attempt \
 		hacking for you."
@@ -317,15 +317,44 @@
 	origin_tech = "materials=4;combat=6;biotech=6;powerstorage=2;syndicate=3"
 	stealth_level = 4 //Only surgery or a body scanner with the highest tier of stock parts can detect this.
 
+/obj/item/organ/internal/cyberimp/brain/hackerman_deck/examine_more(mob/user)
+	. = ..()
+	. += "<i>Considered Cybersun Incorporated's most recent and developed implant system focused on hacking from a range while being undetectable from normal means. \
+	The Binyat Wireless Hacking System (BWHS) is a stealth-built implant that gives its user a rudimentary electronic interface on whatever can be perceived. \
+	It uses a micro jammer to hide its existence from even the most advanced scanning systems.<i>"
+	. += "<i>Originally designed as a hand-held device for long-range testing of Cybersun's electronic security systems, \
+	the easy integration of the components into a neural implant led to a revaluation of the device's potential. \
+	Development would commence to create the first sets of prototypes,  focusing on tricking scanners with no false positives, \
+	and being able to hack from afar. The System does have a major flaw, however, as Cybersun R&D was never able to miniaturize its cooling systems to a practical level. \
+	Repeated use will lead to skin irritation, internal burns, and even severe nerve damage in extreme cases.<i>"
+	. += "<i>As of modern times, the BWHS is heavily vetted under Cybersun Inc. due to its dangerous nature and rather difficult detection. \
+	However, this hasn't stopped the flow of these implants from reaching the black market, whether by inside or outside influences.</i>"
+
 /obj/item/organ/internal/cyberimp/brain/hackerman_deck/insert(mob/living/carbon/M, special = 0)
 	. = ..()
-	if(M.mind)
-		M.mind.AddSpell(new /obj/effect/proc_holder/spell/hackerman_deck(null))
+	add_spell()
+	RegisterSignal(M, COMSIG_BODY_TRANSFER_TO, PROC_REF(on_body_transfer))
 
 /obj/item/organ/internal/cyberimp/brain/hackerman_deck/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(M.mind)
 		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/hackerman_deck)
+	UnregisterSignal(M, COMSIG_BODY_TRANSFER_TO)
+
+/obj/item/organ/internal/cyberimp/brain/hackerman_deck/proc/on_body_transfer()
+	SIGNAL_HANDLER
+	message_admins("attempting")
+	for(var/datum/action/A in owner.actions)
+		if(A.name == "Activate Ranged Hacking") //Bit snowflake, but the action doesn't remove right otherwise
+			A.Remove(owner)
+	addtimer(CALLBACK(src, PROC_REF(add_spell)), 1 SECONDS) //Give the mind a moment to settle in
+	add_spell()
+
+/obj/item/organ/internal/cyberimp/brain/hackerman_deck/proc/add_spell()
+	message_admins("doing")
+	if(owner.mind)
+		owner.mind.RemoveSpell(/obj/effect/proc_holder/spell/hackerman_deck) //Just to be sure.
+		owner.mind.AddSpell(new /obj/effect/proc_holder/spell/hackerman_deck(null))
 
 /obj/item/organ/internal/cyberimp/brain/hackerman_deck/emp_act(severity)
 	owner.adjustStaminaLoss(40 / severity)
@@ -352,6 +381,15 @@
 	C.range = 3
 	C.try_auto_target = FALSE
 	return C
+
+/obj/effect/proc_holder/spell/hackerman_deck/on_mind_transfer(mob/living/L)
+	if(!ishuman(L))
+		return FALSE
+	var/mob/living/carbon/human/H = L
+	var/obj/item/organ/internal/cyberimp/brain/hackerman_deck/our_deck = H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/hackerman_deck)
+	if(!our_deck)
+		return FALSE
+	return TRUE
 
 /obj/effect/proc_holder/spell/hackerman_deck/cast(list/targets, mob/user)
 	var/atom/target = targets[1]

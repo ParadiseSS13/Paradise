@@ -98,6 +98,19 @@
 	uses = 1
 	starting_organ = /obj/item/organ/internal/cyberimp/brain/hackerman_deck
 
+/obj/item/autosurgeon/organ/syndicate/hackerman_deck/examine_more(mob/user)
+	. = ..()
+	. += "<i>Considered Cybersun Incorporated's most recent and developed implant system focused on hacking from a range while being undetectable from normal means. \
+	The Binyat Wireless Hacking System (BWHS) is a stealth-built implant that gives its user a rudimentary electronic interface on whatever can be perceived. \
+	It uses a micro jammer to hide its existence from even the most advanced scanning systems.<i>"
+	. += "<i>Originally designed as a hand-held device for long-range testing of Cybersun's electronic security systems, \
+	the easy integration of the components into a neural implant led to a revaluation of the device's potential. \
+	Development would commence to create the first sets of prototypes,  focusing on tricking scanners with no false positives, \
+	and being able to hack from afar. The System does have a major flaw, however, as Cybersun R&D was never able to miniaturize its cooling systems to a practical level. \
+	Repeated use will lead to skin irritation, internal burns, and even severe nerve damage in extreme cases.<i>"
+	. += "<i>As of modern times, the BWHS is heavily vetted under Cybersun Inc. due to its dangerous nature and rather difficult detection. \
+	However, this hasn't stopped the flow of these implants from reaching the black market, whether by inside or outside influences.</i>"
+
 /obj/item/autosurgeon/organ/syndicate/thermal_eyes
 	starting_organ = /obj/item/organ/internal/eyes/cybernetic/thermals/hardened
 

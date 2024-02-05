@@ -476,6 +476,20 @@
 	to_chat(H, "<span class='warning'>Your [name] misfires!</span>")
 	process_fire(H, H, 1, zone_override = our_organ)
 
+/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher/examine_more(mob/user)
+	. = ..()
+	. += "<i>A Shellguard Munitions classic, the Shellguard Launch System (SLS) was originally a MODsuit heavy weapons accessory, \
+	later being developed into a forearm-mounted tactical shotgun implant. Though its compact design precludes the use of large ammunition like rockets or burning plasma, \
+	it excels in firing a variety of smaller shells, both energy and kinetic, thanks to its advanced plasma alloy barrel.<i>"
+	. += "<i>Adapting an accessory intended for a mechanical suit's gauntlet posed significant hurdles, \
+	primarily in miniaturizing the barrel and components without sacrificing performance. The limitations initially damaged its perception of the market. \
+	However, executives would later pivot their niche to concealed carry and versatile shell ammunition, \
+	focusing on deployability and concealment through neural activation. \
+	The shift in approach would lead to the SLS being advertised as a powerful and compact holdout weapon, easily concealable and reliably lethal.<i>"
+	. += "<i>Despite its initial issues, the SLS today holds a strong following in the implant market, being highly sought after among assassins, \
+	mercenaries, and firearm enthusiasts. Its appeal lies not just in its stealth but also in its compatibility with Shellguard's range of modular products, \
+	and the potential beyond its advertised capabilities.</i>"
+
 /obj/item/ammo_box/magazine/internal/shot/shell_cannon
 	name = "shell launch system internal magazine"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
@@ -522,6 +536,20 @@
 				return
 			SL.chambered.BB.damage *= 2 //Stronger since it is inside you
 			SL.missfire(owner, parent_organ)
+
+/obj/item/organ/internal/cyberimp/arm/shell_launcher/examine_more(mob/user)
+	. = ..()
+	. += "<i>A Shellguard Munitions classic, the Shellguard Launch System (SLS) was originally a MODsuit heavy weapons accessory, \
+	later being developed into a forearm-mounted tactical shotgun implant. Though its compact design precludes the use of large ammunition like rockets or burning plasma, \
+	it excels in firing a variety of smaller shells, both energy and kinetic, thanks to its advanced plasma alloy barrel.<i>"
+	. += "<i>Adapting an accessory intended for a mechanical suit's gauntlet posed significant hurdles, \
+	primarily in miniaturizing the barrel and components without sacrificing performance. The limitations initially damaged its perception of the market. \
+	However, executives would later pivot their niche to concealed carry and versatile shell ammunition, \
+	focusing on deployability and concealment through neural activation. \
+	The shift in approach would lead to the SLS being advertised as a powerful and compact holdout weapon, easily concealable and reliably lethal.<i>"
+	. += "<i>Despite its initial issues, the SLS today holds a strong following in the implant market, being highly sought after among assassins, \
+	mercenaries, and firearm enthusiasts. Its appeal lies not just in its stealth but also in its compatibility with Shellguard's range of modular products, \
+	and the potential beyond its advertised capabilities.</i>"
 
 /obj/item/organ/internal/cyberimp/arm/v1_arm
 	name = "vortex feedback arm implant"
