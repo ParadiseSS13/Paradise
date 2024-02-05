@@ -25902,7 +25902,9 @@
 	},
 /area/station/hallway/primary/central/west)
 "bzN" = (
-/obj/effect/spawner/airlock/w_to_e/long,
+/obj/effect/spawner/airlock/w_to_e/long{
+	req_access_txt = 11
+	},
 /turf/simulated/wall/r_wall,
 /area/station/engineering/ai_transit_tube)
 "bzO" = (
@@ -51409,12 +51411,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "dlj" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
-/turf/simulated/floor/plating,
+/turf/space,
 /area/station/maintenance/asmaint)
 "dlk" = (
 /obj/structure/cable{
@@ -59876,7 +59873,9 @@
 /area/station/science/xenobiology)
 "gru" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/s_to_n,
+/obj/effect/spawner/airlock/s_to_n{
+	req_access_txt = "11,13"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarport)
 "gsd" = (
@@ -66749,7 +66748,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "jRo" = (
-/obj/effect/spawner/airlock/s_to_n/long/square,
+/obj/effect/spawner/airlock/s_to_n/long/square{
+	req_access_txt = "11,13"
+	},
 /turf/simulated/wall,
 /area/station/maintenance/fpmaint2)
 "jRx" = (
@@ -89762,9 +89763,7 @@
 /area/station/maintenance/asmaint)
 "vrV" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock/engineer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboardsolar)
 "vsw" = (
@@ -94780,9 +94779,7 @@
 /area/station/maintenance/apmaint2)
 "xSF" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/e_to_w/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock/e_to_w/engineer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/portsolar)
 "xSH" = (
