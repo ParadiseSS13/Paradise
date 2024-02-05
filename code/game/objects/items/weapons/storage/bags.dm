@@ -558,3 +558,19 @@
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/envelope, /obj/item/stamp, /obj/item/pen, /obj/item/paper, /obj/item/mail_scanner)
 	resistance_flags = FLAMMABLE
+
+/*
+ *	Construction bag
+ */
+
+/obj/item/storage/bag/construction
+	name = "construction bag"
+	desc = "A bag for storing various wiring, circuit boards and other small scale construction supplies."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "construction_bag"
+	item_state = "construction_bag"
+	storage_slots = 30
+	max_combined_w_class = 60
+	w_class = WEIGHT_CLASS_TINY
+	can_hold = list(/obj/item/airlock_electronics, /obj/item/firelock_electronics, /obj/item/firealarm_electronics, /obj/item/apc_electronics, /obj/item/airalarm_electronics, /obj/item/camera_assembly, /obj/item/stock_parts/cell, /obj/item/circuitboard, /obj/item/stack/cable_coil)
+	resistance_flags = FLAMMABLE
