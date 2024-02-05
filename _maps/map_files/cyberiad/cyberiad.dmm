@@ -10358,9 +10358,6 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/sign/vacuum/external{
-	pixel_y = 32
-	},
 /obj/machinery/power/solar_control{
 	name = "Fore Starboard Solar Control"
 	},
@@ -10385,6 +10382,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/portable/canister/air,
+/obj/structure/sign/vacuum/external{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarstarboard)
 "aGX" = (
@@ -51411,8 +51411,13 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "dlj" = (
-/turf/space,
-/area/station/maintenance/asmaint)
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
+	name = "KEEP CLEAR: DOCKING AREA"
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry)
 "dlk" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -53595,10 +53600,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/medical/sleeper)
 "dvb" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
-	name = "KEEP CLEAR: DOCKING AREA"
-	},
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/effect/spawner/airlock/e_to_w/arrivals,
 /turf/simulated/floor/plating,
@@ -59482,11 +59483,11 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/station/maintenance/apmaint)
 "ghR" = (
-/obj/structure/sign/vacuum/external{
-	pixel_x = -32
-	},
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/structure/sign/vacuum/external{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -66748,9 +66749,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "jRo" = (
-/obj/effect/spawner/airlock/s_to_n/long/square{
-	req_access_txt = "11,13"
-	},
+/obj/effect/spawner/airlock/s_to_n/long/square/engineer,
 /turf/simulated/wall,
 /area/station/maintenance/fpmaint2)
 "jRx" = (
@@ -76215,7 +76214,7 @@
 /area/station/maintenance/asmaint)
 "oBF" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/s_to_n/long,
+/obj/effect/spawner/airlock/s_to_n/long/engineer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "oBJ" = (
@@ -104364,7 +104363,7 @@ aaa
 aaa
 aaa
 aaa
-apx
+dlj
 aOQ
 dvb
 aab
@@ -143007,7 +143006,7 @@ kdc
 csL
 djP
 cQC
-dlj
+csL
 dlz
 dSu
 csL

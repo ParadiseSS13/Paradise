@@ -31594,6 +31594,9 @@
 /area/station/aisat)
 "bJZ" = (
 /obj/structure/closet/emcloset,
+/obj/structure/sign/vacuum{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -36250,14 +36253,13 @@
 /turf/space,
 /area/space/nearstation)
 "bVt" = (
-/obj/structure/sign/vacuum{
-	pixel_x = -32
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
 "bVB" = (
 /obj/machinery/door/firedoor,
@@ -120526,7 +120528,7 @@ bwN
 qGf
 vcx
 sWx
-qGf
+aaa
 fYS
 giK
 abj
@@ -120781,9 +120783,9 @@ bEK
 bGw
 bwN
 bJZ
-vcx
 bVt
 qGf
+aaa
 bZf
 fRW
 qYL
