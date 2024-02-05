@@ -393,7 +393,7 @@
 	power_change()
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if(!beaker || (beaker && beaker.reagents.total_volume >= beaker.reagents.maximum_volume))
+	if(!beaker || (beaker && beaker.reagents.holder_full()))
 		return
 	playsound(src.loc, 'sound/machines/juicer.ogg', 20, 1)
 	var/offset = prob(50) ? -2 : 2
@@ -421,7 +421,7 @@
 
 			beaker.reagents.add_reagent(r_id, min(amount * efficiency, space))
 
-			if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
+			if(beaker.reagents.holder_full())
 				break
 
 		remove_object(O)
