@@ -136,7 +136,7 @@
 		update_icon() // For content-sensitive icons
 		return
 
-	if(!(istype(over_object, /obj/screen)))
+	if(!is_screen_atom(over_object))
 		return ..()
 	if(!(loc == M) || (loc && loc.loc == M))
 		return

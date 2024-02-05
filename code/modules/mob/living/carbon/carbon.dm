@@ -659,7 +659,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return
 
 /mob/living/carbon/throw_item(atom/target)
-	if(!target || !isturf(loc) || istype(target, /obj/screen))
+	if(!target || !isturf(loc) || is_screen_atom(target))
 		throw_mode_off()
 		return
 

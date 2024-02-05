@@ -240,7 +240,7 @@
 	if(!ishuman(M))
 		return
 
-	if(istype(over, /obj/screen))
+	if(is_screen_atom(over))
 		if(!remove_item_from_storage(get_turf(M)))
 			M.unEquip(src)
 		switch(over.name)

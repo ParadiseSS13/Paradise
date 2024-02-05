@@ -61,7 +61,7 @@
 
 /obj/item/storage/belt/MouseDrop(obj/over_object, src_location, over_location)
 	var/mob/M = usr
-	if(!istype(over_object, /obj/screen))
+	if(!is_screen_atom(over_object))
 		return ..()
 	playsound(loc, "rustle", 50, TRUE, -5)
 	if(!M.restrained() && !M.stat && can_use())
