@@ -348,23 +348,12 @@
 	holdingitems = list()
 	SStgui.update_uis(src)
 
-/obj/machinery/reagentgrinder/proc/is_allowed(obj/item/reagent_containers/O)
-	for(var/i in blend_items)
-		if(istype(O, i))
-			return TRUE
-	return FALSE
-
-/obj/machinery/reagentgrinder/proc/get_allowed_by_id(obj/item/O)
+/obj/machinery/reagentgrinder/proc/get_special_blend(obj/item/O)
 	for(var/i in blend_items)
 		if(istype(O, i))
 			return blend_items[i]
 
-/obj/machinery/reagentgrinder/proc/get_allowed_snack_by_id(obj/item/food/snacks/O)
-	for(var/i in blend_items)
-		if(istype(O, i))
-			return blend_items[i]
-
-/obj/machinery/reagentgrinder/proc/get_allowed_juice_by_id(obj/item/food/snacks/O)
+/obj/machinery/reagentgrinder/proc/get_special_juice(obj/item/food/snacks/O)
 	for(var/i in juice_items)
 		if(istype(O, i))
 			return juice_items[i]
@@ -407,12 +396,11 @@
 
 	// Snacks
 	for(var/obj/item/food/snacks/O in holdingitems)
-		var/allowed = get_allowed_juice_by_id(O)
-		if(isnull(allowed))
+		var/list/special_juice = get_special_juice(O)
+		if(!length(special_juice))
 			break
 
-		for(var/r_id in allowed)
-
+		for(var/r_id in special_juice)
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 			var/amount = get_juice_amount(O)
 
@@ -443,8 +431,8 @@
 
 	// Snacks and Plants
 	for(var/obj/item/food/snacks/O in holdingitems)
-		var/allowed = get_allowed_snack_by_id(O)
-		if(!length(allowed)) // We don't have anything specific allowed therefore we can just transfer everything
+		var/list/special_blend = get_special_blend(O)
+		if(!length(special_blend)) // No special blend reagents, we can just transfer everything
 			var/amount = O.reagents.total_volume
 			O.reagents.trans_to(beaker, amount)
 			if(!O.reagents.total_volume)
@@ -454,9 +442,10 @@
 
 			continue
 
-		for(var/r_id in allowed)
+		for(var/r_id in special_blend)
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
-			var/amount = allowed[r_id]
+			var/amount = special_blend[r_id]
+
 			if(amount <= 0)
 				if(amount == 0)
 					if(O.reagents != null && O.reagents.has_reagent("nutriment"))
@@ -485,15 +474,16 @@
 
 	// Sheets and rods(!)
 	for(var/obj/item/stack/O in holdingitems)
-		var/allowed = get_allowed_by_id(O)
-		if(isnull(allowed))
+		var/list/special_blend = get_special_blend(O)
+		if(!length(special_blend))
 			break
 
 		var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 		while(O.amount) // Grind until there's no more reagents
 			O.amount -= 1 // Remove one from stack
-			for(var/r_id in allowed)
-				var/spaceused = min(allowed[r_id] * efficiency, space)
+
+			for(var/r_id in special_blend)
+				var/spaceused = min(special_blend[r_id] * efficiency, space)
 				space -= spaceused
 				beaker.reagents.add_reagent(r_id, spaceused)
 			if(O.amount < 1) // If leftover small - destroy
@@ -504,10 +494,11 @@
 
 	// Plants
 	for(var/obj/item/grown/O in holdingitems)
-		var/allowed = get_allowed_by_id(O)
-		for(var/r_id in allowed)
+		var/list/special_blend = get_special_blend(O)
+		for(var/r_id in special_blend)
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
-			var/amount = allowed[r_id]
+			var/amount = special_blend[r_id]
+
 			if(amount == 0)
 				if(O.reagents != null && O.reagents.has_reagent(r_id))
 					beaker.reagents.add_reagent(r_id,min(O.reagents.get_reagent_amount(r_id) * efficiency, space))
