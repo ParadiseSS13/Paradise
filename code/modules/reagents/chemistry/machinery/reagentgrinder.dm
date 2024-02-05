@@ -182,31 +182,31 @@
 				to_chat(user, "<span class='warning'>You must dry that first!</span>")
 				return FALSE
 
-	if(holdingitems && holdingitems.len >= limit)
+	if(length(holdingitems) >= limit)
 		to_chat(usr, "The machine cannot hold anymore items.")
 		return FALSE
 
 	// Fill machine with a bag!
 	if(istype(I, /obj/item/storage/bag))
 		var/obj/item/storage/bag/B = I
-		if(!B.contents.len)
+		if(!length(B.contents))
 			to_chat(user, "<span class='warning'>[B] is empty.</span>")
 			return FALSE
 
-		var/original_contents_len = B.contents.len
+		var/original_contents_len = length(B.contents)
 
 		for(var/obj/item/G in B.contents)
 			if(is_type_in_list(G, blend_items) || is_type_in_list(G, juice_items))
 				B.remove_from_storage(G, src)
 				holdingitems += G
-				if(holdingitems && holdingitems.len >= limit) // Sanity checking so the blender doesn't overfill
+				if(length(holdingitems) >= limit) // Sanity checking so the blender doesn't overfill
 					to_chat(user, "<span class='notice'>You fill the All-In-One grinder to the brim.</span>")
 					break
 
-		if(B.contents.len == original_contents_len)
+		if(length(B.contents) == original_contents_len)
 			to_chat(user, "<span class='warning'>Nothing in [B] can be put into the All-In-One grinder.</span>")
 			return FALSE
-		else if(!B.contents.len)
+		else if(!length(B.contents))
 			to_chat(user, "<span class='notice'>You empty all of [B]'s contents into the All-In-One grinder.</span>")
 		else
 			to_chat(user, "<span class='notice'>You empty some of [B]'s contents into the All-In-One grinder.</span>")
@@ -339,7 +339,7 @@
 /obj/machinery/reagentgrinder/proc/eject(mob/user)
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	if(holdingitems && holdingitems.len == 0)
+	if(!length(holdingitems))
 		return
 
 	for(var/obj/item/O in holdingitems)
@@ -481,7 +481,7 @@
 			if(beaker.reagents.holder_full())
 				break
 
-		if(O.reagents.reagent_list.len == 0)
+		if(!length(O.reagents.reagent_list))
 			remove_object(O)
 
 	// Sheets and rods(!)
