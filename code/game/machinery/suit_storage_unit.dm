@@ -139,7 +139,7 @@
 
 /obj/machinery/suit_storage_unit/gamma
 	name = "gamma shielded suit storage unit"
-	suit_type = /obj/item/clothing/suit/space/hardsuit/shielded/gamma
+	suit_type = /obj/item/mod/control/pre_equipped/safeguard/gamma
 	mask_type = /obj/item/clothing/mask/gas/sechailer/swat
 	req_access = list(ACCESS_SECURITY)
 
@@ -595,10 +595,16 @@
 		wires.Interact(user)
 	ui_interact(user)
 
-/obj/machinery/suit_storage_unit/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/suit_storage_unit/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/machinery/suit_storage_unit/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/suit_storage_unit/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SuitStorage", name, 402, 268, master_ui, state)
+		ui = new(user, src, "SuitStorage", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

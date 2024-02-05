@@ -19,10 +19,6 @@
 	var/list/colors
 	/// An associative list of signalers attached to the wires. The wire color is the key, and the signaler object reference is the value.
 	var/list/assemblies
-	/// The width of the wire TGUI window.
-	var/window_x = 300
-	/// The height of the wire TGUI window. Will get longer as needed, based on the `wire_count`.
-	var/window_y = 100
 
 /datum/wires/New(atom/_holder)
 	..()
@@ -92,10 +88,13 @@
 /datum/wires/ui_host()
 	return holder
 
-/datum/wires/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/wires/ui_state(mob/user)
+	return GLOB.physical_state
+
+/datum/wires/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Wires", "[proper_name] wires", window_x, window_y + wire_count * 30, master_ui, state)
+		ui = new(user, src, "Wires", "[proper_name] wires")
 		ui.open()
 
 /datum/wires/ui_data(mob/user)

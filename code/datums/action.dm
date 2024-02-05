@@ -445,7 +445,7 @@
 
 /datum/action/item_action/instrument
 	name = "Use Instrument"
-	desc = "Use the instrument specified"
+	desc = "Use the instrument specified."
 
 /datum/action/item_action/instrument/Trigger(left_click)
 	if(istype(target, /obj/item/instrument))
@@ -551,7 +551,7 @@
 
 /datum/action/item_action/accessory/herald
 	name = "Mirror Walk"
-	desc = "Use near a mirror to enter it"
+	desc = "Use near a mirror to enter it."
 
 //Preset for spells
 /datum/action/spell_action

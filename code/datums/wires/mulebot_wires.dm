@@ -3,8 +3,6 @@
 	holder_type = /mob/living/simple_animal/bot/mulebot
 	wire_count = 10
 	proper_name = "Mulebot"
-	window_x = 370
-	window_y = -12
 
 /datum/wires/mulebot/New(atom/_holder)
 	wires = list(
