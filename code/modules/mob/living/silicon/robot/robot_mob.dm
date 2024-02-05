@@ -1319,14 +1319,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/disconnect_from_ai()
 	if(connected_ai)
 		sync() // One last sync attempt
-		connected_ai.connected_robots -= src
-		connected_ai = null
+		set_connected_ai(null)
 
 /mob/living/silicon/robot/proc/connect_to_ai(mob/living/silicon/ai/AI)
 	if(AI && AI != connected_ai)
 		disconnect_from_ai()
-		connected_ai = AI
-		connected_ai.connected_robots |= src
+		set_connected_ai(AI)
 		notify_ai(1)
 		if(module)
 			module.rebuild_modules() //This way, if a borg gets linked to a malf AI that has upgrades, they get their upgrades.
@@ -1602,3 +1600,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(emagged || ("syndicate" in faction))
 		return TRUE
 	return FALSE
+
+/mob/living/silicon/robot/proc/set_connected_ai(new_ai)
+	if(connected_ai == new_ai)
+		return
+	. = connected_ai
+	connected_ai = new_ai
+	if(.)
+		var/mob/living/silicon/ai/old_ai = .
+		old_ai.connected_robots -= src
+	if(connected_ai)
+		connected_ai.connected_robots |= src

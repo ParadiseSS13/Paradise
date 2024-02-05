@@ -172,6 +172,6 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 	return defcon
 
 /datum/controller/failsafe/stat_entry(msg)
-	msg += "Failsafe Controller: [statclick.update("Defcon: [defcon_pretty()] (Interval: [Failsafe.processing_interval] | Iteration: [Failsafe.master_iteration])")]"
+	msg += "Defcon: [defcon_pretty()] (Interval: [Failsafe.processing_interval] | Iteration: [Failsafe.master_iteration])"
 	return ..()
 

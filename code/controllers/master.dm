@@ -660,8 +660,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 /datum/controller/master/stat_entry(msg)
 	if(last_init_info)
 		msg += "Last Init Info: [last_init_info]"
-	msg += "Byond: (FPS:[world.fps]) (TickCount:[world.time / world.tick_lag]) (TickDrift:[round(Master.tickdrift, 1)]([round((Master.tickdrift / (world.time / world.tick_lag)) * 100, 0.1)]%))"
-	msg += "Master Controller: [statclick.update("(TickRate:[Master.processing]) (Iteration:[Master.iteration]) (TickLimit: [round(Master.current_ticklimit, 0.1)])")]"
+	msg = "(TickRate:[Master.processing]) (Iteration:[Master.iteration]) (TickLimit: [round(Master.current_ticklimit, 0.1)])"
 	return ..()
 
 // Currently unimplemented
