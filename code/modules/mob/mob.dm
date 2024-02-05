@@ -1040,7 +1040,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/get_spells_for_statpanel(list/spells)
 	var/list/L = list()
 	for(var/obj/effect/proc_holder/spell/S in spells)
-		L[length(L) + 1] = list("[S.panel]","[S.cooldown_handler.statpanel_info()]", S.name, S.UID())
+		L[++L.len] = list("[S.panel]","[S.cooldown_handler.statpanel_info()]", S.name, S.UID())
 	return L
 
 // facing verbs

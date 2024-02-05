@@ -75,7 +75,7 @@ SUBSYSTEM_DEF(statpanels)
 			return
 
 /datum/controller/subsystem/statpanels/proc/set_status_tab(client/target)
-	if(!global_data)//statbrowser hasnt fired yet and we were called from immediate_send_stat_data()
+	if(!global_data) //statbrowser hasnt fired yet and we were called from immediate_send_stat_data()
 		return
 
 	target.stat_panel.send_message("update_stat", list(
@@ -98,7 +98,7 @@ SUBSYSTEM_DEF(statpanels)
 			continue
 		overrides += target_image.loc
 
-	turfitems[length(turfitems) + 1] = list("[target_mob.listed_turf]", target_mob.listed_turf.UID(), icon2html(target_mob.listed_turf, target, sourceonly=TRUE))
+	turfitems[++turfitems.len] = list("[target_mob.listed_turf]", target_mob.listed_turf.UID(), icon2html(target_mob.listed_turf, target, sourceonly=TRUE))
 
 	for(var/atom/movable/turf_content as anything in target_mob.listed_turf)
 		if(turf_content.mouse_opacity == MOUSE_OPACITY_TRANSPARENT)
@@ -117,13 +117,13 @@ SUBSYSTEM_DEF(statpanels)
 				turf_content.RegisterSignal(turf_content, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/atom, remove_from_cache)) // we reset cache if anything in it gets deleted
 
 				if(ismob(turf_content) || length(turf_content.overlays) > 2)
-					turfitems[length(turfitems) + 1] = list("[turf_content.name]", turf_content_ref, costly_icon2html(turf_content, target, sourceonly=TRUE))
+					turfitems[++turfitems.len] = list("[turf_content.name]", turf_content_ref, costly_icon2html(turf_content, target, sourceonly=TRUE))
 				else
-					turfitems[length(turfitems) + 1] = list("[turf_content.name]", turf_content_ref, icon2html(turf_content, target, sourceonly=TRUE))
+					turfitems[++turfitems.len] = list("[turf_content.name]", turf_content_ref, icon2html(turf_content, target, sourceonly=TRUE))
 			else
-				turfitems[length(turfitems) + 1] = list("[turf_content.name]", turf_content_ref)
+				turfitems[++turfitems.len] = list("[turf_content.name]", turf_content_ref)
 		else
-			turfitems[length(turfitems) + 1] = list("[turf_content.name]", turf_content.UID())
+			turfitems[++turfitems.len] = list("[turf_content.name]", turf_content.UID())
 
 	turfitems = turfitems
 	target.stat_panel.send_message("update_listedturf", turfitems)
@@ -142,8 +142,8 @@ SUBSYSTEM_DEF(statpanels)
 		list("","")
 	)
 	for(var/datum/controller/subsystem/sub_system as anything in Master.subsystems)
-		mc_data[length(mc_data) + 1] = list("\[[sub_system.state_letter()]][sub_system.name]", sub_system.stat_entry(), "[sub_system.UID()]")
-	mc_data[length(mc_data) + 1] = list("Camera Net", "Cameras: [length(GLOB.cameranet.cameras)] | Chunks: [length(GLOB.cameranet.chunks)]", "[GLOB.cameranet.UID()]")
+		mc_data[++mc_data.len] = list("\[[sub_system.state_letter()]][sub_system.name]", sub_system.stat_entry(), "[sub_system.UID()]")
+	mc_data[++mc_data.len] = list("Camera Net", "Cameras: [length(GLOB.cameranet.cameras)] | Chunks: [length(GLOB.cameranet.chunks)]", "[GLOB.cameranet.UID()]")
 
 ///immediately update the active statpanel tab of the target client
 /datum/controller/subsystem/statpanels/proc/immediate_send_stat_data(client/target)
