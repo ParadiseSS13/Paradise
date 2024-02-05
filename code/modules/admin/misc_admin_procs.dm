@@ -745,7 +745,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/show_traitor_panel(mob/M in GLOB.mob_list)
-	set category = "Admin"
+	set category = "Admin.Game"
 	set desc = "Edit mobs's memory and role"
 	set name = "Show Traitor Panel"
 

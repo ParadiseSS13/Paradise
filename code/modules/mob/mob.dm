@@ -86,7 +86,7 @@
 	return ""
 
 /mob/proc/Cell()
-	set category = "Admin"
+	set category = "Admin.Game"
 	set hidden = 1
 
 	if(!loc) return 0

@@ -179,7 +179,7 @@
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/sendmob(mob/M in GLOB.mob_list)
-	set category = "Admin"
+	set category = "Admin.Game"
 	set name = "Send Mob"
 
 	if(!check_rights(R_ADMIN))

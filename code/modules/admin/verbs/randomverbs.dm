@@ -17,7 +17,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Everything") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_prison(mob/M as mob in GLOB.mob_list)
-	set category = "Admin"
+	set category = "Admin.Game"
 	set name = "Prison"
 
 	if(!check_rights(R_ADMIN))
@@ -192,7 +192,7 @@
 
 
 /client/proc/cmd_admin_godmode(mob/M as mob in GLOB.mob_list)
-	set category = "Admin"
+	set category = "Admin.Game"
 	set name = "Godmode"
 
 	if(!check_rights(R_ADMIN))
@@ -685,7 +685,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			qdel(D)
 
 /client/proc/cmd_admin_list_open_jobs()
-	set category = "Admin"
+	set category = "Admin.Game"
 	set name = "List free slots"
 
 	if(!check_rights(R_ADMIN))
@@ -760,7 +760,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 /client/proc/cmd_admin_gib(mob/M as mob in GLOB.mob_list)
-	set category = "Admin"
+	set category = "Admin.Game"
 	set name = "Gib"
 
 	if(!check_rights(R_ADMIN|R_EVENT))
@@ -812,7 +812,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Contents") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggle_view_range()
-	set category = "Admin"
+	set category = "Admin.Game"
 	set name = "Change View Range"
 	set desc = "switches between 1x and custom views"
 
@@ -831,7 +831,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/admin_call_shuttle()
 
-	set category = "Admin"
+	set category = "Admin.Game"
 	set name = "Call Shuttle"
 
 	if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
@@ -859,7 +859,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	return
 
 /client/proc/admin_cancel_shuttle()
-	set category = "Admin"
+	set category = "Admin.Game"
 	set name = "Cancel Shuttle"
 
 	if(!check_rights(R_ADMIN))
@@ -887,7 +887,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	return
 
 /client/proc/admin_deny_shuttle()
-	set category = "Admin"
+	set category = "Admin.Game"
 	set name = "Toggle Deny Shuttle"
 
 	if(!SSticker)
@@ -983,7 +983,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Random Events") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/reset_all_tcs()
-	set category = "Admin"
+	set category = "Admin.Game"
 	set name = "Reset NTTC Configuration"
 	set desc = "Resets NTTC to the default configuration."
 

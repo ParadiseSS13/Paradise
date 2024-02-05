@@ -1,5 +1,4 @@
 /client/proc/cmd_admin_say(msg as text)
-	set category = "Admin"
 	set name = "Asay" //Gave this shit a shorter name so you only have to time out "asay" rather than "admin say" to use it --NeoFite
 	set hidden = 1
 	if(!check_rights(R_ADMIN))	return
@@ -45,7 +44,6 @@
 		cmd_mentor_say(msg)
 
 /client/proc/cmd_mentor_say(msg as text)
-	set category = "Admin"
 	set name = "Msay"
 	set hidden = 1
 

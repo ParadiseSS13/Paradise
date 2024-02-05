@@ -4,7 +4,7 @@
 
 /client/proc/library_manager()
 	set name = "Manage Library"
-	set category = "Admin"
+	set category = "Admin.Game"
 	set desc = "Manage Flagged Books and Perform Maintenance on the Library System"
 
 	if(!check_rights(R_ADMIN))

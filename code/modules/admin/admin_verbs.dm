@@ -413,7 +413,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/player_panel_new()
 	set name = "Player Panel"
-	set category = "Admin"
+	set category = "Admin.Game"
 
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
@@ -424,7 +424,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/check_antagonists()
 	set name = "Check Antagonists"
-	set category = "Admin"
+	set category = "Admin.Game"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -447,7 +447,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/game_panel()
 	set name = "Game Panel"
-	set category = "Admin"
+	set category = "Admin.Game"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -458,7 +458,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/secrets()
 	set name = "Secrets"
-	set category = "Admin"
+	set category = "Admin.Game"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -781,7 +781,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/check_ai_laws()
 	set name = "Check AI Laws"
-	set category = "Admin"
+	set category = "Admin.Game"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -790,7 +790,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/manage_silicon_laws()
 	set name = "Manage Silicon Laws"
-	set category = "Admin"
+	set category = "Admin.Game"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -865,7 +865,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/free_slot()
 	set name = "Free Job Slot"
-	set category = "Admin"
+	set category = "Admin.Game"
 
 	if(!check_rights(R_ADMIN))
 		return
