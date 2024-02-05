@@ -45,7 +45,8 @@
 		viewers = list(viewers)
 
 	for(var/client/viewer as anything in viewers)
-		viewer.screen += src
+		if(viewer)
+				viewer.screen += src
 
 	appear()
 	print_text()
@@ -103,16 +104,15 @@
 	PRIVATE_PROC(TRUE)
 
 	for(var/client/viewer as anything in viewers)
-		viewer.screen -= src
+		if(viewer)
+				viewer.screen -= src
 
 	qdel(src)
 
 /datum/controller/subsystem/jobs/proc/show_location_blurb(client/show_blurb_to, datum/mind/antag_check)
 	PRIVATE_PROC(TRUE)
 
-	if(!show_blurb_to.mob)
-		return
-	if(!show_blurb_to)
+	if(!show_blurb_to?.mob)
 		return
 	SEND_SOUND(show_blurb_to, sound('sound/machines/typewriter.ogg'))
 
