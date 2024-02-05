@@ -215,6 +215,7 @@
 		H.set_light(l_color = H.color)
 
 		T.hotspot_expose(H.temperature, H.volume)
+		T.temperature_expose(H.temperature, H.volume)
 		for(var/atom/A in T)
 			if(isliving(A))
 				continue
