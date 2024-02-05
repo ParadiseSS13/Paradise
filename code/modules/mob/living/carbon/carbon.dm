@@ -363,7 +363,7 @@
 	if((E && (E.status & ORGAN_DEAD)) || !.)
 		return FALSE
 
-/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /obj/screen/fullscreen/flash)
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/flash)
 	//Parent proc checks if a mob can_be_flashed()
 	. = ..()
 
@@ -745,7 +745,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	clear_alert("legcuffed")
 	if(!legcuffed)
 		return
-	throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
+	throw_alert("legcuffed", /atom/movable/screen/alert/restrained/legcuffed, new_master = legcuffed)
 	if(m_intent != MOVE_INTENT_WALK)
 		m_intent = MOVE_INTENT_WALK
 		if(hud_used?.move_intent)
@@ -1052,7 +1052,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		drop_r_hand()
 		drop_l_hand()
 		stop_pulling()
-		throw_alert("handcuffed", /obj/screen/alert/restrained/handcuffed, new_master = handcuffed)
+		throw_alert("handcuffed", /atom/movable/screen/alert/restrained/handcuffed, new_master = handcuffed)
 		ADD_TRAIT(src, TRAIT_RESTRAINED, "handcuffed")
 	else
 		REMOVE_TRAIT(src, TRAIT_RESTRAINED, "handcuffed")
@@ -1323,9 +1323,9 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/update_tint()
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
-		overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
+		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
 	else if(tinttotal >= TINT_IMPAIR)
-		overlay_fullscreen("tint", /obj/screen/fullscreen/impaired, 2)
+		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/impaired, 2)
 	else
 		clear_fullscreen("tint", 0)
 

@@ -207,7 +207,7 @@
 			parent.children.Add(src)
 
 	if(owner.has_embedded_objects())
-		owner.throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+		owner.throw_alert("embeddedobject", /atom/movable/screen/alert/embeddedobject)
 
 /obj/item/organ/external/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
 	if(parent_organ != parent.limb_name)
@@ -924,7 +924,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		forceMove(T)
 
 /obj/item/organ/external/proc/add_embedded_object(obj/item/I)
-	owner.throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+	owner.throw_alert("embeddedobject", /atom/movable/screen/alert/embeddedobject)
 	embedded_objects += I
 	I.forceMove(owner)
 	RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(remove_embedded_object))

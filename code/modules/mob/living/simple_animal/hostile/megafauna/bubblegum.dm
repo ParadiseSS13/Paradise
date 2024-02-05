@@ -141,7 +141,7 @@ Difficulty: Hard
 	H.apply_status_effect(STATUS_EFFECT_BUBBLEGUM_CURSE, src)
 	if(second_life)
 		H.clear_fullscreen("bubblegum")
-		H.overlay_fullscreen("bubblegum", /obj/screen/fullscreen/fog, 2)
+		H.overlay_fullscreen("bubblegum", /atom/movable/screen/fullscreen/fog, 2)
 
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)

@@ -404,23 +404,23 @@
 		else		direction = WEST
 	dir = direction
 
-/obj/screen/click_catcher
+/atom/movable/screen/click_catcher
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "catcher"
 	plane = CLICKCATCHER_PLANE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	screen_loc = "CENTER"
 
-/obj/screen/click_catcher/MouseEntered(location, control, params)
+/atom/movable/screen/click_catcher/MouseEntered(location, control, params)
 	return
 
-/obj/screen/click_catcher/MouseExited(location, control, params)
+/atom/movable/screen/click_catcher/MouseExited(location, control, params)
 	return
 
 #define MAX_SAFE_BYOND_ICON_SCALE_TILES (MAX_SAFE_BYOND_ICON_SCALE_PX / world.icon_size)
 #define MAX_SAFE_BYOND_ICON_SCALE_PX (33 * 32)			//Not using world.icon_size on purpose.
 
-/obj/screen/click_catcher/proc/UpdateGreed(view_size_x = 15, view_size_y = 15)
+/atom/movable/screen/click_catcher/proc/UpdateGreed(view_size_x = 15, view_size_y = 15)
 	var/icon/newicon = icon('icons/mob/screen_gen.dmi', "catcher")
 	var/ox = min(MAX_SAFE_BYOND_ICON_SCALE_TILES, view_size_x)
 	var/oy = min(MAX_SAFE_BYOND_ICON_SCALE_TILES, view_size_y)
@@ -435,7 +435,7 @@
 	M.Scale(px/sx, py/sy)
 	transform = M
 
-/obj/screen/click_catcher/Click(location, control, params)
+/atom/movable/screen/click_catcher/Click(location, control, params)
 	var/list/modifiers = params2list(params)
 	if(modifiers["middle"] && iscarbon(usr))
 		var/mob/living/carbon/C = usr
