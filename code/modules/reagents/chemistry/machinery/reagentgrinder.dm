@@ -10,8 +10,8 @@
 	resistance_flags = ACID_PROOF
 	var/operating = FALSE
 	var/obj/item/reagent_containers/beaker = new /obj/item/reagent_containers/glass/beaker/large
-	var/limit = null
-	var/efficiency = null
+	var/limit
+	var/efficiency
 
 	// IMPORTANT NOTE! A negative number is a multiplier, a positive number is a flat amount to add. 0 means equal to the amount of the original reagent
 	var/list/blend_items = list (
@@ -109,8 +109,8 @@
 		H += M.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		T += M.rating
-	limit = 10*H
-	efficiency = 0.8+T*0.1
+	limit = 10 * H
+	efficiency = 0.8 + T * 0.1
 
 /obj/machinery/reagentgrinder/Destroy()
 	QDEL_NULL(beaker)
@@ -372,7 +372,7 @@
 	else if(O.seed.potency == -1)
 		return 5
 	else
-		return round(5*sqrt(O.seed.potency))
+		return round(5 * sqrt(O.seed.potency))
 
 /obj/machinery/reagentgrinder/proc/remove_object(obj/item/O)
 	holdingitems -= O
@@ -382,14 +382,15 @@
 	power_change()
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if(!beaker || (beaker && beaker.reagents.holder_full()))
+	if(!beaker || beaker.reagents.holder_full())
 		return
+
 	playsound(src.loc, 'sound/machines/juicer.ogg', 20, 1)
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) // Start shaking
 	operating = TRUE
 	SStgui.update_uis(src)
-	spawn(50)
+	spawn(5 SECONDS)
 		pixel_x = initial(pixel_x) // Return to its spot after shaking
 		operating = FALSE
 		SStgui.update_uis(src)
@@ -417,14 +418,15 @@
 	power_change()
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if(!beaker || (beaker && beaker.reagents.holder_full()))
+	if(!beaker || beaker.reagents.holder_full())
 		return
+
 	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
 	animate(src, pixel_x = pick(-3, -2, 2, 3), pixel_y = pick(-3, -2, 2, 3), time = 1 DECISECONDS, loop = 20, easing = JUMP_EASING)
 	animate(pixel_x = 0, pixel_y = 0, time = 1 DECISECONDS, easing = JUMP_EASING)
 	operating = TRUE
 	SStgui.update_uis(src)
-	spawn(60)
+	spawn(6 SECONDS)
 		pixel_x = initial(pixel_x) // Return to its spot after shaking
 		operating = FALSE
 		SStgui.update_uis(src)
@@ -435,6 +437,7 @@
 		if(!length(special_blend)) // No special blend reagents, we can just transfer everything
 			var/amount = O.reagents.total_volume
 			O.reagents.trans_to(beaker, amount)
+
 			if(!O.reagents.total_volume)
 				remove_object(O)
 			if(beaker.reagents.holder_full())
@@ -448,17 +451,17 @@
 
 			if(amount <= 0)
 				if(amount == 0)
-					if(O.reagents != null && O.reagents.has_reagent("nutriment"))
+					if(O.reagents.has_reagent("nutriment"))
 						beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment") * efficiency, space))
 						O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
-					if(O.reagents != null && O.reagents.has_reagent("plantmatter"))
+					if(O.reagents.has_reagent("plantmatter"))
 						beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter") * efficiency, space))
 						O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
 				else
-					if(O.reagents != null && O.reagents.has_reagent("nutriment"))
+					if(O.reagents.has_reagent("nutriment"))
 						beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment") * abs(amount) * efficiency), space))
 						O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
-					if(O.reagents != null && O.reagents.has_reagent("plantmatter"))
+					if(O.reagents.has_reagent("plantmatter"))
 						beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter") * abs(amount) * efficiency), space))
 						O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
 			else
@@ -479,13 +482,14 @@
 			break
 
 		var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
-		while(O.amount) // Grind until there's no more reagents
-			O.amount -= 1 // Remove one from stack
+		while(O.amount)
+			O.amount--
 
 			for(var/r_id in special_blend)
 				var/spaceused = min(special_blend[r_id] * efficiency, space)
 				space -= spaceused
 				beaker.reagents.add_reagent(r_id, spaceused)
+
 			if(O.amount < 1) // If leftover small - destroy
 				remove_object(O)
 				break
@@ -500,13 +504,14 @@
 			var/amount = special_blend[r_id]
 
 			if(amount == 0)
-				if(O.reagents != null && O.reagents.has_reagent(r_id))
-					beaker.reagents.add_reagent(r_id,min(O.reagents.get_reagent_amount(r_id) * efficiency, space))
+				if(O.reagents.has_reagent(r_id))
+					beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount(r_id) * efficiency, space))
 			else
-				beaker.reagents.add_reagent(r_id,min(amount * efficiency, space))
+				beaker.reagents.add_reagent(r_id, min(amount * efficiency, space))
 
 			if(beaker.reagents.holder_full())
 				break
+
 		remove_object(O)
 		if(beaker.reagents.holder_full())
 			return
@@ -514,11 +519,13 @@
 	// Slime Extracts
 	for(var/obj/item/slime_extract/O in holdingitems)
 		var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
-		if(O.reagents != null)
+
+		if(O.reagents)
 			var/amount = O.reagents.total_volume
 			O.reagents.trans_to(beaker, min(amount, space))
 		if(O.Uses > 0)
-			beaker.reagents.add_reagent("slimejelly",min(20 * efficiency, space))
+			beaker.reagents.add_reagent("slimejelly", min(20 * efficiency, space))
+
 		remove_object(O)
 		if(beaker.reagents.holder_full())
 			return
@@ -527,6 +534,7 @@
 	for(var/obj/item/reagent_containers/O in holdingitems)
 		var/amount = O.reagents.total_volume
 		O.reagents.trans_to(beaker, amount)
+
 		if(!O.reagents.total_volume)
 			remove_object(O)
 		if(beaker.reagents.holder_full())
