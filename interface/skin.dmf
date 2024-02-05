@@ -16,9 +16,11 @@ menu "menu"
 		name = "&Reconnect"
 		command = ".reconnect"
 		category = "&File"
-	elem
-		name = ""
+	elem "debugmcbutton"
+		name = "&MC Debug"
+		command = "SS-Info-Breakdown"
 		category = "&File"
+		is-disabled = true
 	elem
 		name = "&Quit"
 		command = ".quit"

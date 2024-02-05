@@ -142,8 +142,8 @@ SUBSYSTEM_DEF(statpanels)
 		list("","")
 	)
 	for(var/datum/controller/subsystem/sub_system as anything in Master.subsystems)
-		mc_data[length(mc_data) + 1] = list("\[[sub_system.state_letter()]][sub_system.name]", sub_system.stat_entry(), "\ref[sub_system]")
-	mc_data[length(mc_data) + 1] = list("Camera Net", "Cameras: [length(GLOB.cameranet.cameras)] | Chunks: [length(GLOB.cameranet.chunks)]", "\ref[GLOB.cameranet]")
+		mc_data[length(mc_data) + 1] = list("\[[sub_system.state_letter()]][sub_system.name]", sub_system.stat_entry(), "[sub_system.UID()]")
+	mc_data[length(mc_data) + 1] = list("Camera Net", "Cameras: [length(GLOB.cameranet.cameras)] | Chunks: [length(GLOB.cameranet.chunks)]", "[GLOB.cameranet.UID()]")
 
 ///immediately update the active statpanel tab of the target client
 /datum/controller/subsystem/statpanels/proc/immediate_send_stat_data(client/target)

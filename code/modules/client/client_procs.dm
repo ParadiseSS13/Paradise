@@ -447,6 +447,8 @@
 	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")
 	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")
 	display_job_bans(TRUE)
+	if(check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, mob))
+		winset(src, "debugmcbutton", "is-disabled=false")
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
@@ -797,7 +799,7 @@
 			cidcheck[ckey] = computer_id
 
 			// Disable the reconnect button to force a CID change
-			winset(src, "reconnectbutton", "is-disable=true")
+			winset(src, "reconnectbutton", "is-disabled=true")
 
 			tokens[ckey] = cid_check_reconnect()
 			sleep(10) // Since browse is non-instant, and kinda async
