@@ -433,16 +433,6 @@
 	// Snacks and Plants
 	for(var/obj/item/food/snacks/O in holdingitems)
 		var/list/special_blend = get_special_blend(O)
-		if(!length(special_blend)) // No special blend reagents, we can just transfer everything
-			O.reagents.trans_to(beaker, O.reagents.total_volume)
-
-			if(!O.reagents.total_volume)
-				remove_object(O)
-			if(beaker.reagents.holder_full())
-				return
-
-			continue
-
 		for(var/r_id in special_blend)
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 			var/amount = special_blend[r_id]
@@ -467,6 +457,8 @@
 
 			if(beaker.reagents.holder_full())
 				break
+
+		O.reagents.trans_to(beaker, O.reagents.total_volume)
 
 		if(!O.reagents.total_volume)
 			remove_object(O)
