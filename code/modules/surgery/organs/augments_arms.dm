@@ -473,7 +473,7 @@
 	can_sawoff = FALSE
 
 /obj/item/gun/projectile/revolver/doublebarrel/shell_launcher/proc/missfire(mob/living/carbon/human/H, our_organ)
-	to_chat(H, "<span class='warning'>Your [src] misfires!</span>")
+	to_chat(H, "<span class='warning'>Your [name] misfires!</span>")
 	process_fire(H, H, 1, zone_override = our_organ)
 
 /obj/item/ammo_box/magazine/internal/shot/shell_cannon
