@@ -133,7 +133,6 @@ SUBSYSTEM_DEF(economy)
 		/datum/supply_packs/abstract/shuttle
 	)
 
-
 	for(var/typepath in subtypesof(/datum/supply_packs) - ignored_supply_pack_types)
 		var/datum/supply_packs/P = typepath
 		if(initial(P.name) == "HEADER" || isnull(initial(P.name)))

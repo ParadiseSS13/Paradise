@@ -32,7 +32,6 @@
 	. = ..()
 	qdel(template)
 
-
 /datum/supply_packs/abstract/shuttle/can_order()
 	// check here so people don't spend their money on it
 	return (SSshuttle.emergency?.mode == SHUTTLE_IDLE)
