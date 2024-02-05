@@ -407,9 +407,6 @@
 
 	// Snacks
 	for(var/obj/item/food/snacks/O in holdingitems)
-		if(beaker.reagents.holder_full())
-			break
-
 		var/allowed = get_allowed_juice_by_id(O)
 		if(isnull(allowed))
 			break
@@ -425,6 +422,8 @@
 				break
 
 		remove_object(O)
+		if(beaker.reagents.holder_full())
+			return
 
 /obj/machinery/reagentgrinder/proc/grind()
 	power_change()
@@ -444,17 +443,15 @@
 
 	// Snacks and Plants
 	for(var/obj/item/food/snacks/O in holdingitems)
-		if(beaker.reagents.holder_full())
-			break
-
 		var/allowed = get_allowed_snack_by_id(O)
 		if(!length(allowed)) // We don't have anything specific allowed therefore we can just transfer everything
-			if(beaker.reagents.holder_full())
-				continue
 			var/amount = O.reagents.total_volume
 			O.reagents.trans_to(beaker, amount)
 			if(!O.reagents.total_volume)
 				remove_object(O)
+			if(beaker.reagents.holder_full())
+				return
+
 			continue
 
 		for(var/r_id in allowed)
@@ -481,22 +478,19 @@
 			if(beaker.reagents.holder_full())
 				break
 
-		if(!length(O.reagents.reagent_list))
+		if(!O.reagents.total_volume)
 			remove_object(O)
+		if(beaker.reagents.holder_full())
+			return
 
 	// Sheets and rods(!)
 	for(var/obj/item/stack/O in holdingitems)
-		if(beaker.reagents.holder_full())
-			break
-
 		var/allowed = get_allowed_by_id(O)
 		if(isnull(allowed))
 			break
 
 		var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 		while(O.amount) // Grind until there's no more reagents
-			if(!space) // If no free space - exit
-				break
 			O.amount -= 1 // Remove one from stack
 			for(var/r_id in allowed)
 				var/spaceused = min(allowed[r_id] * efficiency, space)
@@ -505,11 +499,11 @@
 			if(O.amount < 1) // If leftover small - destroy
 				remove_object(O)
 				break
+			if(beaker.reagents.holder_full())
+				return
 
 	// Plants
 	for(var/obj/item/grown/O in holdingitems)
-		if(beaker.reagents.holder_full())
-			break
 		var/allowed = get_allowed_by_id(O)
 		for(var/r_id in allowed)
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
@@ -523,11 +517,11 @@
 			if(beaker.reagents.holder_full())
 				break
 		remove_object(O)
+		if(beaker.reagents.holder_full())
+			return
 
 	// Slime Extracts
 	for(var/obj/item/slime_extract/O in holdingitems)
-		if(beaker.reagents.holder_full())
-			break
 		var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 		if(O.reagents != null)
 			var/amount = O.reagents.total_volume
@@ -535,12 +529,14 @@
 		if(O.Uses > 0)
 			beaker.reagents.add_reagent("slimejelly",min(20 * efficiency, space))
 		remove_object(O)
+		if(beaker.reagents.holder_full())
+			return
 
 	// Everything else - Transfers reagents from it into beaker
 	for(var/obj/item/reagent_containers/O in holdingitems)
-		if(beaker.reagents.holder_full())
-			break
 		var/amount = O.reagents.total_volume
 		O.reagents.trans_to(beaker, amount)
 		if(!O.reagents.total_volume)
 			remove_object(O)
+		if(beaker.reagents.holder_full())
+			return
