@@ -288,7 +288,7 @@
 	desc = "A powerful cybernetic implant that contains combat modules built into the user's arm"
 	contents = newlist(/obj/item/melee/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/flash/armimplant)
 	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
-	stealth_level = 4 //Max level body scanner.
+	stealth_level = 4 //Only surgery or a body scanner with the highest tier of stock parts can detect this.
 
 /obj/item/organ/internal/cyberimp/arm/combat/New()
 	..()

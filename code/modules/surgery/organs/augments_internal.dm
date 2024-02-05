@@ -315,7 +315,7 @@
 	slot = "brain_antistun"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=4;combat=6;biotech=6;powerstorage=2;syndicate=3"
-	stealth_level = 4 //Max level body scanner.
+	stealth_level = 4 //Only surgery or a body scanner with the highest tier of stock parts can detect this.
 
 /obj/item/organ/internal/cyberimp/brain/hackerman_deck/insert(mob/living/carbon/M, special = 0)
 	. = ..()
