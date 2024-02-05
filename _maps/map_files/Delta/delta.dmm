@@ -32446,15 +32446,15 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
 "bMf" = (
@@ -33131,6 +33131,12 @@
 	},
 /area/station/engineering/ai_transit_tube)
 "bNX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
 "bNY" = (
@@ -34683,12 +34689,18 @@
 	c_tag = "AI Transit Tube Access";
 	network = list("SS13","Engineering")
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
 "bRU" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
@@ -36235,12 +36247,6 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
 /turf/space,
 /area/space/nearstation)
 "bVt" = (
@@ -37273,10 +37279,10 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
+	dir = 10
 	},
 /turf/space,
 /area/space/nearstation)
@@ -37431,6 +37437,12 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/space,
 /area/space/nearstation)
 "bZg" = (
@@ -66281,12 +66293,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
 /obj/machinery/access_button{
 	autolink_id = "enginen_btn_ext";
 	name = "exterior access button";
@@ -69802,12 +69808,6 @@
 	dir = 10;
 	initialize_directions = 10
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
 /obj/machinery/access_button{
 	autolink_id = "engines_btn_int";
 	name = "interior access button";
@@ -70522,6 +70522,18 @@
 /obj/machinery/optable,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
+"fYS" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "fZU" = (
 /obj/structure/chair/stool/bar{
 	dir = 1
@@ -74503,6 +74515,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
+"iIS" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/space,
+/area/space/nearstation)
 "iIY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -80729,12 +80750,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_y = -57;
 	req_access_txt = "10;13";
@@ -85555,6 +85570,17 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"pJv" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "pJE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -91082,17 +91108,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /obj/machinery/door/airlock/external{
 	name = "MiniSat Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
 "sXr" = (
@@ -91853,6 +91873,17 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore)
+"tAi" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "tAt" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -94506,17 +94537,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /obj/machinery/door/airlock/external{
 	name = "MiniSat Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
 "vdI" = (
@@ -120095,9 +120120,9 @@ bGs
 bwN
 abj
 bVs
-bXG
+iIS
 bYJ
-abj
+tAi
 nmF
 abj
 bXU
@@ -120354,7 +120379,7 @@ abj
 dVS
 abj
 abj
-abj
+pJv
 nmF
 abj
 bXU
@@ -120611,7 +120636,7 @@ qGf
 vcx
 qGf
 qGf
-abj
+fYS
 giK
 abj
 bXU
