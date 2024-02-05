@@ -304,7 +304,7 @@
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/hackerman_deck
-	name = "Binyat wireless hacking system"
+	name = "\improper Binyat wireless hacking system"
 	desc = "A rare-to-find neural chip that allows its user to interface with nearby machinery \
 		and affect it in (usually) beneficial ways. Due to the wireless connection, fine manipulation \
 		isn't possible, however the deck will drop a payload into the target's systems that will attempt \
@@ -330,17 +330,17 @@
 /obj/item/organ/internal/cyberimp/brain/hackerman_deck/emp_act(severity)
 	owner.adjustStaminaLoss(40 / severity)
 	owner.adjust_bodytemperature(400 / severity)
-	to_chat(owner, "<span class='warning'>Your [src] heats up drastically!</span>")
+	to_chat(owner, "<span class='warning'>Your [name] heats up drastically!</span>")
 	return TRUE
 
 /obj/effect/proc_holder/spell/hackerman_deck
 	name = "Activate Ranged Hacking"
-	desc = "Click on any machine, to hack them. Has a short range of only three tiles."
+	desc = "Click on any machine to hack them. Has a short range of only three tiles."
 	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
-	selection_activated_message	= "You warm up your Binyat deck, there's an idle buzzing at the back of your mind as it awaits a target."
+	selection_activated_message = "You warm up your Binyat deck, there's an idle buzzing at the back of your mind as it awaits a target."
 	selection_deactivated_message = "Your hacking deck makes an almost disappointed sounding buzz at the back of your mind as it powers down."
 	action_icon_state = "hackerman"
 	action_background_icon_state = "bg_pulsedemon"

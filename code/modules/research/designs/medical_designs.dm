@@ -377,7 +377,7 @@
 
 /datum/design/cyberimp_shell_launcher
 	name = "Shell Launch System Implant"
-	desc = "A mounted, single-shot housing for a shell launch cannon; capable of firing twelve gauge shotgun shells."
+	desc = "A mounted, single-shot housing for a shell launch cannon; capable of firing twelve-gauge shotgun shells."
 	id = "ci-shell_launcher"
 	req_tech = list("materials" = 7, "engineering" = 5, "combat" = 5)
 	build_type = PROTOLATHE | MECHFAB

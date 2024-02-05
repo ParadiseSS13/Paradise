@@ -83,7 +83,7 @@
 /obj/item/organ/internal/cyberimp/arm/proc/Retract()
 	if(!holder || (holder in src) || check_cuffs())
 		return
-	if(status & (ORGAN_DEAD))
+	if(status & ORGAN_DEAD)
 		return
 
 	owner.visible_message("<span class='notice'>[owner] retracts [holder] back into [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
@@ -473,7 +473,7 @@
 	can_sawoff = FALSE
 
 /obj/item/gun/projectile/revolver/doublebarrel/shell_launcher/proc/missfire(mob/living/carbon/human/H, our_organ)
-	to_chat(H, "<span class='warning'>Your [src] missfires!</span>")
+	to_chat(H, "<span class='warning'>Your [src] misfires!</span>")
 	process_fire(H, H, 1, zone_override = our_organ)
 
 /obj/item/ammo_box/magazine/internal/shot/shell_cannon
@@ -484,7 +484,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/shell_launcher
 	name = "shell launch system implant"
-	desc = "A mounted, single-shot housing for a shell launch cannon; capable of firing twelve gauge shotgun shells."
+	desc = "A mounted, single-shot housing for a shell launch cannon; capable of firing twelve-gauge shotgun shells."
 	contents = newlist(/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher)
 	icon_state = "shell_cannon"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/surgery.dmi')
@@ -505,7 +505,7 @@
 				emp_proof = TRUE //This kills the server without it. Do not remove this.
 				SL.missfire(owner, parent_organ)
 				emp_proof = FALSE
-				to_chat(owner, "<span class='warning'>The missfired [SL.chambered] causes your [src] to break!</span>")
+				to_chat(owner, "<span class='warning'>The misfired [SL.chambered] causes your [name] to break!</span>")
 				necrotize()
 				return
 			if(istype(SL.chambered, /obj/item/ammo_casing/shotgun/frag12))
