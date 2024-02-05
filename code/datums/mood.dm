@@ -95,9 +95,9 @@
 /datum/mood/proc/handle_mob_death(datum/source)
 	SIGNAL_HANDLER
 
-	if (last_stat == DEAD && mob_parent.stat != DEAD)
+	if(last_stat == DEAD && mob_parent.stat != DEAD)
 		START_PROCESSING(SSmood, src)
-	else if (last_stat != DEAD && mob_parent.stat == DEAD)
+	else if(last_stat != DEAD && mob_parent.stat == DEAD)
 		STOP_PROCESSING(SSmood, src)
 	last_stat = mob_parent.stat
 
@@ -111,7 +111,7 @@
 			add_mood_event(MOOD_CATEGORY_NUTRITION, /datum/mood_event/fat)
 		if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
 			add_mood_event(MOOD_CATEGORY_NUTRITION, /datum/mood_event/wellfed)
-		if( NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
 			add_mood_event(MOOD_CATEGORY_NUTRITION, /datum/mood_event/fed)
 		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
 			clear_mood_event(MOOD_CATEGORY_NUTRITION)
@@ -161,13 +161,13 @@
 		return
 
 	the_event.category = category
-	if (!isnull(mood_to_copy_from))
+	if(!isnull(mood_to_copy_from))
 		the_event.timeout = mood_to_copy_from.timeout
 	qdel(mood_to_copy_from)
 	mood_events[category] = the_event
 	update_mood()
 
-	if (the_event.timeout)
+	if(the_event.timeout)
 		addtimer(CALLBACK(src, PROC_REF(clear_mood_event), category), the_event.timeout, (TIMER_UNIQUE|TIMER_OVERRIDE))
 
 /**
@@ -177,7 +177,7 @@
  * * category - (Text) Removes the mood event with the given category
  */
 /datum/mood/proc/clear_mood_event(category)
-	if (!istext(category))
+	if(!istext(category))
 		category = "\ref[category]"
 
 	var/datum/mood_event/event = mood_events[category]

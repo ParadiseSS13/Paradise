@@ -71,6 +71,8 @@
 
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
+	/// A multiplier for the ammount of time it takes for someone to regenerate stamina damage.
+	var/stamina_regen_block_modifier = 1
 	var/stam_paralyzed = FALSE //knocks you down
 
 	/// Number of degrees of rotation of a mob. 0 means no rotation, up-side facing NORTH. 90 means up-side rotated to face EAST, and so on.
