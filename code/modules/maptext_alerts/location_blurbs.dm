@@ -46,7 +46,7 @@
 
 	for(var/client/viewer as anything in viewers)
 		if(viewer)
-				viewer.screen += src
+			viewer.screen += src
 
 	appear()
 	print_text()
@@ -105,7 +105,7 @@
 
 	for(var/client/viewer as anything in viewers)
 		if(viewer)
-				viewer.screen -= src
+			viewer.screen -= src
 
 	qdel(src)
 
