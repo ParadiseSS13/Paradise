@@ -399,7 +399,7 @@
 	for(var/obj/item/food/snacks/O in holdingitems)
 		var/list/special_juice = get_special_juice(O)
 		if(!length(special_juice))
-			break
+			continue // Ignore food that doesn't juice into anything
 
 		for(var/r_id in special_juice)
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
@@ -477,7 +477,7 @@
 	for(var/obj/item/stack/O in holdingitems)
 		var/list/special_blend = get_special_blend(O)
 		if(!length(special_blend))
-			break
+			continue // Ignore stackables that don't grind into anything
 
 		var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 		while(O.amount)
