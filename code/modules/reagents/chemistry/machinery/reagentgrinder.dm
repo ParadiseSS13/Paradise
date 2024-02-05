@@ -403,9 +403,8 @@
 
 		for(var/r_id in special_juice)
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
-			var/amount = get_juice_amount(O)
 
-			beaker.reagents.add_reagent(r_id, min(amount * efficiency, space))
+			beaker.reagents.add_reagent(r_id, min(get_juice_amount(O) * efficiency, space))
 
 			if(beaker.reagents.holder_full())
 				break
@@ -435,8 +434,7 @@
 	for(var/obj/item/food/snacks/O in holdingitems)
 		var/list/special_blend = get_special_blend(O)
 		if(!length(special_blend)) // No special blend reagents, we can just transfer everything
-			var/amount = O.reagents.total_volume
-			O.reagents.trans_to(beaker, amount)
+			O.reagents.trans_to(beaker, O.reagents.total_volume)
 
 			if(!O.reagents.total_volume)
 				remove_object(O)
@@ -532,8 +530,7 @@
 
 	// Everything else - Transfers reagents from it into beaker
 	for(var/obj/item/reagent_containers/O in holdingitems)
-		var/amount = O.reagents.total_volume
-		O.reagents.trans_to(beaker, amount)
+		O.reagents.trans_to(beaker, O.reagents.total_volume)
 
 		if(!O.reagents.total_volume)
 			remove_object(O)
