@@ -79876,7 +79876,7 @@
 	dir = 8
 	},
 /obj/structure/sign/securearea{
-	pixel_x = -32
+	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
