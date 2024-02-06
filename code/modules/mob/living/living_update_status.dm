@@ -2,7 +2,7 @@
 	if(!has_vision(information_only=TRUE))
 		overlay_fullscreen("blind", /atom/movable/screen/fullscreen/blind)
 		throw_alert("blind", /atom/movable/screen/alert/blind)
-		return 1
+		return TRUE
 	else
 		clear_fullscreen("blind")
 		clear_alert("blind")
