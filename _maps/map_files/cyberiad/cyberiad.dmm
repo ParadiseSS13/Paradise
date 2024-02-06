@@ -3086,11 +3086,11 @@
 	},
 /area/station/security/prison/cell_block/A)
 "alS" = (
-/obj/structure/closet,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3111,16 +3111,14 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/safe{
-	known_by = list("warden")
-	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/station/security/evidence)
 "amb" = (
-/obj/structure/closet,
 /obj/effect/decal/cleanable/cobweb2,
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4251,7 +4249,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "apd" = (
-/obj/structure/closet,
 /obj/machinery/alarm{
 	dir = 4;
 	name = "west bump";
@@ -4260,6 +4257,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4295,9 +4293,6 @@
 /obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
-	},
-/obj/item/paper/safe_code{
-	owner = "warden"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -6184,7 +6179,7 @@
 	},
 /area/station/security/lobby)
 "auI" = (
-/obj/structure/closet,
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -64785,15 +64780,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
-"iKJ" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/closet,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/evidence)
 "iKY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/largecrate,
@@ -130922,7 +130908,7 @@ ama
 nSc
 jzv
 voe
-iKJ
+ama
 aFL
 azL
 aAJ

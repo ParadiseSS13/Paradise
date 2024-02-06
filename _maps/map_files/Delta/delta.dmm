@@ -38938,16 +38938,15 @@
 	},
 /area/station/legal/magistrate)
 "ccL" = (
-/obj/structure/closet,
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/station/security/evidence)
 "ccM" = (
-/obj/structure/closet,
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
@@ -38957,6 +38956,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -38982,7 +38982,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
 "ccP" = (
-/obj/structure/closet,
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -40154,7 +40154,6 @@
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
 "cgg" = (
-/obj/structure/closet,
 /obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
@@ -40165,6 +40164,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -40231,11 +40231,11 @@
 	},
 /area/station/security/brig)
 "cgo" = (
-/obj/structure/closet,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -40259,12 +40259,12 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/closet,
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -68853,9 +68853,6 @@
 	},
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/warden,
-/obj/item/paper/safe_code{
-	owner = "warden"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -79837,17 +79834,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
-"mgV" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/safe{
-	known_by = list("warden")
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/evidence)
 "mhu" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/permasolitary)
@@ -90086,10 +90072,10 @@
 	},
 /area/station/medical/virology)
 "spP" = (
-/obj/structure/closet,
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -153835,7 +153821,7 @@ bLB
 bQn
 bRe
 cgr
-mgV
+spP
 ccQ
 spP
 jIs

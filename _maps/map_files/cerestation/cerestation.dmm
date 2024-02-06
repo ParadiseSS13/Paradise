@@ -5487,9 +5487,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/safe{
-	known_by = list("warden")
-	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11213,18 +11211,18 @@
 	pixel_y = -28;
 	name = "custom placement"
 	},
-/obj/structure/closet,
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/station/security/evidence)
 "bnw" = (
-/obj/structure/closet,
 /obj/machinery/light_switch{
 	dir = 1;
 	pixel_y = -24;
 	name = "south bump"
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -32578,7 +32576,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "duk" = (
-/obj/structure/closet,
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -50181,11 +50179,11 @@
 	},
 /area/station/hallway/secondary/exit)
 "jcx" = (
-/obj/structure/closet,
 /obj/machinery/alarm{
 	pixel_y = 24;
 	name = "north bump"
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -85304,9 +85302,6 @@
 	dir = 1;
 	name = "disposal pipe - Security";
 	sort_type_txt = "7"
-	},
-/obj/item/paper/safe_code{
-	owner = "warden"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
