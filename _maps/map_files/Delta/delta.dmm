@@ -1651,6 +1651,13 @@
 	icon_state = "red"
 	},
 /area/station/maintenance/fore2)
+"ani" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry)
 "ank" = (
 /turf/simulated/floor/plasteel/white/corner{
 	dir = 4
@@ -73132,9 +73139,10 @@
 /area/station/public/fitness)
 "hQz" = (
 /obj/machinery/door/window/classic/normal{
-	name = "Robotics Desk";
-	dir = 8
+	dir = 8;
+	name = "Robotics Surgery"
 	},
+/obj/effect/mapping_helpers/airlock/polarized,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics{
 	dir = 8
 	},
@@ -84011,10 +84019,10 @@
 /turf/simulated/wall/r_wall,
 /area/station/telecomms/chamber)
 "oMA" = (
-/obj/machinery/door/airlock/external{
-	name = "Arrival Airlock"
-	},
-/turf/simulated/floor/plating,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "oMI" = (
 /obj/structure/disposalpipe/segment{
@@ -86359,6 +86367,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central)
+"qke" = (
+/obj/machinery/door/airlock/external{
+	name = "Arrival Airlock"
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry)
 "qkH" = (
 /obj/structure/chair/sofa/corner{
 	dir = 8;
@@ -92194,12 +92208,6 @@
 	icon_state = "darkred"
 	},
 /area/station/security/warden)
-"tOv" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry)
 "tOM" = (
 /obj/machinery/power/apc{
 	name = "south bump";
@@ -98859,13 +98867,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"xQX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry)
 "xRk" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Checkpoint Maintenance"
@@ -130224,7 +130225,7 @@ abj
 abj
 abj
 grB
-oMA
+qke
 rJk
 abj
 abj
@@ -130996,9 +130997,9 @@ agA
 agg
 adZ
 xcL
-tOv
+oMA
 qtk
-xQX
+ani
 wSO
 adb
 aaa
