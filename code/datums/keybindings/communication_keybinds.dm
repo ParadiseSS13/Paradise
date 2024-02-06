@@ -28,7 +28,7 @@
 		to_chat(C, "<span class='danger'>OOC is globally muted.</span>", MESSAGE_TYPE_WARNING)
 		return
 
-	if(!GLOB.dooc_enabled && (C.mob.stat == DEAD))
+	if(!GLOB.dooc_enabled && C.mob.stat == DEAD)
 		to_chat(C, "<span class='danger'>OOC for dead mobs has been turned off.</span>", MESSAGE_TYPE_WARNING)
 		return
 
