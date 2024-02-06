@@ -349,7 +349,7 @@
 			for(var/obj/machinery/r_n_d/server/S in servers)
 				dat += "[S.name] <A href='?src=[UID()];send_to=[S.server_id]'> (Transfer)</A><BR>"
 			dat += "<HR><A href='?src=[UID()];main=1'>Main Menu</A>"
-	user << browse("<TITLE>R&D Server Control</TITLE><HR>[dat]", "window=server_control;size=575x400")
+	user << browse("<TITLE>R&D Server Control</TITLE><HR><meta charset='utf-8'>[dat]", "window=server_control;size=575x400")
 	onclose(user, "server_control")
 	return
 

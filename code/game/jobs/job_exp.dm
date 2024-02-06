@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
 	var/list/msg = list()
-	msg  += "<html><head><title>Playtime Report</title></head><body>"
+	msg  += "<html><meta charset='utf-8'><head><title>Playtime Report</title></head><body>"
 	var/datum/job/theirjob
 	var/jtext
 	msg += "<TABLE border ='1'><TR><TH>Player</TH><TH>Job</TH><TH>Crew</TH>"
