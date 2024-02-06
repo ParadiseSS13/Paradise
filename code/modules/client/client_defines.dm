@@ -128,7 +128,7 @@
 	var/list/recent_examines
 
 	/// Assigned say modal of the client
-	/client/var/datum/tgui_say/tgui_say
+	var/datum/tgui_say/tgui_say
 
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)
