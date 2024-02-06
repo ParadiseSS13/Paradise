@@ -1262,7 +1262,10 @@ so that different stomachs can handle things in different ways VB*/
 		return TRUE // Doesn't have reagents, would be fine to use up
 
 	if(!dna.species.dietflags) // You will not feed the IPC
-		to_chat(user, "<span class='warning'>You cannot feed [src] [medicine]!</span>")
+		if(ispatch(medicine))
+			to_chat(user, "<span class='warning'>You cannot apply [medicine] to [src]!</span>")
+		else
+			to_chat(user, "<span class='warning'>You cannot feed [src] [medicine]!</span>")
 		return FALSE
 
 	var/apply_method = "swallow"
