@@ -73,7 +73,7 @@
 		owner.adjustToxLoss(30)
 	if(time >= 90 && prob(15))
 		to_chat(owner, pick("<span class='danger'>Something hurts.</span>", "<span class='danger'>Someone is thinking, but it's not you.</span>", "<span class='danger'>You feel at peace.</span>", "<span class='danger'>Close your eyes.</span>"))
-		owner.adjustStaminaLoss(50)
+		owner.apply_damage(50, STAMINA)
 	if(time >= EGG_INCUBATION_DEAD_CYCLE && owner.stat == DEAD || time >= EGG_INCUBATION_LIVING_CYCLE)
 		Pop()
 		STOP_PROCESSING(SSobj, src)

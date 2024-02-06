@@ -78,7 +78,7 @@
 			var/powergrid = C.get_available_power() //We want available power, so the station being conservative doesn't mess with glove / dark bundle users
 			if(user.a_intent == INTENT_DISARM)
 				add_attack_logs(user, L, "shocked with power bio-chip.")
-				L.adjustStaminaLoss(60)
+				L.apply_damage(60, STAMINA)
 				L.Jitter(10 SECONDS)
 				var/atom/throw_target = get_edge_target_turf(user, get_dir(user, get_step_away(L, user)))
 				L.throw_at(throw_target, powergrid / 100000, powergrid / 100000) //100 kW in grid throws 1 tile, 200 throws 2, etc.
