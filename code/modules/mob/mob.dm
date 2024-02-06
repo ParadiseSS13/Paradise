@@ -1207,8 +1207,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		if(istype(S, spell))
 			qdel(S)
 			mob_spell_list -= S
-	if(client)
-		client.stat_panel.send_message("check_spells")
 
 //override to avoid rotating pixel_xy on mobs
 /mob/shuttleRotate(rotation)
