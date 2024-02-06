@@ -40,7 +40,7 @@
 			return 0
 
 		if(!is_screen_atom(over_object))
-			return 1
+			return TRUE
 
 		//makes sure master_item is equipped before putting it in hand, so that we can't drag it into our hand from miles away.
 		//there's got to be a better way of doing this...
