@@ -189,7 +189,7 @@
 	..()
 	if(crit_fail)
 		return
-	if(owner.stat == UNCONSCIOUS && cooldown == FALSE)
+	if(owner.stat == UNCONSCIOUS && !cooldown)
 		owner.AdjustSleeping(-200 SECONDS)
 		owner.AdjustParalysis(-200 SECONDS)
 		to_chat(owner, "<span class='notice'>You feel a rush of energy course through your body!</span>")
