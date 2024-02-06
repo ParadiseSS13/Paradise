@@ -489,7 +489,7 @@
 				M.activate_hand("r")
 			if("left hand", "l_hand")
 				M.activate_hand("l")
-	return 1
+	return TRUE
 
 /atom/movable/screen/swap_hand
 	name = "swap hand"
