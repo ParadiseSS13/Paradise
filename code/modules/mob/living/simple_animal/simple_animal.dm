@@ -139,6 +139,9 @@
 	/// Can this simple mob crawl or not? If FALSE, it won't get immobilized by crawling
 	var/can_crawl = FALSE
 
+	/// Health of the mob before being admin-frozen, restored afterwards
+	var/admin_prev_health = null
+
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src

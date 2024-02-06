@@ -33,6 +33,12 @@
 	/// Is it emagged or not?
 	var/emagged = FALSE
 
+	// Access-related fields
+	var/list/req_access = null
+	var/req_access_txt = "0"
+	var/list/req_one_access = null
+	var/req_one_access_txt = "0"
+
 /obj/New()
 	..()
 	if(obj_integrity == null)
