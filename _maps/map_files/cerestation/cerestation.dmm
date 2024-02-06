@@ -24822,9 +24822,10 @@
 "cEm" = (
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
-	departmentType = 2;
-	name = "Quartermaster RC";
-	pixel_x = 30
+	departmentType = 5;
+	name = "Quartermaster Requests Console";
+	pixel_x = 30;
+	announcementConsole = 1
 	},
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
