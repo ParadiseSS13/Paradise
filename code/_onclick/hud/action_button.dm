@@ -32,7 +32,7 @@
 		closeToolTip(usr)
 		return ..()
 
-/atom/movable/screen/movable/action_button/Click(location,control,params)
+/atom/movable/screen/movable/action_button/Click(location, control, params)
 	var/list/modifiers = params2list(params)
 	if(modifiers["ctrl"] && modifiers["shift"])
 		INVOKE_ASYNC(src, PROC_REF(set_to_keybind), usr)
