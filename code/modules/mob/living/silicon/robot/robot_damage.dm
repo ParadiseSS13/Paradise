@@ -87,7 +87,7 @@
 /mob/living/silicon/robot/heal_overall_damage(brute, burn, updating_health = TRUE)
 	var/list/datum/robot_component/parts = get_damaged_components(brute, burn)
 
-	while(LAZYLEN(parts) && (brute > 0 || burn > 0) )
+	while(LAZYLEN(parts) && (brute > 0 || burn > 0))
 		var/datum/robot_component/picked = pick(parts)
 
 		var/brute_was = picked.brute_damage
@@ -117,7 +117,7 @@
 		A.take_damage(brute, burn, sharp)
 		return
 
-	while(LAZYLEN(parts) && (brute > 0 || burn > 0) )
+	while(LAZYLEN(parts) && (brute > 0 || burn > 0))
 		var/datum/robot_component/picked = pick(parts)
 
 		var/brute_was = picked.brute_damage

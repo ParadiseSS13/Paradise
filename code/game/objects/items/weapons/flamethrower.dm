@@ -89,7 +89,7 @@
 	if(user.get_active_hand() == src) // Make sure our user is still holding us
 		var/turf/target_turf = get_turf(target)
 		if(target_turf)
-			var/turflist = getline(user, target_turf)
+			var/turflist = get_line(user, target_turf)
 			add_attack_logs(user, target, "Flamethrowered at [target.x],[target.y],[target.z]")
 			flame_turf(turflist)
 
@@ -218,7 +218,7 @@
 		previousturf = T
 	operating = FALSE
 	for(var/mob/M in viewers(1, loc))
-		if((M.client && M.machine == src))
+		if(M.client && M.machine == src)
 			attack_self(M)
 
 

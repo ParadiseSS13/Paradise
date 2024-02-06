@@ -102,6 +102,81 @@
 	dust_if_respawnable(new_stand)
 	qdel(src)
 
+/obj/effect/proc_holder/spell/summon_guardian_beacon
+	name = "Place Teleportation Beacon"
+	desc = "Mark a floor as your beacon point, allowing you to warp targets to it. Your beacon requires an anchor, will not work on space tiles."
+	clothes_req = FALSE
+	base_cooldown = 300 SECONDS
+	action_icon_state = "no_state"
+	action_background_icon_state = "reset"
+	action_icon = 'icons/mob/guardian.dmi'
+
+/obj/effect/proc_holder/spell/summon_guardian_beacon/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/summon_guardian_beacon/cast(list/targets, mob/living/user = usr)
+	var/target = targets[1]
+	var/mob/living/simple_animal/hostile/guardian/healer/guardian_user = user
+	var/turf/beacon_loc = get_turf(target)
+	if(isfloorturf(beacon_loc) && !islava(beacon_loc) && !ischasm(beacon_loc))
+		QDEL_NULL(guardian_user.beacon)
+		guardian_user.beacon = new(beacon_loc)
+		to_chat(guardian_user, "<span class='notice'>Beacon placed! You may now warp targets to it, including your user, via <b>Alt Click</b>.</span>")
+
+	return TRUE
+
+/obj/effect/proc_holder/spell/surveillance_snare
+	name = "Set Surveillance Snare"
+	desc = "Places an invisible Surveillance Snare on the ground, if someone walks over it you'll be alerted. Max of 6 snares active at a time"
+	clothes_req = FALSE
+	base_cooldown = 3 SECONDS
+	action_icon_state = "no_state"
+	action_background_icon_state = "reset"
+	action_icon = 'icons/mob/guardian.dmi'
+
+/obj/effect/proc_holder/spell/surveillance_snare/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/surveillance_snare/cast(list/targets, mob/living/user = usr)
+	var/target = targets[1]
+	var/mob/living/simple_animal/hostile/guardian/ranged/guardian_user = user
+	if(length(guardian_user.snares) < 6)
+		var/turf/snare_loc = get_turf(target)
+		var/obj/item/effect/snare/S = new /obj/item/effect/snare(snare_loc)
+		S.spawner = guardian_user
+		S.name = "[get_area(snare_loc)] trap ([snare_loc.x],[snare_loc.y],[snare_loc.z])"
+		guardian_user.snares |= S
+		to_chat(guardian_user, "<span class='notice'>Surveillance trap deployed!</span>")
+		return TRUE
+	else
+		to_chat(guardian_user, "<span class='notice'>You have too many traps deployed. Delete one to place another.</span>")
+		var/picked_snare = input(guardian_user, "Pick which trap to disarm", "Disarm Trap") as null|anything in guardian_user.snares
+		if(picked_snare)
+			guardian_user.snares -= picked_snare
+			qdel(picked_snare)
+			to_chat(src, "<span class='notice'>Snare disarmed.</span>")
+			revert_cast()
+
+/obj/effect/proc_holder/spell/choose_battlecry
+	name = "Change battlecry"
+	desc = "Changes your battlecry."
+	clothes_req = FALSE
+	base_cooldown = 1 SECONDS
+	action_icon_state = "no_state"
+	action_background_icon_state = "communicate"
+	action_icon = 'icons/mob/guardian.dmi'
+
+/obj/effect/proc_holder/spell/choose_battlecry/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/choose_battlecry/cast(list/targets, mob/living/user = usr)
+	var/mob/living/simple_animal/hostile/guardian/punch/guardian_user = user
+	var/input = stripped_input(guardian_user, "What do you want your battlecry to be? Max length of 5 characters.", ,"", 6)
+	if(!input)
+		revert_cast()
+		return
+	guardian_user.battlecry = input
+
 /**
  * Takes the action button off cooldown and makes it available again.
  */

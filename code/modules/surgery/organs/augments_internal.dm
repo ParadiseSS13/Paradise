@@ -1,6 +1,6 @@
 /obj/item/organ/internal/cyberimp
 	name = "cybernetic implant"
-	desc = "a state-of-the-art implant that improves a baseline's functionality"
+	desc = "a state-of-the-art implant that improves a baseline's functionality."
 	status = ORGAN_ROBOT
 	var/implant_color = "#FFFFFF"
 	var/implant_overlay
@@ -21,7 +21,7 @@
 
 /obj/item/organ/internal/cyberimp/brain
 	name = "cybernetic brain implant"
-	desc = "injectors of extra sub-routines for the brain"
+	desc = "injectors of extra sub-routines for the brain."
 	icon_state = "brain_implant"
 	implant_overlay = "brain_implant_overlay"
 	parent_organ = "head"
@@ -132,27 +132,44 @@
 	implant_color = "#FFFF00"
 	slot = "brain_antistun"
 	origin_tech = "materials=5;programming=4;biotech=5"
-	var/last_stamina_damage = 0
-	var/max_stamina_increment = 40
+	/// How much we multiply the owners stamina regen block modifier by.
+	var/stamina_crit_time_multiplier = 0.4
+	/// Are we currently modifying somoeones stamina regen block modifier? If so, we will want to undo it on removal.
+	var/currently_modifying_stamina = FALSE
+	COOLDOWN_DECLARE(implant_cooldown)
 
-/obj/item/organ/internal/cyberimp/brain/anti_stam/on_life()
+/obj/item/organ/internal/cyberimp/brain/anti_stam/insert(mob/living/carbon/M, special = FALSE)
 	..()
-	if(crit_fail)
-		return
-	if(last_stamina_damage + max_stamina_increment < owner.getStaminaLoss())
-		owner.setStaminaLoss(last_stamina_damage + max_stamina_increment)
-	last_stamina_damage = owner.getStaminaLoss()
+	RegisterSignal(M, COMSIG_CARBON_ENTER_STAMINACRIT, PROC_REF(on_enter))
+	RegisterSignal(M, COMSIG_CARBON_EXIT_STAMINACRIT, PROC_REF(on_exit))
+	RegisterSignal(M, COMSIG_CARBON_STAMINA_REGENERATED, PROC_REF(on_regen))
 
+/obj/item/organ/internal/cyberimp/brain/anti_stam/remove(mob/living/carbon/M, special = FALSE)
+	UnregisterSignal(M, list(COMSIG_CARBON_ENTER_STAMINACRIT, COMSIG_CARBON_EXIT_STAMINACRIT, COMSIG_CARBON_STAMINA_REGENERATED))
+	on_exit()
+	return ..()
+
+/obj/item/organ/internal/cyberimp/brain/anti_stam/proc/on_enter()
+	SIGNAL_HANDLER // COMSIG_CARBON_ENTER_STAMINACRIT
+	if(currently_modifying_stamina || !COOLDOWN_FINISHED(src, implant_cooldown))
+		return
+	owner.stamina_regen_block_modifier *= stamina_crit_time_multiplier
+	currently_modifying_stamina = TRUE
+
+/obj/item/organ/internal/cyberimp/brain/anti_stam/proc/on_exit()
+	SIGNAL_HANDLER // COMSIG_CARBON_EXIT_STAMINACRIT
+	if(!currently_modifying_stamina)
+		return
+	owner.stamina_regen_block_modifier /= stamina_crit_time_multiplier
+	currently_modifying_stamina = FALSE
+
+/obj/item/organ/internal/cyberimp/brain/anti_stam/proc/on_regen()
+	SIGNAL_HANDLER // COMSIG_CARBON_STAMINA_REGENERATED
+	owner.update_stamina() //This is here so they actually get unstaminacrit when it triggers, vs 2-4 seconds later
 
 /obj/item/organ/internal/cyberimp/brain/anti_stam/emp_act(severity)
 	..()
-	if(crit_fail || emp_proof)
-		return
-	crit_fail = TRUE
-	addtimer(CALLBACK(src, PROC_REF(reboot)), 90 / severity)
-
-/obj/item/organ/internal/cyberimp/brain/anti_stam/proc/reboot()
-	crit_fail = FALSE
+	COOLDOWN_START(src, implant_cooldown, 1 MINUTES / severity)
 
 /obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
 	name = "Hardened CNS Rebooter implant"
@@ -204,7 +221,7 @@
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible
 	name = "Hardened Neural Jumpstarter implant"
-	desc = "A military-grade version of the standard implant, for NT's more elite forces. This one is compatible with the CNS Rebooter implant"
+	desc = "A military-grade version of the standard implant, for NT's more elite forces. This one is compatible with the CNS Rebooter implant."
 	slot = "brain_antisleep"
 	emp_proof = TRUE
 
@@ -273,8 +290,8 @@
 	origin_tech = "materials=5;programming=4;biotech=4"
 
 /obj/item/organ/internal/cyberimp/brain/wire_interface/insert(mob/living/carbon/M, special = FALSE)
+	..()
 	ADD_TRAIT(M, TRAIT_SHOW_WIRE_INFO, "show_wire_info[UID()]")
-	return ..()
 
 /obj/item/organ/internal/cyberimp/brain/wire_interface/remove(mob/living/carbon/M, special = FALSE)
 	REMOVE_TRAIT(M, TRAIT_SHOW_WIRE_INFO, "show_wire_info[UID()]")
@@ -309,7 +326,7 @@
 //[[[[CHEST]]]]
 /obj/item/organ/internal/cyberimp/chest
 	name = "cybernetic torso implant"
-	desc = "implants for the organs in your torso"
+	desc = "implants for the organs in your torso."
 	icon_state = "chest_implant"
 	implant_overlay = "chest_implant_overlay"
 	parent_organ = "chest"
@@ -317,7 +334,6 @@
 /obj/item/organ/internal/cyberimp/chest/nutriment
 	name = "Nutriment pump implant"
 	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are starving."
-	icon_state = "chest_implant"
 	implant_color = "#00AA00"
 	var/hunger_threshold = NUTRITION_LEVEL_STARVING
 	var/synthesizing = 0
@@ -367,7 +383,6 @@
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
 	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are hungry."
-	icon_state = "chest_implant"
 	implant_color = "#006607"
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
@@ -384,7 +399,6 @@
 /obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"
 	desc = "This implant will attempt to heal you out of critical condition. For the faint of heart!"
-	icon_state = "chest_implant"
 	implant_color = "#AD0000"
 	origin_tech = "materials=5;programming=4;biotech=4"
 	slot = "heartdrive"
@@ -457,12 +471,93 @@
 	if(H.stat == CONSCIOUS)
 		to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
 
+/obj/item/organ/internal/cyberimp/chest/ipc_repair
+	name = "Reactive Repair Implant"
+	desc = "This implant reworks the IPC frame, in order to incorporate materials that return to their original shape after being damaged. Requires power to function."
+	implant_color = "#0ac0d8"
+	origin_tech = "materials=4;programming=4;biotech=4;magnets=4;engineering=4"
+	slot = "stomach" //Can't have a nutriment pump with it.
+	requires_machine_person = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/ipc_repair/on_life()
+	if(crit_fail)
+		return
+	if(owner.maxHealth == owner.health)
+		owner.adjust_nutrition(-0.5)
+		return //Passive damage scanning
+
+	owner.adjustBruteLoss(-0.5, robotic = TRUE)
+	owner.adjustFireLoss(-0.5, robotic = TRUE)
+	owner.adjust_nutrition(-4) //Very power inefficent. Hope you got an APC nearby.
+
+/obj/item/organ/internal/cyberimp/chest/ipc_repair/emp_act(severity)
+	if(!owner || emp_proof || crit_fail)
+		return
+	crit_fail = TRUE
+	addtimer(VARSET_CALLBACK(src, crit_fail, FALSE), 30 SECONDS / severity)
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints
+	name = "IPC ER-OR Joint Implant"
+	desc = "This is a basetype. Notify a coder!"
+	implant_color = "#eeff00"
+	origin_tech = "materials=5;programming=4;biotech=4"
+	slot = "joints"
+	requires_machine_person = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints
+	name = "Magnetic Joints Implant"
+	desc = "This implant modifies IPC joints to use magnets, allowing easy re-attachment and fluid movement."
+	implant_color = "#670db1"
+	origin_tech = "materials=4;programming=4;biotech=4;magnets=4;engineering=4"
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/emp_act(severity)
+	if(!owner || emp_proof)
+		return
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		to_chat(H, "<span class='userdanger'>Your magnetic joints lose power!</span>")
+		for(var/obj/item/organ/external/E in H.bodyparts)
+			if(E.body_part != UPPER_TORSO && E.body_part != LOWER_TORSO)
+				E.droplimb(TRUE) //lego disasemble sound
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_IPC_JOINTS_MAG, "ipc_joint[UID()]")
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_IPC_JOINTS_MAG, "ipc_joint[UID()]")
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed
+	name = "Sealed Joints Implant"
+	desc = "This implant seals and reinforces IPC joints, securing the limbs better for industrial work, though prone to locking up."
+	implant_color = "#b10d0d"
+	origin_tech = "materials=4;programming=4;biotech=4;engineering=4;combat=4;"
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/emp_act(severity)
+	if(!owner || emp_proof)
+		return
+	var/weaken_time = (10 + (severity - 1 ? 0 : 10)) SECONDS
+	owner.Weaken(weaken_time) //Pop it and lock it
+	to_chat(owner, "<span class='warning'>Your body seizes up!</span>")
+	return weaken_time
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
+	owner.physiology.stamina_mod *= 1.15 //15% more stamina damage, representing extra friction in limbs. I guess.
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
+	owner.physiology.stamina_mod /= 1.15
+	return ..()
+
 //BOX O' IMPLANTS
 
 /obj/item/storage/box/cyber_implants
 	name = "boxed cybernetic implants"
 	desc = "A sleek, sturdy box."
-	icon_state = "cyber_implants"
+	icon_state = "cyber_implants_box"
 	var/list/boxed = list(
 		/obj/item/autosurgeon/organ/syndicate/thermal_eyes,
 		/obj/item/autosurgeon/organ/syndicate/xray_eyes,

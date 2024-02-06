@@ -94,7 +94,7 @@
 		L.ghostize()
 		if(isbrain(L))
 			// diediedie
-			var/mob/living/carbon/brain/B = L
+			var/mob/living/brain/B = L
 			if(isitem(B.loc))
 				qdel(B.loc)
 			if(B && B.container)
@@ -127,7 +127,7 @@
 	if(harry)
 		var/mob/living/carbon/human/new_character = makeBody(harry)
 		new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
-		new_character.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/mugwort(harry), SLOT_HUD_IN_BACKPACK)
+		new_character.equip_to_slot_or_del(new /obj/item/reagent_containers/drinks/mugwort(harry), SLOT_HUD_IN_BACKPACK)
 		// The first wiznerd can get their mugwort from the wizard's den, new ones will also need mugwort!
 		mages_made++
 		dust_if_respawnable(harry)

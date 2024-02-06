@@ -17,6 +17,8 @@
 	var/job_departments = list()
 	///Can this role access its department money account?
 	var/department_account_access = FALSE
+	/// Does this job get a bank account?
+	var/has_bank_account = TRUE
 	//How many players can be this job
 	var/total_positions = 0
 
@@ -72,6 +74,8 @@
 
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H)
+
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 

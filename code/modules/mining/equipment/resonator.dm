@@ -1,7 +1,7 @@
 /**********************Resonator**********************/
 /obj/item/resonator
 	name = "resonator"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/mining_tool.dmi'
 	icon_state = "resonator"
 	item_state = "resonator"
 	origin_tech = "magnets=3;engineering=3"

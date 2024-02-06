@@ -6,11 +6,6 @@
  *		FINGERPRINT CARD
  */
 
-
-
-/*
- * DATA CARDS - Used for the teleporter
- */
 /obj/item/card
 	name = "card"
 	desc = "A card."
@@ -22,37 +17,6 @@
 
 /obj/item/card/proc/get_card_account()
 	return GLOB.station_money_database.find_user_account(associated_account_number)
-
-/obj/item/card/data
-	name = "data card"
-	desc = "A disk containing data."
-	icon_state = "data"
-	var/function = "storage"
-	var/data = "null"
-	var/special = null
-	item_state = "card-id"
-
-/obj/item/card/data/verb/label(t as text)
-	set name = "Label Disk"
-	set category = "Object"
-	set src in usr
-
-	if(t)
-		src.name = "Data Disk- '[t]'"
-	else
-		src.name = "Data Disk"
-	src.add_fingerprint(usr)
-	return
-
-/obj/item/card/data/clown
-	name = "coordinates to clown planet"
-	icon_state = "data"
-	item_state = "card-id"
-	layer = 3
-	level = 2
-	desc = "This card contains coordinates to the fabled Clown Planet. Handle with care."
-	function = "teleporter"
-	data = "Clown Land"
 
 /*
  * ID CARDS
@@ -154,7 +118,7 @@
 	else
 		. += "<span class='warning'>It is too far away.</span>"
 	if(guest_pass)
-		. += "<span class='notice'>There is a guest pass attached to this ID card</span>"
+		. += "<span class='notice'>There is a guest pass attached to this ID card, <b>Alt-Click</b> to remove it.</span>"
 		if(world.time < guest_pass.expiration_time)
 			. += "<span class='notice'>It expires at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>"
 		else
@@ -170,7 +134,6 @@
 
 	var/datum/browser/popup = new(user, "idcard", name, 600, 400)
 	popup.set_content(dat)
-	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/item/card/id/attack_self(mob/user as mob)
@@ -305,20 +268,16 @@
 		G.loc = src
 		guest_pass = G
 
-/obj/item/card/id/verb/remove_guest_pass()
-	set name = "Remove Guest Pass"
-	set category = "Object"
-	set src in range(0)
-
-	if(usr.stat || HAS_TRAIT(usr, TRAIT_UI_BLOCKED) || usr.restrained())
+/obj/item/card/id/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(guest_pass)
-		to_chat(usr, "<span class='notice'>You remove the guest pass from this ID.</span>")
+		to_chat(user, "<span class='notice'>You remove the guest pass from this ID.</span>")
 		guest_pass.forceMove(get_turf(src))
 		guest_pass = null
 	else
-		to_chat(usr, "<span class='warning'>There is no guest pass attached to this ID</span>")
+		to_chat(user, "<span class='warning'>There is no guest pass attached to this ID.</span>")
 
 /obj/item/card/id/serialize()
 	var/list/data = ..()
@@ -471,7 +430,7 @@
 							"paramedic",
 							"psychiatrist",
 							"research",
-							"robotcist",
+							"roboticist",
 							"quartermaster",
 							"cargo",
 							"shaftminer",
@@ -486,7 +445,6 @@
 							"assistant",
 							"clown",
 							"mime",
-							"barber",
 							"botanist",
 							"librarian",
 							"chaplain",
@@ -759,13 +717,6 @@
 	name = "Prisoner [random_number]"
 	registered_name = name
 
-/obj/item/card/id/salvage_captain
-	name = "Captain's ID"
-	registered_name = "Captain"
-	icon_state = "centcom"
-	desc = "Finders, keepers."
-	access = list(ACCESS_SALVAGE_CAPTAIN)
-
 /obj/item/card/id/medical
 	name = "Medical ID"
 	registered_name = "Medic"
@@ -978,12 +929,6 @@
 	desc = "..."
 	access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 
-/obj/item/card/id/barber
-	name = "Barber ID"
-	registered_name = "Barber"
-	icon_state = "barber"
-	access = list(ACCESS_MAINT_TUNNELS)
-
 /obj/item/card/id/botanist
 	name = "Botanist ID"
 	registered_name = "Botanist"
@@ -1149,7 +1094,7 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security","detective","warden","internalaffairsagent","medical","coroner","chemist","virologist","paramedic","psychiatrist","geneticist","research","roboticist","quartermaster","cargo","shaftminer","engineering","atmostech","captain","HoP","HoS","CMO","RD","CE","assistant","clown","mime","barber","botanist","librarian","chaplain","bartender","chef","janitor","rainbow","prisoner","explorer")
+	return list("data","id","gold","silver","security","detective","warden","internalaffairsagent","medical","coroner","chemist","virologist","paramedic","psychiatrist","geneticist","research","roboticist","quartermaster","cargo","shaftminer","engineering","atmostech","captain","HoP","HoS","CMO","RD","CE","assistant","clown","mime","botanist","librarian","chaplain","bartender","chef","janitor","rainbow","prisoner","explorer")
 
 /proc/get_centcom_card_skins()
 	return list("centcom","blueshield","magistrate","ntrep","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","ERT_paranormal","deathsquad","commander","syndie","TDred","TDgreen")

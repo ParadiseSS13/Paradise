@@ -16,7 +16,13 @@
 	icon_state = "filingcabinet"
 	density = TRUE
 	anchored = TRUE
-
+	var/static/list/accepted_items = list(
+		/obj/item/paper,
+		/obj/item/folder,
+		/obj/item/photo,
+		/obj/item/paper_bundle,
+		/obj/item/documents
+	)
 
 /obj/structure/filingcabinet/chestdrawer
 	name = "chest drawer"
@@ -37,19 +43,13 @@
 			I.loc = src
 
 
-/obj/structure/filingcabinet/attackby(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/paper) || istype(P, /obj/item/folder) || istype(P, /obj/item/photo) || istype(P, /obj/item/paper_bundle) || istype(P, /obj/item/documents))
-		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
-		user.drop_item()
-		P.loc = src
-		icon_state = "[initial(icon_state)]-open"
-		sleep(5)
-		icon_state = initial(icon_state)
-		updateUsrDialog()
-	else if(user.a_intent != INTENT_HARM)
-		to_chat(user, "<span class='warning'>You can't put [P] in [src]!</span>")
-	else
-		return ..()
+/obj/structure/filingcabinet/attackby(obj/item/O, mob/user, params)
+	if(insert(O, user))
+		return
+	if(user.a_intent != INTENT_HARM)
+		to_chat(user, "<span class='warning'>You can't put [O.name] in [src]!</span>")
+		return
+	return ..()
 
 /obj/structure/filingcabinet/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -63,20 +63,7 @@
 	qdel(src)
 
 /obj/structure/filingcabinet/attack_hand(mob/user)
-	if(!length(contents))
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
-		return
-
-	user.set_machine(src)
-	var/dat = "<center><table>"
-	for(var/obj/item/P in src)
-		dat += "<tr><td><a href='?src=[UID()];retrieve=\ref[P]'>[P.name]</a></td></tr>"
-	dat += "</table></center>"
-	var/datum/browser/popup = new(user, "filingcabinet", name, 350, 300)
-	popup.set_content(dat)
-	popup.open(FALSE)
-
-	return
+	ui_interact(user)
 
 /obj/structure/filingcabinet/attack_tk(mob/user)
 	if(anchored)
@@ -91,23 +78,71 @@
 			I.loc = loc
 			if(prob(25))
 				step_rand(I)
+			SStgui.update_uis(src)
 			to_chat(user, "<span class='notice'>You pull \a [I] out of [src] at random.</span>")
 			return
 	to_chat(user, "<span class='notice'>You find nothing in [src].</span>")
 
-/obj/structure/filingcabinet/Topic(href, href_list)
-	if(href_list["retrieve"])
-		usr << browse(null, "window=filingcabinet") // Close the menu
+/obj/structure/filingcabinet/ui_state(mob/user)
+	return GLOB.default_state
 
-		//var/retrieveindex = text2num(href_list["retrieve"])
-		var/obj/item/P = locate(href_list["retrieve"])//contents[retrieveindex]
-		if(istype(P) && (P.loc == src) && src.Adjacent(usr))
-			usr.put_in_hands(P)
-			updateUsrDialog()
-			icon_state = "[initial(icon_state)]-open"
-			sleep(5)
-			icon_state = initial(icon_state)
+/obj/structure/filingcabinet/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "FilingCabinet",  name)
+		ui.open()
 
+/obj/structure/filingcabinet/ui_data(mob/user)
+	var/list/data = list()
+	data["contents"] = null
+	var/list/items = list()
+
+	var/index = 1
+	for(var/obj/item/P in contents)
+		items.Add(list(list("display_name" = capitalize(P.name), "index" = index)))
+		index++
+
+	if(length(items))
+		data["contents"] = items
+
+	return data
+
+/obj/structure/filingcabinet/ui_act(action, params, datum/tgui/ui)
+	if(..())
+		return
+
+	. = TRUE
+
+	add_fingerprint(usr)
+
+	switch(action)
+		if("retrieve")
+			var/index = text2num(params["index"])
+			if(!ISINDEXSAFE(contents, index))
+				return FALSE
+			retrieve(contents[index], ui.user)
+
+/obj/structure/filingcabinet/proc/insert(obj/item/O, mob/user)
+	if(!is_type_in_list(O, accepted_items))
+		return
+	if(!user.unEquip(O))
+		return
+	to_chat(user, "<span class='notice'>You put [O.name] in [src].</span>")
+	O.loc = src
+	SStgui.update_uis(src)
+	icon_state = "[initial(icon_state)]-open"
+	sleep(5)
+	icon_state = initial(icon_state)
+	return TRUE
+
+/obj/structure/filingcabinet/proc/retrieve(obj/item/O, mob/user)
+	if(!(istype(O) && (O.loc == src) && Adjacent(user)))
+		return
+	if(!user.put_in_hands(O))
+		O.forceMove(loc)
+	icon_state = "[initial(icon_state)]-open"
+	sleep(5)
+	icon_state = initial(icon_state)
 
 /*
  * Security Record Cabinets

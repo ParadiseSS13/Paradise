@@ -10,6 +10,7 @@
 	dna_cost = 2
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
+	category = /datum/changeling_power_category/defence
 
 /datum/action/changeling/strained_muscles/Remove(mob/living/L)
 	L.remove_status_effect(STATUS_EFFECT_SPEEDLEGS)

@@ -4,7 +4,7 @@
 /obj/item/banhammer
 	desc = "A banhammer"
 	name = "banhammer"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/toy.dmi'
 	icon_state = "toyhammer"
 	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
@@ -83,6 +83,7 @@
 	item_state = "katana"
 	flags = CONDUCT
 	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
+	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	force = 40
 	throwforce = 10
 	sharp = TRUE

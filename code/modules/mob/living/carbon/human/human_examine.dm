@@ -54,10 +54,11 @@
 				break
 	if(skip_jumpsuit && skip_face || HAS_TRAIT(src, TRAIT_NOEXAMINE)) //either obscured or on the nospecies list
 		msg += "!"    //omit the species when examining
-	else if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
-		msg += ", a<b><font color='[examine_color]'> slime person</font></b>!"
 	else
-		msg += ", \a [height]<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b> with \a [physique] physique!" //Look I know it uses physique twice, lets not think about it too much ok?
+		var/species_name =  lowertext(displayed_species)
+		if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
+			species_name = "slime person"
+		msg += ", \a [height]<b><font color='[examine_color]'> [species_name]</font></b> with \a [physique] physique!"
 	return msg
 
 /mob/living/carbon/human/examine_start_damage_block(skip_gloves = FALSE, skip_suit_storage = FALSE, skip_jumpsuit = FALSE, skip_shoes = FALSE, skip_mask = FALSE, skip_ears = FALSE, skip_eyes = FALSE, skip_face = FALSE)
@@ -179,6 +180,40 @@
 			msg += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only [isslimeperson(src) ? "congealed slime" : "bones"] remaining of what used to be a person.\n"
 
 	// only humans get employment records
+	if(hasHUD(user, EXAMINE_HUD_SKILLS))
+		var/perpname = get_visible_name(TRUE)
+		var/skills
+
+		if(perpname)
+			for(var/datum/data/record/E in GLOB.data_core.general)
+				if(E.fields["name"] == perpname)
+					skills = E.fields["notes"]
+			if(skills)
+				var/char_limit = 40
+				if(length(skills) <= char_limit)
+					msg += "<span class='deptradio'>Employment records:</span> [skills]\n"
+				else
+					msg += "<span class='deptradio'>Employment records: [copytext_preserve_html(skills, 1, char_limit-3)]...</span><a href='byond://?src=[UID()];employment_more=1'>More...</a>\n"
+
+
+	if(hasHUD(user, EXAMINE_HUD_MEDICAL_READ))
+		var/perpname = get_visible_name(TRUE)
+		var/medical = "None"
+		var/mental = "None"
+
+		for(var/datum/data/record/E in GLOB.data_core.general)
+			if(E.fields["name"] == perpname)
+				for(var/datum/data/record/R in GLOB.data_core.general)
+					if(R.fields["id"] == E.fields["id"])
+						medical = R.fields["p_stat"]
+						mental = R.fields["m_stat"]
+
+		var/medical_status = hasHUD(user, EXAMINE_HUD_MEDICAL_WRITE) ? "<a href='?src=[UID()];medical=1'>\[[medical]\]</a>" : "\[[medical]\]"
+		var/mental_status = hasHUD(user, EXAMINE_HUD_MEDICAL_WRITE) ? "<a href='?src=[UID()];mental=1'>\[[mental]\]</a>" : "\[[mental]\]"
+		msg += "<span class='deptradio'>Physical status: </span>[medical_status]\n"
+		msg += "<span class='deptradio'>Mental Status: </span>[mental_status]\n"
+		msg += "<span class='deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
+
 	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
 		var/perpname = get_visible_name(TRUE)
 		var/criminal = "None"
@@ -199,38 +234,9 @@
 								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
 
 			var/criminal_status = hasHUD(user, EXAMINE_HUD_SECURITY_WRITE) ? "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>" : "\[[criminal]\]"
-			msg += "<span class = 'deptradio'>Criminal status:</span> [criminal_status]\n"
-			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
-			msg += "<span class = 'deptradio'>Latest entry:</span> [commentLatest]\n"
-
-	if(hasHUD(user, EXAMINE_HUD_SKILLS))
-		var/perpname = get_visible_name(TRUE)
-		var/skills
-
-		if(perpname)
-			for(var/datum/data/record/E in GLOB.data_core.general)
-				if(E.fields["name"] == perpname)
-					skills = E.fields["notes"]
-			if(skills)
-				var/char_limit = 40
-				if(length(skills) <= char_limit)
-					msg += "<span class='deptradio'>Employment records:</span> [skills]\n"
-				else
-					msg += "<span class='deptradio'>Employment records: [copytext_preserve_html(skills, 1, char_limit-3)]...</span><a href='byond://?src=[UID()];employment_more=1'>More...</a>\n"
-
-
-	if(hasHUD(user,EXAMINE_HUD_MEDICAL))
-		var/perpname = get_visible_name(TRUE)
-		var/medical = "None"
-
-		for(var/datum/data/record/E in GLOB.data_core.general)
-			if(E.fields["name"] == perpname)
-				for(var/datum/data/record/R in GLOB.data_core.general)
-					if(R.fields["id"] == E.fields["id"])
-						medical = R.fields["p_stat"]
-
-		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=[UID()];medical=1'>\[[medical]\]</a>\n"
-		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
+			msg += "<span class='deptradio'>Criminal status:</span> [criminal_status]\n"
+			msg += "<span class='deptradio'>Security records:</span> <a href='?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
+			msg += "<span class='deptradio'>Latest entry:</span> [commentLatest]\n"
 
 
 	return msg

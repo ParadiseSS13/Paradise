@@ -175,7 +175,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 	if(owner.mind)
 		//Holy characters are very good at speaking with the voice of god
-		if(owner.mind.isholy)
+		if(HAS_MIND_TRAIT(owner, TRAIT_HOLY))
 			power_multiplier *= 2
 		//Command staff has authority
 		if(owner.mind.assigned_role in GLOB.command_positions)
@@ -491,7 +491,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	log_game("[key_name(owner)] has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].")
 
 /obj/item/organ/internal/vocal_cords/colossus/wizard
-	desc = "They carry the voice of an ancient god. This one is enchanted to implant it into yourself when used in hand"
+	desc = "They carry the voice of an ancient god. This one is enchanted to implant it into yourself when used in hand."
 
 /obj/item/organ/internal/vocal_cords/colossus/wizard/attack_self(mob/living/user)
 	user.drop_item()

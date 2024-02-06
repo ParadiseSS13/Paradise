@@ -15,7 +15,6 @@
 	has_camera = FALSE
 	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 	ventcrawler = VENTCRAWLER_ALWAYS
-	magpulse = TRUE
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
@@ -46,7 +45,7 @@
 	)
 
 	holder_type = /obj/item/holder/drone
-//	var/sprite[0]
+	var/datum/pathfinding_mover/pathfinding
 
 
 /mob/living/silicon/robot/drone/New()
@@ -79,7 +78,9 @@
 	module = new /obj/item/robot_module/drone(src)
 	// Give us our action button
 	var/datum/action/innate/hide/drone_hide/hide = new()
+	var/datum/action/innate/robot_magpulse/pulse = new()
 	hide.Grant(src)
+	pulse.Grant(src)
 
 	//Allows Drones to hear the Engineering channel.
 	module.channels = list("Engineering" = 1)
@@ -108,6 +109,7 @@
 
 	aiCamera = new /obj/item/camera/siliconcam/drone_camera(src)
 	additional_law_channels["Drone"] = ";"
+	ADD_TRAIT(src, TRAIT_RESPAWNABLE, UNIQUE_TRAIT_SOURCE(src))
 
 	playsound(loc, 'sound/machines/twobeep.ogg', 50)
 
@@ -123,6 +125,8 @@
 	overlays.Cut()
 	if(stat == CONSCIOUS)
 		overlays += "eyes-[icon_state]"
+		if(pathfinding)
+			overlays += "eyes-repairbot-pathfinding"
 	else
 		overlays -= "eyes"
 
@@ -220,7 +224,7 @@
 		SSticker.mode.replace_jobbanned_player(src, ROLE_SYNDICATE)
 
 	to_chat(src, "<span class='warning'>You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script. You sense you have <b>five minutes</b> before the drone server detects this and automatically shuts you down.</span>")
-
+	REMOVE_TRAIT(src, TRAIT_RESPAWNABLE, UNIQUE_TRAIT_SOURCE(src))
 	message_admins("[key_name_admin(user)] emagged drone [key_name_admin(src)].  Laws overridden.")
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
@@ -259,7 +263,6 @@
 	. = ..(gibbed)
 	adjustBruteLoss(health)
 
-
 //CONSOLE PROCS
 /mob/living/silicon/robot/drone/proc/law_resync()
 	if(stat != DEAD)
@@ -278,6 +281,10 @@
 		to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, but it doesn't seem like a good idea to you.</span>")
 		return
 
+	if(!emagged && pathfind_to_dronefab())
+		to_chat(src, "<span class='warning'>You feel a system recall order percolate through your tiny brain, and you return to your drone fabricator.</span>")
+		return
+
 	to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.</span>")
 	death()
 
@@ -291,7 +298,7 @@
 
 /mob/living/silicon/robot/drone/proc/request_player()
 	for(var/mob/dead/observer/O in GLOB.player_list)
-		if(cannotPossess(O))
+		if(!O.check_ahud_rejoin_eligibility())
 			continue
 		if(jobban_isbanned(O, "nonhumandept") || jobban_isbanned(O, "Drone"))
 			continue
@@ -390,3 +397,73 @@
 		qdel(src)
 		return TRUE
 	return ..()
+
+/mob/living/silicon/robot/drone/do_suicide()
+	ghostize(TRUE)
+	shut_down()
+
+/mob/living/silicon/robot/drone/proc/pathfind_to_dronefab()
+	if(pathfinding)
+		return TRUE
+
+	if(istype(get_turf(src), /turf/space))
+		return FALSE // Pretty damn hard to path through space
+
+	var/turf/target
+	for(var/obj/machinery/drone_fabricator/DF in GLOB.machines)
+		if(DF.z != z)
+			continue
+		target = get_turf(DF)
+		target = get_step(target, EAST)
+		break
+
+	if(!target)
+		return FALSE
+
+	// Mimic having the hide-ability activated
+	layer = TURF_LAYER + 0.2
+	pass_flags |= PASSDOOR
+
+	var/datum/pathfinding_mover/pathfind = new(src, target)
+
+	// I originally only wanted to make it use an ID if it couldnt pathfind otherwise, but that means it could take multiple minutes if both searches failed
+	var/obj/item/card/id/temp_id = new(src)
+	temp_id.access = get_all_accesses()
+	set_pathfinding(pathfind)
+	var/found_path = pathfind.generate_path(150, null, temp_id)
+	qdel(temp_id)
+	if(!found_path)
+		set_pathfinding(null)
+		return FALSE
+
+	pathfind.on_set_path_null = CALLBACK(src, PROC_REF(pathfind_failed_cleanup))
+	pathfind.on_success = CALLBACK(src, PROC_REF(at_dronefab))
+	pathfind.start()
+	return TRUE
+
+/mob/living/silicon/robot/drone/proc/pathfind_failed_cleanup(pathfind)
+	set_pathfinding(null)
+	death()
+
+/mob/living/silicon/robot/drone/proc/at_dronefab(pathfind)
+	set_pathfinding(null)
+	cryo_with_dronefab()
+
+/mob/living/silicon/robot/drone/proc/cryo_with_dronefab(obj/machinery/drone_fabricator/drone_fab)
+	if(!drone_fab)
+		drone_fab = locate() in range(1, src)
+	if(!drone_fab)
+		return FALSE
+	drone_fab.drone_progress = 100 // recycling!
+
+	visible_message("<span class='notice'>[src] shuts down and enters [drone_fab].</span>")
+	playsound(loc, 'sound/machines/twobeep.ogg', 50)
+	qdel(src)
+	return TRUE
+
+/mob/living/silicon/robot/drone/proc/set_pathfinding(datum/pathfinding_mover/new_pathfind)
+	if(isnull(new_pathfind) && istype(pathfinding))
+		qdel(pathfinding)
+	pathfinding = new_pathfind
+	notransform = istype(new_pathfind) ? TRUE : FALSE // prevent them from moving themselves while pathfinding.
+	update_icons()

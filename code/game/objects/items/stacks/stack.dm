@@ -24,7 +24,8 @@
 	var/amount = 1
 	var/to_transfer = 0
 	var/max_amount = 50 //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
-	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
+	/// This path and its children should merge with this stack, defaults to src.type
+	var/merge_type = null
 	var/recipe_width = 400 //Width of the recipe popup
 	var/recipe_height = 400 //Height of the recipe popup
 	/// What sort of table is made when applying this stack to a frame?
@@ -349,6 +350,8 @@
 	var/max = get_amount()
 	var/stackmaterial = round(input(user, "How many sheets do you wish to take out of this stack? (Maximum: [max])") as null|num)
 	if(stackmaterial == null || stackmaterial <= min || stackmaterial > get_amount())
+		return
+	if(!Adjacent(user, 1))
 		return
 	change_stack(user,stackmaterial)
 	to_chat(user, "<span class='notice'>You take [stackmaterial] sheets out of the stack.</span>")

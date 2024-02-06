@@ -93,9 +93,9 @@
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
 
-/obj/machinery/recharge_station/Bumped(mob/AM)
-	if(ismob(AM))
-		move_inside(AM)
+/obj/machinery/recharge_station/Bumped(mob/bumper)
+	if(istype(bumper))
+		move_inside(bumper, bumper)
 
 /obj/machinery/recharge_station/AllowDrop()
 	return FALSE
@@ -105,8 +105,7 @@
 		return
 	if(user.stat)
 		return
-	src.go_out()
-	return
+	go_out()
 
 /obj/machinery/recharge_station/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -170,40 +169,36 @@
 	occupant = null
 	update_icon(UPDATE_ICON_STATE)
 	change_power_mode(IDLE_POWER_USE)
-	return
+
+/obj/machinery/recharge_station/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+	go_out()
 
 /obj/machinery/recharge_station/force_eject_occupant(mob/target)
 	go_out()
 
-/obj/machinery/recharge_station/verb/move_eject()
-	set category = "Object"
-	set src in oview(1)
-	if(usr.stat != 0)
+/obj/machinery/recharge_station/MouseDrop_T(mob/living/target, mob/user)
+	if(!istype(target))
 		return
-	src.go_out()
-	add_fingerprint(usr)
-	return
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/recharge_station, move_inside), user, target)
+	return TRUE
 
-/obj/machinery/recharge_station/verb/move_inside(mob/user = usr)
-	set category = "Object"
-	set src in oview(1)
-	if(!user || !usr)
+/obj/machinery/recharge_station/proc/move_inside(mob/user, mob/target)
+	if(!user || user.stat)
 		return
 
-	if(usr.stat != CONSCIOUS)
-		return
-
-	if(get_dist(src, user) > 2 || get_dist(usr, user) > 1)
-		to_chat(usr, "They are too far away to put inside")
+	if(get_dist(src, user) > 2 || get_dist(target, user) > 1)
+		to_chat(user, "<span class='notice'>[target] is too far away to put inside [src].</span>")
 		return
 
 	if(panel_open)
-		to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
+		to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
 		return
 
 	var/can_accept_user
-	if(isrobot(user))
-		var/mob/living/silicon/robot/R = user
+	if(isrobot(target))
+		var/mob/living/silicon/robot/R = target
 
 		if(R.stat == DEAD)
 			//Whoever had it so that a borg with a dead cell can't enter this thing should be shot. --NEO
@@ -217,8 +212,8 @@
 			return
 		can_accept_user = 1
 
-	else if(ishuman(user))
-		var/mob/living/carbon/human/H = user
+	else if(ishuman(target))
+		var/mob/living/carbon/human/H = target
 
 		if(H.stat == DEAD)
 			return
@@ -234,11 +229,10 @@
 		to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
 		return
 
-	user.stop_pulling()
-	user.forceMove(src)
-	occupant = user
+	target.stop_pulling()
+	target.forceMove(src)
+	occupant = target
 
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
 	change_power_mode(IDLE_POWER_USE)
-	return

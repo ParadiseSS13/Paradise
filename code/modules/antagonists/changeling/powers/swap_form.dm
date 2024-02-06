@@ -7,6 +7,7 @@
 	dna_cost = 2
 	req_human = TRUE //Monkeys can't grab
 	power_type = CHANGELING_PURCHASABLE_POWER
+	category = /datum/changeling_power_category/offence
 
 /datum/action/changeling/swap_form/can_sting(mob/living/carbon/user)
 	if(!..())

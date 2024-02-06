@@ -148,7 +148,7 @@
 /obj/item/storage/box/syringes,
 /obj/item/storage/box/beakers,
 /obj/item/storage/box/beakers,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/item/storage/box/bodybags,
 /obj/item/clothing/glasses/meson,
 /obj/item/clothing/glasses/meson,
@@ -318,20 +318,20 @@
 /area/ruin/space/unpowered)
 "aF" = (
 /obj/structure/closet/cardboard,
-/obj/item/reagent_containers/food/snacks/beans,
-/obj/item/reagent_containers/food/snacks/beans,
-/obj/item/reagent_containers/food/snacks/beans,
-/obj/item/reagent_containers/food/snacks/beans,
-/obj/item/reagent_containers/food/snacks/beans,
+/obj/item/food/snacks/beans,
+/obj/item/food/snacks/beans,
+/obj/item/food/snacks/beans,
+/obj/item/food/snacks/beans,
+/obj/item/food/snacks/beans,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "aG" = (
 /obj/structure/closet/cardboard,
-/obj/item/reagent_containers/food/drinks/cans/cola,
-/obj/item/reagent_containers/food/drinks/cans/cola,
-/obj/item/reagent_containers/food/drinks/cans/cola,
-/obj/item/reagent_containers/food/drinks/cans/cola,
-/obj/item/reagent_containers/food/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "aH" = (
@@ -390,11 +390,11 @@
 /area/ruin/space/unpowered)
 "aP" = (
 /obj/structure/closet/cardboard,
-/obj/item/reagent_containers/food/drinks/cans/cola,
-/obj/item/reagent_containers/food/drinks/cans/cola,
-/obj/item/reagent_containers/food/drinks/cans/cola,
-/obj/item/reagent_containers/food/drinks/cans/cola,
-/obj/item/reagent_containers/food/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -546,7 +546,7 @@
 /area/ruin/space/unpowered)
 "bl" = (
 /obj/structure/table,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bm" = (
@@ -649,7 +649,7 @@
 /area/ruin/space/unpowered)
 "bD" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/beans,
+/obj/item/food/snacks/beans,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

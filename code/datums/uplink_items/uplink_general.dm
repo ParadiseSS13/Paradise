@@ -171,10 +171,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Highly Visible and Dangerous Weapons"
 
 /datum/uplink_item/dangerous/pistol
-	name = "FK-69 Pistol Kit"
+	name = "FK-69 Stechkin Pistol"
 	reference = "SPI"
-	desc = "A box containing a small, easily concealable handgun and two eight-round magazines chambered in 10mm auto rounds. Compatible with suppressors."
-	item = /obj/item/storage/box/syndie_kit/stechkin
+	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
+	item = /obj/item/gun/projectile/automatic/pistol
 	cost = 20
 
 /datum/uplink_item/dangerous/revolver
@@ -231,6 +231,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/batterer
 	cost = 25
 
+/datum/uplink_item/dangerous/porta_turret
+	name = "Portable Turret"
+	desc = "A pop-up syndicate turret, shoots anyone who didn't prime the grenade. The turret cannot be moved after it's deployed."
+	reference = "MIS"
+	item = /obj/item/grenade/turret
+	cost = 20
+
 // Ammunition
 
 /datum/uplink_item/ammo
@@ -242,7 +249,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are cheap but around half as effective as .357"
 	reference = "10MM"
 	item = /obj/item/ammo_box/magazine/m10mm
-	cost = 5
+	cost = 3
 	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/pistolap
@@ -250,7 +257,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are less effective at injuring the target but penetrate protective gear."
 	reference = "10MMAP"
 	item = /obj/item/ammo_box/magazine/m10mm/ap
-	cost = 10
+	cost = 6
 	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/pistolfire
@@ -258,7 +265,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with incendiary rounds which ignite the target."
 	reference = "10MMFIRE"
 	item = /obj/item/ammo_box/magazine/m10mm/fire
-	cost = 10
+	cost = 9
 	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/pistolhp
@@ -266,7 +273,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds which are more damaging but ineffective against armour."
 	reference = "10MMHP"
 	item = /obj/item/ammo_box/magazine/m10mm/hp
-	cost = 10
+	cost = 7
 	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/revolver
@@ -327,7 +334,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A modified briefcase capable of storing and firing a gun under a false bottom. Use a screwdriver to pry away the false bottom and make modifications. Distinguishable upon close examination due to the added weight."
 	reference = "FBBC"
 	item = /obj/item/storage/briefcase/false_bottomed
-	cost = 15
+	cost = 10
 
 /datum/uplink_item/stealthy_weapons/soap
 	name = "Syndicate Soap"
@@ -365,8 +372,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie. The first person to squeeze it will be registered as its owner, who it will not attack. If no owner is registered, it'll just attack everyone."
 	reference = "DSC"
 	item = /obj/item/toy/plushie/carpplushie/dehy_carp
-	cost = 5
+	cost = 4
 
+/datum/uplink_item/stealthy_weapons/knuckleduster
+	name = "Syndicate Knuckleduster"
+	desc = "A straightforward and fairly concealable melee weapon for bludgeoning someone to death in brutal fashion. This one is designed specifically to cause severe organ damage to the victim."
+	reference = "SKD"
+	item = /obj/item/melee/knuckleduster/syndie
+	cost = 10
+	cant_discount = TRUE
 
 // GRENADES AND EXPLOSIVES
 
@@ -431,6 +445,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/emp
 	cost = 10
 
+/datum/uplink_item/explosives/emp/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		cost *= 3
+
 // STEALTHY TOOLS
 
 /datum/uplink_item/stealthy_tools
@@ -442,7 +461,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	it can also be used in a washing machine to forge clothing."
 	reference = "CHST"
 	item = /obj/item/stamp/chameleon
-	cost = 5
+	cost = 1
 	surplus = 35
 
 /datum/uplink_item/stealthy_tools/chameleonflag
@@ -450,7 +469,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A flag that can be disguised as any other known flag. There is a hidden spot in the pole to boobytrap the flag with a grenade or minibomb, which will detonate some time after the flag is set on fire."
 	reference = "CHFLAG"
 	item = /obj/item/flag/chameleon
-	cost = 5
+	cost = 1
 	surplus = 35
 
 /datum/uplink_item/stealthy_tools/chamsechud
@@ -465,7 +484,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "These glasses are thermals with Syndicate chameleon technology built into them. They allow you to see organisms through walls by capturing the upper portion of the infra-red light spectrum, emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
 	reference = "THIG"
 	item = /obj/item/clothing/glasses/chameleon/thermal
-	cost = 30
+	cost = 15
 
 /datum/uplink_item/stealthy_tools/agent_card
 	name = "Agent ID Card"
@@ -501,7 +520,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A syringe with one injection that randomizes appearance and name upon use. A cheaper but less versatile alternative to an agent card and voice changer."
 	reference = "DNAS"
 	item = /obj/item/dnascrambler
-	cost = 10
+	cost = 7
 
 /datum/uplink_item/stealthy_tools/smugglersatchel
 	name = "Smuggler's Satchel"
@@ -520,13 +539,18 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 	surplus = 30
 
+/datum/uplink_item/stealthy_tools/emplight/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		cost *= 2.5
+
 /datum/uplink_item/stealthy_tools/cutouts
 	name = "Adaptive Cardboard Cutouts"
 	desc = "These cardboard cutouts are coated with a thin material that prevents discoloration and makes the images on them appear more lifelike. This pack contains three as well as a \
 	spraycan for changing their appearances."
 	reference = "ADCC"
 	item = /obj/item/storage/box/syndie_kit/cutouts
-	cost = 5
+	cost = 1
 	surplus = 20
 
 /datum/uplink_item/stealthy_tools/safecracking
@@ -579,10 +603,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 
 /datum/uplink_item/device_tools/bonerepair
-	name = "Prototype Nanite Autoinjector Kit"
-	desc = "Stolen prototype full body repair nanites. Contains one prototype nanite autoinjector and guide."
+	name = "Prototype Nanite Autoinjector"
+	desc = "Stolen prototype full body repair nanites. On injection it will shut down body systems as it revitilizes limbs and organs."
 	reference = "NCAI"
-	item = /obj/item/storage/box/syndie_kit/bonerepair
+	item = /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	cost = 10
 
 /datum/uplink_item/device_tools/syndicate_teleporter
@@ -704,7 +728,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			sends you a small beacon that will teleport the larger beacon to your location upon activation."
 	reference = "SNGB"
 	item = /obj/item/radio/beacon/syndicate
-	cost = 30
+	cost = 10
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
 	cant_discount = TRUE
@@ -733,51 +757,51 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 // IMPLANTS
 
-/datum/uplink_item/implants
-	category = "Implants"
+/datum/uplink_item/bio_chips
+	category = "Bio-chips"
 
-/datum/uplink_item/implants/freedom
+/datum/uplink_item/bio_chips/freedom
 	name = "Freedom Bio-chip"
 	desc = "A bio-chip injected into the body and later activated manually to break out of any restraints or grabs. Can be activated up to 4 times."
 	reference = "FI"
-	item = /obj/item/implanter/freedom
+	item = /obj/item/bio_chip_implanter/freedom
 	cost = 25
 
-/datum/uplink_item/implants/protofreedom
+/datum/uplink_item/bio_chips/protofreedom
 	name = "Prototype Freedom Bio-chip"
 	desc = "A prototype bio-chip injected into the body and later activated manually to break out of any restraints or grabs. Can only be activated a singular time."
 	reference = "PFI"
-	item = /obj/item/implanter/freedom/prototype
+	item = /obj/item/bio_chip_implanter/freedom/prototype
 	cost = 10
 
-/datum/uplink_item/implants/storage
+/datum/uplink_item/bio_chips/storage
 	name = "Storage Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated at the user's will. It will open a small subspace pocket capable of storing two items."
 	reference = "ESI"
-	item = /obj/item/implanter/storage
+	item = /obj/item/bio_chip_implanter/storage
 	cost = 40
 
-/datum/uplink_item/implants/mindslave
+/datum/uplink_item/bio_chips/mindslave
 	name = "Mindslave Bio-chip"
 	desc = "A box containing a bio-chip implanter filled with a mindslave bio-chip that when injected into another person makes them loyal to you and your cause, unless of course they're already implanted by someone else. Loyalty ends if the implant is no longer in their system."
 	reference = "MI"
-	item = /obj/item/implanter/traitor
+	item = /obj/item/bio_chip_implanter/traitor
 	cost = 50
 
-/datum/uplink_item/implants/adrenal
+/datum/uplink_item/bio_chips/adrenal
 	name = "Adrenal Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated manually to inject a chemical cocktail, which has a mild healing effect along with removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
 	reference = "AI"
-	item = /obj/item/implanter/adrenalin
+	item = /obj/item/bio_chip_implanter/adrenalin
 	cost = 40
 
-/datum/uplink_item/implants/stealthimplant
+/datum/uplink_item/bio_chips/stealthimplant
 	name = "Stealth Bio-chip"
 	desc = "This one-of-a-kind implant will make you almost invisible if you play your cards right. \
 			On activation, it will conceal you inside a chameleon cardboard box that is only revealed once someone bumps into it."
 	reference = "SI"
-	item = /obj/item/implanter/stealth
-	cost = 40
+	item = /obj/item/bio_chip_implanter/stealth
+	cost = 45
 
 // POINTLESS BADASSERY
 
@@ -820,7 +844,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A snappy two-piece suit that any self-respecting Syndicate agent should wear. Perfect for professionals trying to go undetected, but moderately armored with experimental nanoweave in case things do get loud. Comes with two cashmere-lined pockets for maximum style and comfort."
 	reference = "SUIT"
 	item = /obj/item/clothing/suit/storage/iaa/blackjacket/armored
-	cost = 5
+	cost = 3
 
 /datum/uplink_item/bundles_TC
 	category = "Bundles and Telecrystals"

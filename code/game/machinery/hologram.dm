@@ -193,7 +193,6 @@ GLOBAL_LIST_EMPTY(holopads)
 	var/area/area = get_area(src)
 	var/datum/browser/popup = new(user, "holopad", "[area] holopad", 400, 300)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 
 /obj/machinery/hologram/holopad/Topic(href, href_list)
@@ -233,7 +232,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			callnames -= get_area(src)
 			var/list/sorted_callnames = sortAtom(callnames)
 			dialling_input = TRUE
-			var/result = input(usr, "Choose an area to call", "Holocall") as null|anything in sorted_callnames
+			var/result = tgui_input_list(usr, "Choose an area to call", "Holocall", sorted_callnames)
 			dialling_input = FALSE
 			if(QDELETED(usr) || !result || outgoing_call)
 				return

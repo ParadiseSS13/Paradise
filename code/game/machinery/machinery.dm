@@ -131,6 +131,14 @@
 		stat |= NOPOWER
 	return old_stat != stat //performance saving for machines that use power_change() to update icons!
 
+/obj/machinery/proc/reregister_machine()
+	if(machine_powernet?.powernet_area != get_area(src))
+		var/area/machine_area = get_area(src)
+		if(machine_area)
+			machine_powernet?.unregister_machine(src)
+			machine_powernet = machine_area.powernet
+			machine_powernet.register_machine(src)
+
 /// Helper proc to change the machines power usage mode, automatically adjusts static power usage to maintain perfect parity
 /obj/machinery/proc/change_power_mode(use_type = IDLE_POWER_USE)
 	if(isnull(use_type) || use_type == power_state || !machine_powernet || !power_channel) //if there is no powernet/channel, just end it here
@@ -181,13 +189,13 @@
 
 /obj/machinery/ui_status(mob/user, datum/ui_state/state)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
-		return STATUS_CLOSE
+		return UI_CLOSE
 
 	return ..()
 
 /obj/machinery/ui_status(mob/user, datum/ui_state/state)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
-		return STATUS_CLOSE
+		return UI_CLOSE
 
 	return ..()
 
@@ -214,6 +222,25 @@
 		return attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user as mob)
+	if(try_attack_hand(user))
+		return TRUE
+
+	add_fingerprint(user)
+
+	return ..()
+
+/**
+  * Preprocess machinery interaction.
+  *
+  * If overriding and extending interaction limitations, better call this with ..()
+  * unless you really know what you are doing.
+  *
+  * Returns TRUE when interaction is done due to different limitations and nothing should be done next.
+  * Returns FALSE when interaction can be continued.
+  * Arguments:
+  * * user - the mob interacting with this machinery
+  */
+/obj/machinery/proc/try_attack_hand(mob/user)
 	if(user.incapacitated())
 		return TRUE
 
@@ -224,7 +251,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= 60)
-			visible_message("<span class='warning'>[H] stares cluelessly at [src] and drools.</span>")
+			visible_message("<span class='warning'>[H] stares cluelessly at [src].</span>")
 			return TRUE
 		else if(prob(H.getBrainLoss()))
 			to_chat(user, "<span class='warning'>You momentarily forget how to use [src].</span>")
@@ -237,9 +264,7 @@
 	if(!interact_offline && stat & (NOPOWER|BROKEN|MAINT))
 		return TRUE
 
-	add_fingerprint(user)
-
-	return ..()
+	return FALSE
 
 /obj/machinery/proc/is_operational()
 	return !(stat & (NOPOWER|BROKEN|MAINT))
@@ -320,6 +345,7 @@
 /obj/machinery/default_unfasten_wrench(mob/user, obj/item/I, time)
 	. = ..()
 	if(.)
+		reregister_machine()
 		power_change()
 
 /obj/machinery/attackby(obj/item/O, mob/user, params)
@@ -353,7 +379,7 @@
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
-	if((flags & NODECONSTRUCT))
+	if(flags & NODECONSTRUCT)
 		return FALSE
 	if(istype(W) && component_parts)
 		if(panel_open || W.works_from_distance)
@@ -505,7 +531,7 @@
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = md5(AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.
-	for (var/i in 1 to 32)
+	for(var/i in 1 to 32)
 		. += hex2num(md5[i])
 	. = . % 9
 	AM.pixel_x = -8 + ((.%3)*8)
@@ -540,3 +566,6 @@
  */
 /obj/machinery/proc/flicker()
 	return FALSE
+
+/obj/machinery/fall_and_crush(turf/target_turf, crush_damage, should_crit, crit_damage_factor, datum/tilt_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate, angle, rightable, block_interactions)
+	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, ignore_gravity = FALSE, should_rotate = TRUE, rightable = TRUE, block_interactions_until_righted = TRUE)

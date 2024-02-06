@@ -1,67 +1,99 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// Food.
 ////////////////////////////////////////////////////////////////////////////////
-/obj/item/reagent_containers/food
-	possible_transfer_amounts = null
-	visible_transfer_rate = FALSE
-	volume = 50 //Sets the default container amount for all food items.
+
+/obj/item/food
+	resistance_flags = FLAMMABLE
+	container_type = INJECTABLE
+	w_class = WEIGHT_CLASS_TINY
 	var/filling_color = "#FFFFFF" //Used by sandwiches.
 	var/junkiness = 0  //for junk food. used to lower human satiety.
 	var/bitesize = 2
 	var/consume_sound = 'sound/items/eatfood.ogg'
-	var/apply_type = REAGENT_INGEST
-	var/apply_method = "swallow"
-	var/transfer_efficiency = 1.0
-	var/instant_application = 0 //if we want to bypass the forcedfeed delay
-	var/can_taste = TRUE//whether you can taste eating from this
-	var/antable = TRUE // Will ants come near it?
+	/// Will ants come near it?
+	var/antable = TRUE
 	/// location checked every 5 minutes. If its the same place, the food has a chance to spawn ants
 	var/ant_location
+	/// Things that suppress food from being infested by ants when on the same turf
+	var/static/list/ant_suppressors
 	/// Time we last checked for ants
 	var/last_ant_time = 0
-	///Name of the food to show up in kitchen machines (microwaves, ovens, etc)
+	/// Name of the food to show up in kitchen machines (microwaves, ovens, etc)
 	var/ingredient_name
 	var/ingredient_name_plural
-	resistance_flags = FLAMMABLE
-	container_type = INJECTABLE
+	/// Sets the default container amount for all food items.
+	var/volume = 50
+	/// The list of reagents to create on Initialize()
+	var/list/list_reagents = list()
 
-/obj/item/reagent_containers/food/Initialize(mapload)
+	var/temperature_min = 0 // To limit the temperature of a reagent container can attain when exposed to heat/cold
+	var/temperature_max = 10000
+
+/obj/item/food/Initialize(mapload)
 	. = ..()
-	if(antable)
-		START_PROCESSING(SSobj, src)
-		ant_location = get_turf(src)
-		last_ant_time = world.time
 
-/obj/item/reagent_containers/food/Destroy()
+	if(!reagents) // Some subtypes create their own reagents
+		create_reagents(volume, temperature_min, temperature_max)
+	add_initial_reagents()
+
+	if(!antable)
+		return
+
+	if(!ant_suppressors)
+		ant_suppressors = typecacheof(list(
+			/obj/structure/table,
+			/obj/structure/rack,
+			/obj/structure/closet
+		))
+	START_PROCESSING(SSobj, src)
+	ant_location = get_turf(src)
+	last_ant_time = world.time
+
+/obj/item/food/Destroy()
 	ant_location = null
 	if(isprocessing)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/reagent_containers/food/process()
+/obj/item/food/proc/add_initial_reagents() // This literally is only a proc for junk food
+	if(list_reagents)
+		reagents.add_reagent_list(list_reagents)
+
+/obj/item/food/process()
 	if(!antable)
 		return PROCESS_KILL
 	if(world.time > last_ant_time + 5 MINUTES)
 		check_for_ants()
 
-/obj/item/reagent_containers/food/set_APTFT()
-	set hidden = TRUE
-	..()
-
-/obj/item/reagent_containers/food/proc/check_for_ants()
+/obj/item/food/proc/check_for_ants()
 	last_ant_time = world.time
-	var/turf/T = get_turf(src)
-	if(!isturf(loc))
+
+	// Are we unshielded from the fury of space ants?
+	if(!prob(15)) // Ants are often not the smartest
 		return
-	if((locate(/obj/structure/table) in T) || (locate(/obj/structure/rack) in T))
+	if(!isturf(loc)) // Being inside something protects the food
 		return
 
-	if(ant_location == T) //It must have been on the same floor since at least the last check_for_ants()
-		if(prob(15))
-			if(!locate(/obj/effect/decal/cleanable/ants) in T)
-				new /obj/effect/decal/cleanable/ants(T)
-				antable = FALSE
-				desc += " It appears to be infested with ants. Yuck!"
-				reagents.add_reagent("ants", 1) // Don't eat things with ants in it you weirdo.
-	else
+	var/turf/T = get_turf(src)
+
+	if(T != ant_location) // Moving the food before a full ant swarm can arrive to the location also helps
 		ant_location = T
+		return
+
+	for(var/obj/structure/S in T) // Check if some object on our turf protects the food from ants
+		if(is_type_in_typecache(S, ant_suppressors))
+			return
+
+	// Dinner time!
+	if(!locate(/obj/effect/decal/cleanable/ants) in T)
+		new /obj/effect/decal/cleanable/ants(T)
+	antable = FALSE
+	desc += " It appears to be infested with ants. Yuck!"
+	reagents.add_reagent("ants", 1) // Don't eat things with ants in it you weirdo.
+
+/obj/item/food/ex_act()
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			R.on_ex_act()
+	if(!QDELETED(src))
+		..()

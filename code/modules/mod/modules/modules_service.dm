@@ -40,3 +40,25 @@
 	if(!deleting)
 		qdel(mod.boots.GetComponent(/datum/component/squeak))
 	mod.wearer.RemoveElement(/datum/element/waddling)
+
+//Boot heating - dries floors like galoshes/dry
+/obj/item/mod/module/boot_heating
+	name = "MOD boot heating module"
+	desc = "A MOD suit boot heating module. Heats the bottom of the boots to assist in drying wet floors as you clean. Only for the most well trained of janitorial staff." /// Kinda small comparied to the other descriptions, but its ERT only, so..
+	icon_state = "regulator"
+	complexity = 1
+	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
+	incompatible_modules = list(/obj/item/mod/module/boot_heating)
+
+/obj/item/mod/module/boot_heating/on_suit_activation()
+	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(on_step))
+
+/obj/item/mod/module/boot_heating/on_suit_deactivation(deleting = FALSE)
+	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
+
+/obj/item/mod/module/boot_heating/proc/on_step()
+	SIGNAL_HANDLER
+
+	var/turf/simulated/t_loc = get_turf(src)
+	if(istype(t_loc) && t_loc.wet)
+		t_loc.MakeDry(TURF_WET_WATER)

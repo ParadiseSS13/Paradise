@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	desc = "A console intended to send requests to different departments on the station."
 	anchored = TRUE
 	icon = 'icons/obj/terminals.dmi'
-	icon_state = "req_comp0"
+	icon_state = "req_comp_off"
 	max_integrity = 300
 	armor = list(MELEE = 70, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, RAD = 0, FIRE = 90, ACID = 90)
 	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
@@ -65,6 +65,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/print_cooldown = 0	//cooldown on shipping label printer, stores the  in-game time of when the printer will next be ready
 	var/obj/item/radio/Radio
 	var/radiochannel = ""
+	var/reminder_timer_id = TIMER_ID_NULL
 
 /obj/machinery/requests_console/power_change()
 	if(!..())
@@ -75,13 +76,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
-/obj/machinery/requests_console/update_icon_state()
-	if(stat & NOPOWER)
-		if(icon_state != "req_comp_off")
-			icon_state = "req_comp_off"
-	else
-		icon_state = "req_comp[newmessagepriority]"
-
 /obj/machinery/requests_console/update_overlays()
 	. = ..()
 	underlays.Cut()
@@ -89,11 +83,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(stat & NOPOWER)
 		return
 
-	if(newmessagepriority == RQ_NONEW_MESSAGES)
-		underlays += emissive_appearance(icon, "req_comp_lightmask")
-	else
-		underlays += emissive_appearance(icon, "req_comp2_lightmask")
+	. += "req_comp[newmessagepriority]"
 
+	underlays += emissive_appearance(icon, "req_comp_lightmask")
 
 /obj/machinery/requests_console/Initialize(mapload)
 	Radio = new /obj/item/radio(src)
@@ -146,10 +138,13 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	ui_interact(user)
 
-/obj/machinery/requests_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/requests_console/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/requests_console/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RequestConsole", "[department] Request Console", 520, 410, master_ui, state)
+		ui = new(user, src, "RequestConsole", "[department] Request Console")
 		ui.open()
 
 /obj/machinery/requests_console/ui_data(mob/user)
@@ -249,7 +244,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				else if(recipient in SUPPLY_ROLES)
 					radiochannel = "Supply"
 				message_log.Add(list(list("Message sent to [recipient] at [station_time_timestamp()]", "[message]")))
-				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
+				Radio.autosay("Alert; a new message has been received from [department]", "[recipient] Requests Console", "[radiochannel]")
 			else
 				atom_say("No server detected!")
 
@@ -263,8 +258,11 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
 					if(Console.department == department)
 						Console.newmessagepriority = RQ_NONEW_MESSAGES
-						Console.icon_state = "req_comp0"
+						Console.update_icon(UPDATE_OVERLAYS)
 						Console.set_light(1)
+						if(reminder_timer_id != TIMER_ID_NULL)
+							deltimer(reminder_timer_id)
+							reminder_timer_id = TIMER_ID_NULL
 			if(tempScreen == RCS_MAINMENU)
 				reset_message()
 			screen = tempScreen
@@ -338,28 +336,39 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(mainmenu)
 		screen = RCS_MAINMENU
 
-/obj/machinery/requests_console/proc/createMessage(source, title, message, priority)
+/obj/machinery/requests_console/proc/createMessage(source, title, message, priority, forced = FALSE)
 	var/linkedSender
+	if(inoperable() && !forced)
+		message_log.Add(list(list("Message lost due to console failure. Please contact [station_name()]'s system administrator or AI for technical assistance.")))
+		return
 	if(istype(source, /obj/machinery/requests_console))
 		var/obj/machinery/requests_console/sender = source
 		linkedSender = sender.department
 	else
-		capitalize(source)
 		linkedSender = source
-	capitalize(title)
 	if(newmessagepriority < priority)
 		newmessagepriority = priority
 		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	if(!silent)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 		atom_say(title)
+		if(reminder_timer_id == TIMER_ID_NULL)
+			reminder_timer_id = addtimer(CALLBACK(src, PROC_REF(remind_unread_messages)), 5 MINUTES, TIMER_STOPPABLE | TIMER_LOOP)
 
 	switch(priority)
 		if(RQ_HIGHPRIORITY) // High
-			message_log.Add(list(list("High Priority - From: [linkedSender]") + message)) // List in a list for passing into TGUI
+			message_log.Add(list(list("High Priority - From: [linkedSender]", message))) // List in a list for passing into TGUI
 		else // Normal
-			message_log.Add(list(list("From: [linkedSender]") + message)) // List in a list for passing into TGUI
+			message_log.Add(list(list("From: [linkedSender]", message))) // List in a list for passing into TGUI
 	set_light(2)
+
+/obj/machinery/requests_console/proc/remind_unread_messages()
+	if(newmessagepriority == RQ_NONEW_MESSAGES)
+		deltimer(reminder_timer_id)
+		reminder_timer_id = TIMER_ID_NULL
+		return
+
+	atom_say("Unread message(s) available.")
 
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)
 	var/obj/item/shippingPackage/sp = new /obj/item/shippingPackage(get_turf(src))

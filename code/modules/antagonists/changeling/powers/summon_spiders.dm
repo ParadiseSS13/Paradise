@@ -16,6 +16,7 @@
 	/// Checks if changeling is already spawning a spider
 	var/is_operating = FALSE
 	power_type = CHANGELING_PURCHASABLE_POWER
+	category = /datum/changeling_power_category/utility
 
 /// Makes a spider. Good for setting traps and combat.
 /datum/action/changeling/spiders/sting_action(mob/user)

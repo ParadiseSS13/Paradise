@@ -32,6 +32,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/list/data_hud_seen = list()
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
+	///toggle for ghost gas analyzer
+	var/gas_analyzer = FALSE
 	var/datum/orbit_menu/orbit_menu
 
 /mob/dead/observer/New(mob/body=null, flags=1)
@@ -42,6 +44,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	see_in_dark = 100
 	verbs += list(
 		/mob/dead/observer/proc/dead_tele,
+		/mob/dead/observer/proc/jump_to_ruin,
 		/mob/dead/observer/proc/open_spawners_menu)
 
 	// Our new boo spell.
@@ -171,7 +174,7 @@ Works together with spawning an observer, noted above.
 		C.images += target.hud_list[SPECIALROLE_HUD]
 	return 1
 
-/mob/proc/ghostize(flags = GHOST_CAN_REENTER)
+/mob/proc/ghostize(flags = GHOST_CAN_REENTER, user_color, ghost_name)
 	if(key)
 		if(player_logged) //if they have disconnected we want to remove their SSD overlay
 			overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
@@ -183,6 +186,11 @@ Works together with spawning an observer, noted above.
 			ADD_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
+		if(user_color)
+			add_atom_colour(user_color, ADMIN_COLOUR_PRIORITY)
+			ghost.color = user_color
+		if(ghost_name)
+			ghost.name = ghost_name
 		ghost.key = key
 		return ghost
 
@@ -239,13 +247,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		// Respawnable
 		ghostize(1)
 
-	// If mob in morgue tray, update tray
-	var/obj/structure/morgue/Morgue = locate() in M.loc
-	if(istype(M.loc, /obj/structure/morgue))
-		Morgue = M.loc
-	if(Morgue)
-		Morgue.update_state()
-
 	// If mob in cryopod, despawn mob
 	if(P)
 		if(!P.control_computer)
@@ -301,11 +302,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	mind.current.key = key
 
-	var/obj/structure/morgue/Morgue = locate() in mind.current.loc
-	if(istype(mind.current.loc,/obj/structure/morgue))
-		Morgue = mind.current.loc
-	if(Morgue)
-		Morgue.update_state()
+	SEND_SIGNAL(mind.current, COMSIG_LIVING_REENTERED_BODY)
 
 	return 1
 
@@ -377,7 +374,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		H.remove_hud_from(src)
 
 /mob/dead/observer/proc/set_radiation_view(enabled)
-	if (enabled)
+	if(enabled)
 		seerads = TRUE
 		START_PROCESSING(SSobj, src)
 	else
@@ -408,6 +405,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		can_reenter_corpse = FALSE
 		if(!QDELETED(mind.current)) // Could change while they're choosing
 			mind.current.remove_status_effect(STATUS_EFFECT_REVIVABLE)
+		SEND_SIGNAL(mind.current, COMSIG_LIVING_SET_DNR)
 
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"
@@ -419,6 +417,38 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	var/target = input("Area to teleport to", "Teleport to a location") as null|anything in SSmapping.ghostteleportlocs
 	teleport(SSmapping.ghostteleportlocs[target])
+
+/mob/dead/observer/proc/jump_to_ruin()
+	set category = "Ghost"
+	set name = "Jump to Ruin"
+	set desc = "Displays a list of all placed ruins to teleport to."
+
+	if(!isobserver(usr))
+		to_chat(usr, "Not when you're not dead!")
+		return
+
+	var/list/names = list()
+	for(var/i in GLOB.ruin_landmarks)
+		var/obj/effect/landmark/ruin/ruin_landmark = i
+		var/datum/map_template/ruin/template = ruin_landmark.ruin_template
+
+		var/count = 1
+		var/name = template.name
+		var/original_name = name
+
+		while(name in names)
+			count++
+			name = "[original_name] ([count])"
+
+		names[name] = ruin_landmark
+
+	var/ruinname = tgui_input_list(usr, "Select ruin", "Jump to Ruin", names)
+
+	var/obj/effect/landmark/ruin/landmark = names[ruinname]
+
+	if(istype(landmark))
+		forceMove(get_turf(landmark))
+		update_parallax_contents()
 
 /mob/dead/observer/proc/teleport(area/A)
 	if(!A || !isobserver(usr))
@@ -528,6 +558,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='notice'>Health scan enabled.</span>")
 		health_scan = TRUE
 
+/mob/dead/observer/verb/toggle_gas_anaylzer()
+	set name = "Toggle Gas Analyzer"
+	set desc = "Toggles wether you can anaylze gas contents on click"
+	set category = "Ghost"
+
+	if(gas_analyzer)
+		to_chat(src, "<span class='notice'>Gas Analyzer disabled.</span>")
+		gas_analyzer = FALSE
+	else
+		to_chat(src, "<span class='notice'>Gas Analyzer enabled. Click on a pipe to analyze.</span>")
+		gas_analyzer = TRUE
+
 /mob/dead/observer/verb/analyze_air()
 	set name = "Analyze Air"
 	set category = "Ghost"
@@ -587,7 +629,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
 	set category = "Ghost"
-	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.observer_state)
+	GLOB.generic_crew_manifest.ui_interact(usr)
 
 //this is called when a ghost is drag clicked to something.
 /mob/dead/observer/MouseDrop(atom/over)
@@ -673,7 +715,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_sight()
 
 /mob/dead/observer/update_sight()
-	if (!ghostvision)
+	if(!ghostvision)
 		see_invisible = SEE_INVISIBLE_LIVING
 	else
 		see_invisible = SEE_INVISIBLE_OBSERVER
@@ -790,3 +832,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
 	menu.ui_interact(src)
+
+/**
+ * Check if a player has antag-hudded, and if so, if they can rejoin.
+ * Returns TRUE if the player can rejoin, and FALSE if the player is ineligible to rejoin.
+ * If allow_roundstart_observers is FALSE (TRUE by default), then any observers who were able to ahud due to joining roundstart will be excluded as well.
+ */
+/mob/dead/observer/proc/check_ahud_rejoin_eligibility(allow_roundstart_observers = TRUE)
+	if(!GLOB.configuration.general.restrict_antag_hud_rejoin || !has_ahudded())
+		return TRUE
+
+	if(is_roundstart_observer())
+		return allow_roundstart_observers
+	return FALSE
+

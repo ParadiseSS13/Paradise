@@ -139,7 +139,7 @@
 
 /obj/machinery/suit_storage_unit/gamma
 	name = "gamma shielded suit storage unit"
-	suit_type = /obj/item/clothing/suit/space/hardsuit/shielded/gamma
+	suit_type = /obj/item/mod/control/pre_equipped/safeguard/gamma
 	mask_type = /obj/item/clothing/mask/gas/sechailer/swat
 	req_access = list(ACCESS_SECURITY)
 
@@ -211,41 +211,6 @@
 	safeties = FALSE	//in a syndicate base, everything can be used as a murder weapon at a moment's notice.
 
 /obj/machinery/suit_storage_unit/syndicate/secure
-	secure = TRUE
-
-/obj/machinery/suit_storage_unit/ert
-	req_access = list(ACCESS_CENT_GENERAL)
-
-/obj/machinery/suit_storage_unit/ert/command
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/ert/commander
-	mask_type	= /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/internals/emergency_oxygen/double
-
-/obj/machinery/suit_storage_unit/ert/command/secure
-	secure = TRUE
-
-/obj/machinery/suit_storage_unit/ert/security
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/ert/security
-	mask_type	= /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/internals/emergency_oxygen/double
-
-/obj/machinery/suit_storage_unit/ert/security/secure
-	secure = TRUE
-
-/obj/machinery/suit_storage_unit/ert/engineer
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/ert/engineer
-	mask_type	= /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/internals/emergency_oxygen/double
-
-/obj/machinery/suit_storage_unit/ert/engineer/secure
-	secure = TRUE
-
-/obj/machinery/suit_storage_unit/ert/medical
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/ert/medical
-	mask_type	= /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/internals/emergency_oxygen/double
-
-/obj/machinery/suit_storage_unit/ert/medical/secure
 	secure = TRUE
 
 //telecoms NASA SSU. Suits themselves are assigned in Initialize
@@ -553,7 +518,7 @@
 		"<span class='notice'>You start kicking against the doors... (this will take about [DisplayTimeText(breakout_time)].)</span>", \
 		"<span class='italics'>You hear a thump from [src].</span>")
 	if(do_after(user,(breakout_time), target = src))
-		if(!user || user.stat != CONSCIOUS || user.loc != src )
+		if(!user || user.stat != CONSCIOUS || user.loc != src)
 			return
 		user.visible_message("<span class='warning'>[user] successfully broke out of [src]!</span>", \
 			"<span class='notice'>You successfully break out of [src]!</span>")
@@ -630,10 +595,16 @@
 		wires.Interact(user)
 	ui_interact(user)
 
-/obj/machinery/suit_storage_unit/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/suit_storage_unit/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/machinery/suit_storage_unit/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/suit_storage_unit/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SuitStorage", name, 402, 268, master_ui, state)
+		ui = new(user, src, "SuitStorage", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -770,51 +741,6 @@
 
 /obj/machinery/suit_storage_unit/force_eject_occupant(mob/target)
 	eject_occupant()
-
-/obj/machinery/suit_storage_unit/verb/get_out()
-	set name = "Eject Suit Storage Unit"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.stat != 0)
-		return
-	eject_occupant(usr)
-	add_fingerprint(usr)
-	SStgui.update_uis(src)
-	update_icon(UPDATE_OVERLAYS)
-	return
-
-/obj/machinery/suit_storage_unit/verb/move_inside()
-	set name = "Hide in Suit Storage Unit"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.stat != 0)
-		return
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-	if(!state_open)
-		to_chat(usr, "<span class='warning'>The unit's doors are shut.</span>")
-		return
-	if(broken)
-		to_chat(usr, "<span class='warning'>The unit is not operational.</span>")
-		return
-	if((occupant) || (helmet) || (suit) || (storage))
-		to_chat(usr, "<span class='warning'>It's too cluttered inside for you to fit in!</span>")
-		return
-	visible_message("[usr] starts squeezing into the suit storage unit!")
-	if(do_after(usr, 10, target = usr))
-		usr.stop_pulling()
-		usr.forceMove(src)
-		occupant = usr
-		state_open = FALSE //Close the thing after the guy gets inside
-		update_icon(UPDATE_OVERLAYS)
-
-		add_fingerprint(usr)
-		SStgui.update_uis(src)
-		return
-	else
-		occupant = null
 
 /obj/machinery/suit_storage_unit/attack_ai(mob/user as mob)
 	return attack_hand(user)

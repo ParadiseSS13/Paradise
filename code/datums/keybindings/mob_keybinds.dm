@@ -224,3 +224,13 @@
 /datum/keybinding/mob/target/l_foot
 	name = "Target Left Foot"
 	body_part = BODY_ZONE_PRECISE_L_FOOT
+
+/datum/keybinding/mob/trigger_action_button // Don't add a name to this, shouldn't show up in the prefs menu
+	var/datum/action/linked_action
+	var/binded_to // these are expected to actually get deleted at some point, to prevent hard deletes we need to know where to remove them from the clients list
+
+/datum/keybinding/mob/trigger_action_button/down(client/C)
+	. = ..()
+	if(C.mob.next_click > world.time)
+		return
+	linked_action.Trigger()

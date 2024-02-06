@@ -16,7 +16,7 @@
 	return TRUE
 
 /obj/item/projectile/ion/weak
-	strong_emp = 0
+	strong_emp = -1
 	weak_emp = 0
 
 /obj/item/projectile/bullet/gyro
@@ -240,7 +240,20 @@
 	range = 3
 	dismemberment = 20
 	sharp = TRUE
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
+	hitscan = TRUE
+	muzzle_type = /obj/effect/projectile/muzzle/plasma_cutter
+	tracer_type = /obj/effect/projectile/tracer/plasma_cutter
+	impact_type = /obj/effect/projectile/impact/plasma_cutter
+	impact_effect_type = null
+	hitscan_light_intensity = 3
+	hitscan_light_range = 0.75
+	hitscan_light_color_override = LIGHT_COLOR_CYAN
+	muzzle_flash_intensity = 6
+	muzzle_flash_range = 2
+	muzzle_flash_color_override = LIGHT_COLOR_CYAN
+	impact_light_intensity = 7
+	impact_light_range = 2.5
+	impact_light_color_override = LIGHT_COLOR_CYAN
 
 /obj/item/projectile/plasma/prehit(atom/target)
 	. = ..()

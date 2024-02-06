@@ -25,7 +25,7 @@
 		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
 	var/list/plist = M.available_pdas()
 	if(plist)
-		var/c = input(usr, "Please select a PDA") as null|anything in sortList(plist)
+		var/c = tgui_input_list(usr, "Please select a PDA", "Send message", sortList(plist))
 		if(!c) // if the user hasn't selected a PDA file we can't send a message
 			return
 		var/selected = plist[c]

@@ -20,14 +20,6 @@
 	description = "WELCOME TO CLOWN PLANET! HONK HONK HONK etc.!"
 	suffix = "lavaland_biodome_clown_planet.dmm"
 
-/datum/map_template/ruin/lavaland/cube
-	name = "The Wishgranter Cube"
-	id = "wishgranter-cube"
-	description = "Nothing good can come from this. Learn from their mistakes and turn around."
-	suffix = "lavaland_surface_cube.dmm"
-	cost = 10
-	allow_duplicates = FALSE
-
 /datum/map_template/ruin/lavaland/seed_vault
 	name = "Seed Vault"
 	id = "seed-vault"
@@ -133,8 +125,8 @@
 	cost = 0
 	allow_duplicates = FALSE //will only spawn one variant of the ruin
 
-/datum/map_template/ruin/lavaland/blood_drunk_miner/guidance
-	name = "Blood-Drunk Miner (Guidance)"
+/datum/map_template/ruin/lavaland/blood_drunk_miner/guardian
+	name = "Blood-Drunk Miner (Guardian)"
 	suffix = "lavaland_surface_blooddrunk2.dmm"
 
 /datum/map_template/ruin/lavaland/blood_drunk_miner/hunter
@@ -224,3 +216,11 @@
 	suffix = "lavaland_surface_monster_nest.dmm"
 	allow_duplicates = FALSE
 	cost = 5
+
+/datum/map_template/ruin/lavaland/watcher_grave
+	name = "Watchers' Grave"
+	id = "watcher-grave"
+	description = "A lonely cave where an orphaned child awaits a new parent."
+	suffix = "lavaland_surface_watcher_grave.dmm"
+	cost = 5
+	allow_duplicates = FALSE

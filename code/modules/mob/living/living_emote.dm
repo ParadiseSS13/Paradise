@@ -1,7 +1,7 @@
 /datum/emote/living
 	mob_type_allowed_typecache = /mob/living
 	mob_type_blacklist_typecache = list(
-		/mob/living/carbon/brain,	// nice try
+		/mob/living/brain,	// nice try
 		/mob/living/silicon,
 		/mob/living/simple_animal/bot
 	)
@@ -83,7 +83,7 @@
 	message_simple = "stops moving..."
 
 	mob_type_blacklist_typecache = list(
-		/mob/living/carbon/brain,
+		/mob/living/brain,
 	)
 
 /datum/emote/living/deathgasp/should_play_sound(mob/user, intentional)
@@ -224,7 +224,7 @@
 	message_mime = "acts out a scream!"
 	message_simple = "whimpers."
 	message_alien = "roars!"
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	emote_type = EMOTE_MOUTH | EMOTE_AUDIBLE
 	mob_type_blacklist_typecache = list(
 		// Humans and silicons get specialized scream.
 		/mob/living/carbon/human,
@@ -350,7 +350,7 @@
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 	mob_type_blacklist_typecache = list(
-		/mob/living/carbon/brain,
+		/mob/living/brain,
 	)
 
 /datum/emote/living/tilt
@@ -392,7 +392,7 @@
 	key_third_person = "custom"
 	message = null
 	mob_type_blacklist_typecache = list(
-		/mob/living/carbon/brain,	// nice try
+		/mob/living/brain,	// nice try
 	)
 
 	// Custom emotes should be able to be forced out regardless of context.
