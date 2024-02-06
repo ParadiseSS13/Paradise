@@ -38,7 +38,7 @@
 	name = "Jump to Core"
 	desc = "Moves your camera to your blob core."
 
-/atom/movable/screen/blob/JumpToCore/MouseEntered(location,control,params)
+/atom/movable/screen/blob/JumpToCore/MouseEntered(location, control, params)
 	if(hud && hud.mymob && isovermind(hud.mymob))
 		name = initial(name)
 		desc = initial(desc)
