@@ -442,7 +442,7 @@
 	if(usr.attack_ui(slot_id))
 		usr.update_inv_l_hand()
 		usr.update_inv_r_hand()
-	return 1
+	return TRUE
 
 /atom/movable/screen/inventory/hand
 	var/image/active_overlay
