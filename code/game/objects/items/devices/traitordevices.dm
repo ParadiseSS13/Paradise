@@ -20,7 +20,7 @@
 		icon_state = "[initial(icon_state)]"
 
 /obj/item/jammer/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You [active ? "deactivate [src]. It goes quiet with a small click." : "activate [src]. It starts to hum softly."] </span>")
+	to_chat(user, "<span class='notice'>You [active ? "deactivate [src]. It goes quiet with a small click." : "activate [src]. It starts to hum softly."]</span>")
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
 	if(active)
@@ -369,7 +369,7 @@
 					M.EyeBlind(15 SECONDS)
 					to_chat(M, "<span class='warning'>and you can't see a goddamn thing!</span>")
 			if(5)
-				M.adjustStaminaLoss(40)
+				M.apply_damage(40, STAMINA)
 				to_chat(M, "<span class='warning'>and a wave of tiredness washes over you!</span>")
 			else
 				to_chat(M, "<span class='danger'>but as soon as it arrives, it fades.</span>")
