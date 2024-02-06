@@ -58,12 +58,10 @@
 /obj/machinery/prize_counter/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
-
 	if(stat & (NOPOWER|BROKEN))
 		return
 
 	var/mob/user = ui.user
-
 	switch(action)
 		if("purchase")
 			. = TRUE

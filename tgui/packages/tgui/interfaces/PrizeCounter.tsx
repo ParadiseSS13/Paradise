@@ -1,6 +1,6 @@
 import { classes } from 'common/react';
-import { useBackend } from '../backend';
-import { Button, Section, Stack, Divider } from '../components';
+import { useBackend, useLocalState } from '../backend';
+import { Button, Section, Stack, Divider, Input } from '../components';
 import { Window } from '../layouts';
 
 type Prize = {
@@ -19,6 +19,10 @@ type PrizeData = {
 export const PrizeCounter = (props, context) => {
   const { act, data } = useBackend<PrizeData>(context);
   const { tickets, prizes = [] } = data;
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const filteredPrizes = prizes.filter((prize) =>
+    prize.name.toLowerCase().includes(searchText.toLowerCase())
+  );
   return (
     <Window width={450} height={585} title="Arcade Ticket Exchange">
       <Window.Content>
@@ -29,17 +33,30 @@ export const PrizeCounter = (props, context) => {
               scrollable
               title="Available Prizes"
               buttons={
-                <Button
-                  fluid
-                  iconRight
-                  icon="ticket-alt"
-                  disabled={!tickets}
-                  content={<>Tickets: {<b>{tickets}</b>}</>}
-                  onClick={() => act('eject')}
-                />
+                <Stack>
+                  <Stack.Item>
+                    <Input
+                      mt={0.1}
+                      width={12.5}
+                      placeholder="Search for a prize"
+                      value={searchText}
+                      onInput={(e, value) => setSearchText(value)}
+                    />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <Button
+                      fluid
+                      iconRight
+                      icon="ticket-alt"
+                      disabled={!tickets}
+                      content={<>Tickets: {<b>{tickets}</b>}</>}
+                      onClick={() => act('eject')}
+                    />
+                  </Stack.Item>
+                </Stack>
               }
             >
-              {prizes.map((prize) => {
+              {filteredPrizes.map((prize) => {
                 const disabled = prize.cost > tickets;
                 return (
                   <Stack key={prize.name} className="PrizeCounter__Item">
