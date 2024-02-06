@@ -104,7 +104,7 @@
 	name = "Readapt Chemical (50)"
 	desc = "Randomly rerolls your chemical for 50 resources."
 
-/atom/movable/screen/blob/ReadaptChemical/MouseEntered(location,control,params)
+/atom/movable/screen/blob/ReadaptChemical/MouseEntered(location, control, params)
 	if(hud && hud.mymob && isovermind(hud.mymob))
 		name = initial(name)
 		desc = initial(desc)
