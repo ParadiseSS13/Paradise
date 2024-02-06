@@ -374,6 +374,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/toy/plushie/carpplushie/dehy_carp
 	cost = 4
 
+/datum/uplink_item/stealthy_weapons/knuckleduster
+	name = "Syndicate Knuckleduster"
+	desc = "A straightforward and fairly concealable melee weapon for bludgeoning someone to death in brutal fashion. This one is designed specifically to cause severe organ damage to the victim."
+	reference = "SKD"
+	item = /obj/item/melee/knuckleduster/syndie
+	cost = 10
+	cant_discount = TRUE
 
 // GRENADES AND EXPLOSIVES
 
@@ -437,6 +444,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "EMPK"
 	item = /obj/item/storage/box/syndie_kit/emp
 	cost = 10
+
+/datum/uplink_item/explosives/emp/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		cost *= 3
 
 // STEALTHY TOOLS
 
@@ -526,6 +538,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/flashlight/emp
 	cost = 20
 	surplus = 30
+
+/datum/uplink_item/stealthy_tools/emplight/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		cost *= 2.5
 
 /datum/uplink_item/stealthy_tools/cutouts
 	name = "Adaptive Cardboard Cutouts"

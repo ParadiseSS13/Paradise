@@ -131,13 +131,13 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return
 	ui_interact(user)
 
-/obj/item/radio/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/radio/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/item/radio/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		var/list/schannels = list_secure_channels(user)
-		var/list/ichannels = list_internal_channels(user)
-		var/calc_height = 150 + (schannels.len * 20) + (ichannels.len * 10)
-		ui = new(user, src, ui_key, "Radio", name, 400, calc_height, master_ui, state)
+		ui = new(user, src, "Radio", name)
 		ui.open()
 
 /obj/item/radio/ui_data(mob/user)
@@ -162,16 +162,16 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return
 	. = TRUE
 	switch(action)
-		if("frequency")
+		if("frequency") // Available to both headsets and non-headset radios
 			if(freqlock)
 				return
-			var/tune = params["tune"]
-			var/adjust = text2num(params["adjust"])
+			var/tune = isnum(params["tune"]) ? params["tune"] : text2num(params["tune"])
+			var/adjust = isnum(params["adjust"]) ? params["adjust"] : text2num(params["adjust"])
 			if(tune == "reset")
 				tune = initial(frequency)
 			else if(adjust)
 				tune = frequency + adjust * 10
-			else if(text2num(tune) != null)
+			else if(!isnull(tune))
 				tune = tune * 10
 			else
 				. = FALSE
@@ -180,17 +180,17 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 					usr << browse(null, "window=radio")
 			if(.)
 				set_frequency(sanitize_frequency(tune, freerange))
-		if("ichannel") // change primary frequency to an internal channel authorized by access
+		if("ichannel") // Change primary frequency to an internal channel authorized by access, for non-headset radios only
 			if(freqlock)
 				return
-			var/freq = params["ichannel"]
-			if(has_channel_access(usr, freq))
-				set_frequency(text2num(freq))
+			var/freq = isnum(params["ichannel"]) ? params["ichannel"] : text2num(params["ichannel"])
+			if(has_channel_access(usr, num2text(freq)))
+				set_frequency(freq)
 		if("listen")
 			listening = !listening
 		if("broadcast")
 			broadcasting = !broadcasting
-		if("channel")
+		if("channel") // For keyed channels on headset radios only
 			var/channel = params["channel"]
 			if(!(channel in channels))
 				return
@@ -198,8 +198,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 				channels[channel] &= ~FREQ_LISTENING
 			else
 				channels[channel] |= FREQ_LISTENING
-		if("loudspeaker")
-			// Toggle loudspeaker mode, AKA everyone around you hearing your radio.
+		if("loudspeaker") // Toggle loudspeaker mode, AKA everyone around you hearing your radio.
 			if(has_loudspeaker)
 				loudspeaker = !loudspeaker
 				if(loudspeaker)
@@ -657,8 +656,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/borg/syndicate/ui_status(mob/user, datum/ui_state/state)
 	. = ..()
-	if(. == STATUS_UPDATE && istype(user, /mob/living/silicon/robot/syndicate))
-		. = STATUS_INTERACTIVE
+	if(. == UI_UPDATE && istype(user, /mob/living/silicon/robot/syndicate))
+		. = UI_INTERACTIVE
 
 /obj/item/radio/borg/Destroy()
 	myborg = null

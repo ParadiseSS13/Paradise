@@ -21,6 +21,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/mode = 0
 	var/target_dept = 0 //Which department this computer has access to. 0=all departments
 	var/obj/item/radio/Radio
+	var/reset_timer
 
 	//Cooldown for closing positions in seconds
 	//if set to -1: No cooldown... probably a bad idea
@@ -137,6 +138,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			scan.forceMove(get_turf(src))
 		scan = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		SStgui.update_uis(src)
 		return
 	else if(modify)
 		to_chat(user, "<span class='notice'>You remove \the [modify] from \the [src].</span>")
@@ -146,6 +148,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			modify.forceMove(get_turf(src))
 		modify = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		SStgui.update_uis(src)
 	else
 		to_chat(user, "There is nothing to remove from the console.")
 
@@ -307,10 +310,24 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	ui_interact(user)
 
-/obj/machinery/computer/card/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/card/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/card/proc/change_ui_autoupdate(value, mob/user)
+	var/datum/tgui/ui = SStgui.try_update_ui(user, src, "main")
+	reset_timer = null
+	if(ui)
+		ui.set_autoupdate(value)
+
+/obj/machinery/computer/card/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "CardComputer",  name, 800, 800, master_ui, state)
+		ui = new(user, src, "CardComputer",  name)
+		var/delta = (world.time / 10) - GLOB.time_last_changed_position
+		if(change_position_cooldown < delta && !reset_timer)
+			ui.set_autoupdate(FALSE)
+		else
+			reset_timer = addtimer(CALLBACK(src, PROC_REF(change_ui_autoupdate), FALSE, user), delta SECONDS)
 		ui.open()
 
 /obj/machinery/computer/card/ui_data(mob/user)
@@ -541,8 +558,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Demoted", scan.registered_name, reason)
 			modify.lastlog = "[station_time_timestamp()]: DEMOTED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
 			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has demoted \"[modify.registered_name]\" ([jobnamedata]) for \"[reason]\".")
+			SSjobs.slot_job_transfer(modify.rank, "Assistant")
 			modify.access = access
-			modify.rank = "Assistant"
 			modify.assignment = "Demoted"
 			modify.icon_state = "id"
 			regenerate_id_name()
@@ -564,6 +581,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name, reason)
 			modify.lastlog = "[station_time_timestamp()]: TERMINATED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
 			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
+			var/datum/job/job = SSjobs.GetJob(modify.rank)
+			if(modify.assignment != "Demoted" && !(job.title in GLOB.command_positions))
+				job.current_positions--
 			modify.assignment = "Terminated"
 			modify.access = list()
 			regenerate_id_name()
@@ -579,6 +599,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				return FALSE
 			if(opened_positions[edit_job_target] >= 0)
 				GLOB.time_last_changed_position = world.time / 10
+				change_ui_autoupdate(TRUE, usr)
+				reset_timer = addtimer(CALLBACK(src, PROC_REF(change_ui_autoupdate), FALSE, usr), GLOB.time_last_changed_position SECONDS)
+
 			j.total_positions++
 			opened_positions[edit_job_target]++
 			log_game("[key_name(usr)] ([scan.assignment]) has opened a job slot for job \"[j.title]\".")
@@ -596,6 +619,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			//Allow instant closing without cooldown if a position has been opened before
 			if(opened_positions[edit_job_target] <= 0)
 				GLOB.time_last_changed_position = world.time / 10
+				change_ui_autoupdate(TRUE, usr)
+				reset_timer = addtimer(CALLBACK(src, PROC_REF(change_ui_autoupdate), FALSE, usr), (GLOB.time_last_changed_position + 1) SECONDS)
 			j.total_positions--
 			opened_positions[edit_job_target]--
 			log_game("[key_name(usr)] ([scan.assignment]) has closed a job slot for job \"[j.title]\".")

@@ -101,7 +101,7 @@
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 			return TRUE
 
-		if(pulledby == L && a_intent != INTENT_HELP) //prevents boosting the person pulling you, but you can still move through them on help intent
+		if(pulledby == L && (a_intent != INTENT_HELP || L.a_intent != INTENT_HELP)) //prevents boosting the person pulling you, but you can still move through them on help intent
 			return TRUE
 
 		if(L.pulling)
@@ -1116,7 +1116,7 @@
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
 
-/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable, block_movement)
 	stop_pulling()
 	return ..()
 

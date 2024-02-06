@@ -33,6 +33,12 @@
 	/// Is it emagged or not?
 	var/emagged = FALSE
 
+	// Access-related fields
+	var/list/req_access = null
+	var/req_access_txt = "0"
+	var/list/req_one_access = null
+	var/req_one_access_txt = "0"
+
 /obj/New()
 	..()
 	if(obj_integrity == null)
@@ -62,7 +68,7 @@
 
 	// In the far future no checks are made in an overriding Topic() beyond if(..()) return
 	// Instead any such checks are made in CanUseTopic()
-	if(ui_status(usr, state, href_list) == STATUS_INTERACTIVE)
+	if(ui_status(usr, state, href_list) == UI_INTERACTIVE)
 		CouldUseTopic(usr)
 		return FALSE
 
