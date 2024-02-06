@@ -1,8 +1,3 @@
-/obj/var/list/req_access = null
-/obj/var/req_access_txt = "0"
-/obj/var/list/req_one_access = null
-/obj/var/req_one_access_txt = "0"
-
 //returns 1 if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/M)
 	//check if we don't require any access at all
@@ -144,7 +139,7 @@
 	return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND)
 
 /proc/get_all_misc_access()
-	return list(ACCESS_SALVAGE_CAPTAIN, ACCESS_TRADE_SOL, ACCESS_CRATE_CASH, ACCESS_AWAY01)
+	return list(ACCESS_TRADE_SOL, ACCESS_CRATE_CASH, ACCESS_AWAY01)
 
 /proc/get_absolutely_all_accesses()
 	return (get_all_accesses() | get_all_centcom_access() | get_all_syndicate_access() | get_all_misc_access())
