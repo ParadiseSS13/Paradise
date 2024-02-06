@@ -7942,9 +7942,10 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
+	cell_type = 25000;
+	name = "Engineering Engine Super APC";
+	pixel_x = -24;
+	shock_proof = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)

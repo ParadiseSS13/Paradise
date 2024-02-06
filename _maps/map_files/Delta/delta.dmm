@@ -39877,14 +39877,15 @@
 /obj/machinery/computer/atmos_alert{
 	dir = 1
 	},
-/obj/machinery/power/apc{
-	name = "south bump Engineering";
-	pixel_y = -24;
-	shock_proof = 1
-	},
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	cell_type = 25000;
+	dir = 8;
+	name = "Engineering Engine Super APC";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
@@ -41447,18 +41448,18 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "cjO" = (
-/obj/machinery/power/apc{
-	cell_type = 25000;
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24;
-	shock_proof = 1
-	},
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/power/apc{
+	cell_type = 25000;
+	dir = 8;
+	name = "Engineering Engine Super APC";
+	pixel_x = 24;
+	shock_proof = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "cjP" = (
@@ -97008,12 +97009,14 @@
 	},
 /obj/item/tank/jetpack/carbondioxide,
 /obj/structure/cable,
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/power/apc{
+	cell_type = 25000;
+	dir = 8;
+	name = "Engineering Engine Super APC";
+	pixel_x = 24;
+	shock_proof = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "wOk" = (
