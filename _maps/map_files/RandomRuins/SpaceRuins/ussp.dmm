@@ -912,13 +912,13 @@
 /area/ruin/space/derelict/bridge)
 "cr" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "cs" = (
 /obj/structure/rack,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/drinks/bottle/vodka/badminka,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
 	broken = 1;
@@ -1075,6 +1075,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "cK" = (
 /obj/structure/table,
+/obj/item/soap/deluxe/laundry,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "blue"
@@ -1159,7 +1160,7 @@
 /area/ruin/space/derelict/bridge)
 "cV" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/drinks/bottle/vodka,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -1191,6 +1192,7 @@
 "cZ" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/soap/deluxe/laundry,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -1345,10 +1347,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "du" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
@@ -1409,9 +1408,7 @@
 /area/ruin/space/derelict/arrival)
 "dC" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	dir = 2
-	},
+/obj/machinery/door/window/classic/reversed,
 /obj/item/folder{
 	pixel_x = 31;
 	pixel_y = 1
@@ -1461,10 +1458,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/arrival)
 "dG" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -1849,7 +1843,7 @@
 /area/space/nearstation)
 "eB" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/peanuts,
+/obj/item/food/snacks/grown/peanuts,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
@@ -1963,10 +1957,10 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "eO" = (
-/obj/structure/table/tray,
 /obj/item/scalpel{
 	pixel_y = 12
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -2383,10 +2377,10 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "fI" = (
-/obj/structure/table/tray,
 /obj/item/circular_saw{
 	pixel_y = 10
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fJ" = (
@@ -2783,11 +2777,11 @@
 /area/ruin/space/derelict/crew_quarters)
 "gI" = (
 /obj/structure/closet/secure_closet/bar,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/reagent_containers/food/drinks/bottle/kahlua,
+/obj/item/reagent_containers/drinks/bottle/vodka,
+/obj/item/reagent_containers/drinks/bottle/vodka,
+/obj/item/reagent_containers/drinks/bottle/vodka,
+/obj/item/reagent_containers/drinks/bottle/rum,
+/obj/item/reagent_containers/drinks/bottle/kahlua,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/derelict/crew_quarters)
 "gJ" = (
@@ -3017,7 +3011,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "hn" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/derelict/crew_quarters)
 "ho" = (
@@ -3748,9 +3742,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "jh" = (
@@ -3960,21 +3952,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
-"jK" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "rus2_door_int";
-	name = "External Airlock"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/derelict/crew_quarters)
 "jL" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3982,23 +3959,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/light/small,
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	autolink_id = "rus2_vent";
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/derelict/crew_quarters)
-"jM" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/external{
-	id_tag = "rus2_door_ext";
-	locked = 1;
-	name = "External Airlock"
-	},
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/crew_quarters)
 "jN" = (
@@ -4498,11 +4458,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/access_button{
-	autolink_id = "rus2_btn_ext";
-	name = "exterior access button";
-	pixel_x = -25
-	},
 /turf/template_noop,
 /area/ruin/space/derelict/crew_quarters)
 "kJ" = (
@@ -4737,13 +4692,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/obj/machinery/door/airlock/external{
-	id_tag = "rus2_door_int";
-	name = "External Airlock"
-	},
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/crew_quarters)
 "lp" = (
@@ -4754,31 +4702,6 @@
 	},
 /obj/machinery/light/small{
 	dir = 1
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	ext_door_link_id = "rus2_door_ext";
-	ext_button_link_id = "rus2_btn_ext";
-	int_door_link_id = "rus2_door_int";
-	int_button_link_id = "rus2_btn_int";
-	pixel_y = -25;
-	vent_link_id = "rus2_vent"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 8;
-	autolink_id = "rus2_vent"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/derelict/crew_quarters)
-"lq" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "rus2_door_ext";
-	locked = 1;
-	name = "External Airlock"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/crew_quarters)
@@ -4917,11 +4840,6 @@
 "lG" = (
 /obj/machinery/light/spot{
 	dir = 4
-	},
-/obj/machinery/access_button{
-	autolink_id = "rus2_btn_int";
-	name = "interior access button";
-	pixel_x = 25
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -5572,9 +5490,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/door/window/classic/reversed{
-	dir = 2
-	},
+/obj/machinery/door/window/classic/reversed,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -5760,7 +5676,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "nS" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/soup/beetsoup,
+/obj/item/food/snacks/soup/beetsoup,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -6035,8 +5951,8 @@
 /area/ruin/space/derelict/hallway/primary)
 "oA" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/derelict/hallway/primary)
 "oB" = (
@@ -6534,11 +6450,11 @@
 	layer = 2.9
 	},
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/potato,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -7194,9 +7110,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/grass,
 /area/ruin/space/derelict/arrival)
 "rz" = (
@@ -7208,9 +7122,7 @@
 	name = "Cygni Commemorative Statue";
 	pixel_y = 16
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/flora/ausbushes/fullgrass{
 	pixel_y = 5
 	},
@@ -7229,9 +7141,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/grass,
 /area/ruin/space/derelict/arrival)
 "rB" = (
@@ -7354,9 +7264,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -7376,9 +7284,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -7392,14 +7298,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/machinery/access_button{
-	autolink_id = "rus1_btn_int";
-	name = "interior access button";
-	pixel_y = -25
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -7415,9 +7314,7 @@
 	dir = 10;
 	initialize_directions = 10
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -7488,32 +7385,6 @@
 /obj/structure/sign/vacuum,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/arrival)
-"sa" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "rus1_door_int";
-	name = "External Airlock"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plating,
-/area/ruin/space/derelict/arrival)
-"sb" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/door/airlock/external{
-	id_tag = "rus1_door_int";
-	name = "External Airlock"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/derelict/arrival)
 "sc" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -7522,18 +7393,6 @@
 	},
 /obj/machinery/light/small{
 	dir = 4
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	autolink_id = "rus1_vent"
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_x = -25;
-	ext_button_link_id = "rus1_btn_ext";
-	ext_door_link_id = "rus1_door_ext";
-	int_button_link_id = "rus1_btn_int";
-	int_door_link_id = "rus1_door_int";
-	vent_link_id = "rus1_vent"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/arrival)
@@ -7546,31 +7405,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	autolink_id = "rus1_vent"
-	},
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/arrival)
 "se" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/external{
-	id_tag = "rus1_door_ext";
-	locked = 1;
-	name = "External Airlock"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/derelict/arrival)
-"sf" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "rus1_door_ext";
-	locked = 1;
-	name = "External Airlock"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -7587,11 +7424,6 @@
 "sh" = (
 /obj/machinery/light/small{
 	dir = 1
-	},
-/obj/machinery/access_button{
-	autolink_id = "rus1_btn_ext";
-	name = "exterior access button";
-	pixel_y = 25
 	},
 /turf/template_noop,
 /area/ruin/space/derelict/arrival)
@@ -7749,8 +7581,26 @@
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/arrival)
+"Nv" = (
+/obj/effect/spawner/airlock{
+	req_access_txt = 0
+	},
+/turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
+/area/ruin/space/derelict/arrival)
+"Oh" = (
+/obj/effect/spawner/airlock/w_to_e{
+	req_access_txt = 0
+	},
+/turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
+/area/ruin/space/derelict/crew_quarters)
 "QN" = (
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth,
+/area/ruin/space/derelict/arrival)
+"Ud" = (
+/obj/effect/spawner/airlock{
+	req_access_txt = 0
+	},
+/turf/simulated/wall/mineral/titanium/nodecon,
 /area/ruin/space/derelict/arrival)
 "Xn" = (
 /obj/structure/cable{
@@ -11152,9 +11002,9 @@ rq
 rq
 hY
 rO
-rZ
 bn
-aW
+bn
+Ud
 ac
 ac
 jO
@@ -11244,7 +11094,7 @@ rr
 ry
 rE
 rP
-sa
+se
 sc
 se
 jx
@@ -11338,7 +11188,7 @@ qu
 rQ
 bn
 bn
-bn
+Nv
 sh
 ac
 kJ
@@ -11428,9 +11278,9 @@ rt
 rA
 qu
 rR
-sb
+se
 sd
-sf
+se
 jx
 jx
 sk
@@ -14155,11 +14005,11 @@ aV
 bm
 dH
 dH
-bm
-jK
 kG
 lo
-bm
+Oh
+lo
+Oh
 dH
 dH
 bm
@@ -14340,9 +14190,9 @@ ac
 ac
 ac
 aV
-jM
+lo
 bm
-lq
+lo
 aV
 ag
 ag

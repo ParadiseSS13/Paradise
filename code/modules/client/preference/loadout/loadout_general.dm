@@ -42,7 +42,7 @@
 
 /datum/gear/matches
 	display_name = "Box of matches"
-	path = /obj/item/storage/box/matches
+	path = /obj/item/storage/fancy/matches
 
 /datum/gear/candlebox
 	display_name = "Box of candles"
@@ -92,40 +92,6 @@
 /datum/gear/sharkplushie
 	display_name = "Shark plushie"
 	path = /obj/item/toy/plushie/shark
-
-/datum/gear/goggles
-	display_name = "Goggles"
-	path = /obj/item/clothing/glasses/goggles
-
-/datum/gear/sechud
-	display_name = "Classic security HUD"
-	path = /obj/item/clothing/glasses/hud/security
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Internal Affairs Agent","Magistrate")
-
-/datum/gear/sechudgoggles
-	display_name = "Security HUD goggles"
-	path = /obj/item/clothing/glasses/hud/security/goggles
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Internal Affairs Agent", "Magistrate")
-
-/datum/gear/medhudgoggles
-	display_name = "Health HUD goggles"
-	path = /obj/item/clothing/glasses/hud/health/goggles
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Geneticist", "Virologist", "Psychiatrist", "Paramedic")
-
-/datum/gear/diaghudgoggles
-	display_name = "Diagnostic HUD goggles"
-	path = /obj/item/clothing/glasses/hud/diagnostic/goggles
-	allowed_roles = list("Research Director", "Scientist", "Roboticist")
-
-/datum/gear/hydrohudgoggles
-	display_name = "Hydroponic HUD goggles"
-	path = /obj/item/clothing/glasses/hud/hydroponic/goggles
-	allowed_roles = list("Botanist")
-
-/datum/gear/skillhudgoggles
-	display_name = "Skill HUD goggles"
-	path = /obj/item/clothing/glasses/hud/skills/goggles
-	allowed_roles = list("Psychiatrist", "Nanotrasen Representative", "Head of Personnel", "Captain")
 
 /datum/gear/cryaonbox
 	display_name = "Box of crayons"
@@ -208,20 +174,20 @@
 /datum/gear/mug
 	display_name = "Coffee mug, random"
 	description = "A randomly colored coffee mug. You'll need to supply your own beverage though."
-	path = /obj/item/reagent_containers/food/drinks/mug
+	path = /obj/item/reagent_containers/drinks/mug
 	sort_category = "Mugs"
 
 /datum/gear/novelty_mug
 	display_name = "Coffee mug, novelty"
 	description = "A random novelty coffee mug. You'll need to supply your own beverage though."
-	path = /obj/item/reagent_containers/food/drinks/mug/novelty
+	path = /obj/item/reagent_containers/drinks/mug/novelty
 	cost = 2
 	sort_category = "Mugs"
 
 /datum/gear/mug/flask
 	display_name = "Flask"
 	description = "A flask for drink transportation. You'll need to supply your own beverage though."
-	path = /obj/item/reagent_containers/food/drinks/flask/barflask
+	path = /obj/item/reagent_containers/drinks/flask/barflask
 
 /datum/gear/mug/department
 	main_typepath = /datum/gear/mug/department
@@ -232,30 +198,30 @@
 	display_name = "Coffee mug, engineering"
 	description = "An engineer's coffee mug, emblazoned in the colors of the Engineering department."
 	allowed_roles = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
-	path = /obj/item/reagent_containers/food/drinks/mug/eng
+	path = /obj/item/reagent_containers/drinks/mug/eng
 
 /datum/gear/mug/department/med
 	display_name = "Coffee mug, medical"
 	description = "A doctor's coffee mug, emblazoned in the colors of the Medical department."
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
-	path = /obj/item/reagent_containers/food/drinks/mug/med
+	path = /obj/item/reagent_containers/drinks/mug/med
 
 /datum/gear/mug/department/sci
 	display_name = "Coffee mug, science"
 	description = "A scientist's coffee mug, emblazoned in the colors of the Science department."
 	allowed_roles = list("Research Director", "Scientist", "Roboticist")
-	path = /obj/item/reagent_containers/food/drinks/mug/sci
+	path = /obj/item/reagent_containers/drinks/mug/sci
 
 /datum/gear/mug/department/sec
 	display_name = "Coffee mug, security"
 	description = "An officer's coffee mug, emblazoned in the colors of the Security department."
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Internal Affairs Agent")
-	path = /obj/item/reagent_containers/food/drinks/mug/sec
+	path = /obj/item/reagent_containers/drinks/mug/sec
 
 /datum/gear/mug/department/serv
 	display_name = "Coffee mug, service"
 	description = "A crewmember's coffee mug, emblazoned in the colors of the Service department."
-	path = /obj/item/reagent_containers/food/drinks/mug/serv
+	path = /obj/item/reagent_containers/drinks/mug/serv
 
 
 //////////////////////

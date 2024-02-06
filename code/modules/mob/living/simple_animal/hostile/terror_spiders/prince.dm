@@ -27,7 +27,7 @@
 	speed = 0.5
 	melee_damage_lower = 30
 	melee_damage_upper = 40
-	ventcrawler = 0
+	ventcrawler = VENTCRAWLER_NONE
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	idle_ventcrawl_chance = 0
@@ -40,7 +40,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/spider_specialattack(mob/living/carbon/human/L)
 	L.KnockDown(10 SECONDS)
-	L.adjustStaminaLoss(40)
+	L.apply_damage(40, STAMINA)
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/Initialize(mapload)

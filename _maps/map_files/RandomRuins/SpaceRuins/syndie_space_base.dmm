@@ -1506,7 +1506,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered/syndicate_space_base/inner)
 "ig" = (
-/obj/structure/kitchenspike,
+/obj/machinery/kitchen_machine/candy_maker,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1665,9 +1665,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 5
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -4012,8 +4010,8 @@
 	},
 /obj/item/book/manual/barman_recipes,
 /obj/item/lighter/zippo,
-/obj/item/reagent_containers/food/drinks/flask/barflask,
-/obj/item/reagent_containers/food/drinks/flask/barflask,
+/obj/item/reagent_containers/drinks/flask/barflask,
+/obj/item/reagent_containers/drinks/flask/barflask,
 /obj/structure/table/wood,
 /obj/machinery/alarm/syndicate{
 	pixel_x = -24;
@@ -4493,9 +4491,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "yR" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/service)
 "za" = (
@@ -4747,7 +4743,7 @@
 /area/ruin/unpowered/syndicate_space_base/telecomms)
 "Af" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/enzyme{
+/obj/item/reagent_containers/condiment/enzyme{
 	layer = 5
 	},
 /turf/simulated/floor/plasteel{
@@ -5033,8 +5029,8 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "BJ" = (
-/obj/machinery/kitchen_machine/candy_maker,
 /obj/machinery/light,
+/obj/machinery/kitchen_machine/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -5185,7 +5181,7 @@
 /area/ruin/unpowered/syndicate_space_base/service)
 "CC" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /obj/machinery/light_switch{
 	dir = 4;
 	pixel_x = -24;
@@ -6076,7 +6072,7 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "HC" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -6100,7 +6096,7 @@
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "HO" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -7070,10 +7066,10 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "Nm" = (
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3
 	},
 /obj/structure/table,
@@ -8576,9 +8572,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 9
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

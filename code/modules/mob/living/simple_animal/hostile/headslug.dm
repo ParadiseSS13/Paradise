@@ -22,7 +22,7 @@
 	speak_emote = list("squeaks")
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	a_intent = INTENT_HARM
 	speed = 0.3
 	can_hide = TRUE
@@ -73,7 +73,7 @@
 		owner.adjustToxLoss(30)
 	if(time >= 90 && prob(15))
 		to_chat(owner, pick("<span class='danger'>Something hurts.</span>", "<span class='danger'>Someone is thinking, but it's not you.</span>", "<span class='danger'>You feel at peace.</span>", "<span class='danger'>Close your eyes.</span>"))
-		owner.adjustStaminaLoss(50)
+		owner.apply_damage(50, STAMINA)
 	if(time >= EGG_INCUBATION_DEAD_CYCLE && owner.stat == DEAD || time >= EGG_INCUBATION_LIVING_CYCLE)
 		Pop()
 		STOP_PROCESSING(SSobj, src)
@@ -113,7 +113,7 @@
 	if(!ishuman(owner))
 		owner.gib()
 		return
-		
+
 	owner.apply_damage(300, BRUTE, BODY_ZONE_CHEST)
 	owner.bleed(BLOOD_VOLUME_NORMAL)
 	var/obj/item/organ/external/chest = owner.get_organ(BODY_ZONE_CHEST)

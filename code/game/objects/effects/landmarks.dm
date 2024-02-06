@@ -24,17 +24,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 /obj/effect/landmark/lightsout
 	name = "Electrical Storm Epicentre"
 
-/obj/effect/landmark/awaystart
-	name = "awaystart"
-	icon = 'icons/effects/spawner_icons.dmi'
-	icon_state = "Assistant"
-
-INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away missions break
-
-/obj/effect/landmark/awaystart/Initialize(mapload)
-	GLOB.awaydestinations.Add(src)
-	return ..()
-
 /obj/effect/landmark/spawner
 	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "questionmark"
@@ -233,9 +222,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/spawner/nuclear_bomb/death_squad
 	name = "Death Squad Nuclear Bomb"
-
-/obj/effect/landmark/spawner/teleport_scroll
-	name = "Teleport-Scroll"
 
 /obj/effect/landmark/spawner/nuke_code
 	name = "nukecode"

@@ -17,7 +17,7 @@
 /datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/mob/living/carbon/human/H = user
 	// You must either: Be of the abductor species, or contain an abductor implant
-	if((isabductor(H) || (locate(/obj/item/implant/abductor) in H)))
+	if((isabductor(H) || (locate(/obj/item/bio_chip/abductor) in H)))
 		return TRUE
 	return FALSE
 
@@ -29,7 +29,7 @@
 
 /datum/surgery_step/internal/extract_organ/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	for(var/obj/item/I in target.internal_organs)
-		// Allows for multiple subtypes of heart.
+		// Allows for multiple subtypes of heart. Doesn't use the organ datum so that slimes dont get their brains pulled out of their head
 		if(istype(I, /obj/item/organ/internal/heart))
 			IC = I
 			break

@@ -174,7 +174,7 @@ Works together with spawning an observer, noted above.
 		C.images += target.hud_list[SPECIALROLE_HUD]
 	return 1
 
-/mob/proc/ghostize(flags = GHOST_CAN_REENTER)
+/mob/proc/ghostize(flags = GHOST_CAN_REENTER, user_color, ghost_name)
 	if(key)
 		if(player_logged) //if they have disconnected we want to remove their SSD overlay
 			overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
@@ -186,6 +186,11 @@ Works together with spawning an observer, noted above.
 			ADD_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
+		if(user_color)
+			add_atom_colour(user_color, ADMIN_COLOUR_PRIORITY)
+			ghost.color = user_color
+		if(ghost_name)
+			ghost.name = ghost_name
 		ghost.key = key
 		return ghost
 
@@ -401,7 +406,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(!QDELETED(mind.current)) // Could change while they're choosing
 			mind.current.remove_status_effect(STATUS_EFFECT_REVIVABLE)
 		SEND_SIGNAL(mind.current, COMSIG_LIVING_SET_DNR)
-		
 
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"
@@ -438,7 +442,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 		names[name] = ruin_landmark
 
-	var/ruinname = input("Select ruin", "Jump to Ruin") as null|anything in names
+	var/ruinname = tgui_input_list(usr, "Select ruin", "Jump to Ruin", names)
 
 	var/obj/effect/landmark/ruin/landmark = names[ruinname]
 
@@ -625,7 +629,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
 	set category = "Ghost"
-	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.observer_state)
+	GLOB.generic_crew_manifest.ui_interact(usr)
 
 //this is called when a ghost is drag clicked to something.
 /mob/dead/observer/MouseDrop(atom/over)

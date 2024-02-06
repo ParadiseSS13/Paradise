@@ -8,7 +8,7 @@
 
 /obj/item/pen/multi/robopen/attack_self(mob/user as mob)
 
-	var/choice = input("Would you like to change colour or mode?") as null|anything in list("Colour","Mode")
+	var/choice = tgui_input_list(user, "Would you like to change colour or mode?", name, list("Colour","Mode"))
 	if(!choice) return
 
 	switch(choice)

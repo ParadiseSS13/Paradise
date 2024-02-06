@@ -37,6 +37,7 @@
 	icon_state = "toolbox_default"
 	hitsound = 'sound/weapons/smash.ogg'
 	damage = 30
+	nodamage = FALSE
 	damage_type = BRUTE
 
 /obj/item/projectile/homing/magic/toolbox/on_range()
