@@ -97,3 +97,7 @@
 	var/list/overlays_standing[TOTAL_LAYERS]
 	/// Stores what the body last looked like. Prevents updating the body when we don't need to
 	var/previous_damage_appearance
+
+	var/list/bodyparts = list()
+	/// map organ names to organs
+	var/list/bodyparts_by_name = list()
