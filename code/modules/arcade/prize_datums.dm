@@ -13,8 +13,6 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 		return
 	if(!item)
 		return
-	if(!prize_counter.tickets >= item.cost)
-		return
 
 	new item.typepath(prize_counter.loc)
 	prize_counter.tickets -= item.cost
