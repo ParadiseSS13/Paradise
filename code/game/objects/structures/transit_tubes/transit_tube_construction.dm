@@ -42,8 +42,8 @@
 /obj/structure/transit_tube_construction/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
-	if(!isfloorturf(T))
-		to_chat(user, "<span class='notice'>You can only install [src] on a floor.</span>")
+	if(!isfloorturf(T) && !isspaceturf(T))
+		to_chat(user, "<span class='notice'>You cannot install [src] here.</span>")
 		return
 	for(var/obj/turf_contents in T)
 		// It's okay for tube parts to be installed over existing pods.
@@ -74,10 +74,6 @@
 /obj/structure/transit_tube_construction/pod/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
-	if(!isfloorturf(T))
-		to_chat(user, "<span class='notice'>You can only install [src] on a floor.</span>")
-		return
-
 	for(var/obj/turf_contents in T)
 		if(istype(turf_contents, /obj/structure/transit_tube))
 			var/atom/installed = new installed_type(T)
