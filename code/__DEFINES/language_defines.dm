@@ -8,6 +8,7 @@
 #define NO_STUTTER 256		// No stuttering, slurring, or other speech problems
 #define NOBABEL 512			// Not granted by book of babel. Typically antag languages.
 #define NOLIBRARIAN 1024	// Flag for banning the Librarian from certain languages. (actual 1984)
+#define HIVEMIND_RUNECHAT (1<<11) // Flag for letting hivemind languages have a runechat appear over the head of the recipient
 
 //Auto-accent level defines.
 #define AUTOHISS_OFF 0
