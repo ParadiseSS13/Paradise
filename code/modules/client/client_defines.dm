@@ -124,8 +124,11 @@
 	/// The client's movement keybindings to directions, which work regardless of modifiers.
 	var/list/movement_kb_dirs = list()
 
-	///A lazy list of atoms we've examined in the last RECENT_EXAMINE_MAX_WINDOW (default 2) seconds, so that we will call [/atom/proc/examine_more] instead of [/atom/proc/examine] on them when examining
+	/// A lazy list of atoms we've examined in the last RECENT_EXAMINE_MAX_WINDOW (default 2) seconds, so that we will call [/atom/proc/examine_more] instead of [/atom/proc/examine] on them when examining
 	var/list/recent_examines
+
+	/// Assigned say modal of the client
+	/client/var/datum/tgui_say/tgui_say
 
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)

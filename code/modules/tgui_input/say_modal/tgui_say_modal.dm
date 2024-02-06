@@ -1,6 +1,3 @@
-/** Assigned say modal of the client */
-/client/var/datum/tgui_say/tgui_say
-
 /**
  * Creates a JSON encoded message to open TGUI say modals properly.
  *
