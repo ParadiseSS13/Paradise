@@ -344,7 +344,7 @@
 	if(choice != selecting)
 		selecting = choice
 		update_icon(UPDATE_OVERLAYS)
-	return 1
+	return TRUE
 
 /atom/movable/screen/zone_sel/update_overlays()
 	. = ..()
