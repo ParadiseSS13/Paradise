@@ -8160,6 +8160,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/keycard_auth{
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -8651,7 +8654,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/keycard_auth,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -72120,6 +72122,23 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/public/locker)
+"orV" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/classic/reversed{
+	name = "Kitchen"
+	},
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "kitchen_counter";
+	name = "Kitchen Counter Shutters"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "orY" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/engimaint)
@@ -82885,23 +82904,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"tco" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	name = "Kitchen"
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "kitchen_counter";
-	name = "Kitchen Counter Shutters"
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/station/service/kitchen)
 "tcD" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets{
@@ -127560,7 +127562,7 @@ bEv
 bAv
 udl
 bHO
-tco
+orV
 nic
 nic
 nic
@@ -128074,7 +128076,7 @@ bEv
 omK
 udl
 bHO
-tco
+orV
 nic
 bQJ
 aRy

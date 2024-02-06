@@ -30617,6 +30617,9 @@
 	c_tag = "Quartermaster's Office"
 	},
 /obj/machinery/computer/card/minor/qm,
+/obj/machinery/keycard_auth{
+	pixel_y = 28
+	},
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
 "bRp" = (
@@ -32127,9 +32130,6 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
-	},
-/obj/machinery/keycard_auth{
-	pixel_y = -28
 	},
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
