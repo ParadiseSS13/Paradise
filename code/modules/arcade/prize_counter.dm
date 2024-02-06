@@ -48,8 +48,8 @@
 			"name" = initial(prize.name),
 			"desc" = initial(prize.desc),
 			"cost" = prize.cost,
-			"item" = GLOB.global_prizes.prizes.Find(prize),
-			"path" = replacetext(replacetext("[prize.typepath]", "/obj/item/", ""), "/", "-"),
+			"itemID" = GLOB.global_prizes.prizes.Find(prize),
+			"imageID" = replacetext(replacetext("[prize.typepath]", "/obj/item/", ""), "/", "-"),
 		))
 	data["prizes"] = prizes
 

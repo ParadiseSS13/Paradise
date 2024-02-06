@@ -6,9 +6,9 @@ import { Window } from '../layouts';
 type Prize = {
   name: string;
   desc: string;
-  item: string;
-  path: string;
   cost: number;
+  itemID: number;
+  imageID: string;
 };
 
 type PrizeData = {
@@ -43,7 +43,10 @@ export const PrizeCounter = (props, context) => {
                 <Stack key={prizes.name} className="PrizeCounter__Item">
                   <Stack.Item lineHeight="0" align="center">
                     <div
-                      className={classes(['prize_counter64x64', prizes.path])}
+                      className={classes([
+                        'prize_counter64x64',
+                        prizes.imageID,
+                      ])}
                     />
                   </Stack.Item>
                   <Stack.Item width="100%">
@@ -66,7 +69,7 @@ export const PrizeCounter = (props, context) => {
                       content={prizes.cost}
                       onClick={() =>
                         act('purchase', {
-                          'purchase': prizes.item,
+                          'purchase': prizes.itemID,
                         })
                       }
                     />
