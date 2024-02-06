@@ -71,19 +71,19 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 			if("name")
 				t = input("Enter a name for your pAI", "pAI Name", candidate.pai_name) as text
 				if(t)
-					candidate.pai_name = sanitize(copytext_char(t,1,MAX_NAME_LEN))
+					candidate.pai_name = sanitize(copytext_char(t, 1, MAX_NAME_LEN))
 			if("desc")
 				t = input("Enter a description for your pAI", "pAI Description", candidate.description) as message
 				if(t)
-					candidate.description = sanitize(copytext_char(t,1,MAX_MESSAGE_LEN))
+					candidate.description = sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
 			if("role")
 				t = input("Enter a role for your pAI", "pAI Role", candidate.role) as text
 				if(t)
-					candidate.role = sanitize(copytext_char(t,1,MAX_MESSAGE_LEN))
+					candidate.role = sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
 			if("ooc")
 				t = input("Enter any OOC comments", "pAI OOC Comments", candidate.ooc_comments) as message
 				if(t)
-					candidate.ooc_comments = sanitize(copytext_char(t,1,MAX_MESSAGE_LEN))
+					candidate.ooc_comments = sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
 			if("save")
 				candidate.save_to_db(usr)
 			if("reload")

@@ -364,7 +364,7 @@
 		else
 			break
 	if(max_length)
-		input = copytext_char(input,1,max_length)
+		input = copytext_char(input, 1, max_length)
 	return sanitize(input, allow_lines ? list("\t" = " ") : list("\n" = " ", "\t" = " "))
 
 /proc/trim_strip_html_properly(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)

@@ -252,12 +252,12 @@
 
 /proc/slur(phrase, list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)
-	var/leng=length_char(phrase)
-	var/counter=length_char(phrase)
-	var/newphrase=""
-	var/newletter=""
-	while(counter>=1)
-		newletter=copytext_char(phrase,(leng-counter)+1,(leng-counter)+2)
+	var/leng = length_char(phrase)
+	var/counter = length_char(phrase)
+	var/newphrase = ""
+	var/newletter = ""
+	while(counter >= 1)
+		newletter=copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
 		if(rand(1,3)==3)
 			if(lowertext(newletter)=="o")	newletter="u"
 			if(lowertext(newletter)=="s")	newletter="ch"
@@ -291,7 +291,7 @@
 					n_letter = text("[n_letter]-[n_letter]")
 		t = text("[t][n_letter]") //since the above is ran through for each letter, the text just adds up back to the original word.
 		p++ //for each letter p is increased to find where the next letter will be.
-	return sanitize(copytext_char(t,1,MAX_MESSAGE_LEN))
+	return sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
 
 /proc/robostutter(n) //for robutts
 	var/te = html_decode(n)
@@ -315,7 +315,7 @@
 						n_letter = text("[n_letter]-[n_letter]")
 		t = text("[t][n_letter]")//since the above is ran through for each letter, the text just adds up back to the original word.
 		p++//for each letter p is increased to find where the next letter will be.
-	return sanitize(copytext_char(t,1,MAX_MESSAGE_LEN))
+	return sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
 
 
 /proc/Gibberish(t, p, replace_rate = 50)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added. replace_rate is the chance a letter is corrupted.
@@ -323,7 +323,7 @@
 	var/returntext = ""
 	for(var/i = 1, i <= length_char(t), i++)
 
-		var/letter = copytext_char(t, i, i+1)
+		var/letter = copytext_char(t, i, i + 1)
 		if(prob(replace_rate))
 			if(p >= 70)
 				letter = ""
@@ -342,12 +342,12 @@
 
 /proc/muffledspeech(phrase)
 	phrase = html_decode(phrase)
-	var/leng=length_char(phrase)
-	var/counter=length_char(phrase)
-	var/newphrase=""
-	var/newletter=""
-	while(counter>=1)
-		newletter=copytext_char(phrase,(leng-counter)+1,(leng-counter)+2)
+	var/leng = length_char(phrase)
+	var/counter = length_char(phrase)
+	var/newphrase = ""
+	var/newletter = ""
+	while(counter >= 1)
+		newletter=copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
 		if(newletter in list(" ", "!", "?", ".", ","))
 			// Skip these
 			counter -= 1
@@ -686,11 +686,11 @@
 /proc/cultslur(n) // Inflicted on victims of a stun talisman
 	var/phrase = html_decode(n)
 	var/leng = length_char(phrase)
-	var/counter=length_char(phrase)
+	var/counter = length_char(phrase)
 	var/newphrase=""
 	var/newletter=""
 	while(counter>=1)
-		newletter=copytext_char(phrase,(leng-counter)+1,(leng-counter)+2)
+		newletter=copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
 		if(rand(1,2)==2)
 			if(lowertext(newletter)=="o")
 				newletter="u"
