@@ -39,43 +39,46 @@ export const PrizeCounter = (props, context) => {
                 />
               }
             >
-              {prizes.map((prizes) => (
-                <Stack key={prizes.name} className="PrizeCounter__Item">
-                  <Stack.Item lineHeight="0" align="center">
-                    <div
-                      className={classes([
-                        'prize_counter64x64',
-                        prizes.imageID,
-                      ])}
-                    />
-                  </Stack.Item>
-                  <Stack.Item width="100%">
-                    <Stack vertical textAlign="center">
-                      <Stack.Item bold mt={1}>
-                        {prizes.name}
-                      </Stack.Item>
-                      <Divider />
-                      <Stack.Item mt={0}>{prizes.desc}</Stack.Item>
-                    </Stack>
-                  </Stack.Item>
-                  <Stack.Item>
-                    <Button
-                      className={classes([
-                        'PrizeCounter__BuyButton',
-                        prizes.cost > tickets &&
-                          'PrizeCounter__BuyButton--disabled',
-                      ])}
-                      icon="ticket-alt"
-                      content={prizes.cost}
-                      onClick={() =>
-                        act('purchase', {
-                          'purchase': prizes.itemID,
-                        })
-                      }
-                    />
-                  </Stack.Item>
-                </Stack>
-              ))}
+              {prizes.map((prize) => {
+                const disabled = prize.cost > tickets;
+                return (
+                  <Stack key={prize.name} className="PrizeCounter__Item">
+                    <Stack.Item lineHeight="0" align="center">
+                      <div
+                        className={classes([
+                          'prize_counter64x64',
+                          prize.imageID,
+                        ])}
+                      />
+                    </Stack.Item>
+                    <Stack.Item width="100%">
+                      <Stack vertical textAlign="center">
+                        <Stack.Item bold mt={1}>
+                          {prize.name}
+                        </Stack.Item>
+                        <Divider />
+                        <Stack.Item mt={0}>{prize.desc}</Stack.Item>
+                      </Stack>
+                    </Stack.Item>
+                    <Stack.Item>
+                      <Button
+                        className={classes([
+                          'PrizeCounter__BuyButton',
+                          disabled && 'PrizeCounter__BuyButton--disabled',
+                        ])}
+                        icon="ticket-alt"
+                        content={prize.cost}
+                        tooltip={disabled ? 'Not enough tickets.' : null}
+                        onClick={() =>
+                          act('purchase', {
+                            'purchase': prize.itemID,
+                          })
+                        }
+                      />
+                    </Stack.Item>
+                  </Stack>
+                );
+              })}
             </Section>
           </Stack.Item>
         </Stack>

@@ -7,7 +7,7 @@
 	density = TRUE
 	anchored = TRUE
 	idle_power_consumption = 40
-	/// Ammout of arcade tickets on the prize counter.
+	/// Amount of arcade tickets in the prize counter.
 	var/tickets = 0
 
 /obj/machinery/prize_counter/Initialize(mapload)
