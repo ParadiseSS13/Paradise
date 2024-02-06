@@ -41,19 +41,18 @@ export const PrizeCounter = (props, context) => {
             >
               {prizes.map((prizes) => (
                 <Stack key={prizes.name} className="PrizeCounter__Item">
-                  <Stack.Item
-                    width="96px"
-                    className={classes(['prize_counter64x64', prizes.path])}
-                  />
+                  <Stack.Item lineHeight="0" align="center">
+                    <div
+                      className={classes(['prize_counter64x64', prizes.path])}
+                    />
+                  </Stack.Item>
                   <Stack.Item width="100%">
                     <Stack vertical textAlign="center">
                       <Stack.Item bold mt={1}>
                         {prizes.name}
                       </Stack.Item>
                       <Divider />
-                      <Stack.Item mt={0} verticalAlign="middle">
-                        {prizes.desc}
-                      </Stack.Item>
+                      <Stack.Item mt={0}>{prizes.desc}</Stack.Item>
                     </Stack>
                   </Stack.Item>
                   <Stack.Item>

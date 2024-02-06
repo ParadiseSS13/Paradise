@@ -5,7 +5,6 @@
 	for(var/datum/prize_item/prize in GLOB.global_prizes.prizes)
 		var/obj/item/prize_item = prize.typepath
 		var/prize_icon = icon(icon = initial(prize_item.icon), icon_state = initial(prize_item.icon_state))
-
 		var/imgid = replacetext(replacetext("[prize_item]", "/obj/item/", ""), "/", "-")
 		Insert(imgid, prize_icon)
 
