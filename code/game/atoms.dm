@@ -1293,10 +1293,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	. = ..()
 	if(!usr?.client)
 		return
-	var/client/usr_client = usr.client
-	var/list/paramslist = list()
 
 	if(href_list["statpanel_item_click"])
+		var/client/usr_client = usr.client
+		var/list/paramslist = list()
 		switch(href_list["statpanel_item_click"])
 			if("left")
 				paramslist[LEFT_CLICK] = "1"
