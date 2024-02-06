@@ -536,7 +536,7 @@
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/proc/extend(obj/item/selected)
 	if(selected in items_list)
 		selected_item = selected
-		occupant_message("Switched to [selected_item]")
+		occupant_message("<span class='notice'>Switched to [selected_item].</span>")
 		update_equip_info()
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/emag_act(mob/user)
