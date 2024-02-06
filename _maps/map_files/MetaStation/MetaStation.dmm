@@ -2936,6 +2936,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5419,13 +5424,6 @@
 /obj/structure/closet/secure_closet/engineering_welding,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
-"aCH" = (
-/obj/structure/cable/yellow,
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Processing"
-	},
-/turf/simulated/floor/plating,
-/area/station/supply/storage)
 "aCV" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -8155,6 +8153,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/keycard_auth{
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -8646,7 +8647,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/keycard_auth,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -9364,14 +9364,15 @@
 	pixel_x = 7;
 	pixel_y = -6
 	},
-/obj/machinery/requests_console{
-	department = "Cargo Bay";
-	departmentType = 2;
-	name = "Cargo Requests Console";
-	pixel_y = 30
-	},
 /obj/machinery/photocopier/faxmachine{
 	department = "Quartermaster's Office"
+	},
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Quartermaster's Desk";
+	departmentType = 5;
+	name = "Quartermaster Requests Console";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -9714,6 +9715,9 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm,
 /obj/machinery/door/airlock/command/glass,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "qm"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "aQI" = (
@@ -34055,7 +34059,7 @@
 "cli" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
-/area/station/maintenance/fpmaint)
+/area/station/supply/qm)
 "cll" = (
 /obj/structure/sign/poster/random{
 	pixel_y = -32
@@ -42877,6 +42881,21 @@
 	},
 /turf/simulated/wall,
 /area/space/nearstation)
+"cSE" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/grille,
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor{
+	id_tag = "SecJusticeChamber";
+	name = "Justice Vent"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/execution)
 "cSF" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -47547,17 +47566,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboardsolar)
 "dUF" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "soldock_door_ext";
-	locked = 1;
-	name = "Arrivals External Access"
-	},
-/obj/machinery/access_button{
-	autolink_id = "soldock_btn_ext";
-	name = "exterior access button";
-	pixel_x = -7;
-	pixel_y = -25
-	},
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/e_to_w/arrivals,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
 "dUG" = (
@@ -49619,6 +49629,11 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -50079,6 +50094,28 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/science/rnd)
+"eYD" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "executionfireblast"
+	},
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/execution)
 "eYE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -52650,17 +52687,6 @@
 /obj/item/deck/cards,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
-"gcW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/obj/machinery/door/airlock/external{
-	id_tag = "soldock_door_int";
-	locked = 1;
-	name = "Arrivals External Access"
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry)
 "gdb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -55200,6 +55226,11 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -56181,7 +56212,11 @@
 "hDY" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/windoor/access/all/security/brig{
+/obj/machinery/door/window/reinforced/normal{
+	name = "Security Desk";
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -57201,6 +57236,31 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
+"hZh" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/grille,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor{
+	id_tag = "SecJusticeChamber";
+	name = "Justice Vent"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/execution)
 "hZi" = (
 /obj/machinery/seed_extractor,
 /obj/effect/turf_decal/stripes/corner,
@@ -57895,12 +57955,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "inw" = (
-/obj/machinery/access_button{
-	autolink_id = "soldock_btn_int";
-	name = "interior access button";
-	pixel_x = -25;
-	pixel_y = -25
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
@@ -58550,6 +58604,11 @@
 /obj/item/storage/fancy/cigarettes,
 /obj/item/flash,
 /obj/item/reagent_containers/spray/pepper,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -59403,6 +59462,11 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -60282,7 +60346,7 @@
 	icon_state = "2-4"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Processing"
+	id = "qm"
 	},
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
@@ -69196,19 +69260,19 @@
 	name = "Outer Window";
 	dir = 8
 	},
-/obj/machinery/door/window/reinforced/normal{
-	name = "Security Desk";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
-	dir = 4
-	},
 /obj/item/folder/red,
 /obj/item/pen{
 	pixel_x = -3;
 	pixel_y = 5
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
+	dir = 4
+	},
+/obj/machinery/door/window/reinforced/normal{
+	name = "Security Desk";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "ncG" = (
@@ -69638,18 +69702,6 @@
 	},
 /area/station/science/xenobiology)
 "nlp" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	autolink_id = "soldock_vent"
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_y = -25;
-	vent_link_id = "soldock_vent";
-	ext_door_link_id = "soldock_door_ext";
-	int_door_link_id = "soldock_door_int";
-	ext_button_link_id = "soldock_btn_ext";
-	int_button_link_id = "soldock_btn_int"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -72348,10 +72400,6 @@
 "oDf" = (
 /obj/item/paper,
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/reinforced/normal{
-	name = "Arrivals Security Checkpoint";
-	pixel_y = -8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -72940,7 +72988,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/armory,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/any/security/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80235,6 +80284,11 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -80826,6 +80880,11 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -84977,7 +85036,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Processing"
+	id = "qm"
 	},
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
@@ -85859,6 +85918,11 @@
 "uEa" = (
 /obj/structure/chair/e_chair,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -88120,10 +88184,14 @@
 /area/station/maintenance/asmaint)
 "vxc" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "executionfireblast"
 	},
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/execution)
 "vxi" = (
@@ -89541,6 +89609,11 @@
 "wjq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -91898,7 +91971,7 @@
 "xlE" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Processing"
+	id = "qm"
 	},
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
@@ -92767,6 +92840,11 @@
 "xFu" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/structure/grille,
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
 	id_tag = "SecJusticeChamber";
@@ -102750,8 +102828,8 @@ aaa
 ajo
 abq
 aug
+bOx
 dUF
-oTn
 abq
 ajo
 aaa
@@ -103264,7 +103342,7 @@ aSq
 aWG
 ayC
 aJv
-gcW
+bOx
 oTn
 oTn
 oTn
@@ -112250,7 +112328,7 @@ aVl
 aVl
 jyW
 ueF
-aCH
+xlE
 aYl
 aKi
 aRo
@@ -112760,7 +112838,7 @@ aMq
 aOB
 aOB
 aOB
-aOB
+aVl
 aPw
 aMW
 azN
@@ -113017,7 +113095,7 @@ bgA
 bmi
 fuy
 rwj
-aOB
+aVl
 aLS
 aMZ
 aNm
@@ -113531,11 +113609,11 @@ aEM
 aDz
 pGU
 aAP
-aOB
-aOB
-aOB
-aOB
-aOB
+aVl
+aVl
+aVl
+aVl
+aVl
 aZt
 uKy
 aUt
@@ -117348,11 +117426,11 @@ aaa
 aaa
 aaa
 aaa
-xFu
+hZh
 ePT
 uEa
 ato
-vxc
+eYD
 iAY
 sjz
 wjq
@@ -117605,7 +117683,7 @@ aaa
 aaa
 aaa
 aaa
-xFu
+cSE
 wQE
 xIe
 kis

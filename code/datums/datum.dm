@@ -9,6 +9,9 @@
 	var/var_edited = FALSE //Warranty void if seal is broken
 	var/tmp/unique_datum_id = null
 
+	/// Used by SSprocessing
+	var/isprocessing = FALSE
+
 /**
   * A cached version of our \ref
   * The brunt of \ref costs are in creating entries in the string tree (a tree of immutable strings)

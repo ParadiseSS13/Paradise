@@ -547,7 +547,7 @@
 			format_board_name()
 			to_chat(user, "<span class='notice'>Access protocols set to [console_choice].</span>")
 		else
-			to_chat(user, "<span class='warning'>Access Denied</span>")
+			to_chat(user, "<span class='warning'>Access Denied.</span>")
 		return
 	return ..()
 
