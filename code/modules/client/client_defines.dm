@@ -127,6 +127,9 @@
 	/// A lazy list of atoms we've examined in the last RECENT_EXAMINE_MAX_WINDOW (default 2) seconds, so that we will call [/atom/proc/examine_more] instead of [/atom/proc/examine] on them when examining
 	var/list/recent_examines
 
+	/// When to next alert admins that mouse macro use was attempted
+	var/next_mouse_macro_warning
+
 	/// Assigned say modal of the client
 	var/datum/tgui_say/tgui_say
 
