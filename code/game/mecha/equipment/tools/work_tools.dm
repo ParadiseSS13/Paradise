@@ -458,7 +458,7 @@
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset
-	name = "Engineering toolset"
+	name = "engineering toolset"
 	desc = "Equipment for engineering exosuits. Gives a set of good tools."
 	icon_state = "mecha_toolset"
 	item_state = "artistic_toolbox"
