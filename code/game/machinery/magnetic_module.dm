@@ -467,10 +467,10 @@
 
 	for(var/i=1, i<=maximum_character, i++) // iterates through all characters in path
 
-		var/nextchar = copytext_char(path, i, i+1) // find next character
+		var/nextchar = copytext(path, i, i+1) // find next character
 
 		if(!(nextchar in list(";", "&", "*", " "))) // if char is a separator, ignore
-			rpath += copytext_char(path, i, i+1) // else, add to list
+			rpath += copytext(path, i, i+1) // else, add to list
 
 		// there doesn't HAVE to be separators but it makes paths syntatically visible
 

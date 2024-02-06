@@ -185,7 +185,7 @@
 	if(!recipient)
 		recipient = current
 	var/list/output = list()
-	output.Add("<meta charset='utf-8'><B>[current.real_name]'s Memories:</B><HR>")
+	output.Add("<meta charset='UTF-8'><B>[current.real_name]'s Memories:</B><HR>")
 	output.Add(memory)
 
 	for(var/datum/antagonist/A in antag_datums)
@@ -524,7 +524,7 @@
 		alert("Not before round-start!", "Alert")
 		return
 
-	var/list/out = list("<B>[name]</B>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
+	var/list/out = list("<meta charset='UTF-8'><B>[name]</B>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
 	out.Add("Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]")
 	out.Add("Assigned role: [assigned_role]. <a href='?src=[UID()];role_edit=1'>Edit</a>")
 	out.Add("Factions and special roles:")
