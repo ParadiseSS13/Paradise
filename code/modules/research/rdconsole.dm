@@ -107,9 +107,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return_name = "Bluespace Mesh"
 		else
 			var/datum/reagent/our_reagent = GLOB.chemical_reagents_list[return_name]
-			if(our_reagent)
-				if(initial(our_reagent.id) == return_name)
-					return_name = initial(our_reagent.name)
+			if(our_reagent && initial(our_reagent.id) == return_name)
+				return_name = initial(our_reagent.name)
 	return capitalize(return_name)
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
