@@ -70365,16 +70365,19 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
 "fRb" = (
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/classic/reversed{
 	dir = 8;
 	name = "Glass Door"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mail_sorting{
+	dir = 8
+	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 8
+	},
+/obj/structure/plasticflaps{
+	opacity = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
