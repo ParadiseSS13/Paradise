@@ -1940,6 +1940,7 @@
 #include "code\modules\mapping\metastation.dm"
 #include "code\modules\mapping\test_tiny.dm"
 #include "code\modules\mapping\windoor_access_helpers.dm"
+#include "code\modules\maptext_alerts\location_blurbs.dm"
 #include "code\modules\maptext_alerts\text_blurbs.dm"
 #include "code\modules\martial_arts\adminfu.dm"
 #include "code\modules\martial_arts\bearserk.dm"

@@ -9,6 +9,7 @@
 	health = 25
 	density = FALSE
 
+	var/temperature_resistance = T0C+75
 	var/amount_grown = 0
 	var/max_grown = 200
 	death_message = "lets out a waning high-pitched cry."
