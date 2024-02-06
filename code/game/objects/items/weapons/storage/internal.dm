@@ -37,7 +37,7 @@
 
 		if(over_object == user && Adjacent(user)) // this must come before the screen objects only block
 			open(user)
-			return 0
+			return FALSE
 
 		if(!is_screen_atom(over_object))
 			return TRUE
