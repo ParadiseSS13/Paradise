@@ -148,7 +148,7 @@ The previous code made compliant:
 
 ### Do not compare boolean values to TRUE or FALSE
 
-Do not compare boolean values to TRUE or FALSE. For TRUE you should just check if there's a value in that address. For FALSE you should use the ! operator. An exception is made to this when working with JS or other external languages. If a function/Variable can contain more values beyond null/0 or TRUE, use numbers and defines instead of true/false comparisons.
+Do not compare boolean values to TRUE or FALSE. For TRUE you should just check if there's a value in that address. For FALSE you should use the ! operator. An exception is made to this when working with JS or other external languages. If a function/variable can contain more values beyond null/0 or TRUE, use numbers and defines instead of true/false comparisons.
 
 ```dm
 // Bad
