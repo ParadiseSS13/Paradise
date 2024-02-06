@@ -5,7 +5,7 @@
 	/// Font size in pixels
 	var/font_size = 11
 	/// Font family
-	var/font_family = "Fixedsys"
+	var/font_family = "Courier New"
 	/// Where text is aligned
 	var/text_alignment = "left"
 	/// Color of text in RGB
@@ -26,6 +26,11 @@
 	var/appear_animation_duration = 0
 	/// Amount of time the blurb takes to fade (alpha changing from 255 to 0). 0 means blurb is instantly removed from the screen after finished
 	var/fade_animation_duration = 0
+	// Colours of the background
+	var/background_r = 0
+	var/background_g = 0
+	var/background_b = 0
+	var/background_a = 0
 
 
 /obj/screen/text/blurb/proc/show_to(list/client/viewers)
@@ -58,6 +63,7 @@
 	return {"\
 		font-family: [font_family], [initial(font_family)]; \
 		-dm-text-outline: [text_outline_width] [text_outline_color]; \
+		background-color: rgba([background_r], [background_g], [background_b], [background_a]); \
 		font-size: [font_size]px; \
 		text-align: [text_alignment]; \
 		color: [text_color];
@@ -103,29 +109,35 @@
 
 	qdel(src)
 
-/datum/controller/subsystem/jobs/proc/show_location_blurb(client/show_blurb_to)
+/datum/controller/subsystem/jobs/proc/show_location_blurb(client/show_blurb_to, datum/mind/antag_check)
 	PRIVATE_PROC(TRUE)
 
-	if(!show_blurb_to.mob)
+	if(!show_blurb_to?.mob)
 		return
+	SEND_SOUND(show_blurb_to, sound('sound/machines/typewriter.ogg'))
 
 	var/obj/screen/text/blurb/location_blurb = new()
-	location_blurb.blurb_text = uppertext("[GLOB.current_date_string], [station_time_timestamp()]\n[station_name()], [get_area_name(show_blurb_to.mob, TRUE)]")
+	if(antag_check.antag_datums)
+		for(var/datum/antagonist/role)
+			if(role.custom_blurb())
+				location_blurb.blurb_text = uppertext(role.custom_blurb())
+				location_blurb.text_color = role.blurb_text_color
+				location_blurb.text_outline_width = role.blurb_text_outline_width
+				location_blurb.background_r = role.blurb_r
+				location_blurb.background_g = role.blurb_g
+				location_blurb.background_b = role.blurb_b
+				location_blurb.background_a = role.blurb_a
+				location_blurb.font_family = role.blurb_font
+				break
+			location_blurb.blurb_text = uppertext("[GLOB.current_date_string], [station_time_timestamp()]\n[station_name()], [get_area_name(show_blurb_to.mob, TRUE)]")
+
+	else
+		location_blurb.blurb_text = uppertext("[GLOB.current_date_string], [station_time_timestamp()]\n[station_name()], [get_area_name(show_blurb_to.mob, TRUE)]")
 	location_blurb.hold_for = 3 SECONDS
 	location_blurb.appear_animation_duration = 1 SECONDS
 	location_blurb.fade_animation_duration = 0.5 SECONDS
 
 	location_blurb.show_to(show_blurb_to)
-
-/datum/controller/subsystem/jobs/EquipRank(mob/living/carbon/human/human_to_equip, rank, joined_late)
-	. = ..()
-	INVOKE_ASYNC(src, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), human_to_equip.client)
-
-/datum/controller/subsystem/ticker/reboot_helper(reason, end_string, delay)
-	if(delay)
-		INVOKE_ASYNC(src, TYPE_PROC_REF(/datum/controller/subsystem/ticker, show_server_restart_blurb), reason)
-
-	. = ..()
 
 
 /datum/controller/subsystem/ticker/proc/show_server_restart_blurb(reason)
@@ -134,11 +146,11 @@
 	if(!length(GLOB.clients))
 		return
 
-	var/obj/screen/text/blurb/server_restart_blurp = new()
-	server_restart_blurp.text_color = COLOR_RED
-	server_restart_blurp.blurb_text = "Round is restarting...\n[reason]"
-	server_restart_blurp.hold_for = 90 SECONDS
-	server_restart_blurp.appear_animation_duration = 1 SECONDS
-	server_restart_blurp.fade_animation_duration = 0.5 SECONDS
+	var/obj/screen/text/blurb/server_restart_blurb = new()
+	server_restart_blurb.text_color = COLOR_RED
+	server_restart_blurb.blurb_text = "Round is restarting...\n[reason]"
+	server_restart_blurb.hold_for = 90 SECONDS
+	server_restart_blurb.appear_animation_duration = 1 SECONDS
+	server_restart_blurb.fade_animation_duration = 0.5 SECONDS
 
-	server_restart_blurp.show_to(GLOB.clients)
+	server_restart_blurb.show_to(GLOB.clients)

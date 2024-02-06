@@ -10245,7 +10245,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
 "gSz" = (
-/obj/effect/landmark/spawner/teleport_scroll,
 /obj/structure/table/wood/fancy/black,
 /obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet{
 	info = "Deliver five cream pies to the agreed place or your apprentice gets honked again";
@@ -32170,9 +32169,7 @@
 /area/shuttle/trade/sol)
 "wtd" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/radio/phone{
-	desc = "How else would the wizards order pizza?"
-	},
+/obj/structure/pondering_orb,
 /obj/effect/turf_decal/woodsiding{
 	dir = 6
 	},

@@ -1788,7 +1788,7 @@
 
 /datum/character_save/proc/copy_to(mob/living/carbon/human/character)
 	var/datum/species/S = GLOB.all_species[species]
-	character.set_species(S.type) // Yell at me if this causes everything to melt
+	character.set_species(S.type, delay_icon_update = TRUE) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender, species)
 
@@ -1889,7 +1889,7 @@
 			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
 			character.change_gender(MALE)
 
-	character.change_eye_color(e_colour)
+	character.change_eye_color(e_colour, skip_icons = TRUE)
 	character.original_eye_color = e_colour
 
 	if(disabilities & DISABILITY_FLAG_FAT)
@@ -1949,12 +1949,11 @@
 
 	character.dna.ready_dna(character, flatten_SE = FALSE)
 	character.sync_organ_dna(assimilate = TRUE)
-	character.UpdateAppearance()
 
 	// Do the initial caching of the player's body icons.
 	character.force_update_limbs()
 	character.update_eyes()
-	character.regenerate_icons()
+	character.UpdateAppearance()
 
 //Check if the user has ANY job selected.
 /datum/character_save/proc/check_any_job()
