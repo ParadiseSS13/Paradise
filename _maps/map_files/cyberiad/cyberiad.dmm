@@ -22725,12 +22725,12 @@
 "bpu" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/sop_command,
-/obj/item/aicard,
-/obj/item/multitool/command,
 /obj/machinery/keycard_auth{
 	pixel_x = -6;
 	pixel_y = 8
 	},
+/obj/item/aicard,
+/obj/item/multitool/command,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
@@ -30219,9 +30219,10 @@
 	pixel_y = 24
 	},
 /obj/machinery/requests_console{
-	department = "Cargo Bay";
-	departmentType = 2;
-	name = "Cargo Requests Console";
+	announcementConsole = 1;
+	department = "Quartermaster's Desk";
+	departmentType = 5;
+	name = "Quartermaster Requests Console";
 	pixel_x = -30
 	},
 /turf/simulated/floor/carpet,
@@ -30607,6 +30608,9 @@
 	c_tag = "Quartermaster's Office"
 	},
 /obj/machinery/computer/card/minor/qm,
+/obj/machinery/keycard_auth{
+	pixel_y = 28
+	},
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
 "bRp" = (
@@ -32117,9 +32121,6 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
-	},
-/obj/machinery/keycard_auth{
-	pixel_y = -28
 	},
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
@@ -59882,12 +59883,19 @@
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
 "gru" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/s_to_n{
-	req_access_txt = "11,13"
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/access_button{
+	autolink_id = "southatmos_btn_int";
+	pixel_x = 22;
+	pixel_y = 10
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/auxsolarport)
+/area/station/maintenance/storage)
 "gsd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -61300,20 +61308,6 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
-"gXt" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/access_button{
-	autolink_id = "southatmos_btn_int";
-	pixel_x = 22;
-	pixel_y = 10
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/storage)
 "gXD" = (
 /obj/item/kirbyplants,
 /obj/machinery/requests_console{
@@ -73309,6 +73303,13 @@
 	icon_state = "darkred"
 	},
 /area/station/hallway/secondary/exit)
+"nee" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/s_to_n{
+	req_access_txt = "11,13"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/auxsolarport)
 "neo" = (
 /obj/effect/spawner/window/reinforced/tinted,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -109500,7 +109501,7 @@ aaa
 aaa
 ymb
 ymb
-gru
+nee
 aDu
 aEC
 aFQ
@@ -127857,7 +127858,7 @@ ouA
 ouA
 deW
 dgI
-gXt
+gru
 mhG
 dop
 dor
