@@ -1,6 +1,7 @@
 @use '../base.scss';
 
 $background-color: rgba(0, 0, 0, 0.33) !default;
+$text-color: rgba(255, 255, 255) !default;
 
 .PrizeCounter__BuyButton {
   width: 64px;
@@ -10,7 +11,7 @@ $background-color: rgba(0, 0, 0, 0.33) !default;
   font-size: 1.5rem;
   font-weight: bold;
   background-color: lighten($background-color, 25%);
-  color: rgba(255, 255, 255, 0.75);
+  color: darken($text-color, 25%);
 
   transition:
     color 100ms,
@@ -19,7 +20,7 @@ $background-color: rgba(0, 0, 0, 0.33) !default;
   &:hover,
   &:focus {
     background-color: lighten($background-color, 33%);
-    color: rgba(255, 255, 255, 1);
+    color: $text-color;
   }
 
   .fa,
@@ -33,7 +34,8 @@ $background-color: rgba(0, 0, 0, 0.33) !default;
   }
 
   &--disabled {
-    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 50, 50, 0.1);
+    color: darken($text-color, 50%);
     .fa,
     .fas,
     .far {
@@ -41,8 +43,8 @@ $background-color: rgba(0, 0, 0, 0.33) !default;
     }
     &:hover,
     &:focus {
-      background-color: rgba(255, 50, 50, 0.2);
-      color: rgba(255, 255, 255, 0.5);
+      background-color: rgba(255, 50, 50, 0.1);
+      color: darken($text-color, 50%);
     }
   }
 }

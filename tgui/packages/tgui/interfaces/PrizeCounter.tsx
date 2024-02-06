@@ -70,9 +70,8 @@ export const PrizeCounter = (props, context) => {
                         content={prize.cost}
                         tooltip={disabled ? 'Not enough tickets.' : null}
                         onClick={() =>
-                          act('purchase', {
-                            'purchase': prize.itemID,
-                          })
+                          !disabled &&
+                          act('purchase', { 'purchase': prize.itemID })
                         }
                       />
                     </Stack.Item>
