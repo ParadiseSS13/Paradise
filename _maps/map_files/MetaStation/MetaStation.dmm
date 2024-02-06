@@ -23301,6 +23301,14 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/turret_protected/aisat/interior)
+"bAB" = (
+/obj/structure/table/wood,
+/obj/machinery/bottler,
+/obj/structure/sign/poster/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "bAC" = (
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/solar/auxport)
@@ -31729,14 +31737,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
-"cdj" = (
-/obj/structure/table/wood,
-/obj/machinery/bottler,
-/obj/structure/sign/poster/random{
-	pixel_y = -32
-	},
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "cdk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -32898,7 +32898,7 @@
 	},
 /obj/machinery/door_control{
 	id = "rdrnd";
-	name = "Research and Development Containment Control";
+	name = "Experi-mentor shutters";
 	pixel_y = 34;
 	req_access_txt = "30"
 	},
@@ -34007,18 +34007,6 @@
 /area/station/science/research)
 "clb" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
-/area/station/science/research)
-"clc" = (
-/obj/structure/table/glass,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/obj/item/paicard,
-/turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "whitepurple"
 	},
 /area/station/science/research)
@@ -47372,18 +47360,6 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
-"dQI" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/science/research)
 "dRt" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -47566,17 +47542,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboardsolar)
 "dUF" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "soldock_door_ext";
-	locked = 1;
-	name = "Arrivals External Access"
-	},
-/obj/machinery/access_button{
-	autolink_id = "soldock_btn_ext";
-	name = "exterior access button";
-	pixel_x = -7;
-	pixel_y = -25
-	},
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/e_to_w/arrivals,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
 "dUG" = (
@@ -52696,17 +52663,6 @@
 /obj/item/deck/cards,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
-"gcW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/obj/machinery/door/airlock/external{
-	id_tag = "soldock_door_int";
-	locked = 1;
-	name = "Arrivals External Access"
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry)
 "gdb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -57975,12 +57931,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "inw" = (
-/obj/machinery/access_button{
-	autolink_id = "soldock_btn_int";
-	name = "interior access button";
-	pixel_x = -25;
-	pixel_y = -25
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
@@ -61557,6 +61507,17 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
+"jUr" = (
+/obj/structure/table/glass,
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/obj/item/paicard,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/science/research)
 "jUK" = (
 /obj/machinery/light_switch{
 	dir = 8;
@@ -68059,30 +68020,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/rd)
-"mEd" = (
-/obj/structure/disposalpipe/sortjunction{
-	dir = 4;
-	name = "Kitchen Junction";
-	sort_type_txt = "20"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "mEe" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -69728,18 +69665,6 @@
 	},
 /area/station/science/xenobiology)
 "nlp" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	autolink_id = "soldock_vent"
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_y = -25;
-	vent_link_id = "soldock_vent";
-	ext_door_link_id = "soldock_door_ext";
-	int_door_link_id = "soldock_door_int";
-	ext_button_link_id = "soldock_btn_ext";
-	int_button_link_id = "soldock_btn_int"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -80689,6 +80614,18 @@
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall/r_wall,
 /area/station/public/mrchangs)
+"sdj" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/science/research)
 "sdJ" = (
 /obj/machinery/door/airlock/freezer,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
@@ -93097,6 +93034,30 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/supply/lobby)
+"xLw" = (
+/obj/structure/disposalpipe/sortjunction{
+	dir = 4;
+	name = "Kitchen Junction";
+	sort_type_txt = "20"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "xLA" = (
 /obj/machinery/hydroponics/constructable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -93256,17 +93217,10 @@
 /obj/item/stack/sheet/glass,
 /obj/item/stack/sheet/glass,
 /obj/machinery/door_control{
-	id = "rdrnd";
-	name = "Primary Research Shutters Control";
-	pixel_x = 24;
-	pixel_y = 6;
-	req_access_txt = "7"
-	},
-/obj/machinery/door_control{
 	id = "rndlab2";
-	name = "Secondary Research Shutters Control";
+	name = "Research Shutters Control";
 	pixel_x = 24;
-	pixel_y = -6;
+	pixel_y = null;
 	req_access_txt = "7"
 	},
 /obj/machinery/cell_charger,
@@ -93351,6 +93305,13 @@
 /area/station/medical/surgery/observation)
 "xPE" = (
 /obj/structure/table,
+/obj/machinery/door_control{
+	id = "rdrnd";
+	name = "Experi-mentor shutters";
+	pixel_x = -25;
+	pixel_y = null;
+	req_access_txt = "7"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -102866,8 +102827,8 @@ aaa
 ajo
 abq
 aug
+bOx
 dUF
-oTn
 abq
 ajo
 aaa
@@ -103380,7 +103341,7 @@ aSq
 aWG
 ayC
 aJv
-gcW
+bOx
 oTn
 oTn
 oTn
@@ -123978,7 +123939,7 @@ cft
 cgF
 rFe
 cjN
-clb
+jUr
 cmz
 fwz
 daG
@@ -124492,7 +124453,7 @@ cfw
 cgu
 qnt
 qnt
-clc
+oic
 uxR
 cic
 bVj
@@ -128841,7 +128802,7 @@ byM
 bEA
 bvz
 bEv
-mEd
+xLw
 uhV
 lBQ
 fjy
@@ -131448,7 +131409,7 @@ cQg
 rOD
 cDa
 mra
-dQI
+sdj
 vCB
 lHQ
 eIa
@@ -131664,7 +131625,7 @@ bsp
 buI
 bwO
 pjb
-cdj
+bAB
 aoG
 aoG
 aoG
