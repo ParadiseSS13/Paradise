@@ -347,8 +347,8 @@
 			dat += "[temp_server.name] Server to Server Transfer<BR><BR>"
 			dat += "Send Data to what server?<BR>"
 			for(var/obj/machinery/r_n_d/server/S in servers)
-				dat += "[S.name] <A href='?src=[UID()];send_to=[S.server_id]'> (Transfer)</A><BR>"
-			dat += "<HR><A href='?src=[UID()];main=1'>Main Menu</A>"
+				dat += "[S.name] <a href='?src=[UID()];send_to=[S.server_id]'> (Transfer)</a><br>"
+			dat += "<hr><a href='?src=[UID()];main=1'>Main Menu</a>"
 	user << browse("<title>R&D Server Control</title><hr><meta charset='UTF-8'>[dat]", "window=server_control;size=575x400")
 	onclose(user, "server_control")
 	return
