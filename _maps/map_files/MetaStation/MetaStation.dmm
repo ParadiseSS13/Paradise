@@ -47566,17 +47566,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboardsolar)
 "dUF" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "soldock_door_ext";
-	locked = 1;
-	name = "Arrivals External Access"
-	},
-/obj/machinery/access_button{
-	autolink_id = "soldock_btn_ext";
-	name = "exterior access button";
-	pixel_x = -7;
-	pixel_y = -25
-	},
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/e_to_w/arrivals,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
 "dUG" = (
@@ -52696,17 +52687,6 @@
 /obj/item/deck/cards,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
-"gcW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/obj/machinery/door/airlock/external{
-	id_tag = "soldock_door_int";
-	locked = 1;
-	name = "Arrivals External Access"
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry)
 "gdb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -57975,12 +57955,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "inw" = (
-/obj/machinery/access_button{
-	autolink_id = "soldock_btn_int";
-	name = "interior access button";
-	pixel_x = -25;
-	pixel_y = -25
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
@@ -69728,18 +69702,6 @@
 	},
 /area/station/science/xenobiology)
 "nlp" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	autolink_id = "soldock_vent"
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_y = -25;
-	vent_link_id = "soldock_vent";
-	ext_door_link_id = "soldock_door_ext";
-	int_door_link_id = "soldock_door_int";
-	ext_button_link_id = "soldock_btn_ext";
-	int_button_link_id = "soldock_btn_int"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -102866,8 +102828,8 @@ aaa
 ajo
 abq
 aug
+bOx
 dUF
-oTn
 abq
 ajo
 aaa
@@ -103380,7 +103342,7 @@ aSq
 aWG
 ayC
 aJv
-gcW
+bOx
 oTn
 oTn
 oTn
