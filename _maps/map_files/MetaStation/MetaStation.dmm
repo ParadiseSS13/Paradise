@@ -5424,13 +5424,6 @@
 /obj/structure/closet/secure_closet/engineering_welding,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
-"aCH" = (
-/obj/structure/cable/yellow,
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Processing"
-	},
-/turf/simulated/floor/plating,
-/area/station/supply/storage)
 "aCV" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -9722,6 +9715,9 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm,
 /obj/machinery/door/airlock/command/glass,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "qm"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "aQI" = (
@@ -34063,7 +34059,7 @@
 "cli" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
-/area/station/maintenance/fpmaint)
+/area/station/supply/qm)
 "cll" = (
 /obj/structure/sign/poster/random{
 	pixel_y = -32
@@ -60376,7 +60372,7 @@
 	icon_state = "2-4"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Processing"
+	id = "qm"
 	},
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
@@ -85078,7 +85074,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Processing"
+	id = "qm"
 	},
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
@@ -92013,7 +92009,7 @@
 "xlE" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Processing"
+	id = "qm"
 	},
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
@@ -112370,7 +112366,7 @@ aVl
 aVl
 jyW
 ueF
-aCH
+xlE
 aYl
 aKi
 aRo
@@ -112880,7 +112876,7 @@ aMq
 aOB
 aOB
 aOB
-aOB
+aVl
 aPw
 aMW
 azN
@@ -113137,7 +113133,7 @@ bgA
 bmi
 fuy
 rwj
-aOB
+aVl
 aLS
 aMZ
 aNm
@@ -113651,11 +113647,11 @@ aEM
 aDz
 pGU
 aAP
-aOB
-aOB
-aOB
-aOB
-aOB
+aVl
+aVl
+aVl
+aVl
+aVl
 aZt
 uKy
 aUt
