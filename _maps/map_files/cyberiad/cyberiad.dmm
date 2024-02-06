@@ -57714,6 +57714,15 @@
 /obj/machinery/door/airlock/command/glass,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
+"fof" = (
+/obj/structure/rack,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "fog" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
@@ -143006,7 +143015,7 @@ kdc
 csL
 djP
 cQC
-csL
+fof
 dlz
 dSu
 csL
