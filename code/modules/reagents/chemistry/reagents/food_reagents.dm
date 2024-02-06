@@ -597,10 +597,11 @@
 
 /datum/reagent/consumable/chocolate/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 0.8)
+	return ..()
 
 /datum/reagent/consumable/chocolate/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/reagent_containers/food/snacks/choc_pile(T)
+		new /obj/item/food/snacks/choc_pile(T)
 
 /datum/reagent/consumable/mugwort
 	name = "Mugwort"
@@ -668,7 +669,7 @@
 
 /datum/reagent/consumable/cheese/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/reagent_containers/food/snacks/cheesewedge(T)
+		new /obj/item/food/snacks/cheesewedge(T)
 
 /datum/reagent/consumable/fake_cheese
 	name = "Cheese substitute"
@@ -710,7 +711,7 @@
 
 /datum/reagent/consumable/weird_cheese/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/reagent_containers/food/snacks/weirdcheesewedge(T)
+		new /obj/item/food/snacks/weirdcheesewedge(T)
 
 /datum/reagent/consumable/beans
 	name = "Refried beans"
@@ -934,11 +935,11 @@
 
 /datum/reagent/ectoplasm/reaction_turf(turf/T, volume)
 	if(volume >= 10 && !isspaceturf(T))
-		new /obj/item/reagent_containers/food/snacks/ectoplasm(T)
+		new /obj/item/food/snacks/ectoplasm(T)
 
 /datum/reagent/consumable/bread/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/reagent_containers/food/snacks/breadslice(T)
+		new /obj/item/food/snacks/breadslice(T)
 
 /datum/reagent/soap
 	name = "Soap"

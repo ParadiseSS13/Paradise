@@ -837,7 +837,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/datum/browser/popup = new(M,window_id,window_name,350,600)
 	popup.set_content(dat)
 	popup.open()
-	onclose(M,window_id,ref=src)
+	onclose(M, window_id, src)
 	return
 
 /mob/living/simple_animal/bot/proc/update_controls()

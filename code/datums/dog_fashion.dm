@@ -177,7 +177,7 @@
 
 /datum/dog_fashion/head/sombrero
 	name = "Segnor REAL_NAME"
-	desc = "You must respect Elder Dogname"
+	desc = "You must respect Elder Dogname."
 
 /datum/dog_fashion/head/sombrero/New(mob/M)
 	..()
@@ -211,7 +211,7 @@
 
 /datum/dog_fashion/head/cone
 	name = "REAL_NAME"
-	desc = "Omnicone's Chosen Champion"
+	desc = "Omnicone's Chosen Champion."
 
 /datum/dog_fashion/back/hardsuit
 	name = "Space Explorer REAL_NAME"

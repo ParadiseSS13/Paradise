@@ -23,8 +23,13 @@
 	#define COMPONENT_GLOB_BLOCK_CINEMATIC (1<<0)
 /// ingame button pressed (/obj/machinery/button/button)
 #define COMSIG_GLOB_BUTTON_PRESSED "!button_pressed"
+
+/// job subsystem has spawned and equipped a new mob
+#define COMSIG_GLOB_JOB_AFTER_SPAWN "!job_after_spawn"
+
 /// cable was placed or joined somewhere : (turf)
 #define COMSIG_GLOB_CABLE_UPDATED "!cable_updated"
+
 
 /// signals from globally accessible objects
 
@@ -488,6 +493,10 @@
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
 
+///from base of mob/living/Write_Memory()
+#define COMSIG_LIVING_WRITE_MEMORY "living_write_memory"
+	#define COMPONENT_DONT_WRITE_MEMORY (1<<0)
+
 // /mob/living/carbon signals
 
 ///from base of mob/living/carbon/soundbang_act(): (list(intensity))
@@ -516,7 +525,12 @@
 #define COMSIG_CARBON_UPDATE_HANDCUFFED "carbon_update_handcuff"
 /// From /mob/living/carbon/regenerate_icons()
 #define COMSIG_CARBON_REGENERATE_ICONS "carbon_regen_icons"
-
+/// From /mob/living/carbon/enter_stamcrit()
+#define COMSIG_CARBON_ENTER_STAMINACRIT "carbon_enter_staminacrit"
+/// From /mob/living/carbon/update_stamina()
+#define COMSIG_CARBON_EXIT_STAMINACRIT "carbon_exit_staminacrit"
+/// From /mob/living/carbon/handle_status_effects()
+#define COMSIG_CARBON_STAMINA_REGENERATED "carbon_stamina_regenerated"
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
@@ -649,6 +663,7 @@
 #define COMSIG_SUIT_SPACE_TOGGLE "suit_space_toggle"
 
 // /obj/item/implant signals
+
 ///from base of /obj/item/bio_chip/proc/activate(): ()
 #define COMSIG_IMPLANT_ACTIVATED "implant_activated"
 ///from base of /obj/item/bio_chip/proc/implant(): (list/args)
@@ -662,6 +677,12 @@
 ///called on implants being implanted into someone with an uplink implant: (datum/component/uplink)
 #define COMSIG_IMPLANT_EXISTING_UPLINK "implant_uplink_exists"
 	//This uses all return values of COMSIG_IMPLANT_OTHER
+
+/// called on implants, after a successful implantation: (mob/living/target, mob/user, silent, force)
+#define COMSIG_IMPLANT_IMPLANTED "implant_implanted"
+
+/// called on implants, after an implant has been removed: (mob/living/source, silent, special)
+#define COMSIG_IMPLANT_REMOVED "implant_removed"
 
 // /obj/item/pda signals
 
@@ -685,6 +706,9 @@
 
 ///called in /obj/item/gun/process_fire (user, target, params, zone_override)
 #define COMSIG_MOB_FIRED_GUN "mob_fired_gun"
+
+///called in /obj/item/gun/process_fire (user, target)
+#define COMSIG_GUN_FIRED "gun_fired"
 
 // /obj/item/grenade signals
 
@@ -749,6 +773,10 @@
 ///From mob/living/carbon/human/attackedby(): (mob/living/carbon/human/attacker). Also found on species/disarm and species/harm
 #define COMSIG_HUMAN_ATTACKED "human_attacked"
 
+///from /mob/living/carbon/human/proc/check_shields(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
+#define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"
+	#define SHIELD_BLOCK (1<<0)
+
 // /datum/species signals
 
 ///from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)
@@ -780,7 +808,7 @@
 
 //Food
 
-///from base of obj/item/reagent_containers/food/snacks/attack(): (mob/living/eater, mob/feeder)
+///from base of obj/item/food/snacks/attack(): (mob/living/eater, mob/feeder)
 #define COMSIG_FOOD_EATEN "food_eaten"
 
 //Reagent
@@ -964,6 +992,9 @@
 #define COMSIG_MOD_WEARER_SET "mod_wearer_set"
 /// Called when the MODsuit wearer is unset.
 #define COMSIG_MOD_WEARER_UNSET "mod_wearer_unset"
+
+/// Called when the round has started, but before GAME_STATE_PLAYING.
+#define COMSIG_TICKER_ROUND_STARTING "comsig_ticker_round_starting"
 
 /// from /obj/structure/cursed_slot_machine/handle_status_effect() when someone pulls the handle on the slot machine
 #define COMSIG_CURSED_SLOT_MACHINE_USE "cursed_slot_machine_use"

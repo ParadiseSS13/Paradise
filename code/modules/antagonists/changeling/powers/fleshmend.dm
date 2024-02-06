@@ -4,7 +4,7 @@
 	helptext = "Does not regrow limbs. Partially recovers our blood. Functions while unconscious."
 	button_icon_state = "fleshmend"
 	chemical_cost = 20
-	dna_cost = 4
+	dna_cost = 5
 	req_stat = UNCONSCIOUS
 	power_type = CHANGELING_PURCHASABLE_POWER
 	category = /datum/changeling_power_category/defence

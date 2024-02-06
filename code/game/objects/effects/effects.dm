@@ -99,7 +99,7 @@
 		reagents.add_reagent_list(scoop_reagents)
 
 /obj/effect/decal/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks))
+	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks))
 		scoop(I, user)
 	else if(issimulatedturf(loc))
 		I.melee_attack_chain(user, loc)

@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(mapping)
 	///List of areas that exist on the station this shift
 	var/list/existing_station_areas
 	///What do we have as the lavaland theme today?
-	var/turf/simulated/floor/lavaland_theme
+	var/datum/lavaland_theme/lavaland_theme
 	///What primary cave theme we have picked for cave generation today.
 	var/cave_theme
 
@@ -40,8 +40,11 @@ SUBSYSTEM_DEF(mapping)
 		F << next_map.type
 
 /datum/controller/subsystem/mapping/Initialize()
-	lavaland_theme = pick(/turf/simulated/floor/lava/lava_land_surface, /turf/simulated/floor/lava/lava_land_surface/plasma, /turf/simulated/floor/chasm/straight_down/lava_land_surface)
+	var/datum/lavaland_theme/lavaland_theme_type = pick(subtypesof(/datum/lavaland_theme))
+	ASSERT(lavaland_theme_type)
+	lavaland_theme = new lavaland_theme_type
 	log_startup_progress("We're in the mood for [initial(lavaland_theme.name)] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
+
 	cave_theme = pick(BLOCKED_BURROWS, CLASSIC_CAVES, DEADLY_DEEPROCK)
 	log_startup_progress("We feel like [cave_theme] today...")
 	// Load all Z level templates
@@ -71,14 +74,8 @@ SUBSYSTEM_DEF(mapping)
 		log_startup_progress("Populating lavaland...")
 		var/lavaland_setup_timer = start_watch()
 		seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
-		switch(lavaland_theme)
-			if(/turf/simulated/floor/lava/lava_land_surface)
-				spawn_rivers(level_name_to_num(MINING)) //Default spawn, no tweaks needed
-			if(/turf/simulated/floor/lava/lava_land_surface/plasma) //More rivers, smaller
-				spawn_rivers(level_name_to_num(MINING), nodes = 2)
-				spawn_rivers(level_name_to_num(MINING), nodes = 2)
-			if(/turf/simulated/floor/chasm/straight_down/lava_land_surface) //Thiner chasms, bridges, reaches to edge of map.
-				spawn_rivers(level_name_to_num(MINING), nodes = 6, turf_type = /turf/simulated/floor/lava/mapping_lava, whitelist_area = /area/lavaland/surface/outdoors, min_x = 50, min_y = 7, max_x = 250, max_y = 225, prob = 10, prob_loss = 5)
+		if(lavaland_theme)
+			lavaland_theme.setup()
 		var/time_spent = stop_watch(lavaland_setup_timer)
 		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
 	else
@@ -129,6 +126,8 @@ SUBSYSTEM_DEF(mapping)
 	var/num_extra_space = rand(GLOB.configuration.ruins.extra_levels_min, GLOB.configuration.ruins.extra_levels_max)
 	for(var/i in 1 to num_extra_space)
 		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE_BY_CREW, SPAWN_RUINS, REACHABLE_SPACE_ONLY))
+		CHECK_TICK
+
 	log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
 
 	// Now spawn ruins, random budget between 20 and 30 for all zlevels combined.

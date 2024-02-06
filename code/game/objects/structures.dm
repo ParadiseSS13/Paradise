@@ -77,7 +77,7 @@
 	if(!isturf(loc))
 		return FALSE
 
-	if(HAS_TRAIT(user, TRAIT_TABLE_LEAP))
+	if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
 		user.visible_message("<span class='warning'>[user] gets ready to vault up onto [src]!</span>")
 		if(!do_after(user, 0.5 SECONDS, target = src))
 			return FALSE
@@ -91,7 +91,7 @@
 
 	user.forceMove(get_turf(src))
 	if(get_turf(user) == get_turf(src))
-		if(HAS_TRAIT(user, TRAIT_TABLE_LEAP))
+		if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
 			user.visible_message("<span class='warning'>[user] leaps up onto [src]!</span>")
 		else
 			user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
@@ -154,6 +154,9 @@
 		return FALSE
 	return TRUE
 
+/obj/structure/proc/get_climb_text()
+	return "<span class='info'>You can <b>Click-Drag</b> yourself to [src] to climb on top of it after a short delay.</span>"
+
 /obj/structure/examine(mob/user)
 	. = ..()
 	if(!(resistance_flags & INDESTRUCTIBLE))
@@ -165,7 +168,7 @@
 		if(examine_status)
 			. += examine_status
 	if(climbable)
-		. += "<span class='info'>You can <b>Click-Drag</b> someone to [src] to put them on the table after a short delay.</span>"
+		. += get_climb_text()
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100

@@ -387,7 +387,12 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/obj/machinery/power/apc/A = target
 	var/mob/living/carbon/human/H = user
-	if(H.get_int_organ(/obj/item/organ/internal/cell))
+	if(H.get_int_organ(/obj/item/organ/internal/cell) || H.get_int_organ(/obj/item/organ/internal/heart))
+		var/obj/item/organ/internal/heart/robotic = H.get_int_organ(/obj/item/organ/internal/heart)
+		if(robotic)
+			if(!(robotic.status & ORGAN_ROBOT) && !H.get_int_organ(/obj/item/organ/internal/heart/demon/pulse))
+				to_chat(user, "<span class='warning'>You lack a cell in which to store charge!</span>")
+				return
 		if(A.emagged || A.stat & BROKEN)
 			do_sparks(3, 1, A)
 			to_chat(H, "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>")
@@ -566,7 +571,7 @@
 
 /obj/item/v1_arm_shell
 	name = "vortex feedback arm implant frame"
-	desc = "An implant awaiting installation of a vortex anomaly core"
+	desc = "An implant awaiting installation of a vortex anomaly core."
 	icon_state = "v1_arm"
 
 /obj/item/v1_arm_shell/attackby(obj/item/I, mob/user, params)

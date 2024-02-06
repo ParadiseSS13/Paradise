@@ -1,28 +1,20 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  Section,
-  LabeledList,
-  Box,
-  ProgressBar,
-  Flex,
-  Tabs,
-  Icon,
-} from '../components';
+import { Button, Section, ProgressBar, Stack, Tabs, Icon } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { AccessList } from './common/AccessList';
-import { Fragment } from 'inferno';
 
 export const RCD = (props, context) => {
   return (
-    <Window resizable>
+    <Window width={480} height={670}>
       <ComplexModal />
-      <Window.Content display="flex" className="Layout__content--flexColumn">
-        <MatterReadout />
-        <ConstructionType />
-        <AirlockSettings />
-        <TypesAndAccess />
+      <Window.Content>
+        <Stack fill vertical>
+          <MatterReadout />
+          <ConstructionType />
+          <AirlockSettings />
+          <TypesAndAccess />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -34,34 +26,38 @@ const MatterReadout = (props, context) => {
   const good_matter = max_matter * 0.7;
   const average_matter = max_matter * 0.25;
   return (
-    <Section title="Matter Storage" flexBasis="content">
-      <ProgressBar
-        ranges={{
-          good: [good_matter, Infinity],
-          average: [average_matter, good_matter],
-          bad: [-Infinity, average_matter],
-        }}
-        value={matter}
-        maxValue={max_matter}
-      >
-        <Box textAlign="center">{matter + ' / ' + max_matter + ' units'}</Box>
-      </ProgressBar>
-    </Section>
+    <Stack.Item>
+      <Section title="Matter Storage">
+        <ProgressBar
+          ranges={{
+            good: [good_matter, Infinity],
+            average: [average_matter, good_matter],
+            bad: [-Infinity, average_matter],
+          }}
+          value={matter}
+          maxValue={max_matter}
+        >
+          <Stack.Item textAlign="center">
+            {matter + ' / ' + max_matter + ' units'}
+          </Stack.Item>
+        </ProgressBar>
+      </Section>
+    </Stack.Item>
   );
 };
 
 const ConstructionType = () => {
   return (
-    <Section title="Construction Type" flexBasis="content">
-      <Flex>
-        <Flex.Item>
+    <Stack.Item>
+      <Section title="Construction Type">
+        <Stack>
           <ConstructionTypeCheckbox mode_type="Floors and Walls" />
           <ConstructionTypeCheckbox mode_type="Airlocks" />
           <ConstructionTypeCheckbox mode_type="Windows" />
           <ConstructionTypeCheckbox mode_type="Deconstruction" />
-        </Flex.Item>
-      </Flex>
-    </Section>
+        </Stack>
+      </Section>
+    </Stack.Item>
   );
 };
 
@@ -70,15 +66,19 @@ const ConstructionTypeCheckbox = (props, context) => {
   const { mode_type } = props;
   const { mode } = data;
   return (
-    <Button.Checkbox
-      content={mode_type}
-      checked={mode === mode_type ? 1 : 0}
-      onClick={() =>
-        act('mode', {
-          mode: mode_type,
-        })
-      }
-    />
+    <Stack.Item grow textAlign="center">
+      <Button
+        fluid
+        color="transparent"
+        content={mode_type}
+        selected={mode === mode_type ? 1 : 0}
+        onClick={() =>
+          act('mode', {
+            mode: mode_type,
+          })
+        }
+      />
+    </Stack.Item>
   );
 };
 
@@ -86,35 +86,32 @@ const AirlockSettings = (props, context) => {
   const { act, data } = useBackend(context);
   const { door_name, electrochromic, airlock_glass } = data;
   return (
-    <Section
-      title="Airlock Settings"
-      flexBasis="content"
-      height={airlock_glass ? 7.5 : 5.5}
-    >
-      <LabeledList>
-        <LabeledList.Item color="silver" label="Name">
-          {door_name}
-          <Button
-            ml={2.5}
-            icon="pen-alt"
-            content="Edit"
-            onClick={() => modalOpen(context, 'renameAirlock')}
-          />
-        </LabeledList.Item>
-      </LabeledList>
-      {airlock_glass === 1 && (
-        <LabeledList>
-          <LabeledList.Item color="silver" label="Electrochromic">
+    <Stack.Item>
+      <Section title="Airlock Settings">
+        <Stack textAlign="center">
+          <Stack.Item grow>
             <Button
-              icon={electrochromic ? 'toggle-on' : 'toggle-off'}
-              content={electrochromic ? 'On' : 'Off'}
-              selected={electrochromic}
-              onClick={() => act('electrochromic')}
+              fluid
+              color="transparent"
+              icon="pen-alt"
+              content={<>Rename: {<b>{door_name}</b>}</>}
+              onClick={() => modalOpen(context, 'renameAirlock')}
             />
-          </LabeledList.Item>
-        </LabeledList>
-      )}
-    </Section>
+          </Stack.Item>
+          <Stack.Item>
+            {airlock_glass === 1 && (
+              <Button
+                fluid
+                icon={electrochromic ? 'toggle-on' : 'toggle-off'}
+                content={'Electrochromic'}
+                selected={electrochromic}
+                onClick={() => act('electrochromic')}
+              />
+            )}
+          </Stack.Item>
+        </Stack>
+      </Section>
+    </Stack.Item>
   );
 };
 
@@ -122,124 +119,121 @@ const TypesAndAccess = (props, context) => {
   const { act, data } = useBackend(context);
   const { tab, locked, one_access, selected_accesses, regions } = data;
   return (
-    <Fragment>
-      <Tabs>
-        <Tabs.Tab
-          content="Airlock Types"
-          icon="cog"
-          selected={tab === 1}
-          onClick={() =>
-            act('set_tab', {
-              tab: 1,
-            })
-          }
-        />
-        <Tabs.Tab
-          selected={tab === 2}
-          content="Airlock Access"
-          icon="list"
-          onClick={() =>
-            act('set_tab', {
-              tab: 2,
-            })
-          }
-        />
-      </Tabs>
-      {tab === 1 ? (
-        <Section title="Types" flexGrow="1">
-          <Flex>
-            <Flex.Item width="50%" mr={1}>
-              <AirlockTypeList check_number={0} />
-            </Flex.Item>
-            <Flex.Item width="50%">
-              <AirlockTypeList check_number={1} />
-            </Flex.Item>
-          </Flex>
-        </Section>
-      ) : tab === 2 && locked ? (
-        <Section
-          title="Access"
-          flexGrow="1"
-          buttons={
-            <Button
-              icon="lock-open"
-              content="Unlock"
-              onClick={() =>
-                act('set_lock', {
-                  new_lock: 'unlock',
-                })
-              }
-            />
-          }
-        >
-          <Flex height="100%">
-            <Flex.Item grow="1" textAlign="center" align="center" color="label">
-              <Icon name="lock" size="5" mb={3} />
-              <br />
-              Airlock access selection is currently locked.
-            </Flex.Item>
-          </Flex>
-        </Section>
-      ) : (
-        <AccessList
-          sectionFlexGrow="1"
-          sectionButtons={
-            <Button
-              icon="lock"
-              content="Lock"
-              onClick={() =>
-                act('set_lock', {
-                  new_lock: 'lock',
-                })
-              }
-            />
-          }
-          usedByRcd={1}
-          rcdButtons={
-            <Fragment>
-              <Button.Checkbox
-                checked={one_access}
-                content="One"
+    <>
+      <Stack.Item textAlign="center">
+        <Tabs fluid>
+          <Tabs.Tab
+            icon="cog"
+            selected={tab === 1}
+            onClick={() => act('set_tab', { tab: 1 })}
+          >
+            Airlock Types
+          </Tabs.Tab>
+          <Tabs.Tab
+            selected={tab === 2}
+            icon="list"
+            onClick={() => act('set_tab', { tab: 2 })}
+          >
+            Airlock Access
+          </Tabs.Tab>
+        </Tabs>
+      </Stack.Item>
+      <Stack.Item grow>
+        {tab === 1 ? (
+          <Section fill scrollable title="Types">
+            <Stack>
+              <Stack.Item grow>
+                <AirlockTypeList check_number={0} />
+              </Stack.Item>
+              <Stack.Item grow>
+                <AirlockTypeList check_number={1} />
+              </Stack.Item>
+            </Stack>
+          </Section>
+        ) : tab === 2 && locked ? (
+          <Section
+            fill
+            title="Access"
+            buttons={
+              <Button
+                icon="lock-open"
+                content="Unlock"
                 onClick={() =>
-                  act('set_one_access', {
-                    access: 'one',
+                  act('set_lock', {
+                    new_lock: 'unlock',
                   })
                 }
               />
-              <Button.Checkbox
-                checked={!one_access}
-                width={4}
-                content="All"
+            }
+          >
+            <Stack fill>
+              <Stack.Item grow textAlign="center" align="center" color="label">
+                <Icon name="lock" size="5" mb={3} />
+                <br />
+                Airlock access selection is currently locked.
+              </Stack.Item>
+            </Stack>
+          </Section>
+        ) : (
+          <AccessList
+            sectionButtons={
+              <Button
+                icon="lock"
+                content="Lock"
                 onClick={() =>
-                  act('set_one_access', {
-                    access: 'all',
+                  act('set_lock', {
+                    new_lock: 'lock',
                   })
                 }
               />
-            </Fragment>
-          }
-          accesses={regions}
-          selectedList={selected_accesses}
-          accessMod={(ref) =>
-            act('set', {
-              access: ref,
-            })
-          }
-          grantAll={() => act('grant_all')}
-          denyAll={() => act('clear_all')}
-          grantDep={(ref) =>
-            act('grant_region', {
-              region: ref,
-            })
-          }
-          denyDep={(ref) =>
-            act('deny_region', {
-              region: ref,
-            })
-          }
-        />
-      )}
-    </Fragment>
+            }
+            usedByRcd={1}
+            rcdButtons={
+              <>
+                <Button.Checkbox
+                  checked={one_access}
+                  content="One"
+                  onClick={() =>
+                    act('set_one_access', {
+                      access: 'one',
+                    })
+                  }
+                />
+                <Button.Checkbox
+                  checked={!one_access}
+                  width={4}
+                  content="All"
+                  onClick={() =>
+                    act('set_one_access', {
+                      access: 'all',
+                    })
+                  }
+                />
+              </>
+            }
+            accesses={regions}
+            selectedList={selected_accesses}
+            accessMod={(ref) =>
+              act('set', {
+                access: ref,
+              })
+            }
+            grantAll={() => act('grant_all')}
+            denyAll={() => act('clear_all')}
+            grantDep={(ref) =>
+              act('grant_region', {
+                region: ref,
+              })
+            }
+            denyDep={(ref) =>
+              act('deny_region', {
+                region: ref,
+              })
+            }
+          />
+        )}
+      </Stack.Item>
+    </>
   );
 };
 
@@ -255,36 +249,39 @@ const AirlockTypeList = (props, context) => {
     }
   }
   return (
-    <Box>
+    <Stack.Item>
       {doors_filtered.map((entry, i) => (
-        <Flex key={i} mb={1}>
-          <Flex.Item>
-            <img
-              src={`data:image/jpeg;base64,${entry.image}`}
-              style={{
-                'vertical-align': 'middle',
-                width: '32px',
-                margin: '0px',
-                'margin-left': '0px',
-              }}
-            />
-          </Flex.Item>
-          <Flex.Item>
+        <Stack key={i} mb={0.5}>
+          <Stack.Item grow>
             <Button.Checkbox
-              ml={1.5}
-              mt={1}
-              width={14}
+              fluid
+              icon={null}
+              color="translucent"
               checked={door_type === entry.type}
-              content={entry.name}
+              content={
+                <>
+                  <img
+                    src={`data:image/jpeg;base64,${entry.image}`}
+                    style={{
+                      'vertical-align': 'middle',
+                      width: '32px',
+                      margin: '3px',
+                      'margin-right': '6px',
+                      'margin-left': '-3px',
+                    }}
+                  />
+                  {entry.name}
+                </>
+              }
               onClick={() =>
                 act('door_type', {
                   door_type: entry.type,
                 })
               }
             />
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       ))}
-    </Box>
+    </Stack.Item>
   );
 };
