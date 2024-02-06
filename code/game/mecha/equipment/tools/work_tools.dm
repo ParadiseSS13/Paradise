@@ -500,7 +500,7 @@
 	..()
 	if(href_list["select"])
 		selected_item = locateUID(href_list["select"])
-		occupant_message("Switched to [selected_item]")
+		occupant_message("<span class='notice'>Switched to [selected_item].</span>")
 		update_equip_info()
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/action(atom/target)
