@@ -81402,12 +81402,6 @@
 /obj/item/clothing/mask/gas,
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
-"nii" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/station/command/office/ce)
 "nij" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -122067,7 +122061,7 @@ bDl
 bGt
 bgJ
 bgJ
-nii
+bgJ
 bgJ
 bgJ
 bgJ
