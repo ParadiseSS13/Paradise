@@ -110,8 +110,8 @@ SUBSYSTEM_DEF(statpanels)
 		if(turf_content.IsObscured())
 			continue
 
+		var/turf_content_ref = turf_content.UID()
 		if(length(turfitems) < 10) // only create images for the first 10 items on the turf, for performance reasons
-			var/turf_content_ref = turf_content.UID()
 			if(!(turf_content_ref in cached_images))
 				cached_images += turf_content_ref
 				turf_content.RegisterSignal(turf_content, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/atom, remove_from_cache)) // we reset cache if anything in it gets deleted
@@ -123,7 +123,7 @@ SUBSYSTEM_DEF(statpanels)
 			else
 				turfitems[++turfitems.len] = list("[turf_content.name]", turf_content_ref)
 		else
-			turfitems[++turfitems.len] = list("[turf_content.name]", turf_content.UID())
+			turfitems[++turfitems.len] = list("[turf_content.name]", turf_content_ref)
 
 	turfitems = turfitems
 	target.stat_panel.send_message("update_listedturf", turfitems)
