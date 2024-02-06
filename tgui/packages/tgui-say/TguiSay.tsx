@@ -180,7 +180,7 @@ export class TguiSay extends Component<{}, State> {
     // Binary talk is a special case, tell byond to show thinking indicators
     if (
       this.channelIterator.isSay() &&
-      this.currentPrefix === (':+ ' || '.+ ' || '#+ ')
+      this.currentPrefix === (':b ' || '.b ' || '#b ')
     ) {
       this.messages.channelIncrementMsg(true);
     }
@@ -213,7 +213,7 @@ export class TguiSay extends Component<{}, State> {
     // If we're typing, send the message
     if (
       this.channelIterator.isVisible() &&
-      this.currentPrefix !== (':+ ' || '.+ ' || '#+ ')
+      this.currentPrefix !== (':b ' || '.b ' || '#b ')
     ) {
       this.messages.typingMsg(this.channelIterator.isMe());
     }
@@ -247,7 +247,7 @@ export class TguiSay extends Component<{}, State> {
     }
 
     // If we're in binary, hide the thinking indicator
-    if (prefix === (':+ ' || '.+ ' || '#+ ')) {
+    if (prefix === (':b ' || '.b ' || '#b ')) {
       Byond.sendMessage('thinking', { visible: false });
     }
 

@@ -71,4 +71,7 @@ export const RADIO_PREFIXES = {
   ':+ ': 'Special',
   '#+ ': 'Special',
   '.+ ': 'Special',
+  ':b ': 'Binary',
+  '#b ': 'Binary',
+  '.b ': 'Binary',
 } as const;

@@ -1,3 +1,5 @@
+#define LARGE_SENTENCE_LENGTH 50
+
 /**
  * Alters text when players are injured.
  * Adds text, trims left and right side
@@ -13,8 +15,8 @@
 	if(!entry || (payload["channel"] != SAY_CHANNEL && payload["channel"] != RADIO_CHANNEL))
 		return pick(hurt_phrases)
 	/// Random trimming for larger sentences
-	if(length(entry) > 50)
-		entry = trim_length(trim(entry), rand(40, 50))
+	if(length(entry) > LARGE_SENTENCE_LENGTH)
+		entry = trim_length(trim(entry), rand(LARGE_SENTENCE_LENGTH - 10, LARGE_SENTENCE_LENGTH))
 	else
 		/// Otherwise limit trim to just last letter
 		if(length(entry) > 1)
@@ -101,3 +103,5 @@
 		delegate_speech(alter_entry(payload), target_channel)
 		return TRUE
 	return FALSE
+
+#undef LARGE_SENTENCE_LENGTH
