@@ -187,3 +187,5 @@
 
 /datum/action/innate/end_holocall/Activate()
 	hcall.Disconnect(hcall.calling_holopad)
+
+#undef HOLOPAD_MAX_DIAL_TIME

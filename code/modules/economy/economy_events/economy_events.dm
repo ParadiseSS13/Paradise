@@ -148,3 +148,43 @@
 		affected_dest.temp_price_change[good_type] = 1
 	for(var/good_type in cheaper_goods)
 		affected_dest.temp_price_change[good_type] = 1
+
+#undef RIOTS
+#undef WILD_ANIMAL_ATTACK
+#undef INDUSTRIAL_ACCIDENT
+#undef BIOHAZARD_OUTBREAK
+#undef WARSHIPS_ARRIVE
+#undef PIRATES
+#undef CORPORATE_ATTACK
+#undef ALIEN_RAIDERS
+#undef AI_LIBERATION
+#undef MOURNING
+#undef CULT_CELL_REVEALED
+#undef SECURITY_BREACH
+#undef ANIMAL_RIGHTS_RAID
+#undef FESTIVAL
+#undef RESEARCH_BREAKTHROUGH
+#undef BARGAINS
+#undef SONG_DEBUT
+#undef MOVIE_RELEASE
+#undef BIG_GAME_HUNTERS
+#undef ELECTION
+#undef GOSSIP
+#undef TOURISM
+#undef CELEBRITY_DEATH
+#undef RESIGNATION
+#undef DEFAULT
+#undef ADMINISTRATIVE
+#undef CLOTHING
+#undef SECURITY
+#undef SPECIAL_SECURITY
+#undef FOOD
+#undef ANIMALS
+#undef MINERALS
+#undef EMERGENCY
+#undef EGAS
+#undef MAINTENANCE
+#undef ELECTRICAL
+#undef ROBOTICS
+#undef BIOMEDICAL
+#undef GEAR_EVA

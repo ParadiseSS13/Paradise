@@ -103,3 +103,7 @@
 	H.change_dna(D, changes_species)
 	if(internals_on)
 		H.internal = internals_on
+
+#undef CHANGELING_INNATE_POWER
+#undef CHANGELING_PURCHASABLE_POWER
+#undef CHANGELING_UNOBTAINABLE_POWER

@@ -275,3 +275,6 @@
 	for(var/obj/item/ammo in stored_ammo)
 		ammo.forceMove(turf_mag)
 		stored_ammo -= ammo
+
+#undef AMMO_MULTI_SPRITE_STEP_NONE
+#undef AMMO_MULTI_SPRITE_STEP_ON_OFF

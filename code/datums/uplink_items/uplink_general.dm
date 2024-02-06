@@ -885,3 +885,5 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "RTCH"
 	item = /obj/item/stack/telecrystal/hundred
 	cost = 100
+
+#undef UPLINK_SPECIAL_SPAWNING

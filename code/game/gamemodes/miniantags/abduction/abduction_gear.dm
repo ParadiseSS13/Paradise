@@ -749,3 +749,15 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	airlock_type = /obj/machinery/door/airlock/abductor
 	material_type = /obj/item/stack/sheet/mineral/abductor
 	noglass = TRUE
+
+#undef VEST_STEALTH
+#undef VEST_COMBAT
+#undef GIZMO_SCAN
+#undef GIZMO_MARK
+#undef MIND_DEVICE_MESSAGE
+#undef MIND_DEVICE_CONTROL
+#undef BATON_STUN
+#undef BATON_SLEEP
+#undef BATON_CUFF
+#undef BATON_PROBE
+#undef BATON_MODES

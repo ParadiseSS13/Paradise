@@ -648,3 +648,5 @@
 /obj/item/stamp/chameleon/broken/Initialize(mapload)
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
+
+#undef EMP_RANDOMISE_TIME

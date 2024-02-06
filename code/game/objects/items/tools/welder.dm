@@ -304,3 +304,5 @@
 	icon_state = "brasswelder"
 	item_state = "brasswelder"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+#undef GET_FUEL

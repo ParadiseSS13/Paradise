@@ -17,3 +17,9 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 #define CENSOR_AUTHOR (1 << 0)
 /// Censor story title, body and image.
 #define CENSOR_STORY (1 << 1)
+
+#undef NEWSCASTER_HEADLINES
+#undef NEWSCASTER_JOBS
+#undef NEWSCASTER_CHANNEL
+#undef CENSOR_AUTHOR
+#undef CENSOR_STORY

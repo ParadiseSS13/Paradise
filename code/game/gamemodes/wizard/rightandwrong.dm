@@ -166,3 +166,5 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 			give_magic(H)
 		else
 			give_guns(H)
+
+#undef SPECIALIST_MAGIC_PROB

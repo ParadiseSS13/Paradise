@@ -150,3 +150,5 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	return TRUE
 
 #undef ALWAYS_IN_GRAVITY
+
+#undef TRACKS_CRUSTIFY_TIME

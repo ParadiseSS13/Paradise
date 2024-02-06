@@ -86,3 +86,8 @@ SUBSYSTEM_DEF(weather)
 			A = W
 			break
 	return A
+
+#undef STARTUP_STAGE
+#undef MAIN_STAGE
+#undef WIND_DOWN_STAGE
+#undef END_STAGE

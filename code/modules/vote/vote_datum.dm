@@ -201,3 +201,5 @@
 			else
 				message_admins("<span class='boldannounceooc'>\[EXPLOIT]</span> User [key_name_admin(usr)] spoofed a vote in the vote panel!")
 
+
+#undef VOTE_RESULT_TYPE_MAJORITY

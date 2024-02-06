@@ -572,3 +572,6 @@
 	usr.hud_used.screentip_text.maptext = ""
 
 #undef MAX_DENT_DECALS
+
+#undef WALL_DENT_HIT
+#undef WALL_DENT_SHOT

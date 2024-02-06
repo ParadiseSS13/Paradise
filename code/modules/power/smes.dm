@@ -482,3 +482,6 @@
 	..()
 
 #undef SMESRATE
+
+#undef SMESMAXCHARGELEVEL
+#undef SMESMAXOUTPUT

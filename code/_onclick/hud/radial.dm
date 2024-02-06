@@ -321,3 +321,6 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		return
 
 	return return_choices[chosen_key]
+
+#undef NEXT_PAGE_ID
+#undef DEFAULT_CHECK_DELAY

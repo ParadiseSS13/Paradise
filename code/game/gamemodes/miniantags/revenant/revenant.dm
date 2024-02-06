@@ -442,3 +442,6 @@
 		qdel(src)
 		if(src) //Should never happen, but just in case
 			inert = 1
+
+#undef INVISIBILITY_REVENANT
+#undef REVENANT_NAME_FILE

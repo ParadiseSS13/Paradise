@@ -665,3 +665,11 @@
 	if(target && procname)
 		call(target,procname)(usr)
 	return TRUE
+
+#undef AB_CHECK_RESTRAINED
+#undef AB_CHECK_STUNNED
+#undef AB_CHECK_LYING
+#undef AB_CHECK_CONSCIOUS
+#undef AB_CHECK_TURF
+#undef AB_CHECK_HANDS_BLOCKED
+#undef AB_CHECK_IMMOBILE

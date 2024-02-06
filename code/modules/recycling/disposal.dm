@@ -1510,3 +1510,6 @@
 		dirs = GLOB.alldirs.Copy()
 
 	src.streak(dirs)
+
+#undef SEND_PRESSURE
+#undef DISPOSAL_SOUND_COOLDOWN

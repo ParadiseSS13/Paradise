@@ -216,3 +216,6 @@
 /obj/item/reagent_containers/iv_bag/slime/Initialize(mapload)
 	. = ..()
 	name = "[initial(name)] - Slime Jelly"
+
+#undef IV_DRAW
+#undef IV_INJECT

@@ -1809,3 +1809,5 @@
 				user.visible_message("[user] unfastens the external armor layer.", "You unfasten the external armor layer.")
 				holder.icon_state = "odysseus12"
 	return 1
+
+#undef STANDARD_STACK_AMOUNT

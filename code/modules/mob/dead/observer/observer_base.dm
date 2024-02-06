@@ -846,3 +846,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return allow_roundstart_observers
 	return FALSE
 
+
+#undef GHOST_CAN_REENTER
+#undef GHOST_IS_OBSERVER

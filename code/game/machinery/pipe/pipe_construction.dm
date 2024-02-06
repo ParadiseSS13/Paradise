@@ -603,3 +603,6 @@
 		return
 
 	flip()
+
+#undef CIRC_LEFT
+#undef CIRC_RIGHT

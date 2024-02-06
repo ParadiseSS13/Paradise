@@ -699,3 +699,7 @@
 
 	if(!(stat & NOPOWER) && !panel_open)
 		underlays += emissive_appearance(icon, "controller_lightmask")
+
+#undef REGIME_TELEPORT
+#undef REGIME_GATE
+#undef REGIME_GPS

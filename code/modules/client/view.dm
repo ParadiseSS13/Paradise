@@ -90,3 +90,5 @@
 
 	to_chat(src, "<span class='notice'>View range set to [viewNum_to_text(view_range)]</span>")
 	AddViewMod("custom", view_range)
+
+#undef CUSTOM_VIEWRANGES

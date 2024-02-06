@@ -630,3 +630,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 */
 
 #undef MINIMUM_HEAL_LEVEL
+
+#undef CLONE_BIOMASS
+#undef BIOMASS_BASE_AMOUNT
+#undef CLONE_INITIAL_DAMAGE
+#undef BRAIN_INITIAL_DAMAGE

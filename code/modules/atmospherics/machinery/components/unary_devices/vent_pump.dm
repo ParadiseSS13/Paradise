@@ -255,3 +255,7 @@
 	if(initial_loc)
 		initial_loc.vents -= src
 	return ..()
+
+#undef EXTERNAL_PRESSURE_BOUND
+#undef INTERNAL_PRESSURE_BOUND
+#undef PRESSURE_CHECKS

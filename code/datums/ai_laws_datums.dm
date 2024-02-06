@@ -292,3 +292,5 @@
 	var/index = laws.Find(law)
 	if(index)
 		state[index] = do_state
+
+#undef BASE_LAW_TYPE

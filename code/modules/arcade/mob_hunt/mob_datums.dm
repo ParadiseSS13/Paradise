@@ -496,3 +496,21 @@
 	area_whitelist = list()
 	turf_whitelist = list()
 	lifetime = 2000
+
+#undef TYPE_FIRE
+#undef TYPE_WATER
+#undef TYPE_GRASS
+#undef TYPE_ELECTRIC
+#undef TYPE_GROUND
+#undef TYPE_ROCK
+#undef TYPE_BUG
+#undef TYPE_POISON
+#undef TYPE_NORMAL
+#undef TYPE_FIGHTING
+#undef TYPE_PSYCHIC
+#undef TYPE_GHOST
+#undef TYPE_ICE
+#undef TYPE_FLYING
+#undef TYPE_BLUESPACE
+#undef TYPE_DARK
+#undef TYPE_STEEL

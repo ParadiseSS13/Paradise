@@ -563,3 +563,5 @@
 #undef SETTING_DISK
 #undef SETTING_LOCATION
 #undef SETTING_OBJECT
+
+#undef MODE_DET

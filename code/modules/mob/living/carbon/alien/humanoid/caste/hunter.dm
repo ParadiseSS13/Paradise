@@ -107,3 +107,5 @@
 	if(leaping)
 		return
 	..()
+
+#undef MAX_ALIEN_LEAP_DIST

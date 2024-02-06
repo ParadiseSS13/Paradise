@@ -704,3 +704,7 @@
 	else if(istype(A, /obj/structure/spacevine) || istype(A, /obj/structure/alien/resin/flower_bud_enemy))
 		return TRUE
 	return FALSE
+
+#undef POSITIVE
+#undef NEGATIVE
+#undef MINOR_NEGATIVE

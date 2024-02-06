@@ -324,3 +324,5 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(eyeobj)
 		return eyeobj
 	return src
+
+#undef DEFAULT_PLAYER_OOC_COLOUR

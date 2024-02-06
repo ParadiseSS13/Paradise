@@ -425,3 +425,5 @@
 			sleep(1)
 	if(spats)
 		visible_message("<span class='warning'>\The [src] spits out more possessions!</span>")
+
+#undef GIBBER_ANIMATION_DELAY

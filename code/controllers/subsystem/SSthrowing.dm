@@ -158,3 +158,6 @@ SUBSYSTEM_DEF(throwing)
 		if((AM.density || isliving(AM) && !dodgeable && !HAS_TRAIT(AM, TRAIT_DODGE_ALL_OBJECTS)) && !(AM.pass_flags & LETPASSTHROW) && !(AM.flags & ON_BORDER))
 			finalize(hit = TRUE, target = AM)
 			return TRUE
+
+#undef MAX_THROWING_DIST
+#undef MAX_TICKS_TO_MAKE_UP

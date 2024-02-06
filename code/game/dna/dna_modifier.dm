@@ -845,3 +845,9 @@
 #undef PAGE_REJUVENATORS
 
 /////////////////////////// DNA MACHINES
+
+#undef DNA_BLOCK_SIZE
+#undef DNA2_BUF_UI
+#undef DNA2_BUF_UE
+#undef DNA2_BUF_SE
+#undef NEGATE_MUTATION_THRESHOLD

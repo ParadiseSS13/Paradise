@@ -242,3 +242,7 @@
 
 /datum/construction/reversible2/action(used_atom,user)
 	return check_step(used_atom,user)
+
+#undef FORWARD
+#undef BACKWARD
+#undef CONSTRUCTION_TOOL_BEHAVIOURS

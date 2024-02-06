@@ -1113,3 +1113,5 @@
 /datum/mutation/flash_protection/New()
 	..()
 	block = GLOB.noflashblock
+
+#undef EAT_MOB_DELAY

@@ -1183,3 +1183,25 @@ Just an object used in constructing air alarms
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
+
+#undef AALARM_MODE_SCRUBBING
+#undef AALARM_MODE_VENTING
+#undef AALARM_MODE_PANIC
+#undef AALARM_MODE_REPLACEMENT
+#undef AALARM_MODE_SIPHON
+#undef AALARM_MODE_CONTAMINATED
+#undef AALARM_MODE_REFILL
+#undef AALARM_MODE_OFF
+#undef AALARM_MODE_FLOOD
+#undef AALARM_PRESET_HUMAN
+#undef AALARM_PRESET_VOX
+#undef AALARM_PRESET_COLDROOM
+#undef AALARM_PRESET_SERVER
+#undef AALARM_PRESET_DISABLED
+#undef AALARM_REPORT_TIMEOUT
+#undef RCON_NO
+#undef RCON_AUTO
+#undef RCON_YES
+#undef MAX_ENERGY_CHANGE
+#undef MAX_TEMPERATURE
+#undef MIN_TEMPERATURE

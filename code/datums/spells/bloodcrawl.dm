@@ -274,3 +274,6 @@
 		return
 	var/mob/living/simple_animal/demon/shadow/S = L
 	S.RegisterSignal(holder, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
+
+#undef BLOODCRAWL
+#undef BLOODCRAWL_EAT

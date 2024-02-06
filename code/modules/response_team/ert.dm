@@ -375,3 +375,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	frequency = ERT_FREQ
 	icon_state = "radio"
 	freqlock = TRUE
+
+#undef ERT_TYPE_AMBER
+#undef ERT_TYPE_RED
+#undef ERT_TYPE_GAMMA
