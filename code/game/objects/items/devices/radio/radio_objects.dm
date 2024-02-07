@@ -22,8 +22,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
-#define TEST "lol test"
-
 /obj/item/radio
 	icon = 'icons/obj/radio.dmi'
 	name = "station bounced radio"

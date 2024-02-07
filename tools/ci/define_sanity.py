@@ -84,14 +84,11 @@ if number_of_defines <= 1000:
     sys.exit(1)
 
 if len(located_error_tuples):
-
-    string_list = []
+    fix_errors = False
+    if(not on_github):
+        fix_errors = input(red("We found files missing #undef\'s at the end. Would you like to fix these errors?") + " [y/n]: ").lower()[0] == "y" # Check if the answer is "Yes", "y", "Y", etc
     for error in located_error_tuples:
-        if not on_github:
-            post_error(error[0], error[1], False)
-            string_list.append(f"{error[0]} is defined locally in {error[1]} but not undefined locally!")
-        else:
-            post_error(error[0], error[1], True)
+        post_error(error[0], error[1], on_github, fix_errors)
 
     print(red(how_to_fix_message))
     sys.exit(1)
