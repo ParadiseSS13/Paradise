@@ -71,9 +71,9 @@ SUBSYSTEM_DEF(throwing)
 	///When this variable is false, non dense mobs will be hit by a thrown item. useful for things that you dont want to be cheesed by crawling, EG. gravitational anomalies
 	var/dodgeable = TRUE
 	/// Can a thrown mob move themselves to stop the throw?
-	var/block_movement = TRUE
+	var/should_block_movement = TRUE
 	/// This is internal variable to support no gravity movement even if variable above is TRUE. This variable will change during throwing
-	var/block_movement_actual = TRUE
+	var/block_movement = TRUE
 
 /datum/thrownthing/proc/tick()
 	var/atom/movable/AM = thrownthing
@@ -104,9 +104,9 @@ SUBSYSTEM_DEF(throwing)
 			gravity = has_gravity(AM, AM.loc)
 
 		if(!gravity)
-			block_movement_actual = FALSE // you should be able to move if there is no gravity, supports jetpack movement during throw
+			block_movement = FALSE // you should be able to move if there is no gravity, supports jetpack movement during throw
 		else
-			block_movement_actual = block_movement
+			block_movement = should_block_movement
 
 		if((dist_travelled >= maxrange || AM.loc == target_turf) && gravity)
 			hitcheck() //Just to be sure
