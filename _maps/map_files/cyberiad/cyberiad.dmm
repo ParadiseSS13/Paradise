@@ -47229,9 +47229,7 @@
 	},
 /area/station/command/office/ce)
 "cWE" = (
-/obj/structure/flora/tree/palm{
-	pixel_x = 0
-	},
+/obj/structure/flora/tree/palm,
 /obj/effect/overlay/coconut{
 	pixel_y = -6
 	},

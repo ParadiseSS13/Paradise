@@ -32524,9 +32524,7 @@
 /area/station/maintenance/starboard)
 "cfV" = (
 /obj/structure/sink/puddle,
-/obj/structure/flora/junglebush/large{
-	pixel_y = 0
-	},
+/obj/structure/flora/junglebush/large,
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/virology)
 "cfW" = (
@@ -37087,9 +37085,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/obj/structure/flora/junglebush/large{
-	pixel_y = 0
-	},
+/obj/structure/flora/junglebush/large,
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/exam_room)
 "cxz" = (
@@ -61000,9 +60996,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/obj/structure/flora/junglebush/large{
-	pixel_y = 0
-	},
+/obj/structure/flora/junglebush/large,
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/exam_room)
 "jNd" = (
