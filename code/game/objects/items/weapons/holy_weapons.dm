@@ -141,10 +141,8 @@
 	if(!isliving(M))
 		return
 	M.IgniteMob()
-	if(!ismob(M))
-		return
 
-	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth")
+	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		var/obj/item/clothing/mask/cigarette/cig = M.wear_mask
 		if(M == user)
 			cig.attackby(src, user)
