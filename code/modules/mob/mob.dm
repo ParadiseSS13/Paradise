@@ -677,7 +677,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		var/obj/mecha/mecha = loc
 		if(src == mecha.occupant)
 			mecha.selected?.self_occupant_attack()
-		return
 
 ///proc version to finish /mob/verb/mode() execution. used in case the proc needs to be queued for the tick after its first called
 /mob/proc/run_mode()
