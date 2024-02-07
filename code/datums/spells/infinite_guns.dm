@@ -101,7 +101,8 @@
 /obj/effect/proc_holder/spell/infinite_guns/fireball/basic/proc/remove_weapon(any_hand = FALSE)
 	SIGNAL_HANDLER
 	var/mob/owner = action.owner
-	if(!any_hand && !(owner.get_active_hand()?.type ==  gun_type))
+	var/active_hand_item = owner.get_active_hand()
+	if(!any_hand && !(active_hand_item?.type ==  gun_type))
 		return
 
 	if(owner.l_hand?.type == gun_type)
