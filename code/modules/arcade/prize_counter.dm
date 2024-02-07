@@ -40,7 +40,7 @@
 	return data
 
 /obj/machinery/prize_counter/ui_static_data(mob/user)
-	var/list/data = list()
+	var/list/static_data = list()
 
 	var/list/prizes = list()
 	for(var/datum/prize_item/prize in GLOB.global_prizes.prizes)
@@ -51,9 +51,9 @@
 			"itemID" = GLOB.global_prizes.prizes.Find(prize),
 			"imageID" = replacetext(replacetext("[prize.typepath]", "/obj/item/", ""), "/", "-"),
 		))
-	data["prizes"] = prizes
+	static_data["prizes"] = prizes
 
-	return data
+	return static_data
 
 /obj/machinery/prize_counter/ui_act(action, params, datum/tgui/ui)
 	if(..())
@@ -124,12 +124,9 @@
 	ui_interact(user)
 
 /obj/machinery/prize_counter/proc/print_tickets()
-	if(!tickets)
-		return
 	if(tickets >= 9999)
 		new /obj/item/stack/tickets(get_turf(src), 9999)	//max stack size
 		tickets -= 9999
-		print_tickets()
 	else
 		new /obj/item/stack/tickets(get_turf(src), tickets)
 		tickets = 0

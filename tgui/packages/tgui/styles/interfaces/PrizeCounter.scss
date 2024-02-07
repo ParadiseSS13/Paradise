@@ -17,8 +17,7 @@ $text-color: rgba(255, 255, 255) !default;
     color 100ms,
     background-color 100ms;
 
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: lighten($background-color, 33%);
     color: $text-color;
   }

@@ -86,6 +86,7 @@ export const PrizeCounter = (props, context) => {
                         icon="ticket-alt"
                         content={prize.cost}
                         tooltip={disabled ? 'Not enough tickets.' : null}
+                        tooltipPosition="top-end"
                         onClick={() =>
                           !disabled &&
                           act('purchase', { 'purchase': prize.itemID })
