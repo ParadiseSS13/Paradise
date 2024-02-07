@@ -105,7 +105,7 @@
 		var/obj/mecha/M = loc
 		return M.click_action(A, src, params)
 
-	var/active_hand_item = get_active_hand()
+	var/obj/item/active_hand_item = get_active_hand()
 	if(restrained() && (!active_hand_item || !HAS_TRAIT(active_hand_item, TRAIT_IGNORE_HANDS_RESTRICTIONS)))
 		changeNext_move(CLICK_CD_HANDCUFFED) //Doing shit in cuffs shall be vey slow
 		RestrainedClickOn(A)
