@@ -59882,20 +59882,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
-"gru" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/access_button{
-	autolink_id = "southatmos_btn_int";
-	pixel_x = 22;
-	pixel_y = 10
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/storage)
 "gsd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -127858,7 +127844,7 @@ ouA
 ouA
 deW
 dgI
-gru
+mhG
 mhG
 dop
 dor
