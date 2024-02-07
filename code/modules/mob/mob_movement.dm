@@ -68,7 +68,7 @@
 	if(mob.notransform)
 		return 0 //This is sota the goto stop mobs from moving var
 
-	if(mob.throwing && mob.throwing.block_movement)
+	if(mob.throwing && mob.throwing.block_movement_actual)
 		return
 
 	if(mob.control_object)

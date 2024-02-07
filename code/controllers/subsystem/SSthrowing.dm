@@ -72,6 +72,8 @@ SUBSYSTEM_DEF(throwing)
 	var/dodgeable = TRUE
 	/// Can a thrown mob move themselves to stop the throw?
 	var/block_movement = TRUE
+	/// This is internal variable to support no gravity movement even if variable above is TRUE. This variable will change during throwing
+	var/block_movement_actual = TRUE
 
 /datum/thrownthing/proc/tick()
 	var/atom/movable/AM = thrownthing
@@ -94,7 +96,19 @@ SUBSYSTEM_DEF(throwing)
 	//calculate how many tiles to move, making up for any missed ticks.
 	var/tilestomove = CEILING(min(((((world.time + world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : -1)), speed * MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait), 1)
 	while(tilestomove-- > 0)
-		if((dist_travelled >= maxrange || AM.loc == target_turf) && has_gravity(AM, AM.loc))
+		var/gravity
+		if(ismob(AM))
+			var/mob/mob = AM
+			gravity = mob.mob_has_gravity(mob.loc)
+		else
+			gravity = has_gravity(AM, AM.loc)
+
+		if(!gravity)
+			block_movement_actual = FALSE // you should be able to move if there is no gravity, supports jetpack movement during throw
+		else
+			block_movement_actual = block_movement
+
+		if((dist_travelled >= maxrange || AM.loc == target_turf) && gravity)
 			hitcheck() //Just to be sure
 			finalize()
 			return

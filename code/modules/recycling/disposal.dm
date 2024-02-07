@@ -1440,7 +1440,6 @@
 			var/mob/living/mob_to_immobilize = AM
 			if(isdrone(mob_to_immobilize) || istype(mob_to_immobilize, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
 				return
-			mob_to_immobilize.Immobilize(1 SECONDS)
 		AM.throw_at(target, 3, 1)
 
 /obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/I)
