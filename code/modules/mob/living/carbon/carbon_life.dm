@@ -291,7 +291,7 @@
 	if(!client)
 		return
 	var/shock_reduction = shock_reduction()
-	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)
+	if(health <= HEALTH_THRESHOLD_CRIT)
 		if(check_death_method())
 			var/severity = 0
 			switch(health - shock_reduction)

@@ -204,7 +204,7 @@
 	var/n_name = tgui_input_text(user, "What would you like to label the bundle?", "Bundle Labelling", name)
 	if(!Adjacent(user) || !n_name || user.stat)
 		return
-	name = n_name
+	name = "[(n_name ? "[n_name]" : "paper bundle")]"
 	add_fingerprint(user)
 
 /obj/item/paper_bundle/AltShiftClick(mob/user)

@@ -4,7 +4,7 @@
  */
 
 /// Admin music volume, from 0 to 1.
-/client/var/admin_music_volume = 1
+/* check_grep:ignore */ /client/var/admin_music_volume = 1
 
 /**
  * public
