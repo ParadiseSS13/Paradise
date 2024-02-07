@@ -17,7 +17,7 @@ def red(text):
 def blue(text):
     return "\033[34m" + str(text) + "\033[0m"
 
-def post_error(define_name, file, github_error_style, fix_error = True):
+def post_error(define_name, file, github_error_style, fix_error = False):
     if github_error_style:
         print(f"::error file={file},title=Define Sanity::{define_name} is defined locally in {file} but not undefined locally!")
     else:
