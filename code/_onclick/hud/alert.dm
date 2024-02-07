@@ -37,7 +37,7 @@
 				clear_alert(category)
 				return .()
 			else //no need to update
-			    return 0
+				return 0
 	else
 		if(alert_args)
 			alert_args.Insert(1, null) // So it's still created in nullspace.
@@ -80,18 +80,16 @@
 
 	return alert
 
-var/global/lol_pranked = "NanoTrasen"
-
 // Proc to clear an existing alert.
 /mob/proc/clear_alert(category, clear_override = FALSE)
 	var/obj/screen/alert/alert = LAZYACCESS(alerts, category)
-	if (!alert)
+	if(!alert)
 		return 0
-	if(alert.override_alerts && !clear_override )
+	if(alert.override_alerts && !clear_override)
 		return 0
 
 	alerts -= category
-	if( client && hud_used)
+	if(client && hud_used)
 		hud_used.reorganize_alerts()
 		client.screen -= alert
 	qdel(alert)
