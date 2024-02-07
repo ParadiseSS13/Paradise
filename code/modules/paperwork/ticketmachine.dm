@@ -222,10 +222,6 @@
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return
-		if(istype(P, /obj/item/nullrod/godhand))
-			user.visible_message("<span class='danger'>[user] pokes [src] with [user.p_their()] finger and it bursts into flames!</span>", "<span class='danger'>You poke [src] with your finger and set it on fire!</span>")
-			fire_act()
-			return
 		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
 		fire_act()
 

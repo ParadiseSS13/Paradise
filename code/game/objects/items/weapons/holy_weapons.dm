@@ -120,38 +120,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
-	light_color = "#E09D37"
-	attack_verb = list("singed", "seared", "burnt", "scorched")
-	var/lit = TRUE
-
-/obj/item/nullrod/godhand/Initialize()
-	. = ..()
-	update_brightness()
-
-/obj/item/nullrod/godhand/proc/update_brightness()
-	set_light(2)
-
-/obj/item/nullrod/godhand/get_heat()
-	return 1500
-
-/obj/item/nullrod/godhand/attack(mob/living/carbon/M, mob/user)
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
-		return
-	if(!isliving(M))
-		return
-	M.IgniteMob()
-
-	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
-		var/obj/item/clothing/mask/cigarette/cig = M.wear_mask
-		if(M == user)
-			cig.attackby(src, user)
-		else if(istype(src, /obj/item/nullrod/godhand))
-			cig.light("<span class='notice'>[user] reaches out to [M] with [user.p_their()] hand, and [cig] suddenly ignites.</span>")
-		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
-		M.update_inv_wear_mask()
-	else
-		..()
+	attack_verb = list("punched", "cross countered", "pummeled")
 
 /obj/item/nullrod/godhand/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in holy fire.</span>"
