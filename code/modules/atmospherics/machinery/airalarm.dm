@@ -29,16 +29,6 @@
 	max1 = other.max1
 	max2 = other.max2
 
-#define AALARM_MODE_SCRUBBING 1
-#define AALARM_MODE_VENTING 2 //makes draught
-#define AALARM_MODE_PANIC 3 //like siphon, but stronger (enables widenet)
-#define AALARM_MODE_REPLACEMENT 4 //sucks off all air, then refill and swithes to scrubbing
-#define AALARM_MODE_SIPHON 5 //Scrubbers suck air
-#define AALARM_MODE_CONTAMINATED 6 //Turns on all filtering and widenet scrubbing.
-#define AALARM_MODE_REFILL 7 //just like normal, but with triple the air output
-#define AALARM_MODE_OFF 8
-#define AALARM_MODE_FLOOD 9 //Emagged mode; turns off scrubbers and pressure checks on vents
-
 #define AALARM_PRESET_HUMAN     1 // Default
 #define AALARM_PRESET_VOX       2 // Support Vox
 #define AALARM_PRESET_COLDROOM  3 // Kitchen coldroom
@@ -1184,15 +1174,6 @@ Just an object used in constructing air alarms
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
-#undef AALARM_MODE_SCRUBBING
-#undef AALARM_MODE_VENTING
-#undef AALARM_MODE_PANIC
-#undef AALARM_MODE_REPLACEMENT
-#undef AALARM_MODE_SIPHON
-#undef AALARM_MODE_CONTAMINATED
-#undef AALARM_MODE_REFILL
-#undef AALARM_MODE_OFF
-#undef AALARM_MODE_FLOOD
 #undef AALARM_PRESET_HUMAN
 #undef AALARM_PRESET_VOX
 #undef AALARM_PRESET_COLDROOM

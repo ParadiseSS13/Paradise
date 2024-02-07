@@ -299,7 +299,7 @@
 	T.allowed_type = /mob/living/carbon
 	T.click_radius = 0
 	T.try_auto_target = FALSE // Give the clueless geneticists a way out and to have them not target themselves
-	T.selection_type = SPELL_SELECTION_RANGE
+	T.selection_type = SPELL_SRANDOM_STORY_ELECTION_RANGE
 	T.include_user = TRUE
 	return T
 
@@ -567,7 +567,7 @@
 	T.try_auto_target = FALSE
 	T.click_radius = -1
 	T.range = 1
-	T.selection_type = SPELL_SELECTION_RANGE
+	T.selection_type = SPELL_SRANDOM_STORY_ELECTION_RANGE
 	return T
 
 /obj/effect/proc_holder/spell/polymorph/cast(list/targets, mob/user = usr)
@@ -613,7 +613,7 @@
 /obj/effect/proc_holder/spell/empath/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
 	T.allowed_type = /mob/living/carbon
-	T.selection_type = SPELL_SELECTION_RANGE
+	T.selection_type = SPELL_SRANDOM_STORY_ELECTION_RANGE
 	return T
 
 /obj/effect/proc_holder/spell/empath/cast(list/targets, mob/user = usr)

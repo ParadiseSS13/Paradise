@@ -9,14 +9,14 @@
 
 
 /datum/mapGeneratorModule/syndieFurniture
-	clusterCheckFlags = CLUSTER_CHECK_SAME_ATOMS
+	clusterCheckFlags = MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS
 	spawnableTurfs = list()
 	spawnableAtoms = list(/obj/structure/table = 20,/obj/structure/chair = 15,/obj/structure/chair/stool = 10, \
 		/obj/structure/computerframe = 15, /obj/item/storage/toolbox/syndicate = 15 ,\
 		/obj/structure/closet/syndicate = 25)
 
 /datum/mapGeneratorModule/splatterLayer/syndieMobs
-	clusterCheckFlags = CLUSTER_CHECK_SAME_ATOMS
+	clusterCheckFlags = MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS
 	spawnableAtoms = list(/mob/living/simple_animal/hostile/syndicate = 30, \
 		/mob/living/simple_animal/hostile/syndicate/melee = 20, \
 		/mob/living/simple_animal/hostile/syndicate/ranged = 20, \

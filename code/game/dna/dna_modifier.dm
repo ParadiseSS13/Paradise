@@ -1,9 +1,5 @@
 #define DNA_BLOCK_SIZE 3
 
-// Buffer datatype flags.
-#define DNA2_BUF_UI 1
-#define DNA2_BUF_UE 2
-#define DNA2_BUF_SE 4
 
 #define NEGATE_MUTATION_THRESHOLD 30 // Occupants with over ## percent radiation threshold will not gain mutations
 
@@ -843,11 +839,5 @@
 #undef PAGE_SE
 #undef PAGE_BUFFER
 #undef PAGE_REJUVENATORS
-
-/////////////////////////// DNA MACHINES
-
 #undef DNA_BLOCK_SIZE
-#undef DNA2_BUF_UI
-#undef DNA2_BUF_UE
-#undef DNA2_BUF_SE
 #undef NEGATE_MUTATION_THRESHOLD

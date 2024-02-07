@@ -1,5 +1,3 @@
-#define VEST_STEALTH 1
-#define VEST_COMBAT 2
 #define GIZMO_SCAN 1
 #define GIZMO_MARK 2
 #define MIND_DEVICE_MESSAGE 1
@@ -10,14 +8,14 @@
 	name = "agent vest"
 	desc = "A vest outfitted with advanced stealth technology. It has two modes - combat and stealth."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "vest_stealth"
+	icon_state = "ABDUCTOR_vest_stealth"
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	origin_tech = "magnets=7;biotech=4;powerstorage=4;abductor=4"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = 115, ACID = 115)
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	allowed = list(/obj/item/abductor, /obj/item/abductor_baton, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
-	var/mode = VEST_STEALTH
+	var/mode = ABDUCTOR_VEST_STEALTH
 	var/stealth_active = 0
 	var/combat_cooldown = 10
 	var/datum/icon_snapshot/disguise
@@ -37,15 +35,15 @@
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/flip_mode()
 	switch(mode)
-		if(VEST_STEALTH)
-			mode = VEST_COMBAT
+		if(ABDUCTOR_VEST_STEALTH)
+			mode = ABDUCTOR_VEST_COMBAT
 			DeactivateStealth()
 			armor = combat_armor
-			icon_state = "vest_combat"
-		if(VEST_COMBAT)// TO STEALTH
-			mode = VEST_STEALTH
+			icon_state = "ABDUCTOR_vest_combat"
+		if(ABDUCTOR_VEST_COMBAT)// TO STEALTH
+			mode = ABDUCTOR_VEST_STEALTH
 			armor = stealth_armor
-			icon_state = "vest_stealth"
+			icon_state = "ABDUCTOR_vest_stealth"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_wear_suit()
@@ -94,9 +92,9 @@
 
 /obj/item/clothing/suit/armor/abductor/vest/ui_action_click()
 	switch(mode)
-		if(VEST_COMBAT)
+		if(ABDUCTOR_VEST_COMBAT)
 			Adrenaline()
-		if(VEST_STEALTH)
+		if(ABDUCTOR_VEST_STEALTH)
 			if(stealth_active)
 				DeactivateStealth()
 			else
@@ -750,8 +748,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	material_type = /obj/item/stack/sheet/mineral/abductor
 	noglass = TRUE
 
-#undef VEST_STEALTH
-#undef VEST_COMBAT
 #undef GIZMO_SCAN
 #undef GIZMO_MARK
 #undef MIND_DEVICE_MESSAGE

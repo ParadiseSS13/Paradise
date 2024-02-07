@@ -171,23 +171,23 @@
 
 		if(!equipment_channel)
 			update_overlay |= APC_UPOVERLAY_EQUIPMENT0
-		else if(equipment_channel == CHANNEL_SETTING_AUTO_OFF)
+		else if(equipment_channel == APC_CHANNEL_SETTING_AUTO_OFF)
 			update_overlay |= APC_UPOVERLAY_EQUIPMENT1
-		else if(equipment_channel == CHANNEL_SETTING_ON)
+		else if(equipment_channel == APC_CHANNEL_SETTING_ON)
 			update_overlay |= APC_UPOVERLAY_EQUIPMENT2
 
 		if(!lighting_channel)
 			update_overlay |= APC_UPOVERLAY_LIGHTING0
-		else if(lighting_channel == CHANNEL_SETTING_AUTO_OFF)
+		else if(lighting_channel == APC_CHANNEL_SETTING_AUTO_OFF)
 			update_overlay |= APC_UPOVERLAY_LIGHTING1
-		else if(lighting_channel == CHANNEL_SETTING_ON)
+		else if(lighting_channel == APC_CHANNEL_SETTING_ON)
 			update_overlay |= APC_UPOVERLAY_LIGHTING2
 
 		if(!environment_channel)
 			update_overlay |= APC_UPOVERLAY_ENVIRON0
-		else if(environment_channel == CHANNEL_SETTING_AUTO_OFF)
+		else if(environment_channel == APC_CHANNEL_SETTING_AUTO_OFF)
 			update_overlay |= APC_UPOVERLAY_ENVIRON1
-		else if(environment_channel == CHANNEL_SETTING_ON)
+		else if(environment_channel == APC_CHANNEL_SETTING_ON)
 			update_overlay |= APC_UPOVERLAY_ENVIRON2
 
 	var/results = 0

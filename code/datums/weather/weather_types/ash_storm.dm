@@ -67,25 +67,25 @@
 
 /datum/weather/ash_storm/proc/update_audio()
 	switch(stage)
-		if(STARTUP_STAGE)
+		if(WEATHER_STARTUP_STAGE)
 			sound_wo.start()
 			sound_wi.start()
 
-		if(MAIN_STAGE)
+		if(WEATHER_MAIN_STAGE)
 			sound_wo.stop()
 			sound_wi.stop()
 
 			sound_ao.start()
 			sound_ai.start()
 
-		if(WIND_DOWN_STAGE)
+		if(WEATHER_WIND_DOWN_STAGE)
 			sound_ao.stop()
 			sound_ai.stop()
 
 			sound_wo.start()
 			sound_wi.start()
 
-		if(END_STAGE)
+		if(WEATHER_END_STAGE)
 			sound_wo.stop()
 			sound_wi.stop()
 

@@ -34,7 +34,6 @@
 #define POWER_PENALTY_THRESHOLD 5000          //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of cryo anomalies, +2 bolts of electricity
 #define SEVERE_POWER_PENALTY_THRESHOLD 7000   //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of cryo anomalies
 #define CRITICAL_POWER_PENALTY_THRESHOLD 9000 //+1 bolt of electricity.
-#define HEAT_PENALTY_THRESHOLD 40             //Higher == Crystal safe operational temperature is higher.
 #define DAMAGE_HARDCAP 0.002
 #define DAMAGE_INCREASE_MULTIPLIER 0.25
 
@@ -157,7 +156,7 @@
 	///Uses powerloss_dynamic_scaling and combined_gas to lessen the effects of our powerloss functions
 	var/powerloss_inhibitor = 1
 	///value plus T0C = temp at which the SM starts to take damage. Variable for event usage
-	var/heat_penalty_threshold = HEAT_PENALTY_THRESHOLD
+	var/heat_penalty_threshold = SUPERMATTER_HEAT_PENALTY_THRESHOLD
 	///Based on co2 percentage, slowly moves between 0 and 1. We use it to calc the powerloss_inhibitor
 	var/powerloss_dynamic_scaling= 0
 	///Affects the amount of radiation the sm makes. We multiply this with power to find the rads.
@@ -1276,7 +1275,6 @@
 #undef POWER_PENALTY_THRESHOLD
 #undef SEVERE_POWER_PENALTY_THRESHOLD
 #undef CRITICAL_POWER_PENALTY_THRESHOLD
-#undef HEAT_PENALTY_THRESHOLD
 #undef DAMAGE_HARDCAP
 #undef DAMAGE_INCREASE_MULTIPLIER
 #undef THERMAL_RELEASE_MODIFIER

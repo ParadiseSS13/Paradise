@@ -10,12 +10,6 @@
 */
 
 // Nice way to format logs
-#define LOG_MAZE_PROGRESS(proc2run, opname) \
-do { \
-	var/timer = start_watch(); \
-	proc2run ;\
-	log_debug("\[MAZE] Operation '[opname]' on maze at [x],[y],[z] took [stop_watch(timer)]s"); \
-} while(FALSE)
 
 
 // These defines are used to mark the cells as explored or not
@@ -200,5 +194,3 @@ do { \
 
 #undef MAZEGEN_TURF_UNSEARCHED
 #undef MAZEGEN_TURF_CELL
-
-#undef LOG_MAZE_PROGRESS

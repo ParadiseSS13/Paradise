@@ -18,7 +18,7 @@
 	user.updatehealth("fakedeath sting")
 	cling.regenerating = TRUE
 
-	addtimer(CALLBACK(src, PROC_REF(ready_to_regenerate), user), LING_FAKEDEATH_TIME)
+	addtimer(CALLBACK(src, PROC_REF(ready_to_regenerate), user), CHANGELING_FAKEDEATH_TIME)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 

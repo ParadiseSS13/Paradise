@@ -1,31 +1,4 @@
-// main_status var
-#define APC_EXTERNAL_POWER_NOTCONNECTED 0
-#define APC_EXTERNAL_POWER_NOENERGY 1
-#define APC_EXTERNAL_POWER_GOOD 2
 
-//opened
-#define APC_CLOSED 0
-#define APC_OPENED 1
-#define APC_COVER_OFF 2
-
-#define APC_AUTOFLAG_ALL_OFF 0
-#define APC_AUTOFLAG_ENVIRO_ONLY 1
-#define APC_AUTOFLAG_EQUIPMENT_OFF 2
-#define APC_AUTOFLAG_ALL_ON 3
-
-//electronics_state
-#define APC_ELECTRONICS_NONE 0
-#define APC_ELECTRONICS_INSTALLED 1
-#define APC_ELECTRONICS_SECURED 2
-
-/// Power channel is off, anything connected to it is not powered, cannot be set manually by players
-#define CHANNEL_SETTING_OFF 0
-/// APC power channel Setting Off, if set while apc is "on" set apc to "off" otherwise set to "auto-off"
-#define CHANNEL_SETTING_AUTO_OFF 1
-/// APC power channel setting on,
-#define CHANNEL_SETTING_ON 2   //on
-// APC user setting,
-#define CHANNEL_SETTING_AUTO_ON  3 //auto
 
 // the Area Power Controller (APC), formerly Power Distribution Unit (PDU)
 // one per area, needs wire conection to power network through a terminal
@@ -95,11 +68,11 @@
 
 	/*** APC Settings Vars ***/
 	/// The current setting for the lighting channel
-	var/lighting_channel = CHANNEL_SETTING_AUTO_ON
+	var/lighting_channel = APC_CHANNEL_SETTING_AUTO_ON
 	/// The current setting for the equipment channel
-	var/equipment_channel = CHANNEL_SETTING_AUTO_ON
+	var/equipment_channel = APC_CHANNEL_SETTING_AUTO_ON
 	/// The current setting for the environment channel
-	var/environment_channel = CHANNEL_SETTING_AUTO_ON
+	var/environment_channel = APC_CHANNEL_SETTING_AUTO_ON
 	/// Is the APC cover locked? i.e cannot be opened?
 	var/coverlocked = TRUE
 	/// Is the APC User Interface locked (prevents interaction)? Will not prevent silicons or admin observers from interacting
@@ -486,9 +459,9 @@
 
 /obj/machinery/power/apc/proc/update()
 	if(operating && !shorted)
-		machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, (lighting_channel > CHANNEL_SETTING_AUTO_OFF))
-		machine_powernet.set_power_channel(PW_CHANNEL_EQUIPMENT, (equipment_channel > CHANNEL_SETTING_AUTO_OFF))
-		machine_powernet.set_power_channel(PW_CHANNEL_ENVIRONMENT, (environment_channel > CHANNEL_SETTING_AUTO_OFF))
+		machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, (lighting_channel > APC_CHANNEL_SETTING_AUTO_OFF))
+		machine_powernet.set_power_channel(PW_CHANNEL_EQUIPMENT, (equipment_channel > APC_CHANNEL_SETTING_AUTO_OFF))
+		machine_powernet.set_power_channel(PW_CHANNEL_ENVIRONMENT, (environment_channel > APC_CHANNEL_SETTING_AUTO_OFF))
 		if(lighting_channel)
 			emergency_power = TRUE
 			if(emergency_power_timer)
@@ -653,9 +626,9 @@
 				charging = APC_NOT_CHARGING
 				chargecount = 0
 				// This turns everything off in the case that there is still a charge left on the battery, just not enough to run the room.
-				equipment_channel = autoset(equipment_channel, CHANNEL_SETTING_OFF)
-				lighting_channel = autoset(lighting_channel, CHANNEL_SETTING_OFF)
-				environment_channel = autoset(environment_channel, CHANNEL_SETTING_OFF)
+				equipment_channel = autoset(equipment_channel, APC_CHANNEL_SETTING_OFF)
+				lighting_channel = autoset(lighting_channel, APC_CHANNEL_SETTING_OFF)
+				environment_channel = autoset(environment_channel, APC_CHANNEL_SETTING_OFF)
 				autoflag = APC_AUTOFLAG_ALL_OFF
 
 		// Set channels depending on how much charge we have left
@@ -707,9 +680,9 @@
 	else // no cell, switch everything off
 		charging = APC_NOT_CHARGING
 		chargecount = 0
-		equipment_channel = autoset(equipment_channel, CHANNEL_SETTING_OFF)
-		lighting_channel = autoset(lighting_channel, CHANNEL_SETTING_OFF)
-		environment_channel = autoset(environment_channel, CHANNEL_SETTING_OFF)
+		equipment_channel = autoset(equipment_channel, APC_CHANNEL_SETTING_OFF)
+		lighting_channel = autoset(lighting_channel, APC_CHANNEL_SETTING_OFF)
+		environment_channel = autoset(environment_channel, APC_CHANNEL_SETTING_OFF)
 		if(report_power_alarm)
 			apc_area.poweralert(FALSE, src)
 		autoflag = APC_AUTOFLAG_ALL_OFF
@@ -728,34 +701,34 @@
 	// Put most likely at the top so we don't check it last, effeciency 101 <--- old coders can't spell
 	if(cell.charge >= 1250 || longtermpower > 0)
 		if(autoflag != APC_AUTOFLAG_ALL_ON)
-			equipment_channel = autoset(equipment_channel, CHANNEL_SETTING_AUTO_OFF)
-			lighting_channel = autoset(lighting_channel, CHANNEL_SETTING_AUTO_OFF)
-			environment_channel = autoset(environment_channel, CHANNEL_SETTING_AUTO_OFF)
+			equipment_channel = autoset(equipment_channel, APC_CHANNEL_SETTING_AUTO_OFF)
+			lighting_channel = autoset(lighting_channel, APC_CHANNEL_SETTING_AUTO_OFF)
+			environment_channel = autoset(environment_channel, APC_CHANNEL_SETTING_AUTO_OFF)
 			autoflag = APC_AUTOFLAG_ALL_ON
 			if(report_power_alarm)
 				apc_area.poweralert(TRUE, src)
 		return
 	if(cell.charge < 1250 && cell.charge > 750 && longtermpower < 0) // <30%, turn off equipment
 		if(autoflag != APC_AUTOFLAG_EQUIPMENT_OFF)
-			equipment_channel = autoset(equipment_channel, CHANNEL_SETTING_ON)
-			lighting_channel = autoset(lighting_channel, CHANNEL_SETTING_AUTO_OFF)
-			environment_channel = autoset(environment_channel, CHANNEL_SETTING_AUTO_OFF)
+			equipment_channel = autoset(equipment_channel, APC_CHANNEL_SETTING_ON)
+			lighting_channel = autoset(lighting_channel, APC_CHANNEL_SETTING_AUTO_OFF)
+			environment_channel = autoset(environment_channel, APC_CHANNEL_SETTING_AUTO_OFF)
 			if(report_power_alarm)
 				apc_area.poweralert(FALSE, src)
 			autoflag = APC_AUTOFLAG_EQUIPMENT_OFF
 	else if(cell.charge < 750 && cell.charge > 10)        // <15%, turn off lighting & equipment
 		if(autoflag > APC_AUTOFLAG_ENVIRO_ONLY)
-			equipment_channel = autoset(equipment_channel, CHANNEL_SETTING_ON)
-			lighting_channel = autoset(lighting_channel, CHANNEL_SETTING_ON)
-			environment_channel = autoset(environment_channel, CHANNEL_SETTING_AUTO_OFF)
+			equipment_channel = autoset(equipment_channel, APC_CHANNEL_SETTING_ON)
+			lighting_channel = autoset(lighting_channel, APC_CHANNEL_SETTING_ON)
+			environment_channel = autoset(environment_channel, APC_CHANNEL_SETTING_AUTO_OFF)
 			if(report_power_alarm)
 				apc_area.poweralert(FALSE, src)
 			autoflag = APC_AUTOFLAG_ENVIRO_ONLY
 	else if(cell.charge <= 0)                                   // zero charge, turn all off
 		if(autoflag != APC_AUTOFLAG_ALL_OFF)
-			equipment_channel = autoset(equipment_channel, CHANNEL_SETTING_OFF)
-			lighting_channel = autoset(lighting_channel, CHANNEL_SETTING_OFF)
-			environment_channel = autoset(environment_channel, CHANNEL_SETTING_OFF)
+			equipment_channel = autoset(equipment_channel, APC_CHANNEL_SETTING_OFF)
+			lighting_channel = autoset(lighting_channel, APC_CHANNEL_SETTING_OFF)
+			environment_channel = autoset(environment_channel, APC_CHANNEL_SETTING_OFF)
 			if(report_power_alarm)
 				apc_area.poweralert(FALSE, src)
 			autoflag = APC_AUTOFLAG_ALL_OFF
@@ -866,27 +839,27 @@
 */
 /obj/machinery/power/apc/proc/autoset(current_setting, new_setting)
 	switch(new_setting)
-		if(CHANNEL_SETTING_OFF)
-			if(current_setting == CHANNEL_SETTING_ON)	// if on, return off
-				return CHANNEL_SETTING_OFF
-			if(current_setting == CHANNEL_SETTING_AUTO_ON)	// if auto-on, return auto-off
-				return CHANNEL_SETTING_AUTO_OFF
-		if(CHANNEL_SETTING_AUTO_OFF)
-			if(current_setting == CHANNEL_SETTING_AUTO_OFF)	// if auto-off, return auto-on
-				return CHANNEL_SETTING_AUTO_ON
-		if(CHANNEL_SETTING_ON)
-			if(current_setting == CHANNEL_SETTING_AUTO_ON)	// if auto-on, return auto-off
-				return CHANNEL_SETTING_AUTO_OFF
+		if(APC_CHANNEL_SETTING_OFF)
+			if(current_setting == APC_CHANNEL_SETTING_ON)	// if on, return off
+				return APC_CHANNEL_SETTING_OFF
+			if(current_setting == APC_CHANNEL_SETTING_AUTO_ON)	// if auto-on, return auto-off
+				return APC_CHANNEL_SETTING_AUTO_OFF
+		if(APC_CHANNEL_SETTING_AUTO_OFF)
+			if(current_setting == APC_CHANNEL_SETTING_AUTO_OFF)	// if auto-off, return auto-on
+				return APC_CHANNEL_SETTING_AUTO_ON
+		if(APC_CHANNEL_SETTING_ON)
+			if(current_setting == APC_CHANNEL_SETTING_AUTO_ON)	// if auto-on, return auto-off
+				return APC_CHANNEL_SETTING_AUTO_OFF
 	return current_setting //if setting is not changed, just keep current setting
 
 /obj/machinery/power/apc/proc/setsubsystem(new_setting)
 	if(cell?.charge > 1) //if there's a charge
-		if(new_setting == CHANNEL_SETTING_AUTO_OFF)  //and apc now set to off, return off
-			return CHANNEL_SETTING_OFF
+		if(new_setting == APC_CHANNEL_SETTING_AUTO_OFF)  //and apc now set to off, return off
+			return APC_CHANNEL_SETTING_OFF
 		return new_setting //else return the new setting
-	if(new_setting == CHANNEL_SETTING_AUTO_ON) //if no charge and set to auto, set to auto off
-		return CHANNEL_SETTING_AUTO_OFF
-	return CHANNEL_SETTING_OFF //if set to on and no charge, set to off
+	if(new_setting == APC_CHANNEL_SETTING_AUTO_ON) //if no charge and set to auto, set to auto off
+		return APC_CHANNEL_SETTING_AUTO_OFF
+	return APC_CHANNEL_SETTING_OFF //if set to on and no charge, set to off
 
 ///    ************* ---
 /// APC Helper Procs --- Antag Abilities/Fun Stuff
@@ -1105,23 +1078,3 @@
 	flags = CONDUCT
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
-
-
-#undef APC_EXTERNAL_POWER_NOTCONNECTED
-#undef APC_EXTERNAL_POWER_NOENERGY
-#undef APC_EXTERNAL_POWER_GOOD
-
-#undef APC_CLOSED
-#undef APC_OPENED
-#undef APC_COVER_OFF
-#undef APC_AUTOFLAG_ALL_OFF
-#undef APC_AUTOFLAG_ENVIRO_ONLY
-#undef APC_AUTOFLAG_EQUIPMENT_OFF
-#undef APC_AUTOFLAG_ALL_ON
-#undef APC_ELECTRONICS_NONE
-#undef APC_ELECTRONICS_INSTALLED
-#undef APC_ELECTRONICS_SECURED
-#undef CHANNEL_SETTING_OFF
-#undef CHANNEL_SETTING_AUTO_OFF
-#undef CHANNEL_SETTING_ON
-#undef CHANNEL_SETTING_AUTO_ON

@@ -14,7 +14,7 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
-	T.selection_type = SPELL_SELECTION_RANGE
+	T.selection_type = SPELL_SRANDOM_STORY_ELECTION_RANGE
 	T.allowed_type = allowed_type
 	T.random_target = TRUE
 	T.range = 1

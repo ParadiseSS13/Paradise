@@ -1,5 +1,4 @@
-#define LING_FAKEDEATH_TIME					50 SECONDS
-#define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
+
 
 // This list is basically a copy of GLOB.greek_letters, but it also removes letters when a changeling spawns in with that ID
 GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon","Phi","Chi","Psi","Omega"))
@@ -109,6 +108,3 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 				text += "<br><font color='red'><B>The changeling has failed.</B></font>"
 				SSblackbox.record_feedback("tally", "changeling_success", 1, "FAIL")
 		return text.Join("")
-
-#undef LING_FAKEDEATH_TIME
-#undef LING_ABSORB_RECENT_SPEECH

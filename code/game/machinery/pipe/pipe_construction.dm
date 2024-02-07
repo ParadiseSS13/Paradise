@@ -1,5 +1,3 @@
-#define CIRC_LEFT WEST
-#define CIRC_RIGHT EAST
 
 /obj/item/pipe
 	name = "pipe"
@@ -146,7 +144,7 @@
 			flipped = TRUE
 
 		var/obj/machinery/atmospherics/binary/circulator/circP = make_from
-		if(istype(circP) && circP.side == CIRC_RIGHT)
+		if(istype(circP) && circP.side == CIRCULATOR_SIDE_RIGHT)
 			flipped = TRUE
 
 	else
@@ -197,7 +195,7 @@
 		icon_state = "m_[icon_state]"
 
 	var/obj/machinery/atmospherics/binary/circulator/circP = make_from
-	if(istype(circP) && circP.side == CIRC_RIGHT)
+	if(istype(circP) && circP.side == CIRCULATOR_SIDE_RIGHT)
 		icon_state = "m_[icon_state]"
 
 	if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/heat_exchanging))
@@ -468,7 +466,7 @@
 		if(PIPE_CIRCULATOR) //circulator
 			var/obj/machinery/atmospherics/binary/circulator/C = new(loc)
 			if(flipped)
-				C.side = CIRC_RIGHT
+				C.side = CIRCULATOR_SIDE_RIGHT
 
 			if(pipename)
 				C.name = pipename
@@ -603,6 +601,3 @@
 		return
 
 	flip()
-
-#undef CIRC_LEFT
-#undef CIRC_RIGHT

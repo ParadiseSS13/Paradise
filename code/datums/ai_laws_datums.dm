@@ -1,5 +1,3 @@
-#define BASE_LAW_TYPE /datum/ai_laws/nanotrasen
-
 /datum/ai_law
 	var/law = ""
 	var/index = 0
@@ -292,5 +290,3 @@
 	var/index = laws.Find(law)
 	if(index)
 		state[index] = do_state
-
-#undef BASE_LAW_TYPE

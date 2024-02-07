@@ -1,5 +1,3 @@
-#define HOLOPAD_MAX_DIAL_TIME 200
-
 /mob/camera/aiEye/remote/holo/setLoc()
 	. = ..()
 	var/obj/machinery/hologram/holopad/H = origin
@@ -187,5 +185,3 @@
 
 /datum/action/innate/end_holocall/Activate()
 	hcall.Disconnect(hcall.calling_holopad)
-
-#undef HOLOPAD_MAX_DIAL_TIME
