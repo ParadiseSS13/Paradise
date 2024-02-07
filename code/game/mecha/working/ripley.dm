@@ -40,7 +40,7 @@
 					ore.forceMove(ore_box)
 
 /obj/mecha/working/ripley/Destroy()
-	for(var/i=1, i <= hides, i++)
+	for(var/i in 1 to hides)
 		new /obj/item/stack/sheet/animalhide/goliath_hide(loc) // If a goliath-plated ripley gets killed, all the hides drop, metal plates are destroyed
 	for(var/atom/movable/A in cargo)
 		A.forceMove(loc)
