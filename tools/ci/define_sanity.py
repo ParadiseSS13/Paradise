@@ -24,7 +24,7 @@ def post_error(define_name, file, github_error_style, fix_error = False):
         print(red(f"- Failure: {define_name} is defined locally in {file} but not undefined locally!"))
         if(fix_error):
             with open(file, "a") as write_file:
-                write_file.write(f"\n#undef {define_name}")
+                write_file.write(f"#undef {define_name}\n") # We append at the \n because files end with \n
 
 
 
