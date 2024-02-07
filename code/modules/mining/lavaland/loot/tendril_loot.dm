@@ -66,7 +66,7 @@
 			return
 
 		if(!M.restrained() && !M.stat)
-			playsound(loc, "rustle", 50, 1, -5)
+			playsound(loc, "rustle", 50, TRUE, -5)
 
 			if(istype(over_object, /atom/movable/screen/inventory/hand))
 				if(!M.unEquip(src))

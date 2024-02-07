@@ -344,7 +344,7 @@
 	if(choice != selecting)
 		selecting = choice
 		update_icon(UPDATE_OVERLAYS)
-	return 1
+	return TRUE
 
 /atom/movable/screen/zone_sel/update_overlays()
 	. = ..()
@@ -442,7 +442,7 @@
 	if(usr.attack_ui(slot_id))
 		usr.update_inv_l_hand()
 		usr.update_inv_r_hand()
-	return 1
+	return TRUE
 
 /atom/movable/screen/inventory/hand
 	var/image/active_overlay
@@ -489,7 +489,7 @@
 				M.activate_hand("r")
 			if("left hand", "l_hand")
 				M.activate_hand("l")
-	return 1
+	return TRUE
 
 /atom/movable/screen/swap_hand
 	name = "swap hand"

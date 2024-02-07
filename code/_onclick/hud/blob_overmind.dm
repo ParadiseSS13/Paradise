@@ -5,7 +5,7 @@
 /atom/movable/screen/blob
 	icon = 'icons/mob/blob.dmi'
 
-/atom/movable/screen/blob/MouseEntered(location,control,params)
+/atom/movable/screen/blob/MouseEntered(location, control, params)
 	. = ..()
 	openToolTip(usr,src,params,title = name,content = desc, theme = "blob")
 
@@ -38,7 +38,7 @@
 	name = "Jump to Core"
 	desc = "Moves your camera to your blob core."
 
-/atom/movable/screen/blob/JumpToCore/MouseEntered(location,control,params)
+/atom/movable/screen/blob/JumpToCore/MouseEntered(location, control, params)
 	if(hud && hud.mymob && isovermind(hud.mymob))
 		name = initial(name)
 		desc = initial(desc)
@@ -104,7 +104,7 @@
 	name = "Readapt Chemical (50)"
 	desc = "Randomly rerolls your chemical for 50 resources."
 
-/atom/movable/screen/blob/ReadaptChemical/MouseEntered(location,control,params)
+/atom/movable/screen/blob/ReadaptChemical/MouseEntered(location, control, params)
 	if(hud && hud.mymob && isovermind(hud.mymob))
 		name = initial(name)
 		desc = initial(desc)
