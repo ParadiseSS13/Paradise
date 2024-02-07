@@ -52,7 +52,7 @@
  */
 
 /datum/organ/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
-	if((H.status_flags & GODMODE))
+	if(H.status_flags & GODMODE)
 		return
 
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))

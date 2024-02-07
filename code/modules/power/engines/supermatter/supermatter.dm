@@ -964,7 +964,7 @@
 			l_power = 3,
 			l_color = SUPERMATTER_SINGULARITY_LIGHT_COLOUR,
 		)
-	if(!combined_gas > MOLE_PENALTY_THRESHOLD || get_integrity() > SUPERMATTER_DANGER_PERCENT)
+	if(combined_gas <= MOLE_CRUNCH_THRESHOLD || get_integrity() >= SUPERMATTER_DANGER_PERCENT)
 		for(var/obj/D in darkness_effects)
 			qdel(D)
 		return
