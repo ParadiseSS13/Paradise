@@ -40,7 +40,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/spider_specialattack(mob/living/carbon/human/L)
 	L.KnockDown(10 SECONDS)
-	L.apply_damage(40, STAMINA)
+	L.adjustStaminaLoss(40)
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/Initialize(mapload)

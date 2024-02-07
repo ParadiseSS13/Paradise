@@ -438,7 +438,7 @@
 	lastfired = world.time
 	var/turf/T = loc
 	var/atom/U = (istype(target, /atom/movable) ? target.loc : target)
-	if(!U || !T)
+	if((!U || !T))
 		return
 	while(!isturf(U))
 		U = U.loc
@@ -504,11 +504,11 @@
 /mob/living/simple_animal/bot/ed209/bullet_act(obj/item/projectile/Proj)
 	if(!disabled)
 		var/lasertag_check = 0
-		if(lasercolor == "b")
+		if((lasercolor == "b"))
 			if(istype(Proj, /obj/item/projectile/beam/lasertag/redtag))
 				lasertag_check++
 
-		else if(lasercolor == "r")
+		else if((lasercolor == "r"))
 			if(istype(Proj, /obj/item/projectile/beam/lasertag/bluetag))
 				lasertag_check++
 
@@ -567,7 +567,7 @@
 	addtimer(VARSET_CALLBACK(src, icon_state, "[lasercolor]ed209[on]"), 2)
 	var/threat = C.assess_threat(src)
 	C.SetStuttering(10 SECONDS)
-	C.apply_damage(60, STAMINA)
+	C.adjustStaminaLoss(60)
 	baton_delayed = TRUE
 	C.apply_status_effect(STATUS_EFFECT_DELAYED, 2.5 SECONDS, CALLBACK(C, TYPE_PROC_REF(/mob/living/, KnockDown), 10 SECONDS), COMSIG_LIVING_CLEAR_STUNS)
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)

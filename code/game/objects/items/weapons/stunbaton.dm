@@ -211,7 +211,7 @@
 			return FALSE
 		H.Confused(10 SECONDS)
 		H.Jitter(10 SECONDS)
-		H.apply_damage(stam_damage, STAMINA)
+		H.adjustStaminaLoss(stam_damage)
 		H.SetStuttering(10 SECONDS)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
@@ -248,7 +248,7 @@
 		return FALSE
 	L.Confused(4 SECONDS)
 	L.Jitter(4 SECONDS)
-	L.apply_damage(30, STAMINA)
+	L.adjustStaminaLoss(30)
 	L.SetStuttering(4 SECONDS)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons

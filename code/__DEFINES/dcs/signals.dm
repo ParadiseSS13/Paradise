@@ -525,12 +525,7 @@
 #define COMSIG_CARBON_UPDATE_HANDCUFFED "carbon_update_handcuff"
 /// From /mob/living/carbon/regenerate_icons()
 #define COMSIG_CARBON_REGENERATE_ICONS "carbon_regen_icons"
-/// From /mob/living/carbon/enter_stamcrit()
-#define COMSIG_CARBON_ENTER_STAMINACRIT "carbon_enter_staminacrit"
-/// From /mob/living/carbon/update_stamina()
-#define COMSIG_CARBON_EXIT_STAMINACRIT "carbon_exit_staminacrit"
-/// From /mob/living/carbon/handle_status_effects()
-#define COMSIG_CARBON_STAMINA_REGENERATED "carbon_stamina_regenerated"
+
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"

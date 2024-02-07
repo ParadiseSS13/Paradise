@@ -36,7 +36,9 @@
 	user.drop_item()
 	tool.forceMove(target)
 
-	var/datum/action/item_action/hands_free/activate_pill/P = new(tool, tool.icon, tool.icon_state)
+	var/datum/action/item_action/hands_free/activate_pill/P = new
+	P.button_icon_state = tool.icon_state
+	P.target = tool
 	P.name = "Activate Pill ([tool.name])"
 	P.Grant(target)
 
@@ -46,8 +48,8 @@
 /datum/action/item_action/hands_free/activate_pill
 	name = "Activate Pill"
 
-/datum/action/item_action/hands_free/activate_pill/Trigger(left_click = TRUE)
-	if(!..(left_click, FALSE))
+/datum/action/item_action/hands_free/activate_pill/Trigger(left_click)
+	if(!..())
 		return
 	to_chat(owner, "<span class='caution'>You grit your teeth and burst the implanted [target]!</span>")
 	add_attack_logs(owner, owner, "Swallowed implanted [target]")
@@ -57,4 +59,3 @@
 	Remove(owner)
 	qdel(target)
 	return TRUE
-

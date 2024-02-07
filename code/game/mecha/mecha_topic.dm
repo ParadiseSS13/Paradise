@@ -287,7 +287,7 @@
 	if(href_list["rfreq"])
 		if(usr != occupant)	return
 		var/new_frequency = (radio.frequency + afilter.getNum("rfreq"))
-		if(radio.frequency < PUBLIC_LOW_FREQ || radio.frequency > PUBLIC_HIGH_FREQ)
+		if((radio.frequency < PUBLIC_LOW_FREQ || radio.frequency > PUBLIC_HIGH_FREQ))
 			new_frequency = sanitize_frequency(new_frequency)
 		radio.set_frequency(new_frequency)
 		send_byjax(occupant,"exosuit.browser","rfreq","[format_frequency(radio.frequency)]")

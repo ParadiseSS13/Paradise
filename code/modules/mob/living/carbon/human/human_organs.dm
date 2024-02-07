@@ -4,6 +4,9 @@
 		eyes.update_colour()
 		update_body()
 
+/mob/living/carbon/human/var/list/bodyparts = list()
+/mob/living/carbon/human/var/list/bodyparts_by_name = list() // map organ names to organs
+
 // Takes care of organ related updates, such as broken and missing limbs
 /mob/living/carbon/human/handle_organs()
 	..()

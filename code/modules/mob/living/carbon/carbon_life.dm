@@ -254,7 +254,6 @@
 			update_stamina()
 		if(staminaloss)
 			setStaminaLoss(0, FALSE)
-			SEND_SIGNAL(src, COMSIG_CARBON_STAMINA_REGENERATED)
 			update_health_hud()
 
 	// Keep SSD people asleep
@@ -291,7 +290,7 @@
 	if(!client)
 		return
 	var/shock_reduction = shock_reduction()
-	if(health <= HEALTH_THRESHOLD_CRIT)
+	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)
 		if(check_death_method())
 			var/severity = 0
 			switch(health - shock_reduction)

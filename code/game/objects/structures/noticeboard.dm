@@ -52,7 +52,7 @@
 		if((usr.stat || usr.restrained()))	//For when a player is handcuffed while they have the notice window open
 			return
 		var/obj/item/P = locate(href_list["remove"])
-		if(P && P.loc == src)
+		if((P && P.loc == src))
 			P.loc = get_turf(src)	//dump paper on the floor because you're a clumsy fuck
 			P.add_fingerprint(usr)
 			add_fingerprint(usr)
@@ -77,6 +77,6 @@
 
 	if(href_list["read"])
 		var/obj/item/paper/P = locate(href_list["read"])
-		if(P && P.loc == src)
+		if((P && P.loc == src))
 			P.show_content(usr)
 	return

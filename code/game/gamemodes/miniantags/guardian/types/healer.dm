@@ -132,7 +132,7 @@
 	if(!Adjacent(A))
 		to_chat(src, "<span class='danger'>You must be adjacent to your target!</span>")
 		return
-	if(A.anchored)
+	if((A.anchored))
 		to_chat(src, "<span class='danger'>Your target can not be anchored!</span>")
 		return
 	to_chat(src, "<span class='danger'>You begin to warp [A]</span>")

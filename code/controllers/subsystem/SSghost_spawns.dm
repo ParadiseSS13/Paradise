@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 			if(P != P2 && P.hash == P2.hash)
 				// If there's already a poll for an identical mob type ongoing and the client is signed up for it, sign them up for this one
 				if(!inherited_sign_up && (M in P2.signed_up) && P.sign_up(M, TRUE))
-					A.update_signed_up_alert(M)
+					A.update_signed_up_alert()
 					inherited_sign_up = TRUE
 				// This number is used to display the number of polls the alert regroups
 				num_stack++

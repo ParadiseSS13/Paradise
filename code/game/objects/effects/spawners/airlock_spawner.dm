@@ -232,14 +232,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	icon_state = "1x2_S_to_N"
 	tiles_in_y_direction = 2
 
-/obj/effect/spawner/airlock/s_to_n/long/square/engineer
-	req_access_txt = ACCESS_ENGINE_EQUIP
-	door_name = "engineering external access"
-
-/obj/effect/spawner/airlock/s_to_n/long/engineer
-	req_access_txt = ACCESS_ENGINE_EQUIP
-	door_name = "engineering external access"
-
 /obj/effect/spawner/airlock/e_to_w/long
 	name = "long airlock spawner (interior east, exterior west)"
 	icon_state = "1x2_E_to_W"

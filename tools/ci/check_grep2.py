@@ -104,19 +104,16 @@ def check_to_chats_have_a_user_arguement(lines):
 CONDITIONAL_LEADING_SPACE = re.compile(r"(if|for|while|switch)\s+(\(.*?\)?)") # checks for "if (thing)", replace with $1$2
 CONDITIONAL_BEGINNING_SPACE = re.compile(r"(if|for|while|switch)\((!?) (.+\)?)") # checks for "if( thing)", replace with $1($2$3
 CONDITIONAL_ENDING_SPACE = re.compile(r"(if|for|while|switch)(\(.+) \)") # checks for "if(thing )", replace with $1$2)
-CONDITIONAL_DOUBLE_PARENTHESIS = re.compile(r"(if)\((\([^)]+\))\)$") # checks for if((thing)), replace with $1$2
 # To fix any of these, run them as regex in VSCode, with the appropriate replacement
 # It may be a good idea to turn the replacement into a script someday
 def check_conditional_spacing(lines):
     for idx, line in enumerate(lines):
         if CONDITIONAL_LEADING_SPACE.search(line):
-            return Failure(idx + 1, "Found a conditional statement matching the format \"if (thing)\" (irregular spacing), please use \"if(thing)\" instead.")
+            return Failure(idx + 1, "Found a conditional statement matching the format \"if (thing)\", please use \"if(thing)\" instead.")
         if CONDITIONAL_BEGINNING_SPACE.search(line):
-            return Failure(idx + 1, "Found a conditional statement matching the format \"if( thing)\" (irregular spacing), please use \"if(thing)\" instead.")
+            return Failure(idx + 1, "Found a conditional statement matching the format \"if( thing)\", please use \"if(thing)\" instead.")
         if CONDITIONAL_ENDING_SPACE.search(line):
-            return Failure(idx + 1, "Found a conditional statement matching the format \"if(thing )\" (irregular spacing), please use \"if(thing)\" instead.")
-        if CONDITIONAL_DOUBLE_PARENTHESIS.search(line):
-            return Failure(idx + 1, "Found a conditional statement matching the format \"if((thing))\" (unnecessary outer parentheses), please use \"if(thing)\" instead.")
+            return Failure(idx + 1, "Found a conditional statement matching the format \"if(thing )\", please use \"if(thing)\" instead.")
 
 # makes sure that no global list inits have an empty list in them without using the helper
 GLOBAL_LIST_EMPTY = re.compile(r"(?<!#define GLOBAL_LIST_EMPTY\(X\) )GLOBAL_LIST_INIT([^,]+),.{0,5}list\(\)")

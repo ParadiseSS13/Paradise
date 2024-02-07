@@ -12,9 +12,6 @@
 	var/currently_climbed = FALSE
 	var/mover_dir = null
 
-/obj/structure/railing/get_climb_text()
-	return "<span class='info'>You can <b>Click-Drag</b> yourself to [src] to climb over it after a short delay.</span>"
-
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
 	icon_state = "railing_corner"
 	density = FALSE

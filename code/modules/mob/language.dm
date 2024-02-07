@@ -111,15 +111,13 @@
 	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [get_spoken_verb(message)], [format_message(message)]</span></i>"
 
 	for(var/mob/player in GLOB.player_list)
-		if(istype(player, /mob/dead) && follow)
+		if(istype(player,/mob/dead) && follow)
 			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> ([ghost_follow_link(speaker, ghost=player)]) [get_spoken_verb(message)], [format_message(message)]</span></i>"
 			to_chat(player, msg_dead)
 			continue
 
-		else if(istype(player, /mob/dead) || ((src in player.languages) && check_special_condition(player, speaker)))
+		else if(istype(player,/mob/dead) || ((src in player.languages) && check_special_condition(player, speaker)))
 			to_chat(player, msg)
-			if((flags & HIVEMIND) && (flags & HIVEMIND_RUNECHAT))
-				player.create_chat_message(player, "[speaker_mask], [format_message(message)]")
 
 /datum/language/proc/check_special_condition(mob/other, mob/living/speaker)
 	return TRUE
@@ -283,6 +281,7 @@
 /datum/language/trinary/scramble(input)
 	. = ..(copytext(input, 1, max(length(input) / 4, 2)))
 
+
 /datum/language/trinary/get_random_name()
 	var/new_name
 	if(prob(70))
@@ -313,6 +312,7 @@
 			new_name += " "
 		new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax", "Orax", "Oriz", "Tariz", "Kvestan"))]"
 	return new_name
+
 
 /datum/language/slime
 	name = "Bubblish"
@@ -564,7 +564,7 @@
 	exclaim_verbs = list("gibbers")
 	colour = "abductor"
 	key = "zw" //doesn't matter, this is their default and only language
-	flags = RESTRICTED | HIVEMIND | NOBABEL | HIVEMIND_RUNECHAT
+	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
 /datum/language/abductor/broadcast(mob/living/speaker, message, speaker_mask)
@@ -581,7 +581,6 @@
 /datum/language/abductor/golem
 	name = "Golem Mindlink"
 	desc = "Communicate with other alien alloy golems through a psychic link."
-	flags = RESTRICTED | HIVEMIND | NOBABEL
 
 /datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
 	return TRUE

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-/* check_grep:ignore */ /client/var/datum/tgui_panel/tgui_panel
+/client/var/datum/tgui_panel/tgui_panel
 
 /**
  * tgui panel / chat troubleshooting verb

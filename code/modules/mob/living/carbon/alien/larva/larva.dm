@@ -9,7 +9,6 @@
 	health = 25
 	density = FALSE
 
-	var/temperature_resistance = T0C+75
 	var/amount_grown = 0
 	var/max_grown = 200
 	var/time_of_birth
@@ -78,6 +77,8 @@
 
 /mob/living/carbon/alien/larva/restrained()
 	return FALSE
+
+/mob/living/carbon/alien/larva/var/temperature_resistance = T0C+75
 
 // new damage icon system
 // now constructs damage icon for each organ from mask * damage field

@@ -314,7 +314,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	return GLOB.default_state
 
 /obj/machinery/computer/card/proc/change_ui_autoupdate(value, mob/user)
-	var/datum/tgui/ui = SStgui.try_update_ui(user, src)
+	var/datum/tgui/ui = SStgui.try_update_ui(user, src, "main")
 	reset_timer = null
 	if(ui)
 		ui.set_autoupdate(value)

@@ -598,7 +598,7 @@
 				S.trigger()
 			else
 				L.KnockDown(10 SECONDS)
-				L.apply_damage(60, STAMINA)
+				L.adjustStaminaLoss(60)
 				L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
 				L.flash_eyes(1, TRUE)
 				if(issilicon(L))

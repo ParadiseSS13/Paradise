@@ -1,10 +1,7 @@
 /mob/living/carbon
 	gender = MALE
 	pressure_resistance = 15
-
 	var/list/stomach_contents
-	var/last_stomach_attack
-
 	var/list/processing_patches
 	var/list/internal_organs = list()
 	var/list/internal_organs_slot = list()	//Same as above, but stores "slot ID" - "organ" pairs for easy access.

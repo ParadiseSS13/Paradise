@@ -36,19 +36,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 	/// The url page name for this antagonist, appended to the end of the wiki url in the form of: [GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name]
 	var/wiki_page_name
 
-	//Blurb stuff
-	/// Intro Blurbs text colour
-	var/blurb_text_color = COLOR_BLACK
-	/// Intro Blurbs outline width
-	var/blurb_text_outline_width = 0
-	/// Intro Blurb Font
-	var/blurb_font = "Courier New"
-	//Backgrount
-	var/blurb_r = 0
-	var/blurb_g = 0
-	var/blurb_b = 0
-	var/blurb_a = 0
-
 /datum/antagonist/New()
 	GLOB.antagonists += src
 	objective_holder = new(src)
@@ -405,6 +392,3 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/on_cryo()
 	return
 
-/// This is the custom blurb message used on login for an antagonist.
-/datum/antagonist/proc/custom_blurb()
-	return FALSE

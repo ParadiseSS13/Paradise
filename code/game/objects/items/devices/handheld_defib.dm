@@ -47,7 +47,7 @@
 		add_attack_logs(user, H, "emag-defibbed with [src]")
 		playsound(user.loc, "sound/weapons/egloves.ogg", 75, 1)
 		H.KnockDown(knockdown_duration)
-		H.apply_damage(60, STAMINA)
+		H.adjustStaminaLoss(60)
 		SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 		ADD_TRAIT(H, TRAIT_WAS_BATONNED, user_UID)
 		cooldown = TRUE

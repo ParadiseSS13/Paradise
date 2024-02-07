@@ -214,7 +214,7 @@
 		H.ha_style = "None"
 	update_head_accessory()
 
-/mob/living/carbon/human/proc/change_eye_color(colour = "#000000", update_dna = TRUE, skip_icons = FALSE)
+/mob/living/carbon/human/proc/change_eye_color(colour = "#000000", update_dna = TRUE)
 	// Update the main DNA datum, then sync the change across the organs
 	var/obj/item/organ/internal/eyes/eyes_organ = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes_organ)
@@ -227,11 +227,9 @@
 
 	if(update_dna)
 		update_dna()
-
 	sync_organ_dna(assimilate = FALSE)
-	if(!skip_icons)
-		update_eyes()
-		update_body()
+	update_eyes()
+	update_body()
 	return TRUE
 
 /mob/living/carbon/human/proc/get_eye_color()

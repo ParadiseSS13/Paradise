@@ -223,6 +223,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 /obj/effect/landmark/spawner/nuclear_bomb/death_squad
 	name = "Death Squad Nuclear Bomb"
 
+/obj/effect/landmark/spawner/teleport_scroll
+	name = "Teleport-Scroll"
+
 /obj/effect/landmark/spawner/nuke_code
 	name = "nukecode"
 

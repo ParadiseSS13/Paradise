@@ -1,3 +1,8 @@
+/obj/var/list/req_access = null
+/obj/var/req_access_txt = "0"
+/obj/var/list/req_one_access = null
+/obj/var/req_one_access_txt = "0"
+
 //returns 1 if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/M)
 	//check if we don't require any access at all

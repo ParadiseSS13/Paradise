@@ -119,28 +119,28 @@
  * Associative list of JSON-encoded shared states that were set by
  * tgui clients.
  */
-/* check_grep:ignore */ /datum/var/list/tgui_shared_states
+/datum/var/list/tgui_shared_states
 
 /**
  * global
  *
  * Tracks open UIs for a user.
  */
-/* check_grep:ignore */ /mob/var/list/tgui_open_uis = list()
+/mob/var/list/tgui_open_uis = list()
 
 /**
  * global
  *
  * Tracks open windows for a user.
  */
-/* check_grep:ignore */ /client/var/list/tgui_windows = list()
+/client/var/list/tgui_windows = list()
 
 /**
  * global
  *
  * TRUE if cache was reloaded by tgui dev server at least once.
  */
-/* check_grep:ignore */ /client/var/tgui_cache_reloaded = FALSE
+/client/var/tgui_cache_reloaded = FALSE
 
 /**
  * public

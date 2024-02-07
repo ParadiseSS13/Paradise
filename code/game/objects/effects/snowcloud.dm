@@ -131,7 +131,7 @@
 	. = ..()
 	if(!. && isliving(target))
 		var/mob/living/M = target
-		M.apply_damage(stamina_damage, STAMINA)
+		M.adjustStaminaLoss(stamina_damage)
 		playsound(target, 'sound/weapons/tap.ogg', 50, TRUE)
 	qdel(src)
 

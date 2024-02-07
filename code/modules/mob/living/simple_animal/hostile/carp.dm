@@ -99,7 +99,7 @@
 	. = ..()
 	if(. && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.apply_damage(8, STAMINA)
+		H.adjustStaminaLoss(8)
 
 /mob/living/simple_animal/hostile/carp/death(gibbed)
 	. = ..()
