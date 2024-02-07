@@ -498,6 +498,8 @@
 	..()
 	if(href_list["select"])
 		selected_item = locateUID(href_list["select"])
+		if(!istype(selected_item))
+			return
 		occupant_message("<span class='notice'>Switched to [selected_item].</span>")
 		update_equip_info()
 
