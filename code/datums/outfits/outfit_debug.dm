@@ -39,6 +39,11 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Debugger", "admin")
+		
+	H.dna.SetSEState(GLOB.breathlessblock, 1)
+	singlemutcheck(H, GLOB.breathlessblock, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(GLOB.breathlessblock)
+	H.check_mutations = 1
 
 /obj/item/radio/headset/centcom/debug
 	name = "AVD-CNED bowman headset"

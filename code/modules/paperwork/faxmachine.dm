@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		if("rename") // rename the item that is currently in the fax machine
 			if(copyitem)
 				var/n_name = sanitize(copytext(input(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)  as text, 1, MAX_MESSAGE_LEN))
-				if((copyitem && copyitem.loc == src && usr.stat == 0))
+				if(copyitem && copyitem.loc == src && usr.stat == 0)
 					if(istype(copyitem, /obj/item/paper))
 						copyitem.name = "[(n_name ? "[n_name]" : initial(copyitem.name))]"
 						copyitem.desc = "This is a paper titled '" + copyitem.name + "'."

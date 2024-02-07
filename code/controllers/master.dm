@@ -529,7 +529,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				queue_node = queue_node.queue_next
 				continue
 
-			if((queue_node_flags & SS_BACKGROUND))
+			if(queue_node_flags & SS_BACKGROUND)
 				if(!bg_calc)
 					current_tick_budget = queue_priority_count_bg
 					bg_calc = TRUE
