@@ -53,9 +53,6 @@
 
 	return txt
 
-/obj/item/mecha_parts/mecha_equipment/proc/get_module_equip_info()
-	return
-
 /obj/item/mecha_parts/mecha_equipment/proc/is_ranged()//add a distance restricted equipment. Why not?
 	return range & MECHA_RANGED
 
@@ -130,12 +127,12 @@
 		chassis.equipment -= src
 		if(chassis.selected == src)
 			chassis.selected = null
+		if(chassis.occupant)
+			remove_targeted_action()
 		update_chassis_page()
 		chassis.log_message("[src] removed from equipment.")
 		chassis = null
 		set_ready_state(1)
-	if(chassis.occupant)
-		remove_targeted_action()
 
 /obj/item/mecha_parts/mecha_equipment/proc/remove_targeted_action()
 	if(!selectable)

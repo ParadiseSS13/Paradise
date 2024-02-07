@@ -278,9 +278,6 @@
 					playsound(target, usesound, 50, TRUE)
 					playsound(target, 'sound/effects/sparks2.ogg', 50, TRUE)
 
-/obj/item/mecha_parts/mecha_equipment/rcd/proc/check_menu(mob/living/carbon/user)
-	return (user && chassis.occupant == user && user.stat != DEAD)
-
 /obj/item/mecha_parts/mecha_equipment/rcd/Topic(href, href_list)
 	..()
 	if(href_list["mode"])
@@ -487,7 +484,8 @@
 		item.tool_enabled = TRUE
 	selected_item = pick(items_list)
 
-/obj/item/mecha_parts/mecha_equipment/eng_toolset/get_module_equip_info()
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/get_equip_info()
+	. = ..()
 	for(var/obj/item/item as anything in items_list)
 		var/short_name = uppertext(item.name[1])
 		if(item == selected_item)
