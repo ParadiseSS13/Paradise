@@ -472,6 +472,12 @@
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
 			return
 
+		if(istype(P, /obj/item/nullrod/godhand))
+			user.unEquip(src)
+			user.visible_message("<span class='danger'>[user] touches [src] with a finger and it bursts into flames!</span>", "<span class='danger'>You ignite [src] with your finger!</span>")
+			fire_act()
+			return
+
 		user.unEquip(src)
 		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
 		fire_act()
