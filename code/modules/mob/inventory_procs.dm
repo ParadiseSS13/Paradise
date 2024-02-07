@@ -56,7 +56,7 @@
 /mob/proc/put_in_l_hand(obj/item/W, skip_blocked_hands_check = FALSE)
 	if(!put_in_hand_check(W, skip_blocked_hands_check))
 		return 0
-	if(!l_hand && has_left_hand())
+	if(!l_hand && (has_left_hand() || HAS_TRAIT(W, TRAIT_IGNORE_HANDS_RESTRICTIONS)))
 		W.forceMove(src)		//TODO: move to equipped?
 		l_hand = W
 		W.layer = ABOVE_HUD_LAYER	//TODO: move to equipped?
@@ -72,7 +72,7 @@
 /mob/proc/put_in_r_hand(obj/item/W, skip_blocked_hands_check = FALSE)
 	if(!put_in_hand_check(W, skip_blocked_hands_check))
 		return 0
-	if(!r_hand && has_right_hand())
+	if(!r_hand && (has_right_hand() || HAS_TRAIT(W, TRAIT_IGNORE_HANDS_RESTRICTIONS)))
 		W.forceMove(src)
 		r_hand = W
 		W.layer = ABOVE_HUD_LAYER

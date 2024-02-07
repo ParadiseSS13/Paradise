@@ -85,15 +85,33 @@
 	revert_cast() // to disable cooldown
 
 	var/mob/living/carbon/C = targets[1]
-	if(istype(C.l_hand, gun_type))
-		C.drop_l_hand()
-	if(istype(C.r_hand, gun_type))
-		C.drop_r_hand()
+	if(C.l_hand?.type == gun_type || C.r_hand?.type == gun_type)
+		remove_weapon(any_hand = TRUE)
+		return FALSE
+
 	if(!C.drop_item())
 		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot invoke a fireball over it!")
 		return FALSE
+
 	var/obj/item/gun/projectile/shotgun/boltaction/enchanted/GUN = new gun_type(FALSE, src)
 	C.put_in_hands(GUN)
+	RegisterSignal(C, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(remove_weapon), override = TRUE)
+	C.changeNext_click(0) // allows to get fireball and instantly shoot it
+
+/obj/effect/proc_holder/spell/infinite_guns/fireball/basic/proc/remove_weapon(any_hand = FALSE)
+	SIGNAL_HANDLER
+	var/mob/owner = action.owner
+	if(!any_hand && !(owner.get_active_hand()?.type ==  gun_type))
+		return
+
+	if(owner.l_hand?.type == gun_type)
+		qdel(owner.l_hand)
+		owner.update_inv_l_hand()
+		return
+
+	if(owner.r_hand?.type == gun_type)
+		qdel(owner.r_hand)
+		owner.update_inv_r_hand()
 
 /obj/effect/proc_holder/spell/infinite_guns/fireball/basic/proc/yell_on_shoot(mob/user)
 	invocation_type = invocation_type_on_shoot
@@ -106,12 +124,26 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "fireball"
 	guns_left = 0
+	flags = NOBLUDGEON | DROPDEL | ABSTRACT | NODROP
+	item_state = ""
+
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/fireball/linked/basic/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_IGNORE_HANDS_RESTRICTIONS, "fireball")
+
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/fireball/linked/basic/Destroy()
+	if(source)
+		source.UnregisterSignal(source.action.owner, COMSIG_MOB_WILLINGLY_DROP)
+	. = ..()
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/fireball/linked/basic/shoot_live_shot(mob/living/user, atom/target, pointblank, message)
 	if(source)
 		source.cooldown_handler.start_recharge()
 		source.yell_on_shoot(user)
 	. = ..()
+
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/fireball/linked/basic/customised_abstract_text(mob/living/carbon/owner)
+	return
 
 /obj/effect/proc_holder/spell/infinite_guns/fireball/basic/greater
 	name = "Greater Homing Fireball"

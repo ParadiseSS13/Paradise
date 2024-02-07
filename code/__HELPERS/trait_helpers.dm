@@ -223,6 +223,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CAN_VIEW_HEALTH "can_view_health" // Also used for /Stat
 #define TRAIT_MAGPULSE "magnetificent" // Used for anything that is magboot related
 #define TRAIT_NOSLIP "noslip"
+#define TRAIT_IGNORE_HANDS_RESTRICTIONS "ignore_hands_restrictions" // Allows to put item in cutted off hand, allows using item with handcuffs
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion

@@ -180,9 +180,9 @@
 		update_hand_missing()
 		if(owner.gloves)
 			owner.unEquip(owner.gloves)
-		if(owner.l_hand && (body_part == HAND_LEFT))
+		if(owner.l_hand && body_part == HAND_LEFT && !HAS_TRAIT(owner.l_hand, TRAIT_IGNORE_HANDS_RESTRICTIONS))
 			owner.unEquip(owner.l_hand, TRUE)
-		if(owner.r_hand && (body_part == HAND_RIGHT))
+		if(owner.r_hand && body_part == HAND_RIGHT && !HAS_TRAIT(owner.r_hand, TRAIT_IGNORE_HANDS_RESTRICTIONS))
 			owner.unEquip(owner.r_hand, TRUE)
 
 	. = ..()
