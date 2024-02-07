@@ -16,6 +16,7 @@
 	var/alien_disarm_damage = 30 //Aliens deal a good amount of stamina damage on disarm intent
 	var/alien_slash_damage = 20 //Aliens deal a good amount of damage on harm intent
 	var/alien_movement_delay = 0 //This can be + or -, how fast an alien moves
+	var/temperature_resistance = T0C+75
 	pass_flags = PASSTABLE
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
@@ -72,8 +73,6 @@
 		return 1
 	return 0
 
-
-/mob/living/carbon/alien/humanoid/var/temperature_resistance = T0C+75
 
 /mob/living/carbon/alien/humanoid/movement_delay() //Aliens have a varied movespeed
 	. = ..()
