@@ -348,22 +348,6 @@
 		reregister_machine()
 		power_change()
 
-/obj/machinery/attackby(obj/item/M, mob/user, params) // Scanning the machine with a machine analyser
-	if(istype(M, /obj/item/robotanalyzer))
-		user.visible_message("<span class='notice'>[user] scans [src] with [M].</span>",\
-		"<span class='notice'>You scan [src] with [M]</span>")
-		if(obj_integrity == max_integrity)
-			to_chat(user, "<span class='info'>[src] is at full integraty.</span>")
-			return
-		if(stat & BROKEN)
-			to_chat(user, "<span class='warning'>Catastrophic structural damage detected! [src] requires complete reconstruction.</span>")
-			return
-		else
-			to_chat(user, "<span class='info'>Structural damage detected! [src]'s estimated integraty is [round((obj_integrity/max_integrity)*100)]%.</span>")
-			return
-	else
-		return ..()
-
 /obj/machinery/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = O
