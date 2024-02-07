@@ -466,7 +466,7 @@
 	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
 	force = 10
 	equip_cooldown = 1.5 SECONDS
-	energy_drain = 100
+	energy_drain = 150
 	harmful = TRUE
 	var/list/items_list = newlist(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/experimental/mecha,
 		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg) //0.5 toolspeed all
