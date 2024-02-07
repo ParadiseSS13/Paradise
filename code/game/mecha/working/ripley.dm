@@ -1,3 +1,6 @@
+#define HIDES_COVERED_FULL 3
+#define PLATES_COVERED_FULL 3
+
 /obj/mecha/working/ripley
 	desc = "Autonomous Power Loader Unit. This newer model is refitted with powerful armour against the dangers of the EVA mining process."
 	name = "APLU \"Ripley\""
@@ -62,11 +65,13 @@
 	if(!hides && !plates) // Just in case if armour is somehow removed
 		desc = initial(desc)
 		return
-	if(hides == 3)
+
+	if(hides == HIDES_COVERED_FULL)
 		desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."
 	else
 		desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
-	if(plates == 3)
+
+	if(plates == PLATES_COVERED_FULL)
 		desc = "Autonomous Power Loader Unit. Its armour is completely lined with metal plating."
 	else
 		desc = "Autonomous Power Loader Unit. It's armor is reinforced with some metal plating."
@@ -74,12 +79,12 @@
 /obj/mecha/working/ripley/update_overlays()
 	. = ..()
 	if(hides)
-		if(hides == 3)
+		if(hides == HIDES_COVERED_FULL)
 			. += occupant ? "ripley-g-full" : "ripley-g-full-open"
 		else
 			. += occupant ? "ripley-g" : "ripley-g-open"
 	if(plates)
-		if(plates == 3)
+		if(plates == PLATES_COVERED_FULL)
 			. += occupant ? "ripley-a-full" : "ripley-a-full-open"
 		else
 			. += occupant ? "ripley-a" : "ripley-a-open"

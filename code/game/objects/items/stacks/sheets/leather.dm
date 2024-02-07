@@ -207,7 +207,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			to_chat(user, "<span class='warning'>You can't improve [C] any further!</span>")
 	else if(istype(target, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/D = target
-		if(D.hides < 3 && !D.plates)
+		if(D.hides < HIDES_COVERED_FULL && !D.plates)
 			D.hides++
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 25, 115))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 7, 60))
@@ -246,7 +246,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 		return
 	if(istype(target, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/D = target
-		if(D.plates < 3 && !D.hides)
+		if(D.plates < PLATES_COVERED_FULL && !D.hides)
 			D.plates++
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 4, 50))
