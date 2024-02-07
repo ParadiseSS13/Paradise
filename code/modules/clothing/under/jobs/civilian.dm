@@ -73,6 +73,7 @@
 	item_color = "chef"
 
 /obj/item/clothing/under/rank/civilian/clown
+	beauty = 500
 	name = "clown suit"
 	desc = "<i>'HONK!'</i>"
 	icon_state = "clown"
@@ -108,6 +109,7 @@
 	flags = NODROP
 
 /obj/item/clothing/under/rank/civilian/mime
+	beauty = 500
 	name = "mime's outfit"
 	desc = "It's not very colourful."
 	icon_state = "mime"

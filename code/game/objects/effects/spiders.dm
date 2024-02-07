@@ -30,6 +30,11 @@
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
 
+/obj/structure/spider/Initialize(mapload)
+	. = ..()
+
+	AddElement(/datum/element/beauty, -50)
+
 /obj/structure/spider/stickyweb
 	icon_state = "stickyweb1"
 
@@ -230,6 +235,7 @@
 	desc = "Green squishy mess."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenshatter"
+	beauty = -100
 
 /obj/structure/spider/cocoon
 	name = "cocoon"

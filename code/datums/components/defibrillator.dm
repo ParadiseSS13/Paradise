@@ -312,6 +312,7 @@
 		target.med_hud_set_health()
 		target.med_hud_set_status()
 		add_attack_logs(user, target, "Revived with [defib_ref]")
+		user.add_mood_event("saved_life", /datum/mood_event/saved_life)
 		SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
 	SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, defib_success)
 	set_cooldown(cooldown)

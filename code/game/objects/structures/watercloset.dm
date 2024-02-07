@@ -400,6 +400,7 @@
 		check_heat(L)
 		L.ExtinguishMob()
 		L.adjust_fire_stacks(-20) //Douse ourselves with water to avoid fire more easily
+		L.add_mood_event("shower",/datum/mood_event/nice_shower)
 
 	A.clean_blood(radiation_clean = TRUE)
 

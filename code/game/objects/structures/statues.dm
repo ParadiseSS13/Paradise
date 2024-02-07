@@ -9,6 +9,11 @@
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
+/obj/structure/statue/Initialize(mapload)
+	. = ..()
+
+	AddElement(/datum/element/beauty, 2000)
+
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
 	if(!(flags & NODECONSTRUCT))

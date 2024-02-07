@@ -27,6 +27,10 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, honk_sounds, 50, falloff_exponent = 20) //die off quick please
 
+/obj/item/bikehorn/attack(mob/living/M, mob/living/user, def_zone)
+	. = ..()
+	user.add_mood_event("honk", /datum/mood_event/honk)
+
 /obj/item/bikehorn/airhorn
 	name = "air horn"
 	desc = "Damn son, where'd you find this?"

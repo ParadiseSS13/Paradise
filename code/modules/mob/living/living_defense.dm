@@ -161,6 +161,7 @@
 /mob/living/proc/IgniteMob()
 	if(fire_stacks > 0 && !on_fire && !HAS_TRAIT(src, TRAIT_NOFIRE))
 		on_fire = TRUE
+		add_mood_event("on_fire", /datum/mood_event/on_fire)
 		visible_message("<span class='warning'>[src] catches fire!</span>", "<span class='userdanger'>You're set on fire!</span>")
 		set_light(light_range + 3,l_color = "#ED9200")
 		throw_alert("fire", /obj/screen/alert/fire)
@@ -171,6 +172,7 @@
 
 /mob/living/proc/ExtinguishMob()
 	if(on_fire)
+		clear_mood_event("on_fire")
 		on_fire = 0
 		fire_stacks = 0
 		set_light(max(0,light_range - 3))

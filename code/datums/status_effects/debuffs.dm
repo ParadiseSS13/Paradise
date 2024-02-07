@@ -436,6 +436,7 @@
 		if(L)
 			liver_multiplier = L.alcohol_intensity
 		actual_strength *= liver_multiplier
+	owner.add_mood_event("drunk", /datum/mood_event/drunk)
 
 	// THRESHOLD_SLUR (60 SECONDS)
 	if(actual_strength >= THRESHOLD_SLUR)
@@ -702,6 +703,7 @@
 /datum/status_effect/transient/jittery/on_apply()
 	. = ..()
 	owner.do_jitter_animation(strength / 20, 1)
+	owner.add_mood_event(id, /datum/mood_event/jittery)
 
 /datum/status_effect/transient/jittery/tick()
 	. = ..()
@@ -711,6 +713,10 @@
 
 /datum/status_effect/transient/jittery/calc_decay()
 	return (-0.2 + (IS_HORIZONTAL(owner) ? -0.8 : 0)) SECONDS
+
+/datum/status_effect/transient/jittery/on_remove()
+	. = ..()
+	owner.clear_mood_event(id)
 
 /datum/status_effect/transient/stammering
 	id = "stammer"
@@ -840,9 +846,11 @@
 /datum/status_effect/transient/drugged/on_apply()
 	. = ..()
 	owner.update_druggy_effects()
+	owner.add_mood_event("drugged", /datum/mood_event/high)
 
 /datum/status_effect/transient/drugged/on_remove()
 	owner.update_druggy_effects()
+	owner.clear_mood_event("drugged")
 
 #define FAKE_COLD 1
 #define FAKE_FOOD_POISONING 2

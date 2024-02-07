@@ -5,6 +5,7 @@
 	basecolor = "#05EE05"
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	blood_state = BLOOD_STATE_XENO
+	beauty = -300
 
 /obj/effect/decal/cleanable/blood/xeno/splatter
 	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")

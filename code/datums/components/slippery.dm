@@ -60,4 +60,5 @@
 			if(horizontal_required && !IS_HORIZONTAL(mob_owner))
 				return
 		if(prob(slip_chance) && victim.slip(description, knockdown, slip_tiles, walking_is_safe, slip_always, slip_verb))
+			victim.add_mood_event("slipped", /datum/mood_event/slipped)
 			owner.after_slip(victim)

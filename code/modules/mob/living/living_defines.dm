@@ -96,3 +96,6 @@
 	var/datum/language/default_language
 
 	var/datum/middleClickOverride/middleClickOverride = null
+
+	/// Living mob's mood datum
+	var/datum/mood/mob_mood

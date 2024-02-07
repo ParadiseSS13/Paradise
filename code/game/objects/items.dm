@@ -92,6 +92,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// UID of a /mob
 	var/thrownby
 
+	// Beautiful clothes fill the room with beauty
+	var/beauty = 0
+
 	//So items can have custom embedd values
 	//Because customisation is king
 	var/embed_chance = EMBED_CHANCE
@@ -151,6 +154,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		new path(src, action_icon[path], action_icon_state[path])
 	if(isstorage(loc)) //marks all items in storage as being such
 		in_storage = TRUE
+
+	AddElement(/datum/element/beauty, beauty)
 
 // this proc is used to add text for items with ABSTRACT flag after default examine text
 /obj/item/proc/customised_abstract_text(mob/living/carbon/owner)

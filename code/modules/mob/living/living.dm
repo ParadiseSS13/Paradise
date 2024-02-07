@@ -1172,3 +1172,15 @@
 				dir = get_cardinal_dir(src, A)
 		return
 	return ..()
+
+/// Adds a mood event to the mob
+/mob/living/proc/add_mood_event(category, type, ...)
+	if(QDELETED(mob_mood))
+		return
+	mob_mood.add_mood_event(arglist(args))
+
+/// Clears a mood event from the mob
+/mob/living/proc/clear_mood_event(category)
+	if(QDELETED(mob_mood))
+		return
+	mob_mood.clear_mood_event(category)

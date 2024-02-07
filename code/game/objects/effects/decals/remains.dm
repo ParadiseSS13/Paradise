@@ -1,5 +1,6 @@
 /obj/effect/decal/remains
 	gender = PLURAL
+	beauty = -100
 
 /obj/effect/decal/remains/acid_act()
 	visible_message("<span class='warning'>[src] dissolve[gender==PLURAL?"":"s"] into a puddle of sizzling goop!</span>")

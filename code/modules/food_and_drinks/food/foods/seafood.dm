@@ -10,6 +10,8 @@
 	tastes = list("white fish" = 1)
 	ingredient_name = "fillet of meat"
 	ingredient_name_plural = "fillets of meat"
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD | RAW
 
 /obj/item/food/snacks/salmonmeat
 	name = "raw salmon"
@@ -20,7 +22,8 @@
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 2)
 	tastes = list("raw salmon" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD | RAW
 /obj/item/food/snacks/salmonsteak
 	name = "salmon steak"
 	desc = "A fillet of freshly-grilled salmon meat."
@@ -31,7 +34,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 4, "vitamin" = 2)
 	tastes = list("cooked salmon" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/catfishmeat
 	name = "raw catfish"
 	desc = "A fillet of raw catfish."
@@ -41,7 +45,8 @@
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 2)
 	tastes = list("catfish" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD | RAW
 /obj/item/food/snacks/fishfingers
 	name = "fish fingers"
 	desc = "A finger of fish."
@@ -51,7 +56,8 @@
 	bitesize = 1
 	list_reagents = list("nutriment" = 4)
 	tastes = list("fish" = 1, "bread" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/fishburger
 	name = "Fillet-O-Carp sandwich"
 	desc = "Almost like a carp is yelling somewhere... Give me back that fillet -o- carp, give me that carp."
@@ -61,7 +67,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "fish" = 4)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/cubancarp
 	name = "cuban carp"
 	desc = "A grifftastic sandwich that burns your tongue and then leaves it numb!"
@@ -72,7 +79,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "capsaicin" = 1)
 	tastes = list("fish" = 4, "batter" = 1, "hot peppers" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/fishandchips
 	name = "fish and chips"
 	desc = "I do say so myself old chap. Indubitably!"
@@ -82,7 +90,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6)
 	tastes = list("fish" = 1, "chips" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sashimi
 	name = "carp sashimi"
 	desc = "Celebrate surviving attack from hostile alien lifeforms by hospitalising yourself."
@@ -91,7 +100,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "capsaicin" = 5)
 	tastes = list("raw carp" = 1, "hot peppers" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/fried_shrimp
 	name = "fried shrimp"
 	desc = "Just one of the many things you can do with shrimp!"
@@ -100,7 +110,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("shrimp" = 1, "bread crumbs" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/boiled_shrimp
 	name = "boiled shrimp"
 	desc = "Just one of the many things you can do with shrimp!"
@@ -109,7 +120,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("shrimp" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/shrimp_skewer
 	name = "shrimp skewer"
 	desc = "Four shrimp lightly grilled on a skewer. Yummy!"
@@ -119,7 +131,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("shrimp" = 4)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/fish_skewer
 	name = "fish skewer"
 	desc = "A whole fish battered and grilled on a skewer. Hope you're hungry!"
@@ -129,7 +142,8 @@
 	bitesize = 3
 	list_reagents = list("protein" = 6, "vitamin" = 4)
 	tastes = list("shrimp" = 1, "batter" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sliceable/Ebi_maki
 	name = "ebi maki roll"
 	desc = "A large unsliced roll of Ebi Sushi."
@@ -140,7 +154,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("shrimp" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sushi_Ebi
 	name = "ebi sushi"
 	desc = "A simple sushi consisting of cooked shrimp and rice."
@@ -149,7 +164,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("shrimp" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sliceable/Ikura_maki
 	name = "ikura maki roll"
 	desc = "A large unsliced roll of Ikura Sushi."
@@ -160,7 +176,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sushi_Ikura
 	name = "ikura sushi"
 	desc = "A simple sushi consisting of salmon roe."
@@ -169,7 +186,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
 	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sliceable/Sake_maki
 	name = "sake maki roll"
 	desc = "A large unsliced roll of Sake Sushi."
@@ -180,7 +198,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("raw salmon" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sushi_Sake
 	name = "sake sushi"
 	desc = "A simple sushi consisting of raw salmon and rice."
@@ -189,7 +208,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("raw salmon" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sliceable/SmokedSalmon_maki
 	name = "smoked salmon maki roll"
 	desc = "A large unsliced roll of Smoked Salmon Sushi."
@@ -200,7 +220,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("smoked salmon" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sushi_SmokedSalmon
 	name = "smoked salmon sushi"
 	desc = "A simple sushi consisting of cooked salmon and rice."
@@ -209,7 +230,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("smoked salmon" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sliceable/Tamago_maki
 	name = "tamago maki roll"
 	desc = "A large unsliced roll of Tamago Sushi."
@@ -220,7 +242,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("egg" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sushi_Tamago
 	name = "tamago sushi"
 	desc = "A simple sushi consisting of egg and rice."
@@ -229,7 +252,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("egg" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sliceable/Inari_maki
 	name = "inari maki roll"
 	desc = "A large unsliced roll of Inari Sushi."
@@ -240,7 +264,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("fried tofu" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sushi_Inari
 	name = "inari sushi"
 	desc = "A piece of fried tofu stuffed with rice."
@@ -249,7 +274,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("fried tofu" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sliceable/Masago_maki
 	name = "masago maki roll"
 	desc = "A large unsliced roll of Masago Sushi."
@@ -260,7 +286,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("goldfish roe" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sushi_Masago
 	name = "masago sushi"
 	desc = "A simple sushi consisting of goldfish roe."
@@ -269,7 +296,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
 	tastes = list("goldfish roe" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sliceable/Tobiko_maki
 	name = "tobiko maki roll"
 	desc = "A large unsliced roll of Tobkio Sushi."
@@ -280,7 +308,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("shark roe" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sushi_Tobiko
 	name = "tobiko sushi"
 	desc = "A simple sushi consisting of shark roe."
@@ -289,7 +318,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
 	tastes = list("shark roe" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sliceable/TobikoEgg_maki
 	name = "tobiko and egg maki roll"
 	desc = "A large unsliced roll of Tobkio and Egg Sushi."
@@ -300,7 +330,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("shark roe" = 1, "rice" = 1, "egg" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sushi_TobikoEgg
 	name = "tobiko and egg sushi"
 	desc = "A sushi consisting of shark roe and an egg."
@@ -309,7 +340,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
 	tastes = list("shark roe" = 1, "rice" = 1, "egg" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sliceable/Tai_maki
 	name = "tai maki roll"
 	desc = "A large unsliced roll of Tai Sushi."
@@ -320,7 +352,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("catfish" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sushi_Tai
 	name = "tai sushi"
 	desc = "A simple sushi consisting of catfish and rice."
@@ -329,7 +362,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("catfish" = 1, "rice" = 1, "seaweed" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD
 /obj/item/food/snacks/sushi_Unagi
 	name = "unagi sushi"
 	desc = "A simple sushi consisting of eel and rice."
@@ -338,3 +372,5 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("grilled eel" = 1, "seaweed" = 1)
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SEAFOOD

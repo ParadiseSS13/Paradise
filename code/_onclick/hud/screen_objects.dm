@@ -542,6 +542,17 @@
 		var/mob/living/carbon/H = usr
 		H.check_self_for_injuries()
 
+/obj/screen/mood
+	name = "mood"
+	icon_state = "mood5"
+	screen_loc = ui_mood
+
+/obj/screen/mood/Click(location, control, params)
+	SEND_SIGNAL(src, COMSIG_CLICK, location, control, params, usr)
+
+/obj/screen/mood/attack_tk()
+	return
+
 /obj/screen/component_button
 	var/obj/screen/parent
 

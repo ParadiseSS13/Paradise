@@ -1,4 +1,5 @@
 /obj/item/clothing/under/rank/captain
+	beauty = 500
 	name = "captain's jumpsuit"
 	desc = "It's a blue jumpsuit with some gold markings denoting the rank of \"Captain\"."
 	icon = 'icons/obj/clothing/under/captain.dmi'

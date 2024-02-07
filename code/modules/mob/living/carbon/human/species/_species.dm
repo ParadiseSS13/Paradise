@@ -51,6 +51,9 @@
 	var/hunger_type
 	var/hunger_level
 
+	var/foodliked
+	var/fooddisliked
+
 	var/siemens_coeff = 1 //base electrocution coefficient
 
 	var/hazard_high_pressure = HAZARD_HIGH_PRESSURE   // Dangerously high pressure.
@@ -284,6 +287,12 @@
 
 	if(!has_gravity(H))
 		return
+	if(HAS_TRAIT(H,TRAIT_MOOD_DISTURBED)) 	 // Speed buffs
+		. -= 0.1						 	// that we
+	if(HAS_TRAIT(H,TRAIT_MOOD_NEUTRAL)) ///// get from
+		. -= 0.25					   // a good
+	if(HAS_TRAIT(H,TRAIT_MOOD_GREAT)) // or almost
+		. -= 0.5					 // good mood.
 	if(!IS_HORIZONTAL(H))
 		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
 			. -= 1

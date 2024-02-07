@@ -52,6 +52,7 @@
 	desc = "A large piece of space-resistant printed paper."
 	icon = 'icons/obj/contraband.dmi'
 	anchored = TRUE
+	beauty = 1000
 	var/original_name
 	var/random_basetype
 	var/ruined = FALSE

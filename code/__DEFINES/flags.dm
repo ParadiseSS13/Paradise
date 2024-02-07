@@ -120,6 +120,34 @@
 #define DIET_OMNI		2
 #define DIET_HERB		4
 
+//bitflags for what species like/dislike
+#define MEAT (1<<0)
+#define VEGETABLES_AND_FRUITS (1<<1)
+#define RAW (1<<2)
+#define JUNKFOOD (1<<3)
+#define GRAIN (1<<4)
+#define DAIRY (1<<5)
+#define SUGAR (1<<6)
+#define GROSS (1<<7)
+#define HEALTHFUL (1<<8)
+#define BREAKFAST (1<<9)
+#define SEAFOOD (1<<10)
+#define GORE (1<<11)
+
+DEFINE_BITFIELD(foodtypes, list(
+	"MEAT" = MEAT,
+	"VEGETABLES_AND_FRUITS" = VEGETABLES_AND_FRUITS,
+	"RAW" = RAW,
+	"JUNKFOOD" = JUNKFOOD,
+	"GRAIN" = GRAIN,
+	"DAIRY" = DAIRY,
+	"SUGAR" = SUGAR,
+	"GROSS" = GROSS,
+	"HEALTHFUL" = HEALTHFUL,
+	"BREAKFAST" = BREAKFAST,
+	"SEAFOOD" = SEAFOOD,
+	"GORE" = GORE,
+))
 
 //bitflags for door switches.
 #define OPEN	1

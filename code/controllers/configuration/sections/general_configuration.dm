@@ -82,6 +82,8 @@
 	var/revival_brain_life = 10 MINUTES
 	/// Enable random AI lawsets from the default=TRUE pool
 	var/random_ai_lawset = TRUE
+	///Disable human/living mood status. True set to disable mood status gained by a human during initialization.
+	var/disable_human_mood = FALSE
 
 /datum/configuration_section/general_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
@@ -115,6 +117,7 @@
 	CONFIG_LOAD_BOOL(enable_night_shifts, data["enable_night_shifts"])
 	CONFIG_LOAD_BOOL(reactionary_explosions, data["reactionary_explosions"])
 	CONFIG_LOAD_BOOL(random_ai_lawset, data["random_ai_lawset"])
+	CONFIG_LOAD_BOOL(disable_human_mood, data["disable_human_mood"])
 
 	// Numbers
 	CONFIG_LOAD_NUM(lobby_time, data["lobby_time"])

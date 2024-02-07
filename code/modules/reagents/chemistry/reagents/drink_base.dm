@@ -6,6 +6,7 @@
 	color = "#E78108" // rgb: 231, 129, 8
 	harmless = TRUE
 	taste_description = "something which should not exist"
+	quality = DRINK_NICE
 	var/adj_dizzy = 0
 	var/adj_drowsy = 0
 	var/adj_sleepy = 0

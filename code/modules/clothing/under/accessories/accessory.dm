@@ -11,6 +11,7 @@
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
 	var/image/inv_overlay = null	//overlay used when attached to clothing.
 	var/allow_duplicates = TRUE // Allow accessories of the same type.
+	beauty = 50
 
 /obj/item/clothing/accessory/Initialize(mapload)
 	. = ..()
@@ -204,6 +205,7 @@
 	item_color = "bronze"
 	materials = list(MAT_METAL=1000)
 	resistance_flags = FIRE_PROOF
+	beauty = 1000
 	/// The channel we will announce on when we are rewarded to someone
 	var/channel
 	/// Will we try to announce, toggled by using in hand

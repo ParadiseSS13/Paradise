@@ -1407,6 +1407,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	. = ..()
 	.["Show player panel"] = "?_src_=vars;mob_player_panel=[UID()]"
 
+	.["Add Mood Event"] = "?_src_=vars;add_mood_event=[UID()]"
+	.["Remove Mood Event"] = "?_src_=vars;remove_mood_event=[UID()]"
 	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
 	.["Give Martial Art"] = "?_src_=vars;givemartialart=[UID()]"
 	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"

@@ -36,6 +36,9 @@
 	default_headacc_colour = "#404040"
 	butt_sprite = "unathi"
 
+	foodliked = GORE | MEAT
+	fooddisliked = VEGETABLES_AND_FRUITS | GRAIN
+
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/unathi,
 		"lungs" =    /obj/item/organ/internal/lungs/unathi,

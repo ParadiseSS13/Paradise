@@ -31,6 +31,9 @@
 		)
 	reagent_tag = PROCESS_ORG
 
+	foodliked = JUNKFOOD
+	fooddisliked = RAW | GORE
+
 
 /datum/species/human/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for humans We can't have everyone be white.
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)

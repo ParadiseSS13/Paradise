@@ -11,6 +11,7 @@
 /mob/living/carbon/human/Initialize(mapload, datum/species/new_species = /datum/species/human)
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
 	create_dna()
+	setup_mood()
 
 	. = ..()
 
@@ -21,6 +22,13 @@
 	GLOB.human_list += src
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 	RegisterSignal(src, COMSIG_BODY_TRANSFER_TO, PROC_REF(mind_checks))
+
+/mob/living/carbon/human/proc/setup_mood()
+	if(GLOB.configuration.general.disable_human_mood)
+		return
+	if(istype(src, /mob/living/carbon/human/dummy))
+		return
+	mob_mood = new /datum/mood(src)
 
 /**
   * Handles any adjustments to the mob after a mind transfer.
@@ -81,6 +89,7 @@
 	QDEL_NULL(physiology)
 	GLOB.human_list -= src
 	UnregisterSignal(src, COMSIG_BODY_TRANSFER_TO)
+	QDEL_NULL(mob_mood)
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
@@ -1747,6 +1756,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		H.SetLoseBreath(0)
 		H.AdjustParalysis(-2 SECONDS)
 		H.updatehealth("cpr")
+		add_mood_event("saved_life", /datum/mood_event/saved_life)
 		visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
 
 		cpr_try_activate_bomb(H)

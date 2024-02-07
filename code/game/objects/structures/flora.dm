@@ -267,6 +267,7 @@
 	throw_range = 4
 	/// Method to track plant overlay on mob for later removal
 	var/mutable_appearance/mob_overlay
+	beauty = 700
 
 /obj/item/kirbyplants/Initialize(mapload)
 	. = ..()

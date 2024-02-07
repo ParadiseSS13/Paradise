@@ -10,6 +10,8 @@
 	desc = "If you got this, something broke! Contact a coder if this somehow spawns."
 	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "flavorless_sc"
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = SUGAR
 
 /obj/item/food/snacks/sliceable/clowncake
 	name = "clown cake"
@@ -21,6 +23,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 20, "sugar" = 5, "vitamin" = 5, "banana" = 15)
 	tastes = list("cake" = 5, "sweetness" = 2, "banana" = 1, "sad clowns" = 1, "ice-cream" = 1)
+	quality = FOOD_QUALITY_FANTASTIC
+	foodtypes = SUGAR | VEGETABLES_AND_FRUITS
 
 /obj/item/food/snacks/frozen/clowncakeslice
 	name = "clown cake slice"
@@ -30,6 +34,8 @@
 	filling_color = "#FFD675"
 	list_reagents = list("nutriment" = 4, "sugar" = 1, "vitamin" = 1, "banana" = 3)
 	tastes = list("cake" = 5, "sweetness" = 2, "sad clowns" = 1, "ice-cream" = 1)
+	quality = FOOD_QUALITY_FANTASTIC
+	foodtypes = SUGAR | VEGETABLES_AND_FRUITS
 
 /obj/item/food/snacks/frozen/sundae
 	name = "sundae"

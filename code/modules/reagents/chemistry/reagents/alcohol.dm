@@ -9,6 +9,7 @@
 	var/dizzy_adj = 6 SECONDS
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
 	taste_description = "liquid fire"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/M)
 	M.AdjustDrunk(alcohol_perc STATUS_EFFECT_CONSTANT)
@@ -45,6 +46,7 @@
 	drink_name = "Beer glass"
 	drink_desc = "A freezing pint of beer"
 	taste_description = "beer"
+	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/cider
 	name = "Cider"
@@ -57,6 +59,7 @@
 	drink_name = "Cider"
 	drink_desc = "a refreshing glass of traditional cider"
 	taste_description = "cider"
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/whiskey
 	name = "Whiskey"
@@ -69,6 +72,7 @@
 	drink_name = "Glass of whiskey"
 	drink_desc = "The silky, smokey whiskey goodness inside the glass makes the drink look very classy."
 	taste_description = "whiskey"
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/specialwhiskey
 	name = "Special Blend Whiskey"
@@ -77,6 +81,7 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
 	taste_description = "class"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/gin
 	name = "Gin"
@@ -89,6 +94,7 @@
 	drink_name = "Glass of gin"
 	drink_desc = "A crystal clear glass of Griffeater gin."
 	taste_description = "gin"
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/absinthe
 	name = "Absinthe"
@@ -103,6 +109,7 @@
 	drink_desc = "The green fairy is going to get you now!"
 	taste_description = "fucking pain"
 	allowed_overdose_process = TRUE
+	quality = DRINK_GOOD
 
 //copy paste from LSD... shoot me
 /datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/M)
@@ -145,6 +152,7 @@
 	drink_desc = "Now you want to Pray for a pirate suit, don't you?"
 	taste_description = "rum"
 	allowed_overdose_process = TRUE
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/rum/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -161,6 +169,7 @@
 	drink_name = "Glass of Mojito"
 	drink_desc = "Fresh from Spesscuba."
 	taste_description = "mojito"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/vodka
 	name = "Vodka"
@@ -172,6 +181,7 @@
 	drink_name = "Glass of vodka"
 	drink_desc = "The glass contain wodka. Xynta."
 	taste_description = "vodka"
+	quality = DRINK_FANTASTIC
 
 /datum/reagent/consumable/ethanol/sake
 	name = "Sake"
@@ -183,6 +193,7 @@
 	drink_name = "Glass of Sake"
 	drink_desc = "A glass of Sake."
 	taste_description = "sake"
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/tequila
 	name = "Tequila"
@@ -194,6 +205,7 @@
 	drink_name = "Glass of Tequila"
 	drink_desc = "Now all that's missing is the weird colored shades!"
 	taste_description = "tequila"
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/vermouth
 	name = "Vermouth"
@@ -205,6 +217,7 @@
 	drink_name = "Glass of Vermouth"
 	drink_desc = "You wonder why you're even drinking this straight."
 	taste_description = "vermouth"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/wine
 	name = "Wine"
@@ -217,6 +230,7 @@
 	drink_name = "Glass of wine"
 	drink_desc = "A very classy looking drink."
 	taste_description = "wine"
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/cognac
 	name = "Cognac"
@@ -241,6 +255,7 @@
 	drink_name = "Suicider"
 	drink_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
 	taste_description = "approaching death"
+	quality = DRINK_REVOLTING
 
 /datum/reagent/consumable/ethanol/ale
 	name = "Ale"
@@ -252,6 +267,7 @@
 	drink_name = "Ale glass"
 	drink_desc = "A freezing pint of delicious Ale"
 	taste_description = "ale"
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/thirteenloko
 	name = "Thirteen Loko"
@@ -266,6 +282,7 @@
 	drink_name = "Glass of Thirteen Loko"
 	drink_desc = "This is a glass of Thirteen Loko, it appears to be of the highest quality. The drink, not the glass"
 	taste_description = "party"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/M)
 	M.AdjustDrowsy(-14 SECONDS)
@@ -290,6 +307,7 @@
 	drink_name = "Glass of bilk"
 	drink_desc = "A brew of milk and beer. For those alcoholics who fear osteoporosis."
 	taste_description = "bilk"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/atomicbomb
 	name = "Atomic Bomb"
@@ -302,6 +320,7 @@
 	drink_name = "Atomic Bomb"
 	drink_desc = "Nanotrasen cannot take legal responsibility for your actions after imbibing."
 	taste_description = "a long, fiery burn"
+	quality = DRINK_FANTASTIC
 
 /datum/reagent/consumable/ethanol/threemileisland
 	name = "Three Mile Island Iced Tea"
@@ -314,6 +333,7 @@
 	drink_name = "Three Mile Island Ice Tea"
 	drink_desc = "A glass of this is sure to prevent a meltdown."
 	taste_description = "a creeping heat"
+	quality = DRINK_FANTASTIC
 
 /datum/reagent/consumable/ethanol/goldschlager
 	name = "Goldschlager"
@@ -326,6 +346,7 @@
 	drink_name = "Glass of goldschlager"
 	drink_desc = "100 proof that teen girls will drink anything with gold in it."
 	taste_description = "a deep, spicy warmth"
+	quality = DRINK_FANTASTIC
 
 /datum/reagent/consumable/ethanol/patron
 	name = "Patron"
@@ -338,6 +359,7 @@
 	drink_name = "Glass of Patron"
 	drink_desc = "Drinking patron in the bar, with all the subpar ladies."
 	taste_description = "a gift"
+	quality = DRINK_FANTASTIC
 
 /datum/reagent/consumable/ethanol/gintonic
 	name = "Gin and Tonic"
@@ -350,6 +372,7 @@
 	drink_name = "Gin and Tonic"
 	drink_desc = "A mild but still great cocktail. Drink up, like a true Englishman."
 	taste_description = "bitter medicine"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/cuba_libre
 	name = "Cuba Libre"
@@ -362,6 +385,13 @@
 	drink_name = "Cuba Libre"
 	drink_desc = "A classic mix of rum and cola."
 	taste_description = "liberation"
+	quality = DRINK_VERYGOOD
+
+/datum/reagent/consumable/ethanol/cuba_libre/reaction_mob(mob/living/M, method, volume, show_message)
+	. = ..()
+	if(!(method & REAGENT_INGEST) || !(M.mind.has_antag_datum(/datum/antagonist/rev)))
+		return
+	M.add_mood_event("viva", /datum/mood_event/viva)
 
 /datum/reagent/consumable/ethanol/whiskey_cola
 	name = "Whiskey Cola"
@@ -374,6 +404,7 @@
 	drink_name = "Whiskey Cola"
 	drink_desc = "An innocent-looking mixture of cola and Whiskey. Delicious."
 	taste_description = "whiskey and coke"
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/daiquiri
 	name = "Daiquiri"
@@ -386,6 +417,7 @@
 	drink_name = "Daiquiri"
 	drink_desc = "When Botany gives you limes, make daiquiris."
 	taste_description = "sweetened lime juice and rum"
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/martini
 	name = "Classic Martini"
@@ -398,6 +430,7 @@
 	drink_name = "Classic Martini"
 	drink_desc = "Damn, the bartender even stirred it, not shook it."
 	taste_description = "class"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/vodkamartini
 	name = "Vodka Martini"
@@ -410,6 +443,7 @@
 	drink_name = "Vodka martini"
 	drink_desc ="A bastardisation of the classic martini. Still great."
 	taste_description = "class and potatoes"
+	quality = DRINK_FANTASTIC
 
 /datum/reagent/consumable/ethanol/white_russian
 	name = "White Russian"
@@ -422,6 +456,7 @@
 	drink_name = "White Russian"
 	drink_desc = "A very nice looking drink. But that's just, like, your opinion, man."
 	taste_description = "very creamy alcohol"
+	quality = DRINK_FANTASTIC
 
 /datum/reagent/consumable/ethanol/screwdrivercocktail
 	name = "Screwdriver"
@@ -434,6 +469,7 @@
 	drink_name = "Screwdriver"
 	drink_desc = "A simple, yet superb mixture of Vodka and orange juice. Just the thing for the tired engineer."
 	taste_description = "a naughty secret"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/booger
 	name = "Booger"
@@ -446,6 +482,7 @@
 	drink_name = "Booger"
 	drink_desc = "Eww..."
 	taste_description = "a fruity mess"
+	quality = DRINK_REVOLTING
 
 /datum/reagent/consumable/ethanol/bloody_mary
 	name = "Bloody Mary"
@@ -458,6 +495,7 @@
 	drink_name = "Bloody Mary"
 	drink_desc = "Tomato juice, mixed with Vodka and a lil' bit of lime. Tastes like liquid murder."
 	taste_description = "tomatoes with booze"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/gargle_blaster
 	name = "Pan-Galactic Gargle Blaster"
@@ -470,6 +508,7 @@
 	drink_name = "Pan-Galactic Gargle Blaster"
 	drink_desc = "Does... does this mean that Arthur and Ford are on the station? Oh joy."
 	taste_description = "the number fourty two"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/flaming_homer
 	name = "Flaming Moe"
@@ -482,6 +521,7 @@
 	drink_name = "Flaming Moe"
 	drink_desc = "Happiness is just a Flaming Moe away!"
 	taste_description = "caramelised booze and sweet, salty medicine"
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/brave_bull
 	name = "Brave Bull"
@@ -778,6 +818,7 @@
 	drink_name = "Bahama Mama"
 	drink_desc = "Tropic cocktail"
 	taste_description = "HONK"
+	quality = DRINK_FANTASTIC
 
 /datum/reagent/consumable/ethanol/singulo
 	name = "Singulo"
@@ -791,6 +832,7 @@
 	drink_name = "Singulo"
 	drink_desc = "A bluespace beverage."
 	taste_description = "infinity"
+	quality = DRINK_FANTASTIC
 
 /datum/reagent/consumable/ethanol/sbiten
 	name = "Sbiten"
@@ -820,6 +862,7 @@
 	drink_name = "Devils Kiss"
 	drink_desc = "Creepy time!"
 	taste_description = "naughtiness"
+	quality = DRINK_FANTASTIC
 
 /datum/reagent/consumable/ethanol/red_mead
 	name = "Red Mead"
@@ -832,6 +875,7 @@
 	drink_name = "Red Mead"
 	drink_desc = "A True Vikings Beverage, though its color is strange."
 	taste_description = "blood"
+	quality = DRINK_FANTASTIC
 
 /datum/reagent/consumable/ethanol/mead
 	name = "Mead"

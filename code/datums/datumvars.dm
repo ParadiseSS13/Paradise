@@ -635,6 +635,28 @@
 		src.holder.show_player_panel(M)
 		href_list["datumrefresh"] = href_list["mob_player_panel"]
 
+	else if(href_list["add_mood_event"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/M = locateUID(href_list["add_mood_event"])
+		if(!istype(M))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
+
+		src.admin_add_mood_event(M)
+		href_list["datumrefresh"] = href_list["add_mood_event"]
+
+	else if(href_list["remove_mood_event"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/M = locateUID(href_list["remove_mood_event"])
+		if(!istype(M))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
+
+		src.admin_remove_mood_event(M)
+		href_list["datumrefresh"] = href_list["remove_mood_event"]
+
 	else if(href_list["give_spell"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 

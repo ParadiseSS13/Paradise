@@ -139,11 +139,13 @@
 		else
 			adjustOxyLoss(3)
 		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+		add_mood_event("suffocation",/datum/mood_event/suffocation)
 
 	else //Enough oxygen
 		adjustOxyLoss(-5)
 		oxygen_used = breath.oxygen
 		clear_alert("not_enough_oxy")
+		clear_mood_event("suffocation")
 
 	breath.oxygen -= oxygen_used
 	breath.carbon_dioxide += oxygen_used

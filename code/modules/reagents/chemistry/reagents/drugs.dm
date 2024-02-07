@@ -105,6 +105,7 @@
 /datum/reagent/nicotine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	var/smoke_message = pick("You feel relaxed.", "You feel calmed.", "You feel less stressed.", "You feel more placid.", "You feel more undivided.")
+	M.add_mood_event("smoked", /datum/mood_event/smoked)
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[smoke_message]</span>")
 	return ..() | update_flags

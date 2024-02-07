@@ -10,6 +10,7 @@
 	taste_mult = 4
 	var/nutriment_factor = 1 * REAGENTS_METABOLISM
 	var/diet_flags = DIET_OMNI | DIET_HERB | DIET_CARN
+	var/quality
 
 /datum/reagent/consumable/on_mob_life(mob/living/M)
 	var/is_vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
@@ -18,6 +19,22 @@
 		if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 			H.adjust_nutrition(nutriment_factor)	// For hunger and fatness
 	return ..()
+
+/datum/reagent/consumable/reaction_mob(mob/living/M, method, volume, show_message)
+	if(!isvox(M))
+		if(quality && method == REAGENT_INGEST)
+			switch(quality)
+				if (DRINK_REVOLTING)
+					M.add_mood_event("quality_drink", /datum/mood_event/quality_revolting)
+				if (DRINK_NICE)
+					M.add_mood_event("quality_drink", /datum/mood_event/quality_nice)
+				if (DRINK_GOOD)
+					M.add_mood_event("quality_drink", /datum/mood_event/quality_good)
+				if (DRINK_VERYGOOD)
+					M.add_mood_event("quality_drink", /datum/mood_event/quality_verygood)
+				if (DRINK_FANTASTIC)
+					M.add_mood_event("quality_drink", /datum/mood_event/quality_fantastic)
+	. = ..()
 
 /datum/reagent/consumable/nutriment		// Pure nutriment, universally digestable and thus slightly less effective
 	name = "Nutriment"

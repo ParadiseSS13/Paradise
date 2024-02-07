@@ -531,6 +531,10 @@
 #define COMSIG_CARBON_EXIT_STAMINACRIT "carbon_exit_staminacrit"
 /// From /mob/living/carbon/handle_status_effects()
 #define COMSIG_CARBON_STAMINA_REGENERATED "carbon_stamina_regenerated"
+///Called when a carbon updates their mood
+#define COMSIG_CARBON_MOOD_UPDATE "carbon_mood_update"
+///Called when a carbon updates their sanity (source = carbon)
+#define COMSIG_CARBON_SANITY_UPDATE "carbon_sanity_update"
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"

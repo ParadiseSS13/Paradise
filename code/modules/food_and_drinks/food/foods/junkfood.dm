@@ -14,6 +14,8 @@
 	antable = FALSE
 	list_reagents = list("nutriment" = 1, "sodiumchloride" = 1, "sugar" = 3)
 	tastes = list("crisps" = 1)
+	quality = FOOD_QUALITY_NICE
+	foodtypes = JUNKFOOD
 
 /obj/item/food/snacks/sosjerky
 	name = "Scaredy's Private Reserve Beef Jerky"
@@ -25,7 +27,8 @@
 	antable = FALSE
 	list_reagents = list("protein" = 1, "sugar" = 3)
 	tastes = list("chewy beef" = 1)
-
+	quality = FOOD_QUALITY_NICE
+	foodtypes = JUNKFOOD
 /obj/item/food/snacks/pistachios
 	name = "pistachios"
 	icon_state = "pistachios"
@@ -36,7 +39,8 @@
 	antable = FALSE
 	list_reagents = list("plantmatter" = 2, "sodiumchloride" = 1, "sugar" = 4)
 	tastes = list("pistachios" = 1)
-
+	quality = FOOD_QUALITY_NICE
+	foodtypes = JUNKFOOD
 /obj/item/food/snacks/no_raisin
 	name = "4no Raisins"
 	icon_state = "4no_raisins"
@@ -47,7 +51,8 @@
 	antable = FALSE
 	list_reagents = list("plantmatter" = 2, "sugar" = 4)
 	tastes = list("dried raisins" = 1)
-
+	quality = FOOD_QUALITY_NICE
+	foodtypes = JUNKFOOD
 /obj/item/food/snacks/spacetwinkie
 	name = "Space Twinkie"
 	icon_state = "space_twinkie"
@@ -57,7 +62,8 @@
 	junkiness = 25
 	list_reagents = list("sugar" = 4)
 	tastes = list("twinkies" = 1)
-
+	quality = FOOD_QUALITY_NICE
+	foodtypes = JUNKFOOD
 /obj/item/food/snacks/cheesiehonkers
 	name = "Cheesie Honkers"
 	icon_state = "cheesie_honkers"
@@ -68,7 +74,8 @@
 	antable = FALSE
 	list_reagents = list("nutriment" = 1, "fake_cheese" = 2, "sugar" = 3)
 	tastes = list("cheese" = 1, "crisps" = 2)
-
+	quality = FOOD_QUALITY_NICE
+	foodtypes = JUNKFOOD
 /obj/item/food/snacks/syndicake
 	name = "Syndi-Cakes"
 	icon_state = "syndi_cakes"
@@ -79,7 +86,8 @@
 	antable = FALSE
 	list_reagents = list("nutriment" = 4, "salglu_solution" = 5)
 	tastes = list("sweetness" = 3, "cake" = 1)
-
+	quality = FOOD_QUALITY_FANTASTIC
+	foodtypes = JUNKFOOD
 /obj/item/food/snacks/tastybread
 	name = "bread tube"
 	desc = "Bread in a tube. Chewy and surprisingly tasty."
@@ -90,7 +98,8 @@
 	antable = FALSE
 	list_reagents = list("nutriment" = 2, "sugar" = 4)
 	tastes = list("bread" = 1)
-
+	quality = FOOD_QUALITY_NICE
+	foodtypes = JUNKFOOD
 /obj/item/food/snacks/stroopwafel
 	name = "stroopwafel"
 	desc = "Straight from the snack factories of Space Den Haag comes a classic dutch treat!"
@@ -99,7 +108,8 @@
 	junkiness = 5
 	list_reagents = list("nutriment" = 10, "sugar" = 4)
 	tastes = list("syrup" = 3, "waffle" = 2)
-
+	quality = FOOD_QUALITY_NICE
+	foodtypes = JUNKFOOD
 /obj/item/food/snacks/twimsts
 	name = "Twimsts"
 	desc = "Sweet twisted sticks made of liquorice, can be used to make edible handcuffs!"
@@ -110,7 +120,8 @@
 	junkiness = 5
 	list_reagents = list("nutriment" = 2, "sugar" = 10)
 	tastes = list("sweetness" = 3, "liquorice" = 2)
-
+	quality = FOOD_QUALITY_NICE
+	foodtypes = JUNKFOOD
 /obj/item/food/snacks/twimsts/attack_self(mob/user)
 	var/obj/item/restraints/handcuffs/twimsts/L = new /obj/item/restraints/handcuffs/twimsts
 	L.create_reagents(100)
@@ -130,9 +141,12 @@
 	desc = "Homemade beef jerky made from the finest space cows."
 	list_reagents = list("nutriment" = 3, "vitamin" = 1)
 	junkiness = 0
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = HEALTHFUL
 /obj/item/food/snacks/no_raisin/healthy
 	name = "homemade raisins"
 	desc = "homemade raisins, the best in all of spess."
 	list_reagents = list("nutriment" = 3, "vitamin" = 2)
 	junkiness = 0
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = HEALTHFUL

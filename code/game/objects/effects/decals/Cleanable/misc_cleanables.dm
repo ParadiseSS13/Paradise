@@ -8,6 +8,7 @@
 	layer = TURF_LAYER
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shards"
+	beauty = -25
 
 /obj/effect/decal/cleanable/ash
 	name = "ashes"
@@ -18,6 +19,7 @@
 	scoop_reagents = list("ash" = 10)
 	mergeable_decal = FALSE
 	plane = GAME_PLANE
+	beauty = -25
 
 /obj/effect/decal/cleanable/glass
 	name = "tiny shards"
@@ -25,6 +27,7 @@
 	icon = 'icons/obj/shards.dmi'
 	icon_state = "tiny"
 	plane = GAME_PLANE
+	beauty = -25
 
 /obj/effect/decal/cleanable/glass/Initialize(mapload)
 	. = ..()
@@ -49,6 +52,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_CLEANABLE_DIRT)
 	canSmoothWith = list(SMOOTH_GROUP_CLEANABLE_DIRT, SMOOTH_GROUP_WALLS)
 	mouse_opacity = FALSE
+	beauty = -50
 
 /obj/effect/decal/cleanable/dirt/Initialize()
 	. = ..()
@@ -76,6 +80,7 @@
 	layer = TURF_LAYER
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "flour"
+	beauty = -25
 
 /obj/effect/decal/cleanable/flour/foam
 	name = "Fire fighting foam"
@@ -95,6 +100,7 @@
 	light_range = 1
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenglow"
+	beauty = -100
 
 /obj/effect/decal/cleanable/greenglow/Initialize(mapload)
 	. = ..()
@@ -112,6 +118,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cobweb1"
 	resistance_flags = FLAMMABLE
+	beauty = -50
 
 /obj/effect/decal/cleanable/molten_object
 	name = "gooey grey mass"
@@ -123,10 +130,12 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "molten"
 	mergeable_decal = FALSE
+	beauty = -50
 
 /obj/effect/decal/cleanable/molten_object/large
 	name = "big gooey grey mass"
 	icon_state = "big_molten"
+	beauty = -100
 
 /obj/effect/decal/cleanable/cobweb2
 	name = "cobweb"
@@ -136,6 +145,7 @@
 	plane = GAME_PLANE
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cobweb2"
+	beauty = -50
 
 /obj/effect/decal/cleanable/vomit
 	name = "vomit"
@@ -149,6 +159,7 @@
 	random_icon_states = list("vomit_1", "vomit_2", "vomit_3", "vomit_4")
 	no_clear = TRUE
 	scoop_reagents = list("vomit" = 5)
+	beauty = -100
 
 
 /obj/effect/decal/cleanable/vomit/Initialize(mapload)
@@ -225,6 +236,7 @@
 	gender = PLURAL
 	plane = GAME_PLANE
 	mergeable_decal = FALSE
+	beauty = -25
 
 /obj/effect/decal/cleanable/shreds/ex_act(severity, target)
 	if(severity == 1) //so shreds created during an explosion aren't deleted by the explosion.
@@ -242,6 +254,7 @@
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("tomato_floor1", "tomato_floor2", "tomato_floor3")
+	beauty = -25
 
 /obj/effect/decal/cleanable/plant_smudge
 	name = "plant smudge"
@@ -250,6 +263,7 @@
 	gender = NEUTER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_plant")
+	beauty = -25
 
 /obj/effect/decal/cleanable/egg_smudge
 	name = "smashed egg"
@@ -258,6 +272,7 @@
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_egg1", "smashed_egg2", "smashed_egg3")
+	beauty = -25
 
 /obj/effect/decal/cleanable/pie_smudge //honk
 	name = "smashed pie"
@@ -266,6 +281,7 @@
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_pie")
+	beauty = -25
 
 /obj/effect/decal/cleanable/fungus
 	name = "space fungus"
@@ -279,6 +295,7 @@
 	scoop_reagents = list("fungus" = 10)
 	no_clear = TRUE
 	var/timer_id
+	beauty = -25
 
 /obj/effect/decal/cleanable/fungus/examine(mob/user)
 	. = ..()
@@ -310,6 +327,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "confetti1"
 	random_icon_states = list("confetti1", "confetti2", "confetti3")
+	beauty = 5
 
 /obj/effect/decal/cleanable/insectguts
 	name = "bug guts"
@@ -317,5 +335,6 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "xfloor1"
 	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
+	beauty = -50
 
 #undef ALWAYS_IN_GRAVITY

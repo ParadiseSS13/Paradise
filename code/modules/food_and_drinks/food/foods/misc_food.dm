@@ -11,6 +11,8 @@
 	filling_color = "#4D2F5E"
 	list_reagents = list("nutriment" = 6, "vitamin" = 2)
 	tastes = list("eggplant" = 2, "cheese" = 2)
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = DAIRY | VEGETABLES_AND_FRUITS
 
 /obj/item/food/snacks/soylentgreen
 	name = "soylent green"
@@ -20,7 +22,8 @@
 	filling_color = "#B8E6B5"
 	list_reagents = list("nutriment" = 10, "vitamin" = 1)
 	tastes = list("waffles" = 7, "people" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT | GORE
 /obj/item/food/snacks/soylentviridians
 	name = "soylent virdians"
 	desc = "Not made of people. Honest." //Actually honest for once.
@@ -29,7 +32,8 @@
 	filling_color = "#E6FA61"
 	list_reagents = list("nutriment" = 10, "vitamin" = 1)
 	tastes = list("waffles" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = MEAT | GORE
 /obj/item/food/snacks/monkeysdelight
 	name = "monkey's delight"
 	desc = "Eeee Eee!"
@@ -39,7 +43,8 @@
 	bitesize = 6
 	list_reagents = list("nutriment" = 10, "banana" = 5, "vitamin" = 5)
 	tastes = list("banana" = 1, "the jungle" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = VEGETABLES_AND_FRUITS
 /obj/item/food/snacks/dionaroast
 	name = "roast diona"
 	desc = "It's like an enormous leathery carrot... With an eye."
@@ -48,7 +53,8 @@
 	filling_color = "#75754B"
 	list_reagents = list("plantmatter" = 4, "nutriment" = 2, "radium" = 2, "vitamin" = 4)
 	tastes = list("chewy vegetables" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = VEGETABLES_AND_FRUITS
 /obj/item/food/snacks/tofurkey
 	name = "tofurkey"
 	desc = "A fake turkey made from tofu."
@@ -57,7 +63,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 12, "ether" = 3)
 	tastes = list("tofu" = 1)
-
+	quality = FOOD_QUALITY_GOOD
+	foodtypes = VEGETABLES_AND_FRUITS
 
 //////////////////////
 //		Salads		//
@@ -73,7 +80,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6,"vitamin" = 4)
 	tastes = list("lettuce" = 1)
-
+	quality = FOOD_QUALITY_NICE
+	foodtypes = VEGETABLES_AND_FRUITS | HEALTHFUL | BREAKFAST //salad for breakfast..uh-h..
 /obj/item/food/snacks/salad/aesir
 	name = "aesir salad"
 	desc = "Probably too incredible for mortal men to fully enjoy."
@@ -174,6 +182,8 @@
 	list_reagents = list("nutriment" = 4)
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
 	ingredient_name = "turnover"
+	quality = FOOD_QUALITY_NICE
+	foodtypes = MEAT | GRAIN | JUNKFOOD
 
 /obj/item/food/snacks/warmdonkpocket
 	name = "warm Donk-pocket"
@@ -190,7 +200,8 @@
 	var/heated_at
 	/// This tracks how much time the donk pocket has already been cooling for when its timer is paused
 	var/subtracted_time = 0
-
+	quality = FOOD_QUALITY_NICE
+	foodtypes = MEAT | GRAIN | JUNKFOOD
 /obj/item/food/snacks/warmdonkpocket/Initialize(mapload)
 	. = ..()
 	donk_heat()
@@ -230,7 +241,8 @@
 	icon_state = "donkpocket"
 	filling_color = "#DEDEAB"
 	list_reagents = list("nutriment" = 4, "weak_omnizine" = 3)
-
+	quality = FOOD_QUALITY_NICE
+	foodtypes = MEAT | GRAIN | JUNKFOOD
 /obj/item/food/snacks/syndidonkpocket
 	name = "Donk-pocket"
 	desc = "This donk-pocket is emitting a small amount of heat."
@@ -238,7 +250,8 @@
 	filling_color = "#DEDEAB"
 	bitesize = 100 //nom the whole thing at once.
 	list_reagents = list("nutriment" = 1)
-
+	quality = FOOD_QUALITY_NICE
+	foodtypes = MEAT | GRAIN | JUNKFOOD
 /obj/item/food/snacks/syndidonkpocket/Post_Consume(mob/living/M)
 	M.reagents.add_reagent("omnizine", 15)
 	M.reagents.add_reagent("teporone", 15)
@@ -259,7 +272,7 @@
 	bitesize = 3
 	list_reagents = list("slimejelly" = 5)
 	tastes = list("jelly" = 1)
-
+	quality = FOOD_QUALITY_NICE
 /obj/item/food/snacks/popcorn
 	name = "popcorn"
 	desc = "Now let's find some cinema."
@@ -270,7 +283,8 @@
 	bitesize = 0.1 //this snack is supposed to be eating during looooong time. And this it not dinner food! --rastaf0
 	list_reagents = list("nutriment" = 2)
 	tastes = list("popcorn" = 3, "butter" = 1)
-
+	quality = FOOD_QUALITY_NICE
+	foodtypes = SUGAR | JUNKFOOD
 /obj/item/food/snacks/popcorn/Initialize(mapload)
 	. = ..()
 	unpopped = rand(1,10)
@@ -289,3 +303,5 @@
 	filling_color = "#A8A8A8"
 	bitesize = 4
 	list_reagents = list("nutriment" = 20, "iron" = 3, "vitamin" = 2)
+	quality = FOOD_QUALITY_NORMAL
+	foodtypes = HEALTHFUL
