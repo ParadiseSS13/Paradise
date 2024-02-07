@@ -33,10 +33,9 @@
 
 /datum/ui_module/tts_seeds_explorer/ui_data(mob/user)
 	var/list/data = list()
-
 	data["selected_seed"] = user.client.prefs.active_character.tts_seed
-
 	data["donator_level"] = user.client.donator_level
+	data["character_gender"] = user.client.prefs.active_character.gender
 
 	return data
 
@@ -64,7 +63,6 @@
 			"required_donator_level" = seed.required_donator_level,
 		))
 	data["seeds"] = seeds
-
 	data["phrases"] = phrases
 
 	return data

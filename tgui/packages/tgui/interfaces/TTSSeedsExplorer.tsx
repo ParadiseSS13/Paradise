@@ -1,4 +1,4 @@
-import { Fragment } from 'inferno';
+import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
 import {
   Button,
@@ -14,12 +14,39 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
+type Seed = {
+  name: string;
+  category: string;
+  gender: string;
+  provider: string;
+  required_donator_level: number;
+};
+
+type Provider = {
+  name: string;
+  is_enabled: BooleanLike;
+};
+
+type TTSData = {
+  donator_level: number;
+  character_gender: string;
+  selected_seed: string | null;
+  phrases: string[];
+  providers: Provider[];
+  seeds: Seed[];
+};
+
 const donatorTiers = {
   0: 'Бесплатные',
   1: 'Tier I',
   2: 'Tier II',
   3: 'Tier III',
   4: 'Tier IV',
+};
+
+const gender = {
+  male: 'Мужской',
+  female: 'Женский',
 };
 
 const gendersIcons = {
@@ -64,7 +91,7 @@ const getCheckboxGroup = (
   });
 };
 
-export const TTSSeedsExplorer = (props, context) => {
+export const TTSSeedsExplorer = () => {
   return (
     <Window width={600} height={800}>
       <Window.Content>
@@ -77,9 +104,16 @@ export const TTSSeedsExplorer = (props, context) => {
 };
 
 export const TTSSeedsExplorerContent = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<TTSData>(context);
 
-  const { providers, seeds, selected_seed, phrases, donator_level } = data;
+  const {
+    providers,
+    seeds,
+    selected_seed,
+    phrases,
+    donator_level,
+    character_gender,
+  } = data;
 
   const categories = seeds
     .map((seed) => seed.category)
@@ -101,7 +135,9 @@ export const TTSSeedsExplorerContent = (props, context) => {
   const [selectedGenders, setSelectedGenders] = useLocalState(
     context,
     'selectedGenders',
-    genders
+    genders.includes(gender[character_gender])
+      ? [gender[character_gender]]
+      : genders
   );
   const [selectedCategories, setSelectedCategories] = useLocalState(
     context,
@@ -111,7 +147,12 @@ export const TTSSeedsExplorerContent = (props, context) => {
   const [selectedDonatorLevels, setSelectedDonatorLevels] = useLocalState(
     context,
     'selectedDonatorLevels',
-    donatorLevels
+    donatorLevels.includes(donatorTiers[donator_level])
+      ? donatorLevels.slice(
+          0,
+          donatorLevels.indexOf(donatorTiers[donator_level]) + 1
+        )
+      : donatorLevels
   );
   const [selectedPhrase, setSelectedPhrase] = useLocalState(
     context,
