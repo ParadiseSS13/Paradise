@@ -50,7 +50,7 @@
 	if(!length(C.client_mobs_in_contents)) //Basically, we don't want someone putting organs in monkeys then extracting from it. Has to be someone who had a client in the past
 		to_chat(user, "<span class='warning'>ERROR: [C] has no soul trace to assist in targeting the drill bit!</span>")
 		return
-	if(!(IS_HORIZONTAL(C) || !C.stat))
+	if(!IS_HORIZONTAL(C) && C.stat == CONSCIOUS)
 		to_chat(user, "<span class='warning'>ERROR: [C] is not restrained, and may move during the operation! Correction required.</span>")
 		return
 	if(storedorgan)
@@ -64,6 +64,10 @@
 		return
 	if(!istype(chosen_organ, /obj/item/organ/internal)) //Saftey first
 		to_chat(user, "<span class='warning'>ERROR: [chosen_organ] is not valid for removal for unknown reasons!</span>")
+		in_use = FALSE
+		return
+	if(!istype(chosen_organ, /obj/item/organ/internal/brain/mmi_holder)) //This breaks shit
+		to_chat(user, "<span class='warning'>ERROR: [chosen_organ] is too big for the holding tank and would damage [src] too much!</span>")
 		in_use = FALSE
 		return
 	var/obj/item/organ/internal/internal_organ = chosen_organ
