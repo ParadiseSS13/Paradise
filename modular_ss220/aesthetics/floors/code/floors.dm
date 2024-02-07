@@ -1,3 +1,12 @@
+/// Floor icon_states for floor painter
+/datum/painter/floor/New()
+	allowed_states |= list("darkneutralcorner", "darkneutral", "darkneutralfull", "navybluecorners", "navyblue", "navybluefull",
+		"navybluealt", "navybluealtstrip", "navybluecornersalt", "darkbluealt", "darkbluealtstrip", "darkbluecornersalt",
+		"darkredalt", "darkredaltstrip", "darkredcornersalt", "darkyellowalt", "darkyellowaltstrip", "darkyellowcornersalt",
+		"whitebrowncorner", "whitebrown"
+		)
+	. = ..()
+
 /turf/simulated/floor
 	icon = 'modular_ss220/aesthetics/floors/icons/floors.dmi'
 

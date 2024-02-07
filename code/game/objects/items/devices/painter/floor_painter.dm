@@ -33,7 +33,7 @@
 				lookup_cache[style] = list()
 
 			for(var/dir in GLOB.alldirs)
-				var/icon/floor_icon = icon('icons/turf/floors.dmi', style, dir)
+				var/icon/floor_icon = icon('modular_ss220/aesthetics/floors/icons/floors.dmi', style, dir) // SS220 EDIT
 				// These indexes have to be strings otherwise it treats it as a list index not a map lookup index
 				lookup_cache[style] += "[dir]"
 				lookup_cache[style]["[dir]"] = icon2base64(floor_icon)
