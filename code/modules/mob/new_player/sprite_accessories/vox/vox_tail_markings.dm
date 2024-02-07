@@ -2,6 +2,10 @@
 	icon = 'icons/mob/sprite_accessories/vox/vox_tail_markings.dmi'
 	species_allowed = list("Vox")
 
+/datum/sprite_accessory/body_markings/tail/vox/none
+	name = "None"
+	icon_state = "none"
+
 /datum/sprite_accessory/body_markings/tail/vox/vox_band
 	name = "Vox Tail Band"
 	icon_state = "band"
