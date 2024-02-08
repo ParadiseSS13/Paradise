@@ -500,6 +500,9 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
 		return FALSE
+	if(!attacker_style && target.buckled)
+		target.buckled.user_unbuckle_mob(target, user)
+		return TRUE
 	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
 		return TRUE
 	else
