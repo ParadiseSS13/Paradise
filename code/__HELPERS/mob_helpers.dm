@@ -582,7 +582,6 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
 
 // Suppress the mouse macros
-/client/var/next_mouse_macro_warning
 /mob/proc/LogMouseMacro(verbused, params)
 	if(!client)
 		return

@@ -314,7 +314,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	return GLOB.default_state
 
 /obj/machinery/computer/card/proc/change_ui_autoupdate(value, mob/user)
-	var/datum/tgui/ui = SStgui.try_update_ui(user, src, "main")
+	var/datum/tgui/ui = SStgui.try_update_ui(user, src)
 	reset_timer = null
 	if(ui)
 		ui.set_autoupdate(value)
@@ -558,8 +558,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Demoted", scan.registered_name, reason)
 			modify.lastlog = "[station_time_timestamp()]: DEMOTED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
 			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has demoted \"[modify.registered_name]\" ([jobnamedata]) for \"[reason]\".")
+			SSjobs.slot_job_transfer(modify.rank, "Assistant")
 			modify.access = access
-			modify.rank = "Assistant"
 			modify.assignment = "Demoted"
 			modify.icon_state = "id"
 			regenerate_id_name()
@@ -581,6 +581,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name, reason)
 			modify.lastlog = "[station_time_timestamp()]: TERMINATED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
 			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
+			var/datum/job/job = SSjobs.GetJob(modify.rank)
+			if(modify.assignment != "Demoted" && !(job.title in GLOB.command_positions))
+				job.current_positions--
 			modify.assignment = "Terminated"
 			modify.access = list()
 			regenerate_id_name()
