@@ -24,11 +24,13 @@
 		desc += " The screen only shows the word KILL flashing over and over."
 		if(user)
 			to_chat(user, "<span class='warning'>you short out the safeties on [src]</span>")
+		return TRUE
 	else
 		emagged = FALSE
 		desc = "Used to restart stopped hearts."
 		if(user)
 			to_chat(user, "<span class='warning'>You restore the safeties on [src]</span>")
+		return TRUE
 
 /obj/item/handheld_defibrillator/attack(mob/living/carbon/human/H, mob/user)
 	if(!istype(H))

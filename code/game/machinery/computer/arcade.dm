@@ -258,6 +258,7 @@
 
 		add_hiddenprint(user)
 		updateUsrDialog()
+		return TRUE
 
 // *** THE ORION TRAIL ** //
 
@@ -967,6 +968,7 @@
 		add_hiddenprint(user)
 		newgame()
 		emagged = TRUE
+		return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/orion
 	name = "spaceport security"

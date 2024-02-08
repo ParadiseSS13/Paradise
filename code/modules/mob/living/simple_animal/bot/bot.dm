@@ -256,8 +256,9 @@
 	if(locked) // First emag application unlocks the bot's interface. Apply a screwdriver to use the emag again.
 		locked = FALSE
 		to_chat(user, "<span class='notice'>You bypass [src]'s controls.</span>")
-		return
-	if(!locked && open) // Bot panel is unlocked by ID or emag, and the panel is screwed open. Ready for emagging.
+		return TRUE
+
+	if(!locked && open) //Bot panel is unlocked by ID or emag, and the panel is screwed open. Ready for emagging.
 		emagged = TRUE
 		remote_disabled = TRUE // Manually emagging the bot locks out the AI built in panel.
 		locked = TRUE // Access denied forever!
@@ -266,8 +267,9 @@
 		to_chat(src, "<span class='userdanger'>(#$*#$^^( OVERRIDE DETECTED</span>")
 		show_laws()
 		add_attack_logs(user, src, "Emagged")
-		return
-	else // Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
+		return TRUE
+
+	else //Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
 		to_chat(user, "<span class='warning'>You need to open maintenance panel first!</span>")
 
 /mob/living/simple_animal/bot/examine(mob/user)
