@@ -55,7 +55,7 @@
 							"Spent 2 years as a freelance journalist", "Known as a hero for keeping stations clean during attacks",
 							"Worked as a bureaucrat for SolGov", "Worked in Donk Corporation's R&D department",
 							"Did work for USSP as an translator", "Took care of Toxins, Xenobiology, Robotics and R&D as a single worker in the Research department",
-							"Served for 4 years as a soldier of the Prospero Order", "Traveled through various systems as an businessman",
+							"Served for 4 years as a soldier of the Prospero Order", "Traveled through various systems as a businessman",
 							"Worked as a waiter for one year", "Has previous experience as a cameraman",
 							"Spent years of their life being a janitor at Clown College", "Was given numerous good reviews for delivering cargo requests on time",
 							"Helped old people cross the holostreet", "Has proven ability to read", "Served 4 years in NT navy",
@@ -312,6 +312,7 @@
 	desc = "The advanced version of Nanotrasen's recruiting simulator, used to train the highest echelon of Nanotrasen recruiters. Has double the application count, and supposedly includes some routines to weed out the less skilled."
 	total_curriculums = 14
 	emagged = TRUE
+	return TRUE
 
 #undef PROB_CANDIDATE_ERRORS
 #undef PROB_UNIQUE_CANDIDATE
