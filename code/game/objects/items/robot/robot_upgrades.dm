@@ -262,7 +262,6 @@
 		return
 
 	R.speed -= 1 // Gotta go fast.
-
 	return TRUE
 
 /***********************/
