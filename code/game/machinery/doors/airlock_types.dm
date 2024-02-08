@@ -659,7 +659,7 @@
 		stack_trace("Attempted to pair an airlock filler with no parent airlock specified!")
 
 	filled_airlock = parent_airlock
-	RegisterSignal(filled_airlock, .proc/no_airlock)
+	RegisterSignal(filled_airlock, PROC_REF(no_airlock))
 
 /obj/airlock_filler_object/proc/no_airlock()
 	UnregisterSignal(filled_airlock)
