@@ -74,6 +74,7 @@
 	icon_state = "disabler_smg"
 	item_state = null
 	weapon_weight = WEAPON_HEAVY
+	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/smg)
 	ammo_x_offset = 2

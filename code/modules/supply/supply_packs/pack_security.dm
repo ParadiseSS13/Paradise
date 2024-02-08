@@ -281,7 +281,7 @@
 	containername = "tranquilizer shell crate"
 
 /datum/supply_packs/security/armory/disablersmg
-	name = "WT-40 Disabler SMG Crate"
+	name = "WT-450 Disabler SMG Crate"
 	contains = list(/obj/item/gun/energy/disabler/smg,
 					/obj/item/gun/energy/disabler/smg)
 	cost = 550
