@@ -280,6 +280,14 @@
 	cost = 400
 	containername = "tranquilizer shell crate"
 
+/datum/supply_packs/security/armory/disablersmg
+	name = "WT-40 Disabler SMG Crate"
+	contains = list(/obj/item/gun/energy/disabler/smg,
+					/obj/item/gun/energy/disabler/smg)
+	cost = 550
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "disabler smg crate"
+
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield

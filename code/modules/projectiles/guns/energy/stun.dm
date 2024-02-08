@@ -1,6 +1,7 @@
 /obj/item/gun/energy/taser
 	name = "taser gun"
 	desc = "A small, low capacity gun used for non-lethal takedowns."
+	weapon_weight = WEAPON_HEAVY
 	icon_state = "taser"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	origin_tech = "combat=3"
@@ -66,6 +67,24 @@
 		return
 
 	return ..()
+
+/obj/item/gun/energy/disabler/smg
+	name = "disabler smg"
+	desc = "An automatic disabler variant, as opposed to the conventional model, boasts a higher ammunition capacity at the cost of slightly reduced beam effectiveness."
+	icon_state = "disabler_smg"
+	item_state = null
+	weapon_weight = WEAPON_HEAVY
+	origin_tech = "combat=3"
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/smg)
+	ammo_x_offset = 2
+	burst_size = 2
+	fire_delay = 2.5
+	shaded_charge = TRUE
+	can_flashlight = TRUE
+	can_holster = FALSE
+	flight_x_offset = 15
+	flight_y_offset = 10
+	execution_speed = 5 SECONDS
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"

@@ -97,7 +97,13 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
-	light_color = LIGHT_COLOR_CYAN
+	light_color = LIGHT_COLOR_LIGHT_CYAN
+
+/obj/item/projectile/beam/disabler/weak
+	name = "weakened disabler beam"
+	damage = 15
+	eyeblur = 1
+	light_color = LIGHT_COLOR_BLUE
 
 /obj/item/projectile/beam/pulse
 	name = "pulse"
