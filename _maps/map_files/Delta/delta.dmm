@@ -4737,6 +4737,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "avB" = (
@@ -4748,6 +4751,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "avC" = (
@@ -4757,9 +4763,15 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "avE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -4773,16 +4785,13 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/controlroom)
 "avG" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
 	},
-/area/station/engineering/controlroom)
-"avI" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "avK" = (
 /obj/structure/table/reinforced,
@@ -5324,6 +5333,7 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -5354,6 +5364,9 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/greengrid,
 /area/station/engineering/controlroom)
@@ -5389,17 +5402,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
-	},
-/area/station/engineering/controlroom)
-"awS" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellowfull"
 	},
 /area/station/engineering/controlroom)
 "awU" = (
@@ -5783,6 +5785,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/turf_decal/stripes/corner,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "axK" = (
@@ -5872,7 +5875,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
@@ -6114,13 +6116,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
-"ayI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/controlroom)
 "ayJ" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 1;
@@ -6189,6 +6184,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "ayW" = (
@@ -6586,7 +6582,6 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -7607,6 +7602,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aCr" = (
@@ -7804,6 +7800,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aCT" = (
@@ -7823,7 +7820,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -7904,6 +7900,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aDi" = (
@@ -8225,7 +8222,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -8318,6 +8314,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aEo" = (
@@ -8877,7 +8874,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -8962,7 +8958,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -9055,13 +9050,13 @@
 /area/station/engineering/controlroom)
 "aGi" = (
 /obj/machinery/hologram/holopad,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -9409,6 +9404,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aHd" = (
@@ -9417,12 +9413,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandoned_garden)
 "aHe" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -9479,9 +9473,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -81697,6 +81688,14 @@
 	icon_state = "showroomfloor"
 	},
 /area/station/medical/surgery)
+"nvZ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/engineering/controlroom)
 "nwK" = (
 /obj/machinery/light,
 /obj/structure/cable{
@@ -92538,15 +92537,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
-"uab" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/controlroom)
 "uah" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door_control{
@@ -96841,6 +96831,15 @@
 "wJr" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/break_room)
+"wJE" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/controlroom)
 "wJP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /obj/effect/turf_decal/delivery/hollow,
@@ -98979,6 +98978,14 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/command/customs)
+"xVK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowfull"
+	},
+/area/station/engineering/controlroom)
 "xXi" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -99016,6 +99023,15 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore)
+"xXW" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/controlroom)
 "xYp" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor{
@@ -125322,7 +125338,7 @@ abj
 atd
 aue
 auI
-aLu
+xXW
 awH
 axO
 ayM
@@ -126104,7 +126120,7 @@ aDa
 aEi
 aFh
 aFY
-aHl
+xVK
 aII
 lZR
 aLu
@@ -126350,7 +126366,7 @@ abj
 atd
 aue
 auI
-aLs
+wJE
 awQ
 axS
 ayM
@@ -126361,7 +126377,7 @@ aDb
 ayM
 ayM
 aFZ
-aHh
+nvZ
 aID
 atd
 mKM
@@ -126618,7 +126634,7 @@ wpA
 aDc
 aEj
 aGa
-aHl
+xVK
 nwK
 atd
 atd
@@ -126864,7 +126880,7 @@ abj
 atd
 aub
 axl
-avI
+xhh
 awR
 axL
 ayP
@@ -126875,7 +126891,7 @@ ayL
 aDc
 aEj
 aFi
-aHh
+nvZ
 wer
 aJY
 aLv
@@ -127121,10 +127137,10 @@ abj
 atd
 auf
 axl
-uab
-awS
+xhh
+awL
 axT
-ayI
+aFd
 azV
 aCU
 aCU
