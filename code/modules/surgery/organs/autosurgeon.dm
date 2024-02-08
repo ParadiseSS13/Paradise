@@ -93,9 +93,22 @@
 	uses = 1
 	starting_organ = /obj/item/organ/internal/eyes/cybernetic/meson
 /obj/item/autosurgeon/organ/syndicate/razorwire
-	desc = "A single use autosurgeon that contains a Razorwire arm implant A screwdriver can be used to remove it, but implants can't be placed back in."
+	desc = "A single use autosurgeon that contains a Razorwire arm implant. A screwdriver can be used to remove it, but implants can't be placed back in."
 	uses = 1
 	starting_organ = /obj/item/organ/internal/cyberimp/arm/razorwire
+
+/obj/item/autosurgeon/organ/syndicate/razorwire/examine_more(mob/user)
+	. = ..()
+	. += "<i>A byproduct of Cybersun Incorporated's mistakes turned concept, the Razorwire Spool is a remarkable accident in itself. \
+	It consists of a fine, thread-like laser capable of being manipulated and swung like a whip. Designed for ease of deployment, the wire originates from the wrist, \
+	allowing users with the implant to perform wide swings and precise cuts against soft targets. It's the same energy similar to other energy swords and daggers.<i>"
+	. += "<i>Cybersun's investment into energy weapon development inadvertently led to the Razorwire Spool. Initially attempting to create an Energy Sword, \
+	they ended up with a material that, while superheated and correctly composed, failed to maintain a solid blade shape. Curious about this error, \
+	Cybersun repeated the process, producing an energy as thin as a wire. After several prototypes, they achieved a long, energy-like thread. \
+	Further innovation allowed them to conceal this in a forearm-sized container, \
+	with a hand and wrist replacement made of the same durable material used to contain energy weapons. They would call it, the Razorwire.<i>"
+	. += "<i>Favored by assassins for their stealth and efficiency, Cybersun exercises discretion in its distribution, favoring clients in their good graces. \
+	It falls behind other energy weapons due to its thinner and more loose pressure, however it is praised more as a side-arm for unarmored soft targets.</i>"
 
 /obj/item/autosurgeon/organ/syndicate/hackerman_deck
 	desc = "A single use autosurgeon that contains a Binyat wireless hacking system. A screwdriver can be used to remove it, but implants can't be placed back in."

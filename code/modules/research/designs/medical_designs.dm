@@ -386,6 +386,19 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/shell_launcher
 	category = list("Medical")
 
+/datum/design/cyberimp_shell_launcher
+	name = "Razorwire Spool Arm Implant"
+	desc = "A long length of monomolecular filament, built into the back of your hand. \
+		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
+		even from a few steps away. However, results against anything more durable will heavily vary."
+	id = "ci-razorwire-spool"
+	req_tech = list("combat" = 6, "biotech" = 6, "syndicate" = 3)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2000, MAT_DIAMOND = 2000, MAT_BLUESPACE = 2000)
+	construction_time = 10 SECONDS
+	build_path = /obj/item/organ/internal/cyberimp/arm/razorwire
+	category = list("Medical")
+
 /datum/design/cyberimp_toolset_abductor
 	name = "Abductor Toolset Implant"
 	desc = "An alien toolset, designed to be installed on subject's arm."

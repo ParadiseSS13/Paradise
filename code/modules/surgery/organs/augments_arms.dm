@@ -13,6 +13,8 @@
 
 	var/obj/item/holder = null
 	// You can use this var for item path, it would be converted into an item on New()
+	/// If the arm implant requires both hands to be clear.
+	var/requires_twohands = FALSE
 
 /obj/item/organ/internal/cyberimp/arm/New()
 	..()
@@ -131,13 +133,27 @@
 		else
 			to_chat(owner, "<span class='notice'>You drop [arm_item] to activate [src]!</span>")
 
+	if(requires_twohands)
+		var/other_arm = (parent_organ == "r_arm" ? SLOT_HUD_LEFT_HAND : SLOT_HUD_RIGHT_HAND)
+		var/obj/item/other_arm_item = owner.get_item_by_slot(other_arm)
+		if(other_arm_item)
+			if(istype(other_arm_item, /obj/item/offhand))
+				var/obj/item/other_offhand_arm_item = owner.get_inactive_hand()
+				to_chat(owner, "<span class='warning'>Your hands are too encumbered wielding [other_offhand_arm_item] to deploy [src]!</span>")
+				return
+			else if(!owner.unEquip(other_arm_item))
+				to_chat(owner, "<span class='warning'>Your [other_arm_item] interferes with [src]!</span>")
+				return
+			else
+				to_chat(owner, "<span class='notice'>You drop [other_arm_item] to activate [src]!</span>")
+
+	// Swap before we put the item in hand
+	if(parent_organ == "r_arm" ? owner.hand : !owner.hand)
+		owner.swap_hand()
+
 	if(parent_organ == "r_arm" ? !owner.put_in_r_hand(holder) : !owner.put_in_l_hand(holder))
 		to_chat(owner, "<span class='warning'>Your [src] fails to activate!</span>")
 		return
-
-	// Activate the hand that now holds our item.
-	if(parent_organ == "r_arm" ? owner.hand : !owner.hand)
-		owner.swap_hand()
 
 	owner.visible_message("<span class='notice'>[owner] extends [holder] from [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
 		"<span class='notice'>You extend [holder] from your [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
@@ -478,6 +494,19 @@
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
+/obj/item/melee/razorwire/examine_more(mob/user)
+	. = ..()
+	. += "<i>A byproduct of Cybersun Incorporated's mistakes turned concept, the Razorwire Spool is a remarkable accident in itself. \
+	It consists of a fine, thread-like laser capable of being manipulated and swung like a whip. Designed for ease of deployment, the wire originates from the wrist, \
+	allowing users with the implant to perform wide swings and precise cuts against soft targets. It's the same energy similar to other energy swords and daggers.<i>"
+	. += "<i>Cybersun's investment into energy weapon development inadvertently led to the Razorwire Spool. Initially attempting to create an Energy Sword, \
+	they ended up with a material that, while superheated and correctly composed, failed to maintain a solid blade shape. Curious about this error, \
+	Cybersun repeated the process, producing an energy as thin as a wire. After several prototypes, they achieved a long, energy-like thread. \
+	Further innovation allowed them to conceal this in a forearm-sized container, \
+	with a hand and wrist replacement made of the same durable material used to contain energy weapons. They would call it, the Razorwire.<i>"
+	. += "<i>Favored by assassins for their stealth and efficiency, Cybersun exercises discretion in its distribution, favoring clients in their good graces. \
+	It falls behind other energy weapons due to its thinner and more loose pressure, however it is praised more as a side-arm for unarmored soft targets.</i>"
+
 /obj/item/organ/internal/cyberimp/arm/razorwire
 	name = "razorwire spool implant"
 	desc = "An integrated spool of razorwire, capable of being used as a weapon when whipped at your foes. \
@@ -486,6 +515,26 @@
 	icon_state = "razorwire"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/surgery.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "razorwire")
+	origin_tech = "combat=5;biotech=5;syndicate=2"
+	stealth_level = 1 // Hidden from health analyzers
+	requires_twohands = TRUE
+
+/obj/item/organ/internal/cyberimp/arm/razorwire/examine_more(mob/user)
+	. = ..()
+	. += "<i>A byproduct of Cybersun Incorporated's mistakes turned concept, the Razorwire Spool is a remarkable accident in itself. \
+	It consists of a fine, thread-like laser capable of being manipulated and swung like a whip. Designed for ease of deployment, the wire originates from the wrist, \
+	allowing users with the implant to perform wide swings and precise cuts against soft targets. It's the same energy similar to other energy swords and daggers.<i>"
+	. += "<i>Cybersun's investment into energy weapon development inadvertently led to the Razorwire Spool. Initially attempting to create an Energy Sword, \
+	they ended up with a material that, while superheated and correctly composed, failed to maintain a solid blade shape. Curious about this error, \
+	Cybersun repeated the process, producing an energy as thin as a wire. After several prototypes, they achieved a long, energy-like thread. \
+	Further innovation allowed them to conceal this in a forearm-sized container, \
+	with a hand and wrist replacement made of the same durable material used to contain energy weapons. They would call it, the Razorwire.<i>"
+	. += "<i>Favored by assassins for their stealth and efficiency, Cybersun exercises discretion in its distribution, favoring clients in their good graces. \
+	It falls behind other energy weapons due to its thinner and more loose pressure, however it is praised more as a side-arm for unarmored soft targets.</i>"
+
+/obj/item/organ/internal/cyberimp/arm/razorwire/Extend(obj/item/item)
+	. = ..()
+
 
 // Shell launch system, an arm mounted single-shot shotgun that comes out of your arm
 
