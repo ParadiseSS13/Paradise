@@ -31,11 +31,6 @@
 	// Current state
 	var/mutation_active = M.dna.GetSEState(mutation.block)
 
-	// Sanity checks, don't skip.
-	if(mutation_active && !mutation.can_activate(M, flags))
-		//testing("[M] - Failed to activate [gene.name] (can_activate fail).")
-		return FALSE
-
 	// Prior state
 	var/mutation_prior_status = (mutation.type in M.active_mutations)
 	var/changed = mutation_active != mutation_prior_status
