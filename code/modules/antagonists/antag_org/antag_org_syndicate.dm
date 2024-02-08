@@ -25,7 +25,7 @@
 		Teach those animal abusers a lesson!"
 	focus = 100
 	objectives = list(/datum/objective/assassinateonce/animal_abuser)
-	difficulty = "Easy"
+	difficulty = ORG_DIFFICULTY_EASY
 	chaos_level = ORG_CHAOS_MILD //Violent but only targets non-sec/command, and does not need to permakill
 
 /datum/antag_org/syndicate/waffle
@@ -78,16 +78,32 @@
 	name = "Steal Item (SELF)"
 	steal_list = list(/datum/theft_objective/reactive, /datum/theft_objective/steal/documents, /datum/theft_objective/magboots)
 
-/datum/antag_org/syndicate/anarchprim
-	name = "(TODO - LORE) ANARCHPRIM Inc."
-	desc = "(TODO - LORE)"
-	intro_desc = "(TODO - LORE) You are an anarcho primitivist terrorist. Look we both know you're just going to get a maxcap and detonate it next to the bridge, but please don't."
-	focus = 70
-	objectives = list(/datum/objective/assassinate/engineering, /datum/objective/assassinateonce/engineering, /datum/objective/steal/anarchprim)
+/datum/antag_org/syndicate/electra
+	name = "Electra Dynamics"
+	desc = "(TODO - LORE) A Trans-Solar Federation based corporation, Electra Dynamics is a construction and energy supplier \
+		that rose to prominence by investing heavily in the colonization of the Sol system during the pre-FTL era. \
+		It holds a share in power systems across the sector, especially on Mercury \
+		where they worked extensively to create the mining colonies and stations that are active to this day. \
+		Electra Dynamics expertise in power generation and infrastructure has allowed it to remain competitive in the market, \
+		often clashing with rivals like Nanotrasen over power installations and colony construction contracts. \
+		However, the rise of Nanotrasen as a megacorporation has put Electra Dynamics at a disadvantage, \
+		as rival innovative power sources increasingly threaten Electra's market share. \
+		Nanotrasen's SM engine, in particular, has been a source of concern for Electra, \
+		with its executives publicly criticizing it as a 'ticking bomb', to disuade public appeal. \
+		However, this hardly stopped the interest of goverment officals investing into it, \
+		to replace old Elektra power facilities for what felt like a more powerful energy source by their rival. \
+		In a bid to regain its foothold and prevent technological obsolescence, \
+		Electra Dynamics has resorted to using proxies to infiltrate and work in operations with the Syndicate. \
+		Their primary objective is clear, to tarnish Nanotrasen's reputation in the engineering field and to acquire critical information for their advantage, \
+		particularly regarding the secretive SM formula, with the aim of potentially reverse-engineering it."
 
-/datum/objective/steal/anarchprim
-	name = "Steal Item (ANARCHPRIM)"
-	steal_list = list(/datum/theft_objective/supermatter_sliver, /datum/theft_objective/nukedisc, /datum/theft_objective/plutonium_core)
+	intro_desc = "(TODO - LORE) You are an Electra Dynamics agent, sent here to advance Syndicate interests. Get the job done and done right."
+	focus = 70
+	objectives = list(/datum/objective/assassinate/engineering, /datum/objective/assassinateonce/engineering, /datum/objective/steal/electra)
+
+/datum/objective/steal/electra
+	name = "Steal Item (Electra Dynamics)"
+	steal_list = list(/datum/theft_objective/supermatter_sliver, /datum/theft_objective/blueprints, /datum/theft_objective/steal/documents)
 
 /datum/antag_org/syndicate/gorlex
 	name = "Gorlex Marauders"
