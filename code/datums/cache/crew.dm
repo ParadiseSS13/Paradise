@@ -7,7 +7,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 	cache_data = list()
 	..()
 
-/datum/repository/crew/proc/health_data(z)
+/datum/repository/crew/proc/health_data(z, ignore_sensors = FALSE)
 	var/list/crewmembers = list()
 	if(!z)
 		return crewmembers
@@ -31,7 +31,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
 		var/obj/item/clothing/under/C = H.w_uniform
-		if(!C || C.sensor_mode == SUIT_SENSOR_OFF || !C.has_sensor)
+		if(!ignore_sensors && (!C || C.sensor_mode == SUIT_SENSOR_OFF || !C.has_sensor))
 			continue
 		var/turf/pos = get_turf(C)
 		if(!istype(pos) || pos.z != z)
@@ -55,7 +55,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 			crewmemberData["fire"] = round(H.getFireLoss(), 1)
 			crewmemberData["brute"] = round(H.getBruteLoss(), 1)
 
-		if(C.sensor_mode >= SUIT_SENSOR_TRACKING)
+		if(C.sensor_mode >= SUIT_SENSOR_TRACKING || ignore_sensors)
 			var/area/A = get_area(H)
 			crewmemberData["area"] = sanitize_simple(A.name)
 			crewmemberData["x"] = pos.x
