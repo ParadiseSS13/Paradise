@@ -17,7 +17,10 @@
 
 /datum/event/vent_clog/tick()
 	if(activeFor % interval == 0)
-		var/obj/vent = pick_n_take(vents)
+		var/obj/machinery/atmospherics/unary/vent_scrubber/vent = pick_n_take(vents)
+		
+		if(!vent || vent.welded)
+			return
 
 		var/list/gunk = list("water","carbon","flour","radium","toxin","cleaner","nutriment","condensedcapsaicin","psilocybin","lube",
 							"atrazine","banana","charcoal","space_drugs","methamphetamine","holywater","ethanol","hot_coco","facid",
