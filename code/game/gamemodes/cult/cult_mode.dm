@@ -73,7 +73,6 @@
 		cultists_possible -= cultist
 		cult += cultist
 		cultist.restricted_roles = restricted_jobs
-		cultist.single_antag_positions = single_antag_positions
 		cultist.special_role = SPECIAL_ROLE_CULTIST
 	return (length(cult) > 0)
 

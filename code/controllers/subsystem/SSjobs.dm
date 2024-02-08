@@ -152,7 +152,7 @@ SUBSYSTEM_DEF(jobs)
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
-		if(player.mind && (job.title in player.mind.single_antag_positions))
+		if(player.mind && (job.title in SSticker.mode.single_antag_positions))
 			if(!prob(probability_of_antag_role_restriction))
 				Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
 				continue
@@ -201,7 +201,7 @@ SUBSYSTEM_DEF(jobs)
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
-		if(player.mind && (job.title in player.mind.single_antag_positions))
+		if(player.mind && (job.title in SSticker.mode.single_antag_positions))
 			if(!prob(probability_of_antag_role_restriction))
 				Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
 				continue
@@ -388,7 +388,7 @@ SUBSYSTEM_DEF(jobs)
 				if(player.mind && (job.title in player.mind.restricted_roles))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
-				if(player.mind && (job.title in player.mind.single_antag_positions))
+				if(player.mind && (job.title in SSticker.mode.single_antag_positions))
 					if(!prob(probability_of_antag_role_restriction))
 						Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
 						continue

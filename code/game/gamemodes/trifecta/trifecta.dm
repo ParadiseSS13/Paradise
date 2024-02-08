@@ -43,7 +43,6 @@
 		pre_vampires += vampire
 		vampire.special_role = SPECIAL_ROLE_VAMPIRE
 		vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs + vampire_restricted_jobs)
-		vampire.single_antag_positions = single_antag_positions
 
 	//Vampires made, off to changelings
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
@@ -59,7 +58,6 @@
 		pre_changelings += changeling
 		changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
 		changeling.special_role = SPECIAL_ROLE_CHANGELING
-		changeling.single_antag_positions = single_antag_positions
 
 	//And now traitors
 	var/list/datum/mind/possible_traitors = get_players_for_role(ROLE_TRAITOR)
@@ -76,7 +74,6 @@
 		pre_traitors += traitor
 		traitor.special_role = SPECIAL_ROLE_TRAITOR
 		traitor.restricted_roles = restricted_jobs
-		traitor.single_antag_positions = single_antag_positions
 
 	return TRUE
 

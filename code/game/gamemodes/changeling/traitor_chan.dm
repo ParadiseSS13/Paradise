@@ -37,7 +37,6 @@
 		var/datum/mind/changeling = pick_n_take(possible_changelings)
 		pre_changelings += changeling
 		changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
-		changeling.single_antag_positions = single_antag_positions
 		changeling.special_role = SPECIAL_ROLE_CHANGELING
 
 	return ..()
