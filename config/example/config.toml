@@ -716,6 +716,9 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_watcher_grave.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_xeno_nest.dmm",
 	"_maps/map_files220/RandomRuins/LavaRuins/scp_facility.dmm",
+	"_maps/map_files220/RandomRuins/LavaRuins/cheesus_temple.dmm",
+	"_maps/map_files220/RandomRuins/LavaRuins/ash_old.dmm",
+	"_maps/map_files220/RandomRuins/LavaRuins/old_outpost.dmm",
 ]
 # Budget for lavaland ruins. A higher number means more will spawn
 lavaland_ruin_budget = 100

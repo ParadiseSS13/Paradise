@@ -1,0 +1,942 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aH" = (
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"bj" = (
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/center/cracked,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"cp" = (
+/obj/structure/stone_tile/block,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"eN" = (
+/obj/structure/stone_tile/block/cracked,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"hn" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/item/stack/sheet/wood{
+	amount = 2
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"jc" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"jg" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"jP" = (
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"kr" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"lx" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/item/circuitboard/prisoner,
+/obj/item/circuitboard/chem_master{
+	pixel_y = -5;
+	pixel_x = 2
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"nE" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"nF" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"nH" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"nQ" = (
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors)
+"nV" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/center/cracked,
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"oo" = (
+/obj/effect/decal/remains/xeno,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"oA" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"py" = (
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"pz" = (
+/obj/effect/baseturf_helper/asteroid/basalt,
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors)
+"pQ" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"qp" = (
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/item/seeds/aloe,
+/obj/item/seeds/potato{
+	pixel_x = 5
+	},
+/obj/item/seeds/cotton{
+	pixel_x = -7
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"qF" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"sc" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/obj/item/stack/sheet/wood{
+	amount = 2
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"tc" = (
+/obj/item/clothing/head/witchhunter_hat,
+/obj/effect/decal/remains/human,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"tp" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"tq" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"tE" = (
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"uj" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"uI" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/center/cracked,
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"vW" = (
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"wl" = (
+/obj/structure/table/wood,
+/obj/item/spear/bonespear,
+/obj/item/spear/bonespear{
+	pixel_x = 4;
+	pixel_y = -2
+	},
+/obj/structure/stone_tile/block/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/obj/item/stack/sheet/bone{
+	amount = 2
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"wv" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"wB" = (
+/turf/template_noop,
+/area/template_noop)
+"wH" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"wO" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"xc" = (
+/obj/item/flashlight/lantern{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/flashlight/lantern{
+	pixel_x = -10
+	},
+/obj/structure/stone_tile/block/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"yP" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Bi" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Bv" = (
+/obj/structure/table/wood,
+/obj/item/scythe/bone,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"CM" = (
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Df" = (
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"EV" = (
+/obj/structure/stone_tile/block/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Fu" = (
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
+"Hc" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Hl" = (
+/obj/structure/stone_tile/block/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/obj/item/stack/sheet/wood{
+	amount = 2
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Hu" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/item/mod/module/visor/night,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/closet/crate/wooden/wooden_crate,
+/obj/item/stack/sheet/mineral/diamond{
+	amount = 4;
+	pixel_x = 4
+	},
+/obj/item/stack/sheet/bone{
+	amount = 2
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"HL" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Io" = (
+/turf/simulated/wall/mineral/wood,
+/area/lavaland/surface/outdoors)
+"Jw" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"JR" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Kg" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Lo" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Mp" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Py" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 9
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Rm" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"RE" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/block/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Ta" = (
+/obj/structure/necropolis_gate,
+/obj/structure/stone_tile/slab/burnt,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Tl" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Uc" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/burnt,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Ue" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"VT" = (
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Xz" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"ZA" = (
+/obj/structure/stone_tile/slab,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+
+(1,1,1) = {"
+wB
+vW
+vW
+vW
+vW
+vW
+vW
+vW
+vW
+vW
+Mp
+Mp
+Mp
+Mp
+wB
+wB
+wB
+wB
+wB
+wB
+"}
+(2,1,1) = {"
+vW
+vW
+vW
+vW
+vW
+vW
+vW
+vW
+vW
+Mp
+Mp
+Mp
+Mp
+Mp
+Mp
+wB
+wB
+wB
+wB
+wB
+"}
+(3,1,1) = {"
+vW
+vW
+nQ
+Io
+Io
+nQ
+Io
+nQ
+nQ
+Io
+nQ
+jg
+nQ
+Mp
+Mp
+Mp
+wB
+wB
+wB
+Fu
+"}
+(4,1,1) = {"
+vW
+vW
+Fu
+bj
+Tl
+nF
+Tl
+tp
+Mp
+uj
+jg
+Mp
+Mp
+Mp
+Mp
+Mp
+wB
+wB
+Fu
+wB
+"}
+(5,1,1) = {"
+vW
+vW
+Fu
+eN
+VT
+pQ
+nV
+Rm
+nQ
+kr
+Hc
+Mp
+Io
+Mp
+Mp
+Mp
+wB
+Fu
+Fu
+wB
+"}
+(6,1,1) = {"
+vW
+vW
+Fu
+py
+Df
+jP
+Kg
+wH
+Ta
+Mp
+sc
+jc
+Mp
+Mp
+Mp
+Mp
+Fu
+Fu
+wB
+wB
+"}
+(7,1,1) = {"
+vW
+Fu
+Fu
+cp
+tE
+nE
+yP
+wH
+nQ
+Mp
+Mp
+Uc
+Mp
+Io
+Fu
+Fu
+Fu
+Fu
+wB
+wB
+"}
+(8,1,1) = {"
+vW
+Fu
+Fu
+wO
+Bi
+Ue
+Jw
+Py
+nQ
+RE
+oo
+JR
+Mp
+Fu
+Fu
+Fu
+Fu
+wB
+wB
+wB
+"}
+(9,1,1) = {"
+vW
+Fu
+Fu
+nQ
+nQ
+Mp
+Mp
+nQ
+pz
+Mp
+Mp
+Mp
+Fu
+Fu
+Io
+Mp
+Mp
+wB
+wB
+wB
+"}
+(10,1,1) = {"
+Fu
+Fu
+vW
+vW
+vW
+nQ
+wl
+Bv
+nQ
+Mp
+Fu
+Fu
+Fu
+Fu
+nQ
+kr
+Mp
+wB
+wB
+wB
+"}
+(11,1,1) = {"
+Fu
+Fu
+vW
+vW
+vW
+nQ
+Hl
+wv
+HL
+Fu
+Fu
+Fu
+Fu
+Lo
+JR
+kr
+Mp
+wB
+wB
+wB
+"}
+(12,1,1) = {"
+wB
+Fu
+Fu
+Mp
+vW
+Mp
+EV
+wv
+Fu
+Fu
+Fu
+Fu
+Fu
+Fu
+nQ
+Mp
+Mp
+wB
+wB
+wB
+"}
+(13,1,1) = {"
+wB
+Fu
+Fu
+Mp
+vW
+Io
+xc
+Fu
+Fu
+Fu
+oA
+tq
+Fu
+Fu
+Fu
+Mp
+Mp
+wB
+wB
+wB
+"}
+(14,1,1) = {"
+wB
+Fu
+Fu
+Fu
+Mp
+Io
+Fu
+Fu
+Fu
+Mp
+oo
+ZA
+CM
+Fu
+Fu
+Mp
+Mp
+wB
+wB
+wB
+"}
+(15,1,1) = {"
+wB
+wB
+Fu
+Fu
+Mp
+Fu
+Fu
+Fu
+nQ
+nQ
+Mp
+Xz
+nQ
+Fu
+Mp
+Mp
+Mp
+wB
+wB
+wB
+"}
+(16,1,1) = {"
+wB
+wB
+Fu
+Fu
+Fu
+Fu
+Fu
+vW
+nQ
+qp
+nH
+uI
+nQ
+Mp
+Mp
+Mp
+Mp
+wB
+wB
+wB
+"}
+(17,1,1) = {"
+wB
+wB
+Fu
+Fu
+Fu
+Fu
+vW
+vW
+Io
+EV
+tc
+Hu
+nQ
+hn
+vW
+vW
+Mp
+wB
+wB
+wB
+"}
+(18,1,1) = {"
+wB
+wB
+wB
+Fu
+Fu
+Fu
+vW
+vW
+nQ
+aH
+qF
+lx
+nQ
+vW
+vW
+vW
+vW
+wB
+wB
+wB
+"}
+(19,1,1) = {"
+wB
+wB
+wB
+wB
+Fu
+Fu
+vW
+vW
+nQ
+nQ
+nQ
+nQ
+nQ
+vW
+vW
+wB
+wB
+wB
+wB
+wB
+"}
+(20,1,1) = {"
+wB
+wB
+wB
+wB
+wB
+Fu
+Fu
+vW
+vW
+vW
+vW
+vW
+vW
+vW
+wB
+wB
+wB
+wB
+wB
+wB
+"}
