@@ -126,16 +126,6 @@
 
 	update_bounds()
 
-	/*
-	if(width > 1)
-		if(dir in list(EAST, WEST))
-			bound_width = width * world.icon_size
-			bound_height = world.icon_size
-		else
-			bound_width = world.icon_size
-			bound_height = width * world.icon_size
-	*/
-
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover))
 		if(mover.checkpass(PASSDOOR) && !locked)
