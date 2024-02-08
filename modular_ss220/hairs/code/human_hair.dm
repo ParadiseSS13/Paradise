@@ -180,6 +180,63 @@
 /datum/sprite_accessory/hair/longemo
 	species_allowed = list("Human", "Slime People", "Tajaran", "Vulpkanin")
 
+/datum/sprite_accessory/hair/butterfly
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Butterfly"
+	icon_state = "butterfly"
+	secondary_theme = "beads"
+	species_allowed = list("Human", "Slime People")
+
+/datum/sprite_accessory/hair/cascading_long_bob
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Cascading Long Bob"
+	icon_state = "cascading_long_bob"
+	species_allowed = list("Human", "Slime People")
+
+/datum/sprite_accessory/hair/jinshi
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Jinshi"
+	icon_state = "jinshi"
+	secondary_theme = "beads"
+	species_allowed = list("Human", "Slime People")
+
+/datum/sprite_accessory/hair/long_strait
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Long Strait"
+	icon_state = "long_strait"
+	species_allowed = list("Human", "Slime People")
+
+/datum/sprite_accessory/hair/pine
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Pine"
+	icon_state = "pine"
+	species_allowed = list("Human", "Slime People")
+
+/datum/sprite_accessory/hair/short_bob
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Short Bob"
+	icon_state = "short_bob"
+	species_allowed = list("Human", "Slime People")
+
+/datum/sprite_accessory/hair/waves_mid
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Waves Mid"
+	icon_state = "waves_mid"
+	species_allowed = list("Human", "Slime People")
+
+/datum/sprite_accessory/hair/whim
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Whim"
+	icon_state = "whim"
+	species_allowed = list("Human", "Slime People")
+
+/datum/sprite_accessory/hair/vulpkanin/tomahawk_spiker
+	icon = 'modular_ss220/hairs/icons/human_hair.dmi'
+	name = "Tomahawk Spiker"
+	icon_state = "tomahawk_spiker"
+	species_allowed = list("Human", "Slime People")
+
+
 //////////////////////////////
 //////START VG HAIRSTYLES/////
 //////////////////////////////

@@ -240,3 +240,12 @@
 	name = "Spicy"
 	icon_state = "spicy"
 
+/datum/sprite_accessory/hair/vulpkanin/disheveled
+	icon = 'modular_ss220/hairs/icons/vulpkanin_hair.dmi'
+	name = "Disheveled"
+	icon_state = "disheveled"
+
+/datum/sprite_accessory/hair/vulpkanin/braids
+	icon = 'modular_ss220/hairs/icons/vulpkanin_hair.dmi'
+	name = "Braids"
+	icon_state = "braids"
