@@ -6568,10 +6568,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/engine/supermatter)
 "azU" = (
-/obj/machinery/atmospherics/meter,
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 4
-	},
+/obj/machinery/atmospherics/trinary/tvalve,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -6655,9 +6652,6 @@
 /turf/space,
 /area/space/nearstation)
 "aAf" = (
-/obj/machinery/atmospherics/unary/thermomachine/heater/on{
-	dir = 4
-	},
 /obj/machinery/camera{
 	c_tag = "Supermatter West";
 	dir = 4;
@@ -6665,6 +6659,9 @@
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/atmospherics/unary/thermomachine/heater/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aAg" = (
@@ -7139,13 +7136,6 @@
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
-"aBh" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/controlroom)
 "aBi" = (
 /obj/structure/window/plasmareinforced{
 	dir = 4
@@ -7554,15 +7544,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
-"aCi" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/controlroom)
 "aCj" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/scrubber,
@@ -7824,13 +7805,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/station/engineering/controlroom)
-"aCV" = (
-/obj/machinery/atmospherics/meter,
-/obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
 /area/station/engineering/controlroom)
 "aCW" = (
 /obj/effect/turf_decal/stripes/line{
@@ -62016,6 +61990,13 @@
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
+"dDW" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowfull"
+	},
+/area/station/engineering/controlroom)
 "dEa" = (
 /obj/vehicle/ambulance{
 	dir = 1
@@ -70833,6 +70814,15 @@
 	icon_state = "darkredcorners"
 	},
 /area/station/security/permasolitary)
+"gCA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/controlroom)
 "gDv" = (
 /obj/machinery/door_timer/cell_1{
 	pixel_x = -32
@@ -76120,6 +76110,13 @@
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"jYK" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/controlroom)
 "jZh" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -123802,8 +123799,8 @@ axG
 ayF
 ayF
 aAf
-aBh
 aLq
+jYK
 aLq
 aLq
 axG
@@ -124058,9 +124055,9 @@ aFd
 axI
 aFd
 ayT
-aCi
-aCi
+gCA
 aDe
+gCA
 rvN
 aFd
 aHo
@@ -124316,8 +124313,8 @@ axK
 ayJ
 azU
 ayR
-aAg
-aCV
+dDW
+ayR
 aEd
 aFc
 aFW
