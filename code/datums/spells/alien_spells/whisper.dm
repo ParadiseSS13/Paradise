@@ -10,7 +10,7 @@
 	T.allowed_type = /mob/living
 	T.click_radius = 0
 	T.try_auto_target = FALSE
-	T.selection_type = SPELL_SRANDOM_STORY_ELECTION_RANGE
+	T.selection_type = SPELL_SELECTION_RANGE
 	T.include_user = TRUE
 	return T
 

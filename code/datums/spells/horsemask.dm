@@ -17,7 +17,7 @@
 
 /obj/effect/proc_holder/spell/horsemask/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
-	T.selection_type = SPELL_SRANDOM_STORY_ELECTION_RANGE
+	T.selection_type = SPELL_SELECTION_RANGE
 	return T
 
 

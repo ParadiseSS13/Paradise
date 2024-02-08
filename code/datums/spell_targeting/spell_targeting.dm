@@ -8,8 +8,8 @@
 /datum/spell_targeting
 	/// The range of the spell; outer radius for aoe spells
 	var/range = 7
-	/// Can be SPELL_SRANDOM_STORY_ELECTION_RANGE or SPELL_SRANDOM_STORY_ELECTION_VIEW
-	var/selection_type = SPELL_SRANDOM_STORY_ELECTION_VIEW
+	/// Can be SPELL_SELECTION_RANGE or SPELL_SELECTION_VIEW
+	var/selection_type = SPELL_SELECTION_VIEW
 	/// How many targets are allowed. INFINITY is used to target unlimited targets
 	var/max_targets = 1
 	/// Which type the targets have to be
