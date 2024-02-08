@@ -58,7 +58,7 @@
 		insert_organ(user, C)
 		return
 	in_use = TRUE
-	var/chosen_organ = tgui_input_list(user, "Please select an organ for removal", "Organ Selection", C.internal_organs)
+	var/obj/item/chosen_organ = tgui_input_list(user, "Please select an organ for removal", "Organ Selection", C.internal_organs)
 	if(!chosen_organ || !user.Adjacent(C))
 		in_use = FALSE
 		return
@@ -66,8 +66,12 @@
 		to_chat(user, "<span class='warning'>ERROR: [chosen_organ] is not valid for removal for unknown reasons!</span>")
 		in_use = FALSE
 		return
-	if(!istype(chosen_organ, /obj/item/organ/internal/brain/mmi_holder)) //This breaks shit
+	if(istype(chosen_organ, /obj/item/organ/internal/brain/mmi_holder)) //This breaks shit
 		to_chat(user, "<span class='warning'>ERROR: [chosen_organ] is too big for the holding tank and would damage [src] too much!</span>")
+		in_use = FALSE
+		return
+	if(HAS_TRAIT(chosen_organ, TRAIT_ORGAN_INSERTED_WHILE_DEAD))
+		to_chat(user, "<span class='warning'>ERROR: [chosen_organ] was inserted when [C] was dead, and has no soul trace to lock onto!</span>")
 		in_use = FALSE
 		return
 	var/obj/item/organ/internal/internal_organ = chosen_organ
