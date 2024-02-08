@@ -69,6 +69,8 @@ SUBSYSTEM_DEF(ticker)
 	var/datum/scoreboard/score = null
 	/// List of ckeys who had antag rolling issues flagged
 	var/list/flagged_antag_rollers = list()
+	/// Time until we actually hand out the special roles
+	var/timer_till_handout
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
@@ -226,9 +228,15 @@ SUBSYSTEM_DEF(ticker)
 			P.ready = FALSE
 
 	//Configure mode and assign player to special mode stuff
-	mode.pre_pre_setup()
+
 	var/can_continue = FALSE
-	can_continue = mode.pre_setup() //Setup special modes. This also does the antag fishing checks.
+	message_admins(mode)
+	can_continue = mode.pre_pre_setup() //Setup special modes. This also does the antag fishing checks.
+	if(!can_continue)
+		timer_till_handout = addtimer(CALLBACK(src, PROC_REF(handle_late_handout)), 1 MINUTES)
+		can_continue = TRUE
+	else
+		can_continue = mode.pre_setup()
 
 	if(!can_continue)
 		QDEL_NULL(mode)
@@ -869,3 +877,6 @@ SUBSYSTEM_DEF(ticker)
 						if(ROUND_END_FORCED)
 							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, "Blob")
 
+/datum/controller/subsystem/ticker/proc/handle_late_handout()
+	message_admins(mode)
+	mode.pre_setup()

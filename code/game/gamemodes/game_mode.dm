@@ -61,14 +61,12 @@
 
 //pre_pre_setup() For when you really don't want certain jobs ingame.
 /datum/game_mode/proc/pre_pre_setup()
-
-	return 1
+	return TRUE
 
 ///pre_setup()
 ///Attempts to select players for special roles the mode might have.
 /datum/game_mode/proc/pre_setup()
-
-	return 1
+	return TRUE
 
 
 ///post_setup()
@@ -204,7 +202,7 @@
 	if(rev_team)
 		rev_team.check_all_victory()
 
-/datum/game_mode/proc/get_players_for_role(role, override_jobbans=0)
+/datum/game_mode/proc/get_players_for_role(role, override_jobbans = FALSE)
 	var/list/players = list()
 	var/list/candidates = list()
 	//var/list/drafted = list()
@@ -242,6 +240,40 @@
 							//			recommended_enemies if the number of people with that role set to yes is less than recomended_enemies,
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
+// Just the above proc but for alive players TODO: Refactor to not be copied code
+/datum/game_mode/proc/get_alive_players_for_role(role, override_jobbans = FALSE)
+	var/list/players = list()
+	var/list/candidates = list()
+	//var/list/drafted = list()
+	//var/datum/mind/applicant = null
+
+	var/roletext = get_roletext(role)
+
+	// Assemble a list of active players without jobbans.
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(player.client && !(locate(player) in SSafk.afk_players))
+			if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, roletext))
+//				if(player_old_enough_antag(player.client, role))
+				players += player
+
+	// Shuffle the players list so that it becomes ping-independent.
+	players = shuffle(players)
+
+	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
+	for(var/mob/new_player/player in players)
+		if(!player.client.skip_antag)
+			if((role in player.client.prefs.be_special) && !(player.client.prefs.active_character.species in protected_species))
+				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
+				candidates += player.mind
+				players -= player
+
+	// Remove candidates who want to be antagonist but have a job that precludes it
+	if(restricted_jobs)
+		for(var/datum/mind/player in candidates)
+			for(var/job in restricted_jobs)
+				if(player.assigned_role == job)
+					candidates -= player
+	return candidates
 
 /datum/game_mode/proc/latespawn(mob)
 	if(rev_team)

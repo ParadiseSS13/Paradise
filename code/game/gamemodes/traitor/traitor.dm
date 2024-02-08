@@ -23,13 +23,15 @@
 	to_chat(world, "<B>The current game mode is - Traitor!</B>")
 	to_chat(world, "<B>There is a syndicate traitor on the station. Do not let the traitor succeed!</B>")
 
+/datum/game_mode/traitor/pre_pre_setup()
+	return FALSE // We handle this later
 
 /datum/game_mode/traitor/pre_setup()
 
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs
 
-	var/list/possible_traitors = get_players_for_role(ROLE_TRAITOR)
+	var/list/possible_traitors = get_alive_players_for_role(ROLE_TRAITOR)
 
 	for(var/datum/mind/candidate in possible_traitors)
 		if(candidate.special_role == SPECIAL_ROLE_VAMPIRE || candidate.special_role == SPECIAL_ROLE_CHANGELING) // no traitor vampires or changelings
@@ -37,6 +39,7 @@
 
 	// stop setup if no possible traitors
 	if(!length(possible_traitors))
+		message_admins("Fuck")
 		return FALSE
 
 	var/num_traitors = 1
@@ -55,6 +58,7 @@
 		traitor.restricted_roles = restricted_jobs
 
 	if(!length(pre_traitors))
+		message_admins("Fuck2")
 		return FALSE
 	return TRUE
 
