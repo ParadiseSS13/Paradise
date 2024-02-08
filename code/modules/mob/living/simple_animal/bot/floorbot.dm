@@ -279,7 +279,7 @@
 				anchored = TRUE // Prevent the floorbot being blown off-course while trying to reach a hull breach.
 		if(REPLACE_TILE)
 			F = scan_target
-			if(istype(F, /turf/simulated/floor/plating)) //The floor must not already have a tile.
+			if(istype(F, /turf/simulated/floor/plating)) // The floor must not already have a tile.
 				result = F
 		if(FIX_TILE)	// Selects only damaged floors.
 			F = scan_target
