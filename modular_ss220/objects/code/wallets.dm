@@ -28,3 +28,12 @@
 	icon = 'modular_ss220/objects/icons/wallets.dmi'
 	icon_state = "wallet_USSP_2"
 	photo_overlay = "photo_USSP"
+
+/obj/item/storage/wallet/wallet_wyci
+	name = "Кошелек W.Y.C.I."
+	desc = "Кошелек, законодателя моды WYCI,\
+	украшен золотой пуговицей cшит позолочеными и платиновыми нитями, сверх прочный.\
+	И сверх модный. И сверх дорогой. И сшит по принципу WYCI."
+	icon = 'modular_ss220/objects/icons/wallets.dmi'
+	icon_state = "wallet_wyci"
+	photo_overlay = "photo_wyci_overlay"

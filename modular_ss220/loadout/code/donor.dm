@@ -73,6 +73,11 @@
 	path = /obj/item/storage/wallet/wallet_USSP_2
 	cost = 12
 
+/datum/gear/donor/Wallet_WYCI
+	display_name = "Бумажник W.Y.C.I."
+	path = /obj/item/storage/wallet/wallet_wyci
+	cost = 12
+
 /datum/gear/donor/firefirstaid
 	display_name = "Набор первой медицинской помощи от премиальной страховки"
 	path = /obj/item/storage/firstaid/regular/donor
