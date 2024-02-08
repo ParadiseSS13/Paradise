@@ -94,7 +94,7 @@
 	/// The next destination in the patrol route
 	var/next_destination
 	/// This ticks up every automated action, at 300 we clean the ignore list
-	var/ignorelistcleanuptimer = 1
+	var/ignore_list_cleanup_timer = 1
 	var/robot_arm = /obj/item/robot_parts/r_arm
 
 	/// Number of times retried a blocked path
@@ -292,14 +292,14 @@
 /mob/living/simple_animal/bot/handle_automated_action()
 	diag_hud_set_botmode()
 
-	if(ignorelistcleanuptimer % 300 == 0) // Every 300 actions, clean up the ignore list from old junk
+	if(++ignore_list_cleanup_timer == 300) // Every 300 actions, clean up the ignore list from old junk
 		for(var/uid in ignore_list)
-			var/atom/referredatom = locateUID(uid)
-			if(!referredatom || QDELETED(referredatom))
+			var/atom/referred_atom = locateUID(uid)
+			if(!referred_atom || QDELETED(referred_atom))
 				ignore_list -= uid
-		ignorelistcleanuptimer = 1
+		ignore_list_cleanup_timer = 0
 	else
-		ignorelistcleanuptimer++
+		ignore_list_cleanup_timer++
 
 	if(!on)
 		return
