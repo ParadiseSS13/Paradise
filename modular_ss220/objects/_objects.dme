@@ -25,3 +25,4 @@
 #include "code/musician.dm"
 #include "code/flag.dm"
 #include "code/wallets.dm"
+#include "code/flashlight.dm"
