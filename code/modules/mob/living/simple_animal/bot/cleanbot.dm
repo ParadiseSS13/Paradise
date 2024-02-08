@@ -142,14 +142,14 @@
 		if(!path || !length(path)) //No path, need a new one
 			//Try to produce a path to the target, and ignore airlocks to which it has access.
 			path = get_path_to(src, target, 30, id=access_card)
-			if(!bot_move(target, move_speed = 1))
+			if(!bot_move(target))
 				ignore_job -= target.UID()
 				add_to_ignore(target)
 				target = null
 				path = list()
 				return
 			mode = BOT_MOVING
-		else if(!bot_move(target, move_speed = 1))
+		else if(!bot_move(target))
 			ignore_job -= target.UID()
 			target = null
 			mode = BOT_IDLE

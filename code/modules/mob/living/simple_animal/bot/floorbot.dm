@@ -239,13 +239,13 @@
 			else
 				path = get_path_to(src, target, 30, id = access_card, simulated_only = 0)
 
-			if(!bot_move(target, move_speed = 1))
+			if(!bot_move(target))
 				add_to_ignore(target)
 				ignore_job -= target.UID()
 				target = null
 				mode = BOT_IDLE
 				return
-		else if(!bot_move(target, move_speed = 1))
+		else if(!bot_move(target))
 			ignore_job -= target.UID()
 			target = null
 			mode = BOT_IDLE

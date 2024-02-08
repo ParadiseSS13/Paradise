@@ -536,7 +536,8 @@ TRUE to skip target, FALSE for the next check
 	claim_job(A)
 
 /mob/living/simple_animal/bot/proc/claim_job(atom/A)
-	if(length(ignore_job) >= 30) // Something went wrong, cull the herd
+	var/ignore_amount = length(GLOB.bots_list)
+	if(length(ignore_job) >= ignore_amount) // Something went wrong, cull the herd
 		ignore_job.Cut()
 	ignore_job |= A.UID()
 
