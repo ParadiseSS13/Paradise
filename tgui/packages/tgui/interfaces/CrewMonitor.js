@@ -188,7 +188,7 @@ const CrewMonitorDataView = (_properties, context) => {
 };
 
 const CrewMonitorMapView = (_properties, context) => {
-  const { data } = useBackend(context);
+  const { act, data } = useBackend(context);
   const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
   return (
     <Box height="526px" mb="0.5rem" overflow="hidden">
@@ -204,6 +204,13 @@ const CrewMonitorMapView = (_properties, context) => {
               icon="circle"
               tooltip={cm.name + ' (' + cm.assignment + ')'}
               color={getStatColor(cm, data.critThreshold)}
+              onClick={() =>
+                data.isObserver
+                  ? act('track', {
+                      track: cm.ref,
+                    })
+                  : null
+              }
             />
           ))}
       </NanoMap>
