@@ -3,7 +3,7 @@
 
 /obj/effect/spawner/wire_splicing
 	name = "wiring splicing spawner"
-	icon = 'modular_ss220/wire_splicing/structures_spawners.dmi'
+	icon = 'modular_ss220/wire_splicing/icons/structures_spawners.dmi'
 	icon_state = "wire_splicing"
 
 /obj/effect/spawner/wire_splicing/Initialize()
@@ -11,7 +11,8 @@
 	new /obj/structure/wire_splicing(get_turf(src))
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/spawner/wire_splicing/thirty //70% chance to be nothing
+// 70% chance to be nothing
+/obj/effect/spawner/wire_splicing/thirty
 	name = "wiring splicing spawner 30%"
 
 /obj/effect/spawner/wire_splicing/thirty/Initialize(mapload)
@@ -22,13 +23,14 @@
 /obj/structure/wire_splicing
 	name = "wire splicing"
 	desc = "Looks like someone was very drunk when doing this, or just didn't care. This can be removed by wirecutters."
-	icon = 'modular_ss220/wire_splicing/traps.dmi'
+	icon = 'modular_ss220/wire_splicing/icons/traps.dmi'
 	icon_state = "wire_splicing1"
 	density = FALSE
 	anchored = TRUE
 	flags = CONDUCT
 	layer = WIRE_TERMINAL_LAYER
-	var/messiness = 0 // How bad the splicing was, determines the chance of shock
+	/// How bad the splicing was, determines the chance of shock
+	var/messiness = 0
 	var/shock_chance_per_messiness = 10
 
 /obj/structure/wire_splicing/Initialize(mapload)
@@ -36,57 +38,57 @@
 	messiness = rand(1, MAX_MESSINESS)
 	update_icon(UPDATE_ICON_STATE)
 
-	//At messiness of 2 or below, triggering when walking on a catwalk is impossible
-	//Above that it becomes possible, so we will change the layer to make it poke through catwalks
+	// At messiness of 2 or below, triggering when walking on a catwalk is impossible
+	// Above that it becomes possible, so we will change the layer to make it poke through catwalks
 	if(messiness > 2)
 		layer = LOW_OBJ_LAYER  // I wont do such stuff on splicing "reinforcement". Take it as nasty feature
 
-	//Wire splice can only exist on a cable. Lets try to place it in a good location
-	if(locate(/obj/structure/cable) in get_turf(src)) //if we're already in a good location, no problem!
+	// Wire splice can only exist on a cable. Lets try to place it in a good location
+	if(locate(/obj/structure/cable) in get_turf(src)) // If we're already in a good location, no problem!
 		return
 
-	//Make a list of turfs with cables in them
+	// Make a list of turfs with cables in them
 	var/list/candidates = list()
 
-	//We will give each turf a score to determine its suitability
+	// We will give each turf a score to determine its suitability
 	var/best_score = -INFINITY
 	for(var/obj/structure/cable/C in range(3, get_turf(src)))
 		var/turf/simulated/floor/T = get_turf(C)
 
-		//Wire inside a wall? can't splice there
+		// Wire inside a wall? can't splice there
 		if(!istype(T))
 			continue
 
-		//We already checked this one
+		// We already checked this one
 		if(T in candidates)
 			continue
 
 		var/turf_score = 0
 
-		//Nobody walks on underplating so we don't want to place traps there
+		// Nobody walks on underplating so we don't want to place traps there
 
 		var/turf/space/W = get_turf(C)
 		if(!istype(W))
 			continue //No traps in space
 
 		/*
-		//Catwalks are made for walking on, we definitely want traps there
+		// Catwalks are made for walking on, we definitely want traps there
 		if(locate(/obj/structure/catwalk) in T)
 			turf_score += 2
 		*/
 
-		//If its below the threshold ignore it
+		// If its below the threshold ignore it
 		if(turf_score < best_score)
 			continue
 
-		//If it sets a new threshold, discard everything before
+		// If it sets a new threshold, discard everything before
 		else if(turf_score > best_score)
 			best_score = turf_score
 			candidates.Cut()
 
 		candidates.Add(T)
 
-	//No nearby cables? Cancel
+	// No nearby cables? Cancel
 	if(!length(candidates))
 		return INITIALIZE_HINT_QDEL
 
@@ -112,9 +114,14 @@
 
 /obj/structure/wire_splicing/proc/shock(mob/living/user, prb, siemens_coeff = 1)
 	. = FALSE
-	if(!in_range(src, user)) //To prevent TK and mech users from getting shocked
+	// To prevent TK and mech users from getting shocked
+	if(!in_range(src, user))
 		return
-	if(user.m_intent == MOVE_INTENT_WALK) // Walk slowly to try to step over
+	// To prevent simple mobs to be shocked
+	if(!ishuman(user))
+		return
+	// Walk slowly to try to step over
+	if(user.m_intent == MOVE_INTENT_WALK)
 		prb = max(prb - WALKING_REDUCE_PROBABILITY, 0)
 	if(!prob(prb))
 		return
@@ -133,7 +140,7 @@
 	if(shock(user, 50))
 		return
 	user.visible_message(span_notice("[user] cuts the splicing."), span_notice("You cut the splicing."))
-	investigate_log(" was cut by [key_name(usr)] in [AREACOORD(src)]")
+	investigate_log("was cut by [key_name(usr)] in [AREACOORD(src)]", "wires")
 	qdel(src)
 
 /obj/structure/wire_splicing/attackby(obj/item/I, mob/user, params)
@@ -154,7 +161,7 @@
 	messiness = min(messiness + 1, MAX_MESSINESS)
 	coil.use(1)
 	update_icon(UPDATE_ICON_STATE)
-	investigate_log("wire splicing was reinforced to [messiness] by [key_name(usr)] in [AREACOORD(src)]")
+	investigate_log("was reinforced to [messiness] by [key_name(usr)] in [AREACOORD(src)]", "wires")
 
 #undef MAX_MESSINESS
 #undef WALKING_REDUCE_PROBABILITY
