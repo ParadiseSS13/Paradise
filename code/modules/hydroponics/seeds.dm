@@ -179,7 +179,7 @@
 /// Setter procs ///
 /obj/item/seeds/proc/adjust_yield(adjustamt)
 	if(yield != -1) // Unharvestable shouldn't suddenly turn harvestable
-		yield = clamp(yield + adjustamt, 0, 10)
+		yield = clamp(yield + adjustamt, 0, 5)
 
 		if(yield <= 0 && get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism))
 			yield = 1 // Mushrooms always have a minimum yield of 1.
