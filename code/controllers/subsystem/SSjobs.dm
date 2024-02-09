@@ -206,7 +206,7 @@ SUBSYSTEM_DEF(jobs)
 				Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
 				continue
 			else
-				probability_of_antag_role_restriction  =  probability_of_antag_role_restriction  / 10
+						probability_of_antag_role_restriction /= 10
 		if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
 			Debug("GRJ Random job given, Player: [player], Job: [job]")
 			AssignRole(player, job.title)
@@ -393,7 +393,7 @@ SUBSYSTEM_DEF(jobs)
 						Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
 						continue
 					else
-						probability_of_antag_role_restriction  =  probability_of_antag_role_restriction  / 10
+						probability_of_antag_role_restriction /= 10
 				// If the player wants that job on this level, then try give it to him.
 				if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 
