@@ -95,6 +95,7 @@
 
 	var/obj/effect/wisp/ghost/orb = new(src)
 	orb.color = ghost.get_runechat_color()
+	orb.alpha = 128
 	orb.orbit(src, clockwise = FALSE)
 	spirits[ghost] = orb
 
