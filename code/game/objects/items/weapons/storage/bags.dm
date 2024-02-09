@@ -203,7 +203,7 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbag"
 	storage_slots = 40 //the number of plant pieces it can carry.
-	max_combined_w_class = 40  //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
+	max_combined_w_class = 40 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/food/snacks/grown,/obj/item/seeds,/obj/item/grown,/obj/item/food/snacks/grown/ash_flora,/obj/item/food/snacks/honeycomb)
