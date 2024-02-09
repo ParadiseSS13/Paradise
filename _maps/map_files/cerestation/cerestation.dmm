@@ -37685,6 +37685,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
+"eMo" = (
+/obj/machinery/requests_console{
+	department = "Kitchen";
+	departmentType = 2;
+	name = "Kitchen Requests Console";
+	pixel_x = 30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "eMK" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -116886,7 +116897,7 @@ ecF
 mrt
 cyf
 mrt
-mrt
+eMo
 bgC
 mrt
 mrt
