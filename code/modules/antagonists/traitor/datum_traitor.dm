@@ -80,7 +80,7 @@
 	return ..()
 
 /datum/antagonist/traitor/select_organisation() //TODO : Dynamic pick based on player pref, amount of sec, amount of antags
-	var/org_type = pick(typesof(/datum/antag_org/syndicate))
+	var/org_type = pick(subtypesof(/datum/antag_org/syndicate))
 	organisation = new org_type(src)
 
 /datum/antagonist/traitor/add_owner_to_gamemode()

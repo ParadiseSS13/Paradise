@@ -31,5 +31,7 @@
 	var/difficulty
 	/// Estimation of how much trouble this antag will be for security.
 	var/chaos_level
+	/// Short 'OOC' description of the org's gameplay style
+	var/gameplay_blurb = "Again, shouldn't be seeing this!"
 	/// This organisation is listed as an option on player preferences
 	var/selectable = FALSE

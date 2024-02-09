@@ -1,13 +1,17 @@
-/// Base syndicate org, can be selected to have 'vanilla' traitor with no changes.
+/// Base syndicate org datum, can't be rolled/seen
 /datum/antag_org/syndicate
-	name = "Donk Co."
-	desc = "(TODO - LORE) Rivals of Waffle Company, the two groups usually have an uneasy truce when operating in NT territory. \
-		Donk Co. supplies a wide variety of goods to the Syndicate."
-	intro_desc = "(TODO - LORE) You are a Donk Co. agent, sent here to advance Syndicate interests. Get the job done and done right."
+	name = "Generic Syndicate Corp"
 	focus = 80
 	difficulty = ORG_DIFFICULTY_MEDIUM
 	chaos_level = ORG_CHAOS_AVERAGE
 	selectable = TRUE
+
+/datum/antag_org/syndicate/donk
+	name = "Donk Co."
+	desc = "(TODO - LORE) Rivals of Waffle Company, the two groups usually have an uneasy truce when operating in NT territory. \
+		Donk Co. supplies a wide variety of goods to the Syndicate."
+	intro_desc = "(TODO - LORE) You are a Donk Co. agent, sent here to advance Syndicate interests. Get the job done and done right."
+	gameplay_blurb = "Being a member of Donk Co. gives you completely random objectives. The vanilla traitor gameplay."
 
 /datum/antag_org/syndicate/hawkmoon
 	name = "Hawkmoon Acquisitions"
@@ -22,6 +26,7 @@
 	objectives = list(/datum/objective/steal)
 	difficulty = ORG_DIFFICULTY_EASY
 	chaos_level = ORG_CHAOS_MILD
+	gameplay_blurb = "Hawkmoon thieves will always get steal objectives. Keep your hands/claws/grasping appendage clean!"
 
 /datum/antag_org/syndicate/arc
 	name = "Animal Rights Consortium"
@@ -32,6 +37,7 @@
 	objectives = list(/datum/objective/assassinateonce/animal_abuser)
 	difficulty = ORG_DIFFICULTY_EASY
 	chaos_level = ORG_CHAOS_MILD //Violent but only targets non-sec/command, and does not need to permakill
+	gameplay_blurb = "ARC will always target animal abusers and do not require you to permanently kill them. A good introduction to lethal traitor gameplay."
 
 /datum/antag_org/syndicate/waffle
 	name = "Waffle Company"
@@ -42,6 +48,7 @@
 		However, some evaded capture and persisted, ensuring the company's underground operations remain active and potent. "
 	intro_desc = "(TODO - LORE) You are a Waffle Company agent, sent here to advance Syndicate interests. Get the job done and done right."
 	objectives = list(/datum/objective/assassinate)
+	gameplay_blurb = "Waffle Company usually tasks their agents with assassination missions on any target, but may occasionally do other objectives."
 
 /datum/antag_org/syndicate/cybersun
 	name = "Cybersun Incorporated - The Inner Circle"
@@ -50,7 +57,9 @@
 			they possess extensive experience in corporate sabotage and criminal activities. Now focused on preemptive strikes to ensure seamless operations, \
 			the Inner Circle operates with a high level of professionalism and patience."
 	intro_desc = "(TODO - LORE) You're an Inner Circle operative, part of the espionage proxy of Cybersun Incorporated. Clean kills, clean steals, clean getaway. Get it done, operative."
-	objectives = list(/datum/objective/assassinateonce/command, /datum/objective/assassinate/nomindshield, /datum/objective/steal)
+	focus = 25 //We target members of command/sec, but with a low focus we are going to get random objectives most of the time.
+	objectives = list(/datum/objective/assassinateonce/command, /datum/objective/assassinate/mindshielded)
+	gameplay_blurb = "Inner Circle operatives do a variety of jobs, with a slight tilt towards assassinating members of Command and Security."
 
 /datum/antag_org/syndicate/interdyne
 	name = "Interdyne Pharmaceuticals"
@@ -63,6 +72,7 @@
 	intro_desc = "(TODO - LORE) You are an Interdyne Pharmaceutical agent, sent here to advance Syndicate interests. Get the job done and done right."
 	focus = 70
 	objectives = list(/datum/objective/assassinate/medical, /datum/objective/assassinateonce/medical, /datum/objective/steal/interdyne)
+	gameplay_blurb = "Interdyne agents usually targets members of Medical or steal items they are interested in."
 
 /datum/objective/steal/interdyne
 	name = "Steal Item (Interdyne)"
@@ -78,6 +88,7 @@
 		Get the job done, and we'll be one step closer to ending Nanotrasen's slave empire."
 	focus = 70
 	objectives = list(/datum/objective/debrain/science, /datum/objective/assassinateonce/science, /datum/objective/steal/self)
+	gameplay_blurb = "SELF agents usually targets members of Science or steal items they are interested in."
 
 /datum/objective/steal/self
 	name = "Steal Item (SELF)"
@@ -85,7 +96,7 @@
 
 /datum/antag_org/syndicate/electra
 	name = "Electra Dynamics"
-	desc = "(TODO - LORE) A Trans-Solar Federation based corporation, Electra Dynamics is a construction and energy supplier \
+	desc = "(TODO - LORE - SHORTER) A Trans-Solar Federation based corporation, Electra Dynamics is a construction and energy supplier \
 		that rose to prominence by investing heavily in the colonization of the Sol system during the pre-FTL era. \
 		It holds a share in power systems across the sector, especially on Mercury \
 		where they worked extensively to create the mining colonies and stations that are active to this day. \
@@ -105,6 +116,7 @@
 	intro_desc = "(TODO - LORE) You are an Electra Dynamics agent, sent here to advance Syndicate interests. Get the job done and done right."
 	focus = 70
 	objectives = list(/datum/objective/assassinate/engineering, /datum/objective/assassinateonce/engineering, /datum/objective/steal/electra)
+	gameplay_blurb = "Electra Dynamics agents usually targets members of Engineering or steal items they are interested in."
 
 /datum/objective/steal/electra
 	name = "Steal Item (Electra Dynamics)"
@@ -117,6 +129,8 @@
 	forced_objective = /datum/objective/hijack
 	difficulty = ORG_DIFFICULTY_HARD
 	chaos_level = ORG_CHAOS_HIJACK
+	selectable = FALSE //Hijack only
+	gameplay_blurb = "Gorlex operatives will always get hijack objective."
 
 /datum/antag_org/syndicate/assassins
 	name = "(TODO - LORE) Assassin's Guild"
@@ -127,6 +141,7 @@
 	objectives = list(/datum/objective/assassinate/nomindshield)
 	difficulty = ORG_DIFFICULTY_HARD
 	chaos_level = ORG_CHAOS_HUNTER
+	gameplay_blurb = "Assassins will always target a Syndicate agent and a random non-mindshielded target."
 
 /datum/antag_org/syndicate/faid
 	name = "Federation Analytics and Intelligence Directorate"
@@ -139,6 +154,7 @@
 	forced_objective = /datum/objective/assassinate/syndicate
 	objectives = list(/datum/objective/steal/faid)
 	chaos_level = ORG_CHAOS_HUNTER
+	gameplay_blurb = "FAID agents will always target a Syndicate agent and steal station intel."
 
 /datum/objective/steal/faid
 	name = "Steal Item (FAID)"
