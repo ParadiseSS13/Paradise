@@ -13046,6 +13046,7 @@
 	},
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
+/obj/item/toy/figure/crew/atmos,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -16051,16 +16052,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
-"aYz" = (
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
 /area/station/engineering/atmos)
 "aYA" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -21513,6 +21504,11 @@
 	},
 /obj/machinery/light,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "bmF" = (
@@ -21986,12 +21982,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
-"bnZ" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/toy/figure/crew/atmos,
-/turf/simulated/wall,
-/area/station/engineering/atmos)
 "bob" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -58640,6 +58630,9 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/genetics)
+"dnW" = (
+/turf/simulated/floor/light,
+/area/station/engineering/atmos)
 "dnX" = (
 /obj/structure/chair/sofa/left{
 	dir = 8
@@ -72635,14 +72628,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/station/medical/surgery)
-"hSb" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/engineering/atmos)
 "hSe" = (
 /obj/structure/table/glass,
 /obj/machinery/reagentgrinder,
@@ -86804,14 +86789,6 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/apmaint)
-"qSS" = (
-/obj/machinery/shower{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/engineering/atmos)
 "qTb" = (
 /obj/effect/turf_decal,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -88666,6 +88643,12 @@
 	},
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
+"rUU" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/light,
+/area/station/engineering/atmos)
 "rVB" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -97568,15 +97551,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"xjP" = (
-/obj/machinery/atmospherics/pipe/simple/visible/purple,
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/engineering/atmos)
 "xkJ" = (
 /obj/machinery/atmospherics/binary/pump{
 	name = "burn chamber to port";
@@ -123160,7 +123134,7 @@ aSD
 aPF
 aSI
 aVO
-aYz
+ban
 bam
 ban
 ban
@@ -123416,12 +123390,12 @@ aQW
 aSD
 iYX
 aVF
-qSS
-aXo
+ban
+dnW
 tNx
 lth
 fgF
-ban
+dnW
 wKG
 lfU
 aYt
@@ -123674,7 +123648,7 @@ aSD
 mQm
 vnQ
 qIK
-hSb
+ban
 ban
 ban
 fzp
@@ -125216,17 +125190,17 @@ aSD
 aUc
 aVF
 jgG
-jgG
+rUU
 bds
 bds
 bds
-aXo
+dnW
 nae
 ban
 aZm
 mhf
 bmE
-bnZ
+aXo
 btn
 btn
 btn
@@ -125477,7 +125451,7 @@ jVW
 xTi
 bho
 bho
-xjP
+bho
 uCI
 bho
 pgx
