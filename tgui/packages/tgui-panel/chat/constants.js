@@ -9,7 +9,8 @@ export const MAX_PERSISTED_MESSAGES = 10000;
 export const MESSAGE_SAVE_INTERVAL = 10000;
 export const MESSAGE_PRUNE_INTERVAL = 60000;
 export const COMBINE_MAX_MESSAGES = 5;
-export const COMBINE_MAX_TIME_WINDOW = 50000;
+// Stored in milliseconds. This is 30 seconds real time
+export const COMBINE_MAX_TIME_WINDOW = 30000;
 export const IMAGE_RETRY_DELAY = 250;
 export const IMAGE_RETRY_LIMIT = 10;
 export const IMAGE_RETRY_MESSAGE_AGE = 60000;
