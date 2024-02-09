@@ -246,11 +246,6 @@
 	light_range = 7
 	layer = ABOVE_ALL_MOB_LAYER
 
-/obj/effect/wisp/ghost
-	name = "mischievous wisp"
-	desc = "A wisp that seems to want to get up to shenanigans. It often seems disappointed, for some reason."
-	light_range = 0
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 //Red/Blue Cubes
 /obj/item/warp_cube
