@@ -97,14 +97,13 @@
 	orb.color = ghost.get_runechat_color()
 	orb.orbit(src, clockwise = FALSE)
 	spirits[ghost] = orb
-	ghost.invisibility = 0
 
 /obj/item/melee/ghost_sword/proc/remove_ghost(atom/movable/orbited, atom/orbiter)
 	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_STOP
 
 	var/mob/dead/observer/ghost = orbiter
 
-	if(!istype(ghost) || !isobserver(ghost) || !(ghost in spirits))
+	if(!istype(ghost) || !(ghost in spirits))
 		return
 
 	remove_signals(ghost)
