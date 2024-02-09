@@ -9,10 +9,15 @@
 	chaos_level = ORG_CHAOS_AVERAGE
 	selectable = TRUE
 
-/datum/antag_org/syndicate/thieves
-	name = "(TODO - LORE) Voxxy Looting Club"
-	desc = "(TODO - LORE) Get shinies yaya"
-	intro_desc = "(TODO - LORE) YOU IS VOXXY LOOTING CLUB! SKREEE GO GO GO WHAT IS YOU WAITINGS FOR?!"
+/datum/antag_org/syndicate/hawkmoon
+	name = "Hawkmoon Acquisitions"
+	desc = "Having only been founded in the last decade, Hawkmoon Acquisitions is a small, up-and-coming logistics company in the Orion Sector. \
+		Specializing in expensive but discreet private courier services, they aren’t well known, but decently well respected. \
+		Most aren’t unaware that Hawkmoon is just a front for a much larger, much darker network of thieves, fixers, and black markets that run throughout the underworld of Orion. \
+		Those that they have contacts with, particularly the Syndicate, value their services and their skill at 'collecting' exactly what the buyer needs, through any means. \
+		They have been rumored to be responsible for several high-profile thefts throughout the sector, \
+		but there never seems to be enough evidence or witnesses to pin anything on Hawkmoon themselves, much to the annoyance of FAID and similar organizations."
+	intro_desc = "(TODO - LORE) You are a Hawkmoon agent, sent here to advance Syndicate interests. Get the job done and done right."
 	focus = 100
 	objectives = list(/datum/objective/steal)
 	difficulty = ORG_DIFFICULTY_EASY
