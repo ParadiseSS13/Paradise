@@ -20,9 +20,8 @@
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "fr" = (
-/obj/machinery/computer{
-	name = "shuttle control console";
-	desc = "The screen dims greens with an ERROR message. It looks completely unusable."
+/obj/machinery/computer/nonfunctional{
+	name = "shuttle control console"
 	},
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/powered)
@@ -286,13 +285,11 @@
 /turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/powered)
 "Nm" = (
-/obj/machinery/computer{
-	name = "exosuit control console";
-	desc = "The screen dims green with a bright ERROR message. It looks completely unusable."
+/obj/machinery/computer/nonfunctional{
+	name = "exosuit control console"
 	},
-/obj/machinery/computer{
-	name = "shuttle control console";
-	desc = "The screen dims green with an ERROR message. It looks completely unusable."
+/obj/machinery/computer/nonfunctional{
+	name = "shuttle control console"
 	},
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/powered)
