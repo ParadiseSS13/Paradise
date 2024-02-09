@@ -182,6 +182,7 @@
 		return
 	to_chat(user, "<span class='warning'>You override [src]'s radiation storing protocols. It will now generate small doses of radiation, and stored rads are now projected into creatures you scan.</span>")
 	emagged = TRUE
+	return TRUE
 
 
 

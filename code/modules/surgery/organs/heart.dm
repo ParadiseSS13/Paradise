@@ -273,6 +273,7 @@
 	if(!emagged)
 		to_chat(user, "<span class='warning'>You disable the safeties on [src]</span>")
 		emagged = TRUE
+		return TRUE
 	else
 		to_chat(user, "<span class='warning'>You re-enable the safeties on [src]</span>")
 		emagged = FALSE

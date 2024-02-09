@@ -1073,10 +1073,12 @@
 		M.AdjustDrowsy(-20 SECONDS)
 		M.SetConfused(0)
 		M.SetSleeping(0)
-		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
-		M.status_flags &= ~status
+		M.add_stun_absorption("stimulants", INFINITY, 5)
+		M.status_flags &= ~CANPARALYSE
 	else
-		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+		M.status_flags |= CANPARALYSE
+		if(islist(M.stun_absorption) && M.stun_absorption["stimulants"])
+			M.remove_stun_absorption("stimulants")
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		if(prob(10))
@@ -1087,7 +1089,9 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulants/on_mob_delete(mob/living/M)
-	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+	M.status_flags |= CANPARALYSE
+	if(islist(M.stun_absorption) && M.stun_absorption["stimulants"])
+		M.remove_stun_absorption("stimulants")
 	..()
 
 //the highest end antistun chem, removes stun and stamina rapidly.

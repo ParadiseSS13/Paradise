@@ -45,7 +45,7 @@
 			"<span class='notice'>You hear what sounds like gulping.</span>")
 		chugging = TRUE
 		while(do_after_once(chugger, 4 SECONDS, TRUE, chugger, null, "You stop chugging [src]."))
-			chugger.eat(src, chugger, 25) //Half of a glass, quarter of a bottle.
+			chugger.drink(src, chugger, 25) //Half of a glass, quarter of a bottle.
 			if(!reagents.total_volume) //Finish in style.
 				chugger.emote("gasp")
 				chugger.visible_message("<span class='notice'>[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!</span>",

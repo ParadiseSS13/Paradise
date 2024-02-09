@@ -608,6 +608,7 @@
 		desc += " Its temperature cap has been removed."
 		max_temp = 1000
 		temperature_multiplier *= 5  //so emagged temp guns adjust their temperature much more quickly
+		return TRUE
 
 /obj/item/gun/energy/temperature/process()
 	..()
@@ -893,6 +894,7 @@
 	name = "reality vortex wrist mounted shotgun"
 	desc = "This weapon uses the power of the vortex core to rip apart the fabric of reality in front of it."
 	icon_state = "flayer" //Sorta wrist mounted? Sorta? Not really but we work with what we got.
+	flags = NODROP
 	ammo_type = list(/obj/item/ammo_casing/energy/vortex_blast)
 	fire_sound = 'sound/weapons/bladeslice.ogg'
 	cell_type = /obj/item/stock_parts/cell/infinite

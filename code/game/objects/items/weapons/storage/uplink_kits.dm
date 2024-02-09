@@ -130,7 +130,7 @@
 	desc = "A kit with everything you need to hack into and disrupt the Station, AI, its cyborgs and the Security team. HACK THE PLANET!"
 	items = list(
 		/obj/item/melee/energy/sword/saber/blue, // 40TC
-		/obj/item/card/emag, // 30TC
+		/obj/item/autosurgeon/organ/syndicate/hackerman_deck, // 30TC
 		/obj/item/door_remote/omni/access_tuner, // 30 TC, HACK EVERYTHING
 		/obj/item/encryptionkey/syndicate, // 10TC
 		/obj/item/encryptionkey/binary, // 25TC

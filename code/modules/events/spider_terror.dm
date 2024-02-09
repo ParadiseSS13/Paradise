@@ -47,7 +47,7 @@
 			// Strongest, only used during highpop.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen
 			spawncount = 1
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a terror spider?", ROLE_TSPIDER, TRUE, source = spider_type)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a terror spider?", null, TRUE, source = spider_type)
 	if(length(candidates) < spawncount)
 		message_admins("Warning: not enough players volunteered to be terrors. Could only spawn [length(candidates)] out of [spawncount]!")
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE)

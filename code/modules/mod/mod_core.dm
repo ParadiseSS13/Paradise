@@ -234,7 +234,7 @@
 	mod.update_charge_alert()
 
 /obj/item/mod/core/plasma
-	name = "MOD plasma core"
+	name = "\improper MOD plasma core"
 	desc = "Nanotrasen's attempt at capitalizing on their plasma research. These plasma cores are refueled \
 		through plasma fuel, allowing for easy continued use by their mining squads."
 	icon_state = "mod-core-plasma"
@@ -291,6 +291,10 @@
 	var/charge_given = is_type_in_list(plasma, charger_list)
 	if(!charge_given)
 		return FALSE
+	if(charge_amount() == max_charge_amount())
+		to_chat(user, "<span class='notice'>[src] is already fully charged!</span>")
+		// We didn't succeed but we don't want to treat it as an attackby
+		return TRUE
 	var/uses_needed = min(plasma.amount, ((max_charge_amount() - charge_amount()) / 2000))
 	if(!plasma.use(uses_needed))
 		return FALSE

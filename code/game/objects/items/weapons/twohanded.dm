@@ -1011,7 +1011,7 @@
 			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
 			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 50, TRUE, -1)
 			H.AdjustConfused(4 SECONDS, 0, 4 SECONDS) //no stacking infinitely
-			H.adjustStaminaLoss(15)
+			H.apply_damage(15, STAMINA)
 
 			add_attack_logs(user, H, "Swept with the brush of the titanium push broom", ATKLOG_ALL)
 
