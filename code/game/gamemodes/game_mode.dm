@@ -244,8 +244,6 @@
 /datum/game_mode/proc/get_alive_players_for_role(role, override_jobbans = FALSE)
 	var/list/players = list()
 	var/list/candidates = list()
-	//var/list/drafted = list()
-	//var/datum/mind/applicant = null
 
 	var/roletext = get_roletext(role)
 
@@ -260,7 +258,7 @@
 	players = shuffle(players)
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
-	for(var/mob/new_player/player in players)
+	for(var/mob/living/carbon/human/player in players)
 		if(!player.client.skip_antag)
 			if((role in player.client.prefs.be_special) && !(player.client.prefs.active_character.species in protected_species))
 				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
