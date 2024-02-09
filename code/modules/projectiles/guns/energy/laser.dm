@@ -1,5 +1,5 @@
 /obj/item/gun/energy/laser
-	name = "LG-5"
+	name = "LG-5 laser rifle"
 	desc = "A compact and lightweight laser rifle manufactured by Shellguard Munitions Co. Considered the most widely used laserarm in the Orion Sector, it only fires lethal rounds and requires a recharger to reload."
 	icon_state = "laser"
 	item_state = "laser"
@@ -22,8 +22,8 @@
 	Shellguard discontinued warranties due to widespread customization and has moved its attention to later SG series."
 
 /obj/item/gun/energy/laser/practice
-	name = "practice laser gun"
-	desc = "A modified version of the basic laser gun, this one fires less concentrated energy bolts designed for target practice."
+	name = "LG-5(T) training laser rifle"
+	desc = "A training model of Shellguard Munitions' LG-5 laser rifle. It shoots lower-power laser shots designed for target practice. Not useful as an offensive weapon."
 	origin_tech = "combat=2;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
 	clumsy_check = FALSE

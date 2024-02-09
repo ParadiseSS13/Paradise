@@ -1,5 +1,5 @@
 /obj/item/gun/energy/gun
-	name = "EG-7"
+	name = "EG-7 energy gun"
 	desc = "A hybrid fire energy gun manufactured by Shellguard Munitions Co. The fire selector has 'kill' and 'disable' settings along the frame of the weapon. It uses an internal battery to recharge and fire."
 	icon_state = "energy"
 	item_state = null	//so the human update icon uses the icon_state instead.
