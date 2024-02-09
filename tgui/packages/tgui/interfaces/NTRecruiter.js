@@ -7,7 +7,7 @@ export const NTRecruiter = (props, context) => {
   const {
     gamestatus,
     cand_name,
-    cand_gender,
+    cand_birth,
     cand_age,
     cand_species,
     cand_planet,
@@ -153,14 +153,14 @@ export const NTRecruiter = (props, context) => {
                   <LabeledList.Item label="Name" color="silver">
                     <b>{cand_name}</b>
                   </LabeledList.Item>
-                  <LabeledList.Item label="Gender" color="silver">
-                    <b>{cand_gender}</b>
+                  <LabeledList.Item label="Species" color="silver">
+                    <b>{cand_species}</b>
                   </LabeledList.Item>
                   <LabeledList.Item label="Age" color="silver">
                     <b>{cand_age}</b>
                   </LabeledList.Item>
-                  <LabeledList.Item label="Species" color="silver">
-                    <b>{cand_species}</b>
+                  <LabeledList.Item label="Date of Birth" color="silver">
+                    <b>{cand_birth}</b>
                   </LabeledList.Item>
                   <LabeledList.Item label="Planet of Origin" color="silver">
                     <b>{cand_planet}</b>
@@ -237,7 +237,7 @@ export const NTRecruiter = (props, context) => {
             </Stack.Item>
             <Section>
               <Button
-                lineHeight={2}
+                lineHeight={4}
                 fluid
                 icon="arrow-left"
                 content="Main Menu"
