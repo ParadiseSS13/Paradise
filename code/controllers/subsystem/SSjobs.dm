@@ -157,7 +157,7 @@ SUBSYSTEM_DEF(jobs)
 				Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
 				continue
 			else
-				probability_of_antag_role_restriction  =  probability_of_antag_role_restriction  / 10
+				probability_of_antag_role_restriction /= 10
 		if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 			Debug("FOC pass, Player: [player], Level:[level]")
 			candidates += player
