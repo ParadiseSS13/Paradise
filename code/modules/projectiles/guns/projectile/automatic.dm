@@ -322,8 +322,8 @@
 
 //Laser carbine//
 /obj/item/gun/projectile/automatic/lasercarbine
-	name = "\improper IK-60 laser carbine"
-	desc = "A compact, twin barrelled carbine that uses disposable laser cartridges rather than an internal power cell. Utilized by the Nanotrasen Navy for combat operations."
+	name = "\improper IK-M2 laser carbine"
+	desc = "A compact, Warp-Tec Industries twin barrelled carbine that uses disposable laser cartridges rather than an internal power cell. Utilized by the Nanotrasen Navy for combat operations."
 	icon_state = "lasercarbine"
 	item_state = "lasercarbine"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -341,8 +341,8 @@
 	item_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
 
 /obj/item/gun/projectile/automatic/laserrifle
-	name = "security laser rifle"
-	desc = "A bulky, single barreled rifle that uses disposable laser cartridges rather than an internal power cell. Utilized by Nanotrasen's private security force."
+	name = "IK-M1 laser carbine"
+	desc = "A bulky, Warp-Tec Industries single barreled rifle that uses disposable laser cartridges rather than an internal power cell. Sold to Nanotrasen's private security forces."
 	icon_state = "laserrifle"
 	item_state = "lasercarbine"
 	w_class = WEIGHT_CLASS_BULKY
@@ -354,6 +354,14 @@
 	can_suppress = FALSE
 	burst_size = 1
 	actions_types = list()
+
+/obj/item/gun/projectile/automatic/laserrifle/examine_more(mob/user)
+	. = ..()
+	. += "A sleek cartridge-firing laser rifle, developed by the brightest minds of Warp-Tec Industries. The IK Series is similarly designed to ballistic rifles in frame and handling, it uses disposable energy cartridges to mimic ballistic-based weaponry, and fires without commonly used internal batteries. \
+	The IK M1 marked Warp-Tec's investment into the realm of laser arms manufacturing, a bold move considering the industry's typical separation of ballistic and energy weapon production. \
+	Years of development led them to create a plastiatinium rotating bolt within the rifle's chamber, revolutionizing what were energy weapon fundamentals. Its sleek design compresses a majority of its internal parts and coolers among the barrel of the rifle.\
+	Despite the development of the laser-compatible rotating bolt, creating the specific piece would prove difficult, as modern IK's are highly expensive due to 76% of them failing the quality test thanks to difficulties in molding plastiatinium. \
+	Today, the latest generation of the IK-M1 competes with established laser brands like Shellguard, positioning itself as a premium choice in the laser weaponry market."
 
 /obj/item/gun/projectile/automatic/laserrifle/update_icon_state()
 	icon_state = "laserrifle[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
