@@ -570,6 +570,7 @@
 	if(!emagged)
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
+		return TRUE
 	else
 		to_chat(user, "<span class='notice'>[src]'s laser printing mechanism is already overloaded!</span>")
 

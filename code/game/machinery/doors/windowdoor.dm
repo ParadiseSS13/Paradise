@@ -290,7 +290,7 @@
 		sleep(6)
 		operating = NONE
 		open(2)
-		return 1
+		return TRUE
 
 /obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
 	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED))

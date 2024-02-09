@@ -1724,6 +1724,9 @@
 /datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
 	for(var/X in spell_list)
 		var/obj/effect/proc_holder/spell/S = X
+		if(!S.on_mind_transfer(new_character))
+			current.RemoveSpell(S)
+			continue
 		S.action.Grant(new_character)
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
