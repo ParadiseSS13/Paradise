@@ -3,7 +3,7 @@
 	name = "\improper Courtroom"
 	icon_state = "courtroom"
 
-/area/station/legal/Courtroom Gallery
+/area/station/legal/Courtroom
 	name = "\improper Courtroom Gallery"
 	icon_state = "courtroom"
 
