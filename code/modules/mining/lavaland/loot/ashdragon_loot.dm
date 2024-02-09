@@ -91,7 +91,7 @@
 		// they'll get added to spirits (and turned visible) when the sword enters a mob's hand then
 		return
 
-	register_signals(ghost) // Pull in any ghosts that may be orbiting other ghosts TODO THIS MIGHT BE THE FUCKIN PROBLEM
+	register_signals(ghost) // Pull in any ghosts that may be orbiting other ghosts
 
 	var/obj/effect/wisp/ghost/orb = new(src)
 	orb.color = ghost.get_runechat_color()
@@ -108,7 +108,8 @@
 
 	remove_signals(ghost)
 
-	var/attached_orb = spirits[ghost]
+	var/obj/effect/wisp/ghost/attached_orb = spirits[ghost]
+	attached_orb.stop_orbit()
 	qdel(attached_orb)
 	spirits -= ghost
 
