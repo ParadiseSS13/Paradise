@@ -89551,7 +89551,7 @@
 "tLs" = (
 /obj/structure/safe/floor,
 /obj/item/coin/mythril,
-/obj/item/stack/spacecash/c1000,
+/obj/item/stack/spacecash/c200,
 /obj/item/instrument/violin/golden,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/maintenance/apmaint)
