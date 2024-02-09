@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(jobs)
 	var/list/type_occupations = list()	//Dict of all jobs, keys are types
 	var/list/prioritized_jobs = list() // List of jobs set to priority by HoP/Captain
 	var/list/id_change_records = list() // List of all job transfer records
-	var/probability_of_antag_role_restriction = 100
+	var/probability_of_antag_role_restriction = 100 // Dict probability of a job rolling an antagonist role
 	var/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
