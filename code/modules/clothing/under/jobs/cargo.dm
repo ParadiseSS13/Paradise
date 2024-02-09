@@ -58,7 +58,7 @@
 
 /obj/item/clothing/under/rank/cargo/expedition
 	name = "expedition jumpsuit"
-	desc = "An armored grey jumpsuit with Nanotrasen markings for identification, and a black safety harness for their space suits."
+	desc = "An armored brown jumpsuit with Nanotrasen markings for identification, and a black safety harness for their space suits."
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	icon_state = "expedition"
 	item_state = "expedition"
@@ -66,7 +66,7 @@
 
 /obj/item/clothing/under/rank/cargo/expedition/overalls
 	name = "expedition overalls"
-	desc = "A black set of overalls over a grey turtleneck, designed to protect the wearer from microscopic space debris. Does not protect against larger objects."
+	desc = "A black set of overalls over a brown turtleneck, designed to protect the wearer from microscopic space debris. Does not protect against larger objects."
 	icon_state = "expedition_overalls"
 	item_state = "expedition_overalls"
 	item_color = "expedition_overalls"

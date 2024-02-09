@@ -6,9 +6,9 @@
 	icon = 'icons/obj/sellable.dmi'
 	throw_speed = 1
 	throw_range = 4
-	hitsound = 'sound/items/salvagepickup.ogg'
-	pickup_sound = 'sound/items/salvagepickup.ogg'
-	drop_sound = 'sound/items/salvagedrop.ogg'
+	hitsound = 'sound/items/handling/salvagepickup.ogg'
+	pickup_sound = 'sound/items/handling/salvagepickup.ogg'
+	drop_sound = 'sound/items/handling/salvagedrop.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/sellable/salvage/examine(mob/user)
