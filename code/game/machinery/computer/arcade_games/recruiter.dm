@@ -69,7 +69,7 @@
 							"As Chef, adapted their menus in order to appeal all stationed species",
 							"Was part of the \"Pump Purgers\", famous for the streak of 102 shifts with no Supermatter Explosions",
 							"Virologist; took it upon themselves to distribute a vaccine to the crew", "Conducted experiments that generated high profits but many casualties",
-							"Did multiple cargo transport jobs for the Port Royal Inc", "Been a test pilot for the new Einstein Engines Inc prototype engines",,
+							"Did multiple cargo transport jobs for the Port Royal Inc", "Been a test pilot for the new Einstein Engines Inc prototype engines",
 							"Manufactured multiple energy guns at Shellguard Munitions", "Spent years cleaning Aussec Armory guns")
 
 	var/list/incorrect_records = list("Caught littering on the NSS Cyberiad", "Scientist involved in the ###### incident",
