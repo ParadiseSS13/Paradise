@@ -424,7 +424,7 @@
 	equip_cooldown = 1 SECONDS
 	name = "mousetrap mortar"
 	icon_state = "mecha_mousetrapmrtr"
-	projectile = /obj/item/assembly/mousetrap
+	projectile = /obj/item/assembly/mousetrap/armed
 	fire_sound = 'sound/items/bikehorn.ogg'
 	projectiles = 15
 	missile_speed = 1.5
@@ -441,7 +441,7 @@
 	if(!action_checks(target))
 		return
 	set_ready_state(0)
-	var/obj/item/assembly/mousetrap/M = new projectile(chassis.loc)
+	var/obj/item/assembly/mousetrap/armed/M = new projectile(chassis.loc)
 	M.secured = TRUE
 	playsound(chassis, fire_sound, 60, 1)
 	M.throw_at(target, missile_range, missile_speed)
