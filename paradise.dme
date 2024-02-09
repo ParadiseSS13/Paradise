@@ -983,6 +983,7 @@
 #include "code\game\objects\items\random_items.dm"
 #include "code\game\objects\items\roulette.dm"
 #include "code\game\objects\items\scratch_card.dm"
+#include "code\game\objects\items\sellable.dm"
 #include "code\game\objects\items\shooting_range.dm"
 #include "code\game\objects\items\sport.dm"
 #include "code\game\objects\items\theft_items.dm"

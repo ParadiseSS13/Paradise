@@ -23,7 +23,6 @@
 	new /obj/item/radio/headset/headset_cargo(src)
 	new /obj/item/gun/energy/kinetic_accelerator/pistol(src)
 	new /obj/item/storage/firstaid/regular(src)
-	new /obj/item/reagent_containers/food/snacks/liquidfood(src)
 	new /obj/item/clothing/glasses/night(src)
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/storage/toolbox/mechanical(src)

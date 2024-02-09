@@ -92,7 +92,6 @@
 
 /datum/outfit/piratecorpse/ranged
 	name = "Corpse of a Pirate Gunner"
-	outfit = /datum/outfit/piratecorpse
 
 
 

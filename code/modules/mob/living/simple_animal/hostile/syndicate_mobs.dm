@@ -285,7 +285,7 @@
 		attacktext = "punches"
 		attack_sound = 'sound/weapons/punch1.ogg'
 		ranged = TRUE
-			retreat_distance = 2
+		retreat_distance = 2
 		minimum_distance = 2
 		melee_block_chance = 0
 		ranged_block_chance = 0
