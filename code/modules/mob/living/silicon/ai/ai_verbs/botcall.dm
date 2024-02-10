@@ -49,34 +49,34 @@
 				misc["location"] += get_area(iterated)
 
 	data["secbot"] = list(
-		"name" = secbot["name"]
-		"status" = secbot["status"]
-		"location" = secbot["location"]
+		"name" = secbot["name"],
+		"status" = secbot["status"],
+		"location" = secbot["location"],
 	)
 	data["medbot"] = list(
-		"name" = medbot["name"]
-		"status" = medbot["status"]
-		"location" = medbot["location"]
+		"name" = medbot["name"],
+		"status" = medbot["status"],
+		"location" = medbot["location"],
 	)
 	data["cleanbot"] = list(
-		"name" = cleanbot["name"]
-		"status" = cleanbot["status"]
-		"location" = cleanbot["location"]
+		"name" = cleanbot["name"],
+		"status" = cleanbot["status"],
+		"location" = cleanbot["location"],
 	)
 	data["floorbot"] = list(
-		"name" = floorbot["name"]
-		"status" = floorbot["status"]
-		"location" = floorbot["location"]
+		"name" = floorbot["name"],
+		"status" = floorbot["status"],
+		"location" = floorbot["location"],
 	)
 	data["mule"] = list(
-		"name" = mule["name"]
-		"status" = mule["status"]
-		"location" = mule["location"]
+		"name" = mule["name"],
+		"status" = mule["status"],
+		"location" = mule["location"],
 	)
 	data["misc"] = list(
-		"name" = misc["name"]
-		"status" = misc["status"]
-		"location" = misc["location"]
+		"name" = misc["name"],
+		"status" = misc["status"],
+		"location" = misc["location"],
 	)
 	return data
 
