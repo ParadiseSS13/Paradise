@@ -3331,13 +3331,6 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/airlock)
-"iO" = (
-/obj/machinery/computer/area_atmos/area,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
-/area/mine/laborcamp/security)
 "iW" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -9460,7 +9453,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/chair,
+/obj/machinery/computer/area_atmos/area,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -14184,7 +14177,7 @@ Aw
 Cp
 of
 PX
-iO
+PX
 nS
 PX
 ri
