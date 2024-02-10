@@ -24,8 +24,6 @@ import { Window } from '../layouts';
 //   );
 // };
 
-
-
 export const BotCall = (props, context) => {
   const { act, data } = useBackend(context);
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
@@ -33,21 +31,21 @@ export const BotCall = (props, context) => {
     switch (index) {
       case 0:
         return <SecuritronView />;
-//      case 1:
-//        return <MedibotView />;
-//      case 2:
-//        return <CleanbotView />;
-//      case 3:
-//        return <FloorbotView />;
-//      case 4:
-//        return <MuleView />;
+      //      case 1:
+      //        return <MedibotView />;
+      //      case 2:
+      //        return <CleanbotView />;
+      //      case 3:
+      //        return <FloorbotView />;
+      //      case 4:
+      //        return <MuleView />;
       default:
         return "WE SHOULDN'T BE HERE!"; // Blatant copy past from atmos UI
     }
   };
 
   return (
-    <Window resizable>
+    <Window width={700} height={400}>
       <Window.Content scrollable={tabIndex === 0}>
         <Box fillPositionedParent>
           <Tabs>
@@ -94,12 +92,9 @@ export const BotCall = (props, context) => {
   );
 };
 
-
 const SecuritronView = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    secbot
-  } = data;
+  const { secbot } = data;
   return (
     <Box>
       <Table m="0.5rem">
@@ -111,28 +106,26 @@ const SecuritronView = (_properties, context) => {
           <Table.Cell>Interface</Table.Cell>
           <Table.Cell>Call</Table.Cell>
         </Table.Row>
-      {secbot.map((bot) => (
-        <Table.Row key={bot.model}>
-          <TableCell>{bot.bot_name}</TableCell>
-          <TableCell>{bot.model}</TableCell>
-          <TableCell>{bot.mode}</TableCell>
-          <TableCell>{bot.area}</TableCell>
-          <TableCell>
+        {secbot.map((bot) => (
+          <Table.Row key="secbot">
+            <TableCell>{bot.name ? bot.name : bot.model}</TableCell>
+            <TableCell>{"secbot"}</TableCell>
+            <TableCell>{bot.status}</TableCell>
+            <TableCell>{bot.location}</TableCell>
+            <TableCell>
               <Button
                 content="Interface"
-                onClick={() => act('interface',
-                {botref: bot.ref})}
+                onClick={() => act('interface', { botref: bot.ref })}
               />
-          </TableCell>
-          <TableCell>
+            </TableCell>
+            <TableCell>
               <Button
                 content="Call"
-                onClick={() => act('call',
-                {botref: bot.ref})}
+                onClick={() => act('call', { botref: bot.ref })}
               />
-          </TableCell>
-        </Table.Row>
-      ))}
+            </TableCell>
+          </Table.Row>
+        ))}
       </Table>
     </Box>
   );

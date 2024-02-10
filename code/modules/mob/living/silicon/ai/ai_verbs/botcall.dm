@@ -1,89 +1,83 @@
-/datum/ui_module/botcall/
+/datum/ui_module/botcall
 	name = "Access Robot Control"
 	var/mob/living/simple_animal/bot/Bot
 	var/mob/living/silicon/ai/AI
 
+/datum/ui_module/botcall/ui_interact(mob/user)
+	return GLOB.default_state
 
-/datum/ui_module/botcall/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/ui_module/botcall/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotCall", 700, 480, master_ui, state)
+		ui = new(user, src, "BotCall")
 		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /datum/ui_module/botcall/ui_data(mob/user)
 	var/list/data = ..()
-	// Secbot
-	var/list/secbot = list("name" = list(), "status" = list(), "location" = list())
-	var/list/medbot = list("name" = list(), "status" = list(), "location" = list())
-	var/list/cleanbot = list("name" = list(), "status" = list(), "location" = list())
-	var/list/floorbot = list("name" = list(), "status" = list(), "location" = list())
-	var/list/mule = list("name" = list(), "status" = list(), "location" = list())
-	var/list/misc = list("name" = list(), "status" = list(), "location" = list())
+	var/list/secbot = list()
+	var/list/medbot = list()
+	var/list/cleanbot = list()
+	var/list/floorbot = list()
+	var/list/mule = list()
+	var/list/misc = list()
 
 	for(var/mob/living/simple_animal/bot/iterated in GLOB.bots_list)
 		switch(iterated.type)
 			if(/mob/living/simple_animal/bot/secbot, /mob/living/simple_animal/bot/ed209)
-				secbot["name"] +=iterated.bot_name
-				secbot["status"] += iterated.mode
-				secbot["location"] += get_area(iterated)
+				secbot += list(list(
+					"name" = iterated.bot_name,
+					"model" = iterated.model,
+					"status" = iterated.mode,
+					"location" = get_area(iterated),
+					))
 			if(/mob/living/simple_animal/bot/medbot)
-				medbot["name"] +=iterated.bot_name
-				medbot["status"] += iterated.mode
-				medbot["location"] += get_area(iterated)
+				medbot += list(list(
+					"name" = iterated.bot_name,
+					"model" = iterated.model,
+					"status" = iterated.mode,
+					"location" = get_area(iterated),
+					))
 			if(/mob/living/simple_animal/bot/cleanbot)
-				cleanbot["name"] +=iterated.bot_name
-				cleanbot["status"] += iterated.mode
-				cleanbot["location"] += get_area(iterated)
+				cleanbot += list(list(
+					"name" = iterated.bot_name,
+					"model" = iterated.model,
+					"status" = iterated.mode,
+					"location" = get_area(iterated),
+					))
 			if(/mob/living/simple_animal/bot/floorbot)
-				floorbot["name"] +=iterated.bot_name
-				floorbot["status"] += iterated.mode
-				floorbot["location"] += get_area(iterated)
+				floorbot += list(list(
+					"name" = iterated.bot_name,
+					"model" = iterated.model,
+					"status" = iterated.mode,
+					"location" = get_area(iterated),
+					))
 			if(/mob/living/simple_animal/bot/mulebot)
-				mule["name"] +=iterated.bot_name
-				mule["status"] += iterated.mode
-				mule["location"] += get_area(iterated)
-			else
-				misc["name"] +=iterated.bot_name
-				misc["status"] += iterated.mode
-				misc["location"] += get_area(iterated)
+				mule += list(list(
+					"name" = iterated.bot_name,
+					"model" = iterated.model,
+					"status" = iterated.mode,
+					"location" = get_area(iterated),
+					))
+				misc += list(list(
+					"name" = iterated.bot_name,
+					"model" = iterated.model,
+					"status" = iterated.mode,
+					"location" = get_area(iterated),
+					))
 
-	data["secbot"] = list(
-		"name" = secbot["name"],
-		"status" = secbot["status"],
-		"location" = secbot["location"],
-	)
-	data["medbot"] = list(
-		"name" = medbot["name"],
-		"status" = medbot["status"],
-		"location" = medbot["location"],
-	)
-	data["cleanbot"] = list(
-		"name" = cleanbot["name"],
-		"status" = cleanbot["status"],
-		"location" = cleanbot["location"],
-	)
-	data["floorbot"] = list(
-		"name" = floorbot["name"],
-		"status" = floorbot["status"],
-		"location" = floorbot["location"],
-	)
-	data["mule"] = list(
-		"name" = mule["name"],
-		"status" = mule["status"],
-		"location" = mule["location"],
-	)
-	data["misc"] = list(
-		"name" = misc["name"],
-		"status" = misc["status"],
-		"location" = misc["location"],
-	)
+	data["secbot"] = secbot
+	data["medbot"] = medbot
+	data["cleanbot"] = cleanbot
+	data["floorbot"] = floorbot
+	data["mule"] = mule
+	data["misc"] = misc
 	return data
 
 /datum/ui_module/botcall/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if (..())
 		return
-	if(AI.check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
+	if(!Bot || Bot.remote_disabled || AI.control_disabled)
 		return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
 	switch(action)
 		if("interface")
