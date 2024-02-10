@@ -79,12 +79,12 @@
 		return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
 	switch(action)
 		if("interface")
-			Bot = locate(params["interface"]) in GLOB.bots_list
+			Bot = locate(params["botref"]) in GLOB.bots_list
 			if(!Bot || Bot.remote_disabled || AI.control_disabled)
 				return
 			Bot.attack_ai(src)
 		if("call")
-			Bot = locate(params["call"]) in GLOB.bots_list
+			Bot = locate(params["botref"]) in GLOB.bots_list
 			if(!Bot || Bot.remote_disabled || AI.control_disabled)
 				return
 			AI.waypoint_mode = TRUE
