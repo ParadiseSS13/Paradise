@@ -248,10 +248,6 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Infirmary"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Labor";
-	name = "labor camp blast door"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -15213,7 +15209,7 @@ ap
 WQ
 Tt
 cd
-Zm
+JF
 Aw
 Aw
 Aw
@@ -15470,7 +15466,7 @@ ap
 IE
 MX
 yy
-Zm
+JF
 Aw
 Aw
 Aw
@@ -15727,7 +15723,7 @@ ap
 Ng
 lx
 Wt
-Zm
+JF
 Aw
 Aw
 Aw
