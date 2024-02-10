@@ -4699,7 +4699,7 @@
 /obj/machinery/computer/general_air_control/large_tank_control{
 	inlet_injector_autolink_id = "syndiebase_mix_in";
 	outlet_vent_autolink_id = "syndiebase_mix_out";
-	autolink_sensors = list("syndiebase_mix_sensor"="Burn Mix");
+	autolink_sensors = list("syndiebase_mix_sensor" = "Burn Mix");
 	dir = 8
 	},
 /turf/simulated/floor/plating,
