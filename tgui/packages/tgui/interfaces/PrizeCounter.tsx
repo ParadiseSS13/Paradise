@@ -1,6 +1,6 @@
 import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Stack, Divider, Input } from '../components';
+import { Button, Section, Stack, Input } from '../components';
 import { Window } from '../layouts';
 
 type Prize = {
@@ -73,8 +73,8 @@ export const PrizeCounter = (props, context) => {
                         <Stack.Item bold mt={1}>
                           {prize.name}
                         </Stack.Item>
-                        <Divider />
-                        <Stack.Item mt={0}>{prize.desc}</Stack.Item>
+                        <Stack.Divider />
+                        <Stack.Item mb={1}>{prize.desc}</Stack.Item>
                       </Stack>
                     </Stack.Item>
                     <Stack.Item>
