@@ -5,16 +5,19 @@
 	custom_fire_overlay = "shotglass_fire"
 	amount_per_transfer_from_this = 15
 	volume = 15
+	gulp_size = 15
 	materials = list(MAT_GLASS = 50)
 	var/light_intensity = 2
 	light_color = LIGHT_COLOR_LIGHTBLUE
 	resistance_flags = FLAMMABLE
+
 
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass/bluespace
 	name = "bluespace shot glass"
 	desc = "For when you need to make the Bartender's life extra hell."
 	amount_per_transfer_from_this = 50
 	volume = 50
+	gulp_size = 50
 	icon_state = "bluespaceshotglass"
 
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass/bluespace/update_name()

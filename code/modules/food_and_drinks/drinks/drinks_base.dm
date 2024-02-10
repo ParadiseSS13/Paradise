@@ -13,6 +13,8 @@
 	resistance_flags = NONE
 	var/consume_sound = 'sound/items/drink.ogg'
 	var/chugging = FALSE
+	///How much we drink at once, shot glasses drink more.
+	var/gulp_size = 5
 
 /obj/item/reagent_containers/drinks/attack_self(mob/user)
 	return
