@@ -13,34 +13,71 @@
 
 /datum/ui_module/botcall/ui_data(mob/user)
 	var/list/data = ..()
-	var/list/secbot = list()
-	var/list/medbot = list()
-	var/list/cleanbot = list()
-	var/list/floorbot = list()
-	var/list/mule = list()
-	var/list/misc = list()
+	// Secbot
+	var/list/secbot = list("name" = list(), "status" = list(), "location" = list())
+	var/list/medbot = list("name" = list(), "status" = list(), "location" = list())
+	var/list/cleanbot = list("name" = list(), "status" = list(), "location" = list())
+	var/list/floorbot = list("name" = list(), "status" = list(), "location" = list())
+	var/list/mule = list("name" = list(), "status" = list(), "location" = list())
+	var/list/misc = list("name" = list(), "status" = list(), "location" = list())
 
 	for(var/mob/living/simple_animal/bot/iterated in GLOB.bots_list)
 		switch(iterated.type)
 			if(/mob/living/simple_animal/bot/secbot, /mob/living/simple_animal/bot/ed209)
-				secbot += iterated
+				secbot["name"] +=iterated.bot_name
+				secbot["status"] += iterated.mode
+				secbot["location"] += get_area(iterated)
 			if(/mob/living/simple_animal/bot/medbot)
-				medbot += iterated
+				medbot["name"] +=iterated.bot_name
+				medbot["status"] += iterated.mode
+				medbot["location"] += get_area(iterated)
 			if(/mob/living/simple_animal/bot/cleanbot)
-				cleanbot += iterated
+				cleanbot["name"] +=iterated.bot_name
+				cleanbot["status"] += iterated.mode
+				cleanbot["location"] += get_area(iterated)
 			if(/mob/living/simple_animal/bot/floorbot)
-				floorbot += iterated
+				floorbot["name"] +=iterated.bot_name
+				floorbot["status"] += iterated.mode
+				floorbot["location"] += get_area(iterated)
 			if(/mob/living/simple_animal/bot/mulebot)
-				mule += iterated
+				mule["name"] +=iterated.bot_name
+				mule["status"] += iterated.mode
+				mule["location"] += get_area(iterated)
 			else
-				misc += iterated
+				misc["name"] +=iterated.bot_name
+				misc["status"] += iterated.mode
+				misc["location"] += get_area(iterated)
 
-	data["secbot"] = secbot
-	data["medbot"] = medbot
-	data["cleanbot"] = cleanbot
-	data["floorbot"] = floorbot
-	data["mule"] = mule
-	data["misc"] = misc
+	data["secbot"] = list(
+		"name" = secbot["name"]
+		"status" = secbot["status"]
+		"location" = secbot["location"]
+	)
+	data["medbot"] = list(
+		"name" = medbot["name"]
+		"status" = medbot["status"]
+		"location" = medbot["location"]
+	)
+	data["cleanbot"] = list(
+		"name" = cleanbot["name"]
+		"status" = cleanbot["status"]
+		"location" = cleanbot["location"]
+	)
+	data["floorbot"] = list(
+		"name" = floorbot["name"]
+		"status" = floorbot["status"]
+		"location" = floorbot["location"]
+	)
+	data["mule"] = list(
+		"name" = mule["name"]
+		"status" = mule["status"]
+		"location" = mule["location"]
+	)
+	data["misc"] = list(
+		"name" = misc["name"]
+		"status" = misc["status"]
+		"location" = misc["location"]
+	)
 	return data
 
 /datum/ui_module/botcall/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
