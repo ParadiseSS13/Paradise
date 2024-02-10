@@ -115,13 +115,21 @@ const SecuritronView = (_properties, context) => {
             <TableCell>
               <Button
                 content="Interface"
-                onClick={() => act('interface', { botref: bot.ref })}
+                onClick={() =>
+                  act('interface', {
+                    botref: bot.ref,
+                  })
+                }
               />
             </TableCell>
             <TableCell>
               <Button
                 content="Call"
-                onClick={() => act('call', { botref: bot.ref })}
+                onClick={() =>
+                  act('call', {
+                    botref: bot.ref,
+                  })
+                }
               />
             </TableCell>
           </Table.Row>

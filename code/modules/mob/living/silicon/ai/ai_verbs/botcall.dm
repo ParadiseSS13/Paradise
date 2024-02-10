@@ -76,19 +76,19 @@
 
 /datum/ui_module/botcall/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if (..())
-		return
-	if(!Bot || Bot.remote_disabled || AI.control_disabled)
 		return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
 	switch(action)
 		if("interface")
 			Bot = locate(params["interface"]) in GLOB.bots_list
-			if(Bot)
-				Bot.attack_ai(src)
+			if(!Bot || Bot.remote_disabled || AI.control_disabled)
+				return
+			Bot.attack_ai(src)
 		if("call")
 			Bot = locate(params["call"]) in GLOB.bots_list
 			if(!Bot || Bot.remote_disabled || AI.control_disabled)
-				AI.waypoint_mode = TRUE
-				to_chat(src, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
+				return
+			AI.waypoint_mode = TRUE
+			to_chat(src, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
 
 
 //	var/d
