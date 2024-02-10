@@ -106,6 +106,7 @@
 	network = list("Labor Camp");
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -255,6 +256,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -2999,6 +3001,7 @@
 "hb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -3325,6 +3328,13 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/airlock)
+"iO" = (
+/obj/machinery/computer/area_atmos/area,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp/security)
 "iW" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4329,6 +4339,11 @@
 /obj/item/radio/intercom/locked/prison{
 	pixel_y = -28
 	},
+/obj/machinery/alarm{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -4511,6 +4526,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
@@ -4741,6 +4757,12 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
+"pD" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "pF" = (
 /obj/effect/turf_decal/stripes/red/corner{
 	dir = 4
@@ -5225,6 +5247,10 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
+/obj/machinery/alarm{
+	name = "north bump";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -5635,6 +5661,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/storage/firstaid/ancient,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	autolink_id = "air_in";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -5757,6 +5787,7 @@
 "wZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/atmospherics/portable/scrubber/huge/stationary,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredyellowfull"
 	},
@@ -6818,6 +6849,7 @@
 /obj/structure/chair/stool{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "CX" = (
@@ -7004,6 +7036,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/portable/scrubber/huge/stationary,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
@@ -7911,6 +7944,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Kz" = (
@@ -7956,6 +7990,10 @@
 /obj/effect/spawner/random_spawners/grille_maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
+"KI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "KJ" = (
 /obj/structure/ore_box,
 /obj/effect/decal/cleanable/dirt,
@@ -14120,7 +14158,7 @@ Aw
 Oy
 of
 PX
-PX
+iO
 nS
 PX
 ri
@@ -15920,11 +15958,11 @@ aB
 ap
 JS
 aS
-SJ
+pD
 CU
 CU
-bk
-bk
+KI
+KI
 Kw
 oi
 bh
