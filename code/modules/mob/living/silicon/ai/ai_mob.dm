@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(subject!=null)
 		for(var/A in GLOB.ai_list)
 			var/mob/living/silicon/ai/M = A
-			if((M.client && M.machine == subject))
+			if(M.client && M.machine == subject)
 				is_in_use = 1
 				subject.attack_ai(M)
 	return is_in_use
