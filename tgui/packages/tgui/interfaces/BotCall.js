@@ -109,7 +109,7 @@ const SecuritronView = (_properties, context) => {
         {secbot.map((bot) => (
           <Table.Row key="secbot">
             <TableCell>{bot.name ? bot.name : bot.model}</TableCell>
-            <TableCell>{"secbot"}</TableCell>
+            <TableCell>{'secbot'}</TableCell>
             <TableCell>{bot.status}</TableCell>
             <TableCell>{bot.location}</TableCell>
             <TableCell>
