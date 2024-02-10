@@ -11,7 +11,6 @@
 	light_color = LIGHT_COLOR_LIGHTBLUE
 	resistance_flags = FLAMMABLE
 
-
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass/bluespace
 	name = "bluespace shot glass"
 	desc = "For when you need to make the Bartender's life extra hell."
