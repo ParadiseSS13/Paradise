@@ -228,7 +228,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_name = "passive vent"
 	pipe_id = PIPE_PASV_VENT
 	orientations = 4
-	pipe_icon = "passive vent"
+	pipe_icon = "passive_vent"
 	pipe_category = RPD_DEVICES
 	rpd_dispensable = TRUE
 

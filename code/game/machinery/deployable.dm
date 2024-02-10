@@ -275,6 +275,7 @@
 	icon_state = "dropwall"
 	item_state = "grenade"
 	mode = AUTO
+	var/generator_type = /obj/structure/dropwall_generator
 	var/uptime = DROPWALL_UPTIME
 	/// If this is true we do not arm again, due to the sleep
 	var/deployed = FALSE
@@ -310,7 +311,7 @@
 		return
 	if(mode == AUTO)
 		mode = angle2dir_cardinal(get_angle(armer, get_turf(src)))
-	new /obj/structure/dropwall_generator(get_turf(loc), mode, uptime)
+	new generator_type(get_turf(loc), mode, uptime)
 	deployed = TRUE
 	armer = null
 	qdel(src)
@@ -326,6 +327,8 @@
 	var/protected = FALSE
 	///The core shield that protects the generator
 	var/obj/structure/barricade/dropwall/core_shield = null
+	/// The type of dropwall
+	var/barricade_type = /obj/structure/barricade/dropwall
 
 /obj/structure/dropwall_generator/Initialize(mapload, direction, uptime)
 	. = ..()
@@ -343,18 +346,18 @@
 	addtimer(CALLBACK(src, PROC_REF(power_out)), uptime)
 	timer_overlay_proc(uptime/10)
 
-	connected_shields += new /obj/structure/barricade/dropwall(get_turf(loc), src, TRUE, direction)
+	connected_shields += new barricade_type(get_turf(loc), src, TRUE, direction)
 	core_shield = connected_shields[1]
 
 	var/dir_left = turn(direction, -90)
 	var/dir_right = turn(direction, 90)
 	var/target_turf = get_step(src, dir_left)
 	if(!is_blocked_turf(target_turf))
-		connected_shields += new /obj/structure/barricade/dropwall(target_turf, src, FALSE, direction, dir_left)
+		connected_shields += new barricade_type(target_turf, src, FALSE, direction, dir_left)
 
 	var/target_turf2 = get_step(src, dir_right)
 	if(!is_blocked_turf(target_turf2))
-		connected_shields += new /obj/structure/barricade/dropwall(target_turf2, src, FALSE, direction, dir_right)
+		connected_shields += new barricade_type(target_turf2, src, FALSE, direction, dir_right)
 
 
 /obj/structure/dropwall_generator/attacked_by(obj/item/I, mob/living/user) //No, you can not just go up to the generator and whack it. Central shield needs to go down first.
@@ -413,6 +416,50 @@
 /obj/item/storage/box/syndie_kit/dropwall/populate_contents()
 	for(var/I in 1 to 5)
 		new /obj/item/grenade/barrier/dropwall(src)
+
+/obj/item/grenade/barrier/dropwall/firewall
+	name = "firewall shield generator"
+	generator_type = /obj/structure/dropwall_generator/firewall
+
+/obj/structure/dropwall_generator/firewall
+	name = "deployed firewall shield generator"
+	barricade_type = /obj/structure/barricade/dropwall/firewall
+
+/obj/structure/barricade/dropwall/firewall
+
+/obj/structure/barricade/dropwall/firewall/Initialize(mapload, owner, core, dir_1, dir_2)
+	. = ..()
+	var/target_matrix = list(
+		2, 0, 0, 0,
+		0, 1, 0, 0,
+		2, 0, 0, 0,
+		0, 0, 0, 1
+	)
+	color = target_matrix
+
+/obj/structure/barricade/dropwall/firewall/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	if(!istype(AM, /obj/item/projectile))
+		return
+	var/obj/item/projectile/P = AM
+	P.immolate ++
+
+/obj/item/grenade/turret
+	name = "Pop-Up Turret grenade"
+	desc = "Inflates into a Pop-Up turret, shoots everyone on sight who wasn't the primer."
+	icon = 'icons/obj/grenade.dmi'
+	icon_state = "wallbang"
+	item_state = "flashbang"
+	var/owner_uid
+
+/obj/item/grenade/turret/attack_self(mob/user)
+	owner_uid = user.UID()
+	return ..()
+
+/obj/item/grenade/turret/prime()
+	var/obj/machinery/porta_turret/inflatable_turret/turret = new(get_turf(loc))
+	turret.owner_uid = owner_uid
+	qdel(src)
 
 #undef SINGLE
 #undef VERTICAL

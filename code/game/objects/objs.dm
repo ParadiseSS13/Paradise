@@ -33,6 +33,12 @@
 	/// Is it emagged or not?
 	var/emagged = FALSE
 
+	// Access-related fields
+	var/list/req_access = null
+	var/req_access_txt = "0"
+	var/list/req_one_access = null
+	var/req_one_access_txt = "0"
+
 /obj/New()
 	..()
 	if(obj_integrity == null)
@@ -62,7 +68,7 @@
 
 	// In the far future no checks are made in an overriding Topic() beyond if(..()) return
 	// Instead any such checks are made in CanUseTopic()
-	if(ui_status(usr, state, href_list) == STATUS_INTERACTIVE)
+	if(ui_status(usr, state, href_list) == UI_INTERACTIVE)
 		CouldUseTopic(usr)
 		return FALSE
 
@@ -134,7 +140,7 @@
 		var/is_in_use = FALSE
 		var/list/nearby = viewers(1, src)
 		for(var/mob/M in nearby)
-			if((M.client && M.machine == src))
+			if(M.client && M.machine == src)
 				is_in_use = TRUE
 				src.attack_hand(M)
 		if(isAI(usr) || isrobot(usr))
@@ -159,7 +165,7 @@
 		var/list/nearby = viewers(1, src)
 		var/is_in_use = FALSE
 		for(var/mob/M in nearby)
-			if((M.client && M.machine == src))
+			if(M.client && M.machine == src)
 				is_in_use = TRUE
 				src.interact(M)
 		var/ai_in_use = AutoUpdateAI(src)
@@ -297,7 +303,7 @@
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
 	CRASH("Proc force_eject_occupant() is not overridden on a machine containing a mob.")
 
-/obj/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/obj/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	damage *= 0.75 //Define this probably somewhere, we want objects to hurt less than walls, unless special impact effects.
 	playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
 	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
@@ -306,4 +312,7 @@
 	C.take_organ_damage(damage)
 	if(!self_hurt)
 		take_damage(damage, BRUTE)
-	C.KnockDown(3 SECONDS)
+	if(issilicon(C))
+		C.Weaken(3 SECONDS)
+	else
+		C.KnockDown(3 SECONDS)

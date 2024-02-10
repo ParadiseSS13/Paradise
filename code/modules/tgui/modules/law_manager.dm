@@ -125,12 +125,17 @@
 				owner.statelaws(ALs)
 
 		if("transfer_laws")
-			if(is_malf(usr))
-				var/datum/ai_laws/ALs = locate(params["transfer_laws"]) in (is_admin(usr) ? admin_laws : player_laws)
-				if(ALs)
-					log_and_message_admins("has transfered the [ALs.name] laws to [owner].")
-					ALs.sync(owner, 0)
-					current_view = 0
+			if(!is_malf(usr))
+				return
+			var/admin_overwrite = is_admin(usr)
+			var/datum/ai_laws/ALs = locate(params["transfer_laws"]) in (admin_overwrite ? admin_laws : player_laws)
+			if(!ALs)
+				return
+			if(admin_overwrite && alert("Do you want to overwrite [owner]'s zeroth law? If the chosen lawset has no zeroth law while [owner] has one, it will get removed!", "Load Lawset", "Yes", "No") != "Yes")
+				admin_overwrite = FALSE
+			log_and_message_admins("has transfered the [ALs.name] laws to [owner][admin_overwrite ? " and overwrote their zeroth law":""].")
+			ALs.sync(owner, FALSE, admin_overwrite)
+			current_view = 0
 
 		if("notify_laws")
 			to_chat(owner, "<span class='danger'>Law Notice</span>")
@@ -144,10 +149,17 @@
 				to_chat(usr, "<span class='notice'>Laws displayed.</span>")
 
 
-/datum/ui_module/law_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/ui_module/law_manager/ui_state(mob/user)
+	if(check_rights(R_ADMIN, FALSE))
+		return GLOB.admin_state
+	if(issilicon(user))
+		return GLOB.conscious_state
+	return GLOB.default_state
+
+/datum/ui_module/law_manager/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "LawManager", sanitize("[src] - [owner.name]"), 800, is_malf(user) ? 600 : 400, master_ui, state)
+		ui = new(user, src, "LawManager", sanitize("[src] - [owner.name]"))
 		ui.open()
 
 /datum/ui_module/law_manager/ui_data(mob/user)

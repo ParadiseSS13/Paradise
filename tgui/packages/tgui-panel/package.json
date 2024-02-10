@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "name": "tgui-panel",
+  "version": "4.4.0",
+  "dependencies": {
+    "common": "workspace:*",
+    "dompurify": "^2.4.7",
+    "inferno": "^7.4.11",
+    "tgui": "workspace:*",
+    "tgui-dev-server": "workspace:*",
+    "tgui-polyfill": "workspace:*"
+  }
+}

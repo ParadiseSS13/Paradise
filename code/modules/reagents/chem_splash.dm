@@ -41,7 +41,7 @@
 			for(var/turf/T in (orange(i, epicenter) - orange(i-1, epicenter)))
 				turflist |= T
 			for(var/turf/T in turflist)
-				if( !(get_dir(T,epicenter) in GLOB.cardinal) && (abs(T.x - epicenter.x) == abs(T.y - epicenter.y) ))
+				if(!(get_dir(T,epicenter) in GLOB.cardinal) && (abs(T.x - epicenter.x) == abs(T.y - epicenter.y)))
 					turflist.Remove(T)
 					turflist.Add(T) // we move the purely diagonal turfs to the end of the list.
 			for(var/turf/T in turflist)

@@ -101,7 +101,7 @@
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 			return TRUE
 
-		if(pulledby == L && a_intent != INTENT_HELP) //prevents boosting the person pulling you, but you can still move through them on help intent
+		if(pulledby == L && (a_intent != INTENT_HELP || L.a_intent != INTENT_HELP)) //prevents boosting the person pulling you, but you can still move through them on help intent
 			return TRUE
 
 		if(L.pulling)
@@ -241,8 +241,7 @@
 //for more info on why this is not atom/pull, see examinate() in mob.dm
 /mob/living/verb/pulled(atom/movable/AM as mob|obj in oview(1))
 	set name = "Pull"
-	set category = "Object"
-
+	set category = null
 	if(istype(AM) && Adjacent(AM))
 		start_pulling(AM, show_message = TRUE)
 	else
@@ -269,11 +268,12 @@
 /mob/living/run_pointed(atom/A)
 	if(!..())
 		return FALSE
-	var/obj/item/hand_item = get_active_hand()
 	var/pointed_object = "\the [A]"
 	if(A.loc in src)
 		pointed_object += " inside [A.loc]"
-	if(istype(hand_item, /obj/item/gun) && A != hand_item)
+
+	var/obj/item/hand_item = get_active_hand()
+	if(!QDELETED(hand_item) && istype(hand_item) && HAS_TRAIT(hand_item, TRAIT_CAN_POINT_WITH) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
 			visible_message("<b>[src]</b> points to [pointed_object] with [hand_item]")
 			return TRUE
@@ -290,19 +290,36 @@
 	return TRUE
 
 /mob/living/verb/succumb()
-	set hidden = 1
-	if(InCritical())
-		create_attack_log("[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!")
-		create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
-		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
-		// super check for weird mobs, including ones that adjust hp
-		// we don't want to go overboard and gib them, though
-		for(var/i = 1 to 5)
-			if(health < HEALTH_THRESHOLD_DEAD)
-				break
-			take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
+	set hidden = TRUE
+	if(health >= HEALTH_THRESHOLD_CRIT)
+		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
+		return
+
+	var/last_words = input(src, "Do you have any last words?", "Goodnight, Sweet Prince") as text|null
+
+	if(stat == DEAD)
+		// cancel em out if they died while they had the message box up
+		last_words = null
+
+	if(!isnull(last_words))
+		create_log(MISC_LOG, "gave their final words, [last_words]")
+		whisper(last_words)
+
+	add_attack_logs(src, src, "[src] has [!isnull(last_words) ? "whispered [p_their()] final words" : "succumbed to death"] with [round(health, 0.1)] points of health!")
+
+	create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
+	adjustOxyLoss(max(health - HEALTH_THRESHOLD_DEAD, 0))
+	// super check for weird mobs, including ones that adjust hp
+	// we don't want to go overboard and gib them, though
+	for(var/i in 1 to 5)
+		if(health < HEALTH_THRESHOLD_DEAD)
+			break
+		take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
+	if(!isnull(last_words))
+		addtimer(CALLBACK(src, PROC_REF(death)), 1 SECONDS)
+	else
 		death()
-		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
+	to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
 
 /mob/living/proc/InCritical()
@@ -397,7 +414,7 @@
 			L += get_contents(S)
 		for(var/obj/item/clothing/accessory/storage/S in contents)//Check for holsters
 			L += get_contents(S)
-		for(var/obj/item/implant/storage/I in contents) //Check for storage implants.
+		for(var/obj/item/bio_chip/storage/I in contents) //Check for storage implants.
 			L += I.get_contents()
 		for(var/obj/item/gift/G in contents) //Check for gift-wrapped items
 			L += G.gift
@@ -578,12 +595,11 @@
 	if(.)
 		step_count++
 		pull_pulled(old_loc, pullee, movetime)
-		pull_grabbed(old_loc, direct, movetime)
 
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1) //seperated from our puller and not in the middle of a diagonal move
 		pulledby.stop_pulling()
 
-	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
+	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
 
 /mob/living/proc/pull_pulled(turf/dest, atom/movable/pullee, movetime)
@@ -601,61 +617,6 @@
 			pulling.Move(dest, get_dir(pulling, dest), movetime) // the pullee tries to reach our previous position
 			if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
 				stop_pulling()
-
-/mob/living/proc/pull_grabbed(turf/old_turf, direct, movetime)
-	if(!Adjacent(old_turf))
-		return
-	// We might not actually be grab pulled, but we are pretending that we are, so as to
-	// hackily work around issues arising from mutual grabs.
-	var/old_being_pulled = currently_grab_pulled
-	currently_grab_pulled = TRUE
-	// yes, this is four distinct `for` loops. No, they can't be merged.
-	var/list/grabbing = list()
-	for(var/mob/M in ret_grab())
-		if(src == M)
-			continue
-		if(M.currently_grab_pulled)
-			// Being already pulled by something else up the call stack.
-			continue
-		grabbing |= M
-	for(var/mob/M in grabbing)
-		M.currently_grab_pulled = TRUE
-		M.animate_movement = SYNC_STEPS
-	for(var/i in 1 to length(grabbing))
-		var/mob/M = grabbing[i]
-		if(QDELETED(M))  // old code warned me that M could go missing during a move, so I'm cargo-culting it here
-			continue
-		// compile a list of turfs we can maybe move them towards
-		// importantly, this should happen before actually trying to move them to either of those
-		// otherwise they can be moved twice (since `Move` returns TRUE only if it managed to
-		// *fully* move where you wanted it to; it can still move partially and return FALSE)
-		var/possible_dest = list()
-		for(var/turf/dest in orange(src, 1))
-			if(dest.Adjacent(M))
-				possible_dest |= dest
-		if(i == 1) // at least one of them should try to trail behind us, for aesthetics purposes
-			if(M.Move(old_turf, get_dir(M, old_turf), movetime))
-				continue
-		// By this time the `old_turf` is definitely occupied by something immovable.
-		// So try to move them into some other adjacent turf, in a believable way
-		if(Adjacent(M))
-			continue // they are already adjacent
-		for(var/turf/dest in possible_dest)
-			if(M.Move(dest, get_dir(M, dest), movetime))
-				break
-	for(var/mob/M in grabbing)
-		M.currently_grab_pulled = null
-		M.animate_movement = SLIDE_STEPS
-
-	for(var/obj/item/grab/G in src)
-		if(G.state == GRAB_NECK)
-			setDir(angle2dir((dir2angle(direct) + 202.5) % 365))
-		G.adjust_position()
-	for(var/obj/item/grab/G in grabbed_by)
-		G.adjust_position()
-
-	currently_grab_pulled = old_being_pulled
-
 
 /mob/living/proc/makeTrail(turf/turf_to_trail_on)
 	if(!has_gravity(src))
@@ -715,7 +676,7 @@
 
 	if(has_limbs)
 		var/turf/T = get_step(src, angle2dir(dir2angle(direction) + 90))
-		if (T)
+		if(T)
 			turfs_to_check += T
 
 		T = get_step(src, angle2dir(dir2angle(direction) - 90))
@@ -779,6 +740,8 @@
 */////////////////////
 /mob/living/proc/resist_grab()
 	var/resisting = 0
+	if(HAS_TRAIT(src, TRAIT_IMMOBILIZED))
+		return FALSE //You can't move, so you can't resist
 	for(var/X in grabbed_by)
 		var/obj/item/grab/G = X
 		resisting++
@@ -1035,7 +998,7 @@
 	if(S)
 		. += S.slowdown_value
 	if(forced_look)
-		. += 3
+		. += DIRECTION_LOCK_SLOWDOWN
 	if(ignorewalk)
 		. += GLOB.configuration.movement.base_run_speed
 	else
@@ -1095,9 +1058,9 @@
 		if(client)
 			if(new_z)
 				SSmobs.clients_by_zlevel[new_z] += src
-				for (var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
+				for(var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
 					var/mob/living/simple_animal/SA = SSidlenpcpool.idle_mobs_by_zlevel[new_z][I]
-					if (SA)
+					if(SA)
 						SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
 					else
 						SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= SA
@@ -1153,11 +1116,11 @@
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
 
-/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable, block_movement)
 	stop_pulling()
 	return ..()
 
-/mob/living/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/mob/living/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(C == src || flying || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
@@ -1165,6 +1128,47 @@
 		return
 	if(!self_hurt)
 		take_organ_damage(damage)
-	C.take_organ_damage(damage)
-	C.KnockDown(3 SECONDS)
+	if(issilicon(C))
+		C.adjustBruteLoss(damage)
+		C.Weaken(3 SECONDS)
+	else
+		C.take_organ_damage(damage)
+		C.KnockDown(3 SECONDS)
 	C.visible_message("<span class='danger'>[C] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")
+
+/**
+  * Sets the mob's direction lock towards a given atom.
+  *
+  * Arguments:
+  * * a - The atom to face towards.
+  * * track - If TRUE, updates our direction relative to the atom when moving.
+  */
+/mob/living/proc/set_forced_look(atom/A, track = FALSE)
+	forced_look = track ? A.UID() : get_cardinal_dir(src, A)
+	to_chat(src, "<span class='userdanger'>You are now facing [track ? A : dir2text(forced_look)]. To cancel this, shift-middleclick yourself.</span>")
+	throw_alert("direction_lock", /obj/screen/alert/direction_lock)
+
+/**
+  * Clears the mob's direction lock if enabled.
+  *
+  * Arguments:
+  * * quiet - Whether to display a chat message.
+  */
+/mob/living/proc/clear_forced_look(quiet = FALSE)
+	if(!forced_look)
+		return
+	forced_look = null
+	if(!quiet)
+		to_chat(src, "<span class='notice'>Cancelled direction lock.</span>")
+	clear_alert("direction_lock")
+
+/mob/living/setDir(new_dir)
+	if(forced_look)
+		if(isnum(forced_look))
+			dir = forced_look
+		else
+			var/atom/A = locateUID(forced_look)
+			if(istype(A))
+				dir = get_cardinal_dir(src, A)
+		return
+	return ..()

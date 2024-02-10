@@ -16,7 +16,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 70, ACID = 30)
 
 	// Built automatically from the corresponding vending machine.
-	// If null, considered to be full. Otherwise, is list(/typepath = amount).
+	// If null, considered to be full upon being restocked.
 	var/list/products
 	var/list/contraband
 	var/list/premium
@@ -28,15 +28,17 @@
 /obj/item/vending_refill/examine(mob/user)
 	. = ..()
 	var/num = get_part_rating()
-	if (num == INFINITY)
+	if(num == INFINITY)
 		. += "It's sealed tight, completely full of supplies."
-	else if (num == 0)
+	else if(num == 0)
 		. += "It's empty!"
-	else
+	else if(!isnull(num)) // If it's null, then the items haven't been properly added yet.
 		. += "It can restock [num] item\s."
 
 /obj/item/vending_refill/get_part_rating()
 	. = 0
+	if(isnull(products) && isnull(contraband) && isnull(premium))
+		return null
 	for(var/key in products)
 		. += products[key]
 	for(var/key in contraband)

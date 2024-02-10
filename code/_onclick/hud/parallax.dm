@@ -62,22 +62,22 @@
 		if(isnull(pref))
 			pref = PARALLAX_HIGH
 		switch(C.prefs.parallax)
-			if (PARALLAX_INSANE)
+			if(PARALLAX_INSANE)
 				C.parallax_throttle = FALSE
 				C.parallax_layers_max = 5
 				return TRUE
 
-			if (PARALLAX_MED)
+			if(PARALLAX_MED)
 				C.parallax_throttle = PARALLAX_DELAY_MED
 				C.parallax_layers_max = 3
 				return TRUE
 
-			if (PARALLAX_LOW)
+			if(PARALLAX_LOW)
 				C.parallax_throttle = PARALLAX_DELAY_LOW
 				C.parallax_layers_max = 1
 				return TRUE
 
-			if (PARALLAX_DISABLE)
+			if(PARALLAX_DISABLE)
 				return FALSE
 
 	//This is high parallax.
@@ -313,11 +313,16 @@
 	layer = 4
 
 /obj/screen/parallax_layer/planet
-	icon_state = "planet"
+	icon_state = "planet_lava"
 	blend_mode = BLEND_OVERLAY
 	absolute = TRUE //Status of seperation
 	speed = 3
 	layer = 30
+
+/obj/screen/parallax_layer/planet/Initialize(mapload)
+	. = ..()
+	if(SSmapping.lavaland_theme?.planet_icon_state)
+		icon_state = SSmapping.lavaland_theme.planet_icon_state
 
 /obj/screen/parallax_layer/planet/update_status(mob/M)
 	var/turf/T = get_turf(M)

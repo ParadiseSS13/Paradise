@@ -100,13 +100,13 @@
 					/obj/item/kitchen/knife = 3,
 					/obj/item/kitchen/rollingpin = 2,
 					/obj/item/kitchen/sushimat = 3,
-					/obj/item/reagent_containers/food/drinks/drinkingglass = 8,
+					/obj/item/reagent_containers/drinks/drinkingglass = 8,
 					/obj/item/clothing/suit/chef/classic = 2,
 					/obj/item/storage/belt/chef = 2,
-					/obj/item/reagent_containers/food/condiment/pack/ketchup = 5,
-					/obj/item/reagent_containers/food/condiment/pack/hotsauce = 5,
-					/obj/item/reagent_containers/food/condiment/saltshaker =5,
-					/obj/item/reagent_containers/food/condiment/peppermill =5,
+					/obj/item/reagent_containers/condiment/pack/ketchup = 5,
+					/obj/item/reagent_containers/condiment/pack/hotsauce = 5,
+					/obj/item/reagent_containers/condiment/saltshaker =5,
+					/obj/item/reagent_containers/condiment/peppermill =5,
 					/obj/item/whetstone = 2,
 					/obj/item/mixing_bowl = 10,
 					/obj/item/kitchen/mould/bear = 1,
@@ -250,8 +250,8 @@
 	products = list(/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 4,
 					/obj/item/stack/medical/bruise_pack/advanced = 2,
 					/obj/item/stack/medical/ointment/advanced = 2,
-					/obj/item/reagent_containers/food/pill/patch/styptic = 3,
-					/obj/item/reagent_containers/food/pill/patch/silver_sulf = 3,
+					/obj/item/reagent_containers/patch/styptic = 3,
+					/obj/item/reagent_containers/patch/silver_sulf = 3,
 					/obj/item/reagent_containers/applicator/brute = 2,
 					/obj/item/reagent_containers/applicator/burn = 2,
 					/obj/item/stack/medical/bruise_pack = 2,
@@ -268,9 +268,9 @@
 					/obj/item/reagent_containers/syringe/antiviral = 3,
 					/obj/item/reagent_containers/syringe/calomel = 3,
 					/obj/item/reagent_containers/syringe/heparin = 3,
-					/obj/item/reagent_containers/food/pill/salbutamol = 5,
-					/obj/item/reagent_containers/food/pill/mannitol = 5,
-					/obj/item/reagent_containers/food/pill/mutadone = 5,
+					/obj/item/reagent_containers/pill/salbutamol = 5,
+					/obj/item/reagent_containers/pill/mannitol = 5,
+					/obj/item/reagent_containers/pill/mutadone = 5,
 					/obj/item/reagent_containers/glass/beaker = 3,
 					/obj/item/reagent_containers/dropper = 3,
 					/obj/item/reagent_containers/hypospray/safety = 2,
@@ -280,7 +280,8 @@
 
 	contraband = list(/obj/item/reagent_containers/syringe/insulin = 4,
 					/obj/item/reagent_containers/glass/bottle/sulfonal = 1,
-					/obj/item/reagent_containers/glass/bottle/pancuronium = 1)
+					/obj/item/reagent_containers/glass/bottle/pancuronium = 1,
+					/obj/item/food/snacks/candy/sucker = 2)
 
 	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
@@ -328,7 +329,7 @@
 					/obj/item/grenade/flashbang = 4,
 					/obj/item/flash = 5,
 					/obj/item/reagent_containers/spray/pepper = 5,
-					/obj/item/reagent_containers/food/snacks/donut = 12,
+					/obj/item/food/snacks/donut = 12,
 					/obj/item/storage/box/evidence = 6,
 					/obj/item/flashlight/seclite = 4,
 					/obj/item/restraints/legcuffs/bola/energy = 7,
@@ -340,5 +341,5 @@
 					/obj/item/hailer = 5)
 
 	refill_canister = /obj/item/vending_refill/security
-	prices = list(/obj/item/reagent_containers/food/snacks/donut = 40,
+	prices = list(/obj/item/food/snacks/donut = 40,
 				/obj/item/storage/fancy/donut_box = 200) //Bulk discount

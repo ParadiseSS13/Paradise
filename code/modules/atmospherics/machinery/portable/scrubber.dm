@@ -114,10 +114,13 @@
 	ui_interact(user)
 	return
 
-/obj/machinery/atmospherics/portable/scrubber/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/atmospherics/portable/scrubber/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/atmospherics/portable/scrubber/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PortableScrubber", "Portable Scrubber", 433, 346, master_ui, state)
+		ui = new(user, src, "PortableScrubber", "Portable Scrubber")
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
@@ -151,9 +154,7 @@
 			return TRUE
 
 		if("remove_tank")
-			if(holding_tank)
-				holding_tank.forceMove(get_turf(src))
-				holding_tank = null
+			replace_tank(ui.user, TRUE)
 			update_icon()
 			return TRUE
 
@@ -202,10 +203,7 @@
 	if(on)
 		to_chat(user, "<span class='warning'>Turn it off first!</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	anchored = !anchored
-	to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] [src].</span>")
+	default_unfasten_wrench(user, I, 4 SECONDS)
 
 /obj/machinery/atmospherics/portable/scrubber/huge/stationary
 	name = "Stationary Air Scrubber"

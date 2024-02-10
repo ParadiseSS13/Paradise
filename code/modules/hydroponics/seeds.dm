@@ -146,7 +146,7 @@
 	var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc // Needed for TK
 	var/product_name
 	for(var/i in 1 to getYield())
-		var/obj/item/reagent_containers/food/snacks/grown/produce = new product(output_loc, src)
+		var/obj/item/produce = new product(output_loc, src)
 		if(!produce)
 			return
 
@@ -169,8 +169,8 @@
 			data = list("blood_type" = "O-")
 		if(rid == "nutriment" || rid == "vitamin" || rid == "protein" || rid == "plantmatter")
 			// Apple tastes of apple.
-			if(istype(T, /obj/item/reagent_containers/food/snacks/grown))
-				var/obj/item/reagent_containers/food/snacks/grown/grown_edible = T
+			if(istype(T, /obj/item/food/snacks/grown))
+				var/obj/item/food/snacks/grown/grown_edible = T
 				data = grown_edible.tastes.Copy()
 
 		T.reagents.add_reagent(rid, amount, data)
@@ -277,7 +277,7 @@
 
 
 /obj/item/seeds/proc/get_analyzer_text()  // In case seeds have something special to tell to the analyzer
-	var/text = ""
+	var/list/text = list()
 	if(!get_gene(/datum/plant_gene/trait/plant_type/weed_hardy) && !get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism) && !get_gene(/datum/plant_gene/trait/plant_type/alien_properties))
 		text += "- Plant type: Normal plant\n"
 	if(get_gene(/datum/plant_gene/trait/plant_type/weed_hardy))
@@ -306,7 +306,7 @@
 		all_traits += " [traits.get_name()]"
 	text += "- Plant Traits:[all_traits]\n"
 
-	return text
+	return text.Join("")
 
 /obj/item/seeds/proc/on_chem_reaction(datum/reagents/S)  // In case seeds have some special interaction with special chems
 	return

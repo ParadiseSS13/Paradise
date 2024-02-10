@@ -23,9 +23,6 @@
 		mode = SYRINGE_INJECT
 		update_icon()
 
-/obj/item/reagent_containers/syringe/set_APTFT()
-	set hidden = TRUE
-
 /obj/item/reagent_containers/syringe/on_reagent_change()
 	update_icon()
 
@@ -139,7 +136,7 @@
 
 				add_attack_logs(user, L, "Injected with [name] containing [contained], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
-			if(istype(target, /obj/item/reagent_containers/food))
+			if(isfood(target))
 
 				var/list/chemicals = list()
 				for(var/datum/reagent/chem in reagents.reagent_list)

@@ -1,4 +1,5 @@
 /obj/item/melee/energy
+	icon = 'icons/obj/energy_melee.dmi'
 	var/active = FALSE
 	var/force_on = 30 //force when active
 	var/throwforce_on = 20
@@ -83,6 +84,9 @@
 		H.update_inv_r_hand()
 	add_fingerprint(user)
 	return
+
+/obj/item/melee/energy/get_heat()
+	return active * 3500
 
 /obj/item/melee/energy/axe
 	name = "energy axe"

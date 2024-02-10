@@ -96,6 +96,7 @@
 /obj/item/dualsaber
 	name = "double-bladed energy sword"
 	desc = "Handle with care."
+	icon = 'icons/obj/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "dualsaber0"
@@ -107,6 +108,7 @@
 	var/w_class_on = WEIGHT_CLASS_BULKY
 
 	armour_penetration_flat = 10
+	armour_penetration_percentage = 50
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	max_integrity = 200
@@ -229,9 +231,13 @@
 
 //spears
 /obj/item/spear
-	icon_state = "spearglass0"
 	name = "spear"
 	desc = "A haphazardly-constructed yet still deadly weapon of ancient design."
+	icon = 'icons/obj/spear.dmi'
+	base_icon_state = "spearglass"
+	icon_state = "spearglass0"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_FLAG_BACK
@@ -249,9 +255,6 @@
 	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	needs_permit = TRUE
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	base_icon_state = "spearglass"
 
 /obj/item/spear/Initialize(mapload)
 	. = ..()
@@ -572,7 +575,7 @@
 	icon_state = "singulohammer0"
 
 /obj/item/singularityhammer/proc/vortex(turf/pull, mob/wielder)
-	for(var/atom/movable/X in orange(5, pull))
+	for(var/atom/movable/X in range(5, pull))
 		if(X.move_resist == INFINITY)
 			continue
 		if(X == wielder)
@@ -749,10 +752,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/pyro_claws/customised_abstract_text()
-	if(!ishuman(loc))
-		return
-	var/mob/living/carbon/human/owner = loc
+/obj/item/pyro_claws/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] energy claws extending [owner.p_their(FALSE)] wrists.</span>"
 
 /obj/item/pyro_claws/process()
@@ -1008,7 +1008,7 @@
 			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
 			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 50, TRUE, -1)
 			H.AdjustConfused(4 SECONDS, 0, 4 SECONDS) //no stacking infinitely
-			H.adjustStaminaLoss(15)
+			H.apply_damage(15, STAMINA)
 
 			add_attack_logs(user, H, "Swept with the brush of the titanium push broom", ATKLOG_ALL)
 

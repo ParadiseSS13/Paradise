@@ -44,11 +44,11 @@
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 	var/plank_type = /obj/item/stack/sheet/wood
 	var/plank_name = "wooden planks"
-	var/static/list/accepted = typecacheof(list(/obj/item/reagent_containers/food/snacks/grown/tobacco,
-	/obj/item/reagent_containers/food/snacks/grown/tea,
-	/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
-	/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,
-	/obj/item/reagent_containers/food/snacks/grown/wheat))
+	var/static/list/accepted = typecacheof(list(/obj/item/food/snacks/grown/tobacco,
+	/obj/item/food/snacks/grown/tea,
+	/obj/item/food/snacks/grown/ambrosia/vulgaris,
+	/obj/item/food/snacks/grown/ambrosia/deus,
+	/obj/item/food/snacks/grown/wheat))
 
 /obj/item/grown/log/attackby(obj/item/W, mob/user, params)
 	if(is_sharp(W))
@@ -69,7 +69,7 @@
 		qdel(src)
 
 	if(CheckAccepted(W))
-		var/obj/item/reagent_containers/food/snacks/grown/leaf = W
+		var/obj/item/food/snacks/grown/leaf = W
 		if(leaf.dry)
 			user.show_message("<span class='notice'>You wrap \the [W] around the log, turning it into a torch!</span>")
 			var/obj/item/flashlight/flare/torch/T = new /obj/item/flashlight/flare/torch(user.loc)
@@ -137,7 +137,7 @@
 		to_chat(user, "<span class='italics'>You add a rod to [src].")
 		var/image/U = image(icon='icons/obj/hydroponics/equipment.dmi',icon_state="bonfire_rod",pixel_y=16)
 		underlays += U
-	if(is_hot(W))
+	if(W.get_heat())
 		lighter = user.ckey
 		user.create_log(MISC_LOG, "lit a bonfire", src)
 		StartBurning()

@@ -17,19 +17,25 @@
 	req_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
 	window_id = "autofloor"
 	window_name = "Automatic Station Floor Repairer v1.1"
-
-	var/process_type //Determines what to do when process_scan() recieves a target. See process_scan() for details.
+	/// Determines what to do when process_scan() recieves a target. See process_scan() for details.
+	var/process_type
+	/// Tiles in inventory
 	var/amount = 10
-	var/replacetiles = 0
-	var/eattiles = 0
-	var/maketiles = 0
-	var/fixfloors = 0
-	var/autotile = 0
-	var/nag_on_empty = 1
-	var/nagged = 0 //Prevents the Floorbot nagging more than once per refill.
+	/// Add tiles to existing floor
+	var/replace_tiles = FALSE
+	/// Add floor tiles to inventory
+	var/eat_tiles = FALSE
+	/// Convert metal into floor tiles (drops on floor)
+	var/make_tiles = FALSE
+	var/fix_floor = FALSE
+	/// Fix the floor and include a tile.
+	var/autotile = FALSE
+	var/nag_on_empty = TRUE
+	/// Prevents the Floorbot nagging more than once per refill.
+	var/nagged = FALSE
 	var/max_targets = 50
 	var/turf/target
-	var/oldloc = null
+	var/oldloc
 	var/toolbox_color = ""
 
 	#define HULL_BREACH		1
@@ -37,6 +43,7 @@
 	#define AUTO_TILE		4
 	#define REPLACE_TILE	5
 	#define TILE_EMAG		6
+	#define MAX_AMOUNT		50  // Maximum tiles bot can have in storage
 
 /mob/living/simple_animal/bot/floorbot/Initialize(mapload, new_toolbox_color)
 	. = ..()
@@ -66,19 +73,22 @@
 /mob/living/simple_animal/bot/floorbot/show_controls(mob/user)
 	ui_interact(user)
 
-/mob/living/simple_animal/bot/floorbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/simple_animal/bot/floorbot/ui_state(mob/user)
+	return GLOB.default_state
+
+/mob/living/simple_animal/bot/floorbot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotFloor", name, 500, 520)
+		ui = new(user, src, "BotFloor", name)
 		ui.open()
 
 /mob/living/simple_animal/bot/floorbot/ui_data(mob/user)
 	var/list/data = ..()
 	data["hullplating"] = autotile
-	data["replace"] = replacetiles
-	data["eat"] = eattiles
-	data["make"] = maketiles
-	data["fixfloor"] = fixfloors
+	data["replace"] = replace_tiles
+	data["eat"] = eat_tiles
+	data["make"] = make_tiles
+	data["fixfloor"] = fix_floor
 	data["nag_empty"] = nag_on_empty
 	data["magnet"] = anchored
 	data["tiles_amount"] = amount
@@ -109,15 +119,15 @@
 		if("autotile")
 			autotile = !autotile
 		if("replacetiles")
-			replacetiles = !replacetiles
+			replace_tiles = !replace_tiles
 		if("eattiles")
-			eattiles = !eattiles
+			eat_tiles = !eat_tiles
 		if("maketiles")
-			maketiles = !maketiles
+			make_tiles = !make_tiles
+		if("fixfloors")
+			fix_floor = !fix_floor
 		if("nagonempty")
 			nag_on_empty = !nag_on_empty
-		if("fixfloors")
-			fixfloors = !fixfloors
 		if("anchored")
 			anchored = !anchored
 		if("ejectpai")
@@ -126,9 +136,9 @@
 /mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, params)
 	if(istype(W, /obj/item/stack/tile/plasteel))
 		var/obj/item/stack/tile/plasteel/T = W
-		if(amount >= 50)
+		if(amount >= MAX_AMOUNT)
 			return
-		var/loaded = min(50-amount, T.amount)
+		var/loaded = min(MAX_AMOUNT - amount, T.amount)
 		T.use(loaded)
 		amount += loaded
 		if(loaded > 0)
@@ -147,45 +157,45 @@
 			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
 
 /mob/living/simple_animal/bot/floorbot/handle_automated_action()
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 
-	if(mode == BOT_REPAIRING)
+	if(mode == BOT_REPAIRING || mode == BOT_EAT_TILE || mode == BOT_MAKE_TILE)
 		return
-
-	if(amount <= 0 && !target) //Out of tiles! We must refill!
-		if(eattiles) //Configured to find and consume floortiles!
-			target = scan(/obj/item/stack/tile/plasteel)
-			process_type = null
-
-		if(!target && maketiles) //We did not manage to find any floor tiles! Scan for metal stacks and make our own!
-			target = scan(/obj/item/stack/sheet/metal)
-			process_type = null
-			return
-		else
-			if(nag_on_empty) //Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
-				nag()
 
 	if(prob(5))
 		audible_message("[src] makes an excited booping beeping sound!")
 
 	//Normal scanning procedure. We have tiles loaded, are not emagged.
-	if(!target && emagged < 2 && amount > 0)
+	if(!target && !emagged && amount)
 		if(!target)
 			process_type = HULL_BREACH //Ensures the floorbot does not try to "fix" space areas or shuttle docking zones.
-			target = scan(/turf/space)
+			target = scan(/turf/space, avoid_bot = /mob/living/simple_animal/bot/floorbot)
 
-		if(!target && replacetiles) //Finds a floor without a tile and gives it one.
+		if(!target && replace_tiles) //Finds a floor without a tile and gives it one.
 			process_type = REPLACE_TILE //The target must be the floor and not a tile. The floor must not already have a floortile.
-			target = scan(/turf/simulated/floor)
+			target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
 
-		if(!target && fixfloors) //Repairs damaged floors and tiles.
+		if(!target && fix_floor) //Repairs damaged floors and tiles.
 			process_type = FIX_TILE
-			target = scan(/turf/simulated/floor)
+			target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
 
-	if(!target && emagged == 2) //We are emagged! Time to rip up the floors!
+	if(!target && emagged) //We are emagged! Time to rip up the floors!
 		process_type = TILE_EMAG
-		target = scan(/turf/simulated/floor)
+		target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
+
+	if(amount < MAX_AMOUNT && !target) //Out of tiles! We must refill!
+		if(eat_tiles) //Configured to find and consume floortiles!
+			target = scan(/obj/item/stack/tile/plasteel)
+			process_type = null
+
+		if(!target && make_tiles) //We did not manage to find any floor tiles! Scan for metal stacks and make our own!
+			target = scan(/obj/item/stack/sheet/metal)
+			process_type = null
+
+		if(!target && nag_on_empty) //Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
+			nag()
 
 
 	if(!target)
@@ -199,13 +209,17 @@
 
 	if(target)
 		if(loc == target || loc == target.loc)
+
 			if(istype(target, /obj/item/stack/tile/plasteel))
 				start_eattile(target)
-			else if(istype(target, /obj/item/stack/sheet/metal))
+
+			if(istype(target, /obj/item/stack/sheet/metal))
 				start_maketile(target)
-			else if(isturf(target) && emagged < 2)
+
+			if(isturf(target) && !emagged)
 				repair(target)
-			else if(emagged == 2 && isfloorturf(target))
+
+			if(emagged && isfloorturf(target))
 				var/turf/simulated/floor/F = target
 				anchored = TRUE
 				mode = BOT_REPAIRING
@@ -221,9 +235,9 @@
 		if(!length(path))
 			if(!isturf(target))
 				var/turf/TL = get_turf(target)
-				path = get_path_to(src, TL, 30, id=access_card,simulated_only = 0)
+				path = get_path_to(src, TL, 30, id = access_card, simulated_only = 0)
 			else
-				path = get_path_to(src, target, 30, id=access_card,simulated_only = 0)
+				path = get_path_to(src, target, 30, id = access_card, simulated_only = 0)
 
 			if(!bot_move(target))
 				add_to_ignore(target)
@@ -245,15 +259,11 @@
 
 /mob/living/simple_animal/bot/floorbot/proc/nag() //Annoy everyone on the channel to refill us!
 	if(!nagged)
-		speak("Requesting refill at <b>[get_area(src)]</b>!", radio_channel)
+		speak("Requesting refill [MAX_AMOUNT - amount] at <b>[get_area(src)]</b>!", radio_channel)
 		nagged = TRUE
 
 /mob/living/simple_animal/bot/floorbot/proc/is_hull_breach(turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
-	var/area/t_area = get_area(t)
-	if(t_area && (t_area.name == "Space" || findtext(t_area.name, "huttle")))
-		return 0
-	else
-		return 1
+	return !isspaceturf(get_area(t))
 
 //Floorbots, having several functions, need sort out special conditions here.
 /mob/living/simple_animal/bot/floorbot/process_scan(atom/scan_target)
@@ -310,33 +320,19 @@
 		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), F), 5 SECONDS)
 
-/mob/living/simple_animal/bot/floorbot/proc/make_floor(turf/simulated/floor/F)
-	if(mode != BOT_REPAIRING)
-		return
-
-	F.broken = FALSE
-	F.burnt = FALSE
-	F.ChangeTurf(/turf/simulated/floor/plasteel)
-	mode = BOT_IDLE
-	amount--
-	update_icon(UPDATE_OVERLAYS)
-	anchored = FALSE
-	target = null
 
 /mob/living/simple_animal/bot/floorbot/proc/make_bridge_plating(turf/target_turf)
 	var/turf/simulated/floor/F = target
 	if(mode != BOT_REPAIRING)
 		return
 
-	if(replacetiles)
-		F.break_tile_to_plating()
+	if(autotile || replace_tiles)
+		if(process_type != HULL_BREACH)
+			F.break_tile_to_plating()
 		target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
 	else
-		if(autotile) //Build the floor and include a tile.
-			F.break_tile_to_plating()
-			target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
-		else //Build a hull plating without a floor tile.
-			target_turf.ChangeTurf(/turf/simulated/floor/plating)
+		target_turf.ChangeTurf(/turf/simulated/floor/plating)
+
 	mode = BOT_IDLE
 	amount--
 	update_icon(UPDATE_OVERLAYS)
@@ -347,7 +343,8 @@
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		return
 	visible_message("<span class='notice'>[src] begins to collect tiles.</span>")
-	mode = BOT_REPAIRING
+	mode = BOT_EAT_TILE
+	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_eattile), T), 2 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/do_eattile(obj/item/stack/tile/plasteel/T)
@@ -355,8 +352,8 @@
 		target = null
 		mode = BOT_IDLE
 		return
-	if(amount + T.amount > 50)
-		var/i = 50 - amount
+	if((amount + T.amount) > MAX_AMOUNT)
+		var/i = MAX_AMOUNT - amount
 		amount += i
 		T.amount -= i
 	else
@@ -370,7 +367,8 @@
 	if(!istype(M, /obj/item/stack/sheet/metal))
 		return
 	visible_message("<span class='notice'>[src] begins to create tiles.</span>")
-	mode = BOT_REPAIRING
+	mode = BOT_MAKE_TILE
+	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_maketile), M), 2 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/do_maketile(obj/item/stack/sheet/metal/M)
@@ -387,13 +385,14 @@
 		qdel(M)
 	target = null
 	mode = BOT_IDLE
+	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/simple_animal/bot/floorbot/update_icon_state()
 	return
 
 /mob/living/simple_animal/bot/floorbot/update_overlays()
 	. = ..()
-	if(mode == BOT_REPAIRING)
+	if(mode == BOT_REPAIRING || mode == BOT_EAT_TILE || mode == BOT_MAKE_TILE)
 		. += "floorbot_work"
 	else
 		. += "floorbot_[on ? "on" : "off"]"
@@ -431,3 +430,11 @@
 		start_maketile(A)
 	else
 		..()
+
+
+#undef HULL_BREACH
+#undef FIX_TILE
+#undef AUTO_TILE
+#undef REPLACE_TILE
+#undef TILE_EMAG
+#undef MAX_AMOUNT

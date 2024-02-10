@@ -35,57 +35,59 @@
 		/obj/item/grown/novaflower = list("capsaicin" = 0, "condensedcapsaicin" = 0),
 
 		//Blender Stuff
-		/obj/item/reagent_containers/food/snacks/grown/tomato = list("ketchup" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/wheat = list("flour" = -5),
-		/obj/item/reagent_containers/food/snacks/grown/oat = list("flour" = -5),
-		/obj/item/reagent_containers/food/snacks/grown/cherries = list("cherryjelly" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/bluecherries = list("bluecherryjelly" = 0),
-		/obj/item/reagent_containers/food/snacks/egg = list("egg" = -5),
-		/obj/item/reagent_containers/food/snacks/grown/rice = list("rice" = -5),
-		/obj/item/reagent_containers/food/snacks/grown/olive = list("olivepaste" = 0, "sodiumchloride" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/peanuts = list("peanutbutter" = 0),
+		/obj/item/food/snacks/grown/tomato = list("ketchup" = 0),
+		/obj/item/food/snacks/grown/wheat = list("flour" = -5),
+		/obj/item/food/snacks/grown/oat = list("flour" = -5),
+		/obj/item/food/snacks/grown/cherries = list("cherryjelly" = 0),
+		/obj/item/food/snacks/grown/bluecherries = list("bluecherryjelly" = 0),
+		/obj/item/food/snacks/egg = list("egg" = -5),
+		/obj/item/food/snacks/grown/rice = list("rice" = -5),
+		/obj/item/food/snacks/grown/olive = list("olivepaste" = 0, "sodiumchloride" = 0),
+		/obj/item/food/snacks/grown/peanuts = list("peanutbutter" = 0),
 
 		//Grinder stuff, but only if dry
-		/obj/item/reagent_containers/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/coffee = list("coffeepowder" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/tea/astra = list("teapowder" = 0, "salglu_solution" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/tea = list("teapowder" = 0),
+		/obj/item/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
+		/obj/item/food/snacks/grown/coffee = list("coffeepowder" = 0),
+		/obj/item/food/snacks/grown/tea/astra = list("teapowder" = 0, "salglu_solution" = 0),
+		/obj/item/food/snacks/grown/tea = list("teapowder" = 0),
 
 		//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
 		/obj/item/slime_extract = list(),
-		/obj/item/reagent_containers/food = list()
+		/obj/item/food = list(),
+		/obj/item/reagent_containers/pill = list(),
+		/obj/item/reagent_containers/patch = list()
 	)
 
 	var/list/juice_items = list (
 
 		//Juicer Stuff
-		/obj/item/reagent_containers/food/snacks/grown/soybeans = list("soymilk" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/corn = list("corn_starch" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/tomato = list("tomatojuice" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/carrot = list("carrotjuice" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/berries = list("berryjuice" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/banana = list("banana" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/potato = list("potato" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/citrus/lemon = list("lemonjuice" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/citrus/orange = list("orangejuice" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/citrus/lime = list("limejuice" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/watermelon = list("watermelonjuice" = 0),
-		/obj/item/reagent_containers/food/snacks/watermelonslice = list("watermelonjuice" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/berries/poison = list("poisonberryjuice" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/pumpkin/blumpkin = list("blumpkinjuice" = 0), //order is important here as blumpkin is a subtype of pumpkin, if switched blumpkins will produce pumpkin juice
-		/obj/item/reagent_containers/food/snacks/grown/pumpkin = list("pumpkinjuice" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/apple = list("applejuice" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/grapes = list("grapejuice" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/pineapple = list("pineapplejuice" = 0)
+		/obj/item/food/snacks/grown/soybeans = list("soymilk" = 0),
+		/obj/item/food/snacks/grown/corn = list("corn_starch" = 0),
+		/obj/item/food/snacks/grown/tomato = list("tomatojuice" = 0),
+		/obj/item/food/snacks/grown/carrot = list("carrotjuice" = 0),
+		/obj/item/food/snacks/grown/berries = list("berryjuice" = 0),
+		/obj/item/food/snacks/grown/banana = list("banana" = 0),
+		/obj/item/food/snacks/grown/potato = list("potato" = 0),
+		/obj/item/food/snacks/grown/citrus/lemon = list("lemonjuice" = 0),
+		/obj/item/food/snacks/grown/citrus/orange = list("orangejuice" = 0),
+		/obj/item/food/snacks/grown/citrus/lime = list("limejuice" = 0),
+		/obj/item/food/snacks/grown/watermelon = list("watermelonjuice" = 0),
+		/obj/item/food/snacks/watermelonslice = list("watermelonjuice" = 0),
+		/obj/item/food/snacks/grown/berries/poison = list("poisonberryjuice" = 0),
+		/obj/item/food/snacks/grown/pumpkin/blumpkin = list("blumpkinjuice" = 0), //order is important here as blumpkin is a subtype of pumpkin, if switched blumpkins will produce pumpkin juice
+		/obj/item/food/snacks/grown/pumpkin = list("pumpkinjuice" = 0),
+		/obj/item/food/snacks/grown/apple = list("applejuice" = 0),
+		/obj/item/food/snacks/grown/grapes = list("grapejuice" = 0),
+		/obj/item/food/snacks/grown/pineapple = list("pineapplejuice" = 0)
 	)
 
 	var/list/dried_items = list(
 
 		//Grinder stuff, but only if dry,
-		/obj/item/reagent_containers/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/coffee = list("coffeepowder" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/tea/astra = list("teapowder" = 0, "salglu_solution" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/tea = list("teapowder" = 0)
+		/obj/item/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
+		/obj/item/food/snacks/grown/coffee = list("coffeepowder" = 0),
+		/obj/item/food/snacks/grown/tea/astra = list("teapowder" = 0, "salglu_solution" = 0),
+		/obj/item/food/snacks/grown/tea = list("teapowder" = 0)
 	)
 
 	var/list/holdingitems = list()
@@ -178,8 +180,8 @@
 		return TRUE //no afterattack
 
 	if(is_type_in_list(I, dried_items))
-		if(istype(I, /obj/item/reagent_containers/food/snacks/grown))
-			var/obj/item/reagent_containers/food/snacks/grown/G = I
+		if(istype(I, /obj/item/food/snacks/grown))
+			var/obj/item/food/snacks/grown/G = I
 			if(!G.dry)
 				to_chat(user, "<span class='warning'>You must dry that first!</span>")
 				return FALSE
@@ -237,10 +239,16 @@
 /obj/machinery/reagentgrinder/attack_hand(mob/user)
 	ui_interact(user)
 
-/obj/machinery/reagentgrinder/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/reagentgrinder/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/machinery/reagentgrinder/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/reagentgrinder/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ReagentGrinder", name, 400, 500, master_ui, state)
+		ui = new(user, src, "ReagentGrinder", name)
 		ui.open()
 
 /obj/machinery/reagentgrinder/ui_data(mob/user)
@@ -277,8 +285,8 @@
 			items_counts[display_name] += S.amount
 			continue
 
-		else if(istype(O, /obj/item/reagent_containers/food))
-			var/obj/item/reagent_containers/food/food = O
+		else if(isfood(O))
+			var/obj/item/food/food = O
 			if(!items_counts[display_name])
 				if(food.ingredient_name)
 					name_overrides[display_name] = food.ingredient_name
@@ -348,22 +356,22 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/reagentgrinder/proc/is_allowed(obj/item/reagent_containers/O)
-	for (var/i in blend_items)
+	for(var/i in blend_items)
 		if(istype(O, i))
 			return TRUE
 	return FALSE
 
 /obj/machinery/reagentgrinder/proc/get_allowed_by_id(obj/item/O)
-	for (var/i in blend_items)
-		if(istype(O, i))
-			return blend_items[i]
-
-/obj/machinery/reagentgrinder/proc/get_allowed_snack_by_id(obj/item/reagent_containers/food/snacks/O)
 	for(var/i in blend_items)
 		if(istype(O, i))
 			return blend_items[i]
 
-/obj/machinery/reagentgrinder/proc/get_allowed_juice_by_id(obj/item/reagent_containers/food/snacks/O)
+/obj/machinery/reagentgrinder/proc/get_allowed_snack_by_id(obj/item/food/snacks/O)
+	for(var/i in blend_items)
+		if(istype(O, i))
+			return blend_items[i]
+
+/obj/machinery/reagentgrinder/proc/get_allowed_juice_by_id(obj/item/food/snacks/O)
 	for(var/i in juice_items)
 		if(istype(O, i))
 			return juice_items[i]
@@ -376,7 +384,7 @@
 	else
 		return round(O.seed.potency)
 
-/obj/machinery/reagentgrinder/proc/get_juice_amount(obj/item/reagent_containers/food/snacks/grown/O)
+/obj/machinery/reagentgrinder/proc/get_juice_amount(obj/item/food/snacks/grown/O)
 	if(!istype(O) || !O.seed)
 		return 5
 	else if(O.seed.potency == -1)
@@ -405,7 +413,7 @@
 		SStgui.update_uis(src)
 
 	//Snacks
-	for (var/obj/item/reagent_containers/food/snacks/O in holdingitems)
+	for(var/obj/item/food/snacks/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 
@@ -413,7 +421,7 @@
 		if(isnull(allowed))
 			break
 
-		for (var/r_id in allowed)
+		for(var/r_id in allowed)
 
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 			var/amount = get_juice_amount(O)
@@ -432,9 +440,9 @@
 		return
 	if(!beaker || (beaker && beaker.reagents.holder_full()))
 		return
-	playsound(src.loc, 'sound/machines/blender.ogg', 50, 1)
-	var/offset = prob(50) ? -2 : 2
-	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
+	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
+	animate(src, pixel_x = pick(-3, -2, 2, 3), pixel_y = pick(-3, -2, 2, 3), time = 1 DECISECONDS, loop = 20, easing = JUMP_EASING)
+	animate(pixel_x = 0, pixel_y = 0, time = 1 DECISECONDS, easing = JUMP_EASING)
 	operating = TRUE
 	SStgui.update_uis(src)
 	spawn(60)
@@ -443,15 +451,21 @@
 		SStgui.update_uis(src)
 
 	//Snacks and Plants
-	for (var/obj/item/reagent_containers/food/snacks/O in holdingitems)
+	for(var/obj/item/food/snacks/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 
 		var/allowed = get_allowed_snack_by_id(O)
-		if(isnull(allowed))
-			break
+		if(!length(allowed)) // We don't have anything specific allowed therefore we can just transfer everything
+			if(beaker.reagents.holder_full())
+				continue
+			var/amount = O.reagents.total_volume
+			O.reagents.trans_to(beaker, amount)
+			if(!O.reagents.total_volume)
+				remove_object(O)
+			continue
 
-		for (var/r_id in allowed)
+		for(var/r_id in allowed)
 
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 			var/amount = allowed[r_id]
@@ -482,7 +496,7 @@
 			remove_object(O)
 
 	//Sheets and rods(!)
-	for (var/obj/item/stack/O in holdingitems)
+	for(var/obj/item/stack/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 
@@ -495,7 +509,7 @@
 			if(!space) //if no free space - exit
 				break
 			O.amount -= 1 //remove one from stack
-			for (var/r_id in allowed)
+			for(var/r_id in allowed)
 				var/spaceused = min(allowed[r_id] * efficiency, space)
 				space -= spaceused
 				beaker.reagents.add_reagent(r_id, spaceused)
@@ -504,11 +518,11 @@
 				break
 
 	//Plants
-	for (var/obj/item/grown/O in holdingitems)
+	for(var/obj/item/grown/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 		var/allowed = get_allowed_by_id(O)
-		for (var/r_id in allowed)
+		for(var/r_id in allowed)
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 			var/amount = allowed[r_id]
 			if(amount == 0)
@@ -522,7 +536,7 @@
 		remove_object(O)
 
 	//Slime Extractis
-	for (var/obj/item/slime_extract/O in holdingitems)
+	for(var/obj/item/slime_extract/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 		var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
@@ -534,7 +548,7 @@
 		remove_object(O)
 
 	//Everything else - Transfers reagents from it into beaker
-	for (var/obj/item/reagent_containers/O in holdingitems)
+	for(var/obj/item/reagent_containers/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 		var/amount = O.reagents.total_volume

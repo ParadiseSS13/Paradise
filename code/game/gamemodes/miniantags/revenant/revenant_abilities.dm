@@ -67,7 +67,7 @@
 			if(do_after(src, 20, 0, target = target)) //how about now
 				if(!target.stat)
 					to_chat(src, "<span class='revenwarning'>They are now powerful enough to fight off your draining.</span>")
-					to_chat(target, "<span class='boldannounce'>You feel something tugging across your body before subsiding.</span>")
+					to_chat(target, "<span class='boldannounceic'>You feel something tugging across your body before subsiding.</span>")
 					draining = FALSE
 					return //hey, wait a minute...
 				to_chat(src, "<span class='revenminor'>You begin siphoning essence from [target]'s soul.</span>")
@@ -497,7 +497,7 @@
 
 /mob/living/carbon/human/defile()
 	to_chat(src, "<span class='warning'>You suddenly feel [pick("sick and tired", "tired and confused", "nauseated", "dizzy")].</span>")
-	adjustStaminaLoss(60)
+	apply_damage(60, STAMINA)
 	adjustToxLoss(5)
 	AdjustConfused(40 SECONDS, bound_lower = 0, bound_upper = 60 SECONDS)
 	new /obj/effect/temp_visual/revenant(loc)

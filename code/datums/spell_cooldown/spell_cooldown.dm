@@ -29,16 +29,12 @@
 /datum/spell_cooldown/proc/should_end_cooldown()
 	return !is_on_cooldown()
 
-/datum/spell_cooldown/proc/end_recharge()
-	return
-
 /datum/spell_cooldown/process()
 	if(!spell_parent.action)
 		stack_trace("[spell_parent.type] ended up with a null action")
 		return PROCESS_KILL
 	spell_parent.action.UpdateButtonIcon()
 	if(should_end_cooldown())
-		end_recharge()
 		return PROCESS_KILL
 
 

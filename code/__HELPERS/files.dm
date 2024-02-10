@@ -2,7 +2,7 @@
 /proc/wrap_file(filepath)
 	if(IsAdminAdvancedProcCall())
 		// Admins shouldnt fuck with this
-		to_chat(usr, "<span class='boldannounce'>File load blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>File load blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to load files via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to load files via advanced proc-call")
 		return
@@ -12,7 +12,7 @@
 /proc/wrap_file2text(filepath)
 	if(IsAdminAdvancedProcCall())
 		// Admins shouldnt fuck with this
-		to_chat(usr, "<span class='boldannounce'>File load blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>File load blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to load files via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to load files via advanced proc-call")
 		return
@@ -32,11 +32,6 @@
 		return
 
 	return text
-
-//Sends resource files to client cache
-/client/proc/getFiles()
-	for(var/file in args)
-		src << browse_rsc(file)
 
 /client/proc/browse_files(root="data/logs/", max_iterations=10, list/valid_extensions=list("txt", "log", "htm", "json"))
 	// wow why was this ever a parameter
@@ -62,7 +57,7 @@
 
 	var/list/exploded = splittext(path, ".")
 	var/extension = exploded[length(exploded)]
-	if( !fexists(path) || !(extension in valid_extensions) )
+	if(!fexists(path) || !(extension in valid_extensions))
 		to_chat(src, "<font color='red'>Error: browse_files(): File not found/Invalid file([path]).</font>")
 		return
 

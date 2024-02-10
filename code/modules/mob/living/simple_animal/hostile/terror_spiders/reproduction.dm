@@ -67,14 +67,14 @@
 		if(A == src)
 			if(score > 0)
 				new /obj/effect/temp_visual/heart(T) // heart symbol, I am safe here, protected by a friendly spider
-			else if (score == 0)
+			else if(score == 0)
 				new /obj/effect/temp_visual/heal(T) // white "+" symbol, I am neutral here
 			else
 				new /obj/effect/temp_visual/at_shield(T) // octagon symbol, I am unsafe here, I need to flee
 		else
 			if(score > 0)
 				new /obj/effect/temp_visual/telekinesis(T) // blue sparks, this is a safe area, I want to go here
-			else if (score == 0)
+			else if(score == 0)
 				new /obj/effect/temp_visual/revenant(T) // purple sparks, this is a neutral area, an acceptable choice
 			else
 				new /obj/effect/temp_visual/cult/sparks(T) // red sparks, this is an unsafe area, I won't go here unless fleeing something worse

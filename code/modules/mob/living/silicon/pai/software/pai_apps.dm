@@ -21,6 +21,32 @@
 	data["emotions"] = emotions
 	data["current_emotion"] = user.card.current_emotion
 
+	var/list/speech_types = list()
+	for(var/name in user.possible_say_verbs)
+		var/list/speech = list()
+		speech["name"] = name
+		speech["id"] = length(speech_types)
+		speech_types[++speech_types.len] = speech
+
+	data["current_speech_verb"] = user.speech_state
+	data["speech_verbs"] = speech_types
+
+	var/list/chassis_choices = list()
+	var/list/chassises_to_add = list()
+
+	chassis_choices = user.possible_chassis.Copy()
+	if(user.custom_sprite)
+		chassis_choices["Custom"] = "[user.ckey]-pai"
+	for(var/name in chassis_choices)
+		var/list/chassis_to_update_with = list()
+		chassis_to_update_with["name"] = name
+		chassis_to_update_with["icon"] = chassis_choices[name]
+		chassis_to_update_with["id"] = length(chassis_to_update_with)
+		chassises_to_add[++chassises_to_add.len] = chassis_to_update_with
+
+	data["available_chassises"] = chassises_to_add
+	data["current_chassis"] = user.chassis
+
 	var/list/available_s = list()
 	for(var/s in GLOB.pai_software_by_key)
 		var/datum/pai_software/PS = GLOB.pai_software_by_key[s]
@@ -64,6 +90,20 @@
 			var/toggle_key = params["toggle_key"]
 			if(pai_holder.installed_software[toggle_key])
 				pai_holder.installed_software[toggle_key].toggle(pai_holder)
+		if("setSpeechStyle")
+			pai_holder.speech_state = params["speech_state"]
+			var/list/sayverbs = pai_holder.possible_say_verbs[pai_holder.speech_state]
+			pai_holder.speak_statement = sayverbs[1]
+			pai_holder.speak_exclamation = sayverbs[length(sayverbs) > 1 ? 2 : length(sayverbs)]
+			pai_holder.speak_query = sayverbs[length(sayverbs) > 2 ? 3 : length(sayverbs)]
+		if("setChassis")
+			pai_holder.chassis = params["chassis_to_change"]
+			pai_holder.icon_state = pai_holder.chassis
+			if(pai_holder.icon_state == "[pai_holder.ckey]-pai")
+				pai_holder.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+			else
+				pai_holder.icon = 'icons/mob/pai.dmi'
+
 
 // Directives //
 /datum/pai_software/directives

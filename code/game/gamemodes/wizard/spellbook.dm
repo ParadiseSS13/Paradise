@@ -298,10 +298,17 @@
 	category = "Assistance"
 	cost = 1
 
+/datum/spellbook_entry/disguiseself
+	name = "Disguise Self"
+	spell_type = /obj/effect/proc_holder/spell/disguise_self
+	category = "Assistance"
+	cost = 1
+
 /datum/spellbook_entry/noclothes
 	name = "Remove Clothes Requirement"
 	spell_type = /obj/effect/proc_holder/spell/noclothes
 	category = "Assistance"
+	cost = 1
 
 //Rituals
 /datum/spellbook_entry/summon
@@ -468,7 +475,7 @@
 /datum/spellbook_entry/item/everfull_mug
 	name = "Everfull Mug"
 	desc = "A magical mug that can be filled with omnizine at will, though beware of addiction! It can also produce alchohol and other less useful substances."
-	item_path = /obj/item/reagent_containers/food/drinks/everfull
+	item_path = /obj/item/reagent_containers/drinks/everfull
 	cost = 1
 	category = "Artefacts"
 
@@ -549,7 +556,7 @@
 
 /datum/spellbook_entry/item/staffchaos
 	name = "Staff of Chaos"
-	desc = "A caprious tool that can fire all sorts of magic without any rhyme or reason. Using it on people you care about is not recommended."
+	desc = "A curious staff firing bolts of chaotic energy. Any life struck will be the victim of a random effect, usually harming them. No effect on dead targets."
 	item_path = /obj/item/gun/magic/staff/chaos
 	category = "Staves"
 
@@ -614,6 +621,8 @@
 	desc = "A magical contract binding an apprentice wizard to your service, using it will summon them to your side."
 	item_path = /obj/item/contract
 	category = "Summons"
+	limit = 1
+	is_ragin_restricted = TRUE //We have enough wizards already! Sheesh!
 
 /datum/spellbook_entry/item/tarotdeck
 	name = "Guardian Deck"

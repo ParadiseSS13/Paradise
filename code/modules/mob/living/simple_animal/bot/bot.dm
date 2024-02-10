@@ -34,7 +34,7 @@
 
 	var/disabling_timer_id = null
 	var/list/player_access = list()
-	var/emagged = 0
+	var/emagged = FALSE
 	var/obj/item/card/id/access_card			// the ID card that the bot "holds"
 	var/list/prev_access = list()
 	var/on = TRUE
@@ -201,6 +201,9 @@
 
 	return ..()
 
+/mob/living/simple_animal/bot/mob_negates_gravity()
+	return anchored
+
 /mob/living/simple_animal/bot/death(gibbed)
 	// Only execute the below if we successfully died
 	. = ..()
@@ -214,11 +217,10 @@
 /mob/living/simple_animal/bot/emag_act(mob/user)
 	if(locked) //First emag application unlocks the bot's interface. Apply a screwdriver to use the emag again.
 		locked = FALSE
-		emagged = 1
 		to_chat(user, "<span class='notice'>You bypass [src]'s controls.</span>")
-		return
+		return TRUE
 	if(!locked && open) //Bot panel is unlocked by ID or emag, and the panel is screwed open. Ready for emagging.
-		emagged = 2
+		emagged = TRUE
 		remote_disabled = TRUE //Manually emagging the bot locks out the AI built in panel.
 		locked = TRUE //Access denied forever!
 		bot_reset()
@@ -226,7 +228,7 @@
 		to_chat(src, "<span class='userdanger'>(#$*#$^^( OVERRIDE DETECTED</span>")
 		show_laws()
 		add_attack_logs(user, src, "Emagged")
-		return
+		return TRUE
 	else //Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
 		to_chat(user, "<span class='warning'>You need to open maintenance panel first!</span>")
 
@@ -443,10 +445,10 @@
 
 /mob/living/simple_animal/bot/rename_character(oldname, newname)
 	if(!..(oldname, newname))
-		return 0
+		return FALSE
 
 	set_custom_texts()
-	return 1
+	return TRUE
 
 /mob/living/simple_animal/bot/proc/set_custom_texts() //Superclass for setting hack texts. Appears only if a set is not given to a bot locally.
 	text_hack = "You hack [name]."
@@ -469,18 +471,21 @@ scan() will search for a given type (such as turfs, human mobs, or objects) in t
 Arguments: The object type to be searched (such as "/mob/living/carbon/human"), the old scan result to be ignored, if one exists,
 and the view range, which defaults to 7 (full screen) if an override is not passed.
 If the bot maintains an ignore list, it is also checked here.
+If the bot has avoid_bot, which inserts its own path, it will ignore turfs with the same bot type
 
 Example usage: patient = scan(/mob/living/carbon/human, oldpatient, 1)
 The proc would return a human next to the bot to be set to the patient var.
 Pass the desired type path itself, declaring a temporary var beforehand is not required.
 */
-/mob/living/simple_animal/bot/proc/scan(atom/scan_type, atom/old_target, scan_range = DEFAULT_SCAN_RANGE)
+/mob/living/simple_animal/bot/proc/scan(atom/scan_type, atom/old_target, scan_range = DEFAULT_SCAN_RANGE, avoid_bot)
 	var/final_result
 	for(var/scan in view(scan_range, src)) //Search for something in range!
 		var/atom/A = scan
 		if(!istype(A, scan_type)) //Check that the thing we found is the type we want!
 			continue //If not, keep searching!
-		if((A.UID() in ignore_list) || (A == old_target) ) //Filter for blacklisted elements, usually unreachable or previously processed oness
+		if((A.UID() in ignore_list) || (A == old_target)) //Filter for blacklisted elements, usually unreachable or previously processed oness
+			continue
+		if(turf_has_bot(avoid_bot, get_turf(A))) //Ignores targets that already have a bot of the same type on it, meant for cleanbot and floorbot seperation
 			continue
 		var/scan_result = process_scan(A) //Some bots may require additional processing when a result is selected.
 		if(scan_result)
@@ -488,6 +493,14 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		else
 			continue //The current element failed assessment, move on to the next.
 		return final_result
+
+/mob/living/simple_animal/bot/proc/turf_has_bot(avoid_bot, turf/turf_to_search)
+	if(!avoid_bot)
+		return FALSE
+	for(var/bot in turf_to_search)
+		if(istype(bot, avoid_bot))
+			return TRUE
+	return FALSE
 
 //When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
 /mob/living/simple_animal/bot/proc/process_scan(atom/scan_target)
@@ -736,7 +749,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		return FALSE
 
 	// check to see if we are the commanded bot
-	if(emagged == 2 || remote_disabled || hijacked) //Emagged bots do not respect anyone's authority! Bots with their remote controls off cannot get commands.
+	if(emagged || remote_disabled || hijacked) //Emagged bots do not respect anyone's authority! Bots with their remote controls off cannot get commands.
 		return FALSE
 
 	if(client)
@@ -824,7 +837,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/datum/browser/popup = new(M,window_id,window_name,350,600)
 	popup.set_content(dat)
 	popup.open()
-	onclose(M,window_id,ref=src)
+	onclose(M, window_id, src)
 	return
 
 /mob/living/simple_animal/bot/proc/update_controls()
@@ -879,8 +892,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/handle_hacking(mob/M) // refactored out of Topic/ to allow re-use by TGUIs
 	if(!canhack(M))
 		return
-	if(emagged != 2)
-		emagged = 2
+	if(!emagged)
+		emagged = TRUE
 		hacked = TRUE
 		locked = TRUE
 		to_chat(M, "<span class='warning'>[text_hack]</span>")
@@ -890,7 +903,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	else if(!hacked)
 		to_chat(M, "<span class='userdanger'>[text_dehack_fail]</span>")
 	else
-		emagged = 0
+		emagged = FALSE
 		hacked = FALSE
 		to_chat(M, "<span class='notice'>[text_dehack]</span>")
 		show_laws()
@@ -905,7 +918,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		return FALSE
 	if(user.incapacitated() || !(issilicon(user) || in_range(src, user)))
 		return TRUE
-	if(emagged == 2) //An emagged bot cannot be controlled by humans, silicons can if one hacked it.
+	if(emagged) //An emagged bot cannot be controlled by humans, silicons can if one hacked it.
 		if(!hacked) //Manually emagged by a human - access denied to all.
 			return TRUE
 		else if(!(issilicon(user) || ispulsedemon(user))) //Bot is hacked, so only silicons are allowed access.
@@ -919,7 +932,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/hack(mob/user)
 	var/hack
 	if(issilicon(user) || user.can_admin_interact()) //Allows silicons or admins to toggle the emag status of a bot.
-		hack += "[emagged == 2 ? "Software compromised! Unit may exhibit dangerous or erratic behavior." : "Unit operating normally. Release safety lock?"]<BR>"
+		hack += "[emagged ? "Software compromised! Unit may exhibit dangerous or erratic behavior." : "Unit operating normally. Release safety lock?"]<BR>"
 		hack += "Harm Prevention Safety System: <A href='?src=[UID()];operation=hack'>[emagged ? "<span class='bad'>DANGER</span>" : "Engaged"]</A><BR>"
 	else if(!locked) //Humans with access can use this option to hide a bot from the AI's remote control panel and PDA control.
 		hack += "Remote network control radio: <A href='?src=[UID()];operation=remote'>[remote_disabled ? "Disconnected" : "Connected"]</A><BR>"
@@ -1006,7 +1019,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(paicard && paicard.pai && paicard.pai.master && paicard.pai.pai_law0)
 		to_chat(src, "<span class='warning'>Your master, [paicard.pai.master], may overrule any and all laws.</span>")
 		to_chat(src, "0. [paicard.pai.pai_law0]")
-	if(emagged >= 2)
+	if(emagged)
 		to_chat(src, "<span class='danger'>1. #$!@#$32K#$</span>")
 	else
 		to_chat(src, "1. You are a machine built to serve the station's crew and AI(s).")

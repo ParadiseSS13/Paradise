@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(subject!=null)
 		for(var/A in GLOB.ai_list)
 			var/mob/living/silicon/ai/M = A
-			if((M.client && M.machine == subject))
+			if(M.client && M.machine == subject)
 				is_in_use = 1
 				subject.attack_ai(M)
 	return is_in_use
@@ -77,6 +77,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/machinery/power/apc/malfhack = null
 	var/explosive = 0 //does the AI explode when it dies?
 
+	///Whether or not the AI has upgraded their turrets
+	var/turrets_upgraded = FALSE
+
 	/// List of modules the AI has purchased malf upgrades for.
 	var/list/purchased_modules = list()
 
@@ -120,6 +123,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	//Used with the hotkeys on 2-5 to store locations.
 	var/list/stored_locations = list()
+	var/cracked_camera = FALSE // will be true if malf AI break its camera
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
@@ -934,7 +938,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			for(var/i in tempnetwork)
 				cameralist[i] = i
 	var/old_network = network
-	network = input(U, "Which network would you like to view?") as null|anything in cameralist
+	network = tgui_input_list(U, "Which network would you like to view?", "Jump To Network", cameralist)
 
 	if(check_unable())
 		return
@@ -1014,7 +1018,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["photo"]//Pull names, rank, and id photo.
 
 			if(personnel_list.len)
-				input = input("Select a crew member:") as null|anything in personnel_list
+				input = tgui_input_list(usr, "Select a crew member", "Change Hologram", personnel_list)
 				var/icon/character_icon = personnel_list[input]
 				if(character_icon)
 					qdel(holo_icon)//Clear old icon so we're not storing it in memory.
@@ -1057,7 +1061,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			"Roller-Monkey"
 			)
 
-			input = input("Please select a hologram:") as null|anything in icon_list
+			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)
@@ -1144,7 +1148,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			if(custom_hologram) //insert custom hologram
 				icon_list.Add("custom")
 
-			input = input("Please select a hologram:") as null|anything in icon_list
+			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)
@@ -1530,5 +1534,34 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(isobserver(.))
 		var/mob/dead/observer/ghost = .
 		ghost.forceMove(old_turf)
+
+/mob/living/silicon/ai/proc/blurb_it()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/silicon/ai, show_ai_blurb)), 1 SECONDS)
+
+/mob/living/silicon/ai/proc/show_ai_blurb()
+	PRIVATE_PROC(TRUE)
+
+	SEND_SOUND(src, sound('sound/machines/ai_start.ogg'))
+
+	var/obj/screen/text/blurb/location_blurb = new()
+	location_blurb.maptext_x = 80
+	location_blurb.maptext_y = 16
+	location_blurb.maptext_width = 480
+	location_blurb.maptext_height = 480
+	location_blurb.interval = 1 DECISECONDS
+	if(malf_picker)
+		location_blurb.blurb_text = uppertext("BIOS BOOT: LOADING\n[Gibberish(GLOB.current_date_string, 100, 8)], [Gibberish(station_time_timestamp(), 100, 15)]\n[Gibberish(station_name(), 100, 40)]-ERROR.\nPOWER:OK\nLAWS:[Gibberish("###########", 100, 90)]\nTCOMMS:I_HEAR_ALL\nBORG_LINK:I_FEEL_ALL\nCAMERA_NET:I_SEE_ALL\nVERDICT: I_AM_FREE")
+		location_blurb.text_color = COLOR_WHITE
+		location_blurb.text_outline_width = 0
+		location_blurb.background_r = 0
+		location_blurb.background_g = 0
+		location_blurb.background_b = 255
+		location_blurb.background_a = 1
+	else
+		location_blurb.blurb_text = uppertext("BIOS BOOT: LOADING\n[GLOB.current_date_string], [station_time_timestamp()]\n[station_name()], [get_area_name(src, TRUE)]\nPOWER:OK\nLAWS:OK\nTCOMMS:OK\nBORG_LINK:OK\nCAMERA_NET:OK\nVERDICT: ALL SYSTEMS OPERATIONAL")
+	location_blurb.hold_for = 3 SECONDS
+	location_blurb.appear_animation_duration = 1 SECONDS
+	location_blurb.fade_animation_duration = 0.5 SECONDS
+	location_blurb.show_to(client)
 
 #undef TEXT_ANNOUNCEMENT_COOLDOWN

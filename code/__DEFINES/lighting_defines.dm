@@ -120,7 +120,7 @@ GLOBAL_LIST_INIT(em_mask_matrix, EM_MASK_MATRIX)
 /// Parse the hexadecimal color into lumcounts of each perspective.
 #define PARSE_LIGHT_COLOR(source) \
 do { \
-	if (source.light_color) { \
+	if(source.light_color) { \
 		var/__light_color = source.light_color; \
 		source.lum_r = GETREDPART(__light_color) / 255; \
 		source.lum_g = GETGREENPART(__light_color) / 255; \
@@ -130,4 +130,4 @@ do { \
 		source.lum_g = 1; \
 		source.lum_b = 1; \
 	}; \
-} while (FALSE)
+} while(FALSE)

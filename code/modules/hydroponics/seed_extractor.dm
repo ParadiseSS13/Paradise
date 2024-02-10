@@ -16,8 +16,8 @@
 	if(extractor)
 		seedloc = extractor.loc
 
-	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/))
-		var/obj/item/reagent_containers/food/snacks/grown/F = O
+	if(istype(O, /obj/item/food/snacks/grown))
+		var/obj/item/food/snacks/grown/F = O
 		if(F.seed)
 			if(user && !user.drop_item()) //couldn't drop the item
 				return
@@ -94,7 +94,7 @@
 			loaded++
 			add_seed(G, user)
 
-		if (loaded)
+		if(loaded)
 			to_chat(user, "<span class='notice'>You transfer [loaded] seeds from [O] into [src].</span>")
 		else
 			to_chat(user, "<span class='notice'>There are no seeds in [O].</span>")
@@ -103,7 +103,7 @@
 	else if(seedify(O,-1, src, user))
 		to_chat(user, "<span class='notice'>You extract some seeds.</span>")
 		return
-	else if (istype(O,/obj/item/seeds))
+	else if(istype(O,/obj/item/seeds))
 		if(add_seed(O, user))
 			to_chat(user, "<span class='notice'>You add [O] to [name].</span>")
 			updateUsrDialog()
@@ -122,10 +122,13 @@
 /obj/machinery/seed_extractor/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/seed_extractor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/seed_extractor/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/seed_extractor/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SeedExtractor", name, 800, 400, master_ui, state)
+		ui = new(user, src, "SeedExtractor", name)
 		ui.open()
 
 /obj/machinery/seed_extractor/ui_data(mob/user)
@@ -157,13 +160,13 @@
 	. = FALSE
 	switch(action)
 		if("vend")
-			vend_seed(text2num(params["seedid"]), params["seedvariant"], vend_amount)
+			vend_seed(params["seedid"], params["seedvariant"], vend_amount)
 			add_fingerprint(usr)
 			. = TRUE
 		if("set_vend_amount")
 			if(!length(params["vend_amount"]))
 				return
-			vend_amount = clamp(text2num(params["vend_amount"]), 1, MAX_DISPENSE_SEEDS)
+			vend_amount = clamp(params["vend_amount"], 1, MAX_DISPENSE_SEEDS)
 			add_fingerprint(usr)
 			. = TRUE
 
@@ -209,7 +212,7 @@
 		S.remove_from_storage(O, src)
 
 	for(var/datum/seed_pile/N in piles) //this for loop physically hurts me
-		if (O.plantname == N.name && O.variant == N.variant && O.lifespan == N.lifespan && O.endurance == N.endurance && O.maturation == N.maturation && O.production == N.production && O.yield == N.yield && O.potency == N.potency)
+		if(O.plantname == N.name && O.variant == N.variant && O.lifespan == N.lifespan && O.endurance == N.endurance && O.maturation == N.maturation && O.production == N.production && O.yield == N.yield && O.potency == N.potency)
 			N.amount++
 			O.forceMove(src)
 			return

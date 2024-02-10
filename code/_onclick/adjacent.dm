@@ -87,13 +87,13 @@
 */
 /turf/proc/ClickCross(target_dir, border_only, target_atom = null)
 	for(var/obj/O in src)
-		if( !O.density || O == target_atom || (O.pass_flags & LETPASSTHROW))
+		if(!O.density || O == target_atom || (O.pass_flags & LETPASSTHROW))
 			continue // LETPASSTHROW is used for anything you can click through
 
-		if( O.flags&ON_BORDER) // windows are on border, check them first
-			if( O.dir & target_dir || O.dir&(O.dir-1) ) // full tile windows are just diagonals mechanically
+		if(O.flags&ON_BORDER) // windows are on border, check them first
+			if(O.dir & target_dir || O.dir&(O.dir-1)) // full tile windows are just diagonals mechanically
 				return 0
 
-		else if( !border_only ) // dense, not on border, cannot pass over
+		else if(!border_only) // dense, not on border, cannot pass over
 			return 0
 	return 1

@@ -191,20 +191,20 @@
 
 /obj/machinery/power/teg/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!default_unfasten_wrench(user, I, 0))
 		return
-	anchored = !anchored
 	if(!anchored)
 		disconnect()
-		power_change()
 	else
 		connect()
-	to_chat(user, "<span class='notice'>You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor.</span>")
 
-/obj/machinery/power/teg/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/power/teg/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/power/teg/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TEG",  name, 500, 400, master_ui, state)
+		ui = new(user, src, "TEG",  name)
 		ui.open()
 
 /obj/machinery/power/teg/ui_data(mob/user)

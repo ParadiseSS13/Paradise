@@ -225,8 +225,7 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(affected)
-		var/mob/living/carbon/C = target
-		C.custom_pain("The pain in your [affected.name] is living hell!")
+		affected.custom_pain("The pain in your [affected.name] is living hell!")
 
 	return ..()
 
@@ -308,7 +307,7 @@
 		organs -= O
 		organs[O.name] = O
 
-	var/obj/item/organ/internal/I = input("Remove which organ?", "Surgery", null, null) as null|anything in organs
+	var/obj/item/organ/internal/I = tgui_input_list(user, "Remove which organ?", "Surgery", organs)
 	if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
 		extracting = organs[I]
 		if(!extracting)
@@ -320,7 +319,7 @@
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/affected = H.get_organ(user.zone_selected)
 		if(H && affected)
-			H.custom_pain("The pain in your [affected.name] is living hell!")
+			affected.custom_pain("The pain in your [affected.name] is living hell!")
 	else
 		return SURGERY_BEGINSTEP_SKIP
 
@@ -378,11 +377,11 @@
 	name = "implant an organ"
 	allowed_tools = list(
 		/obj/item/organ/internal = 100,
-		/obj/item/reagent_containers/food/snacks/organ = 0  // there for the flavor text
+		/obj/item/food/snacks/organ = 0  // there for the flavor text
 	)
 
 /datum/surgery_step/internal/manipulate_organs/implant/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(istype(tool, /obj/item/reagent_containers/food/snacks/organ))
+	if(istype(tool, /obj/item/food/snacks/organ))
 		to_chat(user, "<span class='warning'>[tool] was bitten by someone! It's too damaged to use!</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
@@ -395,6 +394,10 @@
 
 	if(I.requires_robotic_bodypart)
 		to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface! [target]'s [parse_zone(target_zone)] does not have one.</span>")
+		return SURGERY_BEGINSTEP_SKIP
+
+	if(I.requires_machine_person && !ismachineperson(target))
+		to_chat(user, "<span class='warning'>[I] is an organ that requires an IPC interface! [target]'s [parse_zone(target_zone)] does not have one.</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
@@ -414,8 +417,7 @@
 			"[user] starts transplanting [tool] into [target]'s [affected.name].",
 			"You start transplanting [tool] into [target]'s [affected.name]."
 		)
-		var/mob/living/carbon/human/H = target
-		H.custom_pain("Someone's rooting around in your [affected.name]!")
+		affected.custom_pain("Someone's rooting around in your [affected.name]!")
 	else
 		user.visible_message(
 			"[user] starts transplanting [tool] into [target]'s [parse_zone(target_zone)].",
@@ -429,7 +431,10 @@
 	if(!istype(tool))
 		return SURGERY_STEP_INCOMPLETE
 	if(I.requires_robotic_bodypart)
-		to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
+		to_chat(user, "<span class='warning'>[I] requires a robotic interface.</span>")
+		return SURGERY_STEP_INCOMPLETE
+	if(I.requires_machine_person && !ismachineperson(target))
+		to_chat(user, "<span class='warning'>[I] requires an IPC interface!</span>")
 		return SURGERY_STEP_INCOMPLETE
 	if(!user.drop_item())
 		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
@@ -464,8 +469,8 @@
 		/obj/item/reagent_containers/dropper = 100,
 		/obj/item/reagent_containers/syringe = 100,
 		/obj/item/reagent_containers/glass/bottle = 90,
-		/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
-		/obj/item/reagent_containers/food/drinks/bottle = 80,
+		/obj/item/reagent_containers/drinks/drinkingglass = 85,
+		/obj/item/reagent_containers/drinks/bottle = 80,
 		/obj/item/reagent_containers/glass/beaker = 75,
 		/obj/item/reagent_containers/spray = 60,
 		/obj/item/reagent_containers/glass/bucket = 50
@@ -495,7 +500,7 @@
 			msg = "[user] begins injecting [tool] into [target]'s [I.name]."
 			self_msg = "You begin injecting [tool] into [target]'s [I.name]."
 		user.visible_message(msg, self_msg)
-		target.custom_pain("Something burns horribly in your [parse_zone(target_zone)]!")
+		affected.custom_pain("Something burns horribly in your [parse_zone(target_zone)]!")
 
 	return ..()
 
@@ -633,7 +638,7 @@
 		user.visible_message(msg, self_msg)
 
 	if(H && affected)
-		H.custom_pain("Something hurts horribly in your [affected.name]!")
+		affected.custom_pain("Something hurts horribly in your [affected.name]!")
 
 	return ..()
 
@@ -822,7 +827,7 @@
 		"[user] is beginning to cauterize the incision on [target]'s [zone] with \the [tool].",
 		"You are beginning to cauterize the incision on [target]'s [zone] with \the [tool]."
 	)
-	target.custom_pain("Your [zone] is being burned!")
+	to_chat(user, "<span class='userdanger'>Your [zone] is being burned!</span>") // No custom pain because xenos are special
 	return ..()
 
 /datum/surgery_step/generic/seal_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

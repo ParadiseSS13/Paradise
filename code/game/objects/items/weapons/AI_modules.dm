@@ -24,11 +24,19 @@ AI MODULES
 
 /obj/item/aiModule/Initialize(mapload)
 	. = ..()
+	if(mapload && HAS_TRAIT(SSstation, STATION_TRAIT_UNIQUE_AI) && is_station_level(z))
+		var/delete_module = handle_unique_ai()
+		if(delete_module)
+			return INITIALIZE_HINT_QDEL
 	if(laws)
 		desc += "<br>"
 		for(var/datum/ai_law/current in laws.inherent_laws)
 			desc += current.law
 			desc += "<br>"
+
+///what this module should do if it is mapload spawning on a unique AI station trait round.
+/obj/item/aiModule/proc/handle_unique_ai()
+	return TRUE // If this returns true, it will be deleted on roundstart
 
 /obj/item/aiModule/proc/install(obj/machinery/computer/C)
 	if(istype(C, /obj/machinery/computer/aiupload))
@@ -241,6 +249,9 @@ AI MODULES
 	to_chat(target, "<span class='boldnotice'>[sender.real_name] attempted to reset your laws using a reset module.</span>")
 	target.show_laws()
 
+/obj/item/aiModule/reset/handle_unique_ai()
+	return FALSE
+
 /******************** Purge ********************/
 /obj/item/aiModule/purge // -- TLE
 	name = "\improper Purge AI module"
@@ -347,7 +358,7 @@ AI MODULES
 	name = "\improper Pranksimov core AI module"
 	desc = "A 'Pranksimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "pranksimov"
-	origin_tech = "programming=3;syndicate=2"
+	origin_tech = "programming=3;syndicate=1"
 	laws = new /datum/ai_laws/pranksimov()
 
 /******************** NT Aggressive ********************/

@@ -117,13 +117,19 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 				break
 
 	var/list/all_jobs = get_job_datums()
+	var/is_custom_job = TRUE
 
 	for(var/datum/job/J in all_jobs)
 		var/list/alttitles = get_alternate_titles(J.title)
-		if(!J)	continue
+		if(J.title == real_title)
+			is_custom_job = FALSE
 		if(assignment in alttitles)
 			real_title = J.title
+			is_custom_job = FALSE
 			break
+
+	if(is_custom_job && foundrecord)
+		real_title = foundrecord.fields["real_rank"]
 
 	if(foundrecord)
 		foundrecord.fields["rank"] = assignment
@@ -160,9 +166,17 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		G.fields["m_stat"]		= "Stable"
 		G.fields["sex"]			= capitalize(H.gender)
 		G.fields["species"]		= H.dna.species.name
-		G.fields["photo"]		= get_id_photo(H)
-		G.fields["photo-south"] = "data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = SOUTH))]"
-		G.fields["photo-west"] = "data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = WEST))]"
+		// Do some ID card checking stuff here to save on resources
+		var/card_photo
+		if(istype(H.wear_id, /obj/item/card/id))
+			var/obj/item/card/id/IDC = H.wear_id
+			card_photo = IDC.photo
+		else
+			card_photo = get_id_photo(H)
+
+		G.fields["photo"] = card_photo
+		G.fields["photo-south"] = "data:image/png;base64,[icon2base64(icon(card_photo, dir = SOUTH))]"
+		G.fields["photo-west"] = "data:image/png;base64,[icon2base64(icon(card_photo, dir = WEST))]"
 		if(H.gen_record && !jobban_isbanned(H, ROLEBAN_RECORDS))
 			G.fields["notes"] = H.gen_record
 		else
@@ -387,9 +401,6 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if("Librarian")
 			clothes_s = new /icon('icons/mob/clothing/under/civilian.dmi', "red_suit_s")
-			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
-		if("Barber")
-			clothes_s = new /icon('icons/mob/clothing/under/civilian.dmi', "barber_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if("Clown")
 			clothes_s = new /icon('icons/mob/clothing/under/civilian.dmi', "clown_s")

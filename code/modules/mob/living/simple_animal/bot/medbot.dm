@@ -101,7 +101,7 @@
 	Radio.syndiekey = new /obj/item/encryptionkey/syndicate
 
 /mob/living/simple_animal/bot/medbot/syndicate/emagged
-	emagged = 2
+	emagged = TRUE
 	declare_crit = FALSE
 	drops_parts = FALSE
 
@@ -157,10 +157,13 @@
 /mob/living/simple_animal/bot/medbot/show_controls(mob/user)
 	ui_interact(user)
 
-/mob/living/simple_animal/bot/medbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/simple_animal/bot/medbot/ui_state(mob/user)
+	return GLOB.default_state
+
+/mob/living/simple_animal/bot/medbot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotMed", name, 500, 520)
+		ui = new(user, src, "BotMed", name)
 		ui.open()
 
 /mob/living/simple_animal/bot/medbot/ui_data(mob/user)
@@ -187,7 +190,7 @@
 	return data
 
 /mob/living/simple_animal/bot/medbot/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	if (..())
+	if(..())
 		return
 	if(topic_denied(usr))
 		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
@@ -248,7 +251,7 @@
 		W.forceMove(src)
 		reagent_glass = W
 		to_chat(user, "<span class='notice'>You insert [W].</span>")
-		ui_interact(user, force_open=FALSE)
+		ui_interact(user)
 
 	else
 		var/current_health = health
@@ -258,7 +261,7 @@
 
 /mob/living/simple_animal/bot/medbot/emag_act(mob/user)
 	..()
-	if(emagged == 2)
+	if(emagged)
 		declare_crit = FALSE
 		if(user)
 			to_chat(user, "<span class='notice'>You short out [src]'s reagent synthesis circuits.</span>")
@@ -412,7 +415,7 @@
 		if(H.dna.species && H.dna.species.reagent_tag == PROCESS_SYN)
 			return FALSE
 
-	if(emagged == 2 || hijacked) //Everyone needs our medicine. (Our medicine is toxins)
+	if(emagged || hijacked) //Everyone needs our medicine. (Our medicine is toxins)
 		return TRUE
 
 	if(syndicate_aligned && !("syndicate" in C.faction))
@@ -461,7 +464,7 @@
 	var/reagent_id
 	var/beaker_injection //If and what kind of beaker reagent needs to be injected
 
-	if(emagged == 2 || hijacked) //Emagged! Time to poison everybody.
+	if(emagged || hijacked) //Emagged! Time to poison everybody.
 		reagent_id = "pancuronium"
 	else
 		beaker_injection = assess_beaker_injection(C)

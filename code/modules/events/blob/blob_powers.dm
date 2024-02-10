@@ -80,7 +80,7 @@
 			to_chat(src, "<span class='warning'>This shield blob is too damaged to be modified properly!</span>")
 			return
 
-		else if (!can_buy(15))
+		else if(!can_buy(15))
 			return
 
 		to_chat(src, "<span class='warning'>You secrete a reflective ooze over the shield blob, allowing it to reflect energy projectiles at the cost of reduced intregrity.</span>")

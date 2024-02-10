@@ -97,13 +97,7 @@
 	if(charging)
 		to_chat(user, "<span class='warning'>Remove the charging item first!</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	anchored = !anchored
-	if(anchored)
-		WRENCH_ANCHOR_MESSAGE
-	else
-		WRENCH_UNANCHOR_MESSAGE
+	default_unfasten_wrench(user, I, 0)
 
 /obj/machinery/recharger/attack_hand(mob/user)
 	if(issilicon(user))

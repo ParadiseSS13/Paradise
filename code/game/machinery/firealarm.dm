@@ -103,7 +103,8 @@ FIRE ALARM
 		if(user)
 			user.visible_message("<span class='warning'>Sparks fly out of [src]!</span>",
 								"<span class='notice'>You emag [src], disabling its thermal sensors.</span>")
-		playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
+		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
+		return TRUE
 
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
 	..()
@@ -220,7 +221,7 @@ FIRE ALARM
 				alarm()
 
 /obj/machinery/firealarm/singularity_pull(S, current_size)
-	if (current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects, the fire alarm experiences integrity failure
+	if(current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects, the fire alarm experiences integrity failure
 		deconstruct()
 	..()
 

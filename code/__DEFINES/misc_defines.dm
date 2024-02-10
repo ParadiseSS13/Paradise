@@ -313,6 +313,23 @@
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
 
+// These comments mirror the below define in the order of operations to help you understand what it is doing
+		// Check if datum I is a mob
+		// If I is a mob, return the client of mob I
+		// Else, check to see if I is a client
+			// If I is a client, return I
+			// Else, check to see if I is a mind
+				// If I is a mind, try and return the mind's current mob's client
+
+/// Return a Client
+#define CLIENT_FROM_VAR(I) (ismob(I)			\
+		? I:client								\
+		: istype(I, /client)					\
+				? I								\
+				: istype(I, /datum/mind			\
+						? I:current?:client		\
+						: null))
+
 // Macro to get the current elapsed round time, rather than total world runtime
 #define ROUND_TIME (SSticker.time_game_started ? (world.time - SSticker.time_game_started) : 0)
 
@@ -514,6 +531,7 @@
 
 // Runechat symbol types
 #define RUNECHAT_SYMBOL_EMOTE 1
+#define RUNECHAT_SYMBOL_LOOC 2
 
 /// Waits at a line of code until X is true
 #define UNTIL(X) while(!(X)) sleep(world.tick_lag)
@@ -577,3 +595,13 @@
 /// It will only work for datums mind, for datum reasons
 /// : because of the embedded typecheck
 #define text_ref(datum) (isdatum(datum) ? (datum:cached_ref ||= "\ref[datum]") : ("\ref[datum]"))
+
+#define ROUND_END_NUCLEAR 1
+#define ROUND_END_CREW_TRANSFER 2
+#define ROUND_END_FORCED 3
+
+#define TS_INFESTATION_GREEN_SPIDER 1
+#define TS_INFESTATION_PRINCE_SPIDER 2
+#define TS_INFESTATION_WHITE_SPIDER 3
+#define TS_INFESTATION_PRINCESS_SPIDER 4
+#define TS_INFESTATION_QUEEN_SPIDER 5

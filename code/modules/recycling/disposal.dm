@@ -271,10 +271,13 @@
 		update()
 	return
 
-/obj/machinery/disposal/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/disposal/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/disposal/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "DisposalBin", name, 300, 250, master_ui, state)
+		ui = new(user, src, "DisposalBin", name)
 		ui.open()
 
 
@@ -400,8 +403,8 @@
 		return
 
 	flush_count++
-	if( flush_count >= flush_every_ticks )
-		if( contents.len )
+	if(flush_count >= flush_every_ticks)
+		if(contents.len)
 			if(mode == 2)
 				spawn(0)
 					flush()
@@ -409,7 +412,7 @@
 
 	src.updateDialog()
 
-	if(flush && air_contents.return_pressure() >= SEND_PRESSURE )	// flush can happen even without power
+	if(flush && air_contents.return_pressure() >= SEND_PRESSURE)	// flush can happen even without power
 		flush()
 
 	if(stat & NOPOWER)			// won't charge if no power

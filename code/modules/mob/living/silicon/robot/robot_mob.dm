@@ -105,7 +105,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
 
 	var/default_cell_type = /obj/item/stock_parts/cell/high
-	var/magpulse = FALSE
 	var/ionpulse = FALSE // Jetpack-like effect.
 	var/ionpulse_on = FALSE // Jetpack-like effect.
 	/// Does it clean the tile under it?
@@ -209,7 +208,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/rename_character(oldname, newname)
 	if(!..(oldname, newname))
-		return 0
+		return FALSE
 
 	if(oldname != real_name)
 		notify_ai(3, oldname, newname)
@@ -226,7 +225,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(mmi && mmi.brainmob)
 		mmi.brainmob.name = newname
 
-	return 1
+	return TRUE
 
 /mob/living/silicon/robot/proc/check_custom_sprite()
 	if(!custom_sprite && (ckey in GLOB.configuration.custom_sprites.cyborg_ckeys))
@@ -292,7 +291,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			mind.transfer_to(mmi.brainmob)
 			mmi.update_icon()
 		else
-			to_chat(src, "<span class='boldannounce'>Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug.</span>")
+			to_chat(src, "<span class='boldannounceooc'>Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug.</span>")
 			ghostize()
 			stack_trace("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
 		mmi = null
@@ -463,7 +462,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module.channels = list("Engineering" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network += "Engineering"
-			magpulse = TRUE
 		if("Janitor")
 			module = new /obj/item/robot_module/janitor(src)
 			module.channels = list("Service" = 1)
@@ -543,7 +541,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	speed = 0 // Remove upgrades.
 	ionpulse = FALSE
-	magpulse = FALSE
 	weapons_unlock = FALSE
 	add_language("Robot Talk", TRUE)
 	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
@@ -585,7 +582,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(!C.is_missing())
 			installed_components += V
 
-	var/toggle = input(src, "Which component do you want to toggle?", "Toggle Component") as null|anything in installed_components
+	var/toggle = tgui_input_list(src, "Which component do you want to toggle?", "Toggle Component", installed_components)
 	if(!toggle)
 		return
 
@@ -939,7 +936,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			removable_components += V
 	if(module)
 		removable_components += module.custom_removals
-	var/remove = input(user, "Which component do you want to pry out?", "Remove Component") as null|anything in removable_components
+	var/remove = tgui_input_list(user, "Which component do you want to pry out?", "Remove Component", removable_components)
 	if(!remove || !Adjacent(user) || !opened)
 		return
 
@@ -993,6 +990,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else if(locked)
 			to_chat(user, "You emag the cover lock.")
 			locked = FALSE
+			return TRUE
 		else
 			to_chat(user, "The cover is already unlocked.")
 		return
@@ -1048,7 +1046,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				update_module_icon()
 				module.rebuild_modules() // This will add the emagged items to the borgs inventory.
 			update_icons()
-		return
+		return TRUE
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
 	set category = "Robot Commands"
@@ -1294,8 +1292,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(W)
 		W.attack_self(src)
 
-	return
-
 /mob/living/silicon/robot/proc/SetLockdown(state = 1)
 	// They stay locked down if their wire is cut.
 	if(wires.is_cut(WIRE_BORG_LOCKED))
@@ -1368,7 +1364,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	has_camera = FALSE
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = TRUE
-	magpulse = TRUE
 	pdahide = TRUE
 	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
 	ear_protection = TRUE // Immunity to the audio part of flashbangs
@@ -1448,7 +1443,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	force_modules = list("Combat", "Engineering", "Medical")
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
-	magpulse = TRUE
 
 
 /mob/living/silicon/robot/destroyer
@@ -1462,7 +1456,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	has_camera = FALSE
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = TRUE
-	magpulse = TRUE
 	pdahide = TRUE
 	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
 	ear_protection = TRUE // Immunity to the audio part of flashbangs

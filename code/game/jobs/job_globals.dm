@@ -67,7 +67,6 @@ GLOBAL_LIST_INIT(support_positions, list(
 	"Chaplain",
 	"Clown",
 	"Mime",
-	"Barber",
 	"Explorer"
 ))
 

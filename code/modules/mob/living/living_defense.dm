@@ -42,6 +42,7 @@
 	return FALSE
 
 /mob/living/bullet_act(obj/item/projectile/P, def_zone)
+	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	//Armor
 	var/armor = run_armor_check(def_zone, P.flag, armour_penetration_flat = P.armour_penetration_flat, armour_penetration_percentage = P.armour_penetration_percentage)
 	if(!P.nodamage)
@@ -75,7 +76,7 @@
 			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
 			explosion(loc, -1, 0, 2, 2)
 	else
-		adjustStaminaLoss(shock_damage)
+		apply_damage(shock_damage, STAMINA)
 	visible_message(
 		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
 		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
