@@ -438,7 +438,7 @@
 	lastfired = world.time
 	var/turf/T = loc
 	var/atom/U = (istype(target, /atom/movable) ? target.loc : target)
-	if((!U || !T))
+	if(!U || !T)
 		return
 	while(!isturf(U))
 		U = U.loc
@@ -504,11 +504,11 @@
 /mob/living/simple_animal/bot/ed209/bullet_act(obj/item/projectile/Proj)
 	if(!disabled)
 		var/lasertag_check = 0
-		if((lasercolor == "b"))
+		if(lasercolor == "b")
 			if(istype(Proj, /obj/item/projectile/beam/lasertag/redtag))
 				lasertag_check++
 
-		else if((lasercolor == "r"))
+		else if(lasercolor == "r")
 			if(istype(Proj, /obj/item/projectile/beam/lasertag/bluetag))
 				lasertag_check++
 
