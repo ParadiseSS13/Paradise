@@ -165,6 +165,7 @@
 	fire_sound = 'sound/weapons/taser2.ogg'
 	harmful = FALSE
 	delay = 0.6 SECONDS
+
 /obj/item/ammo_casing/energy/disabler/smg
 	projectile_type = /obj/item/projectile/beam/disabler/weak
 	e_cost = 25
