@@ -50,7 +50,7 @@
 	return
 
 /obj/item/food/snacks/attack(mob/M, mob/user, def_zone)
-	if(user.a_intent == INTENT_HARM && src.force > 0)
+	if(user.a_intent == INTENT_HARM && force)
 		return ..()
 	if(reagents && !reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
