@@ -467,7 +467,7 @@
 
 /datum/action/innate/ai/ranged/overload_machine
 	name = "Overload Machine"
-	desc = "Overheats a machine, causing a small explosion after a short time."
+	desc = "Overheats a machine, causing a moderately-sized explosion after a short time."
 	button_icon_state = "overload_machine"
 	uses = 4
 	linked_ability_type = /obj/effect/proc_holder/ranged_ai/overload_machine
