@@ -1,7 +1,6 @@
 /obj/item/gun/energy/taser
 	name = "taser gun"
 	desc = "A small, low capacity gun used for non-lethal takedowns."
-	weapon_weight = WEAPON_HEAVY
 	icon_state = "taser"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	origin_tech = "combat=3"
