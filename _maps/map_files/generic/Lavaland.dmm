@@ -4530,6 +4530,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
@@ -4956,6 +4957,11 @@
 	icon_state = "darkpurplecorners"
 	},
 /area/mine/outpost/hallway/west)
+"qY" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "ra" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -8857,6 +8863,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 10
@@ -15999,7 +16006,7 @@ CU
 CU
 KI
 KI
-KI
+qY
 oi
 bh
 hb
