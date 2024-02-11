@@ -8791,7 +8791,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/engine,
-/area/station/engineering/engine/supermatter)
+/area/station/engineering/controlroom)
 "aFZ" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -126204,7 +126204,7 @@ aBk
 aCh
 aDb
 ayM
-aAa
+ayM
 aFZ
 xVK
 aID
