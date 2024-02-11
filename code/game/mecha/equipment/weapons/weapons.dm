@@ -443,7 +443,7 @@
 	set_ready_state(0)
 	var/obj/item/assembly/mousetrap/armed/M = new projectile(chassis.loc)
 	M.secured = TRUE
-	playsound(chassis, fire_sound, 60, 1)
+	playsound(chassis, fire_sound, 60, TRUE)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Launched a mouse-trap from [name], targeting [target]. HONK!")
