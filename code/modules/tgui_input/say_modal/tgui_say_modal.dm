@@ -20,8 +20,6 @@
 /datum/tgui_say
 	/// The user who opened the window
 	var/client/client
-	/// Injury phrases to blurt out
-	var/static/list/hurt_phrases = list("AGH!", "OUF!", "OOF!", "AUGH!", "OW!", "URGH!", "ACK!")
 	/// The modal window
 	var/datum/tgui_window/window
 	/// Boolean for whether the tgui_say was opened by the user.
@@ -118,8 +116,8 @@
 		if("typing")
 			start_typing(payload["isMeChannel"])
 			return TRUE
-		if("entry", "force")
-			handle_entry(type, payload)
+		if("entry")
+			handle_entry(payload)
 			return TRUE
 
 	return FALSE
