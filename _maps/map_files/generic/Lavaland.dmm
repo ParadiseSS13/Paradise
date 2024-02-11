@@ -1011,7 +1011,15 @@
 	},
 /area/mine/outpost/mechbay)
 "cZ" = (
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/structure/rack,
+/obj/item/pickaxe/safety,
+/obj/item/flashlight/lantern,
+/obj/item/mining_scanner,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/head/beanie/orange,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/workboots,
+/obj/item/clothing/suit/storage/hazardvest,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 1
@@ -4500,7 +4508,8 @@
 /turf/simulated/wall,
 /area/mine/outpost/cafeteria)
 "of" = (
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/structure/table,
+/obj/item/reagent_containers/spray/pepper,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -4972,7 +4981,11 @@
 /turf/simulated/wall,
 /area/mine/outpost/lockers)
 "rm" = (
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/structure/table,
+/obj/item/storage/fancy/cigarettes/cigpack_random,
+/obj/item/lighter/random{
+	pixel_x = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -6703,7 +6716,15 @@
 /area/shuttle/mining)
 "Ch" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/structure/rack,
+/obj/item/pickaxe/safety,
+/obj/item/flashlight/lantern,
+/obj/item/mining_scanner,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/head/beanie/orange,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/workboots,
+/obj/item/clothing/suit/storage/hazardvest,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 1
@@ -8303,7 +8324,15 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "MI" = (
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/structure/rack,
+/obj/item/pickaxe/safety,
+/obj/item/flashlight/lantern,
+/obj/item/mining_scanner,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/head/beanie/orange,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/workboots,
+/obj/item/clothing/suit/storage/hazardvest,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 5
@@ -9082,12 +9111,13 @@
 /turf/simulated/wall,
 /area/mine/outpost/production)
 "Sk" = (
-/obj/machinery/suit_storage_unit/lavaland,
 /obj/machinery/camera{
 	c_tag = "Labor Camp Monitoring";
 	network = list("Labor Camp");
 	dir = 6
 	},
+/obj/structure/table,
+/obj/item/paper/crumpled,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -10255,8 +10285,16 @@
 	},
 /area/mine/laborcamp/security)
 "YY" = (
-/obj/machinery/suit_storage_unit/lavaland,
 /obj/effect/decal/cleanable/cobweb,
+/obj/structure/rack,
+/obj/item/pickaxe/safety,
+/obj/item/flashlight/lantern,
+/obj/item/mining_scanner,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/head/beanie/orange,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/workboots,
+/obj/item/clothing/suit/storage/hazardvest,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 9
