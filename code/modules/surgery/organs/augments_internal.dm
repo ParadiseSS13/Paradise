@@ -395,6 +395,10 @@
 		to_chat(user, "<span class='warning'>Your implant is not robust enough to hack at that distance!</span>")
 		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.3)
 		return
+	if(istype(user.loc, /obj/machinery/atmospherics)) //Come now, no emaging all the doors on station from a pipe
+		to_chat(user, "<span class='warning'>Your implant is unable to get a lock on anything in the pipes!</span>")
+		return
+
 	var/beam = user.Beam(target, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
 
 	user.visible_message("<span class='warning'>[user] makes an unusual buzzing sound as the air between them and [target] crackles.</span>", \
