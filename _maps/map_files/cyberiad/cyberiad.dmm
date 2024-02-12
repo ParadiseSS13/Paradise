@@ -108,7 +108,7 @@
 	},
 /area/station/security/armory/secure)
 "abP" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
@@ -423,7 +423,7 @@
 	},
 /area/station/security/armory/secure)
 "adh" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
@@ -556,7 +556,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "adH" = (
-/obj/machinery/suit_storage_unit/security/hos,
+/obj/machinery/suit_storage_unit/security/hos/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16895,7 +16895,7 @@
 	},
 /area/station/ai_monitored/storage/eva)
 "bai" = (
-/obj/machinery/suit_storage_unit/mime,
+/obj/machinery/suit_storage_unit/mime/secure,
 /obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -36498,11 +36498,11 @@
 	},
 /area/station/medical/medbay3)
 "cmo" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
 /obj/machinery/camera{
 	c_tag = "Medbay Secure Storage";
 	dir = 4
 	},
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -36846,7 +36846,7 @@
 	},
 /area/station/medical/medbay3)
 "cnJ" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -47480,7 +47480,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/suit_storage_unit/ce,
+/obj/machinery/suit_storage_unit/ce/secure,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
@@ -53296,7 +53296,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "dsK" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "dsL" = (
@@ -53420,7 +53420,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "dtn" = (
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "dto" = (
@@ -70148,7 +70148,7 @@
 /obj/machinery/keycard_auth{
 	pixel_y = -26
 	},
-/obj/machinery/suit_storage_unit/cmo,
+/obj/machinery/suit_storage_unit/cmo/secure,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -93898,7 +93898,7 @@
 	},
 /area/station/science/hallway)
 "xwJ" = (
-/obj/machinery/suit_storage_unit/captain,
+/obj/machinery/suit_storage_unit/captain/secure,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Captain's Desk";

@@ -3088,7 +3088,7 @@
 	pixel_y = 24;
 	name = "north bump"
 	},
-/obj/machinery/suit_storage_unit/security/hos,
+/obj/machinery/suit_storage_unit/security/hos/secure,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "ate" = (
@@ -5677,7 +5677,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "aKI" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -5971,7 +5971,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical_shop)
 "aMS" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -6306,7 +6306,7 @@
 	},
 /area/station/security/armory/secure)
 "aOO" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
@@ -17551,7 +17551,7 @@
 	},
 /area/station/engineering/atmos)
 "bOu" = (
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -17786,14 +17786,14 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/station/engineering/atmos)
 "bPz" = (
 /obj/machinery/light,
-/obj/machinery/suit_storage_unit/ce,
+/obj/machinery/suit_storage_unit/ce/secure,
 /obj/machinery/computer/guestpass{
 	pixel_x = -28;
 	pixel_y = null
@@ -18425,21 +18425,21 @@
 	},
 /area/station/engineering/smes)
 "bRK" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/smes)
 "bRL" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/smes)
 "bRM" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkyellow"
@@ -19306,7 +19306,7 @@
 	},
 /area/station/security/armory/secure)
 "bVp" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -22991,7 +22991,7 @@
 	},
 /area/station/security/warden)
 "crV" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -29798,7 +29798,7 @@
 	pixel_x = -24;
 	name = "custom placement"
 	},
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 8
@@ -56715,8 +56715,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "lfX" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -67767,7 +67767,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
@@ -70685,7 +70685,7 @@
 	},
 /area/station/medical/morgue)
 "pII" = (
-/obj/machinery/suit_storage_unit/rd,
+/obj/machinery/suit_storage_unit/rd/secure,
 /obj/machinery/alarm{
 	dir = 8;
 	name = "east bump";
@@ -70736,7 +70736,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "pJS" = (
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 8
@@ -72187,7 +72187,7 @@
 	},
 /area/station/security/checkpoint/secondary)
 "qgu" = (
-/obj/machinery/suit_storage_unit/clown,
+/obj/machinery/suit_storage_unit/clown/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -72898,8 +72898,8 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -75723,10 +75723,8 @@
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "rpK" = (
-/obj/machinery/suit_storage_unit/cmo{
-	name = "chief medical officer's suit storage unit"
-	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/suit_storage_unit/cmo/secure,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -79512,7 +79510,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
@@ -80591,8 +80589,8 @@
 	},
 /area/station/legal/lawoffice)
 "sVv" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -85420,7 +85418,7 @@
 	},
 /area/station/medical/virology)
 "uBe" = (
-/obj/machinery/suit_storage_unit/captain,
+/obj/machinery/suit_storage_unit/captain/secure,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "uBs" = (
@@ -87527,7 +87525,7 @@
 	},
 /area/station/maintenance/asmaint)
 "vjI" = (
-/obj/machinery/suit_storage_unit/mime,
+/obj/machinery/suit_storage_unit/mime/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -95059,8 +95057,8 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "xyF" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
