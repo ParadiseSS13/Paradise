@@ -25,6 +25,15 @@ import { Window } from '../layouts';
 // };
 
 // Status from bots.dm
+
+const BotActive = (on) => {
+  if (on) {
+    return 'red';
+  } else {
+    return 'green';
+  }
+};
+
 const BotStatus = (mode) => {
   if (mode === 0) {
     // Idle
