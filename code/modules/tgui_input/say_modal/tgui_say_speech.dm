@@ -1,5 +1,3 @@
-#define LARGE_SENTENCE_LENGTH 50
-
 /**
  * Delegates the speech to the proper channel.
  *
@@ -44,7 +42,6 @@
  * Handles text entry and forced speech.
  *
  * Arguments:
- *  type - a string "entry" based on how this function is called
  *  payload - a string list containing entry & channel
  * Returns:
  *  boolean - success or failure
@@ -56,5 +53,3 @@
 		CRASH("[usr] has entered more characters than allowed into a TGUI-Say")
 	delegate_speech(payload["entry"], payload["channel"])
 	return TRUE
-
-#undef LARGE_SENTENCE_LENGTH
