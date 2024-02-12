@@ -12,7 +12,7 @@
 	weather_duration_upper = 1200
 	weather_overlay = "ash_storm"
 
-	end_message = "<span class='boldannounce'>The shrieking wind whips away the last of the ash and falls to its usual murmur. It should be safe to go outside now.</span>"
+	end_message = "<span class='boldannounceic'>The shrieking wind whips away the last of the ash and falls to its usual murmur. It should be safe to go outside now.</span>"
 	end_duration = 300
 	end_overlay = "light_ash"
 
@@ -32,9 +32,7 @@
 
 /datum/weather/ash_storm/proc/is_shuttle_docked(shuttleId, dockId)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
-	var/obj/docking_port/stationary/S = M.get_docked()
-
-	return S.id == dockId
+	return M && M.getDockedId() == dockId
 
 /datum/weather/ash_storm/proc/update_eligible_areas()
 	var/list/inside_areas = list()
@@ -51,6 +49,10 @@
 	var/laborShuttleDocked = is_shuttle_docked("laborcamp", "laborcamp_away")
 	if(!laborShuttleDocked)
 		eligible_areas -= get_areas(/area/shuttle/siberia)
+
+	var/golemShuttleOnPlanet = is_shuttle_docked("freegolem", "freegolem_lavaland")
+	if(!golemShuttleOnPlanet)
+		eligible_areas -= get_areas(/area/shuttle/freegolem)
 
 	for(var/i in 1 to eligible_areas.len)
 		var/area/place = eligible_areas[i]

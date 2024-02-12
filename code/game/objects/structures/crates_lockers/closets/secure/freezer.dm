@@ -15,9 +15,9 @@
 
 /obj/structure/closet/secure_closet/freezer/kitchen/populate_contents()
 	for(var/i in 1 to 3)
-		new /obj/item/reagent_containers/food/condiment/flour(src)
-	new /obj/item/reagent_containers/food/condiment/rice(src)
-	new /obj/item/reagent_containers/food/condiment/sugar(src)
+		new /obj/item/reagent_containers/condiment/flour(src)
+	new /obj/item/reagent_containers/condiment/rice(src)
+	new /obj/item/reagent_containers/condiment/sugar(src)
 
 
 /obj/structure/closet/secure_closet/freezer/kitchen/mining
@@ -30,9 +30,9 @@
 
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance/populate_contents()
 	for(var/i = 0, i < 5, i++)
-		new /obj/item/reagent_containers/food/condiment/milk(src)
+		new /obj/item/reagent_containers/condiment/milk(src)
 	for(var/i = 0, i < 5, i++)
-		new /obj/item/reagent_containers/food/condiment/soymilk(src)
+		new /obj/item/reagent_containers/condiment/soymilk(src)
 	for(var/i = 0, i < 2, i++)
 		new /obj/item/storage/fancy/egg_box(src)
 
@@ -43,7 +43,7 @@
 
 /obj/structure/closet/secure_closet/freezer/meat/populate_contents()
 	for(var/i in 1 to 4)
-		new /obj/item/reagent_containers/food/snacks/meat/monkey(src)
+		new /obj/item/food/snacks/meat/monkey(src)
 
 /obj/structure/closet/secure_closet/freezer/meat/open
 	req_access = null
@@ -56,8 +56,8 @@
 
 /obj/structure/closet/secure_closet/freezer/fridge/populate_contents()
 	for(var/i in 1 to 5)
-		new /obj/item/reagent_containers/food/condiment/milk(src)
-		new /obj/item/reagent_containers/food/condiment/soymilk(src)
+		new /obj/item/reagent_containers/condiment/milk(src)
+		new /obj/item/reagent_containers/condiment/soymilk(src)
 	for(var/i in 1 to 2)
 		new /obj/item/storage/fancy/egg_box(src)
 

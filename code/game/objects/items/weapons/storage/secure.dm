@@ -84,6 +84,7 @@
 			to_chat(user, "You slice through the lock on [src].")
 		else
 			to_chat(user, "You short out the lock on [src].")
+			return TRUE
 
 /obj/item/storage/secure/AltClick(mob/user)
 	if(!try_to_open())
@@ -128,10 +129,13 @@
 /obj/item/storage/secure/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/storage/secure/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/storage/secure/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/item/storage/secure/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SecureStorage", name, 275, 500, master_ui, state)
+		ui = new(user, src, "SecureStorage", name)
 		ui.open()
 
 /obj/item/storage/secure/ui_data(mob/user)
