@@ -10541,7 +10541,7 @@
 	id = "Courtroom"
 	},
 /turf/simulated/floor/plating,
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aHB" = (
 /obj/structure/chair{
 	dir = 8
@@ -10557,7 +10557,7 @@
 	dir = 5;
 	icon_state = "blue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aHC" = (
 /obj/structure/chair{
 	dir = 8
@@ -10569,14 +10569,14 @@
 	dir = 9;
 	icon_state = "blue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aHD" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aHE" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/detective)
@@ -10589,7 +10589,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aHG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -10607,7 +10607,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aHH" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -11034,7 +11034,7 @@
 	dir = 4;
 	icon_state = "blue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aJc" = (
 /obj/structure/chair{
 	dir = 8
@@ -11048,7 +11048,7 @@
 	dir = 8;
 	icon_state = "blue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aJd" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -11056,7 +11056,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aJe" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/security_space_law,
@@ -11230,7 +11230,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aJH" = (
 /obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
@@ -11249,7 +11249,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aJK" = (
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
@@ -11407,7 +11407,7 @@
 	dir = 4;
 	icon_state = "blue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aKs" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -11421,12 +11421,12 @@
 	dir = 4;
 	icon_state = "rampbottom"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aKu" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aKv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -11439,7 +11439,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aKw" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
@@ -11921,7 +11921,7 @@
 	dir = 4;
 	icon_state = "bluecorner"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aLU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -11933,7 +11933,7 @@
 	dir = 4;
 	icon_state = "rampbottom"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aLV" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -11950,7 +11950,7 @@
 	dir = 1;
 	icon_state = "blue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aLW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -11962,7 +11962,7 @@
 	dir = 1;
 	icon_state = "blue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aLX" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -11976,7 +11976,7 @@
 	dir = 1;
 	icon_state = "blue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aLY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -11993,7 +11993,7 @@
 	dir = 1;
 	icon_state = "blue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aLZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -12018,7 +12018,7 @@
 	dir = 1;
 	icon_state = "bluecorner"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aMb" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -12532,7 +12532,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aNH" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -12565,7 +12565,7 @@
 	dir = 4;
 	icon_state = "rampbottom"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aNK" = (
 /obj/machinery/light{
 	dir = 8
@@ -12593,14 +12593,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aNN" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aNO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -12619,7 +12619,7 @@
 	dir = 8;
 	icon_state = "bluecorner"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aNQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -12787,7 +12787,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aOA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -12795,10 +12795,10 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aOB" = (
 /turf/simulated/floor/plasteel,
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aOC" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -12838,7 +12838,7 @@
 "aOH" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aOI" = (
 /turf/simulated/wall,
 /area/station/public/dorms)
@@ -13094,7 +13094,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "blue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aPC" = (
 /obj/structure/chair{
 	dir = 8
@@ -13108,7 +13108,7 @@
 	dir = 10;
 	icon_state = "blue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aPD" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -13118,7 +13118,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "blue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aPE" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -13133,14 +13133,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "blue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aPF" = (
 /obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "blue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aPG" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -13154,7 +13154,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "blue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "aPH" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -55114,7 +55114,7 @@
 	id = "Courtroom"
 	},
 /turf/simulated/floor/wood,
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "eba" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/mecha_wreckage/durand/old,
@@ -62626,7 +62626,7 @@
 	id = "Courtroom"
 	},
 /turf/simulated/floor/wood,
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "hyk" = (
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
@@ -63429,7 +63429,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "hRq" = (
 /obj/machinery/firealarm{
 	name = "north bump";
@@ -69958,7 +69958,7 @@
 /area/station/maintenance/assembly_line)
 "ler" = (
 /turf/simulated/wall,
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "let" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Security Maintenance";
@@ -79132,7 +79132,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "pDd" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -80923,7 +80923,7 @@
 "qtx" = (
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall,
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "qup" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
@@ -81146,7 +81146,7 @@
 "qzx" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "qzV" = (
 /obj/structure/chair{
 	dir = 1
@@ -92733,7 +92733,7 @@
 	dir = 8;
 	icon_state = "blue"
 	},
-/area/station/legal/Courtroom)
+/area/station/legal/Courtroom/gallery)
 "wss" = (
 /obj/machinery/computer/cryopod{
 	pixel_x = 30;
