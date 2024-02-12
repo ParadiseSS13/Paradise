@@ -1286,7 +1286,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/mode()
 	set name = "Activate Held Object"
 	set category = "IC"
-	set src = usr
 
 	var/obj/item/W = get_active_hand()
 	if(W)

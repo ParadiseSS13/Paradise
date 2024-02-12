@@ -687,7 +687,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/verb/mode()
 	set name = "Activate Held Object"
 	set category = null
-	set src = usr
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_mode)))
 
@@ -758,7 +757,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		memory()
 
 /mob/proc/update_flavor_text()
-	set src in usr
 	if(usr != src)
 		to_chat(usr, "<span class='notice'>You can't change the flavor text of this mob</span>")
 		return

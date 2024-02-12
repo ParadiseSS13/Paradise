@@ -851,7 +851,6 @@
 /obj/item/clothing/suit/fluff/kluys/verb/toggle()
 	set name = "Toggle Nanofibre Mode"
 	set category = "Object"
-	set src in usr
 
 	if(usr.stat || usr.restrained())
 		return 0
@@ -1148,7 +1147,6 @@
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
 	set name = "Toggle Jumpsuit Zipper"
 	set category = "Object"
-	set src in usr
 
 	if(usr.stat || usr.restrained())
 		return 0
