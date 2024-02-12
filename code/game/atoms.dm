@@ -517,8 +517,10 @@
 /atom/proc/welder_act(mob/living/user, obj/item/I)
 	return
 
+/// This is when an atom is emagged. Should return false if it fails, or it has no emag_act defined.
 /atom/proc/emag_act(mob/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
+	return FALSE
 
 /atom/proc/unemag()
 	return
