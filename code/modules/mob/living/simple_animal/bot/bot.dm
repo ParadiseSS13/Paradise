@@ -1086,14 +1086,12 @@ Pass a positive integer as an argument to override a bot's default speed.
 	return data
 
 // AI bot access verb TGUI
-/mob/living/simple_animal/bot/proc/bot_sorted_list(list_name, mob/living/simple_animal/bot/bot)
-	if(bot.UID() in list_name)
-		return
-	list_name += list(list(
-	"name" = bot.bot_name,
-	"model" = bot.model,
-	"status" = bot.mode,
-	"location" = get_area(bot),
-	"on" = bot.on,
-	"UID" = bot.UID(),
+/mob/living/simple_animal/bot/proc/bot_sorted_list()
+	. = list(list(
+	"name" = bot_name,
+	"model" = model,
+	"status" = mode,
+	"location" = get_area(),
+	"on" = on,
+	"UID" = UID(),
 	))
