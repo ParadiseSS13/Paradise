@@ -48062,14 +48062,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/maintenance/asmaint)
-"egC" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/slime_extract/darkblue,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurple"
-	},
-/area/station/maintenance/asmaint)
 "ehh" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
@@ -53492,7 +53484,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/item/slime_extract/pink,
+/obj/item/slime_extract,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable/yellow{
@@ -60951,6 +60943,15 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"jLt" = (
+/obj/item/slime_extract/darkblue,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/station/maintenance/asmaint)
 "jLJ" = (
 /obj/structure/chair/office/light,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -130441,7 +130442,7 @@ lLx
 qEh
 iKT
 qTJ
-egC
+jLt
 uGh
 imh
 sXt

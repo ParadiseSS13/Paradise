@@ -379,7 +379,7 @@
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
-	if((flags & NODECONSTRUCT))
+	if(flags & NODECONSTRUCT)
 		return FALSE
 	if(istype(W) && component_parts)
 		if(panel_open || W.works_from_distance)

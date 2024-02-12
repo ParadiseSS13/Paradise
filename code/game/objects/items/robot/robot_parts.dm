@@ -427,3 +427,4 @@
 	else
 		to_chat(user, "<span class='warning'>You slide the emag into the dataport on [src] and short out the safeties.</span>")
 		sabotaged = TRUE
+		return TRUE
