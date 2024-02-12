@@ -11,6 +11,7 @@
 	department_account_access = TRUE
 	selection_color = "#e2c59d"
 	access = list(
+		ACCESS_CARGO_BAY,
 		ACCESS_CARGO_BOT,
 		ACCESS_CARGO,
 		ACCESS_HEADS_VAULT,
@@ -24,7 +25,8 @@
 		ACCESS_MINT,
 		ACCESS_QM,
 		ACCESS_RC_ANNOUNCE,
-		ACCESS_SEC_DOORS
+		ACCESS_SEC_DOORS,
+		ACCESS_SUPPLY_SHUTTLE,
 	)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/qm
@@ -60,7 +62,14 @@
 	supervisors = "the quartermaster"
 	department_head = list("Quartermaster")
 	selection_color = "#eeddbe"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
+	access = list(
+		ACCESS_CARGO_BAY,
+		ACCESS_CARGO,
+		ACCESS_MAILSORTING,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SUPPLY_SHUTTLE,
+	)
 	alt_titles = list("Mail Carrier", "Courier")
 	outfit = /datum/outfit/job/cargo_tech
 
@@ -87,7 +96,13 @@
 	supervisors = "the quartermaster"
 	department_head = list("Quartermaster")
 	selection_color = "#eeddbe"
-	access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
+	access = list(
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_MINING_STATION,
+		ACCESS_MINING,
+		ACCESS_MINT,
+	)
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
 
@@ -185,9 +200,9 @@
 	singlemutcheck(H, GLOB.soberblock, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(GLOB.soberblock)
 	H.check_mutations = 1
-	ADD_TRAIT(H, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
 	var/datum/martial_art/judo/under_siege/bouncer_delight = new
 	bouncer_delight.teach(H)
+	ADD_TRAIT(H.mind, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
 
 
 /datum/job/chef
@@ -227,7 +242,7 @@
 		return
 	var/datum/martial_art/cqc/under_siege/justacook = new
 	justacook.teach(H)
-	ADD_TRAIT(H, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
+	ADD_TRAIT(H.mind, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
 
 
 /datum/job/hydro

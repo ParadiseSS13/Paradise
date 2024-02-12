@@ -293,6 +293,7 @@
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(
+		ACCESS_CARGO,
 		ACCESS_EVA,
 		ACCESS_EXTERNAL_AIRLOCKS,
 		ACCESS_MAILSORTING,
