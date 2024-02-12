@@ -76,7 +76,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/smg)
-	ammo_x_offset = 2
 	burst_size = 2
 	fire_delay = 2.5
 	shaded_charge = TRUE
