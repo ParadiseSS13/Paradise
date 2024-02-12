@@ -82,7 +82,7 @@
 		to_chat(usr, "<span class='warning'>You short out the fryer's safeties, allowing non-food objects to be placed in the oil.</span>")
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		emagged = TRUE
-		return
+		return TRUE
 
 /obj/machinery/cooker/deepfryer/special_attack_shove(mob/living/target, mob/living/attacker)
 	target.visible_message(

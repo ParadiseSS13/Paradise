@@ -3075,7 +3075,7 @@
 	pixel_y = 24;
 	name = "north bump"
 	},
-/obj/machinery/suit_storage_unit/security/hos,
+/obj/machinery/suit_storage_unit/security/hos/secure,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "ate" = (
@@ -5078,7 +5078,7 @@
 	locked = 1;
 	name = "Cargo Docking Hatch"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
 /turf/simulated/floor/plating,
 /area/station/supply/office)
 "aGx" = (
@@ -5675,7 +5675,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "aKI" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -5969,7 +5969,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical_shop)
 "aMS" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -6304,7 +6304,7 @@
 	},
 /area/station/security/armory/secure)
 "aOO" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
@@ -17551,7 +17551,7 @@
 	},
 /area/station/engineering/atmos)
 "bOu" = (
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -17786,14 +17786,14 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/station/engineering/atmos)
 "bPz" = (
 /obj/machinery/light,
-/obj/machinery/suit_storage_unit/ce,
+/obj/machinery/suit_storage_unit/ce/secure,
 /obj/machinery/computer/guestpass{
 	pixel_x = -28;
 	pixel_y = null
@@ -18425,21 +18425,21 @@
 	},
 /area/station/engineering/smes)
 "bRK" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/smes)
 "bRL" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/smes)
 "bRM" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkyellow"
@@ -19306,7 +19306,7 @@
 	},
 /area/station/security/armory/secure)
 "bVp" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -22995,7 +22995,7 @@
 	},
 /area/station/security/warden)
 "crV" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -24834,9 +24834,10 @@
 "cEm" = (
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
-	departmentType = 2;
-	name = "Quartermaster RC";
-	pixel_x = 30
+	departmentType = 5;
+	name = "Quartermaster Requests Console";
+	pixel_x = 30;
+	announcementConsole = 1
 	},
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
@@ -26330,8 +26331,8 @@
 	locked = 1;
 	name = "Cargo Docking Hatch"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
 /turf/simulated/floor/plating,
 /area/station/supply/office)
 "cLz" = (
@@ -29822,7 +29823,7 @@
 	pixel_x = -24;
 	name = "custom placement"
 	},
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 8
@@ -30387,9 +30388,10 @@
 "dgl" = (
 /obj/machinery/door/airlock/mining/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrownfull"
 	},
@@ -39970,7 +39972,7 @@
 /obj/machinery/door/airlock/mining{
 	name = "Cargo Warehouse"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrownfull"
 	},
@@ -53755,17 +53757,17 @@
 	name = "Cargo Desk";
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mail_sorting{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mining{
-	dir = 1
-	},
 /obj/machinery/door/firedoor,
 /obj/item/desk_bell{
 	pixel_x = 7;
 	pixel_y = 7;
 	anchored = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/general{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mining{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrownfull"
@@ -56754,8 +56756,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "lfX" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -67772,7 +67774,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
@@ -68735,8 +68737,9 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/supply/cargo_bay,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrownfull"
 	},
@@ -70666,7 +70669,7 @@
 	},
 /area/station/medical/morgue)
 "pII" = (
-/obj/machinery/suit_storage_unit/rd,
+/obj/machinery/suit_storage_unit/rd/secure,
 /obj/machinery/alarm{
 	dir = 8;
 	name = "east bump";
@@ -70717,7 +70720,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "pJS" = (
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 8
@@ -72141,7 +72144,7 @@
 	},
 /area/station/security/checkpoint/secondary)
 "qgu" = (
-/obj/machinery/suit_storage_unit/clown,
+/obj/machinery/suit_storage_unit/clown/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -72852,8 +72855,8 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -75534,12 +75537,13 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/cargo_bay,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrownfull"
 	},
@@ -75678,10 +75682,8 @@
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "rpK" = (
-/obj/machinery/suit_storage_unit/cmo{
-	name = "chief medical officer's suit storage unit"
-	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/suit_storage_unit/cmo/secure,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -77421,7 +77423,6 @@
 	name = "Disposals"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
@@ -79481,7 +79482,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
@@ -80536,8 +80537,8 @@
 	},
 /area/station/legal/lawoffice)
 "sVv" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -85369,7 +85370,7 @@
 	},
 /area/station/medical/virology)
 "uBe" = (
-/obj/machinery/suit_storage_unit/captain,
+/obj/machinery/suit_storage_unit/captain/secure,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "uBs" = (
@@ -87110,11 +87111,11 @@
 /obj/machinery/door/airlock/glass{
 	name = "Disposals"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -87487,7 +87488,7 @@
 	},
 /area/station/maintenance/asmaint)
 "vjI" = (
-/obj/machinery/suit_storage_unit/mime,
+/obj/machinery/suit_storage_unit/mime/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -94983,8 +94984,8 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "xyF" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -95919,12 +95920,16 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/captain)
 "xNF" = (
-/obj/machinery/door/window{
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/polarized,
+/obj/machinery/door/window/classic/normal{
 	dir = 8;
 	name = "Robotics Surgery"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
