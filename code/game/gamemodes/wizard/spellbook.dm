@@ -298,6 +298,12 @@
 	category = "Assistance"
 	cost = 1
 
+/datum/spellbook_entry/disguiseself
+	name = "Disguise Self"
+	spell_type = /obj/effect/proc_holder/spell/disguise_self
+	category = "Assistance"
+	cost = 1
+
 /datum/spellbook_entry/noclothes
 	name = "Remove Clothes Requirement"
 	spell_type = /obj/effect/proc_holder/spell/noclothes
@@ -469,7 +475,7 @@
 /datum/spellbook_entry/item/everfull_mug
 	name = "Everfull Mug"
 	desc = "A magical mug that can be filled with omnizine at will, though beware of addiction! It can also produce alchohol and other less useful substances."
-	item_path = /obj/item/reagent_containers/food/drinks/everfull
+	item_path = /obj/item/reagent_containers/drinks/everfull
 	cost = 1
 	category = "Artefacts"
 
@@ -550,7 +556,7 @@
 
 /datum/spellbook_entry/item/staffchaos
 	name = "Staff of Chaos"
-	desc = "A caprious tool that can fire all sorts of magic without any rhyme or reason. Using it on people you care about is not recommended."
+	desc = "A curious staff firing bolts of chaotic energy. Any life struck will be the victim of a random effect, usually harming them. No effect on dead targets."
 	item_path = /obj/item/gun/magic/staff/chaos
 	category = "Staves"
 

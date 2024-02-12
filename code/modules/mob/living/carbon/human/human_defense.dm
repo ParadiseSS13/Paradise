@@ -255,6 +255,9 @@ emp_act
 	if(head && head.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
 		return TRUE
 
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, AM, attack_text, 0, damage, attack_type) & SHIELD_BLOCK)
+		return TRUE
+
 	return FALSE
 
 /mob/living/carbon/human/proc/get_best_shield()
@@ -455,7 +458,7 @@ emp_act
 		return FALSE
 
 	if(HAS_TRAIT(I, TRAIT_BUTCHERS_HUMANS) && stat == DEAD && user.a_intent == INTENT_HARM)
-		var/obj/item/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/reagent_containers/food/snacks/meat/human(get_turf(loc))
+		var/obj/item/food/snacks/meat/human/newmeat = new /obj/item/food/snacks/meat/human(get_turf(loc))
 		newmeat.name = real_name + newmeat.name
 		newmeat.subjectname = real_name
 		newmeat.subjectjob = job
@@ -669,7 +672,7 @@ emp_act
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			apply_effect(10 SECONDS, KNOCKDOWN, run_armor_check(affecting, MELEE))
-			adjustStaminaLoss(M.alien_disarm_damage)
+			apply_damage(M.alien_disarm_damage, STAMINA)
 			add_attack_logs(M, src, "Alien tackled")
 			visible_message("<span class='danger'>[M] has tackled down [src]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
 
@@ -719,7 +722,7 @@ emp_act
 			var/dmg = rand(M.force/2, M.force)
 			switch(M.damtype)
 				if("brute")
-					adjustStaminaLoss(dmg)
+					apply_damage(dmg, STAMINA)
 					if(M.force > 35) // durand and other heavy mechas
 						KnockDown(6 SECONDS)
 					else if(M.force > 20 && !IsKnockedDown()) // lightweight mechas like gygax
