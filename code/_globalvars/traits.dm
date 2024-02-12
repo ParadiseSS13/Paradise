@@ -91,7 +91,8 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 	),
 
 	/datum/mind = list(
-		"TRAIT_HOLY" = TRAIT_HOLY
+		"TRAIT_HOLY" = TRAIT_HOLY,
+		"TRAIT_TABLE_LEAP" = TRAIT_TABLE_LEAP
 	),
 
 	/obj/item = list(

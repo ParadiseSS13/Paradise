@@ -950,6 +950,14 @@
 	build_path = /obj/item/mail_scanner
 	category = list("initial", "Miscellaneous")
 
+/datum/design/spraybottle
+	name = "Spray Bottle"
+	id = "spraybottle"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 5000)
+	build_path = /obj/item/reagent_containers/spray/empty
+	category = list("initial", "Miscellaneous")
+
 /datum/design/knuckleduster
 	name = "Knuckleduster"
 	id = "knuckleduster"

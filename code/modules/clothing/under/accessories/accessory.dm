@@ -448,6 +448,7 @@
 	else
 		emagged = TRUE
 		to_chat(user, "<span class='warning'>You swipe the card and crack the holobadge security checks.</span>")
+		return TRUE
 
 /obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/H, mob/living/user)
 	if(isliving(user))
