@@ -55,7 +55,8 @@ GLOBAL_LIST_INIT(summoned_guns, list(
 	/obj/item/gun/energy/gun/blueshield/pdw9,
 	/obj/item/gun/energy/disabler/silencer,
 	/obj/item/gun/energy/lwap,
-	/obj/item/gun/energy/arc_revolver))
+	/obj/item/gun/energy/arc_revolver,
+	/obj/item/gun/projectile/automatic/ak814))
 
 //if you add anything that isn't covered by the typepaths below, add it to summon_magic_objective_types
 GLOBAL_LIST_INIT(summoned_magic, list(
