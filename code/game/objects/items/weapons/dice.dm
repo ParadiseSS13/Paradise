@@ -207,8 +207,7 @@
 			T.visible_message("<span class='userdanger'>Unseen forces throw [user]!</span>")
 			user.Stun(12 SECONDS)
 			user.adjustBruteLoss(50)
-			var/throw_dir = GLOB.cardinal
-			var/atom/throw_target = get_edge_target_turf(user, throw_dir)
+			var/atom/throw_target = get_edge_target_turf(user, pick(GLOB.cardinal))
 			user.throw_at(throw_target, 200, 4)
 		if(8)
 			//Fueltank Explosion
