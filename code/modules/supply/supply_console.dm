@@ -481,6 +481,7 @@
 	if(!hacked)
 		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
 		hacked = TRUE
+		return TRUE
 
 /obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"

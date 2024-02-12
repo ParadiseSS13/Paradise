@@ -73,7 +73,7 @@
 	if(prob(ranged_block_chance))
 		visible_message("<span class='danger'>[src] blocks [Proj] with its shield!</span>")
 	else
-		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		if(Proj.damage_type == BRUTE || Proj.damage_type == BURN)
 			adjustHealth(Proj.damage)
 	return 0
 
