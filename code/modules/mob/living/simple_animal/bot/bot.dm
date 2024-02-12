@@ -23,14 +23,6 @@
 	bubble_icon = "machine"
 	faction = list("neutral", "silicon")
 
-	// List of bots sorted, used for TGUI
-	var/list/secbot = list()
-	var/list/medbot = list()
-	var/list/cleanbot = list()
-	var/list/floorbot = list()
-	var/list/mule = list()
-	var/list/misc = list()
-
 	var/list/users = list() //for dialog updates
 	var/window_id = "bot_control"
 	var/window_name = "Protobot 1.0" //Popup title
@@ -1094,22 +1086,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 	return data
 
 // AI bot access verb TGUI
-/mob/living/simple_animal/bot/proc/bot_sort()
-	for(var/mob/living/simple_animal/bot/bot in GLOB.bots_list)
-		switch(bot.bot_type)
-			if(SEC_BOT)
-				bot_sorted_list(secbot, bot)
-			if(MED_BOT)
-				bot_sorted_list(medbot, bot)
-			if(CLEAN_BOT)
-				bot_sorted_list(cleanbot, bot)
-			if(FLOOR_BOT)
-				bot_sorted_list(floorbot, bot)
-			if(MULE_BOT)
-				bot_sorted_list(mule, bot)
-			if(HONK_BOT)
-				bot_sorted_list(misc, bot)
-
 /mob/living/simple_animal/bot/proc/bot_sorted_list(list_name, mob/living/simple_animal/bot/bot)
 	if(bot.UID() in list_name)
 		return

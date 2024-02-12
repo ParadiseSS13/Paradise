@@ -1,7 +1,32 @@
 /datum/ui_module/botcall
 	name = "Access Robot Control"
-	var/mob/living/simple_animal/bot/Bot
+
+	var/mob/living/simple_animal/bot/bot
 	var/mob/living/silicon/ai/AI
+
+	var/list/secbot = list()
+	var/list/medbot = list()
+	var/list/cleanbot = list()
+	var/list/floorbot = list()
+	var/list/mule = list()
+	var/list/misc = list()
+
+/datum/ui_module/botcall/proc/bot_sort()
+	for(bot in GLOB.bots_list)
+		switch(bot.bot_type)
+			if(SEC_BOT)
+				bot.bot_sorted_list(secbot, bot)
+			if(MED_BOT)
+				bot.bot_sorted_list(medbot, bot)
+			if(CLEAN_BOT)
+				bot.bot_sorted_list(cleanbot, bot)
+			if(FLOOR_BOT)
+				bot.bot_sorted_list(floorbot, bot)
+			if(MULE_BOT)
+				bot.bot_sorted_list(mule, bot)
+			if(HONK_BOT)
+				bot.bot_sorted_list(misc, bot)
+
 
 /datum/ui_module/botcall/ui_interact(mob/user)
 	return GLOB.default_state
@@ -15,26 +40,26 @@
 
 /datum/ui_module/botcall/ui_data(mob/user)
 	var/list/data = ..()
-	Bot.bot_sort()
-	data["secbot"] = Bot.secbot
-	data["medbot"] = Bot.medbot
-	data["cleanbot"] = Bot.cleanbot
-	data["floorbot"] = Bot.floorbot
-	data["mule"] = Bot.mule
-	data["misc"] = Bot.misc
+	bot_sort()
+	data["secbot"] = secbot
+	data["medbot"] = medbot
+	data["cleanbot"] = cleanbot
+	data["floorbot"] = floorbot
+	data["mule"] = mule
+	data["misc"] = misc
 	return data
 
 /datum/ui_module/botcall/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if (..())
 		return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
-	Bot = locateUID(params["botref"])
-	if(!Bot || Bot.remote_disabled || AI.control_disabled)
+	bot = locateUID(params["botref"])
+	if(!bot || bot.remote_disabled || AI.control_disabled)
 		return
 	switch(action)
 		if("test_button")
 			to_chat(world, "test button")
 		if("interface")
-			Bot.attack_ai(src)
+			bot.attack_ai(src)
 		if("call")
 			AI.waypoint_mode = TRUE
 			to_chat(src, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
