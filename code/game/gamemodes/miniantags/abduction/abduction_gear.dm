@@ -8,7 +8,7 @@
 	name = "agent vest"
 	desc = "A vest outfitted with advanced stealth technology. It has two modes - combat and stealth."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "ABDUCTOR_vest_stealth"
+	icon_state = "vest_stealth"
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	origin_tech = "magnets=7;biotech=4;powerstorage=4;abductor=4"
@@ -39,11 +39,11 @@
 			mode = ABDUCTOR_VEST_COMBAT
 			DeactivateStealth()
 			armor = combat_armor
-			icon_state = "ABDUCTOR_vest_combat"
+			icon_state = "vest_combat"
 		if(ABDUCTOR_VEST_COMBAT)// TO STEALTH
 			mode = ABDUCTOR_VEST_STEALTH
 			armor = stealth_armor
-			icon_state = "ABDUCTOR_vest_stealth"
+			icon_state = "vest_stealth"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_wear_suit()
