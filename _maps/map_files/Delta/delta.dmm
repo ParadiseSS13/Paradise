@@ -526,6 +526,12 @@
 	name = "east bump";
 	pixel_x = 28
 	},
+/obj/machinery/light_switch{
+	dir = 8;
+	pixel_x = 24;
+	name = "east bump";
+	pixel_y = -10
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "afk" = (
@@ -1737,6 +1743,10 @@
 "ann" = (
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -18417,6 +18427,11 @@
 	pixel_x = -24;
 	pixel_y = -9
 	},
+/obj/machinery/camera{
+	c_tag = "Cargo Lobby";
+	dir = 4;
+	pixel_y = -22
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -33762,6 +33777,11 @@
 /obj/machinery/camera{
 	c_tag = "Port Hallway South";
 	dir = 8
+	},
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -76410,6 +76430,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
+"jNw" = (
+/obj/machinery/camera{
+	c_tag = "Port Hallway East";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/port/east)
 "jNP" = (
 /obj/machinery/door/window/reinforced/reversed{
 	dir = 4;
@@ -79317,6 +79347,15 @@
 /obj/machinery/economy/vending/hydrodrobe,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
+"lxK" = (
+/obj/machinery/camera{
+	c_tag = "Primary Dorm Hallway - South"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/starboard/south)
 "lxX" = (
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 1
@@ -86409,10 +86448,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "pFF" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -95606,16 +95644,16 @@
 	},
 /area/station/maintenance/fsmaint)
 "uOw" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
+	dir = 8;
+	pixel_x = 24;
+	name = "east bump"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
-	},
-/area/station/hallway/primary/port/north)
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry/east)
 "uOC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -130232,7 +130270,7 @@ bty
 byF
 bty
 bfE
-uOw
+bty
 bty
 bGO
 bWz
@@ -135125,7 +135163,7 @@ bFr
 bDQ
 ezp
 pCt
-exy
+jNw
 bYj
 bZS
 cbN
@@ -143534,7 +143572,7 @@ bld
 bld
 bld
 akb
-bld
+uOw
 inH
 xyI
 ivG
@@ -148503,7 +148541,7 @@ cnL
 coN
 beB
 bYH
-fiV
+lxK
 cuu
 gvr
 cxn
