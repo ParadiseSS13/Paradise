@@ -5618,7 +5618,7 @@
 	locked = 1;
 	name = "Supply Dock Airlock"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "aDB" = (
@@ -7500,7 +7500,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/cargo_bay,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "aKf" = (
@@ -7515,7 +7516,8 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/mining,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/cargo_bay,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "aKg" = (
@@ -13753,7 +13755,7 @@
 "bcu" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "bcv" = (
@@ -15036,7 +15038,7 @@
 	},
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
+/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "bfp" = (
@@ -17163,7 +17165,7 @@
 "bku" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /turf/simulated/floor/plating,
 /area/station/supply/office)
 "bkw" = (
@@ -19102,10 +19104,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mailroom"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bpF" = (
@@ -23297,14 +23299,6 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/turret_protected/aisat/interior)
-"bAB" = (
-/obj/structure/table/wood,
-/obj/machinery/bottler,
-/obj/structure/sign/poster/random{
-	pixel_y = -32
-	},
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "bAC" = (
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/solar/auxport)
@@ -31710,6 +31704,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
+"cdj" = (
+/obj/structure/table/wood,
+/obj/machinery/bottler,
+/obj/structure/sign/poster/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "cdk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -47333,6 +47335,18 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
+"dQI" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/science/research)
 "dRt" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -57810,7 +57824,7 @@
 	dir = 1;
 	name = "Delivery Desk"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general{
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/mail_sorting{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -59008,7 +59022,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
+/obj/effect/mapping_helpers/airlock/access/any/supply/cargo_bay,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "iKZ" = (
@@ -59644,7 +59659,7 @@
 /obj/machinery/door/airlock/mining{
 	name = "Warehouse"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "jau" = (
@@ -68028,6 +68043,30 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/rd)
+"mEd" = (
+/obj/structure/disposalpipe/sortjunction{
+	dir = 4;
+	name = "Kitchen Junction";
+	sort_type_txt = "20"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "mEe" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -73679,8 +73718,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/machinery/door/airlock/mining/glass,
+/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "peo" = (
@@ -80660,18 +80699,6 @@
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall/r_wall,
 /area/station/public/mrchangs)
-"sdj" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/science/research)
 "sdJ" = (
 /obj/machinery/door/airlock/freezer,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
@@ -83576,7 +83603,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general{
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/mail_sorting{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -84187,7 +84214,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general{
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/mail_sorting{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -93089,30 +93116,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/supply/lobby)
-"xLw" = (
-/obj/structure/disposalpipe/sortjunction{
-	dir = 4;
-	name = "Kitchen Junction";
-	sort_type_txt = "20"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "xLA" = (
 /obj/machinery/hydroponics/constructable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -128857,7 +128860,7 @@ byM
 bEA
 bvz
 bEv
-xLw
+mEd
 uhV
 lBQ
 fjy
@@ -131464,7 +131467,7 @@ cQg
 rOD
 cDa
 mra
-sdj
+dQI
 vCB
 lHQ
 eIa
@@ -131680,7 +131683,7 @@ bsp
 buI
 bwO
 pjb
-bAB
+cdj
 aoG
 aoG
 aoG

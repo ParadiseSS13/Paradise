@@ -5086,7 +5086,7 @@
 	locked = 1;
 	name = "Cargo Docking Hatch"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
 /turf/simulated/floor/plating,
 /area/station/supply/office)
 "aGx" = (
@@ -26315,8 +26315,8 @@
 	locked = 1;
 	name = "Cargo Docking Hatch"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
 /turf/simulated/floor/plating,
 /area/station/supply/office)
 "cLz" = (
@@ -30363,9 +30363,10 @@
 "dgl" = (
 /obj/machinery/door/airlock/mining/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrownfull"
 	},
@@ -39929,7 +39930,7 @@
 /obj/machinery/door/airlock/mining{
 	name = "Cargo Warehouse"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrownfull"
 	},
@@ -53718,17 +53719,17 @@
 	name = "Cargo Desk";
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mail_sorting{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mining{
-	dir = 1
-	},
 /obj/machinery/door/firedoor,
 /obj/item/desk_bell{
 	pixel_x = 7;
 	pixel_y = 7;
 	anchored = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/general{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mining{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrownfull"
@@ -68739,8 +68740,9 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/supply/cargo_bay,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrownfull"
 	},
@@ -75579,12 +75581,13 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/cargo_bay,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrownfull"
 	},
@@ -77446,7 +77449,6 @@
 	name = "Disposals"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
@@ -87157,11 +87159,11 @@
 /obj/machinery/door/airlock/glass{
 	name = "Disposals"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
