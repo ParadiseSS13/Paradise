@@ -55332,6 +55332,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
+"ehN" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port)
 "ehQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ash,
@@ -60114,6 +60121,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
+"gvt" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port)
 "gvW" = (
 /obj/machinery/light{
 	dir = 1
@@ -60899,6 +60912,15 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
+"gPU" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port)
 "gPV" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -71242,6 +71264,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"maL" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port)
 "mba" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/item/garrote/improvised,
@@ -76928,6 +76954,21 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
+"oRC" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port)
 "oRD" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -83029,6 +83070,23 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"rPB" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port)
 "rPM" = (
 /obj/machinery/alarm{
 	name = "north bump";
@@ -112617,8 +112675,8 @@ aTu
 aTu
 aTu
 bgr
-biJ
-bgz
+rPB
+gvt
 blM
 bpa
 bpa
@@ -113644,8 +113702,8 @@ aXQ
 bal
 bde
 aVi
-bgz
-biJ
+maL
+oRC
 bkb
 blM
 bnC
@@ -116471,8 +116529,8 @@ aZi
 bbq
 xxt
 kFu
-bgA
-biJ
+ehN
+oRC
 bkg
 blR
 blR
@@ -117500,8 +117558,8 @@ aUE
 aab
 gdZ
 bgA
-biJ
-bkg
+rPB
+gPU
 blR
 iFm
 bsM
