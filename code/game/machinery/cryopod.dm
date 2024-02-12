@@ -158,9 +158,10 @@
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 		return
 	visible_message("<span class='warning'>The console sparks, and some items fall out!</span>")
-	do_sparks(5, 1, src)
+	do_sparks(5, TRUE, src)
 	for(var/obj/item/I in objective_items)
 		dispense_item(I)
+	return TRUE
 
 /obj/item/circuitboard/cryopodcontrol
 	board_name = "Cryogenic Oversight Console"
@@ -391,13 +392,13 @@
 	if(GLOB.PDA_Manifest.len)
 		GLOB.PDA_Manifest.Cut()
 	for(var/datum/data/record/R in GLOB.data_core.medical)
-		if((R.fields["name"] == occupant.real_name))
+		if(R.fields["name"] == occupant.real_name)
 			qdel(R)
 	for(var/datum/data/record/T in GLOB.data_core.security)
-		if((T.fields["name"] == occupant.real_name))
+		if(T.fields["name"] == occupant.real_name)
 			qdel(T)
 	for(var/datum/data/record/G in GLOB.data_core.general)
-		if((G.fields["name"] == occupant.real_name))
+		if(G.fields["name"] == occupant.real_name)
 			announce_rank = G.fields["rank"]
 			qdel(G)
 

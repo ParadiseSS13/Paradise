@@ -1001,7 +1001,7 @@
 		if(user)
 			user.visible_message("<span class='warning'>Sparks fly out of \the [src]!</span>", "<span class='notice'>You emag \the [src], disabling its safeties.</span>")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
-		return
+		return TRUE
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
