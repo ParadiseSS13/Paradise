@@ -73,6 +73,9 @@
 		name = "[dna.real_name]'s [initial(name)]"
 
 	if(!owner) return ..() // Probably a redundant removal; just bail
+	
+	if(is_species(owner, /datum/species/monkey))
+		name = "[owner.name]'s [initial(name)]"
 
 	var/obj/item/organ/internal/brain/B = src
 	if(!special)

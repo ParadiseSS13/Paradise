@@ -61,6 +61,7 @@
 	if(!emagged)
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>The teleporter can now lock on to Syndicate beacons!</span>")
+		return TRUE
 	else
 		ui_interact(user)
 
