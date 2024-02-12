@@ -41217,6 +41217,9 @@
 	pixel_y = 28;
 	name = "custom placement"
 	},
+/obj/item/hand_labeler{
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
