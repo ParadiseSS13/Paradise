@@ -46598,6 +46598,10 @@
 	icon_state = "bluefull"
 	},
 /area/station/medical/storage)
+"cTz" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port/west)
 "cTA" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 8
@@ -50215,21 +50219,6 @@
 	},
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_4)
-"dgH" = (
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
-/obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/mug,
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
-/obj/structure/cable,
-/turf/simulated/floor/wood,
-/area/station/public/mrchangs)
 "dgI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
@@ -50393,6 +50382,11 @@
 	},
 /obj/structure/chair/wood{
 	dir = 8
+	},
+/obj/machinery/newscaster{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/wood,
 /area/station/public/mrchangs)
@@ -50886,6 +50880,7 @@
 	},
 /obj/item/book/manual/barman_recipes,
 /obj/item/lighter/zippo,
+/obj/item/reagent_containers/drinks/mug,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -55249,7 +55244,7 @@
 	inlet_injector_autolink_id = "o2_in";
 	name = "Oxygen Supply Control";
 	outlet_vent_autolink_id = "o2_out";
-	autolink_sensors = list("o2_sensor"="Tank")
+	autolink_sensors = list("o2_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "blue"
@@ -55439,6 +55434,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
+"egd" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port/east)
 "egi" = (
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
@@ -56557,6 +56561,21 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"eGE" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port/west)
 "eGU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -57126,7 +57145,7 @@
 	inlet_injector_autolink_id = "n2_in";
 	name = "Nitrogen Supply Control";
 	outlet_vent_autolink_id = "n2_out";
-	autolink_sensors = list("n2_sensor"="Tank")
+	autolink_sensors = list("n2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plasteel{
@@ -57557,23 +57576,6 @@
 /obj/item/clothing/gloves/color/fyellow/old,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"feb" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/port/west)
 "fef" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -57904,21 +57906,6 @@
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"fme" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/port/west)
 "fmg" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -58432,7 +58419,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 4;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -69019,7 +69006,7 @@
 	inlet_injector_autolink_id = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	outlet_vent_autolink_id = "co2_out";
-	autolink_sensors = list("co2_sensor"="Tank")
+	autolink_sensors = list("co2_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -69088,6 +69075,12 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
+"kKA" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port/west)
 "kKD" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/turf_decal/stripes/line{
@@ -71934,7 +71927,7 @@
 	dir = 1;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
@@ -77530,7 +77523,7 @@
 	inlet_injector_autolink_id = "tox_in";
 	name = "Toxin Supply Control";
 	outlet_vent_autolink_id = "tox_out";
-	autolink_sensors = list("tox_sensor"="Tank")
+	autolink_sensors = list("tox_sensor" = "Tank")
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -77851,7 +77844,7 @@
 	dir = 8;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -79218,12 +79211,6 @@
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"pEP" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/port/west)
 "pEY" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -80578,7 +80565,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor"="Burn Mix")
+	autolink_sensors = list("burn_sensor" = "Burn Mix")
 	},
 /obj/machinery/door_control{
 	id = "ToxinsVenting";
@@ -80781,6 +80768,23 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/medical/cloning)
+"qrk" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port/east)
 "qrr" = (
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "maint_house"
@@ -82151,6 +82155,21 @@
 /obj/machinery/smartfridge/id,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
+"qWF" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port/east)
 "qWJ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -82290,7 +82309,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
 	},
 /obj/machinery/light{
 	dir = 4
@@ -82440,23 +82459,6 @@
 	icon_state = "whitehall"
 	},
 /area/station/medical/reception)
-"rdj" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/mining/glass,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
-/turf/simulated/floor/plasteel,
-/area/station/supply/office)
 "rdL" = (
 /obj/item/kirbyplants,
 /obj/structure/extinguisher_cabinet{
@@ -83163,6 +83165,23 @@
 	icon_state = "dark"
 	},
 /area/station/security/evidence)
+"rwR" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/mining/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/turf/simulated/floor/plasteel,
+/area/station/supply/office)
 "rwZ" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
@@ -83462,7 +83481,7 @@
 	name = "Mixed Air Supply Control";
 	outlet_vent_autolink_id = "air_out";
 	outlet_setting = 2000;
-	autolink_sensors = list("air_sensor"="Tank")
+	autolink_sensors = list("air_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
@@ -85632,6 +85651,23 @@
 /obj/item/clothing/suit/mantle/old,
 /turf/simulated/floor/carpet,
 /area/station/maintenance/asmaint)
+"sPw" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port/west)
 "sPx" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/beakers{
@@ -86198,6 +86234,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
+"tdg" = (
+/obj/structure/table/wood,
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -24
+	},
+/obj/structure/cable,
+/obj/item/reagent_containers/drinks/mug,
+/turf/simulated/floor/wood,
+/area/station/public/mrchangs)
 "tdj" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -89226,7 +89272,7 @@
 	inlet_injector_autolink_id = "waste_in";
 	name = "Gas Mix Tank Control";
 	outlet_vent_autolink_id = "waste_out";
-	autolink_sensors = list("waste_sensor"="Tank")
+	autolink_sensors = list("waste_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -92518,10 +92564,6 @@
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"wnU" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/port/west)
 "woA" = (
 /obj/machinery/shower{
 	dir = 8
@@ -94889,7 +94931,7 @@
 	inlet_injector_autolink_id = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	outlet_vent_autolink_id = "n2o_out";
-	autolink_sensors = list("n2o_sensor"="Tank")
+	autolink_sensors = list("n2o_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -113478,8 +113520,8 @@ aTu
 aTu
 aTu
 bgr
-feb
-pEP
+sPw
+kKA
 blM
 bpa
 bpa
@@ -114505,8 +114547,8 @@ aXQ
 bal
 bde
 aVi
-bgz
-puM
+cTz
+eGE
 bkb
 blM
 bnC
@@ -115276,8 +115318,8 @@ aXQ
 bal
 bdh
 aVi
-wnU
-fme
+cTz
+eGE
 bEt
 blM
 bnF
@@ -117332,8 +117374,8 @@ aZi
 bbq
 xxt
 kFu
-bgA
-biJ
+mnr
+qWF
 bkg
 blR
 blR
@@ -118361,8 +118403,8 @@ aUE
 aab
 gdZ
 bgA
-biJ
-bkg
+qrk
+egd
 blR
 iFm
 bsM
@@ -119670,7 +119712,7 @@ bzJ
 gdY
 bDX
 bDX
-rdj
+rwR
 bzJ
 cgW
 cgW
@@ -127096,7 +127138,7 @@ bgT
 biR
 bpR
 cSX
-dgH
+tdg
 aDN
 bhq
 bnn
