@@ -11,7 +11,7 @@
 	var/list/mule = list()
 	var/list/misc = list()
 
-/datum/ui_module/botcall/proc/get_bot_data()
+/datum/ui_module/botcall/proc/bot_sort()
 	for(bot in GLOB.bots_list)
 		switch(bot.model)
 			if(SEC_BOT)
