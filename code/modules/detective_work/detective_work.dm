@@ -1,7 +1,5 @@
 //CONTAINS: Suit fibers and Detective's Scanning Computer
 
-/atom/var/list/suit_fibers
-
 /atom/proc/add_fibers(mob/living/carbon/human/M)
 	if(M.gloves && isclothing(M.gloves))
 		var/obj/item/clothing/gloves/G = M.gloves
