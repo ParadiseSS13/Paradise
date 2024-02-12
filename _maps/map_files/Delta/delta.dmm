@@ -941,6 +941,21 @@
 "ahC" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"ahD" = (
+/obj/machinery/atmospherics/trinary/filter{
+	dir = 8;
+	filter_type = 2
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/controlroom)
 "ahE" = (
 /obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
@@ -5816,14 +5831,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
-"axV" = (
-/obj/machinery/atmospherics/trinary/filter{
-	dir = 4;
-	filter_type = "o2";
-	on = 1
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/controlroom)
 "axW" = (
 /obj/item/kirbyplants,
 /obj/structure/sign/nosmoking_2{
@@ -8455,21 +8462,6 @@
 "aFe" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/controlroom)
-"aFf" = (
-/obj/machinery/atmospherics/trinary/filter{
-	dir = 8;
-	filter_type = "n2"
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -12399,8 +12391,8 @@
 	c_tag = "Supermatter Entrance";
 	network = list("SS13","Engineering")
 	},
-/obj/machinery/suit_storage_unit/atmos,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aPF" = (
@@ -17521,8 +17513,7 @@
 /area/station/engineering/atmos)
 "bbQ" = (
 /obj/machinery/atmospherics/trinary/filter{
-	dir = 1;
-	filter_type = ""
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -22773,7 +22764,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
 "bpG" = (
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 4
 	},
@@ -23489,7 +23480,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
 "brG" = (
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
@@ -23840,7 +23831,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/machinery/suit_storage_unit/security/hos,
+/obj/machinery/suit_storage_unit/security/hos/secure,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -24089,7 +24080,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -36021,7 +36012,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/machinery/suit_storage_unit/ce,
+/obj/machinery/suit_storage_unit/ce/secure,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -37815,7 +37806,7 @@
 	},
 /area/station/maintenance/port)
 "cbz" = (
-/obj/machinery/suit_storage_unit/captain,
+/obj/machinery/suit_storage_unit/captain/secure,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -45127,7 +45118,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "cuY" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
@@ -45140,7 +45131,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -45149,7 +45140,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "cva" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
@@ -45820,7 +45811,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "cwY" = (
-/obj/machinery/suit_storage_unit/mime,
+/obj/machinery/suit_storage_unit/mime/secure,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
@@ -46844,7 +46835,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/hollow,
@@ -50276,7 +50267,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "cIP" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
@@ -72535,10 +72526,10 @@
 /turf/simulated/floor/plasteel/stairs,
 /area/station/science/research)
 "hLd" = (
-/obj/machinery/suit_storage_unit/cmo,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/suit_storage_unit/cmo/secure,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -74917,7 +74908,7 @@
 	},
 /area/station/hallway/primary/central/ne)
 "jin" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -76680,6 +76671,14 @@
 	icon_state = "dark"
 	},
 /area/station/security/evidence)
+"kmE" = (
+/obj/machinery/atmospherics/trinary/filter{
+	dir = 4;
+	filter_type = 1;
+	on = 1
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/controlroom)
 "kna" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -78882,7 +78881,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block)
 "lIv" = (
-/obj/machinery/suit_storage_unit/clown,
+/obj/machinery/suit_storage_unit/clown/secure,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
@@ -79851,7 +79850,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /turf/simulated/floor/plasteel,
 /area/station/security/armory/secure)
 "mrs" = (
@@ -89397,7 +89396,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "rYe" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -99596,7 +99595,7 @@
 	},
 /area/station/medical/virology)
 "xUI" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /turf/simulated/floor/plasteel,
 /area/station/security/armory/secure)
 "xVe" = (
@@ -125763,7 +125762,7 @@ aEk
 npF
 aCj
 aEf
-aFf
+ahD
 aHh
 aIE
 atd
@@ -128068,7 +128067,7 @@ aug
 atd
 xhh
 awR
-axV
+kmE
 ayR
 ayR
 ayR
