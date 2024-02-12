@@ -24822,9 +24822,10 @@
 "cEm" = (
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
-	departmentType = 2;
-	name = "Quartermaster RC";
-	pixel_x = 30
+	departmentType = 5;
+	name = "Quartermaster Requests Console";
+	pixel_x = 30;
+	announcementConsole = 1
 	},
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
@@ -95994,12 +95995,16 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/captain)
 "xNF" = (
-/obj/machinery/door/window{
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/polarized,
+/obj/machinery/door/window/classic/normal{
 	dir = 8;
 	name = "Robotics Surgery"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
