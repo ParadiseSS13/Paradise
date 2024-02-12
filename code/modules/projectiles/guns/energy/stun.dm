@@ -80,11 +80,7 @@
 	burst_size = 2
 	fire_delay = 2.5
 	shaded_charge = TRUE
-	can_flashlight = TRUE
 	can_holster = FALSE
-	flight_x_offset = 15
-	flight_y_offset = 10
-	execution_speed = 5 SECONDS
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"
