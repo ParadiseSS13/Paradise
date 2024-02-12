@@ -3,15 +3,6 @@
 	var/mob/living/simple_animal/bot/Bot
 	var/mob/living/silicon/ai/AI
 
-/datum/ui_module/botcall/proc/add_to_list(list_name, iterated)
-	list_name += list(list(
-	"name" = iterated.bot_name,
-	"model" = iterated.model,
-	"status" = iterated.mode,
-	"location" = get_area(iterated),
-	"UID" = iterated.UID()
-	))
-
 /datum/ui_module/botcall/ui_interact(mob/user)
 	return GLOB.default_state
 
@@ -24,70 +15,13 @@
 
 /datum/ui_module/botcall/ui_data(mob/user)
 	var/list/data = ..()
-	var/list/secbot = list()
-	var/list/medbot = list()
-	var/list/cleanbot = list()
-	var/list/floorbot = list()
-	var/list/mule = list()
-	var/list/misc = list()
-
-	for(var/mob/living/simple_animal/bot/iterated in GLOB.bots_list)
-		switch(iterated.bot_type)
-			if(SEC_BOT)
-				secbot += list(list(
-					"name" = iterated.bot_name,
-					"model" = iterated.model,
-					"status" = iterated.mode,
-					"location" = get_area(iterated),
-					"UID" = iterated.UID()
-					))
-			if(MED_BOT)
-				medbot += list(list(
-					"name" = iterated.bot_name,
-					"model" = iterated.model,
-					"status" = iterated.mode,
-					"location" = get_area(iterated),
-					"UID" = iterated.UID()
-					))
-			if(CLEAN_BOT)
-				cleanbot += list(list(
-					"name" = iterated.bot_name,
-					"model" = iterated.model,
-					"status" = iterated.mode,
-					"location" = get_area(iterated),
-					"UID" = iterated.UID()
-					))
-			if(FLOOR_BOT)
-				floorbot += list(list(
-					"name" = iterated.bot_name,
-					"model" = iterated.model,
-					"status" = iterated.mode,
-					"location" = get_area(iterated),
-					"UID" = iterated.UID()
-					))
-			if(MULE_BOT)
-				mule += list(list(
-					"name" = iterated.bot_name,
-					"model" = iterated.model,
-					"status" = iterated.mode,
-					"location" = get_area(iterated),
-					"UID" = iterated.UID()
-					))
-			if(HONK_BOT)
-				misc += list(list(
-					"name" = iterated.bot_name,
-					"model" = iterated.model,
-					"status" = iterated.mode,
-					"location" = get_area(iterated),
-					"UID" = iterated.UID()
-					))
-
-	data["secbot"] = secbot
-	data["medbot"] = medbot
-	data["cleanbot"] = cleanbot
-	data["floorbot"] = floorbot
-	data["mule"] = mule
-	data["misc"] = misc
+	Bot.bot_sort()
+	data["secbot"] = Bot.secbot
+	data["medbot"] = Bot.medbot
+	data["cleanbot"] = Bot.cleanbot
+	data["floorbot"] = Bot.floorbot
+	data["mule"] = Bot.mule
+	data["misc"] = Bot.misc
 	return data
 
 /datum/ui_module/botcall/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
