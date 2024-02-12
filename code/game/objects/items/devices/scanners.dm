@@ -3,6 +3,7 @@ CONTAINS:
 T-RAY
 DETECTIVE SCANNER
 HEALTH ANALYZER
+ROBOT ANALYZER
 GAS ANALYZER
 PLANT ANALYZER
 REAGENT SCANNER
@@ -268,7 +269,7 @@ REAGENT SCANNER
 
 	var/implant_detect
 	for(var/obj/item/organ/internal/O in H.internal_organs)
-		if(O.is_robotic())
+		if(O.is_robotic() && !O.stealth_level)
 			implant_detect += "[H.name] is modified with a [O.name].<br>"
 	if(implant_detect)
 		msgs += "<span class='notice'>Detected cybernetic modifications:</span>"
@@ -327,6 +328,131 @@ REAGENT SCANNER
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/deconstruct.ogg'
+
+/obj/item/robotanalyzer
+	name = "cyborg analyzer"
+	desc = "A hand-held scanner able to diagnose robotic injuries."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "robotanalyzer"
+	item_state = "analyzer"
+	flags = CONDUCT
+	slot_flags = SLOT_FLAG_BELT
+	throwforce = 3
+	w_class = WEIGHT_CLASS_SMALL
+	throw_speed = 5
+	throw_range = 10
+	origin_tech = "magnets=1;biotech=1"
+
+/obj/item/robotanalyzer/attack(mob/living/M, mob/living/user)
+	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
+		var/list/msgs = list()
+		user.visible_message("<span class='warning'>[user] has analyzed the floor's components!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
+		msgs += "<span class='info'>Analyzing Results for The floor:\n\t Overall Status: Unknown</span>"
+		msgs += "<span class='info'>\t Damage Specifics: <font color='#FFA500'>[0]</font>/<font color='red>[0]</font></span>"
+		msgs += "<span class='info'>Key: <font color='#FFA500'>Burns</font><font color ='red'>/Brute</font></span>"
+		msgs += "<span class='info'>Chassis Temperature: ???</span>"
+		to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
+		return
+
+	user.visible_message("<span class='notice'>[user] has analyzed [M]'s components.</span>", "<span class='notice'>You have analyzed [M]'s components.</span>")
+	robot_healthscan(user, M)
+	add_fingerprint(user)
+
+/proc/robot_healthscan(mob/user, mob/living/M)
+	var/scan_type
+	var/list/msgs = list()
+	if(isrobot(M))
+		scan_type = "robot"
+	else if(ishuman(M))
+		scan_type = "prosthetics"
+	else if(isAI(M))
+		scan_type = "ai"
+	else
+		to_chat(user, "<span class='warning'>You can't analyze non-robotic things!</span>")
+		return
+
+	switch(scan_type)
+		if("robot")
+			var/burn = M.getFireLoss() > 50 	? 	"<b>[M.getFireLoss()]</b>" 		: M.getFireLoss()
+			var/brute = M.getBruteLoss() > 50 	? 	"<b>[M.getBruteLoss()]</b>" 	: M.getBruteLoss()
+			msgs += "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [M.stat > 1 ? "fully disabled" : "[M.health]% functional"]</span>"
+			msgs += "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
+			msgs += "\t Damage Specifics: <font color='#FFA500'>[burn]</font> - <font color='red'>[brute]</font>"
+			if(M.timeofdeath && M.stat == DEAD)
+				msgs += "<span class='notice'>Time of disable: [station_time_timestamp("hh:mm:ss", M.timeofdeath)]</span>"
+			var/mob/living/silicon/robot/H = M
+			var/list/damaged = H.get_damaged_components(TRUE, TRUE, TRUE) // Get all except the missing ones
+			var/list/missing = H.get_missing_components()
+			msgs += "<span class='notice'>Localized Damage:</span>"
+			if(!LAZYLEN(damaged) && !LAZYLEN(missing))
+				msgs += "<span class='notice'>\t Components are OK.</span>"
+			else
+				if(LAZYLEN(damaged))
+					for(var/datum/robot_component/org in damaged)
+						msgs += text("<span class='notice'>\t []: [][] - [] - [] - []</span>",	\
+						capitalize(org.name),					\
+						(org.is_destroyed())	?	"<font color='red'><b>DESTROYED</b></font> "							:"",\
+						(org.electronics_damage > 0)	?	"<font color='#FFA500'>[org.electronics_damage]</font>"	:0,	\
+						(org.brute_damage > 0)	?	"<font color='red'>[org.brute_damage]</font>"							:0,		\
+						(org.toggled)	?	"Toggled ON"	:	"<font color='red'>Toggled OFF</font>",\
+						(org.powered)	?	"Power ON"		:	"<font color='red'>Power OFF</font>")
+				if(LAZYLEN(missing))
+					for(var/datum/robot_component/org in missing)
+						msgs += "<span class='warning'>\t [capitalize(org.name)]: MISSING</span>"
+
+			if(H.emagged && prob(5))
+				msgs += "<span class='warning'>\t ERROR: INTERNAL SYSTEMS COMPROMISED</span>"
+
+		if("prosthetics")
+			var/mob/living/carbon/human/H = M
+			var/is_ipc = ismachineperson(H)
+			msgs += "<span class='notice'>Analyzing Results for [M]: [is_ipc ? "\n\t Overall Status: [H.stat > 1 ? "fully disabled" : "[H.health]% functional"]</span><hr>" : "<hr>"]" //for the record im sorry
+			msgs += "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
+			msgs += "<span class='notice'>External prosthetics:</span>"
+			var/organ_found
+			if(LAZYLEN(H.internal_organs))
+				for(var/obj/item/organ/external/E in H.bodyparts)
+					if(!E.is_robotic() || (is_ipc && (E.get_damage() == 0))) //Non-IPCs have their cybernetics show up in the scan, even if undamaged
+						continue
+					organ_found = TRUE
+					msgs += "[E.name]: <font color='red'>[E.brute_dam]</font> <font color='#FFA500'>[E.burn_dam]</font>"
+			if(!organ_found)
+				msgs += "<span class='warning'>No prosthetics located.</span>"
+			msgs += "<hr>"
+			msgs += "<span class='notice'>Internal prosthetics:</span>"
+			organ_found = null
+			if(LAZYLEN(H.internal_organs))
+				for(var/obj/item/organ/internal/O in H.internal_organs)
+					if(!O.is_robotic() || istype(O, /obj/item/organ/internal/cyberimp) || O.stealth_level <= 1)
+						continue
+					organ_found = TRUE
+					msgs += "[capitalize(O.name)]: <font color='red'>[O.damage]</font>"
+			if(!organ_found)
+				msgs += "<span class='warning'>No prosthetics located.</span>"
+			msgs += "<hr>"
+			msgs += "<span class='notice'>Cybernetic implants:</span>"
+			organ_found = null
+			if(LAZYLEN(H.internal_organs))
+				for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
+					if(I.stealth_level > 1)
+						continue
+					organ_found = TRUE
+					msgs += "[capitalize(I.name)]: <font color='red'>[I.crit_fail ? "CRITICAL FAILURE" : I.damage]</font>"
+			if(!organ_found)
+				msgs += "<span class='warning'>No implants located.</span>"
+			msgs += "<hr>"
+			if(is_ipc)
+				msgs.Add(get_chemscan_results(user, H))
+			msgs += "<span class='notice'>Subject temperature: [round(H.bodytemperature-T0C, 0.01)]&deg;C ([round(H.bodytemperature*1.8-459.67, 0.01)]&deg;F)</span>"
+		if("ai")
+			var/mob/living/silicon/ai/A = M
+			var/burn = A.getFireLoss() > 50 	? 	"<b>[A.getFireLoss()]</b>" 		: A.getFireLoss()
+			var/brute = A.getBruteLoss() > 50 	? 	"<b>[A.getBruteLoss()]</b>" 	: A.getBruteLoss()
+			msgs += "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [A.stat > 1 ? "fully disabled" : "[A.health]% functional"]</span>"
+			msgs += "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
+			msgs += "\t Damage Specifics: <font color='#FFA500'>[burn]</font> - <font color='red'>[brute]</font>"
+
+	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
 /obj/item/analyzer
 	name = "analyzer"

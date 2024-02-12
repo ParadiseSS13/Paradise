@@ -106,5 +106,9 @@
 	qdel(mob_to_delete)
 
 /proc/dust_if_respawnable(mob/M)
+	if(isdrone(M))
+		var/mob/living/silicon/robot/drone/drone = M
+		drone.shut_down(TRUE)
+		return
 	if(HAS_TRAIT_FROM(M, TRAIT_RESPAWNABLE, GHOST_ROLE))
 		M.dust()
