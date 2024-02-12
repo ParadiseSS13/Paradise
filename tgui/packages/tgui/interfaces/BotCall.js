@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Icon, NanoMap, Table, Tabs } from '../components';
+import { Box, Button, Icon, Table, Tabs } from '../components';
 import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
 
@@ -23,6 +23,27 @@ import { Window } from '../layouts';
 //     </Window>
 //   );
 // };
+
+// Status from bots.dm
+const BotStatus = (mode) => {
+  if (mode === 0) {
+    // Idle
+    return 'Idle';
+  }
+  if (mode >= 1 && mode <= 3) {
+    // Secbot Arrest
+    return 'Arresting';
+  }
+  if (mode === 4 || mode === 5) {
+    return 'Patrolling';
+  }
+  if (mode === 6) {
+    return 'Responding';
+  }
+  if (mode >= 7 && mode <= 19) {
+    return 'Working';
+  }
+};
 
 export const BotCall = (props, context) => {
   const { act, data } = useBackend(context);
@@ -109,15 +130,15 @@ const SecuritronView = (_properties, context) => {
         {secbot.map((bot) => (
           <Table.Row key="secbot">
             <TableCell>{bot.name ? bot.name : bot.model}</TableCell>
-            <TableCell>{'secbot'}</TableCell>
-            <TableCell>{bot.status}</TableCell>
+            <TableCell>{bot.model}</TableCell>
+            <TableCell>{BotStatus(bot.status)}</TableCell>
             <TableCell>{bot.location}</TableCell>
             <TableCell>
               <Button
                 content="Interface"
                 onClick={() =>
                   act('interface', {
-                    botref: bot.ref,
+                    botref: bot.UID,
                   })
                 }
               />
@@ -127,7 +148,7 @@ const SecuritronView = (_properties, context) => {
                 content="Call"
                 onClick={() =>
                   act('call', {
-                    botref: bot.ref,
+                    botref: bot.UID,
                   })
                 }
               />

@@ -3,6 +3,15 @@
 	var/mob/living/simple_animal/bot/Bot
 	var/mob/living/silicon/ai/AI
 
+/datum/ui_module/botcall/proc/add_to_list(list_name, iterated)
+	list_name += list(list(
+	"name" = iterated.bot_name,
+	"model" = iterated.model,
+	"status" = iterated.mode,
+	"location" = get_area(iterated),
+	"UID" = iterated.UID()
+	))
+
 /datum/ui_module/botcall/ui_interact(mob/user)
 	return GLOB.default_state
 
@@ -23,47 +32,54 @@
 	var/list/misc = list()
 
 	for(var/mob/living/simple_animal/bot/iterated in GLOB.bots_list)
-		switch(iterated.type)
-			if(/mob/living/simple_animal/bot/secbot, /mob/living/simple_animal/bot/ed209)
+		switch(iterated.bot_type)
+			if(SEC_BOT)
 				secbot += list(list(
 					"name" = iterated.bot_name,
 					"model" = iterated.model,
 					"status" = iterated.mode,
 					"location" = get_area(iterated),
+					"UID" = iterated.UID()
 					))
-			if(/mob/living/simple_animal/bot/medbot)
+			if(MED_BOT)
 				medbot += list(list(
 					"name" = iterated.bot_name,
 					"model" = iterated.model,
 					"status" = iterated.mode,
 					"location" = get_area(iterated),
+					"UID" = iterated.UID()
 					))
-			if(/mob/living/simple_animal/bot/cleanbot)
+			if(CLEAN_BOT)
 				cleanbot += list(list(
 					"name" = iterated.bot_name,
 					"model" = iterated.model,
 					"status" = iterated.mode,
 					"location" = get_area(iterated),
+					"UID" = iterated.UID()
 					))
-			if(/mob/living/simple_animal/bot/floorbot)
+			if(FLOOR_BOT)
 				floorbot += list(list(
 					"name" = iterated.bot_name,
 					"model" = iterated.model,
 					"status" = iterated.mode,
 					"location" = get_area(iterated),
+					"UID" = iterated.UID()
 					))
-			if(/mob/living/simple_animal/bot/mulebot)
+			if(MULE_BOT)
 				mule += list(list(
 					"name" = iterated.bot_name,
 					"model" = iterated.model,
 					"status" = iterated.mode,
 					"location" = get_area(iterated),
+					"UID" = iterated.UID()
 					))
+			if(HONK_BOT)
 				misc += list(list(
 					"name" = iterated.bot_name,
 					"model" = iterated.model,
 					"status" = iterated.mode,
 					"location" = get_area(iterated),
+					"UID" = iterated.UID()
 					))
 
 	data["secbot"] = secbot
@@ -77,16 +93,15 @@
 /datum/ui_module/botcall/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if (..())
 		return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
+	Bot = locateUID(params["botref"])
+	if(!Bot || Bot.remote_disabled || AI.control_disabled)
+		return
 	switch(action)
+		if("test_button")
+			to_chat(world, "test button")
 		if("interface")
-			Bot = locate(params["botref"]) in GLOB.bots_list
-			if(!Bot || Bot.remote_disabled || AI.control_disabled)
-				return
 			Bot.attack_ai(src)
 		if("call")
-			Bot = locate(params["botref"]) in GLOB.bots_list
-			if(!Bot || Bot.remote_disabled || AI.control_disabled)
-				return
 			AI.waypoint_mode = TRUE
 			to_chat(src, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
 
