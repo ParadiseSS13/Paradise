@@ -33,7 +33,7 @@
 #define LIGHT_COLOR_WHITE		"#FFFFFF"
 #define LIGHT_COLOR_RED        "#FA8282" //Warm but extremely diluted red. rgb(250, 130, 130)
 #define LIGHT_COLOR_GREEN      "#64C864" //Bright but quickly dissipating neon green. rgb(100, 200, 100)
-#define LIGHT_COLOR_BLUE       "#6496fa" //Cold, diluted blue. rgb(100, 150, 250)
+#define LIGHT_COLOR_BLUE       "#6496FA" //Cold, diluted blue. rgb(100, 150, 250)
 
 #define LIGHT_COLOR_BLUEGREEN  "#7DE1AF" //Light blueish green. rgb(125, 225, 175)
 #define LIGHT_COLOR_CYAN       "#7DE1E1" //Diluted cyan. rgb(125, 225, 225)
