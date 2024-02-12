@@ -55,7 +55,6 @@ export class TguiSay extends Component<{}, State> {
     this.handleBackspaceDelete = this.handleBackspaceDelete.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleEnter = this.handleEnter.bind(this);
-    this.handleForceSay = this.handleForceSay.bind(this);
     this.handleIncrementChannel = this.handleIncrementChannel.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -69,7 +68,6 @@ export class TguiSay extends Component<{}, State> {
 
   componentDidMount() {
     Byond.subscribeTo('props', this.handleProps);
-    Byond.subscribeTo('force', this.handleForceSay);
     Byond.subscribeTo('open', this.handleOpen);
   }
 
@@ -160,20 +158,6 @@ export class TguiSay extends Component<{}, State> {
     }
 
     this.handleClose();
-  }
-
-  handleForceSay() {
-    const currentValue = this.innerRef.current?.value;
-    // Only force say if we're on a visible channel and have typed something
-    if (!currentValue || !this.channelIterator.isVisible()) return;
-
-    const prefix = this.currentPrefix ?? '';
-    const grunt = this.channelIterator.isSay()
-      ? prefix + currentValue
-      : currentValue;
-
-    this.messages.forceSayMsg(grunt);
-    this.reset();
   }
 
   handleIncrementChannel() {

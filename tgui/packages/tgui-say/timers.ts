@@ -9,11 +9,6 @@ export const byondMessages = {
     (visible: boolean) => Byond.sendMessage('thinking', { visible }),
     0.4 * SECONDS
   ),
-  forceSayMsg: debounce(
-    (entry: string) => Byond.sendMessage('force', { entry, channel: 'Say' }),
-    1 * SECONDS,
-    true
-  ),
   // Throttle: Prevents spamming the server
   typingMsg: throttle(
     (isMeChannel: boolean) => Byond.sendMessage('typing', { isMeChannel }),
