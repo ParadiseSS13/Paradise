@@ -225,7 +225,7 @@
 		visible_message("<span class='notice'>The crate has been [locked ? null : "un"]locked by [user].</span>")
 		update_icon()
 	else
-		to_chat(user, "<span class='notice'>Access Denied</span>")
+		to_chat(user, "<span class='notice'>Access Denied.</span>")
 
 /obj/structure/closet/crate/secure/AltClick(mob/user)
 	if(Adjacent(user) && !opened)
@@ -259,8 +259,9 @@
 		locked = FALSE
 		broken = TRUE
 		update_icon()
-		do_sparks(2, 1, src)
+		do_sparks(2, TRUE, src)
 		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
+		return TRUE
 
 /obj/structure/closet/crate/secure/emp_act(severity)
 	for(var/obj/O in src)

@@ -25,9 +25,9 @@ export const BlueSpaceArtilleryControl = (props, context) => {
     );
   }
   return (
-    <Window>
+    <Window width={400} height={125}>
       <Window.Content>
-        <Section>
+        <Section fill>
           <LabeledList>
             {data.notice && (
               <LabeledList.Item label="Alert" color="red">

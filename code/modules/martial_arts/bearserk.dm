@@ -1,5 +1,5 @@
 /datum/martial_art/bearserk
-	weight = 9 // Higher weight than Krav-Maga, brute force overrules
+	weight = 8 // Only beaten out by Carp-Fu, because being able to go back to using guns when you want to is OP
 	name = "Rage of the Space Bear"
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/bearserk/bear_jaws, /datum/martial_combo/bearserk/paw_slam, /datum/martial_combo/bearserk/smokey)
@@ -12,17 +12,17 @@
 	D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>", "<span class='userdanger'>[A] [atk_verb] you!</span>")
 	D.apply_damage(10, BRUTE, A.zone_selected)
 	if(isliving(D) && D.stat != DEAD)
-		A.adjustStaminaLoss(-10)
+		A.adjustStaminaLoss(-20)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/bearserk/explaination_header(user)
-	to_chat(usr, "<b><i>Quelling the ursine rage for a moment, you ponder on how a Space Bear fights...</i></b>")
+	to_chat(user, "<b><i>Quelling the ursine rage for a moment, you ponder on how a Space Bear fights...</i></b>")
 
 /datum/martial_art/bearserk/explaination_footer(user)
-	to_chat(user, "<b>All combos recover stamina and grant a stamina resistance buff, so get aggressive!.</b>")
+	to_chat(user, "<b>All combos recover stamina and grant a stamina resistance buff, so get aggressive!</b>")
 
-/datum/martial_art/bearserk/teach(mob/living/carbon/human/H, make_temporary=0)
+/datum/martial_art/bearserk/teach(mob/living/carbon/human/H, make_temporary = 0)
 	..()
 	if(HAS_TRAIT(H, TRAIT_PACIFISM))
 		to_chat(H, "<span class='warning'>You feel otherworldly rage flicker briefly in your mind, before you reject such violent thoughts and calm down. \
@@ -39,7 +39,9 @@
 // The Pelt
 
 /obj/item/clothing/head/bearpelt/bearserk
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, RAD = 0, FIRE = 10, ACID = 10)
+	strip_delay = 80
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, RAD = 0, FIRE = INFINITY, ACID = 75)
+	resistance_flags = FIRE_PROOF
 	body_parts_covered = UPPER_TORSO|HEAD|ARMS
 	var/datum/martial_art/bearserk/style
 
@@ -56,6 +58,7 @@
 		style.teach(H, TRUE)
 		H.faction |= "russian" // Russian Hardbass Begins
 		H.physiology.stun_mod *= 0.80
+		ADD_TRAIT(H, TRAIT_RESISTHEAT, "bearserk")
 
 /obj/item/clothing/head/bearpelt/bearserk/dropped(mob/user, datum/reagent/R)
 	..()
@@ -63,8 +66,10 @@
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
+		style.remove(H)
 		H.faction -= "russian" // Hardbass stops
 		H.physiology.stun_mod /= 0.80
+		REMOVE_TRAIT (H, TRAIT_RESISTHEAT, "bearserk")
 
 /obj/item/clothing/head/bearpelt/bearserk/examine(mob/user)
 	. = ..()

@@ -71,10 +71,6 @@
 	/// Persistent storage for the flavour text of examined atoms.
 	var/list/description_holders = list()
 
-	// Their chat window, sort of important.
-	// See /goon/code/datums/browserOutput.dm
-	var/datum/chatOutput/chatOutput
-
 	// Donator stuff.
 	var/donator_level = 0
 
@@ -103,6 +99,9 @@
 	/// Last world/time that a PM was sent to the player by an admin
 	var/received_discord_pm = -99999 // Yes this super low number is intentional
 
+	///world.time they connected
+	var/connection_time
+
 	/// Has the client accepted the TOS about data collection and other stuff
 	var/tos_consent = FALSE
 
@@ -127,6 +126,9 @@
 
 	///A lazy list of atoms we've examined in the last RECENT_EXAMINE_MAX_WINDOW (default 2) seconds, so that we will call [/atom/proc/examine_more] instead of [/atom/proc/examine] on them when examining
 	var/list/recent_examines
+
+	/// When to next alert admins that mouse macro use was attempted
+	var/next_mouse_macro_warning
 
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)

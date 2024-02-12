@@ -101,7 +101,6 @@
 	//onclose(user, "arcade")
 	var/datum/browser/popup = new(user, "arcade", "Space Villain 2000")
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 	return
 
@@ -259,6 +258,7 @@
 
 		add_hiddenprint(user)
 		updateUsrDialog()
+		return TRUE
 
 // *** THE ORION TRAIL ** //
 
@@ -411,7 +411,6 @@
 		dat += "<P ALIGN=Right><a href='byond://?src=[UID()];close=1'>Close</a></P>"
 	var/datum/browser/popup = new(user, "arcade", "The Orion Trail",400,700)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 	return
 
@@ -969,6 +968,7 @@
 		add_hiddenprint(user)
 		newgame()
 		emagged = TRUE
+		return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/orion
 	name = "spaceport security"
