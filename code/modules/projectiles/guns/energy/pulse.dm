@@ -43,6 +43,7 @@
 	item_state = null
 	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/pulse/pistol
+	can_charge = FALSE
 
 /obj/item/gun/energy/pulse/destroyer
 	name = "pulse destroyer"

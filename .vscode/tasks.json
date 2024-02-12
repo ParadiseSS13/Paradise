@@ -14,7 +14,7 @@
 			"type": "shell",
 			"command": "tgui/bin/tgui-build",
 			"windows": {
-				"command": ".\\tgui\\bin\\tgui-build.bat"
+				"command": ".\\tgui\\bin\\tgui.bat"
 			},
 			"problemMatcher": [
 				"$tsc",
@@ -37,18 +37,5 @@
 			"label": "tgui: run dev server"
 		}
 		,
-		{
-			"type": "shell",
-			"command": "tgui/bin/tgui-formatting",
-			"windows": {
-				"command": ".\\tgui\\bin\\tgui-formatting.bat"
-			},
-			"problemMatcher": [
-				"$tsc",
-				"$eslint-stylish"
-			],
-			"group": "build",
-			"label": "tgui: run prettier formatting"
-		}
 	]
 }
