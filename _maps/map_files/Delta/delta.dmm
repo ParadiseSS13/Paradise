@@ -1260,7 +1260,7 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Supply Break Room"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plating,
 /area/station/supply/office)
 "akY" = (
@@ -12474,10 +12474,6 @@
 /obj/item/storage/fancy/crayons,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/art)
-"aPT" = (
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "aPU" = (
 /obj/structure/table/wood,
 /obj/item/instrument/guitar,
@@ -13099,15 +13095,6 @@
 	icon_state = "bar"
 	},
 /area/station/service/bar)
-"aRu" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/eight,
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel/airless{
-	dir = 10;
-	icon_state = "darkblue"
-	},
-/area/space/nearstation)
 "aRv" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -24266,10 +24253,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central)
-"btJ" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "btL" = (
 /turf/simulated/wall/r_wall,
 /area/station/command/vault)
@@ -61042,14 +61025,14 @@
 	dir = 1;
 	name = "Cargo Bay Desk"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/general{
-	dir = 1
-	},
 /obj/effect/turf_decal/delivery,
 /obj/item/desk_bell{
 	pixel_x = -6;
 	pixel_y = 3;
 	anchored = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -69862,9 +69845,9 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Cargo Bay Maintenance"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
 "fTZ" = (
@@ -70439,8 +70422,8 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Cargo Bay Warehouse Maintenance"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
 "gti" = (
@@ -71264,19 +71247,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
-"gWP" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/mining/glass{
-	name = "Cargo Bay"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
-/turf/simulated/floor/plasteel,
-/area/station/supply/sorting)
 "gXp" = (
 /obj/machinery/door/airlock/security{
 	name = "Detective"
@@ -73177,11 +73147,11 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "qm_warehouse";
 	name = "Warehouse Shutters"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "igJ" = (
@@ -75033,8 +75003,8 @@
 	locked = 1;
 	name = "Cargo Docking Hatch"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "jtb" = (
@@ -75453,6 +75423,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -79791,6 +79762,21 @@
 /obj/effect/landmark/start/head_of_security,
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
+"myW" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/mining,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/miningdock)
 "mzs" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -80059,6 +80045,10 @@
 	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
+"mIl" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "mJw" = (
 /obj/machinery/light{
 	dir = 8
@@ -82693,21 +82683,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/public/sleep)
-"olz" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/mining/glass,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/storage)
 "olR" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining,
@@ -83226,10 +83201,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/break_room)
-"ozK" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/medical/virology)
 "ozS" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining/glass{
@@ -86928,6 +86899,22 @@
 	icon_state = "darkblue"
 	},
 /area/station/command/bridge)
+"qVF" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/mining/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "qWf" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Aft Starboard Solar Access"
@@ -87618,6 +87605,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/customs)
+"rnp" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Cargo Bay"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
+/turf/simulated/floor/plasteel,
+/area/station/supply/sorting)
 "rnA" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -89520,7 +89521,7 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Cargo Bay Warehouse Maintenance"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "spp" = (
@@ -91425,21 +91426,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/service/crematorium,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
-"tyN" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/mining,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/miningdock)
 "tyQ" = (
 /obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
@@ -91831,7 +91817,6 @@
 /area/station/medical/medbay)
 "tKX" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
 "tLO" = (
@@ -94550,6 +94535,11 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/supply/miningdock)
+"vuL" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/station/medical/virology)
 "vuX" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -95893,7 +95883,6 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -95907,6 +95896,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "wmB" = (
@@ -97273,6 +97263,10 @@
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
 /area/station/maintenance/aft)
+"xcn" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "xcs" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
@@ -98247,6 +98241,15 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/fsmaint)
+"xGL" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/space/nearstation)
 "xGY" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -132112,7 +132115,7 @@ azd
 aAp
 awX
 abj
-aRu
+xGL
 ghZ
 aFq
 aVK
@@ -132368,7 +132371,7 @@ aCo
 azd
 aAq
 awX
-aPT
+xcn
 abj
 aVK
 aGp
@@ -140339,7 +140342,7 @@ jkv
 wnt
 eOG
 aFF
-gWP
+rnp
 uJC
 ibg
 aKy
@@ -142149,7 +142152,7 @@ aJd
 aJd
 aGK
 ayD
-olz
+qVF
 jKE
 ayD
 bbe
@@ -142923,7 +142926,7 @@ aSG
 aWx
 nQX
 aZp
-tyN
+myW
 bcF
 bfz
 bfz
@@ -147647,9 +147650,9 @@ cBf
 wdL
 dGw
 dGw
-ozK
-ozK
-ozK
+tKX
+tKX
+tKX
 dGw
 dGw
 hGZ
@@ -149962,7 +149965,7 @@ dFG
 dFG
 vOB
 kce
-tKX
+vuL
 dFG
 dFG
 abj
@@ -150878,7 +150881,7 @@ abj
 aaa
 abj
 abj
-btJ
+mIl
 aaa
 ygH
 tFK
@@ -151135,7 +151138,7 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 abj
 ygH
 aJx
@@ -151392,7 +151395,7 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 aaa
 ygH
 uUu
@@ -154270,7 +154273,7 @@ nlB
 aaa
 abj
 abj
-btJ
+mIl
 abj
 abj
 iuY
@@ -154784,7 +154787,7 @@ aaa
 aaa
 aaa
 abj
-btJ
+mIl
 abj
 abj
 iuY
@@ -155299,7 +155302,7 @@ aaa
 aaa
 abj
 abj
-btJ
+mIl
 abj
 iuY
 rEQ
@@ -157332,10 +157335,10 @@ aaa
 aaa
 abj
 abj
-btJ
-btJ
-btJ
-btJ
+mIl
+mIl
+mIl
+mIl
 abj
 abj
 fhF
@@ -157594,7 +157597,7 @@ aaa
 abj
 abj
 aaa
-btJ
+mIl
 fhF
 fhF
 fhF
@@ -157604,7 +157607,7 @@ fhF
 fhF
 abj
 abj
-btJ
+mIl
 aaa
 aaa
 aaa
@@ -157848,10 +157851,10 @@ aaa
 abj
 abj
 abj
-btJ
-btJ
-btJ
-btJ
+mIl
+mIl
+mIl
+mIl
 fhF
 fhF
 fhF
@@ -157861,7 +157864,7 @@ fhF
 fhF
 abj
 aaa
-btJ
+mIl
 aaa
 aaa
 aaa
@@ -158118,7 +158121,7 @@ fhF
 fhF
 abj
 aaa
-btJ
+mIl
 aaa
 aaa
 aaa
@@ -158365,7 +158368,7 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 fhF
 fhF
 fhF
@@ -158373,9 +158376,9 @@ fhF
 fhF
 fhF
 fhF
-btJ
+mIl
 abj
-btJ
+mIl
 aaa
 aaa
 aaa
@@ -158616,13 +158619,13 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 aaa
 aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 fhF
 fhF
 fhF
@@ -158630,7 +158633,7 @@ fhF
 fhF
 fhF
 fhF
-btJ
+mIl
 abj
 abj
 aaa
@@ -158873,20 +158876,20 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 aaa
 aaa
 aaa
 aaa
 aaa
 bPS
-btJ
-btJ
+mIl
+mIl
 abj
 bPS
 abj
-btJ
-btJ
+mIl
+mIl
 bPS
 aaa
 aaa
@@ -159130,7 +159133,7 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 aaa
 aaa
 aaa
@@ -159395,11 +159398,11 @@ aaa
 aaa
 aaa
 aaa
-btJ
-btJ
-btJ
-btJ
-btJ
+mIl
+mIl
+mIl
+mIl
+mIl
 aaa
 aaa
 aaa
