@@ -379,9 +379,6 @@ SLIME SCANNER
 		to_chat(user, "<span class='info'>Structural damage detected! [M]'s overall estimated integraty is [round((M.obj_integrity/M.max_integrity)*100)]%.</span>")
 		if(M.stat & BROKEN) // Displays alongside above message. Machines with a "broken" state do not become broken at 0% HP - anything that reaches that point is destroyed
 			to_chat(user, "<span class='warning'>Further analysis: Catastrophic component failure detected! [M] requires reconstruction to fully repair.</span>")
-			return
-		return
-
 
 /obj/item/robotanalyzer/attack(mob/living/M, mob/living/user) // Scanning borgs, IPCs/augmented crew, and AIs
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
