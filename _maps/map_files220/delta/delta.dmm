@@ -20320,12 +20320,6 @@
 	c_tag = "Bridge Center";
 	dir = 1
 	},
-/obj/machinery/turretid/stun{
-	control_area = "\improper AI Upload Chamber";
-	name = "AI Upload Turret Control";
-	pixel_y = -24;
-	req_one_access_txt = "75"
-	},
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "bHt" = (
@@ -20563,11 +20557,11 @@
 	dir = 4
 	},
 /obj/machinery/turretid/lethal{
-	control_area = "\improper AI Chamber";
+	check_synth = 1;
 	name = "AI Chamber Turret Control";
-	pixel_x = -5;
+	pixel_x = -6;
 	pixel_y = 24;
-	req_access_txt = "75"
+	req_one_access_txt = "75"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -24771,7 +24765,6 @@
 	pixel_y = -22
 	},
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite";
 	name = "AI Antechamber Turret Control";
 	pixel_x = -28;
 	req_access_txt = "75"
@@ -66825,6 +66818,14 @@
 	icon_state = "darkredfull"
 	},
 /area/station/security/permabrig)
+"jOu" = (
+/obj/machinery/turretid/stun{
+	name = "AI Upload Turret Control";
+	pixel_y = 8;
+	req_one_access_txt = "75"
+	},
+/turf/simulated/wall,
+/area/station/turret_protected/ai_upload)
 "jOB" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -82494,7 +82495,6 @@
 /area/station/command/office/cmo)
 "oMr" = (
 /obj/machinery/turretid/lethal{
-	control_area = "\improper Telecoms Central Compartment";
 	name = "Telecommunications Turret Control";
 	pixel_y = 8
 	},
@@ -149115,7 +149115,7 @@ bCs
 bHr
 rDN
 bHs
-bOT
+jOu
 bKS
 bMY
 gTy

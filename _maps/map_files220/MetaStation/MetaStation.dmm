@@ -12953,12 +12953,6 @@
 	dir = 4;
 	pixel_x = -29
 	},
-/obj/machinery/turretid/stun{
-	control_area = "\improper AI Upload Chamber";
-	name = "AI Upload Turret Control";
-	pixel_y = 28;
-	req_access = list(75)
-	},
 /obj/effect/landmark/start/cyborg,
 /obj/machinery/power/apc/important/south,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -20101,7 +20095,6 @@
 "bvx" = (
 /obj/machinery/ai_slipper,
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Antechamber";
 	name = "AI Antechamber Turret Control";
 	pixel_x = 24;
 	req_access_txt = "75"
@@ -69064,6 +69057,14 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"oxy" = (
+/obj/machinery/turretid/stun{
+	name = "AI Upload Turret Control";
+	pixel_y = -8;
+	req_access = list(75)
+	},
+/turf/simulated/wall/r_wall,
+/area/station/turret_protected/ai_upload)
 "oxJ" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -114323,7 +114324,7 @@ qaB
 aUl
 uLQ
 aZx
-aOG
+oxy
 bcl
 aZL
 bgF

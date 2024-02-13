@@ -19629,12 +19629,6 @@
 	},
 /area/station/service/hydroponics)
 "bxO" = (
-/obj/machinery/turretid/stun{
-	control_area = "\improper AI Upload Chamber";
-	name = "AI Upload Turret Control";
-	pixel_y = -24;
-	req_access = list(75)
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "blue"
 	},
@@ -32505,7 +32499,6 @@
 "cAg" = (
 /obj/machinery/light/small/directional/south,
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Antechamber";
 	name = "AI Antechamber Turret Control";
 	pixel_y = -24;
 	req_one_access_txt = "75"
@@ -32550,7 +32543,6 @@
 /area/station/hallway/secondary/entry)
 "cAo" = (
 /obj/machinery/light/small/directional/east,
-/obj/item/radio/intercom/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/cable{
 	d1 = 1;
@@ -33099,13 +33091,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Hallway";
-	name = "AI Chamber Hallway Turret Control";
-	pixel_x = 24;
-	pixel_y = -24;
-	req_one_access_txt = "75"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -34010,6 +33995,7 @@
 /mob/living/simple_animal/bot/floorbot{
 	on = 0
 	},
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42941,9 +42927,6 @@
 /obj/machinery/porta_turret{
 	dir = 1
 	},
-/obj/structure/sign/securearea{
-	pixel_x = 32
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
@@ -48739,6 +48722,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"eNd" = (
+/obj/machinery/turretid/stun{
+	name = "AI Satellite Service Bay Turret Control";
+	pixel_x = -6;
+	req_one_access_txt = "75"
+	},
+/turf/simulated/wall/r_wall,
+/area/station/aisat/service)
 "eNi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -49952,9 +49943,6 @@
 	dir = 1;
 	listening = 0;
 	pixel_y = -22
-	},
-/obj/structure/sign/securearea{
-	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -51832,6 +51820,7 @@
 /mob/living/simple_animal/bot/cleanbot{
 	on = 0
 	},
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -54350,7 +54339,6 @@
 /area/station/maintenance/asmaint)
 "gQi" = (
 /obj/machinery/light/small/directional/west,
-/obj/item/radio/intercom/directional/west,
 /obj/machinery/computer/cryopod/robot{
 	pixel_x = -30;
 	pixel_y = 30
@@ -55636,14 +55624,11 @@
 /area/station/maintenance/asmaint)
 "hmR" = (
 /obj/machinery/light/small/directional/east,
-/obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Service";
-	name = "AI Satellite Service Bay Turret Control";
-	pixel_x = 24;
-	req_one_access_txt = "75"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
+	},
+/obj/structure/sign/securearea{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -66959,6 +66944,14 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"lCt" = (
+/obj/machinery/turretid/stun{
+	name = "AI Chamber Hallway Turret Control";
+	pixel_y = 6;
+	req_one_access_txt = "75"
+	},
+/turf/simulated/wall/r_wall,
+/area/station/aisat/hall)
 "lCu" = (
 /obj/item/toy/crayon/spraycan,
 /obj/effect/decal/cleanable/dust,
@@ -76711,6 +76704,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"paa" = (
+/obj/machinery/turretid/stun{
+	name = "AI Upload Turret Control";
+	pixel_y = 6;
+	req_access = list(75)
+	},
+/turf/simulated/wall/r_wall,
+/area/station/turret_protected/ai_upload)
 "pak" = (
 /obj/structure/rack,
 /obj/item/circuitboard/chem_heater{
@@ -82465,14 +82466,11 @@
 	c_tag = "AI Satellite Antechamber South";
 	dir = 4
 	},
-/obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Atmospherics";
-	name = "AI Satellite Atmospherics Turret Control";
-	pixel_x = -28;
-	req_one_access_txt = "75"
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
+	},
+/obj/structure/sign/securearea{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -90471,6 +90469,14 @@
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
+"uag" = (
+/obj/machinery/turretid/stun{
+	name = "AI Satellite Atmospherics Turret Control";
+	pixel_x = 4;
+	req_one_access_txt = "75"
+	},
+/turf/simulated/wall/r_wall,
+/area/station/aisat/atmos)
 "uax" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -131229,7 +131235,7 @@ bpw
 bqV
 hBF
 bxO
-beE
+paa
 bxt
 vNg
 byP
@@ -142631,7 +142637,7 @@ cBY
 cBY
 cBY
 cLA
-cBY
+uag
 cVd
 vdo
 wCk
@@ -143403,7 +143409,7 @@ dkd
 hmR
 dlb
 dlu
-cVd
+lCt
 gdq
 gdq
 dor
@@ -143659,7 +143665,7 @@ aig
 aig
 aig
 xkG
-aig
+eNd
 cVd
 vdo
 dpK
