@@ -32062,10 +32062,6 @@
 /obj/item/stock_parts/micro_laser/high,
 /obj/item/stock_parts/micro_laser/high,
 /obj/item/stock_parts/micro_laser/high,
-/obj/machinery/requests_console{
-	department = "Tech storage";
-	pixel_y = -32
-	},
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "drr" = (
@@ -34335,6 +34331,11 @@
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/t_scanner,
 /obj/item/multitool,
+/obj/machinery/requests_console{
+	department = "Tech Storage";
+	name = "Tech Storage Requests Console";
+	pixel_x = -30
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "dDB" = (
@@ -82163,11 +82164,6 @@
 /obj/item/circuitboard/circuit_imprinter{
 	pixel_y = -6;
 	pixel_x = 6
-	},
-/obj/machinery/requests_console{
-	department = "Tech Storage";
-	name = "Tech Storage Requests Console";
-	pixel_x = 30
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
