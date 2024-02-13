@@ -81535,16 +81535,6 @@
 	icon_state = "dark"
 	},
 /area/station/aisat)
-"rZI" = (
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "cautioncorner"
-	},
-/area/station/hallway/primary/starboard/north)
 "rZN" = (
 /obj/machinery/door/poddoor/impassable/gamma,
 /turf/simulated/floor/plasteel{
@@ -89200,10 +89190,6 @@
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
 "vtx" = (
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 35
@@ -132720,7 +132706,7 @@ bgo
 bhL
 bjx
 bbH
-rZI
+aIr
 oAL
 rjC
 bsp
