@@ -54743,16 +54743,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "gRF" = (
-/obj/structure/closet/secure_closet{
-	anchored = 1;
-	name = "Evidence Storage";
-	req_access_txt = "4"
-	},
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/structure/closet/secure_closet/evidence/detective,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -56189,9 +56185,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/item/paper/safe_code{
-	owner = "warden"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/security/warden)
 "hvR" = (
