@@ -18382,11 +18382,6 @@
 	pixel_x = -24;
 	pixel_y = -9
 	},
-/obj/machinery/camera{
-	c_tag = "Cargo Lobby";
-	dir = 4;
-	pixel_y = -22
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -23313,9 +23308,6 @@
 /area/station/medical/medbay)
 "bqA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 2;
 	icon_state = "pipe-c"
@@ -23325,6 +23317,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -30713,7 +30706,7 @@
 "bIY" = (
 /obj/structure/table/wood,
 /obj/machinery/status_display{
-	pixel_y = 32
+	pixel_x = -32
 	},
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/wood,
@@ -32989,11 +32982,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -76744,23 +76732,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
-"jZf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/primary/central/nw)
 "jZh" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -86671,24 +86642,6 @@
 	icon_state = "grimy"
 	},
 /area/station/maintenance/theatre)
-"pPE" = (
-/obj/machinery/power/apc{
-	name = "east bump";
-	pixel_x = 24
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/central/nw)
 "pPG" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/bush,
@@ -95141,13 +95094,21 @@
 	},
 /area/station/medical/reception)
 "uFJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable,
+/obj/machinery/power/apc{
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 1;
+	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/nw)
 "uFN" = (
@@ -98772,14 +98733,6 @@
 	icon_state = "vault"
 	},
 /area/station/engineering/ai_transit_tube)
-"wOK" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/wall,
-/area/station/public/storage/tools)
 "wOL" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/cleanable/dirt,
@@ -135735,7 +135688,7 @@ bIV
 bIV
 bDQ
 bDQ
-wOK
+bOC
 bQB
 bXy
 bYB
@@ -135981,7 +135934,7 @@ bqm
 sWn
 fOV
 ssu
-ssu
+uFJ
 bxl
 baG
 hNh
@@ -135989,7 +135942,7 @@ bEa
 bDR
 bEp
 bJd
-jZf
+bJd
 bDR
 bDR
 bOD
@@ -136246,7 +136199,7 @@ bCf
 fcl
 bFs
 fcl
-uFJ
+fcl
 fcl
 fcl
 fcl
@@ -136503,7 +136456,7 @@ bDG
 keo
 keo
 dFA
-pPE
+iXC
 iXC
 iXC
 iXC
