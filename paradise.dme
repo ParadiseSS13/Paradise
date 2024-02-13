@@ -1526,7 +1526,6 @@
 #include "code\modules\atmospherics\machinery\pipes\simple\pipe_simple.dm"
 #include "code\modules\atmospherics\machinery\pipes\simple\pipe_simple_he.dm"
 #include "code\modules\atmospherics\machinery\pipes\simple\pipe_simple_hidden.dm"
-#include "code\modules\atmospherics\machinery\pipes\simple\pipe_simple_insulated.dm"
 #include "code\modules\atmospherics\machinery\pipes\simple\pipe_simple_visible.dm"
 #include "code\modules\atmospherics\machinery\portable\canister.dm"
 #include "code\modules\atmospherics\machinery\portable\portable_atmospherics.dm"

@@ -34,9 +34,6 @@
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/heat_exchanging))
 			pipe_type = PIPE_HE_STRAIGHT + is_bent
 
-		else if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/insulated))
-			pipe_type = PIPE_INSULATED_STRAIGHT + is_bent
-
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/visible/supply) || istype(make_from, /obj/machinery/atmospherics/pipe/simple/hidden/supply))
 			pipe_type = PIPE_SUPPLY_STRAIGHT + is_bent
 			connect_types = list(CONNECT_TYPE_SUPPLY)
@@ -481,10 +478,6 @@
 				S.name = pipename
 
 			S.on_construction(dir, pipe_dir, color)
-
-		if(PIPE_INSULATED_STRAIGHT, PIPE_INSULATED_BENT)
-			var/obj/machinery/atmospherics/pipe/simple/insulated/P = new(loc)
-			P.on_construction(dir, pipe_dir, color)
 
 		if(PIPE_CAP)
 			var/obj/machinery/atmospherics/pipe/cap/C = new(loc)

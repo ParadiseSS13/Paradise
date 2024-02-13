@@ -31337,7 +31337,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/hallway/primary/fore)
 "dmB" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
@@ -68975,7 +68975,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northeast)
 "pgO" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
@@ -111458,7 +111458,7 @@ cJu
 biK
 liC
 bSE
-pgO
+qll
 qll
 qll
 qll
