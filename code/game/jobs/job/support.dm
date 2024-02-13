@@ -433,7 +433,7 @@
 	..()
 	if(visualsOnly)
 		return
-	ADD_TRAIT(H, TRAIT_KINDACOOL, ROUNDSTART_TRAIT)
+	ADD_TRAIT(H, TRAIT_NEVER_MISSES_DISPOSALS, ROUNDSTART_TRAIT)
 
 //More or less assistants
 /datum/job/librarian
