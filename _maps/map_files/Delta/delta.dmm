@@ -86250,10 +86250,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "pFF" = (
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
