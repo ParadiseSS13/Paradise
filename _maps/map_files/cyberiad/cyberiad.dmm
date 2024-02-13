@@ -55163,12 +55163,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
-"eeL" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/wall,
-/area/station/command/office/cmo)
 "efk" = (
 /obj/structure/rack{
 	dir = 1
@@ -135966,7 +135960,7 @@ cfP
 cfP
 cfP
 cfP
-eeL
+cfP
 chr
 chB
 ciX
