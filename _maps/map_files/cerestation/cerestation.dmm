@@ -5482,10 +5482,10 @@
 /turf/simulated/floor/plating,
 /area/station/supply/miningdock)
 "aJz" = (
-/obj/structure/closet,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11185,7 +11185,6 @@
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/starboard)
 "bnv" = (
-/obj/structure/closet,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -11193,17 +11192,18 @@
 	pixel_y = -28;
 	name = "custom placement"
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/station/security/evidence)
 "bnw" = (
-/obj/structure/closet,
 /obj/machinery/light_switch{
 	dir = 1;
 	pixel_y = -24;
 	name = "south bump"
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -32611,7 +32611,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "duk" = (
-/obj/structure/closet,
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -50234,11 +50234,11 @@
 	},
 /area/station/hallway/secondary/exit)
 "jcx" = (
-/obj/structure/closet,
 /obj/machinery/alarm{
 	pixel_y = 24;
 	name = "north bump"
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

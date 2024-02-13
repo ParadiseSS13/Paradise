@@ -38544,16 +38544,15 @@
 	},
 /area/station/legal/magistrate)
 "ccL" = (
-/obj/structure/closet,
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/station/security/evidence)
 "ccM" = (
-/obj/structure/closet,
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
@@ -38563,6 +38562,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -38588,7 +38588,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
 "ccP" = (
-/obj/structure/closet,
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39761,7 +39761,6 @@
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
 "cgg" = (
-/obj/structure/closet,
 /obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
@@ -39772,6 +39771,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39838,11 +39838,11 @@
 	},
 /area/station/security/brig)
 "cgo" = (
-/obj/structure/closet,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39866,12 +39866,12 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/closet,
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -91028,10 +91028,10 @@
 	},
 /area/station/medical/virology)
 "spP" = (
-/obj/structure/closet,
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
