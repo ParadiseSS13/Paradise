@@ -197,7 +197,7 @@
 	else
 		click_speed_modifier = initial(click_speed_modifier) // 2
 
-	if((L.a_intent in accepted_intents))
+	if(L.a_intent in accepted_intents)
 		L.changeNext_move(click_speed_modifier)
 
 	return FALSE
