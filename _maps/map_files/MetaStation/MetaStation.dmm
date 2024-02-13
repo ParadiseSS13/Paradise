@@ -7594,9 +7594,9 @@
 	},
 /area/station/hallway/primary/fore/east)
 "aKl" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/south)
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/station/supply/storage)
 "aKs" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -25439,6 +25439,10 @@
 	c_tag = "Bar - Counter";
 	dir = 1
 	},
+/obj/item/clothing/head/that{
+	pixel_y = 7;
+	pixel_x = -6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -26608,9 +26612,7 @@
 /area/station/security/brig)
 "bLA" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	name = "Kitchen"
-	},
+/obj/machinery/door/window/classic/reversed,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -26621,6 +26623,12 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
 /obj/structure/window/reinforced{
 	dir = 4
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -46464,6 +46472,22 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/mineral/tranquillite,
 /area/station/service/mime)
+"doE" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/classic/reversed,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "kitchen_counter";
+	name = "Kitchen Counter Shutters"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
+/obj/item/food/snacks/pie,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "doV" = (
 /obj/machinery/computer/mecha{
 	dir = 8
@@ -49698,9 +49722,7 @@
 	name = "Kitchen Counter Shutters"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
-/obj/machinery/door/window/classic/normal{
-	name = "Kitchen"
-	},
+/obj/machinery/door/window/classic/normal,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -57858,10 +57880,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/science/break_room)
-"iep" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/station/supply/storage)
 "iet" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -61883,9 +61901,7 @@
 /area/station/security/range)
 "jQx" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/normal{
-	name = "Kitchen"
-	},
+/obj/machinery/door/window/classic/normal,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -64247,6 +64263,10 @@
 /obj/item/kirbyplants/plant11,
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom)
+"kQB" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry/south)
 "kQD" = (
 /obj/machinery/computer/secure_data,
 /obj/machinery/newscaster/security_unit{
@@ -68076,22 +68096,6 @@
 	icon_state = "caution"
 	},
 /area/station/engineering/controlroom)
-"mor" = (
-/obj/structure/table/reinforced,
-/obj/item/food/snacks/pie,
-/obj/machinery/door/window/classic/normal{
-	name = "Kitchen"
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "kitchen_counter";
-	name = "Kitchen Counter Shutters"
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
-/turf/simulated/wall,
-/area/station/service/kitchen)
 "moE" = (
 /obj/structure/chair/comfy/beige{
 	dir = 8
@@ -70180,12 +70184,17 @@
 /area/station/medical/reception)
 "nhP" = (
 /obj/structure/table,
-/obj/item/book/manual/wiki/sop_service,
-/obj/item/book/manual/barman_recipes{
-	pixel_x = -4;
-	pixel_y = 7
+/obj/item/book/manual/wiki/sop_service{
+	pixel_x = -6
 	},
-/obj/item/clothing/head/that,
+/obj/item/book/manual/barman_recipes{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/drinks/shaker{
+	pixel_x = 6;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -72810,9 +72819,7 @@
 /area/station/public/locker)
 "orV" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	name = "Kitchen"
-	},
+/obj/machinery/door/window/classic/reversed,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -74205,16 +74212,11 @@
 /turf/simulated/wall,
 /area/station/maintenance/starboard)
 "oXP" = (
-/obj/machinery/reagentgrinder{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/machinery/camera{
-	c_tag = "Bar - Counter";
-	dir = 1
-	},
 /obj/structure/table,
 /obj/item/storage/bag/tray,
+/obj/item/reagent_containers/condiment/enzyme{
+	layer = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -81433,27 +81435,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/science/break_room)
-"rXW" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -3
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = 3
-	},
-/obj/machinery/door/window/classic/reversed{
-	name = "Kitchen"
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "kitchen_counter";
-	name = "Kitchen Counter Shutters"
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
-/turf/simulated/wall,
-/area/station/service/kitchen)
 "rYd" = (
 /obj/machinery/chem_dispenser,
 /turf/simulated/floor/plasteel{
@@ -83620,12 +83601,6 @@
 	icon_state = "dark"
 	},
 /area/station/medical/morgue)
-"sWd" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/station/service/kitchen)
 "sWL" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -84098,7 +84073,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "tfp" = (
 /obj/structure/cable/yellow{
@@ -93045,21 +93020,6 @@
 	icon_state = "darkred"
 	},
 /area/station/security/execution)
-"xhN" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	name = "Kitchen"
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "kitchen_counter";
-	name = "Kitchen Counter Shutters"
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
-/turf/simulated/wall,
-/area/station/service/kitchen)
 "xhX" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
@@ -105204,7 +105164,7 @@ aaa
 aaa
 aRu
 cjn
-aKl
+kQB
 rnY
 vkL
 rnY
@@ -105461,7 +105421,7 @@ aaa
 aaa
 bgW
 baI
-aKl
+kQB
 rnY
 vkL
 rnY
@@ -105718,7 +105678,7 @@ aaa
 aaa
 pwy
 ibR
-aKl
+kQB
 bgW
 bgW
 bgW
@@ -105975,7 +105935,7 @@ aaa
 aaa
 bgW
 tZW
-aKl
+kQB
 bgW
 aaa
 abq
@@ -116484,7 +116444,7 @@ bsi
 bsi
 gqF
 gqF
-iep
+aKl
 jPT
 hDK
 msj
@@ -129357,7 +129317,7 @@ bEv
 omK
 udl
 bHO
-orV
+doE
 nic
 bQJ
 aRy
@@ -130899,7 +130859,7 @@ sqp
 sqp
 fsh
 bEv
-rXW
+bQI
 soT
 tRb
 fnS
@@ -131156,10 +131116,10 @@ rDd
 rDd
 sAP
 pah
-mor
+bQI
 bQI
 sdJ
-sWd
+bQI
 bQI
 bQI
 fWa
@@ -131413,7 +131373,7 @@ uft
 bHP
 tZl
 ncl
-xhN
+bQI
 sgk
 qlh
 bQQ
