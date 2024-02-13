@@ -220,6 +220,9 @@
 	anchored = TRUE
 	var/id = null
 
+/obj/structure/closet/secure_closet/evidence/detective
+    req_access = list(ACCESS_FORENSICS_LOCKERS)
+
 /obj/structure/closet/secure_closet/brig/populate_contents()
 	new /obj/item/clothing/under/color/orange/prison(src)
 	new /obj/item/clothing/shoes/orange(src)
