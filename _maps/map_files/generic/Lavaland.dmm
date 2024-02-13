@@ -8097,11 +8097,11 @@
 	},
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/paper/crumpled,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/light/small,
+/obj/structure/bedsheetbin,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
