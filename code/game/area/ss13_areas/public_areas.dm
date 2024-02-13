@@ -132,6 +132,10 @@
 
 /area/station/hallway/secondary/entry/south
 
+/area/station/hallway/secondary/entry/east
+
+/area/station/hallway/secondary/entry/west
+
 /area/station/hallway/secondary/entry/lounge
 	name = "\improper Arrivals Lounge"
 
