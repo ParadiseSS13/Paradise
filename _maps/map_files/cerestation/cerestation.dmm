@@ -39623,6 +39623,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /obj/machinery/door/airlock/maintenance/glass,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/external/southeast)
 "fCc" = (
