@@ -54790,6 +54790,9 @@
 	},
 /area/station/engineering/control)
 "gZT" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -62050,10 +62053,6 @@
 "khl" = (
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 4;
-	initialize_directions = 11
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -77694,6 +77693,15 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
+"qPh" = (
+/obj/machinery/door/poddoor/preopen{
+	name = "Biohazard Shutter";
+	id_tag = "RnDChem"
+	},
+/obj/effect/spawner/window/reinforced/plasma,
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/engine,
+/area/station/science/test_chamber)
 "qPp" = (
 /obj/structure/cable/yellow{
 	d2 = 4;
@@ -131971,7 +131979,7 @@ cUQ
 uOY
 mfA
 gZT
-vDQ
+qPh
 cAS
 uzR
 qyw

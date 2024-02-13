@@ -80619,6 +80619,7 @@
 /area/station/maintenance/aft2)
 "mUZ" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
 "mVd" = (
