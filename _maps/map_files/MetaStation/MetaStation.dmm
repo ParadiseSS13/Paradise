@@ -22341,11 +22341,6 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/assistant,
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -24256,16 +24251,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/command/captain,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
-"bDm" = (
-/obj/machinery/light,
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/east)
 "bDo" = (
 /obj/structure/chair,
 /obj/structure/sign/vacuum/external{
@@ -93927,17 +93912,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"xzN" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/south)
 "xAl" = (
 /obj/structure/rack,
 /obj/item/storage/briefcase/inflatable{
@@ -94141,19 +94115,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"xEc" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/north)
 "xEi" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -106795,7 +106756,7 @@ aLB
 aML
 aXV
 vaO
-xEc
+sMd
 bcR
 bcy
 bhb
@@ -107839,7 +107800,7 @@ mVN
 mVN
 mVN
 bOz
-bDm
+iqu
 aJv
 abq
 bgW
@@ -108617,7 +108578,7 @@ uWq
 uWq
 uWq
 uWq
-xzN
+uWq
 bBv
 dgb
 cdT
