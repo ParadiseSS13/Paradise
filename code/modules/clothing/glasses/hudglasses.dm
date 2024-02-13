@@ -268,6 +268,14 @@
 	if(slot == SLOT_HUD_GLASSES)
 		ADD_TRAIT(H, TRAIT_NEVER_MISSES_DISPOSALS, CLOTHING_TRAIT)
 
+/obj/item/clothing/glasses/hud/janitor/sunglasses/dropped(mob/living/carbon/human/user)
+	. = ..()
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.get_item_by_slot(SLOT_HUD_GLASSES) == src)
+		REMOVE_TRAIT (H, TRAIT_NEVER_MISSES_DISPOSALS, CLOTHING_TRAIT)
+
 /obj/item/clothing/glasses/hud/janitor/night
 	name = "night vision janitor HUD"
 	desc = "A janitorial filth scanner fitted with a light amplifier."

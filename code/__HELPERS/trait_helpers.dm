@@ -224,15 +224,17 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MAGPULSE "magnetificent" // Used for anything that is magboot related
 #define TRAIT_NOSLIP "noslip"
 
+
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
-#define TRAIT_NEVER_MISSES_DISPOSALS "trait_never_misses_disposals" // For janitors landing disposal throws
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
 #define TRAIT_SHOW_WIRE_INFO "show_wire_info"
 ///Immune to the SM / makes you immune to it when worn
 #define TRAIT_SUPERMATTER_IMMUNE "supermatter_immune"
+/// For janitors/ppl who has the jani sunhuds on landing disposal throws
+#define TRAIT_NEVER_MISSES_DISPOSALS "trait_never_misses_disposals"
 
 //***** ITEM TRAITS *****//
 #define TRAIT_BUTCHERS_HUMANS "butchers_humans"
