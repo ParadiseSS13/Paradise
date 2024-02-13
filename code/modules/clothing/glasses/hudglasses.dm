@@ -251,7 +251,7 @@
 
 /obj/item/clothing/glasses/hud/janitor/sunglasses
 	name = "janitor HUD sunglasses"
-	desc = "Sunglasses with a build-in filth scanner, scans for messes and alerts the user. The sunglasses makes you feel more confident with your disposal shots. "
+	desc = "Sunglasses with a build-in filth scanner, scans for messes and alerts the user. The sunglasses makes you feel more confident with your disposal shots."
 	icon_state = "sunhudjani"
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
