@@ -1984,6 +1984,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/atmospherics/meter{
+	layer = 3.3
+	},
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
 "aoA" = (
@@ -60611,9 +60614,6 @@
 	pixel_x = -6;
 	pixel_y = -26
 	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6
-	},
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "jFr" = (
@@ -67316,6 +67316,12 @@
 /obj/structure/window/plasmareinforced{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/obj/machinery/atmospherics/meter{
+	layer = 3.3
+	},
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
 "mmK" = (
@@ -72531,12 +72537,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 9
-	},
-/obj/machinery/atmospherics/meter{
-	layer = 3.3
-	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "oFN" = (
@@ -87395,9 +87396,6 @@
 	req_access_txt = "8"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/atmospherics/meter{
-	layer = 3.3
-	},
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "vfd" = (
@@ -89257,7 +89255,9 @@
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
 "vZD" = (
