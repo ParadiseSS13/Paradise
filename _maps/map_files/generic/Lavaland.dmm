@@ -7892,6 +7892,9 @@
 /area/mine/laborcamp)
 "JS" = (
 /obj/machinery/mineral/equipment_vendor/labor,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 9
