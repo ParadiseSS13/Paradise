@@ -96,14 +96,6 @@
 	icon_state = "sec"
 	open_door_sprite = "sec_door"
 
-/obj/structure/closet/secure_closet/evidence
-	name = "evidence locker"
-	req_access = list(ACCESS_SEC_DOORS)
-	anchored = TRUE
-
-/obj/structure/closet/secure_closet/evidence/detective
-	req_access = list(ACCESS_FORENSICS_LOCKERS)
-
 /obj/structure/closet/secure_closet/security/populate_contents()
 	if(prob(50))
 		new /obj/item/storage/backpack/security(src)
@@ -119,6 +111,14 @@
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/head/helmet(src)
 	new /obj/item/clothing/suit/armor/secjacket(src)
+
+/obj/structure/closet/secure_closet/evidence
+	name = "evidence locker"
+	req_access = list(ACCESS_SEC_DOORS)
+	anchored = TRUE
+
+/obj/structure/closet/secure_closet/evidence/detective
+	req_access = list(ACCESS_FORENSICS_LOCKERS)
 
 /obj/structure/closet/secure_closet/blueshield
 	name = "blueshield's locker"
@@ -221,9 +221,6 @@
 	req_access = list(ACCESS_BRIG)
 	anchored = TRUE
 	var/id = null
-
-/obj/structure/closet/secure_closet/evidence/detective
-    req_access = list(ACCESS_FORENSICS_LOCKERS)
 
 /obj/structure/closet/secure_closet/brig/populate_contents()
 	new /obj/item/clothing/under/color/orange/prison(src)
