@@ -102,7 +102,7 @@
 	anchored = TRUE
 
 /obj/structure/closet/secure_closet/evidence/detective
-    req_access = list(ACCESS_FORENSICS_LOCKERS)
+	req_access = list(ACCESS_FORENSICS_LOCKERS)
 
 /obj/structure/closet/secure_closet/security/populate_contents()
 	if(prob(50))
