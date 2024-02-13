@@ -1538,9 +1538,6 @@
 /turf/simulated/wall/r_wall,
 /area/station/security/brig)
 "amI" = (
-/obj/structure/closet{
-	name = "Evidence Closet 3"
-	},
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -1556,6 +1553,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -2433,12 +2431,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "aqQ" = (
-/obj/structure/closet{
-	name = "Evidence Closet 1"
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -38049,9 +38045,6 @@
 	},
 /area/station/engineering/gravitygenerator)
 "cAJ" = (
-/obj/structure/closet{
-	name = "Evidence Closet 2"
-	},
 /obj/machinery/alarm{
 	dir = 4;
 	name = "west bump";
@@ -38063,6 +38056,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -54749,16 +54743,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "gRF" = (
-/obj/structure/closet/secure_closet{
-	anchored = 1;
-	name = "Evidence Storage";
-	req_access_txt = "4"
-	},
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/structure/closet/secure_closet/evidence/detective,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -63313,10 +63303,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Evidence Storage"
-	},
-/obj/item/storage/secure/safe{
-	name = "evidence safe";
-	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -83208,13 +83194,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
 "sNG" = (
-/obj/structure/closet{
-	name = "Evidence Closet 4"
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -89740,9 +89724,6 @@
 	},
 /area/station/science/rnd)
 "vJo" = (
-/obj/structure/closet{
-	name = "Evidence Closet 5"
-	},
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east bump";
@@ -89752,6 +89733,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -95182,19 +95164,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"yev" = (
-/obj/structure/closet{
-	name = "Evidence Closet 6"
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/station/security/evidence)
 "yew" = (
 /obj/structure/girder,
 /obj/item/stack/sheet/metal,
@@ -121766,7 +121735,7 @@ kli
 abW
 abq
 tsn
-yev
+sNG
 vJo
 sNG
 rZA
