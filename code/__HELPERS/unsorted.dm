@@ -531,7 +531,7 @@ Returns 1 if the chain up to the area contains the given typepath
 	if(IS_DIR_DIAGONAL(direction)) //let's make sure it's accurately-placed for diagonals
 		var/lowest_distance_to_map_edge = min(abs(x - target_atom.x), abs(y - target_atom.y))
 		return get_ranged_target_turf(target_atom, direction, lowest_distance_to_map_edge)
-	return locate(x,y,target_atom.z)
+	return locate(x, y, target_atom.z)
 
 /** returns turf relative to A in given direction at set range
 // result is bounded to map size
@@ -551,7 +551,7 @@ Returns 1 if the chain up to the area contains the given typepath
 	else if(direction & WEST) //if you have both EAST and WEST in the provided direction, then you're gonna have issues
 		x = max(1, x - range)
 
-	return locate(x,y,target_atom.z)
+	return locate(x, y, target_atom.z)
 
 /**
  * Get ranged target turf, but with direct targets as opposed to directions
