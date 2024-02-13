@@ -76,6 +76,7 @@
 	if(!emagged)
 		to_chat(user, "<span class='notice'>You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!</span>")
 		emagged = TRUE
+		return TRUE
 	else
 		to_chat(user, "<span class='warning'>The machine seems unaffected by the card swipe...</span>")
 
