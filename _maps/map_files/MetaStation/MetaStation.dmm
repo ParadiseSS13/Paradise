@@ -83510,17 +83510,6 @@
 	icon_state = "cmo"
 	},
 /area/station/security/permabrig)
-"sTd" = (
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/aft/north)
 "sTg" = (
 /obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/wall,
@@ -122717,7 +122706,7 @@ cjH
 cgw
 coz
 bcH
-sTd
+bcH
 bcH
 ctQ
 sfS
