@@ -390,7 +390,7 @@
 	else if(new_cable)
 		current_cable = new_cable
 		if(current_power)
-			UnregisterSignal(current_power, COMSIG_ATOM_EMP_ACT, PROC_REF(handle_emp))
+			UnregisterSignal(current_power, COMSIG_ATOM_EMP_ACT)
 		current_power = null
 		update_controlling_area()
 		if(!isturf(loc))
