@@ -47,6 +47,10 @@
 	name = "\improper Patient's Rooms"
 	icon_state = "patients"
 
+/area/station/medical/patients_rooms_secondary
+	name = "\improper Patient's Rooms"
+	icon_state = "patients"
+
 /area/station/medical/ward
 	name = "\improper Medbay Patient Ward"
 	icon_state = "patientsward"
