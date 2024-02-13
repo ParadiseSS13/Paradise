@@ -99,8 +99,7 @@
 /obj/structure/closet/secure_closet/evidence
 	name = "evidence locker"
 	req_access = list(ACCESS_SEC_DOORS)
-	icon_state = "sec"
-	open_door_sprite = "sec_door"
+	anchored = TRUE
 
 /obj/structure/closet/secure_closet/security/populate_contents()
 	if(prob(50))
