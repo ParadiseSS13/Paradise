@@ -49,7 +49,7 @@
 		icon_state = "taperoll-2"
 	if((amount <= 6) && (amount > 4))
 		icon_state = "taperoll-3"
-	if((amount > 6))
+	if(amount > 6)
 		icon_state = "taperoll-4"
 	else
 		icon_state = "taperoll-4"

@@ -6,10 +6,12 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 			return
-		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || (check_death_method() && getOxyLoss() > 50) || HAS_TRAIT(src, TRAIT_FAKEDEATH) || health <= HEALTH_THRESHOLD_CRIT && check_death_method())
+		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || (check_death_method() && getOxyLoss() > 50) || HAS_TRAIT(src, TRAIT_FAKEDEATH) || health < HEALTH_THRESHOLD_KNOCKOUT && check_death_method())
 			if(stat == CONSCIOUS)
 				KnockOut()
 				create_debug_log("fell unconscious, trigger reason: [reason]")
+		else if(health < HEALTH_THRESHOLD_CRIT && check_death_method())
+			KnockDown(3 SECONDS)
 		else
 			if(stat == UNCONSCIOUS)
 				WakeUp()
@@ -24,6 +26,7 @@
 	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= HEALTH_THRESHOLD_CRIT && !stat)
 		enter_stamcrit()
 	else if(stam_paralyzed)
+		SEND_SIGNAL(src, COMSIG_CARBON_EXIT_STAMINACRIT)
 		stam_paralyzed = FALSE
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "stam_crit") // make defines later
 		REMOVE_TRAIT(src, TRAIT_FLOORED, "stam_crit")

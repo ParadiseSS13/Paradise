@@ -101,6 +101,7 @@
 		GLOB.minor_announcement.Announce("The emergency shuttle will launch in 10 seconds", "SYSTEM ERROR:")
 		SSshuttle.emergency.setTimer(100)
 		emagged = TRUE
+		return TRUE
 
 
 /obj/machinery/computer/emergency_shuttle/proc/increase_hijack_stage()
