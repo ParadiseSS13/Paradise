@@ -5915,11 +5915,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -6403,10 +6403,10 @@
 "Aq" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/pickaxe,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4
 	},
+/obj/item/pickaxe/safety,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
