@@ -5482,10 +5482,10 @@
 /turf/simulated/floor/plating,
 /area/station/supply/miningdock)
 "aJz" = (
-/obj/structure/closet,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11185,7 +11185,6 @@
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/starboard)
 "bnv" = (
-/obj/structure/closet,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -11193,17 +11192,18 @@
 	pixel_y = -28;
 	name = "custom placement"
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/station/security/evidence)
 "bnw" = (
-/obj/structure/closet,
 /obj/machinery/light_switch{
 	dir = 1;
 	pixel_y = -24;
 	name = "south bump"
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -24924,6 +24924,12 @@
 /obj/machinery/computer/guestpass{
 	pixel_y = -28
 	},
+/obj/machinery/requests_console{
+	department = "Warden";
+	departmentType = 7;
+	name = "Warden's Requests Console";
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -32056,10 +32062,6 @@
 /obj/item/stock_parts/micro_laser/high,
 /obj/item/stock_parts/micro_laser/high,
 /obj/item/stock_parts/micro_laser/high,
-/obj/machinery/requests_console{
-	department = "Tech storage";
-	pixel_y = -32
-	},
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "drr" = (
@@ -32609,7 +32611,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "duk" = (
-/obj/structure/closet,
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -34329,6 +34331,11 @@
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/t_scanner,
 /obj/item/multitool,
+/obj/machinery/requests_console{
+	department = "Tech Storage";
+	name = "Tech Storage Requests Console";
+	pixel_x = -30
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "dDB" = (
@@ -50227,11 +50234,11 @@
 	},
 /area/station/hallway/secondary/exit)
 "jcx" = (
-/obj/structure/closet,
 /obj/machinery/alarm{
 	pixel_y = 24;
 	name = "north bump"
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67086,6 +67093,12 @@
 /area/station/maintenance/storage)
 "ozW" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/machinery/requests_console{
+	department = "Kitchen";
+	departmentType = 2;
+	name = "Kitchen Requests Console";
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -67198,6 +67211,12 @@
 /obj/structure/table,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/metal/fifty,
+/obj/machinery/requests_console{
+	department = "Engineering";
+	departmentType = 3;
+	name = "Engineering Requests Console";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -91741,6 +91760,23 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
+"wwh" = (
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/requests_console{
+	department = "Security";
+	departmentType = 5;
+	name = "Security Requests Console";
+	pixel_x = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkredcorners"
+	},
+/area/station/security/brig)
 "wwl" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -96571,6 +96607,14 @@
 "xYM" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_1)
+"xYV" = (
+/obj/machinery/requests_console{
+	department = "Locker Room";
+	name = "Locker Room Requests Console";
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel,
+/area/station/public/locker)
 "xYZ" = (
 /turf/simulated/wall,
 /area/station/command/bridge)
@@ -115696,7 +115740,7 @@ rZn
 rZn
 rZn
 rZn
-rZn
+wwh
 hRW
 owb
 rZn
@@ -123156,7 +123200,7 @@ pNo
 mmS
 ksl
 ksl
-qSK
+xYV
 aqC
 aqC
 fQm
