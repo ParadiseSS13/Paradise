@@ -5,7 +5,8 @@
 		"Human" = 'icons/mob/clothing/under/cargo.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/cargo.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/cargo.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/cargo.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/under/cargo.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/cargo.dmi'
 		)
 
 
