@@ -241,8 +241,8 @@
 			if(Adjacent(O) && !O.anchored)
 				if(!istype(O, /obj/structure/spider))
 					choices += O
-		if(choices.len)
-			cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
+		if(length(choices))
+			cocoon_target = tgui_input_list(src, "What do you wish to cocoon?", "Cocoon Selection", choices)
 		else
 			to_chat(src, "<span class='danger'>There is nothing nearby you can wrap.</span>")
 

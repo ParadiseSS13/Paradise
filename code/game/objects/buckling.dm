@@ -13,7 +13,7 @@
 	. = ..()
 	if(can_buckle && has_buckled_mobs())
 		if(length(buckled_mobs) > 1)
-			var/unbuckled = input(user, "Who do you wish to unbuckle?", "Unbuckle Who?") as null|mob in buckled_mobs
+			var/unbuckled = tgui_input_list(user, "Who do you wish to unbuckle?", "Unbuckle Who?", buckled_mobs)
 			if(user_unbuckle_mob(unbuckled,user))
 				return TRUE
 		else
@@ -33,8 +33,8 @@
 	. = ..()
 	if(can_buckle && has_buckled_mobs() && Adjacent(user)) // attack_robot is called on all ranges, so the Adjacent check is needed
 		if(length(buckled_mobs) > 1)
-			var/unbuckled = input(user, "Who do you wish to unbuckle?", "Unbuckle Who?") as null|mob in buckled_mobs
-			if(user_unbuckle_mob(unbuckled,user))
+			var/unbuckled = tgui_input_list(user, "Who do you wish to unbuckle?", "Unbuckle Who?", buckled_mobs)
+			if(user_unbuckle_mob(unbuckled, user))
 				return TRUE
 		else
 			if(user_unbuckle_mob(buckled_mobs[1], user))

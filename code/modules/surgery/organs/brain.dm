@@ -59,7 +59,7 @@
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(G.mind == brainmob.mind)
 				foundghost = TRUE
-				if(G.can_reenter_corpse == FALSE)
+				if(!G.can_reenter_corpse)
 					foundghost = FALSE
 				break
 		if(foundghost)
@@ -129,7 +129,7 @@
 		owner.setBrainLoss(120)
 
 /obj/item/organ/internal/brain/on_life()
-	if(decoy_brain || damage < 10) 
+	if(decoy_brain || damage < 10)
 		return
 	switch(damage)
 		if(10 to 30)
