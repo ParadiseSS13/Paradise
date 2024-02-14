@@ -196,8 +196,6 @@
 	if(internal)
 		if(!internal.air_contents)
 			qdel(internal)
-		else if(client?.prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL)
-			. += "Internals Tank Connected"
 		else
 			. += "Internal Atmosphere Info: [internal.name]"
 			. += "Tank Pressure: [internal.air_contents.return_pressure()]"

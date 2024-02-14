@@ -55,7 +55,7 @@
 // Yes I know this being an "enable to disable" is misleading, but it avoids having to tweak all existing pref entries
 #define PREFTOGGLE_2_REVERB_DISABLE			(1<<9) // 512
 #define PREFTOGGLE_2_FORCE_WHITE_RUNECHAT	(1<<10) // 1024
-#define PREFTOGGLE_2_SIMPLE_STAT_PANEL		(1<<11) // 2048
+// #define PREFTOGGLE_2_SIMPLE_STAT_PANEL	(1<<11) // 2048 Defunct as of 2024-02-14 with browser stat panels
 #define PREFTOGGLE_2_SEE_ITEM_OUTLINES 		(1<<12) // 4096
 #define PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS  	(1<<13) // 8192
 #define PREFTOGGLE_2_THOUGHT_BUBBLE			(1<<14) // 16384

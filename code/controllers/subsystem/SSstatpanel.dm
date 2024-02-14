@@ -58,7 +58,7 @@ SUBSYSTEM_DEF(statpanels)
 			if(!("MC" in target.panel_tabs))
 				target.stat_panel.send_message("add_admin_tabs", target.holder.href_token)
 
-			if(target.stat_tab == "MC" && ((num_fires % mc_wait == 0) || !(target?.prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL)))
+			if(target.stat_tab == "MC" && ((num_fires % mc_wait == 0)))
 				set_MC_tab(target)
 
 		if(target.mob)
