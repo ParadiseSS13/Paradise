@@ -24,7 +24,6 @@
 	. = ..()
 	basic_modules.Remove(/obj/item/gripper_medical, /obj/item/reagent_containers/borghypo)
 	basic_modules |= list(
-		/obj/item/crowbar/cyborg,
 		/obj/item/gps/cyborg,
 		/obj/item/rlf,
 		/obj/item/gripper/medical,
@@ -34,7 +33,6 @@
 /obj/item/robot_module/butler/Initialize(mapload)
 	. = ..()
 	basic_modules |= list(
-		/obj/item/crowbar/cyborg,
 		/obj/item/gps/cyborg,
 		/obj/item/gripper/service,
 		/obj/item/eftpos/cyborg,
@@ -43,20 +41,12 @@
 /obj/item/robot_module/janitor/Initialize(mapload)
 	. = ..()
 	basic_modules |= list(
-		/obj/item/crowbar/cyborg,
 		/obj/item/gps/cyborg,
-		)
-
-/obj/item/robot_module/miner/Initialize(mapload)
-	. = ..()
-	basic_modules |= list(
-		/obj/item/crowbar/cyborg,
 		)
 
 /obj/item/robot_module/security/Initialize(mapload)
 	. = ..()
 	basic_modules |= list(
-		/obj/item/crowbar/cyborg,
 		/obj/item/gps/cyborg,
 		)
 
@@ -72,7 +62,6 @@
 	. = ..()
 	basic_modules.Remove(/obj/item/gripper_medical)
 	basic_modules |= list(
-		/obj/item/crowbar/cyborg,
 		/obj/item/gps/cyborg,
 		/obj/item/rlf,
 		/obj/item/gripper/medical,
@@ -103,7 +92,6 @@
 	. = ..()
 	basic_modules |= list(
 		/obj/item/gripper/nuclear,
-		/obj/item/crowbar/cyborg,
 		/obj/item/gps/cyborg,
 		/obj/item/pinpointer,
 		/obj/item/pinpointer/operative/nad,
@@ -113,7 +101,6 @@
 	. = ..()
 	basic_modules |= list(
 		/obj/item/gripper/nuclear,
-		/obj/item/crowbar/cyborg,
 		/obj/item/gps/cyborg,
 		/obj/item/pinpointer/operative/nad,
 	)
@@ -122,7 +109,6 @@
 /obj/item/robot_module/alien/hunter/Initialize(mapload)
 	. = ..()
 	basic_modules |= list(
-		/obj/item/crowbar/cyborg,
 		/obj/item/gps/cyborg,
 		/obj/item/pinpointer/operative/nad,
 	)
