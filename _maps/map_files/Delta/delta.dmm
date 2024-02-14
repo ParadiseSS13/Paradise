@@ -32094,14 +32094,6 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/break_room)
-"bMp" = (
-/obj/machinery/computer/drone_control{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "yellow"
-	},
-/area/station/engineering/break_room)
 "bMq" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
@@ -32675,14 +32667,6 @@
 /obj/machinery/status_display,
 /turf/simulated/wall/r_wall,
 /area/station/turret_protected/aisat)
-"bNT" = (
-/obj/machinery/drone_fabricator,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
-	},
-/area/station/engineering/break_room)
 "bNW" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -126176,7 +126160,7 @@ bIy
 bGA
 bIy
 blx
-bNT
+bIy
 bGz
 bQk
 bSc
@@ -126690,7 +126674,7 @@ bEW
 bIA
 bIA
 bKp
-bMp
+bMu
 bGz
 bQm
 bjT

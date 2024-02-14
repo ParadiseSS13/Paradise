@@ -25360,7 +25360,6 @@
 	},
 /area/station/public/locker)
 "cGJ" = (
-/obj/machinery/drone_fabricator,
 /obj/machinery/camera/autoname,
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
@@ -25396,12 +25395,11 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "cGN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/maintenance{
 	name = "Maintenance Drone Dispensary"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
 "cGP" = (
@@ -59534,10 +59532,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/surgery/primary)
-"lXo" = (
-/obj/machinery/computer/drone_control,
-/turf/simulated/floor/plating,
-/area/station/maintenance/storage)
 "lXp" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -125855,7 +125849,7 @@ bIi
 bVt
 bVU
 bDR
-lXo
+qwC
 maa
 hmm
 fID

@@ -73392,9 +73392,6 @@
 /turf/simulated/wall,
 /area/station/medical/reception)
 "oIb" = (
-/obj/machinery/computer/drone_control{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -79939,7 +79936,6 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/east)
 "rsq" = (
-/obj/machinery/drone_fabricator,
 /obj/machinery/camera{
 	c_tag = "Atmospherics Monitoring";
 	dir = 1
