@@ -25599,7 +25599,7 @@
 /turf/simulated/floor/bluegrid,
 /area/station/maintenance/starboard)
 "bHY" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/bluespace,
 /area/station/maintenance/starboard)
 "bIf" = (
@@ -78993,7 +78993,7 @@
 	},
 /area/station/science/xenobiology)
 "qYT" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /turf/simulated/floor/bluespace,
 /area/station/maintenance/starboard)
