@@ -280,13 +280,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		show_borg_info()
 
 /mob/living/silicon/ai/proc/ai_alerts()
-	var/list/dat = list("<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n")
-	dat += "<A HREF='?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
+	var/list/dat = list("<meta charset='utf-8'><head><title>Current Station Alerts</title><meta http-equiv='Refresh' content='10'></head><body>\n")
+	dat += "<a href='?src=[UID()];mach_close=aialerts'>Close</a><br><br>"
 	var/list/list/temp_alarm_list = GLOB.alarm_manager.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue
-		dat += "<B>[cat]</B><BR>\n"
+		dat += "<b>[cat]</b><br>\n"
 		var/list/list/L = temp_alarm_list[cat].Copy()
 		for(var/alarm in L)
 			var/list/list/alm = L[alarm].Copy()
@@ -298,22 +298,22 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				if(A && A.z != z)
 					L -= alarm
 					continue
-				dat += "<NOBR>"
+				dat += "<nobr>"
 				if(C && islist(C))
 					var/dat2 = ""
 					for(var/cam in C)
 						var/obj/machinery/camera/I = locateUID(cam)
 						if(!QDELETED(I))
-							dat2 += "[(dat2 == "") ? "" : " | "]<A HREF=?src=[UID()];switchcamera=[cam]>[I.c_tag]</A>"
+							dat2 += "[(dat2 == "") ? "" : " | "]<a href=?src=[UID()];switchcamera=[cam]>[I.c_tag]</A>"
 					dat += "-- [area_name] ([(dat2 != "") ? dat2 : "No Camera"])"
 				else
 					dat += "-- [area_name] (No Camera)"
 				if(sources.len > 1)
 					dat += "- [length(sources)] sources"
-				dat += "</NOBR><BR>\n"
+				dat += "</nobr><br>\n"
 		if(!L.len)
-			dat += "-- All Systems Nominal<BR>\n"
-		dat += "<BR>\n"
+			dat += "-- All Systems Nominal<br>\n"
+		dat += "<br>\n"
 
 	viewalerts = TRUE
 	var/dat_text = dat.Join("")
