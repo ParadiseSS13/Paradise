@@ -323,7 +323,7 @@
 //Laser carbine//
 /obj/item/gun/projectile/automatic/lasercarbine
 	name = "\improper IK-M2 laser carbine"
-	desc = "A compact, Warp-Tec Industries twin barrelled carbine that uses disposable laser cartridges rather than an internal power cell. Utilized by the Nanotrasen Navy for combat operations."
+	desc = "A compact, Warp-Tec Industries twin barrelled carbine that uses disposable laser cartridges rather than an internal power cell. Utilized by the Nanotrasen response teams for combat operations."
 	icon_state = "lasercarbine"
 	item_state = "lasercarbine"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -336,12 +336,18 @@
 	burst_size = 2
 	execution_speed = 5 SECONDS
 
+/obj/item/gun/projectile/automatic/lasercarbine/examine_more(mob/user)
+	. = ..()
+	. += "The IK-M2 is the premium version of the already well-regarded IK-M1. Whilst the two weapons are fairly similar, the IK-M2 is made from more advanced materials to achieve an even lighter and more ruggedized package. \
+	The receiver has been modified to chamber two energy cartridges from the magazine at once, allowing it to fire a two-round burst. It also comes with hardened magazines to protect the laser cartridges from EMP damage. \
+	Warp-Tac bundles this weapon with a lifetime warranty. This weapon is favoured by private military groups and mercenaries with money to throw around."
+
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
 	item_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
 
 /obj/item/gun/projectile/automatic/laserrifle
-	name = "IK-M1 laser carbine"
+	name = "IK-M1 laser rifle"
 	desc = "A bulky, Warp-Tec Industries single barreled rifle that uses disposable laser cartridges rather than an internal power cell. Sold to Nanotrasen's private security forces."
 	icon_state = "laserrifle"
 	item_state = "lasercarbine"

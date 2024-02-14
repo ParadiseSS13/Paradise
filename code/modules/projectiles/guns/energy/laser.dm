@@ -231,6 +231,12 @@
 	origin_tech = "combat=6;materials=4;magnets=4;syndicate=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
 
+/obj/item/gun/energy/xray/examine_more(mob/user)
+	. = ..()
+	. += "The X-Ray laser gun is an unusual entry into Nanotrasen's R&D line-up. It generates beams of ultra-short wavelength light (~750 picometers) that are capable of passing through solid objects, making it an ideal weapon for attacking targets in indoor environments or behind cover with impunity. \
+	When a target it hit by the X-ray beam, only a portion of the beam's energy is transferred into the target, allowing it to continue flying. The very high energy used to generate the beam ensures that the damage dealt is roughly equivalent to a traditional laser rifle (at close range). \
+	Due to the difficulty in creating compact optical assemblies that can effectively focus X-ray wavelengths, the potency of the beam degrades the further it gets from the point of firing."
+
 /obj/item/gun/energy/immolator
 	name = "immolator laser gun"
 	desc = "A modified laser gun, shooting highly concetrated beams with higher intensity that ignites the target, for the cost of draining more power per shot"
