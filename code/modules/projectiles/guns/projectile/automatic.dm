@@ -340,7 +340,7 @@
 	. = ..()
 	. += "The IK-M2 is the premium version of the already well-regarded IK-M1. Whilst the two weapons are fairly similar, the IK-M2 is made from more advanced materials to achieve an even lighter and more ruggedized package. \
 	The receiver has been modified to chamber two energy cartridges from the magazine at once, allowing it to fire a two-round burst. It also comes with hardened magazines to protect the laser cartridges from EMP damage. \
-	Warp-Tac bundles this weapon with a lifetime warranty. This weapon is favoured by private military groups and mercenaries with money to throw around."
+	Warp-Tac bundles this weapon with a lifetime warranty. This weapon is favored by private military groups and mercenaries with money to throw around."
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
@@ -363,11 +363,14 @@
 
 /obj/item/gun/projectile/automatic/laserrifle/examine_more(mob/user)
 	. = ..()
-	. += "A sleek cartridge-firing laser rifle, developed by the brightest minds of Warp-Tec Industries. The IK Series is similarly designed to ballistic rifles in frame and handling, it uses disposable energy cartridges to mimic ballistic-based weaponry, and fires without commonly used internal batteries. \
-	The IK M1 marked Warp-Tec's investment into the realm of laser arms manufacturing, a bold move considering the industry's typical separation of ballistic and energy weapon production. \
-	Years of development led them to create a plastiatinium rotating bolt within the rifle's chamber, revolutionizing what were energy weapon fundamentals. Its sleek design compresses a majority of its internal parts and coolers among the barrel of the rifle.\
-	Despite the development of the laser-compatible rotating bolt, creating the specific piece would prove difficult, as modern IK's are highly expensive due to 76% of them failing the quality test thanks to difficulties in molding plastiatinium. \
-	Today, the latest generation of the IK-M1 competes with established laser brands like Shellguard, positioning itself as a premium choice in the laser weaponry market."
+	. += "A sleek, futuristic laser rifle, developed by the brightest minds of Warp-Tac Industries. The IK-series is unique for utilising a patented system of disposable energy cartridges. This unique system makes IK-pattern rifles handle more like a traditional firearm than a laser. \
+	The IK-M1 marked Warp-Tec's investment into the realm of laser arms manufacturing, a bold move considering the industry's typical separation of ballistic and energy weapon production. \
+	Years of development went into the creation of the ammunition, culminating in a cheap, easy to produce single-use supercapacitor cartridge that discharges its energy into the rifle's laser cavity at the moment of firing. \
+	The cartridge is then ejected by an electronically-actuated plastitanum bolt powered by a small internal power cell. \
+	As the spent cell is extracted, it also carries with it a significant amount of heat directly from the internals of the rifle. This action is responsible for most of the cooling of the weapon, the remaining heat conducts to the barrel, which also functions as a passive heatsink. \
+	The lack of need for any further cooling hardware makes these rifles deceptively light and easy to handle. \
+	Modern IK-pattern weapons remain expensive due to extremely stringent quality control measures at Warp-Tac's manufacturing plants - each one is individually inspected and tested to ensure proper operation up to Warp-Tac's standards. The end result, however, is an exceptionally reliable weapon. \
+	Today, the latest generation of the IK-M1 competes with established laser brands like Shellguard Munitions, positioning itself as a premium choice in the laser weaponry market."
 
 /obj/item/gun/projectile/automatic/laserrifle/update_icon_state()
 	icon_state = "laserrifle[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
