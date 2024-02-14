@@ -25,6 +25,8 @@
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
 	var/transparent
+	/// Whether or not this can store mobs
+	var/holds_mobs = TRUE
 
 // Please dont override this unless you absolutely have to
 /obj/structure/closet/Initialize(mapload)
@@ -127,21 +129,21 @@
 		if(!I.anchored)
 			I.forceMove(src)
 			itemcount++
+	if(holds_mobs)
+		for(var/mob/M in loc)
+			if(itemcount >= storage_capacity)
+				break
+			if(isobserver(M))
+				continue
+			if(istype(M, /mob/living/simple_animal/bot/mulebot) || iscameramob(M))
+				continue
+			if(M.buckled || M.anchored || M.has_buckled_mobs())
+				continue
+			if(isAI(M))
+				continue
 
-	for(var/mob/M in loc)
-		if(itemcount >= storage_capacity)
-			break
-		if(isobserver(M))
-			continue
-		if(istype(M, /mob/living/simple_animal/bot/mulebot) || iscameramob(M))
-			continue
-		if(M.buckled || M.anchored || M.has_buckled_mobs())
-			continue
-		if(isAI(M))
-			continue
-
-		M.forceMove(src)
-		itemcount++
+			M.forceMove(src)
+			itemcount++
 
 	opened = FALSE
 	update_icon()

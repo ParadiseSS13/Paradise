@@ -10,6 +10,7 @@
 	anchored = TRUE
 	icon_closed = "wall-locker"
 	icon_opened = "wall-lockeropen"
+	holds_mobs = FALSE
 
 /obj/structure/closet/walllocker/close()
 	. = ..()
