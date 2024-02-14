@@ -353,10 +353,10 @@ function draw_mc() {
 		if (part[2]) {
 			var a = document.createElement("a");
 			a.href = "?_src_=vars;admin_token=" + href_token + ";Vars=" + part[2];
-			a.textContent = part[1];
+			a.insertAdjacentHTML('beforeend', part[1]);
 			td2.appendChild(a);
 		} else {
-			td2.textContent = part[1];
+			td2.insertAdjacentHTML('beforeend', part[1]);
 		}
 		tr.appendChild(td1);
 		tr.appendChild(td2);
