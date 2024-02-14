@@ -288,7 +288,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	change_power_mode(on ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 
 	if(gravity) // If we turned on
-		if(generators_in_level() == FALSE) // And there's no gravity
+		if(generators_in_level() == 0) // And there's no other gravity generators on this z level
 			alert = TRUE
 			investigate_log("was brought online and is now producing gravity for this level.", "gravity")
 			message_admins("The gravity generator was brought online. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[src_area.name]</a>)")
@@ -297,7 +297,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 					continue
 				A.gravitychange(TRUE, A)
 
-	else if(generators_in_level() == TRUE) // Turned off, and there is gravity
+	else if(generators_in_level() == 1) // Turned off, and there is only one gravity generator on the Z level
 		alert = TRUE
 		investigate_log("was brought offline and there is now no gravity for this level.", "gravity")
 		message_admins("The gravity generator was brought offline with no backup generator. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[src_area.name]</a>)")
