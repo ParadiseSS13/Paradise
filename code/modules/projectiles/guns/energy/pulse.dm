@@ -21,7 +21,7 @@
 	The extreme heat produced by the weapon is pulled away from sensitive components with actively pumped refrigerant and dumped into heatsinks spanning most of the weapon's length. \
 	A generously sized experimental power cell allows it to fire hundreds of times before becoming spent. \
 	Issues noted with the weapon in field tests include its extreme weight, heft, and the rapid degradation of its internal components from a combination of thermal warping (despite the cooling system) and the laser itself causing cumulative damage to all the components it passes through. \
-	Both of these factors mean that the rifle to be rebuilt after every deployment to continue operating properly. Despite all these shortcomings, it is the final word in man-portable firepower."
+	Both of these factors mean that the rifle has to be rebuilt after every deployment to continue operating properly. Despite all these shortcomings, it is the final word in man-portable firepower."
 
 /obj/item/gun/energy/pulse/emp_act(severity)
 	return
