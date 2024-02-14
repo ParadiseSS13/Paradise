@@ -694,7 +694,7 @@
 
 /obj/item/gun/energy/detective
 	name = "DL-88 energy revolver"
-	desc = "A 'modern' take on the classic .38 revolver, designed and manufactured by Warp-Tec Industries. The fire selector has 'tracker' and disable' settings on the frame."
+	desc = "A 'modern' take on the classic .38 revolver, designed and manufactured by Warp-Tac Industries. The fire selector has 'tracker' and disable' settings on the frame."
 	icon_state = "handgun"
 	item_state = null
 	modifystate = TRUE
@@ -718,10 +718,10 @@
 
 /obj/item/gun/energy/detective/examine_more(mob/user)
 	. = ..()
-	. += "The Dignitas Laser Model 88, a laser revolver with a classic design is a 'modern' spin on older .38 revolvers. Designed by Warp-Tec Industries, it is the successor of the older DL-44 revolver, being tailored for Police and Security forces. \
-	Developed in response to break-ins at Warp-Tec's Mars corporate offices, the Model 88 diverged from Warp-Tec's usual lethal weapon designs. Instead, it was crafted to meet police force demands for non-lethal capture, offering an alternative to the prevalent and commonly distributed disablers in the market. \
-	The DL-88 quickly became the tool of choice for neutralizing suspects without lethal force within Warp-Tec security forces. \
-	Due to this, its effectiveness and design caught the attention of private detective agencies, aligning perfectly with Warp-Tec's targeted marketing of the gun. \
+	. += "The Dignitas Laser Model 88, a laser revolver with a classic design is a 'modern' spin on older .38 revolvers. Designed by Warp-Tac Industries, it is the successor of the older DL-44 revolver, being tailored for police and security forces. \
+	Developed in response to break-ins at Warp-Tac's corporate offices on Mars, the Model 88 diverged from Warp-Tac's usual lethal weapon designs. Instead, it was crafted to meet police force demands for non-lethal capture, offering an alternative to the prevalent and commonly distributed disablers in the market. \
+	The DL-88 quickly became the tool of choice for neutralizing suspects without lethal force within Warp-Tac security forces. \
+	Due to this, its effectiveness and design caught the attention of private detective agencies, aligning perfectly with Warp-Tac's targeted marketing of the gun. \
 	Eventually, corporations like Nanotrasen adopted the DL-88 for their detective units, appreciating its cost-effectiveness and the ability to use their own manufactured cells, reducing overall budget expenditures."
 
 /obj/item/gun/energy/detective/Initialize(mapload, ...)
