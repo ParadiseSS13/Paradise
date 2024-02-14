@@ -246,7 +246,6 @@
 	light_range = 7
 	layer = ABOVE_ALL_MOB_LAYER
 
-
 //Red/Blue Cubes
 /obj/item/warp_cube
 	name = "blue cube"
