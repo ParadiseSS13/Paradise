@@ -125,10 +125,11 @@
 			to_chat(M, rendered)
 
 /mob/living/simple_animal/revenant/get_status_tab_items()
-	. = ..()
-	. += "Current essence: [essence]/[essence_regen_cap]E"
-	. += "Stolen essence: [essence_accumulated]E"
-	. += "Stolen perfect souls: [perfectsouls]"
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Current essence:", "[essence]/[essence_regen_cap]E")
+	status_tab_data[++status_tab_data.len] = list("Stolen essence:", "[essence_accumulated]E")
+	status_tab_data[++status_tab_data.len] = list("Stolen perfect souls:", "[perfectsouls]")
 
 /mob/living/simple_animal/revenant/New()
 	..()

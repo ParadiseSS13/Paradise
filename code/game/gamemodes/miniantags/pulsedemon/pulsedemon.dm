@@ -268,13 +268,14 @@
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/open_upgrades)
 
 /mob/living/simple_animal/demon/pulse_demon/get_status_tab_items()
-	. = ..()
-	. += "Charge: [format_si_suffix(charge)]W"
-	. += "Maximum Charge: [format_si_suffix(maxcharge)]W"
-	. += "Drained Charge: [format_si_suffix(charge_drained)]W"
-	. += "Hijacked APCs: [length(hijacked_apcs)]"
-	. += "Drain Rate: [format_si_suffix(power_drain_rate)]W"
-	. += "Hijack Time: [hijack_time / 10] seconds"
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Charge:", "[format_si_suffix(charge)]W")
+	status_tab_data[++status_tab_data.len] = list("Maximum Charge:", "[format_si_suffix(maxcharge)]W")
+	status_tab_data[++status_tab_data.len] = list("Drained Charge:", "[format_si_suffix(charge_drained)]W")
+	status_tab_data[++status_tab_data.len] = list("Hijacked APCs:", "[length(hijacked_apcs)]")
+	status_tab_data[++status_tab_data.len] = list("Drain Rate:", "[format_si_suffix(power_drain_rate)]W")
+	status_tab_data[++status_tab_data.len] = list("Hijack Time:", "[hijack_time / 10] seconds")
 
 /mob/living/simple_animal/demon/pulse_demon/dust()
 	return death()

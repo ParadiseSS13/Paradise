@@ -71,9 +71,10 @@
 	QDEL_NULL(pass_airlock_spell)
 	return ..()
 
-/mob/living/simple_animal/hostile/morph/get_status_tab_items(Name, Value)
-	. = ..()
-	. += "Food Stored: [gathered_food]"
+/mob/living/simple_animal/hostile/morph/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Food Stored:", "[gathered_food]")
 
 /mob/living/simple_animal/hostile/morph/wizard
 	name = "magical morph"

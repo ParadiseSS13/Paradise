@@ -272,11 +272,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	job = "AI"
 
 /mob/living/silicon/ai/get_status_tab_items()
-	. = ..()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
 	if(stat)
-		. += "Systems nonfunctional"
+		status_tab_data[++status_tab_data.len] = list("System status:", "Nonfunctional")
 		return
-	. += show_borg_info()
+	status_tab_data = show_borg_info(status_tab_data)
 
 /mob/living/silicon/ai/proc/ai_alerts()
 	var/list/dat = list("<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n")
@@ -318,8 +319,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/dat_text = dat.Join("")
 	src << browse(dat_text, "window=aialerts&can_close=0")
 
-/mob/living/silicon/ai/proc/show_borg_info()
-	. += "Connected cyborgs: [length(connected_robots)]"
+/mob/living/silicon/ai/proc/show_borg_info(list/status_tab_data)
+	status_tab_data[++status_tab_data.len] = list("Connected cyborgs:", "[length(connected_robots)]")
 	for(var/thing in connected_robots)
 		var/mob/living/silicon/robot/R = thing
 		var/robot_status = "Nominal"
@@ -330,8 +331,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
 		var/area/A = get_area(R)
 		var/area_name = A ? sanitize(A.name) : "Unknown"
-		. += "[R.name] | S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
-		Module: [R.designation] | Loc: [area_name] | Status: [robot_status]"
+		status_tab_data[++status_tab_data.len] = list("[R.name]:", "S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
+		Module: [R.designation] | Loc: [area_name] | Status: [robot_status]")
+	return status_tab_data
 
 /mob/living/silicon/ai/rename_character(oldname, newname)
 	if(!..(oldname, newname))

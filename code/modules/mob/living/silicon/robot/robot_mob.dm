@@ -670,31 +670,32 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return TRUE
 
 // this function displays the cyborgs current cell charge in the stat panel
-/mob/living/silicon/robot/proc/show_cell_power()
+/mob/living/silicon/robot/proc/show_cell_power(list/status_tab_data)
 	if(cell)
-		. += "Charge Left: [cell.charge]/[cell.maxcharge]"
-	else
-		. += "No Cell Inserted!"
+		return list("Charge Left:", "[cell.charge]/[cell.maxcharge]")
 
-/mob/living/silicon/robot/proc/show_gps_coords()
+	return list("Charge Left:", "No Cell Inserted!")
+
+/mob/living/silicon/robot/proc/show_gps_coords(list/status_tab_data)
 	if(locate(/obj/item/gps/cyborg) in module.modules)
 		var/turf/T = get_turf(src)
-		. += "GPS: [COORD(T)]"
+		return list("GPS:", "[COORD(T)]")
 
-/mob/living/silicon/robot/proc/show_stack_energy()
+/mob/living/silicon/robot/proc/show_stack_energy(list/status_tab_data)
 	for(var/storage in module.storages) // Storages should only contain `/datum/robot_energy_storage`
 		var/datum/robot_energy_storage/R = storage
-		. += "[R.statpanel_name]: [R.energy] / [R.max_energy]"
+		return list("[R.statpanel_name]:", "[R.energy] / [R.max_energy]")
 
 // update the status screen display
 /mob/living/silicon/robot/get_status_tab_items()
-	. = ..()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
 
-	. += show_cell_power()
+	status_tab_data[++status_tab_data.len] = show_cell_power(status_tab_data)
 
 	if(module)
-		. += show_gps_coords()
-		. += show_stack_energy()
+		status_tab_data[++status_tab_data.len] = show_gps_coords(status_tab_data)
+		status_tab_data[++status_tab_data.len] = show_stack_energy(status_tab_data)
 
 /mob/living/silicon/robot/restrained()
 	return 0

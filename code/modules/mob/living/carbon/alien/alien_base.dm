@@ -119,10 +119,11 @@
 	return has_fine_manipulation
 
 /mob/living/carbon/alien/get_status_tab_items()
-	. = ..()
-	. += "Intent: [a_intent]"
-	. += "Move Mode: [m_intent]"
-	show_stat_emergency_shuttle_eta()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
+	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
+	status_tab_data[++status_tab_data.len] = show_stat_emergency_shuttle_eta()
 
 /mob/living/carbon/alien/SetStunned(amount, updating = TRUE, force = 0)
 	..()

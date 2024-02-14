@@ -371,8 +371,9 @@
 	. += GLOB.configuration.movement.animal_delay
 
 /mob/living/simple_animal/get_status_tab_items()
-	. = ..()
-	. +=  "Health: [round((health / maxHealth) * 100)]%"
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Health:", "[round((health / maxHealth) * 100)]%")
 
 /mob/living/simple_animal/proc/drop_loot()
 	if(loot.len)

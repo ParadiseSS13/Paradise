@@ -281,9 +281,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/can_use_hands()	return 0
 
 /mob/dead/observer/get_status_tab_items()
-	. = ..()
-	show_stat_emergency_shuttle_eta()
-	. += "Respawnability: [HAS_TRAIT(src, TRAIT_RESPAWNABLE) ? "Yes" : "No"]"
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = show_stat_emergency_shuttle_eta()
+	status_tab_data[++status_tab_data.len] = list("Respawnability:", "[HAS_TRAIT(src, TRAIT_RESPAWNABLE) ? "Yes" : "No"]")
 
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"

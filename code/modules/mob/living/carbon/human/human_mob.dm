@@ -180,38 +180,39 @@
 		change_body_accessory("Plain Wings")
 
 /mob/living/carbon/human/get_status_tab_items()
-	. = ..()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
 
-	. += "Intent: [a_intent]"
-	. += "Move Mode: [m_intent]"
+	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
+	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
 
-	show_stat_emergency_shuttle_eta()
+	status_tab_data[++status_tab_data.len] = show_stat_emergency_shuttle_eta()
 
 	if(HAS_TRAIT(src, TRAIT_HAS_GPS))
 		var/turf/T = get_turf(src)
-		. += "GPS: [COORD(T)]"
+		status_tab_data[++status_tab_data.len] = list("GPS:", "[COORD(T)]")
 	if(HAS_TRAIT(src, TRAIT_CAN_VIEW_HEALTH))
-		. += "Health: [health]"
+		status_tab_data[++status_tab_data.len] = list("Health:", "[health]")
 
 	if(internal)
 		if(!internal.air_contents)
 			qdel(internal)
 		else
-			. += "Internal Atmosphere Info: [internal.name]"
-			. += "Tank Pressure: [internal.air_contents.return_pressure()]"
-			. += "Distribution Pressure: [internal.distribute_pressure]"
+			status_tab_data[++status_tab_data.len] = list("Internal Atmosphere Info:", "[internal.name]")
+			status_tab_data[++status_tab_data.len] = list("Tank Pressure:", "[internal.air_contents.return_pressure()]")
+			status_tab_data[++status_tab_data.len] = list("Distribution Pressure:", "[internal.distribute_pressure]")
 
 	// I REALLY need to split up status panel things into datums
 	if(mind)
 		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(cling)
-			. += "Chemical Storage: [cling.chem_charges]/[cling.chem_storage]"
-			. += "Absorbed DNA: [cling.absorbed_count]"
+			status_tab_data[++status_tab_data.len] = list("Chemical Storage:", "[cling.chem_charges]/[cling.chem_storage]")
+			status_tab_data[++status_tab_data.len] = list("Absorbed DNA:", "[cling.absorbed_count]")
 
 		var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
 		if(V)
-			. += "Total Blood: [V.bloodtotal]"
-			. += "Usable Blood: [V.bloodusable]"
+			status_tab_data[++status_tab_data.len] = list("Total Blood:", "[V.bloodtotal]")
+			status_tab_data[++status_tab_data.len] = list("Usable Blood:", "[V.bloodusable]")
 
 /mob/living/carbon/human/ex_act(severity)
 	if(status_flags & GODMODE)

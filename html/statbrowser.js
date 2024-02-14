@@ -15,7 +15,7 @@ if (!String.prototype.trim) {
 }
 
 // Status panel implementation ------------------------------------------------
-var status_tab_parts = ["Loading..."];
+var status_tab_parts = [["Loading...", ""]];
 var current_tab = null;
 var mc_tab_parts = [["Loading...", ""]];
 var href_token = null;
@@ -326,16 +326,22 @@ function draw_status() {
 		createStatusTab("Status");
 		current_tab = "Status";
 	}
+
 	statcontentdiv.textContent = '';
+	var table = document.createElement("table");
 	for (var i = 0; i < status_tab_parts.length; i++) {
-		if (status_tab_parts[i].trim() == "") {
-			document.getElementById("statcontent").appendChild(document.createElement("br"));
-		} else {
-			var div = document.createElement("div");
-			div.textContent = status_tab_parts[i];
-			document.getElementById("statcontent").appendChild(div);
-		}
+		var part = status_tab_parts[i];
+		var tr = document.createElement("tr");
+		var td1 = document.createElement("td");
+		td1.textContent = part[0];
+		var td2 = document.createElement("td");
+		td2.insertAdjacentHTML('beforeend', part[1]);
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		table.appendChild(tr);
 	}
+	document.getElementById("statcontent").appendChild(table);
+
 	if (verb_tabs.length == 0 || !verbs) {
 		Byond.command("Fix-Stat-Panel");
 	}
@@ -650,11 +656,26 @@ Byond.subscribeTo('update_stat', function (payload) {
 	status_tab_parts = [];
 	var parsed = payload.global_data;
 
-	for (var i = 0; i < parsed.length; i++) if (parsed[i] != null) status_tab_parts.push(parsed[i]);
+	for (var i = 0; i < parsed.length; i++)
+	{
+		if (parsed[i] != null) {
+			status_tab_parts.push(parsed[i]);
+		}
+	}
 
-	parsed = payload.other_str;
+	for (var i = 0; i < 4; i++) // Spacing to split global and mob specific data
+	{
+		status_tab_parts.push(["", ""]);
+	}
 
-	for (var i = 0; i < parsed.length; i++) if (parsed[i] != null) status_tab_parts.push(parsed[i]);
+	parsed = payload.mob_specific_data;
+
+	for (var i = 0; i < parsed.length; i++)
+	{
+		if (parsed[i] != null) {
+			status_tab_parts.push(parsed[i]);
+		}
+	}
 
 	if (current_tab == "Status") {
 		draw_status();

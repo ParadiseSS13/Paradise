@@ -93,28 +93,22 @@
 	popup.open(FALSE)
 
 /mob/new_player/get_status_tab_items()
-	. = ..()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
 	if(SSticker)
 		if(!SSticker.hide_mode)
-			. += "Game Mode: [GLOB.master_mode]"
+			status_tab_data[++status_tab_data.len] = list("Game Mode:", "[GLOB.master_mode]")
 		else
-			. += "Game Mode: Secret"
+			status_tab_data[++status_tab_data.len] = list("Game Mode:", "Secret")
 
 		if(SSticker.current_state == GAME_STATE_PREGAME)
-			if(SSticker.ticker_going)
-				. += "Time To Start: [round(SSticker.pregame_timeleft/10)]"
-			else
-				. += "Time To Start: DELAYED"
-
-			. += "Players: [totalPlayers]"
+			status_tab_data[++status_tab_data.len] = list("Time To Start:", SSticker.ticker_going ? round(SSticker.pregame_timeleft/10) : "DELAYED")
 			if(check_rights(R_ADMIN, 0, src))
-				. += "Players Ready: [totalPlayersReady]"
-			totalPlayers = 0
+				status_tab_data[++status_tab_data.len] = list("Players Ready:", "[totalPlayersReady]")
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in GLOB.player_list)
 				if(check_rights(R_ADMIN, 0, src))
-					. += "[player.key] [(player.ready) ? ("(Playing)") : (null)]"
-				totalPlayers++
+					status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Ready)" : "(Not ready)")
 				if(player.ready)
 					totalPlayersReady++
 

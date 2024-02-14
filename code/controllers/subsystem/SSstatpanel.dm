@@ -25,19 +25,20 @@ SUBSYSTEM_DEF(statpanels)
 		var/datum/map/cached = SSmapping.next_map
 		var/round_time = world.time - SSticker.round_start_time
 		global_data = list(
-			"Map: [SSmapping.map_datum?.fluff_name || "Loading..."]",
-			cached ? "Next Map: [cached.fluff_name]" : null,
-			"Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]",
-			"Server Time: [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]",
-			"Round Time: [round_time > MIDNIGHT_ROLLOVER ? "[round(round_time / MIDNIGHT_ROLLOVER)]:[worldtime2text()]" : worldtime2text()]",
-			"Station Time: [station_time_timestamp()]",
-			"Time Dilation: [round(SStime_track.time_dilation_current, 1)]% AVG:([round(SStime_track.time_dilation_avg_fast, 1)]%, [round(SStime_track.time_dilation_avg, 1)]%, [round(SStime_track.time_dilation_avg_slow, 1)]%)"
+			list("Map:", SSmapping.map_datum?.fluff_name ? SSmapping.map_datum?.fluff_name : "Loading..."),
+			cached ? list("Next Map:", "[cached.fluff_name]") : null,
+			list("Round ID:", "[GLOB.round_id ? GLOB.round_id : "NULL"]"),
+			list("Server Time:", "[time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]"),
+			list("Round Time:", "[round_time > MIDNIGHT_ROLLOVER ? "[round(round_time / MIDNIGHT_ROLLOVER)]:[worldtime2text()]" : worldtime2text()]"),
+			list("Station Time:", "[station_time_timestamp()]"),
+			list("Time Dilation:", "[round(SStime_track.time_dilation_current, 1)]% AVG:([round(SStime_track.time_dilation_avg_fast, 1)]%, [round(SStime_track.time_dilation_avg, 1)]%, [round(SStime_track.time_dilation_avg_slow, 1)]%)"),
+			list("Players Connected:", "[length(GLOB.clients)]")
 		)
 
 		if(SSshuttle.emergency)
-			var/ETA = SSshuttle.emergency.getModeStr()
-			if(ETA)
-				global_data += "[ETA] [SSshuttle.emergency.getTimerStr()]"
+			var/eta = SSshuttle.emergency.getModeStr()
+			if(eta)
+				global_data[++global_data.len] = list("[eta]", "[SSshuttle.emergency.getTimerStr()]")
 		src.currentrun = GLOB.clients.Copy()
 		mc_data = null
 
@@ -80,7 +81,7 @@ SUBSYSTEM_DEF(statpanels)
 
 	target.stat_panel.send_message("update_stat", list(
 		global_data = global_data,
-		other_str = target.mob?.get_status_tab_items(),
+		mob_specific_data = target.mob?.get_status_tab_items(),
 	))
 
 /datum/controller/subsystem/statpanels/proc/set_MC_tab(client/target)

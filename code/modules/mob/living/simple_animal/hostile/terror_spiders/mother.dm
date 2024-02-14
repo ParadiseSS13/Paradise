@@ -55,10 +55,11 @@
 	. = ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/get_status_tab_items()
-	. = ..()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
 	// Provides a status panel indicator, showing mothers how many regen points they have.
 	if(ckey && stat == CONSCIOUS)
-		. +=  "Regeneration Points: [regen_points]"
+		status_tab_data[++status_tab_data.len] = list("Regeneration Points:", "[regen_points]")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/examine(mob/user)
 	. = ..()

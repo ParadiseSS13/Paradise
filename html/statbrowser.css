@@ -71,6 +71,10 @@ li a:hover:not(.active) {
 	background-color: #111;
 }
 
+td {
+	padding-right: 15px;
+}
+
 .button-container {
 	display: inline-flex;
 	flex-wrap: wrap-reverse;

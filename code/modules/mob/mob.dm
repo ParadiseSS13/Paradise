@@ -1007,42 +1007,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/get_status_tab_items()
 	SHOULD_CALL_PARENT(TRUE)
-	. = list()
-
-	. += "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]"
-	. += "Map: [SSmapping.map_datum.fluff_name]"
-	if(SSmapping.next_map)
-		. += "Next Map: [SSmapping.next_map.fluff_name]"
-	if(SSticker)
-		show_stat_station_time()
-	. += "Players Connected: [length(GLOB.clients)]"
-
-	if(length(mob_spell_list))
-		. += get_spells_for_statpanel(mob_spell_list)
-	if(length(mind.spell_list))
-		. += get_spells_for_statpanel(mind.spell_list)
-
-// this function displays the station time in the status panel
-/mob/proc/show_stat_station_time()
-	. += "Server Uptime: [worldtime2text()]"
-	. += "Round Time: [ROUND_TIME ? time2text(ROUND_TIME, "hh:mm:ss") : "N/A"]"
-	. += "Station Time: [station_time_timestamp()]"
-	. += "Time Dilation: [round(SStime_track.time_dilation_current,1)]% \
-				AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, \
-				[round(SStime_track.time_dilation_avg,1)]%, \
-				[round(SStime_track.time_dilation_avg_slow,1)]%)"
+	var/list/status_tab_data = list()
+	return status_tab_data
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
 /mob/proc/show_stat_emergency_shuttle_eta()
-	var/ETA = SSshuttle.emergency.getModeStr()
-	if(ETA)
-		. += "[ETA] [SSshuttle.emergency.getTimerStr()]"
-
-/mob/proc/get_spells_for_statpanel(list/spells)
-	var/list/L = list()
-	for(var/obj/effect/proc_holder/spell/S in spells)
-		L[++L.len] = list("[S.panel]","[S.cooldown_handler.statpanel_info()]", S.name, S.UID())
-	return L
+	var/eta = SSshuttle.emergency.getModeStr()
+	if(eta)
+		return list("[eta]", "[SSshuttle.emergency.getTimerStr()]")
 
 // facing verbs
 /mob/proc/canface()

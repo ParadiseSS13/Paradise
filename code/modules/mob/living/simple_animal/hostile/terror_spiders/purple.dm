@@ -94,20 +94,21 @@
 					melee_damage_upper = 10
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/get_status_tab_items()
-	..()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
 	// Provides a status panel indicator, showing purples how long they can be away from their queen before their hivemind link breaks, and they die.
 	// Uses <font color='#X'> because the status panel does NOT accept <span class='X'>.
 	if(ckey && stat == CONSCIOUS)
 		if(spider_myqueen)
 			var/area/A = get_area(spider_myqueen)
 			if(degenerate)
-				. += "Link: <font color='#eb4034'>BROKEN</font>" // color=red
+				status_tab_data[++status_tab_data.len] = list("Link:", "<font color='#eb4034'>BROKEN</font>") // color=red
 			else if(queen_visible)
-				. += "Link: <font color='#32a852'>[spider_myqueen] is near</font>" // color=green
+				status_tab_data[++status_tab_data.len] = list("Link:", "<font color='#32a852'>[spider_myqueen] is near</font>") // color=green
 			else if(cycles_noqueen >= 12)
-				. += "Link: <font color='#eb4034'>Critical - return to [spider_myqueen] in [A]</font>" // color=red
+				status_tab_data[++status_tab_data.len] = list("Link:", "<font color='#eb4034'>Critical - return to [spider_myqueen] in [A]</font>") // color=red
 			else
-				. += "Link: <font color='#fcba03'>Warning - return to [spider_myqueen] in [A]</font>" // color=orange
+				status_tab_data[++status_tab_data.len] = list("Link:", "<font color='#fcba03'>Warning - return to [spider_myqueen] in [A]</font>") // color=orange
 
 
 

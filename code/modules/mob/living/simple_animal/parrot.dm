@@ -122,8 +122,9 @@
 	return ..()
 
 /mob/living/simple_animal/parrot/get_status_tab_items()
-	. = ..()
-	. +=  "Held Item: [held_item]"
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Held Item:", "[held_item]")
 
 /*
  * Inventory

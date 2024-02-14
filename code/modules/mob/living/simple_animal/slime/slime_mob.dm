@@ -225,19 +225,15 @@
 	return 2
 
 /mob/living/simple_animal/slime/get_status_tab_items()
-	. = ..()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
 	if(!docile)
-		. += "Nutrition: [nutrition]/[get_max_nutrition()]"
+		status_tab_data[++status_tab_data.len] = list("Nutrition:", "[nutrition]/[get_max_nutrition()]")
 	if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
-		if(is_adult)
-			. += "You can reproduce!"
-		else
-			. += "You can evolve!"
+		status_tab_data[++status_tab_data.len] = list("You can:", is_adult ? "reproduce!" : "evolve!")
 
-	if(stat == UNCONSCIOUS)
-		. += "You are knocked out by high levels of BZ!"
 	else
-		. += "Power Level: [powerlevel]"
+		status_tab_data[++status_tab_data.len] = list("Power Level:", "[powerlevel]")
 
 
 /mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
