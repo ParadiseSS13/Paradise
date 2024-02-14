@@ -589,6 +589,7 @@
 		new /obj/item/storage/bible/syndi(loc)
 		visible_message("<span class='notice'>[src]'s printer ominously hums as it produces a completely bound book. How did it do that?</span>")
 		print_cooldown = world.time + PRINTING_COOLDOWN
+		return TRUE
 
 #undef LIBRARY_BOOKS_PER_PAGE
 #undef LOGIN_FULL
