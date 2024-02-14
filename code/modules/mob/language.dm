@@ -608,7 +608,7 @@
 
 /datum/language/yangyu
 	name = "Yangyu"
-	desc = "A simplified version of Mandarin Chinese adapted to the Latin script, is the predominant language spoken across Asia on Earth. Its influence has extended beyond Earth's borders, making it the modern of choice for many Asian communities, both on their home planets and in space. It sounds bouncy and lively when heard, having many upward and downward audio cues within it."
+	desc = "A simplified version of Mandarin Chinese adapted to the Latin script, is the predominant language spoken across Asia on Earth. Its influence has extended beyond Earth's borders, making it the modern choice for many Asian communities, both on their home planets and in space. It sounds bouncy and lively when heard, having many upward and downward audio cues within it."
 	colour = "yangyu"
 	key = "c"
 	culture = LANGUAGE_HUMAN
