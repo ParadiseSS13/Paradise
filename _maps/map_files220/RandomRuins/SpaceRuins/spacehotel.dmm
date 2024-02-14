@@ -4597,7 +4597,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "Gm" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "Gs" = (

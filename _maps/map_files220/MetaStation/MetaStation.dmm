@@ -1077,7 +1077,7 @@
 /area/station/maintenance/fore)
 "ajS" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "akg" = (
@@ -1200,7 +1200,7 @@
 	c_tag = "Engineering - Storage"
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "akR" = (
@@ -6255,7 +6255,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -29
 	},
-/obj/machinery/suit_storage_unit/ce,
+/obj/machinery/suit_storage_unit/ce/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkneutralfull"
 	},
@@ -6445,7 +6445,7 @@
 /area/station/security/armory/secure)
 "aHP" = (
 /obj/machinery/light_switch/east,
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -6649,7 +6649,7 @@
 "aIz" = (
 /obj/machinery/light/directional/north,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "aIA" = (
@@ -11146,7 +11146,7 @@
 	dir = 1;
 	pixel_y = 2
 	},
-/obj/machinery/suit_storage_unit/captain,
+/obj/machinery/suit_storage_unit/captain/secure,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain/bedroom)
 "aWF" = (
@@ -15518,7 +15518,7 @@
 	},
 /area/station/supply/storage)
 "biJ" = (
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16475,7 +16475,7 @@
 	},
 /area/station/engineering/tech_storage)
 "blr" = (
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 1
 	},
@@ -27690,7 +27690,7 @@
 	},
 /area/station/hallway/primary/central)
 "bUN" = (
-/obj/machinery/suit_storage_unit/mime,
+/obj/machinery/suit_storage_unit/mime/secure,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -27798,7 +27798,7 @@
 /turf/simulated/floor/engine,
 /area/station/command/office/rd)
 "bVb" = (
-/obj/machinery/suit_storage_unit/clown,
+/obj/machinery/suit_storage_unit/clown/secure,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -39619,7 +39619,7 @@
 	},
 /area/station/security/permabrig)
 "cKm" = (
-/obj/machinery/suit_storage_unit/security/hos,
+/obj/machinery/suit_storage_unit/security/hos/secure,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hos)
 "cKn" = (
@@ -39692,7 +39692,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/suit_storage_unit/rd,
+/obj/machinery/suit_storage_unit/rd/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -48513,7 +48513,7 @@
 	},
 /area/station/medical/cryo)
 "fcB" = (
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 6
 	},
@@ -49526,7 +49526,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "fzW" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/machinery/camera{
 	c_tag = "Armory - Internal";
 	dir = 8
@@ -55851,7 +55851,7 @@
 	},
 /area/station/service/chapel)
 "irW" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -76142,7 +76142,7 @@
 	},
 /area/station/security/permabrig)
 "rLS" = (
-/obj/machinery/suit_storage_unit/cmo,
+/obj/machinery/suit_storage_unit/cmo/secure,
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -83767,7 +83767,7 @@
 /area/station/medical/reception)
 "vzd" = (
 /obj/machinery/light/directional/south,
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel{
 	dir = 1;

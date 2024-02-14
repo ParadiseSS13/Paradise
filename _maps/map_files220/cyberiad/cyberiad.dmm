@@ -137,7 +137,7 @@
 	},
 /area/station/security/armory/secure)
 "abP" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -427,7 +427,7 @@
 	},
 /area/station/security/armory/secure)
 "adh" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -525,7 +525,7 @@
 	},
 /area/station/security/main)
 "adH" = (
-/obj/machinery/suit_storage_unit/security/hos,
+/obj/machinery/suit_storage_unit/security/hos/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -14121,14 +14121,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "bah" = (
-/obj/machinery/suit_storage_unit/clown,
+/obj/machinery/suit_storage_unit/clown/secure,
 /obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/station/ai_monitored/storage/eva)
 "bai" = (
-/obj/machinery/suit_storage_unit/mime,
+/obj/machinery/suit_storage_unit/mime/secure,
 /obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -30962,7 +30962,7 @@
 	},
 /area/station/medical/medbay2)
 "cuw" = (
-/obj/machinery/suit_storage_unit/cmo,
+/obj/machinery/suit_storage_unit/cmo/secure,
 /obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -36566,7 +36566,7 @@
 	},
 /area/station/engineering/controlroom)
 "cPD" = (
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/sign/atmosplaque{
 	pixel_y = 32
@@ -41559,7 +41559,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "dgn" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -44694,7 +44694,7 @@
 	},
 /area/station/engineering/equipmentstorage)
 "dta" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -56683,7 +56683,7 @@
 	},
 /area/station/science/server/coldroom)
 "hEW" = (
-/obj/machinery/suit_storage_unit/ce,
+/obj/machinery/suit_storage_unit/ce/secure,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -66376,7 +66376,7 @@
 	},
 /area/station/medical/morgue)
 "lqF" = (
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -73853,7 +73853,7 @@
 /area/station/security/brig)
 "oaY" = (
 /obj/effect/turf_decal/delivery/blue/hollow,
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -89682,7 +89682,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/main)
 "tOn" = (
-/obj/machinery/suit_storage_unit/captain,
+/obj/machinery/suit_storage_unit/captain/secure,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Captain's Desk";
