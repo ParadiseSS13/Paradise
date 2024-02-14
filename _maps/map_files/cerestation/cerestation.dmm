@@ -49660,15 +49660,6 @@
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/atmos/distribution)
-"iUL" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation/disposals)
 "iUM" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -58542,7 +58533,7 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/area/space/nearstation/disposals)
+/area/space/nearstation)
 "lFm" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -88510,7 +88501,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/area/space/nearstation/disposals)
+/area/space/nearstation)
 "vxJ" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -110523,7 +110514,7 @@ rNK
 rNK
 rNK
 rNK
-iUL
+ylg
 lez
 fwi
 rNK
@@ -110780,7 +110771,7 @@ rNK
 rNK
 rNK
 rNK
-iUL
+ylg
 lez
 fwi
 rNK
