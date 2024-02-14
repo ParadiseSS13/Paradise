@@ -286,7 +286,7 @@
 	select_name = "clown"
 
 /obj/item/ammo_casing/energy/emitter
-	projectile_type = /obj/item/projectile/beam/emitter/hitscan
+	projectile_type = /obj/item/projectile/beam/emitter
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	fire_sound = 'sound/weapons/emitter.ogg'
 	e_cost = 100
