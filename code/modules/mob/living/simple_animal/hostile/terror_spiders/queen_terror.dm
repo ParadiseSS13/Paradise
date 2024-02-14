@@ -267,7 +267,12 @@
 	// Multiple of eggtypes_uncapped can be laid at once. Other types must be laid one at a time (to prevent exploits)
 	var/numlings = 1
 	if(eggtype in eggtypes_uncapped)
-		numlings = input("How many in this batch? You have [canlay] eggs stored") as null|num
+		if(canlay >= 5)
+			numlings = input("How many in the batch?") as null|anything in list(1, 2, 3, 4, 5)
+		else if(canlay >= 3)
+			numlings = input("How many in the batch?") as null|anything in list(1, 2, 3)
+		else if(canlay == 2)
+			numlings = input("How many in the batch?") as null|anything in list(1, 2)
 	if(eggtype == null || numlings == null)
 		to_chat(src, "<span class='danger'>Cancelled.</span>")
 		return
