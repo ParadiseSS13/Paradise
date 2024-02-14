@@ -26,6 +26,7 @@
 	playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 	do_sparks(5, TRUE, src)
 	circuit = /obj/item/circuitboard/aiupload_broken
+	return TRUE
 
 /obj/machinery/computer/aiupload/attackby(obj/item/O, mob/user, params)
 	if(!istype(O, /obj/item/aiModule))

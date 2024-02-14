@@ -5,7 +5,7 @@
 	report_message = "An unidentified benefactor has dispatched a mysterious shipment to your station's clown. It was reported to smell faintly of bananas."
 	trait_to_give = STATION_TRAIT_BANANIUM_SHIPMENTS
 
-/datum/station_trait/bananium_shipment
+/datum/station_trait/tranquilite_shipment
 	name = "Tranquilite Shipment"
 	trait_type = STATION_TRAIT_NEUTRAL
 	weight = 5

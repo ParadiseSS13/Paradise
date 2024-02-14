@@ -277,7 +277,7 @@
 
 
 /obj/item/seeds/proc/get_analyzer_text()  // In case seeds have something special to tell to the analyzer
-	var/text = ""
+	var/list/text = list()
 	if(!get_gene(/datum/plant_gene/trait/plant_type/weed_hardy) && !get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism) && !get_gene(/datum/plant_gene/trait/plant_type/alien_properties))
 		text += "- Plant type: Normal plant\n"
 	if(get_gene(/datum/plant_gene/trait/plant_type/weed_hardy))
@@ -306,7 +306,7 @@
 		all_traits += " [traits.get_name()]"
 	text += "- Plant Traits:[all_traits]\n"
 
-	return text
+	return text.Join("")
 
 /obj/item/seeds/proc/on_chem_reaction(datum/reagents/S)  // In case seeds have some special interaction with special chems
 	return

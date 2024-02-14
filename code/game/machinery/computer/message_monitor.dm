@@ -78,6 +78,7 @@
 				UnmagConsole()
 				update_icon()
 			message = rebootmsg
+			return TRUE
 		else
 			to_chat(user, "<span class='notice'>A no server error appears on the screen.</span>")
 

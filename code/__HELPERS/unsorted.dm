@@ -1603,7 +1603,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return closest_atom
 
 /proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
-	if(value == FALSE) //nothing should be calling us with a number, so this is safe
+	if(!value) //nothing should be calling us with a number, so this is safe
 		value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
 		if(isnull(value))
 			return
