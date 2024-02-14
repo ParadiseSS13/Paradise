@@ -608,6 +608,7 @@
 		desc += " Its temperature cap has been removed."
 		max_temp = 1000
 		temperature_multiplier *= 5  //so emagged temp guns adjust their temperature much more quickly
+		return TRUE
 
 /obj/item/gun/energy/temperature/process()
 	..()

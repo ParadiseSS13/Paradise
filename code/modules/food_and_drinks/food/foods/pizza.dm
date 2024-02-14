@@ -519,8 +519,8 @@
 /obj/item/pizzabox/pizza_bomb/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/wirecutters) && primed)
 		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
-		var/chosen_wire = input(user, "OH GOD OH GOD", "WHAT WIRE?!") in wires
-		if(!in_range(src, user) || issilicon(usr) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained())
+		var/chosen_wire = tgui_input_list(user, "OH GOD OH GOD", "WHAT WIRE?!", wires)
+		if(!in_range(src, user) || issilicon(usr) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained() || !chosen_wire)
 			return
 		playsound(src, I.usesound, 50, 1, 1)
 		user.visible_message("<span class='warning'>[user] cuts the [chosen_wire] wire!</span>", "<span class='danger'>You cut the [chosen_wire] wire!</span>")

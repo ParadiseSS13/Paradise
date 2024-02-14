@@ -277,7 +277,7 @@ GLOBAL_VAR(bomb_set)
 	else
 		if(!panel_open)
 			to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
-		if(panel_open == TRUE)
+		if(panel_open)
 			panel_open = FALSE
 			to_chat(user, "You screw the control panel of [src] back on.")
 			core_stage = removal_stage

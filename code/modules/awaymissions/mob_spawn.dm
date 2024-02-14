@@ -46,7 +46,7 @@
 	var/ghost_role = tgui_alert(user, "Become [mob_name]? (Warning, You can no longer be cloned!)", "Respawn", list("Yes","No"))
 	if(ghost_role == "No")
 		return
-	if(!species_prompt())
+	if(!species_prompt(user))
 		return
 	if(!loc || !uses && !permanent || QDELETED(src) || QDELETED(user))
 		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
@@ -219,9 +219,9 @@
 		mob_name = id_job
 	return ..()
 
-/obj/effect/mob_spawn/human/species_prompt()
+/obj/effect/mob_spawn/human/species_prompt(mob/user)
 	if(allow_species_pick)
-		var/selected_species = input("Select a species", "Species Selection") as null|anything in pickable_species
+		var/selected_species = tgui_input_list(user, "Select a species", "Species Selection", pickable_species)
 		if(!selected_species)
 			return	TRUE	// You didn't pick, so just continue on with the spawning process as a human
 		var/datum/species/S = GLOB.all_species[selected_species]

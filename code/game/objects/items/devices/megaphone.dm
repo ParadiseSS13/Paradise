@@ -104,4 +104,5 @@
 	to_chat(user, "<span class='danger'>You short out [src]'s dampener circuits.</span>")
 	emagged = TRUE
 	span = "reallybig userdanger"  // really obvious, but also really loud
+	return TRUE
 

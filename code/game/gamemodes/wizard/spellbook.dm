@@ -397,7 +397,7 @@
 	var/item_path = null
 
 /datum/spellbook_entry/item/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	if(spawn_on_floor == FALSE)
+	if(!spawn_on_floor)
 		user.put_in_hands(new item_path)
 	else
 		new item_path(user.loc)

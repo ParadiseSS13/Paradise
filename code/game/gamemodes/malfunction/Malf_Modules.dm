@@ -461,21 +461,21 @@
 /datum/AI_Module/overload_machine
 	module_name = "Machine Overload"
 	mod_pick_name = "overload"
-	description = "Overheats an electrical machine, causing a small explosion and destroying it. Two uses per purchase."
+	description = "Overheats an electrical machine, causing a moderately-sized explosion and destroying it. Four uses per purchase."
 	cost = 20
 	power_type = /datum/action/innate/ai/ranged/overload_machine
 	unlock_text = "<span class='notice'>You enable the ability for the station's APCs to direct intense energy into machinery.</span>"
 
 /datum/action/innate/ai/ranged/overload_machine
 	name = "Overload Machine"
-	desc = "Overheats a machine, causing a small explosion after a short time."
+	desc = "Overheats a machine, causing a moderately-sized explosion after a short time."
 	button_icon_state = "overload_machine"
-	uses = 2
+	uses = 4
 	linked_ability_type = /obj/effect/proc_holder/ranged_ai/overload_machine
 
 /datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
-		explosion(get_turf(M), 0,1,1,0)
+		explosion(get_turf(M), 0, 3, 5, 0)
 		if(M) //to check if the explosion killed it before we try to delete it
 			qdel(M)
 

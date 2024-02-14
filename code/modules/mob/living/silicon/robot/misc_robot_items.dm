@@ -23,6 +23,9 @@
 			playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
 	return
 
+// Copied over from paper's rename verb
+// see code\modules\paperwork\paper.dm line 62
+
 /obj/item/pen/multi/robopen/proc/RenamePaper(mob/user, obj/paper)
 	if(!user || !paper)
 		return
@@ -33,7 +36,6 @@
 
 	paper.name = "paper - [n_name]"
 	add_fingerprint(user)
-	return
 
 //TODO: Add prewritten forms to dispense when you work out a good way to store the strings.
 /obj/item/form_printer

@@ -334,7 +334,7 @@
 			var/datum/gas_mixture/gas = location.remove_air(0.25 * environment.total_moles())
 			if(!gas)
 				return
-			if(!regulating_temperature && thermostat_state == TRUE)
+			if(!regulating_temperature && thermostat_state)
 				regulating_temperature = TRUE
 				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
 
@@ -344,7 +344,7 @@
 			if(target_temperature < MIN_TEMPERATURE)
 				target_temperature = MIN_TEMPERATURE
 
-			if(thermostat_state == TRUE)
+			if(thermostat_state)
 				var/heat_capacity = gas.heat_capacity()
 				var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
 
@@ -1000,7 +1000,7 @@
 		if(user)
 			user.visible_message("<span class='warning'>Sparks fly out of \the [src]!</span>", "<span class='notice'>You emag \the [src], disabling its safeties.</span>")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
-		return
+		return TRUE
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)

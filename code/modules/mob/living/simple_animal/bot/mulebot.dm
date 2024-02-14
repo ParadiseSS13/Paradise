@@ -238,7 +238,7 @@
 			if(mode == BOT_IDLE || mode == BOT_DELIVER)
 				start_home()
 		if("destination")
-			var/new_dest = input(usr, "Enter Destination:", name, destination) as null|anything in GLOB.deliverybeacontags
+			var/new_dest = tgui_input_list(usr, "Enter Destination:", name, GLOB.deliverybeacontags)
 			if(new_dest)
 				set_destination(new_dest)
 		if("setid")
@@ -246,7 +246,7 @@
 			if(new_id)
 				set_suffix(new_id)
 		if("sethome")
-			var/new_home = input(usr, "Enter Home:", name, home_destination) as null|anything in GLOB.deliverybeacontags
+			var/new_home = tgui_input_list(usr, "Enter Home:", name, GLOB.deliverybeacontags)
 			if(new_home)
 				home_destination = new_home
 		if("unload")
@@ -779,7 +779,7 @@
 				unload(0)
 
 		if("target")
-			var/dest = input("Select Bot Destination", "Mulebot [suffix] Interlink", destination) as null|anything in GLOB.deliverybeacontags
+			var/dest = tgui_input_list(user, "Select Bot Destination", "Mulebot [suffix] Interlink", GLOB.deliverybeacontags)
 			if(dest)
 				set_destination(dest)
 

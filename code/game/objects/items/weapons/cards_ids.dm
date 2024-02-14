@@ -413,7 +413,7 @@
 						RebuildHTML()
 
 					if("Appearance")
-						var/list/appearances = list(
+						var/static/list/appearances = list(
 							"data",
 							"id",
 							"gold",
@@ -506,7 +506,7 @@
 						RebuildHTML()
 
 					if("Occupation")
-						var/list/departments = list(
+						var/static/list/departments = list(
 							"Assistant" = null,
 							"Engineering" = GLOB.engineering_positions,
 							"Medical" = GLOB.medical_positions,
