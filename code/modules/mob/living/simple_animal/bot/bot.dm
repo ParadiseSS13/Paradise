@@ -538,7 +538,7 @@ TRUE to skip target, FALSE for the next check
 	claim_job(A)
 
 /mob/living/simple_animal/bot/proc/claim_job(atom/A)
-	var/ignore_amount = length(GLOB.bots_list)
+	var/ignore_amount = length(GLOB.bots_list) // 1 claim per bot
 	if(length(ignore_job) >= ++ignore_amount) // Something went wrong, cull the herd
 		ignore_job.Cut()
 	ignore_job |= A.UID()
