@@ -5094,7 +5094,7 @@
 "axV" = (
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 4;
-	filter_type = "o2";
+	filter_type = 1;
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -6758,7 +6758,7 @@
 "aEd" = (
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 1;
-	filter_type = "n2";
+	filter_type = 2;
 	name = "nitrogen filter";
 	on = 1
 	},
@@ -7142,7 +7142,7 @@
 "aFf" = (
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 8;
-	filter_type = "n2"
+	filter_type = 2
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
