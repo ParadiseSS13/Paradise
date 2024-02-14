@@ -348,7 +348,7 @@
 
 /obj/item/gun/projectile/automatic/laserrifle
 	name = "IK-M1 laser rifle"
-	desc = "A bulky, Warp-Tec Industries single barreled rifle that uses disposable laser cartridges rather than an internal power cell. Sold to Nanotrasen's private security forces."
+	desc = "A sleek, Warp-Tac Industries laser rifle that uses disposable laser cartridges rather than an internal power cell. Sold to Nanotrasen's private security forces."
 	icon_state = "laserrifle"
 	item_state = "lasercarbine"
 	w_class = WEIGHT_CLASS_BULKY
