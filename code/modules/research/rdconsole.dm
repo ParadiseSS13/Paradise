@@ -301,7 +301,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			break
 
 	if(!pointless)
-		var/choice = input("This item does not raise tech levels. Proceed destroying loaded item anyway?") in list("Proceed", "Cancel")
+		var/choice = alert(user, "This item does not raise tech levels. Proceed destroying loaded item anyway?", "Are you sure you want to destroy this item?", "Proceed", "Cancel")
 		if(choice == "Cancel" || !linked_destroy)
 			return
 

@@ -6141,8 +6141,8 @@
 "vh" = (
 /obj/structure/rack,
 /obj/item/mecha_parts/core,
-/obj/item/stock_parts/cell/infinite,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/stock_parts/cell/infinite/abductor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

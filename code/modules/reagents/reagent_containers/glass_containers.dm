@@ -165,7 +165,7 @@
 
 	if(!is_open_container())
 		. += "lid_[initial(icon_state)]"
-		if(blocks_emissive == FALSE)
+		if(!blocks_emissive)
 			. += emissive_blocker(icon, "lid_[initial(icon_state)]")
 	if(assembly)
 		. += "assembly"

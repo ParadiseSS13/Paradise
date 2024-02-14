@@ -96536,7 +96536,6 @@
 /area/station/command/office/hos)
 "vzU" = (
 /obj/structure/closet/walllocker/emerglocker/north{
-	pixel_y = 0;
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
