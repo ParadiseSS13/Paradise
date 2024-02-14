@@ -474,7 +474,7 @@
 			return FALSE
 
 /obj/machinery/computer/library/proc/select_book(obj/item/book/B)
-	if(B.carved == TRUE)
+	if(B.carved)
 		return
 	user_data.selected_book.title = B.title ? B.title : "No Title"
 	user_data.selected_book.author = B.author ? B.author : "No Author"
