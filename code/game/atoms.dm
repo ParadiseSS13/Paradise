@@ -36,6 +36,8 @@
 
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
+	/// Materials scannable by detective
+	var/list/suit_fibers
 
 	var/admin_spawned = FALSE	//was this spawned by an admin? used for stat tracking stuff.
 
@@ -515,8 +517,10 @@
 /atom/proc/welder_act(mob/living/user, obj/item/I)
 	return
 
+/// This is when an atom is emagged. Should return false if it fails, or it has no emag_act defined.
 /atom/proc/emag_act(mob/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
+	return FALSE
 
 /atom/proc/unemag()
 	return

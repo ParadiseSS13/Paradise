@@ -412,7 +412,7 @@
 
 	occupant.forceMove(get_step(loc, SOUTH)) // Doesn't account for walls
 
-	if(occupant.bodytemperature < occupant.dna.species.cold_level_1) // Hacky fix for people taking burn damage after being ejected
+	if(ishuman(occupant) && occupant.bodytemperature < occupant.dna.species.cold_level_1) // Hacky fix for people taking burn damage after being ejected. Xenos also fit in these and they don't have dna
 		occupant.bodytemperature = occupant.dna.species.cold_level_1
 
 	occupant = null
