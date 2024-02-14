@@ -79766,6 +79766,9 @@
 /area/station/maintenance/fpmaint2)
 "qkz" = (
 /obj/structure/chair/comfy/corp,
+/obj/machinery/camera{
+	c_tag = "Science lab"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -85010,6 +85013,10 @@
 	pixel_y = -32
 	},
 /obj/item/trash/gum,
+/obj/machinery/camera{
+	c_tag = "Virology Observation";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitegreen"
