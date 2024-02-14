@@ -5482,10 +5482,10 @@
 /turf/simulated/floor/plating,
 /area/station/supply/miningdock)
 "aJz" = (
-/obj/structure/closet,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11190,7 +11190,6 @@
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/starboard)
 "bnv" = (
-/obj/structure/closet,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -11198,17 +11197,18 @@
 	pixel_y = -28;
 	name = "custom placement"
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/station/security/evidence)
 "bnw" = (
-/obj/structure/closet,
 /obj/machinery/light_switch{
 	dir = 1;
 	pixel_y = -24;
 	name = "south bump"
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -32616,7 +32616,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "duk" = (
-/obj/structure/closet,
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -50257,11 +50257,11 @@
 	},
 /area/station/hallway/secondary/exit)
 "jcx" = (
-/obj/structure/closet,
 /obj/machinery/alarm{
 	pixel_y = 24;
 	name = "north bump"
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -76278,6 +76278,13 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/fore)
+"rBn" = (
+/obj/machinery/disposal/deliveryChute,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/station/maintenance/disposal/east)
 "rBB" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Port Asteroid Maintenance"
@@ -96004,13 +96011,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/port/east)
-"xNU" = (
-/obj/machinery/disposal/deliveryChute,
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/turf/simulated/floor/plating/airless,
-/area/station/maintenance/disposal/east)
 "xOc" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -156708,7 +156708,7 @@ exL
 kWC
 rVj
 wxn
-xNU
+rBn
 rNK
 xhf
 xhf
