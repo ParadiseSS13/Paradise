@@ -324,6 +324,7 @@
 	alert_on_spacing = FALSE
 	death_sound = 'sound/mecha/mechmove03.ogg'
 	loot = list(/obj/item/sellable/salvage/loot/syndicate,
+				/obj/effect/mob_spawn/human/corpse/syndicatecommando,
 				/obj/effect/decal/cleanable/blood/innards,
 				/obj/effect/decal/cleanable/blood,
 				/obj/effect/gibspawner/generic,
