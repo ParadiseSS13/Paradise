@@ -101,7 +101,7 @@
 	. = ..()
 	. += "<i>A byproduct of Cybersun Incorporated's mistakes turned concept, the Razorwire Spool is a remarkable accident in itself. \
 	It consists of a fine, thread-like laser capable of being manipulated and swung like a whip. Designed for ease of deployment, the wire originates from the wrist, \
-	allowing users with the implant to perform wide swings and precise cuts against soft targets. It's the same energy similar to other energy swords and daggers.<i>"
+	allowing users with the implant to perform wide swings and precise cuts against soft targets. It's the same energy found in other common energy weapons, such as swords and daggers.<i>"
 	. += "<i>Cybersun's investment into energy weapon development inadvertently led to the Razorwire Spool. Initially attempting to create an Energy Sword, \
 	they ended up with a material that, while superheated and correctly composed, failed to maintain a solid blade shape. Curious about this error, \
 	Cybersun repeated the process, producing an energy as thin as a wire. After several prototypes, they achieved a long, energy-like thread. \
