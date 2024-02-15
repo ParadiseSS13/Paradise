@@ -43,14 +43,14 @@
 
 GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
-#define HOLDING_TANK (1<<0)
-#define CONNECTED_PORT (1<<1)
-#define LOW_PRESSURE (1<<2)
-#define NORMAL_PRESSURE (1<<3)
-#define HIGH_PRESSURE (1<<4)
-#define EXTREME_PRESSURE (1<<5)
-#define NEW_COLOR (1<<6)
-#define RESET (LOW_PRESSURE | NEW_COLOR)
+#define HOLDING_TANK 		(1<<0)
+#define CONNECTED_PORT 		(1<<1)
+#define LOW_PRESSURE 		(1<<2)
+#define NORMAL_PRESSURE 	(1<<3)
+#define HIGH_PRESSURE 		(1<<4)
+#define EXTREME_PRESSURE 	(1<<5)
+#define NEW_COLOR 			(1<<6)
+#define RESET 				(LOW_PRESSURE | NEW_COLOR)
 
 /obj/machinery/atmospherics/portable/canister
 	name = "canister"
