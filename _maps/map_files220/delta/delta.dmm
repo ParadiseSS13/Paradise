@@ -5094,7 +5094,7 @@
 "axV" = (
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 4;
-	filter_type = "o2";
+	filter_type = 1;
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -6758,7 +6758,7 @@
 "aEd" = (
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 1;
-	filter_type = "n2";
+	filter_type = 2;
 	name = "nitrogen filter";
 	on = 1
 	},
@@ -7142,7 +7142,7 @@
 "aFf" = (
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 8;
-	filter_type = "n2"
+	filter_type = 2
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -8826,7 +8826,7 @@
 /area/station/public/arcade)
 "aLM" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "aLS" = (
@@ -11924,7 +11924,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "bau" = (
@@ -12284,7 +12284,7 @@
 	},
 /area/station/engineering/atmos)
 "bbT" = (
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -12652,7 +12652,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "bdt" = (
@@ -13788,7 +13788,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/interrogation)
 "bhC" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -25144,7 +25144,7 @@
 /area/station/hallway/primary/port)
 "bWI" = (
 /obj/machinery/alarm/directional/east,
-/obj/machinery/suit_storage_unit/ce,
+/obj/machinery/suit_storage_unit/ce/secure,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -26449,7 +26449,7 @@
 	},
 /area/station/maintenance/port)
 "cbz" = (
-/obj/machinery/suit_storage_unit/captain,
+/obj/machinery/suit_storage_unit/captain/secure,
 /obj/machinery/light/directional/north,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -31294,7 +31294,7 @@
 	},
 /area/station/service/expedition)
 "cuY" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /obj/machinery/ai_status_display/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -31647,7 +31647,7 @@
 	},
 /area/station/engineering/atmos)
 "cwY" = (
-/obj/machinery/suit_storage_unit/mime,
+/obj/machinery/suit_storage_unit/mime/secure,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
@@ -34401,7 +34401,7 @@
 	},
 /area/station/science/xenobiology)
 "cIP" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
@@ -51019,7 +51019,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "eQc" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -65316,7 +65316,7 @@
 	},
 /area/station/science/genetics)
 "jpy" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
@@ -72318,7 +72318,7 @@
 	},
 /area/station/hallway/primary/central/sw)
 "lBT" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -72718,7 +72718,7 @@
 	},
 /area/station/maintenance/disposal/west)
 "lIv" = (
-/obj/machinery/suit_storage_unit/clown,
+/obj/machinery/suit_storage_unit/clown/secure,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
@@ -72763,7 +72763,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "lIQ" = (
-/obj/machinery/suit_storage_unit/clown,
+/obj/machinery/suit_storage_unit/clown/secure,
 /obj/machinery/door_control/shutter/east{
 	id = "Clown";
 	name = "Clowns Privacy Shutters Control"
@@ -73279,7 +73279,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/medical/virology/lab)
 "lPY" = (
-/obj/machinery/suit_storage_unit/security/hos,
+/obj/machinery/suit_storage_unit/security/hos/secure,
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
@@ -73880,7 +73880,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/chapel)
 "mbC" = (
-/obj/machinery/suit_storage_unit/cmo,
+/obj/machinery/suit_storage_unit/cmo/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74122,7 +74122,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical)
 "mgx" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /obj/machinery/light/directional/south,
 /obj/structure/sign/poster/official/random/south,
 /turf/simulated/floor/plasteel{
@@ -74885,7 +74885,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -78426,7 +78426,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
 "nAV" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -87926,7 +87926,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "qxt" = (
@@ -88514,7 +88514,7 @@
 	},
 /area/station/medical/virology/lab)
 "qGy" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/engine/secure,
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/table/reinforced,
 /obj/structure/sign/poster/official/report_crimes{
@@ -93520,7 +93520,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/suit_storage_unit/atmos/secure,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "sko" = (
@@ -103294,7 +103294,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "voc" = (
@@ -103496,7 +103496,7 @@
 /turf/simulated/floor/wood/oak,
 /area/station/service/theatre)
 "vrM" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/secure,
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -109176,7 +109176,7 @@
 	},
 /area/station/medical/virology/lab)
 "xli" = (
-/obj/machinery/suit_storage_unit/mime,
+/obj/machinery/suit_storage_unit/mime/secure,
 /obj/machinery/door_control/shutter/west{
 	id = "Mime";
 	name = "Mimes Privacy Shutters Control"
