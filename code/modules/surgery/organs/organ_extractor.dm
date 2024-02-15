@@ -2,7 +2,7 @@
 	name = "organ extractor"
 	desc = "A device that can remove organs from a target, and store them inside. Stored organs can be implanted into the user. Synthesizes chemicals to keep the organ fresh."
 	icon = 'icons/obj/surgery.dmi'
-	icon_state = "codersprite"
+	icon_state = "organ_extractor"
 	item_state = ""
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "biotech=6;materials=5;syndicate=2"
@@ -108,7 +108,7 @@
 	overlays += img
 	internal_organ.pixel_x = xx
 	internal_organ.pixel_y = yy
-	overlays += "codersprite2" //should look nicer for transparent stuff.
+	overlays += "organ_extractor_2" //should look nicer for transparent stuff.
 
 /obj/item/organ_extractor/proc/insert_organ(mob/user, mob/our_target)
 	if(!storedorgan)
