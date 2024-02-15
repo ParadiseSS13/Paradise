@@ -335,7 +335,7 @@
 	S.set_up(6, FALSE, loc, null, TRUE)
 	S.start()
 	new /obj/effect/decal/cleanable/flour/nanofrost(get_turf(src))
-	playsound(src, 'sound/effects/bamf.ogg', 100, 1)
+	playsound(src, 'sound/effects/bamf.ogg', 100, TRUE)
 	qdel(src)
 
 #undef EXTINGUISHER
