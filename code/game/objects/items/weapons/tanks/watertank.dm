@@ -296,7 +296,7 @@
 				to_chat(user, "You need at least 100 units of water to use the nanofrost launcher!")
 				return
 			if(nanofrost_cooldown)
-				to_chat(user, "Nanofrost launcher is still recharging")
+				to_chat(user, "Nanofrost launcher is still recharging.")
 				return
 			nanofrost_cooldown = TRUE
 			reagents.remove_any(100)
