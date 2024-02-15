@@ -19347,11 +19347,6 @@
 	pixel_y = -2
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/requests_console{
-	department = "Primary Tool Storage";
-	name = "Office Supply Request Console";
-	pixel_x = 30
-	},
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/office)
 "bgz" = (
@@ -79194,15 +79189,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"pFq" = (
-/obj/machinery/hydroponics/soil,
-/obj/machinery/requests_console{
-	department = "Primary Tool Storage";
-	name = "Garden Request Console";
-	pixel_x = 30
-	},
-/turf/simulated/floor/grass,
-/area/station/hallway/secondary/garden)
 "pFI" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -113246,7 +113232,7 @@ aGn
 bQX
 aTu
 aUu
-pFq
+aUu
 aUu
 aXH
 bab
