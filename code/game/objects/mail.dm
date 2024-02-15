@@ -103,7 +103,7 @@
 							/obj/item/toy/figure/crew/qm,
 							/obj/item/toy/figure/crew/miner,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Quartermaster", "Cargo Technician", "Shaft Miner")
+	job_list = list("Quartermaster", "Cargo Technician", "Shaft Miner", "Explorer")
 
 /obj/item/envelope/medical
 	icon_state = "mail_med"
@@ -204,7 +204,7 @@
 							/obj/item/toy/figure/owl,
 							/obj/item/toy/figure/griffin,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Assistant", "Explorer")
+	job_list = list("Assistant")
 
 
 	/*//////////////////////\/
