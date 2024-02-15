@@ -8,9 +8,10 @@
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 1
 	turns_per_move = 3
+	death_sound = 'sound/creatures/piratedeath.ogg'
 	response_help = "pushes the"
 	response_disarm = "shoves"
-	response_harm = "hits the"
+	response_harm = "slashes"
 	speed = 0
 	maxHealth = 100
 	health = 100
@@ -20,13 +21,18 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 	attacktext = "slashes"
-	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_sound = 'sound/weapons/blade1.ogg'
 
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	speak_emote = list("yarrs")
 	loot = list(/obj/item/melee/energy/sword/pirate,
 			/obj/item/clothing/head/helmet/space/pirate,
-			/obj/item/sellable/salvage/loot/pirate)
+			/obj/item/sellable/salvage/loot/pirate,
+			/obj/effect/mob_spawn/human/corpse/pirate,
+			/obj/effect/decal/cleanable/blood/innards,
+			/obj/effect/decal/cleanable/blood,
+			/obj/effect/gibspawner/generic,
+			/obj/effect/gibspawner/generic)
 	del_on_death = TRUE
 	faction = list("pirate")
 	sentience_type = SENTIENCE_OTHER
@@ -34,6 +40,14 @@
 
 /mob/living/simple_animal/hostile/pirate/Process_Spacemove(movement_dir = 0)
 	return TRUE
+
+/mob/living/simple_animal/hostile/pirate/ListTargetsLazy()
+	return ListTargets()
+
+/mob/living/simple_animal/hostile/pirate/Aggro()
+	. = ..()
+	if(target)
+		playsound(loc, 'sound/creatures/pirateengage.ogg', 70, 1)
 
 /mob/living/simple_animal/hostile/pirate/ranged
 	name = "Pirate Gunner"

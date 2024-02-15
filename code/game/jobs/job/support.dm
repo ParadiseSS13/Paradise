@@ -136,6 +136,7 @@
 	title = "Explorer"
 	flag = JOB_EXPLORER
 	department_flag = JOBCAT_SUPPORT
+	job_department_flags = DEP_FLAG_SUPPLY
 	total_positions = 4
 	spawn_positions = 4
 	supervisors = "the quartermaster"
