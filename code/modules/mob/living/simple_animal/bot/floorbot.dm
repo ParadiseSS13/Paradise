@@ -393,7 +393,7 @@
 		var/missing_amount = MAX_AMOUNT - amount
 		var/extra = abs((amount + 4) - MAX_AMOUNT)
 		amount += missing_amount
-		new /obj/item/stack/tile/plasteel(get_turf(src), (extra))
+		new /obj/item/stack/tile/plasteel(get_turf(src), extra)
 	else
 		amount += 4
 
