@@ -390,9 +390,10 @@
 		return
 
 	if((amount + 4) > MAX_AMOUNT) // 1 metal = 4 tiles, hence + 4
-		var/i = MAX_AMOUNT - amount
-		amount += i
-		new /obj/item/stack/tile/plasteel (get_turf(src), i)
+		var/missing_amount = MAX_AMOUNT - amount
+		var/extra = abs((amount + 4) - MAX_AMOUNT)
+		amount += missing_amount
+		new /obj/item/stack/tile/plasteel(get_turf(src), (extra))
 	else
 		amount += 4
 
