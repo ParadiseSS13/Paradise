@@ -982,7 +982,7 @@
 	adjust_flavour = null
 	resistance_flags = NONE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 	)
 
 /obj/item/clothing/suit/jacket/motojacket
