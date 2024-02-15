@@ -389,7 +389,7 @@
 			if("Show")
 				return ..()
 			if("Edit")
-				switch(input(user, "What would you like to edit on \the [src]?", "Agent ID", list("Name", "Photo", "Appearance", "Sex", "Age", "Occupation", "Money Account", "Blood Type", "DNA Hash", "Fingerprint Hash", "Reset Access", "Delete Card Information")))
+				switch(tgui_input_list(user, "What would you like to edit on \the [src]?", "Agent ID", list("Name", "Photo", "Appearance", "Sex", "Age", "Occupation", "Money Account", "Blood Type", "DNA Hash", "Fingerprint Hash", "Reset Access", "Delete Card Information")))
 					if("Name")
 						var/new_name = reject_bad_name(input(user,"What name would you like to put on this card?","Agent Card Name", ishuman(user) ? user.real_name : user.name), TRUE)
 						if(!Adjacent(user))
