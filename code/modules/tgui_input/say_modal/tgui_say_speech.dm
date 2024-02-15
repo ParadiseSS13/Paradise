@@ -48,8 +48,14 @@
  */
 /datum/tgui_say/proc/handle_entry(payload)
 	if(!payload?["channel"] || !payload["entry"])
-		CRASH("[usr] entered in a null payload to the chat window.")
+		var/hacker_man_ckey = usr.client.ckey
+		qdel(usr.client)
+		message_admins("[hacker_man_ckey] was kicked for attemping to send a null message to TGUI-say.")
+		CRASH("[hacker_man_ckey] entered in a null payload to the chat window.")
 	if(length(payload["entry"]) > MAX_MESSAGE_LEN)
-		CRASH("[usr] has entered more characters than allowed into a TGUI-Say")
+		var/hacker_man_ckey = usr.client.ckey
+		qdel(usr.client)
+		message_admins("[hacker_man_ckey] was kicked for attemping to bypass TGUI-say character limits.")
+		CRASH("[hacker_man_ckey] has entered more characters than allowed into a TGUI-Say.")
 	delegate_speech(payload["entry"], payload["channel"])
 	return TRUE
