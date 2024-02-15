@@ -1686,7 +1686,7 @@
 /turf/simulated/floor,
 /area/awaymission/wildwest/wildwest_refine)
 "pQ" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8;
 	icon_keyboard = "syndie_key";
 	icon_screen = "syndinavigation"
@@ -3799,7 +3799,7 @@
 /turf/simulated/floor/carpet/orange,
 /area/awaymission/wildwest/wildwest_mines)
 "Md" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/wood/oak,
@@ -4400,7 +4400,7 @@
 	},
 /area/awaymission/wildwest/wildwest_mines)
 "Sf" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4;
 	icon_keyboard = "syndie_key";
 	icon_screen = "syndinavigation"

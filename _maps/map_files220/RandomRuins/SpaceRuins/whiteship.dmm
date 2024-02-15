@@ -2078,7 +2078,7 @@
 	},
 /area/shuttle/abandoned)
 "Xa" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8;
 	icon_state = "broken";
 	icon_screen = "broken";

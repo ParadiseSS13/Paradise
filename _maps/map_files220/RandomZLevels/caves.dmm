@@ -1401,7 +1401,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build/reqpower_build)
 "gu" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 2;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -5333,7 +5333,7 @@
 	},
 /area/awaymission/caves)
 "Bq" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	icon_state = "guest";
 	density = 0;
 	pixel_x = -32;
@@ -6254,7 +6254,7 @@
 	},
 /area/awaymission/caves)
 "Gk" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	icon_state = "guest";
 	pixel_y = -32;
 	density = 0;
@@ -6473,7 +6473,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
 "Hn" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	icon_state = "guest";
 	density = 0;
 	pixel_x = -32;
@@ -6997,7 +6997,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "JW" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	icon_state = "guest";
 	icon_screen = "guest_lightmask";
 	icon_keyboard = null;
@@ -7389,7 +7389,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "LM" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	icon_state = "tcstation";
 	icon_screen = "tcstation_broken";
 	icon_keyboard = null
@@ -7711,7 +7711,7 @@
 	},
 /area/awaymission/caves)
 "Oc" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	icon_state = "entertainment_console";
 	pixel_x = -32;
 	icon_keyboard = null;
@@ -7982,7 +7982,7 @@
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/awaymission/caves)
 "PA" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -8089,7 +8089,7 @@
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/awaymission/caves/build)
 "Qc" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/blood_often,
@@ -8357,7 +8357,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "RM" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	icon_state = "guest";
 	icon_screen = "guest_lightmask";
 	icon_keyboard = null;
@@ -8899,7 +8899,7 @@
 	},
 /area/awaymission/caves/build)
 "Uv" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 2;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -9067,7 +9067,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "UZ" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 2;
 	icon_state = "broken";
 	icon_screen = "broken";

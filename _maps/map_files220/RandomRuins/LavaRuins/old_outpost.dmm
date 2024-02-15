@@ -577,7 +577,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "FF" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4;
 	icon_state = "broken";
 	icon_screen = "broken";

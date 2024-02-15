@@ -448,7 +448,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/black_mesa/resonant_chamber)
 "aDI" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /obj/machinery/light_construct/directional/east,
@@ -757,7 +757,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_hallway)
 "baj" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -959,13 +959,13 @@
 	},
 /area/awaymission/black_mesa/xen/entering_zone)
 "bpU" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_turret)
 "bqP" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -1194,7 +1194,7 @@
 	},
 /area/awaymission/black_mesa/cryo_room)
 "bEg" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -1236,7 +1236,7 @@
 	},
 /area/awaymission/black_mesa/security_outpost)
 "bFx" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /obj/structure/railing{
@@ -1328,7 +1328,7 @@
 /turf/simulated/floor/plasteel/stairs/medium,
 /area/awaymission/black_mesa/entrance_internal_hall)
 "bKK" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -1359,7 +1359,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_storage)
 "bLn" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/smooth,
@@ -1523,7 +1523,7 @@
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/black_mesa/security_outpost)
 "bRg" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /obj/structure/alien/xenoweeds,
@@ -1629,7 +1629,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/high_security_sec_point)
 "bYb" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /obj/structure/alien/xenoweeds,
@@ -1927,7 +1927,7 @@
 /turf/simulated/floor/bluegrid,
 /area/awaymission/black_mesa/lambda_teleporter)
 "cqA" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2080,7 +2080,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/dorm_computers)
 "cBF" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_state = "computer";
 	dir = 8
@@ -2236,7 +2236,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/lambda_hallway)
 "cLK" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	name = "broken computer";
 	dir = 8
@@ -2790,7 +2790,7 @@
 /area/awaymission/black_mesa/hecu_zone_infirmary)
 "duq" = (
 /obj/structure/table,
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	name = "broken computer";
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_state = "laptop";
@@ -3121,7 +3121,7 @@
 	},
 /area/awaymission/black_mesa/science_internal)
 "dPd" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -3946,7 +3946,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "eOR" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4329,7 +4329,7 @@
 /area/awaymission/black_mesa/genetics_elevator)
 "foa" = (
 /obj/structure/table,
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	name = "broken computer";
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_state = "laptop";
@@ -4692,7 +4692,7 @@
 /turf/simulated/floor/plating/xen,
 /area/awaymission/black_mesa)
 "fOx" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 2;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -4718,7 +4718,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/black_mesa/xen/vortigaunt_village)
 "fPh" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 2;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -5500,7 +5500,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/black_ops_downstairs_atrium)
 "gLa" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -5692,7 +5692,7 @@
 	},
 /area/awaymission/black_mesa/science_decon_room)
 "gXj" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 2;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -5826,7 +5826,7 @@
 /area/awaymission/black_mesa/hecu_zone_bathroom)
 "heL" = (
 /obj/structure/table,
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	name = "broken computer";
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_state = "laptop";
@@ -6211,7 +6211,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "hIf" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /obj/structure/alien/xenoweeds,
@@ -6732,7 +6732,7 @@
 	},
 /area/awaymission/black_mesa/hecu_zone_external_hall)
 "isF" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /obj/machinery/light/directional/west,
@@ -6998,7 +6998,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/security_outpost)
 "iKx" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_state = "computer";
 	dir = 8
@@ -7218,7 +7218,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/black_mesa/genetics_elevator)
 "iXc" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -7642,7 +7642,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_atrium)
 "jwD" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /obj/structure/railing{
@@ -8007,7 +8007,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_servers)
 "jUS" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -8454,7 +8454,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/black_mesa/tram_room)
 "ktX" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -8529,7 +8529,7 @@
 /turf/simulated/floor/plating/xen,
 /area/awaymission/black_mesa/xen/vortigaunt_village_nihilanth)
 "kzB" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -8874,7 +8874,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/black_mesa/hecu_zone_test_chambers)
 "kUw" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	name = "broken computer";
 	dir = 8
@@ -10596,7 +10596,7 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/awaymission/black_mesa/high_security_sec_point)
 "mYx" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -10885,7 +10885,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_servers)
 "npr" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 2;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -11021,7 +11021,7 @@
 /turf/simulated/floor/catwalk,
 /area/awaymission/black_mesa/xen/entering_zone)
 "nwm" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /obj/structure/alien/xenoweeds,
@@ -11147,7 +11147,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_chem)
 "nFK" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /obj/machinery/light/directional/south,
@@ -11238,7 +11238,7 @@
 	},
 /area/awaymission/black_mesa/xen/lost_camp_hallway)
 "nLK" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/smooth,
@@ -11580,7 +11580,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/xen/acid_lake_building)
 "ofW" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/smooth,
@@ -11746,7 +11746,7 @@
 /area/awaymission/black_mesa/entrance_large_office)
 "oqn" = (
 /obj/structure/table,
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	name = "broken computer";
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_state = "laptop";
@@ -12119,7 +12119,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/security_outpost)
 "oMO" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/smooth,
@@ -12213,7 +12213,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/security_outpost)
 "oTy" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -12256,7 +12256,7 @@
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/black_mesa/entrance_internal_hall)
 "oWT" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -12375,7 +12375,7 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/awaymission/black_mesa/security_outpost)
 "pbF" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /obj/structure/alien/xenoweeds,
@@ -12542,7 +12542,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/black_ops_entrance)
 "plF" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /obj/structure/alien/xenoweeds,
@@ -12618,7 +12618,7 @@
 	},
 /area/awaymission/black_mesa/hecu_zone_bathroom)
 "psj" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/plating/dirt/xen_dirt,
@@ -13500,7 +13500,7 @@
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/black_mesa/xen/nihilanth_hallway)
 "qzz" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -13683,7 +13683,7 @@
 /turf/simulated/floor/plating/xen,
 /area/awaymission/black_mesa/xen/acid_lake)
 "qIu" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -13757,7 +13757,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "qMR" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -15657,7 +15657,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/security_outpost)
 "tdi" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -15814,7 +15814,7 @@
 /turf/simulated/floor/plating/xen,
 /area/awaymission/black_mesa/xen/freeman_puzzle)
 "tqR" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/smooth,
@@ -15974,7 +15974,7 @@
 	},
 /area/awaymission/black_mesa/xen/lost_camp_hallway)
 "tDf" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /turf/simulated/floor/plating/dirt/xen_dirt,
@@ -16453,7 +16453,7 @@
 /turf/simulated/floor/plating/xen,
 /area/awaymission/black_mesa/xen/freeman_puzzle)
 "uiG" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /obj/machinery/light_construct/directional/east,
@@ -16539,7 +16539,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/tram_room)
 "urb" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -16816,7 +16816,7 @@
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "uGL" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -17445,7 +17445,7 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/awaymission/black_mesa/deep_sci_storage)
 "vtp" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -17508,7 +17508,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/black_ops_entrance)
 "vwk" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -18084,7 +18084,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_surgery)
 "wlu" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /obj/machinery/light/directional/west,
@@ -18292,7 +18292,7 @@
 /area/awaymission/black_mesa/entrance)
 "wyF" = (
 /obj/structure/table,
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_keyboard = "";
 	icon_screen = "telescreen";
@@ -18327,7 +18327,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "wzP" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -18552,7 +18552,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/entrance_internal_hall)
 "wNR" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /turf/simulated/floor/plating/dirt/xen_dirt,
@@ -18562,7 +18562,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/black_ops_server)
 "wOK" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 2;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -18680,7 +18680,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_medbay)
 "wTA" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -18794,7 +18794,7 @@
 	},
 /area/awaymission/black_mesa/security_outpost)
 "wZH" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -19135,7 +19135,7 @@
 	},
 /area/awaymission/black_mesa/science_labs)
 "xwf" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	icon_state = "tcstation";
 	icon_screen = "tcstation_broken";
 	icon_keyboard = null
@@ -19504,7 +19504,7 @@
 /turf/simulated/floor/plating/xen,
 /area/awaymission/black_mesa/xen/freeman_puzzle)
 "xVR" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	name = "broken computer";
 	dir = 8
@@ -19637,7 +19637,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/science_decon_room)
 "ycg" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_state = "computer";
 	dir = 8
@@ -19729,7 +19729,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/security_outpost)
 "yjJ" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,

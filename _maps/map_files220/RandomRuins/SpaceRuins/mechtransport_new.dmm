@@ -304,7 +304,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "hM" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4;
 	icon_keyboard = "syndie_key";
 	icon_screen = "syndinavigation"
@@ -612,7 +612,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "ob" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1120,7 +1120,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "zy" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	icon_state = "entertainment_console";
 	pixel_y = 32;
 	icon_screen = "entertainment_console_broken";
@@ -1348,7 +1348,7 @@
 /area/ruin/space/powered)
 "DE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	icon_state = "entertainment_console";
 	pixel_y = 32;
 	icon_screen = "entertainment_console_broken";
@@ -1603,7 +1603,7 @@
 /turf/simulated/floor/bluegrid,
 /area/ruin/space/powered)
 "Hn" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	name = "shuttle control console";
 	desc = "The screen dims greens with an ERROR message. It looks completely unusable."
 	},
@@ -1675,7 +1675,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "II" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	name = "exosuit control console";
 	desc = "The screen dims green with a bright ERROR message. It looks completely unusable."
 	},

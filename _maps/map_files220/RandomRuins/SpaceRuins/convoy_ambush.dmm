@@ -485,7 +485,7 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "vV" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 2;
 	icon_keyboard = "syndie_key";
 	icon_screen = "syndinavigation"

@@ -3194,7 +3194,7 @@
 /obj/structure/chair/sofa/left{
 	dir = 8
 	},
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_keyboard = "";
 	icon_screen = "telescreen";
@@ -4298,7 +4298,7 @@
 	pixel_x = 6;
 	pixel_y = 7
 	},
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_keyboard = "";
 	icon_screen = "telescreen";
@@ -4486,7 +4486,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "fNF" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	name = "broken computer";
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_state = "computer";
@@ -6487,7 +6487,7 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "isZ" = (
 /obj/machinery/photocopier,
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_keyboard = "";
 	icon_screen = "telescreen";
@@ -6778,7 +6778,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "iKW" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_keyboard = "";
 	icon_screen = "telescreen";
@@ -7173,7 +7173,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "jjL" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_state = "computer";
 	dir = 8
@@ -8337,7 +8337,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "kDy" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 2;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -8545,7 +8545,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_keyboard = "";
 	icon_screen = "telescreen";
@@ -8955,7 +8955,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "lms" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 2;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -10566,7 +10566,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "nhA" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	name = "broken computer";
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_state = "computer";
@@ -12818,7 +12818,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "qmr" = (
 /obj/structure/table,
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	name = "broken computer";
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_state = "laptop";
@@ -13415,7 +13415,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "qVg" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8;
 	icon_state = "broken";
 	icon_screen = "broken";
@@ -13944,7 +13944,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "rBr" = (
 /obj/structure/chair/office/dark,
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_keyboard = "";
 	icon_screen = "telescreen";
@@ -15039,7 +15039,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "sRJ" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	name = "broken computer"
 	},
@@ -19008,7 +19008,7 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "xJT" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	icon_state = "computer";
 	dir = 8;
 	name = "arrival console"

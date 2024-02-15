@@ -159,7 +159,7 @@
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/control)
 "afe" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /obj/structure/window/reinforced,
@@ -17808,7 +17808,7 @@
 	},
 /area/centcom/ss220/command)
 "lYC" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
