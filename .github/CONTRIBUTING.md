@@ -435,7 +435,7 @@ Look for code examples on how to properly use it.
 
 #### Bitflags
 
-* We prefer using bitshift operators instead of directly typing out the value. I.E:
+* Bitshift operators are mandatory, opposed to directly typing out the value. I.E:
 
 ```dm
     #define MACRO_ONE (1<<0)
@@ -443,7 +443,7 @@ Look for code examples on how to properly use it.
     #define MACRO_THREE (1<<2)
 ```
 
-Is preferable to:
+Is accepted, whereas the following is not:
 
 ```dm
     #define MACRO_ONE 1
