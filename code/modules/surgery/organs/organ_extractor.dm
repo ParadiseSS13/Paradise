@@ -81,7 +81,7 @@
 	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 75, TRUE)
 	C.apply_damage(15, BRUTE, drilled_organ)
 	if(!do_after_once(user, 12 SECONDS, target = C))// Slightly longer than stamina crit, at least cuff and buckle them to a pipe or something
-		to_chat(user, "<span class='warning'>ERROR: Process inturupted!</span>")
+		to_chat(user, "<span class='warning'>ERROR: Process interrupted!</span>")
 		in_use = FALSE
 		return
 	if(!internal_organ || !istype(internal_organ) || !(internal_organ.owner == C)) //Organ got deleted / moved somewhere else?
@@ -100,7 +100,7 @@
 	var/yy = internal_organ.pixel_y
 	internal_organ.pixel_x = 2
 	internal_organ.pixel_y = -2
-	var/image/img = image("icon"=internal_organ, "layer"=FLOAT_LAYER)
+	var/image/img = image("icon" = internal_organ, "layer" = FLOAT_LAYER)
 	var/matrix/MA = matrix(transform)
 	MA.Scale(0.66, 0.66)
 	img.transform = MA
@@ -133,12 +133,12 @@
 	playsound(get_turf(C), 'sound/weapons/circsawhit.ogg', 50, TRUE)
 	if(user_is_target)
 		if(!do_after_once(C, 7 SECONDS, target = C))
-			to_chat(user, "<span class='warning'>ERROR: Process inturupted!</span>")
+			to_chat(user, "<span class='warning'>ERROR: Process interrupted!</span>")
 			in_use = FALSE
 			return
 	else
 		if(!do_after_once(C, 12 SECONDS, target = C))
-			to_chat(user, "<span class='warning'>ERROR: Process inturupted!</span>")
+			to_chat(user, "<span class='warning'>ERROR: Process interrupted!</span>")
 			in_use = FALSE
 			return
 	C.apply_damage(10, BRUTE, drilled_organ)
