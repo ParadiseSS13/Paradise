@@ -395,9 +395,9 @@
 #define SQL_VERSION 53
 
 // Vending machine stuff
-#define CAT_NORMAL 1
-#define CAT_HIDDEN 2
-#define CAT_COIN   4
+#define CAT_NORMAL (1<<0)
+#define CAT_HIDDEN (1<<1)
+#define CAT_COIN   (1<<2)
 
 // Jobs
 // used for alternate_option
@@ -498,16 +498,16 @@
 #define SYMPTOM_ACTIVATION_PROB 3
 
 // Atmos stuff that fucking terrifies me
-#define LINDA_SPAWN_HEAT 1
-#define LINDA_SPAWN_20C 2
-#define LINDA_SPAWN_TOXINS 4
-#define LINDA_SPAWN_OXYGEN 8
-#define LINDA_SPAWN_CO2 16
-#define LINDA_SPAWN_NITROGEN 32
-#define LINDA_SPAWN_N2O 64
-#define LINDA_SPAWN_AGENT_B 128
-#define LINDA_SPAWN_AIR 256
-#define LINDA_SPAWN_COLD 512
+#define LINDA_SPAWN_HEAT 		(1<<0)
+#define LINDA_SPAWN_20C 		(1<<1)
+#define LINDA_SPAWN_TOXINS 		(1<<2)
+#define LINDA_SPAWN_OXYGEN 		(1<<3)
+#define LINDA_SPAWN_CO2 		(1<<4)
+#define LINDA_SPAWN_NITROGEN 	(1<<5)
+#define LINDA_SPAWN_N2O 		(1<<6)
+#define LINDA_SPAWN_AGENT_B 	(1<<7)
+#define LINDA_SPAWN_AIR 		(1<<8)
+#define LINDA_SPAWN_COLD 		(1<<9)
 
 // Throwing these defines here for the TM to minimise conflicts
 #define MAPROTATION_MODE_NORMAL_VOTE "Vote"
