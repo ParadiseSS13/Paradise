@@ -105,3 +105,13 @@
 	prefs.character_saves.len = prefs.max_save_slots
 
 #undef MAX_SAVE_SLOTS_SS220
+
+/client/proc/is_donor_allowed(required_donator_level)
+	switch(donator_level)
+		if(LITTLE_WORKER_TIER)
+			if(required_donator_level > LITTLE_WORKER_LEVEL)
+				return FALSE
+		if(BIG_WORKER_TIER)
+			if(required_donator_level > BIG_WORKER_LEVEL)
+				return FALSE
+	return required_donator_level <= donator_level

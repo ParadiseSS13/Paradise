@@ -532,15 +532,15 @@
 	autohiss_mode	= sanitize_integer(autohiss_mode, 0, 2, initial(autohiss_mode))
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
-	job_support_high = sanitize_integer(job_support_high, 0, 65535, initial(job_support_high))
-	job_support_med = sanitize_integer(job_support_med, 0, 65535, initial(job_support_med))
-	job_support_low = sanitize_integer(job_support_low, 0, 65535, initial(job_support_low))
-	job_medsci_high = sanitize_integer(job_medsci_high, 0, 65535, initial(job_medsci_high))
-	job_medsci_med = sanitize_integer(job_medsci_med, 0, 65535, initial(job_medsci_med))
-	job_medsci_low = sanitize_integer(job_medsci_low, 0, 65535, initial(job_medsci_low))
-	job_engsec_high = sanitize_integer(job_engsec_high, 0, 65535, initial(job_engsec_high))
-	job_engsec_med = sanitize_integer(job_engsec_med, 0, 65535, initial(job_engsec_med))
-	job_engsec_low = sanitize_integer(job_engsec_low, 0, 65535, initial(job_engsec_low))
+	job_support_high = sanitize_integer(job_support_high, 0, get_datum_last_support(), initial(job_support_high)) // SS220 EDIT - EXTRA JOBS
+	job_support_med = sanitize_integer(job_support_med, 0, get_datum_last_support(), initial(job_support_med)) // SS220 EDIT - EXTRA JOBS
+	job_support_low = sanitize_integer(job_support_low, 0, get_datum_last_support(), initial(job_support_low)) // SS220 EDIT - EXTRA JOBS
+	job_medsci_high = sanitize_integer(job_medsci_high, 0, get_datum_last_medsci(), initial(job_medsci_high)) // SS220 EDIT - EXTRA JOBS
+	job_medsci_med = sanitize_integer(job_medsci_med, 0, get_datum_last_medsci(), initial(job_medsci_med)) // SS220 EDIT - EXTRA JOBS
+	job_medsci_low = sanitize_integer(job_medsci_low, 0, get_datum_last_medsci(), initial(job_medsci_low)) // SS220 EDIT - EXTRA JOBS
+	job_engsec_high = sanitize_integer(job_engsec_high, 0, get_datum_last_engsec(), initial(job_engsec_high)) // SS220 EDIT - EXTRA JOBS
+	job_engsec_med = sanitize_integer(job_engsec_med, 0, get_datum_last_engsec(), initial(job_engsec_med)) // SS220 EDIT - EXTRA JOBS
+	job_engsec_low = sanitize_integer(job_engsec_low, 0, get_datum_last_engsec(), initial(job_engsec_low)) // SS220 EDIT - EXTRA JOBS
 	disabilities = sanitize_integer(disabilities, 0, 65535, initial(disabilities))
 
 	socks			= sanitize_text(socks, initial(socks))
@@ -1980,6 +1980,15 @@
 		html += "<tt><center>"
 		html += "<b>Choose occupation chances</b><br>Unavailable occupations are crossed out.<br><br>"
 		html += "<center><a href='?_src_=prefs;preference=job;task=close'>Save</a></center><br>" // Easier to press up here.
+
+		// ===== SS220 ADD - NEW JOBS ======
+		// ============= START =============
+		if(check_available_extra_job_prefs(user.client))
+			html += "<center><u><b><a href='?_src_=prefs;preference=job;task=extra_job'>Показать [extra_jobs_check ? "основные" : "дополнительные"] работы</a></b></u></center><br>"
+		if(extra_jobs_check)
+			splitJobs = get_split_extra_jobs()
+		// ============== END ==============
+
 		html += "<div align='center'>Left-click to raise an occupation preference, right-click to lower it.<br></div>"
 		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
 		html += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
@@ -1998,6 +2007,15 @@
 
 			if(job.hidden_from_job_prefs)
 				continue
+
+			// ===== SS220 ADD - NEW JOBS ======
+			// ============= START =============
+			if(!job.is_donor_allowed(user.client))
+				continue
+
+			if(extra_jobs_check != job.is_extra_job)
+				continue
+			// ============== END ==============
 
 			index += 1
 			if((index >= limit) || (job.title in splitJobs))

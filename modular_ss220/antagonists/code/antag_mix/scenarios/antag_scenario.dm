@@ -71,7 +71,7 @@
 		vars[param] = params[param]
 
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
-		restricted_roles |= protected_roles
+		restricted_roles |= protected_roles + GLOB.restricted_jobs_ss220
 
 
 /**

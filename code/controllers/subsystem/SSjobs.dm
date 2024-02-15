@@ -90,6 +90,8 @@ SUBSYSTEM_DEF(jobs)
 			return FALSE
 		if(job.barred_by_missing_limbs(player.client))
 			return FALSE
+		if(!job.is_donor_allowed(player.client))	// SS220 ADD - Donor Jobs
+			return FALSE
 
 		var/available = latejoin ? job.is_position_available() : job.is_spawn_position_available()
 
@@ -519,7 +521,7 @@ SUBSYSTEM_DEF(jobs)
 			H = new_mob
 
 	if(job && H)
-		job.after_spawn(H)
+		job.after_spawn(H, joined_late)	// SS220 EDIT - jobs - prisoner spawn
 
 		//Gives glasses to the vision impaired
 		if(HAS_TRAIT(H, TRAIT_NEARSIGHT))

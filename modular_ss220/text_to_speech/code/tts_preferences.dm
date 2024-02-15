@@ -103,6 +103,10 @@
 			client.prefs.ShowChoices(src)
 			return FALSE
 		var/datum/tts_seed/seed = SStts220.tts_seeds[client.prefs.active_character.tts_seed]
+		if(!seed)
+			to_chat(usr, span_danger("Выбранный голос персонажа недоступен!"))
+			client.prefs.ShowChoices(src)
+			return FALSE
 
 		switch(client.donator_level)
 			if(LITTLE_WORKER_TIER)
