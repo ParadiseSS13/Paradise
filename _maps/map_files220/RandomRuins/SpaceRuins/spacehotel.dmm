@@ -4349,7 +4349,7 @@
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/guestroom5)
 "Fa" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},

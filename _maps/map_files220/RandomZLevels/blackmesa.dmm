@@ -95,7 +95,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/cryo_storage)
 "ajC" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/black_ops_science_room)
 "akl" = (
@@ -4548,7 +4548,7 @@
 	},
 /area/awaymission/black_mesa/gas_emitter_chamber)
 "fBN" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/structure/alien/xenoweeds,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_large_office)
@@ -5862,7 +5862,7 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/awaymission/black_mesa/black_ops_turret_blockade)
 "hhW" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/structure/alien/xenoweeds,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/scientist_hall)
@@ -6190,7 +6190,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/science_decon_room)
 "hGS" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_atrium)
 "hHF" = (
@@ -6344,7 +6344,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "hPO" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/employee_dorm_room)
 "hQh" = (
@@ -6520,7 +6520,7 @@
 /turf/simulated/floor/plating/xen,
 /area/awaymission/black_mesa/xen/vortigaunt_village_nihilanth)
 "iew" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plating/dirt/xen_dirt,
 /area/awaymission/black_mesa/xen/nihilanth_computer)
 "ieG" = (
@@ -9688,7 +9688,7 @@
 	},
 /area/awaymission/black_mesa/lambda_teleporter)
 "lRP" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/structure/alien/xenoweeds,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/scientist_hall)
@@ -11514,7 +11514,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_large_office)
 "ocA" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/dorm_computers)
 "oee" = (
@@ -13903,7 +13903,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/lost_camp)
 "qUm" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/high_security_emitter)
 "qUv" = (
@@ -16699,7 +16699,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/black_mesa/lambda_teleporter)
 "uAV" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/black_ops_button)
 "uBD" = (
@@ -17278,7 +17278,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "vgS" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/structure/alien/xenoweeds,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/science_decon_room)
@@ -18036,7 +18036,7 @@
 /turf/simulated/floor/catwalk,
 /area/awaymission/black_mesa/scientist_hall)
 "wfQ" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/science_labs)
 "wgt" = (

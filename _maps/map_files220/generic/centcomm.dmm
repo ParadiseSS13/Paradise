@@ -12812,7 +12812,7 @@
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin1)
 "iwE" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "navybluefull"
@@ -16161,7 +16161,7 @@
 /turf/simulated/floor/grass/no_creep,
 /area/centcom/ss220/bar)
 "leo" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -16699,7 +16699,7 @@
 	},
 /area/centcom/ss220/general)
 "lvh" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -19839,7 +19839,7 @@
 	},
 /area/centcom/ss220/admin2)
 "nDz" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -22379,7 +22379,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "pyl" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -31778,7 +31778,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
 "wdR" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
