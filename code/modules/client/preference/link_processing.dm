@@ -966,6 +966,10 @@
 				if("input_lists")
 					toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_LISTS
 
+				if("tgui_say_light_mode")
+					toggles2 ^= PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE
+					user?.client?.tgui_say?.load()
+
 				if("ghost_att_anim")
 					toggles2 ^= PREFTOGGLE_2_ITEMATTACK
 
