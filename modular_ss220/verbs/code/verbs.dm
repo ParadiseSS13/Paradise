@@ -15,7 +15,7 @@
 	set name = "Respawn"
 	set category = "OOC"
 
-	if(!GLOB.configuration.general.respawn_enabled || !check_rights(R_ADMIN))
+	if(!GLOB.configuration.general.respawn_enabled && !check_rights(R_ADMIN))
 		to_chat(usr, span_warning("Возрождение отключено."))
 		return
 
@@ -30,7 +30,7 @@
 	var/deathtime = world.time - timeofdeath
 	if(isobserver(src))
 		var/mob/dead/observer/G = src
-		if(!HAS_TRAIT(G, TRAIT_RESPAWNABLE) || !check_rights(R_ADMIN))
+		if(!HAS_TRAIT(G, TRAIT_RESPAWNABLE) && !check_rights(R_ADMIN))
 			to_chat(usr, span_warning("У Вас сейчас нет возможности возрождения!"))
 			return
 
@@ -44,7 +44,7 @@
 		pluralcheck = " [deathtimeminutes] минут(-ы) и"
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 
-	if(deathtimeminutes < GLOB.configuration.ss220_misc.respawn_delay || !check_rights(R_ADMIN))
+	if(deathtimeminutes < GLOB.configuration.ss220_misc.respawn_delay && !check_rights(R_ADMIN))
 		to_chat(usr, span_notice("Вы мертвы[pluralcheck] [deathtimeseconds] секунд(-ы)."))
 		to_chat(usr, span_warning("Вы должны подождать ещё [GLOB.configuration.ss220_misc.respawn_delay] минут чтобы возродиться!"))
 		return
