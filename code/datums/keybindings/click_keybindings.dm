@@ -2,13 +2,13 @@
 	category = KB_CATEGORY_CLICK
 
 /datum/keybinding/clickbind/can_use(client/C, mob/M)
-	if(M.next_click > world.time)
-		return
-	M.changeNext_click(1)
 	return M.can_use_clickbinds() && ..()
 
 /datum/keybinding/clickbind/down(client/C)
 	..()
+	if(C.mob.next_click > world.time)
+		return
+	C.mob.changeNext_click(1)
 	return locateUID(C.moused_over)
 
 /datum/keybinding/clickbind/alt_click
