@@ -138,7 +138,7 @@
 	return TRUE
 
 /obj/effect/portal/proc/attempt_teleport(atom/movable/victim, turf/destination, variance = 0, force_teleport = TRUE)
-	if(MAX_ALLOWED_TELEPORTS <= teleports_this_cycle)
+	if(MAX_ALLOWED_TELEPORTS_PER_PROCESS <= teleports_this_cycle)
 		return
 	var/use_effects = world.time >= effect_cooldown
 	var/effect = null // Will result in the default effect being used

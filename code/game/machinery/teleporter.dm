@@ -422,7 +422,7 @@
 	var/obj/machinery/computer/teleporter/com = power_station.teleporter_console
 	if(!com)
 		return
-	if(MAX_ALLOWED_TELEPORTS <= teleports_this_cycle)
+	if(MAX_ALLOWED_TELEPORTS_PER_PROCESS <= teleports_this_cycle)
 		return
 	if(!com.target)
 		visible_message("<span class='alert'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
@@ -499,7 +499,7 @@
 		to_chat(AM, "You can't use this here.")
 		return
 
-	if(target && !recalibrating && !panel_open && !blockAI(AM) && (MAX_ALLOWED_TELEPORTS >= teleports_this_cycle))
+	if(target && !recalibrating && !panel_open && !blockAI(AM) && (MAX_ALLOWED_TELEPORTS_PER_PROCESS >= teleports_this_cycle))
 		do_teleport(AM, target)
 		use_power(5000)
 		teleports_this_cycle++
