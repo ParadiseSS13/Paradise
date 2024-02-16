@@ -37,6 +37,14 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/xeno/limb, /obj/effect/decal/cleanable/blood/gibs/xeno/core, /obj/effect/decal/cleanable/blood/xeno/splatter, /obj/effect/decal/cleanable/blood/gibs/xeno/body, /obj/effect/decal/cleanable/blood/gibs/xeno/down)
 
+/mob/living/simple_animal/hostile/alien/ListTargetsLazy()
+	return ListTargets()
+
+/mob/living/simple_animal/hostile/alien/Aggro()
+	. = ..()
+	if(target)
+		playsound(loc, 'sound/voice/hiss4.ogg', 70, 1)
+
 /mob/living/simple_animal/hostile/alien/drone
 	name = "alien drone"
 	icon_state = "aliend_running"
