@@ -10,8 +10,15 @@
 	// c - cardinals, bool, do the sparks only move in cardinal directions?
 	// source - source of the sparks.
 
+	var/spark_budget = GLOBAL_SPARK_LIMIT - GLOB.sparks_active
+	var/sparks_allowed = min(spark_budget, n)
+	if(sparks_allowed <= 0)
+		return
+	GLOB.sparks_active += sparks_allowed
+
 	var/datum/effect_system/spark_spread/sparks = new
-	sparks.set_up(n, c, source)
+
+	sparks.set_up(sparks_allowed, c, source)
 	sparks.autocleanup = TRUE
 	INVOKE_ASYNC(sparks, TYPE_PROC_REF(/datum/effect_system, start))
 
@@ -44,6 +51,11 @@
 
 /datum/effect_system/spark_spread
 	effect_type = /obj/effect/particle_effect/sparks
+
+/datum/effect_system/spark_spread/decrement_total_effect()
+	GLOB.sparks_active--
+	return ..()
+
 
 //////////////////////////////////
 //////SPARKLE FIREWORKS
