@@ -10,12 +10,6 @@
 	// c - cardinals, bool, do the sparks only move in cardinal directions?
 	// source - source of the sparks.
 
-	var/spark_budget = GLOBAL_SPARK_LIMIT - GLOB.sparks_active
-	var/sparks_allowed = min(spark_budget, n)
-	if(sparks_allowed <= 0)
-		return
-	GLOB.sparks_active += sparks_allowed
-
 	var/datum/effect_system/spark_spread/sparks = new
 
 	sparks.set_up(sparks_allowed, c, source)
