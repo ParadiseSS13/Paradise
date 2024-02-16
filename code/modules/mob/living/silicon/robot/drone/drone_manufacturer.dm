@@ -134,7 +134,7 @@
 		if(!G.check_ahud_rejoin_eligibility())
 			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return
-		if(G.started_as_observer == TRUE)
+		if(G.started_as_observer)
 			joinedasobserver = TRUE
 
 	var/deathtimeminutes = round(deathtime / 600)
