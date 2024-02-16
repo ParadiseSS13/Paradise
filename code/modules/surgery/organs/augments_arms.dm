@@ -477,7 +477,7 @@
 	desc = "A long length of monomolecular filament, built into the back of your hand. \
 		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
 		even from a few steps away. However, results against anything more durable will heavily vary."
-	icon_state = "razorwire_weapon"
+	icon = 'icons/obj/energy_melee.dmi'
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	icon_state = "razorwire_weapon"
@@ -531,10 +531,6 @@
 	with a hand and wrist replacement made of the same durable material used to contain energy weapons. They would call it, the Razorwire.<i>"
 	. += "<i>Favored by assassins for their stealth and efficiency, Cybersun exercises discretion in its distribution, favoring clients in their good graces. \
 	It falls behind other energy weapons due to its thinner and more loose pressure, however it is praised more as a side-arm for unarmored soft targets.</i>"
-
-/obj/item/organ/internal/cyberimp/arm/razorwire/Extend(obj/item/item)
-	. = ..()
-
 
 // Shell launch system, an arm mounted single-shot shotgun that comes out of your arm
 
