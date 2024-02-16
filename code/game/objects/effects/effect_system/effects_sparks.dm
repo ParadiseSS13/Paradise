@@ -11,7 +11,6 @@
 	// source - source of the sparks.
 
 	var/datum/effect_system/spark_spread/sparks = new
-
 	sparks.set_up(sparks_allowed, c, source)
 	sparks.autocleanup = TRUE
 	INVOKE_ASYNC(sparks, TYPE_PROC_REF(/datum/effect_system, start))
