@@ -3160,7 +3160,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "hF" = (
-/obj/structure/sign/barsign,
+/obj/machinery/barsign,
 /turf/simulated/wall/mineral/titanium/nodecon,
 /area/ruin/space/derelict/crew_quarters)
 "hH" = (

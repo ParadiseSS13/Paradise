@@ -6520,7 +6520,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "aHe" = (
-/obj/structure/sign/barsign,
+/obj/machinery/barsign,
 /turf/simulated/wall,
 /area/station/service/bar)
 "aHg" = (

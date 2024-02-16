@@ -492,7 +492,7 @@
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "Ds" = (
-/obj/structure/sign/barsign,
+/obj/machinery/barsign,
 /turf/simulated/wall/mineral/sandstone,
 /area/ruin/powered/beach)
 "Ec" = (

@@ -5383,7 +5383,7 @@
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "sd" = (
-/obj/structure/sign/barsign,
+/obj/machinery/barsign/free_access,
 /turf/simulated/wall/indestructible/riveted,
 /area/ghost_bar)
 "se" = (
@@ -7965,7 +7965,7 @@
 /turf/simulated/wall/indestructible/syndicate,
 /area/admin)
 "Cv" = (
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = -32
 	},
 /obj/machinery/icemachine,
@@ -9239,7 +9239,7 @@
 /area/centcom/specops)
 "GT" = (
 /obj/structure/chair,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /obj/effect/landmark/spawner/tdomeobserve,
@@ -12907,7 +12907,7 @@
 	pixel_y = 5
 	},
 /obj/structure/table/wood,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -13909,8 +13909,8 @@
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
 "Xi" = (
+/obj/machinery/barsign,
 /obj/effect/spawner/window,
-/obj/structure/sign/barsign,
 /turf/simulated/floor/plating,
 /area/centcom/evac)
 "Xj" = (

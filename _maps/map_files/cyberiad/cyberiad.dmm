@@ -25660,7 +25660,7 @@
 /turf/simulated/floor/plasteel/goonplaque/memorial,
 /area/station/hallway/secondary/exit)
 "bze" = (
-/obj/structure/sign/barsign,
+/obj/machinery/barsign,
 /turf/simulated/wall,
 /area/station/service/bar)
 "bzf" = (

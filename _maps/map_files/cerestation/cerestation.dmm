@@ -26558,7 +26558,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fore)
 "cMA" = (
-/obj/structure/sign/barsign,
+/obj/machinery/barsign,
 /turf/simulated/wall,
 /area/station/maintenance/gambling_den)
 "cME" = (
@@ -48256,7 +48256,7 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/spacebridge/serveng)
 "iwJ" = (
-/obj/structure/sign/barsign,
+/obj/machinery/barsign,
 /turf/simulated/wall,
 /area/station/service/bar)
 "iwU" = (
