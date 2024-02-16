@@ -76,9 +76,10 @@
 	user.emote("scream")
 	playsound(get_turf(src), 'sound/machines/juicer.ogg', 50, TRUE, -1)
 	animate_fading_leap_up(user)
-	user.create_chat_message(user, message, FALSE, "big")
+	user.create_chat_message(user, "DING DING DING DING DING DING DING DING DING", FALSE, "big")
 	visible_message("<span class='reallybig'>\"DING DING DING DING DING DING DING DING DING\"</span>", hearing_distance = 14)
-	addtimer(CALLBACK(src, PROC_REF(gib)), 1 SECONDS)
+	sleep(1 SECONDS)
+	user.gib()
 	return OBLITERATION
 
 /obj/item/kitchen/utensil/pfork
