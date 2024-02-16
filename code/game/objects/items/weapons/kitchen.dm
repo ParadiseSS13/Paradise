@@ -72,16 +72,13 @@
 
 /obj/item/kitchen/utensil/fork/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the [src] into the garbage disposal! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	var/message = "DING DING DING DING DING DING DING DING DING"
-	var/span = "reallybig"
 	sleep(2 SECONDS)
 	user.emote("scream")
 	playsound(get_turf(src), 'sound/machines/juicer.ogg', 50, TRUE, -1)
 	animate_fading_leap_up(user)
 	user.create_chat_message(user, message, FALSE, "big")
-	audible_message("<span class='[span]'>\"[message]\"</span>", hearing_distance = 14)
-	sleep(1 SECONDS)
-	user.gib()
+	visible_message("<span class='reallybig'>\"DING DING DING DING DING DING DING DING DING\"</span>", hearing_distance = 14)
+	addtimer(CALLBACK(src, PROC_REF(gib)), 1 SECONDS)
 	return OBLITERATION
 
 /obj/item/kitchen/utensil/pfork
