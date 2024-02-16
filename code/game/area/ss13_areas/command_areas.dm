@@ -54,12 +54,6 @@
 	icon_state = "teleporter"
 	ambientsounds = ENGINEERING_SOUNDS
 
-/area/station/command/gateway
-	name = "\improper Gateway"
-	icon_state = "gateway"
-	ambientsounds = ENGINEERING_SOUNDS
-	sound_environment = SOUND_AREA_STANDARD_STATION
-
 /area/station/command/vault
 	name = "\improper Vault"
 	icon_state = "nuke_storage"
@@ -72,7 +66,3 @@
 /area/station/command/customs
 	name = "Customs"
 	icon_state = "checkpoint1"
-
-/area/station/command/customs2
-	name = "Customs"
-	icon_state = "security"
