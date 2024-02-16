@@ -53,7 +53,8 @@
 
 	var/obj/item/silicon_hat
 	var/hat_offset_y = -3
-	var/stretched_hat = FALSE /// For cyborgs with wide "heads", causes the hat icon to be stretched.
+	/// For cyborgs with wide "heads", causes the hat icon to be stretched.
+	var/stretched_hat = FALSE
 	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
 	var/hat_icon_state
 	var/hat_alpha
