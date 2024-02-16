@@ -24,7 +24,6 @@
 	var/effect_cooldown = 0
 	///Whether or not portal use will cause sparks
 	var/create_sparks = TRUE
-	var/max_teleports_per_cycle = 20 //More than enough, stops infinite loops
 	var/teleports_this_cycle = 0
 
 /obj/effect/portal/New(loc, turf/_target, obj/creation_object = null, lifespan = 300, mob/creation_mob = null, create_sparks = TRUE)
@@ -139,7 +138,7 @@
 	return TRUE
 
 /obj/effect/portal/proc/attempt_teleport(atom/movable/victim, turf/destination, variance = 0, force_teleport = TRUE)
-	if(max_teleports_per_cycle <= teleports_this_cycle)
+	if(MAX_ALLOWED_TELEPORTS <= teleports_this_cycle)
 		return
 	var/use_effects = world.time >= effect_cooldown
 	var/effect = null // Will result in the default effect being used

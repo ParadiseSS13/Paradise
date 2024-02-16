@@ -345,7 +345,6 @@
 	var/obj/machinery/teleport/station/power_station
 	var/calibrated //Calibration prevents mutation
 	var/admin_usage = FALSE // if 1, works on CC level. If 0, doesn't. Used for admin room teleport.
-	var/max_teleports_per_cycle = 20 //More than enough, stops infinite loops
 	var/teleports_this_cycle = 0
 
 /obj/machinery/teleport/hub/Initialize(mapload)
@@ -423,7 +422,7 @@
 	var/obj/machinery/computer/teleporter/com = power_station.teleporter_console
 	if(!com)
 		return
-	if(max_teleports_per_cycle <= teleports_this_cycle)
+	if(MAX_ALLOWED_TELEPORTS <= teleports_this_cycle)
 		return
 	if(!com.target)
 		visible_message("<span class='alert'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
@@ -475,7 +474,6 @@
 	var/recalibrating = FALSE
 	var/target
 	var/tele_delay = 50
-	var/max_teleports_per_cycle = 20 //More than enough, stops infinite loops
 	var/teleports_this_cycle = 0
 
 /obj/machinery/teleport/perma/Initialize(mapload)
@@ -501,7 +499,7 @@
 		to_chat(AM, "You can't use this here.")
 		return
 
-	if(target && !recalibrating && !panel_open && !blockAI(AM) && (max_teleports_per_cycle >= teleports_this_cycle))
+	if(target && !recalibrating && !panel_open && !blockAI(AM) && (MAX_ALLOWED_TELEPORTS >= teleports_this_cycle))
 		do_teleport(AM, target)
 		use_power(5000)
 		teleports_this_cycle++
