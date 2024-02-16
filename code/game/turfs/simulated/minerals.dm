@@ -42,7 +42,7 @@
 				if(istype(T, /turf/simulated/mineral/random))
 					Spread(T)
 
-/turf/simulated/mineral/Spread(turf/T)
+/turf/simulated/mineral/proc/Spread(turf/T)
 	T.ChangeTurf(type)
 
 /turf/simulated/mineral/shuttleRotate(rotation)
