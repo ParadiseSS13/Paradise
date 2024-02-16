@@ -549,6 +549,10 @@
 	button_area = get_area(src)
 
 /obj/machinery/button/windowtint/attack_hand(mob/user)
+	if(!allowed(user) && !user.can_advanced_admin_interact())
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return
+
 	if(..())
 		return TRUE
 
