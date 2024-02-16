@@ -58,26 +58,9 @@
 	name = "\improper Medbay Patient Ward"
 	icon_state = "patientsward"
 
-/area/station/medical/isolation/a
-	name = "Isolation A"
-	icon_state = "medbayisoa"
-
-/area/station/medical/isolation/b
-	name = "Isolation B"
-	icon_state = "medbayisob"
-
-/area/station/medical/isolation/c
-	name = "Isolation C"
-	icon_state = "medbayisoc"
-
-/area/station/medical/isolation
-	name = "Isolation Access"
-	icon_state = "medbayisoaccess"
-
 /area/station/medical/coldroom
 	name = "Cold Room"
 	icon_state = "coldroom"
-
 
 /area/station/medical/storage/secondary
 	name = "Medical Secondary Storage"
