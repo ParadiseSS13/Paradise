@@ -345,6 +345,8 @@
 	var/obj/machinery/teleport/station/power_station
 	var/calibrated //Calibration prevents mutation
 	var/admin_usage = FALSE // if 1, works on CC level. If 0, doesn't. Used for admin room teleport.
+	var/max_teleports_per_cycle = 20 //More than enough, stops infinite loops
+	var/teleports_this_cycle = 0
 
 /obj/machinery/teleport/hub/Initialize(mapload)
 	. = ..()
@@ -362,6 +364,9 @@
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	RefreshParts()
+
+/obj/machinery/teleport/hub/process()
+	teleports_this_cycle = 0
 
 /obj/machinery/teleport/hub/Destroy()
 	if(power_station)
@@ -418,6 +423,8 @@
 	var/obj/machinery/computer/teleporter/com = power_station.teleporter_console
 	if(!com)
 		return
+	if(max_teleports_per_cycle <= teleports_this_cycle)
+		return
 	if(!com.target)
 		visible_message("<span class='alert'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
 		return
@@ -432,6 +439,7 @@
 			. = do_teleport(M, com.target, bypass_area_flag = com.area_bypass)
 		if(accurate < 3)
 			calibrated = FALSE
+		teleports_this_cycle++
 
 /obj/machinery/teleport/hub/update_icon_state()
 	if(panel_open)
@@ -467,10 +475,15 @@
 	var/recalibrating = FALSE
 	var/target
 	var/tele_delay = 50
+	var/max_teleports_per_cycle = 20 //More than enough, stops infinite loops
+	var/teleports_this_cycle = 0
 
 /obj/machinery/teleport/perma/Initialize(mapload)
 	. = ..()
 	update_lighting()
+
+/obj/machinery/teleport/perma/process()
+	teleports_this_cycle = 0
 
 /obj/machinery/teleport/perma/RefreshParts()
 	for(var/obj/item/circuitboard/teleporter_perma/C in component_parts)
@@ -478,7 +491,7 @@
 	var/A = 40
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		A -= M.rating * 10
-	tele_delay = max(A, 1) // prevents you from teleporting 50000 times in a single tick
+	tele_delay = max(A, 0)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/teleport/perma/Crossed(atom/movable/AM, oldloc)
@@ -488,13 +501,15 @@
 		to_chat(AM, "You can't use this here.")
 		return
 
-	if(target && !recalibrating && !panel_open && !blockAI(AM))
+	if(target && !recalibrating && !panel_open && !blockAI(AM) && (max_teleports_per_cycle >= teleports_this_cycle))
 		do_teleport(AM, target)
 		use_power(5000)
-		recalibrating = TRUE
-		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
-		update_lighting()
-		addtimer(CALLBACK(src, PROC_REF(CrossedCallback)), max(tele_delay, 1))
+		teleports_this_cycle++
+		if(tele_delay)
+			recalibrating = TRUE
+			update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+			update_lighting()
+			addtimer(CALLBACK(src, PROC_REF(CrossedCallback)), tele_delay)
 
 /obj/machinery/teleport/perma/proc/CrossedCallback()
 	recalibrating = FALSE

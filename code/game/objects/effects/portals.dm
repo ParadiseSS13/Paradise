@@ -24,6 +24,8 @@
 	var/effect_cooldown = 0
 	///Whether or not portal use will cause sparks
 	var/create_sparks = TRUE
+	var/max_teleports_per_cycle = 20 //More than enough, stops infinite loops
+	var/teleports_this_cycle = 0
 
 /obj/effect/portal/New(loc, turf/_target, obj/creation_object = null, lifespan = 300, mob/creation_mob = null, create_sparks = TRUE)
 	..()
@@ -36,6 +38,7 @@
 	else
 		creation_obj_data = list(null, null)
 	creation_mob_ckey = creation_mob?.ckey
+	START_PROCESSING(SSobj, src)
 
 	if(lifespan > 0)
 		QDEL_IN(src, lifespan)
@@ -48,7 +51,11 @@
 	target = null
 	if(create_sparks)
 		do_sparks(5, 0, loc)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/effect/portal/process()
+	teleports_this_cycle = 0
 
 /obj/effect/portal/singularity_pull()
 	return
@@ -132,6 +139,8 @@
 	return TRUE
 
 /obj/effect/portal/proc/attempt_teleport(atom/movable/victim, turf/destination, variance = 0, force_teleport = TRUE)
+	if(max_teleports_per_cycle <= teleports_this_cycle)
+		return
 	var/use_effects = world.time >= effect_cooldown
 	var/effect = null // Will result in the default effect being used
 	if(!use_effects)
@@ -141,6 +150,7 @@
 		invalid_teleport()
 		return FALSE
 	effect_cooldown = world.time + EFFECT_COOLDOWN
+	teleports_this_cycle++
 	return TRUE
 
 /obj/effect/portal/proc/invalid_teleport()
