@@ -56,7 +56,7 @@
 		visible_message("<span class='notice'>The locker has been [locked ? null : "un"]locked by [user].</span>")
 		update_icon()
 	else
-		to_chat(user, "<span class='notice'>Access Denied</span>")
+		to_chat(user, "<span class='notice'>Access Denied.</span>")
 
 /obj/structure/closet/secure_closet/closed_item_click(mob/user)
 	togglelock(user)
@@ -74,6 +74,7 @@
 		add_overlay("sparking")
 		to_chat(user, "<span class='notice'>You break the lock on [src].</span>")
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS)
+		return TRUE
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)
 	add_fingerprint(user)

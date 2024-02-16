@@ -146,6 +146,28 @@ The previous code made compliant:
     code
 ```
 
+### Do not compare boolean values to TRUE or FALSE
+
+Do not compare boolean values to TRUE or FALSE. For TRUE you should just check if there's a value in that address. For FALSE you should use the ! operator. An exception is made to this when working with JS or other external languages. If a function/variable can contain more values beyond null/0 or TRUE, use numbers and defines instead of true/false comparisons.
+
+```dm
+// Bad
+var/thing = pick(list(TRUE, FALSE))
+if(thing == TRUE)
+	return "bleh"
+var/other_thing = pick(list(TRUE, FALSE))
+if(other_thing == FALSE)
+	return "meh"
+
+// Good
+var/thing = pick(list(TRUE, FALSE))
+if(thing)
+	return "bleh"
+var/other_thing = pick(list(TRUE, FALSE))
+if(!other_thing)
+	return "meh"
+```
+
 ### User Interfaces
 
 All new user interfaces in the game must be created using the TGUI framework. Documentation can be found inside the [`tgui/docs`](../tgui/docs) folder, and the [`README.md`](../tgui/README.md) file. This is to ensure all ingame UIs are snappy and respond well. An exception is made for user interfaces which are purely for OOC actions (Such as character creation, or anything admin related)
@@ -354,7 +376,7 @@ This is clearer and enhances readability of your code! Get used to doing it!
 
 ### Player Output
 
-Due to the use of "Goonchat", Paradise requires a special syntax for outputting text messages to players. Instead of `mob << "message"`, you must use `to_chat(mob, "message")`. Failure to do so will lead to your code not working.
+Due to the use of "TGchat", Paradise requires a special syntax for outputting text messages to players. Instead of `mob << "message"`, you must use `to_chat(mob, "message")`. Failure to do so will lead to your code not working.
 
 ### Use early returns
 
@@ -776,6 +798,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 * [Burzah](https://github.com/Burzah)
 * [DGamerL](https://github.com/DGamerL)
 * [Warriorstar](https://github.com/warriorstar-orion)
+* [Henri215](https://github.com/Henri215)
 
 ---
 
