@@ -485,7 +485,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
 	force = 18
-	armour_penetration_percentage = -100 //This should mean armor is twice as effective. Should. testing needed
+	armour_penetration_percentage = -100 //This means that armor twice as effective against it
 	reach = 2
 	hitsound = 'sound/weapons/whip.ogg'
 	attack_verb = list("slashes", "whips", "lashes", "lacerates")
