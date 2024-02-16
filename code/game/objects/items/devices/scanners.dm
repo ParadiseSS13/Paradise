@@ -356,17 +356,19 @@ SLIME SCANNER
 	throw_range = 10
 	origin_tech = "magnets=1;biotech=1"
 
+/obj/item/robotanalyzer/proc/handle_clumsy(mob/living/user)
+	var/list/msgs = list()
+	user.visible_message("<span class='warning'>[user] has analyzed the floor's components!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
+	msgs += "<span class='info'>Analyzing Results for The floor:\n\t Overall Status: Unknown</span>"
+	msgs += "<span class='info'>\t Damage Specifics: <font color='#FFA500'>[0]</font>/<font color='red>[0]</font></span>"
+	msgs += "<span class='info'>Key: <font color='#FFA500'>Burns</font><font color ='red'>/Brute</font></span>"
+	msgs += "<span class='info'>Chassis Temperature: ???</span>"
+	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
+
 /obj/item/robotanalyzer/attack_obj(obj/machinery/M, mob/living/user) // Scanning a machine object
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
-		var/list/msgs = list()
-		user.visible_message("<span class='warning'>[user] has analyzed the floor's components!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
-		msgs += "<span class='info'>Analyzing Results for The floor:\n\t Overall Status: Unknown</span>"
-		msgs += "<span class='info'>\t Damage Specifics: <font color='#FFA500'>[0]</font>/<font color='red>[0]</font></span>"
-		msgs += "<span class='info'>Key: <font color='#FFA500'>Burns</font><font color ='red'>/Brute</font></span>"
-		msgs += "<span class='info'>Chassis Temperature: ???</span>"
-		to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
+		handle_clumsy(user)
 		return
-
 	user.visible_message("<span class='notice'>[user] has analyzed [M]'s components with the [src].</span>", "<span class='notice'>You analyze [M]'s components with the [src].</span>")
 	machine_scan(user, M)
 	add_fingerprint(user)
@@ -381,15 +383,8 @@ SLIME SCANNER
 
 /obj/item/robotanalyzer/attack(mob/living/M, mob/living/user) // Scanning borgs, IPCs/augmented crew, and AIs
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
-		var/list/msgs = list()
-		user.visible_message("<span class='warning'>[user] has analyzed the floor's components!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
-		msgs += "<span class='info'>Analyzing Results for The floor:\n\t Overall Status: Unknown</span>"
-		msgs += "<span class='info'>\t Damage Specifics: <font color='#FFA500'>[0]</font>/<font color='red>[0]</font></span>"
-		msgs += "<span class='info'>Key: <font color='#FFA500'>Burns</font><font color ='red'>/Brute</font></span>"
-		msgs += "<span class='info'>Chassis Temperature: ???</span>"
-		to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
+		handle_clumsy(user)
 		return
-
 	user.visible_message("<span class='notice'>[user] has analyzed [M]'s components with the [src].</span>", "<span class='notice'>You analyze [M]'s components with the [src].</span>")
 	robot_healthscan(user, M)
 	add_fingerprint(user)
