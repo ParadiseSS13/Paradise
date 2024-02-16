@@ -338,9 +338,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "tr" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
@@ -584,7 +582,7 @@
 /turf/simulated/wall/r_wall,
 /area/space/nearstation)
 "Nw" = (
-/obj/item/reagent_containers/food/snacks/xenomeatbreadslice{
+/obj/item/food/snacks/xenomeatbreadslice{
 	name = "green mold bread slice"
 	},
 /turf/simulated/floor/plating/airless,
@@ -812,9 +810,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "Yt" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "Yu" = (

@@ -419,6 +419,7 @@
 	return
 
 /datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, mob/living/carbon/human/H, sharp = FALSE, obj/used_weapon, spread_damage = FALSE)
+	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone)
 	if(!damage)
 		return FALSE
 
@@ -485,7 +486,7 @@
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...
+	if(attacker_style && attacker_style.help_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)//adminfu only...
 		return TRUE
 	if(target.on_fire)
 		user.pat_out(target)
@@ -499,7 +500,7 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
+	if(attacker_style && attacker_style.grab_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)
 		return TRUE
 	else
 		target.grabbedby(user)
@@ -531,7 +532,7 @@
 		return FALSE
 	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
-	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
+	if(attacker_style && attacker_style.harm_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)
 		return TRUE
 	else
 		var/datum/unarmed_attack/attack = user.dna.species.unarmed
@@ -586,7 +587,7 @@
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 		return FALSE
-	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
+	if(attacker_style && attacker_style.disarm_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)
 		return TRUE
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	if(target.move_resist > user.pull_force)
@@ -1030,6 +1031,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	return
 
 /datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
+	return
 
 /proc/get_random_species(species_name = FALSE)	// Returns a random non black-listed or hazardous species, either as a string or datum
 	var/static/list/random_species = list()

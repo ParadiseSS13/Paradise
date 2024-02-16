@@ -42,7 +42,7 @@ SUBSYSTEM_DEF(jobs)
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
-		to_chat(world, "<span class='warning'>Error setting up jobs, no job datums found</span>")
+		to_chat(world, "<span class='warning'>Error setting up jobs, no job datums found.</span>")
 		return 0
 
 	for(var/J in all_jobs)
@@ -529,8 +529,10 @@ SUBSYSTEM_DEF(jobs)
 				if(istype(G) && !G.prescription)
 					G.upgrade_prescription()
 					H.update_nearsighted_effects()
+
 	if(joined_late || job.admin_only)
 		H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), H.client, H.mind), 1 SECONDS) //Moment for minds to boot up / people to load in
 		return H
 	if(late_arrivals_spawning)
 		H.forceMove(pick(GLOB.latejoin))
@@ -545,6 +547,7 @@ SUBSYSTEM_DEF(jobs)
 		H.Sleeping(5 SECONDS)
 		H.Drunk((2 / liver_multiplier) MINUTES)
 	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. Roundstart joined as job: [rank].")
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), H.client, H.mind), 1 SECONDS) //Moment for minds to boot up / people to load in
 	return H
 
 /datum/controller/subsystem/jobs/proc/LoadJobs(highpop = FALSE) //ran during round setup, reads info from jobs list

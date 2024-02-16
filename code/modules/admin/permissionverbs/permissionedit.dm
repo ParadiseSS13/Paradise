@@ -10,12 +10,15 @@
 	if(!check_rights(R_PERMISSIONS))
 		return
 
+	var/datum/asset/permissions_asset = get_asset_datum(/datum/asset/simple/permissions)
+	permissions_asset.send(usr)
+
 	var/output = {"<!DOCTYPE html>
 <html>
 <head>
 <title>Permissions Panel</title>
-<script type='text/javascript' src="search.js"></script>
-<link rel='stylesheet' type='text/css' href="panels.css">
+<script type='text/javascript' src='[SSassets.transport.get_asset_url("search.js")]'></script>
+<link rel='stylesheet' type='text/css' href='[SSassets.transport.get_asset_url("panels.css")]'>
 </head>
 <body onload='selectTextField();updateSearch();'>
 <div id='main'><table id='searchable' cellspacing='0'>
@@ -137,7 +140,7 @@
 
 /datum/admins/proc/log_admin_permission_modification(adm_ckey, new_permission)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Admin edit blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>Admin edit blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to edit admin ranks via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to edit admin ranks via advanced proc-call")
 		return

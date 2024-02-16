@@ -112,7 +112,7 @@
 					/obj/item/clothing/head/fedora/whitefedora = 1,
 					/obj/item/clothing/gloves/color/black = 2,
 					/obj/item/clothing/gloves/color/latex = 2,
-					/obj/item/reagent_containers/food/drinks/flask/detflask = 2,
+					/obj/item/reagent_containers/drinks/flask/detflask = 2,
 					/obj/item/storage/fancy/cigarettes/dromedaryco = 5)
 
 	prices = list(/obj/item/clothing/under/rank/security/detective = 50,
@@ -134,7 +134,7 @@
 				/obj/item/clothing/head/fedora/whitefedora = 20,
 				/obj/item/clothing/gloves/color/black = 20,
 				/obj/item/clothing/gloves/color/latex = 20,
-				/obj/item/reagent_containers/food/drinks/flask/detflask = 50,
+				/obj/item/reagent_containers/drinks/flask/detflask = 50,
 				/obj/item/storage/fancy/cigarettes/dromedaryco = 5)
 
 	contraband = list(/obj/item/toy/figure/crew/detective = 1)
