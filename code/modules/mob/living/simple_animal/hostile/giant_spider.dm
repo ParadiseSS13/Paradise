@@ -19,7 +19,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	footstep_type = FOOTSTEP_MOB_CLAW
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/spidermeat= 2, /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg= 8)
+	butcher_results = list(/obj/item/food/snacks/monstermeat/spidermeat = 2, /obj/item/food/snacks/monstermeat/spiderleg = 8)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
@@ -70,7 +70,7 @@
 	icon_state = "nurse"
 	icon_living = "nurse"
 	icon_dead = "nurse_dead"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/spidermeat= 2, /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg= 8, /obj/item/reagent_containers/food/snacks/monstermeat/spidereggs= 4)
+	butcher_results = list(/obj/item/food/snacks/monstermeat/spidermeat= 2, /obj/item/food/snacks/monstermeat/spiderleg= 8, /obj/item/food/snacks/monstermeat/spidereggs= 4)
 
 	maxHealth = 40
 	health = 40
@@ -223,7 +223,7 @@
 			if(Adjacent(O))
 				choices += O
 		if(length(choices))
-			cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
+			cocoon_target = tgui_input_list(src, "What do you wish to cocoon?", "Cocoon Wrapping", choices)
 		else
 			to_chat(src, "<span class='warning'>No suitable dead prey or wrappable objects found nearby.")
 			return

@@ -59,7 +59,7 @@
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(G.mind == brainmob.mind)
 				foundghost = TRUE
-				if(G.can_reenter_corpse == FALSE)
+				if(!G.can_reenter_corpse)
 					foundghost = FALSE
 				break
 		if(foundghost)
@@ -73,6 +73,9 @@
 		name = "[dna.real_name]'s [initial(name)]"
 
 	if(!owner) return ..() // Probably a redundant removal; just bail
+	
+	if(is_species(owner, /datum/species/monkey))
+		name = "[owner.name]'s [initial(name)]"
 
 	var/obj/item/organ/internal/brain/B = src
 	if(!special)
@@ -126,7 +129,7 @@
 		owner.setBrainLoss(120)
 
 /obj/item/organ/internal/brain/on_life()
-	if(decoy_brain || damage < 10) 
+	if(decoy_brain || damage < 10)
 		return
 	switch(damage)
 		if(10 to 30)
@@ -187,13 +190,14 @@
 /obj/item/organ/internal/brain/prepare_eat()
 	return // Too important to eat.
 
+// Hello I am from the ministry of rubber forehead aliens how are you
 /obj/item/organ/internal/brain/slime
 	name = "slime core"
 	desc = "A complex, organic knot of jelly and crystalline particles."
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "green slime extract"
 	mmi_icon_state = "slime_mmi"
-//	parent_organ = "chest" Hello I am from the ministry of rubber forehead aliens how are you
+	organ_datums = list(/datum/organ/heart, /datum/organ/lungs)
 
 /obj/item/organ/internal/brain/golem
 	name = "Runic mind"

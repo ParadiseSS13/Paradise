@@ -18,11 +18,7 @@
 /obj/item/reagent_containers/AltClick(mob/user)
 	if(!Adjacent(user) || !length(possible_transfer_amounts) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-
-	var/default = null
-	if(amount_per_transfer_from_this in possible_transfer_amounts)
-		default = amount_per_transfer_from_this
-	var/new_transfer_rate = input("Amount per transfer from this:", "[src]", default) as null|anything in possible_transfer_amounts
+	var/new_transfer_rate = tgui_input_list(user, "Amount per transfer from this:", "[src]", possible_transfer_amounts)
 	if(!new_transfer_rate)
 		return
 
@@ -56,7 +52,6 @@
 			R.on_ex_act()
 	if(!QDELETED(src))
 		..()
-
 
 /obj/item/reagent_containers/proc/add_lid()
 	if(has_lid)
