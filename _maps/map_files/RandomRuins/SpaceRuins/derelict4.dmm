@@ -89,6 +89,14 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
+"K" = (
+/obj/structure/spawner/mining/basilisk,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"Z" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -281,7 +289,7 @@ a
 a
 a
 a
-a
+Z
 a
 a
 a
@@ -313,7 +321,7 @@ c
 a
 a
 a
-a
+Z
 a
 a
 a
@@ -572,7 +580,7 @@ c
 c
 c
 c
-c
+K
 c
 c
 c
@@ -627,7 +635,7 @@ a
 a
 a
 a
-a
+Z
 a
 a
 a
@@ -897,7 +905,7 @@ a
 a
 a
 a
-a
+Z
 a
 a
 a
@@ -968,7 +976,7 @@ b
 b
 b
 c
-c
+K
 c
 a
 "}
@@ -1040,7 +1048,7 @@ h
 h
 f
 c
-c
+K
 c
 c
 b
@@ -1236,7 +1244,7 @@ b
 b
 b
 a
-a
+Z
 a
 b
 b
@@ -1338,7 +1346,7 @@ a
 a
 a
 a
-a
+Z
 a
 a
 a
@@ -1439,7 +1447,7 @@ a
 a
 a
 a
-a
+Z
 a
 a
 a
@@ -1542,7 +1550,7 @@ a
 a
 a
 a
-a
+Z
 a
 a
 a

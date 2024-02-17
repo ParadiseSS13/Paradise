@@ -1280,6 +1280,10 @@
 	},
 /turf/template_noop,
 /area/space/nearstation)
+"gL" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 "jQ" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -1300,6 +1304,11 @@
 	icon_state = "white"
 	},
 /area/ruin/space/onehalf/dorms_med)
+"kV" = (
+/obj/item/stack/rods,
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/space/nearstation)
 "xr" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -1507,7 +1516,7 @@ bw
 bK
 ak
 aa
-cv
+kV
 aa
 aa
 aa
@@ -1554,7 +1563,7 @@ aa
 cx
 aw
 aa
-aa
+gL
 cv
 dg
 aa
@@ -1573,7 +1582,7 @@ bw
 bO
 aj
 aa
-aa
+gL
 cE
 cv
 cR

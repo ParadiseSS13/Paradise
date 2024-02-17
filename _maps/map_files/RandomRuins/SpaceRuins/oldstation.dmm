@@ -2485,6 +2485,7 @@
 	pixel_x = -24
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/sellable/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -2552,6 +2553,7 @@
 /obj/item/stock_parts/capacitor,
 /obj/item/stock_parts/micro_laser,
 /obj/item/stack/cable_coil,
+/obj/item/sellable/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
 "gn" = (
@@ -3947,9 +3949,11 @@
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
 "jt" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall/r_wall,
-/area/ruin/ancientstation/proto)
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/sellable/salvage/ruin/nanotrasen,
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/comm)
 "ju" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4218,6 +4222,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/sellable/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "jZ" = (
@@ -4467,8 +4472,8 @@
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/atmo)
 "kE" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/indestructible/riveted,
 /area/ruin/ancientstation/proto)
 "kF" = (
 /obj/structure/transit_tube_pod{
@@ -6690,7 +6695,7 @@ aa
 am
 aM
 aO
-aF
+jt
 at
 aS
 dt
@@ -8059,13 +8064,13 @@ dj
 dj
 iS
 jj
-jt
-jt
-jt
-jt
-jt
-jt
-jt
+kE
+kE
+kE
+kE
+kE
+kE
+kE
 aa
 aa
 aa
@@ -8107,13 +8112,13 @@ ig
 dj
 ld
 lg
-jt
+kE
 jB
 jS
-jt
+kE
 kq
 ky
-jt
+kE
 aa
 aa
 aa
@@ -8155,13 +8160,13 @@ ig
 dj
 iU
 jk
-jt
+kE
 jC
 jT
-jt
+kE
 jT
 jC
-jt
+kE
 aa
 aa
 aa
@@ -8203,13 +8208,13 @@ ih
 dj
 iV
 ji
-jt
+kE
 jD
 jU
 ki
 jU
 jU
-jt
+kE
 aa
 aa
 aa
@@ -8251,13 +8256,13 @@ gf
 dj
 ld
 lg
-jt
+kE
 cV
 jV
 jV
 jV
 kz
-jt
+kE
 aa
 aa
 aa
@@ -8395,13 +8400,13 @@ dj
 dj
 iT
 fq
-jt
+kE
 cW
 jV
 jV
 jV
 kz
-jt
+kE
 aa
 aa
 aa
@@ -8443,13 +8448,13 @@ ij
 dj
 lf
 lh
-jt
+kE
 jI
 jW
 kj
 jW
 jW
-jt
+kE
 aa
 aa
 aa
@@ -8491,13 +8496,13 @@ ik
 dj
 iT
 fq
-jt
+kE
 jC
 jX
-jt
+kE
 jX
 jC
-jt
+kE
 aa
 aa
 aa
@@ -8539,13 +8544,13 @@ il
 dj
 ld
 kS
-jt
+kE
 jJ
 jY
-jt
+kE
 kt
 kB
-jt
+kE
 aa
 aa
 aa
@@ -8587,13 +8592,13 @@ dj
 dj
 iS
 jn
-jt
-jt
-jt
-jt
-jt
-jt
-jt
+kE
+kE
+kE
+kE
+kE
+kE
+kE
 aa
 aa
 aa

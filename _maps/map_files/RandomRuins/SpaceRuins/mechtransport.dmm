@@ -32,6 +32,10 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/powered)
+"gr" = (
+/mob/living/simple_animal/hostile/pirate/ranged,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "hd" = (
 /obj/structure/table,
 /obj/item/mecha_parts/mecha_equipment/drill,
@@ -172,6 +176,11 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple/airless,
 /area/ruin/space/powered)
+"wt" = (
+/obj/structure/table,
+/obj/item/sellable/salvage/ruin/nanotrasen,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered)
 "wG" = (
 /obj/structure/lattice,
 /obj/item/stack/tile/plasteel{
@@ -187,6 +196,11 @@
 	},
 /turf/simulated/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/powered)
+"yG" = (
+/obj/effect/landmark/damageturf,
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "zS" = (
 /obj/structure/mecha_wreckage/odysseus,
 /turf/simulated/floor/mineral/titanium/yellow/airless,
@@ -330,6 +344,11 @@
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
 /area/template_noop)
+"Vf" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/up,
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "VE" = (
 /obj/structure/table,
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper,
@@ -386,7 +405,7 @@ lO
 ra
 jC
 jC
-Eq
+yG
 wG
 Re
 Re
@@ -447,7 +466,7 @@ Dd
 jC
 DP
 zS
-Sn
+gr
 Eq
 lw
 rW
@@ -469,7 +488,7 @@ Zk
 Zk
 BF
 ur
-HK
+Vf
 Sn
 cF
 GX
@@ -538,7 +557,7 @@ tR
 (10,1,1) = {"
 cF
 JL
-sY
+wt
 GW
 ra
 lo

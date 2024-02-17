@@ -196,6 +196,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "bd" = (
@@ -285,6 +286,7 @@
 /obj/effect/decal/cleanable/blood{
 	amount = 0
 	},
+/obj/item/sellable/salvage/ruin/pirate,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "by" = (
@@ -330,6 +332,18 @@
 /obj/structure/table,
 /obj/item/radio,
 /turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"Sb" = (
+/mob/living/simple_animal/hostile/pirate/ranged,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"SD" = (
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"Wc" = (
+/obj/item/sellable/salvage/ruin/pirate,
+/turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 
 (1,1,1) = {"
@@ -533,7 +547,7 @@ ae
 ae
 ab
 bs
-ae
+SD
 ae
 ae
 bE
@@ -591,7 +605,7 @@ ab
 an
 ae
 ab
-ae
+SD
 ae
 ab
 aS
@@ -750,8 +764,8 @@ aa
 aa
 ab
 ab
-av
-av
+Wc
+Wc
 ab
 ab
 ab
@@ -780,7 +794,7 @@ ab
 ab
 ae
 ae
-ae
+Sb
 ae
 ae
 ab
@@ -940,9 +954,9 @@ aa
 aa
 aa
 ab
+SD
 ae
-ae
-ae
+SD
 ab
 aa
 aa

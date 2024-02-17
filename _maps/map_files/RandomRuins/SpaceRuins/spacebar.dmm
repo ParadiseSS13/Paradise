@@ -228,9 +228,9 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "aZ" = (
-/obj/item/radio/beacon,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/powered/bar)
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/space)
 "ba" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 1
@@ -494,6 +494,12 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/powered/bar)
+"rC" = (
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
 "rN" = (
 /obj/machinery/atmospherics/portable/canister/air{
 	filled = 1
@@ -504,6 +510,7 @@
 /obj/structure/chair/stool{
 	dir = 4
 	},
+/mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "sq" = (
@@ -565,6 +572,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
+"wo" = (
+/mob/living/simple_animal/hostile/pirate/ranged,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/bar)
 "wy" = (
 /obj/effect/landmark/damageturf,
 /obj/structure/holosign/barrier/engineering,
@@ -579,6 +590,12 @@
 "wQ" = (
 /obj/structure/mopbucket/full,
 /obj/item/mop,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"xZ" = (
+/obj/item/radio/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -646,6 +663,7 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
+/mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "Cx" = (
@@ -894,6 +912,10 @@
 /obj/structure/falsewall,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered/bar)
+"Rc" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/space/nearstation)
 "RL" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -1331,7 +1353,7 @@ ad
 ad
 ad
 ad
-ad
+aZ
 ad
 ad
 ad
@@ -1488,7 +1510,7 @@ br
 br
 br
 br
-ad
+aZ
 ad
 ad
 ad
@@ -1538,7 +1560,7 @@ au
 bo
 br
 br
-br
+Rc
 br
 ad
 ad
@@ -1592,7 +1614,7 @@ br
 br
 br
 br
-ad
+aZ
 ad
 ad
 ad
@@ -1747,7 +1769,7 @@ ad
 ad
 ad
 ad
-ad
+aZ
 ad
 ad
 ad
@@ -2192,11 +2214,11 @@ am
 aE
 as
 as
-as
+wo
 aK
 ap
 aO
-aZ
+aO
 aV
 aO
 yC
@@ -2359,7 +2381,7 @@ LU
 lO
 bg
 bk
-bk
+rC
 bk
 bk
 bk
@@ -2514,7 +2536,7 @@ Is
 bf
 am
 bk
-bk
+xZ
 qZ
 bk
 Ad

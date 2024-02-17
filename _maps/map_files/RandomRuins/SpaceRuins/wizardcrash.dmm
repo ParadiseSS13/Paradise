@@ -167,6 +167,7 @@
 /area/ruin/space/unpowered)
 "aF" = (
 /obj/structure/table/wood,
+/obj/item/sellable/salvage/ruin/tablet,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},

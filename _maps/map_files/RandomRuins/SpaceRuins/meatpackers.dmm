@@ -1014,6 +1014,7 @@
 /area/ruin/unpowered/BMPship/Fore)
 "du" = (
 /obj/structure/chair/stool,
+/mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "dx" = (
@@ -2448,6 +2449,24 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
+"hQ" = (
+/obj/item/sellable/salvage/ruin/pirate,
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered/BMPship/Fore)
+"tF" = (
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered/BMPship/Fore)
+"uT" = (
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/powered)
+"Av" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/pirate/ranged,
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered/BMPship/Fore)
 "PP" = (
 /obj/structure/computerframe{
 	dir = 4
@@ -2802,7 +2821,7 @@ aJ
 aJ
 aK
 aK
-aK
+uT
 aK
 aK
 aK
@@ -2831,7 +2850,7 @@ aa
 aa
 aD
 aD
-ds
+hQ
 PP
 ei
 ei
@@ -2854,9 +2873,9 @@ aJ
 aK
 aK
 aK
-aK
-aK
-aK
+uT
+uT
+uT
 aK
 aK
 aa
@@ -2881,10 +2900,10 @@ aa
 aa
 aD
 aD
-ds
+hQ
 ds
 dM
-ej
+Av
 ej
 ds
 ds
@@ -2908,7 +2927,7 @@ aK
 aK
 aK
 aK
-aK
+uT
 aK
 aK
 aa
@@ -2938,7 +2957,7 @@ ds
 ds
 ds
 ds
-ds
+tF
 aD
 fB
 fA
@@ -2981,7 +3000,7 @@ aO
 aO
 aD
 aD
-ds
+hQ
 ds
 cW
 dt
@@ -3031,7 +3050,7 @@ aP
 bh
 bq
 aD
-ds
+hQ
 ds
 ds
 ei
@@ -3091,7 +3110,7 @@ ds
 ds
 eC
 ds
-ds
+tF
 aD
 fD
 fO
@@ -3155,8 +3174,8 @@ aD
 aK
 aK
 aK
-aK
-aK
+uT
+uT
 aK
 aK
 aK
@@ -3206,8 +3225,8 @@ aD
 aK
 aK
 aK
-aK
-aK
+uT
+uT
 aK
 aK
 aK
@@ -3256,9 +3275,9 @@ fA
 aD
 aK
 aK
-aK
-aK
-aK
+uT
+uT
+uT
 aK
 aK
 aK
@@ -3307,8 +3326,8 @@ gs
 aK
 aK
 aK
-aK
-aK
+uT
+uT
 aK
 aK
 aK
@@ -3359,11 +3378,11 @@ gs
 aK
 aK
 aK
+uT
+uT
 aK
 aK
-aK
-aK
-aK
+uT
 aK
 aK
 aK
@@ -3409,12 +3428,12 @@ gs
 bc
 aK
 aK
+uT
+uT
 aK
 aK
-aK
-aK
-aK
-aK
+uT
+uT
 aK
 aK
 aK
@@ -3461,10 +3480,10 @@ aK
 aK
 aK
 aK
+uT
 aK
-aK
-aK
-aK
+uT
+uT
 aK
 aK
 aK
@@ -3510,12 +3529,12 @@ gs
 gs
 aK
 aK
-aK
-aK
-aK
-aK
-aK
-aK
+uT
+uT
+uT
+uT
+uT
+uT
 aK
 aK
 aK
@@ -3563,9 +3582,9 @@ aK
 aK
 aK
 aK
-aK
-aK
-aK
+uT
+uT
+uT
 aK
 aK
 aK
@@ -3614,13 +3633,13 @@ aK
 aK
 bc
 aK
+uT
 aK
 aK
 aK
 aK
-aK
-aK
-aK
+uT
+uT
 aK
 aK
 aK
@@ -3670,9 +3689,9 @@ aK
 aK
 aK
 aK
-aK
-aK
-aK
+uT
+uT
+uT
 aK
 aK
 aK
@@ -3723,8 +3742,8 @@ aK
 aK
 aK
 aK
-aK
-aK
+uT
+uT
 aK
 aK
 aK
@@ -3775,7 +3794,7 @@ aK
 aK
 aK
 aK
-aK
+uT
 aK
 aK
 aK
@@ -4236,7 +4255,7 @@ aJ
 aJ
 aK
 aK
-aK
+uT
 aK
 aa
 "}
@@ -4286,8 +4305,8 @@ aa
 aa
 aa
 aK
-aK
-aK
+uT
+uT
 aK
 aa
 "}
@@ -4338,7 +4357,7 @@ aa
 aa
 aa
 aK
-aK
+uT
 aa
 aa
 "}

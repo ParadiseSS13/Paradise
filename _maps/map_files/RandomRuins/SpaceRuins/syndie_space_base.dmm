@@ -7308,6 +7308,9 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"OT" = (
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/unpowered/syndicate_space_base/inner)
 "OY" = (
 /obj/machinery/light{
 	dir = 1
@@ -13287,7 +13290,7 @@ nv
 Kh
 Jo
 Vl
-kE
+OT
 kE
 kE
 kE
@@ -13359,8 +13362,8 @@ nv
 Vl
 Vl
 Vl
-kE
-kE
+OT
+OT
 kE
 Ri
 Ri
@@ -13430,8 +13433,8 @@ nv
 nv
 qT
 Vl
-kE
-kE
+OT
+OT
 Ri
 kE
 kE
@@ -13483,7 +13486,7 @@ LE
 AD
 Mf
 kE
-kE
+OT
 kE
 Vl
 Vl
@@ -13503,7 +13506,7 @@ nv
 Vl
 Vl
 kE
-kE
+OT
 kE
 kE
 kE
@@ -13555,7 +13558,7 @@ AD
 kE
 AD
 kE
-kE
+OT
 kE
 kE
 Vl
@@ -13576,7 +13579,7 @@ Vl
 kE
 kE
 kE
-kE
+OT
 kE
 Ri
 Ri
@@ -13699,7 +13702,7 @@ kE
 AD
 kE
 kE
-kE
+OT
 kE
 kE
 kE
@@ -13719,7 +13722,7 @@ Vl
 kE
 kE
 kE
-kE
+OT
 kE
 Ri
 Ri
@@ -13771,7 +13774,7 @@ kE
 AD
 Vs
 kE
-kE
+OT
 kE
 kE
 kE
@@ -13789,9 +13792,9 @@ Vl
 Vl
 kE
 kE
+OT
 kE
-kE
-kE
+OT
 Ri
 Ri
 Ri
@@ -13843,11 +13846,11 @@ kE
 kE
 kE
 kE
+OT
+OT
 kE
-kE
-kE
-kE
-kE
+OT
+OT
 kE
 kE
 Vl
@@ -13858,13 +13861,13 @@ Vl
 Vl
 Vl
 kE
+OT
+kE
+OT
 kE
 kE
-kE
-kE
-kE
-kE
-kE
+OT
+OT
 Ri
 Ri
 AV
@@ -13914,13 +13917,13 @@ kE
 kE
 kE
 kE
+OT
+OT
+OT
+OT
 kE
-kE
-kE
-kE
-kE
-kE
-kE
+OT
+OT
 kE
 kE
 kE
@@ -13929,14 +13932,14 @@ Vl
 Vl
 kE
 kE
+OT
+OT
 kE
 kE
 kE
-kE
-kE
-kE
-kE
-kE
+OT
+OT
+OT
 Ri
 Ri
 Ri
@@ -13986,6 +13989,8 @@ Ri
 Ri
 kE
 Ri
+OT
+OT
 kE
 kE
 kE
@@ -13997,15 +14002,13 @@ kE
 kE
 kE
 kE
+OT
+OT
 kE
 kE
 kE
 kE
-kE
-kE
-kE
-kE
-kE
+OT
 Ri
 Ri
 Ri
@@ -14066,9 +14069,9 @@ kE
 kE
 Ri
 kE
-kE
-kE
-kE
+OT
+OT
+OT
 kE
 kE
 kE
@@ -14077,7 +14080,7 @@ kE
 kE
 Ri
 kE
-kE
+OT
 Ri
 Ri
 Ri

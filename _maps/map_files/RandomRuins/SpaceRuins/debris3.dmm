@@ -134,6 +134,10 @@
 /obj/structure/girder/displaced,
 /turf/space,
 /area/template_noop)
+"Q" = (
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space,
+/turf/space,
+/area/template_noop)
 "S" = (
 /obj/structure/lattice,
 /turf/space,
@@ -429,7 +433,7 @@ A
 A
 B
 O
-A
+Q
 B
 A
 M
@@ -475,7 +479,7 @@ z
 H
 A
 A
-A
+Q
 S
 A
 q
