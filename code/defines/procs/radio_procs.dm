@@ -4,7 +4,7 @@
 #define TELECOMMS_RECEPTION_BOTH 3
 
 /proc/get_frequency_name(display_freq)
-	var/freq_text = src
+	var/freq_text
 
 	// the name of the channel
 	switch(display_freq)
