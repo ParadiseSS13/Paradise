@@ -280,3 +280,10 @@
 				/obj/item/assembly/voice = 1,
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
+
+/datum/crafting_recipe/poppy_crown
+	name = "Poppy Crown"
+	result = list(/obj/item/clothing/head/poppy_crown)
+	reqs = list(/obj/item/food/snacks/grown/poppy = 5)
+	time = 20
+	category = CAT_CLOTHING

@@ -580,3 +580,9 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
+
+/obj/item/clothing/head/poppy_crown
+	name = "poppy crown"
+	icon_state = "poppy_crown"
+	desc = "A flower crown made out of a string of bright red poppies."
+	item_state = "poppy_crown"
