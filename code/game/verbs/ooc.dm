@@ -6,10 +6,6 @@ GLOBAL_VAR_INIT(mentor_ooc_colour, "#00B0EB")
 GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
 GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
-//Checks if the client already has a text input open
-/client/proc/checkTyping()
-	return (prefs.toggles & PREFTOGGLE_TYPING_ONCE && typing)
-
 /client/verb/ooc(msg = "" as text)
 	set name = "OOC"
 	set category = "OOC"
