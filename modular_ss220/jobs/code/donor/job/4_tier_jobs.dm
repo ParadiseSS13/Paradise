@@ -2,10 +2,10 @@
 	title = "Adjutant"
 	department_flag = JOBCAT_MEDSCI
 	flag = JOB_ADJUTANT
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 3
+	spawn_positions = 3
 	ru_title = "Адъютант"
-	alt_titles = list("Адъютант")
+	alt_titles = list("Адъютант", "Butler", "Дворецкий", "Maid", "Горничная")
 	relate_job = "Internal Affairs Agent"
 	supervisors = "главой персонала и капитаном"
 	department_head = list("Head of Personnel", "Captain")
@@ -47,6 +47,51 @@
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+
+/datum/outfit/job/donor/adjutant/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+
+	if(H.mind && H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if("Butler", "Дворецкий")
+				uniform = /obj/item/clothing/under/rank/procedure/lawyer/black
+				shoes = /obj/item/clothing/shoes/laceup
+				head = /obj/item/clothing/head/beaverhat
+				glasses = /obj/item/clothing/glasses/monocle
+				gloves = /obj/item/clothing/gloves/color/white
+				l_ear = /obj/item/radio/headset/headset_service
+				r_ear = /obj/item/radio/headset/headset_com
+				pda = /obj/item/pda/bar
+				id = /obj/item/card/id/butler
+				backpack_contents = list(
+					/obj/item/reagent_containers/glass/rag = 1,
+					/obj/item/folder/blue = 1,
+					/obj/item/camera = 1,
+					/obj/item/taperecorder = 1,
+					/obj/item/storage/box/tapes = 1,
+					/obj/item/clipboard = 1,
+					/obj/item/clothing/under/rank/procedure/iaa = 1,
+					/obj/item/clothing/suit/storage/iaa/blackjacket = 1,
+					/obj/item/clothing/suit/chef/classic = 1,
+					)
+
+			if("Maid", "Горничная")
+				uniform = /obj/item/clothing/under/costume/janimaid
+				shoes = /obj/item/clothing/shoes/laceup
+				gloves = /obj/item/clothing/gloves/color/white
+				l_ear = /obj/item/radio/headset/headset_service
+				r_ear = /obj/item/radio/headset/headset_com
+				pda = /obj/item/pda/bar
+				id = /obj/item/card/id/maid
+				backpack_contents = list(
+					/obj/item/reagent_containers/glass/rag = 1,
+					/obj/item/folder/blue = 1,
+					/obj/item/camera = 1,
+					/obj/item/taperecorder = 1,
+					/obj/item/storage/box/tapes = 1,
+					/obj/item/clipboard = 1,
+					/obj/item/clothing/suit/chef/classic = 1,
+					)
 
 /*
 /datum/job/donor/butler

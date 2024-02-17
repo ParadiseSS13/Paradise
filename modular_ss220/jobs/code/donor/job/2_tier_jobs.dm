@@ -297,6 +297,7 @@
 	\nВы ХУДОЖНИК. Данная роль нацелена на демонстрацию вашей тонкой натуры. Найдите себе красильщик полов, создайте искусство! \
 	Возможно вы захотите наложить инсталляцию посреди мостика?"
 */
+
 /datum/outfit/job/donor/painter
 	name = "Painter"
 	//jobtype = /datum/job/donor/painter
@@ -370,7 +371,7 @@
 	total_positions = 5
 	spawn_positions = 5
 	ru_title = "Актер"
-	alt_titles = list("Актер", "Артист", "Стендапер", "Комедиант", "Эстрадный Артист")
+	alt_titles = list("Актер", "Артист", "Стендапер", "Комедиант", "Эстрадный Артист", "Художник", "Творец", "Искусствовед", "Пейзажист", "Фотореалист", "Перфоманс-Артист")
 	relate_job = "Art"
 	access = list(ACCESS_LIBRARY, ACCESS_MAINT_TUNNELS, ACCESS_THEATRE)
 	selection_color = "#558758"
@@ -420,3 +421,25 @@
 				suit = /obj/item/clothing/suit/draculacoat
 				if(H.gender == FEMALE)
 					uniform = /obj/item/clothing/under/dress/redeveninggown
+
+			if("Художник", "Творец", "Искусствовед", "Пейзажист", "Фотореалист", "Перфоманс-Артист")
+				uniform = /obj/item/clothing/under/misc/sl_suit
+				suit = /obj/item/clothing/suit/apron
+				shoes = /obj/item/clothing/shoes/white
+				head = /obj/item/clothing/head/beret/white
+				glasses = /obj/item/clothing/glasses/regular/hipster
+				l_ear = /obj/item/radio/headset/headset_service
+				id = /obj/item/card/id/painter
+				backpack_contents = list(
+					/obj/item/stack/cable_coil/random = 1,
+					/obj/item/camera = 1,
+					/obj/item/camera_film = 2,
+					/obj/item/storage/photo_album = 1,
+					/obj/item/hand_labeler = 1,
+					/obj/item/stack/tape_roll = 1,
+					/obj/item/paper = 4,
+					/obj/item/storage/fancy/crayons = 1,
+					/obj/item/pen/fancy = 1,
+					/obj/item/toy/crayon/rainbow = 1,
+					/obj/item/painter = 1,
+				)

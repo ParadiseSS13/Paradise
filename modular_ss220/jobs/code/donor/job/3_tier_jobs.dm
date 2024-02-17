@@ -130,9 +130,10 @@
 	total_positions = 2
 	spawn_positions = 2
 	ru_title = "Менеджер по Клинингу"
-	alt_titles = list("Менеджер по Клинингу", "Ловец Крыс", "Уборщик I-разряда", "Уборщик II-разряда", "Уборщик III-разряда", "Уборщик IV-разряда", "Уборщик V-разряда")
+	alt_titles = list("Менеджер по Клинингу", "Ловец Крыс", "Уборщик I-разряда", "Уборщик II-разряда", "Уборщик III-разряда", "Уборщик IV-разряда", "Уборщик V-разряда",
+		"Подмастерье", "Ассистент-Механик", "Ассистент I-го разряда", "Ассистент II-го разряда", "Ассистент III-го разряда", "Ассистент IV-го разряда", "Ассистент V-го разряда")
 	relate_job = "Janitor"
-	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MEDICAL)
+	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
 	selection_color = "#63979a"
 	hidden_from_job_prefs = FALSE
 	donator_tier = 3
@@ -162,6 +163,29 @@
 		/obj/item/clipboard = 1,
 	)
 
+
+/datum/outfit/job/donor/cleaning_manager/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(H.mind && H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if("Подмастерье", "Ассистент-Механик", "Ассистент I-го разряда", "Ассистент II-го разряда", "Ассистент III-го разряда", "Ассистент IV-го разряда", "Ассистент V-го разряда")
+				uniform = /obj/item/clothing/under/color/grey
+				suit = /obj/item/clothing/suit/apron/overalls
+				back = /obj/item/storage/backpack
+				shoes = /obj/item/clothing/shoes/workboots
+				mask = /obj/item/clothing/mask/gas
+				head = /obj/item/clothing/head/soft/grey
+				belt = /obj/item/storage/belt/fannypack/white
+				gloves = /obj/item/clothing/gloves/color/grey
+				l_hand = /obj/item/storage/toolbox/mechanical
+				r_hand = /obj/item/flag/grey
+				id = /obj/item/card/id/apprentice
+				backpack_contents = list(
+					/obj/item/clothing/head/welding = 1,
+					/obj/item/flashlight = 1,
+					/obj/item/clothing/under/pants/shorts/grey = 1,
+					/obj/item/clothing/under/misc/assistantformal = 1,
+				)
 /*
 /datum/job/donor/apprentice
 	title = "Apprentice"
@@ -238,6 +262,7 @@
 	id = /obj/item/card/id/guard
 	backpack_contents = list(
 		/obj/item/clothing/suit/jacket/leather = 1,
+		/obj/item/reagent_containers/spray/pepper = 1,
 		)
 
 
