@@ -295,7 +295,7 @@
 	name = "Sunflower Crown"
 	result = list(/obj/item/clothing/head/sunflower_crown)
 	reqs = list(/obj/item/grown/sunflower = 5)
-	time = 20
+	time = 2 SECONDS
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/poppy_crown
