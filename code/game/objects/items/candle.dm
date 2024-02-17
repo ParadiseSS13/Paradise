@@ -44,8 +44,9 @@
 /obj/item/candle/attackby(obj/item/W, mob/user, params)
 	if(W.get_heat() && istype(W, /obj/item/nullrod/godhand))
 		light("<span class='rose'>[user] holds [user.p_their()] hand over the wick of [src] and it starts burning.</span>")
-	else
+	else if(W.get_heat())
 		light("<span class='notice'>[user] lights [src] with [W].</span>")
+		return
 	return ..()
 
 /obj/item/candle/welder_act(mob/user, obj/item/I)

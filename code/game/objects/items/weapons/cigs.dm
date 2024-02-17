@@ -508,11 +508,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers))
 		return
-	if(istype(I, /obj/item/match))
+	if(istype(I, /obj/item/match) || istype(I, /obj/item/nullrod/godhand))
 		..()
-	if(istype(I, /obj/item/nullrod/godhand))
-		light("<span class='notice'>[user] sticks a finger into [src], and smoke follows upon taking it out.</span>")
-		return
 	else
 		to_chat(user, "<span class='notice'>[src] straight out REFUSES to be lit by such means.</span>")
 
