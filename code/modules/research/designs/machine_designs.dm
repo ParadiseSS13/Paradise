@@ -522,6 +522,16 @@
 	build_path = /obj/item/circuitboard/mining_equipment_vendor
 	category = list ("Misc. Machinery")
 
+/datum/design/mining_equipment_vendor
+	name = "Machine Design (Explorer Rewards Vendor Board)"
+	desc = "The circuit board for an Explorer Rewards Vendor."
+	id = "explorer_equipment_vendor"
+	req_tech = list("engineering" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS=1000)
+	build_path = /obj/item/circuitboard/mining_equipment_vendor/explorer
+	category = list ("Misc. Machinery")
+
 /datum/design/clawgame
 	name = "Machine Design (Claw Game Board)"
 	desc = "The circuit board for a Claw Game."

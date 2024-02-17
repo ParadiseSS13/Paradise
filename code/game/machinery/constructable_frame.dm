@@ -1039,6 +1039,10 @@ to destroy them and players will be able to make replacements.
 	icon_state = "generic"
 	build_path = /obj/machinery/mineral/equipment_vendor/labor
 
+/obj/item/circuitboard/mining_equipment_vendor/explorer
+	board_name = "Explorer Equipment Vendor"
+	icon_state = "generic"
+	build_path = /obj/machinery/mineral/equipment_vendor/explorer
 /obj/item/circuitboard/clawgame
 	board_name = "Claw Game"
 	icon_state = "generic"
