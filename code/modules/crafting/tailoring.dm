@@ -309,7 +309,7 @@
 	name = "Lily Crown"
 	result = list(/obj/item/clothing/head/lily_crown)
 	reqs = list(/obj/item/food/snacks/grown/poppy/lily = 5)
-	time = 20
+	time = 2 SECONDS
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/geranium_crown
