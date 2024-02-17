@@ -198,3 +198,4 @@
 	origin_tech = "biotech=3"
 	w_class = WEIGHT_CLASS_TINY
 	icon_state = "e_snare0"
+	icon = 'icons/obj/restraints.dmi'
