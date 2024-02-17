@@ -24,10 +24,12 @@
 	var/obj/item/coin/payment
 	/// The actual music player datum that handles the music
 	var/datum/jukebox/music_player
+	// Type of music_player
+	var/jukebox_type = /datum/jukebox
 
 /obj/machinery/jukebox/Initialize(mapload)
 	. = ..()
-	music_player = new(src)
+	music_player = new jukebox_type(src)
 
 /obj/machinery/jukebox/Destroy()
 	stop_music()

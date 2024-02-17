@@ -101,27 +101,32 @@
 /datum/jukebox/proc/init_songs()
 	return load_songs_from_config()
 
+/datum/jukebox/proc/fill_songs_static_list()
+	var/songs_list = list()
+	var/list/tracks = flist(songs_path)
+	for(var/track_file in tracks)
+		var/datum/track/new_track = new()
+		new_track.song_path = file("[songs_path + track_file]")
+		var/list/track_data = splittext(track_file, "+")
+		if(length(track_data) != 3)
+			continue
+		new_track.song_name = track_data[1]
+		new_track.song_length = text2num(track_data[2])
+		new_track.song_beat = text2num(track_data[3])
+		songs_list[new_track.song_name] = new_track
+
+	if(!length(songs_list))
+		var/datum/track/default/default_track = new()
+		songs_list[default_track.song_name] = default_track
+
+	return songs_list
+
+
 /// Loads the config sounds once, and returns a copy of them.
 /datum/jukebox/proc/load_songs_from_config()
 	var/static/list/config_songs
 	if(isnull(config_songs))
-		config_songs = list()
-		var/list/tracks = flist(songs_path)
-		for(var/track_file in tracks)
-			var/datum/track/new_track = new()
-			new_track.song_path = file("[songs_path + track_file]")
-			var/list/track_data = splittext(track_file, "+")
-			if(length(track_data) != 3)
-				continue
-			new_track.song_name = track_data[1]
-			new_track.song_length = text2num(track_data[2])
-			new_track.song_beat = text2num(track_data[3])
-			config_songs[new_track.song_name] = new_track
-
-		if(!length(config_songs))
-			var/datum/track/default/default_track = new()
-			config_songs[default_track.song_name] = default_track
-
+		config_songs = fill_songs_static_list()
 	// returns a copy so it can mutate if desired.
 	return config_songs.Copy()
 
@@ -398,6 +403,16 @@
 
 /datum/jukebox/single_mob/start_music(mob/solo_listener)
 	register_listener(solo_listener)
+
+/datum/jukebox/drum
+	songs_path = "config/drum_music/"
+
+/datum/jukebox/drum/load_songs_from_config()
+	var/static/list/config_songs
+	if(isnull(config_songs))
+		config_songs = fill_songs_static_list()
+	// returns a copy so it can mutate if desired.
+	return config_songs.Copy()
 
 #undef IS_PREF_MUTED
 

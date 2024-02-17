@@ -46,6 +46,7 @@
 	desc = "Крутые барабаны от какой-то группы."
 	icon_state = "drum_red_unanchored"
 	base_icon_state = "drum_red"
+	jukebox_type = /datum/jukebox/drum
 	anchored = FALSE
 
 /obj/machinery/jukebox/drum_red/wrench_act()
