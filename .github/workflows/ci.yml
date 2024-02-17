@@ -2,10 +2,10 @@ name: CI
 on:
   push:
     branches:
-      - master
+    - master
   pull_request:
     branches:
-      - master
+    - master
 
 jobs:
   run_linters:
@@ -24,8 +24,8 @@ jobs:
           bash tools/ci/install_dreamchecker.sh
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
-          cache: "pip"
+          python-version: '3.10'
+          cache: 'pip'
       - run: pip install -r tools/requirements.txt
       - name: Run Linters
         run: |
@@ -83,14 +83,8 @@ jobs:
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        maptype:
-          [
-            "/datum/map/cyberiad",
-            "/datum/map/delta",
-            "/datum/map/metastation",
-            "/datum/map/cerestation",
-          ]
-        byondtype: ["STABLE"]
+        maptype: ['/datum/map/cyberiad', '/datum/map/delta', '/datum/map/metastation', '/datum/map/cerestation']
+        byondtype: ['STABLE']
     services:
       mariadb:
         image: mariadb:latest
@@ -129,9 +123,9 @@ jobs:
     name: Windows RUSTG Validation
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.8.2" # Script was made for 3.8.2
-          architecture: "x86" # This MUST be x86
-      - run: python tools/ci/validate_rustg_windows.py
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.8.2' # Script was made for 3.8.2
+        architecture: 'x86' # This MUST be x86
+    - run: python tools/ci/validate_rustg_windows.py
