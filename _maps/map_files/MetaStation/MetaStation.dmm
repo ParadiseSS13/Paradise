@@ -27815,7 +27815,7 @@
 /obj/machinery/camera{
 	c_tag = "Expedition"
 	},
-/obj/machinery/mineral/equipment_vendor,
+/obj/machinery/mineral/equipment_vendor/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkyellow"

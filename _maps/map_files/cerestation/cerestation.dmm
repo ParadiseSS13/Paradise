@@ -80083,7 +80083,7 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/primary/aft/east)
 "sOs" = (
-/obj/machinery/mineral/equipment_vendor,
+/obj/machinery/mineral/equipment_vendor/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbrown"

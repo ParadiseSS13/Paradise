@@ -46079,7 +46079,7 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/obj/machinery/mineral/equipment_vendor,
+/obj/machinery/mineral/equipment_vendor/explorer,
 /turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "cvT" = (
