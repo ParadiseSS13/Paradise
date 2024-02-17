@@ -121,12 +121,6 @@ export const Button = (props) => {
   );
 
   if (tooltip) {
-    buttonContent = (
-      <Tooltip content={tooltip} position={tooltipPosition}>
-        {buttonContent}
-      </Tooltip>
-    );
-  }
 
   return buttonContent;
 };
