@@ -28,6 +28,8 @@
 	new /obj/item/mod/control/pre_equipped/standard/explorer(src)
 	new /obj/item/radio/beacon(src)
 	new /obj/item/storage/box/relay_kit(src)
+	new /obj/item/storage/bag/garment/explorer(src)
+	new /obj/item/gps(src)
 
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"
