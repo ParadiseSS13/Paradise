@@ -656,6 +656,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		GLOB.de_mentors += ckey
 	deadmin()
 	add_verb(src, /client/proc/readmin)
+	update_active_keybindings()
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -745,6 +746,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 		var/client/C = GLOB.directory[ckey]
 		D.associate(C)
+		update_active_keybindings()
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
 		GLOB.de_admins -= ckey

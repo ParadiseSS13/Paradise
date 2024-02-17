@@ -14,6 +14,9 @@
 	var/initialized_at
 
 /datum/tgui_panel/New(client/client, id)
+	if(!id)
+		qdel(src)
+		CRASH("New TGUI panel created for [client] but no id supplied, deleting.")
 	src.client = client
 	window = new(client, id)
 	window.subscribe(src, PROC_REF(on_message))
@@ -22,6 +25,12 @@
 	window.unsubscribe(src)
 	window.close()
 	return ..()
+
+/datum/tgui_panel/can_vv_get(var_name)
+	var/static/list/protected_vars = list("telemetry_connections")
+	if(!check_rights(R_ADMIN, FALSE, src) && (var_name in protected_vars))
+		return FALSE
+	return TRUE
 
 /**
  * public

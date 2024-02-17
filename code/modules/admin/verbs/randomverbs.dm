@@ -862,7 +862,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
 		return
 
-	if(SSshuttle.emergency.canRecall == FALSE)
+	if(!SSshuttle.emergency.canRecall)
 		if(alert("Shuttle is currently set to be nonrecallable. Recalling may break things. Respect Recall Status?", "Override Recall Status?", "Yes", "No") == "Yes")
 			return
 		else

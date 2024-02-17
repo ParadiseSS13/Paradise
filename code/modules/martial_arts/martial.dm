@@ -97,19 +97,19 @@
 				if(MARTIAL_COMBO_FAIL)
 					current_combos -= MC
 				if(MARTIAL_COMBO_DONE_NO_CLEAR)
-					. = TRUE
+					. = MARTIAL_ARTS_ACT_SUCCESS
 					current_combos -= MC
 				if(MARTIAL_COMBO_DONE)
 					reset_combos()
-					return TRUE
+					return MARTIAL_ARTS_ACT_SUCCESS
 				if(MARTIAL_COMBO_DONE_BASIC_HIT)
 					basic_hit(user, target)
 					reset_combos()
-					return TRUE
+					return MARTIAL_ARTS_ACT_SUCCESS
 				if(MARTIAL_COMBO_DONE_CLEAR_COMBOS)
 					combos.Cut()
 					reset_combos()
-					return TRUE
+					return MARTIAL_ARTS_ACT_SUCCESS
 	if(!LAZYLEN(current_combos))
 		reset_combos()
 		if(HAS_COMBOS && could_start_new_combo)
