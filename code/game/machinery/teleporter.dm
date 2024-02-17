@@ -307,7 +307,6 @@
 
 /obj/machinery/teleport
 	name = "teleport"
-	icon = 'icons/obj/stationobjs.dmi'
 	density = TRUE
 	anchored = TRUE
 	///Used by the teleporter hub and permament teleporter to track how many teleports have been done this cycle.
