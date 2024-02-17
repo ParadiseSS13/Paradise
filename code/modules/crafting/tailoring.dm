@@ -288,7 +288,7 @@
 					/obj/item/food/snacks/grown/poppy/lily = 3,  
 					/obj/item/grown/sunflower = 3
 					)
-	time = 20
+	time = 2 SECONDS
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/sunflower_crown
