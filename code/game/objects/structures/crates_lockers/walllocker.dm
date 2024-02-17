@@ -10,11 +10,32 @@
 	anchored = TRUE
 	icon_closed = "wall-locker"
 	icon_opened = "wall-lockeropen"
-	holds_mobs = FALSE
+	picks_up_mobs = FALSE
 
 /obj/structure/closet/walllocker/close()
 	. = ..()
 	density = FALSE //It's a locker in a wall, you aren't going to be walking into it.
+
+/obj/structure/closet/walllocker/MouseDrop_T(atom/movable/O, mob/living/user)
+	// don't call parent here -- we don't want to try to climb
+	if(!isliving(O) || !Adjacent(user) || !O.Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !opened)
+		return
+
+	user.visible_message(
+		"<span class='warning'>[user] starts trying to stuff [user == O ? user.p_themselves() : O] into [src]!</span>",
+		"<span class='danger'>You start trying to stuff [user == O ? "yourself" : O] into [src]!</span>",
+		"<span class='notice'>You hear something rustling.</span>"
+	)
+	if(!do_after_once(user, 3 SECONDS, target = O) || !opened)
+		return
+
+	if(user == O)
+		user.visible_message("<span class='notice'>[src] slams shut!</span>", "<span class='warning'>You manage to squeeze yourself into [src].</span>")
+	else
+		user.visible_message("span class='warning'>[user] stuffs [O] into [src]!</span>")
+
+	O.forceMove(src)
+	close()
 
 /obj/structure/closet/walllocker/emerglocker
 	name = "emergency locker"

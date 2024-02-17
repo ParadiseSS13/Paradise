@@ -25,8 +25,8 @@
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
 	var/transparent
-	/// Whether or not this can store mobs
-	var/holds_mobs = TRUE
+	/// Whether or not this will pick up mobs on its tile while closing
+	var/picks_up_mobs = TRUE
 
 // Please dont override this unless you absolutely have to
 /obj/structure/closet/Initialize(mapload)
@@ -129,7 +129,7 @@
 		if(!I.anchored)
 			I.forceMove(src)
 			itemcount++
-	if(holds_mobs)
+	if(picks_up_mobs)
 		for(var/mob/M in loc)
 			if(itemcount >= storage_capacity)
 				break
