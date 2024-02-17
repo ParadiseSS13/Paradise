@@ -69,7 +69,7 @@
 
 /obj/item/gun/energy/disabler/smg
 	name = "disabler smg"
-	desc = "An automatic disabler variant, as opposed to the conventional model, boasts a higher ammunition capacity at the cost of slightly reduced beam effectiveness."
+	desc = "An automatic disabler variant, as opposed to the conventional model. Boasts a higher ammunition capacity at the cost of slightly reduced beam effectiveness."
 	icon_state = "disabler_smg"
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
