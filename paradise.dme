@@ -2214,7 +2214,6 @@
 #include "code\modules\mob\living\silicon\robot\robot_update_status.dm"
 #include "code\modules\mob\living\silicon\robot\syndicate_robot.dm"
 #include "code\modules\mob\living\silicon\robot\drone\drone_abilities.dm"
-#include "code\modules\mob\living\silicon\robot\drone\drone_console.dm"
 #include "code\modules\mob\living\silicon\robot\drone\drone_damage.dm"
 #include "code\modules\mob\living\silicon\robot\drone\drone_items.dm"
 #include "code\modules\mob\living\silicon\robot\drone\drone_manufacturer.dm"

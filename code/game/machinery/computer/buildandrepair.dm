@@ -287,12 +287,6 @@
 	build_path = /obj/machinery/computer/robotics
 	origin_tech = "programming=3"
 
-/obj/item/circuitboard/drone_control
-	board_name = "Drone Control"
-	icon_state = "engineering"
-	build_path = /obj/machinery/computer/drone_control
-	origin_tech = "programming=3"
-
 /obj/item/circuitboard/cloning
 	board_name = "Cloning Machine Console"
 	icon_state = "medical"

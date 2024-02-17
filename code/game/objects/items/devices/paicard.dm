@@ -333,3 +333,7 @@
 	if(pai)
 		pai.extinguish_light()
 		set_light(0)
+
+/obj/item/paicard/attack_obj(obj/O, mob/living/user, params)
+
+	return ..()

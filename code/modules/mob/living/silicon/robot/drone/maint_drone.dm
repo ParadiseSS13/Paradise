@@ -323,26 +323,16 @@
 
 	ckey = player.ckey
 
+	var/list/message = list()
 	to_chat(src, "<b>Systems rebooted</b>. Loading base pattern maintenance protocol... <b>loaded</b>.")
 	full_law_reset()
-	to_chat(src, "<br><b>You are a maintenance drone, a tiny-brained robotic repair machine</b>.")
-	to_chat(src, "You have no individual will, no personality, and no drives or urges other than your laws.")
-	to_chat(src, "Use <b>:d</b> to talk to other drones, and <b>say</b> to speak silently in a language only your fellows understand.")
-	to_chat(src, "Remember, you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>")
-	to_chat(src, "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>")
-	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
-
-/*
-	sprite["Default"] = "repairbot"
-	sprite["Mk2 Mousedrone"] = "mk2"
-	sprite["Mk3 Monkeydrone"] = "mk3"
-	var/icontype
-	icontype = input(player,"Pick an icon") in sprite
-	icon_state = sprite[icontype]
-
-	choose_icon(6,sprite)
-*/
-
+	message += "<br><b>You are a maintenance drone, a tiny-brained robotic repair machine</b>."
+	message += "You have no individual will, no personality, and no drives or urges other than your laws."
+	message += "Use <b>:d</b> to talk to other drones, and <b>say</b> to speak silently in a language only your fellows understand."
+	message += "Remember, you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>"
+	message += "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>"
+	message += "<b>Make sure crew members do not notice you.</b>."
+	to_chat(src, message.Join(""))
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM, yes)
 	if(is_type_in_list(AM, allowed_bumpable_objects))
@@ -455,7 +445,6 @@
 		drone_fab = locate() in range(1, src)
 	if(!drone_fab)
 		return FALSE
-	drone_fab.drone_progress = 100 // recycling!
 
 	visible_message("<span class='notice'>[src] shuts down and enters [drone_fab].</span>")
 	playsound(loc, 'sound/machines/twobeep.ogg', 50)

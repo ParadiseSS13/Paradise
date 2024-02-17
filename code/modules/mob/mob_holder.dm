@@ -103,6 +103,22 @@
 	desc = "It's a little robot."
 	icon_state = "pai"
 
+/obj/item/holder/pai/can_enter_storage(obj/item/storage/S, mob/user)
+	return FALSE
+
+/obj/item/holder/pai/attack_obj(obj/O, mob/living/user, params)
+	message_admins("WOOOOO")
+	if(ismodcontrol(O))
+		var/created_drone = FALSE
+		var/obj/item/mod/control/control = O
+		for(var/obj/item/mod/module/drone/module in control.modules)
+			for(var/mob/living/mob in contents)
+				module.create_new_drone(user, mob)
+		if(created_drone)
+			qdel(src)
+			return
+	return ..()
+
 /obj/item/holder/mouse
 	name = "mouse"
 	desc = "It's a small, disease-ridden rodent."

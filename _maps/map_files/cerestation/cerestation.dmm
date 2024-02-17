@@ -25354,7 +25354,6 @@
 	},
 /area/station/public/locker)
 "cGJ" = (
-/obj/machinery/drone_fabricator,
 /obj/machinery/camera/autoname,
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
@@ -59528,7 +59527,7 @@
 	},
 /area/station/medical/surgery/primary)
 "lXo" = (
-/obj/machinery/computer/drone_control,
+/obj/machinery/drone_fabricator,
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
 "lXp" = (

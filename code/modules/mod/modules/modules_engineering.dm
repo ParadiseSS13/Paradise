@@ -260,3 +260,58 @@
 #undef EXTINGUISHER
 #undef NANOFROST
 #undef METAL_FOAM
+
+/obj/item/mod/module/drone
+	name = "MOD Personal Artificial Intelligence Storage"
+	desc = "A module that can be used to store a personal AI device in. \
+			Will convert the personal AI into a construction drone to help \
+			the owner with any repair work"
+	icon_state = "tether"
+	module_type = MODULE_USABLE
+	complexity = 1
+	use_power_cost = DEFAULT_CHARGE_DRAIN
+	incompatible_modules = list(/obj/item/mod/module/drone)
+	cooldown_time = 3 SECONDS
+	allow_flags = MODULE_ALLOW_INACTIVE
+	/// The drone that we currently have stored
+	var/mob/living/silicon/robot/drone/stored_drone
+	/// The drone that is linked to the mod
+	var/mob/living/silicon/robot/drone/linked_drone
+
+/obj/item/mod/module/drone/Destroy()
+	stored_drone = null
+	linked_drone = null
+	return ..()
+
+/obj/item/mod/module/drone/on_use()
+	. = ..()
+	message_admins("Yes")
+	if(stored_drone)
+		stored_drone.forceMove(get_turf(mod.wearer))
+	if(!linked_drone)
+		poll_ghosts_for_drone(mod.wearer)
+
+/obj/item/mod/module/drone/proc/create_new_drone(mob/living/user, mob/to_be_droned)
+	if(stored_drone)
+		to_chat(user, "<span class='notice'>There is already a drone stored in [src]!")
+		return FALSE
+	if(!to_be_droned.mind)
+		to_chat(user, "<span class='notice'>[to_be_droned] does not have an inhabited AI!")
+		return FALSE
+
+	var/mob/living/silicon/robot/drone/new_drone = new(get_turf(src))
+	new_drone.transfer_personality(to_be_droned)
+	linked_drone = new_drone
+	return TRUE
+
+/obj/item/mod/module/drone/proc/poll_ghosts_for_drone(mob/user)
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the drone of [user.real_name]?", ROLE_DRONE, FALSE, 10 SECONDS, source = src, role_cleanname = "drone")
+	var/mob/dead/observer/theghost
+
+	if(length(candidates))
+		theghost = pick(candidates)
+		dust_if_respawnable(theghost)
+		create_new_drone(user, theghost)
+	else
+		to_chat(user, "No intelligence available to inhabit the drone. Please try again later.")
+		COOLDOWN_START(src, cooldown_timer, 30 SECONDS) // Don't spam the ghosts
