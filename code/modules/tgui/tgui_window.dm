@@ -103,7 +103,7 @@
 		html = replacetextEx(html, "<!-- tgui:inline-html -->", isfile(inline_html) ? file2text(inline_html) : inline_html)
 	// Inject inline JS
 	if(inline_js)
-		inline_js = "<script>\n'use strict';\n'use strict';\n[isfile(inline_js) ? file2text(inline_js) : inline_js]\n</script>"
+		inline_js = "<script>\n'use strict';\n[isfile(inline_js) ? file2text(inline_js) : inline_js]\n</script>"
 		html = replacetextEx(html, "<!-- tgui:inline-js -->", inline_js)
 	// Inject inline CSS
 	if(inline_css)
