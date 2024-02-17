@@ -18,10 +18,14 @@
 */
 
 /proc/init_sprite_accessory_subtypes(prototype, list/L, list/male, list/female, list/full_list)
-	if(!istype(L))	L = list()
-	if(!istype(male))	male = list()
-	if(!istype(female))	female = list()
-	if(!istype(full_list))	full_list = list()
+	if(!istype(L))
+		L = list()
+	if(!istype(male))
+		male = list()
+	if(!istype(female))
+		female = list()
+	if(!istype(full_list))
+		full_list = list()
 
 	for(var/path in subtypesof(prototype))
 		var/datum/sprite_accessory/D = new path()
@@ -34,8 +38,10 @@
 				full_list[D.name] = D
 
 			switch(D.body_type)
-				if(MALE)	male[D.name] = D
-				if(FEMALE)	female[D.name] = D
+				if(MALE)
+					male[D.name] = D
+				if(FEMALE)
+					female[D.name] = D
 				else
 					male[D.name] = D
 					female[D.name] = D
