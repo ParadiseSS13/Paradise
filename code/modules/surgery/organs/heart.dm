@@ -85,7 +85,7 @@
 		RegisterSignal(owner, COMSIG_LIVING_PRE_DEFIB, PROC_REF(just_before_revive))
 		RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, PROC_REF(on_defib_revive))
 		in_grace_period = TRUE
-		addtimer(VARSET_CALLBACK(src, in_grace_period, FALSE), 10 SECONDS)
+		addtimer(VARSET_CALLBACK(src, in_grace_period, FALSE), revival_grace_period)
 
 /obj/item/organ/internal/heart/cursed/remove(mob/living/carbon/M, special)
 	if(owner?.client?.prefs.colourblind_mode == COLOURBLIND_MODE_NONE)
