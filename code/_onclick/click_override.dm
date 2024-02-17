@@ -71,7 +71,7 @@
 	var/atom/beam_from = user
 	var/atom/target_atom = A
 
-	for(var/i in 0 to 2)
+	for(var/i in 0 to 2) //3 attempts. Shocks at the clicked source, tries to find a mob in 1 tile, then choses a random tile 1 away to try again. As such, can only hit a mob 2 tiles away from the click
 		beam_from.Beam(target_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 6)
 		if(isliving(target_atom))
 			var/mob/living/L = target_atom
