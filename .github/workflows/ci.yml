@@ -39,9 +39,10 @@ jobs:
           python -m tools.ci.check_icon_conflicts
           python -m tools.maplint.source --github
           ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1
+          echo 'DREAMCHECKER_ANNOTATED=1' >> "$GITHUB_ENV"
       - name: Annotate Lints
         uses: yogstation13/DreamAnnotate@v2
-        if: always()
+        if: ${{ always() && env.DREAMCHECKER_ANNOTATED == '1' }}
         with:
           outputFile: output-annotations.txt
 
