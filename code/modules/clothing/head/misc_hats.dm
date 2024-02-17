@@ -581,8 +581,32 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 
+/obj/item/clothing/head/flower_crown
+	name = "flower crown"
+	icon_state = "flower_crown"
+	desc = "A colorful flower crown made out of lilies, sunflowers and poppies."
+	item_state = "flower_crown"
+
+/obj/item/clothing/head/sunflower_crown
+	name = "sunflower crown"
+	icon_state = "sunflower_crown"
+	desc = "A bright flower crown made out sunflowers that is sure to brighten up anyone's day!"
+	item_state = "sunflower_crown"
+
 /obj/item/clothing/head/poppy_crown
 	name = "poppy crown"
 	icon_state = "poppy_crown"
 	desc = "A flower crown made out of a string of bright red poppies."
 	item_state = "poppy_crown"
+
+/obj/item/clothing/head/lily_crown
+	name = "lily crown"
+	icon_state = "lily_crown"
+	desc = "A leafy flower crown with a cluster of large white lilies at the front."
+	item_state = "lily_crown"
+
+/obj/item/clothing/head/geranium_crown
+	name = "geranium crown"
+	icon_state = "geranium_crown"
+	desc = "A flower crown made out of an array of rich purple geraniums."
+	item_state = "geranium_crown"
