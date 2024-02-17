@@ -310,6 +310,8 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	density = TRUE
 	anchored = TRUE
+	///Used by the teleporter hub and permament teleporter to track how many teleports have been done this cycle.
+	var/teleports_this_cycle = 0
 
 /**
 	Internal helper function
@@ -345,7 +347,6 @@
 	var/obj/machinery/teleport/station/power_station
 	var/calibrated //Calibration prevents mutation
 	var/admin_usage = FALSE // if 1, works on CC level. If 0, doesn't. Used for admin room teleport.
-	var/teleports_this_cycle = 0
 
 /obj/machinery/teleport/hub/Initialize(mapload)
 	. = ..()
@@ -474,7 +475,6 @@
 	var/recalibrating = FALSE
 	var/target
 	var/tele_delay = 50
-	var/teleports_this_cycle = 0
 
 /obj/machinery/teleport/perma/Initialize(mapload)
 	. = ..()
