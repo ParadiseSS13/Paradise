@@ -244,9 +244,9 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 				"robot" = 4,
 				"slime" = 4,
 				"xeno" = 4,
-				"human" = random_species.len,
+				"human" = length(random_species),
 				// double animal weight to account for the absurd number of human species we have
-				"animal" = (GLOB.wabbajack_docile_animals.len + GLOB.wabbajack_hostile_animals.len) * 2,
+				"animal" = (length(GLOB.wabbajack_docile_animals) + length(GLOB.wabbajack_hostile_animals)) * 2,
 			)
 
 		if(force_borg)
