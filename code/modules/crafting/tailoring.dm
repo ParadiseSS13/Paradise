@@ -316,5 +316,5 @@
 	name = "Geranium Crown"
 	result = list(/obj/item/clothing/head/geranium_crown)
 	reqs = list(/obj/item/food/snacks/grown/poppy/geranium = 5)
-	time = 20
+	time = 2 SECONDS
 	category = CAT_CLOTHING
