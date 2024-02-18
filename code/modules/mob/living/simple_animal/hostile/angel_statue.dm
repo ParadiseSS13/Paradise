@@ -176,8 +176,7 @@
 /obj/effect/proc_holder/spell/aoe/flicker_lights/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		for(var/obj/machinery/light/L in T)
-			L.flicker()
-	return
+			L.force_flicker()
 
 //Blind AOE
 /obj/effect/proc_holder/spell/aoe/blindness
