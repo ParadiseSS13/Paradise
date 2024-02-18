@@ -5055,9 +5055,6 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ru" = (
-/obj/item/radio/intercom/locked/prison{
-	pixel_x = 32
-	},
 /obj/effect/turf_decal/stripes/red/corner{
 	dir = 4
 	},
@@ -5068,6 +5065,11 @@
 	},
 /obj/structure/chair/sofa/bench/right{
 	dir = 8
+	},
+/obj/machinery/flasher{
+	id = "labor";
+	pixel_x = 22;
+	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5389,10 +5391,8 @@
 /area/mine/laborcamp)
 "ua" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/flasher{
-	id = "labor";
-	pixel_x = 22;
-	pixel_y = -3
+/obj/item/radio/intercom/locked/prison{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
