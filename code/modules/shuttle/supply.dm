@@ -188,20 +188,15 @@
 					SSeconomy.research_designs += design.id
 					msg += "<span class='good'>+[SSeconomy.credits_per_design]</span>: [design.name] design.<br>"
 
-				// Sell viral sample virology goals
-				if(istype(thing, /obj/item/reagent_containers))
-					var/obj/item/reagent_containers/C = thing
-					if(C.reagents?.reagent_list)
-						for(var/datum/virology_goal/G in GLOB.virology_goals)
-							if(G.completed)
-								continue
-							if(G.check_completion(C.reagents.reagent_list))
-								medical_credits += SSeconomy.credits_per_virology_goal
-								msg += "<span class='good'>+[SSeconomy.credits_per_virology_goal]</span>: [G.name] completion.<br>"
-
-				// Sell viral sample virology goals that are in vial lockboxes too
-				if(istype(thing, /obj/item/storage/lockbox/vials))
-					for(var/obj/item/reagent_containers/C in thing)
+				// Sell viral sample virology goals, those in vial lockboxes included
+				if(istype(thing, /obj/item/reagent_containers) || istype(thing, /obj/item/storage/lockbox/vials))
+					var/list/selled_containers = list()
+					if(istype(thing, /obj/item/reagent_containers))
+						selled_containers += thing
+					if(istype(thing, /obj/item/storage/lockbox/vials))
+						for(var/obj/item/reagent_containers/C in thing)
+							selled_containers += C
+					for(var/obj/item/reagent_containers/C in selled_containers)
 						if(C.reagents?.reagent_list)
 							for(var/datum/virology_goal/G in GLOB.virology_goals)
 								if(G.completed)
