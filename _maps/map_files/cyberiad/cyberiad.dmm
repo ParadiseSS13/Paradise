@@ -9908,7 +9908,7 @@
 	},
 /obj/machinery/requests_console{
 	department = "Internal Affairs Office";
-	name = "Courtroom Requests Console";
+	name = "Magistrate Requests Console";
 	pixel_x = 30;
 	departmentType = 5
 	},
