@@ -117,10 +117,10 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 /datum/virology_goal/virus/New()
 	do
 		goal_symptoms = list()
-		var/list/datum/symptom/symptoms = subtypesof(/datum/symptom)
+		var/list/symptoms = subtypesof(/datum/symptom)
 		var/stealth = 0
 		for(var/i in 1 to 5)
-			var/list/datum/symptom/candidates = list()
+			var/list/candidates = list()
 			for(var/datum/symptom/V as anything in symptoms) //There is a "as anything" added because for some mystery reason it doesnt work without it
 				var/datum/symptom/S = V
 				if(stealth + S.stealth >= 3) //The Pandemic cant detect a virus with stealth 3 or higher and we dont want that, this isnt a stealth virus
