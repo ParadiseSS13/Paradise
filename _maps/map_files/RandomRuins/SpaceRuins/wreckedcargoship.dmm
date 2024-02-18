@@ -57,9 +57,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/rack,
@@ -1129,7 +1127,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /obj/structure/railing,
@@ -1227,7 +1225,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
 "VF" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{

@@ -343,9 +343,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "tr" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
@@ -817,9 +815,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "Yt" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "Yu" = (

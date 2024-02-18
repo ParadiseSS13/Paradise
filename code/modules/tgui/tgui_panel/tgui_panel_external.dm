@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-/client/var/datum/tgui_panel/tgui_panel
+/* check_grep:ignore */ /client/var/datum/tgui_panel/tgui_panel
 
 /**
  * tgui panel / chat troubleshooting verb
@@ -34,3 +34,11 @@
 	// Force show the panel to see if there are any errors
 	winset(src, "output", "is-disabled=1&is-visible=0")
 	winset(src, "browseroutput", "is-disabled=0;is-visible=1")
+
+/client/verb/refresh_tgui()
+	set name = "Refresh TGUI"
+	set category = "Special Verbs"
+
+	for(var/window_id in tgui_windows)
+		var/datum/tgui_window/window = tgui_windows[window_id]
+		window.reinitialize()
