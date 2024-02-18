@@ -386,7 +386,7 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/shell_launcher
 	category = list("Medical")
 
-/datum/design/cyberimp_shell_launcher
+/datum/design/cyberimp_razorwire_spool
 	name = "Razorwire Spool Arm Implant"
 	desc = "A long length of monomolecular filament, built into the back of your hand. \
 		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
