@@ -114,7 +114,7 @@
 		age = rand(initial(cand_species.min_age), initial(cand_species.max_age))
 
 	if(prob(PROB_CANDIDATE_ERRORS)) // Date of birth
-		candidate_birth = "[rand(1, 12)]/[GLOB.game_year - age + pick(-200, -100, -50, 25, 50, 100)]" // The age doesn't match with the date of birth
+		candidate_birth = "[rand(1, 12)]/[GLOB.game_year - age + pick(-400, -300, -200, -100, 50, 100, 150)]" // The age doesn't match with the date of birth
 		good_candidate = FALSE
 	else
 		candidate_birth = "[rand(1, 12)]/[GLOB.game_year - age]"

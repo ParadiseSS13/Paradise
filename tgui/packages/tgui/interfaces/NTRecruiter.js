@@ -125,6 +125,10 @@ export const NTRecruiter = (props, context) => {
                   Keep your eyes open for incompatible <b>naming schemes</b>, no
                   company wants a Vox named Joe!
                 </LabeledList.Item>
+                <LabeledList.Item label="10#" color="silver">
+                  For some unknown reason <b>clowns</b> are never denied by the
+                  company, no matter what.
+                </LabeledList.Item>
               </LabeledList>
             </Section>
           </Stack>
