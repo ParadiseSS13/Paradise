@@ -498,7 +498,7 @@
 		to_chat(AM, "You can't use this here.")
 		return
 
-	if(target && !recalibrating && !panel_open && !blockAI(AM) && (teleports_this_cycle <= MAX_ALLOWED_TELEPORTS_PER_PROCESS ))
+	if(target && !recalibrating && !panel_open && !blockAI(AM) && (teleports_this_cycle <= MAX_ALLOWED_TELEPORTS_PER_PROCESS))
 		do_teleport(AM, target)
 		use_power(5000)
 		teleports_this_cycle++
