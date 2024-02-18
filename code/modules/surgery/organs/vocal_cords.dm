@@ -500,7 +500,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 // Admin-discretion IPC-exclusive
 /obj/item/organ/internal/vocal_cords/badassreciever
 	name = "ECommand Reciever"
-	desc = "A communications reciever installed in non-leader elite units in the New Canaanite Armed Forces. Also gives the user a badass voice."
+	desc = "A communications reciever installed in subordinate elite units in the New Canaanite Armed Forces. Also gives the user a badass voice."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "voice_changer_off"
 	parent_organ = "head"
@@ -518,7 +518,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 /obj/item/organ/internal/vocal_cords/badasssender
 	name = "ECommand Transmitter"
-	desc = "Used by leaders of elite units in the New Canaanite Armed Forces, this is able to send orders to units installed with reciever units. Also gives them a badass voice."
+	desc = "Used by leaders of elite units in the New Canaanite Armed Forces, this is able to send orders to all units installed with reciever units. Also gives them a badass voice."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "voice_changer_off"
 	slot = "badassrec"

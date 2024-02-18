@@ -708,7 +708,7 @@
 		return
 	if(reviving)
 		reviving = FALSE
-		if(owner.health <= HEALTH_THRESHOLD_CRIT + 10)
+		if(owner.health <= HEALTH_THRESHOLD_CRIT + 10 || owner.getBrainLoss(120))
 			addtimer(CALLBACK(src, PROC_REF(repairing)), 30)
 			reviving = TRUE
 		if(!reviving)
@@ -722,10 +722,10 @@
 		return
 	if(prob(80) && owner.getBruteLoss())
 		owner.adjustBruteLoss(-4, robotic = TRUE)
-		revive_cost += 40
+		revive_cost += 60
 	if(prob(80) && owner.getFireLoss())
 		owner.adjustFireLoss(-4, robotic = TRUE)
-		revive_cost += 40
+		revive_cost += 60
 	if(prob(50) && owner.getBrainLoss())
 		owner.adjustBrainLoss(-4)
 		revive_cost += 60
@@ -733,31 +733,28 @@
 /obj/item/organ/internal/cyberimp/chest/ipc_reviver/proc/owner_diagnostics(mob/owner)
 	var/list/msgs = list()
 	var/mob/living/carbon/human/machine/H = owner
-	msgs += "<span class='notice'>Systems Diagnostics</span>"
-	msgs += "Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
-	var/organ_found
+	msgs += "<span class='notice'>Systems Diagnostics\n\t Overall Status: ["[H.health]% functional"]</span>"
+	msgs += "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
 	if(LAZYLEN(H.internal_organs))
 		msgs += "<hr>"
 		msgs += "<span class='notice'>External components:</span>"
 		for(var/obj/item/organ/external/E in H.bodyparts)
-			organ_found = TRUE
 			msgs += "[E.name]: <font color='red'>[E.brute_dam]</font> <font color='#FFA500'>[E.burn_dam]</font>"
-	organ_found = null
 	if(LAZYLEN(H.internal_organs))
 		msgs += "<hr>"
 		msgs += "<span class='notice'>Internal components:</span>"
 		for(var/obj/item/organ/internal/O in H.internal_organs)
-			organ_found = TRUE
+			if(istype(O, /obj/item/organ/internal/cyberimp))
+				continue
 			msgs += "[capitalize(O.name)]: <font color='red'>[O.damage]</font>"
-	organ_found = null
 	if(LAZYLEN(H.internal_organs))
 		msgs += "<hr>"
-		msgs += "<span class='notice'>Located implants:</span>"
+		msgs += "<span class='notice'>Implants:</span>"
 		for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
-			organ_found = TRUE
 			msgs += "[capitalize(I.name)]: <font color='red'>[I.crit_fail ? "CRITICAL FAILURE" : I.damage]</font>"
-	if(!organ_found)
-		msgs += "<span class='warning'>No implants located.</span>"
+	msgs.Add(get_chemscan_results(owner))
+	msgs += "<hr>"
+	msgs += "<span class='notice'>Temperature: [round(H.bodytemperature-T0C, 0.01)]&deg;C ([round(H.bodytemperature*1.8-459.67, 0.01)]&deg;F)</span>"
 	to_chat(owner, chat_box_healthscan(msgs.Join("<br>")))
 
 /obj/item/organ/internal/cyberimp/chest/ipc_reviver/emp_act(severity)
@@ -771,10 +768,11 @@
 
 /obj/item/organ/internal/cyberimp/chest/ipc_radproof
 	name = "Radioactive Environment Upgrade"
-	desc = "A special lead lining for protecting fragile Positronic brains from radiation. Burning is not recommended."
+	desc = "A special lead lining for protecting fragile Positronic brains from radiation. Not recommended to burn."
 	implant_color = "#eed202"
-	slot = "stomach"
+	slot = "appendix"
 	requires_machine_person = TRUE
+	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/ipc_radproof/insert(mob/living/carbon/M, special = FALSE)
 	..()
@@ -786,7 +784,40 @@
 	owner.physiology.burn_mod /= 1.10
 	return ..()
 
-// Admin-discretion IPC-exclusive Implants
+/obj/item/organ/internal/cyberimp/chest/batbooster
+	name = "Microbattery Booster"
+	desc = "A deviced designed to improve the efficiency of connected Microbattery systems, thus prolonging how long an IPC can go before needing to charge again."
+	implant_color ="#63af0d"
+	slot = "stomach"
+	requires_machine_person = TRUE
+	crit_fail = FALSE
+
+/obj/item/organ/internal/cyberimp/chest/batbooster/hardened
+	name = "Hardened Microbattery Booster"
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/batbooster/hardened/Initialize(mapload)
+	. = ..()
+	desc += " The implant has been hardened. It is invulnerable to EMPs."
+
+/obj/item/organ/internal/cyberimp/chest/batbooster/on_life()
+	if(owner.stat == DEAD || crit_fail)
+		return
+	else
+		owner.adjust_nutrition(0.7)
+
+/obj/item/organ/internal/cyberimp/chest/batbooster/proc/restarting()
+	crit_fail = FALSE
+
+/obj/item/organ/internal/cyberimp/chest/batbooster/emp_act(severity)
+	if(!owner || emp_proof)
+		return
+	owner.electrocute_act(20, src, flags = SHOCK_NOGLOVES)
+	to_chat(owner, "<span class='warning'>You feel your electric systems surge unexpectadly!</span>")
+	crit_fail = TRUE
+	addtimer(CALLBACK(src, PROC_REF(restarting)), 60 SECONDS)
+
+// Admin-only IPC-exclusive Implants
 
 /obj/item/organ/internal/cyberimp/chest/lazrestarter
 	name = "Lazarus Restarter"
@@ -799,23 +830,23 @@
 /obj/item/organ/internal/cyberimp/chest/lazrestarter/on_life()
 	owner.adjustBruteLoss(-10, robotic = TRUE)
 	owner.adjustFireLoss(-10, robotic = TRUE)
-	owner.adjustBrainLoss(-25)
+	owner.adjustBrainLoss(-5)
 	if(owner.health <= HEALTH_THRESHOLD_CRIT)
 		owner.adjustBruteLoss(-25, robotic = TRUE)
 		owner.adjustFireLoss(-25, robotic = TRUE)
-		owner.adjustBrainLoss(-50)
+		owner.adjustBrainLoss(-10)
 
 /obj/item/organ/internal/cyberimp/chest/lazrestarter/insert(mob/living/carbon/M, special = FALSE)
 	..()
 	RegisterSignal(M, COMSIG_MOB_DEATH, PROC_REF(on_death))
 
 /obj/item/organ/internal/cyberimp/chest/lazrestarter/proc/on_death()
-	addtimer(CALLBACK(src, PROC_REF(lazrestart)), 120)
+	addtimer(CALLBACK(src, PROC_REF(lazrestart)), 60 SECONDS)
 
 /obj/item/organ/internal/cyberimp/chest/lazrestarter/proc/lazrestart()
 	owner.adjustBruteLoss(-50, robotic = TRUE)
 	owner.adjustFireLoss(-50, robotic = TRUE)
-	owner.adjustBrainLoss(-100)
+	owner.adjustBrainLoss(-60)
 	owner.grab_ghost()
 	owner.update_revive()
 
@@ -843,6 +874,26 @@
 	REMOVE_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, "titanplate[UID()]")
 	REMOVE_TRAIT(M, TRAIT_RESISTCOLD, "titanplate[UID()]")
 	REMOVE_TRAIT(M, TRAIT_RESISTHEAT, "titanplate[UID()]")
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/smtechnician
+	name = "Supermatter Technician Suite"
+	desc = "Housing and producing special hypernobilium-bearing nanites, this organ makes the implantee's chassis able to come into contact with Supermatter. Additionally renders the implantee immune to Supermatter-related hallucinations and radiation."
+	implant_color = "#ffee00"
+	slot = "appendix"
+	requires_machine_person = TRUE
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/smtechnician/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_SUPERMATTER_IMMUNE, "smtechnician[UID()]")
+	ADD_TRAIT(M, TRAIT_RADIMMUNE, "smtechnician[UID()]")
+	ADD_TRAIT(M, SM_HALLUCINATION_IMMUNE, "smtechnician[UID()]")
+
+/obj/item/organ/internal/cyberimp/chest/smtechnician/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_SUPERMATTER_IMMUNE, "smtechnician[UID()]")
+	REMOVE_TRAIT(M, TRAIT_RADIMMUNE, "smtechnician[UID()]")
+	REMOVE_TRAIT(M, SM_HALLUCINATION_IMMUNE, "smtechnician[UID()]")
 	return ..()
 
 //BOX O' IMPLANTS
