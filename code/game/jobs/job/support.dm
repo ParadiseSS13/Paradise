@@ -519,26 +519,3 @@
 		if(new_language.flags & (HIVEMIND|NOLIBRARIAN))
 			continue
 		H.add_language(la)
-
-/datum/job/explorer
-	title = "Explorer"
-	flag = JOB_EXPLORER
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 4
-	spawn_positions = 4
-	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_EXPEDITION, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	outfit = /datum/outfit/job/explorer
-
-/datum/outfit/job/explorer
-	name = "Explorer"
-	jobtype = /datum/job/explorer
-	uniform = /obj/item/clothing/under/color/orange
-	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/workboots
-	glasses = /obj/item/clothing/glasses/welding
-	belt = /obj/item/storage/belt/utility
-	l_pocket = /obj/item/gps
-	id = /obj/item/card/id/explorer
