@@ -134,6 +134,9 @@
 			to_chat(owner, "<span class='notice'>You drop [arm_item] to activate [src]!</span>")
 
 	if(requires_twohands)
+		if(!owner.has_both_hands())
+			to_chat(owner, "<span class='warning'>You need 2 hands to deploy [src]!</span>")
+			return
 		var/other_arm = (parent_organ == "r_arm" ? SLOT_HUD_LEFT_HAND : SLOT_HUD_RIGHT_HAND)
 		var/obj/item/other_arm_item = owner.get_item_by_slot(other_arm)
 		if(other_arm_item)
@@ -159,6 +162,7 @@
 		"<span class='notice'>You extend [holder] from your [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
 		"<span class='italics'>You hear a short mechanical noise.</span>")
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
+	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click()
 	if(crit_fail || (!holder && !contents.len))
@@ -518,6 +522,15 @@
 	origin_tech = "combat=5;biotech=5;syndicate=2"
 	stealth_level = 1 // Hidden from health analyzers
 	requires_twohands = TRUE
+
+/obj/item/organ/internal/cyberimp/arm/razorwire/Extend(obj/item/item)
+	. = ..()
+	if(.)
+		RegisterSignal(owner, COMSIG_TWOHANDED_UNWIELD, PROC_REF(Retract))
+
+/obj/item/organ/internal/cyberimp/arm/razorwire/Retract()
+	UnregisterSignal(owner, COMSIG_TWOHANDED_UNWIELD)
+	. = ..()
 
 /obj/item/organ/internal/cyberimp/arm/razorwire/examine_more(mob/user)
 	. = ..()
