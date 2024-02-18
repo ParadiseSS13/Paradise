@@ -443,7 +443,7 @@
 
 GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
 
-/mob/living/handle_ventcrawl(atom/clicked_on) // -- TLE -- Merged by Carn
+/mob/living/handle_ventcrawl(atom/clicked_on) // Why is this proc even in carbon.dm ...
 	if(!Adjacent(clicked_on))
 		return
 
@@ -502,6 +502,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(!do_after(src, 4.5 SECONDS, target = src))
 			return
 
+		if(!client)
+			return
+
 		if(!vent_found.can_crawl_through())
 			to_chat(src, "<span class='warning'>You can't vent crawl through that!</span>")
 			return
@@ -512,9 +515,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 		if(buckled)
 			to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
-			return
-
-		if(!client)
 			return
 
 		if(iscarbon(src) && length(contents) && ventcrawlerlocal < VENTCRAWLER_ALWAYS) // If we're here you can only ventcrawl while completely nude
@@ -531,8 +531,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 		visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
 		var/old_loc = loc
-		loc = vent_found
-		Moved(old_loc, get_dir(old_loc, loc), FALSE)
+		forceMove(vent_found)
 		add_ventcrawl(vent_found)
 
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
