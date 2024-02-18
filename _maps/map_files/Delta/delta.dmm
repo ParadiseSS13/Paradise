@@ -39442,14 +39442,15 @@
 /obj/machinery/computer/atmos_alert{
 	dir = 1
 	},
-/obj/machinery/power/apc{
-	name = "south bump Engineering";
-	pixel_y = -24;
-	shock_proof = 1
-	},
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	cell_type = 25000;
+	dir = 8;
+	name = "Engineering Engine Super APC";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
@@ -41017,18 +41018,18 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "cjO" = (
-/obj/machinery/power/apc{
-	cell_type = 25000;
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24;
-	shock_proof = 1
-	},
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/power/apc{
+	cell_type = 25000;
+	dir = 8;
+	name = "Engineering Engine Super APC";
+	pixel_x = 24;
+	shock_proof = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "cjP" = (
@@ -64979,6 +64980,16 @@
 /obj/item/crowbar/red,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
+"dSB" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "dSD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -72177,16 +72188,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/rd)
-"hli" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
-	},
-/obj/machinery/atmospherics/portable/canister/air,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
 "hly" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
@@ -74941,10 +74942,6 @@
 	icon_state = "bar"
 	},
 /area/station/service/kitchen)
-"iVe" = (
-/obj/effect/spawner/airlock,
-/turf/simulated/wall,
-/area/station/service/chapel/office)
 "iVg" = (
 /obj/machinery/economy/atm{
 	pixel_x = -32
@@ -76792,6 +76789,15 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/storage)
+"kdg" = (
+/obj/structure/sign/vacuum{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "kdm" = (
 /obj/machinery/power/apc{
 	cell_type = 25000;
@@ -76897,15 +76903,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
-"kfC" = (
-/obj/structure/sign/vacuum{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
 "kfT" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -92648,21 +92645,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/research)
-"tjT" = (
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
 "tkb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -93716,6 +93698,21 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block)
+"tSp" = (
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/obj/machinery/newscaster{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -28
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "tSt" = (
 /obj/structure/table,
 /obj/item/reagent_containers/drinks/drinkingglass{
@@ -94362,6 +94359,10 @@
 	icon_state = "darkred"
 	},
 /area/station/security/processing)
+"uil" = (
+/obj/effect/spawner/airlock,
+/turf/simulated/wall,
+/area/station/service/chapel/office)
 "uit" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
@@ -96446,7 +96447,6 @@
 /area/station/command/office/hos)
 "vzU" = (
 /obj/structure/closet/walllocker/emerglocker/north{
-	pixel_y = 0;
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
@@ -98665,12 +98665,14 @@
 	},
 /obj/item/tank/jetpack/carbondioxide,
 /obj/structure/cable,
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/power/apc{
+	cell_type = 25000;
+	dir = 8;
+	name = "Engineering Engine Super APC";
+	pixel_x = 24;
+	shock_proof = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "wOk" = (
@@ -138074,7 +138076,7 @@ dIx
 dIx
 dIx
 dIx
-iVe
+uil
 abj
 aaa
 aaa
@@ -138585,7 +138587,7 @@ dPM
 dkq
 dSs
 dSP
-hli
+dSB
 dIH
 dIH
 dIH
@@ -138843,8 +138845,8 @@ dKo
 dXJ
 dKo
 dUj
-kfC
-tjT
+kdg
+tSp
 dIH
 abj
 aaa

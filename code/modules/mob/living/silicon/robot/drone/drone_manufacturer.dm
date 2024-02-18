@@ -47,6 +47,11 @@
 	if(drone_progress >= 100)
 		visible_message("[src] voices a strident beep, indicating a drone chassis is prepared.")
 
+/obj/machinery/drone_fabricator/examine(mob/user)
+	. = ..()
+	if(isobserver(user) && drone_prepared())
+		. += "<BR><B>A drone is prepared. Select 'Join As Drone' from the Ghost tab to spawn as a maintenance drone.</B>"
+
 /obj/machinery/drone_fabricator/proc/drone_prepared()
 	return (produce_drones && drone_progress >= 100 && (count_drones() < MAX_MAINT_DRONES))
 
@@ -91,6 +96,77 @@
 		if(!istype(D) || QDELETED(D))
 			return
 		D.cryo_with_dronefab(src)
+
+/mob/dead/proc/join_as_drone()
+	set category = "Ghost"
+	set name = "Join As Drone"
+
+	if(stat != DEAD)
+		return
+
+	if(usr != src)
+		return FALSE //something is terribly wrong
+
+	if(jobban_isbanned(src, "nonhumandept") || jobban_isbanned(src, "Drone"))
+		to_chat(usr, "<span class='warning'>You are banned from playing drones, and cannot spawn as one.</span>")
+		return
+
+	if(!SSticker || SSticker.current_state < GAME_STATE_PLAYING)
+		to_chat(src, "<span class='warning'>You can't join as a drone before the game starts!</span>")
+		return
+
+	var/player_age_check = check_client_age(usr.client, 14) // 14 days to play as a drone
+	if(player_age_check && GLOB.configuration.gamemode.antag_account_age_restriction)
+		to_chat(usr, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
+		return
+
+	var/pt_req = role_available_in_playtime(client, "Drone")
+	if(pt_req)
+		var/pt_req_string = get_exp_format(pt_req)
+		to_chat(usr, "<span class='warning'>This role is not yet available to you. Play another [pt_req_string] to unlock it.</span>")
+		return
+
+	var/deathtime = world.time - timeofdeath
+	var/joinedasobserver = FALSE
+	if(isobserver(src))
+		var/mob/dead/observer/G = src
+		if(!G.check_ahud_rejoin_eligibility())
+			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			return
+		if(G.started_as_observer)
+			joinedasobserver = TRUE
+
+	var/deathtimeminutes = round(deathtime / 600)
+	var/pluralcheck = "minute"
+	if(deathtimeminutes == 0)
+		pluralcheck = ""
+	else if(deathtimeminutes == 1)
+		pluralcheck = " [deathtimeminutes] minute and"
+	else if(deathtimeminutes > 1)
+		pluralcheck = " [deathtimeminutes] minutes and"
+	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10, 1)
+
+	if(deathtime < 6000 && joinedasobserver == 0)
+		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
+		to_chat(usr, "<span class='warning'>You must wait 10 minutes to respawn as a drone!</span>")
+		return
+
+	if(alert("Are you sure you want to respawn as a drone?", "Are you sure?", "Yes", "No") != "Yes")
+		return
+
+	for(var/obj/machinery/drone_fabricator/DF in GLOB.machines)
+		if(DF.stat & NOPOWER || !DF.produce_drones)
+			continue
+
+		if(DF.count_drones() >= MAX_MAINT_DRONES)
+			to_chat(src, "<span class='warning'>There are too many active drones in the world for you to spawn.</span>")
+			return
+
+		if(DF.drone_progress >= 100)
+			DF.create_drone(client)
+			return
+
+	to_chat(src, "<span class='warning'>There are no available drone spawn points, sorry.</span>")
 
 #undef DRONE_BUILD_TIME
 #undef MAX_MAINT_DRONES
