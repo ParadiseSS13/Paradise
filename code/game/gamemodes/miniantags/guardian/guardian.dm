@@ -278,7 +278,7 @@
 	if(user.mind && (ischangeling(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)))
 		to_chat(user, "[ling_failure]")
 		return
-	if(used == TRUE)
+	if(used)
 		to_chat(user, "[used_message]")
 		return
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once, polling ghosts multiple times, and receiving multiple guardians.
@@ -295,7 +295,7 @@
 			picked_random_type = pick(possible_guardians)
 		guardian_type = picked_random_type
 	else
-		guardian_type = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in possible_guardians
+		guardian_type = tgui_input_list(user, "Pick the type of [mob_name]", "[mob_name] Creation", possible_guardians)
 		if(!guardian_type)
 			to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
 			used = FALSE
