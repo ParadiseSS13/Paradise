@@ -958,6 +958,10 @@
 				if("tgui_input_swap")
 					toggles2 ^= PREFTOGGLE_2_SWAP_INPUT_BUTTONS
 
+				if("tgui_say_light_mode")
+					toggles2 ^= PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE
+					user?.client?.tgui_say?.load()
+
 				if("ghost_att_anim")
 					toggles2 ^= PREFTOGGLE_2_ITEMATTACK
 

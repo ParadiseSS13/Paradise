@@ -385,11 +385,11 @@
 		if(!registered_user)
 			registered_user = user.mind.current
 
-		switch(tgui_alert(user, "Would you like to display \the [src] or edit it?", "Choose", list("Show", "Edit")))
+		switch(tgui_alert(user, "Would you like to display [src] or edit it?", "Choose", list("Show", "Edit")))
 			if("Show")
 				return ..()
 			if("Edit")
-				switch(tgui_input_list(user, "What would you like to edit on \the [src]?", "Agent Card", list("Name", "Photo", "Appearance", "Sex", "Age", "Occupation", "Money Account", "Blood Type", "DNA Hash", "Fingerprint Hash", "Reset Access", "Delete Card Information")))
+				switch(tgui_input_list(user, "What would you like to edit on [src]?", "Agent ID", list("Name", "Photo", "Appearance", "Sex", "Age", "Occupation", "Money Account", "Blood Type", "DNA Hash", "Fingerprint Hash", "Reset Access", "Delete Card Information")))
 					if("Name")
 						var/new_name = reject_bad_name(tgui_input_text(user, "What name would you like to put on this card?", "Agent Card Name", ishuman(user) ? user.real_name : user.name), TRUE)
 						if(!Adjacent(user) || !new_name)
