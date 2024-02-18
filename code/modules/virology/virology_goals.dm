@@ -1,4 +1,4 @@
-GLOBAL_LIST_EMPTY(virology_goals)
+GLOBAL_LIST_INIT(virology_goals, list(new /datum/virology_goal/property_symptom, new /datum/virology_goal/virus, new /datum/virology_goal/virus/stealth))
 GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal
@@ -75,8 +75,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	. = FALSE
 	if(!goal_symptom || !goal_property || !goal_property_value)
 		return
-	var/goals = GLOB.archived_virology_goals + GLOB.virology_goals
-	for(var/datum/virology_goal/property_symptom/V in goals)
+	for(var/datum/virology_goal/property_symptom/V in (GLOB.archived_virology_goals + GLOB.virology_goals))
 		if(goal_symptom == V.goal_symptom && goal_property == V.goal_property && goal_property_value == V.goal_property_value)
 			return TRUE
 
@@ -143,19 +142,19 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 			return TRUE
 
 /datum/virology_goal/virus/get_report()
-	return {"<b>Specific Viral Sample Request (Non-Stealth)</b><br>
-	A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with exactly only the following symptoms: [symptoms_list2text()] to us through the cargo shuttle.
+	return {"<b>[name]</b><br>
+	A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with this exact set of symptoms to us through the cargo shuttle:<br>[symptoms_list2text()]
 	<br>
 	-Nanotrasen Virology Research"}
 
 /datum/virology_goal/virus/get_ui_report()
-	return {"A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with exactly only the following symptoms: [symptoms_list2text()] to us through the cargo shuttle."}
+	return {"A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with this exact set of symptoms to us through the cargo shuttle: [symptoms_list2text()]"}
 
 /datum/virology_goal/virus/proc/symptoms_list2text()
 	var/list/msg = list()
 	for(var/datum/symptom/S as anything in goal_symptoms)
 		msg += initial(S.name)
-	return jointext(msg, ", ")
+	return english_list(msg, ", ")
 
 /datum/virology_goal/virus/check_completion(list/datum/reagent/reagent_list)
 	. = FALSE
@@ -179,7 +178,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal/virus/stealth/New()
 	var/first_loop = TRUE
-	while(check_for_duplicate() || first_loop)
+	do
 		first_loop = FALSE
 		goal_symptoms = list()
 		var/list/symptoms = subtypesof(/datum/symptom)
@@ -195,9 +194,4 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 			goal_symptoms += S2
 			stealth += S2.stealth
 			symptoms -= S2
-
-/datum/virology_goal/virus/stealth/get_report()
-	return {"<b>Specific Viral Sample Request (Stealth)</b><br>
-	A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with exactly only the following symptoms: [symptoms_list2text()] to us through the cargo shuttle.
-	<br>
-	-Nanotrasen Virology Research"}
+	while(check_for_duplicate() || first_loop)

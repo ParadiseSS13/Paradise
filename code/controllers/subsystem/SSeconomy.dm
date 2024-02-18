@@ -140,7 +140,6 @@ SUBSYSTEM_DEF(economy)
 	next_paycheck_delay = 30 MINUTES + world.time
 	next_mail_delay = 15 MINUTES + world.time
 
-	GLOB.virology_goals += list(new /datum/virology_goal/property_symptom, new /datum/virology_goal/virus, new /datum/virology_goal/virus/stealth)
 	for(var/obj/machinery/computer/pandemic/P in GLOB.pandemics)
 		P.print_goal_orders()
 
