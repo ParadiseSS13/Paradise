@@ -168,7 +168,7 @@
 				continue
 
 			if(isturf(target) || isturf(target.loc) || (target in direct_access) || !(target.IsObscured()) || istype(target.loc, /obj/item/storage)) //Directly accessible atoms
-				if(Adjacent(target) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
+				if(target.Adjacent(src) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
 					return TRUE
 
 			closed[target] = TRUE
