@@ -5431,7 +5431,7 @@
 "uu" = (
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/mine/laborcamp)
+/area/lavaland/surface/outdoors)
 "ux" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
@@ -5927,7 +5927,7 @@
 	},
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/mine/laborcamp)
+/area/lavaland/surface/outdoors)
 "xw" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -6202,9 +6202,6 @@
 /obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
-"yM" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/mine/laborcamp)
 "yO" = (
 /obj/machinery/door/airlock/glass{
 	name = "Construction Site"
@@ -19035,8 +19032,8 @@ ab
 xr
 uu
 uu
-yM
-yM
+ab
+ab
 Aw
 Aw
 Aw
