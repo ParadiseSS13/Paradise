@@ -494,10 +494,6 @@
 	hitsound = 'sound/weapons/whip.ogg'
 	attack_verb = list("slashes", "whips", "lashes", "lacerates")
 
-/obj/item/melee/razorwire/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
-
 /obj/item/melee/razorwire/examine_more(mob/user)
 	. = ..()
 	. += "<i>A byproduct of Cybersun Incorporated's mistakes turned concept, the Razorwire Spool is a remarkable accident in itself. \
@@ -521,16 +517,6 @@
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "razorwire")
 	origin_tech = "combat=5;biotech=5;syndicate=2"
 	stealth_level = 1 // Hidden from health analyzers
-	requires_twohands = TRUE
-
-/obj/item/organ/internal/cyberimp/arm/razorwire/Extend(obj/item/item)
-	. = ..()
-	if(.)
-		RegisterSignal(owner, COMSIG_TWOHANDED_UNWIELD, PROC_REF(Retract))
-
-/obj/item/organ/internal/cyberimp/arm/razorwire/Retract()
-	UnregisterSignal(owner, COMSIG_TWOHANDED_UNWIELD)
-	. = ..()
 
 /obj/item/organ/internal/cyberimp/arm/razorwire/examine_more(mob/user)
 	. = ..()
