@@ -182,6 +182,7 @@
 /turf/simulated/floor/clockwork/Entered(atom/A, atom/OL, ignoreRest)
 	. = ..()
 	if(!. && isliving(A))
+		sleep(2 DECISECONDS)
 		new /obj/effect/temp_visual/ratvar/floor(src)
 
 /turf/simulated/floor/clockwork/Destroy()
