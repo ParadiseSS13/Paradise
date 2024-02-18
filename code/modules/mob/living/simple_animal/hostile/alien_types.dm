@@ -43,7 +43,7 @@
 /mob/living/simple_animal/hostile/alien/Aggro()
 	. = ..()
 	if(target)
-		playsound(loc, 'sound/voice/hiss4.ogg', 70, 1)
+		playsound(loc, 'sound/voice/hiss4.ogg', 70, TRUE)
 
 /mob/living/simple_animal/hostile/alien/drone
 	name = "alien drone"

@@ -47,7 +47,7 @@
 /mob/living/simple_animal/hostile/pirate/Aggro()
 	. = ..()
 	if(target)
-		playsound(loc, 'sound/creatures/pirateengage.ogg', 70, 1)
+		playsound(loc, 'sound/creatures/pirateengage.ogg', 70, TRUE)
 
 /mob/living/simple_animal/hostile/pirate/ranged
 	name = "Pirate Gunner"

@@ -72,7 +72,7 @@
 				return
 			adjustHealth(damage)
 			visible_message("<span class='boldwarning'>[src] has been attacked with [O] by [user].</span>")
-		playsound(loc, O.hitsound, 25, 1, -1)
+		playsound(loc, O.hitsound, 25, TRUE, -1)
 	else
 		to_chat(usr, "<span class='warning'>This weapon is ineffective, it does no damage.</span>")
 		visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>")
@@ -140,7 +140,7 @@
 		if(!seen_enemy)
 			seen_enemy = TRUE
 			if(!ranged)
-				playsound(loc, 'sound/weapons/saberon.ogg', 35, 1)
+				playsound(loc, 'sound/weapons/saberon.ogg', 35, TRUE)
 			if(alert_on_shield_breach)
 				if(depotarea.shield_list.len)
 					raise_alert("[name] reports that [target] is trying to breach the armory shield!")
@@ -202,7 +202,7 @@
 		scan_cycles++
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/AIShouldSleep(list/possible_targets)
-	FindTarget(possible_targets, 1)
+	FindTarget(possible_targets, TRUE)
 	return FALSE
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/proc/raise_alert(reason)

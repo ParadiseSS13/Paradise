@@ -279,7 +279,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/russian/ranged,
+/mob/living/simple_animal/hostile/russian/ranged/mosin,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aN" = (
