@@ -292,7 +292,7 @@
 /// Smoke Grenade Module, its tacticool.
 /obj/item/mod/module/dispenser/smoke
 	name = "MOD smoke grenade dispenser module"
-	desc = "This module can create smoke grenades for crowd dispersal. Effectiveness against laser fire subject to testing."
+	desc = "A module that dispenses primed smoke grenades to disperse crowds."
 	icon_state = "smoke_grenade"
 	cooldown_time = 10 SECONDS
 	complexity = 1

@@ -692,7 +692,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/suits/smoke_grenade
 	name = "Smoke Grenade Module"
-	desc = "A module that can dispense grenades for crowd dispersal. Effectiveness against laser fire subject to testing.."
+	desc = "A module that dispenses primed smoke grenades to disperse crowds."
 	reference = "SGM"
 	item = /obj/item/mod/module/dispenser/smoke
 	cost = 10
