@@ -690,6 +690,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 	surplus = 10
 
+/datum/uplink_item/suits/smoke_grenade
+	name = "Smoke Grenade Module"
+	desc = "A module that can dispense grenades for crowd dispersal. Effectiveness against laser fire subject to testing.."
+	reference = "SGM"
+	item = /obj/item/mod/module/dispenser/smoke
+	cost = 10
+	surplus = 10
+
 /datum/uplink_item/device_tools/binary
 	name = "Binary Translator Key"
 	desc = "A key, that when inserted into a radio headset, allows you to listen to and talk with artificial intelligences and cybernetic organisms in binary. To talk on the binary channel, type :+ before your radio message."
