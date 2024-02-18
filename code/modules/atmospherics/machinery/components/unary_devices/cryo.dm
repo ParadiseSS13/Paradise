@@ -49,7 +49,7 @@
 	else
 		set_light(0)
 
-/obj/machinery/atmospherics/unary/cryo_cell/New()
+/obj/machinery/atmospherics/unary/cryo_cell/Initialize(mapload)
 	..()
 	initialize_directions = dir
 	component_parts = list()
@@ -62,7 +62,7 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cryo_cell/upgraded/New()
+/obj/machinery/atmospherics/unary/cryo_cell/upgraded/Initialize(mapload)
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
