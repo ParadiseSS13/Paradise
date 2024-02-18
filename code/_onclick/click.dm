@@ -129,23 +129,32 @@
 		return
 
 	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
-	if(can_reach(A, W))
+	if(A in direct_access())
 		if(W)
 			W.melee_attack_chain(src, A, params)
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
 			UnarmedAttack(A, 1)
-
 		return
+
 	else
 		if(!isturf(loc)) // This is going to stop you from telekinesing from inside a closet, but I don't shed many tears for that
 			return TRUE
 
-		if(W)
-			W.afterattack(A, src, 0, params) // 0: not Adjacent
+		if(can_reach(A, W))
+			if(W)
+				W.melee_attack_chain(src, A, params)
+			else
+				if(ismob(A))
+					changeNext_move(CLICK_CD_MELEE)
+				UnarmedAttack(A, 1)
+
 		else
-			RangedAttack(A, params)
+			if(W)
+				W.afterattack(A, src, 0, params) // 0: not Adjacent
+			else
+				RangedAttack(A, params)
 
 
 /**
