@@ -378,7 +378,7 @@
 		return
 
 	if(num_unloaded)
-		to_chat(user, "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>")
+		to_chat(user, "<span class='notice'>You break open [src] and unload [num_unloaded] shell\s.</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
 
