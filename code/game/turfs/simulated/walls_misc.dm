@@ -21,6 +21,10 @@
 	name = "runed stone wall"
 	desc = "A cold stone wall engraved with indecipherable symbols. Studying them causes your head to pound."
 
+/turf/simulated/wall/cult/artificer/bullet_act(obj/item/projectile/Proj)
+	. = ..()
+	new /obj/effect/temp_visual/cult/turf(src)
+
 /turf/simulated/wall/cult/artificer/break_wall()
 	new /obj/effect/temp_visual/cult/turf(get_turf(src))
 	return null //excuse me we want no runed metal here

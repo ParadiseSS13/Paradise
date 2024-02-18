@@ -238,6 +238,11 @@
 	if(SSticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
 		icon_state = SSticker.cultdat.cult_floor_icon_state
 
+/turf/simulated/floor/engine/cult/Entered(atom/A, atom/OL, ignoreRest)
+	. = ..()
+	if(!. && isliving(A))
+		new /obj/effect/temp_visual/cult/turf/open/floor(src)
+
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
 
