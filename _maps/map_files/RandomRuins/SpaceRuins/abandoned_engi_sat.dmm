@@ -574,7 +574,6 @@
 "pX" = (
 /obj/structure/closet{
 	icon_state = "eng_secure";
-	opened = 1;
 	open_door_sprite = "eng_secure_door";
 	name = "engineer's locker"
 	},
