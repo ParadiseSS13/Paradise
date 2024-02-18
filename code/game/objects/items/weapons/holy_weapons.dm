@@ -122,13 +122,9 @@
 	damtype = BURN
 	light_color = "#E09D37"
 	attack_verb = list("singed", "seared", "burnt", "scorched")
-	var/lit = TRUE
 
 /obj/item/nullrod/godhand/Initialize()
 	. = ..()
-	update_brightness()
-
-/obj/item/nullrod/godhand/proc/update_brightness()
 	set_light(2)
 
 /obj/item/nullrod/godhand/get_heat()
