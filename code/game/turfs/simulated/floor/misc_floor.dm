@@ -179,6 +179,11 @@
 		realappearence = new /obj/effect/clockwork/overlay/floor(src)
 		realappearence.linked = src
 
+/turf/simulated/floor/clockwork/Entered(atom/A, atom/OL, ignoreRest)
+	. = ..()
+	if(!. && isliving(A))
+		new /obj/effect/temp_visual/ratvar/floor(src)
+
 /turf/simulated/floor/clockwork/Destroy()
 	if(uses_overlay && realappearence)
 		QDEL_NULL(realappearence)
