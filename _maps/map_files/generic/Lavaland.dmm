@@ -89,6 +89,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "ar" = (
@@ -810,7 +811,8 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkredfull"
+	dir = 10;
+	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
 "cz" = (
@@ -3252,7 +3254,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
 "ii" = (
@@ -4419,7 +4421,8 @@
 /area/lavaland/surface/outdoors)
 "nG" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkred"
+	dir = 8;
+	icon_state = "darkredcorners"
 	},
 /area/mine/laborcamp/security)
 "nI" = (
@@ -4494,12 +4497,10 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "nS" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
+/obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredfull"
-	},
+/turf/simulated/floor/catwalk,
 /area/mine/laborcamp/security)
 "nW" = (
 /obj/structure/closet/cabinet,
@@ -5541,10 +5542,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
+/turf/simulated/floor/catwalk,
 /area/mine/laborcamp/security)
 "vg" = (
 /obj/structure/disposalpipe/segment{
@@ -5676,13 +5674,10 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/visible{
+/obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
+/turf/simulated/floor/catwalk,
 /area/mine/laborcamp/security)
 "vM" = (
 /obj/structure/lattice/catwalk/mining,
@@ -5768,8 +5763,7 @@
 	target_pressure = 4500
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
 "wd" = (
@@ -7117,15 +7111,6 @@
 "DC" = (
 /turf/simulated/wall,
 /area/mine/outpost/custodial)
-"DH" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/mine/laborcamp/security)
 "DO" = (
 /obj/machinery/door/airlock/glass{
 	name = "Labor Camp Library"
@@ -9350,7 +9335,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
 "Sq" = (
@@ -9966,15 +9951,6 @@
 	icon_state = "darkredyellowfull"
 	},
 /area/mine/laborcamp)
-"Wl" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/mine/laborcamp/security)
 "Wo" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -10007,22 +9983,10 @@
 	},
 /area/mine/outpost/hallway/east)
 "Wx" = (
-/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/meter,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/mine/laborcamp/security)
-"WA" = (
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/catwalk,
 /area/mine/laborcamp/security)
 "WD" = (
 /obj/structure/lattice/catwalk/mining,
@@ -14440,8 +14404,8 @@ sP
 Oy
 of
 PX
-WA
-DH
+ri
+nS
 So
 ri
 Zm
@@ -14698,7 +14662,7 @@ Cp
 rm
 aP
 YW
-Wl
+nS
 Rb
 DT
 Zm
