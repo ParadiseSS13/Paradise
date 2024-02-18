@@ -30,6 +30,7 @@
 	damage = 10
 	damage_type = BRUTE
 	nodamage = 0
+	immolate = 1
 
 	//explosion values
 	var/exp_devastate = -1
