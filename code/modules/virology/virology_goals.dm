@@ -136,8 +136,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	. = FALSE
 	if(!length(goal_symptoms))
 		return
-	var/goals = GLOB.archived_virology_goals + GLOB.virology_goals
-	for(var/datum/virology_goal/virus/V in goals)
+	for(var/datum/virology_goal/virus/V in (GLOB.archived_virology_goals + GLOB.virology_goals))
 		if(goal_symptoms == V.goal_symptoms)
 			return TRUE
 
