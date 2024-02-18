@@ -53,6 +53,7 @@
 	if(!malfunctioning)
 		malfunctioning = 1
 		to_chat(user, "<span class='notice'>You override [src]'s safety protocols.</span>")
+		return TRUE
 
 /obj/item/lazarus_injector/emp_act()
 	if(!malfunctioning)

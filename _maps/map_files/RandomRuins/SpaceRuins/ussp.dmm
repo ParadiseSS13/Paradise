@@ -3953,21 +3953,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
-"jK" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "rus2_door_int";
-	name = "External Airlock"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/derelict/crew_quarters)
 "jL" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3975,23 +3960,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/light/small,
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	autolink_id = "rus2_vent";
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/derelict/crew_quarters)
-"jM" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/external{
-	id_tag = "rus2_door_ext";
-	locked = 1;
-	name = "External Airlock"
-	},
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/crew_quarters)
 "jN" = (
@@ -4492,11 +4460,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/access_button{
-	autolink_id = "rus2_btn_ext";
-	name = "exterior access button";
-	pixel_x = -25
-	},
 /turf/template_noop,
 /area/ruin/space/derelict/crew_quarters)
 "kJ" = (
@@ -4731,13 +4694,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/obj/machinery/door/airlock/external{
-	id_tag = "rus2_door_int";
-	name = "External Airlock"
-	},
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/crew_quarters)
 "lp" = (
@@ -4748,31 +4704,6 @@
 	},
 /obj/machinery/light/small{
 	dir = 1
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	ext_door_link_id = "rus2_door_ext";
-	ext_button_link_id = "rus2_btn_ext";
-	int_door_link_id = "rus2_door_int";
-	int_button_link_id = "rus2_btn_int";
-	pixel_y = -25;
-	vent_link_id = "rus2_vent"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 8;
-	autolink_id = "rus2_vent"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/derelict/crew_quarters)
-"lq" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "rus2_door_ext";
-	locked = 1;
-	name = "External Airlock"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/crew_quarters)
@@ -4911,11 +4842,6 @@
 "lG" = (
 /obj/machinery/light/spot{
 	dir = 4
-	},
-/obj/machinery/access_button{
-	autolink_id = "rus2_btn_int";
-	name = "interior access button";
-	pixel_x = 25
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -7374,11 +7300,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/machinery/access_button{
-	autolink_id = "rus1_btn_int";
-	name = "interior access button";
-	pixel_y = -25
-	},
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -7466,32 +7387,6 @@
 /obj/structure/sign/vacuum,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/arrival)
-"sa" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "rus1_door_int";
-	name = "External Airlock"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plating,
-/area/ruin/space/derelict/arrival)
-"sb" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/door/airlock/external{
-	id_tag = "rus1_door_int";
-	name = "External Airlock"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/derelict/arrival)
 "sc" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -7500,18 +7395,6 @@
 	},
 /obj/machinery/light/small{
 	dir = 4
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	autolink_id = "rus1_vent"
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_x = -25;
-	ext_button_link_id = "rus1_btn_ext";
-	ext_door_link_id = "rus1_door_ext";
-	int_button_link_id = "rus1_btn_int";
-	int_door_link_id = "rus1_door_int";
-	vent_link_id = "rus1_vent"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/arrival)
@@ -7524,31 +7407,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	autolink_id = "rus1_vent"
-	},
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/arrival)
 "se" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/external{
-	id_tag = "rus1_door_ext";
-	locked = 1;
-	name = "External Airlock"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/derelict/arrival)
-"sf" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "rus1_door_ext";
-	locked = 1;
-	name = "External Airlock"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -7565,11 +7426,6 @@
 "sh" = (
 /obj/machinery/light/small{
 	dir = 1
-	},
-/obj/machinery/access_button{
-	autolink_id = "rus1_btn_ext";
-	name = "exterior access button";
-	pixel_y = 25
 	},
 /turf/template_noop,
 /area/ruin/space/derelict/arrival)
@@ -7741,6 +7597,18 @@
 	icon_state = "white"
 	},
 /area/ruin/space/derelict/arrival)
+"Nv" = (
+/obj/effect/spawner/airlock{
+	req_access_txt = 0
+	},
+/turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
+/area/ruin/space/derelict/arrival)
+"Oh" = (
+/obj/effect/spawner/airlock/w_to_e{
+	req_access_txt = 0
+	},
+/turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
+/area/ruin/space/derelict/crew_quarters)
 "PR" = (
 /mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/plasteel/airless{
@@ -7756,6 +7624,12 @@
 	dir = 9;
 	icon_state = "red"
 	},
+/area/ruin/space/derelict/arrival)
+"Ud" = (
+/obj/effect/spawner/airlock{
+	req_access_txt = 0
+	},
+/turf/simulated/wall/mineral/titanium/nodecon,
 /area/ruin/space/derelict/arrival)
 "Xn" = (
 /obj/structure/cable{
@@ -11175,9 +11049,9 @@ rq
 rq
 hY
 rO
-rZ
 bn
-aW
+bn
+Ud
 ac
 ac
 jO
@@ -11267,7 +11141,7 @@ rr
 ry
 rE
 rP
-sa
+se
 sc
 se
 jx
@@ -11361,7 +11235,7 @@ qu
 rQ
 bn
 bn
-bn
+Nv
 sh
 ac
 kJ
@@ -11451,9 +11325,9 @@ rt
 rA
 qu
 rR
-sb
+se
 sd
-sf
+se
 jx
 jx
 sk
@@ -14178,11 +14052,11 @@ aV
 bm
 dH
 dH
-bm
-jK
 kG
 lo
-bm
+Oh
+lo
+Oh
 dH
 dH
 bm
@@ -14363,9 +14237,9 @@ ac
 ac
 ac
 aV
-jM
+lo
 bm
-lq
+lo
 aV
 ag
 ag

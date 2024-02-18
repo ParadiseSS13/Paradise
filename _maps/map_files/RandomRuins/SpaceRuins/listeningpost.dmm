@@ -202,6 +202,7 @@
 	name = "mission briefing"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "un" = (
