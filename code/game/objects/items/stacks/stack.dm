@@ -351,6 +351,8 @@
 	var/stackmaterial = round(input(user, "How many sheets do you wish to take out of this stack? (Maximum: [max])") as null|num)
 	if(stackmaterial == null || stackmaterial <= min || stackmaterial > get_amount())
 		return
+	if(!Adjacent(user, 1))
+		return
 	change_stack(user,stackmaterial)
 	to_chat(user, "<span class='notice'>You take [stackmaterial] sheets out of the stack.</span>")
 

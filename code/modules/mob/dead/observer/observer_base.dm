@@ -174,7 +174,7 @@ Works together with spawning an observer, noted above.
 		C.images += target.hud_list[SPECIALROLE_HUD]
 	return 1
 
-/mob/proc/ghostize(flags = GHOST_CAN_REENTER)
+/mob/proc/ghostize(flags = GHOST_CAN_REENTER, user_color, ghost_name)
 	if(key)
 		if(player_logged) //if they have disconnected we want to remove their SSD overlay
 			overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
@@ -186,6 +186,11 @@ Works together with spawning an observer, noted above.
 			ADD_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
+		if(user_color)
+			add_atom_colour(user_color, ADMIN_COLOUR_PRIORITY)
+			ghost.color = user_color
+		if(ghost_name)
+			ghost.name = ghost_name
 		ghost.key = key
 		return ghost
 
@@ -410,7 +415,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!isobserver(usr))
 		to_chat(usr, "Not when you're not dead!")
 		return
-	var/target = input("Area to teleport to", "Teleport to a location") as null|anything in SSmapping.ghostteleportlocs
+	var/target = tgui_input_list(usr, "Area to teleport to", "Teleport to a location", SSmapping.ghostteleportlocs)
 	teleport(SSmapping.ghostteleportlocs[target])
 
 /mob/dead/observer/proc/jump_to_ruin()

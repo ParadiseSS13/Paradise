@@ -176,18 +176,25 @@ export const SettingsGeneral = (props, context) => {
         </LabeledList.Item>
       </LabeledList>
       <Divider />
-      <Button
-        mt={0.25}
-        content="Save chat log"
-        icon="save"
-        onClick={() => dispatch(saveChatToDisk())}
-      />
-      <Button.Confirm
-        icon="trash"
-        confirmContent="Are you sure?"
-        content="Clear chat"
-        onClick={() => dispatch(clearChat())}
-      />
+      <Stack fill>
+        <Stack.Item grow mt={0.15}>
+          <Button
+            content="Save chat log"
+            icon="save"
+            tooltip="Export current tab history into HTML file"
+            onClick={() => dispatch(saveChatToDisk())}
+          />
+        </Stack.Item>
+        <Stack.Item mt={0.15}>
+          <Button.Confirm
+            icon="trash"
+            confirmContent="Are you sure?"
+            content="Clear chat"
+            tooltip="Erase current tab history"
+            onClick={() => dispatch(clearChat())}
+          />
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

@@ -49,8 +49,6 @@
 
 #define STOMACH_ATTACK_DELAY 4
 
-/mob/living/carbon/var/last_stomach_attack //defining this here because no one would look in carbon_defines for it
-
 /mob/living/carbon/relaymove(mob/user, direction)
 	if(LAZYLEN(stomach_contents))
 		if(user in stomach_contents)
@@ -699,7 +697,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			return
 
 	if(thrown_thing)
-		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
+		if(!HAS_TRAIT(thrown_thing, TRAIT_NO_THROWN_MESSAGE))
+			visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
 		newtonian_move(get_dir(target, src))
 		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
 
@@ -1182,22 +1181,22 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	SSticker.score.score_food_eaten++
 	return TRUE
 
-/mob/living/carbon/proc/drink(obj/item/reagent_containers/drinks/to_eat, mob/user)
+/mob/living/carbon/proc/drink(obj/item/reagent_containers/drinks/to_drink, mob/user, drinksize_override)
 	if(user == src)
-		if(!selfDrink(to_eat))
+		if(!selfDrink(to_drink))
 			return FALSE
-	else if(!forceFed(to_eat, user, nutrition))
+	else if(!forceFed(to_drink, user, nutrition))
 		return FALSE
 
-	if(to_eat.consume_sound)
-		playsound(loc, to_eat.consume_sound, rand(10, 50), TRUE)
-	if(to_eat.reagents.total_volume)
-		taste(to_eat.reagents)
-		var/fraction = min(1 / to_eat.reagents.total_volume, 1)
-		var/drink_size = to_eat.amount_per_transfer_from_this > 5 ? 5 : to_eat.amount_per_transfer_from_this
-		if(fraction)
-			to_eat.reagents.reaction(src, REAGENT_INGEST, fraction)
-			to_eat.reagents.trans_to(src, drink_size)
+	if(to_drink.consume_sound)
+		playsound(loc, to_drink.consume_sound, rand(10, 50), TRUE)
+	if(to_drink.reagents.total_volume)
+		taste(to_drink.reagents)
+		var/drink_size = min(to_drink.amount_per_transfer_from_this, 5)
+		if(drinksize_override)
+			drink_size = drinksize_override
+		to_drink.reagents.reaction(src, REAGENT_INGEST)
+		to_drink.reagents.trans_to(src, drink_size)
 
 	SSticker.score.score_food_eaten++
 	return TRUE
