@@ -1,9 +1,4 @@
-
 // Allows you to monitor messages that passes the server.
-
-
-
-
 /obj/machinery/computer/message_monitor
 	name = "message monitoring console"
 	desc = "Used to monitor the crew's messages that are sent via PDA. It can also be used to view Request Console messages."
@@ -415,7 +410,7 @@
 								continue
 							sendPDAs += P
 						if(GLOB.PDAs && GLOB.PDAs.len > 0)
-							customrecepient = tgui_input_list(usr, "Select a PDA from the list.", buttons = sortAtom(sendPDAs))
+							customrecepient = tgui_input_list(usr, "Select a PDA from the list.", items = sortAtom(sendPDAs))
 						else
 							customrecepient = null
 
