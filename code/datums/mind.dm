@@ -1424,7 +1424,7 @@
 					return
 
 				var/mob/living/carbon/human/H = current
-				var/gear = alert("Agent or Scientist Gear","Gear","Agent","Scientist")
+				var/gear = alert("Agent or Scientist Gear", "Gear", "Agent", "Scientist")
 				if(gear)
 					if(gear=="Agent")
 						H.equipOutfit(/datum/outfit/abductor/agent)
@@ -1657,9 +1657,9 @@
 		SSticker.mode.update_wiz_icons_added(src)
 
 /datum/mind/proc/make_Abductor()
-	var/role = alert("Abductor Role ?","Role","Agent","Scientist")
-	var/team = input("Abductor Team ?","Team ?") in list(1,2,3,4)
-	var/teleport = alert("Teleport to ship ?","Teleport","Yes","No")
+	var/role = alert("Abductor Role?", "Role", "Agent", "Scientist")
+	var/team = input("Abductor Team?", "Team?") in list(1,2,3,4)
+	var/teleport = alert("Teleport to ship?", "Teleport", "Yes", "No")
 
 	if(!role || !team || !teleport)
 		return

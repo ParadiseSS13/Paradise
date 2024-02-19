@@ -442,6 +442,7 @@
 	animate(src, transform = matrix, time = SScredits.credit_roll_speed)
 	addtimer(CALLBACK(src, PROC_REF(delete_credit)), SScredits.credit_roll_speed, TIMER_CLIENT_TIME)
 
-/client/var/list/credits
+/client
+	var/list/credits
 
 #undef CREDITS_PLANE

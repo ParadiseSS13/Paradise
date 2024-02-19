@@ -381,11 +381,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 		O.show_message(text("[bicon(src)] *[ttone]*"))
 
 /obj/item/pda/proc/set_ringtone(mob/user)
-	var/new_tone = input("Please enter new ringtone", name, ttone) as text
+	var/new_tone = tgui_input_text(user, "Please enter new ringtone", name, ttone)
 	new_tone = trim(new_tone)
+
 	if(!in_range(src, user) || loc != user)
 		close(user)
 		return FALSE
+
 	if(!new_tone)
 		return FALSE
 
@@ -393,7 +395,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, "The PDA softly beeps.")
 		close(user)
 		return TRUE
-	ttone = sanitize(copytext_char(new_tone, 1, 20))	// SS220 EDIT - ORIGINAL: copytext
+
+	ttone = sanitize(copytext(new_tone, 1, 20))
 	return TRUE
 
 /obj/item/pda/process()

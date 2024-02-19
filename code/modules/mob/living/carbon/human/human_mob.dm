@@ -764,7 +764,7 @@
 	if(href_list["secrecordadd"])
 		if(usr.incapacitated() || !hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
 			return
-		var/raw_input = input("Add Comment:", "Security records", null, null) as message
+		var/raw_input = tgui_input_text(usr, "Add Comment:", "Security records", multiline = TRUE, encode = FALSE)
 		var/sanitized = copytext(trim(sanitize(raw_input)), 1, MAX_MESSAGE_LEN)
 		if(!sanitized || usr.stat || usr.restrained() || !hasHUD(usr,  EXAMINE_HUD_SECURITY_WRITE))
 			return
@@ -865,7 +865,7 @@
 	if(href_list["medrecordadd"])
 		if(usr.incapacitated() || !hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 			return
-		var/raw_input = input("Add Comment:", "Medical records", null, null) as message
+		var/raw_input = tgui_input_text(usr, "Add Comment:", "Medical records", multiline = TRUE, encode = FALSE)
 		var/sanitized = copytext(trim(sanitize(raw_input)), 1, MAX_MESSAGE_LEN)
 		if(!sanitized || usr.stat || usr.restrained() || !hasHUD(usr,  EXAMINE_HUD_MEDICAL_WRITE))
 			return
@@ -1505,7 +1505,7 @@
 
 	var/max_length = bloody_hands * 30 //tweeter style
 
-	var/message = stripped_input(src,"Write a message. It cannot be longer than [max_length] characters.","Blood writing", "")
+	var/message = tgui_input_text(src, "Write a message. It cannot be longer than [max_length] characters.", "Blood writing", max_length = max_length)
 	if(origin != loc)
 		to_chat(src, "<span class='notice'>Stay still while writing!</span>")
 		return
@@ -1558,7 +1558,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return FALSE
 
 /mob/living/carbon/human/assess_threat(mob/living/simple_animal/bot/secbot/judgebot, lasercolor)
-	if(judgebot.emagged == 2)
+	if(judgebot.emagged)
 		return 10 //Everyone is a criminal!
 
 	var/threatcount = 0
@@ -2145,7 +2145,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(stat)
 		return
 
-	pose = sanitize(copytext_char(input(usr, "This is [src]. [p_they(TRUE)]...", "Pose", null) as text, 1, MAX_MESSAGE_LEN))	// SS220 EDIT - ORIGINAL: copytext
+	pose = tgui_input_text(usr, "This is [src]. [p_they(TRUE)]...", "Pose")
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Set Flavour Text"
