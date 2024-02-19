@@ -328,10 +328,10 @@
 		to_chat(src, alert("[rank] is not available due to your character having amputated limbs without a prosthetic replacement. Please try another."))
 		return 0
 
-	SSjobs.AssignRole(src, rank, 1)
+	var/role_to_assign = SSjobs.AssignRole(src, rank, 1)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
-	character = SSjobs.AssignRank(character, rank, TRUE)					//equips the human
+	character = SSjobs.AssignRank(character, role_to_assign, TRUE)					//equips the human
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
 	if(character.mind.assigned_role == "AI")
@@ -339,7 +339,7 @@
 
 		// IsJobAvailable for AI checks that there is an empty core available in this list
 		ai_character.moveToEmptyCore()
-		AnnounceCyborg(ai_character, rank, "has been downloaded to the empty core in \the [get_area(ai_character)]")
+		AnnounceCyborg(ai_character, role_to_assign, "has been downloaded to the empty core in \the [get_area(ai_character)]")
 
 		SSticker.mode.latespawn(ai_character)
 		qdel(src)
@@ -348,10 +348,10 @@
 	//Find our spawning point.
 	var/join_message
 
-	if(IsAdminJob(rank))
-		if(IsERTSpawnJob(rank))
+	if(IsAdminJob(role_to_assign))
+		if(IsERTSpawnJob(role_to_assign))
 			character.loc = pick(GLOB.ertdirector)
-		else if(IsSyndicateCommand(rank))
+		else if(IsSyndicateCommand(role_to_assign))
 			character.loc = pick(GLOB.syndicateofficer)
 		else
 			character.forceMove(pick(GLOB.aroomwarp))
@@ -366,18 +366,18 @@
 		character.buckled.forceMove(character.loc)
 		character.buckled.dir = character.dir
 
-	character = SSjobs.EquipRank(character, rank, 1)					//equips the human
+	character = SSjobs.EquipRank(character, role_to_assign, 1)					//equips the human
 	SSticker.equip_cuis(character) // Gives them their CUIs
 
 	SSticker.mode.latespawn(character)
 
 	if(character.mind.assigned_role == "Cyborg")
-		AnnounceCyborg(character, rank, join_message)
+		AnnounceCyborg(character, role_to_assign, join_message)
 	else
 		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
-		if(!IsAdminJob(rank))
+		if(!IsAdminJob(role_to_assign))
 			GLOB.data_core.manifest_inject(character)
-			AnnounceArrival(character, rank, join_message)
+			AnnounceArrival(character, role_to_assign, join_message)
 
 			if(length(GLOB.current_pending_diseases) && character.ForceContractDisease(GLOB.current_pending_diseases[1], TRUE, TRUE))
 				popleft(GLOB.current_pending_diseases)

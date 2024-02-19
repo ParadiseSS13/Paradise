@@ -101,7 +101,7 @@ SUBSYSTEM_DEF(jobs)
 					GiveRandomJob(player, TRUE)
 					if(second_pass)
 						AssignRole(player, "Assistant") // No other jobs to give them
-					return
+					return FALSE
 				else
 					probability_of_antag_role_restriction /= 10
 			Debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JTP:[job.total_positions], JSP:[job.spawn_positions]")
@@ -116,10 +116,10 @@ SUBSYSTEM_DEF(jobs)
 			unassigned -= player
 			job.current_positions++
 			SSblackbox.record_feedback("nested tally", "manifest", 1, list(rank, (latejoin ? "latejoin" : "roundstart")))
-			return 1
+			return rank
 
 	Debug("AR has failed, Player: [player], Rank: [rank]")
-	return 0
+	return FALSE
 
 /datum/controller/subsystem/jobs/proc/FreeRole(rank, force = FALSE)	//making additional slot on the fly
 	var/datum/job/job = GetJob(rank)
