@@ -12,7 +12,7 @@
 	proj_icon_state = "magicm"
 	proj_name = "a magic missile"
 	proj_lingering = 1
-	proj_type = "/datum/spell/inflict_handler/magic_missile"
+	proj_type = /obj/item/projectile/magic/magic_missile
 
 	proj_lifespan = 20
 	proj_step_delay = 2
@@ -31,26 +31,27 @@
 	T.max_targets = INFINITY
 	return T
 
-/datum/spell/inflict_handler/magic_missile
-	amt_weakened = 6 SECONDS
-	sound = 'sound/magic/mm_hit.ogg'
+/obj/item/projectile/magic/magic_missile
+	name = "Magic Missile"
+	hitsound = 'sound/magic/mm_hit.ogg'
+	weaken = 6 SECONDS
 
 /datum/spell/projectile/honk_missile
 	name = "Honk Missile"
 	desc = "This spell fires several, slow moving, magic bikehorns at nearby targets."
 
 	school = "evocation"
-	base_cooldown = 60
+	base_cooldown = 6 SECONDS
 	clothes_req = FALSE
 	invocation = "HONK GY AMA"
 	invocation_type = "shout"
-	cooldown_min = 60 //35 deciseconds reduction per rank
+	cooldown_min = 6 SECONDS
 
 	proj_icon = 'icons/obj/items.dmi'
 	proj_icon_state = "bike_horn"
 	proj_name = "A bike horn"
 	proj_lingering = 1
-	proj_type = "/datum/spell/inflict_handler/honk_missile"
+	proj_type = /obj/item/projectile/magic/magic_missile/honk_missile
 
 	proj_lifespan = 20
 	proj_step_delay = 5
@@ -70,9 +71,9 @@
 	T.max_targets = INFINITY
 	return T
 
-/datum/spell/inflict_handler/honk_missile
-	amt_weakened = 6 SECONDS
-	sound = 'sound/items/bikehorn.ogg'
+/obj/item/projectile/magic/magic_missile/honk_missile
+	name = "Funny Missile"
+	hitsound = 'sound/items/bikehorn.ogg'
 
 /datum/spell/noclothes
 	name = "No Clothes"
@@ -300,10 +301,9 @@
 	cast_sound = 'sound/magic/summonitems_generic.ogg'
 	aoe_range = 3
 
-/datum/spell/trigger/blind
+/datum/spell/genetic/blind
 	name = "Blind"
 	desc = "This spell temporarily blinds a single person and does not require wizard garb."
-
 	school = "transmutation"
 	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
@@ -311,28 +311,20 @@
 	invocation_type = "whisper"
 	message = "<span class='notice'>Your eyes cry out in pain!</span>"
 	cooldown_min = 2 SECONDS
+	traits = list(TRAIT_BLIND)
 
-	starting_spells = list("/datum/spell/inflict_handler/blind","/datum/spell/genetic/blind")
+	duration = 30 SECONDS
+	sound = 'sound/magic/blind.ogg'
 
-	action_icon_state = "blind"
-
-/datum/spell/trigger/blind/create_new_targeting()
+/datum/spell/genetic/blind/create_new_targeting()
 	var/datum/spell_targeting/click/C = new()
 	C.allowed_type = /mob/living
 	return C
 
-/datum/spell/inflict_handler/blind
-	amt_eye_blind = 10
-	amt_eye_blurry = 20
-	sound = 'sound/magic/blind.ogg'
-
-/datum/spell/genetic/blind
-	traits = list(TRAIT_BLIND)
-	duration = 300
-	sound = 'sound/magic/blind.ogg'
-
-/datum/spell/genetic/blind/create_new_targeting()
-	return new /datum/spell_targeting/self // Dummy value since it is never used by an user directly
+/datum/spell/genetic/blind/do_additional_effects(mob/living/target)
+	target.EyeBlurry(20 SECONDS)
+	target.EyeBlind(10 SECONDS)
+	SEND_SOUND(target, sound('sound/magic/blind.ogg'))
 
 /datum/spell/fireball
 	name = "Fireball"

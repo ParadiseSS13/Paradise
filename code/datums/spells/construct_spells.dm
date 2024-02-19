@@ -144,7 +144,7 @@
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	proj_lifespan = 10
 	proj_step_delay = 5
-	proj_type = "/datum/spell/inflict_handler/magic_missile/lesser"
+	proj_type = /obj/item/projectile/magic/magic_missile/lesser
 
 /datum/spell/projectile/magic_missile/lesser/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
@@ -153,9 +153,10 @@
 	T.max_targets = 6
 	return T
 
-/datum/spell/inflict_handler/magic_missile/lesser
-	amt_knockdown = 6 SECONDS
-	amt_weakened = 0
+/obj/item/projectile/magic/magic_missile/lesser
+	name = "lesser magic missile"
+	knockdown = 6 SECONDS
+	weaken = 0
 
 /datum/spell/smoke/disable
 	name = "Paralysing Smoke"

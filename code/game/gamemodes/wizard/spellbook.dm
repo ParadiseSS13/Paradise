@@ -97,7 +97,7 @@
 //Offensive
 /datum/spellbook_entry/blind
 	name = "Blind"
-	spell_type = /datum/spell/trigger/blind
+	spell_type = /datum/spell/genetic/blind
 	category = "Offensive"
 	cost = 1
 
@@ -1006,7 +1006,7 @@
 	user.adjust_nutrition(-200)
 
 /obj/item/spellbook/oneuse/blind
-	spell = /datum/spell/trigger/blind
+	spell = /datum/spell/genetic/blind
 	spellname = "blind"
 	icon_state = "bookblind"
 	desc = "This book looks blurry, no matter how you look at it."

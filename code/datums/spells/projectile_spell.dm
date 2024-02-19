@@ -10,7 +10,8 @@
 	var/proj_trail_icon = 'icons/obj/wizard.dmi'
 	var/proj_trail_icon_state = "trail"
 
-	var/proj_type = "/datum/spell" //IMPORTANT use only subtypes of this
+	/// The projectile we spawn. Make sure to override this
+	var/proj_type
 
 	var/proj_lingering = 0 //if it lingers or disappears upon hitting an obstacle
 	var/proj_homing = 1 //if it follows the target
@@ -24,61 +25,47 @@
 
 	for(var/mob/living/target in targets)
 		spawn(0)
-			var/obj/item/projectile/projectile
-			var/datum/spell/trigger/projectile_spell
-			if(istext(proj_type))
-				var/projectile_type = text2path(proj_type)
-				projectile = new projectile_type(user)
-			if(istype(proj_type, /datum/spell))
-				projectile_spell = new /datum/spell/trigger(user)
-				projectile_spell.linked_spells += proj_type
+			var/obj/item/projectile/projectile = new proj_type(get_turf(user))
 			projectile.icon = proj_icon
 			projectile.icon_state = proj_icon_state
-			projectile.dir = get_dir(target,projectile)
+			projectile.dir = get_dir(target, projectile)
 			projectile.name = proj_name
+			var/current_loc = get_turf(projectile)
 
-			var/current_loc = user.loc
-
-			projectile.loc = current_loc
-
-			for(var/i = 0,i < proj_lifespan,i++)
+			for(var/i in 1 to proj_lifespan)
 				if(!projectile)
 					break
 
 				if(proj_homing)
 					if(proj_insubstantial)
 						projectile.dir = get_dir(projectile,target)
-						projectile.loc = get_step_to(projectile,target)
+						projectile.forceMove(get_step_to(projectile, target))
 					else
 						step_to(projectile,target)
 				else
 					if(proj_insubstantial)
-						projectile.loc = get_step(projectile, projectile.dir)
+						projectile.forceMove(get_step(projectile, projectile.dir))
 					else
 						step(projectile, projectile.dir)
 
 				if(!projectile) // step and step_to sleeps so we'll have to check again.
 					break
 
-				if(!proj_lingering && projectile.loc == current_loc) //if it didn't move since last time
+				if(!proj_lingering && (get_turf(projectile) == current_loc)) //if it didn't move since last time
 					qdel(projectile)
 					break
 
 				if(proj_trail && projectile)
 					spawn(0)
 						if(projectile)
-							var/obj/effect/overlay/trail = new /obj/effect/overlay(projectile.loc)
+							var/obj/effect/overlay/trail = new /obj/effect/overlay(get_turf(projectile))
 							trail.icon = proj_trail_icon
 							trail.icon_state = proj_trail_icon_state
 							trail.density = FALSE
 							spawn(proj_trail_lifespan)
 								qdel(trail)
 
-				if(projectile.loc in range(target.loc,proj_trigger_range))
-					projectile_spell.perform(list(target), user = user)
-					break
-
-				current_loc = projectile.loc
+				current_loc = get_turf(projectile)
 
 				sleep(proj_step_delay)
 

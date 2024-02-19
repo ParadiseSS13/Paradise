@@ -5,10 +5,6 @@
 	action_icon_state = "vampire_cloak"
 	base_cooldown = 2 SECONDS
 
-/datum/spell/vampire/self/cloak/New()
-	..()
-	update_spell_name(action.owner)
-
 /datum/spell/vampire/self/cloak/proc/update_spell_name(mob/living/user)
 	if(!ishuman(user) || !user.mind)
 		return

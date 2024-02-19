@@ -4,7 +4,7 @@
 	var/list/active_on = list()
 	var/list/traits = list() // traits
 	var/list/mutations = list() // mutation defines. Set these in Initialize. Refactor this nonsense one day
-	var/duration = 100 // deciseconds
+	var/duration = 10 SECONDS
 
 /datum/spell/genetic/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
@@ -17,8 +17,12 @@
 			ADD_TRAIT(target, A, MAGIC_TRAIT)
 		active_on += target
 		target.regenerate_icons()
+		do_additional_effects(target)
 		if(duration < base_cooldown)
 			addtimer(CALLBACK(src, PROC_REF(remove), target), duration, TIMER_OVERRIDE|TIMER_UNIQUE)
+
+/datum/spell/genetic/proc/do_additional_effects(mob/target)
+	return
 
 /datum/spell/genetic/Destroy()
 	for(var/V in active_on)
