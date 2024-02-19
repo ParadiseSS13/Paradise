@@ -229,7 +229,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(warningmsg)
 		var/response
 		var/alertmsg = "Are you -sure- you want to ghost?\n([warningmsg]. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
-		response = alert(src, alertmsg,"Are you sure you want to ghost?","Stay in body","Ghost")
+		response = tgui_alert(src, alertmsg, "Ghost", list("Stay in body", "Ghost"))
 		if(response != "Ghost")
 			return
 
@@ -398,7 +398,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='warning'>Your body is still alive!</span>")
 		return
 
-	var/choice = alert(src, "If you enable this, your body will be unrevivable for the remainder of the round.", "Are you sure?", "Yes", "No")
+	var/choice = tgui_alert(src, "If you enable this, your body will be unrevivable for the remainder of the round.", "Do Not Revive!", list("Yes", "No"))
 	if(choice == "Yes")
 		to_chat(src, "<span class='boldnotice'>Do Not Revive state enabled.</span>")
 		create_log(MISC_LOG, "DNR Enabled")
