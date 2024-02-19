@@ -25,8 +25,6 @@
 	return ..()
 
 /mob/new_player/verb/new_player_panel()
-	set src = usr
-
 	if(client.tos_consent || GLOB.configuration.system.external_tos_handler)
 		new_player_panel_proc()
 	else
