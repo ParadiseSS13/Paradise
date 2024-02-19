@@ -328,9 +328,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	list_reagents = list("nicotine" = 120)
 
 /obj/item/clothing/mask/cigarette/cigar/proc/can_light_cigar(obj/item/lighting_item)
-	if(istype(lighting_item, /obj/item/match) || istype(lighting_item, /obj/item/lighter/zippo))
-		return TRUE
-	return FALSE
+	return (istype(lighting_item, /obj/item/match) || istype(lighting_item, /obj/item/lighter/zippo))
 
 /obj/item/clothing/mask/cigarette/cigar/can_light(obj/item/cigar, obj/item/lighting_item)
 	if(lighting_item.get_heat() && can_light_cigar(lighting_item))
