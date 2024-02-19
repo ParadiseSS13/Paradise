@@ -1,9 +1,9 @@
 /obj/item/sellable/salvage
 	name = "Salvage"
 	desc = "A tonne of salvage looted from bad mapping practices. Who spawned the base type? Report this on the github."
+	icon = 'icons/obj/sellable.dmi'
 	force = 5
 	throwforce = 5
-	icon = 'icons/obj/sellable.dmi'
 	throw_speed = 1
 	throw_range = 4
 	hitsound = 'sound/items/handling/salvagepickup.ogg'
