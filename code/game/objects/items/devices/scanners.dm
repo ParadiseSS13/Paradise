@@ -369,7 +369,7 @@ SLIME SCANNER
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		handle_clumsy(user)
 		return
-	user.visible_message("<span class='notice'>[user] has analyzed [M]'s components with the [src].</span>", "<span class='notice'>You analyze [M]'s components with the [src].</span>")
+	user.visible_message("<span class='notice'>[user] has analyzed [M]'s components with [src].</span>", "<span class='notice'>You analyze [M]'s components with [src].</span>")
 	machine_scan(user, M)
 	add_fingerprint(user)
 
