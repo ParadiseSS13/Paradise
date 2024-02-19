@@ -211,7 +211,7 @@ SUBSYSTEM_DEF(changelog)
 		if("open_pr")
 			var/pr_num = params["pr_number"]
 			if(GLOB.configuration.url.github_url)
-				if(alert("This will open PR #[pr_num] in your browser. Are you sure?", "Open PR", "Yes", "No") == "No")
+				if(tgui_alert(usr, "This will open PR #[pr_num] in your browser. Are you sure?", "Open PR", list("Yes", "No")) == "No")
 					return
 
 				// If the github URL in the config has a trailing slash, it doesnt matter here, thankfully github accepts having a double slash: https://github.com/org/repo//pull/1
