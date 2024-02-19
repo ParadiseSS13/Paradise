@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	if(ispath(D))
 		return FALSE
 
-	if(!istype(D.type, /datum/disease/advance))
+	if(!istype(D, /datum/disease/advance))
 		return FALSE
 
 	if(GetDiseaseID() != D.GetDiseaseID())
