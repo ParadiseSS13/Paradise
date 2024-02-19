@@ -608,7 +608,7 @@
 	if(crit_fail)
 		return
 	if(owner.maxHealth == owner.health)
-		owner.adjust_nutrition(-0.25)
+		owner.adjust_nutrition(-0.5) // 1 per tick was a bit much
 		return //Passive damage scanning
 
 	owner.adjustBruteLoss(-0.5, robotic = TRUE)
@@ -679,10 +679,10 @@
 
 /obj/item/organ/internal/cyberimp/chest/ipc_reviver
 	name = "Emergency Reboot System"
-	desc = "A reactive repair system for bringing a dying IPC back from the brink. Comes with a diagnostics system so you can figure out how dead you are."
+	desc = "A reactive repair system for bringing a dying IPC back from the brink. Comes with a diagnostics system for figuring out if anything else has gone wrong."
 	implant_color = "#0827F5"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
-	origin_tech = "materials=4;programming=5;magnets=5;engineering=6"
+	origin_tech = "materials=5;programming=5;magnets=5;engineering=6"
 	slot = "heartdrive"
 	requires_machine_person = TRUE
 	var/revive_cost = 0
@@ -720,14 +720,15 @@
 /obj/item/organ/internal/cyberimp/chest/ipc_reviver/proc/repairing()
 	if(QDELETED(owner))
 		return
-	if(prob(80) && owner.getBruteLoss())
-		owner.adjustBruteLoss(-4, robotic = TRUE)
+	revive_cost += 60
+	if(prob(75) && owner.getBruteLoss())
+		owner.adjustBruteLoss(-2, robotic = TRUE)
 		revive_cost += 60
-	if(prob(80) && owner.getFireLoss())
-		owner.adjustFireLoss(-4, robotic = TRUE)
+	if(prob(75) && owner.getFireLoss())
+		owner.adjustFireLoss(-2, robotic = TRUE)
 		revive_cost += 60
-	if(prob(50) && owner.getBrainLoss())
-		owner.adjustBrainLoss(-4)
+	if(prob(30) && owner.getBrainLoss())
+		owner.adjustBrainLoss(-2)
 		revive_cost += 60
 
 /obj/item/organ/internal/cyberimp/chest/ipc_reviver/proc/owner_diagnostics(mob/owner)
@@ -768,20 +769,19 @@
 
 /obj/item/organ/internal/cyberimp/chest/ipc_radproof
 	name = "Radioactive Environment Upgrade"
-	desc = "A special lead lining for protecting fragile Positronic brains from radiation. Not recommended to burn."
+	desc = "A special lead lining for protecting fragile Positronic brains from radiation. Exposure to high heat may result in melting and unwanted damage."
 	implant_color = "#eed202"
 	slot = "appendix"
 	requires_machine_person = TRUE
-	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/ipc_radproof/insert(mob/living/carbon/M, special = FALSE)
 	..()
 	ADD_TRAIT(M, TRAIT_RADIMMUNE, "ipc_radproof[UID()]")
-	owner.physiology.burn_mod *= 1.10
+	owner.physiology.burn_mod *= 1.15
 
 /obj/item/organ/internal/cyberimp/chest/ipc_radproof/remove(mob/living/carbon/M, special = FALSE)
 	REMOVE_TRAIT(M, TRAIT_RADIMMUNE, "ipc_radproof[UID()]")
-	owner.physiology.burn_mod /= 1.10
+	owner.physiology.burn_mod /= 1.15
 	return ..()
 
 /obj/item/organ/internal/cyberimp/chest/batbooster
@@ -801,7 +801,7 @@
 	desc += " The implant has been hardened. It is invulnerable to EMPs."
 
 /obj/item/organ/internal/cyberimp/chest/batbooster/on_life()
-	if(owner.stat == DEAD || crit_fail)
+	if(crit_fail)
 		return
 	else
 		owner.adjust_nutrition(0.7)
@@ -823,22 +823,22 @@
 	name = "Lazarus Restarter"
 	desc = "The brainchild of researchers at the Canaan University of Technology, this implant makes the user effectively immortal at the cost of becoming essentially a shambling zombie."
 	implant_color = "#ffffff"
-	slot = "heartdrive"
+	slot = "stomach"
 	requires_machine_person = TRUE
-	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/lazrestarter/on_life()
 	owner.adjustBruteLoss(-10, robotic = TRUE)
 	owner.adjustFireLoss(-10, robotic = TRUE)
-	owner.adjustBrainLoss(-5)
+	owner.adjustBrainLoss(-1)
 	if(owner.health <= HEALTH_THRESHOLD_CRIT)
 		owner.adjustBruteLoss(-25, robotic = TRUE)
 		owner.adjustFireLoss(-25, robotic = TRUE)
-		owner.adjustBrainLoss(-10)
+		owner.adjustBrainLoss(-5)
 
 /obj/item/organ/internal/cyberimp/chest/lazrestarter/insert(mob/living/carbon/M, special = FALSE)
 	..()
 	RegisterSignal(M, COMSIG_MOB_DEATH, PROC_REF(on_death))
+	to_chat(owner, "<span class='warning'>You feel undying, yet something within you has died and won't come back.</span>")
 
 /obj/item/organ/internal/cyberimp/chest/lazrestarter/proc/on_death()
 	addtimer(CALLBACK(src, PROC_REF(lazrestart)), 60 SECONDS)
@@ -854,9 +854,8 @@
 	name = "Canaanite Titan Plating"
 	desc = "Highly specialized armor plating often found used by certain elite units in the New Canaanite Armed Forces. This type is meant for high- and low-pressure hazardous environments."
 	implant_color = "#383838"
-	slot = "stomach"
+	slot = "heartdrive"
 	requires_machine_person = TRUE
-	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/titanplate/insert(mob/living/carbon/M, special = FALSE)
 	..()
@@ -882,18 +881,19 @@
 	implant_color = "#ffee00"
 	slot = "appendix"
 	requires_machine_person = TRUE
-	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/smtechnician/insert(mob/living/carbon/M, special = FALSE)
 	..()
 	ADD_TRAIT(M, TRAIT_SUPERMATTER_IMMUNE, "smtechnician[UID()]")
 	ADD_TRAIT(M, TRAIT_RADIMMUNE, "smtechnician[UID()]")
 	ADD_TRAIT(M, SM_HALLUCINATION_IMMUNE, "smtechnician[UID()]")
+	to_chat(owner, "<span class='warning'>You feel like you could touch Supermatter.</span>")
 
 /obj/item/organ/internal/cyberimp/chest/smtechnician/remove(mob/living/carbon/M, special = FALSE)
 	REMOVE_TRAIT(M, TRAIT_SUPERMATTER_IMMUNE, "smtechnician[UID()]")
 	REMOVE_TRAIT(M, TRAIT_RADIMMUNE, "smtechnician[UID()]")
 	REMOVE_TRAIT(M, SM_HALLUCINATION_IMMUNE, "smtechnician[UID()]")
+	to_chat(owner, "<span class='warning'>You feel like touching Supermatter might be a bad idea now.</span>")
 	return ..()
 
 //BOX O' IMPLANTS

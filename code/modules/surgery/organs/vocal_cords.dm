@@ -498,29 +498,11 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	insert(user)
 
 // Admin-discretion IPC-exclusive
-/obj/item/organ/internal/vocal_cords/badassreciever
-	name = "ECommand Reciever"
-	desc = "A communications reciever installed in subordinate elite units in the New Canaanite Armed Forces. Also gives the user a badass voice."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "voice_changer_off"
-	parent_organ = "head"
-	slot = "badassrec"
-	requires_machine_person = TRUE
-	emp_proof = TRUE
-
-/obj/item/organ/internal/vocal_cords/badassreciever/insert(mob/living/carbon/M, special = FALSE)
-	..()
-	ADD_TRAIT(M, TRAIT_BADASS, "badasssender[UID()]")
-
-/obj/item/organ/internal/vocal_cords/badassreciever/remove(mob/living/carbon/M, special = FALSE)
-	REMOVE_TRAIT(M, TRAIT_BADASS, "badasssender[UID()]")
-	return ..()
-
 /obj/item/organ/internal/vocal_cords/badasssender
-	name = "ECommand Transmitter"
-	desc = "Used by leaders of elite units in the New Canaanite Armed Forces, this is able to send orders to all units installed with reciever units. Also gives them a badass voice."
+	name = "ECommand 2-Way Transmitter"
+	desc = "Used by elite units in the New Canaanite Armed Forces to send and recieve transmissions from one another, regardless of telecommunication status. Also gives the user a badass voice."
 	icon = 'icons/obj/device.dmi'
-	icon_state = "voice_changer_off"
+	icon_state = "voice0"
 	slot = "badassrec"
 	actions_types = list(/datum/action/item_action/organ_action/use/badasssender)
 	requires_machine_person = TRUE
@@ -537,7 +519,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 /datum/action/item_action/organ_action/use/badasssender/Trigger(left_click)
 	if(!IsAvailable())
 		return
-	var/message = input(owner, "Send orders to subordinates.", "Transmit")
+	var/message = input(owner, "Send orders to units.", "Transmit")
 	if(QDELETED(src) || QDELETED(owner) || !message)
 		return
 	owner.say(".~[message]")
