@@ -81,7 +81,7 @@
 		return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/proc/Retract()
-	if(!holder || (holder in src) || check_cuffs())
+	if(!holder || (holder in src))
 		return
 	if(status & ORGAN_DEAD)
 		return
