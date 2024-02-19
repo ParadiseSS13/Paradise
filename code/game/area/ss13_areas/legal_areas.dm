@@ -17,7 +17,3 @@
 	icon_state = "magistrate"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
-/area/station/legal/courtroom/dap
-	name = "\improper Courtroom Defense and Prosecution"
-	icon_state = "seccourt"
-	sound_environment = SOUND_AREA_LARGE_ENCLOSED
