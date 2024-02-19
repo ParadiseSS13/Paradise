@@ -36,6 +36,7 @@
 			pre_vampires += vampire
 			vampire.special_role = SPECIAL_ROLE_VAMPIRE
 			vampire.restricted_roles = restricted_jobs
+			vampire.will_roll_antag = TRUE
 
 		..()
 		return TRUE

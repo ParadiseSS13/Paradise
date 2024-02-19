@@ -38,6 +38,7 @@
 		pre_changelings += changeling
 		changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
 		changeling.special_role = SPECIAL_ROLE_CHANGELING
+		changeling.will_roll_antag = TRUE
 
 	return ..()
 
