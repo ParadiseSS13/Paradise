@@ -28,7 +28,6 @@
 /obj/item/paper/carbon/verb/removecopy()
 	set name = "Remove carbon-copy"
 	set category = "Object"
-	set src in usr
 
 	if(copied == 0)
 		var/obj/item/paper/carbon/c = src

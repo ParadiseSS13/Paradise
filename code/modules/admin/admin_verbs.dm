@@ -543,16 +543,16 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		if("Big Bomb")
 			explosion(epicenter, 3, 5, 7, 5)
 		if("Custom Bomb")
-			var/devastation_range = input("Devastation range (in tiles):") as null|num
+			var/devastation_range = tgui_input_number(src, "Devastation range (in tiles):", "Custom Bomb", max_value = 255)
 			if(devastation_range == null)
 				return
-			var/heavy_impact_range = input("Heavy impact range (in tiles):") as null|num
+			var/heavy_impact_range = tgui_input_number(src, "Heavy impact range (in tiles):", "Custom Bomb", max_value = 255)
 			if(heavy_impact_range == null)
 				return
-			var/light_impact_range = input("Light impact range (in tiles):") as null|num
+			var/light_impact_range = tgui_input_number(src, "Light impact range (in tiles):", "Custom Bomb", max_value = 255)
 			if(light_impact_range == null)
 				return
-			var/flash_range = input("Flash range (in tiles):") as null|num
+			var/flash_range = tgui_input_number(src, "Flash range (in tiles):", "Custom Bomb", max_value = 255)
 			if(flash_range == null)
 				return
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1)

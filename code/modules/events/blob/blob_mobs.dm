@@ -231,7 +231,7 @@
 	flick("blobbernaut_death", src)
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
-	var/message = input(src, "Announce to the overmind", "Blob Telepathy")
+	var/message = tgui_input_text(usr, "Announce to the overmind", "Blob Telepathy")
 	var/rendered
 	var/follow_text
 	if(message)

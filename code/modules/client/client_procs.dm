@@ -138,7 +138,7 @@
 		return // prevents a recursive loop where the ..() 5 lines after this makes the proc endlessly re-call itself
 
 	if(href_list["withdraw_consent"])
-		var/choice = alert(usr, "Are you SURE you want to withdraw your consent to the Terms of Service?\nYou will be instantaneously removed from the server and will have to re-accept the Terms of Service.", "Warning", "Yes", "No")
+		var/choice = tgui_alert(usr, "Are you SURE you want to withdraw your consent to the Terms of Service?\nYou will be instantaneously removed from the server and will have to re-accept the Terms of Service.", "Warning", list("Yes", "No"))
 		if(choice == "Yes")
 			// Update the DB
 			var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO privacy (ckey, datetime, consent) VALUES (:ckey, Now(), 0)", list(
