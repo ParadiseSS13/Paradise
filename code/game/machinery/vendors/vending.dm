@@ -552,6 +552,7 @@
 /obj/machinery/economy/vending/emag_act(mob/user)
 	emagged = TRUE
 	to_chat(user, "You short out the product lock on [src]")
+	return TRUE
 
 /obj/machinery/economy/vending/ex_act(severity)
 	. = ..()

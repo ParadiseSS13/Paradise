@@ -37,7 +37,7 @@
 	if(by_hand)
 		for(var/obj/O in src)
 			if(O.density)
-				var/response = alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?","Bluespace Compression Warning", "Yes", "No")
+				var/response = tgui_alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?", "Bluespace Compression Warning", list("Yes", "No"))
 				if(response == "No" || !Adjacent(usr))
 					return FALSE
 				break
@@ -259,8 +259,9 @@
 		locked = FALSE
 		broken = TRUE
 		update_icon()
-		do_sparks(2, 1, src)
+		do_sparks(2, TRUE, src)
 		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
+		return TRUE
 
 /obj/structure/closet/crate/secure/emp_act(severity)
 	for(var/obj/O in src)
