@@ -278,3 +278,8 @@ and carry the owner just to make sure*/
 	medicine.reagents.reaction(src, reagent_application, fraction)
 	medicine.reagents.trans_to(src, how_many_reagents)
 	return TRUE
+
+/mob/living/carbon/alien/update_stat(reason)
+	if(health <= HEALTH_THRESHOLD_CRIT && stat == CONSCIOUS)
+		KnockOut()
+	return ..()
