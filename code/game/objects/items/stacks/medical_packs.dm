@@ -320,7 +320,7 @@
 
 		if(affecting.status & ORGAN_SPLINTED)
 			to_chat(user, "<span class='danger'>[H]'s [limb] is already splinted!</span>")
-			if(alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Splint removal.", "Yes", "No") == "Yes")
+			if(tgui_alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Splint removal", list("Yes", "No")) == "Yes")
 				affecting.status &= ~ORGAN_SPLINTED
 				H.handle_splints()
 				to_chat(user, "<span class='notice'>You remove the splint from [H]'s [limb].</span>")
