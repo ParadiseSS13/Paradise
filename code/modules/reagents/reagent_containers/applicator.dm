@@ -125,7 +125,7 @@
 /obj/item/reagent_containers/applicator/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(alert(user, "Are you sure you want to empty [src]?", "Empty Applicator:", "Yes", "No") != "Yes")
+	if(tgui_alert(user, "Are you sure you want to empty [src]?", "Empty Applicator", list("Yes", "No")) != "Yes")
 		return
 	if(!user.incapacitated() && isturf(user.loc) && loc == user)
 		to_chat(user, "<span class='notice'>You empty [src] onto the floor.</span>")

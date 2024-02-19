@@ -9,6 +9,7 @@
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 1
+	single_antag_positions = list()
 	var/use_huds = TRUE
 
 	var/finished = FALSE

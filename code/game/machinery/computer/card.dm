@@ -675,10 +675,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			regenerate_id_name()
 			return
 		if("account") // card account number
-			var/account_num = input(usr, "Account Number", "Input Number", null) as num|null
-			if(!scan || !modify)
+			var/account_num = tgui_input_number(usr, "Account Number", "Input Number", modify.associated_account_number, 9999999, 1000000)
+			if(!scan || !modify || !account_num)
 				return FALSE
-			modify.associated_account_number = clamp(round(account_num), 1000000, 9999999) //force a 7 digit number
+			modify.associated_account_number = account_num
 			//for future reference, you should never be able to modify the money account datum through the card computer
 			return
 		if("skin")
