@@ -73,6 +73,7 @@
 #include "code\__DEFINES\lighting_defines.dm"
 #include "code\__DEFINES\logs.dm"
 #include "code\__DEFINES\machines.dm"
+#include "code\__DEFINES\mappers.dm"
 #include "code\__DEFINES\martial_arts.dm"
 #include "code\__DEFINES\MC.dm"
 #include "code\__DEFINES\mecha_defines.dm"
