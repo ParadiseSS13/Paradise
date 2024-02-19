@@ -56,7 +56,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "j" = (
-/obj/item/reagent_containers/food/snacks/mushroompizzaslice,
+/obj/item/food/snacks/mushroompizzaslice,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
@@ -243,7 +243,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "D" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/margheritapizzaslice,
+/obj/item/food/snacks/margheritapizzaslice,
 /obj/item/trash/plate,
 /turf/simulated/floor/wood{
 	nitrogen = 23;
@@ -253,7 +253,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "E" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/meatpizzaslice,
+/obj/item/food/snacks/meatpizzaslice,
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
@@ -262,7 +262,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "F" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/sliceable/birthdaycake,
+/obj/item/food/snacks/sliceable/birthdaycake,
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;

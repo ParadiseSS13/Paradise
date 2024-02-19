@@ -291,7 +291,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			mind.transfer_to(mmi.brainmob)
 			mmi.update_icon()
 		else
-			to_chat(src, "<span class='boldannounce'>Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug.</span>")
+			to_chat(src, "<span class='boldannounceooc'>Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug.</span>")
 			ghostize()
 			stack_trace("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
 		mmi = null
@@ -990,6 +990,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else if(locked)
 			to_chat(user, "You emag the cover lock.")
 			locked = FALSE
+			return TRUE
 		else
 			to_chat(user, "The cover is already unlocked.")
 		return
@@ -1045,7 +1046,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				update_module_icon()
 				module.rebuild_modules() // This will add the emagged items to the borgs inventory.
 			update_icons()
-		return
+		return TRUE
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
 	set category = "Robot Commands"

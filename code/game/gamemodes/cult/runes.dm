@@ -369,7 +369,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 			var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
 			if(H.equip_to_slot_if_possible(D, SLOT_HUD_IN_BACKPACK, FALSE, TRUE))
-				to_chat(H, "<span class='cultlarge'>You have a dagger in your backpack. Use it to do [SSticker.cultdat.entity_title1]'s bidding. </span>")
+				to_chat(H, "<span class='cultlarge'>You have a dagger in your backpack. Use it to do [SSticker.cultdat.entity_title1]'s bidding.</span>")
 			else
 				to_chat(H, "<span class='cultlarge'>There is a dagger on the floor. Use it to do [SSticker.cultdat.entity_title1]'s bidding.</span>")
 
@@ -1001,15 +1001,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/manifest/proc/ghostify(mob/living/user, turf/T)
 	ADD_TRAIT(user, SCRYING, CULT_TRAIT)
-	user.add_atom_colour(RUNE_COLOR_DARKRED, ADMIN_COLOUR_PRIORITY)
 	user.visible_message("<span class='warning'>[user] freezes statue-still, glowing an unearthly red.</span>",
 					"<span class='cult'>You see what lies beyond. All is revealed. In this form you find that your voice booms above all others.</span>")
-	ghost = user.ghostize(TRUE)
+	ghost = user.ghostize(TRUE, RUNE_COLOR_DARKRED, "Dark Spirit of [user.name]")
 	var/datum/action/innate/cult/comm/spirit/CM = new
 	var/datum/action/innate/cult/check_progress/V = new
 	//var/datum/action/innate/cult/ghostmark/GM = new
-	ghost.name = "Dark Spirit of [ghost.name]"
-	ghost.color = "red"
 	CM.Grant(ghost)
 	V.Grant(ghost)
 	//GM.Grant(ghost)

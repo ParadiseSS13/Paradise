@@ -370,9 +370,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "aV" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "airlock"
-	},
+/obj/machinery/door/airlock/medical/glass,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -1321,8 +1319,8 @@
 /obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas/syndicate,
 /obj/item/mod/control/pre_equipped/traitor,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/item/reagent_containers/drinks/bottle/rum,
+/obj/item/reagent_containers/drinks/bottle/rum,
 /obj/item/folder/syndicate/blue,
 /turf/simulated/floor/plating,
 /area/ruin/space/onehalf/abandonedbridge)

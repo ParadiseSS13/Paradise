@@ -134,7 +134,6 @@
 
 	var/datum/browser/popup = new(user, "idcard", name, 600, 400)
 	popup.set_content(dat)
-	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/item/card/id/attack_self(mob/user as mob)
@@ -278,7 +277,7 @@
 		guest_pass.forceMove(get_turf(src))
 		guest_pass = null
 	else
-		to_chat(user, "<span class='warning'>There is no guest pass attached to this ID</span>")
+		to_chat(user, "<span class='warning'>There is no guest pass attached to this ID.</span>")
 
 /obj/item/card/id/serialize()
 	var/list/data = ..()
@@ -390,7 +389,7 @@
 			if("Show")
 				return ..()
 			if("Edit")
-				switch(input(user,"What would you like to edit on \the [src]?") in list("Name", "Photo", "Appearance", "Sex", "Age", "Occupation", "Money Account", "Blood Type", "DNA Hash", "Fingerprint Hash", "Reset Access", "Delete Card Information"))
+				switch(tgui_input_list(user, "What would you like to edit on [src]?", "Agent ID", list("Name", "Photo", "Appearance", "Sex", "Age", "Occupation", "Money Account", "Blood Type", "DNA Hash", "Fingerprint Hash", "Reset Access", "Delete Card Information")))
 					if("Name")
 						var/new_name = reject_bad_name(input(user,"What name would you like to put on this card?","Agent Card Name", ishuman(user) ? user.real_name : user.name), TRUE)
 						if(!Adjacent(user))
@@ -414,7 +413,7 @@
 						RebuildHTML()
 
 					if("Appearance")
-						var/list/appearances = list(
+						var/static/list/appearances = list(
 							"data",
 							"id",
 							"gold",
@@ -465,7 +464,7 @@
 							"ERT_janitorial",
 							"ERT_paranormal",
 						)
-						var/choice = input(user, "Select the appearance for this card.", "Agent Card Appearance") in appearances
+						var/choice = tgui_input_list(user, "Select the appearance for this card.", "Agent Card Appearance", appearances)
 						if(!Adjacent(user))
 							return
 						if(!choice)
@@ -509,7 +508,7 @@
 						RebuildHTML()
 
 					if("Occupation")
-						var/list/departments = list(
+						var/static/list/departments = list(
 							"Assistant" = null,
 							"Engineering" = GLOB.engineering_positions,
 							"Medical" = GLOB.medical_positions,
@@ -521,13 +520,13 @@
 							"Custom" = null,
 						)
 
-						var/department = input(user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
+						var/department = tgui_input_list(user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", departments)
 						var/new_job = "Assistant"
 
 						if(department == "Custom")
 							new_job = sanitize(stripped_input(user,"Choose a custom job title:","Agent Card Occupation", "Assistant", MAX_MESSAGE_LEN))
 						else if(department != "Assistant" && !isnull(departments[department]))
-							new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments[department]
+							new_job = tgui_input_list(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", departments[department])
 
 						if(!Adjacent(user))
 							return
@@ -717,13 +716,6 @@
 	var/random_number = "#[rand(0, 99)]-[rand(0, 999)]"
 	name = "Prisoner [random_number]"
 	registered_name = name
-
-/obj/item/card/id/salvage_captain
-	name = "Captain's ID"
-	registered_name = "Captain"
-	icon_state = "centcom"
-	desc = "Finders, keepers."
-	access = list(ACCESS_SALVAGE_CAPTAIN)
 
 /obj/item/card/id/medical
 	name = "Medical ID"

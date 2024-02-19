@@ -26,6 +26,9 @@
 	icon_state = "space_near"
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 
+/area/space/nearstation/disposals
+	icon_state = "nearspace_disposals"
+
 /area/space/atmosalert()
 	return
 

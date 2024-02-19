@@ -38,6 +38,13 @@
 	/// Icon state for thought bubbles. Normally set by mobs.
 	var/thought_bubble_image = "thought_bubble"
 
+	// Atmos
+	var/pressure_resistance = 10
+	var/last_high_pressure_movement_air_cycle = 0
+
+	/// UID for the atom which the current atom is orbiting
+	var/orbiting_uid = null
+
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
 	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))
@@ -394,7 +401,7 @@
 		step(src, AM.dir)
 	..()
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE, block_movement = TRUE)
 	if(!target || (flags & NODROP) || speed <= 0)
 		return 0
 
@@ -435,6 +442,7 @@
 	TT.diagonals_first = diagonals_first
 	TT.callback = callback
 	TT.dodgeable = dodgeable
+	TT.block_movement = block_movement
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)

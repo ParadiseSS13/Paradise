@@ -38,10 +38,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "i" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "j" = (
@@ -156,8 +153,7 @@
 /obj/effect/landmark/damageturf,
 /obj/item/kirbyplants/dead{
 	desc = "A dead potted plant. Must have died from lack of EVA equipment.";
-	item_state = "plant-dead";
-	name = "potted plant"
+	item_state = "plant-dead"
 	},
 /turf/simulated/floor/plasteel/airless{
 	dir = 6;

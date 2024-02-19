@@ -10,6 +10,7 @@
 	required_players = 15
 	var/max_teams = 4
 	abductor_teams = 1
+	single_antag_positions = list()
 	var/list/datum/mind/scientists = list()
 	var/list/datum/mind/agents = list()
 	var/list/datum/objective/team_objectives = list()
@@ -206,7 +207,7 @@
 		if(console.experiment.points >= objective.target_amount)
 			to_chat(world, "<span class='greenannounce'>[team_name] team fulfilled its mission!</span>")
 		else
-			to_chat(world, "<span class='boldannounce'>[team_name] team failed its mission.</span>")
+			to_chat(world, "<span class='boldannounceic'>[team_name] team failed its mission.</span>")
 	..()
 	return 1
 

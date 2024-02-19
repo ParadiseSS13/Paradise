@@ -174,6 +174,11 @@
 	build_path = /obj/machinery/computer/borgupload
 	origin_tech = "programming=4;engineering=4"
 
+/obj/item/circuitboard/nonfunctional
+	board_name = "destroyed"
+	desc = "The board is barely recognizable. Its original function is a mystery."
+	icon_state = "command_broken"
+
 /obj/item/circuitboard/med_data
 	board_name = "Medical Records"
 	icon_state = "medical"
@@ -547,7 +552,7 @@
 			format_board_name()
 			to_chat(user, "<span class='notice'>Access protocols set to [console_choice].</span>")
 		else
-			to_chat(user, "<span class='warning'>Access Denied</span>")
+			to_chat(user, "<span class='warning'>Access Denied.</span>")
 		return
 	return ..()
 
