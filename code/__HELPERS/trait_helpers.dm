@@ -217,7 +217,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_DODGE_ALL_OBJECTS "dodges_all_objects" /// Allows a mob to dodge all thrown objects
 #define TRAIT_BADASS "trait_badass"
 #define TRAIT_FORCED_STANDING "forced_standing" // The mob cannot be floored, or lie down
-#define TRAIT_SLEIGHT_OF_HAND "TRAIT_SLEIGHT_OF_HAND"
 #define TRAIT_IPC_JOINTS_MAG "ipc_joints_mag" // IPC has weaker limbs but can re-attach them with ease
 #define TRAIT_IPC_JOINTS_SEALED "ipc_joints_sealed" // The IPC's limbs will not pop off bar sharp damage (aka like a human), but will take slightly more stamina damage
 #define TRAIT_HAS_GPS "has_gps" // used for /Stat
@@ -228,6 +227,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
 #define TRAIT_TABLE_LEAP "table_leap"
+#define TRAIT_SLEIGHT_OF_HAND "sleight_of_hand"
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
