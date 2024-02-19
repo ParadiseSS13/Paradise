@@ -338,14 +338,14 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "IJ" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4;
 	name = "Ship Auto-Pilot Console"
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "JL" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4;
 	name = "Auto-Pilot Traveling Logs"
 	},

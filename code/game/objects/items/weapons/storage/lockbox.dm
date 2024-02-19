@@ -37,7 +37,7 @@
 			return
 	else if((istype(W, /obj/item/card/emag) || (istype(W, /obj/item/melee/energy/blade)) && !broken))
 		emag_act(user)
-		return
+		return TRUE
 	if(!locked)
 		..()
 	else

@@ -203,6 +203,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		req_access = list()
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+		return TRUE
 
 /obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
 	switch(next_menu)
@@ -300,7 +301,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			break
 
 	if(!pointless)
-		var/choice = input("This item does not raise tech levels. Proceed destroying loaded item anyway?") in list("Proceed", "Cancel")
+		var/choice = alert(user, "This item does not raise tech levels. Proceed destroying loaded item anyway?", "Are you sure you want to destroy this item?", "Proceed", "Cancel")
 		if(choice == "Cancel" || !linked_destroy)
 			return
 
