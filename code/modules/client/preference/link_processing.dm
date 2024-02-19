@@ -13,7 +13,7 @@
 				active_character.SetChoices(user)
 			if("learnaboutselection")
 				if(GLOB.configuration.url.wiki_url)
-					if(alert("Would you like to open the Job selection info in your browser?", "Open Job Selection", "Yes", "No") == "Yes")
+					if(tgui_alert(user, "Would you like to open the Job selection info in your browser?", "Open Job Selection", list("Yes", "No")) == "Yes")
 						user << link("[GLOB.configuration.url.wiki_url]/index.php/Job_Selection_and_Assignment")
 				else
 					to_chat(user, "<span class='danger'>The Wiki URL is not set in the server configuration.</span>")
@@ -65,7 +65,7 @@
 			user << browse(null, "window=records")
 
 		if(href_list["task"] == "med_record")
-			var/medmsg = input(usr,"Set your medical notes here.","Medical Records",html_decode(active_character.med_record)) as message
+			var/medmsg = tgui_input_text(usr, "Set your medical notes here.", "Medical Records", active_character.med_record, multiline = TRUE, encode = FALSE)
 
 			if(medmsg != null)
 				medmsg = copytext(medmsg, 1, MAX_PAPER_MESSAGE_LEN)
@@ -75,7 +75,7 @@
 				active_character.SetRecords(user)
 
 		if(href_list["task"] == "sec_record")
-			var/secmsg = input(usr,"Set your security notes here.","Security Records",html_decode(active_character.sec_record)) as message
+			var/secmsg = tgui_input_text(usr, "Set your security notes here.", "Security Records", active_character.sec_record, multiline = TRUE, encode = FALSE)
 
 			if(secmsg != null)
 				secmsg = copytext(secmsg, 1, MAX_PAPER_MESSAGE_LEN)
@@ -85,7 +85,7 @@
 				active_character.SetRecords(user)
 
 		if(href_list["task"] == "gen_record")
-			var/genmsg = input(usr,"Set your employment notes here.","Employment Records",html_decode(active_character.gen_record)) as message
+			var/genmsg = tgui_input_text(usr, "Set your employment notes here.", "Employment Records", active_character.gen_record, multiline = TRUE, encode = FALSE)
 
 			if(genmsg != null)
 				genmsg = copytext(genmsg, 1, MAX_PAPER_MESSAGE_LEN)
@@ -212,9 +212,10 @@
 							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
 
 				if("age")
-					var/new_age = input(user, "Choose your character's age:\n([S.min_age]-[S.max_age])", "Character Preference") as num|null
-					if(new_age)
-						active_character.age = max(min(round(text2num(new_age)), S.max_age), S.min_age)
+					var/new_age = tgui_input_number(user, "Choose your character's age:\n([S.min_age]-[S.max_age])", "Character Preference", active_character.age, S.max_age, S.min_age)
+					if(!new_age)
+						return
+					active_character.age = max(min(round(text2num(new_age)), S.max_age), S.min_age)
 				if("species")
 					var/list/new_species = list()
 					var/prev_species = active_character.species
@@ -326,9 +327,10 @@
 						active_character.autohiss_mode = autohiss_choice[new_autohiss_pref]
 
 				if("metadata")
-					var/new_metadata = input(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference" , active_character.metadata)  as message|null
-					if(new_metadata)
-						active_character.metadata = sanitize(copytext_char(new_metadata,1,MAX_MESSAGE_LEN))	// SS220 EDIT - ORIGINAL: copytext
+					var/new_metadata = tgui_input_text(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference", active_character.metadata, multiline = TRUE, encode = FALSE)
+					if(!new_metadata)
+						return
+					active_character.metadata = new_metadata
 
 				if("b_type")
 					var/new_b_type = tgui_input_list(user, "Choose your character's blood-type", "Character Preference", list( "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"))
@@ -388,11 +390,12 @@
 
 				if("h_grad_offset")
 					var/result = input(user, "Enter your character's hair gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Character Preference") as null|text
-					if(result)
-						var/list/expl = splittext(result, ",")
-						if(length(expl) == 2)
-							active_character.h_grad_offset_x = clamp(text2num(expl[1]) || 0, -16, 16)
-							active_character.h_grad_offset_y = clamp(text2num(expl[2]) || 0, -16, 16)
+					if(!result)
+						return
+					var/list/expl = splittext(result, ",")
+					if(length(expl) == 2)
+						active_character.h_grad_offset_x = clamp(text2num(expl[1]) || 0, -16, 16)
+						active_character.h_grad_offset_y = clamp(text2num(expl[2]) || 0, -16, 16)
 
 				if("h_grad_colour")
 					var/result = input(user, "Choose your character's hair gradient colour:", "Character Preference", active_character.h_grad_colour) as color|null
@@ -400,9 +403,10 @@
 						active_character.h_grad_colour = result
 
 				if("h_grad_alpha")
-					var/result = input(user, "Choose your character's hair gradient alpha (0-255):", "Character Preference", active_character.h_grad_alpha) as num|null
-					if(!isnull(result))
-						active_character.h_grad_alpha = clamp(result, 0, 255)
+					var/result = tgui_input_number(user, "Choose your character's hair gradient alpha (0-255):", "Character Preference", active_character.h_grad_alpha, 255)
+					if(isnull(result))
+						return
+					active_character.h_grad_alpha = clamp(result, 0, 255)
 
 				if("headaccessory")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
@@ -667,14 +671,16 @@
 				if("s_tone")
 					if(S.bodyflags & HAS_SKIN_TONE)
 						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
-						if(new_s_tone)
-							active_character.s_tone = 35 - max(min(round(new_s_tone), 220), 1)
+						if(!new_s_tone)
+							return
+						active_character.s_tone = 35 - max(min(round(new_s_tone), 220), 1)
 					else if(S.bodyflags & HAS_ICON_SKIN_TONE)
 						var/const/MAX_LINE_ENTRIES = 4
 						var/prompt = "Choose your character's skin tone: 1-[length(S.icon_skin_tones)]\n(Light to Dark)"
-						var/skin_c = input(user, prompt, "Character Preference") as num|null
-						if(isnum(skin_c))
-							active_character.s_tone = max(min(round(skin_c), S.icon_skin_tones.len), 1)
+						var/skin_c = tgui_input_number(user, prompt, "Character Preference", active_character.s_tone, length(S.icon_skin_tones), 1)
+						if(!skin_c)
+							return
+						active_character.s_tone = skin_c
 
 				if("skin")
 					if((S.bodyflags & HAS_SKIN_COLOR) || GLOB.body_accessory_by_species[active_character.species] || check_rights(R_ADMIN, 0, user))
@@ -708,7 +714,7 @@
 						active_character.height = new_height
 
 				if("flavor_text")
-					var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.","Flavor Text",html_decode(active_character.flavor_text)) as message
+					var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", active_character.flavor_text, multiline = TRUE, encode = FALSE)
 
 					if(msg != null)
 						msg = copytext(msg, 1, MAX_MESSAGE_LEN)
@@ -885,7 +891,7 @@
 						version_message = "\nYou need to be using byond version 511 or later to take advantage of this feature, your version of [user.client.byond_version] is too low"
 					if(world.byond_version < 511)
 						version_message += "\nThis server does not currently support client side fps. You can set now for when it does."
-					var/desiredfps = input(user, "Choose your desired fps.[version_message]\n(0 = synced with server tick rate (currently:[world.fps]))", "Character Preference", clientfps)  as null|num
+					var/desiredfps = tgui_input_number(user, "Choose your desired fps.[version_message]\n(Min = synced with server tick rate)", "Character Preference", clientfps, 120, world.fps)
 					if(!isnull(desiredfps))
 						clientfps = desiredfps
 						if(world.byond_version >= 511 && user.client && user.client.byond_version >= 511)
@@ -963,8 +969,14 @@
 				if("tgui")
 					toggles2 ^= PREFTOGGLE_2_FANCYUI
 
-				if("input_lists")
-					toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_LISTS
+				if("tgui_input")
+					toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_INPUT
+
+				if("tgui_input_large")
+					toggles2 ^= PREFTOGGLE_2_LARGE_INPUT_BUTTONS
+
+				if("tgui_input_swap")
+					toggles2 ^= PREFTOGGLE_2_SWAP_INPUT_BUTTONS
 
 				if("tgui_say_light_mode")
 					toggles2 ^= PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE
@@ -1020,8 +1032,8 @@
 						H.remake_hud()
 
 				if("UIalpha")
-					var/UI_style_alpha_new = input(user, "Select a new alpha(transparence) parameter for UI, between 50 and 255", UI_style_alpha) as num
-					if(!UI_style_alpha_new || !(UI_style_alpha_new <= 255 && UI_style_alpha_new >= 50))
+					var/UI_style_alpha_new = tgui_input_number(user, "Select a new alpha(transparence) parameter for UI, between 50 and 255", "UI Alpha", UI_style_alpha, 255, 50)
+					if(!UI_style_alpha_new)
 						return
 					UI_style_alpha = UI_style_alpha_new
 
@@ -1135,9 +1147,10 @@
 					parent.mob?.hud_used?.update_parallax_pref()
 
 				if("screentip_mode")
-					var/desired_screentip_mode = clamp(input(user, "Pick a screentip size, pick 0 to disable screentips. (We suggest a number between 8 and 15):", "Screentip Size") as null|num, 0, 20)
-					if(!isnull(desired_screentip_mode))
-						screentip_mode = desired_screentip_mode
+					var/desired_screentip_mode = tgui_input_number(user, "Pick a screentip size, pick 0 to disable screentips. (We suggest a number between 8 and 15):", "Screentip Size", screentip_mode, 20, 0)
+					if(!desired_screentip_mode)
+						return
+					screentip_mode = desired_screentip_mode
 
 				if("screentip_color")
 					var/screentip_color_new = input(user, "Choose your screentip color", screentip_color) as color|null
@@ -1255,7 +1268,7 @@
 								keybindings_overrides -= KB.name
 
 					else if(href_list["all"])
-						var/yes = alert(user, "Really [href_list["all"]] all key bindings?", "Confirm", "Yes", "No") == "Yes"
+						var/yes = tgui_alert(user, "Really [href_list["all"]] all key bindings?", "Confirm", list("Yes", "No")) == "Yes"
 						if(yes)
 							switch(href_list["all"])
 								if("reset")
@@ -1269,7 +1282,7 @@
 						var/datum/keybinding/custom/custom_emote_keybind = locateUID(href_list["custom_emote_set"])
 						if(custom_emote_keybind)
 							var/emote_text = active_character.custom_emotes[custom_emote_keybind.name]
-							var/desired_emote = stripped_input(user, "Enter your custom emote text, 128 character limit.", "Custom Emote Setter", emote_text, max_length = 128)
+							var/desired_emote = tgui_input_text(user, "Enter your custom emote text, 128 character limit.", "Custom Emote Setter", emote_text, max_length = 128)
 							if(desired_emote && (desired_emote != custom_emote_keybind.default_emote_text)) //don't let them save the default custom emote text
 								active_character.custom_emotes[custom_emote_keybind.name] = desired_emote
 							active_character.save(user)
