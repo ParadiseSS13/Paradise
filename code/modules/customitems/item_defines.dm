@@ -1058,6 +1058,7 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	actions_types = list(/datum/action/item_action/zipper)
 	adjust_flavour = "unzip"
+	sprite_sheets = null
 
 //////////// Uniforms ////////////
 
