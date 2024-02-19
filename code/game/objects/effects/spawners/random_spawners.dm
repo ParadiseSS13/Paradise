@@ -258,7 +258,7 @@
 		/obj/item/suppressor = 1,
 		/obj/item/coin/antagtoken/syndicate = 1,
 		/obj/item/storage/box/syndie_kit/space = 1,
-		/obj/item/clothing/shoes/magboots/syndie = 1,)
+		/obj/item/clothing/shoes/magboots/syndie = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/stetchkin
 	name = "20pc stetchkin"
