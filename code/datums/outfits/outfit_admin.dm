@@ -1464,7 +1464,10 @@
 	. = ..()
 	if(visualsOnly)
 		return
-	var/codename = pick("Viper", "Serpent", "Python", "Boa", "Basilisk", "Snake")
+	var/codename = pick("Viper", "Serpent", "Python", "Boa", "Basilisk", "Snake", "Mamba", "Sidewinder")
+	if(prob(50))
+		var/codename_prefix = pick("Exposed", "Unveiled", "Phantom", "Mirage", "Punished", "Invisible", "Swift")
+		codename = "[codename_prefix] [codename]"
 	H.rename_character(null, codename)
 
 	var/hair_color = "#361A00"
