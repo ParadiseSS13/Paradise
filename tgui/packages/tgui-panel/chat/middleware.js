@@ -38,7 +38,7 @@ const saveChatToStorage = async (store) => {
   const state = selectChat(store.getState());
   const fromIndex = Math.max(
     0,
-    chatRenderer.messages.length - chatRenderer.MaxTotalMessage
+    chatRenderer.messages.length - chatRenderer.maxTotalMessage
   );
   const messages = chatRenderer.messages
     .slice(fromIndex)

@@ -109,8 +109,8 @@ class ChatRenderer {
     this.visibleMessages = [];
     this.page = null;
     this.events = new EventEmitter();
-    this.MessageStackInSeconds = 30;
-    this.MaxTotalMessage = 10000;
+    this.messageStackInSeconds = 30;
+    this.maxTotalMessage = 10000;
     // Scroll handler
     /** @type {HTMLElement} */
     this.scrollNode = null;
@@ -264,11 +264,11 @@ class ChatRenderer {
   }
 
   setMessageDelayStacking(value) {
-    this.MessageStackInSeconds = value;
+    this.messageStackInSeconds = value;
   }
 
   setMessageTotal(value) {
-    this.MaxTotalMessage = value;
+    this.maxTotalMessage = value;
   }
 
   scrollToBottom() {
@@ -317,7 +317,7 @@ class ChatRenderer {
         // Text payload must fully match
         && isSameMessage(message, predicate)
         // Must land within the specified time window
-        && now < message.createdAt + (this.MessageStackInSeconds * 1000)
+        && now < message.createdAt + (this.messageStackInSeconds * 1000)
       );
       if (matches) {
         return message;
@@ -456,7 +456,7 @@ class ChatRenderer {
     // Visible messages
     {
       const messages = this.visibleMessages;
-      const fromIndex = Math.max(0, messages.length - this.MaxTotalMessage);
+      const fromIndex = Math.max(0, messages.length - this.maxTotalMessage);
       if (fromIndex > 0) {
         this.visibleMessages = messages.slice(fromIndex);
         for (let i = 0; i < fromIndex; i++) {
@@ -477,7 +477,7 @@ class ChatRenderer {
     {
       const fromIndex = Math.max(
         0,
-        this.messages.length - this.MaxTotalMessage
+        this.messages.length - this.maxTotalMessage
       );
       if (fromIndex > 0) {
         this.messages = this.messages.slice(fromIndex);
@@ -491,7 +491,7 @@ class ChatRenderer {
       return;
     }
     // Make a copy of messages
-    const fromIndex = Math.max(0, this.messages.length - this.MaxTotalMessage);
+    const fromIndex = Math.max(0, this.messages.length - this.maxTotalMessage);
     const messages = this.messages.slice(fromIndex);
     // Remove existing nodes
     for (let message of messages) {

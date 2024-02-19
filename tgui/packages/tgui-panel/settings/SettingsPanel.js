@@ -81,8 +81,8 @@ export const SettingsGeneral = (props, context) => {
     fontFamily,
     fontSize,
     lineHeight,
-    MessageStackInSeconds,
-    MaxTotalMessage,
+    messageStackInSeconds,
+    maxTotalMessage,
   } = useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
   const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
@@ -168,8 +168,8 @@ export const SettingsGeneral = (props, context) => {
             step={100}
             stepPixelSize={3}
             minValue={0}
-            maxValue={100000}
-            value={MaxTotalMessage}
+            maxValue={25000}
+            value={maxTotalMessage}
             unit="messages"
             format={(value) => toFixed(value)}
             onChange={(e, value) => SetMessageTotal(value, context)}
@@ -201,7 +201,7 @@ export const SettingsGeneral = (props, context) => {
             stepPixelSize={3}
             minValue={0}
             maxValue={600}
-            value={MessageStackInSeconds}
+            value={messageStackInSeconds}
             unit="seconds"
             format={(value) => toFixed(value)}
             onChange={(e, value) => SetMessageStackingTime(value, context)}
@@ -384,12 +384,12 @@ const TextHighlightSetting = (props, context) => {
 
 const SetMessageStackingTime = (value, context) => {
   const dispatch = useDispatch(context);
-  dispatch(updateSettings({ MessageStackInSeconds: value }));
+  dispatch(updateSettings({ messageStackInSeconds: value }));
   chatRenderer.setMessageDelayStacking(value);
 };
 
 const SetMessageTotal = (value, context) => {
   const dispatch = useDispatch(context);
-  dispatch(updateSettings({ MaxTotalMessage: value }));
+  dispatch(updateSettings({ maxTotalMessage: value }));
   chatRenderer.setMessageDelayStacking(value);
 };
