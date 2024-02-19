@@ -13,8 +13,6 @@
 
 	var/obj/item/holder = null
 	// You can use this var for item path, it would be converted into an item on New()
-	/// If the arm implant requires both hands to be clear.
-	var/requires_twohands = FALSE
 
 /obj/item/organ/internal/cyberimp/arm/New()
 	..()
@@ -133,30 +131,13 @@
 		else
 			to_chat(owner, "<span class='notice'>You drop [arm_item] to activate [src]!</span>")
 
-	if(requires_twohands)
-		if(!owner.has_both_hands())
-			to_chat(owner, "<span class='warning'>You need 2 hands to deploy [src]!</span>")
-			return
-		var/other_arm = (parent_organ == "r_arm" ? SLOT_HUD_LEFT_HAND : SLOT_HUD_RIGHT_HAND)
-		var/obj/item/other_arm_item = owner.get_item_by_slot(other_arm)
-		if(other_arm_item)
-			if(istype(other_arm_item, /obj/item/offhand))
-				var/obj/item/other_offhand_arm_item = owner.get_inactive_hand()
-				to_chat(owner, "<span class='warning'>Your hands are too encumbered wielding [other_offhand_arm_item] to deploy [src]!</span>")
-				return
-			else if(!owner.unEquip(other_arm_item))
-				to_chat(owner, "<span class='warning'>Your [other_arm_item] interferes with [src]!</span>")
-				return
-			else
-				to_chat(owner, "<span class='notice'>You drop [other_arm_item] to activate [src]!</span>")
-
-	// Swap before we put the item in hand
-	if(parent_organ == "r_arm" ? owner.hand : !owner.hand)
-		owner.swap_hand()
-
 	if(parent_organ == "r_arm" ? !owner.put_in_r_hand(holder) : !owner.put_in_l_hand(holder))
 		to_chat(owner, "<span class='warning'>Your [src] fails to activate!</span>")
 		return
+	
+	// Activate the hand that now holds our item.
+	if(parent_organ == "r_arm" ? owner.hand : !owner.hand)
+		owner.swap_hand()
 
 	owner.visible_message("<span class='notice'>[owner] extends [holder] from [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
 		"<span class='notice'>You extend [holder] from your [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
