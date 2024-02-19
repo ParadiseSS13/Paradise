@@ -28,3 +28,5 @@
 		src.smoke.start()
 		sleep(10)
 		src.smoke.start()
+	sleep(80)
+	qdel(src)
