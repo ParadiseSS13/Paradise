@@ -495,44 +495,45 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "<span class='warning'>This ventilation duct is not connected to anything!</span>")
 		return
 
-	if(vent_found.parent && (length(vent_found.parent.members) || vent_found.parent.other_atmosmch))
-		visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
-						"<span class='notice'>You begin climbing into the ventilation system...</span>")
+	if(!vent_found.parent || !(length(vent_found.parent.members) || vent_found.parent.other_atmosmch))
+		return
 
-		if(!do_after(src, 4.5 SECONDS, target = src))
+	visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
+					"<span class='notice'>You begin climbing into the ventilation system...</span>")
+
+	if(!do_after(src, 4.5 SECONDS, target = src))
+		return
+
+	if(!client)
+		return
+
+	if(!vent_found.can_crawl_through())
+		to_chat(src, "<span class='warning'>You can't vent crawl through that!</span>")
+		return
+
+	if(has_buckled_mobs())
+		to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
+		return
+
+	if(buckled)
+		to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
+		return
+
+	if(iscarbon(src) && length(contents) && ventcrawlerlocal < VENTCRAWLER_ALWAYS) // If we're here you can only ventcrawl while completely nude
+		for(var/obj/item/I in contents)
+			if(istype(I, /obj/item/bio_chip))
+				continue
+			if(istype(I, /obj/item/reagent_containers/patch))
+				continue
+			if(I.flags & ABSTRACT)
+				continue
+
+			to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
 			return
 
-		if(!client)
-			return
-
-		if(!vent_found.can_crawl_through())
-			to_chat(src, "<span class='warning'>You can't vent crawl through that!</span>")
-			return
-
-		if(has_buckled_mobs())
-			to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
-			return
-
-		if(buckled)
-			to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
-			return
-
-		if(iscarbon(src) && length(contents) && ventcrawlerlocal < VENTCRAWLER_ALWAYS) // If we're here you can only ventcrawl while completely nude
-			for(var/obj/item/I in contents)
-				if(istype(I, /obj/item/bio_chip))
-					continue
-				if(istype(I, /obj/item/reagent_containers/patch))
-					continue
-				if(I.flags & ABSTRACT)
-					continue
-
-				to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
-				return
-
-		visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
-		var/old_loc = loc
-		forceMove(vent_found)
-		add_ventcrawl(vent_found)
+	visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
+	forceMove(vent_found)
+	add_ventcrawl(vent_found)
 
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
 	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
