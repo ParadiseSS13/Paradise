@@ -392,16 +392,15 @@ SUBSYSTEM_DEF(jobs)
 					continue
 				// If the player wants that job on this level, then try give it to him.
 				if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
-					if(player.mind.will_roll_antag && player.mind && (job.title in SSticker.mode.single_antag_positions)) //We want to check if they want the job, before rolling the prob chance
-						if(player.mind.failed_head_antag_roll || !prob(probability_of_antag_role_restriction))
-							Debug("DO Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
-							player.mind.failed_head_antag_roll = TRUE
-							continue
-						else
-							probability_of_antag_role_restriction /= 10
-
 					// If the job isn't filled
 					if(job.is_spawn_position_available())
+						if(player.mind.will_roll_antag && player.mind && (job.title in SSticker.mode.single_antag_positions)) //We want to check if they want the job, before rolling the prob chance
+							if(player.mind.failed_head_antag_roll || !prob(probability_of_antag_role_restriction))
+								Debug("DO Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
+								player.mind.failed_head_antag_roll = TRUE
+								continue
+							else
+								probability_of_antag_role_restriction /= 10
 						Debug("DO pass, Player: [player], Level:[level], Job:[job.title]")
 						Debug(" - Job Flag: [job.flag] Job Department: [player.client.prefs.active_character.GetJobDepartment(job, level)] Job Current Pos: [job.current_positions] Job Spawn Positions = [job.spawn_positions]")
 						AssignRole(player, job.title)
