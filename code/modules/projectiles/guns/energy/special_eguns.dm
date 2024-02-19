@@ -19,6 +19,15 @@
 	flight_x_offset = 17
 	flight_y_offset = 9
 
+/obj/item/gun/energy/ionrifle/examine_more(mob/user)
+	. = ..()
+	. += "The ion rifle is a specialised weapon system developed by Nanotrasen to counteract technological threats. Stored xenon gas is superheated and spun inside a miniaturised resonating cyclotron to strip away the outer electron shell. \
+	This creates a very positively charged slug of ionised xenon gas that is then launched down the barrel of the rifle by a series of electromagnets. Once the slug hits a target, \
+	the magnetic field holding it together collapses, spreading the ions around the immediate area and causing severe damage to unshielded electronic systems caught within the resulting cloud. \
+	It was developed in 2318 in response to the increasing prevalence of combat robots, mech units, and augmented combatants in modern combat engagements. \
+	Whilst unsuccessful in procuring lucrative contracts to manufacture the weapon for the TSF (who pointed out the issue of combatants with electromagnetic shielding), it was adopted by several corporate outfits that appreciated the ruthless efficiency of the ion rifle against unprotected synthetics, \
+	and a niche in combating pulse demon incursions, the real place that the ion rifle has shown its strength is in putting down synthetic rebellions and rogue artificial intelligences. For a synthetic, nothing sends chills down the spine more than the sight of this weapon."
+
 /obj/item/gun/energy/ionrifle/Initialize(mapload)
 	. = ..()
 	if(mapload && HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION) && is_station_level(z)) //No ion rifle when everyone has cybernetic organs, sorry!
