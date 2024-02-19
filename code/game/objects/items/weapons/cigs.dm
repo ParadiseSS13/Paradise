@@ -331,9 +331,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	return (istype(lighting_item, /obj/item/match) || istype(lighting_item, /obj/item/lighter/zippo))
 
 /obj/item/clothing/mask/cigarette/cigar/can_light(obj/item/cigar, obj/item/lighting_item)
-	if(lighting_item.get_heat() && can_light_cigar(lighting_item))
-		light()
-		return COMPONENT_CANCEL_ATTACK_CHAIN
+	if(can_light_cigar(lighting_item))
+		return ..()
 
 /obj/item/clothing/mask/cigarette/cigar/cohiba
 	name = "\improper Cohiba Robusto Cigar"
