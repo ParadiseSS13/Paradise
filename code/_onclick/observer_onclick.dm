@@ -111,7 +111,7 @@
 			T.atmosanalyzer_scan(T.air_contents, src, T)
 			return
 		else if(isturf(A))
-			var/datum/gas_mixture/environment = src.return_air()
+			var/datum/gas_mixture/environment = A.return_air()
 
 			var/pressure = environment.return_pressure()
 			var/total_moles = environment.total_moles()
