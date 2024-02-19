@@ -293,10 +293,10 @@
 			if(Adj)
 				return //Safety check so you don't blast yourself trying to refill your tank
 			if(reagents.total_volume < 100)
-				to_chat(user, "You need at least 100 units of water to use the nanofrost launcher!")
+				to_chat(user, "<span class='notice'>You need at least 100 units of water to use the nanofrost launcher!</span>")
 				return
 			if(nanofrost_cooldown)
-				to_chat(user, "Nanofrost launcher is still recharging.")
+				to_chat(user, "<span class='notice'>Nanofrost launcher is still recharging.</span>")
 				return
 			nanofrost_cooldown = TRUE
 			reagents.remove_any(100)
@@ -312,7 +312,7 @@
 			if(!Adj)
 				return
 			if(metal_synthesis_cooldown >= 5)
-				to_chat(user, "Metal foam mix is still being synthesized.")
+				to_chat(user, "<span class='notice'>Metal foam mix is still being synthesized.</span>")
 				return
 			var/obj/effect/particle_effect/foam/F = new /obj/effect/particle_effect/foam(get_turf(target), TRUE)
 			F.amount = 0
