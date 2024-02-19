@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord
 	name = "hivelord"
-	desc = "A levitating swarm of tiny creatures which act as a single individual. When threatened or hunting they rapidly replicate additional short-lived bodies"
+	desc = "A levitating swarm of tiny creatures which act as a single individual. When threatened or hunting they rapidly replicate additional short-lived bodies."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Hivelord"
 	icon_living = "Hivelord"
