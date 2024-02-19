@@ -444,6 +444,7 @@
 /obj/item/mod/control/emag_act(mob/user)
 	locked = !locked
 	to_chat(user, "<span class='warning'>Suit access [locked ? "locked" : "unlocked"]")
+	return TRUE
 
 /obj/item/mod/control/emp_act(severity)
 	. = ..()

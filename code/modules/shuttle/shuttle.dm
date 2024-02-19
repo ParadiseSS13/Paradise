@@ -869,6 +869,7 @@
 		src.req_access = list()
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
+		return TRUE
 
 //for restricting when the computer can be used, needed for some console subtypes.
 /obj/machinery/computer/shuttle/proc/can_call_shuttle(mob/user, action)

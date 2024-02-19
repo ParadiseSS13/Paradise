@@ -160,7 +160,7 @@
 
 
 /mob/living/carbon/alien/assess_threat(mob/living/simple_animal/bot/secbot/judgebot, lasercolor)
-	if(judgebot.emagged == 2)
+	if(judgebot.emagged)
 		return 10 //Everyone is a criminal!
 	var/threatcount = 0
 

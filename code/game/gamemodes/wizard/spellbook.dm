@@ -397,7 +397,7 @@
 	var/item_path = null
 
 /datum/spellbook_entry/item/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	if(spawn_on_floor == FALSE)
+	if(!spawn_on_floor)
 		user.put_in_hands(new item_path)
 	else
 		new item_path(user.loc)
@@ -655,13 +655,13 @@
 
 /datum/spellbook_entry/loadout/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(destroy_spellbook)
-		var/response = alert(user, "The [src] loadout cannot be refunded once bought. Are you sure this is what you want?", "No refunds!", "No", "Yes")
+		var/response = tgui_alert(user, "The [src] loadout cannot be refunded once bought. Are you sure this is what you want?", "No refunds!", list("No", "Yes"))
 		if(response == "No")
 			return FALSE
 		to_chat(user, "<span class='notice'>[book] crumbles to ashes as you acquire its knowledge.</span>")
 		qdel(book)
 	else if(items_path.len)
-		var/response = alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", "No", "Yes")
+		var/response = tgui_alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", list("No", "Yes"))
 		if(response == "No")
 			return FALSE
 	if(items_path.len)

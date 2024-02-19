@@ -337,7 +337,7 @@
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
 
-	pose =  sanitize(copytext(input(usr, "This is [src]. It...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+	pose = tgui_input_text(usr, "This is [src]. It...", "Pose", pose)
 
 /mob/living/silicon/verb/set_flavor()
 	set name = "Set Flavour Text"

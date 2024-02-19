@@ -98,7 +98,7 @@
 	if(new_parallax_movedir == C.parallax_movedir)
 		return
 	var/animatedir = new_parallax_movedir
-	if(new_parallax_movedir == FALSE)
+	if(!new_parallax_movedir)
 		var/animate_time = 0
 		for(var/thing in C.parallax_layers)
 			var/atom/movable/screen/parallax_layer/L = thing

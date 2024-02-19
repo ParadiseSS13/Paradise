@@ -123,7 +123,7 @@
 		if(isfloorturf(over_object))
 			if(get_turf(M) != T)
 				return // Can only empty containers onto the floor under you
-			if(alert(M, "Empty [src] onto [T]?", "Confirm", "Yes", "No") != "Yes")
+			if(tgui_alert(M, "Empty [src] onto [T]?", "Confirm", list("Yes", "No")) != "Yes")
 				return
 			if(!(M && over_object && length(contents) && loc == M && !M.stat && !M.restrained() && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && get_turf(M) == T))
 				return // Something happened while the player was thinking

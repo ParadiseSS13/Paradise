@@ -41,7 +41,9 @@
 
 /obj/item/photo/attackby(obj/item/P as obj, mob/user as mob, params)
 	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
-		var/txt = sanitize(input(user, "What would you like to write on the back?", "Photo Writing", null)  as text)
+		var/txt = tgui_input_text(user, "What would you like to write on the back?", "Photo Writing")
+		if(!txt)
+			return
 		txt = copytext(txt, 1, 128)
 		if(loc == user && user.stat == 0)
 			scribble = txt
@@ -106,9 +108,11 @@
 	onclose(usr, "Photo[UID()]")
 
 /obj/item/photo/proc/rename(mob/user)
-	var/n_name = sanitize(copytext(input(user, "What would you like to label the photo?", "Photo Labelling", name) as text, 1, MAX_MESSAGE_LEN))
+	var/n_name = tgui_input_text(user, "What would you like to label the photo?", "Photo Labelling", name)
+	if(!n_name)
+		return
 	//loc.loc check is for making possible renaming photos in clipboards
-	if(( (loc == user || (loc.loc && loc.loc == user)) && !user.stat))
+	if(((loc == user || (loc.loc && loc.loc == user)) && !user.stat))
 		name = "[(n_name ? "[n_name]" : "photo")]"
 	add_fingerprint(user)
 
@@ -418,7 +422,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	var/datum/picture/P = new()
 	if(istype(src,/obj/item/camera/digital))
-		P.fields["name"] = input(user,"Name photo:","photo")
+		P.fields["name"] = tgui_input_text(user, "Name photo:", "Photo", encode = FALSE)
 		if(!P.fields["name"])
 			P.fields["name"] = "Photo [current_photo_num]"
 			current_photo_num++
