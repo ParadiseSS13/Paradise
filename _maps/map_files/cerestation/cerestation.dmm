@@ -39219,7 +39219,7 @@
 "fsq" = (
 /obj/structure/transit_tube/horizontal,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "fsr" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -41541,7 +41541,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "gku" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -43236,7 +43236,7 @@
 "gNz" = (
 /obj/structure/transit_tube/curved/flipped,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "gNT" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -43670,7 +43670,7 @@
 "gXd" = (
 /obj/structure/transit_tube/crossing,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "gXl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -44290,7 +44290,7 @@
 "hij" = (
 /obj/structure/transit_tube/diagonal/crossing/topleft,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "hio" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -58252,7 +58252,7 @@
 	dir = 8
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "lzo" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "process"
@@ -61828,7 +61828,7 @@
 "mLv" = (
 /obj/structure/transit_tube/crossing/horizontal,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "mLz" = (
 /obj/machinery/atmospherics/binary/valve{
 	dir = 1;
@@ -77682,7 +77682,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "rYs" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Permabrig Cell 2";
@@ -77844,7 +77844,7 @@
 "saA" = (
 /obj/structure/transit_tube/diagonal/crossing,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "saJ" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -85159,7 +85159,7 @@
 "uvr" = (
 /obj/structure/transit_tube,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "uvv" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
