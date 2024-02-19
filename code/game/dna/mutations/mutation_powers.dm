@@ -734,7 +734,7 @@
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = M.get_int_organ(/obj/item/organ/internal/eyes)
 
-	var/new_gender = alert(user, "Please select gender.", "Character Generation", "Male", "Female")
+	var/new_gender = tgui_alert(user, "Please select gender.", "Character Generation", list("Male", "Female"))
 	if(new_gender)
 		if(new_gender == "Male")
 			M.change_gender(MALE)
@@ -918,11 +918,10 @@
 	if(user.mind?.miming) // Dont let mimes telepathically talk
 		to_chat(user,"<span class='warning'>You can't communicate without breaking your vow of silence.</span>")
 		return
-	var/say = input("What do you wish to say") as text|null
+	var/say = tgui_input_text(user, "What do you wish to say?", "Project Mind")
 	if(!say || usr.stat)
 		return
-	say = strip_html(say)
-	say = pencode_to_html(say, usr, format = 0, fields = 0)
+	say = pencode_to_html(say, usr, format = FALSE, fields = FALSE)
 
 	for(var/mob/living/target in targets)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
@@ -977,11 +976,10 @@
 		if(!(target in available_targets))
 			return
 		available_targets -= target
-		var/say = input("What do you wish to say") as text|null
+		var/say = tgui_input_text(user, "What do you wish to say?", "Scan Mind")
 		if(!say)
 			return
-		say = strip_html(say)
-		say = pencode_to_html(say, target, format = 0, fields = 0)
+		say = pencode_to_html(say, target, format = FALSE, fields = FALSE)
 		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))

@@ -18,7 +18,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	to_chat(user, "<span class='notice'>We feel our consciousness become capable of communion with the hivemind.</span>")
 
 /datum/action/changeling/hivemind_pick/sting_action(mob/user)
-	var/channel_pick = alert("Upload or Absorb DNA?", "Channel Select", "Upload", "Absorb")
+	var/channel_pick = tgui_alert(user, "Upload or Absorb DNA?", "Channel Select", list("Upload", "Absorb"))
 
 	if(channel_pick == "Upload")
 		dna_upload(user)

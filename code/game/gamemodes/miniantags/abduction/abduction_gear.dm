@@ -319,7 +319,7 @@
 			to_chat(user, "<span class='warning'>Your target is already under a mind-controlling influence!</span>")
 			return
 
-		var/command = stripped_input(user, "Enter the command for your target to follow. Uses Left: [G.mind_control_uses], Duration: [DisplayTimeText(G.mind_control_duration)]", "Enter command")
+		var/command = tgui_input_text(user, "Enter the command for your target to follow. Uses Left: [G.mind_control_uses], Duration: [DisplayTimeText(G.mind_control_duration)]", "Enter command")
 
 		if(!command)
 			return
@@ -339,7 +339,7 @@
 		if(L.stat == DEAD)
 			to_chat(user, "<span class='warning'>Your target is dead!</span>")
 			return
-		var/message = stripped_input(user, "Write a message to send to your target's brain.", "Enter message")
+		var/message = tgui_input_text(user, "Write a message to send to your target's brain.", "Enter message")
 		if(!message)
 			return
 		if(QDELETED(L) || L.stat == DEAD)
