@@ -115,7 +115,7 @@
 			button.icon_state = background_icon_state
 
 		ApplyIcon(button)
-		var/obj/effect/proc_holder/spell/S = target
+		var/datum/spell/S = target
 		if(istype(S) && S.cooldown_handler.should_draw_cooldown() || !IsAvailable())
 			apply_unavailable_effect()
 		else
@@ -561,7 +561,7 @@
 
 /datum/action/spell_action/New(Target)
 	..()
-	var/obj/effect/proc_holder/spell/S = target
+	var/datum/spell/S = target
 	S.action = src
 	name = S.name
 	var/list/our_description = list()
@@ -574,7 +574,7 @@
 	button.name = name
 
 /datum/action/spell_action/Destroy()
-	var/obj/effect/proc_holder/spell/S = target
+	var/datum/spell/S = target
 	S.action = null
 	return ..()
 
@@ -582,27 +582,27 @@
 	if(!..())
 		return FALSE
 	if(target)
-		var/obj/effect/proc_holder/spell = target
+		var/datum/spell/spell = target
 		spell.Click()
 		return TRUE
 
 /datum/action/spell_action/AltTrigger()
 	if(target)
-		var/obj/effect/proc_holder/spell/spell = target
+		var/datum/spell/spell = target
 		spell.AltClick(usr)
 		return TRUE
 
 /datum/action/spell_action/IsAvailable()
 	if(!target)
 		return FALSE
-	var/obj/effect/proc_holder/spell/spell = target
+	var/datum/spell/spell = target
 
 	if(owner)
 		return spell.can_cast(owner)
 	return FALSE
 
 /datum/action/spell_action/apply_unavailable_effect()
-	var/obj/effect/proc_holder/spell/S = target
+	var/datum/spell/S = target
 	if(!istype(S))
 		return ..()
 
@@ -627,7 +627,7 @@
 /datum/action/spell_action/alien/IsAvailable()
 	if(!target)
 		return 0
-	var/obj/effect/proc_holder/alien/ab = target
+	var/datum/spell/alien/ab = target
 
 	if(owner)
 		return ab.cost_check(ab.check_turf, owner, 1)

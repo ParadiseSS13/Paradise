@@ -3,7 +3,7 @@
 	desc = "High Five?"
 	var/catchphrase = "High Five!"
 	var/on_use_sound = null
-	var/obj/effect/proc_holder/spell/touch/attached_spell
+	var/datum/spell/touch/attached_spell
 	icon_state = "syndballoon"
 	item_state = null
 	flags = ABSTRACT | NODROP | DROPDEL

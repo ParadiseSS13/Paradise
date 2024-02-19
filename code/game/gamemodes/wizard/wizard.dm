@@ -230,7 +230,7 @@
 			if(wizard.spell_list)
 				text += "<br><B>[wizard.name] used the following spells: </B>"
 				var/i = 1
-				for(var/obj/effect/proc_holder/spell/S in wizard.spell_list)
+				for(var/datum/spell/S in wizard.spell_list)
 					text += "[S.name]"
 					if(wizard.spell_list.len > i)
 						text += ", "
@@ -245,13 +245,13 @@
 /mob/proc/spellremove(mob/M)
 	if(!mind)
 		return
-	for(var/obj/effect/proc_holder/spell/spell_to_remove in mind.spell_list)
+	for(var/datum/spell/spell_to_remove in mind.spell_list)
 		qdel(spell_to_remove)
 		mind.spell_list -= spell_to_remove
 
 //To batch-remove mob spells.
 /mob/proc/mobspellremove(mob/M)
-	for(var/obj/effect/proc_holder/spell/spell_to_remove in mob_spell_list)
+	for(var/datum/spell/spell_to_remove in mob_spell_list)
 		qdel(spell_to_remove)
 		mob_spell_list -= spell_to_remove
 

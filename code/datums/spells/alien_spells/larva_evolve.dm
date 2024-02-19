@@ -1,13 +1,13 @@
 // Make this reflect amount grown, can't do that currently
-/obj/effect/proc_holder/spell/alien_spell/evolve_larva
+/datum/spell/alien_spell/evolve_larva
 	name = "Evolve."
 	desc = "Evolve into a fully grown Alien."
 	action_icon_state = "alien_evolve_larva"
 
-/obj/effect/proc_holder/spell/alien_spell/evolve_larva/create_new_targeting()
+/datum/spell/alien_spell/evolve_larva/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/alien_spell/evolve_larva/cast(list/targets, mob/living/carbon/alien/larva/user)
+/datum/spell/alien_spell/evolve_larva/cast(list/targets, mob/living/carbon/alien/larva/user)
 	if(user.stat != CONSCIOUS)
 		return
 

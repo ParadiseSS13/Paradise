@@ -8,7 +8,7 @@
 	/// the time at which a spell charge can be used
 	var/charge_time
 
-/datum/spell_cooldown/charges/cooldown_init(obj/effect/proc_holder/spell/new_spell)
+/datum/spell_cooldown/charges/cooldown_init(datum/spell/new_spell)
 	. = ..()
 	if(starts_off_cooldown)
 		current_charges = max_charges

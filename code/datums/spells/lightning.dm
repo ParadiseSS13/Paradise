@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/charge_up/bounce/lightning
+/datum/spell/charge_up/bounce/lightning
 	name = "Lightning Bolt"
 	desc = "Throws a lightning bolt at your enemies. Classic. When clicked will start to charge in power. Then click on a mob to send the bolt before it overloads with power."
 	base_cooldown	= 30 SECONDS
@@ -15,29 +15,29 @@
 	bounce_hit_sound = 'sound/magic/lightningshock.ogg'
 	var/damaging = TRUE
 
-/obj/effect/proc_holder/spell/charge_up/bounce/lightning/New()
+/datum/spell/charge_up/bounce/lightning/New()
 	..()
 	charge_up_overlay = image(icon = 'icons/effects/effects.dmi', icon_state = "electricity", layer = EFFECTS_LAYER)
 
-/obj/effect/proc_holder/spell/charge_up/bounce/lightning/lightnian
+/datum/spell/charge_up/bounce/lightning/lightnian
 	clothes_req = FALSE
 	invocation_type = "none"
 	damaging = FALSE
 
-/obj/effect/proc_holder/spell/charge_up/bounce/lightning/get_bounce_energy()
+/datum/spell/charge_up/bounce/lightning/get_bounce_energy()
 	if(damaging)
 		return max(15, get_energy_charge() / 2)
 	return 0
 
-/obj/effect/proc_holder/spell/charge_up/bounce/lightning/get_bounce_amount()
+/datum/spell/charge_up/bounce/lightning/get_bounce_amount()
 	if(damaging)
 		return 5
 	return round(get_energy_charge() / 20)
 
-/obj/effect/proc_holder/spell/charge_up/bounce/lightning/create_beam(mob/origin, mob/target)
+/datum/spell/charge_up/bounce/lightning/create_beam(mob/origin, mob/target)
 	origin.Beam(target, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
 
-/obj/effect/proc_holder/spell/charge_up/bounce/lightning/apply_bounce_effect(mob/origin, mob/living/target, energy, mob/user)
+/datum/spell/charge_up/bounce/lightning/apply_bounce_effect(mob/origin, mob/living/target, energy, mob/user)
 	if(damaging)
 		target.electrocute_act(energy, "Lightning Bolt", flags = SHOCK_NOGLOVES)
 	else

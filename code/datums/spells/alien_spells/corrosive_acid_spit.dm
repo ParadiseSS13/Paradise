@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid
+/datum/spell/touch/alien_spell/corrosive_acid
 	name = "Corrosive acid"
 	desc = "Spit acid on someone in range, this acid melts through nearly anything and heavily damages anyone lacking proper safety equipment."
 	hand_path = "/obj/item/melee/touch_attack/alien/corrosive_acid"

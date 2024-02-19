@@ -136,7 +136,7 @@
 	This requires creating a verb for the object proc holder.
 
 	if(proc_holder_list.len)//Generic list for proc_holder objects.
-		for(var/obj/effect/proc_holder/P in proc_holder_list)
+		for(var/datum/spell/P in proc_holder_list)
 			statpanel("[P.panel]","",P)*/
 
 //The last mob/living/carbon to push/drag/grab this mob (mostly used by slimes friend recognition)
@@ -203,7 +203,7 @@
 
 	var/registered_z
 
-	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
+	var/datum/spell/ranged_ability //Any ranged ability the mob has, as a click override
 
 	/// Overrides the health HUD element state if set.
 	var/health_hud_override = HEALTH_HUD_OVERRIDE_NONE

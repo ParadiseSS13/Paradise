@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/inflict_handler
+/datum/spell/inflict_handler
 	name = "Inflict Handler"
 	desc = "This spell blinds and/or destroys/damages/heals and/or weakens/stuns the target."
 
@@ -20,10 +20,10 @@
 
 	var/summon_type = null //this will put an obj at the target's location
 
-/obj/effect/proc_holder/spell/inflict_handler/create_new_targeting()
+/datum/spell/inflict_handler/create_new_targeting()
 	return new /datum/spell_targeting/self // Dummy value since it is never used for this spell... why is this even a spell
 
-/obj/effect/proc_holder/spell/inflict_handler/cast(list/targets, mob/user = usr)
+/datum/spell/inflict_handler/cast(list/targets, mob/user = usr)
 
 	for(var/mob/living/target in targets)
 		switch(destroys)

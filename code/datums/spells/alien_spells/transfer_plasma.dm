@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/touch/alien_spell/transfer_plasma
+/datum/spell/touch/alien_spell/transfer_plasma
 	name = "Transfer Plasma"
 	desc = "Transfers 50 plasma to a nearby alien"
 	hand_path = "/obj/item/melee/touch_attack/alien/transfer_plasma"

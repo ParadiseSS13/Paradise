@@ -30,7 +30,7 @@
 	origin_tech = "biotech=5;plasmatech=4"
 	parent_organ = "chest"
 	slot = "plasmavessel"
-	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds, /obj/effect/proc_holder/spell/touch/alien_spell/transfer_plasma)
+	alien_powers = list(/datum/spell/alien_spell/plant_weeds, /datum/spell/touch/alien_spell/transfer_plasma)
 
 	var/stored_plasma = 0
 	var/max_plasma = 500
@@ -65,13 +65,13 @@
 	icon_state = "plasma_tiny"
 	stored_plasma = 100
 	max_plasma = 150
-	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds)
+	alien_powers = list(/datum/spell/alien_spell/plant_weeds)
 
 /obj/item/organ/internal/alien/plasmavessel/larva
 	name = "tiny xeno plasma vessel"
 	icon_state = "plasma_tiny"
 	max_plasma = 100
-	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds)
+	alien_powers = list(/datum/spell/alien_spell/plant_weeds)
 
 
 /obj/item/organ/internal/alien/plasmavessel/on_life()
@@ -104,7 +104,7 @@
 	parent_organ = "head"
 	slot = "acid"
 	origin_tech = "biotech=5;materials=2;combat=2"
-	alien_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid)
+	alien_powers = list(/datum/spell/touch/alien_spell/corrosive_acid)
 
 
 /obj/item/organ/internal/alien/hivenode
@@ -114,7 +114,7 @@
 	slot = "hivenode"
 	origin_tech = "biotech=5;magnets=4;bluespace=3"
 	w_class = WEIGHT_CLASS_TINY
-	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/whisper)
+	alien_powers = list(/datum/spell/alien_spell/whisper)
 
 /obj/item/organ/internal/alien/hivenode/insert(mob/living/carbon/M, special = 0)
 	..()
@@ -136,7 +136,7 @@
 	parent_organ = "head"
 	slot = "neurotox"
 	origin_tech = "biotech=5;combat=5"
-	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin)
+	alien_powers = list(/datum/spell/alien_spell/neurotoxin)
 
 /obj/item/organ/internal/alien/resinspinner
 	name = "xeno resin organ"//...there tiger....
@@ -144,7 +144,7 @@
 	icon_state = "liver-x"
 	slot = "spinner"
 	origin_tech = "biotech=5;materials=4"
-	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/build_resin)
+	alien_powers = list(/datum/spell/alien_spell/build_resin)
 
 /obj/item/organ/internal/alien/eggsac
 	name = "xeno egg sac"
@@ -153,4 +153,4 @@
 	slot = "eggsac"
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=6"
-	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds/eggs)
+	alien_powers = list(/datum/spell/alien_spell/plant_weeds/eggs)

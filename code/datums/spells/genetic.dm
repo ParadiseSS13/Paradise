@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/genetic
+/datum/spell/genetic
 	desc = "This spell inflicts a set of mutations and disabilities upon the target."
 
 	var/list/active_on = list()
@@ -6,7 +6,7 @@
 	var/list/mutations = list() // mutation defines. Set these in Initialize. Refactor this nonsense one day
 	var/duration = 100 // deciseconds
 
-/obj/effect/proc_holder/spell/genetic/cast(list/targets, mob/user = usr)
+/datum/spell/genetic/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		if(!target.dna)
 			continue
@@ -20,12 +20,12 @@
 		if(duration < base_cooldown)
 			addtimer(CALLBACK(src, PROC_REF(remove), target), duration, TIMER_OVERRIDE|TIMER_UNIQUE)
 
-/obj/effect/proc_holder/spell/genetic/Destroy()
+/datum/spell/genetic/Destroy()
 	for(var/V in active_on)
 		remove(V)
 	return ..()
 
-/obj/effect/proc_holder/spell/genetic/proc/remove(mob/living/carbon/target)
+/datum/spell/genetic/proc/remove(mob/living/carbon/target)
 	active_on -= target
 	if(!QDELETED(target))
 		for(var/A in mutations)

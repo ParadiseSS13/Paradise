@@ -3,7 +3,7 @@
  */
 /datum/spell_targeting/reachable_turfs
 
-/datum/spell_targeting/reachable_turfs/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
+/datum/spell_targeting/reachable_turfs/choose_targets(mob/user, datum/spell/spell, params, atom/clicked_atom)
 	var/list/turf/locs = list()
 	for(var/direction in GLOB.alldirs)
 		if(length(locs) == max_targets) //we found 2 locations and thats all we need

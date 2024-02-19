@@ -75,7 +75,7 @@
 
 	if(mind)
 		for(var/S in mind.spell_list)
-			var/obj/effect/proc_holder/spell/spell = S
+			var/datum/spell/spell = S
 			spell.updateButtonIcon()
 
 	return TRUE

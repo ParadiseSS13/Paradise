@@ -1,6 +1,6 @@
 /datum/unit_test/spell_targeting/Run()
 	var/list/bad_spells = list()
-	for(var/obj/effect/proc_holder/spell/S as anything in typesof(/obj/effect/proc_holder/spell))
+	for(var/datum/spell/S as anything in typesof(/datum/spell))
 		if(initial(S.name) == "Spell")
 			continue // Skip abstract spells
 		S = new S

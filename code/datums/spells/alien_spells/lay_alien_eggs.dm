@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/alien_spell/plant_weeds/eggs
+/datum/spell/alien_spell/plant_weeds/eggs
 	name = "Plant alien eggs"
 	desc = "Allows you to plant alien eggs on your current turf, does not work while in space."
 	plasma_cost = 75

@@ -6,7 +6,7 @@
 	/// The radius of turfs not being affected. -1 is inactive
 	var/inner_radius = -1
 
-/datum/spell_targeting/aoe/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
+/datum/spell_targeting/aoe/choose_targets(mob/user, datum/spell/spell, params, atom/clicked_atom)
 	var/list/targets = list()
 	var/spell_center = use_turf_of_user ? get_turf(user) : user
 

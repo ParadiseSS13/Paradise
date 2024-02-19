@@ -1,13 +1,13 @@
-/obj/effect/proc_holder/spell/alien_spell/build_resin
+/datum/spell/alien_spell/build_resin
 	name = "Build Resin Structure"
 	desc = "Allows you to create resin structures. Does not work while in space."
 	plasma_cost = 55
 	action_icon_state = "alien_resin"
 
-/obj/effect/proc_holder/spell/alien_spell/build_resin/create_new_targeting()
+/datum/spell/alien_spell/build_resin/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/alien_spell/build_resin/cast(list/targets, mob/living/carbon/user)
+/datum/spell/alien_spell/build_resin/cast(list/targets, mob/living/carbon/user)
 	var/static/list/resin_buildings = list("Resin Wall (55)" = image(icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi', icon_state = "resin_wall-0"),
 									"Resin Nest (55)" = image(icon = 'icons/mob/alien.dmi', icon_state = "nest"),
 									"Resin door (80)" = image(icon = 'icons/obj/smooth_structures/alien/resin_door.dmi', icon_state = "resin"))
@@ -25,7 +25,7 @@
 		to_chat(user, "<span class='danger'>There is already a resin construction here.</span>")
 		revert_cast(user)
 		return
-	visible_message("<span class='alertalien'>[user] vomits up a thick purple substance and shapes it!</span>")
+	user.visible_message("<span class='alertalien'>[user] vomits up a thick purple substance and shapes it!</span>")
 	switch(choice)
 		if("Resin Wall (55)")
 			new /obj/structure/alien/resin/wall(turf_to_spawn_at)

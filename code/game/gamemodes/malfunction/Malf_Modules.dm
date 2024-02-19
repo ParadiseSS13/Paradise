@@ -50,7 +50,7 @@
 /datum/action/innate/ai/ranged
 	name = "Ranged AI Action"
 	auto_use_uses = FALSE //This is so we can do the thing and disable/enable freely without having to constantly add uses
-	var/obj/effect/proc_holder/ranged_ai/linked_ability //The linked proc holder that contains the actual ability code
+	var/datum/spell/ranged_ai/linked_ability //The linked proc holder that contains the actual ability code
 	var/linked_ability_type //The path of our linked ability
 
 /datum/action/innate/ai/ranged/New()
@@ -81,12 +81,12 @@
 	return TRUE
 
 //The actual ranged proc holder.
-/obj/effect/proc_holder/ranged_ai
+/datum/spell/ranged_ai
 	var/enable_text = "<span class='notice'>Hello World!</span>" //Appears when the user activates the ability
 	var/disable_text = "<span class='danger'>Goodbye Cruel World!</span>" //Context clues!
 	var/datum/action/innate/ai/ranged/attached_action
 
-/obj/effect/proc_holder/ranged_ai/proc/toggle(mob/user)
+/datum/spell/ranged_ai/proc/toggle(mob/user)
 	if(active)
 		remove_ranged_ability(user, disable_text)
 	else
@@ -471,7 +471,7 @@
 	desc = "Overheats a machine, causing a moderately-sized explosion after a short time."
 	button_icon_state = "overload_machine"
 	uses = 4
-	linked_ability_type = /obj/effect/proc_holder/ranged_ai/overload_machine
+	linked_ability_type = /datum/spell/ranged_ai/overload_machine
 
 /datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
@@ -479,13 +479,13 @@
 		if(M) //to check if the explosion killed it before we try to delete it
 			qdel(M)
 
-/obj/effect/proc_holder/ranged_ai/overload_machine
+/datum/spell/ranged_ai/overload_machine
 	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	enable_text = "<span class='notice'>You tap into the station's powernet. Click on a machine to detonate it, or use the ability again to cancel.</span>"
 	disable_text = "<span class='notice'>You release your hold on the powernet.</span>"
 
-/obj/effect/proc_holder/ranged_ai/overload_machine/InterceptClickOn(mob/living/caller, params, obj/machinery/target)
+/datum/spell/ranged_ai/overload_machine/InterceptClickOn(mob/living/caller, params, obj/machinery/target)
 	if(..())
 		return
 	if(ranged_ability_user.incapacitated())
@@ -520,19 +520,19 @@
 	desc = "Animates a targeted machine, causing it to attack anyone nearby."
 	button_icon_state = "override_machine"
 	uses = 4
-	linked_ability_type = /obj/effect/proc_holder/ranged_ai/override_machine
+	linked_ability_type = /datum/spell/ranged_ai/override_machine
 
 /datum/action/innate/ai/ranged/override_machine/proc/animate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
 		new/mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, owner, 1)
 
-/obj/effect/proc_holder/ranged_ai/override_machine
+/datum/spell/ranged_ai/override_machine
 	active = FALSE
 	ranged_mousepointer = 'icons/effects/override_machine_target.dmi'
 	enable_text = "<span class='notice'>You tap into the station's powernet. Click on a machine to animate it, or use the ability again to cancel.</span>"
 	disable_text = "<span class='notice'>You release your hold on the powernet.</span>"
 
-/obj/effect/proc_holder/ranged_ai/override_machine/InterceptClickOn(mob/living/caller, params, obj/machinery/target)
+/datum/spell/ranged_ai/override_machine/InterceptClickOn(mob/living/caller, params, obj/machinery/target)
 	if(..())
 		return
 	if(ranged_ability_user.incapacitated())
@@ -888,7 +888,7 @@
 	desc = "Shocks a cyborg back to 'life' after a short delay."
 	button_icon_state = "overload_machine"
 	uses = 2
-	linked_ability_type = /obj/effect/proc_holder/ranged_ai/repair_cyborg
+	linked_ability_type = /datum/spell/ranged_ai/repair_cyborg
 
 
 /datum/action/innate/ai/ranged/repair_cyborg/proc/fix_borg(mob/living/silicon/robot/to_repair)
@@ -898,14 +898,14 @@
 		component.component_disabled = FALSE
 	to_repair.revive()
 
-/obj/effect/proc_holder/ranged_ai/repair_cyborg
+/datum/spell/ranged_ai/repair_cyborg
 	active = FALSE
 	ranged_mousepointer = 'icons/effects/overload_machine_target.dmi'
 	enable_text = "<span class='notice'>Call to address 0FFFFFFF in APC logic thread, awaiting user response.</span>"
 	disable_text = "<span class='notice'>APC logic thread restarting...</span>"
 	var/is_active = FALSE
 
-/obj/effect/proc_holder/ranged_ai/repair_cyborg/InterceptClickOn(mob/living/caller, params, mob/living/silicon/robot/robot_target)
+/datum/spell/ranged_ai/repair_cyborg/InterceptClickOn(mob/living/caller, params, mob/living/silicon/robot/robot_target)
 	if(..())
 		return
 	if(ranged_ability_user.incapacitated())
@@ -945,10 +945,10 @@
 	button_icon_state = "roll_over"
 	desc = "Allows you to roll over in the direction of your choosing, crushing anything in your way."
 	auto_use_uses = FALSE
-	linked_ability_type = /obj/effect/proc_holder/ranged_ai/roll_over
+	linked_ability_type = /datum/spell/ranged_ai/roll_over
 
 
-/obj/effect/proc_holder/ranged_ai/roll_over
+/datum/spell/ranged_ai/roll_over
 	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	enable_text = "<span class='notice'>Your inner servos shift as you prepare to roll around. Click adjacent tiles to roll into them!</span>"
@@ -960,7 +960,7 @@
 	var/roll_over_cooldown = MALF_AI_ROLL_COOLDOWN
 
 
-/obj/effect/proc_holder/ranged_ai/roll_over/InterceptClickOn(mob/living/caller, params, atom/target_atom)
+/datum/spell/ranged_ai/roll_over/InterceptClickOn(mob/living/caller, params, atom/target_atom)
 	if(..())
 		return
 	if(!isAI(ranged_ability_user))
@@ -996,7 +996,7 @@
 
 	return TRUE
 
-/obj/effect/proc_holder/ranged_ai/roll_over/proc/do_roll_over(mob/living/silicon/ai/ai_caller, picked_dir)
+/datum/spell/ranged_ai/roll_over/proc/do_roll_over(mob/living/silicon/ai/ai_caller, picked_dir)
 	var/turf/target = get_step(ai_caller, picked_dir) // in case we moved we pass the dir not the target turf
 
 	if(isnull(target) || ai_caller.incapacitated() || !isturf(ai_caller.loc))
@@ -1008,7 +1008,7 @@
 	ai_caller.fall_and_crush(target, MALF_AI_ROLL_DAMAGE, prob(MALF_AI_ROLL_CRIT_CHANCE), 2, null, paralyze_time, crush_dir = picked_dir, angle = get_rotation_from_dir(picked_dir))
 	ai_caller.allow_teleporter = FALSE
 
-/obj/effect/proc_holder/ranged_ai/roll_over/proc/get_rotation_from_dir(dir)
+/datum/spell/ranged_ai/roll_over/proc/get_rotation_from_dir(dir)
 	switch(dir)
 		if(NORTH, NORTHWEST, WEST, SOUTHWEST)
 			return 270 // try our best to not return 180 since it works badly with animate

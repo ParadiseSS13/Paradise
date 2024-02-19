@@ -9,7 +9,7 @@
 	var/random_target_priority = SPELL_TARGET_CLOSEST
 
 
-/datum/spell_targeting/click/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
+/datum/spell_targeting/click/choose_targets(mob/user, datum/spell/spell, params, atom/clicked_atom)
 	var/list/targets = list()
 	if(valid_target(clicked_atom, user, spell))
 		targets.Add(clicked_atom)
