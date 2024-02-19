@@ -93,6 +93,7 @@
 			update_icon(UPDATE_ICON_STATE)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
+		return TRUE
 
 /obj/machinery/recycler/update_icon_state()
 	var/is_powered = !(stat & (BROKEN|NOPOWER))

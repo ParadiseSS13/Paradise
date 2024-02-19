@@ -1211,7 +1211,7 @@
 	next_event_time = fake_time + world.time
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/try_events()
-	if(has_been_powered == FALSE)
+	if(!has_been_powered)
 		return
 	if(!next_event_time) // for when the SM starts
 		make_next_event_time()

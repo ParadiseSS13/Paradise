@@ -451,8 +451,8 @@
 		else
 			areaindex[tmpname] = 1
 		L[tmpname] = R
-	var/desc = input("Please select a location to lock in.", "Syndicate Teleporter") in L
-	return(L[desc])
+	var/desc = tgui_input_list(usr, "Please select a location to lock in.", "Syndicate Teleporter", L)
+	return L[desc]
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/update_portal()
 	if(portal_enabled && !myportal)

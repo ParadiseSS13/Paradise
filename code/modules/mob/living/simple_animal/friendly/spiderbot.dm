@@ -146,6 +146,7 @@
 		melee_damage_lower = 15
 		melee_damage_upper = 15
 		attack_sound = 'sound/machines/defib_zap.ogg'
+		return TRUE
 
 /mob/living/simple_animal/spiderbot/proc/transfer_personality(obj/item/mmi/M)
 	mind = M.brainmob.mind

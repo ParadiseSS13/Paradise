@@ -1114,7 +1114,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /obj/structure/railing,
@@ -1208,7 +1208,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
 "VF" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
