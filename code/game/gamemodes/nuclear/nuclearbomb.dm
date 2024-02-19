@@ -55,6 +55,8 @@ GLOBAL_VAR(bomb_set)
 	var/core_stage = NUKE_CORE_EVERYTHING_FINE
 	///How many sheets of various metals we need to fix it
 	var/sheets_to_fix = 5
+	/// Is this a training bomb?
+	var/training = FALSE
 
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
@@ -92,7 +94,9 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/examine(mob/user)
 	. = ..()
-	if(!panel_open)
+	if(training)
+		. += "<span class='notice'><b>Alt-Click</b> to reset the bomb.</span>"
+	if(!panel_open && !training)
 		. += "<span class='notice'>The outer panel is <b>screwed shut</b>.</span>"
 	switch(removal_stage)
 		if(NUKE_INTACT)
@@ -144,6 +148,9 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/disk/nuclear))
 		if(extended)
+			if(istype(O, /obj/item/disk/nuclear/training) && !training)
+				to_chat(user,  "<span class='warning'>[O] doesn't fit into [src]!</span>")
+				return
 			if(!user.drop_item())
 				to_chat(user, "<span class='notice'>[O] is stuck to your hand!</span>")
 				return
@@ -263,7 +270,7 @@ GLOBAL_VAR(bomb_set)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(auth || (istype(I, /obj/item/screwdriver/nuke) && !is_syndicate))
+	if(!training && (auth || (istype(I, /obj/item/screwdriver/nuke) && !is_syndicate)))
 		if(!panel_open)
 			panel_open = TRUE
 			to_chat(user, "You unscrew the control panel of [src].")
@@ -274,7 +281,7 @@ GLOBAL_VAR(bomb_set)
 			to_chat(user, "You screw the control panel of [src] back on.")
 			core_stage = removal_stage
 			removal_stage = anchor_stage
-	else
+	else if(!training)
 		if(!panel_open)
 			to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
 		if(panel_open)
@@ -390,6 +397,8 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/proc/is_auth(mob/user)
 	if(auth)
+		if(istype(auth, /obj/item/disk/nuclear/training) && !training)
+			return FALSE
 		return TRUE
 	else if(user.can_admin_interact())
 		return TRUE
@@ -426,6 +435,8 @@ GLOBAL_VAR(bomb_set)
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/disk/nuclear))
+					if(istype(I, /obj/item/disk/nuclear/training) && !training)
+						return
 					usr.drop_item()
 					I.forceMove(src)
 					auth = I
@@ -484,15 +495,16 @@ GLOBAL_VAR(bomb_set)
 		if("toggle_safety")
 			safety = !(safety)
 			if(safety)
-				if(!is_syndicate)
+				if(!is_syndicate && !training)
 					SSsecurity_level.set_level(previous_level)
 				timing = FALSE
-				GLOB.bomb_set = FALSE
+				if(!training)
+					GLOB.bomb_set = FALSE
 		if("toggle_armed")
 			if(safety)
 				to_chat(usr, "<span class='notice'>The safety is still on.</span>")
 				return
-			if(!core)
+			if(!core && !training)
 				to_chat(usr, "<span class='danger'>[src]'s screen blinks red! There is no plutonium core in [src]!</span>")
 				return
 			timing = !(timing)
@@ -500,17 +512,18 @@ GLOBAL_VAR(bomb_set)
 				if(!lighthack)
 					icon_state = "nuclearbomb2"
 					update_icon(UPDATE_OVERLAYS)
-				if(!safety)
+				if(!safety && !training)
 					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
 					if(!is_syndicate)
 						SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 					GLOB.bomb_set = TRUE // There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke
-				else
+				else if(!training)
 					GLOB.bomb_set = TRUE
 			else
-				if(!is_syndicate)
+				if(!is_syndicate && !training)
 					SSsecurity_level.set_level(previous_level)
-				GLOB.bomb_set = FALSE
+				if(!training)
+					GLOB.bomb_set = FALSE
 				if(!lighthack)
 					icon_state = "nuclearbomb1"
 					update_icon(UPDATE_OVERLAYS)
@@ -556,6 +569,8 @@ GLOBAL_VAR(bomb_set)
 
 
 /obj/machinery/nuclearbomb/proc/explode()
+	if(training) //You shouldn't get here in the first place with training nuke, but still, absolutely not
+		return
 	if(safety)
 		timing = FALSE
 		return
@@ -634,6 +649,8 @@ GLOBAL_VAR(bomb_set)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	/// Is the disk restricted to the station? If true, also respawns the disk when deleted
 	var/restricted_to_station = TRUE
+	/// Is this a training disk?
+	var/training = FALSE
 
 /obj/item/disk/nuclear/unrestricted
 	name = "unrestricted nuclear authentication disk"
@@ -644,7 +661,8 @@ GLOBAL_VAR(bomb_set)
 	..()
 	if(restricted_to_station)
 		START_PROCESSING(SSobj, src)
-	GLOB.poi_list |= src
+	if(!training)
+		GLOB.poi_list |= src
 
 /obj/item/disk/nuclear/process()
 	if(!restricted_to_station)
@@ -670,6 +688,9 @@ GLOBAL_VAR(bomb_set)
 
 /obj/item/disk/nuclear/Destroy(force)
 	var/turf/diskturf = get_turf(src)
+
+	if(training)
+		return ..()
 
 	if(force)
 		message_admins("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]).")
@@ -708,6 +729,49 @@ GLOBAL_VAR(bomb_set)
 		var/list/open_turfs = current_spawn.AdjacentTurfs(open_only = TRUE)
 		if(length(open_turfs))
 			return pick(open_turfs)
+
+/// TRAINING NUKE
+
+/obj/machinery/nuclearbomb/training
+	name = "training nuclear bomb" //Todo : Training nuke sprites
+	desc = "A fake bomb for training in arming, disarming, or defusing a nuclear bomb. Does not simulate nuclear core extraction. \
+		The '1' on the keypad looks much more used than the other keys. If lost, a new training disk can be printed at a protolathe."
+	resistance_flags = null
+	training = TRUE
+
+/obj/machinery/nuclearbomb/training/Initialize()
+	. = ..()
+	r_code = 11111 //Uuh.. one!
+	qdel(core)
+
+/obj/machinery/nuclearbomb/training/process()
+	if(timing)
+		timeleft = max(timeleft - 2, 0) // 2 seconds per process()
+		if(timeleft <= 0)
+			INVOKE_ASYNC(src, PROC_REF(training_detonation))
+
+/obj/machinery/nuclearbomb/training/blob_act(obj/structure/blob/B)
+	qdel(src)
+
+/obj/machinery/nuclearbomb/training/proc/training_detonation()
+	atom_say("Nuclear device detonated. Resetting...")
+	training_reset()
+
+/obj/machinery/nuclearbomb/training/proc/training_reset()
+	if(auth)
+		auth.forceMove(get_turf(src))
+	new /obj/machinery/nuclearbomb/training(get_turf(src))
+	qdel(src)
+
+
+
+/obj/item/disk/nuclear/training
+	name = "training authentification disk"
+	desc = "The code is 11111."
+	icon_state = "datadisk2" //TODO : Obviously fake disk sprite
+	resistance_flags = null
+	restricted_to_station = FALSE
+	training = TRUE
 
 #undef NUKE_INTACT
 #undef NUKE_COVER_OFF
