@@ -98,9 +98,8 @@
 	if(can_reach(A, W))
 		W.melee_attack_chain(src, A, params)
 		return
-	else
-		W.afterattack(A, src, 0, params)
-		return
+	W.afterattack(A, src, 0, params)
+	return
 
 //Ctrl+Middle click cycles through modules
 /mob/living/silicon/robot/proc/CtrlMiddleClickOn(atom/A)
