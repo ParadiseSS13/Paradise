@@ -161,7 +161,7 @@ export const SettingsGeneral = (props, context) => {
             }
           />
           <Box inline fontSize="1em" mx={1} color="label">
-            Total messages displayed:
+            Maximum messages displayed:
           </Box>
           <NumberInput
             width="4.2em"
