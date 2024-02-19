@@ -295,7 +295,7 @@
 		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
 		return
 
-	var/last_words = input(src, "Do you have any last words?", "Goodnight, Sweet Prince") as text|null
+	var/last_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE)
 
 	if(stat == DEAD)
 		// cancel em out if they died while they had the message box up
