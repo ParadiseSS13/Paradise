@@ -204,9 +204,7 @@
 	if(!here || !there)
 		return FALSE
 	switch(reach)
-		if(0)
-			return FALSE
-		if(1)
+		if(0, 1)
 			return FALSE //here.Adjacent(there)
 		if(2 to INFINITY)
 			var/obj/dummy = new(get_turf(here))

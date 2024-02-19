@@ -95,7 +95,7 @@
 		return
 
 	// cyborgs are prohibited from using storage items so we can I think safely remove (A.loc && isturf(A.loc.loc))
-	if(can_reach(A,W))
+	if(can_reach(A, W))
 		W.melee_attack_chain(src, A, params)
 		return
 	else
