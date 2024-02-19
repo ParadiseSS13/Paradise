@@ -112,6 +112,14 @@
 	new /obj/item/clothing/head/helmet(src)
 	new /obj/item/clothing/suit/armor/secjacket(src)
 
+/obj/structure/closet/secure_closet/evidence
+	name = "evidence locker"
+	req_access = list(ACCESS_SEC_DOORS)
+	anchored = TRUE
+
+/obj/structure/closet/secure_closet/evidence/detective
+	req_access = list(ACCESS_FORENSICS_LOCKERS)
+
 /obj/structure/closet/secure_closet/blueshield
 	name = "blueshield's locker"
 	req_access = list(ACCESS_BLUESHIELD)
