@@ -1439,7 +1439,7 @@
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = null // will end up being the bandana
 	mask = /obj/item/clothing/mask/bandana/black // will end up being a cigar
-	l_ear = /obj/item/radio/headset/syndicate/alt/syndteam
+	l_ear = /obj/item/radio/headset/ert/alt/solgov
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
 	id = /obj/item/card/id
 	l_pocket = /obj/item/kitchen/knife/combat
