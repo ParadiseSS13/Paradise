@@ -152,13 +152,14 @@ SUBSYSTEM_DEF(jobs)
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
-		if(player.mind.will_roll_antag && player.mind && (job.title in SSticker.mode.single_antag_positions))
-			if(!prob(probability_of_antag_role_restriction))
-				Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
-				continue
-			else
-				probability_of_antag_role_restriction /= 10
 		if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
+			if(player.mind.will_roll_antag && player.mind && (job.title in SSticker.mode.single_antag_positions)) //We want to check if they want the job, before rolling the prob chance
+				if(player.mind.failed_head_antag_roll || !prob(probability_of_antag_role_restriction))
+					Debug("FOC Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
+					player.mind.failed_head_antag_roll = TRUE
+					continue
+				else
+					probability_of_antag_role_restriction /= 10
 			Debug("FOC pass, Player: [player], Level:[level]")
 			candidates += player
 	return candidates
@@ -202,8 +203,9 @@ SUBSYSTEM_DEF(jobs)
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
 		if(player.mind.will_roll_antag && player.mind && (job.title in SSticker.mode.single_antag_positions))
-			if(!prob(probability_of_antag_role_restriction))
-				Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
+			if(player.mind.failed_head_antag_roll || !prob(probability_of_antag_role_restriction))
+				Debug("GRJ Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
+				player.mind.failed_head_antag_roll = TRUE
 				continue
 			else
 				probability_of_antag_role_restriction /= 10
@@ -388,14 +390,15 @@ SUBSYSTEM_DEF(jobs)
 				if(player.mind && (job.title in player.mind.restricted_roles))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
-				if(player.mind.will_roll_antag && player.mind && (job.title in SSticker.mode.single_antag_positions))
-					if(!prob(probability_of_antag_role_restriction))
-						Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
-						continue
-					else
-						probability_of_antag_role_restriction /= 10
 				// If the player wants that job on this level, then try give it to him.
 				if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
+					if(player.mind.will_roll_antag && player.mind && (job.title in SSticker.mode.single_antag_positions)) //We want to check if they want the job, before rolling the prob chance
+						if(player.mind.failed_head_antag_roll || !prob(probability_of_antag_role_restriction))
+							Debug("DO Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
+							player.mind.failed_head_antag_roll = TRUE
+							continue
+						else
+							probability_of_antag_role_restriction /= 10
 
 					// If the job isn't filled
 					if(job.is_spawn_position_available())
