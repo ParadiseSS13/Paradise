@@ -250,15 +250,6 @@
 	for(var/I in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
 
-/obj/item/storage/box/flashbangs
-	name = "box of flashbangs (WARNING)"
-	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</B>"
-	icon_state = "flashbang"
-
-/obj/item/storage/box/flashbangs/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/grenade/flashbang(src)
-
 /obj/item/storage/box/flashes
 	name = "box of flashbulbs"
 	desc = "<B>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</B>"
@@ -647,6 +638,15 @@
 /obj/item/storage/box/flashbangs/populate_contents()
 	for(var/I in 1 to 7)
 		new /obj/item/grenade/flashbang(src)
+
+/obj/item/storage/box/smoke_grenades
+	name = "smoke grenades"
+	desc = "A box with 7 snoke grenades."
+	icon_state = "teargas_box"
+
+/obj/item/storage/box/smoke_grenades/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/smokebomb(src)
 
 /obj/item/storage/box/flashes
 	name = "box of flashbulbs"

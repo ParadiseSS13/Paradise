@@ -12,6 +12,9 @@
 	pixel_y = -32
 	opacity = TRUE
 	anchored = FALSE
+	plane = SMOKE_PLANE
+	layer = FLY_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/steps = 0
 	var/lifetime = 5
 	var/direction

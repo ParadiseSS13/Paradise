@@ -348,6 +348,9 @@
 /obj/item/radio/headset/ert/alt/solgov
 	name = "\improper Trans-Solar Federation Marine's bowman headset"
 
+/obj/item/radio/headset/ert/alt/solgovviper
+	name = "\improper Trans-Solar Federation Infilitrator's bowman headset"
+
 /obj/item/radio/headset/ert/alt/commander
 	name = "ERT commander's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs. Can transmit even if telecomms are down."
