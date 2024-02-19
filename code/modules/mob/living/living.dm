@@ -326,7 +326,6 @@
 /mob/living/proc/remove_succumbed()
 	REMOVE_TRAIT(src, TRAIT_RECENTLY_SUCCUMBED, "succumb")
 
-
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
 
