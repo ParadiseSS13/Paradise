@@ -153,7 +153,7 @@ SUBSYSTEM_DEF(jobs)
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
 		if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
-			if(player.mind.will_roll_antag && player.mind && (job.title in SSticker.mode.single_antag_positions)) //We want to check if they want the job, before rolling the prob chance
+			if(!isnull(player.mind.special_role) && player.mind && (job.title in SSticker.mode.single_antag_positions)) //We want to check if they want the job, before rolling the prob chance
 				if(player.mind.failed_head_antag_roll || !prob(probability_of_antag_role_restriction))
 					Debug("FOC Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
 					player.mind.failed_head_antag_roll = TRUE
@@ -202,7 +202,7 @@ SUBSYSTEM_DEF(jobs)
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
-		if(player.mind.will_roll_antag && player.mind && (job.title in SSticker.mode.single_antag_positions))
+		if(!isnull(player.mind.special_role) && player.mind && (job.title in SSticker.mode.single_antag_positions))
 			if(player.mind.failed_head_antag_roll || !prob(probability_of_antag_role_restriction))
 				Debug("GRJ Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
 				player.mind.failed_head_antag_roll = TRUE
@@ -394,7 +394,7 @@ SUBSYSTEM_DEF(jobs)
 				if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 					// If the job isn't filled
 					if(job.is_spawn_position_available())
-						if(player.mind.will_roll_antag && player.mind && (job.title in SSticker.mode.single_antag_positions)) //We want to check if they want the job, before rolling the prob chance
+						if(!isnull(player.mind.special_role) && player.mind && (job.title in SSticker.mode.single_antag_positions)) //We want to check if they want the job, before rolling the prob chance
 							if(player.mind.failed_head_antag_roll || !prob(probability_of_antag_role_restriction))
 								Debug("DO Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
 								player.mind.failed_head_antag_roll = TRUE

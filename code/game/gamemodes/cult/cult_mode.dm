@@ -74,7 +74,6 @@
 		cult += cultist
 		cultist.restricted_roles = restricted_jobs
 		cultist.special_role = SPECIAL_ROLE_CULTIST
-		cultist.will_roll_antag = TRUE
 	return (length(cult) > 0)
 
 /datum/game_mode/cult/post_setup()

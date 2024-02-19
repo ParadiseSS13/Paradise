@@ -53,9 +53,6 @@
 	/// Tracks if this mind has been a rev or not
 	var/has_been_rev = FALSE
 
-	/// Tracks if the player will be rolling antag this round from a random antag role
-	var/will_roll_antag = FALSE
-
 	/// Tracks when they fail the probability of head antagonist, so they don't get multiple rolls.
 	var/failed_head_antag_roll = FALSE
 
