@@ -106,7 +106,7 @@
 /obj/item/reagent_containers/spray/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(alert(user, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
+	if(tgui_alert(user, "Are you sure you want to empty that?", "Empty Bottle", list("Yes", "No")) != "Yes")
 		return
 	if(isturf(user.loc) && loc == user)
 		to_chat(user, "<span class='notice'>You empty [src] onto the floor.</span>")

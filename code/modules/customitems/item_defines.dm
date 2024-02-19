@@ -851,7 +851,6 @@
 /obj/item/clothing/suit/fluff/kluys/verb/toggle()
 	set name = "Toggle Nanofibre Mode"
 	set category = "Object"
-	set src in usr
 
 	if(usr.stat || usr.restrained())
 		return 0
@@ -1058,6 +1057,7 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	actions_types = list(/datum/action/item_action/zipper)
 	adjust_flavour = "unzip"
+	sprite_sheets = null
 
 //////////// Uniforms ////////////
 
@@ -1148,7 +1148,6 @@
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
 	set name = "Toggle Jumpsuit Zipper"
 	set category = "Object"
-	set src in usr
 
 	if(usr.stat || usr.restrained())
 		return 0
