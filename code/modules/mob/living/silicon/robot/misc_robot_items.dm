@@ -29,18 +29,18 @@
 // Copied over from paper's rename verb
 // see code\modules\paperwork\paper.dm line 62
 
-/obj/item/pen/multi/robopen/proc/RenamePaper(mob/user as mob,obj/paper as obj)
+/obj/item/pen/multi/robopen/proc/RenamePaper(mob/user, obj/paper)
 	if(!user || !paper)
 		return
-	var/n_name = input(user, "What would you like to label the paper?", "Paper Labelling", null)  as text
+	var/n_name = input(user, "What would you like to label the paper?", "Paper Labelling") as text
 	if(!user || !paper)
 		return
 
 	n_name = copytext(n_name, 1, 32)
-	if(( get_dist(user,paper) <= 1  && user.stat == 0))
-		paper.name = "paper[(n_name ? "- '[n_name]'" : null)]"
+	if(get_dist(user, paper) > 1  || user.stat)
+		return
+	paper.name = "paper[(n_name ? "- '[n_name]'" : null)]"
 	add_fingerprint(user)
-	return
 
 //TODO: Add prewritten forms to dispense when you work out a good way to store the strings.
 /obj/item/form_printer

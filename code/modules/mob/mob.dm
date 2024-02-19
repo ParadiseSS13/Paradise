@@ -885,7 +885,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/eye_name = null
 
 	var/ok = "[is_admin ? "Admin Observe" : "Observe"]"
-	eye_name = input("Please, select a player!", ok, null, null) as null|anything in creatures
+	eye_name = tgui_input_list(usr, "Please, select a player!", ok, creatures)
 
 	if(!eye_name)
 		return
@@ -1611,6 +1611,8 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	. = stat
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)
+	if(.)
+		set_typing_indicator(FALSE)
 
 ///Makes a call in the context of a different usr. Use sparingly
 /world/proc/invoke_callback_with_usr(mob/user_mob, datum/callback/invoked_callback, ...)
