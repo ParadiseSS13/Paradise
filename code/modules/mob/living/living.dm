@@ -320,7 +320,11 @@
 	else
 		death()
 	to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
+	ADD_TRAIT(src, TRAIT_RECENTLY_SUCCUMBED, "succumb")
+	addtimer(CALLBACK(src, PROC_REF(remove_succumbed)), 1 MINUTES)
 
+/mob/living/proc/remove_succumbed()
+	REMOVE_TRAIT(src, TRAIT_RECENTLY_SUCCUMBED, "succumb")
 
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
