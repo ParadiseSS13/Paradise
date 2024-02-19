@@ -73,7 +73,7 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/proc/GetPlayerAltTitle(mob/new_player/player, rank)
 	return player.client.prefs.active_character.GetPlayerAltTitle(GetJob(rank))
 
-/datum/controller/subsystem/jobs/proc/AssignRole(mob/new_player/player, rank, latejoin = 0)
+/datum/controller/subsystem/jobs/proc/AssignRole(mob/new_player/player, rank, latejoin = 0, second_pass)
 	Debug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
 	if(player && player.mind && rank)
 		var/datum/job/job = GetJob(rank)
@@ -95,6 +95,15 @@ SUBSYSTEM_DEF(jobs)
 		var/available = latejoin ? job.is_position_available() : job.is_spawn_position_available()
 
 		if(available)
+			if(player.mind.will_roll_antag && player.mind && (job.title in SSticker.mode.single_antag_positions))
+				if(!prob(probability_of_antag_role_restriction))
+					Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
+					GiveRandomJob(player, TRUE)
+					if(second_pass)
+						AssignRole(player, "Assistant") // No other jobs to give them
+					return
+				else
+					probability_of_antag_role_restriction /= 10
 			Debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JTP:[job.total_positions], JSP:[job.spawn_positions]")
 			player.mind.assigned_role = rank
 			player.mind.role_alt_title = GetPlayerAltTitle(player, rank)
@@ -152,18 +161,12 @@ SUBSYSTEM_DEF(jobs)
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
-		if(player.mind && (job.title in SSticker.mode.single_antag_positions))
-			if(!prob(probability_of_antag_role_restriction))
-				Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
-				continue
-			else
-				probability_of_antag_role_restriction /= 10
 		if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 			Debug("FOC pass, Player: [player], Level:[level]")
 			candidates += player
 	return candidates
 
-/datum/controller/subsystem/jobs/proc/GiveRandomJob(mob/new_player/player)
+/datum/controller/subsystem/jobs/proc/GiveRandomJob(mob/new_player/player, second_pass)
 	Debug("GRJ Giving random job, Player: [player]")
 	for(var/datum/job/job in shuffle(occupations))
 		if(!job)
@@ -201,15 +204,9 @@ SUBSYSTEM_DEF(jobs)
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
-		if(player.mind && (job.title in SSticker.mode.single_antag_positions))
-			if(!prob(probability_of_antag_role_restriction))
-				Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
-				continue
-			else
-				probability_of_antag_role_restriction /= 10
 		if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
 			Debug("GRJ Random job given, Player: [player], Job: [job]")
-			AssignRole(player, job.title)
+			AssignRole(player, job.title, second_pass = second_pass)
 			unassigned -= player
 			break
 
@@ -248,9 +245,7 @@ SUBSYSTEM_DEF(jobs)
 			var/mob/new_player/candidate = pick(filteredCandidates)
 			if(AssignRole(candidate, command_position))
 				return 1
-
 	return 0
-
 
 ///This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level
 /datum/controller/subsystem/jobs/proc/CheckHeadPositions(level)
@@ -263,7 +258,6 @@ SUBSYSTEM_DEF(jobs)
 			continue
 		var/mob/new_player/candidate = pick(candidates)
 		AssignRole(candidate, command_position)
-
 
 /datum/controller/subsystem/jobs/proc/FillAIPosition()
 	if(!GLOB.configuration.jobs.allow_ai)
@@ -388,12 +382,6 @@ SUBSYSTEM_DEF(jobs)
 				if(player.mind && (job.title in player.mind.restricted_roles))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
-				if(player.mind && (job.title in SSticker.mode.single_antag_positions))
-					if(!prob(probability_of_antag_role_restriction))
-						Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
-						continue
-					else
-						probability_of_antag_role_restriction /= 10
 				// If the player wants that job on this level, then try give it to him.
 				if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 

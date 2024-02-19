@@ -9,7 +9,7 @@
 	to_chat(world, "<B>Just have fun and role-play!</B>")
 
 /datum/game_mode/extended/pre_setup()
-	return 1
+	return TRUE
 
 /datum/game_mode/extended/post_setup()
 	..()

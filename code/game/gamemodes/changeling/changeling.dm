@@ -44,6 +44,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		pre_changelings += changeling
 		changeling.restricted_roles = restricted_jobs
 		changeling.special_role = SPECIAL_ROLE_CHANGELING
+		changeling.will_roll_antag = TRUE
 
 	if(!length(pre_changelings))
 		return FALSE

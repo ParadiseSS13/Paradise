@@ -53,6 +53,7 @@
 		pre_traitors += traitor
 		traitor.special_role = SPECIAL_ROLE_TRAITOR
 		traitor.restricted_roles = restricted_jobs
+		traitor.will_roll_antag = TRUE
 
 	if(!length(pre_traitors))
 		return FALSE

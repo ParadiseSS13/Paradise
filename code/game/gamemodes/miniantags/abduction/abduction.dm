@@ -28,7 +28,7 @@
 	possible_abductors = get_players_for_role(ROLE_ABDUCTOR)
 
 	if(!possible_abductors.len)
-		return 0
+		return FALSE
 
 	abductor_teams = max(1, min(max_teams,round(num_players()/15)))
 	var/possible_teams = max(1,round(possible_abductors.len / 2))
@@ -42,7 +42,7 @@
 
 	for(var/i=1,i<=abductor_teams,i++)
 		if(!make_abductor_team(i))
-			return 0
+			return FALSE
 	..()
 	return 1
 
@@ -77,11 +77,13 @@
 
 	scientist.assigned_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 	scientist.special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
+	scientist.will_roll_antag = TRUE
 	scientist.offstation_role = TRUE
 	log_game("[key_name(scientist)] has been selected as an abductor team [team_number] scientist.")
 
 	agent.assigned_role = SPECIAL_ROLE_ABDUCTOR_AGENT
 	agent.special_role = SPECIAL_ROLE_ABDUCTOR_AGENT
+	agent.will_roll_antag = TRUE
 	agent.offstation_role = TRUE
 	log_game("[key_name(agent)] has been selected as an abductor team [team_number] agent.")
 
