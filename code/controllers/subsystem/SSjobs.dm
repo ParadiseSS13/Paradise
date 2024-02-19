@@ -154,7 +154,7 @@ SUBSYSTEM_DEF(jobs)
 			continue
 		if(player.mind.will_roll_antag && player.mind && (job.title in SSticker.mode.single_antag_positions))
 			if(!prob(probability_of_antag_role_restriction))
-				Debug("Failed probability of getting a second antagonist position in this job,, Player: [player], Job:[job.title]")
+				Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
 				continue
 			else
 				probability_of_antag_role_restriction /= 10
@@ -203,7 +203,7 @@ SUBSYSTEM_DEF(jobs)
 			continue
 		if(player.mind.will_roll_antag && player.mind && (job.title in SSticker.mode.single_antag_positions))
 			if(!prob(probability_of_antag_role_restriction))
-				Debug("Failed probability of getting a second antagonist position in this job,, Player: [player], Job:[job.title]")
+				Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
 				continue
 			else
 				probability_of_antag_role_restriction /= 10
@@ -390,7 +390,7 @@ SUBSYSTEM_DEF(jobs)
 					continue
 				if(player.mind.will_roll_antag && player.mind && (job.title in SSticker.mode.single_antag_positions))
 					if(!prob(probability_of_antag_role_restriction))
-						Debug("Failed probability of getting a second antagonist position in this job,, Player: [player], Job:[job.title]")
+						Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
 						continue
 					else
 						probability_of_antag_role_restriction /= 10
