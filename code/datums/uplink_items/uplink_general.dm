@@ -662,7 +662,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/suits/chameleon_module
 	name = "MODsuit Chameleon Module"
-	desc = "A module using chameleon technology to disguise an undeployed modsuit as another object. Note: the disguise will not work once the modsuit is deployed, but will can be toggled again when it is retracted."
+	desc = "A module using chameleon technology to disguise an undeployed modsuit as another object. Note: the disguise will not work once the modsuit is deployed, but can be toggled again when retracted."
 	reference = "MSCM"
 	item = /obj/item/mod/module/chameleon
 	cost = 10
