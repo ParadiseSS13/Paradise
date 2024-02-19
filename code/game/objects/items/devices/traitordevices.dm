@@ -145,7 +145,7 @@
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 			playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
-		else if(EMP_D == FALSE && !(bagholding.len && !flawless)) // This is where the fun begins
+		else if(!EMP_D && !(bagholding.len && !flawless)) // This is where the fun begins
 			var/direction = get_dir(user, destination)
 			panic_teleport(user, destination, direction)
 		else // Emp activated? Bag of holding? No saving throw for you
@@ -278,7 +278,7 @@
 		to_chat(user, "<span class='notice'>The injector is empty!</span>")
 		return
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once.
-	var/choice = alert(user, "The injector is still unused. Do you wish to use it?", "Fireproofing injector", "Yes", "No")
+	var/choice = tgui_alert(user, "The injector is still unused. Do you wish to use it?", "Fireproofing injector", list("Yes", "No"))
 	if(choice == "No")
 		to_chat(user, "<span class='notice'>You decide against using [src].</span>")
 		used = FALSE

@@ -111,7 +111,7 @@
 				if("specify_ssid_delete")
 					if(!answer || !text2num(answer))
 						return
-					var/confirm = alert("You are about to delete book [text2num(answer)]", "Confirm Deletion", "Yes", "No")
+					var/confirm = tgui_alert(usr, "You are about to delete book [text2num(answer)]", "Confirm Deletion", list("Yes", "No"))
 					if(confirm != "Yes")
 						return //we don't need to sanitize b/c removeBookyByID uses id=:id instead of like statemetns
 					if(GLOB.library_catalog.remove_book_by_id(text2num(answer)))
@@ -140,7 +140,7 @@
 						return
 					var/sanitized_answer = paranoid_sanitize(answer) //the last thing we want happening is someone deleting every book with "%%"
 					var/confirm //We want to be absolutely certain an admin wants to do this
-					confirm = alert("You are about to mass delete potentially up to 10 books", "Confirm Deletion", "Yes", "No")
+					confirm = tgui_alert(usr, "You are about to mass delete potentially up to 10 books", "Confirm Deletion", list("Yes", "No"))
 					if(confirm != "Yes")
 						return
 					if(GLOB.library_catalog.remove_books_by_ckey(sanitized_answer))

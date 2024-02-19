@@ -32,7 +32,7 @@
 		to_chat(user, "<span class='warning'>You are jobbanned from role of syndicate and/or terror spider.</span>")
 		return
 	if(error_on_humanize == "")
-		var/spider_ask = alert(humanize_prompt, "Join as Terror Spider?", "Yes", "No")
+		var/spider_ask = tgui_alert(user, humanize_prompt, "Join as Terror Spider?", list("Yes", "No"))
 		if(spider_ask == "No" || !src || QDELETED(src))
 			return
 	else

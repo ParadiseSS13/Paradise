@@ -203,6 +203,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		req_access = list()
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+		return TRUE
 
 /obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
 	switch(next_menu)
@@ -300,7 +301,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			break
 
 	if(!pointless)
-		var/choice = input("This item does not raise tech levels. Proceed destroying loaded item anyway?") in list("Proceed", "Cancel")
+		var/choice = alert(user, "This item does not raise tech levels. Proceed destroying loaded item anyway?", "Are you sure you want to destroy this item?", "Proceed", "Cancel")
 		if(choice == "Cancel" || !linked_destroy)
 			return
 
@@ -578,7 +579,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("maxresearch")
 			if(!check_rights(R_ADMIN))
 				return
-			if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No")
+			if(tgui_alert(usr, "Are you sure you want to maximize research levels?", "Confirmation", list("Yes", "No"))=="No")
 				return
 			log_admin("[key_name(usr)] has maximized the research levels.")
 			message_admins("[key_name_admin(usr)] has maximized the research levels.")
@@ -647,7 +648,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("reset") //Reset the R&D console's database.
 			griefProtection()
-			var/choice = alert("Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", "Continue", "Cancel")
+			var/choice = tgui_alert(usr, "Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", list("Continue", "Cancel"))
 			if(choice == "Continue")
 				add_wait_message("Resetting Database...", RESET_RESEARCH_DELAY)
 				addtimer(CALLBACK(src, PROC_REF(reset_research)), RESET_RESEARCH_DELAY)

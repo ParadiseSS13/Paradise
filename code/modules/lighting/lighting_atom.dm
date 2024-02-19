@@ -78,7 +78,7 @@
 	if(!isturf(T))
 		return
 
-	if(new_opacity == TRUE)
+	if(new_opacity)
 		T.has_opaque_atom = TRUE
 		T.reconsider_lights()
 	else
