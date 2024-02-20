@@ -27,9 +27,7 @@
 		/area/station/security/armory/secure,
 		/area/station/security/permabrig,
 		/area/station/security/lobby,
-		/area/station/security/prison/cell_block/A,
-		/area/station/security/prison/cell_block/B,
-		/area/station/security/prison/cell_block/C,
+		/area/station/security/prison/cell_block/A
 	)
 
 /datum/event/infestation/extended/start()
