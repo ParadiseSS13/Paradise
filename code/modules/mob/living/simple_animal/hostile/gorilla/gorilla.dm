@@ -141,7 +141,7 @@
 			living_target.throw_at(get_edge_target_turf(living_target, dir), rand(1, 2), 7, src)
 			return
 
-		living_target.adjustStaminaLoss(stamina_damage)
+		living_target.apply_damage(stamina_damage, STAMINA)
 		visible_message("<span class='warning'>[src] knocks [living_target] down!</span>")
 
 /mob/living/simple_animal/hostile/gorilla/update_icon_state()

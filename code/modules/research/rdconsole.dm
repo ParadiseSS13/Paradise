@@ -95,8 +95,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(initial(tt.id) == ID)
 			return initial(tt.name)
 
-/proc/CallMaterialName(ID)
-	var/return_name = ID
+/proc/CallMaterialName(return_name)
 	switch(return_name)
 		if("plasma")
 			return_name = "Solid Plasma"
@@ -107,10 +106,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("bluespace")
 			return_name = "Bluespace Mesh"
 		else
-			for(var/R in subtypesof(/datum/reagent))
-				var/datum/reagent/rt = R
-				if(initial(rt.id) == ID)
-					return_name = initial(rt.name)
+			var/datum/reagent/our_reagent = GLOB.chemical_reagents_list[return_name]
+			if(our_reagent && initial(our_reagent.id) == return_name)
+				return_name = initial(our_reagent.name)
 	return capitalize(return_name)
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
@@ -205,6 +203,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		req_access = list()
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+		return TRUE
 
 /obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
 	switch(next_menu)
@@ -302,7 +301,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			break
 
 	if(!pointless)
-		var/choice = input("This item does not raise tech levels. Proceed destroying loaded item anyway?") in list("Proceed", "Cancel")
+		var/choice = alert(user, "This item does not raise tech levels. Proceed destroying loaded item anyway?", "Are you sure you want to destroy this item?", "Proceed", "Cancel")
 		if(choice == "Cancel" || !linked_destroy)
 			return
 

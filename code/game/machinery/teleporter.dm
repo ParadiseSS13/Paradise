@@ -61,6 +61,7 @@
 	if(!emagged)
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>The teleporter can now lock on to Syndicate beacons!</span>")
+		return TRUE
 	else
 		ui_interact(user)
 
@@ -477,7 +478,7 @@
 	var/A = 40
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		A -= M.rating * 10
-	tele_delay = max(A, 0)
+	tele_delay = max(A, 1) // prevents you from teleporting 50000 times in a single tick
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/teleport/perma/Crossed(atom/movable/AM, oldloc)
@@ -490,11 +491,10 @@
 	if(target && !recalibrating && !panel_open && !blockAI(AM))
 		do_teleport(AM, target)
 		use_power(5000)
-		if(tele_delay)
-			recalibrating = TRUE
-			update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
-			update_lighting()
-			addtimer(CALLBACK(src, PROC_REF(CrossedCallback)), tele_delay)
+		recalibrating = TRUE
+		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+		update_lighting()
+		addtimer(CALLBACK(src, PROC_REF(CrossedCallback)), max(tele_delay, 1))
 
 /obj/machinery/teleport/perma/proc/CrossedCallback()
 	recalibrating = FALSE

@@ -149,12 +149,11 @@
 		to_chat(guardian_user, "<span class='notice'>Surveillance trap deployed!</span>")
 		return TRUE
 	else
-		to_chat(guardian_user, "<span class='notice'>You have too many traps deployed. Delete one to place another.</span>")
-		var/picked_snare = input(guardian_user, "Pick which trap to disarm", "Disarm Trap") as null|anything in guardian_user.snares
+		var/picked_snare = tgui_input_list(guardian_user, "You have too many snares deployed! Delete one to place another.", "Disarm Snare", guardian_user.snares)
 		if(picked_snare)
 			guardian_user.snares -= picked_snare
 			qdel(picked_snare)
-			to_chat(src, "<span class='notice'>Snare disarmed.</span>")
+			to_chat(user, "<span class='notice'>Snare disarmed.</span>")
 			revert_cast()
 
 /obj/effect/proc_holder/spell/choose_battlecry

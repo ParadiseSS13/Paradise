@@ -87,6 +87,16 @@
 	var/mob/dead/observer/ghost = user
 	ghost.join_as_drone()
 
+/obj/machinery/drone_fabricator/attack_hand(mob/user)
+	. = ..()
+	if(isdrone(user) && Adjacent(user))
+		if(alert(user, "Would you like to shut down?", null, "Yes", "No") != "Yes")
+			return
+		var/mob/living/silicon/robot/drone/D = user
+		if(!istype(D) || QDELETED(D))
+			return
+		D.cryo_with_dronefab(src)
+
 /mob/dead/verb/join_as_drone()
 	set category = "Ghost"
 	set name = "Join As Drone"
@@ -124,7 +134,7 @@
 		if(!G.check_ahud_rejoin_eligibility())
 			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return
-		if(G.started_as_observer == TRUE)
+		if(G.started_as_observer)
 			joinedasobserver = TRUE
 
 	var/deathtimeminutes = round(deathtime / 600)

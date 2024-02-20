@@ -12,6 +12,7 @@ SUBSYSTEM_DEF(jobs)
 	var/list/type_occupations = list()	//Dict of all jobs, keys are types
 	var/list/prioritized_jobs = list() // List of jobs set to priority by HoP/Captain
 	var/list/id_change_records = list() // List of all job transfer records
+	var/probability_of_antag_role_restriction = 100 // Dict probability of a job rolling an antagonist role
 	var/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
@@ -151,6 +152,12 @@ SUBSYSTEM_DEF(jobs)
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
+		if(player.mind && (job.title in SSticker.mode.single_antag_positions))
+			if(!prob(probability_of_antag_role_restriction))
+				Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
+				continue
+			else
+				probability_of_antag_role_restriction /= 10
 		if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 			Debug("FOC pass, Player: [player], Level:[level]")
 			candidates += player
@@ -194,7 +201,12 @@ SUBSYSTEM_DEF(jobs)
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
-
+		if(player.mind && (job.title in SSticker.mode.single_antag_positions))
+			if(!prob(probability_of_antag_role_restriction))
+				Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
+				continue
+			else
+				probability_of_antag_role_restriction /= 10
 		if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
 			Debug("GRJ Random job given, Player: [player], Job: [job]")
 			AssignRole(player, job.title)
@@ -376,7 +388,12 @@ SUBSYSTEM_DEF(jobs)
 				if(player.mind && (job.title in player.mind.restricted_roles))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
-
+				if(player.mind && (job.title in SSticker.mode.single_antag_positions))
+					if(!prob(probability_of_antag_role_restriction))
+						Debug("Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
+						continue
+					else
+						probability_of_antag_role_restriction /= 10
 				// If the player wants that job on this level, then try give it to him.
 				if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 
@@ -529,8 +546,10 @@ SUBSYSTEM_DEF(jobs)
 				if(istype(G) && !G.prescription)
 					G.upgrade_prescription()
 					H.update_nearsighted_effects()
+
 	if(joined_late || job.admin_only)
 		H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), H.client, H.mind), 1 SECONDS) //Moment for minds to boot up / people to load in
 		return H
 	if(late_arrivals_spawning)
 		H.forceMove(pick(GLOB.latejoin))
@@ -545,6 +564,7 @@ SUBSYSTEM_DEF(jobs)
 		H.Sleeping(5 SECONDS)
 		H.Drunk((2 / liver_multiplier) MINUTES)
 	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. Roundstart joined as job: [rank].")
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), H.client, H.mind), 1 SECONDS) //Moment for minds to boot up / people to load in
 	return H
 
 /datum/controller/subsystem/jobs/proc/LoadJobs(highpop = FALSE) //ran during round setup, reads info from jobs list
