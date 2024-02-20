@@ -2792,6 +2792,10 @@
 	pixel_y = 7;
 	pixel_x = 6
 	},
+/obj/machinery/camera{
+	c_tag = "Defusal Workshop";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},

@@ -65910,10 +65910,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/item/disk/nuclear/training{
-	pixel_x = -4;
-	pixel_y = 4
-	},
 /turf/simulated/floor/plating,
 /area/station/security/range)
 "dWm" = (
