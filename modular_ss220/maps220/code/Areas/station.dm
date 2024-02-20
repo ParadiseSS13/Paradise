@@ -76,6 +76,27 @@
 	name = "\improper Abandoned Escape Shuttle Hallway"
 	icon_state = "escape"
 
+/area/station/public/sleep_male
+	name = "\improper Male Dorm"
+	icon_state = "Sleep"
+
+/area/station/public/sleep_female
+	name = "\improper Female Dorm"
+	icon_state = "Sleep"
+
+/area/station/public/toilet/male
+	name = "\improper Male Toilets"
+
+/area/station/public/toilet/female
+	name = "\improper Female Toilets"
+
+/area/station/security/interrogation/observation
+	name = "Interrogation Observation"
+
+/area/station/service/bar/atrium
+	name = "Atrium"
+	icon_state = "bar"
+
 /* CentCom */
 /area/centcom/ss220
 	name = "\improper ЦК"
