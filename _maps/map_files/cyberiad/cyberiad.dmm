@@ -1760,6 +1760,9 @@
 	pixel_x = -6
 	},
 /obj/structure/table/reinforced,
+/obj/item/radio/intercom/department/security{
+	pixel_x = 28
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "aio" = (
@@ -82501,26 +82504,11 @@
 	},
 /area/station/maintenance/asmaint)
 "rfk" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/nuclearbomb/training,
 /obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/item/radio/intercom/department/security{
-	pixel_y = -28
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "rfn" = (
