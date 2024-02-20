@@ -495,7 +495,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			stretched_hat = TRUE
 			can_wear_restricted_hats = TRUE
 			hat_offset_y = -1
-		if("Brobot", "Service", "robot_old", "securityrobot")
+		if("Brobot", "Service", "Service2", "robot_old", "securityrobot")
 			can_be_hatted = TRUE
 			stretched_hat = TRUE
 			can_wear_restricted_hats = TRUE
