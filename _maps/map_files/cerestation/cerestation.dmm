@@ -1979,6 +1979,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/structure/cable/orange{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/service/clown/secret)
 "amt" = (
@@ -2868,6 +2873,15 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
+"arG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/station/service/clown/secret)
 "arO" = (
 /obj/effect/decal/remains/human,
 /obj/effect/landmark/spawner/xeno,
@@ -4232,7 +4246,7 @@
 "aAe" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -7921,6 +7935,11 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -12429,7 +12448,7 @@
 /area/station/science/toxins/mixing)
 "bsV" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16693,7 +16712,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 4;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon  Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous  Oxide","waste_sensor"="Gas  Mix  Tank")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -21550,7 +21569,7 @@
 /area/station/hallway/primary/aft/east)
 "ciN" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms");
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms");
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -21745,6 +21764,17 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/secondary/entry/south)
+"ckp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/service/clown/secret)
 "ckr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -22013,7 +22043,7 @@
 "clW" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -33173,7 +33203,7 @@
 "dxq" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /obj/item/radio/intercom{
 	pixel_y = -28;
@@ -33424,7 +33454,7 @@
 /area/station/hallway/primary/fore)
 "dyJ" = (
 /obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
@@ -39488,7 +39518,7 @@
 "fxL" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -40309,6 +40339,15 @@
 "fOt" = (
 /obj/structure/bed,
 /obj/item/bedsheet/clown,
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 24
+	},
+/obj/structure/cable/orange{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -40772,6 +40811,11 @@
 "fWQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -41427,7 +41471,7 @@
 /obj/machinery/computer/security{
 	dir = 4;
 	name = "Labor Camp Monitoring";
-	network = list("Labor Camp")
+	network = list("Labor  Camp")
 	},
 /obj/item/radio/intercom{
 	pixel_x = -28;
@@ -43992,6 +44036,16 @@
 	icon_state = "red"
 	},
 /area/station/security/storage)
+"hco" = (
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/service/clown/secret)
 "hcp" = (
 /obj/structure/chair/comfy{
 	dir = 8
@@ -46971,7 +47025,7 @@
 "icR" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -48881,6 +48935,11 @@
 /area/station/science/robotics)
 "iHG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -53509,6 +53568,11 @@
 	name = "Secret Clown HQ"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/service/clown/secret)
 "kes" = (
@@ -57844,6 +57908,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/service/clown/secret)
 "lvT" = (
@@ -58661,6 +58730,11 @@
 /area/station/hallway/spacebridge/scidock)
 "lHG" = (
 /mob/living/carbon/human/monkey/teeny,
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -64387,6 +64461,11 @@
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -69488,7 +69567,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 8;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter"="Mixed  Air  In","air_sensor"="Mixed  Air  Supply  Tank","mair_out_meter"="Mixed  Air  Out","dloop_atm_meter"="Distribution  Loop","wloop_atm_meter"="Waste  Loop")
 	},
 /obj/item/radio/intercom{
 	pixel_x = 28;
@@ -75991,6 +76070,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -78463,6 +78547,11 @@
 "slQ" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/service/clown/secret)
 "slX" = (
@@ -82428,6 +82517,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/service/clown/secret)
 "tBp" = (
@@ -85314,7 +85408,7 @@
 	},
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("Research","Research Outpost","RD","MiniSat")
+	network = list("Research","Research  Outpost","RD","MiniSat")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -87453,6 +87547,11 @@
 "viE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
+	},
+/obj/structure/cable/orange{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/service/clown/secret)
@@ -90782,6 +90881,11 @@
 "wjk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
+	},
+/obj/structure/cable/orange{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -108405,7 +108509,7 @@ vtY
 vtY
 bWr
 fOt
-cHL
+arG
 mhA
 xud
 bWr
@@ -108919,7 +109023,7 @@ vtY
 vtY
 cRq
 gmy
-mhA
+hco
 mhA
 eAi
 bWr
@@ -109433,7 +109537,7 @@ cbc
 viE
 iHG
 kel
-iHG
+ckp
 mDV
 cRq
 bWr
