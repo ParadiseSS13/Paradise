@@ -9340,6 +9340,7 @@
 	dir = 4
 	},
 /obj/machinery/hologram/holopad,
+/obj/item/clothing/glasses/sunglasses,
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "beT" = (
@@ -12377,19 +12378,19 @@
 	pixel_x = -3;
 	pixel_y = -2
 	},
-/obj/item/clothing/glasses/sunglasses,
-/obj/item/clothing/glasses/sunglasses{
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "bsP" = (
-/obj/structure/closet/bombclosetsecurity,
 /obj/item/radio/intercom{
 	pixel_y = -28;
 	name = "custom placement"
 	},
+/obj/structure/table/reinforced,
+/obj/item/clothing/glasses/sunglasses{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/clothing/glasses/sunglasses,
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "bsQ" = (
@@ -38247,9 +38248,6 @@
 /obj/item/pen/multi,
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -3
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -97324,6 +97322,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/structure/closet/bombclosetsecurity,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
