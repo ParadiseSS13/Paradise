@@ -6882,7 +6882,6 @@
 	pixel_x = -3;
 	pixel_y = -2
 	},
-/obj/item/storage/box/flashbangs,
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
@@ -9340,7 +9339,6 @@
 	dir = 4
 	},
 /obj/machinery/hologram/holopad,
-/obj/item/clothing/glasses/sunglasses,
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "beT" = (
@@ -12391,6 +12389,9 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/glasses/sunglasses,
+/obj/item/storage/box/flashbangs{
+	pixel_x = -16
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "bsQ" = (
