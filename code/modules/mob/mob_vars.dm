@@ -227,10 +227,10 @@
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
 	/// Assoc list for tracking how "bloody" a mobs feet are, used for creating bloody foot/shoeprints on turfs when moving
 	var/list/bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
-	/// set when typing in an input window instead of chatline, this var could probably be removed soon enough
-	var/hud_typing = 0
 	/// Affects if you have a typing indicator
 	var/typing
+	/// Affects if you have a thinking indicator
+	var/thinking
 	/// Last thing we typed in to the typing indicator, probably does not need to exist
 	var/last_typed
 	/// Last time we typed something in to the typing popup
