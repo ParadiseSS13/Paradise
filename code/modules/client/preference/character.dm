@@ -38,7 +38,7 @@
 	var/species = "Human"
 	var/language = "None"				//Secondary language
 	var/autohiss_mode = AUTOHISS_OFF	//Species autohiss level. OFF, BASIC, FULL.
-	///If a spawned cyborg should have an MMI, a positronic, or a robobrain. MMI by default
+	/// If a spawned cyborg should have an MMI, a positronic, or a robobrain. MMI by default
 	var/cyborg_brain_type = MMI_BORG
 	/// The body accessory name of the mob (e.g. wings, tail).
 	var/body_accessory = null
