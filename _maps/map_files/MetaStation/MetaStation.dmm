@@ -61049,11 +61049,6 @@
 /area/station/public/locker)
 "jCo" = (
 /obj/structure/table,
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
 /obj/machinery/alarm{
 	dir = 8;
 	name = "east bump";
