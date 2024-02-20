@@ -575,6 +575,7 @@
 		return
 	if(!E)
 		return
+	QDEL_LIST_CONTENTS(E.grabbed_by)
 	E.forceMove(src)
 	time_till_despawn = initial(time_till_despawn) / willing_factor
 	icon_state = occupied_icon_state
