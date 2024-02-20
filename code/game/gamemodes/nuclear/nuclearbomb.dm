@@ -72,7 +72,12 @@ GLOBAL_VAR(bomb_set)
 	wires = new/datum/wires/nuclearbomb(src)
 	ADD_TRAIT(src, TRAIT_OBSCURED_WIRES, ROUNDSTART_TRAIT)
 	previous_level = SSsecurity_level.get_current_level_as_text()
-	GLOB.poi_list |= src
+	if(!training)
+		GLOB.poi_list |= src
+		if(is_syndicate)
+			GLOB.syndi_nuke_list |= src
+		else
+			GLOB.nt_nuke_list |= src
 	core = new /obj/item/nuke_core/plutonium(src)
 	STOP_PROCESSING(SSobj, core) //Let us not irradiate the vault by default.
 	update_icon(UPDATE_OVERLAYS)
@@ -81,7 +86,12 @@ GLOBAL_VAR(bomb_set)
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	QDEL_NULL(core)
-	GLOB.poi_list.Remove(src)
+	if(!training)
+		GLOB.poi_list.Remove(src)
+		if(is_syndicate)
+			GLOB.syndi_nuke_list.Remove(src)
+		else
+			GLOB.nt_nuke_list.Remove(src)
 	return ..()
 
 /obj/machinery/nuclearbomb/process()
@@ -663,6 +673,7 @@ GLOBAL_VAR(bomb_set)
 		START_PROCESSING(SSobj, src)
 	if(!training)
 		GLOB.poi_list |= src
+		GLOB.nad_list |= src
 
 /obj/item/disk/nuclear/process()
 	if(!restricted_to_station)
@@ -696,6 +707,7 @@ GLOBAL_VAR(bomb_set)
 		message_admins("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]).")
 		log_game("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z]":"nonexistent location"]).")
 		GLOB.poi_list.Remove(src)
+		GLOB.nad_list.Remove(src)
 		STOP_PROCESSING(SSobj, src)
 		return ..()
 
@@ -703,12 +715,14 @@ GLOBAL_VAR(bomb_set)
 		message_admins("[src] (unrestricted) has been deleted in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]). It will not respawn.")
 		log_game("[src] (unrestricted) has been deleted in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z]":"nonexistent location"]). It will not respawn.")
 		GLOB.poi_list.Remove(src)
+		GLOB.nad_list.Remove(src)
 		STOP_PROCESSING(SSobj, src)
 		return ..()
 
 	var/turf/new_spawn = find_respawn()
 	if(new_spawn)
 		GLOB.poi_list.Remove(src)
+		GLOB.nad_list.Remove(src)
 		var/obj/item/disk/nuclear/NEWDISK = new(new_spawn)
 		transfer_fingerprints_to(NEWDISK)
 		message_admins("[src] has been destroyed at ([diskturf.x], [diskturf.y], [diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[NEWDISK.x];Y=[NEWDISK.y];Z=[NEWDISK.z]'>JMP</a>).")
