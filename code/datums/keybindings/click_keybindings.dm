@@ -2,7 +2,7 @@
 	category = KB_CATEGORY_CLICK
 
 /datum/keybinding/clickbind/can_use(client/C, mob/M)
-	return M.can_use_clickbinds() && ..()
+	return istype(M) && M.can_use_clickbinds() && ..()
 
 /datum/keybinding/clickbind/down(client/C)
 	..()
