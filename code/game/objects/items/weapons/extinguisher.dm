@@ -85,7 +85,6 @@
 	safety = old_safety
 	return TRUE
 
-
 /obj/item/extinguisher/afterattack(atom/target, mob/user, flag)
 	. = ..()
 	//TODO; Add support for reagents in water.

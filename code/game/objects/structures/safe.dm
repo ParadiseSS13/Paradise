@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(safes)
 		return TRUE
 
 	if(drill && !broken)
-		switch(alert("What would you like to do?", "Thermal Drill", "Turn [drill_timer ? "Off" : "On"]", "Remove Drill", "Cancel"))
+		switch(tgui_alert(user, "What would you like to do?", "Thermal Drill", list("Turn [drill_timer ? "Off" : "On"]", "Remove Drill", "Cancel")))
 			if("Turn On")
 				if(do_after(user, 2 SECONDS, target = src))
 					drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)

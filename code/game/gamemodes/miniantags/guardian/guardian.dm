@@ -208,7 +208,7 @@
 /mob/living/simple_animal/hostile/guardian/proc/Communicate(message)
 	var/input
 	if(!message)
-		input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
+		input = tgui_input_text(src, "Please enter a message to tell your summoner.", "Guardian")
 	else
 		input = message
 	if(!input || !summoner)
@@ -282,7 +282,7 @@
 		to_chat(user, "[used_message]")
 		return
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once, polling ghosts multiple times, and receiving multiple guardians.
-	var/choice = alert(user, "[confirmation_message]",, "Yes", "No")
+	var/choice = tgui_alert(user, "[confirmation_message]", "Confirm", list("Yes", "No"))
 	if(choice == "No")
 		to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
 		used = FALSE
