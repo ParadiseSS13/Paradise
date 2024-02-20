@@ -287,13 +287,8 @@
 
 /obj/item/projectile/bullet/anti_alien_toxin/on_hit(atom/target, blocked = 0)
 	if(isalien(target))
-		var/mob/living/alien = target
-		if(alien.IsSlowed())
-			knockdown = 10 SECONDS
-		else
-			alien.Slowed(5 SECONDS, 0.5)
-
-	. = ..() // Execute the rest of the code.
+		stun = 10 SECONDS
+	. = ..()
 
 /obj/item/projectile/bullet/cap
 	name = "cap"

@@ -9,7 +9,7 @@
 	var/alt_icon = 'icons/mob/alienleap.dmi' //used to switch between the two alien icon files.
 	var/custom_pixel_x_offset = 0 //for admin fuckery.
 	var/custom_pixel_y_offset = 0
-	var/alien_disarm_damage = 40 //Aliens deal a good amount of stamina damage on disarm intent
+	var/alien_disarm_damage = 30 //Aliens deal a good amount of stamina damage on disarm intent
 	var/alien_slash_damage = 20 //Aliens deal a good amount of damage on harm intent
 	var/alien_movement_delay = 0 //This can be + or -, how fast an alien moves
 	var/temperature_resistance = T0C+75
@@ -28,13 +28,14 @@
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(check_drift = 0)
 	if(..())
-		return 1
-
-	return 0
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/alien/humanoid/emp_act(severity)
-	if(r_store) r_store.emp_act(severity)
-	if(l_store) l_store.emp_act(severity)
+	if(r_store) 
+		r_store.emp_act(severity)
+	if(l_store) 
+		l_store.emp_act(severity)
 	..()
 
 /mob/living/carbon/alien/humanoid/ex_act(severity)

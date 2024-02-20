@@ -22,7 +22,7 @@
 
 /obj/effect/proc_holder/spell/alien_spell/syphon_plasma
 	name = "Syphon plasma"
-	desc = "Syphons 50 plasma from a nearby alien."
+	desc = "Syphons 150 plasma from a nearby alien."
 	action_icon_state = "alien_transfer"
 	plasma_cost = 0
 	base_cooldown = 10 SECONDS
@@ -42,14 +42,14 @@
 	if(!vessel)
 		return
 	var/plasma_syphoned
-	if(vessel.stored_plasma < 50)
+	if(vessel.stored_plasma < 150)
 		user.add_plasma(vessel.stored_plasma)
 		plasma_syphoned = vessel.stored_plasma
 		vessel.stored_plasma = 0
 	else
-		user.add_plasma(50)
+		user.add_plasma(150)
 		plasma_syphoned = 50
-		vessel.stored_plasma = vessel.stored_plasma - 50
+		vessel.stored_plasma = vessel.stored_plasma - 150
 	to_chat(user, "<span class='noticealien'>You have syphoned [plasma_syphoned] plasma from [target].</span>")
 	to_chat(target, "<span class='noticealien'>[user] has syphoned [plasma_syphoned] from you!</span>")
 	return TRUE

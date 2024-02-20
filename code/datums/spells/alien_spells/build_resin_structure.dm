@@ -45,7 +45,7 @@
 	desc = "Allows you to rip and tear straight through resin structures."
 	action_icon_state = "alien_resin"
 	hand_path = "/obj/item/melee/touch_attack/alien/consume_resin"
-	plasma_cost = 25
+	plasma_cost = 10
 	base_cooldown = 5 SECONDS
 
 /obj/item/melee/touch_attack/alien/consume_resin
@@ -66,7 +66,7 @@
 			user.add_plasma(50)
 		user.visible_message("<span class='alertalien'>[user] rips and tears into [target] with their teeth!</span>", "<span class='alertalien'>You viciously rip apart and consume [target]!</span>")
 		return
-	if(!plasma_check(25, user))
+	if(!plasma_check(10, user))
 		to_chat(user, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
 		return
 	var/static/list/resin_objects = list(/obj/structure/alien/resin, /obj/structure/alien/egg, /obj/structure/bed/nest, /obj/structure/bed/revival_nest)
@@ -77,6 +77,6 @@
 		if(!do_after(user, 3 SECONDS, target = target))
 			return
 		to_chat(user, "<span class='alertalien'>You viciously rip apart and consume [target]!</span>")
-		user.add_plasma(-25)
+		user.add_plasma(-10)
 		qdel(target)
 		..()

@@ -37,8 +37,8 @@
 	desc = "Boil acid within your hand to burn through anything you touch with it, deals a lot of damage to aliens and destroys resin structures instantly."
 	hand_path = "/obj/item/melee/touch_attack/alien/burning_touch"
 	action_icon_state = "alien_acid"
-	plasma_cost = 200
-	base_cooldown = 15 SECONDS
+	plasma_cost = 100
+	base_cooldown = 10 SECONDS
 
 /obj/item/melee/touch_attack/alien/burning_touch
 	name = "Blazing touch"
@@ -52,17 +52,17 @@
 		return
 	if(!proximity || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	if(!plasma_check(200, user))
+	if(!plasma_check(100, user))
 		to_chat(user, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
 		return
 	if(isliving(target))
 		var/mob/living/guy_to_burn = target
 		add_attack_logs(user, target, "Applied blazing touch") // Want this logged
-		guy_to_burn.adjustFireLoss(35)
+		guy_to_burn.adjustFireLoss(60)
 		guy_to_burn.adjust_fire_stacks(3)
 		guy_to_burn.IgniteMob()
 		user.visible_message("<span class='alertalien'>[user] touches [target] and a fireball erupts on contact!</span>")
-		user.add_plasma(-200)
+		user.add_plasma(-100)
 		..()
 	else
 		var/static/list/resin_objects = list(/obj/structure/alien/resin, /obj/structure/alien/egg, /obj/structure/bed/nest, /obj/structure/bed/revival_nest)
@@ -70,6 +70,6 @@
 			if(!istype(target, resin_type))
 				continue
 			user.visible_message("<span class='alertalien'>[user] touches [target] and burns right through it!</span>")
-			user.add_plasma(-200)
+			user.add_plasma(-100)
 			qdel(target)
 			..()

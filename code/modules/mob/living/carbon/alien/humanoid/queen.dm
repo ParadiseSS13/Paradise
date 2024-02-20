@@ -25,8 +25,7 @@
 		/obj/item/organ/internal/alien/acidgland,
 		/obj/item/organ/internal/alien/eggsac,
 		/obj/item/organ/internal/alien/resinspinner,
-		/obj/item/organ/internal/alien/neurotoxin,
-	)
+		/obj/item/organ/internal/alien/neurotoxin)
 
 /mob/living/carbon/alien/humanoid/queen/deathrattle_message()
 	return "<i><span class='alien reallybig'>A shock reverberates through the hive; [name] has been slain!</span></i>"

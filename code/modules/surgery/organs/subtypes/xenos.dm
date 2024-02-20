@@ -6,9 +6,9 @@
 	tough = TRUE
 	sterile = TRUE
 	/// Amount of credits that will be received by selling this in the cargo shuttle
-	var/cargo_profit = 100
-	/// Has this organ been hijacked? Stores a ref of the hijacking item
-	var/obj/hijacked
+	var/cargo_profit = 250
+	/// Has this organ been hijacked? Can hijack via a hemostat
+	var/hijacked = FALSE
 
 /// This adds and removes alien spells upon addition, if a noncarbon tries to do this well... I blame adminbus
 /obj/item/organ/internal/alien/insert(mob/living/carbon/M, special = 0)
@@ -33,34 +33,24 @@
 	. = ..()
 	. += "<span class='notice'>Can be sold on the cargo shuttle for [cargo_profit] credits.</span>"
 	if(hijacked)
-		. += "<span class='notice'>This organ is hijacked, use a wirecutter on it to remove the hijacking device.</span>"
+		. += "<span class='notice'>This organ is hijacked, use a Hemostat on it to revert it to it's original function.</span>"
 	else
-		. += "<span class='notice'>You can hijack the latent functions of this organ by using an Organ Hijacking Device on it.</span>"
+		. += "<span class='notice'>You can hijack the latent functions of this organ by using a Hemostat on it.</span>"
 
-/obj/item/organ/internal/alien/attackby(obj/item/organ_hijacker/hijacker, mob/user, params)
-	if(istype(hijacker))
-		to_chat(user, "<span class='notice'>You insert [hijacker] into [src]. This will override it's primary function and unlock latent abilities used to control the hivemind.</span>")
-		hijacked = hijacker
-		user.unEquip(hijacker, TRUE)
-		hijacker.forceMove(src)
+/obj/item/organ/internal/alien/attackby(obj/item/hemostat/item, mob/user, params)
+	if(istype(item))
+		if(!hijacked)
+			to_chat(user, "<span class='notice'>You slice off the control node of this organ. This organ will now be effective against aliens.</span>")
+		else
+			to_chat(user, "<span class='notice'>You reattach the control node of this organ. This organ will now be effective against those who attack the hive.</span>")
+		hijacked = !hijacked
 		return
 	return ..()
-
-/obj/item/organ/internal/alien/wirecutter_act(mob/living/user, obj/item/I)
-	if(hijacked)
-		hijacked.forceMove(get_turf(src))
-		to_chat(user, "<span class='notice'>With an grisly squish, you remove [hijacked] from [src] reverting it to it's previous function.</span>")
-		hijacked = null
-		return TRUE
 
 /obj/item/organ/internal/alien/prepare_eat()
 	var/obj/S = ..()
 	S.reagents.add_reagent("sacid", 10)
 	return S
-
-/obj/item/organ/internal/alien/Destroy()
-	QDEL_NULL(hijacked)
-	return ..()
 
 //XENOMORPH ORGANS
 
@@ -110,7 +100,7 @@
 	icon_state = "plasma_tiny"
 	stored_plasma = 25
 	max_plasma = 50
-	cargo_profit = 25
+	cargo_profit = 150
 
 /obj/item/organ/internal/alien/plasmavessel/on_life()
 	//If there are alien weeds on the ground then heal if needed or give some plasma
@@ -150,7 +140,6 @@
 	origin_tech = "biotech=5;magnets=4;bluespace=3"
 	w_class = WEIGHT_CLASS_TINY
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/whisper)
-	cargo_profit = 50
 
 /obj/item/organ/internal/alien/hivenode/insert(mob/living/carbon/M, special = 0)
 	..()
@@ -190,12 +179,4 @@
 	origin_tech = "biotech=6"
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds/eggs)
 	human_powers = list(/obj/effect/proc_holder/spell/alien_spell/combust_facehuggers)
-	cargo_profit = 600
-
-/obj/item/organ_hijacker
-	name = "Organ Hijacking Device"
-	desc = "A device used for hijacking alien organs."
-	origin_tech = "biotech=3"
-	w_class = WEIGHT_CLASS_TINY
-	icon_state = "e_snare0"
-	icon = 'icons/obj/restraints.dmi'
+	cargo_profit = 1000

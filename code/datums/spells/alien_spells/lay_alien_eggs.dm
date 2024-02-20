@@ -10,9 +10,9 @@
 /obj/effect/proc_holder/spell/alien_spell/combust_facehuggers
 	name = "Combust facehuggers and eggs"
 	desc = "Take over the programming of facehuggers and eggs, sending out a shockwave which causes them to combust."
-	plasma_cost = 75
+	plasma_cost = 25
 	action_icon_state = "alien_egg"
-	base_cooldown = 5 SECONDS
+	base_cooldown = 3 SECONDS
 
 /obj/effect/proc_holder/spell/alien_spell/combust_facehuggers/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom

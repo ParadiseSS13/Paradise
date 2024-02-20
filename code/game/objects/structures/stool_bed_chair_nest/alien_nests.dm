@@ -175,15 +175,20 @@
 		else
 			buckled_mob.adjustBruteLoss(3)
 			buckled_mob.adjustFireLoss(3)
-			if(buckled_mob.stat == DEAD && !revive_or_decay_timer)
-				revive_or_decay_timer = addtimer(CALLBACK(src, PROC_REF(decay_dead_carbon), buckled_mob), 40 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
 
 /obj/structure/bed/revival_nest/proc/revive_dead_alien(mob/living/carbon/alien/dead_alien)
 	dead_alien.revive()
 	dead_alien.visible_message("<span class='warning'>Vines seep into the back of [dead_alien], and it awakes with a burning rage!</span>")
 	if(dead_alien.ghost_can_reenter())
-		dead_alien.grab_ghost()
+		var/mob/dead/observer/dead_bro = dead_alien.grab_ghost()
 		SEND_SOUND(dead_alien, sound('sound/voice/hiss5.ogg'))
+		if(isalienqueen(dead_alien))
+			for(var/mob/living/carbon/alien/humanoid/queen/living_queen in GLOB.alive_mob_list)
+				if(living_queen.key || !living_queen.get_int_organ(/obj/item/organ/internal/brain))
+					to_chat(dead_bro, "<span class='warning'>We already have an alive queen. We've been reverted to our drone form!</span>")
+					qdel(dead_alien)
+					var/mob/living/carbon/alien/humanoid/drone/new_drone = new(get_turf(src))
+					new_drone.key = dead_bro.key
 	else
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as [dead_alien]?", ROLE_ALIEN, FALSE, source = dead_alien)
 		if(!length(candidates))
@@ -195,17 +200,6 @@
 		dead_alien.mind.assigned_role = SPECIAL_ROLE_XENOMORPH
 		dead_alien.mind.special_role = SPECIAL_ROLE_XENOMORPH
 		SEND_SOUND(dead_alien, sound('sound/voice/hiss5.ogg'))
-
-/obj/structure/bed/revival_nest/proc/decay_dead_carbon(mob/living/carbon/human/dead_carbon)
-	if(HAS_TRAIT(dead_carbon, TRAIT_SKELETONIZED))
-		return
-	if(dead_carbon.mob_biotypes & MOB_ROBOTIC) // A potential idea is to make these function like working joes in isolation, but I don't have sprites for em
-		return
-	if(istype(dead_carbon))
-		dead_carbon.visible_message("<span class='warning'>[dead_carbon]'s skeleton slides out of the mass slowly... an egg forms in their place.</span>")
-		dead_carbon.makeSkeleton()
-		new /obj/structure/alien/egg(get_turf(src))
-		qdel(src)
 
 /obj/structure/bed/revival_nest/user_buckle_mob(mob/living/M, mob/living/user)
 	if(!istype(M) || (get_dist(src, user) > 1) || (M.loc != loc) || user.incapacitated() || M.buckled)

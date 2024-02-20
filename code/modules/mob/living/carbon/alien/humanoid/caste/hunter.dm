@@ -6,6 +6,8 @@
 	icon_state = "alienh_s"
 	alien_movement_delay = -0.5 //hunters are faster than normal xenomorphs, and people
 	var/leap_on_click = FALSE
+	/// Are we on leap cooldown?
+	var/on_leap_cooldown = FALSE
 
 /mob/living/carbon/alien/humanoid/hunter/Initialize(mapload)
 	. = ..()
@@ -22,7 +24,7 @@
 	else
 		add_plasma(-heal_rate)
 
-/mob/living/carbon/alien/humanoid/hunter/proc/toggle_leap(message = 1)
+/mob/living/carbon/alien/humanoid/hunter/proc/toggle_leap(message = TRUE)
 	leap_on_click = !leap_on_click
 	leap_icon.icon_state = "leap_[leap_on_click ? "on":"off"]"
 	update_icons()
@@ -39,19 +41,21 @@
 #define MAX_ALIEN_LEAP_DIST 7
 
 /mob/living/carbon/alien/humanoid/hunter/proc/leap_at(atom/A)
-	if(leaping) //Leap while you leap, so you can leap while you leap
+	if(leaping || on_leap_cooldown)
 		return
 
 	if(IS_HORIZONTAL(src))
 		return
 
-	leaping = 1
+	leaping = TRUE
+	on_leap_cooldown = TRUE
 	update_icons()
 	Immobilize(15 SECONDS, TRUE)
+	addtimer(VARSET_CALLBACK(src, on_leap_cooldown, FALSE), 3 SECONDS)
 	throw_at(A, MAX_ALIEN_LEAP_DIST, 1.5, spin = 0, diagonals_first = 1, callback = CALLBACK(src, PROC_REF(leap_end)))
 
 /mob/living/carbon/alien/humanoid/hunter/proc/leap_end()
-	leaping = 0
+	leaping = FALSE
 	SetImmobilized(0, TRUE)
 	update_icons()
 
@@ -61,11 +65,11 @@
 
 	if(isliving(A))
 		var/mob/living/L = A
-		var/blocked = 0
+		var/blocked = FALSE
 		if(ishuman(A))
 			var/mob/living/carbon/human/H = A
 			if(H.check_shields(src, 0, "the [name]", attack_type = LEAP_ATTACK))
-				blocked = 1
+				blocked = TRUE
 		if(!blocked)
 			L.visible_message("<span class ='danger'>[src] pounces on [L]!</span>", "<span class ='userdanger'>[src] pounces on you!</span>")
 			if(ishuman(L))
@@ -73,23 +77,22 @@
 				H.apply_effect(10 SECONDS, KNOCKDOWN, H.run_armor_check(null, MELEE))
 				H.apply_damage(40, STAMINA)
 			else
-				L.Weaken(10 SECONDS)
+				L.Weaken(5 SECONDS)
 			sleep(2)//Runtime prevention (infinite bump() calls on hulks)
-			step_towards(src,L)
+			step_towards(src, L)
 		else
-			Weaken(1 SECONDS, TRUE)
+			Weaken(2 SECONDS, TRUE)
 			..()
 
-		toggle_leap(0)
+		toggle_leap(FALSE)
 	else if(A.density && !A.CanPass(src))
 		visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='alertalien'>[src] smashes into [A]!</span>")
-		Weaken(1 SECONDS, TRUE)
+		Weaken(2 SECONDS, TRUE)
 		playsound(get_turf(src), 'sound/effects/bang.ogg', 50, 0, 0) // owwie
 		..()
 	if(leaping)
-		leaping = 0
+		leaping = FALSE
 		update_icons()
-
 
 /mob/living/carbon/alien/humanoid/hunter/update_icons()
 	..()

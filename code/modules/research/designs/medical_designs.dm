@@ -738,14 +738,3 @@
 	construction_time = 60
 	build_path = /obj/item/organ/internal/lungs/cybernetic/upgraded
 	category = list("Medical")
-
-/datum/design/organ_hijacker
-	name = "Alien Organ Hijacker"
-	desc = "Hijacks alien organs for the purpose of security."
-	id = "organ_hijacker"
-	req_tech = list("biotech" = 6)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 500, MAT_PLASMA = 50)
-	construction_time = 3 SECONDS
-	build_path = /obj/item/organ_hijacker
-	category = list("Medical")

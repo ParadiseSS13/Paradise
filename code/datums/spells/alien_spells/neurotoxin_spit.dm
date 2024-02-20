@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/alien_spell/neurotoxin
 	name = "Neurotoxin spit"
 	desc = "This ability allows you to fire some neurotoxin. Knocks down anyone you hit, applies a small amount of stamina damage as well."
-	base_cooldown = 2 SECONDS
+	base_cooldown = 3 SECONDS
 	plasma_cost = 50
 	selection_activated_message		= "<span class='notice'><B>Your prepare some neurotoxin!</B></span>"
 	selection_deactivated_message	= "<span class='notice'><B>You swallow your prepared neurotoxin.</B></span>"
@@ -37,5 +37,6 @@
 
 /obj/effect/proc_holder/spell/alien_spell/neurotoxin/death_to_xenos
 	name = "Neurotoxin spit"
-	desc = "This ability allows you to fire some neurotoxin. Slows aliens, and if they're already slowed knocks them down."
+	desc = "This ability allows you to fire some neurotoxin. Knocks aliens down."
 	neurotoxin_type = /obj/item/projectile/bullet/anti_alien_toxin
+	base_cooldown = 2 SECONDS
