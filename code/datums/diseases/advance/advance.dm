@@ -86,13 +86,16 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 // Compares type then ID.
 /datum/disease/advance/IsSame(datum/disease/advance/D)
+	if(ispath(D))
+		return FALSE
 
-	if(!(istype(D, /datum/disease/advance)))
-		return 0
+	if(!istype(D, /datum/disease/advance))
+		return FALSE
 
 	if(GetDiseaseID() != D.GetDiseaseID())
-		return 0
-	return 1
+		return FALSE
+
+	return TRUE
 
 // To add special resistances.
 /datum/disease/advance/cure(resistance=1)

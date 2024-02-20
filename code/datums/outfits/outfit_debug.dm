@@ -67,7 +67,7 @@
 	to_chat(user, "You switch [src] to [change_voice ? "" : "not "]change your voice on syndicate communications.")
 
 /obj/item/encryptionkey/syndicate/all_channels/AltClick(mob/user)
-	var/new_name = stripped_input(user, "Enter new fake agent name...", "New name")
+	var/new_name = tgui_input_text(user, "Enter new fake agent name...", "New name")
 	if(!new_name)
 		return
 	fake_name = copytext(new_name, 1, MAX_NAME_LEN + 1)

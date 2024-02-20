@@ -109,7 +109,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 		to_chat(src, "<span class='warning'>Please wait [round((GLOB.announcing_vox - world.time) / 10)] seconds.</span>")
 		return
 
-	var/message = clean_input("WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", last_announcement, src)
+	var/message = tgui_input_text(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", last_announcement)
 
 	last_announcement = message
 
