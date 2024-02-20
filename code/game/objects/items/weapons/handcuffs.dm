@@ -1,13 +1,13 @@
 /obj/item/restraints
 	name = "bugged restraints" //This item existed before this pr, but had no name or such. Better warn people if it exists
 	desc = "Should not exist. Report me to a(n) coder/admin!"
+	icon = 'icons/obj/restraints.dmi'
 	var/cuffed_state = "handcuff"
 
 /obj/item/restraints/handcuffs
 	name = "handcuffs"
 	desc = "Use this to keep prisoners in line."
 	gender = PLURAL
-	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
 	belt_icon = "handcuffs"
 	flags = CONDUCT
@@ -209,9 +209,11 @@
 	icon_state = "cablecuff_used"
 
 /obj/item/restraints/handcuffs/cable/zipties/used/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	C.stored_comms["glass"] += 1
-	qdel(src)
-	return TRUE
+	if(isdrone(user))
+		C.stored_comms["glass"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/item/restraints/handcuffs/cable/zipties/used/attack()
 	return

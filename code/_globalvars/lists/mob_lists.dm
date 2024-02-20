@@ -20,16 +20,14 @@ GLOBAL_LIST_EMPTY(silicon_mob_list)			//List of all silicon mobs, including clie
 GLOBAL_LIST_EMPTY(mob_living_list)			//all instances of /mob/living and subtypes
 GLOBAL_LIST_EMPTY(carbon_list)				//all instances of /mob/living/carbon and subtypes, notably does not contain simple animals
 GLOBAL_LIST_EMPTY(human_list)				//all instances of /mob/living/carbon/human and subtypes
-GLOBAL_LIST_EMPTY(spirits)					//List of all the spirits, including Masks
 GLOBAL_LIST_EMPTY(alive_mob_list)			//List of all alive mobs, including clientless. Excludes /mob/new_player
 GLOBAL_LIST_EMPTY(dead_mob_list)				//List of all dead mobs, including clientless. Excludes /mob/new_player
 GLOBAL_LIST_EMPTY(non_respawnable_keys)	//List of ckeys that are excluded from respawning for remainder of round.
 GLOBAL_LIST_INIT(simple_animals, list(list(), list(), list(), list()))			//One for each AI_* status define, List of all simple animals, including clientless
 GLOBAL_LIST_EMPTY(bots_list) 					//List of all bots(beepsky, medibots,etc)
+GLOBAL_LIST_EMPTY(roundstart_observer_keys)	//List of ckeys who ghosted before the game began.
+GLOBAL_LIST_EMPTY(antag_hud_users) 			// ckeys of (non-admin) users who have enabled ahud at some point during the game
 
-GLOBAL_LIST_EMPTY(med_hud_users)
-GLOBAL_LIST_EMPTY(sec_hud_users)
-GLOBAL_LIST_EMPTY(antag_hud_users)
 GLOBAL_LIST_EMPTY(surgeries_list)
 GLOBAL_LIST_EMPTY(hear_radio_list)			//Mobs that hear the radio even if there's no client
 

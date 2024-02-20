@@ -16,6 +16,7 @@
 
 	no_spin_thrown = TRUE
 	del_on_death = TRUE
+	weather_immunities = list("ash")
 
 	/// The probability % of us escaping if stuffed into a bag/toolbox/etc
 	var/escape_chance = 10
@@ -41,7 +42,7 @@
 
 
 /mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
-	var/response = alert(src, "End your possession of this object? (It will not stop you from respawning later)","Are you sure you want to ghost?","Ghost","Stay in body")
+	var/response = tgui_alert(src, "End your possession of this object? (It will not stop you from respawning later)", "Are you sure you want to ghost?", list("Ghost", "Stay in body"))
 	if(response != "Ghost")
 		return
 	lay_down()
@@ -147,8 +148,8 @@
 	else
 		..()
 
-	if( possessed_item.loc != src )
-		if ( isturf(possessed_item.loc) ) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
+	if(possessed_item.loc != src)
+		if(isturf(possessed_item.loc)) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
 			forceMove(possessed_item.loc)
 			possessed_item.forceMove(src)
 		else // If we're inside a toolbox or something, we are inside the item rather than the item inside us. This is so people can see the item in the toolbox.

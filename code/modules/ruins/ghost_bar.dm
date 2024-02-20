@@ -12,14 +12,16 @@
 
 /obj/effect/mob_spawn/human/alive/ghost_bar/create(ckey, flavour = TRUE, name, mob/user = usr) // So divorced from the normal proc it's just being overriden
 	var/datum/character_save/save_to_load
-	if(alert(user, "Would you like to use one of your saved characters in your character creator?",, "Yes", "No") == "Yes")
+	if(tgui_alert(user, "Would you like to use one of your saved characters in your character creator?", "Ghost Bar", list("Yes", "No")) == "Yes")
 		var/list/our_characters_names = list()
 		var/list/our_character_saves = list()
-		for(var/datum/character_save/saves in user.client.prefs.character_saves)
-			our_characters_names += saves.real_name
-			our_character_saves += list(saves.real_name = saves)
+		for(var/index in 1 to length(user.client.prefs.character_saves))
+			var/datum/character_save/saves = user.client.prefs.character_saves[index]
+			var/slot_name = "[saves.real_name] (Slot #[index])"
+			our_characters_names += slot_name
+			our_character_saves += list("[slot_name]" = saves)
 
-		var/character_name = input("Select a character", "Character selection") as null|anything in our_characters_names
+		var/character_name = tgui_input_list(user, "Select a character", "Character selection", our_characters_names)
 		if(!character_name)
 			return
 		if(QDELETED(user))
@@ -38,7 +40,7 @@
 	equip_item(H, /obj/item/radio/headset/deadsay, SLOT_HUD_LEFT_EAR)
 	H.dna.species.before_equip_job(/datum/job/assistant, H)
 	H.dna.species.remains_type = /obj/effect/decal/cleanable/ash
-	var/obj/item/implant/dust/I = new
+	var/obj/item/bio_chip/dust/I = new
 	I.implant(H, null)
 	for(var/gear in save_to_load.loadout_gear)
 		var/datum/gear/G = GLOB.gear_datums[text2path(gear) || gear]
@@ -97,12 +99,16 @@
 	if(!istype(mob_to_delete) || !istype(user) || !Adjacent(user))
 		return
 	if(mob_to_delete.client)
-		if(alert(mob_to_delete , "Would you like to return to the realm of spirits? (This will delete your current character, but you can rejoin later)",, "Yes", "No") == "No")
+		if(tgui_alert(mob_to_delete, "Would you like to return to the realm of spirits? (This will delete your current character, but you can rejoin later)", "Ghost Bar", list("Yes", "No")) == "No")
 			return
 	mob_to_delete.visible_message("<span class='notice'>[mob_to_delete.name] climbs into [src]...</span>")
 	playsound(src, 'sound/machines/wooden_closet_close.ogg', 50)
 	qdel(mob_to_delete)
 
 /proc/dust_if_respawnable(mob/M)
+	if(isdrone(M))
+		var/mob/living/silicon/robot/drone/drone = M
+		drone.shut_down(TRUE)
+		return
 	if(HAS_TRAIT_FROM(M, TRAIT_RESPAWNABLE, GHOST_ROLE))
 		M.dust()

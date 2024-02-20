@@ -264,7 +264,7 @@
 	var/list/obj/item/organ/external/parts = get_damaged_organs(brute,burn)
 
 	var/update = 0
-	while(parts.len && ( brute > 0 || burn > 0) )
+	while(parts.len && ( brute > 0 || burn > 0))
 		var/obj/item/organ/external/picked = pick(parts)
 
 		var/brute_was = picked.brute_dam
@@ -289,7 +289,7 @@
 	var/list/obj/item/organ/external/parts = get_damageable_organs()
 
 	var/update = 0
-	while(parts.len && (brute>0 || burn>0) )
+	while(parts.len && (brute>0 || burn>0))
 		var/obj/item/organ/external/picked = pick(parts)
 		var/brute_per_part = brute/parts.len
 		var/burn_per_part = burn/parts.len

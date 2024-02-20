@@ -4,7 +4,7 @@
 /obj/item/banhammer
 	desc = "A banhammer"
 	name = "banhammer"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/toy.dmi'
 	icon_state = "toyhammer"
 	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
@@ -47,6 +47,8 @@
 /obj/item/claymore
 	name = "claymore"
 	desc = "What are you standing around staring at this for? Get to killing!"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "claymore"
 	item_state = "claymore"
 	flags = CONDUCT

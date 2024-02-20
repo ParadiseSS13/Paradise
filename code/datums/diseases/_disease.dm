@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 	//Other
 	var/list/viable_mobtypes = list() //typepaths of viable mobs
-	var/mob/living/carbon/affected_mob = null
+	var/mob/living/carbon/affected_mob
 	var/list/cures = list() //list of cures if the disease has the CURABLE flag, these are reagent ids
 	var/infectivity = 65
 	var/cure_chance = 8
@@ -67,7 +67,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/bypasses_immunity = FALSE //Does it skip species virus immunity check? Some things may diseases and not viruses
 	var/virus_heal_resistant = FALSE // Some things aren't technically viruses/traditional diseases and should be immune to edge case cure methods, like healing viruses.
 	var/permeability_mod = 1
-	var/severity =	NONTHREAT
+	var/severity = NONTHREAT
 	var/list/required_organs = list()
 	var/needs_all_cures = TRUE
 	var/list/strain_data = list() //dna_spread special bullshit
@@ -158,10 +158,9 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	qdel(src)
 
 /datum/disease/proc/IsSame(datum/disease/D)
-	if(istype(src, D.type))
-		return 1
-	return 0
-
+	if(ispath(D))
+		return istype(src, D)
+	return istype(src, D.type)
 
 /datum/disease/proc/Copy()
 	var/datum/disease/D = new type()

@@ -9,7 +9,7 @@
 	throw_range = 5
 	origin_tech = "biotech=5"
 	attack_verb = list("attacked", "slapped", "whacked")
-	var/mob/living/carbon/brain/brainmob = null
+	var/mob/living/brain/brainmob = null
 	organ_tag = "brain"
 	parent_organ = "head"
 	slot = "brain"
@@ -59,7 +59,7 @@
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(G.mind == brainmob.mind)
 				foundghost = TRUE
-				if(G.can_reenter_corpse == FALSE)
+				if(!G.can_reenter_corpse)
 					foundghost = FALSE
 				break
 		if(foundghost)
@@ -73,6 +73,9 @@
 		name = "[dna.real_name]'s [initial(name)]"
 
 	if(!owner) return ..() // Probably a redundant removal; just bail
+	
+	if(is_species(owner, /datum/species/monkey))
+		name = "[owner.name]'s [initial(name)]"
 
 	var/obj/item/organ/internal/brain/B = src
 	if(!special)
@@ -125,16 +128,76 @@
 	if(owner && vital)
 		owner.setBrainLoss(120)
 
+/obj/item/organ/internal/brain/on_life()
+	if(decoy_brain || damage < 10)
+		return
+	switch(damage)
+		if(10 to 30)
+			handle_minor_brain_damage()
+		if(31 to 60)
+			handle_moderate_brain_damage()
+		if(61 to 80)
+			handle_severe_brain_damage()
+		if(81 to 100)
+			handle_critical_brain_damage()
+
+/obj/item/organ/internal/brain/proc/handle_minor_brain_damage()
+	if(prob(5))
+		owner.Dizzy(5 SECONDS)
+		to_chat(owner, "<span class='warning'>Your head feels foggy.</span>")
+	else if(prob(4))
+		owner.vomit()
+		to_chat(owner, "<span class='warning>'You feel nauseous.</span>")
+
+/obj/item/organ/internal/brain/proc/handle_moderate_brain_damage()
+	if(prob(4))
+		owner.Confused(20 SECONDS)
+		to_chat(owner, "<span class='warning'>It's suddenly difficult to walk straight.</span>")
+	else if(prob(5))
+		owner.EyeBlurry(15 SECONDS)
+		to_chat(owner, "<span class='warning'>Your vision unfocuses.</span>")
+	else if(prob(3))
+		owner.Drowsy(20 SECONDS)
+		to_chat(owner, "<span class='warning'>You're getting tired.</span>")
+
+/obj/item/organ/internal/brain/proc/handle_severe_brain_damage()
+	if(prob(5))
+		owner.Hallucinate(60 SECONDS)
+		to_chat(owner, "<span class='warning'>You start losing your grip on reality.</span>")
+	else if(prob(10))
+		owner.Slur(60 SECONDS)
+		owner.Stuttering(60 SECONDS)
+		to_chat(owner, "<span class='warning'>You can't form your words properly.</span>")
+	else if(prob(2))
+		owner.Stun(5 SECONDS)
+		to_chat(owner, "<span class='warning'>You stare forward in a stupor.</span>")
+	else if(prob(5))
+		owner.KnockDown(1 SECONDS)
+		to_chat(owner, "<span class='warning'>You lose your footing, and stumble.</span>")
+
+/obj/item/organ/internal/brain/proc/handle_critical_brain_damage()
+	if(prob(4))
+		owner.Silence(45 SECONDS)
+		to_chat(owner, "<span class='warning'>You open your mouth to speak, but no sound comes out.</span>")
+	else if(prob(5))
+		owner.EyeBlind(30 SECONDS)
+		to_chat(owner, "<span class='warning'>Your vision gives out.</span>")
+	else if(prob(5))
+		owner.Weaken(10 SECONDS)
+		owner.Jitter(150 SECONDS)
+		to_chat(owner, "<span class='warning'>You start to have a seizure.</span>")
+
 /obj/item/organ/internal/brain/prepare_eat()
 	return // Too important to eat.
 
+// Hello I am from the ministry of rubber forehead aliens how are you
 /obj/item/organ/internal/brain/slime
 	name = "slime core"
 	desc = "A complex, organic knot of jelly and crystalline particles."
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "green slime extract"
 	mmi_icon_state = "slime_mmi"
-//	parent_organ = "chest" Hello I am from the ministry of rubber forehead aliens how are you
+	organ_datums = list(/datum/organ/heart, /datum/organ/lungs)
 
 /obj/item/organ/internal/brain/golem
 	name = "Runic mind"

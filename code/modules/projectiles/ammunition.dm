@@ -83,7 +83,9 @@
 		return
 
 	var/tmp_label = ""
-	var/label_text = sanitize(input(user, "Inscribe some text into \the [initial(BB.name)]", "Inscription", tmp_label))
+	var/label_text = tgui_input_text(user, "Inscribe some text into \the [initial(BB.name)]", "Inscription", tmp_label)
+	if(!label_text)
+		return
 
 	if(length(label_text) > 20)
 		to_chat(user, "<span class='warning'>The inscription can be at most 20 characters long.</span>")
@@ -100,7 +102,7 @@
 
 
 /obj/item/ammo_casing/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!BB)
+	if(isdrone(user) && !BB)
 		C.stored_comms["metal"] += 1
 		qdel(src)
 		return TRUE

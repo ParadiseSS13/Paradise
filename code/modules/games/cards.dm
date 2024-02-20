@@ -66,7 +66,7 @@
 			return
 
 		if(length(H.cards) > 1)
-			var/confirm = alert("Are you sure you want to put your [length(H.cards)] cards back into the deck?", "Return Hand", "Yes", "No")
+			var/confirm = tgui_alert(user, "Are you sure you want to put your [length(H.cards)] cards back into the deck?", "Return Hand", list("Yes", "No"))
 			if(confirm == "No" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 				return
 		for(var/datum/playingcard/P in H.cards)
@@ -131,13 +131,7 @@
 
 // Datum actions
 
-/obj/item/deck/verb/draw_card(mob/user)
-
-	set category = "Object"
-	set name = "Draw"
-	set desc = "Draw a card from a deck."
-	set src in view(1)
-
+/obj/item/deck/proc/draw_card(mob/user)
 	var/mob/living/carbon/human/M = user
 
 	if(user.incapacitated() || !Adjacent(user))
@@ -166,13 +160,7 @@
 	user.visible_message("<span class='notice'>[user] draws a card.</span>","<span class='notice'>You draw a card.</span>")
 	to_chat(user,"<span class='notice'>It's the [P].</span>")
 
-/obj/item/deck/verb/deal_card()
-
-	set category = "Object"
-	set name = "Deal"
-	set desc = "Deal a card from a deck."
-	set src in view(1)
-
+/obj/item/deck/proc/deal_card()
 	if(usr.incapacitated() || !Adjacent(usr))
 		return
 
@@ -186,18 +174,12 @@
 			players += player
 	//players -= usr
 
-	var/mob/living/M = input("Who do you wish to deal a card to?") as null|anything in players
+	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal a card to?", "Deal Card", players)
 	if(!usr || !src || !M) return
 
 	deal_at(usr, M, 1)
 
-/obj/item/deck/verb/deal_card_multi()
-
-	set category = "Object"
-	set name = "Deal Multiple Cards"
-	set desc = "Deal multiple cards from a deck."
-	set src in view(1)
-
+/obj/item/deck/proc/deal_card_multi()
 	if(usr.incapacitated() || !Adjacent(usr))
 		return
 
@@ -209,11 +191,10 @@
 	for(var/mob/living/player in viewers(3))
 		if(!player.incapacitated())
 			players += player
-	var/maxcards = clamp(length(cards), 1, 10)
-	var/dcard = input("How many card(s) do you wish to deal? You may deal up to [maxcards] cards.") as num
-	if(dcard > maxcards)
+	var/dcard = tgui_input_number(usr, "How many card(s) do you wish to deal? You may deal up to [length(cards)] cards.", "Deal Cards", max_value = length(cards))
+	if(!dcard)
 		return
-	var/mob/living/M = input("Who do you wish to deal [dcard] card(s)?") as null|anything in players
+	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal [dcard] card(s)?", "Deal Card", players)
 	if(!usr || !src || !M || !Adjacent(usr))
 		return
 
@@ -241,14 +222,6 @@
 
 /obj/item/deck/AltClick()
 	deckshuffle()
-
-/obj/item/deck/verb/verb_shuffle()
-	if(!isobserver(usr))
-		set category = "Object"
-		set name = "Shuffle"
-		set desc = "Shuffle the cards in the deck."
-		set src in view(1)
-		deckshuffle()
 
 /obj/item/deck/proc/deckshuffle()
 	var/mob/living/user = usr
@@ -380,7 +353,6 @@
 	dat += "Which card will you remove next?<br>"
 	dat += "<a href='?src=[UID()];pick=Turn'>Turn the hand over</a>"
 	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.set_content(dat)
 	popup.open()
 
@@ -440,13 +412,7 @@
 
 // No more datum action here
 
-/obj/item/cardhand/verb/Removecard()
-
-	set category = "Object"
-	set name = "Remove card"
-	set desc = "Remove a card from the hand."
-	set src in view(1)
-
+/obj/item/cardhand/proc/Removecard()
 	var/mob/living/carbon/user = usr
 
 	if(user.incapacitated() || !Adjacent(user))
@@ -456,7 +422,7 @@
 	for(var/datum/playingcard/P in cards)
 		pickablecards[P.name] = P
 	if(!pickedcard)
-		pickedcard = input("Which card do you want to remove from the hand?") as null|anything in pickablecards
+		pickedcard = tgui_input_list(usr, "Which card do you want to remove from the hand?", "Remove Card", pickablecards)
 		if(!pickedcard)
 			return
 
@@ -482,23 +448,18 @@
 		return
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
-/obj/item/cardhand/verb/discard()
-
-	set category = "Object"
-	set name = "Discard"
-	set desc = "Place (a) card(s) from your hand in front of you."
-
+/obj/item/cardhand/proc/discard()
 	var/mob/living/carbon/user = usr
 
 	var/maxcards = min(length(cards), 5)
-	var/discards = input("How many cards do you want to discard? You may discard up to [maxcards] card(s)") as num
+	var/discards = tgui_input_number(usr, "How many cards do you want to discard? You may discard up to [maxcards] card(s)", "Discard Cards", max_value = maxcards)
 	if(discards > maxcards)
 		return
 	for(var/i in 1 to discards)
 		var/list/to_discard = list()
 		for(var/datum/playingcard/P in cards)
 			to_discard[P.name] = P
-		var/discarding = input("Which card do you wish to put down?") as null|anything in to_discard
+		var/discarding = tgui_input_list(usr, "Which card do you wish to put down?", "Discard", to_discard)
 
 		if(!discarding)
 			continue

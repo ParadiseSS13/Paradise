@@ -16,7 +16,7 @@ export const AtmosTankControl = (props, context) => {
   let sensors_list = data.sensors || {};
 
   return (
-    <Window resizable>
+    <Window width={400} height={400}>
       <Window.Content scrollable>
         {Object.keys(sensors_list).map((s) => (
           <Section key={s} title={s}>

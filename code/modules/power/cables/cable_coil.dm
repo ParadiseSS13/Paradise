@@ -40,6 +40,11 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	recipes = GLOB.cable_coil_recipes
 	update_wclass()
 
+/obj/item/stack/cable_coil/random/change_stack(mob/user, amount)
+	var/obj/item/stack/cable_coil/new_stack = ..()
+	new_stack.color = color
+	return new_stack
+
 /obj/item/stack/cable_coil/update_name()
 	. = ..()
 	if(amount > 2)
@@ -286,7 +291,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		for(var/obj/structure/cable/LC in T)		// check to make sure there's no matching cable
 			if(LC == C)			// skip the cable we're interacting with
 				continue
-			if((LC.d1 == nd1 && LC.d2 == nd2) || (LC.d1 == nd2 && LC.d2 == nd1) )	// make sure no cable matches either direction
+			if((LC.d1 == nd1 && LC.d2 == nd2) || (LC.d1 == nd2 && LC.d2 == nd1))	// make sure no cable matches either direction
 				to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
 				return
 

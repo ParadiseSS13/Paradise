@@ -138,7 +138,7 @@
 /obj/structure/morgue/attack_hand(mob/user as mob)
 	if(connected)
 		for(var/atom/movable/A in connected.loc)
-			if(!(A.anchored))
+			if(!A.anchored)
 				A.forceMove(src)
 		get_revivable(TRUE)
 		playsound(loc, open_sound, 50, 1)
@@ -151,6 +151,26 @@
 	add_fingerprint(user)
 	update_state()
 	return
+
+/obj/structure/morgue/attack_ai(mob/user)
+	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
+		attack_hand(user)
+
+/obj/structure/morgue/attack_animal(mob/living/user)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+	if(user.mob_size < MOB_SIZE_HUMAN)
+		return ..()
+	if(!user.mind) //Stops mindless mobs from doing weird stuff with them
+		return ..()
+	attack_hand(user)
+
+/obj/structure/morgue/attack_alien(mob/user)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+	if(!user.mind)
+		return ..()
+	attack_hand(user)
 
 /obj/structure/morgue/attackby(P as obj, mob/user as mob, params)
 	if(is_pen(P))
@@ -241,7 +261,7 @@
 /obj/structure/m_tray/attack_hand(mob/user as mob)
 	if(connected)
 		for(var/atom/movable/A as mob|obj in loc)
-			if(!( A.anchored ))
+			if(!A.anchored)
 				A.forceMove(connected)
 		connected.connected = null
 		connected.update_icon(connected.update_state())
@@ -544,7 +564,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 
 /obj/structure/c_tray/MouseDrop_T(atom/movable/O, mob/living/user)
-	if((!( istype(O, /atom/movable) ) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src) || user.contents.Find(O)))
+	if((!istype(O, /atom/movable) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src) || user.contents.Find(O)))
 		return
 	if(!ismob(O) && !istype(O, /obj/structure/closet/body_bag))
 		return

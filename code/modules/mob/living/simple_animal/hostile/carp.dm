@@ -11,7 +11,7 @@
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak_chance = 0
 	turns_per_move = 5
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/carpmeat = 2)
+	butcher_results = list(/obj/item/food/snacks/carpmeat = 2)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm = "hits"
@@ -99,7 +99,7 @@
 	. = ..()
 	if(. && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.adjustStaminaLoss(8)
+		H.apply_damage(8, STAMINA)
 
 /mob/living/simple_animal/hostile/carp/death(gibbed)
 	. = ..()

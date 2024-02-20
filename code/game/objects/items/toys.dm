@@ -68,7 +68,7 @@
 	return
 
 /obj/item/toy/balloon/attackby(obj/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/reagent_containers/glass) || istype(O, /obj/item/reagent_containers/food/drinks/drinkingglass))
+	if(istype(O, /obj/item/reagent_containers/glass) || istype(O, /obj/item/reagent_containers/drinks/drinkingglass))
 		if(O.reagents)
 			if(O.reagents.total_volume < 1)
 				to_chat(user, "[O] is empty.")
@@ -176,6 +176,7 @@
 /obj/item/toy/sword
 	name = "toy sword"
 	desc = "A cheap, plastic replica of an energy sword. Realistic sounds! Ages 8 and up."
+	icon = 'icons/obj/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "sword0"
@@ -223,6 +224,18 @@
 			user.unEquip(src)
 			qdel(W)
 			qdel(src)
+
+/obj/item/toy/sword/chaosprank
+	name = "energy sword"
+	/// Sets to TRUE once the character using it hits something and realises it's not a real energy sword
+	var/pranked = FALSE
+
+/obj/item/toy/sword/chaosprank/afterattack(mob/living/target, mob/living/user, proximity)
+	..()
+	if(!pranked)
+		to_chat(user, "<span class='chaosverybad'>Oh... it's a fake.</span>")
+		name = "toy sword"
+		pranked = TRUE
 
 /*
  * Subtype of Double-Bladed Energy Swords
@@ -780,9 +793,9 @@
 	item_state = "plushie_ipc"
 
 /obj/item/toy/plushie/ipcplushie/attackby(obj/item/B, mob/user, params)
-	if(istype(B, /obj/item/reagent_containers/food/snacks/breadslice))
-		new /obj/item/reagent_containers/food/snacks/toast(get_turf(loc))
-		to_chat(user, "<span class='notice'> You insert bread into the toaster. </span>")
+	if(istype(B, /obj/item/food/snacks/breadslice))
+		new /obj/item/food/snacks/toast(get_turf(loc))
+		to_chat(user, "<span class='notice'>You insert bread into the toaster.</span>")
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 		qdel(B)
 	else
@@ -1033,22 +1046,8 @@
 	name = "Lich Miniature"
 	desc = "Murderboner extraordinaire."
 	icon_state = "lichcharacter"
-/obj/item/storage/box/characters
-	name = "Box of Miniatures"
-	desc = "The nerd's best friends."
-	icon_state = "box"
-/obj/item/storage/box/characters/populate_contents()
-	new /obj/item/toy/character/alien(src)
-	new /obj/item/toy/character/cleric(src)
-	new /obj/item/toy/character/warrior(src)
-	new /obj/item/toy/character/thief(src)
-	new /obj/item/toy/character/wizard(src)
-	new /obj/item/toy/character/cthulhu(src)
-	new /obj/item/toy/character/lich(src)
 
-
-//Pet Rocks, just like from the 70's!
-
+// Pet Rocks, just like from the 70's!
 /obj/item/toy/pet_rock
 	name = "pet rock"
 	desc = "The perfect pet!"
@@ -1070,8 +1069,7 @@
 	desc = "Roxie, the bestest girl pet in the whole wide universe!"
 	icon_state = "roxie"
 
-//minigibber, so cute
-
+// Minigibber, so cute
 /obj/item/toy/minigibber
 	name = "miniature gibber"
 	desc = "A miniature recreation of Nanotrasen's famous meat grinder."
@@ -1207,23 +1205,18 @@
 	. += "Has [fake_bullets] round\s remaining."
 	. += "<span class='info'>Use in hand to empty the gun's ammo reserves.</span>"
 	. += "[fake_bullets] of those are live rounds."
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to spin it's barrel.</span>"
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
 	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
 	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
 
-/obj/item/toy/russian_revolver/trick_revolver/verb/trick_spin()
-	set name = "Spin Chamber"
-	set category = "Object"
-	set desc = "Click to spin your revolver's chamber."
-
-	var/mob/M = usr
-
-	if(M.stat || !in_range(M, src))
+/obj/item/toy/russian_revolver/trick_revolver/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
-	to_chat(M, "<span class='warning'>You go to spin the chamber... and it goes off in your face!</span>")
-	shoot_gun(M)
+	to_chat(user, "<span class='warning'>You go to spin the chamber... and it goes off in your face!</span>")
+	shoot_gun(user)
 
 /obj/item/toy/russian_revolver/trick_revolver/attack_self(mob/user)
 	if(!bullets_left) //You can re-arm the trap...

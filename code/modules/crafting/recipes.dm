@@ -21,7 +21,7 @@
 	/// What subcategory it's shown under in the crafting UI. (e.g 'Ammo' under 'Weapons')
 	var/subcategory = CAT_NONE
 	/// Is this recipe always available, or does it need to be learned first.
-	var/always_availible = TRUE
+	var/always_available = TRUE
 	/// Will this recipe send an admin message when it's completed.
 	var/alert_admins_on_craft = FALSE
 
@@ -31,19 +31,19 @@
 	reqs = list(/datum/reagent/fuel = 50,
 				/obj/item/stack/cable_coil = 1,
 				/obj/item/assembly/igniter = 1,
-				/obj/item/reagent_containers/food/drinks/cans = 1)
-	parts = list(/obj/item/reagent_containers/food/drinks/cans = 1)
+				/obj/item/reagent_containers/drinks/cans = 1)
+	parts = list(/obj/item/reagent_containers/drinks/cans = 1)
 	time = 15
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
 /datum/crafting_recipe/molotov
 	name = "Molotov"
-	result = list(/obj/item/reagent_containers/food/drinks/bottle/molotov)
+	result = list(/obj/item/reagent_containers/drinks/bottle/molotov)
 	reqs = list(/obj/item/reagent_containers/glass/rag = 1,
-				/obj/item/reagent_containers/food/drinks/bottle = 1)
-	blacklist = list(/obj/item/reagent_containers/food/drinks/bottle/molotov)
-	parts = list(/obj/item/reagent_containers/food/drinks/bottle = 1)
+				/obj/item/reagent_containers/drinks/bottle = 1)
+	blacklist = list(/obj/item/reagent_containers/drinks/bottle/molotov)
+	parts = list(/obj/item/reagent_containers/drinks/bottle = 1)
 	time = 40
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
@@ -77,16 +77,27 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/improvised_pneumatic_cannon
+	name = "Pneumatic Cannon"
+	result = list(/obj/item/pneumatic_cannon/ghetto)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	reqs = list(/obj/item/stack/sheet/metal = 4,
+				/obj/item/stack/packageWrap = 8,
+				/obj/item/pipe = 2)
+	time = 300
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/throwing_croissant
 	name = "Throwing croissant"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/croissant = 1,
+		/obj/item/food/snacks/croissant = 1,
 		/obj/item/stack/rods = 1
 	)
-	result = list(/obj/item/reagent_containers/food/snacks/croissant)
+	result = list(/obj/item/food/snacks/croissant/throwing)
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
-	always_availible = FALSE
+	always_available = FALSE
 
 /datum/crafting_recipe/advancedegun
 	name = "Advanced Energy Gun"
@@ -405,29 +416,6 @@
 	result = list(/obj/item/ammo_casing/shotgun/ion)
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/obj/item/stock_parts/micro_laser/ultra = 1)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
-/datum/crafting_recipe/improvisedslug
-	name = "Improvised Shotgun Shell"
-	result = list(/obj/item/ammo_casing/shotgun/improvised)
-	reqs = list(/obj/item/grenade/chem_grenade = 1,
-				/obj/item/stack/sheet/metal = 1,
-				/obj/item/stack/cable_coil = 1,
-				/datum/reagent/fuel = 10)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
-/datum/crafting_recipe/improvisedslugoverload
-	name = "Overload Improvised Shell"
-	result = list(/obj/item/ammo_casing/shotgun/improvised/overload)
-	reqs = list(/obj/item/ammo_casing/shotgun/improvised = 1,
-				/datum/reagent/blackpowder = 10,
-				/datum/reagent/plasma_dust = 20)
 	tools = list(TOOL_SCREWDRIVER)
 	time = 5
 	category = CAT_WEAPONRY
@@ -900,11 +888,11 @@
 	name = "Snowman"
 	result = list(/obj/structure/snowman/built)
 	reqs = list(/obj/item/snowball = 10,
-				/obj/item/reagent_containers/food/snacks/grown/carrot = 1,
+				/obj/item/food/snacks/grown/carrot = 1,
 				/obj/item/grown/log = 2)
 	time = 50
 	category = CAT_MISC
-	always_availible = FALSE
+	always_available = FALSE
 
 /datum/crafting_recipe/paper_craft
 	name = "Paper Heart"
@@ -1352,3 +1340,22 @@
 				/obj/item/toy/crayon/red)
 	category = CAT_DECORATIONS
 	subcategory = CAT_LARGE_DECORATIONS
+
+/datum/crafting_recipe/gauze
+	name = "Treated gauze"
+	time = 3 SECONDS
+	result = list(/obj/item/stack/medical/bruise_pack)
+	reqs = list(/obj/item/stack/medical/bruise_pack/improvised = 6,
+				/datum/reagent/medicine/heal_on_apply/styptic_powder = 30,
+				/datum/reagent/medicine/sterilizine = 10)
+	category = CAT_MISC
+
+/datum/crafting_recipe/ointment
+	name = "Ointment"
+	time = 3 SECONDS
+	result = list(/obj/item/stack/medical/ointment)
+	reqs = list(/obj/item/stack/sheet/plastic = 2,
+				/datum/reagent/water = 10,
+				/datum/reagent/medicine/heal_on_apply/silver_sulfadiazine = 30,
+				/datum/reagent/medicine/sterilizine = 10)
+	category = CAT_MISC

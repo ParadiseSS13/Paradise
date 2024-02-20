@@ -37,7 +37,7 @@
 	if(by_hand)
 		for(var/obj/O in src)
 			if(O.density)
-				var/response = alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?","Bluespace Compression Warning", "Yes", "No")
+				var/response = tgui_alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?", "Bluespace Compression Warning", list("Yes", "No"))
 				if(response == "No" || !Adjacent(usr))
 					return FALSE
 				break
@@ -225,28 +225,16 @@
 		visible_message("<span class='notice'>The crate has been [locked ? null : "un"]locked by [user].</span>")
 		update_icon()
 	else
-		to_chat(user, "<span class='notice'>Access Denied</span>")
+		to_chat(user, "<span class='notice'>Access Denied.</span>")
 
 /obj/structure/closet/crate/secure/AltClick(mob/user)
 	if(Adjacent(user) && !opened)
-		verb_togglelock()
+		if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.stat) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
+			return
+		togglelock(user)
 		return
 
 	. = ..()
-
-/obj/structure/closet/crate/secure/verb/verb_togglelock()
-	set src in oview(1) // One square distance
-	set category = null
-	set name = "Toggle Lock"
-
-	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
-		return
-
-	if(ishuman(usr) || isrobot(usr))
-		add_fingerprint(usr)
-		togglelock(usr)
-		return
-	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
 /obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)
@@ -271,8 +259,9 @@
 		locked = FALSE
 		broken = TRUE
 		update_icon()
-		do_sparks(2, 1, src)
+		do_sparks(2, TRUE, src)
 		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
+		return TRUE
 
 /obj/structure/closet/crate/secure/emp_act(severity)
 	for(var/obj/O in src)

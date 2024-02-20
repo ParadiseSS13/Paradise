@@ -48,8 +48,8 @@
 
 /datum/supply_packs/misc/religious_supplies
 	name = "Religious Supplies Crate"
-	contains = list(/obj/item/reagent_containers/food/drinks/bottle/holywater,
-					/obj/item/reagent_containers/food/drinks/bottle/holywater,
+	contains = list(/obj/item/reagent_containers/drinks/bottle/holywater,
+					/obj/item/reagent_containers/drinks/bottle/holywater,
 					/obj/item/storage/bible/booze,
 					/obj/item/storage/bible/booze,
 					/obj/item/clothing/suit/hooded/chaplain_hoodie,
@@ -192,11 +192,37 @@
 	cost = 100
 	containername = "replacement lights crate"
 
+/datum/supply_packs/misc/janicart
+	name = "Janicart Crate"
+	contains = list(/obj/vehicle/janicart,
+					/obj/item/key/janitor)
+	cost = 500
+	containertype = /obj/structure/largecrate
+	containername = "Janicart. Caution while driving is advised."
+	department_restrictions = list(DEPARTMENT_SERVICE)
+
 /datum/supply_packs/misc/noslipfloor
 	name = "High-traction Floor Tiles"
 	contains = list(/obj/item/stack/tile/noslip/loaded)
 	cost = 200
 	containername = "high-traction floor tiles"
+
+/datum/supply_packs/misc/soap
+	name = "Assorted Soap Crate"
+	contains = list(/obj/item/soap,
+					/obj/item/soap,
+					/obj/item/soap,
+					/obj/item/soap/nanotrasen)
+	cost = 250
+	containername = "soap crate"
+
+/datum/supply_packs/misc/sus_soap
+	name = "Suspicious Soap Crate"
+	contains = list(/obj/item/soap/syndie,
+					/obj/item/soap/syndie)
+	cost = 250
+	containername = "suspicious soap crate"
+	hidden = TRUE
 
 ///////////// Costumes
 
@@ -214,8 +240,8 @@
 					/obj/item/clothing/mask/gas/mime,
 					/obj/item/clothing/head/beret,
 					/obj/item/clothing/suit/suspenders,
-					/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
-					/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana
+					/obj/item/reagent_containers/drinks/bottle/bottleofnothing,
+					/obj/item/reagent_containers/drinks/bottle/bottleofbanana
 					)
 	cost = 250
 	containertype = /obj/structure/closet/crate/secure

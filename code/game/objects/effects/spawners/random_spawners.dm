@@ -266,7 +266,7 @@
 	spawn_inside = null
 	result = list(/datum/nothing = 1,
 		/obj/item/wrench = 1,
-		/obj/item/reagent_containers/food/snacks/syndicake = 1,
+		/obj/item/food/snacks/syndicake = 1,
 		/obj/item/coin/antagtoken/syndicate = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1)
 
@@ -275,7 +275,7 @@
 	// Loot schema: space gear, basic armor, basic ammo (10mm, rcd), drugs, more dangerous/useful gimmick items, lower-value minerals
 	result = list(/datum/nothing = 27,
 		/obj/item/storage/box/syndie_kit/space = 1,
-		/obj/item/storage/box/syndie_kit/modsuit = 1,
+		/obj/item/mod/control/pre_equipped/traitor = 1,
 		/obj/item/clothing/shoes/magboots/syndie = 1,
 		/obj/item/clothing/suit/armor/vest/combat = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
@@ -309,7 +309,7 @@
 	result = list(/datum/nothing = 25,
 		/obj/item/jammer = 1,
 		/obj/item/storage/firstaid/regular = 1,
-		/obj/item/storage/box/syndie_kit/bonerepair = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
 		/obj/item/stock_parts/cell/bluespace = 1,
 		/obj/item/card/emag = 1,
@@ -345,7 +345,7 @@
 		/obj/item/melee/energy/sword/saber = 1,
 		/obj/item/gun/energy/kinetic_accelerator/crossbow = 1,
 		/obj/item/gun/projectile/revolver = 1,
-		/obj/item/clothing/gloves/color/yellow/power = 1,
+		/obj/item/bio_chip_implanter/shock = 1,
 		/obj/item/butcher_chainsaw = 1,
 		/obj/item/bee_briefcase = 1,
 		/obj/item/fireaxe/energized = 1,
@@ -353,7 +353,7 @@
 		/obj/item/chameleon = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
 		/obj/item/grenade/plastic/c4/x4 = 1,
-		/obj/item/storage/box/syndie_kit/modsuit/elite = 1)// Adding this as it is something an explorer can use to explore space better, that isn't a high powered murder weapon.
+		/obj/item/mod/control/pre_equipped/traitor_elite = 1)// Adding this as it is something an explorer can use to explore space better, that isn't a high powered murder weapon.
 
 
 // Layout-affecting spawns

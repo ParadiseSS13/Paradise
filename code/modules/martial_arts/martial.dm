@@ -97,19 +97,19 @@
 				if(MARTIAL_COMBO_FAIL)
 					current_combos -= MC
 				if(MARTIAL_COMBO_DONE_NO_CLEAR)
-					. = TRUE
+					. = MARTIAL_ARTS_ACT_SUCCESS
 					current_combos -= MC
 				if(MARTIAL_COMBO_DONE)
 					reset_combos()
-					return TRUE
+					return MARTIAL_ARTS_ACT_SUCCESS
 				if(MARTIAL_COMBO_DONE_BASIC_HIT)
 					basic_hit(user, target)
 					reset_combos()
-					return TRUE
+					return MARTIAL_ARTS_ACT_SUCCESS
 				if(MARTIAL_COMBO_DONE_CLEAR_COMBOS)
 					combos.Cut()
 					reset_combos()
-					return TRUE
+					return MARTIAL_ARTS_ACT_SUCCESS
 	if(!LAZYLEN(current_combos))
 		reset_combos()
 		if(HAS_COMBOS && could_start_new_combo)
@@ -325,7 +325,7 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist.</span>")
+		to_chat(H, "<span class='boldannounceic'>You have learned the ancient martial art of Plasma Fist.</span>")
 		used = TRUE
 		desc = "It's completely blank."
 		name = "empty scroll"
@@ -375,7 +375,7 @@
 			to_chat(user, "<span class='warning'>The mere thought of combat, let alone CQC, makes your head spin!</span>")
 			return
 
-	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
+	to_chat(user, "<span class='boldannounceic'>You remember the basics of CQC.</span>")
 	var/datum/martial_art/cqc/CQC = new(null)
 	CQC.teach(user)
 	user.drop_item()
@@ -444,7 +444,7 @@
 			H.visible_message("<span class='warning'>[pick(fluffmessages)]</span>", \
 								"<span class='userdanger'>[pick(fluffmessages)]</span>")
 			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, 1, -1)
-			H.adjustStaminaLoss(rand(13,20))
+			H.apply_damage(rand(13,20), STAMINA)
 			if(prob(10))
 				H.visible_message("<span class='warning'>[H] collapses!</span>", \
 									"<span class='userdanger'>Your legs give out!</span>")

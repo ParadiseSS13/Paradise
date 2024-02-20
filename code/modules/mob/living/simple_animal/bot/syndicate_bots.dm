@@ -12,7 +12,7 @@
 	idcheck = TRUE
 	arrest_type = TRUE
 	auto_patrol = TRUE
-	emagged = 2
+	emagged = TRUE
 	faction = list("syndicate")
 	shoot_sound = 'sound/weapons/wave.ogg'
 	anchored = TRUE
@@ -47,7 +47,10 @@
 	..()
 	update_icon()
 
-/mob/living/simple_animal/bot/ed209/syndicate/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/mob/living/simple_animal/bot/ed209/syndicate/ui_state(mob/user)
+	return GLOB.default_state
+
+/mob/living/simple_animal/bot/ed209/syndicate/ui_interact(mob/user, datum/tgui/ui = null)
 	to_chat(user, "<span class='warning'>[src] has no accessible control panel!</span>")
 	return
 

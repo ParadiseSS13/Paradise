@@ -4,7 +4,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "tech_key"
 	icon_screen = "robot"
-	req_access = list(ACCESS_ROBOTICS)
+	req_access = list(ACCESS_RD)
 	circuit = /obj/item/circuitboard/robotics
 	var/temp = null
 
@@ -131,10 +131,13 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/robotics/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/robotics/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/robotics/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RoboticsControlConsole",  name, 500, 460, master_ui, state)
+		ui = new(user, src, "RoboticsControlConsole", name)
 		ui.open()
 
 /obj/machinery/computer/robotics/ui_data(mob/user)
@@ -246,7 +249,7 @@
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])
 			if(!can_hack(usr, R))
 				return
-			var/choice = input("Really hack [R.name]? This cannot be undone.") in list("Yes", "No")
+			var/choice = alert(usr, "Really hack [R.name]? This cannot be undone.", "Do you want to hack this borg?", "Yes", "No")
 			if(choice != "Yes")
 				return
 			log_game("[key_name(usr)] emagged [key_name(R)] using robotic console!")

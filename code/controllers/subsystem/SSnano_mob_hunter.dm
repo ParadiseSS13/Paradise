@@ -129,7 +129,7 @@ SUBSYSTEM_DEF(mob_hunt)
 	if(loser == "Red")
 		loser_terminal = red_terminal
 		winner_terminal = blue_terminal
-	else if (loser == "Blue")
+	else if(loser == "Blue")
 		loser_terminal = blue_terminal
 		winner_terminal = red_terminal
 	battle_turn = null

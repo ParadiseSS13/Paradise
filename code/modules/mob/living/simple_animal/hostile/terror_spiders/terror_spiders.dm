@@ -1,6 +1,5 @@
 GLOBAL_LIST_EMPTY(ts_ckey_blacklist)
 GLOBAL_VAR_INIT(ts_count_dead, 0)
-GLOBAL_VAR_INIT(ts_count_alive_awaymission, 0)
 GLOBAL_VAR_INIT(ts_count_alive_station, 0)
 GLOBAL_VAR_INIT(ts_death_last, 0)
 GLOBAL_VAR_INIT(ts_death_window, 9000) // 15 minutes
@@ -55,7 +54,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	// '2' converts to 4.5, or 2.2 tiles/sec.
 
 	// Ventcrawling
-	ventcrawler = 1 // allows player ventcrawling
+	ventcrawler = VENTCRAWLER_NUDE // allows player ventcrawling
 	var/ai_ventcrawls = TRUE
 	var/idle_ventcrawl_chance = 15
 	var/freq_ventcrawl_combat = 1800 // 3 minutes
@@ -460,7 +459,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 		if(T.stat == DEAD)
 			continue
 		targets |= T // we use |= instead of += to avoid adding src to the list twice
-	var/mob/living/L = input("Choose a terror to watch.", "Selection") in targets
+	var/mob/living/L = tgui_input_list(src, "Choose a terror to watch.", "Brood Viewing", targets)
 	if(istype(L))
 		reset_perspective(L)
 
@@ -474,3 +473,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	. = ..()
 	if(pulling && !ismob(pulling) && pulling.density)
 		. += 6 // Drastic move speed penalty for dragging anything that is not a mob or a non dense object
+
+/mob/living/simple_animal/hostile/poison/terror_spider/Login()
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)

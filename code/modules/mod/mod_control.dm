@@ -203,7 +203,10 @@
 			. += "You could remove [core] with a <b>wrench</b>."
 		else
 			. += "You could use a <b>MOD core</b> on it to install one."
-	. += "<i>[extended_desc]</i>" //god is dead
+
+/obj/item/mod/control/examine_more(mob/user)
+	. = ..()
+	. += "<i>[extended_desc]</i>"
 
 /obj/item/mod/control/process()
 	if(seconds_electrified > 0)
@@ -334,7 +337,7 @@
 			if(!module.removable)
 				continue
 			removable_modules += module
-		var/obj/item/mod/module/module_to_remove = input(user, "Which module do you want to pry out?", "Module Removal") as null|anything in removable_modules
+		var/obj/item/mod/module/module_to_remove = tgui_input_list(user, "Which module do you want to pry out?", "Module Removal", removable_modules)
 		if(!module_to_remove?.mod)
 			return FALSE
 		uninstall(module_to_remove)
@@ -441,6 +444,7 @@
 /obj/item/mod/control/emag_act(mob/user)
 	locked = !locked
 	to_chat(user, "<span class='warning'>Suit access [locked ? "locked" : "unlocked"]")
+	return TRUE
 
 /obj/item/mod/control/emp_act(severity)
 	. = ..()

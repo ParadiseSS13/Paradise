@@ -65,12 +65,12 @@
 
 /obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/backpack/holding))
-		var/response = alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?","IMMINENT DEATH!", "No", "Yes")
+		var/response = tgui_alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?", "IMMINENT DEATH!", list("No", "Yes"))
 		if(response == "Yes")
 			user.visible_message("<span class='warning'>[user] grins as [user.p_they()] begin[user.p_s()] to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
 			if(do_after(user, 30, target=src))
 				investigate_log("has become a singularity. Caused by [user.key]","singulo")
-				user.visible_message("<span class='warning'>[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='warning'> You hear the sound of scientific evil brewing! </span>")
+				user.visible_message("<span class='warning'>[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='warning'> You hear the sound of scientific evil brewing!</span>")
 				qdel(W)
 				var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
 				singulo.energy = 300 //To give it a small boost
@@ -116,12 +116,12 @@
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/pda/clown(src)
 	new /obj/item/storage/box/survival(src)
-	new /obj/item/reagent_containers/food/snacks/grown/banana(src)
+	new /obj/item/food/snacks/grown/banana(src)
 	new /obj/item/stamp/clown(src)
 	new /obj/item/toy/crayon/rainbow(src)
 	new /obj/item/storage/fancy/crayons(src)
 	new /obj/item/reagent_containers/spray/waterflower(src)
-	new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
+	new /obj/item/reagent_containers/drinks/bottle/bottleofbanana(src)
 	new /obj/item/instrument/bikehorn(src)
 	new /obj/item/bikehorn(src)
 	new /obj/item/dnainjector/comic(src)
@@ -132,8 +132,8 @@
 	new /obj/item/gun/projectile/revolver/capgun(src)
 
 /obj/item/storage/backpack/mime
-	name = "Parcel Parceaux"
-	desc = "A silent backpack made for those silent workers. Silence Co."
+	name = "Pierre the Panda"
+	desc = "A backpack modelled after Pierre the Panda - the official mascot for the Université du Mime."
 	icon_state = "mimepack"
 	item_state = "mimepack"
 
@@ -213,6 +213,13 @@
 	icon_state = "blueshieldpack"
 	item_state = "blueshieldpack"
 
+/obj/item/storage/backpack/robotics
+	name = "robotics backpack"
+	desc = "A specially designed backpack. It's fire resistant and smells vaguely of welding fuel."
+	icon_state = "robopack"
+	item_state = "robopack"
+	resistance_flags = FIRE_PROOF
+
 /*
  * Satchel Types
  */
@@ -225,20 +232,19 @@
 	resistance_flags = FIRE_PROOF
 	var/strap_side_straight = FALSE
 
-/obj/item/storage/backpack/satchel/verb/switch_strap()
-	set name = "Switch Strap Side"
-	set category = "Object"
-	set src in usr
+/obj/item/storage/backpack/satchel/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Shift-Click</b> [src] to flip it's strap side.</span>"
 
-	if(usr.incapacitated())
+/obj/item/storage/backpack/satchel/AltShiftClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
+
 	strap_side_straight = !strap_side_straight
 	item_state = strap_side_straight ? "satchel-flipped" : "satchel"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_back()
-
-
 
 /obj/item/storage/backpack/satcheldeluxe
 	name = "leather satchel"
@@ -260,6 +266,12 @@
 	desc = "A deluxe NT Satchel, made of the highest quality leather."
 	icon_state = "satchel-norm"
 	item_state = "satchel-norm"
+
+/obj/item/storage/backpack/satchel/clown
+	name = "Tickles Von Squeakerton"
+	desc = "A satchel with extra pockets for all your banana storing needs!"
+	icon_state = "satchel-clown"
+	item_state = "satchel-clown"
 
 /obj/item/storage/backpack/satchel_eng
 	name = "industrial satchel"
@@ -336,6 +348,13 @@
 	desc = "A robust satchel issued to Nanotrasen's finest."
 	icon_state = "satchel-blueshield"
 	item_state = "satchel-blueshield"
+
+/obj/item/storage/backpack/satchel_robo
+	name = "bioengineer satchel"
+	desc = "A black satchel designed for holding repair equipment."
+	icon_state = "satchel-robo"
+	item_state = "satchel-robo"
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel_flat
 	name = "smuggler's satchel"
@@ -698,9 +717,8 @@
 		/obj/item/organ/internal/heart/cursed/wizard = 1,
 		/obj/item/organ/internal/vocal_cords/colossus/wizard = 2,
 		/obj/item/warp_cube/red = 1,
-		/obj/item/reagent_containers/food/drinks/everfull = 2,
-		/obj/item/clothing/suit/space/hardsuit/shielded/wizard = 2,
-		/obj/item/jacobs_ladder = 1, //funny
+		/obj/item/reagent_containers/drinks/everfull = 2,
+		/obj/item/clothing/suit/space/hardsuit/wizard = 2,
 		/obj/item/immortality_talisman = 1 ) //spells recharge when invincible
 	var/obj/item/pickeda = pick(list_a)
 	value += list_a[pickeda]
@@ -731,7 +749,7 @@
 			value += 1
 		if(8)
 			if(prob(25))
-				new /obj/item/reagent_containers/food/snacks/grown/nymph_pod(src)
+				new /obj/item/food/snacks/grown/nymph_pod(src)
 				new /obj/item/slimepotion/sentience(src)
 			else
 				new /obj/item/paicard(src) //Still useful, not a point useful.
@@ -739,10 +757,10 @@
 	//Treat / potion. Free.
 	var/obj/item/pickedt = pick(
 			/obj/item/storage/box/syndidonkpockets, // Healing + speed
-			/obj/item/reagent_containers/food/drinks/bottle/dragonsbreath, // Killing
-			/obj/item/reagent_containers/food/drinks/bottle/immortality, // Super healing for 20 seconds
-			/obj/item/reagent_containers/food/snacks/meatsteak/stimulating, //Healing + stun immunity
-			/obj/item/reagent_containers/food/snacks/plum_pie ) // Great healing over long period of time
+			/obj/item/reagent_containers/drinks/bottle/dragonsbreath, // Killing
+			/obj/item/reagent_containers/drinks/bottle/immortality, // Super healing for 20 seconds
+			/obj/item/food/snacks/meatsteak/stimulating, //Healing + stun immunity
+			/obj/item/food/snacks/plum_pie ) // Great healing over long period of time
 	new pickedt(src)
 
 
@@ -756,7 +774,7 @@
 #undef NANNY_MAX_VALUE
 #undef NANNY_MIN_VALUE
 
-/obj/item/reagent_containers/food/drinks/bottle/dragonsbreath
+/obj/item/reagent_containers/drinks/bottle/dragonsbreath
 	name = "flask of dragons breath"
 	desc = "Not recommended for wizardly consumption. Recommended for mundane consumption!"
 	icon_state = "holyflask"
@@ -764,7 +782,7 @@
 	volume = 100
 	list_reagents = list("dragonsbreath" = 80, "hell_water" = 20)
 
-/obj/item/reagent_containers/food/drinks/bottle/immortality
+/obj/item/reagent_containers/drinks/bottle/immortality
 	name = "drop of immortality"
 	desc = "Drinking this will make you immortal. For a moment or two, at least."
 	icon_state = "holyflask"
@@ -772,13 +790,13 @@
 	volume = 5
 	list_reagents = list("adminordrazine" = 5)
 
-/obj/item/reagent_containers/food/snacks/meatsteak/stimulating
+/obj/item/food/snacks/meatsteak/stimulating
 	name = "stimulating steak"
 	desc = "Stimulate your senses."
 	list_reagents = list("nutriment" = 5, "stimulants" = 25)
 	bitesize = 100
 
-/obj/item/reagent_containers/food/snacks/plum_pie
+/obj/item/food/snacks/plum_pie
 	name = "perfect plum pie"
 	desc = "The Jack Horner brand of pie. 2 big thumbs up."
 	icon = 'icons/obj/food/bakedgoods.dmi'
@@ -862,6 +880,12 @@
 	desc = "A robust duffelbag issued to Nanotrasen's finest."
 	icon_state = "duffel-blueshield"
 	item_state = "duffel-blueshield"
+
+/obj/item/storage/backpack/duffel/robotics
+	name = "roboticist duffelbag"
+	desc = "A duffelbag designed to hold tools."
+	icon_state = "duffel-robo"
+	item_state = "duffel-robo"
 
 //ERT backpacks.
 /obj/item/storage/backpack/ert

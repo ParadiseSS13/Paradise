@@ -8,5 +8,10 @@
 			continue
 		if(is_type_in_list(A, optional_areas))
 			continue
-		if(!(length(A.apc) == 1))
-			Fail("Area [A] has [length(A.apc)] apcs, instead of 1.")
+		if(length(A.apc) == 0)
+			Fail("Area [A.type] has [length(A.apc)] apcs, instead of 1.")
+		else if(length(A.apc) > 1)
+			var/list/locations = list()
+			for(var/atom/probably_an_apc as anything in A.apc)
+				locations += "([probably_an_apc.x], [probably_an_apc.y], [probably_an_apc.z])"
+			Fail("Area [A.type] has [length(A.apc)] apcs, instead of 1. APCs are located at [english_list(locations)]")

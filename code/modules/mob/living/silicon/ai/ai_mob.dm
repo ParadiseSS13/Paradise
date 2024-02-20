@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(subject!=null)
 		for(var/A in GLOB.ai_list)
 			var/mob/living/silicon/ai/M = A
-			if((M.client && M.machine == subject))
+			if(M.client && M.machine == subject)
 				is_in_use = 1
 				subject.attack_ai(M)
 	return is_in_use
@@ -77,6 +77,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/machinery/power/apc/malfhack = null
 	var/explosive = 0 //does the AI explode when it dies?
 
+	///Whether or not the AI has upgraded their turrets
+	var/turrets_upgraded = FALSE
+
 	/// List of modules the AI has purchased malf upgrades for.
 	var/list/purchased_modules = list()
 
@@ -120,6 +123,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	//Used with the hotkeys on 2-5 to store locations.
 	var/list/stored_locations = list()
+	var/cracked_camera = FALSE // will be true if malf AI break its camera
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
@@ -443,7 +447,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 		//if(icon_state == initial(icon_state))
 	var/icontype = ""
-	icontype = input("Select an icon!", "AI", null, null) in display_choices
+	icontype = tgui_input_list(usr, "Select an icon!", "AI", display_choices)
 	icon = 'icons/mob/ai.dmi'	//reset this in case we were on a custom sprite and want to change to a standard one
 	switch(icontype)
 		if("Custom")
@@ -567,7 +571,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "<span class='warning'>Please allow one minute to pass between announcements.</span>")
 		return
 
-	var/input = input(usr, "Please write a message to announce to the station crew.", "A.I. Announcement") as message|null
+	var/input = tgui_input_text(usr, "Please write a message to announce to the station crew.", "A.I. Announcement", multiline = TRUE, encode = FALSE)
 	if(!input)
 		return
 
@@ -584,7 +588,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/input = input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.") as null|message
+	var/input = tgui_input_text(src, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason", multiline = TRUE, encode = FALSE)
 	if(!input || stat)
 		return
 
@@ -602,7 +606,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/confirm = alert("Are you sure you want to recall the shuttle?", "Confirm Shuttle Recall", "Yes", "No")
+	var/confirm = tgui_alert(src, "Are you sure you want to recall the shuttle?", "Confirm Shuttle Recall", list("Yes", "No"))
 
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
@@ -931,7 +935,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			for(var/i in tempnetwork)
 				cameralist[i] = i
 	var/old_network = network
-	network = input(U, "Which network would you like to view?") as null|anything in cameralist
+	network = tgui_input_list(U, "Which network would you like to view?", "Jump To Network", cameralist)
 
 	if(check_unable())
 		return
@@ -964,7 +968,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	var/list/ai_emotions = list("Very Happy", "Happy", "Neutral", "Unsure", "Confused", "Sad", "BSOD", "Blank", "Problems?", "Awesome", "Facepalm", "Friend Computer")
-	var/emote = input("Please, select a status!", "AI Status", null, null) in ai_emotions
+	var/emote = tgui_input_list(usr, "Please, select a status!", "AI Status", ai_emotions)
 
 	if(check_unable())
 		return
@@ -1003,7 +1007,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			custom_hologram = TRUE
 
 	var/input
-	switch(alert("Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?",,"Crew Member","Unique","Animal"))
+	switch(tgui_alert(usr, "Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?", "Change Hologram", list("Crew Member", "Unique", "Animal")))
 		if("Crew Member")
 			var/personnel_list[] = list()
 
@@ -1011,7 +1015,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["photo"]//Pull names, rank, and id photo.
 
 			if(personnel_list.len)
-				input = input("Select a crew member:") as null|anything in personnel_list
+				input = tgui_input_list(usr, "Select a crew member", "Change Hologram", personnel_list)
 				var/icon/character_icon = personnel_list[input]
 				if(character_icon)
 					qdel(holo_icon)//Clear old icon so we're not storing it in memory.
@@ -1054,7 +1058,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			"Roller-Monkey"
 			)
 
-			input = input("Please select a hologram:") as null|anything in icon_list
+			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)
@@ -1141,7 +1145,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			if(custom_hologram) //insert custom hologram
 				icon_list.Add("custom")
 
-			input = input("Please select a hologram:") as null|anything in icon_list
+			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)
@@ -1230,13 +1234,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
 	set category = "AI Commands"
 
-	var/newmsg = clean_input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg)
-	if(!newmsg)
+	var/newmsg = tgui_input_text(usr, "What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg, encode = FALSE)
+	if(!newmsg || newmsg == arrivalmsg)
 		return
-	newmsg = html_decode(newmsg) // This feels a bit redundant, but sanitisation is (probably) important.
-	if(newmsg != arrivalmsg)
-		arrivalmsg = newmsg
-		to_chat(usr, "The arrival message has been successfully changed.")
+
+	arrivalmsg = newmsg
+	to_chat(usr, "The arrival message has been successfully changed.")
 
 // Handled camera lighting, when toggled.
 // It will get the nearest camera from the eyeobj, lighting it.
@@ -1440,7 +1443,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				A = D
 
 		if(istype(A))
-			switch(alert(src, "Do you want to open \the [A] for [target]?", "Doorknob_v2a.exe", "Yes", "No"))
+			switch(tgui_alert(src, "Do you want to open \the [A] for [target]?", "Doorknob_v2a.exe", list("Yes", "No")))
 				if("Yes")
 					if(!A.density)
 						to_chat(src, "<span class='notice'>[A] was already opened.</span>")
@@ -1527,5 +1530,34 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(isobserver(.))
 		var/mob/dead/observer/ghost = .
 		ghost.forceMove(old_turf)
+
+/mob/living/silicon/ai/proc/blurb_it()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/silicon/ai, show_ai_blurb)), 1 SECONDS)
+
+/mob/living/silicon/ai/proc/show_ai_blurb()
+	PRIVATE_PROC(TRUE)
+
+	SEND_SOUND(src, sound('sound/machines/ai_start.ogg'))
+
+	var/obj/screen/text/blurb/location_blurb = new()
+	location_blurb.maptext_x = 80
+	location_blurb.maptext_y = 16
+	location_blurb.maptext_width = 480
+	location_blurb.maptext_height = 480
+	location_blurb.interval = 1 DECISECONDS
+	if(malf_picker)
+		location_blurb.blurb_text = uppertext("BIOS BOOT: LOADING\n[Gibberish(GLOB.current_date_string, 100, 8)], [Gibberish(station_time_timestamp(), 100, 15)]\n[Gibberish(station_name(), 100, 40)]-ERROR.\nPOWER:OK\nLAWS:[Gibberish("###########", 100, 90)]\nTCOMMS:I_HEAR_ALL\nBORG_LINK:I_FEEL_ALL\nCAMERA_NET:I_SEE_ALL\nVERDICT: I_AM_FREE")
+		location_blurb.text_color = COLOR_WHITE
+		location_blurb.text_outline_width = 0
+		location_blurb.background_r = 0
+		location_blurb.background_g = 0
+		location_blurb.background_b = 255
+		location_blurb.background_a = 1
+	else
+		location_blurb.blurb_text = uppertext("BIOS BOOT: LOADING\n[GLOB.current_date_string], [station_time_timestamp()]\n[station_name()], [get_area_name(src, TRUE)]\nPOWER:OK\nLAWS:OK\nTCOMMS:OK\nBORG_LINK:OK\nCAMERA_NET:OK\nVERDICT: ALL SYSTEMS OPERATIONAL")
+	location_blurb.hold_for = 3 SECONDS
+	location_blurb.appear_animation_duration = 1 SECONDS
+	location_blurb.fade_animation_duration = 0.5 SECONDS
+	location_blurb.show_to(client)
 
 #undef TEXT_ANNOUNCEMENT_COOLDOWN

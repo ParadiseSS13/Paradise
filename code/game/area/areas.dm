@@ -20,6 +20,8 @@
 	var/map_name
 	/// Is the lightswitch in this area on? Controls whether or not lights are on and off
 	var/lightswitch = TRUE
+	/// Is the window tint control in this area on? Controls whether electrochromic windows and doors are tinted or not
+	var/window_tint = FALSE
 	/// If TRUE, the local powernet in this area will have all its power channels switched off
 	var/apc_starts_off = FALSE
 	/// If TRUE, this area's local powernet will require power to properly operate machines
@@ -467,7 +469,7 @@
 	if(!istype(M)) // Rather not have non-humans get hit with a THUNK
 		return
 
-	if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP)) // Only humans can wear magboots, so we give them a chance to.
+	if(HAS_TRAIT(M, TRAIT_MAGPULSE)) // Only humans can wear magboots, so we give them a chance to.
 		return
 
 	if(M.dna.species.spec_thunk(M)) //Species level thunk overrides

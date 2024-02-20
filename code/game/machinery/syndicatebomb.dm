@@ -250,7 +250,7 @@
 	if(can_interact(user)) //No running off and setting bombs from across the station
 		timer_set = clamp(new_timer, minimum_timer, maximum_timer)
 		loc.visible_message("<span class='notice'>[bicon(src)] timer set for [timer_set] seconds.</span>")
-	if(alert(user,"Would you like to start the countdown now?",,"Yes","No") == "Yes" && can_interact(user))
+	if(tgui_alert(user, "Would you like to start the countdown now?", "Countdown", list("Yes", "No")) == "Yes" && can_interact(user))
 		if(defused || active)
 			if(defused)
 				loc.visible_message("<span class='notice'>[bicon(src)] Device error: User intervention required.</span>")
@@ -399,7 +399,7 @@
 	qdel(src)
 
 /obj/item/bombcore/badmin/summon
-	var/summon_path = /obj/item/reagent_containers/food/snacks/cookie
+	var/summon_path = /obj/item/food/snacks/cookie
 	var/amt_summon = 1
 
 /obj/item/bombcore/badmin/summon/detonate()
@@ -613,7 +613,7 @@
 			to_chat(user, "<span class='notice'>You load [src] with [I].</span>")
 			ttv = I
 			I.forceMove(src)
-		else if (ttv)
+		else if(ttv)
 			to_chat(user, "<span class='warning'>Another tank transfer valve is already loaded.</span>")
 		else
 			to_chat(user, "<span class='warning'>Remove the attached assembly component first.</span>")
@@ -632,7 +632,7 @@
 
 
 /obj/item/bombcore/toxins/proc/check_attached(obj/item/transfer_valve/ttv)
-	if (ttv.attached_device)
+	if(ttv.attached_device)
 		return TRUE
 	else
 		return FALSE

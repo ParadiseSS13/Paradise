@@ -5,7 +5,6 @@
 
 GLOBAL_LIST_INIT(cardinal, list(NORTH, SOUTH, EAST, WEST))
 GLOBAL_LIST_INIT(alldirs, list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
-GLOBAL_LIST_INIT(alldirs2, list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST, NORTH, SOUTH, EAST, WEST))
 GLOBAL_LIST_INIT(diagonals, list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
 
 GLOBAL_LIST(global_map) // This is the array of zlevels | list(list(1,5),list(4,3)) | becomes a 2D array of zlevels
@@ -40,16 +39,11 @@ GLOBAL_LIST_EMPTY(ninjastart)
 GLOBAL_LIST_EMPTY(carplist) //list of all carp-spawn landmarks
 GLOBAL_LIST_EMPTY(syndicateofficer)
 
-//away missions
-GLOBAL_LIST_EMPTY(awaydestinations)	//a list of landmarks that the warpgate can take you to
-
 //List of preloaded templates
 GLOBAL_LIST_EMPTY(map_templates)
-GLOBAL_LIST_EMPTY(ruins_templates)
 GLOBAL_LIST_EMPTY(space_ruins_templates)
 GLOBAL_LIST_EMPTY(lava_ruins_templates)
 GLOBAL_LIST_EMPTY(shelter_templates)
 GLOBAL_LIST_EMPTY(shuttle_templates)
 GLOBAL_LIST_EMPTY(bridge_horizontal_templates)
 GLOBAL_LIST_EMPTY(bridge_vertical_templates)
-GLOBAL_LIST_EMPTY(event_templates)

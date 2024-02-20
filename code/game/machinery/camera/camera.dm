@@ -117,7 +117,7 @@
 	GLOB.cameranet.updateVisibility(src, 0)
 
 /obj/machinery/camera/singularity_pull(S, current_size)
-	if (status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
+	if(status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
 		toggle_cam(null, 0)
 	..()
 
@@ -126,7 +126,7 @@
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && panel_open)
-		if(!user.drop_item())
+		if(!user.canUnEquip(I, FALSE))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
 		if(!isEmpProof())
@@ -137,7 +137,7 @@
 		else
 			to_chat(user, "[msg2]")
 	else if(istype(I, /obj/item/assembly/prox_sensor) && panel_open)
-		if(!user.drop_item())
+		if(!user.canUnEquip(I, FALSE))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
 		if(!isMotion())
@@ -149,7 +149,7 @@
 
 	// OTHER
 	else if((istype(I, /obj/item/paper) || istype(I, /obj/item/pda)) && isliving(user))
-		if (!can_use())
+		if(!can_use())
 			to_chat(user, "<span class='warning'>You can't show something to a disabled camera!</span>")
 			return
 

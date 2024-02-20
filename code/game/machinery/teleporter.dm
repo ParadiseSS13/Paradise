@@ -20,7 +20,7 @@
 	/// The target turf of the teleporter
 	var/turf/target
 
-	/* 	var/area_bypass is for one-time-use teleport cards (such as clown planet coordinates.)
+	/* 	var/area_bypass is for one-time-use teleport cards
 		Setting this to TRUE will set var/obj/item/gps/locked to null after a player enters the portal and will not allow hand-teles to open portals to that location.
 	*/
 	var/area_bypass = FALSE
@@ -61,6 +61,7 @@
 	if(!emagged)
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>The teleporter can now lock on to Syndicate beacons!</span>")
+		return TRUE
 	else
 		ui_interact(user)
 
@@ -71,12 +72,15 @@
 	ui_interact(user)
 
 
-/obj/machinery/computer/teleporter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/computer/teleporter/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/teleporter/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Teleporter", "Teleporter Console", 380, 260)
+		ui = new(user, src, "Teleporter", "Teleporter Console")
 		ui.open()
 
 /obj/machinery/computer/teleporter/ui_data(mob/user)
@@ -212,7 +216,7 @@
 			"y" = T.y,
 			"z" = T.z)
 
-	for(var/obj/item/implant/tracking/I in GLOB.tracked_implants)
+	for(var/obj/item/bio_chip/tracking/I in GLOB.tracked_implants)
 		if(!I.implanted || !ismob(I.loc))
 			continue
 		else
@@ -303,9 +307,10 @@
 
 /obj/machinery/teleport
 	name = "teleport"
-	icon = 'icons/obj/stationobjs.dmi'
 	density = TRUE
 	anchored = TRUE
+	///Used by the teleporter hub and permament teleporter to track how many teleports have been done this cycle.
+	var/teleports_this_cycle = 0
 
 /**
 	Internal helper function
@@ -358,6 +363,9 @@
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	RefreshParts()
+
+/obj/machinery/teleport/hub/process()
+	teleports_this_cycle = 0
 
 /obj/machinery/teleport/hub/Destroy()
 	if(power_station)
@@ -414,6 +422,8 @@
 	var/obj/machinery/computer/teleporter/com = power_station.teleporter_console
 	if(!com)
 		return
+	if(MAX_ALLOWED_TELEPORTS_PER_PROCESS <= teleports_this_cycle)
+		return
 	if(!com.target)
 		visible_message("<span class='alert'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
 		return
@@ -428,6 +438,7 @@
 			. = do_teleport(M, com.target, bypass_area_flag = com.area_bypass)
 		if(accurate < 3)
 			calibrated = FALSE
+		teleports_this_cycle++
 
 /obj/machinery/teleport/hub/update_icon_state()
 	if(panel_open)
@@ -468,6 +479,9 @@
 	. = ..()
 	update_lighting()
 
+/obj/machinery/teleport/perma/process()
+	teleports_this_cycle = 0
+
 /obj/machinery/teleport/perma/RefreshParts()
 	for(var/obj/item/circuitboard/teleporter_perma/C in component_parts)
 		target = C.target
@@ -484,9 +498,10 @@
 		to_chat(AM, "You can't use this here.")
 		return
 
-	if(target && !recalibrating && !panel_open && !blockAI(AM))
+	if(target && !recalibrating && !panel_open && !blockAI(AM) && (teleports_this_cycle <= MAX_ALLOWED_TELEPORTS_PER_PROCESS))
 		do_teleport(AM, target)
 		use_power(5000)
+		teleports_this_cycle++
 		if(tele_delay)
 			recalibrating = TRUE
 			update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)

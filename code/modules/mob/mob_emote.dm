@@ -52,8 +52,8 @@
 	var/input = ""
 	if(!message && !client)
 		CRASH("An empty custom emote was called from a client-less mob.")
-	else if (!message)
-		input = sanitize(copytext(input(src,"Choose an emote to display.") as text|null, 1, MAX_MESSAGE_LEN))
+	else if(!message)
+		input = tgui_input_text(src, "Choose an emote to display.", "Custom Emote")
 	else
 		input = message
 
@@ -122,7 +122,7 @@
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE | EMOTE_FORCE_NO_RUNECHAT  // don't need an emote to see that
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)  // okay but what if we allowed ghosts to flip as well
-	mob_type_blacklist_typecache = list(/mob/living/carbon/brain, /mob/camera, /mob/living/silicon/ai)
+	mob_type_blacklist_typecache = list(/mob/living/brain, /mob/camera, /mob/living/silicon/ai)
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
 
 /datum/emote/flip/run_emote(mob/user, params, type_override, intentional)
@@ -176,7 +176,7 @@
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE | EMOTE_FORCE_NO_RUNECHAT
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)
-	mob_type_blacklist_typecache = list(/mob/living/carbon/brain, /mob/camera, /mob/living/silicon/ai)
+	mob_type_blacklist_typecache = list(/mob/living/brain, /mob/camera, /mob/living/silicon/ai)
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
 	cooldown = 2 SECONDS // how long the spin takes, any faster and mobs can spin
 

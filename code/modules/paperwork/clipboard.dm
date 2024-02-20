@@ -27,9 +27,7 @@
 		return
 	. = ..()
 
-/obj/item/clipboard/verb/removePen(mob/user)
-	set category = "Object"
-	set name = "Remove clipboard pen"
+/obj/item/clipboard/proc/removePen(mob/user)
 	if(!ishuman(user) || user.incapacitated())
 		return
 	penPlacement(user, containedpen, FALSE)
@@ -42,6 +40,7 @@
 
 /obj/item/clipboard/examine(mob/user)
 	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> to remove its pen.</span>"
 	if(in_range(user, src) && toppaper)
 		. += toppaper.examine(user)
 

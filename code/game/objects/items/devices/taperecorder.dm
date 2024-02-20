@@ -210,14 +210,10 @@
 			atom_say("End of recording.")
 			break
 		atom_say("[mytape.storedinfo[i]]")
-		if(length(mytape.storedinfo) < i + 1)
+		if(length(mytape.storedinfo) < i + 1 || playsleepseconds > 1.4 SECONDS)
 			playsleepseconds = 1 SECONDS
 		else
 			playsleepseconds = (mytape.timestamp[i + 1] - mytape.timestamp[i]) SECONDS
-		if(playsleepseconds > 1.4 SECONDS)
-			sleep(10)
-			atom_say("Skipping [playsleepseconds / 10] seconds of silence.")
-			playsleepseconds = 1 SECONDS
 		i++
 
 	stop(TRUE)
@@ -300,6 +296,7 @@
 				. += "<span class='notice'>It has [remaining_capacity] seconds remaining.</span>" // to avoid having 0 minutes
 			else
 				. += "<span class='notice'>It has [seconds_to_time(remaining_capacity)] remaining.</span>"
+		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to wipe the current tape."
 
 /obj/item/tape/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -309,17 +306,18 @@
 	if(!ruined)
 		ruin(user)
 
-/obj/item/tape/verb/wipe()
-	set name = "Wipe Tape"
-	set category = "Object"
-
-	if(usr.stat)
+/obj/item/tape/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(ruined)
+		to_chat(user, "<span class='notice'>This tape is already ruined!</span>")
+		return
+	if(!do_after(user, 3 SECONDS, target = src))
 		return
 
-	to_chat(usr, "<span class='notice'>You erase the data from [src].</span>")
+	to_chat(user, "<span class='notice'>You erase the data from [src].</span>")
 	used_capacity = 0
+	remaining_capacity = max_capacity
 	storedinfo.Cut()
 	timestamp.Cut()
 

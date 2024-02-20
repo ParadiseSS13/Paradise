@@ -92,24 +92,13 @@ GLOBAL_LIST_EMPTY(message_servers)
 	for(var/C in GLOB.allRequestConsoles)
 		var/obj/machinery/requests_console/RC = C
 		if(ckey(RC.department) == ckey(recipient))
-			if(RC.inoperable())
-				RC.message_log.Add(list(list("Message lost due to console failure. Please contact [station_name()]'s system administrator or AI for technical assistance.")))
-				continue
-			if(RC.newmessagepriority < priority)
-				RC.newmessagepriority = priority
-				RC.update_icon(UPDATE_OVERLAYS)
+			var/title
 			switch(priority)
 				if(2)
-					if(!RC.silent)
-						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						RC.atom_say("PRIORITY Alert in [sender]")
-					RC.message_log.Add(list(list("High Priority message from [sender]:", "[authmsg]")))
+					title = "PRIORITY Alert in [sender]"
 				else
-					if(!RC.silent)
-						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						RC.atom_say("Message from [sender]")
-					RC.message_log.Add(list(list("Message [sender]:", "[authmsg]")))
-			RC.set_light(2)
+					title = "Message from [sender]"
+			RC.createMessage(sender, title, authmsg, priority)
 
 /obj/machinery/message_server/attack_hand(user as mob)
 	to_chat(user, "You toggle PDA message passing from [active ? "On" : "Off"] to [active ? "Off" : "On"]")

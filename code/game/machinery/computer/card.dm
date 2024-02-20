@@ -21,6 +21,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/mode = 0
 	var/target_dept = 0 //Which department this computer has access to. 0=all departments
 	var/obj/item/radio/Radio
+	var/reset_timer
 
 	//Cooldown for closing positions in seconds
 	//if set to -1: No cooldown... probably a bad idea
@@ -72,6 +73,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	QDEL_NULL(Radio)
 	return ..()
 
+/obj/machinery/computer/card/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to remove the ID cards in it.</span>"
+
 /obj/machinery/computer/card/proc/is_centcom()
 	return FALSE
 
@@ -121,30 +126,31 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			"skin" = skin)))
 	return formatted
 
-/obj/machinery/computer/card/verb/eject_id()
-	set category = null
-	set name = "Eject ID Card"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/machinery/computer/card/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(scan)
-		to_chat(usr, "You remove \the [scan] from \the [src].")
-		scan.forceMove(get_turf(src))
-		if(!usr.get_active_hand() && Adjacent(usr))
-			usr.put_in_hands(scan)
+		to_chat(user, "<span class='notice'>You remove \the [scan] from \the [src].</span>")
+		if(!user.get_active_hand())
+			user.put_in_hands(scan)
+		else if(!user.put_in_inactive_hand(scan))
+			scan.forceMove(get_turf(src))
 		scan = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		SStgui.update_uis(src)
+		return
 	else if(modify)
-		to_chat(usr, "You remove \the [modify] from \the [src].")
-		modify.forceMove(get_turf(src))
-		if(!usr.get_active_hand() && Adjacent(usr))
-			usr.put_in_hands(modify)
+		to_chat(user, "<span class='notice'>You remove \the [modify] from \the [src].</span>")
+		if(!user.get_active_hand())
+			user.put_in_hands(modify)
+		else if(!user.put_in_inactive_hand(modify))
+			modify.forceMove(get_turf(src))
 		modify = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		SStgui.update_uis(src)
 	else
-		to_chat(usr, "There is nothing to remove from the console.")
+		to_chat(user, "There is nothing to remove from the console.")
 
 /obj/machinery/computer/card/attackby(obj/item/card/id/id_card, mob/user, params)
 	if(!istype(id_card))
@@ -304,10 +310,24 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	ui_interact(user)
 
-/obj/machinery/computer/card/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/card/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/card/proc/change_ui_autoupdate(value, mob/user)
+	var/datum/tgui/ui = SStgui.try_update_ui(user, src)
+	reset_timer = null
+	if(ui)
+		ui.set_autoupdate(value)
+
+/obj/machinery/computer/card/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "CardComputer",  name, 800, 800, master_ui, state)
+		ui = new(user, src, "CardComputer",  name)
+		var/delta = (world.time / 10) - GLOB.time_last_changed_position
+		if(change_position_cooldown < delta && !reset_timer)
+			ui.set_autoupdate(FALSE)
+		else
+			reset_timer = addtimer(CALLBACK(src, PROC_REF(change_ui_autoupdate), FALSE, user), delta SECONDS)
 		ui.open()
 
 /obj/machinery/computer/card/ui_data(mob/user)
@@ -538,8 +558,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Demoted", scan.registered_name, reason)
 			modify.lastlog = "[station_time_timestamp()]: DEMOTED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
 			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has demoted \"[modify.registered_name]\" ([jobnamedata]) for \"[reason]\".")
+			SSjobs.slot_job_transfer(modify.rank, "Assistant")
 			modify.access = access
-			modify.rank = "Assistant"
 			modify.assignment = "Demoted"
 			modify.icon_state = "id"
 			regenerate_id_name()
@@ -561,6 +581,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name, reason)
 			modify.lastlog = "[station_time_timestamp()]: TERMINATED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
 			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
+			var/datum/job/job = SSjobs.GetJob(modify.rank)
+			if(modify.assignment != "Demoted" && !(job.title in GLOB.command_positions))
+				job.current_positions--
 			modify.assignment = "Terminated"
 			modify.access = list()
 			regenerate_id_name()
@@ -576,6 +599,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				return FALSE
 			if(opened_positions[edit_job_target] >= 0)
 				GLOB.time_last_changed_position = world.time / 10
+				change_ui_autoupdate(TRUE, usr)
+				reset_timer = addtimer(CALLBACK(src, PROC_REF(change_ui_autoupdate), FALSE, usr), GLOB.time_last_changed_position SECONDS)
+
 			j.total_positions++
 			opened_positions[edit_job_target]++
 			log_game("[key_name(usr)] ([scan.assignment]) has opened a job slot for job \"[j.title]\".")
@@ -593,6 +619,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			//Allow instant closing without cooldown if a position has been opened before
 			if(opened_positions[edit_job_target] <= 0)
 				GLOB.time_last_changed_position = world.time / 10
+				change_ui_autoupdate(TRUE, usr)
+				reset_timer = addtimer(CALLBACK(src, PROC_REF(change_ui_autoupdate), FALSE, usr), (GLOB.time_last_changed_position + 1) SECONDS)
 			j.total_positions--
 			opened_positions[edit_job_target]--
 			log_game("[key_name(usr)] ([scan.assignment]) has closed a job slot for job \"[j.title]\".")
@@ -647,10 +675,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			regenerate_id_name()
 			return
 		if("account") // card account number
-			var/account_num = input(usr, "Account Number", "Input Number", null) as num|null
-			if(!scan || !modify)
+			var/account_num = tgui_input_number(usr, "Account Number", "Input Number", modify.associated_account_number, 9999999, 1000000)
+			if(!scan || !modify || !account_num)
 				return FALSE
-			modify.associated_account_number = clamp(round(account_num), 1000000, 9999999) //force a 7 digit number
+			modify.associated_account_number = account_num
 			//for future reference, you should never be able to modify the money account datum through the card computer
 			return
 		if("skin")

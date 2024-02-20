@@ -13,7 +13,7 @@
 
 /obj/item/flag/attackby(obj/item/W, mob/user, params)
 	. = ..()
-	if(is_hot(W) && !(resistance_flags & ON_FIRE))
+	if(W.get_heat() && !(resistance_flags & ON_FIRE))
 		user.visible_message("<span class='notice'>[user] lights [src] with [W].</span>", "<span class='notice'>You light [src] with [W].</span>", "<span class='warning'>You hear a low whoosh.</span>")
 		fire_act()
 
@@ -54,13 +54,13 @@
 	icon_state = "ntflag"
 
 /obj/item/flag/clown
-	name = "\improper Clown Planet flag"
-	desc = "The banner of His Majesty, King Squiggles the Eighth."
+	name = "\improper Clown Unity flag"
+	desc = "The universal banner of clowns everywhere. It smells faintly of bananas."
 	icon_state = "clownflag"
 
 /obj/item/flag/mime
-	name = "\improper Mime Revolution flag"
-	desc = "The banner of the glorious revolutionary forces fighting the oppressors on Clown Planet."
+	name = "\improper Mime Unity flag"
+	desc = "The standard by which all mimes march to war, as cold as ice and silent as the grave."
 	icon_state = "mimeflag"
 
 /obj/item/flag/ian
@@ -234,10 +234,11 @@
 
 	var/list/show_flag = list("EXIT" = null) + sortList(flag)
 
-	var/input_flag = input(user, "Choose a flag to disguise as.", "Choose a flag.") in show_flag
+	var/input_flag = tgui_input_list(user, "Choose a flag to disguise this as.", "Choose a flag.", show_flag)
+	if(!input_flag)
+		return
 
-	if(user && (src in user.contents))
-
+	if(user && (src in user.GetAllContents()))
 		var/obj/item/flag/chosen_flag = flag[input_flag]
 
 		if(chosen_flag && !used)
@@ -259,7 +260,7 @@
 			log_game("[key_name(user)] has hidden [I] in [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 			investigate_log("[key_name(user)] has hidden [I] in [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
 			add_attack_logs(user, src, "has hidden [I] ready for detonation in", ATKLOG_MOST)
-	else if(is_hot(I) && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
+	else if(I.get_heat() && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
 		var/turf/bombturf = get_turf(src)
 		var/area/A = get_area(bombturf)
 		log_game("[key_name_admin(user)] has lit [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")

@@ -184,7 +184,7 @@
 		/area/wizard_station
 	)
 	for(var/type in SPECIALS)
-		if( istype(A,type) )
+		if(istype(A,type))
 			return AREA_SPECIAL
 	return AREA_STATION
 
@@ -204,11 +204,8 @@
 				to_chat(usr, "<span class='warning'>Error! Please notify administration.</span>")
 				return area_created
 	var/list/turf/turfs = res
-	var/str = trim(stripped_input(usr,"New area name:", "Blueprint Editing", "", MAX_NAME_LEN))
-	if(!str || !length(str)) //cancel
-		return area_created
-	if(length(str) > 50)
-		to_chat(usr, "<span class='warning'>The given name is too long. The area remains undefined.</span>")
+	var/str = tgui_input_text(usr, "New area name:", "Blueprint Editing", max_length = MAX_NAME_LEN, encode = FALSE)
+	if(!str || !length(str)) // Cancel
 		return area_created
 	var/area/A = new
 	A.name = str
@@ -239,11 +236,8 @@
 /obj/item/areaeditor/proc/edit_area()
 	var/area/A = get_area()
 	var/prevname = "[sanitize(A.name)]"
-	var/str = trim(stripped_input(usr,"New area name:", "Blueprint Editing", prevname, MAX_NAME_LEN))
-	if(!str || !length(str) || str==prevname) //cancel
-		return
-	if(length(str) > 50)
-		to_chat(usr, "<span class='warning'>The given name is too long.  The area's name is unchanged.</span>")
+	var/str = tgui_input_text(usr, "New area name:", "Blueprint Editing", prevname, MAX_NAME_LEN, encode = FALSE)
+	if(!str || !length(str) || str == prevname) // Cancel
 		return
 	set_area_machinery_title(A,str,prevname)
 	A.name = str

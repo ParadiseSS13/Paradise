@@ -10,7 +10,9 @@
 	active_power_consumption = 2500
 	light_color = "#00FF00"
 	var/mob/living/carbon/human/occupant
-	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
+	///What is the level of the stock parts in the body scanner. A scan_level of one detects organs of stealth_level 1 or below, while a scan level of 4 would detect 4 or below.
+	var/scan_level = 1
+	var/known_implants = list(/obj/item/bio_chip/chem, /obj/item/bio_chip/death_alarm, /obj/item/bio_chip/mindshield, /obj/item/bio_chip/tracking, /obj/item/bio_chip/health)
 
 /obj/machinery/bodyscanner/examine(mob/user)
 	. = ..()
@@ -51,6 +53,10 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
+
+/obj/machinery/bodyscanner/RefreshParts()
+	for(var/obj/item/stock_parts/scanning_module/S in component_parts)
+		scan_level = S.rating
 
 /obj/machinery/bodyscanner/update_icon_state()
 	if(occupant)
@@ -218,10 +224,13 @@
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
 
-/obj/machinery/bodyscanner/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/bodyscanner/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/bodyscanner/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BodyScanner", "Body Scanner", 690, 600)
+		ui = new(user, src, "BodyScanner", "Body Scanner")
 		ui.open()
 
 /obj/machinery/bodyscanner/ui_data(mob/user)
@@ -271,7 +280,7 @@
 		occupantData["blood"] = bloodData
 
 		var/implantData[0]
-		for(var/obj/item/implant/I in occupant)
+		for(var/obj/item/bio_chip/I in occupant)
 			if(I.implanted && is_type_in_list(I, known_implants))
 				var/implantSubData[0]
 				implantSubData["name"] = sanitize(I.name)
@@ -329,6 +338,8 @@
 
 		var/intOrganData[0]
 		for(var/obj/item/organ/internal/I in occupant.internal_organs)
+			if(I.stealth_level > scan_level)
+				continue
 			var/organData[0]
 			organData["name"] = I.name
 			organData["desc"] = I.desc
@@ -506,12 +517,14 @@
 		dat += "<th>Injuries</th>"
 		dat += "</tr>"
 
-		for(var/obj/item/organ/internal/i in occupant.internal_organs)
+		for(var/obj/item/organ/internal/I in occupant.internal_organs)
+			if(I.stealth_level > scan_level)
+				continue
 			var/list/ailments = list()
 
-			if(i.status & ORGAN_DEAD)
+			if(I.status & ORGAN_DEAD)
 				ailments |= "Dead"
-			switch(i.germ_level)
+			switch(I.germ_level)
 				if(1 to INFECTION_LEVEL_ONE + 200)
 					ailments |= "Mild Infection"
 				if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
@@ -527,8 +540,8 @@
 				if(INFECTION_LEVEL_TWO + 400 to INFINITY)
 					ailments |= "Septic"
 			dat += "<tr>"
-			dat += "<td>[i.name]</td>"
-			dat += "<td>[i.damage]</td>"
+			dat += "<td>[I.name]</td>"
+			dat += "<td>[I.damage]</td>"
 			dat += "<td>[jointext(ailments, "<br>")]</td>"
 			dat += "</tr>"
 		dat += "</table>"

@@ -13,6 +13,7 @@
 	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
 	required_enemies = 5
 	recommended_enemies = 5
+	single_antag_positions = list()
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
 
@@ -309,7 +310,7 @@
 				synd_mob.update_action_buttons_icon()
 
 	synd_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
-	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(synd_mob)
+	var/obj/item/bio_chip/explosive/E = new/obj/item/bio_chip/explosive(synd_mob)
 	E.implant(synd_mob)
 	synd_mob.faction |= "syndicate"
 	synd_mob.update_icons()
@@ -389,8 +390,8 @@
 
 
 /datum/game_mode/proc/auto_declare_completion_nuclear()
-	if(syndicates.len || GAMEMODE_IS_NUCLEAR)
-		var/text = "<br><FONT size=3><B>The syndicate operatives were:</B></FONT>"
+	if(length(syndicates) || GAMEMODE_IS_NUCLEAR)
+		var/list/text = list("<br><FONT size=3><B>The syndicate operatives were:</B></FONT>")
 
 		var/purchases = ""
 		var/TC_uses = 0
@@ -420,8 +421,7 @@
 		if(TC_uses==0 && station_was_nuked && !is_operatives_are_dead())
 			text += "<BIG><IMG CLASS=icon SRC=\ref['icons/badass.dmi'] ICONSTATE='badass'></BIG>"
 
-		to_chat(world, text)
-	return 1
+		return text.Join("")
 
 /proc/nukelastname(mob/M as mob) //--All praise goes to NEO|Phyte, all blame goes to DH, and it was Cindi-Kate's idea. Also praise Urist for copypasta ho.
 	var/randomname = pick(GLOB.last_names)

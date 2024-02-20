@@ -363,7 +363,7 @@
 		to_chat(user, "There are no damaged components in [affected].")
 		return SURGERY_BEGINSTEP_SKIP
 
-	target.custom_pain("The pain in your [affected.name] is living hell!")
+	affected.custom_pain("The pain in your [affected.name] is living hell!")
 	return ..()
 
 
@@ -427,7 +427,7 @@
 		"You start reattaching [target]'s [tool]."
 	)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	target.custom_pain("Someone's rooting around in your [affected.name]!")
+	affected.custom_pain("Someone's rooting around in your [affected.name]!")
 	return ..()
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -472,7 +472,7 @@
 			organs -= O
 			organs[O.name] = O
 
-		I = input("Remove which organ?", "Surgery", null, null) as null|anything in organs
+		I = tgui_input_list(user, "Remove which organ?", "Surgery", organs)
 		if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
 			I = organs[I]
 			if(!I)
@@ -482,7 +482,7 @@
 				"You start to decouple [target]'s [I] with \the [tool]."
 			)
 
-			target.custom_pain("The pain in your [affected.name] is living hell!")
+			affected.custom_pain("The pain in your [affected.name] is living hell!")
 		else
 			return SURGERY_BEGINSTEP_SKIP
 
@@ -603,7 +603,7 @@
 		"You start to decouple [target]'s [affected.name] with \the [tool]."
 	)
 
-	target.custom_pain("Your [affected.amputation_point] is being ripped apart!")
+	affected.custom_pain("Your [affected.amputation_point] is being ripped apart!")
 	return ..()
 
 /datum/surgery_step/robotics/external/amputate/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -644,7 +644,7 @@
 	return ..()
 
 /datum/surgery_step/robotics/external/customize_appearance/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/chosen_appearance = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in GLOB.selectable_robolimbs
+	var/chosen_appearance = tgui_input_list(user, "Select the company appearance for this limb.", "Limb Company Selection", GLOB.selectable_robolimbs)
 	if(!chosen_appearance)
 		return SURGERY_STEP_INCOMPLETE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -693,7 +693,7 @@
 
 /datum/surgery_step/robotics/edit_serial/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
-	var/new_name = copytext(reject_bad_text(input(user, "Choose a name for this machine.", "Set Name", "[target.real_name]") as null|text), 1, MAX_NAME_LEN)
+	var/new_name = reject_bad_text(tgui_input_text(user, "Choose a name for this machine.", "Set Name", "[target.real_name]", MAX_NAME_LEN, 1))
 	if(!new_name)
 		to_chat(user, "<span class='warning'>Invalid name! Please try again.</span>")
 		return SURGERY_STEP_INCOMPLETE
@@ -701,7 +701,7 @@
 		to_chat(user, "<span class='warning'>The multitool is out of range! Please try again.</span>")
 		return SURGERY_STEP_INCOMPLETE
 	var/static/list/gender_list = list("Male" = MALE, "Female" = FEMALE, "Genderless" = PLURAL, "Object" = NEUTER)
-	var/gender_key = input(user, "Choose a gender for this machine.", "Select Gender", target.gender) as null|anything in gender_list
+	var/gender_key = tgui_input_list(user, "Choose a gender for this machine", "Select Gender", gender_list)
 	if(!gender_key)
 		to_chat(user, "<span class='warning'>You must choose a gender! Please try again.</span>")
 		return SURGERY_STEP_INCOMPLETE
