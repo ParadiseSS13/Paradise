@@ -520,7 +520,7 @@ GLOBAL_VAR(bomb_set)
 				return
 			timing = !(timing)
 			if(timing)
-				if(!lighthack)
+				if(!lighthack && !training)
 					icon_state = "nuclearbomb2"
 					update_icon(UPDATE_OVERLAYS)
 				if(!safety && !training)
@@ -535,7 +535,7 @@ GLOBAL_VAR(bomb_set)
 					SSsecurity_level.set_level(previous_level)
 				if(!training)
 					GLOB.bomb_set = FALSE
-				if(!lighthack)
+				if(!lighthack && !training)
 					icon_state = "nuclearbomb1"
 					update_icon(UPDATE_OVERLAYS)
 
@@ -751,6 +751,7 @@ GLOBAL_VAR(bomb_set)
 	name = "training nuclear bomb" //Todo : Training nuke sprites
 	desc = "A fake bomb for training in arming, disarming, or defusing a nuclear bomb. Does not simulate nuclear core extraction. \
 		The '1' on the keypad looks much more used than the other keys. If lost, a new training disk can be printed at a protolathe."
+	icon_state = "trainingbomb0"
 	resistance_flags = null
 	training = TRUE
 
