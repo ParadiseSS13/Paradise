@@ -769,6 +769,10 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/training/blob_act(obj/structure/blob/B)
 	qdel(src)
 
+/obj/machinery/nuclearbomb/training/AltClick(mob/user)
+	. = ..()
+	training_reset()
+
 /obj/machinery/nuclearbomb/training/proc/training_detonation()
 	atom_say("Nuclear device detonated. Resetting...")
 	training_reset()
