@@ -1226,9 +1226,8 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "dZ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -1377,9 +1376,8 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "es" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -1652,9 +1650,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Midship)
 "fh" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -1730,9 +1727,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Midship)
 "fs" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
