@@ -48974,7 +48974,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
 /area/station/security/defusal)
 "exI" = (
 /obj/structure/table/glass,
