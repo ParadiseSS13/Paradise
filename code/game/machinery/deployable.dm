@@ -114,6 +114,7 @@
 		return
 	new /obj/item/stack/sheet/wood(get_turf(src), 5)
 	qdel(src)
+	
 /obj/structure/barricade/wooden/crude
 	name = "crude plank barricade"
 	desc = "This space is blocked off by a crude assortment of planks."
