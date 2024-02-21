@@ -78,7 +78,6 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
-
 /obj/item/photo/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
