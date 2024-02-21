@@ -45,7 +45,7 @@
 	)
 
 	holder_type = /obj/item/holder/drone
-//	var/sprite[0]
+	var/datum/pathfinding_mover/pathfinding
 
 
 /mob/living/silicon/robot/drone/New()
@@ -125,6 +125,8 @@
 	overlays.Cut()
 	if(stat == CONSCIOUS)
 		overlays += "eyes-[icon_state]"
+		if(pathfinding)
+			overlays += "eyes-repairbot-pathfinding"
 	else
 		overlays -= "eyes"
 
@@ -176,7 +178,7 @@
 			return
 
 		else
-			var/confirm = alert("Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", "Yes", "No")
+			var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
 			if(confirm == ("Yes") && (user in range(3, src)))
 				user.visible_message("<span class='warning'>[user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>",
 					"<span class='warning'>You swipe your ID card through [src], attempting to shut it down.</span>")
@@ -245,6 +247,7 @@
 	to_chat(src, "<b>Obey these laws:</b>")
 	laws.show_laws(src)
 	to_chat(src, "<span class='boldwarning'>ALERT: [H.real_name] is your new master. Obey your new laws and [H.real_name]'s commands.</span>")
+	return TRUE
 
 //DRONE LIFE/DEATH
 
@@ -279,6 +282,10 @@
 		to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, but it doesn't seem like a good idea to you.</span>")
 		return
 
+	if(!emagged && pathfind_to_dronefab())
+		to_chat(src, "<span class='warning'>You feel a system recall order percolate through your tiny brain, and you return to your drone fabricator.</span>")
+		return
+
 	to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.</span>")
 	death()
 
@@ -304,7 +311,7 @@
 	spawn(0)
 		if(!C || !M || jobban_isbanned(M, "nonhumandept") || jobban_isbanned(M, "Drone"))
 			return
-		var/response = alert(C, "Someone is attempting to reboot a maintenance drone. Would you like to play as one?", "Maintenance drone reboot", "Yes", "No")
+		var/response = tgui_alert(C, "Someone is attempting to reboot a maintenance drone. Would you like to play as one?", "Maintenance drone reboot", list("Yes", "No"))
 		if(!C || ckey)
 			return
 		if(response == "Yes")
@@ -391,3 +398,73 @@
 		qdel(src)
 		return TRUE
 	return ..()
+
+/mob/living/silicon/robot/drone/do_suicide()
+	ghostize(TRUE)
+	shut_down()
+
+/mob/living/silicon/robot/drone/proc/pathfind_to_dronefab()
+	if(pathfinding)
+		return TRUE
+
+	if(istype(get_turf(src), /turf/space))
+		return FALSE // Pretty damn hard to path through space
+
+	var/turf/target
+	for(var/obj/machinery/drone_fabricator/DF in GLOB.machines)
+		if(DF.z != z)
+			continue
+		target = get_turf(DF)
+		target = get_step(target, EAST)
+		break
+
+	if(!target)
+		return FALSE
+
+	// Mimic having the hide-ability activated
+	layer = TURF_LAYER + 0.2
+	pass_flags |= PASSDOOR
+
+	var/datum/pathfinding_mover/pathfind = new(src, target)
+
+	// I originally only wanted to make it use an ID if it couldnt pathfind otherwise, but that means it could take multiple minutes if both searches failed
+	var/obj/item/card/id/temp_id = new(src)
+	temp_id.access = get_all_accesses()
+	set_pathfinding(pathfind)
+	var/found_path = pathfind.generate_path(150, null, temp_id)
+	qdel(temp_id)
+	if(!found_path)
+		set_pathfinding(null)
+		return FALSE
+
+	pathfind.on_set_path_null = CALLBACK(src, PROC_REF(pathfind_failed_cleanup))
+	pathfind.on_success = CALLBACK(src, PROC_REF(at_dronefab))
+	pathfind.start()
+	return TRUE
+
+/mob/living/silicon/robot/drone/proc/pathfind_failed_cleanup(pathfind)
+	set_pathfinding(null)
+	death()
+
+/mob/living/silicon/robot/drone/proc/at_dronefab(pathfind)
+	set_pathfinding(null)
+	cryo_with_dronefab()
+
+/mob/living/silicon/robot/drone/proc/cryo_with_dronefab(obj/machinery/drone_fabricator/drone_fab)
+	if(!drone_fab)
+		drone_fab = locate() in range(1, src)
+	if(!drone_fab)
+		return FALSE
+	drone_fab.drone_progress = 100 // recycling!
+
+	visible_message("<span class='notice'>[src] shuts down and enters [drone_fab].</span>")
+	playsound(loc, 'sound/machines/twobeep.ogg', 50)
+	qdel(src)
+	return TRUE
+
+/mob/living/silicon/robot/drone/proc/set_pathfinding(datum/pathfinding_mover/new_pathfind)
+	if(isnull(new_pathfind) && istype(pathfinding))
+		qdel(pathfinding)
+	pathfinding = new_pathfind
+	notransform = istype(new_pathfind) ? TRUE : FALSE // prevent them from moving themselves while pathfinding.
+	update_icons()

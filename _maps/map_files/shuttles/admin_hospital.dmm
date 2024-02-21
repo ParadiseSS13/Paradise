@@ -538,12 +538,12 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "cp" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "cq" = (
 /obj/machinery/light,
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "cr" = (

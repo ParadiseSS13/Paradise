@@ -109,6 +109,8 @@
 	else
 		to_chat(user, "<span class='warning'>[src]'s ID scanner is already broken!</span>")
 
+	return TRUE
+
 /obj/machinery/computer/cloning/proc/generate_healthy_data(datum/cloning_data/patient_data)
 	var/datum/cloning_data/desired_data = new
 

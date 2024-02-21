@@ -583,6 +583,7 @@
 /obj/machinery/clonepod/emag_act(user)
 	. = ..()
 	eject_clone(TRUE)
+	return TRUE
 
 /obj/machinery/clonepod/emp_act(severity)
 	if(prob(50))

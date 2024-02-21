@@ -49,7 +49,7 @@
 	if(istype(target, /obj/structure/elite_tumor))
 		var/obj/structure/elite_tumor/T = target
 		if(T.mychild == src && T.activity == TUMOR_PASSIVE)
-			var/response = alert(src, "Re-enter the tumor?","Despawn yourself?", "Yes", "No")
+			var/response = tgui_alert(src, "Re-enter the tumor?", "Despawn yourself?", list("Yes", "No"))
 			if(response == "No" || QDELETED(src) || !Adjacent(T))
 				return
 			T.clear_activator(src)
@@ -478,7 +478,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	. = ..()
 	if(istype(mover, /obj/item/projectile))
 		return FALSE
-		
+
 /obj/item/gps/internal/tumor
 	icon_state = null
 	gpstag = "Cancerous Signal"
