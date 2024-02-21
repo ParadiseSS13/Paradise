@@ -47,9 +47,10 @@
 				N.audible_message("<span class='boldnotice'>The timer on [N] stops!</span>", hearing_distance = 1)
 				N.update_icon(UPDATE_OVERLAYS)
 				GLOB.bomb_set = FALSE
-				SSsecurity_level.set_level(N.previous_level)
+				if(!N.is_syndicate && !N.training)
+					SSsecurity_level.set_level(N.previous_level)
 			else if(N.timing && !is_cut(WIRE_NUKE_CONTROL))
-				N.audible_message("<span class='boldnotice'>The disarm controls flash red with an error. You need to disable the control panel first!</span>", hearing_distance = 1)
+				N.audible_message("<span class='boldnotice'>The disarm controls flash with an error. You need to disable the control panel first!</span>", hearing_distance = 1)
 			else if(!is_cut(WIRE_NUKE_CONTROL))
 				N.audible_message("<span class='notice'>The disarm controls flicker.</span>", hearing_distance = 1)
 

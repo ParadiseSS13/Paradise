@@ -547,18 +547,29 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "adG" = (
+/obj/item/disk/nuclear/training{
+	pixel_y = -2;
+	pixel_x = -7
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
-/obj/item/disk/nuclear/training{
-	pixel_y = -3;
-	pixel_x = -3
+/obj/item/paper/nuclear_guide_spacing{
+	pixel_x = 10;
+	pixel_y = 7
 	},
-/obj/item/disk/nuclear/training,
-/obj/item/book/manual/wiki/hacking{
-	pixel_x = 13
+/obj/item/paper/nuclear_guide_defusing{
+	pixel_x = 9;
+	pixel_y = 4
+	},
+/obj/item/disk/nuclear/training{
+	pixel_x = -5
+	},
+/obj/item/paper/nuclear_guide_operating{
+	pixel_x = 8;
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/range)

@@ -57450,22 +57450,33 @@
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "hUl" = (
+/obj/item/disk/nuclear/training{
+	pixel_y = -2;
+	pixel_x = -7
+	},
+/obj/item/paper/nuclear_guide_spacing{
+	pixel_x = 10;
+	pixel_y = 7
+	},
+/obj/item/paper/nuclear_guide_defusing{
+	pixel_x = 9;
+	pixel_y = 4
+	},
+/obj/item/disk/nuclear/training{
+	pixel_x = -5
+	},
+/obj/item/paper/nuclear_guide_operating{
+	pixel_x = 8;
+	pixel_y = 1
+	},
 /obj/structure/table,
+/obj/machinery/camera{
+	c_tag = "Defusal Workshop"
+	},
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 24;
 	name = "east bump"
-	},
-/obj/machinery/camera{
-	c_tag = "Defusal Workshop"
-	},
-/obj/item/disk/nuclear/training{
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/obj/item/disk/nuclear/training{
-	pixel_x = 3;
-	pixel_y = -1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/defusal)

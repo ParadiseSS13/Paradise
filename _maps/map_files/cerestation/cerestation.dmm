@@ -2780,18 +2780,25 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/defusal)
 "arh" = (
+/obj/item/disk/nuclear/training{
+	pixel_y = -2;
+	pixel_x = -7
+	},
 /obj/structure/table/reinforced,
-/obj/item/book/manual/wiki/hacking{
-	pixel_x = -8;
-	pixel_y = 2
+/obj/item/paper/nuclear_guide_spacing{
+	pixel_x = 10;
+	pixel_y = 7
+	},
+/obj/item/paper/nuclear_guide_defusing{
+	pixel_x = 9;
+	pixel_y = 4
 	},
 /obj/item/disk/nuclear/training{
-	pixel_x = 4;
-	pixel_y = -3
+	pixel_x = -5
 	},
-/obj/item/disk/nuclear/training{
-	pixel_y = 7;
-	pixel_x = 6
+/obj/item/paper/nuclear_guide_operating{
+	pixel_x = 8;
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
