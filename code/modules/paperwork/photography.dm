@@ -63,7 +63,7 @@
 	"[class]You hold [P] up to [src], burning it slowly.</span>")
 
 	if(do_after(user, 50, target = src))
-		if(user.get_active_hand() != P && !P.get_heat())
+		if(user.get_active_hand() != P || !P.get_heat())
 			to_chat(user, "<span class='warning'>You must hold [P] steady to burn [src].</span>")
 			return
 
