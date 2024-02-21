@@ -52,7 +52,7 @@
 	..()
 
 /obj/item/photo/proc/burnphoto(obj/item/P, mob/user)
-	if (user.restrained())
+	if(user.restrained())
 		return
 
 	var/class = "<span class='warning'>"
