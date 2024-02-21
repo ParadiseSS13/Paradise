@@ -224,10 +224,10 @@ GLOBAL_VAR(bomb_set)
 	if(!I.tool_use_check(user, 0))
 		return
 	if(removal_stage == NUKE_COVER_OFF)
-		user.visible_message("[user] starts forcing open the bolt covers on [src].", "You start forcing open the anchoring bolt covers with [I]...")
+		user.visible_message("<span class='notice'>[user] starts forcing open the bolt covers on [src].</span>", "<span class='notice'>You start forcing open the anchoring bolt covers with [I]...</span>")
 		if(!I.use_tool(src, user, 15, volume = I.tool_volume) || removal_stage != NUKE_COVER_OFF)
 			return
-		user.visible_message("[user] forces open the bolt covers on [src].", "You force open the bolt covers.")
+		user.visible_message("<span class='notice'>[user] forces open the bolt covers on [src].</span>", "<span class='notice'>You force open the bolt covers.</span>")
 		removal_stage = NUKE_COVER_OPEN
 	if(removal_stage == NUKE_CORE_EVERYTHING_FINE)
 		if(training)
@@ -250,10 +250,10 @@ GLOBAL_VAR(bomb_set)
 		if(core)
 			START_PROCESSING(SSobj, core)
 	if(removal_stage == NUKE_UNWRENCHED)
-		user.visible_message("[user] begins lifting [src] off of the anchors.", "You begin lifting the device off the anchors...")
+		user.visible_message("<span class='notice'>[user] begins lifting [src] off of the anchors.</span>", "<span class='notice'>You begin lifting the device off the anchors...</span>")
 		if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume) || removal_stage != NUKE_UNWRENCHED)
 			return
-		user.visible_message("[user] crowbars [src] off of the anchors. It can now be moved.", "You jam the crowbar under the nuclear device and lift it off its anchors. You can now move it!")
+		user.visible_message("<span class='notice'>[user] crowbars [src] off of the anchors. It can now be moved.</span>", "<span class='notice'>You jam the crowbar under the nuclear device and lift it off its anchors. You can now move it!</span>")
 		anchored = FALSE
 		removal_stage = NUKE_MOBILE
 	update_icon(UPDATE_OVERLAYS)
@@ -266,10 +266,10 @@ GLOBAL_VAR(bomb_set)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("[user] begins unwrenching the anchoring bolts on [src].", "You begin unwrenching the anchoring bolts...")
+	user.visible_message("<span class='notice'>[user] begins unwrenching the anchoring bolts on [src].</span>", "<span class='notice'>You begin unwrenching the anchoring bolts...</span>")
 	if(!I.use_tool(src, user, 50, volume = I.tool_volume) || removal_stage != NUKE_SEALANT_OPEN)
 		return
-	user.visible_message("[user] unwrenches the anchoring bolts on [src].", "You unwrench the anchoring bolts.")
+	user.visible_message("<span class='notice'>[user] unwrenches the anchoring bolts on [src].</span>", "<span class='notice'>You unwrench the anchoring bolts.</span>")
 	removal_stage = NUKE_UNWRENCHED
 	update_icon(UPDATE_OVERLAYS)
 
@@ -288,20 +288,20 @@ GLOBAL_VAR(bomb_set)
 	if(auth || (istype(I, /obj/item/screwdriver/nuke) && !is_syndicate))
 		if(!panel_open)
 			panel_open = TRUE
-			to_chat(user, "You unscrew the control panel of [src].")
+			to_chat(user, "<span class='notice'>You unscrew the control panel of [src].</span>")
 			anchor_stage = removal_stage
 			removal_stage = core_stage
 		else
 			panel_open = FALSE
-			to_chat(user, "You screw the control panel of [src] back on.")
+			to_chat(user, "<span class='notice'>You screw the control panel of [src] back on.</span>")
 			core_stage = removal_stage
 			removal_stage = anchor_stage
 	else
 		if(!panel_open)
-			to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
+			to_chat(user, "<span class='warning'>[src] emits a buzzing noise, the panel staying locked in.</span>")
 		if(panel_open)
 			panel_open = FALSE
-			to_chat(user, "You screw the control panel of [src] back on.")
+			to_chat(user, "<span class='notice'>You screw the control panel of [src] back on.</span>")
 			core_stage = removal_stage
 			removal_stage = anchor_stage
 		flick(sprite_prefix + "nuclearbombc", src)
