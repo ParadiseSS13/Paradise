@@ -19,17 +19,17 @@ const burnWoundFlag = 1 << 7;
 
 export const CloningConsole = (props, context) => {
   const { act, data } = useBackend(context);
-  const { tab, hasScanner, podAmount } = data;
+  const { tab, has_scanner, pod_amount } = data;
   return (
     <Window width={640} height={520}>
       <Window.Content scrollable>
         <Section title="Cloning Console">
           <LabeledList>
             <LabeledList.Item label="Connected scanner">
-              {hasScanner ? 'Online' : 'Missing'}
+              {has_scanner ? 'Online' : 'Missing'}
             </LabeledList.Item>
             <LabeledList.Item label="Connected pods">
-              {podAmount}
+              {pod_amount}
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -71,11 +71,11 @@ const CloningConsoleBody = (props, context) => {
 
 const CloningConsoleMain = (props, context) => {
   const { act, data } = useBackend(context);
-  const { pods, podAmount, selectedPodUID } = data;
+  const { pods, pod_amount, selected_pod_UID } = data;
   return (
     <Box>
-      {!podAmount && <Box color="average">Notice: No pods connected.</Box>}
-      {!!podAmount &&
+      {!pod_amount && <Box color="average">Notice: No pods connected.</Box>}
+      {!!pod_amount &&
         pods.map((pod, i) => (
           <Section key={pod} layer={2} title={'Pod ' + (i + 1)}>
             <Stack textAlign="center">
@@ -90,7 +90,7 @@ const CloningConsoleMain = (props, context) => {
                   }}
                 />
                 <Button
-                  selected={selectedPodUID === pod['uid']}
+                  selected={selected_pod_UID === pod['uid']}
                   onClick={() => act('select_pod', { uid: pod['uid'] })}
                 >
                   Select
@@ -154,18 +154,18 @@ const CloningConsoleMain = (props, context) => {
 const CloningConsoleDamage = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    selectedPodData,
-    hasScanned,
-    scannerHasPatient,
+    selected_pod_data,
+    has_scanned,
+    scanner_has_patient,
     feedback,
-    scanSuccessful,
+    scan_successful,
     cloningCost,
-    hasScanner,
+    has_scanner,
   } = data;
   return (
     <Box>
-      {!hasScanner && <Box color="average">Notice: No scanner connected.</Box>}
-      {!!hasScanner && (
+      {!has_scanner && <Box color="average">Notice: No scanner connected.</Box>}
+      {!!has_scanner && (
         <Box>
           <Section
             layer={2}
@@ -176,23 +176,23 @@ const CloningConsoleDamage = (props, context) => {
               </Button>
             }
           >
-            {!hasScanned && (
+            {!has_scanned && (
               <Box color="average">
-                {scannerHasPatient
+                {scanner_has_patient
                   ? 'No scan detected for current patient.'
                   : 'No patient is in the scanner.'}
               </Box>
             )}
-            {!!hasScanned && (
+            {!!has_scanned && (
               <Box color={feedback['color']}>{feedback['text']}</Box>
             )}
           </Section>
           <Section layer={2} title="Damages Breakdown">
             <Box>
-              {(!scanSuccessful || !hasScanned) && (
+              {(!scan_successful || !has_scanned) && (
                 <Box color="average">No valid scan detected.</Box>
               )}
-              {!!scanSuccessful && !!hasScanned && (
+              {!!scan_successful && !!has_scanned && (
                 <Box>
                   <Stack>
                     <Stack.Item>
@@ -212,89 +212,91 @@ const CloningConsoleDamage = (props, context) => {
                     <Stack.Item width="50%">
                       <ProgressBar
                         value={cloningCost[0]}
-                        maxValue={selectedPodData['biomass_storage_capacity']}
+                        maxValue={selected_pod_data['biomass_storage_capacity']}
                         ranges={{
                           bad: [
-                            (2 * selectedPodData['biomass_storage_capacity']) /
+                            (2 *
+                              selected_pod_data['biomass_storage_capacity']) /
                               3,
-                            selectedPodData['biomass_storage_capacity'],
+                            selected_pod_data['biomass_storage_capacity'],
                           ],
                           average: [
-                            selectedPodData['biomass_storage_capacity'] / 3,
-                            (2 * selectedPodData['biomass_storage_capacity']) /
+                            selected_pod_data['biomass_storage_capacity'] / 3,
+                            (2 *
+                              selected_pod_data['biomass_storage_capacity']) /
                               3,
                           ],
                           good: [
                             0,
-                            selectedPodData['biomass_storage_capacity'] / 3,
+                            selected_pod_data['biomass_storage_capacity'] / 3,
                           ],
                         }}
                         color={
-                          cloningCost[0] > selectedPodData['biomass']
+                          cloningCost[0] > selected_pod_data['biomass']
                             ? 'bad'
                             : null
                         }
                       >
-                        Biomass: {cloningCost[0]}/{selectedPodData['biomass']}/
-                        {selectedPodData['biomass_storage_capacity']}
+                        Biomass: {cloningCost[0]}/{selected_pod_data['biomass']}
+                        /{selected_pod_data['biomass_storage_capacity']}
                       </ProgressBar>
                     </Stack.Item>
                     <Stack.Item width="25%" mx="2px">
                       <ProgressBar
                         value={cloningCost[1]}
-                        maxValue={selectedPodData['max_reagent_capacity']}
+                        maxValue={selected_pod_data['max_reagent_capacity']}
                         ranges={{
                           bad: [
-                            (2 * selectedPodData['max_reagent_capacity']) / 3,
-                            selectedPodData['max_reagent_capacity'],
+                            (2 * selected_pod_data['max_reagent_capacity']) / 3,
+                            selected_pod_data['max_reagent_capacity'],
                           ],
                           average: [
-                            selectedPodData['max_reagent_capacity'] / 3,
-                            (2 * selectedPodData['max_reagent_capacity']) / 3,
+                            selected_pod_data['max_reagent_capacity'] / 3,
+                            (2 * selected_pod_data['max_reagent_capacity']) / 3,
                           ],
                           good: [
                             0,
-                            selectedPodData['max_reagent_capacity'] / 3,
+                            selected_pod_data['max_reagent_capacity'] / 3,
                           ],
                         }}
                         color={
-                          cloningCost[1] > selectedPodData['sanguine_reagent']
+                          cloningCost[1] > selected_pod_data['sanguine_reagent']
                             ? 'bad'
                             : 'good'
                         }
                       >
                         Sanguine: {cloningCost[1]}/
-                        {selectedPodData['sanguine_reagent']}/
-                        {selectedPodData['max_reagent_capacity']}
+                        {selected_pod_data['sanguine_reagent']}/
+                        {selected_pod_data['max_reagent_capacity']}
                       </ProgressBar>
                     </Stack.Item>
                     <Stack.Item width="25%">
                       <ProgressBar
                         value={cloningCost[2]}
-                        maxValue={selectedPodData['max_reagent_capacity']}
+                        maxValue={selected_pod_data['max_reagent_capacity']}
                         ranges={{
                           bad: [
-                            (2 * selectedPodData['max_reagent_capacity']) / 3,
-                            selectedPodData['max_reagent_capacity'],
+                            (2 * selected_pod_data['max_reagent_capacity']) / 3,
+                            selected_pod_data['max_reagent_capacity'],
                           ],
                           average: [
-                            selectedPodData['max_reagent_capacity'] / 3,
-                            (2 * selectedPodData['max_reagent_capacity']) / 3,
+                            selected_pod_data['max_reagent_capacity'] / 3,
+                            (2 * selected_pod_data['max_reagent_capacity']) / 3,
                           ],
                           good: [
                             0,
-                            selectedPodData['max_reagent_capacity'] / 3,
+                            selected_pod_data['max_reagent_capacity'] / 3,
                           ],
                         }}
                         color={
-                          cloningCost[1] > selectedPodData['osseous_reagent']
+                          cloningCost[1] > selected_pod_data['osseous_reagent']
                             ? 'bad'
                             : 'good'
                         }
                       >
                         Osseous: {cloningCost[2]}/
-                        {selectedPodData['osseous_reagent']}/
-                        {selectedPodData['max_reagent_capacity']}
+                        {selected_pod_data['osseous_reagent']}/
+                        {selected_pod_data['max_reagent_capacity']}
                       </ProgressBar>
                     </Stack.Item>
                   </Stack>
@@ -312,54 +314,56 @@ const CloningConsoleDamage = (props, context) => {
 
 const LimbsMenu = (props, context) => {
   const { act, data } = useBackend(context);
-  const { patientLimbData, limbList, desiredLimbData } = data;
+  const { patient_limb_data, limb_list, desired_limb_data } = data;
   return (
     <Collapsible title="Limbs">
-      {limbList.map((limb, i) => (
+      {limb_list.map((limb, i) => (
         <Box key={limb}>
           <Stack align="baseline">
             <Stack.Item color="label" width="15%" height="20px">
-              {patientLimbData[limb][4]}:{' '}
+              {patient_limb_data[limb][4]}:{' '}
             </Stack.Item>
             <Stack.Item grow={1} />
-            {patientLimbData[limb][3] === 0 && (
+            {patient_limb_data[limb][3] === 0 && (
               <Stack.Item width="60%">
                 <ProgressBar
-                  value={patientLimbData[limb][0] + patientLimbData[limb][1]}
-                  maxValue={patientLimbData[limb][5]}
+                  value={
+                    patient_limb_data[limb][0] + patient_limb_data[limb][1]
+                  }
+                  maxValue={patient_limb_data[limb][5]}
                   ranges={{
-                    good: [0, patientLimbData[limb][5] / 3],
+                    good: [0, patient_limb_data[limb][5] / 3],
                     average: [
-                      patientLimbData[limb][5] / 3,
-                      (2 * patientLimbData[limb][5]) / 3,
+                      patient_limb_data[limb][5] / 3,
+                      (2 * patient_limb_data[limb][5]) / 3,
                     ],
                     bad: [
-                      (2 * patientLimbData[limb][5]) / 3,
-                      patientLimbData[limb][5],
+                      (2 * patient_limb_data[limb][5]) / 3,
+                      patient_limb_data[limb][5],
                     ],
                   }}
                 >
                   {'Current Damage: '}
                   <Icon name="bone" />
-                  {' ' + patientLimbData[limb][0] + ' / '}
+                  {' ' + patient_limb_data[limb][0] + ' / '}
                   <Icon name="fire" />
-                  {' ' + patientLimbData[limb][1]}
+                  {' ' + patient_limb_data[limb][1]}
                 </ProgressBar>
               </Stack.Item>
             )}
-            {!(patientLimbData[limb][3] === 0) && (
+            {!(patient_limb_data[limb][3] === 0) && (
               <Stack.Item width="60%">
                 <ProgressBar color="bad" value={0}>
-                  The patient&apos;s {patientLimbData[limb][4]} is missing!
+                  The patient&apos;s {patient_limb_data[limb][4]} is missing!
                 </ProgressBar>
               </Stack.Item>
             )}
           </Stack>
           <Stack>
-            {!!patientLimbData[limb][3] && (
+            {!!patient_limb_data[limb][3] && (
               <Stack.Item>
                 <Button.Checkbox
-                  checked={!desiredLimbData[limb][3]}
+                  checked={!desired_limb_data[limb][3]}
                   onClick={() =>
                     act('toggle_limb_repair', { limb: limb, type: 'replace' })
                   }
@@ -368,15 +372,17 @@ const LimbsMenu = (props, context) => {
                 </Button.Checkbox>
               </Stack.Item>
             )}
-            {!patientLimbData[limb][3] && (
+            {!patient_limb_data[limb][3] && (
               <Stack.Item>
                 <Button.Checkbox
                   disabled={
-                    !(patientLimbData[limb][0] || patientLimbData[limb][1])
+                    !(patient_limb_data[limb][0] || patient_limb_data[limb][1])
                   }
                   checked={
-                    !(desiredLimbData[limb][0] || desiredLimbData[limb][1]) &&
-                    (patientLimbData[limb][0] || patientLimbData[limb][1])
+                    !(
+                      desired_limb_data[limb][0] || desired_limb_data[limb][1]
+                    ) &&
+                    (patient_limb_data[limb][0] || patient_limb_data[limb][1])
                   }
                   onClick={() =>
                     act('toggle_limb_repair', { limb: limb, type: 'damage' })
@@ -385,10 +391,10 @@ const LimbsMenu = (props, context) => {
                   Repair Damages
                 </Button.Checkbox>
                 <Button.Checkbox
-                  disabled={!(patientLimbData[limb][2] & brokenFlag)}
+                  disabled={!(patient_limb_data[limb][2] & brokenFlag)}
                   checked={
-                    !(desiredLimbData[limb][2] & brokenFlag) &&
-                    patientLimbData[limb][2] & brokenFlag
+                    !(desired_limb_data[limb][2] & brokenFlag) &&
+                    patient_limb_data[limb][2] & brokenFlag
                   }
                   onClick={() =>
                     act('toggle_limb_repair', { limb: limb, type: 'bone' })
@@ -397,10 +403,12 @@ const LimbsMenu = (props, context) => {
                   Mend Bone
                 </Button.Checkbox>
                 <Button.Checkbox
-                  disabled={!(patientLimbData[limb][2] & internalBleedingFlag)}
+                  disabled={
+                    !(patient_limb_data[limb][2] & internalBleedingFlag)
+                  }
                   checked={
-                    !(desiredLimbData[limb][2] & internalBleedingFlag) &&
-                    patientLimbData[limb][2] & internalBleedingFlag
+                    !(desired_limb_data[limb][2] & internalBleedingFlag) &&
+                    patient_limb_data[limb][2] & internalBleedingFlag
                   }
                   onClick={() =>
                     act('toggle_limb_repair', { limb: limb, type: 'ib' })
@@ -409,10 +417,10 @@ const LimbsMenu = (props, context) => {
                   Mend IB
                 </Button.Checkbox>
                 <Button.Checkbox
-                  disabled={!(patientLimbData[limb][2] & burnWoundFlag)}
+                  disabled={!(patient_limb_data[limb][2] & burnWoundFlag)}
                   checked={
-                    !(desiredLimbData[limb][2] & burnWoundFlag) &&
-                    patientLimbData[limb][2] & burnWoundFlag
+                    !(desired_limb_data[limb][2] & burnWoundFlag) &&
+                    patient_limb_data[limb][2] & burnWoundFlag
                   }
                   onClick={() =>
                     act('toggle_limb_repair', { limb: limb, type: 'critburn' })
@@ -431,25 +439,25 @@ const LimbsMenu = (props, context) => {
 
 const OrgansMenu = (props, context) => {
   const { act, data } = useBackend(context);
-  const { patientOrganData, organList, desiredOrganData } = data;
+  const { patient_organ_data, organ_list, desired_organ_data } = data;
   return (
     <Collapsible title="Organs">
-      {organList.map((organ, i) => (
+      {organ_list.map((organ, i) => (
         <Box key={organ}>
           <Stack align="baseline">
             <Stack.Item color="label" width="20%" height="20px">
-              {patientOrganData[organ][3]}:{' '}
+              {patient_organ_data[organ][3]}:{' '}
             </Stack.Item>
-            {!(patientOrganData[organ][5] === 'heart') && (
+            {!(patient_organ_data[organ][5] === 'heart') && (
               <Box>
                 <Stack.Item>
                   {!!(
-                    patientOrganData[organ][2] || patientOrganData[organ][1]
+                    patient_organ_data[organ][2] || patient_organ_data[organ][1]
                   ) && (
                     <Button.Checkbox
                       checked={
-                        !desiredOrganData[organ][2] &&
-                        !desiredOrganData[organ][1]
+                        !desired_organ_data[organ][2] &&
+                        !desired_organ_data[organ][1]
                       }
                       onClick={() =>
                         act('toggle_organ_repair', {
@@ -462,14 +470,14 @@ const OrgansMenu = (props, context) => {
                     </Button.Checkbox>
                   )}
                   {!(
-                    patientOrganData[organ][2] || patientOrganData[organ][1]
+                    patient_organ_data[organ][2] || patient_organ_data[organ][1]
                   ) && (
                     <Box>
                       <Button.Checkbox
-                        disabled={!patientOrganData[organ][0]}
+                        disabled={!patient_organ_data[organ][0]}
                         checked={
-                          !desiredOrganData[organ][0] &&
-                          patientOrganData[organ][0]
+                          !desired_organ_data[organ][0] &&
+                          patient_organ_data[organ][0]
                         }
                         onClick={() =>
                           act('toggle_organ_repair', {
@@ -485,35 +493,35 @@ const OrgansMenu = (props, context) => {
                 </Stack.Item>
               </Box>
             )}
-            {!!(patientOrganData[organ][5] === 'heart') && (
+            {!!(patient_organ_data[organ][5] === 'heart') && (
               <Box color="average">
                 Heart replacement is required for cloning.
               </Box>
             )}
             <Stack.Item grow={1} />
             <Stack.Item width="35%">
-              {!!patientOrganData[organ][2] && (
+              {!!patient_organ_data[organ][2] && (
                 <ProgressBar color="bad" value={0}>
-                  The patient&apos;s {patientOrganData[organ][3]} is missing!
+                  The patient&apos;s {patient_organ_data[organ][3]} is missing!
                 </ProgressBar>
               )}
-              {!patientOrganData[organ][2] && (
+              {!patient_organ_data[organ][2] && (
                 <ProgressBar
-                  value={patientOrganData[organ][0]}
-                  maxValue={patientOrganData[organ][4]}
+                  value={patient_organ_data[organ][0]}
+                  maxValue={patient_organ_data[organ][4]}
                   ranges={{
-                    good: [0, patientOrganData[organ][4] / 3],
+                    good: [0, patient_organ_data[organ][4] / 3],
                     average: [
-                      patientOrganData[organ][4] / 3,
-                      (2 * patientOrganData[organ][4]) / 3,
+                      patient_organ_data[organ][4] / 3,
+                      (2 * patient_organ_data[organ][4]) / 3,
                     ],
                     bad: [
-                      (2 * patientOrganData[organ][4]) / 3,
-                      patientOrganData[organ][4],
+                      (2 * patient_organ_data[organ][4]) / 3,
+                      patient_organ_data[organ][4],
                     ],
                   }}
                 >
-                  {'Current Damage: ' + patientOrganData[organ][0]}
+                  {'Current Damage: ' + patient_organ_data[organ][0]}
                 </ProgressBar>
               )}
             </Stack.Item>

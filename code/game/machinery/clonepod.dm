@@ -536,6 +536,7 @@
 		M.unEquip(inserted)
 	inserted.forceMove(src)
 	to_chat(inserter, "<span class='notice'>You insert [inserted] into [src]'s organ storage.</span>")
+	SStgui.try_update_ui(user, src)
 	if(has_children)
 		visible_message("There's a crunching sound as [src] breaks down [inserted] into discrete parts.", "You hear a crunching noise.")
 
@@ -631,7 +632,7 @@
 
 	return data
 
-/obj/machinery/clonepod/ui_act(action, params)
+/obj/machinery/clonepod/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 	switch(action)
@@ -639,7 +640,7 @@
 			var/obj/item/organ/O = locateUID(params["organ_ref"])
 			if(!O) //This shouldn't happen
 				return FALSE
-			if(!usr.put_in_hands(O))
+			if(!ui.user.put_in_hands(O))
 				O.forceMove(loc)
 			return TRUE
 		if("purge_reagent")

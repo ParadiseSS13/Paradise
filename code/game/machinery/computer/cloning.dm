@@ -158,43 +158,43 @@
 	data["tab"] = tab
 
 	if(scanner)
-		data["hasScanner"] = TRUE
+		data["has_scanner"] = TRUE
 	else
-		data["hasScanner"] = FALSE
+		data["has_scanner"] = FALSE
 
 	if(scanner)
-		data["hasScanned"] = scanner.has_scanned
+		data["has_scanned"] = scanner.has_scanned
 	else
-		data["hasScanned"] = FALSE
+		data["has_scanned"] = FALSE
 
 	if(scanner?.last_scan)
-		data["patientLimbData"] = scanner.last_scan.limbs
+		data["patient_limb_data"] = scanner.last_scan.limbs
 		var/list/allLimbs = list()
 		for(var/limb in scanner.last_scan.limbs)
 			allLimbs += limb
-		data["limbList"] = allLimbs
+		data["limb_list"] = allLimbs
 
-		data["patientOrganData"] = scanner.last_scan.organs
+		data["patient_organ_data"] = scanner.last_scan.organs
 		var/list/allOrgans = list()
 		for(var/organ in scanner.last_scan.organs)
 			allOrgans += organ
-		data["organList"] = allOrgans
+		data["organ_list"] = allOrgans
 
 	if(desired_data)
-		data["desiredLimbData"] = desired_data.limbs
-		data["desiredOrganData"] = desired_data.organs
+		data["desired_limb_data"] = desired_data.limbs
+		data["desired_organ_data"] = desired_data.organs
 
 	data["feedback"] = feedback
 
 	if(feedback && feedback["color"] == "good")
-		data["scanSuccessful"] = TRUE
+		data["scan_successful"] = TRUE
 	else
-		data["scanSuccessful"] = FALSE
+		data["scan_successful"] = FALSE
 
 	if(scanner?.occupant)
-		data["scannerHasPatient"] = TRUE
+		data["scanner_has_patient"] = TRUE
 	else
-		data["scannerHasPatient"] = FALSE
+		data["scanner_has_patient"] = FALSE
 
 	var/list/pod_data = list()
 	if(length(pods))
@@ -208,17 +208,17 @@
 							"osseous_reagent" = pod.reagents.get_reagent_amount("osseous_reagent")))
 
 	if(selected_pod)
-		data["selectedPodData"] = list("biomass" = selected_pod.biomass,
+		data["selected_pod_data"] = list("biomass" = selected_pod.biomass,
 										"biomass_storage_capacity" = selected_pod.biomass_storage_capacity,
 										"sanguine_reagent" = selected_pod.reagents.get_reagent_amount("sanguine_reagent"),
 										"osseous_reagent" = selected_pod.reagents.get_reagent_amount("osseous_reagent"),
 										"max_reagent_capacity" = selected_pod.reagents.maximum_volume)
-		data["selectedPodUID"] = selected_pod.UID()
+		data["selected_pod_UID"] = selected_pod.UID()
 		if(scanner?.last_scan && desired_data)
 			data["cloningCost"] = selected_pod.get_cloning_cost(scanner.last_scan, desired_data)
 
 	data["pods"] = pod_data
-	data["podAmount"] = length(pods)
+	data["pod_amount"] = length(pods)
 
 	return data
 

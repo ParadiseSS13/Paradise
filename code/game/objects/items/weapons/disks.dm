@@ -12,7 +12,7 @@
 	var/datum/dna2/record/buf = null
 	var/read_only = FALSE //Well,it's still a floppy disk
 
-/obj/item/disk/data/proc/initialize()
+/obj/item/disk/data/proc/initialize_data()
 	buf = new
 	buf.dna = new
 
@@ -26,7 +26,7 @@
 
 /obj/item/disk/data/demo/New()
 	. = ..()
-	initialize()
+	initialize_data()
 	buf.types = DNA2_BUF_UE|DNA2_BUF_UI
 	buf.dna.real_name = "God Emperor of Mankind"
 	buf.dna.unique_enzymes = md5(buf.dna.real_name)
@@ -43,7 +43,7 @@
 
 /obj/item/disk/data/monkey/New()
 	. = ..()
-	initialize()
+	initialize_data()
 	buf.types = DNA2_BUF_SE
 	var/list/new_SE = list(0x098,0x3E8,0x403,0x44C,0x39F,0x4B0,0x59D,0x514,0x5FC,0x578,0x5DC,0x640,0x6A4)
 	for(var/i = length(new_SE); i <= DNA_SE_LENGTH; i++)
