@@ -111,23 +111,23 @@
 		return TRUE
 
 	to_chat(user, "<span class='notice'>You put [H] into the cloning scanner.</span>")
-	insert(H)
+	insert_mob(H)
 	return TRUE
 
 /obj/machinery/clonescanner/AltClick(mob/user)
 	if(!occupant)
 		return
 	if(issilicon(user))
-		remove(occupant)
+		remove_mob(occupant)
 		return
 	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	remove(occupant)
+	remove_mob(occupant)
 
 /obj/machinery/clonescanner/relaymove(mob/user)
 	if(user.stat)
 		return
-	remove(user)
+	remove_mob(user)
 
 /obj/machinery/clonescanner/proc/try_scan(mob/living/carbon/human/scanned)
 	if(!scanned)
@@ -157,7 +157,6 @@
 
 	scan_result.name = scanned.dna.real_name
 	scan_result.mindUID = scanned.mind.UID()
-	log_debug(scan_result.mindUID)
 	scan_result.genetic_info = scanned.dna.Clone()
 
 	for(var/limb in scanned.dna.species.has_limbs)
@@ -185,10 +184,9 @@
 			scan_result.organs[organ] = list(0, 0, TRUE, organ, 0, organ)
 
 	last_scan = scan_result
-	log_debug(last_scan.mindUID)
 	return scan_result
 
-/obj/machinery/clonescanner/proc/insert(mob/living/carbon/human/inserted)
+/obj/machinery/clonescanner/proc/insert_mob(mob/living/carbon/human/inserted)
 	if(!istype(inserted))
 		return
 	inserted.forceMove(src)
@@ -197,7 +195,7 @@
 		last_scan = null
 	update_icon_state()
 
-/obj/machinery/clonescanner/proc/remove(mob/living/carbon/human/removed)
+/obj/machinery/clonescanner/proc/remove_mob(mob/living/carbon/human/removed)
 	if(!istype(removed))
 		return
 	removed.forceMove(loc)

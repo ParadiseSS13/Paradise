@@ -126,6 +126,7 @@
 
 /obj/machinery/clonepod/biomass/Initialize(mapload)
 	. = ..()
+	biomass = biomass_storage_capacity
 
 /obj/machinery/clonepod/upgraded/Initialize(mapload)
 	. = ..()
@@ -199,7 +200,7 @@
 			biomass += MEAT_BIOMASS_VALUE
 			show_message = TRUE
 	if(show_message)
-		visible_message("[src] sucks in nearby biomass.")
+		visible_message("<span class='notice'>[src] sucks in nearby biomass.</span>")
 
 	//If we're cloning someone, we haven't generated a list of limbs to grow, and we're before any possibility of not having any limbs left to grow.
 	if(currently_cloning && !length(limbs_to_grow) && clone_progress < 20)
