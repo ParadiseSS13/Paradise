@@ -6,7 +6,7 @@ import {
   Section,
   Box,
   Tabs,
-  Flex,
+  Stack,
   Collapsible,
   Icon,
 } from '../components';
@@ -78,8 +78,8 @@ const CloningConsoleMain = (props, context) => {
       {!!podAmount &&
         pods.map((pod, i) => (
           <Section key={pod} layer={2} title={'Pod ' + (i + 1)}>
-            <Flex textAlign="center">
-              <Flex.Item basis="96px" shrink={0}>
+            <Stack textAlign="center">
+              <Stack.Item basis="96px" shrink={0}>
                 <img
                   src={resolveAsset(
                     'pod_' + (pod['cloning'] ? 'cloning' : 'idle') + '.gif'
@@ -95,8 +95,8 @@ const CloningConsoleMain = (props, context) => {
                 >
                   Select
                 </Button>
-              </Flex.Item>
-              <Flex.Item>
+              </Stack.Item>
+              <Stack.Item>
                 <LabeledList>
                   <LabeledList.Item label="Progress">
                     {!pod['cloning'] && (
@@ -143,8 +143,8 @@ const CloningConsoleMain = (props, context) => {
                     {pod['osseous_reagent']}
                   </LabeledList.Item>
                 </LabeledList>
-              </Flex.Item>
-            </Flex>
+              </Stack.Item>
+            </Stack>
           </Section>
         ))}
     </Box>
@@ -194,22 +194,22 @@ const CloningConsoleDamage = (props, context) => {
               )}
               {!!scanSuccessful && !!hasScanned && (
                 <Box>
-                  <Flex>
-                    <Flex.Item>
+                  <Stack>
+                    <Stack.Item>
                       <Button onClick={() => act('fix_all')}>
                         Repair All Damages
                       </Button>
                       <Button onClick={() => act('fix_none')}>
                         Repair No Damages
                       </Button>
-                    </Flex.Item>
-                    <Flex.Item grow={1} />
-                    <Flex.Item>
+                    </Stack.Item>
+                    <Stack.Item grow={1} />
+                    <Stack.Item>
                       <Button onClick={() => act('clone')}>Clone</Button>
-                    </Flex.Item>
-                  </Flex>
-                  <Flex height="25px">
-                    <Flex.Item width="50%">
+                    </Stack.Item>
+                  </Stack>
+                  <Stack height="25px">
+                    <Stack.Item width="50%">
                       <ProgressBar
                         value={cloningCost[0]}
                         maxValue={selectedPodData['biomass_storage_capacity']}
@@ -238,8 +238,8 @@ const CloningConsoleDamage = (props, context) => {
                         Biomass: {cloningCost[0]}/{selectedPodData['biomass']}/
                         {selectedPodData['biomass_storage_capacity']}
                       </ProgressBar>
-                    </Flex.Item>
-                    <Flex.Item width="25%" mx="2px">
+                    </Stack.Item>
+                    <Stack.Item width="25%" mx="2px">
                       <ProgressBar
                         value={cloningCost[1]}
                         maxValue={selectedPodData['max_reagent_capacity']}
@@ -267,8 +267,8 @@ const CloningConsoleDamage = (props, context) => {
                         {selectedPodData['sanguine_reagent']}/
                         {selectedPodData['max_reagent_capacity']}
                       </ProgressBar>
-                    </Flex.Item>
-                    <Flex.Item width="25%">
+                    </Stack.Item>
+                    <Stack.Item width="25%">
                       <ProgressBar
                         value={cloningCost[2]}
                         maxValue={selectedPodData['max_reagent_capacity']}
@@ -296,8 +296,8 @@ const CloningConsoleDamage = (props, context) => {
                         {selectedPodData['osseous_reagent']}/
                         {selectedPodData['max_reagent_capacity']}
                       </ProgressBar>
-                    </Flex.Item>
-                  </Flex>
+                    </Stack.Item>
+                  </Stack>
                   <LimbsMenu />
                   <OrgansMenu />
                 </Box>
@@ -317,13 +317,13 @@ const LimbsMenu = (props, context) => {
     <Collapsible title="Limbs">
       {limbList.map((limb, i) => (
         <Box key={limb}>
-          <Flex align="baseline">
-            <Flex.Item color="label" width="15%" height="20px">
+          <Stack align="baseline">
+            <Stack.Item color="label" width="15%" height="20px">
               {patientLimbData[limb][4]}:{' '}
-            </Flex.Item>
-            <Flex.Item grow={1} />
+            </Stack.Item>
+            <Stack.Item grow={1} />
             {patientLimbData[limb][3] === 0 && (
-              <Flex.Item width="60%">
+              <Stack.Item width="60%">
                 <ProgressBar
                   value={patientLimbData[limb][0] + patientLimbData[limb][1]}
                   maxValue={patientLimbData[limb][5]}
@@ -345,19 +345,19 @@ const LimbsMenu = (props, context) => {
                   <Icon name="fire" />
                   {' ' + patientLimbData[limb][1]}
                 </ProgressBar>
-              </Flex.Item>
+              </Stack.Item>
             )}
             {!(patientLimbData[limb][3] === 0) && (
-              <Flex.Item width="60%">
+              <Stack.Item width="60%">
                 <ProgressBar color="bad" value={0}>
                   The patient&apos;s {patientLimbData[limb][4]} is missing!
                 </ProgressBar>
-              </Flex.Item>
+              </Stack.Item>
             )}
-          </Flex>
-          <Flex>
+          </Stack>
+          <Stack>
             {!!patientLimbData[limb][3] && (
-              <Flex.Item>
+              <Stack.Item>
                 <Button.Checkbox
                   checked={!desiredLimbData[limb][3]}
                   onClick={() =>
@@ -366,10 +366,10 @@ const LimbsMenu = (props, context) => {
                 >
                   Replace Limb
                 </Button.Checkbox>
-              </Flex.Item>
+              </Stack.Item>
             )}
             {!patientLimbData[limb][3] && (
-              <Flex.Item>
+              <Stack.Item>
                 <Button.Checkbox
                   disabled={
                     !(patientLimbData[limb][0] || patientLimbData[limb][1])
@@ -420,9 +420,9 @@ const LimbsMenu = (props, context) => {
                 >
                   Mend Critical Burn
                 </Button.Checkbox>
-              </Flex.Item>
+              </Stack.Item>
             )}
-          </Flex>
+          </Stack>
         </Box>
       ))}
     </Collapsible>
@@ -436,13 +436,13 @@ const OrgansMenu = (props, context) => {
     <Collapsible title="Organs">
       {organList.map((organ, i) => (
         <Box key={organ}>
-          <Flex align="baseline">
-            <Flex.Item color="label" width="20%" height="20px">
+          <Stack align="baseline">
+            <Stack.Item color="label" width="20%" height="20px">
               {patientOrganData[organ][3]}:{' '}
-            </Flex.Item>
+            </Stack.Item>
             {!(patientOrganData[organ][5] === 'heart') && (
               <Box>
-                <Flex.Item>
+                <Stack.Item>
                   {!!(
                     patientOrganData[organ][2] || patientOrganData[organ][1]
                   ) && (
@@ -482,7 +482,7 @@ const OrgansMenu = (props, context) => {
                       </Button.Checkbox>
                     </Box>
                   )}
-                </Flex.Item>
+                </Stack.Item>
               </Box>
             )}
             {!!(patientOrganData[organ][5] === 'heart') && (
@@ -490,8 +490,8 @@ const OrgansMenu = (props, context) => {
                 Heart replacement is required for cloning.
               </Box>
             )}
-            <Flex.Item grow={1} />
-            <Flex.Item width="35%">
+            <Stack.Item grow={1} />
+            <Stack.Item width="35%">
               {!!patientOrganData[organ][2] && (
                 <ProgressBar color="bad" value={0}>
                   The patient&apos;s {patientOrganData[organ][3]} is missing!
@@ -516,8 +516,8 @@ const OrgansMenu = (props, context) => {
                   {'Current Damage: ' + patientOrganData[organ][0]}
                 </ProgressBar>
               )}
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         </Box>
       ))}
     </Collapsible>

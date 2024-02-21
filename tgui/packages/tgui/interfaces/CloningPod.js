@@ -4,7 +4,7 @@ import {
   ProgressBar,
   Section,
   Box,
-  Flex,
+  Stack,
   Icon,
   NumberInput,
 } from '../components';
@@ -24,11 +24,11 @@ export const CloningPod = (props, context) => {
     <Window width={500} height={500}>
       <Window.Content scrollable>
         <Section title="Liquid Storage">
-          <Flex height="25px" align="center">
-            <Flex.Item color="label" width="25%">
+          <Stack height="25px" align="center">
+            <Stack.Item color="label" width="25%">
               Biomass:{' '}
-            </Flex.Item>
-            <Flex.Item grow={1}>
+            </Stack.Item>
+            <Stack.Item grow={1}>
               <ProgressBar
                 value={biomass}
                 ranges={{
@@ -45,15 +45,15 @@ export const CloningPod = (props, context) => {
                 minValue={0}
                 maxValue={biomass_storage_capacity}
               />
-            </Flex.Item>
-          </Flex>
-          <Flex height="25px" align="center">
-            <Flex.Item color="label" width="25%">
+            </Stack.Item>
+          </Stack>
+          <Stack height="25px" align="center">
+            <Stack.Item color="label" width="25%">
               Sanguine Reagent:{' '}
-            </Flex.Item>
-            <Flex.Item>{sanguine_reagent + ' units'}</Flex.Item>
-            <Flex.Item grow={1} />
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>{sanguine_reagent + ' units'}</Stack.Item>
+            <Stack.Item grow={1} />
+            <Stack.Item>
               <NumberInput
                 value={0}
                 minValue={0}
@@ -67,23 +67,23 @@ export const CloningPod = (props, context) => {
                   })
                 }
               />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 content="Remove All"
                 onClick={() =>
                   act('purge_reagent', { reagent: 'sanguine_reagent' })
                 }
               />
-            </Flex.Item>
-          </Flex>
-          <Flex height="25px" align="center">
-            <Flex.Item color="label" width="25%">
+            </Stack.Item>
+          </Stack>
+          <Stack height="25px" align="center">
+            <Stack.Item color="label" width="25%">
               Osseous Reagent:{' '}
-            </Flex.Item>
-            <Flex.Item>{osseous_reagent + ' units'}</Flex.Item>
-            <Flex.Item grow={1} />
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>{osseous_reagent + ' units'}</Stack.Item>
+            <Stack.Item grow={1} />
+            <Stack.Item>
               <NumberInput
                 value={0}
                 minValue={0}
@@ -97,16 +97,16 @@ export const CloningPod = (props, context) => {
                   })
                 }
               />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 content="Remove All"
                 onClick={() =>
                   act('purge_reagent', { reagent: 'osseous_reagent' })
                 }
               />
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         </Section>
         <Section title="Organ Storage">
           {!currently_cloning && (
@@ -114,24 +114,24 @@ export const CloningPod = (props, context) => {
               {!organs && <Box color="average">Notice: No organs loaded.</Box>}
               {!!organs &&
                 organs.map((organ) => (
-                  <Flex key={organ}>
-                    <Flex.Item>{organ.name}</Flex.Item>
-                    <Flex.Item grow={1} />
-                    <Flex.Item>
+                  <Stack key={organ}>
+                    <Stack.Item>{organ.name}</Stack.Item>
+                    <Stack.Item grow={1} />
+                    <Stack.Item>
                       <Button
                         content="Eject"
                         onClick={() =>
                           act('eject_organ', { organ_ref: organ.ref })
                         }
                       />
-                    </Flex.Item>
-                  </Flex>
+                    </Stack.Item>
+                  </Stack>
                 ))}
             </Box>
           )}
           {!!currently_cloning && (
-            <Flex height="100%">
-              <Flex.Item
+            <Stack height="100%">
+              <Stack.Item
                 bold
                 grow="1"
                 textAlign="center"
@@ -141,8 +141,8 @@ export const CloningPod = (props, context) => {
                 <Icon name="lock" size="5" mb={3} />
                 <br />
                 Unable to access organ storage while cloning.
-              </Flex.Item>
-            </Flex>
+              </Stack.Item>
+            </Stack>
           )}
         </Section>
       </Window.Content>

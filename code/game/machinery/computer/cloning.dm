@@ -129,7 +129,7 @@
 
 	return desired_data
 
-/obj/machinery/computer/cloning/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/computer/cloning/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
@@ -140,7 +140,7 @@
 	var/datum/asset/simple/cloning/assets = get_asset_datum(/datum/asset/simple/cloning)
 	assets.send(user)
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CloningConsole", "Cloning Console")
 		ui.open()
