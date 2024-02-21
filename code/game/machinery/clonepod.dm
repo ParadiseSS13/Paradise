@@ -78,6 +78,8 @@
 	var/current_limb
 	/// Flavor text to show on examine.
 	var/desc_flavor = "It doesn't seem to be doing anything right now."
+	/// The countdown.
+	var/obj/effect/countdown/clonepod/countdown
 
 	/// The speed at which we clone. Each processing cycle will advance clone_progress by this amount.
 	var/speed_modifier = 1
@@ -102,6 +104,8 @@
 
 /obj/machinery/clonepod/Initialize(mapload)
 	. = ..()
+
+	countdown = new(src)
 
 	if(!console && mapload)
 		console = pick(locate(/obj/machinery/computer/cloning, orange(5, src))) //again, there shouldn't be multiple consoles, mappers
@@ -142,6 +146,14 @@
 	biomass = biomass_storage_capacity
 	reagents.add_reagent("sanguine_reagent", 150)
 	reagents.add_reagent("osseous_reagent", 150)
+
+/obj/machinery/clonepod/Destroy()
+	if(console)
+		console.pods =- src
+		console = null
+
+	QDEL_NULL(countdown)
+	return ..()
 
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
@@ -284,6 +296,7 @@
 	reagents.remove_reagent("sanguine_reagent", cost[2])
 	reagents.remove_reagent("osseous_reagent", cost[3])
 
+	countdown.start()
 	update_icon_state()
 
 //Creates the clone! Used once the cloning pod reaches ~20% completion.
@@ -345,6 +358,8 @@
 		desired_data = null
 		clone_progress = 0
 		desc_flavor = initial(desc_flavor)
+		update_icon_state()
+		countdown.stop()
 		return TRUE
 
 	if(!clone.cloneloss)
@@ -363,6 +378,7 @@
 		clone_progress = 0
 		desc_flavor = initial(desc_flavor)
 		update_icon_state()
+		countdown.stop()
 		return TRUE
 
 	if(!force)
@@ -386,6 +402,7 @@
 	clone_progress = 0
 	desc_flavor = initial(desc_flavor)
 	update_icon_state()
+	countdown.stop()
 	return TRUE
 
 //This gets the cost of cloning, in a list with the form (biomass, sanguine reagent, osseous reagent).
