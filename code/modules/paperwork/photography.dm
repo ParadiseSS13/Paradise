@@ -59,21 +59,23 @@
 	if(istype(P, /obj/item/lighter/zippo))
 		class = "<span class='rose'>"
 
-	user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
+	user.visible_message("[class][user] holds [P] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
 	"[class]You hold [P] up to [src], burning it slowly.</span>")
 
 	if(do_after(user, 50, target = src))
-		if(user.get_active_hand() == P && P.get_heat())
-			user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
-			"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
+		if(user.get_active_hand() != P && !P.get_heat())
+			to_chat(user, "<span class='warning'>You must hold [P] steady to burn [src].</span>")
+			return
 
-			if(user.is_in_inactive_hand(src))
-				user.unEquip(src)
+		user.visible_message("[class][user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
+		"[class]You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
 
-			new /obj/effect/decal/cleanable/ash(get_turf(src))
-			qdel(src)
-		else
-			to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
+		if(user.is_in_inactive_hand(src))
+			user.unEquip(src)
+
+		new /obj/effect/decal/cleanable/ash(get_turf(src))
+		qdel(src)
+
 
 /obj/item/photo/examine(mob/user)
 	. = ..()
