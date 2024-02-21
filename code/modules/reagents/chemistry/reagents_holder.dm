@@ -33,12 +33,12 @@
 	var/temperature_max = 10000
 	var/list/datum/reagent/addiction_list = new/list()
 	var/list/addiction_threshold_accumulated = new/list()
- 	var/flags
+   	var/flags
 
 /datum/reagents/New(maximum = 100, temperature_minimum, temperature_maximum)
 	maximum_volume = maximum
 	if(temperature_minimum)
-  	    temperature_min = temperature_minimum
+		temperature_min = temperature_minimum
 	if(temperature_maximum)
 		temperature_max = temperature_maximum
 	//I dislike having these here but map-objects are initialised before world/New() is called. >_>
