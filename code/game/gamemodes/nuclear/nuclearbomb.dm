@@ -57,6 +57,8 @@ GLOBAL_VAR(bomb_set)
 	var/sheets_to_fix = 5
 	/// Is this a training bomb?
 	var/training = FALSE
+	/// Prefix to add, if any, on icon states for this bomb
+	var/sprite_prefix = ""
 
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
@@ -106,7 +108,7 @@ GLOBAL_VAR(bomb_set)
 	. = ..()
 	if(training)
 		. += "<span class='notice'><b>Alt-Click</b> to reset the bomb.</span>"
-	if(!panel_open && !training)
+	if(!panel_open)
 		. += "<span class='notice'>The outer panel is <b>screwed shut</b>.</span>"
 	switch(removal_stage)
 		if(NUKE_INTACT)
@@ -138,10 +140,10 @@ GLOBAL_VAR(bomb_set)
 		set_light(1, LIGHTING_MINIMUM_POWER)
 
 	if(panel_open)
-		. += "hackpanel_open"
+		. += sprite_prefix + "hackpanel_open"
 
 	if(anchored) // Using anchored due to removal_stage deanchoring having multiple steps
-		. += "nukebolts"
+		. += sprite_prefix + "nukebolts"
 
 	// Selected stage lets us show the open core, even if the front panel is closed
 	var/selected_stage = removal_stage
@@ -158,7 +160,7 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/disk/nuclear))
 		if(extended)
-			if(istype(O, /obj/item/disk/nuclear/training) && !training)
+			if((istype(O, /obj/item/disk/nuclear/training) && !training) || (training && !istype(O, /obj/item/disk/nuclear/training)))
 				to_chat(user,  "<span class='warning'>[O] doesn't fit into [src]!</span>")
 				return
 			if(!user.drop_item())
@@ -228,6 +230,9 @@ GLOBAL_VAR(bomb_set)
 		user.visible_message("[user] forces open the bolt covers on [src].", "You force open the bolt covers.")
 		removal_stage = NUKE_COVER_OPEN
 	if(removal_stage == NUKE_CORE_EVERYTHING_FINE)
+		if(training)
+			to_chat(user, "<span class='notice'>This is where you'd take off the plate to access the internal core, but this training bomb doesn't have one.</span>")
+			return
 		user.visible_message("<span class='notice'>[user] starts removing [src]'s outer core plate...</span>", "<span class='notice'>You start removing [src]'s outer core plate...</span>")
 		if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || removal_stage != NUKE_CORE_EVERYTHING_FINE)
 			return
@@ -280,7 +285,7 @@ GLOBAL_VAR(bomb_set)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(!training && (auth || (istype(I, /obj/item/screwdriver/nuke) && !is_syndicate)))
+	if(auth || (istype(I, /obj/item/screwdriver/nuke) && !is_syndicate))
 		if(!panel_open)
 			panel_open = TRUE
 			to_chat(user, "You unscrew the control panel of [src].")
@@ -291,7 +296,7 @@ GLOBAL_VAR(bomb_set)
 			to_chat(user, "You screw the control panel of [src] back on.")
 			core_stage = removal_stage
 			removal_stage = anchor_stage
-	else if(!training)
+	else
 		if(!panel_open)
 			to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
 		if(panel_open)
@@ -299,7 +304,7 @@ GLOBAL_VAR(bomb_set)
 			to_chat(user, "You screw the control panel of [src] back on.")
 			core_stage = removal_stage
 			removal_stage = anchor_stage
-		flick("nuclearbombc", src)
+		flick(sprite_prefix + "nuclearbombc", src)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/wirecutter_act(mob/user, obj/item/I)
@@ -429,8 +434,8 @@ GLOBAL_VAR(bomb_set)
 			else
 				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
 			if(!lighthack)
-				flick("nuclearbombc", src)
-				icon_state = "nuclearbomb1"
+				flick(sprite_prefix + "nuclearbombc", src)
+				icon_state = sprite_prefix + "nuclearbomb1"
 			update_icon(UPDATE_OVERLAYS)
 			extended = TRUE
 			return
@@ -445,7 +450,7 @@ GLOBAL_VAR(bomb_set)
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/disk/nuclear))
-					if(istype(I, /obj/item/disk/nuclear/training) && !training)
+					if((istype(I, /obj/item/disk/nuclear/training) && !training) || (training && !istype(I, /obj/item/disk/nuclear/training)))
 						return
 					usr.drop_item()
 					I.forceMove(src)
@@ -520,8 +525,8 @@ GLOBAL_VAR(bomb_set)
 				return
 			timing = !(timing)
 			if(timing)
-				if(!lighthack && !training)
-					icon_state = "nuclearbomb2"
+				if(!lighthack)
+					icon_state = sprite_prefix + "nuclearbomb2"
 					update_icon(UPDATE_OVERLAYS)
 				if(!safety && !training)
 					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
@@ -535,8 +540,8 @@ GLOBAL_VAR(bomb_set)
 					SSsecurity_level.set_level(previous_level)
 				if(!training)
 					GLOB.bomb_set = FALSE
-				if(!lighthack && !training)
-					icon_state = "nuclearbomb1"
+				if(!lighthack)
+					icon_state = sprite_prefix + "nuclearbomb1"
 					update_icon(UPDATE_OVERLAYS)
 
 
@@ -580,7 +585,8 @@ GLOBAL_VAR(bomb_set)
 
 
 /obj/machinery/nuclearbomb/proc/explode()
-	if(training) //You shouldn't get here in the first place with training nuke, but still, absolutely not
+	if(training)
+		atom_say("You've triggered the detonate wire. You are dead.")
 		return
 	if(safety)
 		timing = FALSE
@@ -589,7 +595,7 @@ GLOBAL_VAR(bomb_set)
 	yes_code = FALSE
 	safety = TRUE
 	if(!lighthack)
-		icon_state = "nuclearbomb3"
+		icon_state = sprite_prefix + "nuclearbomb3"
 		update_icon(UPDATE_OVERLAYS)
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
 	if(SSticker && SSticker.mode)
@@ -643,8 +649,8 @@ GLOBAL_VAR(bomb_set)
 			SSsecurity_level.set_level(previous_level)
 		visible_message("<span class='notice'>[src] quiets down.</span>")
 		if(!lighthack)
-			if(icon_state == "nuclearbomb2")
-				icon_state = "nuclearbomb1"
+			if(icon_state == sprite_prefix + "nuclearbomb2")
+				icon_state = sprite_prefix + "nuclearbomb1"
 				update_icon(UPDATE_OVERLAYS)
 
 	else
@@ -748,12 +754,13 @@ GLOBAL_VAR(bomb_set)
 /// TRAINING NUKE
 
 /obj/machinery/nuclearbomb/training
-	name = "training nuclear bomb" //Todo : Training nuke sprites
-	desc = "A fake bomb for training in arming, disarming, or defusing a nuclear bomb. Does not simulate nuclear core extraction. \
+	name = "training nuclear bomb"
+	desc = "A fake bomb for training in arming, disarming, or defusing a nuclear bomb. \
 		The '1' on the keypad looks much more used than the other keys. If lost, a new training disk can be printed at a protolathe."
-	icon_state = "trainingbomb0"
+	icon_state = "t_nuclearbomb0"
 	resistance_flags = null
 	training = TRUE
+	sprite_prefix = "t_"
 
 /obj/machinery/nuclearbomb/training/Initialize()
 	. = ..()
@@ -771,6 +778,7 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/training/AltClick(mob/user)
 	. = ..()
+	to_chat(user, "<span class='notice'>You hit the reset button on [src].</span>")
 	training_reset()
 
 /obj/machinery/nuclearbomb/training/proc/training_detonation()
@@ -788,7 +796,7 @@ GLOBAL_VAR(bomb_set)
 /obj/item/disk/nuclear/training
 	name = "training authentification disk"
 	desc = "The code is 11111."
-	icon_state = "datadisk2" //TODO : Obviously fake disk sprite
+	icon_state = "trainingdisk"
 	resistance_flags = null
 	restricted_to_station = FALSE
 	training = TRUE
