@@ -45,30 +45,33 @@
 		txt = copytext(txt, 1, 128)
 		if(loc == user && user.stat == 0)
 			scribble = txt
-	else if(istype(P, /obj/item/lighter))
+	else if(P.get_heat())
 		burnphoto(P, user)
 	..()
 
-/obj/item/photo/proc/burnphoto(obj/item/lighter/P, mob/user)
+/obj/item/photo/proc/burnphoto(obj/item/P, mob/user)
+	if (user.restrained())
+		return
+
 	var/class = "<span class='warning'>"
+	if(istype(P, /obj/item/lighter/zippo))
+		class = "<span class='rose'>"
 
-	if(P.lit && !user.restrained())
-		if(istype(P, /obj/item/lighter/zippo))
-			class = "<span class='rose'>"
+	user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
+	"[class]You hold [P] up to [src], burning it slowly.</span>")
 
-		user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
-		"[class]You hold [P] up to [src], burning it slowly.</span>")
+	if(do_after(user, 50, target = src))
+		if(user.get_active_hand() == P && P.get_heat())
+			user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
+			"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
 
-		if(do_after(user, 50, target = src))
-			if(user.get_active_hand() == P && P.lit)
-				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
-				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
-				if(user.is_in_inactive_hand(src))
-					user.unEquip(src)
-				new /obj/effect/decal/cleanable/ash(get_turf(src))
-				qdel(src)
-			else
-				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
+			if(user.is_in_inactive_hand(src))
+				user.unEquip(src)
+
+			new /obj/effect/decal/cleanable/ash(get_turf(src))
+			qdel(src)
+		else
+			to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
 
 /obj/item/photo/examine(mob/user)
 	. = ..()
