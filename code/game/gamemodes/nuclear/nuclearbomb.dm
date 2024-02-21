@@ -160,6 +160,9 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/disk/nuclear))
 		if(extended)
+			if(auth)
+				to_chat(user,  "<span class='warning'>There's already a disk in the slot!</span>")
+				return
 			if((istype(O, /obj/item/disk/nuclear/training) && !training) || (training && !istype(O, /obj/item/disk/nuclear/training)))
 				to_chat(user,  "<span class='warning'>[O] doesn't fit into [src]!</span>")
 				return
@@ -426,6 +429,9 @@ GLOBAL_VAR(bomb_set)
 	. = TRUE
 	if(exploded)
 		return
+	if(wires.is_cut(WIRE_NUKE_CONTROL))
+		to_chat(usr, "<span class='warning'>The control panel isn't responding! Something must be wrong with its wiring!</span>")
+		return FALSE
 	switch(action)
 		if("deploy")
 			if(removal_stage != NUKE_MOBILE)
@@ -509,6 +515,9 @@ GLOBAL_VAR(bomb_set)
 				return
 			timeleft = time
 		if("toggle_safety")
+			if(wires.is_cut(WIRE_NUKE_SAFETY))
+				to_chat(usr, "<span class='warning'>The safety isn't responding! Something must be wrong with its wiring!</span>")
+				return FALSE
 			safety = !(safety)
 			if(safety)
 				if(!is_syndicate && !training)
@@ -525,6 +534,9 @@ GLOBAL_VAR(bomb_set)
 				return
 			timing = !(timing)
 			if(timing)
+				if(wires.is_cut(WIRE_NUKE_DETONATOR))
+					to_chat(usr, "<span class='warning'>[src] isn't arming! Something must be wrong with its wiring!</span>")
+					return FALSE
 				if(!wires.is_cut(WIRE_NUKE_LIGHT))
 					icon_state = sprite_prefix + "nuclearbomb2"
 					update_icon(UPDATE_OVERLAYS)
@@ -536,6 +548,9 @@ GLOBAL_VAR(bomb_set)
 				else if(!training)
 					GLOB.bomb_set = TRUE
 			else
+				if(wires.is_cut(WIRE_NUKE_DISARM))
+					to_chat(usr, "<span class='warning'>[src] isn't disarming! Something must be wrong with its wiring!</span>")
+					return FALSE
 				if(!is_syndicate && !training)
 					SSsecurity_level.set_level(previous_level)
 				if(!training)
