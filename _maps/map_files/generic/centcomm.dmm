@@ -6836,7 +6836,7 @@
 /area/admin)
 "xf" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -9076,7 +9076,7 @@
 "Gs" = (
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost")
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
@@ -10176,7 +10176,7 @@
 "Kd" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
@@ -10451,7 +10451,7 @@
 "Lb" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
@@ -14264,7 +14264,7 @@
 "Yu" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
