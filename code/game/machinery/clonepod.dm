@@ -537,7 +537,7 @@
 		M.unEquip(inserted)
 	inserted.forceMove(src)
 	to_chat(inserter, "<span class='notice'>You insert [inserted] into [src]'s organ storage.</span>")
-	SStgui.try_update_ui(user, src)
+	SStgui.try_update_ui(inserter, src)
 	if(has_children)
 		visible_message("There's a crunching sound as [src] breaks down [inserted] into discrete parts.", "You hear a crunching noise.")
 
