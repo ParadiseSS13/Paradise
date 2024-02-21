@@ -33,7 +33,7 @@
 	var/temperature_max = 10000
 	var/list/datum/reagent/addiction_list = new/list()
 	var/list/addiction_threshold_accumulated = new/list()
-	var/flags
+    var/flags
 
 /datum/reagents/New(maximum = 100, temperature_minimum, temperature_maximum)
 	maximum_volume = maximum
