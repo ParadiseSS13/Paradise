@@ -222,6 +222,7 @@
 			if(parent_organ_is_limb)
 				continue
 			limbs_to_grow += limb //It's not supposed to be missing and it's not vital - so we'll be growing it.
+		shuffle(limbs_to_grow)
 
 	if(clone)
 		clone.Weaken(4 SECONDS) //make sure they stay in the pod
