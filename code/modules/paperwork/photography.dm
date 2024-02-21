@@ -62,7 +62,7 @@
 	user.visible_message("[class][user] holds [P] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
 	"[class]You hold [P] up to [src], burning it slowly.</span>")
 
-	if(do_after(user, 50, target = src))
+	if(do_after(user, 5 SECONDS, target = src))
 		if(user.get_active_hand() != P || !P.get_heat())
 			to_chat(user, "<span class='warning'>You must hold [P] steady to burn [src].</span>")
 			return
