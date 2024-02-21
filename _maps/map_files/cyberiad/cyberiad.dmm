@@ -88358,12 +88358,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"uge" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "blue"
-	},
-/area/station/hallway/primary/starboard/west)
 "ugC" = (
 /obj/effect/spawner/random_spawners/grille_maybe,
 /turf/simulated/floor/plating,
@@ -132554,7 +132548,7 @@ bCI
 aUS
 bAk
 bHy
-uge
+bDb
 aTL
 bYu
 gIZ
