@@ -38,6 +38,7 @@
 		return TRUE
 	visible_message("<span class='notice'>[user] puts [target] into [src].</span>")
 
+	QDEL_LIST_CONTENTS(target.grabbed_by)
 	target.forceMove(src)
 	occupant = target
 	flash = "Machine ready."

@@ -156,6 +156,7 @@
 			add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
 			if(user.pulling == L)
 				user.stop_pulling()
+			QDEL_LIST_CONTENTS(L.grabbed_by)
 		SStgui.update_uis(src)
 	return TRUE
 
