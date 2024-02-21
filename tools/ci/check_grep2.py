@@ -43,7 +43,7 @@ def check_space_indentation(lines):
     """
     for idx, line in enumerate(lines):
         if CHECK_SPACE_INDENTATION_RE.match(line):
-            return Failure(idx, "Space indentation detected, please use tab indentation.")
+            return Failure(idx + 1, "Space indentation detected, please use tab indentation.")
 
 
 CHECK_MIXED_INDENTATION_RE = re.compile(r"^(\t+ | +\t)\s*[^\s\*]")
