@@ -21,7 +21,7 @@ export const CloningConsole = (props, context) => {
   const { act, data } = useBackend(context);
   const { tab, hasScanner, podAmount } = data;
   return (
-    <Window resizable>
+    <Window width={640} height={520}>
       <Window.Content scrollable>
         <Section title="Cloning Console">
           <LabeledList>
@@ -81,7 +81,9 @@ const CloningConsoleMain = (props, context) => {
             <Flex textAlign="center">
               <Flex.Item basis="96px" shrink={0}>
                 <img
-                  src={'pod_' + (pod['cloning'] ? 'cloning' : 'idle') + '.gif'}
+                  src={resolveAsset(
+                    'pod_' + (pod['cloning'] ? 'cloning' : 'idle') + '.gif'
+                  )}
                   style={{
                     width: '100%',
                     '-ms-interpolation-mode': 'nearest-neighbor',

@@ -21,7 +21,7 @@ export const CloningPod = (props, context) => {
     currently_cloning,
   } = data;
   return (
-    <Window resizable>
+    <Window width={500} height={500}>
       <Window.Content scrollable>
         <Section title="Liquid Storage">
           <Flex height="25px" align="center">
