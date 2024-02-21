@@ -2776,6 +2776,7 @@
 	dir = 4
 	},
 /obj/machinery/syndicatebomb/training,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/station/security/defusal)
 "arh" = (
@@ -2791,10 +2792,6 @@
 /obj/item/disk/nuclear/training{
 	pixel_y = 7;
 	pixel_x = 6
-	},
-/obj/machinery/camera{
-	c_tag = "Defusal Workshop";
-	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
@@ -26251,6 +26248,9 @@
 	name = "custom placement";
 	pixel_y = 28
 	},
+/obj/machinery/camera{
+	c_tag = "Defusal Workshop"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/defusal)
 "cLa" = (
@@ -43567,9 +43567,6 @@
 	},
 /area/station/engineering/break_room/secondary)
 "gVc" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/machinery/firealarm{
 	name = "north bump";

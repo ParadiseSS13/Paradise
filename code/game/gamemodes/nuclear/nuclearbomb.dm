@@ -15,7 +15,7 @@ GLOBAL_VAR(bomb_set)
 	name = "\improper Nuclear Fission Explosive"
 	desc = "Uh oh. RUN!!!!"
 	icon = 'icons/obj/nuclearbomb.dmi'
-	icon_state = "nuclearbomb0"
+	icon_state = "nuclearbomb1"
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_2 = NO_MALF_EFFECT_2 | CRITICAL_ATOM_2
@@ -25,8 +25,6 @@ GLOBAL_VAR(bomb_set)
 
 	/// Are our bolts *supposed* to be in the floor, may not actually cause anchoring if the bolts are cut
 	var/extended = TRUE
-	/// If true, prevents the lights on the nuke
-	var/lighthack = FALSE
 	/// Countdown to boom
 	var/timeleft = 120
 	/// Are we counting down?
@@ -72,7 +70,9 @@ GLOBAL_VAR(bomb_set)
 	. = ..()
 	r_code = rand(10000, 99999) // Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
-	ADD_TRAIT(src, TRAIT_OBSCURED_WIRES, ROUNDSTART_TRAIT)
+	if(is_syndicate)
+		wires.labelled = FALSE
+		ADD_TRAIT(src, TRAIT_OBSCURED_WIRES, ROUNDSTART_TRAIT)
 	previous_level = SSsecurity_level.get_current_level_as_text()
 	if(!training)
 		GLOB.poi_list |= src
@@ -135,7 +135,7 @@ GLOBAL_VAR(bomb_set)
 	underlays.Cut()
 	set_light(0)
 
-	if(!lighthack)
+	if(!wires.is_cut(WIRE_NUKE_LIGHT))
 		underlays += emissive_appearance(icon, "nuclearbomb_lightmask")
 		set_light(1, LIGHTING_MINIMUM_POWER)
 
@@ -433,7 +433,7 @@ GLOBAL_VAR(bomb_set)
 				visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring!</span>")
 			else
 				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
-			if(!lighthack)
+			if(!wires.is_cut(WIRE_NUKE_LIGHT))
 				flick(sprite_prefix + "nuclearbombc", src)
 				icon_state = sprite_prefix + "nuclearbomb1"
 			update_icon(UPDATE_OVERLAYS)
@@ -525,7 +525,7 @@ GLOBAL_VAR(bomb_set)
 				return
 			timing = !(timing)
 			if(timing)
-				if(!lighthack)
+				if(!wires.is_cut(WIRE_NUKE_LIGHT))
 					icon_state = sprite_prefix + "nuclearbomb2"
 					update_icon(UPDATE_OVERLAYS)
 				if(!safety && !training)
@@ -540,7 +540,7 @@ GLOBAL_VAR(bomb_set)
 					SSsecurity_level.set_level(previous_level)
 				if(!training)
 					GLOB.bomb_set = FALSE
-				if(!lighthack)
+				if(!wires.is_cut(WIRE_NUKE_LIGHT))
 					icon_state = sprite_prefix + "nuclearbomb1"
 					update_icon(UPDATE_OVERLAYS)
 
@@ -594,7 +594,7 @@ GLOBAL_VAR(bomb_set)
 	exploded = TRUE
 	yes_code = FALSE
 	safety = TRUE
-	if(!lighthack)
+	if(!wires.is_cut(WIRE_NUKE_LIGHT))
 		icon_state = sprite_prefix + "nuclearbomb3"
 		update_icon(UPDATE_OVERLAYS)
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
@@ -638,23 +638,6 @@ GLOBAL_VAR(bomb_set)
 				SSticker.reboot_helper("Station destroyed by Nuclear Device.", "nuke - unhandled ending")
 				return
 	return
-
-/obj/machinery/nuclearbomb/proc/reset_lighthack_callback()
-	lighthack = !lighthack
-
-/obj/machinery/nuclearbomb/proc/reset_safety_callback()
-	safety = !safety
-	if(safety == 1)
-		if(!is_syndicate)
-			SSsecurity_level.set_level(previous_level)
-		visible_message("<span class='notice'>[src] quiets down.</span>")
-		if(!lighthack)
-			if(icon_state == sprite_prefix + "nuclearbomb2")
-				icon_state = sprite_prefix + "nuclearbomb1"
-				update_icon(UPDATE_OVERLAYS)
-
-	else
-		visible_message("<span class='notice'>[src] emits a quiet whirling noise!</span>")
 
 //==========DAT FUKKEN DISK===============
 /obj/item/disk/nuclear
@@ -755,9 +738,9 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/training
 	name = "training nuclear bomb"
-	desc = "A fake bomb for training in arming, disarming, or defusing a nuclear bomb. \
-		The '1' on the keypad looks much more used than the other keys. If lost, a new training disk can be printed at a protolathe."
-	icon_state = "t_nuclearbomb0"
+	desc = "A fake nuke used to practice nuclear device operations. \
+		The '1' key on the keypad appears to be significantly more worn than the other keys."
+	icon_state = "t_nuclearbomb1"
 	resistance_flags = null
 	training = TRUE
 	sprite_prefix = "t_"
@@ -790,8 +773,6 @@ GLOBAL_VAR(bomb_set)
 		auth.forceMove(get_turf(src))
 	new /obj/machinery/nuclearbomb/training(get_turf(src))
 	qdel(src)
-
-
 
 /obj/item/disk/nuclear/training
 	name = "training authentification disk"
