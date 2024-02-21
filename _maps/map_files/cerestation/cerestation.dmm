@@ -7628,6 +7628,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
+"aWo" = (
+/obj/structure/transit_tube/crossing/horizontal,
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "aWr" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
@@ -14032,6 +14037,11 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/control)
+"bzJ" = (
+/obj/structure/transit_tube/crossing,
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "bzK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -35821,6 +35831,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/east)
+"eaN" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "eba" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -42412,7 +42426,7 @@
 /area/station/medical/cloning)
 "gBl" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/transit_tube/curved,
+/obj/structure/transit_tube,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "gBp" = (
@@ -43668,6 +43682,7 @@
 	},
 /area/station/hallway/primary/fore)
 "gXd" = (
+/obj/structure/lattice,
 /obj/structure/transit_tube/crossing,
 /turf/space,
 /area/space/nearstation)
@@ -44288,7 +44303,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "hij" = (
-/obj/structure/transit_tube/diagonal/crossing/topleft,
+/obj/structure/transit_tube/diagonal/topleft,
 /turf/space,
 /area/space/nearstation)
 "hio" = (
@@ -44886,6 +44901,10 @@
 	icon_state = "red"
 	},
 /area/station/hallway/secondary/exit)
+"hsz" = (
+/obj/structure/transit_tube/curved,
+/turf/space,
+/area/space/nearstation)
 "hsJ" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -56755,11 +56774,6 @@
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/westalt)
-"lef" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube/crossing/horizontal,
-/turf/space,
-/area/space/nearstation)
 "leh" = (
 /obj/structure/grille/broken,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -61825,10 +61839,6 @@
 /obj/item/wirecutters,
 /turf/space,
 /area/station/engineering/solar/starboard/aft)
-"mLv" = (
-/obj/structure/transit_tube/crossing/horizontal,
-/turf/space,
-/area/space/nearstation)
 "mLz" = (
 /obj/machinery/atmospherics/binary/valve{
 	dir = 1;
@@ -77442,6 +77452,10 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/service/bar)
+"rTq" = (
+/obj/structure/lattice,
+/turf/simulated/floor/plating/asteroid/ancient/airless,
+/area/mine/unexplored/cere/medical)
 "rTA" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -77841,10 +77855,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/storage)
-"saA" = (
-/obj/structure/transit_tube/diagonal/crossing,
-/turf/space,
-/area/space/nearstation)
 "saJ" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -147119,7 +147129,7 @@ fMl
 aZu
 rNK
 rNK
-rNK
+hsz
 gBl
 kpx
 swj
@@ -147375,8 +147385,8 @@ aZM
 fMl
 aZu
 rNK
+rYo
 rNK
-saA
 hUU
 aXn
 aXn
@@ -147632,7 +147642,7 @@ aZM
 fMl
 aZu
 rNK
-rYo
+fsq
 rNK
 hUU
 aXn
@@ -147886,12 +147896,12 @@ iSn
 aZM
 aZM
 aZM
-fMl
-aZu
-rNK
-fsq
-rNK
-hUU
+aZN
+rTq
+lzH
+aWo
+lzH
+mic
 aXn
 aXn
 aXn
@@ -148403,8 +148413,8 @@ aZM
 fMl
 aZu
 rNK
-mLv
-bhO
+fsq
+rNK
 hUU
 aXn
 aXn
@@ -148661,7 +148671,7 @@ fMl
 aZu
 rNK
 fsq
-bhO
+rNK
 hUU
 hUU
 aXn
@@ -149427,14 +149437,14 @@ mqf
 aZN
 aZM
 fMl
-aZu
-aZu
-aZu
-rNK
-mLv
-rNK
-rNK
-hUU
+aZN
+rTq
+rTq
+eaN
+aWo
+eaN
+eaN
+mic
 aXn
 hUU
 bhO
@@ -150201,16 +150211,16 @@ fqw
 dDo
 fMl
 fMl
-aZN
-lef
-lzH
-lzH
-lzH
-lzH
-lzH
-lzH
-lzH
-mic
+aZu
+fsq
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+bhO
 cdT
 qxj
 nLR
@@ -152718,7 +152728,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+eaN
 rNK
 owf
 owf
@@ -152966,7 +152976,7 @@ rzh
 rzh
 rNK
 rNK
-rNK
+lzH
 rNK
 hij
 rNK
@@ -152975,7 +152985,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+eaN
 rNK
 rNK
 aZu
@@ -153223,7 +153233,7 @@ lCC
 rzh
 rNK
 rNK
-rNK
+lzH
 rNK
 rNK
 hij
@@ -153232,7 +153242,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+eaN
 rNK
 rNK
 aZu
@@ -153480,16 +153490,16 @@ lCC
 lCC
 rNK
 rNK
-rNK
+lzH
 rNK
 rNK
 rNK
 gNz
-gXd
 uvr
 uvr
 uvr
 uvr
+bzJ
 uvr
 uvr
 qGZ
@@ -153737,6 +153747,7 @@ lCC
 rNK
 rNK
 rNK
+lzH
 rNK
 rNK
 rNK
@@ -153745,8 +153756,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
+eaN
 rNK
 rNK
 aZu
@@ -153994,6 +154004,7 @@ lCC
 rNK
 rNK
 rNK
+lzH
 rNK
 rNK
 rNK
@@ -154002,8 +154013,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
+eaN
 rNK
 rNK
 fMl
