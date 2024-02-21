@@ -164,6 +164,10 @@
 
 	return
 
+/// Can this mob use keybinded click actions? (Altclick, Ctrlclick, ect)
+/mob/proc/can_use_clickbinds()
+	return TRUE
+
 //Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
 /atom/proc/IsObscured()
 	if(!isturf(loc)) //This only makes sense for things directly on turfs for now
