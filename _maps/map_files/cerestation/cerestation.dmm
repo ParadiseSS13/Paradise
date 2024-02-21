@@ -35831,10 +35831,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/east)
-"eaN" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "eba" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -149440,10 +149436,10 @@ fMl
 aZN
 rTq
 rTq
-eaN
+lzH
 aWo
-eaN
-eaN
+lzH
+lzH
 mic
 aXn
 hUU
@@ -152728,7 +152724,7 @@ rNK
 rNK
 rNK
 rNK
-eaN
+lzH
 rNK
 owf
 owf
@@ -152985,7 +152981,7 @@ rNK
 rNK
 rNK
 rNK
-eaN
+lzH
 rNK
 rNK
 aZu
@@ -153242,7 +153238,7 @@ rNK
 rNK
 rNK
 rNK
-eaN
+lzH
 rNK
 rNK
 aZu
@@ -153756,7 +153752,7 @@ rNK
 rNK
 rNK
 rNK
-eaN
+lzH
 rNK
 rNK
 aZu
@@ -154013,7 +154009,7 @@ rNK
 rNK
 rNK
 rNK
-eaN
+lzH
 rNK
 rNK
 fMl
