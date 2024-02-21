@@ -73,7 +73,7 @@ def check_mixed_indentation(lines):
     """
     for idx, line in enumerate(lines):
         if CHECK_MIXED_INDENTATION_RE.match(line):
-            return Failure(idx, "Mixed <tab><space> indentation detected, please stick to tab indentation.")
+            return Failure(idx + 1, "Mixed <tab><space> indentation detected, please stick to tab indentation.")
 
 
 def check_trailing_newlines(lines):
