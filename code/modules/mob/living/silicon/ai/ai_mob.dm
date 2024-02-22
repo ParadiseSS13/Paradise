@@ -1065,7 +1065,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 					if("Bear")
 						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"bear"))
 					if("Carp")
-						holo_icon = getHologramIcon(icon('icons/mob/carp.dmi',"holocarp"))
+						holo_icon = getHologramIcon(icon('icons/mob/carp.dmi', "holocarp"))
 					if("Chicken")
 						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"chicken_brown"))
 					if("Corgi")
