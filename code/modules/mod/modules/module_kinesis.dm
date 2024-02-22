@@ -250,6 +250,7 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 
 /obj/screen/fullscreen/cursor_catcher/kinesis
+	icon = 'icons/mob/screen_kinesis.dmi'
 	icon_state = "kinesis"
 
 /obj/item/mod/module/anomaly_locked/kinesis/plus
