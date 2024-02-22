@@ -67,7 +67,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 /datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger(left_click)
 	if(!IsAvailable())
 		return
-	var/message = input(owner, "Resonate a message to all nearby golems.", "Resonate")
+	var/message = tgui_input_text(owner, "Resonate a message to all nearby golems.", "Resonate")
 	if(QDELETED(src) || QDELETED(owner) || !message)
 		return
 	owner.say(".~[message]")
@@ -123,7 +123,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		if(world.time < cords.next_command)
 			to_chat(owner, "<span class='notice'>You must wait [(cords.next_command - world.time)/10] seconds before Speaking again.</span>")
 		return
-	var/command = input(owner, "Speak with the Voice of God", "Command")
+	var/command = tgui_input_text(owner, "Speak with the Voice of God", "Command")
 	if(!command)
 		return
 	owner.say(".~[command]")
