@@ -223,7 +223,7 @@
 			if(Adjacent(O))
 				choices += O
 		if(length(choices))
-			cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
+			cocoon_target = tgui_input_list(src, "What do you wish to cocoon?", "Cocoon Wrapping", choices)
 		else
 			to_chat(src, "<span class='warning'>No suitable dead prey or wrappable objects found nearby.")
 			return

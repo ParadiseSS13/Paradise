@@ -79,7 +79,7 @@
 	D.icon += mix_color_from_reagents(D.reagents.reagent_list)
 
 	for(var/i in 1 to spray_currentrange)
-		if(!step_towards(D, A))
+		if(!step_towards(D, A) && i != 1)
 			qdel(D)
 			return
 		D.reagents.reaction(get_turf(D))
@@ -106,12 +106,19 @@
 /obj/item/reagent_containers/spray/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(alert(user, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
+	if(tgui_alert(user, "Are you sure you want to empty that?", "Empty Bottle", list("Yes", "No")) != "Yes")
 		return
 	if(isturf(user.loc) && loc == user)
 		to_chat(user, "<span class='notice'>You empty [src] onto the floor.</span>")
 		reagents.reaction(user.loc)
 		reagents.clear_reagents()
+
+/obj/item/reagent_containers/spray/empty
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
+	spray_maxrange = 2
+	spray_currentrange = 2
+	amount_per_transfer_from_this = 10
 
 //space cleaner
 /obj/item/reagent_containers/spray/cleaner

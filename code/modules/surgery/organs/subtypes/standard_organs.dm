@@ -23,9 +23,9 @@
 		return
 	switch(severity)
 		if(1)
-			owner?.adjustStaminaLoss(20)
+			owner?.apply_damage(20, STAMINA)
 		if(2)
-			owner?.adjustStaminaLoss(10)
+			owner?.apply_damage(10, STAMINA)
 	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, causing fatigue!</span>")
 
 /obj/item/organ/external/groin
@@ -264,6 +264,8 @@
 		if(!istype(dna))
 			dna = owner.dna.Clone()
 		name = "[dna.real_name]'s head"
+		if(is_species(owner, /datum/species/monkey))
+			name = "[owner.name]'s head"
 		if(owner.glasses)
 			owner.unEquip(owner.glasses, force = TRUE)
 		if(owner.head)

@@ -502,3 +502,12 @@
 /obj/machinery/door/zap_act(power, zap_flags)
 	zap_flags &= ~ZAP_OBJ_DAMAGE
 	. = ..()
+
+/obj/machinery/door/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id)
+	if(QDELETED(caller))
+		return ..()
+	if(caller.checkpass(PASSDOOR) && !locked)
+		return TRUE
+	if(caller.checkpass(PASSGLASS))
+		return !opacity
+	return ..()
