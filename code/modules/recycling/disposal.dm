@@ -221,6 +221,7 @@
 		add_attack_logs(user, target, "Disposal'ed", !!target.ckey ? null : ATKLOG_ALL)
 	else
 		return
+	QDEL_LIST_CONTENTS(target.grabbed_by)
 	target.forceMove(src)
 
 	for(var/mob/C in viewers(src))

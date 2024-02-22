@@ -77,6 +77,11 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "flour"
 
+/obj/effect/decal/cleanable/flour/nanofrost
+	name = "nanofrost residue"
+	desc = "Residue left behind from a nanofrost detonation. Perhaps there was a fire here?"
+	color = "#B2FFFF"
+
 /obj/effect/decal/cleanable/flour/foam
 	name = "Fire fighting foam"
 	desc = "It's foam."
