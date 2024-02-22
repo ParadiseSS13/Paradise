@@ -3,7 +3,6 @@
 
 // Uncomment the following line to compile unit tests on a local server. The output will be in a test_run-[DATE].log file in the ./data folder.
 // #define LOCAL_UNIT_TESTS
-// #define CIBUILDING
 
 // Uncomment the following line to enable Tracy profiling.
 // DO NOT DO THIS UNLESS YOU UNDERSTAND THE IMPLICATIONS
