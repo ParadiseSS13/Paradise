@@ -334,7 +334,7 @@
 			var/datum/gas_mixture/gas = location.remove_air(0.25 * environment.total_moles())
 			if(!gas)
 				return
-			if(!regulating_temperature && thermostat_state == TRUE)
+			if(!regulating_temperature && thermostat_state)
 				regulating_temperature = TRUE
 				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
 
@@ -344,7 +344,7 @@
 			if(target_temperature < MIN_TEMPERATURE)
 				target_temperature = MIN_TEMPERATURE
 
-			if(thermostat_state == TRUE)
+			if(thermostat_state)
 				var/heat_capacity = gas.heat_capacity()
 				var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
 
@@ -864,14 +864,9 @@
 					"direction")
 					var/val = isnum(params["val"]) ? params["val"] : text2num(params["val"])
 					if(isnull(val))
-						var/newval = input("Enter new value") as num|null
+						var/newval = tgui_input_number(usr, "Enter new value", "New Value", ONE_ATMOSPHERE, 1000 + ONE_ATMOSPHERE, 0, round_value = FALSE)
 						if(isnull(newval))
 							return
-						if(params["cmd"] == "set_external_pressure")
-							if(newval > 1000 + ONE_ATMOSPHERE)
-								newval = 1000 + ONE_ATMOSPHERE
-							if(newval < 0)
-								newval = 0
 						val = newval
 
 					// Figure out what it is
@@ -939,7 +934,7 @@
 						return
 
 					var/datum/tlv/tlv = TLV[env]
-					var/newval = input("Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname]) as num|null
+					var/newval = tgui_input_number(usr, "Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname], round_value = FALSE)
 
 					if(isnull(newval) || ..()) // No setting if you walked away
 						return
@@ -987,7 +982,7 @@
 			var/min_temperature = max(selected.min1, MIN_TEMPERATURE)
 			var/max_temperature_c = max_temperature - T0C
 			var/min_temperature_c = min_temperature - T0C
-			var/input_temperature = input("What temperature would you like the system to maintain? (Capped between [min_temperature_c]C and [max_temperature_c]C)", "Thermostat Controls") as num|null
+			var/input_temperature = tgui_input_number(usr, "What temperature would you like the system to maintain? (Capped between [min_temperature_c]C and [max_temperature_c]C)", "Thermostat Controls", target_temperature - T0C, max_temperature_c, min_temperature_c)
 			if(isnull(input_temperature) || ..()) // No temp setting if you walked away
 				return
 			input_temperature = input_temperature + T0C
@@ -1005,7 +1000,7 @@
 		if(user)
 			user.visible_message("<span class='warning'>Sparks fly out of \the [src]!</span>", "<span class='notice'>You emag \the [src], disabling its safeties.</span>")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
-		return
+		return TRUE
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)

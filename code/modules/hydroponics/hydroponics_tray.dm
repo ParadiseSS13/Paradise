@@ -44,6 +44,7 @@
 	plant_hud_set_toxin()
 	plant_hud_set_pest()
 	plant_hud_set_weed()
+	create_reagents(300) // This should get cleared every time it is filled, barring admemery
 
 /obj/machinery/hydroponics/constructable
 	name = "hydroponics tray"
@@ -79,14 +80,9 @@
 	return ..()
 
 /obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I))
+	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I) || exchange_parts(user, I))
 		return
-
-	if(exchange_parts(user, I))
-		return
-
-	else
-		return ..()
+	return ..()
 
 /obj/machinery/hydroponics/constructable/crowbar_act(mob/user, obj/item/I)
 
@@ -735,76 +731,54 @@
 	//Called when mob user "attacks" it with object O
 	if(istype(O, /obj/item/reagent_containers))  // Syringe stuff (and other reagent containers now too)
 		var/obj/item/reagent_containers/reagent_source = O
+		var/target = myseed ? myseed.plantname : src
 
 		if(istype(reagent_source, /obj/item/reagent_containers/syringe))
 			var/obj/item/reagent_containers/syringe/syr = reagent_source
-			if(syr.mode != 1)
+			if(syr.mode != SYRINGE_INJECT)
 				to_chat(user, "<span class='warning'>You can't get any extract out of this plant.</span>")		//That. Gives me an idea...
-				return
+				return TRUE
 
 		if(!reagent_source.reagents.total_volume)
 			to_chat(user, "<span class='notice'>[reagent_source] is empty.</span>")
-			return 1
+			return TRUE
 
 		if(reagent_source.has_lid && !reagent_source.is_drainable()) //if theres a LID then cannot transfer reagents.
 			to_chat(user, "<span class='warning'>You need to open [O] first!</span>")
 			return TRUE
 
-		var/list/trays = list(src)//makes the list just this in cases of syringes and compost etc
-		var/target = myseed ? myseed.plantname : src
 		var/visi_msg = ""
-		var/irrigate = 0	//How am I supposed to irrigate pill contents?
-		var/transfer_amount
+		var/transfer_amount = reagent_source.amount_per_transfer_from_this
+		var/irrigate = FALSE
 
-		if(istype(reagent_source, /obj/item/food/snacks) || ispill(reagent_source))
-			visi_msg="[user] composts [reagent_source], spreading it through [target]"
-			transfer_amount = reagent_source.reagents.total_volume
-		else
-			transfer_amount = reagent_source.amount_per_transfer_from_this
-			if(istype(reagent_source, /obj/item/reagent_containers/syringe/))
-				var/obj/item/reagent_containers/syringe/syr = reagent_source
-				visi_msg="[user] injects [target] with [syr]"
-				if(syr.reagents.total_volume <= syr.amount_per_transfer_from_this)
-					syr.mode = 0
-			else if(istype(reagent_source, /obj/item/reagent_containers/spray/))
-				visi_msg="[user] sprays [target] with [reagent_source]"
-				playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
-				irrigate = 1
-			else if(transfer_amount) // Droppers, cans, beakers, what have you.
-				visi_msg="[user] uses [reagent_source] on [target]"
-				irrigate = 1
-			// Beakers, bottles, buckets, etc.
-			if(reagent_source.is_drainable())
-				playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
+		if(istype(reagent_source, /obj/item/reagent_containers/syringe))
+			var/obj/item/reagent_containers/syringe/syr = reagent_source
+			visi_msg = "[user] injects [target] with [syr]"
+			if(syr.reagents.total_volume <= syr.amount_per_transfer_from_this)
+				syr.mode = SYRINGE_DRAW
 
-		if(irrigate && transfer_amount > 30 && reagent_source.reagents.total_volume >= 30 && using_irrigation)
-			trays = FindConnected()
-			if(trays.len > 1)
-				visi_msg += ", setting off the irrigation system"
+		else if(istype(reagent_source, /obj/item/reagent_containers/spray))
+			visi_msg = "[user] sprays [target] with [reagent_source]"
+			playsound(loc, 'sound/effects/spray3.ogg', 50, TRUE, -6)
+			irrigate = TRUE
 
-		if(visi_msg)
-			visible_message("<span class='notice'>[visi_msg].</span>")
+		else if(transfer_amount) // Droppers, cans, beakers, what have you.
+			visi_msg = "[user] uses [reagent_source] on [target]"
+			irrigate = TRUE
 
-		var/split = round(transfer_amount/trays.len)
+		// Beakers, bottles, buckets, etc.
+		if(reagent_source.is_drainable())
+			playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 
-		for(var/obj/machinery/hydroponics/H in trays)
-		//cause I don't want to feel like im juggling 15 tamagotchis and I can get to my real work of ripping flooring apart in hopes of validating my life choices of becoming a space-gardener
+		add_compost(reagent_source, user, transfer_amount, visi_msg, irrigate)
+		return TRUE
 
-			var/datum/reagents/S = new /datum/reagents() //This is a strange way, but I don't know of a better one so I can't fix it at the moment...
-			S.my_atom = H
-
-			reagent_source.reagents.trans_to(S,split)
-			if(istype(reagent_source, /obj/item/food/snacks) || ispill(reagent_source))
-				qdel(reagent_source)
-
-			H.applyChemicals(S, user)
-
-			S.clear_reagents()
-			qdel(S)
-			H.update_state()
-		if(reagent_source) // If the source wasn't composted and destroyed
-			reagent_source.update_icon()
-		return 1
+	else if(isfood(O) || istype(O, /obj/item/grown))
+		var/target = myseed ? myseed.plantname : src
+		var/transfer = O.reagents.total_volume
+		var/message = "[user] composts [O], spreading it through [target]"
+		add_compost(O, user, transfer, message)
+		return TRUE
 
 	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
 		if(!myseed)
@@ -1021,3 +995,28 @@
 		qdel(src)
 	else
 		return ..()
+
+/obj/machinery/hydroponics/proc/add_compost(obj/item/reagent_source, mob/user, transfer_amount, visi_msg, irrigate = FALSE)
+	var/list/trays = list(src)//makes the list just this in cases of syringes and compost etc
+
+	if(irrigate && transfer_amount > 30 && reagent_source.reagents.total_volume >= 30 && using_irrigation)
+		trays = FindConnected()
+
+	if(length(trays) > 1)
+		visi_msg += ", setting off the irrigation system"
+
+	if(visi_msg)
+		visible_message("<span class='notice'>[visi_msg].</span>")
+
+	var/split = round(transfer_amount / length(trays))
+	for(var/obj/machinery/hydroponics/H in trays)//cause I don't want to feel like im juggling 15 tamagotchis and I can get to my real work of ripping flooring apart in hopes of validating my life choices of becoming a space-gardener
+		reagent_source.reagents.trans_to(H.reagents, split)
+		if(isfood(reagent_source) || ispill(reagent_source) || istype(reagent_source, /obj/item/grown))
+			qdel(reagent_source)
+
+		H.applyChemicals(reagents, user)
+		reagents.clear_reagents()
+		H.update_state()
+
+	if(reagent_source) // If the source wasn't composted and destroyed
+		reagent_source.update_icon()

@@ -225,6 +225,18 @@
 			qdel(W)
 			qdel(src)
 
+/obj/item/toy/sword/chaosprank
+	name = "energy sword"
+	/// Sets to TRUE once the character using it hits something and realises it's not a real energy sword
+	var/pranked = FALSE
+
+/obj/item/toy/sword/chaosprank/afterattack(mob/living/target, mob/living/user, proximity)
+	..()
+	if(!pranked)
+		to_chat(user, "<span class='chaosverybad'>Oh... it's a fake.</span>")
+		name = "toy sword"
+		pranked = TRUE
+
 /*
  * Subtype of Double-Bladed Energy Swords
  */
@@ -783,7 +795,7 @@
 /obj/item/toy/plushie/ipcplushie/attackby(obj/item/B, mob/user, params)
 	if(istype(B, /obj/item/food/snacks/breadslice))
 		new /obj/item/food/snacks/toast(get_turf(loc))
-		to_chat(user, "<span class='notice'> You insert bread into the toaster. </span>")
+		to_chat(user, "<span class='notice'>You insert bread into the toaster.</span>")
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 		qdel(B)
 	else

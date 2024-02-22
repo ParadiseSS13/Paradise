@@ -357,6 +357,14 @@
 	icon_state = "shieldsparkles"
 	duration = 6
 
+/obj/effect/temp_visual/impact_effect/chaos
+	icon_state = "shieldsparkles"
+	duration = 6
+
+/obj/effect/temp_visual/impact_effect/chaos/Initialize(mapload)
+	. = ..()
+	icon_state = pick("shieldsparkles", "purplesparkles", "bloodsparkles", "snowcloud")
+
 /obj/effect/temp_visual/bsg_kaboom
 	name = "bluespace explosion"
 	icon = 'icons/effects/96x96.dmi'
@@ -500,3 +508,9 @@
 	if(new_filter)
 		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
 		animate(offset = 0, time = 10 SECONDS)
+
+/obj/effect/temp_visual/warning
+	name = "warning"
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "warning"
+	duration = 3 SECONDS
