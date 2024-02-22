@@ -4232,7 +4232,7 @@
 "aAe" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research  Outpost","Mining  Outpost")
+	network = list("SS13","Research    Outpost","Mining    Outpost")
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -12429,7 +12429,7 @@
 /area/station/science/toxins/mixing)
 "bsV" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Research  Outpost","Mining  Outpost")
+	network = list("SS13","Research    Outpost","Mining    Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16686,17 +16686,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/atmos)
-"bKE" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/computer/general_air_control{
-	dir = 4;
-	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon  Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous  Oxide","waste_sensor"="Gas  Mix  Tank")
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/control)
 "bKF" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -19416,7 +19405,7 @@
 	inlet_injector_autolink_id = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	outlet_vent_autolink_id = "co2_out";
-	autolink_sensors = list("co2_sensor"="Tank");
+	autolink_sensors = list("co2_sensor" = "Tank");
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -19595,7 +19584,7 @@
 	inlet_injector_autolink_id = "waste_in";
 	name = "Gas Mix Tank Control";
 	outlet_vent_autolink_id = "waste_out";
-	autolink_sensors = list("waste_sensor"="Tank")
+	autolink_sensors = list("waste_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
@@ -21550,7 +21539,7 @@
 /area/station/hallway/primary/aft/east)
 "ciN" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms");
+	network = list("SS13","Research    Outpost","Mining    Outpost","Telecomms");
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -22013,7 +22002,7 @@
 "clW" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
+	network = list("SS13","Research    Outpost","Mining    Outpost","Telecomms")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -29941,7 +29930,7 @@
 	inlet_injector_autolink_id = "n2_in";
 	name = "Nitrogen Supply Control";
 	outlet_vent_autolink_id = "n2_out";
-	autolink_sensors = list("n2_sensor"="Tank")
+	autolink_sensors = list("n2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/structure/window/reinforced{
@@ -30017,7 +30006,7 @@
 	inlet_injector_autolink_id = "o2_in";
 	name = "Oxygen Supply Control";
 	outlet_vent_autolink_id = "o2_out";
-	autolink_sensors = list("o2_sensor"="Tank")
+	autolink_sensors = list("o2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/structure/window/reinforced{
@@ -30169,7 +30158,7 @@
 	name = "Mixed Air Supply Control";
 	outlet_vent_autolink_id = "air_out";
 	outlet_setting = 2000;
-	autolink_sensors = list("air_sensor"="Tank")
+	autolink_sensors = list("air_sensor" = "Tank")
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -30221,7 +30210,7 @@
 	inlet_injector_autolink_id = "tox_in";
 	name = "Toxin Supply Control";
 	outlet_vent_autolink_id = "tox_out";
-	autolink_sensors = list("tox_sensor"="Tank")
+	autolink_sensors = list("tox_sensor" = "Tank")
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel,
@@ -30256,7 +30245,7 @@
 	inlet_injector_autolink_id = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	outlet_vent_autolink_id = "n2o_out";
-	autolink_sensors = list("n2o_sensor"="Tank")
+	autolink_sensors = list("n2o_sensor" = "Tank")
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel,
@@ -33173,7 +33162,7 @@
 "dxq" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research  Outpost","Mining  Outpost")
+	network = list("SS13","Research    Outpost","Mining    Outpost")
 	},
 /obj/item/radio/intercom{
 	pixel_y = -28;
@@ -33424,7 +33413,7 @@
 /area/station/hallway/primary/fore)
 "dyJ" = (
 /obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research  Outpost","Mining  Outpost")
+	network = list("SS13","Research    Outpost","Mining    Outpost")
 	},
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
@@ -38715,6 +38704,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/aft/west)
+"fiG" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/computer/general_air_control{
+	dir = 4;
+	name = "Tank Monitor";
+	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon    Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous    Oxide","waste_sensor"="Gas    Mix    Tank")
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos/control)
 "fiK" = (
 /turf/simulated/mineral/ancient/outer,
 /area/station/maintenance/disposal/west)
@@ -39488,7 +39488,7 @@
 "fxL" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
+	network = list("SS13","Research    Outpost","Mining    Outpost","Telecomms")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -41427,7 +41427,7 @@
 /obj/machinery/computer/security{
 	dir = 4;
 	name = "Labor Camp Monitoring";
-	network = list("Labor  Camp")
+	network = list("Labor    Camp")
 	},
 /obj/item/radio/intercom{
 	pixel_x = -28;
@@ -46971,7 +46971,7 @@
 "icR" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research  Outpost","Mining  Outpost")
+	network = list("SS13","Research    Outpost","Mining    Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -69484,18 +69484,6 @@
 "poW" = (
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
-"poX" = (
-/obj/machinery/computer/general_air_control{
-	dir = 8;
-	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed  Air  In","air_sensor"="Mixed  Air  Supply  Tank","mair_out_meter"="Mixed  Air  Out","dloop_atm_meter"="Distribution  Loop","wloop_atm_meter"="Waste  Loop")
-	},
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	name = "custom placement"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/control)
 "ppd" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -85314,7 +85302,7 @@
 	},
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("Research","Research  Outpost","RD","MiniSat")
+	network = list("Research","Research    Outpost","RD","MiniSat")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -88493,6 +88481,15 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/service/bar)
+"vxH" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/space,
+/area/space/nearstation)
 "vxJ" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -88803,15 +88800,6 @@
 	icon_state = "white"
 	},
 /area/station/science/misc_lab)
-"vDy" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/space,
-/area/space/nearstation)
 "vDK" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -96749,6 +96737,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"yad" = (
+/obj/machinery/computer/general_air_control{
+	dir = 8;
+	name = "Distribution and Waste Monitor";
+	autolink_sensors = list("mair_in_meter"="Mixed    Air    In","air_sensor"="Mixed    Air    Supply    Tank","mair_out_meter"="Mixed    Air    Out","dloop_atm_meter"="Distribution    Loop","wloop_atm_meter"="Waste    Loop")
+	},
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	name = "custom placement"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos/control)
 "yai" = (
 /obj/machinery/computer/scan_consolenew{
 	dir = 8
@@ -106402,7 +106402,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 cZN
 jVU
 qyy
@@ -106659,7 +106659,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 cZN
 gAG
 cZN
@@ -106916,7 +106916,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -107173,7 +107173,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -107430,7 +107430,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -107687,7 +107687,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -107944,7 +107944,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -108201,7 +108201,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -108458,7 +108458,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -108715,7 +108715,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -108972,7 +108972,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -109229,7 +109229,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -109486,7 +109486,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -109743,7 +109743,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -110000,7 +110000,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -110257,7 +110257,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -127909,7 +127909,7 @@ bFf
 jps
 cQl
 cQl
-bKE
+fiG
 bLS
 cQl
 qWu
@@ -128936,7 +128936,7 @@ bwi
 lzu
 oeM
 cQl
-poX
+yad
 bKH
 bLV
 cQl
