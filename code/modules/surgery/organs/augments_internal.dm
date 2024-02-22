@@ -318,7 +318,22 @@
 	implant_color = null
 	slot = "brain_antistun"
 	actions_types = list(/datum/action/item_action/organ_action/toggle/sensory_enhancer)
+	origin_tech = "combat=6;biotech=6;syndicate=4"
+	///The icon state used for the on mob sprite. Default is sandy. Drask and vox have their own unique sprites
+	var/custom_mob_sprite = "sandy"
 	COOLDOWN_DECLARE(sensory_enhancer_cooldown)
+
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/examine_more(mob/user)
+	. = ..()
+	. += "<i>Developed by Biotech Solutions this revolutionary full spinal cord replacement implant uses an integrated chemical synthesizer, designed to administer Mephedrone: \
+	a potent stimulant and hyper-movement drug. This implant dramatically enhances the user's reflexes, with many reporting an almost time-slowing effect during its operation.</i>"
+	. += "<i>Biotech's experimentation with stimulant drug research has long been a cornerstone of their competitive edge, especially against their rival: \
+	Interydyne Pharmaceuticals. Their efforts yielded a drug capable of enhancing reflexes but could never mitigate the adverse effects of said product. \
+	A premature leak of the prototype implant pressured the company into accelerating its development, leaving the drug's side effects unresolved. \
+	They completed the spinal implant, which is uniquely equipped with built-in vials for Mephedrone delivery. \
+	Its material is solid plastitanium, and while strong in material, it surprisingly feels light, considering its spinal integration.</i>"
+	. += "<i>The implant is highly sought after because of its extreme capabilities in combat. Many military groups pay a handsome fee simply for the licensing of the item. \
+	However recent Biotech shipments have come under fire from piracy, and the company is quick to blame Interdyne for said attacks, with allegations remaining unverified.</i>"
 
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/insert(mob/living/carbon/M, special = 0)
@@ -330,6 +345,12 @@
 	REMOVE_TRAIT(M, TRAIT_MEPHEDRONE_ADAPTED, "[UID()]")
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/render()
+	if(isvox(owner))
+		custom_mob_sprite = "vox_sandy"
+	else if(isdrask(owner))
+		custom_mob_sprite = "drask_sandy"
+	else
+		custom_mob_sprite = "sandy"
 	var/mutable_appearance/our_MA = mutable_appearance('icons/mob/human_races/robotic.dmi', icon_state, layer = -INTORGAN_LAYER)
 	return our_MA
 

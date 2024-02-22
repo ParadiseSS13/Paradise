@@ -526,6 +526,17 @@
 	surplus = 0
 	cant_discount = TRUE
 
+/datum/uplink_item/cyber_implants/sensory_enhancer
+	name = "Qani-Laaca Sensory Computer Autoimplanter"
+	desc = "This spinal implant will inject mephedrone into your system, a powerful stimulant that causes slight heart damage.\
+	This stimulant will provide faster move speed, slight pain resist, immunity to crawling slowdown, and faster attack speed, though no antistun.\
+	Overdosing will cause massive heart damage, but will allow the user to dodge bullets for a minute and attack even faster.\
+	Two minute normal uptime, 5 minute cooldown, unlimted uses. Incompatable with the Binyat Wireless Hacking System."
+	reference = "QLSC"
+	item = /obj/item/autosurgeon/organ/syndicate/sensory_enhancer
+	cost = 40
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) //No, nukies do not get to dodge bullets.
+
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"
 	desc = "A special deck of space-grade playing cards with a mono-molecular edge and metal reinforcement, making them lethal weapons both when wielded as a blade and when thrown. \
