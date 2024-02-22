@@ -3170,6 +3170,11 @@
 	pixel_y = 22;
 	pixel_x = 16
 	},
+/obj/machinery/flasher_button{
+	id = "laborairlock";
+	pixel_x = -10;
+	pixel_y = 20
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
