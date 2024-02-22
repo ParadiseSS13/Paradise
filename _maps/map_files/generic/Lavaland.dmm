@@ -1022,6 +1022,7 @@
 /obj/structure/rack,
 /obj/item/pickaxe/safety,
 /obj/item/flashlight/lantern,
+/obj/item/storage/bag/ore,
 /obj/item/mining_scanner,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/head/beanie/orange,
@@ -1107,11 +1108,6 @@
 "dh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/portable/scrubber/huge/stationary,
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredyellowfull"
 	},
@@ -5302,10 +5298,8 @@
 /area/mine/laborcamp)
 "tp" = (
 /obj/structure/table/wood,
-/obj/item/paper{
-	info = "What is the barometer?<br><br>Barometer is a scientific instrument used in meteorology to measure atmospheric pressure, and is widely used by miners to know when the next ash storm will happen.<br><br>Our Nanotrasen technology managed to implement the barometer functions in just one instrument, the Analyzer. The Analyzer can measure pipes with various useful information, as well as measure atmospheric pressure.<br><br>How to use the barometer?<br><br>To use the barometer, go to a space with relatively low pressure and press the button indicated on the instrument. When you press it, the analyzer will immediately measure the environment and give you the information."
-	},
 /obj/effect/decal/cleanable/cobweb2,
+/obj/item/book/manual/wiki/security_space_law,
 /turf/simulated/floor/wood,
 /area/mine/laborcamp)
 "tA" = (
@@ -6829,6 +6823,7 @@
 /obj/structure/rack,
 /obj/item/pickaxe/safety,
 /obj/item/flashlight/lantern,
+/obj/item/storage/bag/ore,
 /obj/item/mining_scanner,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/head/beanie/orange,
@@ -8041,11 +8036,6 @@
 /area/shuttle/siberia)
 "JK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	name = "West Switch";
-	dir = 4
-	},
 /obj/machinery/camera{
 	c_tag = "Labor Camp Storage";
 	dir = 5;
@@ -8468,6 +8458,7 @@
 /obj/structure/rack,
 /obj/item/pickaxe/safety,
 /obj/item/flashlight/lantern,
+/obj/item/storage/bag/ore,
 /obj/item/mining_scanner,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/head/beanie/orange,
@@ -8538,10 +8529,6 @@
 	},
 /area/mine/outpost/cafeteria)
 "Ng" = (
-/obj/machinery/light_switch{
-	name = "North Switch";
-	pixel_y = 24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -9045,11 +9032,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 10
@@ -9872,6 +9854,12 @@
 	},
 /obj/structure/table,
 /obj/item/deck/cards,
+/obj/item/paper{
+	info = "What is the barometer?<br><br>Barometer is a scientific instrument used in meteorology to measure atmospheric pressure, and is widely used by miners to know when the next ash storm will happen.<br><br>Our Nanotrasen technology managed to implement the barometer functions in just one instrument, the Analyzer. The Analyzer can measure pipes with various useful information, as well as measure atmospheric pressure.<br><br>How to use the barometer?<br><br>To use the barometer, go to a space with relatively low pressure and press the button indicated on the instrument. When you press it, the analyzer will immediately measure the environment and give you the information.";
+	name = "A guide for your safety";
+	pixel_x = -6;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "VU" = (
@@ -9939,11 +9927,11 @@
 	},
 /area/mine/outpost/lockers)
 "Wk" = (
-/obj/machinery/economy/vending/cola/free,
 /obj/machinery/camera{
 	c_tag = "Labor Camp Breakroom";
 	network = list("Labor Camp")
 	},
+/obj/machinery/economy/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredyellowfull"
 	},
@@ -10471,6 +10459,7 @@
 /obj/structure/rack,
 /obj/item/pickaxe/safety,
 /obj/item/flashlight/lantern,
+/obj/item/storage/bag/ore,
 /obj/item/mining_scanner,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/head/beanie/orange,
