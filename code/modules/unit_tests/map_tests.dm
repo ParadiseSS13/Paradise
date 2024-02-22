@@ -124,3 +124,35 @@
 /datum/map_per_tile_test/nearspace_checker/CheckTile(turf/T)
 	if(T.loc.type == /area/space/nearstation && !is_type_in_list(T, allowed_turfs))
 		Fail(T, "nearspace area contains a non-space turf: [T], ([T.type])")
+
+
+/datum/map_per_tile_test/cable_adjacency_checker
+
+/datum/map_per_tile_test/cable_adjacency_checker/CheckTile(turf/T)
+	for(var/obj/structure/cable/cable in T.contents)
+		if(cable.d1 != 0)
+			var/found_connection = FALSE
+			var/turf/secondary = get_step(T, cable.d1)
+			for(var/obj/structure/cable/other_cable in secondary.contents)
+				if(reverse_direction(cable.d1) == other_cable.d1 || reverse_direction(cable.d1) == other_cable.d2)
+					found_connection = TRUE // we cant just return here because we have another dir to test
+					break
+			if(!found_connection)
+				Fail(T, "tile has an unconnected cable (d1 connection: [uppertext(dir2text(cable.d1))]).")
+
+		if(cable.d2 != 0)
+			var/turf/secondary = get_step(T, cable.d1)
+			for(var/obj/structure/cable/other_cable in secondary.contents)
+				if(reverse_direction(cable.d1) == other_cable.d1 || reverse_direction(cable.d1) == other_cable.d2)
+					return
+			Fail(T, "tile has an unconnected cable (d2 connection: [uppertext(dir2text(cable.d2))]).")
+
+/datum/map_per_tile_test/duplicate_cable_check
+
+/datum/map_per_tile_test/duplicate_cable_check/CheckTile(turf/T)
+	var/obj/structure/cable/cable locate() in T.contents
+	for(var/obj/structure/cable/other_cable in T.contents)
+		if(cable == other_cable)
+			continue // same object, continue
+		if(cable.d1 == other_cable.d1 && cable.d2 == other_cable.d2)
+			Fail(T, "tile has duplicated cables.")
