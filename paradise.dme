@@ -1946,6 +1946,7 @@
 #include "code\modules\martial_arts\adminfu.dm"
 #include "code\modules\martial_arts\bearserk.dm"
 #include "code\modules\martial_arts\brawling.dm"
+#include "code\modules\martial_arts\cheapfu.dm"
 #include "code\modules\martial_arts\cqc.dm"
 #include "code\modules\martial_arts\grav_stomp.dm"
 #include "code\modules\martial_arts\judo.dm"
