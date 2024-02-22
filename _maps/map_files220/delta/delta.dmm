@@ -56837,10 +56837,6 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/lawoffice)
-"gMk" = (
-/obj/machinery/jukebox/bar,
-/turf/simulated/floor/wood/oak,
-/area/station/service/theatre)
 "gMx" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -146322,7 +146318,7 @@ aGy
 cnC
 rza
 efP
-gMk
+dBq
 dBq
 dBq
 dBq
