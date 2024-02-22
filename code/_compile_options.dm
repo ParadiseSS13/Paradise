@@ -1,8 +1,9 @@
 #define DEBUG
 //#define TESTING
 
-// Uncomment the following line to compile unit tests.
-// #define UNIT_TESTS
+// Uncomment the following line to compile unit tests on a local server. The output will be in a test_run-[DATE].log file in the ./data folder.
+#define LOCAL_UNIT_TESTS
+// #define CIBUILDING
 
 // Uncomment the following line to enable Tracy profiling.
 // DO NOT DO THIS UNLESS YOU UNDERSTAND THE IMPLICATIONS
@@ -11,6 +12,10 @@
 
 // Uncomment this to enable support for multiple instances
 // #define MULTIINSTANCE
+
+#ifdef LOCAL_UNIT_TESTS
+#define UNIT_TESTS
+#endif
 
 #ifdef CIBUILDING
 #define UNIT_TESTS
