@@ -14847,6 +14847,13 @@
 /obj/machinery/computer/supplycomp{
 	dir = 8
 	},
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Quartermaster's Desk";
+	departmentType = 5;
+	name = "Quartermaster Requests Console";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -15566,11 +15573,11 @@
 	},
 /area/station/supply/qm)
 "aWJ" = (
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
 /obj/machinery/computer/card/minor/qm{
 	dir = 8
+	},
+/obj/machinery/keycard_auth{
+	pixel_x = 25
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -16097,7 +16104,6 @@
 	},
 /obj/item/gps/mining,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/keycard_auth,
 /obj/item/toy/figure/crew/qm,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -16106,6 +16112,9 @@
 "aYj" = (
 /obj/machinery/computer/security/mining{
 	dir = 8
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -19178,16 +19187,16 @@
 	},
 /area/station/service/kitchen)
 "bgA" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/bag/tray,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/station/service/kitchen)
 "bgB" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -19539,9 +19548,9 @@
 	},
 /area/station/service/kitchen)
 "bhN" = (
-/obj/structure/table/reinforced,
 /obj/item/reagent_containers/condiment/flour,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -19577,17 +19586,17 @@
 	},
 /area/station/hallway/primary/fore/east)
 "bhQ" = (
-/obj/structure/table/reinforced,
 /obj/item/food/snacks/dough,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
 /area/station/service/kitchen)
 "bhR" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -21001,13 +21010,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bli" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/box/papersack,
 /obj/item/storage/box/papersack,
 /obj/item/storage/box/papersack,
 /obj/item/storage/box/papersack,
 /obj/item/storage/box/papersack,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -21021,7 +21030,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blk" = (
-/obj/structure/table/reinforced,
 /obj/item/food/snacks/mint,
 /obj/item/reagent_containers/condiment/enzyme,
 /obj/machinery/reagentgrinder,
@@ -21046,13 +21054,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blo" = (
-/obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/chef,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/eftpos/register{
 	dir = 1
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blq" = (
@@ -21863,10 +21871,10 @@
 /turf/simulated/wall,
 /area/station/service/kitchen)
 "bnc" = (
-/obj/structure/table/reinforced,
 /obj/item/clothing/suit/chef,
 /obj/item/kitchen/rollingpin,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bnd" = (
@@ -21883,11 +21891,11 @@
 /turf/simulated/wall,
 /area/station/supply/lobby)
 "bne" = (
-/obj/structure/table/reinforced,
 /obj/item/reagent_containers/condiment/saltshaker,
 /obj/item/reagent_containers/condiment/peppermill,
 /obj/item/kitchen/knife,
 /obj/effect/turf_decal/delivery,
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bnf" = (
@@ -29615,6 +29623,9 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/drinks/cans/starkist,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/recharger{
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -38544,16 +38555,15 @@
 	},
 /area/station/legal/magistrate)
 "ccL" = (
-/obj/structure/closet,
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/station/security/evidence)
 "ccM" = (
-/obj/structure/closet,
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
@@ -38563,6 +38573,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -38588,7 +38599,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
 "ccP" = (
-/obj/structure/closet,
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39458,14 +39469,15 @@
 /obj/machinery/computer/atmos_alert{
 	dir = 1
 	},
-/obj/machinery/power/apc{
-	name = "south bump Engineering";
-	pixel_y = -24;
-	shock_proof = 1
-	},
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	cell_type = 25000;
+	dir = 8;
+	name = "Engineering Engine Super APC";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
@@ -39760,7 +39772,6 @@
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
 "cgg" = (
-/obj/structure/closet,
 /obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
@@ -39771,6 +39782,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39837,11 +39849,11 @@
 	},
 /area/station/security/brig)
 "cgo" = (
-/obj/structure/closet,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39865,12 +39877,12 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/closet,
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -41033,18 +41045,18 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "cjO" = (
-/obj/machinery/power/apc{
-	cell_type = 25000;
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24;
-	shock_proof = 1
-	},
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/power/apc{
+	cell_type = 25000;
+	dir = 8;
+	name = "Engineering Engine Super APC";
+	pixel_x = 24;
+	shock_proof = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "cjP" = (
@@ -56112,6 +56124,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/recharger{
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -60957,7 +60972,7 @@
 /area/station/service/chapel)
 "dyW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -74953,6 +74968,11 @@
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -75529,6 +75549,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall/r_wall,
 /area/station/medical/virology)
+"jnk" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/break_room)
 "jnp" = (
 /obj/structure/sink{
 	dir = 8;
@@ -81556,7 +81583,7 @@
 /area/station/security/permabrig)
 "mUR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
+	dir = 5
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
@@ -82228,7 +82255,6 @@
 /turf/simulated/floor/carpet,
 /area/station/maintenance/starboard)
 "nnP" = (
-/obj/structure/table/reinforced,
 /obj/machinery/door/window,
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
@@ -82236,6 +82262,12 @@
 /obj/item/reagent_containers/condiment/saltshaker,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -84206,6 +84238,25 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/launch)
+"oxJ" = (
+/obj/machinery/door_control{
+	id = "kitchenbar";
+	name = "Kitchen Bar Shutters Control";
+	pixel_x = 6;
+	pixel_y = 24;
+	req_access_txt = "28"
+	},
+/obj/machinery/door_control{
+	id = "kitchenhall";
+	name = "Kitchen Hallway Shutters Control";
+	pixel_x = -8;
+	pixel_y = 24;
+	req_access_txt = "28"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/service/kitchen)
 "oxK" = (
 /obj/effect/turf_decal/box/white{
 	color = "#009dff"
@@ -84559,12 +84610,17 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central)
 "oHk" = (
-/obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window,
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/effect/turf_decal/delivery,
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -86034,6 +86090,10 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenhall";
+	name = "Kitchen Shutters"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "pAy" = (
@@ -89768,7 +89828,7 @@
 	color = "#009dff"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -90110,6 +90170,10 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenhall";
+	name = "Kitchen Shutters"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
@@ -91027,10 +91091,10 @@
 	},
 /area/station/medical/virology)
 "spP" = (
-/obj/structure/closet,
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -91580,13 +91644,18 @@
 	},
 /area/station/medical/cloning)
 "sDO" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window,
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/effect/turf_decal/delivery,
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -95547,6 +95616,11 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenhall";
+	name = "Kitchen Shutters";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "uUu" = (
@@ -96462,7 +96536,6 @@
 /area/station/command/office/hos)
 "vzU" = (
 /obj/structure/closet/walllocker/emerglocker/north{
-	pixel_y = 0;
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
@@ -98681,12 +98754,14 @@
 	},
 /obj/item/tank/jetpack/carbondioxide,
 /obj/structure/cable,
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/power/apc{
+	cell_type = 25000;
+	dir = 8;
+	name = "Engineering Engine Super APC";
+	pixel_x = 24;
+	shock_proof = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "wOk" = (
@@ -125915,7 +125990,7 @@ bys
 bzR
 bBA
 bDs
-bIx
+jnk
 byl
 bIx
 bKC
@@ -137722,7 +137797,7 @@ bcr
 bdM
 bfh
 aYZ
-bdQ
+oxJ
 bjt
 blj
 aYZ
