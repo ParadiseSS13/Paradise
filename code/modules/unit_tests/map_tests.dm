@@ -130,8 +130,8 @@
 
 /datum/map_per_tile_test/cable_adjacency_checker/CheckTile(turf/T)
 	for(var/obj/structure/cable/cable in T.contents)
-		check_direction(cable.d1)
-		check_direction(cable.d2)
+		check_direction(T, cable.d1, "d1")
+		check_direction(T, cable.d2, "d2")
 
 /datum/map_per_tile_test/cable_adjacency_checker/proc/check_direction(origin_turf, direction, report_name)
 	if(!direction) // cable direction = 0, which means its a node
