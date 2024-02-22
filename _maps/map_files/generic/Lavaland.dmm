@@ -3137,6 +3137,11 @@
 /obj/effect/turf_decal{
 	dir = 6
 	},
+/obj/machinery/camera{
+	c_tag = "Labor Camp Shuttle";
+	network = list("Labor Camp");
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
 "hH" = (
@@ -4335,6 +4340,11 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "nd" = (
+/obj/machinery/camera{
+	c_tag = "Labor Camp Maintenance";
+	network = list("Labor Camp");
+	dir = 4
+	},
 /turf/simulated/floor/catwalk,
 /area/mine/laborcamp)
 "ne" = (
