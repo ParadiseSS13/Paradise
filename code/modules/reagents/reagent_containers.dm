@@ -18,7 +18,7 @@
 /obj/item/reagent_containers/AltClick(mob/user)
 	if(!Adjacent(user) || !length(possible_transfer_amounts) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	var/new_transfer_rate = tgui_input_list(user, "Amount per transfer from this:", "[src]", possible_transfer_amounts)
+	var/new_transfer_rate = tgui_input_list(user, "Amount per transfer from this:", "[src]", possible_transfer_amounts, amount_per_transfer_from_this)
 	if(!new_transfer_rate)
 		return
 
