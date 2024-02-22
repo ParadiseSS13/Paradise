@@ -130,22 +130,20 @@
 
 /datum/map_per_tile_test/cable_adjacency_checker/CheckTile(turf/T)
 	for(var/obj/structure/cable/cable in T.contents)
-		if(cable.d1 != 0)
-			var/found_connection = FALSE
-			var/turf/secondary = get_step(T, cable.d1)
-			for(var/obj/structure/cable/other_cable in secondary.contents)
-				if(reverse_direction(cable.d1) == other_cable.d1 || reverse_direction(cable.d1) == other_cable.d2)
-					found_connection = TRUE // we cant just return here because we have another dir to test
-					break
-			if(!found_connection)
-				Fail(T, "tile has an unconnected cable (d1 connection: [uppertext(dir2text(cable.d1))]).")
+		check_direction(cable.d1)
+		check_direction(cable.d2)
 
-		if(cable.d2 != 0)
-			var/turf/secondary = get_step(T, cable.d2)
-			for(var/obj/structure/cable/other_cable in secondary.contents)
-				if(reverse_direction(cable.d1) == other_cable.d1 || reverse_direction(cable.d1) == other_cable.d2)
-					return
-			Fail(T, "tile has an unconnected cable (d2 connection: [uppertext(dir2text(cable.d2))]).")
+/datum/map_per_tile_test/cable_adjacency_checker/proc/check_direction(origin_turf, direction, report_name)
+	if(!direction) // cable direction = 0, which means its a node
+		return TRUE
+	var/turf/potential_cable_turf = get_step(origin_turf, direction)
+	var/reversed_direction = reverse_direction(direction)
+	for(var/obj/structure/cable/other_cable in secondary.contents)
+		if(reversed_direction == other_cable.d1 || reversed_direction == other_cable.d2)
+			return TRUE
+
+	Fail(T, "tile has an unconnected cable ([report_name] connection: [uppertext(dir2text(direction))]).")
+	return FALSE
 
 /datum/map_per_tile_test/duplicate_cable_check
 
