@@ -14847,6 +14847,13 @@
 /obj/machinery/computer/supplycomp{
 	dir = 8
 	},
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Quartermaster's Desk";
+	departmentType = 5;
+	name = "Quartermaster Requests Console";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -15566,11 +15573,11 @@
 	},
 /area/station/supply/qm)
 "aWJ" = (
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
 /obj/machinery/computer/card/minor/qm{
 	dir = 8
+	},
+/obj/machinery/keycard_auth{
+	pixel_x = 25
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -16097,7 +16104,6 @@
 	},
 /obj/item/gps/mining,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/keycard_auth,
 /obj/item/toy/figure/crew/qm,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -16106,6 +16112,9 @@
 "aYj" = (
 /obj/machinery/computer/security/mining{
 	dir = 8
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -19178,16 +19187,16 @@
 	},
 /area/station/service/kitchen)
 "bgA" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/bag/tray,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/station/service/kitchen)
 "bgB" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -19539,9 +19548,9 @@
 	},
 /area/station/service/kitchen)
 "bhN" = (
-/obj/structure/table/reinforced,
 /obj/item/reagent_containers/condiment/flour,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -19577,17 +19586,17 @@
 	},
 /area/station/hallway/primary/fore/east)
 "bhQ" = (
-/obj/structure/table/reinforced,
 /obj/item/food/snacks/dough,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
 /area/station/service/kitchen)
 "bhR" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -21001,13 +21010,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bli" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/box/papersack,
 /obj/item/storage/box/papersack,
 /obj/item/storage/box/papersack,
 /obj/item/storage/box/papersack,
 /obj/item/storage/box/papersack,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -21021,7 +21030,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blk" = (
-/obj/structure/table/reinforced,
 /obj/item/food/snacks/mint,
 /obj/item/reagent_containers/condiment/enzyme,
 /obj/machinery/reagentgrinder,
@@ -21046,13 +21054,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blo" = (
-/obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/chef,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/eftpos/register{
 	dir = 1
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blq" = (
@@ -21863,10 +21871,10 @@
 /turf/simulated/wall,
 /area/station/service/kitchen)
 "bnc" = (
-/obj/structure/table/reinforced,
 /obj/item/clothing/suit/chef,
 /obj/item/kitchen/rollingpin,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bnd" = (
@@ -21883,11 +21891,11 @@
 /turf/simulated/wall,
 /area/station/supply/lobby)
 "bne" = (
-/obj/structure/table/reinforced,
 /obj/item/reagent_containers/condiment/saltshaker,
 /obj/item/reagent_containers/condiment/peppermill,
 /obj/item/kitchen/knife,
 /obj/effect/turf_decal/delivery,
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bnf" = (
@@ -29610,6 +29618,9 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/drinks/cans/starkist,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/recharger{
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -56113,6 +56124,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/recharger{
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -60958,7 +60972,7 @@
 /area/station/service/chapel)
 "dyW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -64996,16 +65010,6 @@
 /obj/item/crowbar/red,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
-"dSB" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
-	},
-/obj/machinery/atmospherics/portable/canister/air,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
 "dSD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -66758,7 +66762,7 @@
 "ebU" = (
 /obj/machinery/computer/general_air_control{
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor"="Burn Mix");
+	autolink_sensors = list("burn_sensor" = "Burn Mix");
 	dir = 1
 	},
 /obj/machinery/ignition_switch{
@@ -69817,7 +69821,7 @@
 	inlet_injector_autolink_id = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	outlet_vent_autolink_id = "n2o_out";
-	autolink_sensors = list("n2o_sensor"="Tank")
+	autolink_sensors = list("n2o_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -72204,6 +72208,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/rd)
+"hli" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "hly" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
@@ -72688,7 +72702,7 @@
 	name = "Mixed Air Supply Control";
 	outlet_vent_autolink_id = "air_out";
 	outlet_setting = 2000;
-	autolink_sensors = list("air_sensor"="Tank")
+	autolink_sensors = list("air_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 10
@@ -74954,10 +74968,19 @@
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
 /area/station/service/kitchen)
+"iVe" = (
+/obj/effect/spawner/airlock,
+/turf/simulated/wall,
+/area/station/service/chapel/office)
 "iVg" = (
 /obj/machinery/economy/atm{
 	pixel_x = -32
@@ -75526,6 +75549,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall/r_wall,
 /area/station/medical/virology)
+"jnk" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/break_room)
 "jnp" = (
 /obj/structure/sink{
 	dir = 8;
@@ -76077,7 +76107,7 @@
 	inlet_injector_autolink_id = "n2_in";
 	name = "Nitrogen Supply Control";
 	outlet_vent_autolink_id = "n2_out";
-	autolink_sensors = list("n2_sensor"="Tank")
+	autolink_sensors = list("n2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -76805,15 +76835,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/storage)
-"kdg" = (
-/obj/structure/sign/vacuum{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
 "kdm" = (
 /obj/machinery/power/apc{
 	cell_type = 25000;
@@ -76919,6 +76940,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
+"kfC" = (
+/obj/structure/sign/vacuum{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "kfT" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -81553,7 +81583,7 @@
 /area/station/security/permabrig)
 "mUR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
+	dir = 5
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
@@ -81692,7 +81722,7 @@
 	inlet_injector_autolink_id = "tox_in";
 	name = "Toxin Supply Control";
 	outlet_vent_autolink_id = "tox_out";
-	autolink_sensors = list("tox_sensor"="Tank")
+	autolink_sensors = list("tox_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -82225,7 +82255,6 @@
 /turf/simulated/floor/carpet,
 /area/station/maintenance/starboard)
 "nnP" = (
-/obj/structure/table/reinforced,
 /obj/machinery/door/window,
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
@@ -82233,6 +82262,12 @@
 /obj/item/reagent_containers/condiment/saltshaker,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -83790,7 +83825,7 @@
 	inlet_injector_autolink_id = "waste_in";
 	name = "Gas Mix Tank Control";
 	outlet_vent_autolink_id = "waste_out";
-	autolink_sensors = list("waste_sensor"="Tank")
+	autolink_sensors = list("waste_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel{
@@ -84203,6 +84238,25 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/launch)
+"oxJ" = (
+/obj/machinery/door_control{
+	id = "kitchenbar";
+	name = "Kitchen Bar Shutters Control";
+	pixel_x = 6;
+	pixel_y = 24;
+	req_access_txt = "28"
+	},
+/obj/machinery/door_control{
+	id = "kitchenhall";
+	name = "Kitchen Hallway Shutters Control";
+	pixel_x = -8;
+	pixel_y = 24;
+	req_access_txt = "28"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/service/kitchen)
 "oxK" = (
 /obj/effect/turf_decal/box/white{
 	color = "#009dff"
@@ -84556,12 +84610,17 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central)
 "oHk" = (
-/obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window,
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/effect/turf_decal/delivery,
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -86031,6 +86090,10 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenhall";
+	name = "Kitchen Shutters"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "pAy" = (
@@ -87034,7 +87097,7 @@
 	inlet_injector_autolink_id = "o2_in";
 	name = "Oxygen Supply Control";
 	outlet_vent_autolink_id = "o2_out";
-	autolink_sensors = list("o2_sensor"="Tank")
+	autolink_sensors = list("o2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -89765,7 +89828,7 @@
 	color = "#009dff"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -90108,6 +90171,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenhall";
+	name = "Kitchen Shutters"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "rVL" = (
@@ -90275,7 +90342,7 @@
 	inlet_injector_autolink_id = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	outlet_vent_autolink_id = "co2_out";
-	autolink_sensors = list("co2_sensor"="Tank")
+	autolink_sensors = list("co2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel/dark,
@@ -91577,13 +91644,18 @@
 	},
 /area/station/medical/cloning)
 "sDO" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window,
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/effect/turf_decal/delivery,
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -92661,6 +92733,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/research)
+"tjT" = (
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/obj/machinery/newscaster{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -28
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "tkb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -93714,21 +93801,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block)
-"tSp" = (
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
 "tSt" = (
 /obj/structure/table,
 /obj/item/reagent_containers/drinks/drinkingglass{
@@ -94375,10 +94447,6 @@
 	icon_state = "darkred"
 	},
 /area/station/security/processing)
-"uil" = (
-/obj/effect/spawner/airlock,
-/turf/simulated/wall,
-/area/station/service/chapel/office)
 "uit" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
@@ -95548,6 +95616,11 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenhall";
+	name = "Kitchen Shutters";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "uUu" = (
@@ -125917,7 +125990,7 @@ bys
 bzR
 bBA
 bDs
-bIx
+jnk
 byl
 bIx
 bKC
@@ -137724,7 +137797,7 @@ bcr
 bdM
 bfh
 aYZ
-bdQ
+oxJ
 bjt
 blj
 aYZ
@@ -138092,7 +138165,7 @@ dIx
 dIx
 dIx
 dIx
-uil
+iVe
 abj
 aaa
 aaa
@@ -138603,7 +138676,7 @@ dPM
 dkq
 dSs
 dSP
-dSB
+hli
 dIH
 dIH
 dIH
@@ -138861,8 +138934,8 @@ dKo
 dXJ
 dKo
 dUj
-kdg
-tSp
+kfC
+tjT
 dIH
 abj
 aaa

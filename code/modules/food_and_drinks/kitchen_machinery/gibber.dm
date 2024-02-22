@@ -157,6 +157,7 @@
 		user.visible_message("<span class='danger'>[user] stuffs [victim] into [src]!</span>")
 	else
 		return
+	QDEL_LIST_CONTENTS(victim.grabbed_by)
 	victim.forceMove(src)
 	occupant = victim
 
