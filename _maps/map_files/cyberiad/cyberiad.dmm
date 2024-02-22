@@ -914,11 +914,6 @@
 	},
 /area/station/security/warden)
 "aeV" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -932,11 +927,6 @@
 	},
 /area/station/command/office/hos)
 "aeW" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -4161,11 +4151,6 @@
 	},
 /area/station/command/office/hos)
 "aoT" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -4618,11 +4603,6 @@
 	},
 /area/station/command/office/hos)
 "apX" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -39148,11 +39128,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
@@ -48349,6 +48324,10 @@
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -65564,11 +65543,6 @@
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
 	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
@@ -76325,11 +76299,6 @@
 /obj/machinery/door/airlock/medical/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -78162,11 +78131,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "pfF" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
@@ -83110,8 +83074,6 @@
 /area/station/security/evidence)
 "rwR" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/mining/glass,
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -83121,8 +83083,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "rwZ" = (
@@ -93689,11 +93654,6 @@
 	name = "Cryodorms"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"
