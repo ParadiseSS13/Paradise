@@ -641,7 +641,7 @@
 
 /obj/item/storage/box/smoke_grenades
 	name = "smoke grenades"
-	desc = "A box with 7 snoke grenades."
+	desc = "A box with 7 smoke grenades."
 	icon_state = "teargas_box"
 
 /obj/item/storage/box/smoke_grenades/populate_contents()
