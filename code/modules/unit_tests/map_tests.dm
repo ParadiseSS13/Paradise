@@ -138,11 +138,11 @@
 		return TRUE
 	var/turf/potential_cable_turf = get_step(origin_turf, direction)
 	var/reversed_direction = reverse_direction(direction)
-	for(var/obj/structure/cable/other_cable in secondary.contents)
+	for(var/obj/structure/cable/other_cable in potential_cable_turf.contents)
 		if(reversed_direction == other_cable.d1 || reversed_direction == other_cable.d2)
 			return TRUE
 
-	Fail(T, "tile has an unconnected cable ([report_name] connection: [uppertext(dir2text(direction))]).")
+	Fail(origin_turf, "tile has an unconnected cable ([report_name] connection: [uppertext(dir2text(direction))]).")
 	return FALSE
 
 /datum/map_per_tile_test/duplicate_cable_check
