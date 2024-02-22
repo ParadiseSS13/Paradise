@@ -68196,6 +68196,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "eOL" = (
@@ -84331,18 +84336,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/station/maintenance/portsolar)
-"ozr" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/delivery,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/primary/central/west)
 "ozw" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -87029,11 +87022,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/hologram/holopad,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -87675,6 +87663,26 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central)
+"qzQ" = (
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/security/prison/cell_block)
 "qAe" = (
 /obj/machinery/atmospherics/unary/cryo_cell,
 /turf/simulated/floor/plasteel{
@@ -88565,11 +88573,6 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
@@ -93845,14 +93848,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/explab)
-"tUT" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/wall,
-/area/station/security/evidence)
 "tVa" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -136221,7 +136216,7 @@ fcl
 fcl
 fcl
 fcl
-ozr
+gKs
 hzo
 bUL
 hzo
@@ -155214,8 +155209,8 @@ aTJ
 aVp
 aWQ
 rRC
-aZM
-emC
+aZI
+bbv
 bfT
 oei
 uFg
@@ -155232,7 +155227,7 @@ biv
 bzo
 bLB
 qao
-jZh
+qzQ
 bLB
 bLB
 rKJ
@@ -155502,7 +155497,7 @@ dnd
 ncZ
 bZe
 cgr
-tUT
+cgr
 cgr
 cgr
 jIs
