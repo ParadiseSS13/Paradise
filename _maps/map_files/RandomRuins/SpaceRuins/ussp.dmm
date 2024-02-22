@@ -2,7 +2,7 @@
 "aa" = (
 /obj/effect/landmark/burnturf,
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="cautionfull");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "cautionfull");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/hallway/primary)
@@ -621,7 +621,7 @@
 /area/ruin/space/derelict/bridge)
 "bE" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="dark");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "dark");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/arrival)
@@ -1942,7 +1942,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "eM" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="purplefull");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "purplefull");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/hallway/primary)
@@ -2055,7 +2055,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "eZ" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="cautionfull");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "cautionfull");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/hallway/primary)
@@ -2969,7 +2969,7 @@
 	dir = 1
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="whiteredfull");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "whiteredfull");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/hallway/primary)
@@ -3529,7 +3529,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "iD" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="engine");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "engine");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/hallway/primary)
@@ -5537,7 +5537,7 @@
 	dir = 8
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="whiteredfull");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "whiteredfull");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/hallway/primary)
@@ -5707,7 +5707,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "nU" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="hydrofloor");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "hydrofloor");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/crew_quarters)
@@ -6194,7 +6194,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "pj" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="orangefull");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "orangefull");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/crew_quarters)
@@ -6566,7 +6566,7 @@
 /area/ruin/space/derelict/arrival)
 "qk" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon"='icons/turf/floors.dmi',"icon_state"="redfull");
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "redfull");
 	icon_state = "4-i"
 	},
 /area/ruin/space/derelict/arrival)
@@ -6757,7 +6757,7 @@
 /obj/item/trash/tapetrash,
 /obj/item/trash/pistachios,
 /obj/item/reagent_containers/syringe/charcoal{
-	list_reagents = list("charcoal"=13,"salmonella"=2)
+	list_reagents = list("charcoal" = 13, "salmonella" = 2)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
