@@ -21,6 +21,10 @@
 #define UNIT_TESTS
 #endif
 
+#if defined(CIBUILDING) && defined(LOCAL_UNIT_TESTS)
+#error CIBUILDING and LOCAL_UNIT_TESTS should not be enabled at the same time!
+#endif
+
 /***** All toggles for the GC ref finder *****/
 
 // #define REFERENCE_TRACKING		// Uncomment to enable ref finding
