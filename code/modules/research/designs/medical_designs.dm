@@ -411,7 +411,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 2000, MAT_PLASMA = 10000, MAT_DIAMOND = 4000, MAT_BLUESPACE = 4000)
 	construction_time = 10 SECONDS
-	build_path = /obj/item/organ/internal/cyberimp/brain/sensory_enhancer
+	build_path = /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/rnd
 	category = list("Medical")
 
 /datum/design/cyberimp_toolset_abductor

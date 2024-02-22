@@ -317,11 +317,15 @@
 	implant_overlay = null
 	implant_color = null
 	slot = "brain_antistun"
+	emp_proof = TRUE
 	actions_types = list(/datum/action/item_action/organ_action/toggle/sensory_enhancer)
 	origin_tech = "combat=6;biotech=6;syndicate=4"
 	///The icon state used for the on mob sprite. Default is sandy. Drask and vox have their own unique sprites
 	var/custom_mob_sprite = "sandy"
 	COOLDOWN_DECLARE(sensory_enhancer_cooldown)
+
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/rnd
+	emp_proof = FALSE
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/examine_more(mob/user)
 	. = ..()
@@ -354,6 +358,13 @@
 	var/mutable_appearance/our_MA = mutable_appearance('icons/mob/human_races/robotic.dmi', icon_state, layer = -INTORGAN_LAYER)
 	return our_MA
 
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/emp_act(severity)
+	if(COOLDOWN_FINISHED(src, sensory_enhancer_cooldown)) //Not on cooldown? Drug them up. Heavily. We don't want people self emping to bypass cooldown.
+		if(prob(100 / severity) && owner)
+			for(var/datum/action/item_action/organ_action/toggle/sensory_enhancer/SE in owner.actions)
+				SE.Trigger(FALSE, TRUE, TRUE)
+	. = ..()
+
 /datum/action/item_action/organ_action/toggle/sensory_enhancer
 	name = "Activate Qani-Laaca System"
 	desc = "Activates your Qani-Laaca computer and grants you its powers. LMB: Short, safer activation. ALT/MIDDLE: Longer, more powerful, more dangerous activation."
@@ -367,7 +378,7 @@
 /datum/action/item_action/organ_action/toggle/sensory_enhancer/AltTrigger()
 	Trigger(FALSE, TRUE)
 
-/datum/action/item_action/organ_action/toggle/sensory_enhancer/Trigger(left_click, attack_self)
+/datum/action/item_action/organ_action/toggle/sensory_enhancer/Trigger(left_click, attack_self, emp_triggered = FALSE)
 	. = ..()
 	if(istype(target, /obj/item/organ/internal/cyberimp/brain/sensory_enhancer))
 		var/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/ourtarget = target
@@ -381,6 +392,8 @@
 
 		if(!left_click)
 			injection_amount = 20
+		if(emp_triggered)
+			injection_amount = 40 //Time for a quick medical visit
 		Activate()
 
 
