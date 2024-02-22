@@ -44,8 +44,8 @@
 	female_sneeze_sound = 'sound/voice/shrieksneeze.ogg'
 
 	icon_skin_tones = list(
-		1 = "Default Green",
-		2 = "Dark Green",
+		1 = "Default Lime",
+		2 = "Plum",
 		3 = "Brown",
 		4 = "Grey",
 		5 = "Emerald",
