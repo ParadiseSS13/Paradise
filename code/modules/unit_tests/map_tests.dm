@@ -150,7 +150,7 @@
 /datum/map_per_tile_test/duplicate_cable_check
 
 /datum/map_per_tile_test/duplicate_cable_check/CheckTile(turf/T)
-	var/obj/structure/cable/cable locate() in T.contents
+	var/obj/structure/cable/cable = locate() in T.contents
 	for(var/obj/structure/cable/other_cable in T.contents)
 		if(cable == other_cable)
 			continue // same object, continue
