@@ -335,7 +335,7 @@
 		/obj/item/gun/medbeam = 1,
 		/obj/item/shield/energy = 1,
 		/obj/item/storage/box/syndie_kit/teleporter = 1,
-		/obj/item/weaponcrafting/gunkit/universal_gun_kit = 1,)
+		/obj/item/weaponcrafting/gunkit/universal_gun_kit = 1)
 
 
 // Layout-affecting spawns
