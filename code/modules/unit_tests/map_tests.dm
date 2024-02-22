@@ -141,7 +141,7 @@
 				Fail(T, "tile has an unconnected cable (d1 connection: [uppertext(dir2text(cable.d1))]).")
 
 		if(cable.d2 != 0)
-			var/turf/secondary = get_step(T, cable.d1)
+			var/turf/secondary = get_step(T, cable.d2)
 			for(var/obj/structure/cable/other_cable in secondary.contents)
 				if(reverse_direction(cable.d1) == other_cable.d1 || reverse_direction(cable.d1) == other_cable.d2)
 					return
