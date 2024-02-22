@@ -459,7 +459,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 		if(T.stat == DEAD)
 			continue
 		targets |= T // we use |= instead of += to avoid adding src to the list twice
-	var/mob/living/L = input("Choose a terror to watch.", "Selection") in targets
+	var/mob/living/L = tgui_input_list(src, "Choose a terror to watch.", "Brood Viewing", targets)
 	if(istype(L))
 		reset_perspective(L)
 
