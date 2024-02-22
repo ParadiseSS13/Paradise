@@ -1192,7 +1192,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		playsound(loc, to_drink.consume_sound, rand(10, 50), TRUE)
 	if(to_drink.reagents.total_volume)
 		taste(to_drink.reagents)
-		var/drink_size = min(to_drink.amount_per_transfer_from_this, 5)
+		var/drink_size = max(initial(to_drink.amount_per_transfer_from_this), 5)
 		if(drinksize_override)
 			drink_size = drinksize_override
 		to_drink.reagents.reaction(src, REAGENT_INGEST)

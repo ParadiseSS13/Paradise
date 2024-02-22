@@ -248,7 +248,7 @@
 				addtimer(CALLBACK(src, PROC_REF(recharge)), 30 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 3 SECONDS)
 
-	if(owner.HasDisease(new /datum/disease/critical/heart_failure(0)))
+	if(owner.HasDisease(/datum/disease/critical/heart_failure))
 		to_chat(owner, "<span class='warning'>Your [name] detects a cardiac event and attempts to return to its normal rhythm!</span>")
 		if(prob(40) && emagged)
 			attempted_restart = TRUE

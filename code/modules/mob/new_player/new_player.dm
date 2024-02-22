@@ -24,14 +24,11 @@
 		mind.current = null // We best null their mind as well, otherwise /every/ single new player is going to explode the server a little more going in/out of the round
 	return ..()
 
-/mob/new_player/verb/new_player_panel()
-	set src = usr
-
+/mob/new_player/proc/new_player_panel()
 	if(client.tos_consent || GLOB.configuration.system.external_tos_handler)
 		new_player_panel_proc()
 	else
 		privacy_consent()
-
 
 /mob/new_player/proc/privacy_consent()
 	var/output = GLOB.join_tos
@@ -48,7 +45,6 @@
 	popup.set_content(output)
 	popup.open(0)
 	return
-
 
 /mob/new_player/proc/new_player_panel_proc()
 	set waitfor = FALSE
@@ -180,9 +176,9 @@
 			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
 			return FALSE
 
-		if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
+		if(alert(usr, "Are you sure you wish to observe? You cannot normally join the round after doing this!", "Observe", "Yes", "No") == "Yes")
 			if(!client)
-				return 1
+				return TRUE
 			var/mob/dead/observer/observer = new(src)
 			src << browse(null, "window=playersetup")
 			spawning = TRUE
