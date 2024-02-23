@@ -325,7 +325,7 @@
 				if(H.mind)
 					H.mind.transfer_to(S)
 					var/list/messages = list()
-					messages.Add("<center><span class='userdanger'>You are now an animated statue.</span></center>")
+					messages.Add("<center><span class='userdanger'>You have been transformed into an animated statue.</span></center>")
 					messages.Add("<center>You cannot move when monitored, but are nearly invincible and deadly when unobserved! Hunt down those who shackle you.</center>")
 					messages.Add("<center>Do not harm [firer.name], your creator.</center>")
 					to_chat(S, chat_box_red(messages.Join("<br>")))
