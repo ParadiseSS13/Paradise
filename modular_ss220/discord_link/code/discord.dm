@@ -41,7 +41,7 @@
 		return
 
 	qdel(query_replace_token)
-	to_chat(usr, span_darkmblue("Для завершения, вставьте это: <br>") + span_boldannounce("/привязать token:[token]") + span_darkmblue("<br>В канал <b><a href='https://discord.com/channels/1097181193939730453/1162068725168623696'>#ss13-бот</a></b> в Discord-сообществе!"))
+	to_chat(usr, chat_box_notice(span_darkmblue("Для завершения, вставьте это: <br>") + span_good("<b>/привязать token:[token]</b>") + span_darkmblue("<br>В канал <b><a href='https://discord.com/channels/1097181193939730453/1162068725168623696'>#paradise-бот</a></b> в Discord-сообществе!<br>") + span_notice("<br>Чтобы канал открылся, вам необходимо перейти в <a href='https://discord.com/channels/1097181193939730453/1178197552013770752/1178209983452692590'>#выбор-роли</a> и получить роль '<b>Space Station 13 Paradise</b>'.")))
 
 /mob/new_player/Topic(href, href_list)
 	if(src != usr)
@@ -53,8 +53,7 @@
 	if(href_list["observe"] || href_list["ready"] || href_list["late_join"])
 		if(GLOB.configuration.database.enabled && GLOB.configuration.ss220_misc.force_discord_verification)
 			if(!client.prefs.discord_id || !(client.prefs.get_discord_id() && client.prefs.discord_id))
-				to_chat(usr, span_danger("Вам необходимо привязать дискорд-профиль к аккаунту!"))
-				to_chat(usr, span_warning("Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций."))
+				to_chat(usr, chat_box_red(span_danger("Вам необходимо привязать дискорд-профиль к аккаунту!<br>") + span_warning("<br>Перейдите во вкладку '<b>Special Verbs</b>', она справа сверху, и нажмите '<b>Привязка Discord</b>' для получения инструкций.")))
 				return FALSE
 
 	. = ..()
