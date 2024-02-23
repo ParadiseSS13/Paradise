@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/opened = FALSE
 	var/custom_panel = null
 	var/list/custom_panel_names = list("Cricket")
-	var/list/custom_eye_names = list("Cricket","Standard")
+	var/list/custom_eye_names = list("Cricket", "Standard")
 	var/emagged = 0
 	var/is_emaggable = TRUE
 	var/eye_protection = 0
@@ -396,7 +396,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Needles" = image('icons/mob/robots.dmi', "medicalrobot"),
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Medi"),
 				"Noble-MED" = image('icons/mob/robots.dmi', "Noble-MED"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MEDI")
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MEDI"),
+				"Qualified Doctor" = image('icons/mob/robots.dmi', "qualified_doctor")
 			)
 		if("Mining")
 			module_sprites = list(
