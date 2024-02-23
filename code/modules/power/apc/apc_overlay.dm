@@ -218,13 +218,6 @@
 		addtimer(CALLBACK(src, PROC_REF(flicker), TRUE), 1)
 		cut_overlays()
 		managed_overlays = null
-		// APC power distruptions have a chance to propogate to other machines on its network
-		for(var/obj/machinery/M in apc_area)
-			// Please don't cascade, thanks
-			if(M == src)
-				continue
-			if(prob(10))
-				M.flicker()
 	else
 		flick("apcemag", src) //Second time we cause the APC to update its icon, then add a timer to update icon later
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), TRUE), 10)
