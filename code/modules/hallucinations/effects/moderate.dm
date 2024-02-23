@@ -344,11 +344,7 @@
 /obj/effect/hallucination/stunprodding/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 
-	var/list/turfs = list()
-	for(var/turf/T in range(world.view, target))
-		turfs += T
-
-	var/turf/T = pick(turfs)
+	var/turf/T = pick(RANGE_TURFS(15, target))
 	target.playsound_local(T, 'sound/weapons/egloves.ogg', 25, TRUE)
 	target.playsound_local(T, get_sfx("bodyfall"), 25, TRUE)
 	target.playsound_local(T, "sparks", 50, TRUE)
@@ -371,7 +367,7 @@
 	. = ..()
 
 	var/list/turfs = list()
-	for(var/turf/T in range(world.view, target))
+	for(var/turf/T in RANGE_TURFS(15, target))
 		turfs += T
 
 	var/turf/T = pick(turfs)
@@ -406,12 +402,8 @@
 /obj/effect/hallucination/gunfire/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 
-	var/list/turfs = list()
-	for(var/turf/T in range(world.view, target))
-		turfs += T
-
-	var/turf/T = pick(turfs)
-	loc = T
+	var/turf/T = pick(RANGE_TURFS(15, target))
+	forceMove(T)
 
 	var/gun_sound = pick('sound/weapons/gunshots/gunshot_pistol.ogg', 'sound/weapons/gunshots/gunshot_strong.ogg')
 	var/scream_sound = pick('sound/goonstation/voice/female_scream.ogg', 'sound/goonstation/voice/male_scream.ogg')
