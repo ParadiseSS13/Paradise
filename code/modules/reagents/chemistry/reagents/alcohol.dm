@@ -1570,9 +1570,9 @@
 	var/min_achievable_temp = 250
 
 /datum/reagent/consumable/ethanol/ahdomai_eclipse/on_mob_life(mob/living/M)
+	. = ..()
 	if(istajaran(M) && M.bodytemperature > min_achievable_temp)
 		M.bodytemperature = max(min_achievable_temp, M.bodytemperature - (50 * TEMPERATURE_DAMAGE_COEFFICIENT))
-	return ..()
 
 
 /datum/reagent/consumable/ethanol/beach_feast
