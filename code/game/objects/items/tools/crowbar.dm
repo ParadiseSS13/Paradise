@@ -114,8 +114,8 @@
 
 /obj/item/crowbar/cyborg/red
 	name = "emergency hydraulic crowbar"
+	desc = "A hydraulic prying tool, compact but powerful. Supplied to non-construction cyborgs primaraly to allow them to pry open airlocks during power outages."
 	icon_state = "crowbar_red"
-	desc = "A hydraulic prying tool, compact but powerful. Supplied to non-construction cyborgs primarally to allow them to pry open airlocks during power outages."
 
 /obj/item/crowbar/power
 	name = "jaws of life"
