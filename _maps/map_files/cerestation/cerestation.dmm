@@ -34571,19 +34571,6 @@
 "dGU" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/starboardsolar/aft)
-"dGX" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
 "dHa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/wall,
@@ -111084,7 +111071,7 @@ cSU
 ubY
 dlf
 doL
-dGX
+bTL
 mxF
 fGA
 goV
