@@ -27,7 +27,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PrizeCounter", name)
-		ui.autoupdate = FALSE
+		ui.set_autoupdate(FALSE)
 		ui.open()
 
 /obj/machinery/prize_counter/ui_assets(mob/user)
