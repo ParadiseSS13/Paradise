@@ -192,6 +192,10 @@ SUBSYSTEM_DEF(jobs)
 			Debug("GRJ player not enough playtime, Player: [player]")
 			continue
 
+		if(!job.is_donor_allowed(player.client))	// SS220 ADD - Donor Jobs
+			Debug("DO player not enough donor level, Player: [player], Job:[job.title]")
+			continue
+
 		if(job.barred_by_disability(player.client))
 			Debug("GRJ player has disability rendering them ineligible for job, Player: [player]")
 			continue
@@ -377,6 +381,10 @@ SUBSYSTEM_DEF(jobs)
 
 				if(job.get_exp_restrictions(player.client))
 					Debug("DO player not enough playtime, Player: [player], Job:[job.title]")
+					continue
+
+				if(!job.is_donor_allowed(player.client))	// SS220 ADD - Donor Jobs
+					Debug("DO player not enough donor level, Player: [player], Job:[job.title]")
 					continue
 
 				if(job.barred_by_disability(player.client))
