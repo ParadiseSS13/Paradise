@@ -366,12 +366,8 @@
 /obj/effect/hallucination/energy_sword/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 
-	var/list/turfs = list()
-	for(var/turf/T in RANGE_TURFS(15, target))
-		turfs += T
-
-	var/turf/T = pick(turfs)
-	loc = T
+	var/turf/T = pick(RANGE_TURFS(15, target))
+	forceMove(T)
 	target.playsound_local(T, 'sound/weapons/saberon.ogg', 20, TRUE)
 
 	var/scream_sound = pick('sound/goonstation/voice/female_scream.ogg', 'sound/goonstation/voice/male_scream.ogg')
