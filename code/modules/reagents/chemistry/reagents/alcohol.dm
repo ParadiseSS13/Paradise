@@ -1574,7 +1574,6 @@
 	if(istajaran(M) && M.bodytemperature > min_achievable_temp)
 		M.bodytemperature = max(min_achievable_temp, M.bodytemperature - (50 * TEMPERATURE_DAMAGE_COEFFICIENT))
 
-
 /datum/reagent/consumable/ethanol/beach_feast
 	name = "Feast by the Beach"
 	id = "beachfeast"
