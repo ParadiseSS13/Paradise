@@ -15,7 +15,6 @@ BONUS
 */
 
 /datum/symptom/hair
-
 	name = "Cranial Hypertrichosis"
 	stealth = -3
 	resistance = -1
@@ -47,4 +46,3 @@ BONUS
 					else //Otherwise, give them a random hair style.
 						head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
 					H.update_hair()
-	return
