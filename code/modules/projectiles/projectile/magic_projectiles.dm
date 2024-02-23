@@ -324,8 +324,11 @@
 				S.icon = change.icon
 				if(H.mind)
 					H.mind.transfer_to(S)
-					to_chat(S, "<span class='warning'>You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved!</span>")
-					to_chat(S, "<span class='userdanger'>Do not harm [firer.name], your creator.</span>")
+					var/list/messages = list()
+					messages.Add("<center><span class='userdanger'>You are now an animated statue.</span></center>")
+					messages.Add("<center>You cannot move when monitored, but are nearly invincible and deadly when unobserved!</center>")
+					messages.Add("<center>Do not harm [firer.name], your creator.</center>")
+					to_chat(S, chat_box_red(messages.Join("<br>")))
 				H = change
 				H.loc = S
 				qdel(src)
