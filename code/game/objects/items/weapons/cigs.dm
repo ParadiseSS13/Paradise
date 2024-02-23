@@ -311,7 +311,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/cigar/havana
 	name = "Premium Havanian Cigar"
-	desc = "A cigar fit for only the best for the best."
+	desc = "A cigar fit for only the besdsadsat for the best."
 	icon_state = "cigar2off"
 	icon_on = "cigar2on"
 	icon_off = "cigar2off"
