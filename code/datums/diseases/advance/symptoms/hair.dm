@@ -2,7 +2,7 @@
 //////////////////////////////////////
 Cranial Hypertrichosis
 
-	Very very Noticable.
+	Very very Noticeable.
 	Decreases resistance slightly.
 	Decreases stage speed.
 	Reduced transmittability
@@ -26,10 +26,9 @@ BONUS
 /datum/symptom/hair/Activate(datum/disease/advance/A)
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
-		if(!ishuman(M))
+		if(!ishuman(A.affected_mob))
 			return
-		var/mob/living/carbon/human/H = M
+		var/mob/living/carbon/human/H = A.affected_mob
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		if(!istype(head_organ))
 			return
@@ -37,7 +36,6 @@ BONUS
 			if(1, 3)
 				to_chat(H, "<span class='warning'>Your scalp itches.</span>")
 				head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
-				H.update_hair()
 			else
 				to_chat(H, "<span class='warning'>Hair bursts forth from your scalp!</span>")
 				var/datum/sprite_accessory/tmp_hair_style = GLOB.hair_styles_full_list["Very Long Hair"]
@@ -46,4 +44,4 @@ BONUS
 					head_organ.h_style = "Very Long Hair"
 				else //Otherwise, give them a random hair style.
 					head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
-				H.update_hair()
+		H.update_hair()
