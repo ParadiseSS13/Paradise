@@ -199,7 +199,7 @@
 /obj/item/storage/box/syndie_kit/bundle/ocelot // 170 TC + combat knife + outfit
 	name = "Ocelot Bundle"
 	desc = "Get pretty good with two revolvers, two speedloaders, and a backup combat knife."
-	items = list( //Holocigar intentionally excluded from this bundle, work with a human traitor if you want it!
+	items = list(
 		/obj/item/kitchen/knife/combat, // 0 TC but very robust
 		/obj/item/gun/projectile/revolver,  // 65 TC
 		/obj/item/gun/projectile/revolver,  // 65 TC
