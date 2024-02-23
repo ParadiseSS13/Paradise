@@ -1569,10 +1569,9 @@
 	taste_description = "ice"
 
 /datum/reagent/consumable/ethanol/ahdomai_eclipse/on_mob_life(mob/living/M)
-	if(!istajaran(M))
-		return ..()
-	if(M.bodytemperature > 250)
+	if(istajaran(M) && M.bodytemperature > 250)
 		M.bodytemperature = max(250, M.bodytemperature - (50 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	return ..()
 
 
 /datum/reagent/consumable/ethanol/beach_feast
