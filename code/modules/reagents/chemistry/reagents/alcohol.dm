@@ -1567,10 +1567,11 @@
 	drink_name = "Ahdomai's Eclipse"
 	drink_desc = "Blizzard in a glass. Tajaran signature drink!"
 	taste_description = "ice"
+	var/min_achievable_temp = 250
 
 /datum/reagent/consumable/ethanol/ahdomai_eclipse/on_mob_life(mob/living/M)
-	if(istajaran(M) && M.bodytemperature > 250)
-		M.bodytemperature = max(250, M.bodytemperature - (50 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	if(istajaran(M) && M.bodytemperature > min_achievable_temp)
+		M.bodytemperature = max(min_achievable_temp, M.bodytemperature - (50 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	return ..()
 
 
