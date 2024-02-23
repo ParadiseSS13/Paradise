@@ -75,7 +75,8 @@
 		"Dark Lord" = /obj/item/storage/box/syndie_kit/bundle/darklord,
 		"Sniper" = /obj/item/storage/box/syndie_kit/bundle/professional,
 		"Grenadier" = /obj/item/storage/box/syndie_kit/bundle/grenadier,
-		"Augmented" = /obj/item/storage/box/syndie_kit/bundle/metroid)
+		"Augmented" = /obj/item/storage/box/syndie_kit/bundle/metroid,
+		"Ocelot" = /obj/item/storage/box/syndie_kit/bundle/ocelot)
 	var/list/selected = list()
 	var/list/unselected = list()
 
