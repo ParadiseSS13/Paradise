@@ -25,6 +25,8 @@ SUBSYSTEM_DEF(jobs)
 	var/late_arrivals_spawning = FALSE
 	/// Do we spawn people drunkenly due to the party last night?
 	var/drunken_spawning = FALSE
+	/// A list of minds that have failed to roll antagonist. Cleared when job selection finishes.
+	var/list/failed_head_antag_roll = list()
 
 /datum/controller/subsystem/jobs/Initialize()
 	if(!length(occupations))
@@ -154,9 +156,9 @@ SUBSYSTEM_DEF(jobs)
 			continue
 		if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 			if(player.mind.special_role && player.mind && (job.title in SSticker.mode.single_antag_positions)) //We want to check if they want the job, before rolling the prob chance
-				if(player.mind.failed_head_antag_roll || !prob(probability_of_antag_role_restriction))
+				if((player.mind in SSjobs.failed_head_antag_roll) || !prob(probability_of_antag_role_restriction))
 					Debug("FOC Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
-					player.mind.failed_head_antag_roll = TRUE
+					SSjobs.failed_head_antag_roll |= player.mind
 					continue
 				else
 					probability_of_antag_role_restriction /= 10
@@ -203,9 +205,9 @@ SUBSYSTEM_DEF(jobs)
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
 		if(player.mind.special_role && player.mind && (job.title in SSticker.mode.single_antag_positions))
-			if(player.mind.failed_head_antag_roll || !prob(probability_of_antag_role_restriction))
+			if((player.mind in SSjobs.failed_head_antag_roll) || !prob(probability_of_antag_role_restriction))
 				Debug("GRJ Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
-				player.mind.failed_head_antag_roll = TRUE
+				SSjobs.failed_head_antag_roll |= player.mind
 				continue
 			else
 				probability_of_antag_role_restriction /= 10
@@ -395,9 +397,9 @@ SUBSYSTEM_DEF(jobs)
 					// If the job isn't filled
 					if(job.is_spawn_position_available())
 						if(player.mind.special_role && player.mind && (job.title in SSticker.mode.single_antag_positions)) //We want to check if they want the job, before rolling the prob chance
-							if(player.mind.failed_head_antag_roll || !prob(probability_of_antag_role_restriction))
+							if((player.mind in SSjobs.failed_head_antag_roll) || !prob(probability_of_antag_role_restriction))
 								Debug("DO Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
-								player.mind.failed_head_antag_roll = TRUE
+								SSjobs.failed_head_antag_roll |= player.mind
 								continue
 							else
 								probability_of_antag_role_restriction /= 10
@@ -437,6 +439,7 @@ SUBSYSTEM_DEF(jobs)
 			unassigned -= player
 
 	log_debug("Dividing Occupations took [stop_watch(watch)]s")
+	failed_head_antag_roll = list()
 	return TRUE
 
 /datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE)

@@ -53,9 +53,6 @@
 	/// Tracks if this mind has been a rev or not
 	var/has_been_rev = FALSE
 
-	/// Tracks when they fail the probability of head antagonist, so they don't get multiple rolls.
-	var/failed_head_antag_roll = FALSE
-
 	var/miming = 0 // Mime's vow of silence
 	/// A list of all the antagonist datums that the player is (does not include undatumized antags)
 	var/list/antag_datums
