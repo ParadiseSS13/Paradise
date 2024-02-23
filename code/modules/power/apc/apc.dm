@@ -1085,14 +1085,14 @@
 /obj/machinery/power/apc/critical
 	cell_type = 25000
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 24)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, 24)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate/off, 24)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/important, 24)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/critical, 24)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/off_station, 24)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/off_station/empty_charge, 24)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/worn_out, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate/off, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/important, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/critical, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/off_station, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/off_station/empty_charge, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/worn_out, 24, 24)
 
 
 /obj/item/apc_electronics
