@@ -5,7 +5,3 @@
 /datum/keybinding/living/resist
 	name = "Сопротивляться"
 	keys = list("B")
-
-/datum/keybinding/living/whisper
-	name = "Шептать"
-	keys = list("ShiftT")
