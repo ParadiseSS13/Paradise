@@ -334,7 +334,7 @@
 	cost = 500
 	containername = "pneumatic pepper rifles pack"
 
-/datum/supply_packs/security/armory/beretta
+/datum/supply_packs/security/armory/pneumapepperballs
 	name = "Pneumatic Pepper Rifle Ammunition Crate"
 	contains = list(/obj/item/ammo_box/magazine/pneuma/pepper,
 					/obj/item/ammo_box/magazine/pneuma/pepper,
