@@ -33,7 +33,7 @@ BONUS
 		if(!istype(head_organ))
 			return
 		switch(A.stage)
-			if(1, 3)
+			if(1, 2, 3)
 				to_chat(H, "<span class='warning'>Your scalp itches.</span>")
 				head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
 			else
