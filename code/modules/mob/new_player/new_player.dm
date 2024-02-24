@@ -24,12 +24,11 @@
 		mind.current = null // We best null their mind as well, otherwise /every/ single new player is going to explode the server a little more going in/out of the round
 	return ..()
 
-/mob/new_player/verb/new_player_panel()
+/mob/new_player/proc/new_player_panel()
 	if(client.tos_consent || GLOB.configuration.system.external_tos_handler)
 		new_player_panel_proc()
 	else
 		privacy_consent()
-
 
 /mob/new_player/proc/privacy_consent()
 	var/output = GLOB.join_tos
@@ -46,7 +45,6 @@
 	popup.set_content(output)
 	popup.open(0)
 	return
-
 
 /mob/new_player/proc/new_player_panel_proc()
 	set waitfor = FALSE
