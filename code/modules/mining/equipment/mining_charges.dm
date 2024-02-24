@@ -32,7 +32,7 @@
 	if(!ismineralturf(AM) && !hacked)
 		return
 	if(is_ancient_rock(AM) && !hacked)
-		visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		to_chat(user, "<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
 		return
 	if(!timer_off) //override original proc for plastic explosions
 		return ..()
@@ -82,15 +82,14 @@
 			rock.mineralAmt += 3 // if rock is going to get drilled, add bonus mineral amount
 			rock.gets_drilled()
 	for(var/mob/living/carbon/C in circlerange(location, boom_sizes[3]))
-		if(ishuman(C)) //working on everyone
-			var/distance = get_dist_euclidian(location, C)
-			C.flash_eyes()
-			C.Weaken((boom_sizes[2] - distance) * 1 SECONDS) //1 second for how close you are to center if you're in range
-			C.AdjustDeaf((boom_sizes[3] - distance) * 5 SECONDS) //guaranteed deafness
-			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
-			if(istype(ears) && C.check_ear_prot() < HEARING_PROTECTION_MINOR) //headsets should be enough to avoid taking damage
-				ears.receive_damage((boom_sizes[3] - distance) * 2) //something like that i guess. Mega charge makes 12 damage to ears if nearby
-			to_chat(C, "<span class='userwarning'>You are knocked down by the power of the mining charge!</span>")
+		var/distance = get_dist_euclidian(location, C)
+		C.flash_eyes()
+		C.Weaken((boom_sizes[2] - distance) * 1 SECONDS) //1 second for how close you are to center if you're in range
+		C.AdjustDeaf((boom_sizes[3] - distance) * 5 SECONDS) //guaranteed deafness
+		var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
+		if(istype(ears) && C.check_ear_prot() < HEARING_PROTECTION_MINOR) //headsets should be enough to avoid taking damage
+			ears.receive_damage((boom_sizes[3] - distance) * 2) //something like that i guess. Mega charge makes 12 damage to ears if nearby
+		to_chat(C, "<span class='userwarning'>You are knocked down by the power of the mining charge!</span>")
 	qdel(src)
 
 /obj/item/grenade/plastic/miningcharge/proc/explode() //c4 code
@@ -107,9 +106,6 @@
 	if(location)
 		explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3], cause = src)
 		location.ex_act(2, target)
-	if(ismob(target))
-		var/mob/M = target
-		M.gib()
 	qdel(src)
 
 /obj/item/grenade/plastic/miningcharge/proc/override_safety()
@@ -149,9 +145,11 @@
 //MINING CHARGE HACKER
 
 /obj/item/t_scanner/adv_mining_scanner/syndicate
-	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. This scanner has an extra port for overriding mining charge safeties."
-
 	var/charges = 6
+
+/obj/item/t_scanner/adv_mining_scanner/syndicate/examine(mob/user)
+	. = ..()
+	. += "This scanner has an extra port for overriding mining charge safeties."
 
 /obj/item/t_scanner/adv_mining_scanner/syndicate/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!istype(target, /obj/item/grenade/plastic/miningcharge))
