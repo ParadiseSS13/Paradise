@@ -211,7 +211,7 @@
 			wires.cut_random()
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 /mob/living/simple_animal/bot/mulebot/Topic(href, list/href_list)
 	if(..())
 		return 1
@@ -281,7 +281,7 @@
 		if("report")
 			report_delivery = !report_delivery
 	update_controls()
-
+*/
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -289,10 +289,10 @@
 	if(!open)
 		ui_interact(user)
 	else
-		if(!isAI(user))
-			wires.Interact(user)
-		else
+		if(isAI(user))
 			to_chat(user, "<span class='warning'>The bot is in maintenance mode and cannot be controlled</span>")
+		else
+			wires.Interact(user)
 
 /mob/living/simple_animal/bot/mulebot/ui_state(mob/user)
 	return GLOB.default_state
@@ -307,13 +307,12 @@
 	var/list/data = ..()
 	data["mode"] = mode
 	data["load"] = load ? load.name : "None"
-	data["destination"] = destination ? destination : "None"
 	data["cell"] = cell ? cell.percent() : 0
 	data["auto_pickup"]  = auto_pickup
 	data["auto_return"] = auto_return
 	data["report"] = report_delivery
+	data["destination"] = destination ? destination : "None"
 //	data[""] =
-
 
 
 /mob/living/simple_animal/bot/mulebot/ui_act(action, params, datum/tgui/ui)
@@ -330,23 +329,47 @@
 			if(on)
 				turn_off()
 			else if(cell && !open)
-				if(!turn_on())
+				if(turn_on())
+					visible_message("[usr] switches [on ? "on" : "off"] [src].")
+				else
 					to_chat(usr, "<span class='warning'>You can't switch on [src]!</span>")
-				visible_message("[usr] switches [on ? "on" : "off"] [src].")
 		if("hack")
 			handle_hacking(usr)
 		if("disableremote")
 			remote_disabled = !remote_disabled
-		if("destination")
-			var/new_dest = tgui_input_list(usr, "Enter Destination:", name, GLOB.deliverybeacontags)
-			if(new_dest)
-				set_destination(new_dest)
 		if("auto_pickup")
 			auto_pickup = !auto_pickup
 		if("auto_return")
 			auto_return = !auto_return
-
-
+		if("report")
+			report_delivery = !report_delivery
+		if("stop")
+			if(mode >= BOT_DELIVER)
+				bot_reset()
+		if("go")
+			if(mode == BOT_IDLE)
+				start()
+		if("home")
+			if(mode == BOT_IDLE || mode == BOT_DELIVER)
+				start_home()
+		if("destination")
+			var/new_dest = tgui_input_list(usr, "Enter Destination:", name, GLOB.deliverybeacontags)
+			if(new_dest)
+				set_destination(new_dest)
+		if("setid")
+			var/new_id = tgui_input_text(usr, "Enter ID:", name, suffix, MAX_NAME_LEN)
+			if(new_id)
+				set_suffix(new_id)
+		if("sethome")
+			var/new_home = tgui_input_list(usr, "Enter Home:", name, GLOB.deliverybeacontags)
+			if(new_home)
+				home_destination = new_home
+		if("unload")
+			if(load && mode != BOT_HUNT)
+				if(loc == target)
+					unload(loaddir)
+				else
+					unload(0)
 
 
 

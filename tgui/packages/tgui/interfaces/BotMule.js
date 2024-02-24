@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, LabeledList, Box, Section, Tabs, Stack } from '../components';
+import { Button, LabeledList, Box, Section, Tabs, Stack, NoticeBox } from '../components';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 
@@ -16,8 +16,9 @@ export const BotMule = (props, context) => {
         return 'Whoops!!';
     }
   };
+
   return (
-    <Window width={800} height={600}>
+    <Window width={500} height={500}>
       <Window.Content>
         <Stack fill vertical fillPositionedParent>
           <Stack.Item>
@@ -49,16 +50,59 @@ export const BotMule = (props, context) => {
 
 const MuleLoad = (props, context) => {
   const { act, data } = useBackend(context);
-  const { mode, load, destination, cell } = data;
+  const {
+    noaccess,
+    painame,
+    mode,
+    load,
+    destination,
+    cell,
+    auto_pickup,
+    auto_return,
+    stop,
+    go,
+    home,
+    setid,
+    sethome,
+    unload,
+  } = data;
   return (
-    <Window width={500} heiht={510}>
-      <Window.Content scrollable>
-        <Section>
-          <Box>
-            <LabeledList title="test">{cell}</LabeledList>
-          </Box>
-        </Section>
-      </Window.Content>
-    </Window>
+    <Section fill scrollable backgroundColor="transparent">
+      <Section title="Delivery Settings">
+        <Button
+          icon=""
+          content={destination ? "[destination]" : "Select Destination"}
+          selected={destination}
+          disabled={noaccess}
+          onClick={() => act('destination')}
+        />
+      </Section>
+      <Section title="Movement Settings">
+        <Stack direction="row">
+          <Button
+            icon="location-arrow"
+            content="Go"
+            selected={go}
+            disabled={noaccess}
+            onClick={() => act('go')}
+          />
+          <Button
+            icon="location-arrow"
+            content="Home"
+            selected={home}
+            disabled={noaccess}
+            onClick={() => act('home')}
+          />
+          <Button
+            icon="stop"
+            content="Stop"
+            selected={stop}
+            disabled={noaccess}
+            color="bad"
+            onClick={() => act('stop')}
+          />
+        </Stack>
+      </Section>
+    </Section>
   );
 };

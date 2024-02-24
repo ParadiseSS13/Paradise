@@ -29,7 +29,7 @@ export const BotStatus = (props, context) => {
               onClick={() => act('power')}
             />
           </LabeledList.Item>
-          {(autopatrol !== undefined) && (
+          {autopatrol !== undefined && (
             <LabeledList.Item label="Patrol">
               <Button.Checkbox
                 fluid
