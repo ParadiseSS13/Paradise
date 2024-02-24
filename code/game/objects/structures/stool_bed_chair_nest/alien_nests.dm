@@ -128,7 +128,6 @@
 		if(user.get_int_organ(/obj/item/organ/internal/alien/hivenode))
 			unbuckle_mob(M)
 			add_fingerprint(user)
-			return
 
 /obj/structure/bed/revival_nest/post_unbuckle_mob(mob/living/M)
 	STOP_PROCESSING(SSobj, src)
