@@ -6947,7 +6947,7 @@
 /area/mine/outpost/hallway/west)
 "CJ" = (
 /obj/machinery/power/apc{
-	dir = 1;
+	dir = 8;
 	name = "Labor Camp APC";
 	pixel_x = -24
 	},
@@ -8083,7 +8083,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc{
-	dir = 1;
+	dir = 8;
 	name = "Labor Camp APC";
 	pixel_x = -24
 	},
