@@ -1,7 +1,6 @@
 // ********* COMMON STATUS - GENERAL SETTINGS PAGE FOR BOTS *********
 import { useBackend } from '../../backend';
 import { Button, LabeledList, NoticeBox, Section, Box } from '../../components';
-
 export const BotStatus = (props, context) => {
   const { act, data } = useBackend(context);
   const {
@@ -30,7 +29,7 @@ export const BotStatus = (props, context) => {
               onClick={() => act('power')}
             />
           </LabeledList.Item>
-          {autopatrol !== null && (
+          {(autopatrol !== undefined) && (
             <LabeledList.Item label="Patrol">
               <Button.Checkbox
                 fluid
