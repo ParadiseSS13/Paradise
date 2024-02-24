@@ -518,6 +518,6 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha/working))
-		if(M.equipment.len<M.max_equip)
+		if(length(M.equipment) < M.max_equip)
 			return TRUE
 	return FALSE
