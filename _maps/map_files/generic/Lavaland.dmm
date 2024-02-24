@@ -4476,6 +4476,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/catwalk,
 /area/mine/laborcamp/security)
 "nW" = (
@@ -4692,6 +4697,16 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/catwalk,
 /area/mine/laborcamp/security)
 "pa" = (
@@ -5633,6 +5648,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/catwalk,
 /area/mine/laborcamp/security)
 "vM" = (
@@ -5830,6 +5850,7 @@
 /area/mine/outpost/hallway/east)
 "xa" = (
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp/security)
 "xg" = (
@@ -7045,6 +7066,10 @@
 "DC" = (
 /turf/simulated/wall,
 /area/mine/outpost/custodial)
+"DG" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
 "DO" = (
 /obj/machinery/door/airlock/glass{
 	name = "Labor Camp Library"
@@ -9031,6 +9056,14 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
+"QE" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/mine/laborcamp/security)
 "QF" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -14854,7 +14887,7 @@ od
 Cp
 Oy
 Oy
-xa
+QE
 oW
 xa
 Oy
@@ -15367,7 +15400,7 @@ px
 tE
 KU
 tE
-Zm
+DG
 wK
 SJ
 bk
