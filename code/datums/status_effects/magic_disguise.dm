@@ -34,6 +34,7 @@
 
 	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(remove_disguise))
 	RegisterSignal(owner, COMSIG_HUMAN_ATTACKED, PROC_REF(remove_disguise))
+	RegisterSignal(owner, COMSIG_ATOM_HITBY, PROC_REF(remove_disguise))
 
 /datum/status_effect/magic_disguise/on_remove()
 	owner.regenerate_icons()
