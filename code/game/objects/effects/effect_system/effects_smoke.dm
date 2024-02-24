@@ -171,7 +171,7 @@
 		for(var/obj/item/Item in T)
 			Item.extinguish()
 
-/datum/effect_system/smoke_spread/freezing/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, blasting = 0)
+/datum/effect_system/smoke_spread/freezing/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, blasting = FALSE)
 	..()
 	blast = blasting
 
