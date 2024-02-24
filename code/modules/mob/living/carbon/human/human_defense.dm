@@ -579,7 +579,7 @@ emp_act
 		skipcatch = TRUE
 		blocked = TRUE
 
-	else if(mind.martial_art?.try_deflect(src))
+	else if(mind?.martial_art?.try_deflect(src))
 		var/obj/item/TT = AM
 		var/direction = pick(GLOB.alldirs)
 		var/turf/target = get_turf(src)
