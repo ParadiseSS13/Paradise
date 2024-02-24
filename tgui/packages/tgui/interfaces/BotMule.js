@@ -71,7 +71,7 @@ const MuleLoad = (props, context) => {
       <Section title="Delivery Settings">
         <Button
           icon=""
-          content={destination ? "[destination]" : "Select Destination"}
+          content={destination ? destination : "Select Destination"}
           selected={destination}
           disabled={noaccess}
           onClick={() => act('destination')}

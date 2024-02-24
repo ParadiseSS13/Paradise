@@ -311,7 +311,7 @@
 	data["auto_pickup"]  = auto_pickup
 	data["auto_return"] = auto_return
 	data["report"] = report_delivery
-	data["destination"] = destination ? destination : "None"
+	data["destination"] = destination
 //	data[""] =
 
 
