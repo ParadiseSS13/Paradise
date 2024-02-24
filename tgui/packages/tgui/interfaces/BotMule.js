@@ -1,5 +1,13 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, LabeledList, Box, Section, Tabs, Stack, NoticeBox } from '../components';
+import {
+  Button,
+  LabeledList,
+  Box,
+  Section,
+  Tabs,
+  Stack,
+  NoticeBox,
+} from '../components';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 
@@ -71,7 +79,7 @@ const MuleLoad = (props, context) => {
       <Section title="Delivery Settings">
         <Button
           icon=""
-          content={destination ? destination : "Select Destination"}
+          content={destination ? destination : 'Select Destination'}
           selected={destination}
           disabled={noaccess}
           onClick={() => act('destination')}
