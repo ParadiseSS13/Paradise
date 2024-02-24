@@ -40,8 +40,8 @@
 		return
 	if(iscarbon(AM))
 		return
-	to_chat(user, "<span class='notice'>You start planting the [src].</span>")
-	if(do_after(user, 25 * toolspeed, target = AM))
+	to_chat(user, "<span class='notice'>You start planting [src].</span>")
+	if(do_after(user, (2.5 SECONDS) * toolspeed, target = AM))
 		if(!user.unEquip(src))
 			return
 		target = AM
@@ -59,7 +59,7 @@
 	if(!(src in detonator.bombs) && !timer_off)
 		detonator.bombs += src
 		timer_off = TRUE
-		to_chat(user, "<span class='notice'>You synchronized [src] to a detonator.</span>")
+		to_chat(user, "<span class='notice'>You synchronize [src] to [I].</span>")
 		playsound(src, 'sound/machines/twobeep.ogg', 50)
 		detonator.update_icon()
 	else
@@ -76,7 +76,6 @@
 	var/datum/effect_system/smoke_spread/S = new
 	S.set_up(smoke_amount, 0, location, null)
 	S.start()
-	//location.attempt_drill(null,TRUE,3) //Ru-paradise uses special hardness system - some rocks can be destroyed only after 2 or 3 hits. It stays here as the reminder that ss220 lavaland is better.
 	for(var/turf/simulated/mineral/rock in circlerangeturfs(location, boom_sizes[3]))
 		var/distance = get_dist_euclidian(location, rock)
 		if(distance <= boom_sizes[3])
@@ -211,5 +210,5 @@
 				charge.detonate()
 				update_icon()
 	else
-		to_chat(user, "<span class='warning'>There is no charges linked to a detonator!</span>")
+		to_chat(user, "<span class='warning'>There are no charges linked to a detonator!</span>")
 	return ..()
