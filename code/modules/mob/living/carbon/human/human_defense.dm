@@ -586,7 +586,7 @@ emp_act
 		for(var/i in 1 to rand(6, 10))
 			target = get_step(target, direction)
 		addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), target, 10, 4, src), 0.2 SECONDS) //Timer set to 0.2 seconds to ensure item finishes the throwing to prevent double embeds
-		return FALSE
+		return TRUE
 
 	else if(I)
 		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold)
