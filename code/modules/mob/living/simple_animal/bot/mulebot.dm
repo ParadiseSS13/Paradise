@@ -98,20 +98,11 @@
 
 /mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
 	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
-		if(!user.drop_item())
-			return
-		var/obj/item/stock_parts/cell/C = I
-		C.forceMove(src)
-		cell = C
-		visible_message("[user] inserts a cell into [src].",
-						"<span class='notice'>You insert the new cell into [src].</span>")
-		update_controls()
-	else if(istype(I, /obj/item/crowbar) && open && cell)
-		cell.add_fingerprint(usr)
-		cell.forceMove(loc)
-		cell = null
-		visible_message("[user] crowbars out the power cell from [src].",
-						"<span class='notice'>You pry the powercell out of [src].</span>")
+		cell_insert(user)
+
+	if(istype(I, /obj/item/crowbar) && open && cell)
+		cell_remove(user)
+
 		update_controls()
 	else if(istype(I, /obj/item/wrench))
 		if(health < maxHealth)
@@ -137,6 +128,33 @@
 		..()
 	update_icon()
 	return
+
+/mob/living/simple_animal/bot/mulebot/proc/cell_insert(obj/item/I, mob/user)
+	if(!user.drop_item())
+		return
+	var/obj/item/stock_parts/cell/C = I
+	C.forceMove(src)
+	cell = C
+	visible_message("[user] inserts a cell into [src].",
+					"<span class='notice'>You insert the new cell into [src].</span>")
+	return
+
+/mob/living/simple_animal/bot/mulebot/proc/cell_remove(obj/item/I, mob/user)
+	cell.add_fingerprint(usr)
+	cell.forceMove(loc)
+	cell = null
+	visible_message("[user] crowbars out the power cell from [src].",
+					"<span class='notice'>You pry the powercell out of [src].</span>")
+	return
+
+/mob/living/simple_animal/bot/mulebot/proc/toggle_lock(mob/user)
+	if(allowed(user))
+		locked = !locked
+		update_controls()
+		return TRUE
+	else
+		to_chat(user, "<span class='danger'>Access denied.</span>")
+		return FALSE
 
 /mob/living/simple_animal/bot/mulebot/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -192,6 +210,8 @@
 		if(prob(25))
 			visible_message("<span class='danger'>Something shorts out inside [src]!</span>")
 			wires.cut_random()
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /mob/living/simple_animal/bot/mulebot/Topic(href, list/href_list)
 	if(..())
@@ -263,14 +283,61 @@
 			report_delivery = !report_delivery
 	update_controls()
 
-/mob/living/simple_animal/bot/mulebot/proc/toggle_lock(mob/user)
-	if(allowed(user))
-		locked = !locked
-		update_controls()
-		return 1
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/mob/living/simple_animal/bot/mulebot/show_controls(mob/user)
+	if(!open)
+		ui_interact(user)
 	else
-		to_chat(user, "<span class='danger'>Access denied.</span>")
-		return 0
+		if(!isAI(user))
+			wires.Interact(user)
+		else
+			to_chat(user, "<span class='warning'>The bot is in maintenance mode and cannot be controlled</span>")
+
+/mob/living/simple_animal/bot/mulebot/ui_state(mob/user)
+	return GLOB.default_state
+
+/mob/living/simple_animal/bot/mulebot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "BotMule", name)
+		ui.open()
+
+/mob/living/simple_animal/bot/mulebot/ui_data(mob/user)
+	var/list/data = ..()
+	data["mode"] = mode
+	data["load"] = load ? load.name : "None"
+	data["destination"] = destination ? destination : "None"
+	data["cell"] = cell ? cell.percent() : 0
+
+
+/mob/living/simple_animal/bot/mulebot/ui_act(action, params, datum/tgui/ui)
+	if(..())
+		return
+	var/mob/user = ui.user
+	if(topic_denied(user))
+		to_chat(user, "<span class='warning'>[src]'s interface is not responding!</span>")
+		return
+	add_fingerprint(user)
+	. = TRUE
+	switch(action)
+		if("power")
+			if(on)
+				turn_off()
+			else if(cell && !open)
+				if(!turn_on())
+					to_chat(usr, "<span class='warning'>You can't switch on [src]!</span>")
+				visible_message("[usr] switches [on ? "on" : "off"] [src].")
+		if("hack")
+			handle_hacking(usr)
+		if("disableremote")
+			remote_disabled = !remote_disabled
+		if("")
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TODO: remove this; PDAs currently depend on it
 /mob/living/simple_animal/bot/mulebot/get_controls(mob/user)
@@ -337,6 +404,7 @@
 
 	return dat
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // returns true if the bot has power
 /mob/living/simple_animal/bot/mulebot/proc/has_power()
