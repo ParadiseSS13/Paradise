@@ -27922,15 +27922,12 @@
 /turf/simulated/floor/greengrid,
 /area/station/turret_protected/ai)
 "bCW" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc/directional/north,
-/turf/simulated/floor/plasteel{
+/obj/machinery/light_switch{
 	dir = 8;
-	icon_state = "vault"
+	pixel_x = 24;
+	name = "east bump"
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai)
 "bCX" = (
 /obj/effect/landmark/start/ai,
@@ -27952,11 +27949,6 @@
 	},
 /obj/item/radio/intercom/custom{
 	pixel_y = 25
-	},
-/obj/machinery/newscaster/security_unit{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai)
@@ -28614,12 +28606,6 @@
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = -24
-	},
-/obj/machinery/door_control{
-	id = "AI-door";
-	name = "AI Entrance Blast Doors";
-	pixel_x = -24;
-	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -73115,6 +73101,14 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
+"icg" = (
+/obj/machinery/door_control{
+	id = "AI-door";
+	name = "AI Entrance Blast Doors";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/turret_protected/ai)
 "ici" = (
 /obj/machinery/economy/vending/tool,
 /obj/item/radio/intercom{
@@ -75643,6 +75637,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
+"jJu" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/turret_protected/ai)
 "jJI" = (
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the test chamber.";
@@ -89812,6 +89814,20 @@
 	icon_state = "neutralfull"
 	},
 /area/station/security/permabrig)
+"rZX" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/greengrid,
+/area/station/turret_protected/ai)
 "sab" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -94763,6 +94779,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
+"uKT" = (
+/obj/structure/table/reinforced,
+/obj/item/folder/blue,
+/obj/item/pen,
+/obj/machinery/newscaster/security_unit{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/turret_protected/ai)
 "uKV" = (
 /obj/machinery/light{
 	dir = 4
@@ -99613,10 +99640,10 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/ai_upload{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = -4;
-	pixel_y = 24
+/obj/machinery/power/apc/directional/north,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -108411,7 +108438,7 @@ btd
 bCT
 btd
 bzw
-bzD
+uKT
 bJR
 btd
 bNM
@@ -108923,7 +108950,7 @@ bxZ
 bzy
 bIh
 bCV
-bIh
+rZX
 bIh
 bIh
 bJS
@@ -109178,9 +109205,9 @@ btd
 bBg
 bye
 bzz
-bBf
+bCW
 bED
-bBf
+jJu
 bBf
 bgN
 bJT
@@ -109434,7 +109461,7 @@ btd
 byg
 bBf
 bye
-bBf
+icg
 btd
 btd
 xGg
@@ -110203,8 +110230,8 @@ brr
 btd
 btd
 btd
-bCW
-byd
+bBd
+bye
 bzA
 bBf
 bEF
