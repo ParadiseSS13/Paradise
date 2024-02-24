@@ -225,7 +225,7 @@
 			to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return
 		var/be_helper = tgui_alert(user, "Become a Lightgeist? (Warning, You can no longer be cloned!)", "Respawn", list("Yes","No"))
-		if(be_helper == "No")
+		if(be_helper != "Yes")
 			return
 		if(!loc || QDELETED(src) || QDELETED(user))
 			if(user)

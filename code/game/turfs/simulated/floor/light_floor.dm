@@ -47,6 +47,8 @@
 /turf/simulated/floor/light/attack_hand(mob/user)
 	if(!can_modify_colour)
 		return
+	if(user.a_intent != INTENT_HELP)
+		return
 	toggle_light(!on)
 
 /turf/simulated/floor/light/attackby(obj/item/C, mob/user, params)
