@@ -500,13 +500,13 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade
-	equip_cooldown = 2 SECONDS
 	name = "\improper \"Little boy\" Mining Grenade Launcher"
 	icon_state = "mecha_missilerack_six"
 	origin_tech = "combat=5;materials=4;engineering=4"
 	projectile = /obj/item/projectile/bullet/reusable/mining_bomb/mecha
 	fire_sound = 'sound/effects/bang.ogg'
 	energy_drain = 350 // cost A LOT, but powerful miner tool
+	equip_cooldown = 2 SECONDS
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade/action()
