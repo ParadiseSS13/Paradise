@@ -119,7 +119,7 @@
 
 	owner.bleed(BLOOD_VOLUME_NORMAL)
 	var/datum/organ/our_heart_datum = owner.get_int_organ_datum(ORGAN_DATUM_HEART)
-	var/obj/item/organ/internal/heart/our_heart = our_heart_datum.linked_organ
+	var/obj/item/organ/internal/our_heart = our_heart_datum.linked_organ
 	var/obj/item/organ/external/heart_location = owner.get_organ(our_heart.parent_organ)
 	owner.apply_damage(300, BRUTE, our_heart.parent_organ)
 	heart_location.fracture()
