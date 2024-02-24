@@ -52,6 +52,9 @@
 	if(HAS_TRAIT(carbon_target, TRAIT_XENO_HOST))
 		to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
 		return
+	if(!carbon_target.get_int_organ_datum(ORGAN_DATUM_HEART))
+		to_chat(src, "<span class='userdanger'>There's no heart for us to infest!</span>")
+		return
 	Infect(carbon_target)
 	to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
 	addtimer(CALLBACK(src, PROC_REF(death)), 25 SECONDS)
@@ -114,11 +117,13 @@
 		owner.gib()
 		return
 
-	owner.apply_damage(300, BRUTE, BODY_ZONE_CHEST)
 	owner.bleed(BLOOD_VOLUME_NORMAL)
-	var/obj/item/organ/external/chest = owner.get_organ(BODY_ZONE_CHEST)
-	chest.fracture()
-	chest.disembowel()
+	var/datum/organ/our_heart_datum = owner.get_int_organ_datum(ORGAN_DATUM_HEART)
+	var/obj/item/organ/internal/heart/our_heart = our_heart_datum.linked_organ
+	var/obj/item/organ/external/heart_location = owner.get_organ(our_heart.parent_organ)
+	owner.apply_damage(300, BRUTE, our_heart.parent_organ)
+	heart_location.fracture()
+	heart_location.disembowel(our_heart.parent_organ)
 
 #undef EGG_INCUBATION_DEAD_CYCLE
 #undef EGG_INCUBATION_LIVING_CYCLE

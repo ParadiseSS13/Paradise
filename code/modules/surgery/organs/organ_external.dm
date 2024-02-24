@@ -652,8 +652,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(disembowel("groin"))
 		return TRUE
 
-
-
 /obj/item/organ/external/attackby(obj/item/I, mob/user, params)
 	if(I.sharp)
 		add_fingerprint(user)
