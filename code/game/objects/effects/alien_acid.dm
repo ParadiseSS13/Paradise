@@ -24,7 +24,6 @@
 
 	START_PROCESSING(SSobj, src)
 
-
 /obj/effect/acid/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	target = null
@@ -67,6 +66,14 @@
 /obj/effect/acid/alien
 	var/target_strength = 30
 
+/obj/effect/acid/alien/Initialize(mapload, acid_pwr, acid_amt)
+	. = ..()
+	var/turf/cleanable_turf = get_turf(src)
+	RegisterSignal(cleanable_turf, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(remove_acid))
+
+/obj/effect/acid/alien/proc/remove_acid(datum/source)
+	SIGNAL_HANDLER
+	qdel(src)
 
 /obj/effect/acid/alien/process()
 	. = ..()
