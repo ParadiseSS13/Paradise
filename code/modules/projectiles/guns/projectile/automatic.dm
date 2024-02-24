@@ -323,7 +323,7 @@
 //Laser carbine//
 /obj/item/gun/projectile/automatic/lasercarbine
 	name = "\improper IK-M2 laser carbine"
-	desc = "A compact, Warp-Tec Industries twin barrelled carbine that uses disposable laser cartridges rather than an internal power cell. Utilized by the Nanotrasen response teams for combat operations."
+	desc = "A compact, Warp-Tac Industries twin barrelled carbine that uses disposable laser cartridges rather than an internal power cell. Utilized by the Nanotrasen response teams for combat operations."
 	icon_state = "lasercarbine"
 	item_state = "lasercarbine"
 	w_class = WEIGHT_CLASS_NORMAL
