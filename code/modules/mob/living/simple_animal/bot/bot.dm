@@ -565,13 +565,13 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return scan_result
 
 /mob/living/simple_animal/bot/proc/assign_bot(atom/A, avoid_bot)
-	if(!avoid_bot)
+	if(!avoid_bot) // Only bots with avoid bot should be considered
 		return FALSE
-	if(A.UID() in ignore_job)
+	if(A.UID() in ignore_job) // Is this target already claimed by a bot
 		return TRUE
-	claim_job(A)
+	claim_job(A) // Claim the job so other bots don't come
 
-/mob/living/simple_animal/bot/proc/claim_job(atom/A)
+/mob/living/simple_animal/bot/proc/claim_job(atom/A) // Adds the target to ignore list
 	var/ignore_amount = length(GLOB.bots_list) // 1 claim per bot
 	if(length(ignore_job) >= ++ignore_amount) // Something went wrong, cull the herd
 		ignore_job.Cut()
