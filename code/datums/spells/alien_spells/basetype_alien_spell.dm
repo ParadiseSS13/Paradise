@@ -20,8 +20,7 @@ Updates the spell's actions on use as well, so they know when they can or can't 
 /datum/spell/alien_spell
 	action_background_icon_state = "bg_alien"
 	clothes_req = FALSE
-	/// Extremely fast cooldown, only present so the cooldown system doesn't explode
-	base_cooldown = 1
+	base_cooldown = 0
 	create_attack_logs = FALSE
 	/// Every alien spell creates only logs, no attack messages on someone placing weeds, but you DO get attack messages on neurotoxin and corrosive acid
 	create_custom_logs = TRUE

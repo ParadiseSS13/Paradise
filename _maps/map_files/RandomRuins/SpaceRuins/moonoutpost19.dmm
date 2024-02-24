@@ -9476,13 +9476,9 @@
 /area/ruin/space/moonbase19)
 "JU" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/power/apc/off_station/empty_charge{
+/obj/machinery/power/apc/off_station/empty_charge/directional/north{
 	cell_type = 15000;
-	locked = 0;
-	name = "Outpost APC";
-	req_access = null;
-	pixel_y = 24;
-	dir = 1
+	locked = 0
 	},
 /obj/structure/cable{
 	d2 = 4;

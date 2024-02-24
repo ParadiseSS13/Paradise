@@ -666,12 +666,10 @@ emp_act
 				visible_message("<span class='warning'>[src] is not affected by [M]'s disarm attempt!</span>")
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				return FALSE
-			var/obj/item/I = get_active_hand()
-			if(I)
-				unEquip(I)
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			apply_effect(10 SECONDS, KNOCKDOWN, run_armor_check(affecting, MELEE))
+			M.changeNext_move(1.6 SECONDS)
 			apply_damage(M.alien_disarm_damage, STAMINA)
 			add_attack_logs(M, src, "Alien tackled")
 			visible_message("<span class='danger'>[M] has tackled down [src]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
