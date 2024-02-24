@@ -98,13 +98,12 @@
 
 /mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
 	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
-		cell_insert(user)
+		cell_insert(I, user)
 
 	if(istype(I, /obj/item/crowbar) && open && cell)
-		cell_remove(user)
+		cell_remove(I, user)
 
-		update_controls()
-	else if(istype(I, /obj/item/wrench))
+	if(istype(I, /obj/item/wrench))
 		if(health < maxHealth)
 			adjustBruteLoss(-25)
 			updatehealth()
@@ -310,6 +309,11 @@
 	data["load"] = load ? load.name : "None"
 	data["destination"] = destination ? destination : "None"
 	data["cell"] = cell ? cell.percent() : 0
+	data["auto_pickup"]  = auto_pickup
+	data["auto_return"] = auto_return
+	data["report"] = report_delivery
+//	data[""] =
+
 
 
 /mob/living/simple_animal/bot/mulebot/ui_act(action, params, datum/tgui/ui)
@@ -333,7 +337,17 @@
 			handle_hacking(usr)
 		if("disableremote")
 			remote_disabled = !remote_disabled
-		if("")
+		if("destination")
+			var/new_dest = tgui_input_list(usr, "Enter Destination:", name, GLOB.deliverybeacontags)
+			if(new_dest)
+				set_destination(new_dest)
+		if("auto_pickup")
+			auto_pickup = !auto_pickup
+		if("auto_return")
+			auto_return = !auto_return
+
+
+
 
 
 
