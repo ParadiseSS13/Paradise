@@ -706,3 +706,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		out_ckey = "(Disconnected)"
 
 	return out_ckey
+
+/// rounds value to limited symbols after the period for organ damage and other values
+/proc/round_health(health)
+	return round(health, 0.01)
