@@ -1028,7 +1028,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	return TRUE
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
-	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM)
+	SEND_SIGNAL(H, COMSIG_ATOM_HITBY, AM)
 	return
 
 /datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
