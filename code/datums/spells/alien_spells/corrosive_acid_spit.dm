@@ -32,7 +32,7 @@
 		to_chat(user, "<span class='noticealien'>You cannot dissolve this object.</span>")
 	..()
 
-/obj/effect/proc_holder/spell/touch/alien_spell/burning_touch
+/datum/spell/touch/alien_spell/burning_touch
 	name = "Blazing touch"
 	desc = "Boil acid within your hand to burn through anything you touch with it, deals a lot of damage to aliens and destroys resin structures instantly."
 	hand_path = "/obj/item/melee/touch_attack/alien/burning_touch"

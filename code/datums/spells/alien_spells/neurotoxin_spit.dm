@@ -35,7 +35,7 @@
 
 	return TRUE
 
-/obj/effect/proc_holder/spell/alien_spell/neurotoxin/death_to_xenos
+/datum/spell/alien_spell/neurotoxin/death_to_xenos
 	name = "Neurotoxin spit"
 	desc = "This ability allows you to fire some neurotoxin. Knocks aliens down."
 	neurotoxin_type = /obj/item/projectile/bullet/anti_alien_toxin

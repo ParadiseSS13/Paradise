@@ -61,7 +61,7 @@
 	origin_tech = "biotech=5;plasmatech=4"
 	slot = "plasmavessel"
 	alien_powers = list(/datum/spell/alien_spell/plant_weeds, /datum/spell/alien_spell/transfer_plasma)
-	human_powers = list(/obj/effect/proc_holder/spell/alien_spell/syphon_plasma)
+	human_powers = list(/datum/spell/alien_spell/syphon_plasma)
 
 	var/stored_plasma = 100
 	var/max_plasma = 300
@@ -131,7 +131,7 @@
 	slot = "acid"
 	origin_tech = "biotech=5;materials=2;combat=2"
 	alien_powers = list(/datum/spell/touch/alien_spell/corrosive_acid)
-	human_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/burning_touch)
+	human_powers = list(/datum/spell/touch/alien_spell/burning_touch)
 
 /obj/item/organ/internal/alien/hivenode
 	name = "xeno hive node"
@@ -161,7 +161,7 @@
 	slot = "neurotox"
 	origin_tech = "biotech=5;combat=5"
 	alien_powers = list(/datum/spell/alien_spell/neurotoxin)
-	human_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin/death_to_xenos)
+	human_powers = list(/datum/spell/alien_spell/neurotoxin/death_to_xenos)
 
 /obj/item/organ/internal/alien/resinspinner
 	name = "xeno resin organ"
@@ -169,7 +169,7 @@
 	slot = "spinner"
 	origin_tech = "biotech=5;materials=4"
 	alien_powers = list(/datum/spell/alien_spell/build_resin)
-	human_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/consume_resin)
+	human_powers = list(/datum/spell/touch/alien_spell/consume_resin)
 
 /obj/item/organ/internal/alien/eggsac
 	name = "xeno egg sac"
@@ -178,5 +178,5 @@
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=6"
 	alien_powers = list(/datum/spell/alien_spell/plant_weeds/eggs)
-	human_powers = list(/obj/effect/proc_holder/spell/alien_spell/combust_facehuggers)
+	human_powers = list(/datum/spell/alien_spell/combust_facehuggers)
 	cargo_profit = 1000

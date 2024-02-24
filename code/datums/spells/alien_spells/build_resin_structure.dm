@@ -39,7 +39,7 @@
 		if("Revival Nest")
 			new /obj/structure/bed/revival_nest(turf_to_spawn_at)
 
-/obj/effect/proc_holder/spell/touch/alien_spell/consume_resin
+/datum/spell/touch/alien_spell/consume_resin
 	name = "Consume resin structures"
 	desc = "Allows you to rip and tear straight through resin structures."
 	action_icon_state = "alien_resin"
