@@ -50502,9 +50502,6 @@
 /turf/simulated/floor/plating,
 /area/station/security/armory/secure)
 "jnI" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/turf_decal/stripes/asteroid/end{
 	dir = 1
 	},
@@ -50514,27 +50511,11 @@
 	},
 /obj/machinery/power/apc{
 	cell_type = 15000;
-	dir = 4;
 	name = "Cryo and Arrivals Super APC";
 	pixel_y = -24
 	},
 /obj/machinery/light/small{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/light/small,
-/obj/effect/turf_decal/stripes/asteroid/end{
-	dir = 1
-	},
-/obj/structure/cable/orange{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/directional/south,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -64650,9 +64631,6 @@
 	},
 /area/station/science/hallway)
 "nMK" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable/orange{
 	d2 = 8;
 	icon_state = "0-8"
@@ -64662,23 +64640,8 @@
 	},
 /obj/machinery/power/apc{
 	cell_type = 15000;
-	dir = 4;
 	name = "Cryo and Arrivals Super APC";
 	pixel_y = -24
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/power/apc/directional/south,
-/obj/structure/cable/orange{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -70575,9 +70538,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "pJE" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable/orange{
 	d2 = 4;
 	icon_state = "0-4"
@@ -70587,23 +70547,9 @@
 	},
 /obj/machinery/power/apc{
 	cell_type = 15000;
-	dir = 4;
+	dir = 8;
 	name = "Cryo and Arrivals Super APC";
 	pixel_x = -24
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/power/apc/directional/west,
-/obj/structure/cable/orange{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plating,
 /area/station/public/sleep/secondary)
@@ -91181,9 +91127,6 @@
 	},
 /area/station/hallway/secondary/entry/west)
 "wqY" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/cryopod{
 	dir = 2
 	},
@@ -91196,26 +91139,9 @@
 	},
 /obj/machinery/power/apc{
 	cell_type = 15000;
-	dir = 4;
 	name = "Cryo and Arrivals Super APC";
-	pixel_y = 24
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/cryopod{
-	dir = 2
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/power/apc/directional/north,
-/obj/structure/cable/orange{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
+	pixel_y = 24;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
