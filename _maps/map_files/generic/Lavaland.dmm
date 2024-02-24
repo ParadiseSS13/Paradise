@@ -4683,9 +4683,6 @@
 	},
 /area/mine/laborcamp)
 "oW" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Labor Camp Security"
 	},
@@ -4694,20 +4691,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/power/apc/directional/south,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/catwalk,
 /area/mine/laborcamp/security)
 "pa" = (
@@ -5381,9 +5365,6 @@
 /area/mine/laborcamp)
 "ua" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom/locked/prison{
-	pixel_x = 32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowsiding"
@@ -9116,31 +9097,6 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
-"Rf" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/power/apc/directional/north,
-/obj/machinery/computer/cryopod{
-	pixel_y = 38
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall/r_wall,
-/area/mine/laborcamp)
 "Rg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -17473,7 +17429,7 @@ kG
 ap
 ap
 DO
-Rf
+ap
 Iv
 qT
 ap
