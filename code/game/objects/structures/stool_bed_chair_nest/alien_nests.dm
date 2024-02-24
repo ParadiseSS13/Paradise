@@ -113,7 +113,7 @@
 
 /obj/structure/bed/revival_nest
 	name = "alien rejuvenation nest"
-	desc = "It's a gruesome pile of thick, sticky resin shaped like a flytrap. Heals damaged aliens and slowly revives the dead, breaks down non xenos."
+	desc = "It's a gruesome pile of thick, sticky resin shaped like a flytrap. Heals damaged aliens and slowly revives the dead."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "placeholder_rejuv_nest"
 	max_integrity = 30
@@ -125,30 +125,10 @@
 
 /obj/structure/bed/revival_nest/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
 	for(var/mob/living/M in buckled_mobs) //breaking a nest releases all the buckled mobs, because the nest isn't holding them down anymore
-		if(HAS_TRAIT(user, TRAIT_XENO_IMMUNE))
+		if(user.get_int_organ(/obj/item/organ/internal/alien/hivenode))
 			unbuckle_mob(M)
 			add_fingerprint(user)
 			return
-
-		if(M != user)
-			M.visible_message("<span class='notice'>[user] tears [M] out of the rejuvination pod!</span>",\
-				"<span class='notice'>[user] pulls you free from the rejuvination pod!</span>",\
-				"<span class='italics'>You hear squelching...</span>")
-		else
-			M.visible_message("<span class='warning'>[M] struggles to break free from the rejuvination pod!</span>",\
-				"<span class='notice'>You struggle to break free from the rejuvination pod... (Stay still for 15 seconds.)</span>",\
-				"<span class='italics'>You hear squelching...</span>")
-			if(!do_after(M, 15 SECONDS, target = src))
-				if(M && M.buckled)
-					to_chat(M, "<span class='warning'>You fail to escape \the [src]!</span>")
-				return
-			if(!M.buckled)
-				return
-			M.visible_message("<span class='warning'>[M] breaks free from the rejuvination pod!</span>",\
-				"<span class='notice'>You break free from the rejuvination pod!</span>",\
-				"<span class='italics'>You hear squelching...</span>")
-			unbuckle_mob(M)
-			add_fingerprint(user)
 
 /obj/structure/bed/revival_nest/post_unbuckle_mob(mob/living/M)
 	STOP_PROCESSING(SSobj, src)
@@ -157,24 +137,23 @@
 /obj/structure/bed/revival_nest/process()
 	for(var/mob/living/buckled_mob in buckled_mobs)
 		processing_ticks++
-		if(isalien(buckled_mob))
-			buckled_mob.adjustBruteLoss(-5)
-			buckled_mob.adjustFireLoss(-5)
-			buckled_mob.adjustToxLoss(-5)
-			buckled_mob.adjustOxyLoss(-5)
-			buckled_mob.adjustCloneLoss(-5)
-			for(var/datum/disease/virus in buckled_mob.viruses)
-				if(virus.stage < 1 && processing_ticks >= 4)
-					virus.cure()
-					processing_ticks = 0
-				if(virus.stage > 1 && processing_ticks >= 4)
-					virus.stage--
-					processing_ticks = 0
-			if(buckled_mob.stat == DEAD && !revive_or_decay_timer)
-				revive_or_decay_timer = addtimer(CALLBACK(src, PROC_REF(revive_dead_alien), buckled_mob), 40 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
-		else
-			buckled_mob.adjustBruteLoss(3)
-			buckled_mob.adjustFireLoss(3)
+		if(!buckled_mob.get_int_organ(/obj/item/organ/internal/alien/hivenode))
+			continue
+		buckled_mob.adjustBruteLoss(-5)
+		buckled_mob.adjustFireLoss(-5)
+		buckled_mob.adjustToxLoss(-5)
+		buckled_mob.adjustOxyLoss(-5)
+		buckled_mob.adjustCloneLoss(-5)
+		for(var/datum/disease/virus in buckled_mob.viruses)
+			if(virus.stage < 1 && processing_ticks >= 4)
+				virus.cure()
+				processing_ticks = 0
+			if(virus.stage > 1 && processing_ticks >= 4)
+				virus.stage--
+				processing_ticks = 0
+		if(buckled_mob.stat == DEAD && !revive_or_decay_timer && isalien(buckled_mob))
+			revive_or_decay_timer = addtimer(CALLBACK(src, PROC_REF(revive_dead_alien), buckled_mob), 40 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
+
 
 /obj/structure/bed/revival_nest/proc/revive_dead_alien(mob/living/carbon/alien/dead_alien)
 	dead_alien.revive()
@@ -211,6 +190,10 @@
 
 	if(has_buckled_mobs())
 		unbuckle_all_mobs()
+
+	if(!M.get_int_organ(/obj/item/organ/internal/alien/hivenode))
+		to_chat(user, "<span class='noticealien'>[src] would be of no use to [M].</span>")
+		return
 
 	if(buckle_mob(M))
 		M.visible_message("<span class='notice'>[user] secretes a thick vile goo, securing [M] into [src]!</span>",\
