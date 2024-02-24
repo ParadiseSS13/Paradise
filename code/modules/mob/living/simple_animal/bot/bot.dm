@@ -550,7 +550,6 @@ If avoid_bot = TRUE, it will claim it's target. List of bots that use it: Cleanb
 Example usage: patient = scan(/mob/living/carbon/human, oldpatient, 1)
 The proc would return a human next to the bot to be set to the patient var.
 Pass the desired type path itself, declaring a temporary var beforehand is not required.
-TRUE to skip target, FALSE for the next check
 */
 /mob/living/simple_animal/bot/proc/scan(atom/scan_type, atom/old_target, scan_range = DEFAULT_SCAN_RANGE, avoid_bot)
 	for(var/atom/A in view(scan_range, src)) // Search for something in range!
@@ -1161,6 +1160,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 	data["autopatrol"] = auto_patrol
 	data["painame"] = paicard ? paicard.pai.name : null
 	data["canhack"] = canhack(user)
-	data["emagged"] = emagged // This is an int, NOT a boolean
+	data["emagged"] = emagged
 	data["remote_disabled"] = remote_disabled
 	return data
