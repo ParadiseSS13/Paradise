@@ -173,8 +173,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 // This is its own proc so it can be modified in child types
 /obj/machinery/computer/general_air_control/proc/configure_sensors(mob/living/user, obj/item/multitool/M)
-	var/choice = alert(user, "Would you like to add or remove a sensor/meter", "Configuration", "Add", "Remove", "Cancel")
-	if((choice == "Cancel") || !Adjacent(user))
+	var/choice = tgui_alert(user, "Would you like to add or remove a sensor/meter", "Configuration", list("Add", "Remove", "Cancel"))
+	if(!choice || (choice == "Cancel") || !Adjacent(user))
 		return
 
 	switch(choice)
@@ -198,7 +198,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			if(!to_remove)
 				return
 
-			var/confirm = alert(user, "Are you sure you want to remove the sensor/meter '[to_remove]'?", "Warning", "Yes", "No")
+			var/confirm = tgui_alert(user, "Are you sure you want to remove the sensor/meter '[to_remove]'?", "Warning", list("Yes", "No"))
 			if((confirm != "Yes") || !Adjacent(user))
 				return
 
@@ -353,8 +353,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	return TRUE
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/configure_inlet(mob/living/user, obj/item/multitool/M)
-	var/choice = alert(user, "Would you like to add/replace the existing inlet or clear it?", "Configuration", "Add/Replace", "Clear", "Cancel")
-	if((choice == "Cancel") || !Adjacent(user))
+	var/choice = tgui_alert(user, "Would you like to add/replace the existing inlet or clear it?", "Configuration", list("Add/Replace", "Clear", "Cancel"))
+	if(!choice || (choice == "Cancel") || !Adjacent(user))
 		return
 
 	switch(choice)
@@ -389,8 +389,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/configure_outlet(mob/living/user, obj/item/multitool/M)
-	var/choice = alert(user, "Would you like to add/replace the existing outlet or clear it?", "Configuration", "Add/Replace", "Clear", "Cancel")
-	if((choice == "Cancel") || !Adjacent(user))
+	var/choice = tgui_alert(user, "Would you like to add/replace the existing outlet or clear it?", "Configuration", list("Add/Replace", "Clear", "Cancel"))
+	if(!choice || (choice == "Cancel") || !Adjacent(user))
 		return
 
 	switch(choice)
