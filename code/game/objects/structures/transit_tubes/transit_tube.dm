@@ -162,7 +162,7 @@
 	if(leaf == "flipped")
 		construction.flip()
 
-	to_chat(user, "<span class='notice'>You uninstall [src].</span>")
+	user.visible_message("<span class='notice'>[user] uninstalls [src].</span>")
 	qdel(src)
 
 /obj/structure/transit_tube/deconstruct(disassembled = TRUE)

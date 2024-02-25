@@ -340,7 +340,8 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 /// Pipe types for transit tubes.
 /datum/pipes/transit
 	pipe_type = PIPETYPE_TRANSIT
-	var/obj/structure/transit_tube_construction = null
+	/// The type of the object that results from dispensing this datum from the RPD.
+	var/construction_type = null
 
 /datum/pipes/transit/pod
 	pipe_name = "transit pod"

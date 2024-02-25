@@ -1,5 +1,5 @@
 /obj/structure/transit_tube_construction
-	name = "uninstalled transit tube segment"
+	name = "transit tube segment"
 	desc = "An uninstalled piece of a transit tube network."
 	anchored = FALSE
 	density = FALSE
@@ -54,14 +54,14 @@
 	var/install_type = flipped ? installed_type_flipped : installed_type
 	var/atom/installed = new install_type(T)
 	installed.dir = dir
-	to_chat(user, "<span class='notice'>You install [src].</span>")
+	user.visible_message("<span class='notice'>[user] installs [src].</span>")
 
 	qdel(src)
 
 /obj/structure/transit_tube_construction/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+		user.visible_message("<span class='notice'>[user] disassembles [src].</span>")
 		qdel(src)
 
 /obj/structure/transit_tube_construction/pod
@@ -78,7 +78,7 @@
 		if(istype(turf_contents, /obj/structure/transit_tube))
 			var/atom/installed = new installed_type(T)
 			installed.dir = dir
-			to_chat(user, "<span class='notice'>You install [src].</span>")
+			user.visible_message("<span class='notice'>[user] installs [src].</span>")
 
 			qdel(src)
 

@@ -135,7 +135,7 @@
 		if(T.pipe_id == whatttube)
 			var/obj/structure/transit_tube_construction/S = new T.construction_type(dest)
 			if(!istype(S))
-				CRASH("expected [S] to be a transit_tube construction")
+				CRASH("found [S] when constructing transit tube but expected /obj/structure/transit_tube_construction")
 
 			S.dir = iconrotation ? iconrotation : user.dir
 
