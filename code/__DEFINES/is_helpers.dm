@@ -27,6 +27,8 @@
 
 #define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
 
+#define isalienqueen(A) (istype(A, /mob/living/carbon/alien/humanoid/queen))
+
 // Simple animals
 
 #define issimple_animal(A) (istype(A, /mob/living/simple_animal))
