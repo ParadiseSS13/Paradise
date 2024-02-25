@@ -43,6 +43,9 @@
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
 
+	/// Each item in this list can only be rolled once on average.
+	var/list/single_antag_positions = list("Head of Personnel", "Chief Engineer", "Research Director", "Chief Medical Officer", "Quartermaster")
+
 /datum/game_mode/proc/announce() //to be calles when round starts
 	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
 
