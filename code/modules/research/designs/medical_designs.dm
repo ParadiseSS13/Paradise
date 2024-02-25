@@ -490,7 +490,7 @@
 /datum/design/cyberimp_scope
 	name = "Kaleido Optics Implant"
 	desc = "These cybernetic eye implants will let you zoom in on far away objects. Many users find it disorienting, and find it hard to interact with things near them when active."
-	id = "ci-scope
+	id = "ci-scope"
 	req_tech = list("materials" = 6, "programming" = 4, "biotech" = 7, "magnets" = 5,"plasmatech" = 4)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 60

@@ -174,10 +174,22 @@
 	flash_protect = FLASH_PROTECTION_EXTRA_SENSITIVE
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"
 	var/scope_range = 0.8 //Only used in initialize
+	var/active = FALSE
 
 /obj/item/organ/internal/eyes/cybernetic/scope/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/scope, range_modifier = scope_range, item_action_type = /datum/action/item_action/organ_action/toggle, allow_middle_click = TRUE) //Greatly nerfed zoom range, since you are not taking the time zoom delay the lwap has.
+
+/obj/item/organ/internal/eyes/cybernetic/scope/insert(mob/living/carbon/human/M, special)
+	. = ..()
+	flash_protect = FLASH_PROTECTION_NONE //Resets it to none, so we can just flip to inital each time it is used.
+
+/obj/item/organ/internal/eyes/cybernetic/scope/ui_action_click(mob/user, actiontype)
+	active = !active
+	if(active)
+		flash_protect = initial(flash_protect)
+	else
+		flash_protect = FLASH_PROTECTION_NONE
 
 /obj/item/organ/internal/eyes/cybernetic/scope/hardened
 	name = "\improper Hardened Kaleido Optics eyes"

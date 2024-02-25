@@ -833,7 +833,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	This pair has been hardened for special operations personnel."
 	reference = "KOE"
 	item = /obj/item/autosurgeon/organ/syndicate/scope_eyes
-	cost = 15 //TODO: Ask marm / matt/ rurik
+	cost = 20
 
 
 // POINTLESS BADASSERY
