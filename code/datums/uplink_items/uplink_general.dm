@@ -817,6 +817,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/autosurgeon/organ/syndicate/hackerman_deck
 	cost = 30 // Probably slightly less useful than an emag with heat / cooldown, but I am not going to make it cheaper or everyone picks it over emag
 
+/datum/uplink_item/cyber_implants/razorwire
+	name = "Razorwire Spool Arm Implant Autoimplanter"
+	desc = "A long length of monomolecular filament, built into the back of your hand. \
+		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
+		even from a few steps away. However, results against anything more durable will heavily vary."
+	reference = "RZR"
+	item = /obj/item/autosurgeon/organ/syndicate/razorwire
+	cost = 15
+
 // POINTLESS BADASSERY
 
 /datum/uplink_item/badass
