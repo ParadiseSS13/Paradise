@@ -590,7 +590,7 @@
 /obj/item/ammo_box/magazine/toy/smgm45/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
-/// yes this doesn't really belong here but nowhere else works
+// yes this doesn't really belong here but nowhere else works
 /obj/item/ammo_box/magazine/detective/speedcharger
 	name = "DL-88 charge pack"
 	desc = "One-use charge pack for the DL-88 energy revolver."
