@@ -46,6 +46,7 @@
 		var/obj/effect/decal/cleanable/C = locate() in src
 		qdel(C)
 		clean_blood()
+		SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT)
 		return TRUE
 
 /atom/proc/can_clean() //For determining if a cleaning object can actually remove decals

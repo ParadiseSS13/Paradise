@@ -65,34 +65,25 @@
 			user << browse(null, "window=records")
 
 		if(href_list["task"] == "med_record")
-			var/medmsg = tgui_input_text(usr, "Set your medical notes here.", "Medical Records", active_character.med_record, multiline = TRUE, encode = FALSE)
-
-			if(medmsg != null)
-				medmsg = copytext(medmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				medmsg = html_encode(medmsg)
-
-				active_character.med_record = medmsg
-				active_character.SetRecords(user)
+			var/medmsg = tgui_input_text(usr, "Set your medical notes here.", "Medical Records", active_character.med_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+			if(!medmsg)
+				return
+			active_character.med_record = medmsg
+			active_character.SetRecords(user)
 
 		if(href_list["task"] == "sec_record")
-			var/secmsg = tgui_input_text(usr, "Set your security notes here.", "Security Records", active_character.sec_record, multiline = TRUE, encode = FALSE)
-
-			if(secmsg != null)
-				secmsg = copytext(secmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				secmsg = html_encode(secmsg)
-
-				active_character.sec_record = secmsg
-				active_character.SetRecords(user)
+			var/secmsg = tgui_input_text(usr, "Set your security notes here.", "Security Records", active_character.sec_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+			if(!secmsg)
+				return
+			active_character.sec_record = secmsg
+			active_character.SetRecords(user)
 
 		if(href_list["task"] == "gen_record")
-			var/genmsg = tgui_input_text(usr, "Set your employment notes here.", "Employment Records", active_character.gen_record, multiline = TRUE, encode = FALSE)
-
-			if(genmsg != null)
-				genmsg = copytext(genmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				genmsg = html_encode(genmsg)
-
-				active_character.gen_record = genmsg
-				active_character.SetRecords(user)
+			var/genmsg = tgui_input_text(usr, "Set your employment notes here.", "Employment Records", active_character.gen_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+			if(!genmsg)
+				return
+			active_character.gen_record = genmsg
+			active_character.SetRecords(user)
 
 	if(href_list["preference"] == "gear")
 		if(href_list["toggle_gear"])
@@ -714,13 +705,10 @@
 						active_character.height = new_height
 
 				if("flavor_text")
-					var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", active_character.flavor_text, multiline = TRUE, encode = FALSE)
-
-					if(msg != null)
-						msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-						msg = html_encode(msg)
-
-						active_character.flavor_text = msg
+					var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", active_character.flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+					if(!msg)
+						return
+					active_character.flavor_text = msg
 
 				// SS220 ADDITION START
 				if("tts_seed")

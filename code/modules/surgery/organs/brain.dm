@@ -38,16 +38,20 @@
 	if(isnull(dna)) // someone didn't set this right...
 		stack_trace("[src] at [loc] did not contain a dna datum at time of removal.")
 		dna = H.dna.Clone()
-	name = "\the [dna.real_name]'s [initial(src.name)]"
+	if(dna.real_name)
+		name = "\the [dna.real_name]'s [initial(name)]"
+		brainmob.name = dna.real_name
+		brainmob.real_name = dna.real_name
+	else
+		name = "\the [H.real_name]'s [initial(name)]"
+		brainmob.name = H.real_name
+		brainmob.real_name = H.real_name
 	brainmob.dna = dna.Clone() // Silly baycode, what you do
-//	brainmob.dna = H.dna.Clone() Putting in and taking out a brain doesn't make it a carbon copy of the original brain of the body you put it in
-	brainmob.name = dna.real_name
-	brainmob.real_name = dna.real_name
 	brainmob.timeofhostdeath = H.timeofdeath
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
 
-	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [initial(src.name)].</span>")
+	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [initial(name)].</span>")
 
 /obj/item/organ/internal/brain/examine(mob/user) // -- TLE
 	. = ..()
