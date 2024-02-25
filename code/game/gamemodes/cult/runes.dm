@@ -427,7 +427,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		stone.invisibility = 0
 		var/put_in_hands = user.put_in_any_hand_if_possible(stone)
 		if(put_in_hands)
-			to_chat(user, "<span class='cultitalic'>Shiny dark red shard appears in your hand - your new ally.</span>")
+			to_chat(user, "<span class='cultitalic'>A glowing crimson shard appears in your hand - your new ally contained within.</span>")
 	else
 		if(isrobot(offering))
 			offering.dust() //To prevent the MMI from remaining
