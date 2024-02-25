@@ -1,5 +1,3 @@
-/* check_grep:ignore */ /client/var/datum/tgui_window/stat_panel
-
 SUBSYSTEM_DEF(statpanels)
 	name = "Stat Panels"
 	wait = 4
@@ -179,4 +177,4 @@ SUBSYSTEM_DEF(statpanels)
 	SSstatpanels.cached_images -= UID()
 
 /// Stat panel window declaration, we don't usually allow this but tgui windows/panels are exceptions
-/client/var/datum/tgui_window/stat_panel
+/* check_grep:ignore */ /client/var/datum/tgui_window/stat_panel
