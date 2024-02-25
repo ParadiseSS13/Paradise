@@ -63432,7 +63432,7 @@
 	},
 /area/station/hallway/secondary/exit)
 "dOz" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -66502,10 +66502,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "ehm" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "ehT" = (
@@ -66518,6 +66518,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/rd)
+"ehV" = (
+/obj/structure/grille,
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced,
+/obj/machinery/atmospherics/meter{
+	layer = 3.3
+	},
+/turf/simulated/floor/plating,
+/area/station/science/toxins/mixing)
 "eir" = (
 /obj/machinery/economy/vending/cart,
 /obj/machinery/computer/security/telescreen/entertainment{
@@ -81058,8 +81069,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "mUZ" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
 /obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
 "mVd" = (
@@ -87408,8 +87419,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "qJA" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
@@ -95292,10 +95303,10 @@
 	dir = 1
 	},
 /obj/structure/window/plasmareinforced,
-/obj/machinery/atmospherics/pipe/simple/insulated,
 /obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
 "vbA" = (
@@ -132124,7 +132135,7 @@ ecs
 dyz
 iTn
 wbZ
-vaZ
+ehV
 wRN
 cKu
 sMj
@@ -132638,7 +132649,7 @@ lwr
 vhS
 nBP
 xkJ
-vaZ
+ehV
 jzV
 cRy
 qwo
