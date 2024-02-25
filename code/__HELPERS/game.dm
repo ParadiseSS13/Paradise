@@ -196,7 +196,7 @@
 				hear += M
 
 		if(isobj(A) || ismob(A))
-			hear |= recursive_mob_check(A, hear, 3, 1, 0)
+			hear |= recursive_mob_check(A, hear, 3, TRUE, FALSE)
 
 	return hear
 
