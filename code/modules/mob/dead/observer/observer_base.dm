@@ -192,7 +192,7 @@ Works together with spawning an observer, noted above.
 		if(ghost_name)
 			ghost.name = ghost_name
 		ghost.key = key
-		ghost.client.init_verbs()
+		ghost.client?.init_verbs()
 		return ghost
 
 /*

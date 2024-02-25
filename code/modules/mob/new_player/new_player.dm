@@ -368,7 +368,7 @@
 		AnnounceCyborg(character, rank, join_message)
 	else
 		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
-		character.client.init_verbs() // init verbs for the late join
+		character.client?.init_verbs() // init verbs for the late join
 		if(!IsAdminJob(rank))
 			GLOB.data_core.manifest_inject(character)
 			AnnounceArrival(character, rank, join_message)
