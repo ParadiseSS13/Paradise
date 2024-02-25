@@ -116,8 +116,10 @@ AI MODULES
 
 /obj/item/aiModule/safeguard/attack_self(mob/user as mob)
 	..()
-	var/targName = stripped_input(usr, "Please enter the name of the person to safeguard.", "Safeguard who?", user.name)
-	targetName = targName
+	var/new_targetName = tgui_input_text(user, "Please enter the name of the person to safeguard.", "Safeguard who?", user.name)
+	if(!new_targetName)
+		return
+	targetName = new_targetName
 	desc = "A 'safeguard' AI module: 'Safeguard [targetName]. Individuals that threaten [targetName] are not crew and must be eliminated.'"
 
 /obj/item/aiModule/safeguard/install(obj/machinery/computer/C)
@@ -143,8 +145,10 @@ AI MODULES
 
 /obj/item/aiModule/oneCrewMember/attack_self(mob/user as mob)
 	..()
-	var/targName = stripped_input(usr, "Please enter the name of the person who is the only crew.", "Who?", user.real_name)
-	targetName = targName
+	var/new_targetName = tgui_input_text(usr, "Please enter the name of the person who is the only crew.", "Who?", user.real_name)
+	if(!new_targetName)
+		return
+	targetName = new_targetName
 	desc = "A 'one crew' AI module: 'Only [targetName] is crew.'"
 
 /obj/item/aiModule/oneCrewMember/install(obj/machinery/computer/C)
@@ -208,12 +212,15 @@ AI MODULES
 
 /obj/item/aiModule/freeform/attack_self(mob/user as mob)
 	..()
-	var/new_lawpos = input("Please enter the priority for your new law. Can only write to law sectors 15 and above.", "Law Priority (15+)", lawpos) as num
-	if(new_lawpos < MIN_SUPPLIED_LAW_NUMBER)	return
-	lawpos = min(new_lawpos, MAX_SUPPLIED_LAW_NUMBER)
-	var/newlaw = ""
-	var/targName = sanitize(copytext(input(usr, "Please enter a new law for the AI.", "Freeform Law Entry", newlaw),1,MAX_MESSAGE_LEN))
-	newFreeFormLaw = targName
+	var/new_lawpos = tgui_input_number(user, "Please enter the priority for your new law. Can only write to law sectors 15 and above.", "Law Priority", lawpos, MAX_SUPPLIED_LAW_NUMBER, MIN_SUPPLIED_LAW_NUMBER)
+	if(!new_lawpos || new_lawpos == lawpos)
+		return
+	lawpos = new_lawpos
+
+	var/new_targetName = tgui_input_text(user, "Please enter a new law for the AI.", "Freeform Law Entry")
+	if(!new_targetName)
+		return
+	newFreeFormLaw = new_targetName
 	desc = "A 'freeform' AI module: ([lawpos]) '[newFreeFormLaw]'"
 
 /obj/item/aiModule/freeform/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
@@ -358,7 +365,7 @@ AI MODULES
 	name = "\improper Pranksimov core AI module"
 	desc = "A 'Pranksimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "pranksimov"
-	origin_tech = "programming=3;syndicate=2"
+	origin_tech = "programming=3;syndicate=1"
 	laws = new /datum/ai_laws/pranksimov()
 
 /******************** NT Aggressive ********************/
@@ -406,10 +413,11 @@ AI MODULES
 
 /obj/item/aiModule/freeformcore/attack_self(mob/user as mob)
 	..()
-	var/newlaw = ""
-	var/targName = stripped_input(usr, "Please enter a new core law for the AI.", "Freeform Law Entry", newlaw)
-	newFreeFormLaw = targName
-	desc = "A 'freeform' Core AI module:  '[newFreeFormLaw]'"
+	var/new_targetName = tgui_input_text(usr, "Please enter a new core law for the AI.", "Freeform Law Entry")
+	if(!new_targetName)
+		return
+	newFreeFormLaw = new_targetName
+	desc = "A 'freeform' Core AI module: '[newFreeFormLaw]'"
 
 /obj/item/aiModule/freeformcore/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
 	..()
@@ -433,10 +441,11 @@ AI MODULES
 
 /obj/item/aiModule/syndicate/attack_self(mob/user as mob)
 	..()
-	var/newlaw = ""
-	var/targName = stripped_input(usr, "Please enter a new law for the AI.", "Freeform Law Entry", newlaw,MAX_MESSAGE_LEN)
-	newFreeFormLaw = targName
-	desc = "A hacked AI law module:  '[newFreeFormLaw]'"
+	var/new_targetName = tgui_input_text(usr, "Please enter a new law for the AI.", "Freeform Law Entry", max_length = MAX_MESSAGE_LEN)
+	if(!new_targetName)
+		return
+	newFreeFormLaw = new_targetName
+	desc = "A hacked AI law module: '[newFreeFormLaw]'"
 
 /obj/item/aiModule/syndicate/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	//	..()    //We don't want this module reporting to the AI who dun it. --NEO

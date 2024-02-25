@@ -913,7 +913,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		log_game("Manifest rune failed - user is a ghost")
 		return
 
-	var/choice = alert(user, "You tear open a connection to the spirit realm...", null, "Summon a Cult Ghost", "Ascend as a Dark Spirit", "Cancel")
+	var/choice = tgui_alert(user, "You tear open a connection to the spirit realm...", "Invoke", list("Summon a Cult Ghost", "Ascend as a Dark Spirit", "Cancel"))
 	if(choice == "Summon a Cult Ghost")
 		if(!is_station_level(z) || istype(get_area(src), /area/space))
 			to_chat(user, "<span class='cultitalic'>The veil is not weak enough here to manifest spirits, you must be on station!</span>")
@@ -1001,15 +1001,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/manifest/proc/ghostify(mob/living/user, turf/T)
 	ADD_TRAIT(user, SCRYING, CULT_TRAIT)
-	user.add_atom_colour(RUNE_COLOR_DARKRED, ADMIN_COLOUR_PRIORITY)
 	user.visible_message("<span class='warning'>[user] freezes statue-still, glowing an unearthly red.</span>",
 					"<span class='cult'>You see what lies beyond. All is revealed. In this form you find that your voice booms above all others.</span>")
-	ghost = user.ghostize(TRUE)
+	ghost = user.ghostize(TRUE, RUNE_COLOR_DARKRED, "Dark Spirit of [user.name]")
 	var/datum/action/innate/cult/comm/spirit/CM = new
 	var/datum/action/innate/cult/check_progress/V = new
 	//var/datum/action/innate/cult/ghostmark/GM = new
-	ghost.name = "Dark Spirit of [ghost.name]"
-	ghost.color = "red"
 	CM.Grant(ghost)
 	V.Grant(ghost)
 	//GM.Grant(ghost)

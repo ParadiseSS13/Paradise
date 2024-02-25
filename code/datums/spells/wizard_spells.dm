@@ -359,7 +359,7 @@
 	centcom_cancast = FALSE
 
 /obj/effect/proc_holder/spell/fireball/create_new_targeting()
-	var/datum/spell_targeting/clicked_atom/C = new()
+	var/datum/spell_targeting/clicked_atom/external/C = new()
 	C.range = 20
 	return C
 

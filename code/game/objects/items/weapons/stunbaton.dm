@@ -211,7 +211,7 @@
 			return FALSE
 		H.Confused(10 SECONDS)
 		H.Jitter(10 SECONDS)
-		H.adjustStaminaLoss(stam_damage)
+		H.apply_damage(stam_damage, STAMINA)
 		H.SetStuttering(10 SECONDS)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
@@ -248,7 +248,7 @@
 		return FALSE
 	L.Confused(4 SECONDS)
 	L.Jitter(4 SECONDS)
-	L.adjustStaminaLoss(30)
+	L.apply_damage(30, STAMINA)
 	L.SetStuttering(4 SECONDS)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
@@ -280,6 +280,11 @@
 							"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
 		return TRUE
 	..()
+
+/// baton used for security bots
+/obj/item/melee/baton/infinite_cell
+	hitcost = 0
+	turned_on = TRUE
 
 //Makeshift stun baton. Replacement for stun gloves.
 /obj/item/melee/baton/cattleprod

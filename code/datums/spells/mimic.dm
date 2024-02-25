@@ -188,7 +188,6 @@
 	examine_text = form.examine(user)
 	name = form.name
 
-
 /obj/effect/proc_holder/spell/mimic/morph
 	action_background_icon_state = "bg_morph"
 

@@ -226,6 +226,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
+#define TRAIT_TABLE_LEAP "table_leap"
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
@@ -242,6 +243,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_OBSCURED_WIRES "obscured_wires"
 /// Forces open doors after a delay specific to the item
 #define TRAIT_FORCES_OPEN_DOORS_ITEM "forces_open_doors_item_varient"
+/// Makes the item no longer spit out a visible message when thrown
+#define TRAIT_NO_THROWN_MESSAGE "no_message_when_thrown"
 
 /// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
 #define TRAIT_SURGICAL			"surgical_tool"
@@ -305,7 +308,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
-#define TRAIT_TABLE_LEAP "table_leap"
 
 //traits that should be properly converted to genetic mutations one day
 #define TRAIT_LASEREYES "laser_eyes"
