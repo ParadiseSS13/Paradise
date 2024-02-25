@@ -854,9 +854,6 @@
 
 	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
 
-	for(var/filter in game_plane_master_controller.get_filters(MEPHEDRONE_SCREEN_BLUR))
-		animate(filter, loop = -1, size = 0.15, time = 2 SECONDS, easing = ELASTIC_EASING|EASE_OUT, flags = ANIMATION_PARALLEL)
-		animate(size = 0.075, time = 6 SECONDS, easing = CIRCULAR_EASING|EASE_IN)
 	if(!ischangeling(L) || HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED))
 		return
 	var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
@@ -956,9 +953,6 @@
 
 	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
 
-	for(var/filter in game_plane_master_controller.get_filters(MEPHEDRONE_SCREEN_BLUR))
-		animate(filter, loop = -1, size = 0.15, time = 2 SECONDS, easing = ELASTIC_EASING|EASE_OUT, flags = ANIMATION_PARALLEL)
-		animate(size = 0.075, time = 6 SECONDS, easing = CIRCULAR_EASING|EASE_IN)
 	var/overdosed = (id in L.reagents.overdose_list())
 	if(overdosed)
 		addtimer(CALLBACK(src, PROC_REF(no_hud_cheese_3), L), 1 SECONDS) //still needs a moment
@@ -1032,9 +1026,6 @@
 
 	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
 
-	for(var/filter in game_plane_master_controller.get_filters(MEPHEDRONE_SCREEN_BLUR))
-		animate(filter, loop = -1, size = 0.2, time = 2 SECONDS, easing = ELASTIC_EASING|EASE_OUT, flags = ANIMATION_PARALLEL)
-		animate(size = 0.1, time = 6 SECONDS, easing = CIRCULAR_EASING|EASE_IN)
 
 /datum/reagent/twitch/overdose_process(mob/living/carbon/L)
 
