@@ -206,12 +206,14 @@
 			else					return "unknown"
 	else if(species == "Vox")
 		switch(tone)
-			if(2)					return "dark green"
+			if(2)					return "plum"
 			if(3)					return "brown"
 			if(4)					return "gray"
 			if(5)					return "emerald"
 			if(6)					return "azure"
-			else					return "green"
+			if(7)					return "crimson"
+			if(8)					return "nebula"
+			else					return "lime"
 	else
 		return "unknown"
 
@@ -694,3 +696,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		out_ckey = "(Disconnected)"
 
 	return out_ckey
+
+/// rounds value to limited symbols after the period for organ damage and other values
+/proc/round_health(health)
+	return round(health, 0.01)
