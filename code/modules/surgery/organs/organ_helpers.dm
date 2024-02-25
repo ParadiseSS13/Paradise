@@ -107,4 +107,9 @@
 			.++
 		if(affecting.body_part == LEG_LEFT)
 			.++
-
+///Returns true if all the mob's vital organs are functional, otherwise returns false
+/mob/living/carbon/human/proc/check_vital_organs()
+	for(var/obj/item/organ/internal/organ in internal_organs)
+		if(organ.vital && (organ.damage >= organ.max_damage))
+			return FALSE
+	return TRUE

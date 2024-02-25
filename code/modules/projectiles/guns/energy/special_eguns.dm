@@ -608,6 +608,7 @@
 		desc += " Its temperature cap has been removed."
 		max_temp = 1000
 		temperature_multiplier *= 5  //so emagged temp guns adjust their temperature much more quickly
+		return TRUE
 
 /obj/item/gun/energy/temperature/process()
 	..()
@@ -748,11 +749,11 @@
 		return
 	var/tracking_target = locateUID(tracking_target_UID)
 	if(tracking_target)
-		if(alert("Do you want to clear the tracker?", "Tracker reset", "Yes", "No") == "Yes")
+		if(tgui_alert(user, "Do you want to clear the tracker?", "Tracker reset", list("Yes", "No")) == "Yes")
 			to_chat(user, "<span class='notice'>[src] stops tracking [tracking_target]</span>")
 			stop_pointing()
 	if(linked_pinpointer_UID)
-		if(alert("Do you want to clear the linked pinpointer?", "Pinpointer reset", "Yes", "No") == "Yes")
+		if(tgui_alert(user, "Do you want to clear the linked pinpointer?", "Pinpointer reset", list("Yes", "No")) == "Yes")
 			to_chat(user, "<span class='notice'>[src] is ready to be linked to a new pinpointer.</span>")
 			unlink()
 
@@ -892,6 +893,7 @@
 	name = "reality vortex wrist mounted shotgun"
 	desc = "This weapon uses the power of the vortex core to rip apart the fabric of reality in front of it."
 	icon_state = "flayer" //Sorta wrist mounted? Sorta? Not really but we work with what we got.
+	flags = NODROP
 	ammo_type = list(/obj/item/ammo_casing/energy/vortex_blast)
 	fire_sound = 'sound/weapons/bladeslice.ogg'
 	cell_type = /obj/item/stock_parts/cell/infinite

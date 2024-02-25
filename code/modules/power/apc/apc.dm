@@ -346,7 +346,7 @@
 
 	else if(istype(W, /obj/item/mounted/frame/apc_frame) && opened)
 		if(!(stat & BROKEN || opened == APC_COVER_OFF || obj_integrity < max_integrity)) // There is nothing to repair
-			to_chat(user, "<span class='warning'>You found no reason for repairing this APC</span>")
+			to_chat(user, "<span class='warning'>You found no reason for repairing this APC.</span>")
 			return
 		if(!(stat & BROKEN) && opened == APC_COVER_OFF) // Cover is the only thing broken, we do not need to remove elctronicks to replace cover
 			user.visible_message("[user.name] replaces missing APC's cover.",\
@@ -1026,6 +1026,7 @@
 			locked = FALSE
 			to_chat(user, "You emag the APC interface.")
 			update_icon()
+			return TRUE
 
 /obj/machinery/power/apc/proc/apc_short()
 	// if it has internal wires, cut the power wires
@@ -1067,22 +1068,6 @@
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
 
-/obj/machinery/power/apc/syndicate/north
-	name = "north bump"
-	pixel_y = 24
-
-/obj/machinery/power/apc/syndicate/south
-	name = "south bump"
-	pixel_y = -24
-
-/obj/machinery/power/apc/syndicate/east
-	name = "east bump"
-	pixel_x = 24
-
-/obj/machinery/power/apc/syndicate/west
-	name = "west bump"
-	pixel_x = -24
-
 /obj/machinery/power/apc/syndicate/off
 	name = "APC off"
 	environment_channel = 0
@@ -1093,6 +1078,22 @@
 /obj/machinery/power/apc/syndicate/off/Initialize(mapload)
 	. = ..()
 	cell.charge = 0
+
+/obj/machinery/power/apc/important
+	cell_type = 10000
+
+/obj/machinery/power/apc/critical
+	cell_type = 25000
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate/off, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/important, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/critical, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/off_station, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/off_station/empty_charge, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/worn_out, 24, 24)
+
 
 /obj/item/apc_electronics
 	name = "APC electronics"

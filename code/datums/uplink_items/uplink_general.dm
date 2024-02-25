@@ -379,7 +379,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A straightforward and fairly concealable melee weapon for bludgeoning someone to death in brutal fashion. This one is designed specifically to cause severe organ damage to the victim."
 	reference = "SKD"
 	item = /obj/item/melee/knuckleduster/syndie
-	cost = 5
+	cost = 10
 	cant_discount = TRUE
 
 // GRENADES AND EXPLOSIVES
@@ -802,6 +802,29 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SI"
 	item = /obj/item/bio_chip_implanter/stealth
 	cost = 45
+
+// CYBERNETICS
+
+/datum/uplink_item/cyber_implants
+	category = "Cybernetic Implants"
+
+/datum/uplink_item/cyber_implants/hackerman_deck
+	name = "Binyat Wireless Hacking System Autoimplanter"
+	desc = "This implant will allow you to wirelessly emag from a distance. However, it will slightly burn you \
+	on use, and will be quite visual as you are emaging the object. \
+	Will not show on unupgraded body scanners."
+	reference = "HKR"
+	item = /obj/item/autosurgeon/organ/syndicate/hackerman_deck
+	cost = 30 // Probably slightly less useful than an emag with heat / cooldown, but I am not going to make it cheaper or everyone picks it over emag
+
+/datum/uplink_item/cyber_implants/razorwire
+	name = "Razorwire Spool Arm Implant Autoimplanter"
+	desc = "A long length of monomolecular filament, built into the back of your hand. \
+		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
+		even from a few steps away. However, results against anything more durable will heavily vary."
+	reference = "RZR"
+	item = /obj/item/autosurgeon/organ/syndicate/razorwire
+	cost = 15
 
 // POINTLESS BADASSERY
 

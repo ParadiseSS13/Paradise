@@ -376,9 +376,6 @@
 // Atom procs/vars
 ///////////////////////////////////
 
-/// UID for the atom which the current atom is orbiting
-/atom/movable/var/orbiting_uid = null
-
 /**
  * Set an atom to orbit around another one. This atom will follow the base atom's movement and rotate around it.
  *

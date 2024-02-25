@@ -133,7 +133,7 @@
 /obj/item/gun/throw/crossbow/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	var/choice = input("Select tension to draw to:", "[src]", XBOW_TENSION_FULL) as null|anything in possible_tensions
+	var/choice = tgui_input_list(user, "Select tension to draw to:", "[src]", possible_tensions)
 	if(!choice)
 		return
 
