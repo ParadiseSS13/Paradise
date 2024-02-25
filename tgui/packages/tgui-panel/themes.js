@@ -6,12 +6,12 @@
 
 export const THEMES = ['light', 'dark', 'ntos', 'syndicate', 'paradise'];
 
-const COLOR_DARK_BG = '#202020';
+const COLOR_DARK_BG = '#212020';
 const COLOR_DARK_BG_DARKER = '#131313';
 const COLOR_DARK_BG_BUTTON = '#4C4C4D';
 const COLOR_DARK_TEXT = '#A4BAD6';
 
-const COLOR_LIGHT_BG = '#EEEEEE';
+const COLOR_LIGHT_BG = '#EFEEEE';
 const COLOR_LIGHT_BG_LIGHTER = '#FFFFFF';
 const COLOR_LIGHT_BUTTON = '#EEEEEE';
 const COLOR_LIGHT_TEXT = '#000000';

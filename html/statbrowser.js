@@ -534,6 +534,15 @@ function set_theme(which) {
 	} else if (which == "dark") {
 		document.body.className = "dark";
 		set_style_sheet("browserOutput");
+	} else if (which == "ntos") {
+		document.body.className = "ntos";
+		set_style_sheet("browserOutput_ntos");
+	} else if (which == "paradise") {
+		document.body.className = "paradise";
+		set_style_sheet("browserOutput_paradise");
+	} else if (which == "syndicate") {
+		document.body.className = "syndicate";
+		set_style_sheet("browserOutput_syndicate");
 	}
 }
 
