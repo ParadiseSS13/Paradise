@@ -114,7 +114,7 @@
 					D = new type(0, null)
 			if(!D)
 				return
-			var/name = stripped_input(usr,"Name:","Name the culture",D.name,MAX_NAME_LEN)
+			var/name = tgui_input_text(usr, "Name:", "Name the culture", D.name, MAX_NAME_LEN)
 			if(name == null || wait)
 				return
 			var/obj/item/reagent_containers/glass/bottle/B = new/obj/item/reagent_containers/glass/bottle(loc)
@@ -145,7 +145,7 @@
 		updateUsrDialog()
 		return
 	else if(href_list["name_disease"])
-		var/new_name = stripped_input(usr, "Name the Disease", "New Name", "", MAX_NAME_LEN)
+		var/new_name = tgui_input_text(usr, "Name the Disease", "New Name", max_length = MAX_NAME_LEN)
 		if(!new_name)
 			return
 		if(..())
@@ -179,7 +179,7 @@
 /obj/machinery/computer/pandemic/proc/print_form(datum/disease/advance/D, mob/living/user)
 	D = GLOB.archive_diseases[D.GetDiseaseID()]
 	if(!(printing) && D)
-		var/reason = input(user,"Enter a reason for the release", "Write", null) as message
+		var/reason = tgui_input_text(user,"Enter a reason for the release", "Write", multiline = TRUE)
 		reason += "<span class=\"paper_field\"></span>"
 		var/english_symptoms = list()
 		for(var/I in D.symptoms)
@@ -189,7 +189,7 @@
 
 
 		var/signature
-		if(alert(user,"Would you like to add your signature?",,"Yes","No") == "Yes")
+		if(tgui_alert(user, "Would you like to add your signature?", "Signature", list("Yes","No")) == "Yes")
 			signature = "<font face=\"[SIGNFONT]\"><i>[user ? user.real_name : "Anonymous"]</i></font>"
 		else
 			signature = "<span class=\"paper_field\"></span>"
