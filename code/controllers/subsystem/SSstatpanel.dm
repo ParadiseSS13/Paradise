@@ -54,10 +54,10 @@ SUBSYSTEM_DEF(statpanels)
 			set_status_tab(target)
 
 		if(!target.holder)
-			target.stat_panel.send_message("remove_admin_tabs")
-		else
+			target.stat_panel.send_message("remove_mc_tab")
+		else if(check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, target))
 			if(!("MC" in target.panel_tabs))
-				target.stat_panel.send_message("add_admin_tabs", target.holder.href_token)
+				target.stat_panel.send_message("add_mc_tab", target.holder.href_token)
 
 			if(target.stat_tab == "MC" && ((num_fires % mc_wait == 0)))
 				set_MC_tab(target)

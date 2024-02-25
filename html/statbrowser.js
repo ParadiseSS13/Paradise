@@ -714,7 +714,7 @@ Byond.subscribeTo('create_listedturf', function (TN) {
 	tab_change(turfname);
 });
 
-Byond.subscribeTo('remove_admin_tabs', function () {
+Byond.subscribeTo('remove_mc_tab', function () {
 	href_token = null;
 	remove_mc();
 });
@@ -747,7 +747,7 @@ Byond.subscribeTo('update_split_admin_tabs', function (status) {
 	split_admin_tabs = status;
 });
 
-Byond.subscribeTo('add_admin_tabs', function (ht) {
+Byond.subscribeTo('add_mc_tab', function (ht) {
 	href_token = ht;
 	addPermanentTab("MC");
 });
