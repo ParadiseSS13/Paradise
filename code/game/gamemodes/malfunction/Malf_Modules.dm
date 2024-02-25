@@ -237,7 +237,7 @@
 	if(!istype(T) || !is_station_level(T.z))
 		to_chat(owner, "<span class='warning'>You cannot activate the doomsday device while off-station!</span>")
 		return
-	if(alert(owner, "Send arming signal? (true = arm, false = cancel)", "purge_all_life()", "confirm = TRUE;", "confirm = FALSE;") != "confirm = TRUE;")
+	if(tgui_alert(owner, "Send arming signal? (true = arm, false = cancel)", "purge_all_life()", list("confirm = TRUE;", "confirm = FALSE;")) != "confirm = TRUE;")
 		return
 	if(active)
 		return //prevent the AI from activating an already active doomsday
@@ -461,21 +461,21 @@
 /datum/AI_Module/overload_machine
 	module_name = "Machine Overload"
 	mod_pick_name = "overload"
-	description = "Overheats an electrical machine, causing a small explosion and destroying it. Two uses per purchase."
+	description = "Overheats an electrical machine, causing a moderately-sized explosion and destroying it. Four uses per purchase."
 	cost = 20
 	power_type = /datum/action/innate/ai/ranged/overload_machine
 	unlock_text = "<span class='notice'>You enable the ability for the station's APCs to direct intense energy into machinery.</span>"
 
 /datum/action/innate/ai/ranged/overload_machine
 	name = "Overload Machine"
-	desc = "Overheats a machine, causing a small explosion after a short time."
+	desc = "Overheats a machine, causing a moderately-sized explosion after a short time."
 	button_icon_state = "overload_machine"
-	uses = 2
+	uses = 4
 	linked_ability_type = /obj/effect/proc_holder/ranged_ai/overload_machine
 
 /datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
-		explosion(get_turf(M), 0,1,1,0)
+		explosion(get_turf(M), 0, 3, 5, 0)
 		if(M) //to check if the explosion killed it before we try to delete it
 			qdel(M)
 
@@ -582,7 +582,7 @@
 	if(!owner_AI.can_place_transformer(src))
 		return
 	active = TRUE
-	if(alert(owner, "Are you sure you want to place the machine here?", "Are you sure?", "Yes", "No") == "No")
+	if(tgui_alert(owner, "Are you sure you want to place the machine here?", "Are you sure?", list("Yes", "No")) != "Yes")
 		active = FALSE
 		return
 	if(!owner_AI.can_place_transformer(src))

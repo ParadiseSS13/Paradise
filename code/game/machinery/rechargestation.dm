@@ -230,6 +230,7 @@
 		return
 
 	target.stop_pulling()
+	QDEL_LIST_CONTENTS(target.grabbed_by)
 	target.forceMove(src)
 	occupant = target
 
