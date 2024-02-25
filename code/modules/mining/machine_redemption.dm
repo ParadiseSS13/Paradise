@@ -518,7 +518,7 @@
 			to_chat(robot, "[mat_store] could not be filled due to it already being full.")
 			continue
 		var/datum/component/material_container/container_component = GetComponent(/datum/component/material_container)
-		for(var/mat_id as anything in container_component.materials)
+		for(var/mat_id in container_component.materials)
 			var/datum/material/stack = container_component.materials[mat_id] // Should have only `/datum/material` in the list
 			var/obj/item/stack/sheet/sheet = stack.sheet_type
 			if(ispath(mat_store.stack, sheet))
