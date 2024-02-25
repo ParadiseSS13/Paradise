@@ -12,9 +12,6 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 	var/list/chunks = list()
 	var/ready = FALSE
 
-	// The object used for the clickable stat() button.
-	var/obj/effect/statclick/statclick
-
 // Checks if a chunk has been Generated in x, y, z.
 /datum/cameranet/proc/chunkGenerated(x, y, z)
 	x &= ~(CAMERA_CHUNK_SIZE - 1)

@@ -358,7 +358,7 @@ function draw_mc() {
 		var td2 = document.createElement("td");
 		if (part[2]) {
 			var a = document.createElement("a");
-			a.href = "?_src_=vars;admin_token=" + href_token + ";Vars=" + part[2];
+			a.onclick = debug_statclick(part[2])
 			a.insertAdjacentHTML('beforeend', part[1]);
 			td2.appendChild(a);
 		} else {
@@ -466,6 +466,12 @@ function make_verb_onclick(command) {
 		run_after_focus(function () {
 			Byond.command(command);
 		});
+	};
+}
+
+function debug_statclick(stat_item_uid) {
+	return function () {
+		Byond.sendMessage("Debug-Stat-Entry", {stat_item_uid: stat_item_uid})
 	};
 }
 

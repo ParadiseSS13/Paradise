@@ -181,7 +181,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debug_timers,
 	/client/proc/force_verb_bypass,
 	/client/proc/show_gc_queues,
-	/client/proc/toggle_mctabs,
 	/client/proc/debug_global_variables
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
@@ -249,7 +248,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/debug_variables, /*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
 	/client/proc/ss_breakdown,
 	/client/proc/show_gc_queues,
-	/client/proc/toggle_mctabs,
 	/client/proc/debug_global_variables,
 	/client/proc/visualise_active_turfs,
 	/client/proc/debug_timers,

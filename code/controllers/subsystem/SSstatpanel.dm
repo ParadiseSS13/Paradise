@@ -55,7 +55,8 @@ SUBSYSTEM_DEF(statpanels)
 
 		if(!target.holder)
 			target.stat_panel.send_message("remove_mc_tab")
-		else if(check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, target))
+
+		else if(target.mob && check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, target.mob))
 			if(!("MC" in target.panel_tabs))
 				target.stat_panel.send_message("add_mc_tab", target.holder.href_token)
 

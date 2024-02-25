@@ -369,7 +369,6 @@
 #include "code\datums\shuttles.dm"
 #include "code\datums\spawners_menu.dm"
 #include "code\datums\spell.dm"
-#include "code\datums\statclick.dm"
 #include "code\datums\station_state.dm"
 #include "code\datums\tgs_event_handler.dm"
 #include "code\datums\verb_callbacks.dm"

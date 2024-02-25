@@ -22,7 +22,6 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 	if(!force)
 		return QDEL_HINT_LETMELIVE
 
-	QDEL_NULL(statclick)
 	gvars_datum_protected_varlist.Cut()
 	gvars_datum_in_built_vars.Cut()
 
