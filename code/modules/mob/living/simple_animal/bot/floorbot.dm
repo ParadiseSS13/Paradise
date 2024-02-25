@@ -280,6 +280,9 @@
 		if(REPLACE_TILE)
 			F = scan_target
 			if(istype(F, /turf/simulated/floor/plating)) // The floor must not already have a tile.
+				if(locate(/obj/structure/window) in get_turf(F)) // Targeting plating under window
+					add_to_ignore(scan_target)
+					return FALSE
 				result = F
 		if(FIX_TILE)	// Selects only damaged floors.
 			F = scan_target
@@ -367,8 +370,6 @@
 	else
 		amount += T.amount
 		qdel(T)
-	if(target)
-		ignore_job -= target.UID()
 	anchored = FALSE
 	target = null
 	mode = BOT_IDLE
@@ -401,8 +402,6 @@
 		M.amount --
 	else
 		qdel(M)
-	if(target)
-		ignore_job -= target.UID()
 	anchored = FALSE
 	target = null
 	mode = BOT_IDLE
