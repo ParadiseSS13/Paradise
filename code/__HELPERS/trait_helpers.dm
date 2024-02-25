@@ -234,7 +234,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///Immune to the SM / makes you immune to it when worn
 #define TRAIT_SUPERMATTER_IMMUNE "supermatter_immune"
 
-
 //***** ITEM TRAITS *****//
 #define TRAIT_BUTCHERS_HUMANS "butchers_humans"
 #define TRAIT_CMAGGED "cmagged"
