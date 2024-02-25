@@ -176,9 +176,6 @@
 	H.check_mutations = 1
 	ADD_TRAIT(H.mind, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
 	ADD_TRAIT(H.mind, TRAIT_SLEIGHT_OF_HAND, ROUNDSTART_TRAIT)
-	var/datum/martial_art/judo/under_siege/bouncer_delight = new
-	bouncer_delight.teach(H)
-
 
 /datum/job/chef
 	title = "Chef"
