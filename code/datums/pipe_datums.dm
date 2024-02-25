@@ -340,7 +340,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 /// Pipe types for transit tubes.
 /datum/pipes/transit
 	pipe_type = PIPETYPE_TRANSIT
-	var/construction_type = null
+	var/obj/structure/transit_tube_construction = null
 
 /datum/pipes/transit/pod
 	pipe_name = "transit pod"
@@ -415,7 +415,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	rpd_dispensable = TRUE
 
 /datum/pipes/transit/tube/terminus_dispenser_station
-	pipe_name= "terminus dispenser tube station"
+	pipe_name = "terminus dispenser tube station"
 	construction_type = /obj/structure/transit_tube_construction/terminus/dispenser
 	pipe_id = PIPE_TRANSIT_TUBE_TERMINUS_DISPENSER
 	orientations = 4
@@ -423,7 +423,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	rpd_dispensable = TRUE
 
 /datum/pipes/transit/tube/dispenser_station
-	pipe_name= "dispenser tube station"
+	pipe_name = "dispenser tube station"
 	pipe_id = PIPE_TRANSIT_TUBE_DISPENSER_STATION
 	orientations = 4
 	pipe_icon = "transit_dispenser_station"

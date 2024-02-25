@@ -47,7 +47,7 @@
 		return
 	for(var/obj/turf_contents in T)
 		// It's okay for tube parts to be installed over existing pods.
-		if(!(istype(turf_contents, /obj/structure/transit_tube_pod)) && turf_contents.density)
+		if(!istype(turf_contents, /obj/structure/transit_tube_pod) && turf_contents.density)
 			to_chat(user, "<span class='notice'>There is not enough space to install [src] here.</span>")
 			return
 
@@ -60,7 +60,7 @@
 
 /obj/structure/transit_tube_construction/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+	if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 		qdel(src)
 
