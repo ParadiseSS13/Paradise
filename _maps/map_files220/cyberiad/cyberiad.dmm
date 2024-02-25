@@ -34739,7 +34739,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -47670,7 +47670,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -67712,7 +67712,7 @@
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "lRi" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 8
 	},
 /obj/machinery/atmospherics/binary/pump{
@@ -74228,7 +74228,7 @@
 	name = "Biohazard Shutter"
 	},
 /obj/effect/spawner/window/reinforced/plasma/grilled,
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
 "ojj" = (
@@ -75552,7 +75552,7 @@
 	},
 /area/station/turret_protected/ai_upload)
 "oGU" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 8
 	},
 /obj/machinery/atmospherics/binary/valve{
@@ -85356,7 +85356,7 @@
 /area/station/maintenance/apmaint)
 "smz" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
 "smJ" = (
@@ -94561,7 +94561,7 @@
 	},
 /area/station/command/office/ce)
 "vBv" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},

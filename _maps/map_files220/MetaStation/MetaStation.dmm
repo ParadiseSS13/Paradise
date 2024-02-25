@@ -1962,7 +1962,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
@@ -45872,7 +45872,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos)
 "dTX" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
@@ -48668,7 +48668,7 @@
 	},
 /area/station/supply/office)
 "fjU" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
@@ -52108,7 +52108,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/explab/chamber)
 "gNG" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
 /turf/simulated/wall/r_wall,
@@ -54788,7 +54788,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "hVw" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
@@ -59725,7 +59725,7 @@
 	},
 /area/station/security/main)
 "krx" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel,
@@ -64405,7 +64405,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
@@ -72835,7 +72835,7 @@
 	},
 /area/station/medical/exam_room)
 "qnp" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
@@ -79429,7 +79429,7 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
 "tug" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/door_control/shutter/east{
 	id = "toxinaccess";
 	name = "Toxins Access";
@@ -85085,7 +85085,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "wsu" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/light/small/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,

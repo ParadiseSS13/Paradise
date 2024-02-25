@@ -45463,7 +45463,7 @@
 	},
 /area/station/hallway/secondary/exit)
 "dOz" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -48764,7 +48764,7 @@
 	},
 /area/station/medical/paramedic)
 "ehm" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -55482,7 +55482,7 @@
 /area/station/medical/virology)
 "gpn" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
 "gpy" = (
@@ -88687,7 +88687,7 @@
 	},
 /area/station/public/pool)
 "qJA" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
@@ -102571,7 +102571,7 @@
 	dir = 1
 	},
 /obj/structure/window/plasmareinforced,
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
