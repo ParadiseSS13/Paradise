@@ -143,7 +143,7 @@
 	user.remove_status_effect(STATUS_EFFECT_LWAPSCOPE)
 
 /obj/item/gun/energy/lwap/on_mob_move(dir, mob/user)
-	if(HAS_TRAIT(user, TRAIT_USER_SCOPED))
+	if(HAS_TRAIT(user, TRAIT_USER_SCOPED) && istype(chambered, /obj/item/ammo_casing/energy/laser/sniper/pierce)) //This just makes sure it's our zoom
 		to_chat(user, "<span class='warning'>[src]'s scope is overloaded by movement and shuts down!</span>")
 		var/datum/component/scope/ourscope = GetComponent(/datum/component/scope)
 		ourscope.stop_zooming(user)
