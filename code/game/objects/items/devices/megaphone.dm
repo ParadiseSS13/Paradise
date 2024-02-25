@@ -56,10 +56,7 @@
 		to_chat(user, "<span class='warning'>[src] needs to recharge!</span>")
 		return
 
-	var/message = input(user, "Shout a message:", "Megaphone") as text|null
-	if(!message)
-		return
-	message = sanitize(copytext(message, 1, MAX_MESSAGE_LEN))
+	var/message = tgui_input_text(user, "Shout a message:", "Megaphone")
 	if(!message)
 		return
 	message = capitalize(message)
@@ -107,4 +104,5 @@
 	to_chat(user, "<span class='danger'>You short out [src]'s dampener circuits.</span>")
 	emagged = TRUE
 	span = "reallybig userdanger"  // really obvious, but also really loud
+	return TRUE
 

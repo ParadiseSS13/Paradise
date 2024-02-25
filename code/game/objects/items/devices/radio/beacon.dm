@@ -21,6 +21,7 @@
 		emagged = TRUE
 		syndicate = TRUE
 		to_chat(user, "<span class='notice'>The This beacon now only be locked on to by emagged teleporters!</span>")
+		return TRUE
 
 /obj/item/radio/beacon/hear_talk()
 	return

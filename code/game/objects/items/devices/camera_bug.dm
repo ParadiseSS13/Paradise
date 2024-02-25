@@ -62,10 +62,11 @@
 	. = ..()
 	link_to_camera(the_bug)
 	AddComponent(/datum/component/sticky)
+	ADD_TRAIT(src, TRAIT_NO_THROWN_MESSAGE, ROUNDSTART_TRAIT)
 
 /obj/item/wall_bug/Destroy()
 	QDEL_NULL(camera)
-	. = ..()
+	return ..()
 
 /obj/item/wall_bug/examine(mob/user)
 	. = ..()

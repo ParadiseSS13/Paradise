@@ -55,18 +55,18 @@
 //Puts the item into your l_hand if possible and calls all necessary triggers/updates. returns 1 on success.
 /mob/proc/put_in_l_hand(obj/item/W, skip_blocked_hands_check = FALSE)
 	if(!put_in_hand_check(W, skip_blocked_hands_check))
-		return 0
+		return FALSE
 	if(!l_hand && has_left_hand())
 		W.forceMove(src)		//TODO: move to equipped?
 		l_hand = W
 		W.layer = ABOVE_HUD_LAYER	//TODO: move to equipped?
 		W.plane = ABOVE_HUD_PLANE	//TODO: move to equipped?
-		W.equipped(src,SLOT_HUD_LEFT_HAND)
+		W.equipped(src, SLOT_HUD_LEFT_HAND)
 		if(pulling == W)
 			stop_pulling()
 		update_inv_l_hand()
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 //Puts the item into your r_hand if possible and calls all necessary triggers/updates. returns 1 on success.
 /mob/proc/put_in_r_hand(obj/item/W, skip_blocked_hands_check = FALSE)
@@ -96,8 +96,10 @@
 
 //Puts the item into our active hand if possible. returns 1 on success.
 /mob/proc/put_in_active_hand(obj/item/W)
-	if(hand)	return put_in_l_hand(W)
-	else		return put_in_r_hand(W)
+	if(hand)
+		return put_in_l_hand(W)
+	else
+		return put_in_r_hand(W)
 
 //Puts the item into our inactive hand if possible. returns 1 on success.
 /mob/proc/put_in_inactive_hand(obj/item/W)

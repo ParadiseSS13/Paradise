@@ -224,7 +224,7 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/NestPrompt()
-	var/confirm = alert(src, "Are you sure you want to nest? You will be able to lay eggs, and smash walls, but not ventcrawl.","Nest?","Yes","No")
+	var/confirm = tgui_alert(src, "Are you sure you want to nest? You will be able to lay eggs, and smash walls, but not ventcrawl.", "Nest?", list("Yes","No"))
 	if(confirm == "Yes")
 		NestMode()
 
@@ -255,14 +255,14 @@
 	var/list/eggtypes = ListAvailableEggTypes()
 	var/list/eggtypes_uncapped = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
 
-	var/eggtype = input("What kind of eggs?") as null|anything in eggtypes
+	var/eggtype = tgui_input_list(src, "What kind of eggs?", "Laying Eggs", eggtypes)
 	if(canlay < 1)
 		// this was checked before input() but we have to check again to prevent them spam-clicking the popup.
 		to_chat(src, "<span class='danger'>Too soon to lay another egg.</span>")
 		return
 	if(!(eggtype in eggtypes))
 		to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
-		return 0
+		return FALSE
 
 	// Multiple of eggtypes_uncapped can be laid at once. Other types must be laid one at a time (to prevent exploits)
 	var/numlings = 1
