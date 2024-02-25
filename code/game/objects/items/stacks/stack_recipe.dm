@@ -28,7 +28,7 @@
 	src.window_checks = window_checks
 	src.cult_structure = cult_structure
 
-///Returns TRUE if the recipe can be built, otherwise returns FALSE.  This proc is only meant as a series of tests to check if construction is possible; the actual creation of the resulting atom should be handled in do_build()
+/// Returns TRUE if the recipe can be built, otherwise returns FALSE. This proc is only meant as a series of tests to check if construction is possible; the actual creation of the resulting atom should be handled in do_build()
 /datum/stack_recipe/proc/try_build(mob/user, obj/item/stack/S, multiplier)
 	if(S.get_amount() < req_amount * multiplier)
 		if(req_amount * multiplier > 1)
@@ -76,7 +76,7 @@
 
 	return TRUE
 
-///Creates the atom defined by the recipe.  Should always return the object it creates.  This proc assumes that the construction is already possible; for checking whether a recipe *can* be built before construction, use try_build()
+/// Creates the atom defined by the recipe. Should always return the object it creates. This proc assumes that the construction is already possible; for checking whether a recipe *can* be built before construction, use try_build()
 /datum/stack_recipe/proc/do_build(mob/user, obj/item/stack/S, multiplier, atom/O)
 	if(max_res_amount > 1) //Is it a stack?
 		O = new result_type(get_turf(S), res_amount * multiplier)
@@ -87,7 +87,7 @@
 	S.updateUsrDialog()
 	return O
 
-///What should be done after the object is built?  obj/item/stack/O might not actually be a stack, but this proc needs access to merge() to work, which is on obj/item/stack, so declare it as obj/item/stack anyways.
+/// What should be done after the object is built? obj/item/stack/O might not actually be a stack, but this proc needs access to merge() to work, which is on obj/item/stack, so declare it as obj/item/stack anyways.
 /datum/stack_recipe/proc/post_build(mob/user, obj/item/stack/S, obj/item/stack/O)
 	if(S.amount < 1) // Just in case a stack's amount ends up fractional somehow
 		var/oldsrc = S
