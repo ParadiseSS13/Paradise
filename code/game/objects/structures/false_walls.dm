@@ -33,8 +33,6 @@
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
 
-/obj/structure/falsewall/var/test = 10
-
 /obj/structure/falsewall/Initialize(mapload)
 	. = ..()
 	air_update_turf(1)
