@@ -290,7 +290,7 @@
 		ui_interact(user)
 	else
 		if(isAI(user))
-			to_chat(user, "<span class='warning'>The bot is in maintenance mode and cannot be controlled</span>")
+			to_chat(user, "<span class='warning'>The bot is in maintenance mode and cannot be controlled.</span>")
 		else
 			wires.Interact(user)
 
