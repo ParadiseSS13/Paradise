@@ -361,5 +361,5 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/ectoplasm/revenant/examine(mob/user)
-    . = ..()
-    . += "<span class='revennotice'>It seems inert.</span>"
+	. = ..()
+	. += "<span class='revennotice'>It seems inert.</span>"
