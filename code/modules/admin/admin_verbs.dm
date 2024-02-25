@@ -876,8 +876,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		message_admins("[key_name_admin(usr)] has freed a job slot for [job].")
 
 /client/proc/toggleattacklogs()
-	set name = "Toggle Attack Log Messages"
-	set category = "Preferences"
+	set name = "Attack Log Messages"
+	set category = "Preferences.Toggle"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -905,8 +905,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 
 /client/proc/toggleadminlogs()
-	set name = "Toggle Admin Log Messages"
-	set category = "Preferences"
+	set name = "Admin Log Messages"
+	set category = "Preferences.Toggle"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -919,8 +919,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		to_chat(usr, "You now will get admin log messages.")
 
 /client/proc/toggleMentorTicketLogs()
-	set name = "Toggle Mentor Ticket Messages"
-	set category = "Preferences"
+	set name = "Mentor Ticket Messages"
+	set category = "Preferences.Toggle"
 
 	if(!check_rights(R_MENTOR|R_ADMIN))
 		return
@@ -933,8 +933,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		to_chat(usr, "You now will get mentor ticket messages.")
 
 /client/proc/toggleticketlogs()
-	set name = "Toggle Admin Ticket Messgaes"
-	set category = "Preferences"
+	set name = "Admin Ticket Messgaes"
+	set category = "Preferences.Toggle"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -947,8 +947,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		to_chat(usr, "You now will get admin ticket messages.")
 
 /client/proc/toggledebuglogs()
-	set name = "Toggle Debug Log Messages"
-	set category = "Preferences"
+	set name = "Debug Log Messages"
+	set category = "Preferences.Toggle"
 
 	if(!check_rights(R_VIEWRUNTIMES | R_DEBUG))
 		return
