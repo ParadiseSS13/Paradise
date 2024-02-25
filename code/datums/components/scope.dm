@@ -14,14 +14,17 @@
 	var/time_to_scope
 	/// Are we currently trying to scope in?
 	var/attempting_to_scope = FALSE
+	/// Do we let the user scope and click on the middle of their screen?
+	var/allow_middle_click = FALSE
 
-/datum/component/scope/Initialize(range_modifier = 1, zoom_method = ZOOM_METHOD_ITEM_ACTION, item_action_type = /datum/action/zoom, time_to_scope = 0)
+/datum/component/scope/Initialize(range_modifier = 1, zoom_method = ZOOM_METHOD_ITEM_ACTION, item_action_type = /datum/action/zoom, time_to_scope = 0, allow_middle_click = FALSE)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 	src.range_modifier = range_modifier
 	src.zoom_method = zoom_method
 	src.item_action_type = item_action_type
 	src.time_to_scope = time_to_scope
+	src.allow_middle_click = allow_middle_click
 
 
 /datum/component/scope/Destroy(force)
@@ -166,6 +169,8 @@
 	user.playsound_local(parent, 'sound/weapons/scope.ogg', 75, TRUE)
 	tracker = user.overlay_fullscreen("scope", /obj/screen/fullscreen/cursor_catcher/scope, istype(parent, /obj/item/gun))
 	tracker.assign_to_mob(user, range_modifier)
+	if(allow_middle_click)
+		RegisterSignal(tracker, COMSIG_CLICK, PROC_REF(generic_click))
 	tracker_owner_ckey = user.ckey
 	if(user.is_holding(parent))
 		RegisterSignals(user, list(COMSIG_CARBON_SWAP_HANDS, COMSIG_PARENT_QDELETING), PROC_REF(stop_zooming))
@@ -188,6 +193,10 @@
 
 	if(amount > 0)
 		stop_zooming(source)
+
+/datum/component/scope/proc/generic_click(/obj/source, location, control, params)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(tracker.owner, TYPE_PROC_REF(/mob, ClickOn), get_target(tracker.given_turf), params)
 
 /**
  * We stop zooming, canceling processing, resetting stuff back to normal and deleting our tracker.
@@ -242,6 +251,7 @@
 /obj/screen/fullscreen/cursor_catcher/scope/Click(location, control, params)
 	if(usr == owner)
 		calculate_params()
+		SEND_SIGNAL(src, COMSIG_CLICK, location, control, params)
 
 	return ..()
 
