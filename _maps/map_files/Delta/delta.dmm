@@ -27922,10 +27922,17 @@
 /turf/simulated/floor/greengrid,
 /area/station/turret_protected/ai)
 "bCW" = (
+/obj/machinery/door_control{
+	id = "AI-door";
+	name = "AI Entrance Blast Doors";
+	pixel_y = -24;
+	pixel_x = 5
+	},
 /obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24;
+	pixel_x = -5
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai)
@@ -73101,14 +73108,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
-"icg" = (
-/obj/machinery/door_control{
-	id = "AI-door";
-	name = "AI Entrance Blast Doors";
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/turret_protected/ai)
 "ici" = (
 /obj/machinery/economy/vending/tool,
 /obj/item/radio/intercom{
@@ -109205,7 +109204,7 @@ btd
 bBg
 bye
 bzz
-bCW
+bBf
 bED
 jJu
 bBf
@@ -109461,7 +109460,7 @@ btd
 byg
 bBf
 bye
-icg
+bBf
 btd
 btd
 xGg
@@ -109982,7 +109981,7 @@ eJy
 hhz
 bwJ
 bJV
-bBf
+bCW
 bNM
 bXI
 bVS
