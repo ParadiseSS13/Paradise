@@ -21852,8 +21852,7 @@
 "clW" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms");
-	
+	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -32946,8 +32945,7 @@
 "dxq" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost");
-	
+	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /obj/item/radio/intercom{
 	pixel_y = -28;
@@ -33198,7 +33196,7 @@
 /area/station/hallway/primary/fore)
 "dyJ" = (
 /obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research    Outpost","Mining    Outpost")
+	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
@@ -38446,7 +38444,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 4;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -39223,8 +39221,7 @@
 "fxL" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms");
-	
+	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -46649,8 +46646,7 @@
 "icR" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost");
-	
+	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -96134,7 +96130,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 8;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /obj/item/radio/intercom{
 	pixel_x = 28;

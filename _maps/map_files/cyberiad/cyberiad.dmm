@@ -922,8 +922,7 @@
 	},
 /obj/machinery/computer/security{
 	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost");
-	
+	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4316,8 +4315,7 @@
 "apk" = (
 /obj/machinery/computer/security{
 	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost");
-	
+	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -4830,8 +4828,7 @@
 "arl" = (
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("SS13","Research Outpost","Mining Outpost");
-	
+	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -9427,8 +9424,7 @@
 	pixel_x = 28
 	},
 /obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research Outpost","Mining Outpost");
-	
+	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /obj/machinery/button/windowtint{
 	id = "Detective";
@@ -15336,8 +15332,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost");
-	
+	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -85825,8 +85820,7 @@
 	c_tag = "Bridge West"
 	},
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms");
-	
+	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
 	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32

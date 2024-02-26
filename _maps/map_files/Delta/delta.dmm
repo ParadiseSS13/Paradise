@@ -67314,7 +67314,7 @@
 "eBo" = (
 /obj/machinery/computer/general_air_control{
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor"="Burn Mix");
+	autolink_sensors = list("burn_sensor" = "Burn Mix");
 	dir = 1
 	},
 /obj/machinery/ignition_switch{
