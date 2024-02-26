@@ -182,7 +182,7 @@
 		/datum/job/geneticist = /obj/item/organ/internal/alien/plasmavessel/hunter, //we don't care about implants, we have cancer.
 		/datum/job/hop = /obj/item/organ/internal/eyes/cybernetic/shield,
 		/datum/job/hos = /obj/item/organ/internal/cyberimp/brain/anti_stam, //not giving them thermals
-		/datum/job/janitor = /obj/item/organ/internal/cyberimp/eyes/hud/jani, //Not giving them bloody xray. //blood xray then?. ~cat
+		/datum/job/janitor = /obj/item/organ/internal/cyberimp/eyes/hud/jani,
 		/datum/job/lawyer = /obj/item/organ/internal/heart/cybernetic/upgraded,
 		/datum/job/mime = /obj/item/organ/internal/cyberimp/brain/anti_stam, //...
 		/datum/job/paramedic = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
