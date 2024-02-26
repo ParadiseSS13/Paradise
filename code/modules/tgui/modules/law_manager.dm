@@ -27,7 +27,7 @@
 			if(laws.selectable)
 				player_laws += laws
 
-/datum/ui_module/law_manager/ui_act(action, list/params)
+/datum/ui_module/law_manager/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
 
