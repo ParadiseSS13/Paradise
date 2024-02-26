@@ -54,10 +54,10 @@
 
 	if(cult_structure)
 		if(user.holy_check())
-			return
+			return FALSE
 		if(!is_level_reachable(user.z))
 			to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
-			return
+			return FALSE
 		if(locate(/obj/structure/cult) in get_turf(S))
 			to_chat(user, "<span class='warning'>There is a structure here!</span>")
 			return FALSE
@@ -72,7 +72,7 @@
 		return FALSE
 
 	if(S.get_amount() < req_amount * multiplier)
-		return
+		return FALSE
 
 	return TRUE
 
