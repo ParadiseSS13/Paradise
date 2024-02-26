@@ -61,7 +61,7 @@
 	name = "cloning scanner"
 	desc = "An advanced machine that thoroughly scans the current state of a cadaver for use in cloning."
 	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "scanner_0"
+	icon_state = "scanner_open"
 	density = TRUE
 	anchored = TRUE
 
