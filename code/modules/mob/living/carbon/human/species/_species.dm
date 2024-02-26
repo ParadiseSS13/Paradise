@@ -691,9 +691,6 @@
 		if(INTENT_DISARM)
 			disarm(M, H, attacker_style)
 
-/datum/species/proc/say_filter(mob/M, message, datum/language/speaking)
-	return message
-
 /datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
 	return
 
