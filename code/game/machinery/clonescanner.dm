@@ -204,18 +204,17 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/clonescanner/update_icon_state()
-	if(occupant)
-		if(panel_open)
-			icon_state = "scanner_maintenance"
-		else if(stat & NOPOWER)
-			icon_state = "scanner"
-		else
-			icon_state = "scanner_1"
-	else
-		if(panel_open)
-			icon_state = "scanner_open_maintenance"
-		else
-			icon_state = "scanner_open"
+	if(panel_open)
+		icon_state = "scanner" + (occupant ? "" : "_open") + "_maintenance"
+		return
+	if(stat & NOPOWER)
+		icon_state = "scanner"
+		return
+	if(!occupant)
+		icon_state = "scanner_open"
+		return
+	icon_state = "scanner_occupied"
+	return
 
 
 /obj/machinery/clonescanner/multitool_act(mob/user, obj/item/I)
