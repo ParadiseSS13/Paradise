@@ -275,7 +275,6 @@
 
 /proc/stutter(phrase, stamina_loss = 0, robotic = FALSE)
 	phrase = html_decode(phrase)
-
 	var/list/split_phrase = splittext(phrase, " ") //Split it up into words.
 
 	var/phrase_length = length(split_phrase)
@@ -301,7 +300,6 @@
 			word = "[first_letter]-[second_repeat]-[word]"
 		else
 			word = "[first_letter]-[word]"
-
 		split_phrase[index] = word
 
 	return sanitize(jointext(split_phrase, " "))
