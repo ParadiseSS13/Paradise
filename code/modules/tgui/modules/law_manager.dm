@@ -69,22 +69,22 @@
 				owner.add_supplied_law(supplied_law_position, supplied_law)
 
 		if("change_zeroth_law")
-			var/new_law = tgui_input_text(src, "Enter new law Zero. Leaving the field blank will cancel the edit.", "Edit Law", zeroth_law)
+			var/new_law = tgui_input_text(usr, "Enter new law Zero. Leaving the field blank will cancel the edit.", "Edit Law", zeroth_law)
 			if(new_law && new_law != zeroth_law && (!..()))
 				zeroth_law = new_law
 
 		if("change_ion_law")
-			var/new_law = tgui_input_text(src, "Enter new ion law. Leaving the field blank will cancel the edit.", "Edit Law", ion_law)
+			var/new_law = tgui_input_text(usr, "Enter new ion law. Leaving the field blank will cancel the edit.", "Edit Law", ion_law)
 			if(new_law && new_law != ion_law && (!..()))
 				ion_law = new_law
 
 		if("change_inherent_law")
-			var/new_law = tgui_input_text(src, "Enter new inherent law. Leaving the field blank will cancel the edit.", "Edit Law", inherent_law)
+			var/new_law = tgui_input_text(usr, "Enter new inherent law. Leaving the field blank will cancel the edit.", "Edit Law", inherent_law)
 			if(new_law && new_law != inherent_law && (!..()))
 				inherent_law = new_law
 
 		if("change_supplied_law")
-			var/new_law = tgui_input_text(src, "Enter new supplied law. Leaving the field blank will cancel the edit.", "Edit Law", supplied_law)
+			var/new_law = tgui_input_text(usr, "Enter new supplied law. Leaving the field blank will cancel the edit.", "Edit Law", supplied_law)
 			if(new_law && new_law != supplied_law && (!..()))
 				supplied_law = new_law
 
