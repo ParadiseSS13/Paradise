@@ -70,10 +70,5 @@
 	icon_state = "disk_kit"
 
 /obj/item/storage/box/disks/populate_contents()
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
+	for(var/i in 1 to 7)
+		new /obj/item/disk/data(src)
