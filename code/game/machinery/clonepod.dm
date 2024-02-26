@@ -639,16 +639,18 @@
 	switch(action)
 		if("eject_organ")
 			var/obj/item/organ/O = locateUID(params["organ_ref"])
-			if(!O) //This shouldn't happen
+			if(!istype(O)) //This shouldn't happen
 				return FALSE
 			if(!ui.user.put_in_hands(O))
 				O.forceMove(loc)
 			return TRUE
 		if("purge_reagent")
-			reagents.del_reagent(params["reagent"])
+			if(params["reagent"])
+				reagents.del_reagent(params["reagent"])
 			return TRUE
 		if("remove_reagent")
-			reagents.remove_reagent(params["reagent"], text2num(params["amount"]))
+			if(params["reagent"])
+				reagents.remove_reagent(params["reagent"], params["amount"])
 			return TRUE
 
 	update_icon()
