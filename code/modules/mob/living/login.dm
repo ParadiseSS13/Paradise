@@ -21,4 +21,6 @@
 	//Should update regardless of if we can ventcrawl, since we can end up in pipes in other ways.
 	update_pipe_vision(loc)
 
+	client?.init_verbs()
+
 	return .

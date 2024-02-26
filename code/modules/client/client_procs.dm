@@ -1175,8 +1175,6 @@
 
 /// Compiles a full list of verbs and sends it to the browser
 /client/proc/init_verbs()
-	if(IsAdminAdvancedProcCall())
-		return
 	var/list/verblist = list()
 	var/list/verbstoprocess = verbs.Copy()
 	if(mob)
