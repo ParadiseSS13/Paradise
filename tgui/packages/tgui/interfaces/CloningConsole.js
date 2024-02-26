@@ -171,9 +171,14 @@ const CloningConsoleDamage = (props, context) => {
             layer={2}
             title="Scanner Info"
             buttons={
-              <Button icon="hourglass-half" onClick={() => act('scan')}>
-                Scan
-              </Button>
+              <Box>
+                <Button icon="hourglass-half" onClick={() => act('scan')}>
+                  Scan
+                </Button>
+                <Button icon="eject" onClick={() => act('eject')}>
+                  Eject Patient
+                </Button>
+              </Box>
             }
           >
             {!has_scanned && (

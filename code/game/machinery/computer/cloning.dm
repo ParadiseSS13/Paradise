@@ -331,6 +331,10 @@
 					else
 						desired_data.organs[params["organ"]][1] = patient_data.organs[params["organ"]][1]
 			return TRUE
+		if("eject")
+			if(scanner?.occupant)
+				scanner.remove_mob(scanner.occupant)
+			return TRUE
 
 
 	add_fingerprint(usr)
