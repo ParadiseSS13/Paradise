@@ -140,7 +140,7 @@
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle MIDIs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/listen_ooc()
-	set name = "OOC"
+	set name = "OOC (Out of Character)"
 	set category = "Preferences.Show/Hide"
 	set desc = "Toggles seeing OutOfCharacter chat"
 	prefs.toggles ^= PREFTOGGLE_CHAT_OOC
@@ -150,7 +150,7 @@
 
 
 /client/verb/listen_looc()
-	set name = "LOOC"
+	set name = "LOOC (Local Out of Character)"
 	set category = "Preferences.Show/Hide"
 	set desc = "Toggles seeing Local OutOfCharacter chat"
 	prefs.toggles ^= PREFTOGGLE_CHAT_LOOC
