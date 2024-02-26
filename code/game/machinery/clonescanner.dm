@@ -193,7 +193,7 @@
 	occupant = inserted
 	if(last_scan?.name != inserted.dna?.real_name)
 		last_scan = null
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/clonescanner/proc/remove_mob(mob/living/carbon/human/removed)
 	if(!istype(removed))
@@ -201,7 +201,7 @@
 	removed.forceMove(loc)
 	occupant = null
 	has_scanned = FALSE
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/clonescanner/update_icon_state()
 	if(occupant)

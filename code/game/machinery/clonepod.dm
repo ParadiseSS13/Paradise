@@ -299,7 +299,7 @@
 	reagents.remove_reagent("osseous_reagent", cost[3])
 
 	countdown.start()
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 //Creates the clone! Used once the cloning pod reaches ~20% completion.
 /obj/machinery/clonepod/proc/create_clone()
@@ -360,7 +360,7 @@
 		desired_data = null
 		clone_progress = 0
 		desc_flavor = initial(desc_flavor)
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 		countdown.stop()
 		return TRUE
 
@@ -379,7 +379,7 @@
 		desired_data = null
 		clone_progress = 0
 		desc_flavor = initial(desc_flavor)
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 		countdown.stop()
 		return TRUE
 
@@ -403,7 +403,7 @@
 	desired_data = null
 	clone_progress = 0
 	desc_flavor = initial(desc_flavor)
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	countdown.stop()
 	return TRUE
 
