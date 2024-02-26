@@ -548,6 +548,7 @@
 		H.reset_markings()
 		H.dna.ResetUIFrom(H)
 		H.flavor_text = ""
+	client.init_verbs()
 	stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
 
@@ -564,7 +565,6 @@
 
 
 	new_character.key = key		//Manually transfer the key to log them in
-	client.init_verbs()
 
 	return new_character
 
