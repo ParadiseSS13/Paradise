@@ -38,6 +38,6 @@
 	item_color = "solgovr"
 
 /obj/item/clothing/under/solgov/viper
-	name = "\improper Trans-Solar Federation Infilitor uniform"
+	name = "\improper Trans-Solar Federation Infiltrator uniform"
 	desc = "Olive Drab camoflauge. Commonly known as OD. A battle uniform for TSF infiltrators."
 	color = "#f5cf53" // custom sprites are for losers (this makes it a light green)

@@ -349,7 +349,7 @@
 	name = "\improper Trans-Solar Federation Marine's bowman headset"
 
 /obj/item/radio/headset/ert/alt/solgovviper
-	name = "\improper Trans-Solar Federation Infilitrator's bowman headset"
+	name = "\improper Trans-Solar Federation Infiltrator's bowman headset"
 
 /obj/item/radio/headset/ert/alt/commander
 	name = "ERT commander's bowman headset"
