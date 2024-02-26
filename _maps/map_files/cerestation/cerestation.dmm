@@ -31132,7 +31132,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/hallway/primary/fore)
 "dmB" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
@@ -68555,7 +68555,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northeast)
 "pgO" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
@@ -87905,6 +87905,15 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/service/bar)
+"vxH" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/space,
+/area/space/nearstation)
 "vxJ" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -88215,15 +88224,6 @@
 	icon_state = "white"
 	},
 /area/station/science/misc_lab)
-"vDy" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/space,
-/area/space/nearstation)
 "vDK" = (
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable/orange{
@@ -105784,7 +105784,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 cZN
 jVU
 qyy
@@ -106041,7 +106041,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 cZN
 gAG
 cZN
@@ -106298,7 +106298,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -106555,7 +106555,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -106812,7 +106812,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -107069,7 +107069,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -107326,7 +107326,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -107583,7 +107583,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -107840,7 +107840,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -108097,7 +108097,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -108354,7 +108354,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -108611,7 +108611,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -108868,7 +108868,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -109125,7 +109125,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -109382,7 +109382,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
@@ -109639,7 +109639,7 @@ rNK
 rNK
 rNK
 rNK
-vDy
+vxH
 lez
 fwi
 rNK
