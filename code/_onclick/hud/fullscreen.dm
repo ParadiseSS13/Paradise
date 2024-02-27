@@ -151,8 +151,9 @@
 /obj/screen/fullscreen/adjust_eye
 	icon_state = "adjusting_overlay"
 	plane = LIGHTING_PLANE
-	layer = LIGHTING_LAYER + 0.1 // Make sure it goes above the nightvision overlay
-	blend_mode = BLEND_OVERLAY
+	layer = LIGHTING_LAYER // Make sure it goes above the nightvision overlay
+	blend_mode = BLEND_INSET_OVERLAY
+	alpha = 120
 
 /// An effect which tracks the cursor's location on the screen
 /obj/screen/fullscreen/cursor_catcher

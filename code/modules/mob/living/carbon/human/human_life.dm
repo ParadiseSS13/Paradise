@@ -75,7 +75,6 @@
 			force_cryo_human(src)
 
 /mob/living/carbon/human/proc/handle_light_adjustment()
-	message_admins("Test1")
 	var/obj/screen/fullscreen/adjust_eye/already_present = screens["adjust_vision"]
 	if(already_present) // Don't do it again, they're still adjusting
 		return
@@ -83,17 +82,18 @@
 	var/turf/T = get_turf(src)
 	var/brightness = T.get_lumcount()
 	var/darkness = 1 - brightness	//Silly, I know, but 'alpha' and 'darkness' go the same direction on a number line.
-	var/distance = abs(-darkness) //Used for how long to animate for.
-	message_admins(distance)
-	if(distance < 0.01)				//We're already all set.
+	var/distance = CLAMP01(darkness - previous_light_intensity) //Used for how long to animate for.
+
+	previous_light_intensity = darkness
+	if(distance < 0.4)	// Not really much to adjust to
 		return
 
 	overlay_fullscreen("adjust_vision", /obj/screen/fullscreen/adjust_eye)
 	var/obj/screen/fullscreen/adjust_eye/screen = screens["adjust_vision"]
-
 	var/time = (distance * 10 SECONDS)
-//	animate(screen, alpha = 0, time)
-//	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel)), time)
+
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, clear_fullscreen), "adjust_vision"), time + 1 SECONDS)
+	animate(screen, alpha = 0, time)
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	..()

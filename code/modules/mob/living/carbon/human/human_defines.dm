@@ -86,3 +86,6 @@
 
 	var/list/splinted_limbs = list() //limbs we know are splinted
 	var/original_eye_color = "#000000"
+
+	/// How bright was the tile we were on last `Life()`
+	var/previous_light_intensity = 0
