@@ -107,6 +107,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		emagged = TRUE
 		req_one_access = list()
 		to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
+		return TRUE
 	else
 		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")
 
@@ -200,7 +201,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 					. = FALSE
 		if("rename") // rename the item that is currently in the fax machine
 			if(copyitem)
-				var/n_name = sanitize(copytext(input(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)  as text, 1, MAX_MESSAGE_LEN))
+				var/n_name = tgui_input_text(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)
+				if(!n_name)
+					return
 				if(copyitem && copyitem.loc == src && usr.stat == 0)
 					if(istype(copyitem, /obj/item/paper))
 						copyitem.name = "[(n_name ? "[n_name]" : initial(copyitem.name))]"

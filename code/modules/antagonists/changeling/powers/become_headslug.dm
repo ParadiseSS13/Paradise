@@ -13,7 +13,7 @@
 	if(cling.headslugged)
 		to_chat(user, "<span class='notice'>We need to absorb a humanoid to headslug again.</span>")
 		return
-	if(alert("Are you sure you wish to do this? This action cannot be undone.",,"Yes","No") == "No")
+	if(tgui_alert("Are you sure you wish to do this? This action cannot be undone.",,"Yes","No") == "No")
 		return
 	cling.headslugged = TRUE
 	..()

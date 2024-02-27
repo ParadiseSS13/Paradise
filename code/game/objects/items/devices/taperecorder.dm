@@ -317,6 +317,7 @@
 
 	to_chat(user, "<span class='notice'>You erase the data from [src].</span>")
 	used_capacity = 0
+	remaining_capacity = max_capacity
 	storedinfo.Cut()
 	timestamp.Cut()
 
