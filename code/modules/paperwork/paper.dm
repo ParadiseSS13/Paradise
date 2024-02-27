@@ -694,7 +694,7 @@
 /obj/item/paper/nuclear_guide_operating
 	name = "nuclear guide : 'Operating the Nuclear Device'"
 	info = "<b>ARMING THE NUCLEAR DEVICE</b><hr /> \
-		1. Insert the NAD <br> \
+		1. Insert the NAD. <br> \
 		2. Enter the code provided by Central Command. For this training device, the code is 11111.<br> \
 		3. (Optional) Set a specific timer for detonation. Default and minimum is 2 minutes.<br> \
 		4. Disable the safety.<br> \
