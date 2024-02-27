@@ -198,7 +198,7 @@
 /obj/machinery/clonescanner/proc/remove_mob(mob/living/carbon/human/removed)
 	if(!istype(removed))
 		return
-	removed.forceMove(loc)
+	removed.forceMove(get_turf(loc))
 	occupant = null
 	has_scanned = FALSE
 	update_icon(UPDATE_ICON_STATE)

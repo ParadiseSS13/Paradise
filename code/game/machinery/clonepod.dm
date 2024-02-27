@@ -120,7 +120,7 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
-	create_reagents()
+	create_reagents(100)
 	update_icon()
 	RefreshParts()
 
@@ -456,7 +456,6 @@
 		if(organ == "heart") //The heart is always replaced in cloning. This is factored into the base biomass cost, so we don't add more here.
 			if(get_stored_organ(organ))
 				cloning_cost[1] -= BIOMASS_NEW_ORGAN_COST //the cost of a new organ should ALWAYS be below the base cloning cost
-				continue
 			continue
 
 		if(get_stored_organ(organ))
@@ -539,7 +538,7 @@
 	to_chat(inserter, "<span class='notice'>You insert [inserted] into [src]'s organ storage.</span>")
 	SStgui.try_update_ui(inserter, src)
 	if(has_children)
-		visible_message("There's a crunching sound as [src] breaks down [inserted] into discrete parts.", "You hear a crunching noise.")
+		visible_message("There's a crunching sound as [src] breaks down [inserted] into discrete parts.", "You hear a loud crunch.")
 
 /obj/machinery/clonepod/proc/get_stored_organ(organ)
 	for(var/obj/item/organ/external/EO in contents)
