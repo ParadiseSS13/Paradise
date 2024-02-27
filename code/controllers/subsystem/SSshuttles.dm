@@ -353,12 +353,11 @@ SUBSYSTEM_DEF(shuttle)
 		loading_shuttle_at_preview_template = FALSE
 		return port
 
-	var/msg = "load_template(): Shuttle Template [S.mappath] has no mobile docking port. Aborting import."
-
 	for(var/T in affected)
 		var/turf/T0 = T
 		T0.contents = null
 
+	var/msg = "load_template(): Shuttle Template [S.mappath] has no mobile docking port. Aborting import."
 	message_admins(msg)
 	WARNING(msg)
 	loading_shuttle_at_preview_template = FALSE
