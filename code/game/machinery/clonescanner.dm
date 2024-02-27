@@ -48,14 +48,6 @@
 		"eyes"     = HEALTHY_ORGAN
 	)
 
-#define SCANNER_UNCLONEABLE_SPECIES "uncloneable"
-#define SCANNER_HUSKED "husked"
-#define SCANNER_ABSORBED "absorbed"
-#define SCANNER_NO_SOUL "soulless"
-#define SCANNER_BRAIN_ISSUE "suicide or missing brain"
-#define SCANNER_MISC "miscellanious"
-#define SCANNER_SUCCESSFUL "successful"
-
 //The cloning scanner itself.
 /obj/machinery/clonescanner
 	name = "cloning scanner"

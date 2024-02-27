@@ -244,7 +244,7 @@
 			return TRUE
 		if("clone")
 			var/cost = selected_pod.get_cloning_cost(scanner.last_scan, desired_data)
-			if(selected_pod.biomass < cost[1] || (selected_pod.reagents.get_reagent_amount("sanguine_reagent") < cost[2]) || selected_pod.reagents.get_reagent_amount("osseous_reagent") < cost[3])
+			if(selected_pod.biomass < cost[BIOMASS_COST] || (selected_pod.reagents.get_reagent_amount("sanguine_reagent") < cost[SANGUINE_COST]) || selected_pod.reagents.get_reagent_amount("osseous_reagent") < cost[OSSEOUS_COST])
 				feedback = list("text" = "The cloning operation is too expensive!", "color" = "bad")
 			else
 				selected_pod.start_cloning(scanner.last_scan, desired_data)

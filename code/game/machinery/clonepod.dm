@@ -173,7 +173,7 @@
 		else if(istype(SP, /obj/item/stock_parts/manipulator)) //Manipulators for speed modifier
 			speed_modifier += SP.rating / 2 //1 at tier 1, 2 at tier 2, et cetera
 
-	for(var/obj/item/reagent_containers/glass/beaker/B as anything in component_parts)
+	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
 		if(istype(B))
 			reagents.maximum_volume = B.volume //The default cloning pod has a large beaker in it, so 100u.
 
@@ -294,14 +294,14 @@
 	desired_data = _desired_data
 
 	var/cost = get_cloning_cost(patient_data, desired_data)
-	biomass -= cost[1]
-	reagents.remove_reagent("sanguine_reagent", cost[2])
-	reagents.remove_reagent("osseous_reagent", cost[3])
+	biomass -= cost[BIOMASS_COST]
+	reagents.remove_reagent("sanguine_reagent", cost[SANGUINE_COST])
+	reagents.remove_reagent("osseous_reagent", cost[OSSEOUS_COST])
 
 	countdown.start()
 	update_icon(UPDATE_ICON_STATE)
 
-//Creates the clone! Used once the cloning pod reaches ~20% completion.
+//Creates the clone! Used once the cloning pod reaches ~10% completion.
 /obj/machinery/clonepod/proc/create_clone()
 	clone = new /mob/living/carbon/human(src, patient_data.genetic_info.species.type)
 
@@ -354,13 +354,7 @@
 	if(!clone && force)
 		new /obj/effect/gibspawner/generic(get_turf(src), desired_data.genetic_info)
 		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
-		currently_cloning = FALSE
-		patient_data = null
-		desired_data = null
-		clone_progress = 0
-		desc_flavor = initial(desc_flavor)
-		update_icon(UPDATE_ICON_STATE)
-		countdown.stop()
+		reset_cloning()
 		return TRUE
 
 	if(!clone.cloneloss)
@@ -372,14 +366,7 @@
 		to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
 		to_chat(clone, "<span class='notice'>There's a bright flash of light, and you take your first breath once more.</span>")
 
-		currently_cloning = FALSE
-		clone = null
-		patient_data = null
-		desired_data = null
-		clone_progress = 0
-		desc_flavor = initial(desc_flavor)
-		update_icon(UPDATE_ICON_STATE)
-		countdown.stop()
+		reset_cloning()
 		return TRUE
 
 	if(!force)
@@ -396,6 +383,11 @@
 	to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!")
 	to_chat(clone, "<span class='danger'>You're ripped out of blissful oblivion! You feel like shit.</span>")
 
+	reset_cloning()
+	return TRUE
+
+//Helper proc for the above
+/obj/machinery/clonepod/proc/reset_cloning()
 	currently_cloning = FALSE
 	clone = null
 	patient_data = null
@@ -404,7 +396,6 @@
 	desc_flavor = initial(desc_flavor)
 	update_icon(UPDATE_ICON_STATE)
 	countdown.stop()
-	return TRUE
 
 //This gets the cost of cloning, in a list with the form (biomass, sanguine reagent, osseous reagent).
 /obj/machinery/clonepod/proc/get_cloning_cost(datum/cloning_data/_patient_data, datum/cloning_data/_desired_data)
@@ -537,7 +528,7 @@
 	to_chat(inserter, "<span class='notice'>You insert [inserted] into [src]'s organ storage.</span>")
 	SStgui.try_update_ui(inserter, src)
 	if(has_children)
-		visible_message("There's a crunching sound as [src] breaks down [inserted] into discrete parts.", "You hear a loud crunch.")
+		visible_message("<span class='notice'>There's a crunching sound as [src] breaks down [inserted] into discrete parts.</span>", "You hear a loud crunch.")
 
 /obj/machinery/clonepod/proc/get_stored_organ(organ)
 	for(var/obj/item/organ/external/EO in contents)
