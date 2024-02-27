@@ -210,7 +210,7 @@
 
 	else if(istype(I, /obj/item/gripper_engineering))
 		if(!try_refill_storage(user))
-			to_chat(user, "You fail to retrieve any sheets from [src].")
+			to_chat(user, "<span class='notice'>You fail to retrieve any sheets from [src].</span>")
 		return
 
 	return ..()
