@@ -521,7 +521,7 @@
 	to_chat(user, "<span class='notice sans'>Special supplies unlocked.</span>")
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
-		return TRUE
+	return TRUE
 
 /obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"
