@@ -49,8 +49,6 @@
 
 #define STOMACH_ATTACK_DELAY 4
 
-/mob/living/carbon/var/last_stomach_attack //defining this here because no one would look in carbon_defines for it
-
 /mob/living/carbon/relaymove(mob/user, direction)
 	if(LAZYLEN(stomach_contents))
 		if(user in stomach_contents)
@@ -445,15 +443,15 @@
 
 GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
 
-/mob/living/handle_ventcrawl(atom/clicked_on) // -- TLE -- Merged by Carn
+/mob/living/handle_ventcrawl(atom/clicked_on) // Why is this proc even in carbon.dm ...
 	if(!Adjacent(clicked_on))
 		return
 
-	var/ventcrawlerlocal = 0
+	var/ventcrawlerlocal = VENTCRAWLER_NONE
 	if(ventcrawler)
 		ventcrawlerlocal = ventcrawler
 
-	if(!ventcrawlerlocal)
+	if(ventcrawlerlocal == VENTCRAWLER_NONE) // You can't ventcrawl.
 		return
 
 	if(stat)
@@ -467,9 +465,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(has_buckled_mobs())
 		to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
 		return
+
 	if(buckled)
 		to_chat(src, "<span class='warning'>You can't vent crawl while buckled!</span>")
 		return
+
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist))//IMMA SPCHUL SNOWFLAKE
@@ -486,55 +486,54 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 
 	if(!vent_found)
-		for(var/obj/machinery/atmospherics/machine in range(1,src))
+		for(var/obj/machinery/atmospherics/machine in range(1, src))
 			if(is_type_in_list(machine, GLOB.ventcrawl_machinery) && machine.can_crawl_through())
 				vent_found = machine
 				break
 
-	if(vent_found)
-		if(vent_found.parent && (vent_found.parent.members.len || vent_found.parent.other_atmosmch))
-			visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
-							"<span class='notice'>You begin climbing into the ventilation system...</span>")
-
-			if(!do_after(src, 45, target = src))
-				return
-
-			if(has_buckled_mobs())
-				to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
-				return
-
-			if(buckled)
-				to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
-				return
-
-			if(!client)
-				return
-
-			if(iscarbon(src) && contents.len && ventcrawlerlocal < 2)//It must have atleast been 1 to get this far
-				for(var/obj/item/I in contents)
-					var/failed = 0
-					if(istype(I, /obj/item/bio_chip))
-						continue
-					if(istype(I, /obj/item/reagent_containers/patch))
-						continue
-					if(I.flags & ABSTRACT)
-						continue
-					else
-						failed++
-
-					if(failed)
-						to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
-						return
-
-			visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
-			var/old_loc = loc
-			loc = vent_found
-			Moved(old_loc, get_dir(old_loc, loc), FALSE)
-			add_ventcrawl(vent_found)
-
-	else
+	if(!vent_found)
 		to_chat(src, "<span class='warning'>This ventilation duct is not connected to anything!</span>")
+		return
 
+	if(!vent_found.parent || !(length(vent_found.parent.members) || vent_found.parent.other_atmosmch))
+		return
+
+	visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
+					"<span class='notice'>You begin climbing into the ventilation system...</span>")
+
+	if(!do_after(src, 4.5 SECONDS, target = src))
+		return
+
+	if(!client)
+		return
+
+	if(!vent_found.can_crawl_through())
+		to_chat(src, "<span class='warning'>You can't vent crawl through that!</span>")
+		return
+
+	if(has_buckled_mobs())
+		to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
+		return
+
+	if(buckled)
+		to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
+		return
+
+	if(iscarbon(src) && length(contents) && ventcrawlerlocal < VENTCRAWLER_ALWAYS) // If we're here you can only ventcrawl while completely nude
+		for(var/obj/item/I in contents)
+			if(istype(I, /obj/item/bio_chip))
+				continue
+			if(istype(I, /obj/item/reagent_containers/patch))
+				continue
+			if(I.flags & ABSTRACT)
+				continue
+
+			to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
+			return
+
+	visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
+	forceMove(vent_found)
+	add_ventcrawl(vent_found)
 
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
 	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
@@ -699,7 +698,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			return
 
 	if(thrown_thing)
-		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
+		if(!HAS_TRAIT(thrown_thing, TRAIT_NO_THROWN_MESSAGE))
+			visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
 		newtonian_move(get_dir(target, src))
 		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
 
@@ -1081,7 +1081,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(statpanel("Status"))
 		var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
 		if(vessel)
-			stat(null, "Plasma Stored: [vessel.stored_plasma]/[vessel.max_plasma]")
+			stat("Plasma Stored: [vessel.stored_plasma]/[vessel.max_plasma]")
 
 /mob/living/carbon/get_all_slots()
 	return list(l_hand,
@@ -1193,7 +1193,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		playsound(loc, to_drink.consume_sound, rand(10, 50), TRUE)
 	if(to_drink.reagents.total_volume)
 		taste(to_drink.reagents)
-		var/drink_size = min(to_drink.amount_per_transfer_from_this, 5)
+		var/drink_size = max(initial(to_drink.amount_per_transfer_from_this), 5)
 		if(drinksize_override)
 			drink_size = drinksize_override
 		to_drink.reagents.reaction(src, REAGENT_INGEST)

@@ -87,5 +87,13 @@
 	var/list/splinted_limbs = list() //limbs we know are splinted
 	var/original_eye_color = "#000000"
 
+
 	/// How bright was the tile we were on last `Life()`
 	var/previous_light_intensity = 0
+
+	var/list/bodyparts = list()
+	/// map organ names to organs
+	var/list/bodyparts_by_name = list()
+
+	var/temperature_resistance = T0C+75
+
