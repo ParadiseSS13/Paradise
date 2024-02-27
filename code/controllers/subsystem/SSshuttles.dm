@@ -394,7 +394,7 @@ SUBSYSTEM_DEF(shuttle)
 	if((result != SHUTTLE_CAN_DOCK) && (result != SHUTTLE_SOMEONE_ELSE_DOCKED))
 
 		var/m = "Unsuccessful dock of [loaded_shuttle] ([result])."
-		message_admins("[m]")
+		message_admins(m)
 		WARNING(m)
 		custom_escape_shuttle_loading = FALSE
 		return
