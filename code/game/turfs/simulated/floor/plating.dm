@@ -240,7 +240,7 @@
 
 /turf/simulated/floor/engine/cult/Entered(atom/A, atom/OL, ignoreRest)
 	. = ..()
-	if(!. && isliving(A))
+	if(!. && isliving(A) && !(locate(/obj/effect/temp_visual/cult/turf/open/floor) in contents))
 		sleep(2 DECISECONDS)
 		new /obj/effect/temp_visual/cult/turf/open/floor(src)
 
