@@ -138,7 +138,7 @@
 		return // prevents a recursive loop where the ..() 5 lines after this makes the proc endlessly re-call itself
 
 	if(href_list["withdraw_consent"])
-		var/choice = alert(usr, "Are you SURE you want to withdraw your consent to the Terms of Service?\nYou will be instantaneously removed from the server and will have to re-accept the Terms of Service.", "Warning", "Yes", "No")
+		var/choice = tgui_alert(usr, "Are you SURE you want to withdraw your consent to the Terms of Service?\nYou will be instantaneously removed from the server and will have to re-accept the Terms of Service.", "Warning", list("Yes", "No"))
 		if(choice == "Yes")
 			// Update the DB
 			var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO privacy (ckey, datetime, consent) VALUES (:ckey, Now(), 0)", list(
@@ -254,7 +254,10 @@
 	///////////
 /client/New(TopicData)
 	var/tdata = TopicData //save this for later use
-	tgui_panel = new(src)
+
+	tgui_panel = new(src, "browseroutput")
+	tgui_say = new(src, "tgui_say")
+
 	TopicData = null							//Prevent calls to client.Topic from connect
 
 	if(connection != "seeker")					//Invalid connection type.
@@ -391,6 +394,9 @@
 
 	// Initialize tgui panel
 	tgui_panel.initialize()
+
+	// Initialize tgui say
+	tgui_say.initialize()
 
 	check_ip_intel()
 	send_resources()
@@ -954,31 +960,6 @@
 	return TRUE
 
 #undef SSD_WARNING_TIMER
-
-
-//
-/client/verb/resend_ui_resources()
-	set name = "Reload UI Resources"
-	set desc = "Reload your UI assets if they are not working"
-	set category = "Special Verbs"
-
-	if(last_ui_resource_send > world.time)
-		to_chat(usr, "<span class='warning'>You requested your UI resource files too quickly. Please try again in [(last_ui_resource_send - world.time)/10] seconds.</span>")
-		return
-
-	var/choice = alert(usr, "This will reload your TGUI resources. If you have any open UIs, they will be closed. Are you sure?", "Resource Reloading", "Yes", "No")
-	if(choice == "Yes")
-		// 600 deciseconds = 1 minute
-		last_ui_resource_send = world.time + 60 SECONDS
-
-		// Close their open UIs
-		SStgui.close_user_uis(usr)
-
-		// Clear the user's cache so they get resent.
-		// This is not fully clearing their BYOND cache, just their assets sent from the server this round
-		sent_assets = list()
-		to_chat(usr, "<span class='notice'>UI resource files resent successfully. If you are still having issues, please try manually clearing your BYOND cache. <b>This can be achieved by opening your BYOND launcher, pressing the cog in the top right, selecting preferences, going to the Games tab, and pressing 'Clear Cache'.</b></span>")
-
 
 /**
   * Retrieves the BYOND accounts data from the BYOND servers

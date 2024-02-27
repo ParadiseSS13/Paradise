@@ -24,7 +24,7 @@
 			// killing themselves as soon as they're in cuffs
 			to_chat(src, "<span class='warning'>We refuse to take the coward's way out.</span>")
 			return
-		confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
+		confirm = tgui_alert(src, "Are you sure you want to commit suicide?", "Confirm Suicide", list("Yes", "No"))
 
 	if(stat == DEAD || suiciding) //We check again, because alerts sleep until a choice is made
 		to_chat(src, "You're already dead!")
@@ -32,7 +32,7 @@
 
 	if(forced || (confirm == "Yes"))
 		if(!forced && isAntag(src) && !HAS_TRAIT(src, TRAIT_RESPAWNABLE))
-			confirm = alert("Are you absolutely sure? If you do this after you got converted/joined as an antagonist, you could face a jobban!", "Confirm Suicide", "Yes", "No")
+			confirm = tgui_alert(src, "Are you absolutely sure? If you do this after you got converted/joined as an antagonist, you could face a jobban!", "Confirm Suicide", list("Yes", "No"))
 			if(confirm == "Yes")
 				suiciding = TRUE
 				do_suicide()
@@ -60,9 +60,6 @@
 	to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
 	//put em at -175
 	adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
-
-/mob/living/silicon/robot/drone/do_suicide()
-	shut_down()
 
 /mob/living/silicon/pai/do_suicide()
 	if(mobility_flags & MOBILITY_MOVE)

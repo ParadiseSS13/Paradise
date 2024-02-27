@@ -502,6 +502,7 @@
 		add_fingerprint(user)
 		if(user.pulling == L)
 			user.stop_pulling()
+		QDEL_LIST_CONTENTS(L.grabbed_by)
 		SStgui.update_uis(src)
 
 /obj/machinery/sleeper/proc/permitted_check(atom/movable/O, mob/user)

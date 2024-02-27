@@ -174,6 +174,11 @@
 	build_path = /obj/machinery/computer/borgupload
 	origin_tech = "programming=4;engineering=4"
 
+/obj/item/circuitboard/nonfunctional
+	board_name = "destroyed"
+	desc = "The board is barely recognizable. Its original function is a mystery."
+	icon_state = "command_broken"
+
 /obj/item/circuitboard/med_data
 	board_name = "Medical Records"
 	icon_state = "medical"
@@ -516,7 +521,7 @@
 		catastasis = "STANDARD"
 		opposite_catastasis = "BROAD"
 
-	var/choice = alert("Current receiver spectrum is set to: [catastasis]", "Multitool-Circuitboard interface", "Switch to [opposite_catastasis]", "Cancel")
+	var/choice = tgui_alert(user, "Current receiver spectrum is set to: [catastasis]", "Multitool-Circuitboard interface", list("Switch to [opposite_catastasis]", "Cancel"))
 	if(choice == "Cancel")
 		return
 

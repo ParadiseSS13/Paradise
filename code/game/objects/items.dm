@@ -132,6 +132,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/belt_icon = null
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
+	/// In tiles, how far this weapon can reach; 1 for adjacent, which is default
+	var/reach = 1
 
 /obj/item/New()
 	..()
@@ -252,10 +254,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		MO.pixel_y = rand(-16,16)
 		MO.desc = "Looks like this was \an [src] some time ago."
 		..()
-
-/obj/item/afterattack(atom/target, mob/user, proximity, params)
-	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params)
-	..()
 
 /obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
 	if(!user) return 0

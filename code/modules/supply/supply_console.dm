@@ -277,14 +277,14 @@
 				to_chat(user, "<span class='warning'>That cannot be ordered right now. Please try again later.</span>")
 				return
 
-			if(!P.singleton && params["multiple"]) // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
-				var/num_input = input(user, "Amount", "How many crates? ([MULTIPLE_CRATE_MAX] Max)") as null|num
+			if(!P.singleton && params["multiple"])
+				var/num_input = tgui_input_number(user, "Amount", "How many crates?", max_value = MULTIPLE_CRATE_MAX)
 				if(!num_input || (!is_public && !is_authorized(user)) || ..()) // Make sure they dont walk away
 					return
 				amount = clamp(round(num_input), 1, MULTIPLE_CRATE_MAX)
 
 			var/timeout = world.time + (60 SECONDS) // If you dont type the reason within a minute, theres bigger problems here
-			var/reason = input(user, "Reason", "Why do you require this item?","") as null|text
+			var/reason = tgui_input_text(user, "Reason", "Why do you require this item?", encode = FALSE)
 			if(world.time > timeout || !reason || (!is_public && !is_authorized(user)) || ..())
 				// Cancel if they take too long, they dont give a reason, they aint authed, or if they walked away
 				return
@@ -461,8 +461,8 @@
 	var/attempt_pin = pin
 	if(customer_account.security_level != ACCOUNT_SECURITY_ID && !attempt_pin)
 		//if pin is not given, we'll prompt them here
-		attempt_pin = input("Enter pin code", "Vendor transaction") as num
-		if(!Adjacent(user))
+		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction")
+		if(!Adjacent(user) || !attempt_pin)
 			return FALSE
 	var/is_admin = is_admin(user)
 	if(!account_database.try_authenticate_login(customer_account, attempt_pin, TRUE, FALSE, is_admin))
@@ -513,6 +513,7 @@
 		hacked = TRUE
 		update_static_data(user)
 		SStgui.update_uis(src)
+		return TRUE
 
 /obj/machinery/computer/supplycomp/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
@@ -520,6 +521,7 @@
 	to_chat(user, "<span class='notice sans'>Special supplies unlocked.</span>")
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+		return TRUE
 
 /obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"
