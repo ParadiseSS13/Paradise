@@ -283,7 +283,7 @@
 //Quartermaster
 /obj/item/clothing/suit/mantle/qm
 	name = "quartermaster's mantle"
-	desc = "An armoured shawl for the quartermaster. Keeps the breeze from the vents away from your neck."
+	desc = "An armored shawl for the quartermaster. Keeps the breeze from the vents away from your neck."
 	icon_state = "qmmantle"
 	item_state = "qmmantle"
 	allowed = list(/obj/item/paper, /obj/item/clipboard, /obj/item/gun/energy/kinetic_accelerator, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/melee/knuckleduster, /obj/item/rcs)
@@ -291,7 +291,7 @@
 
 /obj/item/clothing/suit/qmcoat
 	name = "quartermaster's coat"
-	desc = "A brown trenchcoat to show the station you mean business. Has armour woven within the fabric."
+	desc = "A brown trenchcoat to show the station you mean business. Has armor woven within the fabric."
 	icon_state = "qmcoat"
 	item_state = "qmcoat"
 	allowed = list(/obj/item/paper, /obj/item/clipboard, /obj/item/gun/energy/kinetic_accelerator, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/melee/knuckleduster, /obj/item/rcs)
