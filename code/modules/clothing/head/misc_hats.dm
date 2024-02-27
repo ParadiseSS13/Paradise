@@ -273,15 +273,14 @@
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
+	desc = "A great hat ruined by being within fifty yards of you."
 	icon_state = "fedora"
 	item_state = "fedora"
-	desc = "A great hat ruined by being within fifty yards of you."
 	actions_types = list(/datum/action/item_action/tip_fedora)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
-
 
 /obj/item/clothing/head/fedora/attack_self(mob/user)
 	tip_fedora(user)
@@ -291,8 +290,15 @@
 		return 1
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
-	user.visible_message("[user] tips [user.p_their()] fedora.", "You tip your fedora")
+	user.visible_message("[user] tips [user.p_their()] fedora.", "You tip your fedora.")
 
+/obj/item/clothing/head/fedora/whitefedora
+	name = "white fedora"
+	icon_state = "wfedora"
+
+/obj/item/clothing/head/fedora/brownfedora
+	name = "brown fedora"
+	icon_state = "bfedora"
 
 /obj/item/clothing/head/fez
 	name = "fez"
@@ -366,31 +372,6 @@
 	item_state = "xenos_helm"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-
-/obj/item/clothing/head/fedora
-	name = "fedora"
-	desc = "Someone wearing this definitely makes them cool"
-	icon_state = "fedora"
-
-	sprite_sheets = list(
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-	)
-
-/obj/item/clothing/head/fedora/whitefedora
-	name = "white fedora"
-	icon_state = "wfedora"
-
-	sprite_sheets = list(
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-	)
-
-/obj/item/clothing/head/fedora/brownfedora
-	name = "brown fedora"
-	icon_state = "bfedora"
-
-	sprite_sheets = list(
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-	)
 
 /obj/item/clothing/head/stalhelm //Why do these exist - Because they aren't specifically Nazi Germany
 	name = "clown stalhelm"
