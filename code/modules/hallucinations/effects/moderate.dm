@@ -437,7 +437,7 @@
   * Returns the image to use as override to the target's appearance.
   */
 /obj/effect/hallucination/self_delusion/proc/get_image()
-	return image('icons/mob/animal.dmi', target, pick("bear", "brownbear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))
+	return image('icons/mob/animal.dmi', target, pick("black_bear", "brown_bear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))
 
 /**
   * # Hallucination - Delusion
@@ -466,4 +466,4 @@
   * Returns the image to use as override to the target's appearance.
   */
 /obj/effect/hallucination/delusion/proc/get_image(mob/living/carbon/human/H)
-	return image('icons/mob/animal.dmi', H, pick("bear", "brownbear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))
+	return image('icons/mob/animal.dmi', H, pick("black_bear", "brown_bear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))

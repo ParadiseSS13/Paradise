@@ -617,12 +617,6 @@
 	icon_state = "charred_visor"
 	species_restricted = list("Vox")
 
-/obj/item/clothing/head/bearpelt/fluff/polar //Gibson1027: Sploosh
-	name = "polar bear pelt hat"
-	desc = "Fuzzy, and also stained with blood."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "polarbearpelt"
-
 /obj/item/clothing/head/fluff/sparkyninja_beret // Sparkyninja: Neil Wilkinson
 	name = "royal marines commando beret"
 	desc = "Dark Green beret with an old insignia on it."
