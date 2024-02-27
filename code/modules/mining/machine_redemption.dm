@@ -533,7 +533,7 @@
 					amount_to_add = mat_store.max_amount - mat_store.amount
 					mat_store.amount = mat_store.max_amount
 					stack.amount -= amount_to_add * MINERAL_MATERIAL_AMOUNT
-					to_chat(robot, "You refill [mat_store] to full.")
+					to_chat(robot, "<span class='notice'>You refill [mat_store] to full.</span>")
 				else
 					amount_to_add = round(stack.amount) // In case we have half a sheet stored
 					mat_store.amount += amount_to_add
