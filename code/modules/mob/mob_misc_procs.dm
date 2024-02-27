@@ -512,7 +512,7 @@
 				mindname = C.mob.mind.name
 				if(C.mob.mind.original_mob_name)
 					realname = C.mob.mind.original_mob_name
-			if(mindname && mindname != realname && mindname.scry)
+			if(mindname && mindname != realname)
 				name = "[realname] died as [mindname]"
 			else
 				name = realname
