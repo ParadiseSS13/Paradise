@@ -344,7 +344,6 @@
 
 	clone.set_heartattack(FALSE) //you are not allowed to die
 	clone.adjustCloneLoss(25) //to punish early ejects
-
 	clone.Weaken(4 SECONDS)
 
 //Ejects a clone. The force var ejects even if there's still clone damage.
