@@ -515,10 +515,10 @@
 
 	for(var/datum/robot_storage/material/mat_store in robot.module.material_storages)
 		if(mat_store.amount == mat_store.max_amount) // Already full, no need to run a check
-			to_chat(robot, "[mat_store] could not be filled due to it already being full.")
+			to_chat(robot, "<span class='notice'>[mat_store] could not be filled due to it already being full.</span>")
 			continue
 		var/datum/component/material_container/container_component = GetComponent(/datum/component/material_container)
-		for(var/mat_id as anything in container_component.materials)
+		for(var/mat_id in container_component.materials)
 			var/datum/material/stack = container_component.materials[mat_id] // Should have only `/datum/material` in the list
 			var/obj/item/stack/sheet/sheet = stack.sheet_type
 			if(ispath(mat_store.stack, sheet))
@@ -526,15 +526,15 @@
 				if(stack.amount >= (mat_store.max_amount - mat_store.amount))
 					amount_to_add = mat_store.max_amount - mat_store.amount
 					mat_store.amount = mat_store.max_amount
-					stack.amount -= amount_to_add * 2000 // The 2000 is to adjust for the sheets
+					stack.amount -= amount_to_add * MINERAL_MATERIAL_AMOUNT
 					to_chat(robot, "You refill [mat_store] to full.")
 				else
 					amount_to_add = round(stack.amount) // In case we have half a sheet stored
 					mat_store.amount += amount_to_add
-					stack.amount -= amount_to_add * 2000 // The 2000 is to adjust for the sheets
+					stack.amount -= amount_to_add * MINERAL_MATERIAL_AMOUNT
 					to_chat(robot, "You refill [round(stack.amount)] sheets to [mat_store].")
 				. = TRUE
-				continue // We found our match for this material storage, so we go to the next one
+				break // We found our match for this material storage, so we go to the next one
 
 /**
   * Called when an item is inserted manually as material.
