@@ -29,7 +29,7 @@
 
 /obj/item/weaponcrafting/gunkit/nuclear
 	name = "\improper advanced energy gun parts kit"
-	desc = "A suitcase containing the necessary gun parts to tranform a standard energy gun into an advaned energy gun."
+	desc = "A suitcase containing the necessary gun parts to transform a standard energy gun into an advanced energy gun."
 	origin_tech = "combat=4;magnets=4;powerstorage=4"
 	outcome = /obj/item/gun/energy/gun/nuclear
 
@@ -53,7 +53,7 @@
 
 /obj/item/weaponcrafting/gunkit/temperature
 	name = "\improper temperature gun parts kit"
-	desc = "A suitcase containing the necessary gun parts to tranform a standard energy gun into a temperature gun. Fantastic at birthday parties and killing indigenious populations of Ash Walkers."
+	desc = "A suitcase containing the necessary gun parts to transform a standard energy gun into a temperature gun. Fantastic at birthday parties and killing indigenious populations of Ash Walkers."
 	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"
 	outcome = /obj/item/gun/energy/temperature
 

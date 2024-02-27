@@ -334,12 +334,14 @@
 					return FALSE
 				var/stored = get_num_smeltable_alloy(D)
 				var/desired = min(amount, stored, MAX_STACK_SIZE)
+				if(!desired)
+					return FALSE
 				materials.use_amount(D.materials, desired)
 				// Spawn the alloy
 				var/result = new D.build_path(src)
 				if(istype(result, /obj/item/stack/sheet))
 					var/obj/item/stack/sheet/mineral/A = result
-					A.amount = amount
+					A.amount = desired
 					unload_mineral(A)
 				else
 					unload_mineral(result)
@@ -402,7 +404,11 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/amount_compatible = materials.get_item_material_amount(O)
 	if(amount_compatible)
-		materials.insert_item(O, sheet_per_ore)
+		// Prevents duping
+		if(O.refined_type)
+			materials.insert_item(O, sheet_per_ore)
+		else
+			materials.insert_item(O, 1)
 	// Delete the stack
 	ore_buffer -= O
 	qdel(O)

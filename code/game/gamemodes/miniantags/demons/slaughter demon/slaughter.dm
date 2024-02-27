@@ -193,7 +193,7 @@
 	if(!choice)
 		return
 
-	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")
+	var/msg = tgui_input_text(usr, "What do you wish to tell [choice]?", null, "")
 	if(!(msg))
 		return
 	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)
@@ -244,7 +244,7 @@
 
 	// Eating a 2nd heart. Gives the ability to drag people into blood and eat them.
 	if(HAS_TRAIT(user, TRAIT_BLOODCRAWL))
-		to_chat(user, "You feel differ-<span class = 'danger'> CONSUME THEM! </span>")
+		to_chat(user, "You feel differ-<span class='danger'> CONSUME THEM!</span>")
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
 		qdel(src) // Replacing their demon heart with another demon heart is pointless, just delete this one and return.
 		return TRUE

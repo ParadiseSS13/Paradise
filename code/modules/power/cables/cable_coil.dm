@@ -40,6 +40,11 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	recipes = GLOB.cable_coil_recipes
 	update_wclass()
 
+/obj/item/stack/cable_coil/random/change_stack(mob/user, amount)
+	var/obj/item/stack/cable_coil/new_stack = ..()
+	new_stack.color = color
+	return new_stack
+
 /obj/item/stack/cable_coil/update_name()
 	. = ..()
 	if(amount > 2)

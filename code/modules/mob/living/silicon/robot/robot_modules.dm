@@ -331,6 +331,7 @@
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
+		/obj/item/crowbar/cyborg,
 		/obj/item/healthanalyzer/advanced,
 		/obj/item/robotanalyzer,
 		/obj/item/reagent_scanner/adv,
@@ -434,6 +435,7 @@
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
+		/obj/item/crowbar/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		/obj/item/melee/baton/loaded,
 		/obj/item/gun/energy/disabler/cyborg,
@@ -458,6 +460,7 @@
 	module_type = "Janitor"
 	basic_modules = list(
 		/obj/item/flash/cyborg,
+		/obj/item/crowbar/cyborg,
 		/obj/item/soap/nanotrasen,
 		/obj/item/storage/bag/trash/cyborg,
 		/obj/item/mop/advanced/cyborg,
@@ -516,6 +519,7 @@
 	module_type = "Service"
 	basic_modules = list(
 		/obj/item/flash/cyborg,
+		/obj/item/crowbar/cyborg,
 		/obj/item/handheld_chem_dispenser/booze,
 		/obj/item/handheld_chem_dispenser/soda,
 		/obj/item/pen/multi,
@@ -579,6 +583,7 @@
 	custom_removals = list("KA modkits")
 	basic_modules = list(
 		/obj/item/flash/cyborg,
+		/obj/item/crowbar/cyborg,
 		/obj/item/storage/bag/ore/cyborg,
 		/obj/item/pickaxe/drill/cyborg,
 		/obj/item/shovel,
@@ -714,6 +719,7 @@
 	module_actions = list(/datum/action/innate/robot_sight/thermal, /datum/action/innate/robot_magpulse)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
+		/obj/item/crowbar/cyborg,
 		/obj/item/gun/energy/immolator/multi/cyborg, // See comments on /robot_module/combat below
 		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
@@ -731,6 +737,7 @@
 	module_actions = list(/datum/action/innate/robot_magpulse)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
+		/obj/item/crowbar/cyborg,
 		/obj/item/gun/energy/immolator/multi/cyborg, // primary weapon, strong at close range (ie: against blob/terror/xeno), but consumes a lot of energy per shot.
 		// Borg gets 40 shots of this weapon. Gamma Sec ERT gets 10.
 		// So, borg has way more burst damage, but also takes way longer to recharge / get back in the fight once depleted. Has to find a borg recharger and sit in it for ages.
@@ -751,6 +758,7 @@
 	module_type = "Standard"
 	module_actions = list(/datum/action/innate/robot_sight/thermal/alien)
 	basic_modules = list(
+		/obj/item/crowbar/cyborg,
 		/obj/item/melee/energy/alien/claws,
 		/obj/item/flash/cyborg/alien,
 		/obj/item/reagent_containers/spray/alien/stun,
