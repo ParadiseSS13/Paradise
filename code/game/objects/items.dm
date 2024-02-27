@@ -132,7 +132,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/belt_icon = null
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
-
+	/// In tiles, how far this weapon can reach; 1 for adjacent, which is default
+	var/reach = 1
 
 /obj/item/New()
 	..()
@@ -154,7 +155,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		in_storage = TRUE
 
 // this proc is used to add text for items with ABSTRACT flag after default examine text
-/obj/item/proc/customised_abstract_text()
+/obj/item/proc/customised_abstract_text(mob/living/carbon/owner)
 	return
 
 /obj/item/proc/determine_move_resist()
@@ -253,10 +254,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		MO.pixel_y = rand(-16,16)
 		MO.desc = "Looks like this was \an [src] some time ago."
 		..()
-
-/obj/item/afterattack(atom/target, mob/user, proximity, params)
-	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params)
-	..()
 
 /obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
 	if(!user) return 0
@@ -398,7 +395,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return ..()
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) + prob(final_block_chance)
+	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL) + prob(final_block_chance)
 	if(signal_result != 0)
 		if(hit_reaction_chance >= 0) //Normally used for non blocking hit reactions, but also used for displaying block message on actual blocks
 			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
@@ -646,7 +643,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(w_class < WEIGHT_CLASS_BULKY)
 			itempush = FALSE //too light to push anything
 		if(isliving(hit_atom)) //Living mobs handle hit sounds differently.
-			if(is_hot(src))
+			if(get_heat())
 				var/mob/living/L = hit_atom
 				L.IgniteMob()
 			var/volume = get_volume_by_throwforce_and_or_w_class()
@@ -902,3 +899,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			H.regenerate_icons()
+
+/obj/item/proc/get_heat()
+	return

@@ -25,7 +25,7 @@
 			pixel_x = -25
 			dir = WEST
 
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/machinery/light_switch/update_icon_state()
 	if(stat & NOPOWER)
@@ -40,6 +40,7 @@
 	if(stat & NOPOWER)
 		return
 
+	. += "light[get_area(src).lightswitch]"
 	underlays += emissive_appearance(icon, "light_lightmask")
 
 /obj/machinery/light_switch/examine(mob/user)
@@ -52,7 +53,7 @@
 
 /obj/machinery/light_switch/attack_hand(mob/user)
 	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 	var/area/A = get_area(src)
 
@@ -60,7 +61,7 @@
 	A.update_icon(UPDATE_ICON_STATE)
 
 	for(var/obj/machinery/light_switch/L in A)
-		L.update_icon(UPDATE_ICON_STATE)
+		L.update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 	machine_powernet.power_change()
 
@@ -70,7 +71,7 @@
 	if(stat & NOPOWER)
 		set_light(0)
 	else
-		set_light(1, LIGHTING_MINIMUM_POWER)
+		set_light(1, 0.5)
 
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 

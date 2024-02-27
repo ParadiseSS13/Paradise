@@ -126,7 +126,7 @@
 
 //Converts an angle (degrees) into an ss13 direction
 /proc/angle2dir(degree)
-	degree = ((degree+22.5)%365)
+	degree = (degree + 22.5) % 360
 	if(degree < 45)		return NORTH
 	if(degree < 90)		return NORTHEAST
 	if(degree < 135)	return EAST
@@ -207,6 +207,8 @@
 			return 'icons/mob/screen_operative.dmi'
 		if("White")
 			return 'icons/mob/screen_white.dmi'
+		if("Midnight")
+			return 'icons/mob/screen_midnight.dmi'
 		else
 			return 'icons/mob/screen_midnight.dmi'
 

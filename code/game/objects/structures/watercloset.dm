@@ -139,7 +139,7 @@
 		choices += "Connect"
 		choices += "Rotate"
 
-	var/response = input(user, "What do you want to do?", "[src]") as null|anything in choices
+	var/response = tgui_input_list(user, "What do you want to do?", "[src]", choices)
 	if(!Adjacent(user) || !response)	//moved away or cancelled
 		return
 	switch(response)
@@ -161,7 +161,9 @@
 				anchored = TRUE
 		if("Rotate")
 			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
-			var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in dir_choices
+			var/selected = tgui_input_list(user, "Select a direction for the connector.", "Connector Direction", dir_choices)
+			if(!selected)
+				return
 			dir = dir_choices[selected]
 	update_icon()	//is this necessary? probably not
 
@@ -545,7 +547,7 @@
 		if(can_rotate)
 			choices += "Rotate"
 
-	var/response = input(user, "What do you want to do?", "[src]") as null|anything in choices
+	var/response = tgui_input_list(user, "What do you want to do?", "[src]", choices)
 	if(!Adjacent(user) || !response)	//moved away or cancelled
 		return
 	switch(response)
@@ -572,7 +574,9 @@
 				anchored = TRUE
 		if("Rotate")
 			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
-			var/selected = input(user, "Select a direction for the connector.", "Connector Direction") in dir_choices
+			var/selected = tgui_input_list(user, "Select a direction for the connector.", "Connector Direction", dir_choices)
+			if(!selected)
+				return
 			dir = dir_choices[selected]
 	update_icon()	//is this necessary? probably not
 
@@ -657,8 +661,8 @@
 /obj/item/bathroom_parts
 	name = "toilet in a box"
 	desc = "An entire toilet in a box, straight from Space Sweden. It has an unpronounceable name."
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "largebox"
+	icon = 'icons/obj/boxes.dmi'
+	icon_state = "large_box"
 	w_class = WEIGHT_CLASS_BULKY
 	var/result = /obj/structure/toilet
 	var/result_name = "toilet"

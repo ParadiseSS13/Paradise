@@ -24,15 +24,15 @@
 			// killing themselves as soon as they're in cuffs
 			to_chat(src, "<span class='warning'>We refuse to take the coward's way out.</span>")
 			return
-		confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
+		confirm = tgui_alert(src, "Are you sure you want to commit suicide?", "Confirm Suicide", list("Yes", "No"))
 
 	if(stat == DEAD || suiciding) //We check again, because alerts sleep until a choice is made
 		to_chat(src, "You're already dead!")
 		return
 
 	if(forced || (confirm == "Yes"))
-		if(!forced && isAntag(src))
-			confirm = alert("Are you absolutely sure? If you do this after you got converted/joined as an antagonist, you could face a jobban!", "Confirm Suicide", "Yes", "No")
+		if(!forced && isAntag(src) && !HAS_TRAIT(src, TRAIT_RESPAWNABLE))
+			confirm = tgui_alert(src, "Are you absolutely sure? If you do this after you got converted/joined as an antagonist, you could face a jobban!", "Confirm Suicide", list("Yes", "No"))
 			if(confirm == "Yes")
 				suiciding = TRUE
 				do_suicide()

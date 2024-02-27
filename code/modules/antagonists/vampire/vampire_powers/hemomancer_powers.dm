@@ -68,10 +68,7 @@
 		parent_spell = null
 	return ..()
 
-/obj/item/vamp_claws/customised_abstract_text()
-	if(!ishuman(loc))
-		return
-	var/mob/living/carbon/human/owner = loc
+/obj/item/vamp_claws/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] bloodied claws extending from [owner.p_their(FALSE)] wrists.</span>"
 
 /obj/item/vamp_claws/afterattack(atom/target, mob/user, proximity)
@@ -141,7 +138,7 @@
 	for(var/mob/living/L in range(distance, T))
 		if(L.affects_vampire(user))
 			L.Slowed(slowed_amount)
-			L.visible_message("<span class='warning'>[L] gets ensnare in blood tendrils, restricting [L.p_their()] movement!</span>")
+			L.visible_message("<span class='warning'>[L] gets ensnared in blood tendrils, restricting [L.p_their()] movement!</span>")
 			new /obj/effect/temp_visual/blood_tendril/long(get_turf(L))
 
 /obj/effect/temp_visual/blood_tendril
@@ -291,7 +288,7 @@
 	for(var/mob/living/carbon/human/H as anything in targets)
 		targets_by_name[H.real_name] = H
 
-	var/target_name = input(user, "Person to Locate", "Blood Stench") in targets_by_name
+	var/target_name = tgui_input_list(user, "Person to Locate", "Blood Stench", targets_by_name)
 	if(!target_name)
 		return
 	var/mob/living/carbon/human/target = targets_by_name[target_name]

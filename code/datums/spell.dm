@@ -17,7 +17,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been disabled.")
 		user.ranged_ability.remove_ranged_ability(user)
 		return TRUE //TRUE for failed, FALSE for passed.
-	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
 	user.face_atom(A)
 	return FALSE
 
@@ -114,7 +113,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/smoke_type = SMOKE_NONE
 	var/smoke_amt = 0
 
-	var/critfailchance = 0
 	var/centcom_cancast = TRUE //Whether or not the spell should be allowed on the admin zlevel
 	/// Whether or not the spell functions in a holy place
 	var/holy_area_cancast = TRUE
@@ -160,6 +158,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(!can_cast(user, charge_check, TRUE))
 		return FALSE
 
+	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
 	if(ishuman(user))
 		var/mob/living/carbon/human/caster = user
 		if(caster.remoteview_target)
@@ -199,7 +198,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/invocation(mob/user) //spelling the spell out and setting it on recharge/reducing charges amount
 	switch(invocation_type)
 		if("shout")
-			if(!user.IsVocal())
+			if(!user.IsVocal() || user.cannot_speak_loudly())
 				user.custom_emote(EMOTE_VISIBLE, "makes frantic gestures!")
 			else
 				if(prob(50))//Auto-mute? Fuck that noise
@@ -360,10 +359,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(sound)
 		playMagSound()
 
-	if(prob(critfailchance))
-		critfail(targets)
-	else
-		cast(targets, user = user)
+	cast(targets, user = user)
 	after_cast(targets, user)
 	if(action)
 		action.UpdateButtonIcon()
@@ -434,9 +430,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/cast(list/targets, mob/user = usr)
 	return
 
-/obj/effect/proc_holder/spell/proc/critfail(list/targets)
-	return
-
 /obj/effect/proc_holder/spell/proc/revert_cast(mob/user = usr) //resets recharge or readds a charge
 	cooldown_handler.revert_cast()
 	custom_handler?.revert_cast(user, src)
@@ -467,6 +460,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		else
 			target.vars[type] += amount //I bear no responsibility for the runtimes that'll happen if you try to adjust non-numeric or even non-existant vars
 	return
+
+///This proc is ran when a mind is transfered to a new mob. Tells it if the action should be transfered on return true, and tells it not to remove it on false
+/obj/effect/proc_holder/spell/proc/on_mind_transfer(mob/living/L)
+	return TRUE
 
 /obj/effect/proc_holder/spell/aoe
 	name = "Spell"

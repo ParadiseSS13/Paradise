@@ -61,12 +61,13 @@
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
-	if(istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
-		var/obj/item/ammo_box/magazine/internal/cylinder/C = magazine
-		C.spin()
-		chamber_round(0)
-		playsound(get_turf(user), 'sound/weapons/revolver_spin.ogg', 50, 1)
-		user.visible_message("<span class='warning'>[usr] spins [src]'s chamber.</span>", "<span class='notice'>You spin [src]'s chamber.</span>")
+	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
+		return ..()
+	var/obj/item/ammo_box/magazine/internal/cylinder/C = magazine
+	C.spin()
+	chamber_round(0)
+	playsound(get_turf(user), 'sound/weapons/revolver_spin.ogg', 50, TRUE)
+	user.visible_message("<span class='warning'>[user] spins [src]'s chamber.</span>", "<span class='notice'>You spin [src]'s chamber.</span>")
 
 /obj/item/gun/projectile/revolver/can_shoot()
 	return get_ammo(0,0)
@@ -309,6 +310,14 @@
 	origin_tech = null
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/cap
 
+/obj/item/gun/projectile/revolver/capgun/chaosprank
+	name = "\improper .357 revolver"
+
+/obj/item/gun/projectile/revolver/capgun/chaosprank/shoot_with_empty_chamber(mob/living/user)
+	to_chat(user, "<span class='chaosbad'>[src] vanishes in a puff of smoke!</span>")
+	playsound(src, 'sound/items/bikehorn.ogg')
+	qdel(src)
+
 /////////////////////////////
 // DOUBLE BARRELED SHOTGUN //
 /////////////////////////////
@@ -332,6 +341,7 @@
 	sawn_desc = "Omar's coming!"
 	can_holster = FALSE
 	unique_reskin = TRUE
+	var/can_sawoff = TRUE
 
 /obj/item/gun/projectile/revolver/doublebarrel/Initialize(mapload)
 	. = ..()
@@ -345,6 +355,8 @@
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
+	if(!can_sawoff)
+		return ..()
 	if(istype(A, /obj/item/melee/energy))
 		var/obj/item/melee/energy/W = A
 		if(W.active)

@@ -114,6 +114,10 @@
 	var/datum/data/pda/app/messenger/M = pda.find_program(/datum/data/pda/app/messenger)
 	M.toff = TRUE
 
+	if(has_ahudded())
+		message_admins("[key_name(src)] has joined as a pAI, having previously enabled antag hud.")
+		log_admin("[key_name(src)] has joined as a pAI, having previously enabled antag hud.")
+
 	// Software modules. No these var names have nothing to do with photoshop
 	for(var/PS in subtypesof(/datum/pai_software))
 		var/datum/pai_software/PSD = new PS(src)
@@ -433,7 +437,7 @@
 	var/mob/living/carbon/human/H = over_object //changed to human to avoid stupid issues like xenos holding pAIs.
 	if(!istype(H) || !Adjacent(H))  return ..()
 	if(usr == src)
-		switch(alert(H, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
+		switch(tgui_alert(H, "[src] wants you to pick [p_them()] up. Do it?", "Pick up", list("Yes", "No")))
 			if("Yes")
 				if(Adjacent(H))
 					get_scooped(H)

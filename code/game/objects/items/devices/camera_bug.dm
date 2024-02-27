@@ -34,8 +34,11 @@
 /obj/item/camera_bug/attack_self(mob/user as mob)
 	ui_interact(user)
 
-/obj/item/camera_bug/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	integrated_console.ui_interact(user, ui_key, ui, force_open, master_ui, state)
+/obj/item/camera_bug/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/camera_bug/ui_interact(mob/user, datum/tgui/ui = null)
+	integrated_console.ui_interact(user, ui)
 
 
 /obj/item/camera_bug/ert
@@ -59,10 +62,11 @@
 	. = ..()
 	link_to_camera(the_bug)
 	AddComponent(/datum/component/sticky)
+	ADD_TRAIT(src, TRAIT_NO_THROWN_MESSAGE, ROUNDSTART_TRAIT)
 
 /obj/item/wall_bug/Destroy()
 	QDEL_NULL(camera)
-	. = ..()
+	return ..()
 
 /obj/item/wall_bug/examine(mob/user)
 	. = ..()

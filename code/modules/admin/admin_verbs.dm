@@ -109,7 +109,8 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/outfit_manager,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
-	/client/proc/change_human_appearance_self	/* Allows the human-based mob itself to change its basic appearance */
+	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself to change its basic appearance */
+	/datum/admins/proc/station_traits_panel
 	))
 
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -253,10 +254,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/debug_timers,
 	/client/proc/timer_log
 ))
-
-/client/proc/on_holder_add()
-	if(chatOutput && chatOutput.loaded)
-		chatOutput.loadAdmin()
 
 /client/proc/add_admin_verbs()
 	if(holder)
@@ -537,7 +534,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	var/turf/epicenter = mob.loc
 	var/list/choices = list("Small Bomb", "Medium Bomb", "Big Bomb", "Custom Bomb")
-	var/choice = input("What size explosion would you like to produce?") as null|anything in choices
+	var/choice = tgui_input_list(src, "What size explosion would you like to produce?", "Drop Bomb", choices)
 	switch(choice)
 		if(null)
 			return 0
@@ -548,16 +545,16 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		if("Big Bomb")
 			explosion(epicenter, 3, 5, 7, 5)
 		if("Custom Bomb")
-			var/devastation_range = input("Devastation range (in tiles):") as null|num
+			var/devastation_range = tgui_input_number(src, "Devastation range (in tiles):", "Custom Bomb", max_value = 255)
 			if(devastation_range == null)
 				return
-			var/heavy_impact_range = input("Heavy impact range (in tiles):") as null|num
+			var/heavy_impact_range = tgui_input_number(src, "Heavy impact range (in tiles):", "Custom Bomb", max_value = 255)
 			if(heavy_impact_range == null)
 				return
-			var/light_impact_range = input("Light impact range (in tiles):") as null|num
+			var/light_impact_range = tgui_input_number(src, "Light impact range (in tiles):", "Custom Bomb", max_value = 255)
 			if(light_impact_range == null)
 				return
-			var/flash_range = input("Flash range (in tiles):") as null|num
+			var/flash_range = tgui_input_number(src, "Flash range (in tiles):", "Custom Bomb", max_value = 255)
 			if(flash_range == null)
 				return
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1)
@@ -663,6 +660,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		GLOB.de_mentors += ckey
 	deadmin()
 	verbs += /client/proc/readmin
+	update_active_keybindings()
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -709,7 +707,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 				// Do a little check here
 				if(GLOB.configuration.system.is_production && (GLOB.admin_ranks[rank] & R_ADMIN) && prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
-					to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
+					to_chat(src,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 					return
 				D = new(rank, GLOB.admin_ranks[rank], ckey)
 			else
@@ -744,7 +742,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 					var/client/check_client = GLOB.directory[ckey]
 					// Do a little check here
 					if(GLOB.configuration.system.is_production && (flags & R_ADMIN) && check_client.prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
-						to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
+						to_chat(src,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 						qdel(admin_read)
 						return
 					D = new(admin_rank, flags, ckey)
@@ -752,6 +750,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 		var/client/C = GLOB.directory[ckey]
 		D.associate(C)
+		update_active_keybindings()
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
 		GLOB.de_admins -= ckey
@@ -800,7 +799,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!S) return
 
 	var/datum/ui_module/law_manager/L = new(S)
-	L.ui_interact(usr, state = GLOB.admin_state)
+	L.ui_interact(usr)
 	log_and_message_admins("has opened [S]'s law manager.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Silicon Laws") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -814,7 +813,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	if(!istype(H))
 		if(isbrain(H))
-			var/mob/living/carbon/brain/B = H
+			var/mob/living/brain/B = H
 			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
 				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
@@ -840,7 +839,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	if(!istype(H))
 		if(isbrain(H))
-			var/mob/living/carbon/brain/B = H
+			var/mob/living/brain/B = H
 			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
 				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc

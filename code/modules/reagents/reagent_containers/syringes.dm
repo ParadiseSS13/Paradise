@@ -136,7 +136,7 @@
 
 				add_attack_logs(user, L, "Injected with [name] containing [contained], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
-			if(istype(target, /obj/item/reagent_containers/food))
+			if(isfood(target))
 
 				var/list/chemicals = list()
 				for(var/datum/reagent/chem in reagents.reagent_list)

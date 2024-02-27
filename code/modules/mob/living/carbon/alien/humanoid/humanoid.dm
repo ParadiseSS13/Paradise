@@ -2,20 +2,17 @@
 	name = "alien"
 	icon_state = "alien_s"
 
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 5, /obj/item/stack/sheet/animalhide/xeno = 1)
+	butcher_results = list(/obj/item/food/snacks/monstermeat/xenomeat = 5, /obj/item/stack/sheet/animalhide/xeno = 1)
 	var/obj/item/r_store = null
 	var/obj/item/l_store = null
 	var/caste = ""
 	var/alt_icon = 'icons/mob/alienleap.dmi' //used to switch between the two alien icon files.
-	var/next_attack = 0
-	var/pounce_cooldown = 0
-	var/pounce_cooldown_time = 30
-	var/leap_on_click = 0
 	var/custom_pixel_x_offset = 0 //for admin fuckery.
 	var/custom_pixel_y_offset = 0
 	var/alien_disarm_damage = 30 //Aliens deal a good amount of stamina damage on disarm intent
 	var/alien_slash_damage = 20 //Aliens deal a good amount of damage on harm intent
 	var/alien_movement_delay = 0 //This can be + or -, how fast an alien moves
+	var/temperature_resistance = T0C+75
 	pass_flags = PASSTABLE
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
@@ -31,13 +28,14 @@
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(check_drift = 0)
 	if(..())
-		return 1
-
-	return 0
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/alien/humanoid/emp_act(severity)
-	if(r_store) r_store.emp_act(severity)
-	if(l_store) l_store.emp_act(severity)
+	if(r_store) 
+		r_store.emp_act(severity)
+	if(l_store) 
+		l_store.emp_act(severity)
 	..()
 
 /mob/living/carbon/alien/humanoid/ex_act(severity)
@@ -69,11 +67,8 @@
 
 /mob/living/carbon/alien/humanoid/restrained()
 	if(handcuffed)
-		return 1
-	return 0
-
-
-/mob/living/carbon/alien/humanoid/var/temperature_resistance = T0C+75
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/alien/humanoid/movement_delay() //Aliens have a varied movespeed
 	. = ..()
@@ -101,9 +96,6 @@
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 500)
 	popup.set_content(dat)
 	popup.open()
-
-/mob/living/carbon/alien/humanoid/canBeHandcuffed()
-	return 1
 
 /mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I)
 	playsound(src, 'sound/voice/hiss5.ogg', 40, 1, 1)  //Alien roars when starting to break free

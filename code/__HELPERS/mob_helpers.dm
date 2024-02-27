@@ -218,12 +218,14 @@
 			else					return "unknown"
 	else if(species == "Vox")
 		switch(tone)
-			if(2)					return "dark green"
+			if(2)					return "plum"
 			if(3)					return "brown"
 			if(4)					return "gray"
 			if(5)					return "emerald"
 			if(6)					return "azure"
-			else					return "green"
+			if(7)					return "crimson"
+			if(8)					return "nebula"
+			else					return "lime"
 	else
 		return "unknown"
 
@@ -470,7 +472,7 @@
 	return FALSE
 
 #define DOAFTERONCE_MAGIC "Magic~~"
-GLOBAL_LIST_INIT(do_after_once_tracker, list())
+GLOBAL_LIST_EMPTY(do_after_once_tracker)
 /proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.", special_identifier)
 	if(!user || !target)
 		return
@@ -582,7 +584,6 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
 
 // Suppress the mouse macros
-/client/var/next_mouse_macro_warning
 /mob/proc/LogMouseMacro(verbused, params)
 	if(!client)
 		return
@@ -707,3 +708,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		out_ckey = "(Disconnected)"
 
 	return out_ckey
+
+/// rounds value to limited symbols after the period for organ damage and other values
+/proc/round_health(health)
+	return round(health, 0.01)

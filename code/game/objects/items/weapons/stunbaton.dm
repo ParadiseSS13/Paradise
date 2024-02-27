@@ -1,6 +1,7 @@
 /obj/item/melee/baton
 	name = "stunbaton"
 	desc = "A stun baton for incapacitating people with."
+	icon = 'icons/obj/baton.dmi'
 	icon_state = "stunbaton"
 	var/base_icon = "stunbaton"
 	item_state = null
@@ -210,7 +211,7 @@
 			return FALSE
 		H.Confused(10 SECONDS)
 		H.Jitter(10 SECONDS)
-		H.adjustStaminaLoss(stam_damage)
+		H.apply_damage(stam_damage, STAMINA)
 		H.SetStuttering(10 SECONDS)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
@@ -247,19 +248,17 @@
 		return FALSE
 	L.Confused(4 SECONDS)
 	L.Jitter(4 SECONDS)
-	L.adjustStaminaLoss(30)
+	L.apply_damage(30, STAMINA)
 	L.SetStuttering(4 SECONDS)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
-	L.apply_status_effect(STATUS_EFFECT_DELAYED, 2 SECONDS, CALLBACK(L, TYPE_PROC_REF(/mob/living, KnockDown), knockdown_duration), COMSIG_LIVING_CLEAR_STUNS)
 	addtimer(CALLBACK(src, PROC_REF(baton_delay), L, user_UID), 2 SECONDS)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
 	L.lastattacker = user.real_name
 	L.lastattackerckey = user.ckey
-	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>",
-		"<span class='userdanger'>[L == user ? "You stun yourself" : "[user] has stunned you"] with [src]!</span>")
+	L.visible_message("<span class='danger'>[src] stuns [L]!</span>")
 	add_attack_logs(user, L, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	deductcharge(hitcost)
@@ -281,6 +280,11 @@
 							"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
 		return TRUE
 	..()
+
+/// baton used for security bots
+/obj/item/melee/baton/infinite_cell
+	hitcost = 0
+	turned_on = TRUE
 
 //Makeshift stun baton. Replacement for stun gloves.
 /obj/item/melee/baton/cattleprod

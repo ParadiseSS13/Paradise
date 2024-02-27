@@ -343,12 +343,6 @@
 	color = "#5F3A13"
 	taste_description = "bitter cocoa"
 
-/datum/reagent/consumable/cocoa/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(isvulpkanin(M) || istajaran(M) || isfarwa(M) || iswolpin(M))
-		update_flags |= M.adjustToxLoss(2, FALSE)
-	return ..() | update_flags
-
 /datum/reagent/consumable/vanilla
 	name = "Vanilla"
 	id = "vanilla"
@@ -603,14 +597,11 @@
 
 /datum/reagent/consumable/chocolate/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 0.8)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(isvulpkanin(M) || istajaran(M) || isfarwa(M) || iswolpin(M)) // chocolate is bad for dogs and cats, ya know
-		update_flags |= M.adjustToxLoss(2, FALSE)
-	return ..() | update_flags
+	return ..()
 
 /datum/reagent/consumable/chocolate/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/reagent_containers/food/snacks/choc_pile(T)
+		new /obj/item/food/snacks/choc_pile(T)
 
 /datum/reagent/consumable/mugwort
 	name = "Mugwort"
@@ -618,7 +609,7 @@
 	description = "A rather bitter herb once thought to hold magical protective properties."
 	reagent_state = LIQUID
 	color = "#21170E"
-	process_flags = ORGANIC | SYNTHETIC	
+	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "tea"
 	harmless = TRUE
 
@@ -678,7 +669,7 @@
 
 /datum/reagent/consumable/cheese/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/reagent_containers/food/snacks/cheesewedge(T)
+		new /obj/item/food/snacks/cheesewedge(T)
 
 /datum/reagent/consumable/fake_cheese
 	name = "Cheese substitute"
@@ -720,7 +711,7 @@
 
 /datum/reagent/consumable/weird_cheese/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/reagent_containers/food/snacks/weirdcheesewedge(T)
+		new /obj/item/food/snacks/weirdcheesewedge(T)
 
 /datum/reagent/consumable/beans
 	name = "Refried beans"
@@ -853,8 +844,9 @@
 /datum/reagent/questionmark/reaction_mob(mob/living/carbon/human/H, method = REAGENT_TOUCH, volume)
 	if(istype(H) && method == REAGENT_INGEST)
 		if(H.dna.species.taste_sensitivity < TASTE_SENSITIVITY_NO_TASTE) // If you can taste it, then you know how awful it is.
-			H.Weaken(4 SECONDS)
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
+			if(!H.HasDisease(/datum/disease/food_poisoning))
+				H.fakevomit(no_text = TRUE)
 		if(HAS_TRAIT(H, TRAIT_NOHUNGER)) //If you don't eat, then you can't get food poisoning
 			return
 		H.ForceContractDisease(new /datum/disease/food_poisoning(0))
@@ -944,11 +936,11 @@
 
 /datum/reagent/ectoplasm/reaction_turf(turf/T, volume)
 	if(volume >= 10 && !isspaceturf(T))
-		new /obj/item/reagent_containers/food/snacks/ectoplasm(T)
+		new /obj/item/food/snacks/ectoplasm(T)
 
 /datum/reagent/consumable/bread/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/reagent_containers/food/snacks/breadslice(T)
+		new /obj/item/food/snacks/breadslice(T)
 
 /datum/reagent/soap
 	name = "Soap"

@@ -80,6 +80,14 @@
 	resistance_flags = NONE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 115, ACID = 20)
 
+/obj/item/clothing/gloves/handwraps
+	name = "cloth handwraps"
+	desc = "A roll of treated canvas used for wrapping claws or paws."
+	icon_state = "clothwrap"
+	item_state = "clothwrap"
+	transfer_prints = TRUE
+	clipped = TRUE
+
 /obj/item/clothing/gloves/batmangloves
 	name = "batgloves"
 	desc = "Used for handling all things bat related."
@@ -189,7 +197,7 @@
 	else
 		click_speed_modifier = initial(click_speed_modifier) // 2
 
-	if((L.a_intent in accepted_intents))
+	if(L.a_intent in accepted_intents)
 		L.changeNext_move(click_speed_modifier)
 
 	return FALSE

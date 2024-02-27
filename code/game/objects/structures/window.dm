@@ -456,14 +456,14 @@
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
-/obj/structure/window/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/obj/structure/window/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	var/shattered = FALSE
 	if(damage * 2 >= obj_integrity && shardtype && !mob_hurt)
 		shattered = TRUE
-		var/obj/item/S = new shardtype(loc)
-		S.embedded_ignore_throwspeed_threshold = TRUE
-		S.throw_impact(C)
-		S.embedded_ignore_throwspeed_threshold = FALSE
+		var/obj/item/shard = new shardtype(loc)
+		shard.embedded_ignore_throwspeed_threshold = TRUE
+		shard.throw_impact(C)
+		shard.embedded_ignore_throwspeed_threshold = FALSE
 		damage *= (4/3) //Inverts damage loss from being a structure, since glass breaking on you hurts
 		var/turf/T = get_turf(src)
 		for(var/obj/structure/grille/G in T.contents)
@@ -523,8 +523,13 @@
 	icon_state = "light0"
 	anchored = TRUE
 	desc = "A remote control switch for polarized windows."
-	var/range = 7
-	var/id = 0
+	/// The area where the button is located.
+	var/area/button_area
+	/// Windows in this range are controlled by this button. If it equals TINT_CONTROL_RANGE_AREA, the button controls only windows at button_area.
+	var/range = TINT_CONTROL_RANGE_AREA
+	/// If equals TINT_CONTROL_GROUP_NONE, only windows with 'null-like' id are controlled by this button. Otherwise, windows with corresponding or 'null-like' id are controlled by this button.
+	var/id = TINT_CONTROL_GROUP_NONE
+	/// The button toggle state. If range equals TINT_CONTROL_RANGE_AREA and id equals TINT_CONTROL_GROUP_NONE or is same with other button, it is shared between all such buttons in its area.
 	var/active = FALSE
 
 /obj/machinery/button/windowtint/Initialize(mapload, w_dir = null)
@@ -538,6 +543,10 @@
 			pixel_x = 25
 		if(WEST)
 			pixel_x = -25
+
+/obj/machinery/button/windowtint/New(turf/loc, direction)
+	..()
+	button_area = get_area(src)
 
 /obj/machinery/button/windowtint/attack_hand(mob/user)
 	if(..())
@@ -562,23 +571,30 @@
 
 /obj/machinery/button/windowtint/proc/toggle_tint()
 	use_power(5)
+	if(range == TINT_CONTROL_RANGE_AREA)
+		button_area.window_tint = !button_area.window_tint
+		for(var/obj/machinery/button/windowtint/button in button_area)
+			if(button.range != TINT_CONTROL_RANGE_AREA || (button.id != id && button.id != TINT_CONTROL_GROUP_NONE))
+				continue
+			button.active = button_area.window_tint
+			button.update_icon()
+	else
+		active = !active
+		update_icon()
+	process_controlled_windows(range != TINT_CONTROL_RANGE_AREA ? range(src, range) : button_area)
 
-	active = !active
-	update_icon()
-
-	for(var/obj/structure/window/reinforced/polarized/W in range(src,range))
-		if(W.id == src.id || !W.id)
-			W.toggle_polarization()
-
-	for(var/obj/structure/window/full/reinforced/polarized/W in range(src, range))
-		if(W.id == id || !W.id)
-			W.toggle_polarization()
-
-	for(var/obj/machinery/door/D in range(src, range))
-		if(!D.polarized_glass)
+/obj/machinery/button/windowtint/proc/process_controlled_windows(control_area)
+	for(var/obj/structure/window/reinforced/polarized/window in control_area)
+		if(window.id == id || !window.id)
+			window.toggle_polarization()
+	for(var/obj/structure/window/full/reinforced/polarized/window in control_area)
+		if(window.id == id || !window.id)
+			window.toggle_polarization()
+	for(var/obj/machinery/door/door in control_area)
+		if(!door.polarized_glass)
 			continue
-		if(D.id == id || !D.id)
-			D.toggle_polarization()
+		if(door.id == id || !door.id)
+			door.toggle_polarization()
 
 /obj/machinery/button/windowtint/power_change()
 	if(!..())

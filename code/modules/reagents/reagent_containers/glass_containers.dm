@@ -165,7 +165,7 @@
 
 	if(!is_open_container())
 		. += "lid_[initial(icon_state)]"
-		if(blocks_emissive == FALSE)
+		if(!blocks_emissive)
 			. += emissive_blocker(icon, "lid_[initial(icon_state)]")
 	if(assembly)
 		. += "assembly"
@@ -306,6 +306,11 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	container_type = OPENCONTAINER
 	dog_fashion = /datum/dog_fashion/head/bucket
+
+/obj/item/reagent_containers/glass/bucket/update_overlays()
+	. = ..()
+	if(!is_open_container())
+		. += "lid_[initial(icon_state)]"
 
 /obj/item/reagent_containers/glass/bucket/wooden
 	name = "wooden bucket"

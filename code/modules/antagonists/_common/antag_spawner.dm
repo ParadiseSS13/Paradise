@@ -14,7 +14,7 @@
 /obj/item/antag_spawner/nuke_ops
 	name = "syndicate operative teleporter"
 	desc = "A single-use teleporter designed to quickly reinforce operatives in the field."
-	icon = 'icons/obj/implants.dmi'
+	icon = 'icons/obj/bio_chips.dmi'
 	icon_state = "locator"
 	var/borg_to_spawn
 	var/checking = FALSE
@@ -125,8 +125,8 @@
 	poll_icon = image(icon = 'icons/mob/robots.dmi', icon_state = "syndi-engi-preview")
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/before_candidate_search(mob/user)
-	var/switch_roles_choice = input("Would you like to continue playing as an operative or take over as the cyborg? If you play as the cyborg, another player will control your old self.", "Play As") as null|anything in list("Nuclear Operative", "Syndicate Cyborg")
-	if(!switch_roles_choice || !(check_usability(user)))
+	var/switch_roles_choice = tgui_input_list(user, "Would you like to continue playing as an operative or take over as the cyborg? If you play as the cyborg, another player will control your old self.", "Play As", list("Nuclear Operative", "Syndicate Cyborg", "Don't activate this Cyborg Teleporter"))
+	if(!switch_roles_choice || !(check_usability(user)) || switch_roles_choice == "Don't activate this Cyborg Teleporter")
 		return FALSE
 
 	if(switch_roles_choice == "Syndicate Cyborg")

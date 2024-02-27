@@ -122,10 +122,7 @@
 	damtype = BURN
 	attack_verb = list("punched", "cross countered", "pummeled")
 
-/obj/item/nullrod/godhand/customised_abstract_text()
-	if(!ishuman(loc))
-		return
-	var/mob/living/carbon/human/owner = loc
+/obj/item/nullrod/godhand/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in holy fire.</span>"
 
 /obj/item/nullrod/staff
@@ -211,6 +208,7 @@
 /obj/item/nullrod/claymore/saber
 	name = "light energy blade"
 	hitsound = 'sound/weapons/blade1.ogg'
+	icon = 'icons/obj/energy_melee.dmi'
 	icon_state = "swordblue"
 	item_state = "swordblue"
 	desc = "If you strike me down, I shall become more robust than you can possibly imagine."
@@ -231,6 +229,8 @@
 /obj/item/nullrod/sord
 	name = "\improper UNREAL SORD"
 	desc = "This thing is so unspeakably HOLY you are having a hard time even holding it."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "sord"
 	item_state = "sord"
 	slot_flags = SLOT_FLAG_BELT
@@ -305,8 +305,7 @@
 		S.name = name
 		S.ckey = theghost.ckey
 		dust_if_respawnable(theghost)
-		var/input = stripped_input(S, "What are you named?", null, "", MAX_NAME_LEN)
-
+		var/input = tgui_input_text(S, "What are you named?", "Change Name", max_length = MAX_NAME_LEN)
 		if(src && input)
 			name = input
 			S.real_name = input
@@ -437,10 +436,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
 
-/obj/item/nullrod/armblade/customised_abstract_text()
-	if(!ishuman(loc))
-		return
-	var/mob/living/carbon/human/owner = loc
+/obj/item/nullrod/armblade/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque meat-blade.</span>"
 
 /obj/item/nullrod/armblade/mining

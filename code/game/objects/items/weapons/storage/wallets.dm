@@ -17,7 +17,7 @@
 		/obj/item/coin,
 		/obj/item/dice,
 		/obj/item/disk,
-		/obj/item/implanter,
+		/obj/item/bio_chip_implanter,
 		/obj/item/lighter,
 		/obj/item/match,
 		/obj/item/paper,

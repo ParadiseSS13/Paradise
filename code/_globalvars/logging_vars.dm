@@ -29,21 +29,12 @@ GLOBAL_VAR(gc_log)
 GLOBAL_PROTECT(gc_log)
 #endif
 
-GLOBAL_LIST_EMPTY(jobMax)
-GLOBAL_PROTECT(jobMax)
 GLOBAL_LIST_EMPTY(admin_log)
 GLOBAL_PROTECT(admin_log)
 GLOBAL_LIST_EMPTY(lastsignalers)
 GLOBAL_PROTECT(lastsignalers)
 GLOBAL_LIST_EMPTY(lawchanges)
 GLOBAL_PROTECT(lawchanges)
-
-GLOBAL_LIST_EMPTY(combatlog)
-GLOBAL_PROTECT(combatlog)
-GLOBAL_LIST_EMPTY(IClog)
-GLOBAL_PROTECT(IClog)
-GLOBAL_LIST_EMPTY(OOClog)
-GLOBAL_PROTECT(OOClog)
 
 GLOBAL_DATUM_INIT(logging, /datum/logging, new /datum/logging())
 

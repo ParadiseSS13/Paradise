@@ -70,7 +70,7 @@
 	icon_state = "corgi"
 	icon_living = "corgi"
 	icon_dead = "corgi_dead"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
+	butcher_results = list(/obj/item/food/snacks/meat/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
 	collar_type = "corgi"
@@ -486,6 +486,8 @@
 		turns_per_move = 20
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/persistent_save()
+	if(SEND_SIGNAL(src, COMSIG_LIVING_WRITE_MEMORY) & COMPONENT_DONT_WRITE_MEMORY)
+		return FALSE
 	write_memory(FALSE)
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/proc/read_memory()
@@ -553,7 +555,7 @@
 			stop_automated_movement = FALSE
 			var/obj/item/possible_target = null
 			for(var/I in snack_range)
-				if(istype(I, /obj/item/reagent_containers/food/snacks)) // Noms
+				if(istype(I, /obj/item/food/snacks)) // Noms
 					possible_target = I
 					break
 				else if(istype(I, /obj/item/paper)) // Important noms
@@ -588,7 +590,7 @@
 		else if(prob(30) && ishuman(movement_target.loc)) // mean hooman has stolen it
 			custom_emote(EMOTE_VISIBLE, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face.")
 
-/obj/item/reagent_containers/food/snacks/meat/corgi
+/obj/item/food/snacks/meat/corgi
 	name = "Corgi meat"
 	desc = "Tastes like... well you know..."
 
@@ -730,7 +732,8 @@
 	if(!emagged)
 		emagged = TRUE
 		visible_message("<span class='warning'>[user] swipes a card through [src].</span>", "<span class='notice'>You overload [src]s internal reactor.</span>")
-		addtimer(CALLBACK(src, PROC_REF(explode)), 1000)
+		addtimer(CALLBACK(src, PROC_REF(explode)), 100 SECONDS)
+		return TRUE
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
 	visible_message("<span class='warning'>[src] makes an odd whining noise.</span>")
@@ -780,7 +783,7 @@
 	icon_state = "pug"
 	icon_living = "pug"
 	icon_dead = "pug_dead"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/pug = 3)
+	butcher_results = list(/obj/item/food/snacks/meat/pug = 3)
 	collar_type = "pug"
 
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()

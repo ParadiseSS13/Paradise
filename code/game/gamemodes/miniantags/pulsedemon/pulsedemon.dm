@@ -142,6 +142,7 @@
 	RegisterSignal(SSdcs, COMSIG_GLOB_CABLE_UPDATED, PROC_REF(cable_updated_handler))
 
 	RegisterSignal(src, COMSIG_BODY_TRANSFER_TO, PROC_REF(make_pulse_antagonist))
+	RegisterSignal(src, COMSIG_ATOM_EMP_ACT, PROC_REF(handle_emp))
 
 	current_power = locate(/obj/machinery/power) in loc
 	// in the case that both current_power and current_cable are null, the pulsedemon will die the next tick
@@ -253,7 +254,6 @@
 	greeting.Add(mind.prepare_announce_objectives(FALSE))
 	to_chat(src, chat_box_red(greeting.Join("<br>")))
 	SSticker.mode.traitors |= mind
-	return
 
 /mob/living/simple_animal/demon/pulse_demon/proc/give_spells()
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/cycle_camera)
@@ -379,6 +379,7 @@
 		current_power = new_power
 		current_cable = null
 		forceMove(current_power) // we go inside the machine
+		RegisterSignal(current_power, COMSIG_ATOM_EMP_ACT, PROC_REF(handle_emp))
 		playsound(src, 'sound/effects/eleczap.ogg', 15, TRUE)
 		do_sparks(rand(2, 4), FALSE, src)
 		if(isapc(current_power))
@@ -388,6 +389,8 @@
 				INVOKE_ASYNC(src, PROC_REF(try_hijack_apc), current_power)
 	else if(new_cable)
 		current_cable = new_cable
+		if(current_power)
+			UnregisterSignal(current_power, COMSIG_ATOM_EMP_ACT)
 		current_power = null
 		update_controlling_area()
 		if(!isturf(loc))
@@ -656,7 +659,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/proc/is_under_tile()
 	var/turf/T = get_turf(src)
-	return T.transparent_floor || T.intact || HAS_TRAIT(T, TRAIT_TURF_COVERED)
+	return T.intact || HAS_TRAIT(T, TRAIT_TURF_COVERED)
 
 // cable (and hijacked APC) view helper
 /mob/living/simple_animal/demon/pulse_demon/proc/update_cableview()
@@ -695,11 +698,10 @@
 		LAZYADD(apc_images[apc_turf], apc_image)
 		client.images += apc_image
 
-/mob/living/simple_animal/demon/pulse_demon/emp_act(severity)
+/mob/living/simple_animal/demon/pulse_demon/proc/handle_emp(datum/source, severity)
+	SIGNAL_HANDLER
 	if(emp_debounce)
 		return
-
-	. = ..()
 	visible_message("<span class='danger'>[src] [pick("fizzles", "wails", "flails")] in anguish!</span>")
 	playsound(get_turf(src), pick(hurt_sounds), 30, TRUE)
 	throw_alert(ALERT_CATEGORY_NOREGEN, /obj/screen/alert/pulse_noregen)

@@ -51,9 +51,6 @@
 			var/contained = english_list(injected)
 
 			add_attack_logs(user, M, "Injected with [src] containing ([contained])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
-			for(var/datum/reagent/R as anything in reagents.reagent_list)
-				if(initial(R.id) == "????") // Yes this is a specific case that we don't really want
-					return TRUE
 			reagents.reaction(M, REAGENT_INGEST, 0.1)
 		return TRUE
 
@@ -81,6 +78,7 @@
 		emagged = TRUE
 		ignore_flags = TRUE
 		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
+		return TRUE
 
 /obj/item/reagent_containers/hypospray/safety
 	name = "medical hypospray"
@@ -202,7 +200,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	name = "protoype nanite autoinjector"
-	desc = "After a short period of time the nanites will slow the body's systems and assist with body repair. Nanomachines son."
+	desc = "A highly experimental prototype chemical designed to fully mend limbs and organs of soldiers in the field, shuts down body systems whilst aiding in repair.<br><span class='boldwarning'>WARNING: Side effects can cause temporary paralysis, loss of co-ordination and sickness. Do not use with any kind of stimulant or drugs. Serious damage can occur!</span>"
 	icon_state = "bonepen"
 	amount_per_transfer_from_this = 30
 	volume = 30

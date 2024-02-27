@@ -132,6 +132,10 @@
 
 /area/station/hallway/secondary/entry/south
 
+/area/station/hallway/secondary/entry/east
+
+/area/station/hallway/secondary/entry/west
+
 /area/station/hallway/secondary/entry/lounge
 	name = "\improper Arrivals Lounge"
 
@@ -159,14 +163,6 @@
 	name = "\improper Secondary Cryogenic Dormitories"
 	icon_state = "Sleep"
 
-/area/station/public/sleep_male
-	name = "\improper Male Dorm"
-	icon_state = "Sleep"
-
-/area/station/public/sleep_female
-	name = "\improper Female Dorm"
-	icon_state = "Sleep"
-
 /area/station/public/locker
 	name = "\improper Locker Room"
 	icon_state = "locker"
@@ -176,11 +172,8 @@
 	icon_state = "toilet"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
-/area/station/public/toilet/male
-	name = "\improper Male Toilets"
-
-/area/station/public/toilet/female
-	name = "\improper Female Toilets"
+/area/station/public/toilet/unisex
+	name = "\improper Unisex Restroom"
 
 /area/station/public/toilet/lockerroom
 	name = "\improper Locker Toilets"
@@ -196,10 +189,6 @@
 /area/station/public/mrchangs
 	name = "\improper Mr Chang's"
 	icon_state = "changs"
-
-/area/station/public/clothing
-	name = "\improper Clothing Shop"
-	icon_state = "Theatre"
 
 /area/station/public/pet_store
 	name = "\improper Pet Store"
@@ -223,10 +212,6 @@
 	name = "Primary Tool Storage"
 	icon_state = "primarystorage"
 
-/area/station/public/storage/autolathe
-	name = "Autolathe Storage"
-	icon_state = "storage"
-
 /area/station/public/storage/art
 	name = "Art Supply Storage"
 	icon_state = "storage"
@@ -242,9 +227,6 @@
 /area/station/public/storage/office
 	name = "Office Supplies"
 	icon_state = "office_supplies"
-
-/area/station/public/recreation
-	name = "\improper Recreation Area"
 
 /area/station/public/construction
 	name = "\improper Construction Area"

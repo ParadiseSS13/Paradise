@@ -174,7 +174,7 @@ Works together with spawning an observer, noted above.
 		C.images += target.hud_list[SPECIALROLE_HUD]
 	return 1
 
-/mob/proc/ghostize(flags = GHOST_CAN_REENTER)
+/mob/proc/ghostize(flags = GHOST_CAN_REENTER, user_color, ghost_name)
 	if(key)
 		if(player_logged) //if they have disconnected we want to remove their SSD overlay
 			overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
@@ -186,6 +186,11 @@ Works together with spawning an observer, noted above.
 			ADD_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
+		if(user_color)
+			add_atom_colour(user_color, ADMIN_COLOUR_PRIORITY)
+			ghost.color = user_color
+		if(ghost_name)
+			ghost.name = ghost_name
 		ghost.key = key
 		return ghost
 
@@ -224,7 +229,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(warningmsg)
 		var/response
 		var/alertmsg = "Are you -sure- you want to ghost?\n([warningmsg]. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
-		response = alert(src, alertmsg,"Are you sure you want to ghost?","Stay in body","Ghost")
+		response = tgui_alert(src, alertmsg, "Ghost", list("Stay in body", "Ghost"))
 		if(response != "Ghost")
 			return
 
@@ -393,7 +398,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='warning'>Your body is still alive!</span>")
 		return
 
-	var/choice = alert(src, "If you enable this, your body will be unrevivable for the remainder of the round.", "Are you sure?", "Yes", "No")
+	var/choice = tgui_alert(src, "If you enable this, your body will be unrevivable for the remainder of the round.", "Do Not Revive!", list("Yes", "No"))
 	if(choice == "Yes")
 		to_chat(src, "<span class='boldnotice'>Do Not Revive state enabled.</span>")
 		create_log(MISC_LOG, "DNR Enabled")
@@ -401,7 +406,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(!QDELETED(mind.current)) // Could change while they're choosing
 			mind.current.remove_status_effect(STATUS_EFFECT_REVIVABLE)
 		SEND_SIGNAL(mind.current, COMSIG_LIVING_SET_DNR)
-		
 
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"
@@ -411,7 +415,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!isobserver(usr))
 		to_chat(usr, "Not when you're not dead!")
 		return
-	var/target = input("Area to teleport to", "Teleport to a location") as null|anything in SSmapping.ghostteleportlocs
+	var/target = tgui_input_list(usr, "Area to teleport to", "Teleport to a location", SSmapping.ghostteleportlocs)
 	teleport(SSmapping.ghostteleportlocs[target])
 
 /mob/dead/observer/proc/jump_to_ruin()
@@ -438,7 +442,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 		names[name] = ruin_landmark
 
-	var/ruinname = input("Select ruin", "Jump to Ruin") as null|anything in names
+	var/ruinname = tgui_input_list(usr, "Select ruin", "Jump to Ruin", names)
 
 	var/obj/effect/landmark/ruin/landmark = names[ruinname]
 
@@ -625,7 +629,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
 	set category = "Ghost"
-	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.observer_state)
+	GLOB.generic_crew_manifest.ui_interact(usr)
 
 //this is called when a ghost is drag clicked to something.
 /mob/dead/observer/MouseDrop(atom/over)
@@ -828,3 +832,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
 	menu.ui_interact(src)
+
+/**
+ * Check if a player has antag-hudded, and if so, if they can rejoin.
+ * Returns TRUE if the player can rejoin, and FALSE if the player is ineligible to rejoin.
+ * If allow_roundstart_observers is FALSE (TRUE by default), then any observers who were able to ahud due to joining roundstart will be excluded as well.
+ */
+/mob/dead/observer/proc/check_ahud_rejoin_eligibility(allow_roundstart_observers = TRUE)
+	if(!GLOB.configuration.general.restrict_antag_hud_rejoin || !has_ahudded())
+		return TRUE
+
+	if(is_roundstart_observer())
+		return allow_roundstart_observers
+	return FALSE
+

@@ -21,8 +21,7 @@
 	if(!emagged)
 		to_chat(usr, "<span class='warning'>You short out the safeties, allowing it to be placed in the station sector.</span>")
 		emagged = TRUE
-		return
-
+		return TRUE
 	to_chat(usr, "<span class='warning'>The safeties are already shorted out!</span>")
 
 /obj/item/survivalcapsule/proc/get_template()
@@ -42,7 +41,7 @@
 /obj/item/survivalcapsule/attack_self()
 	// Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
-	if(used == FALSE)
+	if(!used)
 		loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
 		used = TRUE
 		sleep(50)
@@ -225,10 +224,10 @@
 		return
 
 	for(var/i in 1 to 5)
-		var/obj/item/reagent_containers/food/snacks/warmdonkpocket_weak/W = new(src)
+		var/obj/item/food/snacks/warmdonkpocket_weak/W = new(src)
 		load(W)
 	if(prob(50))
-		var/obj/item/storage/pill_bottle/dice/D = new(src)
+		var/obj/item/storage/bag/dice/D = new(src)
 		load(D)
 	else
 		var/obj/item/instrument/guitar/G = new(src)

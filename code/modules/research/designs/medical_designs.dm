@@ -375,6 +375,30 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/botanical
 	category = list("Medical")
 
+/datum/design/cyberimp_shell_launcher
+	name = "Shell Launch System Implant"
+	desc = "A mounted, single-shot housing for a shell launch cannon; capable of firing twelve-gauge shotgun shells."
+	id = "ci-shell_launcher"
+	req_tech = list("materials" = 7, "engineering" = 5, "combat" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
+	construction_time = 20 SECONDS
+	build_path = /obj/item/organ/internal/cyberimp/arm/shell_launcher
+	category = list("Medical")
+
+/datum/design/cyberimp_razorwire_spool
+	name = "Razorwire Spool Arm Implant"
+	desc = "A long length of monomolecular filament, built into the back of your hand. \
+		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
+		even from a few steps away. However, results against anything more durable will heavily vary."
+	id = "ci-razorwire-spool"
+	req_tech = list("combat" = 6, "biotech" = 6, "syndicate" = 3)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2000, MAT_DIAMOND = 2000, MAT_BLUESPACE = 2000)
+	construction_time = 10 SECONDS
+	build_path = /obj/item/organ/internal/cyberimp/arm/razorwire
+	category = list("Medical")
+
 /datum/design/cyberimp_toolset_abductor
 	name = "Abductor Toolset Implant"
 	desc = "An alien toolset, designed to be installed on subject's arm."
@@ -384,6 +408,17 @@
 	materials = list(MAT_METAL = 20000, MAT_SILVER = 10000, MAT_PLASMA = 9000, MAT_TITANIUM = 8000, MAT_DIAMOND = 8000)
 	construction_time = 200
 	build_path = /obj/item/organ/internal/cyberimp/arm/toolset_abductor
+	category = list("Medical")
+
+/datum/design/cyberimp_jani_hud
+	name = "Janitor HUD Implant"
+	desc = "These cybernetic eye implants will display a filth HUD over everything you see. Wiggle eyes to control."
+	id = "ci-janihud"
+	req_tech = list("materials" = 5, "engineering" = 4, "programming" = 4, "biotech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 5 SECONDS
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/jani
 	category = list("Medical")
 
 /datum/design/cyberimp_diagnostic_hud
@@ -540,58 +575,91 @@
 	build_path = /obj/item/organ/internal/cyberimp/brain/wire_interface
 	category = list("Medical")
 
+/datum/design/raiden_implant
+	name = "Reactive Repair Implant"
+	desc = "This implant reworks the IPC frame, in order to incorporate materials that return to their original shape after being damaged. Requires power to function."
+	id = "ci-raiden_implant"
+	req_tech = list("materials" = 5, "programming" = 5, "biotech" = 5, "magnets" = 5, "engineering" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
+	build_path = /obj/item/organ/internal/cyberimp/chest/ipc_repair
+	category = list("Medical")
+
+/datum/design/monsoon_implant
+	name = "Magnetic Joints Implant"
+	desc = "This implant modifies IPC joints to use magnets, allowing easy re-attachment and fluid movement."
+	id = "ci-monsoon_implant"
+	req_tech = list("materials" = 5, "programming" = 5, "biotech" = 5, "magnets" = 5, "engineering" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
+	build_path = /obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints
+	category = list("Medical")
+
+/datum/design/sundown_implant
+	name = "Sealed Joints Implant"
+	desc = "This implant seals and reinforces IPC joints, securing the limbs better, though prone to locking up."
+	id = "ci-sundown_implant"
+	req_tech = list("materials" = 5, "programming" = 5, "biotech" = 5, "engineering" = 5, "combat" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
+	build_path = /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed
+	category = list("Medical")
+
 /////////////////////////////////////////
 ////////////Regular Implants/////////////
 /////////////////////////////////////////
 
-/datum/design/implanter
+/datum/design/bio_chip_implanter
 	name = "Bio-chip Implanter"
 	desc = "A sterile automatic bio-chip injector."
 	id = "implanter"
 	req_tech = list("materials" = 2, "biotech" = 3, "programming" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 600, MAT_GLASS = 200)
-	build_path = /obj/item/implanter
+	build_path = /obj/item/bio_chip_implanter
 	category = list("Medical")
 
-/datum/design/implantcase
+/datum/design/bio_chip_case
 	name = "Bio-chip Case"
 	desc = "A glass case containing a bio-chip."
 	id = "implantcase"
 	req_tech = list("biotech" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 500)
-	build_path = /obj/item/implantcase
+	build_path = /obj/item/bio_chip_case
 	category = list("Medical")
 
-/datum/design/implant_chem
+/datum/design/bio_chip_chem
 	name = "Chemical Bio-chip Case"
 	desc = "A glass case containing a bio-chip."
 	id = "implant_chem"
 	req_tech = list("materials" = 3, "biotech" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 700)
-	build_path = /obj/item/implantcase/chem
+	build_path = /obj/item/bio_chip_case/chem
 	category = list("Medical")
 
-/datum/design/implant_sadtrombone
+/datum/design/bio_chip_sad_trombone
 	name = "Sad Trombone Bio-chip Case"
 	desc = "Makes death amusing."
 	id = "implant_trombone"
 	req_tech = list("materials" = 3, "biotech" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 500, MAT_BANANIUM = 500)
-	build_path = /obj/item/implantcase/sad_trombone
+	build_path = /obj/item/bio_chip_case/sad_trombone
 	category = list("Medical")
 
-/datum/design/implant_tracking
+/datum/design/bio_chip_tracking
 	name = "Tracking Bio-chip Case"
 	desc = "A glass case containing a bio-chip."
 	id = "implant_tracking"
 	req_tech = list("materials" = 2, "biotech" = 3, "magnets" = 3, "programming" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
-	build_path = /obj/item/implantcase/tracking
+	build_path = /obj/item/bio_chip_case/tracking
 	category = list("Medical")
 
 //Cybernetic organs

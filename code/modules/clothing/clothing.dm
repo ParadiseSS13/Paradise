@@ -142,7 +142,9 @@
 	slot_flags = SLOT_FLAG_EARS
 	resistance_flags = NONE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi') //We read you loud and skree-er.
+		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi', //We read you loud and skree-er.
+		"Kidan" = 'icons/mob/clothing/species/kidan/ears.dmi'
+		)
 
 /obj/item/clothing/ears/attack_hand(mob/user)
 	if(!user)
@@ -311,15 +313,15 @@
 		return
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
-	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
-
+	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, modes[sensor_mode + 1])
 	if(!user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
 	if(!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't use your hands!</span>")
 		return
-
+	if(!switchMode)
+		return
 	sensor_mode = modes.Find(switchMode) - 1
 
 	if(loc == user)
@@ -356,7 +358,7 @@
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
 
-/obj/item/clothing/under/AltShiftClick(mob/user)
+/obj/item/clothing/under/AltClick(mob/user)
 	set_sensors(user)
 
 //Head
@@ -465,6 +467,7 @@
 	var/chained = FALSE
 	var/can_cut_open = FALSE
 	var/cut_open = FALSE
+	var/no_slip = FALSE
 	body_parts_covered = FEET
 	slot_flags = SLOT_FLAG_FEET
 
@@ -478,6 +481,20 @@
 		"Vox" = 'icons/mob/clothing/species/vox/shoes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/shoes.dmi'
 		)
+
+/obj/item/clothing/shoes/equipped(mob/user, slot)
+	. = ..()
+	if(!no_slip || slot != SLOT_HUD_SHOES)
+		return
+	ADD_TRAIT(user, TRAIT_NOSLIP, UID())
+
+/obj/item/clothing/shoes/dropped(mob/user)
+	..()
+	if(!no_slip)
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
+		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
@@ -523,9 +540,6 @@
 	icon_state = "[icon_state]_opentoe"
 	item_state = "[item_state]_opentoe"
 
-/obj/item/proc/negates_gravity()
-	return
-
 //Suit
 /obj/item/clothing/suit
 	name = "suit"
@@ -544,6 +558,19 @@
 	var/list/hide_tail_by_species = null
 	/// Maximum weight class of an item in the suit storage slot.
 	var/max_suit_w = WEIGHT_CLASS_BULKY
+
+/obj/item/clothing/suit/Initialize(mapload)
+	. = ..()
+	setup_shielding()
+
+/**
+ * Wrapper proc to apply shielding through AddComponent().
+ * Called in /obj/item/clothing/Initialize().
+ * Override with an AddComponent(/datum/component/shielded, args) call containing the desired shield statistics.
+ * See /datum/component/shielded documentation for a description of the arguments
+ **/
+/obj/item/clothing/suit/proc/setup_shielding()
+	return
 
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(mob/user)
@@ -814,14 +841,14 @@
 			if(SUIT_SENSOR_TRACKING)
 				. += "Its vital tracker and tracking beacon appear to be enabled."
 		if(has_sensor == 1)
-			. += "<span class='info'>Alt-shift-click to toggle the sensors mode.</span>"
+			. += "<span class='info'>Alt-click to toggle the sensors mode.</span>"
 	else
 		. += "This suit does not have any sensors."
 
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += "\A [A] is attached to it."
-	. += "<span class='info'>Alt-click to remove an accessory.</span>"
+	. += "<span class='info'>Alt-Shift-Click to remove an accessory.</span>"
 	. += "<span class='info'>Ctrl-Shift-Click to roll down this jumpsuit.</span>"
 
 
@@ -855,7 +882,7 @@
 		body_parts_covered &= ~LOWER_TORSO
 		body_parts_covered &= ~ARMS
 
-/obj/item/clothing/under/AltClick(mob/user)
+/obj/item/clothing/under/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(!length(accessories))

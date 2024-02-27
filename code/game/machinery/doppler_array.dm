@@ -47,15 +47,8 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!default_unfasten_wrench(user, I, 0))
 		return
-	if(!anchored && !isinspace())
-		anchored = TRUE
-		WRENCH_ANCHOR_MESSAGE
-	else if(anchored)
-		anchored = FALSE
-		WRENCH_UNANCHOR_MESSAGE
-	power_change()
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/doppler_array/attack_hand(mob/user)
@@ -170,10 +163,13 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	else
 		stat |= NOPOWER
 
-/obj/machinery/doppler_array/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/doppler_array/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/doppler_array/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TachyonArray", name, 500, 600, master_ui, state)
+		ui = new(user, src, "TachyonArray", name)
 		ui.open()
 
 /obj/machinery/doppler_array/ui_data(mob/user)
