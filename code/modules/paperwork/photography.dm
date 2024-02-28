@@ -55,11 +55,11 @@
 	if(user.restrained())
 		return
 
-	var/class = "<span class='warning'>"
+	var/class = "warning"
 	if(istype(P, /obj/item/lighter/zippo))
 		class = "<span class='rose'>"
 
-	user.visible_message("[class][user] holds [P] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
+	user.visible_message("<span class='[class]'>[user] holds [P] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
 	"[class]You hold [P] up to [src], burning it slowly.</span>")
 
 	if(!do_after(user, 5 SECONDS, target = src))
