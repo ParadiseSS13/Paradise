@@ -26549,6 +26549,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -26854,12 +26856,6 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -26872,6 +26868,12 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -27513,8 +27515,10 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining,
 /obj/effect/mapping_helpers/airlock/access/any/supply/expedition,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkyellowfull"
 	},
 /area/station/supply/expedition)
 "bOZ" = (
@@ -29837,15 +29841,18 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkyellow";
+	dir = 1
 	},
 /area/station/supply/expedition)
 "bWZ" = (
 /obj/structure/closet/secure_closet/explorer,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellowcorners"
+	dir = 6;
+	icon_state = "darkyellow"
 	},
 /area/station/supply/expedition)
 "bXb" = (
@@ -30309,12 +30316,6 @@
 /obj/structure/closet/secure_closet/ntrep,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
-"bYp" = (
-/obj/structure/closet/secure_closet/explorer,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/supply/expedition)
 "bYq" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -31048,15 +31049,15 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellowcorners"
+	dir = 9;
+	icon_state = "darkyellow"
 	},
 /area/station/supply/expedition)
 "cbj" = (
 /obj/machinery/computer/arcade/battle,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkyellowcorners"
+	icon_state = "darkyellow";
+	dir = 1
 	},
 /area/station/supply/expedition)
 "cbl" = (
@@ -50020,6 +50021,15 @@
 	icon_state = "darkred"
 	},
 /area/station/security/storage)
+"eWE" = (
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/supply/expedition)
 "eXm" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/cable/yellow{
@@ -74048,6 +74058,13 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"oYk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/supply/expedition)
 "oYO" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "C1"
@@ -76599,6 +76616,17 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/ai_upload)
+"qaH" = (
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/supply/expedition)
 "qaW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -90633,13 +90661,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
-"wkM" = (
-/obj/structure/closet/secure_closet/explorer,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkyellowcorners"
-	},
-/area/station/supply/expedition)
 "wlo" = (
 /obj/structure/closet/crate/trashcart,
 /obj/effect/spawner/lootdrop{
@@ -91587,6 +91608,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"wFY" = (
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/supply/expedition)
 "wGr" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -125946,10 +125976,10 @@ bMG
 bLq
 bOY
 bWX
-bZz
-bZz
-cdB
-cdB
+oYk
+oYk
+qaH
+wFY
 cdB
 tST
 bZX
@@ -126205,7 +126235,7 @@ bZX
 cbj
 bQD
 cdB
-cdB
+eWE
 cdB
 cdB
 bZD
@@ -126720,8 +126750,8 @@ cPD
 bTV
 bSp
 cJT
-wkM
-bYp
+cJT
+cJT
 bWZ
 bZX
 iBk
