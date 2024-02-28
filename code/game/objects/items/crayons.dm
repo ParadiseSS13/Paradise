@@ -73,7 +73,6 @@
 	dat += "<hr>"
 	var/datum/browser/popup = new(user, "crayon", name, 300, 500)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 	dat = ""
 
@@ -307,8 +306,8 @@
 	..()
 	update_icon()
 
-/obj/item/toy/crayon/spraycan/attack_self(mob/living/user as mob)
-	var/choice = input(user,"Spraycan options") in list("Toggle Cap","Change Drawing","Change Color")
+/obj/item/toy/crayon/spraycan/attack_self(mob/living/user)
+	var/choice = tgui_input_list(user, "Do you want to...", "Spraycan Options", list("Toggle Cap","Change Drawing", "Change Color"))
 	switch(choice)
 		if("Toggle Cap")
 			to_chat(user, "<span class='notice'>You [capped ? "remove" : "replace"] the cap of [src].</span>")

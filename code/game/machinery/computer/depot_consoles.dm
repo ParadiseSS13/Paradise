@@ -72,10 +72,13 @@
 /obj/machinery/computer/syndicate_depot/proc/disable_special_functions()
 	return
 
-/obj/machinery/computer/syndicate_depot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/syndicate_depot/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/syndicate_depot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SyndicateComputerSimple",  name, window_width, window_height, master_ui, state)
+		ui = new(user, src, "SyndicateComputerSimple",  name)
 		ui.open()
 
 /obj/machinery/computer/syndicate_depot/ui_data(mob/user)
@@ -330,7 +333,7 @@
 		to_chat(user, "<span class='warning'>[src] has already been used to transmit a message to the Syndicate.</span>")
 		return
 	message_sent = TRUE
-	var/input = stripped_input(user, "Please choose a message to transmit to Syndicate HQ via quantum entanglement.  Transmission does not guarantee a response. This function may only be used ONCE.", "To abort, send an empty message.", "")
+	var/input = tgui_input_text(user, "Please choose a message to transmit to Syndicate HQ via quantum entanglement. Transmission does not guarantee a response. This function may only be used ONCE.", "Send Message")
 	if(!input)
 		message_sent = FALSE
 		return
@@ -448,8 +451,8 @@
 		else
 			areaindex[tmpname] = 1
 		L[tmpname] = R
-	var/desc = input("Please select a location to lock in.", "Syndicate Teleporter") in L
-	return(L[desc])
+	var/desc = tgui_input_list(usr, "Please select a location to lock in.", "Syndicate Teleporter", L)
+	return L[desc]
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/update_portal()
 	if(portal_enabled && !myportal)

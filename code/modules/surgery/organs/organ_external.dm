@@ -323,6 +323,8 @@
 
 	if(owner_old)
 		owner_old.updatehealth("limb receive damage")
+	brute_dam = round_health(brute_dam)
+	burn_dam = round_health(burn_dam)
 	return update_state()
 
 #undef LIMB_SHARP_THRESH_INT_DMG
@@ -343,6 +345,8 @@
 	if(updating_health)
 		owner.updatehealth("limb heal damage")
 
+	brute_dam = round_health(brute_dam)
+	burn_dam = round_health(burn_dam)
 	return update_state()
 
 /obj/item/organ/external/emp_act(severity)
@@ -359,11 +363,11 @@
 	else if(emp_resistant) // IPC limbs
 		switch(severity)
 			if(1)
-				// 5.28 (9 * 0.66 burn_mod) burn damage, 65.34 damage with 11 limbs.
-				receive_damage(0, 9)
+				// 5.9 burn damage, 64.9 damage with 11 limbs.
+				receive_damage(0, 5.9)
 			if(2)
-				// 3.63 (5 * 0.66 burn_mod) burn damage, 39.93 damage with 11 limbs.
-				receive_damage(0, 5.5)
+				// 3.63 burn damage, 39.93 damage with 11 limbs.
+				receive_damage(0, 3.63)
 	else // Basic prosthetic limbs
 		switch(severity)
 			if(1)
@@ -651,8 +655,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/groin/droplimb()
 	if(disembowel("groin"))
 		return TRUE
-
-
 
 /obj/item/organ/external/attackby(obj/item/I, mob/user, params)
 	if(I.sharp)

@@ -24,14 +24,11 @@
 		mind.current = null // We best null their mind as well, otherwise /every/ single new player is going to explode the server a little more going in/out of the round
 	return ..()
 
-/mob/new_player/verb/new_player_panel()
-	set src = usr
-
+/mob/new_player/proc/new_player_panel()
 	if(client.tos_consent || GLOB.configuration.system.external_tos_handler)
 		new_player_panel_proc()
 	else
 		privacy_consent()
-
 
 /mob/new_player/proc/privacy_consent()
 	var/output = GLOB.join_tos
@@ -49,7 +46,6 @@
 	popup.open(0)
 	return
 
-
 /mob/new_player/proc/new_player_panel_proc()
 	set waitfor = FALSE
 	var/real_name = client.prefs.active_character.real_name
@@ -58,16 +54,20 @@
 	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
 	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
-		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
-		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
+		if(!ready)
+			output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
+		else
+			output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
 		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
 
 	var/list/antags = client.prefs.be_special
-	if(antags && antags.len)
-		if(!client.skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
-		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
+	if(length(antags))
+		if(!client.skip_antag)
+			output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
+		else
+			output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
 		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 
 	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
@@ -86,8 +86,7 @@
 	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 240, 340)
 	popup.set_window_options("can_close=0")
 	popup.set_content(output)
-	popup.open(0)
-	return
+	popup.open(FALSE)
 
 /mob/new_player/Stat()
 	..()
@@ -128,8 +127,6 @@
 		qdel(query)
 		src << browse(null, "window=privacy_consent")
 		client.tos_consent = TRUE
-		// Now they have accepted TOS, we can log data
-		client.chatOutput.sendClientData()
 		new_player_panel_proc()
 	if(href_list["consent_rejected"])
 		client.tos_consent = FALSE
@@ -179,9 +176,9 @@
 			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
 			return FALSE
 
-		if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
+		if(alert(usr, "Are you sure you wish to observe? You cannot normally join the round after doing this!", "Observe", "Yes", "No") == "Yes")
 			if(!client)
-				return 1
+				return TRUE
 			var/mob/dead/observer/observer = new(src)
 			src << browse(null, "window=playersetup")
 			spawning = TRUE
@@ -592,7 +589,7 @@
 		client.prefs.active_character.language = "None"
 
 /mob/new_player/proc/ViewManifest()
-	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.always_state)
+	GLOB.generic_crew_manifest.ui_interact(usr)
 
 /mob/new_player/Move()
 	return 0

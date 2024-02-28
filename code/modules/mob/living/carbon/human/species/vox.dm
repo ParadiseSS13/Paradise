@@ -2,10 +2,10 @@
 	name = "Vox"
 	name_plural = "Vox"
 	max_age = 90 // vox stacks can be older than this, but let's assume their body fails beyond repair after such ages.
-	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
+	icobase = 'icons/mob/human_races/vox/r_voxlime.dmi'
 	dangerous_existence = TRUE
 	language = "Vox-pidgin"
-	tail = "voxtail"
+	tail = "voxtail_lime"
 	speech_sounds = list('sound/voice/shriek1.ogg')
 	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/claws	//I dont think it will hurt to give vox claws too.
@@ -44,8 +44,8 @@
 	female_sneeze_sound = 'sound/voice/shrieksneeze.ogg'
 
 	icon_skin_tones = list(
-		1 = "Default Green",
-		2 = "Dark Green",
+		1 = "Default Lime",
+		2 = "Plum",
 		3 = "Brown",
 		4 = "Grey",
 		5 = "Emerald",
@@ -91,7 +91,7 @@
 		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.unEquip(H.l_hand)
 			H.equip_or_collect(internal_tank, SLOT_HUD_LEFT_HAND)
-			to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug</span>")
+			to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug</span>")
 	H.internal = internal_tank
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from [internal_tank]. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
 	H.update_action_buttons_icon()
@@ -103,7 +103,7 @@
 
 /datum/species/vox/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the Vox race.
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
-		var/new_icobase = 'icons/mob/human_races/vox/r_vox.dmi' //Default Green Vox.
+		var/new_icobase = 'icons/mob/human_races/vox/r_voxlime.dmi' //Default Lime Vox.
 		switch(H.s_tone)
 			if(8) //Nebula Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxpurp.dmi'
@@ -123,11 +123,11 @@
 			if(3) //Brown Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxbrn.dmi'
 				H.tail = "voxtail_brn"
-			if(2) //Dark Green Vox.
-				new_icobase = 'icons/mob/human_races/vox/r_voxdgrn.dmi'
-				H.tail = "voxtail_dgrn"
-			else  //Default Green Vox.
-				H.tail = "voxtail" //Ensures they get an appropriately coloured tail depending on the skin-tone.
+			if(2) //Plum Vox.
+				new_icobase = 'icons/mob/human_races/vox/r_voxplum.dmi'
+				H.tail = "voxtail_plum"
+			else  //Default Lime Vox.
+				H.tail = "voxtail_lime" //Ensures they get an appropriately coloured tail depending on the skin-tone.
 
 		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 

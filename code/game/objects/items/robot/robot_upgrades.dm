@@ -80,7 +80,6 @@
 	R.module?.rebuild_modules()
 	return TRUE
 
-
 /*******************/
 /****	COMMON	****/
 /*******************/
@@ -105,7 +104,10 @@
 	var/heldname = "default name"
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
-	heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	var/new_heldname = tgui_input_text(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	if(!new_heldname)
+		return
+	heldname = new_heldname
 
 /obj/item/borg/upgrade/rename/do_install(mob/living/silicon/robot/R)
 	if(!R.allow_rename)
@@ -262,23 +264,8 @@
 		to_chat(usr, "<span class='notice'>There's no room for another VTEC unit!</span>")
 		return
 
-	for(var/obj/item/borg/upgrade/floorbuffer/U in R.contents)
-		if(R.floorbuffer)
-			R.floorbuffer = FALSE
-			R.speed -= U.buffer_speed
-
-	for(var/datum/action/innate/robot_magpulse/magpulse in R.module_actions)
-		if(magpulse.active)
-			REMOVE_TRAIT(R, TRAIT_MAGPULSE, "innate boots")
-			to_chat(R, "You turn your magboots off.")
-			R.speed -= magpulse.slowdown_active
-			magpulse.button_icon_state = initial(magpulse.button_icon_state)
-			magpulse.active = FALSE
-
-	R.speed = -1 // Gotta go fast.
-
+	R.speed -= 1 // Gotta go fast.
 	return TRUE
-
 
 /***********************/
 /****	SECURITY	****/
@@ -305,7 +292,6 @@
 	T.charge_delay = max(2 , T.charge_delay - 4)
 
 	return TRUE
-
 
 /*******************/
 /****	MINING	****/
@@ -346,7 +332,6 @@
 		R.weather_immunities += "lava"
 	return TRUE
 
-
 /***********************/
 /****	ENGINEER	****/
 /***********************/
@@ -366,6 +351,13 @@
 	R.module.remove_item_from_lists(/obj/item/rcd) // So emagging them in the future won't grant another RCD.
 	..()
 
+/obj/item/borg/upgrade/rped
+	name = "Rapid Part Exchange Device upgrade"
+	desc = "A modified Rapid Part Exchange Device designed to be used by engineering robots."
+	icon_state = "cyborg_upgrade5"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/engineering
+	items_to_add = list(/obj/item/storage/part_replacer)
 
 /***********************/
 /****	JANITOR		****/
@@ -417,7 +409,6 @@
 		/obj/item/storage/bag/trash/cyborg = /obj/item/storage/bag/trash/bluespace/cyborg
 	)
 
-
 /***********************/
 /****	SYNDIE		****/
 /***********************/
@@ -445,7 +436,6 @@
 	items_to_replace = list(
 		/obj/item/soap/nanotrasen = /obj/item/soap/syndie
 	)
-
 
 /***********************/
 /****	ABDUCTOR	****/

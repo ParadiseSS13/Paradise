@@ -402,6 +402,7 @@
 	if(safety)
 		safety = 0
 		to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
+		return TRUE
 	else
 		return
 

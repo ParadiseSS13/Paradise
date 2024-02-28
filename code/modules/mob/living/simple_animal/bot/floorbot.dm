@@ -73,10 +73,13 @@
 /mob/living/simple_animal/bot/floorbot/show_controls(mob/user)
 	ui_interact(user)
 
-/mob/living/simple_animal/bot/floorbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/simple_animal/bot/floorbot/ui_state(mob/user)
+	return GLOB.default_state
+
+/mob/living/simple_animal/bot/floorbot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotFloor", name, 500, 520)
+		ui = new(user, src, "BotFloor", name)
 		ui.open()
 
 /mob/living/simple_animal/bot/floorbot/ui_data(mob/user)
@@ -149,7 +152,7 @@
 
 /mob/living/simple_animal/bot/floorbot/emag_act(mob/user)
 	..()
-	if(emagged == 2)
+	if(emagged)
 		if(user)
 			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
 
@@ -184,12 +187,12 @@
 
 	if(amount < MAX_AMOUNT && !target) //Out of tiles! We must refill!
 		if(eat_tiles) //Configured to find and consume floortiles!
-			target = scan(/obj/item/stack/tile/plasteel)
 			process_type = null
+			target = scan(/obj/item/stack/tile/plasteel)
 
 		if(!target && make_tiles) //We did not manage to find any floor tiles! Scan for metal stacks and make our own!
-			target = scan(/obj/item/stack/sheet/metal)
 			process_type = null
+			target = scan(/obj/item/stack/sheet/metal)
 
 		if(!target && nag_on_empty) //Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
 			nag()
@@ -260,7 +263,7 @@
 		nagged = TRUE
 
 /mob/living/simple_animal/bot/floorbot/proc/is_hull_breach(turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
-	return !isspaceturf(get_area(t))
+	return !istype(get_area(t), /area/space)
 
 //Floorbots, having several functions, need sort out special conditions here.
 /mob/living/simple_animal/bot/floorbot/process_scan(atom/scan_target)

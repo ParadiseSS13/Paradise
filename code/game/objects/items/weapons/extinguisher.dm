@@ -77,7 +77,7 @@
 	var/transferred = W.reagents.trans_to(src, max_water)
 	if(transferred > 0)
 		to_chat(user, "<span class='notice'>\The [src] has been refilled by [transferred] units.</span>")
-		playsound(src.loc, 'sound/effects/refill.ogg', 50, TRUE, -6)
+		playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, -6)
 		for(var/datum/reagent/water/R in reagents.reagent_list)
 			R.cooling_temperature = cooling_power
 	else
@@ -85,8 +85,7 @@
 	safety = old_safety
 	return TRUE
 
-
-/obj/item/extinguisher/afterattack(atom/target, mob/user , flag)
+/obj/item/extinguisher/afterattack(atom/target, mob/user, flag)
 	. = ..()
 	//TODO; Add support for reagents in water.
 	if(target.loc == user)//No more spraying yourself when putting your extinguisher away
@@ -96,90 +95,75 @@
 		refilling = FALSE
 		return
 
-	if(!safety)
-		if(src.reagents.total_volume < 1)
-			to_chat(usr, "<span class='danger'>\The [src] is empty.</span>")
-			return
-
-		if(!COOLDOWN_FINISHED(src, last_use))
-			return
-
-		COOLDOWN_START(src, last_use, 2 SECONDS)
-
-		if(reagents.chem_temp > 300 || reagents.chem_temp < 280)
-			add_attack_logs(user, target, "Sprayed with superheated or cooled fire extinguisher at Temperature [reagents.chem_temp]K")
-		playsound(src.loc, 'sound/effects/extinguish.ogg', 75, 1, -3)
-
-		var/direction = get_dir(src,target)
-
-		if(usr.buckled && isobj(usr.buckled) && !usr.buckled.anchored && !istype(usr.buckled, /obj/vehicle))
-			spawn(0)
-				var/obj/structure/chair/C = null
-				if(istype(usr.buckled, /obj/structure/chair))
-					C = usr.buckled
-				var/obj/B = usr.buckled
-				var/movementdirection = turn(direction,180)
-				if(C)	C.propelled = 4
-				step(B, movementdirection)
-				sleep(1)
-				step(B, movementdirection)
-				if(C)	C.propelled = 3
-				sleep(1)
-				step(B, movementdirection)
-				sleep(1)
-				step(B, movementdirection)
-				if(C)	C.propelled = 2
-				sleep(2)
-				step(B, movementdirection)
-				if(C)	C.propelled = 1
-				sleep(2)
-				step(B, movementdirection)
-				if(C)	C.propelled = 0
-				sleep(3)
-				step(B, movementdirection)
-				sleep(3)
-				step(B, movementdirection)
-				sleep(3)
-				step(B, movementdirection)
-
-		else user.newtonian_move(turn(direction, 180))
-
-		var/turf/T = get_turf(target)
-		var/turf/T1 = get_step(T,turn(direction, 90))
-		var/turf/T2 = get_step(T,turn(direction, -90))
-		var/list/the_targets = list(T,T1,T2)
-		if(precision)
-			var/turf/T3 = get_step(T1, turn(direction, 90))
-			var/turf/T4 = get_step(T2,turn(direction, -90))
-			the_targets = list(T,T1,T2,T3,T4)
-
-		for(var/a=0, a<5, a++)
-			spawn(0)
-				var/obj/effect/particle_effect/water/W = new /obj/effect/particle_effect/water( get_turf(src) )
-				var/turf/my_target = pick(the_targets)
-				if(precision)
-					the_targets -= my_target
-				var/datum/reagents/R = new/datum/reagents(5)
-				if(!W) return
-				W.reagents = R
-				R.my_atom = W
-				if(!W || !src) return
-				src.reagents.trans_to(W,1)
-				for(var/b=0, b<5, b++)
-					step_towards(W,my_target)
-					if(!W || !W.reagents) return
-					W.reagents.reaction(get_turf(W))
-					for(var/atom/atm in get_turf(W))
-						if(!W) return
-						W.reagents.reaction(atm)
-						if(isliving(atm)) //For extinguishing mobs on fire
-							var/mob/living/M = atm
-							M.ExtinguishMob()
-
-					if(W.loc == my_target) break
-					sleep(2)
-	else
+	if(safety)
 		return ..()
+	if(reagents.total_volume < 1)
+		to_chat(user, "<span class='danger'>[src] is empty.</span>")
+		return
+
+	if(!COOLDOWN_FINISHED(src, last_use))
+		return
+
+	COOLDOWN_START(src, last_use, 2 SECONDS)
+
+	if(reagents.chem_temp > 300 || reagents.chem_temp < 280)
+		add_attack_logs(user, target, "Sprayed with superheated or cooled fire extinguisher at Temperature [reagents.chem_temp]K")
+	playsound(loc, 'sound/effects/extinguish.ogg', 75, TRUE, -3)
+
+	var/direction = get_dir(src, target)
+
+	if(isobj(user.buckled) && !user.buckled.anchored && !istype(user.buckled, /obj/vehicle))
+		INVOKE_ASYNC(src, PROC_REF(buckled_speed_move), user.buckled, direction)
+	else
+		user.newtonian_move(turn(direction, 180))
+
+	var/turf/T = get_turf(target)
+	var/turf/T1 = get_step(T, turn(direction, 90))
+	var/turf/T2 = get_step(T, turn(direction, -90))
+	var/list/the_targets = list(T, T1, T2)
+	if(precision)
+		var/turf/T3 = get_step(T1, turn(direction, 90))
+		var/turf/T4 = get_step(T2, turn(direction, -90))
+		the_targets = list(T, T1, T2, T3, T4)
+
+	for(var/a in 1 to 5)
+		var/obj/effect/particle_effect/water/water = new /obj/effect/particle_effect/water(get_turf(src))
+		water.create_reagents(5)
+		reagents.trans_to(water, 1)
+		var/turf/new_target = pick(the_targets)
+		if(precision)
+			the_targets -= new_target
+		INVOKE_ASYNC(water, TYPE_PROC_REF(/obj/effect/particle_effect/water, extinguish_move), new_target)
 
 /obj/item/extinguisher/cyborg_recharge(coeff, emagged)
 	reagents.check_and_add("water", max_water, 5 * coeff)
+
+/obj/item/extinguisher/proc/buckled_speed_move(obj/structure/chair/buckled_to, direction) // Buckled_to may not be a chair here, but we're assuming so because it makes it easier to typecheck
+	var/movementdirection = turn(direction, 180)
+	if(istype(buckled_to))
+		buckled_to.propelled = 4
+	step(buckled_to, movementdirection)
+	sleep(1)
+	step(buckled_to, movementdirection)
+	if(istype(buckled_to))
+		buckled_to.propelled = 3
+	sleep(1)
+	step(buckled_to, movementdirection)
+	sleep(1)
+	step(buckled_to, movementdirection)
+	if(istype(buckled_to))
+		buckled_to.propelled = 2
+	sleep(2)
+	step(buckled_to, movementdirection)
+	if(istype(buckled_to))
+		buckled_to.propelled = 1
+	sleep(2)
+	step(buckled_to, movementdirection)
+	if(istype(buckled_to))
+		buckled_to.propelled = 0
+	sleep(3)
+	step(buckled_to, movementdirection)
+	sleep(3)
+	step(buckled_to, movementdirection)
+	sleep(3)
+	step(buckled_to, movementdirection)

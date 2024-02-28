@@ -474,7 +474,7 @@
 /area/awaymission/beach)
 "cX" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "cY" = (
@@ -728,7 +728,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/beach)
 "ec" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/beach)
 "ed" = (
@@ -827,7 +827,7 @@
 /area/awaymission/beach)
 "ev" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/pie,
+/obj/item/food/snacks/pie,
 /turf/simulated/floor/beach/away/sand,
 /area/awaymission/beach)
 "ew" = (

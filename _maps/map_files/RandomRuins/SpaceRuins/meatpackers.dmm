@@ -95,8 +95,8 @@
 /area/ruin/unpowered/BMPship/Delta)
 "ax" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -104,7 +104,7 @@
 /area/ruin/unpowered/BMPship/Delta)
 "ay" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -140,14 +140,11 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
+/obj/machinery/power/apc/off_station/directional/north{
 	environment_channel = 2;
 	equipment_channel = 0;
 	lighting_channel = 0;
-	locked = 0;
-	pixel_y = 24;
-	req_access = ""
+	locked = 0
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -340,16 +337,12 @@
 	},
 /area/ruin/unpowered/BMPship/Fore)
 "br" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Fore)
 "bs" = (
 /obj/machinery/light/small,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Fore)
 "bt" = (
@@ -407,50 +400,31 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bI" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bJ" = (
 /obj/machinery/light/small,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bK" = (
 /obj/structure/kitchenspike,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bL" = (
 /obj/structure/closet/crate,
 /obj/item/analyzer,
 /obj/item/stack/spacecash/c10,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bM" = (
 /obj/structure/closet/crate,
 /obj/item/stack/spacecash/c100,
 /obj/item/stack/spacecash/c50,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/turf/simulated/floor/plating,
-/area/ruin/unpowered/BMPship/Delta)
-"bN" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/hugemushroomslice,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bO" = (
@@ -459,9 +433,7 @@
 	pixel_y = -24
 	},
 /obj/machinery/light/small,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bP" = (
@@ -471,9 +443,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bQ" = (
@@ -487,14 +457,11 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
+/obj/machinery/power/apc/off_station/directional/north{
 	equipment_channel = 0;
 	lighting_channel = 0;
 	locked = 0;
-	operating = 0;
-	pixel_y = 24;
-	req_access = ""
+	operating = 0
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
@@ -564,7 +531,7 @@
 "cb" = (
 /obj/structure/table,
 /obj/item/kitchen/knife/butcher,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -648,7 +615,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/unpowered/BMPship/Aft)
 "cp" = (
-/obj/item/reagent_containers/food/snacks/hugemushroomslice,
+/obj/item/food/snacks/hugemushroomslice,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -750,7 +717,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "cH" = (
-/obj/item/reagent_containers/food/snacks/hugemushroomslice,
+/obj/item/food/snacks/hugemushroomslice,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Midship)
 "cI" = (
@@ -766,9 +733,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "cL" = (
-/obj/machinery/door/window{
-	dir = 2
-	},
+/obj/machinery/door/window,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -792,8 +757,8 @@
 /area/ruin/unpowered/BMPship/Aft)
 "cP" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -827,13 +792,10 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
+/obj/machinery/power/apc/off_station/directional/north{
 	environment_channel = 0;
 	locked = 0;
-	operating = 0;
-	pixel_y = 24;
-	req_access = ""
+	operating = 0
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
@@ -898,7 +860,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "di" = (
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -1194,12 +1156,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
+/obj/machinery/power/apc/off_station/directional/north{
 	locked = 0;
-	operating = 0;
-	pixel_y = 24;
-	req_access = ""
+	operating = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -1944,7 +1903,7 @@
 /area/ruin/unpowered/BMPship/Fore)
 "fS" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/snacks/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -2234,7 +2193,7 @@
 /area/ruin/powered)
 "gO" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer,
 /obj/item/grenade/chem_grenade/drugs,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
@@ -2389,7 +2348,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hn" = (
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/snacks/chips,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "ho" = (
@@ -2448,6 +2407,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
+"IM" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/hugemushroomslice,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/BMPship/Delta)
 "PP" = (
 /obj/structure/computerframe{
 	dir = 4
@@ -4968,7 +4936,7 @@ aj
 aj
 aj
 aj
-bN
+IM
 ad
 cl
 cl

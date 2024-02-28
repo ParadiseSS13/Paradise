@@ -87,7 +87,7 @@
 
 /obj/item/organ/internal/heart/skrell
 	name = "skrell heart"
-	desc = "A stream lined heart"
+	desc = "A stream lined heart."
 	icon = 'icons/obj/species_organs/skrell.dmi'
 
 /obj/item/organ/internal/brain/skrell

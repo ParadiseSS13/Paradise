@@ -182,12 +182,15 @@
 		orders += list(order_data)
 	return orders
 
-/obj/machinery/computer/supplycomp/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/computer/supplycomp/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/supplycomp/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!cargo_account || !account_database)
 		reconnect_database()
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "CargoConsole", name, 900, 800, master_ui, state)
+		ui = new(user, src, "CargoConsole", name)
 		ui.open()
 
 /obj/machinery/computer/supplycomp/ui_data(mob/user)
@@ -252,8 +255,8 @@
 				visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
 				return
 			var/amount = 1
-			if(params["multiple"] == "1") // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
-				var/num_input = input(user, "Amount", "How many crates? ([MULTIPLE_CRATE_MAX] Max)") as null|num
+			if(params["multiple"])
+				var/num_input = tgui_input_number(user, "Amount", "How many crates?", max_value = MULTIPLE_CRATE_MAX)
 				if(!num_input || (!is_public && !is_authorized(user)) || ..()) // Make sure they dont walk away
 					return
 				amount = clamp(round(num_input), 1, MULTIPLE_CRATE_MAX)
@@ -261,7 +264,7 @@
 			if(!istype(P))
 				return
 			var/timeout = world.time + (60 SECONDS) // If you dont type the reason within a minute, theres bigger problems here
-			var/reason = input(user, "Reason", "Why do you require this item?","") as null|text
+			var/reason = tgui_input_text(user, "Reason", "Why do you require this item?", encode = FALSE)
 			if(world.time > timeout || !reason || (!is_public && !is_authorized(user)) || ..())
 				// Cancel if they take too long, they dont give a reason, they aint authed, or if they walked away
 				return
@@ -428,8 +431,8 @@
 	var/attempt_pin = pin
 	if(customer_account.security_level != ACCOUNT_SECURITY_ID && !attempt_pin)
 		//if pin is not given, we'll prompt them here
-		attempt_pin = input("Enter pin code", "Vendor transaction") as num
-		if(!Adjacent(user))
+		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction")
+		if(!Adjacent(user) || !attempt_pin)
 			return FALSE
 	var/is_admin = is_admin(user)
 	if(!account_database.try_authenticate_login(customer_account, attempt_pin, TRUE, FALSE, is_admin))
@@ -478,6 +481,7 @@
 	if(!hacked)
 		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
 		hacked = TRUE
+		return TRUE
 
 /obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"

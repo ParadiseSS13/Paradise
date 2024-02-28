@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/simulated/wall/boss,
+/turf/simulated/wall/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "ab" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -481,11 +481,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	dir = 8
@@ -605,11 +601,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "bB" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Labor Camp APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/machinery/computer/cryopod{
 	pixel_y = 38
 	},
@@ -960,11 +952,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -972,7 +960,7 @@
 /area/mine/outpost/storage)
 "cl" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/item/reagent_containers/food/snacks/fortunecookie{
+/obj/item/food/snacks/fortunecookie{
 	pixel_y = -5;
 	pixel_x = -6
 	},
@@ -1037,11 +1025,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1217,11 +1201,7 @@
 /obj/structure/cable/cyan{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/bluegrid,
 /area/mine/outpost/comms)
 "cR" = (
@@ -1284,10 +1264,7 @@
 	},
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/directional/south,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "cY" = (
@@ -1327,10 +1304,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1348,7 +1322,7 @@
 "de" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/food/snacks/grown/harebell,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
@@ -1503,10 +1477,7 @@
 	dir = 8;
 	pixel_y = -5
 	},
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner";
@@ -2070,11 +2041,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "ex" = (
@@ -2206,31 +2173,27 @@
 /area/mine/outpost/medbay)
 "eJ" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = -1;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = -8
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = -7
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = 7;
 	pixel_y = 5
 	},
 /obj/item/storage/box/donkpockets,
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -2375,11 +2338,11 @@
 /area/mine/outpost/hallway/west)
 "eW" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 2;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -2;
 	pixel_y = 4
 	},
@@ -2886,10 +2849,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -3788,10 +3748,7 @@
 /area/lavaland/surface/outdoors)
 "km" = (
 /obj/structure/cable,
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/directional/south,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "ko" = (
@@ -5398,11 +5355,7 @@
 	},
 /area/mine/outpost/storage)
 "vf" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "Labor Camp Security APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
@@ -5819,7 +5772,7 @@
 "ya" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/wall/boss,
+/turf/simulated/wall/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "yb" = (
 /obj/structure/table/glass,
@@ -6139,6 +6092,10 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
+"Ad" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors)
 "Ai" = (
 /obj/machinery/alarm{
 	dir = 1;
@@ -6328,7 +6285,7 @@
 /area/mine/outpost/production)
 "Bu" = (
 /obj/structure/reagent_dispensers/oil,
-/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/item/reagent_containers/drinks/oilcan,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "By" = (
@@ -6344,11 +6301,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -6960,11 +6913,7 @@
 "FH" = (
 /obj/structure/cable,
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "FL" = (
@@ -7514,11 +7463,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/directional/east,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
 "Kc" = (
@@ -8459,11 +8404,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -41293,7 +41234,7 @@ aa
 aa
 aa
 aa
-Rl
+Ad
 gG
 pP
 kg
@@ -41557,8 +41498,8 @@ pH
 Ol
 ag
 le
-Rl
-Rl
+Ad
+Ad
 ls
 Aw
 Aw
@@ -41570,8 +41511,8 @@ Aw
 Aw
 Aw
 lI
-Rl
-Rl
+Ad
+Ad
 wr
 Ly
 Ly
@@ -41828,7 +41769,7 @@ XU
 KO
 KO
 Eq
-Rl
+Ad
 hF
 Ly
 Ly
@@ -42342,7 +42283,7 @@ pS
 bc
 Qr
 bc
-Rl
+Ad
 IZ
 Ly
 Ly
@@ -42585,8 +42526,8 @@ Pl
 hk
 gr
 hH
-Rl
-Rl
+Ad
+Ad
 lw
 Aw
 Aw
@@ -42598,8 +42539,8 @@ Aw
 Aw
 lw
 Aw
-Rl
-Rl
+Ad
+Ad
 Vq
 Ly
 Ly
@@ -42835,7 +42776,7 @@ aa
 aa
 aa
 aa
-Rl
+Ad
 gr
 pP
 kl

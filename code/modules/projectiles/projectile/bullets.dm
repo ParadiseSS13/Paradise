@@ -59,13 +59,7 @@
 	damage_type = TOX
 
 /obj/item/projectile/bullet/incendiary
-
-/obj/item/projectile/bullet/incendiary/on_hit(atom/target, blocked = 0)
-	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(4)
-		M.IgniteMob()
+	immolate = 1
 
 /obj/item/projectile/bullet/incendiary/firebullet
 	damage = 10
@@ -132,11 +126,8 @@
 	damage = 27
 	armour_penetration_flat = 40
 
-/obj/item/projectile/bullet/midbullet3/fire/on_hit(atom/target, blocked = 0)
-	if(..(target, blocked))
-		var/mob/living/M = target
-		M.adjust_fire_stacks(1)
-		M.IgniteMob()
+/obj/item/projectile/bullet/midbullet3/fire
+	immolate = 1
 
 /obj/item/projectile/bullet/midbullet3/overgrown
 	icon = 'icons/obj/ammo.dmi'
@@ -237,10 +228,7 @@
 			if(M.can_inject(null, FALSE, hit_zone, piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
 
-				for(var/datum/reagent/R as anything in reagents.reagent_list)
-					if(initial(R.id) == "????") // Yes this is a specific case that we don't really want
-						continue
-					reagents.reaction(M, REAGENT_INGEST, 0.1)
+				reagents.reaction(M, REAGENT_INGEST, 0.1)
 				reagents.trans_to(M, reagents.total_volume)
 				return TRUE
 			else
@@ -287,7 +275,20 @@
 	if(isalien(target))
 		knockdown = 0
 		nodamage = TRUE
+	if(isrobot(target))
+		stun = 10 SECONDS
 	. = ..() // Execute the rest of the code.
+
+/obj/item/projectile/bullet/anti_alien_toxin
+	name = "neurotoxin spit"
+	icon_state = "neurotoxin"
+	damage = 15 // FRENDLY FIRE FRENDLY FIRE
+	damage_type = BURN
+
+/obj/item/projectile/bullet/anti_alien_toxin/on_hit(atom/target, blocked = 0)
+	if(isalien(target))
+		stun = 10 SECONDS
+	. = ..()
 
 /obj/item/projectile/bullet/cap
 	name = "cap"

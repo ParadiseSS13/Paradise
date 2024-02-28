@@ -11,6 +11,10 @@
 #define ORGAN_BURNT		   (1 << 7)
 #define ORGAN_SALVED	   (1 << 8)
 
+// Organ datum defines. Each one of these represents a slot for organ datums in internal_organ_datums
+#define ORGAN_DATUM_HEART	"heart"
+#define ORGAN_DATUM_LUNGS	"lungs"
+
 // For limb resistance flags
 #define CANNOT_BREAK		(1 << 0)
 #define CANNOT_DISMEMBER 	(1 << 1)
