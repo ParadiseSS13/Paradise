@@ -660,6 +660,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/mod/module/plate_compression
 	cost = 10
 
+/datum/uplink_item/suits/chameleon_module
+	name = "MODsuit Chameleon Module"
+	desc = "A module using chameleon technology to disguise an undeployed modsuit as another object. Note: the disguise will not work once the modsuit is deployed, but can be toggled again when retracted."
+	reference = "MSCM"
+	item = /obj/item/mod/module/chameleon
+	cost = 10
+
 /datum/uplink_item/suits/noslip
 	name = "MODsuit Anti-Slip Module"
 	desc = "A MODsuit module preventing the user from slipping on water. Already installed in the uplink modsuits."
