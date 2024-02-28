@@ -80,7 +80,7 @@
 			return
 
 	var/stl = 10 // 10 topics a second
-	if(!holder) // Admins are allowed to spam click, deal with it.
+	if(!holder && href_list["window_id"] != "statbrowser") // Admins are allowed to spam click, deal with it.
 		var/second = round(world.time, 10)
 		if(!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
