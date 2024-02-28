@@ -30,7 +30,7 @@
 	//Used by syndie MMIs, stores the master's mind UID for later referencing
 	var/master_uid = null
 	/// Extended description on examine_more
-	var/extended_desc = "Development of Man-Machine Interfaces can be dated all the way back to the late 20th century on Earth, but the first viable designs didn't emerge until 2408 when Zeng-Hu Pharmaceuticals and Bishop Cybernetics unveiled a co-developed unit and established dominance over the niche market that persists into the present day. \
+	var/extended_desc = "Development of Man-Machine Interfaces can be dated all the way back to the late 20th century within the Sol system, but the first viable designs didn't emerge until 2408 when Zeng-Hu Pharmaceuticals and Bishop Cybernetics unveiled a co-developed unit and established dominance over the niche market that persists into the present day. \
 	The brain is submerged in a preservation fluid rich in mannitol, mitocholide, dissolved oxygen (or functional equivalent in other species) as well as a carefully tuned mixture of nutrients, hormones, peptides, and various other essential substances produced by a specialised chemical synthesiser. \
 	A non-invasive neural interface uses a combination of targeted magnetic pulses, micro-electric discharges, and a grid of highly sensitive EMF probes allow a two-way connection between the MMI and the brain. On-board microphones, cameras, and a speaker provide basic sensory input and a method of communication, which can be expanded with an optional radio upgrade. Any further functionality must be provided by whatever the MMI is installed into. \
 	Brains housed inside an MMI are effectively biologically immortal, provided the unit remains powered."
@@ -296,7 +296,7 @@
 
 /obj/item/mmi/syndie
 	name = "\improper Syndicate Man-Machine Interface"
-	desc = "The Syndicate's own brand of MMI. Mindslaves any brain inserted into it for as long as it's inside. Cyborgs, mechs, or IRCs made with this MMI will be slaved to the owner. Does not fit into NT AI cores. \
+	desc = "The Syndicate's own brand of MMI. Mindslaves any brain inserted into it for as long as it's inside. Cyborgs, mechs, spiderbots, or IRCs made with this MMI will be slaved to the owner. Does not fit into NT AI cores. \
 	Cyborgs will appear to be linked to an AI (if present). If someone attempts to detonate the cyborg, it will automatically block the attempt and then disconnect from the AI. No emagged equipment is provided."
 	origin_tech = "biotech=4;programming=4;syndicate=2"
 	syndiemmi = TRUE
