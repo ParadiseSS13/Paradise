@@ -327,6 +327,10 @@
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/rnd
 	emp_proof = FALSE
 
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/examine(mob/user)
+	. = ..()
+	. += "<span class='userdanger'>Epilepsy Warning: Drug has vibrant visual effects!</span>"
+
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/examine_more(mob/user)
 	. = ..()
 	. += "<i>Developed by Biotech Solutions this revolutionary full spinal cord replacement implant uses an integrated chemical synthesizer designed to administer Mephedrone: \

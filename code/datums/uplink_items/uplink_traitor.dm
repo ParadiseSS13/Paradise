@@ -528,7 +528,8 @@
 
 /datum/uplink_item/cyber_implants/sensory_enhancer
 	name = "Qani-Laaca Sensory Computer Autoimplanter"
-	desc = "This spinal implant will inject mephedrone into your system, a powerful stimulant that causes slight heart damage.\
+	desc = "Epilepsy Warning: Drug has vibrant visual effects! \
+	This spinal implant will inject mephedrone into your system, a powerful stimulant that causes slight heart damage.\
 	This stimulant will provide faster movement speed, slight pain resistance, immunity to crawling slowdown, and faster attack speed, though no antistun.\
 	Overdosing will cause massive heart damage, but will allow the user to dodge bullets for a minute and attack even faster.\
 	Two minute normal uptime, 5 minute cooldown, unlimited uses. Incompatible with the Binyat Wireless Hacking System."

@@ -126,6 +126,10 @@
 	uses = 1
 	starting_organ = /obj/item/organ/internal/cyberimp/brain/sensory_enhancer
 
+/obj/item/autosurgeon/organ/syndicate/sensory_enhancer/examine(mob/user)
+	. = ..()
+	. += "<span class='userdanger'>Epilepsy Warning: Drug has vibrant visual effects!</span>"
+
 /obj/item/autosurgeon/organ/syndicate/sensory_enhancer/examine_more(mob/user)
 	. = ..()
 	if(storedorgan)
