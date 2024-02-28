@@ -286,7 +286,7 @@
 	)
 	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
 	outfit = /datum/outfit/job/judge
-	important_information = "This role requires you to oversee legal matters and make important decisions about sentencing. You are required to have an extensive knowledge of Space Law and Security SOP and only operate within, not outside, the boundaries of the law."
+	important_information = "This role requires you to oversee legal matters and make important decisions about sentencing. You are required to have an extensive knowledge of Corporate Law and Security SOP and only operate within, not outside, the boundaries of the law."
 
 /datum/outfit/job/judge
 	name = "Magistrate"
@@ -336,7 +336,7 @@
 	exp_map = list(EXP_TYPE_CREW = 600)
 	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
 	outfit = /datum/outfit/job/lawyer
-	important_information = "Your job is to deal with affairs regarding Standard Operating Procedure. You are NOT in charge of Space Law affairs, nor can you override it. You are not a prisoner defence lawyer."
+	important_information = "Your job is to deal with affairs regarding Standard Operating Procedure. You are NOT in charge of Corporate Law affairs, nor can you override it. You are not a prisoner defence lawyer."
 
 /datum/outfit/job/lawyer
 	name = "Internal Affairs Agent"
