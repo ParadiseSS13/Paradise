@@ -31707,7 +31707,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/geneticist,
-/obj/effect/mapping_helpers/airlock/windoor/access/all/science/research,
 /obj/effect/mapping_helpers/airlock/windoor/access/all/medical/genetics,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -40262,6 +40261,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboardsolar)
 "dcn" = (
@@ -56443,7 +56443,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
 /turf/simulated/floor/plating,
 /area/station/science/genetics)
@@ -58047,7 +58046,7 @@
 /obj/machinery/access_button{
 	autolink_id = "fssolar_btn_ext";
 	pixel_x = -24;
-	req_one_access_txt = "10;13"
+	req_one_access_txt = "13"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarstarboard)
@@ -63816,7 +63815,6 @@
 "kuL" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
@@ -64129,9 +64127,6 @@
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/science/research{
-	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/medical/genetics{
 	dir = 4
@@ -64700,7 +64695,7 @@
 	int_button_link_id = "eng_sm_btn_int";
 	int_door_link_id = "eng_sm_door_int";
 	pixel_y = 25;
-	req_access_txt = "10;13";
+	req_access_txt = "13";
 	vent_link_id = "eng_sm_vent"
 	},
 /turf/simulated/floor/plating,
@@ -65415,7 +65410,7 @@
 /obj/machinery/access_button{
 	autolink_id = "assolar_btn_int";
 	pixel_x = -24;
-	req_one_access_txt = "10;13"
+	req_one_access_txt = "13"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboardsolar)
@@ -69768,7 +69763,7 @@
 /obj/machinery/access_button/west{
 	autolink_id = "scibomb_btn_ext";
 	pixel_y = 24;
-	req_one_access_txt = "10;13";
+	req_one_access_txt = "13";
 	pixel_x = 0
 	},
 /turf/simulated/floor/plating,
@@ -71681,7 +71676,6 @@
 	},
 /obj/machinery/door/airlock/science,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -98304,6 +98298,7 @@
 /obj/machinery/door/airlock/engineering,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/auxsolarstarboard)
 "wXC" = (
@@ -101929,7 +101924,7 @@
 /obj/machinery/access_button/east{
 	autolink_id = "scibomb_btn_int";
 	pixel_y = 24;
-	req_one_access_txt = "10;13";
+	req_one_access_txt = "13";
 	pixel_x = 0
 	},
 /turf/simulated/floor/plating,
