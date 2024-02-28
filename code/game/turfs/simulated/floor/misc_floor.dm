@@ -181,7 +181,12 @@
 
 /turf/simulated/floor/clockwork/Entered(atom/A, atom/OL, ignoreRest)
 	. = ..()
-	if(!. && isliving(A) && !(locate(/obj/effect/temp_visual/ratvar/floor) in contents))
+	var/counter = 0
+	for(var/obj/effect/temp_visual/ratvar/floor/floor in contents)
+		if(++counter == 3)
+			return
+
+	if(!. && isliving(A))
 		sleep(2 DECISECONDS)
 		new /obj/effect/temp_visual/ratvar/floor(src)
 
