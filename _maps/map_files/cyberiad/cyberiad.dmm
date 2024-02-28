@@ -41520,7 +41520,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "cDA" = (
-/obj/machinery/drone_fabricator,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
