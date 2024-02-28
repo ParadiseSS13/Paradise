@@ -522,7 +522,7 @@
 	build_path = /obj/item/circuitboard/mining_equipment_vendor
 	category = list ("Misc. Machinery")
 
-/datum/design/mining_equipment_vendor
+/datum/design/explorer_equipment_vendor
 	name = "Machine Design (Explorer Rewards Vendor Board)"
 	desc = "The circuit board for an Explorer Rewards Vendor."
 	id = "explorer_equipment_vendor"
