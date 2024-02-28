@@ -1036,7 +1036,7 @@
 	return ..()
 
 /obj/item/storage/box/relay_kit
-	name = "Telecommunications Relay Kit"
+	name = "telecommunications relay kit"
 	desc = "Contains everything you need to set up your own telecommunications array!"
 
 /obj/item/storage/box/relay_kit/populate_contents()
