@@ -144,7 +144,8 @@
 
 
 	if(locate(/obj/item/grab, mob))
-		delay += 7
+		if(!isalienhunter(mob)) // i hate grab code
+			delay += 7
 
 	if(istype(living_mob))
 		var/newdir = NONE
