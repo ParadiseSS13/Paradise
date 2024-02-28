@@ -14091,7 +14091,10 @@
 /obj/structure/table/wood/poker,
 /obj/item/reagent_containers/drinks/cans/beer,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
 /area/station/supply/expedition)
 "aSB" = (
 /obj/structure/cable{
@@ -28530,6 +28533,11 @@
 "bJC" = (
 /obj/structure/rack,
 /obj/item/poster/random_contraband,
+/obj/machinery/door_control{
+	id = "maint_house";
+	name = "shutter door controller";
+	pixel_y = 26
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -33500,7 +33508,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "browncorner"
+	icon_state = "brown"
 	},
 /area/station/supply/expedition)
 "cbT" = (
@@ -33988,7 +33996,10 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
 /area/station/supply/expedition)
 "cdF" = (
 /obj/machinery/computer/operating{
@@ -34075,8 +34086,8 @@
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "browncorner"
+	dir = 8;
+	icon_state = "brown"
 	},
 /area/station/supply/expedition)
 "cdS" = (
@@ -34452,7 +34463,10 @@
 	dir = 4;
 	network = list("SS13","MiniSat")
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
 /area/station/supply/expedition)
 "cfe" = (
 /obj/structure/cable{
@@ -37576,7 +37590,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner"
+	dir = 4;
+	icon_state = "brown"
 	},
 /area/station/supply/expedition)
 "cqG" = (
@@ -68041,7 +68056,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "qm_warehouse";
+	name = "Warehouse Shutters"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -73709,7 +73728,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "browncorner"
+	icon_state = "brown"
 	},
 /area/station/supply/expedition)
 "nrS" = (
