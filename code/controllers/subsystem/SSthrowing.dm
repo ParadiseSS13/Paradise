@@ -72,7 +72,7 @@ SUBSYSTEM_DEF(throwing)
 	var/dodgeable = TRUE
 	/// Can a thrown mob move themselves to stop the throw?
 	var/should_block_movement = TRUE
-	/// This is internal variable to support no gravity movement even if variable above is TRUE. This variable will change during throwing
+	/// This is internal variable to support no gravity movement even if var/should_block_movement is TRUE. This variable will change during throwing
 	var/block_movement = TRUE
 
 /datum/thrownthing/proc/tick()
