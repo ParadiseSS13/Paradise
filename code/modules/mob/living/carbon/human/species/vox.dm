@@ -5,7 +5,6 @@
 	icobase = 'icons/mob/human_races/vox/r_voxlime.dmi'
 	dangerous_existence = TRUE
 	cultural_language = "Vox-pidgin"
-	language = "Vox-pidgin"
 	tail = "voxtail_lime"
 	speech_sounds = list('sound/voice/shriek1.ogg')
 	speech_chance = 20
