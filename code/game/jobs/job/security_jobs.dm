@@ -42,7 +42,7 @@
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/hos
-	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Security), Corporate Law, basic job duties, and act professionally (roleplay)."
+	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Security), Station Law, basic job duties, and act professionally (roleplay)."
 
 /datum/outfit/job/hos
 	name = "Head of Security"
@@ -190,7 +190,7 @@
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/officer
-	important_information = "Corporate Law is the law, not a suggestion."
+	important_information = "Station Law is the law, not a suggestion."
 
 /datum/outfit/job/officer
 	name = "Security Officer"

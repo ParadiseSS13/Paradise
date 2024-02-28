@@ -65,7 +65,7 @@
 							"Is certified for EVA repairs", "Known for storing important objects in curious places",
 							"Improved efficiency of Research Outpost by 5.7% through dismissal of underperforming workers", "Skilled in Enterprise Resource Planning",
 							"Prevented three Supermatter Delamination Events in the same shift", "Developed an innovative plasma refinement process that cuts waste gasses in half",
-							"Has received several commendations due to visually appealing kitchen remodelings", "Is known to report any petty Corporate Law or SOP breakage to the relevant authorities",
+							"Has received several commendations due to visually appealing kitchen remodelings", "Is known to report any petty Station Law or SOP breakage to the relevant authorities",
 							"As Chef, adapted their menus in order to appeal all stationed species",
 							"Was part of the \"Pump Purgers\", famous for the streak of 102 shifts with no Supermatter Explosions",
 							"Virologist; took it upon themselves to distribute a vaccine to the crew", "Conducted experiments that generated high profits but many casualties")

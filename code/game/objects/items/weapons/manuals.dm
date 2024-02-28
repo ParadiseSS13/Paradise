@@ -7,7 +7,7 @@
   * Don't worry about adding them to the library, as long as they're one of these types it is automatically added.
   *
   * Longer Guides should really be a '/obj/item/book/manual/wiki' type book and be tethered to a wiki page, this is because wiki pages
-  * outside of SOP & Corporate Law can be very easily changed and do not require going through the Pull Request process. The benefits of
+  * outside of SOP & Station Law can be very easily changed and do not require going through the Pull Request process. The benefits of
   * these are that they can be illustrated, filled with tables, and changed without affecting the codebase.
   *
   * However, contributors should avoid making every book/page tethered to a wiki page for a few reasons:
@@ -671,7 +671,7 @@
   *
   * These are programmatic books that source its pages / "content" straight from the wiki
   * That means that this content can **ONLY** be changed by editing the wiki
-  * Corporate Law and SOP Manuals can only be edited by Wiki Admins
+  * Station Law and SOP Manuals can only be edited by Wiki Admins
   *
   * These are automated well enough that as long as the link to the wiki is set correctly in the config and the article name is correct
   * these will display (mostly) CSS stripped wiki pages in them.
@@ -754,22 +754,22 @@
 	title = "Faxes and You!"
 	wiki_article_title = "Guide_to_Faxes"
 
- //* STANDARD OPERATING PROCEDURE MANUALS *// (and corporate law)
+ //* STANDARD OPERATING PROCEDURE MANUALS *// (and station law)
 
 /obj/item/book/manual/wiki/security_space_law
-	name = "Corporate Law"
+	name = "Station Law"
 	desc = "A set of Nanotrasen guidelines for keeping law and order on their space stations."
-	icon_state = "bookCorpoLaw"
+	icon_state = "bookStationLaw"
 	force = 4 //advanced magistrate tactics
 	author = "Nanotrasen"
-	title = "Corporate Law"
-	wiki_article_title = "Corporate_Law"
+	title = "Station Law"
+	wiki_article_title = "Station_Law"
 
 /obj/item/book/manual/wiki/security_space_law/black
-	name = "Corporate Law - Limited Edition"
+	name = "Station Law - Limited Edition"
 	desc = "A leather-bound, immaculately-written copy of JUSTICE."
-	icon_state = "bookCorpoLawblack"
-	title = "Corporate Law - Limited Edition"
+	icon_state = "bookStationLawblack"
+	title = "Station Law - Limited Edition"
 
 /obj/item/book/manual/wiki/sop_command
 	name = "Command Standard Operating Procedures"
@@ -843,7 +843,7 @@
 	title = "Science Standard Operating Procedures"
 	wiki_article_title = "Standard_Operating_Procedure_(Science)"
 
- //* MANUAL SPAWNERS *// (and corporate law)
+ //* MANUAL SPAWNERS *// (and Station law)
 
 /obj/item/book/manual/random
 	icon_state = "random_book"

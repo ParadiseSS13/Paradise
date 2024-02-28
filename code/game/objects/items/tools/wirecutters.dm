@@ -53,7 +53,7 @@
 	icon_state = "cutters_sec"
 	belt_icon = "wirecutters_sec"
 	item_state = "cutters_red" //shh
-	attack_verb = list("reformed", "robusted", "102'd") //102: battery in corporate law
+	attack_verb = list("reformed", "robusted", "102'd") //102: battery in station law
 	force = 9 //same as seclites
 	toolspeed = 0.75
 	random_color = FALSE

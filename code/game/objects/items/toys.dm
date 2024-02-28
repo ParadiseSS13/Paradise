@@ -1437,7 +1437,7 @@
 	name = "\improper Head of Security action figure"
 	desc = "The bloodlust-filled Head of Security, from Space Life's SS12 figurine collection."
 	icon_state = "hos"
-	toysay = "Corporate Law? What?"
+	toysay = "Station Law? What?"
 
 /obj/item/toy/figure/crew/qm
 	name = "\improper Quartermaster action figure"
