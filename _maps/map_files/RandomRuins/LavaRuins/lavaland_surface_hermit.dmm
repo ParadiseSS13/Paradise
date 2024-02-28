@@ -57,7 +57,6 @@
 /obj/item/seeds/reishi,
 /obj/item/seeds/plump,
 /obj/item/seeds/plump,
-/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom,
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 "n" = (
