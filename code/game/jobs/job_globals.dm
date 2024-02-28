@@ -73,7 +73,7 @@ GLOBAL_LIST_INIT(supply_positions, list(
 	"Quartermaster",
 	"Cargo Technician",
 	"Shaft Miner",
-	"Explorer",
+	"Explorer"
 ))
 
 GLOBAL_LIST_INIT(service_positions, (list("Head of Personnel") + (support_positions - supply_positions)))

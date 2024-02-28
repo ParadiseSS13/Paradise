@@ -35,7 +35,7 @@
 
 /obj/item/sellable/salvage/ruin/brick
 	name = "Mysterious brick"
-	desc = "A tonne of salvage recovered from an abandoned ruin. Who spawned the base type? Report this on the github."
+	desc = "A peculier brick formed out of what appears to be plastic. This would make a fantastic collector's item."
 	icon_state = "lego_brick"
 	hitsound = 'sound/items/handling/taperecorder_drop.ogg'
 	pickup_sound =  'sound/items/handling/taperecorder_pickup.ogg'
