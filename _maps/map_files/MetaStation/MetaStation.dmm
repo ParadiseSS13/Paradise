@@ -27020,7 +27020,7 @@
 /area/station/engineering/controlroom)
 "bNh" = (
 /turf/simulated/wall/r_wall,
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bNi" = (
 /turf/simulated/wall,
 /area/station/public/storage/emergency/port)
@@ -27168,7 +27168,7 @@
 	dir = 10;
 	icon_state = "darkyellow"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bNX" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -27512,11 +27512,11 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining,
-/obj/effect/mapping_helpers/airlock/access/any/command/expedition,
+/obj/effect/mapping_helpers/airlock/access/any/supply/expedition,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bOZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -27871,7 +27871,7 @@
 	dir = 9;
 	icon_state = "darkyellow"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bQn" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood,
@@ -27920,7 +27920,7 @@
 	icon_state = "darkyellow";
 	dir = 8
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bQC" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
@@ -27942,7 +27942,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bQF" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -28424,7 +28424,7 @@
 	dir = 4;
 	icon_state = "darkyellow"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bSr" = (
 /obj/machinery/light,
 /obj/structure/extinguisher_cabinet{
@@ -28945,14 +28945,14 @@
 	icon_state = "darkyellow";
 	dir = 8
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bTU" = (
 /obj/machinery/computer/arcade/orion_trail,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bTV" = (
 /obj/structure/chair/stool{
 	dir = 1
@@ -28962,7 +28962,7 @@
 	dir = 4;
 	icon_state = "darkyellow"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bTW" = (
 /obj/item/radio/intercom{
 	name = "west bump";
@@ -29821,7 +29821,7 @@
 	icon_state = "darkyellow";
 	dir = 8
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bWW" = (
 /obj/machinery/light{
 	dir = 8
@@ -29830,7 +29830,7 @@
 	icon_state = "darkyellow";
 	dir = 8
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bWX" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -29840,14 +29840,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bWZ" = (
 /obj/structure/closet/secure_closet/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bXb" = (
 /obj/machinery/plantgenes,
 /obj/effect/turf_decal/stripes/line,
@@ -30314,7 +30314,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bYq" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -30601,13 +30601,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bZD" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bZH" = (
 /obj/structure/bookcase,
 /turf/simulated/floor/wood,
@@ -30653,7 +30653,7 @@
 /area/station/service/library)
 "bZX" = (
 /turf/simulated/wall,
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "bZZ" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -31051,14 +31051,14 @@
 	dir = 8;
 	icon_state = "darkyellowcorners"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "cbj" = (
 /obj/machinery/computer/arcade/battle,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellowcorners"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "cbl" = (
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
@@ -31362,7 +31362,7 @@
 	dir = 1;
 	icon_state = "darkyellowcorners"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "ccn" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -31732,7 +31732,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "cdC" = (
 /obj/structure/sign/poster/official/ian,
 /turf/simulated/wall,
@@ -40495,7 +40495,7 @@
 	dir = 4;
 	icon_state = "darkyellow"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "cJU" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
@@ -42020,7 +42020,7 @@
 	dir = 5;
 	icon_state = "darkyellow"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "cPF" = (
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
@@ -77390,7 +77390,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "qse" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/delivery/blue/hollow,
@@ -85327,7 +85327,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "tSX" = (
 /obj/machinery/photocopier,
 /obj/machinery/newscaster/security_unit{
@@ -90639,7 +90639,7 @@
 	dir = 4;
 	icon_state = "darkyellowcorners"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "wlo" = (
 /obj/structure/closet/crate/trashcart,
 /obj/effect/spawner/lootdrop{

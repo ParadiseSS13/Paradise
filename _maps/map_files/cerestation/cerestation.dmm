@@ -4172,7 +4172,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "azM" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4860,7 +4860,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "aEL" = (
 /obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/carpet/black,
@@ -29070,7 +29070,7 @@
 "cXf" = (
 /obj/structure/grille/broken,
 /turf/simulated/wall,
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "cXi" = (
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -31112,7 +31112,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/wall,
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "dld" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -35683,7 +35683,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "dXD" = (
 /obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel,
@@ -37342,7 +37342,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "eGe" = (
 /obj/structure/table,
 /obj/item/soap,
@@ -40071,7 +40071,7 @@
 	dir = 6;
 	icon_state = "darkbrown"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "fKo" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -28;
@@ -51753,7 +51753,7 @@
 	dir = 1;
 	icon_state = "darkbrowncorners"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "jCK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -52948,7 +52948,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "jVQ" = (
 /turf/simulated/mineral/ancient,
 /area/station/medical/medbay)
@@ -61254,7 +61254,7 @@
 	dir = 10;
 	icon_state = "darkbrown"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "mDs" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -67546,7 +67546,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "oKm" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -67959,7 +67959,7 @@
 	dir = 8;
 	icon_state = "darkbrown"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "oQs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -70994,7 +70994,7 @@
 	dir = 8;
 	icon_state = "darkbrown"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "pPl" = (
 /obj/machinery/computer/shuttle/labor,
 /turf/simulated/floor/plasteel,
@@ -74375,7 +74375,7 @@
 /area/station/hallway/secondary/entry/north)
 "qQc" = (
 /turf/simulated/wall,
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "qQw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -76718,7 +76718,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "rLb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/alarm{
@@ -78241,7 +78241,7 @@
 	dir = 4;
 	icon_state = "darkbrowncorners"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "skb" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "XenoPod6";
@@ -80071,7 +80071,7 @@
 	dir = 9;
 	icon_state = "darkbrown"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "sOt" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -83444,7 +83444,7 @@
 	dir = 5;
 	icon_state = "darkbrown"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "tXJ" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -83538,7 +83538,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "tYS" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -85176,7 +85176,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "uyl" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/test_chamber)
@@ -85478,7 +85478,7 @@
 	dir = 8;
 	icon_state = "darkbrown"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "uCU" = (
 /obj/machinery/disposal/deliveryChute{
 	dir = 8
@@ -89107,7 +89107,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "vIi" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -94810,7 +94810,7 @@
 	dir = 4;
 	icon_state = "darkbrown"
 	},
-/area/station/service/expedition)
+/area/station/supply/expedition)
 "xwI" = (
 /turf/simulated/floor/engine{
 	slowdown = -0.3

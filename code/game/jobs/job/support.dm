@@ -177,7 +177,9 @@
 		ACCESS_EVA,
 		ACCESS_EXTERNAL_AIRLOCKS,
 		ACCESS_TELEPORTER,
-		ACCESS_CARGO
+		ACCESS_CARGO,
+		ACCESS_CARGO_BAY,
+		ACCESS_SUPPLY_SHUTTLE
 	)
 	alt_titles = list("Salvage Technician", "Scavenger")
 	outfit = /datum/outfit/job/explorer
