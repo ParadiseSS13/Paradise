@@ -53,8 +53,8 @@
 
 	var/obj/item/silicon_hat
 	var/hat_offset_y = -3
-	/// For cyborgs with wide "heads", causes the hat icon to be stretched.
-	var/stretched_hat = FALSE
+	/// For cyborgs with wide "heads", when false causes the hat icon to be stretched.
+	var/is_centered = FALSE
 	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
 	var/hat_icon_state
 	var/hat_alpha
@@ -500,7 +500,7 @@
 	borgI.alpha = hat_alpha
 	borgI.color = hat_color
 	borgI.pixel_y = hat_offset_y
-	if(!stretched_hat)
+	if(!is_centered)
 		borgI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)
 	return borgI
 
