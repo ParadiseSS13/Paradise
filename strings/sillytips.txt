@@ -1,32 +1,32 @@
-Occasionally the tip of the round might lie to you. Don't panic, this is normal.
-To defeat the slaughter demon, shoot at it until it dies.
-Sometimes you won't be able to avoid dying no matter how good you are at the game. Try not to stress too much about it.
-When a round ends nearly everything about it is lost forever, leave your salt behind with it.
-Just like real life the entropy of the game can only increase with time. If things aren't on fire yet, just wait.
-Completing your objectives is good practice, but the best antagonists will strive to do more than the bare minimum to really leave an impression.
-The more obscure and underused a game mechanic is, the less likely your victims are to be able to deal with it.
-Space is cold and it will quickly freeze you to death if you don't protect yourself. This isn't how thermodynamics really works but just go with it.
+Иногда полезный совет раунда может вас обмануть. Не паникуйте, это нормально.
+Чтобы победить демона резни - стреляйте в него, пока он не умрёт.
+Иногда вам не удастся избежать смерти, независимо от того, насколько вы хороши в игре. Старайтесь не слишком переживать по этому поводу.
+Когда раунд заканчивается, почти всё, что в нем было, теряется навсегда, оставьте свою злость вместе с ним.
+Как и в реальной жизни, энтропия в игре может увеличиться со временем. Если вокруг вас всё еще не царит хаос, просто подождите.
+Выполнение поставленных задач - это хорошая практика, но лучшие антагонисты будут стремиться сделать больше, чем минимум, чтобы произвести впечатление.
+Чем более непонятной и малоиспользуемой является игровая механика, тем меньше вероятность того, что ваши жертвы смогут с ней справиться.
+Космос холоден, и он быстро заморозит вас до смерти, если вы не защитите себя. На самом деле термодинамика так не работает, но просто примите это как факт.
 Cleanbot.
-Sometimes a round will just be a bust. C'est la vie.
-This is a game that is constantly being developed for. Expect things to be added, removed, fixed, and broken on a daily basis.
-It's fun to try and predict the round type from the tip of the round message.
-HOP and QM sitting in a tree, a-r-g-u-i-n-g.
-Your sprite represents your hitbox, so that afro makes you easier to kill. The sacrifices we make for style.
-Sometimes admins will just do stuff. Roll with it.
-The remake will never come out.
-Plenty of things that aren't traditionally considered weapons can still be used to slowly brutalize someone to death, get creative!
-DEATH IS IMMINENT!
-This game is older than most of the people playing it.
-Flashbangs can weaken blob tiles, allowing for you and the crew to easily destroy them.
-Some people are unable to read text on a game where half of it is based on text.
-There are many ways to get through plastic flaps. How many can you name?
-Nanotrasen is always watching.
-Most items have names longer than "soap".
-Ask and you shall receive.
-As a Scientist, getting drunk just enough will speed up research. Skol!
-Poly speaks truth
-Absolutely nothing unusual will happen this shift. Promise.
-Send help. Trapped in tip writing factory.
-There is no such thing as a cow level.
-HONK.
-Solars probably gives radiation poisoning or something, considering the other power sources are deadly in their own ways.
+Иногда раунд будет просто неудачным. C'est la vie.
+Это игра, которая постоянно совершенствуется. Ожидайте, что каждый день что-то будет добавляться, удаляться, исправляться и ломаться.
+Забавно пытаться предсказать режим раунда по советам раунда.
+Дальше следует непереводимая игра слов с использованием местных идиоматических выражений
+Ваш спрайт представляет ваш хитбокс, так что афро делает вас более легким для убийства. На какие жертвы мы идем ради стиля.
+Иногда админы просто делают что-то. Смиритесь с этим.
+Ремейк никогда не выйдет.
+Множество вещей, которые традиционно не считаются оружием, все еще могут быть использованы для медленной жестокой смерти, проявите изобретательность!
+СМЕРТЬ НЕМИНУЕМА!
+Эта игра старше, чем большинство людей, играющих в нее.
+Флешки могут ослабить тайлы Блоба, позволяя вам и экипажу легко уничтожить его.
+Некоторые люди не могут читать текст в игре, половина которой основана на тексте.
+Существует множество способов пройти через пластиковые заслонки. Сколько из них вы можете назвать?
+Нанотрейзен всегда наблюдает.
+Большинство предметов имеют названия длиннее, чем "мыло".
+Проси и получишь.
+Будучи ученым, если напиться до беспамятства, это ускорит исследования. Skol!
+Поли говорит правду.
+В эту смену не произойдет абсолютно ничего необычного. Обещаю.
+Пришлите помощь. Я в ловушке на фабрике по производству советов раунда.
+Не существует такого понятия, как "cow level".
+ХОНК.
+Соляры, вероятно, дают радиационное отравление или что-то в этом роде, учитывая, что другие источники энергии смертельно опасны по-своему.
