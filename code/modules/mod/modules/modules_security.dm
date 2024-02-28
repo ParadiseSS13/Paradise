@@ -300,8 +300,7 @@
 	dispense_type = /obj/item/grenade/smokebomb
 
 /obj/item/mod/module/dispenser/smoke/on_use()
-	. = ..()
-	if(!.)
+	var/obj/item/grenade/smokebomb/grenade = ..()
+	if(!grenade)
 		return
-	var/obj/item/grenade/smokebomb/grenade = .
 	grenade.attack_self(mod.wearer)
