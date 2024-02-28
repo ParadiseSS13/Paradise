@@ -95,8 +95,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(initial(tt.id) == ID)
 			return initial(tt.name)
 
-/proc/CallMaterialName(ID)
-	var/return_name = ID
+/proc/CallMaterialName(return_name)
 	switch(return_name)
 		if("plasma")
 			return_name = "Solid Plasma"
@@ -107,10 +106,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("bluespace")
 			return_name = "Bluespace Mesh"
 		else
-			for(var/R in subtypesof(/datum/reagent))
-				var/datum/reagent/rt = R
-				if(initial(rt.id) == ID)
-					return_name = initial(rt.name)
+			var/datum/reagent/our_reagent = GLOB.chemical_reagents_list[return_name]
+			if(our_reagent && initial(our_reagent.id) == return_name)
+				return_name = initial(our_reagent.name)
 	return capitalize(return_name)
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
@@ -205,6 +203,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		req_access = list()
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+		return TRUE
 
 /obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
 	switch(next_menu)
@@ -302,7 +301,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			break
 
 	if(!pointless)
-		var/choice = input("This item does not raise tech levels. Proceed destroying loaded item anyway?") in list("Proceed", "Cancel")
+		var/choice = alert(user, "This item does not raise tech levels. Proceed destroying loaded item anyway?", "Are you sure you want to destroy this item?", "Proceed", "Cancel")
 		if(choice == "Cancel" || !linked_destroy)
 			return
 
@@ -580,7 +579,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("maxresearch")
 			if(!check_rights(R_ADMIN))
 				return
-			if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No")
+			if(tgui_alert(usr, "Are you sure you want to maximize research levels?", "Confirmation", list("Yes", "No")) != "Yes")
 				return
 			log_admin("[key_name(usr)] has maximized the research levels.")
 			message_admins("[key_name_admin(usr)] has maximized the research levels.")
@@ -649,7 +648,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("reset") //Reset the R&D console's database.
 			griefProtection()
-			var/choice = alert("Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", "Continue", "Cancel")
+			var/choice = tgui_alert(usr, "Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", list("Continue", "Cancel"))
 			if(choice == "Continue")
 				add_wait_message("Resetting Database...", RESET_RESEARCH_DELAY)
 				addtimer(CALLBACK(src, PROC_REF(reset_research)), RESET_RESEARCH_DELAY)
