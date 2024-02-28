@@ -530,8 +530,7 @@
 		return FALSE
 
 	if(silicon_hat)
-		if(user)
-			to_chat(user, "<span class='warning'>[src] can't wear more than one hat!</span>")
+		to_chat(user, "<span class='warning'>[src] can't wear more than one hat!</span>")
 		return FALSE
 
 	if(!can_wear_restricted_hats && is_type_in_list(item_to_add, restricted_hats))
