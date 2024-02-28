@@ -46,6 +46,17 @@
 	flight_x_offset = 18
 	flight_y_offset = 11
 
+/obj/item/gun/energy/ionrifle/carbine/examine_more(mob/user)
+	. = ..()
+	. += "Recent developments in compact electromagnets, material science, and iterative improvement in various other high energy components has resulted in this brand-new rehashing of the original Ion Rifle being developed by Nanotrasen R&D: The Ion Carbine! \
+	It addresses several of the shortcomings of its centuries-old predecessor. Chiefly among them is the miniaturisation of the vital components, which has allowed the carbine to be made small enough to fit inside a variety of personal storage spaces, permitting it to be used as a secondary weapon that can be kept out of the way until it is needed. \
+	Improvements to the ergonomics, reduction in weight, and the replacement of the fixed 1x optic with a modular rail system also makes the carbine far more pleasant to use than its predecessor. All of these improvements come without any trade-offs, such is the march of technology. \
+	The chief impetus for the development of the Ion Carbine was the mass unrest and strike actions by the then-indentured IPC workforce starting in 2525. \
+	Whilst the events surrounding this were largely non-violent, Nanotrasen is aware that things could have gone very differently. With their current pervasive use of indentured AI, robots, and cyborgs, Nanotrasen is also very well aware that history may repeat itself - and may do so with great destruction. \
+	Such an eventuality is absolutely unacceptable to the company. \
+	Nanotrasen also hopes that this improved weapon will be more attractive to markets that have seen low penetration from the original Ion Rifle. \
+	As with before, the golden goose that Nanotrasen wishes eventually to secure is production contracts with the armed forces of the TSF, but they'll happily sell it to anyone else that's buying."
+
 // Decloner //
 /obj/item/gun/energy/decloner
 	name = "biological demolecularisor"

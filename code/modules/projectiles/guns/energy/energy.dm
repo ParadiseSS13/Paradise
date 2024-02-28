@@ -73,6 +73,15 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
+/obj/item/gun/energy/gun/hos/examine_more(mob/user)
+	. = ..()
+	. += "The X-01 MultiPhase Energy Gun is one of a handful of newly minted prototypes created by Nanotrasen's weaponry R&D division. The frame is based on that of the custom-made antique laser gun, also found in this facility. \
+	Just like the antique laser that inspired it, the X-01 is a testbed for the latest advances in energy weapon technology. \
+	It manages to combine the functions of a disabler, laser, and ion gun into a single pistol-sized package using a unique hybrid optical-electromagnetic projection assembly that can seamlessly transition between the weapon's different firing modes. \
+	This assembly is also excruciatingly difficult to manufacture - even the slightest deviation from the design's demanding tolerances results in a non-functional paperweight. Nonetheless, the promises of compact versatility it brings has kept the X-01 project's finances flowing for now. \
+	Unfortunately, the micro-fission reactor used to self-charge the power cell of the antique gun could not be replicated, and so this feature is absent in the X-01's current design. Continued research into the technology is ongoing. \
+	Heads of Security throughout the Epsilon Eridani sector have been issued the various X-01 prototypes for field testing, and are to issue a report on their findings after any shift in which they employ the weapon."
+
 /obj/item/gun/energy/gun/blueshield
 	name = "advanced energy revolver"
 	desc = "An advanced energy revolver with the capacity to shoot both disablers and lasers."

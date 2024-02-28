@@ -55,6 +55,15 @@
 	can_holster = TRUE
 	execution_speed = 5 SECONDS
 
+/obj/item/gun/energy/disabler/examine_more(mob/user)
+	. = ..()
+	. += "The disabler is a less-than-lethal weapon designed to incapacitate targets without causing lasting harm. It was designed by Shellguard Munitions as an alternative to electroshock-based LTL weapons. \
+	It's chief advantages are the longer ranges and massively reduced incidences of accidental fatalities. \
+	It functions by emitting a precisely tuned ionised particle beam that is accelerated out of the barrel by a short electromagnetic coil stack. When the beam hits an organic target, it selectively disrupts ATP binding sites in the myosin heads of the myofibrils in the skeletal musculature. \
+	This initially causes slowdown of muscle contractions, but continued attack will result in almost complete paralysis of most voluntary skeletal muscle groups, along with feelings of extreme lethargy and fatigue. \
+	These effects are temporary and will subside soon after, causing no lasting harm. By a massive stroke of coincidence, these same particle beams also exhibit a similar effect on the motors of IPC limbs. \
+	The safety and efficiency of the disabler has caused it to rapidly replace tasers in police and security forces across most of known space, although the lack of immediate stopping power has prevented a complete replacement."
+
 /obj/item/gun/energy/disabler/Initialize(mapload)
 	. = ..()
 	cell.maxcharge = 800
@@ -87,3 +96,11 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/silencer_ammo)
 	suppressed = TRUE
 	execution_speed = 4 SECONDS
+
+/obj/item/gun/energy/disabler/silencer/examine_more(mob/user)
+	. = ..()
+	. += "Whilst the disabler is a very safe weapon that is in widespread use across the known galaxy, there are a handful of accidental fatalities that have been reported, usually due to respiratory or cardiac arrest. Nanotrasen saw these exceptional cases and saw the potential to develop a very special weapon. \
+	The result of their efforts was the u-ION Silencer. Like the disabler it is based on, it utilises an ionised particle beam to efficiently paralyse targets by disrupting ATP binding in specific parts of the musculature. \
+	However, it has been fine-tuned to go several steps further, and block ALL sites of ATP binding, causing subjects to rapidly expire in a similar way to if they had been given a massive dose of cyanide. \
+	Critically however, the temporary nature of this disruption and the lack of any lingering chemical reagent means that the cause of death will be unclear afterwards. Whilst the paralytic nature of the weapon still functions against IPCs, it will not kill them, due to a lack of a metabolism to inhibit. \
+	Agents of Nanotrasen employ this weapon to 'remove' problematic individuals without it being immediately obvious that foul play was involved."

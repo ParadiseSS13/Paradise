@@ -53,7 +53,16 @@
 
 /obj/item/gun/energy/laser/captain/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The power cell of this item slowly recharges on it's own. This caused the station pictured to explode.</span>"
+	. += "<span class='notice'>The power cell of this item slowly recharges on it's own.</span>"
+
+/obj/item/gun/energy/laser/captain/examine_more(mob/user)
+	. = ..()
+	. += "This unique laser gun was commissioned by the research director of Nanotrasen's old Martian research facility back in 2451. \
+	It served as the testbed of several breakthroughs in laser weapon research that wouldn't trickle into mainstream laser weapons for decades - whilst modern laserarms have a similar performance, it was vastly superior to any of its contemporaries back when it was originally made. \
+	The most revolutionary component is the miniaturised nuclear fission reactor that charges the gun's power cell, allowing for theoretically unlimited shots. All radiation emitted is contained by a plasma-lead alloy, making it safe to handle. \
+	This single example cost a considerable fortune to produce, and has never been successfully replicated. The gun's furniture and decorative embellishments were all hand-made by small group highly trained artisans for a comparatively tiny cost. \
+	The laser was passed down several generations until it finally ended up in Epsilon Eridani. Today, it is kept on this station as a memento and reminder of what Nanotrasen R&D can achieve. \
+	Its age, craftsmanship, and unique technology marks it as one of the most expensive objects in the entire station that can be stuffed into a backpack-sized container."
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
@@ -246,6 +255,14 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	shaded_charge = TRUE
 
+/obj/item/gun/energy/immolator/examine_more(mob/user)
+	. = ..()
+	. += "The Immolator laser gun is a brutally effective laserarm that was accidentally created by Nanotrasen R&D whilst experimenting with plasma-based lasers. \
+	The lasing medium is a slug of ultra-pure plasma doped with silver, producing two beam emissions: a 1 μm infrared beam and a secondary, much less intense 650 nm red beam (responsible for the visibility of the fired beam). \
+	During testing it was found that it the intense infrared beam would often set the testing targets ablaze thanks to how efficiently it dumps heat into struck material. Employing a more powerful electron pump allowed for this effect to be reliably reproduced at the cost of increased power draw. \
+	Shots from the Immolator will ignite practically any remotely flammable material, from clothing to flesh, causing severe full-body burns in addition to the damage caused at the site of impact. \
+	Many groups have called for these types of weapons to be banned for the especially painful and grievous injuries that they cause, but at the present time they remain legal in most regions of space."
+
 /obj/item/gun/energy/immolator/multi
 	name = "multi lens immolator cannon"
 	desc = "A large laser cannon, similar to the Immolator Laser, with toggleable firemodes. It is frequently used by military-like forces through Nanotrasen."
@@ -253,6 +270,14 @@
 	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/strong, /obj/item/ammo_casing/energy/immolator/scatter)
 	origin_tech = "combat=5;magnets=5;powerstorage=4"
+
+/obj/item/gun/energy/immolator/multi/examine_more(mob/user)
+	. = ..()
+	. += "Following numerous refinements by Nanotrasen R&D, the Immolator laser gun was upgraded to make it a truly terrifying killing machine. \
+	Beefed up components, a more powerful lasing apparatus, and a bigger cell to offset the increased power draw lend this weapon more heft than the original, but also give it more powerful shots. \
+	However, the most devastating feature is the addition of a toggleable multifaceted plasma glass prism at the end of the cannon's optical assembly. \
+	When set into position by the operator, the prism splits the laser into multiple weaker shots that spread out in a wide arc in front of the barrel, allowing entire rooms to be quickly peppered with incendiary laser fire. \
+	Few weapons inspire quite the same fear and loathing as this. Nanotrasen reserves this weapon for its elite combat operatives and cyborgs. If you're holding it, be glad you're not the one on the other end."
 
 /obj/item/gun/energy/immolator/multi/update_overlays()
 	. = ..()
