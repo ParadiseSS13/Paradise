@@ -176,6 +176,19 @@ All new user interfaces in the game must be created using the TGUI framework. Do
 
 The use of the `:` operator to override type safety checks is not allowed. You must cast the variable to the proper type.
 
+### Do not access return value vars directly from functions
+
+The use of the pointer operator, `.`, should not be used to access the return values of functions directly. This can cause unintended behavior and is difficult to read.
+
+```dm
+//Bad
+var/our_x = get_turf(thing).x
+
+//Good
+var/turf/our_turf = get_turf(thing)
+var/our_x = our_turf.x
+```
+
 ### Type paths must begin with a /
 
 eg: `/datum/thing`, not `datum/thing`

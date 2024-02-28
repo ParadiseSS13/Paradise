@@ -423,7 +423,7 @@ REAGENT SCANNER
 			organ_found = null
 			if(LAZYLEN(H.internal_organs))
 				for(var/obj/item/organ/internal/O in H.internal_organs)
-					if(!O.is_robotic() || istype(O, /obj/item/organ/internal/cyberimp) || O.stealth_level <= 1)
+					if(!O.is_robotic() || istype(O, /obj/item/organ/internal/cyberimp) || O.stealth_level > 1)
 						continue
 					organ_found = TRUE
 					msgs += "[capitalize(O.name)]: <font color='red'>[O.damage]</font>"
