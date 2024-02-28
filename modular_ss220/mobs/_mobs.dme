@@ -1,5 +1,6 @@
 #include "_mobs.dm"
 
+#include "code/simple_animal/friendly/butterfly.dm"
 #include "code/simple_animal/friendly/crab.dm"
 #include "code/simple_animal/friendly/farm_animals.dm"
 #include "code/simple_animal/friendly/frog.dm"
@@ -12,6 +13,7 @@
 #include "code/simple_animal/friendly/snail.dm"
 #include "code/simple_animal/hostile/alien.dm"
 #include "code/simple_animal/hostile/bear.dm"
+#include "code/simple_animal/hostile/bee.dm"
 #include "code/simple_animal/hostile/headcrab.dm"
 #include "code/simple_animal/hostile/lizard.dm"
 #include "code/simple_animal/hostile/snake.dm"

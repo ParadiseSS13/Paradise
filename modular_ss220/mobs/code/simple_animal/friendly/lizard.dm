@@ -1,6 +1,7 @@
 /mob/living/simple_animal/lizard
 	tts_seed = "Ladyvashj"
 	death_sound = 'modular_ss220/mobs/sound/creatures/lizard_death.ogg'
+	holder_type = /obj/item/holder/lizard
 
 /mob/living/simple_animal/lizard/axolotl
 	name = "Аксолотль"

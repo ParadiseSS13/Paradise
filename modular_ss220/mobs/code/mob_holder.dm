@@ -6,6 +6,55 @@
 	origin_tech = "biotech=2"
 	slot_flags = SLOT_FLAG_HEAD
 
+/obj/item/holder/attack(mob/living/target, mob/living/user, def_zone)
+	ASSERT(length(contents) > 0)
+	var/mob/living/simple_animal/animal = contents[1]
+	var/mob/living/carbon/devourer = target
+	if(!istype(animal) || !istype(devourer))
+		return ..()
+
+	if(user.a_intent != INTENT_HARM)
+		return ..()
+	
+	if(!is_type_in_list(animal,  devourer.dna.species.allowed_consumed_mobs))
+		if(user != devourer)
+			to_chat(user, span_notice("Вряд ли это понравится [devourer]..."))
+		else if(ishuman(devourer))
+			to_chat(user, span_notice("Интересно, каков на вкус [animal]? Но проверять не будем."))
+		return
+
+	if(!user.canUnEquip(src, FALSE))
+		to_chat(user, span_notice("[src] никак не отлипает от руки!"))
+		return
+
+	if(user != devourer)
+		visible_message(span_danger("[user] пытается скормить [devourer] [animal]!"))
+	else
+		visible_message(span_danger("[user] пытается съесть [animal]!"))
+
+	if(!do_after(user, 3 SECONDS, target = devourer))
+		return
+
+	visible_message(span_danger("[devourer] съедает [animal]!"))
+	if(animal.mind)
+		add_attack_logs(devourer, animal, "Devoured")
+
+	if(istype(animal, /mob/living/simple_animal/hostile/poison/bees)) // Eating a bee will end up damaging you
+		var/obj/item/organ/external/mouth = devourer.get_organ(BODY_ZONE_PRECISE_MOUTH)
+		var/mob/living/simple_animal/hostile/poison/bees/bee = animal
+		mouth.receive_damage(1)
+		if(bee.beegent)
+			bee.beegent.reaction_mob(devourer, REAGENT_INGEST)
+			devourer.reagents.add_reagent(bee.beegent.id, rand(1, 5))
+		else
+			devourer.reagents.add_reagent("spidertoxin", 5)
+		devourer.visible_message(span_warning("Рот [devourer] опух."), span_danger("Ваш рот ужален, он теперь опухает!"))
+
+	animal.forceMove(devourer)
+	LAZYADD(devourer.stomach_contents, animal)
+	icon = null // workaround to hide cringy holder lying on the floor for 1 sec
+	user.drop_item()
+
 /mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
 	if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_GRAB)
 		if(istype(O, /obj/item/pet_carrier))
@@ -51,25 +100,40 @@
 	desc = "It's a tiny plant critter."
 	icon_state = "nymph"
 	origin_tech = "biotech=5"
-	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_EARS
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/monkey.dmi' // why...
 
 /obj/item/holder/pai
 	name = "pAI"
 	desc = "It's a little robot."
 	icon_state = "pai"
 	origin_tech = "materials=3;programming=4;engineering=4"
-	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_EARS
+	slot_flags = SLOT_FLAG_HEAD | SLOT_FLAG_EARS
+
+/obj/item/holder/bee
+	name = "bee"
+	desc = "Buzzy buzzy bee, stingy sti- Ouch!"
+	icon = 'icons/mob/bees.dmi'
+	icon_state = "queen_item"
+	origin_tech = "biotech=5"
+	slot_flags = null
 
 /obj/item/holder/bunny
-	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_EARS
+	slot_flags = SLOT_FLAG_HEAD | SLOT_FLAG_EARS
+
+/obj/item/holder/butterfly
+	name = "butterfly"
+	desc = "A colorful butterfly, how'd it get up here?"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "butterfly"
+	origin_tech = "biotech=4"
+	slot_flags = SLOT_FLAG_HEAD | SLOT_FLAG_EARS
 
 /obj/item/holder/mouse
 	name = "mouse"
 	desc = "It's a small, disease-ridden rodent."
 	icon = 'modular_ss220/mobs/icons/mob/animal.dmi'
 	icon_state = "mouse_gray"
-	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_EARS
+	slot_flags = SLOT_FLAG_HEAD | SLOT_FLAG_EARS
 
 /obj/item/holder/drone
 	name = "maintenance drone"
@@ -262,13 +326,13 @@
 /obj/item/holder/lizard
 	name = "pet"
 	desc = "It's a pet"
-	icon = 'modular_ss220/mobs/icons/mob/animal.dmi'
+	icon = 'icons/mob/animal.dmi'
 	icon_state = "lizard"
 
 /obj/item/holder/chick
 	name = "pet"
 	desc = "It's a small chicken"
-	icon = 'modular_ss220/mobs/icons/mob/animal.dmi'
+	icon = 'icons/mob/animal.dmi'
 	icon_state = "chick"
 
 /obj/item/holder/chicken
