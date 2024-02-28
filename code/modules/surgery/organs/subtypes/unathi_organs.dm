@@ -24,9 +24,6 @@
 /obj/item/organ/internal/lungs/unathi
 	name = "unathi lungs"
 	icon = 'icons/obj/species_organs/unathi.dmi'
-	heat_level_1_threshold = 505
-	heat_level_2_threshold = 540
-	heat_level_3_threshold = 600
 
 /obj/item/organ/internal/kidneys/unathi
 	name = "unathi kidneys"
