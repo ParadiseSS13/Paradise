@@ -303,7 +303,7 @@
 		return
 	if(world.time < (last_upgrade + UPGRADE_COOLDOWN))
 		return
-	if(assailant.restrained() || IS_HORIZONTAL(assailant))
+	if(HAS_TRAIT(assailant, TRAIT_HANDS_BLOCKED) || IS_HORIZONTAL(assailant))
 		qdel(src)
 		return
 
