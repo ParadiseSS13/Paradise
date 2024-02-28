@@ -920,7 +920,7 @@
 	if(HAS_TRAIT(L, TRAIT_IMMOBILIZED)) //No, dead people floating through space do not need afterimages
 		return NONE
 	var/overdosed = (id in L.reagents.overdose_list())
-	new /obj/effect/temp_visual/decoy/twitch_afterimage(old_loc, L, overdosed? 1.25 SECONDS : 0.75 SECONDS)
+	new /obj/effect/temp_visual/decoy/twitch_afterimage(old_loc, L, overdosed ? 1.25 SECONDS : 0.75 SECONDS)
 
 /// Tries to dodge incoming bullets if we aren't disabled for any reasons
 /datum/reagent/twitch/proc/dodge_bullets(mob/living/carbon/human/source, obj/item/projectile/hitting_projectile)

@@ -53,5 +53,4 @@
 		var/obj/obj_source = source
 		obj_source.deconstruct(FALSE)
 		return
-	else
-		qdel(source)
+	qdel(source)

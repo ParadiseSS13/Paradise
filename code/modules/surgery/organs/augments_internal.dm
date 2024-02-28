@@ -309,7 +309,7 @@
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer
 	name = "\improper Qani-Laaca sensory computer"
 	desc = "An experimental implant replacing the spine of organics. When activated, it can give a temporary boost to mental processing speed, \
-		Which many users perceive as a slowing of time and quickening of their ability to act. Due to its nature, it is incompatible with \
+		which many users perceive as a slowing of time and quickening of their ability to act. Due to its nature, it is incompatible with \
 		systems that heavily influence the user's nervous system, like the central nervous system rebooter. \
 		As a bonus effect, you are immune to the burst of heart damage that comes at the end of twitch usage, as the computer is able to regulate \
 		your heart's rhythm back to normal after its use."
@@ -329,15 +329,15 @@
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/examine_more(mob/user)
 	. = ..()
-	. += "<i>Developed by Biotech Solutions this revolutionary full spinal cord replacement implant uses an integrated chemical synthesizer, designed to administer Mephedrone: \
+	. += "<i>Developed by Biotech Solutions this revolutionary full spinal cord replacement implant uses an integrated chemical synthesizer designed to administer Mephedrone: \
 	a potent stimulant and hyper-movement drug. This implant dramatically enhances the user's reflexes, with many reporting an almost time-slowing effect during its operation.</i>"
 	. += "<i>Biotech's experimentation with stimulant drug research has long been a cornerstone of their competitive edge, especially against their rival: \
-	Interydyne Pharmaceuticals. Their efforts yielded a drug capable of enhancing reflexes but could never mitigate the adverse effects of said product. \
+	Interydyne Pharmaceuticals, whose efforts yielded a drug capable of enhancing reflexes, although they were never mitigate the adverse effects of said product. \
 	A premature leak of the prototype implant pressured the company into accelerating its development, leaving the drug's side effects unresolved. \
 	They completed the spinal implant, which is uniquely equipped with built-in vials for Mephedrone delivery. \
 	Its material is solid plastitanium, and while strong in material, it surprisingly feels light, considering its spinal integration.</i>"
 	. += "<i>The implant is highly sought after because of its extreme capabilities in combat. Many military groups pay a handsome fee simply for the licensing of the item. \
-	However recent Biotech shipments have come under fire from piracy, and the company is quick to blame Interdyne for said attacks, with allegations remaining unverified.</i>"
+	In spite of this, recent Biotech shipments have come under fire from piracy, with the company quick to blame Interdyne for said attacks. Said allegations remain unverified.</i>"
 
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/insert(mob/living/carbon/M, special = 0)
@@ -403,7 +403,7 @@
 
 	human_owner.reagents.add_reagent("mephedrone", injection_amount)
 
-	owner.visible_message("<span class='danger'>[owner.name] jolts suddenly as two small glass vials are fired from ports in the implant on their spine, shattering as they land.</span>", \
+	owner.visible_message("<span class='danger'>[owner.name] jolts suddenly as two small glass vials are fired from ports in the implant on [owner.p_their()] spine, shattering as they land.</span>", \
 			"<span class='userdanger'>You jolt suddenly as your Qani-Laaca system ejects two empty glass vials rearward, shattering as they land.</span>")
 	playsound(human_owner, 'sound/goonstation/items/hypo.ogg', 80, TRUE)
 
