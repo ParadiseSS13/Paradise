@@ -1,12 +1,17 @@
-/mob/living/update_blind_effects()
+/mob/living/update_blind_effects(sleeping = FALSE)
 	if(!has_vision(information_only=TRUE))
+		if(sleeping)
+			overlay_fullscreen("sleepblind", /obj/screen/fullscreen/blind/sleeping)
+			throw_alert("blind", /obj/screen/alert/blind)
+			return TRUE
 		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
 		throw_alert("blind", /obj/screen/alert/blind)
-		return 1
+		return TRUE
 	else
 		clear_fullscreen("blind")
+		clear_fullscreen("sleepblind")
 		clear_alert("blind")
-		return 0
+		return FALSE
 
 /mob/living/update_blurry_effects()
 	var/atom/movable/plane_master_controller/game_plane_master_controller = hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]

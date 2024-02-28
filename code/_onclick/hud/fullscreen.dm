@@ -93,6 +93,10 @@
 	icon_state = "blackimageoverlay"
 	layer = BLIND_LAYER
 
+/obj/screen/fullscreen/blind/sleeping
+	icon = 'icons/mob/screen_sleeping.dmi'
+	icon_state = "sleepblind"
+
 /obj/screen/fullscreen/impaired
 	icon_state = "impairedoverlay"
 

@@ -204,6 +204,9 @@
 	return
 
 /mob/proc/hide_hud()
+	if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
+		to_chat(src, "<span class='warning'>You can not change huds while asleep!</span>")
+		return
 	if(hud_used && client)
 		hud_used.show_hud() //Shows the next hud preset
 		to_chat(src, "<span class ='info'>Switched HUD mode. Press the key you just pressed to toggle the HUD mode again.</span>")
