@@ -875,11 +875,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		else
 			var/keepStatus = alert("Maintain recall status on future shuttle calls?", "Maintain Status?", "Yes", "No") == "Yes" //Keeps or drops recallability
 			SSshuttle.emergency.canRecall = TRUE // must be true for cancel proc to work
-			SSshuttle.emergency.cancel()
+			SSshuttle.emergency.cancel(null, TRUE)
 			if(keepStatus)
 				SSshuttle.emergency.canRecall = FALSE // restores original status
 	else
-		SSshuttle.emergency.cancel()
+		SSshuttle.emergency.cancel(null, TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Cancel Shuttle") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-recalled the emergency shuttle.")
