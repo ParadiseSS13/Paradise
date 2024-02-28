@@ -1043,6 +1043,7 @@ to destroy them and players will be able to make replacements.
 	board_name = "Explorer Equipment Vendor"
 	icon_state = "supply"
 	build_path = /obj/machinery/mineral/equipment_vendor/explorer
+
 /obj/item/circuitboard/clawgame
 	board_name = "Claw Game"
 	icon_state = "generic"
