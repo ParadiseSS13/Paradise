@@ -34,6 +34,7 @@
 
 /obj/item/melee/baton/electrostaff/Initialize(mapload)
 	current_skin = "_orange"
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	AddComponent(/datum/component/two_handed, force_unwielded = force / 2, force_wielded = force, wield_callback = CALLBACK(src, PROC_REF(on_wield)), unwield_callback = CALLBACK(src, PROC_REF(on_unwield)))
 	options["Оранжевое свечение"] = "_orange"
 	options["Красное свечение"] = "_red"
@@ -73,6 +74,11 @@
 		return
 	if(signal_ret & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
+
+/obj/item/melee/baton/electrostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
+		return FALSE
+	. = ..()
 
 /obj/item/melee/baton/electrostaff/proc/on_wield(obj/item/source, mob/living/carbon/user)
 	after_turn(TRUE, user)
@@ -155,6 +161,7 @@
 	reqs = list(/obj/item/melee/baton = 2,
 				/obj/item/stock_parts/cell/high = 1,
 				/obj/item/stack/cable_coil = 5,
+				/obj/item/assembly/signaler/anomaly/flux = 1,
 				/obj/item/weaponcrafting/gunkit/electrostaff = 1)
 	time = 10 SECONDS
 	category = CAT_WEAPONRY
