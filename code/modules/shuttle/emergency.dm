@@ -288,7 +288,7 @@
 	else
 		SSshuttle.emergencyLastCallLoc = null
 	GLOB.major_announcement.Announce(
-		"The emergency shuttle has been recalled.[byCC ? " Shuttle has been recalled by Central Command." : SSshuttle.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]",
+		"The emergency shuttle has been recalled[byCC ? " by Central Command." : SSshuttle.emergencyLastCallLoc ? ". Recall signal traced. Results can be viewed on any communications console." : "." ]",
 		new_title = "Priority Announcement",
 		new_sound = sound('sound/AI/eshuttle_recall.ogg')
 	)
