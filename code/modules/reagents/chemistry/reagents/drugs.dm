@@ -935,13 +935,15 @@
 	playsound(source, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
 	source.add_filter(MEPHEDRONE_BLUR_EFFECT, 2, gauss_blur_filter(5))
 	addtimer(CALLBACK(source, TYPE_PROC_REF(/atom, remove_filter), MEPHEDRONE_BLUR_EFFECT), 0.5 SECONDS)
-	return ATOM_PREHIT_FALSE
+	return ATOM_PREHIT_FAILURE
 
+
+/// So. If a person changes up their hud settings (Changing their ui theme), the visual effects for this reagent will break, and they will be able to see easily. This 3 part proc waits for the plane controlers to be setup, and over 2 other procs, rengages the visuals
 /datum/reagent/twitch/proc/no_hud_cheese(mob/living/carbon/L)
 	SIGNAL_HANDLER
 	addtimer(CALLBACK(src, PROC_REF(no_hud_cheese_2), L), 2 SECONDS) //Calling it instantly will not work, need to give it a moment
 
-
+/// This part of the anticheese sets up the basic visual effects normally setup when the reagent gets into your system.
 /datum/reagent/twitch/proc/no_hud_cheese_2(mob/living/carbon/L) //Basically if you change the UI you would remove the visuals. This fixes that.
 	var/atom/movable/plane_master_controller/game_plane_master_controller = L.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
 	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_FILTER)
@@ -957,6 +959,7 @@
 	if(overdosed)
 		addtimer(CALLBACK(src, PROC_REF(no_hud_cheese_3), L), 1 SECONDS) //still needs a moment
 
+///This part sets up the OD visual effects.
 /datum/reagent/twitch/proc/no_hud_cheese_3(mob/living/carbon/L)
 	var/atom/movable/plane_master_controller/game_plane_master_controller = L?.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 	var/list/col_filter_ourple = list(1,0,0,0, 0,0.5,0,0, 0,0,1,0, 0,0,0,1)
@@ -1067,7 +1070,7 @@
 		L.Hallucinate(damage_input * 50 SECONDS)
 		L.apply_damage(damage_input * 3, STAMINA)
 
-/// Cool filter that I'm using for some of this :)))
+/// This filter proc makes a visual effect where the object is split into fragments, with vertical lines cut out of them. It will appear as 2 seperate things are made of the one object that was cut out
 /proc/phase_filter(size)
 	. = list("type" = "wave")
 	.["x"] = 1

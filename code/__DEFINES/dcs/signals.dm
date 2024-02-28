@@ -187,8 +187,8 @@
 #define COMSIG_ATOM_UPDATE_SHARPNESS "atom_update_sharpness"
 ///from base of atom/atom_prehit(obj/item/projectile/P):
 #define COMSIG_ATOM_PREHIT "atom_prehit"
-	#define ATOM_PREHIT_TRUE (1<<0)
-	#define ATOM_PREHIT_FALSE (1<<1)
+	#define ATOM_PREHIT_SUCCESS (1<<0)
+	#define ATOM_PREHIT_FAILURE (1<<1)
 
 // Attack signals. These should share the returned flags, to standardize the attack chain.
 // The chain currently works like:
