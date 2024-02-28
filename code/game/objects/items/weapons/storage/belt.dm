@@ -513,7 +513,7 @@
 		/obj/item/grenade/smokebomb,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/kitchen/knife/combat
-		)
+	)
 
 /obj/item/storage/belt/viper/populate_contents()
 	for(var/I in 1 to 5)
