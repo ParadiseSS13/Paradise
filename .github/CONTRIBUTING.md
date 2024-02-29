@@ -788,8 +788,8 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 `Headcoders` are the overarching "administrators" of the repository. People included in this role are:
 
 * [farie82](https://github.com/farie82)
-* [Charliminator](https://github.com/hal9000PR)
 * [SteelSlayer](https://github.com/SteelSlayer)
+* [S34N](https://github.com/S34NW)
 
 ---
 
@@ -798,14 +798,14 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 
 * [AffectedArc07](https://github.com/AffectedArc07)
 * [lewcc](https://github.com/lewcc)
-* [S34N](https://github.com/S34NW)
+* [Charliminator](https://github.com/hal9000PR)
 
 ---
 
 `Review Team` members are people who are denoted as having reviews which can affect mergeability status. People included in this role are:
 
 * [lewcc](https://github.com/lewcc)
-* [S34N](https://github.com/S34NW)
+* [Charliminator](https://github.com/hal9000PR)
 * [Sirryan2002](https://github.com/Sirryan2002)
 * [Contrabang](https://github.com/Contrabang)
 * [Burzah](https://github.com/Burzah)
