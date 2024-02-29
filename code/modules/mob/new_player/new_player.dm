@@ -198,7 +198,6 @@
 			observer.real_name = client.prefs.active_character.real_name
 			observer.name = observer.real_name
 			observer.key = key
-			observer.client.init_verbs()
 			ADD_TRAIT(observer, TRAIT_RESPAWNABLE, GHOSTED)
 			qdel(src)
 			return TRUE
@@ -368,7 +367,6 @@
 		AnnounceCyborg(character, rank, join_message)
 	else
 		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
-		character.client?.init_verbs() // init verbs for the late join
 		if(!IsAdminJob(rank))
 			GLOB.data_core.manifest_inject(character)
 			AnnounceArrival(character, rank, join_message)
@@ -564,8 +562,6 @@
 
 
 	new_character.key = key		//Manually transfer the key to log them in
-
-	new_character.client?.init_verbs()
 
 	return new_character
 

@@ -80,3 +80,4 @@
 
 	update_client_colour(0)
 	update_morgue()
+	client.init_verbs()

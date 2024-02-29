@@ -301,7 +301,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	mind.current.key = key
-	mind.current.client.init_verbs()
 
 	SEND_SIGNAL(mind.current, COMSIG_LIVING_REENTERED_BODY)
 

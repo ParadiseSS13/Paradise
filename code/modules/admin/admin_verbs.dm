@@ -376,7 +376,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		//ghostize
 		var/mob/body = mob
 		body.ghostize(1)
-		init_verbs()
 		if(body && !body.key)
 			body.key = "@[key]"	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
 		log_admin("[key_name(usr)] has admin-ghosted")
