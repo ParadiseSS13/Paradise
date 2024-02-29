@@ -49,7 +49,7 @@
 
 /obj/item/ammo_box/a40mm
 	name = "ammo box (40mm grenades)"
-	desc = "An ammunition box full of 40mm grenades, for use with a launcher. Dropping them is ill-advised."
+	desc = "An ammunition box containing four 40mm grenades, for use with a launcher. Dropping them is ill-advised."
 	icon_state = "40mm"
 	ammo_type = /obj/item/ammo_casing/a40mm
 	max_ammo = 4
