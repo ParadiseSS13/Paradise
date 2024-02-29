@@ -27,7 +27,6 @@
 			return
 	return ..()
 
-
 /obj/structure/statue/welder_act(mob/user, obj/item/I)
 	if(anchored)
 		return
@@ -38,7 +37,6 @@
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
 		WELDER_SLICING_SUCCESS_MESSAGE
 		deconstruct(TRUE)
-
 
 /obj/structure/statue/attack_hand(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -125,11 +123,11 @@
 	..()
 
 /obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
-	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
+	if(W.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("[key_name_admin(user)] ignited a plasma statue at [COORD(loc)]")
 		log_game("[key_name(user)] ignited plasma a statue at [COORD(loc)]")
 		investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", "atmos")
-		ignite(is_hot(W))
+		ignite(W.get_heat())
 		return
 	return ..()
 
@@ -332,7 +330,7 @@
 	desc = "Just like the ones you remember from childhood!"
 
 /obj/structure/snowman/built/Destroy()
-	new /obj/item/reagent_containers/food/snacks/grown/carrot(drop_location())
+	new /obj/item/food/snacks/grown/carrot(drop_location())
 	new /obj/item/grown/log(drop_location())
 	new /obj/item/grown/log(drop_location())
 	return ..()

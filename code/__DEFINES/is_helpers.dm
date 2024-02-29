@@ -27,6 +27,8 @@
 
 #define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
 
+#define isalienqueen(A) (istype(A, /mob/living/carbon/alien/humanoid/queen))
+
 // Simple animals
 
 #define issimple_animal(A) (istype(A, /mob/living/simple_animal))
@@ -102,7 +104,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define ismineralturf(A) istype(A, /turf/simulated/mineral)
 
-#define islava(A) (istype(A, /turf/simulated/floor/plating/lava))
+#define islava(A) (istype(A, /turf/simulated/floor/lava))
 
 #define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
 
@@ -119,7 +121,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isradio(A) istype(A, /obj/item/radio)
 #define ispill(A) istype(A, /obj/item/reagent_containers/pill)
 #define ispatch(A) istype(A, /obj/item/reagent_containers/patch)
-#define isfood(A) istype(A, /obj/item/reagent_containers/food)
+#define isfood(A) istype(A, /obj/item/food)
 
 // Modsuits
 #define ismodcontrol(A) istype(A, /obj/item/mod/control)

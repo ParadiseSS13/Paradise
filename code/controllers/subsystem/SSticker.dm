@@ -128,6 +128,8 @@ SUBSYSTEM_DEF(ticker)
 			if(game_finished || force_ending)
 				current_state = GAME_STATE_FINISHED
 		if(GAME_STATE_FINISHED)
+			if(SSshuttle.emergency.mode >= SHUTTLE_ENDGAME && !mode.station_was_nuked)
+				event_blackbox(outcome = ROUND_END_CREW_TRANSFER)
 			current_state = GAME_STATE_FINISHED
 			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
 			auto_toggle_ooc(TRUE) // Turn it on
@@ -264,10 +266,6 @@ SUBSYSTEM_DEF(ticker)
 	create_characters() // Create player characters and transfer clients
 	log_debug("Creating characters took [stop_watch(watch)]s")
 
-	watch = start_watch()
-	populate_spawn_points() // Put mobs in their spawn locations
-	log_debug("Populating spawn points took [stop_watch(watch)]s")
-
 	// Gather everyones minds
 	for(var/mob/living/player in GLOB.player_list)
 		if(player.mind)
@@ -280,6 +278,7 @@ SUBSYSTEM_DEF(ticker)
 	watch = start_watch()
 	GLOB.data_core.manifest() // Create the manifest
 	log_debug("Manifest creation took [stop_watch(watch)]s")
+	SEND_SIGNAL(src, COMSIG_TICKER_ROUND_STARTING, world.time)
 
 	// Update the MC and state to game playing
 	current_state = GAME_STATE_PLAYING
@@ -297,9 +296,25 @@ SUBSYSTEM_DEF(ticker)
 
 	// Generate code phrases and responses
 	if(!GLOB.syndicate_code_phrase)
-		GLOB.syndicate_code_phrase = generate_code_phrase()
+		var/temp_syndicate_code_phrase = generate_code_phrase(return_list = TRUE)
+
+		var/codewords = jointext(temp_syndicate_code_phrase, "|")
+		var/regex/codeword_match = new("([codewords])", "ig")
+
+		GLOB.syndicate_code_phrase_regex = codeword_match
+		temp_syndicate_code_phrase = jointext(temp_syndicate_code_phrase, ", ")
+		GLOB.syndicate_code_phrase = temp_syndicate_code_phrase
+
+
 	if(!GLOB.syndicate_code_response)
-		GLOB.syndicate_code_response = generate_code_phrase()
+		var/temp_syndicate_code_response = generate_code_phrase(return_list = TRUE)
+
+		var/codewords = jointext(temp_syndicate_code_response, "|")
+		var/regex/codeword_match = new("([codewords])", "ig")
+
+		GLOB.syndicate_code_response_regex = codeword_match
+		temp_syndicate_code_response = jointext(temp_syndicate_code_response, ", ")
+		GLOB.syndicate_code_response = temp_syndicate_code_response
 
 	// Run post setup stuff
 	mode.post_setup()
@@ -659,11 +674,18 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/setup_news_feeds()
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
-	newChannel.channel_name = "Public Station Announcements"
+	newChannel.channel_name = "Station Announcements Log"
 	newChannel.author = "Automated Announcement Listing"
 	newChannel.icon = "bullhorn"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
+	GLOB.news_network.channels += newChannel
+
+	newChannel = new /datum/feed_channel
+	newChannel.channel_name = "Public Station Announcements"
+	newChannel.author = "Automated Announcement Listing"
+	newChannel.icon = "users"
+	newChannel.is_public = TRUE
 	GLOB.news_network.channels += newChannel
 
 	newChannel = new /datum/feed_channel
@@ -691,8 +713,10 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/proc/reboot_helper(reason, end_string, delay)
 	// Admins delayed round end. Just alert and dont bother with anything else.
 	if(delay_end)
-		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
+		to_chat(world, "<span class='boldannounceooc'>An admin has delayed the round end.</span>")
 		return
+	if(delay)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/datum/controller/subsystem/ticker, show_server_restart_blurb), reason)
 
 	if(!isnull(delay))
 		// Delay time was present. Use that.
@@ -701,14 +725,14 @@ SUBSYSTEM_DEF(ticker)
 		// Use default restart timeout
 		delay = restart_timeout
 
-	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
+	to_chat(world, "<span class='boldannounceooc'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
 
 	real_reboot_time = world.time + delay
 	UNTIL(world.time > real_reboot_time) // Hold it here
 
 	// And if we re-delayed, bail again
 	if(delay_end)
-		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
+		to_chat(world, "<span class='boldannounceooc'>Reboot was cancelled by an admin.</span>")
 		return
 
 	if(end_string)
@@ -771,3 +795,77 @@ SUBSYSTEM_DEF(ticker)
 	QDEL_LIST_ASSOC_VAL(load_queries)
 	records.Cut()
 	flagged_antag_rollers.Cut()
+
+/// This proc is for recording biohazard events, and blackboxing if they lived, died, or ended the round. This currently applies to: Terror spiders, Xenomorphs, and Blob.
+/datum/controller/subsystem/ticker/proc/event_blackbox(outcome = ROUND_END_CREW_TRANSFER)
+	for(var/I in SSevents.biohazards_this_round)
+		switch(I)
+			if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_PRINCE_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
+				var/output = "unknown spider type"
+				switch(I)
+					if(TS_INFESTATION_GREEN_SPIDER)
+						output = "Green Terrors"
+					if(TS_INFESTATION_PRINCE_SPIDER)
+						output = "Prince Terror"
+					if(TS_INFESTATION_WHITE_SPIDER)
+						output = "White Terrors"
+					if(TS_INFESTATION_PRINCESS_SPIDER)
+						output = "Princess Terrors"
+					if(TS_INFESTATION_QUEEN_SPIDER)
+						output = "Queen Terrors"
+				var/spiders = 0
+				for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
+					if(S.ckey)
+						spiders++
+				if(spiders >= 5 || (output == "Prince Terror" && spiders == 1)) //If a prince lives, record as win.
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard nuclear victories", 1, output)
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard survives to normal round end", 1, output)
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard survives to admin round end", 1, output)
+				else
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard dies station nuked", 1, output)
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard dies normal end", 1, output)
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, output)
+			if("Xenomorphs")
+				if(length(SSticker.mode.xenos) > 5)
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard nuclear victories", 1, "Xenomorphs")
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard survives to normal round end", 1, "Xenomorphs")
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard survives to admin round end", 1, "Xenomorphs")
+				else
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard dies station nuked", 1, "Xenomorphs")
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard dies normal end", 1, "Xenomorphs")
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, "Xenomorphs")
+
+			if("Blob")
+				if(length(SSticker.mode.blob_overminds))
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard nuclear victories", 1, "Blob")
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard survives to normal round end", 1, "Blob")
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard survives to admin round end", 1, "Blob")
+				else
+					switch(outcome)
+						if(ROUND_END_NUCLEAR)
+							SSblackbox.record_feedback("tally", "Biohazard dies station nuked", 1, "Blob")
+						if(ROUND_END_CREW_TRANSFER)
+							SSblackbox.record_feedback("tally", "Biohazard dies normal end", 1, "Blob")
+						if(ROUND_END_FORCED)
+							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, "Blob")
+

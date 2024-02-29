@@ -45,6 +45,8 @@
 		return
 
 	affecting.grabbed_by += src
+	RegisterSignal(affecting, COMSIG_MOVABLE_MOVED, PROC_REF(grab_moved))
+	RegisterSignal(assailant, COMSIG_MOVABLE_MOVED, PROC_REF(pull_grabbed))
 
 	hud = new /obj/screen/grab(src)
 	hud.icon_state = "reinforce"
@@ -61,6 +63,92 @@
 
 	clean_grabbed_by(assailant, affecting)
 	adjust_position()
+
+/obj/item/grab/Destroy()
+	if(affecting)
+		UnregisterSignal(affecting, COMSIG_MOVABLE_MOVED)
+		if(!affecting.buckled)
+			affecting.pixel_x = 0
+			affecting.pixel_y = 0 //used to be an animate, not quick enough for qdel'ing
+			affecting.layer = initial(affecting.layer)
+		affecting.grabbed_by -= src
+		affecting = null
+	if(assailant)
+		UnregisterSignal(assailant, COMSIG_MOVABLE_MOVED)
+		if(assailant.client)
+			assailant.client.screen -= hud
+		assailant = null
+	QDEL_NULL(hud)
+	return ..()
+
+/obj/item/grab/proc/pull_grabbed(mob/user, turf/old_turf, direct, forced)
+	SIGNAL_HANDLER
+	if(assailant.moving_diagonally == FIRST_DIAG_STEP) //we dont want to do anything in the middle of diagonal step
+		return
+	if(!assailant.Adjacent(old_turf))
+		qdel(src)
+		return
+	var/list/grab_states_not_moving = list(GRAB_KILL, GRAB_NECK) //states of grab when we dont need affecting to be moved by himself
+	var/assailant_glide_speed = TICKS2DS(world.icon_size / assailant.glide_size)
+	if(state in grab_states_not_moving)
+		affecting.glide_for(assailant_glide_speed)
+	else if(get_turf(affecting) != old_turf)
+		var/possible_dest = list()
+		var/list/mobs_do_not_move = list() // those are mobs we shouldnt move while we're going to new position
+		var/list/dest_1_sort = list() // just better dest to be picked first
+		var/list/dest_2_sort = list()
+		if(old_turf.Adjacent(affecting))
+			possible_dest |= old_turf
+		for(var/turf/dest in orange(1, assailant))
+			if(assailant.loc == dest) // orange(1) is broken and returning central turf
+				continue
+			if(!dest.Adjacent(affecting))
+				continue
+			if(dest.Adjacent(old_turf))
+				dest_1_sort |= dest
+				continue
+			dest_2_sort |= dest
+		possible_dest |= dest_1_sort
+		possible_dest |= dest_2_sort
+		if(istype(assailant.l_hand, /obj/item/grab))
+			var/obj/item/grab/grab = assailant.l_hand
+			mobs_do_not_move |= grab.affecting
+		if(istype(assailant.r_hand, /obj/item/grab))
+			var/obj/item/grab/grab = assailant.r_hand
+			mobs_do_not_move |= grab.affecting
+		mobs_do_not_move |= assailant
+		mobs_do_not_move -= affecting
+		if(assailant.pulling)
+			possible_dest -= old_turf // pull code just WANTS THAT old_loc and wont allow anyone else in it
+			mobs_do_not_move |= assailant.pulling
+		for(var/mob/mob as anything in mobs_do_not_move)
+			possible_dest -= get_turf(mob)
+		affecting.grab_do_not_move = mobs_do_not_move
+		var/success_move = FALSE
+		for(var/turf/dest as anything in possible_dest)
+			if(QDELETED(src))
+				return
+			if(get_turf(affecting) == dest)
+				success_move = TRUE
+				continue
+			if(affecting.Move(dest, get_dir(affecting, dest), assailant_glide_speed))
+				success_move = TRUE
+				break
+			continue
+		affecting.grab_do_not_move = initial(affecting.grab_do_not_move)
+		if(!success_move)
+			qdel(src)
+			return
+	if(state == GRAB_NECK)
+		assailant.setDir(turn(direct, 180))
+	adjust_position()
+
+/obj/item/grab/proc/grab_moved()
+	SIGNAL_HANDLER
+	if(affecting.moving_diagonally == FIRST_DIAG_STEP) //we dont want to do anything in the middle of diagonal step
+		return
+	if(!assailant.Adjacent(affecting))
+		qdel(src)
 
 /obj/item/grab/proc/clean_grabbed_by(mob/user, mob/victim) //Cleans up any nulls in the grabbed_by list.
 	if(istype(user))
@@ -169,11 +257,6 @@
 		return
 	if(!assailant.Adjacent(affecting)) // To prevent teleportation via grab
 		return
-	if(IS_HORIZONTAL(affecting) && state != GRAB_KILL)
-		animate(affecting, pixel_x = 0, pixel_y = 0, 5, 1, LINEAR_EASING)
-		return //KJK
-	/*	if(force_down) //THIS GOES ABOVE THE RETURN LABELED KJK
-			affecting.setDir(SOUTH)*///This shows how you can apply special directions based on a variable. //face up
 
 	var/shift = 0
 	var/adir = get_dir(assailant, affecting)
@@ -220,7 +303,7 @@
 		return
 	if(world.time < (last_upgrade + UPGRADE_COOLDOWN))
 		return
-	if(!(assailant.mobility_flags & MOBILITY_MOVE) || IS_HORIZONTAL(assailant))
+	if(HAS_TRAIT(assailant, TRAIT_HANDS_BLOCKED) || IS_HORIZONTAL(assailant))
 		qdel(src)
 		return
 
@@ -416,22 +499,6 @@
 		return EAT_TIME_ANIMAL
 
 	return EAT_TIME_FAT //if it doesn't fit into the above, it's probably a fat guy, take EAT_TIME_FAT to do it
-
-/obj/item/grab/Destroy()
-	if(affecting)
-		if(!affecting.buckled)
-			affecting.pixel_x = 0
-			affecting.pixel_y = 0 //used to be an animate, not quick enough for qdel'ing
-			affecting.layer = initial(affecting.layer)
-		affecting.grabbed_by -= src
-		affecting = null
-	if(assailant)
-		if(assailant.client)
-			assailant.client.screen -= hud
-		assailant = null
-	QDEL_NULL(hud)
-	return ..()
-
 
 #undef EAT_TIME_XENO
 #undef EAT_TIME_FAT

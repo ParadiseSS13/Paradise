@@ -47,7 +47,7 @@
 		return
 	for(var/datum/picture/t in cam.aipictures)
 		nametemp += t.fields["name"]
-	find = input("Select image (numbered in order taken)") in nametemp
+	find = tgui_input_list(usr, "Select image (numbered in order taken)", "Pick Image", nametemp)
 
 	for(var/datum/picture/q in cam.aipictures)
 		if(q.fields["name"] == find)
@@ -59,10 +59,11 @@
 	if(!selection)
 		return
 
-	var/obj/item/photo/P = new/obj/item/photo()
+	var/obj/item/photo/P = new /obj/item/photo()
 	P.construct(selection)
 	P.show(usr)
-	to_chat(usr, P.desc)
+	if(P.desc)
+		to_chat(usr, P.desc, MESSAGE_TYPE_INFO)
 
 	// TG uses a special garbage collector.. qdel(P)
 	qdel(P) //so 10 thousand pictures items are not left in memory should an AI take them and then view them all.
@@ -105,7 +106,6 @@
 	set category = "AI Commands"
 	set name = "Take Image"
 	set desc = "Takes an image"
-	set src in usr
 
 	toggle_camera_mode()
 
@@ -113,7 +113,6 @@
 	set category = "AI Commands"
 	set name = "View Images"
 	set desc = "View images"
-	set src in usr
 
 	viewpictures()
 
@@ -121,7 +120,6 @@
 	set category = "AI Commands"
 	set name = "Delete Image"
 	set desc = "Delete image"
-	set src in usr
 
 	deletepicture(src)
 
@@ -129,7 +127,6 @@
 	set category ="Robot Commands"
 	set name = "Take Image"
 	set desc = "Takes an image"
-	set src in usr
 
 	toggle_camera_mode()
 
@@ -137,7 +134,6 @@
 	set category ="Robot Commands"
 	set name = "View Images"
 	set desc = "View images"
-	set src in usr
 
 	viewpictures()
 
@@ -145,7 +141,6 @@
 	set category = "Robot Commands"
 	set name = "Delete Image"
 	set desc = "Delete a local image"
-	set src in usr
 
 	// Explicitly only allow deletion from the local camera
 	deletepicture(src)

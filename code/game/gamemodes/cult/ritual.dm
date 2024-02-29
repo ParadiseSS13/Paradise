@@ -70,8 +70,8 @@
 	if(!(A in summon_areas))
 		to_chat(user, "<span class='cultlarge'>[SSticker.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_areas)]!</span>")
 		return FALSE
-	var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence AND your location!",
-	"Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
+	var/confirm_final = tgui_alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence AND your location!",
+	"Are you prepared for the final battle?", list("My life for [SSticker.cultdat.entity_name]!", "No"))
 	if(user)
 		if(confirm_final == "No" || confirm_final == null)
 			to_chat(user, "<span class='cultitalic'><b>You decide to prepare further before scribing the rune.</b></span>")
@@ -116,7 +116,7 @@
 	if(!length(possible_runes))
 		return
 
-	var/chosen_rune = input(user, "Choose a rite to scribe.", "Sigils of Power") as null|anything in possible_runes
+	var/chosen_rune = tgui_input_list(user, "Choose a rite to scribe.", "Sigils of Power", possible_runes)
 	if(!chosen_rune)
 		return
 	var/obj/effect/rune/rune = possible_runes[chosen_rune]
@@ -124,7 +124,7 @@
 	if(rune == /obj/effect/rune/narsie)
 		narsie_rune = TRUE
 	if(initial(rune.req_keyword))
-		keyword = stripped_input(user, "Please enter a keyword for the rune.", "Enter Keyword")
+		keyword = tgui_input_text(user, "Please enter a keyword for the rune.", "Enter Keyword")
 		if(!keyword)
 			return
 

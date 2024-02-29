@@ -97,7 +97,7 @@
 		qdel(B)
 	for(var/mob/living/simple_animal/hostile/carp/holocarp/C in linkedholodeck)
 		qdel(C)
-	holographic_items = A.copy_contents_to(linkedholodeck, platingRequired = TRUE, perfect_copy = FALSE)
+	holographic_items = A.copy_contents_to(linkedholodeck, platingRequired = TRUE)
 
 	if(emagged)
 		for(var/obj/item/holo/H in linkedholodeck)
@@ -143,10 +143,13 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/HolodeckControl/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/HolodeckControl/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/HolodeckControl/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Holodeck", name, 400, 500, master_ui, state)
+		ui = new(user, src, "Holodeck", name)
 		ui.autoupdate = TRUE
 		ui.open()
 
@@ -198,6 +201,7 @@
 	to_chat(user, "<span class='notice'>You vastly increase projector power and override the safety and security protocols.</span>")
 	to_chat(user, "Warning! Automatic shutoff and derezing protocols have been corrupted. Please call Nanotrasen maintenance and do not use the simulator.")
 	log_game("[key_name(user)] emagged the Holodeck Control Computer")
+	return TRUE
 
 /obj/machinery/computer/HolodeckControl/emp_act(severity)
 	emergency_shutdown()

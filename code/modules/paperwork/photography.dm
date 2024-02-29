@@ -41,7 +41,9 @@
 
 /obj/item/photo/attackby(obj/item/P as obj, mob/user as mob, params)
 	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
-		var/txt = sanitize(input(user, "What would you like to write on the back?", "Photo Writing", null)  as text)
+		var/txt = tgui_input_text(user, "What would you like to write on the back?", "Photo Writing")
+		if(!txt)
+			return
 		txt = copytext(txt, 1, 128)
 		if(loc == user && user.stat == 0)
 			scribble = txt
@@ -106,9 +108,11 @@
 	onclose(usr, "Photo[UID()]")
 
 /obj/item/photo/proc/rename(mob/user)
-	var/n_name = sanitize(copytext(input(user, "What would you like to label the photo?", "Photo Labelling", name) as text, 1, MAX_MESSAGE_LEN))
+	var/n_name = tgui_input_text(user, "What would you like to label the photo?", "Photo Labelling", name)
+	if(!n_name)
+		return
 	//loc.loc check is for making possible renaming photos in clipboards
-	if(( (loc == user || (loc.loc && loc.loc == user)) && !user.stat))
+	if(((loc == user || (loc.loc && loc.loc == user)) && !user.stat))
 		name = "[(n_name ? "[n_name]" : "photo")]"
 	add_fingerprint(user)
 
@@ -215,7 +219,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	change_size(user)
 
 /obj/item/camera/proc/change_size(mob/user)
-	var/nsize = input("Photo Size","Pick a size of resulting photo.") as null|anything in list(1,3,5,7)
+	var/nsize = tgui_input_list(user, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))
 	if(nsize)
 		size = nsize
 		to_chat(user, "<span class='notice'>Camera will now take [size]x[size] photos.</span>")
@@ -418,7 +422,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	var/datum/picture/P = new()
 	if(istype(src,/obj/item/camera/digital))
-		P.fields["name"] = input(user,"Name photo:","photo")
+		P.fields["name"] = tgui_input_text(user, "Name photo:", "Photo", encode = FALSE)
 		if(!P.fields["name"])
 			P.fields["name"] = "Photo [current_photo_num]"
 			current_photo_num++
@@ -536,7 +540,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		return
 
 	var/datum/picture/picture
-	picture = input("Select image to print:", picture) as null|anything in saved_pictures
+	picture = tgui_input_list(user, "Select image to print", "Print image", saved_pictures)
 	if(picture)
 		printpicture(user, picture)
 		pictures_left --
@@ -549,7 +553,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		to_chat(user, "<span class='userdanger'>No images saved</span>")
 		return
 	var/datum/picture/picture
-	picture = input("Select image to delete:", picture) as null|anything in saved_pictures
+	picture = tgui_input_list(user, "Select image to delete", "Delete image", saved_pictures)
 	if(picture)
 		saved_pictures -= picture
 

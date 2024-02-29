@@ -69,7 +69,7 @@
 	update_icon()
 
 /obj/item/pen/multi/proc/select_colour(mob/user as mob)
-	var/newcolour = input(user, "Which colour would you like to use?", name, colour) as null|anything in colour_choices
+	var/newcolour = tgui_input_list(user, "Which colour would you like to use?", name, colour_choices)
 	if(newcolour)
 		colour = newcolour
 		playsound(loc, 'sound/effects/pop.ogg', 50, 1)
@@ -130,9 +130,6 @@
 		transfered = reagents.trans_to(M, transfer_amount)
 	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
-	for(var/datum/reagent/R as anything in reagents.reagent_list)
-		if(initial(R.id) == "????") // Yes this is a specific case that we don't really want
-			return TRUE
 	reagents.reaction(M, REAGENT_INGEST, 0.1)
 	return TRUE
 

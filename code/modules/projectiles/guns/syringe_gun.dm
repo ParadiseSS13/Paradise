@@ -68,6 +68,9 @@
 
 /obj/item/gun/syringe/attackby(obj/item/A, mob/user, params, show_msg = TRUE)
 	if(istype(A, /obj/item/reagent_containers/syringe))
+		if(istype(A, /obj/item/reagent_containers/syringe/lethal))
+			to_chat(user, "<span class='warning'>[A] is too big to fit into [src].</span>")
+			return
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
 		if(in_clip < max_syringes)
 			if(!user.unEquip(A))

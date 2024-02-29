@@ -269,9 +269,9 @@
 	storage_slots = 3
 
 /obj/item/storage/toolbox/fluff/lunchbox/populate_contents()
-	new /obj/item/reagent_containers/food/snacks/sandwich(src)
-	new /obj/item/reagent_containers/food/snacks/chips(src)
-	new /obj/item/reagent_containers/food/drinks/cans/cola(src)
+	new /obj/item/food/snacks/sandwich(src)
+	new /obj/item/food/snacks/chips(src)
+	new /obj/item/reagent_containers/drinks/cans/cola(src)
 
 
 /obj/item/fluff/wingler_comb
@@ -469,13 +469,13 @@
 	else
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-
+// These two fluff items are commented out due to the transfer to MODsuits breaking these. Sprites are still in custom_items.dmi , but they need a resprite to work with MODsuits.
 /obj/item/fluff/pyro_wintersec_kit //DarkLordpyro: Valthorne Haliber
 	name = "winter sec conversion kit"
 	desc = "A securirty hardsuit conversion kit."
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
-
+/*
 /obj/item/fluff/pyro_wintersec_kit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
@@ -521,14 +521,14 @@
 			H.update_inv_wear_suit()
 		return
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
+*/
 
 /obj/item/fluff/sylus_conversion_kit //Decemviri: Sylus Cain
 	name = "cerberus pattern conversion kit"
 	desc = "A securirty hardsuit conversion kit."
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
-
+/*
 /obj/item/fluff/sylus_conversion_kit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
@@ -581,7 +581,7 @@
 
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-
+*/
 //////////////////////////////////
 //////////// Clothing ////////////
 //////////////////////////////////
@@ -704,7 +704,7 @@
 			"mask_flags"	= HIDEMASK|HIDEFACE
 			)
 
-		var/choice = input(user, "How would you like to adjust the helmet?", "Adjust Helmet") as null|anything in options
+		var/choice = tgui_input_list(user, "How would you like to adjust the helmet?", "Adjust Helmet", options)
 
 		if(choice && choice != state && !user.incapacitated() && Adjacent(user))
 			var/list/new_state = options[choice]
@@ -771,7 +771,7 @@
 	options["lime"] ="shazjacket_lime"
 	options["army green"] ="shazjacket_army"
 
-	var/choice = input(user, "What color do you wish your jacket to be?", "Change color") as null|anything in options
+	var/choice = tgui_input_list(user, "What color do you wish your jacket to be?", "Change color", options)
 
 	if(choice && !user.stat && in_range(user, src))
 		if(suit_adjusted)
@@ -851,7 +851,6 @@
 /obj/item/clothing/suit/fluff/kluys/verb/toggle()
 	set name = "Toggle Nanofibre Mode"
 	set category = "Object"
-	set src in usr
 
 	if(usr.stat || usr.restrained())
 		return 0
@@ -1058,6 +1057,7 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	actions_types = list(/datum/action/item_action/zipper)
 	adjust_flavour = "unzip"
+	sprite_sheets = null
 
 //////////// Uniforms ////////////
 
@@ -1148,7 +1148,6 @@
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
 	set name = "Toggle Jumpsuit Zipper"
 	set category = "Object"
-	set src in usr
 
 	if(usr.stat || usr.restrained())
 		return 0
@@ -1249,15 +1248,15 @@
 	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "marble fox plushie" = "marblefox", "blue fox plushie" = "bluefox", "orange fox plushie" = "orangefox",
 								"coffee fox plushie" = "coffeefox", "pink fox plushie" = "pinkfox", "purple fox plushie" = "purplefox", "crimson fox plushie" = "crimsonfox")
 
-/obj/item/toy/plushie/fluff/fox/proc/change_color()
+/obj/item/toy/plushie/fluff/fox/proc/change_color(mob/user)
 	if(prompting_change)
 		return
 	prompting_change = TRUE
-	var/plushie_color = input("Select a color", "[src]") as null|anything in plush_colors
+	var/plushie_color = tgui_input_list(user, "Select a color", "[src]", plush_colors)
 	prompting_change = FALSE
 	if(!plushie_color)
 		return
-	if(!Adjacent(usr))
+	if(!Adjacent(user))
 		return
 	name = plushie_color
 	icon_state = plush_colors[plushie_color]
@@ -1266,8 +1265,8 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/toy/plushie/fluff/fox/ui_action_click()
-	change_color()
+/obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user)
+	change_color(user)
 
 
 // TheFlagbearer: Willow Walker
@@ -1439,7 +1438,7 @@
 	options["Syndicate"] = "syndie_witch"
 	options["Nanotrasen"] ="nt_witch"
 
-	var/choice = input(user, "To what form do you wish to Shapeshift this hat?", "Shapeshift Hat") as null|anything in options
+	var/choice = tgui_input_list(user, "To what form do you wish to Shapeshift this hat?", "Shapeshift Hat", options)
 
 	if(choice && !user.stat && in_range(user, src))
 		icon_state = options[choice]

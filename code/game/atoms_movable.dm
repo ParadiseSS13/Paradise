@@ -38,6 +38,13 @@
 	/// Icon state for thought bubbles. Normally set by mobs.
 	var/thought_bubble_image = "thought_bubble"
 
+	// Atmos
+	var/pressure_resistance = 10
+	var/last_high_pressure_movement_air_cycle = 0
+
+	/// UID for the atom which the current atom is orbiting
+	var/orbiting_uid = null
+
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
 	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))
@@ -160,6 +167,18 @@
 	loc = T
 	Moved(old_loc, get_dir(old_loc, loc))
 
+
+/**
+ * meant for movement with zero side effects. only use for objects that are supposed to move "invisibly" (like camera mobs or ghosts)
+ * if you want something to move onto a tile with a beartrap or recycler or tripmine or mouse without that object knowing about it at all, use this
+ * most of the time you want forceMove()
+ */
+/atom/movable/proc/abstract_move(atom/new_loc)
+	var/atom/old_loc = loc
+	var/direction = get_dir(old_loc, new_loc)
+	loc = new_loc
+	Moved(old_loc, direction, TRUE)
+
 /atom/movable/Move(atom/newloc, direct = 0, movetime)
 	if(!loc || !newloc) return 0
 	var/atom/oldloc = loc
@@ -169,6 +188,7 @@
 			glide_for(movetime)
 		if(!(direct & (direct - 1))) //Cardinal move
 			. = ..(newloc, direct) // don't pass up movetime
+			setDir(direct)
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
 			var/first_step_dir
@@ -217,6 +237,7 @@
 			if(moving_diagonally == SECOND_DIAG_STEP)
 				if(!.)
 					setDir(first_step_dir)
+					Moved(oldloc, first_step_dir)
 				else if(!inertia_moving)
 					inertia_next_move = world.time + inertia_move_delay
 					newtonian_move(direct)
@@ -380,7 +401,7 @@
 		step(src, AM.dir)
 	..()
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE, block_movement = TRUE)
 	if(!target || (flags & NODROP) || speed <= 0)
 		return 0
 
@@ -421,6 +442,7 @@
 	TT.diagonals_first = diagonals_first
 	TT.callback = callback
 	TT.dodgeable = dodgeable
+	TT.block_movement = block_movement
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
@@ -660,9 +682,11 @@
 		return
 	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
 	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[name]</span>"
+	usr.client.moused_over = UID()
 
 /atom/movable/MouseExited(location, control, params)
 	usr.hud_used.screentip_text.maptext = ""
+	usr.client.moused_over = null
 
 /atom/movable/proc/choose_crush_crit(mob/living/carbon/victim)
 	if(!length(GLOB.tilt_crits))

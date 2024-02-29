@@ -16,7 +16,6 @@
 /obj/item/pda/silicon/verb/cmd_send_pdamesg()
 	set category = "AI IM"
 	set name = "Send PDA Message"
-	set src in usr
 
 	if(!can_use())
 		return
@@ -25,7 +24,7 @@
 		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
 	var/list/plist = M.available_pdas()
 	if(plist)
-		var/c = input(usr, "Please select a PDA") as null|anything in sortList(plist)
+		var/c = tgui_input_list(usr, "Please select a PDA", "Send message", sortList(plist))
 		if(!c) // if the user hasn't selected a PDA file we can't send a message
 			return
 		var/selected = plist[c]
@@ -34,7 +33,6 @@
 /obj/item/pda/silicon/verb/cmd_show_message_log()
 	set category = "AI IM"
 	set name = "Show Message Log"
-	set src in usr
 
 	if(!can_use())
 		return
@@ -53,7 +51,6 @@
 /obj/item/pda/silicon/verb/cmd_toggle_pda_receiver()
 	set category = "AI IM"
 	set name = "Toggle Sender/Receiver"
-	set src in usr
 
 	if(!can_use())
 		return
@@ -65,7 +62,6 @@
 /obj/item/pda/silicon/verb/cmd_toggle_pda_silent()
 	set category = "AI IM"
 	set name = "Toggle Ringer"
-	set src in usr
 
 	if(!can_use())
 		return
@@ -77,7 +73,6 @@
 	if((honkamt > 0) && (prob(60)))//For clown virus.
 		honkamt--
 		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
-	return
 
 /obj/item/pda/silicon/ai/can_use()
 	var/mob/living/silicon/ai/AI = usr

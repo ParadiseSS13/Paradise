@@ -3,7 +3,6 @@
 GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	// NT ROLES
 	ROLE_PAI = 0,
-	ROLE_POSIBRAIN = 5, // Same as cyborg job.
 	ROLE_SENTIENT = 5,
 	ROLE_ERT = 40, // High, because they're team-based, and we want ERT to be robust
 	ROLE_DEATHSQUAD = 50, // Higher, see ERT and also they're OP as heck
@@ -17,14 +16,12 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_VAMPIRE = 5,
 	ROLE_BLOB = 20,
 	ROLE_REVENANT = 3,
-	ROLE_NINJA = 20,
 	ROLE_MORPH = 5,
 	ROLE_DEMON = 5,
 	ROLE_ELITE = 5,
 
 	// DUO ANTAGS
 	ROLE_GUARDIAN = 20,
-	ROLE_GSPIDER = 5,
 
 	// TEAM ANTAGS
 	// Higher numbers here, because they require more experience to be played correctly
@@ -54,7 +51,8 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	set name = "Check Player Playtime"
 	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
-	var/msg = "<html><head><title>Playtime Report</title></head><body>"
+	var/list/msg = list()
+	msg  += "<html><head><title>Playtime Report</title></head><body>"
 	var/datum/job/theirjob
 	var/jtext
 	msg += "<TABLE border ='1'><TR><TH>Player</TH><TH>Job</TH><TH>Crew</TH>"
@@ -83,7 +81,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		msg += "</TR>"
 
 	msg += "</TABLE></BODY></HTML>"
-	src << browse(msg, "window=Player_playtime_check")
+	src << browse(msg.Join(""), "window=Player_playtime_check")
 
 
 /datum/admins/proc/cmd_mentor_show_exp_panel(client/C)

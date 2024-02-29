@@ -2,20 +2,18 @@
 	name = "Vox"
 	name_plural = "Vox"
 	max_age = 90 // vox stacks can be older than this, but let's assume their body fails beyond repair after such ages.
-	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
+	icobase = 'icons/mob/human_races/vox/r_voxlime.dmi'
 	dangerous_existence = TRUE
 	language = "Vox-pidgin"
-	tail = "voxtail"
+	tail = "voxtail_lime"
 	speech_sounds = list('sound/voice/shriek1.ogg')
 	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/claws	//I dont think it will hurt to give vox claws too.
 
-	blurb = "The Vox are the broken remnants of a once-proud race, now reduced to little more than \
-	scavenging vermin who prey on isolated stations, ships or planets to keep their own ancient arkships \
-	alive. They are four to five feet tall, reptillian, beaked, tailed and quilled; human crews often \
-	refer to them as 'shitbirds' for their violent and offensive nature, as well as their horrible \
-	smell.<br/><br/>Most humans will never meet a Vox raider, instead learning of this insular species through \
-	dealing with their traders and merchants; those that do rarely enjoy the experience."
+	blurb = "The Vox are remnants of an ancient race, that originate from arkships. \
+	These bioengineered, reptilian, beaked, and quilled beings have a physiological caste system and follow 'The Inviolate' tenets.<br/><br/> \
+	Breathing pure nitrogen, they need specialized masks and tanks for survival outside their arkships. \
+	Their insular nature limits their involvement in broader galactic affairs, maintaining a distinct, yet isolated presence away from other species."
 
 	breathid = "n2"
 
@@ -46,12 +44,14 @@
 	female_sneeze_sound = 'sound/voice/shrieksneeze.ogg'
 
 	icon_skin_tones = list(
-		1 = "Default Green",
-		2 = "Dark Green",
+		1 = "Default Lime",
+		2 = "Plum",
 		3 = "Brown",
 		4 = "Grey",
 		5 = "Emerald",
-		6 = "Azure"
+		6 = "Azure",
+		7 = "Crimson",
+		8 = "Nebula"
 		)
 
 	has_organ = list(
@@ -91,7 +91,7 @@
 		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.unEquip(H.l_hand)
 			H.equip_or_collect(internal_tank, SLOT_HUD_LEFT_HAND)
-			to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug</span>")
+			to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug</span>")
 	H.internal = internal_tank
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from [internal_tank]. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
 	H.update_action_buttons_icon()
@@ -103,8 +103,14 @@
 
 /datum/species/vox/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the Vox race.
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
-		var/new_icobase = 'icons/mob/human_races/vox/r_vox.dmi' //Default Green Vox.
+		var/new_icobase = 'icons/mob/human_races/vox/r_voxlime.dmi' //Default Lime Vox.
 		switch(H.s_tone)
+			if(8) //Nebula Vox.
+				new_icobase = 'icons/mob/human_races/vox/r_voxpurp.dmi'
+				H.tail = "voxtail_purp"
+			if(7) //Crimson Vox.
+				new_icobase = 'icons/mob/human_races/vox/r_voxcrim.dmi'
+				H.tail = "voxtail_crim"
 			if(6) //Azure Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxazu.dmi'
 				H.tail = "voxtail_azu"
@@ -117,11 +123,11 @@
 			if(3) //Brown Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxbrn.dmi'
 				H.tail = "voxtail_brn"
-			if(2) //Dark Green Vox.
-				new_icobase = 'icons/mob/human_races/vox/r_voxdgrn.dmi'
-				H.tail = "voxtail_dgrn"
-			else  //Default Green Vox.
-				H.tail = "voxtail" //Ensures they get an appropriately coloured tail depending on the skin-tone.
+			if(2) //Plum Vox.
+				new_icobase = 'icons/mob/human_races/vox/r_voxplum.dmi'
+				H.tail = "voxtail_plum"
+			else  //Default Lime Vox.
+				H.tail = "voxtail_lime" //Ensures they get an appropriately coloured tail depending on the skin-tone.
 
 		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 

@@ -50,17 +50,23 @@
 	icon_state = "captain_beret_white"
 
 //Head of Personnel
-/obj/item/clothing/head/hopcap
+/obj/item/clothing/head/hop
 	name = "head of personnel's cap"
 	icon_state = "hopcap"
 	desc = "The symbol of true bureaucratic micromanagement."
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	dog_fashion = /datum/dog_fashion/head/hop
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+	)
 
-/obj/item/clothing/head/hopcap/beret
+/obj/item/clothing/head/hop/beret
 	name = "head of personnel's beret"
 	desc = "For doing paperwork with style."
-	icon_state = "hop_beret"
+	icon_state = "beret_hop"
+	dog_fashion = /datum/dog_fashion/head/hop
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
@@ -114,7 +120,7 @@
 	name = "hat"
 	desc = "Someone who wears this will look very smart."
 	icon_state = "detective"
-	allowed = list(/obj/item/reagent_containers/food/snacks/candy/candy_corn, /obj/item/pen)
+	allowed = list(/obj/item/food/snacks/candy/candy_corn, /obj/item/pen)
 	armor = list(MELEE = 15, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 20, ACID = 50)
 	dog_fashion = /datum/dog_fashion/head/detective
 
@@ -236,6 +242,11 @@
 	name = "bioengineer beret"
 	desc = "A black beret with a brown robotics insignia emblazoned on it. It smells distinctly like oil."
 	icon_state = "beret_roboticsblack"
+
+/obj/item/clothing/head/beret/janitor
+	name = "janitorial beret"
+	desc = "A purple beret with a mint service insignia emblazoned on it. It smells squeaky clean."
+	icon_state = "beret_janitor"
 
 //Medical
 /obj/item/clothing/head/beret/med

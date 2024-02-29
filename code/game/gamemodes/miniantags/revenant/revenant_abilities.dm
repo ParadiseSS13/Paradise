@@ -67,7 +67,7 @@
 			if(do_after(src, 20, 0, target = target)) //how about now
 				if(!target.stat)
 					to_chat(src, "<span class='revenwarning'>They are now powerful enough to fight off your draining.</span>")
-					to_chat(target, "<span class='boldannounce'>You feel something tugging across your body before subsiding.</span>")
+					to_chat(target, "<span class='boldannounceic'>You feel something tugging across your body before subsiding.</span>")
 					draining = FALSE
 					return //hey, wait a minute...
 				to_chat(src, "<span class='revenminor'>You begin siphoning essence from [target]'s soul.</span>")
@@ -133,7 +133,7 @@
 /obj/effect/proc_holder/spell/revenant_transmit/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/mob/living/M in targets)
 		spawn(0)
-			var/msg = stripped_input(user, "What do you wish to tell [M]?", null, "")
+			var/msg = tgui_input_text(user, "What do you wish to tell [M]?", "Transmit")
 			if(!msg)
 				cooldown_handler.revert_cast()
 				return
@@ -497,7 +497,7 @@
 
 /mob/living/carbon/human/defile()
 	to_chat(src, "<span class='warning'>You suddenly feel [pick("sick and tired", "tired and confused", "nauseated", "dizzy")].</span>")
-	adjustStaminaLoss(60)
+	apply_damage(60, STAMINA)
 	adjustToxLoss(5)
 	AdjustConfused(40 SECONDS, bound_lower = 0, bound_upper = 60 SECONDS)
 	new /obj/effect/temp_visual/revenant(loc)

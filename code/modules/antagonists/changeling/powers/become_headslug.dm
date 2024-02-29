@@ -9,10 +9,10 @@
 	req_stat = DEAD
 	bypass_fake_death = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_DEFENSE
+	category = /datum/changeling_power_category/defence
 
 /datum/action/changeling/headslug/try_to_sting(mob/user, mob/target)
-	if(alert("Are you sure you wish to do this? This action cannot be undone.",,"Yes","No") == "No")
+	if(tgui_alert(user, "Are you sure you wish to do this? This action cannot be undone.", "Sting", list("Yes", "No")) == "No")
 		return
 	..()
 

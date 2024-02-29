@@ -7,7 +7,6 @@
 	supervisors = "the admins"
 	selection_color = "#ff0000"
 	access = list()
-	minimal_access = list()
 	admin_only = TRUE
 	syndicate_command = 1
 	outfit = /datum/outfit/job/syndicateofficer
@@ -36,10 +35,10 @@
 		/obj/item/gun/projectile/automatic/pistol/deagle/camo = 1,
 		/obj/item/clothing/accessory/holster = 1
 	)
-	implants = list(
-		/obj/item/implant/dust,
-		/obj/item/implant/freedom,
-		/obj/item/implant/adrenalin
+	bio_chips = list(
+		/obj/item/bio_chip/dust,
+		/obj/item/bio_chip/freedom,
+		/obj/item/bio_chip/adrenalin
 	)
 
 	cybernetic_implants = list(
@@ -52,7 +51,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/implant/uplink/admin/U = new /obj/item/implant/uplink/admin(H)
+	var/obj/item/bio_chip/uplink/admin/U = new /obj/item/bio_chip/uplink/admin(H)
 	U.implant(H)
 	U.hidden_uplink.uses = 2500
 	H.faction += "syndicate"

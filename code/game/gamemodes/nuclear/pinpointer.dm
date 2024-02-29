@@ -186,7 +186,7 @@
 	target = null
 	location = null
 
-	switch(alert("Please select the mode you want to put the pinpointer in.", "Pinpointer Mode Select", "Location", "Disk Recovery", "Other Signature"))
+	switch(tgui_alert(user, "Please select the mode you want to put the pinpointer in.", "Pinpointer Mode Select", list("Location", "Disk Recovery", "Other Signature")))
 		if("Location")
 			setting = SETTING_LOCATION
 
@@ -211,7 +211,7 @@
 
 		if("Other Signature")
 			setting = SETTING_OBJECT
-			switch(alert("Search for item signature or DNA fragment?" , "Signature Mode Select" , "Item" , "DNA"))
+			switch(tgui_alert(user, "Search for item signature or DNA fragment?", "Signature Mode Select", list("Item", "DNA")))
 				if("Item")
 					var/list/item_names[0]
 					var/list/item_paths[0]
@@ -220,7 +220,7 @@
 						var/name = initial(T.name)
 						item_names += name
 						item_paths[name] = initial(T.typepath)
-					var/targetitem = input("Select item to search for.", "Item Mode Select","") as null|anything in item_names
+					var/targetitem = tgui_input_list(user, "Select item to search for", "Select Item", item_names)
 					if(!targetitem)
 						return
 
@@ -492,7 +492,7 @@
 		user.visible_message("<span class='notice'>[user]'s pinpointer fails to detect a signal.</span>", "<span class='notice'>Your pinpointer fails to detect a signal.</span>")
 		return
 
-	var/A = input(user, "Person to track", "Pinpoint") in names
+	var/A = tgui_input_list(user, "Person to track", "Pinpoint", names)
 	if(!src || !user || (user.get_active_hand() != src) || user.incapacitated() || !A)
 		return
 

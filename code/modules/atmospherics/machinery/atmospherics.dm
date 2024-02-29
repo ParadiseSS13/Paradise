@@ -210,32 +210,25 @@ Pipelines + Other Objects -> Pipe network
 		playsound(loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
 
-		for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
-			if(usermagboots.magpulse)
-				safefromgusts = TRUE
-		for(var/obj/item/clothing/shoes/mod/usermodboots in user.get_equipped_items())
-			if(usermodboots.magbooted)
-				safefromgusts = TRUE
+		if(HAS_TRAIT(user, TRAIT_MAGPULSE))
+			safefromgusts = TRUE
 
-		if(internal_pressure > 2*ONE_ATMOSPHERE)
+		if(internal_pressure > 2 * ONE_ATMOSPHERE)
 			unsafe_wrenching = TRUE //Oh dear oh dear
 			if(internal_pressure > 1750 && !safefromgusts) // 1750 is the pressure limit to do 60 damage when thrown
-				to_chat(user, "<span class='userdanger'>As you struggle to unwrench \the [src] a huge gust of gas blows in your face! This seems like a terrible idea!</span>")
+				to_chat(user, "<span class='userdanger'>As you struggle to unwrench [src] a huge gust of gas blows in your face! This seems like a terrible idea!</span>")
 			else
-				to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?</span>")
+				to_chat(user, "<span class='warning'>As you begin unwrenching [src] a gust of air blows in your face... maybe you should reconsider?</span>")
 
 		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
 			safefromgusts = FALSE
-			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
-				if(usermagboots.magpulse) // Check again, incase they change magpulse mid-wrench
-					safefromgusts = TRUE
-			for(var/obj/item/clothing/shoes/mod/usermodboots in user.get_equipped_items())
-				if(usermodboots.magbooted)
-					safefromgusts = TRUE
+
+			if(HAS_TRAIT(user, TRAIT_MAGPULSE))
+				safefromgusts = TRUE
 
 			user.visible_message( \
-				"<span class='notice'>[user] unfastens \the [src].</span>", \
-				"<span class='notice'>You have unfastened \the [src].</span>", \
+				"<span class='notice'>[user] unfastens [src].</span>", \
+				"<span class='notice'>You have unfastened [src].</span>", \
 				"<span class='italics'>You hear ratcheting.</span>")
 			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
 
@@ -349,7 +342,7 @@ Pipelines + Other Objects -> Pipe network
 	..()
 
 /obj/machinery/atmospherics/proc/can_crawl_through()
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/proc/change_color(new_color)
 	//only pass valid pipe colors please ~otherwise your pipe will turn invisible

@@ -142,10 +142,13 @@
 /obj/machinery/plantgenes/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/plantgenes/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/plantgenes/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/plantgenes/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "GeneModder", name, 500, 700, master_ui, state)
+		ui = new(user, src, "GeneModder", name)
 		ui.open()
 
 /obj/machinery/plantgenes/ui_data(mob/user)
@@ -451,14 +454,3 @@
 		return
 	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && (user.Adjacent(src)))
 		. += "<span class='warning'>... Wait. This isn't the nuclear authentication disk! It's a clever forgery!</span>"
-
-/*
- *  Plant DNA Disks Box
- */
-/obj/item/storage/box/disks_plantgene
-	name = "plant data disks box"
-	icon_state = "disk_kit"
-
-/obj/item/storage/box/disks_plantgene/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/disk/plantgene(src)

@@ -139,6 +139,9 @@
 	/// Can this simple mob crawl or not? If FALSE, it won't get immobilized by crawling
 	var/can_crawl = FALSE
 
+	/// Health of the mob before being admin-frozen, restored afterwards
+	var/admin_prev_health = null
+
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src
@@ -364,7 +367,7 @@
 /mob/living/simple_animal/movement_delay()
 	. = speed
 	if(forced_look)
-		. += 3
+		. += DIRECTION_LOCK_SLOWDOWN
 	. += GLOB.configuration.movement.animal_delay
 
 /mob/living/simple_animal/Stat()
@@ -374,9 +377,9 @@
 		return TRUE
 
 /mob/living/simple_animal/proc/drop_loot()
-	if(loot.len)
-		for(var/i in loot)
-			new i(loc)
+	if(length(loot))
+		for(var/item in loot)
+			new item(get_turf(src))
 
 /mob/living/simple_animal/revive()
 	..()

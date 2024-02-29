@@ -185,7 +185,7 @@
 		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
 		return
 
-	var/mob/living/target = input("Choose the target to talk to.", "Targeting") as null|mob in validtargets
+	var/mob/living/target = tgui_input_list(user, "Choose the target to talk to", "Targeting", validtargets)
 	return target
 
 /datum/action/innate/demon/whisper/Activate()
@@ -193,7 +193,7 @@
 	if(!choice)
 		return
 
-	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")
+	var/msg = tgui_input_text(usr, "What do you wish to tell [choice]?", null, "")
 	if(!(msg))
 		return
 	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)
@@ -212,15 +212,13 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "demon_heart"
 	origin_tech = "combat=5;biotech=7"
+	organ_datums = list(/datum/organ/heart/always_beating)
 
 /obj/item/organ/internal/heart/demon/update_icon_state()
 	return //always beating visually
 
 /obj/item/organ/internal/heart/demon/prepare_eat()
 	return // Just so people don't accidentally waste it
-
-/obj/item/organ/internal/heart/demon/Stop()
-	return 0 // Always beating.
 
 /obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
 	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
@@ -246,7 +244,7 @@
 
 	// Eating a 2nd heart. Gives the ability to drag people into blood and eat them.
 	if(HAS_TRAIT(user, TRAIT_BLOODCRAWL))
-		to_chat(user, "You feel differ-<span class = 'danger'> CONSUME THEM! </span>")
+		to_chat(user, "You feel differ-<span class='danger'> CONSUME THEM!</span>")
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
 		qdel(src) // Replacing their demon heart with another demon heart is pointless, just delete this one and return.
 		return TRUE

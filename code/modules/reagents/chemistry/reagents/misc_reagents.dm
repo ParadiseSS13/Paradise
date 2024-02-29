@@ -246,7 +246,7 @@
 	taste_description = "a carpet...what?"
 
 /datum/reagent/carpet/reaction_turf(turf/simulated/T, volume)
-	if(istype(T, /turf/simulated/floor/plating) || istype(T, /turf/simulated/floor/plasteel))
+	if((istype(T, /turf/simulated/floor/plating) || istype(T, /turf/simulated/floor/plasteel)))
 		var/turf/simulated/floor/F = T
 		F.ChangeTurf(/turf/simulated/floor/carpet)
 	..()
@@ -465,12 +465,13 @@
 		else if(C.mind.assigned_role == "Mime")
 			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
+			ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
+			C.AddElement(/datum/element/waddling)
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
-	if(C.mind.assigned_role != "Clown")
-		ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
-		C.AddElement(/datum/element/waddling)
+			ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
+			C.AddElement(/datum/element/waddling)
 	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
@@ -505,7 +506,7 @@
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
 	..()
-	if(M.mind.assigned_role != "Clown")
+	if(M.mind?.assigned_role != "Clown")
 		REMOVE_TRAIT(M, TRAIT_COMIC_SANS, id)
 		M.RemoveElement(/datum/element/waddling)
 	qdel(M.GetComponent(/datum/component/squeak))

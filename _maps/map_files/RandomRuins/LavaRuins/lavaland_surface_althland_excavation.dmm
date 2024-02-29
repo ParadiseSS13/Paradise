@@ -20,9 +20,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/railing/corner,
 /obj/effect/landmark/damageturf,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
@@ -257,9 +255,7 @@
 "aN" = (
 /obj/structure/railing,
 /obj/effect/landmark/damageturf,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -272,9 +268,7 @@
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
@@ -518,9 +512,7 @@
 /obj/structure/railing/corner,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
@@ -673,7 +665,7 @@
 /area/lavaland/surface/outdoors)
 "ie" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/badrecipe,
+/obj/item/food/snacks/badrecipe,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/althland_excavation)
 "iv" = (
@@ -825,9 +817,7 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/off_station/empty_charge{
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/althland_excavation)
 "pI" = (
@@ -907,9 +897,7 @@
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -959,7 +947,7 @@
 "wi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/item/reagent_containers/drinks/oilcan,
 /obj/machinery/constructable_frame,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
@@ -1014,9 +1002,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/railing,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -1032,9 +1018,7 @@
 "yz" = (
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -1101,8 +1085,8 @@
 "Cs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table_frame,
-/obj/item/reagent_containers/food/snacks/badrecipe,
-/obj/item/reagent_containers/food/snacks/badrecipe{
+/obj/item/food/snacks/badrecipe,
+/obj/item/food/snacks/badrecipe{
 	pixel_y = 14;
 	pixel_x = 14
 	},
@@ -1145,12 +1129,9 @@
 /area/lavaland/surface/outdoors)
 "Es" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/structure/ladder/unbreakable/dive_point{
-	desc = "The shattered remnants of a ladder hanging over the pitch-black chasm, providing no safe route to the abyss beneath. Its fractured rungs suggest an inevitable plunge, as if the remainder might soon join the void.";
-	name = "shattered ladder"
-	},
 /obj/effect/baseturf_helper/lava_land/surface,
 /obj/effect/mapping_helpers/no_lava,
+/obj/structure/ladder/unusable,
 /turf/simulated/floor/chasm,
 /area/lavaland/surface/outdoors)
 "Et" = (
@@ -1327,7 +1308,7 @@
 /area/lavaland/surface/outdoors)
 "OX" = (
 /obj/structure/table_frame,
-/obj/item/reagent_containers/food/snacks/badrecipe,
+/obj/item/food/snacks/badrecipe,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/althland_excavation)
 "Pe" = (
@@ -1533,9 +1514,7 @@
 "Ya" = (
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;

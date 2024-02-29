@@ -102,7 +102,9 @@
 		/obj/item/analyzer,
 		/obj/item/geiger_counter,
 		/obj/item/extinguisher/mini,
-		/obj/item/holosign_creator)
+		/obj/item/holosign_creator,
+		/obj/item/stack/nanopaste,
+		/obj/item/robotanalyzer)
 
 /obj/item/storage/belt/utility/full/populate_contents()
 	new /obj/item/screwdriver(src)
@@ -278,7 +280,7 @@
 		/obj/item/clothing/glasses,
 		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_box,
-		/obj/item/reagent_containers/food/snacks/donut,
+		/obj/item/food/snacks/donut,
 		/obj/item/kitchen/knife/combat,
 		/obj/item/melee/baton,
 		/obj/item/melee/classic_baton,
@@ -329,7 +331,7 @@
 		/obj/item/clothing/glasses,
 		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_box,
-		/obj/item/reagent_containers/food/snacks/donut,
+		/obj/item/food/snacks/donut,
 		/obj/item/kitchen/knife/combat,
 		/obj/item/melee/baton,
 		/obj/item/melee/classic_baton,
@@ -378,6 +380,15 @@
 	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 18
 	resistance_flags = FIRE_PROOF
+	use_item_overlays = TRUE // Will show the tools on the sprite
+	w_class_override = list(
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool
+	)
 
 /obj/item/storage/belt/military/sst
 	icon_state = "assaultbelt"
@@ -388,16 +399,7 @@
 	desc = "Can hold various tools. This model seems to have additional compartments and folds up rather nicely into a bag."
 	icon_state = "utilitybelt"
 	item_state = "utility"
-	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
 	storable = TRUE
-	w_class_override = list(
-		/obj/item/crowbar,
-		/obj/item/screwdriver,
-		/obj/item/weldingtool,
-		/obj/item/wirecutters,
-		/obj/item/wrench,
-		/obj/item/multitool
-		)
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()
 	new /obj/item/screwdriver(src, "red")
@@ -406,6 +408,7 @@
 	new /obj/item/crowbar/small(src)
 	new /obj/item/wirecutters(src, "red")
 	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
+	new /obj/item/multitool/ai_detect(src)
 	update_icon()
 
 /obj/item/storage/belt/grenade
@@ -419,7 +422,7 @@
 	can_hold = list(
 		/obj/item/grenade,
 		/obj/item/lighter,
-		/obj/item/reagent_containers/food/drinks/bottle/molotov
+		/obj/item/reagent_containers/drinks/bottle/molotov
 		)
 
 /obj/item/storage/belt/grenade/full/populate_contents()
@@ -918,7 +921,7 @@
 		/obj/item/stack/sheet/bone,
 		/obj/item/lighter,
 		/obj/item/storage/fancy/cigarettes,
-		/obj/item/reagent_containers/food/drinks/bottle,
+		/obj/item/reagent_containers/drinks/bottle,
 		/obj/item/stack/medical,
 		/obj/item/kitchen/knife,
 		/obj/item/reagent_containers/hypospray,
@@ -929,7 +932,7 @@
 		/obj/item/reagent_containers/pill,
 		/obj/item/storage/pill_bottle,
 		/obj/item/stack/ore,
-		/obj/item/reagent_containers/food/drinks,
+		/obj/item/reagent_containers/drinks,
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
@@ -967,11 +970,11 @@
 		/obj/item/kitchen/cutter,
 		/obj/item/assembly/mousetrap,
 		/obj/item/reagent_containers/spray/pestspray,
-		/obj/item/reagent_containers/food/drinks/flask,
-		/obj/item/reagent_containers/food/drinks/drinkingglass,
-		/obj/item/reagent_containers/food/drinks/bottle,
-		/obj/item/reagent_containers/food/drinks/cans,
-		/obj/item/reagent_containers/food/drinks/shaker,
-		/obj/item/reagent_containers/food/snacks,
-		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/drinks/flask,
+		/obj/item/reagent_containers/drinks/drinkingglass,
+		/obj/item/reagent_containers/drinks/bottle,
+		/obj/item/reagent_containers/drinks/cans,
+		/obj/item/reagent_containers/drinks/shaker,
+		/obj/item/food/snacks,
+		/obj/item/reagent_containers/condiment,
 		/obj/item/reagent_containers/glass/beaker)
