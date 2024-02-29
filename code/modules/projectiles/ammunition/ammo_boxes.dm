@@ -9,7 +9,7 @@
 
 /obj/item/ammo_box/b357
 	name = "ammo box (.357)"
-	desc = "An ammunition box full of .357 magnum rounds, commonly used in high-caliber revolvers."
+	desc = "An ammunition box filled with seven .357 magnum rounds, commonly used in high-caliber revolvers."
 	w_class = WEIGHT_CLASS_NORMAL
 	ammo_type = /obj/item/ammo_casing/a357
 	max_ammo = 7
