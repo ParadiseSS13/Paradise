@@ -1,6 +1,6 @@
 /obj/item/ammo_box/a357
 	name = "speed loader (.357)"
-	desc = "A small device designed to quickly reload revolvers."
+	desc = "A small device designed to quickly reload revolvers. Seven round capacity."
 	materials = list()
 	ammo_type = /obj/item/ammo_casing/a357
 	max_ammo = 7
@@ -9,7 +9,7 @@
 
 /obj/item/ammo_box/b357
 	name = "ammo box (.357)"
-	desc = "An ammunition box filled with seven .357 magnum rounds, commonly used in high-caliber revolvers."
+	desc = "An ammunition box filled with .357 magnum rounds, commonly used in high-caliber revolvers."
 	w_class = WEIGHT_CLASS_NORMAL
 	ammo_type = /obj/item/ammo_casing/a357
 	max_ammo = 7
@@ -57,7 +57,7 @@
 
 /obj/item/ammo_box/a762
 	name = "stripper clip (7.62mm)"
-	desc = "A stripper clip for 7.62mm rounds, used in Mosin-Nagant rifles."
+	desc = "A stripper clip for 7.62mm cartridges, used in Mosin-Nagant rifles. Five round capacity."
 	icon_state = "762"
 	ammo_type = /obj/item/ammo_casing/a762
 	max_ammo = 5
