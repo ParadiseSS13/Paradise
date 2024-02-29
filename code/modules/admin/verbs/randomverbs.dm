@@ -875,7 +875,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		else
 			var/keepStatus = alert("Maintain recall status on future shuttle calls?", "Maintain Status?", "Yes", "No") == "Yes" //Keeps or drops recallability
 			SSshuttle.emergency.canRecall = TRUE // must be true for cancel proc to work
-			SSshuttle.emergency.cancel(null, TRUE)
+			SSshuttle.emergency.cancel(byCC = TRUE)
 			if(keepStatus)
 				SSshuttle.emergency.canRecall = FALSE // restores original status
 	else
