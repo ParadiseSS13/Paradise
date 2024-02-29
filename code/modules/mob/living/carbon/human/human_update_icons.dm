@@ -110,7 +110,8 @@ Please contact me on #coderbus IRC. ~Carn x
 	var/list/cached_standing_overlays = list() // List of everything currently in a human's actual overlays
 
 /mob/living/carbon/human/proc/apply_overlay(cache_index)
-	if((. = overlays_standing[cache_index]))
+	. = overlays_standing[cache_index]
+	if(.)
 		add_overlay(.)
 
 /mob/living/carbon/human/proc/remove_overlay(cache_index)

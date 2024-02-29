@@ -37,6 +37,8 @@
 
 	O.rename_self("AI", TRUE)
 
+	O.blurb_it()
+
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src) // To prevent the proc from returning null. Todo: Convert to QDEL_IN
 	return O
 

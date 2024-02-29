@@ -138,6 +138,7 @@
 	safety = !safety
 	..()
 	update_icon(UPDATE_OVERLAYS)
+	return TRUE
 
 /obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
