@@ -65,7 +65,7 @@
 
 /obj/item/ammo_box/n762
 	name = "ammo box (7.62x38mmR)"
-	desc = "An ammunition box full of 7.62x38mmR pistol rounds, for use in antique revolvers."
+	desc = "An ammunition box full of 7.62x38mmR pistol cartridges, for use in antique revolvers."
 	icon_state = "riflebox"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/n762
@@ -73,7 +73,7 @@
 
 /obj/item/ammo_box/wt550
 	name = "ammo box (4.6x30mm)"
-	desc = "An ammunition box containing 4.6x30mm PDW rounds, for use in submachine guns and low-caliber rifles."
+	desc = "An ammunition box containing 4.6x30mm PDW cartridges, for use in submachine guns and low-caliber rifles."
 	icon_state = "riflebox"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
@@ -83,7 +83,7 @@
 
 /obj/item/ammo_box/wt550/wtap
 	name = "ammo box (Armor Piercing 4.6x30mm)"
-	desc = "An ammunition box containing 4.6x30mm PDW rounds. These are AP rounds, sacrificing damage for armor penetration."
+	desc = "An ammunition box containing 4.6x30mm PDW cartridges. These are AP rounds, sacrificing damage for armor penetration."
 	icon_state = "wtbox_AP"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/ap
 
@@ -95,7 +95,7 @@
 
 /obj/item/ammo_box/wt550/wttx
 	name = "ammo box (Toxin Tipped 4.6x30mm)"
-	desc = "An ammunition box containing 4.6x30mm rounds, tipped with lethal toxins. Possibly a war crime."
+	desc = "An ammunition box containing 4.6x30mm cartridges, tipped with lethal toxins. Possibly a war crime."
 	icon_state = "wtbox_tox"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/tox
 
