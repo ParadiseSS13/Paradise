@@ -13,7 +13,7 @@
 
 /datum/component/connect_mob_behalf/Initialize(client/tracked, list/connections)
 	. = ..()
-	if (!istype(tracked))
+	if(!istype(tracked))
 		return COMPONENT_INCOMPATIBLE
 	src.connections = connections
 	src.tracked = tracked
@@ -42,7 +42,7 @@
 		return
 	tracked_mob = tracked.mob
 	RegisterSignal(tracked_mob, COMSIG_MOB_LOGOUT, PROC_REF(on_logout))
-	for (var/signal in connections)
+	for(var/signal in connections)
 		parent.RegisterSignal(tracked_mob, signal, connections[signal])
 
 /datum/component/connect_mob_behalf/proc/unregister_signals()
