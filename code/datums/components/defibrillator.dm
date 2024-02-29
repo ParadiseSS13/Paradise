@@ -330,7 +330,7 @@
 	busy = TRUE
 	target.visible_message("<span class='danger'>[user] has touched [target] with [parent]!</span>", \
 			"<span class='userdanger'>[user] touches you with [parent], and you feel a strong jolt!</span>")
-	target.adjustStaminaLoss(60)
+	target.apply_damage(60, STAMINA)
 	target.KnockDown(10 SECONDS)
 	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	target.emote("gasp")
@@ -345,7 +345,7 @@
 	if(!istype(target))
 		return
 	busy = TRUE
-	target.adjustStaminaLoss(60)
+	target.apply_damage(60, STAMINA)
 	target.emote("gasp")
 	add_attack_logs(user, target, "Stunned with [parent]")
 	target.KnockDown(4 SECONDS)

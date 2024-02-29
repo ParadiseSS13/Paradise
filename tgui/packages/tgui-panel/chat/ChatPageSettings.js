@@ -25,7 +25,7 @@ export const ChatPageSettings = (props, context) => {
       <Stack align="center">
         <Stack.Item grow>
           <Input
-            fluid
+            width="100%"
             value={page.name}
             onChange={(e, value) =>
               dispatch(
@@ -38,7 +38,24 @@ export const ChatPageSettings = (props, context) => {
           />
         </Stack.Item>
         <Stack.Item>
+          <Button.Checkbox
+            content="Mute"
+            checked={page.hideUnreadCount}
+            icon={page.hideUnreadCount ? 'bell-slash' : 'bell'}
+            tooltip="Disables unread counter"
+            onClick={() =>
+              dispatch(
+                updateChatPage({
+                  pageId: page.id,
+                  hideUnreadCount: !page.hideUnreadCount,
+                })
+              )
+            }
+          />
+        </Stack.Item>
+        <Stack.Item>
           <Button
+            content="Remove"
             icon="times"
             color="red"
             onClick={() =>
@@ -48,9 +65,7 @@ export const ChatPageSettings = (props, context) => {
                 })
               )
             }
-          >
-            Remove
-          </Button>
+          />
         </Stack.Item>
       </Stack>
       <Divider />

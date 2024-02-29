@@ -313,14 +313,15 @@
 		return
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
-	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
+	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, modes[sensor_mode + 1])
 	if(!user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
 	if(!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't use your hands!</span>")
 		return
-
+	if(!switchMode)
+		return
 	sensor_mode = modes.Find(switchMode) - 1
 
 	if(loc == user)
@@ -492,6 +493,8 @@
 	if(!no_slip)
 		return
 	var/mob/living/carbon/human/H = user
+	if(!user)
+		return
 	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
 		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
 

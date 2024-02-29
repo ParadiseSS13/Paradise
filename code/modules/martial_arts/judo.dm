@@ -68,7 +68,7 @@
 /datum/martial_art/judo/explaination_header(user)
 	to_chat(user, "<b><i>You recall the teachings of Corporate Judo.</i></b>")
 
-/datum/martial_art/cqc/explaination_footer(user)
+/datum/martial_art/judo/explaination_footer(user)
 	to_chat(user, "<b>Your unarmed strikes hit about twice as hard as your peers, on average.</b>")
 
 /datum/martial_art/judo/under_siege

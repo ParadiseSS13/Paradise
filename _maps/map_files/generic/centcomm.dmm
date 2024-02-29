@@ -747,7 +747,6 @@
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "cS" = (
-/obj/effect/landmark/spawner/teleport_scroll,
 /obj/structure/table/wood/fancy/black,
 /obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet{
 	name = "our demands";
@@ -7375,9 +7374,7 @@
 /area/wizard_station)
 "Ak" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/radio/phone{
-	desc = "How else would the wizards order pizza?"
-	},
+/obj/structure/pondering_orb,
 /obj/effect/turf_decal/woodsiding{
 	dir = 6
 	},
@@ -8284,10 +8281,7 @@
 	},
 /area/centcom/suppy)
 "DD" = (
-/obj/machinery/power/apc{
-	name = "Gamma Armory APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -8295,7 +8289,7 @@
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
-/obj/machinery/suit_storage_unit/gamma,
+/obj/machinery/suit_storage_unit/gamma/secure,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "DE" = (
@@ -50121,7 +50115,7 @@ IS
 LN
 LN
 LN
-NF
+vy
 Mb
 LR
 LR
