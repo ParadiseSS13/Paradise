@@ -42,6 +42,7 @@ const donatorTiers = {
   2: 'Tier II',
   3: 'Tier III',
   4: 'Tier IV',
+  5: 'Tier V',
 };
 
 const gender = {
