@@ -389,7 +389,7 @@
 	if(!mymob)
 		return
 	var/mob/living/carbon/human/H = mymob
-	if(inventory_shown && hud_shown)
+	if(inventory_shown && hud_version == HUD_STYLE_STANDARD)
 		if(H.shoes)
 			H.shoes.screen_loc = ui_shoes
 			H.client.screen += H.shoes
@@ -432,7 +432,7 @@
 	if(!mymob)
 		return
 	var/mob/living/carbon/human/H = mymob
-	if(hud_shown)
+	if(hud_version == HUD_STYLE_STANDARD)
 		if(H.s_store)
 			H.s_store.screen_loc = ui_sstore1
 			H.client.screen += H.s_store

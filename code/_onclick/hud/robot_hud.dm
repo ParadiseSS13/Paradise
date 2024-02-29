@@ -210,7 +210,7 @@
 	if(!R.module)
 		return
 
-	if(R.shown_robot_modules && hud_shown)
+	if(R.shown_robot_modules && HUD_STYLE_STANDARD)
 		//Modules display is shown
 		R.client.screen += module_store_icon	//"store" icon
 
