@@ -12,8 +12,8 @@
 	var/floorbuffer = FALSE
 
 /obj/vehicle/janicart/Initialize(mapload)
-    . = ..()
-    GLOB.janitorial_equipment += src
+	. = ..()
+	GLOB.janitorial_equipment += src
 
 
 /obj/vehicle/janicart/Destroy()
