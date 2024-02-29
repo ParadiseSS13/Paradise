@@ -32,13 +32,13 @@
 /datum/stack_recipe/proc/try_build(mob/user, obj/item/stack/S, multiplier)
 	if(S.get_amount() < req_amount * multiplier)
 		if(req_amount * multiplier > 1)
-			to_chat(user, "<span class='warning'>You haven't got enough [S] to build \the [req_amount * multiplier] [title]\s!</span>")
+			to_chat(user, "<span class='warning'>You haven't got enough [S] to build [res_amount * multiplier] [title]\s!</span>")
 		else
-			to_chat(user, "<span class='warning'>You haven't got enough [S] to build \the [title]!</span>")
+			to_chat(user, "<span class='warning'>You haven't got enough [S] to build [title]!</span>")
 		return FALSE
 
 	if(window_checks && !valid_window_location(get_turf(S), user.dir))
-		to_chat(user, "<span class='warning'>\The [title] won't fit here!</span>")
+		to_chat(user, "<span class='warning'>[title] won't fit here!</span>")
 		return FALSE
 
 	if(one_per_turf && (locate(result_type) in get_turf(S)))
@@ -46,10 +46,10 @@
 		return FALSE
 
 	if(on_floor && !issimulatedturf(get_turf(S)))
-		to_chat(user, "<span class='warning'>\The [title] must be constructed on the floor!</span>")
+		to_chat(user, "<span class='warning'>[title] must be constructed on the floor!</span>")
 		return FALSE
 	if(on_floor_or_lattice && !(issimulatedturf(get_turf(S)) || locate(/obj/structure/lattice) in get_turf(S)))
-		to_chat(user, "<span class='warning'>\The [title] must be constructed on the floor or lattice!</span>")
+		to_chat(user, "<span class='warning'>[title] must be constructed on the floor or lattice!</span>")
 		return FALSE
 
 	if(cult_structure)
@@ -89,18 +89,13 @@
 
 /// What should be done after the object is built? obj/item/stack/O might not actually be a stack, but this proc needs access to merge() to work, which is on obj/item/stack, so declare it as obj/item/stack anyways.
 /datum/stack_recipe/proc/post_build(mob/user, obj/item/stack/S, obj/item/stack/O)
-	if(S.amount < 1) // Just in case a stack's amount ends up fractional somehow
-		var/oldsrc = S
-		S = null //dont kill proc after qdel()
-		user.unEquip(oldsrc, 1)
-		qdel(oldsrc)
+	O.add_fingerprint(user)
 
 	if(isitem(O))
 		if(isstack(O) && istype(O, user.get_inactive_hand()))
 			O.merge(user.get_inactive_hand())
 		user.put_in_hands(O)
 
-	O.add_fingerprint(user)
 	//BubbleWrap - so newly formed boxes are empty
 	if(isstorage(O))
 		for(var/obj/item/I in O)
@@ -110,28 +105,27 @@
 /* Special Recipes */
 
 /datum/stack_recipe/cable_restraints
-/datum/stack_recipe/cable_restraints/post_build(obj/item/stack/S, obj/result)
+/datum/stack_recipe/cable_restraints/post_build(mob/user, obj/item/stack/S, obj/result)
 	if(istype(result, /obj/item/restraints/handcuffs/cable))
 		result.color = S.color
 	..()
 
-
 /datum/stack_recipe/dangerous
-/datum/stack_recipe/dangerous/post_build(obj/item/stack/S, obj/result)
-	var/turf/targ = get_turf(usr)
-	message_admins("[title] made by [key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in [get_area(usr)] [ADMIN_COORDJMP(targ)]!",0,1)
-	log_game("[title] made by [key_name_admin(usr)] at [get_area(usr)] [targ.x], [targ.y], [targ.z].")
+/datum/stack_recipe/dangerous/post_build(mob/user, obj/item/stack/S, obj/result)
+	var/turf/targ = get_turf(user)
+	message_admins("[title] made by [key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) in [get_area(user)] [ADMIN_COORDJMP(targ)]!",0,1)
+	log_game("[title] made by [key_name_admin(user)] at [get_area(user)] [targ.x], [targ.y], [targ.z].")
 	..()
 
 /datum/stack_recipe/rods
-/datum/stack_recipe/rods/post_build(obj/item/stack/S, obj/result)
+/datum/stack_recipe/rods/post_build(mob/user, obj/item/stack/S, obj/result)
 	if(istype(result, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = result
 		R.update_icon()
 	..()
 
 /datum/stack_recipe/window
-/datum/stack_recipe/window/post_build(obj/item/stack/S, obj/result)
+/datum/stack_recipe/window/post_build(mob/user, obj/item/stack/S, obj/result)
 	if(istype(result, /obj/structure/windoor_assembly))
 		var/obj/structure/windoor_assembly/W = result
 		W.ini_dir = W.dir

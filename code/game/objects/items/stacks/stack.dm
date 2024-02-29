@@ -221,6 +221,12 @@
 			return
 		R.post_build(usr, src, O)
 
+		if(amount < 1) // Just in case a stack's amount ends up fractional somehow
+			var/oldsrc = src
+			src = null //dont kill proc after qdel()
+			usr.unEquip(oldsrc, 1)
+			qdel(oldsrc)
+
 	if(src && usr.machine == src) //do not reopen closed window
 		spawn(0)
 			interact(usr)
