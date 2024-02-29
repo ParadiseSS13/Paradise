@@ -25927,12 +25927,6 @@
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai)
-"byi" = (
-/obj/structure/closet/emcloset,
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/gravitygenerator)
 "byk" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -25942,6 +25936,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "byl" = (
@@ -45893,6 +45888,11 @@
 /area/station/public/locker)
 "cxw" = (
 /obj/structure/closet/wardrobe/green,
+/obj/machinery/alarm{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -63425,7 +63425,7 @@
 	},
 /area/station/hallway/secondary/exit)
 "dOz" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -66495,10 +66495,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "ehm" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "ehT" = (
@@ -66511,6 +66511,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/rd)
+"ehV" = (
+/obj/structure/grille,
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced,
+/obj/machinery/atmospherics/meter{
+	layer = 3.3
+	},
+/turf/simulated/floor/plating,
+/area/station/science/toxins/mixing)
 "eir" = (
 /obj/machinery/economy/vending/cart,
 /obj/machinery/computer/security/telescreen/entertainment{
@@ -81059,8 +81070,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "mUZ" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
 /obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
 "mVd" = (
@@ -87409,8 +87420,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "qJA" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
@@ -95318,10 +95329,10 @@
 	dir = 1
 	},
 /obj/structure/window/plasmareinforced,
-/obj/machinery/atmospherics/pipe/simple/insulated,
 /obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
 "vbA" = (
@@ -122565,7 +122576,7 @@ bpv
 bpv
 aOg
 abj
-bzL
+abj
 bwN
 bzL
 vzG
@@ -122823,7 +122834,7 @@ xBO
 aOg
 acF
 bzL
-byi
+bzL
 mPU
 bBt
 rcq
@@ -132150,7 +132161,7 @@ ecs
 dyz
 iTn
 wbZ
-vaZ
+ehV
 wRN
 cKu
 sMj
@@ -132664,7 +132675,7 @@ lwr
 vhS
 nBP
 xkJ
-vaZ
+ehV
 jzV
 cRy
 qwo
