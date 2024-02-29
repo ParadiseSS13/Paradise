@@ -273,7 +273,7 @@
 			new_sound = sound('sound/AI/cshuttle.ogg')
 		)
 
-/obj/docking_port/mobile/emergency/cancel(area/signalOrigin, byCC)
+/obj/docking_port/mobile/emergency/cancel(area/signalOrigin, byCC = FALSE)
 	if(!canRecall)
 		return
 
