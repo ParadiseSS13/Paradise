@@ -66,8 +66,8 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 				return FALSE
 			// Check if this is the first time they're turning on Antag HUD.
 			if(!check_rights(R_ADMIN | R_MOD, FALSE) && !ghost.is_roundstart_observer() && GLOB.configuration.general.restrict_antag_hud_rejoin && !ghost.has_ahudded())
-				var/response = alert(ghost, "If you turn this on, you will not be able to take any part in the round.", "Are you sure you want to enable antag HUD?", "Yes", "No")
-				if(response == "No")
+				var/response = tgui_alert(ghost, "If you turn this on, you will not be able to take any part in the round.", "Are you sure you want to enable antag HUD?", list("Yes", "No"))
+				if(response != "Yes")
 					return FALSE
 
 				ghost.can_reenter_corpse = FALSE

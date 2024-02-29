@@ -186,6 +186,7 @@
 	put_in(L)
 	if(user.pulling == L)
 		user.stop_pulling()
+	QDEL_LIST_CONTENTS(L.grabbed_by)
 	return TRUE
 
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)

@@ -10,7 +10,7 @@
 	maxHealth = 300
 	declare_arrests = FALSE
 	idcheck = TRUE
-	arrest_type = TRUE
+	no_handcuffs = TRUE
 	auto_patrol = TRUE
 	emagged = TRUE
 	faction = list("syndicate")
@@ -72,6 +72,11 @@
 /mob/living/simple_animal/bot/ed209/syndicate/emag_act(mob/user)
 	to_chat(user, "<span class='warning'>[src] has no card reader slot!</span>")
 
+/mob/living/simple_animal/bot/ed209/syndicate/try_chasing_target()
+	. = ..()
+	if(!lost_target)
+		shootAt(target)
+
 /mob/living/simple_animal/bot/ed209/syndicate/ed209_ai()
 	var/turf/current_turf = get_turf(src)
 	if(saved_turf && current_turf != saved_turf)
@@ -86,39 +91,42 @@
 		if(BOT_IDLE)
 			walk_to(src,0)
 			set_path(null)
-			look_for_perp()
+			if(find_new_target())
+				return
 			if(!mode && auto_patrol)
 				mode = BOT_START_PATROL
+
 		if(BOT_HUNT)
 			if(frustration >= 8)
 				walk_to(src,0)
 				set_path(null)
 				back_to_idle()
-			if(target)
-				if(isliving(target))
-					if(target.stat == DEAD)
-						back_to_idle()
-						return
-				shootAt(target)
-				var/turf/olddist = get_dist(src, target)
-				walk_to(src, target,1,4)
-				if((get_dist(src, target)) >= (olddist))
-					frustration++
-				else
-					frustration = 0
-			else
+				return
+
+			if(!target)
 				back_to_idle()
+				return
+
+			if(isliving(target) && target.stat == DEAD)
+				back_to_idle()
+				return
+
+			try_chasing_target(target)
+
 		if(BOT_START_PATROL)
-			look_for_perp()
+			if(find_new_target())
+				return
 			start_patrol()
+
 		if(BOT_PATROL)
-			look_for_perp()
+			if(find_new_target())
+				return
 			bot_patrol()
 		else
 			back_to_idle()
 	return
 
-/mob/living/simple_animal/bot/ed209/syndicate/look_for_perp()
+/mob/living/simple_animal/bot/ed209/syndicate/find_new_target()
 	if(disabled)
 		return
 	for(var/mob/M in view(7, src))
@@ -133,9 +141,9 @@
 		target = M
 		oldtarget_name = M.name
 		mode = BOT_HUNT
-		spawn(0)
-			handle_automated_action()
-		break
+		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
+		return TRUE
+	return FALSE
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/shootAt(atom/target)
@@ -178,7 +186,7 @@
 		return
 	shootAt(A)
 
-/mob/living/simple_animal/bot/ed209/syndicate/start_cuffing(mob/living/carbon/C)
+/mob/living/simple_animal/bot/ed209/syndicate/cuff(mob/living/carbon/C)
 	shootAt(C)
 
 /mob/living/simple_animal/bot/ed209/syndicate/stun_attack(mob/living/carbon/C)

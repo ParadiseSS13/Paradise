@@ -115,6 +115,7 @@
 	var/datum/robot_component/armour/A = get_armour()
 	if(A)
 		A.take_damage(brute, burn, sharp)
+		updatehealth()
 		return
 
 	while(LAZYLEN(parts) && (brute > 0 || burn > 0))

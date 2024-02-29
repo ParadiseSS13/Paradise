@@ -96,6 +96,11 @@
 
 	hud_possible = list(DIAG_STAT_HUD, DIAG_BOT_HUD, DIAG_HUD)//Diagnostic HUD views
 
+	/// storing last chased target known location
+	var/turf/last_target_location
+	/// will be true if we lost target we were chasing
+	var/lost_target = FALSE
+
 /obj/item/radio/headset/bot
 	requires_tcomms = FALSE
 	canhear_range = 0
@@ -109,6 +114,36 @@
 				B.radio_config.Insert(1, "[B.radio_channel]")
 				B.radio_config["[B.radio_channel]"] = 1
 		config(B.radio_config)
+
+/mob/living/simple_animal/bot/proc/try_chasing_target(mob/target)
+	if(target in view(12, src))
+		if(lost_target)
+			frustration = 0
+			lost_target = FALSE
+		last_target_location = get_turf(target)
+		var/dist = get_dist(src, target)
+		walk_to(src, target, 1, 4)
+		if(get_dist(src, target) >= dist)
+			frustration++
+		return
+
+	if(!lost_target)
+		walk_to(src, 0)
+		lost_target = TRUE
+		frustration = 0
+
+	if(get_turf(src) == last_target_location)
+		frustration += 2
+		return
+
+	if(!bot_move(last_target_location, move_speed = 6))
+		var/last_target_pos_path = get_path_to(src, last_target_location, id = access_card, skip_first = TRUE)
+		if(length(last_target_pos_path) == 0)
+			frustration = 10
+			return
+		set_path(last_target_pos_path)
+		bot_move(last_target_location, move_speed = 6)
+	frustration++
 
 /mob/living/simple_animal/bot/proc/get_mode()
 	if(client) //Player bots do not have modes, thus the override. Also an easy way for PDA users/AI to know when a bot is a player.
@@ -605,6 +640,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 		deltimer(reset_access_timer_id)
 		reset_access_timer_id = null
 	set_path(null)
+	last_target_location = null
+	lost_target = FALSE
 	summon_target = null
 	pathset = FALSE
 	access_card.access = prev_access
