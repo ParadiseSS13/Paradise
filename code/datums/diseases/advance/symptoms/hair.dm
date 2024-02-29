@@ -46,4 +46,4 @@ BONUS
 					head_organ.h_style = "Very Long Hair"
 				else //Otherwise, give them a random hair style.
 					head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
-			H.update_hair()
+		H.update_hair()
