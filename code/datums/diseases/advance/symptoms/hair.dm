@@ -29,7 +29,7 @@ BONUS
 		if(!ishuman(A.affected_mob))
 			return
 		var/mob/living/carbon/human/H = A.affected_mob
-		if (H.dna.species.bodyflags & BALD)
+		if(H.dna.species.bodyflags & BALD)
 			return
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		if(!istype(head_organ))
