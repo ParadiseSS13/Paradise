@@ -498,3 +498,26 @@
 		if(M.equipment.len<M.max_equip)
 			return TRUE
 	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade
+	name = "\improper \"Little boy\" Mining Grenade Launcher"
+	icon_state = "mecha_missilerack_six"
+	origin_tech = "combat=5;materials=4;engineering=4"
+	projectile = /obj/item/projectile/bullet/reusable/mining_bomb/mecha
+	fire_sound = 'sound/effects/bang.ogg'
+	energy_drain = 350 // cost A LOT, but powerful miner tool
+	equip_cooldown = 2 SECONDS
+	harmful = TRUE
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade/action()
+	if(!lavaland_equipment_pressure_check(get_turf(chassis)))
+		to_chat(chassis.occupant, "<span class='warning'>ERROR, OVER PRESSURE!</span>") // no station terror(yet)
+		playsound(chassis.occupant, 'sound/weapons/gun_interactions/dry_fire.ogg', 25, TRUE)
+		return FALSE
+	return ..()
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade/can_attach(obj/mecha/M)
+	if(istype(M, /obj/mecha/working))
+		if(length(M.equipment) < M.max_equip)
+			return TRUE
+	return FALSE
