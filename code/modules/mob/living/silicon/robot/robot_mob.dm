@@ -511,6 +511,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	update_module_icon()
 	update_icons()
+	if(client.stat_tab == "Status")
+		SSstatpanels.set_status_tab(client)
 	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(selected_module)]")
 	notify_ai(2)
 
@@ -670,29 +672,31 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return TRUE
 
 // this function displays the cyborgs current cell charge in the stat panel
-/mob/living/silicon/robot/proc/show_cell_power(list/status_tab_data)
+/mob/living/silicon/robot/proc/show_cell_power()
 	return list("Charge Left:", cell ? "[cell.charge]/[cell.maxcharge]" : "No Cell Inserted!")
 
-/mob/living/silicon/robot/proc/show_gps_coords(list/status_tab_data)
-	if(locate(/obj/item/gps/cyborg) in module.modules)
-		var/turf/T = get_turf(src)
-		return list("GPS:", "[COORD(T)]")
+/mob/living/silicon/robot/proc/show_gps_coords()
+	var/turf/turf = get_turf(src)
+	return list("GPS:", "[COORD(turf)]")
 
-/mob/living/silicon/robot/proc/show_stack_energy(list/status_tab_data)
-	for(var/storage in module.storages) // Storages should only contain `/datum/robot_energy_storage`
-		var/datum/robot_energy_storage/R = storage
-		return list("[R.statpanel_name]:", "[R.energy] / [R.max_energy]")
+/mob/living/silicon/robot/proc/show_stack_energy(datum/robot_energy_storage/robot_energy_storage)
+	return list("[robot_energy_storage.statpanel_name]:", "[robot_energy_storage.energy] / [robot_energy_storage.max_energy]")
 
 // update the status screen display
 /mob/living/silicon/robot/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 
-	status_tab_data[++status_tab_data.len] = show_cell_power(status_tab_data)
+	status_tab_data[++status_tab_data.len] = show_cell_power()
 
-	if(module)
-		status_tab_data[++status_tab_data.len] = show_gps_coords(status_tab_data)
-		status_tab_data[++status_tab_data.len] = show_stack_energy(status_tab_data)
+	if(!module)
+		return
+
+	if(locate(/obj/item/gps/cyborg) in module.modules)
+		status_tab_data[++status_tab_data.len] = show_gps_coords()
+
+	for(var/datum/robot_energy_storage/robot_energy_storage in module.storages)
+		status_tab_data[++status_tab_data.len] = show_stack_energy(robot_energy_storage)
 
 /mob/living/silicon/robot/restrained()
 	return 0

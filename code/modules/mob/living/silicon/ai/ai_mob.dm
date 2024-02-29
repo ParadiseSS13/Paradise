@@ -320,9 +320,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	src << browse(dat_text, "window=aialerts&can_close=0")
 
 /mob/living/silicon/ai/proc/show_borg_info(list/status_tab_data)
-	status_tab_data[++status_tab_data.len] = list("Connected cyborgs:", "[length(connected_robots)]")
-	for(var/thing in connected_robots)
-		var/mob/living/silicon/robot/R = thing
+	status_tab_data[++status_tab_data.len] = list("Connected cyborg count:", "[length(connected_robots)]")
+	for(var/mob/living/silicon/robot/R in connected_robots)
 		var/robot_status = "Nominal"
 		if(R.stat || !R.client)
 			robot_status = "OFFLINE"
