@@ -146,6 +146,9 @@
 	/// Assigned say modal of the client
 	var/datum/tgui_say/tgui_say
 
+	/// Our object window datum. It stores info about and handles behavior for the object tab
+	var/datum/object_window_info/obj_window
+
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS

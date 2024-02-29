@@ -489,6 +489,9 @@
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
 
+	if(obj_window)
+		QDEL_NULL(obj_window)
+
 	SSambience.ambience_listening_clients -= src
 	SSinput.processing -= src
 	SSping.current_run -= src
