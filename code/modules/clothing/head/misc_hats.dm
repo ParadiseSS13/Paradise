@@ -287,7 +287,7 @@
 
 /obj/item/clothing/head/fedora/item_action_slot_check(slot)
 	if(slot == SLOT_HUD_HEAD)
-		return 1
+		return TRUE
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
 	user.visible_message("[user] tips [user.p_their()] fedora.", "You tip your fedora.")
