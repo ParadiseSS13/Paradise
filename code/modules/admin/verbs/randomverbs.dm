@@ -879,7 +879,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(keepStatus)
 				SSshuttle.emergency.canRecall = FALSE // restores original status
 	else
-		SSshuttle.emergency.cancel(null, TRUE)
+		SSshuttle.emergency.cancel(byCC = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Cancel Shuttle") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-recalled the emergency shuttle.")
