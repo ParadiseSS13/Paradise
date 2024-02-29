@@ -1008,12 +1008,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/list/status_tab_data = list()
 	return status_tab_data
 
-// this function displays the shuttles ETA in the status panel if the shuttle has been called
-/mob/proc/show_stat_emergency_shuttle_eta()
-	var/eta = SSshuttle.emergency.getModeStr()
-	if(eta)
-		return list("[eta]", "[SSshuttle.emergency.getTimerStr()]")
-
 // facing verbs
 /mob/proc/canface()
 	if(client.moving)

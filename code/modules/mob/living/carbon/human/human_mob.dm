@@ -186,8 +186,6 @@
 	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
 	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
 
-	status_tab_data[++status_tab_data.len] = show_stat_emergency_shuttle_eta()
-
 	if(HAS_TRAIT(src, TRAIT_HAS_GPS))
 		var/turf/T = get_turf(src)
 		status_tab_data[++status_tab_data.len] = list("GPS:", "[COORD(T)]")

@@ -113,7 +113,6 @@
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
 	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
-	status_tab_data[++status_tab_data.len] = show_stat_emergency_shuttle_eta()
 
 /mob/living/carbon/alien/SetStunned(amount, updating = TRUE, force = 0)
 	..()

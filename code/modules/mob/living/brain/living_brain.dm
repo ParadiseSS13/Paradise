@@ -82,12 +82,10 @@ I'm using this for Stat to give it a more nifty interface to work with
 /mob/living/brain/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	if(has_synthetic_assistance())
-		status_tab_data[++status_tab_data.len] = show_stat_emergency_shuttle_eta()
-		if(ismecha(loc))
-			var/obj/mecha/M = loc
-			status_tab_data[++status_tab_data.len] = list("Exosuit Charge:", "[istype(M.cell) ? "[M.cell.charge] / [M.cell.maxcharge]" : "No cell detected"]")
-			status_tab_data[++status_tab_data.len] = list("Exosuit Integrity:", "[!M.obj_integrity ? "0" : "[(M.obj_integrity / M.max_integrity) * 100]"]%")
+	if(has_synthetic_assistance() && ismecha(loc))
+		var/obj/mecha/M = loc
+		status_tab_data[++status_tab_data.len] = list("Exosuit Charge:", "[istype(M.cell) ? "[M.cell.charge] / [M.cell.maxcharge]" : "No cell detected"]")
+		status_tab_data[++status_tab_data.len] = list("Exosuit Integrity:", "[!M.obj_integrity ? "0" : "[(M.obj_integrity / M.max_integrity) * 100]"]%")
 
 /mob/living/brain/can_safely_leave_loc()
 	return 0 //You're not supposed to be ethereal jaunting, brains

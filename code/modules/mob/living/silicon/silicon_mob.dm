@@ -284,7 +284,6 @@
 /mob/living/silicon/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = show_stat_emergency_shuttle_eta()
 	status_tab_data[++status_tab_data.len] = show_system_integrity()
 
 //Silicon mob language procs
