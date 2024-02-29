@@ -51,7 +51,7 @@
 	build_path = /obj/item/disk/tech_disk
 	category = list("Miscellaneous")
 
-/datum/design/tech_disk
+/datum/design/training_disk
 	name = "Training Authentification Disk"
 	desc = "Replacement authentification disk for the nuclear training bomb."
 	id = "training_nad"
