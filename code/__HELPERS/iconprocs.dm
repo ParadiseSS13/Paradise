@@ -307,13 +307,36 @@ GLOBAL_DATUM_INIT(iconCache, /savefile, new /savefile("data/iconCache.sav"))
 
 GLOBAL_LIST_EMPTY(bicon_cache)
 
-/proc/icon2base64(icon/icon, iconKey = "misc")
-	if(!isicon(icon)) return 0
+/// Gets a dummy savefile for usage in icon generation.
+/// Savefiles generated from this proc will be empty.
+/proc/get_dummy_savefile(from_failure = FALSE)
+	var/static/next_id = 0
+	if(next_id++ > 9)
+		next_id = 0
+	var/savefile_path = "tmp/dummy-save-[next_id].sav"
+	try
+		if(fexists(savefile_path))
+			fdel(savefile_path)
+		return new /savefile(savefile_path)
+	catch(var/exception/error)
+		// if we failed to create a dummy once, try again; maybe someone slept somewhere they shouldnt have
+		if(from_failure) // this *is* the retry, something fucked up
+			CRASH("get_dummy_savefile failed to create a dummy savefile: '[error]'")
+		return get_dummy_savefile(from_failure = TRUE)
 
-	GLOB.iconCache[iconKey] << icon
-	var/iconData = GLOB.iconCache.ExportText(iconKey)
+/**
+ * Converts an icon to base64. Operates by putting the icon in the iconCache savefile,
+ * exporting it as text, and then parsing the base64 from that.
+ * (This relies on byond automatically storing icons in savefiles as base64)
+ */
+/proc/icon2base64(icon/icon)
+	if (!isicon(icon))
+		return FALSE
+	var/savefile/dummySave = get_dummy_savefile()
+	WRITE_FILE(dummySave["dummy"], icon)
+	var/iconData = dummySave.ExportText("dummy")
 	var/list/partial = splittext(iconData, "{")
-	return replacetext(copytext(partial[2], 3, -5), "\n", "")
+	return replacetext(copytext_char(partial[2], 3, -5), "\n", "") //if cleanup fails we want to still return the correct base64
 
 /proc/bicon(obj, use_class = 1)
 	var/class = use_class ? "class='icon misc'" : null
