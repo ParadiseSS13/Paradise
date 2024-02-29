@@ -1037,8 +1037,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /proc/get_safe_species()
 	var/static/list/random_species = list()
 	if(!length(random_species))
-		for(var/thing in subtypesof(/datum/species))
-			var/datum/species/S = thing
+		for(var/datum/species/S as anything in subtypesof(/datum/species))
 			if(!initial(S.dangerous_existence) && !initial(S.blacklisted))
 				random_species += initial(S.name)
 	return random_species
