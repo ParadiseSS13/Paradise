@@ -7,7 +7,6 @@ export const pda_janitor = (props, context) => {
 
   const { user_loc, mops, buckets, cleanbots, carts, janicarts } = janitor;
 
-
   return (
     <LabeledList>
       <LabeledList.Item label="Current Location">
