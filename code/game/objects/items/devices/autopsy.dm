@@ -76,12 +76,12 @@
 	if(!is_pen(P))
 		return ..()
 
-	var/dead_name = tgui_input_text(user, "Insert name of deceased individual", default=target_name, title="Coroner's Report", max_length=60)
-	var/rank = tgui_input_text(user, "Insert rank of deceased individual", default=target_rank, title="Coroner's Report", max_length=60)
-	var/tod = tgui_input_text(user, "Insert time of death", default=station_time_timestamp("hh:mm", timeofdeath), title="Coroner's Report", max_length=60)
-	var/cause = tgui_input_text(user, "Insert cause of death", title="Coroner's Report", max_length=60)
-	var/chems = tgui_input_text(user, "Insert any chemical traces", multiline=TRUE, title="Coroner's Report")
-	var/notes = tgui_input_text(user, "Insert any relevant notes", multiline=TRUE, title="Coroner's Report")
+	var/dead_name = tgui_input_text(user, "Insert name of deceased individual", default = target_name, title = "Coroner's Report", max_length = 60)
+	var/rank = tgui_input_text(user, "Insert rank of deceased individual", default = target_rank, title = "Coroner's Report", max_length = 60)
+	var/tod = tgui_input_text(user, "Insert time of death", default = station_time_timestamp("hh:mm", timeofdeath), title = "Coroner's Report", max_length = 60)
+	var/cause = tgui_input_text(user, "Insert cause of death", title = "Coroner's Report", max_length = 60)
+	var/chems = tgui_input_text(user, "Insert any chemical traces", multiline = TRUE, title = "Coroner's Report")
+	var/notes = tgui_input_text(user, "Insert any relevant notes", multiline = TRUE, title = "Coroner's Report")
 	var/obj/item/paper/R = new(user.loc)
 	R.name = "Official Coroner's Report - [dead_name]"
 	R.info = "<b><center>[station_name()] - Coroner's Report</b></center><br><br><b>Name of Deceased:</b> [dead_name]</br><br><b>Rank of Deceased:</b> [rank]<br><br><b>Time of Death:</b> [tod]<br><br><b>Cause of Death:</b> [cause]<br><br><b>Trace Chemicals:</b> [chems]<br><br><b>Additional Coroner's Notes:</b> [notes]<br><br><b>Coroner's Signature:</b> <span class=\"paper_field\">"
