@@ -1064,6 +1064,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set name = "Export Character DMI/JSON"
 	set category = "Admin"
 
-	if ishuman(mob)
+	if(ishuman(mob))
 		var/mob/living/carbon/human/H = mob
 		H.export_dmi_json()

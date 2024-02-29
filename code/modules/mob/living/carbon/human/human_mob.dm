@@ -1264,7 +1264,7 @@
 	var/maxCount = 10
 	var/curCount = 0
 	var/dmipath = "data/exports/characters/[filename].dmi"
-	log_debug("saving icon to [filename]")
+	log_world("saving icon to [filename]")
 	var/icon/allDirs = null
 
 	var/list/directions = list(SOUTH, NORTH, EAST, WEST)
@@ -1278,21 +1278,21 @@
 				break
 
 		if(new_icon == null)
-			log_debug("ran [curCount] times and could not find icon")
+			log_world("ran [curCount] times and could not find icon")
 		else
-			log_debug("ran [curCount] times and found icon")
+			log_world("ran [curCount] times and found icon")
 			if(allDirs == null)
 				allDirs = icon(new_icon, "", d)
 			else
 				allDirs.Insert(new_icon, "", d)
 
 	fcopy(allDirs, dmipath)
-	log_debug("saved icon to [dmipath]")
+	log_world("saved icon to [dmipath]")
 
 	var/jsonpath = "data/exports/characters/[filename].json"
 	var/json = json_encode(serialize())
 	text2file(json, jsonpath)
-	log_debug("saved json to [jsonpath]")
+	log_world("saved json to [jsonpath]")
 
 /**
  * Change a mob's species.
