@@ -245,7 +245,7 @@
 					return
 
 				if(!current_limb)
-					if(!length(limbs_to_grow)) //if there's no current limb, we have no limbs left to grow, and there's <25 clone damage, we don't have anything left to do in this 'chunk' of clone_progress
+					if(!length(limbs_to_grow)) //if we meet all of the conditions to get here, there's nothing left to do in this section
 						desc_flavor = "You see muscle and fat filling out on [clone]'s body."
 						return
 					for(var/limb_candidate in limbs_to_grow)
