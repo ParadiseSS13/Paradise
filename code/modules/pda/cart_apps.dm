@@ -455,8 +455,8 @@
 		if(janicart_loc)
 			if(janicart_loc.z != cl.z)
 				continue
-			var/direction = get_dir(pda,J)
-			JaniCartData[++JaniCartData.len] = list("x" = jl.x, "y" = jl.y, "dir" = uppertext(dir2text(direction)))
+			var/direction_from_user = get_dir(pda, janicart)
+			JaniCartData[++JaniCartData.len] = list("x" = janicart_loc.x, "y" = janicart_loc.y, "direction_from_user" = uppertext(dir2text(direction_from_user)))
 
 	JaniData["mops"] = MopData.len ? MopData : null
 	JaniData["buckets"] = BucketData.len ? BucketData : null
