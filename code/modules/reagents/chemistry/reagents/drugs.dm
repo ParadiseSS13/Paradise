@@ -862,7 +862,6 @@
 	cling.chem_recharge_slowdown += 1
 	changeling_chemical_tracker += 1
 
-
 /datum/reagent/twitch/on_mob_delete(mob/living/carbon/L)
 	REMOVE_TRAIT(L, TRAIT_GOTTAGOFAST, id)
 	REMOVE_TRAIT(L, TRAIT_NOKNOCKDOWNSLOWDOWN, id)

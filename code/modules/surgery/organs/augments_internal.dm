@@ -303,7 +303,6 @@
 	origin_tech = "materials=6;programming=6;biotech=6"
 	emp_proof = TRUE
 
-
 // An implant that injects you with twitch on demand, acting like a bootleg sandevistan
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer

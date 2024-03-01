@@ -69,7 +69,7 @@
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
 /datum/chemical_reaction/mephedrone
-	name = "mephedrone"
+	name = "Mephedrone"
 	id = "mephedrone"
 	result = "mephedrone"
 	required_reagents = list("bath_salts" = 5, "carpotoxin" = 5, "teslium" = 5)
