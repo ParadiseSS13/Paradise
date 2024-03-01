@@ -451,7 +451,7 @@
 
 	var/list/JaniCartData = list()
 	for(var/obj/vehicle/janicart/J in GLOB.janitorial_equipment)
-		var/turf/jl = get_turf(J)
+		var/turf/janicart_loc = get_turf(janicart )
 		if(jl)
 			if(janicart_loc.z != cl.z)
 				continue
