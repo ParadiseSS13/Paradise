@@ -134,6 +134,7 @@
 	starting_organ = /obj/item/organ/internal/cyberimp/chest/reviver/hardened
 
 /obj/item/autosurgeon/organ/syndicate/hardened_heart
+	uses = 1
 	starting_organ = /obj/item/organ/internal/heart/cybernetic/upgraded/hardened
 
 #undef INFINITE
