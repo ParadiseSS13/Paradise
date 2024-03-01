@@ -1225,7 +1225,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/obj/vent_found = pick(found_vents)
 	var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
 	host.ckey = src.ckey
-	to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
+	to_chat(host, "<span class='info'>You are now a mouse, a small and fragile creature capable of scurrying through vents and under doors. Be careful who you reveal yourself to, for that will decide whether you receive cheese or death.</span>")
 	host.forceMove(vent_found)
 	host.add_ventcrawl(vent_found)
 	return TRUE
