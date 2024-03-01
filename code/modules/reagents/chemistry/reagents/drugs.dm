@@ -831,6 +831,8 @@
 	process_flags = ORGANIC | SYNTHETIC
 	/// How much time has the drug been in them?
 	var/constant_dose_time = 0
+	/// Keeps track of how many chemicals we are delaying the changeling by.
+	var/changeling_chemical_tracker = 0
 
 
 /datum/reagent/twitch/on_mob_add(mob/living/carbon/L)
@@ -858,6 +860,7 @@
 		return
 	var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 	cling.chem_recharge_slowdown += 1
+	changeling_chemical_tracker += 1
 
 
 /datum/reagent/twitch/on_mob_delete(mob/living/carbon/L)
@@ -874,12 +877,8 @@
 
 	if(ischangeling(L))
 		var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
-		if(HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED) && overdosed) //If we OD with implant, we have one slowdown
-			cling.chem_recharge_slowdown -= 1
-		else if(overdosed) //Otherwise we have two
-			cling.chem_recharge_slowdown -= 2
-		else if(!HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED)) //And if we are not oding without impant, we have one
-			cling.chem_recharge_slowdown -= 1
+		cling.chem_recharge_slowdown -= changeling_chemical_tracker
+		changeling_chemical_tracker = 0
 
 	if(constant_dose_time < CONSTANT_DOSE_SAFE_LIMIT) // Anything less than this and you'll come out fiiiine, aside from a big hit of stamina damage
 		L.visible_message(
@@ -992,6 +991,7 @@
 	if(ischangeling(L))
 		var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 		cling.chem_recharge_slowdown += 1
+		changeling_chemical_tracker += 1
 
 	if(!L.hud_used)
 		return
@@ -1012,7 +1012,9 @@
 
 	if(ischangeling(L))
 		var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
-		cling.chem_recharge_slowdown -= 1
+		if(changeling_chemical_tracker > 0) //Just in case this gets called somehow after on_remove is done
+			cling.chem_recharge_slowdown -= 1
+			changeling_chemical_tracker -= 1
 
 	if(!L.hud_used)
 		return
