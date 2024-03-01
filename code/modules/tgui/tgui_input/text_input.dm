@@ -123,7 +123,7 @@
 	data["max_length"] = max_length
 	data["message"] = message
 	data["multiline"] = multiline
-	data["placeholder"] = default // Default is a reserved keyword
+	data["placeholder"] = html_decode(default) // Default is a reserved keyword
 	data["large_buttons"] = user.client?.prefs?.toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS
 	data["swapped_buttons"] = user.client?.prefs?.toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS
 	data["title"] = title
