@@ -449,7 +449,6 @@
 
 
 /obj/machinery/cryopod/attackby(obj/item/I, mob/user, params)
-
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 
@@ -472,8 +471,9 @@
 			return
 
 		if(M.client)
-			if(alert(M,"Would you like to enter long-term storage?",,"Yes","No") == "Yes")
-				if(!M || !G || !G.affecting) return
+			if(tgui_alert(M, "Would you like to enter long-term storage?", "Cryosleep", list("Yes", "No")) == "Yes")
+				if(!M || !G || !G.affecting)
+					return
 				willing = willing_time_divisor
 		else
 			willing = 1
@@ -547,8 +547,9 @@
 	time_till_despawn = initial(time_till_despawn)
 
 	if(L.client)
-		if(alert(L,"Would you like to enter cryosleep?",,"Yes","No") == "Yes")
-			if(!L) return
+		if(tgui_alert(L, "Would you like to enter cryosleep?", "Cryosleep", list("Yes", "No")) == "Yes")
+			if(!L)
+				return
 			willing = willing_time_divisor
 	else
 		willing = 1
@@ -575,6 +576,7 @@
 		return
 	if(!E)
 		return
+	QDEL_LIST_CONTENTS(E.grabbed_by)
 	E.forceMove(src)
 	time_till_despawn = initial(time_till_despawn) / willing_factor
 	icon_state = occupied_icon_state

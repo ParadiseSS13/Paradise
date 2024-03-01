@@ -155,11 +155,7 @@
 /area/ruin/ancientstation/hivebot)
 "aE" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 4;
-	name = "Beta Engineering APC";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
@@ -999,11 +995,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 1;
-	name = "Theta Prototype Lab APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "cW" = (
@@ -1055,11 +1047,7 @@
 /area/ruin/ancientstation/comm)
 "dd" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 4;
-	name = "Charlie Main Corridor APC";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /obj/structure/closet/crate,
 /obj/item/storage/backpack/old,
 /obj/item/storage/backpack/old,
@@ -1390,11 +1378,7 @@
 	pixel_y = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 4;
-	name = "Charlie Command APC";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/comm)
 "dY" = (
@@ -2451,25 +2435,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
-"ge" = (
-/obj/structure/table,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
-	},
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 8;
-	name = "Charlie Security APC";
-	pixel_x = -24
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/sellable/salvage/ruin/nanotrasen,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
-	},
-/area/ruin/ancientstation/sec)
 "gf" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -3372,11 +3337,7 @@
 	pixel_y = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 1;
-	name = "Theta Main Corridor APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
 "ie" = (
@@ -3747,11 +3708,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 1;
-	name = "Charlie Hydroponics APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/hydroponics)
@@ -4026,10 +3983,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/off_station/empty_charge{
-	name = "Charlie Kitchen APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/kitchen)
@@ -4055,11 +4009,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 4;
-	name = "Theta RnD APC";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
@@ -4618,11 +4568,7 @@
 /obj/structure/rack,
 /obj/item/stack/cable_coil,
 /obj/structure/cable,
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 4;
-	name = "Charlie Engineering APC";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -5040,6 +4986,42 @@
 /obj/structure/transit_tube/crossing,
 /turf/template_noop,
 /area/space/nearstation)
+"Hr" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/table,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/obj/machinery/power/apc/off_station/empty_charge{
+	dir = 8;
+	name = "Charlie Security APC";
+	pixel_x = -24
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/sellable/salvage/ruin/nanotrasen,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/table,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "red"
+	},
+/area/ruin/ancientstation/sec)
 "Lu" = (
 /obj/structure/transit_tube/horizontal{
 	dir = 4
@@ -7249,7 +7231,7 @@ bC
 bC
 cG
 dg
-ge
+Hr
 eu
 fX
 eu

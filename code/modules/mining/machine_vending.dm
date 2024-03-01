@@ -71,6 +71,7 @@
 		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),
 		EQUIPMENT("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator, 750),
 		EQUIPMENT("Kinetic Crusher", /obj/item/kinetic_crusher, 750),
+		EQUIPMENT("Mecha Grenade Launcher", /obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade, 3000),
 		EQUIPMENT("Resonator", /obj/item/resonator, 800),
 		EQUIPMENT("Silver Pickaxe", /obj/item/pickaxe/silver, 1000),
 		EQUIPMENT("Super Resonator", /obj/item/resonator/upgraded, 2500),

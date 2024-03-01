@@ -793,6 +793,9 @@
 	actions_types = list()
 	adjust_flavour = null
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy,/obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/projectile/automatic/pistol, /obj/item/gun/projectile/revolver, /obj/item/gun/energy/detective)
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/suit/jacket/miljacket/navy
 	name = "navy military jacket"
@@ -1015,6 +1018,9 @@
 	actions_types = list()
 	adjust_flavour = null
 	resistance_flags = NONE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/suit/jacket/motojacket
 	name = "leather motorcycle jacket"
@@ -1038,6 +1044,9 @@
 	icon_state = "leathercoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/suit/officercoat
 	name = "clown officer's coat"

@@ -986,11 +986,7 @@
 /area/syndicate_depot/core)
 "cJ" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/off_station{
-	dir = 4;
-	pixel_x = 24;
-	req_access = list(150)
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1155,10 +1151,7 @@
 	},
 /area/syndicate_depot/core)
 "de" = (
-/obj/machinery/power/apc/off_station{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/off_station/directional/east,
 /obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/syndicate_depot/outer)

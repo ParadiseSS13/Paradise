@@ -140,14 +140,11 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
+/obj/machinery/power/apc/off_station/directional/north{
 	environment_channel = 2;
 	equipment_channel = 0;
 	lighting_channel = 0;
-	locked = 0;
-	pixel_y = 24;
-	req_access = ""
+	locked = 0
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -430,15 +427,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
-"bN" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/hugemushroomslice,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/turf/simulated/floor/plating,
-/area/ruin/unpowered/BMPship/Delta)
 "bO" = (
 /obj/machinery/door_control{
 	id = "packerCargo";
@@ -469,14 +457,11 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
+/obj/machinery/power/apc/off_station/directional/north{
 	equipment_channel = 0;
 	lighting_channel = 0;
 	locked = 0;
-	operating = 0;
-	pixel_y = 24;
-	req_access = ""
+	operating = 0
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
@@ -807,13 +792,10 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
+/obj/machinery/power/apc/off_station/directional/north{
 	environment_channel = 0;
 	locked = 0;
-	operating = 0;
-	pixel_y = 24;
-	req_access = ""
+	operating = 0
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
@@ -1175,12 +1157,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
+/obj/machinery/power/apc/off_station/directional/north{
 	locked = 0;
-	operating = 0;
-	pixel_y = 24;
-	req_access = ""
+	operating = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -2447,6 +2426,15 @@
 /mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
+"IM" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/food/snacks/meat,
+/obj/item/food/snacks/hugemushroomslice,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/BMPship/Delta)
 "PP" = (
 /obj/structure/computerframe{
 	dir = 4
@@ -4967,7 +4955,7 @@ aj
 aj
 aj
 aj
-bN
+IM
 ad
 cl
 cl

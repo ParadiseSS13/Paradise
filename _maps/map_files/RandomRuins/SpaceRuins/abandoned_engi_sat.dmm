@@ -192,9 +192,7 @@
 	icon_state = "0-4";
 	d2 = 4
 	},
-/obj/machinery/power/apc/off_station/empty_charge{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/south,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)

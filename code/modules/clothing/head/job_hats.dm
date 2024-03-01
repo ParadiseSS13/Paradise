@@ -243,6 +243,11 @@
 	desc = "A black beret with a brown robotics insignia emblazoned on it. It smells distinctly like oil."
 	icon_state = "beret_roboticsblack"
 
+/obj/item/clothing/head/beret/janitor
+	name = "janitorial beret"
+	desc = "A purple beret with a mint service insignia emblazoned on it. It smells squeaky clean."
+	icon_state = "beret_janitor"
+
 //Medical
 /obj/item/clothing/head/beret/med
 	name = "medical beret"
