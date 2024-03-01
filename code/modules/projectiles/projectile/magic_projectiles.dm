@@ -245,6 +245,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 				"robot" = 4,
 				"slime" = 4,
 				"xeno" = 4,
+				"terror" = 4,
 				"human" = length(random_species),
 				// double animal weight to account for the absurd number of human species we have
 				"animal" = (length(GLOB.wabbajack_docile_animals) + length(GLOB.wabbajack_hostile_animals)) * 2,
@@ -286,6 +287,14 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 					new_mob = new /mob/living/carbon/alien/humanoid/sentinel(M.loc)
 				new_mob.universal_speak = TRUE
 				to_chat(M, "<span class='userdanger'>Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards non-xenomorph life!</span>")
+			if("terror")
+				var/terror_type = pick(
+					/mob/living/simple_animal/hostile/poison/terror_spider/red,
+					/mob/living/simple_animal/hostile/poison/terror_spider/brown,
+					/mob/living/simple_animal/hostile/poison/terror_spider/gray,
+					/mob/living/simple_animal/hostile/poison/terror_spider/black)
+				new_mob = new terror_type(M.loc)
+				to_chat(M, "<span class='userdanger'>Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards all non-terror spiders!</span>")
 			if("animal")
 				if(prob(50))
 					var/beast = pick(GLOB.wabbajack_hostile_animals)
