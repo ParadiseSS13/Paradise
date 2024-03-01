@@ -178,7 +178,6 @@
 	new /obj/item/stack/cable_coil(src, 30, COLOR_BLUE)
 	update_icon()
 
-
 /obj/item/storage/belt/medical
 	name = "medical belt"
 	desc = "Can hold various medical equipment."
