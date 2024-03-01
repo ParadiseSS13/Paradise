@@ -374,6 +374,7 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0
+
 	while(get_ammo() > 0)
 		var/obj/item/ammo_casing/CB
 		CB = magazine.get_round(0)
@@ -383,10 +384,38 @@
 		CB.update_icon()
 		playsound(get_turf(CB), 'sound/weapons/gun_interactions/shotgun_fall.ogg', 70, 1)
 		num_unloaded++
+
+	if(sleight_of_handling(user))
+		return
+
 	if(num_unloaded)
-		to_chat(user, "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>")
+		to_chat(user, "<span class='notice'>You break open [src] and unload [num_unloaded] shell\s.</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+
+/obj/item/gun/projectile/revolver/doublebarrel/proc/sleight_of_handling(mob/living/carbon/human/user)
+	if(!istype(get_area(user), /area/station/service/bar))
+		return FALSE
+	if(!istype(user) || !HAS_MIND_TRAIT(user, TRAIT_SLEIGHT_OF_HAND))
+		return FALSE
+	if(!istype(user.belt, /obj/item/storage/belt/bandolier))
+		return FALSE
+	var/obj/item/storage/belt/bandolier/our_bandolier = user.belt
+
+	var/loaded_shells = 0
+	for(var/obj/item/ammo_casing/shotgun/shell in our_bandolier)
+		if(loaded_shells == magazine.max_ammo)
+			break
+
+		our_bandolier.remove_from_storage(shell)
+		magazine.give_round(shell)
+		chamber_round()
+
+		loaded_shells++
+
+	if(loaded_shells)
+		to_chat(user, "<span class='notice'>You quickly load [loaded_shells] shell\s from your bandolier into [src].</span>")
+	return TRUE
 
 // IMPROVISED SHOTGUN //
 

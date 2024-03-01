@@ -174,7 +174,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 // This is its own proc so it can be modified in child types
 /obj/machinery/computer/general_air_control/proc/configure_sensors(mob/living/user, obj/item/multitool/M)
 	var/choice = tgui_alert(user, "Would you like to add or remove a sensor/meter", "Configuration", list("Add", "Remove", "Cancel"))
-	if((choice == "Cancel") || !Adjacent(user))
+	if(!choice || (choice == "Cancel") || !Adjacent(user))
 		return
 
 	switch(choice)
@@ -354,7 +354,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/configure_inlet(mob/living/user, obj/item/multitool/M)
 	var/choice = tgui_alert(user, "Would you like to add/replace the existing inlet or clear it?", "Configuration", list("Add/Replace", "Clear", "Cancel"))
-	if((choice == "Cancel") || !Adjacent(user))
+	if(!choice || (choice == "Cancel") || !Adjacent(user))
 		return
 
 	switch(choice)
@@ -390,7 +390,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/configure_outlet(mob/living/user, obj/item/multitool/M)
 	var/choice = tgui_alert(user, "Would you like to add/replace the existing outlet or clear it?", "Configuration", list("Add/Replace", "Clear", "Cancel"))
-	if((choice == "Cancel") || !Adjacent(user))
+	if(!choice || (choice == "Cancel") || !Adjacent(user))
 		return
 
 	switch(choice)
