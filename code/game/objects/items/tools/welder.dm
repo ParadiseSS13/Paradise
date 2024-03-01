@@ -147,16 +147,19 @@
 	remove_fuel(0.5)
 
 /obj/item/weldingtool/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(istype(M) && istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && tool_enabled) // For lighting other people's cigarettes.
-		var/obj/item/clothing/mask/cigarette/cig = M.wear_mask
-		if(M == user)
-			cig.attackby(src, user)
-		else
-			cig.light("<span class='notice'>[user] holds out [src] out for [M], and casually lights [cig]. What a badass.</span>")
-			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
-			M.update_inv_wear_mask()
-	else
-		..()
+	// For lighting other people's cigarettes.
+	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
+	if(!istype(cig) || user.zone_selected =! "mouth" || !tool_enabled) 
+		return ..()
+
+	if(M == user)
+		cig.attackby(src, user)
+		return
+
+	cig.light("<span class='notice'>[user] holds out [src] out for [M], and casually lights [cig]. What a badass.</span>")
+	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
+	M.update_inv_wear_mask()
+
 
 /obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
 	target.add_overlay(GLOB.welding_sparks)
