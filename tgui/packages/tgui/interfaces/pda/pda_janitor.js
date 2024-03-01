@@ -51,7 +51,7 @@ export const pda_janitor = (props, context) => {
       {janicarts && (
         <LabeledList.Item label="Janicart Locations">
           {janicarts.map((janicart) => (
-            <Box key={j}>
+            <Box key={janicart}>
               {janicart.x},{janicart.y} ({janicart.direction_from_user})
             </Box>
           ))}
