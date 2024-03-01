@@ -89,7 +89,8 @@
 /area/shuttle/escape_pod3/transit
 	icon_state = "shuttle"
 
-/area/shuttle/escape_pod5 //Pod 4 was lost to meteors
+/// Pod 4 was lost to meteors
+/area/shuttle/escape_pod5
 	name = "\improper Escape Pod Five"
 	nad_allowed = TRUE
 
