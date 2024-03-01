@@ -102,7 +102,8 @@
 
 //////////////////////////// ARMOR BOOSTER MODULES //////////////////////////////////////////////////////////
 
-/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster //what is that noise? A BAWWW from TK mutants.
+/// what is that noise? A BAWWW from TK mutants.
+/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
 	name = "armor booster module (Close combat weaponry)"
 	desc = "Boosts exosuit armor against armed melee attacks. Requires energy to operate."
 	icon_state = "mecha_abooster_ccw"

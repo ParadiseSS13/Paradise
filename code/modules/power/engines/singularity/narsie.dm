@@ -1,4 +1,5 @@
-/obj/singularity/narsie //Moving narsie to a child object of the singularity so it can be made to function differently. --NEO
+/// Moving narsie to a child object of the singularity so it can be made to function differently. --NEO
+/obj/singularity/narsie
 	name = "Nar'sie's Avatar"
 	desc = "Your mind begins to bubble and ooze as it tries to comprehend what it sees."
 	icon = 'icons/obj/magic_terror.dmi'
