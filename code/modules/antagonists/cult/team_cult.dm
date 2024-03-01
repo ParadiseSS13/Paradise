@@ -164,7 +164,6 @@
 
 	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, rise)), 20 SECONDS)
 
-
 /datum/team/cult/proc/cult_ascend()
 	cult_ascendant = TRUE
 	for(var/datum/mind/M in members)
@@ -193,9 +192,12 @@
 									Any access granted in response to the paranormal threat should be reset. \
 									Any and all security gear that was handed out should be returned. Finally, all weapons (including improvised) should be removed from the crew.",
 									"Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
-
+/**
+ * This is a magic fuckin proc that takes a proc_ref, and calls it on all the human cultists.
+ * Created so that we don't make 1000 timers, and I'm too lazy to make a proc for all of these.
+ * Used in callbacks for some *magic bullshit*.
+ */
 /datum/team/cult/proc/all_members_timer(proc_ref_to_call)
-	// We do a little fuckin bullshit so that we don't create 1000 timers
 	for(var/datum/mind/M in members)
 		if(!ishuman(M.current))
 			continue
