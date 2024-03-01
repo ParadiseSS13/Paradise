@@ -801,19 +801,19 @@
 			animate(pm_controller.controlled_planes[key], transform = matrix(), time = 5, easing = QUAD_EASING)
 	..()
 
-// Twitch.
+// Mephedrone.
 
 #define CONSTANT_DOSE_SAFE_LIMIT 60
 #define CONSTANT_DOSE_DEATH_LIMIT 600
 
-#define MEPHEDRONE_SCREEN_FILTER "twitch_screen_filter"
-#define MEPHEDRONE_SCREEN_BLUR "twitch_screen_blur"
+#define MEPHEDRONE_SCREEN_FILTER "mephedrone_screen_filter"
+#define MEPHEDRONE_SCREEN_BLUR "mephedrone_screen_blur"
 
-#define MEPHEDRONE_BLUR_EFFECT "twitch_dodge_blur"
-#define MEPHEDRONE_OVERDOSE_BLUR_EFFECT "twitch_overdose_blur"
+#define MEPHEDRONE_BLUR_EFFECT "mephedrone_dodge_blur"
+#define MEPHEDRONE_OVERDOSE_BLUR_EFFECT "mephedrone_overdose_blur"
 
 // Mephedrone drug, makes the takers of it faster and able to dodge bullets while in their system, to potentially bad side effects
-/datum/reagent/twitch
+/datum/reagent/mephedrone
 	name = "Mephedrone"
 	id = "mephedrone"
 	description = "A drug originally developed by and for plutonians to assist them during raids. \
@@ -835,7 +835,7 @@
 	var/changeling_chemical_tracker = 0
 
 
-/datum/reagent/twitch/on_mob_add(mob/living/carbon/L)
+/datum/reagent/mephedrone/on_mob_add(mob/living/carbon/L)
 	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
 	ADD_TRAIT(L, TRAIT_NOKNOCKDOWNSLOWDOWN, id)
 	L.next_move_modifier -= 0.3 // For the duration of this you move and attack faster
@@ -862,7 +862,7 @@
 	cling.chem_recharge_slowdown += 1
 	changeling_chemical_tracker += 1
 
-/datum/reagent/twitch/on_mob_delete(mob/living/carbon/L)
+/datum/reagent/mephedrone/on_mob_delete(mob/living/carbon/L)
 	REMOVE_TRAIT(L, TRAIT_GOTTAGOFAST, id)
 	REMOVE_TRAIT(L, TRAIT_NOKNOCKDOWNSLOWDOWN, id)
 	var/overdosed = (id in L.reagents.overdose_list())
@@ -913,15 +913,15 @@
 
 
 /// Leaves an afterimage behind the mob when they move
-/datum/reagent/twitch/proc/on_movement(mob/living/carbon/L, atom/old_loc)
+/datum/reagent/mephedrone/proc/on_movement(mob/living/carbon/L, atom/old_loc)
 	SIGNAL_HANDLER
 	if(HAS_TRAIT(L, TRAIT_IMMOBILIZED)) //No, dead people floating through space do not need afterimages
 		return NONE
 	var/overdosed = (id in L.reagents.overdose_list())
-	new /obj/effect/temp_visual/decoy/twitch_afterimage(old_loc, L, overdosed ? 1.25 SECONDS : 0.75 SECONDS)
+	new /obj/effect/temp_visual/decoy/mephedrone_afterimage(old_loc, L, overdosed ? 1.25 SECONDS : 0.75 SECONDS)
 
 /// Tries to dodge incoming bullets if we aren't disabled for any reasons
-/datum/reagent/twitch/proc/dodge_bullets(mob/living/carbon/human/source, obj/item/projectile/hitting_projectile)
+/datum/reagent/mephedrone/proc/dodge_bullets(mob/living/carbon/human/source, obj/item/projectile/hitting_projectile)
 	SIGNAL_HANDLER
 
 	if(HAS_TRAIT(source, TRAIT_IMMOBILIZED))
@@ -937,12 +937,12 @@
 
 
 /// So. If a person changes up their hud settings (Changing their ui theme), the visual effects for this reagent will break, and they will be able to see easily. This 3 part proc waits for the plane controlers to be setup, and over 2 other procs, rengages the visuals
-/datum/reagent/twitch/proc/no_hud_cheese(mob/living/carbon/L)
+/datum/reagent/mephedrone/proc/no_hud_cheese(mob/living/carbon/L)
 	SIGNAL_HANDLER
 	addtimer(CALLBACK(src, PROC_REF(no_hud_cheese_2), L), 2 SECONDS) //Calling it instantly will not work, need to give it a moment
 
 /// This part of the anticheese sets up the basic visual effects normally setup when the reagent gets into your system.
-/datum/reagent/twitch/proc/no_hud_cheese_2(mob/living/carbon/L) //Basically if you change the UI you would remove the visuals. This fixes that.
+/datum/reagent/mephedrone/proc/no_hud_cheese_2(mob/living/carbon/L) //Basically if you change the UI you would remove the visuals. This fixes that.
 	var/atom/movable/plane_master_controller/game_plane_master_controller = L.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
 	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_FILTER)
 	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_BLUR)
@@ -958,14 +958,14 @@
 		addtimer(CALLBACK(src, PROC_REF(no_hud_cheese_3), L), 1 SECONDS) //still needs a moment
 
 ///This part sets up the OD visual effects.
-/datum/reagent/twitch/proc/no_hud_cheese_3(mob/living/carbon/L)
+/datum/reagent/mephedrone/proc/no_hud_cheese_3(mob/living/carbon/L)
 	var/atom/movable/plane_master_controller/game_plane_master_controller = L?.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 	var/list/col_filter_ourple = list(1,0,0,0, 0,0.5,0,0, 0,0,1,0, 0,0,0,1)
 
 	for(var/filter in game_plane_master_controller.get_filters(MEPHEDRONE_SCREEN_FILTER))
 		animate(filter, loop = -1, color = col_filter_ourple, time = 4 SECONDS, easing = BOUNCE_EASING)
 
-/datum/reagent/twitch/on_mob_life(mob/living/carbon/L)
+/datum/reagent/mephedrone/on_mob_life(mob/living/carbon/L)
 	. = ..()
 
 	constant_dose_time += 2
@@ -982,7 +982,7 @@
 		else
 			handle_heartless(L, heart_damage)
 
-/datum/reagent/twitch/overdose_start(mob/living/L)
+/datum/reagent/mephedrone/overdose_start(mob/living/L)
 
 	RegisterSignal(L, COMSIG_ATOM_PREHIT, PROC_REF(dodge_bullets))
 
@@ -1004,7 +1004,7 @@
 	..()
 
 
-/datum/reagent/twitch/overdose_end(mob/living/L)
+/datum/reagent/mephedrone/overdose_end(mob/living/L)
 	UnregisterSignal(L, COMSIG_ATOM_PREHIT)
 
 	L.next_move_modifier += 0.2
@@ -1031,7 +1031,7 @@
 	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
 
 
-/datum/reagent/twitch/overdose_process(mob/living/carbon/L)
+/datum/reagent/mephedrone/overdose_process(mob/living/carbon/L)
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
@@ -1060,7 +1060,7 @@
 //IPC brain damage gets an increase with liquid solder, so it matters
 //Otherwise, the user hallucinates a bunch, and as well takes stamina damage. This will block passive stamina regen, and most likely require antistun drugs to use as well
 
-/datum/reagent/twitch/proc/handle_heartless(mob/living/carbon/L, damage_input)
+/datum/reagent/mephedrone/proc/handle_heartless(mob/living/carbon/L, damage_input)
 	if(ismachineperson(L))
 		L.adjust_nutrition(-damage_input * 7.5)
 		if(damage_input == 0.9) //This is the input from the OD
@@ -1080,14 +1080,14 @@
 
 
 // Temp visual that changes color for that bootleg sandevistan effect
-/obj/effect/temp_visual/decoy/twitch_afterimage
+/obj/effect/temp_visual/decoy/mephedrone_afterimage
 	duration = 0.75 SECONDS
 	/// The color matrix it should be at spawn
 	var/list/matrix_start = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1, 0,0.1,0.4,0)
 	/// The color matrix it should be by the time it despawns
 	var/list/matrix_end = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1, 0,0.5,0,0)
 
-/obj/effect/temp_visual/decoy/twitch_afterimage/Initialize(mapload, atom/mimiced_atom, our_duration = 0.75 SECONDS)
+/obj/effect/temp_visual/decoy/mephedrone_afterimage/Initialize(mapload, atom/mimiced_atom, our_duration = 0.75 SECONDS)
 	duration = our_duration
 	. = ..()
 	color = matrix_start

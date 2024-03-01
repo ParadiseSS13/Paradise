@@ -520,7 +520,7 @@
 		return
 	if(!isliving(target)) //no buff from attacking inanimate objects
 		return
-	if(user.reagents.get_reagent_amount("twitch") > 15) // No patrick, you do not get to be chainsaw stun immune and bullet immune at once
+	if(user.reagents.get_reagent_amount("mephedrone") > 15) // No patrick, you do not get to be chainsaw stun immune and bullet immune at once
 		return
 	if(target.stat != DEAD) //no buff from attacking dead targets
 		user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)

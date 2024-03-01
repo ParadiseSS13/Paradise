@@ -404,7 +404,7 @@
 	desc = "An experimental implant replacing the spine of organics. When activated, it can give a temporary boost to mental processing speed, \
 		which many users perceive as a slowing of time and quickening of their ability to act. Due to its nature, it is incompatible with \
 		systems that heavily influence the user's nervous system, like the central nervous system rebooter. \
-		As a bonus effect, you are immune to the burst of heart damage that comes at the end of twitch usage, as the computer is able to regulate \
+		As a bonus effect, you are immune to the burst of heart damage that comes at the end of mephedrone usage, as the computer is able to regulate \
 		your heart's rhythm back to normal after its use."
 	id = "ci-sensory-enhancer"
 	req_tech = list("combat" = 7, "biotech" = 7, "syndicate" = 5)

@@ -78,6 +78,11 @@
 	mix_message = "The mixture fizzes into a vibrant red solution that doesn't stay still."
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
+/datum/chemical_reaction/mephedrone/on_reaction(datum/reagents/holder) //Will make it harder for botany, need a chem heater or will suffer, and mixing in plants wont work
+	var/turf/T = get_turf(holder.my_atom)
+	fireflash(holder.my_atom, 3, 500)
+	explosion(T, 0, 0, 2, 2, flame_range = 2)
+
 /datum/chemical_reaction/jenkem
 	name = "Jenkem"
 	id = "jenkem"
