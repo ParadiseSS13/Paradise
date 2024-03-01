@@ -2,7 +2,6 @@
 	name = "Cult"
 	antag_datum_type = /datum/antagonist/cultist
 
-	// var/datum/team/cult/cult_team = new
 	/// Does the cult have glowing eyes
 	var/cult_risen = FALSE
 	/// Does the cult have halos
@@ -13,39 +12,36 @@
 	var/ascend_number
 	/// Used for the CentComm announcement at ascension
 	var/ascend_percent
-
-
+	/// Variable used for tracking the progress of the cult's sacrifices & god summonings
 	var/cult_status = NARSIE_IS_ASLEEP
-	// var/list/presummon_objs = list()
-	var/datum/objective/eldergod/obj_summon = new
+
+	/// God summon objective added when ready_to_summon() is called
+	var/datum/objective/eldergod/obj_summon
 	var/sacrifices_done = 0
 	var/sacrifices_required = 2
 
 	/// Cult static info, used for things like sprites. Someone should refactor the sprites out of it someday and just use SEPERATE ICONS DEPNDING ON THE TYPE OF CULT... like a sane person
-	var/datum/cult_info/mode.cult_team.cultdat
+	var/datum/cult_info/cultdat
 
-	// /// Cult data. CTODO, move this here, but thats... really difficult to do
-	var/datum/cult_info/cultdat = null
+	/// Are cultist mirror shields active yet?
+	var/mirror_shields_active = FALSE
 
 /datum/team/cult/New()
 	..()
+	SSticker.mode.cult_team = src
 	// update_team_objectives()
 	var/random_cult = pick(typesof(/datum/cult_info))
 	cultdat = new random_cult()
 
 	objective_holder.add_objective(/datum/objective/servecult)
-	objective_holder.add_objective(/datum/objective/sacrifice)
 	// cult_team.setup() // todo, expand this onto objective holder
 
 	cult_threshold_check()
 	addtimer(CALLBACK(src, PROC_REF(cult_threshold_check)), 2 MINUTES) // Check again in 2 minutes for latejoiners
 
 	cult_status = NARSIE_DEMANDS_SACRIFICE
-	var/datum/objective/sacrifice/obj_sac = new
-	if(obj_sac.find_target())
-		presummon_objs.Add(obj_sac)
-	else
-		ready_to_summon()
+
+	create_next_sacrifice()
 
 /datum/team/cult/Destroy(force, ...)
 	SSticker.mode.cult_team = null
@@ -68,15 +64,17 @@
 	check_cult_size()
 
 
-// /datum/team/cult/admin_add_objective(mob/user)
-// 	sanitize_objectives()
-// 	. = ..()
-// 	if(sanitize_objectives())
-// 		message_admins("[key_name_admin(user)] added a mutiny objective to the team '[name]', and no target was found, removing.")
-// 		log_admin("[key_name_admin(user)] added a mutiny objective to the team '[name]', and no target was found, removing.")
-
 /datum/team/cult/on_round_end()
-	return // for now... show nothing. Add this in when revs is added to midround/dynamic. Not showing it currently because its dependent on rev gamemode
+	var/list/endtext = list()
+	endtext += "<br><b>The cultists' objectives were:</b>"
+	for(var/datum/objective/obj in objective_holder.get_objectives())
+		endtext += "<br>[obj.explanation_text] - "
+		if(!obj.check_completion())
+			endtext += "<font color='red'>Fail.</font>"
+		else
+			endtext += "<font color='green'><B>Success!</B></font>"
+
+	to_chat(world, endtext.Join(""))
 
 /datum/team/cult/proc/equip_cultist(mob/living/carbon/human/H, metal = TRUE) // ctodo maybe move this to antag cult datum
 	if(!istype(H))
@@ -136,7 +134,6 @@
 	return cultists + constructs
 
 /datum/team/cult/proc/cultist_stat_change(mob/target_cultist, new_stat, old_stat)
-	SIGNAL_HANDLER // COMSIG_MOB_STATCHANGE from cultists
 	if(new_stat == old_stat) // huh, how? whatever, we ignore it
 		return
 	if(new_stat != DEAD && old_stat != DEAD)
@@ -162,38 +159,35 @@
 
 /datum/team/cult/proc/cult_rise()
 	cult_risen = TRUE
-	for(var/datum/mind/M in cult)
+	for(var/datum/mind/M in members)
 		if(!ishuman(M.current))
 			continue
 		SEND_SOUND(M.current, sound('sound/hallucinations/i_see_you2.ogg'))
 		to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
-		var/datum/antagonist/cultist/cultist = M.has_antag_datum(/datum/antagonist/cultist)
-		ASSERT(cultist)
-		addtimer(CALLBACK(cultist, TYPE_PROC_REF(/datum/antagonist/cultist, rise)), 20 SECONDS)
+
+	addtimer(CALLBACK(cultist, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, rise)), 20 SECONDS)
 
 
 /datum/team/cult/proc/cult_ascend()
 	cult_ascendant = TRUE
-	for(var/datum/mind/M in cult)
+	for(var/datum/mind/M in members)
 		if(!ishuman(M.current))
 			continue
 		SEND_SOUND(M.current, sound('sound/hallucinations/im_here1.ogg'))
 		to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!</span>")
-		var/datum/antagonist/cultist/cultist = M.has_antag_datum(/datum/antagonist/cultist)
-		ASSERT(cultist)
-		addtimer(CALLBACK(cultist, TYPE_PROC_REF(/datum/antagonist/cultist, ascend)), 20 SECONDS)
-	GLOB.major_announcement.Announce("Picking up extradimensional activity related to the Cult of [GET_CULT_DATA(entity_name, "Nar'Sie"] from your station. Data suggests that about [ascend_percent * 100)]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
+
+	addtimer(CALLBACK(cultist, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, ascend)), 20 SECONDS)
+	GLOB.major_announcement.Announce("Picking up extradimensional activity related to the Cult of [GET_CULT_DATA(entity_name, "Nar'Sie")] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 
 /datum/team/cult/proc/cult_fall()
 	cult_ascendant = FALSE
-	for(var/datum/mind/M in cult)
+	for(var/datum/mind/M in members)
 		if(!ishuman(M.current))
 			continue
 		SEND_SOUND(M.current, sound('sound/hallucinations/wail.ogg'))
 		to_chat(M.current, "<span class='cultlarge'>The veil repairs itself, your power grows weaker...</span>")
-		var/datum/antagonist/cultist/cultist = M.has_antag_datum(/datum/antagonist/cultist)
-		ASSERT(cultist)
-		addtimer(CALLBACK(cultist, TYPE_PROC_REF(/datum/antagonist/cultist, descend)), 20 SECONDS)
+
+	addtimer(CALLBACK(cultist, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, descend)), 20 SECONDS)
 	GLOB.major_announcement.Announce("Paranormal activity has returned to minimal levels. \
 									Security staff should minimize lethal force against cultists, using non-lethals where possible. \
 									All dead cultists should be taken to medbay or robotics for immediate revival and deconversion. \
@@ -202,6 +196,15 @@
 									Any access granted in response to the paranormal threat should be reset. \
 									Any and all security gear that was handed out should be returned. Finally, all weapons (including improvised) should be removed from the crew.",
 									"Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
+
+/datum/team/cult/proc/all_members_timer(proc_ref_to_call)
+	// We do a little fuckin bullshit so that we don't create 1000 timers
+	for(var/datum/mind/M in members)
+		if(!ishuman(M.current))
+			continue
+		var/datum/antagonist/cultist/cultist = M.has_antag_datum(/datum/antagonist/cultist)
+		if(cultist)
+			call(cultist, proc_ref_to_call)() // yes this is a type proc ref passed by a callback, i know its deranged
 
 /datum/team/cult/proc/is_convertable_to_cult(datum/mind/mind)
 	if(!mind)
@@ -262,12 +265,13 @@
 
 	switch(cult_status)
 		if(NARSIE_IS_ASLEEP)
-			to_chat(M, "<span class='cult'>[GET_CULT_DATA(entity_name, "The Dark One")] is asleep.</span>")
+			to_chat(M, "<span class='cult'>[GET_CULT_DATA(entity_name, "The Dark One")] is asleep. This is probably a bug.</span>")
 		if(NARSIE_DEMANDS_SACRIFICE)
 			if(!length(presummon_objs))
 				to_chat(M, "<span class='danger'>Error: No objectives in sacrifice list. Something went wrong. Oof.</span>")
 			else
-				var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)] //get the last obj in the list, ie the current one
+				var/list/all_objectives = objective_holder.get_objectives()
+				var/datum/objective/sacrifice/current_obj = all_objectives[length(all_objectives)] //get the last obj in the list, ie the current one
 				to_chat(M, "<span class='cult'>The Veil needs to be weakened before we are able to summon [GET_CULT_DATA(entity_title1, "The Dark One")].</span>")
 				to_chat(M, "<span class='cult'>Current goal: [current_obj.explanation_text]</span>")
 		if(NARSIE_NEEDS_SUMMONING)
@@ -284,13 +288,13 @@
 
 	if(!display_members)
 		return
-	var/list/cult = SSticker.mode.get_cultists(TRUE)
+	var/list/cult = get_cultists(seperate = TRUE)
 	var/total_cult = cult[1] + cult[2]
 
 	var/overview = "<span class='cultitalic'><br><b>Current cult members: [total_cult]"
 	if(!cult_ascendant)
-		var/rise = SSticker.mode.rise_number - total_cult
-		var/ascend = SSticker.mode.ascend_number - total_cult
+		var/rise = rise_number - total_cult
+		var/ascend = ascend_number - total_cult
 		if(rise > 0)
 			overview += " | Conversions until Rise: [rise]"
 		else if(ascend > 0)
@@ -301,6 +305,13 @@
 		to_chat(M, "<span class='cultitalic'><b>Cultists:</b> [cult[1]]")
 		to_chat(M, "<span class='cultitalic'><b>Constructs:</b> [cult[2]]")
 
+/datum/team/cult/proc/create_next_sacrifice()
+	var/datum/objective/sacrifice/obj_sac = objective_holder.add_objective(/datum/objective/sacrifice)
+	if(!obj_sac.target)
+		qdel(obj_sac)
+		ready_to_summon()
+		return FALSE
+	return TRUE
 
 /datum/team/cult/proc/current_sac_objective() //Return the current sacrifice objective datum, if any
 	var/list/presummon_objs = objective_holder.get_objectives()
@@ -321,7 +332,7 @@
 	var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
 	if(!current_obj.find_target())
 		return FALSE
-	for(var/datum/mind/cult_mind in SSticker.mode.cult)
+	for(var/datum/mind/cult_mind in members)
 		if(cult_mind && cult_mind.current)
 			to_chat(cult_mind.current, "<span class='danger'>[GET_CULT_DATA(entity_name, "Your god")]</span> murmurs, <span class='cultlarge'>Our goal is beyond your reach. Sacrifice [current_obj.target] instead...</span>")
 	return TRUE
@@ -334,27 +345,31 @@
 	if(sacrifices_done >= sacrifices_required)
 		ready_to_summon()
 		return
-	var/datum/objective/sacrifice/obj_sac = new
-	if(!obj_sac.find_target())
-		ready_to_summon()
-		return
-	presummon_objs += obj_sac
-	for(var/datum/mind/cult_mind in SSticker.mode.cult)
+
+	create_next_sacrifice()
+
+	for(var/datum/mind/cult_mind in members)
 		if(cult_mind && cult_mind.current)
 			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have made progress, but there is more to do still before [GET_CULT_DATA(entity_title1, "The Dark One")] can be summoned!</span>")
 			to_chat(cult_mind.current, "<span class='cult'>Current goal: [obj_sac.explanation_text]</span>")
 
 /datum/team/cult/proc/ready_to_summon()
+	if(!obj_summon)
+		obj_summon = objective_holder.add_objective(/datum/objective/eldergod)
 	cult_status = NARSIE_NEEDS_SUMMONING
-	for(var/datum/mind/cult_mind in SSticker.mode.cult)
+	for(var/datum/mind/cult_mind in members)
 		if(cult_mind && cult_mind.current)
 			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
 			to_chat(cult_mind.current, "<span class='cult'>Current goal: [obj_summon.explanation_text]</span>")
 
-/datum/team/cult/proc/succesful_summon()
+/datum/team/cult/proc/successful_summon()
 	cult_status = NARSIE_HAS_RISEN
 	obj_summon.summoned = TRUE
 
 /datum/team/cult/proc/narsie_death()
 	cult_status = NARSIE_HAS_FALLEN
 	obj_summon.killed = TRUE
+	for(var/datum/mind/cult_mind in members)
+		if(cult_mind && cult_mind.current)
+			to_chat(cult_mind.current, "<span class='cultlarge'>RETRIBUTION!</span>")
+			to_chat(cult_mind.current, "<span class='cult'>Current goal: Slaughter the heretics!</span>")

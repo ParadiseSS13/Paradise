@@ -398,9 +398,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 	for(var/M in invokers)
 		if(sacrifice_fulfilled)
 			to_chat(M, "<span class='cultlarge'>\"Yes! This is the one I desire! You have done well.\"</span>")
-			if(!SSticker.mode.cult_team.cultdat.mirror_shields_active) // Only show once
+			if(!SSticker.mode.cult_team.mirror_shields_active) // Only show once
 				to_chat(M, "<span class='cultitalic'>You are now able to construct mirror shields inside the daemon forge.</span>")
-				SSticker.mode.cult_team.cultdat.mirror_shields_active = TRUE
+				SSticker.mode.cult_team.mirror_shields_active = TRUE
 		else
 			if(ishuman(offering) && offering.mind?.offstation_role && offering.mind.special_role != SPECIAL_ROLE_ERT) //If you try it on a ghost role, you get nothing
 				to_chat(M, "<span class='cultlarge'>\"This soul is of no use to either of us.\"</span>")

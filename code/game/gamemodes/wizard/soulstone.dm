@@ -254,7 +254,7 @@
 		B.brainmob.key = S.key
 	S.cancel_camera()
 	held_body.forceMove(get_turf(src))
-	SSticker.mode.add_cult_immunity(held_body)
+	SSticker.mode?.cult_team?.add_cult_immunity(held_body)
 	remove_held_body()
 	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
@@ -370,9 +370,9 @@
 											"Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
 											"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
 			/// Custom construct icons for different cults
-			var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("juggernaut"), "juggernaut")),
-											"Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("wraith"), "wraith")),
-											"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("builder"), "builder")))
+			var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("juggernaut"), "behemoth")),
+											"Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("wraith"), "floating")),
+											"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("builder"), "artificer")))
 
 			if(shade)
 				var/construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, PROC_REF(radial_check), user), require_near = TRUE)
@@ -404,7 +404,7 @@
 			RemoveSpell(/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone)
 			AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/soulstone/holy)
 
-	else if(src.mind.has_antag_datum(/datum/antagonist/cultist)) // Re-grant cult actions, lost in the transfer
+	else if(mind.has_antag_datum(/datum/antagonist/cultist)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new
 		var/datum/action/innate/cult/check_progress/D = new
 		CC.Grant(src)
@@ -431,7 +431,6 @@
 	C.key = target.key
 	if(user && user.mind.has_antag_datum(/datum/antagonist/cultist) || cult_override)
 		SSticker.mode.add_cultist(C.mind)
-		SSticker.mode.update_cult_icons_added(C.mind)
 	if(user && user.mind.has_antag_datum(/datum/antagonist/cultist))
 		to_chat(C, "<B>You are still bound to serve the cult, follow their orders and help them complete their goals at all costs.</B>")
 	else

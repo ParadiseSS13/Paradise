@@ -167,13 +167,6 @@
 		var/mob/living/carbon/human/H = new_character
 		if(H.mind in SSticker.mode.syndicates)
 			SSticker.mode.update_synd_icons_added()
-		if(H.mind in SSticker.mode.cult)
-			SSticker.mode.update_cult_icons_added(H.mind) // Adds the cult antag hud
-			SSticker.mode.add_cult_actions(H.mind) // And all the actions
-			if(SSticker.mode.cult_risen)
-				SSticker.mode.rise(H)
-				if(SSticker.mode.cult_ascendant)
-					SSticker.mode.ascend(H)
 
 /datum/mind/proc/store_memory(new_text)
 	memory += "[new_text]<br>"
@@ -918,7 +911,6 @@
 					message_admins("[key_name_admin(usr)] has de-culted [key_name_admin(current)]")
 			if("cultist")
 				if(!has_antag_datum(/datum/antagonist/cultist))
-					to_chat(current, CULT_GREETING)
 					SSticker.mode.add_cultist(src)
 					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [GET_CULT_DATA(entity_title2, "your god")] above all else. Bring It back.</span>")
 					log_and_message_admins("[key_name(usr)] has culted [key_name(current)]")

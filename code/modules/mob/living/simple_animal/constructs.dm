@@ -54,7 +54,7 @@
 	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
 	if(held_body) // Null check for empty bodies
 		held_body.forceMove(get_turf(src))
-		SSticker.mode.add_cult_immunity(held_body)
+		SSticker.mode?.cult_team?.add_cult_immunity(held_body)
 		if(ismob(held_body)) // Check if the held_body is a mob
 			held_body.key = key
 		else if(istype(held_body, /obj/item/organ/internal/brain)) // Check if the held_body is a brain

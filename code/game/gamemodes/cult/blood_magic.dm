@@ -304,9 +304,11 @@
 	if(!isturf(T))
 		return FALSE
 	if(target in view(7, ranged_ability_user))
-		if(!ishuman(target) || target.mind.has_antag_datum(/datum/antagonist/cultist))
+		if(!ishuman(target))
 			return
 		var/mob/living/carbon/human/H = target
+		if(H.mind.has_antag_datum(/datum/antagonist/cultist)) // ctodo figure out what this originally was
+			return
 		H.Hallucinate(120 SECONDS)
 		attached_action.charges--
 		attached_action.UpdateButtonIcon()

@@ -170,7 +170,7 @@
 
 /obj/structure/cult/functional/forge/get_choosable_items()
 	. = ..()
-	if(SSticker.mode.cult_team.cultdatlt_team.cultdat.mirror_shields_active)
+	if(SSticker.mode.cult_team.mirror_shields_active)
 		// Both lines here are needed. If you do it without, youll get issues.
 		. += "Mirror Shield"
 		.["Mirror Shield"] = /obj/item/shield/mirror

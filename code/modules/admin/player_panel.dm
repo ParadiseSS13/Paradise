@@ -445,7 +445,8 @@
 				dat += "<br>Current cult objective: None! (This is most likely a bug, or var editing gone wrong.)"
 			dat += "<br>Sacrifice objectives completed: [gamemode.cult_team.sacrifices_done]"
 			dat += "<br>Sacrifice objectives needed for summoning: [gamemode.cult_team.sacrifices_required]"
-			dat += "<br>Summoning locations: [english_list(gamemode.cult_team.obj_summon.summon_spots)]"
+			if(gamemode.cult_team.obj_summon)
+				dat += "<br>Summoning locations: [english_list(gamemode.cult_team.obj_summon.summon_spots)]"
 			dat += "<br><a href='?src=[UID()];cult_mindspeak=[UID()]'>Cult Mindspeak</a>"
 
 			if(gamemode.cult_team.sacrifices_required == NARSIE_DEMANDS_SACRIFICE)

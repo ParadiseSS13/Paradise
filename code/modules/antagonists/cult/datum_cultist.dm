@@ -46,7 +46,7 @@
 	H.remove_overlay(HALO_LAYER)
 	H.update_body()
 
-	if(remove_gear_on_removal)
+	if(remove_gear_on_removal) // ctodo unsure if this needs to be a boolean
 		for(var/I in H.contents)
 			if(is_type_in_list(I, CULT_CLOTHING)) // ctodo, remove
 				H.unEquip(I)
@@ -85,8 +85,8 @@
 	if(!H.original_eye_color)
 		H.original_eye_color = H.get_eye_color()
 	H.change_eye_color(BLOODCULT_EYE, FALSE)
-	H.update_eyes()
 	ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
+	H.update_eyes()
 	H.update_body()
 
 /datum/antagonist/cultist/proc/ascend()
@@ -114,7 +114,8 @@
 	D.Grant(owner.current)
 	if(ishuman(owner.current))
 		var/datum/action/innate/cult/blood_magic/magic = new
-		magic.Grant(owner.current)
 		var/datum/action/innate/cult/use_dagger/dagger = new
+		magic.Grant(owner.current)
 		dagger.Grant(owner.current)
+
 	owner.current.update_action_buttons(TRUE)

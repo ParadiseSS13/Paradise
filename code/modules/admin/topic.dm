@@ -1729,10 +1729,13 @@
 		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
 
 	else if(href_list["cult_newsummonlocations"])
+		var/datum/game_mode/gamemode = SSticker.mode
+		if(!gamemode.cult_team.obj_summon)
+			to_chat(usr, "<span class='danger'>The cult has NO summon objective yet.</span>")
+			return
 		if(alert(usr, "Reroll the cult's summoning locations?", "Cult Debug", "Yes", "No") != "Yes")
 			return
 
-		var/datum/game_mode/gamemode = SSticker.mode
 		gamemode.cult_team.obj_summon.find_summon_locations(TRUE)
 		if(gamemode.cult_team.sacrifices_required == NARSIE_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
 			for(var/datum/mind/cult_mind in gamemode.cult)

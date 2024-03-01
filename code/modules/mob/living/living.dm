@@ -470,11 +470,6 @@
 			C.reagents.clear_reagents()
 			QDEL_LIST_CONTENTS(C.reagents.addiction_list)
 			C.reagents.addiction_threshold_accumulated.Cut()
-		if(src.mind.has_antag_datum(/datum/antagonist/cultist))
-			if(SSticker.mode.cult_team.cult_risen)
-				SSticker.mode.rise(src)
-			if(SSticker.mode.cult_team.cult_ascendant)
-				SSticker.mode.ascend(src)
 
 		QDEL_LIST_CONTENTS(C.processing_patches)
 

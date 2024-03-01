@@ -5,9 +5,7 @@
 	var/datum/team/cult/cult_team
 
 /datum/game_mode/proc/get_cult_team()
-	if(!cult_team)
-		cult_team = new /datum/team/cult()
-	return cult_team
+	return cult_team || new /datum/team/cult()
 
 /datum/game_mode/cult
 	name = "cult"
@@ -43,37 +41,14 @@
 /datum/game_mode/cult/post_setup()
 	modePlayer += cult
 
-
 	for(var/datum/mind/cult_mind in cult)
-		// SEND_SOUND(cult_mind.current, sound('sound/ambience/antag/bloodcult.ogg'))
-		// to_chat(cult_mind.current, CULT_GREETING)
 		cult_team.equip_cultist(cult_mind.current) // cTODO, use get_cult
-		// cult_mind.current.faction |= "cult"
-		// cult_mind.add_mind_objective(/datum/objective/servecult)
-
-		// if(cult_mind.assigned_role == "Clown")
-		// 	to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
-		// 	cult_mind.current.dna.SetSEState(GLOB.clumsyblock, FALSE)
-		// 	singlemutcheck(cult_mind.current, GLOB.clumsyblock, MUTCHK_FORCED)
-		// 	var/datum/action/innate/toggle_clumsy/A = new
-		// 	A.Grant(cult_mind.current)
-
-		// add_cult_actions(cult_mind)
-		// update_cult_icons_added(cult_mind)
-		// cult_team.study_objectives(cult_mind.current)
-		// to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
-		update_cult_icons_added(cult_mind)
-		cult_objs.study(cult_mind.current)
-		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
-	cult_threshold_check()
-	addtimer(CALLBACK(src, PROC_REF(cult_threshold_check)), 2 MINUTES) // Check again in 2 minutes for latejoiners
 	..()
 
 
 /datum/game_mode/proc/add_cultist(datum/mind/cult_mind)
 	if(!istype(cult_mind) || cult_mind.has_antag_datum(/datum/antagonist/cultist))
 		return FALSE
-
 
 	var/datum/team/cult/cult = get_cult_team()
 	cult.add_member(cult_mind)
@@ -105,20 +80,4 @@
 		SSticker.mode_result = "cult loss - staff stopped the cult"
 		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")
 
-	var/list/endtext = list()
-	endtext += "<br><b>The cultists' objectives were:</b>"
-	for(var/datum/objective/obj in cult_team.presummon_objs)
-		endtext += "<br>[obj.explanation_text] - "
-		if(!obj.check_completion())
-			endtext += "<font color='red'>Fail.</font>"
-		else
-			endtext += "<font color='green'><B>Success!</B></font>"
-	if(cult_team.sacrifices_required >= NARSIE_NEEDS_SUMMONING)
-		endtext += "<br>[cult_team.obj_summon.explanation_text] - "
-		if(!cult_team.obj_summon.check_completion())
-			endtext+= "<font color='red'>Fail.</font>"
-		else
-			endtext += "<font color='green'><B>Success!</B></font>"
-
-	to_chat(world, endtext.Join(""))
 	..()

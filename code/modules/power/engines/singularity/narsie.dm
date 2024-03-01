@@ -39,9 +39,7 @@
 		to_chat(player, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
 		SEND_SOUND(player, cry)
 
-	var/datum/game_mode/gamemode = SSticker.mode
-	if(gamemode)
-		gamemode.cult_team.succesful_summon()
+	SSticker.mode?.cult_team?.successful_summon()
 
 	var/area/A = get_area(src)
 	if(A)
@@ -58,13 +56,7 @@
 /obj/singularity/narsie/large/Destroy()
 	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS FALLEN</b></font>")
 	SEND_SOUND(world, sound('sound/hallucinations/wail.ogg'))
-	var/datum/game_mode/gamemode = SSticker.mode
-	if(gamemode)
-		gamemode.cult_team.narsie_death()
-		for(var/datum/mind/cult_mind in SSticker.mode.cult)
-			if(cult_mind && cult_mind.current)
-				to_chat(cult_mind.current, "<span class='cultlarge'>RETRIBUTION!</span>")
-				to_chat(cult_mind.current, "<span class='cult'>Current goal: Slaughter the heretics!</span>")
+	SSticker.mode?.cult_team?.narsie_death()
 	..()
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
