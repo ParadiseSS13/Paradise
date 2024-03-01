@@ -588,6 +588,7 @@
 	..()
 	if(amount != length(contents))
 		update_icon()
+		orient2hud(user)  // Update the displayed items and their counts
 
 /obj/item/storage/belt/holster
 	name = "shoulder holster"

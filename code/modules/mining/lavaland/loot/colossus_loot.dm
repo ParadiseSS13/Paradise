@@ -292,7 +292,7 @@
 	. = ..()
 	if(isliving(target) && target != src)
 		var/mob/living/L = target
-		if(L.stat < DEAD)
+		if(L.stat != DEAD)
 			L.heal_overall_damage(heal_power, heal_power)
 			new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
 
