@@ -179,7 +179,7 @@
 			return
 		H = pick_n_take(candidates)
 		SSticker.mode.add_cultist(H.mind)
-		SSticker.mode.equip_cultist(H) // ctodo
+		SSticker.mode.cult_team.equip_cultist(H) // ctodo
 	return TRUE
 
 //Abductors

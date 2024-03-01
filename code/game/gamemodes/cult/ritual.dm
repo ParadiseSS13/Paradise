@@ -22,8 +22,8 @@
 
 /obj/item/melee/cultblade/dagger/New()
 	..()
-	icon_state = GET_CULT_DATA(dagger_icon, blood_dagger)
-	item_state = GET_CULT_DATA(dagger_icon, blood_dagger)
+	icon_state = GET_CULT_DATA(dagger_icon, "blood_dagger")
+	item_state = GET_CULT_DATA(dagger_icon, "blood_dagger")
 
 /obj/item/melee/cultblade/dagger/examine(mob/user)
 	. = ..()

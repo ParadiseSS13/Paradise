@@ -57,9 +57,6 @@
 
 /datum/team/cult/remove_member(datum/mind/member)
 	. = ..()
-	var/datum/antagonist/cultist/cultist = member.has_antag_datum(/datum/antagonist/cultist) // maybe this should be get_antag_datum_from_member(member)
-	if(!QDELETED(cultist))
-		member.remove_antag_datum(/datum/antagonist/cultist)
 	UnregisterSignal(member.current, COMSIG_MOB_STATCHANGE)
 	check_cult_size()
 
@@ -165,7 +162,7 @@
 		SEND_SOUND(M.current, sound('sound/hallucinations/i_see_you2.ogg'))
 		to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
 
-	addtimer(CALLBACK(cultist, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, rise)), 20 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, rise)), 20 SECONDS)
 
 
 /datum/team/cult/proc/cult_ascend()
@@ -176,7 +173,7 @@
 		SEND_SOUND(M.current, sound('sound/hallucinations/im_here1.ogg'))
 		to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!</span>")
 
-	addtimer(CALLBACK(cultist, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, ascend)), 20 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, ascend)), 20 SECONDS)
 	GLOB.major_announcement.Announce("Picking up extradimensional activity related to the Cult of [GET_CULT_DATA(entity_name, "Nar'Sie")] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 
 /datum/team/cult/proc/cult_fall()
@@ -187,7 +184,7 @@
 		SEND_SOUND(M.current, sound('sound/hallucinations/wail.ogg'))
 		to_chat(M.current, "<span class='cultlarge'>The veil repairs itself, your power grows weaker...</span>")
 
-	addtimer(CALLBACK(cultist, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, descend)), 20 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, descend)), 20 SECONDS)
 	GLOB.major_announcement.Announce("Paranormal activity has returned to minimal levels. \
 									Security staff should minimize lethal force against cultists, using non-lethals where possible. \
 									All dead cultists should be taken to medbay or robotics for immediate revival and deconversion. \
@@ -267,10 +264,10 @@
 		if(NARSIE_IS_ASLEEP)
 			to_chat(M, "<span class='cult'>[GET_CULT_DATA(entity_name, "The Dark One")] is asleep. This is probably a bug.</span>")
 		if(NARSIE_DEMANDS_SACRIFICE)
-			if(!length(presummon_objs))
-				to_chat(M, "<span class='danger'>Error: No objectives in sacrifice list. Something went wrong. Oof.</span>")
+			var/list/all_objectives = objective_holder.get_objectives()
+			if(!length(all_objectives))
+				to_chat(M, "<span class='danger'>Error: No objectives. Something went wrong, adminhelp with F1.</span>")
 			else
-				var/list/all_objectives = objective_holder.get_objectives()
 				var/datum/objective/sacrifice/current_obj = all_objectives[length(all_objectives)] //get the last obj in the list, ie the current one
 				to_chat(M, "<span class='cult'>The Veil needs to be weakened before we are able to summon [GET_CULT_DATA(entity_title1, "The Dark One")].</span>")
 				to_chat(M, "<span class='cult'>Current goal: [current_obj.explanation_text]</span>")
@@ -284,7 +281,7 @@
 			to_chat(M, "<span class='cultlarge'>[GET_CULT_DATA(entity_name, "The Dark One")] has been banished!</span>")
 			to_chat(M, "<span class='cult'>Current goal: Slaughter the unbelievers!</span>")
 		else
-			to_chat(M, "<span class='danger'>Error: Cult objective status currently unknown. Something went wrong. Oof.</span>")
+			to_chat(M, "<span class='danger'>Error: Cult objective status currently unknown. Something went wrong, adminhelp with F1.</span>")
 
 	if(!display_members)
 		return
@@ -310,8 +307,8 @@
 	if(!obj_sac.target)
 		qdel(obj_sac)
 		ready_to_summon()
-		return FALSE
-	return TRUE
+		return
+	return obj_sac
 
 /datum/team/cult/proc/current_sac_objective() //Return the current sacrifice objective datum, if any
 	var/list/presummon_objs = objective_holder.get_objectives()
@@ -346,7 +343,9 @@
 		ready_to_summon()
 		return
 
-	create_next_sacrifice()
+	var/datum/objective/sacrifice/obj_sac = create_next_sacrifice()
+	if(!obj_sac)
+		return
 
 	for(var/datum/mind/cult_mind in members)
 		if(cult_mind && cult_mind.current)

@@ -309,7 +309,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		rune_in_use = FALSE
 		return
 
-	if(L.stat != DEAD && is_convertable_to_cult(L.mind))
+	if(L.stat != DEAD && SSticker.mode.cult_team.is_convertable_to_cult(L.mind))
 		..()
 		do_convert(L, invokers)
 	else
@@ -377,7 +377,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	var/sacrifice_fulfilled
 	var/worthless = FALSE
-	var/datum/game_mode/gamemode = SSticker.mode
 
 	if(isliving(offering) && !isbrain(offering))
 		var/mob/living/L = offering
@@ -423,7 +422,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			offering.gib()
 		playsound(offering, 'sound/magic/disintegrate.ogg', 100, TRUE, SOUND_RANGE_SET(10))
 	if(sacrifice_fulfilled)
-		gamemode.cult_team.succesful_sacrifice()
+		SSticker.mode.cult_team.successful_sacrifice()
 	return TRUE
 
 /obj/effect/rune/teleport

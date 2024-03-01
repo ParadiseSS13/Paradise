@@ -306,6 +306,7 @@
 	if(target in view(7, ranged_ability_user))
 		if(!ishuman(target) || IS_CULTIST(target))
 			return
+		var/mob/living/carbon/human/H = target
 		H.Hallucinate(120 SECONDS)
 		attached_action.charges--
 		attached_action.UpdateButtonIcon()

@@ -15,10 +15,10 @@
 	create_team() // make sure theres a global cult team
 	..()
 	owner.current.faction |= "cult"
-	cult_mind.current.create_log(CONVERSION_LOG, "Converted to the cult")
 	add_cult_actions()
-	SEND_SOUND(cult_mind.current, sound('sound/ambience/antag/bloodcult.ogg'))
-	cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/bloodcult.ogg'))
+	owner.current.create_log(CONVERSION_LOG, "Converted to the cult")
+	owner.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
 
 	var/datum/team/cult/cult = get_team()
 	ASSERT(cult)
@@ -81,7 +81,7 @@
 /datum/antagonist/cultist/proc/rise()
 	if(!ishuman(owner.current))
 		return
-	var/mob/living/carbon/human/H = cultist
+	var/mob/living/carbon/human/H = owner.current
 	if(!H.original_eye_color)
 		H.original_eye_color = H.get_eye_color()
 	H.change_eye_color(BLOODCULT_EYE, FALSE)
@@ -102,8 +102,8 @@
 	var/mob/living/carbon/human/H = owner.current
 	new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 	H.update_halo_layer()
-	to_chat(cultist, "<span class='userdanger'>The halo above your head shatters!</span>")
-	playsound(cultist, "shatter", 50, TRUE)
+	to_chat(H, "<span class='userdanger'>The halo above your head shatters!</span>")
+	playsound(H, "shatter", 50, TRUE)
 
 /datum/antagonist/cultist/proc/add_cult_actions()
 	if(!owner.current)

@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	/// If the owner is a clown, this text will be displayed to them when they lose this datum.
 	var/clown_removal_text = "You are clumsy again."
 	/// The spawn class to use for gain/removal clown text
-	var/static/clown_text_span_class = "boldnotice"
+	var/clown_text_span_class = "boldnotice"
 	/// The url page name for this antagonist, appended to the end of the wiki url in the form of: [GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name]
 	var/wiki_page_name
 
