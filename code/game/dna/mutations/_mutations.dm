@@ -10,6 +10,7 @@
 	/// Trait to give, if any
 	var/traits_to_add = list()
 	/// Activation probability
+	/// Possible activation messages
 	var/list/activation_messages = list()
 	/// Possible deactivation messages
 	var/list/deactivation_messages = list()
