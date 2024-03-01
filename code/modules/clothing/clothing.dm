@@ -241,7 +241,7 @@
 	over_mask = !over_mask
 	if(user.glasses == src)
 		user.update_inv_glasses()
-	to_chat(user, "<span class='notice'>You adjust \the [src] to be worn [over_mask ? "over" : "under"] a mask.</span>")
+	to_chat(user, "<span class='notice'>You adjust [src] to be worn [over_mask ? "over" : "under"] a mask.</span>")
 
 //Gloves
 /obj/item/clothing/gloves
