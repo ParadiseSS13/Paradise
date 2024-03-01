@@ -63,7 +63,7 @@
 		if(valid_spot)
 			summon_spots += summon
 		sanity++
-	explanation_text = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"] by invoking the rune 'Tear Veil' with 9 cultists, constructs, or summoned ghosts on it.\
+	explanation_text = "Summon [GET_CULT_DATA(entity_name, "your god")] by invoking the rune 'Tear Veil' with 9 cultists, constructs, or summoned ghosts on it.\
 	\nThe summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin."
 
 

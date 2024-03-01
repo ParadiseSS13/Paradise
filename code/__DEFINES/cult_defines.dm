@@ -63,3 +63,5 @@
 #define NARSIE_NEEDS_SUMMONING 2
 #define NARSIE_HAS_RISEN 3
 #define NARSIE_HAS_FALLEN -1
+
+#define GET_CULT_DATA(variable, default) (SSticker.mode?.cult_team ? SSticker.mode?.cult_team.cultdat.variable : default)

@@ -9,9 +9,6 @@
 		cult_team = new /datum/team/cult()
 	return cult_team
 
-// /proc/mob/living/M.mind.has_antag_datum(/datum/antagonist/cultist)
-// 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.cult)
-
 /datum/game_mode/cult
 	name = "cult"
 	config_tag = "cult"
@@ -95,15 +92,15 @@
 
 	if(show_message)
 		cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
-		"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
+		"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] and the memories of your time as their servant with it.</span>")
 
 /datum/game_mode/cult/declare_completion()
 	if(cult_team.sacrifices_required == NARSIE_HAS_RISEN)
 		SSticker.mode_result = "cult win - cult win"
-		to_chat(world, "<span class='danger'> <FONT size = 3>The cult wins! It has succeeded in summoning [SSticker.cultdat.entity_name]!</FONT></span>")
+		to_chat(world, "<span class='danger'> <FONT size = 3>The cult wins! It has succeeded in summoning [GET_CULT_DATA(entity_name, "their god")]!</FONT></span>")
 	else if(cult_team.sacrifices_required == NARSIE_HAS_FALLEN)
 		SSticker.mode_result = "cult draw - narsie died, nobody wins"
-		to_chat(world, "<span class='danger'> <FONT size = 3>Nobody wins! [SSticker.cultdat.entity_name] was summoned, but banished!</FONT></span>")
+		to_chat(world, "<span class='danger'> <FONT size = 3>Nobody wins! [GET_CULT_DATA(entity_name, "the cult god")] was summoned, but banished!</FONT></span>")
 	else
 		SSticker.mode_result = "cult loss - staff stopped the cult"
 		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")

@@ -195,7 +195,7 @@
 					icon_state = "purified_soulstone2"
 					if(M.mind.has_antag_datum(/datum/antagonist/cultist))
 						SSticker.mode.remove_cultist(M.mind, FALSE)
-						to_chat(M, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] \
+						to_chat(M, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] \
 									and the memories of your time as their servant with it.</span>")
 						to_chat(M, "<span class='danger'>Assist [user], your saviour, and get vengeance on those who enslaved you!</span>")
 					else
@@ -224,7 +224,7 @@
 					to_chat(M, "<span class='cult'>Your shard has been cleansed of holy magic, and you are now bound to the cult's will. Obey them and assist in their goals.</span>")
 			for(var/mob/living/simple_animal/shade/EX in src)
 				EX.holy = FALSE
-				EX.icon_state = SSticker.cultdat?.shade_icon_state
+				EX.icon_state = GET_CULT_DATA(shade_icon_state, "shade")
 			to_chat(user, "<span class='notice'>You have cleansed [src] of holy magic.</span>")
 	else
 		..()
@@ -370,9 +370,9 @@
 											"Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
 											"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
 			/// Custom construct icons for different cults
-			var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/cult.dmi', icon_state = SSticker.cultdat.get_icon("juggernaut")),
-											"Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = SSticker.cultdat.get_icon("wraith")),
-											"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = SSticker.cultdat.get_icon("builder")))
+			var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("juggernaut"), "juggernaut")),
+											"Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("wraith"), "wraith")),
+											"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("builder"), "builder")))
 
 			if(shade)
 				var/construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, PROC_REF(radial_check), user), require_near = TRUE)

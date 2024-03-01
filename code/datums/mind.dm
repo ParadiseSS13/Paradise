@@ -339,7 +339,7 @@
 
 /datum/mind/proc/memory_edit_cult(mob/living/carbon/human/H)
 	. = _memory_edit_header("cult")
-	if(src in SSticker.mode.cult)
+	if(has_antag_datum(/datum/antagonist/cultist))
 		. += "<a href='?src=[UID()];cult=clear'>no</a>|<b><font color='red'>CULTIST</font></b>"
 		. += "<br>Give <a href='?src=[UID()];cult=dagger'>dagger</a>|<a href='?src=[UID()];cult=runedmetal'>runedmetal</a>."
 	else
@@ -911,16 +911,16 @@
 	else if(href_list["cult"])
 		switch(href_list["cult"])
 			if("clear")
-				if(src in SSticker.mode.cult)
+				if(has_antag_datum(/datum/antagonist/cultist))
 					SSticker.mode.remove_cultist(src)
 					special_role = null
 					log_admin("[key_name(usr)] has de-culted [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-culted [key_name_admin(current)]")
 			if("cultist")
-				if(!(src in SSticker.mode.cult))
+				if(!has_antag_datum(/datum/antagonist/cultist))
 					to_chat(current, CULT_GREETING)
 					SSticker.mode.add_cultist(src)
-					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [SSticker.cultdat.entity_title2] above all else. Bring It back.</span>")
+					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [GET_CULT_DATA(entity_title2, "your god")] above all else. Bring It back.</span>")
 					log_and_message_admins("[key_name(usr)] has culted [key_name(current)]")
 			if("dagger")
 				var/mob/living/carbon/human/H = current

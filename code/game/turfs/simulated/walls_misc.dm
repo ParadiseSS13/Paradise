@@ -15,7 +15,7 @@
 	. = ..()
 	if(SSticker.mode)//game hasn't started officially don't do shit..
 		new /obj/effect/temp_visual/cult/turf(src)
-		icon_state = SSticker.cultdat.cult_wall_icon_state
+		icon_state = GET_CULT_DATA(cult_wall_icon_state, initial(icon_state))
 
 /turf/simulated/wall/cult/artificer
 	name = "runed stone wall"

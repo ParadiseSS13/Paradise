@@ -37,8 +37,6 @@ SUBSYSTEM_DEF(ticker)
 	var/Bible_name
 	/// Name of the bible deity
 	var/Bible_deity_name
-	/// Cult data. Here instead of cult for adminbus purposes
-	var/datum/cult_info/cultdat = null
 	/// If set to nonzero, ALL players who latejoin or declare-ready join will have random appearances/genders
 	var/random_players = FALSE
 	/// Did we broadcast the tip of the round yet?
@@ -159,7 +157,6 @@ SUBSYSTEM_DEF(ticker)
 		reboot_helper("Round ended.", "proper completion")
 
 /datum/controller/subsystem/ticker/proc/setup()
-	cultdat = setupcult()
 	score = new()
 
 	// Create and announce mode

@@ -487,8 +487,8 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 
 /obj/item/stack/sheet/runed_metal/New()
 	. = ..()
-	icon_state = SSticker.cultdat?.runed_metal_icon_state
-	item_state = SSticker.cultdat?.runed_metal_item_state
+	icon_state = GET_CULT_DATA(runed_metal_icon_state, initial(icon_state))
+	item_state = GET_CULT_DATA(runed_metal_item_state, initial(item_state))
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
 	if(!user.mind.has_antag_datum(/datum/antagonist/cultist))

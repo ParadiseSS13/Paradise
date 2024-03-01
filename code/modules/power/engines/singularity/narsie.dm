@@ -27,8 +27,8 @@
 
 /obj/singularity/narsie/large/Initialize(mapload, starting_energy)
 	. = ..()
-	icon_state = SSticker.cultdat?.entity_icon_state
-	name = SSticker.cultdat?.entity_name
+	icon_state = GET_CULT_DATA(entity_icon_state, initial(icon_state))
+	name = GET_CULT_DATA(entity_name, initial(name))
 
 	var/sound/cry = sound(pick('sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg'))
 
@@ -159,12 +159,12 @@
 		return
 	if(!target)
 		return
-	to_chat(target, "<span class='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HAS LOST INTEREST IN YOU</span>")
+	to_chat(target, "<span class='cultlarge'>[uppertext(GET_CULT_DATA(entity_name, name))] HAS LOST INTEREST IN YOU</span>")
 	target = food
 	if(ishuman(target))
-		to_chat(target, "<span class ='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HUNGERS FOR YOUR SOUL</span>")
+		to_chat(target, "<span class ='cultlarge'>[uppertext(GET_CULT_DATA(entity_name, name))] HUNGERS FOR YOUR SOUL</span>")
 	else
-		to_chat(target, "<span class ='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HAS CHOSEN YOU TO LEAD HER TO HER NEXT MEAL</span>")
+		to_chat(target, "<span class ='cultlarge'>[uppertext(GET_CULT_DATA(entity_name, name))] HAS CHOSEN YOU TO LEAD HER TO HER NEXT MEAL</span>")
 
 //Wizard narsie
 /obj/singularity/narsie/wizard
@@ -181,7 +181,7 @@
 	icon = 'icons/obj/narsie_spawn_anim.dmi'
 	dir = SOUTH
 	move_self = FALSE
-	flick(SSticker.cultdat?.entity_spawn_animation, src)
+	flick(GET_CULT_DATA(entity_spawn_animation, "narsie_spawn_anim"), src)
 	sleep(11)
 	move_self = TRUE
 	icon = initial(icon)

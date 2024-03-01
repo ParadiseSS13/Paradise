@@ -454,7 +454,7 @@
 
 /obj/structure/girder/cult/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.cult_girder_icon_state
+	icon_state = GET_CULT_DATA(cult_girder_icon_state, initial(icon_state))
 
 /obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)

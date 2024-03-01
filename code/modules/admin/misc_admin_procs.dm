@@ -644,7 +644,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Head Rev"
 	if(M.mind.has_antag_datum(/datum/antagonist/rev, FALSE))
 		antag_list += "Revolutionary"
-	if(M.mind in SSticker.mode.cult)
+	if(M.mind.has_antag_datum(/datum/antagonist/cultist))
 		antag_list += "Cultist"
 	if(M.mind in SSticker.mode.syndicates)
 		antag_list += "Nuclear Operative"

@@ -21,14 +21,17 @@
 	var/sacrifices_done = 0
 	var/sacrifices_required = 2
 
+	/// Cult static info, used for things like sprites. Someone should refactor the sprites out of it someday and just use SEPERATE ICONS DEPNDING ON THE TYPE OF CULT... like a sane person
+	var/datum/cult_info/mode.cult_team.cultdat
+
 	// /// Cult data. CTODO, move this here, but thats... really difficult to do
-	// var/datum/cult_info/cult_data = null
+	var/datum/cult_info/cultdat = null
 
 /datum/team/cult/New()
 	..()
 	// update_team_objectives()
-	// var/random_cult = pick(typesof(/datum/cult_info))
-	// cult_data = new random_cult()
+	var/random_cult = pick(typesof(/datum/cult_info))
+	cultdat = new random_cult()
 
 	objective_holder.add_objective(/datum/objective/servecult)
 	objective_holder.add_objective(/datum/objective/sacrifice)
@@ -179,7 +182,7 @@
 		var/datum/antagonist/cultist/cultist = M.has_antag_datum(/datum/antagonist/cultist)
 		ASSERT(cultist)
 		addtimer(CALLBACK(cultist, TYPE_PROC_REF(/datum/antagonist/cultist, ascend)), 20 SECONDS)
-	GLOB.major_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
+	GLOB.major_announcement.Announce("Picking up extradimensional activity related to the Cult of [GET_CULT_DATA(entity_name, "Nar'Sie"] from your station. Data suggests that about [ascend_percent * 100)]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 
 /datum/team/cult/proc/cult_fall()
 	cult_ascendant = FALSE
@@ -259,22 +262,22 @@
 
 	switch(cult_status)
 		if(NARSIE_IS_ASLEEP)
-			to_chat(M, "<span class='cult'>[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] is asleep.</span>")
+			to_chat(M, "<span class='cult'>[GET_CULT_DATA(entity_name, "The Dark One")] is asleep.</span>")
 		if(NARSIE_DEMANDS_SACRIFICE)
 			if(!length(presummon_objs))
 				to_chat(M, "<span class='danger'>Error: No objectives in sacrifice list. Something went wrong. Oof.</span>")
 			else
 				var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)] //get the last obj in the list, ie the current one
-				to_chat(M, "<span class='cult'>The Veil needs to be weakened before we are able to summon [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"].</span>")
+				to_chat(M, "<span class='cult'>The Veil needs to be weakened before we are able to summon [GET_CULT_DATA(entity_title1, "The Dark One")].</span>")
 				to_chat(M, "<span class='cult'>Current goal: [current_obj.explanation_text]</span>")
 		if(NARSIE_NEEDS_SUMMONING)
-			to_chat(M, "<span class='cult'>The Veil is weak! We can summon [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "The Dark One"]!</span>")
+			to_chat(M, "<span class='cult'>The Veil is weak! We can summon [GET_CULT_DATA(entity_title3, "The Dark One")]!</span>")
 			to_chat(M, "<span class='cult'>Current goal: [obj_summon.explanation_text]</span>")
 		if(NARSIE_HAS_RISEN)
 			to_chat(M, "<span class='cultlarge'>\"I am here.\"</span>")
 			to_chat(M, "<span class='cult'>Current goal:</span> <span class='cultlarge'>\"Feed me.\"</span>")
 		if(NARSIE_HAS_FALLEN)
-			to_chat(M, "<span class='cultlarge'>[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] has been banished!</span>")
+			to_chat(M, "<span class='cultlarge'>[GET_CULT_DATA(entity_name, "The Dark One")] has been banished!</span>")
 			to_chat(M, "<span class='cult'>Current goal: Slaughter the unbelievers!</span>")
 		else
 			to_chat(M, "<span class='danger'>Error: Cult objective status currently unknown. Something went wrong. Oof.</span>")
@@ -320,7 +323,7 @@
 		return FALSE
 	for(var/datum/mind/cult_mind in SSticker.mode.cult)
 		if(cult_mind && cult_mind.current)
-			to_chat(cult_mind.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>Our goal is beyond your reach. Sacrifice [current_obj.target] instead...</span>")
+			to_chat(cult_mind.current, "<span class='danger'>[GET_CULT_DATA(entity_name, "Your god")]</span> murmurs, <span class='cultlarge'>Our goal is beyond your reach. Sacrifice [current_obj.target] instead...</span>")
 	return TRUE
 
 /datum/team/cult/proc/successful_sacrifice()
@@ -338,7 +341,7 @@
 	presummon_objs += obj_sac
 	for(var/datum/mind/cult_mind in SSticker.mode.cult)
 		if(cult_mind && cult_mind.current)
-			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have made progress, but there is more to do still before [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"] can be summoned!</span>")
+			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have made progress, but there is more to do still before [GET_CULT_DATA(entity_title1, "The Dark One")] can be summoned!</span>")
 			to_chat(cult_mind.current, "<span class='cult'>Current goal: [obj_sac.explanation_text]</span>")
 
 /datum/team/cult/proc/ready_to_summon()

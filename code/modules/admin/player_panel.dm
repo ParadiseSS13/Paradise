@@ -436,9 +436,9 @@
 			if(current_sac_obj)
 				dat += "<br>Current cult objective: <br>[current_sac_obj.explanation_text]"
 			else if(gamemode.cult_team.sacrifices_required == NARSIE_NEEDS_SUMMONING)
-				dat += "<br>Current cult objective: Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"]"
+				dat += "<br>Current cult objective: Summon [GET_CULT_DATA(entity_name, "Nar'Sie")]"
 			else if(gamemode.cult_team.sacrifices_required == NARSIE_HAS_RISEN)
-				dat += "<br>Current cult objective: Feed [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"]"
+				dat += "<br>Current cult objective: Feed [GET_CULT_DATA(entity_name, "Nar'Sie")]"
 			else if(gamemode.cult_team.sacrifices_required == NARSIE_HAS_FALLEN)
 				dat += "<br>Current cult objective: Kill all non-cultists"
 			else

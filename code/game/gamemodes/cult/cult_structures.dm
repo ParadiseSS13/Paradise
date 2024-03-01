@@ -59,9 +59,9 @@
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
-			icon_state = SSticker.cultdat?.get_icon("[initial(icon_state)]_off")
+			icon_state = GET_CULT_DATA(get_icon("[initial(icon_state)]_off"), "[initial(icon_state)]_off")
 		else
-			icon_state = SSticker.cultdat?.get_icon("[initial(icon_state)]")
+			icon_state = GET_CULT_DATA(get_icon(initial(icon_state)), initial(icon_state))
 		return
 	return ..()
 
@@ -150,7 +150,7 @@
 
 /obj/structure/cult/functional/altar/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.altar_icon_state
+	icon_state = GET_CULT_DATA(altar_icon_state, "altar")
 	cooldowntime = world.time + CULT_STRUCTURE_COOLDOWN
 
 /obj/structure/cult/functional/forge
@@ -170,7 +170,7 @@
 
 /obj/structure/cult/functional/forge/get_choosable_items()
 	. = ..()
-	if(SSticker.cultdat.mirror_shields_active)
+	if(SSticker.mode.cult_team.cultdatlt_team.cultdat.mirror_shields_active)
 		// Both lines here are needed. If you do it without, youll get issues.
 		. += "Mirror Shield"
 		.["Mirror Shield"] = /obj/item/shield/mirror
@@ -178,7 +178,7 @@
 
 /obj/structure/cult/functional/forge/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.forge_icon_state
+	icon_state = GET_CULT_DATA(forge_icon_state, "forge")
 
 /obj/structure/cult/functional/forge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 /obj/structure/cult/functional/pylon/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	icon_state = SSticker.cultdat?.pylon_icon_state
+	icon_state = GET_CULT_DATA(pylon_icon_state, "pylon")
 
 /obj/structure/cult/functional/pylon/attack_hand(mob/living/user)//override as it should not create anything
 	return
@@ -322,7 +322,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 /obj/structure/cult/functional/archives/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.archives_icon_state
+	icon_state = GET_CULT_DATA(archives_icon_state, "archives")
 
 /obj/effect/gateway
 	name = "gateway"

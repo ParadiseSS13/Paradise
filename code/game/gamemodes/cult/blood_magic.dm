@@ -227,8 +227,7 @@
 	button_icon_state = "cult_dagger"
 
 /datum/action/innate/cult/blood_spell/dagger/New()
-	if(SSticker.mode)
-		button_icon_state = SSticker.cultdat.dagger_icon
+	button_icon_state = GET_CULT_DATA(dagger_icon, "cult_dagger")
 	..()
 
 /datum/action/innate/cult/blood_spell/dagger/Activate()

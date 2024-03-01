@@ -22,14 +22,13 @@
 
 /obj/item/melee/cultblade/dagger/New()
 	..()
-	if(SSticker.mode)
-		icon_state = SSticker.cultdat.dagger_icon
-		item_state = SSticker.cultdat.dagger_icon
+	icon_state = GET_CULT_DATA(dagger_icon, blood_dagger)
+	item_state = GET_CULT_DATA(dagger_icon, blood_dagger)
 
 /obj/item/melee/cultblade/dagger/examine(mob/user)
 	. = ..()
 	if(user.mind.has_antag_datum(/datum/antagonist/cultist) || user.stat == DEAD)
-		. += "<span class='cult'>A dagger gifted by [SSticker.cultdat.entity_title3]. Allows the scribing of runes and access to the knowledge archives of the cult of [SSticker.cultdat.entity_name].</span>"
+		. += "<span class='cult'>A dagger gifted by [GET_CULT_DATA(entity_title3, "your god")]. Allows the scribing of runes and access to the knowledge archives of the cult of [GET_CULT_DATA(entity_name, "your god")].</span>"
 		. += "<span class='cultitalic'>Striking another cultist with it will purge holy water from them.</span>"
 		. += "<span class='cultitalic'>Striking a noncultist will tear their flesh, additionally, if you recently downed them with cult magic it will stun them completely.</span>"
 
@@ -60,7 +59,7 @@
 	var/datum/game_mode/gamemode = SSticker.mode
 
 	if(gamemode.cult_team.sacrifices_required < NARSIE_NEEDS_SUMMONING)
-		to_chat(user, "<span class='cultitalic'><b>[SSticker.cultdat.entity_name]</b> is not ready to be summoned yet!</span>")
+		to_chat(user, "<span class='cultitalic'><b>[GET_CULT_DATA(entity_name, "Your god")]</b> is not ready to be summoned yet!</span>")
 		return FALSE
 	if(gamemode.cult_team.sacrifices_required == NARSIE_HAS_RISEN)
 		to_chat(user, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
@@ -68,17 +67,17 @@
 
 	var/list/summon_areas = gamemode.cult_team.obj_summon.summon_spots
 	if(!(A in summon_areas))
-		to_chat(user, "<span class='cultlarge'>[SSticker.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_areas)]!</span>")
+		to_chat(user, "<span class='cultlarge'>[GET_CULT_DATA(entity_name, "Your god")] can only be summoned where the veil is weak - in [english_list(summon_areas)]!</span>")
 		return FALSE
 	var/confirm_final = tgui_alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence AND your location!",
-	"Are you prepared for the final battle?", list("My life for [SSticker.cultdat.entity_name]!", "No"))
+	"Are you prepared for the final battle?", list("My life for [GET_CULT_DATA(entity_name, "the cult")]!", "No"))
 	if(user)
 		if(confirm_final == "No" || confirm_final == null)
 			to_chat(user, "<span class='cultitalic'><b>You decide to prepare further before scribing the rune.</b></span>")
 			return FALSE
 		else
 			if(locate(/obj/effect/rune) in range(1, user))
-				to_chat(user, "<span class='cultlarge'>You need a space cleared of runes before you can summon [SSticker.cultdat.entity_title1]!</span>")
+				to_chat(user, "<span class='cultlarge'>You need a space cleared of runes before you can summon [GET_CULT_DATA(entity_title1, "your god")]!</span>")
 				return FALSE
 			else
 				return TRUE
@@ -170,7 +169,7 @@
 	else
 		others_message = "<span class='biggerdanger'>[user] cuts [user.p_their()] body and begins writing something particularly ominous in [user.p_their()] own blood!</span>"
 	user.visible_message(others_message,
-		"<span class='cultitalic'>You slice open your body and begin drawing a sigil of [SSticker.cultdat.entity_title3].</span>")
+		"<span class='cultitalic'>You slice open your body and begin drawing a sigil of [GET_CULT_DATA(entity_title3, "your god")].</span>")
 
 	drawing_rune = TRUE // Only one at a time
 	var/scribe_successful = do_after(user, initial(rune.scribe_delay) * scribe_multiplier, target = runeturf)
@@ -184,7 +183,7 @@
 		return
 
 	user.visible_message("<span class='warning'>[user] creates a strange circle in [user.p_their()] own blood.</span>",
-						"<span class='cultitalic'>You finish drawing the arcane markings of [SSticker.cultdat.entity_title3].</span>")
+						"<span class='cultitalic'>You finish drawing the arcane markings of [GET_CULT_DATA(entity_title3, "your god")].</span>")
 
 	var/obj/effect/rune/R = new rune(runeturf, keyword)
 	if(narsie_rune)

@@ -36,21 +36,15 @@
 
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
-	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
-		name = "[construct_type] ([rand(1, 1000)])"
-		real_name = construct_type
-		icon_living = construct_type
-		icon_state = construct_type
-	else
-		name = "[SSticker.cultdat.get_name(construct_type)] ([rand(1, 1000)])"
-		real_name = SSticker.cultdat.get_name(construct_type)
-		icon_living = SSticker.cultdat.get_icon(construct_type)
-		icon_state = SSticker.cultdat.get_icon(construct_type)
+	name = "[GET_CULT_DATA(get_name(construct_type), construct_type)] ([rand(1, 1000)])"
+	real_name = GET_CULT_DATA(get_name(construct_type), construct_type)
+	icon_living = GET_CULT_DATA(get_icon(construct_type), construct_type)
+	icon_state = GET_CULT_DATA(get_icon(construct_type), construct_type)
 
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))
 
-	set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
+	set_light(2, 3, l_color = GET_CULT_DATA(construct_glow, LIGHT_COLOR_BLOOD_MAGIC))
 
 /mob/living/simple_animal/hostile/construct/Destroy()
 	remove_held_body()

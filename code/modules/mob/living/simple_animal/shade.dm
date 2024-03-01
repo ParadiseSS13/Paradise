@@ -36,7 +36,7 @@
 
 /mob/living/simple_animal/shade/cult/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.shade_icon_state
+	icon_state = GET_CULT_DATA(shade_icon_state, initial(icon_state))
 
 /mob/living/simple_animal/shade/death(gibbed)
 	. = ..()

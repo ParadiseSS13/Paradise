@@ -92,8 +92,7 @@
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/cult/check_progress/New()
-	if(SSticker.mode)
-		button_icon_state = SSticker.cultdat.tome_icon
+	button_icon_state = GET_CULT_DATA(tome_icon, "tome")
 	..()
 
 /datum/action/innate/cult/check_progress/IsAvailable()
@@ -115,8 +114,7 @@
 	button_icon_state = "blood_dagger"
 
 /datum/action/innate/cult/use_dagger/Grant()
-	if(SSticker.mode)
-		button_icon_state = SSticker.cultdat.dagger_icon
+	button_icon_state = GET_CULT_DATA(dagger_icon, "blood_dagger")
 	..()
 
 /datum/action/innate/cult/use_dagger/override_location()

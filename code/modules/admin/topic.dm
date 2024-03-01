@@ -1694,19 +1694,19 @@
 			SStickets.convert_to_other_ticket(indexNum)
 
 	else if(href_list["cult_mindspeak"])
-		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [SSticker.cultdat.entity_name]", "Voice of [SSticker.cultdat.entity_name]")
+		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [GET_CULT_DATA(entity_name, "a cult god")]", "Voice of [GET_CULT_DATA(entity_name, "Cult God")]")
 		if(!input)
 			return
 
 		for(var/datum/mind/H in SSticker.mode.cult)
 			if(H.current)
-				to_chat(H.current, "<span class='cult'>[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
+				to_chat(H.current, "<span class='cult'>[GET_CULT_DATA(entity_name, "Your god")] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
 
 		for(var/mob/dead/observer/O in GLOB.player_list)
-			to_chat(O, "<span class='cult'>[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
+			to_chat(O, "<span class='cult'>[GET_CULT_DATA(entity_name, "Your god")] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
 
-		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [SSticker.cultdat.entity_name].")
-		log_admin("[key_name(usr)] Voice of [SSticker.cultdat.entity_name]: [input]")
+		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [GET_CULT_DATA(entity_name, "Cult God")].")
+		log_admin("[key_name(usr)] Voice of [GET_CULT_DATA(entity_name, "Cult God")]: [input]")
 
 	else if(href_list["cult_adjustsacnumber"])
 		var/amount = input("Adjust the amount of sacrifices required before summoning Nar'Sie", "Sacrifice Adjustment", 2) as null | num
