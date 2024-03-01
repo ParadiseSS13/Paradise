@@ -160,7 +160,6 @@
 	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 	M.update_inv_wear_mask()
 
-
 /obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
 	target.add_overlay(GLOB.welding_sparks)
 	var/did_thing = ..()
