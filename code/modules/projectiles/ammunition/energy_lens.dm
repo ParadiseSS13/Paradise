@@ -166,6 +166,15 @@
 	harmful = FALSE
 	delay = 0.6 SECONDS
 
+/obj/item/ammo_casing/energy/disabler/smg
+	projectile_type = /obj/item/projectile/beam/disabler/weak
+	e_cost = 25
+	fire_sound = 'sound/weapons/taser3.ogg'
+	click_cooldown_override = 2
+	variance = 15
+	randomspread = 1
+	delay = 2
+
 /obj/item/ammo_casing/energy/disabler/cyborg //seperate balancing for cyborg, again
 	e_cost = 250
 
@@ -286,7 +295,7 @@
 	select_name = "clown"
 
 /obj/item/ammo_casing/energy/emitter
-	projectile_type = /obj/item/projectile/beam/emitter/hitscan
+	projectile_type = /obj/item/projectile/beam/emitter
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	fire_sound = 'sound/weapons/emitter.ogg'
 	e_cost = 100

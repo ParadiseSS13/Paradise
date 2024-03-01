@@ -249,7 +249,7 @@
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])
 			if(!can_hack(usr, R))
 				return
-			var/choice = input("Really hack [R.name]? This cannot be undone.") in list("Yes", "No")
+			var/choice = alert(usr, "Really hack [R.name]? This cannot be undone.", "Do you want to hack this borg?", "Yes", "No")
 			if(choice != "Yes")
 				return
 			log_game("[key_name(usr)] emagged [key_name(R)] using robotic console!")
