@@ -299,6 +299,7 @@
 				C.update_icon()
 				batteries_recharged = 1
 		if(batteries_recharged)
+			target.reagents.add_reagent("teslium", 2)
 			to_chat(target, "<span class='notice'>Your batteries are recharged!</span>")
 
 
