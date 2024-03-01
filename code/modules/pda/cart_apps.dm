@@ -452,7 +452,7 @@
 	var/list/JaniCartData = list()
 	for(var/obj/vehicle/janicart/J in GLOB.janitorial_equipment)
 		var/turf/janicart_loc = get_turf(janicart )
-		if(jl)
+		if(janicart_loc)
 			if(janicart_loc.z != cl.z)
 				continue
 			var/direction = get_dir(pda,J)
