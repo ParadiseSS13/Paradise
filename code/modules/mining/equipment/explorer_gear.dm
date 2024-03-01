@@ -129,8 +129,8 @@
 /obj/item/clothing/head/hooded/prisoner_gulag
 	name = "gulag helmet"
 	desc = "A metallic helmet designed to operate with the mining suit, while dense it offers little protection aside the enviorment."
-	icon_state = "hardsuit_gulag_hood"
-	item_state = "hardsuit_gulag_hood"
+	icon_state = "hardsuit_gulag"
+	item_state = "hardsuit_gulag"
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR | NODROP
 	flags_cover = HEADCOVERSEYES
