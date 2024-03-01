@@ -308,7 +308,7 @@
 
 /obj/item/ammo_casing/shotgun/confetti
 	name = "confettishot"
-	desc = "A 12 gauge shell loaded with...confetti?"
+	desc = "A 12 gauge shell loaded with... confetti?"
 	icon_state = "partyshell"
 	projectile_type = /obj/item/projectile/bullet/confetti
 
