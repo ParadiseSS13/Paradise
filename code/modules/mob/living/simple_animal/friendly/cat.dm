@@ -241,7 +241,7 @@
 	deathmessage = "loses its false life and collapses!"
 	death_sound = "bodyfall"
 	var/final_bites = 0
-	var/total_final_bites = 5 + 1 // The first bite is the one that kills
+	var/total_final_bites = 6 // The first bite is the one that kills
 
 /mob/living/simple_animal/pet/cat/cak/Life()
 	..()
@@ -261,21 +261,18 @@
 	..()
 	if(L.a_intent != INTENT_HARM && L.a_intent != INTENT_DISARM)
 		return
-	if(!ishuman(L))
+	if(!L.reagents)
 		return
-	var/mob/living/carbon/human/H = L
 
 	if(stat == DEAD)
-		final_bites++
-		if(final_bites >= total_final_bites)
-			visible_message("<span class='danger'>[H] finished eating [src], there's nothing left!</src>")
-			if(H.dna && H.dna.species.reagent_tag == PROCESS_ORG)
-				to_chat(L, "<span class='info'>That last bite didn't taste like cake.  You have a bad feeling about this....")
-				L.reagents.add_reagent("prions", 5)
+		if(++final_bites >= total_final_bites)
+			visible_message("<span class='danger'>[L] finished eating [src], there's nothing left!</src>")
+			to_chat(L, "<span class='info'>Whoa, that last bite tasted weird.")
+			L.reagents.add_reagent("teslium", 5)
 			qdel(src)
 
-	H.reagents.add_reagent("nutriment", 0.4)
-	H.reagents.add_reagent("vitamin", 0.4)
+	L.reagents.add_reagent("nutriment", 0.4)
+	L.reagents.add_reagent("vitamin", 0.4)
 
 /mob/living/simple_animal/pet/cat/cak/CheckParts(list/parts)
 	..()
