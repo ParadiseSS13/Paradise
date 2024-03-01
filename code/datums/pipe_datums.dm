@@ -344,15 +344,6 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_id = PIPE_CIRCULATOR
 	pipe_icon = "circ"
 
-/datum/pipes/atmospheric/insulated
-	pipe_name = "insulated pipe"
-	pipe_id = PIPE_INSULATED_STRAIGHT
-	pipe_icon = "insulated"
-
-/datum/pipes/atmospheric/insulated/bent
-	pipe_name = "bent insulated pipe"
-	pipe_id = PIPE_INSULATED_BENT
-
 /datum/pipes/disposal/left_sortjunction
 	pipe_name = "disposals sort junction left"
 	pipe_id = PIPE_DISPOSALS_SORT_LEFT

@@ -290,3 +290,18 @@
 				C.reagents.add_reagent("ice", reagent_volume)
 	qdel(src)
 
+/// Smoke Grenade Module, its tacticool.
+/obj/item/mod/module/dispenser/smoke
+	name = "MOD smoke grenade dispenser module"
+	desc = "A module that dispenses primed smoke grenades to disperse crowds."
+	icon_state = "smoke_grenade"
+	cooldown_time = 10 SECONDS
+	complexity = 1
+	overlay_state_inactive = "module_smoke_grenade"
+	dispense_type = /obj/item/grenade/smokebomb
+
+/obj/item/mod/module/dispenser/smoke/on_use()
+	var/obj/item/grenade/smokebomb/grenade = ..()
+	if(!grenade)
+		return
+	grenade.attack_self(mod.wearer)

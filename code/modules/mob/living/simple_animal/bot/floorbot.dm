@@ -152,7 +152,7 @@
 
 /mob/living/simple_animal/bot/floorbot/emag_act(mob/user)
 	..()
-	if(emagged == 2)
+	if(emagged)
 		if(user)
 			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
 
@@ -187,12 +187,12 @@
 
 	if(amount < MAX_AMOUNT && !target) //Out of tiles! We must refill!
 		if(eat_tiles) //Configured to find and consume floortiles!
-			target = scan(/obj/item/stack/tile/plasteel)
 			process_type = null
+			target = scan(/obj/item/stack/tile/plasteel)
 
 		if(!target && make_tiles) //We did not manage to find any floor tiles! Scan for metal stacks and make our own!
-			target = scan(/obj/item/stack/sheet/metal)
 			process_type = null
+			target = scan(/obj/item/stack/sheet/metal)
 
 		if(!target && nag_on_empty) //Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
 			nag()
@@ -263,7 +263,7 @@
 		nagged = TRUE
 
 /mob/living/simple_animal/bot/floorbot/proc/is_hull_breach(turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
-	return !isspaceturf(get_area(t))
+	return !istype(get_area(t), /area/space)
 
 //Floorbots, having several functions, need sort out special conditions here.
 /mob/living/simple_animal/bot/floorbot/process_scan(atom/scan_target)

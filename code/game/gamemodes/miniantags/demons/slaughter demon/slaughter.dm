@@ -194,7 +194,7 @@
 	if(!choice)
 		return
 
-	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")
+	var/msg = tgui_input_text(usr, "What do you wish to tell [choice]?", null, "")
 	if(!(msg))
 		return
 	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)

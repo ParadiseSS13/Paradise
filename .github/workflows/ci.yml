@@ -37,11 +37,15 @@ jobs:
           python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
           python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
           python -m tools.ci.check_icon_conflicts
+          python -m tools.ci.check_icon_dupenames
           python -m tools.maplint.source --github
-          ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1
+          DREAMCHECKER_EXIT_CODE=0
+          ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1 || DREAMCHECKER_EXIT_CODE=$?
+          echo 'DREAMCHECKER_ANNOTATED=1' >> "$GITHUB_ENV"
+          exit $DREAMCHECKER_EXIT_CODE
       - name: Annotate Lints
         uses: yogstation13/DreamAnnotate@v2
-        if: always()
+        if: ${{ always() && env.DREAMCHECKER_ANNOTATED == '1' }}
         with:
           outputFile: output-annotations.txt
 

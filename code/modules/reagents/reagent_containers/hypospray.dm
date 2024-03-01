@@ -51,10 +51,7 @@
 			var/contained = english_list(injected)
 
 			add_attack_logs(user, M, "Injected with [src] containing ([contained])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
-			for(var/datum/reagent/R as anything in reagents.reagent_list)
-				if(initial(R.id) == "????") // Yes this is a specific case that we don't really want
-					continue
-				reagents.reaction(M, REAGENT_INGEST, 0.1)
+			reagents.reaction(M, REAGENT_INGEST, 0.1)
 		return TRUE
 
 /obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)

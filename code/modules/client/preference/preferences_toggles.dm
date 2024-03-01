@@ -227,12 +227,12 @@
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Instruments") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggle_input()
-	set name = "Toggle TGUI Input Lists"
+	set name = "Toggle TGUI Input"
 	set category = "Preferences"
-	set desc = "Switches input lists between the TGUI and the standard one"
-	prefs.toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_LISTS
+	set desc = "Switches inputs between the TGUI and the standard one"
+	prefs.toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_INPUT
 	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_LISTS) ? "no longer" : "now"] use TGUI Input Lists.")
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT) ? "no longer" : "now"] use TGUI Inputs.")
 
 /client/verb/Toggle_disco() //to toggle off the disco machine locally, in case it gets too annoying
 	set name = "Hear/Silence Dance Machine"
@@ -253,18 +253,6 @@
 	set desc = "Allows you to access the Setup Character screen. Changes to your character won't take effect until next round, but other changes will."
 	prefs.current_tab = 1
 	prefs.ShowChoices(usr)
-
-/client/verb/toggle_popup_limiter()
-	set name = "Toggle Text Popup Limiter"
-	set category = "Preferences"
-	set desc = "Will let you limit the text input popups to one at a time."
-	prefs.toggles ^= PREFTOGGLE_TYPING_ONCE
-	prefs.save_preferences(src)
-	if(prefs.toggles & PREFTOGGLE_TYPING_ONCE)
-		to_chat(usr, "<span class='notice'>You have enabled text popup limiting.")
-	else
-		to_chat(usr, "<span class='notice'>You have disabled text popup limiting.")
-	return
 
 /client/verb/toggle_ghost_pda()
 	set name = "Show/Hide GhostPDA"

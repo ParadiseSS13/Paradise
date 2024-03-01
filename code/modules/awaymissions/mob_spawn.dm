@@ -43,10 +43,10 @@
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	if(!valid_to_spawn(user))
 		return
-	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(ghost_role == "No")
+	var/ghost_role = tgui_alert(user, "Become [mob_name]? (Warning, You can no longer be cloned!)", "Respawn", list("Yes", "No"))
+	if(ghost_role != "Yes")
 		return
-	if(!species_prompt())
+	if(!species_prompt(user))
 		return
 	if(!loc || !uses && !permanent || QDELETED(src) || QDELETED(user))
 		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
@@ -219,9 +219,9 @@
 		mob_name = id_job
 	return ..()
 
-/obj/effect/mob_spawn/human/species_prompt()
+/obj/effect/mob_spawn/human/species_prompt(mob/user)
 	if(allow_species_pick)
-		var/selected_species = input("Select a species", "Species Selection") as null|anything in pickable_species
+		var/selected_species = tgui_input_list(user, "Select a species", "Species Selection", pickable_species)
 		if(!selected_species)
 			return	TRUE	// You didn't pick, so just continue on with the spawning process as a human
 		var/datum/species/S = GLOB.all_species[selected_species]
@@ -331,8 +331,8 @@
 	assignedrole = "Space Bar Patron"
 
 /obj/effect/mob_spawn/human/alive/space_bar_patron/attack_hand(mob/user)
-	var/despawn = alert("Return to cryosleep? (Warning, Your mob will be deleted!)",,"Yes","No")
-	if(despawn == "No" || !loc || !Adjacent(user))
+	var/despawn = tgui_alert(user, "Return to cryosleep? (Warning, Your mob will be deleted!)", "Leave Bar", list("Yes", "No"))
+	if(despawn != "Yes" || !loc || !Adjacent(user))
 		return
 	user.visible_message("<span class='notice'>[user.name] climbs back into cryosleep...</span>")
 	qdel(user)

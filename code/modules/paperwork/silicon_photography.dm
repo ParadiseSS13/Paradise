@@ -109,7 +109,6 @@
 	set category = "AI Commands"
 	set name = "Take Image"
 	set desc = "Takes an image"
-	set src in usr
 
 	toggle_camera_mode()
 
@@ -117,7 +116,6 @@
 	set category = "AI Commands"
 	set name = "View Images"
 	set desc = "View images"
-	set src in usr
 
 	viewpictures()
 
@@ -125,7 +123,6 @@
 	set category = "AI Commands"
 	set name = "Delete Image"
 	set desc = "Delete image"
-	set src in usr
 
 	deletepicture(src)
 
@@ -133,7 +130,6 @@
 	set category ="Robot Commands"
 	set name = "Take Image"
 	set desc = "Takes an image"
-	set src in usr
 
 	toggle_camera_mode()
 
@@ -141,7 +137,6 @@
 	set category ="Robot Commands"
 	set name = "View Images"
 	set desc = "View images"
-	set src in usr
 
 	viewpictures()
 
@@ -149,7 +144,6 @@
 	set category = "Robot Commands"
 	set name = "Delete Image"
 	set desc = "Delete a local image"
-	set src in usr
 
 	// Explicitly only allow deletion from the local camera
 	deletepicture(src)

@@ -203,6 +203,12 @@
 	id = "impact_immune"
 	alert_type = null
 
+/datum/status_effect/recently_succumbed
+	id = "recently_succumbed"
+	alert_type = null
+	duration = 1 MINUTES
+	status_type = STATUS_EFFECT_REFRESH
+
 #define LWAP_LOCK_CAP 10
 
 /datum/status_effect/lwap_scope
