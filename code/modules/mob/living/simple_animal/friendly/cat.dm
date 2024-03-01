@@ -241,7 +241,10 @@
 	deathmessage = "loses its false life and collapses!"
 	death_sound = "bodyfall"
 	var/final_bites = 0
-	var/total_final_bites = 6 // The first bite is the one that kills
+	// In practice, this is one less than it appears, because final_bites
+	// gets incremented by the bite that kills Keeki.  So total_final_bites
+	// of 6 means that the 5th bite post-death will finish off Keeki.
+	var/total_final_bites = 6
 
 /mob/living/simple_animal/pet/cat/cak/Life()
 	..()
