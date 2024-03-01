@@ -138,6 +138,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 				explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 			F.charges--
 
+	else if(istype(I, /obj/item/nullrod/godhand))
+		light("<span class='rose'>[user] calmly raises [user.p_their()] hand to [user.p_their()] [name], and it suddenly ignites.</span>")
+
 	//can't think of any other way to update the overlays :<
 	user.update_inv_wear_mask()
 	user.update_inv_l_hand()
@@ -512,7 +515,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers))
 		return
-	if(istype(I, /obj/item/match))
+	if(istype(I, /obj/item/match) || istype(I, /obj/item/nullrod/godhand))
 		..()
 	else
 		to_chat(user, "<span class='notice'>[src] straight out REFUSES to be lit by such means.</span>")

@@ -480,7 +480,10 @@
 		return
 	if(owner.nutrition <= hunger_threshold)
 		synthesizing = TRUE
-		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
+		if(!ismachineperson(owner))
+			to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
+		else
+			to_chat(owner, "<span class='notice'>You feel slightly energized...</span>")
 		owner.adjust_nutrition(50)
 		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
 
@@ -605,7 +608,7 @@
 	if(crit_fail)
 		return
 	if(owner.maxHealth == owner.health)
-		owner.adjust_nutrition(-0.5)
+		owner.adjust_nutrition(-0.5) // 1 per tick was a bit much
 		return //Passive damage scanning
 
 	owner.adjustBruteLoss(-0.5, robotic = TRUE)
@@ -672,6 +675,225 @@
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/remove(mob/living/carbon/M, special = FALSE)
 	REMOVE_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
 	owner.physiology.stamina_mod /= 1.15
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/ipc_reviver
+	name = "Emergency Reboot System"
+	desc = "A reactive repair system for bringing a dying IPC back from the brink. Comes with a diagnostics system for figuring out if anything else has gone wrong."
+	implant_color = "#0827F5"
+	actions_types = list(/datum/action/item_action/organ_action/toggle)
+	origin_tech = "materials=5;programming=5;magnets=5;engineering=6"
+	slot = "heartdrive"
+	requires_machine_person = TRUE
+	var/revive_cost = 0
+	var/reviving = FALSE
+	var/cooldown = 0
+
+/obj/item/organ/internal/cyberimp/chest/ipc_reviver/hardened
+	name = "Hardened Emergency Rebooter"
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/ipc_reviver/hardened/Initialize(mapload)
+	. = ..()
+	desc += " The implant has been hardened. It is invulnerable to EMPs."
+
+/obj/item/organ/internal/cyberimp/chest/ipc_reviver/ui_action_click()
+	if(owner && crit_fail)
+		to_chat(owner, "<span class='warning'>Error; Diagnostics System undergoing reboot.</span>")
+	else
+		owner_diagnostics(owner)
+
+/obj/item/organ/internal/cyberimp/chest/ipc_reviver/on_life()
+	if(cooldown > world.time || owner.suiciding)
+		return
+	if(reviving)
+		reviving = FALSE
+		if(owner.health <= HEALTH_THRESHOLD_CRIT + 10 || owner.getBrainLoss(120))
+			addtimer(CALLBACK(src, PROC_REF(repairing)), 30)
+			reviving = TRUE
+		if(!reviving)
+			return
+	cooldown = revive_cost + world.time
+	revive_cost = 0
+	reviving = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/ipc_reviver/proc/repairing()
+	if(QDELETED(owner))
+		return
+	revive_cost += 60
+	if(prob(75) && owner.getBruteLoss())
+		owner.adjustBruteLoss(-2, robotic = TRUE)
+		revive_cost += 60
+	if(prob(75) && owner.getFireLoss())
+		owner.adjustFireLoss(-2, robotic = TRUE)
+		revive_cost += 60
+	if(prob(30) && owner.getBrainLoss())
+		owner.adjustBrainLoss(-2)
+		revive_cost += 60
+
+/obj/item/organ/internal/cyberimp/chest/ipc_reviver/proc/owner_diagnostics(mob/owner)
+	var/list/msgs = list()
+	var/mob/living/carbon/human/machine/H = owner
+	msgs += "<span class='notice'>Systems Diagnostics\n\t Overall Status: ["[H.health]% functional"]</span>"
+	msgs += "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
+	if(LAZYLEN(H.internal_organs))
+		msgs += "<hr>"
+		msgs += "<span class='notice'>External components:</span>"
+		for(var/obj/item/organ/external/E in H.bodyparts)
+			msgs += "[E.name]: <font color='red'>[E.brute_dam]</font> <font color='#FFA500'>[E.burn_dam]</font>"
+	if(LAZYLEN(H.internal_organs))
+		msgs += "<hr>"
+		msgs += "<span class='notice'>Internal components:</span>"
+		for(var/obj/item/organ/internal/O in H.internal_organs)
+			if(istype(O, /obj/item/organ/internal/cyberimp))
+				continue
+			msgs += "[capitalize(O.name)]: <font color='red'>[O.damage]</font>"
+	if(LAZYLEN(H.internal_organs))
+		msgs += "<hr>"
+		msgs += "<span class='notice'>Implants:</span>"
+		for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
+			msgs += "[capitalize(I.name)]: <font color='red'>[I.crit_fail ? "CRITICAL FAILURE" : I.damage]</font>"
+	msgs.Add(get_chemscan_results(owner))
+	msgs += "<hr>"
+	msgs += "<span class='notice'>Temperature: [round(H.bodytemperature-T0C, 0.01)]&deg;C ([round(H.bodytemperature*1.8-459.67, 0.01)]&deg;F)</span>"
+	to_chat(owner, chat_box_healthscan(msgs.Join("<br>")))
+
+/obj/item/organ/internal/cyberimp/chest/ipc_reviver/emp_act(severity)
+	if(!owner || emp_proof)
+		return
+	if(reviving)
+		revive_cost +=200
+	else
+		cooldown += 200
+		to_chat(owner, "<span class='warning'>WARNING; Reboot Diagnostics Systems encountered an error, restarting.</span>")
+
+/obj/item/organ/internal/cyberimp/chest/ipc_radproof
+	name = "Radioactive Environment Upgrade"
+	desc = "A special lead lining for protecting fragile Positronic brains from radiation. Exposure to high heat may result in melting and unwanted damage."
+	implant_color = "#eed202"
+	slot = "appendix"
+	requires_machine_person = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/ipc_radproof/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_RADIMMUNE, "ipc_radproof[UID()]")
+	owner.physiology.burn_mod *= 1.15
+
+/obj/item/organ/internal/cyberimp/chest/ipc_radproof/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_RADIMMUNE, "ipc_radproof[UID()]")
+	owner.physiology.burn_mod /= 1.15
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/batbooster
+	name = "Microbattery Booster"
+	desc = "A deviced designed to improve the efficiency of connected Microbattery systems, thus prolonging how long an IPC can go before needing to charge again."
+	implant_color ="#63af0d"
+	slot = "stomach"
+	requires_machine_person = TRUE
+	crit_fail = FALSE
+
+/obj/item/organ/internal/cyberimp/chest/batbooster/hardened
+	name = "Hardened Microbattery Booster"
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/batbooster/hardened/Initialize(mapload)
+	. = ..()
+	desc += " The implant has been hardened. It is invulnerable to EMPs."
+
+/obj/item/organ/internal/cyberimp/chest/batbooster/on_life()
+	if(crit_fail)
+		return
+	else
+		owner.adjust_nutrition(0.7)
+
+/obj/item/organ/internal/cyberimp/chest/batbooster/proc/restarting()
+	crit_fail = FALSE
+
+/obj/item/organ/internal/cyberimp/chest/batbooster/emp_act(severity)
+	if(!owner || emp_proof)
+		return
+	owner.electrocute_act(20, src, flags = SHOCK_NOGLOVES)
+	to_chat(owner, "<span class='warning'>You feel your electric systems surge unexpectadly!</span>")
+	crit_fail = TRUE
+	addtimer(CALLBACK(src, PROC_REF(restarting)), 60 SECONDS)
+
+// Admin-only IPC-exclusive Implants
+
+/obj/item/organ/internal/cyberimp/chest/lazrestarter
+	name = "Lazarus Restarter"
+	desc = "The brainchild of researchers at the Canaan University of Technology, this implant makes the user effectively immortal at the cost of becoming essentially a shambling zombie."
+	implant_color = "#ffffff"
+	slot = "stomach"
+	requires_machine_person = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/lazrestarter/on_life()
+	owner.adjustBruteLoss(-10, robotic = TRUE)
+	owner.adjustFireLoss(-10, robotic = TRUE)
+	owner.adjustBrainLoss(-1)
+	if(owner.health <= HEALTH_THRESHOLD_CRIT)
+		owner.adjustBruteLoss(-25, robotic = TRUE)
+		owner.adjustFireLoss(-25, robotic = TRUE)
+		owner.adjustBrainLoss(-5)
+
+/obj/item/organ/internal/cyberimp/chest/lazrestarter/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	RegisterSignal(M, COMSIG_MOB_DEATH, PROC_REF(on_death))
+	to_chat(owner, "<span class='warning'>You feel undying, yet something within you has died and won't come back.</span>")
+
+/obj/item/organ/internal/cyberimp/chest/lazrestarter/proc/on_death()
+	addtimer(CALLBACK(src, PROC_REF(lazrestart)), 60 SECONDS)
+
+/obj/item/organ/internal/cyberimp/chest/lazrestarter/proc/lazrestart()
+	owner.adjustBruteLoss(-50, robotic = TRUE)
+	owner.adjustFireLoss(-50, robotic = TRUE)
+	owner.adjustBrainLoss(-60)
+	owner.grab_ghost()
+	owner.update_revive()
+
+/obj/item/organ/internal/cyberimp/chest/titanplate
+	name = "Canaanite Titan Plating"
+	desc = "Highly specialized armor plating often found used by certain elite units in the New Canaanite Armed Forces. This type is meant for high- and low-pressure hazardous environments."
+	implant_color = "#383838"
+	slot = "heartdrive"
+	requires_machine_person = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/titanplate/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	owner.physiology.brute_mod *= 0.5
+	owner.physiology.burn_mod *= 0.5
+	ADD_TRAIT(M, TRAIT_RESISTLOWPRESSURE, "titanplate[UID()]")
+	ADD_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, "titanplate[UID()]")
+	ADD_TRAIT(M, TRAIT_RESISTCOLD, "titanplate[UID()]")
+	ADD_TRAIT(M, TRAIT_RESISTHEAT, "titanplate[UID()]")
+
+/obj/item/organ/internal/cyberimp/chest/titanplate/remove(mob/living/carbon/M, special = FALSE)
+	owner.physiology.brute_mod /= 0.5
+	owner.physiology.burn_mod /= 0.5
+	REMOVE_TRAIT(M, TRAIT_RESISTLOWPRESSURE, "titanplate[UID()]")
+	REMOVE_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, "titanplate[UID()]")
+	REMOVE_TRAIT(M, TRAIT_RESISTCOLD, "titanplate[UID()]")
+	REMOVE_TRAIT(M, TRAIT_RESISTHEAT, "titanplate[UID()]")
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/smtechnician
+	name = "Supermatter Technician Suite"
+	desc = "Housing and producing special hypernobilium-bearing nanites, this organ makes the implantee's chassis able to come into contact with Supermatter. Additionally renders the implantee immune to Supermatter-related hallucinations and radiation."
+	implant_color = "#ffee00"
+	slot = "appendix"
+	requires_machine_person = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/smtechnician/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_SUPERMATTER_IMMUNE, "smtechnician[UID()]")
+	ADD_TRAIT(M, TRAIT_RADIMMUNE, "smtechnician[UID()]")
+	ADD_TRAIT(M, SM_HALLUCINATION_IMMUNE, "smtechnician[UID()]")
+	to_chat(owner, "<span class='warning'>You feel like you could touch Supermatter.</span>")
+
+/obj/item/organ/internal/cyberimp/chest/smtechnician/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_SUPERMATTER_IMMUNE, "smtechnician[UID()]")
+	REMOVE_TRAIT(M, TRAIT_RADIMMUNE, "smtechnician[UID()]")
+	REMOVE_TRAIT(M, SM_HALLUCINATION_IMMUNE, "smtechnician[UID()]")
+	to_chat(owner, "<span class='warning'>You feel like touching Supermatter might be a bad idea now.</span>")
 	return ..()
 
 //BOX O' IMPLANTS

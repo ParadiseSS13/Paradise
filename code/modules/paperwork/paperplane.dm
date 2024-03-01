@@ -82,7 +82,10 @@
 		if(!in_range(user, src)) //to prevent issues as a result of telepathically lighting a paper
 			return
 		user.unEquip(src)
-		user.visible_message("<span class='danger'>[user] lights [src] on fire with [P]!</span>", "<span class='danger'>You lights [src] on fire!</span>")
+		if(istype(P, /obj/item/nullrod/godhand))
+			user.visible_message("<span class='danger'>[user] touches [src] with a finger and it bursts into flames!</span>", "<span class='danger'>You ignite [src] with your finger!</span>")
+		else
+			user.visible_message("<span class='danger'>[user] lights [src] on fire with [P]!</span>", "<span class='danger'>You lights [src] on fire!</span>")
 		fire_act()
 
 	add_fingerprint(user)
