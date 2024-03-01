@@ -219,56 +219,36 @@
 	if(method == REAGENT_TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/victim = M
-			var/mouth_covered = 0
-			var/eyes_covered = 0
+			var/mouth_covered = FALSE
+			var/eyes_covered = FALSE
 			var/obj/item/safe_thing = null
 			if(victim.wear_mask)
 				if(victim.wear_mask.flags_cover & MASKCOVERSEYES)
-					eyes_covered = 1
+					eyes_covered = TRUE
 					safe_thing = victim.wear_mask
 				if(victim.wear_mask.flags_cover & MASKCOVERSMOUTH)
-					mouth_covered = 1
+					mouth_covered = TRUE
 					safe_thing = victim.wear_mask
 			if(victim.head)
 				if(victim.head.flags_cover & MASKCOVERSEYES)
-					eyes_covered = 1
+					eyes_covered = TRUE
 					safe_thing = victim.head
 				if(victim.head.flags_cover & MASKCOVERSMOUTH)
-					mouth_covered = 1
+					mouth_covered = TRUE
 					safe_thing = victim.head
-			if(victim.glasses)
-				eyes_covered = 1
-				if(!safe_thing)
-					safe_thing = victim.glasses
+
 			if(eyes_covered && mouth_covered)
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protects you from the pepperspray!</span>")
 				return
-			else if(mouth_covered)	// Reduced effects if partially protected
-				to_chat(victim, "<span class='danger'>Your [safe_thing] protect you from most of the pepperspray!</span>")
-				if(prob(5))
-					victim.emote("scream")
-				victim.EyeBlurry(6 SECONDS)
-				victim.EyeBlind(2 SECONDS)
-				victim.Confused(6 SECONDS)
-				victim.damageoverlaytemp = 60
-				victim.Weaken(6 SECONDS)
-				victim.drop_item()
-				return
-			else if(eyes_covered) // Eye cover is better than mouth cover
-				to_chat(victim, "<span class='danger'>Your [safe_thing] protects your eyes from the pepperspray!</span>")
-				victim.EyeBlurry(6 SECONDS)
-				victim.damageoverlaytemp = 30
-				return
-			else // Oh dear :D
-				if(prob(5))
-					victim.emote("scream")
-				to_chat(victim, "<span class='danger'>You're sprayed directly in the eyes with pepperspray!</span>")
-				victim.EyeBlurry(10 SECONDS)
-				victim.EyeBlind(4 SECONDS)
-				victim.Confused(12 SECONDS)
-				victim.damageoverlaytemp = 75
-				victim.Weaken(10 SECONDS)
-				victim.drop_item()
+
+			if(!mouth_covered)
+				victim.apply_status_effect(STATUS_EFFECT_PEPPERSPRAYED)
+
+			if(!eyes_covered)
+				to_chat(victim, "<span class='danger'>Your eyes burns!</span>")
+				victim.Stun(0.5 SECONDS)
+				victim.EyeBlurry(20 SECONDS)
+				victim.EyeBlind(8 SECONDS)
 
 /datum/reagent/consumable/frostoil
 	name = "Frost Oil"

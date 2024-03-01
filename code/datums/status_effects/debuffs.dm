@@ -382,6 +382,26 @@
 /datum/status_effect/transient/drowsiness/calc_decay()
 	return (-0.2 + (IS_HORIZONTAL(owner) ? -0.8 : 0)) SECONDS
 
+/datum/status_effect/pepper_spray
+	id = "pepperspray"
+	duration = 10 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	tick_interval = -1
+	alert_type = null
+
+/datum/status_effect/pepper_spray/on_apply()
+	. = ..()
+	to_chat(owner, "<span class='danger'>Your throat burns!</span>")
+	owner.AdjustConfused(12 SECONDS)
+	owner.Slowed(4 SECONDS)
+	owner.apply_damage(40, STAMINA)
+
+/datum/status_effect/pepper_spray/refresh()
+	. = ..()
+	owner.AdjustConfused(12 SECONDS)
+	owner.Slowed(4 SECONDS)
+	owner.apply_damage(20, STAMINA)
+
 /**
  * # Drukenness
  *
