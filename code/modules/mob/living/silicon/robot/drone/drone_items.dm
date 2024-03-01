@@ -1,6 +1,7 @@
 //Simple borg hand.
 //Limited use.
-/obj/item/gripper_engineering // This isn't a drone item, also in engineering cyborg kits
+/// This isn't a drone item, also in engineering cyborg kits
+/obj/item/gripper_engineering
 	name = "magnetic gripper"
 	desc = "A simple grasping tool for synthetic assets."
 	icon = 'icons/obj/device.dmi'

@@ -373,7 +373,8 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
-/obj/item/clothing/head/stalhelm //Why do these exist - Because they aren't specifically Nazi Germany
+/// Why do these exist - Because they aren't specifically Nazi Germany
+/obj/item/clothing/head/stalhelm
 	name = "clown stalhelm"
 	desc = "The typical clown soldier's helmet."
 	icon_state = "stalhelm"
@@ -396,7 +397,8 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
-/obj/item/clothing/head/beret/purple //Fluff?
+/// Fluff?
+/obj/item/clothing/head/beret/purple
 	name = "Pierson Family Beret"
 	desc = " A purple beret, with a small golden crescent moon sewn onto it."
 	icon_state = "beret_purple"
