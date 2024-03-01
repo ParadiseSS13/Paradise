@@ -9,7 +9,6 @@
 	var/instability = 0
 	/// Trait to give, if any
 	var/traits_to_add = list()
-	/// Activation probability
 	/// Possible activation messages
 	var/list/activation_messages = list()
 	/// Possible deactivation messages
