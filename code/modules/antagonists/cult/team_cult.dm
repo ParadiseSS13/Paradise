@@ -314,19 +314,15 @@
 	var/list/presummon_objs = objective_holder.get_objectives()
 	if(cult_status == NARSIE_DEMANDS_SACRIFICE && length(presummon_objs))
 		var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
-		return current_obj
-	return FALSE
+		if(istype(current_obj))
+			return current_obj
 
 /datum/team/cult/proc/is_sac_target(datum/mind/mind)
-	var/list/presummon_objs = objective_holder.get_objectives()
-	if(cult_status != NARSIE_DEMANDS_SACRIFICE || !length(presummon_objs))
-		return FALSE
-	var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
-	return current_obj.target == mind
+	var/datum/objective/sacrifice/current_obj = current_sac_objective()
+	return istype(current_obj) && current_obj.target == mind
 
 /datum/team/cult/proc/find_new_sacrifice_target(datum/mind/mind)
-	var/list/presummon_objs = objective_holder.get_objectives()
-	var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
+	var/datum/objective/sacrifice/current_obj = current_sac_objective()
 	if(!current_obj.find_target())
 		return FALSE
 	for(var/datum/mind/cult_mind in members)
@@ -335,8 +331,7 @@
 	return TRUE
 
 /datum/team/cult/proc/successful_sacrifice()
-	var/list/presummon_objs = objective_holder.get_objectives()
-	var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
+	var/datum/objective/sacrifice/current_obj = current_sac_objective()
 	current_obj.sacced = TRUE
 	sacrifices_done++
 	if(sacrifices_done >= sacrifices_required)
@@ -355,6 +350,7 @@
 /datum/team/cult/proc/ready_to_summon()
 	if(!obj_summon)
 		obj_summon = objective_holder.add_objective(/datum/objective/eldergod)
+
 	cult_status = NARSIE_NEEDS_SUMMONING
 	for(var/datum/mind/cult_mind in members)
 		if(cult_mind && cult_mind.current)

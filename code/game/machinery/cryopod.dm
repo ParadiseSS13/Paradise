@@ -360,8 +360,7 @@
 
 	// Find a new sacrifice target if needed, if unable allow summoning
 	if(IS_SACRIFICE_TARGET(occupant.mind))
-		if(!SSticker.mode.cult_team.find_new_sacrifice_target())
-			SSticker.mode.cult_team.ready_to_summon()
+		SSticker.mode.cult_team.find_new_sacrifice_target()
 
 	//Update any existing objectives involving this mob.
 	if(occupant.mind)

@@ -1721,9 +1721,7 @@
 		if(alert(usr, "Reroll the cult's sacrifice target?", "Cult Debug", "Yes", "No") != "Yes")
 			return
 
-		var/datum/game_mode/gamemode = SSticker.mode
-		if(!gamemode.cult_team.find_new_sacrifice_target())
-			gamemode.cult_team.ready_to_summon()
+		SSticker.mode.cult_team.find_new_sacrifice_target()
 
 		message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
 		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
