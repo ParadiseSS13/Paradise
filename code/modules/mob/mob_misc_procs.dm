@@ -99,7 +99,7 @@
 	INVOKE_ASYNC(client, TYPE_PROC_REF(/client, colour_transition), get_screen_colour(), flash_time)
 
 /proc/ismindshielded(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
-	for(var/obj/item/implant/mindshield/L in A)
+	for(var/obj/item/bio_chip/mindshield/L in A)
 		if(L && L.implanted)
 			return 1
 	return 0
@@ -456,7 +456,7 @@
 	if(IsSleeping())
 		to_chat(src, "<span class='notice'>You are already sleeping.</span>")
 		return
-	if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
+	if(tgui_alert(src, "You sure you want to sleep for a while?", "Sleep", list("Yes", "No")) == "Yes")
 		SetSleeping(40 SECONDS, voluntary = TRUE) //Short nap
 
 /mob/living/verb/rest()
@@ -602,7 +602,7 @@
 
 /mob/proc/rename_character(oldname, newname)
 	if(!newname)
-		return 0
+		return FALSE
 	real_name = newname
 	name = newname
 	if(mind)
@@ -620,8 +620,8 @@
 
 		//update our pda and id if we have them on our person
 		var/list/searching = GetAllContents(searchDepth = 3)
-		var/search_id = 1
-		var/search_pda = 1
+		var/search_id = TRUE
+		var/search_pda = TRUE
 
 		for(var/A in searching)
 			if(search_id && istype(A,/obj/item/card/id))
@@ -630,27 +630,26 @@
 					ID.registered_name = newname
 					ID.name = "[newname]'s ID Card ([ID.assignment])"
 					ID.RebuildHTML()
-					if(!search_pda)	break
-					search_id = 0
+					if(!search_pda)
+						break
+					search_id = FALSE
 
 			else if(search_pda && istype(A,/obj/item/pda))
 				var/obj/item/pda/PDA = A
 				if(PDA.owner == oldname)
 					PDA.owner = newname
 					PDA.name = "PDA-[newname] ([PDA.ownjob])"
-					if(!search_id)	break
-					search_pda = 0
+					if(!search_id)
+						break
+					search_pda = FALSE
 
 		//Fixes renames not being reflected in objective text
-		var/length
-		var/pos
-		for(var/datum/objective/objective in GLOB.all_objectives)
-			if(!mind || objective.target != mind)
-				continue
-			length = length(oldname)
-			pos = findtextEx(objective.explanation_text, oldname)
-			objective.explanation_text = copytext(objective.explanation_text, 1, pos)+newname+copytext(objective.explanation_text, pos+length)
-	return 1
+		if(mind)
+			for(var/datum/objective/objective in GLOB.all_objectives)
+				if(objective.target != mind)
+					continue
+				objective.update_explanation_text()
+	return TRUE
 
 /mob/proc/rename_self(role, allow_numbers = FALSE, force = FALSE)
 	spawn(0)
@@ -661,11 +660,11 @@
 
 		for(var/i=1,i<=3,i++)	//we get 3 attempts to pick a suitable name.
 			if(force)
-				newname = clean_input("Pick a new name.", "Name Change", oldname, src)
+				newname = tgui_input_text(src, "Pick a new name.", "Name Change", oldname)
 			else
-				newname = clean_input("You are a [role]. Would you like to change your name to something else? (You have 3 minutes to select a new name.)", "Name Change", oldname, src)
+				newname = tgui_input_text(src, "You are a [role]. Would you like to change your name to something else? (You have 3 minutes to select a new name.)", "Name Change", oldname, timeout = 3 MINUTES)
 			if(((world.time - time_passed) > 1800) && !force)
-				alert(src, "Unfortunately, more than 3 minutes have passed for selecting your name. If you are a robot, use the Namepick verb; otherwise, adminhelp.", "Name Change")
+				tgui_alert(src, "Unfortunately, more than 3 minutes have passed for selecting your name. If you are a robot, use the Namepick verb; otherwise, adminhelp.", "Name Change")
 				return	//took too long
 			newname = reject_bad_name(newname,allow_numbers)	//returns null if the name doesn't meet some basic requirements. Tidies up a few other things like bad-characters.
 

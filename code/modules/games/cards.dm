@@ -66,8 +66,8 @@
 			return
 
 		if(length(H.cards) > 1)
-			var/confirm = alert("Are you sure you want to put your [length(H.cards)] cards back into the deck?", "Return Hand", "Yes", "No")
-			if(confirm == "No" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+			var/confirm = tgui_alert(user, "Are you sure you want to put your [length(H.cards)] cards back into the deck?", "Return Hand", list("Yes", "No"))
+			if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 				return
 		for(var/datum/playingcard/P in H.cards)
 			cards += P
@@ -191,9 +191,8 @@
 	for(var/mob/living/player in viewers(3))
 		if(!player.incapacitated())
 			players += player
-	var/maxcards = clamp(length(cards), 1, 10)
-	var/dcard = input("How many card(s) do you wish to deal? You may deal up to [maxcards] cards.") as num
-	if(dcard > maxcards)
+	var/dcard = tgui_input_number(usr, "How many card(s) do you wish to deal? You may deal up to [length(cards)] cards.", "Deal Cards", max_value = length(cards))
+	if(!dcard)
 		return
 	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal [dcard] card(s)?", "Deal Card", players)
 	if(!usr || !src || !M || !Adjacent(usr))
@@ -354,7 +353,6 @@
 	dat += "Which card will you remove next?<br>"
 	dat += "<a href='?src=[UID()];pick=Turn'>Turn the hand over</a>"
 	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.set_content(dat)
 	popup.open()
 
@@ -454,7 +452,7 @@
 	var/mob/living/carbon/user = usr
 
 	var/maxcards = min(length(cards), 5)
-	var/discards = input("How many cards do you want to discard? You may discard up to [maxcards] card(s)") as num
+	var/discards = tgui_input_number(usr, "How many cards do you want to discard? You may discard up to [maxcards] card(s)", "Discard Cards", max_value = maxcards)
 	if(discards > maxcards)
 		return
 	for(var/i in 1 to discards)

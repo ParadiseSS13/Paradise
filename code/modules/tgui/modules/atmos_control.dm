@@ -9,18 +9,23 @@
 		if("open_alarm")
 			var/obj/machinery/alarm/alarm = locate(params["aref"]) in GLOB.air_alarms
 			if(alarm)
-				alarm.ui_interact(usr, master_ui = ui, state = GLOB.always_state) // ALWAYS is intentional here, as the master_ui pass will prevent fuckery
+				alarm.ui_interact(usr)
 
-/datum/ui_module/atmos_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/ui_module/atmos_control/ui_state(mob/user)
+	if(isliving(usr))
+		return GLOB.human_adjacent_state
+	return GLOB.default_state
+
+/datum/ui_module/atmos_control/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AtmosControl", name, 800, 600, master_ui, state)
-
-		// Send nanomaps
-		var/datum/asset/nanomaps = get_asset_datum(/datum/asset/simple/nanomaps)
-		nanomaps.send(user)
-
+		ui = new(user, src, "AtmosControl", name)
 		ui.open()
+
+/datum/ui_module/atmos_control/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/nanomaps)
+	)
 
 /datum/ui_module/atmos_control/ui_data(mob/user)
 	var/list/data = list()

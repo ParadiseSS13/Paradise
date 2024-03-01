@@ -37,7 +37,7 @@
 			return
 	else if((istype(W, /obj/item/card/emag) || (istype(W, /obj/item/melee/energy/blade)) && !broken))
 		emag_act(user)
-		return
+		return TRUE
 	if(!locked)
 		..()
 	else
@@ -90,10 +90,10 @@
 	req_access = list(ACCESS_SECURITY)
 
 /obj/item/storage/lockbox/mindshield/populate_contents()
-	new /obj/item/implantcase/mindshield(src)
-	new /obj/item/implantcase/mindshield(src)
-	new /obj/item/implantcase/mindshield(src)
-	new /obj/item/implanter/mindshield(src)
+	new /obj/item/bio_chip_case/mindshield(src)
+	new /obj/item/bio_chip_case/mindshield(src)
+	new /obj/item/bio_chip_case/mindshield(src)
+	new /obj/item/bio_chip_implanter/mindshield(src)
 
 /obj/item/storage/lockbox/clusterbang
 	name = "lockbox (clusterbang)"

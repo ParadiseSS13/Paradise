@@ -488,7 +488,7 @@
 
 // SPACE SUITS
 
-/datum/uplink_item/suits/hardsuit/elite
+/datum/uplink_item/suits/elite_nukie
 	name = "Elite Syndicate MODsuit"
 	desc = "An advanced MODsuit with superior armor and mobility to the standard Syndicate MODsuit."
 	item = /obj/item/mod/control/pre_equipped/elite
@@ -497,56 +497,54 @@
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/suits/hardsuit/shielded
-	name = "Shielded Hardsuit"
-	desc = "An advanced hardsuit with built in energy shielding. The shields will rapidly recharge when not under fire."
-	item = /obj/item/clothing/suit/space/hardsuit/shielded/syndi
-	cost = 150
+/datum/uplink_item/suits/shielded
+	name = "Energy Shield Module"
+	desc = "A personal, protective forcefield typically seen in military applications. \
+		This advanced deflector shield is essentially a scaled down version of those seen on starships, \
+		and the power cost can be an easy indicator of this. However, it is capable of blocking nearly any incoming attack, \
+		though with its' low amount of separate charges, the user remains mortal."
+	item = /obj/item/mod/module/energy_shield
+	cost = 200
 	reference = "SHS"
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // IMPLANTS
 
-/datum/uplink_item/implants/krav_implant
+/datum/uplink_item/bio_chips/krav_implant
 	name = "Krav Maga Implant"
 	desc = "A biochip that teaches you Krav Maga when implanted, great as a cheap backup weapon. Warning: the biochip will override any other fighting styles such as CQC while active."
 	reference = "KMI"
-	item = /obj/item/implanter/krav_maga
+	item = /obj/item/bio_chip_implanter/krav_maga
 	cost = 25
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/implants/uplink/nuclear
+/datum/uplink_item/bio_chips/uplink/nuclear
 	name = "Nuclear Uplink Bio-chip"
 	reference = "UIN"
-	item = /obj/item/implanter/nuclear
+	item = /obj/item/bio_chip_implanter/nuclear
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/implants/microbomb
+/datum/uplink_item/bio_chips/microbomb
 	name = "Microbomb Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated either manually or automatically upon death. The more implants inside of you, the higher the explosive power. \
 	This will permanently destroy your body, however."
 	reference = "MBI"
-	item = /obj/item/implanter/explosive
+	item = /obj/item/bio_chip_implanter/explosive
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/implants/macrobomb
+/datum/uplink_item/bio_chips/macrobomb
 	name = "Macrobomb Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated either manually or automatically upon death. Upon death, releases a massive explosion that will wipe out everything nearby."
 	reference = "HAB"
-	item = /obj/item/implanter/explosive_macro
+	item = /obj/item/bio_chip_implanter/explosive_macro
 	cost = 50
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 
 // CYBERNETICS
-
-/datum/uplink_item/cyber_implants
-	category = "Cybernetic Implants"
-	surplus = 0
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/cyber_implants/thermals
 	name = "Thermal Vision Implant"
@@ -554,6 +552,8 @@
 	reference = "CIT"
 	item = /obj/item/autosurgeon/organ/syndicate/thermal_eyes
 	cost = 40
+	surplus = 0
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/cyber_implants/xray
 	name = "X-Ray Vision Implant"
@@ -561,6 +561,8 @@
 	reference = "CIX"
 	item = /obj/item/autosurgeon/organ/syndicate/xray_eyes
 	cost = 50
+	surplus = 0
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/cyber_implants/antistun
 	name = "Hardened CNS Rebooter Implant"
@@ -568,6 +570,8 @@
 	reference = "CIAS"
 	item = /obj/item/autosurgeon/organ/syndicate/anti_stam
 	cost = 60
+	surplus = 0
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/cyber_implants/reviver
 	name = "Hardened Reviver Implant"
@@ -575,6 +579,8 @@
 	reference = "CIR"
 	item = /obj/item/autosurgeon/organ/syndicate/reviver
 	cost = 40
+	surplus = 0
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // BUNDLES
 

@@ -10,10 +10,13 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/used = FALSE
 
-/obj/item/contract/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/contract/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/contract/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "WizardApprenticeContract", name, 400, 600, master_ui, state)
+		ui = new(user, src, "WizardApprenticeContract", name)
 		ui.open()
 
 /obj/item/contract/ui_data(mob/user)
@@ -73,7 +76,7 @@
 		return
 
 	if(used)
-		to_chat(user, "<span class='warning'> You've already summoned an apprentice or you are in process of summoning one. </span>")
+		to_chat(user, "<span class='warning'>You've already summoned an apprentice or you are in process of summoning one.</span>")
 		return
 
 	ui_interact(user)
@@ -123,12 +126,12 @@
 			M.mind.AddSpell(new /obj/effect/proc_holder/spell/mind_transfer(null))
 			M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
 			M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/toolbox(null))
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
+			M.mind.AddSpell(new /obj/effect/proc_holder/spell/disguise_self(null))
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), SLOT_HUD_SHOES)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas(M), SLOT_HUD_WEAR_MASK)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(M), SLOT_HUD_GLOVES)
 			M.equip_to_slot_or_del(new /obj/item/storage/belt/utility/full(M), SLOT_HUD_BELT)
-			to_chat(M, "<b>Your service has not gone unrewarded. Under the mentorship of [H.real_name], you've mastered stealthy, robeless spells. You can now cast Mindswap, Knock, Homing Toolbox, Forcewall, and Instant Summons without the need for wizard robes.</b>")
+			to_chat(M, "<b>Your service has not gone unrewarded. Under the mentorship of [H.real_name], you've mastered stealthy, robeless spells. You can now cast Mindswap, Knock, Homing Toolbox, and Disguise Self without the need for wizard robes.</b>")
 		if("honk")
 			M.mind.AddSpell(new /obj/effect/proc_holder/spell/touch/banana/apprentice(null))
 			M.mind.AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt(null))
@@ -290,12 +293,9 @@
 		return
 	in_use = TRUE
 	ADD_TRAIT(user, SCRYING, SCRYING_ORB)
-	user.add_atom_colour(COLOR_BLUE, ADMIN_COLOUR_PRIORITY) // stolen spirit rune code
 	user.visible_message("<span class='notice'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>",
 					"<span class='danger'> You stare into [src], you can see the entire universe!</span>")
-	ghost = user.ghostize(TRUE)
-	ghost.name = "Magic Spirit of [ghost.name]"
-	ghost.color = COLOR_BLUE
+	ghost = user.ghostize(TRUE, COLOR_BLUE, "Magic Spirit of [user.name]")
 	while(!QDELETED(user))
 		if(user.key || QDELETED(src))
 			user.visible_message("<span class='notice'>[user] blinks, returning to the world around [user.p_them()].</span>",
@@ -319,6 +319,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/multisword
 	name = "multiverse sword"
 	desc = "A weapon capable of conquering the universe and beyond. Activate it to summon copies of yourself from others dimensions to fight by your side."
+	icon = 'icons/obj/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "energy_katana"
@@ -630,7 +631,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(new /obj/item/scalpel(M), SLOT_HUD_RIGHT_STORE)
 				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
 				for(var/obj/item/carried_item in M.contents)
-					if(!istype(carried_item, /obj/item/implant))
+					if(!istype(carried_item, /obj/item/bio_chip))
 						carried_item.add_mob_blood(M)
 
 			if("pirate")
@@ -704,6 +705,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/multisword/pike //If We are to be used and spent, let it be for a noble purpose.
 	name = "phantom pike"
 	desc = "A fishing pike that appears to be imbued with a peculiar energy."
+	icon = 'icons/obj/items.dmi'
 	icon_state = "harpoon"
 	item_state = "harpoon"
 	cooldown_between_uses = 200 //Half the time
@@ -877,12 +879,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 	heal_burn = 25
 	heal_oxy = 25
 
-/obj/item/reagent_containers/food/drinks/everfull
+/obj/item/reagent_containers/drinks/everfull
 	name = "everfull mug"
 	desc = "An enchanted mug which can be filled with any of various liquids on command."
 	icon_state = "evermug"
 
-/obj/item/reagent_containers/food/drinks/everfull/attack_self(mob/user)
+/obj/item/reagent_containers/drinks/everfull/attack_self(mob/user)
 	var/static/list/options = list("Omnizine" = image(icon = 'icons/obj/storage.dmi', icon_state = "firstaid"),
 							"Ale" = image(icon = 'icons/obj/drinks.dmi', icon_state = "alebottle"),
 							"Wine" = image(icon = 'icons/obj/drinks.dmi', icon_state = "wineglass"),
@@ -908,7 +910,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	to_chat(user, "<span class='notice'>The [name] fills to brimming with [options_to_descriptions[choice]].</span>")
 	magic_fill(options_to_reagent[choice])
 
-/obj/item/reagent_containers/food/drinks/everfull/proc/magic_fill(reagent_choice)
+/obj/item/reagent_containers/drinks/everfull/proc/magic_fill(reagent_choice)
 	reagents.clear_reagents()
 	reagents.add_reagent(reagent_choice, volume)
 

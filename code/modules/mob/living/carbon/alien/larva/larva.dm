@@ -9,17 +9,17 @@
 	health = 25
 	density = FALSE
 
+	var/temperature_resistance = T0C+75
 	var/amount_grown = 0
 	var/max_grown = 200
-	var/time_of_birth
 	death_message = "lets out a waning high-pitched cry."
 	death_sound = null
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/Initialize(mapload)
 	. = ..()
-	if(name == "alien larva")
-		name = "alien larva ([rand(1, 1000)])"
+
+	name = "alien larva ([rand(1, 1000)])"
 	real_name = name
 	regenerate_icons()
 	add_language("Xenomorph")
@@ -41,7 +41,7 @@
 
 /mob/living/carbon/alien/larva/Stat()
 	..()
-	stat(null, "Progress: [amount_grown]/[max_grown]")
+	stat("Progress: [amount_grown]/[max_grown]")
 
 /mob/living/carbon/alien/larva/add_plasma(amount)
 	if(stat != DEAD && amount > 0)
@@ -78,11 +78,8 @@
 /mob/living/carbon/alien/larva/restrained()
 	return FALSE
 
-/mob/living/carbon/alien/larva/var/temperature_resistance = T0C+75
-
 // new damage icon system
 // now constructs damage icon for each organ from mask * damage field
-
 
 /mob/living/carbon/alien/larva/show_inv(mob/user as mob)
 	return

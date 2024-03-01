@@ -101,7 +101,7 @@
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 			return TRUE
 
-		if(pulledby == L && a_intent != INTENT_HELP) //prevents boosting the person pulling you, but you can still move through them on help intent
+		if(pulledby == L && (a_intent != INTENT_HELP || L.a_intent != INTENT_HELP)) //prevents boosting the person pulling you, but you can still move through them on help intent
 			return TRUE
 
 		if(L.pulling)
@@ -122,7 +122,7 @@
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap
 		//the puller can always swap with it's victim if on grab intent
-		if(M.pulledby == src && a_intent == INTENT_GRAB)
+		if(length(M.grabbed_by) && a_intent == INTENT_GRAB)
 			mob_swap = TRUE
 		//restrained people act if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
 		else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
@@ -291,11 +291,11 @@
 
 /mob/living/verb/succumb()
 	set hidden = TRUE
-	if(health >= HEALTH_THRESHOLD_CRIT || stat != UNCONSCIOUS)
+	if(health >= HEALTH_THRESHOLD_CRIT)
 		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
 		return
 
-	var/last_words = input(src, "Do you have any last words?", "Goodnight, Sweet Prince") as text|null
+	var/last_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE)
 
 	if(stat == DEAD)
 		// cancel em out if they died while they had the message box up
@@ -320,7 +320,7 @@
 	else
 		death()
 	to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
-
+	apply_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED)
 
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
@@ -414,7 +414,7 @@
 			L += get_contents(S)
 		for(var/obj/item/clothing/accessory/storage/S in contents)//Check for holsters
 			L += get_contents(S)
-		for(var/obj/item/implant/storage/I in contents) //Check for storage implants.
+		for(var/obj/item/bio_chip/storage/I in contents) //Check for storage implants.
 			L += I.get_contents()
 		for(var/obj/item/gift/G in contents) //Check for gift-wrapped items
 			L += G.gift
@@ -1116,7 +1116,7 @@
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
 
-/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable, block_movement)
 	stop_pulling()
 	return ..()
 

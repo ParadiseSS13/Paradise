@@ -41,3 +41,4 @@
 
 			spawncount--
 			successSpawn = TRUE
+	SSevents.biohazards_this_round += "Xenomorphs"

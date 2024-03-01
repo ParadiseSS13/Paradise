@@ -624,12 +624,30 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, chat_box_regular("<span class='notice'>Something is there but you can't see it.</span>"))
-		return 1
+		to_chat(src, chat_box_regular("<span class='notice'>Something is there but you can't see it.</span>"), MESSAGE_TYPE_INFO, confidential = TRUE)
+		return TRUE
 
 	face_atom(A)
-	var/list/result = A.examine(src)
-	to_chat(src, chat_box_examine(result.Join("\n")))
+	if(!client)
+		var/list/result = A.examine(src)
+		to_chat(src, chat_box_examine(result.Join("\n")))
+		return
+
+	var/list/result
+	LAZYINITLIST(client.recent_examines)
+	for(var/key in client.recent_examines)
+		if(client.recent_examines[key] < world.time)
+			client.recent_examines -= key
+	var/ref_to_atom = A.UID()
+	if(LAZYACCESS(client.recent_examines, ref_to_atom))
+		result = A.examine_more(src)
+		if(!length(result))
+			result += "<span class='notice'><i>You examine [A] closer, but find nothing of interest...</i></span>"
+	else
+		result = A.examine(src)
+		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
+
+	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!istype(l_hand, /obj/item/grab) && !istype(r_hand, /obj/item/grab)))
@@ -669,7 +687,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/verb/mode()
 	set name = "Activate Held Object"
 	set category = null
-	set src = usr
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_mode)))
 
@@ -740,7 +757,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		memory()
 
 /mob/proc/update_flavor_text()
-	set src in usr
 	if(usr != src)
 		to_chat(usr, "<span class='notice'>You can't change the flavor text of this mob</span>")
 		return
@@ -748,7 +764,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
 		return
 
-	var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance.","Flavor Text",html_decode(flavor_text)) as message|null
+	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", flavor_text, multiline = TRUE, encode = FALSE)
 
 	if(msg != null)
 		if(stat)
@@ -867,7 +883,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/eye_name = null
 
 	var/ok = "[is_admin ? "Admin Observe" : "Observe"]"
-	eye_name = input("Please, select a player!", ok, null, null) as null|anything in creatures
+	eye_name = tgui_input_list(usr, "Please, select a player!", ok, creatures)
 
 	if(!eye_name)
 		return
@@ -946,7 +962,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!Adjacent(usr))
 		return
 	if(IsFrozen(src) && !is_admin(usr))
-		to_chat(usr, "<span class='boldannounce'>Interacting with admin-frozen players is not permitted.</span>")
+		to_chat(usr, "<span class='boldannounceic'>Interacting with admin-frozen players is not permitted.</span>")
 		return
 	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
 		return
@@ -1326,6 +1342,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/IsVocal()
 	return TRUE
 
+/mob/proc/cannot_speak_loudly()
+	return FALSE
+
 /mob/proc/get_access()
 	return list() //must return list or IGNORE_ACCESS
 
@@ -1590,6 +1609,8 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	. = stat
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)
+	if(.)
+		set_typing_indicator(FALSE)
 
 ///Makes a call in the context of a different usr. Use sparingly
 /world/proc/invoke_callback_with_usr(mob/user_mob, datum/callback/invoked_callback, ...)

@@ -206,7 +206,7 @@
 			if((O.resistance_flags & (LAVA_PROOF|INDESTRUCTIBLE)) || O.throwing)
 				continue
 			. = TRUE
-			if((O.resistance_flags & ON_FIRE))
+			if(O.resistance_flags & ON_FIRE)
 				continue
 			if(!(O.resistance_flags & FLAMMABLE))
 				O.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
@@ -268,6 +268,5 @@
 
 /turf/simulated/floor/lava/mapping_lava/LateInitialize()
 	. = ..()
-	ChangeTurf(SSmapping.lavaland_theme, ignore_air = TRUE)
-
-
+	if(SSmapping.lavaland_theme?.primary_turf_type)
+		ChangeTurf(SSmapping.lavaland_theme.primary_turf_type, ignore_air = TRUE)

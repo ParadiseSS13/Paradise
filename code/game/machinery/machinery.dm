@@ -189,13 +189,13 @@
 
 /obj/machinery/ui_status(mob/user, datum/ui_state/state)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
-		return STATUS_CLOSE
+		return UI_CLOSE
 
 	return ..()
 
 /obj/machinery/ui_status(mob/user, datum/ui_state/state)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
-		return STATUS_CLOSE
+		return UI_CLOSE
 
 	return ..()
 
@@ -222,6 +222,25 @@
 		return attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user as mob)
+	if(try_attack_hand(user))
+		return TRUE
+
+	add_fingerprint(user)
+
+	return ..()
+
+/**
+  * Preprocess machinery interaction.
+  *
+  * If overriding and extending interaction limitations, better call this with ..()
+  * unless you really know what you are doing.
+  *
+  * Returns TRUE when interaction is done due to different limitations and nothing should be done next.
+  * Returns FALSE when interaction can be continued.
+  * Arguments:
+  * * user - the mob interacting with this machinery
+  */
+/obj/machinery/proc/try_attack_hand(mob/user)
 	if(user.incapacitated())
 		return TRUE
 
@@ -232,7 +251,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= 60)
-			visible_message("<span class='warning'>[H] stares cluelessly at [src] and drools.</span>")
+			visible_message("<span class='warning'>[H] stares cluelessly at [src].</span>")
 			return TRUE
 		else if(prob(H.getBrainLoss()))
 			to_chat(user, "<span class='warning'>You momentarily forget how to use [src].</span>")
@@ -245,9 +264,7 @@
 	if(!interact_offline && stat & (NOPOWER|BROKEN|MAINT))
 		return TRUE
 
-	add_fingerprint(user)
-
-	return ..()
+	return FALSE
 
 /obj/machinery/proc/is_operational()
 	return !(stat & (NOPOWER|BROKEN|MAINT))
@@ -362,7 +379,7 @@
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
-	if((flags & NODECONSTRUCT))
+	if(flags & NODECONSTRUCT)
 		return FALSE
 	if(istype(W) && component_parts)
 		if(panel_open || W.works_from_distance)

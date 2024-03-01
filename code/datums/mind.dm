@@ -163,6 +163,17 @@
 		new_character.key = key		//now transfer the key to link the client to our new body
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
 	SEND_SIGNAL(new_character, COMSIG_BODY_TRANSFER_TO)
+	if(ishuman(new_character))
+		var/mob/living/carbon/human/H = new_character
+		if(H.mind in SSticker.mode.syndicates)
+			SSticker.mode.update_synd_icons_added()
+		if(H.mind in SSticker.mode.cult)
+			SSticker.mode.update_cult_icons_added(H.mind) // Adds the cult antag hud
+			SSticker.mode.add_cult_actions(H.mind) // And all the actions
+			if(SSticker.mode.cult_risen)
+				SSticker.mode.rise(H)
+				if(SSticker.mode.cult_ascendant)
+					SSticker.mode.ascend(H)
 
 /datum/mind/proc/store_memory(new_text)
 	memory += "[new_text]<br>"
@@ -791,14 +802,14 @@
 
 		switch(href_list["implant"])
 			if("remove")
-				for(var/obj/item/implant/mindshield/I in H.contents)
+				for(var/obj/item/bio_chip/mindshield/I in H.contents)
 					if(I && I.implanted)
 						qdel(I)
-				to_chat(H, "<span class='notice'><Font size =3><B>Your mindshield bio-chip has been deactivated.</B></FONT></span>")
+				to_chat(H, "<span class='notice'><font size='3'><b>Your mindshield bio-chip has been deactivated.</b></font></span>")
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield bio-chip")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield bio-chip")
 			if("add")
-				var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)
+				var/obj/item/bio_chip/mindshield/L = new/obj/item/bio_chip/mindshield(H)
 				L.implant(H)
 
 				log_admin("[key_name(usr)] has given [key_name(current)] a mindshield bio-chip")
@@ -1396,7 +1407,7 @@
 				if(has_antag_datum(/datum/antagonist/mindslave, FALSE))
 					var/mob/living/carbon/human/H = current
 					for(var/i in H.contents)
-						if(istype(i, /obj/item/implant/traitor))
+						if(istype(i, /obj/item/bio_chip/traitor))
 							qdel(i)
 							break
 					remove_antag_datum(/datum/antagonist/mindslave)
@@ -1422,7 +1433,7 @@
 					return
 
 				var/mob/living/carbon/human/H = current
-				var/gear = alert("Agent or Scientist Gear","Gear","Agent","Scientist")
+				var/gear = alert("Agent or Scientist Gear", "Gear", "Agent", "Scientist")
 				if(gear)
 					if(gear=="Agent")
 						H.equipOutfit(/datum/outfit/abductor/agent)
@@ -1655,9 +1666,9 @@
 		SSticker.mode.update_wiz_icons_added(src)
 
 /datum/mind/proc/make_Abductor()
-	var/role = alert("Abductor Role ?","Role","Agent","Scientist")
-	var/team = input("Abductor Team ?","Team ?") in list(1,2,3,4)
-	var/teleport = alert("Teleport to ship ?","Teleport","Yes","No")
+	var/role = alert("Abductor Role?", "Role", "Agent", "Scientist")
+	var/team = input("Abductor Team?", "Team?") in list(1,2,3,4)
+	var/teleport = alert("Teleport to ship?", "Teleport", "Yes", "No")
 
 	if(!role || !team || !teleport)
 		return
@@ -1722,6 +1733,9 @@
 /datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
 	for(var/X in spell_list)
 		var/obj/effect/proc_holder/spell/S = X
+		if(!S.on_mind_transfer(new_character))
+			current.RemoveSpell(S)
+			continue
 		S.action.Grant(new_character)
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)

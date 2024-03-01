@@ -102,7 +102,6 @@
 		dat += "<span class='bad'>NO AGENT VEST DETECTED</span>"
 	var/datum/browser/popup = new(user, "computer", "Abductor Console", 400, 500)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/machinery/abductor/console/Topic(href, href_list)
@@ -120,7 +119,7 @@
 		if(vest)
 			vest.toggle_nodrop()
 	else if(href_list["select_disguise"])
-		SelectDisguise()
+		SelectDisguise(FALSE, usr)
 	else if(href_list["dispense"])
 		switch(href_list["dispense"])
 			if("baton")
@@ -140,7 +139,7 @@
 
 /obj/machinery/abductor/console/proc/TeleporterRetrieve()
 	if(pad && gizmo && gizmo.marked)
-		pad.Retrieve(gizmo.marked)
+		return pad.Retrieve(gizmo.marked)
 
 /obj/machinery/abductor/console/proc/TeleporterSend()
 	if(pad)
@@ -150,10 +149,10 @@
 	if(vest)
 		vest.flip_mode()
 
-/obj/machinery/abductor/console/proc/SelectDisguise(remote = 0)
-	var/entry_name = input( "Choose Disguise", "Disguise") as null|anything in disguises
+/obj/machinery/abductor/console/proc/SelectDisguise(remote, mob/user)
+	var/entry_name = tgui_input_list(user, "Choose Disguise", "Abductor Disguises", disguises)
 	var/datum/icon_snapshot/chosen = disguises[entry_name]
-	if(chosen && (remote || in_range(usr,src)))
+	if(chosen && (remote || in_range(user, src)))
 		vest.SetDisguise(chosen)
 
 /obj/machinery/abductor/console/proc/SetDroppoint(turf/location,user)
@@ -165,9 +164,7 @@
 		pad.teleport_target = location
 		to_chat(user, "<span class='notice'>Location marked as test subject release point.</span>")
 
-
 /obj/machinery/abductor/console/proc/Link_Abduction_Equipment() // these must all be explicitly `in machines` or they will not properly link.
-
 	for(var/obj/machinery/abductor/pad/p in GLOB.abductor_equipment)
 		if(p.team == team)
 			pad = p

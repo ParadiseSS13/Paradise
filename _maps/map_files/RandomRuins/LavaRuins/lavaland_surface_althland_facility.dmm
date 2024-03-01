@@ -37,10 +37,7 @@
 /area/lavaland/surface/outdoors)
 "au" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor{
 	temperature = 300;
 	oxygen = 14;
@@ -181,10 +178,7 @@
 "eV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
+/obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 300;
@@ -1435,11 +1429,11 @@
 /area/ruin/unpowered/althland_processing)
 "Jw" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = 8;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	temperature = 300;
@@ -1903,10 +1897,7 @@
 /area/lavaland/surface/outdoors)
 "Xw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
+/obj/machinery/computer/nonfunctional,
 /obj/item/paper/fluff/ruins/althland/geology,
 /turf/simulated/floor/plasteel{
 	temperature = 300;

@@ -87,6 +87,7 @@
 	name = "endoskeleton"
 	desc = "A complex metal backbone with standard limb sockets and pseudomuscle anchors."
 	icon_state = "robo_suit"
+	w_class = WEIGHT_CLASS_BULKY
 	model_info = null
 	var/obj/item/robot_parts/l_arm/l_arm = null
 	var/obj/item/robot_parts/r_arm/r_arm = null
@@ -426,3 +427,4 @@
 	else
 		to_chat(user, "<span class='warning'>You slide the emag into the dataport on [src] and short out the safeties.</span>")
 		sabotaged = TRUE
+		return TRUE

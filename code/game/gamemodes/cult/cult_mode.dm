@@ -65,6 +65,11 @@
 		// update_cult_icons_added(cult_mind)
 		// cult_team.study_objectives(cult_mind.current)
 		// to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
+		update_cult_icons_added(cult_mind)
+		cult_objs.study(cult_mind.current)
+		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
+	cult_threshold_check()
+	addtimer(CALLBACK(src, PROC_REF(cult_threshold_check)), 2 MINUTES) // Check again in 2 minutes for latejoiners
 	..()
 
 

@@ -102,7 +102,9 @@
 		/obj/item/analyzer,
 		/obj/item/geiger_counter,
 		/obj/item/extinguisher/mini,
-		/obj/item/holosign_creator)
+		/obj/item/holosign_creator,
+		/obj/item/stack/nanopaste,
+		/obj/item/robotanalyzer)
 
 /obj/item/storage/belt/utility/full/populate_contents()
 	new /obj/item/screwdriver(src)
@@ -278,7 +280,7 @@
 		/obj/item/clothing/glasses,
 		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_box,
-		/obj/item/reagent_containers/food/snacks/donut,
+		/obj/item/food/snacks/donut,
 		/obj/item/kitchen/knife/combat,
 		/obj/item/melee/baton,
 		/obj/item/melee/classic_baton,
@@ -329,7 +331,7 @@
 		/obj/item/clothing/glasses,
 		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_box,
-		/obj/item/reagent_containers/food/snacks/donut,
+		/obj/item/food/snacks/donut,
 		/obj/item/kitchen/knife/combat,
 		/obj/item/melee/baton,
 		/obj/item/melee/classic_baton,
@@ -420,7 +422,7 @@
 	can_hold = list(
 		/obj/item/grenade,
 		/obj/item/lighter,
-		/obj/item/reagent_containers/food/drinks/bottle/molotov
+		/obj/item/reagent_containers/drinks/bottle/molotov
 		)
 
 /obj/item/storage/belt/grenade/full/populate_contents()
@@ -919,7 +921,7 @@
 		/obj/item/stack/sheet/bone,
 		/obj/item/lighter,
 		/obj/item/storage/fancy/cigarettes,
-		/obj/item/reagent_containers/food/drinks/bottle,
+		/obj/item/reagent_containers/drinks/bottle,
 		/obj/item/stack/medical,
 		/obj/item/kitchen/knife,
 		/obj/item/reagent_containers/hypospray,
@@ -930,7 +932,7 @@
 		/obj/item/reagent_containers/pill,
 		/obj/item/storage/pill_bottle,
 		/obj/item/stack/ore,
-		/obj/item/reagent_containers/food/drinks,
+		/obj/item/reagent_containers/drinks,
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
@@ -968,11 +970,11 @@
 		/obj/item/kitchen/cutter,
 		/obj/item/assembly/mousetrap,
 		/obj/item/reagent_containers/spray/pestspray,
-		/obj/item/reagent_containers/food/drinks/flask,
-		/obj/item/reagent_containers/food/drinks/drinkingglass,
-		/obj/item/reagent_containers/food/drinks/bottle,
-		/obj/item/reagent_containers/food/drinks/cans,
-		/obj/item/reagent_containers/food/drinks/shaker,
-		/obj/item/reagent_containers/food/snacks,
-		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/drinks/flask,
+		/obj/item/reagent_containers/drinks/drinkingglass,
+		/obj/item/reagent_containers/drinks/bottle,
+		/obj/item/reagent_containers/drinks/cans,
+		/obj/item/reagent_containers/drinks/shaker,
+		/obj/item/food/snacks,
+		/obj/item/reagent_containers/condiment,
 		/obj/item/reagent_containers/glass/beaker)

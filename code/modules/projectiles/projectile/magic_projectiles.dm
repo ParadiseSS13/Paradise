@@ -30,6 +30,7 @@
 	damage = 10
 	damage_type = BRUTE
 	nodamage = 0
+	immolate = 6
 
 	//explosion values
 	var/exp_devastate = -1
@@ -180,7 +181,7 @@
 	. = ..()
 	wabbajack(change)
 
-/proc/wabbajack(mob/living/M)
+/proc/wabbajack(mob/living/M, force_borg = FALSE, force_animal = FALSE)
 	if(istype(M) && M.stat != DEAD && !M.notransform)
 		M.notransform = TRUE
 		M.icon = null
@@ -206,6 +207,10 @@
 		var/mob/living/new_mob
 
 		var/randomize = pick("robot", "slime", "xeno", "human", "animal")
+		if(force_borg)
+			randomize = "robot"
+		if(force_animal)
+			randomize = "animal"
 		switch(randomize)
 			if("robot")
 				var/path
@@ -311,7 +316,6 @@
 	damage_type = BURN
 
 /obj/item/projectile/magic/animate/Bump(atom/change)
-	..()
 	if(isitem(change) || isstructure(change) && !is_type_in_list(change, GLOB.protected_objects))
 		if(istype(change, /obj/structure/closet/statue))
 			for(var/mob/living/carbon/human/H in change.contents)
@@ -336,6 +340,7 @@
 		// Change our allegiance!
 		var/mob/living/simple_animal/hostile/mimic/copy/C = change
 		C.ChangeOwner(firer)
+	return ..()
 
 /obj/item/projectile/magic/slipping
 	name = "magical banana"

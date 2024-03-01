@@ -98,7 +98,7 @@
 	if(new_parallax_movedir == C.parallax_movedir)
 		return
 	var/animatedir = new_parallax_movedir
-	if(new_parallax_movedir == FALSE)
+	if(!new_parallax_movedir)
 		var/animate_time = 0
 		for(var/thing in C.parallax_layers)
 			var/obj/screen/parallax_layer/L = thing
@@ -313,11 +313,16 @@
 	layer = 4
 
 /obj/screen/parallax_layer/planet
-	icon_state = "planet"
+	icon_state = "planet_lava"
 	blend_mode = BLEND_OVERLAY
 	absolute = TRUE //Status of seperation
 	speed = 3
 	layer = 30
+
+/obj/screen/parallax_layer/planet/Initialize(mapload)
+	. = ..()
+	if(SSmapping.lavaland_theme?.planet_icon_state)
+		icon_state = SSmapping.lavaland_theme.planet_icon_state
 
 /obj/screen/parallax_layer/planet/update_status(mob/M)
 	var/turf/T = get_turf(M)

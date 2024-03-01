@@ -57,7 +57,7 @@
 			return ..()
 
 	if(length(contents))
-		var/obj/item/reagent_containers/food/snacks/toEat = contents[1]
+		var/obj/item/food/snacks/toEat = contents[1]
 		if(istype(toEat))
 			if(C.eat(toEat, user))
 				toEat.On_Consume(C, user)
@@ -120,6 +120,10 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	var/bayonet = FALSE	//Can this be attached to a gun?
+
+/obj/item/kitchen/knife/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/surgery_initiator/robo)
 
 /obj/item/kitchen/knife/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \

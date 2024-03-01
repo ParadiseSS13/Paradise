@@ -1,6 +1,6 @@
 /obj/item/storage/box/syndie_kit
 	desc = "A sleek, sturdy box."
-	icon_state = "box_of_doom"
+	icon_state = "doom_box"
 
 /obj/item/storage/box/syndie_kit/bundle // Traitor bundles
 	var/list/items = list()
@@ -13,7 +13,7 @@
 		/obj/item/card/id/syndicate, // 10TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 10TC
 		/obj/item/clothing/glasses/hud/security/chameleon, // 10TC
-		/obj/item/implanter/storage, // 40TC
+		/obj/item/bio_chip_implanter/storage, // 40TC
 		/obj/item/pen/edagger, // 10TC
 		/obj/item/pinpointer/advpinpointer, // 20TC
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 7TC
@@ -37,7 +37,7 @@
 		/obj/item/door_remote/omni/access_tuner, // 30TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 15TC
 		/obj/item/storage/briefcase/false_bottomed, // 10 TC
-		/obj/item/implanter/freedom, // 25TC
+		/obj/item/bio_chip_implanter/freedom, // 25TC
 		/obj/item/coin/gold, // 0TC
 		/obj/item/encryptionkey/syndicate) // 10TC
 
@@ -68,7 +68,7 @@
 		/obj/item/storage/box/syndie_kit/emp, // 10TC
 		/obj/item/clothing/glasses/hud/security/chameleon, // 10TC
 		/obj/item/encryptionkey/syndicate, // 10TC
-		/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail,	// 0TC
+		/obj/item/reagent_containers/drinks/drinkingglass/alliescocktail,	// 0TC
 		/obj/item/storage/box/syndie_kit/pen_bomb, // 30 TC
 		/obj/item/CQC_manual) // 13TC
 
@@ -101,19 +101,19 @@
 		/obj/item/clothing/mask/gas/clown_hat, // 0TC
 		/obj/item/grenade/plastic/c4, // 1TC
 		/obj/item/thermal_drill/diamond_drill/syndicate, // 1TC
-		/obj/item/implanter/freedom/prototype, // 10 TC
+		/obj/item/bio_chip_implanter/freedom/prototype, // 10 TC
 		/obj/item/encryptionkey/syndicate) // 10TC
 
 /obj/item/storage/box/syndie_kit/bundle/implant // 200TC
 	name = "Bio-chip Bundle"
 	desc = "A few useful bio-chips to give you some options for when you inevitably get captured by the Security."
 	items = list(
-		/obj/item/implanter/freedom, // 25TC
-		/obj/item/implanter/stealth, // 45 TC
-		/obj/item/implanter/emp, // 5TC (half of EMP kit)
-		/obj/item/implanter/adrenalin, // 40TC
-		/obj/item/implanter/explosive, // 10TC
-		/obj/item/implanter/storage, // 40TC
+		/obj/item/bio_chip_implanter/freedom, // 25TC
+		/obj/item/bio_chip_implanter/stealth, // 45 TC
+		/obj/item/bio_chip_implanter/emp, // 5TC (half of EMP kit)
+		/obj/item/bio_chip_implanter/adrenalin, // 40TC
+		/obj/item/bio_chip_implanter/explosive, // 10TC
+		/obj/item/bio_chip_implanter/storage, // 40TC
 		/obj/item/encryptionkey/syndicate) // 10TC
 
 /obj/item/storage/box/syndie_kit/bundle/hacker // 180TC
@@ -121,7 +121,7 @@
 	desc = "A kit with everything you need to hack into and disrupt the Station, AI, its cyborgs and the Security team. HACK THE PLANET!"
 	items = list(
 		/obj/item/melee/energy/sword/saber/blue, // 40TC
-		/obj/item/card/emag, // 30TC
+		/obj/item/autosurgeon/organ/syndicate/hackerman_deck, // 30TC
 		/obj/item/door_remote/omni/access_tuner, // 30 TC, HACK EVERYTHING
 		/obj/item/encryptionkey/syndicate, // 10TC
 		/obj/item/encryptionkey/binary, // 25TC
@@ -130,7 +130,7 @@
 		/obj/item/aiModule/toyAI, // 0TC
 		/obj/item/aiModule/syndicate, // 15 TC
 		/obj/item/storage/box/syndie_kit/camera_bug, // 5 TC
-		/obj/item/implanter/freedom/prototype, // 10 TC
+		/obj/item/bio_chip_implanter/freedom/prototype, // 10 TC
 		/obj/item/storage/belt/military/traitor/hacker, // 15TC + AI detector for 5 TC
 		/obj/item/clothing/gloves/combat, // accounted in belt + toolbox
 		/obj/item/flashlight/emp) // 4TC
@@ -141,7 +141,7 @@
 	items = list(
 		/obj/item/melee/energy/sword/saber/red, // 40TC
 		/obj/item/melee/energy/sword/saber/red, // 40TC
-		/obj/item/clothing/gloves/color/yellow/power, // 50TC
+		/obj/item/bio_chip_implanter/shock, // 50TC
 		/obj/item/dnainjector/telemut/darkbundle, // ?TC
 		/obj/item/clothing/suit/hooded/chaplain_hoodie, // 0TC
 		/obj/item/clothing/glasses/meson/engine/tray, // 0TC
@@ -191,7 +191,7 @@
 		/obj/item/mod/module/sphere_transform, // ?TC
 		/obj/item/autosurgeon/organ/syndicate/laser_arm, // ?TC
 		/obj/item/pinpointer/advpinpointer, // 20TC
-		/obj/item/implanter/adrenalin, // 40TC
+		/obj/item/bio_chip_implanter/adrenalin, // 40TC
 		/obj/item/storage/belt/utility/full/multitool, // 15TC
 		/obj/item/clothing/head/collectable/slime,  // 0TC priceless
 		/obj/item/encryptionkey/syndicate) // 10TC
@@ -227,7 +227,7 @@
 /obj/item/storage/box/syndie_kit/emp/populate_contents()
 	new /obj/item/grenade/empgrenade(src)
 	new /obj/item/grenade/empgrenade(src)
-	new /obj/item/implanter/emp/(src)
+	new /obj/item/bio_chip_implanter/emp/(src)
 
 /obj/item/storage/box/syndie_kit/poisoner
 	name = "poisoner's kit"
@@ -310,9 +310,9 @@
 	name = "combat bakery kit"
 
 /obj/item/storage/box/syndie_kit/combat_baking/populate_contents()
-	new /obj/item/reagent_containers/food/snacks/baguette/combat(src)
+	new /obj/item/food/snacks/baguette/combat(src)
 	for(var/i in 1 to 2)
-		new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
+		new /obj/item/food/snacks/croissant/throwing(src)
 	new /obj/item/book/granter/crafting_recipe/combat_baking(src)
 
 /obj/item/storage/box/syndie_kit/atmosn2ogrenades
@@ -432,6 +432,13 @@
 	new /obj/item/paper/camera_bug(src)
 	for(var/i in 1 to 5)
 		new /obj/item/wall_bug(src, camera)
+
+/obj/item/storage/box/syndie_kit/prescan
+	name = "\improper Technocracy Advanced Cloning System Kit"
+
+/obj/item/storage/box/syndie_kit/prescan/populate_contents()
+	new /obj/item/bio_chip_implanter/grey_autocloner(src)
+	new /obj/item/radio/beacon/syndicate/bomb/grey_autocloner(src)
 
 /obj/item/storage/box/syndie_kit/pen_bomb
 	name = "\improper Pen bomb"

@@ -68,6 +68,9 @@
 	if(mob.notransform)
 		return 0 //This is sota the goto stop mobs from moving var
 
+	if(mob.throwing && mob.throwing.block_movement)
+		return
+
 	if(mob.control_object)
 		return Move_object(direct)
 
@@ -141,7 +144,8 @@
 
 
 	if(locate(/obj/item/grab, mob))
-		delay += 7
+		if(!isalienhunter(mob)) // i hate grab code
+			delay += 7
 
 	if(istype(living_mob))
 		var/newdir = NONE
@@ -182,9 +186,8 @@
 		mob.setDir(get_dir(mob, mob.pulling)) // Face welding tanks and stuff when pulling
 
 	moving = 0
-	if(mob && .)
-		if(mob.throwing)
-			mob.throwing.finalize(FALSE)
+	if(mob && . && mob.throwing)
+		mob.throwing.finalize(FALSE)
 
 	for(var/obj/O in mob)
 		O.on_mob_move(direct, mob)

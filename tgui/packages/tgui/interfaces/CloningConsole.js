@@ -1,10 +1,9 @@
 import { round } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Flex,
+  Stack,
   Icon,
   LabeledList,
   NoticeBox,
@@ -18,6 +17,7 @@ import {
   modalRegisterBodyOverride,
 } from '../interfaces/common/ComplexModal';
 import { Window } from '../layouts';
+import { resolveAsset } from '../assets';
 
 const viewRecordModalBodyOverride = (modal, context) => {
   const { act, data } = useBackend(context);
@@ -25,28 +25,28 @@ const viewRecordModalBodyOverride = (modal, context) => {
     modal.args;
   const damages = health.split(' - ');
   return (
-    <Section level={2} m="-1rem" pb="1rem" title={'Records of ' + realname}>
+    <Section level={2} m="-1rem" pb="1.5rem" title={'Records of ' + realname}>
       <LabeledList>
         <LabeledList.Item label="Name">{realname}</LabeledList.Item>
         <LabeledList.Item label="Damage">
           {damages.length > 1 ? (
-            <Fragment>
-              <Box color={COLORS.damageType.oxy} display="inline">
+            <>
+              <Box color={COLORS.damageType.oxy} inline>
                 {damages[0]}
               </Box>
               &nbsp;|&nbsp;
-              <Box color={COLORS.damageType.toxin} display="inline">
+              <Box color={COLORS.damageType.toxin} inline>
                 {damages[2]}
               </Box>
               &nbsp;|&nbsp;
-              <Box color={COLORS.damageType.brute} display="inline">
+              <Box color={COLORS.damageType.brute} inline>
                 {damages[3]}
               </Box>
               &nbsp;|&nbsp;
-              <Box color={COLORS.damageType.burn} display="inline">
+              <Box color={COLORS.damageType.burn} inline>
                 {damages[1]}
               </Box>
-            </Fragment>
+            </>
           ) : (
             <Box color="bad">Unknown</Box>
           )}
@@ -84,15 +84,19 @@ export const CloningConsole = (props, context) => {
   const { menu } = data;
   modalRegisterBodyOverride('view_rec', viewRecordModalBodyOverride);
   return (
-    <Window resizable>
+    <Window width={535} height={440}>
       <ComplexModal maxWidth="75%" maxHeight="75%" />
-      <Window.Content className="Layout__content--flexColumn">
-        <CloningConsoleTemp />
-        <CloningConsoleStatus />
-        <CloningConsoleNavigation />
-        <Section noTopPadding flexGrow="1">
-          <CloningConsoleBody />
-        </Section>
+      <Window.Content>
+        <Stack fill vertical>
+          <CloningConsoleTemp />
+          <CloningConsoleStatus />
+          <CloningConsoleNavigation />
+          <Stack.Item grow>
+            <Section fill scrollable>
+              <CloningConsoleBody />
+            </Section>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -102,30 +106,32 @@ const CloningConsoleNavigation = (props, context) => {
   const { act, data } = useBackend(context);
   const { menu } = data;
   return (
-    <Tabs>
-      <Tabs.Tab
-        selected={menu === 1}
-        icon="home"
-        onClick={() =>
-          act('menu', {
-            num: 1,
-          })
-        }
-      >
-        Main
-      </Tabs.Tab>
-      <Tabs.Tab
-        selected={menu === 2}
-        icon="folder"
-        onClick={() =>
-          act('menu', {
-            num: 2,
-          })
-        }
-      >
-        Records
-      </Tabs.Tab>
-    </Tabs>
+    <Stack.Item>
+      <Tabs>
+        <Tabs.Tab
+          selected={menu === 1}
+          icon="home"
+          onClick={() =>
+            act('menu', {
+              num: 1,
+            })
+          }
+        >
+          Main
+        </Tabs.Tab>
+        <Tabs.Tab
+          selected={menu === 2}
+          icon="folder"
+          onClick={() =>
+            act('menu', {
+              num: 2,
+            })
+          }
+        >
+          Records
+        </Tabs.Tab>
+      </Tabs>
+    </Stack.Item>
   );
 };
 
@@ -156,13 +162,12 @@ const CloningConsoleMain = (props, context) => {
   } = data;
   const isLocked = locked && !!occupant;
   return (
-    <Fragment>
+    <>
       <Section
         title="Scanner"
-        level="2"
         buttons={
-          <Fragment>
-            <Box display="inline" color="label">
+          <>
+            <Box inline color="label">
               Scanner Lock:&nbsp;
             </Box>
             <Button
@@ -178,7 +183,7 @@ const CloningConsoleMain = (props, context) => {
               content="Eject Occupant"
               onClick={() => act('eject')}
             />
-          </Fragment>
+          </>
         }
       >
         <LabeledList>
@@ -211,7 +216,7 @@ const CloningConsoleMain = (props, context) => {
           onClick={() => act('scan')}
         />
       </Section>
-      <Section title="Pods" level="2">
+      <Section title="Pods">
         {numberofpods ? (
           pods.map((pod, i) => {
             let podAction;
@@ -258,11 +263,12 @@ const CloningConsoleMain = (props, context) => {
                 key={i}
                 width="64px"
                 textAlign="center"
-                display="inline-block"
+                inline
                 mr="0.5rem"
+                mt={1}
               >
                 <img
-                  src={'pod_' + pod.status + '.gif'}
+                  src={resolveAsset('pod_' + pod.status + '.gif')}
                   style={{
                     width: '100%',
                     '-ms-interpolation-mode': 'nearest-neighbor',
@@ -271,8 +277,9 @@ const CloningConsoleMain = (props, context) => {
                 <Box color="label">Pod #{i + 1}</Box>
                 <Box
                   bold
+                  mt={0.75}
                   color={pod.biomass >= 150 ? 'good' : 'bad'}
-                  display="inline"
+                  inline
                 >
                   <Icon name={pod.biomass >= 150 ? 'circle' : 'circle-o'} />
                   &nbsp;
@@ -286,7 +293,7 @@ const CloningConsoleMain = (props, context) => {
           <Box color="bad">No pods detected. Unable to clone.</Box>
         )}
       </Section>
-    </Fragment>
+    </>
   );
 };
 
@@ -295,13 +302,13 @@ const CloningConsoleRecords = (props, context) => {
   const { records } = data;
   if (!records.length) {
     return (
-      <Flex height="100%">
-        <Flex.Item grow="1" align="center" textAlign="center" color="label">
+      <Stack fill>
+        <Stack.Item grow align="center" textAlign="center" color="label">
           <Icon name="user-slash" mb="0.5rem" size="5" />
           <br />
           No records found.
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     );
   }
   return (
@@ -333,7 +340,7 @@ const CloningConsoleTemp = (props, context) => {
   const tempProp = { [temp.style]: true };
   return (
     <NoticeBox {...tempProp}>
-      <Box display="inline-block" verticalAlign="middle">
+      <Box inline verticalAlign="middle">
         {temp.text}
       </Box>
       <Button
@@ -350,47 +357,49 @@ const CloningConsoleStatus = (props, context) => {
   const { act, data } = useBackend(context);
   const { scanner, numberofpods, autoallowed, autoprocess, disk } = data;
   return (
-    <Section
-      title="Status"
-      buttons={
-        // eslint-disable-next-line react/jsx-no-useless-fragment
-        <Fragment>
-          {!!autoallowed && (
-            <Fragment>
-              <Box display="inline" color="label">
-                Auto-processing:&nbsp;
-              </Box>
-              <Button
-                selected={autoprocess}
-                icon={autoprocess ? 'toggle-on' : 'toggle-off'}
-                content={autoprocess ? 'Enabled' : 'Disabled'}
-                onClick={() =>
-                  act('autoprocess', {
-                    on: autoprocess ? 0 : 1,
-                  })
-                }
-              />
-            </Fragment>
-          )}
-        </Fragment>
-      }
-    >
-      <LabeledList>
-        <LabeledList.Item label="Scanner">
-          {scanner ? (
-            <Box color="good">Connected</Box>
-          ) : (
-            <Box color="bad">Not connected!</Box>
-          )}
-        </LabeledList.Item>
-        <LabeledList.Item label="Pods">
-          {numberofpods ? (
-            <Box color="good">{numberofpods} connected</Box>
-          ) : (
-            <Box color="bad">None connected!</Box>
-          )}
-        </LabeledList.Item>
-      </LabeledList>
-    </Section>
+    <Stack.Item>
+      <Section
+        title="Status"
+        buttons={
+          // eslint-disable-next-line react/jsx-no-useless-fragment
+          <>
+            {!!autoallowed && (
+              <>
+                <Box inline color="label">
+                  Auto-processing:&nbsp;
+                </Box>
+                <Button
+                  selected={autoprocess}
+                  icon={autoprocess ? 'toggle-on' : 'toggle-off'}
+                  content={autoprocess ? 'Enabled' : 'Disabled'}
+                  onClick={() =>
+                    act('autoprocess', {
+                      on: autoprocess ? 0 : 1,
+                    })
+                  }
+                />
+              </>
+            )}
+          </>
+        }
+      >
+        <LabeledList>
+          <LabeledList.Item label="Scanner">
+            {scanner ? (
+              <Box color="good">Connected</Box>
+            ) : (
+              <Box color="bad">Not connected!</Box>
+            )}
+          </LabeledList.Item>
+          <LabeledList.Item label="Pods">
+            {numberofpods ? (
+              <Box color="good">{numberofpods} connected</Box>
+            ) : (
+              <Box color="bad">None connected!</Box>
+            )}
+          </LabeledList.Item>
+        </LabeledList>
+      </Section>
+    </Stack.Item>
   );
 };

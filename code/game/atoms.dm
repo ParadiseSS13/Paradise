@@ -36,6 +36,8 @@
 
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
+	/// Materials scannable by detective
+	var/list/suit_fibers
 
 	var/admin_spawned = FALSE	//was this spawned by an admin? used for stat tracking stuff.
 
@@ -387,6 +389,12 @@
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
+/atom/proc/examine_more(mob/user) ///Extended description of an object. Allows you to double examine objects and have them give you a second description of an item. Useful for writing flavourful stuff.
+	SHOULD_CALL_PARENT(TRUE)
+	RETURN_TYPE(/list)
+
+	return list()
+
 /**
  * Updates the appearence of the icon
  *
@@ -509,8 +517,10 @@
 /atom/proc/welder_act(mob/living/user, obj/item/I)
 	return
 
+/// This is when an atom is emagged. Should return false if it fails, or it has no emag_act defined.
 /atom/proc/emag_act(mob/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
+	return FALSE
 
 /atom/proc/unemag()
 	return
