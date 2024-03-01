@@ -26467,7 +26467,6 @@
 	},
 /area/station/science/robotics)
 "cck" = (
-/obj/structure/table,
 /obj/structure/table/glass,
 /obj/item/storage/box/donkpockets,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
