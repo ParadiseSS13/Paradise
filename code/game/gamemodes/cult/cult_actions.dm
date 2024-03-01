@@ -5,7 +5,7 @@
 	buttontooltipstyle = "cult"
 
 /datum/action/innate/cult/IsAvailable()
-	if(!owner.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(!IS_CULTIST(owner))
 		return FALSE
 	return ..()
 
@@ -55,7 +55,7 @@
 
 	living_message = "<span class='cult[(large ? "large" : "speech")]'>[title]: [message]</span>"
 	for(var/mob/M in GLOB.player_list)
-		if(M.mind.has_antag_datum(/datum/antagonist/cultist))
+		if(IS_CULTIST(M))
 			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
 			to_chat(M, "<span class='cult[(large ? "large" : "speech")]'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
@@ -78,7 +78,7 @@
 	living_message = "<span class='cultlarge'>[title]: [message]</span>"
 
 	for(var/mob/M in GLOB.player_list)
-		if(M.mind.has_antag_datum(/datum/antagonist/cultist))
+		if(IS_CULTIST(M))
 			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
 			to_chat(M, "<span class='cultlarge'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
@@ -96,7 +96,7 @@
 	..()
 
 /datum/action/innate/cult/check_progress/IsAvailable()
-	return owner.mind.has_antag_datum(/datum/antagonist/cultist) || isobserver(owner)
+	return IS_CULTIST(owner) || isobserver(owner)
 
 /datum/action/innate/cult/check_progress/Activate()
 	if(!IsAvailable())

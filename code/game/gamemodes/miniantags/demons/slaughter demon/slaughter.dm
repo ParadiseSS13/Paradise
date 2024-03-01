@@ -116,7 +116,7 @@
 	return new /datum/spell_targeting/alive_mob_list
 
 /obj/effect/proc_holder/spell/sense_victims/valid_target(mob/living/target, user)
-	return target.stat == CONSCIOUS && target.key && !target.mind.has_antag_datum(/datum/antagonist/cultist) // Only conscious, non cultist players
+	return target.stat == CONSCIOUS && target.key && !IS_CULTIST(target) // Only conscious, non cultist players
 
 /obj/effect/proc_holder/spell/sense_victims/cast(list/targets, mob/user)
 	var/mob/living/victim = targets[1]

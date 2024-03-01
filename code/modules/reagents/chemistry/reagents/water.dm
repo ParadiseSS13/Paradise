@@ -260,7 +260,7 @@
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
 		M.AdjustStuttering(8 SECONDS, bound_lower = 0, bound_upper = 40 SECONDS)
 		M.Dizzy(10 SECONDS)
-		if(M.mind.has_antag_datum(/datum/antagonist/cultist))
+		if(IS_CULTIST(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
 					to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
@@ -284,7 +284,7 @@
 			M.SetStuttering(0)
 			M.SetConfused(0)
 			return
-		if(M.mind.has_antag_datum(/datum/antagonist/cultist))
+		if(IS_CULTIST(M))
 			SSticker.mode.remove_cultist(M.mind, TRUE, TRUE)
 			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			M.SetJitter(0)
@@ -373,7 +373,7 @@
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(M.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(IS_CULTIST(M))
 		M.AdjustDrowsy(-10 SECONDS)
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-4 SECONDS)

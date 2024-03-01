@@ -458,7 +458,7 @@
 
 /obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
-	if(istype(W, /obj/item/melee/cultblade/dagger) && user.mind.has_antag_datum(/datum/antagonist/cultist)) //Cultists can demolish cult girders instantly with their dagger
+	if(istype(W, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)) //Cultists can demolish cult girders instantly with their dagger
 		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")
 		refundMetal(metalUsed)
 		qdel(src)

@@ -227,7 +227,7 @@
 		return FALSE //can't convert machines, that's ratvar's thing
 	if(isguardian(mind.current))
 		var/mob/living/simple_animal/hostile/guardian/G = mind.current
-		if(G.summoner.mind.has_antag_datum(/datum/antagonist/cultist))
+		if(IS_CULTIST(G.summoner))
 			return TRUE //can't convert it unless the owner is converted
 	if(isgolem(mind.current))
 		return FALSE

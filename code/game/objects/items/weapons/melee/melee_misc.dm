@@ -156,7 +156,7 @@
 
 /obj/item/melee/spellblade/examine(mob/user)
 	. = ..()
-	if(enchant && (iswizard(user) || user.mind.has_antag_datum(/datum/antagonist/cultist))) // only wizards and cultists understand runes
+	if(enchant && (iswizard(user) || IS_CULTIST(user))) // only wizards and cultists understand runes
 		. += "The runes along the side read; [enchant.desc]."
 
 

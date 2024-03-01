@@ -491,7 +491,7 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	item_state = GET_CULT_DATA(runed_metal_item_state, initial(item_state))
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
-	if(!user.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
 		return
 	if(usr.holy_check())

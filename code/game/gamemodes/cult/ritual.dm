@@ -27,13 +27,13 @@
 
 /obj/item/melee/cultblade/dagger/examine(mob/user)
 	. = ..()
-	if(user.mind.has_antag_datum(/datum/antagonist/cultist) || user.stat == DEAD)
+	if(IS_CULTIST(user) || user.stat == DEAD)
 		. += "<span class='cult'>A dagger gifted by [GET_CULT_DATA(entity_title3, "your god")]. Allows the scribing of runes and access to the knowledge archives of the cult of [GET_CULT_DATA(entity_name, "your god")].</span>"
 		. += "<span class='cultitalic'>Striking another cultist with it will purge holy water from them.</span>"
 		. += "<span class='cultitalic'>Striking a noncultist will tear their flesh, additionally, if you recently downed them with cult magic it will stun them completely.</span>"
 
 /obj/item/melee/cultblade/dagger/attack(mob/living/M, mob/living/user)
-	if(M.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(IS_CULTIST(M))
 		if(M.reagents && M.reagents.has_reagent("holywater")) //allows cultists to be rescued from the clutches of ordained religion
 			if(M == user) // Targeting yourself
 				to_chat(user, "<span class='warning'>You can't remove holy water from yourself!</span>")
@@ -50,7 +50,7 @@
 	. = ..()
 
 /obj/item/melee/cultblade/dagger/attack_self(mob/user)
-	if(!user.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='warning'>[src] is covered in unintelligible shapes and markings.</span>")
 		return
 	scribe_rune(user)

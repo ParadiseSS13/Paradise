@@ -48,12 +48,12 @@
 
 /obj/structure/cult/functional/examine(mob/user)
 	. = ..()
-	if(user.mind.has_antag_datum(/datum/antagonist/cultist) && cooldowntime > world.time)
+	if(IS_CULTIST(user) && cooldowntime > world.time)
 		. += "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>"
 	. += "<span class='notice'>[src] is [anchored ? "":"not "]secured to the floor.</span>"
 
 /obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/melee/cultblade/dagger) && user.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
 		if(user.holy_check())
 			return
 		anchored = !anchored
@@ -66,7 +66,7 @@
 	return ..()
 
 /obj/structure/cult/functional/attack_hand(mob/living/user)
-	if(!user.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(!IS_CULTIST(user))
 		to_chat(user, "[heathen_message]")
 		return
 	if(invisibility)
@@ -260,7 +260,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	if(last_heal <= world.time)
 		last_heal = world.time + heal_delay
 		for(var/mob/living/L in range(5, src))
-			if(L.mind.has_antag_datum(/datum/antagonist/cultist) || iswizard(L) || isshade(L) || isconstruct(L))
+			if(IS_CULTIST(L) || iswizard(L) || isshade(L) || isconstruct(L))
 				if(L.health != L.maxHealth)
 					new /obj/effect/temp_visual/heal(get_turf(src), COLOR_HEALING_GREEN)
 

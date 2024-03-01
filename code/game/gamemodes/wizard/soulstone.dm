@@ -35,10 +35,10 @@
 	held_body = null
 
 /obj/item/soulstone/proc/can_use(mob/living/user)
-	if(user.mind.has_antag_datum(/datum/antagonist/cultist) && purified && !iswizard(user))
+	if(IS_CULTIST(user) && purified && !iswizard(user))
 		return FALSE
 
-	if(user.mind.has_antag_datum(/datum/antagonist/cultist) || iswizard(user) || (HAS_MIND_TRAIT(user, TRAIT_HOLY) && purified) || usability)
+	if(IS_CULTIST(user) || iswizard(user) || (HAS_MIND_TRAIT(user, TRAIT_HOLY) && purified) || usability)
 		return TRUE
 
 	return FALSE
@@ -66,7 +66,7 @@
 
 /obj/item/soulstone/pickup(mob/living/user)
 	. = ..()
-	if(user.mind.has_antag_datum(/datum/antagonist/cultist) && purified && !iswizard(user))
+	if(IS_CULTIST(user) && purified && !iswizard(user))
 		to_chat(user, "<span class='danger'>[src] reeks of holy magic. You will need to cleanse it with a ritual dagger before anything can be done with it.</span>")
 		return
 	if(HAS_MIND_TRAIT(user, TRAIT_HOLY))
@@ -120,7 +120,7 @@
 		to_chat(user, "<span class='warning'>A mysterious force prevents you from trapping this being's soul.</span>")
 		return ..()
 
-	if(user.mind.has_antag_datum(/datum/antagonist/cultist) && M.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(IS_CULTIST(user) && IS_CULTIST(M))
 		to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your fellow's soul.\"</span>")
 		return ..()
 
@@ -178,7 +178,7 @@
 	return
 
 /obj/item/soulstone/attackby(obj/item/O, mob/user)
-	if(istype(O, /obj/item/storage/bible) && !user.mind.has_antag_datum(/datum/antagonist/cultist) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
+	if(istype(O, /obj/item/storage/bible) && !IS_CULTIST(user) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		if(purified)
 			return
 		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
@@ -193,7 +193,7 @@
 			for(var/mob/M in contents)
 				if(M.mind)
 					icon_state = "purified_soulstone2"
-					if(M.mind.has_antag_datum(/datum/antagonist/cultist))
+					if(IS_CULTIST(M))
 						SSticker.mode.remove_cultist(M.mind, FALSE)
 						to_chat(M, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] \
 									and the memories of your time as their servant with it.</span>")
@@ -206,7 +206,7 @@
 				EX.icon_state = "shade_angelic"
 			user.visible_message("<span class='notice'>[user] purifies [src]!</span>", "<span class='notice'>You purify [src]!</span>")
 
-	else if(istype(O, /obj/item/melee/cultblade/dagger) && user.mind.has_antag_datum(/datum/antagonist/cultist))
+	else if(istype(O, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
 		if(!purified)
 			return
 		to_chat(user, "<span class='notice'>You begin to cleanse [src] of holy magic.</span>")
@@ -269,7 +269,7 @@
 		else
 			icon_state = "soulstone"
 		name = initial(name)
-		if(A.mind.has_antag_datum(/datum/antagonist/cultist))
+		if(IS_CULTIST(A))
 			to_chat(A, "<span class='userdanger'>You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs.</span>")
 		else
 			to_chat(A, "<span class='userdanger'>You have been released from your prison, but you are still bound to your [purified ? "saviour" : "creator"]'s will.</span>")
@@ -288,7 +288,7 @@
 
 /obj/structure/constructshell/examine(mob/user)
 	. = ..()
-	if(in_range(user, src) && (user.mind.has_antag_datum(/datum/antagonist/cultist) || iswizard(user) || user.stat == DEAD))
+	if(in_range(user, src) && (IS_CULTIST(user) || iswizard(user) || user.stat == DEAD))
 		. += "<span class='cult'>A construct shell, used to house bound souls from a soulstone.</span>"
 		. += "<span class='cult'>Placing a soulstone with a soul into this shell allows you to produce your choice of the following:</span>"
 		. += "<span class='cultitalic'>An <b>Artificer</b>, which can produce <b>more shells and soulstones</b>, as well as fortifications.</span>"
@@ -349,7 +349,7 @@
 				return
 			if(T.stat == DEAD)
 				to_chat(user, "<span class='danger'>Capture failed!</span> The shade has already been banished!")
-			if((T.mind.has_antag_datum(/datum/antagonist/cultist) && purified) || (T.holy && !purified))
+			if((IS_CULTIST(T) && purified) || (T.holy && !purified))
 				to_chat(user, "<span class='danger'>Capture failed!</span> The shade recoils away from [src]!")
 			else
 				if(locate(/mob/living/simple_animal/shade) in contents)
@@ -429,9 +429,9 @@
 		new /obj/effect/particle_effect/smoke/sleeping(target.loc)
 	C.faction |= "\ref[user]"
 	C.key = target.key
-	if(user && user.mind.has_antag_datum(/datum/antagonist/cultist) || cult_override)
+	if(user && IS_CULTIST(user) || cult_override)
 		SSticker.mode.add_cultist(C.mind)
-	if(user && user.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(user && IS_CULTIST(user))
 		to_chat(C, "<B>You are still bound to serve the cult, follow their orders and help them complete their goals at all costs.</B>")
 	else
 		to_chat(C, "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>")
@@ -453,7 +453,7 @@
 		if(iswizard(user))
 			SSticker.mode.update_wiz_icons_added(S.mind)
 			S.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
-		if(user.mind.has_antag_datum(/datum/antagonist/cultist))
+		if(IS_CULTIST(user))
 			SSticker.mode.add_cultist(S.mind)
 			S.mind.special_role = SPECIAL_ROLE_CULTIST
 			S.mind.store_memory("<b>Serve the cult's will.</b>")

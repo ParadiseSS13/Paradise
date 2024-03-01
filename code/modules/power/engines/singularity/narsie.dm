@@ -93,7 +93,7 @@
 /obj/singularity/narsie/mezzer()
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(M.stat == CONSCIOUS)
-			if(!M.mind.has_antag_datum(/datum/antagonist/cultist))
+			if(!IS_CULTIST(M))
 				to_chat(M, "<span class='warning'>You feel your sanity crumble away in an instant as you gaze upon [src.name]...</span>")
 				M.Stun(6 SECONDS)
 
@@ -120,7 +120,7 @@
 		if(pos.z != src.z)
 			continue
 
-		if(food.mind.has_antag_datum(/datum/antagonist/cultist))
+		if(IS_CULTIST(food))
 			cultists += food
 		else
 			noncultists += food

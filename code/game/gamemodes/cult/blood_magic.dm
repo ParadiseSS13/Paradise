@@ -134,7 +134,7 @@
 	..()
 
 /datum/action/innate/cult/blood_spell/IsAvailable()
-	if(!owner.mind.has_antag_datum(/datum/antagonist/cultist) || owner.incapacitated() || !charges)
+	if(!IS_CULTIST(owner) || owner.incapacitated() || !charges)
 		return FALSE
 	return ..()
 
@@ -295,7 +295,7 @@
 /obj/effect/proc_holder/horror/InterceptClickOn(mob/living/user, params, atom/target)
 	if(..())
 		return
-	if(ranged_ability_user.incapacitated() || !user.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(ranged_ability_user.incapacitated() || !IS_CULTIST(user))
 		user.ranged_ability.remove_ranged_ability(user)
 		return
 	if(user.holy_check())
@@ -304,10 +304,7 @@
 	if(!isturf(T))
 		return FALSE
 	if(target in view(7, ranged_ability_user))
-		if(!ishuman(target))
-			return
-		var/mob/living/carbon/human/H = target
-		if(H.mind.has_antag_datum(/datum/antagonist/cultist)) // ctodo figure out what this originally was
+		if(!ishuman(target) || IS_CULTIST(target))
 			return
 		H.Hallucinate(120 SECONDS)
 		attached_action.charges--
@@ -428,7 +425,7 @@
 	afterattack(user, user, TRUE)
 
 /obj/item/melee/blood_magic/attack(mob/living/M, mob/living/carbon/user)
-	if(!iscarbon(user) || !user.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(!iscarbon(user) || !IS_CULTIST(user))
 		uses = 0
 		qdel(src)
 		return
@@ -461,7 +458,7 @@
 	if(!isliving(target) || !proximity)
 		return
 	var/mob/living/L = target
-	if(target.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(IS_CULTIST(target))
 		return
 	if(user.holy_check())
 		return
@@ -510,7 +507,7 @@
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
 	var/atom/movable/teleportee
-	if(!target.mind.has_antag_datum(/datum/antagonist/cultist) || !proximity)
+	if(!IS_CULTIST(target) || !proximity)
 		to_chat(user, "<span class='warning'>You can only teleport adjacent cultists with this spell!</span>")
 		return
 	if(user != target) // So that the teleport effect shows on the correct mob
@@ -873,7 +870,7 @@
 	if(!proximity)
 		return ..()
 	if(ishuman(target))
-		if(target.mind.has_antag_datum(/datum/antagonist/cultist))
+		if(IS_CULTIST(target))
 			heal_cultist(user, target)
 			target.clean_blood()
 		else

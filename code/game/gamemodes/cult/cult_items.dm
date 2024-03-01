@@ -34,7 +34,7 @@
 	. += "<span class='notice'>This blade is a powerful weapon, capable of severing limbs easily. Nonbelievers are unable to use this weapon. Striking a nonbeliever after downing them with your cult magic will stun them completely.</span>"
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
-	if(!user.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(!IS_CULTIST(user))
 		user.Weaken(10 SECONDS)
 		user.unEquip(src, 1)
 		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
@@ -45,7 +45,7 @@
 		else
 			user.adjustBruteLoss(rand(force/2, force))
 		return
-	if(!target.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(!IS_CULTIST(target))
 		var/datum/status_effect/cult_stun_mark/S = target.has_status_effect(STATUS_EFFECT_CULT_STUN)
 		if(S)
 			S.trigger()
@@ -53,7 +53,7 @@
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
 	. = ..()
-	if(!user.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.Confused(20 SECONDS)
@@ -72,13 +72,13 @@
 	knockdown_duration = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback)
-	if(thrower && !thrower.mind.has_antag_datum(/datum/antagonist/cultist)) // A couple of objs actually proc throw_at, so we need to make sure that yes, we got tossed by a person before trying to send a message
+	if(thrower && !IS_CULTIST(thrower)) // A couple of objs actually proc throw_at, so we need to make sure that yes, we got tossed by a person before trying to send a message
 		thrower.visible_message("<span class='danger'>The bola glows, and boomarangs back at [thrower]!</span>")
 		throw_impact(thrower)
 	. = ..()
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(hit_atom.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(IS_CULTIST(hit_atom))
 		hit_atom.visible_message("<span class='warning'>[src] bounces off of [hit_atom], as if repelled by an unseen force!</span>")
 		return
 	. = ..()
@@ -162,7 +162,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot)
 	..()
-	if(!user.mind.has_antag_datum(/datum/antagonist/cultist)) // Todo: Make this only happen when actually equipped to the correct slot. (For all cult items)
+	if(!IS_CULTIST(user)) // Todo: Make this only happen when actually equipped to the correct slot. (For all cult items)
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.unEquip(src, 1)
@@ -199,7 +199,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/equipped(mob/living/user, slot)
 	..()
-	if(!user.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.unEquip(src, 1)
@@ -266,7 +266,7 @@
 
 /obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/living/user, slot)
 	..()
-	if(!user.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")
 		user.unEquip(src, 1)
 		user.Confused(60 SECONDS)
@@ -281,7 +281,7 @@
 	var/global/curselimit = 0
 
 /obj/item/shuttle_curse/attack_self(mob/living/user)
-	if(!user.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(!IS_CULTIST(user))
 		user.unEquip(src, 1)
 		user.Weaken(10 SECONDS)
 		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
@@ -332,7 +332,7 @@
 	if(!uses || !iscarbon(user))
 		to_chat(user, "<span class='warning'>[src] is dull and unmoving in your hands.</span>")
 		return
-	if(!user.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(!IS_CULTIST(user))
 		user.unEquip(src, TRUE)
 		step(src, pick(GLOB.alldirs))
 		to_chat(user, "<span class='warning'>[src] flickers out of your hands, too eager to move!</span>")
@@ -463,7 +463,7 @@
 		to_chat(owner, "<span class='warning'>This shield is powerless! You must perform the required sacrifice to empower it!</span>")
 		return
 
-	if(owner.mind.has_antag_datum(/datum/antagonist/cultist) && !owner.holy_check()) // Cultist holding the shield
+	if(IS_CULTIST(owner) && !owner.holy_check()) // Cultist holding the shield
 
 		// Hit by a projectile
 		if(istype(hitby, /obj/item/projectile))
@@ -531,7 +531,7 @@
 		illusions++
 	else if(isliving(loc))
 		var/mob/living/holder = loc
-		if(holder.mind.has_antag_datum(/datum/antagonist/cultist))
+		if(IS_CULTIST(holder))
 			to_chat(holder, "<span class='cultitalic'>The shield's illusions are back at full strength!</span>")
 		else
 			to_chat(holder, "<span class='warning'>[src] vibrates slightly, and starts glowing.")
@@ -582,7 +582,7 @@
 	var/turf/T = get_turf(hit_atom)
 	if(isliving(hit_atom))
 		var/mob/living/L = hit_atom
-		if(L.mind.has_antag_datum(/datum/antagonist/cultist))
+		if(IS_CULTIST(L))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			if(!L.restrained() && L.put_in_active_hand(src))
 				L.visible_message("<span class='warning'>[L] catches [src] out of the air!</span>")
@@ -686,7 +686,7 @@
 	hitsound = 'sound/effects/splat.ogg'
 
 /obj/item/projectile/magic/arcane_barrage/blood/prehit(atom/target)
-	if(target.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(IS_CULTIST(target))
 		damage = 0
 		nodamage = TRUE
 		if(ishuman(target))
@@ -718,7 +718,7 @@
 
 /obj/item/portal_amulet/afterattack(atom/O, mob/user, proximity)
 	. = ..()
-	if(!user.mind.has_antag_datum(/datum/antagonist/cultist))
+	if(!IS_CULTIST(user))
 		if(!iscarbon(user))
 			return
 		var/mob/living/carbon/M = user
@@ -797,7 +797,7 @@
 		exit = new /obj/effect/cult_portal_exit(target)
 
 /obj/effect/portal/cult/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/melee/cultblade/dagger) && user.mind.has_antag_datum(/datum/antagonist/cultist) || istype(I, /obj/item/nullrod) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
+	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user) || istype(I, /obj/item/nullrod) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='notice'>You close the portal with your [I].</span>")
 		playsound(src, 'sound/magic/magic_missile.ogg', 100, TRUE)
 		qdel(src)

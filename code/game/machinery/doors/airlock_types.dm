@@ -511,12 +511,12 @@
 	new openingoverlaytype(loc)
 
 /obj/machinery/door/airlock/cult/canAIControl(mob/user)
-	return (user.mind.has_antag_datum(/datum/antagonist/cultist) && !isAllPowerLoss())
+	return (IS_CULTIST(user) && !isAllPowerLoss())
 
 /obj/machinery/door/airlock/cult/allowed(mob/living/L)
 	if(!density)
 		return TRUE
-	if(friendly || L.mind.has_antag_datum(/datum/antagonist/cultist) || isshade(L) || isconstruct(L))
+	if(friendly || IS_CULTIST(L) || isshade(L) || isconstruct(L))
 		if(!stealthy)
 			new openingoverlaytype(loc)
 		return TRUE
