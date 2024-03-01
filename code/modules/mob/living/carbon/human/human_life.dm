@@ -81,7 +81,7 @@
 
 	var/turf/T = get_turf(src)
 	var/brightness = T.get_lumcount()
-	var/darkness = 1 - brightness	//Silly, I know, but 'alpha' and 'darkness' go the same direction on a number line.
+	var/darkness = 1 - brightness //Silly, I know, but 'alpha' and 'darkness' go the same direction on a number line.
 	var/distance = CLAMP01(darkness - previous_light_intensity) //Used for how long to animate for.
 
 	previous_light_intensity = darkness
