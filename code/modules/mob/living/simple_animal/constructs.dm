@@ -162,7 +162,8 @@
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
 						create shield walls, rip apart enemies and walls.</b>"
 
-/mob/living/simple_animal/hostile/construct/armoured/hostile //actually hostile, will move around, hit things
+/// actually hostile, will move around, hit things
+/mob/living/simple_animal/hostile/construct/armoured/hostile
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
@@ -195,10 +196,12 @@
 	retreat_distance = 2 //AI wraiths will move in and out of combat
 	playstyle_string = "<b>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</b>"
 
-/mob/living/simple_animal/hostile/construct/wraith/hostile //actually hostile, will move around, hit things
+/// actually hostile, will move around, hit things
+/mob/living/simple_animal/hostile/construct/wraith/hostile
 	AIStatus = AI_ON
 
-/mob/living/simple_animal/hostile/construct/wraith/hostile/bubblegum //Used in bubblegum summoning. Needs MOB_SIZE_LARGE so crushers don't suffer
+/// Used in bubblegum summoning. Needs MOB_SIZE_LARGE so crushers don't suffer
+/mob/living/simple_animal/hostile/construct/wraith/hostile/bubblegum
 	mob_size =	MOB_SIZE_LARGE
 
 /////////////////////////////Artificer/////////////////////////
@@ -276,7 +279,8 @@
 	retreat_distance = initial(retreat_distance)
 	minimum_distance = initial(minimum_distance)
 
-/mob/living/simple_animal/hostile/construct/builder/hostile //actually hostile, will move around, hit things, heal other constructs
+/// actually hostile, will move around, hit things, heal other constructs
+/mob/living/simple_animal/hostile/construct/builder/hostile
 	AIStatus = AI_ON
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //only token destruction, don't smash the cult wall NO STOP
 
@@ -306,7 +310,8 @@
 	var/energy = 0
 	var/max_energy = 1000
 
-/mob/living/simple_animal/hostile/construct/behemoth/hostile //actually hostile, will move around, hit things
+/// actually hostile, will move around, hit things
+/mob/living/simple_animal/hostile/construct/behemoth/hostile
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
@@ -340,7 +345,8 @@
 	return TRUE
 
 
-/mob/living/simple_animal/hostile/construct/harvester/hostile //actually hostile, will move around, hit things
+/// actually hostile, will move around, hit things
+/mob/living/simple_animal/hostile/construct/harvester/hostile
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 

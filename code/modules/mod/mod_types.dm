@@ -119,7 +119,8 @@
 		/obj/item/mod/module/sphere_transform,
 	)
 
-/obj/item/mod/control/pre_equipped/mining/vendor //visit robotics.
+/// visit robotics.
+/obj/item/mod/control/pre_equipped/mining/vendor
 	theme = /datum/mod_theme/mining
 	applied_core = /obj/item/mod/core/plasma
 	applied_modules = list(
@@ -130,7 +131,8 @@
 	)
 
 
-/obj/item/mod/control/pre_equipped/mining/asteroid //The asteroid skin, as that one looks more space worthy / older. Good for space ruins.
+/// The asteroid skin, as that one looks more space worthy / older. Good for space ruins.
+/obj/item/mod/control/pre_equipped/mining/asteroid
 	applied_skin = "asteroid"
 
 /obj/item/mod/control/pre_equipped/medical
@@ -368,7 +370,8 @@
 	insignia_type = /obj/item/mod/module/insignia/chaplain
 	additional_module = /obj/item/mod/module/injector
 
-/obj/item/mod/control/pre_equipped/responsory/inquisitory //Diffrent look, as well as magic proof on TG. We don't have the magic proof stuff here, but it's perfect for inqusitors. Or if you want to give your ERT a fancy look.
+/// Diffrent look, as well as magic proof on TG. We don't have the magic proof stuff here, but it's perfect for inqusitors. Or if you want to give your ERT a fancy look.
+/obj/item/mod/control/pre_equipped/responsory/inquisitory
 	applied_skin = "inquisitory"
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander

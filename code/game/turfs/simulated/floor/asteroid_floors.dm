@@ -110,7 +110,8 @@
 	floor_variance = 15
 	digResult = /obj/item/stack/ore/glass/basalt
 
-/turf/simulated/floor/plating/asteroid/basalt/lava //lava underneath
+/// lava underneath
+/turf/simulated/floor/plating/asteroid/basalt/lava
 	baseturf = /turf/simulated/floor/lava
 
 /turf/simulated/floor/plating/asteroid/basalt/airless
@@ -185,7 +186,8 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	var/data_having_type = /turf/simulated/floor/plating/asteroid/airless/cave/has_data
 	turf_type = /turf/simulated/floor/plating/asteroid/airless
 
-/turf/simulated/floor/plating/asteroid/airless/cave/has_data //subtype for producing a tunnel with given data
+/// subtype for producing a tunnel with given data
+/turf/simulated/floor/plating/asteroid/airless/cave/has_data
 	has_data = TRUE
 
 /turf/simulated/floor/plating/asteroid/airless/cave/volcanic
@@ -201,7 +203,8 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	nitrogen = 23
 	temperature = 300
 
-/turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data //subtype for producing a tunnel with given data
+/// subtype for producing a tunnel with given data
+/turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data
 	has_data = TRUE
 
 /turf/simulated/floor/plating/asteroid/airless/cave/Initialize(mapload)
