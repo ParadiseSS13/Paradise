@@ -29,6 +29,9 @@
 /area/space/nearstation/disposals
 	icon_state = "nearspace_disposals"
 
+/area/space/nearstation/centcom
+	icon_state = "space_near_cc"
+
 /area/space/atmosalert()
 	return
 
