@@ -285,7 +285,7 @@
 
 	if(!display_members)
 		return
-	var/list/cult = get_cultists(seperate = TRUE)
+	var/list/cult = get_cultists(separate = TRUE)
 	var/total_cult = cult[1] + cult[2]
 
 	var/overview = "<span class='cultitalic'><br><b>Current cult members: [total_cult]"
