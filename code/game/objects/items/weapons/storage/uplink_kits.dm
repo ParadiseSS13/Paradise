@@ -180,7 +180,7 @@
 		/obj/item/storage/box/syndie_kit/frag_grenades, // One box, as a treat
 		/obj/item/encryptionkey/syndicate) // 10TC
 
-/obj/item/storage/box/syndie_kit/bundle/metroid // 115TC + modules + laser gun
+/obj/item/storage/box/syndie_kit/bundle/metroid // 75TC + modules + laser gun
 	name = "Modsuit Bundle"
 	desc = "Don the equipment of an intergalactic bounty hunter and blast your way through the station!"
 	items = list(
@@ -191,7 +191,7 @@
 		/obj/item/mod/module/sphere_transform, // ?TC
 		/obj/item/autosurgeon/organ/syndicate/laser_arm, // ?TC
 		/obj/item/pinpointer/advpinpointer, // 20TC
-		/obj/item/bio_chip_implanter/adrenalin, // 40TC
+		/obj/item/autosurgeon/organ/syndicate/hardened_heart, // Like adrenals but no speed / healing
 		/obj/item/storage/belt/utility/full/multitool, // 15TC
 		/obj/item/clothing/head/collectable/slime,  // 0TC priceless
 		/obj/item/encryptionkey/syndicate) // 10TC
