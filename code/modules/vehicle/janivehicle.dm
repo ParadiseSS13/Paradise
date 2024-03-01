@@ -15,7 +15,6 @@
 	. = ..()
 	GLOB.janitorial_equipment += src
 
-
 /obj/vehicle/janicart/Destroy()
 	GLOB.janitorial_equipment -= src
 	QDEL_NULL(mybag)
