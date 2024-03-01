@@ -326,6 +326,7 @@
 /datum/team/cult/proc/find_new_sacrifice_target(datum/mind/mind)
 	var/datum/objective/sacrifice/current_obj = current_sac_objective()
 	if(!current_obj.find_target())
+		ready_to_summon()
 		return FALSE
 	for(var/datum/mind/cult_mind in members)
 		if(cult_mind && cult_mind.current)
@@ -370,3 +371,109 @@
 		if(cult_mind && cult_mind.current)
 			to_chat(cult_mind.current, "<span class='cultlarge'>RETRIBUTION!</span>")
 			to_chat(cult_mind.current, "<span class='cult'>Current goal: Slaughter the heretics!</span>")
+
+/datum/team/cult/proc/get_cult_status_as_string()
+	var/list/bitch_list = list(
+		"[NARSIE_IS_ASLEEP]" = "NARSIE_IS_ASLEEP",
+		"[NARSIE_DEMANDS_SACRIFICE]" = "NARSIE_DEMANDS_SACRIFICE",
+		"[NARSIE_NEEDS_SUMMONING]" = "NARSIE_NEEDS_SUMMONING",
+		"[NARSIE_HAS_RISEN]" = "NARSIE_HAS_RISEN",
+		"[NARSIE_HAS_FALLEN]" = "NARSIE_HAS_FALLEN",
+	)
+	return bitch_list["[cult_status]"]
+/**
+ * ADMIN STUFF DOWN YONDER
+ */
+
+/datum/team/cult/get_admin_commands()
+	return list(
+		"Cult Mindspeak" = CALLBACK(src, PROC_REF(cult_mindspeak)),
+		"Unlock Nar'Sie summoning" = CALLBACK(src, PROC_REF(unlock_summoning))
+		)
+
+/datum/team/cult/proc/cult_mindspeak(admin_caller)
+	var/input = stripped_input(admin_caller, "Communicate to all the cultists with the voice of [GET_CULT_DATA(entity_name, "a cult god")]", "Voice of [GET_CULT_DATA(entity_name, "Cult God")]")
+	if(!input)
+		return
+
+	for(var/datum/mind/H in SSticker.mode.cult)
+		if(H.current)
+			to_chat(H.current, "<span class='cult'>[GET_CULT_DATA(entity_name, "Your god")] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
+
+	for(var/mob/dead/observer/O in GLOB.player_list)
+		to_chat(O, "<span class='cult'>[GET_CULT_DATA(entity_name, "Your god")] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
+
+	message_admins("Admin [key_name_admin(admin_caller)] has talked with the Voice of [GET_CULT_DATA(entity_name, "Cult God")].")
+	log_admin("[key_name(admin_caller)] Voice of [GET_CULT_DATA(entity_name, "Cult God")]: [input]")
+
+/datum/team/cult/proc/unlock_summoning(admin_caller)
+	if(alert(admin_caller, "Unlock the ability to summon Nar'Sie?", "Cult Debug", "Yes", "No") != "Yes")
+		return
+
+	ready_to_summon()
+
+	message_admins("Admin [key_name_admin(admin_caller)] has unlocked the Cult's ability to summon Nar'Sie.")
+	log_admin("Admin [key_name_admin(admin_caller)] has unlocked the Cult's ability to summon Nar'Sie.")
+
+/datum/team/cult/Topic(href, href_list)
+	. = ..()
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	// manually cramming some shit in here, because it only conditonally pops up
+
+	switch(href_list["cult_command"])
+		if("cult_adjustsacnumber")
+			var/amount = input("Adjust the amount of sacrifices required before summoning Nar'Sie", "Sacrifice Adjustment", 2) as null | num
+			if(amount > 0)
+				var/old = sacrifices_required
+				sacrifices_required = amount
+				message_admins("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
+				log_admin("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
+
+		if("cult_newtarget")
+			if(alert(usr, "Reroll the cult's sacrifice target?", "Cult Debug", "Yes", "No") != "Yes")
+				return
+
+			find_new_sacrifice_target()
+
+			message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+			log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+
+		if("cult_newsummonlocations")
+			if(!obj_summon)
+				to_chat(usr, "<span class='danger'>The cult has NO summon objective yet.</span>")
+				return
+			if(alert(usr, "Reroll the cult's summoning locations?", "Cult Debug", "Yes", "No") != "Yes")
+				return
+
+			obj_summon.find_summon_locations(TRUE)
+			if(cult_status == NARSIE_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
+				for(var/datum/mind/cult_mind in members)
+					if(cult_mind && cult_mind.current)
+						to_chat(cult_mind.current, "<span class='cult'>The veil has shifted! Our summoning will need to take place elsewhere.</span>")
+						to_chat(cult_mind.current, "<span class='cult'>Current goal : [obj_summon.explanation_text]</span>")
+
+			message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+			log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+
+/datum/team/cult/get_admin_html()
+	var/list/content = ..()
+	content += "<br><br>Cult Controls:<br>"
+	content += "<br>Cult Status: [get_cult_status_as_string()]"
+	content += "<br>Sacrifices completed: [sacrifices_done]"
+	content += "<br>Sacrifice required for summoning: [sacrifices_required]<br>"
+	if(obj_summon)
+		content += "<br>Summoning locations: [english_list(obj_summon.summon_spots)]"
+		content += "<br><a href='?_src_=[UID()];cult_command=cult_newsummonlocations'>Reroll summoning locations</a>"
+	else
+		content += "<br>Summoning locations: None, Cult has not yet reached the summoning stage."
+	content += "<br>"
+	if(cult_status == NARSIE_DEMANDS_SACRIFICE)
+		content += "<br><a href='?_src_=[UID()];cult_command=cult_adjustsacnumber'>Modify amount of sacrifices required</a>"
+		content += "<br><a href='?_src_=[UID()];cult_command=cult_newtarget'>Reroll sacrifice target</a>"
+	else
+		content += "<br>Cannot modify amount of sacrifices required (Summon available!)"
+		content += "<br>Cannot reroll sacrifice target (Summon available!)"
+	return content

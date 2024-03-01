@@ -15,6 +15,11 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 	var/datum/feed_channel/admincaster_feed_channel = new /datum/feed_channel
 	var/admincaster_signature	//What you'll sign the newsfeeds as
 
+	/// TEMPORARY UNTIL WE FIND A BETTER PLACE TO PUT THIS. IF THIS IS MERGED, BLOW UP ALL CODE REVIEWERS
+	var/team_switch_tab_index = 1
+	// TODO TO DO
+	// LOOK AT ME!!!
+
 /datum/admins/New(initial_rank = "Temporary Admin", initial_rights = 0, ckey)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounceooc'>Admin rank creation blocked: Advanced ProcCall detected.</span>")

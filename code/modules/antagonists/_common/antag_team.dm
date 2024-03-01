@@ -253,6 +253,29 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 			C.Invoke(usr)
 			return
 
+/datum/team/proc/get_admin_html()
+	var/list/content = list()
+	content += "<h3>[name] - [type]</h3>"
+	content += "<a href='?_src_=holder;team_command=rename_team;team=[UID()]'>Rename Team</a>"
+	content += "<a href='?_src_=holder;team_command=delete_team;team=[UID()]'>Delete Team</a>"
+	content += "<a href='?_src_=holder;team_command=communicate;team=[UID()]'>OOC Message Team</a>"
+	content += ADMIN_VV(src, "View Variables")
+	for(var/command in get_admin_commands())
+		// _src_ is UID() so it points to `/datum/team/Topic` instead of `/datum/admins/Topic`.
+		content += "<a href='?_src_=[UID()];command=[command]'>[command]</a>"
+	content += "<br><br>Objectives:<br><ol>"
+	for(var/datum/objective/O as anything in objective_holder.get_objectives())
+		content += "<li>[O.explanation_text] - <a href='?_src_=holder;team_command=remove_objective;team=[UID()];objective=[O.UID()]'>Remove</a></li>"
+	content += "</ol><a href='?_src_=holder;team_command=add_objective;team=[UID()]'>Add Objective</a><br>"
+	if(objective_holder.has_objectives())
+		content += "</ol><a href='?_src_=holder;team_command=announce_objectives;team=[UID()]'>Announce Objectives to All Members</a><br><br>"
+	content += "Members: <br><ol>"
+	for(var/datum/mind/M as anything in members)
+		content += "<li>[M.name] - <a href='?_src_=holder;team_command=view_member;team=[UID()];member=[M.UID()]'>Show Player Panel</a>"
+		content += "<a href='?_src_=holder;team_command=remove_member;team=[UID()];member=[M.UID()]'>Remove Member</a></li>"
+	content += "</ol><a href='?_src_=holder;team_command=admin_add_member;team=[UID()]'>Add Member</a>"
+	return content
+
 /**
  * A list of team-specific admin commands for this team. Should be in the form of `"command" = CALLBACK(x, PROC_REF(some_proc))`.
  */
@@ -278,25 +301,20 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	var/list/content = list()
 	if(!length(GLOB.antagonist_teams))
 		content += "There are currently no antag teams.<br/>"
-	content += "<a href='?_src_=holder;team_command=new_custom_team;'>Create new Team</a>"
-	for(var/datum/team/T as anything in GLOB.antagonist_teams) // with multiple teams, this is going to get messy. It should probably be turned into a tabs-like system
-		content += "<h3>[T.name] - [T.type]</h3>"
-		content += "<a href='?_src_=holder;team_command=rename_team;team=[T.UID()]'>Rename Team</a>"
-		content += "<a href='?_src_=holder;team_command=delete_team;team=[T.UID()]'>Delete Team</a>"
-		content += "<a href='?_src_=holder;team_command=communicate;team=[T.UID()]'>Message Team</a>"
-		content += ADMIN_VV(T, "View Variables")
-		for(var/command in T.get_admin_commands())
-			// _src_ is T.UID() so it points to `/datum/team/Topic` instead of `/datum/admins/Topic`.
-			content += "<a href='?_src_=[T.UID()];command=[command]'>[command]</a>"
-		content += "<br><br>Objectives:<br><ol>"
-		for(var/datum/objective/O as anything in T.objective_holder.get_objectives())
-			content += "<li>[O.explanation_text] - <a href='?_src_=holder;team_command=remove_objective;team=[T.UID()];objective=[O.UID()]'>Remove</a></li>"
-		content += "</ol><a href='?_src_=holder;team_command=add_objective;team=[T.UID()]'>Add Objective</a><br>"
-		if(T.objective_holder.has_objectives())
-			content += "</ol><a href='?_src_=holder;team_command=announce_objectives;team=[T.UID()]'>Announce Objectives to All Members</a><br><br>"
-		content += "Members: <br><ol>"
-		for(var/datum/mind/M as anything in T.members)
-			content += "<li>[M.name] - <a href='?_src_=holder;team_command=view_member;team=[T.UID()];member=[M.UID()]'>Show Player Panel</a>"
-			content += "<a href='?_src_=holder;team_command=remove_member;team=[T.UID()];member=[M.UID()]'>Remove Member</a></li>"
-		content += "</ol><a href='?_src_=holder;team_command=admin_add_member;team=[T.UID()]'>Add Member</a><hr>"
+	content += "<a href='?_src_=holder;team_command=new_custom_team;'>Create new Team</a><br>"
+	if(length(GLOB.antagonist_teams) > 1)
+		var/index = 1
+		for(var/datum/team/T as anything in GLOB.antagonist_teams) // with multiple teams, this is going to get messy. It should probably be turned into a tabs-like system
+			content += "<a href='?_src_=holder;team_command=switch_team_tab;team_index=[index]'>[T.name]</a>"
+			index++
+	else
+		team_switch_tab_index = 1
+
+	if(length(GLOB.antagonist_teams))
+		content += "<hr>"
+		team_switch_tab_index = clamp(team_switch_tab_index, 1, length(GLOB.antagonist_teams))
+		var/datum/team/T = GLOB.antagonist_teams[team_switch_tab_index]
+		if(istype(T))
+			var/list/stringy_list = T.get_admin_html()
+			content += stringy_list.Join()
 	return content.Join()

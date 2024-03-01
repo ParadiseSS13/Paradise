@@ -1626,6 +1626,12 @@
 			check_teams()
 			return
 
+		if(href_list["team_command"] == "switch_team_tab")
+			log_debug("[team_switch_tab_index], [href_list["team_index"]], [length(GLOB.antagonist_teams)]") // ctodo remove this
+			team_switch_tab_index = clamp(text2num(href_list["team_index"]), 1, length(GLOB.antagonist_teams))
+			log_debug("[team_switch_tab_index], [href_list["team_index"]], [length(GLOB.antagonist_teams)]")
+			return
+
 		var/datum/mind/member
 		if(href_list["team"])
 			team = locateUID(href_list["team"])
@@ -1692,66 +1698,6 @@
 			SSmentor_tickets.convert_to_other_ticket(indexNum)
 		else
 			SStickets.convert_to_other_ticket(indexNum)
-
-	else if(href_list["cult_mindspeak"])
-		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [GET_CULT_DATA(entity_name, "a cult god")]", "Voice of [GET_CULT_DATA(entity_name, "Cult God")]")
-		if(!input)
-			return
-
-		for(var/datum/mind/H in SSticker.mode.cult)
-			if(H.current)
-				to_chat(H.current, "<span class='cult'>[GET_CULT_DATA(entity_name, "Your god")] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
-
-		for(var/mob/dead/observer/O in GLOB.player_list)
-			to_chat(O, "<span class='cult'>[GET_CULT_DATA(entity_name, "Your god")] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
-
-		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [GET_CULT_DATA(entity_name, "Cult God")].")
-		log_admin("[key_name(usr)] Voice of [GET_CULT_DATA(entity_name, "Cult God")]: [input]")
-
-	else if(href_list["cult_adjustsacnumber"])
-		var/amount = input("Adjust the amount of sacrifices required before summoning Nar'Sie", "Sacrifice Adjustment", 2) as null | num
-		if(amount > 0)
-			var/datum/game_mode/gamemode = SSticker.mode
-			var/old = gamemode.cult_team.sacrifices_required
-			gamemode.cult_team.sacrifices_required = amount
-			message_admins("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
-			log_admin("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
-
-	else if(href_list["cult_newtarget"])
-		if(alert(usr, "Reroll the cult's sacrifice target?", "Cult Debug", "Yes", "No") != "Yes")
-			return
-
-		SSticker.mode.cult_team.find_new_sacrifice_target()
-
-		message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
-		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
-
-	else if(href_list["cult_newsummonlocations"])
-		var/datum/game_mode/gamemode = SSticker.mode
-		if(!gamemode.cult_team.obj_summon)
-			to_chat(usr, "<span class='danger'>The cult has NO summon objective yet.</span>")
-			return
-		if(alert(usr, "Reroll the cult's summoning locations?", "Cult Debug", "Yes", "No") != "Yes")
-			return
-
-		gamemode.cult_team.obj_summon.find_summon_locations(TRUE)
-		if(gamemode.cult_team.sacrifices_required == NARSIE_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
-			for(var/datum/mind/cult_mind in gamemode.cult)
-				if(cult_mind && cult_mind.current)
-					to_chat(cult_mind.current, "<span class='cult'>The veil has shifted! Our summoning will need to take place elsewhere.</span>")
-					to_chat(cult_mind.current, "<span class='cult'>Current goal : [gamemode.cult_team.obj_summon.explanation_text]</span>")
-
-		message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
-		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
-
-	else if(href_list["cult_unlocknarsie"])
-		if(alert(usr, "Unlock the ability to summon Nar'Sie?", "Cult Debug", "Yes", "No") != "Yes")
-			return
-
-		var/datum/game_mode/gamemode = SSticker.mode
-		gamemode.cult_team.ready_to_summon()
-		message_admins("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
-		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
 
 	else if(href_list["adminplayerobservecoodjump"])
 		var/client/C = usr.client
