@@ -450,7 +450,7 @@
 			CartData[++CartData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
 
 	var/list/JaniCartData = list()
-	for(var/obj/vehicle/janicart/J in GLOB.janitorial_equipment)
+	for(var/obj/vehicle/janicart/janicart in GLOB.janitorial_equipment)
 		var/turf/janicart_loc = get_turf(janicart )
 		if(janicart_loc)
 			if(janicart_loc.z != cl.z)
