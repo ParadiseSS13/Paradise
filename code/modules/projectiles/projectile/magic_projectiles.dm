@@ -294,7 +294,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 					/mob/living/simple_animal/hostile/poison/terror_spider/gray,
 					/mob/living/simple_animal/hostile/poison/terror_spider/black)
 				new_mob = new terror_type(M.loc)
-				to_chat(M, "<span class='userdanger'>Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards all non-terror spiders!</span>")
+				to_chat(M, "<span class='userdanger'>Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards all non-terror-spider lifeforms!</span>")
 			if("animal")
 				if(prob(50))
 					var/beast = pick(GLOB.wabbajack_hostile_animals)
