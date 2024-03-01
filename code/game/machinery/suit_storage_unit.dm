@@ -173,6 +173,13 @@
 	storage_type = /obj/item/gps/mining
 	req_access = list(ACCESS_MINING_STATION)
 
+/obj/machinery/suit_storage_unit/gulag
+	name = "gulag suit storage unit"
+	suit_type = /obj/item/clothing/suit/hooded/prisoner_gulag
+	mask_type = /obj/item/clothing/mask/gas/explorer
+	boots_type = /obj/item/clothing/shoes/workboots/mining
+	storage_type = /obj/item/gps/mining
+
 /obj/machinery/suit_storage_unit/cmo
 	name = "chief medical officer's suit storage unit"
 	mask_type = /obj/item/clothing/mask/breath
