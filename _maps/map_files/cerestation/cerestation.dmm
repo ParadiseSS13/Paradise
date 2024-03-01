@@ -31143,7 +31143,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/hallway/primary/fore)
 "dmB" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
@@ -39366,6 +39366,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /obj/machinery/door/airlock/maintenance/glass,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/external/southeast)
 "fCc" = (
@@ -68555,7 +68556,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northeast)
 "pgO" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{

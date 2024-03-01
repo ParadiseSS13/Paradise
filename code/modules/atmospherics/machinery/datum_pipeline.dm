@@ -7,8 +7,6 @@
 
 	var/update = 1
 
-	var/alert_pressure = 0
-
 /datum/pipeline/New()
 	SSair.networks += src
 
@@ -33,7 +31,6 @@
 	if(istype(base, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/E = base
 		volume = E.volume
-		alert_pressure = E.alert_pressure
 		members += E
 		if(E.air_temporary)
 			air = E.air_temporary
@@ -61,8 +58,6 @@
 
 							volume += item.volume
 							item.parent = src
-
-							alert_pressure = min(alert_pressure, item.alert_pressure)
 
 							if(item.air_temporary)
 								air.merge(item.air_temporary)

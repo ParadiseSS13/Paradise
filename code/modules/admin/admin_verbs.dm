@@ -300,6 +300,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			add_verb(src, GLOB.view_runtimes_verbs)
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
+		if(is_connecting_from_localhost())
+			add_verb(src, /client/proc/export_current_character)
 
 /client/proc/hide_verbs()
 	set name = "Adminverbs - Hide All"
@@ -312,6 +314,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		/client/proc/togglebuildmodeself,
 		/client/proc/stealth,
 		/client/proc/readmin,
+		/client/proc/export_current_character,
 		GLOB.admin_verbs_default,
 		GLOB.admin_verbs_admin,
 		GLOB.admin_verbs_ban,
@@ -1051,3 +1054,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set category = "Debug"
 
 	src.stat_panel.send_message("create_debug")
+
+/client/proc/export_current_character()
+	set name = "Export Character DMI/JSON"
+	set category = "Admin"
+
+	if(ishuman(mob))
+		var/mob/living/carbon/human/H = mob
+		H.export_dmi_json()
