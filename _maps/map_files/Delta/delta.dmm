@@ -73934,12 +73934,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/airlock/mining/glass{
-	name = "Cargo Bay"
-	},
-/obj/structure/chair/office{
-	dir = 8
-	},
+/obj/machinery/door/airlock/expedition/glass,
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "iFv" = (
@@ -99629,9 +99624,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/mining/glass{
-	name = "Cargo Bay"
-	},
+/obj/machinery/door/airlock/expedition,
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "xFq" = (

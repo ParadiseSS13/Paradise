@@ -33,6 +33,13 @@
 	glass_type = /obj/machinery/door/airlock/mining/glass
 	airlock_type = /obj/machinery/door/airlock/mining
 
+/obj/structure/door_assembly/door_assembly_exp
+	name = "expedition airlock assembly"
+	icon = 'icons/obj/doors/airlocks/station/mining.dmi'
+	base_name = "expedition airlock"
+	glass_type = /obj/machinery/door/airlock/expedition/glass
+	airlock_type = /obj/machinery/door/airlock/expedition
+
 /obj/structure/door_assembly/door_assembly_atmo
 	name = "atmospherics airlock assembly"
 	icon = 'icons/obj/doors/airlocks/station/atmos.dmi'

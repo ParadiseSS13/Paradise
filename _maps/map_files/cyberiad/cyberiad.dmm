@@ -53265,9 +53265,6 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -53287,9 +53284,6 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
@@ -63251,8 +63245,8 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/mining,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/expedition,
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "iac" = (
@@ -68003,17 +67997,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "kwE" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command{
-	name = "Expedition Access"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
-	id_tag = "qm_warehouse";
-	name = "Warehouse Shutters"
-	},
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -94709,6 +94696,7 @@
 	name = "Expedition Maintenance"
 	},
 /obj/structure/barricade/wooden/crude,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
