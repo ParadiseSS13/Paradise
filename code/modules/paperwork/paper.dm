@@ -473,7 +473,10 @@
 			return
 
 		user.unEquip(src)
-		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
+		if(istype(P, /obj/item/nullrod/godhand))
+			user.visible_message("<span class='danger'>[user] touches [src] with a finger and it bursts into flames!</span>", "<span class='danger'>You ignite [src] with your finger!</span>")
+		else
+			user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
 		fire_act()
 
 	add_fingerprint(user)
