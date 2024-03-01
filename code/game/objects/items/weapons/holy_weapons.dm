@@ -140,7 +140,9 @@
 
 	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		var/obj/item/clothing/mask/cigarette/cig = M.wear_mask
-		if(istype(src, /obj/item/nullrod/godhand))
+		if(M == user)
+			cig.attackby(src, user)
+		else
 			cig.light("<span class='notice'>[user] reaches out to [M] with [user.p_their()] hand, and [cig] suddenly ignites.</span>")
 		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 		M.update_inv_wear_mask()

@@ -42,13 +42,12 @@
 		return TRUE
 
 /obj/item/candle/attackby(obj/item/W, mob/user, params)
-	if(W.get_heat())
-		if(istype(W, /obj/item/nullrod/godhand))
-			light("<span class='rose'>[user] holds [user.p_their()] hand over the wick of [src] and it starts burning.</span>")
-		else
-			light("<span class='notice'>[user] lights [src] with [W].</span>")
+	if(!W.get_heat())
 		return
-	return ..()
+	if(istype(W, /obj/item/nullrod/godhand))
+		light("<span class='rose'>[user] holds [user.p_their()] hand over the wick of [src] and it starts burning.</span>")
+	else
+		light("<span class='notice'>[user] lights [src] with [W].</span>")
 
 /obj/item/candle/welder_act(mob/user, obj/item/I)
 	. = TRUE
