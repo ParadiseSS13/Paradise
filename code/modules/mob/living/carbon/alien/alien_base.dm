@@ -260,25 +260,6 @@ and carry the owner just to make sure*/
 	. = ..()
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT) //Xenos can't crawl
 
-/mob/living/carbon/alien/consume_patch_or_pill(obj/item/reagent_containers/medicine, mob/user)
-	var/apply_method = "swallow"
-	var/how_many_reagents = medicine.reagents.total_volume
-	var/reagent_application = REAGENT_INGEST
-	if(ispatch(medicine))
-		apply_method = "apply"
-		how_many_reagents = clamp(medicine.reagents.total_volume, 0.1, 2)
-		reagent_application = REAGENT_TOUCH
-
-	visible_message("<span class='warning'>[user] attempts to force [src] to [apply_method] [medicine].</span>")
-	if(!do_after(user, 5 SECONDS, TRUE, src)) // You try feeding a xenomorph a pill
-		return
-
-	visible_message("<span class='warning'>[user] forces [src] to [apply_method] [medicine].</span>")
-	var/fraction = min(1 / medicine.reagents.total_volume, 1)
-	medicine.reagents.reaction(src, reagent_application, fraction)
-	medicine.reagents.trans_to(src, how_many_reagents)
-	return TRUE
-
 /mob/living/carbon/alien/update_stat(reason)
 	if(health <= HEALTH_THRESHOLD_CRIT && stat == CONSCIOUS)
 		KnockOut()
