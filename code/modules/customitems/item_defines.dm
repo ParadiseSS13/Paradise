@@ -929,6 +929,7 @@
 	desc = "A black coat with gold trim and an old US Chevron printed on the back. Edgy."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shodancoat"
+	item_state = "shodancoat_item"
 
 /obj/item/clothing/suit/storage/fluff/k3_webbing
 	name = "vox tactical webbing"
