@@ -23,6 +23,7 @@
 
 	sight |= SEE_TURFS
 	GLOB.player_list |= src
+	GLOB.new_player_mobs |= src
 
 	new_player_panel()
 

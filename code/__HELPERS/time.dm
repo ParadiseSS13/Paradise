@@ -29,6 +29,10 @@
 /proc/worldtime2text()
 	return gameTimestamp("hh:mm:ss", world.time)
 
+//Returns the world time in english
+/proc/roundtime2text()
+	return gameTimestamp("hh:mm:ss", world.time - SSticker.time_game_started)
+
 // This is ISO-8601
 // If anything that uses this proc shouldn't be ISO-8601, change that thing, not this proc. This is important for logging.
 /proc/time_stamp()

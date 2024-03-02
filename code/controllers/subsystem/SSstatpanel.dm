@@ -22,16 +22,17 @@ SUBSYSTEM_DEF(statpanels)
 	if(!resumed)
 		num_fires++
 		var/datum/map/cached = SSmapping.next_map
-		var/round_time = world.time - SSticker.round_start_time
+		var/round_time = world.time - SSticker.time_game_started
 		global_data = list(
 			list("Map:", SSmapping.map_datum?.fluff_name ? SSmapping.map_datum?.fluff_name : "Loading..."),
 			cached ? list("Next Map:", "[cached.fluff_name]") : null,
 			list("Round ID:", "[GLOB.round_id ? GLOB.round_id : "NULL"]"),
 			list("Server Time:", "[time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]"),
-			list("Round Time:", "[round_time > MIDNIGHT_ROLLOVER ? "[round(round_time / MIDNIGHT_ROLLOVER)]:[worldtime2text()]" : worldtime2text()]"),
+			list("[SSticker.time_game_started ? "Round Time" : "Lobby Time"]:", "[round_time > MIDNIGHT_ROLLOVER ? "[round(round_time / MIDNIGHT_ROLLOVER)]:[roundtime2text()]" : roundtime2text()]"),
 			list("Station Time:", "[station_time_timestamp()]"),
 			list("Time Dilation:", "[round(SStime_track.time_dilation_current, 1)]% AVG:([round(SStime_track.time_dilation_avg_fast, 1)]%, [round(SStime_track.time_dilation_avg, 1)]%, [round(SStime_track.time_dilation_avg_slow, 1)]%)"),
-			list("Players Connected:", "[length(GLOB.clients)]")
+			list("Players Connected:", "[length(GLOB.clients)]"),
+			list("Players in Lobby:", "[length(GLOB.new_player_mobs)]")
 		)
 
 		if(SSshuttle.emergency)
