@@ -19,8 +19,9 @@
 /datum/action/changeling/headslug/sting_action(mob/living/user)
 	user.Weaken(30 SECONDS)
 	user.do_jitter_animation(1000, -1) // jitter until they are gibbed
-	user.visible_message("<span class='danger'>A loud crack erupts from [user], followed by a hissing sound.</span>")
+	user.visible_message("<span class='danger'>A loud crack erupts from [user], followed by a hiss.</span>")
 	playsound(get_turf(user), "bonebreak", 75, TRUE)
+	playsound(get_turf(user), 'sound/machines/hiss.ogg', 75, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(become_headslug), user), 5 SECONDS)
 	var/matrix/M = user.transform
 	M.Scale(1.8, 1.2)
