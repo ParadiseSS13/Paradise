@@ -59,6 +59,9 @@
 	to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
 	addtimer(CALLBACK(src, PROC_REF(death)), 25 SECONDS)
 
+/mob/living/simple_animal/hostile/headslug/projectile_hit_check(obj/item/projectile/P)
+	return (stat || FALSE)
+	
 /obj/item/organ/internal/body_egg/changeling_egg
 	name = "changeling egg"
 	desc = "Twitching and disgusting."
