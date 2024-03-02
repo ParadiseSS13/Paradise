@@ -25,7 +25,7 @@
 	if(!(B.container && istype(B.container, /obj/item/mmi)))  // No MMI, no emotes
 		return FALSE
 
-	if(B.container && istype(B.container, /obj/item/mmi/robotic_brain)) //Robobrains can't be silenced and still emote
+	if(istype(B.container, /obj/item/mmi/robotic_brain)) //Robobrains can't be silenced and still emote
 		var/obj/item/mmi/robotic_brain/robobrain = B.container
 		return !robobrain.silenced
 
