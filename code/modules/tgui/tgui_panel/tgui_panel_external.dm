@@ -39,10 +39,11 @@
 	set name = "Refresh TGUI"
 	set category = "Special Verbs"
 
-	if(alert(usr,
+	var/choice = alert(usr,
 		"Use it ONLY if you have trouble with TGUI window.\
 		That's UI's with EYE on top-left corner.\
-		Otherwise, you can get a white window that will only close when you restart the game!", "Refresh TGUI", "Refresh", "Cancel") != "Refresh")
+		Otherwise, you can get a white window that will only close when you restart the game!", "Refresh TGUI", "Refresh", "Cancel")
+	if(choice != "Refresh")
 		return
 	var/refreshed_count = 0
 	for(var/window_id in tgui_windows)
