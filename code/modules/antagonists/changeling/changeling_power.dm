@@ -90,9 +90,6 @@
 	if(HAS_TRAIT(user, TRAIT_FAKEDEATH) && !bypass_fake_death)
 		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
 		return FALSE
-	if(!cling.can_use_powers)
-		to_chat(owner, "<span class='warning'>Our cells are repairing themselves, we are unable to use our powers!</span>")
-		return FALSE
 	return TRUE
 
 // Transform the target to the chosen dna. Used in transform.dm and tiny_prick.dm (handy for changes since it's the same thing done twice)

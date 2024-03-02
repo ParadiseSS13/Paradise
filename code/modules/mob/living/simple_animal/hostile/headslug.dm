@@ -1,5 +1,5 @@
-#define EGG_INCUBATION_DEAD_CYCLE 60
-#define EGG_INCUBATION_LIVING_CYCLE 120
+#define EGG_INCUBATION_DEAD_CYCLE 120
+#define EGG_INCUBATION_LIVING_CYCLE 200
 /mob/living/simple_animal/hostile/headslug
 	name = "headslug"
 	desc = "Absolutely not de-beaked or harmless. Keep away from corpses."
