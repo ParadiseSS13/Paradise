@@ -76,24 +76,35 @@
 
 /mob/living/carbon/human/proc/handle_light_adjustment()
 	var/obj/screen/fullscreen/adjust_eye/already_present = screens["adjust_vision"]
-	if(already_present) // Don't do it again, they're still adjusting
-		return
 
 	var/turf/T = get_turf(src)
-	var/brightness = T.get_lumcount()
-	var/darkness = 1 - brightness	//Silly, I know, but 'alpha' and 'darkness' go the same direction on a number line.
-	var/distance = CLAMP01(darkness - previous_light_intensity) //Used for how long to animate for.
-
+	var/brightness = T.get_lumcount() // Will return a number from 0 to 1, with 1 being the brightest
+	var/darkness = 1 - brightness	// Silly, I know, but 'alpha' and 'darkness' go the same direction on a number line.
+	var/distance = CLAMP01(darkness - previous_light_intensity) // Used for how long to animate for.
+	var/short_time = distance * 5
 	previous_light_intensity = darkness
+
+	message_admins(darkness)
+
+	if(already_present && darkness < 0.5)
+		message_admins("Triggered early stoppage")
+		animate(already_present, alpha = 0, 1 SECONDS)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, clear_fullscreen), "adjust_vision"), short_time)
+		return
 	if(distance < 0.4)	// Not really much to adjust to
 		return
 
 	overlay_fullscreen("adjust_vision", /obj/screen/fullscreen/adjust_eye)
 	var/obj/screen/fullscreen/adjust_eye/screen = screens["adjust_vision"]
+	animate(screen, alpha = 100, short_time) // We use distance instead of time to apply a smooth overlay of darkness
 	var/time = (distance * 10 SECONDS)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/carbon/human, fade_eye_adjust_out), screen, time), short_time)
 
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, clear_fullscreen), "adjust_vision"), time + 1 SECONDS)
+/mob/living/carbon/human/proc/fade_eye_adjust_out(obj/screen/screen, time)
+	if(QDELETED(screen))
+		return
 	animate(screen, alpha = 0, time)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, clear_fullscreen), "adjust_vision"), time + 1 SECONDS)
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	..()

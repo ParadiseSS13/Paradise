@@ -153,7 +153,7 @@
 	plane = LIGHTING_PLANE
 	layer = LIGHTING_LAYER // Make sure it goes above the nightvision overlay
 	blend_mode = BLEND_INSET_OVERLAY
-	alpha = 120
+	alpha = 0
 
 /// An effect which tracks the cursor's location on the screen
 /obj/screen/fullscreen/cursor_catcher
