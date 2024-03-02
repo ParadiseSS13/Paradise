@@ -236,3 +236,45 @@
 	var/matrix/M = matrix()
 	M.Translate(x_offset,y_offset)
 	button.transform = M
+
+/**
+ * Show (most) of the another mob's action buttons to this mob
+ *
+ * Used for observers viewing another mob's screen
+ */
+/mob/proc/show_other_mob_action_buttons(mob/take_from)
+	if(!hud_used || !client)
+		return
+
+	for(var/datum/action/action as anything in take_from.actions)
+		if(!action.show_to_observers)
+			continue
+		action.GiveAction(src)
+	RegisterSignal(take_from, COMSIG_MOB_GRANTED_ACTION, PROC_REF(on_observing_action_granted))
+	RegisterSignal(take_from, COMSIG_MOB_REMOVED_ACTION, PROC_REF(on_observing_action_removed))
+
+/**
+ * Hide another mob's action buttons from this mob
+ *
+ * Used for observers viewing another mob's screen
+ */
+/mob/proc/hide_other_mob_action_buttons(mob/take_from)
+	for(var/datum/action/action as anything in take_from.actions)
+		action.HideFrom(src)
+	UnregisterSignal(take_from, list(COMSIG_MOB_GRANTED_ACTION, COMSIG_MOB_REMOVED_ACTION))
+
+/// Signal proc for [COMSIG_MOB_GRANTED_ACTION] - If we're viewing another mob's action buttons,
+/// we need to update with any newly added buttons granted to the mob.
+/mob/proc/on_observing_action_granted(mob/living/source, datum/action/action)
+	SIGNAL_HANDLER
+
+	if(!action.show_to_observers)
+		return
+	action.GiveAction(src)
+
+/// Signal proc for [COMSIG_MOB_REMOVED_ACTION] - If we're viewing another mob's action buttons,
+/// we need to update with any removed buttons from the mob.
+/mob/proc/on_observing_action_removed(mob/living/source, datum/action/action)
+	SIGNAL_HANDLER
+
+	action.HideFrom(src)

@@ -19,13 +19,16 @@
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
 	var/button_icon_state = "default"
 	var/mob/owner
+	/// Whether or not this will be shown to observers
+	var/show_to_observers = TRUE
+	// TODO find a more sensible way to do this too, seems like GC hell
+	/// All of the buttons that correspond to this action
+	var/list/viewers = list()
+
 
 /datum/action/New(Target)
 	target = Target
-	button = new
-	button.linked_action = src
-	button.name = name
-	button.actiontooltipstyle = buttontooltipstyle
+	button = create_button()
 	var/list/our_description = list()
 	our_description += desc
 	our_description += button.desc
@@ -50,11 +53,18 @@
 		M.client.screen += button
 		button.locked = TRUE
 	M.update_action_buttons()
+	SEND_SIGNAL(src, COMSIG_ACTION_GRANTED, owner)
+	SEND_SIGNAL(owner, COMSIG_MOB_GRANTED_ACTION, src)
 
 /datum/action/proc/Remove(mob/M)
-	owner = null
+
 	if(!M)
 		return
+	SEND_SIGNAL(src, COMSIG_ACTION_REMOVED, owner)
+	SEND_SIGNAL(owner, COMSIG_MOB_REMOVED_ACTION, src)
+
+	owner = null
+
 	if(M.client)
 		M.client.screen -= button
 		button.clean_up_keybinds(M)
@@ -74,6 +84,13 @@
 
 /datum/action/proc/override_location() // Override to set coordinates manually
 	return
+
+/datum/action/proc/create_button()
+	var/obj/screen/movable/action_button/button = new()
+	button.linked_action = src
+	button.name = name
+	button.actiontooltipstyle = buttontooltipstyle
+	return button
 
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
@@ -137,6 +154,42 @@
 		img.pixel_x = 0
 		img.pixel_y = 0
 		current_button.add_overlay(img)
+
+/// Gives our action to the passed viewer.
+/// Puts our action in their actions list and shows them the button.
+/datum/action/proc/GiveAction(mob/viewer)
+	var/datum/hud/our_hud = viewer.hud_used
+	if(viewers[our_hud]) // Already have a copy of us? go away
+		return
+
+	LAZYOR(viewer.actions, src) // Move this in
+	ShowTo(viewer)
+
+/// Adds our action button to the screen of the passed viewer.
+/datum/action/proc/ShowTo(mob/viewer)
+	var/datum/hud/our_hud = viewer.hud_used
+	if(!our_hud || viewers[our_hud]) // There's no point in this if you have no hud in the first place
+		return
+
+	var/obj/screen/movable/action_button/button = create_button()
+	// SetId(button, viewer)
+
+	// button.our_hud = our_hud
+	viewers[our_hud] = button
+	if(viewer.client)
+		viewer.client.screen += button
+
+	// button.load_position(viewer)
+	viewer.update_action_buttons()
+
+/// Removes our action from the passed viewer.
+/datum/action/proc/HideFrom(mob/viewer)
+	var/datum/hud/our_hud = viewer.hud_used
+	var/obj/screen/movable/action_button/button = viewers[our_hud]
+	LAZYREMOVE(viewer.actions, src)
+	if(button)
+		qdel(button)
+
 
 //Presets for item actions
 /datum/action/item_action

@@ -115,7 +115,27 @@
 	for(var/obj/screen/S in (static_inventory + toggleable_inventory))
 		S.hud = src
 
-/datum/hud/ghost/show_hud()
-	mymob.client.screen = list()
-	mymob.client.screen += static_inventory
-	..()
+/datum/hud/ghost/show_hud(version = 0, mob/viewmob)
+	// don't show this HUD if observing; show the HUD of the observee
+	var/mob/dead/observer/O = mymob
+	if (istype(O) && O.mob_observed)
+		plane_masters_update()
+		return FALSE
+
+	. = ..()
+	// if(!.)
+	// 	return
+	// var/mob/screenmob = viewmob || mymob
+	// if(screenmob.client.prefs.read_preference(/datum/preference/toggle/ghost_hud))
+	// 	screenmob.client.screen += static_inventory
+	// else
+	// 	screenmob.client.screen -= static_inventory
+
+
+//We should only see observed mob alerts.
+/datum/hud/ghost/reorganize_alerts(mob/viewmob)
+	var/mob/dead/observer/O = mymob
+	if (istype(O) && O.mob_observed)
+		return
+	. = ..()
+

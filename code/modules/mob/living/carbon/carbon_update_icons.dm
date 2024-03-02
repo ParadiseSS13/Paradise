@@ -31,6 +31,32 @@
 /mob/living/carbon/proc/handle_transform_change()
 	return
 
+
+
+/// Generate held item overlays
+// /mob/living/carbon/proc/get_held_overlays()
+// 	var/list/hands = list()
+// 	for(var/obj/item/I in list(l_hand, r_hand))
+// 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
+// 			I.screen_loc = ui_hand_position(get_held_index_of_item(I))
+// 			client.screen += I
+// 			if(length(observers))
+// 				for(var/mob/dead/observe as anything in observers)
+// 					if(observe.client && observe.client.eye == src)
+// 						observe.client.screen += I
+// 					else
+// 						observers -= observe
+// 						if(!length(observers))
+// 							observers = null
+// 							break
+
+// 		var/icon_file = I.lefthand_file
+// 		if(get_held_index_of_item(I) % 2 == 0)
+// 			icon_file = I.righthand_file
+
+// 		hands += I.build_worn_icon(default_layer = HANDS_LAYER, default_icon_file = icon_file, isinhands = TRUE)
+// 	return hands
+
 //update whether handcuffs appears on our hud.
 /mob/living/carbon/proc/update_hands_hud()
 	if(!hud_used)
@@ -48,6 +74,17 @@
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 			r_hand.screen_loc = ui_rhand
 			client.screen += r_hand
+			// todo probably do away with this copypaste job
+
+		if(length(observers))
+			for(var/mob/dead/observe as anything in observers)
+				if(observe.client && observe.client.eye == src)
+					observe.client.screen += r_hand
+				else
+					observers -= observe
+					if(!length(observers))
+						observers = null
+						break
 
 /mob/living/carbon/update_inv_l_hand(ignore_cuffs)
 	if(handcuffed && !ignore_cuffs)
@@ -57,6 +94,15 @@
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 			l_hand.screen_loc = ui_lhand
 			client.screen += l_hand
+		if(length(observers))
+			for(var/mob/dead/observe as anything in observers)
+				if(observe.client && observe.client.eye == src)
+					observe.client.screen += l_hand
+				else
+					observers -= observe
+					if(!length(observers))
+						observers = null
+						break
 
 /mob/living/carbon/update_inv_wear_mask()
 	if(istype(wear_mask, /obj/item/clothing/mask))

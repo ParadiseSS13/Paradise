@@ -189,6 +189,34 @@
 
 	return ..()
 
+// TODO find a nice way for robot modules to work
+// /datum/hud/robot/persistent_inventory_update(mob/viewer)
+// 	if(!mymob)
+// 		return
+// 	var/mob/living/silicon/robot/R = mymob
+
+// 	var/mob/screenmob = viewer || R
+
+// 	if(screenmob.hud_used)
+// 		if(screenmob.hud_used.hud_shown)
+// 			for(var/i in 1 to R.held_items.len)
+// 				var/obj/item/I = R.held_items[i]
+// 				if(I)
+// 					switch(i)
+// 						if(BORG_CHOOSE_MODULE_ONE)
+// 							I.screen_loc = ui_inv1
+// 						if(BORG_CHOOSE_MODULE_TWO)
+// 							I.screen_loc = ui_inv2
+// 						if(BORG_CHOOSE_MODULE_THREE)
+// 							I.screen_loc = ui_inv3
+// 						else
+// 							return
+// 					screenmob.client.screen += I
+// 		else
+// 			for(var/obj/item/I in R.held_items)
+// 				screenmob.client.screen -= I
+
+
 /datum/hud/proc/toggle_show_robot_modules()
 	if(!isrobot(mymob))
 		return

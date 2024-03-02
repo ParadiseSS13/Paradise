@@ -39,17 +39,18 @@
 	for(var/category in screens)
 		clear_fullscreen(category)
 
-/datum/hud/proc/reload_fullscreen()
-	if(mymob.client)
-		var/obj/screen/fullscreen/screen
-		var/list/screens = mymob.screens
-		for(var/category in screens)
-			screen = screens[category]
-			if(screen.should_show_to(mymob))
-				screen.update_for_view(mymob.client.view)
-				mymob.client.screen |= screen
-			else
-				mymob.client.screen -= screen
+/mob/proc/reload_fullscreen()
+	if(!client)
+		return
+	var/obj/screen/fullscreen/screen
+	// var/list/screens = screens
+	for(var/category in screens)
+		screen = screens[category]
+		if(screen.should_show_to(src))
+			screen.update_for_view(client.view)
+			client.screen |= screen
+		else
+			client.screen -= screen
 
 /obj/screen/fullscreen
 	icon = 'icons/mob/screen_full.dmi'

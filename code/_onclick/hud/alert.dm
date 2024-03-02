@@ -770,20 +770,23 @@ so as to remain in compliance with the most up-to-date laws."
 // PRIVATE = only edit, use, or override these if you're editing the system as a whole
 
 // Re-render all alerts - also called in /datum/hud/show_hud() because it's needed there
-/datum/hud/proc/reorganize_alerts()
-	var/list/alerts = mymob.alerts
+/datum/hud/proc/reorganize_alerts(mob/viewmob)
+	var/mob/screenmob = viewmob || mymob
+	if(!screenmob.client)
+		return
+	var/list/alerts = screenmob.alerts
 	if(!alerts)
 		return FALSE
 	var/icon_pref
 	if(!hud_shown)
 		for(var/i in 1 to alerts.len)
-			mymob.client.screen -= alerts[alerts[i]]
+			screenmob.client.screen -= alerts[alerts[i]]
 		return TRUE
 	for(var/i in 1 to alerts.len)
 		var/obj/screen/alert/alert = alerts[alerts[i]]
 		if(alert.icon_state == "template")
 			if(!icon_pref)
-				icon_pref = ui_style2icon(mymob.client.prefs.UI_style)
+				icon_pref = ui_style2icon(screenmob.client.prefs.UI_style)
 			alert.icon = icon_pref
 		switch(i)
 			if(1)
@@ -799,7 +802,10 @@ so as to remain in compliance with the most up-to-date laws."
 			else
 				. = ""
 		alert.screen_loc = .
-		mymob.client.screen |= alert
+		screenmob.client.screen |= alert
+	if(!viewmob)
+		for(var/M in mymob.observers)
+			reorganize_alerts(M)
 	return TRUE
 
 /obj/screen/alert/Click(location, control, params)

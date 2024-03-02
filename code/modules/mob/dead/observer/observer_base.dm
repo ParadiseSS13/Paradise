@@ -35,6 +35,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	///toggle for ghost gas analyzer
 	var/gas_analyzer = FALSE
 	var/datum/orbit_menu/orbit_menu
+	/// UID of the mob which we are currently observing
+	var/mob_observed
 
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -193,6 +195,36 @@ Works together with spawning an observer, noted above.
 			ghost.name = ghost_name
 		ghost.key = key
 		return ghost
+
+
+/mob/dead/observer/proc/do_observe(mob/mob_eye)
+	set name = "\[Observer\] Observe"
+	set desc = "Observe the target atom."
+	set category = null
+
+	if(isnewplayer(mob_eye))
+		stack_trace("/mob/dead/new_player: \[[mob_eye]\] is being observed by [key_name(src)]. This should never happen and has been blocked.")
+		message_admins("[ADMIN_LOOKUPFLW(src)] attempted to observe someone in the lobby: [ADMIN_LOOKUPFLW(mob_eye)]. This should not be possible and has been blocked.")
+		return
+
+	if(!isnull(mob_observed))
+		stack_trace("do_observe called on an observer ([src]) who was already observing something! (observing: [mob_observed], new target: [mob_eye])")
+		message_admins("[ADMIN_LOOKUPFLW(src)] attempted to observe someone while already observing someone, \
+			this is a bug (and a past exploit) and should be investigated.")
+		return
+
+	//Istype so we filter out points of interest that are not mobs
+	if(client && mob_eye && istype(mob_eye))
+		client.set_eye(mob_eye)
+		client.perspective = EYE_PERSPECTIVE
+		// if(is_secret_level(mob_eye.z) && !client?.holder)
+		// 	set_sight(null) //we dont want ghosts to see through walls in secret areas
+		// RegisterSignal(mob_eye, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_observing_z_changed))
+		if(mob_eye.hud_used)
+			client.clear_screen()
+			LAZYOR(mob_eye.observers, src)
+			mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
+			mob_observed = mob_eye
 
 /*
 This is the proc mobs get to turn into a ghost. Forked from ghostize due to compatibility issues.

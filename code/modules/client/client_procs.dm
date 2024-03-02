@@ -1158,6 +1158,20 @@
 	var/list/screensize = getviewsize(view)
 	return max(screensize[1], screensize[2])
 
+/client/proc/set_eye(new_eye)
+	if(new_eye == eye)
+		return
+	// var/atom/old_eye = eye
+	eye = new_eye
+	// SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye)
+
+/client/proc/clear_screen()
+	for(var/object in screen)
+		// if(istype(object, /obj/screen))
+		// 	var/obj/screen/obj = object
+
+		screen -= object
+
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
 #undef SECOND_COUNT

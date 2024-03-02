@@ -1071,6 +1071,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(R_HAND_LAYER)
 
 
+
 /mob/living/carbon/human/update_inv_l_hand()
 	..()
 	remove_overlay(L_HAND_LAYER)

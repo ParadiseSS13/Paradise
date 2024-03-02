@@ -11,8 +11,11 @@
 	var/parallax_layers_max = 4
 	var/parallax_animate_timer
 
-/datum/hud/proc/create_parallax()
-	var/client/C = mymob.client
+/datum/hud/proc/create_parallax(mob/viewmob)
+	var/mob/screenmob = viewmob || mymob
+	if(!screenmob.client)
+		return
+	var/client/C = screenmob.client
 	if(!apply_parallax_pref())
 		return
 	// this is needed so it blends properly with the space plane and blackness plane.
@@ -47,8 +50,9 @@
 
 	C.screen |= (C.parallax_layers + C.parallax_static_layers_tail)
 
-/datum/hud/proc/remove_parallax()
-	var/client/C = mymob.client
+/datum/hud/proc/remove_parallax(mob/viewmob)
+	var/mob/screenmob = viewmob || mymob
+	var/client/C = screenmob.client
 	C.screen -= (C.parallax_layers_cached + C.parallax_static_layers_tail)
 	C.parallax_layers = null
 	var/obj/screen/plane_master/space/S = plane_masters["[PLANE_SPACE]"]
@@ -85,10 +89,13 @@
 	C.parallax_layers_max = 4
 	return TRUE
 
-/datum/hud/proc/update_parallax_pref()
-	remove_parallax()
-	create_parallax()
-	update_parallax()
+/datum/hud/proc/update_parallax_pref(mob/viewmob)
+	var/mob/screen_mob = viewmob || mymob
+	if(!screen_mob.client)
+		return
+	remove_parallax(screen_mob)
+	create_parallax(screen_mob)
+	update_parallax(screen_mob)
 
 // This sets which way the current shuttle is moving (returns true if the shuttle has stopped moving so the caller can append their animation)
 // Well, it would if our shuttle code had dynamic areas
@@ -171,8 +178,9 @@
 		animate(L, transform = L.transform, time = 0, loop = -1, flags = ANIMATION_END_NOW)
 		animate(transform = matrix(), time = T)
 
-/datum/hud/proc/update_parallax()
-	var/client/C = mymob.client
+/datum/hud/proc/update_parallax(mob/viewmob)
+	var/mob/screenmob = viewmob || mymob
+	var/client/C = screenmob.client
 	var/turf/posobj = get_turf(C.eye)
 	if(!posobj)
 		return
@@ -207,7 +215,7 @@
 
 	for(var/thing in C.parallax_layers)
 		var/obj/screen/parallax_layer/L = thing
-		L.update_status(mymob)
+		L.update_status(screenmob)
 		if(L.view_sized != C.view)
 			L.update_o(C.view)
 
