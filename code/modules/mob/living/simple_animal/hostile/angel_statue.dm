@@ -197,7 +197,7 @@
 
 /obj/effect/proc_holder/spell/aoe/blindness/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in targets)
-		if(L == user || istype(L, /mob/living/simple_animal/hostile/statue))
+		if(istype(L, /mob/living/simple_animal/hostile/statue))
 			continue
 		L.EyeBlind(8 SECONDS)
 
