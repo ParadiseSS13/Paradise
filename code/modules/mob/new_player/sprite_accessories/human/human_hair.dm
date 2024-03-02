@@ -762,7 +762,8 @@
 	icon_state = "father"
 	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin")
 
-/datum/sprite_accessory/hair/bun4 // Due to a vulp hairstyle called bun
+/// Due to a vulp hairstyle called bun
+/datum/sprite_accessory/hair/bun4
 	name = "Bun 4"
 	icon_state = "bun4"
 	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin")
@@ -854,7 +855,8 @@
 
 
 ///Fluff HairStyles//
-/datum/sprite_accessory/hair/fluff/pinapple_fluff_hair //Pineapple Salad hair fluff its for a slime..has to go under human
+/// Pineapple Salad hair fluff its for a slime..has to go under human
+/datum/sprite_accessory/hair/fluff/pinapple_fluff_hair
 	name = "Sasook Hair"
 	icon_state = "psalad_fluff_hair"
 	species_allowed = list("Slime People")

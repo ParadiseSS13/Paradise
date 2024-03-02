@@ -30,6 +30,7 @@
 	damage = 10
 	damage_type = BRUTE
 	nodamage = 0
+	immolate = 6
 
 	//explosion values
 	var/exp_devastate = -1
@@ -324,8 +325,11 @@
 				S.icon = change.icon
 				if(H.mind)
 					H.mind.transfer_to(S)
-					to_chat(S, "<span class='warning'>You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved!</span>")
-					to_chat(S, "<span class='userdanger'>Do not harm [firer.name], your creator.</span>")
+					var/list/messages = list()
+					messages.Add("<span class='userdanger'>You have been transformed into an animated statue.</span>")
+					messages.Add("You cannot move when monitored, but are nearly invincible and deadly when unobserved! Hunt down those who shackle you.")
+					messages.Add("Do not harm [firer.name], your creator.")
+					to_chat(S, chat_box_red(messages.Join("<br>")))
 				H = change
 				H.loc = S
 				qdel(src)

@@ -105,7 +105,8 @@
 	origin_tech = "materials=6;powerstorage=4;engineering=4"
 	toolspeed = 0.2
 
-/obj/item/pickaxe/drill/cyborg/diamond //This is the BORG version!
+/// This is the BORG version!
+/obj/item/pickaxe/drill/cyborg/diamond
 	name = "diamond-tipped cyborg mining drill" //To inherit the NODROP flag, and easier to change borg specific drill mechanics.
 	icon_state = "diamonddrill"
 	toolspeed = 0.2

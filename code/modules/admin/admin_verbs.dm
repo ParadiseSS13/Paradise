@@ -302,6 +302,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
+		if(is_connecting_from_localhost())
+			verbs += /client/proc/export_current_character
+
 
 /client/proc/remove_admin_verbs()
 	verbs.Remove(
@@ -1055,3 +1058,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, 1)
 			log_admin("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
 			message_admins("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+
+
+/client/proc/export_current_character()
+	set name = "Export Character DMI/JSON"
+	set category = "Admin"
+
+	if(ishuman(mob))
+		var/mob/living/carbon/human/H = mob
+		H.export_dmi_json()

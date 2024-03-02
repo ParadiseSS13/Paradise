@@ -44,7 +44,8 @@
 	material = "silver"
 	ring_color = "silver"
 
-/obj/item/clothing/gloves/ring/silver/blessed // todo
+/// todo
+/obj/item/clothing/gloves/ring/silver/blessed
 	name = "blessed silver ring"
 
 /obj/item/clothing/gloves/ring/gold

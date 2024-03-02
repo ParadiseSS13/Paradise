@@ -27,7 +27,8 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_icon = "simple"
 	rpd_dispensable = TRUE
 
-/datum/pipes/atmospheric/bent //Why is this not atmospheric/simple/bent you ask? Because otherwise the ordering of the pipes in the UI menu gets weird
+/// Why is this not atmospheric/simple/bent you ask? Because otherwise the ordering of the pipes in the UI menu gets weird
+/datum/pipes/atmospheric/bent
 	pipe_name = "bent pipe"
 	pipe_id = PIPE_SIMPLE_BENT
 	orientations = 4

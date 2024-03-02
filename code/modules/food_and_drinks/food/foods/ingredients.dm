@@ -239,7 +239,8 @@
 		return ..()
 
 
-/obj/item/food/snacks/choc_pile //for reagent chocolate being spilled on turfs
+/// for reagent chocolate being spilled on turfs
+/obj/item/food/snacks/choc_pile
 	name = "pile of chocolate"
 	desc = "A pile of pure chocolate pieces."
 	icon_state = "cocoa"

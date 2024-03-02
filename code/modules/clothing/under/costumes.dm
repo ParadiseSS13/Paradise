@@ -138,7 +138,8 @@
 	item_state = "psyamp"
 	item_color = "psyamp"
 
-/obj/item/clothing/under/psysuit //Don't modify the path, used by a fluff item
+/// Don't modify the path, used by a fluff item
+/obj/item/clothing/under/psysuit
 	name = "dark undersuit"
 	desc = "A thick, layered grey undersuit lined with power cables. Feels a little like wearing an electrical storm."
 	icon_state = "psysuit"

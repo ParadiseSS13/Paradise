@@ -1,4 +1,5 @@
-/obj/item/paintkit //Please don't use this for anything, it's a base type for custom mech paintjobs.
+/// Please don't use this for anything, it's a base type for custom mech paintjobs.
+/obj/item/paintkit
 	name = "mecha customisation kit"
 	desc = "A generic kit containing all the needed tools and parts to turn a mech into another mech."
 	icon = 'icons/obj/painting.dmi'

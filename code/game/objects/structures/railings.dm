@@ -15,12 +15,14 @@
 /obj/structure/railing/get_climb_text()
 	return "<span class='info'>You can <b>Click-Drag</b> yourself to [src] to climb over it after a short delay.</span>"
 
-/obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
+/// aesthetic corner sharp edges hurt oof ouch
+/obj/structure/railing/corner
 	icon_state = "railing_corner"
 	density = FALSE
 	climbable = FALSE
 
-/obj/structure/railing/cap //aestetic "end" for railing
+/// aestetic "end" for railing
+/obj/structure/railing/cap
 	icon_state = "railing_cap"
 	density = FALSE
 	climbable = FALSE

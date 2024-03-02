@@ -818,7 +818,8 @@
 	category = CAT_PRIMAL
 	alert_admins_on_craft = TRUE
 
-/datum/crafting_recipe/rake //Category resorting incoming
+/// Category resorting incoming
+/datum/crafting_recipe/rake
 	name = "Rake"
 	time = 30
 	reqs = list(/obj/item/stack/sheet/wood = 5)

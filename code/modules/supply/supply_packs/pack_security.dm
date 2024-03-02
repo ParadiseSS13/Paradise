@@ -216,7 +216,8 @@
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy gun crate"
 
-/datum/supply_packs/security/armory/epistol	// costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
+/// costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
+/datum/supply_packs/security/armory/epistol
 	name = "Energy Pistol Crate"
 	contains = list(/obj/item/gun/energy/gun/mini,
 					/obj/item/gun/energy/gun/mini,
@@ -280,6 +281,14 @@
 	cost = 400
 	containername = "tranquilizer shell crate"
 
+/datum/supply_packs/security/armory/disablersmg
+	name = "WT-450 Disabler SMG Crate"
+	contains = list(/obj/item/gun/energy/disabler/smg,
+					/obj/item/gun/energy/disabler/smg)
+	cost = 550
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "disabler smg crate"
+
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield
@@ -322,7 +331,8 @@
 	cost = 200
 	containername = "security clothing crate"
 
-/datum/supply_packs/security/officerpack // Starter pack for an officer. Contains everything in a locker but backpack (officer already start with one). Convenient way to equip new officer on highpop.
+/// Starter pack for an officer. Contains everything in a locker but backpack (officer already start with one). Convenient way to equip new officer on highpop.
+/datum/supply_packs/security/officerpack
 	name = "Officer Starter Pack"
 	contains = list(/obj/item/clothing/suit/armor/vest/security,
 				/obj/item/radio/headset/headset_sec/alt,

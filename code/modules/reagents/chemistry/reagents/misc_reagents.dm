@@ -447,7 +447,8 @@
 /datum/reagent/love/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	to_chat(M, "<span class='notice'>You feel loved!</span>")
 
-/datum/reagent/jestosterone //Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
+/// Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
+/datum/reagent/jestosterone
 	name = "Jestosterone"
 	id = "jestosterone"
 	description = "Jestosterone is an odd chemical compound that induces a variety of annoying side-effects in the average person. It also causes mild intoxication, and is toxic to mimes."

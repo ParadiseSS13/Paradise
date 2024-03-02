@@ -189,7 +189,7 @@
 	icon_state = "kitten"
 	icon_living = "kitten"
 	icon_dead = "kitten_dead"
-	icon_resting = null
+	icon_resting = "kitten_rest"
 	gender = NEUTER
 	density = FALSE
 	pass_flags = PASSMOB

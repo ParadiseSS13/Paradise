@@ -87,7 +87,8 @@
 	filling_color = "#FFD700"
 
 // Combustible lemon
-/obj/item/seeds/firelemon //combustible lemon is too long so firelemon
+/// combustible lemon is too long so firelemon
+/obj/item/seeds/firelemon
 	name = "pack of combustible lemon seeds"
 	desc = "When life gives you lemons, don't make lemonade. Make life take the lemons back! Get mad! I don't want your damn lemons!"
 	icon_state = "seed-firelemon"

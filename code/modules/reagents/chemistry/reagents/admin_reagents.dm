@@ -1,4 +1,5 @@
-/datum/reagent/medicine/adminordrazine //An OP chemical for admins
+/// An OP chemical for admins
+/datum/reagent/medicine/adminordrazine
 	name = "Adminordrazine"
 	id = "adminordrazine"
 	description = "It's magic. We don't have to explain it."

@@ -174,7 +174,8 @@
 
 ///////////SLAUGHTER DEMON
 
-/obj/item/antag_spawner/slaughter_demon //Warning edgiest item in the game
+/// Warning edgiest item in the game
+/obj/item/antag_spawner/slaughter_demon
 	name = "vial of blood"
 	desc = "A magically infused bottle of blood, distilled from countless murder victims. Used in unholy rituals to attract horrifying creatures."
 	icon = 'icons/obj/wizard.dmi'

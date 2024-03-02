@@ -72,5 +72,5 @@
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded/multitool_act(mob/user, obj/item/I)
 	. = ..()
-	var/datum/organ/lungs/lungs = organ_datums["lungs"]
+	var/datum/organ/lungs/lungs = organ_datums[ORGAN_DATUM_LUNGS]
 	lungs.make_advanced()

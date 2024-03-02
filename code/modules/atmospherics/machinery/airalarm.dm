@@ -117,7 +117,8 @@
 	custom_name = TRUE
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 
-/obj/machinery/alarm/syndicate //general syndicate access
+/// general syndicate access
+/obj/machinery/alarm/syndicate
 	report_danger_level = FALSE
 	remote_control = FALSE
 	req_access = list(ACCESS_SYNDICATE)

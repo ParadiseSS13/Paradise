@@ -210,7 +210,8 @@
 /obj/effect/decal/cleanable/blood/drip/can_bloodcrawl_in()
 	return TRUE
 
-/obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
+/// not a child of blood on purpose
+/obj/effect/decal/cleanable/trail_holder
 	name = "blood"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
@@ -300,7 +301,8 @@
 	scoop_reagents = list("liquidgibs" = 5)
 
 
-/obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...
+/// most ironic name ever...
+/obj/effect/decal/cleanable/blood/gibs/cleangibs
 	scoop_reagents = null
 	mergeable_decal = TRUE
 

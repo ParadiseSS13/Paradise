@@ -154,7 +154,8 @@
 	implant_to_give.implant(spawned, spawned, TRUE, TRUE)
 
 
-/datum/station_trait/cybernetic_revolution //NOTE: THIS MAKES EMP MUCH MORE EXPENSIVE.
+/// NOTE: THIS MAKES EMP MUCH MORE EXPENSIVE.
+/datum/station_trait/cybernetic_revolution
 	name = "Cybernetic Revolution"
 	trait_type = STATION_TRAIT_POSITIVE
 	show_in_report = TRUE

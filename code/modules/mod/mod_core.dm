@@ -44,7 +44,8 @@
 /obj/item/mod/core/proc/update_charge_alert()
 	mod.wearer.clear_alert("mod_charge")
 
-/obj/item/mod/core/infinite //Admin only.
+/// Admin only.
+/obj/item/mod/core/infinite
 	name = "MOD infinite core"
 	icon_state = "mod-core-infinite"
 	desc = "A fusion core using the rare Infinium to sustain enough energy for the lifetime of the MOD's user. \

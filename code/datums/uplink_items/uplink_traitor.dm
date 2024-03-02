@@ -476,7 +476,8 @@
 	surplus = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/stealthy_weapons/combat_minus // Nukies get combat gloves plus instead
+/// Nukies get combat gloves plus instead
+/datum/uplink_item/stealthy_weapons/combat_minus
 	name = "Experimental Krav Gloves"
 	desc = "Experimental gloves with installed nanochips that teach you Krav Maga when worn, great as a cheap backup weapon. Warning, the nanochips will override any other fighting styles such as CQC. Do not look as fly as the Warden's"
 	reference = "CGM"
@@ -484,7 +485,8 @@
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/device_tools/thermal_drill // Nukies get Diamond Tipped Thermal Safe Drill instead
+/// Nukies get Diamond Tipped Thermal Safe Drill instead
+/datum/uplink_item/device_tools/thermal_drill
 	name = "Amplifying Thermal Safe Drill"
 	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Comes with built in security detection and nanite system, to keep you up if security comes a-knocking."
 	reference = "DRL"
@@ -516,7 +518,8 @@
 	surplus = 60
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/bio_chips/uplink // Nukies get Nuclear Uplink Bio-chip instead
+/// Nukies get Nuclear Uplink Bio-chip instead
+/datum/uplink_item/bio_chips/uplink
 	name = "Uplink Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated manually to open an uplink with 50 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
 	reference = "UI"

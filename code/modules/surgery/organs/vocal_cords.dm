@@ -35,7 +35,8 @@ GLOBAL_DATUM_INIT(clap_words, /regex, regex("clap|applaud"))
 GLOBAL_DATUM_INIT(honk_words, /regex, regex("ho+nk")) //hooooooonk
 GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
-/obj/item/organ/internal/vocal_cords //organs that are activated through speech with the :x channel
+/// organs that are activated through speech with the :x channel
+/obj/item/organ/internal/vocal_cords
 	name = "vocal cords"
 	icon_state = "appendix"
 	slot = "vocal_cords"

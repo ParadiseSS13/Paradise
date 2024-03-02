@@ -230,7 +230,8 @@
 	drink_desc = "Damn, you feel like some kind of French aristocrat just by holding this."
 	taste_description = "cognac"
 
-/datum/reagent/consumable/ethanol/suicider //otherwise known as "I want to get so smashed my liver gives out and I die from alcohol poisoning".
+/// otherwise known as "I want to get so smashed my liver gives out and I die from alcohol poisoning".
+/datum/reagent/consumable/ethanol/suicider
 	name = "Suicider"
 	id = "suicider"
 	description = "An unbelievably strong and potent variety of Cider."
@@ -1155,7 +1156,8 @@
 	drink_desc = "For enjoying the most wonderful time of the year."
 	taste_description = "christmas spirit"
 
-/datum/reagent/consumable/ethanol/dragons_breath //inaccessible to players, but here for admin shennanigans
+/// inaccessible to players, but here for admin shennanigans
+/datum/reagent/consumable/ethanol/dragons_breath
 	name = "Dragon's Breath"
 	id = "dragonsbreath"
 	description = "Possessing this stuff probably breaks the Geneva convention."
@@ -1409,7 +1411,8 @@
 
 #undef MIN_WINE_PERCENT
 
-/datum/reagent/consumable/ethanol/bacchus_blessing //An EXTREMELY powerful drink. Smashed in seconds, dead in minutes.
+/// An EXTREMELY powerful drink. Smashed in seconds, dead in minutes.
+/datum/reagent/consumable/ethanol/bacchus_blessing
 	name = "Bacchus' Blessing"
 	id = "bacchus_blessing"
 	description = "Unidentifiable mixture. Unmeasurably high alcohol content."

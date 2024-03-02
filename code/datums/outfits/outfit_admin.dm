@@ -950,7 +950,8 @@
 	back = /obj/item/mod/control/pre_equipped/traitor
 	shoes = /obj/item/clothing/shoes/magboots/syndie
 
-/datum/outfit/admin/modsuit/wizard // Technically not a MODsuit, we'll bundle it up in here for the future when it does become one
+/// Technically not a MODsuit, we'll bundle it up in here for the future when it does become one
+/datum/outfit/admin/modsuit/wizard
 	name = "Hardsuit - Wizard"
 	suit = /obj/item/clothing/suit/space/hardsuit/wizard
 	shoes = /obj/item/clothing/shoes/magboots/wizard
@@ -980,7 +981,8 @@
 	name = "Tournament Standard Green"
 	uniform = /obj/item/clothing/under/color/green
 
-/datum/outfit/admin/tournament/tournament_gangster //gangster are supposed to fight each other. --rastaf0
+/// gangster are supposed to fight each other. --rastaf0
+/datum/outfit/admin/tournament/tournament_gangster
 	name = "Tournament Gangster"
 
 	uniform = /obj/item/clothing/under/rank/security/detective
@@ -991,7 +993,8 @@
 	l_pocket = /obj/item/ammo_box/a357
 	r_hand = /obj/item/gun/projectile/automatic/proto
 
-/datum/outfit/admin/tournament/tournament_chef //Steven Seagal FTW
+/// Steven Seagal FTW
+/datum/outfit/admin/tournament/tournament_chef
 	name = "Tournament Chef"
 
 	uniform = /obj/item/clothing/under/rank/civilian/chef

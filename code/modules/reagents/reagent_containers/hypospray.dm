@@ -116,7 +116,8 @@
 	volume = 100
 	list_reagents = list("nanites" = 100)
 
-/obj/item/reagent_containers/hypospray/autoinjector // This is an empty variant
+/// This is an empty variant
+/obj/item/reagent_containers/hypospray/autoinjector
 	name = "empty autoinjector"
 	desc = "A rapid and safe way to inject chemicals into humanoids. This one is empty."
 	icon_state = "autoinjector"
@@ -160,13 +161,15 @@
 	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge."
 	list_reagents = list("epinephrine" = 10)
 
-/obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
+/// basilisks
+/obj/item/reagent_containers/hypospray/autoinjector/teporone
 	name = "teporone autoinjector"
 	desc = "A rapid way to regulate your body's temperature in the event of a hardsuit malfunction."
 	icon_state = "lepopen"
 	list_reagents = list("teporone" = 10)
 
-/obj/item/reagent_containers/hypospray/autoinjector/stimpack //goliath kiting
+/// goliath kiting
+/obj/item/reagent_containers/hypospray/autoinjector/stimpack
 	name = "stimpack autoinjector"
 	desc = "A rapid way to stimulate your body's adrenaline, allowing for freer movement in restrictive armor."
 	icon_state = "stimpen"

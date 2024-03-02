@@ -55,7 +55,8 @@
 	. = ..()			//adds some aesthetic randomness to the beach sand
 	icon_state = pick("desert", "desert0", "desert1", "desert2", "desert3", "desert4")
 
-/turf/simulated/floor/beach/away/sand/dense //for boundary "walls"
+/// for boundary "walls"
+/turf/simulated/floor/beach/away/sand/dense
 	density = TRUE
 	baseturf = /turf/simulated/floor/beach/away/sand/dense
 
@@ -71,7 +72,8 @@
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
 
-/turf/simulated/floor/beach/away/coastline/dense		//for boundary "walls"
+/// for boundary "walls"
+/turf/simulated/floor/beach/away/coastline/dense
 	density = TRUE
 	baseturf = /turf/simulated/floor/beach/away/coastline/dense
 
@@ -117,7 +119,8 @@
 	temperature = 300
 	planetary_atmos = TRUE
 
-/turf/simulated/floor/beach/away/water/dense			//for boundary "walls"
+/// for boundary "walls"
+/turf/simulated/floor/beach/away/water/dense
 	density = TRUE
 	baseturf = /turf/simulated/floor/beach/away/water/dense
 

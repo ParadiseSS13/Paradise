@@ -405,7 +405,8 @@
 	..()
 	return TRUE
 
-/obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.
+/// Cameras which are placed inside of things, such as helmets.
+/obj/machinery/camera/portable
 	start_active = TRUE // theres no real way to reactivate these, so never break them when they init
 	var/turf/prev_turf
 

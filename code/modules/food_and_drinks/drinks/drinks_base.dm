@@ -156,7 +156,8 @@
 	materials = list(MAT_METAL=400)
 	volume = 25
 
-/obj/item/reagent_containers/drinks/trophy/bronze_cup/toolbox_win //2023 toolbox tournament 3rd place went to paradise station.
+/// 2023 toolbox tournament 3rd place went to paradise station.
+/obj/item/reagent_containers/drinks/trophy/bronze_cup/toolbox_win
 	name = "3rd place toolbox tournament 2567"
 	desc = "Awarded to centcomms elite toolbox warriors raising money for the GBS research institute."
 	icon_state = "reward_cup"

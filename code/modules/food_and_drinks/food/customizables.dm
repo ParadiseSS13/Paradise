@@ -302,7 +302,8 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/snacks/customizable/fullycustom // In the event you fuckers find something I forgot to add a customizable food for.
+/// In the event you fuckers find something I forgot to add a customizable food for.
+/obj/item/food/snacks/customizable/fullycustom
 	name = "on a plate"
 	desc = "A unique dish."
 	icon_state = "fullycustom"

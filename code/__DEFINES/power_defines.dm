@@ -38,3 +38,5 @@
 #define APC_IS_CHARGING 1
 /// APC battery is at 100%
 #define APC_FULLY_CHARGED 2
+
+#define KW *1000

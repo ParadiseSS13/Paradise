@@ -1,4 +1,5 @@
-/obj/effect/baseturf_helper //Set the baseturfs of every turf in the /area/ it is placed.
+/// Set the baseturfs of every turf in the /area/ it is placed.
+/obj/effect/baseturf_helper
 	name = "baseturf editor"
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = ""

@@ -647,7 +647,8 @@
 	// Puppies do not have a head or back equipment slot.
 	return "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
 
-/mob/living/simple_animal/pet/dog/corgi/puppy/void		//Tribute to the corgis born in nullspace
+/// Tribute to the corgis born in nullspace
+/mob/living/simple_animal/pet/dog/corgi/puppy/void
 	name = "\improper void puppy"
 	real_name = "voidy"
 	desc = "A corgi puppy that has been infused with deep space energy. It's staring back..."

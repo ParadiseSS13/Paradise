@@ -125,7 +125,8 @@
 	item_state = "p_suit"
 	item_color = "purple"
 
-/obj/item/clothing/under/color/purple/sensor	//for jani ert
+/// for jani ert
+/obj/item/clothing/under/color/purple/sensor
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 

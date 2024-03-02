@@ -7,7 +7,8 @@
 #define FIELD(N, V, E) list(field = N, value = V, edit = E)
 #define MED_FIELD(N, V, E, LB) list(field = N, value = V, edit = E, line_break = LB)
 
-/obj/machinery/computer/med_data //TODO:SANITY
+/// TODO:SANITY
+/obj/machinery/computer/med_data
 	name = "medical records console"
 	desc = "This can be used to check medical records."
 	icon_keyboard = "med_key"

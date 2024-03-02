@@ -222,7 +222,8 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	interior_direction = WEST
 	exterior_direction = EAST
 
-/obj/effect/spawner/airlock/long //Long and thin
+/// Long and thin
+/obj/effect/spawner/airlock/long
 	name = "long airlock spawner (interior north, exterior south)"
 	icon_state = "1x2_N_to_S"
 	tiles_in_y_direction = 2
@@ -250,7 +251,8 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	icon_state = "1x2_W_to_E"
 	tiles_in_x_direction = 2
 
-/obj/effect/spawner/airlock/long/square //Square
+/// Square
+/obj/effect/spawner/airlock/long/square
 	name = "square airlock spawner (interior north, exterior south)"
 	icon_state = "2x2_N_to_S"
 	tiles_in_x_direction = 2

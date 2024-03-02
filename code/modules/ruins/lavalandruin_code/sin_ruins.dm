@@ -130,7 +130,8 @@
 	collapse()
 
 // Gluttony
-/obj/effect/gluttony //Gluttony's wall: Used in the Gluttony ruin. Only lets the overweight through.
+/// Gluttony's wall: Used in the Gluttony ruin. Only lets the overweight through.
+/obj/effect/gluttony
 	name = "gluttony's wall"
 	desc = "Only those who truly indulge may pass."
 	anchored = TRUE
@@ -153,7 +154,8 @@
 		return FALSE
 
 // Pride
-/obj/structure/mirror/magic/pride //Pride's mirror: Used in the Pride ruin.
+/// Pride's mirror: Used in the Pride ruin.
+/obj/structure/mirror/magic/pride
 	name = "pride's mirror"
 	desc = "Pride cometh before the..."
 	icon_state = "magic_mirror"
@@ -180,7 +182,8 @@
 	C.drop(user)
 
 // Envy
-/obj/item/kitchen/knife/envy //Envy's knife: Found in the Envy ruin. Attackers take on the appearance of whoever they strike.
+/// Envy's knife: Found in the Envy ruin. Attackers take on the appearance of whoever they strike.
+/obj/item/kitchen/knife/envy
 	name = "envy's knife"
 	desc = "Their success will be yours."
 	icon = 'icons/obj/wizard.dmi'

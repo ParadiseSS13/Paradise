@@ -1,6 +1,7 @@
 
 
-/obj/structure/alien/resin/flower_bud_enemy //inheriting basic attack/damage stuff from alien structures
+/// inheriting basic attack/damage stuff from alien structures
+/obj/structure/alien/resin/flower_bud_enemy
 	name = "flower bud"
 	desc = "A large pulsating plant..."
 	icon = 'icons/effects/spacevines.dmi'

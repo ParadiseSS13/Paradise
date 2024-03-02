@@ -86,7 +86,8 @@
 	health = 170
 
 // Cult slaughter demon
-/mob/living/simple_animal/demon/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
+/// Summoned as part of the cult objective "Bring the Slaughter"
+/mob/living/simple_animal/demon/slaughter/cult
 	name = "harbinger of the slaughter"
 	real_name = "harbinger of the Slaughter"
 	desc = "An awful creature from beyond the realms of madness."

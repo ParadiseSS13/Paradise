@@ -15,6 +15,8 @@
 	var/list/job_list = list()
 	/// The real name required to open the letter
 	var/recipient
+	/// The job of the recipient
+	var/recipient_job
 	var/has_been_scanned = FALSE
 
 /obj/item/envelope/suicide_act(mob/user)
@@ -49,10 +51,15 @@
 		if(mail_attracted_people.assigned_role in job_list)
 			recipient = mail_attracted_people.current.real_name
 			name = "letter to [recipient]"
+			recipient_job = lowertext(mail_attracted_people.assigned_role)
 			return
 	if(!admin_spawned)
 		log_debug("Failed to find a new name to assign to [src]!")
 		qdel(src)
+
+/obj/item/envelope/examine(mob/user)
+	. = ..()
+	. += "This letter is addressed to [recipient], the [recipient_job]."
 
 /obj/item/envelope/security
 	icon_state = "mail_sec"

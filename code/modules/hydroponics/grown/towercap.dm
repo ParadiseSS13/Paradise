@@ -119,7 +119,8 @@
 /obj/structure/bonfire/dense
 	density = TRUE
 
-/obj/structure/bonfire/lit //haha empty define
+/// haha empty define
+/obj/structure/bonfire/lit
 
 /obj/structure/bonfire/lit/dense
 	density = TRUE

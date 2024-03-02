@@ -200,7 +200,8 @@
 	icon_state = "mummy_revive"
 	duration = 20
 
-/obj/effect/temp_visual/heal //color is white by default, set to whatever is needed
+/// color is white by default, set to whatever is needed
+/obj/effect/temp_visual/heal
 	name = "healing glow"
 	icon_state = "heal"
 	duration = 15

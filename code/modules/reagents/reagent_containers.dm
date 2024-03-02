@@ -39,7 +39,7 @@
 		create_reagents(volume, temperature_min, temperature_max)
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease(0)
-		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808")
+		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808", "blood_type" = BLOOD_TYPE_FAKE_BLOOD)
 		reagents.add_reagent("blood", disease_amount, data)
 	add_initial_reagents()
 

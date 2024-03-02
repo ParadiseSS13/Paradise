@@ -744,7 +744,8 @@ Returns 1 if the chain up to the area contains the given typepath
 				atoms += A
 	return atoms
 
-/datum/coords //Simple datum for storing coordinates.
+/// Simple datum for storing coordinates.
+/datum/coords
 	var/x_pos
 	var/y_pos
 	var/z_pos

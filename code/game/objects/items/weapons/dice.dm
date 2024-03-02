@@ -1,4 +1,5 @@
-/obj/item/storage/bag/dice //Thankfully no longer a pill bottle.
+/// Thankfully no longer a pill bottle.
+/obj/item/storage/bag/dice
 	name = "bag of dice"
 	desc = "Contains all the luck you'll ever need."
 	icon = 'icons/obj/dice.dmi'
@@ -32,7 +33,8 @@
 	user.visible_message("<span class='suicide'>[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (OXYLOSS)
 
-/obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
+/// depreciated d6, use /obj/item/dice/d6 if you actually want a d6
+/obj/item/dice
 	name = "die"
 	desc = "A die with six sides. Basic and serviceable."
 	icon = 'icons/obj/dice.dmi'

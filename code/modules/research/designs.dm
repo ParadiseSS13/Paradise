@@ -29,7 +29,8 @@ other types of metals and chemistry for reagents).
 
 */
 
-/datum/design						//Datum for object designs, used in construction
+/// Datum for object designs, used in construction
+/datum/design
 	var/name = "Name"					//Name of the created object.
 	var/desc = "Desc"					//Description of the created object.
 	var/id = "id"						//ID of the created object for easy refernece. Alphanumeric, lower-case, no symbols

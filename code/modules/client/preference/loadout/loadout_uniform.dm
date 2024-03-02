@@ -213,6 +213,11 @@
 	path = /obj/item/clothing/under/rank/civilian/mime/skirt
 	allowed_roles = list("Mime")
 
+/datum/gear/uniform/skirt/job/janitor
+	display_name = "Skirt, janitor"
+	path = /obj/item/clothing/under/rank/civilian/janitor/skirt
+	allowed_roles = list("Janitor")
+
 /datum/gear/uniform/skirt/job/head_of_personnel
 	display_name = "Skirt, hop"
 	path = /obj/item/clothing/under/rank/civilian/hop/skirt

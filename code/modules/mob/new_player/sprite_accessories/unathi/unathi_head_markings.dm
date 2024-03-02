@@ -20,16 +20,19 @@
 	icon_state = "lowersnout"
 	heads_allowed = list("All")
 
-/datum/sprite_accessory/body_markings/head/unathi/banded_una //Companion marking for Unathi Banded.
+/// Companion marking for Unathi Banded.
+/datum/sprite_accessory/body_markings/head/unathi/banded_una
 	name = "Unathi Banded Head"
 	icon_state = "bandedface"
 	heads_allowed = list("All")
 
-/datum/sprite_accessory/body_markings/head/unathi/snout_narrow_una //Companion marking for Unathi Narrow Belly.
+/// Companion marking for Unathi Narrow Belly.
+/datum/sprite_accessory/body_markings/head/unathi/snout_narrow_una
 	name = "Unathi Snout 2"
 	icon_state = "facenarrow"
 
-/datum/sprite_accessory/body_markings/head/unathi/points_una //Companion marking for Unathi Points.
+/// Companion marking for Unathi Points.
+/datum/sprite_accessory/body_markings/head/unathi/points_una
 	name = "Unathi Points Head"
 	icon_state = "pointsface"
 	heads_allowed = list("All")
@@ -45,6 +48,7 @@
 	name = "Unathi Sharp Snout"
 	icon_state = "snoutsharp"
 
-/datum/sprite_accessory/body_markings/head/unathi/sharp/snout_narrow_una_sharp //Companion marking for Unathi Narrow Belly.
+/// Companion marking for Unathi Narrow Belly.
+/datum/sprite_accessory/body_markings/head/unathi/sharp/snout_narrow_una_sharp
 	name = "Unathi Sharp Snout 2"
 	icon_state = "facesharp"

@@ -37,7 +37,8 @@
 	cost = 500
 	containername = "Pizza crate"
 
-/datum/supply_packs/misc/randomised/ingredients // its a bit hacky...
+/// its a bit hacky...
+/datum/supply_packs/misc/randomised/ingredients
 	num_contained = 25
 	contains = list(/obj/item/food/snacks/grown/wheat,
 					/obj/item/food/snacks/grown/tomato,
@@ -234,7 +235,8 @@
 
 ////// hippy gear
 
-/datum/supply_packs/organic/hydroponics // -- Skie
+/// -- Skie
+/datum/supply_packs/organic/hydroponics
 	name = "Hydroponics Supply Crate"
 	contains = list(/obj/item/reagent_containers/spray/plantbgone,
 					/obj/item/reagent_containers/spray/plantbgone,

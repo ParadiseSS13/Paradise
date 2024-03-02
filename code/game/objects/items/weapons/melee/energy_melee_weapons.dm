@@ -159,7 +159,8 @@
 		..()
 	return
 
-/obj/item/melee/energy/sword/cyborg/saw //Used by medical Syndicate cyborgs
+/// Used by medical Syndicate cyborgs
+/obj/item/melee/energy/sword/cyborg/saw
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
 	force_on = 30

@@ -775,7 +775,8 @@
 			M.emote("laugh")
 	return list(effect, update_flags)
 
-/datum/reagent/rotatium //Rotatium. Fucks up your rotation and is hilarious
+/// Rotatium. Fucks up your rotation and is hilarious
+/datum/reagent/rotatium
 	name = "Rotatium"
 	id = "rotatium"
 	description = "A constantly swirling, oddly colourful fluid. Causes the consumer's sense of direction and hand-eye coordination to become wild."

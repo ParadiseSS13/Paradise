@@ -610,7 +610,8 @@
 	can_rotate = 0
 
 
-/obj/structure/sink/puddle	//splishy splashy ^_^
+/// splishy splashy ^_^
+/obj/structure/sink/puddle
 	name = "puddle"
 	desc = "A puddle of clean water. Looks refreshing."
 	icon_state = "puddle"

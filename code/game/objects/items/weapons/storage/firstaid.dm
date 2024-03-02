@@ -295,7 +295,7 @@
 			to_chat(user, "<span class='warning'>You are already applying meds.</span>")
 			return
 		applying_meds = TRUE
-		for(var/obj/item/reagent_containers/pill/P in contents)
+		for(var/obj/item/reagent_containers/P in contents)
 			if(P.attack(M, user))
 				applying_meds = FALSE
 			else

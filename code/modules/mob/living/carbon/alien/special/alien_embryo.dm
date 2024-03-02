@@ -98,7 +98,7 @@
 
 		spawn(6)
 			owner.cut_overlay(overlay)
-			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
+			var/mob/living/carbon/alien/larva/new_xeno = new(get_turf(owner))
 			new_xeno.key = C.key
 			dust_if_respawnable(C)
 			if(SSticker && SSticker.mode)

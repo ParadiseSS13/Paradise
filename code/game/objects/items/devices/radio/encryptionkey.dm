@@ -180,7 +180,8 @@
 	name = "Centcom Radio Encryption Key"
 	channels = list("Response Team" = 1, "Special Ops" = 1, "Science" = 1, "Command" = 1, "Medical" = 1, "Engineering" = 1, "Security" = 1, "Supply" = 1, "Service" = 1, "Procedure" = 1)
 
-/obj/item/encryptionkey/heads/ai_integrated //ported from bay, this goes 'inside' the AI.
+/// ported from bay, this goes 'inside' the AI.
+/obj/item/encryptionkey/heads/ai_integrated
 	name = "AI Integrated Encryption Key"
 	desc = "Integrated encryption key"
 	icon_state = "cap_cypherkey"

@@ -1,4 +1,5 @@
-/datum/supply_packs/emergency	// Section header - use these to set default supply group and crate type for sections
+/// Section header - use these to set default supply group and crate type for sections
+/datum/supply_packs/emergency
 	name = "HEADER"				// Use "HEADER" to denote section headers, this is needed for the supply computers to filter them
 	containertype = /obj/structure/closet/crate/internals
 	group = SUPPLY_EMERGENCY

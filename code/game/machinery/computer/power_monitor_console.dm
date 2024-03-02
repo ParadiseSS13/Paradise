@@ -24,7 +24,8 @@
 	/// The history list itself of the power
 	var/list/history = list()
 
-/obj/machinery/computer/monitor/secret //Hides the power monitor (such as ones on ruins & CentCom) from PDA's to prevent metagaming.
+/// Hides the power monitor (such as ones on ruins & CentCom) from PDA's to prevent metagaming.
+/obj/machinery/computer/monitor/secret
 	name = "outdated power monitoring console"
 	desc = "It monitors power levels across the local powernet."
 	circuit = /obj/item/circuitboard/powermonitor/secret

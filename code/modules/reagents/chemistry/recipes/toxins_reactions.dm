@@ -108,7 +108,8 @@
 	result_amount = 3
 	mix_message = "The mixture gives off a harsh odor"
 
-/datum/chemical_reaction/pestkiller // To-Do make this more realistic
+/// To-Do make this more realistic
+/datum/chemical_reaction/pestkiller
 	name = "Pest Killer"
 	id = "pestkiller"
 	result = "pestkiller"
