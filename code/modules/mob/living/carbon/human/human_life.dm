@@ -75,8 +75,6 @@
 			force_cryo_human(src)
 
 /mob/living/carbon/human/proc/handle_light_adjustment()
-	var/obj/screen/fullscreen/adjust_eye/already_present = screens["adjust_vision"]
-
 	var/turf/T = get_turf(src)
 	var/brightness = T.get_lumcount() // Will return a number from 0 to 1, with 1 being the brightest
 	var/darkness = 1 - brightness	// Silly, I know, but 'alpha' and 'darkness' go the same direction on a number line.
@@ -85,12 +83,11 @@
 
 	previous_light_intensity = darkness
 
-	message_admins(darkness)
-
-	if(already_present && darkness < 0.5)
-		message_admins("Triggered early stoppage")
-		animate(already_present, alpha = 0, 1 SECONDS) // We can't use something like `short_time` here because the distance is incredibly small
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, clear_fullscreen), "adjust_vision"), short_time)
+	var/obj/screen/fullscreen/adjust_eye/already_present = screens["adjust_vision"]
+	if(already_present)
+		if(darkness < 0.5)
+			animate(already_present, alpha = 0, 1 SECONDS) // We can't use something like `short_time` here because the distance is incredibly small
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, clear_fullscreen), "adjust_vision"), short_time)
 		return
 	if(distance < 0.4)	// Not really much to adjust to
 		return
