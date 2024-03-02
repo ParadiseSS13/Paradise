@@ -47,7 +47,7 @@
 	set name = "Msay"
 	set hidden = 1
 
-	if(check_rights(R_MENTOR)) // Mentor detected, check if the verb has been disabled for mentors
+	if(check_rights(R_MENTOR, FALSE)) // Mentor detected, check if the verb has been disabled for mentors
 		var/msay_found = FALSE
 		for(var/procs as anything in GLOB.admin_verbs_mentor)
 			if(procs == /client/proc/cmd_mentor_say)
