@@ -1678,13 +1678,16 @@
 			SStickets.resolveTicket(index)
 
 	else if(href_list["autorespond"])
+		var/datum/controller/subsystem/tickets/ticketSystem
 		if(href_list["is_mhelp"])
-			to_chat(usr, "<span class='warning'>Auto responses are not available for mentor helps.</span>")
+			ticketSystem = SSmentor_tickets
+		else //Ahelp
+			ticketSystem = SStickets
+
+		if(!check_rights(ticketSystem.rights_needed))
 			return
 		var/index = text2num(href_list["autorespond"])
-		if(!check_rights(R_ADMIN|R_MOD))
-			return
-		SStickets.autoRespond(index)
+		ticketSystem.autoRespond(index)
 
 	if(href_list["convert_ticket"])
 		var/indexNum = text2num(href_list["convert_ticket"])

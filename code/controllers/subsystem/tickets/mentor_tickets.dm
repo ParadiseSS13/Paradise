@@ -33,4 +33,41 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	SStickets.newTicket(get_client_by_ckey(T.client_ckey), T.first_raw_response, T.raw_title)
 
 /datum/controller/subsystem/tickets/mentor_tickets/autoRespond(N)
-	return
+	if(!check_rights(rights_needed))
+		return
+
+	var/datum/ticket/T = allTickets[N]
+	var/client/C = usr.client
+	if((T.staffAssigned && T.staffAssigned != C) || (T.lastStaffResponse && T.lastStaffResponse != C) || ((T.ticketState != TICKET_OPEN) && (T.ticketState != TICKET_STALE))) //if someone took this ticket, is it the same mentor who is autoresponding? if so, then skip the warning
+		if(alert(usr, "[T.ticketState == TICKET_OPEN ? "Another mentor appears to already be handling this." : "This ticket is already marked as closed or resolved"] Are you sure you want to continue?", "Confirmation", "Yes", "No") != "Yes")
+			return
+	T.assignStaff(C)
+
+	var/response_phrases = list("Known Bug" = "Unfortunately, that's a known bug. Hopefully it gets fixed soon.",
+		"TM Bug" = "Unfortunately, that's a bug with a current test merge. It should go away when the test merge is removed or fixed.",
+		"Clear Cache" = "To fix a blank screen, go to the 'Special Verbs' tab and press 'Reload UI Resources'. If that fails, clear your BYOND cache (instructions provided with 'Reload UI Resources'). If that still fails, please ask for help again, stating you have already done these steps." ,
+		"Experiment!" = "Experiment! Part of the joy of this game is trying out various things, and dealing with the consequences if/when they go horribly wrong.",
+	)
+
+	if(GLOB.configuration.url.github_url)
+		response_phrases["New Bug"] = "That sounds like a bug! To report it, please go to our <a href='[GLOB.configuration.url.github_url]'>Github page</a>. Then go to 'Issues'. Then 'New Issue'. Then fill out the report form. If the report would reveal current-round information, file it after the round ends."
+
+	if(GLOB.configuration.url.exploit_url)
+		response_phrases["Exploit Report"] = "That sounds like it could be an exploit! To report it, please go to our <a href='[GLOB.configuration.url.exploit_url]'>Exploit Report page</a>. Then 'Start New Topic'. Then fill out the topic with as much information about the exploit that you can. If possible, add steps taken to reproduce the exploit. The Development Team will be informed automatically of the post."
+
+	var/sorted_responses = list()
+	for(var/key in response_phrases)	//build a new list based on the short descriptive keys of the master list so we can send this as the input instead of the full paragraphs to the mentor choosing which autoresponse
+		sorted_responses += key
+
+	var/message_key = input("Select an autoresponse. This will mark the ticket as resolved.", "Autoresponse") as null|anything in sortTim(sorted_responses, GLOBAL_PROC_REF(cmp_text_asc)) //use sortTim and cmp_text_asc to sort alphabetically
+	var/client/ticket_owner = get_client_by_ckey(T.client_ckey)
+	if(message_key == null)
+		T.staffAssigned = null //if they cancel we dont need to hold this ticket anymore
+		return
+
+	SEND_SOUND(returnClient(N), sound('sound/effects/adminhelp.ogg'))
+	to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> <span class='adminticketalt'>[response_phrases[message_key]]</span>")//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
+	message_staff("[C] has auto responded to [ticket_owner]\'s mentorhelp with:<span class='adminticketalt'> [message_key]</span>") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
+	T.lastStaffResponse = "Autoresponse: [message_key]"
+	resolveTicket(N)
+	log_game("[C] has auto responded to [ticket_owner]\'s mentorhelp with: [response_phrases[message_key]]")
