@@ -228,6 +228,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
 #define TRAIT_TABLE_LEAP "table_leap" // Lets bartender and chef mount tables faster
 #define TRAIT_NEVER_MISSES_DISPOSALS "trait_never_misses_disposals" // For janitors landing disposal throws
+#define TRAIT_SLEIGHT_OF_HAND "sleight_of_hand"
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
