@@ -57,7 +57,7 @@
 	. = ..()
 	// Give spells
 	AddSpell(new /obj/effect/proc_holder/spell/aoe/flicker_lights(null))
-	AddSpell(new /obj/effect/proc_holder/spell/aoe/blindness(null))
+	AddSpell(new /obj/effect/proc_holder/spell/blindness(null))
 	AddSpell(new /obj/effect/proc_holder/spell/night_vision(null))
 
 	// Set creator
@@ -180,28 +180,22 @@
 	return
 
 //Blind AOE
-/obj/effect/proc_holder/spell/aoe/blindness
+/obj/effect/proc_holder/spell/blindness
 	name = "Blindness"
 	desc = "Your prey will be momentarily blind for you to advance on them."
 
 	message = "<span class='notice'>You glare your eyes.</span>"
 	base_cooldown = 600
 	clothes_req = FALSE
-	aoe_range = 10
 
-/obj/effect/proc_holder/spell/aoe/blindness/create_new_targeting()
-	var/datum/spell_targeting/aoe/turf/targeting = new()
-	targeting.range = aoe_range
-	return targeting
+/obj/effect/proc_holder/spell/blindness/create_new_targeting()
+	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/aoe/blindness/cast(list/targets, mob/user = usr)
-	for(var/mob/living/L in GLOB.alive_mob_list)
-		if(L == user)
+/obj/effect/proc_holder/spell/blindness/cast(list/targets, mob/user = usr)
+	for(var/mob/living/M in orange(10, user))
+		if(M == user || istype(M, /mob/living/simple_animal/hostile/statue))
 			continue
-		var/turf/T = get_turf(L.loc)
-		if(T && (T in targets))
-			L.EyeBlind(8 SECONDS)
-	return
+		M.EyeBlind(8 SECONDS)
 
 /mob/living/simple_animal/hostile/statue/sentience_act()
 	faction -= "neutral"
@@ -209,4 +203,4 @@
 /mob/living/simple_animal/hostile/statue/restrained()
 	. = ..()
 	if(can_be_seen(loc))
-		return 1
+		return TRUE
