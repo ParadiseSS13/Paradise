@@ -559,21 +559,19 @@
   * Returns boolean reflecting if a hat was successfully removed from the silicon.
   */
 /mob/living/silicon/proc/remove_from_head(mob/user)
-	if(silicon_hat)
-		if(silicon_hat.flags & NODROP)
-			to_chat(user, "<span class='warning'>[silicon_hat.name] is stuck on [src]'s head, it is impossible to remove!</span>")
-			return TRUE
-
-		to_chat(user, "<span class='warning'>You remove [silicon_hat.name] from [src]'s head.</span>")
-		user.put_in_hands(silicon_hat)
-
-		null_hat()
-
-		update_icons()
-	else
+	if(!silicon_hat)
 		to_chat(user, "<span class='warning'>[src] isn't wearing anything on their head!</span>")
 		return FALSE
+	if(silicon_hat.flags & NODROP)
+		to_chat(user, "<span class='warning'>[silicon_hat.name] is stuck on [src]'s head, it is impossible to remove!</span>")
+		return FALSE
 
+	to_chat(user, "<span class='warning'>You remove [silicon_hat.name] from [src]'s head.</span>")
+	user.put_in_hands(silicon_hat)
+
+	null_hat()
+	update_icons()
+	
 	return TRUE
 
 /mob/living/silicon/proc/drop_hat()
