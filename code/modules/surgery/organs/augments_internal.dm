@@ -421,7 +421,7 @@
 	name = "spent Qani-Laaca cartridge"
 	desc = "A small glass vial, usually kept in a large stack inside a Qani-Laaca implant, that is broken open and ejected \
 		each time the implant is used. If you're looking at one long enough to think about it this long, you either have fast eyes \
-		or were lucky enough to catch onechem_heater  before it broke."
+		or were lucky enough to catch one before it broke."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "blastoff_ampoule_empty"
 	w_class = WEIGHT_CLASS_TINY
