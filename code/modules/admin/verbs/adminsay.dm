@@ -47,7 +47,18 @@
 	set name = "Msay"
 	set hidden = 1
 
-	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
+	if(!check_rights(R_MENTOR)) // Mentor detected, check if the verb has been disabled for mentors
+		var/msay_found = FALSE
+		for(var/procs as anything in GLOB.admin_verbs_mentor)
+			log_debug("[procs]")
+			if(procs == /client/proc/cmd_mentor_say)
+				msay_found = TRUE
+				break
+		if(!msay_found)
+			to_chat(src, "<b>Mentor chat has been disabled.</b>")
+			return
+
+	else if(!check_rights(R_ADMIN|R_MOD)) // Catch any other non-admins trying to use this proc
 		return
 
 	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
