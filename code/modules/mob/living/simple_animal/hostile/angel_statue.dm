@@ -195,13 +195,11 @@
 	return targeting
 
 /obj/effect/proc_holder/spell/aoe/blindness/cast(list/targets, mob/user = usr)
-	for(var/mob/living/L in GLOB.alive_mob_list)
-		if(L == user)
-			continue
-		var/turf/T = get_turf(L.loc)
-		if(T && (T in targets))
+	for(var/turf/T in targets)
+		for(var/mob/living/L in T)
+			if(L == user || istype(L, /mob/living/simple_animal/hostile/statue))
+				continue
 			L.EyeBlind(8 SECONDS)
-	return
 
 /mob/living/simple_animal/hostile/statue/sentience_act()
 	faction -= "neutral"
@@ -209,4 +207,4 @@
 /mob/living/simple_animal/hostile/statue/restrained()
 	. = ..()
 	if(can_be_seen(loc))
-		return 1
+		return TRUE
