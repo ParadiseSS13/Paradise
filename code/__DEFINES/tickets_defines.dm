@@ -1,7 +1,7 @@
-//Deciseconds until ticket becomes stale if unanswered. Alerts admins.
-#define TICKET_TIMEOUT 6000 // 10 minutes
-//Decisecions before the user is allowed to open another ticket while their existing one is open.
-#define TICKET_DUPLICATE_COOLDOWN 3000 // 5 minutes
+//Time until ticket becomes stale if unanswered. Alerts admins.
+#define TICKET_TIMEOUT (10 MINUTES)
+//Time before the user is allowed to open another ticket while their existing one is open.
+#define TICKET_DUPLICATE_COOLDOWN (5 MINUTES)
 
 //Status defines
 #define TICKET_OPEN       1
