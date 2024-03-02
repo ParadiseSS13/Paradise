@@ -42,7 +42,7 @@
 	if(alert(usr,
 		"Use it ONLY if you have trouble with TGUI window.\
 		That's UI's with EYE on top-left corner.\
-		Otherwise, you will get a white window that will only close when you restart the game!", "Refresh TGUI", "Refresh", "Cancel") != "Refresh")
+		Otherwise, you can get a white window that will only close when you restart the game!", "Refresh TGUI", "Refresh", "Cancel") != "Refresh")
 		return
 	var/refreshed_count = 0
 	for(var/window_id in tgui_windows)
@@ -53,5 +53,4 @@
 		window.reinitialize()
 		refreshed_count++
 	to_chat(usr, "<span class='notice'>TGUI windows refreshed - [refreshed_count].<br>If you have blank window - restart the game, or open previous TGUI window.</span>")
-	refreshed_count = 0
 
