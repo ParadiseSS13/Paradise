@@ -82,13 +82,14 @@
 	var/darkness = 1 - brightness	// Silly, I know, but 'alpha' and 'darkness' go the same direction on a number line.
 	var/distance = CLAMP01(darkness - previous_light_intensity) // Used for how long to animate for.
 	var/short_time = distance * 5
+
 	previous_light_intensity = darkness
 
 	message_admins(darkness)
 
 	if(already_present && darkness < 0.5)
 		message_admins("Triggered early stoppage")
-		animate(already_present, alpha = 0, 1 SECONDS)
+		animate(already_present, alpha = 0, 1 SECONDS) // We can't use something like `short_time` here because the distance is incredibly small
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, clear_fullscreen), "adjust_vision"), short_time)
 		return
 	if(distance < 0.4)	// Not really much to adjust to
