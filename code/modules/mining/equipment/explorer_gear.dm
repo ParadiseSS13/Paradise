@@ -102,12 +102,11 @@
 		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi'
 	)
 
-/obj/item/clothing/suit/hooded/prisoner_gulag
-	name = "prisoner mining suit"
+/obj/item/clothing/suit/space/prisoner_gulag
+	name = "prisoner gulag suit"
 	desc = "An unarmored heat resistant mining suit, heavy and uncomfortable as a punishment in itself."
 	icon_state = "hardsuit_gulag"
 	item_state = "hardsuit_gulag"
-	hoodtype = /obj/item/clothing/head/hooded/prisoner_gulag
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.50
@@ -126,9 +125,9 @@
 	resistance_flags = FIRE_PROOF
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
 
-/obj/item/clothing/head/hooded/prisoner_gulag
+/obj/item/clothing/head/space/prisoner_gulag
 	name = "gulag helmet"
-	desc = "A metallic helmet designed to operate with the mining suit, while dense it offers little protection aside the enviorment."
+	desc = "A metallic helmet designed to operate with the mining suit, while dense it offers little protection aside heat."
 	icon_state = "hardsuit_gulag"
 	item_state = "hardsuit_gulag"
 	body_parts_covered = HEAD
