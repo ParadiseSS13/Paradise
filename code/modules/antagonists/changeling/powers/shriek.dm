@@ -46,6 +46,11 @@
 	power_type = CHANGELING_PURCHASABLE_POWER
 	category = /datum/changeling_power_category/utility
 
+/datum/action/changeling/dissonant_shriek/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		dna_cost *= 2.5
+
 //A flashy ability, good for crowd control and sewing chaos.
 /datum/action/changeling/dissonant_shriek/sting_action(mob/user)
 	if(istype(user.loc, /obj/machinery/atmospherics))

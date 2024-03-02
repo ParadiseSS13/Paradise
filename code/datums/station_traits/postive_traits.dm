@@ -160,6 +160,7 @@
 	trait_type = STATION_TRAIT_POSITIVE
 	show_in_report = TRUE
 	weight = 2
+	force = TRUE //MMTODO - this needs to be removed after testing you idiot.
 	report_message = "The new trends in cybernetics have come to the station! Everyone has some form of cybernetic implant."
 	trait_to_give = STATION_TRAIT_CYBERNETIC_REVOLUTION
 	/// List of all job types with the cybernetics they should receive.
