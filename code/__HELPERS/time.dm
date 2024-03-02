@@ -45,6 +45,18 @@
 		wtime = world.time
 	return time2text(wtime - GLOB.timezoneOffset, format)
 
+/proc/deciseconds_to_time_stamp(deciseconds)
+	if(istext(deciseconds))
+		deciseconds = text2num(deciseconds)
+	var/hour_calc = "00"
+	var/minute_calc = "00"
+	var/second_calc = "00"
+	hour_calc = round(deciseconds / 36000) < 10 ? add_zero(round(deciseconds / 36000), 1) : round(deciseconds / 36000)
+	minute_calc = round((deciseconds % 36000) / 600) < 10 ? add_zero(round((deciseconds % 36000) / 600), 1) : round((deciseconds % 36000) / 600)
+	second_calc = round(((deciseconds % 36000) % 600) / 10) < 10 ? add_zero(round(((deciseconds % 36000) % 600) / 10), 1) : round(((deciseconds % 36000) % 600) / 10)
+
+	return "[hour_calc]:[minute_calc]:[second_calc]"
+
 // max hh:mm:ss supported
 /proc/timeStampToNum(timestamp)
 	var/list/splits = text2numlist(timestamp, ":")
