@@ -1953,7 +1953,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
@@ -22627,6 +22627,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 9
 	},
+/obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -44750,8 +44751,8 @@
 /turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
 "dce" = (
-/obj/structure/dispenser,
-/turf/simulated/floor/plasteel,
+/obj/structure/sign/poster/official/random,
+/turf/simulated/wall/r_wall,
 /area/station/science/toxins/mixing)
 "dch" = (
 /obj/structure/lattice/catwalk,
@@ -49150,15 +49151,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
-"eIY" = (
-/obj/machinery/door/poddoor/preopen{
-	name = "Biohazard Shutter";
-	id_tag = "RnDChem"
-	},
-/obj/effect/spawner/window/reinforced/plasma,
-/obj/machinery/atmospherics/pipe/simple/insulated,
-/turf/simulated/floor/engine,
-/area/station/science/test_chamber)
 "eJh" = (
 /obj/machinery/atmospherics/unary/thermomachine/heater/on{
 	dir = 1
@@ -50146,9 +50138,8 @@
 /area/station/engineering/secure_storage)
 "fdt" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 6
+	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/insulated,
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "fdu" = (
@@ -50372,13 +50363,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/service/kitchen)
-"fjU" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 5
-	},
-/turf/simulated/floor/engine/vacuum,
-/area/station/science/toxins/mixing)
 "fkr" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
@@ -54607,6 +54591,9 @@
 /obj/effect/spawner/window/reinforced/tinted/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"gWO" = (
+/turf/simulated/floor/plasteel,
+/area/station/science/toxins/mixing)
 "gXg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -54734,7 +54721,7 @@
 	},
 /area/station/engineering/control)
 "gZT" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -57013,10 +57000,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "hVw" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 9
-	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "hVK" = (
@@ -58216,6 +58199,9 @@
 	id = "toxinsigniter";
 	pixel_y = -25
 	},
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "iuU" = (
@@ -58321,11 +58307,6 @@
 /turf/simulated/floor/plating,
 /area/station/science/robotics/showroom)
 "iwB" = (
-/obj/machinery/camera{
-	c_tag = "Science - Toxins Lab";
-	dir = 1;
-	network = list("Research","SS13")
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -59934,6 +59915,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
 /area/station/public/mrchangs)
+"jjG" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+	dir = 8
+	},
+/obj/machinery/door/poddoor{
+	id_tag = "ToxinsVenting";
+	name = "Toxins Venting Bay Door";
+	power_state = 0
+	},
+/turf/space,
+/area/station/science/toxins/mixing)
 "jjL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -65723,7 +65715,7 @@
 "lEw" = (
 /obj/structure/closet/firecloset,
 /obj/machinery/light/small{
-	dir = 4
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -66959,10 +66951,6 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 4
 	},
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "mcP" = (
@@ -67495,7 +67483,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
@@ -72753,10 +72741,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard2)
 "oFF" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "oFN" = (
@@ -75938,8 +75923,8 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
@@ -76884,9 +76869,8 @@
 	},
 /area/station/medical/exam_room)
 "qnp" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 4
+	dir = 6
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
@@ -78041,6 +78025,15 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
+"qPh" = (
+/obj/machinery/door/poddoor/preopen{
+	name = "Biohazard Shutter";
+	id_tag = "RnDChem"
+	},
+/obj/effect/spawner/window/reinforced/plasma,
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/engine,
+/area/station/science/test_chamber)
 "qPp" = (
 /obj/structure/cable/yellow{
 	d2 = 4;
@@ -78464,6 +78457,15 @@
 	icon_state = "purple"
 	},
 /area/station/science/xenobiology)
+"qYD" = (
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/wall/r_wall,
+/area/station/science/toxins/mixing)
 "qYT" = (
 /obj/machinery/computer/nonfunctional,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
@@ -78814,11 +78816,11 @@
 	},
 /area/station/science/break_room)
 "rfK" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 4
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
 	},
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
-/turf/simulated/wall/r_wall,
+/turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "rgo" = (
 /obj/machinery/hydroponics/soil,
@@ -84382,10 +84384,11 @@
 	},
 /area/station/security/armory/secure)
 "tCf" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 9
-	},
 /obj/effect/landmark/start/scientist,
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 4;
+	initialize_directions = 11
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "tCr" = (
@@ -87844,7 +87847,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "veO" = (
-/obj/machinery/atmospherics/pipe/simple/insulated,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -87855,6 +87857,7 @@
 	pixel_y = 8;
 	req_access_txt = "8"
 	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "vfd" = (
@@ -88286,10 +88289,7 @@
 	},
 /area/station/security/detective)
 "vpj" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 4;
-	initialize_directions = 11
-	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
@@ -92017,8 +92017,16 @@
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block/A)
 "xbs" = (
-/obj/structure/sign/poster/official/random,
-/turf/simulated/wall,
+/obj/structure/dispenser,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Science - Toxins Lab";
+	dir = 1;
+	network = list("Research","SS13")
+	},
+/turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "xbt" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen,
@@ -92142,7 +92150,7 @@
 	dir = 4;
 	pixel_y = -32
 	},
-/obj/machinery/atmospherics/unary/thermomachine/freezer{
+/obj/machinery/atmospherics/binary/valve{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -124537,9 +124545,9 @@ mAA
 qbe
 veO
 aox
-fdt
-fjU
 saM
+qnp
+fdt
 cOp
 rKH
 vZo
@@ -124794,7 +124802,7 @@ klo
 hQB
 jFo
 vZA
-wwR
+hVw
 uZk
 iuI
 cOp
@@ -125051,9 +125059,9 @@ mAA
 kRQ
 oFF
 mmG
-qnp
-hVw
 wnf
+wwR
+wwR
 cOp
 hqx
 lYB
@@ -125306,11 +125314,11 @@ cFH
 cFH
 bMg
 mcw
+rfK
 cEK
-cEK
+jjG
+agK
 nec
-agK
-agK
 cOp
 mtr
 lYB
@@ -125565,9 +125573,9 @@ iRd
 iwB
 xbs
 dce
-rfK
-gQc
 cQd
+gQc
+qYD
 gty
 coG
 coG
@@ -125822,7 +125830,7 @@ hhN
 cOB
 jlU
 hQB
-nbM
+gWO
 nbM
 xdo
 cOp
@@ -132495,7 +132503,7 @@ cUQ
 uOY
 mfA
 gZT
-eIY
+qPh
 cAS
 uzR
 qyw

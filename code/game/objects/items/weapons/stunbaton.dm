@@ -187,6 +187,7 @@
 		return ..() // Whack them too if in harm intent
 
 	if(!turned_on)
+		user.do_attack_animation(L)
 		L.visible_message("<span class='warning'>[user] has prodded [L] with [src]. Luckily it was off.</span>",
 			"<span class='danger'>[L == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>")
 		return
