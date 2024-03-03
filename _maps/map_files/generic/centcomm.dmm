@@ -1438,6 +1438,19 @@
 /mob/living/carbon/human/monkey/magic,
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"fA" = (
+/obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
+	dir = 8;
+	name = "Mech Bay Power Port"
+	},
+/obj/machinery/door_control/no_emag/no_cyborg{
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/centcom/specops)
 "fE" = (
 /obj/structure/table,
 /obj/item/storage/box/handcuffs,
@@ -7270,6 +7283,15 @@
 /obj/effect/landmark/spawner/aroomwarp,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"zK" = (
+/obj/machinery/door_control/no_emag/no_cyborg{
+	pixel_x = 24;
+	req_access_txt = "114";
+	name = "Specops Teleporter Shutters";
+	id = "CCTELE"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
 "zL" = (
 /obj/machinery/economy/arcade/claw,
 /turf/simulated/floor/carpet/arcade,
@@ -35709,7 +35731,7 @@ Ra
 Xz
 Zr
 Zm
-Ra
+zK
 Ra
 Ra
 Ra
@@ -38283,7 +38305,7 @@ ZC
 ZC
 YA
 tQ
-VS
+fA
 VS
 OH
 ZT
