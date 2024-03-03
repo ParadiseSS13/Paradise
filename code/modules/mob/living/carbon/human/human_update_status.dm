@@ -13,7 +13,7 @@
 /mob/living/carbon/human/update_nearsighted_effects()
 	var/obj/item/clothing/glasses/G = glasses
 	if(HAS_TRAIT(src, TRAIT_NEARSIGHT) && (!istype(G) || !G.prescription))
-		overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
+		overlay_fullscreen("nearsighted", /atom/movable/screen/fullscreen/impaired, 1)
 	else
 		clear_fullscreen("nearsighted")
 

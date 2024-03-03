@@ -331,7 +331,7 @@
 				state = 1
 				to_chat(user, "The securing bolts are now exposed.")
 				if(occupant)
-					occupant.throw_alert("locked", /obj/screen/alert/mech_maintenance)
+					occupant.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 			else if(state==1)
 				state = 0
 				to_chat(user, "The securing bolts are now hidden.")
