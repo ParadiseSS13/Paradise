@@ -158,7 +158,7 @@
 
 /datum/design/box_oldsmg
 	name = "WT-550 PDW Ammo Box (4.6x30mm)"
-	desc = "A box of 20 rounds for the WT-550 PDW"
+	desc = "A box of 20 rounds for the WT-550 PDW."
 	id = "box_oldsmg"
 	req_tech = list("combat" = 1, "materials" = 1)
 	build_type = PROTOLATHE
