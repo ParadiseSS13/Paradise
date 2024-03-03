@@ -27,7 +27,7 @@
 
 /obj/item/clothing/suit/storage/forceMove(atom/destination)
 	. = ..()
-	if(!ismob(destination.loc))
+	if(!ismob(destination.loc) && pockets != null)
 		for(var/mob/player in pockets.mobs_viewing)
 			if(player == destination)
 				continue
