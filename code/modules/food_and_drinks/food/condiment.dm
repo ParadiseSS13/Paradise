@@ -153,6 +153,9 @@
 	user.name = newname
 	user.real_name = newname
 	desc = "Salt. From dead crew, presumably."
+	var/space = reagents.maximum_volume - reagents.total_volume
+	if(space > 0)
+		reagents.add_reagent("sodiumchloride", space)
 	return BRUTELOSS
 
 /obj/item/reagent_containers/condiment/peppermill
