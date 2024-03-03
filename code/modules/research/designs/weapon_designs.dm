@@ -148,7 +148,7 @@
 //WT550 Mags
 /datum/design/mag_oldsmg
 	name = "WT-550 PDW Magazine (4.6x30mm)"
-	desc = "A 20 round magazine for the WT-550 PDW"
+	desc = "A 20 round magazine for the WT-550 PDW."
 	id = "mag_oldsmg"
 	req_tech = list("combat" = 1, "materials" = 1)
 	build_type = PROTOLATHE
