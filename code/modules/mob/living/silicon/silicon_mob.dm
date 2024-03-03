@@ -537,7 +537,7 @@
 		to_chat(user, "<span class='warning'>[item_to_add] does not fit on the head of [src]!</span>")
 		return FALSE
 
-	if(user && !user.unEquip(item_to_add))
+	if(!user.unEquip(item_to_add))
 		to_chat(user, "<span class='warning'>[item_to_add] is stuck to your hand, you cannot put it on [src]!</span>")
 		return FALSE
 
