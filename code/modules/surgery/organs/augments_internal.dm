@@ -189,7 +189,7 @@
 	..()
 	if(crit_fail)
 		return
-	if(owner.stat == UNCONSCIOUS && cooldown == FALSE)
+	if(owner.stat == UNCONSCIOUS && !cooldown)
 		owner.AdjustSleeping(-200 SECONDS)
 		owner.AdjustParalysis(-200 SECONDS)
 		to_chat(owner, "<span class='notice'>You feel a rush of energy course through your body!</span>")
@@ -240,7 +240,8 @@
 	REMOVE_TRAIT(M, TRAIT_COMIC_SANS, "augment")
 	return ..()
 
-/obj/item/organ/internal/cyberimp/brain/speech_translator //actual translating done in human/handle_speech_problems
+// actual translating done in human/handle_speech_problems
+/obj/item/organ/internal/cyberimp/brain/speech_translator
 	name = "Speech translator implant"
 	desc = "While known as a translator, this implant actually generates speech based on the user's thoughts when activated, completely bypassing the need to speak."
 	implant_color = "#C0C0C0"
@@ -395,6 +396,10 @@
 		to_chat(user, "<span class='warning'>Your implant is not robust enough to hack at that distance!</span>")
 		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.3)
 		return
+	if(istype(user.loc, /obj/machinery/atmospherics)) //Come now, no emaging all the doors on station from a pipe
+		to_chat(user, "<span class='warning'>Your implant is unable to get a lock on anything in the pipes!</span>")
+		return
+
 	var/beam = user.Beam(target, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
 
 	user.visible_message("<span class='warning'>[user] makes an unusual buzzing sound as the air between them and [target] crackles.</span>", \

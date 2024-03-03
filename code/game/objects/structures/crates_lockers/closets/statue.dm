@@ -1,4 +1,5 @@
-/obj/structure/closet/statue //this type path is a crime, ponies what the fuck
+/// this type path is a crime, ponies what the fuck
+/obj/structure/closet/statue
 	name = "statue"
 	desc = "An incredibly lifelike marble carving"
 	icon = 'icons/obj/statue.dmi'

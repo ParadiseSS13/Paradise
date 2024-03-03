@@ -47,7 +47,8 @@
 	/obj/structure/barricade/wooden = 1,
 	/obj/machinery/door/airlock/welded = 1)
 
-/obj/effect/spawner/random_barrier/possibly_welded_airlock // these have no access restrictions, so for internal maintenance only
+/// these have no access restrictions, so for internal maintenance only
+/obj/effect/spawner/random_barrier/possibly_welded_airlock
 	name = "possibly welded airlock"
 	icon_state = "airlock"
 	result = list(

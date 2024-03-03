@@ -173,7 +173,8 @@
 	)
 
 	return SURGERY_STEP_RETRY
-/datum/surgery_step/fix_dead_tissue		//Debridement
+/// Debridement
+/datum/surgery_step/fix_dead_tissue
 	name = "remove dead tissue"
 	allowed_tools = list(
 		TOOL_SCALPEL = 100,
