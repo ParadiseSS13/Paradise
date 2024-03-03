@@ -1,9 +1,4 @@
-
 // Allows you to monitor messages that passes the server.
-
-
-
-
 /obj/machinery/computer/message_monitor
 	name = "message monitoring console"
 	desc = "Used to monitor the crew's messages that are sent via PDA. It can also be used to view Request Console messages."
@@ -78,6 +73,7 @@
 				UnmagConsole()
 				update_icon()
 			message = rebootmsg
+			return TRUE
 		else
 			to_chat(user, "<span class='notice'>A no server error appears on the screen.</span>")
 
@@ -298,10 +294,10 @@
 			if(auth) linkedServer.active = !linkedServer.active
 		//Find a server
 		if(href_list["find"])
-			if(GLOB.message_servers && GLOB.message_servers.len > 1)
-				src.linkedServer = input(usr,"Please select a server.", "Select a server.", null) as null|anything in GLOB.message_servers
+			if(GLOB.message_servers && length(GLOB.message_servers) > 1)
+				linkedServer = input(usr, "Please select a server.", "Select a server.", GLOB.message_servers)
 				message = "<span class='alert'>NOTICE: Server selected.</span>"
-			else if(GLOB.message_servers && GLOB.message_servers.len > 0)
+			else if(GLOB.message_servers && length(GLOB.message_servers) > 0)
 				linkedServer = GLOB.message_servers[1]
 				message =  "<span class='notice'>NOTICE: Only Single Server Detected - Server selected.</span>"
 			else
@@ -414,7 +410,7 @@
 								continue
 							sendPDAs += P
 						if(GLOB.PDAs && GLOB.PDAs.len > 0)
-							customrecepient = input(usr, "Select a PDA from the list.") as null|anything in sortAtom(sendPDAs)
+							customrecepient = tgui_input_list(usr, "Select a PDA from the list.", items = sortAtom(sendPDAs))
 						else
 							customrecepient = null
 

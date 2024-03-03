@@ -228,7 +228,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_name = "passive vent"
 	pipe_id = PIPE_PASV_VENT
 	orientations = 4
-	pipe_icon = "passive vent"
+	pipe_icon = "passive_vent"
 	pipe_category = RPD_DEVICES
 	rpd_dispensable = TRUE
 
@@ -342,15 +342,6 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_name = "circulator / heat exchanger"
 	pipe_id = PIPE_CIRCULATOR
 	pipe_icon = "circ"
-
-/datum/pipes/atmospheric/insulated
-	pipe_name = "insulated pipe"
-	pipe_id = PIPE_INSULATED_STRAIGHT
-	pipe_icon = "insulated"
-
-/datum/pipes/atmospheric/insulated/bent
-	pipe_name = "bent insulated pipe"
-	pipe_id = PIPE_INSULATED_BENT
 
 /datum/pipes/disposal/left_sortjunction
 	pipe_name = "disposals sort junction left"
