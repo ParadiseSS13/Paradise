@@ -28,7 +28,7 @@ FALSE if not
 		return
 	var/lagging = could_be_click_lag()
 	drag_start = 0
-	if(!(istype(over, /obj/screen) || (loc && loc == over.loc)))
+	if(!(is_screen_atom(over) || (loc && loc == over.loc)))
 		if(!Adjacent(usr) || !over.Adjacent(usr)) // should stop you from dragging through windows
 			if(lagging)
 				usr.ClickOn(src, params)
