@@ -165,7 +165,8 @@
 	name = "\improper Fore Starboard Solar Maintenance"
 	icon_state = "FSctrl"
 
-/area/station/maintenance/assembly_line //Derelict Assembly Line
+/// Derelict Assembly Line
+/area/station/maintenance/assembly_line
 	name = "\improper Assembly Line"
 	icon_state = "ass_line"
 	apc_starts_off = TRUE

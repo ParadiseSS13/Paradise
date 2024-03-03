@@ -1,6 +1,7 @@
 /**********************Mineral deposits**************************/
 
-/turf/simulated/mineral //wall piece
+/// wall piece
+/turf/simulated/mineral
 	name = "rock"
 	icon = 'icons/turf/walls/smoothrocks.dmi'
 	icon_state = "smoothrocks-0"
