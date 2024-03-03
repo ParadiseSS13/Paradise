@@ -200,7 +200,7 @@
 	mmi = null
 	return ..()
 
-/datum/action/generic/configure_mmi_radio/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/generic/configure_mmi_radio/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
 	icon_icon = mmi.icon
 	button_icon_state = mmi.icon_state
 	..()

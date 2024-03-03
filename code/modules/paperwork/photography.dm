@@ -142,7 +142,7 @@
 
 	if(ishuman(usr))
 		var/mob/M = usr
-		if(!istype(over_object, /obj/screen))
+		if(!is_screen_atom(over_object))
 			return ..()
 		playsound(loc, "rustle", 50, 1, -5)
 		if((!M.restrained() && !M.stat && M.back == src))

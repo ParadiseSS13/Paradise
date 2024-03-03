@@ -1,5 +1,5 @@
 /obj/item/stamp
-	name = "\improper rubber stamp"
+	name = "rubber stamp"
 	desc = "A rubber stamp for stamping important documents."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "stamp-ok"

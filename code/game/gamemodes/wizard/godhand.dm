@@ -1,5 +1,5 @@
 /obj/item/melee/touch_attack
-	name = "\improper outstretched hand"
+	name = "outstretched hand"
 	desc = "High Five?"
 	var/catchphrase = "High Five!"
 	var/on_use_sound = null

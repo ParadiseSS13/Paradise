@@ -2,11 +2,11 @@
 	id = "magic_disguise"
 	duration = -1
 	tick_interval = -1
-	alert_type = /obj/screen/alert/status_effect/magic_disguise
+	alert_type = /atom/movable/screen/alert/status_effect/magic_disguise
 	status_type = STATUS_EFFECT_REPLACE
 	var/datum/icon_snapshot/disguise
 
-/obj/screen/alert/status_effect/magic_disguise
+/atom/movable/screen/alert/status_effect/magic_disguise
 	name = "Disguised"
 	desc = "You are disguised as a crewmember."
 	icon = 'icons/mob/actions/actions.dmi'

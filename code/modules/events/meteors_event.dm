@@ -3,11 +3,11 @@
 	endWhen 		= 7
 	var/next_meteor = 6
 	var/waves = 1
-	var/obj/screen/alert/augury/meteor/screen_alert
+	var/atom/movable/screen/alert/augury/meteor/screen_alert
 
 /datum/event/meteor_wave/setup()
 	for(var/mob/dead/observer/O in GLOB.dead_mob_list)
-		var/obj/screen/alert/augury/meteor/A = O.throw_alert("\ref[src]_augury", /obj/screen/alert/augury/meteor)
+		var/atom/movable/screen/alert/augury/meteor/A = O.throw_alert("\ref[src]_augury", /atom/movable/screen/alert/augury/meteor)
 		if(A)
 			screen_alert = A
 
@@ -23,7 +23,7 @@
 /datum/event/meteor_wave/tick()
 	// keep observers updated with the alert
 	for(var/mob/dead/observer/O in GLOB.dead_mob_list)
-		O.throw_alert("\ref[src]_augury", /obj/screen/alert/augury/meteor)
+		O.throw_alert("\ref[src]_augury", /atom/movable/screen/alert/augury/meteor)
 	if(waves && activeFor >= next_meteor)
 		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteors), get_meteor_count(), get_meteors())
 		next_meteor += rand(15, 30) / severity

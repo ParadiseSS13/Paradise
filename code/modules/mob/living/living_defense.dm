@@ -163,7 +163,7 @@
 		on_fire = TRUE
 		visible_message("<span class='warning'>[src] catches fire!</span>", "<span class='userdanger'>You're set on fire!</span>")
 		set_light(light_range + 3,l_color = "#ED9200")
-		throw_alert("fire", /obj/screen/alert/fire)
+		throw_alert("fire", /atom/movable/screen/alert/fire)
 		update_fire()
 		SEND_SIGNAL(src, COMSIG_LIVING_IGNITED)
 		return TRUE

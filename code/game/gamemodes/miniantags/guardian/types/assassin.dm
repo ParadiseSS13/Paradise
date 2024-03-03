@@ -12,8 +12,8 @@
 	var/toggle = FALSE
 	var/stealthcooldown = 0
 	var/default_stealth_cooldown = 10 SECONDS
-	var/obj/screen/alert/canstealthalert
-	var/obj/screen/alert/instealthalert
+	var/atom/movable/screen/alert/canstealthalert
+	var/atom/movable/screen/alert/instealthalert
 
 /mob/living/simple_animal/hostile/guardian/assassin/Initialize(mapload, mob/living/host)
 	. = ..()
@@ -88,12 +88,12 @@
 	if(stealthcooldown <= world.time)
 		if(toggle)
 			if(!instealthalert)
-				instealthalert = throw_alert("instealth", /obj/screen/alert/instealth)
+				instealthalert = throw_alert("instealth", /atom/movable/screen/alert/instealth)
 				clear_alert("canstealth")
 				canstealthalert = null
 		else
 			if(!canstealthalert)
-				canstealthalert = throw_alert("canstealth", /obj/screen/alert/canstealth)
+				canstealthalert = throw_alert("canstealth", /atom/movable/screen/alert/canstealth)
 				clear_alert("instealth")
 				instealthalert = null
 	else

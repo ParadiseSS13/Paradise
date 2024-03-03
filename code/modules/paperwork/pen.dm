@@ -127,10 +127,11 @@
 		contained += "[round(reagent.volume, 0.01)]u [reagent]"
 
 	if(reagents.total_volume && M.reagents)
+		var/fraction = min(transfer_amount / reagents.total_volume, 1)
+		reagents.reaction(M, REAGENT_INGEST, fraction)
 		transfered = reagents.trans_to(M, transfer_amount)
 	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
-	reagents.reaction(M, REAGENT_INGEST, 0.1)
 	return TRUE
 
 

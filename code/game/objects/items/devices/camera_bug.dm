@@ -50,7 +50,7 @@
 	integrated_console.network = list("ERT")
 
 /obj/item/wall_bug
-	name = "\improper small camera"
+	name = "small camera"
 	desc = "A camera with a sticky backside."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "wall_bug"

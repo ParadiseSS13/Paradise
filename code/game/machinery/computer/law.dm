@@ -94,10 +94,10 @@
 /// pushes an alert to the AI and its borgs about the law changes
 /obj/machinery/computer/aiupload/proc/alert_silicons()
 	current.show_laws()
-	current.throw_alert("newlaw", /obj/screen/alert/newlaw)
+	current.throw_alert("newlaw", /atom/movable/screen/alert/newlaw)
 	for(var/mob/living/silicon/robot/borg in current.connected_robots)
 		borg.cmd_show_laws()
-		borg.throw_alert("newlaw", /obj/screen/alert/newlaw)
+		borg.throw_alert("newlaw", /atom/movable/screen/alert/newlaw)
 
 /obj/machinery/computer/aiupload/attack_hand(mob/user)
 	if(stat & NOPOWER)

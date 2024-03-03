@@ -90,7 +90,7 @@
 	M.setDir(dir)
 	buckled_mobs |= M
 	ADD_TRAIT(M, TRAIT_IMMOBILIZED, BUCKLING_TRAIT)
-	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled)
+	M.throw_alert("buckled", /atom/movable/screen/alert/restrained/buckled)
 	post_buckle_mob(M)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
 	return TRUE

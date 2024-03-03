@@ -1,5 +1,5 @@
 /turf/simulated/floor/light
-	name = "\improper light floor"
+	name = "light floor"
 	light_range = 0
 	icon_state = "light_off"
 	floor_tile = /obj/item/stack/tile/light

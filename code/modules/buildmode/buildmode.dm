@@ -12,10 +12,10 @@
 	var/switch_state = BM_SWITCHSTATE_NONE
 	var/switch_width = 5
 	// modeswitch UI
-	var/obj/screen/buildmode/mode/modebutton
+	var/atom/movable/screen/buildmode/mode/modebutton
 	var/list/modeswitch_buttons = list()
 	// dirswitch UI
-	var/obj/screen/buildmode/bdir/dirbutton
+	var/atom/movable/screen/buildmode/bdir/dirbutton
 	var/list/dirswitch_buttons = list()
 
 /datum/click_intercept/buildmode/New()
@@ -32,23 +32,23 @@
 
 /datum/click_intercept/buildmode/create_buttons()
 	// keep a reference so we can update it upon mode switch
-	modebutton = new /obj/screen/buildmode/mode(src)
+	modebutton = new /atom/movable/screen/buildmode/mode(src)
 	buttons += modebutton
-	buttons += new /obj/screen/buildmode/help(src)
+	buttons += new /atom/movable/screen/buildmode/help(src)
 	// keep a reference so we can update it upon dir switch
-	dirbutton = new /obj/screen/buildmode/bdir(src)
+	dirbutton = new /atom/movable/screen/buildmode/bdir(src)
 	buttons += dirbutton
-	buttons += new /obj/screen/buildmode/quit(src)
+	buttons += new /atom/movable/screen/buildmode/quit(src)
 	// build the list of modeswitching buttons
-	build_options_grid(subtypesof(/datum/buildmode_mode), modeswitch_buttons, /obj/screen/buildmode/modeswitch)
-	build_options_grid(list(SOUTH,EAST,WEST,NORTH,NORTHWEST), dirswitch_buttons, /obj/screen/buildmode/dirswitch)
+	build_options_grid(subtypesof(/datum/buildmode_mode), modeswitch_buttons, /atom/movable/screen/buildmode/modeswitch)
+	build_options_grid(list(SOUTH,EAST,WEST,NORTH,NORTHWEST), dirswitch_buttons, /atom/movable/screen/buildmode/dirswitch)
 
 /datum/click_intercept/buildmode/proc/build_options_grid(list/elements, list/buttonslist, buttontype)
 	var/pos_idx = 0
 	for(var/thing in elements)
 		var/x = pos_idx % switch_width
 		var/y = FLOOR(pos_idx / switch_width, 1)
-		var/obj/screen/buildmode/B = new buttontype(src, thing)
+		var/atom/movable/screen/buildmode/B = new buttontype(src, thing)
 		// this stuff is equivalent to the commented out line for 511 compat
 		// B.screen_loc = "NORTH-[(1 + 0.5 + y*1.5)],WEST+[0.5 + x*1.5]"
 		B.screen_loc = "NORTH-[1 + FLOOR(0.5 + 1.5*y, 1) + ((y + 1) % 2)]:[16*((y + 1) % 2)],WEST+[FLOOR(0.5 + 1.5*x, 1)]:[16*((x + 1) % 2)]"

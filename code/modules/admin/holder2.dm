@@ -2,18 +2,14 @@ GLOBAL_LIST_EMPTY(admin_datums)
 GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people making their own admin ranks, for obvious reasons
 
 /datum/admins
-	var/rank			= "Temporary Admin"
-	var/client/owner	= null
+	var/rank = "Temporary Admin"
+	var/client/owner
+	/// Bitflag containing the current rights this admin holder is assigned to
 	var/rights = 0
-	var/fakekey			= null
-	var/big_brother		= 0
-
+	var/fakekey
+	var/big_brother	= FALSE
+	/// Our currently linked marked datum
 	var/datum/marked_datum
-
-	var/admincaster_screen = 0	//See newscaster.dm under machinery for a full description
-	var/datum/feed_message/admincaster_feed_message = new /datum/feed_message   //These two will act as holders.
-	var/datum/feed_channel/admincaster_feed_channel = new /datum/feed_channel
-	var/admincaster_signature	//What you'll sign the newsfeeds as
 
 /datum/admins/New(initial_rank = "Temporary Admin", initial_rights = 0, ckey)
 	if(IsAdminAdvancedProcCall())
@@ -25,7 +21,6 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 		error("Admin datum created without a ckey argument. Datum has been deleted")
 		qdel(src)
 		return
-	admincaster_signature = "Nanotrasen Officer #[rand(0,9)][rand(0,9)][rand(0,9)]"
 	rank = initial_rank
 	rights = initial_rights
 	GLOB.admin_datums[ckey] = src

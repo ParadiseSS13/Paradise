@@ -64,7 +64,7 @@
 //Corgis and pugs are now under one dog subtype
 
 /mob/living/simple_animal/pet/dog/corgi
-	name = "\improper corgi"
+	name = "corgi"
 	real_name = "corgi"
 	desc = "It's a corgi."
 	icon_state = "corgi"
@@ -632,7 +632,7 @@
 	adjustBruteLoss(-maxHealth)
 
 /mob/living/simple_animal/pet/dog/corgi/puppy
-	name = "\improper corgi puppy"
+	name = "corgi puppy"
 	real_name = "corgi"
 	desc = "It's a corgi puppy!"
 	icon_state = "puppy"
@@ -649,7 +649,7 @@
 
 /// Tribute to the corgis born in nullspace
 /mob/living/simple_animal/pet/dog/corgi/puppy/void
-	name = "\improper void puppy"
+	name = "void puppy"
 	real_name = "voidy"
 	desc = "A corgi puppy that has been infused with deep space energy. It's staring back..."
 	icon_state = "void_puppy"
@@ -777,7 +777,7 @@
 ///Pugs
 
 /mob/living/simple_animal/pet/dog/pug
-	name = "\improper pug"
+	name = "pug"
 	real_name = "pug"
 	desc = "It's a pug."
 	icon = 'icons/mob/pets.dmi'

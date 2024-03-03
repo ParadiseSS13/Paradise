@@ -15,19 +15,19 @@
 	duration = list(10 SECONDS, 25 SECONDS)
 	/// The possible alerts to be displayed. Key is alert type, value is alert category.
 	var/list/alerts = list(
-		/obj/screen/alert/not_enough_oxy = "not_enough_oxy",
-		/obj/screen/alert/not_enough_tox = "not_enough_tox",
-		/obj/screen/alert/not_enough_co2 = "not_enough_co2",
-		/obj/screen/alert/not_enough_nitro = "not_enough_nitro",
-		/obj/screen/alert/too_much_oxy = "too_much_oxy",
-		/obj/screen/alert/too_much_co2 = "too_much_co2",
-		/obj/screen/alert/too_much_tox = "too_much_tox",
-		/obj/screen/alert/hunger/fat = "nutrition",
-		/obj/screen/alert/hunger/starving = "nutrition",
-		/obj/screen/alert/hot = "temp",
-		/obj/screen/alert/cold = "temp",
-		/obj/screen/alert/highpressure = "pressure",
-		/obj/screen/alert/lowpressure = "pressure",
+		/atom/movable/screen/alert/not_enough_oxy = "not_enough_oxy",
+		/atom/movable/screen/alert/not_enough_tox = "not_enough_tox",
+		/atom/movable/screen/alert/not_enough_co2 = "not_enough_co2",
+		/atom/movable/screen/alert/not_enough_nitro = "not_enough_nitro",
+		/atom/movable/screen/alert/too_much_oxy = "too_much_oxy",
+		/atom/movable/screen/alert/too_much_co2 = "too_much_co2",
+		/atom/movable/screen/alert/too_much_tox = "too_much_tox",
+		/atom/movable/screen/alert/hunger/fat = "nutrition",
+		/atom/movable/screen/alert/hunger/starving = "nutrition",
+		/atom/movable/screen/alert/hot = "temp",
+		/atom/movable/screen/alert/cold = "temp",
+		/atom/movable/screen/alert/highpressure = "pressure",
+		/atom/movable/screen/alert/lowpressure = "pressure",
 	)
 	/// Alert severities. Only needed for some alerts such as temperature or pressure. Key is alert category, value is severity.
 	var/list/severities = list(

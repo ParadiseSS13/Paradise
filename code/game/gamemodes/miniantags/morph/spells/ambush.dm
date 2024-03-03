@@ -40,7 +40,7 @@
 	id = "morph_ambush"
 	duration = -1
 	tick_interval = MORPH_AMBUSH_PERFECTION_TIME
-	alert_type = /obj/screen/alert/status_effect/morph_ambush
+	alert_type = /atom/movable/screen/alert/status_effect/morph_ambush
 
 /datum/status_effect/morph_ambush/tick()
 	STOP_PROCESSING(SSfastprocess, src)
@@ -49,7 +49,7 @@
 	linked_alert.name = "Perfect Ambush!"
 	linked_alert.desc = "You have prepared an ambush! Your disguise is flawless!"
 
-/obj/screen/alert/status_effect/morph_ambush
+/atom/movable/screen/alert/status_effect/morph_ambush
 	name = "Ambush!"
 	desc = "You have prepared an ambush!"
 	icon_state = "morph_ambush"

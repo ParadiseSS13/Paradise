@@ -39,7 +39,7 @@
 			M.unEquip(src)
 		M.put_in_hands(src)
 
-	else if(istype(over_object, /obj/screen))
+	else if(is_screen_atom(over_object))
 		switch(over_object.name)
 			if("r_hand")
 				if(!remove_item_from_storage(M))

@@ -22,7 +22,7 @@
 	allowed_types = list("ripley","firefighter")
 
 /obj/item/paintkit/mercenary
-	name = "\improper mercenary APLU \"Ripley\" kit"
+	name = "mercenary APLU \"Ripley\" kit"
 	desc = "A kit containing all the needed tools and parts to turn an APLU \"Ripley\" into an old Mercenaries APLU."
 	new_name = "APLU \"Strike the Earth!\""
 	new_desc = "Looks like an over worked, under maintained Ripley with some horrific damage."

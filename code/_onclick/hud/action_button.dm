@@ -1,4 +1,4 @@
-/obj/screen/movable/action_button
+/atom/movable/screen/movable/action_button
 	desc = "CTRL-Shift click on this button to bind it to a hotkey."
 	var/datum/action/linked_action
 	var/actiontooltipstyle = ""
@@ -6,7 +6,7 @@
 	var/ordered = TRUE
 	var/datum/keybinding/mob/trigger_action_button/linked_keybind
 
-/obj/screen/movable/action_button/MouseDrop(over_object)
+/atom/movable/screen/movable/action_button/MouseDrop(over_object)
 	if(locked && could_be_click_lag()) // in case something bad happend and game realised we dragged our ability instead of pressing it
 		Click()
 		drag_start = 0
@@ -16,8 +16,8 @@
 		to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
 		closeToolTip(usr)
 		return
-	if((istype(over_object, /obj/screen/movable/action_button) && !istype(over_object, /obj/screen/movable/action_button/hide_toggle)))
-		var/obj/screen/movable/action_button/B = over_object
+	if((istype(over_object, /atom/movable/screen/movable/action_button) && !istype(over_object, /atom/movable/screen/movable/action_button/hide_toggle)))
+		var/atom/movable/screen/movable/action_button/B = over_object
 		var/list/actions = usr.actions
 		actions.Swap(actions.Find(linked_action), actions.Find(B.linked_action))
 		moved = FALSE
@@ -26,13 +26,13 @@
 		B.ordered = TRUE
 		closeToolTip(usr)
 		usr.update_action_buttons()
-	else if(istype(over_object, /obj/screen/movable/action_button/hide_toggle))
+	else if(istype(over_object, /atom/movable/screen/movable/action_button/hide_toggle))
 		closeToolTip(usr)
 	else
 		closeToolTip(usr)
 		return ..()
 
-/obj/screen/movable/action_button/Click(location,control,params)
+/atom/movable/screen/movable/action_button/Click(location, control, params)
 	var/list/modifiers = params2list(params)
 	if(modifiers["ctrl"] && modifiers["shift"])
 		INVOKE_ASYNC(src, PROC_REF(set_to_keybind), usr)
@@ -63,7 +63,7 @@
 	animate(src, transform = matrix(), time = 0.4 SECONDS, alpha = 255)
 	return TRUE
 
-/obj/screen/movable/action_button/proc/set_to_keybind(mob/user)
+/atom/movable/screen/movable/action_button/proc/set_to_keybind(mob/user)
 	var/keybind_to_set_to = uppertext(input(user, "What keybind do you want to set this action button to?") as text)
 	if(keybind_to_set_to)
 		if(linked_keybind)
@@ -78,10 +78,10 @@
 		clean_up_keybinds(user)
 		to_chat(user, "<span class='info'>Your active keybinding on [src] has been cleared.</span>")
 
-/obj/screen/movable/action_button/AltClick(mob/user)
+/atom/movable/screen/movable/action_button/AltClick(mob/user)
 	return linked_action.AltTrigger()
 
-/obj/screen/movable/action_button/proc/clean_up_keybinds(mob/owner)
+/atom/movable/screen/movable/action_button/proc/clean_up_keybinds(mob/owner)
 	if(linked_keybind)
 		owner.client.active_keybindings[linked_keybind.binded_to] -= (linked_keybind)
 		if(!length(owner.client.active_keybindings[linked_keybind.binded_to]))
@@ -90,21 +90,21 @@
 		QDEL_NULL(linked_keybind)
 
 //Hide/Show Action Buttons ... Button
-/obj/screen/movable/action_button/hide_toggle
+/atom/movable/screen/movable/action_button/hide_toggle
 	name = "Hide Buttons"
 	desc = "Shift-click any button to reset its position, and Control-click it to lock/unlock its position. Alt-click this button to reset all buttons to their default positions."
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "bg_default"
 	var/hidden = FALSE
 
-/obj/screen/movable/action_button/hide_toggle/MouseDrop(over_object)
-	if(istype(over_object, /obj/screen/movable/action_button))
+/atom/movable/screen/movable/action_button/hide_toggle/MouseDrop(over_object)
+	if(istype(over_object, /atom/movable/screen/movable/action_button))
 		closeToolTip(usr)
 	else
 		closeToolTip(usr)
 		return ..()
 
-/obj/screen/movable/action_button/hide_toggle/Click(location,control,params)
+/atom/movable/screen/movable/action_button/hide_toggle/Click(location, control, params)
 	var/list/modifiers = params2list(params)
 
 	if(modifiers["alt"])
@@ -121,17 +121,17 @@
 	update_icon(UPDATE_OVERLAYS)
 	usr.update_action_buttons()
 
-/obj/screen/movable/action_button/hide_toggle/AltClick(mob/user)
+/atom/movable/screen/movable/action_button/hide_toggle/AltClick(mob/user)
 	for(var/V in user.actions)
 		var/datum/action/A = V
-		var/obj/screen/movable/action_button/B = A.button
+		var/atom/movable/screen/movable/action_button/B = A.button
 		B.moved = FALSE
 	if(moved)
 		moved = FALSE
 	user.update_action_buttons(TRUE)
 	to_chat(user, "<span class='notice'>Action button positions have been reset.</span>")
 
-/obj/screen/movable/action_button/hide_toggle/proc/InitialiseIcon(mob/living/user)
+/atom/movable/screen/movable/action_button/hide_toggle/proc/InitialiseIcon(mob/living/user)
 	if(isalien(user))
 		icon = 'icons/mob/actions/actions.dmi'
 		icon_state = "bg_alien"
@@ -146,13 +146,13 @@
 		color = user.client.prefs.UI_style_color
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/screen/movable/action_button/hide_toggle/update_overlays()
+/atom/movable/screen/movable/action_button/hide_toggle/update_overlays()
 	. = ..()
 	var/image/img = image(initial(icon), src, hidden ? "show" : "hide")
 	img.appearance_flags = RESET_COLOR | RESET_ALPHA
 	. += img
 
-/obj/screen/movable/action_button/MouseEntered(location, control, params)
+/atom/movable/screen/movable/action_button/MouseEntered(location, control, params)
 	. = ..()
 	if(!QDELETED(src))
 		if(!linked_keybind)
@@ -164,7 +164,7 @@
 			desc_information = desc_information.Join(" ")
 			openToolTip(usr, src, params, title = name, content = desc_information, theme = actiontooltipstyle)
 
-/obj/screen/movable/action_button/MouseExited()
+/atom/movable/screen/movable/action_button/MouseExited()
 	closeToolTip(usr)
 
 /mob/proc/update_action_buttons_icon()
@@ -192,7 +192,7 @@
 			A.override_location() // If the action has a location override, call it
 			A.UpdateButtonIcon()
 
-			var/obj/screen/movable/action_button/B = A.button
+			var/atom/movable/screen/movable/action_button/B = A.button
 			if(B.ordered)
 				button_number++
 			if(!B.moved)
@@ -227,7 +227,7 @@
 
 	return "WEST[coord_col]:[coord_col_offset],NORTH[coord_row]:-6"
 
-/datum/hud/proc/SetButtonCoords(obj/screen/button,number)
+/datum/hud/proc/SetButtonCoords(atom/movable/screen/button,number)
 	var/row = round((number-1)/AB_MAX_COLUMNS)
 	var/col = ((number - 1)%(AB_MAX_COLUMNS)) + 1
 	var/x_offset = 32*(col-1) + 4 + 2*col

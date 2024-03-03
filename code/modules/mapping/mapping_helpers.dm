@@ -66,6 +66,7 @@
 
 /obj/effect/mapping_helpers/no_lava
 	icon_state = "no_lava"
+	layer = ON_EDGED_TURF_LAYER
 
 /obj/effect/mapping_helpers/no_lava/New()
 	var/turf/T = get_turf(src)

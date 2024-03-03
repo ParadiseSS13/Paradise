@@ -26,8 +26,8 @@
 	var/max_combined_w_class = 14
 	/// The number of storage slots in this container.
 	var/storage_slots = 7
-	var/obj/screen/storage/boxes = null
-	var/obj/screen/close/closer = null
+	var/atom/movable/screen/storage/boxes = null
+	var/atom/movable/screen/close/closer = null
 
 	/// Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
 	var/use_to_pickup = FALSE
@@ -59,14 +59,14 @@
 
 	populate_contents()
 
-	boxes = new /obj/screen/storage()
+	boxes = new /atom/movable/screen/storage()
 	boxes.name = "storage"
 	boxes.master = src
 	boxes.icon_state = "block"
 	boxes.screen_loc = "7,7 to 10,8"
 	boxes.layer = HUD_LAYER
 	boxes.plane = HUD_PLANE
-	closer = new /obj/screen/close()
+	closer = new /atom/movable/screen/close()
 	closer.master = src
 	closer.icon_state = "backpack_close"
 	closer.layer = ABOVE_HUD_LAYER
@@ -136,7 +136,7 @@
 		update_icon() // For content-sensitive icons
 		return
 
-	if(!(istype(over_object, /obj/screen)))
+	if(!is_screen_atom(over_object))
 		return ..()
 	if(!(loc == M) || (loc && loc.loc == M))
 		return

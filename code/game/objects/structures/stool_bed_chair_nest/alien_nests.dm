@@ -75,7 +75,7 @@
 		if(istype(hugger_mask) && !hugger_mask.sterile && (locate(/obj/item/organ/internal/body_egg/alien_embryo) in buckled_mob.internal_organs))
 			if(user && !isalien(user))
 				return
-			buckled_mob.throw_alert("ghost_nest", /obj/screen/alert/ghost)
+			buckled_mob.throw_alert("ghost_nest", /atom/movable/screen/alert/ghost)
 			to_chat(buckled_mob, "<span class='ghostalert'>You may now ghost, you keep respawnability in this state. You will be alerted when you're removed from the nest.</span>")
 
 /obj/structure/bed/nest/post_buckle_mob(mob/living/M)
