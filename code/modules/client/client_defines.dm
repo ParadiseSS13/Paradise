@@ -165,7 +165,7 @@
 	/// A cached list of available parallax layers. This may potentially be changeable to a static variable. Updated upon changing parallax prefs
 	var/list/parallax_layers_cached
 	/// Added to parallax layers when parallax settings are changed
-	var/static/list/parallax_static_layers_tail = newlist(/obj/screen/parallax_pmaster, /obj/screen/parallax_space_whitifier)
+	var/static/list/parallax_static_layers_tail = newlist(/atom/movable/screen/parallax_pmaster, /atom/movable/screen/parallax_space_whitifier)
 	/// Used with parallax to update the parallax offsets when the subsystem fires. Compared to the clients Eye variable
 	var/atom/movable/movingmob
 	/// Used with parallax to grab the offset needed. Uses the X and Y coords of the turf stored here
