@@ -53,10 +53,10 @@ SUBSYSTEM_DEF(statpanels)
 		if(target.stat_tab == "Status" && num_fires % status_wait == 0)
 			set_status_tab(target)
 
-		if(!target.holder)
-			target.stat_panel.send_message("remove_mc_tab")
+		if(!target.holder || !(target.prefs?.toggles2 & PREFTOGGLE_2_MC_TAB))
+			target.stat_panel.send_message("remove_mc_tab", !target.holder ? TRUE : FALSE)
 
-		else if(target.mob && check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, target.mob))
+		else if(target.mob && check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, target.mob) && target.prefs?.toggles2 & PREFTOGGLE_2_MC_TAB)
 			if(!("MC" in target.panel_tabs))
 				target.stat_panel.send_message("add_mc_tab", target.holder.href_token)
 

@@ -351,3 +351,11 @@
 	prefs.admin_sound_ckey_ignore -= choice
 	to_chat(usr, "You will now hear sounds from <code>[choice]</code> again.")
 	prefs.save_preferences(src)
+
+/client/proc/toggle_mctabs()
+	set name = "MC Tab"
+	set category = "Preferences.Show/Hide"
+	set desc = "Shows or hides the MC tab."
+	prefs.toggles2 ^= PREFTOGGLE_2_MC_TAB
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_MC_TAB) ? "now" : "no longer"] see the MC tab on the top right.")

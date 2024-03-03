@@ -455,7 +455,7 @@ function remove_listedturf() {
 }
 
 function remove_mc() {
-	removeStatusTab("MC");
+	removePermanentTab("MC");
 	if (current_tab == "MC") {
 		tab_change("Status");
 	}
@@ -729,8 +729,10 @@ Byond.subscribeTo('create_listedturf', function (TN) {
 	tab_change(turfname);
 });
 
-Byond.subscribeTo('remove_mc_tab', function () {
-	href_token = null;
+Byond.subscribeTo('remove_mc_tab', function (removeHref) {
+	if (removeHref) {
+		href_token = null;
+	}
 	remove_mc();
 });
 
