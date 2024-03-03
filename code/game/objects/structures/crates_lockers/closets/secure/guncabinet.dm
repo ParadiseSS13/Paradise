@@ -53,24 +53,4 @@
 			. += "locked"
 
 /obj/structure/closet/secure_closet/guncabinet/cc
-	name = "gun cabinet"
 	req_access = list(ACCESS_CENT_SPECOPS_COMMANDER)
-	icon = 'icons/obj/guncabinet.dmi'
-	icon_state = "base"
-	anchored = TRUE
-
-/obj/structure/closet/secure_closet/guncabinet/toggle()
-	..()
-	update_icon()
-
-/obj/structure/closet/secure_closet/guncabinet/take_contents()
-	..()
-	update_icon()
-
-/obj/structure/closet/secure_closet/guncabinet/emag_act(mob/user)
-	if(!broken)
-		broken = TRUE
-		locked = FALSE
-		to_chat(user, "<span class='notice'>You break the lock on [src].</span>")
-		update_icon()
-		return TRUE
