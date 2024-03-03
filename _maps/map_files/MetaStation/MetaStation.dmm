@@ -84408,6 +84408,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/item/kirbyplants/plant30,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
