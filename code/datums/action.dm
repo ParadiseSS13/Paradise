@@ -12,7 +12,7 @@
 	var/desc = null
 	var/obj/target = null
 	var/check_flags = 0
-	var/obj/screen/movable/action_button/button = null
+	var/atom/movable/screen/movable/action_button/button = null
 	var/button_icon = 'icons/mob/actions/actions.dmi'
 	var/background_icon_state = "bg_default"
 	var/buttontooltipstyle = ""
@@ -129,7 +129,7 @@
 	img.plane = FLOAT_PLANE + 1
 	button.add_overlay(img)
 
-/datum/action/proc/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/proc/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
 	current_button.cut_overlays()
 	if(icon_icon && button_icon_state)
 		var/image/img = image(icon_icon, current_button, button_icon_state)
@@ -165,7 +165,7 @@
 		I.ui_action_click(owner, type, left_click)
 	return TRUE
 
-/datum/action/item_action/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/item_action/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
 	if(use_itemicon)
 		if(target)
 			var/obj/item/I = target
@@ -436,7 +436,7 @@
 		owner.research_scanner = FALSE
 	..()
 
-/datum/action/item_action/toggle_research_scanner/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/item_action/toggle_research_scanner/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
 	current_button.cut_overlays()
 	if(button_icon && button_icon_state)
 		var/image/img = image(button_icon, current_button, "scan_mode")

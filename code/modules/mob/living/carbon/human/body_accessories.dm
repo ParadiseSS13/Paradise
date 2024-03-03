@@ -83,19 +83,22 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 	return ..()
 
 //Tajaran
-/datum/body_accessory/tail/wingler_tail // Jay wingler fluff tail
+/// Jay wingler fluff tail
+/datum/body_accessory/tail/wingler_tail
 	name = "Striped Tail"
 	icon_state = "winglertail"
 	animated_icon_state = "winglertail_a"
 	allowed_species = list("Tajaran")
 
-/datum/body_accessory/tail/tiny //Pretty ambiguous as to what species it belongs to, tail could've been injured or docked.
+/// Pretty ambiguous as to what species it belongs to, tail could've been injured or docked.
+/datum/body_accessory/tail/tiny
 	name = "Tiny Tail"
 	icon_state = "tiny"
 	animated_icon_state = "tiny_a"
 	allowed_species = list("Vulpkanin", "Tajaran")
 
-/datum/body_accessory/tail/short //Same as above.
+/// Same as above.
+/datum/body_accessory/tail/short
 	name = "Short Tail"
 	icon_state = "short"
 	animated_icon_state = "short_a"

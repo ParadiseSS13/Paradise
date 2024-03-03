@@ -189,7 +189,7 @@
 	..()
 	if(crit_fail)
 		return
-	if(owner.stat == UNCONSCIOUS && cooldown == FALSE)
+	if(owner.stat == UNCONSCIOUS && !cooldown)
 		owner.AdjustSleeping(-200 SECONDS)
 		owner.AdjustParalysis(-200 SECONDS)
 		to_chat(owner, "<span class='notice'>You feel a rush of energy course through your body!</span>")
@@ -240,7 +240,8 @@
 	REMOVE_TRAIT(M, TRAIT_COMIC_SANS, "augment")
 	return ..()
 
-/obj/item/organ/internal/cyberimp/brain/speech_translator //actual translating done in human/handle_speech_problems
+// actual translating done in human/handle_speech_problems
+/obj/item/organ/internal/cyberimp/brain/speech_translator
 	name = "Speech translator implant"
 	desc = "While known as a translator, this implant actually generates speech based on the user's thoughts when activated, completely bypassing the need to speak."
 	implant_color = "#C0C0C0"
@@ -303,6 +304,128 @@
 	origin_tech = "materials=6;programming=6;biotech=6"
 	emp_proof = TRUE
 
+/obj/item/organ/internal/cyberimp/brain/hackerman_deck
+	name = "\improper Binyat wireless hacking system"
+	desc = "A rare-to-find neural chip that allows its user to interface with nearby machinery from a distance \
+		and affect it in (usually) beneficial ways. Due to the wireless connection, fine manipulation \
+		isn't possible, however the deck will drop a payload into the target's systems that will attempt \
+		hacking for you."
+	icon_state = "hackerman"
+	implant_overlay = null
+	implant_color = null
+	slot = "brain_antistun"
+	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "materials=4;combat=6;biotech=6;powerstorage=2;syndicate=3"
+	stealth_level = 4 //Only surgery or a body scanner with the highest tier of stock parts can detect this.
+
+/obj/item/organ/internal/cyberimp/brain/hackerman_deck/examine_more(mob/user)
+	. = ..()
+	. += "<i>Considered Cybersun Incorporated's most recent and developed implant system focused on hacking from a range while being undetectable from normal means. \
+	The Binyat Wireless Hacking System (BWHS) is a stealth-built implant that gives its user a rudimentary electronic interface on whatever can be perceived. \
+	It uses a micro jammer to hide its existence from even the most advanced scanning systems.<i>"
+	. += "<i>Originally designed as a hand-held device for long-range testing of Cybersun's electronic security systems, \
+	the easy integration of the components into a neural implant led to a revaluation of the device's potential. \
+	Development would commence to create the first sets of prototypes,  focusing on tricking scanners with no false positives, \
+	and being able to hack from afar. The System does have a major flaw, however, as Cybersun R&D was never able to miniaturize its cooling systems to a practical level. \
+	Repeated use will lead to skin irritation, internal burns, and even severe nerve damage in extreme cases.<i>"
+	. += "<i>As of modern times, the BWHS is heavily vetted under Cybersun Inc. due to its dangerous nature and rather difficult detection. \
+	However, this hasn't stopped the flow of these implants from reaching the black market, whether by inside or outside influences.</i>"
+
+/obj/item/organ/internal/cyberimp/brain/hackerman_deck/insert(mob/living/carbon/M, special = 0)
+	. = ..()
+	add_spell()
+	RegisterSignal(M, COMSIG_BODY_TRANSFER_TO, PROC_REF(on_body_transfer))
+
+/obj/item/organ/internal/cyberimp/brain/hackerman_deck/remove(mob/living/carbon/M, special = 0)
+	. = ..()
+	if(M.mind)
+		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/hackerman_deck)
+	UnregisterSignal(M, COMSIG_BODY_TRANSFER_TO)
+
+/obj/item/organ/internal/cyberimp/brain/hackerman_deck/proc/on_body_transfer()
+	SIGNAL_HANDLER
+	for(var/datum/action/A in owner.actions)
+		if(A.name == "Activate Ranged Hacking") //Bit snowflake, but the action doesn't remove right otherwise
+			A.Remove(owner)
+	addtimer(CALLBACK(src, PROC_REF(add_spell)), 1 SECONDS) //Give the mind a moment to settle in
+	add_spell()
+
+/obj/item/organ/internal/cyberimp/brain/hackerman_deck/proc/add_spell()
+	if(owner.mind)
+		owner.mind.RemoveSpell(/obj/effect/proc_holder/spell/hackerman_deck) //Just to be sure.
+		owner.mind.AddSpell(new /obj/effect/proc_holder/spell/hackerman_deck(null))
+
+/obj/item/organ/internal/cyberimp/brain/hackerman_deck/emp_act(severity)
+	owner.adjustStaminaLoss(40 / severity)
+	owner.adjust_bodytemperature(400 / severity)
+	to_chat(owner, "<span class='warning'>Your [name] heats up drastically!</span>")
+	return TRUE
+
+/obj/effect/proc_holder/spell/hackerman_deck
+	name = "Activate Ranged Hacking"
+	desc = "Click on any machine to hack them. Has a short range of only three tiles."
+	base_cooldown = 10 SECONDS
+	clothes_req = FALSE
+	invocation = "none"
+	invocation_type = "none"
+	selection_activated_message = "You warm up your Binyat deck, there's an idle buzzing at the back of your mind as it awaits a target."
+	selection_deactivated_message = "Your hacking deck makes an almost disappointed sounding buzz at the back of your mind as it powers down."
+	action_icon_state = "hackerman"
+	action_background_icon_state = "bg_pulsedemon"
+	/// How many times have we successfully hacked in the last minute? Increases burn damage by 3 for each value above 0.
+	var/recent_hacking = 0
+
+/obj/effect/proc_holder/spell/hackerman_deck/create_new_targeting()
+	var/datum/spell_targeting/clicked_atom/C = new()
+	C.range = 3
+	C.try_auto_target = FALSE
+	return C
+
+/obj/effect/proc_holder/spell/hackerman_deck/on_mind_transfer(mob/living/L)
+	if(!ishuman(L))
+		return FALSE
+	var/mob/living/carbon/human/H = L
+	var/obj/item/organ/internal/cyberimp/brain/hackerman_deck/our_deck = H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/hackerman_deck)
+	if(!our_deck)
+		return FALSE
+	return TRUE
+
+/obj/effect/proc_holder/spell/hackerman_deck/cast(list/targets, mob/user)
+	var/atom/target = targets[1]
+	if(get_dist(user, target) > 3) //fucking cameras holy shit
+		to_chat(user, "<span class='warning'>Your implant is not robust enough to hack at that distance!</span>")
+		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.3)
+		return
+	if(istype(user.loc, /obj/machinery/atmospherics)) //Come now, no emaging all the doors on station from a pipe
+		to_chat(user, "<span class='warning'>Your implant is unable to get a lock on anything in the pipes!</span>")
+		return
+
+	var/beam = user.Beam(target, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
+
+	user.visible_message("<span class='warning'>[user] makes an unusual buzzing sound as the air between them and [target] crackles.</span>", \
+			"<span class='warning'>The air between you and [target] begins to crackle audibly as the Binyat gets to work and heats up in your head!</span>")
+
+	if(!do_after(user, 3 SECONDS, target))
+		qdel(beam)
+		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.3)
+		return
+
+	if(!target.emag_act(user))
+		to_chat(user, "<span class='warning'>You are unable to hack this!</span>")
+		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.3)
+		return
+
+	target.add_hiddenprint(user)
+
+	playsound(target, 'sound/machines/terminal_processing.ogg', 15, TRUE)
+
+	var/mob/living/carbon/human/human_owner = user
+	human_owner.adjustFireLoss(5 + (recent_hacking * 3))
+	recent_hacking++
+	addtimer(CALLBACK(src, PROC_REF(lower_recent_hacking)), 1 MINUTES)
+
+/obj/effect/proc_holder/spell/hackerman_deck/proc/lower_recent_hacking()
+	recent_hacking--
 
 //[[[[MOUTH]]]]
 /obj/item/organ/internal/cyberimp/mouth

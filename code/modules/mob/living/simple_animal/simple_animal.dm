@@ -139,6 +139,9 @@
 	/// Can this simple mob crawl or not? If FALSE, it won't get immobilized by crawling
 	var/can_crawl = FALSE
 
+	/// Health of the mob before being admin-frozen, restored afterwards
+	var/admin_prev_health = null
+
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src
@@ -301,20 +304,20 @@
 
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 		atmos_suitable = 0
-		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 	else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
 		atmos_suitable = 0
-		throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
+		throw_alert("too_much_oxy", /atom/movable/screen/alert/too_much_oxy)
 	else
 		clear_alert("not_enough_oxy")
 		clear_alert("too_much_oxy")
 
 	if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
 		atmos_suitable = 0
-		throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
+		throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
 	else if(atmos_requirements["max_tox"] && tox > atmos_requirements["max_tox"])
 		atmos_suitable = 0
-		throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
+		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
 	else
 		clear_alert("too_much_tox")
 		clear_alert("not_enough_tox")
@@ -373,9 +376,9 @@
 		return TRUE
 
 /mob/living/simple_animal/proc/drop_loot()
-	if(loot.len)
-		for(var/i in loot)
-			new i(loc)
+	if(length(loot))
+		for(var/item in loot)
+			new item(get_turf(src))
 
 /mob/living/simple_animal/revive()
 	..()

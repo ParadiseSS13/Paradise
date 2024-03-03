@@ -460,6 +460,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			target.vars[type] += amount //I bear no responsibility for the runtimes that'll happen if you try to adjust non-numeric or even non-existant vars
 	return
 
+///This proc is ran when a mind is transfered to a new mob. Tells it if the action should be transfered on return true, and tells it not to remove it on false
+/obj/effect/proc_holder/spell/proc/on_mind_transfer(mob/living/L)
+	return TRUE
+
 /obj/effect/proc_holder/spell/aoe
 	name = "Spell"
 	create_attack_logs = FALSE

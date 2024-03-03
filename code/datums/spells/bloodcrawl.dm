@@ -54,7 +54,8 @@
 	icon = 'icons/effects/blood.dmi'
 	flags = NODROP|ABSTRACT
 
-/obj/effect/dummy/slaughter //Can't use the wizard one, blocked by jaunt/slow
+/// Can't use the wizard one, blocked by jaunt/slow
+/obj/effect/dummy/slaughter
 	name = "odd blood"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"

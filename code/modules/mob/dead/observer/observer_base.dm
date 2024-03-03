@@ -35,6 +35,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	///toggle for ghost gas analyzer
 	var/gas_analyzer = FALSE
 	var/datum/orbit_menu/orbit_menu
+	/// The "color" their runechat would have had
+	var/alive_runechat_color = "#FFFFFF"
 
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -59,6 +61,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(ismob(body))
 		T = get_turf(body)				//Where is the body located?
 		attack_log_old = body.attack_log_old	//preserve our attack logs by copying them to our ghost
+		alive_runechat_color = body.get_runechat_color()
 
 		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
@@ -229,7 +232,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(warningmsg)
 		var/response
 		var/alertmsg = "Are you -sure- you want to ghost?\n([warningmsg]. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
-		response = alert(src, alertmsg,"Are you sure you want to ghost?","Stay in body","Ghost")
+		response = tgui_alert(src, alertmsg, "Ghost", list("Stay in body", "Ghost"))
 		if(response != "Ghost")
 			return
 
@@ -311,7 +314,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(message)
 		to_chat(src, "<span class='ghostalert'>[message]</span>")
 		if(source)
-			var/obj/screen/alert/A = throw_alert("\ref[source]_notify_cloning", /obj/screen/alert/notify_cloning)
+			var/atom/movable/screen/alert/A = throw_alert("\ref[source]_notify_cloning", /atom/movable/screen/alert/notify_cloning)
 			if(A)
 				if(client && client.prefs && client.prefs.UI_style)
 					A.icon = ui_style2icon(client.prefs.UI_style)
@@ -398,7 +401,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='warning'>Your body is still alive!</span>")
 		return
 
-	var/choice = alert(src, "If you enable this, your body will be unrevivable for the remainder of the round.", "Are you sure?", "Yes", "No")
+	var/choice = tgui_alert(src, "If you enable this, your body will be unrevivable for the remainder of the round.", "Do Not Revive!", list("Yes", "No"))
 	if(choice == "Yes")
 		to_chat(src, "<span class='boldnotice'>Do Not Revive state enabled.</span>")
 		create_log(MISC_LOG, "DNR Enabled")
@@ -415,7 +418,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!isobserver(usr))
 		to_chat(usr, "Not when you're not dead!")
 		return
-	var/target = input("Area to teleport to", "Teleport to a location") as null|anything in SSmapping.ghostteleportlocs
+	var/target = tgui_input_list(usr, "Area to teleport to", "Teleport to a location", SSmapping.ghostteleportlocs)
 	teleport(SSmapping.ghostteleportlocs[target])
 
 /mob/dead/observer/proc/jump_to_ruin()
@@ -846,3 +849,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return allow_roundstart_observers
 	return FALSE
 
+
+/mob/dead/observer/get_runechat_color()
+	return alive_runechat_color

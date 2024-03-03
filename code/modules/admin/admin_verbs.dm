@@ -284,6 +284,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
+		if(is_connecting_from_localhost())
+			verbs += /client/proc/export_current_character
+
 
 /client/proc/remove_admin_verbs()
 	verbs.Remove(
@@ -527,16 +530,16 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		if("Big Bomb")
 			explosion(epicenter, 3, 5, 7, 5)
 		if("Custom Bomb")
-			var/devastation_range = input("Devastation range (in tiles):") as null|num
+			var/devastation_range = tgui_input_number(src, "Devastation range (in tiles):", "Custom Bomb", max_value = 255)
 			if(devastation_range == null)
 				return
-			var/heavy_impact_range = input("Heavy impact range (in tiles):") as null|num
+			var/heavy_impact_range = tgui_input_number(src, "Heavy impact range (in tiles):", "Custom Bomb", max_value = 255)
 			if(heavy_impact_range == null)
 				return
-			var/light_impact_range = input("Light impact range (in tiles):") as null|num
+			var/light_impact_range = tgui_input_number(src, "Light impact range (in tiles):", "Custom Bomb", max_value = 255)
 			if(light_impact_range == null)
 				return
-			var/flash_range = input("Flash range (in tiles):") as null|num
+			var/flash_range = tgui_input_number(src, "Flash range (in tiles):", "Custom Bomb", max_value = 255)
 			if(flash_range == null)
 				return
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1)
@@ -642,6 +645,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		GLOB.de_mentors += ckey
 	deadmin()
 	verbs += /client/proc/readmin
+	update_active_keybindings()
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -731,6 +735,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 		var/client/C = GLOB.directory[ckey]
 		D.associate(C)
+		update_active_keybindings()
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
 		GLOB.de_admins -= ckey
@@ -950,3 +955,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, 1)
 			log_admin("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
 			message_admins("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+
+
+/client/proc/export_current_character()
+	set name = "Export Character DMI/JSON"
+	set category = "Admin"
+
+	if(ishuman(mob))
+		var/mob/living/carbon/human/H = mob
+		H.export_dmi_json()

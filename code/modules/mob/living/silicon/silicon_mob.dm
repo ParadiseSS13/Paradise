@@ -337,7 +337,7 @@
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
 
-	pose =  sanitize(copytext(input(usr, "This is [src]. It...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+	pose = tgui_input_text(usr, "This is [src]. It...", "Pose", pose)
 
 /mob/living/silicon/verb/set_flavor()
 	set name = "Set Flavour Text"
@@ -409,7 +409,7 @@
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access
 
-/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash/noise)
+/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash/noise)
 	if(affect_silicon)
 		return ..()
 

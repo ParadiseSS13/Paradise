@@ -728,7 +728,7 @@
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = M.get_int_organ(/obj/item/organ/internal/eyes)
 
-	var/new_gender = alert(user, "Please select gender.", "Character Generation", "Male", "Female")
+	var/new_gender = tgui_alert(user, "Please select gender.", "Character Generation", list("Male", "Female"))
 	if(new_gender)
 		if(new_gender == "Male")
 			M.change_gender(MALE)
@@ -744,13 +744,13 @@
 		//Alt heads.
 		if(head_organ.dna.species.bodyflags & HAS_ALT_HEADS)
 			var/list/valid_alt_heads = M.generate_valid_alt_heads()
-			var/new_alt_head = input("Please select alternate head", "Character Generation", head_organ.alt_head) as null|anything in valid_alt_heads
+			var/new_alt_head = tgui_input_list(user, "Please select alternate head", "Character Generation", valid_alt_heads)
 			if(new_alt_head)
 				M.change_alt_head(new_alt_head)
 
 		// hair
 		var/list/valid_hairstyles = M.generate_valid_hairstyles()
-		var/new_style = input("Please select hair style", "Character Generation", head_organ.h_style) as null|anything in valid_hairstyles
+		var/new_style = tgui_input_list(user, "Please select hair style", "Character Generation", valid_hairstyles)
 
 		// if new style selected (not cancel)
 		if(new_style)
@@ -768,7 +768,7 @@
 
 		// facial hair
 		var/list/valid_facial_hairstyles = M.generate_valid_facial_hairstyles()
-		new_style = input("Please select facial style", "Character Generation", head_organ.f_style) as null|anything in valid_facial_hairstyles
+		new_style = tgui_input_list(user, "Please select facial style", "Character Generation", valid_facial_hairstyles)
 
 		if(new_style)
 			M.change_facial_hair(new_style)
@@ -786,7 +786,7 @@
 		//Head accessory.
 		if(head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
 			var/list/valid_head_accessories = M.generate_valid_head_accessories()
-			var/new_head_accessory = input("Please select head accessory style", "Character Generation", head_organ.ha_style) as null|anything in valid_head_accessories
+			var/new_head_accessory = tgui_input_list(user, "Please select head accessory style", "Character Generation", valid_head_accessories)
 			if(new_head_accessory)
 				M.change_head_accessory(new_head_accessory)
 
@@ -798,8 +798,8 @@
 	//Body accessory.
 	if((M.dna.species.tail && M.dna.species.bodyflags & (HAS_TAIL)) || (M.dna.species.wing && M.dna.species.bodyflags & (HAS_WING)))
 		var/list/valid_body_accessories = M.generate_valid_body_accessories()
-		if(valid_body_accessories.len > 1) //By default valid_body_accessories will always have at the very least a 'none' entry populating the list, even if the user's species is not present in any of the list items.
-			var/new_body_accessory = input("Please select body accessory style", "Character Generation", M.body_accessory) as null|anything in valid_body_accessories
+		if(length(valid_body_accessories) > 1) //By default valid_body_accessories will always have at the very least a 'none' entry populating the list, even if the user's species is not present in any of the list items.
+			var/new_body_accessory = tgui_input_list(user, "Please select body accessory style", "Character Generation", valid_body_accessories)
 			if(new_body_accessory)
 				M.change_body_accessory(new_body_accessory)
 
@@ -807,7 +807,7 @@
 		//Head markings.
 		if(M.dna.species.bodyflags & HAS_HEAD_MARKINGS)
 			var/list/valid_head_markings = M.generate_valid_markings("head")
-			var/new_marking = input("Please select head marking style", "Character Generation", M.m_styles["head"]) as null|anything in valid_head_markings
+			var/new_marking = tgui_input_list(user, "Please select head marking style", "Character Generation", valid_head_markings)
 			if(new_marking)
 				M.change_markings(new_marking, "head")
 
@@ -818,7 +818,7 @@
 	//Body markings.
 	if(M.dna.species.bodyflags & HAS_BODY_MARKINGS)
 		var/list/valid_body_markings = M.generate_valid_markings("body")
-		var/new_marking = input("Please select body marking style", "Character Generation", M.m_styles["body"]) as null|anything in valid_body_markings
+		var/new_marking = tgui_input_list(user, "Please select body marking style", "Character Generation", valid_body_markings)
 		if(new_marking)
 			M.change_markings(new_marking, "body")
 
@@ -828,7 +828,7 @@
 	//Tail markings.
 	if(M.dna.species.bodyflags & HAS_TAIL_MARKINGS)
 		var/list/valid_tail_markings = M.generate_valid_markings("tail")
-		var/new_marking = input("Please select tail marking style", "Character Generation", M.m_styles["tail"]) as null|anything in valid_tail_markings
+		var/new_marking = tgui_input_list("Please select tail marking style", "Character Generation", valid_tail_markings)
 		if(new_marking)
 			M.change_markings(new_marking, "tail")
 
@@ -912,11 +912,10 @@
 	if(user.mind?.miming) // Dont let mimes telepathically talk
 		to_chat(user,"<span class='warning'>You can't communicate without breaking your vow of silence.</span>")
 		return
-	var/say = input("What do you wish to say") as text|null
+	var/say = tgui_input_text(user, "What do you wish to say?", "Project Mind")
 	if(!say || usr.stat)
 		return
-	say = strip_html(say)
-	say = pencode_to_html(say, usr, format = 0, fields = 0)
+	say = pencode_to_html(say, usr, format = FALSE, fields = FALSE)
 
 	for(var/mob/living/target in targets)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
@@ -971,11 +970,10 @@
 		if(!(target in available_targets))
 			return
 		available_targets -= target
-		var/say = input("What do you wish to say") as text|null
+		var/say = tgui_input_text(user, "What do you wish to say?", "Scan Mind")
 		if(!say)
 			return
-		say = strip_html(say)
-		say = pencode_to_html(say, target, format = 0, fields = 0)
+		say = pencode_to_html(say, target, format = FALSE, fields = FALSE)
 		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))

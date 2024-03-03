@@ -221,6 +221,7 @@
 		add_attack_logs(user, target, "Disposal'ed", !!target.ckey ? null : ATKLOG_ALL)
 	else
 		return
+	QDEL_LIST_CONTENTS(target.grabbed_by)
 	target.forceMove(src)
 
 	for(var/mob/C in viewers(src))
@@ -546,7 +547,7 @@
 
 /obj/machinery/disposal/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
 /obj/machinery/disposal/force_eject_occupant(mob/target)
 	target.forceMove(get_turf(src))
@@ -1446,9 +1447,9 @@
 /obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/I)
 	add_fingerprint(user)
 
-	if(mode == FALSE)
+	if(!mode)
 		to_chat(user, "<span class='notice'>You remove the screws around the power connection.</span>")
-	else if(mode == TRUE)
+	else if(mode)
 		to_chat(user, "<span class='notice'>You attach the screws around the power connection.</span>")
 	I.play_tool_sound(src)
 	mode = !mode

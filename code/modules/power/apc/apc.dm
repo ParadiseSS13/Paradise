@@ -1026,6 +1026,7 @@
 			locked = FALSE
 			to_chat(user, "You emag the APC interface.")
 			update_icon()
+			return TRUE
 
 /obj/machinery/power/apc/proc/apc_short()
 	// if it has internal wires, cut the power wires
@@ -1062,26 +1063,11 @@
 /obj/machinery/power/apc/off_station/empty_charge
 	start_charge = 0
 
-/obj/machinery/power/apc/syndicate //general syndicate access
+/// general syndicate access
+/obj/machinery/power/apc/syndicate
 	name = "Main branch, do not use"
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
-
-/obj/machinery/power/apc/syndicate/north
-	name = "north bump"
-	pixel_y = 24
-
-/obj/machinery/power/apc/syndicate/south
-	name = "south bump"
-	pixel_y = -24
-
-/obj/machinery/power/apc/syndicate/east
-	name = "east bump"
-	pixel_x = 24
-
-/obj/machinery/power/apc/syndicate/west
-	name = "west bump"
-	pixel_x = -24
 
 /obj/machinery/power/apc/syndicate/off
 	name = "APC off"
@@ -1093,6 +1079,22 @@
 /obj/machinery/power/apc/syndicate/off/Initialize(mapload)
 	. = ..()
 	cell.charge = 0
+
+/obj/machinery/power/apc/important
+	cell_type = 10000
+
+/obj/machinery/power/apc/critical
+	cell_type = 25000
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate/off, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/important, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/critical, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/off_station, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/off_station/empty_charge, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/worn_out, 24, 24)
+
 
 /obj/item/apc_electronics
 	name = "APC electronics"

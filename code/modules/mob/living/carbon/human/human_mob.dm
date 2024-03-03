@@ -293,9 +293,6 @@
 	if(!. && istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
 		. = wear_suit
 
-/mob/living/carbon/human/var/temperature_resistance = T0C+75
-
-
 /mob/living/carbon/human/show_inv(mob/user)
 	user.set_machine(src)
 	var/has_breathable_mask = istype(wear_mask, /obj/item/clothing/mask) || get_organ_slot("breathing_tube")
@@ -767,7 +764,7 @@
 	if(href_list["secrecordadd"])
 		if(usr.incapacitated() || !hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
 			return
-		var/raw_input = input("Add Comment:", "Security records", null, null) as message
+		var/raw_input = tgui_input_text(usr, "Add Comment:", "Security records", multiline = TRUE, encode = FALSE)
 		var/sanitized = copytext(trim(sanitize(raw_input)), 1, MAX_MESSAGE_LEN)
 		if(!sanitized || usr.stat || usr.restrained() || !hasHUD(usr,  EXAMINE_HUD_SECURITY_WRITE))
 			return
@@ -868,7 +865,7 @@
 	if(href_list["medrecordadd"])
 		if(usr.incapacitated() || !hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 			return
-		var/raw_input = input("Add Comment:", "Medical records", null, null) as message
+		var/raw_input = tgui_input_text(usr, "Add Comment:", "Medical records", multiline = TRUE, encode = FALSE)
 		var/sanitized = copytext(trim(sanitize(raw_input)), 1, MAX_MESSAGE_LEN)
 		if(!sanitized || usr.stat || usr.restrained() || !hasHUD(usr,  EXAMINE_HUD_MEDICAL_WRITE))
 			return
@@ -1257,6 +1254,46 @@
 	sec_hud_set_ID()
 
 
+
+/mob/living/carbon/human/proc/export_dmi_json()
+	var/filename = clean_input("filename", "filename", "my_character")
+
+	if(filename == "")
+		return
+
+	var/maxCount = 10
+	var/curCount = 0
+	var/dmipath = "data/exports/characters/[filename].dmi"
+	log_world("saving icon to [filename]")
+	var/icon/allDirs = null
+
+	var/list/directions = list(SOUTH, NORTH, EAST, WEST)
+	for(var/d in directions)
+		var/icon/new_icon
+		for(var/i = 0; i < maxCount; i++)
+			sleep(5)
+			curCount = i
+			new_icon = getFlatIcon(src, defdir=d)
+			if(new_icon != null)
+				break
+
+		if(new_icon == null)
+			log_world("ran [curCount] times and could not find icon")
+		else
+			log_world("ran [curCount] times and found icon")
+			if(allDirs == null)
+				allDirs = icon(new_icon, "", d)
+			else
+				allDirs.Insert(new_icon, "", d)
+
+	fcopy(allDirs, dmipath)
+	log_world("saved icon to [dmipath]")
+
+	var/jsonpath = "data/exports/characters/[filename].json"
+	var/json = json_encode(serialize())
+	text2file(json, jsonpath)
+	log_world("saved json to [jsonpath]")
+
 /**
  * Change a mob's species.
  *
@@ -1490,7 +1527,9 @@
 		return
 
 	var/turf/origin = T
-	var/direction = input(src,"Which way?","Tile selection") as anything in list("Here","North","South","East","West")
+	var/direction = tgui_input_list(src, "Which direction?", "Tile selection", list("Here", "North", "South", "East", "West"))
+	if(!direction)
+		return
 	if(direction != "Here")
 		T = get_step(T,text2dir(direction))
 	if(!istype(T))
@@ -1506,7 +1545,7 @@
 
 	var/max_length = bloody_hands * 30 //tweeter style
 
-	var/message = stripped_input(src,"Write a message. It cannot be longer than [max_length] characters.","Blood writing", "")
+	var/message = tgui_input_text(src, "Write a message. It cannot be longer than [max_length] characters.", "Blood writing", max_length = max_length)
 	if(origin != loc)
 		to_chat(src, "<span class='notice'>Stay still while writing!</span>")
 		return
@@ -1559,7 +1598,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return FALSE
 
 /mob/living/carbon/human/assess_threat(mob/living/simple_animal/bot/secbot/judgebot, lasercolor)
-	if(judgebot.emagged == 2)
+	if(judgebot.emagged)
 		return 10 //Everyone is a criminal!
 
 	var/threatcount = 0
@@ -2146,7 +2185,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(stat)
 		return
 
-	pose = sanitize(copytext(input(usr, "This is [src]. [p_they(TRUE)]...", "Pose", null) as text, 1, MAX_MESSAGE_LEN))
+	pose = tgui_input_text(usr, "This is [src]. [p_they(TRUE)]...", "Pose")
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Set Flavour Text"

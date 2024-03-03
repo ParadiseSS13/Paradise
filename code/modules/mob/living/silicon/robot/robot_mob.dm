@@ -19,15 +19,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/custom_sprite = FALSE //Due to all the sprites involved, a var for our custom borgs may be best
 
 	//Hud stuff
-	var/obj/screen/hands = null
-	var/obj/screen/inv1 = null
-	var/obj/screen/inv2 = null
-	var/obj/screen/inv3 = null
-	var/obj/screen/lamp_button = null
-	var/obj/screen/thruster_button = null
+	var/atom/movable/screen/hands = null
+	var/atom/movable/screen/inv1 = null
+	var/atom/movable/screen/inv2 = null
+	var/atom/movable/screen/inv3 = null
+	var/atom/movable/screen/lamp_button = null
+	var/atom/movable/screen/thruster_button = null
 
 	var/shown_robot_modules = FALSE	//Used to determine whether they have the module menu shown or not
-	var/obj/screen/robot_modules_background
+	var/atom/movable/screen/robot_modules_background
 
 	//3 Modules can be activated at any one time.
 	var/obj/item/robot_module/module = null
@@ -990,6 +990,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else if(locked)
 			to_chat(user, "You emag the cover lock.")
 			locked = FALSE
+			return TRUE
 		else
 			to_chat(user, "The cover is already unlocked.")
 		return
@@ -1045,7 +1046,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				update_module_icon()
 				module.rebuild_modules() // This will add the emagged items to the borgs inventory.
 			update_icons()
-		return
+		return TRUE
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
 	set category = "Robot Commands"
@@ -1053,7 +1054,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set desc = "Toggles the lock on your cover."
 
 	if(can_lock_cover)
-		if(alert("Are you sure?", locked ? "Unlock Cover" : "Lock Cover", "Yes", "No") == "Yes")
+		if(tgui_alert(usr, "Are you sure?", locked ? "Unlock Cover" : "Lock Cover", list("Yes", "No")) == "Yes")
 			locked = !locked
 			update_icons()
 			to_chat(usr, "<span class='notice'>You [locked ? "lock" : "unlock"] your cover.</span>")
@@ -1061,7 +1062,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!locked)
 		to_chat(usr, "<span class='warning'>You cannot lock your cover yourself. Find a roboticist.</span>")
 		return
-	if(alert("You cannnot lock your own cover again. Are you sure?\n           You will need a roboticist to re-lock you.", "Unlock Own Cover", "Yes", "No") == "Yes")
+	if(tgui_alert(usr, "You cannnot lock your own cover again. Are you sure?\nYou will need a roboticist to re-lock you.", "Unlock Own Cover", list("Yes", "No")) == "Yes")
 		locked = !locked
 		update_icons()
 		to_chat(usr, "<span class='notice'>You unlock your cover.</span>")
@@ -1285,7 +1286,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/mode()
 	set name = "Activate Held Object"
 	set category = "IC"
-	set src = usr
 
 	var/obj/item/W = get_active_hand()
 	if(W)
@@ -1296,7 +1296,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(wires.is_cut(WIRE_BORG_LOCKED))
 		state = 1
 	if(state)
-		throw_alert("locked", /obj/screen/alert/locked)
+		throw_alert("locked", /atom/movable/screen/alert/locked)
 	else
 		clear_alert("locked")
 	lockcharge = state

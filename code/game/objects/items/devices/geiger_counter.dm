@@ -4,7 +4,8 @@
 #define RAD_LEVEL_VERY_HIGH 800
 #define RAD_LEVEL_CRITICAL 1500
 
-/obj/item/geiger_counter //DISCLAIMER: I know nothing about how real-life Geiger counters work. This will not be realistic. ~Xhuis
+/// DISCLAIMER: I know nothing about how real-life Geiger counters work. This will not be realistic. ~Xhuis
+/obj/item/geiger_counter
 	name = "\improper Geiger counter"
 	desc = "A handheld device used for detecting and measuring radiation pulses."
 	icon = 'icons/obj/device.dmi'
@@ -181,6 +182,7 @@
 		return
 	to_chat(user, "<span class='warning'>You override [src]'s radiation storing protocols. It will now generate small doses of radiation, and stored rads are now projected into creatures you scan.</span>")
 	emagged = TRUE
+	return TRUE
 
 
 

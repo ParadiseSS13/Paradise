@@ -193,7 +193,7 @@
 					healths.icon_state = "slime_health7"
 					severity = 6
 			if(severity > 0)
-				overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+				overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 			else
 				clear_fullscreen("brute")
 
@@ -250,7 +250,7 @@
 	if(!Proj)
 		return
 	attacked += 10
-	if((Proj.damage_type == BURN))
+	if(Proj.damage_type == BURN)
 		adjustBruteLoss(-abs(Proj.damage)) //fire projectiles heals slimes.
 		Proj.on_hit(src)
 	else

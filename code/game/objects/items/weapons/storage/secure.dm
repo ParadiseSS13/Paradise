@@ -84,6 +84,7 @@
 			to_chat(user, "You slice through the lock on [src].")
 		else
 			to_chat(user, "You short out the lock on [src].")
+			return TRUE
 
 /obj/item/storage/secure/AltClick(mob/user)
 	if(!try_to_open())
