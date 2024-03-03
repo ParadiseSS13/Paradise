@@ -513,9 +513,10 @@
   * Returns boolean reflecting if a hat was succesfully placed on the silicon.
   */
 /mob/living/silicon/proc/place_on_head(obj/item/item_to_add, mob/user)
+	if(flags_2 & HOLOGRAM_2)
+		return FALSE
+	
 	if(!item_to_add)
-		if(flags_2 & HOLOGRAM_2)
-			return FALSE
 		user.visible_message(
 			"<span class='notice'>[user] pats [src] on the head.</span>",
 			"<span class='notice'>You pat [src] on the head.</span>")
