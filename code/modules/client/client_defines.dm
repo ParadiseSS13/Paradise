@@ -54,7 +54,7 @@
 
 	preload_rsc = 0 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
 
-	var/obj/screen/click_catcher/void
+	var/atom/movable/screen/click_catcher/void
 
 	var/ip_intel = "Disabled"
 
@@ -64,7 +64,7 @@
 	var/datum/tooltip/tooltips
 
 	// Overlay for showing debug info
-	var/obj/screen/debugtextholder/debug_text_overlay
+	var/atom/movable/screen/debugtextholder/debug_text_overlay
 
 	/// Persistent storage for the flavour text of examined atoms.
 	var/list/description_holders = list()

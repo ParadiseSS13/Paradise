@@ -133,3 +133,5 @@ GLOBAL_LIST_INIT(turfs_pass_meteor, typecacheof(list(
 )))
 
 #define ispassmeteorturf(A) (is_type_in_typecache(A, GLOB.turfs_pass_meteor))
+
+#define is_screen_atom(A) istype(A, /atom/movable/screen)

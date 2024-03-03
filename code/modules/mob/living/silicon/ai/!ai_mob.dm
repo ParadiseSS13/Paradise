@@ -1545,7 +1545,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	SEND_SOUND(src, sound('sound/machines/ai_start.ogg'))
 
-	var/obj/screen/text/blurb/location_blurb = new()
+	var/atom/movable/screen/text/blurb/location_blurb = new()
 	location_blurb.maptext_x = 80
 	location_blurb.maptext_y = 16
 	location_blurb.maptext_width = 480

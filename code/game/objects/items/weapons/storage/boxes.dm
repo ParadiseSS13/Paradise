@@ -1126,7 +1126,8 @@
 /obj/item/storage/box/stockparts
 	display_contents_with_number = TRUE
 
-/obj/item/storage/box/stockparts/basic //for ruins where it's a bad idea to give access to an autolathe/protolathe, but still want to make stock parts accessible
+/// for ruins where it's a bad idea to give access to an autolathe/protolathe, but still want to make stock parts accessible
+/obj/item/storage/box/stockparts/basic
 	name = "box of stock parts"
 	desc = "Contains a variety of basic stock parts."
 
