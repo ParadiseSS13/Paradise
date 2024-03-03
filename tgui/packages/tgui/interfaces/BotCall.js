@@ -124,7 +124,7 @@ export const BotCall = (props, context) => {
 
 const SecuritronView = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { secbot } = data;
+  const { bots } = data;
   return (
     <Box>
       <Table m="0.5rem">
@@ -136,8 +136,8 @@ const SecuritronView = (_properties, context) => {
           <Table.Cell>Interface</Table.Cell>
           <Table.Cell>Call</Table.Cell>
         </Table.Row>
-        {secbot.map((bot) => (
-          <Table.Row key="secbot">
+        {bots.map((bot) => (
+          <Table.Row key={bot.model}>
             <TableCell>{bot.name ? bot.name : bot.model}</TableCell>
             <TableCell>{bot.model}</TableCell>
             <TableCell>{BotStatus(bot.status)}</TableCell>

@@ -10,7 +10,7 @@
 	var/list/floorbot = list()
 	var/list/mule = list()
 	var/list/misc = list()
-
+/*
 /datum/ui_module/botcall/proc/bot_sort()
 	for(bot in GLOB.bots_list)
 		switch(bot.model)
@@ -26,7 +26,7 @@
 				mule += bot.bot_sorted_list(bot)
 			if(HONK_BOT)
 				misc += bot.bot_sorted_list(bot)
-
+*/
 
 /datum/ui_module/botcall/ui_interact(mob/user)
 	return GLOB.default_state
@@ -40,9 +40,8 @@
 
 /datum/ui_module/botcall/ui_data(mob/user)
 	var/list/data = ..()
-	var/data = list()
 	data["bots"] = list()
-	for(bot in GLOB.bot)
+	for(bot in GLOB.bots_list)
 		if(!(bot.model in data["bots"]))
 			data["bots"][bot.model] = list()
 		data["bots"][bot.model] += bot.get_bot_data()
