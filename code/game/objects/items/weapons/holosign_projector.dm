@@ -93,6 +93,16 @@
 	holosign_type = /obj/structure/holosign/barrier
 	creation_time = 30
 
+/obj/item/holosign_creator/detective
+	name = "detective holobarrier projector"
+	desc = "A holographic projector that creates shocked security barriers."
+	icon_state = "signmaker_sec"
+	belt_icon = null
+	holosign_type = /obj/structure/holosign/barrier/cyborg/hacked/detective
+	creation_time = 10
+	max_signs = 8
+
+
 /obj/item/holosign_creator/engineering
 	name = "engineering holobarrier projector"
 	desc = "A holographic projector that creates holographic engineering barriers."
