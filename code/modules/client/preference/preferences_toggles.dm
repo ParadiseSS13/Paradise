@@ -274,16 +274,6 @@
 	if(user.prefs.sound & ~SOUND_DISCO)
 		usr.stop_sound_channel(CHANNEL_JUKEBOX)
 
-/datum/preference_toggle/toggle_popup_limiter
-	name = "Toggle Text Popup Limiter"
-	description = "Will let you limit the text input popups to one at a time"
-	preftoggle_bitflag = PREFTOGGLE_TYPING_ONCE
-	preftoggle_toggle = PREFTOGGLE_TOGGLE1
-	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "Text popup limiting is now enabled."
-	disable_message = "Text popup limiting is now disabled."
-	blackbox_message = "Toggle Text Popup Limiter"
-
 /datum/preference_toggle/toggle_ghost_pda
 	name = "Toggle Ghost PDA messages"
 	description = "Toggle seeing PDA messages as an observer"
@@ -406,16 +396,7 @@
 	if(user.prefs.toggles & PREFTOGGLE_SHOW_TYPING)
 		if(istype(usr))
 			usr.set_typing_indicator(FALSE)
-
-/datum/preference_toggle/toggle_emote_indicator
-	name = "Toggle Emote Indicator"
-	description = "Hides the emote typing indicator"
-	preftoggle_bitflag = PREFTOGGLE_2_EMOTE_BUBBLE
-	preftoggle_toggle = PREFTOGGLE_TOGGLE2
-	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
-	enable_message = "You will no longer display a typing indicator for emotes."
-	disable_message = "You will now display a typing indicator for emotes."
-	blackbox_message = "Toggle Typing Indicator (Emote)"
+			usr.set_thinking_indicator(FALSE)
 
 /datum/preference_toggle/toggle_tgui_input_lists
 	name = "Toggle TGUI Input"
@@ -426,16 +407,6 @@
 	enable_message = "You will now use TGUI Input."
 	disable_message = "You will no longer use TGUI Input."
 	blackbox_message = "Toggle TGUI Input"
-
-/datum/preference_toggle/toggle_tgui_input_lists
-	name = "Toggle TGUI Input Lists"
-	description = "Switches input lists between the TGUI and the standard one"
-	preftoggle_bitflag = PREFTOGGLE_2_DISABLE_TGUI_LISTS
-	preftoggle_toggle = PREFTOGGLE_TOGGLE2
-	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "You will now use TGUI Input Lists."
-	disable_message = "You will no longer use TGUI Input Lists."
-	blackbox_message = "Toggle TGUI Input Lists"
 
 /datum/preference_toggle/toggle_admin_logs
 	name = "Toggle Admin Log Messages"

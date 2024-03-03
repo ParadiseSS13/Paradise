@@ -92,25 +92,3 @@ GLOBAL_LIST_EMPTY(thinking_indicator)
 	set_typing_indicator(FALSE)
 	if(message)
 		me_verb(message)
-
-/mob/proc/handle_typing_indicator()
-	if(client)
-		if(!(client.prefs.toggles & PREFTOGGLE_SHOW_TYPING) && !hud_typing)
-			var/temp = winget(client, "input", "text")
-
-			if(temp != last_typed)
-				last_typed = temp
-				last_typed_time = world.time
-
-			if(world.time > last_typed_time + TYPING_INDICATOR_LIFETIME)
-				set_typing_indicator(FALSE)
-				return
-			if(length(temp) > 5 && findtext(temp, "Say \"", 1, 7))
-				set_typing_indicator(TRUE)
-			else if(length(temp) > 3 && findtext(temp, "Me ", 1, 5))
-				set_typing_indicator(TRUE, TRUE)
-
-			else
-				set_typing_indicator(FALSE)
-
-#undef TYPING_INDICATOR_LIFETIME
