@@ -337,8 +337,8 @@ do {\
 
 /obj/item/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
-		var/t = rename_interactive(user, I, use_prefix = FALSE)
-		if(!isnull(t))
+		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
+		if(!isnull(new_name))
 			to_chat(user, "<span class='notice'>You declare this to be \a [name]. Delicious!</span>")
 			return
 
