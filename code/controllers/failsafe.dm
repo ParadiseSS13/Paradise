@@ -6,7 +6,8 @@
 
 GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 
-/datum/controller/failsafe // This thing pretty much just keeps poking the master controller
+/// This thing pretty much just keeps poking the master controller
+/datum/controller/failsafe
 	name = "Failsafe"
 
 	// The length of time to check on the MC (in deciseconds).
