@@ -229,7 +229,7 @@
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
 			var/mob/living/simple_animal/chicken/C = new /mob/living/simple_animal/chicken(loc)
-			if(name != initial(name)
+			if(name != initial(name))
 				C.name = name
 			if(mind)
 				mind.transfer_to(C)
