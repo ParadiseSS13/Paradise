@@ -1387,14 +1387,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
-		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
+		var/atom/movable/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
 		if(L)
 			L.alpha = lighting_alpha
 
 	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
 
 /mob/proc/sync_nightvision_screen()
-	var/obj/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
+	var/atom/movable/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
 	if(S)
 		var/suffix = ""
 		switch(see_in_dark)

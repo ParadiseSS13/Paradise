@@ -36,10 +36,10 @@
 
 		if(over_object == user && Adjacent(user)) // this must come before the screen objects only block
 			open(user)
-			return 0
+			return FALSE
 
-		if(!istype(over_object, /obj/screen))
-			return 1
+		if(!is_screen_atom(over_object))
+			return TRUE
 
 		//makes sure master_item is equipped before putting it in hand, so that we can't drag it into our hand from miles away.
 		//there's got to be a better way of doing this...

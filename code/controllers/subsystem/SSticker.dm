@@ -54,7 +54,7 @@ SUBSYSTEM_DEF(ticker)
 	/// Holder for inital autotransfer vote timer
 	var/next_autotransfer = 0
 	/// Used for station explosion cinematic
-	var/obj/screen/cinematic = null
+	var/atom/movable/screen/cinematic = null
 	/// Spam Prevention. Announce round end only once.
 	var/round_end_announced = FALSE
 	/// Is the ticker currently processing? If FALSE, roundstart is delayed
@@ -364,7 +364,7 @@ SUBSYSTEM_DEF(ticker)
 
 	auto_toggle_ooc(TRUE) // Turn it on
 	//initialise our cinematic screen object
-	cinematic = new /obj/screen(src)
+	cinematic = new /atom/movable/screen(src)
 	cinematic.icon = 'icons/effects/station_explosion.dmi'
 	cinematic.icon_state = "station_intact"
 	cinematic.layer = 21

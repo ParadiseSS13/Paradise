@@ -13,11 +13,11 @@
 	/// The zone this mob is currently targeting
 	var/zone_selected = null
 
-	var/obj/screen/pullin = null
-	var/obj/screen/i_select = null
-	var/obj/screen/m_select = null
-	var/obj/screen/healths = null
-	var/obj/screen/throw_icon = null
+	var/atom/movable/screen/pullin = null
+	var/atom/movable/screen/i_select = null
+	var/atom/movable/screen/m_select = null
+	var/atom/movable/screen/healths = null
+	var/atom/movable/screen/throw_icon = null
 
 	/*A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.
@@ -25,8 +25,8 @@
 	I'll make some notes on where certain variable defines should probably go.
 	Changing this around would probably require a good look-over the pre-existing code.
 	*/
-	var/obj/screen/leap_icon = null
-	var/obj/screen/healthdoll/healthdoll = null
+	var/atom/movable/screen/leap_icon = null
+	var/atom/movable/screen/healthdoll/healthdoll = null
 
 	var/use_me = TRUE //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0
@@ -205,7 +205,7 @@
 	var/suiciding = FALSE
 	/// Used for some screen objects, such as
 	var/list/screens = list()
-	/// lazy list. contains /obj/screen/alert only,  On /mob so clientless mobs will throw alerts properly
+	/// lazy list. contains /atom/movable/screen/alert only,  On /mob so clientless mobs will throw alerts properly
 	var/list/alerts
 	/// Makes items bloody if you touch them
 	var/bloody_hands = 0
