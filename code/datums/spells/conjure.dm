@@ -57,7 +57,7 @@
 
 	return what_conjure_summoned
 
-/datum/spell/aoe/conjure/summonEdSwarm //test purposes
+/datum/spell/aoe/conjure/summonEdSwarm
 	name = "Dispense Wizard Justice"
 	desc = "This spell dispenses wizard justice."
 	summon_type = list(/mob/living/simple_animal/bot/ed209)

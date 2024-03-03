@@ -85,7 +85,8 @@
 	new random_crystal(loc)
 	return INITIALIZE_HINT_QDEL
 
-/obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
+/// Warps the area you're in to look like a new one
+/obj/machinery/anomalous_crystal/theme_warp
 	activation_method = "touch"
 	cooldown_add = 200
 	var/terrain_theme = "winter"
@@ -159,7 +160,8 @@
 					continue
 			affected_targets += A
 
-/obj/machinery/anomalous_crystal/emitter //Generates a projectile when interacted with
+/// Generates a projectile when interacted with
+/obj/machinery/anomalous_crystal/emitter
 	activation_method = "touch"
 	cooldown_add = 50
 	var/generated_projectile = /obj/item/projectile/beam/emitter
@@ -188,7 +190,8 @@
 				P.xo = 0
 		P.fire()
 
-/obj/machinery/anomalous_crystal/dark_reprise //Revives anyone nearby, but turns them into shadowpeople and renders them uncloneable, so the crystal is your only hope of getting up again if you go down.
+/// Revives anyone nearby, but turns them into shadowpeople and renders them uncloneable, so the crystal is your only hope of getting up again if you go down.
+/obj/machinery/anomalous_crystal/dark_reprise
 	activation_method = "touch"
 	activation_sound = 'sound/hallucinations/growl1.ogg'
 
@@ -206,7 +209,8 @@
 					ADD_TRAIT(H, TRAIT_BADDNA, MAGIC_TRAIT) //Free revives, but significantly limits your options for reviving except via the crystal
 					H.grab_ghost(force = TRUE)
 
-/obj/machinery/anomalous_crystal/helpers //Lets ghost spawn as helpful creatures that can only heal people slightly. Incredibly fragile and they can't converse with humans
+/// Lets ghost spawn as helpful creatures that can only heal people slightly. Incredibly fragile and they can't converse with humans
+/obj/machinery/anomalous_crystal/helpers
 	activation_method = "touch"
 	var/ready_to_deploy = 0
 
@@ -292,14 +296,15 @@
 	. = ..()
 	if(isliving(target) && target != src)
 		var/mob/living/L = target
-		if(L.stat < DEAD)
+		if(L.stat != DEAD)
 			L.heal_overall_damage(heal_power, heal_power)
 			new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
 
 /mob/living/simple_animal/hostile/lightgeist/ghost()
 	qdel(src)
 
-/obj/machinery/anomalous_crystal/possessor //Allows you to bodyjack small animals, then exit them at your leisure, but you can only do this once per activation. Because they blow up. Also, if the bodyjacked animal dies, SO DO YOU.
+/// Allows you to bodyjack small animals, then exit them at your leisure, but you can only do this once per activation. Because they blow up. Also, if the bodyjacked animal dies, SO DO YOU.
+/obj/machinery/anomalous_crystal/possessor
 	activation_method = "touch"
 
 /obj/machinery/anomalous_crystal/possessor/ActivationReaction(mob/user, method)

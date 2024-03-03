@@ -1,4 +1,3 @@
-#define KW *1000
 #define PULSEDEMON_REMOTE_DRAIN_MULTIPLIER 5
 
 #define PD_UPGRADE_HIJACK_SPEED "Speed"
@@ -484,4 +483,3 @@
 			return FALSE
 	return TRUE
 
-#undef KW

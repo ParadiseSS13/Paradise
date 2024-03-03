@@ -270,8 +270,9 @@
 	to_chat(user, "<span class='notice'>You adjust the output switch. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 
-// Plant-B-Gone
-/obj/item/reagent_containers/spray/plantbgone // -- Skie
+/// Plant-B-Gone
+/// -- Skie
+/obj/item/reagent_containers/spray/plantbgone
 	name = "Plant-B-Gone"
 	desc = "Kills those pesky weeds!"
 	icon = 'icons/obj/hydroponics/equipment.dmi'

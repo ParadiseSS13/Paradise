@@ -6,7 +6,8 @@
 /turf/space/transit/attackby(obj/O as obj, mob/user as mob, params)
 	return
 
-/turf/space/transit/north // moving to the north
+/// moving to the north
+/turf/space/transit/north
 
 	pushdirection = SOUTH  // south because the space tile is scrolling south
 
@@ -56,7 +57,8 @@
 /turf/space/transit/north/shuttlespace_ns15
 	icon_state = "speedspace_ns_15"
 
-/turf/space/transit/east // moving to the east
+/// moving to the east
+/turf/space/transit/east
 	pushdirection = WEST
 
 /turf/space/transit/east/shuttlespace_ew1
