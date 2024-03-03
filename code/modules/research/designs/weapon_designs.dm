@@ -176,7 +176,7 @@
 
 /datum/design/box_oldsmg/ic_box
 	name = "WT-550 PDW Incendiary Ammo Box (4.6x30mm IC)"
-	desc = "A box of 20 incendiary rounds for the WT-550 PDW"
+	desc = "A box of 20 incendiary rounds for the WT-550 PDW."
 	id = "box_oldsmg_ic"
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_GLASS = 1000)
 	build_path = /obj/item/ammo_box/wt550/wtic
