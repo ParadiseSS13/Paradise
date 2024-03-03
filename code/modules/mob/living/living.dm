@@ -1104,7 +1104,7 @@
 			if((stat == DEAD) && (var_value < DEAD))//Bringing the dead back to life
 				GLOB.dead_mob_list -= src
 				GLOB.alive_mob_list += src
-			if((stat < DEAD) && (var_value == DEAD))//Kill he
+			if((stat != DEAD) && (var_value == DEAD))//Kill he
 				GLOB.alive_mob_list -= src
 				GLOB.dead_mob_list += src
 	. = ..()

@@ -94,7 +94,8 @@
 	magboot_state = "syndiemag"
 	origin_tech = "magnets=4;syndicate=2"
 
-/obj/item/clothing/shoes/magboots/elite //For the Syndicate Strike Team/SolGov/Tactical Teams
+/// For the Syndicate Strike Team/SolGov/Tactical Teams
+/obj/item/clothing/shoes/magboots/elite
 	name = "elite tactical magboots"
 	desc = "Advanced magboots used by strike teams across the system. Allows for tactical insertion into low-gravity areas of operation."
 	icon_state = "elitemag0"
@@ -143,7 +144,8 @@
 		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
 		enabled_waddle = FALSE
 
-/obj/item/clothing/shoes/magboots/wizard //bundled with the wiz hardsuit
+/// bundled with the wiz hardsuit
+/obj/item/clothing/shoes/magboots/wizard
 	name = "boots of gripping"
 	desc = "These magical boots, once activated, will stay gripped to any surface without slowing you down."
 	icon_state = "wizmag0"
