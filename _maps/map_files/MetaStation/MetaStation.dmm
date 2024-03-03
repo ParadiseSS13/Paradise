@@ -2943,6 +2943,21 @@
 	icon_state = "red"
 	},
 /area/station/security/processing)
+"atA" = (
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/north)
 "atF" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -6244,6 +6259,7 @@
 	dir = 10;
 	network = list("SS13","vault")
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -6724,6 +6740,7 @@
 	icon_state = "pipe-c"
 	},
 /obj/effect/turf_decal/stripes/corner,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "aIk" = (
@@ -7143,6 +7160,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
 "aJh" = (
@@ -8613,6 +8631,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/east)
 "aNi" = (
@@ -11480,6 +11499,13 @@
 /obj/effect/spawner/random_spawners/wall_rusted_probably,
 /turf/simulated/wall,
 /area/station/maintenance/fore)
+"aVZ" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/medical/medbay)
 "aWa" = (
 /obj/machinery/economy/vending/cart,
 /turf/simulated/floor/carpet/arcade,
@@ -11846,6 +11872,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "aXi" = (
@@ -13442,7 +13469,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "bbT" = (
-/obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -17739,6 +17765,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bml" = (
@@ -19230,7 +19257,6 @@
 	},
 /area/station/command/bridge)
 "bqi" = (
-/obj/item/radio/beacon,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -19247,6 +19273,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -22426,7 +22453,6 @@
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "byt" = (
-/obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
@@ -25008,6 +25034,7 @@
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/greengrid,
 /area/station/science/robotics/chargebay)
 "bGT" = (
@@ -28275,6 +28302,7 @@
 	name = "south bump";
 	pixel_y = -30
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -30428,6 +30456,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/command/office/blueshield)
 "bZm" = (
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitegreen"
@@ -32359,6 +32388,15 @@
 /obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/carpet,
 /area/station/medical/psych)
+"cfX" = (
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "cfY" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 4
@@ -32665,6 +32703,7 @@
 /area/station/hallway/primary/central/se)
 "cgT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "cgU" = (
@@ -33500,6 +33539,7 @@
 	dir = 2;
 	icon_state = "pipe-y"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/north)
 "cjM" = (
@@ -36791,6 +36831,11 @@
 	icon_state = "darkgreycheck"
 	},
 /area/station/command/office/rd)
+"cwX" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "cwY" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -37520,6 +37565,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -37696,9 +37742,10 @@
 /area/station/hallway/primary/aft/north)
 "cAB" = (
 /obj/machinery/hologram/holopad,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/legal/courtroom)
 "cAD" = (
 /obj/structure/chair{
 	dir = 4
@@ -38589,7 +38636,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/hologram/holopad,
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
 "cDI" = (
@@ -39065,6 +39111,7 @@
 	},
 /area/station/medical/cryo)
 "cFh" = (
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -39372,6 +39419,12 @@
 	icon_state = "white"
 	},
 /area/station/medical/virology)
+"cGq" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/service/kitchen)
 "cGs" = (
 /obj/structure/table/reinforced,
 /obj/machinery/alarm{
@@ -42960,6 +43013,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet,
 /area/station/service/chapel)
 "cTK" = (
@@ -44055,6 +44109,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -44584,6 +44639,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "daO" = (
@@ -47115,6 +47171,17 @@
 	icon_state = "dark"
 	},
 /area/station/medical/surgery/observation)
+"dPM" = (
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/research)
 "dPW" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -48549,6 +48616,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "evX" = (
@@ -49571,6 +49639,13 @@
 	icon_state = "white"
 	},
 /area/station/command/office/cmo)
+"eSS" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "red"
+	},
+/area/station/security/permabrig)
 "eTo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -49771,6 +49846,12 @@
 /obj/item/seeds/tobacco,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"eVE" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "greenfull"
+	},
+/area/station/hallway/primary/central/se)
 "eVJ" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -50284,6 +50365,7 @@
 	},
 /area/station/hallway/primary/fore/north)
 "fhR" = (
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -50558,6 +50640,23 @@
 /obj/item/instrument/harmonica,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"foM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/item/radio/beacon,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/command/bridge)
 "foR" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -51750,6 +51849,10 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
+"fJF" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/security/brig)
 "fKW" = (
 /obj/item/kirbyplants/plant16,
 /obj/structure/cable/yellow{
@@ -53223,6 +53326,16 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/command/bridge)
+"grr" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/carpet,
+/area/station/service/library)
 "gry" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -53256,6 +53369,19 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/west)
+"gsu" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/research)
 "gsM" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -54998,6 +55124,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -55522,6 +55649,15 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
+"hpF" = (
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "hpJ" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -56048,6 +56184,21 @@
 	icon_state = "cautioncorner"
 	},
 /area/station/engineering/atmos)
+"hCb" = (
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "hCg" = (
 /obj/structure/chair/wood{
 	dir = 1
@@ -56772,6 +56923,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -61067,6 +61219,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/doctor,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -62975,6 +63128,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "kBn" = (
@@ -64477,6 +64631,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -68021,6 +68176,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -69966,6 +70122,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/north)
 "noA" = (
@@ -70507,6 +70664,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"nAC" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/station/service/bar)
 "nAM" = (
 /obj/machinery/space_heater,
 /obj/effect/turf_decal/stripes/line{
@@ -70969,6 +71132,11 @@
 	},
 /turf/space,
 /area/space)
+"nJz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "nJZ" = (
 /obj/item/assembly/prox_sensor{
 	pixel_x = -4;
@@ -71375,6 +71543,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonlockers)
 "nVd" = (
@@ -71420,6 +71589,10 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/central/east)
+"nVA" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/break_room)
 "nVQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 10
@@ -71964,6 +72137,18 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/research)
+"oil" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore/north)
 "oiv" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -71987,6 +72172,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "oje" = (
@@ -74990,6 +75176,13 @@
 	icon_state = "darkgrey"
 	},
 /area/station/science/robotics)
+"pCf" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/station/science/research)
 "pCg" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -75284,6 +75477,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
+"pHW" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/medical/medbay)
 "pHY" = (
 /obj/effect/turf_decal/stripes/white/corner{
 	dir = 1
@@ -75810,6 +76013,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block/A)
 "pSL" = (
@@ -76283,6 +76487,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/science/research)
 "qbw" = (
@@ -76308,6 +76513,12 @@
 	icon_state = "dark"
 	},
 /area/station/aisat)
+"qbH" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/explab)
 "qbU" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
@@ -77474,6 +77685,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
+"qzC" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/engine,
+/area/station/science/xenobiology)
 "qzT" = (
 /obj/structure/closet/secure_closet/hydroponics,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -77484,6 +77699,7 @@
 	c_tag = "Brig - Hallway - Port";
 	dir = 1
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "qAh" = (
@@ -77771,6 +77987,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
+"qIt" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/medical/reception)
 "qIB" = (
 /obj/structure/toilet{
 	dir = 8
@@ -78732,6 +78954,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -79154,6 +79377,12 @@
 	icon_state = "yellow"
 	},
 /area/station/hallway/primary/aft/north)
+"rnE" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/medical/surgery/observation)
 "rnM" = (
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/item/mecha_parts/mecha_equipment/extinguisher,
@@ -81027,6 +81256,11 @@
 /obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
+"scq" = (
+/obj/effect/landmark/start/atmospheric,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "scF" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1
@@ -83786,6 +84020,11 @@
 	icon_state = "redfull"
 	},
 /area/station/security/permabrig)
+"tmm" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/security/brig)
 "tmt" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
@@ -84767,6 +85006,10 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/ai_transit_tube)
+"tOo" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/supply/office)
 "tOF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -85479,6 +85722,10 @@
 "udK" = (
 /turf/simulated/wall,
 /area/station/security/permabrig)
+"uel" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "uep" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -87123,6 +87370,7 @@
 /turf/space,
 /area/space/nearstation)
 "uSJ" = (
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -88168,6 +88416,13 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/simulated/floor/plasteel,
 /area/station/security/execution)
+"vmD" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "greenblue"
+	},
+/area/station/service/hydroponics)
 "vmO" = (
 /obj/structure/chair/office/light,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -88650,6 +88905,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"vvZ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/security/brig)
 "vwt" = (
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
@@ -91702,6 +91964,13 @@
 	icon_state = "neutralfull"
 	},
 /area/station/maintenance/fsmaint)
+"wVq" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue"
+	},
+/area/station/medical/reception)
 "wVD" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -94114,6 +94383,13 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/reception)
+"xXd" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/station/engineering/atmos)
 "xXe" = (
 /obj/structure/cable/yellow{
 	d2 = 2;
@@ -112911,7 +113187,7 @@ aYl
 aKi
 aRo
 cjv
-bcs
+aRo
 cjv
 aRo
 cjv
@@ -113166,14 +113442,14 @@ nSQ
 xlE
 kBn
 aWj
-aRo
+bcs
 hjj
 aRo
 hjj
 aRo
 hjj
 bdC
-bdZ
+hpF
 aRo
 bju
 bfw
@@ -113899,7 +114175,7 @@ aaa
 gjF
 bQZ
 adi
-adi
+iNl
 adi
 aJM
 abW
@@ -114991,7 +115267,7 @@ bBS
 bzK
 bHs
 bBQ
-teW
+grr
 bFw
 bOp
 bFw
@@ -115235,7 +115511,7 @@ aZH
 boh
 cJX
 gmy
-boh
+tOo
 bXD
 bfw
 aXt
@@ -115699,7 +115975,7 @@ smH
 udK
 udK
 udK
-mKI
+eSS
 iqe
 udK
 odW
@@ -115947,7 +116223,7 @@ abW
 fLK
 dnT
 rNQ
-vSm
+cfX
 adi
 vSm
 psr
@@ -116314,7 +116590,7 @@ jOl
 cGm
 cGw
 cKX
-cNa
+rnE
 cNs
 cnd
 tkA
@@ -117591,7 +117867,7 @@ qSD
 rot
 bnm
 eFw
-dVk
+pHW
 rot
 rot
 rot
@@ -117599,14 +117875,14 @@ xyc
 rot
 aen
 rot
-rot
+aVZ
 rot
 qSD
 rot
 ctU
 eFw
 dVk
-rot
+aVZ
 pdE
 hZT
 oOv
@@ -118863,7 +119139,7 @@ coo
 cca
 wWG
 chW
-cIV
+wVq
 tyn
 sIh
 plq
@@ -119125,7 +119401,7 @@ mwo
 nUU
 nBF
 cuL
-cmq
+qIt
 wCo
 sfi
 jJI
@@ -119560,7 +119836,7 @@ qcP
 qcP
 vXb
 rLP
-adi
+iNl
 niv
 lFu
 lxL
@@ -120098,7 +120374,7 @@ gfb
 oQF
 lXV
 aHM
-aJe
+oil
 aKz
 aMf
 aaa
@@ -121213,7 +121489,7 @@ cXK
 bZU
 cPL
 cQM
-cRx
+hCb
 cBh
 cUz
 cTR
@@ -121221,8 +121497,8 @@ cXs
 cVf
 cUz
 cGy
-cTr
-cAB
+cwX
+cLn
 sNH
 aaa
 ajo
@@ -121631,7 +121907,7 @@ arV
 uBY
 aHO
 fGA
-cjQ
+vvZ
 aqu
 sDN
 xHy
@@ -121919,7 +122195,7 @@ abq
 aEh
 bqf
 boD
-gDB
+foM
 hSa
 boE
 bwi
@@ -123162,19 +123438,19 @@ alm
 oSi
 oSi
 oSi
-oSi
+tmm
 oSi
 oSi
 ugy
 liR
 apP
-apP
+fJF
 apP
 apP
 apP
 nls
 apP
-apP
+fJF
 apP
 apP
 pJh
@@ -123277,7 +123553,7 @@ cOp
 ddW
 ret
 hcM
-cVi
+nJz
 cVi
 diG
 pre
@@ -123964,7 +124240,7 @@ qnu
 aUs
 aAM
 aXd
-aNC
+cAB
 aZT
 aMk
 fgN
@@ -124225,7 +124501,7 @@ aNC
 aZU
 aYA
 rEF
-xuG
+atA
 wkn
 jMy
 abq
@@ -124779,13 +125055,13 @@ oFw
 cmr
 fPC
 mbt
-fPC
+gsu
 bUy
 fPC
 uVF
 wos
 qnt
-qnt
+pCf
 taP
 ihW
 kqd
@@ -127857,7 +128133,7 @@ bZv
 bZv
 bZv
 cgP
-cbL
+eVE
 cip
 bZu
 ruo
@@ -128137,7 +128413,7 @@ tqF
 wcT
 aeA
 uHQ
-cha
+qbH
 lfu
 tRD
 cgG
@@ -128364,7 +128640,7 @@ nic
 wPS
 hSP
 mQu
-cda
+vmD
 rtF
 cda
 qGI
@@ -129122,7 +129398,7 @@ uNf
 bwC
 bAv
 bAv
-bEv
+uel
 bEv
 udl
 bHO
@@ -130103,7 +130379,7 @@ aii
 cWS
 akh
 tHk
-akh
+anh
 anc
 aWd
 akh
@@ -131185,7 +131461,7 @@ bJM
 bQI
 bOy
 oHv
-bQS
+cGq
 bUi
 bQI
 baj
@@ -131436,7 +131712,7 @@ bsm
 bsp
 bCC
 sku
-bCy
+nAC
 gFz
 bHI
 bQI
@@ -132159,8 +132435,8 @@ aio
 ajp
 akn
 akh
-akh
 anh
+akh
 akh
 akh
 pKv
@@ -134818,7 +135094,7 @@ gpe
 cuw
 jvU
 jvU
-jvU
+dPM
 jFN
 tlO
 sgH
@@ -136331,7 +136607,7 @@ eQo
 fMZ
 fMZ
 pqK
-kgV
+xXd
 kgV
 xux
 hBZ
@@ -137594,7 +137870,7 @@ bjN
 bjN
 bnt
 xrx
-bpn
+nVA
 lQJ
 gYM
 hHE
@@ -138381,7 +138657,7 @@ nan
 oCC
 kIP
 xTV
-aIT
+scq
 oNd
 cle
 cJc
@@ -143814,7 +144090,7 @@ dMK
 lzW
 uQm
 eqj
-mdi
+qzC
 heJ
 mdi
 gSU
