@@ -21,6 +21,26 @@
 	if(pockets.handle_mousedrop(usr, over_object))
 		..(over_object)
 
+/obj/item/clothing/suit/storage/equipped(mob/user, slot)
+	..()
+	pockets.update_viewers()
+
+/obj/item/clothing/suit/storage/forceMove(atom/destination)
+	. = ..()
+	if(!ismob(destination.loc))
+		for(var/mob/player in pockets.mobs_viewing)
+			if(player == destination)
+				continue
+			pockets.hide_from(player)
+
+/obj/item/clothing/suit/storage/AltClick(mob/user)
+	. = ..()
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
+		pockets.open(user)
+		add_fingerprint(user)
+	else if(isobserver(user))
+		pockets.show_to(user)
+
 /obj/item/clothing/suit/storage/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	return pockets.attackby(W, user, params)
