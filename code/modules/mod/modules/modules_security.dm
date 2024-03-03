@@ -92,7 +92,8 @@
 		M.Copy_Parent(thrower, 15 SECONDS)
 	qdel(src)
 
-/mob/living/simple_animal/hostile/illusion/mirage //It's just standing there, menacingly
+/// It's just standing there, menacingly
+/mob/living/simple_animal/hostile/illusion/mirage
 	AIStatus = AI_OFF
 	density = FALSE
 
