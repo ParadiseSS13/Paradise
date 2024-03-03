@@ -34,7 +34,7 @@
 
 /obj/item/gun/projectile/automatic/gyropistol
 	name = "\improper MX2000 gyrojet pistol"
-	desc = "A prototype pistol designed by Sunburst Heavy Industries, intended to fire self propelled rockets."
+	desc = "A prototype pistol designed by Sunburst Heavy Industries, intended to fire self-propelled rockets."
 	icon_state = "gyropistol"
 	fire_sound = 'sound/effects/explosion1.ogg'
 	origin_tech = "combat=5"
