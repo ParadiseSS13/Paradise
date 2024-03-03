@@ -217,6 +217,10 @@
 		consoles = list()
 		servers = list()
 		for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+			if(istype(S, /obj/machinery/r_n_d/server/centcom) && !badmin)
+				continue
+			if(!atoms_share_level(get_turf(src), get_turf(S)) && !badmin)
+				continue
 			if(S.server_id == text2num(href_list["access"]) || S.server_id == text2num(href_list["data"]) || S.server_id == text2num(href_list["transfer"]))
 				temp_server = S
 				break
@@ -236,6 +240,13 @@
 
 	else if(href_list["upload_toggle"])
 		var/num = text2num(href_list["upload_toggle"])
+		for(var/obj/machinery/computer/rdconsole/C in consoles)
+			if(C.id != num)
+				continue
+
+			if(!atoms_share_level(get_turf(src), get_turf(C)) && !badmin)
+				to_chat(usr, "<span class='warning'>Unable to modify upload protocols of this console; is it in the same sector?</span>")
+				return
 		if(num in temp_server.id_with_upload)
 			temp_server.id_with_upload -= num
 		else
@@ -295,6 +306,8 @@
 
 			for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 				if(istype(S, /obj/machinery/r_n_d/server/centcom) && !badmin)
+					continue
+				if(!atoms_share_level(get_turf(src), get_turf(S)) && !badmin)
 					continue
 				dat += "[S.name] || "
 				dat += "<A href='?src=[UID()];access=[S.server_id]'>Access Rights</A> | "
