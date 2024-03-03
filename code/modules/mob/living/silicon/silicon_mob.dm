@@ -514,11 +514,11 @@
   */
 /mob/living/silicon/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
+		if(flags_2 & HOLOGRAM_2)
+			return FALSE
 		user.visible_message(
 			"<span class='notice'>[user] pats [src] on the head.</span>",
 			"<span class='notice'>You pat [src] on the head.</span>")
-		if(flags_2 & HOLOGRAM_2)
-			return FALSE
 		return FALSE
 
 	if(!istype(item_to_add, /obj/item/clothing/head))
@@ -571,7 +571,7 @@
 
 	null_hat()
 	update_icons()
-	
+
 	return TRUE
 
 /mob/living/silicon/proc/drop_hat()
