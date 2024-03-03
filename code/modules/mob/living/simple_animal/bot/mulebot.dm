@@ -607,7 +607,7 @@
 /mob/living/simple_animal/bot/mulebot/proc/start_home()
 	if(!on)
 		return
-	INVOKE_ASYNC(src, PROC_REF(do_start_home))
+	do_start_home()
 
 /mob/living/simple_animal/bot/mulebot/proc/do_start_home()
 	set_destination(home_destination)
