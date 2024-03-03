@@ -89,7 +89,7 @@
 			animate(already_present, alpha = 0, 1 SECONDS) // We can't use something like `short_time` here because the distance is incredibly small
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, clear_fullscreen), "adjust_vision"), short_time)
 		return
-	if(distance < 0.4)	// Not really much to adjust to
+	if(distance < 0.6)	// Not really much to adjust to
 		return
 
 	overlay_fullscreen("adjust_vision", /obj/screen/fullscreen/adjust_eye)
