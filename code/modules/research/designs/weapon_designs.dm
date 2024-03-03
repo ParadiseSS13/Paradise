@@ -168,7 +168,7 @@
 
 /datum/design/box_oldsmg/ap_box
 	name = "WT-550 PDW Armour Piercing Ammo Box (4.6x30mm AP)"
-	desc = "A box of 20 armour piercing rounds for the WT-550 PDW"
+	desc = "A box of 20 armour piercing rounds for the WT-550 PDW."
 	id = "box_oldsmg_ap"
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600)
 	build_path = /obj/item/ammo_box/wt550/wtap
