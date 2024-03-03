@@ -148,7 +148,7 @@
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
 
-/obj/screen/fullscreen/adjust_eye
+/atom/movable/screen/fullscreen/adjust_eye
 	icon_state = "adjusting_overlay"
 	plane = LIGHTING_PLANE
 	layer = LIGHTING_LAYER // Make sure it goes above the nightvision overlay

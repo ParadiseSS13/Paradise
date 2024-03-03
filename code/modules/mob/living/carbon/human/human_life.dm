@@ -83,22 +83,22 @@
 
 	previous_light_intensity = darkness
 
-	var/obj/screen/fullscreen/adjust_eye/already_present = screens["adjust_vision"]
+	var/atom/movable/screen/fullscreen/adjust_eye/already_present = screens["adjust_vision"]
 	if(already_present)
 		if(darkness < 0.5)
 			animate(already_present, alpha = 0, 1 SECONDS) // We can't use something like `short_time` here because the distance is incredibly small
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, clear_fullscreen), "adjust_vision"), short_time)
 		return
-	if(distance < 0.6)	// Not really much to adjust to
+	if(distance < 0.5)	// Not really much to adjust to
 		return
 
-	overlay_fullscreen("adjust_vision", /obj/screen/fullscreen/adjust_eye)
-	var/obj/screen/fullscreen/adjust_eye/screen = screens["adjust_vision"]
+	overlay_fullscreen("adjust_vision", /atom/movable/screen/fullscreen/adjust_eye)
+	var/atom/movable/screen/fullscreen/adjust_eye/screen = screens["adjust_vision"]
 	animate(screen, alpha = 100, short_time) // We use distance instead of time to apply a smooth overlay of darkness
 	var/time = (distance * 10 SECONDS)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/carbon/human, fade_eye_adjust_out), screen, time), short_time)
 
-/mob/living/carbon/human/proc/fade_eye_adjust_out(obj/screen/screen, time)
+/mob/living/carbon/human/proc/fade_eye_adjust_out(atom/movable/screen/screen, time)
 	if(QDELETED(screen))
 		return
 	animate(screen, alpha = 0, time)
