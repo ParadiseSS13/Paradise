@@ -89,7 +89,8 @@
 			new next_stage(get_turf(src))
 			qdel(src)	//hide the body
 
-/mob/living/simple_animal/hostile/winter/santa/stage_1		//stage 1: slow melee
+/// stage 1: slow melee
+/mob/living/simple_animal/hostile/winter/santa/stage_1
 	maxHealth = 150
 	health = 150
 	desc = "GET THE FAT MAN!"
@@ -99,7 +100,8 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 
-/mob/living/simple_animal/hostile/winter/santa/stage_2		//stage 2: slow ranged
+/// stage 2: slow ranged
+/mob/living/simple_animal/hostile/winter/santa/stage_2
 	desc = "GET THE FAT MAN AGAIN!"
 	next_stage = /mob/living/simple_animal/hostile/winter/santa/stage_3
 	death_message = "<span class='danger'>YOU'VE BEEN VERY NAUGHTY! PREPARE TO DIE!</span>"
@@ -110,7 +112,8 @@
 	retreat_distance = 5
 	minimum_distance = 5
 
-/mob/living/simple_animal/hostile/winter/santa/stage_3		//stage 3: fast rapidfire ranged
+/// stage 3: fast rapidfire ranged
+/mob/living/simple_animal/hostile/winter/santa/stage_3
 	desc = "WHY WON'T HE DIE ALREADY!?"
 	next_stage = /mob/living/simple_animal/hostile/winter/santa/stage_4
 	death_message = "<span class='danger'>FACE MY FINAL FORM AND KNOW DESPAIR!</span>"
@@ -123,7 +126,8 @@
 	retreat_distance = 3
 	minimum_distance = 3
 
-/mob/living/simple_animal/hostile/winter/santa/stage_4		//stage 4: fast spinebreaker
+/// stage 4: fast spinebreaker
+/mob/living/simple_animal/hostile/winter/santa/stage_4
 	name = "Final Form Santa"
 	desc = "WHAT THE HELL IS HE!?! WHY WON'T HE STAY DEAD!?!"
 	maxHealth = 300		//YOU FACE JARAX- I MEAN SANTA!

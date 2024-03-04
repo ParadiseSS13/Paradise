@@ -452,7 +452,8 @@
 	M.EyeBlurry(6 SECONDS)
 	return ..() | update_flags
 
-/datum/reagent/beer2	//disguised as normal beer for use by emagged service borgs
+/// disguised as normal beer for use by emagged service borgs
+/datum/reagent/beer2
 	name = "Beer"
 	id = "beer2"
 	description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
@@ -1082,7 +1083,8 @@
 	lethality = 2 //Atrazine, however, is definitely toxic
 
 
-/datum/reagent/pestkiller // To-Do; make this more realistic.
+/// To-Do; make this more realistic.
+/datum/reagent/pestkiller
 	name = "Pest Killer"
 	id = "pestkiller"
 	description = "A harmful toxic mixture to kill pests. Do not ingest!"
@@ -1237,7 +1239,8 @@
 		M.emote("scream")
 		M.adjustBruteLoss(4)
 
-/datum/reagent/teslium //Teslium. Causes periodic shocks, and makes shocks against the target much more effective.
+/// Teslium. Causes periodic shocks, and makes shocks against the target much more effective.
+/datum/reagent/teslium
 	name = "Teslium"
 	id = "teslium"
 	description = "An unstable, electrically-charged metallic slurry. Increases the conductance of living things."
@@ -1281,7 +1284,8 @@
 		playsound(M, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		chosen_timer = rand(shock_low, shock_high) //It needs to be randomised here for blob teslium, and randoming it here doesn't affect normal
 
-/datum/reagent/teslium/blob //This version has it's shocks much less frequently, while retaining the shock multiplier
+/// This version has it's shocks much less frequently, while retaining the shock multiplier
+/datum/reagent/teslium/blob
 	id = "blob_teslium"
 	shock_low = 10
 	use_chaotic_random = FALSE
