@@ -76,15 +76,10 @@
 			client.screen += r_hand
 			// todo probably do away with this copypaste job
 
-		if(length(observers))
-			for(var/mob/dead/observe as anything in observers)
-				if(observe.client && observe.client.eye == src)
-					observe.client.screen += r_hand
-				else
-					observers -= observe
-					if(!length(observers))
-						observers = null
-						break
+		update_observer_view(r_hand)
+
+
+
 
 /mob/living/carbon/update_inv_l_hand(ignore_cuffs)
 	if(handcuffed && !ignore_cuffs)
@@ -94,15 +89,7 @@
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 			l_hand.screen_loc = ui_lhand
 			client.screen += l_hand
-		if(length(observers))
-			for(var/mob/dead/observe as anything in observers)
-				if(observe.client && observe.client.eye == src)
-					observe.client.screen += l_hand
-				else
-					observers -= observe
-					if(!length(observers))
-						observers = null
-						break
+		update_observer_view(l_hand)
 
 /mob/living/carbon/update_inv_wear_mask()
 	if(istype(wear_mask, /obj/item/clothing/mask))
@@ -122,6 +109,7 @@
 
 //update whether our head item appears on our hud.
 /mob/living/carbon/proc/update_hud_head(obj/item/I)
+
 	return
 
 //update whether our mask item appears on our hud.
@@ -132,3 +120,17 @@
 /mob/living/carbon/proc/update_hud_back(obj/item/I)
 	return
 
+/mob/living/carbon/proc/update_observer_view(obj/item/worn_item, inventory)
+	if(!length(observers))
+		return
+	for(var/mob/dead/observe as anything in observers)
+		if(observe.client && observe.client.eye == src)
+			if(observe.hud_used)
+				if(inventory && !observe.hud_used.inventory_shown)
+					continue
+				observe.client.screen += worn_item
+		else
+			observers -= observe
+			if(!length(observers))
+				observers = null
+				break

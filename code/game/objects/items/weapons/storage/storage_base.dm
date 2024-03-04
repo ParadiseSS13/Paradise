@@ -450,6 +450,11 @@
 	if(usr)
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= I
+		if(length(usr.observers))
+			for(var/mob/observer in usr.observers)
+				if(observer.client)
+					observer.client.screen -= I
+
 		I.dropped(usr, TRUE)
 		add_fingerprint(usr)
 
