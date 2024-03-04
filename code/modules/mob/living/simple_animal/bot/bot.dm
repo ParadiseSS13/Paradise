@@ -262,7 +262,8 @@
 		turn_on() //The bot automatically turns on when emagged, unless recently hit with EMP.
 		to_chat(src, "<span class='userdanger'>(#$*#$^^( OVERRIDE DETECTED</span>")
 		show_laws()
-		add_attack_logs(user, src, "Emagged")
+		if(user)
+			add_attack_logs(user, src, "Emagged")
 		return TRUE
 	else //Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
 		to_chat(user, "<span class='warning'>You need to open maintenance panel first!</span>")
