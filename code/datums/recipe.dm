@@ -55,6 +55,23 @@
 		return -1
 	return .
 
+/datum/recipe/proc/check_reagents_assoc_list(list/avail_reagents) //1=precisely, 0=insufficiently, -1=superfluous
+	. = 1
+	for(var/required_reagent_id in reagents)
+		var/provided_reagent_amount = avail_reagents[required_reagent_id]
+		if(!provided_reagent_amount)
+			return 0
+
+		if(abs(provided_reagent_amount != reagents[required_reagent_id]) >= 0.5) //if NOT equals, 0.5 tolerance.
+			if(provided_reagent_amount > reagents[required_reagent_id]) // we have more than necessary
+				. = -1
+			else
+				return 0 // we don't have enough
+
+	if(length(reagents) < length(avail_reagents))
+		return -1
+	return .
+
 /datum/recipe/proc/check_items(obj/container, list/ignored_items = null) //1=precisely, 0=insufficiently, -1=superfluous
 	. = 1
 	var/list/checklist = items ? items.Copy() : list()
@@ -72,6 +89,22 @@
 		if(!found)
 			. = -1
 	if(checklist.len)
+		return 0
+	return .
+
+/datum/recipe/proc/check_items_assoc_list(list/given_objects) //1=precisely, 0=insufficiently, -1=superfluous
+	. = 1
+	var/list/checklist = items ? items.Copy() : list()
+	for(var/obj/item/I as anything in given_objects) // path
+		var/amount_given = given_objects[I]
+		if(!length(checklist))
+			return -1
+
+		for(var/i in 1 to amount_given)
+			if(I in checklist)
+				checklist -= I
+				. = -1
+	if(length(checklist)) // we didnt get everything
 		return 0
 	return .
 

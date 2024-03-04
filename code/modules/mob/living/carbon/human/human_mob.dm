@@ -2197,3 +2197,76 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/apply_offstation_roles(source)
 	SIGNAL_HANDLER
 	mind.offstation_role = TRUE
+
+/mob/living/carbon/human/proc/expert_chef_knowledge()
+	set name = "Expert Chef Knowledge"
+	set desc = "Examine your surroundings, see what you can cook."
+	set category = "Martial Arts"
+
+	if(!HAS_TRAIT(mind, TRAIT_EXPERT_CHEF))
+		return
+	// if(has_status_effect(STATUS_EXPERT_CHEF)) // ctodo readd
+	// 	to_chat(src, "<span class='warning'>All this thinking makes your head hurt, wait a bit longer.</span>")
+	// 	return
+	apply_status_effect(STATUS_EXPERT_CHEF)
+
+	var/list/possible_cookware = orange(1, src)
+
+	for(var/obj/item/storage/storage in possible_cookware)
+		possible_cookware += storage.contents
+		possible_cookware -= storage
+
+	shuffle_inplace(possible_cookware)
+
+
+	var/list/available_ingredients = list()
+	var/list/available_reagents = list()
+	for(var/obj/item/item in possible_cookware)
+		if(item.container_type == OPENCONTAINER && item.reagents)
+			for(var/datum/reagent/reagent in item.reagents.reagent_list)
+				if(!available_reagents[reagent.id])
+					available_reagents[reagent.id] = 0
+				available_reagents[reagent.id] += reagent.volume
+		else
+			if(!available_ingredients[item.type])
+				available_ingredients[item.type] = 0
+			available_ingredients[item.type] += 1
+
+	var/list/possible_recipes = list()
+	for(var/datum/recipe/recipe_type as anything in subtypesof(/datum/recipe))
+		if(!recipe_type.result)
+			continue
+		var/datum/recipe/recipe = new recipe_type()
+		if(recipe.check_reagents_assoc_list(available_reagents) && recipe.check_items_assoc_list(available_ingredients))
+			if(istype(recipe, /datum/recipe/microwave))
+				possible_recipes[recipe] = RECIPE_MICROWAVE
+			else if(istype(recipe, /datum/recipe/oven))
+				possible_recipes[recipe] = RECIPE_OVEN
+			else if(istype(recipe, /datum/recipe/grill))
+				possible_recipes[recipe] = RECIPE_GRILL
+			else if(istype(recipe, /datum/recipe/candy))
+				possible_recipes[recipe] = RECIPE_CANDY
+			else
+				possible_recipes[recipe] = "something? This shouldn't happen, make a bug report"
+
+	if(!length(possible_recipes))
+		to_chat(src, "<span class='warning'>You can't think of anything to cook with the items around you.</span>")
+		return
+
+	var/list/message = list("You recall your days at the Étoile de la Cuisine for the Celestial Culinary Arts, considering what you could make with the items around you...")
+	for(var/datum/recipe/recipe in possible_recipes)
+		var/list/assoc = type_list_to_counted_assoc_list(recipe.items)
+		var/list/ingredient_list = list()
+		for(var/obj/item/path_key as anything in assoc)
+			ingredient_list += "[assoc[path_key]] [initial(path_key.name)]\s"
+
+		var/list/required_reagents = list()
+		for(var/reagent_id in recipe.reagents)
+			var/datum/reagent/temp = GLOB.chemical_reagents_list[reagent_id]
+			if(temp)
+				required_reagents += "[recipe.reagents[reagent_id]] unit\s of [temp.name]"
+
+		var/obj/item/result = recipe.result
+		message += "\tI could make [result.gender == PLURAL ? "some" : "a"] [bicon(result)] <b>[result.name]</b> by using a [possible_recipes[recipe]] with [english_list(ingredient_list)][length(required_reagents) ? ", along with [english_list(required_reagents)]" : ""]."
+		qdel(recipe)
+	to_chat(src, chat_box_examine(message.Join("<br>")))
