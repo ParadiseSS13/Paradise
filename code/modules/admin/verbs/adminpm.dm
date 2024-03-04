@@ -368,7 +368,7 @@
 	var/client/C = pms[title].client || update_client(title)
 	if(!C)
 		return "[title] (Disconnected)"
-	return "[key_name(C, FALSE)] ([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_TP(C.mob,"TP")]) ([ADMIN_SM(C.mob,"SM")]) ([admin_jump_link(C.mob)]) ([ADMIN_ALERT(C.mob,"SEND ALERT")])"
+	return "[key_name(C, FALSE)] ([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_TP(C.mob,"TP")]) ([ADMIN_SM(C.mob,"SM")]) ([admin_jump_link(C.mob)]) ([ADMIN_OBS(C.mob, "OBS")]) ([ADMIN_ALERT(C.mob,"SEND ALERT")])"
 
 /datum/pm_tracker/proc/update_client(title)
 	var/client/C = GLOB.directory[ckey(title)]

@@ -228,6 +228,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
 #define TRAIT_TABLE_LEAP "table_leap"
 
+/// used for dead mobs that are observing, but should not be afforded all the same platitudes as full ghosts.
+/// This is a mind trait because ghosts can be frequently deleted and we want to be sure this sticks.
+#define TRAIT_MOBSERVE "mentor_observe"
+
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
 #define TRAIT_SHOW_WIRE_INFO "show_wire_info"

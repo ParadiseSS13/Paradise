@@ -940,6 +940,13 @@
 ///from monkey CtrlClickOn(): (/mob)
 #define COMSIG_XENO_MONKEY_CLICK_CTRL "xeno_monkey_click_ctrl"
 
+// ghost signals
+
+/// from observer_base/do_observe(): (mob/now_followed)
+#define COMSIG_GHOST_START_OBSERVING "ghost_start_observing"
+/// from observer_base/do_observe(): (mob/no_longer_following)
+#define COMSIG_GHOST_STOP_OBSERVING "ghost_stop_observing"
+
 /// Alarm manager signals
 #define COMSIG_TRIGGERED_ALARM "alarmmanager_triggered"
 #define COMSIG_CANCELLED_ALARM "alarmmanager_cancelled"

@@ -16,6 +16,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/colorooc,				/*allows us to set a custom colour for everything we say in ooc*/
 	/client/proc/resetcolorooc,			/*allows us to set a reset our ooc color*/
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
+	/client/proc/admin_observe,			/*allows us to freely observe mobs */
 	/client/proc/toggle_view_range,		/*changes how far we can see*/
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
@@ -215,6 +216,7 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/client/proc/openMentorTicketUI,
 	/client/proc/toggleMentorTicketLogs,
+	/client/proc/admin_observe,  /* Allow mentors to observe as well, though they face some limitations */
 	/client/proc/cmd_mentor_say	/* mentor say*/
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 ))
@@ -358,7 +360,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set category = "Admin"
 	set name = "Aghost"
 
-	if(!check_rights(R_ADMIN|R_MOD))
+	if(!check_rights(R_ADMIN|R_MOD))  // todo verify this logic checks out
+		return
+
+	if(!check_rights(R_ADMIN|R_MOD) && check_rights(R_MENTOR) && !HAS_MIND_TRAIT(mob, TRAIT_MOBSERVE))
+		// mentors can't call this unless it's to return to their body
 		return
 
 	if(isobserver(mob))
@@ -386,6 +392,65 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		log_admin("[key_name(usr)] has admin-ghosted")
 		// TODO: SStgui.on_transfer() to move windows from old and new
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/admin_observe(mob/target)
+	set category = "Admin"
+	set name = "Aobserve"
+
+	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
+		return
+
+	var/actually_admin = check_rights(R_ADMIN|R_MOD)
+
+
+	// todo what happens if a user we're observing logs out?
+
+	if(isnewplayer(mob))
+		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
+		return
+
+
+	if(isnull(target))
+		// choose a target
+		target = tgui_input_list(mob, "Select a mob to observe", "Aobserve", GLOB.player_list)
+		if(isnull(target))
+			return
+
+	if(target == src)
+		to_chat(src, "<span class='warning'>You can't observe yourself!</span>")
+		return
+
+	if(isobserver(mob))
+		var/mob/dead/observer/ghost = mob
+		if(ghost.mob_observed)
+			// un-follow them
+			ghost.cleanup_observe()
+			if(!actually_admin)
+				REMOVE_TRAIT(mob.mind, TRAIT_MOBSERVE, UNIQUE_TRAIT_SOURCE(target))
+			log_admin("[key_name(src)] has de-activated Aobserve")
+		else
+			if(!actually_admin)
+				ADD_TRAIT(mob.mind, TRAIT_MOBSERVE, UNIQUE_TRAIT_SOURCE(target))
+			log_admin("[key_name(src)] has activated Aobserve to follow [target]")
+			ghost.do_observe(target)
+		return
+
+
+	// the person is a living mob: we need to ghostize.
+	if(!actually_admin)
+		ADD_TRAIT(mob.mind, TRAIT_MOBSERVE, UNIQUE_TRAIT_SOURCE(target))
+	log_admin("[key_name(src)] has Aobserved out of their body to follow [target]")
+
+	// admins can just ghost for free
+	admin_ghost()
+	var/mob/dead/observer/ghost = mob
+	ghost.do_observe(target)
+
+// /client/proc/cleanup_mobserve(mob/dead/observer/ghost, mob/following)
+// 	SIGNAL_HANDLER // COMSIG_GHOST_STOP_OBSERVING
+// 	REMOVE_TRAIT(mob.mind, TRAIT_MOBSERVE, UNIQUE_TRAIT_SOURCE(following))
+// 	UnregisterSignal(src, COMSIG_GHOST_STOP_OBSERVING)
+
 
 /client/proc/invisimin()
 	set name = "Invisimin"

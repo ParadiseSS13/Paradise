@@ -1606,6 +1606,18 @@
 		sleep(2)
 		A.ManualFollow(M)
 
+	else if(href_list["adminobserve"])
+		if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
+			return
+		var/client/C = usr.client
+		var/mob/M = locateUID(href_list["adminobserve"])
+
+		if(!ismob(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
+		C.admin_observe(M)
+
+
 	else if(href_list["check_antagonist"])
 		check_antagonists()
 
