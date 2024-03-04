@@ -22,7 +22,7 @@
 	/// Whether or not this will be shown to observers
 	var/show_to_observers = TRUE
 	// TODO find a more sensible way to do this too, seems like GC hell
-	/// All of the buttons that correspond to this action
+	/// List of all HUDs that are "viewing" this action
 	var/list/viewers = list()
 
 
@@ -173,8 +173,8 @@
 
 	var/obj/screen/movable/action_button/button = create_button()
 	// SetId(button, viewer)
-
-	// button.our_hud = our_hud
+//
+	button.our_hud = our_hud
 	viewers[our_hud] = button
 	if(viewer.client)
 		viewer.client.screen += button

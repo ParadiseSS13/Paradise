@@ -774,7 +774,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/mob/screenmob = viewmob || mymob
 	if(!screenmob.client)
 		return
-	var/list/alerts = screenmob.alerts
+	var/list/alerts = mymob.alerts
 	if(!alerts)
 		return FALSE
 	var/icon_pref

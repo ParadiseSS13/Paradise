@@ -1,6 +1,7 @@
 /obj/screen/movable/action_button
 	desc = "CTRL-Shift click on this button to bind it to a hotkey."
 	var/datum/action/linked_action
+	var/datum/hud/our_hud
 	var/actiontooltipstyle = ""
 	screen_loc = null
 	var/ordered = TRUE
@@ -32,7 +33,20 @@
 		closeToolTip(usr)
 		return ..()
 
+/obj/screen/movable/action_button/Destroy()
+	if(our_hud)
+		var/mob/viewer = our_hud.mymob
+		// our_hud.hide_action(src)
+		viewer?.client?.screen -= src
+		linked_action.viewers -= our_hud
+		viewer.update_action_buttons()
+		our_hud = null
+	linked_action = null
+	return ..()
+
 /obj/screen/movable/action_button/Click(location,control,params)
+	if(!can_use(usr))
+		return FALSE
 	var/list/modifiers = params2list(params)
 	if(modifiers["ctrl"] && modifiers["shift"])
 		INVOKE_ASYNC(src, PROC_REF(set_to_keybind), usr)
@@ -61,6 +75,19 @@
 	transform = transform.Scale(0.8, 0.8)
 	alpha = 200
 	animate(src, transform = matrix(), time = 0.4 SECONDS, alpha = 255)
+	return TRUE
+
+/obj/screen/movable/action_button/proc/can_use(mob/user)
+	if(isobserver(user))
+		var/mob/dead/observer/dead_mob = user
+		if(dead_mob.mob_observed) // Observers can only click on action buttons if they're not observing something
+			return FALSE
+
+	if(linked_action)
+		if(linked_action.viewers[user.hud_used])
+			return TRUE
+		return FALSE
+
 	return TRUE
 
 /obj/screen/movable/action_button/proc/set_to_keybind(mob/user)
