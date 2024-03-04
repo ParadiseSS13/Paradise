@@ -62,6 +62,10 @@
 			to_chat(user, "<span class='warning'>There is a structure here!</span>")
 			return FALSE
 
+	return TRUE
+
+/// Creates the atom defined by the recipe. Should always return the object it creates or FALSE. This proc assumes that the construction is already possible; for checking whether a recipe *can* be built before construction, use try_build()
+/datum/stack_recipe/proc/do_build(mob/user, obj/item/stack/S, multiplier, atom/O)
 	if(time)
 		to_chat(user, "<span class='notice'>Building [title]...</span>")
 		if(!do_after(user, time, target = S.loc))
@@ -71,13 +75,9 @@
 		to_chat(user, "<span class='warning'>There is a structure here!</span>")
 		return FALSE
 
-	if(S.get_amount() < req_amount * multiplier)
+	if(S.get_amount() < req_amount * multiplier) // Check they still have enough.
 		return FALSE
 
-	return TRUE
-
-/// Creates the atom defined by the recipe. Should always return the object it creates. This proc assumes that the construction is already possible; for checking whether a recipe *can* be built before construction, use try_build()
-/datum/stack_recipe/proc/do_build(mob/user, obj/item/stack/S, multiplier, atom/O)
 	if(max_res_amount > 1) //Is it a stack?
 		O = new result_type(get_turf(S), res_amount * multiplier)
 	else
