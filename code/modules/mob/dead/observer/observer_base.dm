@@ -200,7 +200,7 @@ Works together with spawning an observer, noted above.
 /mob/dead/observer/proc/do_observe(mob/mob_eye)
 	set name = "\[Observer\] Observe"
 	set desc = "Observe the target atom."
-	set category = null
+	set category = "Ghost"
 
 	if(isnewplayer(mob_eye))
 		stack_trace("/mob/dead/new_player: \[[mob_eye]\] is being observed by [key_name(src)]. This should never happen and has been blocked.")

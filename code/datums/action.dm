@@ -56,6 +56,9 @@
 	SEND_SIGNAL(src, COMSIG_ACTION_GRANTED, owner)
 	SEND_SIGNAL(owner, COMSIG_MOB_GRANTED_ACTION, src)
 
+	// RegisterSignal(grant_to, COMSIG_MOB_KEYDOWN, PROC_REF(keydown), override = TRUE)
+	GiveAction(M)
+
 /datum/action/proc/Remove(mob/M)
 
 	if(!M)
@@ -63,7 +66,15 @@
 	SEND_SIGNAL(src, COMSIG_ACTION_REMOVED, owner)
 	SEND_SIGNAL(owner, COMSIG_MOB_REMOVED_ACTION, src)
 
-	owner = null
+	for(var/datum/hud/hud in viewers)
+		if(!hud.mymob)
+			continue
+		HideFrom(hud.mymob)
+
+	viewers = list()
+
+	if(owner == M)
+		owner = null
 
 	if(M.client)
 		M.client.screen -= button
