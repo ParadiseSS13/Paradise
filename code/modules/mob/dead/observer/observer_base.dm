@@ -37,6 +37,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/datum/orbit_menu/orbit_menu
 	/// UID of the mob which we are currently observing
 	var/mob_observed
+	var/kaboshed_alerts = list()
 
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -229,7 +230,7 @@ Works together with spawning an observer, noted above.
 			LAZYOR(mob_eye.observers, src)
 			mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
 			mob_observed = mob_eye
-			client.mob.sight
+			// client.mob.sight
 
 		RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_observer_move))
 

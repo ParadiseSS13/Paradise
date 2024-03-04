@@ -22,7 +22,7 @@
 	/// Whether or not this will be shown to observers
 	var/show_to_observers = TRUE
 	// TODO find a more sensible way to do this too, seems like GC hell
-	/// List of all HUDs that are "viewing" this action
+	/// Assoc. list of all huds viewing our action, mapped to an action button for this action on the respective HUD.
 	var/list/viewers = list()
 
 
@@ -39,25 +39,26 @@
 		Remove(owner)
 	if(target)
 		target = null
-	QDEL_NULL(button)
+	QDEL_LIST_ASSOC_VAL(viewers) // Qdel the buttons in the viewers list **NOT THE HUDS**
 	return ..()
 
-/datum/action/proc/Grant(mob/M)
-	if(owner)
-		if(owner == M)
-			return
+/datum/action/proc/Grant(mob/grant_to)
+	if(isnull(grant_to))
 		Remove(owner)
-	owner = M
-	M.actions += src
-	if(M.client)
-		M.client.screen += button
-		button.locked = TRUE
-	M.update_action_buttons()
+		return
+	if(grant_to == owner)
+		return  // we already have it
+	var/mob/previous_owner = owner
+	owner = grant_to
+	grant_to.actions += src
+	if(!isnull(previous_owner))
+		Remove(previous_owner)
+	grant_to.update_action_buttons()
 	SEND_SIGNAL(src, COMSIG_ACTION_GRANTED, owner)
 	SEND_SIGNAL(owner, COMSIG_MOB_GRANTED_ACTION, src)
 
 	// RegisterSignal(grant_to, COMSIG_MOB_KEYDOWN, PROC_REF(keydown), override = TRUE)
-	GiveAction(M)
+	GiveAction(grant_to)
 
 /datum/action/proc/Remove(mob/M)
 
@@ -182,15 +183,13 @@
 	if(!our_hud || viewers[our_hud]) // There's no point in this if you have no hud in the first place
 		return
 
-	var/obj/screen/movable/action_button/button = create_button()
-	// SetId(button, viewer)
-//
-	button.our_hud = our_hud
+	// var/obj/screen/movable/action_button/button = create_button()
+
+	// button.our_hud = our_hud
 	viewers[our_hud] = button
 	if(viewer.client)
 		viewer.client.screen += button
 
-	// button.load_position(viewer)
 	viewer.update_action_buttons()
 
 /// Removes our action from the passed viewer.
