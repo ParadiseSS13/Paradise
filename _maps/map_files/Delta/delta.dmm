@@ -25927,12 +25927,6 @@
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai)
-"byi" = (
-/obj/structure/closet/emcloset,
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/gravitygenerator)
 "byk" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -25942,6 +25936,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "byl" = (
@@ -45900,6 +45895,11 @@
 /area/station/public/locker)
 "cxw" = (
 /obj/structure/closet/wardrobe/green,
+/obj/machinery/alarm{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -66349,6 +66349,28 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"ebU" = (
+/obj/machinery/computer/general_air_control{
+	name = "Bomb Mix Monitor";
+	autolink_sensors = list("burn_sensor" = "Burn Mix");
+	dir = 1
+	},
+/obj/machinery/ignition_switch{
+	id = "toxinsigniter";
+	pixel_x = 6;
+	pixel_y = -25
+	},
+/obj/machinery/door_control{
+	id = "ToxinsVenting";
+	name = "Toxin Venting Control";
+	pixel_x = -8;
+	pixel_y = -26
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/science/toxins/mixing)
 "ecs" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -67311,28 +67333,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"eBo" = (
-/obj/machinery/computer/general_air_control{
-	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor" = "Burn Mix");
-	dir = 1
-	},
-/obj/machinery/ignition_switch{
-	id = "toxinsigniter";
-	pixel_x = 6;
-	pixel_y = -25
-	},
-/obj/machinery/door_control{
-	id = "ToxinsVenting";
-	name = "Toxin Venting Control";
-	pixel_x = -8;
-	pixel_y = -26
-	},
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
-/area/station/science/toxins/mixing)
 "eCj" = (
 /obj/machinery/status_display{
 	pixel_x = 32
@@ -122550,7 +122550,7 @@ bpv
 bpv
 aOg
 abj
-bzL
+abj
 bwN
 bzL
 vzG
@@ -122808,7 +122808,7 @@ xBO
 aOg
 acF
 bzL
-byi
+bzL
 mPU
 bBt
 rcq
@@ -131877,7 +131877,7 @@ nWB
 sOj
 dyz
 qJA
-eBo
+ebU
 dkI
 ivD
 ivD

@@ -22627,6 +22627,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 9
 	},
+/obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -51677,17 +51678,6 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
-"fIm" = (
-/obj/machinery/computer/general_air_control{
-	dir = 4;
-	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "caution"
-	},
-/area/station/engineering/controlroom)
 "fIv" = (
 /obj/machinery/door/airlock/engineering,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
@@ -52136,23 +52126,6 @@
 	icon_state = "cult"
 	},
 /area/station/legal/lawoffice)
-"fTA" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
-/obj/machinery/computer/general_air_control{
-	dir = 8;
-	level = 3;
-	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "caution"
-	},
-/area/station/engineering/controlroom)
 "fTF" = (
 /obj/structure/rack{
 	dir = 8;
@@ -60723,6 +60696,27 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
+"jFo" = (
+/obj/machinery/computer/general_air_control{
+	dir = 1;
+	name = "Bomb Mix Monitor";
+	autolink_sensors = list("burn_sensor" = "Burn Mix")
+	},
+/obj/machinery/door_control{
+	id = "ToxinsVenting";
+	layer = 3.3;
+	name = "Toxin Venting Control";
+	pixel_x = 8;
+	pixel_y = -27
+	},
+/obj/machinery/ignition_switch{
+	id = "toxinsigniter";
+	layer = 3.3;
+	pixel_x = -6;
+	pixel_y = -26
+	},
+/turf/simulated/floor/plasteel,
+/area/station/science/toxins/mixing)
 "jFr" = (
 /obj/structure/closet/bombcloset,
 /obj/effect/turf_decal/stripes/line{
@@ -70975,27 +70969,6 @@
 	},
 /turf/space,
 /area/space)
-"nJo" = (
-/obj/machinery/computer/general_air_control{
-	dir = 1;
-	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor" = "Burn Mix")
-	},
-/obj/machinery/door_control{
-	id = "ToxinsVenting";
-	layer = 3.3;
-	name = "Toxin Venting Control";
-	pixel_x = 8;
-	pixel_y = -27
-	},
-/obj/machinery/ignition_switch{
-	id = "toxinsigniter";
-	layer = 3.3;
-	pixel_x = -6;
-	pixel_y = -26
-	},
-/turf/simulated/floor/plasteel,
-/area/station/science/toxins/mixing)
 "nJZ" = (
 /obj/item/assembly/prox_sensor{
 	pixel_x = -4;
@@ -92281,6 +92254,23 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
+"xfG" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/obj/machinery/computer/general_air_control{
+	dir = 8;
+	level = 3;
+	name = "Distribution and Waste Monitor";
+	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "caution"
+	},
+/area/station/engineering/controlroom)
 "xgb" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
@@ -93854,6 +93844,17 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/xenobiology)
+"xPv" = (
+/obj/machinery/computer/general_air_control{
+	dir = 4;
+	name = "Tank Monitor";
+	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "caution"
+	},
+/area/station/engineering/controlroom)
 "xPC" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -124799,7 +124800,7 @@ kqP
 fNw
 klo
 hQB
-nJo
+jFo
 vZA
 hVw
 uZk
@@ -137083,7 +137084,7 @@ bpn
 gqj
 fQi
 hHE
-fIm
+xPv
 mnV
 bvt
 oIb
@@ -137598,7 +137599,7 @@ lQJ
 gYM
 hHE
 fOv
-fTA
+xfG
 iTB
 lho
 fWH

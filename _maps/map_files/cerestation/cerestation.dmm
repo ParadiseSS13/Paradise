@@ -16560,6 +16560,17 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/atmos)
+"bKE" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/computer/general_air_control{
+	dir = 4;
+	name = "Tank Monitor";
+	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos/control)
 "bKF" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -38437,17 +38448,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/aft/west)
-"fiG" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/computer/general_air_control{
-	dir = 4;
-	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/control)
 "fiK" = (
 /turf/simulated/mineral/ancient/outer,
 /area/station/maintenance/disposal/west)
@@ -39366,6 +39366,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /obj/machinery/door/airlock/maintenance/glass,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/external/southeast)
 "fCc" = (
@@ -69032,6 +69033,18 @@
 "poW" = (
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
+"poX" = (
+/obj/machinery/computer/general_air_control{
+	dir = 8;
+	name = "Distribution and Waste Monitor";
+	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
+	},
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	name = "custom placement"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos/control)
 "ppd" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -96126,18 +96139,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"yad" = (
-/obj/machinery/computer/general_air_control{
-	dir = 8;
-	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
-	},
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	name = "custom placement"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/control)
 "yai" = (
 /obj/machinery/computer/scan_consolenew{
 	dir = 8
@@ -127291,7 +127292,7 @@ bFf
 jps
 cQl
 cQl
-fiG
+bKE
 bLS
 cQl
 qWu
@@ -128318,7 +128319,7 @@ bwi
 lzu
 oeM
 cQl
-yad
+poX
 bKH
 bLV
 cQl

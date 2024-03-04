@@ -12,7 +12,8 @@
 	containertype = /obj/structure/largecrate
 	containername = "fuel tank crate"
 
-/datum/supply_packs/engineering/tools		//the most robust crate
+/// the most robust crate
+/datum/supply_packs/engineering/tools
 	name = "Toolbox Crate"
 	contains = list(/obj/item/storage/toolbox/electrical,
 					/obj/item/storage/toolbox/electrical,
