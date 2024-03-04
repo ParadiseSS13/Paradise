@@ -134,7 +134,6 @@
 				owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 				continue
 
-
 		if(H.stat != DEAD || H.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED))
 			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, H.blood_volume)
@@ -261,7 +260,7 @@
 	if(owner.current.hud_used)
 		var/datum/hud/hud = owner.current.hud_used
 		if(!hud.vampire_blood_display)
-			hud.vampire_blood_display = new /obj/screen()
+			hud.vampire_blood_display = new /atom/movable/screen()
 			hud.vampire_blood_display.name = "Usable Blood"
 			hud.vampire_blood_display.icon_state = "blood_display"
 			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
