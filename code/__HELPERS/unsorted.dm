@@ -2063,7 +2063,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return hsl[3] < threshold
 
 /**
- * This proc takes a list of types, and returns them in the format.
+ * This proc takes a list of types, and returns them in the format below.
  * [type] = amount of type in list.
  * Useful for recipes.
  */

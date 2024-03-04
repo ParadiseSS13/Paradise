@@ -2205,9 +2205,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	if(!HAS_TRAIT(mind, TRAIT_EXPERT_CHEF))
 		return
-	// if(has_status_effect(STATUS_EXPERT_CHEF)) // ctodo readd
-	// 	to_chat(src, "<span class='warning'>All this thinking makes your head hurt, wait a bit longer.</span>")
-	// 	return
+	if(has_status_effect(STATUS_EXPERT_CHEF))
+		to_chat(src, "<span class='warning'>All this thinking makes your head hurt, wait a bit longer.</span>")
+		return
 	apply_status_effect(STATUS_EXPERT_CHEF)
 
 	var/list/possible_cookware = orange(1, src)

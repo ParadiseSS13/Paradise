@@ -55,7 +55,14 @@
 		return -1
 	return .
 
-/datum/recipe/proc/check_reagents_assoc_list(list/avail_reagents) //1=precisely, 0=insufficiently, -1=superfluous
+/**
+ * Similarly to the function above, this checks for reagents, except instead of being passed a reagent holder, we're passed
+ * [reagent_id] = amount as num.
+ * Returns 1 if we have the precise amount thats requested.
+ * Returns 0 if we do not have enough.
+ * Returns -1 if we have MORE than requested.
+ */
+/datum/recipe/proc/check_reagents_assoc_list(list/avail_reagents)
 	. = 1
 	for(var/required_reagent_id in reagents)
 		var/provided_reagent_amount = avail_reagents[required_reagent_id]
@@ -92,7 +99,14 @@
 		return 0
 	return .
 
-/datum/recipe/proc/check_items_assoc_list(list/given_objects) //1=precisely, 0=insufficiently, -1=superfluous
+/**
+ * Similarly to the function above, this checks for items, except instead of being passed a reagent holder, we're passed
+ * [type_path] = amount as num.
+ * Returns 1 if we have the precise amount thats requested.
+ * Returns 0 if we do not have enough.
+ * Returns -1 if we have MORE than requested.
+ */
+/datum/recipe/proc/check_items_assoc_list(list/given_objects)
 	. = 1
 	var/list/checklist = items ? items.Copy() : list()
 	for(var/obj/item/I as anything in given_objects) // path
