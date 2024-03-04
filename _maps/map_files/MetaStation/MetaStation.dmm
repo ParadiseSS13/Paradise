@@ -10376,9 +10376,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "aTi" = (
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -24552,9 +24550,7 @@
 	c_tag = "Arrivals - Middle Arm";
 	dir = 1
 	},
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
@@ -42314,9 +42310,7 @@
 	},
 /area/station/medical/surgery/secondary)
 "cRq" = (
-/obj/machinery/economy/atm{
-	pixel_y = 32
-	},
+/obj/machinery/economy/atm/directional/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -73187,9 +73181,7 @@
 	},
 /area/station/maintenance/asmaint)
 "oPi" = (
-/obj/machinery/economy/atm{
-	pixel_x = -32
-	},
+/obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/wood,
 /area/station/public/mrchangs)
 "oPO" = (
@@ -79112,9 +79104,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "rmg" = (
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -93563,9 +93553,7 @@
 /area/station/service/chapel)
 "xKg" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/economy/atm{
-	pixel_x = 32
-	},
+/obj/machinery/economy/atm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},

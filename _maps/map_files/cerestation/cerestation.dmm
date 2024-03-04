@@ -27180,9 +27180,7 @@
 "cPP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/economy/atm{
-	pixel_x = -32
-	},
+/obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -34161,9 +34159,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	color = "#954535"
@@ -43354,9 +43350,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/economy/atm{
-	pixel_y = 32
-	},
+/obj/machinery/economy/atm/directional/north,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -43998,9 +43992,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "hiN" = (
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -54552,9 +54544,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -58527,9 +58517,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "lME" = (
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellowcorner"
@@ -63187,9 +63175,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/economy/atm{
-	pixel_y = 32
-	},
+/obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -92413,9 +92399,7 @@
 	dir = 4;
 	color = "#954535"
 	},
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"

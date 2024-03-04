@@ -1039,9 +1039,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "ait" = (
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -60206,9 +60204,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/machinery/economy/atm{
-	pixel_x = 32
-	},
+/obj/machinery/economy/atm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -67418,9 +67414,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "eEG" = (
-/obj/machinery/economy/atm{
-	pixel_x = 32
-	},
+/obj/machinery/economy/atm/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -69286,9 +69280,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "fJp" = (
-/obj/machinery/economy/atm{
-	pixel_y = 32
-	},
+/obj/machinery/economy/atm/directional/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -74505,9 +74497,7 @@
 	},
 /area/station/service/kitchen)
 "iVg" = (
-/obj/machinery/economy/atm{
-	pixel_x = -32
-	},
+/obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -77259,9 +77249,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/library)
 "kGm" = (
-/obj/machinery/economy/atm{
-	pixel_x = -32
-	},
+/obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -77922,9 +77910,7 @@
 	},
 /area/station/service/hydroponics)
 "lbc" = (
-/obj/machinery/economy/atm{
-	pixel_x = -32
-	},
+/obj/machinery/economy/atm/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
