@@ -919,7 +919,7 @@
 		var/obj/item/storage/bag/trash/bag = jani_vehicle?.mybag || jani_cart?.mybag
 		var/obj/trashed_into
 		if(bag?.can_be_inserted(garbage, TRUE))
-			bag.handle_item_insertion(garbage, TRUE)
+			bag.handle_item_insertion(garbage, user, TRUE)
 			trashed_into = bag
 		else if(target_bin)
 			move_into_storage(user, target_bin, garbage)

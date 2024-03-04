@@ -271,7 +271,7 @@
 // Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
 // Used in job equipping so shit doesn't pile up at the start loc.
 /mob/living/carbon/human/proc/equip_or_collect(obj/item/W, slot, initial = FALSE)
-	if(W.mob_can_equip(src, slot, 1))
+	if(W.mob_can_equip(src, slot, TRUE))
 		//Mob can equip.  Equip it.
 		equip_to_slot_or_del(W, slot, initial)
 	else
@@ -279,12 +279,12 @@
 		if(isstorage(back))
 			var/obj/item/storage/S = back
 			//Now, S represents a container we can insert W into.
-			S.handle_item_insertion(W, TRUE, TRUE)
+			S.handle_item_insertion(W, src, TRUE, TRUE)
 			return S
 		if(ismodcontrol(back))
 			var/obj/item/mod/control/C = back
 			if(C.bag)
-				C.bag.handle_item_insertion(W, TRUE, TRUE)
+				C.bag.handle_item_insertion(W, src, TRUE, TRUE)
 			return C.bag
 
 		var/turf/T = get_turf(src)

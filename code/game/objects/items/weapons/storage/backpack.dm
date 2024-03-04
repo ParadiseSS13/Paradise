@@ -454,7 +454,7 @@
 
 // The following three procs handle refusing access to contents if the duffel is zipped
 
-/obj/item/storage/backpack/duffel/handle_item_insertion(obj/item/I, prevent_warning, bypass_zip = FALSE)
+/obj/item/storage/backpack/duffel/handle_item_insertion(obj/item/I, mob/user, prevent_warning, bypass_zip = FALSE)
 	if(bypass_zip)
 		return ..()
 
