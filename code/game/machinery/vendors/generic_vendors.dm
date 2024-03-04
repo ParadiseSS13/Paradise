@@ -1230,7 +1230,8 @@
 /obj/machinery/economy/vending/cigarette/syndicate/free
 	prices = list()
 
-/obj/machinery/economy/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
+/// Used in the lavaland_biodome_beach.dmm ruin
+/obj/machinery/economy/vending/cigarette/beach
 	name = "\improper ShadyCigs Ultra"
 	desc = "Now with extra premium products!"
 	slogan_list = list("Turn on, tune in, drop out!",
