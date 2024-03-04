@@ -15,6 +15,11 @@
 		ui = new(user, src, "Orbit", "Orbit")
 		ui.open()
 
+/datum/orbit_menu/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/orbit_job)
+	)
+
 /datum/orbit_menu/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
 	if(.)
@@ -67,6 +72,11 @@
 		var/list/orbiters = M.get_orbiters_recursive()
 		if(length(orbiters) > 0)
 			serialized["orbiters"] = length(orbiters)
+		if(isliving(M))
+			var/mob/living/L = M
+			if(L.mind?.assigned_role && L.mind.assigned_role != L.mind.special_role)
+				serialized["assigned_role"] = L.mind.assigned_role
+				serialized["assigned_role_sprite"] = "hud[ckey(L.mind.get_assigned_role_asset())]"
 
 		if(istype(M))
 			if(isnewplayer(M))  // People in the lobby screen; only have their ckey as a name.

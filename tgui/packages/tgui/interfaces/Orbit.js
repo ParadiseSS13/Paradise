@@ -10,11 +10,17 @@ import {
   Stack,
 } from '../components';
 import { Window } from '../layouts';
+import { createLogger } from '../logging';
 
 const PATTERN_NUMBER = / \(([0-9]+)\)$/;
 
 const searchFor = (searchText) =>
-  createSearch(searchText, (thing) => thing.name);
+  createSearch(
+    searchText,
+    (thing) =>
+      thing.name +
+      (thing.assigned_role !== null ? '|' + thing.assigned_role : '')
+  );
 
 const compareString = (a, b) => (a < b ? -1 : a > b);
 
@@ -62,13 +68,28 @@ const BasicSection = (props, context) => {
   );
 };
 
+const logger = createLogger('spriteFuck');
+
 const OrbitedButton = (props, context) => {
   const { act } = useBackend(context);
   const { color, thing } = props;
 
+  if (thing.assigned_role_sprite) {
+    logger.error(thing.assigned_role + ' - ' + thing.assigned_role_sprite);
+  }
   return (
     <Button
       color={color}
+      tooltip={
+        thing.assigned_role ? (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {<img src={thing.assigned_role_sprite} />} {thing.assigned_role}
+          </div>
+        ) : (
+          ''
+        )
+      }
+      tooltipPosition="bottom"
       onClick={() =>
         act('orbit', {
           ref: thing.ref,

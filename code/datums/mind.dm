@@ -1787,6 +1787,25 @@
 	to_chat(current, "<span class='warning'><b>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</b></span>")
 	to_chat(current, "<span class='warning'><b>This means you don't remember who you were working for or what you were doing.</b></span>")
 
+/datum/mind/proc/get_assigned_role_asset() //Used in asset generation for Orbiting
+	var/job_icons = GLOB.joblist + "prisoner"
+	var/centcom = get_all_centcom_jobs() + SPECIAL_ROLE_ERT + SPECIAL_ROLE_DEATHSQUAD
+	var/solgov = get_all_solgov_jobs()
+	var/soviet = get_all_soviet_jobs()
+
+	if(assigned_role in centcom) //Return with the NT logo if it is a Centcom job
+		return "centcom"
+
+	if(assigned_role in solgov) //Return with the SolGov logo if it is a SolGov job
+		return "solgov"
+
+	if(assigned_role in soviet) //Return with the U.S.S.P logo if it is a Soviet job
+		return "soviet"
+
+	if(assigned_role in job_icons) //Check if the job has a hud icon
+		return assigned_role
+	return "unknown"
+
 //Initialisation procs
 /mob/proc/mind_initialize()
 	if(mind)
