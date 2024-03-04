@@ -14,7 +14,8 @@
 // Hydroponics Tools
 // *************************************
 
-/obj/item/reagent_containers/spray/weedspray // -- Skie
+/// -- Skie
+/obj/item/reagent_containers/spray/weedspray
 	name = "weed spray"
 	desc = "It's a toxic mixture, in spray form, to kill small weeds."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -34,7 +35,8 @@
 	user.visible_message("<span class='suicide'>[user] is huffing [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return TOXLOSS
 
-/obj/item/reagent_containers/spray/pestspray // -- Skie
+/// -- Skie
+/obj/item/reagent_containers/spray/pestspray
 	name = "pest spray"
 	desc = "It's some pest eliminator spray! <I>Do not inhale!</I>"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
