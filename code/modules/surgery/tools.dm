@@ -138,14 +138,16 @@
 /*
  * Researchable Scalpels
  */
-/obj/item/scalpel/laser //parent type
+/// parent type
+/obj/item/scalpel/laser
 	name = "laser scalpel"
 	desc = "A scalpel augmented with a directed laser."
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
 
-/obj/item/scalpel/laser/laser1 //lasers also count as catuarys
+/// lasers also count as catuarys
+/obj/item/scalpel/laser/laser1
 	name = "laser scalpel"
 	desc = "A scalpel augmented with a directed laser.  This one looks basic and could be improved."
 	icon_state = "scalpel_laser1_on"
@@ -163,7 +165,8 @@
 	icon_state = "scalpel_laser3_on"
 	toolspeed = 0.4
 
-/obj/item/scalpel/laser/manager //super tool! Retractor/hemostat
+/// super tool! Retractor/hemostat
+/obj/item/scalpel/laser/manager
 	name = "incision management system"
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	icon_state = "scalpel_manager_on"
