@@ -70538,11 +70538,9 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
-/obj/machinery/power/apc{
-	cell_type = 15000;
-	dir = 8;
+/obj/machinery/power/apc/important/directional/west{
 	name = "Cryo and Arrivals Super APC";
-	pixel_x = -24
+	cell_type = 15000
 	},
 /turf/simulated/floor/plating,
 /area/station/public/sleep/secondary)
@@ -91126,11 +91124,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
+/obj/machinery/power/apc/important/directional/north{
 	cell_type = 15000;
-	name = "Cryo and Arrivals Super APC";
-	pixel_y = 24;
-	dir = 1
+	name = "Cryo and Arrivals Super APC"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
