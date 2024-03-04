@@ -435,7 +435,7 @@
 		user.update_icons()	//update our overlays
 	if(QDELING(I))
 		return FALSE
-	if(silent)
+	if(silent || HAS_TRAIT(I, TRAIT_SILENT_INSERTION))
 		prevent_warning = TRUE
 	I.forceMove(src)
 	if(QDELING(I))
@@ -446,7 +446,7 @@
 		var/mob/M = _M
 		if((M.s_active == src) && M.client)
 			M.client.screen += I
-// TODO: ADD SILENT TRAIT CHECK
+
 	if(user.client && user.s_active != src)
 		user.client.screen -= I
 	I.dropped(user, TRUE)
