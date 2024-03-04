@@ -243,6 +243,7 @@
 /obj/item/toy/crayon/white/chalk
 	name = "detective's chalk"
 	desc = "A stick of white chalk for marking crime scenes."
+	gender = PLURAL
 	toolspeed = 0.25
 
 /obj/item/toy/crayon/mime
