@@ -648,7 +648,8 @@
 		disable(rand(2, 5))
 		return TRUE
 
-/obj/item/clothing/suit/armor/reactive/random //Spawner for random reactive armor
+/// Spawner for random reactive armor
+/obj/item/clothing/suit/armor/reactive/random
 	name = "Random Reactive Armor"
 
 /obj/item/clothing/suit/armor/reactive/random/Initialize(mapload)

@@ -1,5 +1,5 @@
 /datum/component/gunhud
-	var/obj/screen/ammo_counter/hud
+	var/atom/movable/screen/ammo_counter/hud
 
 /datum/component/gunhud/Initialize()
 	. = ..()

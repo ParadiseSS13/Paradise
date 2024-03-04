@@ -251,7 +251,7 @@
 			try_free_content(T, usr)
 			return TRUE
 
-		if(!(istype(over_object, /obj/screen)))
+		if(!is_screen_atom(over_object))
 			return ..()
 		if(!(loc == usr) || (loc && loc.loc == usr))
 			return

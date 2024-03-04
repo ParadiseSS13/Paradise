@@ -2,11 +2,11 @@
 	is_global = TRUE
 	should_lock_watchers = FALSE
 	stop_ooc = FALSE
-	backdrop_type = /obj/screen/fullscreen/cinematic_backdrop/credits
+	backdrop_type = /atom/movable/screen/fullscreen/cinematic_backdrop/credits
 
 /datum/cinematic/credits/New(watcher, datum/callback/special_callback)
 	. = ..()
-	screen = new /obj/screen/cinematic/credits(src)
+	screen = new /atom/movable/screen/cinematic/credits(src)
 
 /datum/cinematic/credits/start_cinematic(list/watchers)
 	if(!(SEND_GLOBAL_SIGNAL(COMSIG_GLOB_PLAY_CINEMATIC, src) & COMPONENT_GLOB_BLOCK_CINEMATIC))
@@ -49,36 +49,36 @@
 /datum/cinematic/credits/halloween/New(watcher, datum/callback/special_callback)
 	. = ..()
 
-	screen = new /obj/screen/cinematic/credits/halloween()
+	screen = new /atom/movable/screen/cinematic/credits/halloween()
 
 /datum/cinematic/credits/new_year
 
 /datum/cinematic/credits/new_year/New(watcher, datum/callback/special_callback)
 	. = ..()
 
-	screen = new /obj/screen/cinematic/credits/new_year()
+	screen = new /atom/movable/screen/cinematic/credits/new_year()
 
-/obj/screen/cinematic/credits
+/atom/movable/screen/cinematic/credits
 	icon_state = "blank"
 	alpha = 0
 
-/obj/screen/cinematic/credits/Initialize(mapload)
+/atom/movable/screen/cinematic/credits/Initialize(mapload)
 	. = ..()
 
 	animate(src, alpha = 120, time = 3 SECONDS)
 
-/obj/screen/cinematic/credits/halloween
+/atom/movable/screen/cinematic/credits/halloween
 	icon = 'modular_ss220/cinematics/icons/backdrops.dmi'
 	icon_state = "halloween"
 
-/obj/screen/cinematic/credits/new_year
+/atom/movable/screen/cinematic/credits/new_year
 	icon = 'modular_ss220/cinematics/icons/backdrops.dmi'
 	icon_state = "new_year"
 
-/obj/screen/fullscreen/cinematic_backdrop/credits
+/atom/movable/screen/fullscreen/cinematic_backdrop/credits
 	alpha = 0
 
-/obj/screen/fullscreen/cinematic_backdrop/credits/Initialize(mapload)
+/atom/movable/screen/fullscreen/cinematic_backdrop/credits/Initialize(mapload)
 	. = ..()
 
 	animate(src, alpha = 220, time = 3 SECONDS)
