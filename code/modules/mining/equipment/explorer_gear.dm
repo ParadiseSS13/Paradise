@@ -131,7 +131,7 @@
 	icon_state = "hardsuit_gulag"
 	item_state = "hardsuit_gulag"
 	body_parts_covered = HEAD
-	flags = BLOCKHAIR | NODROP
+	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
