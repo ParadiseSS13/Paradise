@@ -99,7 +99,7 @@
 	icon_state = "signmaker_det"
 	belt_icon = null
 	holosign_type = /obj/structure/holosign/barrier/cyborg/hacked/detective
-	creation_time = 10
+	creation_time = 1 SECONDS
 	max_signs = 8
 
 
