@@ -1,4 +1,4 @@
-/obj/screen/fullscreen/cinematic_backdrop
+/atom/movable/screen/fullscreen/cinematic_backdrop
 	icon = 'icons/mob/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "flash"

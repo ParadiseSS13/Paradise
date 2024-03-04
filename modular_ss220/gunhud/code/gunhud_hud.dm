@@ -1,9 +1,9 @@
 /datum/hud
-	var/obj/screen/ammo_counter
+	var/atom/movable/screen/ammo_counter
 
 /datum/hud/human/New(mob/living/carbon/human/owner, ui_style, ui_color, ui_alpha)
 	. = ..()
-	ammo_counter = new /obj/screen/ammo_counter()
+	ammo_counter = new /atom/movable/screen/ammo_counter()
 	ammo_counter.hud = src
 	infodisplay += ammo_counter
 
@@ -21,7 +21,7 @@
 *	Check the gunhud.dmi for all available icons you can use.
 */
 
-/obj/screen/ammo_counter
+/atom/movable/screen/ammo_counter
 	name = "ammo counter"
 	icon = 'modular_ss220/gunhud/icons/gunhud.dmi'
 	icon_state = "backing"
@@ -44,7 +44,7 @@
 	var/indicator
 
 ///This proc simply resets the hud to standard and removes it from the players visible hud.
-/obj/screen/ammo_counter/proc/turn_off()
+/atom/movable/screen/ammo_counter/proc/turn_off()
 	invisibility = INVISIBILITY_ABSTRACT
 	maptext = null
 	backing_color = COLOR_RED
@@ -56,11 +56,11 @@
 	update_appearance()
 
 ///This proc turns the hud on, but does not set it to anything other than the currently set values
-/obj/screen/ammo_counter/proc/turn_on()
+/atom/movable/screen/ammo_counter/proc/turn_on()
 	invisibility = 0
 
 ///This is the main proc for altering the hud's appeareance, it controls the setting of the overlays. Use the OTH and below variables to set it accordingly.
-/obj/screen/ammo_counter/proc/set_hud(_backing_color, _oth_o, _oth_t, _oth_h, _indicator, _oth_backing = "oth_light")
+/atom/movable/screen/ammo_counter/proc/set_hud(_backing_color, _oth_o, _oth_t, _oth_h, _indicator, _oth_backing = "oth_light")
 	backing_color = _backing_color
 	oth_backing = _oth_backing
 	oth_o = _oth_o
@@ -70,7 +70,7 @@
 
 	update_appearance()
 
-/obj/screen/ammo_counter/update_overlays()
+/atom/movable/screen/ammo_counter/update_overlays()
 	. = ..()
 	if(oth_backing)
 		var/mutable_appearance/oth_backing_overlay = mutable_appearance(icon, oth_backing)

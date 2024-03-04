@@ -43,7 +43,7 @@
 	for(var/client/client in clients)
 		LAZYINITLIST(client.credits)
 
-	var/obj/screen/credit/logo = new /obj/screen/credit/logo(null, "", clients)
+	var/atom/movable/screen/credit/logo = new /atom/movable/screen/credit/logo(null, "", clients)
 	screen_credits += logo
 
 	addtimer(CALLBACK(src, PROC_REF(start_rolling_credits_for_clients), clients), delay_time)
@@ -59,11 +59,11 @@
 	addtimer(CALLBACK(src, PROC_REF(clear_credits_for_clients), clients), SScredits.credit_roll_speed)
 
 /datum/credits/proc/start_rolling_logo()
-	var/obj/screen/credit/logo/logo = screen_credits[1]
+	var/atom/movable/screen/credit/logo/logo = screen_credits[1]
 	logo.rollem()
 
 /datum/credits/proc/start_rolling_credit_item(list/client/clients, credit_item)
-	var/obj/screen/credit/title = new(null, credit_item, clients)
+	var/atom/movable/screen/credit/title = new(null, credit_item, clients)
 	screen_credits += title
 
 	title.rollem()
@@ -372,7 +372,7 @@
 	content += "<hr>"
 	content += "<center><span style='font-size:6pt;'>[jointext(disclaimer, null)]</span><br></center>"
 
-/obj/screen/credit
+/atom/movable/screen/credit
 	icon_state = "blank"
 	mouse_opacity = 0
 	alpha = 255
@@ -381,7 +381,7 @@
 
 	var/list/client/watchers = list()
 
-/obj/screen/credit/Initialize(mapload, credited, list/client/clients)
+/atom/movable/screen/credit/Initialize(mapload, credited, list/client/clients)
 	. = ..()
 
 	for(var/client/watcher in clients)
@@ -398,7 +398,7 @@
 	maptext_height = world.icon_size * 2
 	maptext_width = world.icon_size * 14
 
-/obj/screen/credit/proc/rollem()
+/atom/movable/screen/credit/proc/rollem()
 	var/matrix/matrix = matrix(transform)
 	transform = matrix.Translate(0, -world.icon_size)
 
@@ -406,11 +406,11 @@
 	animate(src, transform = matrix, time = SScredits.credit_roll_speed)
 	addtimer(CALLBACK(src, PROC_REF(delete_credit)), SScredits.credit_roll_speed, TIMER_CLIENT_TIME)
 
-/obj/screen/credit/proc/delete_credit()
+/atom/movable/screen/credit/proc/delete_credit()
 	if(!QDELETED(src))
 		qdel(src)
 
-/obj/screen/credit/Destroy()
+/atom/movable/screen/credit/Destroy()
 	for(var/client/watcher in watchers)
 		if(!watcher)
 			continue
@@ -421,14 +421,14 @@
 
 	return ..()
 
-/obj/screen/credit/logo
+/atom/movable/screen/credit/logo
 	icon = 'modular_ss220/credits/icons/logo.dmi'
 	icon_state = "ss220"
 	screen_loc = "CENTER - 2,CENTER"
 	alpha = 100
 
 
-/obj/screen/credit/logo/Initialize(mapload, credited, list/client/clients)
+/atom/movable/screen/credit/logo/Initialize(mapload, credited, list/client/clients)
 	. = ..()
 	animate(src, alpha = 220, time = 3 SECONDS)
 	maptext = "<center><h1>Playing music - [SScredits.title_music]</h1></center>"
@@ -436,7 +436,7 @@
 	maptext_x -= 5 * world.icon_size
 	maptext_y += 6 * world.icon_size
 
-/obj/screen/credit/logo/rollem()
+/atom/movable/screen/credit/logo/rollem()
 	var/matrix/matrix = matrix(transform)
 	matrix.Translate(0, SScredits.credit_animate_height)
 	animate(src, transform = matrix, time = SScredits.credit_roll_speed)

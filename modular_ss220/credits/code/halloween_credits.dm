@@ -17,7 +17,7 @@
 	for(var/client/client in clients)
 		LAZYINITLIST(client.credits)
 
-	var/obj/screen/credit/logo = new /obj/screen/credit/halloween(null, "", clients)
+	var/atom/movable/screen/credit/logo = new /atom/movable/screen/credit/halloween(null, "", clients)
 	screen_credits += logo
 
 	addtimer(CALLBACK(src, PROC_REF(start_rolling_credits_for_clients), clients), delay_time)
@@ -174,14 +174,14 @@
 	if(length(goodboys))
 		content += "<center><h1>Духи:<br></h1>[english_list(goodboys, and_text = " и ")]</center><br>"
 
-/obj/screen/credit/halloween
+/atom/movable/screen/credit/halloween
 	icon = 'modular_ss220/credits/icons/logo.dmi'
 	icon_state = "halloween"
 	screen_loc = "CENTER - 2,CENTER + 1"
 	appearance_flags = NO_CLIENT_COLOR | TILE_BOUND | PIXEL_SCALE
 	alpha = 255
 
-/obj/screen/credit/halloween/Initialize(mapload, credited, list/client/clients)
+/atom/movable/screen/credit/halloween/Initialize(mapload, credited, list/client/clients)
 	. = ..()
 
 	plane++
@@ -194,7 +194,7 @@
 	transform = transform.Translate(-8 * world.icon_size, 0)
 	animate(src, transform = matrix, time = 5 SECONDS, flags = ANIMATION_PARALLEL)
 
-/obj/screen/credit/halloween/rollem()
+/atom/movable/screen/credit/halloween/rollem()
 	var/matrix/matrix = matrix(transform)
 	matrix.Translate(0, SScredits.credit_animate_height)
 	animate(src, transform = matrix, time = SScredits.credit_roll_speed)
