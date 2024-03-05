@@ -1,5 +1,5 @@
 /datum/antagonist/changeling
-	name = "Changeling"
+	name = "Stinky"
 	roundend_category = "changelings"
 	job_rank = ROLE_CHANGELING
 	special_role = SPECIAL_ROLE_CHANGELING
