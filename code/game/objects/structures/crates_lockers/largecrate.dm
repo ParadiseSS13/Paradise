@@ -102,3 +102,13 @@
 	if(istype(W, /obj/item/crowbar))
 		new /mob/living/simple_animal/pet/cat(loc)
 	return ..()
+
+/obj/structure/largecrate/secway
+	name = "secway crate"
+	icon_state = "lisacrate"
+
+/obj/structure/largecrate/secway/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/crowbar))
+		new /obj/vehicle/secway(loc)
+		new /obj/item/key/security(loc)
+	return ..()

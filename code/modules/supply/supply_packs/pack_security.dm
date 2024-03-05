@@ -349,3 +349,10 @@
 				/obj/item/clothing/suit/armor/secjacket)
 	cost = 500 // Convenience has a price and this pack is genuinely loaded
 	containername = "officer starter crate"
+
+/datum/supply_packs/security/secway
+	name = "Secway Crate"
+	cost = 800
+	containertype = /obj/structure/largecrate/secway
+	containername = "secway crate"
+	access = ACCESS_HEADS
