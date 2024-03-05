@@ -3854,7 +3854,6 @@
 /area/abductor_ship)
 "mX" = (
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Cockpit";
 	req_access_txt = "150"
 	},
@@ -4139,15 +4138,11 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "nN" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "nO" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "nP" = (
@@ -4268,7 +4263,9 @@
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
 "oi" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	req_access_txt = "114"
+	},
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -4279,8 +4276,9 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "oj" = (
-/obj/machinery/door/airlock/hatch{
-	name = "External Airlock"
+/obj/machinery/door/airlock/centcom/glass{
+	name = "External Airlock";
+	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -4908,8 +4906,7 @@
 "qJ" = (
 /obj/structure/table,
 /obj/machinery/door/window/classic/normal{
-	name = "security checkpoint";
-	dir = 2
+	name = "security checkpoint"
 	},
 /turf/simulated/floor/carpet,
 /area/admin)
@@ -7909,9 +7906,7 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Cl" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
 "Cm" = (
@@ -8482,7 +8477,6 @@
 /area/holodeck/source_basketball)
 "Ej" = (
 /obj/machinery/door/window/reinforced/normal{
-	dir = 2;
 	name = "Cell Door";
 	req_access_txt = "150"
 	},
@@ -11383,9 +11377,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "Of" = (
@@ -14333,8 +14325,7 @@
 "YJ" = (
 /obj/machinery/door/window/classic/normal{
 	name = "Cell B";
-	req_access_txt = "101";
-	dir = 2
+	req_access_txt = "101"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
@@ -30318,9 +30309,9 @@ aN
 aN
 aN
 YA
-YN
-YN
-YN
+sm
+sm
+sm
 YA
 Te
 JD
@@ -30574,7 +30565,7 @@ aN
 aN
 aN
 aN
-YN
+sm
 EW
 Gd
 GR
@@ -30831,7 +30822,7 @@ aN
 aN
 aN
 aN
-YN
+sm
 vt
 vt
 vt
@@ -31088,7 +31079,7 @@ aN
 aN
 aN
 aN
-YN
+sm
 vt
 vt
 vt
@@ -31345,7 +31336,7 @@ aN
 aN
 aN
 aN
-YN
+sm
 EZ
 Ge
 vt
