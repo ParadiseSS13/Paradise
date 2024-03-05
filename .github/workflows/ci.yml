@@ -3,9 +3,11 @@ on:
   push:
     branches:
     - master
+    - merge-queue-test
   pull_request:
     branches:
     - master
+    - merge-queue-test
 
 jobs:
   run_linters:
