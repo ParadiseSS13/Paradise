@@ -1,7 +1,7 @@
 /obj/item/stack/medical
 	name = "medical pack"
 	singular_name = "medical pack"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/medical.dmi'
 	amount = 6
 	max_amount = 6
 	w_class = WEIGHT_CLASS_TINY
@@ -180,7 +180,7 @@
 
 /obj/item/stack/medical/bruise_pack/advanced
 	name = "advanced trauma kit"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/medical.dmi'
 	singular_name = "advanced trauma kit"
 	desc = "An advanced trauma kit for severe injuries."
 	icon_state = "traumakit"
@@ -253,7 +253,7 @@
 	name = "advanced burn kit"
 	singular_name = "advanced burn kit"
 	desc = "An advanced treatment kit for severe burns."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/medical.dmi'
 	icon_state = "burnkit"
 	belt_icon = "burnkit"
 	heal_burn = 25
@@ -271,7 +271,7 @@
 	name = "\improper Comfrey poultice"
 	singular_name = "Comfrey poultice"
 	desc = "A medical poultice for treating brute injuries, made from crushed comfrey leaves. The effectiveness of the poultice depends on the potency of the comfrey it was made from."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/medical.dmi'
 	icon_state = "traumapoultice"
 	max_amount = 6
 	stop_bleeding = 0
@@ -289,7 +289,7 @@
 	name = "\improper Aloe Vera poultice"
 	singular_name = "Aloe Vera poultice"
 	desc = "A medical poultice for treating burns, made from crushed aloe vera leaves. The effectiveness of the poultice depends on the potency of the aloe it was made from."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/medical.dmi'
 	icon_state = "burnpoultice"
 	heal_burn = 12
 	drop_sound = 'sound/misc/moist_impact.ogg'
