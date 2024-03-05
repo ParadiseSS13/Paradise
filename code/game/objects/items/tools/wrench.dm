@@ -20,10 +20,29 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WRENCH
 
+
 /obj/item/wrench/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is beating [user.p_themselves()] to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, 'sound/weapons/genhit.ogg', 50, 1, -1)
-	return BRUTELOSS
+	user.visible_message("<span class='suicide'>[user] is unsecuring [user.p_their()] head with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+
+	if(!use_tool(user, user, 3 SECONDS, volume = tool_volume))
+		return SHAME
+
+	if(!ishuman(user))
+		return BRUTELOSS
+
+	var/mob/living/carbon/human/H = user
+	var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
+	if(!head)
+		user.visible_message("<span class='suicide'>...but [user.p_they()] [user.p_are()] already headless! How embarassing.</span>")
+		return SHAME
+
+	head.droplimb(TRUE, DROPLIMB_SHARP, FALSE, TRUE)
+
+	if(user.stat != DEAD)
+		user.visible_message("<span class='suicide'>...but [user.p_they()] didn't need it anyway! How embarassing.</span>")
+		return SHAME
+
+	return OXYLOSS
 
 /obj/item/wrench/cyborg
 	name = "automatic wrench"
