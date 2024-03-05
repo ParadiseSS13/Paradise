@@ -8,7 +8,7 @@
 	RS.lightsoutAmount = pick(2,2,3)
 	RS.start()
 	RS.kill()
-	for(var/area/A)
+	for(var/area/A in world)
 		if(!is_station_level(A.z)) continue //Spook on main station only.
 		if(A.luminosity) continue
 //			if(A.lighting_space) continue
