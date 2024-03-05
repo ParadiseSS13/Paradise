@@ -50,8 +50,7 @@
 	if(!istype(cult_mind) || cult_mind.has_antag_datum(/datum/antagonist/cultist))
 		return FALSE
 
-	var/datum/team/cult/cult = get_cult_team()
-	cult.add_member(cult_mind)
+	cult_mind.add_antag_datum(/datum/antagonist/cultist)
 	return TRUE
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE, mob/target_mob)

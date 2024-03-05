@@ -9,7 +9,7 @@
 	clown_removal_text = "You are free of the dark power suppressing your clownish nature. You are clumsy again! Honk!"
 	clown_text_span_class = "cultitalic" // ctodo, prob convert this into a proc
 	wiki_page_name = "Cultist"
-	var/remove_gear_on_removal = TRUE
+	var/remove_gear_on_removal = TRUE // ctodo figure out what to do here
 
 /datum/antagonist/cultist/on_gain()
 	create_team() // make sure theres a global cult team
@@ -50,6 +50,7 @@
 		for(var/I in H.contents)
 			if(is_type_in_list(I, CULT_CLOTHING)) // ctodo, remove
 				H.unEquip(I)
+	return ..()
 
 
 
