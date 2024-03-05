@@ -208,7 +208,8 @@
 		v.increment(multiplier * amount)
 	return v
 
-/datum/point_precise/vector/processed //pixel_speed is per decisecond.
+/// pixel_speed is per decisecond.
+/datum/point_precise/vector/processed
 	var/last_process = 0
 	var/last_move = 0
 	var/paused = FALSE

@@ -495,7 +495,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 // Central atmos control //
 /obj/machinery/computer/atmoscontrol
-	name = "\improper central atmospherics computer"
+	name = "central atmospherics computer"
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "atmos_key"
 	icon_screen = "tank"

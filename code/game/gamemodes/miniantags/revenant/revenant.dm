@@ -227,10 +227,7 @@
 		sleep(0.1)
 		alpha = i
 	visible_message("<span class='danger'>[src]'s body breaks apart into a fine pile of blue dust.</span>")
-	var/obj/item/ectoplasm/revenant/R = new (get_turf(src))
-	var/reforming_essence = essence_regen_cap //retain the gained essence capacity
-	R.essence = max(reforming_essence - 15 * perfectsouls, 75) //minus any perfect souls
-	R.client_to_revive = src.client //If the essence reforms, the old revenant is put back in the body
+	new /obj/item/ectoplasm/revenant(get_turf(src))
 	ghostize()
 	qdel(src)
 
@@ -362,86 +359,10 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "revenantEctoplasm"
 	w_class = WEIGHT_CLASS_SMALL
-	var/reforming = 1
-	var/essence = 75 //the maximum essence of the reforming revenant
-	var/inert = 0
-	var/client/client_to_revive
-
-/obj/item/ectoplasm/revenant/New()
-	..()
-	reforming = 0
-	spawn(600) //1 minutes
-		if(src && reforming)
-			reform()
-		else
-			inert = 1
-			visible_message("<span class='warning'>[src] settles down and seems lifeless.</span>")
-
-/obj/item/ectoplasm/revenant/attack_self(mob/user)
-	if(!reforming || inert)
-		return ..()
-	user.visible_message("<span class='notice'>[user] scatters [src] in all directions.</span>", \
-						"<span class='notice'>You scatter [src] across the area. The particles slowly fade away.</span>")
-	user.drop_item()
-	qdel(src)
-
-/obj/item/ectoplasm/revenant/throw_impact(atom/hit_atom)
-	..()
-	if(inert)
-		return
-	visible_message("<span class='notice'>[src] breaks into particles upon impact, which fade away to nothingness.</span>")
-	qdel(src)
 
 /obj/item/ectoplasm/revenant/examine(mob/user)
 	. = ..()
-	if(inert)
-		. += "<span class='revennotice'>It seems inert.</span>"
-	else if(reforming)
-		. += "<span class='revenwarning'>It is shifting and distorted. It would be wise to destroy this.</span>"
-
-/obj/item/ectoplasm/revenant/proc/reform() // Unused proc, production doesn't have revenants revive
-	if(inert || !src)
-		return
-	var/key_of_revenant
-	message_admins("Revenant ectoplasm was left undestroyed for 1 minute and is reforming into a new revenant.")
-	loc = get_turf(src) //In case it's in a backpack or someone's hand
-	var/mob/living/simple_animal/revenant/R = new(get_turf(src))
-	if(client_to_revive)
-		for(var/mob/M in GLOB.dead_mob_list)
-			if(M.client == client_to_revive) //Only recreates the mob if the mob the client is in is dead
-				R.client = client_to_revive
-				key_of_revenant = client_to_revive.key
-
-	spawn()
-		if(!key_of_revenant)
-			message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
-			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant?", ROLE_REVENANT, TRUE, source = /mob/living/simple_animal/revenant)
-			if(!candidates.len)
-				qdel(R)
-				message_admins("No candidates were found for the new revenant. Oh well!")
-				inert = 1
-				visible_message("<span class='revenwarning'>[src] settles down and seems lifeless.</span>")
-				return
-			var/mob/C = pick(candidates)
-			key_of_revenant = C.key
-			if(!key_of_revenant)
-				qdel(R)
-				message_admins("No ckey was found for the new revenant. Oh well!")
-				inert = 1
-				visible_message("<span class='revenwarning'>[src] settles down and seems lifeless.</span>")
-				return
-		var/datum/mind/player_mind = new /datum/mind(key_of_revenant)
-		player_mind.active = TRUE
-		player_mind.transfer_to(R)
-		player_mind.assigned_role = SPECIAL_ROLE_REVENANT
-		player_mind.special_role = SPECIAL_ROLE_REVENANT
-		SSticker.mode.traitors |= player_mind
-		message_admins("[key_of_revenant] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")
-		log_game("[key_of_revenant] was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.")
-		visible_message("<span class='revenboldnotice'>[src] suddenly rises into the air before fading away.</span>")
-		qdel(src)
-		if(src) //Should never happen, but just in case
-			inert = 1
+	. += "<span class='revennotice'>Lifeless ectoplasm, still faintly glimmering in the light. From what was once a spirit seeking revenge on the station.</span>"
 
 #undef INVISIBILITY_REVENANT
 #undef REVENANT_NAME_FILE

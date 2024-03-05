@@ -213,7 +213,8 @@
 	if(!isvineimmune(eater))
 		eater.adjustToxLoss(5)
 
-/datum/spacevine_mutation/explosive  //OH SHIT IT CAN CHAINREACT RUN!!!
+/// OH SHIT IT CAN CHAINREACT RUN!!!
+/datum/spacevine_mutation/explosive
 	name = "explosive"
 	hue = "#ff0000"
 	quality = SPACEVINE_MUTATION_NEGATIVE
@@ -256,7 +257,8 @@
 		prey.wither()
 		. = TRUE
 
-/datum/spacevine_mutation/aggressive_spread  //very OP, but im out of other ideas currently
+/// very OP, but im out of other ideas currently
+/datum/spacevine_mutation/aggressive_spread
 	name = "aggressive spreading"
 	hue = "#333333"
 	severity = 3

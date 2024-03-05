@@ -25,7 +25,8 @@
 
 // Generators
 
-/datum/mapGenerator/syndicate/empty //walls and floor only
+/// walls and floor only
+/datum/mapGenerator/syndicate/empty
 		modules = list(/datum/mapGeneratorModule/bottomLayer/syndieFloor, \
 		/datum/mapGeneratorModule/border/syndieWalls,\
 		/datum/mapGeneratorModule/bottomLayer/repressurize)
