@@ -6785,6 +6785,10 @@
 /area/admin)
 "wZ" = (
 /obj/structure/table/wood/fancy/purple,
+/obj/item/spellbook{
+	uses = 250;
+	name = "admin spell book"
+	},
 /turf/simulated/floor/carpet,
 /area/admin)
 "xa" = (
