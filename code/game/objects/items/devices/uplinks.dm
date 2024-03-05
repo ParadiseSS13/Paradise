@@ -426,9 +426,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/radio/uplink/admin/New()
 	..()
-	if(hidden_uplink)
-		hidden_uplink.update_uplink_type(UPLINK_TYPE_ADMIN)
-		hidden_uplink.uses = 2500
+	hidden_uplink.update_uplink_type(UPLINK_TYPE_ADMIN)
+	hidden_uplink.uses = 2500
 
 /obj/item/multitool/uplink/New()
 	..()
