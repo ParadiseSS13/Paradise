@@ -22,7 +22,7 @@
 	/// Whether or not this will be shown to observers
 	var/show_to_observers = TRUE
 	// TODO find a more sensible way to do this too, seems like GC hell
-	/// Assoc. list of all huds viewing our action, mapped to an action button for this action on the respective HUD.
+	/// Assoc. list of all huds viewing our action
 	var/list/viewers = list()
 
 
@@ -43,16 +43,12 @@
 	return ..()
 
 /datum/action/proc/Grant(mob/grant_to)
-	if(isnull(grant_to))
+	if(owner)
+		if(owner == grant_to)
+			return
 		Remove(owner)
-		return
-	if(grant_to == owner)
-		return  // we already have it
-	var/mob/previous_owner = owner
 	owner = grant_to
 	grant_to.actions += src
-	if(!isnull(previous_owner))
-		Remove(previous_owner)
 	grant_to.update_action_buttons()
 	SEND_SIGNAL(src, COMSIG_ACTION_GRANTED, owner)
 	SEND_SIGNAL(owner, COMSIG_MOB_GRANTED_ACTION, src)
@@ -75,11 +71,12 @@
 	viewers = list()
 
 	if(owner == M)
+		button.clean_up_keybinds(owner)
 		owner = null
 
 	if(M.client)
 		M.client.screen -= button
-		button.clean_up_keybinds(M)
+
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.
 	button.locked = FALSE
 	M.actions -= src
@@ -195,10 +192,12 @@
 /// Removes our action from the passed viewer.
 /datum/action/proc/HideFrom(mob/viewer)
 	var/datum/hud/our_hud = viewer.hud_used
-	var/obj/screen/movable/action_button/button = viewers[our_hud]
+	if(viewer.client)
+		viewer.client.screen -= button
+	// var/obj/screen/movable/action_button/button = viewers[our_hud]
 	LAZYREMOVE(viewer.actions, src)
-	if(button)
-		qdel(button)
+	// if(button)
+	// 	qdel(button)
 
 
 //Presets for item actions
