@@ -28,7 +28,6 @@
 	GLOB.blob_minions -= src
 	return ..()
 
-
 /mob/living/simple_animal/hostile/blob/proc/adjustcolors(a_color)
 	if(a_color)
 		color = a_color
