@@ -2676,10 +2676,6 @@
 /obj/machinery/recharger,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
-"jw" = (
-/obj/item/bio_chip_implanter/uplink/admin,
-/turf/space,
-/area/space/centcomm)
 "jx" = (
 /obj/structure/table,
 /obj/item/screwdriver{
@@ -6040,6 +6036,7 @@
 	name = "Lockdown";
 	pixel_y = 24
 	},
+/obj/item/bio_chip_implanter/uplink/admin,
 /turf/simulated/floor/carpet,
 /area/admin)
 "uz" = (
@@ -7347,7 +7344,7 @@
 /area/admin)
 "Ac" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/bio_chip_implanter/uplink/admin,
+/obj/item/butcher_chainsaw,
 /turf/simulated/floor/carpet/royalblack,
 /area/admin)
 "Ad" = (
@@ -78146,7 +78143,7 @@ aN
 aN
 aN
 aN
-jw
+aN
 aN
 aN
 aN

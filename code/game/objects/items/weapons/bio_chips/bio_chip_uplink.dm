@@ -25,7 +25,6 @@
 /obj/item/bio_chip/uplink/admin/Initialize(mapload)
 	. = ..()
 	if(hidden_uplink)
-		hidden_uplink.uses = 2500
 		hidden_uplink.update_uplink_type(UPLINK_TYPE_ADMIN)
 
 
@@ -48,10 +47,6 @@
 /obj/item/bio_chip_implanter/uplink
 	name = "bio-chip implanter (uplink)"
 	implant_type = /obj/item/bio_chip/uplink
-
-/obj/item/bio_chip_implanter/uplink/admin
-	name = "bio-chip implanter (admin uplink)"
-	implant_type = /obj/item/bio_chip/uplink/admin
 
 /obj/item/bio_chip_case/uplink
 	name = "bio-chip case - 'Syndicate Uplink'"
