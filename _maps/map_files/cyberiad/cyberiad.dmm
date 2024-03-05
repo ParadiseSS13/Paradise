@@ -32145,12 +32145,6 @@
 	icon_state = "whitebluefull"
 	},
 /area/station/medical/medbay)
-"bXI" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whiteblue"
-	},
-/area/station/medical/medbay)
 "bXK" = (
 /obj/structure/table/glass,
 /obj/item/roller{
@@ -32621,11 +32615,6 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
 /area/station/medical/medbay)
-"bZm" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
-	},
-/area/station/medical/medbay)
 "bZq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10;
@@ -33093,12 +33082,6 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/grass,
-/area/station/medical/medbay)
-"caH" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteblue"
-	},
 /area/station/medical/medbay)
 "caL" = (
 /obj/machinery/hologram/holopad,
@@ -33636,10 +33619,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whiteblue"
-	},
+/turf/simulated/floor/lava,
 /area/station/medical/medbay)
 "ccr" = (
 /obj/structure/disposalpipe/segment{
@@ -33660,10 +33640,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
-	},
+/turf/simulated/floor/lava,
 /area/station/medical/medbay)
 "ccx" = (
 /obj/machinery/light{
@@ -35734,10 +35711,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whiteblue"
-	},
+/turf/simulated/floor/lava,
 /area/station/medical/medbay)
 "cjB" = (
 /obj/structure/flora/ausbushes/ywflowers,
@@ -83113,6 +83087,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"rKj" = (
+/turf/simulated/floor/lava,
+/area/station/medical/medbay)
 "rKV" = (
 /turf/simulated/wall,
 /area/station/science/hallway)
@@ -84552,10 +84529,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
-	},
+/turf/simulated/floor/lava,
 /area/station/medical/medbay)
 "sAl" = (
 /turf/simulated/floor/plasteel{
@@ -96037,10 +96011,7 @@
 	name = "west bump";
 	pixel_x = -27
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whiteblue"
-	},
+/turf/simulated/floor/lava,
 /area/station/medical/medbay)
 "ylP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
@@ -131695,16 +131666,16 @@ kSv
 kGt
 jAv
 bWt
-cnY
-cnY
-cnY
+rKj
+rKj
+rKj
 ccq
 ylO
 cfD
 ciF
-cnY
+rKj
 cjz
-cnY
+rKj
 cxh
 acY
 cnY
@@ -132723,9 +132694,9 @@ bEp
 dJl
 sxy
 rPf
-bXI
-bZm
-caH
+rKj
+rKj
+rKj
 ccv
 szU
 vJm
