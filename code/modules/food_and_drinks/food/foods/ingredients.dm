@@ -54,7 +54,7 @@
 	tastes = list("cheese" = 1)
 
 /obj/item/food/snacks/cheesewedge/checkpass(passflag)
-	if(passflag & PASSDOOR && ismouse(pulledby))
+	if((passflag & PASSDOOR) && ismouse(pulledby))
 		return TRUE
 	return ..()
 
