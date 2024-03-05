@@ -2676,6 +2676,10 @@
 /obj/machinery/recharger,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"jw" = (
+/obj/item/bio_chip_implanter/uplink/admin,
+/turf/space,
+/area/space/centcomm)
 "jx" = (
 /obj/structure/table,
 /obj/item/screwdriver{
@@ -7343,7 +7347,7 @@
 /area/admin)
 "Ac" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/radio/uplink/admin,
+/obj/item/bio_chip_implanter/uplink/admin,
 /turf/simulated/floor/carpet/royalblack,
 /area/admin)
 "Ad" = (
@@ -78142,7 +78146,7 @@ aN
 aN
 aN
 aN
-aN
+jw
 aN
 aN
 aN
