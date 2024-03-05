@@ -6784,10 +6784,6 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "wZ" = (
-/obj/item/spellbook{
-	name = "admin spell book";
-	uses = 1000
-	},
 /obj/structure/table/wood/fancy/purple,
 /turf/simulated/floor/carpet,
 /area/admin)
@@ -7343,9 +7339,6 @@
 /area/admin)
 "Ac" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/radio/uplink/admin{
-	name = "admin uplink"
-	},
 /turf/simulated/floor/carpet/royalblack,
 /area/admin)
 "Ad" = (
