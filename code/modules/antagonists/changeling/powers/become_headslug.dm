@@ -21,6 +21,7 @@
 /datum/action/changeling/headslug/sting_action(mob/user)
 	var/datum/mind/M = user.mind
 	var/list/organs = user.get_organs_zone("head", 1)
+	cling.headslugged = TRUE
 
 	for(var/obj/item/organ/internal/I in organs)
 		I.remove(user, TRUE)
