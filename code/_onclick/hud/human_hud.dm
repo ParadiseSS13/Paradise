@@ -33,7 +33,7 @@
 	screen_loc = ui_lingstingdisplay
 
 /atom/movable/screen/ling/sting/Click()
-	var/datum/antagonist/changeling/cling = usr.mind.has_antag_datum(/datum/antagonist/changeling)
+	var/datum/antagonist/the_thing/cling = usr.mind.has_antag_datum(/datum/antagonist/the_thing)
 	cling?.chosen_sting?.unset_sting()
 
 /atom/movable/screen/ling/chems

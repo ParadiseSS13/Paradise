@@ -680,7 +680,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/absorb/check_completion()
 	for(var/datum/mind/M in get_owners())
-		var/datum/antagonist/changeling/cling = M?.has_antag_datum(/datum/antagonist/changeling)
+		var/datum/antagonist/the_thing/cling = M?.has_antag_datum(/datum/antagonist/the_thing)
 		if(cling?.absorbed_dna && (cling.absorbed_count >= target_amount))
 			return TRUE
 	return FALSE

@@ -1,4 +1,4 @@
-/datum/antagonist/changeling
+/datum/antagonist/the_thing
 	name = "Changeling"
 	roundend_category = "changelings"
 	job_rank = ROLE_CHANGELING
@@ -55,14 +55,14 @@
 	blurb_text_color = COLOR_PURPLE
 	blurb_text_outline_width = 1
 
-/datum/antagonist/changeling/New()
+/datum/antagonist/the_thing/New()
 	..()
 	if(!length(innate_powers))
 		innate_powers = get_powers_of_type(CHANGELING_INNATE_POWER)
 	if(!length(purchaseable_powers))
 		purchaseable_powers = get_powers_of_type(CHANGELING_PURCHASABLE_POWER)
 
-/datum/antagonist/changeling/on_gain()
+/datum/antagonist/the_thing/on_gain()
 	SSticker.mode.changelings |= owner
 	var/honorific = owner.current.gender == FEMALE ? "Ms." : "Mr."
 	if(length(GLOB.possible_changeling_IDs))
@@ -81,22 +81,22 @@
 	protected_dna += H.dna.Clone()
 	..()
 
-/datum/antagonist/changeling/Destroy()
+/datum/antagonist/the_thing/Destroy()
 	SSticker.mode.changelings -= owner
 	chosen_sting = null
 	QDEL_LIST_CONTENTS(acquired_powers)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/datum/antagonist/changeling/greet()
+/datum/antagonist/the_thing/greet()
 	. = ..()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/ling_alert.ogg'))
 	. += "<span class='danger'>Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>"
 
-/datum/antagonist/changeling/farewell()
+/datum/antagonist/the_thing/farewell()
 	to_chat(owner.current, "<span class='biggerdanger'><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")
 
-/datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
+/datum/antagonist/the_thing/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()
 	if(ishuman(L))
 		START_PROCESSING(SSobj, src)
@@ -122,7 +122,7 @@
 	var/obj/item/organ/internal/brain/ling_brain = C.get_organ_slot("brain")
 	ling_brain?.decoy_brain = TRUE
 
-/datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
+/datum/antagonist/the_thing/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()
 	if(!ishuman(L))
 		STOP_PROCESSING(SSobj, src) // This is to handle when they transfer into a headslug (simple animal). We shouldn't process in that case.
@@ -153,7 +153,7 @@
  * Always absorb X amount of genomes, plus random traitor objectives.
  * If they have two objectives as well as absorb, they must survive rather than escape.
  */
-/datum/antagonist/changeling/give_objectives()
+/datum/antagonist/the_thing/give_objectives()
 	add_antag_objective(/datum/objective/absorb)
 
 	if(prob(60))
@@ -178,7 +178,7 @@
 		else
 			add_antag_objective(/datum/objective/escape/escape_with_identity) // If our kill target has no genes, 30% time pick someone else to steal the identity of
 
-/datum/antagonist/changeling/process()
+/datum/antagonist/the_thing/process()
 	if(!owner || !owner.current)
 		return PROCESS_KILL
 	var/mob/living/carbon/human/H = owner.current
@@ -188,7 +188,7 @@
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
 	update_chem_charges_ui(H)
 
-/datum/antagonist/changeling/proc/update_chem_charges_ui(mob/living/carbon/human/H = owner.current)
+/datum/antagonist/the_thing/proc/update_chem_charges_ui(mob/living/carbon/human/H = owner.current)
 	if(H.hud_used?.lingchemdisplay)
 		H.hud_used.lingchemdisplay.invisibility = 0
 		H.hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#dd66dd'>[round(chem_charges)]</font></div>"
@@ -196,7 +196,7 @@
 /**
  * Respec the changeling's powers after first checking if they're able to respec.
  */
-/datum/antagonist/changeling/proc/try_respec()
+/datum/antagonist/the_thing/proc/try_respec()
 	var/mob/living/carbon/human/H = owner.current
 	if(!ishuman(H) || issmall(H))
 		to_chat(H, "<span class='danger'>We can't readapt our evolutions in this form!</span>")
@@ -213,7 +213,7 @@
 /**
  * Resets a changeling to the point they were when they first became a changeling, i.e no genetic points to spend, no non-innate powers, etc.
  */
-/datum/antagonist/changeling/proc/respec(keep_innate_powers = TRUE, reset_genetic_points = TRUE)
+/datum/antagonist/the_thing/proc/respec(keep_innate_powers = TRUE, reset_genetic_points = TRUE)
 	remove_changeling_powers(keep_innate_powers)
 	chosen_sting = null
 	if(reset_genetic_points)
@@ -231,7 +231,7 @@
  * Arguments:
  * * keep_innate_powers - set to TRUE if changeling actions with a `power_type` of `CHANGELING_INNATE_POWER` should be kept.
  */
-/datum/antagonist/changeling/proc/remove_changeling_powers(keep_innate_powers = FALSE)
+/datum/antagonist/the_thing/proc/remove_changeling_powers(keep_innate_powers = FALSE)
 	for(var/datum/action/changeling/power in acquired_powers)
 		if(keep_innate_powers && (power.power_type == CHANGELING_INNATE_POWER))
 			continue
@@ -244,7 +244,7 @@
  * Arguments:
  * * power_type - should be a define related to [/datum/action/changeling/var/power_type].
  */
-/datum/antagonist/changeling/proc/get_powers_of_type(power_type)
+/datum/antagonist/the_thing/proc/get_powers_of_type(power_type)
 	var/list/powers = list()
 	for(var/power_path in subtypesof(/datum/action/changeling))
 		var/datum/action/changeling/power = power_path
@@ -261,7 +261,7 @@
  * * mob/living/changeling - the changeling who owns this datum. Optional argument.
  * * take_cost - if we should spend genetic points when giving the power
  */
-/datum/antagonist/changeling/proc/give_power(datum/action/changeling/power, mob/living/changeling, take_cost = TRUE)
+/datum/antagonist/the_thing/proc/give_power(datum/action/changeling/power, mob/living/changeling, take_cost = TRUE)
 	if(take_cost)
 		genetic_points -= power.dna_cost
 	acquired_powers += power
@@ -273,7 +273,7 @@
  * Arguments:
  * * list/new_languages - a list of [/datum/language] to be added
  */
-/datum/antagonist/changeling/proc/add_new_languages(list/new_languages)
+/datum/antagonist/the_thing/proc/add_new_languages(list/new_languages)
 	for(var/datum/language/L in new_languages)
 		if(is_type_in_UID_list(L, absorbed_languages))
 			continue
@@ -283,7 +283,7 @@
 /**
  * Teach the changeling every language in the `absorbed_language` list. Already known languages will be ignored.
  */
-/datum/antagonist/changeling/proc/update_languages()
+/datum/antagonist/the_thing/proc/update_languages()
 	for(var/lang_UID in absorbed_languages)
 		var/datum/language/lang = locateUID(lang_UID)
 		owner.current.add_language("[lang.name]")
@@ -296,7 +296,7 @@
  * Arguments:
  * * mob/living/L - the changeling mob to remove languages from
  */
-/datum/antagonist/changeling/proc/remove_unnatural_languages(mob/living/L)
+/datum/antagonist/the_thing/proc/remove_unnatural_languages(mob/living/L)
 	var/list/ignored_languages = list()
 	if(L.client?.prefs.active_character.real_name == L.real_name) // Check if L is actually that player's character or just someone they transformed into.
 		ignored_languages += L.client.prefs.active_character.language
@@ -317,7 +317,7 @@
  * Arguments:
  * * mob/living/carbon/C - the mob to absorb DNA from
  */
-/datum/antagonist/changeling/proc/absorb_dna(mob/living/carbon/C)
+/datum/antagonist/the_thing/proc/absorb_dna(mob/living/carbon/C)
 	C.dna.real_name = C.real_name // Set this again, just to be sure that it's properly set.
 	store_dna(C.dna.Clone())
 	add_new_languages(C.languages)
@@ -329,7 +329,7 @@
  * Arguments:
  * * datum/dna/new_dna - the DNA to store
  */
-/datum/antagonist/changeling/proc/store_dna(datum/dna/new_dna)
+/datum/antagonist/the_thing/proc/store_dna(datum/dna/new_dna)
 	for(var/datum/objective/escape/escape_with_identity/E in owner.get_all_objectives()) // this should consider all objectives, in case admins reroll it
 		if(E.target_real_name == new_dna.real_name)
 			protected_dna |= new_dna
@@ -345,7 +345,7 @@
  * * title - the title of the `input()` window
  * * not_in_bank - if we should filter out DNA that's already in the hivemind bank
  */
-/datum/antagonist/changeling/proc/select_dna(message, title, not_in_bank = FALSE)
+/datum/antagonist/the_thing/proc/select_dna(message, title, not_in_bank = FALSE)
 	var/list/names = list()
 	for(var/datum/dna/DNA in (absorbed_dna + protected_dna))
 		if(not_in_bank && (DNA in GLOB.hivemind_bank))
@@ -364,7 +364,7 @@
  * Arguments:
  * * datum/dna/tDNA - a reference to a DNA datum that we want to find
  */
-/datum/antagonist/changeling/proc/get_dna(datum/dna/tDNA)
+/datum/antagonist/the_thing/proc/get_dna(datum/dna/tDNA)
 	for(var/datum/dna/DNA in (absorbed_dna + protected_dna))
 		if(tDNA.unique_enzymes == DNA.unique_enzymes && tDNA.uni_identity == DNA.uni_identity && tDNA.species.type == DNA.species.type)
 			return DNA
@@ -372,7 +372,7 @@
 /**
  * Determines if the changeling's current DNA is stale.
  */
-/datum/antagonist/changeling/proc/using_stale_dna()
+/datum/antagonist/the_thing/proc/using_stale_dna()
 	var/datum/dna/current_dna = get_dna(owner.current.dna)
 	if(length(absorbed_dna) < dna_max)
 		return FALSE // Still more room for DNA.
@@ -385,7 +385,7 @@
 /**
  * Clears the most "stale" DNA from the `absorbed_dna` list.
  */
-/datum/antagonist/changeling/proc/trim_dna()
+/datum/antagonist/the_thing/proc/trim_dna()
 	listclearnulls(absorbed_dna)
 	if(length(absorbed_dna) > dna_max)
 		absorbed_dna.Cut(1, 2)
@@ -396,7 +396,7 @@
  * Arguments:
  * * mob/living/carbon/target - the mob's DNA we're trying to absorb
  */
-/datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/target)
+/datum/antagonist/the_thing/proc/can_absorb_dna(mob/living/carbon/target)
 	var/mob/living/carbon/user = owner.current
 	if(using_stale_dna())//If our current DNA is the stalest, we gotta ditch it.
 		to_chat(user, "<span class='warning'>The DNA we are wearing is stale. Transform and try again.</span>")
@@ -419,7 +419,7 @@
 		return FALSE
 	return TRUE
 
-/datum/antagonist/changeling/proc/on_death(mob/living/L, gibbed)
+/datum/antagonist/the_thing/proc/on_death(mob/living/L, gibbed)
 	SIGNAL_HANDLER
 	if(QDELETED(L) || gibbed)  // they were probably incinerated or gibbed, no coming back from that.
 		return
@@ -433,7 +433,7 @@
 		to_chat(L, "<span class='notice'>While our current form may be lifeless, this is not the end for us as we can still regenerate!</span>")
 
 /proc/ischangeling(mob/M)
-	return M.mind?.has_antag_datum(/datum/antagonist/changeling)
+	return M.mind?.has_antag_datum(/datum/antagonist/the_thing)
 
-/datum/antagonist/changeling/custom_blurb()
+/datum/antagonist/the_thing/custom_blurb()
 	return "We awaken on the [station_name()], [get_area_name(owner.current, TRUE)]...\nWe have our tasks to attend to..."

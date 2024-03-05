@@ -12,7 +12,7 @@
 	desc = "" // Fluff
 	background_icon_state = "bg_changeling"
 	/// A reference to the changeling's changeling antag datum.
-	var/datum/antagonist/changeling/cling
+	var/datum/antagonist/the_thing/cling
 	/// Datum path used to determine the location and name of the power in changeling evolution menu UI
 	var/datum/changeling_power_category/category
 	/// Determines whether the power is always given to the changeling or if it must be purchased.
@@ -38,7 +38,7 @@
  * Changeling code relies on on_purchase to grant powers.
  * The same goes for Remove(). if you override Remove(), call parent or else your power wont be removed on respec
  */
-/datum/action/changeling/proc/on_purchase(mob/user, datum/antagonist/changeling/C)
+/datum/action/changeling/proc/on_purchase(mob/user, datum/antagonist/the_thing/C)
 	SHOULD_CALL_PARENT(TRUE)
 	if(!user || !user.mind || !C)
 		qdel(src)

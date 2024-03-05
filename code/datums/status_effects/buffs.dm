@@ -497,10 +497,10 @@
 	alert_type = null
 	var/stacks = 0
 	/// A reference to the changeling's changeling antag datum.
-	var/datum/antagonist/changeling/cling
+	var/datum/antagonist/the_thing/cling
 
 /datum/status_effect/speedlegs/on_apply()
-	cling = owner.mind.has_antag_datum(/datum/antagonist/changeling)
+	cling = owner.mind.has_antag_datum(/datum/antagonist/the_thing)
 	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, CHANGELING_TRAIT)
 	return TRUE
 

@@ -207,7 +207,7 @@
 
 	// I REALLY need to split up status panel things into datums
 	if(mind)
-		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+		var/datum/antagonist/the_thing/cling = mind.has_antag_datum(/datum/antagonist/the_thing)
 		if(cling)
 			stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
 			stat("Absorbed DNA", cling.absorbed_count)

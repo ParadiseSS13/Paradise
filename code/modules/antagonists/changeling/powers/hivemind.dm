@@ -11,7 +11,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	power_type = CHANGELING_PURCHASABLE_POWER
 	category = /datum/changeling_power_category/utility
 
-/datum/action/changeling/hivemind_pick/on_purchase(mob/user, datum/antagonist/changeling/C)
+/datum/action/changeling/hivemind_pick/on_purchase(mob/user, datum/antagonist/the_thing/C)
 	if(!..())
 		return
 	user.add_language("Changeling")

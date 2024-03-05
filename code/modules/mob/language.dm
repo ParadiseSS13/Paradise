@@ -549,7 +549,7 @@
 	follow = TRUE
 
 /datum/language/ling/broadcast(mob/living/speaker, message, speaker_mask)
-	var/datum/antagonist/changeling/cling = speaker.mind?.has_antag_datum(/datum/antagonist/changeling)
+	var/datum/antagonist/the_thing/cling = speaker.mind?.has_antag_datum(/datum/antagonist/the_thing)
 	if(cling)
 		..(speaker, message, cling.changelingID)
 	else

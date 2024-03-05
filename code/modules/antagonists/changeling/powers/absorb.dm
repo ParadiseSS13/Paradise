@@ -78,7 +78,7 @@
 			user.mind.store_memory("<B>We have no more knowledge of [target]'s speech patterns.</B>")
 			to_chat(user, "<span class='boldnotice'>We have no more knowledge of [target]'s speech patterns.</span>")
 
-		var/datum/antagonist/changeling/target_cling = target.mind.has_antag_datum(/datum/antagonist/changeling)
+		var/datum/antagonist/the_thing/target_cling = target.mind.has_antag_datum(/datum/antagonist/the_thing)
 		if(target_cling)//If the target was a changeling, suck out their extra juice and objective points!
 			cling.chem_charges += min(target_cling.chem_charges, cling.chem_storage)
 			cling.absorbed_count += (target_cling.absorbed_count)

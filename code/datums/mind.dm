@@ -361,7 +361,7 @@
 
 /datum/mind/proc/memory_edit_changeling(mob/living/carbon/human/H)
 	. = _memory_edit_header("changeling", list("traitorchan"))
-	var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
+	var/datum/antagonist/the_thing/cling = has_antag_datum(/datum/antagonist/the_thing)
 	if(cling)
 		. += "<b><font color='red'>CHANGELING</font></b>|<a href='?src=[UID()];changeling=clear'>no</a>"
 		if(!cling.has_antag_objectives())
@@ -981,25 +981,25 @@
 		switch(href_list["changeling"])
 			if("clear")
 				if(ischangeling(current))
-					remove_antag_datum(/datum/antagonist/changeling)
+					remove_antag_datum(/datum/antagonist/the_thing)
 					log_admin("[key_name(usr)] has de-changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-changelinged [key_name_admin(current)]")
 			if("changeling")
 				if(!ischangeling(current))
-					add_antag_datum(/datum/antagonist/changeling)
+					add_antag_datum(/datum/antagonist/the_thing)
 					to_chat(current, "<span class='biggerdanger'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</span>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
 
 			if("autoobjectives")
-				var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
+				var/datum/antagonist/the_thing/cling = has_antag_datum(/datum/antagonist/the_thing)
 				cling.give_objectives()
 				to_chat(usr, "<span class='notice'>The objectives for changeling [key] have been generated. You can edit them and announce manually.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
 			if("initialdna")
-				var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
+				var/datum/antagonist/the_thing/cling = has_antag_datum(/datum/antagonist/the_thing)
 				if(!cling || !length(cling.absorbed_dna))
 					to_chat(usr, "<span class='warning'>Resetting DNA failed!</span>")
 				else

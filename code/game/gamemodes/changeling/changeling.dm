@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 /datum/game_mode/changeling/post_setup()
 	for(var/datum/mind/changeling as anything in pre_changelings)
-		changeling.add_antag_datum(/datum/antagonist/changeling)
+		changeling.add_antag_datum(/datum/antagonist/the_thing)
 		pre_changelings -= changeling
 	..()
 
@@ -76,7 +76,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			text += ")"
 
 			//Removed sanity if(changeling) because we -want- a runtime to inform us that the changelings list is incorrect and needs to be fixed.
-			var/datum/antagonist/changeling/cling = changeling.has_antag_datum(/datum/antagonist/changeling)
+			var/datum/antagonist/the_thing/cling = changeling.has_antag_datum(/datum/antagonist/the_thing)
 			text += "<br><b>Changeling ID:</b> [cling.changelingID]."
 			text += "<br><b>Genomes Extracted:</b> [cling.absorbed_count]"
 

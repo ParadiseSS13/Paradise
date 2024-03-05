@@ -91,7 +91,7 @@
 
 	if(origin && origin.current && (origin.current.stat == DEAD))
 		origin.transfer_to(M)
-		var/datum/antagonist/changeling/cling = M.mind.has_antag_datum(/datum/antagonist/changeling)
+		var/datum/antagonist/the_thing/cling = M.mind.has_antag_datum(/datum/antagonist/the_thing)
 		if(cling.can_absorb_dna(owner))
 			cling.absorb_dna(owner)
 

@@ -102,7 +102,7 @@
 	for(var/datum/mind/vampire as anything in pre_vampires)
 		vampire.add_antag_datum(/datum/antagonist/vampire)
 	for(var/datum/mind/changeling as anything in pre_changelings)
-		changeling.add_antag_datum(/datum/antagonist/changeling)
+		changeling.add_antag_datum(/datum/antagonist/the_thing)
 	for(var/datum/mind/traitor as anything in pre_traitors)
 		traitor.add_antag_datum(/datum/antagonist/traitor)
 	..()

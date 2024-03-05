@@ -43,5 +43,5 @@
 
 /datum/game_mode/traitor/changeling/post_setup()
 	for(var/datum/mind/changeling as anything in pre_changelings)
-		changeling.add_antag_datum(/datum/antagonist/changeling)
+		changeling.add_antag_datum(/datum/antagonist/the_thing)
 	..()

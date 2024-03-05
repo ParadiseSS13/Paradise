@@ -4,7 +4,7 @@
 		SSticker.mode.remove_revolutionary(mind, 1)
 		SSticker.mode.remove_cultist(mind, 1)
 		SSticker.mode.remove_wizard(mind)
-		mind.remove_antag_datum(/datum/antagonist/changeling)
+		mind.remove_antag_datum(/datum/antagonist/the_thing)
 		mind.remove_antag_datum(/datum/antagonist/vampire)
 		SSticker.mode.remove_abductor(mind)
 	..()
