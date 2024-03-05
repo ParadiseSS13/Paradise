@@ -6036,7 +6036,6 @@
 	name = "Lockdown";
 	pixel_y = 24
 	},
-/obj/item/bio_chip_implanter/uplink/admin,
 /turf/simulated/floor/carpet,
 /area/admin)
 "uz" = (
