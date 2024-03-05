@@ -1350,6 +1350,11 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
+"fl" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/gun/magic/staff,
+/turf/simulated/floor/carpet,
+/area/admin)
 "fm" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -4086,11 +4091,6 @@
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
-"nD" = (
-/obj/item/gun/magic/wand/death/debug,
-/obj/structure/table/wood/fancy/purple,
-/turf/simulated/floor/carpet,
-/area/admin)
 "nF" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
@@ -4268,14 +4268,16 @@
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
 "oi" = (
-/obj/structure/table/wood/fancy/royalblack,
-/obj/item/gun/projectile/automatic/pistol,
-/turf/simulated/floor/carpet/royalblack,
+/obj/structure/table/wood/fancy/purple,
+/obj/item/reagent_containers/drinks/mugwort,
+/turf/simulated/floor/carpet,
 /area/admin)
 "oj" = (
-/obj/structure/table/wood/fancy/royalblue,
-/obj/item/reagent_containers/drinks/cans/adminbooze,
-/turf/simulated/floor/plasteel,
+/obj/machinery/door/airlock/hatch{
+	desc = "For all your shady business needs";
+	name = "Gambling Den"
+	},
+/turf/space,
 /area/admin)
 "ol" = (
 /obj/structure/chair/comfy/black{
@@ -4495,11 +4497,6 @@
 "pc" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
-"pd" = (
-/obj/item/debug/human_spawner,
-/obj/structure/table/wood/fancy/purple,
-/turf/simulated/floor/carpet,
-/area/admin)
 "pe" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
@@ -5411,6 +5408,11 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+"si" = (
+/obj/item/gun/magic/wand/death/debug,
+/obj/structure/table/wood/fancy/purple,
+/turf/simulated/floor/carpet,
+/area/admin)
 "sj" = (
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
@@ -5553,18 +5555,19 @@
 /obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
-"sN" = (
-/obj/item/spellbook{
-	name = "admin spell book";
-	uses = 1000
-	},
-/obj/structure/table/wood/fancy/purple,
-/turf/simulated/floor/carpet,
-/area/admin)
 "sO" = (
 /obj/structure/sign/goldenplaque,
 /turf/simulated/wall/indestructible/riveted,
 /area/ghost_bar)
+"sP" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/melee/energy/sword,
+/obj/item/melee/energy/sword{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/admin)
 "sQ" = (
 /obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/plasteel/dark,
@@ -6941,9 +6944,9 @@
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/suppy)
 "xK" = (
-/obj/structure/table/wood/fancy/purple,
-/obj/item/reagent_containers/drinks/mugwort,
-/turf/simulated/floor/carpet,
+/obj/item/bodyanalyzer/debug,
+/obj/structure/table/wood/fancy/royalblack,
+/turf/simulated/floor/carpet/royalblack,
 /area/admin)
 "xM" = (
 /obj/machinery/computer/shuttle/admin{
@@ -7339,13 +7342,16 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "Ac" = (
-/obj/item/bodyanalyzer/debug,
-/obj/structure/table/wood/fancy/royalblack,
-/turf/simulated/floor/carpet/royalblack,
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/admin)
 "Ad" = (
-/obj/item/clothing/glasses/hud/debug,
 /obj/structure/table/wood/fancy/royalblack,
+/obj/item/radio/uplink/admin{
+	name = "admin uplink"
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/admin)
 "Ae" = (
@@ -7461,11 +7467,12 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "As" = (
-/obj/machinery/door/airlock/hatch{
-	desc = "For all your shady business needs";
-	name = "Gambling Den"
+/obj/item/spellbook{
+	name = "admin spell book";
+	uses = 1000
 	},
-/turf/simulated/wall/indestructible/syndicate,
+/obj/structure/table/wood/fancy/purple,
+/turf/simulated/floor/carpet,
 /area/admin)
 "At" = (
 /obj/structure/chair/comfy/black{
@@ -7475,7 +7482,7 @@
 /area/admin)
 "Au" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/gun/projectile/revolver,
+/obj/item/gun/projectile/automatic/pistol,
 /turf/simulated/floor/carpet/royalblack,
 /area/admin)
 "Av" = (
@@ -7500,11 +7507,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/ghost_bar)
-"AD" = (
-/obj/item/gun/magic/wand/resurrection/debug,
-/obj/structure/table/wood/fancy/purple,
-/turf/simulated/floor/carpet,
-/area/admin)
 "AE" = (
 /obj/item/paper/monitorkey,
 /obj/machinery/computer/message_monitor{
@@ -7796,12 +7798,6 @@
 /obj/structure/musician/piano,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
-"BK" = (
-/obj/structure/chair/wood{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
 "BL" = (
 /obj/machinery/light/spot{
 	dir = 8
@@ -7852,13 +7848,6 @@
 "BZ" = (
 /turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership)
-"Ca" = (
-/obj/structure/table/wood/fancy/royalblack,
-/obj/item/radio/uplink/admin{
-	name = "admin uplink"
-	},
-/turf/simulated/floor/carpet/royalblack,
-/area/admin)
 "Cb" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/grassybush,
@@ -8117,6 +8106,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
+"CL" = (
+/obj/item/debug/human_spawner,
+/obj/structure/table/wood/fancy/purple,
+/turf/simulated/floor/carpet,
+/area/admin)
 "CM" = (
 /obj/machinery/door/airlock/external{
 	name = "Supply Shuttle";
@@ -10229,15 +10223,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
-"Kj" = (
-/obj/structure/table/wood/fancy/royalblack,
-/obj/item/melee/energy/sword,
-/obj/item/melee/energy/sword{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/turf/simulated/floor/carpet/royalblack,
-/area/admin)
 "Km" = (
 /obj/machinery/kitchen_machine/microwave/upgraded,
 /obj/structure/table,
@@ -12493,6 +12478,11 @@
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"RJ" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/gun/projectile/revolver,
+/turf/simulated/floor/carpet/royalblack,
+/area/admin)
 "RK" = (
 /turf/simulated/floor/carpet/arcade,
 /area/ghost_bar)
@@ -12782,6 +12772,11 @@
 	icon_state = "blue"
 	},
 /area/holodeck/source_knightarena)
+"SZ" = (
+/obj/item/gun/magic/wand/resurrection/debug,
+/obj/structure/table/wood/fancy/purple,
+/turf/simulated/floor/carpet,
+/area/admin)
 "Ta" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/tdome/arena)
@@ -12797,11 +12792,6 @@
 	icon_state = "bar"
 	},
 /area/tdome/tdomeobserve)
-"Ti" = (
-/obj/structure/table/wood/fancy/purple,
-/obj/item/gun/magic/staff,
-/turf/simulated/floor/carpet,
-/area/admin)
 "Tj" = (
 /obj/structure/chair/stool{
 	dir = 4
@@ -13213,6 +13203,11 @@
 "UK" = (
 /turf/simulated/floor/holofloor/carpet,
 /area/holodeck/source_theatre)
+"UL" = (
+/obj/item/clothing/glasses/hud/debug,
+/obj/structure/table/wood/fancy/royalblack,
+/turf/simulated/floor/carpet/royalblack,
+/area/admin)
 "UM" = (
 /obj/structure/flora/grass/brown,
 /turf/simulated/floor/holofloor{
@@ -14403,6 +14398,11 @@
 /obj/structure/railing,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"YP" = (
+/obj/structure/table/wood/fancy/royalblue,
+/obj/item/reagent_containers/drinks/cans/adminbooze,
+/turf/simulated/floor/plasteel,
+/area/admin)
 "YR" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -68885,8 +68885,8 @@ lZ
 lZ
 nq
 wk
-oj
-BK
+YP
+Ac
 wk
 qL
 lZ
@@ -75067,7 +75067,7 @@ wk
 wk
 zM
 zM
-As
+oj
 wk
 wk
 wk
@@ -75319,14 +75319,14 @@ aN
 aN
 aN
 wk
-nD
-AD
-pd
+si
+SZ
+CL
 uz
 vK
 wZ
-Ad
-Ac
+UL
+xK
 Av
 wk
 aN
@@ -76869,7 +76869,7 @@ vK
 wZ
 wZ
 wZ
-Au
+RJ
 lH
 aN
 aN
@@ -77118,7 +77118,7 @@ aN
 aN
 aN
 wk
-Ti
+fl
 uz
 uz
 uz
@@ -77126,7 +77126,7 @@ vK
 wZ
 wZ
 wZ
-oi
+Au
 wk
 aN
 aN
@@ -77375,15 +77375,15 @@ aN
 aN
 aN
 wk
-xK
-sN
+oi
+As
 uz
 uz
 vK
 wZ
 wZ
-Ca
-Kj
+Ad
+sP
 wk
 aN
 aN
