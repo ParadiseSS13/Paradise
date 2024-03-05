@@ -158,7 +158,7 @@ def check_datum_loops(lines):
                 idx + 1,
                 # yes this will concatenate the strings, don't look too hard
                 "Found a for loop without explicit contents. If you're trying to loop over everything in the world, first double check that you truly need to, and if so specify \'in world\'.\n"
-                "If you're trying to check bare datums, please ensure that your value is only cast to /datum, and please make sure you use \'as anything\'."
+                "If you're trying to check bare datums, please ensure that your value is only cast to /datum, and please make sure you use \'as anything\', or use a global list instead."
             )
 
 CODE_CHECKS = [
