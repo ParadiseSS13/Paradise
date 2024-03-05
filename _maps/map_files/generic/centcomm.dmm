@@ -4263,23 +4263,14 @@
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
 "oi" = (
-/obj/machinery/door/airlock/external{
-	req_access_txt = "114"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "ADMINLOCKDOWN";
-	name = "Security Doors";
-	opacity = 0
+/obj/structure/chair/wood{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
 "oj" = (
-/obj/machinery/door/airlock/centcom/glass{
-	name = "External Airlock";
-	req_access_txt = "114"
-	},
+/obj/structure/table/wood/fancy/royalblue,
+/obj/item/reagent_containers/drinks/cans/adminbooze,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "ol" = (
@@ -67804,11 +67795,11 @@ aN
 aN
 aN
 aN
-wk
-wk
-oi
-wk
-wk
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -68062,9 +68053,9 @@ aN
 wk
 aN
 aN
-wk
-lZ
-wk
+aN
+aN
+aN
 aN
 aN
 aN
@@ -68319,10 +68310,10 @@ lH
 wk
 wk
 wk
-wk
-oj
-wk
-wk
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -68576,8 +68567,8 @@ mx
 mU
 nm
 wk
-wk
-lZ
+lH
+lH
 wk
 wk
 lH
@@ -68833,8 +68824,8 @@ lZ
 lZ
 nq
 wk
-lZ
-lZ
+oj
+oi
 wk
 qL
 lZ
