@@ -75,3 +75,9 @@
 	description = "Large, comfortable robes worn by those who need a bit more covering. The thick fabric contains a pocket suitable for those that need their hands free during their work, while the cloth serves to cover scars or other injuries to the wearer's body."
 	path = /obj/item/clothing/suit/hooded/vox_robes
 	slot = SLOT_HUD_OUTER_SUIT
+
+/datum/gear/racial/plasmamansuit_coke
+	display_name = "Coke Suit"
+	description = "Plasmaman envirosuit designed by Space Cola Co and gifted to the people of Boron as part of an eleborate advertisement company"
+	path = /obj/item/clothing/suit/hooded/vox_robes
+	slot = SLOT_HUD_OUTER_SUIT
