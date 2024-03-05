@@ -117,7 +117,7 @@
 
 /mob/living/simple_animal/hostile/construct/Life(seconds, times_fired)
 	if(holy_check(src))
-		throw_alert("holy_fire", /obj/screen/alert/holy_fire, override = TRUE)
+		throw_alert("holy_fire", /atom/movable/screen/alert/holy_fire, override = TRUE)
 		visible_message("<span class='danger'>[src] slowly crumbles to dust in this holy place!</span>", \
 			"<span class='danger'>Your shell burns as you crumble to dust in this holy place!</span>")
 		playsound(loc, 'sound/items/welder.ogg', 150, TRUE)
