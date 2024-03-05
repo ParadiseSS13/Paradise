@@ -28,7 +28,6 @@
 	var/datum/mind/wizard = pick(possible_wizards)
 
 	wizards += wizard
-	modePlayer += wizard
 	wizard.assigned_role = SPECIAL_ROLE_WIZARD //So they aren't chosen for other jobs.
 	wizard.special_role = SPECIAL_ROLE_WIZARD
 	wizard.set_original_mob(wizard.current)

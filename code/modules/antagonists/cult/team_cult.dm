@@ -396,7 +396,7 @@
 	if(!input)
 		return
 
-	for(var/datum/mind/H in SSticker.mode.cult)
+	for(var/datum/mind/H in members)
 		if(H.current)
 			to_chat(H.current, "<span class='cult'>[GET_CULT_DATA(entity_name, "Your god")] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
 

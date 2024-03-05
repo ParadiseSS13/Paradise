@@ -1,6 +1,6 @@
 /datum/game_mode
 	/// A list of all minds currently in the cult
-	var/list/datum/mind/cult = list()
+	// var/list/datum/mind/cult = list()
 
 	var/datum/team/cult/cult_team
 
@@ -15,6 +15,8 @@
 	required_players = 30
 	required_enemies = 3
 	recommended_enemies = 4
+
+	var/list/pre_cult = list()
 
 	var/const/min_cultists_to_start = 3
 	var/const/max_cultists_to_start = 4
@@ -33,15 +35,13 @@
 			break
 		var/datum/mind/cultist = pick(cultists_possible)
 		cultists_possible -= cultist
-		cult += cultist
+		pre_cult += cultist
 		cultist.restricted_roles = restricted_jobs
 		cultist.special_role = SPECIAL_ROLE_CULTIST
-	return (length(cult) > 0)
+	return length(pre_cult)
 
 /datum/game_mode/cult/post_setup()
-	modePlayer += cult
-
-	for(var/datum/mind/cult_mind in cult)
+	for(var/datum/mind/cult_mind in pre_cult)
 		cult_team.equip_cultist(cult_mind.current) // cTODO, use get_cult
 	..()
 
@@ -54,8 +54,8 @@
 	return TRUE
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE, mob/target_mob)
-	if(target_mob)
-		cult -= target_mob // ctodo, figure out how to do this better
+	// if(target_mob)
+	// 	cult -= target_mob // ctodo, figure out how to do this better
 	if(!cult_mind.has_antag_datum(/datum/antagonist/cultist)) // Not actually a cultist in the first place
 		return
 

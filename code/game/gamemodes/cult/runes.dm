@@ -202,7 +202,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			L.apply_damage(invoke_damage, BRUTE)
 			to_chat(L, "<span class='cultitalic'>[src] saps your strength!</span>")
 	do_invoke_glow()
-	SSblackbox.record_feedback("nested tally", "runes_invoked", 1, list("[initial(cultist_name)]", "[length(SSticker.mode.cult)]")) // the name of the rune, and the number of cultists in the cult when it was invoked
+	SSblackbox.record_feedback("nested tally", "runes_invoked", 1, list("[initial(cultist_name)]", "[length(SSticker.mode.cult_team.members)]")) // the name of the rune, and the number of cultists in the cult when it was invoked
 	if(ghost_invokers)
 		SSblackbox.record_feedback("nested tally", "runes_invoked_with_ghost", 1, list("[initial(cultist_name)]", "[ghost_invokers]")) //the name of the rune and the number of ghosts used to invoke it.
 
@@ -740,7 +740,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/mob/living/user = invokers[1]
 	var/list/cultists = list()
 
-	for(var/datum/mind/M in SSticker.mode.cult)
+	for(var/datum/mind/M in SSticker.mode.cult_team.members)
 		if(!(M.current in invokers) && M.current && M.current.stat != DEAD)
 			cultists[M.current.real_name] = M.current
 	var/input = tgui_input_list(user, "Who do you wish to call to [src]?", "Acolytes", cultists)

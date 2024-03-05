@@ -63,11 +63,11 @@
 		to_chat(owner.current,"<span class='userdanger'>You have been brainwashed! You are no longer a [special_role]! </span>")
 
 
-/datum/antagonist/cultist/add_owner_to_gamemode()
-	SSticker.mode.cult |= owner
+// /datum/antagonist/cultist/add_owner_to_gamemode()
+// 	SSticker.mode.cult |= owner
 
-/datum/antagonist/cultist/remove_owner_from_gamemode()
-	SSticker.mode.cult -= owner
+// /datum/antagonist/cultist/remove_owner_from_gamemode()
+// 	SSticker.mode.cult -= owner
 
 /datum/antagonist/cultist/create_team(team)
 	return SSticker.mode.get_cult_team()
