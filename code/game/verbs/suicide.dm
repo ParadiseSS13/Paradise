@@ -53,11 +53,11 @@
 	setOxyLoss((health * 1.5), TRUE)
 
 /mob/living/simple_animal/mouse/do_suicide()
-	visible_message("<span class='danger'>[src] is playing dead permanently! It looks like [p_theyre()] trying to commit suicide.</span>")
+	visible_message("<span class='danger'>[src] is playing dead permanently! It looks like [p_theyre()] trying to commit suicide!</span>")
 	adjustOxyLoss(max(100 - getBruteLoss(100), 0))
 
 /mob/living/silicon/do_suicide()
-	to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide!</span>")
 	//put em at -175
 	adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 
@@ -75,7 +75,7 @@
 	suiciding = FALSE
 
 /mob/living/carbon/alien/humanoid/do_suicide()
-	to_chat(viewers(src), "<span class='danger'>[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(src), "<span class='danger'>[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide!</span>")
 	//put em at -175
 	adjustOxyLoss(max(175 - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 
@@ -107,7 +107,7 @@
 			human_suicide(damagetype, O)
 			return
 
-	to_chat(viewers(src), "<span class='danger'>[src] [replacetext(pick(dna.species.suicide_messages), "their", p_their())] It looks like [p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(src), "<span class='danger'>[src] [replacetext(pick(dna.species.suicide_messages), "their", p_their())] It looks like [p_theyre()] trying to commit suicide!</span>")
 	human_suicide(0)
 
 /mob/living/carbon/human/proc/human_suicide(damagetype, byitem)
