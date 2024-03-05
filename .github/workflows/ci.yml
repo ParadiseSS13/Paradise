@@ -8,6 +8,10 @@ on:
     branches:
     - master
     - merge-queue-test
+  merge_group:
+    branches:
+    - master
+    - merge-queue-test
 
 jobs:
   run_linters:
