@@ -4086,6 +4086,11 @@
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
+"nD" = (
+/obj/item/gun/magic/wand/death/debug,
+/obj/structure/table/wood/fancy/purple,
+/turf/simulated/floor/carpet,
+/area/admin)
 "nF" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
@@ -4263,10 +4268,9 @@
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
 "oi" = (
-/obj/structure/chair/wood{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/gun/projectile/automatic/pistol,
+/turf/simulated/floor/carpet/royalblack,
 /area/admin)
 "oj" = (
 /obj/structure/table/wood/fancy/royalblue,
@@ -4491,6 +4495,11 @@
 "pc" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+"pd" = (
+/obj/item/debug/human_spawner,
+/obj/structure/table/wood/fancy/purple,
+/turf/simulated/floor/carpet,
+/area/admin)
 "pe" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
@@ -5544,6 +5553,14 @@
 /obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
+"sN" = (
+/obj/item/spellbook{
+	name = "admin spell book";
+	uses = 1000
+	},
+/obj/structure/table/wood/fancy/purple,
+/turf/simulated/floor/carpet,
+/area/admin)
 "sO" = (
 /obj/structure/sign/goldenplaque,
 /turf/simulated/wall/indestructible/riveted,
@@ -6779,7 +6796,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "wZ" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/carpet/royalblack,
 /area/admin)
 "xa" = (
 /obj/structure/toilet{
@@ -6924,8 +6941,9 @@
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/suppy)
 "xK" = (
-/obj/structure/chair/comfy/black,
-/turf/simulated/floor/wood,
+/obj/structure/table/wood/fancy/purple,
+/obj/item/reagent_containers/drinks/mugwort,
+/turf/simulated/floor/carpet,
 /area/admin)
 "xM" = (
 /obj/machinery/computer/shuttle/admin{
@@ -7321,13 +7339,14 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "Ac" = (
-/obj/structure/table/wood,
-/turf/simulated/floor/wood,
+/obj/item/bodyanalyzer/debug,
+/obj/structure/table/wood/fancy/royalblack,
+/turf/simulated/floor/carpet/royalblack,
 /area/admin)
 "Ad" = (
-/obj/structure/table/wood,
-/obj/item/deck/cards/syndicate,
-/turf/simulated/floor/wood,
+/obj/item/clothing/glasses/hud/debug,
+/obj/structure/table/wood/fancy/royalblack,
+/turf/simulated/floor/carpet/royalblack,
 /area/admin)
 "Ae" = (
 /obj/structure/table/wood,
@@ -7442,9 +7461,11 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "As" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/drinkingglass/devilskiss,
-/turf/simulated/floor/wood,
+/obj/machinery/door/airlock/hatch{
+	desc = "For all your shady business needs";
+	name = "Gambling Den"
+	},
+/turf/simulated/wall/indestructible/syndicate,
 /area/admin)
 "At" = (
 /obj/structure/chair/comfy/black{
@@ -7453,14 +7474,15 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Au" = (
-/obj/structure/chair/stool,
-/turf/simulated/floor/wood,
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/gun/projectile/revolver,
+/turf/simulated/floor/carpet/royalblack,
 /area/admin)
 "Av" = (
-/obj/structure/table/wood,
-/obj/item/lighter/zippo/engraved,
-/obj/item/storage/fancy/cigarettes/dromedaryco,
-/turf/simulated/floor/wood,
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/soap/syndie/debug,
+/obj/item/reagent_containers/spray/cleaner/advanced/debug,
+/turf/simulated/floor/carpet/royalblack,
 /area/admin)
 "Aw" = (
 /obj/machinery/computer/communications{
@@ -7478,6 +7500,11 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/ghost_bar)
+"AD" = (
+/obj/item/gun/magic/wand/resurrection/debug,
+/obj/structure/table/wood/fancy/purple,
+/turf/simulated/floor/carpet,
+/area/admin)
 "AE" = (
 /obj/item/paper/monitorkey,
 /obj/machinery/computer/message_monitor{
@@ -7769,6 +7796,12 @@
 /obj/structure/musician/piano,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"BK" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
 "BL" = (
 /obj/machinery/light/spot{
 	dir = 8
@@ -7819,6 +7852,13 @@
 "BZ" = (
 /turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership)
+"Ca" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/radio/uplink/admin{
+	name = "admin uplink"
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/admin)
 "Cb" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/grassybush,
@@ -10189,6 +10229,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
+"Kj" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/melee/energy/sword,
+/obj/item/melee/energy/sword{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/admin)
 "Km" = (
 /obj/machinery/kitchen_machine/microwave/upgraded,
 /obj/structure/table,
@@ -12748,6 +12797,11 @@
 	icon_state = "bar"
 	},
 /area/tdome/tdomeobserve)
+"Ti" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/gun/magic/staff,
+/turf/simulated/floor/carpet,
+/area/admin)
 "Tj" = (
 /obj/structure/chair/stool{
 	dir = 4
@@ -14479,6 +14533,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"Zh" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/clothing/shoes/sandal/magic,
+/obj/item/clothing/suit/wizrobe,
+/obj/item/clothing/head/wizard,
+/turf/simulated/floor/carpet,
+/area/admin)
 "Zi" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
@@ -68825,7 +68886,7 @@ lZ
 nq
 wk
 oj
-oi
+BK
 wk
 qL
 lZ
@@ -74749,7 +74810,7 @@ wk
 wk
 lZ
 lZ
-wk
+lZ
 wk
 wk
 wk
@@ -75000,13 +75061,13 @@ wk
 wk
 lH
 lH
-lH
+wk
 wk
 wk
 wk
 zM
 zM
-wk
+As
 wk
 wk
 wk
@@ -75257,17 +75318,17 @@ aN
 aN
 aN
 aN
-aN
-aN
 wk
-wk
+nD
+AD
+pd
+uz
+vK
 wZ
-wZ
+Ad
+Ac
+Av
 wk
-wk
-aN
-aN
-aN
 aN
 aN
 aN
@@ -75514,17 +75575,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-lH
+wk
+uz
+uz
+uz
+uz
+vK
+wZ
+wZ
 wZ
 wZ
 wk
-aN
-aN
-aN
-aN
 aN
 aN
 aN
@@ -75771,17 +75832,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-wk
-wk
+lH
+uz
+uz
+uz
+uz
+vK
 wZ
 wZ
-wk
-wk
-aN
-aN
-aN
+wZ
+wZ
+lH
 aN
 aN
 aN
@@ -76028,17 +76089,17 @@ aN
 aN
 aN
 aN
-aN
 wk
-wk
-wk
+uz
+uz
+uz
+uz
+vK
+wZ
+wZ
 wZ
 wZ
 wk
-wk
-wk
-aN
-aN
 aN
 aN
 aN
@@ -76286,16 +76347,16 @@ aN
 aN
 aN
 wk
-wk
-wk
+uz
+uz
+uz
+uz
+vK
 wZ
 wZ
 wZ
 wZ
 wk
-wk
-wk
-aN
 aN
 aN
 aN
@@ -76543,16 +76604,16 @@ aN
 aN
 aN
 wk
+uz
+uz
+uz
+uz
+vK
+wZ
+wZ
+wZ
+wZ
 wk
-wZ
-wZ
-wZ
-Au
-wZ
-wZ
-wk
-wk
-aN
 aN
 aN
 aN
@@ -76800,16 +76861,16 @@ aN
 aN
 aN
 lH
+Zh
+uz
+uz
+uz
+vK
 wZ
 wZ
 wZ
-Ac
-Av
 Au
-wZ
-wZ
 lH
-aN
 aN
 aN
 aN
@@ -77056,17 +77117,17 @@ aN
 aN
 aN
 aN
-lH
+wk
+Ti
+uz
+uz
+uz
+vK
 wZ
 wZ
-xK
-Ad
-Ac
-Au
 wZ
-wZ
-lH
-aN
+oi
+wk
 aN
 aN
 aN
@@ -77313,17 +77374,17 @@ aN
 aN
 aN
 aN
-lH
+wk
+xK
+sN
+uz
+uz
+vK
 wZ
 wZ
-wZ
-As
-Ac
-Au
-wZ
-wZ
-lH
-aN
+Ca
+Kj
+wk
 aN
 aN
 aN
@@ -77572,15 +77633,15 @@ aN
 aN
 wk
 wk
-wZ
-wZ
-wZ
-Au
-wZ
-wZ
+wk
+lH
 wk
 wk
-aN
+wk
+lH
+wk
+wk
+wk
 aN
 aN
 aN
@@ -77827,16 +77888,16 @@ aN
 aN
 aN
 aN
-wk
-wk
-wk
-wZ
-wZ
-wZ
-wZ
-wk
-wk
-wk
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -78085,14 +78146,14 @@ aN
 aN
 aN
 aN
-wk
-wk
-wk
-wZ
-wZ
-wk
-wk
-wk
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -78343,12 +78404,12 @@ aN
 aN
 aN
 aN
-wk
-wk
-lH
-lH
-wk
-wk
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
