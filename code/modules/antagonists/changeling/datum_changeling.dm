@@ -7,7 +7,7 @@
 	antag_hud_type = ANTAG_HUD_CHANGELING
 	clown_gain_text = "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "As your changeling nature fades, you return to your own clumsy, clownish self."
-	wiki_page_name = "Changeling"
+	wiki_page_name = "Changelingzzzzzzzzzzz"
 	/// List of [/datum/dna] which have been absorbed through the DNA sting or absorb power.
 	var/list/absorbed_dna
 	/// List of [/datum/dna] which are not lost when the changeling has no more room for DNA.
