@@ -147,6 +147,15 @@ def check_tgui_ui_new_argument(lines):
         if "\tui = new" in line and not TGUI_UI_NEW.search(line):
             return Failure(idx + 1, "Invalid argument within constructor, please make sure window sizing is in corresponding JavaScript file.")
 
+# checks for any (for var/type/x) loops that are not looping over bare datums: enforcing that the only case we will see this is if you genuinely want to loop over all datums in memory
+FOR_ALL_DATUMS = re.compile(r"for\s*\(\s*var\/((\w+)(?:(?:\/\w+){2,})?)\)")
+# double-checks that we don't have any attempts at looping like for(var/atom/a)
+FOR_ALL_NOT_DATUMS = re.compile(r"for\s*\(\s*var\/((?:atom|area|turf|obj|mob)(?:\/\w+))\)")
+def check_datum_loops(lines):
+    for idx, line in enumerate(lines):
+        if FOR_ALL_DATUMS.search(line) or FOR_ALL_NOT_DATUMS.search(line):
+            return Failure(idx + 1, "Found a loop without explicit contents. If you're trying to check bare datums, please ensure that your value is only cast to /datum, and please make sure you use \'as anything\'.")
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -158,6 +167,7 @@ CODE_CHECKS = [
     check_to_chats_have_a_user_arguement,
     check_conditional_spacing,
     check_tgui_ui_new_argument,
+    check_datum_loops,
 ]
 
 
