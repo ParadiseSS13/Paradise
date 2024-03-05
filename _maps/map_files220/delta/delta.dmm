@@ -62411,7 +62411,7 @@
 	name = "Toxins Venting Bay Door";
 	power_state = 0
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/floor/engine,
 /area/station/science/toxins/mixing)
 "ivI" = (
 /obj/item/kirbyplants,
@@ -62485,6 +62485,7 @@
 	name = "Toxins Launcher Bay Door";
 	protected = 0
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
 "ixA" = (
