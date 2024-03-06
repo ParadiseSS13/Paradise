@@ -123,7 +123,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/MouseDrop(obj/over_object as obj, src_location, over_location)
 	var/mob/M = usr
-	if((!istype(over_object, /obj/screen)) && can_use())
+	if((!is_screen_atom(over_object)) && can_use())
 		return attack_self(M)
 
 /obj/item/pda/attack_self(mob/user as mob)
@@ -381,7 +381,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		O.show_message(text("[bicon(src)] *[ttone]*"))
 
 /obj/item/pda/proc/set_ringtone(mob/user)
-	var/new_tone = tgui_input_text(user, "Please enter new ringtone", name, ttone)
+	var/new_tone = tgui_input_text(user, "Please enter new ringtone", name, ttone, max_length = 20, encode = FALSE)
 	new_tone = trim(new_tone)
 
 	if(!in_range(src, user) || loc != user)
@@ -396,7 +396,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		close(user)
 		return TRUE
 
-	ttone = sanitize(copytext(new_tone, 1, 20))
+	ttone = new_tone
 	return TRUE
 
 /obj/item/pda/process()
