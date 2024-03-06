@@ -1,7 +1,4 @@
 /datum/game_mode
-	/// A list of all minds currently in the cult
-	// var/list/datum/mind/cult = list()
-
 	var/datum/team/cult/cult_team
 
 /datum/game_mode/proc/get_cult_team()

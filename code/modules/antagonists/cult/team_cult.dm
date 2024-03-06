@@ -20,18 +20,12 @@
 	var/sacrifices_done = 0
 	var/sacrifices_required = 2
 
-	/// Cult static info, used for things like sprites. Someone should refactor the sprites out of it someday and just use SEPERATE ICONS DEPNDING ON THE TYPE OF CULT... like a sane person
-	var/datum/cult_info/cultdat
-
 	/// Are cultist mirror shields active yet?
 	var/mirror_shields_active = FALSE
 
 /datum/team/cult/New(list/starting_members)
 	..()
 	SSticker.mode.cult_team = src
-	// update_team_objectives()
-	var/random_cult = pick(typesof(/datum/cult_info))
-	cultdat = new random_cult()
 
 	objective_holder.add_objective(/datum/objective/servecult)
 

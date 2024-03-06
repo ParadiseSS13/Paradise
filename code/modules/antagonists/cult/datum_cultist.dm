@@ -60,7 +60,7 @@
 
 /datum/antagonist/cultist/farewell()
 	if(owner && owner.current)
-		owner.current.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
+		owner.current.visible_message("<span class='cult'>[owner.current] looks like [owner.current.p_they()] just reverted to [owner.current.p_their()] old faith!</span>",
 			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] and the memories of your time as their servant with it.</span>")
 
 
