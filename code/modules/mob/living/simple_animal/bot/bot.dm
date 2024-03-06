@@ -640,6 +640,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 		deltimer(reset_access_timer_id)
 		reset_access_timer_id = null
 	set_path(null)
+	new_destination = null
+	destination = null
 	last_target_location = null
 	lost_target = FALSE
 	summon_target = null

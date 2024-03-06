@@ -479,8 +479,9 @@
 	diag_hud_set_botmode()
 
 	if(!has_power())
-		on = FALSE
+		turn_off()
 		return
+
 	if(!on)
 		return
 
