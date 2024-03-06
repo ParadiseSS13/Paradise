@@ -2,7 +2,7 @@
 /obj/item/mod
 	name = "Base MOD"
 	desc = "You should not see this, yell at a coder!"
-	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'// figure out how to work with 2 of these
+	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi' // Figure out how to work with 2 of these
 	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 
 /obj/item/mod/control

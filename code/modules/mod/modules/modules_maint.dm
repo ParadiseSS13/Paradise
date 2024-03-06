@@ -103,7 +103,6 @@
 	mod.wearer.put_in_hands(balloon)
 	drain_power(use_power_cost)
 
-
 ///Stamper - Extends a stamp that can switch between accept/deny modes.
 /obj/item/mod/module/stamp
 	name = "MOD stamper module"

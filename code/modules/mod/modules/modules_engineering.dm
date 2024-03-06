@@ -304,6 +304,7 @@
 
 	var/mob/living/silicon/robot/drone/new_drone = new(get_turf(src))
 	new_drone.transfer_personality(to_be_droned)
+	new_drone.linked_control_mod = mod
 	linked_drone = new_drone
 	ADD_TRAIT(mod.wearer.mind, TRAIT_CREATED_DRONE, mod.wearer.UID())
 	return TRUE

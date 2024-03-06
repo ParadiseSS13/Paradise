@@ -18,6 +18,7 @@
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
+	holder_type = /obj/item/holder/drone
 	/// Cooldown for law syncs
 	var/sync_cooldown = 0
 
@@ -44,9 +45,8 @@
 		/obj/item/stack/tile
 	)
 
-	holder_type = /obj/item/holder/drone
+	var/obj/item/mod/control/linked_control_mod
 	var/datum/pathfinding_mover/pathfinding
-
 
 /mob/living/silicon/robot/drone/New()
 	..()
@@ -79,8 +79,12 @@
 	// Give us our action button
 	var/datum/action/innate/hide/drone_hide/hide = new()
 	var/datum/action/innate/robot_magpulse/pulse = new()
+	var/datum/action/innate/return_to_modsuit/return_mod = new()
+	var/datum/action/innate/drop_out_of_modsuit/drop = new()
 	hide.Grant(src)
 	pulse.Grant(src)
+	return_mod.Grant(src)
+	drop.Grant(src)
 
 	//Allows Drones to hear the Engineering channel.
 	module.channels = list("Engineering" = 1)
