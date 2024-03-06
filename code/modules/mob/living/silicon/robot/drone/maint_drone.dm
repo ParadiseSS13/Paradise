@@ -173,7 +173,7 @@
 			return
 
 		var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
-		if(confirm == ("Yes") && (user in range(3, src)))
+		if(confirm == "Yes" && in_range(user , src))
 			user.visible_message("<span class='warning'>[user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>",
 				"<span class='warning'>You swipe your ID card through [src], attempting to shut it down.</span>")
 
@@ -450,8 +450,7 @@
 	set_pathfinding(null)
 	if(!linked_control_mod)
 		return FALSE
-	var/mod_UID = linked_control_mod.UID()
-	var/obj/item/mod/control/mod_suit = locateUID(mod_UID)
+	var/obj/item/mod/control/mod_suit = linked_control_mod
 	if(get_dist(src, mod_suit) <= 1)
 		forceMove(mod_suit)
 	else

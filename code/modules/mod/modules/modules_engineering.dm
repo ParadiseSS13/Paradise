@@ -289,7 +289,7 @@
 	. = ..()
 	if(stored_drone)
 		stored_drone.forceMove(get_turf(mod.wearer))
-	if(!linked_drone)
+	else if(!linked_drone)
 		poll_ghosts_for_drone(mod.wearer)
 
 /obj/item/mod/module/drone/proc/create_new_drone(mob/living/user, mob/to_be_droned)
