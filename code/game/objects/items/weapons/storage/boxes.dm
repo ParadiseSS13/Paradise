@@ -1235,6 +1235,8 @@
 
 /obj/item/storage/box/coke_envirosuit
 	icon_state = "plasma_box"
+	name = "coke suit box"
+	desc = "A box with a special envirosuit brought to you by Space Cola Co."
 
 /obj/item/storage/box/coke_envirosuit/populate_contents()
 	new /obj/item/clothing/under/plasmaman/coke(src)
