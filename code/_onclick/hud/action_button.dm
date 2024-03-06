@@ -5,6 +5,25 @@
 	screen_loc = null
 	var/ordered = TRUE
 	var/datum/keybinding/mob/trigger_action_button/linked_keybind
+	/// The HUD this action button belongs to
+	var/datum/hud/our_hud
+
+	/// Where we are currently placed on the hud. SCRN_OBJ_DEFAULT asks the linked action what it thinks
+	var/location = SCRN_OBJ_DEFAULT
+	/// A unique bitflag, combined with the name of our linked action this lets us persistently remember any user changes to our position
+	var/id
+
+/atom/movable/screen/movable/action_button/Destroy()
+	. = ..()
+	if(our_hud)
+		var/mob/viewer = our_hud.mymob
+		our_hud.hide_action(src)
+		viewer?.client?.screen -= src
+		linked_action.viewers -= our_hud
+		viewer.update_action_buttons()
+		our_hud = null
+	linked_action = null
+	return ..()
 
 /atom/movable/screen/movable/action_button/MouseDrop(over_object)
 	if(locked && could_be_click_lag()) // in case something bad happend and game realised we dragged our ability instead of pressing it
