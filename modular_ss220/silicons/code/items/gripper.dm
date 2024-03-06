@@ -54,6 +54,7 @@
 					/obj/item/stack/sheet/mineral/plasma, // for repair plasmamans
 					/obj/item/mmi,
 					/obj/item/reagent_containers/pill,
+					/obj/item/reagent_containers/patch,
 					/obj/item/reagent_containers/drinks,
 					/obj/item/reagent_containers/glass,
 					/obj/item/reagent_containers/syringe,
