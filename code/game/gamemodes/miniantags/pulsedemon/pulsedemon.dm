@@ -379,7 +379,7 @@
 		current_power = new_power
 		current_cable = null
 		forceMove(current_power) // we go inside the machine
-		RegisterSignal(current_power, COMSIG_ATOM_EMP_ACT, PROC_REF(handle_emp))
+		RegisterSignal(current_power, COMSIG_ATOM_EMP_ACT, PROC_REF(handle_emp), TRUE)
 		playsound(src, 'sound/effects/eleczap.ogg', 15, TRUE)
 		do_sparks(rand(2, 4), FALSE, src)
 		if(isapc(current_power))
