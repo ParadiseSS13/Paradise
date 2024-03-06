@@ -152,7 +152,7 @@
 		S.mind.assigned_role = "Harbinger of the Slaughter"
 		S.mind.special_role = "Harbinger of the Slaughter"
 		to_chat(S, playstyle_string)
-		SSticker.mode.add_cultist(S.mind)
+		S.mind.add_antag_datum(/datum/antagonist/cultist)
 		var/obj/effect/proc_holder/spell/sense_victims/SV = new
 		AddSpell(SV)
 

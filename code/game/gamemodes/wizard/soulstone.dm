@@ -220,7 +220,7 @@
 			for(var/mob/M in contents)
 				if(M.mind)
 					icon_state = "soulstone2"
-					SSticker.mode.add_cultist(M.mind)
+					M.mind.add_antag_datum(/datum/antagonist/cultist)
 					to_chat(M, "<span class='cult'>Your shard has been cleansed of holy magic, and you are now bound to the cult's will. Obey them and assist in their goals.</span>")
 			for(var/mob/living/simple_animal/shade/EX in src)
 				EX.holy = FALSE
@@ -430,7 +430,7 @@
 	C.faction |= "\ref[user]"
 	C.key = target.key
 	if(user && IS_CULTIST(user) || cult_override)
-		SSticker.mode.add_cultist(C.mind)
+		C.mind.add_antag_datum(/datum/antagonist/cultist)
 	if(user && IS_CULTIST(user))
 		to_chat(C, "<B>You are still bound to serve the cult, follow their orders and help them complete their goals at all costs.</B>")
 	else
@@ -454,9 +454,7 @@
 			SSticker.mode.update_wiz_icons_added(S.mind)
 			S.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 		if(IS_CULTIST(user))
-			SSticker.mode.add_cultist(S.mind)
-			S.mind.special_role = SPECIAL_ROLE_CULTIST
-			S.mind.store_memory("<b>Serve the cult's will.</b>")
+			S.mind.add_antag_datum(/datum/antagonist/cultist)
 			to_chat(S, "<span class='userdanger'>Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs.</span>")
 		else
 			S.mind.store_memory("<b>Serve [user.real_name], your creator.</b>")

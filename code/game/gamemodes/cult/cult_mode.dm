@@ -44,14 +44,6 @@
 	cult_team = new /datum/team/cult(pre_cult)
 	..()
 
-
-/datum/game_mode/proc/add_cultist(datum/mind/cult_mind)
-	if(!istype(cult_mind) || cult_mind.has_antag_datum(/datum/antagonist/cultist))
-		return FALSE
-
-	cult_mind.add_antag_datum(/datum/antagonist/cultist)
-	return TRUE
-
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE, mob/target_mob)
 	// if(target_mob)
 	// 	cult -= target_mob // ctodo, figure out how to do this better

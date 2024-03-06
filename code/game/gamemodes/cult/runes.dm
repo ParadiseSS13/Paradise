@@ -324,45 +324,44 @@ structure_check() searches for nearby cultist structures required for the invoca
 		for(var/I in invokers)
 			to_chat(I, "<span class='warning'>You need at least two invokers to convert!</span>")
 		return
-	else
-		convertee.visible_message("<span class='warning'>[convertee] writhes in pain as the markings below them glow a bloody red!</span>", \
-								"<span class='cultlarge'><i>AAAAAAAAAAAAAA-</i></span>")
-		SSticker.mode.add_cultist(convertee.mind)
-		convertee.mind.special_role = "Cultist"
-		to_chat(convertee, "<span class='cultitalic'><b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
+
+	convertee.visible_message("<span class='warning'>[convertee] writhes in pain as the markings below them glow a bloody red!</span>", \
+							"<span class='cultlarge'><i>AAAAAAAAAAAAAA-</i></span>")
+	convertee.mind.add_antag_datum(/datum/antagonist/cultist)
+	to_chat(convertee, "<span class='cultitalic'><b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
 		and something evil takes root.</b></span>")
-		to_chat(convertee, "<span class='cultitalic'><b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve [GET_CULT_DATA(entity_title3, "your god")] above all else. Bring it back.\
+	to_chat(convertee, "<span class='cultitalic'><b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve [GET_CULT_DATA(entity_title3, "your god")] above all else. Bring it back.\
 		</b></span>")
 
-		if(ishuman(convertee))
-			var/mob/living/carbon/human/H = convertee
-			var/brutedamage = convertee.getBruteLoss()
-			var/burndamage = convertee.getFireLoss()
-			if(brutedamage || burndamage) // If the convertee is injured
-				// Heal 90% of all damage, including robotic limbs
-				H.adjustBruteLoss(-(brutedamage * 0.9), robotic = TRUE)
-				H.adjustFireLoss(-(burndamage * 0.9), robotic = TRUE)
-				if(ismachineperson(H))
-					H.visible_message("<span class='warning'>A dark force repairs [convertee]!</span>",
-					"<span class='cultitalic'>Your damage has been repaired. Now spread the blood to others.</span>")
-				else
-					H.visible_message("<span class='warning'>[convertee]'s wounds heal and close!</span>",
-					"<span class='cultitalic'>Your wounds have been healed. Now spread the blood to others.</span>")
-					for(var/obj/item/organ/external/E in H.bodyparts)
-						E.mend_fracture()
-						E.fix_internal_bleeding()
-						E.fix_burn_wound()
-					for(var/datum/disease/critical/crit in H.viruses) // cure all crit conditions
-						crit.cure()
-
-			H.uncuff()
-			H.Silence(6 SECONDS) //Prevent "HALP MAINT CULT" before you realise you're converted
-
-			var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
-			if(H.equip_to_slot_if_possible(D, SLOT_HUD_IN_BACKPACK, FALSE, TRUE))
-				to_chat(H, "<span class='cultlarge'>You have a dagger in your backpack. Use it to do [GET_CULT_DATA(entity_title1, "your god")]'s bidding.</span>")
+	if(ishuman(convertee))
+		var/mob/living/carbon/human/H = convertee
+		var/brutedamage = convertee.getBruteLoss()
+		var/burndamage = convertee.getFireLoss()
+		if(brutedamage || burndamage) // If the convertee is injured
+			// Heal 90% of all damage, including robotic limbs
+			H.adjustBruteLoss(-(brutedamage * 0.9), robotic = TRUE)
+			H.adjustFireLoss(-(burndamage * 0.9), robotic = TRUE)
+			if(ismachineperson(H))
+				H.visible_message("<span class='warning'>A dark force repairs [convertee]!</span>",
+				"<span class='cultitalic'>Your damage has been repaired. Now spread the blood to others.</span>")
 			else
-				to_chat(H, "<span class='cultlarge'>There is a dagger on the floor. Use it to do [GET_CULT_DATA(entity_title1, "your god")]'s bidding.</span>")
+				H.visible_message("<span class='warning'>[convertee]'s wounds heal and close!</span>",
+				"<span class='cultitalic'>Your wounds have been healed. Now spread the blood to others.</span>")
+				for(var/obj/item/organ/external/E in H.bodyparts)
+					E.mend_fracture()
+					E.fix_internal_bleeding()
+					E.fix_burn_wound()
+				for(var/datum/disease/critical/crit in H.viruses) // cure all crit conditions
+					crit.cure()
+
+		H.uncuff()
+		H.Silence(6 SECONDS) //Prevent "HALP MAINT CULT" before you realise you're converted
+
+		var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
+		if(H.equip_to_slot_if_possible(D, SLOT_HUD_IN_BACKPACK, FALSE, TRUE))
+			to_chat(H, "<span class='cultlarge'>You have a dagger in your backpack. Use it to do [GET_CULT_DATA(entity_title1, "your god")]'s bidding.</span>")
+		else
+			to_chat(H, "<span class='cultlarge'>There is a dagger on the floor. Use it to do [GET_CULT_DATA(entity_title1, "your god")]'s bidding.</span>")
 
 /obj/effect/rune/convert/proc/do_sacrifice(mob/living/offering, list/invokers)
 	var/mob/living/user = invokers[1] //the first invoker is always the user
@@ -961,7 +960,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 						"<span class='cultitalic'>Your blood begins flowing into [src]. You must remain in place and conscious to maintain the forms of those summoned. This will hurt you slowly but surely...</span>")
 
 	var/obj/machinery/shield/cult/weak/shield = new(T)
-	SSticker.mode.add_cultist(new_human.mind, 0)
+	new_human.mind.add_antag_datum(/datum/antagonist/cultist)
 	to_chat(new_human, "<span class='cultlarge'>You are a servant of [GET_CULT_DATA(entity_title3, "the cult")]. You have been made semi-corporeal by the cult of [GET_CULT_DATA(entity_name, "your god")], and you are to serve them at all costs.</span>")
 
 	while(!QDELETED(src) && !QDELETED(user) && !QDELETED(new_human) && (user in T))
