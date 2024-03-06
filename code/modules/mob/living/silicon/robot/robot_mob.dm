@@ -1170,7 +1170,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/update_icons()
 	overlays.Cut()
-	borg_icons()
+	
 	if(stat != DEAD && !(IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
 			overlays += "eyes-[custom_panel]"
@@ -1190,6 +1190,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			overlays += "[panelprefix]-openpanel +c"
 		else
 			overlays += "[panelprefix]-openpanel -c"
+	borg_icons()
 	robot_module_hat_offset(icon_state)
 	update_hat_icons()
 	update_fire()
