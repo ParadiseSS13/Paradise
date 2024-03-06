@@ -54,6 +54,7 @@
 	. = ..()
 	check_cult_size()
 	RegisterSignal(new_member.current, COMSIG_MOB_STATCHANGE, PROC_REF(cultist_stat_change))
+	RegisterSignal(new_member.current, COMSIG_PARENT_QDELETING, PROC_REF(remove_member))
 
 /datum/team/cult/remove_member(datum/mind/member)
 	. = ..()

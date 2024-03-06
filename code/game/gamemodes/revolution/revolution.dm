@@ -136,9 +136,8 @@
 	var/remove_head = (beingborged && rev_mind.has_antag_datum(/datum/antagonist/rev/head))
 
 	if(rev_mind.has_antag_datum(/datum/antagonist/rev, FALSE) || remove_head)
-		var/datum/antagonist/rev = rev_mind.has_antag_datum(/datum/antagonist/rev)
-		rev.silent = TRUE // We have some custom text, lets make the removal silent
-		rev_team.remove_member(rev_mind)
+		// We have some custom text, lets make the removal silent
+		rev_mind.remove_antag_datum(/datum/antagonist/rev, silent_removal = TRUE)
 
 		if(beingborged)
 			revolutionary.visible_message(

@@ -46,8 +46,7 @@
 
 /datum/antagonist/rev/proc/promote()
 	var/datum/mind/old_owner = owner
-	silent = TRUE
-	owner.remove_antag_datum(/datum/antagonist/rev, FALSE)
+	owner.remove_antag_datum(/datum/antagonist/rev, FALSE, silent_removal = TRUE)
 
 	var/datum/antagonist/rev/head/new_revhead = new()
 	new_revhead.silent = TRUE

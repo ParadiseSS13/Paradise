@@ -811,8 +811,7 @@
 				to_chat(H, "<span class='userdanger'>You somehow have become the recipient of a mindshield transplant, and it just activated!</span>")
 				var/datum/antagonist/rev/has_rev = has_antag_datum(/datum/antagonist/rev)
 				if(has_rev)
-					has_rev.silent = TRUE // we have some custom text, lets make the removal silent
-					remove_antag_datum(/datum/antagonist/rev)
+					remove_antag_datum(/datum/antagonist/rev, silent_removal = TRUE) // we have some custom text, lets make the removal silent
 					to_chat(H, "<span class='userdanger'>The nanobots in the mindshield implant remove all thoughts about being a revolutionary. Get back to work!</span>")
 
 	else if(href_list["revolution"])
@@ -1528,9 +1527,11 @@
  * Arguments:
  * * datum_type - an antag datum typepath
  */
-/datum/mind/proc/remove_antag_datum(datum_type, check_subtypes = TRUE)
+/datum/mind/proc/remove_antag_datum(datum_type, check_subtypes = TRUE, silent_removal = FALSE)
 	var/datum/antagonist/A = has_antag_datum(datum_type, check_subtypes)
-	qdel(A)
+	if(A)
+		A.silent |= silent_removal
+		qdel(A)
 
 /**
  * Removes all antag datums from the src mind.

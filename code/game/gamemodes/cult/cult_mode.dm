@@ -51,7 +51,6 @@
 		return FALSE
 
 	cult_mind.add_antag_datum(/datum/antagonist/cultist)
-		RegisterSignal(cult_mind.current, COMSIG_PARENT_QDELETING, PROC_REF(remove_cultist))
 	return TRUE
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE, mob/target_mob)
