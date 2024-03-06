@@ -80,9 +80,6 @@
 		return
 	GLOB.paiController.recruitWindow(G)
 
-/datum/hud/ghost
-	inventory_shown = FALSE
-
 /datum/hud/ghost/New(mob/owner)
 	..()
 	var/obj/screen/using

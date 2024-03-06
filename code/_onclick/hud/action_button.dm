@@ -1,13 +1,17 @@
 /obj/screen/movable/action_button
 	desc = "CTRL-Shift click on this button to bind it to a hotkey."
 	var/datum/action/linked_action
-	var/datum/hud/our_hud
 	var/actiontooltipstyle = ""
 	screen_loc = null
 	var/ordered = TRUE
+	var/screen_idx
 	var/datum/keybinding/mob/trigger_action_button/linked_keybind
+	/// Whether or not this should be shown to observers
+	var/shown_to_observers = FALSE
 
 /obj/screen/movable/action_button/MouseDrop(over_object)
+	if(usr != linked_action.owner)
+		return
 	if(locked && could_be_click_lag()) // in case something bad happend and game realised we dragged our ability instead of pressing it
 		Click()
 		drag_start = 0
@@ -34,13 +38,9 @@
 		return ..()
 
 /obj/screen/movable/action_button/Destroy()
-	if(our_hud)
-		var/mob/viewer = our_hud.mymob
-		// our_hud.hide_action(src)
-		viewer?.client?.screen -= src
-		linked_action.viewers -= our_hud
-		viewer.update_action_buttons()
-		our_hud = null
+	if(linked_action.owner?.client)
+		linked_action.owner.client.screen -= src
+		linked_action.owner.update_action_buttons()
 	linked_action = null
 	return ..()
 
@@ -84,9 +84,7 @@
 			return FALSE
 
 	if(linked_action)
-		if(linked_action.viewers[user.hud_used])
-			return TRUE
-		return FALSE
+		return linked_action.owner == user
 
 	return TRUE
 
@@ -200,14 +198,14 @@
 		A.UpdateButtonIcon()
 
 //This is the proc used to update all the action buttons.
-/mob/proc/update_action_buttons(reload_screen)
+/mob/proc/update_action_buttons(reload_screen, starting_button_index = 0)
 	if(!hud_used || !client)
 		return
 
 	if(hud_used.hud_shown != HUD_STYLE_STANDARD)
 		return
 
-	var/button_number = 0
+	var/button_number = starting_button_index
 
 	if(hud_used.action_buttons_hidden)
 		for(var/datum/action/A in actions)
@@ -224,6 +222,7 @@
 				button_number++
 			if(!B.moved)
 				B.screen_loc = hud_used.ButtonNumberToScreenCoords(button_number)
+				screen_idx = button_number
 			else
 				B.screen_loc = B.moved
 			if(reload_screen)
@@ -232,6 +231,7 @@
 		if(!button_number)
 			hud_used.hide_actions_toggle.screen_loc = null
 			return
+		load_borrowed_screen_buttons(button_number)
 
 	if(!hud_used.hide_actions_toggle.moved)
 		hud_used.hide_actions_toggle.screen_loc = hud_used.ButtonNumberToScreenCoords(button_number+1)
@@ -239,6 +239,31 @@
 		hud_used.hide_actions_toggle.screen_loc = hud_used.hide_actions_toggle.moved
 	if(reload_screen)
 		client.screen += hud_used.hide_actions_toggle
+
+	return button_number
+
+/mob/proc/load_borrowed_screen_buttons(button_number)
+	return
+
+/mob/dead/observer/update_action_buttons(reload_screen, starting_button_index = 0)
+	var/button_idx = starting_button_index
+	if(!mob_observed)
+		return
+
+	var/mob/observed = locateUID(mob_observed)
+	if(!istype(observed))
+		return
+
+	// load the parent's action buttons in first, so we can keep everything ordered.
+	for(var/datum/action/A as anything in observed.actions)
+		var/obj/screen/movable/action_button/B = A.button
+		client.screen |= B
+		if(B.ordered)
+			button_idx++
+
+
+
+
 
 
 #define AB_MAX_COLUMNS 10

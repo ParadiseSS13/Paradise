@@ -229,7 +229,7 @@ Works together with spawning an observer, noted above.
 			client.clear_screen()
 			LAZYOR(mob_eye.observers, src)
 			mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
-			mob_observed = mob_eye
+			mob_observed = mob_eye.UID()
 			// client.mob.sight
 
 		RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_observer_move))

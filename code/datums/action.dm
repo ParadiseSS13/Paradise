@@ -22,8 +22,6 @@
 	/// Whether or not this will be shown to observers
 	var/show_to_observers = TRUE
 	// TODO find a more sensible way to do this too, seems like GC hell
-	/// Assoc. list of all huds viewing our action
-	var/list/viewers = list()
 
 
 /datum/action/New(Target)
@@ -39,7 +37,6 @@
 		Remove(owner)
 	if(target)
 		target = null
-	QDEL_LIST_ASSOC_VAL(viewers) // Qdel the buttons in the viewers list **NOT THE HUDS**
 	return ..()
 
 /datum/action/proc/Grant(mob/grant_to)
