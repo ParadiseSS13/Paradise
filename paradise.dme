@@ -196,6 +196,7 @@
 #include "code\_onclick\overmind_onclick.dm"
 #include "code\_onclick\telekinesis.dm"
 #include "code\_onclick\hud\action_button.dm"
+#include "code\_onclick\hud\action_group.dm"
 #include "code\_onclick\hud\ai_hud.dm"
 #include "code\_onclick\hud\alert.dm"
 #include "code\_onclick\hud\alien_hud.dm"

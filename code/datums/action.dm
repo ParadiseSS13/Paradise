@@ -12,56 +12,67 @@
 	var/desc = null
 	var/obj/target = null
 	var/check_flags = 0
-	var/atom/movable/screen/movable/action_button/button = null
 	var/button_icon = 'icons/mob/actions/actions.dmi'
 	var/background_icon_state = "bg_default"
 	var/buttontooltipstyle = ""
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
 	var/button_icon_state = "default"
 	var/mob/owner
+	/// Where any buttons we create should be by default. Accepts screen_loc and location defines
+	var/default_button_position = SCRN_OBJ_IN_LIST
+	///List of all mobs that are viewing our action button -> A unique movable for them to view.
+	var/list/viewers = list()
+
 
 /datum/action/New(Target)
 	target = Target
-	button = new
-	button.linked_action = src
-	button.name = name
-	button.actiontooltipstyle = buttontooltipstyle
-	var/list/our_description = list()
-	our_description += desc
-	our_description += button.desc
-	button.desc = our_description.Join(" ")
+	// button = new
+	// button.linked_action = src
+	// button.name = name
+	// button.actiontooltipstyle = buttontooltipstyle
+	// var/list/our_description = list()
+	// our_description += desc
+	// our_description += button.desc
+	// button.desc = our_description.Join(" ")
+	// TODO salvage this
 
 /datum/action/Destroy()
 	if(owner)
 		Remove(owner)
 	if(target)
 		target = null
-	QDEL_NULL(button)
+	QDEL_LIST_ASSOC_VAL(viewers) // Qdel the buttons in the viewers list **NOT THE HUDS**
 	return ..()
 
 /datum/action/proc/Grant(mob/M)
+	if(!M)
+		Remove(owner)
+		return
 	if(owner)
 		if(owner == M)
 			return
 		Remove(owner)
 	owner = M
-	M.actions += src
-	if(M.client)
-		M.client.screen += button
-		button.locked = TRUE
-	M.update_action_buttons()
+	// todo tg has a clearref thing goin on here
+	GiveAction(M)
 
 /datum/action/proc/Remove(mob/M)
+	for(var/datum/hud/hud in viewers)
+		if(!hud.mymob)
+			continue
+		HideFrom(hud.mymob)
+	LAZYREMOVE(M.actions, src) // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
+	viewers = list()
 	owner = null
 	if(!M)
 		return
-	if(M.client)
-		M.client.screen -= button
-		button.clean_up_keybinds(M)
-	button.moved = FALSE //so the button appears in its normal position when given to another owner.
-	button.locked = FALSE
-	M.actions -= src
-	M.update_action_buttons()
+		// button.clean_up_keybinds(M)
+
+
+/datum/action/proc/UpdateButtons(status_only, force)
+	for(var/datum/hud/hud in viewers)
+		var/atom/movable/screen/movable/button = viewers[hud]
+		UpdateButton(button, status_only, force)
 
 /datum/action/proc/Trigger(left_click = TRUE)
 	if(!IsAvailable())
@@ -103,23 +114,115 @@
 			return FALSE
 	return TRUE
 
-/datum/action/proc/UpdateButtonIcon()
-	if(button)
-		if(owner && owner.client && background_icon_state == "bg_default") // If it's a default action background, apply the custom HUD style
-			button.alpha = owner.client.prefs.UI_style_alpha
-			button.color = owner.client.prefs.UI_style_color
-			button.icon = ui_style2icon(owner.client.prefs.UI_style)
-			button.icon_state = "template"
+/datum/action/proc/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
+	if(!button)
+		return
+	if(!status_only)
+		button.name = name
+		button.desc = desc
+		if(owner?.hud_used && background_icon_state == ACTION_BUTTON_DEFAULT_BACKGROUND)
+			var/list/settings = owner.hud_used.get_action_buttons_icons()
+			if(button.icon != settings["bg_icon"])
+				button.icon = settings["bg_icon"]
+			if(button.icon_state != settings["bg_state"])
+				button.icon_state = settings["bg_state"]
 		else
-			button.icon = button_icon
-			button.icon_state = background_icon_state
+			if(button.icon != button_icon)
+				button.icon = button_icon
+			if(button.icon_state != background_icon_state)
+				button.icon_state = background_icon_state
 
-		ApplyIcon(button)
-		var/obj/effect/proc_holder/spell/S = target
-		if(istype(S) && S.cooldown_handler.should_draw_cooldown() || !IsAvailable())
-			apply_unavailable_effect()
-		else
-			return TRUE
+		ApplyIcon(button, force)
+
+	if(!IsAvailable())
+		button.color = transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0)
+	else
+		button.color = rgb(255,255,255,255)
+		return TRUE
+
+//Give our action button to the player
+/datum/action/proc/GiveAction(mob/viewer)
+	var/datum/hud/our_hud = viewer.hud_used
+	if(viewers[our_hud]) // Already have a copy of us? go away
+		return
+	LAZYOR(viewer.actions, src) // Move this in
+	ShowTo(viewer)
+
+//Adds our action button to the screen of a player
+/datum/action/proc/ShowTo(mob/viewer)
+	var/datum/hud/our_hud = viewer.hud_used
+	if(!our_hud || viewers[our_hud]) // There's no point in this if you have no hud in the first place
+		return
+
+
+	var/atom/movable/screen/movable/action_button/button = CreateButton()
+	SetId(button, viewer)
+
+	button.our_hud = our_hud
+	viewers[our_hud] = button
+	if(viewer.client)
+		viewer.client.screen += button
+
+	button.load_position(viewer)
+	viewer.update_action_buttons()
+
+
+//Removes our action button from the screen of a player
+/datum/action/proc/HideFrom(mob/viewer)
+	var/datum/hud/our_hud = viewer.hud_used
+	var/atom/movable/screen/movable/action_button/button = viewers[our_hud]
+	LAZYREMOVE(viewer.actions, src)
+	if(button)
+		qdel(button)
+
+
+/datum/action/proc/CreateButton()
+	var/atom/movable/screen/movable/action_button/button = new()
+	button.linked_action = src
+	button.name = name
+	button.actiontooltipstyle = buttontooltipstyle
+	var/list/our_description = list()
+	our_description += desc
+	our_description += button.desc
+	button.desc = our_description.Join(" ")
+	return button
+
+
+/datum/action/proc/SetId(atom/movable/screen/movable/action_button/our_button, mob/owner)
+	//button id generation
+	var/bitfield = 0
+	for(var/datum/action/action in owner.actions)
+		if(action == src) // This could be us, which is dumb
+			continue
+		var/atom/movable/screen/movable/action_button/button = action.viewers[owner.hud_used]
+		if(action.name == name && button.id)
+			bitfield |= button.id
+
+	bitfield = ~bitfield // Flip our possible ids, so we can check if we've found a unique one
+	for(var/i in 0 to 23) // We get 24 possible bitflags in dm
+		var/bitflag = 1 << i // Shift us over one
+		if(bitfield & bitflag)
+			our_button.id = bitflag
+			return
+
+
+// /datum/action/proc/UpdateButtonIcon()
+// 	if(button)
+// 		if(owner && owner.client && background_icon_state == "bg_default") // If it's a default action background, apply the custom HUD style
+// 			button.alpha = owner.client.prefs.UI_style_alpha
+// 			button.color = owner.client.prefs.UI_style_color
+// 			button.icon = ui_style2icon(owner.client.prefs.UI_style)
+// 			button.icon_state = "template"
+// 		else
+// 			button.icon = button_icon
+// 			button.icon_state = background_icon_state
+
+// 		ApplyIcon(button)
+// 		var/obj/effect/proc_holder/spell/S = target
+// 		if(istype(S) && S.cooldown_handler.should_draw_cooldown() || !IsAvailable())
+// 			apply_unavailable_effect()
+// 		else
+// 			return TRUE
 
 /datum/action/proc/apply_unavailable_effect()
 	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
@@ -225,13 +328,14 @@
 /datum/action/item_action/set_internals
 	name = "Set Internals"
 
-/datum/action/item_action/set_internals/UpdateButtonIcon()
-	if(..()) //button available
-		if(iscarbon(owner))
-			var/mob/living/carbon/C = owner
-			if(target == C.internal)
-				button.icon = 'icons/mob/actions/actions.dmi'
-				button.icon_state = "bg_default_on"
+/datum/action/item_action/set_internals/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force)
+	if(!..()) // no button available
+		return
+	if(!iscarbon(owner))
+		return
+	var/mob/living/carbon/C = owner
+	if(target == C.internal)
+		button.icon_state = "template_active"
 
 /datum/action/item_action/toggle_mister
 	name = "Toggle Mister"
@@ -263,7 +367,7 @@
 
 /datum/action/item_action/toggle_unfriendly_fire/Trigger(left_click)
 	if(..())
-		UpdateButtonIcon()
+		UpdateButtons()
 
 /datum/action/item_action/toggle_unfriendly_fire/UpdateButtonIcon()
 	if(istype(target, /obj/item/hierophant_club))
@@ -271,11 +375,9 @@
 		if(H.friendly_fire_check)
 			button_icon_state = "vortex_ff_off"
 			name = "Toggle Friendly Fire \[OFF\]"
-			button.name = name
 		else
 			button_icon_state = "vortex_ff_on"
 			name = "Toggle Friendly Fire \[ON\]"
-			button.name = name
 	..()
 
 /datum/action/item_action/vortex_recall
@@ -298,28 +400,24 @@
 /datum/action/item_action/toggle/New(Target)
 	..()
 	name = "Toggle [target.name]"
-	button.name = name
 
 /datum/action/item_action/openclose
 
 /datum/action/item_action/openclose/New(Target)
 	..()
 	name = "Open/Close [target.name]"
-	button.name = name
 
 /datum/action/item_action/button
 
 /datum/action/item_action/button/New(Target)
 	..()
 	name = "Button/Unbutton [target.name]"
-	button.name = name
 
 /datum/action/item_action/zipper
 
 /datum/action/item_action/zipper/New(Target)
 	..()
 	name = "Zip/Unzip [target.name]"
-	button.name = name
 
 /datum/action/item_action/halt
 	name = "HALT!"
@@ -360,7 +458,6 @@
 /datum/action/item_action/adjust/New(Target)
 	..()
 	name = "Adjust [target.name]"
-	button.name = name
 
 /datum/action/item_action/pontificate
 	name = "Pontificate Evilly"
@@ -503,17 +600,14 @@
 /datum/action/item_action/organ_action/toggle/New(Target)
 	..()
 	name = "Toggle [target.name]"
-	button.name = name
 
 /datum/action/item_action/organ_action/use/New(Target)
 	..()
 	name = "Use [target.name]"
-	button.name = name
 
 /datum/action/item_action/organ_action/use/eyesofgod/New(target)
 	..()
 	name = "See with the Eyes of the Gods"
-	button.name = name
 
 /datum/action/item_action/voice_changer/toggle
 	name = "Toggle Voice Changer"

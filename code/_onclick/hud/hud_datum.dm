@@ -28,14 +28,20 @@
 	var/atom/movable/screen/module_store_icon
 	var/atom/movable/screen/combo/combo_display
 
+	var/atom/movable/screen/button_palette/toggle_palette
+	var/atom/movable/screen/palette_scroll/down/palette_down
+	var/atom/movable/screen/palette_scroll/up/palette_up
+
+	var/datum/action_group/palette/palette_actions
+	var/datum/action_group/listed/listed_actions
+	var/list/floating_actions
+
+
 	var/list/static_inventory = list()		//the screen objects which are static
 	var/list/toggleable_inventory = list()	//the screen objects which can be hidden
 	var/list/hotkeybuttons = list()			//the buttons that can be used via hotkeys
 	var/list/infodisplay = list()			//the screen objects that display mob info (health, alien plasma, etc...)
 	var/list/inv_slots[SLOT_HUD_AMOUNT]			// /atom/movable/screen/inventory objects, ordered by their slot ID.
-
-	var/atom/movable/screen/movable/action_button/hide_toggle/hide_actions_toggle
-	var/action_buttons_hidden = FALSE
 
 	var/list/atom/movable/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
 	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
@@ -45,13 +51,22 @@
 
 /mob/proc/create_mob_hud()
 	if(client && !hud_used)
-		hud_used = new /datum/hud(src)
+		set_hud_used(new hud_type(src))
 		update_sight()
+
+/mob/proc/set_hud_used(datum/hud/new_hud)
+	hud_used = new_hud
+	new_hud.build_action_groups()
 
 /datum/hud/New(mob/owner)
 	mymob = owner
-	hide_actions_toggle = new
-	hide_actions_toggle.InitialiseIcon(mymob)
+
+	toggle_palette = new()
+	toggle_palette.set_hud(src)
+	palette_down = new()
+	palette_down.set_hud(src)
+	palette_up = new()
+	palette_up.set_hud(src)
 
 	for(var/mytype in subtypesof(/atom/movable/screen/plane_master))
 		var/atom/movable/screen/plane_master/instance = new mytype()
@@ -69,10 +84,14 @@
 	if(mymob.hud_used == src)
 		mymob.hud_used = null
 
-	QDEL_NULL(hide_actions_toggle)
+	QDEL_NULL(toggle_palette)
+	QDEL_NULL(palette_down)
+	QDEL_NULL(palette_up)
+	QDEL_NULL(palette_actions)
+	QDEL_NULL(listed_actions)
+	QDEL_LIST(floating_actions)
 
 	QDEL_NULL(module_store_icon)
-
 	QDEL_LIST_CONTENTS(static_inventory)
 
 	inv_slots.Cut()
@@ -134,7 +153,7 @@
 			if(infodisplay.len)
 				mymob.client.screen += infodisplay
 
-			mymob.client.screen += hide_actions_toggle
+			mymob.client.screen += toggle_palette
 
 			if(action_intent)
 				action_intent.screen_loc = initial(action_intent.screen_loc) //Restore intent selection to the original position
