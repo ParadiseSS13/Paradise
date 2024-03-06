@@ -520,8 +520,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	notify_ai(2)
 
 	shown_robot_modules = 0
-	client.screen -= robot_modules_background
-	client.screen -= hud_used.module_store_icon
+	client?.screen -= robot_modules_background
+	client?.screen -= hud_used.module_store_icon
 	uneq_all()
 	SStgui.close_user_uis(src)
 	sight_mode = null
