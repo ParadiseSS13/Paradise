@@ -69,6 +69,7 @@
 		return FALSE
 	if(istype(owner.loc, /obj/item/mod/control))
 		return FALSE
+
 	var/mob/living/silicon/robot/drone/drone = owner
 	drone.return_to_modsuit()
 
@@ -83,7 +84,8 @@
 		return FALSE
 	if(!istype(owner.loc, /obj/item/mod/control))
 		return FALSE
-	var/turf/drop_turf = get_turf(owner.loc)
+
+	var/turf/drop_turf = get_turf(owner)
 	if(!drop_turf) // This should rarely happen but whatever
 		return FALSE
 	owner.forceMove(drop_turf)
