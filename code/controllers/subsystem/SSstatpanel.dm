@@ -122,6 +122,7 @@ SUBSYSTEM_DEF(statpanels)
 	refresh.stat_panel.send_message("update_listedturf", turf_items)
 
 #define OBJ_IMAGE_LOADING "statpanels obj loading temporary"
+
 /// Returns all our ready object tab images
 /// Returns a list in the form list(list(object_name, object_ref, loaded_image), ...)
 /datum/controller/subsystem/statpanels/proc/return_object_images(client/load_from)
