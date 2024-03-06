@@ -1292,6 +1292,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return TRUE
 	. = !density
 
+/atom/proc/atom_prehit(obj/item/projectile/P)
+	return SEND_SIGNAL(src, COMSIG_ATOM_PREHIT, P)
+
 /// Passes Stat Browser Panel clicks to the game and calls client click on an atom
 /atom/Topic(href, list/href_list)
 	. = ..()
