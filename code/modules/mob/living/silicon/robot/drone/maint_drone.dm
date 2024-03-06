@@ -81,7 +81,7 @@
 
 	verbs -= /mob/living/silicon/robot/verb/Namepick
 	module = new /obj/item/robot_module/drone(src)
-	// Give us our action button
+	// Give us our action buttons
 	var/datum/action/innate/hide/drone_hide/hide = new()
 	var/datum/action/innate/robot_magpulse/pulse = new()
 	var/datum/action/innate/return_to_modsuit/return_mod = new()
@@ -121,6 +121,16 @@
 	ADD_TRAIT(src, TRAIT_RESPAWNABLE, UNIQUE_TRAIT_SOURCE(src))
 
 	playsound(loc, 'sound/machines/twobeep.ogg', 50)
+
+/mob/living/silicon/robot/drone/Destroy()
+	. = ..()
+	QDEL_NULL(stack_glass)
+	QDEL_NULL(stack_metal)
+	QDEL_NULL(stack_wood)
+	QDEL_NULL(stack_plastic)
+	QDEL_NULL(decompiler)
+	if(drone_module)
+		drone_module.clear_references()
 
 //Redefining some robot procs...
 /mob/living/silicon/robot/drone/rename_character(oldname, newname)
@@ -162,31 +172,21 @@
 		if(stat == DEAD)
 			return
 
-		else
-			var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
-			if(confirm == ("Yes") && (user in range(3, src)))
-				user.visible_message("<span class='warning'>[user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>",
-					"<span class='warning'>You swipe your ID card through [src], attempting to shut it down.</span>")
+		var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
+		if(confirm == ("Yes") && (user in range(3, src)))
+			user.visible_message("<span class='warning'>[user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>",
+				"<span class='warning'>You swipe your ID card through [src], attempting to shut it down.</span>")
 
-				if(emagged)
-					return
-				if(allowed(I))
-					shut_down()
-				else
-					to_chat(user, "<span class='warning'>Access denied.</span>")
+			if(emagged)
+				return
+			if(allowed(I))
+				shut_down()
+			else
+				to_chat(user, "<span class='warning'>Access denied.</span>")
 
 		return
 
 	..()
-
-/mob/living/silicon/robot/drone/Destroy()
-	. = ..()
-	QDEL_NULL(stack_glass)
-	QDEL_NULL(stack_metal)
-	QDEL_NULL(stack_wood)
-	QDEL_NULL(stack_plastic)
-	QDEL_NULL(decompiler)
-	drone_module.clear_references()
 
 /mob/living/silicon/robot/drone/emag_act(mob/user)
 	if(!client || stat == DEAD)
