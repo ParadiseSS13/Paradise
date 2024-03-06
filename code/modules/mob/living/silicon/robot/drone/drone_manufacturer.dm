@@ -165,4 +165,4 @@
 
 #undef DRONE_BUILD_TIME
 #undef MAX_MAINT_DRONES
->>>>>>> upstream
+*/

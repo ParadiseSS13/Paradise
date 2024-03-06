@@ -70,12 +70,7 @@
 	if(istype(owner.loc, /obj/item/mod/control))
 		return FALSE
 	var/mob/living/silicon/robot/drone/drone = owner
-	if(!drone.linked_control_mod)
-		return FALSE
-	var/mod_UID = drone.linked_control_mod.UID()
-	var/obj/item/mod/control/mod_suit = locateUID(mod_UID)
-	if(get_dist(owner, mod_suit) <= 1)
-		owner.forceMove(mod_suit)
+	drone.return_to_modsuit()
 
 /datum/action/innate/drop_out_of_modsuit
 	name = "Leave MODsuit"

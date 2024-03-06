@@ -415,26 +415,9 @@
 	if(!target)
 		return FALSE
 
-	// Mimic having the hide-ability activated
-	layer = TURF_LAYER + 0.2
-	pass_flags |= PASSDOOR
-
 	var/datum/pathfinding_mover/pathfind = new(src, target)
-
-	// I originally only wanted to make it use an ID if it couldnt pathfind otherwise, but that means it could take multiple minutes if both searches failed
-	var/obj/item/card/id/temp_id = new(src)
-	temp_id.access = get_all_accesses()
-	set_pathfinding(pathfind)
-	var/found_path = pathfind.generate_path(150, null, temp_id)
-	qdel(temp_id)
-	if(!found_path)
-		set_pathfinding(null)
-		return FALSE
-
-	pathfind.on_set_path_null = CALLBACK(src, PROC_REF(pathfind_failed_cleanup))
 	pathfind.on_success = CALLBACK(src, PROC_REF(at_dronefab))
-	pathfind.start()
-	return TRUE
+	return pathfind_to_thing(target, pathfind)
 
 /mob/living/silicon/robot/drone/proc/pathfind_to_modsuit()
 	if(pathfinding)
@@ -448,6 +431,33 @@
 	if(!target)
 		return FALSE
 
+	var/datum/pathfinding_mover/pathfind = new(src, target)
+	pathfind.on_success = CALLBACK(src, PROC_REF(return_to_modsuit))
+	return pathfind_to_thing(target, pathfind)
+
+/mob/living/silicon/robot/drone/proc/pathfind_to_thing(turf/target, datum/pathfinding_mover/pathfinder)
+	// Mimic having the hide-ability activated
+	layer = TURF_LAYER + 0.2
+	pass_flags |= PASSDOOR
+
+	var/datum/pathfinding_mover/pathfind = pathfinder
+	if(isnull(pathfinder))
+		pathfind = new(src, target)
+
+	// I originally only wanted to make it use an ID if it couldnt pathfind otherwise, but that means it could take multiple minutes if both searches failed
+	var/obj/item/card/id/temp_id = new(src)
+	temp_id.access = get_all_accesses()
+	set_pathfinding(pathfind)
+	var/found_path = pathfind.generate_path(150, null, temp_id)
+	qdel(temp_id)
+	if(!found_path)
+		set_pathfinding(null)
+		return FALSE
+
+	pathfind.on_set_path_null = CALLBACK(src, PROC_REF(pathfind_failed_cleanup))
+	pathfind.start()
+	return TRUE
+
 /mob/living/silicon/robot/drone/proc/pathfind_failed_cleanup(pathfind)
 	set_pathfinding(null)
 	death()
@@ -455,6 +465,17 @@
 /mob/living/silicon/robot/drone/proc/at_dronefab(pathfind)
 	set_pathfinding(null)
 	cryo_with_dronefab()
+
+/mob/living/silicon/robot/drone/proc/return_to_modsuit()
+	set_pathfinding(null)
+	if(!linked_control_mod)
+		return FALSE
+	var/mod_UID = linked_control_mod.UID()
+	var/obj/item/mod/control/mod_suit = locateUID(mod_UID)
+	if(get_dist(src, mod_suit) <= 1)
+		forceMove(mod_suit)
+	else
+		pathfind_to_modsuit()
 
 /mob/living/silicon/robot/drone/proc/cryo_with_dronefab(obj/machinery/drone_fabricator/drone_fab)
 	if(!drone_fab)
