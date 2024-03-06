@@ -443,7 +443,7 @@
 	if(isspaceturf(get_turf(src)))
 		return FALSE // Pretty damn hard to path through space
 
-	var/turf/target = get_turf()
+	var/turf/target = get_turf(linked_control_mod)
 
 	if(!target)
 		return FALSE
