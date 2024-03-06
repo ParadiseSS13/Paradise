@@ -288,8 +288,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	content += "<a href='?_src_=holder;team_command=communicate;team=[UID()]'>OOC Message Team</a>"
 	content += ADMIN_VV(src, "View Variables")
 	for(var/command in get_admin_commands())
-		// _src_ is UID() so it points to `/datum/team/Topic` instead of `/datum/admins/Topic`.
-		content += "<a href='?_src_=[UID()];command=[command]'>[command]</a>"
+		// src is UID() so it points to `/datum/team/Topic` instead of `/datum/admins/Topic`.
+		content += "<a href='?src=[UID()];command=[command]'>[command]</a>"
 	content += "<br><br>Objectives:<br><ol>"
 	for(var/datum/objective/O as anything in objective_holder.get_objectives())
 		content += "<li>[O.explanation_text] - <a href='?_src_=holder;team_command=remove_objective;team=[UID()];objective=[O.UID()]'>Remove</a></li>"
