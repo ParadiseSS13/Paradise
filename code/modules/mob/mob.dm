@@ -1582,7 +1582,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		return FALSE
 
 	//Allows cult to bypass holy areas once they summon
-	if(mind.has_antag_datum(/datum/antagonist/cultist) && SSticker.mode.cult_team.sacrifices_required == NARSIE_HAS_RISEN)
+	if(mind.has_antag_datum(/datum/antagonist/cultist) && SSticker.mode.cult_team.cult_status == NARSIE_HAS_RISEN)
 		return FALSE
 
 	//Execption for Holy Constructs

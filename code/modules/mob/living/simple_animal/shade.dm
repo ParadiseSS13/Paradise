@@ -34,9 +34,9 @@
 	deathmessage = "lets out a contented sigh as their form unwinds."
 	var/holy = FALSE
 
-/mob/living/simple_animal/shade/cult/Initialize(mapload)
-	. = ..()
-	icon_state = GET_CULT_DATA(shade_icon_state, initial(icon_state))
+/mob/living/simple_animal/shade/Destroy()
+	mind?.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
+	return ..()
 
 /mob/living/simple_animal/shade/attackby(obj/item/O, mob/user)  //Marker -Agouri
 	if(istype(O, /obj/item/soulstone))
@@ -51,6 +51,12 @@
 /mob/living/simple_animal/shade/holy
 	holy = TRUE
 	icon_state = "shade_angelic"
+
+/mob/living/simple_animal/shade/cult
+
+/mob/living/simple_animal/shade/cult/Initialize(mapload)
+	. = ..()
+	icon_state = GET_CULT_DATA(shade_icon_state, initial(icon_state))
 
 /mob/living/simple_animal/shade/sword
 	faction = list("neutral")

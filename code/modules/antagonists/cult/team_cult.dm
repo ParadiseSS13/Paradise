@@ -289,7 +289,7 @@
 /datum/team/cult/proc/create_next_sacrifice()
 	var/datum/objective/sacrifice/obj_sac = objective_holder.add_objective(/datum/objective/sacrifice)
 	if(!obj_sac.target)
-		qdel(obj_sac)
+		objective_holder.remove_objective(obj_sac)
 		ready_to_summon()
 		return
 	return obj_sac
@@ -298,6 +298,8 @@
 	var/list/presummon_objs = objective_holder.get_objectives()
 	if(cult_status == NARSIE_DEMANDS_SACRIFICE && length(presummon_objs))
 		var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
+		if(current_obj.sacced)
+			return create_next_sacrifice()
 		if(istype(current_obj))
 			return current_obj
 
@@ -307,6 +309,8 @@
 
 /datum/team/cult/proc/find_new_sacrifice_target(datum/mind/mind)
 	var/datum/objective/sacrifice/current_obj = current_sac_objective()
+	if(!current_obj)
+		return FALSE
 	if(!current_obj.find_target())
 		ready_to_summon()
 		return FALSE
@@ -317,6 +321,8 @@
 
 /datum/team/cult/proc/successful_sacrifice()
 	var/datum/objective/sacrifice/current_obj = current_sac_objective()
+	if(!istype(current_obj))
+		return
 	current_obj.sacced = TRUE
 	sacrifices_done++
 	if(sacrifices_done >= sacrifices_required)
@@ -355,14 +361,15 @@
 			to_chat(cult_mind.current, "<span class='cult'>Current goal: Slaughter the heretics!</span>")
 
 /datum/team/cult/proc/get_cult_status_as_string()
-	var/list/bitch_list = list(
+	var/list/define_to_string = list(
 		"[NARSIE_IS_ASLEEP]" = "NARSIE_IS_ASLEEP",
 		"[NARSIE_DEMANDS_SACRIFICE]" = "NARSIE_DEMANDS_SACRIFICE",
 		"[NARSIE_NEEDS_SUMMONING]" = "NARSIE_NEEDS_SUMMONING",
 		"[NARSIE_HAS_RISEN]" = "NARSIE_HAS_RISEN",
 		"[NARSIE_HAS_FALLEN]" = "NARSIE_HAS_FALLEN",
 	)
-	return bitch_list["[cult_status]"]
+	return define_to_string["[cult_status]"]
+
 /**
  * ADMIN STUFF DOWN YONDER
  */
@@ -370,7 +377,7 @@
 /datum/team/cult/get_admin_commands()
 	return list(
 		"Cult Mindspeak" = CALLBACK(src, PROC_REF(cult_mindspeak)),
-		"Unlock Nar'Sie summoning" = CALLBACK(src, PROC_REF(unlock_summoning))
+		"[obj_summon ? "Lock" : "Unlock"] Narsie summoning" = CALLBACK(src, PROC_REF(toggle_summoning))
 		)
 
 /datum/team/cult/proc/cult_mindspeak(admin_caller)
@@ -388,14 +395,26 @@
 	message_admins("Admin [key_name_admin(admin_caller)] has talked with the Voice of [GET_CULT_DATA(entity_name, "Cult God")].")
 	log_admin("[key_name(admin_caller)] Voice of [GET_CULT_DATA(entity_name, "Cult God")]: [input]")
 
-/datum/team/cult/proc/unlock_summoning(admin_caller)
-	if(alert(admin_caller, "Unlock the ability to summon Nar'Sie?", "Cult Debug", "Yes", "No") != "Yes")
-		return
+/datum/team/cult/proc/toggle_summoning(admin_caller)
+	if(!obj_summon)
+		if(alert(admin_caller, "Unlock the ability to summon Nar'Sie?", "Cult Debug", "Yes", "No") != "Yes")
+			return
 
-	ready_to_summon()
+		ready_to_summon()
 
-	message_admins("Admin [key_name_admin(admin_caller)] has unlocked the Cult's ability to summon Nar'Sie.")
-	log_admin("Admin [key_name_admin(admin_caller)] has unlocked the Cult's ability to summon Nar'Sie.")
+		message_admins("Admin [key_name_admin(admin_caller)] has unlocked the Cult's ability to summon Nar'Sie.")
+		log_admin("Admin [key_name_admin(admin_caller)] has unlocked the Cult's ability to summon Nar'Sie.")
+	else
+		if(alert(admin_caller, "Revert to pre-summon stage of Cult?", "Cult Debug", "Yes", "No") != "Yes")
+			return
+
+		sacrifices_required = max(sacrifices_done + 1, sacrifices_required) // make sure we're at least one above the required amount
+		objective_holder.remove_objective(obj_summon)
+		obj_summon = null
+		create_next_sacrifice()
+
+		message_admins("Admin [key_name_admin(admin_caller)] has removed the Cult's ability to summon Nar'Sie.")
+		log_admin("Admin [key_name_admin(admin_caller)] has removed the Cult's ability to summon Nar'Sie.")
 
 /datum/team/cult/Topic(href, href_list)
 	. = ..()
@@ -413,6 +432,7 @@
 				sacrifices_required = amount
 				message_admins("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
 				log_admin("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
+			usr.client.holder.check_teams()
 
 		if("cult_newtarget")
 			if(alert(usr, "Reroll the cult's sacrifice target?", "Cult Debug", "Yes", "No") != "Yes")
@@ -422,6 +442,7 @@
 
 			message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
 			log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+			usr.client.holder.check_teams()
 
 		if("cult_newsummonlocations")
 			if(!obj_summon)
@@ -439,6 +460,7 @@
 
 			message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
 			log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+			usr.client.holder.check_teams()
 
 /datum/team/cult/get_admin_html()
 	var/list/content = ..()

@@ -1617,6 +1617,10 @@
 	else if(href_list["team_command"])
 		if(!check_rights(R_ADMIN))
 			return
+		if(href_list["team_command"] == "reload") // reload the panel
+			check_teams()
+			return
+
 		var/datum/team/team
 		if(href_list["team_command"] == "new_custom_team") // this needs to be handled before all the other stuff, as the team doesn't exist yet
 			message_admins("[key_name_admin(usr)] created a new custom team.")

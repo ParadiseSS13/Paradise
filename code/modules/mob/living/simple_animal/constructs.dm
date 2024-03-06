@@ -47,10 +47,12 @@
 	set_light(2, 3, l_color = GET_CULT_DATA(construct_glow, LIGHT_COLOR_BLOOD_MAGIC))
 
 /mob/living/simple_animal/hostile/construct/Destroy()
+	mind?.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
 	remove_held_body()
 	return ..()
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
+	mind?.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
 	if(held_body) // Null check for empty bodies
 		held_body.forceMove(get_turf(src))
 		SSticker.mode?.cult_team?.add_cult_immunity(held_body)

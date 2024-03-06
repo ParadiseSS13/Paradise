@@ -278,6 +278,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		if(href_list["command"] == admin_command)
 			var/datum/callback/C = commands[admin_command]
 			C.Invoke(usr)
+			usr.client.holder.check_teams()
 			return
 
 /datum/team/proc/get_admin_html()
@@ -292,6 +293,9 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		content += "<a href='?src=[UID()];command=[command]'>[command]</a>"
 	content += "<br><br>Objectives:<br><ol>"
 	for(var/datum/objective/O as anything in objective_holder.get_objectives())
+		if(!istype(O))
+			stack_trace("Non-objective found in [type]'s objective_holder.get_objectives()")
+			continue
 		content += "<li>[O.explanation_text] - <a href='?_src_=holder;team_command=remove_objective;team=[UID()];objective=[O.UID()]'>Remove</a></li>"
 	content += "</ol><a href='?_src_=holder;team_command=add_objective;team=[UID()]'>Add Objective</a><br>"
 	if(objective_holder.has_objectives())
@@ -328,7 +332,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	var/list/content = list()
 	if(!length(GLOB.antagonist_teams))
 		content += "There are currently no antag teams.<br/>"
-	content += "<a href='?_src_=holder;team_command=new_custom_team;'>Create new Team</a><br>"
+	content += "<a href='?_src_=holder;team_command=new_custom_team;'>Create new Team</a>"
+	content += "<a href='?_src_=holder;team_command=reload;'>Reload</a><br>"
 	if(length(GLOB.antagonist_teams) > 1)
 		var/index = 1
 		for(var/datum/team/T as anything in GLOB.antagonist_teams) // with multiple teams, this is going to get messy. It should probably be turned into a tabs-like system
