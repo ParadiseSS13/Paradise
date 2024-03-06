@@ -1,4 +1,3 @@
-//Wrench
 /obj/item/wrench
 	name = "wrench"
 	desc = "A wrench with common uses. Can be found in your hand."
@@ -54,8 +53,8 @@
 	belt_icon = "hand_drill"
 	usesound = 'sound/items/drill_use.ogg'
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
-	origin_tech = "materials=2;engineering=2" //done for balance reasons, making them high value for research, but harder to get
-	force = 8 //might or might not be too high, subject to change
+	origin_tech = "materials=2;engineering=2"
+	force = 8
 	throwforce = 8
 	attack_verb = list("drilled", "screwed", "jabbed")
 	toolspeed = 0.25

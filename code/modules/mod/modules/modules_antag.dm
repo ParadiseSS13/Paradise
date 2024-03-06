@@ -410,6 +410,57 @@
 /obj/item/mod/module/ert_camera/on_suit_deactivation(deleting = FALSE)
 	QDEL_NULL(camera)
 
+///Chameleon - lets the suit disguise as any item that would fit on that slot.
+/obj/item/mod/module/chameleon
+	name = "MOD chameleon module"
+	desc = "A module using chameleon technology to disguise the suit as another object."
+	icon_state = "chameleon"
+	module_type = MODULE_USABLE
+	complexity = 2
+	incompatible_modules = list(/obj/item/mod/module/chameleon)
+	cooldown_time = 0.5 SECONDS
+	allow_flags = MODULE_ALLOW_INACTIVE
+	origin_tech = "materials=6;bluespace=5;syndicate=1"
+
+/obj/item/mod/module/chameleon/on_install()
+	mod.chameleon_action = new(mod)
+	mod.chameleon_action.chameleon_type = /obj/item/storage/backpack
+	mod.chameleon_action.chameleon_name = "Backpack"
+	mod.chameleon_action.initialize_disguises()
+
+
+/obj/item/mod/module/chameleon/on_uninstall(deleting = FALSE)
+	if(mod.current_disguise)
+		return_look()
+	QDEL_NULL(mod.chameleon_action)
+
+/obj/item/mod/module/chameleon/on_use()
+	if(mod.active || mod.activating)
+		to_chat(mod.wearer, "<span class='warning'>Your suit is already active!</span>")
+		return
+	. = ..()
+	if(!.)
+		return
+	if(mod.current_disguise)
+		return_look()
+		return
+	mod.chameleon_action.select_look(mod.wearer)
+	mod.current_disguise = TRUE
+	RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(return_look))
+
+/obj/item/mod/module/chameleon/proc/return_look()
+	mod.current_disguise = FALSE
+	mod.name = "[mod.theme.name] [initial(mod.name)]"
+	mod.desc = "[initial(mod.desc)] [mod.theme.desc]"
+	mod.icon_state = "[mod.skin]-control"
+	var/list/mod_skin = mod.theme.skins[mod.skin]
+	mod.icon = mod_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
+	mod.icon_override = mod_skin[MOD_ICON_OVERRIDE] || 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	mod.lefthand_file = initial(mod.lefthand_file)
+	mod.righthand_file = initial(mod.righthand_file)
+	mod.wearer.update_inv_back()
+	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
+
 ///Energy Shield - Gives you a rechargeable energy shield that nullifies attacks.
 /obj/item/mod/module/energy_shield
 	name = "MOD energy shield module"
