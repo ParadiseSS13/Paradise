@@ -9,7 +9,7 @@
 	clown_removal_text = "You are free of the dark power suppressing your clownish nature. You are clumsy again! Honk!"
 	clown_text_span_class = "cultitalic" // ctodo, prob convert this into a proc
 	wiki_page_name = "Cultist"
-	var/remove_gear_on_removal = TRUE // ctodo figure out what to do here
+	var/remove_gear_on_removal = FALSE // ctodo figure out what to do here
 
 /datum/antagonist/cultist/on_gain()
 	create_team() // make sure theres a global cult team
@@ -60,7 +60,8 @@
 
 /datum/antagonist/cultist/farewell()
 	if(owner && owner.current)
-		to_chat(owner.current,"<span class='userdanger'>You have been brainwashed! You are no longer a [special_role]! </span>")
+		owner.current.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
+			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] and the memories of your time as their servant with it.</span>")
 
 
 // /datum/antagonist/cultist/add_owner_to_gamemode()

@@ -558,7 +558,9 @@
 
 			if(target.mind)
 				if(IS_CULTIST(target))
-					SSticker.mode.remove_cultist(target.mind, TRUE, TRUE) // This proc will handle message generation.
+					var/datum/antagonist/cultist/cultist = IS_CULTIST(target)
+					cultist.remove_gear_on_removal = TRUE
+					target.mind.remove_antag_datum(/datum/antagonist/cultist)
 					praying = FALSE
 					return
 				var/datum/antagonist/vampire/V = M.mind?.has_antag_datum(/datum/antagonist/vampire)

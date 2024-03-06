@@ -44,21 +44,6 @@
 	cult_team = new /datum/team/cult(pre_cult)
 	..()
 
-/datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE, mob/target_mob)
-	// if(target_mob)
-	// 	cult -= target_mob // ctodo, figure out how to do this better
-	if(!cult_mind.has_antag_datum(/datum/antagonist/cultist)) // Not actually a cultist in the first place
-		return
-
-	var/mob/cultist = target_mob
-	if(!cultist)
-		cultist = cult_mind.current
-	cult_team.remove_member(cult_mind)
-
-	if(show_message)
-		cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
-		"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] and the memories of your time as their servant with it.</span>")
-
 /datum/game_mode/cult/declare_completion()
 	if(cult_team.sacrifices_required == NARSIE_HAS_RISEN)
 		SSticker.mode_result = "cult win - cult win"

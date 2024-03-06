@@ -66,10 +66,6 @@
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
 	return ..()
 
-/mob/living/simple_animal/hostile/construct/Destroy()
-	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
-	return ..()
-
 /mob/living/simple_animal/hostile/construct/proc/add_held_body(atom/movable/body)
 	held_body = body
 	RegisterSignal(body, COMSIG_PARENT_QDELETING, PROC_REF(remove_held_body))

@@ -102,7 +102,13 @@
 	var/cultists = 0
 	var/constructs = 0
 	for(var/datum/mind/M as anything in members)
-		if(QDELETED(M) || M.current?.stat == DEAD)
+		if(isnull(M))
+			stack_trace("Found a null mind in /datum/team/cult's members.") // ctodo remove TM stack traces
+			continue
+		if(isnull(M.current))
+			stack_trace("Found a mind with no body in /datum/team/cult's members.") // ctodo remove TM stack traces
+			continue
+		if(QDELETED(M) || M.current.stat == DEAD)
 			continue
 		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 			cultists++

@@ -285,7 +285,10 @@
 			M.SetConfused(0)
 			return
 		if(IS_CULTIST(M))
-			SSticker.mode.remove_cultist(M.mind, TRUE, TRUE)
+			var/datum/antagonist/cultist/cultist = IS_CULTIST(M)
+			cultist.remove_gear_on_removal = TRUE
+			target.mind.remove_antag_datum(/datum/antagonist/cultist)
+
 			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			M.SetJitter(0)
 			M.SetStuttering(0)
