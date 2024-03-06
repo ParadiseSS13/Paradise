@@ -103,10 +103,12 @@
 		var/mob/living/L = AM
 		L.adjustFireLoss(sanctify_force) // Bonus fire damage for sanctified (ERT) versions of nullrod
 
-/obj/item/nullrod/fluff // fluff subtype to be used for all donator nullrods
+/// fluff subtype to be used for all donator nullrods
+/obj/item/nullrod/fluff
 	reskin_selectable = FALSE
 
-/obj/item/nullrod/ert // ERT subtype, applies sanctified property to any derived rod
+/// ERT subtype, applies sanctified property to any derived rod
+/obj/item/nullrod/ert
 	name = "inquisitor null rod"
 	reskin_selectable = FALSE
 	sanctify_force = 10
@@ -397,7 +399,7 @@
 /datum/hud/sword/New(mob/user)
 	..()
 
-	mymob.healths = new /obj/screen/healths()
+	mymob.healths = new /atom/movable/screen/healths()
 	infodisplay += mymob.healths
 
 /mob/living/simple_animal/shade/sword/ClickOn(atom/A, params)
@@ -498,7 +500,8 @@
 	user.faction |= "carp"
 	used_blessing = TRUE
 
-/obj/item/nullrod/claymore/bostaff //May as well make it a "claymore" and inherit the blocking
+/// May as well make it a "claymore" and inherit the blocking
+/obj/item/nullrod/claymore/bostaff
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, now used to harass the clown."
 	icon_state = "bostaff0"
