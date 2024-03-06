@@ -54,8 +54,9 @@ emp_act
 
 			visible_message("<span class='danger'>[src] deflects the projectile!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 			if(mind.martial_art.reroute_deflection)
+				var/refl_angle = get_angle(loc, get_step(src, dir))
 				P.firer = src
-				P.set_angle(rand(0, 360))
+				P.set_angle(rand(refl_angle - 30, refl_angle + 30))
 				return -1
 			else
 				return FALSE
@@ -577,6 +578,16 @@ emp_act
 		hitpush = FALSE
 		skipcatch = TRUE
 		blocked = TRUE
+
+	else if(mind?.martial_art?.try_deflect(src))
+		var/obj/item/TT = AM
+		var/direction = pick(GLOB.alldirs)
+		var/turf/target = get_turf(src)
+		for(var/i in 1 to rand(6, 10))
+			target = get_step(target, direction)
+		addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), target, 10, 4, src), 0.2 SECONDS) //Timer set to 0.2 seconds to ensure item finishes the throwing to prevent double embeds
+		return TRUE
+
 	else if(I)
 		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold)
 			if(can_embed(I))
@@ -666,12 +677,10 @@ emp_act
 				visible_message("<span class='warning'>[src] is not affected by [M]'s disarm attempt!</span>")
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				return FALSE
-			var/obj/item/I = get_active_hand()
-			if(I)
-				unEquip(I)
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			apply_effect(10 SECONDS, KNOCKDOWN, run_armor_check(affecting, MELEE))
+			M.changeNext_move(1.6 SECONDS)
 			apply_damage(M.alien_disarm_damage, STAMINA)
 			add_attack_logs(M, src, "Alien tackled")
 			visible_message("<span class='danger'>[M] has tackled down [src]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")

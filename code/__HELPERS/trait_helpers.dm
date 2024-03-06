@@ -228,6 +228,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
 #define TRAIT_TABLE_LEAP "table_leap"
 #define TRAIT_CREATED_DRONE "made_a_drone"
+#define TRAIT_SLEIGHT_OF_HAND "sleight_of_hand"
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.

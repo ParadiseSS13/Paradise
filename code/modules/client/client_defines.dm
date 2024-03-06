@@ -56,7 +56,7 @@
 
 	preload_rsc = 0 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
 
-	var/obj/screen/click_catcher/void
+	var/atom/movable/screen/click_catcher/void
 
 	var/ip_intel = "Disabled"
 
@@ -66,7 +66,7 @@
 	var/datum/tooltip/tooltips
 
 	// Overlay for showing debug info
-	var/obj/screen/debugtextholder/debug_text_overlay
+	var/atom/movable/screen/debugtextholder/debug_text_overlay
 
 	/// Persistent storage for the flavour text of examined atoms.
 	var/list/description_holders = list()
@@ -123,6 +123,8 @@
 	var/list/active_keybindings = list()
 	/// The client's movement keybindings to directions, which work regardless of modifiers.
 	var/list/movement_kb_dirs = list()
+	/// The client's currently moused over datum, limited to movable and stored as UID
+	var/atom/movable/moused_over
 
 	/// A lazy list of atoms we've examined in the last RECENT_EXAMINE_MAX_WINDOW (default 2) seconds, so that we will call [/atom/proc/examine_more] instead of [/atom/proc/examine] on them when examining
 	var/list/recent_examines

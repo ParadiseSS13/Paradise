@@ -176,6 +176,19 @@ All new user interfaces in the game must be created using the TGUI framework. Do
 
 The use of the `:` operator to override type safety checks is not allowed. You must cast the variable to the proper type.
 
+### Do not access return value vars directly from functions
+
+The use of the pointer operator, `.`, should not be used to access the return values of functions directly. This can cause unintended behavior and is difficult to read.
+
+```dm
+//Bad
+var/our_x = get_turf(thing).x
+
+//Good
+var/turf/our_turf = get_turf(thing)
+var/our_x = our_turf.x
+```
+
 ### Type paths must begin with a /
 
 eg: `/datum/thing`, not `datum/thing`
@@ -775,7 +788,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 `Headcoders` are the overarching "administrators" of the repository. People included in this role are:
 
 * [farie82](https://github.com/farie82)
-* [Charliminator](https://github.com/hal9000PR)
+* [S34N](https://github.com/S34NW)
 * [SteelSlayer](https://github.com/SteelSlayer)
 
 ---
@@ -784,21 +797,21 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 
 
 * [AffectedArc07](https://github.com/AffectedArc07)
+* [Charliminator](https://github.com/hal9000PR)
 * [lewcc](https://github.com/lewcc)
-* [S34N](https://github.com/S34NW)
 
 ---
 
 `Review Team` members are people who are denoted as having reviews which can affect mergeability status. People included in this role are:
 
-* [lewcc](https://github.com/lewcc)
-* [S34N](https://github.com/S34NW)
-* [Sirryan2002](https://github.com/Sirryan2002)
-* [Contrabang](https://github.com/Contrabang)
 * [Burzah](https://github.com/Burzah)
+* [Charliminator](https://github.com/hal9000PR)
+* [Contrabang](https://github.com/Contrabang)
 * [DGamerL](https://github.com/DGamerL)
-* [Warriorstar](https://github.com/warriorstar-orion)
 * [Henri215](https://github.com/Henri215)
+* [lewcc](https://github.com/lewcc)
+* [Sirryan2002](https://github.com/Sirryan2002)
+* [Warriorstar](https://github.com/warriorstar-orion)
 
 ---
 
