@@ -277,15 +277,16 @@
 	var/mob/living/silicon/robot/drone/stored_drone
 	/// The drone that is linked to the mod
 	var/mob/living/silicon/robot/drone/linked_drone
+	/// The mob that summoned the drone. Used to clear the trait
+	var/mob/living/carbon/human/summoner
 
 /obj/item/mod/module/drone/Destroy()
-	stored_drone = null
-	linked_drone = null
+	clear_references()
+	linked_drone.pathfind_to_dronefab()
 	return ..()
 
 /obj/item/mod/module/drone/on_use()
 	. = ..()
-	message_admins("Yes")
 	if(stored_drone)
 		stored_drone.forceMove(get_turf(mod.wearer))
 	if(!linked_drone)
@@ -306,7 +307,10 @@
 	new_drone.transfer_personality(to_be_droned)
 	new_drone.linked_control_mod = mod
 	linked_drone = new_drone
+
 	ADD_TRAIT(mod.wearer.mind, TRAIT_CREATED_DRONE, mod.wearer.UID())
+	summoner = mod.wearer
+
 	mod.subtract_charge(1000)
 	return TRUE
 
@@ -322,5 +326,8 @@
 		to_chat(user, "No intelligence available to inhabit the drone. Please try again later.")
 		COOLDOWN_START(src, cooldown_timer, 30 SECONDS) // Don't spam the ghosts
 
-/obj/item/mod/module/drone/proc/remove_linked_drone()
-	// REMOVE_TRAIT(drone.linked_mob, TRAIT_CREATED_DRONE, drone.linked_mob.UID())
+/obj/item/mod/module/drone/proc/clear_references()
+	if(summoner?.mind)
+		REMOVE_TRAIT(summoner.mind, TRAIT_CREATED_DRONE, summoner.UID())
+	stored_drone = null
+	linked_drone = null

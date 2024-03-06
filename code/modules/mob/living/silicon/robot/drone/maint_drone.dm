@@ -45,7 +45,12 @@
 		/obj/item/stack/tile
 	)
 
+	/// The linked control mod
 	var/obj/item/mod/control/linked_control_mod
+	/// The original module that was used to summon this drone
+	var/obj/item/mod/module/drone/drone_module
+
+	/// The pathfinding datum for this drone
 	var/datum/pathfinding_mover/pathfinding
 
 /mob/living/silicon/robot/drone/New()
@@ -155,30 +160,6 @@
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(stat == DEAD)
-		// Currently not functional, so commenting out until it's fixed to avoid confusion
-			/*if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
-				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
-				return
-
-			if(!allowed(I))
-				to_chat(user, "<span class='warning'>Access denied.</span>")
-				return
-
-			var/delta = (world.time / 10) - last_reboot
-			if(reboot_cooldown > delta)
-				var/cooldown_time = round(reboot_cooldown - ((world.time / 10) - last_reboot), 1)
-				to_chat(usr, "<span class='warning'>The reboot system is currently offline. Please wait another [cooldown_time] seconds.</span>")
-				return
-
-			user.visible_message("<span class='warning'>[user] swipes [user.p_their()] ID card through [src], attempting to reboot it.</span>",
-				"<span class='warning'>You swipe your ID card through [src], attempting to reboot it.</span>")
-			last_reboot = world.time / 10
-			var/drones = 0
-			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
-				if(D.key && D.client)
-					drones++
-			if(drones < config.max_maint_drones)
-				request_player()*/
 			return
 
 		else
@@ -205,8 +186,7 @@
 	QDEL_NULL(stack_wood)
 	QDEL_NULL(stack_plastic)
 	QDEL_NULL(decompiler)
-	for(var/datum/action/innate/hide/drone_hide/hide in actions)
-		hide.Remove(src)
+	drone_module.clear_references()
 
 /mob/living/silicon/robot/drone/emag_act(mob/user)
 	if(!client || stat == DEAD)
