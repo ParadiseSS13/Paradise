@@ -2060,3 +2060,12 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /proc/is_color_dark(color, threshold = 25)
 	var/hsl = rgb2num(color, COLORSPACE_HSL)
 	return hsl[3] < threshold
+
+/// Takes a string or num view, and converts it to pixel width/height in a list(pixel_width, pixel_height)
+/proc/view_to_pixels(view)
+	if(!view)
+		return list(0, 0)
+	var/list/view_info = getviewsize(view)
+	view_info[1] *= world.icon_size
+	view_info[2] *= world.icon_size
+	return view_info
