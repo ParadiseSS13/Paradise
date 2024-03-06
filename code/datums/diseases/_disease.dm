@@ -108,12 +108,22 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(!(disease_flags & CURABLE))
 		return 0
 
-	. = cures.len
+	var/cures_found = 0
 	for(var/C_id in cures)
-		if(!affected_mob.reagents.has_reagent(C_id))
-			.--
-	if(!. || (needs_all_cures && . < cures.len))
-		return 0
+		if(C_id == "ethanol")
+			var/found_booze = FALSE
+			for(var/datum/reagent/consumable/ethanol/booze in affected_mob.reagents.reagent_list)
+				found_booze = TRUE
+				break
+			if(found_booze)
+				cures_found++
+		else if(affected_mob.reagents.has_reagent(C_id))
+			cures_found++
+
+	if(needs_all_cures && cures_found < cures.len)
+		return FALSE
+
+	return cures_found
 
 /datum/disease/proc/spread(force_spread = 0)
 	if(!affected_mob)
