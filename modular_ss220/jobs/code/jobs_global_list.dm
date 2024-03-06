@@ -1,7 +1,7 @@
 
 // ===================== STATION =====================
 GLOBAL_LIST_INIT(medical_positions_ss220, list(
-	"Intern",
+	"Medical Intern",
 ))
 
 GLOBAL_LIST_INIT(science_positions_ss220, list(

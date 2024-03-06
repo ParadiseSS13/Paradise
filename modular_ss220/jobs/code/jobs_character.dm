@@ -8,7 +8,7 @@
 		if("Security Cadet")
 			O = new /datum/outfit/plasmaman/security
 
-		if("Intern")
+		if("Medical Intern")
 			O = new /datum/outfit/plasmaman/medical
 
 		if("Student Scientist")

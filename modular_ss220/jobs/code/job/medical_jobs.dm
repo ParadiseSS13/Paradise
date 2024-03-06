@@ -1,5 +1,5 @@
 /datum/job/doctor/intern
-	title = "Intern"
+	title = "Medical Intern"
 	flag = JOB_INTERN
 	total_positions = 0
 	spawn_positions = 3
@@ -10,7 +10,7 @@
 	important_information = "Ваша должность ограничена во всех взаимодействиях с рабочим имуществом отдела и экипажем станции, при отсутствии приставленного к нему квалифицированного сотрудника или полученного разрешения от вышестоящего начальства."
 
 /datum/outfit/job/doctor/intern
-	name = "Intern"
+	name = "Medical Intern"
 	jobtype = /datum/job/doctor/intern
 
 	uniform = /obj/item/clothing/under/rank/medical/doctor/intern

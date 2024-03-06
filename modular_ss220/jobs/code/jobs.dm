@@ -10,7 +10,7 @@
 	var/is_extra_job = FALSE // Special Jobs Window
 
 /datum/job/doctor
-	relate_job = "Intern"
+	relate_job = "Medical Intern"
 	is_relate_positions = TRUE
 /datum/job/doctor/intern
 	relate_job = "Medical Doctor"

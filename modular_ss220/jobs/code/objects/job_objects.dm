@@ -7,9 +7,9 @@
 		)
 
 /obj/effect/mob_spawn/human/intern
-	name = "Intern"
-	mob_name = "Intern"
-	id_job = "Intern"
+	name = "Medical Intern"
+	mob_name = "Medical Intern"
+	id_job = "Medical Intern"
 	outfit = /datum/outfit/job/doctor/intern
 
 /obj/effect/mob_spawn/human/trainee

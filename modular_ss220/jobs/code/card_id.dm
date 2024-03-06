@@ -38,7 +38,7 @@ GLOBAL_LIST_INIT(card_skins_donor_ss220, list(
 	registered_name = "Intern"
 	icon = 'modular_ss220/aesthetics/better_ids/icons/better_ids.dmi'
 	icon_state = "intern"
-	rank = "Intern"
+	rank = "Medical Intern"
 
 /obj/item/card/id/research/student
 	name = "Student ID"
