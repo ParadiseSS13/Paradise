@@ -26,7 +26,7 @@
 	/// Are cultist mirror shields active yet?
 	var/mirror_shields_active = FALSE
 
-/datum/team/cult/New()
+/datum/team/cult/New(list/starting_members)
 	..()
 	SSticker.mode.cult_team = src
 	// update_team_objectives()
@@ -34,7 +34,6 @@
 	cultdat = new random_cult()
 
 	objective_holder.add_objective(/datum/objective/servecult)
-	// cult_team.setup() // todo, expand this onto objective holder
 
 	cult_threshold_check()
 	addtimer(CALLBACK(src, PROC_REF(cult_threshold_check)), 2 MINUTES) // Check again in 2 minutes for latejoiners
@@ -42,6 +41,10 @@
 	cult_status = NARSIE_DEMANDS_SACRIFICE
 
 	create_next_sacrifice()
+
+	for(var/datum/mind/M as anything in starting_members)
+		var/datum/antagonist/cultist/cultist = M.has_antag_datum(__IMPLIED_TYPE__)
+		cultist.equip_roundstart_cultist()
 
 /datum/team/cult/Destroy(force, ...)
 	SSticker.mode.cult_team = null
@@ -73,28 +76,6 @@
 			endtext += "<font color='green'><B>Success!</B></font>"
 
 	to_chat(world, endtext.Join(""))
-
-/datum/team/cult/proc/equip_cultist(mob/living/carbon/human/H, metal = TRUE) // ctodo maybe move this to antag cult datum
-	if(!istype(H))
-		return
-	. += cult_give_item(/obj/item/melee/cultblade/dagger, H)
-	if(metal)
-		. += cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H)
-	to_chat(H, "<span class='cult'>These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
-
-/datum/team/cult/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/H)
-	var/list/slots = list(
-		"backpack" = SLOT_HUD_IN_BACKPACK,
-		"left pocket" = SLOT_HUD_LEFT_STORE,
-		"right pocket" = SLOT_HUD_RIGHT_STORE
-	)
-
-	var/where = H.equip_in_one_of_slots(new item_path(H), slots)
-	if(where)
-		to_chat(H, "<span class='danger'>You have a [initial(item_path.name)] in your [where].</span>")
-		return TRUE
-	to_chat(H, "<span class='userdanger'>Unfortunately, you weren't able to get a [initial(item_path.name)]. This is very bad and you should adminhelp immediately (press F1).</span>")
-	return FALSE
 
 /datum/team/cult/proc/add_cult_immunity(mob/living/target)
 	ADD_TRAIT(target, TRAIT_CULT_IMMUNITY, CULT_TRAIT)

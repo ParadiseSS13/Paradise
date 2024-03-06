@@ -41,8 +41,7 @@
 	return length(pre_cult)
 
 /datum/game_mode/cult/post_setup()
-	for(var/datum/mind/cult_mind in pre_cult)
-		cult_team.equip_cultist(cult_mind.current) // cTODO, use get_cult
+	cult_team = new /datum/team/cult(pre_cult)
 	..()
 
 

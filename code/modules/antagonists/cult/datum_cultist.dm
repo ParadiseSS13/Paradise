@@ -120,3 +120,27 @@
 		dagger.Grant(owner.current)
 
 	owner.current.update_action_buttons(TRUE)
+
+/datum/antagonist/cultist/proc/equip_roundstart_cultist()
+	if(!ishuman(owner.current))
+		return FALSE
+	. |= cult_give_item(/obj/item/melee/cultblade/dagger)
+	. |= cult_give_item(/obj/item/stack/sheet/runed_metal/ten)
+	to_chat(owner.current, "<span class='cult'>These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
+
+/datum/antagonist/cultist/proc/cult_give_item(obj/item/item_path)
+	if(!ishuman(owner.current))
+		return
+	var/mob/living/carbon/human/H = owner.current
+	var/list/slots = list(
+		"backpack" = SLOT_HUD_IN_BACKPACK,
+		"left pocket" = SLOT_HUD_LEFT_STORE,
+		"right pocket" = SLOT_HUD_RIGHT_STORE
+	)
+
+	var/where = H.equip_in_one_of_slots(new item_path(H), slots)
+	if(where)
+		to_chat(H, "<span class='danger'>You have \a [initial(item_path.name)] in your [where].</span>")
+		return TRUE
+	to_chat(H, "<span class='userdanger'>Unfortunately, you weren't able to get \a [initial(item_path.name)]. This is very bad and you should adminhelp immediately (press F1).</span>")
+	return FALSE

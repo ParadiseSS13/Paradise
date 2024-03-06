@@ -179,7 +179,8 @@
 			return
 		H = pick_n_take(candidates)
 		SSticker.mode.add_cultist(H.mind)
-		SSticker.mode.cult_team.equip_cultist(H) // ctodo
+		var/datum/antagonist/cultist/cultist = H.mind.add_antag_datum(__IMPLIED_TYPE__) // ctodo test if this works :)
+		cultist.equip_roundstart_cultist(H)
 	return TRUE
 
 //Abductors
