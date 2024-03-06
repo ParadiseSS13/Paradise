@@ -474,9 +474,9 @@
 					continue
 				M.show_message("<span class='notice'>[user] puts [I] into [src].</span>")
 
-		orient2hud(user)
-		if(user.s_active)
-			user.s_active.show_to(user)
+	orient2hud(user)
+	if(user.s_active)
+		user.s_active.show_to(user)
 
 	I.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
 	I.in_inventory = TRUE
