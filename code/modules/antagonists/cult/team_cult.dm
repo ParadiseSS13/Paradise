@@ -50,13 +50,13 @@
 
 // /datum/team/cult/get_target_excludes()
 // 	return ..() + get_targetted_head_minds()
-/datum/team/cult/add_member(datum/mind/new_member)
+/datum/team/cult/handle_adding_member(datum/mind/new_member)
 	. = ..()
 	check_cult_size()
 	RegisterSignal(new_member.current, COMSIG_MOB_STATCHANGE, PROC_REF(cultist_stat_change))
 	RegisterSignal(new_member.current, COMSIG_PARENT_QDELETING, PROC_REF(remove_member))
 
-/datum/team/cult/remove_member(datum/mind/member)
+/datum/team/cult/handle_removing_member(datum/mind/member)
 	. = ..()
 	UnregisterSignal(member.current, COMSIG_MOB_STATCHANGE)
 	check_cult_size()

@@ -40,10 +40,24 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /**
  * Adds `new_member` to this team.
  *
- * Generally this should ONLY be called by `add_antag_datum()` to ensure proper order of operations.
+ * This is an interface proc, to prevent handle_removing_member from being called multiple times.
+ * It is better if this is only called from `add_antag_datum()`, but it is not required.
  */
-/datum/team/proc/add_member(datum/mind/new_member)
+/datum/team/proc/add_member(datum/mind/new_member, force = FALSE)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	if(!force && (new_member in members))
+		return FALSE
+	handle_adding_member(new_member)
+	return TRUE
+
+/**
+ * An internal proc to allow teams to handle custom
+ * This should ONLY be called by `add_member()` to ensure proper order of operations.
+ */
+/datum/team/proc/handle_adding_member(datum/mind/new_member)
+	PRIVATE_PROC(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
+
 	var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
 	members |= new_member
 	if(!antag) // this team has no antag role, we'll add it directly to their mind team
@@ -51,9 +65,22 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 /**
  * Removes `member` from this team.
+ * This is an interface proc, to prevent handle_removing_member from being called multiple times.
  */
-/datum/team/proc/remove_member(datum/mind/member)
+/datum/team/proc/remove_member(datum/mind/member, force = FALSE)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	if(!force && !(new_member in members))
+		return FALSE
+	handle_removing_member(new_member)
+	return TRUE
+
+/**
+ * An internal proc for treams
+ */
+/datum/team/proc/handle_removing_member(datum/mind/member, force = FALSE)
+	PRIVATE_PROC(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
+
 	members -= member
 	LAZYREMOVE(member.teams, src)
 	var/datum/antagonist/antag = get_antag_datum_from_member(member)
@@ -76,7 +103,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		return
 
 	var/datum/mind/new_member = valid_minds[name]
-	add_member(new_member)
+	add_member(new_member, TRUE)
 
 /**
  * Adds a team objective to each member's matching antag datum.
@@ -239,7 +266,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /datum/team/proc/admin_remove_member(mob/user, datum/mind/M)
 	message_admins("[key_name_admin(user)] removed [key_name_admin(M)] from the team '[name]'.")
 	log_admin("[key_name(user)] removed [key_name(M)] from the team '[name]'.")
-	remove_member(M)
+	remove_member(M, TRUE)
 
 // Used for running team specific admin commands.
 /datum/team/Topic(href, href_list)
