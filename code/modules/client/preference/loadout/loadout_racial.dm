@@ -79,5 +79,4 @@
 /datum/gear/racial/plasmamansuit_coke
 	display_name = "Coke Suit"
 	description = "Plasmaman envirosuit designed by Space Cola Co and gifted to the people of Boron as part of an eleborate advertisement company"
-	path = /obj/item/clothing/suit/hooded/vox_robes
-	slot = SLOT_HUD_OUTER_SUIT
+	path = /obj/item/storage/box/coke_envirosuit

@@ -1233,6 +1233,13 @@
 	for(var/I in 1 to 7)
 		new /obj/item/grenade/chem_grenade/metalfoam(src)
 
+/obj/item/storage/box/coke_envirosuit
+	icon_state = "plasma_box"
+
+/obj/item/storage/box/coke_envirosuit/populate_contents()
+	new /obj/item/clothing/under/plasmaman/coke(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/coke(src)
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI
