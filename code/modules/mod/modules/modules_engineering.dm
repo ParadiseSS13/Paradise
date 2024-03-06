@@ -301,15 +301,16 @@
 		return FALSE
 	if(HAS_MIND_TRAIT(mod.wearer, TRAIT_CREATED_DRONE))
 		to_chat(user, "<span class='notice'>You already have a linked drone!</span>")
-		return
+		return FALSE
 
 	var/mob/living/silicon/robot/drone/new_drone = new(get_turf(src))
 	new_drone.transfer_personality(to_be_droned)
 	new_drone.linked_control_mod = mod
-	linked_drone = new_drone
+	new_drone.name = to_be_droned.name
 
 	ADD_TRAIT(mod.wearer.mind, TRAIT_CREATED_DRONE, mod.wearer.UID())
 	summoner = mod.wearer
+	linked_drone = new_drone
 
 	mod.subtract_charge(1000)
 	return TRUE
