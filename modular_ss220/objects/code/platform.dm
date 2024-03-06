@@ -92,7 +92,7 @@
 		CheckLayer()
 	if(istype(O, /obj/structure/platform))
 		return FALSE
-	if(istype(O, /obj/item/projectile))
+	if(istype(O, /obj/item/projectile) || istype(O, /obj/effect))
 		return TRUE
 	if(corner)
 		return !density
