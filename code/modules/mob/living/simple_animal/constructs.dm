@@ -51,7 +51,6 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
-	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
 	if(held_body) // Null check for empty bodies
 		held_body.forceMove(get_turf(src))
 		SSticker.mode?.cult_team?.add_cult_immunity(held_body)
@@ -65,7 +64,11 @@
 		held_body.cancel_camera()
 	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
-	. = ..()
+	return ..()
+
+/mob/living/simple_animal/hostile/construct/Destroy()
+	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
+	return ..()
 
 /mob/living/simple_animal/hostile/construct/proc/add_held_body(atom/movable/body)
 	held_body = body
