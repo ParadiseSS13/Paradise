@@ -571,7 +571,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return TRUE
 	claim_job(A) // Claim the job so other bots don't come
 
-/mob/living/simple_animal/bot/proc/claim_job(atom/A) // Adds the target to ignore list
+/mob/living/simple_animal/bot/proc/claim_job(atom/A) // Adds the target to ignore_job list
 	var/ignore_amount = length(GLOB.bots_list) // 1 claim per bot
 	if(length(ignore_job) >= ++ignore_amount) // Something went wrong, cull the herd
 		ignore_job.Cut()
