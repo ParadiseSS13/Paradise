@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  * This should ONLY be called by `add_member()` to ensure proper order of operations.
  */
 /datum/team/proc/handle_adding_member(datum/mind/new_member)
-	PRIVATE_PROC(TRUE)
+	PROTECTED_PROC(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
@@ -69,16 +69,16 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  */
 /datum/team/proc/remove_member(datum/mind/member, force = FALSE)
 	SHOULD_NOT_OVERRIDE(TRUE)
-	if(!force && !(new_member in members))
+	if(!force && !(member in members))
 		return FALSE
-	handle_removing_member(new_member)
+	handle_removing_member(member)
 	return TRUE
 
 /**
  * An internal proc for treams
  */
 /datum/team/proc/handle_removing_member(datum/mind/member, force = FALSE)
-	PRIVATE_PROC(TRUE)
+	PROTECTED_PROC(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	members -= member
