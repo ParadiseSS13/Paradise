@@ -22,13 +22,17 @@
     $with: ('color-default': colors.$primary, 'color-selected': #188552)
   );
   @include meta.load-css('../components/Section.scss');
+  @include meta.load-css(
+    '../components/Tabs.scss',
+    $with: ('tab-color-selected': colors.$primary)
+  );
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('color-background': #352d3b)
+    $with: ('background-color': #352d3b)
   );
 
   .Layout__content {

@@ -14,7 +14,7 @@ export const ConveyorSwitch = (props, context) => {
   const { slowFactor, oneWay, position } = data;
 
   return (
-    <Window>
+    <Window width={350} height={135}>
       <Window.Content>
         <Section>
           <LabeledList>

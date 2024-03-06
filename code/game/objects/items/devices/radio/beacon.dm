@@ -21,6 +21,7 @@
 		emagged = TRUE
 		syndicate = TRUE
 		to_chat(user, "<span class='notice'>The This beacon now only be locked on to by emagged teleporters!</span>")
+		return TRUE
 
 /obj/item/radio/beacon/hear_talk()
 	return
@@ -98,6 +99,7 @@
 	bundle = new bundle(user.loc)
 	to_chat(user, "<span class='notice'>Welcome to [station_name()], [bundle_name]!</span>")
 	user.drop_item()
+	SSblackbox.record_feedback("tally", "syndicate_bundle_pick", 1, "[bundle]")
 	qdel(src)
 	user.put_in_hands(bundle)
 

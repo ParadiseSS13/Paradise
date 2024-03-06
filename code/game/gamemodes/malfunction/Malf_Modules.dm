@@ -341,6 +341,7 @@
 			turret.health += 30
 			turret.eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser //Once you see it, you will know what it means to FEAR.
 			turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
+	AI.turrets_upgraded = TRUE
 
 //Hostile Station Lockdown: Locks, bolts, and electrifies every airlock on the station. After 90 seconds, the doors reset.
 /datum/AI_Module/lockdown
@@ -460,21 +461,21 @@
 /datum/AI_Module/overload_machine
 	module_name = "Machine Overload"
 	mod_pick_name = "overload"
-	description = "Overheats an electrical machine, causing a small explosion and destroying it. Two uses per purchase."
+	description = "Overheats an electrical machine, causing a moderately-sized explosion and destroying it. Four uses per purchase."
 	cost = 20
 	power_type = /datum/action/innate/ai/ranged/overload_machine
 	unlock_text = "<span class='notice'>You enable the ability for the station's APCs to direct intense energy into machinery.</span>"
 
 /datum/action/innate/ai/ranged/overload_machine
 	name = "Overload Machine"
-	desc = "Overheats a machine, causing a small explosion after a short time."
+	desc = "Overheats a machine, causing a moderately-sized explosion after a short time."
 	button_icon_state = "overload_machine"
-	uses = 2
+	uses = 4
 	linked_ability_type = /obj/effect/proc_holder/ranged_ai/overload_machine
 
 /datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
-		explosion(get_turf(M), 0,1,1,0)
+		explosion(get_turf(M), 0, 3, 5, 0)
 		if(M) //to check if the explosion killed it before we try to delete it
 			qdel(M)
 
@@ -626,6 +627,107 @@
 		to_chat(src, "<span class='warning'>[alert_msg]</span>")
 	return success
 
+//Turret Assembly: Assemble an AI turret at the chosen location. One use per purchase
+/datum/AI_Module/place_turret
+	module_name = "Deploy Turret"
+	mod_pick_name = "turretdeployer"
+	description = "Build a turret anywhere that lethally targets organic life in sight."
+	cost = 30
+	power_type = /datum/action/innate/ai/place_turret
+	unlock_text = "<span class='notice'>You prepare an energy turret for deployment.</span>"
+	unlock_sound = 'sound/items/rped.ogg'
+
+/datum/action/innate/ai/place_turret
+	name = "Deploy Turret"
+	desc = "Build a turret anywhere that lethally targets organic life in sight."
+	button_icon_state = "deploy_turret"
+	uses = 1
+	auto_use_uses = FALSE
+	var/image/turf_overlay
+
+/datum/action/innate/ai/place_turret/New()
+	..()
+	turf_overlay = image('icons/turf/overlays.dmi')
+
+/datum/action/innate/ai/place_turret/Activate()
+	if(active)
+		to_chat(owner, "<span class='notice'>Your assemblers can only construct one turret at a time.</span>")
+		return
+	if(!owner_AI.can_place_turret(src))
+		return
+	active = TRUE
+	var/response = alert(owner, "Are you sure you want to place a turret here? Deployment will take a few seconds to complete, in which the turret will be vulnerable.", "Are you sure?", "No", "Yes")
+	if(!response || response == "No")
+		active = FALSE
+		return
+	if(!owner_AI.can_place_turret(src))
+		active = FALSE
+		return
+	deploy_turret()
+	active = FALSE
+
+/datum/action/innate/ai/place_turret/proc/deploy_turret()
+	var/turf/T = get_turf(owner_AI.eyeobj)
+
+	//Handles the turret construction and configuration
+	playsound(T, 'sound/items/rped.ogg', 100, TRUE) //Plays a sound both at the location of the construction to alert players and to the user as feedback
+	owner.playsound_local(owner, 'sound/items/rped.ogg', 50, FALSE, use_reverb = FALSE)
+	to_chat(owner, "<span class='notice'>You order your electronics to assemble a turret. This will take a few seconds.</span>")
+	var/obj/effect/temp_visual/rcd_effect/spawning_effect = new(T)
+	QDEL_IN(spawning_effect, 5 SECONDS)
+
+	//Deploys as lethal. Nonlethals can be enabled.
+	var/obj/machinery/porta_turret/turret = new /obj/machinery/porta_turret/ai_turret(T)
+	turret.disabled = TRUE
+	turret.lethal = TRUE
+	turret.raised = TRUE //While raised, it is vulnerable to damage
+	turret.targetting_is_configurable = FALSE
+	turret.check_synth = TRUE
+	turret.invisibility = 100
+
+	//If turrets are already upgraded, beef it up
+	if(owner_AI.turrets_upgraded)
+		turret.health += 30
+		turret.eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser //Big gun
+		turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
+
+	if(do_after_once(owner, 5 SECONDS, target = T, allow_moving = TRUE)) //Once this is done, turret is armed and dangerous
+		turret.raised = initial(turret.raised)
+		turret.invisibility = initial(turret.invisibility)
+		turret.disabled = initial(turret.disabled)
+		new /obj/effect/temp_visual/rcd_effect/end(T)
+		playsound(T, 'sound/items/deconstruct.ogg', 100, TRUE)
+		to_chat(owner, "<span class='notice'>Turret deployed.</span>")
+		adjust_uses(-1)
+
+/mob/living/silicon/ai/proc/can_place_turret(datum/action/innate/ai/place_turret/action)
+	if(!eyeobj || !isturf(eyeobj.loc) || incapacitated() || !action)
+		return
+
+	var/turf/simulated/floor/deploylocation = get_turf(eyeobj)
+
+	var/image/I = action.turf_overlay
+	I.loc = deploylocation
+	client.images += I
+	I.icon_state = "redOverlay"
+	var/datum/camerachunk/C = GLOB.cameranet.getCameraChunk(deploylocation.x, deploylocation.y, deploylocation.z)
+
+	if(!istype(deploylocation))
+		to_chat(src, "<span class='warning'>There isn't enough room! Make sure you are placing the machine in a clear area and on a floor.</span>")
+		return FALSE
+	if(!C.visibleTurfs[deploylocation])
+		to_chat(src, "<span class='warning'>You don't have camera vision of this location!</span>")
+		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
+		return FALSE
+	if(is_blocked_turf(deploylocation))
+		to_chat(src, "<span class='warning'>That area must be clear of objects!</span>")
+		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
+		return FALSE
+
+	I.icon_state = "greenOverlay" //greenOverlay and redOverlay for success and failure respectively
+	addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
+	return TRUE
+
 //Blackout: Overloads a random number of lights across the station. Three uses.
 /datum/AI_Module/blackout
 	module_name = "Blackout"
@@ -748,6 +850,7 @@
 
 /datum/AI_Module/cameracrack/upgrade(mob/living/silicon/ai/AI)
 	if(AI.builtInCamera)
+		AI.cracked_camera = TRUE
 		QDEL_NULL(AI.builtInCamera)
 
 /datum/AI_Module/engi_upgrade

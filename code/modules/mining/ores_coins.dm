@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		visible_message("<span class='danger'>[C]'s glasses block the sand!</span>")
 		return
 	C.EyeBlurry(12 SECONDS)
-	C.adjustStaminaLoss(15)//the pain from your eyes burning does stamina damage
+	C.apply_damage(15, STAMINA)//the pain from your eyes burning does stamina damage
 	C.AdjustConfused(10 SECONDS)
 	to_chat(C, "<span class='userdanger'>[src] gets into your eyes! The pain, it burns!</span>")
 	qdel(src)
@@ -353,6 +353,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "coin_[cmineral]_[sideslist[1]]"
 	if(cmineral && name_by_cmineral)
 		name = "[cmineral] coin"
+
+/obj/item/coin/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/surgery_initiator/robo)
 
 /obj/item/coin/gold
 	cmineral = "gold"

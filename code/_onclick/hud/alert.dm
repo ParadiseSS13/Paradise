@@ -428,7 +428,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		var/mob/living/simple_animal/diona/D = nymphs[1]
 		D.split(TRUE)
 	else
-		var/mob/living/simple_animal/diona/D = input("Select a nymph to drop:", "Nymph Dropping", nymphs[1]) as anything in nymphs
+		var/mob/living/simple_animal/diona/D = tgui_input_list(usr, "Select a nymph to drop:", "Nymph Dropping", nymphs)
 		if(D in usr.contents)
 			D.split(TRUE)
 
@@ -652,7 +652,7 @@ so as to remain in compliance with the most up-to-date laws."
 			success = poll.sign_up(G)
 		if(success)
 			// Add a small overlay to indicate we've signed up
-			update_signed_up_alert()
+			update_signed_up_alert(usr)
 	else if(target)
 		switch(action)
 			if(NOTIFY_ATTACK)
@@ -682,14 +682,14 @@ so as to remain in compliance with the most up-to-date laws."
 		poll.remove_candidate(G)
 	else
 		poll.sign_up(G)
-	update_signed_up_alert()
+	update_signed_up_alert(G)
 
-/obj/screen/alert/notify_action/proc/update_signed_up_alert()
+/obj/screen/alert/notify_action/proc/update_signed_up_alert(mob/user)
 	if(!signed_up_overlay)
 		signed_up_overlay = image('icons/mob/screen_gen.dmi', icon_state = "selector")
 		signed_up_overlay.layer = FLOAT_LAYER
 		signed_up_overlay.plane = FLOAT_PLANE + 2
-	if(usr in poll.signed_up)
+	if(user in poll.signed_up)
 		overlays += signed_up_overlay
 	else
 		overlays -= signed_up_overlay

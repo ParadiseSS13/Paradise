@@ -300,18 +300,18 @@
 /proc/ionnum()
 	return "[pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")]"
 
-//When an AI is activated, it can choose from a list of non-slaved borgs to have as a slave.
-/proc/freeborg()
+// Selects an unlinked borg, used in the robot upload console
+/proc/freeborg(mob/user)
 	var/select
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
-		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || isdrone(A))
+		if(A.stat == DEAD || A.connected_ai || A.scrambledcodes || isdrone(A))
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
 
 	if(length(borgs))
-		select = input("Unshackled borg signals detected:", "Borg selection", null, null) as null|anything in borgs
+		select = tgui_input_list(user, "Unshackled borg signals detected:", "Borg selection", borgs)
 		return borgs[select]
 
 //When a borg is activated, it can choose which AI it wants to be slaved to
@@ -338,10 +338,12 @@
 
 /proc/select_active_ai(mob/user)
 	var/list/ais = active_ais()
-	if(length(ais))
-		if(user)	. = input(usr,"AI signals detected:", "AI selection") in ais
-		else		. = pick(ais)
-	return .
+	if(!length(ais))
+		return
+	if(user)
+		return tgui_input_list(user, "AI signals detected:", "AI selection", ais)
+	else
+		return pick(ais)
 
 /proc/get_sorted_mobs()
 	var/list/old_list = getmobs()
@@ -1601,7 +1603,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return closest_atom
 
 /proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
-	if(value == FALSE) //nothing should be calling us with a number, so this is safe
+	if(!value) //nothing should be calling us with a number, so this is safe
 		value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
 		if(isnull(value))
 			return
@@ -1667,8 +1669,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/item/reagent_containers/glass/bottle = "BOTTLE",
 			/obj/item/reagent_containers/patch = "PATCH",
 			/obj/item/reagent_containers/pill = "PILL",
-			/obj/item/reagent_containers/food/drinks = "DRINK",
-			/obj/item/reagent_containers/food = "FOOD",
+			/obj/item/reagent_containers/drinks = "DRINK",
+			/obj/item/food = "FOOD",
 			/obj/item/reagent_containers/syringe = "SYRINGE",
 			/obj/item/reagent_containers = "REAGENT_CONTAINERS",
 			/obj/item/robot_parts = "ROBOT_PARTS",
@@ -1965,6 +1967,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
   */
 /proc/get_channel_name(channel)
 	switch(channel)
+		if(CHANNEL_GENERAL)
+			return "General Sounds"
 		if(CHANNEL_LOBBYMUSIC)
 			return "Lobby Music"
 		if(CHANNEL_ADMIN)

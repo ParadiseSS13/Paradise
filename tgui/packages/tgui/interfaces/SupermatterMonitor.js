@@ -1,13 +1,12 @@
 import { sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Section,
   Box,
   Button,
-  Flex,
+  Stack,
   Table,
   LabeledList,
   ProgressBar,
@@ -31,9 +30,10 @@ const SupermatterMonitorListView = (props, context) => {
   const { act, data } = useBackend(context);
   const { supermatters = [] } = data;
   return (
-    <Window>
+    <Window width={450} height={185}>
       <Window.Content scrollable>
         <Section
+          fill
           title="Detected Supermatters"
           buttons={
             <Button
@@ -91,11 +91,11 @@ const SupermatterMonitorDataView = (props, context) => {
   ])(data.gases || []);
   const gasMaxAmount = Math.max(1, ...gases.map((gas) => gas.amount));
   return (
-    <Window>
+    <Window width={550} height={185}>
       <Window.Content>
-        <Flex spacing={1}>
-          <Flex.Item width="270px">
-            <Section title="Metrics">
+        <Stack fill>
+          <Stack.Item width="270px">
+            <Section fill scrollable title="Metrics">
               <LabeledList>
                 <LabeledList.Item label="Integrity">
                   <ProgressBar
@@ -152,9 +152,11 @@ const SupermatterMonitorDataView = (props, context) => {
                 </LabeledList.Item>
               </LabeledList>
             </Section>
-          </Flex.Item>
-          <Flex.Item grow={1} basis={0}>
+          </Stack.Item>
+          <Stack.Item grow basis={0}>
             <Section
+              fill
+              scrollable
               title="Gases"
               buttons={
                 <Button
@@ -182,8 +184,8 @@ const SupermatterMonitorDataView = (props, context) => {
                 ))}
               </LabeledList>
             </Section>
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );

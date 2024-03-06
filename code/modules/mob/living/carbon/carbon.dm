@@ -49,8 +49,6 @@
 
 #define STOMACH_ATTACK_DELAY 4
 
-/mob/living/carbon/var/last_stomach_attack //defining this here because no one would look in carbon_defines for it
-
 /mob/living/carbon/relaymove(mob/user, direction)
 	if(LAZYLEN(stomach_contents))
 		if(user in stomach_contents)
@@ -340,7 +338,7 @@
 			status_list += "<a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
 
 	for(var/t in missing)
-		status_list += "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>"
+		status_list += "<span class='boldannounceic'>Your [parse_zone(t)] is missing!</span>"
 
 	if(H.bleed_rate)
 		status_list += "<span class='danger'>You are bleeding!</span>"
@@ -699,7 +697,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			return
 
 	if(thrown_thing)
-		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
+		if(!HAS_TRAIT(thrown_thing, TRAIT_NO_THROWN_MESSAGE))
+			visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
 		newtonian_move(get_dir(target, src))
 		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
 
@@ -1162,26 +1161,22 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/proc/can_eat(flags = 255)
 	return TRUE
 
-/mob/living/carbon/proc/eat(obj/item/reagent_containers/to_eat, mob/user, bitesize_override)
-	if(ispill(to_eat) || ispatch(to_eat))
+/mob/living/carbon/proc/eat(obj/item/food/to_eat, mob/user, bitesize_override)
+	if(ispill(to_eat) || ispatch(to_eat)) // We first have to know if it's either a pill or a patch, only then can we check if it's a food item
 		return consume_patch_or_pill(to_eat, user)
 
-	if(!isfood(to_eat)) // We first have to know if it's either a pill or a patch, only then can we check if it's a food item
+	if(!isfood(to_eat))
 		return FALSE
 
-	var/obj/item/reagent_containers/food/food = to_eat // It's not a patch or a pill so it must be food
+	var/obj/item/food/food = to_eat // It's not a patch or a pill so it must be food
 	var/fullness = nutrition + 10
-	if(istype(food, /obj/item/reagent_containers/food/snacks))
+	if(istype(food, /obj/item/food/snacks))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
 			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency)
 
 	if(user == src)
-		if(istype(food, /obj/item/reagent_containers/food/drinks))
-			if(!selfDrink(food))
-				return FALSE
-		else
-			if(!selfFeed(food, fullness))
-				return FALSE
+		if(!selfFeed(food, fullness))
+			return FALSE
 	else
 		if(!forceFed(food, user, fullness))
 			return FALSE
@@ -1190,7 +1185,27 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	SSticker.score.score_food_eaten++
 	return TRUE
 
-/mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/to_eat, fullness)
+/mob/living/carbon/proc/drink(obj/item/reagent_containers/drinks/to_drink, mob/user, drinksize_override)
+	if(user == src)
+		if(!selfDrink(to_drink))
+			return FALSE
+	else if(!forceFed(to_drink, user, nutrition))
+		return FALSE
+
+	if(to_drink.consume_sound)
+		playsound(loc, to_drink.consume_sound, rand(10, 50), TRUE)
+	if(to_drink.reagents.total_volume)
+		taste(to_drink.reagents)
+		var/drink_size = min(to_drink.amount_per_transfer_from_this, 5)
+		if(drinksize_override)
+			drink_size = drinksize_override
+		to_drink.reagents.reaction(src, REAGENT_INGEST)
+		to_drink.reagents.trans_to(src, drink_size)
+
+	SSticker.score.score_food_eaten++
+	return TRUE
+
+/mob/living/carbon/proc/selfFeed(obj/item/food/to_eat, fullness)
 	if(ispill(to_eat))
 		to_chat(src, "<span class='notify'>You swallow [to_eat].</span>")
 	else if(ispatch(to_eat))
@@ -1212,7 +1227,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			return FALSE
 	return TRUE
 
-/mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/food/drinks/toDrink, mob/user)
+/mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/drinks/toDrink, mob/user)
 	return TRUE
 
 /mob/living/carbon/proc/forceFed(obj/item/reagent_containers/to_eat, mob/user, fullness)
@@ -1232,7 +1247,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
 so that different stomachs can handle things in different ways VB*/
-/mob/living/carbon/proc/consume(obj/item/reagent_containers/food/to_eat, bitesize_override)
+/mob/living/carbon/proc/consume(obj/item/food/to_eat, bitesize_override)
 	var/this_bite = bitesize_override ? bitesize_override : to_eat.bitesize
 	if(!to_eat.reagents)
 		return

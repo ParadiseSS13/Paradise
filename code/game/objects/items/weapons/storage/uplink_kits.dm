@@ -68,7 +68,7 @@
 		/obj/item/storage/box/syndie_kit/emp, // 10TC
 		/obj/item/clothing/glasses/hud/security/chameleon, // 10TC
 		/obj/item/encryptionkey/syndicate, // 10TC
-		/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail,	// 0TC
+		/obj/item/reagent_containers/drinks/drinkingglass/alliescocktail,	// 0TC
 		/obj/item/storage/box/syndie_kit/pen_bomb, // 30 TC
 		/obj/item/CQC_manual) // 13TC
 
@@ -121,7 +121,7 @@
 	desc = "A kit with everything you need to hack into and disrupt the Station, AI, its cyborgs and the Security team. HACK THE PLANET!"
 	items = list(
 		/obj/item/melee/energy/sword/saber/blue, // 40TC
-		/obj/item/card/emag, // 30TC
+		/obj/item/autosurgeon/organ/syndicate/hackerman_deck, // 30TC
 		/obj/item/door_remote/omni/access_tuner, // 30 TC, HACK EVERYTHING
 		/obj/item/encryptionkey/syndicate, // 10TC
 		/obj/item/encryptionkey/binary, // 25TC
@@ -141,7 +141,7 @@
 	items = list(
 		/obj/item/melee/energy/sword/saber/red, // 40TC
 		/obj/item/melee/energy/sword/saber/red, // 40TC
-		/obj/item/clothing/gloves/color/yellow/power, // 50TC
+		/obj/item/bio_chip_implanter/shock, // 50TC
 		/obj/item/dnainjector/telemut/darkbundle, // ?TC
 		/obj/item/clothing/suit/hooded/chaplain_hoodie, // 0TC
 		/obj/item/clothing/glasses/meson/engine/tray, // 0TC
@@ -310,9 +310,9 @@
 	name = "combat bakery kit"
 
 /obj/item/storage/box/syndie_kit/combat_baking/populate_contents()
-	new /obj/item/reagent_containers/food/snacks/baguette/combat(src)
+	new /obj/item/food/snacks/baguette/combat(src)
 	for(var/i in 1 to 2)
-		new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
+		new /obj/item/food/snacks/croissant/throwing(src)
 	new /obj/item/book/granter/crafting_recipe/combat_baking(src)
 
 /obj/item/storage/box/syndie_kit/atmosn2ogrenades
