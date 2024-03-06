@@ -401,7 +401,7 @@
 	if(pathfinding)
 		return TRUE
 
-	if(istype(get_turf(src), /turf/space))
+	if(isspaceturf(get_turf(src)))
 		return FALSE // Pretty damn hard to path through space
 
 	var/turf/target
@@ -435,6 +435,18 @@
 	pathfind.on_success = CALLBACK(src, PROC_REF(at_dronefab))
 	pathfind.start()
 	return TRUE
+
+/mob/living/silicon/robot/drone/proc/pathfind_to_modsuit()
+	if(pathfinding)
+		return TRUE
+
+	if(isspaceturf(get_turf(src)))
+		return FALSE // Pretty damn hard to path through space
+
+	var/turf/target = get_turf()
+
+	if(!target)
+		return FALSE
 
 /mob/living/silicon/robot/drone/proc/pathfind_failed_cleanup(pathfind)
 	set_pathfinding(null)

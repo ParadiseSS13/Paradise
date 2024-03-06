@@ -307,6 +307,7 @@
 	new_drone.linked_control_mod = mod
 	linked_drone = new_drone
 	ADD_TRAIT(mod.wearer.mind, TRAIT_CREATED_DRONE, mod.wearer.UID())
+	mod.subtract_charge(1000)
 	return TRUE
 
 /obj/item/mod/module/drone/proc/poll_ghosts_for_drone(mob/user)
