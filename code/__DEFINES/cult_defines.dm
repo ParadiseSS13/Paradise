@@ -64,6 +64,6 @@
 #define NARSIE_HAS_RISEN 3
 #define NARSIE_HAS_FALLEN -1
 
-#define GET_CULT_DATA(variable, default) (SSticker ? SSticker.cult_data.variable : default)
+#define GET_CULT_DATA(variable, default) (SSticker.cult_data ? SSticker.cult_data.variable : default)
 
 #define IS_CULTIST(mob) (isliving(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/cultist))

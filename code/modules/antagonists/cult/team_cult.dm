@@ -37,7 +37,7 @@
 	create_next_sacrifice()
 
 	for(var/datum/mind/M as anything in starting_members)
-		var/datum/antagonist/cultist/cultist = M.has_antag_datum(__IMPLIED_TYPE__)
+		var/datum/antagonist/cultist/cultist = M.has_antag_datum(/datum/antagonist/cultist)
 		cultist.equip_roundstart_cultist()
 
 /datum/team/cult/Destroy(force, ...)

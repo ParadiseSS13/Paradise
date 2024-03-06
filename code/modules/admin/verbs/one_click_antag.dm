@@ -179,7 +179,7 @@
 			return
 		H = pick_n_take(candidates)
 
-		var/datum/antagonist/cultist/cultist = H.mind.add_antag_datum(__IMPLIED_TYPE__) // ctodo test if this works :)
+		var/datum/antagonist/cultist/cultist = H.mind.add_antag_datum(/datum/antagonist/cultist)
 		cultist.equip_roundstart_cultist(H)
 	return TRUE
 
