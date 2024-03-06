@@ -28253,9 +28253,6 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/obj/machinery/camera{
-	c_tag = "Hydroponics - Foyer"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
