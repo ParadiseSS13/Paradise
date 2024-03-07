@@ -18,6 +18,7 @@
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\world_definition.dm"
+#include "code\__DEFINES\_click.dm"
 #include "code\__DEFINES\_globals.dm"
 #include "code\__DEFINES\_init.dm"
 #include "code\__DEFINES\_math.dm"

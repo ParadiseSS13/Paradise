@@ -48,9 +48,9 @@
 			last_hovered = src
 			var/datum/hud/our_hud = usr.hud_used
 			our_hud?.generate_landings(src)
-	if(old_object)
-		old_object.MouseExited(over_location, over_control, params)
-	last_hovored_ref = UID(over_object)
+	if(last_hovered)
+		last_hovered.MouseExited(over_location, over_control, params)
+	last_hovered_ref = UID(over_object)
 	over_object.MouseEntered(over_location, over_control, params)
 
 /atom/movable/screen/movable/action_button/MouseEntered(location, control, params)
@@ -139,7 +139,7 @@
 		return
 	// TODO MAYBE???
 	// var/position_info = user.client?.prefs?.action_buttons_screen_locs["[name]_[id]"] || SCRN_OBJ_DEFAULT
-	user.hud_used.position_action(src, position_info)
+	// user.hud_used.position_action(src, position_info)
 
 /atom/movable/screen/movable/action_button/Click(location, control, params)
 	var/list/modifiers = params2list(params)
@@ -173,6 +173,19 @@
 	alpha = 200
 	animate(src, transform = matrix(), time = 0.4 SECONDS, alpha = 255)
 	return TRUE
+
+
+/**
+ * This is a silly proc used in hud code code to determine what icon and icon state we should be using
+ * for hud elements (such as action buttons) that don't have their own icon and icon state set.
+ *
+ * It returns a list, which is pretty much just a struct of info
+ */
+/datum/hud/proc/get_action_buttons_icons()
+	. = list()
+	.["bg_icon"] = ui_style
+	.["bg_state"] = "template"
+	.["bg_state_active"] = "template_active"
 
 /atom/movable/screen/movable/action_button/proc/set_to_keybind(mob/user)
 	var/keybind_to_set_to = uppertext(input(user, "What keybind do you want to set this action button to?") as text)
@@ -216,7 +229,7 @@
 	closeToolTip(usr)
 	return ..()
 
-/mob/proc/update_action_buttons_icon()
+/mob/proc/update_action_buttons_icon(status_only = FALSE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtons(status_only)
@@ -243,7 +256,7 @@
 	// else
 	// 	for(var/datum/action/A in actions)
 	// 		A.override_location() // If the action has a location override, call it
-	// 		A.UpdateButtonIcon()
+	// 		A.UpdateButtons()
 
 	// 		var/atom/movable/screen/movable/action_button/B = A.button
 	// 		if(B.ordered)
@@ -366,7 +379,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 			for(var/datum/hud/hud as anything in action.viewers)
 				var/atom/movable/screen/movable/action_button/button = action.viewers[hud]
 				hud.position_action(button, SCRN_OBJ_DEFAULT)
-		to_chat(usr, span_notice("Action button positions have been reset."))
+		to_chat(usr, "<span class='notice'>Action button positions have been reset.</span>")
 		return TRUE
 
 	set_expanded(!expanded)
@@ -410,9 +423,9 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 	var/datum/hud/our_hud
 
 /atom/movable/screen/palette_scroll/proc/can_use(mob/user)
-	if (isobserver(user))
-		var/mob/dead/observer/O = user
-		return !O.observetarget
+	// if (isobserver(user))
+	// 	var/mob/dead/observer/O = user
+	// 	return !O.observetarget
 	return TRUE
 
 
@@ -560,7 +573,8 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 			if(!our_client)
 				position_action(button, button.linked_action.default_button_position)
 				return
-			button.screen_loc = get_valid_screen_location(relative_to.screen_loc, world.icon_size, our_client.view_size.getView()) // Asks for a location adjacent to our button that won't overflow the map
+			var/client_view_size = getviewsize(our_client.view)
+			button.screen_loc = get_valid_screen_location(relative_to.screen_loc, world.icon_size, client_view_size) // Asks for a location adjacent to our button that won't overflow the map
 
 	button.location = relative_to.location
 

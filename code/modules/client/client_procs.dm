@@ -1158,6 +1158,11 @@
 	var/list/screensize = getviewsize(view)
 	return max(screensize[1], screensize[2])
 
+/client/Click(object, location, control, params)
+	. = ..()
+	// please yell at me if this is Too Much
+	SEND_SIGNAL(src, COMSIG_CLIENT_CLICK, object, location, control, params, usr)
+
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
 #undef SECOND_COUNT

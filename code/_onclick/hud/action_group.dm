@@ -29,7 +29,7 @@
 /datum/action_group/Destroy()
 	owner = null
 	QDEL_NULL(landing)
-	QDEL_LIST(actions)
+	QDEL_LIST_CONTENTS(actions)
 	return ..()
 
 /datum/action_group/proc/insert_action(atom/movable/screen/action, index)

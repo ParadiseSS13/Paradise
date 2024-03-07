@@ -219,6 +219,9 @@
 
 /////////////////
 
+///from base of client/Click(): (atom/target, atom/location, control, params, mob/user)
+#define COMSIG_CLIENT_CLICK "atom_client_click"
+
 ///from base of area/Entered(): (/area)
 #define COMSIG_ENTER_AREA "enter_area"
 ///from base of area/Exited(): (/area)
