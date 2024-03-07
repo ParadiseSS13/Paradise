@@ -353,8 +353,9 @@
 		/obj/item/stack/nanopaste/cyborg,
 		/obj/item/gripper_medical
 	)
-	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_facid)
-	special_rechargables = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/extinguisher/mini)
+	emag_override_modules = list(/obj/item/reagent_containers/borghypo/syndicate)
+	special_rechargables = list(/obj/item/extinguisher/mini)
+	//malf_modules = list(/obj/item/gun/syringe/rapidsyringe/malf)
 
 // Disable safeties on the borg's defib.
 /obj/item/robot_module/medical/emag_act(mob/user)
@@ -464,10 +465,12 @@
 		/obj/item/extinguisher/mini
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_lube)
-	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg)
+	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/malfbroom)
+	malf_modules = list(/obj/item/stack/caution/proximity_sign/malf)
 	special_rechargables = list(
 		/obj/item/lightreplacer,
 		/obj/item/reagent_containers/spray/cyborg_lube,
+		/obj/item/reagent_containers/spray/cyborg_facid,
 		/obj/item/extinguisher/mini
 	)
 
@@ -507,6 +510,30 @@
 				continue
 			cleaned_human.clean_blood()
 			to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
+
+
+/obj/item/malfbroom
+	name = "cyborg combat broom"
+	desc = "A steel-core push broom for the hostile cyborg. The firm bristles make it more suitable for fighting than cleaning."
+	icon = 'icons/obj/janitor.dmi'
+	icon_state = "broom0"
+	base_icon_state = "broom"
+	attack_verb = list("smashed", "slammed", "whacked", "thwacked", "swept")
+	force = 20
+
+/obj/item/malfbroom/attack(mob/target, mob/user)
+	if(!ishuman(target))
+		return ..()
+	var/mob/living/carbon/human/H = target
+	if(H.stat != CONSCIOUS || IS_HORIZONTAL(H))
+		return ..()
+	H.visible_message("<span class='danger'>[user] sweeps [H]'s legs out from under [H.p_them()]!</span>", \
+					  	"<span class='userdanger'>[user] sweeps your legs out from under you!</span>", \
+					  	"<span class='italics'>You hear sweeping.</span>")
+	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
+	H.apply_damage(20, BRUTE)
+	H.KnockDown(4 SECONDS)
+	add_attack_logs(user, H, "Leg swept with cyborg combat broom", ATKLOG_ALL)
 
 // Service cyborg module.
 /obj/item/robot_module/butler
@@ -943,3 +970,10 @@
 
 /datum/robot_energy_storage/medical/nanopaste/syndicate
 	max_energy = 25
+
+//Energy stack for landmines
+/datum/robot_energy_storage/janitor/landmine
+	name = "Landmine Synthesizer"
+	statpanel_name = "Landmines"
+	max_energy = 4
+	recharge_rate = 0.2

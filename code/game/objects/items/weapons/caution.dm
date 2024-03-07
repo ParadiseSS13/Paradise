@@ -66,3 +66,30 @@
 		l.droplimb(0, DROPLIMB_SHARP)
 	if(r)
 		r.droplimb(0, DROPLIMB_SHARP)
+
+/obj/item/stack/caution/proximity_sign/malf //Malf module
+	name = "proximity mine dispenser"
+	icon = 'icons/obj/janitor.dmi'
+	icon_state = "caution"
+	force = 1.0
+	attack_verb = list("warned", "cautioned", "smashed")
+	energy_type = /datum/robot_energy_storage/janitor/landmine
+	is_cyborg = TRUE
+
+/obj/item/stack/caution/proximity_sign/malf/afterattack(atom/target, mob/user)
+	if(!check_allowed_items(target, 1))
+		return
+	var/turf/T = get_turf(target)
+
+	if(!is_blocked_turf(T, TRUE)) //can't put mines on a tile that has dense stuff
+		if(use(1))
+			playsound(src.loc, 'sound/machines/click.ogg', 20, 1)
+			var/obj/item/caution/proximity_sign/M = new /obj/item/caution/proximity_sign(get_turf(target), src)
+			M.timing = TRUE
+			START_PROCESSING(SSobj, M)
+			to_chat(user, "<span class='notice'>You place a landmine with [src]. You have 15 seconds until it is armed.</span>")
+			return M
+		else
+			to_chat(user, "<span class='notice'>[src] is out of landmines! It can be refilled at a cyborg charger.</span>")
+	else
+		to_chat(user, "<span class='notice'>The space is occupied! You cannot place a mine there!")
