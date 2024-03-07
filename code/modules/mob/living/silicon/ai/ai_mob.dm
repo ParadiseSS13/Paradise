@@ -47,6 +47,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	see_invisible = SEE_INVISIBLE_LIVING_AI
 	see_in_dark = 8
 	can_strip = FALSE
+	hud_used = /datum/hud/ai
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
 	var/list/connected_robots = list()

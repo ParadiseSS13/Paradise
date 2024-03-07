@@ -145,6 +145,7 @@
 	desc = "A possessed suit of armour driven by the will of the restless dead"
 	icon_state = "behemoth"
 	icon_living = "behemoth"
+	hud_type = /datum/hud/construct/armoured
 	maxHealth = 250
 	health = 250
 	response_harm   = "harmlessly punches"
@@ -188,6 +189,7 @@
 	desc = "A wicked bladed shell contraption piloted by a bound spirit"
 	icon_state = "floating"
 	icon_living = "floating"
+	hud_type = /datum/hud/construct/wraith
 	maxHealth = 75
 	health = 75
 	melee_damage_lower = 25
@@ -217,6 +219,7 @@
 	desc = "A bulbous construct dedicated to building and maintaining Cult armies."
 	icon_state = "artificer"
 	icon_living = "artificer"
+	hud_type = /datum/hud/construct/builder
 	maxHealth = 50
 	health = 50
 	response_harm = "viciously beats"
@@ -310,6 +313,7 @@
 	attack_sound = 'sound/weapons/punch4.ogg'
 	force_threshold = 11
 	construct_type = "behemoth"
+	hud_type = /datum/hud/construct/armoured
 	var/energy = 0
 	var/max_energy = 1000
 
@@ -327,6 +331,7 @@
 	desc = "A harbinger of enlightenment. It'll be all over soon."
 	icon_state = "harvester"
 	icon_living = "harvester"
+	hud_type = /datum/hud/construct/harvester
 	maxHealth = 40
 	health = 40
 	melee_damage_lower = 20

@@ -1,7 +1,3 @@
-/mob/living/carbon/alien/larva/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/larva(src)
-
 /datum/hud/larva/New(mob/owner)
 	..()
 

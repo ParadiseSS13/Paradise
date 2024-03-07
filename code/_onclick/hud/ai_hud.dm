@@ -140,10 +140,6 @@
 		var/mob/living/silicon/robot/borg = usr
 		borg.sensor_mode()
 
-/mob/living/silicon/ai/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/ai(src)
-
 /datum/hud/ai/New(mob/owner)
 	..()
 

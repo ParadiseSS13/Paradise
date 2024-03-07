@@ -85,11 +85,6 @@
 /atom/movable/screen/robot/mov_intent/Click()
 	usr.toggle_move_intent()
 
-
-/mob/living/silicon/robot/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/robot(src)
-
 /datum/hud/robot/New(mob/user)
 	..()
 

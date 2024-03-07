@@ -53,6 +53,7 @@
 	if(client && !hud_used)
 		set_hud_used(new /datum/hud(src))
 		update_sight()
+		SEND_SIGNAL(src, COMSIG_MOB_HUD_CREATED)
 
 /mob/proc/set_hud_used(datum/hud/new_hud)
 	hud_used = new_hud

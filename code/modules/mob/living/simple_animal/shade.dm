@@ -63,6 +63,7 @@
 	health = 100
 	maxHealth = 100
 	weather_immunities = list("ash")
+	hud_type = /datum/hud/sword
 
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()

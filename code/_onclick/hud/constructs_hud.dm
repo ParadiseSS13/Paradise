@@ -1,11 +1,3 @@
-/mob/living/simple_animal/hostile/construct/armoured/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/construct/armoured(src)
-
-/mob/living/simple_animal/hostile/construct/behemoth/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/construct/armoured(src)
-
 /datum/hud/construct/armoured/New(mob/owner)
 	..()
 	mymob.healths = new /atom/movable/screen()
@@ -14,10 +6,6 @@
 	mymob.healths.name = "health"
 	mymob.healths.screen_loc = ui_construct_health
 	infodisplay += mymob.healths
-
-/mob/living/simple_animal/hostile/construct/builder/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/construct/builder(src)
 
 /datum/hud/construct/builder/New(mob/owner)
 	..()
@@ -28,10 +16,6 @@
 	mymob.healths.screen_loc = ui_construct_health
 	infodisplay += mymob.healths
 
-/mob/living/simple_animal/hostile/construct/wraith/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/construct/wraith(src)
-
 /datum/hud/construct/wraith/New(mob/owner)
 	..()
 	mymob.healths = new /atom/movable/screen()
@@ -41,9 +25,6 @@
 	mymob.healths.screen_loc = ui_construct_health
 	infodisplay += mymob.healths
 
-/mob/living/simple_animal/hostile/construct/harvester/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/construct/harvester(src)
 
 /datum/hud/construct/harvester/New(mob/owner)
 	..()
