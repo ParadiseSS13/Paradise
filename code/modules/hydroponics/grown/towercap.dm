@@ -122,7 +122,7 @@
 
 /obj/structure/punji_sticks/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/caltrop, 20, 30, CALTROP_BYPASS_SHOES)
+	AddComponent(/datum/component/caltrop, min_damage = 20, max_damage = 30, probability = 100, weaken_duration = 6 SECONDS, flags = CALTROP_BYPASS_SHOES)
 
 /obj/structure/punji_sticks/Crossed(mob/living/L)
 	return

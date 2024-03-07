@@ -9,7 +9,7 @@
 	var/probability
 
 	///Duration of weaken when crossed
-	var/weaken_duration // TODO: this is going to break without default probably
+	var/weaken_duration
 
 	///Shoebypassing, walking interaction, silence
 	var/flags
