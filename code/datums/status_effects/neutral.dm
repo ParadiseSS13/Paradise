@@ -1,6 +1,7 @@
 //entirely neutral or internal status effects go here
 
-/datum/status_effect/crusher_damage //tracks the damage dealt to this mob by kinetic crushers
+/// tracks the damage dealt to this mob by kinetic crushers
+/datum/status_effect/crusher_damage
 	id = "crusher_damage"
 	duration = -1
 	status_type = STATUS_EFFECT_UNIQUE
@@ -201,6 +202,12 @@
 /datum/status_effect/impact_immune
 	id = "impact_immune"
 	alert_type = null
+
+/datum/status_effect/recently_succumbed
+	id = "recently_succumbed"
+	alert_type = null
+	duration = 1 MINUTES
+	status_type = STATUS_EFFECT_REFRESH
 
 #define LWAP_LOCK_CAP 10
 

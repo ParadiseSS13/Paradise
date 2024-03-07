@@ -273,7 +273,8 @@
 		if(!reuseable)
 			flags |= DROPDEL
 
-/obj/item/restraints/legcuffs/bola/tactical //traitor variant
+/// traitor variant
+/obj/item/restraints/legcuffs/bola/tactical
 	name = "reinforced bola"
 	desc = "A strong bola, made with a long steel chain. It looks heavy, enough so that it could trip somebody."
 	icon_state = "bola_r"
@@ -282,7 +283,8 @@
 	origin_tech = "engineering=4;combat=3"
 	knockdown_duration = 2 SECONDS
 
-/obj/item/restraints/legcuffs/bola/energy //For Security
+/// For Security
+/obj/item/restraints/legcuffs/bola/energy
 	name = "energy bola"
 	desc = "A specialized hard-light bola designed to ensnare fleeing criminals and aid in arrests."
 	icon_state = "ebola"

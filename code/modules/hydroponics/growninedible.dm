@@ -2,7 +2,8 @@
 // Other harvested materials from plants (that are not food)
 // **********************
 
-/obj/item/grown // Grown weapons
+/// Grown weapons
+/obj/item/grown
 	name = "grown_weapon"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	resistance_flags = FLAMMABLE
