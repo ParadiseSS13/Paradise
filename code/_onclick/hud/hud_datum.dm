@@ -12,36 +12,36 @@
 	var/inventory_shown = TRUE		//the inventory
 	var/hotkey_ui_hidden = FALSE	//This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
 
-	var/obj/screen/lingchemdisplay
-	var/obj/screen/lingstingdisplay
+	var/atom/movable/screen/lingchemdisplay
+	var/atom/movable/screen/lingstingdisplay
 
-	var/obj/screen/guardianhealthdisplay
+	var/atom/movable/screen/guardianhealthdisplay
 
-	var/obj/screen/blobpwrdisplay
-	var/obj/screen/blobhealthdisplay
-	var/obj/screen/vampire_blood_display
-	var/obj/screen/alien_plasma_display
-	var/obj/screen/nightvisionicon
-	var/obj/screen/action_intent
-	var/obj/screen/zone_select
-	var/obj/screen/move_intent
-	var/obj/screen/module_store_icon
-	var/obj/screen/combo/combo_display
+	var/atom/movable/screen/blobpwrdisplay
+	var/atom/movable/screen/blobhealthdisplay
+	var/atom/movable/screen/vampire_blood_display
+	var/atom/movable/screen/alien_plasma_display
+	var/atom/movable/screen/nightvisionicon
+	var/atom/movable/screen/action_intent
+	var/atom/movable/screen/zone_select
+	var/atom/movable/screen/move_intent
+	var/atom/movable/screen/module_store_icon
+	var/atom/movable/screen/combo/combo_display
 
 	var/list/static_inventory = list()		//the screen objects which are static
 	var/list/toggleable_inventory = list()	//the screen objects which can be hidden
 	var/list/hotkeybuttons = list()			//the buttons that can be used via hotkeys
 	var/list/infodisplay = list()			//the screen objects that display mob info (health, alien plasma, etc...)
-	var/list/inv_slots[SLOT_HUD_AMOUNT]			// /obj/screen/inventory objects, ordered by their slot ID.
+	var/list/inv_slots[SLOT_HUD_AMOUNT]			// /atom/movable/screen/inventory objects, ordered by their slot ID.
 
-	var/obj/screen/movable/action_button/hide_toggle/hide_actions_toggle
+	var/atom/movable/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = FALSE
 
-	var/list/obj/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
+	var/list/atom/movable/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
 	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
 	var/list/atom/movable/plane_master_controller/plane_master_controllers = list()
 	///UI for screentips that appear when you mouse over things
-	var/obj/screen/screentip/screentip_text
+	var/atom/movable/screen/screentip/screentip_text
 
 /mob/proc/create_mob_hud()
 	if(client && !hud_used)
@@ -53,8 +53,8 @@
 	hide_actions_toggle = new
 	hide_actions_toggle.InitialiseIcon(mymob)
 
-	for(var/mytype in subtypesof(/obj/screen/plane_master))
-		var/obj/screen/plane_master/instance = new mytype()
+	for(var/mytype in subtypesof(/atom/movable/screen/plane_master))
+		var/atom/movable/screen/plane_master/instance = new mytype()
 		plane_masters["[instance.plane]"] = instance
 		instance.backdrop(mymob)
 
@@ -190,7 +190,7 @@
 /datum/hud/proc/plane_masters_update()
 	// Plane masters are always shown to OUR mob, never to observers
 	for(var/thing in plane_masters)
-		var/obj/screen/plane_master/PM = plane_masters[thing]
+		var/atom/movable/screen/plane_master/PM = plane_masters[thing]
 		PM.backdrop(mymob)
 		mymob.client.screen += PM
 

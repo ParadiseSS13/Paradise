@@ -697,6 +697,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 	surplus = 10
 
+/datum/uplink_item/suits/smoke_grenade
+	name = "Smoke Grenade Module"
+	desc = "A module that dispenses primed smoke grenades to disperse crowds."
+	reference = "SGM"
+	item = /obj/item/mod/module/dispenser/smoke
+	cost = 10
+	surplus = 10
+
 /datum/uplink_item/device_tools/binary
 	name = "Binary Translator Key"
 	desc = "A key, that when inserted into a radio headset, allows you to listen to and talk with artificial intelligences and cybernetic organisms in binary. To talk on the binary channel, type :+ before your radio message."
@@ -819,7 +827,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Binyat Wireless Hacking System Autoimplanter"
 	desc = "This implant will allow you to wirelessly emag from a distance. However, it will slightly burn you \
 	on use, and will be quite visual as you are emaging the object. \
-	Will not show on unupgraded body scanners."
+	Will not show on unupgraded body scanners. Incompatible with the Qani-Laaca Sensory Computer."
 	reference = "HKR"
 	item = /obj/item/autosurgeon/organ/syndicate/hackerman_deck
 	cost = 30 // Probably slightly less useful than an emag with heat / cooldown, but I am not going to make it cheaper or everyone picks it over emag

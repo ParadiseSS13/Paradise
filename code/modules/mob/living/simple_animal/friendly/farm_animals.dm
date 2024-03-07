@@ -1,6 +1,6 @@
 //goat
 /mob/living/simple_animal/hostile/retaliate/goat
-	name = "\improper goat"
+	name = "goat"
 	desc = "Not known for their pleasant disposition."
 	icon_state = "goat"
 	icon_living = "goat"
@@ -109,7 +109,7 @@
 
 //cow
 /mob/living/simple_animal/cow
-	name = "\improper cow"
+	name = "cow"
 	desc = "Known for their milk, just don't tip them over."
 	icon_state = "cow"
 	icon_living = "cow"
@@ -187,7 +187,7 @@
 	return FALSE
 
 /mob/living/simple_animal/chick
-	name = "\improper chick"
+	name = "chick"
 	desc = "Adorable! They make such a racket though."
 	icon_state = "chick"
 	icon_living = "chick"
@@ -229,6 +229,8 @@
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
 			var/mob/living/simple_animal/chicken/C = new /mob/living/simple_animal/chicken(loc)
+			if(name != initial(name))
+				C.name = name
 			if(mind)
 				mind.transfer_to(C)
 			qdel(src)
@@ -241,7 +243,7 @@
 GLOBAL_VAR_INIT(chicken_count, 0)
 
 /mob/living/simple_animal/chicken
-	name = "\improper chicken"
+	name = "chicken"
 	desc = "Hopefully the eggs are good this season."
 	gender = FEMALE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
@@ -368,7 +370,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	return FALSE
 
 /mob/living/simple_animal/pig
-	name = "\improper pig"
+	name = "pig"
 	desc = "Oink oink."
 	icon_state = "pig"
 	icon_living = "pig"
@@ -394,7 +396,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/turkey
-	name = "\improper turkey"
+	name = "turkey"
 	desc = "Benjamin Franklin would be proud."
 	icon_state = "turkey"
 	icon_living = "turkey"
@@ -419,7 +421,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/goose
-	name = "\improper goose"
+	name = "goose"
 	desc = "A pretty goose. Would make a nice comforter."
 	icon_state = "goose"
 	icon_living = "goose"
@@ -444,7 +446,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/seal
-	name = "\improper seal"
+	name = "seal"
 	desc = "A beautiful white seal."
 	icon_state = "seal"
 	icon_living = "seal"
@@ -469,7 +471,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	blood_volume = BLOOD_VOLUME_NORMAL
 
 /mob/living/simple_animal/walrus
-	name = "\improper walrus"
+	name = "walrus"
 	desc = "A big brown walrus."
 	icon_state = "walrus"
 	icon_living = "walrus"
