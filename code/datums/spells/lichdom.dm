@@ -96,7 +96,7 @@
 	to_chat(lich, "<span class='warning'>Your bones clatter and shudder as they're pulled back into this world!</span>")
 
 /obj/effect/proc_holder/spell/lichdom/proc/attempt_mark_item(mob/user)
-	var/obj/item/target = user.get_active_hand() 
+	var/obj/item/target = user.get_active_hand()
 	if(!target)
 		to_chat(user, "<span class='warning'>You must hold an item you wish to make your phylactery!</span>")
 		return
@@ -114,10 +114,13 @@
 	stat_allowed = UNCONSCIOUS
 	cooldown_handler.recharge_duration = 3 MINUTES
 	cooldown_handler.revert_cast()
-
-	if(action && action.button)
-		action.name = action.button.name = name
-		action.desc = action.button.desc = desc
+	if(action)
+		action.name = name
+		action.desc = desc
+		UpdateButtons()
+	// if(action && action.button)
+	// 	action.name = action.button.name = name
+	// 	action.desc = action.button.desc = desc
 
 	target.name = "ensouled [target.name]"
 	target.desc += "<br><span class='warning'>A terrible aura surrounds this item, its very existence is offensive to life itself...</span>"
@@ -137,7 +140,7 @@
 	RegisterSignal(target, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_Z_CHANGED), PROC_REF(check_revivability_handler))
 	RegisterSignal(current_body, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_Z_CHANGED), PROC_REF(check_revivability_handler))
 	to_chat(user, "<span class='userdanger'>With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lich!</span>")
-	
+
 	existence_stops_round_end = TRUE
 	GLOB.configuration.gamemode.disable_certain_round_early_end = TRUE
 

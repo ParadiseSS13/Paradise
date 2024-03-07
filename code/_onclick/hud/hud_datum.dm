@@ -51,7 +51,7 @@
 
 /mob/proc/create_mob_hud()
 	if(client && !hud_used)
-		set_hud_used(new hud_type(src))
+		set_hud_used(new /datum/hud(src))
 		update_sight()
 
 /mob/proc/set_hud_used(datum/hud/new_hud)

@@ -139,9 +139,8 @@
 		ApplyIcon(button, force)
 
 	if(!IsAvailable())
-		button.color = transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0)
+		apply_unavailable_effect(button)
 	else
-		button.color = rgb(255,255,255,255)
 		return TRUE
 
 //Give our action button to the player
@@ -228,13 +227,14 @@
 // 		else
 // 			return TRUE
 
-/datum/action/proc/apply_unavailable_effect()
+/datum/action/proc/apply_unavailable_effect(var/atom/movable/screen/movable/action_button/B)
 	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
 	img.alpha = 200
 	img.appearance_flags = RESET_COLOR | RESET_ALPHA
 	img.color = "#000000"
 	img.plane = FLOAT_PLANE + 1
-	button.add_overlay(img)
+	B.add_overlay(img)
+
 
 /datum/action/proc/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
 	current_button.cut_overlays()
@@ -373,7 +373,7 @@
 	if(..())
 		UpdateButtons()
 
-/datum/action/item_action/toggle_unfriendly_fire/UpdateButtonIcon()
+/datum/action/item_action/toggle_unfriendly_fire/UpdateButtons()
 	if(istype(target, /obj/item/hierophant_club))
 		var/obj/item/hierophant_club/H = target
 		if(H.friendly_fire_check)
@@ -662,14 +662,15 @@
 	var/obj/effect/proc_holder/spell/S = target
 	S.action = src
 	name = S.name
-	var/list/our_description = list()
-	our_description += S.desc
-	our_description += button.desc
-	button.desc = our_description.Join(" ")
+	// var/list/our_description = list()
+	// our_description += S.desc
+	// our_description += button.desc
+	// button.desc = our_description.Join(" ")
 	button_icon = S.action_icon
 	button_icon_state = S.action_icon_state
 	background_icon_state = S.action_background_icon_state
-	button.name = name
+	// button.name = name
+
 
 /datum/action/spell_action/Destroy()
 	var/obj/effect/proc_holder/spell/S = target
@@ -699,7 +700,7 @@
 		return spell.can_cast(owner)
 	return FALSE
 
-/datum/action/spell_action/apply_unavailable_effect()
+/datum/action/spell_action/apply_unavailable_effect(atom/movable/screen/movable/action_button/button)
 	var/obj/effect/proc_holder/spell/S = target
 	if(!istype(S))
 		return ..()

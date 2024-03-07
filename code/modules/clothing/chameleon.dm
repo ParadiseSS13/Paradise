@@ -94,10 +94,14 @@
 			qdel(O)
 	..()
 
-/datum/action/item_action/chameleon/change/proc/initialize_disguises()
-	if(button)
+/datum/action/item_action/chameleon/change/UpdateButton(atom/movable/screen/movable/action_button/button, status_only, force)
+	. = ..()
+	if(.)
 		button.name = "Change [chameleon_name] Appearance"
 
+
+/datum/action/item_action/chameleon/change/proc/initialize_disguises()
+	UpdateButtons()
 	chameleon_blacklist |= typecacheof(target.type)
 	for(var/V in typesof(chameleon_type))
 		if(ispath(V) && ispath(V, /obj/item))

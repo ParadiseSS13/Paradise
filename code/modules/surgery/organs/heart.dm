@@ -180,7 +180,9 @@
 
 /datum/action/item_action/organ_action/cursed_heart/proc/poll_keybinds()
 	if(alert(owner, "You've been given a cursed heart! Do you want to bind its action to a keybind?", "Cursed Heart", "Yes", "No") == "Yes")
-		button.set_to_keybind(owner)
+		return
+		// button.set_to_keybind(owner)
+		// TODO GAHHH SORRY GDN
 
 /obj/item/organ/internal/heart/cybernetic
 	name = "cybernetic heart"

@@ -183,7 +183,8 @@
  */
 /datum/hud/proc/get_action_buttons_icons()
 	. = list()
-	.["bg_icon"] = ui_style
+	// todo
+	.["bg_icon"] = ui_style2icon(mymob.client.prefs.UI_style)
 	.["bg_state"] = "template"
 	.["bg_state_active"] = "template_active"
 
@@ -363,9 +364,9 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, to_remove)
 
 /atom/movable/screen/button_palette/proc/can_use(mob/user)
-	if (isobserver(user))
-		var/mob/dead/observer/O = user
-		return !O.observetarget
+	// if (isobserver(user))
+	// 	var/mob/dead/observer/O = user
+	// 	return !O.observetarget
 	return TRUE
 
 /atom/movable/screen/button_palette/Click(location, control, params)
@@ -415,7 +416,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 
 
 /atom/movable/screen/palette_scroll
-	icon = 'icons/hud/screen_gen.dmi'
+	icon = 'icons/mob/screen_gen.dmi'
 	screen_loc = ui_palette_scroll
 	/// How should we move the palette's actions?
 	/// Positive scrolls down the list, negative scrolls back
@@ -485,7 +486,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 /atom/movable/screen/action_landing
 	name = "Button Space"
 	desc = "<b>Drag and drop</b> a button into this spot<br>to add it to the group"
-	icon = 'icons/hud/screen_gen.dmi'
+	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "reserved"
 	// We want our whole 32x32 space to be clickable, so dropping's forgiving
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
@@ -545,7 +546,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 		hide_action(button)
 	switch(position)
 		if(SCRN_OBJ_DEFAULT) // Reset to the default
-			button.dump_save() // Nuke any existing saves
+			// button.dump_save() // Nuke any existing saves
 			position_action(button, button.linked_action.default_button_position)
 			return
 		if(SCRN_OBJ_IN_LIST)

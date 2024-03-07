@@ -118,6 +118,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// Integer used to determine self-mailing location, used only by drones and saboteur borgs
 	var/mail_destination = 1
 
+	hud_type = /datum/hud/robot
+
 /mob/living/silicon/robot/get_cell()
 	return cell
 

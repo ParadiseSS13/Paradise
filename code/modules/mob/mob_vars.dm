@@ -121,6 +121,9 @@
 
 	var/move_on_shuttle = TRUE // Can move on the shuttle.
 
+	/// The type of HUD that you will use
+	var/hud_type = /datum/hud
+
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
 	var/can_change_intents = TRUE //all mobs can change intents by default.
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)

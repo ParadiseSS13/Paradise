@@ -437,9 +437,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(action)
 		action.UpdateButtons()
 
-/obj/effect/proc_holder/spell/proc/updateButtonIcon()
+/obj/effect/proc_holder/spell/proc/UpdateButtons()
 	if(action)
-		action.UpdateButtonIcon()
+		action.UpdateButtons()
 
 /obj/effect/proc_holder/spell/proc/adjust_var(mob/living/target = usr, type, amount) //handles the adjustment of the var when the spell is used. has some hardcoded types
 	switch(type)

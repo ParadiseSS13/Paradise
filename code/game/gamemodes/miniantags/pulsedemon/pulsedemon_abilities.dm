@@ -32,7 +32,7 @@
 	else
 		name = "[initial(name)][cast_cost == 0 ? "" : " ([format_si_suffix(cast_cost)]W)"]"
 		desc = "[initial(desc)][spell_level == level_max ? "" : " It costs [format_si_suffix(upgrade_cost)]W to upgrade."]"
-	action.button.name = name
+	action.name = name
 	action.desc = desc
 	action.UpdateButtons()
 
