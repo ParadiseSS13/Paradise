@@ -10,10 +10,11 @@
 
 /atom/movable/screen/movable
 	var/snap2grid = FALSE
-	var/moved = FALSE
-	var/locked = TRUE
 	var/x_off = -16
 	var/y_off = -16
+	// add a green overlay
+	mouse_drag_pointer = 'icons/mouse_icons/screen_drag.dmi'
+
 
 //Snap Screen Object
 //Tied to the grid, snaps to the nearest turf
