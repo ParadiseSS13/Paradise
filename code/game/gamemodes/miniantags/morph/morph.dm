@@ -146,7 +146,7 @@
 /mob/living/simple_animal/hostile/morph/proc/add_food(amount)
 	gathered_food += amount
 	for(var/datum/action/spell_action/action in actions)
-		action.UpdateButtonIcon()
+		action.UpdateButtons()
 
 
 /mob/living/simple_animal/hostile/morph/proc/assume()
@@ -156,8 +156,8 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 5
 	speed = MORPHED_SPEED
-	ambush_spell.updateButtonIcon()
-	pass_airlock_spell.updateButtonIcon()
+	ambush_spell.UpdateButtons()
+	pass_airlock_spell.UpdateButtons()
 	move_resist = MOVE_FORCE_DEFAULT // They become more fragile and easier to move
 
 /mob/living/simple_animal/hostile/morph/proc/restore()
@@ -172,7 +172,7 @@
 	if(ambush_prepared)
 		to_chat(src, "<span class='warning'>The ambush potential has faded as you take your true form.</span>")
 	failed_ambush()
-	pass_airlock_spell.updateButtonIcon()
+	pass_airlock_spell.UpdateButtons()
 	move_resist = MOVE_FORCE_STRONG // Return to their fatness
 
 
@@ -184,7 +184,7 @@
 
 /mob/living/simple_animal/hostile/morph/proc/failed_ambush()
 	ambush_prepared = FALSE
-	ambush_spell.updateButtonIcon()
+	ambush_spell.UpdateButtons()
 	mimic_spell.perfect_disguise = FALSE // Reset the perfect disguise
 	remove_status_effect(/datum/status_effect/morph_ambush)
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)

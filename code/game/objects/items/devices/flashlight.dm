@@ -39,7 +39,7 @@
 	update_brightness()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 	return TRUE
 
 /obj/item/flashlight/attack(mob/living/M as mob, mob/living/user as mob)

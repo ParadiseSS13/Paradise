@@ -5,6 +5,9 @@
 #define AB_CHECK_TURF			(1<<4)
 #define AB_CHECK_HANDS_BLOCKED	(1<<5)
 #define AB_CHECK_IMMOBILE		(1<<6)
+// todo undef this
+#define ACTION_BUTTON_DEFAULT_BACKGROUND "_use_ui_default_background"
+
 
 
 /datum/action
@@ -17,6 +20,7 @@
 	var/buttontooltipstyle = ""
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
 	var/button_icon_state = "default"
+	var/transparent_when_unavailable = TRUE
 	var/mob/owner
 	/// Where any buttons we create should be by default. Accepts screen_loc and location defines
 	var/default_button_position = SCRN_OBJ_IN_LIST

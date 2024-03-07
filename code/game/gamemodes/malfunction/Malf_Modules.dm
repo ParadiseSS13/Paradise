@@ -44,7 +44,7 @@
 		qdel(src)
 	else
 		desc = "[initial(desc)] It has [uses] use\s remaining."
-		UpdateButtonIcon()
+		UpdateButtons()
 
 //Framework for ranged abilities that can have different effects by left-clicking stuff.
 /datum/action/innate/ai/ranged
@@ -190,7 +190,7 @@
 					else //Adding uses to an existing module
 						action.uses += initial(action.uses)
 						action.desc = "[initial(action.desc)] It has [action.uses] use\s remaining."
-						action.UpdateButtonIcon()
+						action.UpdateButtons()
 						temp = "Additional use[action.uses > 1 ? "s" : ""] added to [action.name]!"
 			processing_time -= AM.cost
 

@@ -93,7 +93,7 @@
 	QDEL_NULL(palette_up)
 	QDEL_NULL(palette_actions)
 	QDEL_NULL(listed_actions)
-	QDEL_LIST(floating_actions)
+	QDEL_LIST_CONTENTS(floating_actions)
 
 	QDEL_NULL(module_store_icon)
 	QDEL_LIST_CONTENTS(static_inventory)

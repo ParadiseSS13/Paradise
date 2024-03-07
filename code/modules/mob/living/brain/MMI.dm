@@ -68,7 +68,7 @@
 				alien = 0
 
 			if(radio_action)
-				radio_action.UpdateButtonIcon()
+				radio_action.UpdateButtons()
 			SSblackbox.record_feedback("amount", "mmis_filled", 1)
 		else
 			to_chat(user, "<span class='warning'>You can't drop [B]!</span>")
@@ -167,7 +167,7 @@
 /obj/item/mmi/proc/become_occupied(new_icon)
 	icon_state = new_icon
 	if(radio)
-		radio_action.UpdateButtonIcon()
+		radio_action.UpdateButtons()
 
 /obj/item/mmi/examine(mob/user)
 	. = ..()

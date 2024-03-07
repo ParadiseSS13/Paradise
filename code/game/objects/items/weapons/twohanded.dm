@@ -446,7 +446,7 @@
 		user.update_inv_r_hand()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/chainsaw/attack_hand(mob/user)
 	. = ..()

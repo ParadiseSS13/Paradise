@@ -34,7 +34,7 @@
 		desc = "[initial(desc)][spell_level == level_max ? "" : " It costs [format_si_suffix(upgrade_cost)]W to upgrade."]"
 	action.button.name = name
 	action.desc = desc
-	action.UpdateButtonIcon()
+	action.UpdateButtons()
 
 /obj/effect/proc_holder/spell/pulse_demon/can_cast(mob/living/simple_animal/demon/pulse_demon/user, charge_check, show_message)
 	if(!..())
@@ -257,7 +257,7 @@
 /obj/effect/proc_holder/spell/pulse_demon/toggle/proc/do_toggle(varstate, mob/user)
 	if(action)
 		action.background_icon_state = varstate ? action_background_icon_state : "[action_background_icon_state]_disabled"
-		action.UpdateButtonIcon()
+		action.UpdateButtons()
 	if(user)
 		to_chat(user, "<span class='notice'>You will [varstate ? "now" : "no longer"] [base_message]</span>")
 	return varstate
