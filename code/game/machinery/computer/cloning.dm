@@ -42,10 +42,16 @@
 	new /obj/item/book/manual/medical_cloning(get_turf(src)) //hopefully this stems the tide of mhelps during the TM...
 
 /obj/machinery/computer/cloning/Destroy()
+	if(scanner)
+		scanner.console = null
+	if(pods)
+		for(var/obj/machinery/clonepod/P in pods)
+			P.console = null
 	return ..()
 
-/obj/machinery/computer/cloning/process()
+/obj/machinery/computer/cloning/examine(mob/user)
 	. = ..()
+	. += "<span class='notice'>[src] is currently [locked ? "locked" : "unlocked"], and can be [locked ? "unlocked" : "locked"] by swiping an ID with medical access on it.</span>"
 
 /obj/machinery/computer/cloning/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
@@ -73,6 +79,8 @@
 		pods += M.buffer
 		buffer_pod.console = src
 		to_chat(user, "<span class='notice'>[M.buffer] was successfully added to the cloning pod array.</span>")
+		if(!selected_pod)
+			selected_pod = buffer_pod
 		return
 
 	if(istype(M.buffer, /obj/machinery/clonescanner))
@@ -135,7 +143,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(!allowed(user) && locked)
+	if(!allowed(user) && locked && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 
@@ -235,6 +243,7 @@
 			switch(text2num(params["tab"]))
 				if(TAB_MAIN)
 					tab = TAB_MAIN
+					scanner?.has_scanned = FALSE
 					return TRUE
 				if(TAB_DAMAGES_BREAKDOWN)
 					tab = TAB_DAMAGES_BREAKDOWN

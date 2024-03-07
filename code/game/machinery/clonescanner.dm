@@ -88,6 +88,10 @@
 	for(var/obj/item/stock_parts/SP in component_parts)
 		scanning_tier += SP.rating
 
+/obj/machinery/clonescanner/Destroy()
+	if(console)
+		console.scanner = null
+	return ..()
 
 /obj/machinery/clonescanner/MouseDrop_T(atom/movable/O, mob/user)
 	if(!(ishuman(user) || issilicon(user)) || user.incapacitated())

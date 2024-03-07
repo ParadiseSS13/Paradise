@@ -80,6 +80,9 @@
 	var/desc_flavor = "It doesn't seem to be doing anything right now."
 	/// The countdown.
 	var/obj/effect/countdown/clonepod/countdown
+	/// Whether or not the interface is locked.
+	var/locked = TRUE
+	req_access = list(ACCESS_MEDICAL)
 
 	/// The speed at which we clone. Each processing cycle will advance clone_progress by this amount.
 	var/speed_modifier = 1
@@ -150,8 +153,11 @@
 
 /obj/machinery/clonepod/Destroy()
 	if(console)
-		console.pods =- src
-		console = null
+		console.pods -= src
+		if(console.selected_pod == src && length(console.pods) > 0)
+			console.selected_pod = pick(console.pods)
+		else
+			console.selected_pod = null
 
 	QDEL_NULL(countdown)
 	return ..()
@@ -159,6 +165,7 @@
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>[desc_flavor]</span>"
+	. += "<span class='notice'>[src] is currently [locked ? "locked" : "unlocked"], and can be [locked ? "unlocked" : "locked"] by swiping an ID with medical access on it.</span>"
 
 /obj/machinery/clonepod/attack_ai(mob/user)
 	return examine(user)
@@ -550,6 +557,14 @@
 	if(I.is_open_container())
 		return
 
+	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+		if(allowed(user))
+			locked = !locked
+			to_chat(user, "<span class='notice'>Access restriction is now [locked ? "enabled" : "disabled"].</span>")
+		else
+			to_chat(user, "<span class='warning'>Access denied.</span>")
+		return
+
 	if(is_int_organ(I) || isorgan(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
 		insert_organ(I, user)
 		return
@@ -601,6 +616,13 @@
 
 //TGUI
 /obj/machinery/clonepod/ui_interact(mob/user, datum/tgui/ui = null)
+	if(stat & (NOPOWER|BROKEN))
+		return
+
+	if(!allowed(user) && locked && !isobserver(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return
+
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CloningPod", "Cloning Pod")
