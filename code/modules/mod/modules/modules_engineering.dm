@@ -293,6 +293,8 @@
 		poll_ghosts_for_drone(mod.wearer)
 
 /obj/item/mod/module/drone/proc/create_new_drone(mob/living/user, mob/to_be_droned)
+	if(!mod.wearer)
+		return FALSE
 	if(stored_drone)
 		to_chat(user, "<span class='notice'>There is already a drone stored in [src]!</span>")
 		return FALSE

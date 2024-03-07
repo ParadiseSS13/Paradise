@@ -171,6 +171,9 @@
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(stat == DEAD)
 			return
+		if(!allowed(I))
+			to_chat(user, "<span class='warning'>Access denied.</span>")
+			return
 
 		var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
 		if(confirm == "Yes" && in_range(user , src))
@@ -179,10 +182,7 @@
 
 			if(emagged)
 				return
-			if(allowed(I))
-				shut_down()
-			else
-				to_chat(user, "<span class='warning'>Access denied.</span>")
+			shut_down()
 
 		return
 
