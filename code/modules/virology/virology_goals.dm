@@ -33,6 +33,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal/Destroy()
 	LAZYREMOVE(GLOB.virology_goals, src)
+	LAZYREMOVE(GLOB.archived_virology_goals, src)
 	. = ..()
 
 /datum/virology_goal/Topic(href, href_list)
@@ -58,7 +59,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		goal_symptom = S.type
 		goal_symptom_name = S.name
 		goal_property = pick("resistance", "stealth", "stage rate", "transmittable")  
-		goal_property_value = rand(-18 , 11)
+		goal_property_value = rand(-18, 11)
 		switch(goal_property)
 			if("resistance")
 				goal_property_value += S.resistance
@@ -81,9 +82,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal/property_symptom/get_report()
 	return {"<b>Effects of [goal_symptom_name] symptom and level [goal_property_value] [goal_property]</b><br>
-	Viral samples with a specific symptom and properties are required to study the effects of this symptom in various conditions. We need you to deliver [delivery_goal]u of viral samples containing the [goal_symptom_name] symptom and with the [goal_property] property at level [goal_property_value] along with 3 other symptoms to us through the cargo shuttle.
-	<br>
-	-Nanotrasen Virology Research"}
+	Viral samples with a specific symptom and properties are required to study the effects of this symptom in various conditions. We need you to deliver [delivery_goal]u of viral samples containing the [goal_symptom_name] symptom and with the [goal_property] property at level [goal_property_value] along with 3 other symptoms to us through the cargo shuttle."}
 
 /datum/virology_goal/property_symptom/get_ui_report()
 	return {"Viral samples with a specific symptom and properties are required to study the effects of this symptom in various conditions. We need you to deliver [delivery_goal]u of viral samples containing the [goal_symptom_name] symptom and with the [goal_property] property at level [goal_property_value] along with 3 other symptoms to us through the cargo shuttle."}
@@ -91,6 +90,8 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 /datum/virology_goal/property_symptom/check_completion(list/datum/reagent/reagent_list)
 	. = FALSE
 	var/datum/reagent/blood/BL = locate() in reagent_list
+	if(!BL)
+		return
 	if(BL && BL.data && BL.data["viruses"])
 		for(var/datum/disease/advance/D in BL.data["viruses"])
 			if(length(D.symptoms) < 4) //We want 3 other symptoms alongside the requested one
@@ -121,10 +122,14 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		var/stealth = 0
 		for(var/i in 1 to 5)
 			var/list/candidates = list()
-			for(var/datum/symptom/V as anything in symptoms) //There is a "as anything" added because for some mystery reason it doesnt work without it
+			for(var/V as anything in symptoms) //There is a "as anything" added because for some mystery reason it doesnt work without it
 				var/datum/symptom/S = V
-				if(stealth + S.stealth >= 3) //The Pandemic cant detect a virus with stealth 3 or higher and we dont want that, this isnt a stealth virus
-					continue
+				if(istype(src, /datum/virology_goal/virus/stealth))
+					if(stealth + S.stealth < 3) //The Pandemic cant detect a virus with stealth 3 or higher and we want that, this is a stealth virus
+						continue
+				else
+					if(stealth + S.stealth >= 3) //The Pandemic cant detect a virus with stealth 3 or higher and we dont want that, this isnt a stealth virus
+						continue
 				candidates += S
 			var/datum/symptom/S2 = pick(candidates)
 			goal_symptoms += S2
@@ -142,9 +147,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal/virus/get_report()
 	return {"<b>[name]</b><br>
-	A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with this exact set of symptoms to us through the cargo shuttle:<br>[symptoms_list2text()]
-	<br>
-	-Nanotrasen Virology Research"}
+	A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with this exact set of symptoms to us through the cargo shuttle:<br>[symptoms_list2text()]"}
 
 /datum/virology_goal/virus/get_ui_report()
 	return {"A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with this exact set of symptoms to us through the cargo shuttle: [symptoms_list2text()]"}
@@ -158,6 +161,8 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 /datum/virology_goal/virus/check_completion(list/datum/reagent/reagent_list)
 	. = FALSE
 	var/datum/reagent/blood/BL = locate() in reagent_list
+	if(!BL)
+		return
 	if(BL && BL.data && BL.data["viruses"])
 		for(var/datum/disease/advance/D in BL.data["viruses"])
 			if(length(D.symptoms) != length(goal_symptoms)) //This is here so viruses with extra symptoms dont get approved
@@ -174,23 +179,3 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal/virus/stealth
 	name = "Specific Viral Sample Request (Stealth)"
-
-/datum/virology_goal/virus/stealth/New()
-	var/first_loop = TRUE
-	do
-		first_loop = FALSE
-		goal_symptoms = list()
-		var/list/symptoms = subtypesof(/datum/symptom)
-		var/stealth = 0
-		for(var/i in 1 to 5)
-			var/list/candidates = list()
-			for(var/datum/symptom/V as anything in symptoms) //There is a "as anything" added because for some mystery reason it doesnt work without it
-				var/datum/symptom/S = V
-				if(stealth + S.stealth < 3) //The Pandemic cant detect a virus with stealth 3 or higher and we want that, this is a stealth virus
-					continue
-				candidates += S
-			var/datum/symptom/S2 = pick(candidates)
-			goal_symptoms += S2
-			stealth += S2.stealth
-			symptoms -= S2
-	while(check_for_duplicate() || first_loop)

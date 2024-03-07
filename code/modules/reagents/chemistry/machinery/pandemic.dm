@@ -229,15 +229,16 @@
 	var/obj/item/paper/P = new /obj/item/paper(loc)
 	P.name = "paper- 'Viral Samples Request'"
 
-	var/info_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
+	var/list/info_text = list("<div style='text-align:center;'><img src='ntlogo.png'>")
 	info_text += "<h3>Viral Sample Orders</h3></div><hr>"
 	info_text += "<b>Viral Sample Orders for [station_name()]'s Virologist:</b><br><br>"
 
 	for(var/datum/virology_goal/G in GLOB.virology_goals)
 		info_text += G.get_report()
 		info_text += "<hr>"
+	info_text += "-Nanotrasen Virology Research"
 
-	P.info = info_text
+	P.info = info_text.Join("")
 	P.update_icon()
 
 /obj/machinery/computer/pandemic/attack_hand(mob/user)
