@@ -298,7 +298,7 @@
 
 /// Adds anything in `subsystems` to the robot's verbs, and grants any actions that are in `module_actions`.
 /obj/item/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
-	R.verbs |= subsystems
+	add_verb(R, subsystems)
 	for(var/A in module_actions)
 		var/datum/action/act = new A()
 		act.Grant(R)
@@ -306,7 +306,7 @@
 
 /// Removes any verbs from the robot that are in `subsystems`, and removes any actions that are in `module_actions`.
 /obj/item/robot_module/proc/remove_subsystems_and_actions(mob/living/silicon/robot/R)
-	R.verbs -= subsystems
+	remove_verb(R, subsystems)
 	for(var/datum/action/A in R.module_actions)
 		A.Remove(R)
 		qdel(A)
