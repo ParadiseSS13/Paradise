@@ -39,7 +39,7 @@ export const BotFloor = (props, context) => {
             fluid
             checked={replace}
             content="Add floor tiles on exposed hull plating"
-            tooltip="Example: It will add tiles to maintanence"
+            tooltip="Example: It will add tiles to maintenance"
             disabled={noaccess}
             onClick={() => act('replacetiles')}
           />
