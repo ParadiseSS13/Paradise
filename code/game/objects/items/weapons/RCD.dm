@@ -144,6 +144,8 @@
 			useResource(5, user)
 			user.visible_message("<span class='suicide'>[user] deconstructs [user.p_they()]self with [src]!</span>")
 			playsound(loc, usesound, 50, 1)
+			for(var/obj/item/W in user)	// Do not delete all their stuff.
+				user.unEquip(W)
 			user.dust()
 			return OBLITERATION
 		user.visible_message("<span class='suicide'>[user] doesn't have [src] anymore, [user.p_they()] cannot commit suicide with it!</span>", \
