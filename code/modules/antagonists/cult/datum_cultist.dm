@@ -48,7 +48,7 @@
 
 	if(remove_gear_on_removal) // ctodo unsure if this needs to be a boolean
 		for(var/I in H.contents)
-			if(is_type_in_list(I, CULT_CLOTHING)) // ctodo, remove
+			if(is_type_in_list(I, CULT_CLOTHING)) // ctodo, remove this define
 				H.unEquip(I)
 	return ..()
 

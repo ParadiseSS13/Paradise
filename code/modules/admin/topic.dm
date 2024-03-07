@@ -1631,9 +1631,8 @@
 			return
 
 		if(href_list["team_command"] == "switch_team_tab")
-			log_debug("[team_switch_tab_index], [href_list["team_index"]], [length(GLOB.antagonist_teams)]") // ctodo remove this
 			team_switch_tab_index = clamp(text2num(href_list["team_index"]), 1, length(GLOB.antagonist_teams))
-			log_debug("[team_switch_tab_index], [href_list["team_index"]], [length(GLOB.antagonist_teams)]")
+			check_teams()
 			return
 
 		var/datum/mind/member

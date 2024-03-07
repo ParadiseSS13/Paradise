@@ -2,7 +2,9 @@
 	var/datum/team/cult/cult_team
 
 /datum/game_mode/proc/get_cult_team()
-	return cult_team || new /datum/team/cult()
+	if(!cult_team)
+		cult_team = new /datum/team/cult()
+	return cult_team
 
 /datum/game_mode/cult
 	name = "cult"
