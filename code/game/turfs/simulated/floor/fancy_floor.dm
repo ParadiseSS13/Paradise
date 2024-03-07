@@ -53,6 +53,7 @@
 	oxygen = 14
 	temperature = 300
 
+// Grass
 /turf/simulated/floor/grass
 	name = "grass patch"
 	icon = 'icons/turf/floors/grass.dmi'
@@ -102,7 +103,6 @@
 	transform = null
 
 //Carpets
-
 /turf/simulated/floor/carpet
 	name = "carpet"
 	icon = 'icons/turf/floors/carpet.dmi'
@@ -200,6 +200,18 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET, SMOOTH_GROUP_CARPET_ROYALBLUE)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_ROYALBLUE)
 
+// Bamboo mats
+/turf/simulated/floor/carpet/bamboo
+	name = "bamboo"
+	icon_state = "mat-0"
+	base_icon_state = ""
+	floor_tile = /obj/item/stack/tile/bamboo
+	prying_tool_list = list(TOOL_SCREWDRIVER)
+	broken_states = list("bamboo-damaged")
+	footstep = FOOTSTEP_WOOD
+	barefootstep = FOOTSTEP_WOOD_BAREFOOT
+	clawfootstep = FOOTSTEP_WOOD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 /turf/simulated/floor/carpet/airless
 	oxygen = 0
 	nitrogen = 0

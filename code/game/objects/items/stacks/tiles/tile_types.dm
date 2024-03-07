@@ -68,6 +68,45 @@
 	energy_type = /datum/robot_energy_storage/wood_tile
 	is_cyborg = TRUE
 
+
+//Bamboo
+/obj/item/stack/tile/bamboo
+	name = "bamboo mat pieces"
+	singular_name = "bamboo mat piece"
+	desc = "A piece of a bamboo mat with a decorative trim."
+	icon_state = "tile_bamboo"
+	turf_type = /turf/simulated/floor/bamboo
+	merge_type = /obj/item/stack/tile/bamboo
+	resistance_flags = FLAMMABLE
+	// tile_reskin_types = list( TODO: man...
+	// 	/obj/item/stack/tile/bamboo,
+	// 	/obj/item/stack/tile/bamboo/tatami,
+	// 	/obj/item/stack/tile/bamboo/tatami/purple,
+	// 	/obj/item/stack/tile/bamboo/tatami/black,
+	// )
+
+/obj/item/stack/tile/bamboo/tatami
+	name = "Tatami with green rim"
+	singular_name = "green tatami floor tile"
+	icon_state = "tile_tatami_green"
+	turf_type = /turf/simulated/floor/bamboo/tatami
+	merge_type = /obj/item/stack/tile/bamboo/tatami
+	//tile_rotate_dirs = list(NORTH, EAST, SOUTH, WEST) TODO: man!!!
+
+/obj/item/stack/tile/bamboo/tatami/purple
+	name = "Tatami with purple rim"
+	singular_name = "purple tatami floor tile"
+	icon_state = "tile_tatami_purple"
+	turf_type = /turf/simulated/floor/bamboo/tatami/purple
+	merge_type = /obj/item/stack/tile/bamboo/tatami/purple
+
+/obj/item/stack/tile/bamboo/tatami/black
+	name = "Tatami with black rim"
+	singular_name = "black tatami floor tile"
+	icon_state = "tile_tatami_black"
+	turf_type = /turf/simulated/floor/bamboo/tatami/black
+	merge_type = /obj/item/stack/tile/bamboo/tatami/black
+
 //Carpets
 /obj/item/stack/tile/carpet
 	name = "carpet"
