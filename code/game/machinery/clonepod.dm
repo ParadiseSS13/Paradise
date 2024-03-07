@@ -621,6 +621,8 @@
 
 	if(!allowed(user) && locked && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
+		if(ui)
+			ui.close()
 		return
 
 	ui = SStgui.try_update_ui(user, src, ui)

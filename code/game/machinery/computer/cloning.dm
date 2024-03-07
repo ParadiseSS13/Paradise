@@ -145,6 +145,8 @@
 
 	if(!allowed(user) && locked && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
+		if(ui)
+			ui.close()
 		return
 
 	var/datum/asset/simple/cloning/assets = get_asset_datum(/datum/asset/simple/cloning)
