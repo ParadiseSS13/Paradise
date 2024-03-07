@@ -91,7 +91,8 @@
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
 
-/turf/simulated/floor/beach/water // TODO - Refactor water so they share the same parent type - Or alternatively component something like that
+/// TODO - Refactor water so they share the same parent type - Or alternatively component something like that
+/turf/simulated/floor/beach/water
 	name = "water"
 	icon_state = "water"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

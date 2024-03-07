@@ -179,43 +179,38 @@
 	if(!body_accessory)
 		change_body_accessory("Plain Wings")
 
-/mob/living/carbon/human/Stat()
-	..()
-	if(!statpanel("Status"))
-		return
+/mob/living/carbon/human/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
 
-	stat(null, "Intent: [a_intent]")
-	stat(null, "Move Mode: [m_intent]")
-
-	show_stat_emergency_shuttle_eta()
+	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
+	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
 
 	if(HAS_TRAIT(src, TRAIT_HAS_GPS))
 		var/turf/T = get_turf(src)
-		stat(null, "GPS: [COORD(T)]")
+		status_tab_data[++status_tab_data.len] = list("GPS:", "[COORD(T)]")
 	if(HAS_TRAIT(src, TRAIT_CAN_VIEW_HEALTH))
-		stat(null, "Health: [health]")
+		status_tab_data[++status_tab_data.len] = list("Health:", "[health]")
 
 	if(internal)
 		if(!internal.air_contents)
 			qdel(internal)
-		else if(client?.prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL)
-			stat(null, "Internals Tank Connected")
 		else
-			stat("Internal Atmosphere Info", internal.name)
-			stat("Tank Pressure", internal.air_contents.return_pressure())
-			stat("Distribution Pressure", internal.distribute_pressure)
+			status_tab_data[++status_tab_data.len] = list("Internal Atmosphere Info:", "[internal.name]")
+			status_tab_data[++status_tab_data.len] = list("Tank Pressure:", "[internal.air_contents.return_pressure()]")
+			status_tab_data[++status_tab_data.len] = list("Distribution Pressure:", "[internal.distribute_pressure]")
 
 	// I REALLY need to split up status panel things into datums
 	if(mind)
 		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(cling)
-			stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
-			stat("Absorbed DNA", cling.absorbed_count)
+			status_tab_data[++status_tab_data.len] = list("Chemical Storage:", "[cling.chem_charges]/[cling.chem_storage]")
+			status_tab_data[++status_tab_data.len] = list("Absorbed DNA:", "[cling.absorbed_count]")
 
 		var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
 		if(V)
-			stat("Total Blood", "[V.bloodtotal]")
-			stat("Usable Blood", "[V.bloodusable]")
+			status_tab_data[++status_tab_data.len] = list("Total Blood:", "[V.bloodtotal]")
+			status_tab_data[++status_tab_data.len] = list("Usable Blood:", "[V.bloodusable]")
 
 /mob/living/carbon/human/ex_act(severity)
 	if(status_flags & GODMODE)
@@ -764,7 +759,7 @@
 	if(href_list["secrecordadd"])
 		if(usr.incapacitated() || !hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
 			return
-		var/raw_input = input("Add Comment:", "Security records", null, null) as message
+		var/raw_input = tgui_input_text(usr, "Add Comment:", "Security records", multiline = TRUE, encode = FALSE)
 		var/sanitized = copytext(trim(sanitize(raw_input)), 1, MAX_MESSAGE_LEN)
 		if(!sanitized || usr.stat || usr.restrained() || !hasHUD(usr,  EXAMINE_HUD_SECURITY_WRITE))
 			return
@@ -865,7 +860,7 @@
 	if(href_list["medrecordadd"])
 		if(usr.incapacitated() || !hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 			return
-		var/raw_input = input("Add Comment:", "Medical records", null, null) as message
+		var/raw_input = tgui_input_text(usr, "Add Comment:", "Medical records", multiline = TRUE, encode = FALSE)
 		var/sanitized = copytext(trim(sanitize(raw_input)), 1, MAX_MESSAGE_LEN)
 		if(!sanitized || usr.stat || usr.restrained() || !hasHUD(usr,  EXAMINE_HUD_MEDICAL_WRITE))
 			return
@@ -1254,6 +1249,46 @@
 	sec_hud_set_ID()
 
 
+
+/mob/living/carbon/human/proc/export_dmi_json()
+	var/filename = clean_input("filename", "filename", "my_character")
+
+	if(filename == "")
+		return
+
+	var/maxCount = 10
+	var/curCount = 0
+	var/dmipath = "data/exports/characters/[filename].dmi"
+	log_world("saving icon to [filename]")
+	var/icon/allDirs = null
+
+	var/list/directions = list(SOUTH, NORTH, EAST, WEST)
+	for(var/d in directions)
+		var/icon/new_icon
+		for(var/i = 0; i < maxCount; i++)
+			sleep(5)
+			curCount = i
+			new_icon = getFlatIcon(src, defdir=d)
+			if(new_icon != null)
+				break
+
+		if(new_icon == null)
+			log_world("ran [curCount] times and could not find icon")
+		else
+			log_world("ran [curCount] times and found icon")
+			if(allDirs == null)
+				allDirs = icon(new_icon, "", d)
+			else
+				allDirs.Insert(new_icon, "", d)
+
+	fcopy(allDirs, dmipath)
+	log_world("saved icon to [dmipath]")
+
+	var/jsonpath = "data/exports/characters/[filename].json"
+	var/json = json_encode(serialize())
+	text2file(json, jsonpath)
+	log_world("saved json to [jsonpath]")
+
 /**
  * Change a mob's species.
  *
@@ -1475,7 +1510,7 @@
 		to_chat(src, "<span class='warning'>You can't write on the floor in your current state!</span>")
 		return
 	if(!bloody_hands)
-		verbs -= /mob/living/carbon/human/proc/bloody_doodle
+		remove_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 
 	if(gloves)
 		to_chat(src, "<span class='warning'>[gloves] are preventing you from writing anything down!</span>")
@@ -1505,7 +1540,7 @@
 
 	var/max_length = bloody_hands * 30 //tweeter style
 
-	var/message = stripped_input(src,"Write a message. It cannot be longer than [max_length] characters.","Blood writing", "")
+	var/message = tgui_input_text(src, "Write a message. It cannot be longer than [max_length] characters.", "Blood writing", max_length = max_length)
 	if(origin != loc)
 		to_chat(src, "<span class='notice'>Stay still while writing!</span>")
 		return
@@ -1558,7 +1593,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return FALSE
 
 /mob/living/carbon/human/assess_threat(mob/living/simple_animal/bot/secbot/judgebot, lasercolor)
-	if(judgebot.emagged == 2)
+	if(judgebot.emagged)
 		return 10 //Everyone is a criminal!
 
 	var/threatcount = 0
@@ -2145,7 +2180,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(stat)
 		return
 
-	pose = sanitize(copytext_char(input(usr, "This is [src]. [p_they(TRUE)]...", "Pose", null) as text, 1, MAX_MESSAGE_LEN))
+	pose = tgui_input_text(usr, "This is [src]. [p_they(TRUE)]...", "Pose")
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Set Flavour Text"

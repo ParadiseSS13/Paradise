@@ -182,7 +182,8 @@
 	name = "cyborg mining satchel"
 	flags = NODROP
 
-/obj/item/storage/bag/ore/holding //miners, your messiah has arrived
+/// miners, your messiah has arrived
+/obj/item/storage/bag/ore/holding
 	name = "mining satchel of holding"
 	desc = "A revolution in convenience, this satchel allows for infinite ore storage. It's been outfitted with anti-malfunction safety measures."
 	storage_slots = INFINITY
@@ -202,8 +203,8 @@
 	name = "plant bag"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbag"
-	storage_slots = 100 //the number of plant pieces it can carry.
-	max_combined_w_class = 100 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
+	storage_slots = 40 //the number of plant pieces it can carry.
+	max_combined_w_class = 40 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/food/snacks/grown,/obj/item/seeds,/obj/item/grown,/obj/item/food/snacks/grown/ash_flora,/obj/item/food/snacks/honeycomb)
@@ -244,7 +245,8 @@
 // Because it stacks stacks, this doesn't operate normally.
 // However, making it a storage/bag allows us to reuse existing code in some places. -Sayu
 
-/obj/item/storage/bag/sheetsnatcher // what is this even used for
+/// what is this even used for
+/obj/item/storage/bag/sheetsnatcher
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sheetsnatcher"
 	name = "Sheet Snatcher"

@@ -148,6 +148,7 @@
 	else
 		visible_message("[user] puts [H] into the body scanner.")
 
+	QDEL_LIST_CONTENTS(H.grabbed_by)
 	H.forceMove(src)
 	occupant = H
 	playsound(src, 'sound/machines/podclose.ogg', 5)

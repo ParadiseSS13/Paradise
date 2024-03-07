@@ -277,18 +277,14 @@
 
 // this function shows the health of the pAI in the Status panel
 /mob/living/silicon/proc/show_system_integrity()
-	if(!src.stat)
-		stat(null, text("System integrity: [round((health/maxHealth)*100)]%"))
-	else
-		stat(null, text("Systems nonfunctional"))
+	return list("System integrity:", stat ? "Nonfunctional" : "[round((health / maxHealth) * 100)]%")
 
 
 // This adds the basic clock, shuttle recall timer, and malf_ai info to all silicon lifeforms
-/mob/living/silicon/Stat()
-	..()
-	if(statpanel("Status"))
-		show_stat_emergency_shuttle_eta()
-		show_system_integrity()
+/mob/living/silicon/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = show_system_integrity()
 
 //Silicon mob language procs
 
@@ -337,7 +333,7 @@
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
 
-	pose =  sanitize(copytext_char(input(usr, "This is [src]. It...", "Pose", null) as text, 1, MAX_MESSAGE_LEN))
+	pose = tgui_input_text(usr, "This is [src]. It...", "Pose", pose)
 
 /mob/living/silicon/verb/set_flavor()
 	set name = "Set Flavour Text"
@@ -409,7 +405,7 @@
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access
 
-/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash/noise)
+/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash/noise)
 	if(affect_silicon)
 		return ..()
 

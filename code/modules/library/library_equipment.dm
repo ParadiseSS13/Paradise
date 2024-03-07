@@ -411,11 +411,11 @@
 		if(BARCODE_MODE_CHECKOUT)
 			var/confirm
 			if(!computer.user_data.patron_account)
-				confirm = alert("Warning: patron does not have an associated account number! Are you sure you want to checkout [B] to [computer.user_data.patron_name]?", "Confirm Checkout", "Yes", "No")
+				confirm = tgui_alert(user, "Warning: patron does not have an associated account number! Are you sure you want to checkout [B] to [computer.user_data.patron_name]?", "Confirm Checkout", list("Yes", "No"))
 			else
-				confirm = alert("Are you sure you want to checkout [B] to [computer.user_data.patron_name]?", "Confirm Checkout", "Yes", "No")
+				confirm = tgui_alert(user, "Are you sure you want to checkout [B] to [computer.user_data.patron_name]?", "Confirm Checkout", list("Yes", "No"))
 
-			if(confirm == "No")
+			if(confirm != "Yes")
 				return
 			if(computer.checkout(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)

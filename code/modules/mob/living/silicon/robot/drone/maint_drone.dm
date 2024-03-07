@@ -74,7 +74,7 @@
 		var/datum/robot_component/C = components[V]
 		C.max_damage = 10
 
-	verbs -= /mob/living/silicon/robot/verb/Namepick
+	remove_verb(src, /mob/living/silicon/robot/verb/Namepick)
 	module = new /obj/item/robot_module/drone(src)
 	// Give us our action button
 	var/datum/action/innate/hide/drone_hide/hide = new()
@@ -105,7 +105,7 @@
 
 /mob/living/silicon/robot/drone/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/drone()
-	connected_ai = null
+	set_connected_ai(null)
 
 	aiCamera = new /obj/item/camera/siliconcam/drone_camera(src)
 	additional_law_channels["Drone"] = ";"
@@ -178,7 +178,7 @@
 			return
 
 		else
-			var/confirm = alert("Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", "Yes", "No")
+			var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
 			if(confirm == ("Yes") && (user in range(3, src)))
 				user.visible_message("<span class='warning'>[user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>",
 					"<span class='warning'>You swipe your ID card through [src], attempting to shut it down.</span>")
@@ -237,7 +237,7 @@
 	icon_state = "repairbot-emagged"
 	holder_type = /obj/item/holder/drone/emagged
 	update_icons()
-	connected_ai = null
+	set_connected_ai(null)
 	clear_supplied_laws()
 	clear_inherent_laws()
 	laws = new /datum/ai_laws/syndicate_override
@@ -311,7 +311,7 @@
 	spawn(0)
 		if(!C || !M || jobban_isbanned(M, "nonhumandept") || jobban_isbanned(M, "Drone"))
 			return
-		var/response = alert(C, "Someone is attempting to reboot a maintenance drone. Would you like to play as one?", "Maintenance drone reboot", "Yes", "No")
+		var/response = tgui_alert(C, "Someone is attempting to reboot a maintenance drone. Would you like to play as one?", "Maintenance drone reboot", list("Yes", "No"))
 		if(!C || ckey)
 			return
 		if(response == "Yes")
@@ -369,10 +369,10 @@
 			to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
-	verbs |= silicon_subsystems
+	add_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/drone/remove_robot_verbs()
-	verbs -= silicon_subsystems
+	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/drone/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
 	..()

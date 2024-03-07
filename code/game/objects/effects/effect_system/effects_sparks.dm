@@ -45,6 +45,17 @@
 /datum/effect_system/spark_spread
 	effect_type = /obj/effect/particle_effect/sparks
 
+/datum/effect_system/spark_spread/generate_effect()
+	var/spark_budget = GLOBAL_SPARK_LIMIT - GLOB.sparks_active
+	if(spark_budget <= 0)
+		return
+	GLOB.sparks_active++
+	return ..()
+
+/datum/effect_system/spark_spread/decrement_total_effect()
+	GLOB.sparks_active--
+	return ..()
+
 //////////////////////////////////
 //////SPARKLE FIREWORKS
 /////////////////////////////////

@@ -53,7 +53,7 @@
 	if(!message && !client)
 		CRASH("An empty custom emote was called from a client-less mob.")
 	else if(!message)
-		input = sanitize(copytext_char(input(src,"Choose an emote to display.") as text|null, 1, MAX_MESSAGE_LEN))
+		input = tgui_input_text(src, "Choose an emote to display.", "Custom Emote")
 	else
 		input = message
 

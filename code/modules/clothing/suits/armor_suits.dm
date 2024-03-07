@@ -88,7 +88,7 @@
 
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield's security armor"
-	desc = "An armored vest with the badge of a Blueshield Lieutenant."
+	desc = "An armored vest with the badge of a Blueshield."
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 	)
@@ -648,7 +648,8 @@
 		disable(rand(2, 5))
 		return TRUE
 
-/obj/item/clothing/suit/armor/reactive/random //Spawner for random reactive armor
+/// Spawner for random reactive armor
+/obj/item/clothing/suit/armor/reactive/random
 	name = "Random Reactive Armor"
 
 /obj/item/clothing/suit/armor/reactive/random/Initialize(mapload)

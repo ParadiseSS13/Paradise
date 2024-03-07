@@ -74,7 +74,7 @@ SUBSYSTEM_DEF(changelog)
 
 	// If we are ready, process the button style
 	if(C.prefs.lastchangelog != current_cl_timestamp)
-		winset(C, "rpane.changelog", "border=line;font-style=bold")
+		winset(C, "rpane.changelog", "border=line;background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
 		to_chat(C, "<span class='boldnotice'>Changelog has changed since your last visit.</span>")
 
 /datum/controller/subsystem/changelog/proc/OpenChangelog(client/C)
@@ -211,13 +211,13 @@ SUBSYSTEM_DEF(changelog)
 		if("open_pr")
 			var/pr_num = params["pr_number"]
 			if(GLOB.configuration.url.github_url)
-				if(alert("This will open PR #[pr_num] in your browser. Are you sure?", "Open PR", "Yes", "No") == "No")
+				if(tgui_alert(usr, "This will open PR #[pr_num] in your browser. Are you sure?", "Open PR", list("Yes", "No")) != "Yes")
 					return
 
 				// If the github URL in the config has a trailing slash, it doesnt matter here, thankfully github accepts having a double slash: https://github.com/org/repo//pull/1
 				var/url = "[GLOB.configuration.url.github_url]/pull/[pr_num]"
 				usr << link(url)
-				return
+				return TRUE
 
 			to_chat(usr, "<span class='danger'>The GitHub URL is not set in the server configuration. PRs cannot be opened from changelog view. Please inform the server host.</span>")
 
