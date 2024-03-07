@@ -96,7 +96,8 @@
 	R.add_fingerprint(user)
 	qdel(src)
 
-/obj/structure/inflatable/door //Based on mineral door code
+/// Based on mineral door code
+/obj/structure/inflatable/door
 	name = "inflatable door"
 	icon_state = "door_closed"
 	torn = /obj/item/inflatable/door/torn
