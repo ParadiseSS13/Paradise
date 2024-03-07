@@ -33,8 +33,8 @@
 	category = list("Medical")
 
 /datum/design/cyborg_analyzer
-	name = "Cyborg Analyzer"
-	desc = "A hand-held scanner able to diagnose robotic injuries."
+	name = "Machine Analyzer"
+	desc = "A hand-held scanner able to diagnose robotic injuries and the condition of machinery."
 	id = "cyborg_analyzer"
 	req_tech = list("programming" = 2, "biotech" = 2, "magnets" = 2)
 	build_type = PROTOLATHE
