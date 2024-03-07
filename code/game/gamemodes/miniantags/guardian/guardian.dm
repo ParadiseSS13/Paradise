@@ -374,6 +374,7 @@
 	var/picked_name = pick(name_list)
 	create_theme(G, user, picked_name, color)
 	SSblackbox.record_feedback("tally", "guardian_pick", 1, "[pickedtype]")
+	G.client?.init_verbs()
 
 /obj/item/guardiancreator/proc/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
 	G.name = "[picked_name] [color]"
