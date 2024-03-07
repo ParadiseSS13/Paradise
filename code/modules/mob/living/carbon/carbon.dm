@@ -1076,12 +1076,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		var/obj/item/organ/internal/O = X
 		O.emp_act(severity)
 
-/mob/living/carbon/Stat()
-	..()
-	if(statpanel("Status"))
-		var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
-		if(vessel)
-			stat("Plasma Stored: [vessel.stored_plasma]/[vessel.max_plasma]")
+/mob/living/carbon/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
+	if(vessel)
+		status_tab_data[++status_tab_data.len] = list("Plasma Stored:", "[vessel.stored_plasma]/[vessel.max_plasma]")
 
 /mob/living/carbon/get_all_slots()
 	return list(l_hand,
