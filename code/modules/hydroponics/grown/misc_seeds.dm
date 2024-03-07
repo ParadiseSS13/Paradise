@@ -83,6 +83,40 @@
 	tastes = list("sugarcane" = 1)
 	distill_reagent = "rum"
 
+/obj/item/seeds/bamboo
+	name = "pack of bamboo seeds"
+	desc = "A plant known for its flexible and resistant logs."
+	icon_state = "seed-bamboo" // TODO
+	species = "bamboo"
+	plantname = "Bamboo"
+	product = /obj/item/grown/log/bamboo
+	lifespan = 80
+	endurance = 70
+	maturation = 15
+	production = 2
+	yield = 5
+	potency = 50
+	growthstages = 3
+	growing_icon = 'icons/obj/service/hydroponics/growing.dmi'
+	icon_dead = "bamboo-dead" // TODO
+	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	mutatelist = null
+
+/obj/item/food/snacks/grown/bamboo
+	seed = /obj/item/seeds/sugarcane
+	name = "sugarcane"
+	desc = "Sickly sweet."
+	icon_state = "sugarcane"
+	bitesize_mod = 2
+	distill_reagent = /datum/reagent/consumable/ethanol/rum
+
+/obj/item/grown/log/bamboo
+	seed = /obj/item/seeds/bamboo
+	name = "bamboo log"
+	desc = "A long and resistant bamboo log."
+	icon_state = "bamboo" // TODO: sort out icon paths too
+	plank_type = /obj/item/stack/sheet/bamboo // this needs to get datumized :)
+	plank_name = "bamboo sticks"
 
 // Gatfruit
 /obj/item/seeds/gatfruit

@@ -102,6 +102,36 @@
 /obj/item/grown/log/steel/CheckAccepted(obj/item/I)
 	return FALSE
 
+/*
+ * Punji sticks
+ */
+/obj/structure/punji_sticks
+	name = "punji sticks"
+	desc = "Don't step on this."
+	icon = 'icons/obj/service/hydroponics/equipment.dmi'
+	icon_state = "punji"
+	resistance_flags = FLAMMABLE
+	max_integrity = 30
+	density = FALSE
+	anchored = TRUE
+	buckle_lying = 90
+
+	/// Overlay we apply when impaling a mob.
+	/// TODO: implement this or not?
+	//var/mutable_appearance/stab_overlay
+
+/obj/structure/punji_sticks/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/caltrop, 20, 30, CALTROP_BYPASS_SHOES)
+
+/obj/structure/punji_sticks/Crossed(mob/living/L)
+	return
+
+/obj/structure/punji_sticks/spikes
+	name = "wooden spikes"
+	icon_state = "woodspike"
+
+
 /////////BONFIRES//////////
 
 /obj/structure/bonfire

@@ -42,7 +42,7 @@
 
 /obj/item/shard/Initialize()
 	. = ..()
-	AddComponent(/datum/component/caltrop, force)
+	AddComponent(/datum/component/caltrop, min_damage = force)
 	set_initial_icon_state()
 
 /obj/item/shard/afterattack(atom/movable/AM, mob/user, proximity)

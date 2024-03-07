@@ -266,6 +266,28 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	return ..()
 
 /*
+ * Bamboo
+ */
+/obj/item/stack/sheet/bamboo
+	name = "bamboo cuttings"
+	desc = "Finely cut bamboo sticks."
+	singular_name = "cut bamboo stick"
+	icon = 'icons/obj/stack_objects.dmi'
+	icon_state = "sheet-bamboo"
+	item_state = "sheet-bamboo"
+	resistance_flags = FLAMMABLE
+	sheettype = "bamboo"
+	merge_type = /obj/item/stack/sheet/bamboo
+	// TODO: might need extra member vars here
+
+/obj/item/stack/sheet/bamboo/New(loc, amount=null)
+	recipes = GLOB.bamboo_recipes
+	return ..()
+
+/obj/item/stack/sheet/bamboo/fifty
+	amount = 50
+
+/*
  * Cloth
  */
 GLOBAL_LIST_INIT(cloth_recipes, list (
