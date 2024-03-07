@@ -138,8 +138,8 @@
 	if(!user)
 		return
 	// TODO MAYBE???
-	// var/position_info = user.client?.prefs?.action_buttons_screen_locs["[name]_[id]"] || SCRN_OBJ_DEFAULT
-	// user.hud_used.position_action(src, position_info)
+	var/position_info = SCRN_OBJ_DEFAULT
+	user.hud_used.position_action(src, position_info)
 
 /atom/movable/screen/movable/action_button/Click(location, control, params)
 	var/list/modifiers = params2list(params)
