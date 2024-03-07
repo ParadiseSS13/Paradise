@@ -187,8 +187,6 @@
 
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_grapple"
-	panel = "Demon"
-
 	sound = null
 	invocation_type = "none"
 	invocation = null

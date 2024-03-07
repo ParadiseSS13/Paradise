@@ -75,18 +75,3 @@
 /* Client verbs */
 /proc/viewNum_to_text(view)
 	return "[(view * 2) + 1]x[(view * 2) + 1]"
-
-/client/verb/set_view_range(view_range as null|anything in CUSTOM_VIEWRANGES)
-	set name = "Set View Range"
-	set category = "Preferences"
-
-	if(!view_range)
-		return
-
-	RemoveViewMod("custom")
-	if(view_range == "RESET")
-		to_chat(src, "<span class='notice'>View range reset.</span>")
-		return
-
-	to_chat(src, "<span class='notice'>View range set to [viewNum_to_text(view_range)]</span>")
-	AddViewMod("custom", view_range)

@@ -279,8 +279,6 @@ guest_ban = true
 allow_antag_hud = true
 # Forbid players from rejoining if they use antag hud
 restrict_antag_hud_rejoin = true
-# Do we want to allow player respawns?
-respawn_enabled = false
 # Enable/disable the buster for the CID randomiser DLL
 enable_cid_randomiser_buster = false
 # Prevent admins from possessing the singularity

@@ -88,7 +88,7 @@
 
 /client/verb/volume_mixer()
 	set name = "Open Volume Mixer"
-	set category = "Preferences"
+	set category = null
 	set hidden = TRUE
 
 	var/datum/ui_module/volume_mixer/VM = new()
