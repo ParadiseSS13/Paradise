@@ -39,8 +39,6 @@
 	var/movement_dir
 	/// Variable that defines whether it has a field generator close enough
 	var/has_close_field = FALSE
-	/// Init list that has all the areas that we can possibly move to, to reduce processing impact
-	var/list/all_possible_areas = list()
 
 /obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	miniball = is_miniball
@@ -53,7 +51,6 @@
 	else
 		// This gets added by the parent call
 		GLOB.poi_list -= src
-	all_possible_areas = findUnrestrictedEventArea()
 
 /obj/singularity/energy_ball/ex_act(severity, target)
 	return
@@ -135,7 +132,7 @@
 
 
 /obj/singularity/energy_ball/proc/find_the_basket()
-	var/area/where_to_move = pick(all_possible_areas) // Grabs a random area that isn't restricted
+	var/area/where_to_move = pick(GLOB.event_unrestricted_station_areas)
 	var/turf/target_area_turfs = get_area_turfs(where_to_move) // Grabs the turfs from said area
 	target_turf = pick(target_area_turfs) // Grabs a single turf from the entire list
 	return

@@ -18,7 +18,9 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Event Manager") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
-/proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
+/// This proc seeds GLOB.event_safe_station_areas with areas that are safe to
+/// use for most random events.
+/proc/list_event_safe_station_areas()
 	var/list/safe_areas = typecacheof(list(
 		/area/station/turret_protected/ai,
 		/area/station/turret_protected/ai_upload,
@@ -39,9 +41,12 @@
 	var/list/remove_these_areas = safe_areas - allowed_areas
 	var/list/possible_areas = typecache_filter_list_reverse(SSmapping.existing_station_areas, remove_these_areas)
 
-	return pick(possible_areas)
+	return possible_areas
 
-/proc/findUnrestrictedEventArea() //Does almost the same as findEventArea() but hits a few more areas including maintenance and the AI sat, and also returns a list of all the areas, instead of just one area
+/// This proc seeds GLOB.event_unrestricted_station_areas with areas that are
+/// safe for most random events. Unlike GLOB.event_safe_station_areas, this
+/// list includes maintenance, the AI satellite, and shuttles.
+/proc/list_event_unrestricted_station_areas()
 	var/list/safe_areas = typecacheof(list(
 	/area/station/engineering/solar,
 	/area/station/science/toxins/test,
