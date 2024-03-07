@@ -10,7 +10,7 @@
 #define RUNE_COLOR_EMP "#4D94FF"
 #define RUNE_COLOR_SUMMON "#00FF00"
 
-#define IS_SACRIFICE_TARGET(A) SSticker.mode?.cult_team.is_sac_target(A)
+#define IS_SACRIFICE_TARGET(A) SSticker?.mode?.cult_team?.is_sac_target(A)
 
 // Blood magic
 /// Maximum number of spells with an empowering rune
