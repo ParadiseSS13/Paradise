@@ -354,6 +354,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT_RADIOACTIVE_NEBULA "station_trait_radioactive_nebula"
 #define STATION_TRAIT_FORESTED "station_trait_forested"
 #define STATION_TRAIT_VENDING_SHORTAGE "station_trait_vending_shortage"
+#define STATION_TRAIT_MESSY "station_trait_messy"
 
 //***** TURF TRAITS *****//
 /// Removes slowdown while walking on these tiles.

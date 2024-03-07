@@ -45,6 +45,14 @@
 	. = ..()
 	SSshuttle.supply.callTime *= 1.5 // 3 minutes, for those wondering.
 
+/datum/station_trait/messy_station
+	name = "Messy Station"
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 5
+	show_in_report = TRUE
+	report_message = "The previous crew has left the station completely trashed."
+	trait_to_give = STATION_TRAIT_MESSY
+
 // Abstract station trait used for traits that modify a random event in some way (their weight or max occurrences).
 /datum/station_trait/random_event_weight_modifier
 	name = "Random Event Modifier"
