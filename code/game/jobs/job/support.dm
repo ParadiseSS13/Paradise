@@ -509,5 +509,6 @@
 	shoes = /obj/item/clothing/shoes/workboots
 	glasses = /obj/item/clothing/glasses/welding
 	belt = /obj/item/storage/belt/utility
+	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/gps
 	id = /obj/item/card/id/explorer
