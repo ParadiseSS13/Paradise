@@ -429,7 +429,7 @@
 			user.visible_message("<span class='danger'>[user] [pick("chomps","bites")] off [the_item]'s [limb]!</span>")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 			if(istype(limb,/obj/item/organ/external/groin))
-				limb.receive_damage(100, sharp=TRUE)
+				limb.receive_damage(100, sharp = TRUE)
 				// Groin won't actually drop, but this spills
 				// out the organs that were in it.
 				limb.droplimb(FALSE, DROPLIMB_SHARP)
