@@ -29,7 +29,7 @@
 		return FALSE
 
 	playsound(loc, 'sound/items/zip.ogg', 75, TRUE)
-	to_chat(user, "<span class='notice'>You inflate [name].</span>")
+	to_chat(user, "<span class='notice'>You inflate [src].</span>")
 	var/obj/structure/inflatable/R = new structure_type(user.loc)
 	transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
