@@ -131,6 +131,64 @@
 	GLOB.rcd_list -= src
 	return ..()
 
+/obj/item/rcd/suicide_act(mob/user)
+	var/turf/suicide_tile = get_turf(src)
+	if(src.mode == MODE_DECON && checkResource(5, user))	// Same cost as deconstructing a wall.
+		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		to_chat(user, "Deconstructing User...")
+		var/obj/effect/temp_visual/rcd_effect/reverse/suicide_A = new(suicide_tile)
+		sleep(5 SECONDS)
+		QDEL_NULL(suicide_A)
+		if(user.l_hand == src || user.r_hand == src)	// Do not commit die if the RCD isn't in your hands.
+			useResource(5, user)
+			user.visible_message("<span class='suicide'>[user] deconstructs [user.p_they()]self with [src]!</span>")
+			playsound(loc, usesound, 50, 1)
+			user.dust()
+			return OBLITERATION
+		user.visible_message("<span class='suicide'>[user] doesn't have [src] anymore, [user.p_they()] cannot commit suicide with it!</span>", \
+		"<span class='suicide'>You cannot commit suicide without [src]!</span>")
+		return
+
+	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	playsound(loc, 'sound/machines/click.ogg', 50, 1)
+	if(src.mode == MODE_TURF && checkResource(3, user))	// Check you can afford to build this.
+		. = mode_turf(suicide_tile, user)				// Build it.
+		if(user.l_hand == src || user.r_hand == src)	// Do not commit die if the RCD isn't in your hands.
+			user.visible_message("<span class='suicide'>[src] creates a wall inside [user], causing [user.p_them()] to explode!</span>")
+			user.gib()
+			return OBLITERATION
+		// If for whatever reason the RCD is liberated from the user in the middle of the act, this will catch it.
+		user.visible_message("<span class='suicide'>[user] doesn't have [src] anymore, [user.p_they()] cannot commit suicide with it!</span>", \
+		"<span class='suicide'>You cannot commit suicide without [src]!</span>")
+		return
+
+	if(src.mode == MODE_WINDOW && checkResource(2, user))
+		. = mode_window(suicide_tile, user)
+		if(user.l_hand == src || user.r_hand == src)
+			user.visible_message("<span class='suicide'>[src] creates a window inside [user], causing [user.p_them()] to explode!</span>")
+			user.gib()
+			return OBLITERATION
+		user.visible_message("<span class='suicide'>[user] doesn't have [src] anymore, [user.p_they()] cannot commit suicide with it!</span>", \
+		"<span class='suicide'>You cannot commit suicide without [src]!</span>")
+		return
+
+	if(src.mode == MODE_AIRLOCK && checkResource(10, user))
+		. = mode_airlock(suicide_tile, user)
+		if(user.l_hand == src || user.r_hand == src)
+			user.visible_message("<span class='suicide'>[src] creates an airlock inside [user], causing [user.p_them()] to explode!</span>")
+			user.gib()
+			return OBLITERATION
+		user.visible_message("<span class='suicide'>[user] doesn't have [src] anymore, [user.p_they()] cannot commit suicide with it!</span>", \
+		"<span class='suicide'>You cannot commit suicide without [src]!</span>")
+		return
+
+	else	// Very shameful to end up here...
+		sleep(1 SECONDS)	// Time for it to sink in.
+		user.visible_message("<span class='suicide'>The \'Low Ammo\' light on [src] blinks yellow, there wasn't enough compressed matter to commit suicide with [src]! [user] drops to the floor in SHAME.</span>", \
+		"<span class='suicide'>You pull the trigger on [src]. The \'Low Ammo\' light on the device blinks yellow, there wasn't enough compressed matter to commit suicide with [src]! A wave of SHAME washes over you...</span>")
+		return SHAME
+
 /**
  * Creates and returns a base64 icon of the given `airlock_type`.
  *
@@ -536,7 +594,7 @@
 /**
  * Called in `afterattack()` if `mode` is set to `MODE_WINDOW`.
  *
- * Constructs a grille and 4 reinforced window panes at the given location `A`.
+ * Constructs a grille a fulltile reinforced window at the given location `A`.
  *
  * Arguments:
  * * A - the location we're trying to build at.
