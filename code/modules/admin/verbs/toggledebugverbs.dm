@@ -26,6 +26,6 @@ GLOBAL_LIST_INIT(admin_verbs_show_debug_verbs, list(
 	if(!check_rights(R_DEBUG))
 		return
 
-	verbs += GLOB.admin_verbs_show_debug_verbs
+	add_verb(src, GLOB.admin_verbs_show_debug_verbs)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
