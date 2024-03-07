@@ -32,8 +32,8 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		P.print_goal_orders()
 
 /datum/virology_goal/Destroy()
-	LAZYREMOVE(GLOB.virology_goals, src)
-	LAZYREMOVE(GLOB.archived_virology_goals, src)
+	GLOB.virology_goals -= src
+	GLOB.archived_virology_goals -= src
 	. = ..()
 
 /datum/virology_goal/Topic(href, href_list)
