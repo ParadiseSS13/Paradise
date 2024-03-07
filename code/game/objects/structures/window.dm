@@ -110,7 +110,7 @@
 		return 1
 	if(dir == FULLTILE_WINDOW_DIR)
 		return 0	//full tile window, you can't move into it!
-	if(get_dir(loc, target) == dir)
+	if(get_dir(loc, target) & dir)
 		return !density
 	if(istype(mover, /obj/structure/window))
 		var/obj/structure/window/W = mover
@@ -127,14 +127,14 @@
 /obj/structure/window/CheckExit(atom/movable/O, target)
 	if(istype(O) && O.checkpass(PASSGLASS))
 		return 1
-	if(get_dir(O.loc, target) == dir)
+	if(get_dir(O.loc, target) & dir)
 		return 0
 	return 1
 
 /obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
 	if(!density)
 		return 1
-	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir) || fulltile)
+	if((dir == FULLTILE_WINDOW_DIR) || (dir & to_dir) || fulltile)
 		return 0
 
 	return 1
@@ -414,7 +414,7 @@
 /obj/structure/window/CanAtmosPass(turf/T)
 	if(!anchored || !density)
 		return TRUE
-	return !(FULLTILE_WINDOW_DIR == dir || dir == get_dir(loc, T))
+	return !(FULLTILE_WINDOW_DIR == dir || dir & get_dir(loc, T))
 
 //This proc is used to update the icons of nearby windows.
 /obj/structure/window/proc/update_nearby_icons()
