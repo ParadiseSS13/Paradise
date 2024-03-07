@@ -24,12 +24,12 @@
 	var/mirror_shields_active = FALSE
 
 /datum/team/cult/New(list/starting_members)
+	cult_threshold_check()
 	..()
 	SSticker.mode.cult_team = src
 
 	objective_holder.add_objective(/datum/objective/servecult)
 
-	cult_threshold_check()
 	addtimer(CALLBACK(src, PROC_REF(cult_threshold_check)), 2 MINUTES) // Check again in 2 minutes for latejoiners
 
 	cult_status = NARSIE_DEMANDS_SACRIFICE
