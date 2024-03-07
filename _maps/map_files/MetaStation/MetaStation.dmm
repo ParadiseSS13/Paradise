@@ -2098,6 +2098,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "apk" = (
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "vault"
@@ -11880,9 +11881,16 @@
 /turf/simulated/floor/plating,
 /area/station/supply/office)
 "aXk" = (
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
-/area/station/public/locker)
+/area/station/public/dorms)
 "aXm" = (
 /obj/structure/closet/wardrobe/white,
 /turf/simulated/floor/plasteel{
@@ -49573,6 +49581,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "eRZ" = (
@@ -60682,6 +60691,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "jCz" = (
@@ -77686,9 +77696,17 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "qzC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/engine,
-/area/station/science/xenobiology)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/armory)
 "qzT" = (
 /obj/structure/closet/secure_closet/hydroponics,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -122665,7 +122683,7 @@ ajm
 mjP
 wQr
 wQr
-wQr
+qzC
 ihq
 hJm
 qKE
@@ -128865,7 +128883,7 @@ aQD
 aTo
 spj
 aVR
-aXk
+aTo
 aYK
 aLl
 niC
@@ -130398,7 +130416,7 @@ aFG
 aJE
 aIl
 aJD
-aJE
+aGP
 aJE
 aCm
 aQC
@@ -130909,7 +130927,7 @@ aiY
 aiY
 adS
 aHZ
-aGP
+aJE
 aIn
 qTK
 aLg
@@ -131418,7 +131436,7 @@ aCm
 awS
 ayd
 aBN
-azj
+aXk
 azj
 hYV
 aEp
@@ -144090,7 +144108,7 @@ dMK
 lzW
 uQm
 eqj
-qzC
+mdi
 heJ
 mdi
 gSU
