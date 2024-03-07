@@ -105,7 +105,6 @@
 
 /obj/structure/largecrate/secway
 	name = "secway crate"
-	icon_state = "lisacrate"
 
 /obj/structure/largecrate/secway/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/crowbar))
