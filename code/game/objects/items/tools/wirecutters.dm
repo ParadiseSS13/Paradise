@@ -43,10 +43,7 @@
 		return ..()
 
 /obj/item/wirecutters/suicide_act(mob/user)
-	if(is_robotic_suicide(user))
-		user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] wiring with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	else
-		user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] arteries with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] [is_robotic_suicide(user) ? "wiring" : "arteries"] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, usesound, 50, 1, -1)
 	return BRUTELOSS
 
