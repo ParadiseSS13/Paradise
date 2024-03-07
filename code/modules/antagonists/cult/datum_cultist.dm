@@ -1,4 +1,4 @@
-/datum/antagonist/cultist // ctodo, subtype for constructs maybe? shades? summoned ghosts?
+/datum/antagonist/cultist
 	name = "Cultist"
 	job_rank = ROLE_CULTIST
 	special_role = SPECIAL_ROLE_CULTIST
@@ -7,9 +7,9 @@
 	antag_hud_type = ANTAG_HUD_CULT
 	clown_gain_text = "A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself."
 	clown_removal_text = "You are free of the dark power suppressing your clownish nature. You are clumsy again! Honk!"
-	clown_text_span_class = "cultitalic" // ctodo, prob convert this into a proc
+	clown_text_span_class = "cultitalic"
 	wiki_page_name = "Cultist"
-	var/remove_gear_on_removal = FALSE // ctodo figure out what to do here
+	var/remove_gear_on_removal = FALSE
 
 /datum/antagonist/cultist/on_gain()
 	create_team() // make sure theres a global cult team
@@ -46,9 +46,9 @@
 	H.remove_overlay(HALO_LAYER)
 	H.update_body()
 
-	if(remove_gear_on_removal) // ctodo unsure if this needs to be a boolean
+	if(remove_gear_on_removal)
 		for(var/I in H.contents)
-			if(is_type_in_list(I, CULT_CLOTHING)) // ctodo, remove this define
+			if(is_type_in_list(I, CULT_CLOTHING))
 				H.unEquip(I)
 	return ..()
 

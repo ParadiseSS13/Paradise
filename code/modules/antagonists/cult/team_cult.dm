@@ -97,10 +97,10 @@
 	var/constructs = 0
 	for(var/datum/mind/M as anything in members)
 		if(isnull(M))
-			stack_trace("Found a null mind in /datum/team/cult's members.") // ctodo remove TM stack traces
+			stack_trace("Found a null mind in /datum/team/cult's members.")
 			continue
 		if(isnull(M.current))
-			stack_trace("Found a mind with no body in /datum/team/cult's members.") // ctodo remove TM stack traces
+			stack_trace("Found a mind with no body in /datum/team/cult's members.")
 			continue
 		if(QDELETED(M) || M.current.stat == DEAD)
 			continue
