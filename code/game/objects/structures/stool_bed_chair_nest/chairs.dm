@@ -497,8 +497,8 @@
 /obj/item/chair/stool/bamboo
 	name = "bamboo stool"
 	desc = "Not the most comfortable, but vegan!"
-	item_state = "bamboo_stool"
 	icon_state = "bamboo_stool_toppled"
+	item_state = "stool_bamboo"
 	origin_type = /obj/structure/chair/stool/bamboo
 
 /obj/item/chair/attack_self(mob/user)

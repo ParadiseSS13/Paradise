@@ -22,8 +22,10 @@
 	src.min_damage = min_damage
 	src.max_damage = max(min_damage, max_damage)
 	src.probability = probability
-	src.flags = flags
 	src.weaken_duration = weaken_duration
+	src.flags = flags
+
+	RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED), PROC_REF(Crossed))
 
 /datum/component/caltrop/proc/Crossed(datum/source, atom/movable/AM)
 	var/atom/A = parent

@@ -215,6 +215,7 @@
 	floor_tile = /obj/item/stack/tile/bamboo
 	prying_tool_list = list(TOOL_SCREWDRIVER)
 	broken_states = list("bamboo-damaged")
+	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_BAMBOO)
 	canSmoothWith = list(SMOOTH_GROUP_BAMBOO)
 	footstep = FOOTSTEP_WOOD
@@ -246,12 +247,6 @@
 /turf/simulated/floor/bamboo/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE
 
-/turf/simulated/floor/carpet/black
-	icon = 'icons/turf/floors/carpet_black.dmi'
-	floor_tile = /obj/item/stack/tile/carpet/black
-	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET, SMOOTH_GROUP_CARPET_BLACK)
-	canSmoothWith = list(SMOOTH_GROUP_CARPET_BLACK)
-
 /turf/simulated/floor/bamboo/airless
 	oxygen = 0
 	nitrogen = 0
@@ -263,7 +258,6 @@
 	icon_state = "bamboo-green"
 	broken_states = list("tatami-damaged")
 	floor_tile = /obj/item/stack/tile/bamboo/tatami
-	smoothing_groups = NONE
 
 /turf/simulated/floor/bamboo/tatami/purple
 	icon = 'icons/turf/floors/bamboo_mat.dmi'
