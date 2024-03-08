@@ -22,8 +22,7 @@
 // Return TRUE if we can activate.
 // HANDLE MUTCHK_FORCED HERE!
 /datum/mutation/proc/can_activate(mob/M, flags)
-	if(flags & MUTCHK_FORCED)
-		return TRUE
+     return TRUE
 
 // Called when the gene activates.  Do your magic here.
 /datum/mutation/proc/activate(mob/living/M)
