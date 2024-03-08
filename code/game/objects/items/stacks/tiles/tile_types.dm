@@ -78,6 +78,7 @@
 	icon_state = "tile_bamboo"
 	turf_type = /turf/simulated/floor/bamboo
 	merge_type = /obj/item/stack/tile/bamboo
+	parent_stack = TRUE
 	resistance_flags = FLAMMABLE
 
 /obj/item/stack/tile/bamboo/twenty
@@ -97,7 +98,7 @@
 	singular_name = "purple tatami floor tile"
 	icon_state = "tile_tatami_purple"
 	turf_type = /turf/simulated/floor/bamboo/tatami/purple
-	merge_type = /obj/item/stack/tile/bamboo/tatami
+	merge_type = /obj/item/stack/tile/bamboo/tatami/purple
 
 /obj/item/stack/tile/bamboo/tatami/purple/twenty
 	amount = 20
@@ -107,7 +108,7 @@
 	singular_name = "black tatami floor tile"
 	icon_state = "tile_tatami_black"
 	turf_type = /turf/simulated/floor/bamboo/tatami/black
-	merge_type = /obj/item/stack/tile/bamboo/tatami
+	merge_type = /obj/item/stack/tile/bamboo/tatami/black
 
 /obj/item/stack/tile/bamboo/tatami/black/twenty
 	amount = 20
