@@ -143,7 +143,7 @@
 		if(user.l_hand == src || user.r_hand == src)	// Do not commit die if the RCD isn't in your hands.
 			useResource(5, user)
 			user.visible_message("<span class='suicide'>[user] deconstructs [user.p_they()]self with [src]!</span>")
-			playsound(loc, usesound, 50, 1)
+			playsound(loc, usesound, 50, TRUE)
 			for(var/obj/item/W in user)	// Do not delete all their stuff.
 				user.unEquip(W)
 			user.dust()
