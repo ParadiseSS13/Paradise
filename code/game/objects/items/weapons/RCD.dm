@@ -155,7 +155,7 @@
 
 	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	if(mode == MODE_TURF && checkResource(3, user))		// Check you can afford to build this.
-		mode_turf(suicide_tile, user)					// Build it.
+		mode_turf(suicide_tile, user)					// Sart building the structure.
 		if(!user.l_hand == src && !user.r_hand == src)	// Do not commit die if the RCD isn't in your hands.
 			return SHAME								// Go into stamcrit instead.
 		user.visible_message("<span class='suicide'>[src] creates a wall inside [user], causing [user.p_them()] to explode!</span>")
