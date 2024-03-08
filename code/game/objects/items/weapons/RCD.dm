@@ -133,7 +133,7 @@
 
 /obj/item/rcd/suicide_act(mob/living/user)
 	user.Immobilize(10 SECONDS) // You cannot move.
-	flags = NODROP				// You cannot drop. You commit to die.
+	flags |= NODROP				// You cannot drop. You commit to die.
 	var/turf/suicide_tile = get_turf(src)
 	if(mode == MODE_DECON && checkResource(5, user))	// Same cost as deconstructing a wall.
 		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
