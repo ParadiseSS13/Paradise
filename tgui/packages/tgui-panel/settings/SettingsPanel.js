@@ -20,6 +20,7 @@ import {
   Stack,
   Tabs,
   TextArea,
+  Tooltip,
 } from 'tgui/components';
 import { ChatPageSettings } from '../chat';
 import { clearChat, rebuildChat, saveChatToDisk } from '../chat/actions';
@@ -68,6 +69,7 @@ export const SettingsPanel = (props, context) => {
       </Stack.Item>
       <Stack.Item grow basis={0}>
         {activeTab === 'general' && <SettingsGeneral />}
+        {activeTab === 'advanced' && <SettingsAdvanced />}
         {activeTab === 'chatPage' && <ChatPageSettings />}
         {activeTab === 'textHighlight' && <TextHighlightSettings />}
       </Stack.Item>
@@ -160,20 +162,6 @@ export const SettingsGeneral = (props, context) => {
               )
             }
           />
-          <Box inline fontSize="1em" mx={1} color="label">
-            Maximum messages displayed:
-          </Box>
-          <NumberInput
-            width="4.2em"
-            step={100}
-            stepPixelSize={3}
-            minValue={0}
-            maxValue={25000}
-            value={maxTotalMessage}
-            unit="messages"
-            format={(value) => toFixed(value)}
-            onChange={(e, value) => SetMessageTotal(value, context)}
-          />
         </LabeledList.Item>
         <LabeledList.Item label="Line height">
           <NumberInput
@@ -191,20 +179,6 @@ export const SettingsGeneral = (props, context) => {
                 })
               )
             }
-          />
-          <Box inline fontSize="1em" mx={1} color="label">
-            Stacked message expiration:
-          </Box>
-          <NumberInput
-            width="4.2em"
-            step={1}
-            stepPixelSize={3}
-            minValue={0}
-            maxValue={600}
-            value={messageStackInSeconds}
-            unit="seconds"
-            format={(value) => toFixed(value)}
-            onChange={(e, value) => SetMessageStackingTime(value, context)}
           />
         </LabeledList.Item>
       </LabeledList>
@@ -227,6 +201,53 @@ export const SettingsGeneral = (props, context) => {
             onClick={() => dispatch(clearChat())}
           />
         </Stack.Item>
+      </Stack>
+    </Section>
+  );
+};
+
+export const SettingsAdvanced = (props, context) => {
+  const {
+    messageStackInSeconds,
+    maxTotalMessage,
+  } = useSelector(context, selectSettings);
+  return (
+    <Section height="150px">
+      <Stack width={'345px'}>
+        <Stack.Item>
+      <LabeledList>
+          <LabeledList.Item label={'Messages Max'} tooltip={'Maximum Messages Displayed'}>
+          <NumberInput
+            width={5}
+            step={100}
+            stepPixelSize={3}
+            minValue={0}
+            maxValue={25000}
+            value={maxTotalMessage}
+            format={(value) => toFixed(value)}
+            onChange={(e, value) => SetMessageTotal(value, context)}
+          />
+        </LabeledList.Item>
+      </LabeledList>
+      </Stack.Item>
+      <Stack.Divider />
+      <Stack.Item>
+      <LabeledList>
+        <LabeledList.Item label="Stacking Time" tooltip={'Stacked Message Expiration'}>
+          <NumberInput
+            width={5}
+            step={1}
+            stepPixelSize={3}
+            minValue={0}
+            maxValue={600}
+            value={messageStackInSeconds}
+            unit="sec"
+            format={(value) => toFixed(value)}
+            onChange={(e, value) => SetMessageStackingTime(value, context)}
+          />
+        </LabeledList.Item>
+      </LabeledList>
+      </Stack.Item>
       </Stack>
     </Section>
   );
