@@ -147,7 +147,6 @@
 	. = ..()
 	AddComponent(/datum/component/caltrop, 3, 6, 70)
 
-
 /*********
  * Rocks *
  *********/
