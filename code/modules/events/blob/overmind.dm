@@ -122,3 +122,26 @@
 
 /mob/camera/blob/proc/can_attack()
 	return (world.time > (last_attack + CLICK_CD_RANGE))
+
+/mob/camera/blob/verb/ghost()
+	set category = "Blob Overmind"
+	set name = "Ghost"
+	set desc = "Relinquish your control of the blob overmind."
+
+	// Confirm the user's decision to ghost
+	if(alert("Are you sure you want to ghost? This will end your control of the blob overmind.", "Confirm Ghost", "Yes", "No") != "Yes")
+		return
+
+	// Create a ghost from the blob overmind
+	var/mob/dead/observer/ghost = new(get_turf(src))
+	ghost.ckey = src.ckey
+	ghost.name = src.name
+
+	// Clear the blob overmind's key to disconnect the player
+	src.ckey = null
+
+	// Notify admins
+	message_admins("[key_name_admin(ghost)] has ghosted from a blob overmind.")
+
+	// Optionally, you could also delete the blob overmind or handle it in some other way
+	qdel(src)
