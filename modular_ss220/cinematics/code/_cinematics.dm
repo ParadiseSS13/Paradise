@@ -124,7 +124,7 @@
 	watching += watching_client
 	watching_mob.overlay_fullscreen("cinematic", backdrop_type)
 	watching_client.screen += screen
-	watching_client.verbs += /client/proc/cinematic_leave
+	add_verb(watching_client, /client/proc/cinematic_leave)
 
 	RegisterSignal(watching_client, list(COMSIG_PARENT_QDELETING, COMSIG_CINEMATIC_WATCHER_LEAVES), PROC_REF(remove_watcher))
 

@@ -151,6 +151,6 @@
 			sleep(1 SECONDS)
 			add_log(span_info("<B>Найдено шпионское устройство!</B>"))
 			if(!(/obj/item/clothing/proc/remove_spy_spider in A.verbs))
-				A.verbs += /obj/item/clothing/proc/remove_spy_spider
+				add_verb(A, /obj/item/clothing/proc/remove_spy_spider)
 
 		scanning = FALSE
