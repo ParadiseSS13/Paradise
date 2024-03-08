@@ -616,11 +616,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "bB" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Labor Camp APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/machinery/computer/cryopod{
 	pixel_y = 38
 	},
@@ -6237,10 +6233,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/legion)
 "vf" = (
-/obj/machinery/power/apc{
-	name = "Labor Camp Security APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},

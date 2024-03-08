@@ -12,6 +12,11 @@ menu "menu"
 		name = "&Сохранить скриншот как..."
 		command = ".screenshot"
 		category = "&Файл"
+	elem "debugmcbutton"
+		name = "&MC Debug"
+		command = "SS-Info-Breakdown"
+		category = "&Файл"
+		is-disabled = true
 	elem "reconnectbutton"
 		name = "&Переподключиться"
 		command = ".reconnect"
@@ -220,7 +225,7 @@ window "rpane"
 		is-vert = false
 	elem "infob"
 		type = BUTTON
-		pos = 3,7
+		pos = 0,7
 		size = 40x16
 		is-checked = true
 		saved-params = "is-checked"
@@ -230,31 +235,31 @@ window "rpane"
 		button-type = pushbox
 	elem "wikib"
 		type = BUTTON
-		pos = 48,7
+		pos = 45,7
 		size = 50x16
 		text = "Вики"
 		command = "wiki"
 	elem "rulesb"
 		type = BUTTON
-		pos = 99,7
+		pos = 96,7
 		size = 60x16
 		text = "Правила"
 		command = "rules"
 	elem "githubb"
 		type = BUTTON
-		pos = 160,7
+		pos = 157,7
 		size = 50x16
 		text = "GitHub"
 		command = "github"
 	elem "webmap"
 		type = BUTTON
-		pos = 211,7
+		pos = 208,7
 		size = 50x16
 		text = "Карта"
 		command = "webmap"
 	elem "discordb"
 		type = BUTTON
-		pos = 266,7
+		pos = 263,7
 		size = 60x16
 		font-style = "bold"
 		text-color = #ffffff
@@ -263,7 +268,7 @@ window "rpane"
 		command = "discord"
 	elem "donate"
 		type = BUTTON
-		pos = 327,7
+		pos = 324,7
 		size = 60x16
 		font-style = "bold"
 		text-color = #ffffff
@@ -272,7 +277,7 @@ window "rpane"
 		command = "Donate"
 	elem "changelog"
 		type = BUTTON
-		pos = 392,7
+		pos = 389,7
 		size = 70x16
 		font-style = "bold"
 		text-color = #ffffff
@@ -280,7 +285,7 @@ window "rpane"
 		command = "Changelog"
 	elem "fullscreenb"
 		type = BUTTON
-		pos = 467,7
+		pos = 464,7
 		size = 70x16
 		font-style = "bold"
 		text-color = #ffffff
@@ -301,8 +306,8 @@ window "outputwindow"
 		is-pane = true
 	elem "input"
 		type = INPUT
-		pos = 2,460
-		size = 517x20
+		pos = 0,460
+		size = 519x20
 		anchor1 = 0,100
 		anchor2 = 100,100
 		is-default = true
@@ -371,10 +376,10 @@ window "infowindow"
 		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
-	elem "info"
-		type = INFO
+	elem "statbrowser"
+		type = BROWSER
 		pos = 0,0
-		size = 0x0
+		size = 640x477
 		anchor1 = 0,0
 		anchor2 = 100,100
 		is-default = true

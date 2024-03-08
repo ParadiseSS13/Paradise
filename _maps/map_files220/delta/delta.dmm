@@ -55213,11 +55213,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/lawoffice)
 "gkj" = (
-/obj/machinery/power/apc{
-	cell_type = 25000;
-	dir = 4;
-	name = "Courtroom";
-	pixel_x = 24;
+/obj/machinery/power/apc/critical/directional/east{
 	shock_proof = 1
 	},
 /obj/structure/cable{
@@ -102778,11 +102774,7 @@
 /obj/structure/table/wood,
 /obj/item/food/snacks/grown/poppy/geranium,
 /obj/item/soap/deluxe,
-/obj/machinery/power/apc{
-	cell_type = 25000;
-	dir = 4;
-	name = "Courtroom";
-	pixel_x = 24;
+/obj/machinery/power/apc/critical/directional/east{
 	shock_proof = 1
 	},
 /obj/structure/cable{
@@ -103574,11 +103566,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	cell_type = 25000;
-	dir = 4;
-	name = "Courtroom";
-	pixel_x = 24;
+/obj/machinery/power/apc/critical/directional/east{
 	shock_proof = 1
 	},
 /turf/simulated/floor/wood/oak,
@@ -111390,11 +111378,7 @@
 	pixel_x = -5;
 	pixel_y = 2
 	},
-/obj/machinery/power/apc{
-	cell_type = 25000;
-	dir = 4;
-	name = "Courtroom";
-	pixel_x = 24;
+/obj/machinery/power/apc/critical/directional/east{
 	shock_proof = 1
 	},
 /obj/structure/cable{
