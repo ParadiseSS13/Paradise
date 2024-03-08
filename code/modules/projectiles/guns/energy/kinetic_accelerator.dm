@@ -255,7 +255,7 @@
 	name = "proto-kinetic pistol"
 	desc = "A lightweight mining tool, sacrificing upgrade capacity for convenience."
 	icon_state = "kineticgun_p"
-	item_state = "kineticgun_p"
+	item_state = "gun"
 	w_class = WEIGHT_CLASS_SMALL
 	max_mod_capacity = 65
 	can_bayonet = FALSE
