@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	var/datum/reagent/blood/BL = locate() in reagent_list
 	if(!BL)
 		return
-	if(BL && BL.data && BL.data["viruses"])
+	if(BL.data && BL.data["viruses"])
 		for(var/datum/disease/advance/D in BL.data["viruses"])
 			if(length(D.symptoms) < 4) //We want 3 other symptoms alongside the requested one
 				continue
@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 					return
 				if(S.type != goal_symptom)
 					continue
-				delivered_amount = clamp(delivered_amount + BL.volume, 0, delivery_goal)
+				delivered_amount += BL.volume
 				if(delivered_amount >= delivery_goal)
 					completed = TRUE
 					check_total_virology_goals_completion()
@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	var/datum/reagent/blood/BL = locate() in reagent_list
 	if(!BL)
 		return
-	if(BL && BL.data && BL.data["viruses"])
+	if(BL.data && BL.data["viruses"])
 		for(var/datum/disease/advance/D in BL.data["viruses"])
 			if(length(D.symptoms) != length(goal_symptoms)) //This is here so viruses with extra symptoms dont get approved
 				return
@@ -171,7 +171,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 				var/datum/symptom/SY = locate(S) in D.symptoms
 				if(!SY)
 					return
-				delivered_amount = clamp(delivered_amount + BL.volume, 0, delivery_goal)
+				delivered_amount += BL.volume
 				if(delivered_amount >= delivery_goal)
 					completed = TRUE
 					check_total_virology_goals_completion()
