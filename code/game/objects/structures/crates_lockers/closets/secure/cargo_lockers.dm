@@ -25,7 +25,6 @@
 	new /obj/item/storage/firstaid/regular(src)
 	new /obj/item/clothing/glasses/night(src)
 	new /obj/item/clothing/accessory/holster(src)
-	new /obj/item/mod/control/pre_equipped/standard/explorer(src)
 	new /obj/item/radio/beacon(src)
 	new /obj/item/storage/box/relay_kit(src)
 	new /obj/item/storage/bag/garment/explorer(src)
