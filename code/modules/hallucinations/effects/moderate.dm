@@ -15,19 +15,19 @@
 	duration = list(10 SECONDS, 25 SECONDS)
 	/// The possible alerts to be displayed. Key is alert type, value is alert category.
 	var/list/alerts = list(
-		/obj/screen/alert/not_enough_oxy = "not_enough_oxy",
-		/obj/screen/alert/not_enough_tox = "not_enough_tox",
-		/obj/screen/alert/not_enough_co2 = "not_enough_co2",
-		/obj/screen/alert/not_enough_nitro = "not_enough_nitro",
-		/obj/screen/alert/too_much_oxy = "too_much_oxy",
-		/obj/screen/alert/too_much_co2 = "too_much_co2",
-		/obj/screen/alert/too_much_tox = "too_much_tox",
-		/obj/screen/alert/hunger/fat = "nutrition",
-		/obj/screen/alert/hunger/starving = "nutrition",
-		/obj/screen/alert/hot = "temp",
-		/obj/screen/alert/cold = "temp",
-		/obj/screen/alert/highpressure = "pressure",
-		/obj/screen/alert/lowpressure = "pressure",
+		/atom/movable/screen/alert/not_enough_oxy = "not_enough_oxy",
+		/atom/movable/screen/alert/not_enough_tox = "not_enough_tox",
+		/atom/movable/screen/alert/not_enough_co2 = "not_enough_co2",
+		/atom/movable/screen/alert/not_enough_nitro = "not_enough_nitro",
+		/atom/movable/screen/alert/too_much_oxy = "too_much_oxy",
+		/atom/movable/screen/alert/too_much_co2 = "too_much_co2",
+		/atom/movable/screen/alert/too_much_tox = "too_much_tox",
+		/atom/movable/screen/alert/hunger/fat = "nutrition",
+		/atom/movable/screen/alert/hunger/starving = "nutrition",
+		/atom/movable/screen/alert/hot = "temp",
+		/atom/movable/screen/alert/cold = "temp",
+		/atom/movable/screen/alert/highpressure = "pressure",
+		/atom/movable/screen/alert/lowpressure = "pressure",
 	)
 	/// Alert severities. Only needed for some alerts such as temperature or pressure. Key is alert category, value is severity.
 	var/list/severities = list(
@@ -344,11 +344,7 @@
 /obj/effect/hallucination/stunprodding/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 
-	var/list/turfs = list()
-	for(var/turf/T in range(world.view, target))
-		turfs += T
-
-	var/turf/T = pick(turfs)
+	var/turf/T = pick(RANGE_TURFS(15, target))
 	target.playsound_local(T, 'sound/weapons/egloves.ogg', 25, TRUE)
 	target.playsound_local(T, get_sfx("bodyfall"), 25, TRUE)
 	target.playsound_local(T, "sparks", 50, TRUE)
@@ -370,12 +366,8 @@
 /obj/effect/hallucination/energy_sword/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 
-	var/list/turfs = list()
-	for(var/turf/T in range(world.view, target))
-		turfs += T
-
-	var/turf/T = pick(turfs)
-	loc = T
+	var/turf/T = pick(RANGE_TURFS(15, target))
+	forceMove(T)
 	target.playsound_local(T, 'sound/weapons/saberon.ogg', 20, TRUE)
 
 	var/scream_sound = pick('sound/goonstation/voice/female_scream.ogg', 'sound/goonstation/voice/male_scream.ogg')
@@ -406,12 +398,8 @@
 /obj/effect/hallucination/gunfire/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 
-	var/list/turfs = list()
-	for(var/turf/T in range(world.view, target))
-		turfs += T
-
-	var/turf/T = pick(turfs)
-	loc = T
+	var/turf/T = pick(RANGE_TURFS(15, target))
+	forceMove(T)
 
 	var/gun_sound = pick('sound/weapons/gunshots/gunshot_pistol.ogg', 'sound/weapons/gunshots/gunshot_strong.ogg')
 	var/scream_sound = pick('sound/goonstation/voice/female_scream.ogg', 'sound/goonstation/voice/male_scream.ogg')

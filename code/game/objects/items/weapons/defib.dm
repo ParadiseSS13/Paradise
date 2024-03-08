@@ -359,6 +359,12 @@
 
 /obj/item/shockpaddles/on_mob_move(dir, mob/user)
 	if(defib)
+		if(!isturf(user.loc))
+			// You went inside something. It blocks the cable.
+			// (This also means we don't have to listen for the
+			//  surrounding object's movements.)
+			defib.remove_paddles(user)
+
 		var/turf/t = get_turf(defib)
 		if(!t.Adjacent(user))
 			defib.remove_paddles(user)

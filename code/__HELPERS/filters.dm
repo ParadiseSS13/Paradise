@@ -22,15 +22,13 @@ GLOBAL_LIST_INIT(master_filter_info, list(
 			"size" = 1
 		)
 	),
-	/* Not supported because making a proper matrix editor on the frontend would be a huge dick pain.
-		Uncomment if you ever implement it
+	// According to TG, this is not implimented. Anyway, let's use this!
 	"color" = list(
 		"defaults" = list(
 			"color" = matrix(),
 			"space" = FILTER_COLOR_RGB
 		)
 	),
-	*/
 	"displace" = list(
 		"defaults" = list(
 			"x" = 0,
