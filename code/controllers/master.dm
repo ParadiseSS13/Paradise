@@ -84,7 +84,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 /datum/controller/master/New()
 	if(!random_seed)
 		#ifdef UNIT_TESTS
-		random_seed = 220 // SS220 EDIT
+		random_seed = 2200 // SS220 EDIT - Unit Test fix
 		#else
 		random_seed = rand(1, 1e9)
 		#endif
