@@ -135,7 +135,8 @@
 	list_reagents = list("sugar" = 50)
 	possible_states = list()
 
-/obj/item/reagent_containers/condiment/saltshaker		//Seperate from above since it's a small shaker rather then
+/// Seperate from above since it's a small shaker rather then
+/obj/item/reagent_containers/condiment/saltshaker
 	name = "salt shaker"											//	a large one.
 	desc = "Salt. From space oceans, presumably."
 	icon_state = "saltshakersmall"
