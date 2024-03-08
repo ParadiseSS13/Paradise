@@ -16,6 +16,11 @@ menu "menu"
 		name = "&Переподключиться"
 		command = ".reconnect"
 		category = "&Файл"
+	elem "debugmcbutton"
+		name = "&MC Debug"
+		command = "SS-Info-Breakdown"
+		category = "&File"
+		is-disabled = true
 	elem
 		name = "&Выход"
 		command = ".quit"
@@ -301,8 +306,8 @@ window "outputwindow"
 		is-pane = true
 	elem "input"
 		type = INPUT
-		pos = 2,460
-		size = 517x20
+		pos = 0,460
+		size = 519x20
 		anchor1 = 0,100
 		anchor2 = 100,100
 		is-default = true
@@ -371,8 +376,8 @@ window "infowindow"
 		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
-	elem "info"
-		type = INFO
+	elem "statbrowser"
+		type = BROWSER
 		pos = 0,0
 		size = 0x0
 		anchor1 = 0,0
