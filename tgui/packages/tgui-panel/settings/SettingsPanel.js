@@ -202,8 +202,8 @@ export const SettingsGeneral = (props, context) => {
               }
             />
           </LabeledList.Item>
-          <LabeledList.Divider />
         </LabeledList>
+        <Divider />
         <Stack>
           <Stack.Item grow>
             <Button
@@ -233,6 +233,17 @@ export const SettingsAdvanced = (props, context) => {
     context,
     selectSettings
   );
+  const SetMessageStackingTime = (value, context) => {
+    const dispatch = useDispatch(context);
+    dispatch(updateSettings({ messageStackInSeconds: value }));
+    chatRenderer.setMessageDelayStacking(value);
+  };
+
+  const SetMessageTotal = (value, context) => {
+    const dispatch = useDispatch(context);
+    dispatch(updateSettings({ maxTotalMessage: value }));
+    chatRenderer.setMessageDelayStacking(value);
+  };
   return (
     <Section height={'150px'}>
       <Stack>
@@ -429,16 +440,4 @@ const TextHighlightSetting = (props, context) => {
       />
     </Stack.Item>
   );
-};
-
-const SetMessageStackingTime = (value, context) => {
-  const dispatch = useDispatch(context);
-  dispatch(updateSettings({ messageStackInSeconds: value }));
-  chatRenderer.setMessageDelayStacking(value);
-};
-
-const SetMessageTotal = (value, context) => {
-  const dispatch = useDispatch(context);
-  dispatch(updateSettings({ maxTotalMessage: value }));
-  chatRenderer.setMessageDelayStacking(value);
 };
