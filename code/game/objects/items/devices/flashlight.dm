@@ -398,7 +398,8 @@
 		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
 	return
 
-/obj/item/flashlight/spotlight //invisible lighting source
+/// invisible lighting source
+/obj/item/flashlight/spotlight
 	name = "disco light"
 	desc = "Groovy..."
 	icon_state = null
