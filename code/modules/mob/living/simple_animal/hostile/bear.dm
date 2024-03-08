@@ -41,7 +41,6 @@
 
 /mob/living/simple_animal/hostile/bear/black
 	name = "black bear"
-	desc = "WIP"
 	icon_state = "black_bear"
 	icon_living = "black_bear"
 	icon_dead = "black_bear_dead"
@@ -49,7 +48,6 @@
 
 /mob/living/simple_animal/hostile/bear/brown
 	name = "brown bear"
-	desc = "WIP"
 	icon_state = "brown_bear"
 	icon_living = "brown_bear"
 	icon_dead = "brown_bear_dead"
@@ -57,7 +55,7 @@
 
 /mob/living/simple_animal/hostile/bear/polar
 	name = "polar bear"
-	desc = "WIP"
+	desc = "Found in the most extreme climates, its insides won't protect you from that kind of cold."
 	icon_state = "polar_bear"
 	icon_living = "polar_bear"
 	icon_dead = "polar_bear_dead"
