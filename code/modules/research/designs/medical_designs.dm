@@ -32,7 +32,7 @@
 	build_path = /obj/item/reagent_containers/glass/beaker/noreact
 	category = list("Medical")
 
-/datum/design/cyborg_analyzer
+/datum/design/machine_analyzer
 	name = "Machine Analyzer"
 	desc = "A hand-held scanner able to diagnose robotic injuries and the condition of machinery."
 	id = "cyborg_analyzer"
