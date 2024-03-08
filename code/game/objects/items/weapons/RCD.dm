@@ -133,7 +133,7 @@
 
 /obj/item/rcd/suicide_act(mob/user)
 	var/turf/suicide_tile = get_turf(src)
-	if(src.mode == MODE_DECON && checkResource(5, user))	// Same cost as deconstructing a wall.
+	if(mode == MODE_DECON && checkResource(5, user))	// Same cost as deconstructing a wall.
 		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		to_chat(user, "Deconstructing User...")
