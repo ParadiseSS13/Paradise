@@ -4126,7 +4126,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/north)
 "azL" = (
-/obj/item/broken_bottle,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -35451,6 +35450,7 @@
 /area/station/hallway/primary/aft/west)
 "dXo" = (
 /obj/machinery/light,
+/obj/machinery/suit_storage_unit/expedition,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown"
 	},
@@ -60943,8 +60943,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/westalt)
 "mDd" = (
-/obj/structure/table/wood/poker,
-/obj/item/deck/unum,
+/obj/machinery/suit_storage_unit/expedition,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkbrown"
@@ -67190,6 +67189,7 @@
 	name = "south bump";
 	dir = 1
 	},
+/obj/machinery/suit_storage_unit/expedition,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown"
 	},
@@ -70611,9 +70611,7 @@
 	},
 /area/station/service/bar)
 "pPd" = (
-/obj/structure/chair/office,
 /obj/effect/landmark/start/explorer,
-/obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbrown"
@@ -83098,12 +83096,12 @@
 /turf/simulated/wall/r_wall,
 /area/station/security/processing)
 "tYA" = (
-/obj/item/chair,
 /obj/machinery/camera{
 	c_tag = "Research Toxins Test Chamber South";
 	dir = 1;
 	network = list("Toxins","Research","SS13")
 	},
+/obj/machinery/suit_storage_unit/expedition,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown"
 	},
@@ -91977,25 +91975,6 @@
 	icon_state = "browncorner"
 	},
 /area/station/supply/office)
-"wGl" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc/directional/north,
-/obj/structure/table,
-/obj/item/storage/fancy/donut_box,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored/cere/engineering)
 "wGo" = (
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
@@ -136579,7 +136558,7 @@ xbO
 aXR
 aXR
 aXR
-wGl
+aXR
 aXR
 aXR
 aXR

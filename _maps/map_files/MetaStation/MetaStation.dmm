@@ -3863,7 +3863,6 @@
 	},
 /area/station/public/sleep)
 "awO" = (
-/obj/machinery/computer/arcade/recruiter,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -27696,7 +27695,6 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/structure/punching_bag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 8
@@ -27715,15 +27713,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/service/kitchen)
-"bQD" = (
-/obj/structure/chair/stool{
-	dir = 1
-	},
-/obj/effect/landmark/start/explorer,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/supply/expedition)
 "bQF" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -28193,6 +28182,7 @@
 	network = list("RD","SS13");
 	pixel_y = -22
 	},
+/obj/machinery/suit_storage_unit/expedition,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -28708,20 +28698,12 @@
 	},
 /area/station/supply/expedition)
 "bTU" = (
-/obj/machinery/computer/arcade/orion_trail,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
-	},
-/area/station/supply/expedition)
-"bTV" = (
-/obj/structure/chair/stool{
-	dir = 1
-	},
-/obj/effect/landmark/start/explorer,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkyellow"
 	},
 /area/station/supply/expedition)
 "bTW" = (
@@ -30344,6 +30326,7 @@
 /area/station/supply/expedition)
 "bZD" = (
 /obj/machinery/light,
+/obj/structure/closet/secure_closet/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -30789,7 +30772,6 @@
 	},
 /area/station/supply/expedition)
 "cbj" = (
-/obj/machinery/computer/arcade/battle,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
@@ -40161,7 +40143,6 @@
 	},
 /area/station/medical/paramedic)
 "cJT" = (
-/obj/structure/closet/secure_closet/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -41679,7 +41660,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "cPD" = (
-/obj/machinery/computer/arcade/recruiter,
+/obj/machinery/computer/arcade/recruiter{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellow"
@@ -55791,24 +55774,7 @@
 	},
 /area/station/command/office/cmo)
 "hAU" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/dispenser/oxygen,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/directional/west,
-/obj/structure/table,
-/obj/item/storage/fancy/donut_box,
-/obj/item/storage/fancy/donut_box,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 8
@@ -65875,6 +65841,12 @@
 /obj/effect/decal/remains/xeno,
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
+"lKl" = (
+/obj/structure/closet/secure_closet/explorer,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
+/area/station/supply/expedition)
 "lKn" = (
 /obj/structure/cable/green{
 	icon_state = "5-6"
@@ -81496,6 +81468,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
+"sqP" = (
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/supply/expedition)
 "srB" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -82996,34 +82975,12 @@
 	},
 /area/station/science/xenobiology)
 "sZy" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/table,
 /obj/machinery/light_switch{
 	name = "custom placement";
 	pixel_x = -6;
 	pixel_y = 24
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/item/radio/beacon,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table,
 /obj/machinery/light_switch{
 	name = "custom placement";
 	pixel_x = -6;
@@ -83040,10 +82997,6 @@
 	icon_state = "2-8"
 	},
 /obj/item/radio/beacon,
-/obj/item/hand_tele,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
 "sZC" = (
@@ -84825,6 +84778,7 @@
 	pixel_y = -24;
 	name = "south bump"
 	},
+/obj/structure/closet/secure_closet/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -88830,6 +88784,13 @@
 	icon_state = "darkgrey"
 	},
 /area/station/medical/morgue)
+"vDl" = (
+/obj/machinery/suit_storage_unit/expedition,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/station/supply/expedition)
 "vDQ" = (
 /obj/machinery/door/poddoor/preopen{
 	name = "Biohazard Shutter";
@@ -92148,6 +92109,12 @@
 	icon_state = "caution"
 	},
 /area/station/engineering/controlroom)
+"xfH" = (
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/supply/expedition)
 "xgb" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
@@ -125665,7 +125632,7 @@ bJB
 bLg
 bZX
 cbj
-bQD
+bZz
 cdB
 eWE
 cdB
@@ -125922,12 +125889,12 @@ bJp
 bLg
 bZX
 bTU
-bQD
-bZz
+xfH
+xfH
+sqP
 cdB
 cdB
-cdB
-qrT
+lKl
 bZX
 aqL
 vmj
@@ -126179,10 +126146,10 @@ bJC
 bLg
 bZX
 cPD
-bTV
+vDl
 bSp
-cJT
-cJT
+vDl
+vDl
 cJT
 bWZ
 bZX

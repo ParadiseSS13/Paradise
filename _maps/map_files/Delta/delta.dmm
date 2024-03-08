@@ -44641,11 +44641,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 2;
+	d1 = 1;
 	d2 = 8;
-	icon_state = "2-8"
+	icon_state = "1-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -45271,38 +45270,21 @@
 	name = "east bump";
 	pixel_x = 30
 	},
-/obj/machinery/computer/security/telescreen/entertainment/television,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/machinery/suit_storage_unit/expedition,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
 	},
 /area/station/supply/expedition)
 "cvK" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
 	},
 /area/station/supply/expedition)
 "cvM" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "cvQ" = (
@@ -45359,6 +45341,7 @@
 /area/station/hallway/primary/starboard/south)
 "cvY" = (
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/machinery/suit_storage_unit/expedition,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "browncorner"
@@ -45766,16 +45749,6 @@
 	},
 /area/station/supply/expedition)
 "cxf" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -45783,11 +45756,6 @@
 	},
 /area/station/supply/expedition)
 "cxh" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
@@ -45975,16 +45943,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "cxJ" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/landmark/start/explorer,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/machinery/suit_storage_unit/expedition,
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "cxL" = (
@@ -46241,11 +46200,6 @@
 /area/station/supply/expedition)
 "cys" = (
 /obj/machinery/hologram/holopad,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
@@ -46281,11 +46235,6 @@
 	},
 /area/station/supply/expedition)
 "cyx" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -46376,14 +46325,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/toilet/lockerroom)
 "cyI" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/machinery/suit_storage_unit/expedition,
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "cyJ" = (
@@ -46926,11 +46873,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/toilet/lockerroom)
 "czV" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/chair/stool/bar,
@@ -47485,11 +47427,6 @@
 	},
 /area/station/supply/expedition)
 "cBy" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -47502,11 +47439,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "cBC" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -47966,7 +47898,6 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/explorer,
-/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "cDb" = (
@@ -73913,24 +73844,6 @@
 "iFr" = (
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/supply/expedition,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -82002,19 +81915,6 @@
 /obj/structure/sink/puddle,
 /turf/simulated/floor/grass,
 /area/station/medical/medbay)
-"nsD" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/supply/expedition)
 "ntt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -84641,14 +84541,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
-"oVl" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/supply/expedition)
 "oVu" = (
 /obj/structure/morgue,
 /obj/machinery/light/small,
@@ -87463,14 +87355,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "qJu" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -87478,17 +87362,8 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -90792,7 +90667,6 @@
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "stt" = (
-/obj/structure/cable,
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/supply/expedition)
@@ -98403,14 +98277,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block)
-"wUm" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/supply/expedition)
 "wUq" = (
 /obj/machinery/economy/vending/hydronutrients,
 /obj/effect/turf_decal/delivery/hollow,
@@ -141924,7 +141790,7 @@ tlB
 bIX
 cyv
 cyv
-oVl
+stt
 cyv
 cyv
 cyv
@@ -142182,7 +142048,7 @@ bIX
 cyv
 cxe
 cvK
-cuk
+cyw
 cyr
 czW
 cBw
@@ -142438,7 +142304,7 @@ ygv
 hQe
 cyv
 qJu
-cxh
+cCX
 cCX
 cyt
 cBv
@@ -143466,10 +143332,10 @@ wat
 bIX
 cyv
 cyv
-wUm
-nsD
+stt
+stt
 cyv
-wUm
+stt
 iFr
 stt
 cyv
