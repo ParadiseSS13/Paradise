@@ -241,7 +241,7 @@
 		return TRUE
 
 /obj/item/mod/control/on_mob_move(direction, mob/user)
-	if(!jetpack_active)
+	if(!jetpack_active || !isturf(user.loc))
 		return
 	var/turf/T = get_step(src, GetOppositeDir(direction))
 	if(!has_gravity(T))
@@ -268,7 +268,7 @@
 		if(!M.restrained() && !M.stat)
 			playsound(loc, "rustle", 50, TRUE, -5)
 
-			if(istype(over_object, /obj/screen/inventory/hand))
+			if(istype(over_object, /atom/movable/screen/inventory/hand))
 				for(var/obj/item/part as anything in mod_parts)
 					if(part.loc != src)
 						to_chat(wearer, "<span class='warning'>Retract parts first!</span>")
@@ -657,7 +657,7 @@
 	if(!wearer)
 		return
 	if(!core)
-		wearer.throw_alert("mod_charge", /obj/screen/alert/nocell)
+		wearer.throw_alert("mod_charge", /atom/movable/screen/alert/nocell)
 		return
 	core.update_charge_alert()
 

@@ -168,7 +168,7 @@
 	if(!C.check_has_body_select())
 		return
 
-	var/obj/screen/zone_sel/selector = C.mob.hud_used.zone_select
+	var/atom/movable/screen/zone_sel/selector = C.mob.hud_used.zone_select
 	selector.set_selected_zone(body_part, C.mob)
 
 /datum/keybinding/mob/target/head

@@ -114,7 +114,7 @@
 
 /// Summoned by the Finger Gun spell, from advanced mimery traitor item
 /obj/item/gun/projectile/revolver/fingergun
-	name = "\improper finger gun"
+	name = "finger gun"
 	desc = "Bang bang bang!"
 	icon_state = "fingergun"
 	force = 0
