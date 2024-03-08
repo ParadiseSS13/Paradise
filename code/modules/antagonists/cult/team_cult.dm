@@ -56,6 +56,7 @@
 /datum/team/cult/handle_removing_member(datum/mind/member)
 	. = ..()
 	UnregisterSignal(member.current, COMSIG_MOB_STATCHANGE)
+	UnregisterSignal(member.current, handle_removing_member)
 	check_cult_size()
 
 
