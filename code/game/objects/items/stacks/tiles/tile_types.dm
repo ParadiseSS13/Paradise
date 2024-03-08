@@ -93,6 +93,7 @@
 
 /obj/item/stack/tile/bamboo/tatami/twenty
 	amount = 20
+
 /obj/item/stack/tile/bamboo/tatami/purple
 	name = "Tatami with purple rim"
 	singular_name = "purple tatami floor tile"
