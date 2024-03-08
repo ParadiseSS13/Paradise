@@ -21,7 +21,7 @@ export const BotMule = (props, context) => {
       case 1:
         return <MuleLoad />;
       default:
-        return 'Whoops!!';
+        return 'Whoops!! This is a bug. Please report to Paradise Github';
     }
   };
 
