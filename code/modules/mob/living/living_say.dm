@@ -293,7 +293,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	hear_message_obj(listening_obj, src, message_pieces, verb)
 
-	return 1
+	return TRUE
 
 /proc/hear_message_obj(list/listening_obj, mob/M, list/message_pieces, verbage)
 	var/list/transmited_channels = list()
