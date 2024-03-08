@@ -148,7 +148,6 @@
 				user.unEquip(W)
 			user.dust()
 			return OBLITERATION
-		user.visible_message("<span class='suicide'>[user] doesn't have [src] anymore, [user.p_they()] cannot commit suicide with it!</span>", \
 		"<span class='suicide'>You cannot commit suicide without [src]!</span>")
 		return
 
