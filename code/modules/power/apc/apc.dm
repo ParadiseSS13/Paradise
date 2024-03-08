@@ -993,7 +993,7 @@
 	if(occupier)
 		occupier.emp_act(severity)
 
-	var/time = severity * 30 SECONDS
+	var/time = severity * (20 + rand(1, 20)) SECONDS
 	lighting_channel = 0
 	equipment_channel = 0
 	environment_channel = 0
