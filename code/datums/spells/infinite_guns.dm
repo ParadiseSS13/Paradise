@@ -90,7 +90,7 @@
 		return FALSE
 
 	if(!C.drop_item())
-		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot invoke a fireball over it!")
+		to_chat(user, "<span class='warning'>[user.get_active_hand()] is stuck to your hand, you cannot invoke a fireball over it!</span>")
 		return FALSE
 
 	var/obj/item/gun/projectile/shotgun/boltaction/enchanted/GUN = new gun_type(FALSE, src)
