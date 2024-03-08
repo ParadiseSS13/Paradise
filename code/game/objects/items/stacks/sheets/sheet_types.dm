@@ -273,7 +273,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list ( \
 	new/datum/stack_recipe("bamboo spear", /obj/item/spear/bamboospear, req_amount = 25, time = 9 SECONDS), \
 	new/datum/stack_recipe("blow gun", /obj/item/gun/syringe/blowgun, req_amount = 10, time = 7 SECONDS), \
 	new/datum/stack_recipe("crude syringe", /obj/item/reagent_containers/syringe/crude, req_amount = 5, time = 1 SECONDS), \
-	new/datum/stack_recipe("rice hat", /obj/item/clothing/head/costume/rice_hat, req_amount = 10, time = 7 SECONDS), \
+	new/datum/stack_recipe("rice hat", /obj/item/clothing/head/rice_hat, req_amount = 10, time = 7 SECONDS), \
 	null, \
 	new/datum/stack_recipe("bamboo stool", /obj/structure/chair/stool/bamboo, req_amount = 2, time = 1 SECONDS, on_floor = TRUE), \
 	new/datum/stack_recipe("bamboo mat piece", /obj/item/stack/tile/bamboo, req_amount = 1, res_amount = 4, max_res_amount = 20), \
@@ -289,7 +289,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list ( \
 	name = "bamboo cuttings"
 	desc = "Finely cut bamboo sticks."
 	singular_name = "cut bamboo stick"
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-bamboo"
 	item_state = "sheet-bamboo"
 	resistance_flags = FLAMMABLE

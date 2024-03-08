@@ -356,10 +356,10 @@
 /obj/structure/falsewall/bamboo
 	name = "bamboo wall"
 	desc = "A wall with bamboo finish. Zen."
-	fake_icon = 'icons/turf/walls/bamboo_wall.dmi'
+	icon = 'icons/turf/walls/bamboo_wall.dmi'
 	icon_state = "bamboo_wall-0"
 	base_icon_state = "bamboo_wall"
-	mineral = /obj/item/stack/sheet/mineral/bamboo
+	mineral = /obj/item/stack/sheet/bamboo
 	walltype = /turf/simulated/wall/mineral/bamboo
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BAMBOO_WALLS)

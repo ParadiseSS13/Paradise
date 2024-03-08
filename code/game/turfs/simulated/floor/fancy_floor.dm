@@ -209,7 +209,7 @@
 // Bamboo mats
 /turf/simulated/floor/bamboo
 	name = "bamboo"
-	icon = "icons/turf/floors/bamboo_mat.dmi"
+	icon = 'icons/turf/floors/bamboo_mat.dmi'
 	icon_state = "mat-0"
 	base_icon_state = "bamboo"
 	floor_tile = /obj/item/stack/tile/bamboo
@@ -266,12 +266,12 @@
 	smoothing_groups = NONE
 
 /turf/simulated/floor/bamboo/tatami/purple
-	icon = "icons/turf/floors/bamboo_mat.dmi"
+	icon = 'icons/turf/floors/bamboo_mat.dmi'
 	icon_state = "bamboo-purple"
 	floor_tile = /obj/item/stack/tile/bamboo/tatami/purple
 
 /turf/simulated/floor/bamboo/tatami/black
-	icon = "icons/turf/floors/bamboo_mat.dmi"
+	icon = 'icons/turf/floors/bamboo_mat.dmi'
 	icon_state = "bamboo-black"
 	floor_tile = /obj/item/stack/tile/bamboo/tatami/black
 // End of bamboo
