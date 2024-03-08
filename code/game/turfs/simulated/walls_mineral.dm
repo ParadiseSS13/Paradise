@@ -187,6 +187,18 @@
 	hardness = 50
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WOOD_WALLS)
 
+/turf/simulated/wall/mineral/bamboo
+	name = "bamboo wall"
+	desc = "A wall with a bamboo finish."
+	icon = 'icons/turf/walls/bamboo_wall.dmi'
+	icon_state = "bamboo_wall-0"
+	base_icon_state = "bamboo_wall"
+	sheet_type = /obj/item/stack/sheet/bamboo
+	hardness = 80
+	explosion_block = 0
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BAMBOO_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_BAMBOO_WALLS)
+
 /turf/simulated/wall/mineral/iron
 	name = "rough metal wall"
 	desc = "A wall with rough metal plating."
