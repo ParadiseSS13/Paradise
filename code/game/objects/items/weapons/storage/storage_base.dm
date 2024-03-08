@@ -424,6 +424,7 @@
   * This doesn't perform any checks of whether an item can be inserted. That's done by [/obj/item/storage/proc/can_be_inserted]
   * Arguments:
   * * obj/item/I - The item to be inserted
+  * * mob/user - The mob performing the insertion
   * * prevent_warning - Stop the insertion message being displayed. Intended for cases when you are inserting multiple items at once.
   */
 /obj/item/storage/proc/handle_item_insertion(obj/item/I, mob/user, prevent_warning = FALSE)
