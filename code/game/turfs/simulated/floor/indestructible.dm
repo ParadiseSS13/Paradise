@@ -63,7 +63,8 @@
 	nitrogen = MOLES_N2STANDARD
 	temperature = T20C
 
-/turf/simulated/floor/indestructible/boss //you put stone tiles on this and use it as a base
+/// you put stone tiles on this and use it as a base
+/turf/simulated/floor/indestructible/boss
 	name = "necropolis floor"
 	icon = 'icons/turf/floors/boss_floors.dmi'
 	icon_state = "boss"

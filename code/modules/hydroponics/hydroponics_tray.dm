@@ -975,7 +975,8 @@
 		return ..()
 
 ///////////////////////////////////////////////////////////////////////////////
-/obj/machinery/hydroponics/soil //Not actually hydroponics at all! Honk!
+/// Not actually hydroponics at all! Honk!
+/obj/machinery/hydroponics/soil
 	name = "soil"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "soil"

@@ -35,6 +35,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	///toggle for ghost gas analyzer
 	var/gas_analyzer = FALSE
 	var/datum/orbit_menu/orbit_menu
+	/// The "color" their runechat would have had
+	var/alive_runechat_color = "#FFFFFF"
 
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -59,6 +61,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(ismob(body))
 		T = get_turf(body)				//Where is the body located?
 		attack_log_old = body.attack_log_old	//preserve our attack logs by copying them to our ghost
+		alive_runechat_color = body.get_runechat_color()
 
 		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
@@ -846,3 +849,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return allow_roundstart_observers
 	return FALSE
 
+
+/mob/dead/observer/get_runechat_color()
+	return alive_runechat_color
