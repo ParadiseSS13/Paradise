@@ -207,47 +207,53 @@ export const SettingsGeneral = (props, context) => {
 };
 
 export const SettingsAdvanced = (props, context) => {
-  const {
-    messageStackInSeconds,
-    maxTotalMessage,
-  } = useSelector(context, selectSettings);
+  const { messageStackInSeconds, maxTotalMessage } = useSelector(
+    context,
+    selectSettings
+  );
   return (
     <Section height="150px">
       <Stack width={'345px'}>
         <Stack.Item>
-      <LabeledList>
-          <LabeledList.Item label={'Messages Max'} tooltip={'Maximum Messages Displayed'}>
-          <NumberInput
-            width={5}
-            step={100}
-            stepPixelSize={3}
-            minValue={0}
-            maxValue={25000}
-            value={maxTotalMessage}
-            format={(value) => toFixed(value)}
-            onChange={(e, value) => SetMessageTotal(value, context)}
-          />
-        </LabeledList.Item>
-      </LabeledList>
-      </Stack.Item>
-      <Stack.Divider />
-      <Stack.Item>
-      <LabeledList>
-        <LabeledList.Item label="Stacking Time" tooltip={'Stacked Message Expiration'}>
-          <NumberInput
-            width={5}
-            step={1}
-            stepPixelSize={3}
-            minValue={0}
-            maxValue={600}
-            value={messageStackInSeconds}
-            unit="sec"
-            format={(value) => toFixed(value)}
-            onChange={(e, value) => SetMessageStackingTime(value, context)}
-          />
-        </LabeledList.Item>
-      </LabeledList>
-      </Stack.Item>
+          <LabeledList>
+            <LabeledList.Item
+              label={'Messages Max'}
+              tooltip={'Maximum Messages Displayed'}
+            >
+              <NumberInput
+                width={5}
+                step={100}
+                stepPixelSize={3}
+                minValue={0}
+                maxValue={25000}
+                value={maxTotalMessage}
+                format={(value) => toFixed(value)}
+                onChange={(e, value) => SetMessageTotal(value, context)}
+              />
+            </LabeledList.Item>
+          </LabeledList>
+        </Stack.Item>
+        <Stack.Divider />
+        <Stack.Item>
+          <LabeledList>
+            <LabeledList.Item
+              label="Stacking Time"
+              tooltip={'Stacked Message Expiration'}
+            >
+              <NumberInput
+                width={5}
+                step={1}
+                stepPixelSize={3}
+                minValue={0}
+                maxValue={600}
+                value={messageStackInSeconds}
+                unit="sec"
+                format={(value) => toFixed(value)}
+                onChange={(e, value) => SetMessageStackingTime(value, context)}
+              />
+            </LabeledList.Item>
+          </LabeledList>
+        </Stack.Item>
       </Stack>
     </Section>
   );

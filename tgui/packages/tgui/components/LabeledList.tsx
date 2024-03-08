@@ -72,11 +72,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
   );
 
   if (tooltip) {
-    listItem = (
-      <Tooltip content={tooltip}>
-        {listItem}
-      </Tooltip>
-    );
+    listItem = <Tooltip content={tooltip}>{listItem}</Tooltip>;
   }
 
   return listItem;
