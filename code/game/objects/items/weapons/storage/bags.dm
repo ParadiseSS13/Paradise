@@ -479,16 +479,18 @@
 		var/dropped_something = FALSE
 
 		for(var/obj/item/I in contents)
-			I.loc = dropspot
+			var/obj/item/newItem = new I.type(dropspot)
+			// Set the properties of the new item here, e.g., stack count, hover highlight, tooltip
 			contents.Remove(I)
+			qdel(I) // Delete the old item
 			dropped_something = TRUE
 			if(!found_table && isturf(dropspot))
 				// if no table, presume that the person just shittily dropped the tray on the ground and made a mess everywhere!
 				spawn()
-					for(var/i = 1, i <= rand(1,2), i++)
-						if(I)
-							step(I, pick(NORTH,SOUTH,EAST,WEST))
-							sleep(rand(2,4))
+						for(var/i = 1, i <= rand(1,2), i++)
+							if(newItem)
+								step(newItem, pick(NORTH,SOUTH,EAST,WEST))
+								sleep(rand(2,4))
 		if(dropped_something)
 			if(found_table)
 				user.visible_message("<span class='notice'>[user] unloads [user.p_their()] service tray.</span>")
