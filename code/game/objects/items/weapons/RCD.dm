@@ -131,15 +131,17 @@
 	GLOB.rcd_list -= src
 	return ..()
 
-/obj/item/rcd/suicide_act(mob/user)
-	flags = NODROP
+/obj/item/rcd/suicide_act(mob/living/user)
+	user.Immobilize(10 SECONDS) // You cannot move.
+	flags = NODROP				// You cannot drop. You commit to die.
 	var/turf/suicide_tile = get_turf(src)
 	if(mode == MODE_DECON && checkResource(5, user))	// Same cost as deconstructing a wall.
 		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 		to_chat(user, "Deconstructing User...")
 		var/obj/effect/temp_visual/rcd_effect/reverse/suicide_A = new(suicide_tile)
-		do_after(user, 5 SECONDS)
+		if(!do_after(user, 5 SECONDS))
+			return
 		QDEL_NULL(suicide_A)
 		if(user.l_hand == src || user.r_hand == src)	// Do not commit die if the RCD isn't in your hands.
 			useResource(5, user)
@@ -152,9 +154,8 @@
 		return SHAME
 
 	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
-	if(mode == MODE_TURF && checkResource(3, user))	// Check you can afford to build this.
-		. = mode_turf(suicide_tile, user)				// Build it.
+	if(mode == MODE_TURF && checkResource(3, user))		// Check you can afford to build this.
+		mode_turf(suicide_tile, user)					// Build it.
 		if(user.l_hand == src || user.r_hand == src)	// Do not commit die if the RCD isn't in your hands.
 			user.visible_message("<span class='suicide'>[src] creates a wall inside [user], causing [user.p_them()] to explode!</span>")
 			user.gib()
@@ -162,7 +163,7 @@
 		return SHAME
 
 	if(mode == MODE_WINDOW && checkResource(2, user))
-		. = mode_window(suicide_tile, user)
+		mode_window(suicide_tile, user)
 		if(user.l_hand == src || user.r_hand == src)
 			user.visible_message("<span class='suicide'>[src] creates a window inside [user], causing [user.p_them()] to explode!</span>")
 			user.gib()
@@ -170,7 +171,7 @@
 		return SHAME
 
 	if(mode == MODE_AIRLOCK && checkResource(10, user))
-		. = mode_airlock(suicide_tile, user)
+		mode_airlock(suicide_tile, user)
 		if(user.l_hand == src || user.r_hand == src)
 			user.visible_message("<span class='suicide'>[src] creates an airlock inside [user], causing [user.p_them()] to explode!</span>")
 			user.gib()
@@ -178,6 +179,7 @@
 		return SHAME
 
 	else	// Very shameful to end up here...
+		playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 		sleep(1 SECONDS)	// Time for it to sink in.
 		user.visible_message("<span class='suicide'>The \'Low Ammo\' light on [src] blinks yellow, there wasn't enough compressed matter to commit suicide with [src]! [user] drops to the floor in SHAME.</span>", \
 		"<span class='suicide'>You pull the trigger on [src]. The \'Low Ammo\' light on the device blinks yellow, there wasn't enough compressed matter to commit suicide with [src]! A wave of SHAME washes over you...</span>")
