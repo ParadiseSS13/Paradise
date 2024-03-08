@@ -818,7 +818,6 @@ so as to remain in compliance with the most up-to-date laws."
 	screen_loc = ""
 	return ..()
 
-
 /// Gives the player the option to succumb while in critical condition
 /atom/movable/screen/alert/succumb
 	name = "Succumb"

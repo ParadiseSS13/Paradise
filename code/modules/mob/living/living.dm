@@ -330,7 +330,6 @@
 	to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 	apply_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED)
 
-
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
 
