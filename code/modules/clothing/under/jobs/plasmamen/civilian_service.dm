@@ -5,6 +5,13 @@
 	item_state = "cargo_envirosuit"
 	item_color = "cargo_envirosuit"
 
+/obj/item/clothing/under/plasmaman/expedition
+	name = "expedition envirosuit"
+	desc = "An airtight brown and blue suit designed for operations in Space by plasmamen.."
+	icon_state = "expedition_envirosuit"
+	item_state = "expedition_envirosuit"
+	item_color = "expedition_envirosuit"
+
 /obj/item/clothing/under/plasmaman/mining
 	name = "mining plasma envirosuit"
 	desc = "An airtight khaki suit designed for operations on Lavaland by plasmamen."
