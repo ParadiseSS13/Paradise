@@ -244,3 +244,6 @@
 			GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE), research_credits, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
 		if(service_credits)
 			GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE), service_credits, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
+
+	// TODO: add stats for other stuff, find good representation for tech disks/levels because number of disks is meaningless
+	SSblackbox.record_feedback("tally", "cargo_exports", salvage_count, "salvage")
