@@ -211,7 +211,7 @@
 	name = "bamboo"
 	icon = 'icons/turf/floors/bamboo_mat.dmi'
 	icon_state = "mat-0"
-	base_icon_state = "bamboo"
+	base_icon_state = "mat"
 	floor_tile = /obj/item/stack/tile/bamboo
 	prying_tool_list = list(TOOL_SCREWDRIVER)
 	broken_states = list("bamboo-damaged")
@@ -258,6 +258,7 @@
 	icon_state = "bamboo-green"
 	broken_states = list("tatami-damaged")
 	floor_tile = /obj/item/stack/tile/bamboo/tatami
+	smoothing_flags = NONE
 
 /turf/simulated/floor/bamboo/tatami/purple
 	icon = 'icons/turf/floors/bamboo_mat.dmi'

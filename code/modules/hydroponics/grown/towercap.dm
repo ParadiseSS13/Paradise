@@ -114,21 +114,13 @@
 	max_integrity = 30
 	anchored = TRUE
 
-	/// Overlay we apply when impaling a mob.
-	/// TODO: implement this or not?
-	//var/mutable_appearance/stab_overlay
-
 /obj/structure/punji_sticks/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/caltrop, min_damage = 20, max_damage = 30, probability = 100, weaken_duration = 6 SECONDS, flags = CALTROP_BYPASS_SHOES)
-
-/obj/structure/punji_sticks/Crossed(mob/living/L)
-	return
+	AddComponent(/datum/component/caltrop, 20, 30, 100, 6 SECONDS, CALTROP_BYPASS_SHOES)
 
 /obj/structure/punji_sticks/spikes
 	name = "wooden spikes"
 	icon_state = "woodspike"
-
 
 /////////BONFIRES//////////
 

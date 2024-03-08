@@ -14,18 +14,17 @@
 	///Shoebypassing, walking interaction, silence
 	var/flags
 
-	///TODO: soundfile?
-
 	var/cooldown = 0
 
-/datum/component/caltrop/Initialize(min_damage = 0, max_damage = 0, probability = 100, weaken_duration = 6 SECONDS, flags = NONE)
-	src.min_damage = min_damage
-	src.max_damage = max(min_damage, max_damage)
-	src.probability = probability
-	src.weaken_duration = weaken_duration
-	src.flags = flags
+/datum/component/caltrop/Initialize(_min_damage = 0, _max_damage = 0, _probability = 100, _weaken_duration = 6 SECONDS, _flags = NONE)
+	src.min_damage = _min_damage
+	src.max_damage = max(_min_damage, _max_damage)
+	src.probability = _probability
+	src.weaken_duration = _weaken_duration
+	src.flags = _flags
 
-	RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED), PROC_REF(Crossed))
+/datum/component/caltrop/RegisterWithParent()
+	RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, PROC_REF(Crossed))
 
 /datum/component/caltrop/proc/Crossed(datum/source, atom/movable/AM)
 	var/atom/A = parent
@@ -62,7 +61,7 @@
 	if(!bypass_shoes && (H.shoes || feet_cover))
 		return
 
-	// doesn't penetrate if feet are extra covered
+	// doesn't penetrate shoes if feet are extra covered
 	if(bypass_shoes && (H.shoes && (H.shoes.flags & THICKMATERIAL)))
 		return
 

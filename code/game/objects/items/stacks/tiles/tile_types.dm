@@ -80,6 +80,9 @@
 	merge_type = /obj/item/stack/tile/bamboo
 	resistance_flags = FLAMMABLE
 
+/obj/item/stack/tile/bamboo/twenty
+	amount = 20
+
 /obj/item/stack/tile/bamboo/tatami
 	name = "Tatami with green rim"
 	singular_name = "green tatami floor tile"
@@ -87,19 +90,27 @@
 	turf_type = /turf/simulated/floor/bamboo/tatami
 	merge_type = /obj/item/stack/tile/bamboo/tatami
 
+/obj/item/stack/tile/bamboo/tatami/twenty
+	amount = 20
 /obj/item/stack/tile/bamboo/tatami/purple
 	name = "Tatami with purple rim"
 	singular_name = "purple tatami floor tile"
 	icon_state = "tile_tatami_purple"
 	turf_type = /turf/simulated/floor/bamboo/tatami/purple
-	merge_type = /obj/item/stack/tile/bamboo/tatami/purple
+	merge_type = /obj/item/stack/tile/bamboo/tatami
+
+/obj/item/stack/tile/bamboo/tatami/purple/twenty
+	amount = 20
 
 /obj/item/stack/tile/bamboo/tatami/black
 	name = "Tatami with black rim"
 	singular_name = "black tatami floor tile"
 	icon_state = "tile_tatami_black"
 	turf_type = /turf/simulated/floor/bamboo/tatami/black
-	merge_type = /obj/item/stack/tile/bamboo/tatami/black
+	merge_type = /obj/item/stack/tile/bamboo/tatami
+
+/obj/item/stack/tile/bamboo/tatami/black/twenty
+	amount = 20
 
 //Carpets
 /obj/item/stack/tile/carpet
