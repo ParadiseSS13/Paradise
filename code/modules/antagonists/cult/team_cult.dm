@@ -23,6 +23,9 @@
 	/// Are cultist mirror shields active yet?
 	var/mirror_shields_active = FALSE
 
+	// Is this for adminbus or debugging coderman, you decide.
+	var/no_announcements = FALSE
+
 /datum/team/cult/New(list/starting_members)
 	cult_threshold_check()
 	..()
@@ -156,7 +159,8 @@
 		to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!</span>")
 
 	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, ascend)), 20 SECONDS)
-	GLOB.major_announcement.Announce("Picking up extradimensional activity related to the Cult of [GET_CULT_DATA(entity_name, "Nar'Sie")] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
+	if(!no_announcements)
+		GLOB.major_announcement.Announce("Picking up extradimensional activity related to the Cult of [GET_CULT_DATA(entity_name, "Nar'Sie")] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 
 /datum/team/cult/proc/cult_fall()
 	cult_ascendant = FALSE
@@ -167,7 +171,8 @@
 		to_chat(M.current, "<span class='cultlarge'>The veil repairs itself, your power grows weaker...</span>")
 
 	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, descend)), 20 SECONDS)
-	GLOB.major_announcement.Announce("Paranormal activity has returned to minimal levels. \
+	if(!no_announcements)
+		GLOB.major_announcement.Announce("Paranormal activity has returned to minimal levels. \
 									Security staff should minimize lethal force against cultists, using non-lethals where possible. \
 									All dead cultists should be taken to medbay or robotics for immediate revival and deconversion. \
 									Non-security staff may defend themselves, but should prioritize leaving any areas with cultists and reporting the cultists to security. \
