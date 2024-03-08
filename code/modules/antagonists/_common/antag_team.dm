@@ -47,6 +47,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	if(!force && (new_member in members))
 		return FALSE
+	members |= new_member
 	handle_adding_member(new_member)
 	return TRUE
 
@@ -59,7 +60,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	SHOULD_CALL_PARENT(TRUE)
 
 	var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
-	members |= new_member
 	if(!antag) // this team has no antag role, we'll add it directly to their mind team
 		LAZYDISTINCTADD(new_member.teams, src)
 
@@ -71,6 +71,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	if(!force && !(member in members))
 		return FALSE
+	members -= member
 	handle_removing_member(member)
 	return TRUE
 
@@ -81,7 +82,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	PROTECTED_PROC(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
-	members -= member
 	LAZYREMOVE(member.teams, src)
 	var/datum/antagonist/antag = get_antag_datum_from_member(member)
 	if(!QDELETED(antag))
