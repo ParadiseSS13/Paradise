@@ -27315,7 +27315,9 @@
 /obj/effect/mapping_helpers/airlock/access/any/supply/expedition,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/expedition,
+/obj/machinery/door/airlock/mining{
+	name = "Expedition Headquarters"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},

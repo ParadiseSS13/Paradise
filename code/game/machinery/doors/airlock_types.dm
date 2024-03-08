@@ -36,11 +36,6 @@
 	icon = 'icons/obj/doors/airlocks/station/mining.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_min
 
-/obj/machinery/door/airlock/expedition
-	name = "expedition airlock"
-	icon = 'icons/obj/doors/airlocks/station/mining.dmi'
-	assemblytype = /obj/structure/door_assembly/door_assembly_exp
-
 /obj/machinery/door/airlock/atmos
 	name = "atmospherics airlock"
 	icon = 'icons/obj/doors/airlocks/station/atmos.dmi'
@@ -99,10 +94,6 @@
 	glass = TRUE
 
 /obj/machinery/door/airlock/mining/glass
-	opacity = FALSE
-	glass = TRUE
-
-/obj/machinery/door/airlock/expedition/glass
 	opacity = FALSE
 	glass = TRUE
 
