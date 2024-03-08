@@ -96,3 +96,6 @@
 	var/datum/language/default_language
 
 	var/datum/middleClickOverride/middleClickOverride = null
+
+	/// Famous last words -- if succumbing, what the user's last words were
+	var/last_words
