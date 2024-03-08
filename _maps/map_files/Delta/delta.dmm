@@ -25927,12 +25927,6 @@
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai)
-"byi" = (
-/obj/structure/closet/emcloset,
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/gravitygenerator)
 "byk" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -25942,6 +25936,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "byl" = (
@@ -45900,6 +45895,11 @@
 /area/station/public/locker)
 "cxw" = (
 /obj/structure/closet/wardrobe/green,
+/obj/machinery/alarm{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -122550,7 +122550,7 @@ bpv
 bpv
 aOg
 abj
-bzL
+abj
 bwN
 bzL
 vzG
@@ -122808,7 +122808,7 @@ xBO
 aOg
 acF
 bzL
-byi
+bzL
 mPU
 bBt
 rcq
