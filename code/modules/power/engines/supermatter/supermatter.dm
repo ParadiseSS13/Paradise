@@ -856,6 +856,8 @@
 			matter_power += 200
 	else if(istype(AM, /obj/singularity))
 		return
+	else if(istype(AM, /obj/machinery/field/containment))
+		return
 	else if(isobj(AM))
 		if(!iseffect(AM))
 			var/suspicion = ""
