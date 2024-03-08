@@ -775,7 +775,8 @@
 			M.emote("laugh")
 	return list(effect, update_flags)
 
-/datum/reagent/rotatium //Rotatium. Fucks up your rotation and is hilarious
+/// Rotatium. Fucks up your rotation and is hilarious
+/datum/reagent/rotatium
 	name = "Rotatium"
 	id = "rotatium"
 	description = "A constantly swirling, oddly colourful fluid. Causes the consumer's sense of direction and hand-eye coordination to become wild."
@@ -800,6 +801,306 @@
 		for(var/key in pm_controller.controlled_planes)
 			animate(pm_controller.controlled_planes[key], transform = matrix(), time = 5, easing = QUAD_EASING)
 	..()
+
+// Mephedrone.
+
+#define CONSTANT_DOSE_SAFE_LIMIT 60
+#define CONSTANT_DOSE_DEATH_LIMIT 600
+
+#define MEPHEDRONE_SCREEN_FILTER "mephedrone_screen_filter"
+#define MEPHEDRONE_SCREEN_BLUR "mephedrone_screen_blur"
+
+#define MEPHEDRONE_BLUR_EFFECT "mephedrone_dodge_blur"
+#define MEPHEDRONE_OVERDOSE_BLUR_EFFECT "mephedrone_overdose_blur"
+
+// Mephedrone drug, makes the takers of it faster and able to dodge bullets while in their system, to potentially bad side effects
+/datum/reagent/mephedrone
+	name = "Mephedrone"
+	id = "mephedrone"
+	description = "A drug originally developed by and for plutonians to assist them during raids. \
+		Does not see wide use due to the whole reality-disassociation and heart disease thing afterwards. \
+		Can be intentionally overdosed to increase the drug's effects."
+	reagent_state = LIQUID
+	color = "#c22a44"
+	taste_description = "television static"
+	metabolization_rate = 0.375 * REAGENTS_METABOLISM
+	overdose_threshold = 15
+	addiction_chance = 3
+	addiction_threshold = 15
+	shock_reduction = 40 // Slight shock reduction to assist with damage / disablers
+	allowed_overdose_process = TRUE
+	process_flags = ORGANIC | SYNTHETIC
+	/// How much time has the drug been in them?
+	var/constant_dose_time = 0
+	/// Keeps track of how many chemicals we are delaying the changeling by.
+	var/changeling_chemical_tracker = 0
+
+
+/datum/reagent/mephedrone/on_mob_add(mob/living/carbon/L)
+	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
+	ADD_TRAIT(L, TRAIT_NOKNOCKDOWNSLOWDOWN, id)
+	L.next_move_modifier -= 0.3 // For the duration of this you move and attack faster
+
+	L.sound_environment_override = SOUND_ENVIRONMENT_DIZZY
+
+	RegisterSignal(L, COMSIG_MOVABLE_MOVED, PROC_REF(on_movement))
+	RegisterSignal(L, COMSIG_HUMAN_CREATE_MOB_HUD, PROC_REF(no_hud_cheese))
+
+	if(!L.hud_used)
+		return
+
+	var/atom/movable/plane_master_controller/game_plane_master_controller = L.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
+
+	var/static/list/col_filter_green = list(0.5,0,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1)
+
+	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_FILTER, 10, color_matrix_filter(col_filter_green, FILTER_COLOR_RGB))
+
+	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
+
+	if(!ischangeling(L) || HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED))
+		return
+	var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
+	cling.chem_recharge_slowdown += 1
+	changeling_chemical_tracker += 1
+
+/datum/reagent/mephedrone/on_mob_delete(mob/living/carbon/L)
+	REMOVE_TRAIT(L, TRAIT_GOTTAGOFAST, id)
+	REMOVE_TRAIT(L, TRAIT_NOKNOCKDOWNSLOWDOWN, id)
+	var/overdosed = (id in L.reagents.overdose_list())
+	L.next_move_modifier += (overdosed ? 0.5 : 0.3)
+
+	L.sound_environment_override = NONE
+
+	UnregisterSignal(L, COMSIG_MOVABLE_MOVED)
+	if(overdosed)
+		UnregisterSignal(L, COMSIG_ATOM_PREHIT)
+
+	if(ischangeling(L))
+		var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
+		cling.chem_recharge_slowdown -= changeling_chemical_tracker
+		changeling_chemical_tracker = 0
+
+	if(constant_dose_time < CONSTANT_DOSE_SAFE_LIMIT) // Anything less than this and you'll come out fiiiine, aside from a big hit of stamina damage
+		L.visible_message(
+			"<span class='danger'>[L] suddenly slows from their inhuman speeds, coming back with a wicked nosebleed!</span>",
+			"<span class='danger'>You suddenly slow back to normal, a stream of blood gushing from your nose!</span>")
+		L.adjustStaminaLoss(constant_dose_time)
+	else // Much longer than that however, and you're not gonna have a good day
+		L.visible_message(
+			"<span class='danger'>[L] suddenly snaps back from their inhumans speeds, coughing up a spray of blood!</span>",
+			"<span class='danger'>As you snap back to normal speed you cough up a worrying amount of blood. You feel like you've just been run over by a power loader.</span>")
+		L.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
+		L.bleed(25)
+		L.apply_damage(max(constant_dose_time / 3, 60), STAMINA)
+		L.KnockDown((constant_dose_time / 15) SECONDS) // a minute is a 4 second knockdown, 2 is 8, etc
+		if(!HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED) || constant_dose_time >= CONSTANT_DOSE_DEATH_LIMIT) //If you are going infinite with mito and you run out, you deserve this even with an implant
+			if(ishuman(L))
+				var/mob/living/carbon/human/H = L
+				var/datum/organ/heart/datum_heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
+				if(datum_heart)
+					var/obj/item/organ/internal/our_heart = datum_heart.linked_organ
+					our_heart.receive_damage(0.15 * constant_dose_time, TRUE) // Basically you might die. Especially if you are a slime.
+				else
+					handle_heartless(L, 0.15 * constant_dose_time)
+
+
+	if(!L.hud_used)
+		return
+
+	var/atom/movable/plane_master_controller/game_plane_master_controller = L.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
+
+	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_FILTER)
+	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_BLUR)
+
+
+/// Leaves an afterimage behind the mob when they move
+/datum/reagent/mephedrone/proc/on_movement(mob/living/carbon/L, atom/old_loc)
+	SIGNAL_HANDLER
+	if(HAS_TRAIT(L, TRAIT_IMMOBILIZED)) //No, dead people floating through space do not need afterimages
+		return NONE
+	var/overdosed = (id in L.reagents.overdose_list())
+	new /obj/effect/temp_visual/decoy/mephedrone_afterimage(old_loc, L, overdosed ? 1.25 SECONDS : 0.75 SECONDS)
+
+/// Tries to dodge incoming bullets if we aren't disabled for any reasons
+/datum/reagent/mephedrone/proc/dodge_bullets(mob/living/carbon/human/source, obj/item/projectile/hitting_projectile)
+	SIGNAL_HANDLER
+
+	if(HAS_TRAIT(source, TRAIT_IMMOBILIZED))
+		return NONE
+	source.visible_message(
+		"<span class='danger'>[source] effortlessly dodges [hitting_projectile]!</span>",
+		"<span class='userdanger'>You effortlessly evade [hitting_projectile]!</span>",
+	)
+	playsound(source, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
+	source.add_filter(MEPHEDRONE_BLUR_EFFECT, 2, gauss_blur_filter(5))
+	addtimer(CALLBACK(source, TYPE_PROC_REF(/atom, remove_filter), MEPHEDRONE_BLUR_EFFECT), 0.5 SECONDS)
+	return ATOM_PREHIT_FAILURE
+
+
+/// So. If a person changes up their hud settings (Changing their ui theme), the visual effects for this reagent will break, and they will be able to see easily. This 3 part proc waits for the plane controlers to be setup, and over 2 other procs, rengages the visuals
+/datum/reagent/mephedrone/proc/no_hud_cheese(mob/living/carbon/L)
+	SIGNAL_HANDLER
+	addtimer(CALLBACK(src, PROC_REF(no_hud_cheese_2), L), 2 SECONDS) //Calling it instantly will not work, need to give it a moment
+
+/// This part of the anticheese sets up the basic visual effects normally setup when the reagent gets into your system.
+/datum/reagent/mephedrone/proc/no_hud_cheese_2(mob/living/carbon/L) //Basically if you change the UI you would remove the visuals. This fixes that.
+	var/atom/movable/plane_master_controller/game_plane_master_controller = L.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
+	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_FILTER)
+	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_BLUR)
+
+	var/static/list/col_filter_green = list(0.5,0,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1)
+
+	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_FILTER, 10, color_matrix_filter(col_filter_green, FILTER_COLOR_RGB))
+
+	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
+
+	var/overdosed = (id in L.reagents.overdose_list())
+	if(overdosed)
+		addtimer(CALLBACK(src, PROC_REF(no_hud_cheese_3), L), 1 SECONDS) //still needs a moment
+
+///This part sets up the OD visual effects.
+/datum/reagent/mephedrone/proc/no_hud_cheese_3(mob/living/carbon/L)
+	var/atom/movable/plane_master_controller/game_plane_master_controller = L?.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+	var/list/col_filter_ourple = list(1,0,0,0, 0,0.5,0,0, 0,0,1,0, 0,0,0,1)
+
+	for(var/filter in game_plane_master_controller.get_filters(MEPHEDRONE_SCREEN_FILTER))
+		animate(filter, loop = -1, color = col_filter_ourple, time = 4 SECONDS, easing = BOUNCE_EASING)
+
+/datum/reagent/mephedrone/on_mob_life(mob/living/carbon/L)
+	. = ..()
+
+	constant_dose_time += 2
+
+	if(ishuman(L))
+		var/heart_damage = 0.1
+		if(L.reagents.has_reagent("methamphetamine")) //We want people to use something other than meth, since meths downside is knockdowns / be orginal
+			heart_damage = 1.1
+		var/mob/living/carbon/human/H = L
+		var/datum/organ/heart/datum_heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
+		if(datum_heart)
+			var/obj/item/organ/internal/our_heart = datum_heart.linked_organ
+			our_heart.receive_damage(heart_damage, TRUE)
+		else
+			handle_heartless(L, heart_damage)
+
+/datum/reagent/mephedrone/overdose_start(mob/living/L)
+
+	RegisterSignal(L, COMSIG_ATOM_PREHIT, PROC_REF(dodge_bullets))
+
+	L.next_move_modifier -= 0.2 // Overdosing makes you a liiitle faster but you know has some really bad consequences
+	if(ischangeling(L))
+		var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
+		cling.chem_recharge_slowdown += 1
+		changeling_chemical_tracker += 1
+
+	if(!L.hud_used)
+		return
+
+	var/atom/movable/plane_master_controller/game_plane_master_controller = L?.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+
+	var/list/col_filter_ourple = list(1,0,0,0, 0,0.5,0,0, 0,0,1,0, 0,0,0,1)
+
+	for(var/filter in game_plane_master_controller.get_filters(MEPHEDRONE_SCREEN_FILTER))
+		animate(filter, loop = -1, color = col_filter_ourple, time = 4 SECONDS, easing = BOUNCE_EASING)
+	..()
+
+
+/datum/reagent/mephedrone/overdose_end(mob/living/L)
+	UnregisterSignal(L, COMSIG_ATOM_PREHIT)
+
+	L.next_move_modifier += 0.2
+
+	if(ischangeling(L))
+		var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
+		if(changeling_chemical_tracker > 0) //Just in case this gets called somehow after on_remove is done
+			cling.chem_recharge_slowdown -= 1
+			changeling_chemical_tracker -= 1
+
+	if(!L.hud_used)
+		return
+
+	var/atom/movable/plane_master_controller/game_plane_master_controller = L.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME] //Restart the base filters.
+
+	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_FILTER)
+
+	game_plane_master_controller.remove_filter(MEPHEDRONE_SCREEN_BLUR)
+
+	var/static/list/col_filter_green = list(0.5,0,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1)
+
+	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_FILTER, 10, color_matrix_filter(col_filter_green, FILTER_COLOR_RGB))
+
+	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
+
+
+/datum/reagent/mephedrone/overdose_process(mob/living/carbon/L)
+
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		var/datum/organ/heart/datum_heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
+		if(datum_heart)
+			var/obj/item/organ/internal/our_heart = datum_heart.linked_organ
+			our_heart.receive_damage(0.9, TRUE)
+		else
+			handle_heartless(L, 0.9)
+
+
+	if(prob(5))
+		L.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
+		L.bleed(5)
+
+	if(prob(10))
+		L.add_filter(MEPHEDRONE_OVERDOSE_BLUR_EFFECT, 2, phase_filter(8))
+		addtimer(CALLBACK(L, TYPE_PROC_REF(/atom, remove_filter), MEPHEDRONE_OVERDOSE_BLUR_EFFECT), 0.5 SECONDS)
+
+	var/update_flags = STATUS_UPDATE_NONE
+	L.Jitter(2.2 SECONDS) // Slowly will build up over time due to low process rate
+	update_flags |= L.adjustToxLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
+
+//This proc is for IPCS, skeletons, golems, and people with corazone. IPCS are treated lightly, power loss and brain damage.
+//IPC brain damage gets an increase with liquid solder, so it matters
+//Otherwise, the user hallucinates a bunch, and as well takes stamina damage. This will block passive stamina regen, and most likely require antistun drugs to use as well
+
+/datum/reagent/mephedrone/proc/handle_heartless(mob/living/carbon/L, damage_input)
+	if(ismachineperson(L))
+		L.adjust_nutrition(-damage_input * 7.5)
+		if(damage_input == 0.9) //This is the input from the OD
+			L.adjustBrainLoss(1.75)
+			if(L.reagents.has_reagent("liquid_solder"))
+				L.adjustBrainLoss(2.75)
+	else //Corazone or skeletons. We go hard on them.
+		L.Hallucinate(damage_input * 50 SECONDS)
+		L.apply_damage(damage_input * 3, STAMINA)
+
+/// This filter proc makes a visual effect where the object is split into fragments, with vertical lines cut out of them. It will appear as 2 seperate things are made of the one object that was cut out
+/proc/phase_filter(size)
+	. = list("type" = "wave")
+	.["x"] = 1
+	if(!isnull(size))
+		.["size"] = size
+
+
+// Temp visual that changes color for that bootleg sandevistan effect
+/obj/effect/temp_visual/decoy/mephedrone_afterimage
+	duration = 0.75 SECONDS
+	/// The color matrix it should be at spawn
+	var/list/matrix_start = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1, 0,0.1,0.4,0)
+	/// The color matrix it should be by the time it despawns
+	var/list/matrix_end = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1, 0,0.5,0,0)
+
+/obj/effect/temp_visual/decoy/mephedrone_afterimage/Initialize(mapload, atom/mimiced_atom, our_duration = 0.75 SECONDS)
+	duration = our_duration
+	. = ..()
+	color = matrix_start
+	animate(src, color = matrix_end, time = duration, easing = EASE_OUT)
+	animate(src, alpha = 0, time = duration, easing = EASE_OUT)
+
+#undef MEPHEDRONE_SCREEN_FILTER
+#undef MEPHEDRONE_SCREEN_BLUR
+
+#undef MEPHEDRONE_BLUR_EFFECT
+#undef MEPHEDRONE_OVERDOSE_BLUR_EFFECT
+
 
 //////////////////////////////
 //		Synth-Drugs			//

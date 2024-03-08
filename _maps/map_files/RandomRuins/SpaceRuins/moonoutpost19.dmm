@@ -10532,9 +10532,7 @@
 	},
 /area/ruin/space/moonbase19)
 "On" = (
-/obj/structure/safe/floor{
-	known_by = list("captain")
-	},
+/obj/structure/safe/floor,
 /obj/structure/sign/singulo{
 	pixel_y = 32
 	},
