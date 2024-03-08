@@ -47,7 +47,7 @@
 	icon_dead = "black_bear_dead"
 	butcher_results = list(/obj/item/food/snacks/monstermeat/bearmeat = 5, /obj/item/clothing/head/bearpelt/black = 1)
 
-/mob/living/simple_animal/hostile/bear/brown // TODO: Adapt it to the hallucination where his sprite is being used
+/mob/living/simple_animal/hostile/bear/brown
 	name = "brown bear"
 	desc = "WIP"
 	icon_state = "brown_bear"
@@ -64,7 +64,7 @@
 	butcher_results = list(/obj/item/food/snacks/monstermeat/bearmeat = 5, /obj/item/clothing/head/bearpelt/polar = 1)
 
 //SPACE BEARS! SQUEEEEEEEE~     OW! FUCK! IT BIT MY HAND OFF!!
-/mob/living/simple_animal/hostile/bear/Hudson // maybe make it an armored bear? - HENRI215
+/mob/living/simple_animal/hostile/bear/Hudson
 	name = "Hudson"
 	desc = "Feared outlaw, this guy is one bad news bear." //I'm sorry...
 	icon_state = "combat_bear"
