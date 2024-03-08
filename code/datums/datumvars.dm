@@ -91,7 +91,6 @@
 	. += "---"
 
 /client/proc/debug_variables(datum/D in world)
-	set category = "Debug"
 	set name = "\[Admin\] View Variables"
 
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
@@ -1098,7 +1097,7 @@
 		if(!verb || verb == "Cancel")
 			return
 		else
-			H.verbs += verb
+			add_verb(H, verb)
 			message_admins("[key_name_admin(usr)] has given [key_name_admin(H)] the verb [verb]")
 			log_admin("[key_name(usr)] has given [key_name(H)] the verb [verb]")
 
@@ -1117,7 +1116,7 @@
 		if(!verb)
 			return
 		else
-			H.verbs -= verb
+			remove_verb(H, verb)
 			message_admins("[key_name_admin(usr)] has removed verb [verb] from [key_name_admin(H)]")
 			log_admin("[key_name(usr)] has removed verb [verb] from [key_name(H)]")
 

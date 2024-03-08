@@ -197,7 +197,6 @@ GLOBAL_LIST_EMPTY(status_displays)
 	picture_state = null
 	update_icon(UPDATE_OVERLAYS)
 
-
 /proc/post_status(mode, data1, data2)
 	if(usr && mode == STATUS_DISPLAY_MESSAGE)
 		log_and_message_admins("set status screen message: [data1] [data2]")

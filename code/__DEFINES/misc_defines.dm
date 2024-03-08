@@ -171,8 +171,8 @@
 #define MUTANTRACE_LAYER		39
 #define TAIL_UNDERLIMBS_LAYER	38	//Tail split-rendering.
 #define LIMBS_LAYER				37
-#define INTORGAN_LAYER			36
-#define MARKINGS_LAYER			35
+#define MARKINGS_LAYER			36
+#define INTORGAN_LAYER			35
 #define UNDERWEAR_LAYER			34
 #define MUTATIONS_LAYER			33
 #define H_DAMAGE_LAYER			32
