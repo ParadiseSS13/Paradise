@@ -147,6 +147,9 @@
 	var/global/list/status_overlays_environ
 	var/keep_preset_name = FALSE
 
+	/// contains time of last EMP hit on the APC
+	var/emp_disabled_time = 0
+
 /obj/machinery/power/apc/New(turf/loc, direction, building = 0)
 	if(!armor)
 		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, RAD = 100, FIRE = 90, ACID = 50)
@@ -854,6 +857,9 @@
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
 /obj/machinery/power/apc/proc/toggle_breaker()
+	if(emp_disabled_time > world.time)
+		return
+
 	operating = !operating
 	update()
 	update_icon()
@@ -959,9 +965,21 @@
 	if(C)
 		C.charge = C.maxcharge
 
-/obj/machinery/power/apc/proc/emp_callback()
+/obj/machinery/power/apc/proc/emp_callback(emp_time_check)
+	if(!emp_time_check == emp_disabled_time)
+		return
+
+	emp_disabled_time = 0
+
+	if(!operating)
+		toggle_breaker()
+
 	equipment_channel = 3
 	environment_channel = 3
+
+	playsound(loc, 'sound/machines/ping.ogg', 15, FALSE)
+	atom_say("Emergency reboot complete")
+
 	update_icon()
 	update()
 
@@ -974,12 +992,18 @@
 		cell.emp_act(severity)
 	if(occupier)
 		occupier.emp_act(severity)
+
+	var/time = severity * 30 SECONDS
 	lighting_channel = 0
 	equipment_channel = 0
 	environment_channel = 0
+	if(operating)
+		toggle_breaker()
+
 	update_icon()
 	update()
-	addtimer(CALLBACK(src, PROC_REF(emp_callback)), 60 SECONDS)
+	emp_disabled_time = world.time + time
+	addtimer(CALLBACK(src, PROC_REF(emp_callback), emp_disabled_time), time)
 	..()
 
 /obj/machinery/power/apc/blob_act(obj/structure/blob/B)
