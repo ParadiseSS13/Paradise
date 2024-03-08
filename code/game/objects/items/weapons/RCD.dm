@@ -150,6 +150,7 @@
 		playsound(loc, usesound, 50, TRUE)
 		for(var/obj/item/W in user)	// Do not delete all their stuff.
 			user.unEquip(W)			// Dump everything on the floor instead.
+		flags &= ~NODROP			// NODROP must be removed so the RCD doesn't get dusted along with them. Having this come after the unequipping puts the RCD on top of the pile of stuff (held items fall to the floor when dusting).
 		user.dust()
 		return OBLITERATION
 
