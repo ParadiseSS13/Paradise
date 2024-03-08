@@ -53,8 +53,15 @@
 	if(O.is_robotic())
 		return
 
-	var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
-	if(!(flags & CALTROP_BYPASS_SHOES) && (H.shoes || feetCover))
+	var/feet_cover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
+	var/bypass_shoes = flags & CALTROP_BYPASS_SHOES
+
+	// doesn't penetrate if feet are covered
+	if(!bypass_shoes && (H.shoes || feet_cover))
+		return
+
+	// doesn't penetrate if feet are extra covered
+	if(bypass_shoes && (H.shoes && (H.shoes.flags & THICKMATERIAL)))
 		return
 
 	if(H.flying || H.floating || H.buckled)
