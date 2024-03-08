@@ -851,7 +851,7 @@
 		amount = max_amount
 
 /**
- * Called whenever the cyborg uses one of its stacks. Subtract the amount used from this datum's `energy` variable.
+ * Called whenever the cyborg uses one of its stacks. Subtract the amount used from this datum's `amount` variable.
  *
  * Arguments:
  * * reduction - the number to subtract from the `amount` var.
