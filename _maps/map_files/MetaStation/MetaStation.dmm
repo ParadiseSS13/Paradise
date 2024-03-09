@@ -30756,16 +30756,12 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
 /obj/machinery/light_switch{
 	name = "custom placement";
 	pixel_x = 6;
 	pixel_y = 24
 	},
+/obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkyellow"
@@ -76018,7 +76014,6 @@
 /area/station/turret_protected/ai_upload)
 "qaH" = (
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5

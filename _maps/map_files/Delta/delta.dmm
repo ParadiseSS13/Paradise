@@ -73847,7 +73847,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/airlock/mining/glass{
+/obj/machinery/door/airlock/mining{
 	name = "Expedition Headquarters"
 	},
 /turf/simulated/floor/plasteel,
@@ -74634,12 +74634,12 @@
 /area/station/public/fitness)
 "jcf" = (
 /obj/structure/table/reinforced,
-/obj/item/hand_tele,
-/obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/hand_tele,
+/obj/machinery/power/apc/directional/south,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat)
 "jcP" = (
@@ -79809,7 +79809,6 @@
 "mmZ" = (
 /obj/structure/table,
 /obj/machinery/power/apc/directional/north,
-/obj/item/hand_tele,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
