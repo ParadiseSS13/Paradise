@@ -124,7 +124,7 @@
 	return (world.time > (last_attack + CLICK_CD_RANGE))
 
 /mob/camera/blob/verb/ghost()
-	set category = "Blob"
+	set category = "OOC"
 	set name = "Ghost"
 	set desc = "Relinquish your control of the blob overmind."
 
@@ -142,6 +142,3 @@
 
 	// Notify admins
 	message_admins("[key_name_admin(ghost)] has ghosted from a blob overmind.")
-
-	// Optionally, you could also delete the blob overmind or handle it in some other way
-	qdel(src)
