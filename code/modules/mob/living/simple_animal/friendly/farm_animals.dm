@@ -233,6 +233,8 @@
 				C.name = name
 			if(mind)
 				mind.transfer_to(C)
+			if(pcollar)
+				C.pcollar = pcollar
 			qdel(src)
 
 
