@@ -194,6 +194,7 @@
 	shoes = /obj/item/clothing/shoes/jackboots
 	belt = /obj/item/storage/belt/utility/expedition
 	id = /obj/item/card/id/explorer
+	pda = /obj/item/pda/explorer
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	box = /obj/item/storage/box/survival_mining
