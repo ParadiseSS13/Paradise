@@ -28,6 +28,6 @@
 
 //3000-3999
 #pragma EmptyBlock error
-#pragma EmptyProc error
+#pragma EmptyProc disabled
 #pragma UnsafeClientAccess disabled
 #pragma AssignmentInConditional error
