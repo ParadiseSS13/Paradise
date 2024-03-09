@@ -50,7 +50,7 @@
 	desc = "A collection of research notes penned by old Nanotrasen scientists from decades past, technology lost in time- until you found them. It is a mystery what technology Central Command will push if they could just get their hands on these notes."
 	icon_state = "research_doc"
 	hitsound = 'sound/items/handling/paper_pickup.ogg'
-	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 
 /obj/item/sellable/salvage/ruin/carp
