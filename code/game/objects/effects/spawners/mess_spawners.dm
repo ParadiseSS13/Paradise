@@ -96,9 +96,6 @@
 	decal.basecolor = bloodcolor
 	decal.update_icon()
 
-	if(prob(5))
-		new /obj/effect/decal/remains/human(T)
-
 /obj/effect/spawner/themed_mess/bloody/drop_object(turf/T)
 	if(prob(50))
 		var/organ_type = pick(
