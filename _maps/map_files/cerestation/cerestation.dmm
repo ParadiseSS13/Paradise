@@ -54823,12 +54823,8 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
 /obj/effect/turf_decal/stripes/end,
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
