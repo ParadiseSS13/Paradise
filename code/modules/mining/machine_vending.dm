@@ -364,7 +364,6 @@
 /obj/machinery/mineral/equipment_vendor/explorer
 	name = "explorer equipment vendor"
 	desc = "An equipment vendor for explorers, points collected at an ore redemption machine can be spent here."
-	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "explorer"
 
 /obj/machinery/mineral/equipment_vendor/explorer/Initialize(mapload)
