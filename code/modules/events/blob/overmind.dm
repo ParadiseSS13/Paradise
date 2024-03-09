@@ -124,7 +124,7 @@
 	return (world.time > (last_attack + CLICK_CD_RANGE))
 
 /mob/camera/blob/verb/ghost()
-	set category = "Blob Overmind"
+	set category = "Blob"
 	set name = "Ghost"
 	set desc = "Relinquish your control of the blob overmind."
 
