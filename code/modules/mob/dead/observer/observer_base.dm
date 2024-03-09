@@ -195,6 +195,8 @@ Works together with spawning an observer, noted above.
 		if(ghost_name)
 			ghost.name = ghost_name
 		ghost.key = key
+		if(istype(get_area(src), /area/ghost_bar))
+			dust()
 		return ghost
 
 /*
