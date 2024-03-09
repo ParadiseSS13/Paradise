@@ -373,7 +373,7 @@ SLIME SCANNER
 	machine_scan(user, M)
 	add_fingerprint(user)
 
-/proc/machine_scan(mob/user, obj/machinery/M)
+/obj/item/robotanalyzer/proc/machine_scan(mob/user, obj/machinery/M)
 	if(M.obj_integrity == M.max_integrity)
 		to_chat(user, "<span class='info'>[M] is at full integrity.</span>")
 		return
@@ -389,7 +389,7 @@ SLIME SCANNER
 	robot_healthscan(user, M)
 	add_fingerprint(user)
 
-/proc/robot_healthscan(mob/user, mob/living/M)
+/obj/item/robotanalyzer/proc/robot_healthscan(mob/user, mob/living/M)
 	var/scan_type
 	var/list/msgs = list()
 	if(isrobot(M))
