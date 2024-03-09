@@ -50,7 +50,7 @@
 	desc = "A collection of research notes penned by old Nanotrasen scientists from decades past, technology lost in time- until you found them. It is a mystery what technology Central Command will push if they could just get their hands on these notes."
 	icon_state = "research_doc"
 	hitsound = 'sound/items/handling/paper_pickup.ogg'
-	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 
 /obj/item/sellable/salvage/ruin/carp
@@ -58,7 +58,7 @@
 	desc = "A collection of scales shed from a corrupted space carp. Their culinary potential could mean untold riches for Nanotrasen."
 	icon_state = "dragon_scales"
 	hitsound = sound('sound/hallucinations/wail.ogg', 20)
-	pickup_sound =  sound('sound/hallucinations/im_here2.ogg', 20)
+	pickup_sound = sound('sound/hallucinations/im_here2.ogg', 20)
 	drop_sound = sound('sound/hallucinations/look_up2.ogg', 20)
 
 /obj/item/sellable/salvage/ruin/tablet
