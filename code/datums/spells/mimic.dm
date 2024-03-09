@@ -19,7 +19,7 @@
 	var/perfect_disguise = FALSE
 
 	var/static/list/black_listed_form_types = list(
-		/obj/screen,
+		/atom/movable/screen,
 		/obj/singularity,
 		/obj/effect,
 		/mob/living/simple_animal/hostile/megafauna,
