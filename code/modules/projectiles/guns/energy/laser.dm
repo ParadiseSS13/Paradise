@@ -272,7 +272,9 @@
 /obj/item/gun/energy/emitter/cyborg/emp_act()
 	return
 
-/obj/item/gun/energy/emitter/cyborg/proto
+/obj/item/gun/energy/emitter/cyborg/proto	// Special version given by the Safety Override upgrade and as a standard module for ERT engiborgs.
+	name = "mobile proto-emitter"
+	desc = "An emitter removed from its base, and attached to a laser cannon frame. This one is running on unoptimised software, reducing its effectiveness."
 	ammo_type = list(/obj/item/ammo_casing/energy/emitter/cyborg/proto)
 
 
