@@ -341,8 +341,6 @@
 	name = "space carp hood"
 	desc = "Fashioned from the maw of a carp, this outfit makes you feel like a fish out of water."
 	armor = list(MELEE = 55, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
-	body_parts_covered = HEAD
-	cold_protection = HEAD
 	flags = STOPSPRESSUREDMAGE
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 
