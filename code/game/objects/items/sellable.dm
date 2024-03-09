@@ -18,7 +18,6 @@
 /// Ruin Salvage, misc loot gained from looking around ruins.
 
 /obj/item/sellable/salvage/ruin
-	name = "Salvage"
 	desc = "A tonne of salvage recovered from an abandoned ruin. Who spawned the base type? Report this on the github."
 
 /obj/item/sellable/salvage/ruin/pirate
