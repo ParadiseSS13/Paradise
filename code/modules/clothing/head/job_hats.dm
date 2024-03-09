@@ -315,7 +315,7 @@
 	strip_delay = 6 SECONDS
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
 		)
 
 /obj/item/clothing/head/expedition

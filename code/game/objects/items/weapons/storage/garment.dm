@@ -297,6 +297,7 @@
 /obj/item/storage/bag/garment/explorer
 	name = "explorer's garment bag"
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the explorer."
+
 /obj/item/storage/bag/garment/explorer/populate_contents()
 	new /obj/item/clothing/under/rank/cargo/expedition(src)
 	new /obj/item/clothing/under/rank/cargo/expedition/overalls(src)

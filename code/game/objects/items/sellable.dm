@@ -38,7 +38,7 @@
 	desc = "A peculier brick formed out of what appears to be plastic. This would make a fantastic collector's item."
 	icon_state = "lego_brick"
 	hitsound = 'sound/items/handling/taperecorder_drop.ogg'
-	pickup_sound =  'sound/items/handling/taperecorder_pickup.ogg'
+	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
 
 /obj/item/sellable/salvage/ruin/brick/Initialize(mapload)
@@ -80,7 +80,7 @@
 	desc = "A collection of stolen jewellery, fashioned from pilfered bluespace crystals and gems. Rumour has it, local pirates have been known to use these accessories to avoid capture."
 	icon_state = "pirate_treasure"
 	hitsound = 'sound/items/handling/taperecorder_drop.ogg'
-	pickup_sound =  'sound/items/handling/taperecorder_pickup.ogg'
+	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
 
 /obj/item/sellable/salvage/loot/russian
@@ -88,7 +88,7 @@
 	desc = "A small manual, written in Neo-Russkyia, detailing the manifesto of Malfoy Ames, father of The Cygni Rebellion. Central Command may wish to share this with their allies in the Trans-Solar Federation."
 	icon_state = "ussp_manual"
 	hitsound = 'sound/items/handling/paper_pickup.ogg'
-	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 
 /obj/item/sellable/salvage/loot/syndicate
@@ -96,5 +96,5 @@
 	desc = "A folder detailing Syndicate plans to infiltrate and sabotage operations in the Epsilon Eridani sector. Central Command may find use of this to aid them in counter-intelligence."
 	icon_state = "syndie_doc"
 	hitsound = 'sound/items/handling/paper_pickup.ogg'
-	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
