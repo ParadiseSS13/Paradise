@@ -122,9 +122,11 @@ SUBSYSTEM_DEF(tickets)
  */
 /datum/controller/subsystem/tickets/proc/makeUrlMessage(target, msg, ticketNum)
 	var/mob/M
+	var/key_and_name
 	if(istype(target, /datum/ticket))
 		var/datum/ticket/T = target
 		M = get_mob_by_ckey(T.client_ckey)
+		key_and_name = M ? key_name(M, TRUE, ticket_help_type) : "[T.client_ckey] (DC)/(DELETED)"
 		msg = T.title
 		ticketNum = T.ticketNum
 	else if(isclient(target))
@@ -132,9 +134,10 @@ SUBSYSTEM_DEF(tickets)
 		M = C.mob
 
 	var/list/L = list()
-	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_name(M, TRUE, ticket_help_type)] "
-	L += "([ADMIN_QUE(M,"?")]) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) "
-	L += "([admin_jump_link(M)]) (<a href='?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
+	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_and_name] "
+	if(M)
+		L += "([ADMIN_QUE(M,"?")]) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([admin_jump_link(M)])"
+	L += "(<a href='?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
 	L += "[isAI(M) ? "(<a href='?_src_=holder;adminchecklaws=[M.UID()]'>CL</a>)" : ""] (<a href='?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>TAKE</a>) "
 	L += "(<a href='?_src_=holder;resolve=[ticketNum][anchor_link_extra]'>RESOLVE</a>) (<a href='?_src_=holder;autorespond=[ticketNum][anchor_link_extra]'>AUTO</a>) "
 	L += "(<a href='?_src_=holder;convert_ticket=[ticketNum][anchor_link_extra]'>CONVERT</a>) :</span> <span class='[ticket_help_span]'>[msg]</span>"
@@ -200,10 +203,13 @@ SUBSYSTEM_DEF(tickets)
 	return TRUE
 
 /datum/controller/subsystem/tickets/proc/convert_ticket(datum/ticket/T)
-	T.ticketState = TICKET_CLOSED
-	T.ticket_converted = TRUE
 	var/client/C = usr.client
 	var/client/owner = get_client_by_ckey(T.client_ckey)
+	if(!owner)
+		to_chat(C, "<span class='notice'>Can't convert the ticket of a disconnected user.")
+		return
+	T.ticketState = TICKET_CLOSED
+	T.ticket_converted = TRUE
 	to_chat_safe(owner, list("<span class='[span_class]'>[key_name_hidden(C)] has converted your ticket to a [other_ticket_name] ticket.</span>",\
 									"<span class='[span_class]'>Be sure to use the correct type of help next time!</span>"))
 	message_staff("<span class='[span_class]'>[C] has converted ticket number [T.ticketNum] to a [other_ticket_name] ticket.</span>")
@@ -251,6 +257,9 @@ SUBSYSTEM_DEF(tickets)
 
 	var/message_key = input("Select an autoresponse. This will mark the ticket as resolved.", "Autoresponse") as null|anything in sortTim(sorted_responses, GLOBAL_PROC_REF(cmp_text_asc)) //use sortTim and cmp_text_asc to sort alphabetically
 	var/client/ticket_owner = get_client_by_ckey(T.client_ckey)
+	if(!ticket_owner)
+		to_chat(C, "<span class='notice'>Can't respond to the ticket of a disconnected user.")
+		return
 	switch(message_key)
 		if(null) //they cancelled
 			T.staffAssigned = null //if they cancel we dont need to hold this ticket anymore
@@ -263,7 +272,7 @@ SUBSYSTEM_DEF(tickets)
 			T.lastStaffResponse = "Autoresponse: [message_key]"
 			resolveTicket(N)
 			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:<span class='adminticketalt'> [message_key]</span>")
-			log_game("[C] has auto responded to [ticket_owner]\'s adminhelp with: [response_phrases[message_key]]")
+			log_game("[C] has auto responded to [T.client_ckey]\'s adminhelp with: [response_phrases[message_key]]")
 		if("Mentorhelp")
 			convert_ticket(T)
 		else
