@@ -976,7 +976,6 @@
 /area/ruin/unpowered/BMPship/Fore)
 "du" = (
 /obj/structure/chair/stool,
-/mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "dx" = (
@@ -1487,6 +1486,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
+/mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -2408,24 +2408,48 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
-"hQ" = (
-/obj/item/sellable/salvage/ruin/pirate,
-/turf/simulated/floor/carpet,
-/area/ruin/unpowered/BMPship/Fore)
-"tF" = (
+"hE" = (
+/obj/effect/landmark/damageturf,
 /mob/living/simple_animal/hostile/pirate,
-/turf/simulated/floor/carpet,
-/area/ruin/unpowered/BMPship/Fore)
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/BMPship/Midship)
+"qM" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "meatConvey2"
+	},
+/obj/item/sellable/salvage/ruin/pirate,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/BMPship/Midship)
+"uK" = (
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/unpowered/BMPship/Midship)
 "uT" = (
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/powered)
-"Av" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
+"BC" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
 	},
-/mob/living/simple_animal/hostile/pirate/ranged,
-/turf/simulated/floor/carpet,
-/area/ruin/unpowered/BMPship/Fore)
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/unpowered/BMPship/Midship)
+"Ht" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "meatConvey1"
+	},
+/obj/item/sellable/salvage/ruin/pirate,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/BMPship/Midship)
 "IM" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/food/snacks/meat,
@@ -2818,7 +2842,7 @@ aa
 aa
 aD
 aD
-hQ
+ds
 PP
 ei
 ei
@@ -2868,10 +2892,10 @@ aa
 aa
 aD
 aD
-hQ
+ds
 ds
 dM
-Av
+ej
 ej
 ds
 ds
@@ -2925,7 +2949,7 @@ ds
 ds
 ds
 ds
-tF
+ds
 aD
 fB
 fA
@@ -2968,7 +2992,7 @@ aO
 aO
 aD
 aD
-hQ
+ds
 ds
 cW
 dt
@@ -3018,7 +3042,7 @@ aP
 bh
 bq
 aD
-hQ
+ds
 ds
 ds
 ei
@@ -3078,7 +3102,7 @@ ds
 ds
 eC
 ds
-tF
+ds
 aD
 fD
 fO
@@ -3592,7 +3616,7 @@ eo
 fn
 dC
 ca
-gb
+hE
 bF
 aK
 aK
@@ -3890,7 +3914,7 @@ cr
 cJ
 ca
 ca
-ca
+uK
 ca
 dg
 ca
@@ -3943,7 +3967,7 @@ ca
 ca
 dT
 ca
-dg
+BC
 ca
 ca
 dT
@@ -4145,7 +4169,7 @@ ca
 ca
 ca
 dC
-dU
+Ht
 dC
 dg
 ca
@@ -4252,7 +4276,7 @@ dC
 dg
 ca
 dC
-fr
+qM
 dC
 ca
 ca

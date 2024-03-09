@@ -73847,7 +73847,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/airlock/mining{
+/obj/machinery/door/airlock/mining/glass{
 	name = "Expedition Headquarters"
 	},
 /turf/simulated/floor/plasteel,
@@ -74633,30 +74633,12 @@
 	},
 /area/station/public/fitness)
 "jcf" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/table/reinforced,
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
-/obj/structure/cable,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/item/hand_tele,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/reinforced,
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat)
@@ -79825,31 +79807,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "mmZ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
 /obj/structure/table,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/machinery/power/apc/directional/north,
-/obj/structure/table,
 /obj/item/hand_tele,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)

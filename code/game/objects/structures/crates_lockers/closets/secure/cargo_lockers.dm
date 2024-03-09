@@ -29,6 +29,8 @@
 	new /obj/item/storage/box/relay_kit(src)
 	new /obj/item/storage/bag/garment/explorer(src)
 	new /obj/item/gps(src)
+	new /obj/item/storage/bag/ore(src)
+	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
 
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"

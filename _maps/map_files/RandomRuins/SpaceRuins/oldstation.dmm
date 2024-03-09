@@ -4987,26 +4987,8 @@
 /turf/template_noop,
 /area/space/nearstation)
 "Hr" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/table,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
-	},
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 8;
-	name = "Charlie Security APC";
-	pixel_x = -24
-	},
-/obj/effect/decal/cleanable/dirt,
 /obj/item/sellable/salvage/ruin/nanotrasen,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2";
@@ -5014,9 +4996,6 @@
 	},
 /obj/machinery/power/apc/off_station/empty_charge/directional/west,
 /obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"

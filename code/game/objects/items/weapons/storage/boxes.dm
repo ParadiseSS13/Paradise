@@ -1043,7 +1043,8 @@
 	new /obj/item/paper/tcommskey(src)
 	new /obj/item/stack/sheet/metal/(src, 5)
 	new /obj/item/circuitboard/tcomms/relay(src)
-	new /obj/item/stock_parts/manipulator(src, 2)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/manipulator(src)
 	new /obj/item/stack/cable_coil(src, 7)
 
 /obj/item/storage/box/centcomofficer
