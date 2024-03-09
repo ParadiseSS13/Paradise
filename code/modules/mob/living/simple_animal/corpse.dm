@@ -94,7 +94,6 @@
 	name = "Corpse of a Pirate Gunner"
 
 
-
 /obj/effect/mob_spawn/human/corpse/russian
 	name = "Russian"
 	mob_name = "Russian"
