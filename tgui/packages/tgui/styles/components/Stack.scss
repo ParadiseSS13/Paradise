@@ -12,7 +12,7 @@ $zebra-background-color: base.$color-bg-section !default;
   height: 100%;
 }
 
-.Stack--horizontal > .Stack__item {
+.Stack--horizontal:not(.Stack--compressed) > .Stack__item {
   margin-left: 0.5em;
 
   &:first-child {
@@ -20,7 +20,7 @@ $zebra-background-color: base.$color-bg-section !default;
   }
 }
 
-.Stack--vertical > .Stack__item {
+.Stack--vertical:not(.Stack--compressed) > .Stack__item {
   margin-top: 0.5em;
 
   &:first-child {
