@@ -389,7 +389,7 @@ SLIME SCANNER
 	robot_healthscan(user, M)
 	add_fingerprint(user)
 
-/obj/item/robotanalyzer/proc/robot_healthscan(mob/user, mob/living/M)
+/proc/robot_healthscan(mob/user, mob/living/M)
 	var/scan_type
 	var/list/msgs = list()
 	if(isrobot(M))
