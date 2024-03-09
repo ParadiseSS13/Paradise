@@ -2,7 +2,7 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Icon, Table, Tabs } from '../components';
 import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
-
+const bot_name = null;
 // export const BotClean = (props, context) => {
 //   const { act, data } = useBackend(context);
 //   const {
@@ -60,7 +60,7 @@ export const BotCall = (props, context) => {
   const decideTab = (index) => {
     switch (index) {
       case 0:
-        return <SecuritronView />;
+        return <BotView />;
       //      case 1:
       //        return <MedibotView />;
       //      case 2:
@@ -80,6 +80,7 @@ export const BotCall = (props, context) => {
         <Box fillPositionedParent>
           <Tabs>
             <Tabs.Tab
+              bot_name="Securitron"
               key="Securitron"
               selected={tabIndex === 0}
               onClick={() => setTabIndex(0)}
@@ -122,7 +123,7 @@ export const BotCall = (props, context) => {
   );
 };
 
-const SecuritronView = (_properties, context) => {
+const BotView = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { bots } = data;
   return (
@@ -137,17 +138,20 @@ const SecuritronView = (_properties, context) => {
           <Table.Cell>Call</Table.Cell>
         </Table.Row>
         {bots.map((bot) => (
-          <Table.Row key={bot.model}>
-            <TableCell>{bot.name ? bot.name : bot.model}</TableCell>
-            <TableCell>{bot.model}</TableCell>
-            <TableCell>{BotStatus(bot.status)}</TableCell>
-            <TableCell>{bot.location}</TableCell>
+          //bot.map((bot_data) => (
+            <Table.Row key={bot_data.model}>
+            <TableCell>
+              {bot_data.name ? bot_data.name : bot_data.model}
+            </TableCell>
+            <TableCell>{bot_data.model}</TableCell>
+            <TableCell>{BotStatus(bot_data.status)}</TableCell>
+            <TableCell>{bot_data.location}</TableCell>
             <TableCell>
               <Button
                 content="Interface"
                 onClick={() =>
                   act('interface', {
-                    botref: bot.UID,
+                    botref: bot_data.UID,
                   })
                 }
               />
@@ -157,12 +161,13 @@ const SecuritronView = (_properties, context) => {
                 content="Call"
                 onClick={() =>
                   act('call', {
-                    botref: bot.UID,
+                    botref: bot_data.UID,
                   })
                 }
               />
             </TableCell>
           </Table.Row>
+          //))
         ))}
       </Table>
     </Box>
