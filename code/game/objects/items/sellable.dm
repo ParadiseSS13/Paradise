@@ -38,7 +38,7 @@
 	desc = "A peculier brick formed out of what appears to be plastic. This would make a fantastic collector's item."
 	icon_state = "lego_brick"
 	hitsound = 'sound/items/handling/taperecorder_drop.ogg'
-	pickup_sound =  'sound/items/handling/taperecorder_pickup.ogg'
+	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
 
 /obj/item/sellable/salvage/ruin/brick/Initialize(mapload)
