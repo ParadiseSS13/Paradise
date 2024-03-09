@@ -10,23 +10,24 @@
 	var/list/floorbot = list()
 	var/list/mule = list()
 	var/list/misc = list()
-/*
+
 /datum/ui_module/botcall/proc/bot_sort()
 	for(bot in GLOB.bots_list)
-		switch(bot.model)
+		switch(bot.bot_type)
 			if(SEC_BOT)
-				secbot += bot.bot_sorted_list(bot)
+				secbot += bot.get_bot_data(bot)
 			if(MED_BOT)
-				medbot += bot.bot_sorted_list(bot)
+				medbot += bot.get_bot_data(bot)
 			if(CLEAN_BOT)
-				cleanbot += bot.bot_sorted_list(bot)
+				cleanbot += bot.get_bot_data(bot)
 			if(FLOOR_BOT)
-				floorbot += bot.bot_sorted_list(bot)
+				floorbot += bot.get_bot_data(bot)
 			if(MULE_BOT)
-				mule += bot.bot_sorted_list(bot)
+				mule += bot.get_bot_data(bot)
 			if(HONK_BOT)
-				misc += bot.bot_sorted_list(bot)
-*/
+				misc += bot.get_bot_data(bot)
+			else
+				misc += bot.get_bot_data(bot)
 
 /datum/ui_module/botcall/ui_interact(mob/user)
 	return GLOB.default_state
@@ -40,22 +41,24 @@
 
 /datum/ui_module/botcall/ui_data(mob/user)
 	var/list/data = ..()
+
+/*
+	bot_sort()
+	data["Securitron"] = secbot
+	data["Medibot"] = medbot
+	data["Cleanbot"] = cleanbot
+	data["Floorbot"] = floorbot
+	data["MULE"] = mule
+	data["Misc"] = misc
+*/
 	data["bots"] = list()
 	for(bot in GLOB.bots_list)
 		if(!(bot.model in data["bots"]))
 			data["bots"][bot.model] = list()
 		data["bots"][bot.model] += bot.get_bot_data()
+
 	return data
 
-/*	bot_sort()
-	data["secbot"] = secbot
-	data["medbot"] = medbot
-	data["cleanbot"] = cleanbot
-	data["floorbot"] = floorbot
-	data["mule"] = mule
-	data["misc"] = misc
-	return data
-*/
 /datum/ui_module/botcall/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if (..())
 		return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.

@@ -2,7 +2,7 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Icon, Table, Tabs } from '../components';
 import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
-const bot_name = null;
+const bot_type = 'Securitron';
 // export const BotClean = (props, context) => {
 //   const { act, data } = useBackend(context);
 //   const {
@@ -80,7 +80,7 @@ export const BotCall = (props, context) => {
         <Box fillPositionedParent>
           <Tabs>
             <Tabs.Tab
-              bot_name="Securitron"
+              bot_type="Securitron"
               key="Securitron"
               selected={tabIndex === 0}
               onClick={() => setTabIndex(0)}
@@ -88,6 +88,7 @@ export const BotCall = (props, context) => {
               Securitron
             </Tabs.Tab>
             <Tabs.Tab
+              bot_type="Medibot"
               key="Medibot"
               selected={tabIndex === 1}
               onClick={() => setTabIndex(1)}
@@ -95,25 +96,36 @@ export const BotCall = (props, context) => {
               Medibot
             </Tabs.Tab>
             <Tabs.Tab
+              bot_type="Cleanbot"
               key="Cleanbot"
               selected={tabIndex === 2}
-              onClick={() => setTabIndex(1)}
+              onClick={() => setTabIndex(2)}
             >
               Cleanbot
             </Tabs.Tab>
             <Tabs.Tab
+              bot_type="Floorbot"
               key="Floorbot"
               selected={tabIndex === 3}
-              onClick={() => setTabIndex(1)}
+              onClick={() => setTabIndex(3)}
             >
               Floorbot
             </Tabs.Tab>
             <Tabs.Tab
+              bot_type="MULE"
               key="Mule"
               selected={tabIndex === 4}
-              onClick={() => setTabIndex(1)}
+              onClick={() => setTabIndex(4)}
             >
               Mule
+            </Tabs.Tab>
+            <Tabs.Tab
+              bot_type="Misc"
+              key="Misc"
+              selected={tabIndex === 5}
+              onClick={() => setTabIndex(5)}
+            >
+              Misc
             </Tabs.Tab>
           </Tabs>
           {decideTab(tabIndex)}
@@ -126,6 +138,7 @@ export const BotCall = (props, context) => {
 const BotView = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { bots } = data;
+
   return (
     <Box>
       <Table m="0.5rem">
@@ -137,21 +150,18 @@ const BotView = (_properties, context) => {
           <Table.Cell>Interface</Table.Cell>
           <Table.Cell>Call</Table.Cell>
         </Table.Row>
-        {bots.map((bot) => (
-          //bot.map((bot_data) => (
-            <Table.Row key={bot_data.model}>
-            <TableCell>
-              {bot_data.name ? bot_data.name : bot_data.model}
-            </TableCell>
-            <TableCell>{bot_data.model}</TableCell>
-            <TableCell>{BotStatus(bot_data.status)}</TableCell>
-            <TableCell>{bot_data.location}</TableCell>
+        {bots.Securitron.map((bot) => (
+          <Table.Row key={bot.model}>
+            <TableCell>{bot.name}</TableCell>
+            <TableCell>{bot.model}</TableCell>
+            <TableCell>{BotStatus(bot.status)}</TableCell>
+            <TableCell>{bot.location}</TableCell>
             <TableCell>
               <Button
                 content="Interface"
                 onClick={() =>
                   act('interface', {
-                    botref: bot_data.UID,
+                    botref: bot.UID,
                   })
                 }
               />
@@ -161,13 +171,12 @@ const BotView = (_properties, context) => {
                 content="Call"
                 onClick={() =>
                   act('call', {
-                    botref: bot_data.UID,
+                    botref: bot.UID,
                   })
                 }
               />
             </TableCell>
           </Table.Row>
-          //))
         ))}
       </Table>
     </Box>
