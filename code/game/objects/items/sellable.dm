@@ -80,7 +80,7 @@
 	desc = "A collection of stolen jewellery, fashioned from pilfered bluespace crystals and gems. Rumour has it, local pirates have been known to use these accessories to avoid capture."
 	icon_state = "pirate_treasure"
 	hitsound = 'sound/items/handling/taperecorder_drop.ogg'
-	pickup_sound =  'sound/items/handling/taperecorder_pickup.ogg'
+	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
 
 /obj/item/sellable/salvage/loot/russian
