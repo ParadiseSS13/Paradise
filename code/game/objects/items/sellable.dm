@@ -72,7 +72,6 @@
 /// Loot salvage, gained from fighting space simplemobs.
 
 /obj/item/sellable/salvage/loot
-	name = "Salvage"
 	desc = "A tonne of salvage looted from a fallen foe. Who spawned the base type? Report this on the github."
 
 /obj/item/sellable/salvage/loot/pirate
