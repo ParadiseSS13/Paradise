@@ -797,11 +797,11 @@
 /area/ruin/space/djstation)
 "yr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/sellable/salvage/ruin/russian,
+/obj/item/salvage/ruin/russian,
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "Zp" = (
-/obj/item/sellable/salvage/ruin/russian,
+/obj/item/salvage/ruin/russian,
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 

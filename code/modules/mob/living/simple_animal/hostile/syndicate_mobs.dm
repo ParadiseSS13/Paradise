@@ -26,7 +26,7 @@
 	check_friendly_fire = TRUE
 	status_flags = CANPUSH
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
-				/obj/item/sellable/salvage/loot/syndicate,
+				/obj/item/salvage/loot/syndicate,
 				/obj/effect/decal/cleanable/blood/innards,
 				/obj/effect/decal/cleanable/blood,
 				/obj/effect/gibspawner/generic,
@@ -49,7 +49,7 @@
 	armour_penetration_flat = 10
 	status_flags = 0
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
-				/obj/item/sellable/salvage/loot/syndicate,
+				/obj/item/salvage/loot/syndicate,
 				/obj/effect/decal/cleanable/blood/innards,
 				/obj/effect/decal/cleanable/blood,
 				/obj/effect/gibspawner/generic,
@@ -90,7 +90,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
-				/obj/item/sellable/salvage/loot/syndicate,
+				/obj/item/salvage/loot/syndicate,
 				/obj/effect/decal/cleanable/blood/innards,
 				/obj/effect/decal/cleanable/blood,
 				/obj/effect/gibspawner/generic,
@@ -274,7 +274,7 @@
 	melee_block_chance = 40
 	alert_on_shield_breach = TRUE
 	death_sound = 'sound/mecha/mechmove03.ogg'
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatequartermaster, /obj/item/sellable/salvage/loot/syndicate, /obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatequartermaster, /obj/item/salvage/loot/syndicate, /obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic)
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize(mapload)
 	. = ..()
@@ -295,7 +295,7 @@
 		projectiletype = /obj/item/projectile/bullet/sniper/penetrator // Ignores cover.
 		projectilesound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
 		loot = list(/obj/effect/mob_spawn/human/corpse/syndicatequartermaster,
-					/obj/item/sellable/salvage/loot/syndicate,
+					/obj/item/salvage/loot/syndicate,
 					/obj/effect/decal/cleanable/blood/innards,
 					/obj/effect/decal/cleanable/blood,
 					/obj/effect/gibspawner/generic,
@@ -323,7 +323,7 @@
 	wander = FALSE
 	alert_on_spacing = FALSE
 	death_sound = 'sound/mecha/mechmove03.ogg'
-	loot = list(/obj/item/sellable/salvage/loot/syndicate,
+	loot = list(/obj/item/salvage/loot/syndicate,
 				/obj/effect/mob_spawn/human/corpse/syndicatecommando,
 				/obj/effect/decal/cleanable/blood/innards,
 				/obj/effect/decal/cleanable/blood,
@@ -344,7 +344,7 @@
 	speed = 1.5
 	death_sound = 'sound/mecha/mechmove03.ogg'
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando,
-				/obj/item/sellable/salvage/loot/syndicate,
+				/obj/item/salvage/loot/syndicate,
 				/obj/effect/decal/cleanable/blood/innards,
 				/obj/effect/decal/cleanable/blood,
 				/obj/effect/gibspawner/generic,
@@ -364,7 +364,7 @@
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	casingtype = /obj/item/ammo_casing/c45
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
-				/obj/item/sellable/salvage/loot/syndicate,
+				/obj/item/salvage/loot/syndicate,
 				/obj/effect/decal/cleanable/blood/innards,
 				/obj/effect/decal/cleanable/blood,
 				/obj/effect/gibspawner/generic,
@@ -379,7 +379,7 @@
 	speed = 1.5
 	death_sound = 'sound/mecha/mechmove03.ogg'
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando,
-				/obj/item/sellable/salvage/loot/syndicate,
+				/obj/item/salvage/loot/syndicate,
 				/obj/effect/decal/cleanable/blood/innards,
 				/obj/effect/decal/cleanable/blood,
 				/obj/effect/gibspawner/generic,
@@ -389,7 +389,7 @@
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib
-	loot = list(/obj/item/sellable/salvage/loot/syndicate,
+	loot = list(/obj/item/salvage/loot/syndicate,
 				/obj/effect/mob_spawn/human/corpse/syndicatecommando,
 				/obj/effect/decal/cleanable/blood/innards,
 				/obj/effect/decal/cleanable/blood,

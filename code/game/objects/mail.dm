@@ -107,6 +107,7 @@
 							/obj/item/clothing/mask/cigarette/cigar,
 							/obj/item/stack/wrapping_paper,
 							/obj/item/toy/figure/crew/cargotech,
+							/obj/item/toy/figure/crew/explorer,
 							/obj/item/toy/figure/crew/qm,
 							/obj/item/toy/figure/crew/miner,
 							/obj/item/storage/box/scratch_cards)

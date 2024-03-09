@@ -22,7 +22,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "m" = (
-/obj/item/sellable/salvage/ruin/tablet,
+/obj/item/salvage/ruin/tablet,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "n" = (

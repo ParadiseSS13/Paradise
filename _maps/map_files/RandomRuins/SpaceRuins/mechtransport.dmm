@@ -177,7 +177,7 @@
 /area/ruin/space/powered)
 "wt" = (
 /obj/structure/table,
-/obj/item/sellable/salvage/ruin/nanotrasen,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/powered)
 "wG" = (

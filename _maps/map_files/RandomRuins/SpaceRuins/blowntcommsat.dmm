@@ -243,7 +243,7 @@
 "oh" = (
 /obj/structure/table,
 /obj/item/taperecorder,
-/obj/item/sellable/salvage/ruin/nanotrasen,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "ok" = (

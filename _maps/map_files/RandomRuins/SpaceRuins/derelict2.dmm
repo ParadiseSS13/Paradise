@@ -89,7 +89,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "r" = (
-/obj/item/sellable/salvage/ruin/tablet,
+/obj/item/salvage/ruin/tablet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 

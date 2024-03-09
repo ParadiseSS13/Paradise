@@ -27,7 +27,7 @@
 	speak_emote = list("yarrs")
 	loot = list(/obj/item/melee/energy/sword/pirate,
 			/obj/item/clothing/head/helmet/space/pirate,
-			/obj/item/sellable/salvage/loot/pirate,
+			/obj/item/salvage/loot/pirate,
 			/obj/effect/mob_spawn/human/corpse/pirate,
 			/obj/effect/decal/cleanable/blood/innards,
 			/obj/effect/decal/cleanable/blood,
@@ -64,5 +64,5 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate,
 				/obj/item/gun/energy/laser,
 				/obj/item/clothing/head/helmet/space/pirate,
-				/obj/item/sellable/salvage/loot/pirate
+				/obj/item/salvage/loot/pirate
 				)

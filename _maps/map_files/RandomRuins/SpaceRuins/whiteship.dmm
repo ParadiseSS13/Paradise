@@ -285,7 +285,7 @@
 /obj/effect/decal/cleanable/blood{
 	amount = 0
 	},
-/obj/item/sellable/salvage/ruin/pirate,
+/obj/item/salvage/ruin/pirate,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "by" = (
@@ -341,7 +341,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "Wc" = (
-/obj/item/sellable/salvage/ruin/pirate,
+/obj/item/salvage/ruin/pirate,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 

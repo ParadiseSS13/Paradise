@@ -2497,7 +2497,7 @@
 /obj/item/stock_parts/capacitor,
 /obj/item/stock_parts/micro_laser,
 /obj/item/stack/cable_coil,
-/obj/item/sellable/salvage/ruin/nanotrasen,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
 "gn" = (
@@ -3884,7 +3884,7 @@
 "jt" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/sellable/salvage/ruin/nanotrasen,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "ju" = (
@@ -4148,7 +4148,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/sellable/salvage/ruin/nanotrasen,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "jZ" = (
@@ -4988,7 +4988,7 @@
 /area/space/nearstation)
 "Hr" = (
 /obj/structure/table,
-/obj/item/sellable/salvage/ruin/nanotrasen,
+/obj/item/salvage/ruin/nanotrasen,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2";

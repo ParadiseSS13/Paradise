@@ -244,7 +244,7 @@
 /area/ruin/space/abandoned_engi_sat)
 "hB" = (
 /obj/structure/table,
-/obj/item/sellable/salvage/ruin/nanotrasen,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/carpet/airless,
 /area/ruin/space/abandoned_engi_sat)
 "hE" = (
@@ -1092,7 +1092,7 @@
 /area/ruin/space/abandoned_engi_sat)
 "Ig" = (
 /obj/structure/table,
-/obj/item/sellable/salvage/ruin/nanotrasen,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "Iz" = (

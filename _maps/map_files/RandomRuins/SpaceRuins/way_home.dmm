@@ -30,7 +30,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered/no_grav/way_home)
 "O" = (
-/obj/item/sellable/salvage/ruin/tablet,
+/obj/item/salvage/ruin/tablet,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered/no_grav/way_home)
 "P" = (

@@ -2418,7 +2418,7 @@
 	dir = 4;
 	id = "meatConvey2"
 	},
-/obj/item/sellable/salvage/ruin/pirate,
+/obj/item/salvage/ruin/pirate,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Midship)
 "uK" = (
@@ -2447,7 +2447,7 @@
 	dir = 4;
 	id = "meatConvey1"
 	},
-/obj/item/sellable/salvage/ruin/pirate,
+/obj/item/salvage/ruin/pirate,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Midship)
 "IM" = (

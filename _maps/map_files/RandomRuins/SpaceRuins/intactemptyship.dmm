@@ -128,7 +128,7 @@
 /area/ruin/space/powered)
 "R" = (
 /obj/structure/table/wood,
-/obj/item/sellable/salvage/ruin/tablet,
+/obj/item/salvage/ruin/tablet,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 

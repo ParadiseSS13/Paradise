@@ -913,7 +913,7 @@
 /area/ruin/space/wreck_cargoship)
 "Ll" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/sellable/salvage/ruin/pirate,
+/obj/item/salvage/ruin/pirate,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "black"

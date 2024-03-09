@@ -558,7 +558,9 @@
 					/obj/item/clothing/shoes/workboots = 3)
 
 	contraband = list(/obj/item/toy/figure/crew/qm = 1,
-					/obj/item/toy/figure/crew/cargotech = 1)
+					/obj/item/toy/figure/crew/cargotech = 1,
+					/obj/item/toy/figure/crew/explorer = 1,
+					/obj/item/toy/figure/crew/miner = 1)
 
 	prices = list(/obj/item/clothing/under/rank/cargo/tech = 50,
 				/obj/item/clothing/under/rank/cargo/tech/skirt = 50,

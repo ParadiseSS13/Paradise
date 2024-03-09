@@ -738,7 +738,7 @@
 /area/ruin/space/derelict/arrival)
 "bU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/sellable/salvage/ruin/russian,
+/obj/item/salvage/ruin/russian,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -894,7 +894,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "cp" = (
-/obj/item/sellable/salvage/ruin/russian,
+/obj/item/salvage/ruin/russian,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"

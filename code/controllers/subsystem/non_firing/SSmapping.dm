@@ -125,10 +125,12 @@ SUBSYSTEM_DEF(mapping)
 	var/seeded_salvage_closets = list()
 
 	var/list/small_salvage_items = list(
-		/obj/item/sellable/salvage/ruin/brick,
-		/obj/item/sellable/salvage/ruin/nanotrasen,
-		/obj/item/sellable/salvage/ruin/carp,
-		/obj/item/sellable/salvage/ruin/tablet
+		/obj/item/salvage/ruin/brick,
+		/obj/item/salvage/ruin/nanotrasen,
+		/obj/item/salvage/ruin/carp,
+		/obj/item/salvage/ruin/tablet,
+		/obj/item/salvage/ruin/pirate,
+		/obj/item/salvage/ruin/russian
 	)
 
 	for(var/z_level in space_z_levels)

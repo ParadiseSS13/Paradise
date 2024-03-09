@@ -118,7 +118,7 @@
 /area/space)
 "H" = (
 /obj/structure/table,
-/obj/item/sellable/salvage/ruin/brick,
+/obj/item/salvage/ruin/brick,
 /turf/simulated/floor/plasteel/airless,
 /area/space)
 "I" = (

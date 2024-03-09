@@ -4441,7 +4441,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/table,
-/obj/item/sellable/salvage/ruin/nanotrasen,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -4581,7 +4581,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/sellable/salvage/ruin/nanotrasen,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "oJ" = (
@@ -12675,7 +12675,7 @@
 /obj/item/taperecorder{
 	pixel_x = -3
 	},
-/obj/item/sellable/salvage/ruin/nanotrasen,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
