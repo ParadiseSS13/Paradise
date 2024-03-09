@@ -129,7 +129,7 @@
 	set desc = "Relinquish your control of the blob overmind."
 
 	// Confirm the user's decision to ghost
-	if(alert("Are you sure you want to ghost? This will end your control of the blob overmind.", "Confirm Ghost", "Yes", "No") != "Yes")
+	if(alert("Are you -sure- you want to ghost? (You are alive. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)", "Confirm Ghost", "Yes", "No") != "Yes")
 		return
 
 	// Create a ghost from the blob overmind
