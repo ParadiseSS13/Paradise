@@ -120,12 +120,22 @@ SUBSYSTEM_DEF(tickets)
  * msg - The raw message
  * ticketNum - Which ticket number the ticket has
  */
-/datum/controller/subsystem/tickets/proc/makeUrlMessage(client/C, msg, ticketNum)
+/datum/controller/subsystem/tickets/proc/makeUrlMessage(target, msg, ticketNum)
+	var/mob/M
+	if(istype(target, /datum/ticket))
+		var/datum/ticket/T = target
+		M = get_mob_by_ckey(T.client_ckey)
+		msg = T.title
+		ticketNum = T.ticketNum
+	else if(isclient(target))
+		var/client/C = target
+		M = C.mob
+
 	var/list/L = list()
-	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_name(C, TRUE, ticket_help_type)] "
-	L += "([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_TP(C.mob,"TP")]) ([ADMIN_SM(C.mob,"SM")]) "
-	L += "([admin_jump_link(C.mob)]) (<a href='?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
-	L += "[isAI(C.mob) ? "(<a href='?_src_=holder;adminchecklaws=[C.mob.UID()]'>CL</a>)" : ""] (<a href='?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>TAKE</a>) "
+	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_name(M, TRUE, ticket_help_type)] "
+	L += "([ADMIN_QUE(M,"?")]) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) "
+	L += "([admin_jump_link(M)]) (<a href='?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
+	L += "[isAI(M) ? "(<a href='?_src_=holder;adminchecklaws=[M.UID()]'>CL</a>)" : ""] (<a href='?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>TAKE</a>) "
 	L += "(<a href='?_src_=holder;resolve=[ticketNum][anchor_link_extra]'>RESOLVE</a>) (<a href='?_src_=holder;autorespond=[ticketNum][anchor_link_extra]'>AUTO</a>) "
 	L += "(<a href='?_src_=holder;convert_ticket=[ticketNum][anchor_link_extra]'>CONVERT</a>) :</span> <span class='[ticket_help_span]'>[msg]</span>"
 	return L.Join()
@@ -141,7 +151,7 @@ SUBSYSTEM_DEF(tickets)
 	var/new_ticket_num = getTicketCounterAndInc()
 	var/url_title = makeUrlMessage(C, title, new_ticket_num)
 
-	var/datum/ticket/T = new(url_title, title, passedContent, new_ticket_num, C.ckey)
+	var/datum/ticket/T = new(title, passedContent, new_ticket_num, C.ckey)
 	allTickets += T
 	T.locationSent = C.mob.loc.name
 	T.mobControlled = C.mob
@@ -202,7 +212,7 @@ SUBSYSTEM_DEF(tickets)
 
 /datum/controller/subsystem/tickets/proc/create_other_system_ticket(datum/ticket/T)
 	var/client/C = get_client_by_ckey(T.client_ckey)
-	SSmentor_tickets.newTicket(C, T.first_raw_response, T.raw_title)
+	SSmentor_tickets.newTicket(C, T.first_raw_response, T.title)
 
 /datum/controller/subsystem/tickets/proc/autoRespond(N)
 	if(!check_rights(rights_needed))
@@ -313,10 +323,8 @@ SUBSYSTEM_DEF(tickets)
 	var/real_time_opened
 	/// Ingame time the ticket was opened
 	var/ingame_time_opened
-	/// The initial message with links.
+	/// The initial message from the user.
 	var/title
-	/// The title without URLs added.
-	var/raw_title
 	/// Content of the staff help.
 	var/list/datum/ticket_response/ticket_responses
 	/// Last staff member who responded.
@@ -347,9 +355,8 @@ SUBSYSTEM_DEF(tickets)
 	var/list/adminwho_data = list()
 
 
-/datum/ticket/New(tit, raw_tit, cont, num, the_ckey)
+/datum/ticket/New(tit, cont, num, the_ckey)
 	title = tit
-	raw_title = raw_tit
 	client_ckey = the_ckey
 	first_raw_response = cont
 	ticket_responses = list()
@@ -455,7 +462,7 @@ UI STUFF
 		for(var/T in allTickets)
 			ticket = T
 			if(ticket.ticketState == TICKET_OPEN || ticket.ticketState == TICKET_STALE)
-				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) [ticket.ticketState == TICKET_STALE ? "<font color='red'><b>STALE</font>" : ""] </td><td style='[tdStyle]'><b>[ticket.title]</td></tr>"
+				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) [ticket.ticketState == TICKET_STALE ? "<font color='red'><b>STALE</font>" : ""] </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket)]</td></tr>"
 			else
 				continue
 	else  if(tab == TICKET_RESOLVED)
@@ -463,7 +470,7 @@ UI STUFF
 		for(var/T in allTickets)
 			ticket = T
 			if(ticket.ticketState == TICKET_RESOLVED)
-				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[ticket.title]</td></tr>"
+				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket)]</td></tr>"
 			else
 				continue
 	else if(tab == TICKET_CLOSED)
@@ -471,7 +478,7 @@ UI STUFF
 		for(var/T in allTickets)
 			ticket = T
 			if(ticket.ticketState == TICKET_CLOSED)
-				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[ticket.title]</td></tr>"
+				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket)]</td></tr>"
 			else
 				continue
 
@@ -504,7 +511,7 @@ UI STUFF
 	dat += "<h3>[T.client_ckey] / [T.mobControlled] opened this [ticket_name] at [T.ingame_time_opened] at location [T.locationSent]</h3>"
 	dat += "<h4>Ticket Status: [status]"
 	dat += "<table style='width:950px; border: 3px solid;'>"
-	dat += "<tr><td>[T.title]</td></tr>"
+	dat += "<tr><td>[makeUrlMessage(T)]</td></tr>"
 
 	if(length(T.ticket_responses) > 1)
 		for(var/i in 2 to length(T.ticket_responses))
@@ -710,7 +717,7 @@ UI STUFF
 				"realt" = T.real_time_opened,
 				"relativet" = T.ingame_time_opened,
 				"tcreator" = T.client_ckey,
-				"ttopic" = T.raw_title,
+				"ttopic" = T.title,
 				"ttaker" = T.staff_ckey,
 				"ttaketime" = T.staff_take_time,
 				"allresponses" = all_responses_txt,
