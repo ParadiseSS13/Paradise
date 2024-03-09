@@ -70,9 +70,11 @@
 /proc/viewNum_to_text(view)
 	return "[(view * 2) + 1]x[(view * 2) + 1]"
 
-/client/verb/set_view_range(view_range as null|anything in CUSTOM_VIEWRANGES)
+/client/verb/set_view_range()
 	set name = "Set View Range"
 	set category = "Preferences"
+
+	var/view_range = tgui_input_list(src.mob, "Select a view range", "Set View Range", CUSTOM_VIEWRANGES, "RESET")
 
 	if(!view_range)
 		return

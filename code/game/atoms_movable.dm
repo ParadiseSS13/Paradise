@@ -462,7 +462,7 @@
 	TT.diagonals_first = diagonals_first
 	TT.callback = callback
 	TT.dodgeable = dodgeable
-	TT.block_movement = block_movement
+	TT.should_block_movement = block_movement
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)

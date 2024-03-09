@@ -905,12 +905,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
 		G.add_blood(blood_dna, b_color)
-		verbs += /mob/living/carbon/human/proc/bloody_doodle
+		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 	else
 		hand_blood_color = b_color
 		bloody_hands = rand(2, 4)
 		transfer_blood_dna(blood_dna)
-		verbs += /mob/living/carbon/human/proc/bloody_doodle
+		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 
 	update_inv_gloves()	//handles bloody hands overlays and updating
 	return TRUE
@@ -1317,3 +1317,36 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(caller && (caller.pass_flags & pass_flags_self))
 		return TRUE
 	. = !density
+
+/atom/proc/atom_prehit(obj/item/projectile/P)
+	return SEND_SIGNAL(src, COMSIG_ATOM_PREHIT, P)
+
+/// Passes Stat Browser Panel clicks to the game and calls client click on an atom
+/atom/Topic(href, list/href_list)
+	. = ..()
+	if(!usr?.client)
+		return
+
+	if(href_list["statpanel_item_click"])
+		var/client/usr_client = usr.client
+		var/list/paramslist = list()
+		switch(href_list["statpanel_item_click"])
+			if("left")
+				paramslist[LEFT_CLICK] = "1"
+			if("right")
+				paramslist[RIGHT_CLICK] = "1"
+			if("middle")
+				paramslist[MIDDLE_CLICK] = "1"
+			else
+				return
+
+		if(href_list["statpanel_item_shiftclick"])
+			paramslist[SHIFT_CLICK] = "1"
+		if(href_list["statpanel_item_ctrlclick"])
+			paramslist[CTRL_CLICK] = "1"
+		if(href_list["statpanel_item_altclick"])
+			paramslist[ALT_CLICK] = "1"
+
+		var/mouseparams = list2params(paramslist)
+		usr_client.Click(src, loc, null, mouseparams)
+		return TRUE
