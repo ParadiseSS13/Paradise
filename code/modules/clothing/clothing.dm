@@ -716,15 +716,12 @@
 		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi'
 		)
 
-	///For the crew computer 2 = unable to change mode
+	/// For the crew computer, 2 = unable to change mode
 	var/has_sensor = TRUE
+	/// Current suit sensor mode
 	var/sensor_mode = SUIT_SENSOR_OFF
+	/// Randomize the suit sensor mode when initializing?
 	var/random_sensor = TRUE
-		/*
-		1 = Report living/dead
-		2 = Report detailed damages
-		3 = Report location
-		*/
 	var/list/accessories = list()
 	var/displays_id = TRUE
 	var/rolled_down = FALSE
