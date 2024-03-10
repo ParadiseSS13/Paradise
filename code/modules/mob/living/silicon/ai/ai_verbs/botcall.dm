@@ -11,6 +11,9 @@
 	var/list/mule = list()
 	var/list/misc = list()
 
+
+
+
 /datum/ui_module/botcall/proc/bot_sort()
 	for(bot in GLOB.bots_list)
 		switch(bot.bot_type)
@@ -62,15 +65,18 @@
 /datum/ui_module/botcall/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if (..())
 		return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
-	bot = locateUID(params["botref"])
-	if(!bot || bot.remote_disabled || AI.control_disabled)
-		return
 	switch(action)
 		if("test_button")
 			to_chat(world, "test button")
 		if("interface")
+			bot = locateUID(params["botref"])
+			if(!bot || bot.remote_disabled || AI.control_disabled)
+				return
 			bot.attack_ai(src)
 		if("call")
+			bot = locateUID(params["botref"])
+			if(!bot || bot.remote_disabled || AI.control_disabled)
+				return
 			AI.waypoint_mode = TRUE
 			to_chat(src, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
 
