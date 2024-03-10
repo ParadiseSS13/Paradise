@@ -2012,8 +2012,7 @@
 /obj/structure/table/glass,
 /obj/item/flashlight/lamp/green{
 	pixel_x = 10;
-	pixel_y = -6;
-	on = 0
+	pixel_y = -6
 	},
 /obj/item/paper_bin{
 	pixel_x = 6;
@@ -6220,9 +6219,7 @@
 /area/awaymission/jungle_planet/inside)
 "icJ" = (
 /obj/structure/table,
-/obj/item/flashlight/lamp{
-	on = 0
-	},
+/obj/item/flashlight/lamp,
 /obj/item/flash,
 /obj/machinery/firealarm{
 	name = "north fire alarm";

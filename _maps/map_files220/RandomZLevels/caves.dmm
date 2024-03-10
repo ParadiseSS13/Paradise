@@ -558,7 +558,6 @@
 "ct" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp{
-	on = 0;
 	pixel_y = 10;
 	pixel_x = -5
 	},
@@ -877,9 +876,7 @@
 	pixel_x = 5;
 	pixel_y = 8
 	},
-/obj/item/flashlight/lamp{
-	on = 0
-	},
+/obj/item/flashlight/lamp,
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/wood/oak,
@@ -5655,9 +5652,7 @@
 /area/awaymission/caves)
 "CP" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp{
-	on = 0
-	},
+/obj/item/flashlight/lamp,
 /turf/simulated/floor/wood/lavaland_air{
 	icon_state = "wood-broken"
 	},

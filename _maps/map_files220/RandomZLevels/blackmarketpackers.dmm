@@ -293,8 +293,7 @@
 /obj/item/reagent_containers/drinks/bottle/patron,
 /obj/item/flashlight/lamp/green{
 	pixel_x = -5;
-	pixel_y = 12;
-	on = 0
+	pixel_y = 12
 	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/oak,
@@ -1224,8 +1223,7 @@
 "dJ" = (
 /obj/item/flashlight/lamp/bananalamp{
 	pixel_x = -6;
-	pixel_y = 10;
-	on = 0
+	pixel_y = 10
 	},
 /obj/structure/alien/weeds,
 /obj/item/paperplane{

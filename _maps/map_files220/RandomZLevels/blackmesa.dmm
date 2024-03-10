@@ -11465,9 +11465,7 @@
 /area/awaymission/black_mesa/entrance_lobby)
 "oao" = (
 /obj/structure/table,
-/obj/item/flashlight/lamp{
-	on = 0
-	},
+/obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "oaH" = (
@@ -16780,9 +16778,7 @@
 /area/awaymission/black_mesa/xen/freeman_hallway)
 "uEY" = (
 /obj/structure/table,
-/obj/item/flashlight/lamp{
-	on = 0
-	},
+/obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_test_chambers)
 "uFe" = (

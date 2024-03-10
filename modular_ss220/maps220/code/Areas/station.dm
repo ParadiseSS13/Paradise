@@ -191,3 +191,7 @@
 /area/syndicate_mothership/cargo
 	name = "\improper Syndicate Cargo"
 	icon_state = "syndie-cargo"
+
+/* Misc */
+/area/holodeck
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
