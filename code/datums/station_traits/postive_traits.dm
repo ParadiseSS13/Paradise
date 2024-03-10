@@ -199,7 +199,7 @@
 		/datum/job/judge = /obj/item/organ/internal/cyberimp/arm/telebaton,
 		/datum/job/explorer = /obj/item/organ/internal/cyberimp/arm/toolset,
 		/datum/job/nanotrasenrep = /obj/item/organ/internal/heart/cybernetic/upgraded,
-		/datum/job/blueshield = /obj/item/organ/internal/cyberimp/arm/flash,
+		/datum/job/blueshield = /obj/item/organ/internal/cyberimp/arm/flash
 	)
 
 /datum/station_trait/cybernetic_revolution/New()
