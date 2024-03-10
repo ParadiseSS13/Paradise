@@ -171,8 +171,8 @@
 #define MUTANTRACE_LAYER		39
 #define TAIL_UNDERLIMBS_LAYER	38	//Tail split-rendering.
 #define LIMBS_LAYER				37
-#define INTORGAN_LAYER			36
-#define MARKINGS_LAYER			35
+#define MARKINGS_LAYER			36
+#define INTORGAN_LAYER			35
 #define UNDERWEAR_LAYER			34
 #define MUTATIONS_LAYER			33
 #define H_DAMAGE_LAYER			32
@@ -395,9 +395,9 @@
 #define SQL_VERSION 53
 
 // Vending machine stuff
-#define CAT_NORMAL 1
-#define CAT_HIDDEN 2
-#define CAT_COIN   4
+#define CAT_NORMAL (1<<0)
+#define CAT_HIDDEN (1<<1)
+#define CAT_COIN   (1<<2)
 
 // Jobs
 // used for alternate_option
@@ -481,9 +481,10 @@
 #define COLD_WATER_TEMPERATURE 283.15 // 10 degrees celsius
 
 // Parallax
+/// About 0.05 Seconds of delay
 #define PARALLAX_DELAY_DEFAULT	world.tick_lag
-#define PARALLAX_DELAY_MED		1
-#define PARALLAX_DELAY_LOW		2
+#define PARALLAX_DELAY_MED		0.1 SECONDS
+#define PARALLAX_DELAY_LOW		0.2 SECONDS
 #define PARALLAX_LOOP_TIME		25
 
 // Engine types
@@ -498,16 +499,16 @@
 #define SYMPTOM_ACTIVATION_PROB 3
 
 // Atmos stuff that fucking terrifies me
-#define LINDA_SPAWN_HEAT 1
-#define LINDA_SPAWN_20C 2
-#define LINDA_SPAWN_TOXINS 4
-#define LINDA_SPAWN_OXYGEN 8
-#define LINDA_SPAWN_CO2 16
-#define LINDA_SPAWN_NITROGEN 32
-#define LINDA_SPAWN_N2O 64
-#define LINDA_SPAWN_AGENT_B 128
-#define LINDA_SPAWN_AIR 256
-#define LINDA_SPAWN_COLD 512
+#define LINDA_SPAWN_HEAT 		(1<<0)
+#define LINDA_SPAWN_20C 		(1<<1)
+#define LINDA_SPAWN_TOXINS 		(1<<2)
+#define LINDA_SPAWN_OXYGEN 		(1<<3)
+#define LINDA_SPAWN_CO2 		(1<<4)
+#define LINDA_SPAWN_NITROGEN 	(1<<5)
+#define LINDA_SPAWN_N2O 		(1<<6)
+#define LINDA_SPAWN_AGENT_B 	(1<<7)
+#define LINDA_SPAWN_AIR 		(1<<8)
+#define LINDA_SPAWN_COLD 		(1<<9)
 
 // Throwing these defines here for the TM to minimise conflicts
 #define MAPROTATION_MODE_NORMAL_VOTE "Vote"
@@ -605,3 +606,5 @@
 #define TS_INFESTATION_WHITE_SPIDER 3
 #define TS_INFESTATION_PRINCESS_SPIDER 4
 #define TS_INFESTATION_QUEEN_SPIDER 5
+
+#define MAX_ALLOWED_TELEPORTS_PER_PROCESS 20

@@ -142,6 +142,7 @@
 	RegisterSignal(SSdcs, COMSIG_GLOB_CABLE_UPDATED, PROC_REF(cable_updated_handler))
 
 	RegisterSignal(src, COMSIG_BODY_TRANSFER_TO, PROC_REF(make_pulse_antagonist))
+	RegisterSignal(src, COMSIG_ATOM_EMP_ACT, PROC_REF(handle_emp))
 
 	current_power = locate(/obj/machinery/power) in loc
 	// in the case that both current_power and current_cable are null, the pulsedemon will die the next tick
@@ -253,7 +254,6 @@
 	greeting.Add(mind.prepare_announce_objectives(FALSE))
 	to_chat(src, chat_box_red(greeting.Join("<br>")))
 	SSticker.mode.traitors |= mind
-	return
 
 /mob/living/simple_animal/demon/pulse_demon/proc/give_spells()
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/cycle_camera)
@@ -267,15 +267,15 @@
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/remotedrain)
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/open_upgrades)
 
-/mob/living/simple_animal/demon/pulse_demon/Stat()
-	. = ..()
-	if(statpanel("Status"))
-		stat(null, "Charge: [format_si_suffix(charge)]W")
-		stat(null, "Maximum Charge: [format_si_suffix(maxcharge)]W")
-		stat(null, "Drained Charge: [format_si_suffix(charge_drained)]W")
-		stat(null, "Hijacked APCs: [length(hijacked_apcs)]")
-		stat(null, "Drain Rate: [format_si_suffix(power_drain_rate)]W")
-		stat(null, "Hijack Time: [hijack_time / 10] seconds")
+/mob/living/simple_animal/demon/pulse_demon/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Charge:", "[format_si_suffix(charge)]W")
+	status_tab_data[++status_tab_data.len] = list("Maximum Charge:", "[format_si_suffix(maxcharge)]W")
+	status_tab_data[++status_tab_data.len] = list("Drained Charge:", "[format_si_suffix(charge_drained)]W")
+	status_tab_data[++status_tab_data.len] = list("Hijacked APCs:", "[length(hijacked_apcs)]")
+	status_tab_data[++status_tab_data.len] = list("Drain Rate:", "[format_si_suffix(power_drain_rate)]W")
+	status_tab_data[++status_tab_data.len] = list("Hijack Time:", "[hijack_time / 10] seconds")
 
 /mob/living/simple_animal/demon/pulse_demon/dust()
 	return death()
@@ -379,6 +379,7 @@
 		current_power = new_power
 		current_cable = null
 		forceMove(current_power) // we go inside the machine
+		RegisterSignal(current_power, COMSIG_ATOM_EMP_ACT, PROC_REF(handle_emp), TRUE)
 		playsound(src, 'sound/effects/eleczap.ogg', 15, TRUE)
 		do_sparks(rand(2, 4), FALSE, src)
 		if(isapc(current_power))
@@ -388,6 +389,8 @@
 				INVOKE_ASYNC(src, PROC_REF(try_hijack_apc), current_power)
 	else if(new_cable)
 		current_cable = new_cable
+		if(current_power)
+			UnregisterSignal(current_power, COMSIG_ATOM_EMP_ACT)
 		current_power = null
 		update_controlling_area()
 		if(!isturf(loc))
@@ -499,7 +502,7 @@
 			// 2 * initial_rate - upgrade_level
 			rate += initial(health_loss_rate)
 		adjustHealth(rate)
-		throw_alert(ALERT_CATEGORY_NOPOWER, /obj/screen/alert/pulse_nopower)
+		throw_alert(ALERT_CATEGORY_NOPOWER, /atom/movable/screen/alert/pulse_nopower)
 
 	if(regen_lock > 0)
 		if(--regen_lock == 0)
@@ -695,14 +698,13 @@
 		LAZYADD(apc_images[apc_turf], apc_image)
 		client.images += apc_image
 
-/mob/living/simple_animal/demon/pulse_demon/emp_act(severity)
+/mob/living/simple_animal/demon/pulse_demon/proc/handle_emp(datum/source, severity)
+	SIGNAL_HANDLER
 	if(emp_debounce)
 		return
-
-	. = ..()
 	visible_message("<span class='danger'>[src] [pick("fizzles", "wails", "flails")] in anguish!</span>")
 	playsound(get_turf(src), pick(hurt_sounds), 30, TRUE)
-	throw_alert(ALERT_CATEGORY_NOREGEN, /obj/screen/alert/pulse_noregen)
+	throw_alert(ALERT_CATEGORY_NOREGEN, /atom/movable/screen/alert/pulse_noregen)
 	switch(severity)
 		if(EMP_LIGHT)
 			adjustHealth(round(max(initial(health) / 4, round(maxHealth / 8))))
@@ -841,12 +843,12 @@
 				cell_location.update_icon() //update power meters and such
 			cell_to_charge.update_icon()
 
-/obj/screen/alert/pulse_nopower
+/atom/movable/screen/alert/pulse_nopower
 	name = "No Power"
 	desc = "You are not connected to a cable or machine and are losing health!"
 	icon_state = "pd_nopower"
 
-/obj/screen/alert/pulse_noregen
+/atom/movable/screen/alert/pulse_noregen
 	name = "Regeneration Stalled"
 	desc = "You've been EMP'd and cannot regenerate health!"
 	icon_state = "pd_noregen"

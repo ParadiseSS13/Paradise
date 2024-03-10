@@ -201,10 +201,10 @@
 	. = ..()
 
 /obj/item/paper_bundle/proc/rename(mob/user)
-	var/n_name = sanitize(copytext_char(input(user, "What would you like to label the bundle?", "Bundle Labelling", name) as text, 1, MAX_MESSAGE_LEN))
-	if(loc == user && !user.stat)
-		name = "[(n_name ? "[n_name]" : "paper bundle")]"
-
+	var/n_name = tgui_input_text(user, "What would you like to label the bundle?", "Bundle Labelling", name)
+	if(!Adjacent(user) || !n_name || user.stat)
+		return
+	name = "[(n_name ? "[n_name]" : "paper bundle")]"
 	add_fingerprint(user)
 
 /obj/item/paper_bundle/AltShiftClick(mob/user)

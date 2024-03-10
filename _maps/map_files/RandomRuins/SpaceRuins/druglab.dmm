@@ -80,11 +80,8 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	layer = 5;
-	name = "east bump";
-	pixel_x = 24
+/obj/machinery/power/apc/directional/east{
+	layer = 5
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
