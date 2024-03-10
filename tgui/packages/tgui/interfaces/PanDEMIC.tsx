@@ -27,14 +27,14 @@ interface PathogenStrain {
   possibleTreatments?: string;
   transmissionRoute?: string;
   symptoms?: PathogenSymptom[];
-  isAdvanced: number;
+  isAdvanced: 0 | 1;
 }
 
 interface PanDEMICData {
-  synthesisCooldown: number;
-  beakerLoaded: number;
-  beakerContainsBlood: number;
-  beakerContainsVirus: number;
+  synthesisCooldown: 0 | 1;
+  beakerLoaded: 0 | 1;
+  beakerContainsBlood: 0 | 1;
+  beakerContainsVirus: 0 | 1;
   selectedStrainIndex: number;
   strains?: PathogenStrain[];
   resistances?: string[];
@@ -46,7 +46,6 @@ export const PanDEMIC = (props, context) => {
     beakerLoaded,
     beakerContainsBlood,
     beakerContainsVirus,
-    strains = [],
     resistances = [],
   } = data;
 
@@ -69,7 +68,7 @@ export const PanDEMIC = (props, context) => {
               {emptyPlaceholder}
             </Section>
           )}
-          {((beakerContainsVirus && true) || false) && (
+          {((!!beakerContainsVirus && true) || false) && (
             <CultureInformationSection />
           )}
           {(resistances || []).length > 0 && <ResistancesSection />}
@@ -214,7 +213,7 @@ const StrainInformationSection = (
       <Button
         icon="clone"
         content="Clone"
-        disabled={synthesisCooldown}
+        disabled={!!synthesisCooldown}
         onClick={() => act('clone_strain', { strain_index: props.strainIndex })}
       />
       {props.sectionButtons}
