@@ -132,6 +132,7 @@ SUBSYSTEM_DEF(tickets)
 	else if(isclient(target))
 		var/client/C = target
 		M = C.mob
+		key_and_name = key_name(M, TRUE, ticket_help_type)
 
 	var/list/L = list()
 	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_and_name] "
