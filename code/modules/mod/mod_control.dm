@@ -241,7 +241,7 @@
 		return TRUE
 
 /obj/item/mod/control/on_mob_move(direction, mob/user)
-	if(!jetpack_active)
+	if(!jetpack_active || !isturf(user.loc))
 		return
 	var/turf/T = get_step(src, GetOppositeDir(direction))
 	if(!has_gravity(T))
