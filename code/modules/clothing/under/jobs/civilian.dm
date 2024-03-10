@@ -63,7 +63,7 @@
 	item_color = "chapblack"
 
 /obj/item/clothing/under/rank/civilian/chaplain/sensor
-	sensor_mode = SENSOR_COORDS
+	sensor_mode = SUIT_SENSOR_TRACKING
 	random_sensor = FALSE
 
 /obj/item/clothing/under/rank/civilian/chef

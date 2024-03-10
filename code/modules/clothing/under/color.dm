@@ -73,7 +73,7 @@
 	item_state = "prisoner"
 	item_color = "prisoner"
 	has_sensor = 2
-	sensor_mode = SENSOR_COORDS
+	sensor_mode = SUIT_SENSOR_TRACKING
 
 /obj/item/clothing/under/color/pink
 	name = "pink jumpsuit"
@@ -127,7 +127,7 @@
 
 /// for jani ert
 /obj/item/clothing/under/color/purple/sensor
-	sensor_mode = SENSOR_COORDS
+	sensor_mode = SUIT_SENSOR_TRACKING
 	random_sensor = FALSE
 
 /obj/item/clothing/under/color/lightpurple

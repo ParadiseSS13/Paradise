@@ -20,10 +20,13 @@
 /datum/atom_hud/data/human/medical/basic
 
 /datum/atom_hud/data/human/medical/basic/proc/check_sensors(mob/living/carbon/human/H)
-	if(!istype(H)) return
+	if(!istype(H))
+		return
+
 	var/obj/item/clothing/under/U = H.w_uniform
-	if(!istype(U)) return
-	if(U.sensor_mode <= SENSOR_VITALS) return
+	if(!istype(U) || U.sensor_mode <= SUIT_SENSOR_VITAL)
+		return
+
 	return TRUE
 
 /datum/atom_hud/data/human/medical/basic/add_to_single_hud(mob/M, mob/living/carbon/H)

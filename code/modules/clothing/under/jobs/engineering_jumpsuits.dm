@@ -73,7 +73,7 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/engineering/engineer/sensor
-	sensor_mode = SENSOR_COORDS
+	sensor_mode = SUIT_SENSOR_TRACKING
 	random_sensor = FALSE
 
 /obj/item/clothing/under/rank/engineering/engineer/skirt

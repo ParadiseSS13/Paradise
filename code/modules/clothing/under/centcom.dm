@@ -15,7 +15,7 @@
 		)
 
 /obj/item/clothing/under/rank/centcom/ert
-	sensor_mode = SENSOR_COORDS
+	sensor_mode = SUIT_SENSOR_TRACKING
 	random_sensor = FALSE
 
 /obj/item/clothing/under/rank/centcom/deathsquad
@@ -24,7 +24,7 @@
 	icon_state = "deathsquad"
 	item_state = "deathsquad"
 	item_color = "deathsquad"
-	sensor_mode = SENSOR_OFF // You think the Deathsquad wants to be seen?
+	sensor_mode = SUIT_SENSOR_OFF // You think the Deathsquad wants to be seen?
 	random_sensor = FALSE
 
 /obj/item/clothing/under/rank/centcom/ert/chaplain

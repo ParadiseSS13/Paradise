@@ -718,7 +718,7 @@
 
 	///For the crew computer 2 = unable to change mode
 	var/has_sensor = TRUE
-	var/sensor_mode = SENSOR_OFF
+	var/sensor_mode = SUIT_SENSOR_OFF
 	var/random_sensor = TRUE
 		/*
 		1 = Report living/dead
@@ -733,7 +733,7 @@
 /obj/item/clothing/under/Initialize(mapload)
 	. = ..()
 	if(random_sensor)
-		sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_VITALS, SENSOR_COORDS)
+		sensor_mode = pick(SUIT_SENSOR_OFF, SUIT_SENSOR_BINARY, SUIT_SENSOR_VITAL, SUIT_SENSOR_TRACKING)
 
 /obj/item/clothing/under/Destroy()
 	QDEL_LIST_CONTENTS(accessories)

@@ -171,7 +171,7 @@
 			var/mob/living/carbon/human/H = victim
 			if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under))
 				var/obj/item/clothing/under/U = H.w_uniform
-				U.sensor_mode = SENSOR_OFF
+				U.sensor_mode = SUIT_SENSOR_OFF
 	else
 		victim.ghostize()
 		qdel(victim)

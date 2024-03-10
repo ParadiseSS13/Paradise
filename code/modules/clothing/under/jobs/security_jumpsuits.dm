@@ -37,7 +37,7 @@
 	item_color = "security"
 
 /obj/item/clothing/under/rank/security/officer/sensor
-	sensor_mode = SENSOR_COORDS
+	sensor_mode = SUIT_SENSOR_TRACKING
 	random_sensor = FALSE
 
 /obj/item/clothing/under/rank/security/officer/skirt
