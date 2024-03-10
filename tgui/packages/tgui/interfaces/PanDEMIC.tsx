@@ -1,3 +1,4 @@
+import { BooleanLike } from '../../common/react';
 import { InfernoNode } from 'inferno';
 import { useBackend } from '../backend';
 import {
@@ -27,14 +28,14 @@ interface PathogenStrain {
   possibleTreatments?: string;
   transmissionRoute?: string;
   symptoms?: PathogenSymptom[];
-  isAdvanced: 0 | 1;
+  isAdvanced: BooleanLike;
 }
 
 interface PanDEMICData {
-  synthesisCooldown: 0 | 1;
-  beakerLoaded: 0 | 1;
-  beakerContainsBlood: 0 | 1;
-  beakerContainsVirus: 0 | 1;
+  synthesisCooldown: BooleanLike;
+  beakerLoaded: BooleanLike;
+  beakerContainsBlood: BooleanLike;
+  beakerContainsVirus: BooleanLike;
   selectedStrainIndex: number;
   strains?: PathogenStrain[];
   resistances?: string[];
