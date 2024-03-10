@@ -412,7 +412,7 @@
 	..()
 	while (syringes.len + (chambered.BB ? 1 : 0) < max_syringes)
 		var/obj/item/reagent_containers/syringe/S = new /obj/item/reagent_containers/syringe
-		S.reagents.add_reagent_list(list("cyanide" = 15))
+		S.reagents.add_reagent_list(list("cyanide" = 10))
 		syringes.Add(S)
 		process_chamber()
 
@@ -420,7 +420,7 @@
 /obj/item/gun/syringe/malf/cyborg_recharge(coeff, emagged)
 	if(syringes.len < max_syringes)
 		var/obj/item/reagent_containers/syringe/S = new /obj/item/reagent_containers/syringe
-		S.reagents.add_reagent_list(list("cyanide" = 15))
+		S.reagents.add_reagent_list(list("cyanide" = 10))
 		syringes.Add(S)
 		process_chamber()
 
