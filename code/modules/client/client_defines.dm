@@ -6,6 +6,8 @@
 		////////////////
 		//ADMIN THINGS//
 		////////////////
+	/// hides the byond verb panel as we use our own custom version
+	show_verb_panel = FALSE
 	var/datum/admins/holder = null
 
 	var/last_message	= "" //contains the last message sent by this client - used to protect against copy-paste spamming.
@@ -56,7 +58,7 @@
 
 	preload_rsc = 0 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
 
-	var/obj/screen/click_catcher/void
+	var/atom/movable/screen/click_catcher/void
 
 	var/ip_intel = "Disabled"
 
@@ -66,7 +68,7 @@
 	var/datum/tooltip/tooltips
 
 	// Overlay for showing debug info
-	var/obj/screen/debugtextholder/debug_text_overlay
+	var/atom/movable/screen/debugtextholder/debug_text_overlay
 
 	/// Persistent storage for the flavour text of examined atoms.
 	var/list/description_holders = list()
@@ -79,6 +81,15 @@
 
 	/// Messages currently seen by this client
 	var/list/seen_messages
+
+	/// list of tabs containing spells and abilities
+	var/list/spell_tabs = list()
+
+	/// our current tab
+	var/stat_tab
+
+	/// list of all tabs
+	var/list/panel_tabs = list()
 
 	// Last world.time that the player tried to request their resources.
 	var/last_ui_resource_send = 0
@@ -123,6 +134,8 @@
 	var/list/active_keybindings = list()
 	/// The client's movement keybindings to directions, which work regardless of modifiers.
 	var/list/movement_kb_dirs = list()
+	/// The client's currently moused over datum, limited to movable and stored as UID
+	var/atom/movable/moused_over
 
 	/// A lazy list of atoms we've examined in the last RECENT_EXAMINE_MAX_WINDOW (default 2) seconds, so that we will call [/atom/proc/examine_more] instead of [/atom/proc/examine] on them when examining
 	var/list/recent_examines
@@ -132,6 +145,9 @@
 
 	/// Assigned say modal of the client
 	var/datum/tgui_say/tgui_say
+
+	/// Our object window datum. It stores info about and handles behavior for the object tab
+	var/datum/object_window_info/obj_window
 
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)

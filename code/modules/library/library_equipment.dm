@@ -415,7 +415,7 @@
 			else
 				confirm = tgui_alert(user, "Are you sure you want to checkout [B] to [computer.user_data.patron_name]?", "Confirm Checkout", list("Yes", "No"))
 
-			if(confirm == "No")
+			if(confirm != "Yes")
 				return
 			if(computer.checkout(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)

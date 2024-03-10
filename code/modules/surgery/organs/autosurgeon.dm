@@ -93,6 +93,16 @@
 	uses = 1
 	starting_organ = /obj/item/organ/internal/eyes/cybernetic/meson
 
+/obj/item/autosurgeon/organ/syndicate/razorwire
+	desc = "A single use autosurgeon that contains a Razorwire arm implant. A screwdriver can be used to remove it, but implants can't be placed back in."
+	uses = 1
+	starting_organ = /obj/item/organ/internal/cyberimp/arm/razorwire
+
+/obj/item/autosurgeon/organ/syndicate/razorwire/examine_more(mob/user)
+	. = ..()
+	if(storedorgan)
+		return storedorgan.examine_more()
+
 /obj/item/autosurgeon/organ/syndicate/hackerman_deck
 	desc = "A single use autosurgeon that contains a Binyat wireless hacking system. A screwdriver can be used to remove it, but implants can't be placed back in."
 	uses = 1
@@ -110,6 +120,20 @@
 	Repeated use will lead to skin irritation, internal burns, and even severe nerve damage in extreme cases.<i>"
 	. += "<i>As of modern times, the BWHS is heavily vetted under Cybersun Inc. due to its dangerous nature and rather difficult detection. \
 	However, this hasn't stopped the flow of these implants from reaching the black market, whether by inside or outside influences.</i>"
+
+/obj/item/autosurgeon/organ/syndicate/sensory_enhancer
+	desc = "A single use autosurgeon that contains a Qani-Laaca sensory computer. A screwdriver can be used to remove it, but implants can't be placed back in."
+	uses = 1
+	starting_organ = /obj/item/organ/internal/cyberimp/brain/sensory_enhancer
+
+/obj/item/autosurgeon/organ/syndicate/sensory_enhancer/examine(mob/user)
+	. = ..()
+	. += "<span class='userdanger'>Epilepsy Warning: Drug has vibrant visual effects!</span>"
+
+/obj/item/autosurgeon/organ/syndicate/sensory_enhancer/examine_more(mob/user)
+	. = ..()
+	if(storedorgan)
+		return storedorgan.examine_more()
 
 /obj/item/autosurgeon/organ/syndicate/thermal_eyes
 	starting_organ = /obj/item/organ/internal/eyes/cybernetic/thermals/hardened

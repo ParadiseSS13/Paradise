@@ -81,7 +81,7 @@
 		return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/proc/Retract()
-	if(!holder || (holder in src) || check_cuffs())
+	if(!holder || (holder in src))
 		return
 	if(status & ORGAN_DEAD)
 		return
@@ -143,6 +143,7 @@
 		"<span class='notice'>You extend [holder] from your [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
 		"<span class='italics'>You hear a short mechanical noise.</span>")
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
+	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click()
 	if(crit_fail || (!holder && !contents.len))
@@ -328,7 +329,8 @@
 	parent_organ = "l_arm"
 	slot = "l_arm_device"
 
-/obj/item/organ/internal/cyberimp/arm/janitorial/advanced /// ERT implant, i dont overly expect this to get into the hands of crew
+/// ERT implant, i dont overly expect this to get into the hands of crew
+/obj/item/organ/internal/cyberimp/arm/janitorial/advanced
 	name = "advanced janitorial toolset implant"
 	desc = "A set of advanced janitorial tools hidden behind a concealed panel on the user's arm."
 	contents = newlist(/obj/item/mop/advanced, /obj/item/soap/deluxe, /obj/item/lightreplacer/bluespace, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/advanced)
@@ -337,7 +339,8 @@
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt")
 	emp_proof = TRUE
 
-/obj/item/organ/internal/cyberimp/arm/janitorial/advanced/l /// its for ERT, but still probably a good idea.
+/// its for ERT, but still probably a good idea.
+/obj/item/organ/internal/cyberimp/arm/janitorial/advanced/l
 	parent_organ = "l_arm"
 	slot = "l_arm_device"
 
@@ -453,6 +456,55 @@
 	contents = newlist(/obj/item/mop/advanced)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/janitor.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "advmop")
+
+// Razorwire implant, long reach whip made of extremely thin wire, ouch!
+
+/obj/item/melee/razorwire
+	name = "implanted razorwire"
+	desc = "A long length of monomolecular filament, built into the back of your hand. \
+		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
+		even from a few steps away. However, results against anything more durable will heavily vary."
+	icon = 'icons/obj/energy_melee.dmi'
+	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
+	icon_state = "razorwire_weapon"
+	item_state = "razorwire"
+	w_class = WEIGHT_CLASS_BULKY
+	sharp = TRUE
+	force = 18
+	armour_penetration_percentage = -100 //This means that armor twice as effective against it
+	reach = 2
+	hitsound = 'sound/weapons/whip.ogg'
+	attack_verb = list("slashes", "whips", "lashes", "lacerates")
+
+/obj/item/melee/razorwire/examine_more(mob/user)
+	. = ..()
+	. += "<i>A byproduct of Cybersun Incorporated's mistakes turned concept, the Razorwire Spool is a remarkable accident in itself. \
+	It consists of a fine, thread-like laser capable of being manipulated and swung like a whip. Designed for ease of deployment, the wire originates from the wrist, \
+	allowing users with the implant to perform wide swings and precise cuts against soft targets. It's the same energy found in other common energy weapons, such as swords and daggers.</i>"
+	. += "<i>Cybersun's investment into energy weapon development inadvertently led to the Razorwire Spool. Initially attempting to create an Energy Sword, \
+	they ended up with a material that, while superheated and correctly composed, failed to maintain a solid blade shape. Curious about this error, \
+	Cybersun repeated the process, producing an energy as thin as a wire. After several prototypes, they achieved a long, energy-like thread. \
+	Further innovation allowed them to conceal this in a forearm-sized container, \
+	with a hand and wrist replacement made of the same durable material used to contain energy weapons. They would call it, the Razorwire.</i>"
+	. += "<i>Favored by assassins for their stealth and efficiency, Cybersun exercises discretion in its distribution, favoring clients in their good graces. \
+	It falls behind other energy weapons due to its thinner and more loose pressure, however it is praised more as a side-arm for unarmored soft targets.</i>"
+
+/obj/item/organ/internal/cyberimp/arm/razorwire
+	name = "razorwire spool implant"
+	desc = "An integrated spool of razorwire, capable of being used as a weapon when whipped at your foes. \
+		Built into the back of your hand, try your best to not get it tangled."
+	contents = newlist(/obj/item/melee/razorwire)
+	icon_state = "razorwire"
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/surgery.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "razorwire")
+	origin_tech = "combat=5;biotech=5;syndicate=2"
+	stealth_level = 1 // Hidden from health analyzers
+
+/obj/item/organ/internal/cyberimp/arm/razorwire/examine_more(mob/user)
+	. = ..()
+	for(var/obj/I in contents)
+		return I.examine_more()
 
 // Shell launch system, an arm mounted single-shot shotgun that comes out of your arm
 
