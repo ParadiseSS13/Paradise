@@ -61,7 +61,7 @@
 		if(areas && areas.len > 0)
 			for(var/area/A in areas)
 				for(var/obj/machinery/light/L in A)
-					L.flicker(10)
+					L.forced_flicker(10)
 
 /datum/event/prison_break/end()
 	for(var/area/A in shuffle(areas))

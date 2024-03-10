@@ -1126,7 +1126,8 @@
 /obj/item/storage/box/stockparts
 	display_contents_with_number = TRUE
 
-/obj/item/storage/box/stockparts/basic //for ruins where it's a bad idea to give access to an autolathe/protolathe, but still want to make stock parts accessible
+/// for ruins where it's a bad idea to give access to an autolathe/protolathe, but still want to make stock parts accessible
+/obj/item/storage/box/stockparts/basic
 	name = "box of stock parts"
 	desc = "Contains a variety of basic stock parts."
 
@@ -1231,6 +1232,15 @@
 /obj/item/storage/box/foam_grenades/populate_contents()
 	for(var/I in 1 to 7)
 		new /obj/item/grenade/chem_grenade/metalfoam(src)
+
+/obj/item/storage/box/coke_envirosuit
+	name = "coke suit box"
+	desc = "A box with a special envirosuit brought to you by Space Cola Co."
+	icon_state = "plasma_box"
+
+/obj/item/storage/box/coke_envirosuit/populate_contents()
+	new /obj/item/clothing/under/plasmaman/coke(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/coke(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

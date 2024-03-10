@@ -86,7 +86,7 @@
 		playsound(M,'sound/weapons/resonator_blast.ogg', 50, 1)
 		if(iscarbon(M))
 			var/mob/living/carbon/L = M
-			L.Weaken(12 SECONDS)
+			L.KnockDown(12 SECONDS)
 			if(ishuman(L))
 				shake_camera(L, 20, 1)
 				addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living/carbon, vomit)), 20)
@@ -168,7 +168,8 @@
 /obj/effect/portal/advanced/getaway
 	one_use = TRUE
 
-/obj/effect/temp_visual/getaway_flare // Because the original contractor flare is not a temp visual, for some reason.
+/// Because the original contractor flare is not a temp visual, for some reason.
+/obj/effect/temp_visual/getaway_flare
 	name = "contractor extraction flare"
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flare-contractor-on"

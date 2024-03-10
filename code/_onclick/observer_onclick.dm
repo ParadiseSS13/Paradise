@@ -66,6 +66,21 @@
 /mob/dead/observer/ShiftClickOn(atom/A)
 	examinate(A)
 
+/mob/dead/observer/AltClickOn(atom/A)
+	AltClickNoInteract(src, A)
+
+/mob/dead/observer/AltShiftClickOn(atom/A)
+	return
+
+/mob/dead/observer/CtrlShiftClickOn(atom/A)
+	return
+
+/mob/dead/observer/MiddleShiftClickOn(atom/A)
+	return
+
+/mob/dead/observer/MiddleShiftControlClickOn(atom/A)
+	return
+
 /atom/proc/attack_ghost(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
