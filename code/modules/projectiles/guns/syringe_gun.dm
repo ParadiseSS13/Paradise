@@ -399,3 +399,47 @@
 /obj/item/gun/syringe/rapidsyringe/preloaded/beaker_blaster/attack_self(mob/living/user)
 	// no printing infinite syringes.
 	return
+
+///Version for Malf Borgs
+/obj/item/gun/syringe/malf
+	name = "Rapid Syringe Cannon"
+	desc = "A syringe gun integrated into a medical cyborg's chassis. Fires syringes filled with Cyanide."
+	icon_state = "rapidsyringegun"
+	max_syringes = 14
+
+//Preload Syringes
+/obj/item/gun/syringe/malf/Initialize(mapload)
+	..()
+	while (syringes.len + (chambered.BB ? 1 : 0) < max_syringes)
+		var/obj/item/reagent_containers/syringe/S = new /obj/item/reagent_containers/syringe
+		S.reagents.add_reagent_list(list("cyanide" = 15))
+		syringes.Add(S)
+		process_chamber()
+
+//Recharge syringes in a recharger
+/obj/item/gun/syringe/malf/cyborg_recharge(coeff, emagged)
+	if(syringes.len < max_syringes)
+		var/obj/item/reagent_containers/syringe/S = new /obj/item/reagent_containers/syringe
+		S.reagents.add_reagent_list(list("cyanide" = 15))
+		syringes.Add(S)
+		process_chamber()
+
+//Cannot manually remove syringes
+/obj/item/gun/syringe/malf/attack_self(mob/living/user)
+	return
+
+//Load syringe into the chamber
+/obj/item/gun/syringe/malf/process_chamber()
+
+	if(!length(syringes) || chambered?.BB)
+		return
+
+	var/obj/item/reagent_containers/syringe/S = syringes[1]
+	if(!S)
+		return
+
+	chambered.BB = new /obj/item/projectile/bullet/dart/syringe/pierce_ignore(src)
+	S.reagents.trans_to(chambered.BB, S.reagents.total_volume)
+	chambered.BB.name = S.name
+	syringes.Remove(S)
+	qdel(S)

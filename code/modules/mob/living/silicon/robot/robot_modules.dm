@@ -354,8 +354,12 @@
 		/obj/item/gripper_medical
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/borghypo/syndicate)
-	special_rechargables = list(/obj/item/extinguisher/mini)
-	//malf_modules = list(/obj/item/gun/syringe/rapidsyringe/malf)
+	malf_modules = list(/obj/item/gun/syringe/malf)
+	special_rechargables = list(
+		/obj/item/extinguisher/mini,
+		/obj/item/gun/syringe/malf
+	)
+
 
 // Disable safeties on the borg's defib.
 /obj/item/robot_module/medical/emag_act(mob/user)
