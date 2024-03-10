@@ -14,6 +14,7 @@
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 0, FIRE = 115, ACID = 50)
 	strip_delay = 70
 	resistance_flags = NONE
+	knife_slot = TRUE
 
 /// overpowered gimmick boots
 /obj/item/clothing/shoes/combat/swat
@@ -208,6 +209,7 @@
 	desc = "Steel-toed mining boots for mining in hazardous environments. Very good at keeping toes uncrushed."
 	icon_state = "explorer"
 	resistance_flags = FIRE_PROOF
+	knife_slot = TRUE
 
 /obj/item/clothing/shoes/winterboots
 	name = "winter boots"
