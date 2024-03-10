@@ -72,6 +72,13 @@
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
 	var/d_hud = DATA_HUD_DIAGNOSTIC_BASIC //There is only one kind of diag hud
 	var/jani_hud = DATA_HUD_JANITOR
+	var/datum/ui_module/atmos_control/atmos_control
+	var/datum/ui_module/crew_monitor/crew_monitor
+	var/datum/ui_module/law_manager/law_manager
+	var/datum/ui_module/power_monitor/digital/power_monitor
+	var/list/silicon_subsystems = list(/mob/living/silicon/proc/subsystem_law_manager)
+	var/datum/ai_laws/laws = null
+	var/list/additional_law_channels = list("State" = "")
 
 /mob/living/silicon/New()
 	GLOB.silicon_mob_list |= src

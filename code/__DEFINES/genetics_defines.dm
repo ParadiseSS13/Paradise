@@ -5,8 +5,6 @@
 
 #define MUTCHK_FORCED        1
 
-// mob/var/list/mutations
-
 // Used in preferences.
 #define DISABILITY_FLAG_NEARSIGHTED (1<<0)
 #define DISABILITY_FLAG_FAT         (1<<1)

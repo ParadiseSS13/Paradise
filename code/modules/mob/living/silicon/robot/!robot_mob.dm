@@ -117,6 +117,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	/// Integer used to determine self-mailing location, used only by drones and saboteur borgs
 	var/mail_destination = 1
+	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
+	var/datum/ui_module/destination_tagger/mail_setter
+	silicon_subsystems = list(
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager)
 
 /mob/living/silicon/robot/get_cell()
 	return cell

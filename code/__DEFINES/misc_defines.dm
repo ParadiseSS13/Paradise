@@ -481,9 +481,10 @@
 #define COLD_WATER_TEMPERATURE 283.15 // 10 degrees celsius
 
 // Parallax
+/// About 0.05 Seconds of delay
 #define PARALLAX_DELAY_DEFAULT	world.tick_lag
-#define PARALLAX_DELAY_MED		1
-#define PARALLAX_DELAY_LOW		2
+#define PARALLAX_DELAY_MED		0.1 SECONDS
+#define PARALLAX_DELAY_LOW		0.2 SECONDS
 #define PARALLAX_LOOP_TIME		25
 
 // Engine types
