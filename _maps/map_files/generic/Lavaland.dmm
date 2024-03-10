@@ -5023,6 +5023,10 @@
 /obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"sD" = (
+/obj/structure/lavaland_billboard,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "sF" = (
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plasteel/white,
@@ -18565,7 +18569,7 @@ ab
 Aw
 Aw
 Aw
-OA
+sD
 hC
 vj
 tb
@@ -18822,7 +18826,7 @@ Aw
 Aw
 Aw
 Aw
-Aw
+ab
 hC
 bo
 xC

@@ -1285,6 +1285,7 @@
 #include "code\game\objects\structures\crates_lockers\closets\secure\secure_closets.dm"
 #include "code\game\objects\structures\crates_lockers\closets\secure\security_lockers.dm"
 #include "code\game\objects\structures\decor\decor.dm"
+#include "code\game\objects\structures\lavaland\billboard.dm"
 #include "code\game\objects\structures\lavaland\ladder.dm"
 #include "code\game\objects\structures\lavaland\necropolis_tendril.dm"
 #include "code\game\objects\structures\stool_bed_chair_nest\alien_nests.dm"
