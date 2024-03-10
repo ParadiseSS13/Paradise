@@ -251,14 +251,16 @@ export const SettingsAdvanced = (props, context) => {
           <LabeledList>
             <LabeledList.Item
               label={'Messages Max'}
-              tooltip={'Maximum Messages Displayed'}
+              tooltip={
+                'Maximum Messages Displayed. Values above 2000 may cause performance issues!'
+              }
             >
               <NumberInput
                 width={5}
                 step={100}
                 stepPixelSize={3}
                 minValue={0}
-                maxValue={25000}
+                maxValue={20000}
                 value={maxTotalMessage}
                 format={(value) => toFixed(value)}
                 onChange={(e, value) => SetMessageTotal(value, context)}

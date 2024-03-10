@@ -27,7 +27,7 @@ const initialState = {
   theme: 'dark',
   adminMusicVolume: 0.5,
   messageStackInSeconds: 30,
-  maxTotalMessage: 10000,
+  maxTotalMessage: 2000,
   // Keep these two state vars for compatibility with other servers
   highlightText: '',
   highlightColor: '#ffdd44',

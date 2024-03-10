@@ -110,7 +110,7 @@ class ChatRenderer {
     this.page = null;
     this.events = new EventEmitter();
     this.messageStackInSeconds = 30;
-    this.maxTotalMessage = 10000;
+    this.maxTotalMessage = 2000;
     // Scroll handler
     /** @type {HTMLElement} */
     this.scrollNode = null;
