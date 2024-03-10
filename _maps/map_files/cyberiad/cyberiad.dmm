@@ -54755,7 +54755,6 @@
 /turf/simulated/floor/engine/vacuum,
 /area/station/engineering/atmos)
 "ecC" = (
-/obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -54764,6 +54763,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/directional/south,
+/obj/machinery/syndicatebomb/training,
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "ecF" = (
