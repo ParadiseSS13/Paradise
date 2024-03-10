@@ -158,10 +158,9 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	qdel(src)
 
 /datum/disease/proc/IsSame(datum/disease/D)
-	if(istype(src, D.type))
-		return 1
-	return 0
-
+	if(ispath(D))
+		return istype(src, D)
+	return istype(src, D.type)
 
 /datum/disease/proc/Copy()
 	var/datum/disease/D = new type()

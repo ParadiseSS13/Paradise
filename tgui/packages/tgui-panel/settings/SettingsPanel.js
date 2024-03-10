@@ -38,6 +38,7 @@ import {
   selectHighlightSettings,
   selectHighlightSettingById,
 } from './selectors';
+import { chatRenderer } from '../chat/renderer';
 
 export const SettingsPanel = (props, context) => {
   const activeTab = useSelector(context, selectActiveTab);
@@ -75,10 +76,14 @@ export const SettingsPanel = (props, context) => {
 };
 
 export const SettingsGeneral = (props, context) => {
-  const { theme, fontFamily, fontSize, lineHeight } = useSelector(
-    context,
-    selectSettings
-  );
+  const {
+    theme,
+    fontFamily,
+    fontSize,
+    lineHeight,
+    messageStackInSeconds,
+    maxTotalMessage,
+  } = useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
   const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
   return (
@@ -155,6 +160,20 @@ export const SettingsGeneral = (props, context) => {
               )
             }
           />
+          <Box inline fontSize="1em" mx={1} color="label">
+            Maximum messages displayed:
+          </Box>
+          <NumberInput
+            width="4.2em"
+            step={100}
+            stepPixelSize={3}
+            minValue={0}
+            maxValue={25000}
+            value={maxTotalMessage}
+            unit="messages"
+            format={(value) => toFixed(value)}
+            onChange={(e, value) => SetMessageTotal(value, context)}
+          />
         </LabeledList.Item>
         <LabeledList.Item label="Line height">
           <NumberInput
@@ -173,21 +192,42 @@ export const SettingsGeneral = (props, context) => {
               )
             }
           />
+          <Box inline fontSize="1em" mx={1} color="label">
+            Stacked message expiration:
+          </Box>
+          <NumberInput
+            width="4.2em"
+            step={1}
+            stepPixelSize={3}
+            minValue={0}
+            maxValue={600}
+            value={messageStackInSeconds}
+            unit="seconds"
+            format={(value) => toFixed(value)}
+            onChange={(e, value) => SetMessageStackingTime(value, context)}
+          />
         </LabeledList.Item>
       </LabeledList>
       <Divider />
-      <Button
-        mt={0.25}
-        content="Save chat log"
-        icon="save"
-        onClick={() => dispatch(saveChatToDisk())}
-      />
-      <Button.Confirm
-        icon="trash"
-        confirmContent="Are you sure?"
-        content="Clear chat"
-        onClick={() => dispatch(clearChat())}
-      />
+      <Stack fill>
+        <Stack.Item grow mt={0.15}>
+          <Button
+            content="Save chat log"
+            icon="save"
+            tooltip="Export current tab history into HTML file"
+            onClick={() => dispatch(saveChatToDisk())}
+          />
+        </Stack.Item>
+        <Stack.Item mt={0.15}>
+          <Button.Confirm
+            icon="trash"
+            confirmContent="Are you sure?"
+            content="Clear chat"
+            tooltip="Erase current tab history"
+            onClick={() => dispatch(clearChat())}
+          />
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };
@@ -340,4 +380,16 @@ const TextHighlightSetting = (props, context) => {
       />
     </Stack.Item>
   );
+};
+
+const SetMessageStackingTime = (value, context) => {
+  const dispatch = useDispatch(context);
+  dispatch(updateSettings({ messageStackInSeconds: value }));
+  chatRenderer.setMessageDelayStacking(value);
+};
+
+const SetMessageTotal = (value, context) => {
+  const dispatch = useDispatch(context);
+  dispatch(updateSettings({ maxTotalMessage: value }));
+  chatRenderer.setMessageDelayStacking(value);
 };

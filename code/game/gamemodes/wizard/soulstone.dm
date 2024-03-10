@@ -46,7 +46,7 @@
 /obj/item/soulstone/proc/was_used()
 	if(!reusable)
 		spent = TRUE
-		name = "dull [name]"
+		name = "dull [initial(name)]"
 		desc = "A fragment of the legendary treasure known simply as \
 			the 'Soul Stone'. The shard lies still, dull and lifeless; \
 			whatever spark it once held long extinguished."
@@ -144,7 +144,7 @@
 		SEND_SOUND(player_client, sound('sound/misc/notice2.ogg'))
 		window_flash(player_client)
 
-		var/obj/screen/alert/notify_soulstone/A = player_mob.throw_alert("\ref[src]_soulstone_thingy", /obj/screen/alert/notify_soulstone)
+		var/atom/movable/screen/alert/notify_soulstone/A = player_mob.throw_alert("\ref[src]_soulstone_thingy", /atom/movable/screen/alert/notify_soulstone)
 		if(player_client.prefs && player_client.prefs.UI_style)
 			A.icon = ui_style2icon(player_client.prefs.UI_style)
 

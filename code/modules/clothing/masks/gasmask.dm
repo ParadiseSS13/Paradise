@@ -312,7 +312,7 @@
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/blue
-	name = "\improper blue SWAT mask"
+	name = "blue SWAT mask"
 	desc = "A neon blue swat mask, used for demoralizing Greytide in the wild."
 	icon_state = "blue_sechailer"
 	item_state = "blue_sechailer"
@@ -401,6 +401,7 @@
 	if(safety)
 		safety = 0
 		to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
+		return TRUE
 	else
 		return
 

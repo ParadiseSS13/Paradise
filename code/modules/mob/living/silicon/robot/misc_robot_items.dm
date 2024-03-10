@@ -7,15 +7,13 @@
 	var/mode = 1
 
 /obj/item/pen/multi/robopen/attack_self(mob/user as mob)
-
 	var/choice = tgui_input_list(user, "Would you like to change colour or mode?", name, list("Colour","Mode"))
-	if(!choice) return
+	if(!choice)
+		return
 
 	switch(choice)
-
 		if("Colour")
 			select_colour(user)
-
 		if("Mode")
 			if(mode == 1)
 				mode = 2
@@ -23,24 +21,21 @@
 				mode = 1
 			to_chat(user, "Changed printing mode to '[mode == 2 ? "Rename Paper" : "Write Paper"]'")
 			playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
-
 	return
 
 // Copied over from paper's rename verb
 // see code\modules\paperwork\paper.dm line 62
 
-/obj/item/pen/multi/robopen/proc/RenamePaper(mob/user as mob,obj/paper as obj)
-	if(!user || !paper)
-		return
-	var/n_name = input(user, "What would you like to label the paper?", "Paper Labelling", null)  as text
+/obj/item/pen/multi/robopen/proc/RenamePaper(mob/user, obj/paper)
 	if(!user || !paper)
 		return
 
-	n_name = copytext(n_name, 1, 32)
-	if(( get_dist(user,paper) <= 1  && user.stat == 0))
-		paper.name = "paper[(n_name ? "- '[n_name]'" : null)]"
+	var/n_name = tgui_input_text(user, "What would you like to label the paper?", "Paper Labelling", max_length = MAX_NAME_LEN)
+	if(!Adjacent(user) || !n_name)
+		return
+
+	paper.name = "paper - [n_name]"
 	add_fingerprint(user)
-	return
 
 //TODO: Add prewritten forms to dispense when you work out a good way to store the strings.
 /obj/item/form_printer

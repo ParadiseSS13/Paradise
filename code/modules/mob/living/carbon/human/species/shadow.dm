@@ -34,9 +34,9 @@
 		light_amount = T.get_lumcount() * 10
 
 		if(light_amount > 2) //if there's enough light, start dying
-			H.take_overall_damage(1,1)
-			H.throw_alert("lightexposure", /obj/screen/alert/lightexposure)
+			H.take_overall_damage(1, 1)
+			H.throw_alert("lightexposure", /atom/movable/screen/alert/lightexposure)
 		else if(light_amount < 2) //heal in the dark
-			H.heal_overall_damage(1,1)
+			H.heal_overall_damage(1, 1)
 			H.clear_alert("lightexposure")
 	..()

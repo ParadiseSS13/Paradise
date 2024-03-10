@@ -275,7 +275,7 @@
 	if(target != T)
 		// We only check the rpd_act of the target if it isn't the turf, because otherwise
 		// (A) blocked turfs can be acted on, and (B) unblocked turfs get acted on twice.
-		if(target.rpd_act(user, src) == TRUE)
+		if(target.rpd_act(user, src))
 			// If the object we are clicking on has a valid RPD interaction for just that specific object, do that and nothing else.
 			// Example: clicking on a pipe with a RPD in rotate mode should rotate that pipe and ignore everything else on the tile.
 			if(ranged)
@@ -286,7 +286,7 @@
 	// This is done by calling rpd_blocksusage on every /obj in the tile. If any block usage, fail at this point.
 
 	for(var/obj/O in T)
-		if(O.rpd_blocksusage() == TRUE)
+		if(O.rpd_blocksusage())
 			to_chat(user, "<span class='warning'>[O] blocks [src]!</span>")
 			return
 

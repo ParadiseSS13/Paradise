@@ -67,7 +67,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
 /datum/admins/proc/show_player_panel(mob/M in GLOB.mob_list)
-	set category = null
 	set name = "\[Admin\] Show Player Panel"
 	set desc="Edit player (respawn, ban, heal, etc)"
 
@@ -279,12 +278,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	usr << browse(body, "window=adminplayeropts;size=550x615")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Player Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-
-/datum/player_info/var/author // admin who authored the information
-/datum/player_info/var/rank //rank of admin who made the notes
-/datum/player_info/var/content // text content of the information
-/datum/player_info/var/timestamp // Because this is bloody annoying
 
 #define PLAYER_NOTES_ENTRIES_PER_PAGE 50
 /datum/admins/proc/PlayerNotes()
@@ -812,7 +805,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /client/proc/update_mob_sprite(mob/living/carbon/human/H as mob)
 	set name = "\[Admin\] Update Mob Sprite"
 	set desc = "Should fix any mob sprite update errors."
-	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return

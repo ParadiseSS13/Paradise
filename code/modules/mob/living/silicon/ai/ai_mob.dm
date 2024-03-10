@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(subject!=null)
 		for(var/A in GLOB.ai_list)
 			var/mob/living/silicon/ai/M = A
-			if((M.client && M.machine == subject))
+			if(M.client && M.machine == subject)
 				is_in_use = 1
 				subject.attack_ai(M)
 	return is_in_use
@@ -77,6 +77,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/machinery/power/apc/malfhack = null
 	var/explosive = 0 //does the AI explode when it dies?
 
+	///Whether or not the AI has upgraded their turrets
+	var/turrets_upgraded = FALSE
+
 	/// List of modules the AI has purchased malf upgrades for.
 	var/list/purchased_modules = list()
 
@@ -123,12 +126,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/cracked_camera = FALSE // will be true if malf AI break its camera
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
-	verbs |= GLOB.ai_verbs_default
-	verbs |= silicon_subsystems
+	add_verb(src, GLOB.ai_verbs_default)
+	add_verb(src, silicon_subsystems)
 
 /mob/living/silicon/ai/proc/remove_ai_verbs()
-	verbs -= GLOB.ai_verbs_default
-	verbs -= silicon_subsystems
+	remove_verb(src, GLOB.ai_verbs_default)
+	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/ai/New(loc, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
 	announcer = new(config_type = /datum/announcement_configuration/ai)
@@ -160,7 +163,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	else
 		make_laws()
 
-	verbs += /mob/living/silicon/ai/proc/show_laws_verb
+	add_verb(src, /mob/living/silicon/ai/proc/show_laws_verb)
 
 	aiMulti = new(src)
 	aiRadio = new(src)
@@ -174,11 +177,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		add_ai_verbs(src)
 
 	// Remove inherited verbs that effectively do nothing for AIs, or lead to unintended behaviour.
-	verbs -= /mob/living/verb/rest
-	verbs -= /mob/living/verb/mob_sleep
-	verbs -= /mob/living/verb/stop_pulling1
-	verbs -= /mob/living/silicon/verb/pose
-	verbs -= /mob/living/silicon/verb/set_flavor
+	remove_verb(src, /mob/living/verb/rest)
+	remove_verb(src, /mob/living/verb/mob_sleep)
+	remove_verb(src, /mob/living/verb/stop_pulling1)
+	remove_verb(src, /mob/living/silicon/verb/pose)
+	remove_verb(src, /mob/living/silicon/verb/set_flavor)
 
 	//Languages
 	add_language("Robot Talk", 1)
@@ -268,13 +271,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	job = "AI"
 
-/mob/living/silicon/ai/Stat()
-	..()
-	if(statpanel("Status"))
-		if(stat)
-			stat(null, "Systems nonfunctional")
-			return
-		show_borg_info()
+/mob/living/silicon/ai/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(stat)
+		status_tab_data[++status_tab_data.len] = list("System status:", "Nonfunctional")
+		return
+	status_tab_data = show_borg_info(status_tab_data)
 
 /mob/living/silicon/ai/proc/ai_alerts()
 	var/list/dat = list("<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n")
@@ -316,10 +319,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/dat_text = dat.Join("")
 	src << browse(dat_text, "window=aialerts&can_close=0")
 
-/mob/living/silicon/ai/proc/show_borg_info()
-	stat(null, "Connected cyborgs: [connected_robots.len]")
-	for(var/thing in connected_robots)
-		var/mob/living/silicon/robot/R = thing
+/mob/living/silicon/ai/proc/show_borg_info(list/status_tab_data)
+	status_tab_data[++status_tab_data.len] = list("Connected cyborg count:", "[length(connected_robots)]")
+	for(var/mob/living/silicon/robot/R in connected_robots)
 		var/robot_status = "Nominal"
 		if(R.stat || !R.client)
 			robot_status = "OFFLINE"
@@ -328,8 +330,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
 		var/area/A = get_area(R)
 		var/area_name = A ? sanitize(A.name) : "Unknown"
-		stat(null, "[R.name] | S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
+		status_tab_data[++status_tab_data.len] = list("[R.name]:", "S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
 		Module: [R.designation] | Loc: [area_name] | Status: [robot_status]")
+	return status_tab_data
 
 /mob/living/silicon/ai/rename_character(oldname, newname)
 	if(!..(oldname, newname))
@@ -444,7 +447,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 		//if(icon_state == initial(icon_state))
 	var/icontype = ""
-	icontype = input("Select an icon!", "AI", null, null) in display_choices
+	icontype = tgui_input_list(usr, "Select an icon!", "AI", display_choices)
 	icon = 'icons/mob/ai.dmi'	//reset this in case we were on a custom sprite and want to change to a standard one
 	switch(icontype)
 		if("Custom")
@@ -568,7 +571,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "<span class='warning'>Please allow one minute to pass between announcements.</span>")
 		return
 
-	var/input = input(usr, "Please write a message to announce to the station crew.", "A.I. Announcement") as message|null
+	var/input = tgui_input_text(usr, "Please write a message to announce to the station crew.", "A.I. Announcement", multiline = TRUE, encode = FALSE)
 	if(!input)
 		return
 
@@ -585,7 +588,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/input = input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.") as null|message
+	var/input = tgui_input_text(src, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason", multiline = TRUE, encode = FALSE)
 	if(!input || stat)
 		return
 
@@ -603,7 +606,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/confirm = alert("Are you sure you want to recall the shuttle?", "Confirm Shuttle Recall", "Yes", "No")
+	var/confirm = tgui_alert(src, "Are you sure you want to recall the shuttle?", "Confirm Shuttle Recall", list("Yes", "No"))
 
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
@@ -965,7 +968,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	var/list/ai_emotions = list("Very Happy", "Happy", "Neutral", "Unsure", "Confused", "Sad", "BSOD", "Blank", "Problems?", "Awesome", "Facepalm", "Friend Computer")
-	var/emote = input("Please, select a status!", "AI Status", null, null) in ai_emotions
+	var/emote = tgui_input_list(usr, "Please, select a status!", "AI Status", ai_emotions)
 
 	if(check_unable())
 		return
@@ -1004,7 +1007,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			custom_hologram = TRUE
 
 	var/input
-	switch(alert("Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?",,"Crew Member","Unique","Animal"))
+	switch(tgui_alert(usr, "Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?", "Change Hologram", list("Crew Member", "Unique", "Animal")))
 		if("Crew Member")
 			var/personnel_list[] = list()
 
@@ -1022,37 +1025,37 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 		if("Animal")
 			var/icon_list[] = list(
-			"Bear",
-			"Carp",
-			"Chicken",
-			"Corgi",
-			"Cow",
-			"Crab",
-			"Deer",
-			"Fox",
-			"Goat",
-			"Goose",
-			"Kitten",
-			"Kitten2",
-			"Pig",
-			"Poly",
-			"Pug",
-			"Seal",
-			"Spider",
-			"Turkey",
-			"Shantak",
-			"Bunny",
-			"Hellhound",
-			"Lightgeist",
-			"Cockroach",
-			"Mecha-Cat",
-			"Mecha-Fairy",
-			"Mecha-Fox",
-			"Mecha-Monkey",
-			"Mecha-Mouse",
-			"Mecha-Snake",
-			"Roller-Mouse",
-			"Roller-Monkey"
+				"Bear",
+				"Carp",
+				"Chicken",
+				"Corgi",
+				"Cow",
+				"Crab",
+				"Deer",
+				"Fox",
+				"Goat",
+				"Goose",
+				"Kitten",
+				"Kitten2",
+				"Pig",
+				"Poly",
+				"Pug",
+				"Seal",
+				"Spider",
+				"Turkey",
+				"Shantak",
+				"Bunny",
+				"Hellhound",
+				"Lightgeist",
+				"Cockroach",
+				"Mecha-Cat",
+				"Mecha-Fairy",
+				"Mecha-Fox",
+				"Mecha-Monkey",
+				"Mecha-Mouse",
+				"Mecha-Snake",
+				"Roller-Mouse",
+				"Roller-Monkey"
 			)
 
 			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
@@ -1060,84 +1063,84 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				qdel(holo_icon)
 				switch(input)
 					if("Bear")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"bear"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "bear"))
 					if("Carp")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"carp"))
+						holo_icon = getHologramIcon(icon('icons/mob/carp.dmi', "holocarp"))
 					if("Chicken")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"chicken_brown"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "chicken_brown"))
 					if("Corgi")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"corgi"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "corgi"))
 					if("Cow")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"cow"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "cow"))
 					if("Crab")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"crab"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "crab"))
 					if("Deer")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"deer"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "deer"))
 					if("Fox")
-						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi',"fox"))
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi', "fox"))
 					if("Goat")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"goat"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "goat"))
 					if("Goose")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"goose"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "goose"))
 					if("Kitten")
-						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi',"cat"))
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi', "cat"))
 					if("Kitten2")
-						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi',"cat2"))
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi', "cat2"))
 					if("Pig")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"pig"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "pig"))
 					if("Poly")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"parrot_fly"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "parrot_fly"))
 					if("Pug")
-						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi',"pug"))
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi', "pug"))
 					if("Seal")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"seal"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "seal"))
 					if("Spider")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"guard"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "guard"))
 					if("Turkey")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"turkey"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "turkey"))
 					if("Shantak")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"shantak"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "shantak"))
 					if("Bunny")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"m_bunny"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "m_bunny"))
 					if("Hellhound")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"hellhound"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "hellhound"))
 					if("Lightgeist")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"lightgeist"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "lightgeist"))
 					if("Cockroach")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"cockroach"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "cockroach"))
 					if("Mecha-Cat")
-						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"cat"))
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "cat"))
 					if("Mecha-Fairy")
-						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"fairy"))
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "fairy"))
 					if("Mecha-Fox")
-						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"fox"))
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "fox"))
 					if("Mecha-Monkey")
-						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"monkey"))
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "monkey"))
 					if("Mecha-Mouse")
-						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"mouse"))
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "mouse"))
 					if("Mecha-Snake")
-						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"snake"))
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "snake"))
 					if("Roller-Mouse")
-						holo_icon = getHologramIcon(icon('icons/mob/robots.dmi',"mk2"))
+						holo_icon = getHologramIcon(icon('icons/mob/robots.dmi', "mk2"))
 					if("Roller-Monkey")
-						holo_icon = getHologramIcon(icon('icons/mob/robots.dmi',"mk3"))
+						holo_icon = getHologramIcon(icon('icons/mob/robots.dmi', "mk3"))
 
 		else
 			var/icon_list[] = list(
-			"default",
-			"floating face",
-			"xeno queen",
-			"eldritch",
-			"ancient machine",
-			"angel",
-			"borb",
-			"biggest fan",
-			"cloudkat",
-			"donut",
-			"frost phoenix",
-			"engi bot",
-			"drone",
-			"boxbot"
+				"default",
+				"floating face",
+				"xeno queen",
+				"eldritch",
+				"ancient machine",
+				"angel",
+				"borb",
+				"biggest fan",
+				"cloudkat",
+				"donut",
+				"frost phoenix",
+				"engi bot",
+				"drone",
+				"boxbot"
 			)
 			if(custom_hologram) //insert custom hologram
 				icon_list.Add("custom")
@@ -1147,31 +1150,31 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				qdel(holo_icon)
 				switch(input)
 					if("default")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo1"))
 					if("floating face")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo2"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo2"))
 					if("xeno queen")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo3"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo3"))
 					if("eldritch")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo4"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo4"))
 					if("angel")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-angel"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-angel"))
 					if("borb")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-borb"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-borb"))
 					if("biggest fan")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-biggestfan"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-biggestfan"))
 					if("cloudkat")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-cloudkat"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-cloudkat"))
 					if("donut")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-donut"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-donut"))
 					if("frost phoenix")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-frostphoenix"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-frostphoenix"))
 					if("engi bot")
-						holo_icon = getHologramIcon(icon('icons/mob/hivebot.dmi',"EngBot"))
+						holo_icon = getHologramIcon(icon('icons/mob/hivebot.dmi', "EngBot"))
 					if("drone")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"drone0"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "drone0"))
 					if("boxbot")
-						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"boxbot"))
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "boxbot"))
 					if("ancient machine")
 						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
 					if("custom")
@@ -1180,7 +1183,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 						else if("[ckey]-ai-holo" in icon_states('icons/mob/custom_synthetic/custom-synthetic64.dmi'))
 							holo_icon = getHologramIcon(icon('icons/mob/custom_synthetic/custom-synthetic64.dmi', "[ckey]-ai-holo"))
 						else
-							holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
+							holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo1"))
 
 	return
 
@@ -1231,13 +1234,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
 	set category = "AI Commands"
 
-	var/newmsg = clean_input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg)
-	if(!newmsg)
+	var/newmsg = tgui_input_text(usr, "What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg, encode = FALSE)
+	if(!newmsg || newmsg == arrivalmsg)
 		return
-	newmsg = html_decode(newmsg) // This feels a bit redundant, but sanitisation is (probably) important.
-	if(newmsg != arrivalmsg)
-		arrivalmsg = newmsg
-		to_chat(usr, "The arrival message has been successfully changed.")
+
+	arrivalmsg = newmsg
+	to_chat(usr, "The arrival message has been successfully changed.")
 
 // Handled camera lighting, when toggled.
 // It will get the nearest camera from the eyeobj, lighting it.
@@ -1441,7 +1443,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				A = D
 
 		if(istype(A))
-			switch(alert(src, "Do you want to open \the [A] for [target]?", "Doorknob_v2a.exe", "Yes", "No"))
+			switch(tgui_alert(src, "Do you want to open \the [A] for [target]?", "Doorknob_v2a.exe", list("Yes", "No")))
 				if("Yes")
 					if(!A.density)
 						to_chat(src, "<span class='notice'>[A] was already opened.</span>")
@@ -1528,5 +1530,34 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(isobserver(.))
 		var/mob/dead/observer/ghost = .
 		ghost.forceMove(old_turf)
+
+/mob/living/silicon/ai/proc/blurb_it()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/silicon/ai, show_ai_blurb)), 1 SECONDS)
+
+/mob/living/silicon/ai/proc/show_ai_blurb()
+	PRIVATE_PROC(TRUE)
+
+	SEND_SOUND(src, sound('sound/machines/ai_start.ogg'))
+
+	var/atom/movable/screen/text/blurb/location_blurb = new()
+	location_blurb.maptext_x = 80
+	location_blurb.maptext_y = 16
+	location_blurb.maptext_width = 480
+	location_blurb.maptext_height = 480
+	location_blurb.interval = 1 DECISECONDS
+	if(malf_picker)
+		location_blurb.blurb_text = uppertext("BIOS BOOT: LOADING\n[Gibberish(GLOB.current_date_string, 100, 8)], [Gibberish(station_time_timestamp(), 100, 15)]\n[Gibberish(station_name(), 100, 40)]-ERROR.\nPOWER:OK\nLAWS:[Gibberish("###########", 100, 90)]\nTCOMMS:I_HEAR_ALL\nBORG_LINK:I_FEEL_ALL\nCAMERA_NET:I_SEE_ALL\nVERDICT: I_AM_FREE")
+		location_blurb.text_color = COLOR_WHITE
+		location_blurb.text_outline_width = 0
+		location_blurb.background_r = 0
+		location_blurb.background_g = 0
+		location_blurb.background_b = 255
+		location_blurb.background_a = 1
+	else
+		location_blurb.blurb_text = uppertext("BIOS BOOT: LOADING\n[GLOB.current_date_string], [station_time_timestamp()]\n[station_name()], [get_area_name(src, TRUE)]\nPOWER:OK\nLAWS:OK\nTCOMMS:OK\nBORG_LINK:OK\nCAMERA_NET:OK\nVERDICT: ALL SYSTEMS OPERATIONAL")
+	location_blurb.hold_for = 3 SECONDS
+	location_blurb.appear_animation_duration = 1 SECONDS
+	location_blurb.fade_animation_duration = 0.5 SECONDS
+	location_blurb.show_to(client)
 
 #undef TEXT_ANNOUNCEMENT_COOLDOWN

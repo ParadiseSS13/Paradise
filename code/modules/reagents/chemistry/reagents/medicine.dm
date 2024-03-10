@@ -101,10 +101,13 @@
 /datum/reagent/medicine/mitocholide/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
+		var/heal_modifier = 0.4
+		if(M.reagents.has_reagent("mephedrone"))
+			heal_modifier -= 0.3 //This lowers the healing to 0.1. As such, you need time off the drug to heal heart damage, but can be on the drug endlessly when not oding IF you keep your supply going.
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 		for(var/obj/item/organ/internal/I in H.internal_organs)
-			I.heal_internal_damage(0.4)
+			I.heal_internal_damage(heal_modifier)
 	return ..()
 
 /datum/reagent/medicine/mitocholide/reaction_obj(obj/O, volume)
@@ -1073,10 +1076,12 @@
 		M.AdjustDrowsy(-20 SECONDS)
 		M.SetConfused(0)
 		M.SetSleeping(0)
-		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
-		M.status_flags &= ~status
+		M.add_stun_absorption("stimulants", INFINITY, 5)
+		M.status_flags &= ~CANPARALYSE
 	else
-		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+		M.status_flags |= CANPARALYSE
+		if(islist(M.stun_absorption) && M.stun_absorption["stimulants"])
+			M.remove_stun_absorption("stimulants")
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		if(prob(10))
@@ -1087,7 +1092,9 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulants/on_mob_delete(mob/living/M)
-	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+	M.status_flags |= CANPARALYSE
+	if(islist(M.stun_absorption) && M.stun_absorption["stimulants"])
+		M.remove_stun_absorption("stimulants")
 	..()
 
 //the highest end antistun chem, removes stun and stamina rapidly.
@@ -1209,7 +1216,7 @@
 	color = "#FFDCFF"
 	taste_description = "stability"
 	harmless = FALSE
-	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc")
+	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc", "mephedrone")
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1254,7 +1261,8 @@
 			M.Drowsy(40 SECONDS)
 	return ..() | update_flags
 
-/datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs
+/// Used exclusively by Syndicate medical cyborgs
+/datum/reagent/medicine/syndicate_nanites
 	name = "Restorative Nanites"
 	id = "syndicate_nanites"
 	description = "Miniature medical robots that swiftly restore bodily damage. May begin to attack their host's cells in high amounts."
@@ -1396,7 +1404,8 @@
 	return ..() | update_flags
 
 
-/datum/reagent/medicine/earthsblood //Created by ambrosia gaia plants
+/// Created by ambrosia gaia plants
+/datum/reagent/medicine/earthsblood
 	name = "Earthsblood"
 	id = "earthsblood"
 	description = "Ichor from an extremely powerful plant. Great for restoring wounds, but it's a little heavy on the brain."
@@ -1461,7 +1470,7 @@
 	metabolization_rate = 0.5
 	harmless = FALSE
 	taste_description = "2 minutes of suffering"
-	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants")
+	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants", "mephedrone")
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1481,7 +1490,7 @@
 					M.reagents.remove_reagent(R.id, 0.5) //We will be generous (for nukies really) and purge out the chemicals during this phase, so they don't fucking die during the next phase. Of course, if they try to use adrenals in the next phase, well...
 		if(20 to 43)
 			//If they have stimulants or stimulant drugs then just apply toxin damage instead.
-			if(has_stimulant == TRUE)
+			if(has_stimulant)
 				update_flags |= M.adjustToxLoss(10, FALSE)
 			else //apply debilitating effects
 				if(prob(75))
@@ -1492,7 +1501,7 @@
 			to_chat(M, "<span class='warning'>Your body goes rigid, you cannot move at all!</span>")
 			M.AdjustWeakened(15 SECONDS)
 		if(45 to INFINITY) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
-			if(has_stimulant == TRUE)
+			if(has_stimulant)
 				return ..()
 			else
 				for(var/obj/item/organ/external/E in M.bodyparts)

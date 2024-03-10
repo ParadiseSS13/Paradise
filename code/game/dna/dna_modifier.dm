@@ -186,6 +186,7 @@
 	put_in(L)
 	if(user.pulling == L)
 		user.stop_pulling()
+	QDEL_LIST_CONTENTS(L.grabbed_by)
 	return TRUE
 
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
@@ -735,8 +736,8 @@
 
 					var/datum/dna2/record/buf = buffers[bufferId]
 
-					if((buf.types & DNA2_BUF_UI))
-						if((buf.types & DNA2_BUF_UE))
+					if(buf.types & DNA2_BUF_UI)
+						if(buf.types & DNA2_BUF_UE)
 							connected.occupant.real_name = buf.dna.real_name
 							connected.occupant.name = buf.dna.real_name
 						connected.occupant.UpdateAppearance(buf.dna.UI.Copy())

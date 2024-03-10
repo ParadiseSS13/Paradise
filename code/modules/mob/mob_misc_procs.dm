@@ -456,7 +456,7 @@
 	if(IsSleeping())
 		to_chat(src, "<span class='notice'>You are already sleeping.</span>")
 		return
-	if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
+	if(tgui_alert(src, "You sure you want to sleep for a while?", "Sleep", list("Yes", "No")) == "Yes")
 		SetSleeping(40 SECONDS, voluntary = TRUE) //Short nap
 
 /mob/living/verb/rest()
@@ -554,7 +554,7 @@
 			if(flashwindow)
 				window_flash(O.client)
 			if(source)
-				var/obj/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /obj/screen/alert/notify_action)
+				var/atom/movable/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /atom/movable/screen/alert/notify_action)
 				if(A)
 					if(O.client.prefs && O.client.prefs.UI_style)
 						A.icon = ui_style2icon(O.client.prefs.UI_style)
@@ -660,11 +660,11 @@
 
 		for(var/i=1,i<=3,i++)	//we get 3 attempts to pick a suitable name.
 			if(force)
-				newname = clean_input("Pick a new name.", "Name Change", oldname, src)
+				newname = tgui_input_text(src, "Pick a new name.", "Name Change", oldname)
 			else
-				newname = clean_input("You are a [role]. Would you like to change your name to something else? (You have 3 minutes to select a new name.)", "Name Change", oldname, src)
+				newname = tgui_input_text(src, "You are a [role]. Would you like to change your name to something else? (You have 3 minutes to select a new name.)", "Name Change", oldname, timeout = 3 MINUTES)
 			if(((world.time - time_passed) > 1800) && !force)
-				alert(src, "Unfortunately, more than 3 minutes have passed for selecting your name. If you are a robot, use the Namepick verb; otherwise, adminhelp.", "Name Change")
+				tgui_alert(src, "Unfortunately, more than 3 minutes have passed for selecting your name. If you are a robot, use the Namepick verb; otherwise, adminhelp.", "Name Change")
 				return	//took too long
 			newname = reject_bad_name(newname,allow_numbers)	//returns null if the name doesn't meet some basic requirements. Tidies up a few other things like bad-characters.
 
@@ -817,3 +817,7 @@
 			actual_hud.invisibility = invis_value
 		else
 			actual_hud.invisibility = initial(actual_hud.invisibility)
+		// Yes we need to remove the HUD from all HUDs then re-add it to update the HUD being invisible.
+		// No, I don't like it either.
+		remove_from_all_data_huds()
+		add_to_all_human_data_huds()

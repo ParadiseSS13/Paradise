@@ -1,4 +1,5 @@
-/datum/action/innate/cult/blood_magic //Blood magic handles the creation of blood spells (formerly talismans)
+/// Blood magic handles the creation of blood spells (formerly talismans)
+/datum/action/innate/cult/blood_magic
 	name = "Prepare Blood Magic"
 	button_icon_state = "carve"
 	desc = "Prepare blood magic by carving runes into your flesh. This is easier with an <b>empowering rune</b>."
@@ -85,7 +86,8 @@
 	if(nullify_spell)
 		qdel(nullify_spell)
 
-/datum/action/innate/cult/blood_spell //The next generation of talismans, handles storage/creation of blood magic
+/// The next generation of talismans, handles storage/creation of blood magic
+/datum/action/innate/cult/blood_spell
 	name = "Blood Magic"
 	button_icon_state = "telerune"
 	desc = "Fear the Old Blood."
@@ -96,6 +98,21 @@
 	var/base_desc //To allow for updating tooltips
 	var/invocation = "Hoi there something's wrong!"
 	var/health_cost = 0
+
+/datum/action/innate/cult/blood_spell/proc/get_panel_text()
+	if(initial(charges) == 1)
+		return
+	var/available_charges = hand_magic ? "[hand_magic.uses]" : "[charges]"
+	return "[available_charges]/[initial(charges)]"
+
+/datum/action/innate/cult/blood_spell/UpdateButtonIcon()
+	. = ..()
+	var/text = get_panel_text()
+	if(!text || !button)
+		return
+	var/image/count_down_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
+	count_down_holder.maptext = "<div style=\"font-size:8pt;color:white;font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
+	button.add_overlay(count_down_holder)
 
 /datum/action/innate/cult/blood_spell/Grant(mob/living/owner, datum/action/innate/cult/blood_magic/BM)
 	if(health_cost)
@@ -295,6 +312,7 @@
 		var/mob/living/carbon/human/H = target
 		H.Hallucinate(120 SECONDS)
 		attached_action.charges--
+		attached_action.UpdateButtonIcon()
 		attached_action.desc = attached_action.base_desc
 		attached_action.desc += "<br><b><u>Has [attached_action.charges] use\s remaining</u></b>."
 		attached_action.UpdateButtonIcon()
@@ -358,9 +376,12 @@
 	charges = 5
 	magic_path = /obj/item/melee/blood_magic/manipulator
 
+/datum/action/innate/cult/blood_spell/manipulation/get_panel_text()
+	return hand_magic ? "[hand_magic.uses]" : "[charges]"
+
 // The "magic hand" items
 /obj/item/melee/blood_magic
-	name = "\improper magical aura"
+	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon = 'icons/obj/items.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -458,7 +479,7 @@
 		to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
 
 		L.KnockDown(10 SECONDS)
-		L.adjustStaminaLoss(60)
+		L.apply_damage(60, STAMINA)
 		L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
 		L.flash_eyes(1, TRUE)
 		if(issilicon(target))
@@ -565,6 +586,7 @@
 		else
 			user.visible_message("<span class='cultitalic'>This victim doesn't have enough arms to complete the restraint!</span>")
 			return
+		source.UpdateButtonIcon()
 		..()
 
 /obj/item/melee/blood_magic/shackles/proc/CuffAttack(mob/living/carbon/C, mob/living/user)
@@ -588,7 +610,8 @@
 		to_chat(user, "<span class='warning'>[C] is already bound.</span>")
 
 
-/obj/item/restraints/handcuffs/energy/cult //For the shackling spell
+/// For the shackling spell
+/obj/item/restraints/handcuffs/energy/cult
 	name = "shadow shackles"
 	desc = "Shackles that bind the wrists with sinister magic."
 	trashtype = /obj/item/restraints/handcuffs/energy/used
@@ -857,10 +880,12 @@
 			target.clean_blood()
 		else
 			steal_blood(user, target)
+		source.UpdateButtonIcon()
 		return
 
 	if(isconstruct(target))
 		heal_construct(user, target)
+		source.UpdateButtonIcon()
 		return
 
 	if(istype(target, /obj/item/blood_orb))
@@ -870,8 +895,10 @@
 			to_chat(user, "<span class='warning'>You obtain [candidate.blood] blood from the orb of blood!</span>")
 			playsound(user, 'sound/misc/enter_blood.ogg', 50, extrarange = SOUND_RANGE_SET(7))
 			qdel(candidate)
+			source.UpdateButtonIcon()
 			return
 	blood_draw(target, user)
+	source.UpdateButtonIcon()
 
 /obj/item/melee/blood_magic/manipulator/proc/blood_draw(atom/target, mob/living/carbon/human/user)
 	var/temp = 0
@@ -975,3 +1002,4 @@
 					to_chat(user, "<span class='warning'>You need a free hand for this rite!</span>")
 					uses += BLOOD_BARRAGE_COST // Refund the charges
 					qdel(rite)
+	source.UpdateButtonIcon()

@@ -90,6 +90,10 @@
 	var/list/mod_overlays = list()
 	/// Is the jetpack on so we should make ion effects?
 	var/jetpack_active = FALSE
+	/// Cham option for when the cham module is installed.
+	var/datum/action/item_action/chameleon/change/modsuit/chameleon_action
+	/// Is the control unit disquised?
+	var/current_disguise = FALSE
 
 /obj/item/mod/control/serialize()
 	var/list/data = ..()
@@ -237,7 +241,7 @@
 		return TRUE
 
 /obj/item/mod/control/on_mob_move(direction, mob/user)
-	if(!jetpack_active)
+	if(!jetpack_active || !isturf(user.loc))
 		return
 	var/turf/T = get_step(src, GetOppositeDir(direction))
 	if(!has_gravity(T))
@@ -264,7 +268,7 @@
 		if(!M.restrained() && !M.stat)
 			playsound(loc, "rustle", 50, TRUE, -5)
 
-			if(istype(over_object, /obj/screen/inventory/hand))
+			if(istype(over_object, /atom/movable/screen/inventory/hand))
 				for(var/obj/item/part as anything in mod_parts)
 					if(part.loc != src)
 						to_chat(wearer, "<span class='warning'>Retract parts first!</span>")
@@ -444,6 +448,7 @@
 /obj/item/mod/control/emag_act(mob/user)
 	locked = !locked
 	to_chat(user, "<span class='warning'>Suit access [locked ? "locked" : "unlocked"]")
+	return TRUE
 
 /obj/item/mod/control/emp_act(severity)
 	. = ..()
@@ -481,7 +486,8 @@
 	return ..()
 
 /obj/item/mod/control/update_icon_state()
-	icon_state = "[skin]-[base_icon_state][active ? "-sealed" : ""]"
+	if(current_disguise)
+		icon_state = "[skin]-[base_icon_state][active ? "-sealed" : ""]"
 	return ..()
 
 /obj/item/mod/control/proc/set_wearer(mob/living/carbon/human/user)
@@ -651,7 +657,7 @@
 	if(!wearer)
 		return
 	if(!core)
-		wearer.throw_alert("mod_charge", /obj/screen/alert/nocell)
+		wearer.throw_alert("mod_charge", /atom/movable/screen/alert/nocell)
 		return
 	core.update_charge_alert()
 

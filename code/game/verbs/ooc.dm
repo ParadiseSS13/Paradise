@@ -6,10 +6,6 @@ GLOBAL_VAR_INIT(mentor_ooc_colour, "#00B0EB")
 GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
 GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
-//Checks if the client already has a text input open
-/client/proc/checkTyping()
-	return (prefs.toggles & PREFTOGGLE_TYPING_ONCE && typing)
-
 /client/verb/ooc(msg = "" as text)
 	set name = "OOC"
 	set category = "OOC"
@@ -70,7 +66,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 	if(prefs.unlock_content)
 		if(display_colour == GLOB.normal_ooc_colour)
-			if((prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC))
+			if(prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)
 				display_colour = GLOB.member_ooc_colour
 
 	for(var/client/C in GLOB.clients)
@@ -83,7 +79,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 					display_name = "[bicon(byond)][display_name]"
 
 			if(donator_level > 0)
-				if((prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC))
+				if(prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC)
 					var/icon/donator = icon('icons/ooc_tag_16x.png')
 					display_name = "[bicon(donator)][display_name]"
 
@@ -258,7 +254,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 /client/verb/fit_viewport()
 	set name = "Fit Viewport"
 	set desc = "Fit the size of the map window to match the viewport."
-	set category = "OOC"
+	set category = "Special Verbs"
 
 	// Fetch aspect ratio
 	var/list/view_size = getviewsize(view)
@@ -324,3 +320,9 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(eyeobj)
 		return eyeobj
 	return src
+
+/client/verb/fix_stat_panel()
+	set name = "Fix Stat Panel"
+	set hidden = TRUE
+
+	init_verbs()

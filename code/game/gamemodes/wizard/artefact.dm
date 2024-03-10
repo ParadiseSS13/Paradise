@@ -293,12 +293,9 @@
 		return
 	in_use = TRUE
 	ADD_TRAIT(user, SCRYING, SCRYING_ORB)
-	user.add_atom_colour(COLOR_BLUE, ADMIN_COLOUR_PRIORITY) // stolen spirit rune code
 	user.visible_message("<span class='notice'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>",
 					"<span class='danger'> You stare into [src], you can see the entire universe!</span>")
-	ghost = user.ghostize(TRUE)
-	ghost.name = "Magic Spirit of [ghost.name]"
-	ghost.color = COLOR_BLUE
+	ghost = user.ghostize(TRUE, COLOR_BLUE, "Magic Spirit of [user.name]")
 	while(!QDELETED(user))
 		if(user.key || QDELETED(src))
 			user.visible_message("<span class='notice'>[user] blinks, returning to the world around [user.p_them()].</span>",
@@ -705,7 +702,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/multisword/pure_evil
 	probability_evil = 100
 
-/obj/item/multisword/pike //If We are to be used and spent, let it be for a noble purpose.
+/// If We are to be used and spent, let it be for a noble purpose.
+/obj/item/multisword/pike
 	name = "phantom pike"
 	desc = "A fishing pike that appears to be imbued with a peculiar energy."
 	icon = 'icons/obj/items.dmi'

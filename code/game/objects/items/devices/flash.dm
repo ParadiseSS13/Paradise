@@ -105,8 +105,9 @@
 			if(M.flash_eyes(1, 1))
 				M.AdjustConfused(power)
 				revolution_conversion(M, user)
-				M.drop_l_hand()
-				M.drop_r_hand()
+				if(!M.absorb_stun(0))
+					M.drop_l_hand()
+					M.drop_r_hand()
 				visible_message("<span class='disarm'>[user] blinds [M] with [src]!</span>")
 				to_chat(user, "<span class='danger'>You blind [M] with [src]!</span>")
 				to_chat(M, "<span class='userdanger'>[user] blinds you with [src]!</span>")
@@ -264,4 +265,5 @@
 	implant = null
 	return ..()
 
-/obj/item/flash/synthetic //just a regular flash now
+/// just a regular flash now
+/obj/item/flash/synthetic

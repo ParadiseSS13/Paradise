@@ -77,6 +77,11 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "flour"
 
+/obj/effect/decal/cleanable/flour/nanofrost
+	name = "nanofrost residue"
+	desc = "Residue left behind from a nanofrost detonation. Perhaps there was a fire here?"
+	color = "#B2FFFF"
+
 /obj/effect/decal/cleanable/flour/foam
 	name = "Fire fighting foam"
 	desc = "It's foam."
@@ -259,7 +264,8 @@
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_egg1", "smashed_egg2", "smashed_egg3")
 
-/obj/effect/decal/cleanable/pie_smudge //honk
+/// honk
+/obj/effect/decal/cleanable/pie_smudge
 	name = "smashed pie"
 	desc = "It's pie cream from a cream pie."
 	density = FALSE
@@ -302,7 +308,8 @@
 	reagents.add_reagent_list(scoop_reagents)
 	no_scoop = FALSE
 
-/obj/effect/decal/cleanable/confetti //PARTY TIME!
+/// PARTY TIME!
+/obj/effect/decal/cleanable/confetti
 	name = "confetti"
 	desc = "Party time!"
 	gender = PLURAL

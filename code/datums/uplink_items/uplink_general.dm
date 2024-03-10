@@ -379,7 +379,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A straightforward and fairly concealable melee weapon for bludgeoning someone to death in brutal fashion. This one is designed specifically to cause severe organ damage to the victim."
 	reference = "SKD"
 	item = /obj/item/melee/knuckleduster/syndie
-	cost = 5
+	cost = 10
 	cant_discount = TRUE
 
 // GRENADES AND EXPLOSIVES
@@ -660,6 +660,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/mod/module/plate_compression
 	cost = 10
 
+/datum/uplink_item/suits/chameleon_module
+	name = "MODsuit Chameleon Module"
+	desc = "A module using chameleon technology to disguise an undeployed modsuit as another object. Note: the disguise will not work once the modsuit is deployed, but can be toggled again when retracted."
+	reference = "MSCM"
+	item = /obj/item/mod/module/chameleon
+	cost = 10
+
 /datum/uplink_item/suits/noslip
 	name = "MODsuit Anti-Slip Module"
 	desc = "A MODsuit module preventing the user from slipping on water. Already installed in the uplink modsuits."
@@ -688,6 +695,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "HHM"
 	item = /obj/item/mod/module/holster/hidden
 	cost = 5
+	surplus = 10
+
+/datum/uplink_item/suits/smoke_grenade
+	name = "Smoke Grenade Module"
+	desc = "A module that dispenses primed smoke grenades to disperse crowds."
+	reference = "SGM"
+	item = /obj/item/mod/module/dispenser/smoke
+	cost = 10
 	surplus = 10
 
 /datum/uplink_item/device_tools/binary
@@ -802,6 +817,29 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SI"
 	item = /obj/item/bio_chip_implanter/stealth
 	cost = 45
+
+// CYBERNETICS
+
+/datum/uplink_item/cyber_implants
+	category = "Cybernetic Implants"
+
+/datum/uplink_item/cyber_implants/hackerman_deck
+	name = "Binyat Wireless Hacking System Autoimplanter"
+	desc = "This implant will allow you to wirelessly emag from a distance. However, it will slightly burn you \
+	on use, and will be quite visual as you are emaging the object. \
+	Will not show on unupgraded body scanners. Incompatible with the Qani-Laaca Sensory Computer."
+	reference = "HKR"
+	item = /obj/item/autosurgeon/organ/syndicate/hackerman_deck
+	cost = 30 // Probably slightly less useful than an emag with heat / cooldown, but I am not going to make it cheaper or everyone picks it over emag
+
+/datum/uplink_item/cyber_implants/razorwire
+	name = "Razorwire Spool Arm Implant Autoimplanter"
+	desc = "A long length of monomolecular filament, built into the back of your hand. \
+		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
+		even from a few steps away. However, results against anything more durable will heavily vary."
+	reference = "RZR"
+	item = /obj/item/autosurgeon/organ/syndicate/razorwire
+	cost = 15
 
 // POINTLESS BADASSERY
 

@@ -415,13 +415,14 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 		for(var/obj/structure/spider/S in range(1, get_turf(src)))
 			return S
 
-/mob/living/simple_animal/hostile/poison/terror_spider/Stat()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
 	// Determines what shows in the "Status" tab for player-controlled spiders. Used to help players understand spider health regeneration mechanics.
 	// Uses <font color='#X'> because the status panel does NOT accept <span class='X'>.
-	if(statpanel("Status") && ckey && stat == CONSCIOUS)
+	if(ckey && stat == CONSCIOUS)
 		if(degenerate)
-			stat(null, "<font color='#eb4034'>Hivemind Connection Severed! Dying...</font>") // color=red
+			status_tab_data[++status_tab_data.len] = list("Hivemind Connection Severed!", "<font color='#eb4034'>Dying...</font>") // color=red
 			return
 		if(health != maxHealth)
 			var/hp_points_per_second = 0
@@ -439,7 +440,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 				hp_points_per_second = 1 / secs_per_tick
 			if(hp_points_per_second > 0)
 				var/pc_of_max_per_second = round(((hp_points_per_second / maxHealth) * 100), 0.1)
-				stat(null, "Regeneration: [ltext]: <font color='[lcolor]'>[num2text(pc_of_max_per_second)]% of health per second</font>")
+				status_tab_data[++status_tab_data.len] = list("Regeneration:", "[ltext]: <font color='[lcolor]'>[num2text(pc_of_max_per_second)]% of health per second</font>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoRemoteView()
 	if(!isturf(loc))
@@ -459,7 +460,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 		if(T.stat == DEAD)
 			continue
 		targets |= T // we use |= instead of += to avoid adding src to the list twice
-	var/mob/living/L = input("Choose a terror to watch.", "Selection") in targets
+	var/mob/living/L = tgui_input_list(src, "Choose a terror to watch.", "Brood Viewing", targets)
 	if(istype(L))
 		reset_perspective(L)
 

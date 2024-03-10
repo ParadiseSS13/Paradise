@@ -49,8 +49,6 @@
 
 #define STOMACH_ATTACK_DELAY 4
 
-/mob/living/carbon/var/last_stomach_attack //defining this here because no one would look in carbon_defines for it
-
 /mob/living/carbon/relaymove(mob/user, direction)
 	if(LAZYLEN(stomach_contents))
 		if(user in stomach_contents)
@@ -363,7 +361,7 @@
 	if((E && (E.status & ORGAN_DEAD)) || !.)
 		return FALSE
 
-/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /obj/screen/fullscreen/flash)
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/flash)
 	//Parent proc checks if a mob can_be_flashed()
 	. = ..()
 
@@ -445,15 +443,15 @@
 
 GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
 
-/mob/living/handle_ventcrawl(atom/clicked_on) // -- TLE -- Merged by Carn
+/mob/living/handle_ventcrawl(atom/clicked_on) // Why is this proc even in carbon.dm ...
 	if(!Adjacent(clicked_on))
 		return
 
-	var/ventcrawlerlocal = 0
+	var/ventcrawlerlocal = VENTCRAWLER_NONE
 	if(ventcrawler)
 		ventcrawlerlocal = ventcrawler
 
-	if(!ventcrawlerlocal)
+	if(ventcrawlerlocal == VENTCRAWLER_NONE) // You can't ventcrawl.
 		return
 
 	if(stat)
@@ -467,9 +465,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(has_buckled_mobs())
 		to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
 		return
+
 	if(buckled)
 		to_chat(src, "<span class='warning'>You can't vent crawl while buckled!</span>")
 		return
+
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist))//IMMA SPCHUL SNOWFLAKE
@@ -486,55 +486,54 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 
 	if(!vent_found)
-		for(var/obj/machinery/atmospherics/machine in range(1,src))
+		for(var/obj/machinery/atmospherics/machine in range(1, src))
 			if(is_type_in_list(machine, GLOB.ventcrawl_machinery) && machine.can_crawl_through())
 				vent_found = machine
 				break
 
-	if(vent_found)
-		if(vent_found.parent && (vent_found.parent.members.len || vent_found.parent.other_atmosmch))
-			visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
-							"<span class='notice'>You begin climbing into the ventilation system...</span>")
-
-			if(!do_after(src, 45, target = src))
-				return
-
-			if(has_buckled_mobs())
-				to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
-				return
-
-			if(buckled)
-				to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
-				return
-
-			if(!client)
-				return
-
-			if(iscarbon(src) && contents.len && ventcrawlerlocal < 2)//It must have atleast been 1 to get this far
-				for(var/obj/item/I in contents)
-					var/failed = 0
-					if(istype(I, /obj/item/bio_chip))
-						continue
-					if(istype(I, /obj/item/reagent_containers/patch))
-						continue
-					if(I.flags & ABSTRACT)
-						continue
-					else
-						failed++
-
-					if(failed)
-						to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
-						return
-
-			visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
-			var/old_loc = loc
-			loc = vent_found
-			Moved(old_loc, get_dir(old_loc, loc), FALSE)
-			add_ventcrawl(vent_found)
-
-	else
+	if(!vent_found)
 		to_chat(src, "<span class='warning'>This ventilation duct is not connected to anything!</span>")
+		return
 
+	if(!vent_found.parent || !(length(vent_found.parent.members) || vent_found.parent.other_atmosmch))
+		return
+
+	visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
+					"<span class='notice'>You begin climbing into the ventilation system...</span>")
+
+	if(!do_after(src, 4.5 SECONDS, target = src))
+		return
+
+	if(!client)
+		return
+
+	if(!vent_found.can_crawl_through())
+		to_chat(src, "<span class='warning'>You can't vent crawl through that!</span>")
+		return
+
+	if(has_buckled_mobs())
+		to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
+		return
+
+	if(buckled)
+		to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
+		return
+
+	if(iscarbon(src) && length(contents) && ventcrawlerlocal < VENTCRAWLER_ALWAYS) // If we're here you can only ventcrawl while completely nude
+		for(var/obj/item/I in contents)
+			if(istype(I, /obj/item/bio_chip))
+				continue
+			if(istype(I, /obj/item/reagent_containers/patch))
+				continue
+			if(I.flags & ABSTRACT)
+				continue
+
+			to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
+			return
+
+	visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
+	forceMove(vent_found)
+	add_ventcrawl(vent_found)
 
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
 	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
@@ -659,7 +658,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return
 
 /mob/living/carbon/throw_item(atom/target)
-	if(!target || !isturf(loc) || istype(target, /obj/screen))
+	if(!target || !isturf(loc) || is_screen_atom(target))
 		throw_mode_off()
 		return
 
@@ -699,7 +698,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			return
 
 	if(thrown_thing)
-		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
+		if(!HAS_TRAIT(thrown_thing, TRAIT_NO_THROWN_MESSAGE))
+			visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
 		newtonian_move(get_dir(target, src))
 		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
 
@@ -745,7 +745,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	clear_alert("legcuffed")
 	if(!legcuffed)
 		return
-	throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
+	throw_alert("legcuffed", /atom/movable/screen/alert/restrained/legcuffed, new_master = legcuffed)
 	if(m_intent != MOVE_INTENT_WALK)
 		m_intent = MOVE_INTENT_WALK
 		if(hud_used?.move_intent)
@@ -1052,7 +1052,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		drop_r_hand()
 		drop_l_hand()
 		stop_pulling()
-		throw_alert("handcuffed", /obj/screen/alert/restrained/handcuffed, new_master = handcuffed)
+		throw_alert("handcuffed", /atom/movable/screen/alert/restrained/handcuffed, new_master = handcuffed)
 		ADD_TRAIT(src, TRAIT_RESTRAINED, "handcuffed")
 	else
 		REMOVE_TRAIT(src, TRAIT_RESTRAINED, "handcuffed")
@@ -1076,12 +1076,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		var/obj/item/organ/internal/O = X
 		O.emp_act(severity)
 
-/mob/living/carbon/Stat()
-	..()
-	if(statpanel("Status"))
-		var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
-		if(vessel)
-			stat(null, "Plasma Stored: [vessel.stored_plasma]/[vessel.max_plasma]")
+/mob/living/carbon/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
+	if(vessel)
+		status_tab_data[++status_tab_data.len] = list("Plasma Stored:", "[vessel.stored_plasma]/[vessel.max_plasma]")
 
 /mob/living/carbon/get_all_slots()
 	return list(l_hand,
@@ -1159,69 +1159,62 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return TRUE
 
 /mob/living/carbon/proc/eat(obj/item/food/to_eat, mob/user, bitesize_override)
-	if(ispill(to_eat) || ispatch(to_eat)) // We first have to know if it's either a pill or a patch, only then can we check if it's a food item
-		return consume_patch_or_pill(to_eat, user)
-
-	if(!isfood(to_eat))
+	if(!istype(to_eat))
 		return FALSE
 
-	var/obj/item/food/food = to_eat // It's not a patch or a pill so it must be food
 	var/fullness = nutrition + 10
-	if(istype(food, /obj/item/food/snacks))
-		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
+	if(istype(to_eat, /obj/item/food/snacks))
+		for(var/datum/reagent/consumable/C in reagents.reagent_list) // We add the nutrition value of what we're currently digesting
 			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency)
 
 	if(user == src)
-		if(!selfFeed(food, fullness))
+		if(!selfFeed(to_eat, fullness))
 			return FALSE
 	else
-		if(!forceFed(food, user, fullness))
+		if(!forceFed(to_eat, user, fullness))
 			return FALSE
 
-	consume(food, bitesize_override)
+	consume(to_eat, bitesize_override)
 	SSticker.score.score_food_eaten++
 	return TRUE
 
-/mob/living/carbon/proc/drink(obj/item/reagent_containers/drinks/to_eat, mob/user)
+/mob/living/carbon/proc/drink(obj/item/reagent_containers/drinks/to_drink, mob/user, drinksize_override)
 	if(user == src)
-		if(!selfDrink(to_eat))
+		if(!selfDrink(to_drink))
 			return FALSE
-	else if(!forceFed(to_eat, user, nutrition))
+	else if(!forceFed(to_drink, user, nutrition))
 		return FALSE
 
-	if(to_eat.consume_sound)
-		playsound(loc, to_eat.consume_sound, rand(10, 50), TRUE)
-	if(to_eat.reagents.total_volume)
-		taste(to_eat.reagents)
-		var/fraction = min(1 / to_eat.reagents.total_volume, 1)
-		var/drink_size = to_eat.amount_per_transfer_from_this > 5 ? 5 : to_eat.amount_per_transfer_from_this
-		if(fraction)
-			to_eat.reagents.reaction(src, REAGENT_INGEST, fraction)
-			to_eat.reagents.trans_to(src, drink_size)
+	if(to_drink.consume_sound)
+		playsound(loc, to_drink.consume_sound, rand(10, 50), TRUE)
+	if(to_drink.reagents.total_volume)
+		taste(to_drink.reagents)
+		var/drink_size = max(initial(to_drink.amount_per_transfer_from_this), 5)
+		if(drinksize_override)
+			drink_size = drinksize_override
+		to_drink.reagents.reaction(src, REAGENT_INGEST)
+		to_drink.reagents.trans_to(src, drink_size)
 
 	SSticker.score.score_food_eaten++
 	return TRUE
 
 /mob/living/carbon/proc/selfFeed(obj/item/food/to_eat, fullness)
-	if(ispill(to_eat))
-		to_chat(src, "<span class='notify'>You swallow [to_eat].</span>")
-	else if(ispatch(to_eat))
-		to_chat(src, "<span class='notify'>You apply [to_eat].</span>")
-	else
-		if(to_eat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50)
-			to_chat(src, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
-			return FALSE
-		if(fullness <= 50)
-			to_chat(src, "<span class='warning'>You hungrily chew out a piece of [to_eat] and gobble it!</span>")
-		else if(fullness > 50 && fullness < 150)
-			to_chat(src, "<span class='notice'>You hungrily begin to eat [to_eat].</span>")
-		else if(fullness > 150 && fullness < 500)
-			to_chat(src, "<span class='notice'>You take a bite of [to_eat].</span>")
-		else if(fullness > 500 && fullness < 600)
-			to_chat(src, "<span class='notice'>You unwillingly chew a bit of [to_eat].</span>")
-		else if(fullness > (600 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
-			to_chat(src, "<span class='warning'>You cannot force any more of [to_eat] to go down your throat.</span>")
-			return FALSE
+	if(to_eat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50)
+		to_chat(src, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
+		return FALSE
+
+	if(fullness <= 50)
+		to_chat(src, "<span class='warning'>You hungrily chew out a piece of [to_eat] and gobble it!</span>")
+	else if(fullness > 50 && fullness < 150)
+		to_chat(src, "<span class='notice'>You hungrily begin to eat [to_eat].</span>")
+	else if(fullness > 150 && fullness < 500)
+		to_chat(src, "<span class='notice'>You take a bite of [to_eat].</span>")
+	else if(fullness > 500 && fullness < 600)
+		to_chat(src, "<span class='notice'>You unwillingly chew a bit of [to_eat].</span>")
+	else if(fullness > (600 * (1 + overeatduration / 2000))) // The more you eat - the more you can eat
+		to_chat(src, "<span class='warning'>You cannot force any more of [to_eat] to go down your throat.</span>")
+		return FALSE
+
 	return TRUE
 
 /mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/drinks/toDrink, mob/user)
@@ -1245,7 +1238,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
 so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/consume(obj/item/food/to_eat, bitesize_override)
-	var/this_bite = bitesize_override ? bitesize_override : to_eat.bitesize
+	var/this_bite = bitesize_override || to_eat.bitesize
 	if(!to_eat.reagents)
 		return
 	if(satiety > -200)
@@ -1257,47 +1250,6 @@ so that different stomachs can handle things in different ways VB*/
 		var/fraction = min(this_bite / to_eat.reagents.total_volume, 1)
 		to_eat.reagents.reaction(src, REAGENT_INGEST, fraction)
 		to_eat.reagents.trans_to(src, this_bite)
-
-/mob/living/carbon/proc/consume_patch_or_pill(obj/item/reagent_containers/medicine, mob/user) // medicine = patch or pill
-	// The reason why this is bundled up is to avoid 2 procs that will be practically identical
-	if(!medicine.reagents.total_volume)
-		return TRUE // Doesn't have reagents, would be fine to use up
-
-	if(!dna.species.dietflags) // You will not feed the IPC
-		to_chat(user, "<span class='warning'>You cannot feed [src] [medicine]!</span>")
-		return FALSE
-
-	var/apply_method = "swallow"
-	var/reagent_application = REAGENT_INGEST
-	var/requires_mouth = TRUE
-	var/instant = FALSE
-	var/how_many_reagents = medicine.reagents.total_volume
-
-	if(ispatch(medicine))
-		apply_method = "apply"
-		reagent_application = REAGENT_TOUCH
-		requires_mouth = FALSE
-		how_many_reagents = clamp(medicine.reagents.total_volume, 0.1, 2) // Patches aren't that good at transporting reagents into the bloodstream
-		var/obj/item/reagent_containers/patch/patch = medicine
-		if(patch.instant_application)
-			instant = TRUE
-
-	if(user != src && !instant)
-		if(requires_mouth && !get_organ("head"))
-			to_chat(user, "<span class='warning'>You cannot feed [src] [medicine]!</span>")
-			return FALSE
-		visible_message("<span class='warning'>[user] attempts to force [src] to [apply_method] [medicine].</span>")
-		if(!do_after(user, 3 SECONDS, TRUE, src, TRUE))
-			return FALSE
-		forceFedAttackLog(medicine, user)
-		visible_message("<span class='warning'>[user] forces [src] to [apply_method] [medicine].</span>")
-	else
-		to_chat(user, "You [apply_method] [medicine].")
-
-	var/fraction = min(1 / medicine.reagents.total_volume, 1)
-	medicine.reagents.reaction(src, reagent_application, fraction)
-	medicine.reagents.trans_to(src, how_many_reagents)
-	return TRUE
 
 /mob/living/carbon/get_access()
 	. = ..()
@@ -1323,9 +1275,9 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/update_tint()
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
-		overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
+		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
 	else if(tinttotal >= TINT_IMPAIR)
-		overlay_fullscreen("tint", /obj/screen/fullscreen/impaired, 2)
+		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/impaired, 2)
 	else
 		clear_fullscreen("tint", 0)
 

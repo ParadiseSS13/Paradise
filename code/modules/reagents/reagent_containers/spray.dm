@@ -106,12 +106,19 @@
 /obj/item/reagent_containers/spray/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(alert(user, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
+	if(tgui_alert(user, "Are you sure you want to empty that?", "Empty Bottle", list("Yes", "No")) != "Yes")
 		return
 	if(isturf(user.loc) && loc == user)
 		to_chat(user, "<span class='notice'>You empty [src] onto the floor.</span>")
 		reagents.reaction(user.loc)
 		reagents.clear_reagents()
+
+/obj/item/reagent_containers/spray/empty
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
+	spray_maxrange = 2
+	spray_currentrange = 2
+	amount_per_transfer_from_this = 10
 
 //space cleaner
 /obj/item/reagent_containers/spray/cleaner
@@ -266,8 +273,9 @@
 	to_chat(user, "<span class='notice'>You adjust the output switch. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 
-// Plant-B-Gone
-/obj/item/reagent_containers/spray/plantbgone // -- Skie
+/// Plant-B-Gone
+/// -- Skie
+/obj/item/reagent_containers/spray/plantbgone
 	name = "Plant-B-Gone"
 	desc = "Kills those pesky weeds!"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
