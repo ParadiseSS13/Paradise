@@ -300,3 +300,13 @@
 	materials = list(MAT_METAL = 5000, MAT_TITANIUM = 3000)
 	build_path = /obj/item/wrench/bolter
 	category = list("Equipment")
+
+/datum/design/cigcase
+	name = "cigarette case"
+	desc = "A titanium case for holding items similar to a wallet."
+	id = "cigcase"
+	req_tech = list("materials" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_TITANIUM = 500)
+	build_path = /obj/item/storage/cigcase
+	category = list("Equipment")

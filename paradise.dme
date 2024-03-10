@@ -1184,6 +1184,7 @@
 #include "code\game\objects\items\weapons\storage\bible.dm"
 #include "code\game\objects\items\weapons\storage\boxes.dm"
 #include "code\game\objects\items\weapons\storage\briefcase.dm"
+#include "code\game\objects\items\weapons\storage\cigcase.dm"
 #include "code\game\objects\items\weapons\storage\fancy.dm"
 #include "code\game\objects\items\weapons\storage\firstaid.dm"
 #include "code\game\objects\items\weapons\storage\garment.dm"

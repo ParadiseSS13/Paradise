@@ -209,6 +209,24 @@
 		/obj/item/clothing/head/collectable/slime,  // 0TC priceless
 		/obj/item/encryptionkey/syndicate) // 10TC
 
+/// 150 TC
+
+/obj/item/storage/box/syndie_kit/bundle/tf13_spy
+	name = "TF13 Spy"
+	desc = "Brush up on your French and hone your backstabbing skills like a true, suave Gentlemann."
+	items = list(
+		/obj/item/gun/projectile/revolver, // 65TC
+		/obj/item/ammo_box/a357, // 15TC
+		/obj/item/ammo_box/a357, // 15TC
+		/obj/item/pen/edagger, // 10TC
+		/obj/item/chameleon, // 25TC
+		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 3TC
+		/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 7TC
+		/obj/item/storage/cigcase, // 0TC
+		/obj/item/lighter/zippo, // 0TC
+		/obj/item/clothing/mask/balaclava, // 0TC
+		/obj/item/encryptionkey/syndicate) // 10TC
+
 /obj/item/storage/box/syndie_kit/bundle/populate_contents()
 	for(var/obj/item/item as anything in items)
 		new item(src)

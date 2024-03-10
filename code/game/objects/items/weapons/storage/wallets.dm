@@ -25,7 +25,9 @@
 		/obj/item/photo,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/screwdriver,
-		/obj/item/stamp)
+		/obj/item/stamp,
+		/obj/item/reagent_containers/patch,
+		/obj/item/rollingpaper)
 	cant_hold = list(
 		/obj/item/screwdriver/power
 	)

@@ -197,8 +197,8 @@
 	l_pocket = /obj/item/lighter/zippo/nt_rep
 	pda = /obj/item/pda/heads/ntrep
 	backpack_contents = list(
-		/obj/item/melee/classic_baton/ntcane = 1
-	)
+		/obj/item/melee/classic_baton/ntcane = 1,
+		/obj/item/storage/cigcase/nt_rep)
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 
 
