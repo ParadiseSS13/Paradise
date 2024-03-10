@@ -409,6 +409,7 @@
 	actions_types = list(/datum/action/item_action/bhop)
 	permeability_coefficient = 0.05
 	can_cut_open = FALSE
+	knife_slot = TRUE
 	var/jumpdistance = 5 //-1 from to see the actual distance, e.g 4 goes over 3 tiles
 	var/jumpspeed = 3
 	var/recharging_rate = 60 //default 6 seconds between each dash
