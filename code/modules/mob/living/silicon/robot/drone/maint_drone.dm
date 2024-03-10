@@ -18,6 +18,7 @@
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
+	holder_type = /obj/item/holder/drone
 	/// Cooldown for law syncs
 	var/sync_cooldown = 0
 
@@ -44,9 +45,13 @@
 		/obj/item/stack/tile
 	)
 
-	holder_type = /obj/item/holder/drone
-	var/datum/pathfinding_mover/pathfinding
+	/// The linked control mod
+	var/obj/item/mod/control/linked_control_mod
+	/// The original module that was used to summon this drone
+	var/obj/item/mod/module/drone/drone_module
 
+	/// The pathfinding datum for this drone
+	var/datum/pathfinding_mover/pathfinding
 
 /mob/living/silicon/robot/drone/New()
 	..()
@@ -76,11 +81,15 @@
 
 	remove_verb(src, /mob/living/silicon/robot/verb/Namepick)
 	module = new /obj/item/robot_module/drone(src)
-	// Give us our action button
+	// Give us our action buttons
 	var/datum/action/innate/hide/drone_hide/hide = new()
 	var/datum/action/innate/robot_magpulse/pulse = new()
+	var/datum/action/innate/return_to_modsuit/return_mod = new()
+	var/datum/action/innate/drop_out_of_modsuit/drop = new()
 	hide.Grant(src)
 	pulse.Grant(src)
+	return_mod.Grant(src)
+	drop.Grant(src)
 
 	//Allows Drones to hear the Engineering channel.
 	module.channels = list("Engineering" = 1)
@@ -112,6 +121,16 @@
 	ADD_TRAIT(src, TRAIT_RESPAWNABLE, UNIQUE_TRAIT_SOURCE(src))
 
 	playsound(loc, 'sound/machines/twobeep.ogg', 50)
+
+/mob/living/silicon/robot/drone/Destroy()
+	. = ..()
+	QDEL_NULL(stack_glass)
+	QDEL_NULL(stack_metal)
+	QDEL_NULL(stack_wood)
+	QDEL_NULL(stack_plastic)
+	QDEL_NULL(decompiler)
+	if(drone_module)
+		drone_module.clear_references()
 
 //Redefining some robot procs...
 /mob/living/silicon/robot/drone/rename_character(oldname, newname)
@@ -151,58 +170,23 @@
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(stat == DEAD)
-		// Currently not functional, so commenting out until it's fixed to avoid confusion
-			/*if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
-				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
-				return
-
-			if(!allowed(I))
-				to_chat(user, "<span class='warning'>Access denied.</span>")
-				return
-
-			var/delta = (world.time / 10) - last_reboot
-			if(reboot_cooldown > delta)
-				var/cooldown_time = round(reboot_cooldown - ((world.time / 10) - last_reboot), 1)
-				to_chat(usr, "<span class='warning'>The reboot system is currently offline. Please wait another [cooldown_time] seconds.</span>")
-				return
-
-			user.visible_message("<span class='warning'>[user] swipes [user.p_their()] ID card through [src], attempting to reboot it.</span>",
-				"<span class='warning'>You swipe your ID card through [src], attempting to reboot it.</span>")
-			last_reboot = world.time / 10
-			var/drones = 0
-			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
-				if(D.key && D.client)
-					drones++
-			if(drones < config.max_maint_drones)
-				request_player()*/
+			return
+		if(!allowed(I))
+			to_chat(user, "<span class='warning'>Access denied.</span>")
 			return
 
-		else
-			var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
-			if(confirm == ("Yes") && (user in range(3, src)))
-				user.visible_message("<span class='warning'>[user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>",
-					"<span class='warning'>You swipe your ID card through [src], attempting to shut it down.</span>")
+		var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
+		if(confirm == "Yes" && in_range(user , src))
+			user.visible_message("<span class='warning'>[user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>",
+				"<span class='warning'>You swipe your ID card through [src], attempting to shut it down.</span>")
 
-				if(emagged)
-					return
-				if(allowed(I))
-					shut_down()
-				else
-					to_chat(user, "<span class='warning'>Access denied.</span>")
+			if(emagged)
+				return
+			shut_down()
 
 		return
 
 	..()
-
-/mob/living/silicon/robot/drone/Destroy()
-	. = ..()
-	QDEL_NULL(stack_glass)
-	QDEL_NULL(stack_metal)
-	QDEL_NULL(stack_wood)
-	QDEL_NULL(stack_plastic)
-	QDEL_NULL(decompiler)
-	for(var/datum/action/innate/hide/drone_hide/hide in actions)
-		hide.Remove(src)
 
 /mob/living/silicon/robot/drone/emag_act(mob/user)
 	if(!client || stat == DEAD)
@@ -323,26 +307,16 @@
 
 	ckey = player.ckey
 
+	var/list/message = list()
 	to_chat(src, "<b>Systems rebooted</b>. Loading base pattern maintenance protocol... <b>loaded</b>.")
 	full_law_reset()
-	to_chat(src, "<br><b>You are a maintenance drone, a tiny-brained robotic repair machine</b>.")
-	to_chat(src, "You have no individual will, no personality, and no drives or urges other than your laws.")
-	to_chat(src, "Use <b>:d</b> to talk to other drones, and <b>say</b> to speak silently in a language only your fellows understand.")
-	to_chat(src, "Remember, you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>")
-	to_chat(src, "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>")
-	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
-
-/*
-	sprite["Default"] = "repairbot"
-	sprite["Mk2 Mousedrone"] = "mk2"
-	sprite["Mk3 Monkeydrone"] = "mk3"
-	var/icontype
-	icontype = input(player,"Pick an icon") in sprite
-	icon_state = sprite[icontype]
-
-	choose_icon(6,sprite)
-*/
-
+	message += "<br><b>You are a maintenance drone, a tiny-brained robotic repair machine</b>."
+	message += "You have no individual will, no personality, and no drives or urges other than your laws."
+	message += "Use <b>:d</b> to talk to other drones, and <b>say</b> to speak silently in a language only your fellows understand."
+	message += "Remember, you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>"
+	message += "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>"
+	message += "<b>Make sure crew members do not notice you.</b>."
+	to_chat(src, message.Join(""))
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM, yes)
 	if(is_type_in_list(AM, allowed_bumpable_objects))
@@ -407,7 +381,7 @@
 	if(pathfinding)
 		return TRUE
 
-	if(istype(get_turf(src), /turf/space))
+	if(isspaceturf(get_turf(src)))
 		return FALSE // Pretty damn hard to path through space
 
 	var/turf/target
@@ -421,11 +395,34 @@
 	if(!target)
 		return FALSE
 
+	var/datum/pathfinding_mover/pathfind = new(src, target)
+	pathfind.on_success = CALLBACK(src, PROC_REF(at_dronefab))
+	return pathfind_to_thing(target, pathfind)
+
+/mob/living/silicon/robot/drone/proc/pathfind_to_modsuit()
+	if(pathfinding)
+		return TRUE
+
+	if(isspaceturf(get_turf(src)))
+		return FALSE // Pretty damn hard to path through space
+
+	var/turf/target = get_turf(linked_control_mod)
+
+	if(!target)
+		return FALSE
+
+	var/datum/pathfinding_mover/pathfind = new(src, target)
+	pathfind.on_success = CALLBACK(src, PROC_REF(return_to_modsuit))
+	return pathfind_to_thing(target, pathfind)
+
+/mob/living/silicon/robot/drone/proc/pathfind_to_thing(turf/target, datum/pathfinding_mover/pathfinder)
 	// Mimic having the hide-ability activated
 	layer = TURF_LAYER + 0.2
 	pass_flags |= PASSDOOR
 
-	var/datum/pathfinding_mover/pathfind = new(src, target)
+	var/datum/pathfinding_mover/pathfind = pathfinder
+	if(isnull(pathfinder))
+		pathfind = new(src, target)
 
 	// I originally only wanted to make it use an ID if it couldnt pathfind otherwise, but that means it could take multiple minutes if both searches failed
 	var/obj/item/card/id/temp_id = new(src)
@@ -438,7 +435,6 @@
 		return FALSE
 
 	pathfind.on_set_path_null = CALLBACK(src, PROC_REF(pathfind_failed_cleanup))
-	pathfind.on_success = CALLBACK(src, PROC_REF(at_dronefab))
 	pathfind.start()
 	return TRUE
 
@@ -450,12 +446,21 @@
 	set_pathfinding(null)
 	cryo_with_dronefab()
 
+/mob/living/silicon/robot/drone/proc/return_to_modsuit()
+	set_pathfinding(null)
+	if(!linked_control_mod)
+		return FALSE
+	var/obj/item/mod/control/mod_suit = linked_control_mod
+	if(get_dist(src, mod_suit) <= 1)
+		forceMove(mod_suit)
+	else
+		pathfind_to_modsuit()
+
 /mob/living/silicon/robot/drone/proc/cryo_with_dronefab(obj/machinery/drone_fabricator/drone_fab)
 	if(!drone_fab)
 		drone_fab = locate() in range(1, src)
 	if(!drone_fab)
 		return FALSE
-	drone_fab.drone_progress = 100 // recycling!
 
 	visible_message("<span class='notice'>[src] shuts down and enters [drone_fab].</span>")
 	playsound(loc, 'sound/machines/twobeep.ogg', 50)

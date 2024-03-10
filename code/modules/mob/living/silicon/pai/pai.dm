@@ -159,7 +159,6 @@
 		var/timeleft = round((silence_time - world.timeofday)/10 ,1)
 		return list("Communications system reboot in:", "-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
-
 /mob/living/silicon/pai/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data

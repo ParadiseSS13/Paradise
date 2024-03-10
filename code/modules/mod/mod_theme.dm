@@ -105,7 +105,6 @@
 /datum/mod_theme/standard
 	name = "standard"
 
-
 /datum/mod_theme/New()
 	. = ..()
 	armor_type_2 = new armor_type_1

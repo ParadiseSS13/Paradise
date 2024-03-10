@@ -2,7 +2,7 @@
 /obj/item/mod
 	name = "Base MOD"
 	desc = "You should not see this, yell at a coder!"
-	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'// figure out how to work with 2 of these
+	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi' // Figure out how to work with 2 of these
 	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 
 /obj/item/mod/control
@@ -399,10 +399,17 @@
 		core.on_attackby(attacking_item, user, params)
 	else if(istype(attacking_item, /obj/item/mod/skin_applier))
 		return ..()
+	else if(istype(attacking_item, /obj/item/holder/pai))
+		var/created_drone = FALSE
+		for(var/obj/item/mod/module/drone/module in modules)
+			for(var/mob/living/mob in attacking_item.contents)
+				created_drone = module.create_new_drone(user, mob)
+		if(created_drone)
+			qdel(attacking_item)
+			return
 	else if(bag && istype(attacking_item))
 		bag.forceMove(user)
 		bag.attackby(attacking_item, user, params)
-
 	return ..()
 
 /obj/item/mod/control/attack_hand(mob/living/carbon/user)

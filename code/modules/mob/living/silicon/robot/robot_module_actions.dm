@@ -57,3 +57,35 @@
 	robot.speed -= slowdown_active
 	button_icon_state = initial(button_icon_state)
 	active = FALSE
+
+/datum/action/innate/return_to_modsuit
+	name = "Return"
+	desc = "Return to your linked MODsuit!"
+	icon_icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
+	button_icon_state = "engineering-control"
+
+/datum/action/innate/return_to_modsuit/Trigger(left_click) // Not `Activate()` because it's not a toggle
+	if(!..())
+		return FALSE
+	if(istype(owner.loc, /obj/item/mod/control))
+		return FALSE
+
+	var/mob/living/silicon/robot/drone/drone = owner
+	drone.return_to_modsuit()
+
+/datum/action/innate/drop_out_of_modsuit
+	name = "Leave MODsuit"
+	desc = "Leave the MODsuit you are stored in!"
+	icon_icon = 'icons/mob/screen_gen.dmi'
+	button_icon_state = "arrow"
+
+/datum/action/innate/drop_out_of_modsuit/Trigger(left_click)
+	if(!..())
+		return FALSE
+	if(!istype(owner.loc, /obj/item/mod/control))
+		return FALSE
+
+	var/turf/drop_turf = get_turf(owner)
+	if(!drop_turf) // This should rarely happen but whatever
+		return FALSE
+	owner.forceMove(drop_turf)

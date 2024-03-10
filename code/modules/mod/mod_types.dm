@@ -54,6 +54,7 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magboot,
 		/obj/item/mod/module/tether,
+		/obj/item/mod/module/drone // I'm lazy for testing, yell if this stays in
 	)
 	default_pins = list(
 		/obj/item/mod/module/magboot,

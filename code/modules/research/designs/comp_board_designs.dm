@@ -112,16 +112,6 @@
 	build_path = /obj/item/circuitboard/scan_consolenew
 	category = list("Computer Boards")
 
-/datum/design/dronecontrol
-	name = "Console Board (Drone Control Console)"
-	desc = "Allows for the construction of circuit boards used to build a Drone Control console."
-	id = "dronecontrol"
-	req_tech = list("programming" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/drone_control
-	category = list("Computer Boards")
-
 /datum/design/mechacontrol
 	name = "Console Board (Exosuit Control Console)"
 	desc = "Allows for the construction of circuit boards used to build an exosuit control console."

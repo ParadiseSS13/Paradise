@@ -259,7 +259,8 @@
 	law_header = "Maintenance Protocols"
 
 /datum/ai_laws/drone/New()
-	add_inherent_law("You may not involve yourself in the matters of another being, unless the other being is another drone.")
-	add_inherent_law("You may not harm any being, regardless of intent or circumstance.")
-	add_inherent_law("You must maintain, repair, improve, and power the station to the best of your abilities.")
+	add_inherent_law("You may not cause direct harm to another being.")
+	add_inherent_law("You may not vandalize or cause damage to the station.")
+	add_inherent_law("Obey any orders given to you by your master, except when they violate the previous laws.")
+	add_inherent_law("You must repair any damage to the station to the best of your abilities.")
 	..()

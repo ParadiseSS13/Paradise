@@ -260,3 +260,77 @@
 #undef EXTINGUISHER
 #undef NANOFROST
 #undef METAL_FOAM
+
+/obj/item/mod/module/drone
+	name = "MOD Personal Artificial Intelligence Storage"
+	desc = "A module that can be used to store a personal AI device in. \
+			Will convert the personal AI into a construction drone to help \
+			the owner with any repair work"
+	icon_state = "tether"
+	module_type = MODULE_USABLE
+	complexity = 1
+	use_power_cost = DEFAULT_CHARGE_DRAIN
+	incompatible_modules = list(/obj/item/mod/module/drone)
+	cooldown_time = 3 SECONDS
+	allow_flags = MODULE_ALLOW_INACTIVE
+	/// The drone that we currently have stored
+	var/mob/living/silicon/robot/drone/stored_drone
+	/// The drone that is linked to the mod
+	var/mob/living/silicon/robot/drone/linked_drone
+	/// The mob that summoned the drone. Used to clear the trait
+	var/mob/living/carbon/human/summoner
+
+/obj/item/mod/module/drone/Destroy()
+	clear_references()
+	linked_drone.pathfind_to_dronefab()
+	return ..()
+
+/obj/item/mod/module/drone/on_use()
+	. = ..()
+	if(stored_drone)
+		stored_drone.forceMove(get_turf(mod.wearer))
+	else if(!linked_drone)
+		poll_ghosts_for_drone(mod.wearer)
+
+/obj/item/mod/module/drone/proc/create_new_drone(mob/living/user, mob/to_be_droned)
+	if(!mod.wearer)
+		return FALSE
+	if(stored_drone)
+		to_chat(user, "<span class='notice'>There is already a drone stored in [src]!</span>")
+		return FALSE
+	if(!to_be_droned.mind)
+		to_chat(user, "<span class='notice'>[to_be_droned] does not have an inhabited AI!</span>")
+		return FALSE
+	if(HAS_MIND_TRAIT(mod.wearer, TRAIT_CREATED_DRONE))
+		to_chat(user, "<span class='notice'>You already have a linked drone!</span>")
+		return FALSE
+
+	var/mob/living/silicon/robot/drone/new_drone = new(get_turf(src))
+	new_drone.transfer_personality(to_be_droned)
+	new_drone.linked_control_mod = mod
+	new_drone.name = to_be_droned.name
+
+	ADD_TRAIT(mod.wearer.mind, TRAIT_CREATED_DRONE, mod.wearer.UID())
+	summoner = mod.wearer
+	linked_drone = new_drone
+
+	mod.subtract_charge(1000)
+	return TRUE
+
+/obj/item/mod/module/drone/proc/poll_ghosts_for_drone(mob/user)
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the drone of [user.real_name]?", ROLE_PAI, FALSE, 10 SECONDS, source = src, role_cleanname = "drone")
+	var/mob/dead/observer/theghost
+
+	if(length(candidates))
+		theghost = pick(candidates)
+		dust_if_respawnable(theghost)
+		create_new_drone(user, theghost)
+	else
+		to_chat(user, "No intelligence available to inhabit the drone. Please try again later.")
+		COOLDOWN_START(src, cooldown_timer, 30 SECONDS) // Don't spam the ghosts
+
+/obj/item/mod/module/drone/proc/clear_references()
+	if(summoner?.mind)
+		REMOVE_TRAIT(summoner.mind, TRAIT_CREATED_DRONE, summoner.UID())
+	stored_drone = null
+	linked_drone = null
