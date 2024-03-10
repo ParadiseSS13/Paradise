@@ -89666,15 +89666,6 @@
 	},
 /area/station/medical/surgery/observation)
 "vVR" = (
-/obj/structure/table,
-/obj/item/screwdriver{
-	pixel_x = -2;
-	pixel_y = 18
-	},
-/obj/item/wirecutters{
-	pixel_y = 5
-	},
-/obj/machinery/syndicatebomb/training,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
