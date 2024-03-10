@@ -354,11 +354,11 @@ random_ai_lawset = true
 # Settings that allow you to change light effects (bloom / exposure intensity)
 
 # Brightness of bloom effect independent of light_power
-glow_brightness_base = -0.3
+glow_brightness_base = -0.2
 # Brightness of bloom effect that depends on light_power
 glow_brightness_power = 0
 # Contrast of bloom effect independent of light_power
-glow_contrast_base = 0.6
+glow_contrast_base = 0.4
 # Contrast of bloom effect that depends on light_power
 glow_contrast_power = 0
 # Brightness of exposure effect independent of light_power

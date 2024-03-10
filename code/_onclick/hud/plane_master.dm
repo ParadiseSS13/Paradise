@@ -196,5 +196,5 @@
 	var/enabled = mymob?.client?.prefs?.lampsglare || FALSE
 
 	if(enabled)
-		add_filter("add_lamps_to_glare", 1, layering_filter(render_source = LIGHTING_LAMPS_RENDER_TARGET, blend_mode = BLEND_OVERLAY))
-		add_filter("lamps_glare", 1, radial_blur_filter(size = 0.05))
+		add_filter("add_lamps_to_glare", 1, layering_filter(render_source = LIGHTING_LAMPS_RENDER_TARGET, blend_mode = BLEND_ADD))
+		add_filter("lamps_glare", 1, radial_blur_filter(size = 0.025))
