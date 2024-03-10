@@ -112,6 +112,11 @@
 	force = 10
 	toolspeed = 0.5
 
+/obj/item/crowbar/cyborg/red
+	name = "emergency hydraulic crowbar"
+	desc = "A hydraulic prying tool, compact but powerful. Supplied to non-construction cyborgs primarily to allow them to pry open airlocks during power outages."
+	icon_state = "crowbar_red"
+
 /obj/item/crowbar/power
 	name = "jaws of life"
 	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a prying head."

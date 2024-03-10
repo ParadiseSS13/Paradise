@@ -39,15 +39,9 @@ jobs:
           python -m tools.ci.check_icon_conflicts
           python -m tools.ci.check_icon_dupenames
           python -m tools.maplint.source --github
-          DREAMCHECKER_EXIT_CODE=0
-          ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1 || DREAMCHECKER_EXIT_CODE=$?
-          echo 'DREAMCHECKER_ANNOTATED=1' >> "$GITHUB_ENV"
-          exit $DREAMCHECKER_EXIT_CODE
-      - name: Annotate Lints
-        uses: yogstation13/DreamAnnotate@v2
-        if: ${{ always() && env.DREAMCHECKER_ANNOTATED == '1' }}
-        with:
-          outputFile: output-annotations.txt
+      - name: Run DreamChecker
+        shell: bash
+        run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
 
   odlint:
     name: Lint with OpenDream

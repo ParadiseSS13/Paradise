@@ -1,6 +1,6 @@
 /obj/item/gun/projectile/revolver
-	name = "\improper .357 revolver"
-	desc = "A suspicious revolver. Uses .357 ammo."
+	name = "\improper .357 magnum revolver"
+	desc = "A powerful revolver commonly used by the Syndicate. Uses .357 magnum ammo."
 	materials = list()
 	icon_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
@@ -112,8 +112,9 @@
 	user.bleed(BLOOD_VOLUME_NORMAL)
 	user.death() // Just in case
 
-/obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
-	name = "\improper finger gun"
+/// Summoned by the Finger Gun spell, from advanced mimery traitor item
+/obj/item/gun/projectile/revolver/fingergun
+	name = "finger gun"
 	desc = "Bang bang bang!"
 	icon_state = "fingergun"
 	force = 0
@@ -181,8 +182,8 @@
 	recoil = 8
 
 /obj/item/gun/projectile/revolver/nagant
-	name = "nagant revolver"
-	desc = "An old model of revolver that originated in Russia. Able to be suppressed. Uses 7.62x38mmR ammo."
+	name = "\improper Nagant revolver"
+	desc = "An old model of revolver that originated in Russia, now used by the USSP. Able to be suppressed. Uses 7.62x38mmR ammo."
 	icon_state = "nagant"
 	origin_tech = "combat=3"
 	can_suppress = TRUE
@@ -323,8 +324,8 @@
 /////////////////////////////
 
 /obj/item/gun/projectile/revolver/doublebarrel
-	name = "double-barreled shotgun"
-	desc = "A true classic."
+	name = "\improper CM150 double-barreled shotgun"
+	desc = "A true classic, by Starstrike Arms."
 	icon_state = "dbshotgun"
 	item_state = null
 	lefthand_file = 'icons/mob/inhands/64x64_guns_lefthand.dmi'
