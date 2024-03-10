@@ -432,7 +432,7 @@
 		return FALSE
 	if(user)
 		if(!Adjacent(usr))
-				return FALSE
+			return FALSE
 		if(!user.unEquip(I, silent = TRUE))
 			return FALSE
 		user.update_icons()	//update our overlays
