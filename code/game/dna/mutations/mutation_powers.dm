@@ -428,11 +428,12 @@
 				return
 			user.visible_message("<span class='danger'>[user] [pick("chomps","bites")] off [the_item]'s [limb]!</span>")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
+
+			// Most limbs will drop here. Groin won't, but this
+			// still spills out the organs that were in it.
+			limb.droplimb(FALSE, DROPLIMB_SHARP)
 			if(istype(limb,/obj/item/organ/external/groin))
 				limb.receive_damage(100, sharp = TRUE)
-				// Groin won't actually drop, but this spills
-				// out the organs that were in it.
-				limb.droplimb(FALSE, DROPLIMB_SHARP)
 
 				var/obj/item/organ/external/left_leg = H.get_organ(BODY_ZONE_L_LEG)
 				if(istype(left_leg))
@@ -445,8 +446,6 @@
 				var/obj/item/organ/external/chest = H.get_organ(BODY_ZONE_CHEST)
 				if(istype(chest))
 					chest.receive_damage(50, sharp = TRUE)
-			else
-				limb.droplimb(FALSE, DROPLIMB_SHARP)
 
 				
 			doHeal(user)
