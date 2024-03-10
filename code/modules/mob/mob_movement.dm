@@ -189,9 +189,6 @@
 	if(mob && . && mob.throwing)
 		mob.throwing.finalize(FALSE)
 
-	for(var/obj/O in mob)
-		O.on_mob_move(direct, mob)
-
 #undef CONFUSION_LIGHT_COEFFICIENT
 #undef CONFUSION_HEAVY_COEFFICIENT
 #undef CONFUSION_MAX
