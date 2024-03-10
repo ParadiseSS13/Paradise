@@ -586,7 +586,7 @@
 	. = ..()
 
 	if(knife_slot)
-	. += "<span class='info'>You can <b>Alt-Click</b> [src] to remove a stored knife. Use the knife on the shoes to place one in [src]</span>"
+		. += "<span class='info'>You can <b>Alt-Click</b> [src] to remove a stored knife. Use the knife on the shoes to place one in [src]</span>"
 
 //Suit
 /obj/item/clothing/suit
