@@ -34,7 +34,6 @@
 			pockets.hide_from(player)
 
 /obj/item/clothing/suit/storage/AltClick(mob/user)
-	. = ..()
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
 		pockets.open(user)
 		add_fingerprint(user)
