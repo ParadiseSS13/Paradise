@@ -25,10 +25,9 @@
 		/obj/item/pen,
 		/obj/item/photo,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/rollingpaper,
-		/obj/item/clothing/accessory/medal,
-		/obj/item/clothing/accessory/holobadge
-		)
+		/obj/item/stamp,
+		/obj/item/reagent_containers/patch,
+		/obj/item/rollingpaper)
 	cant_hold = list(
 		/obj/item/toy/crayon/spraycan
 	)
