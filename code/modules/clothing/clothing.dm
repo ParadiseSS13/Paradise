@@ -537,7 +537,7 @@
 			return
 		user.visible_message("<span class='notice'>[user] places [W] into their [name]!</span>", \
 			"<span class='notice'>You place [W] into the side of your [name]!</span>")
-		W.loc = src
+		W.forceMove(src)
 		hidden_blade = W
 
 
@@ -563,7 +563,7 @@
 	item_state = "[item_state]_opentoe"
 
 /obj/item/clothing/shoes/AltClick(mob/user)
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(!knife_slot)
@@ -572,15 +572,15 @@
 		to_chat(user, "<span class='warning'>There's nothing in your [name]!</span>")
 		return
 
-	if(isobj(user.get_active_hand()) && isobj(user.get_inactive_hand()))
+	if(!isnull(user.get_active_hand()) && !isnull(user.get_inactive_hand()))
 		to_chat(user, "<span class='warning'>You need an empty hand to pull [hidden_blade]!</span>")
 		return
-	else
-		user.visible_message("<span class='notice'>[user] pulls [hidden_blade] from their [name]!</span>", \
-			"<span class='notice'>You draw [hidden_blade] from your [name]!</span>")
-		user.put_in_hands(hidden_blade)
-		hidden_blade.add_fingerprint(user)
-		hidden_blade = null
+
+	user.visible_message("<span class='notice'>[user] pulls [hidden_blade] from their [name]!</span>", \
+		"<span class='notice'>You draw [hidden_blade] from your [name]!</span>")
+	user.put_in_hands(hidden_blade)
+	hidden_blade.add_fingerprint(user)
+	hidden_blade = null
 
 /obj/item/clothing/shoes/examine(mob/user)
 	. = ..()
