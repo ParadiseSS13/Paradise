@@ -414,7 +414,7 @@
 /obj/structure/window/CanAtmosPass(turf/T)
 	if(!anchored || !density)
 		return TRUE
-	return !(FULLTILE_WINDOW_DIR == dir || dir & get_dir(loc, T))
+	return !(FULLTILE_WINDOW_DIR == dir || (dir & get_dir(loc, T)))
 
 //This proc is used to update the icons of nearby windows.
 /obj/structure/window/proc/update_nearby_icons()
