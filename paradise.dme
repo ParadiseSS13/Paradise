@@ -1055,6 +1055,7 @@
 #include "code\game\objects\items\robot\robot_items.dm"
 #include "code\game\objects\items\robot\robot_parts.dm"
 #include "code\game\objects\items\robot\robot_upgrades.dm"
+#include "code\game\objects\items\robot\items\inflatable_tool.dm"
 #include "code\game\objects\items\stacks\medical_packs.dm"
 #include "code\game\objects\items\stacks\nanopaste.dm"
 #include "code\game\objects\items\stacks\rods.dm"

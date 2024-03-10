@@ -195,6 +195,8 @@
 				if(our_excited_group)
 					last_share_check()
 
+#define LAVALAND_TEMPERATURE 500
+
 	if(planetary_atmos) //share our air with the "atmosphere" "above" the turf
 		var/datum/gas_mixture/G = new
 		G.oxygen = oxygen
@@ -203,7 +205,7 @@
 		G.toxins = toxins
 		G.sleeping_agent = sleeping_agent
 		G.agent_b = agent_b
-		G.temperature = initial(temperature) // Temperature is modified at runtime; we only care about the turf's initial temperature
+		G.temperature = LAVALAND_TEMPERATURE // Temperature is modified at runtime; we only care about the turf's initial temperature
 		G.archive()
 		if(!air.compare(G))
 			if(!our_excited_group)
@@ -212,6 +214,8 @@
 				our_excited_group = excited_group
 			air.share(G, adjacent_turfs_length)
 			last_share_check()
+
+#undef LAVALAND_TEMPERATURE
 
 	air.react()
 
@@ -229,7 +233,6 @@
 
 	if(!our_excited_group && remove == 1)
 		SSair.remove_from_active(src)
-
 
 /turf/simulated/proc/archive()
 	if(air) //For open space like floors
@@ -410,7 +413,7 @@
 			if(conductivity_directions & direction)
 				var/turf/neighbor = get_step(src,direction)
 
-				if(!neighbor.thermal_conductivity)
+				if(!neighbor?.thermal_conductivity)
 					continue
 
 				if(issimulatedturf(neighbor)) //anything under this subtype will share in the exchange
@@ -440,7 +443,8 @@
 					else
 						mimic_temperature_solid(neighbor, neighbor.thermal_conductivity)
 
-	radiate_to_spess()
+	if(!planetary_atmos)
+		radiate_to_spess()
 
 	//Conduct with air on my tile if I have it
 	if(air)
