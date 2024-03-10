@@ -295,6 +295,7 @@
 	beaker.forceMove(loc)
 	beaker = null
 	icon_state = "pandemic0"
+	selected_strain_index = 1
 
 //Prints a nice virus release form. Props to Urbanliner for the layout
 /obj/machinery/computer/pandemic/proc/print_form(datum/disease/advance/D, mob/living/user)
