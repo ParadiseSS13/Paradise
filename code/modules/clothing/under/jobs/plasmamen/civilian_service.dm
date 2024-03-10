@@ -112,3 +112,10 @@
 	icon_state = "bs_envirosuit"
 	item_state = "bs_envirosuit"
 	item_color = "bs_envirosuit"
+
+/obj/item/clothing/under/plasmaman/coke
+	name = "coke envirosuit"
+	desc = "An envirosuit designed by Space Cola Co for plasmamen."
+	icon_state = "coke_envirosuit"
+	item_state = "coke_envirosuit"
+	item_color = "coke_envirosuit"
