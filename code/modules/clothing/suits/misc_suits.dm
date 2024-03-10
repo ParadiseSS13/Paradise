@@ -173,7 +173,7 @@
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/clothing/suit/corgisuit/en
-	name = "\improper super-hero E-N suit"
+	name = "super-hero E-N suit"
 	icon_state = "ensuit"
 
 /obj/item/clothing/suit/corgisuit/super_hero
@@ -182,7 +182,7 @@
 	flags = NODROP
 
 /obj/item/clothing/suit/corgisuit/super_hero/en
-	name = "\improper super-hero E-N suit"
+	name = "super-hero E-N suit"
 	icon_state = "ensuit"
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/Initialize(mapload)

@@ -35,9 +35,9 @@
 /mob/living/carbon/proc/update_hands_hud()
 	if(!hud_used)
 		return
-	var/obj/screen/inventory/R = hud_used.inv_slots[SLOT_HUD_RIGHT_HAND]
+	var/atom/movable/screen/inventory/R = hud_used.inv_slots[SLOT_HUD_RIGHT_HAND]
 	R?.update_icon()
-	var/obj/screen/inventory/L = hud_used.inv_slots[SLOT_HUD_LEFT_HAND]
+	var/atom/movable/screen/inventory/L = hud_used.inv_slots[SLOT_HUD_LEFT_HAND]
 	L?.update_icon()
 
 /mob/living/carbon/update_inv_r_hand(ignore_cuffs)
@@ -64,7 +64,7 @@
 
 /mob/living/carbon/update_inv_back()
 	if(client && hud_used && hud_used.inv_slots[SLOT_HUD_BACK])
-		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_BACK]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_BACK]
 		inv.update_icon()
 
 	if(back)

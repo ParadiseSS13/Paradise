@@ -372,7 +372,7 @@
 /datum/hud/sword/New(mob/user)
 	..()
 
-	mymob.healths = new /obj/screen/healths()
+	mymob.healths = new /atom/movable/screen/healths()
 	infodisplay += mymob.healths
 
 /mob/living/simple_animal/shade/sword/ClickOn(atom/A, params)
