@@ -8,7 +8,7 @@
 	product = /obj/item/food/snacks/grown/wheat
 	production = 1
 	yield = 4
-	potency = 15
+	potency = 30
 	icon_dead = "wheat-dead"
 	mutatelist = list(/obj/item/seeds/wheat/oat, /obj/item/seeds/wheat/meat)
 	reagents_add = list("plantmatter" = 0.04)
