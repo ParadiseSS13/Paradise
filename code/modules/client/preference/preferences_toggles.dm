@@ -359,3 +359,74 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_MC_TAB
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_MC_TAB) ? "now" : "no longer"] see the MC tab on the top right.")
+
+/client/verb/set_glow_level()
+	set name = "Lighting: Glow Level"
+	set category = "Preferences"
+
+	var/new_setting = input(src, "Set glow level of light sources:") as null|anything in list("Disable", "Low", "Medium (Default)", "High")
+	if(!new_setting)
+		return
+
+	switch(new_setting)
+		if("Disable")
+			prefs.glowlevel = GLOW_DISABLE
+		if("Low")
+			prefs.glowlevel = GLOW_LOW
+		if("Medium (Default)")
+			prefs.glowlevel = GLOW_MED
+		if("High")
+			prefs.glowlevel = GLOW_HIGH
+
+	to_chat(src, "Glow level: [new_setting].")
+	prefs.save_preferences(src)
+	if(length(screen))
+		var/atom/movable/screen/plane_master/lamps_selfglow/LGL = locate() in screen
+		LGL.backdrop(mob)
+	// feedback_add_details("admin_verb","LGL")
+
+/client/verb/toggle_lamp_exposure()
+	set name = "Lighting: Lamp Exposure"
+	set category = "Preferences.Toggle"
+
+	prefs.lampsexposure = !prefs.lampsexposure
+	to_chat(src, "Lamp exposure: [prefs.lampsexposure ? "Enabled" : "Disabled"].")
+	prefs.save_preferences(src)
+	if(length(screen))
+		var/atom/movable/screen/plane_master/exposure/EXP = locate() in screen
+		EXP.backdrop(mob)
+	// feedback_add_details("admin_verb","LEXP")
+
+/client/verb/toggle_lamps_glare()
+	set name = "Lighting: Lamp Glare"
+	set category = "Preferences.Toggle"
+
+	prefs.lampsglare = !prefs.lampsglare
+	to_chat(src, "Glare: [prefs.lampsglare ? "Enabled" : "Disabled"].")
+	prefs.save_preferences(src)
+	if(length(screen))
+		var/atom/movable/screen/plane_master/lamps_glare/GLR = locate() in screen
+		GLR.backdrop(mob)
+	// feedback_add_details("admin_verb","GLR")
+
+/client/verb/toggle_oldnew_lighting()
+	set name = "Lighting: Toggle Old/New Lighting"
+	set category = "Preferences.Toggle"
+
+	prefs.old_lighting = !prefs.old_lighting
+	to_chat(src, "Lighting: [prefs.old_lighting ? "Old" : "New"].")
+	prefs.save_preferences(src)
+	if(length(screen))
+		var/atom/movable/screen/plane_master/exposure/EXP = locate() in screen
+		var/atom/movable/screen/plane_master/lamps_selfglow/LGL = locate() in screen
+		var/atom/movable/screen/plane_master/lamps_glare/GLR = locate() in screen
+
+		if(prefs.old_lighting)
+			EXP.alpha = 0
+		else
+			EXP.alpha = 255
+
+		EXP.backdrop(mob)
+		LGL.backdrop(mob)
+		GLR.backdrop(mob)
+	// feedback_add_details("admin_verb","OLGHT")

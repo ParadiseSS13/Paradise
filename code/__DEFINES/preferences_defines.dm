@@ -106,6 +106,11 @@
 
 #define EXP_DEPT_TYPE_LIST		list(EXP_TYPE_SUPPLY, EXP_TYPE_SERVICE, EXP_TYPE_MEDICAL, EXP_TYPE_ENGINEERING, EXP_TYPE_SCIENCE, EXP_TYPE_SECURITY, EXP_TYPE_COMMAND, EXP_TYPE_SILICON, EXP_TYPE_SPECIAL, EXP_TYPE_GHOST)
 
+#define GLOW_HIGH    0
+#define GLOW_MED     1 //default.
+#define GLOW_LOW     2
+#define GLOW_DISABLE 3 //this option must be the highest number
+
 // Defines just for parallax because its levels make storing it in the regular prefs a pain in the ass
 // These dont need to be bitflags because there isnt going to be more than one at a time of these active
 // But its gonna piss off my OCD if it isnt bitflags, so deal with it, -affected

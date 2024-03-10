@@ -68,6 +68,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/clientfps = 63
 	var/atklog = ATKLOG_ALL
 	var/fuid							// forum userid
+	var/old_lighting = FALSE
+	var/glowlevel = GLOW_MED
+	var/lampsexposure = TRUE
+	var/lampsglare = FALSE
 
 	/// Volume mixer, indexed by channel as TEXT (numerical indexes will not work). Volume goes from 0 to 100.
 	var/list/volume_mixer = list(

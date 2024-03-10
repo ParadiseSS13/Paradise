@@ -1350,6 +1350,7 @@
 #include "code\modules\admin\tickets\mentorticketsverbs.dm"
 #include "code\modules\admin\verbs\admin_dice.dm"
 #include "code\modules\admin\verbs\adminhelp.dm"
+#include "code\modules\admin\verbs\BloomEdit.dm"
 #include "code\modules\admin\verbs\adminjump.dm"
 #include "code\modules\admin\verbs\adminpm.dm"
 #include "code\modules\admin\verbs\adminsay.dm"

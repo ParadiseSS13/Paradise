@@ -22,7 +22,8 @@ GLOBAL_PROTECT(href_token)
 
 	/// Our currently linked marked datum
 	var/datum/marked_datum
-
+	
+	var/datum/bloom_edit/debug_bloom
 /datum/admins/New(initial_rank = "Temporary Admin", initial_rights = 0, ckey)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounceooc'>Admin rank creation blocked: Advanced ProcCall detected.</span>")
