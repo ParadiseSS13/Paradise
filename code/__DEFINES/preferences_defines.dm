@@ -19,7 +19,7 @@
 #define PREFTOGGLE_CHAT_GHOSTSIGHT			(1<<3)
 #define PREFTOGGLE_CHAT_PRAYER				(1<<4)
 #define PREFTOGGLE_CHAT_RADIO				(1<<5)
-#define PREFTOGGLE_AZERTY					(1<<6) // obsolete
+// #define PREFTOGGLE_AZERTY					(1<<6) // obsolete
 #define PREFTOGGLE_CHAT_DEBUGLOGS 			(1<<7)
 #define PREFTOGGLE_CHAT_LOOC 				(1<<8)
 #define PREFTOGGLE_CHAT_GHOSTRADIO 			(1<<9)
@@ -30,13 +30,13 @@
 #define PREFTOGGLE_CHAT_NO_ADMINLOGS 		(1<<14)
 #define PREFTOGGLE_DONATOR_PUBLIC			(1<<15)
 #define PREFTOGGLE_CHAT_NO_TICKETLOGS 		(1<<16)
-#define PREFTOGGLE_UI_DARKMODE 				(1<<17)
+// #define PREFTOGGLE_UI_DARKMODE 				(1<<17) // Defunct as of 2024-01-29
 // #define PREFTOGGLE_DISABLE_KARMA 			(1<<18)	// Defunct as of 2023-03-12
-#define PREFTOGGLE_CHAT_NO_MENTORTICKETLOGS (1<<19)
-#define PREFTOGGLE_TYPING_ONCE 				(1<<20)
+#define PREFTOGGLE_CHAT_NO_MENTORTICKETLOGS  (1<<19) 
+// #define PREFTOGGLE_TYPING_ONCE 				(1<<20) // Defunct as of 2024-01-29
 #define PREFTOGGLE_AMBIENT_OCCLUSION 		(1<<21)
 #define PREFTOGGLE_CHAT_GHOSTPDA 			(1<<22)
-#define PREFTOGGLE_NUMPAD_TARGET 			(1<<23) // Made obsolete with key bindings
+// #define PREFTOGGLE_NUMPAD_TARGET 			(1<<23) // Made obsolete with key bindings
 
 #define TOGGLES_TOTAL 							16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
