@@ -38,7 +38,8 @@
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
 		pockets.open(user)
 		add_fingerprint(user)
-	else if(isobserver(user))
+		return
+	if(isobserver(user))
 		pockets.show_to(user)
 
 /obj/item/clothing/suit/storage/attackby(obj/item/W as obj, mob/user as mob, params)
