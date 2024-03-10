@@ -25,26 +25,26 @@
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
-#define UPDATE_NAME         (1<<0)
+#define UPDATE_NAME			(1<<0)
 /// Update the atom's desc
-#define UPDATE_DESC         (1<<1)
+#define UPDATE_DESC			(1<<1)
 /// Update the atom's icon state
-#define UPDATE_ICON_STATE   (1<<2)
+#define UPDATE_ICON_STATE	(1<<2)
 /// Update the atom's overlays
-#define UPDATE_OVERLAYS     (1<<3)
+#define UPDATE_OVERLAYS		(1<<3)
 /// Update the atom's icon
-#define UPDATE_ICON         (UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+#define UPDATE_ICON			(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /* Secondary atom flags, for the flags_2 var, denoted with a _2 */
 
-#define SLOWS_WHILE_IN_HAND_2	(1<<0)
-#define NO_EMP_WIRES_2			(1<<1)
-#define HOLOGRAM_2				(1<<2)
-#define FROZEN_2				(1<<3)
-#define STATIONLOVING_2			(1<<4)
+#define SLOWS_WHILE_IN_HAND_2		(1<<0)
+#define NO_EMP_WIRES_2				(1<<1)
+#define HOLOGRAM_2					(1<<2)
+#define FROZEN_2					(1<<3)
+#define STATIONLOVING_2				(1<<4)
 #define INFORM_ADMINS_ON_RELOCATE_2	(1<<5)
-#define BANG_PROTECT_2			(1<<6)
-#define BLOCKS_LIGHT_2          (1<<7) // Light sources placed in anything with that flag will not emit light through them.
+#define BANG_PROTECT_2				(1<<6)
+#define BLOCKS_LIGHT_2				(1<<7) // Light sources placed in anything with that flag will not emit light through them.
 
 // A mob with OMNITONGUE has no restriction in the ability to speak
 // languages that they know. So even if they wouldn't normally be able to
@@ -53,7 +53,7 @@
 #define OMNITONGUE_2			(1<<8)
 
 /// Prevents mobs from getting chainshocked by teslas and the supermatter
-#define SHOCKED_2 				(1<<9)
+#define SHOCKED_2				(1<<9)
 
 // Stops you from putting things like an RCD or other items into an ORM or protolathe for materials.
 #define NO_MAT_REDEMPTION_2		(1<<10)
@@ -70,13 +70,13 @@
 /// should this object be allowed to be contaminated
 #define RAD_NO_CONTAMINATE_2	(1<<15)
 /// Prevents shuttles from deleting the item
-#define IMMUNE_TO_SHUTTLECRUSH_2 (1<<16)
+#define IMMUNE_TO_SHUTTLECRUSH_2 	(1<<16)
 /// Prevents malf AI animate + overload ability
-#define NO_MALF_EFFECT_2		(1<<17)
+#define NO_MALF_EFFECT_2			(1<<17)
 /// Use when this shouldn't be obscured by large icons.
-#define CRITICAL_ATOM_2			(1<<18)
+#define CRITICAL_ATOM_2				(1<<18)
 /// Use this flag for items that can block randomly
-#define RANDOM_BLOCKER_2		(1<<19)
+#define RANDOM_BLOCKER_2			(1<<19)
 /// This flag allows for wearing of a belt item, even if you're not wearing a jumpsuit
 #define ALLOW_BELT_NO_JUMPSUIT_2	(1<<20)
 
@@ -84,8 +84,8 @@
 #define REAGENT_NOREACT			1
 
 //Species clothing flags
-#define HAS_UNDERWEAR 	(1<<0)
-#define HAS_UNDERSHIRT 	(1<<1)
+#define HAS_UNDERWEAR	(1<<0)
+#define HAS_UNDERSHIRT	(1<<1)
 #define HAS_SOCKS		(1<<2)
 
 //Species Body Flags
@@ -160,7 +160,7 @@
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1
 #define AFFECT_ORGANIC_ORGAN	2
-#define AFFECT_ALL_ORGANS		3
+#define AFFECT_ALL_ORGANS	3
 
 //Fire and Acid stuff, for resistance_flags
 #define LAVA_PROOF		(1<<0)
@@ -173,12 +173,12 @@
 #define FREEZE_PROOF	(1<<7) //can't be frozen
 
 //tesla_zap
-#define ZAP_MACHINE_EXPLOSIVE		(1<<0)
-#define ZAP_ALLOW_DUPLICATES		(1<<1)
-#define ZAP_OBJ_DAMAGE				(1<<2)
-#define ZAP_MOB_DAMAGE				(1<<3)
-#define ZAP_MOB_STUN				(1<<4)
-#define ZAP_GENERATES_POWER			(1<<5)
+#define ZAP_MACHINE_EXPLOSIVE	(1<<0)
+#define ZAP_ALLOW_DUPLICATES	(1<<1)
+#define ZAP_OBJ_DAMAGE			(1<<2)
+#define ZAP_MOB_DAMAGE			(1<<3)
+#define ZAP_MOB_STUN			(1<<4)
+#define ZAP_GENERATES_POWER		(1<<5)
 
 #define ZAP_DEFAULT_FLAGS (ZAP_MOB_STUN | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE)
 #define ZAP_FUSION_FLAGS (ZAP_OBJ_DAMAGE | ZAP_MOB_DAMAGE | ZAP_MOB_STUN)
@@ -188,14 +188,14 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 
 //Mob mobility var flags
 /// can move
-#define MOBILITY_MOVE (1<<0)
+#define MOBILITY_MOVE	(1<<0)
 /// can, and is, standing up
-#define MOBILITY_STAND (1<<1)
+#define MOBILITY_STAND	(1<<1)
 /// can pickup items
-#define MOBILITY_PICKUP (1<<2)
+#define MOBILITY_PICKUP	(1<<2)
 /// can hold and use items
-#define MOBILITY_USE (1<<3)
+#define MOBILITY_USE	(1<<3)
 /// can pull things
-#define MOBILITY_PULL (1<<4)
+#define MOBILITY_PULL	(1<<4)
 
 #define MOBILITY_FLAGS_DEFAULT (MOBILITY_MOVE | MOBILITY_STAND | MOBILITY_PICKUP | MOBILITY_USE | MOBILITY_PULL)
