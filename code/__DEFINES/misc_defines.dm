@@ -647,10 +647,10 @@ do { \
 //All
 #define MAP_GENERATOR_CLUSTER_CHECK_ALL				30 //Don't let anything cluster, like, at all
 
-// DNA Buffer datatype flags.
-#define DNA2_BUF_UI 1
-#define DNA2_BUF_UE 2
-#define DNA2_BUF_SE 4
+// Buffer datatype flags.
+#define DNA2_BUF_UI (1<<0)
+#define DNA2_BUF_UE (1<<1)
+#define DNA2_BUF_SE (1<<2)
 
 #define CLONER_BIOMASS_REQUIRED 150
 

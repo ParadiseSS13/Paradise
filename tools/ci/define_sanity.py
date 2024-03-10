@@ -17,14 +17,11 @@ def red(text):
 def blue(text):
     return "\033[34m" + str(text) + "\033[0m"
 
-def post_error(define_name, file, github_error_style, fix_error = False):
+def post_error(define_name, file, github_error_style):
     if github_error_style:
         print(f"::error file={file},title=Define Sanity::{define_name} is defined locally in {file} but not undefined locally!")
     else:
         print(red(f"- Failure: {define_name} is defined locally in {file} but not undefined locally!"))
-        if(fix_error):
-            with open(file, "a") as write_file:
-                write_file.write(f"#undef {define_name}\n") # We append at the \n because files end with \n
 
 def main():
 
@@ -85,12 +82,18 @@ def main():
 
     if len(located_error_tuples):
         fix_errors = False
-        if(not on_github):
-            fix_errors = input(red("We found files missing #undef\'s at the end. Would you like to fix these errors?") + " [y/n]: ").lower()[0] == "y" # Check if the answer is "Yes", "y", "Y", etc
         for error in located_error_tuples:
-            post_error(error[0], error[1], on_github, fix_errors)
+            post_error(error[0], error[1], on_github)
 
         print(red(how_to_fix_message))
+
+        if(not on_github):
+            fix_errors = input(red(f"We found {len(located_error_tuples)} defines missing #undef\'s at the end of their file. Would you like to fix these errors?") + " [y/n]: ").lower()[0] == "y" # Check if the answer is "Yes", "y", "Y", etc
+            if(fix_errors):
+                for error in located_error_tuples:
+                    with open(error[1], "a") as write_file:
+                        write_file.write(f"#undef {error[0]}\n") # We append at the \n because files end with \n
+
         sys.exit(1)
 
     else:
