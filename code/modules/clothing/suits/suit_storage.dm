@@ -27,11 +27,13 @@
 
 /obj/item/clothing/suit/storage/forceMove(atom/destination)
 	. = ..()
-	if(!ismob(destination.loc) && pockets != null)
-		for(var/mob/player in pockets.mobs_viewing)
-			if(player == destination)
-				continue
-			pockets.hide_from(player)
+	if(ismob(destination.loc) || isnull(pockets))
+		return
+		
+	for(var/mob/player in pockets.mobs_viewing)
+		if(player == destination)
+			continue
+		pockets.hide_from(player)
 
 /obj/item/clothing/suit/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
