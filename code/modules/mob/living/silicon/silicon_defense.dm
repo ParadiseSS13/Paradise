@@ -1,4 +1,5 @@
 /mob/living/silicon/grabbedby(mob/living/user)
+	remove_from_head(user)
 	return
 
 /mob/living/silicon/attack_alien(mob/living/carbon/alien/humanoid/M)
