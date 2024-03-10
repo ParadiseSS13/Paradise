@@ -1,9 +1,3 @@
-#define BASE_LAW_TYPE /datum/ai_laws/nanotrasen
-
-/mob/living/silicon
-	var/datum/ai_laws/laws = null
-	var/list/additional_law_channels = list("State" = "")
-
 /mob/living/silicon/proc/laws_sanity_check()
 	if(!src.laws)
 		laws = new BASE_LAW_TYPE
@@ -155,5 +149,3 @@
 			continue
 		law_options += L
 	return pick(law_options)
-
-#undef BASE_LAW_TYPE

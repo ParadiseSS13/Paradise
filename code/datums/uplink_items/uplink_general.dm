@@ -838,7 +838,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		even from a few steps away. However, results against anything more durable will heavily vary."
 	reference = "RZR"
 	item = /obj/item/autosurgeon/organ/syndicate/razorwire
-	cost = 15
+	cost = 20
 
 // POINTLESS BADASSERY
 

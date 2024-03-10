@@ -3,9 +3,9 @@
 
 //Request Console Department Types.
 //For one console to be under multiple categories, you need to add the numbers with each other. For example, value of 6 will allow you to request supplies and relay info to that specific console.
-#define RC_ASSIST 1		//Request Assistance
-#define RC_SUPPLY 2		//Request Supplies
-#define RC_INFO   4		//Relay Info
+#define RC_ASSIST (1<<0)		//Request Assistance
+#define RC_SUPPLY (1<<1)		//Request Supplies
+#define RC_INFO   (1<<2)		//Relay Info
 
 //Request Console Screens
 #define RCS_MAINMENU 0	// Main menu

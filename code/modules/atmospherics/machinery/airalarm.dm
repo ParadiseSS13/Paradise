@@ -47,12 +47,6 @@
 #define MAX_TEMPERATURE 363.15 // 90C
 #define MIN_TEMPERATURE 233.15 // -40C
 
-//all air alarms in area are connected via magic
-/area
-	var/obj/machinery/alarm/master_air_alarm
-	var/list/obj/machinery/atmospherics/unary/vent_pump/vents = list()
-	var/list/obj/machinery/atmospherics/unary/vent_scrubber/scrubbers = list()
-
 /obj/machinery/alarm
 	name = "air alarm"
 	desc = "A wall-mounted device used to control atmospheric equipment. It looks a little cheaply made..."

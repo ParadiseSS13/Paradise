@@ -18,8 +18,13 @@
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
+	hat_offset_y = -15
+	is_centered = TRUE
+	can_be_hatted = TRUE
+	can_wear_restricted_hats = TRUE
 	/// Cooldown for law syncs
 	var/sync_cooldown = 0
+
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
@@ -45,7 +50,13 @@
 	)
 
 	holder_type = /obj/item/holder/drone
+
 	var/datum/pathfinding_mover/pathfinding
+	silicon_subsystems = list(
+		/mob/living/silicon/robot/proc/set_mail_tag,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager,
+		/mob/living/silicon/proc/subsystem_power_monitor)
 
 
 /mob/living/silicon/robot/drone/New()
@@ -129,6 +140,7 @@
 			overlays += "eyes-repairbot-pathfinding"
 	else
 		overlays -= "eyes"
+	update_hat_icons()
 
 /mob/living/silicon/robot/drone/pick_module()
 	return
