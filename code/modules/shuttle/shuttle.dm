@@ -27,13 +27,9 @@
 	var/hidden = FALSE //are we invisible to shuttle navigation computers?
 
 	//these objects are indestructable
-
-
-/var/my_prohibited_global_var = 3
-
 /obj/docking_port/Destroy(force)
 	if(force)
-	    ..()
+		..()
 		. = QDEL_HINT_HARDDEL_NOW
 	else
 
