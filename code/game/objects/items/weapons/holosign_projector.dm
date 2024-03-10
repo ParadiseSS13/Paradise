@@ -102,7 +102,6 @@
 	creation_time = 1 SECONDS
 	max_signs = 8
 
-
 /obj/item/holosign_creator/engineering
 	name = "engineering holobarrier projector"
 	desc = "A holographic projector that creates holographic engineering barriers."
