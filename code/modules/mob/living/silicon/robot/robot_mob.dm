@@ -180,6 +180,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scanner.Grant(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
 
+	robot_module_hat_offset(icon_state)
+
 /mob/living/silicon/robot/get_radio()
 	return radio
 
@@ -448,6 +450,85 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return module_sprites
 
 /**
+  * Sets the offset for a cyborg's hats based on their module icon.
+  * Borgs are grouped by similar sprites (Eg. all the Noble borgs are all the same sprite but recoloured.)
+  *
+  * Arguments:
+  * * module - An `icon_state` for which the offset needs to be calculated.
+  */
+/mob/living/silicon/robot/proc/robot_module_hat_offset(module)
+	switch(module)
+		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot")
+			can_be_hatted = FALSE // Their base sprite already comes with a hat
+			hat_offset_y = -1
+		if("Noble-CLN", "Noble-SRV", "Noble-DIG", "Noble-MED", "Noble-SEC", "Noble-ENG", "Noble-STD")
+			can_be_hatted = TRUE
+			can_wear_restricted_hats = TRUE
+			hat_offset_y = 4
+		if("droid-medical")
+			can_be_hatted = TRUE
+			can_wear_restricted_hats = TRUE
+			hat_offset_y = 4
+		if("droid-miner", "mk2", "mk3")
+			can_be_hatted = TRUE
+			is_centered = TRUE
+			hat_offset_y = 3
+		if("bloodhound", "nano_bloodhound", "syndie_bloodhound", "ertgamma")
+			can_be_hatted = TRUE
+			hat_offset_y = 1
+		if("Cricket-SEC", "Cricket-MEDI", "Cricket-JANI", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV")
+			can_be_hatted = TRUE
+			hat_offset_y = 2
+		if("droidcombat-shield", "droidcombat")
+			can_be_hatted = TRUE
+			hat_alpha = 255
+			hat_offset_y = 2
+		if("droidcombat-roll")
+			can_be_hatted = TRUE
+			hat_alpha = 0
+			hat_offset_y = 2
+		if("syndi-medi", "surgeon", "toiletbot")
+			can_be_hatted = TRUE
+			is_centered = TRUE
+			hat_offset_y = 1
+		if("Security", "janitorrobot", "medicalrobot")
+			can_be_hatted = TRUE
+			is_centered = TRUE
+			can_wear_restricted_hats = TRUE
+			hat_offset_y = -1
+		if("Brobot", "Service", "Service2", "robot_old", "securityrobot")
+			can_be_hatted = TRUE
+			is_centered = TRUE
+			can_wear_restricted_hats = TRUE
+			hat_offset_y = -1
+		if("Miner", "lavaland")
+			can_be_hatted = TRUE
+			hat_offset_y = -1
+		if("robot", "Standard", "Standard-Secy", "Standard-Medi", "Standard-Engi",
+			"Standard-Jani", "Standard-Serv", "Standard-Mine", "xenoborg-state-a")
+			can_be_hatted = TRUE
+			hat_offset_y = -3
+		if("droid")
+			can_be_hatted = TRUE
+			is_centered = TRUE
+			can_wear_restricted_hats = TRUE
+			hat_offset_y = -4
+		if("landmate", "syndi-engi")
+			can_be_hatted = TRUE
+			hat_offset_y = -7
+		if("mopgearrex")
+			can_be_hatted = TRUE
+			hat_offset_y = -6
+
+	if(silicon_hat)
+		if(!can_be_hatted)
+			remove_from_head(usr)
+			return
+		if(!can_wear_restricted_hats && is_type_in_list(silicon_hat, restricted_hats))
+			remove_from_head(usr)
+			return
+
+/**
   * Sets up the module items and sprites for the cyborg module chosen in `pick_module()`.
   *
   * Arguments:
@@ -510,6 +591,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	custom_panel = trim(names[1])
 
 	update_module_icon()
+	robot_module_hat_offset(icon_state)
 	update_icons()
 	if(client.stat_tab == "Status")
 		SSstatpanels.set_status_tab(client)
@@ -538,6 +620,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.recalculateChannels()
 	custom_panel = null
 
+	robot_module_hat_offset(icon_state)
 	update_icons()
 	update_headlamp()
 
@@ -1087,6 +1170,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/update_icons()
 	overlays.Cut()
+	
 	if(stat != DEAD && !(IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
 			overlays += "eyes-[custom_panel]"
@@ -1107,6 +1191,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			overlays += "[panelprefix]-openpanel -c"
 	borg_icons()
+	robot_module_hat_offset(icon_state)
+	update_hat_icons()
 	update_fire()
 
 /mob/living/silicon/robot/proc/borg_icons() // Exists so that robot/destroyer can override it
@@ -1237,6 +1323,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(cell) //Sanity check.
 		cell.forceMove(T)
 		cell = null
+	drop_hat()
 	qdel(src)
 
 #define CAMERA_UPDATE_COOLDOWN 2.5 SECONDS
@@ -1586,8 +1673,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set category = "Robot Commands"
 	set name = "Power Warning"
 
-
-
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)
 		if(!start_audio_emote_cooldown(TRUE, 10 SECONDS))
 			to_chat(src, "<span class='warning'>The low-power capacitor for your speaker system is still recharging, please try again later.</span>")
@@ -1613,3 +1698,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		old_ai.connected_robots -= src
 	if(connected_ai)
 		connected_ai.connected_robots |= src
+
+/datum/emote/flip/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(isrobot(user))
+		var/mob/living/silicon/robot/borg = user
+		if(borg.drop_hat())
+			borg.visible_message("<span class='warning'><span class='name'>[src]</span> drops their hat!</span>",
+							"<span class='warning'>Your hat falls off!</span>")

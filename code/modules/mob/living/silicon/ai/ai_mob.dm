@@ -47,6 +47,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	see_invisible = SEE_INVISIBLE_LIVING_AI
 	see_in_dark = 8
 	can_strip = FALSE
+	hat_offset_y = 3
+	is_centered = TRUE
+	can_be_hatted = TRUE
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
 	var/list/connected_robots = list()
@@ -382,6 +385,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		change_power_mode(NO_POWER_USE)
 	if(powered_ai.anchored)
 		change_power_mode(ACTIVE_POWER_USE)
+
+/mob/living/silicon/ai/update_icons()
+	. = ..()
+	update_hat_icons()
 
 /mob/living/silicon/ai/proc/pick_icon()
 	set category = "AI Commands"
