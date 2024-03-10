@@ -68,10 +68,8 @@ export const PanDEMIC = (props, context) => {
               {emptyPlaceholder}
             </Section>
           )}
-          {((!!beakerContainsVirus && true) || false) && (
-            <CultureInformationSection />
-          )}
-          {(resistances || []).length > 0 && <ResistancesSection />}
+          {!!beakerContainsVirus && <CultureInformationSection />}
+          {resistances?.length > 0 && <ResistancesSection />}
         </Stack>
       </Window.Content>
     </Window>
@@ -121,9 +119,13 @@ const StrainInformation = (
   const bloodInformation = (
     <>
       <LabeledList.Item label="Blood DNA">
-        <span style={{ 'font-family': "'Courier New', monospace" }}>
-          {bloodDNA ?? 'Undetectable'}
-        </span>
+        {!bloodDNA ? (
+          'Undetectable'
+        ) : (
+          <span style={{ 'font-family': "'Courier New', monospace" }}>
+            {bloodDNA}
+          </span>
+        )}
       </LabeledList.Item>
       <LabeledList.Item label="Blood Type">
         {
@@ -248,7 +250,9 @@ const CultureInformationSection = (props, context) => {
           strainIndex={1}
           sectionButtons={<CommonCultureActions />}
         />
-        {strains[0].symptoms && <StrainSymptomsSection strain={strains[0]} />}
+        {strains[0].symptoms?.length > 0 && (
+          <StrainSymptomsSection strain={strains[0]} />
+        )}
       </>
     );
   }
