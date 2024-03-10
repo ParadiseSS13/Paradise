@@ -383,7 +383,6 @@
 	if(length(screen))
 		var/atom/movable/screen/plane_master/lamps_selfglow/LGL = locate() in screen
 		LGL.backdrop(mob)
-	// feedback_add_details("admin_verb","LGL")
 
 /client/verb/toggle_lamp_exposure()
 	set name = "Lighting: Lamp Exposure"
@@ -395,7 +394,6 @@
 	if(length(screen))
 		var/atom/movable/screen/plane_master/exposure/EXP = locate() in screen
 		EXP.backdrop(mob)
-	// feedback_add_details("admin_verb","LEXP")
 
 /client/verb/toggle_lamps_glare()
 	set name = "Lighting: Lamp Glare"
@@ -407,7 +405,6 @@
 	if(length(screen))
 		var/atom/movable/screen/plane_master/lamps_glare/GLR = locate() in screen
 		GLR.backdrop(mob)
-	// feedback_add_details("admin_verb","GLR")
 
 /client/verb/toggle_oldnew_lighting()
 	set name = "Lighting: Toggle Old/New Lighting"
@@ -429,4 +426,3 @@
 		EXP.backdrop(mob)
 		LGL.backdrop(mob)
 		GLR.backdrop(mob)
-	// feedback_add_details("admin_verb","OLGHT")

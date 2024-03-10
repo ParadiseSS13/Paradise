@@ -142,15 +142,6 @@
 	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = new (src, _color, _range, _power, _duration)
 	return mob_light_obj
 
-var/global/GLOW_BRIGHTNESS_BASE = -0.3 // 0.46
-var/global/GLOW_BRIGHTNESS_POWER = 0 // -1.6
-var/global/GLOW_CONTRAST_BASE = 0.6 // 10
-var/global/GLOW_CONTRAST_POWER = 0 // -0.15
-var/global/EXPOSURE_BRIGHTNESS_BASE = 0 // 0.2
-var/global/EXPOSURE_BRIGHTNESS_POWER = 0.01 // -0.2
-var/global/EXPOSURE_CONTRAST_BASE = 9.5 // 10
-var/global/EXPOSURE_CONTRAST_POWER = 0 // 0
-
 /atom/proc/update_bloom()
 	cut_overlay(glow_overlay)
 	cut_overlay(exposure_overlay)
@@ -161,7 +152,7 @@ var/global/EXPOSURE_CONTRAST_POWER = 0 // 0
 		glow_overlay.plane = LIGHTING_LAMPS_PLANE
 		glow_overlay.blend_mode = BLEND_OVERLAY
 		if(glow_colored)
-			var/datum/ColorMatrix/MATRIX = new(light_color, GLOW_CONTRAST_BASE + GLOW_CONTRAST_POWER * light_power, GLOW_BRIGHTNESS_BASE + GLOW_BRIGHTNESS_POWER * light_power)
+			var/datum/ColorMatrix/MATRIX = new(light_color, GLOB.configuration.lighting_effects.glow_contrast_base + GLOB.configuration.lighting_effects.glow_contrast_power * light_power, GLOB.configuration.lighting_effects.glow_brightness_base + GLOB.configuration.lighting_effects.glow_brightness_power * light_power)
 			glow_overlay.color = MATRIX.Get()
 
 		add_overlay(glow_overlay)
@@ -174,9 +165,9 @@ var/global/EXPOSURE_CONTRAST_POWER = 0 // 0
 		exposure_overlay.blend_mode = BLEND_ADD
 		exposure_overlay.appearance_flags = RESET_ALPHA | RESET_COLOR | KEEP_APART
 
-		var/datum/ColorMatrix/MATRIX = new(1, EXPOSURE_CONTRAST_BASE + EXPOSURE_CONTRAST_POWER * light_power, EXPOSURE_BRIGHTNESS_BASE + EXPOSURE_BRIGHTNESS_POWER * light_power)
+		var/datum/ColorMatrix/MATRIX = new(1, GLOB.configuration.lighting_effects.exposure_contrast_base + GLOB.configuration.lighting_effects.exposure_contrast_power * light_power, GLOB.configuration.lighting_effects.exposure_brightness_base + GLOB.configuration.lighting_effects.exposure_brightness_power * light_power)
 		if(exposure_colored)
-			MATRIX.SetColor(light_color, EXPOSURE_CONTRAST_BASE + EXPOSURE_CONTRAST_POWER * light_power, EXPOSURE_BRIGHTNESS_BASE + EXPOSURE_BRIGHTNESS_POWER * light_power)
+			MATRIX.SetColor(light_color, GLOB.configuration.lighting_effects.exposure_contrast_base + GLOB.configuration.lighting_effects.exposure_contrast_power * light_power, GLOB.configuration.lighting_effects.exposure_brightness_base + GLOB.configuration.lighting_effects.exposure_brightness_power * light_power)
 
 		exposure_overlay.color = MATRIX.Get()
 
