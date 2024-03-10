@@ -730,7 +730,7 @@
 	var/rolled_down = FALSE
 	var/basecolor
 
-/obj/item/clothing/under/rank/Initialize(mapload)
+/obj/item/clothing/under/Initialize(mapload)
 	. = ..()
 	if(random_sensor)
 		sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_VITALS, SENSOR_COORDS)
