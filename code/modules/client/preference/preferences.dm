@@ -67,7 +67,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/UI_style_alpha = 255
 	var/clientfps = 63
 	var/atklog = ATKLOG_ALL
-	var/fuid							// forum userid
+	var/fuid				// forum userid
 	var/old_lighting = FALSE
 	var/glowlevel = GLOW_MED
 	var/lampsexposure = TRUE

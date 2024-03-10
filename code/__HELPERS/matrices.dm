@@ -94,7 +94,6 @@
 
 	for(var/i = 1 to min(mat.len, 12))
 		mat[i] *= contrast
-
 	return mat
 
 /datum/ColorMatrix/proc/SetSaturation(s, c = 1, b = null)
@@ -105,7 +104,6 @@
 	matrix = list(c * (sr + s), c * (sr),     c * (sr),
 								c * (sg),     c * (sg + s), c * (sg),
 								c * (sb),     c * (sb),     c * (sb + s))
-
 	SetBrightness(b)
 
 /datum/ColorMatrix/proc/SetBrightness(brightness)
@@ -113,7 +111,6 @@
 
 	if(!matrix)
 		Reset()
-
 
 	if(matrix.len == 9 || matrix.len == 16)
 		matrix += brightness
@@ -134,17 +131,14 @@
 /datum/ColorMatrix/proc/hex2value(hex)
 	var/num1 = copytext(hex, 1, 2)
 	var/num2 = copytext(hex, 2)
-
 	if(isnum(text2num(num1)))
 		num1 = text2num(num1)
 	else
 		num1 = text2ascii(lowertext(num1)) - 87
-
 	if(isnum(text2num(num1)))
 		num2 = text2num(num1)
 	else
 		num2 = text2ascii(lowertext(num2)) - 87
-
 	return num1 * 16 + num2
 
 /datum/ColorMatrix/proc/SetColor(color, contrast = 1, brightness = null)

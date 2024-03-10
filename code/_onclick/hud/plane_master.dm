@@ -124,7 +124,6 @@
 	remove_filter("blur_exposure")
 	if(!istype(mymob) || mymob?.client?.prefs?.old_lighting)
 		return
-
 	var/enabled = mymob?.client?.prefs?.lampsexposure || FALSE
 
 	if(enabled)
@@ -148,12 +147,10 @@
 
 	if(!istype(mymob) || mymob?.client?.prefs?.old_lighting)
 		return
-
 	var/level = mymob?.client?.prefs?.glowlevel || FALSE
 
 	if(isnull(level))
 		return
-
 	var/bloomsize = 0
 	var/bloomoffset = 0
 	switch(level)

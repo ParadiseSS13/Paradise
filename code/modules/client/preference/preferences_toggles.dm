@@ -367,7 +367,6 @@
 	var/new_setting = input(src, "Set glow level of light sources:") as null|anything in list("Disable", "Low", "Medium (Default)", "High")
 	if(!new_setting)
 		return
-
 	switch(new_setting)
 		if("Disable")
 			prefs.glowlevel = GLOW_DISABLE

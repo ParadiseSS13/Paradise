@@ -4,10 +4,8 @@
 
 	if(!check_rights(R_VAREDIT)) // todo: debug
 		return
-
 	if(!holder.debug_bloom)
 		holder.debug_bloom = new /datum/bloom_edit(src)
-
 	holder.debug_bloom.ui_interact(usr)
 
 	message_admins("[key_name(src)] opened Bloom Edit panel.")
@@ -32,14 +30,12 @@
 	data["exposure_brightness_power"] = GLOB.configuration.lighting_effects.exposure_brightness_power
 	data["exposure_contrast_base"] = GLOB.configuration.lighting_effects.exposure_contrast_base
 	data["exposure_contrast_power"] = GLOB.configuration.lighting_effects.exposure_contrast_power
-
 	return data
 
 /datum/bloom_edit/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
-
 	switch(action)
 		if("glow_brightness_base")
 			GLOB.configuration.lighting_effects.glow_brightness_base = clamp(params["value"], -10, 10)
@@ -72,7 +68,6 @@
 					//L.update_light() // does nothing
 					L.set_light(0) // so we make this ugly way
 					L.update()
-
 	return TRUE
 
 /datum/bloom_edit/ui_state(mob/user)

@@ -33,7 +33,7 @@
 		old_lighting,
 		glowlevel,
 		lampsexposure,
-		lampsglare
+		lampsglare,
 		FROM player
 		WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
