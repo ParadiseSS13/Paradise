@@ -68244,14 +68244,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/machinery/power/apc{
-	name = "west bump";
-	pixel_x = -24
-	},
 /obj/structure/cable/orange{
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
