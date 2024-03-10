@@ -33,7 +33,7 @@
 
 /obj/machinery/computer/pandemic/proc/GetVirusByIndex(index)
 	var/list/viruses = GetViruses()
-	if (viruses && index > 0 && index <= length(viruses))
+	if(viruses && index > 0 && index <= length(viruses))
 		return viruses[index]
 
 /obj/machinery/computer/pandemic/proc/GetResistances()
@@ -47,7 +47,7 @@
 
 /obj/machinery/computer/pandemic/proc/GetResistancesByIndex(index)
 	var/list/resistances = GetResistances()
-	if (resistances && index > 0 && index <= length(resistances))
+	if(resistances && index > 0 && index <= length(resistances))
 		return resistances[index]
 
 /obj/machinery/computer/pandemic/proc/GetVirusTypeByIndex(index)
@@ -84,7 +84,7 @@
 	return B
 
 /obj/machinery/computer/pandemic/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
-	if (..())
+	if(..())
 		return
 	if(inoperable())
 		return
@@ -105,7 +105,7 @@
 				return
 			var/datum/disease/virus = GetVirusByIndex(strain_index)
 			var/datum/disease/D = null
-			if (!virus)
+			if(!virus)
 				atom_say("Unable to find requested strain.")
 				return
 			var/type = virus.GetDiseaseID()
@@ -116,11 +116,11 @@
 			else if(type)
 				if(type in GLOB.diseases) // Make sure this is a disease
 					D = new type(0, null)
-			if (!D)
+			if(!D)
 				atom_say("Unable to synthesize requested strain.")
 				return
 			var/default_name = ""
-			if (D.name == "Unknown" || D.name == "")
+			if(D.name == "Unknown" || D.name == "")
 				default_name = replacetext(beaker.name, new/regex(" culture bottle\\Z", "g"), "")
 			else
 				default_name = D.name
@@ -168,11 +168,11 @@
 				atom_say("Unable to respond to command.")
 				return
 			var/type = GetVirusTypeByIndex(strain_index)
-			if (!type)
+			if(!type)
 				atom_say("Unable to find requested strain.")
 				return
 			var/datum/disease/advance/A = GLOB.archive_diseases[type]
-			if (!A)
+			if(!A)
 				atom_say("Unable to find requested strain.")
 				return
 			print_form(A, usr)
@@ -182,14 +182,14 @@
 				atom_say("Unable to respond to command.")
 				return
 			var/type = GetVirusTypeByIndex(strain_index)
-			if (!type)
+			if(!type)
 				atom_say("Unable to find requested strain.")
 				return
 			var/datum/disease/advance/A = GLOB.archive_diseases[type]
-			if (!A)
+			if(!A)
 				atom_say("Unable to find requested strain.")
 				return
-			if (A.name != "Unknown")
+			if(A.name != "Unknown")
 				atom_say("Request rejected. Strain already has a name.")
 				return
 			var/new_name = tgui_input_text(usr, "Name the Strain", "New Name", max_length = MAX_NAME_LEN)
@@ -222,7 +222,7 @@
 
 /obj/machinery/computer/pandemic/ui_data(mob/user)
 	var/datum/reagent/blood/Blood = null
-	if (beaker)
+	if(beaker)
 		var/datum/reagents/R = beaker.reagents
 		for(var/datum/reagent/blood/B in R.reagent_list)
 			if(B)
