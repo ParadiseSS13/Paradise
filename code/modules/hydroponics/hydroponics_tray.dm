@@ -157,7 +157,7 @@
 		if(myseed && !dead)
 			// Advance age
 			age++
-			if(age < myseed.maturation)
+			if(age <= myseed.maturation)
 				lastproduce = age
 
 			needs_update = 1
@@ -232,7 +232,7 @@
 				adjustHealth(-rand(1,5) / rating)
 
 			// Harvest code
-			if(age > myseed.production && (age - lastproduce) > myseed.production && (!harvest && !dead))
+			if(age > myseed.production && (age - lastproduce) >= myseed.production && (!harvest && !dead))
 				nutrimentMutation()
 				if(myseed && myseed.yield != -1) // Unharvestable shouldn't be harvested
 					harvest = TRUE

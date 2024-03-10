@@ -1290,7 +1290,7 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
-/obj/machinery/computer/library,
+/obj/machinery/computer/library/syndie,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "gW" = (

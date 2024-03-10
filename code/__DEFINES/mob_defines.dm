@@ -67,9 +67,9 @@
 //feel free to add shit to lists below
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
-#define PROCESS_ORG 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
-#define PROCESS_SYN 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
-#define PROCESS_DUO 4		//Only processes reagents with "ORGANIC | SYNTHETIC"
+#define PROCESS_ORG (1<<0)		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
+#define PROCESS_SYN (1<<1)		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
+#define PROCESS_DUO (1<<2)		//Only processes reagents with "ORGANIC | SYNTHETIC"
 
 #define HUMAN_STRIP_DELAY 40 //takes 40ds = 4s to strip someone.
 #define ALIEN_SELECT_AFK_BUFFER 1 // How many minutes that a person can be AFK before not being allowed to be an alien.
@@ -105,24 +105,24 @@
 #define SYNTHETIC 2
 
 // Appearance change flags
-#define APPEARANCE_UPDATE_DNA 1
-#define APPEARANCE_RACE	2|APPEARANCE_UPDATE_DNA
-#define APPEARANCE_GENDER 4|APPEARANCE_UPDATE_DNA
-#define APPEARANCE_SKIN 8
-#define APPEARANCE_HAIR 16
-#define APPEARANCE_HAIR_COLOR 32
-#define APPEARANCE_SECONDARY_HAIR_COLOR 64
-#define APPEARANCE_FACIAL_HAIR 128
-#define APPEARANCE_FACIAL_HAIR_COLOR 256
-#define APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR 512
-#define APPEARANCE_EYE_COLOR 1024
-#define APPEARANCE_ALL_HAIR APPEARANCE_HAIR|APPEARANCE_HAIR_COLOR|APPEARANCE_SECONDARY_HAIR_COLOR|APPEARANCE_FACIAL_HAIR|APPEARANCE_FACIAL_HAIR_COLOR|APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR
-#define APPEARANCE_HEAD_ACCESSORY 2048
-#define APPEARANCE_MARKINGS 4096
-#define APPEARANCE_BODY_ACCESSORY 8192
-#define APPEARANCE_ALT_HEAD 16384
-#define APPEARANCE_ALL_BODY APPEARANCE_ALL_HAIR|APPEARANCE_HEAD_ACCESSORY|APPEARANCE_MARKINGS|APPEARANCE_BODY_ACCESSORY|APPEARANCE_ALT_HEAD
-#define APPEARANCE_ALL 32767
+#define APPEARANCE_UPDATE_DNA 					(1<<0)
+#define APPEARANCE_RACE							(1<<1)|APPEARANCE_UPDATE_DNA
+#define APPEARANCE_GENDER 						(1<<2)|APPEARANCE_UPDATE_DNA
+#define APPEARANCE_SKIN 						(1<<3)
+#define APPEARANCE_HAIR 						(1<<4)
+#define APPEARANCE_HAIR_COLOR 					(1<<5)
+#define APPEARANCE_SECONDARY_HAIR_COLOR 		(1<<6)
+#define APPEARANCE_FACIAL_HAIR 					(1<<7)
+#define APPEARANCE_FACIAL_HAIR_COLOR 			(1<<8)
+#define APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR 	(1<<9)
+#define APPEARANCE_EYE_COLOR 					(1<<10)
+#define APPEARANCE_ALL_HAIR 					(APPEARANCE_HAIR|APPEARANCE_HAIR_COLOR|APPEARANCE_SECONDARY_HAIR_COLOR|APPEARANCE_FACIAL_HAIR|APPEARANCE_FACIAL_HAIR_COLOR|APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR)
+#define APPEARANCE_HEAD_ACCESSORY 				(1<<11)
+#define APPEARANCE_MARKINGS 					(1<<12)
+#define APPEARANCE_BODY_ACCESSORY 				(1<<13)
+#define APPEARANCE_ALT_HEAD 					(1<<14)
+#define APPEARANCE_ALL_BODY 					(APPEARANCE_ALL_HAIR|APPEARANCE_HEAD_ACCESSORY|APPEARANCE_MARKINGS|APPEARANCE_BODY_ACCESSORY|APPEARANCE_ALT_HEAD)
+#define APPEARANCE_ALL 							((1<<15)-1) // If you add or remove an appearance change flag above, make sure you update this define with the amount of the flags.
 
 #define STAMINA_REGEN_BLOCK_TIME (10 SECONDS)
 
@@ -154,10 +154,10 @@
 #define AI_CHECK_RADIO 2
 
 //determines if a mob can smash through it
-#define ENVIRONMENT_SMASH_NONE 0
-#define ENVIRONMENT_SMASH_STRUCTURES 1 //crates, lockers, ect
-#define ENVIRONMENT_SMASH_WALLS 2   //walls
-#define ENVIRONMENT_SMASH_RWALLS 4  //rwalls
+#define ENVIRONMENT_SMASH_NONE 			0
+#define ENVIRONMENT_SMASH_STRUCTURES 	(1<<0) //crates, lockers, ect
+#define ENVIRONMENT_SMASH_WALLS 		(1<<1) //walls
+#define ENVIRONMENT_SMASH_RWALLS 		(1<<2) //rwalls
 
 // Reproduction
 #define DEFAULT_MAX_OFFSPRING 8
@@ -165,13 +165,13 @@
 ///Flags used by the flags parameter of electrocute act.
 
 ///Makes it so that the shock doesn't take gloves into account.
-#define SHOCK_NOGLOVES (1 << 0)
+#define SHOCK_NOGLOVES 	(1<<0)
 ///Used when the shock is from a tesla bolt.
-#define SHOCK_TESLA (1 << 1)
+#define SHOCK_TESLA 	(1<<1)
 ///Used when an illusion shocks something. Makes the shock deal stamina damage and not trigger certain secondary effects.
-#define SHOCK_ILLUSION (1 << 2)
+#define SHOCK_ILLUSION 	(1<<2)
 ///The shock doesn't stun.
-#define SHOCK_NOSTUN (1 << 3)
+#define SHOCK_NOSTUN 	(1<<3)
 
 #define POCKET_STRIP_DELAY			40	//time taken (in deciseconds) to search somebody's pockets
 
@@ -192,11 +192,11 @@
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 #define EYE_SHINE_THRESHOLD 6	//dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
 
-#define STATUS_UPDATE_HEALTH 1
-#define STATUS_UPDATE_STAT 2
-#define STATUS_UPDATE_STAMINA 8
-#define STATUS_UPDATE_BLIND 16
-#define STATUS_UPDATE_NEARSIGHTED 64
+#define STATUS_UPDATE_HEALTH 		(1<<0)
+#define STATUS_UPDATE_STAT 			(1<<1)
+#define STATUS_UPDATE_STAMINA 		(1<<2)
+#define STATUS_UPDATE_BLIND 		(1<<3)
+#define STATUS_UPDATE_NEARSIGHTED 	(1<<4)
 
 #define STATUS_UPDATE_NONE 0
 #define STATUS_UPDATE_ALL (~0)

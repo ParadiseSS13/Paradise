@@ -1060,7 +1060,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	syndicate = TRUE
 	installation = null
 	always_up = TRUE
-	requires_power = FALSE
+	interact_offline = TRUE
 	power_state = NO_POWER_USE
 	has_cover = FALSE
 	raised = TRUE
@@ -1164,7 +1164,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	syndicate = TRUE
 	installation = null
 	always_up = TRUE
-	requires_power = FALSE
+	interact_offline = TRUE
 	power_state = NO_POWER_USE
 	has_cover = FALSE
 	raised = TRUE

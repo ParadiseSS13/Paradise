@@ -222,27 +222,8 @@
 	if(method == REAGENT_TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/victim = M
-			var/mouth_covered = FALSE
-			var/eyes_covered = FALSE
-			var/obj/item/safe_thing = null
-			if(victim.wear_mask)
-				if(victim.wear_mask.flags_cover & MASKCOVERSEYES)
-					eyes_covered = TRUE
-					safe_thing = victim.wear_mask
-				if(victim.wear_mask.flags_cover & MASKCOVERSMOUTH)
-					mouth_covered = TRUE
-					safe_thing = victim.wear_mask
-			if(victim.head)
-				if(victim.head.flags_cover & MASKCOVERSEYES)
-					eyes_covered = TRUE
-					safe_thing = victim.head
-				if(victim.head.flags_cover & MASKCOVERSMOUTH)
-					mouth_covered = TRUE
-					safe_thing = victim.head
-
-			if(eyes_covered && mouth_covered)
-				to_chat(victim, "<span class='danger'>Your [safe_thing] protects you from the pepperspray!</span>")
-				return
+			var/mouth_covered = victim.is_mouth_covered()
+			var/eyes_covered = victim.is_eyes_covered()
 
 			if(!mouth_covered)
 				victim.apply_status_effect(STATUS_EFFECT_PEPPERSPRAYED)

@@ -213,75 +213,19 @@
 				message_admins("[key_name_admin(usr)] just attempted to href exploit sheet crafting with an invalid multiplier. Ban highly advised.")
 			multiplier = 1
 
-		if(get_amount() < R.req_amount * multiplier)
-			if(R.req_amount * multiplier > 1)
-				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.req_amount * multiplier] [R.title]\s!</span>")
-			else
-				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
-			return FALSE
-
-		if(R.window_checks && !valid_window_location(get_turf(src), usr.dir))
-			to_chat(usr, "<span class='warning'>\The [R.title] won't fit here!</span>")
-			return FALSE
-
-		if(R.one_per_turf && (locate(R.result_type) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
-			return FALSE
-
-		if(R.on_floor && !issimulatedturf(get_turf(src)))
-			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
-			return FALSE
-		if(R.on_floor_or_lattice && !(issimulatedturf(get_turf(src)) || locate(/obj/structure/lattice) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor or lattice!</span>")
-			return FALSE
-
-		if(R.cult_structure)
-			if(usr.holy_check())
-				return
-			if(!is_level_reachable(usr.z))
-				to_chat(usr, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
-				return
-			if(locate(/obj/structure/cult) in get_turf(src))
-				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-				return FALSE
-
-		if(R.time)
-			to_chat(usr, "<span class='notice'>Building [R.title]...</span>")
-			if(!do_after(usr, R.time, target = loc))
-				return FALSE
-
-		if(R.cult_structure && locate(/obj/structure/cult) in get_turf(src)) //Check again after do_after to prevent queuing construction exploit.
-			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-			return FALSE
-
-		if(get_amount() < R.req_amount * multiplier)
+		if(!R.try_build(usr, src, multiplier))
 			return
-
-		var/atom/O
-		if(R.max_res_amount > 1) //Is it a stack?
-			O = new R.result_type(get_turf(src), R.res_amount * multiplier)
-		else
-			O = new R.result_type(get_turf(src))
-		O.setDir(usr.dir)
-		use(R.req_amount * multiplier)
-		updateUsrDialog()
-
-		R.post_build(src, O)
+		var/obj/O
+		O = R.do_build(usr, src, multiplier, O)
+		if(!O)
+			return
+		R.post_build(usr, src, O)
 
 		if(amount < 1) // Just in case a stack's amount ends up fractional somehow
 			var/oldsrc = src
 			src = null //dont kill proc after qdel()
 			usr.unEquip(oldsrc, 1)
 			qdel(oldsrc)
-			if(isitem(O))
-				usr.put_in_hands(O)
-
-		O.add_fingerprint(usr)
-		//BubbleWrap - so newly formed boxes are empty
-		if(isstorage(O))
-			for(var/obj/item/I in O)
-				qdel(I)
-		//BubbleWrap END
 
 	if(src && usr.machine == src) //do not reopen closed window
 		spawn(0)

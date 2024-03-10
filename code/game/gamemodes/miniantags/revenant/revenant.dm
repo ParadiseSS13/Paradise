@@ -124,12 +124,12 @@
 		if(istype(M, /mob/living/simple_animal/revenant) || isobserver(M))
 			to_chat(M, rendered)
 
-/mob/living/simple_animal/revenant/Stat()
-	..()
-	if(statpanel("Status"))
-		stat(null, "Current essence: [essence]/[essence_regen_cap]E")
-		stat(null, "Stolen essence: [essence_accumulated]E")
-		stat(null, "Stolen perfect souls: [perfectsouls]")
+/mob/living/simple_animal/revenant/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Current essence:", "[essence]/[essence_regen_cap]E")
+	status_tab_data[++status_tab_data.len] = list("Stolen essence:", "[essence_accumulated]E")
+	status_tab_data[++status_tab_data.len] = list("Stolen perfect souls:", "[perfectsouls]")
 
 /mob/living/simple_animal/revenant/New()
 	..()

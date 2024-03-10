@@ -122,7 +122,7 @@
 				break
 
 /obj/item/rcl/on_mob_move(direct, mob/user)
-	if(active)
+	if(active && isturf(user.loc))
 		trigger(user)
 
 /obj/item/rcl/proc/trigger(mob/user)

@@ -169,21 +169,19 @@
 				inv2.icon_state = "inv2"
 				inv3.icon_state = "inv3"
 				module_active = module_state_1
-				return
 		if(2)
 			if(module_active != module_state_2)
 				inv1.icon_state = "inv1"
 				inv2.icon_state = "inv2 +a"
 				inv3.icon_state = "inv3"
 				module_active = module_state_2
-				return
 		if(3)
 			if(module_active != module_state_3)
 				inv1.icon_state = "inv1"
 				inv2.icon_state = "inv2"
 				inv3.icon_state = "inv3 +a"
 				module_active = module_state_3
-				return
+	update_icons()
 	return
 
 //deselect_module(module) - Deselects the module slot specified by "module"
@@ -195,17 +193,15 @@
 			if(module_active == module_state_1)
 				inv1.icon_state = "inv1"
 				module_active = null
-				return
 		if(2)
 			if(module_active == module_state_2)
 				inv2.icon_state = "inv2"
 				module_active = null
-				return
 		if(3)
 			if(module_active == module_state_3)
 				inv3.icon_state = "inv3"
 				module_active = null
-				return
+	update_icons()
 	return
 
 //toggle_module(module) - Toggles the selection of the module slot specified by "module".
@@ -240,7 +236,6 @@
 			select_module(slot_num)
 			return
 	while(slot_start != slot_num) //If we wrap around without finding any free slots, just give up.
-
 	return
 
 /mob/living/silicon/robot/unEquip(obj/item/I, force, silent = FALSE)

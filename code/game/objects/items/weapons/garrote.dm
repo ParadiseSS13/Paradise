@@ -172,6 +172,6 @@
 
 
 /obj/item/garrote/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck and pulling the handles! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck and pulling the handles! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 15, 1, -10, ignore_walls = FALSE)
 	return OXYLOSS

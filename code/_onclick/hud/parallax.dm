@@ -1,16 +1,3 @@
-/client
-	var/list/parallax_layers
-	var/list/parallax_layers_cached
-	var/static/list/parallax_static_layers_tail = newlist(/atom/movable/screen/parallax_pmaster, /atom/movable/screen/parallax_space_whitifier)
-	var/atom/movable/movingmob
-	var/turf/previous_turf
-	var/dont_animate_parallax //world.time of when we can state animate()ing parallax again
-	var/last_parallax_shift //world.time of last update
-	var/parallax_throttle = 0 //ds between updates
-	var/parallax_movedir = 0
-	var/parallax_layers_max = 4
-	var/parallax_animate_timer
-
 /datum/hud/proc/create_parallax()
 	var/client/C = mymob.client
 	if(!apply_parallax_pref())
@@ -107,7 +94,6 @@
 			var/T = PARALLAX_LOOP_TIME / L.speed
 			if(T > animate_time)
 				animate_time = T
-		C.dont_animate_parallax = world.time + min(animate_time, PARALLAX_LOOP_TIME)
 		animatedir = C.parallax_movedir
 
 	var/matrix/newtransform
@@ -183,14 +169,14 @@
 	if(!SA || !SA.moving)
 		set_parallax_movedir(0)
 	else
-		set_parallax_movedir(SA.parallax_movedir)
+		set_parallax_movedir(SA.parallax_move_direction)
 
 	var/force
 	if(!C.previous_turf || (C.previous_turf.z != posobj.z))
 		C.previous_turf = posobj
 		force = TRUE
 
-	if(!force && world.time < C.last_parallax_shift+C.parallax_throttle)
+	if(!force && world.time < (C.last_parallax_shift + C.parallax_throttle))
 		return
 
 	//Doing it this way prevents parallax layers from "jumping" when you change Z-Levels.

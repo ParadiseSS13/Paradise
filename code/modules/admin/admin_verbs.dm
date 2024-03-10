@@ -70,7 +70,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/view_instances,
 	/client/proc/start_vote,
 	/client/proc/ping_all_admins,
-	/client/proc/show_watchlist
+	/client/proc/show_watchlist,
+	/client/proc/debugstatpanel
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -180,8 +181,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debug_timers,
 	/client/proc/force_verb_bypass,
 	/client/proc/show_gc_queues,
-	/client/proc/toggle_mctabs,
-	/client/proc/debug_global_variables
+	/client/proc/debug_global_variables,
+	/client/proc/toggle_mctabs
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -248,87 +249,61 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/debug_variables, /*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
 	/client/proc/ss_breakdown,
 	/client/proc/show_gc_queues,
-	/client/proc/toggle_mctabs,
 	/client/proc/debug_global_variables,
 	/client/proc/visualise_active_turfs,
 	/client/proc/debug_timers,
-	/client/proc/timer_log
+	/client/proc/timer_log,
+	/client/proc/toggle_mctabs
 ))
 
 /client/proc/add_admin_verbs()
 	if(holder)
 		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES (65536), then give them the default admin verbs
 		if(holder.rights != R_VIEWRUNTIMES)
-			verbs += GLOB.admin_verbs_default
+			add_verb(src, GLOB.admin_verbs_default)
 		if(holder.rights & R_BUILDMODE)
-			verbs += /client/proc/togglebuildmodeself
+			add_verb(src, /client/proc/togglebuildmodeself)
 		if(holder.rights & R_ADMIN)
-			verbs += GLOB.admin_verbs_admin
-			verbs += GLOB.admin_verbs_ticket
+			add_verb(src, GLOB.admin_verbs_admin)
+			add_verb(src, GLOB.admin_verbs_ticket)
 			spawn(1)
 				control_freak = 0
 		if(holder.rights & R_BAN)
-			verbs += GLOB.admin_verbs_ban
+			add_verb(src, GLOB.admin_verbs_ban)
 		if(holder.rights & R_EVENT)
-			verbs += GLOB.admin_verbs_event
+			add_verb(src, GLOB.admin_verbs_event)
 		if(holder.rights & R_SERVER)
-			verbs += GLOB.admin_verbs_server
+			add_verb(src, GLOB.admin_verbs_server)
 		if(holder.rights & R_DEBUG)
-			verbs += GLOB.admin_verbs_debug
+			add_verb(src, GLOB.admin_verbs_debug)
 			spawn(1)
 				control_freak = 0 // Setting control_freak to 0 allows you to use the Profiler and other client-side tools
 		if(holder.rights & R_POSSESS)
-			verbs += GLOB.admin_verbs_possess
+			add_verb(src, GLOB.admin_verbs_possess)
 		if(holder.rights & R_PERMISSIONS)
-			verbs += GLOB.admin_verbs_permissions
+			add_verb(src, GLOB.admin_verbs_permissions)
 		if(holder.rights & R_STEALTH)
-			verbs += /client/proc/stealth
+			add_verb(src, /client/proc/stealth)
 		if(holder.rights & R_REJUVINATE)
-			verbs += GLOB.admin_verbs_rejuv
+			add_verb(src, GLOB.admin_verbs_rejuv)
 		if(holder.rights & R_SOUNDS)
-			verbs += GLOB.admin_verbs_sounds
+			add_verb(src, GLOB.admin_verbs_sounds)
 		if(holder.rights & R_SPAWN)
-			verbs += GLOB.admin_verbs_spawn
+			add_verb(src, GLOB.admin_verbs_spawn)
 		if(holder.rights & R_MOD)
-			verbs += GLOB.admin_verbs_mod
+			add_verb(src, GLOB.admin_verbs_mod)
 		if(holder.rights & R_MENTOR)
-			verbs += GLOB.admin_verbs_mentor
+			add_verb(src, GLOB.admin_verbs_mentor)
 		if(holder.rights & R_PROCCALL)
-			verbs += GLOB.admin_verbs_proccall
+			add_verb(src, GLOB.admin_verbs_proccall)
 		if(holder.rights & R_MAINTAINER)
-			verbs += GLOB.admin_verbs_maintainer
+			add_verb(src, GLOB.admin_verbs_maintainer)
 		if(holder.rights & R_VIEWRUNTIMES)
-			verbs += GLOB.view_runtimes_verbs
+			add_verb(src, GLOB.view_runtimes_verbs)
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
-
 		if(is_connecting_from_localhost())
-			verbs += /client/proc/export_current_character
-
-
-/client/proc/remove_admin_verbs()
-	verbs.Remove(
-		GLOB.admin_verbs_default,
-		/client/proc/togglebuildmodeself,
-		GLOB.admin_verbs_admin,
-		GLOB.admin_verbs_ban,
-		GLOB.admin_verbs_event,
-		GLOB.admin_verbs_server,
-		GLOB.admin_verbs_debug,
-		GLOB.admin_verbs_possess,
-		GLOB.admin_verbs_permissions,
-		/client/proc/stealth,
-		GLOB.admin_verbs_rejuv,
-		GLOB.admin_verbs_sounds,
-		GLOB.admin_verbs_spawn,
-		GLOB.admin_verbs_mod,
-		GLOB.admin_verbs_mentor,
-		GLOB.admin_verbs_proccall,
-		GLOB.admin_verbs_show_debug_verbs,
-		/client/proc/readmin,
-		GLOB.admin_verbs_ticket,
-		GLOB.admin_verbs_maintainer,
-	)
+			add_verb(src, /client/proc/export_current_character)
 
 /client/proc/hide_verbs()
 	set name = "Adminverbs - Hide All"
@@ -337,8 +312,30 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!holder)
 		return
 
-	remove_admin_verbs()
-	verbs += /client/proc/show_verbs
+	remove_verb(src, list(
+		/client/proc/togglebuildmodeself,
+		/client/proc/stealth,
+		/client/proc/readmin,
+		/client/proc/export_current_character,
+		GLOB.admin_verbs_default,
+		GLOB.admin_verbs_admin,
+		GLOB.admin_verbs_ban,
+		GLOB.admin_verbs_event,
+		GLOB.admin_verbs_server,
+		GLOB.admin_verbs_debug,
+		GLOB.admin_verbs_possess,
+		GLOB.admin_verbs_permissions,
+		GLOB.admin_verbs_rejuv,
+		GLOB.admin_verbs_sounds,
+		GLOB.admin_verbs_spawn,
+		GLOB.admin_verbs_mod,
+		GLOB.admin_verbs_mentor,
+		GLOB.admin_verbs_proccall,
+		GLOB.admin_verbs_show_debug_verbs,
+		GLOB.admin_verbs_ticket,
+		GLOB.admin_verbs_maintainer
+	))
+	add_verb(src, /client/proc/show_verbs)
 
 	to_chat(src, "<span class='interface'>Almost all of your adminverbs have been hidden.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Hide Admin Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -351,7 +348,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!holder)
 		return
 
-	verbs -= /client/proc/show_verbs
+	remove_verb(src, /client/proc/show_verbs)
 	add_admin_verbs()
 
 	to_chat(src, "<span class='interface'>All of your adminverbs are now visible.</span>")
@@ -602,7 +599,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [D].</span>")
 
 /client/proc/make_sound(obj/O in view()) // -- TLE
-	set category = "Event"
 	set name = "\[Admin\] Make Sound"
 	set desc = "Display a message to everyone who can hear the target"
 
@@ -631,7 +627,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Build Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/object_talk(msg as text) // -- TLE
-	set category = "Event"
 	set name = "oSay"
 	set desc = "Display a message to everyone who can hear the target"
 
@@ -662,7 +657,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	else
 		GLOB.de_mentors += ckey
 	deadmin()
-	verbs += /client/proc/readmin
+	add_verb(src, /client/proc/readmin)
 	update_active_keybindings()
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -762,7 +757,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		return
 	else
 		to_chat(src, "You are already an admin.")
-		verbs -= /client/proc/readmin
+		remove_verb(src, /client/proc/readmin)
 		GLOB.de_admins -= ckey
 		GLOB.de_mentors -= ckey
 		return
@@ -809,7 +804,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 /client/proc/change_human_appearance_admin(mob/living/carbon/human/H in GLOB.mob_list)
 	set name = "\[Admin\] C.M.A. - Admin"
 	set desc = "Allows you to change the mob appearance"
-	set category = null
 
 	if(!check_rights(R_EVENT))
 		return
@@ -835,7 +829,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 /client/proc/change_human_appearance_self(mob/living/carbon/human/H in GLOB.mob_list)
 	set name = "\[Admin\] C.M.A. - Self"
 	set desc = "Allows the mob to change its appearance"
-	set category = null
 
 	if(!check_rights(R_EVENT))
 		return
@@ -887,8 +880,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		message_admins("[key_name_admin(usr)] has freed a job slot for [job].")
 
 /client/proc/toggleattacklogs()
-	set name = "Toggle Attack Log Messages"
-	set category = "Preferences"
+	set name = "Attack Log Messages"
+	set category = "Preferences.Toggle"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -916,8 +909,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 
 /client/proc/toggleadminlogs()
-	set name = "Toggle Admin Log Messages"
-	set category = "Preferences"
+	set name = "Admin Log Messages"
+	set category = "Preferences.Toggle"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -930,8 +923,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		to_chat(usr, "You now will get admin log messages.")
 
 /client/proc/toggleMentorTicketLogs()
-	set name = "Toggle Mentor Ticket Messages"
-	set category = "Preferences"
+	set name = "Mentor Ticket Messages"
+	set category = "Preferences.Toggle"
 
 	if(!check_rights(R_MENTOR|R_ADMIN))
 		return
@@ -944,8 +937,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		to_chat(usr, "You now will get mentor ticket messages.")
 
 /client/proc/toggleticketlogs()
-	set name = "Toggle Admin Ticket Messgaes"
-	set category = "Preferences"
+	set name = "Admin Ticket Messgaes"
+	set category = "Preferences.Toggle"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -958,8 +951,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		to_chat(usr, "You now will get admin ticket messages.")
 
 /client/proc/toggledebuglogs()
-	set name = "Toggle Debug Log Messages"
-	set category = "Preferences"
+	set name = "Debug Log Messages"
+	set category = "Preferences.Toggle"
 
 	if(!check_rights(R_VIEWRUNTIMES | R_DEBUG))
 		return
@@ -972,7 +965,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		to_chat(usr, "You now won't get debug log messages")
 
 /client/proc/man_up(mob/T as mob in GLOB.player_list)
-	set category = null
 	set name = "\[Admin\] Man Up"
 	set desc = "Tells mob to man up and deal with it."
 
@@ -1059,6 +1051,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			log_admin("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
 			message_admins("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
 
+/client/proc/debugstatpanel()
+	set name = "Debug Stat Panel"
+	set category = "Debug"
+
+	src.stat_panel.send_message("create_debug")
 
 /client/proc/export_current_character()
 	set name = "Export Character DMI/JSON"

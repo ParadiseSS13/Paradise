@@ -67,7 +67,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
 /datum/admins/proc/show_player_panel(mob/M in GLOB.mob_list)
-	set category = null
 	set name = "\[Admin\] Show Player Panel"
 	set desc="Edit player (respawn, ban, heal, etc)"
 
@@ -806,7 +805,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /client/proc/update_mob_sprite(mob/living/carbon/human/H as mob)
 	set name = "\[Admin\] Update Mob Sprite"
 	set desc = "Should fix any mob sprite update errors."
-	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return

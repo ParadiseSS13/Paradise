@@ -817,3 +817,7 @@
 			actual_hud.invisibility = invis_value
 		else
 			actual_hud.invisibility = initial(actual_hud.invisibility)
+		// Yes we need to remove the HUD from all HUDs then re-add it to update the HUD being invisible.
+		// No, I don't like it either.
+		remove_from_all_data_huds()
+		add_to_all_human_data_huds()

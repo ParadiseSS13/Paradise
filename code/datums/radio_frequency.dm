@@ -1,6 +1,6 @@
 
 /datum/radio_frequency
-	var/frequency as num
+	var/frequency
 	var/list/obj/devices = list()
 
 /datum/radio_frequency/proc/post_signal(obj/source as obj|null, datum/signal/signal, filter = null as text|null, range = null as num|null)

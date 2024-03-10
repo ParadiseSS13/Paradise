@@ -16,9 +16,11 @@ menu "menu"
 		name = "&Reconnect"
 		command = ".reconnect"
 		category = "&File"
-	elem
-		name = ""
+	elem "debugmcbutton"
+		name = "&MC Debug"
+		command = "SS-Info-Breakdown"
 		category = "&File"
+		is-disabled = true
 	elem
 		name = "&Quit"
 		command = ".quit"
@@ -212,7 +214,7 @@ window "rpane"
 		is-vert = false
 	elem "textb"
 		type = BUTTON
-		pos = 3,7
+		pos = 0,7
 		size = 50x16
 		saved-params = "is-checked"
 		text = "Text"
@@ -221,7 +223,7 @@ window "rpane"
 		button-type = pushbox
 	elem "infob"
 		type = BUTTON
-		pos = 55,7
+		pos = 52,7
 		size = 50x16
 		is-checked = true
 		saved-params = "is-checked"
@@ -231,43 +233,43 @@ window "rpane"
 		button-type = pushbox
 	elem "wikib"
 		type = BUTTON
-		pos = 117,7
+		pos = 115,7
 		size = 50x16
 		text = "Wiki"
 		command = "wiki"
 	elem "forumb"
 		type = BUTTON
-		pos = 169,7
+		pos = 167,7
 		size = 50x16
 		text = "Forum"
 		command = "forum"
 	elem "rulesb"
 		type = BUTTON
-		pos = 221,7
+		pos = 219,7
 		size = 50x16
 		text = "Rules"
 		command = "rules"
 	elem "githubb"
 		type = BUTTON
-		pos = 273,7
+		pos = 271,7
 		size = 50x16
 		text = "GitHub"
 		command = "github"
 	elem "webmap"
 		type = BUTTON
-		pos = 325,7
+		pos = 323,7
 		size = 50x16
 		text = "Map"
 		command = "webmap"
 	elem "changelog"
 		type = BUTTON
-		pos = 387,7
+		pos = 385,7
 		size = 70x16
 		text = "Changelog"
 		command = "Changelog"
 	elem "discordb"
 		type = BUTTON
-		pos = 459,7
+		pos = 457,7
 		size = 60x16
 		font-style = "bold"
 		text-color = #ffffff
@@ -276,7 +278,7 @@ window "rpane"
 		command = "discord"
 	elem "donate"
 		type = BUTTON
-		pos = 521,7
+		pos = 519,7
 		size = 60x16
 		font-style = "bold"
 		text-color = #ffffff
@@ -296,8 +298,8 @@ window "outputwindow"
 		is-pane = true
 	elem "input"
 		type = INPUT
-		pos = 2,460
-		size = 517x20
+		pos = 0,460
+		size = 519x20
 		anchor1 = 0,100
 		anchor2 = 100,100
 		is-default = true
@@ -366,8 +368,8 @@ window "infowindow"
 		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
-	elem "info"
-		type = INFO
+	elem "statbrowser"
+		type = BROWSER
 		pos = 0,0
 		size = 0x0
 		anchor1 = 0,0

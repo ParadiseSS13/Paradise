@@ -2,7 +2,7 @@
 //Put handheld rocket launchers here if someone ever decides to make something so hilarious ~Paprika
 
 /obj/item/gun/projectile/revolver/grenadelauncher//this is only used for underbarrel grenade launchers at the moment, but admins can still spawn it if they feel like being assholes
-	desc = "A break-operated grenade launcher."
+	desc = "A break-action grenade launcher."
 	name = "grenade launcher"
 	icon_state = "dbshotgun_sawn"
 	item_state = "gun"
@@ -33,8 +33,8 @@
 	return
 
 /obj/item/gun/projectile/automatic/gyropistol
-	name = "gyrojet pistol"
-	desc = "A prototype pistol designed to fire self propelled rockets."
+	name = "\improper MX2000 gyrojet pistol"
+	desc = "A prototype pistol designed by Sunburst Heavy Industries, intended to fire self-propelled rockets."
 	icon_state = "gyropistol"
 	fire_sound = 'sound/effects/explosion1.ogg'
 	origin_tech = "combat=5"

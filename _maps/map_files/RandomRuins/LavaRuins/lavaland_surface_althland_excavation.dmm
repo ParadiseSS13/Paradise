@@ -1129,7 +1129,6 @@
 /area/lavaland/surface/outdoors)
 "Es" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/ladder/unusable,
 /turf/simulated/floor/chasm,
@@ -1366,7 +1365,7 @@
 /area/ruin/unpowered/althland_excavation)
 "Rf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
 	nitrogen = 0

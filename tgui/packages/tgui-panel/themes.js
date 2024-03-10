@@ -6,12 +6,12 @@
 
 export const THEMES = ['light', 'dark', 'ntos', 'syndicate', 'paradise'];
 
-const COLOR_DARK_BG = '#202020';
+const COLOR_DARK_BG = '#212020';
 const COLOR_DARK_BG_DARKER = '#131313';
 const COLOR_DARK_BG_BUTTON = '#4C4C4D';
 const COLOR_DARK_TEXT = '#A4BAD6';
 
-const COLOR_LIGHT_BG = '#EEEEEE';
+const COLOR_LIGHT_BG = '#EFEEEE';
 const COLOR_LIGHT_BG_LIGHTER = '#FFFFFF';
 const COLOR_LIGHT_BUTTON = '#EEEEEE';
 const COLOR_LIGHT_TEXT = '#000000';
@@ -31,6 +31,8 @@ const COLOR_PARADISE_BG_DARKER = '#400125';
 const COLOR_PARADISE_BUTTON = '#208080';
 const COLOR_PARADISE_TEXT = '#ffffff';
 
+let setClientThemeTimer = null;
+
 /**
  * Darkmode preference, originally by Kmc2000.
  *
@@ -42,6 +44,13 @@ const COLOR_PARADISE_TEXT = '#ffffff';
  * It's painful but it works, and is the way Lummox suggested.
  */
 export const setClientTheme = (name) => {
+  // Transmit once for fast updates and again in a little while in case we won
+  // the race against statbrowser init.
+  clearInterval(setClientThemeTimer);
+  Byond.command(`.output statbrowser:set_theme ${name}`);
+  setClientThemeTimer = setTimeout(() => {
+    Byond.command(`.output statbrowser:set_theme ${name}`);
+  }, 1500);
   if (name === 'light') {
     return Byond.winset({
       /* Buttons */
@@ -73,11 +82,6 @@ export const setClientTheme = (name) => {
       /* Infowindow */
       'infowindow.background-color': COLOR_LIGHT_BG,
       'infowindow.text-color': COLOR_LIGHT_TEXT,
-      'infowindow.info.background-color': COLOR_LIGHT_BG_LIGHTER,
-      'infowindow.info.text-color': COLOR_LIGHT_TEXT,
-      'infowindow.info.highlight-color': '#009900',
-      'infowindow.info.tab-text-color': COLOR_LIGHT_TEXT,
-      'infowindow.info.tab-background-color': COLOR_LIGHT_BG,
       // Say, OOC, me Buttons etc.
       'saybutton.background-color': COLOR_LIGHT_BG,
       'saybutton.text-color': COLOR_LIGHT_TEXT,
@@ -125,11 +129,6 @@ export const setClientTheme = (name) => {
       /* Infowindow */
       'infowindow.background-color': COLOR_DARK_BG,
       'infowindow.text-color': COLOR_DARK_TEXT,
-      'infowindow.info.background-color': COLOR_DARK_BG_DARKER,
-      'infowindow.info.text-color': COLOR_DARK_TEXT,
-      'infowindow.info.highlight-color': '#009900',
-      'infowindow.info.tab-text-color': COLOR_DARK_TEXT,
-      'infowindow.info.tab-background-color': COLOR_DARK_BG,
       // Say, OOC, me Buttons etc.
       'saybutton.background-color': COLOR_DARK_BG_DARKER,
       'saybutton.text-color': COLOR_DARK_TEXT,
@@ -177,11 +176,6 @@ export const setClientTheme = (name) => {
       /* Infowindow */
       'infowindow.background-color': COLOR_NTOS_BG,
       'infowindow.text-color': COLOR_NTOS_TEXT,
-      'infowindow.info.background-color': COLOR_NTOS_BG_DARKER,
-      'infowindow.info.text-color': COLOR_NTOS_TEXT,
-      'infowindow.info.highlight-color': '#1c71b1',
-      'infowindow.info.tab-text-color': COLOR_NTOS_TEXT,
-      'infowindow.info.tab-background-color': COLOR_NTOS_BG,
       // Say, OOC, me Buttons etc.
       'saybutton.background-color': COLOR_NTOS_BG,
       'saybutton.text-color': COLOR_NTOS_TEXT,
@@ -229,11 +223,6 @@ export const setClientTheme = (name) => {
       /* Infowindow */
       'infowindow.background-color': COLOR_SYNDICATE_BG,
       'infowindow.text-color': COLOR_SYNDICATE_TEXT,
-      'infowindow.info.background-color': COLOR_SYNDICATE_BG_DARKER,
-      'infowindow.info.text-color': COLOR_SYNDICATE_TEXT,
-      'infowindow.info.highlight-color': '#ff0000',
-      'infowindow.info.tab-text-color': COLOR_SYNDICATE_TEXT,
-      'infowindow.info.tab-background-color': COLOR_SYNDICATE_BG,
       // Say, OOC, me Buttons etc.
       'saybutton.background-color': COLOR_SYNDICATE_BG,
       'saybutton.text-color': COLOR_SYNDICATE_TEXT,
@@ -281,11 +270,6 @@ export const setClientTheme = (name) => {
       /* Infowindow */
       'infowindow.background-color': COLOR_PARADISE_BG,
       'infowindow.text-color': COLOR_PARADISE_TEXT,
-      'infowindow.info.background-color': COLOR_PARADISE_BG_DARKER,
-      'infowindow.info.text-color': COLOR_PARADISE_TEXT,
-      'infowindow.info.highlight-color': '#ffd319',
-      'infowindow.info.tab-text-color': COLOR_PARADISE_TEXT,
-      'infowindow.info.tab-background-color': COLOR_PARADISE_BG,
       // Say, OOC, me Buttons etc.
       'saybutton.background-color': COLOR_PARADISE_BG,
       'saybutton.text-color': COLOR_PARADISE_TEXT,
