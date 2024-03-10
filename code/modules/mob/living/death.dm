@@ -58,6 +58,9 @@
 	SetJitter(0)
 	SetLoseBreath(0)
 
+	overlay_fullscreen("robusted!", /atom/movable/screen/fullscreen/robusted)
+	addtimer(CALLBACK(src, PROC_REF(clear_robusted)), 20 SECONDS)
+
 	if(!gibbed && deathgasp_on_death)
 		emote("deathgasp")
 
@@ -93,6 +96,9 @@
 
 	// u no we dead
 	return TRUE
+
+/mob/living/proc/clear_robusted()
+	clear_fullscreen("robusted!")
 
 /mob/living/proc/delayed_gib(inflate_at_end = FALSE)
 	visible_message("<span class='danger'><b>[src]</b> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")

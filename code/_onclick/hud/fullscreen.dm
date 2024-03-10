@@ -209,7 +209,43 @@
 	given_x = round(icon_x - world.icon_size * our_x, 1)
 	given_y = round(icon_y - world.icon_size * our_y, 1)
 
-
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER
 #undef CRIT_LAYER
+
+/atom/movable/screen/fullscreen/robusted
+	name = "robusted"
+	icon_state = "robusted"
+	layer = 20.8 // Just under the hud layer
+	opacity = MOUSE_OPACITY_ICON
+	blend_mode = BLEND_OVERLAY
+	var/is_parent = TRUE
+	var/atom/movable/screen/fullscreen/robusted/respawn/respawn
+	var/atom/movable/screen/fullscreen/robusted/open_pr/pr_screen
+
+/atom/movable/screen/fullscreen/robusted/New()
+	. = ..()
+	if(is_parent)
+		respawn = new()
+		pr_screen = new()
+
+/atom/movable/screen/fullscreen/robusted/Destroy()
+	. = ..()
+	if(is_parent)
+		qdel(respawn)
+		qdel(pr_screen)
+
+/atom/movable/screen/fullscreen/robusted/respawn
+	name = "Respawn?"
+	icon_state = "respawn"
+	layer = 20.9 // Just under the hud layer
+	is_parent = FALSE
+
+/atom/movable/screen/fullscreen/robusted/respawn/Click(location,control,params)
+	to_chat(usr, "This works!")
+
+/atom/movable/screen/fullscreen/robusted/open_pr
+	name = "Open balance PR!"
+	icon_state = "open_pr"
+	layer = 20.9 // Just under the hud layer
+	is_parent = FALSE
