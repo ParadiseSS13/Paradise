@@ -39,8 +39,10 @@
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 	var/contact_poison_poisoner = null
-	var/paper_width = 600//Width of the window that opens
-	var/paper_height = 750//Height of the window that opens
+	/// Width of the window that opens
+	var/paper_width = 600
+	/// Height of the window that opens
+	var/paper_height = 750
 
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"
