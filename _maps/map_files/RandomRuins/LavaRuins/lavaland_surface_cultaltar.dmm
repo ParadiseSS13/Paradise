@@ -24,7 +24,7 @@
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "h" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/wall/cult,
 /area/ruin/unpowered/misc_lavaruin)
 "i" = (
