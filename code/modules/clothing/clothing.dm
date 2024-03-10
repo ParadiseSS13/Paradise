@@ -528,10 +528,10 @@
 	if(istype(I, /obj/item/kitchen/knife/combat))
 		var/obj/item/kitchen/knife/combat/W = I
 		if(!knife_slot)
-			to_chat(user, "There is no place to put [W] in [src]!")
+			to_chat(user, "<span class='notice'>There is no place to put [W] in [src]!</span>")
 			return
 		if(hidden_blade)
-			to_chat(user, "There is already something in [src]!")
+			to_chat(user, "<span class='notice'>There is already something in [src]!</span>")
 			return
 		if(!user.unEquip(W))
 			return
