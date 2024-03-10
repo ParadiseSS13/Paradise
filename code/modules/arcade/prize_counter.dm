@@ -59,23 +59,18 @@
 /obj/machinery/prize_counter/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN))
-		return
+	. = TRUE
 
-	var/mob/user = ui.user
+	add_fingerprint(usr)
 	switch(action)
 		if("purchase")
-			. = TRUE
 			var/itemID = text2num(params["purchase"])
 			if(!GLOB.global_prizes.PlaceOrder(src, itemID))
 				return
+			return TRUE
 		if("eject")
-			. = TRUE
-			print_tickets(user)
-	if(.)
-		add_fingerprint(user)
-
-	return TRUE
+			print_tickets(usr)
+			return TRUE
 
 /obj/machinery/prize_counter/update_icon_state()
 	if(stat & BROKEN)
