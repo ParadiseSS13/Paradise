@@ -74,7 +74,7 @@
 	return SSticker.mode.get_cult_team()
 
 /datum/antagonist/cultist/get_team()
-	return SSticker.mode.get_cult_team()
+	return SSticker.mode.cult_team
 
 /datum/antagonist/cultist/on_body_transfer(old_body, new_body)
 	var/datum/team/cult/cult = get_team()

@@ -10,10 +10,11 @@
 	SSshuttle.registerHostileEnvironment(src)
 
 /datum/team/revolution/Destroy(force, ...)
-	SSticker.mode.rev_team = null
 	SSshuttle.clearHostileEnvironment(src)
 	return ..()
 
+/datum/team/revolution/clear_team_reference()
+	SSticker.mode.rev_team = null
 
 /datum/team/revolution/get_target_excludes()
 	return ..() + get_targetted_head_minds()

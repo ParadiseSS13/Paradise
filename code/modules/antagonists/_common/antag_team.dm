@@ -32,10 +32,14 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /datum/team/Destroy(force = FALSE, ...)
 	for(var/datum/mind/member as anything in members)
 		remove_member(member)
+	clear_team_reference() // Team reference must come AFTER removing all members, otherwise antag datums will not get removed
 	qdel(objective_holder)
 	members.Cut()
 	GLOB.antagonist_teams -= src
 	return ..()
+
+/datum/team/proc/clear_team_reference()
+	return
 
 /**
  * Adds `new_member` to this team.
@@ -52,7 +56,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	return TRUE
 
 /**
- * An internal proc to allow teams to handle custom
+ * An internal proc to allow teams to handle custom parts of adding a member.
  * This should ONLY be called by `add_member()` to ensure proper order of operations.
  */
 /datum/team/proc/handle_adding_member(datum/mind/new_member)
@@ -76,7 +80,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	return TRUE
 
 /**
- * An internal proc for treams
+ * An internal proc for teams to remove a member.
  */
 /datum/team/proc/handle_removing_member(datum/mind/member, force = FALSE)
 	PROTECTED_PROC(TRUE)

@@ -38,7 +38,7 @@
 	return SSticker.mode.get_rev_team()
 
 /datum/antagonist/rev/get_team()
-	return SSticker.mode.get_rev_team()
+	return SSticker.mode.rev_team
 
 /datum/antagonist/rev/give_objectives()
 	var/datum/team/revolution/revolting = get_team()

@@ -43,13 +43,9 @@
 		var/datum/antagonist/cultist/cultist = M.has_antag_datum(/datum/antagonist/cultist)
 		cultist.equip_roundstart_cultist()
 
-/datum/team/cult/Destroy(force, ...)
+/datum/team/cult/clear_team_reference()
 	SSticker.mode.cult_team = null
-	return ..()
 
-
-// /datum/team/cult/get_target_excludes()
-// 	return ..() + get_targetted_head_minds()
 /datum/team/cult/handle_adding_member(datum/mind/new_member)
 	. = ..()
 	check_cult_size()
