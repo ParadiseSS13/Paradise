@@ -1,6 +1,6 @@
 /datum/supply_packs
 	var/name
-	v	/// OBJ: What is inside the crate
+	/// OBJ: What is inside the crate
 	var/list/contains = list()
 	/// STRING: What is inside the crate
 	var/list/contains_special = list()
