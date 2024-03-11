@@ -160,5 +160,5 @@
 	updatehealth()
 
 /mob/living/brain/do_suicide()
-	to_chat(viewers(src), "<span class='danger'>[src] is thinking about thinking about thinking about thinking about.... It looks like [p_theyre()] trying to commit suicide!</span>")
+	visible_message("<span class='danger'>[src] is thinking about thinking about thinking about thinking about.... It looks like [p_theyre()] trying to commit suicide!</span>")
 	death()
