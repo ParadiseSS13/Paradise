@@ -113,12 +113,12 @@ menu "menu"
 		command = "Open-Volume-Mixer"
 		category = "&Опции"
 	elem "statusbar"
-		name = "&Показывать статус бар"
+		name = "&Скрыть статус бар"
 		category = "&Опции"
 		can-check = true
 		is-checked = true
 		saved-params = "is-checked"
-		command = ".winset \"menu.statusbar.is-checked=true?paramapwindow.status_bar.is-visible=true:paramapwindow.status_bar.is-visible=false\""
+		command = ".winset \"menu.statusbar.is-checked=false?paramapwindow.status_bar.is-visible=true:paramapwindow.status_bar.is-visible=false\""
 	elem
 		name = "&Помощь"
 	elem
@@ -181,7 +181,7 @@ window "paramapwindow"
 		saved-params = "icon-size;zoom-mode"
 		zoom-mode = "distort"
 		style = ".center { text-align: center; } .maptext { font-family: 'MS Serif'; font-size: 7px; -dm-text-outline: 1px black; color: white; line-height: 1.1; } .small { font-family: 'Small Fonts'; font-size: 6px; } .big { font-size: 8px; } .reallybig { font-size: 8px; } .extremelybig { font-size: 8px; } .clown { color: #FF69Bf;} .tajaran {color: #803B56;} .skrell {color: #00CED1;} .solcom {color: #22228B;} .com_srus {color: #7c4848;} .zombie\t{color: #ff0000;} .soghun {color: #228B22;} .vox {color: #AA00AA;} .diona {color: #804000; font-weight: bold;} .trinary {color: #727272;} .kidan {color: #664205;} .slime {color: #0077AA;} .drask {color: #a3d4eb;} .vulpkanin {color: #B97A57;} .abductor {color: #800080;} .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; }" .italics { font-family: 'Small Fonts'; }"
-		on-show = ".winset \"menu.statusbar.is-checked=true?paramapwindow.status_bar.is-visible=true:paramapwindow.status_bar.is-visible=false\""
+		on-show = ".winset \"menu.statusbar.is-checked=false?paramapwindow.status_bar.is-visible=true:paramapwindow.status_bar.is-visible=false\""
 	elem "title_browser"
 		type = BROWSER
 		pos = 0,0
@@ -223,44 +223,44 @@ window "rpane"
 		left = "infowindow"
 		right = "outputwindow"
 		is-vert = false
-	elem "infob"
-		type = BUTTON
-		pos = 0,7
-		size = 40x16
-		is-checked = true
-		saved-params = "is-checked"
-		text = "Инфо"
-		command = ".winset \"rpanewindow.top=infowindow\""
-		group = "rpanemode"
-		button-type = pushbox
 	elem "wikib"
 		type = BUTTON
-		pos = 45,7
-		size = 50x16
+		pos = 0,6
+		size = 75x17
+		anchor1 = 0,0
+		anchor2 = 14,0
 		text = "Вики"
 		command = "wiki"
 	elem "rulesb"
 		type = BUTTON
-		pos = 96,7
-		size = 60x16
+		pos = 80,6
+		size = 75x17
+		anchor1 = 14,0
+		anchor2 = 28,0
 		text = "Правила"
 		command = "rules"
-	elem "githubb"
-		type = BUTTON
-		pos = 157,7
-		size = 50x16
-		text = "GitHub"
-		command = "github"
 	elem "webmap"
 		type = BUTTON
-		pos = 208,7
-		size = 50x16
+		pos = 160,6
+		size = 75x17
+		anchor1 = 28,0
+		anchor2 = 40,0
 		text = "Карта"
 		command = "webmap"
+	elem "githubb"
+		type = BUTTON
+		pos = 240,6
+		size = 75x17
+		anchor1 = 40,0
+		anchor2 = 52,0
+		text = "GitHub"
+		command = "github"
 	elem "discordb"
 		type = BUTTON
-		pos = 263,7
-		size = 60x16
+		pos = 320,6
+		size = 75x17
+		anchor1 = 52,0
+		anchor2 = 64,0
 		font-style = "bold"
 		text-color = #ffffff
 		background-color = #7289da
@@ -268,8 +268,10 @@ window "rpane"
 		command = "discord"
 	elem "donate"
 		type = BUTTON
-		pos = 324,7
-		size = 60x16
+		pos = 400,6
+		size = 75x17
+		anchor1 = 64,0
+		anchor2 = 76,0
 		font-style = "bold"
 		text-color = #ffffff
 		background-color = #ef642b
@@ -277,16 +279,20 @@ window "rpane"
 		command = "Donate"
 	elem "changelog"
 		type = BUTTON
-		pos = 389,7
-		size = 70x16
+		pos = 480,6
+		size = 75x17
+		anchor1 = 76,0
+		anchor2 = 88,0
 		font-style = "bold"
 		text-color = #ffffff
 		text = "Changelog"
 		command = "Changelog"
 	elem "fullscreenb"
 		type = BUTTON
-		pos = 464,7
-		size = 70x16
+		pos = 560,6
+		size = 75x17
+		anchor1 = 88,0
+		anchor2 = 100,0
 		font-style = "bold"
 		text-color = #ffffff
 		background-color = #40628A
@@ -384,7 +390,7 @@ window "infowindow"
 		anchor2 = 100,100
 		is-default = true
 		highlight-color = #00aa00
-		on-show = ".winset \"rpane.infob.is-checked=true?rpane.rpanewindow.top=infowindow:rpane.rpanewindow.top=\""
+		on-show = ".winset \"rpane.rpanewindow.top=infowindow\""
 
 window "tgui_say"
 	elem "tgui_say"
