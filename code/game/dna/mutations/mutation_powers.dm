@@ -447,7 +447,6 @@
 				if(istype(chest))
 					chest.receive_damage(50, sharp = TRUE)
 
-				
 			doHeal(user)
 	else
 		user.visible_message("<span class='danger'>[user] eats \the [the_item].</span>")
