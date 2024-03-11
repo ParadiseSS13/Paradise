@@ -1,10 +1,15 @@
 name: Merge Queue Tests
-on: merge_group
+on:
+  merge_group:
+  push:
+  pull_request:
 
 jobs:
   verify_merge:
     name: Verify map merge sanity
     runs-on: ubuntu-latest
+    # Below if lets it run as a required check but skip on normal push/PR events
+    if: ${{ github.event_name == 'merge_group'}}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
