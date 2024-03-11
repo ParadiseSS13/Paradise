@@ -7,12 +7,6 @@
 /* Defines */
 #define CUSTOM_VIEWRANGES list(1, 2, 3, 4, 5, 6, "RESET")
 
-/* Viewmods */
-/client
-	var/list/ViewMods = list()
-	var/ViewModsActive = FALSE
-	var/ViewPreferedIconSize = 0
-
 /client/proc/AddViewMod(id, size)
 	var/datum/viewmod/V = new /datum/viewmod(id, size)
 	ViewMods[V.id] = V

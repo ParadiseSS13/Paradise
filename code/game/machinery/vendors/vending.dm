@@ -960,6 +960,7 @@
 		. = fall_and_crush(get_turf(victim), damage, should_crit, crit_damage_factor, null, from_combat ? 4 SECONDS : 6 SECONDS, 12 SECONDS, FALSE, picked_angle)
 		if(.)
 			tilted = TRUE
+			anchored = FALSE
 			layer = ABOVE_MOB_LAYER
 
 	var/should_throw_at_target = TRUE

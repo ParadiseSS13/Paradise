@@ -60,6 +60,9 @@
 	/// Last color calculated for the the chatmessage overlays. Used for caching.
 	var/chat_color
 
+	/*
+	Smoothing Vars
+	*/
 	///Icon-smoothing behavior.
 	var/smoothing_flags = NONE
 	///Smoothing variable
@@ -78,6 +81,29 @@
 	var/smoothing_junction = null //This starts as null for us to know when it's first set, but after that it will hold a 8-bit mask ranging from 0 to 255.
 	///Used for changing icon states for different base sprites.
 	var/base_icon_state
+	/// This var isn't actually used for anything, but is present so that DM's map reader doesn't forfeit on reading a JSON-serialized map. AKA DO NOT FUCK WITH
+	var/map_json_data
+
+	/*
+	Lighting Vars
+	*/
+	/// Intensity of the light. Can be negative to remove light
+	var/light_power = 1
+	// Range in tiles of the light.
+	var/light_range = 0
+	// Hexadecimal RGB string representing the colour of the light. ALWAYS REMEMBER TO MAKE SURE THIS CAN'T BE NULL/NEGATIVE
+	var/light_color
+
+	// Our light source. Don't fuck with this directly unless you have a good reason!
+	var/tmp/datum/light_source/light
+	// Any light sources that are "inside" of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.
+	var/tmp/list/light_sources
+	/// The alternate appearances we own. Lazylist
+	var/list/alternate_appearances
+	/// The alternate appearances we're viewing, stored here to reestablish them after Logout()s. Lazylist
+	var/list/viewing_alternate_appearances
+	/// Contains the world.time of when we start dragging something with our mouse. Used to prevent weird situations where you fail to click on something
+	var/drag_start = 0
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)

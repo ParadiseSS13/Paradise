@@ -33,6 +33,8 @@
 	flags_cover = HEADCOVERSEYES
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
+	cold_protection = HEAD
+	heat_protection = HEAD
 	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 50, RAD = 50, FIRE = 50, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
@@ -49,6 +51,7 @@
 	icon_state = "hostile_env"
 	item_state = "hostile_env"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS|FEET
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	slowdown = 0
 	armor = list(MELEE = 120, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
@@ -86,6 +89,7 @@
 	flags = BLOCKHAIR
 	w_class = WEIGHT_CLASS_NORMAL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	heat_protection = HEAD
 	armor = list(MELEE = 120, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 
@@ -97,3 +101,41 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi'
 	)
+
+/obj/item/clothing/suit/space/prisoner_gulag
+	name = "prisoner gulag suit"
+	desc = "An unarmored heat resistant mining suit, heavy and uncomfortable as a punishment in itself."
+	icon_state = "hardsuit_gulag"
+	item_state = "hardsuit_gulag"
+	w_class = WEIGHT_CLASS_BULKY
+	gas_transfer_coefficient = 0.90
+	permeability_coefficient = 0.50
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/extinguisher)
+	slowdown = 1
+	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 50, RAD = 10, FIRE = 50, ACID = 50)
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	strip_delay = 60
+	put_on_delay = 60
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe)
+	resistance_flags = FIRE_PROOF
+	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
+
+/obj/item/clothing/head/space/prisoner_gulag
+	name = "gulag helmet"
+	desc = "A metallic helmet designed to operate with the mining suit, while dense it offers little protection aside heat."
+	icon_state = "hardsuit_gulag"
+	item_state = "hardsuit_gulag"
+	body_parts_covered = HEAD
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
+	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
+	cold_protection = HEAD
+	heat_protection = HEAD
+	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 50, RAD = 10, FIRE = 50, ACID = 50)
+	resistance_flags = FIRE_PROOF
