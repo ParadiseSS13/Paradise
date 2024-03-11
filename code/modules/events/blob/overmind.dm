@@ -133,12 +133,7 @@
 		return
 
 	// Create a ghost from the blob overmind
-	var/mob/dead/observer/ghost = new(get_turf(src))
-	ghost.ckey = src.ckey
-	ghost.name = src.name
-
-	// Clear the blob overmind's key to disconnect the player
-	src.ckey = null
+	ghostize(FALSE)
 
 	// Notify admins
 	message_admins("[key_name_admin(ghost)] has ghosted from a blob overmind.")
