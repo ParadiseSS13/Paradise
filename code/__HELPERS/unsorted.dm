@@ -1124,10 +1124,6 @@ Returns 1 if the chain up to the area contains the given typepath
 		loc = loc.loc
 	return null
 
-/proc/get_turf_or_move(turf/location)
-	return get_turf(location)
-
-
 //For objects that should embed, but make no sense being is_sharp or is_pointed()
 //e.g: rods
 GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
