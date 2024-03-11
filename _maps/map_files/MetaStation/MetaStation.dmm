@@ -25042,7 +25042,6 @@
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/hologram/holopad,
 /turf/simulated/floor/greengrid,
 /area/station/science/robotics/chargebay)
 "bGT" = (
@@ -62251,7 +62250,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "kfR" = (
-/obj/machinery/hologram/holopad,
 /obj/machinery/alarm{
 	dir = 4;
 	name = "west bump";
@@ -76523,12 +76521,6 @@
 	icon_state = "dark"
 	},
 /area/station/aisat)
-"qbH" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/station/science/explab)
 "qbU" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
@@ -128431,7 +128423,7 @@ tqF
 wcT
 aeA
 uHQ
-qbH
+cha
 lfu
 tRD
 cgG
