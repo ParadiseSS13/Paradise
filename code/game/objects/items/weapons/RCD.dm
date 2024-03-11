@@ -360,7 +360,7 @@
 			var/answer = params["answer"]
 			if(!answer)
 				return
-			door_name = sanitize(copytext(answer, 1, UI_MODAL_INPUT_MAX_LENGTH_NAME))
+			door_name = sanitize(copytext_char(answer, 1, UI_MODAL_INPUT_MAX_LENGTH_NAME))
 		else
 			return FALSE
 
@@ -703,3 +703,10 @@
 
 #undef MATTER_100
 #undef MATTER_500
+
+#undef TAB_AIRLOCK_TYPE
+#undef TAB_AIRLOCK_ACCESS
+#undef MODE_TURF
+#undef MODE_AIRLOCK
+#undef MODE_WINDOW
+#undef MODE_DECON

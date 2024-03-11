@@ -1325,3 +1325,5 @@
 	return list(effect, update_flags)
 
 #undef DRAWBACK_CHANCE_MODIFIER
+#undef CONSTANT_DOSE_SAFE_LIMIT
+#undef CONSTANT_DOSE_DEATH_LIMIT
