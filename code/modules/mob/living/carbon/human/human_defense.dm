@@ -512,11 +512,11 @@ emp_act
 
 	apply_damage(I.force + bonus_damage , I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
 
-	var/bloody = TRUE
+	var/bloody = FALSE
 	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))
 		I.add_mob_blood(src)	//Make the weapon bloody, not the person.
 		if(prob(I.force * 2)) //blood spatter!
-			bloody = FALSE
+			bloody = TRUE
 			var/turf/location = loc
 			if(issimulatedturf(location))
 				add_splatter_floor(location, emittor_intertia = inertia_next_move > world.time ? last_movement_dir : null)
