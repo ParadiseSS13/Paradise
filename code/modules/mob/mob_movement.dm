@@ -189,9 +189,6 @@
 	if(mob && . && mob.throwing)
 		mob.throwing.finalize(FALSE)
 
-	for(var/obj/O in mob)
-		O.on_mob_move(direct, mob)
-
 #undef CONFUSION_LIGHT_COEFFICIENT
 #undef CONFUSION_HEAVY_COEFFICIENT
 #undef CONFUSION_MAX
@@ -515,3 +512,6 @@
 		hud_used.move_intent.icon_state = icon_toggle
 		for(var/atom/movable/screen/mov_intent/selector in hud_used.static_inventory)
 			selector.update_icon()
+
+#undef MOVEMENT_DELAY_BUFFER
+#undef MOVEMENT_DELAY_BUFFER_DELTA

@@ -309,9 +309,11 @@ const MedicalRecordsView = (_properties, context) => {
                   onClick={() => act('del_med_record')}
                 />
               }
-            />
+            >
+              <MedicalRecordsViewMedical />
+            </Section>
           </Stack.Item>
-          <MedicalRecordsViewMedical />
+          <MedicalRecordsViewComments />
         </>
       )}
     </>
@@ -371,6 +373,42 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
 };
 
 const MedicalRecordsViewMedical = (_properties, context) => {
+  const { act, data } = useBackend(context);
+  const { medical } = data;
+  if (!medical || !medical.fields) {
+    return (
+      <Stack fill vertical>
+        <Stack.Item grow color="bad">
+          <Section fill>Medical records lost!</Section>
+        </Stack.Item>
+      </Stack>
+    );
+  }
+  return (
+    <Stack>
+      <Stack.Item grow>
+        <LabeledList>
+          {medical.fields.map((field, i) => (
+            <LabeledList.Item key={i} label={field.field}>
+              <Box height="20px" inline>
+                {field.value}
+              </Box>
+              {!!field.edit && (
+                <Button
+                  icon="pen"
+                  ml="0.5rem"
+                  onClick={() => doEdit(context, field)}
+                />
+              )}
+            </LabeledList.Item>
+          ))}
+        </LabeledList>
+      </Stack.Item>
+    </Stack>
+  );
+};
+
+const MedicalRecordsViewComments = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { medical } = data;
   return (
