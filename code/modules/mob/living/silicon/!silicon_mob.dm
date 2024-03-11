@@ -518,7 +518,7 @@
 /mob/living/silicon/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(flags_2 & HOLOGRAM_2)
 		return FALSE
-	
+
 	if(!item_to_add)
 		user.visible_message(
 			"<span class='notice'>[user] pats [src] on the head.</span>",

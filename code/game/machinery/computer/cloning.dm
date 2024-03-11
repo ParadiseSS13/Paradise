@@ -176,7 +176,7 @@
 		temprecords.Add(list(list("record" = "\ref[R]", "realname" = sanitize(tempRealName))))
 	data["records"] = temprecords
 
-	if(selected_pod && (selected_pod in pods) && selected_pod.biomass >= CLONE_BIOMASS)
+	if(selected_pod && (selected_pod in pods) && selected_pod.biomass >= CLONER_BIOMASS_REQUIRED)
 		data["podready"] = 1
 	else
 		data["podready"] = 0
@@ -280,7 +280,7 @@
 						set_temp("Error: No cloning pod selected.", "danger")
 					else if(pod.occupant)
 						set_temp("Error: The cloning pod is currently occupied.", "danger")
-					else if(pod.biomass < CLONE_BIOMASS)
+					else if(pod.biomass < CLONER_BIOMASS_REQUIRED)
 						set_temp("Error: Not enough biomass.", "danger")
 					else if(pod.mess)
 						set_temp("Error: The cloning pod is malfunctioning.", "danger")

@@ -111,6 +111,11 @@
 	render_target = GRAVITY_PULSE_RENDER_TARGET
 	appearance_flags = PLANE_MASTER | NO_CLIENT_COLOR
 
+/obj/screen/plane_master/smoke
+	name = "point plane master"
+	plane = SMOKE_PLANE
+	appearance_flags = PLANE_MASTER
+	blend_mode = BLEND_OVERLAY
 /atom/movable/screen/plane_master/exposure
 	name = "exposure plane master"
 	plane = LIGHTING_EXPOSURE_PLANE
