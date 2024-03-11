@@ -241,7 +241,7 @@
 		return TRUE
 
 /obj/item/mod/control/on_mob_move(direction, mob/user)
-	if(!jetpack_active)
+	if(!jetpack_active || !isturf(user.loc))
 		return
 	var/turf/T = get_step(src, GetOppositeDir(direction))
 	if(!has_gravity(T))
@@ -416,7 +416,6 @@
 		..()
 
 /obj/item/mod/control/AltClick(mob/user)
-	. = ..()
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE) && bag)
 		bag.forceMove(user)
 		bag.show_to(user)
