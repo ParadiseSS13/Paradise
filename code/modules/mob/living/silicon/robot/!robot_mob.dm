@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/opened = FALSE
 	var/custom_panel = null
 	var/list/custom_panel_names = list("Cricket")
-	var/list/custom_eye_names = list("Cricket","Standard")
+	var/list/custom_eye_names = list("Cricket", "Standard")
 	var/emagged = 0
 	var/is_emaggable = TRUE
 	var/eye_protection = 0
@@ -393,7 +393,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Mop Gear Rex" = image('icons/mob/robots.dmi', "mopgearrex"),
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Jani"),
 				"Noble-CLN" = image('icons/mob/robots.dmi', "Noble-CLN"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-JANI")
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-JANI"),
+				"Custodiborg" = image('icons/mob/robots.dmi', "custodiborg")
 			)
 		if("Medical")
 			module_sprites = list(
@@ -403,7 +404,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Needles" = image('icons/mob/robots.dmi', "medicalrobot"),
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Medi"),
 				"Noble-MED" = image('icons/mob/robots.dmi', "Noble-MED"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MEDI")
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MEDI"),
+				"Qualified Doctor" = image('icons/mob/robots.dmi', "qualified_doctor")
 			)
 		if("Mining")
 			module_sprites = list(
@@ -413,7 +415,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Mine"),
 				"Noble-DIG" = image('icons/mob/robots.dmi', "Noble-DIG"),
 				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MINE"),
-				"Lavaland" = image('icons/mob/robots.dmi', "lavaland")
+				"Lavaland" = image('icons/mob/robots.dmi', "lavaland"),
+				"Squat" = image('icons/mob/robots.dmi', "squatminer"),
+				"Coffin Drill" = image('icons/mob/robots.dmi', "coffinMiner")
 			)
 		if("Service")
 			module_sprites = list(
@@ -438,7 +442,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Bloodhound" = image('icons/mob/robots.dmi', "bloodhound"),
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Secy"),
 				"Noble-SEC" = image('icons/mob/robots.dmi', "Noble-SEC"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SEC")
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SEC"),
+				"Heavy" = image('icons/mob/robots.dmi', "heavySec")
 			)
 		if("Destroyer") //for Adminbus presumably
 			module_sprites = list(
