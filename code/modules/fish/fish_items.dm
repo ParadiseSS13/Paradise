@@ -168,7 +168,7 @@
 	icon_state = "catfish"
 
 /obj/item/fish/catfish/attackby(obj/item/O, mob/user as mob)
-	if(is_sharp(O))
+	if(O.sharp)
 		to_chat(user, "You carefully clean and gut \the [src.name].")
 		new /obj/item/food/snacks/catfishmeat(get_turf(src))
 		new /obj/item/food/snacks/catfishmeat(get_turf(src))
@@ -187,7 +187,7 @@
 	icon_state = "salmon"
 
 /obj/item/fish/salmon/attackby(obj/item/O, mob/user as mob)
-	if(is_sharp(O))
+	if(O.sharp)
 		to_chat(user, "You carefully clean and gut \the [src.name].")
 		new /obj/item/food/snacks/salmonmeat(get_turf(src))
 		new /obj/item/food/snacks/salmonmeat(get_turf(src))
@@ -203,7 +203,7 @@
 	force = 3
 
 /obj/item/fish/babycarp/attackby(obj/item/O, mob/user as mob)
-	if(is_sharp(O))
+	if(O.sharp)
 		to_chat(user, "You carefully clean and gut \the [src.name].")
 		new /obj/item/food/snacks/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.
 		qdel(src)
