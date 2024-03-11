@@ -53,13 +53,6 @@
 	last_hovered_ref = UID(over_object)
 	over_object.MouseEntered(over_location, over_control, params)
 
-/atom/movable/screen/movable/action_button/MouseEntered(location, control, params)
-	. = ..()
-	if(!QDELETED(src))
-		openToolTip(usr, src, params, title = name, content = desc, theme = actiontooltipstyle)
-
-
-
 /atom/movable/screen/movable/action_button/MouseDrop(over_object)
 	last_hovered_ref = null
 	if(!can_use(usr))
@@ -77,6 +70,7 @@
 		return
 
 	our_hud.hide_landings()
+
 	if(istype(over_object, /atom/movable/screen/button_palette) || istype(over_object, /atom/movable/screen/palette_scroll))
 		our_hud.position_action(src, SCRN_OBJ_IN_PALETTE)
 		save_position()
@@ -86,6 +80,8 @@
 		our_hud.position_action_relative(src, button)
 		save_position()
 		return
+
+	. = ..()
 
 	our_hud.position_action(src, screen_loc)
 	save_position()
