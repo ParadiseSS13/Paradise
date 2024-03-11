@@ -136,4 +136,4 @@
 	ghostize(FALSE)
 
 	// Notify admins
-	message_admins("[key_name_admin(ghost)] has ghosted from a blob overmind.")
+	message_admins("[key_name_admin(usr)]  has ghosted from a blob overmind.")
