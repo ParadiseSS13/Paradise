@@ -722,7 +722,7 @@
 	},
 /obj/item/multitool,
 /obj/machinery/door_control{
-	id = "qm_warehouse";
+	id = "escape_cargo_shutters";
 	name = "Warehouse Door Control";
 	pixel_x = -1;
 	pixel_y = 24;
@@ -1246,7 +1246,7 @@
 	dir = 8
 	},
 /obj/machinery/door_control{
-	id = "qm_warehouse";
+	id = "escape_cargo_shutters";
 	name = "Warehouse Door Control";
 	pixel_x = -1;
 	pixel_y = -24;
@@ -1371,7 +1371,7 @@
 /obj/effect/turf_decal/stripes/white/corner,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door_control{
-	id = "qm_warehouse";
+	id = "escape_cargo_shutters";
 	name = "Warehouse Door Control";
 	pixel_x = -1;
 	pixel_y = -24;

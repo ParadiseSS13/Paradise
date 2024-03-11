@@ -379,7 +379,6 @@
 
 
 /obj/docking_port/mobile/proc/jumpToNullSpace()
-	message_admins("Jump to null space order recived by [src]")
 	// Destroys the docking port and the shuttle contents.
 	// Not in a fancy way, it just ceases.
 	var/obj/docking_port/stationary/S0 = get_docked()
