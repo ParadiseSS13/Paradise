@@ -78,6 +78,7 @@ jobs:
   unit_tests_and_sql:
     name: Unit Tests + SQL Validation
     runs-on: ubuntu-22.04
+    if: ${{ github.event_name != 'merge_group' }}
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
@@ -131,7 +132,7 @@ jobs:
   map_merge:
     name: Check and commit Mapmerge script output
     runs-on: ubuntu-latest
-    if: ${{ vars.GITHUB_EVENT_NAME == 'merge_group' }}
+    if: ${{ github.event_name == 'merge_group' }}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
