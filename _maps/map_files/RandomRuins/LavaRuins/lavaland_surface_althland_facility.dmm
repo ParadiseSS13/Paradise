@@ -980,7 +980,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/window/reinforced,
 /obj/machinery/conveyor/west,
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor{
 	temperature = 300;
 	oxygen = 14;
@@ -1382,7 +1382,7 @@
 /area/ruin/unpowered/althland_processing)
 "Hs" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/plasteel{
 	temperature = 300;
 	oxygen = 14;
@@ -1404,7 +1404,7 @@
 "Hz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/plasteel{
 	temperature = 300;
 	oxygen = 14;
@@ -1926,7 +1926,7 @@
 /area/ruin/unpowered/althland_processing)
 "WU" = (
 /obj/effect/mapping_helpers/no_lava,
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Xn" = (
