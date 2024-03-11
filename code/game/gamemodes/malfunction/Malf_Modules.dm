@@ -1018,3 +1018,8 @@
 		else
 			stack_trace("non-standard dir entered to get_rotation_from_dir. (got: [dir])")
 			return 0
+
+#undef MALF_AI_ROLL_TIME
+#undef MALF_AI_ROLL_COOLDOWN
+#undef MALF_AI_ROLL_DAMAGE
+#undef MALF_AI_ROLL_CRIT_CHANCE

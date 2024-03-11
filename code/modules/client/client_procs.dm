@@ -80,7 +80,7 @@
 			return
 
 	var/stl = 10 // 10 topics a second
-	if(!holder) // Admins are allowed to spam click, deal with it.
+	if(!holder && href_list["window_id"] != "statbrowser") // Admins are allowed to spam click, deal with it.
 		var/second = round(world.time, 10)
 		if(!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
@@ -158,6 +158,10 @@
 	// Tgui Topic middleware
 	if(tgui_Topic(href_list))
 		return
+
+	if(href_list["reload_statbrowser"])
+		stat_panel.reinitialize()
+
 	if(href_list["reload_tguipanel"])
 		nuke_chat()
 
@@ -254,10 +258,12 @@
 	///////////
 /client/New(TopicData)
 	var/tdata = TopicData //save this for later use
+	// Instantiate stat panel
+	stat_panel = new(src, "statbrowser")
+	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
 	tgui_panel = new(src, "browseroutput")
 	tgui_say = new(src, "tgui_say")
-
 	TopicData = null							//Prevent calls to client.Topic from connect
 
 	if(connection != "seeker")					//Invalid connection type.
@@ -359,7 +365,7 @@
 			_2fa_alert = TRUE
 			// This also has to be manually done since no mob to use check_rights() on
 			deadmin()
-			verbs += /client/proc/readmin
+			add_verb(src, /client/proc/readmin)
 			GLOB.de_admins += ckey
 
 		else
@@ -394,6 +400,13 @@
 
 	// Initialize tgui panel
 	tgui_panel.initialize()
+	// Initialize stat panel
+	stat_panel.initialize(
+		inline_html = file2text('html/statbrowser.html'),
+		inline_js = file2text('html/statbrowser.js'),
+		inline_css = file2text('html/statbrowser.css'),
+	)
+	addtimer(CALLBACK(src, PROC_REF(check_panel_loaded)), 30 SECONDS)
 
 	// Initialize tgui say
 	tgui_say.initialize()
@@ -438,6 +451,8 @@
 	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")
 	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")
 	display_job_bans(TRUE)
+	if(check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, mob))
+		winset(src, "debugmcbutton", "is-disabled=false")
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
@@ -473,6 +488,9 @@
 	if(movingmob)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
+
+	if(obj_window)
+		QDEL_NULL(obj_window)
 
 	SSambience.ambience_listening_clients -= src
 	SSinput.processing -= src
@@ -788,7 +806,7 @@
 			cidcheck[ckey] = computer_id
 
 			// Disable the reconnect button to force a CID change
-			winset(src, "reconnectbutton", "is-disable=true")
+			winset(src, "reconnectbutton", "is-disabled=true")
 
 			tokens[ckey] = cid_check_reconnect()
 			sleep(10) // Since browse is non-instant, and kinda async
@@ -1163,9 +1181,73 @@
 	// please yell at me if this is Too Much
 	SEND_SIGNAL(src, COMSIG_CLIENT_CLICK, object, location, control, params, usr)
 
+/// Compiles a full list of verbs and sends it to the browser
+/client/proc/init_verbs()
+	if(IsAdminAdvancedProcCall())
+		return
+	var/list/verblist = list()
+	var/list/verbstoprocess = verbs.Copy()
+	if(mob)
+		verbstoprocess += mob.verbs
+		for(var/AM in mob.contents)
+			var/atom/movable/thing = AM
+			verbstoprocess += thing.verbs
+	panel_tabs.Cut() // panel_tabs get reset in init_verbs on JS side anyway
+	for(var/thing in verbstoprocess)
+		var/procpath/verb_to_init = thing
+		if(!verb_to_init)
+			continue
+		if(verb_to_init.hidden)
+			continue
+		if(!istext(verb_to_init.category))
+			continue
+		panel_tabs |= verb_to_init.category
+		verblist[++verblist.len] = list(verb_to_init.category, verb_to_init.name)
+	src.stat_panel.send_message("init_verbs", list(panel_tabs = panel_tabs, verblist = verblist))
+
+/client/proc/check_panel_loaded()
+	if(stat_panel.is_ready())
+		return
+	to_chat(src, "<span class='userdanger'>Statpanel failed to load, click <a href='?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel </span>")
+
+/**
+ * Handles incoming messages from the stat-panel TGUI.
+ */
+/client/proc/on_stat_panel_message(type, payload)
+	switch(type)
+		if("Update-Verbs")
+			init_verbs()
+		if("Remove-Tabs")
+			panel_tabs -= payload["tab"]
+		if("Send-Tabs")
+			panel_tabs |= payload["tab"]
+		if("Reset-Tabs")
+			panel_tabs = list()
+		if("Set-Tab")
+			stat_tab = payload["tab"]
+			SSstatpanels.immediate_send_stat_data(src)
+		if("Debug-Stat-Entry")
+			var/stat_item = locateUID(payload["stat_item_uid"])
+			if(!check_rights(R_DEBUG | R_VIEWRUNTIMES) || !stat_item)
+				return
+			var/class
+			if(istype(stat_item, /datum/controller/subsystem))
+				class = "subsystem"
+			else if(istype(stat_item, /datum/controller))
+				class = "controller"
+			else if(istype(stat_item, /datum))
+				class = "datum"
+			else
+				class = "unknown"
+			debug_variables(stat_item)
+			message_admins("Admin [key_name_admin(usr)] is debugging the [stat_item] [class].")
+
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
 #undef SECOND_COUNT
 #undef CURRENT_MINUTE
 #undef MINUTE_COUNT
 #undef ADMINSWARNED_AT
+
+#undef SUGGESTED_CLIENT_VERSION
+#undef SUGGESTED_CLIENT_BUILD

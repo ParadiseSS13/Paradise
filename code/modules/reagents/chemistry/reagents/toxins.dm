@@ -264,6 +264,8 @@
 
 /datum/reagent/lexorin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.LoseBreath(10) // No breathing for you! The effects will linger for a bit after it purges.
+	update_flags |= M.adjustOxyLoss(5, FALSE)
 	update_flags |= M.adjustToxLoss(1, FALSE)
 	return ..() | update_flags
 

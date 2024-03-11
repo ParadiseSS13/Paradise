@@ -108,12 +108,12 @@
 /mob/camera/blob/blob_act(obj/structure/blob/B)
 	return
 
-/mob/camera/blob/Stat()
-	..()
-	if(statpanel("Status"))
-		if(blob_core)
-			stat(null, "Core Health: [blob_core.obj_integrity]")
-		stat(null, "Power Stored: [blob_points]/[max_blob_points]")
+/mob/camera/blob/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(blob_core)
+		status_tab_data[++status_tab_data.len] = list("Core Health:", "[blob_core.obj_integrity]")
+		status_tab_data[++status_tab_data.len] = list("Power Stored:", "[blob_points]/[max_blob_points]")
 
 /mob/camera/blob/Move(NewLoc, Dir = 0)
 	var/obj/structure/blob/B = locate() in range("3x3", NewLoc)

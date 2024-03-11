@@ -7,12 +7,6 @@
 /* Defines */
 #define CUSTOM_VIEWRANGES list(1, 2, 3, 4, 5, 6, "RESET")
 
-/* Viewmods */
-/client
-	var/list/ViewMods = list()
-	var/ViewModsActive = FALSE
-	var/ViewPreferedIconSize = 0
-
 /client/proc/AddViewMod(id, size)
 	var/datum/viewmod/V = new /datum/viewmod(id, size)
 	ViewMods[V.id] = V
@@ -76,9 +70,11 @@
 /proc/viewNum_to_text(view)
 	return "[(view * 2) + 1]x[(view * 2) + 1]"
 
-/client/verb/set_view_range(view_range as null|anything in CUSTOM_VIEWRANGES)
+/client/verb/set_view_range()
 	set name = "Set View Range"
 	set category = "Preferences"
+
+	var/view_range = tgui_input_list(src.mob, "Select a view range", "Set View Range", CUSTOM_VIEWRANGES, "RESET")
 
 	if(!view_range)
 		return
@@ -90,3 +86,5 @@
 
 	to_chat(src, "<span class='notice'>View range set to [viewNum_to_text(view_range)]</span>")
 	AddViewMod("custom", view_range)
+
+#undef CUSTOM_VIEWRANGES
