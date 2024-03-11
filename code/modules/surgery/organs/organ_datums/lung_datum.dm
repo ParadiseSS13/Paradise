@@ -347,20 +347,20 @@
 	cold_level_2_threshold = 220
 	cold_level_3_threshold = 140
 
-	heat_level_1_threshold = 380
-	heat_level_2_threshold = 420
-	heat_level_3_threshold = 480
+	heat_level_1_threshold = 505
+	heat_level_2_threshold = 540
+	heat_level_3_threshold = 600
 
 /datum/organ/lungs/ashwalker
+	safe_oxygen_min = 4 // 4x as efficient as regular Unathi, can comfortably breathe on lavaland
+
 	cold_level_1_threshold = 280
 	cold_level_2_threshold = 220
 	cold_level_3_threshold = 140
 
-	heat_level_1_threshold = 380
-	heat_level_2_threshold = 420
-	heat_level_3_threshold = 480
-
-	safe_oxygen_min = 4 // 4x as efficient as regular Unathi, can comfortably breathe on lavaland
+	heat_level_1_threshold = 505
+	heat_level_2_threshold = 540
+	heat_level_3_threshold = 600
 
 /datum/organ/lungs/slime
 	cold_level_1_threshold = 280
