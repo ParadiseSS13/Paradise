@@ -1358,7 +1358,7 @@
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/awaymission/caves)
 "gh" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/caves/build)
 "gj" = (
@@ -1913,7 +1913,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "jg" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/caves)
 "jh" = (
