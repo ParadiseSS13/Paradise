@@ -4,11 +4,12 @@
 /turf/simulated/floor/plating,
 /area/space)
 "J" = (
-/obj/item/paper,
+/obj/item/crowbar,
+/obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/space)
 "N" = (
-/obj/item/multitool,
+/obj/item/weldingtool,
 /turf/simulated/floor/plating,
 /area/space)
 "R" = (
