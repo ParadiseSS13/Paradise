@@ -55499,6 +55499,10 @@
 /area/station/service/bar)
 "hrk" = (
 /obj/machinery/power/apc/directional/north,
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "hrO" = (
@@ -89502,6 +89506,28 @@
 	icon_state = "darkgrey"
 	},
 /area/station/medical/morgue)
+"vWR" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft)
 "vXb" = (
 /obj/structure/cable/yellow{
 	d2 = 8;
@@ -115404,7 +115430,7 @@ iwW
 bZU
 bZU
 hrk
-ujB
+vWR
 bZU
 cRh
 cRh
