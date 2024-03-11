@@ -669,3 +669,8 @@ Difficulty: Medium
 	gpstag = "Corrupted Signal"
 	desc = "Fish and chips."
 	invisibility = 100
+
+#undef DRAKE_SWOOP_HEIGHT
+#undef DRAKE_SWOOP_DIRECTION_CHANGE_RANGE
+#undef SWOOP_DAMAGEABLE
+#undef SWOOP_INVULNERABLE
