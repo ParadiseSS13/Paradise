@@ -280,52 +280,6 @@
 
 	return preview_shuttle
 
-/obj/machinery/shuttle_manipulator/proc/load_template(datum/map_template/shuttle/S)
-	// load shuttle template, centred at shuttle import landmark,
-	var/turf/landmark_turf = get_turf(locate("landmark*Shuttle Import"))
-	S.load(landmark_turf, centered = TRUE)
-
-	var/affected = S.get_affected_turfs(landmark_turf, centered=TRUE)
-
-	var/found = 0
-	// Search the turfs for docking ports
-	// - We need to find the mobile docking port because that is the heart of
-	//   the shuttle.
-	// - We need to check that no additional ports have slipped in from the
-	//   template, because that causes unintended behaviour.
-	for(var/T in affected)
-		for(var/obj/docking_port/P in T)
-			if(istype(P, /obj/docking_port/mobile))
-				var/obj/docking_port/mobile/M = P
-				found++
-				if(found > 1)
-					qdel(P, force=TRUE)
-					world.log << "Map warning: Shuttle Template [S.mappath] \
-						has multiple mobile docking ports."
-				else if(!M.timid)
-					// The shuttle template we loaded isn't "timid" which means
-					// it's already registered with the shuttles subsystem.
-					// This is a bad thing.
-					var/m = "Template [S] is non-timid! Unloading."
-					WARNING(m)
-					message_admins(m)
-					M.jumpToNullSpace()
-					return
-				else
-					preview_shuttle = P
-			if(istype(P, /obj/docking_port/stationary))
-				world.log << "Map warning: Shuttle Template [S.mappath] has a \
-					stationary docking port."
-	if(!found)
-		var/msg = "load_template(): Shuttle Template [S.mappath] has no \
-			mobile docking port. Aborting import."
-		for(var/T in affected)//wot do?
-			var/turf/T0 = T
-			T0.contents = null
-
-		message_admins(msg)
-		WARNING(msg)
-
 /obj/machinery/shuttle_manipulator/proc/unload_preview()
 	if(preview_shuttle)
 		preview_shuttle.jumpToNullSpace()
