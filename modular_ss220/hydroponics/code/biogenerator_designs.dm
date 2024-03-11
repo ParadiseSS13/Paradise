@@ -13,3 +13,11 @@
 	materials = list(MAT_BIOMASS = 10000)
 	build_path = /obj/item/seeds/random
 	category = list("initial","Organic Materials")
+
+/datum/design/material_pouch
+	name = "Подсумок для материалов"
+	id = "material_pouch"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 500)
+	build_path = /obj/item/storage/bag/material_pouch
+	category = list("initial","Leather and Cloth")

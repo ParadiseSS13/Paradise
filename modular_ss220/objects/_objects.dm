@@ -22,4 +22,3 @@
 	GLOB.plastic_recipes += list(
 		new /datum/stack_recipe("пластиковый стул", /obj/structure/chair/plastic, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)
-
