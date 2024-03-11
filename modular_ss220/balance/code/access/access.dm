@@ -29,3 +29,7 @@
 /datum/job/engineer/New()
 	. = ..()
 	access += list(ACCESS_ATMOSPHERICS)
+
+/datum/job/roboticist/New()
+	. = ..()
+	access += list(ACCESS_TOX)
