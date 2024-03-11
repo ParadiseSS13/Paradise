@@ -10,13 +10,16 @@
 	var/photos_taken = 0
 	var/list/aipictures = list()
 
-/obj/item/camera/siliconcam/ai_camera //camera AI can take pictures with
+/// camera AI can take pictures with
+/obj/item/camera/siliconcam/ai_camera
 	name = "AI photo camera"
 
-/obj/item/camera/siliconcam/robot_camera //camera cyborgs can take pictures with
+/// camera cyborgs can take pictures with
+/obj/item/camera/siliconcam/robot_camera
 	name = "Cyborg photo camera"
 
-/obj/item/camera/siliconcam/drone_camera //currently doesn't offer the verbs, thus cannot be used
+/// currently doesn't offer the verbs, thus cannot be used
+/obj/item/camera/siliconcam/drone_camera
 	name = "Drone photo camera"
 
 /obj/item/camera/siliconcam/proc/injectaialbum(datum/picture/P, sufix = "") //stores image information to a list similar to that of the datacore
