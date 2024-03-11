@@ -179,7 +179,7 @@
 			var/datum/map_template/shuttle/S = GLOB.shuttle_templates[params["shuttle_id"]]
 			if(S)
 				unload_preview()
-				load_template(S)
+				preview_shuttle = SSshuttle.load_template(S)
 				if(preview_shuttle)
 					preview_template = S
 					usr.forceMove(get_turf(preview_shuttle))
@@ -200,8 +200,27 @@
 					message_admins("[key_name_admin(usr)] loaded [mdp] with the shuttle manipulator.")
 					log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.</span>")
 
-
 /obj/machinery/shuttle_manipulator/proc/action_load(datum/map_template/shuttle/loading_template)
+	if(isnull(loading_template))
+		CRASH("No template passed.")
+
+	if(preview_shuttle && (loading_template != preview_template))
+		preview_shuttle.jumpToNullSpace()
+		preview_shuttle = null
+		preview_template = null
+
+	if(!preview_shuttle)
+		preview_shuttle = SSshuttle.load_template(loading_template)
+		preview_template = loading_template
+
+	SSshuttle.replace_shuttle(preview_shuttle)
+
+	existing_shuttle = null
+	preview_shuttle = null
+	preview_template = null
+	selected = null
+
+/obj/machinery/shuttle_manipulator/proc/action_load_old(datum/map_template/shuttle/loading_template)
 	// Check for an existing preview
 	if(preview_shuttle && (loading_template != preview_template))
 		preview_shuttle.jumpToNullSpace()
@@ -209,7 +228,7 @@
 		preview_template = null
 
 	if(!preview_shuttle)
-		load_template(loading_template)
+		preview_shuttle = SSshuttle.load_template(loading_template)
 		preview_template = loading_template
 
 	// get the existing shuttle information, if any
@@ -308,7 +327,6 @@
 		WARNING(msg)
 
 /obj/machinery/shuttle_manipulator/proc/unload_preview()
-	message_admins("WARNING. SHUTTLE UNLOADED.")
 	if(preview_shuttle)
 		preview_shuttle.jumpToNullSpace()
 	preview_shuttle = null
