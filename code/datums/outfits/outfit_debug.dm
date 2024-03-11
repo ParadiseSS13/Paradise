@@ -49,7 +49,8 @@
 	name = "AVD-CNED bowman headset"
 	ks2type = /obj/item/encryptionkey/syndicate/all_channels
 
-/obj/item/encryptionkey/syndicate/all_channels // has to be a subtype and stuff
+/// has to be a subtype and stuff
+/obj/item/encryptionkey/syndicate/all_channels
 	name = "AVD-CNED Encryption Key"
 	desc = "Lets you listen to <b>everything</b>. Use in hand to toggle voice changing. Alt-click to change your fake name."
 	icon_state = "com_cypherkey"

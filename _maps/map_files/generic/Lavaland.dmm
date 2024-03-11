@@ -80,7 +80,8 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "ap" = (
-/turf/simulated/wall/r_wall,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "aq" = (
 /obj/structure/cable{
@@ -131,14 +132,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
-"aB" = (
-/obj/machinery/atmospherics/portable/canister/oxygen,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding";
-	dir = 10
-	},
-/area/mine/laborcamp)
 "aD" = (
 /obj/structure/chair{
 	dir = 8
@@ -207,18 +200,6 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
-"aS" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "yellowcornersiding";
-	dir = 1
-	},
-/area/mine/laborcamp)
 "aU" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/catwalk,
@@ -561,7 +542,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -664,7 +645,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/mining)
 "cj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1372,7 +1353,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1877,7 +1858,7 @@
 	d2 = 8;
 	icon_state = "4-9"
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
 "eE" = (
@@ -2139,7 +2120,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/mining)
 "fd" = (
 /obj/structure/fans/tiny,
@@ -2301,7 +2282,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "fv" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -3277,7 +3258,7 @@
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "ir" = (
@@ -3597,6 +3578,33 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/unexplored)
+"kb" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/effect/decal/cleanable/dirt,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/rack,
+/obj/item/storage/bag/ore,
+/obj/item/flashlight/lantern,
+/obj/item/pickaxe/safety,
+/obj/item/mining_scanner,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/head/beanie/orange,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/workboots,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 10
+	},
+/area/mine/laborcamp)
 "kf" = (
 /obj/machinery/door/firedoor,
 /obj/effect/spawner/window/reinforced/grilled,
@@ -3941,6 +3949,54 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"mf" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/rack,
+/obj/item/storage/bag/ore,
+/obj/item/pickaxe/safety,
+/obj/item/flashlight/lantern,
+/obj/item/mining_scanner,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/head/beanie/orange,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/workboots,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowcornersiding";
+	dir = 1
+	},
+/turf/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
+/turf/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/area/mine/laborcamp)
 "mk" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -4697,6 +4753,20 @@
 	icon_state = "yellowsiding"
 	},
 /area/mine/laborcamp)
+"oL" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/suit_storage_unit/gulag,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/wall/r_wall,
+/area/mine/laborcamp)
 "oW" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Labor Camp Security"
@@ -5121,7 +5191,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "rM" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "rP" = (
@@ -5211,6 +5281,10 @@
 	icon_state = "yellowsiding"
 	},
 /area/mine/laborcamp)
+"sD" = (
+/obj/structure/lavaland_billboard,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "sF" = (
 /obj/structure/bookcase{
 	name = "bookcase (Fiction)"
@@ -5301,6 +5375,21 @@
 	icon_state = "darkredyellowfull"
 	},
 /area/mine/laborcamp)
+"th" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 25
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 35
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp/security)
 "tp" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/cobweb2,
@@ -5912,7 +6001,7 @@
 /area/mine/outpost/medbay)
 "xo" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/mining)
 "xr" = (
 /obj/machinery/camera{
@@ -5941,7 +6030,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -6108,7 +6197,7 @@
 /area/mine/outpost/hallway/east)
 "yp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "yq" = (
@@ -6211,7 +6300,7 @@
 	dir = 9;
 	network = list("Mining Outpost")
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
 "yO" = (
@@ -6540,7 +6629,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "Av" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -6616,6 +6705,20 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/lockers)
+"AV" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/item/cigbutt,
+/obj/effect/baseturf_helper/lava_land,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/wall/r_wall,
+/area/mine/laborcamp)
 "AW" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile/block{
@@ -7011,6 +7114,48 @@
 	icon_state = "yellowfull"
 	},
 /area/mine/laborcamp)
+"Df" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/mineral/equipment_vendor/labor,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/rack,
+/obj/item/storage/bag/ore,
+/obj/item/pickaxe/safety,
+/obj/item/flashlight/lantern,
+/obj/item/mining_scanner,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/head/beanie/orange,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/workboots,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 9
+	},
+/turf/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
+/turf/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/area/mine/laborcamp)
 "Dj" = (
 /obj/machinery/power/smes{
 	charge = 5e+006
@@ -7084,10 +7229,6 @@
 "DC" = (
 /turf/simulated/wall,
 /area/mine/outpost/custodial)
-"DG" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/mine/laborcamp)
 "DO" = (
 /obj/machinery/door/airlock/glass{
 	name = "Labor Camp Library"
@@ -7137,20 +7278,18 @@
 /turf/simulated/floor/wood,
 /area/mine/laborcamp)
 "DZ" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
 	},
-/obj/machinery/recharger/wallcharger{
-	pixel_y = 25
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
 	},
-/obj/machinery/recharger/wallcharger{
-	pixel_y = 35
+/obj/effect/baseturf_helper/lava_land,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
-	},
-/area/mine/laborcamp/security)
+/turf/simulated/wall/r_wall,
+/area/mine/laborcamp)
 "Ea" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -7747,7 +7886,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull";
 	dir = 8
@@ -7783,6 +7922,19 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/storage)
+"If" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/suit_storage_unit/gulag,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
 "Iv" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/r_wall,
@@ -7901,7 +8053,7 @@
 	d2 = 4
 	},
 /obj/item/radio/beacon,
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -7989,6 +8141,45 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"JE" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/rack,
+/obj/item/storage/bag/ore,
+/obj/item/flashlight/lantern,
+/obj/item/pickaxe/safety,
+/obj/item/mining_scanner,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/mask/breath,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/item/clothing/head/beanie/orange,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/workboots,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/turf/simulated/wall/r_wall,
+/turf/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
+/turf/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/area/mine/laborcamp)
 "JF" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
@@ -8009,14 +8200,33 @@
 	dir = 8
 	},
 /area/mine/laborcamp)
-"JS" = (
-/obj/machinery/mineral/equipment_vendor/labor,
-/obj/machinery/light/small{
-	dir = 1
+"JN" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/rack,
+/obj/item/pickaxe/safety,
+/obj/item/flashlight/lantern,
+/obj/item/storage/bag/ore,
+/obj/item/mining_scanner,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/head/beanie/orange,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/workboots,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/suit_storage_unit/gulag,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
-	dir = 9
+	dir = 5
 	},
 /area/mine/laborcamp)
 "JV" = (
@@ -8096,6 +8306,28 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Ks" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/baseturf_helper/lava_land,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "Kt" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -8116,7 +8348,7 @@
 	c_tag = "Mining Outpost - Custodial Storage";
 	network = list("Mining Outpost")
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreencorners"
 	},
@@ -8433,22 +8665,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible/supply,
 /turf/simulated/floor/catwalk,
 /area/mine/laborcamp)
-"MI" = (
-/obj/structure/rack,
-/obj/item/pickaxe/safety,
-/obj/item/flashlight/lantern,
-/obj/item/storage/bag/ore,
-/obj/item/mining_scanner,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/head/beanie/orange,
-/obj/item/clothing/gloves/fingerless,
-/obj/item/clothing/shoes/workboots,
-/obj/item/clothing/suit/storage/hazardvest,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding";
-	dir = 5
-	},
-/area/mine/laborcamp)
 "MK" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -8715,16 +8931,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "OG" = (
-/obj/item/trash/syndi_cakes,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredyellowfull"
-	},
+/turf/simulated/wall/r_wall,
 /area/mine/laborcamp)
 "OH" = (
 /obj/structure/chair/stool/bar{
@@ -9148,6 +9355,19 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
+"Re" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/suit_storage_unit/gulag,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/mineral/random/labormineral/volcanic,
+/area/lavaland/surface/outdoors)
 "Rg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -9436,7 +9656,7 @@
 /obj/structure/cable/cyan{
 	icon_state = "1-4"
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/comms)
 "Ta" = (
@@ -9462,7 +9682,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "Tt" = (
@@ -9915,7 +10135,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -10138,6 +10358,18 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Xp" = (
+/obj/item/trash/syndi_cakes,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredyellowfull"
+	},
+/area/mine/laborcamp)
 "Xu" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -13367,11 +13599,11 @@ Oy
 Oy
 oy
 Oy
-ap
-ap
+OG
+OG
 YH
-ap
-ap
+OG
+OG
 Iv
 Dx
 Aw
@@ -13624,7 +13856,7 @@ Rj
 Kh
 ZX
 iB
-ap
+DZ
 hP
 XA
 CJ
@@ -13870,12 +14102,12 @@ Aw
 ai
 Aw
 Aw
-ap
+OG
 JF
 JF
 Iv
 Oy
-DZ
+th
 wa
 Wx
 vB
@@ -14138,7 +14370,7 @@ cy
 nS
 GI
 hR
-ap
+OG
 UK
 Kt
 zh
@@ -14657,7 +14889,7 @@ Iz
 CR
 LU
 uP
-ap
+OG
 Hy
 ab
 Aw
@@ -14900,7 +15132,7 @@ OA
 ab
 JF
 jp
-OG
+Xp
 od
 Cp
 Oy
@@ -14909,12 +15141,12 @@ QE
 oW
 xa
 Oy
-ap
+OG
 yw
 vy
 of
-ap
-ap
+OG
+OG
 OX
 JF
 Iv
@@ -15161,7 +15393,7 @@ ZP
 ib
 wm
 dh
-ap
+AV
 au
 gE
 fN
@@ -15170,7 +15402,7 @@ Iv
 hQ
 Ja
 Em
-ap
+OG
 jG
 VX
 Br
@@ -15412,13 +15644,13 @@ Aw
 Aw
 Aw
 Aw
-ap
+OG
 Wk
 px
 tE
 KU
 tE
-DG
+ap
 wK
 SJ
 bk
@@ -15427,7 +15659,7 @@ Iv
 jM
 SR
 WL
-ap
+OG
 WQ
 Tt
 bh
@@ -15680,11 +15912,11 @@ Hh
 HV
 bk
 Bt
-ap
+OG
 yd
 vy
 bZ
-ap
+OG
 IE
 MX
 yy
@@ -15926,13 +16158,13 @@ Aw
 Aw
 ab
 nP
-ap
-ap
+OG
+OG
 Iv
 Iv
 Iv
-ap
-ap
+OG
+OG
 WJ
 SJ
 bk
@@ -15941,7 +16173,7 @@ Bi
 fN
 HC
 Qb
-ap
+OG
 cd
 lx
 Wt
@@ -16183,14 +16415,14 @@ an
 an
 Aw
 Aw
-ap
+OG
 YY
 JK
 xi
-aB
-ap
-JS
-aS
+kb
+JE
+Df
+mf
 pD
 CU
 CU
@@ -16202,7 +16434,7 @@ pb
 hb
 ar
 vW
-ap
+OG
 ai
 ai
 Aw
@@ -16440,12 +16672,12 @@ an
 an
 Aw
 Aw
-ap
+OG
 cZ
 Xa
 mz
 Aq
-ap
+OG
 lZ
 jn
 gQ
@@ -16458,9 +16690,9 @@ Ea
 Iv
 Iv
 Iv
-ap
-ap
-ap
+OG
+OG
+OG
 Iv
 Aw
 Aw
@@ -16706,7 +16938,7 @@ qA
 NF
 fY
 uo
-KN
+Ks
 KN
 Lh
 ZA
@@ -16959,7 +17191,7 @@ Ch
 Xa
 bm
 qz
-ap
+OG
 PJ
 zV
 bk
@@ -17209,14 +17441,14 @@ an
 an
 an
 an
-an
-Aw
-Iv
-MI
+Re
+If
+oL
+JN
 sv
 Pc
 YJ
-ap
+OG
 Ab
 xK
 pF
@@ -17232,7 +17464,7 @@ aX
 wx
 hD
 gZ
-ap
+OG
 Aw
 Aw
 Aw
@@ -17472,24 +17704,24 @@ Iv
 Iv
 Iv
 Iv
-ap
-ap
-ap
+OG
+OG
+OG
 yC
 kG
-ap
-ap
+OG
+OG
 DO
-ap
+OG
 Iv
 qT
-ap
-ap
+OG
+OG
 Ex
 aK
 np
 Zn
-ap
+OG
 Aw
 Aw
 Aw
@@ -17730,23 +17962,23 @@ an
 an
 an
 an
-ap
+OG
 go
 gu
 YC
-ap
+OG
 vR
 Vz
 JV
-ap
+OG
 si
 Ar
-ap
+OG
 aK
 gz
 aU
 tZ
-ap
+OG
 Aw
 Aw
 Aw
@@ -17987,15 +18219,15 @@ an
 an
 an
 an
-ap
+OG
 TO
 FX
 VN
-ap
+OG
 Or
 DX
 xg
-ap
+OG
 LJ
 NU
 Iv
@@ -18003,7 +18235,7 @@ YP
 vN
 PM
 tZ
-ap
+OG
 Aw
 Aw
 Aw
@@ -18248,18 +18480,18 @@ Iv
 uQ
 JZ
 sJ
-ap
+OG
 OJ
 Ux
 yg
-ap
+OG
 nW
 zE
 Iv
-ap
-ap
-ap
-ap
+OG
+OG
+OG
+OG
 ZM
 Aw
 Aw
@@ -18505,12 +18737,12 @@ Iv
 KJ
 iW
 UZ
-ap
+OG
 tp
 HY
 sF
-ap
-ap
+OG
+OG
 Iv
 Iv
 Aw
@@ -18762,11 +18994,11 @@ Iv
 Iv
 XP
 Zm
-ap
-ap
-ap
-ap
-ap
+OG
+OG
+OG
+OG
+OG
 Aw
 Aw
 Aw
@@ -19549,7 +19781,7 @@ ab
 Aw
 Aw
 Aw
-OA
+sD
 hC
 vj
 tb
@@ -19806,7 +20038,7 @@ Aw
 Aw
 Aw
 Aw
-Aw
+ab
 hC
 bo
 xC

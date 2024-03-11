@@ -101,10 +101,13 @@
 /datum/reagent/medicine/mitocholide/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
+		var/heal_modifier = 0.4
+		if(M.reagents.has_reagent("mephedrone"))
+			heal_modifier -= 0.3 //This lowers the healing to 0.1. As such, you need time off the drug to heal heart damage, but can be on the drug endlessly when not oding IF you keep your supply going.
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 		for(var/obj/item/organ/internal/I in H.internal_organs)
-			I.heal_internal_damage(0.4)
+			I.heal_internal_damage(heal_modifier)
 	return ..()
 
 /datum/reagent/medicine/mitocholide/reaction_obj(obj/O, volume)
@@ -1213,7 +1216,7 @@
 	color = "#FFDCFF"
 	taste_description = "stability"
 	harmless = FALSE
-	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc")
+	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc", "mephedrone")
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1258,7 +1261,8 @@
 			M.Drowsy(40 SECONDS)
 	return ..() | update_flags
 
-/datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs
+/// Used exclusively by Syndicate medical cyborgs
+/datum/reagent/medicine/syndicate_nanites
 	name = "Restorative Nanites"
 	id = "syndicate_nanites"
 	description = "Miniature medical robots that swiftly restore bodily damage. May begin to attack their host's cells in high amounts."
@@ -1400,7 +1404,8 @@
 	return ..() | update_flags
 
 
-/datum/reagent/medicine/earthsblood //Created by ambrosia gaia plants
+/// Created by ambrosia gaia plants
+/datum/reagent/medicine/earthsblood
 	name = "Earthsblood"
 	id = "earthsblood"
 	description = "Ichor from an extremely powerful plant. Great for restoring wounds, but it's a little heavy on the brain."
@@ -1465,7 +1470,7 @@
 	metabolization_rate = 0.5
 	harmless = FALSE
 	taste_description = "2 minutes of suffering"
-	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants")
+	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants", "mephedrone")
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE

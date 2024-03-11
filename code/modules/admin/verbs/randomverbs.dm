@@ -1,5 +1,4 @@
 /client/proc/cmd_admin_drop_everything(mob/M as mob in GLOB.mob_list)
-	set category = null
 	set name = "\[Admin\] Drop Everything"
 
 	if(!check_rights(R_DEBUG|R_ADMIN))
@@ -47,7 +46,6 @@
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Prison") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_subtle_message(mob/M as mob in GLOB.mob_list)
-	set category = "Event"
 	set name = "\[Admin\] Subtle Message"
 
 	if(!ismob(M))
@@ -74,7 +72,7 @@
 
 /client/proc/cmd_mentor_check_new_players()	//Allows mentors / admins to determine who the newer players are.
 	set category = "Admin"
-	set name = "Check new Players"
+	set name = "Check New Players"
 
 	if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
 		return
@@ -128,7 +126,6 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Global Narrate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_direct_narrate(mob/M)	// Targetted narrate -- TLE
-	set category = null
 	set name = "\[Admin\] Direct Narrate"
 
 	if(!check_rights(R_SERVER|R_EVENT))
@@ -155,7 +152,6 @@
 
 
 /client/proc/cmd_admin_headset_message(mob/M in GLOB.mob_list)
-	set category = "Event"
 	set name = "\[Admin\] Headset Message"
 
 	admin_headset_message(M)
@@ -589,7 +585,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Add Custom AI Law") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_rejuvenate(mob/living/M as mob in GLOB.mob_list)
-	set category = null
 	set name = "\[Admin\] Rejuvenate"
 
 	if(!check_rights(R_REJUVINATE))
@@ -660,7 +655,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 
 /client/proc/cmd_admin_delete(atom/A as obj|mob|turf in view())
-	set category = null
 	set name = "\[Admin\] Delete"
 
 	if(!check_rights(R_ADMIN))
@@ -801,7 +795,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/cmd_admin_check_contents(mob/living/M as mob in GLOB.mob_list)
 	set name = "\[Admin\] Check Contents"
-	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -1010,9 +1003,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	/* ======== SSD Section ========= */
-	var/msg = "<html><head><title>SSD & AFK Report</title></head><body>"
-	msg += "SSD Players:<BR><TABLE border='1'>"
-	msg += "<TR><TD><B>Key</B></TD><TD><B>Real Name</B></TD><TD><B>Job</B></TD><TD><B>Mins SSD</B></TD><TD><B>Special Role</B></TD><TD><B>Area</B></TD><TD><B>PPN</B></TD><TD><B>Cryo</B></TD></TR>"
+	var/msg = "<html><meta charset='utf-8'><head><title>SSD & AFK Report</title></head><body>"
+	msg += "SSD Players:<br><TABLE border='1'>"
+	msg += "<tr><td><b>Key</b></td><td><b>Real Name</b></td><td><b>Job</b></td><td><b>Mins SSD</b></td><td><b>Special Role</b></td><td><b>Area</b></td><td><b>PPN</b></td><td><b>Cryo</b></td></tr>"
 	var/mins_ssd
 	var/job_string
 	var/key_string

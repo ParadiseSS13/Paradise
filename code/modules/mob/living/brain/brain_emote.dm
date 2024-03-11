@@ -25,6 +25,10 @@
 	if(!(B.container && istype(B.container, /obj/item/mmi)))  // No MMI, no emotes
 		return FALSE
 
+	if(istype(B.container, /obj/item/mmi/robotic_brain)) //Robobrains can't be silenced and still emote
+		var/obj/item/mmi/robotic_brain/robobrain = B.container
+		return !robobrain.silenced
+
 // So, brains can't really see their own emotes so we'll probably just want to send an extra message
 
 /datum/emote/living/brain/alarm

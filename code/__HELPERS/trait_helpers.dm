@@ -223,10 +223,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CAN_VIEW_HEALTH "can_view_health" // Also used for /Stat
 #define TRAIT_MAGPULSE "magnetificent" // Used for anything that is magboot related
 #define TRAIT_NOSLIP "noslip"
+#define TRAIT_MEPHEDRONE_ADAPTED "mephedrone_adapted" // Trait that changes the ending effects of twitch leaving your system
+#define TRAIT_NOKNOCKDOWNSLOWDOWN "noknockdownslowdown" //If this person has this trait, they are not slowed via knockdown, but they can be hit by bullets like a self knockdown
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
 #define TRAIT_TABLE_LEAP "table_leap"
+#define TRAIT_SLEIGHT_OF_HAND "sleight_of_hand"
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
