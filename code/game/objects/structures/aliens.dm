@@ -111,7 +111,7 @@
 	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
 	icon_state = "resin"
 	base_icon_state = "resin"
-	max_integrity = 100
+	max_integrity = 60
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	damage_deflection = 0
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
@@ -156,7 +156,7 @@
 /obj/structure/alien/resin/door/CanAtmosPass(turf/T)
 	return !density
 
-/obj/structure/alien/resin/door/proc/try_to_operate(mob/user)
+/obj/structure/alien/resin/door/proc/try_to_operate(mob/user, bumped_open = FALSE)
 	if(is_operating)
 		return
 	if(!iscarbon(user))
@@ -164,7 +164,7 @@
 	var/mob/living/carbon/C = user
 	if(C.get_int_organ(/obj/item/organ/internal/alien/hivenode))
 		if(!C.handcuffed)
-			operate()
+			operate(bumped_open)
 		return
 	to_chat(user, "<span class='noticealien'>Your lack of connection to the hive prevents the resin door from opening</span>")
 /*
@@ -178,7 +178,7 @@
 		return
 	operate()
 
-/obj/structure/alien/resin/door/proc/operate()
+/obj/structure/alien/resin/door/proc/operate(bumped_open = FALSE)
 	is_operating = TRUE
 	if(!state_open)
 		playsound(loc, open_sound, 50, TRUE)
@@ -194,14 +194,14 @@
 	density = !density
 	opacity = !opacity
 	state_open = !state_open
-	addtimer(CALLBACK(src, PROC_REF(operate_update)), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(operate_update), bumped_open), 1 SECONDS)
 
-/obj/structure/alien/resin/door/proc/operate_update()
+/obj/structure/alien/resin/door/proc/operate_update(bumped_open)
 	air_update_turf(1)
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
 
-	if(state_open)
+	if(state_open && bumped_open)
 		addtimer(CALLBACK(src, PROC_REF(mobless_try_to_operate)), close_delay)
 
 /obj/structure/alien/resin/door/update_icon_state()
@@ -219,7 +219,7 @@
 /obj/structure/alien/resin/door/Bumped(atom/user)
 	..()
 	if(!state_open)
-		return try_to_operate(user)
+		return try_to_operate(user, TRUE)
 
 /*
  * Weeds

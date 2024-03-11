@@ -582,7 +582,7 @@
 	if(!owner_AI.can_place_transformer(src))
 		return
 	active = TRUE
-	if(tgui_alert(owner, "Are you sure you want to place the machine here?", "Are you sure?", list("Yes", "No")) == "No")
+	if(tgui_alert(owner, "Are you sure you want to place the machine here?", "Are you sure?", list("Yes", "No")) != "Yes")
 		active = FALSE
 		return
 	if(!owner_AI.can_place_transformer(src))
@@ -1017,3 +1017,8 @@
 		else
 			stack_trace("non-standard dir entered to get_rotation_from_dir. (got: [dir])")
 			return 0
+
+#undef MALF_AI_ROLL_TIME
+#undef MALF_AI_ROLL_COOLDOWN
+#undef MALF_AI_ROLL_DAMAGE
+#undef MALF_AI_ROLL_CRIT_CHANCE

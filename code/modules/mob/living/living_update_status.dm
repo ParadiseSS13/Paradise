@@ -1,8 +1,8 @@
 /mob/living/update_blind_effects()
 	if(!has_vision(information_only=TRUE))
-		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
-		throw_alert("blind", /obj/screen/alert/blind)
-		return 1
+		overlay_fullscreen("blind", /atom/movable/screen/fullscreen/blind)
+		throw_alert("blind", /atom/movable/screen/alert/blind)
+		return TRUE
 	else
 		clear_fullscreen("blind")
 		clear_alert("blind")
@@ -19,8 +19,8 @@
 
 /mob/living/update_druggy_effects()
 	if(AmountDruggy())
-		overlay_fullscreen("high", /obj/screen/fullscreen/high)
-		throw_alert("high", /obj/screen/alert/high)
+		overlay_fullscreen("high", /atom/movable/screen/fullscreen/high)
+		throw_alert("high", /atom/movable/screen/alert/high)
 		sound_environment_override = SOUND_ENVIRONMENT_DRUGGED
 	else
 		clear_fullscreen("high")
@@ -29,14 +29,14 @@
 
 /mob/living/update_nearsighted_effects()
 	if(HAS_TRAIT(src, TRAIT_NEARSIGHT))
-		overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
+		overlay_fullscreen("nearsighted", /atom/movable/screen/fullscreen/impaired, 1)
 	else
 		clear_fullscreen("nearsighted")
 
 /mob/living/update_sleeping_effects(no_alert = FALSE)
 	if(IsSleeping())
 		if(!no_alert)
-			throw_alert("asleep", /obj/screen/alert/asleep)
+			throw_alert("asleep", /atom/movable/screen/alert/asleep)
 	else
 		clear_alert("asleep")
 

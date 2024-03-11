@@ -343,13 +343,12 @@
 			if("2")
 				if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
 					return
+				SSshuttle.emergency.cancel(byCC = TRUE)
 				switch(SSshuttle.emergency.mode)
 					if(SHUTTLE_CALL)
-						SSshuttle.emergency.cancel()
 						log_admin("[key_name(usr)] sent the Emergency Shuttle back")
 						message_admins("<span class='adminnotice'>[key_name_admin(usr)] sent the Emergency Shuttle back</span>")
 					else
-						SSshuttle.emergency.cancel()
 						log_admin("[key_name(usr)] called the Emergency Shuttle")
 						message_admins("<span class='adminnotice'>[key_name_admin(usr)] called the Emergency Shuttle to the station</span>")
 
@@ -1072,9 +1071,9 @@
 		var/painame = "Default"
 		var/name = ""
 		if(alert(usr, "Do you want to set their name or let them choose their own name?", "Name Choice", "Set Name", "Let them choose") == "Set Name")
-			name = sanitize(copytext(input(usr, "Enter a name for the new pAI. Default name is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
+			name = sanitize(copytext_char(input(usr, "Enter a name for the new pAI. Default name is [painame].", "pAI Name", painame), 1, MAX_NAME_LEN))
 		else
-			name = sanitize(copytext(input(H, "An admin wants to make you into a pAI. Choose a name. Default is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
+			name = sanitize(copytext_char(input(H, "An admin wants to make you into a pAI. Choose a name. Default is [painame].", "pAI Name", painame), 1, MAX_NAME_LEN))
 
 		if(!name)
 			name = painame
@@ -2017,7 +2016,7 @@
 						D.assignment = "Pet"
 						C.access_id = D
 					spawn(30)
-						var/newname = sanitize(copytext(input(P, "You are [P], special event pet of [H]. Change your name to something else?", "Name change", P.name) as null|text,1,MAX_NAME_LEN))
+						var/newname = sanitize(copytext_char(input(P, "You are [P], special event pet of [H]. Change your name to something else?", "Name change", P.name) as null|text, 1, MAX_NAME_LEN))
 						if(newname && newname != P.name)
 							P.name = newname
 							if(P.mind)
@@ -2950,7 +2949,7 @@
 					return
 				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
-				var/objective = sanitize(copytext(input("Enter an objective"),1,MAX_MESSAGE_LEN))
+				var/objective = sanitize(copytext_char(input("Enter an objective"), 1, MAX_MESSAGE_LEN))
 				if(!objective)
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Traitor All ([objective])")
@@ -3345,7 +3344,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 		var/text = html_decode(href_list["showdetails"])
-		usr << browse("<HTML><HEAD><TITLE>Details</TITLE></HEAD><BODY><TT>[replacetext(text, "\n", "<BR>")]</TT></BODY></HTML>",
+		usr << browse("<html><meta charset='utf-8'><head><title>Details</title></head><body><tt>[replacetext(text, "\n", "<BR>")]</tt></body></html>",
 			"window=show_details;size=500x200")
 
 	else if(href_list["create_outfit_finalize"])

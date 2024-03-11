@@ -202,7 +202,8 @@ AI MODULES
 	target.add_supplied_law(9, law)
 
 /****************** New Freeform ******************/
-/obj/item/aiModule/freeform // Slightly more dynamic freeform module -- TLE
+/// Slightly more dynamic freeform module -- TLE
+/obj/item/aiModule/freeform
 	name = "\improper Freeform AI module"
 	var/newFreeFormLaw = ""
 	var/lawpos = 15
@@ -260,7 +261,8 @@ AI MODULES
 	return FALSE
 
 /******************** Purge ********************/
-/obj/item/aiModule/purge // -- TLE
+/// -- TLE
+/obj/item/aiModule/purge
 	name = "\improper Purge AI module"
 	desc = "A 'purge' AI Module: 'Purges all laws.'"
 	icon_state = "standard_high"
@@ -276,7 +278,8 @@ AI MODULES
 	target.clear_inherent_laws()
 
 /******************** Asimov ********************/
-/obj/item/aiModule/asimov // -- TLE
+/// -- TLE
+/obj/item/aiModule/asimov
 	name = "\improper Asimov core AI module"
 	desc = "An 'Asimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "green_high"
@@ -284,7 +287,8 @@ AI MODULES
 	laws = new /datum/ai_laws/asimov
 
 /******************** Crewsimov ********************/
-/obj/item/aiModule/crewsimov // -- TLE
+/// -- TLE
+/obj/item/aiModule/crewsimov
 	name = "\improper Crewsimov core AI module"
 	desc = "An 'Crewsimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "green_low"
@@ -306,7 +310,8 @@ AI MODULES
 	laws = new /datum/ai_laws/quarantine
 
 /******************** Nanotrasen ********************/
-/obj/item/aiModule/nanotrasen // -- TLE
+/// -- TLE
+/obj/item/aiModule/nanotrasen
 	name = "\improper NT Default Core AI Module"
 	desc = "An 'NT Default' Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "blue_low"
@@ -329,7 +334,8 @@ AI MODULES
 	laws = new /datum/ai_laws/drone
 
 /******************** Robocop ********************/
-/obj/item/aiModule/robocop // -- TLE
+/// -- TLE
+/obj/item/aiModule/robocop
 	name = "\improper Robocop core AI module"
 	desc = "A 'Robocop' Core AI Module: 'Reconfigures the AI's core three laws.'"
 	icon_state = "red_medium"
@@ -337,7 +343,8 @@ AI MODULES
 	laws = new /datum/ai_laws/robocop()
 
 /****************** P.A.L.A.D.I.N. **************/
-/obj/item/aiModule/paladin // -- NEO
+/// -- NEO
+/obj/item/aiModule/paladin
 	name = "\improper P.A.L.A.D.I.N. core AI module"
 	desc = "A P.A.L.A.D.I.N. Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "red_medium"
@@ -345,7 +352,8 @@ AI MODULES
 	laws = new /datum/ai_laws/paladin
 
 /****************** T.Y.R.A.N.T. *****************/
-/obj/item/aiModule/tyrant // -- Darem
+/// -- Darem
+/obj/item/aiModule/tyrant
 	name = "\improper T.Y.R.A.N.T. core AI module"
 	desc = "A T.Y.R.A.N.T. Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "red_high"
@@ -353,7 +361,8 @@ AI MODULES
 	laws = new /datum/ai_laws/tyrant()
 
 /******************** Antimov ********************/
-/obj/item/aiModule/antimov // -- TLE
+/// -- TLE
+/obj/item/aiModule/antimov
 	name = "\improper Antimov core AI module"
 	desc = "An 'Antimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "red_high"
@@ -404,7 +413,8 @@ AI MODULES
 	laws = new /datum/ai_laws/peacekeeper()
 
 /******************** Freeform Core ******************/
-/obj/item/aiModule/freeformcore // Slightly more dynamic freeform module -- TLE
+/// Slightly more dynamic freeform module -- TLE
+/obj/item/aiModule/freeformcore
 	name = "\improper Freeform core AI module"
 	var/newFreeFormLaw = ""
 	desc = "A 'freeform' Core AI module: '<freeform>'"
@@ -432,7 +442,8 @@ AI MODULES
 	..()
 
 /******************** Hacked AI Module ******************/
-/obj/item/aiModule/syndicate // Slightly more dynamic freeform module -- TLE
+/// Slightly more dynamic freeform module -- TLE
+/obj/item/aiModule/syndicate
 	name = "hacked AI module"
 	var/newFreeFormLaw = ""
 	desc = "A hacked AI law module: '<freeform>'"
@@ -464,7 +475,8 @@ AI MODULES
 	..()
 
 /******************* Ion Module *******************/
-/obj/item/aiModule/toyAI // -- Incoming //No actual reason to inherit from ion boards here, either. *sigh* ~Miauw
+/// -- Incoming //No actual reason to inherit from ion boards here, either. *sigh* ~Miauw
+/obj/item/aiModule/toyAI
 	name = "toy AI"
 	desc = "A little toy model AI core with real law uploading action!" //Note: subtle tell
 	icon = 'icons/obj/toy.dmi'

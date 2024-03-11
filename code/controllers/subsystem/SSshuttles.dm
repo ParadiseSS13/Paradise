@@ -31,6 +31,13 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
 	/// Default refuel delay
 	var/refuel_delay = 20 MINUTES
+	/// Whether or not a custom shuttle has been ordered.
+	var/custom_shuttle_ordered = FALSE
+	// These vars are necessary to prevent multiple loads on the same turfs at the same times causing massive server issues
+	/// Whether or not a custom shuttle is currently loading at centcomm.
+	var/custom_escape_shuttle_loading = FALSE
+	/// Whether or not a shuttle is currently being loaded at the template landmark, if it exists.
+	var/loading_shuttle_at_preview_template = FALSE
 
 /datum/controller/subsystem/shuttle/Initialize()
 	if(!emergency)
@@ -302,5 +309,110 @@ SUBSYSTEM_DEF(shuttle)
 		return
 	var/turf/spawn_location = pick(supply_shuttle_turfs)
 	new /obj/structure/closet/crate/mail(spawn_location)
+
+// load an alternative shuttle in at the appropriate landmark.
+/datum/controller/subsystem/shuttle/proc/load_template(datum/map_template/shuttle/S)
+	// load shuttle template, centred at shuttle import landmark,
+	if(loading_shuttle_at_preview_template)
+		CRASH("A shuttle was already loading at the preview template when another was loaded")
+
+	loading_shuttle_at_preview_template = TRUE
+	var/turf/landmark_turf = get_turf(locate("landmark*Shuttle Import"))
+	S.load(landmark_turf, centered = TRUE)
+
+	var/affected = S.get_affected_turfs(landmark_turf, centered = TRUE)
+
+	var/mobile_docking_ports = 0
+	var/obj/docking_port/mobile/port
+	// Search the turfs for docking ports
+	// - We need to find the mobile docking port because that is the heart of
+	//   the shuttle.
+	// - We need to check that no additional ports have slipped in from the
+	//   template, because that causes unintended behaviour.
+	for(var/T in affected)
+		for(var/obj/docking_port/P in T)
+			if(istype(P, /obj/docking_port/mobile))
+				port = P
+				mobile_docking_ports++
+				if(mobile_docking_ports > 1)
+					qdel(P, force = TRUE)
+					log_world("Map warning: Shuttle Template [S.mappath] has multiple mobile docking ports.")
+				else if(!port.timid)
+					// The shuttle template we loaded isn't "timid" which means
+					// it's already registered with the shuttles subsystem.
+					// This is a bad thing.
+					WARNING("Template [S] is non-timid! Unloading.")
+					port.jumpToNullSpace()
+					loading_shuttle_at_preview_template = FALSE
+					return
+
+			if(istype(P, /obj/docking_port/stationary))
+				log_world("Map warning: Shuttle Template [S.mappath] has a stationary docking port.")
+
+	if(port)
+		loading_shuttle_at_preview_template = FALSE
+		return port
+
+	for(var/T in affected)
+		var/turf/T0 = T
+		T0.contents = null
+
+	var/msg = "load_template(): Shuttle Template [S.mappath] has no mobile docking port. Aborting import."
+	message_admins(msg)
+	WARNING(msg)
+	loading_shuttle_at_preview_template = FALSE
+
+/// Create a new shuttle and replace the emergency shuttle with it.
+/// if loaded shuttle is passed in, a new one will not be loaded.
+/datum/controller/subsystem/shuttle/proc/replace_shuttle(obj/docking_port/mobile/loaded_shuttle)
+	if(custom_escape_shuttle_loading)
+		CRASH("A custom escape shuttle was already being loaded at centcomm when another shuttle attempted to load.")
+	custom_escape_shuttle_loading = TRUE
+	// get the existing shuttle information, if any
+	var/timer = 0
+	var/mode = SHUTTLE_IDLE
+	var/obj/docking_port/stationary/dock
+
+	if(emergency)
+		timer = emergency.timer
+		mode = emergency.mode
+		dock = emergency.get_docked()
+	else
+		dock = loaded_shuttle.findRoundstartDock()
+
+	if(!dock)
+		var/m = "No dock found for preview shuttle, aborting."
+		WARNING(m)
+		custom_escape_shuttle_loading = FALSE
+		throw EXCEPTION(m)
+
+	var/result = loaded_shuttle.canDock(dock)
+	// truthy value means that it cannot dock for some reason
+	// but we can ignore the someone else docked error because we'll
+	// be moving into their place shortly
+	if((result != SHUTTLE_CAN_DOCK) && (result != SHUTTLE_SOMEONE_ELSE_DOCKED))
+
+		var/m = "Unsuccessful dock of [loaded_shuttle] ([result])."
+		message_admins(m)
+		WARNING(m)
+		custom_escape_shuttle_loading = FALSE
+		return
+
+	emergency.jumpToNullSpace()
+
+	loaded_shuttle.dock(dock)
+
+	// Shuttle state involves a mode and a timer based on world.time, so
+	// plugging the existing shuttles old values in works fine.
+	loaded_shuttle.timer = timer
+	loaded_shuttle.mode = mode
+
+	loaded_shuttle.register()
+
+	// TODO indicate to the user that success happened, rather than just
+	// blanking the modification tab
+
+	custom_escape_shuttle_loading = FALSE
+	return loaded_shuttle
 
 #undef CALL_SHUTTLE_REASON_LENGTH
