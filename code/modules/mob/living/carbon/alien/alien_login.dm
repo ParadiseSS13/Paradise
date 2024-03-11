@@ -2,4 +2,3 @@
 	..()
 	AddInfectionImages()
 	update_plasma_display(src)
-	return

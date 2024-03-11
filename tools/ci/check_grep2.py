@@ -14,7 +14,7 @@ NC = "\033[0m"  # No Color
 
 def print_error(message: str, filename: str, line_number: int):
     if os.getenv("GITHUB_ACTIONS") == "true": # We're on github, output in a special format.
-        print(f"::error file={filename},line={line_number},title=Check Grep::{message}")
+        print(f"::error file={filename},line={line_number},title=Check Grep::{filename}:{line_number}: {RED}{message}{NC}")
     else:
         print(f"{filename}:{line_number}: {RED}{message}{NC}")
 
@@ -167,7 +167,12 @@ if __name__ == "__main__":
     exit_code = 0
     start = time.time()
 
-    for code_filepath in glob.glob("**/*.dm", recursive=True):
+    dm_files = glob.glob("**/*.dm", recursive=True)
+
+    if len(sys.argv) > 1:
+        dm_files = [sys.argv[1]]
+
+    for code_filepath in dm_files:
         with open(code_filepath, encoding="UTF-8") as code:
             filename = code_filepath.split(os.path.sep)[-1]
             # 515 proc syntax check is unique in running on all files but one,

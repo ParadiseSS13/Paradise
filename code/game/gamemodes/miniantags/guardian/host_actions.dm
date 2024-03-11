@@ -77,7 +77,7 @@
 		return
 
 	var/confirm = tgui_alert(owner, "Are you sure you want replace your guardian's player?", "Confirm", list("Yes", "No"))
-	if(confirm == "No")
+	if(confirm != "Yes")
 		return
 
 	// Do this immediately, so the user can't spam a bunch of polls.

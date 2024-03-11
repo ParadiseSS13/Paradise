@@ -66,7 +66,7 @@
 	d2 = 2;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/syndicate/south,
+/obj/machinery/power/apc/syndicate/directional/south,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "aq" = (
@@ -742,7 +742,7 @@
 	d2 = 2;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/syndicate/east,
+/obj/machinery/power/apc/syndicate/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -1021,7 +1021,7 @@
 	d2 = 2;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/syndicate/west,
+/obj/machinery/power/apc/syndicate/directional/west,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "fF" = (
@@ -1290,7 +1290,7 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
-/obj/machinery/computer/library,
+/obj/machinery/computer/library/syndie,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "gW" = (
@@ -1893,7 +1893,7 @@
 	d2 = 2;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/syndicate/north,
+/obj/machinery/power/apc/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -1932,7 +1932,7 @@
 /obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -1986,7 +1986,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "kK" = (
-/obj/machinery/power/apc/syndicate/south,
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable/green,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -2119,7 +2119,7 @@
 	d2 = 2;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/syndicate/east,
+/obj/machinery/power/apc/syndicate/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2162,7 +2162,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "lW" = (
-/obj/machinery/power/apc/syndicate/north,
+/obj/machinery/power/apc/syndicate/directional/north,
 /obj/structure/cable/green{
 	d2 = 2;
 	icon_state = "0-2"
@@ -2946,7 +2946,7 @@
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "pH" = (
 /obj/structure/cable/green,
-/obj/machinery/power/apc/syndicate/west,
+/obj/machinery/power/apc/syndicate/directional/west,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "pM" = (
@@ -3769,7 +3769,7 @@
 	d2 = 2;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/syndicate/north,
+/obj/machinery/power/apc/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3969,7 +3969,7 @@
 /area/ruin/unpowered/syndicate_space_base/main)
 "vO" = (
 /obj/structure/cable/green,
-/obj/machinery/power/apc/syndicate/west,
+/obj/machinery/power/apc/syndicate/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4787,11 +4787,11 @@
 /obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 4
-	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
@@ -5219,7 +5219,7 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "CS" = (
 /obj/structure/cable/green,
-/obj/machinery/power/apc/syndicate/east,
+/obj/machinery/power/apc/syndicate/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5271,7 +5271,7 @@
 	d2 = 2;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/syndicate/south,
+/obj/machinery/power/apc/syndicate/directional/south,
 /turf/simulated/floor/catwalk,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "Dl" = (
@@ -5408,7 +5408,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/syndicate/north,
+/obj/machinery/power/apc/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -5960,7 +5960,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/syndicate/west,
+/obj/machinery/power/apc/syndicate/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 8
@@ -6045,7 +6045,7 @@
 	d2 = 2;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/syndicate/east,
+/obj/machinery/power/apc/syndicate/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -8452,7 +8452,7 @@
 	d2 = 2;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/syndicate/east,
+/obj/machinery/power/apc/syndicate/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
