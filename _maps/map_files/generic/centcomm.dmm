@@ -7343,7 +7343,9 @@
 /area/admin)
 "Ac" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/butcher_chainsaw,
+/obj/item/radio/uplink/admin{
+	name = "admin uplink"
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/admin)
 "Ad" = (

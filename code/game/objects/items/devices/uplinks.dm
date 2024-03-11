@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/uplink/New()
 	..()
-	uses = SSticker.mode.uplink_uses
+	uses = 100
 	uplink_items = get_uplink_items(src)
 
 	GLOB.world_uplinks += src
