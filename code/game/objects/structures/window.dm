@@ -126,10 +126,12 @@
 
 /obj/structure/window/CheckExit(atom/movable/O, target)
 	if(istype(O) && O.checkpass(PASSGLASS))
-		return 1
+		return TRUE
+	if(dir == FULLTILE_WINDOW_DIR)
+		return TRUE
 	if(get_dir(O.loc, target) & dir)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
 	if(!density)
