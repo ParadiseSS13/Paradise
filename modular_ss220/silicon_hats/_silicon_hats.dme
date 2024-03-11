@@ -1,4 +1,0 @@
-#include "_silicon_hats.dm"
-
-#include "code/silicon_hats.dm"
-#include "code/silicon_interactions.dm"
