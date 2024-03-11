@@ -1,5 +1,5 @@
 /mob/living/silicon/grabbedby(mob/living/user)
-	return
+	remove_from_head(user)
 
 /mob/living/silicon/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(..()) //if harm or disarm intent

@@ -1703,11 +1703,3 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		old_ai.connected_robots -= src
 	if(connected_ai)
 		connected_ai.connected_robots |= src
-
-/datum/emote/flip/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	if(isrobot(user))
-		var/mob/living/silicon/robot/borg = user
-		if(borg.drop_hat())
-			borg.visible_message("<span class='warning'><span class='name'>[src]</span> drops their hat!</span>",
-							"<span class='warning'>Your hat falls off!</span>")
