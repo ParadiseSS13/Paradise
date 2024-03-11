@@ -115,6 +115,7 @@
 	var/plasma_count = 0
 	var/intel_count = 0
 	var/crate_count = 0
+	var/salvage_count = 0
 	var/total_crate_value = 0
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
@@ -237,6 +238,5 @@
 
 #undef MAX_CRATE_DELIVERY
 
-<<<<<<< HEAD
 	// TODO: add stats for other stuff, find good representation for tech disks/levels because number of disks is meaningless
 	SSblackbox.record_feedback("tally", "cargo_exports", salvage_count, "salvage")
