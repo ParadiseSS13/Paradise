@@ -528,7 +528,9 @@
 /obj/machinery/door/proc/update_bounds()
 	if(width <= 1)
 		return
-
+	
+	QDEL_LIST_CONTENTS(fillers)
+	
 	if(dir in list(EAST, WEST))
 		bound_width = width * world.icon_size
 		bound_height = world.icon_size
