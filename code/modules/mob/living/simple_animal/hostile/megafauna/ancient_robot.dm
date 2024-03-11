@@ -864,3 +864,8 @@ Difficulty: Hard
 #undef FLUX
 #undef CRYO
 #undef VORTEX
+
+#undef TOP_RIGHT
+#undef TOP_LEFT
+#undef BOTTOM_RIGHT
+#undef BOTTOM_LEFT

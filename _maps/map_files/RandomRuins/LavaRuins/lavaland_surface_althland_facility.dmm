@@ -379,6 +379,10 @@
 	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
+"hI" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors)
 "hP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -971,6 +975,18 @@
 	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
+"zv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced,
+/obj/machinery/conveyor/west,
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered/althland_processing)
 "zE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/pickaxe,
@@ -1364,6 +1380,15 @@
 	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
+"Hs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered/althland_processing)
 "Hx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1374,6 +1399,16 @@
 	temperature = 500;
 	oxygen = 8;
 	nitrogen = 14
+	},
+/area/ruin/unpowered/althland_processing)
+"Hz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
 	},
 /area/ruin/unpowered/althland_processing)
 "HO" = (
@@ -1889,6 +1924,11 @@
 	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
+"WU" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Xn" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
@@ -2395,7 +2435,7 @@ ui
 QE
 af
 BM
-no
+Hz
 bO
 In
 dM
@@ -2445,7 +2485,7 @@ bV
 bL
 ab
 af
-ui
+hI
 bT
 ab
 ab
@@ -2524,7 +2564,7 @@ bT
 bT
 bT
 ui
-hP
+zv
 UP
 Ic
 ui
@@ -2711,7 +2751,7 @@ ui
 ab
 ab
 ab
-ab
+WU
 ab
 ab
 ab
@@ -2760,7 +2800,7 @@ KJ
 af
 bT
 bT
-ui
+hI
 ab
 bL
 "}
@@ -2830,7 +2870,7 @@ bT
 bT
 bT
 bT
-ui
+hI
 af
 bT
 ab
@@ -2841,7 +2881,7 @@ bV
 bL
 ab
 ab
-ui
+hI
 af
 bT
 bT
@@ -2882,7 +2922,7 @@ ab
 bT
 bT
 bT
-ui
+hI
 bT
 bT
 bT
@@ -2932,12 +2972,12 @@ lZ
 ui
 Yd
 nN
-ui
+hI
 af
 AL
 af
 af
-ui
+hI
 bT
 ab
 ab
@@ -2957,7 +2997,7 @@ bT
 bT
 af
 af
-ui
+hI
 af
 bT
 ui
@@ -3143,17 +3183,17 @@ YK
 hj
 Az
 BV
-hj
+Hs
 Dz
 ui
 bT
 Wp
-ui
+hI
 af
 af
 af
 af
-ui
+hI
 bT
 bT
 ab
@@ -3247,7 +3287,7 @@ bT
 bT
 bT
 bT
-ui
+hI
 bT
 bT
 bT
