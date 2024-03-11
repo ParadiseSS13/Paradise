@@ -3209,7 +3209,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/gateway/centeraway{
 	calibrated = 0;
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/beach)

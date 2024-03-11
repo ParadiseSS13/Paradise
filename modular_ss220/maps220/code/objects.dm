@@ -281,10 +281,6 @@
 	if(!istype(user))
 		return
 
-	if(undead.skeleton)
-		to_chat(user, span_warning("Этот воин уже отслужил свое."))
-		return
-
 	if(undead.stat != DEAD)
 		to_chat(user, span_warning("Этот артефакт подействует лишь на мертвеца!"))
 		return

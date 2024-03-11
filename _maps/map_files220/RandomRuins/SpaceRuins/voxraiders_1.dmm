@@ -118,7 +118,7 @@
 	dir = 10;
 	network = list("Scavengers");
 	c_tag = "North-East";
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -203,7 +203,7 @@
 	dir = 6;
 	network = list("Scavengers");
 	c_tag = "South-East";
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -313,7 +313,7 @@
 	dir = 2;
 	network = list("Scavengers");
 	c_tag = "South-West";
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -560,7 +560,7 @@
 	dir = 1;
 	network = list("Scavengers");
 	c_tag = "North-West";
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/template_noop,
 /area/template_noop)

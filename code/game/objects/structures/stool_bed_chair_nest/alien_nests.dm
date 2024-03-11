@@ -47,8 +47,11 @@
 			add_fingerprint(user)
 
 /obj/structure/bed/nest/user_buckle_mob(mob/living/M, mob/living/user)
-	if(!istype(M) || (get_dist(src, user) > 1) || (M.loc != loc) || user.incapacitated() || M.buckled)
+	if(!istype(M) || user.incapacitated() || M.buckled)
 		return
+
+	if(M != user && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && (!in_range(M, src) || !do_after(user, 1 SECONDS, target = M)))
+		return FALSE
 
 	if(M.get_int_organ(/obj/item/organ/internal/alien/hivenode))
 		to_chat(user, "<span class='noticealien'>[M]'s linkage with the hive prevents you from securing them into [src]</span>")
@@ -121,7 +124,11 @@
 	comfort = 0
 	flags = NODECONSTRUCT
 	var/processing_ticks = 0
-	var/revive_or_decay_timer
+	var/revive_timer
+
+/obj/structure/bed/revival_nest/Initialize(mapload)
+	. = ..()
+	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer = MOB_LAYER - 0.2)
 
 /obj/structure/bed/revival_nest/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
 	for(var/mob/living/M in buckled_mobs) //breaking a nest releases all the buckled mobs, because the nest isn't holding them down anymore
@@ -129,9 +136,16 @@
 			unbuckle_mob(M)
 			add_fingerprint(user)
 
+/obj/structure/bed/revival_nest/post_buckle_mob(mob/living/M)
+	M.layer = BELOW_MOB_LAYER
+	add_overlay(nest_overlay)
+
 /obj/structure/bed/revival_nest/post_unbuckle_mob(mob/living/M)
+	M.layer = initial(M.layer)
+	cut_overlay(nest_overlay)
 	STOP_PROCESSING(SSobj, src)
-	deltimer(revive_or_decay_timer)
+	deltimer(revive_timer)
+	revive_timer = null
 
 /obj/structure/bed/revival_nest/process()
 	for(var/mob/living/buckled_mob in buckled_mobs)
@@ -150,9 +164,8 @@
 			if(virus.stage > 1 && processing_ticks >= 4)
 				virus.stage--
 				processing_ticks = 0
-		if(buckled_mob.stat == DEAD && !revive_or_decay_timer && isalien(buckled_mob))
-			revive_or_decay_timer = addtimer(CALLBACK(src, PROC_REF(revive_dead_alien), buckled_mob), 40 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
-
+		if(buckled_mob.stat == DEAD && !revive_timer && isalien(buckled_mob))
+			revive_timer = addtimer(CALLBACK(src, PROC_REF(revive_dead_alien), buckled_mob), 40 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
 
 /obj/structure/bed/revival_nest/proc/revive_dead_alien(mob/living/carbon/alien/dead_alien)
 	dead_alien.revive()
@@ -180,8 +193,11 @@
 		SEND_SOUND(dead_alien, sound('sound/voice/hiss5.ogg'))
 
 /obj/structure/bed/revival_nest/user_buckle_mob(mob/living/M, mob/living/user)
-	if(!istype(M) || (get_dist(src, user) > 1) || (M.loc != loc) || user.incapacitated() || M.buckled)
+	if(!istype(M) || user.incapacitated() || M.buckled)
 		return
+
+	if(M != user && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && (!in_range(M, src) || !do_after(user, 1 SECONDS, target = M)))
+		return FALSE
 
 	if(!user.get_int_organ(/obj/item/organ/internal/alien/hivenode))
 		to_chat(user, "<span class='noticealien'>Your lack of linkage to the hive prevents you from buckling [M] into [src].</span>")

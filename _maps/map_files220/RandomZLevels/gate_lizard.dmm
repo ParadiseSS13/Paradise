@@ -584,7 +584,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "Main in";
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -1234,7 +1234,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "Command";
-	requires_power = 0
+	interact_offline = 1
 	},
 /obj/effect/mapping_helpers/damaged_window,
 /turf/simulated/floor/plasteel,
@@ -1525,7 +1525,7 @@
 /obj/machinery/suit_storage_unit/syndicate{
 	req_access = null;
 	state_open = 1;
-	requires_power = 0
+	interact_offline = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/mineral/plastitanium,
@@ -2362,7 +2362,7 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -2551,7 +2551,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "Hang in";
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -4046,7 +4046,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Right in";
 	dir = 8;
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4270,7 +4270,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
 	dir = 8;
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -4843,7 +4843,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "grz" = (
 /obj/machinery/door/airlock/external{
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/jungle_planet/outside/abandoned)
@@ -6254,7 +6254,7 @@
 	},
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -6326,7 +6326,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "Hang in";
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -7308,7 +7308,7 @@
 /area/awaymission/jungle_planet/outside/cave/small)
 "jte" = (
 /obj/machinery/gateway/centeraway{
-	requires_power = 0;
+	interact_offline = 1;
 	calibrated = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -8155,7 +8155,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "Command";
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -9377,7 +9377,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
 	dir = 8;
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -10534,7 +10534,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "Command";
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -13094,7 +13094,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "Hang in";
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -13591,7 +13591,7 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
-	requires_power = 0
+	interact_offline = 1
 	},
 /obj/effect/mapping_helpers/damaged_window,
 /turf/simulated/floor/plating,
@@ -13921,7 +13921,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "Hang in";
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -14143,7 +14143,7 @@
 /obj/machinery/door_control/shutter/south{
 	id = "Main in";
 	req_access = list(271);
-	requires_power = 0
+	interact_offline = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel,
@@ -14152,7 +14152,7 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -14794,7 +14794,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
 	dir = 8;
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -15064,7 +15064,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Arm in";
 	dir = 2;
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -15898,7 +15898,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Right in";
 	dir = 8;
-	requires_power = 0
+	interact_offline = 1
 	},
 /obj/machinery/door/airlock/mining{
 	locked = 1;
@@ -17134,7 +17134,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
 	dir = 8;
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -17438,7 +17438,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
 	dir = 8;
-	requires_power = 0
+	interact_offline = 1
 	},
 /obj/machinery/door/airlock/security{
 	locked = 1;
@@ -18147,7 +18147,7 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
-	requires_power = 0
+	interact_offline = 1
 	},
 /obj/effect/mapping_helpers/damaged_window,
 /turf/simulated/floor/plasteel,
@@ -18547,7 +18547,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "Command";
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -18556,7 +18556,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Arm in";
 	dir = 2;
-	requires_power = 0
+	interact_offline = 1
 	},
 /obj/machinery/door/airlock/security{
 	locked = 1;
@@ -18954,7 +18954,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "Hang in";
-	requires_power = 0
+	interact_offline = 1
 	},
 /obj/effect/mapping_helpers/damaged_window,
 /turf/simulated/floor/plating,
@@ -19215,7 +19215,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
-	requires_power = 0
+	interact_offline = 1
 	},
 /obj/machinery/door/airlock/security{
 	locked = 1;

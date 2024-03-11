@@ -189,7 +189,7 @@
 /obj/machinery/porta_turret{
 	faction = "syndicate";
 	lethal = 1;
-	requires_power = 0
+	interact_offline = 1
 	},
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/glass,
@@ -1358,7 +1358,7 @@
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/awaymission/caves)
 "gh" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/caves/build)
 "gj" = (
@@ -1913,7 +1913,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "jg" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/caves)
 "jh" = (
@@ -7392,7 +7392,7 @@
 "LO" = (
 /obj/machinery/gateway/centeraway{
 	calibrated = 0;
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/engine/cult/lavaland_air{
 	planetary_atmos = 1
@@ -9593,7 +9593,7 @@
 /obj/machinery/porta_turret{
 	faction = "syndicate";
 	lethal = 1;
-	requires_power = 0
+	interact_offline = 1
 	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{

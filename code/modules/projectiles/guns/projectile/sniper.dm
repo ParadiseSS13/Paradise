@@ -1,6 +1,6 @@
 /obj/item/gun/projectile/automatic/sniper_rifle
-	name = "sniper rifle"
-	desc = "The kind of gun that will leave you crying for mummy before you even realise your leg's missing."
+	name = "\improper SR-31C sniper rifle"
+	desc = "A powerful anti-materiel rifle produced by Aussec Armory, chambered in devastating .50 BMG."
 	icon_state = "sniper"
 	item_state = "sniper"
 	recoil = 2

@@ -6993,7 +6993,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/smes/magical{
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/security_outpost)
@@ -11405,7 +11405,7 @@
 "nXD" = (
 /obj/machinery/gateway/centeraway{
 	calibrated = 0;
-	requires_power = 0
+	interact_offline = 1
 	},
 /turf/simulated/floor/plasteel/smooth{
 	icon_state = "smooth_large"

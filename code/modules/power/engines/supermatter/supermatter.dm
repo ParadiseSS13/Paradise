@@ -857,7 +857,7 @@
 		user.dust()
 		if(power_changes)
 			matter_power += 200
-	else if(istype(AM, /obj/singularity))
+	else if(istype(AM, /obj/singularity) || istype(AM, /obj/machinery/field/containment))
 		return
 	else if(isobj(AM))
 		if(!iseffect(AM))
