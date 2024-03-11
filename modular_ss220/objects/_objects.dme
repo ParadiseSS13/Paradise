@@ -2,6 +2,7 @@
 
 // Mechs
 #include "code/mecha/lockermech.dm"
+#include "code/mecha/combat.dm"
 
 // Miscellaneous
 #include "code/beach_umbrella.dm"

@@ -1,12 +1,13 @@
-/obj/item/paintkit //Please don't use this for anything, it's a base type for custom mech paintjobs.
+// Please don't use this for anything, it's a base type for custom mech paintjobs.
+/obj/item/paintkit
 	name = "Набор кастомизации меха"
 	desc = "Дефолтный набор кастомизации, превращающий мех в другой мех(визуально)."
-	icon = 'modular_ss220/mecha_skins/code/paintkit.dmi'
-	icon_state = "paintkit" //What sprite will your paintkit use?
+	icon = 'modular_ss220/mecha_skins/icons/paintkit.dmi'
+	icon_state = "paintkit"
+	// New type of wreckage
+	var/new_wreckage = null
 
-	var/new_wreckage = null //Новый тип обломков?
-
-//RIPLEY
+// RIPLEY
 
 /obj/item/paintkit/ripley_titansfist
 	name = "Набор кастомизации АЭП \"Кулак Титана\""
@@ -25,7 +26,7 @@
 	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Рипли в старый АЭП боевика."
 
 	new_name = "АЭП \"Strike the Earth!\""
-	new_desc = "Выглядит как сильно поврежденный от бесконечной работы Рипли. Вам померещилось, или в кабине горят зеленые огни?.."
+	new_desc = "Выглядит как сильно поврежденный от бесконечной работы Рипли. Вам померещилось, или в кабине горят зеленые огни?..."
 	new_icon = "earth"
 	allowed_types = list("ripley", "firefighter")
 	new_wreckage = /obj/structure/mecha_wreckage/ripley/gurren
@@ -33,7 +34,7 @@
 /obj/item/paintkit/ripley_red
 	name = "Набор кастомизации АЭП \"Поджигатель\""
 	icon_state = "paintkit_red"
-	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Рипли в АЭП \"Поджигатель\""
+	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Рипли в АЭП \"Поджигатель\"."
 
 	new_name = "АЭП \"Поджигатель\""
 	new_desc = "Стандарный АЭП с стильными огненными декалями."
@@ -44,7 +45,7 @@
 /obj/item/paintkit/firefighter_Hauler
 	name = "Набор кастомизации АЭП \"Тягач\""
 	icon_state = "paintkit_hauler"
-	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Рипли в старый инженерный экзокостюм"
+	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Рипли в старый инженерный экзокостюм."
 
 	new_name = "АЭП \"Тягач\""
 	new_desc = "Старый инженерный экзокостюм. Для любителей классики."
@@ -55,7 +56,7 @@
 /obj/item/paintkit/firefighter_zairjah
 	name = "Набор кастомизации АЭП \"Заря\""
 	icon_state = "paintkit_zairjah"
-	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Рипли в странно выглядящий экзокостюм"
+	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Рипли в странно выглядящий экзокостюм."
 
 	new_name = "АЭП \"Заря\""
 	new_desc = "Шахтерская машина индивидуальной разработки, закрытая кабина с придаточными устройствами."
@@ -91,17 +92,17 @@
 	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Рипли в знаменитого меха из мегапопулярного аниме \"Отряд Смерти\"!"
 
 	new_name = "АЭП \"Жнец\""
-	new_desc = "ОХ БЛЯТЬ ЭТО ОНИ МЫ ВСЕ УМР- а, это просто перекрашенный Рипли."
+	new_desc = "ОХ БЛЯТЬ, ЭТО ОНИ, МЫ ВСЕ УМР- а, это просто перекрашенный Рипли."
 	new_icon = "deathripley"
 	allowed_types = list("ripley", "firefighter")
 	new_wreckage = /obj/structure/mecha_wreckage/ripley/reaper
 
-//ODYSS
+// ODYSSEUS
 
 /obj/item/paintkit/odysseus_hermes
 	name = "Набор кастомизации Одиссея \"Гермес\""
 	icon_state = "paintkit_hermes"
-	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Одиссея в инопланетный водолазный экзокостюм"
+	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Одиссея в инопланетный водолазный экзокостюм."
 
 	new_name = "Гермес"
 	new_desc = "Водолазный экзокостюм, разработанный и выпускаемый для проведения узкоспециализированных подводных операций. Как он здесь оказался?"
@@ -112,15 +113,15 @@
 /obj/item/paintkit/odysseus_death
 	name = "Набор кастомизации Одиссея \"Жнец\""
 	icon_state = "paintkit_death"
-	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Одиссея в ужасающий мех"
+	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Одиссея в ужасающий мех."
 
 	new_name = "Жнец"
-	new_desc = "ОХ БЛЯТЬ ЭТО ОНИ МЫ ВСЕ.. получим плохое лечение?"
+	new_desc = "ОХ БЛЯТЬ, МЫ ВСЕ... получим плохое лечение?"
 	new_icon = "murdysseus"
 	allowed_types = list("odysseus")
 	new_wreckage = /obj/structure/mecha_wreckage/odysseus/reaper
 
-//GYGAXCHAD
+// GYGAXCHAD
 
 /obj/item/paintkit/gygax_alt
 	name = "Набор кастомизации старого Гигакса"
@@ -158,7 +159,7 @@
 /obj/item/paintkit/gygax_medgax
 	name = "Набор кастомизации Гигакса \"Медигакс\""
 	icon_state = "paintkit_white"
-	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Гигакс в старый \"медицинский\" мех"
+	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Гигакс в старый \"медицинский\" мех."
 
 	new_name = "Медигакс"
 	new_desc = "ОХ БЛЯТЬ, В БОЛЬНИЦЕ МЕДИЦИНСКИЙ МЕХ, ОН НАС ВСЕХ УБЬЕТ!!!"
@@ -180,7 +181,7 @@
 /obj/item/paintkit/gygax_syndie
 	name = "Набор кастомизации черного Гигакса"
 	icon_state = "paintkit_Black"
-	desc = "Очень подозрительный набор, содержащий все необходимые инструменты и детали для превращения Гигакса в печально известный черный Гигакс"
+	desc = "Очень подозрительный набор, содержащий все необходимые инструменты и детали для превращения Гигакса в печально известный черный Гигакс."
 
 	new_name = "черный Гигакс"
 	new_desc = "Почему на этой штуке есть логотип Синдиката? Погодите-ка..."
@@ -188,7 +189,7 @@
 	allowed_types = list("gygax")
 	new_wreckage = /obj/structure/mecha_wreckage/gygax/gygax_black
 
-//DURAND
+// DURAND
 
 /obj/item/paintkit/durand_soviet
 	name = "Набор кастомизации Дюранда \"Кукольный домик\""
@@ -204,7 +205,7 @@
 /obj/item/paintkit/durand_unathi
 	name = "Набор кастомизации Дюранда \"Кхарн MK. IV\""
 	icon_state = "paintkit_unathi"
-	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Дюранда в ящероподобный инопланетный мех"
+	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Дюранда в ящероподобный инопланетный мех."
 
 	new_name = "Кхарн MK. IV"
 	new_desc = "Жизнь за Императницу!"
@@ -223,7 +224,18 @@
 	allowed_types = list("durand")
 	new_wreckage = /obj/structure/mecha_wreckage/durand/shire
 
-//USELESS SHIT
+/obj/item/paintkit/durand_skull
+	name = "Набор кастомизации Дюранда \"Скелемех\""
+	icon_state = "paintkit_skull"
+	desc = "Набор, содержащий все необходимые инструменты и детали для превращения Дюранда в монстра Лаваленда!"
+
+	new_name = "Скелемех"
+	new_desc = "Мех, укрепленный черепами древних монстров. На этот ужас нужен опытный шахтёр."
+	new_icon = "skullmech"
+	allowed_types = list("durand")
+	new_wreckage = /obj/structure/mecha_wreckage/durand/skull
+
+// USELESS SHIT
 
 /obj/item/paintkit/phazon_imperion
 	name = "Набор кастомизации Фазона \"Империон\""

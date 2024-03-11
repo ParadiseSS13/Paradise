@@ -1,9 +1,10 @@
-//GYGAX
+// GYGAX
 
+/// NT Special Gygax
 /obj/mecha/combat/gygax/nt
-	name = "Nanotrasen Special Gygax"
+	name = "Специальный Гигакс НТ"
 	desc = "Козырь Nanotrasen при решении проблем, легкий мех окрашенный в победоносные цвета НТ. Если вы видите этот мех, вероятно все проблемы уже решены."
-	icon = 'modular_ss220/mecha_skins/code/mecha.dmi'
+	icon = 'modular_ss220/objects/icons/mecha.dmi'
 	icon_state = "ntgygax"
 	initial_icon = "ntgygax"
 	max_integrity = 300
@@ -46,12 +47,20 @@
 /obj/mecha/combat/gygax/nt/add_cell()
 	cell = new /obj/item/stock_parts/cell/high/slime(src)
 
-//DURAND
+// NT Special Gygax wreckage
+/obj/structure/mecha_wreckage/gygax/gygax_nt
+	name = "\improper Обломки Специального Гигакса НТ"
+	desc = "Видимо козырь был плохим..."
+	icon = 'modular_ss220/objects/icons/mecha.dmi'
+	icon_state = "ntgygax-broken"
 
+// DURAND
+
+/// Rover
 /obj/mecha/combat/durand/rover
-	desc = "Combat exosuit, developed by syndicate from the Durand Mk. II by scraping unnecessary things, and adding some of their tech. Much more protected from any Nanotrasen hazards."
-	name = "Rover"
-	icon = 'modular_ss220/mecha_skins/code/mecha.dmi'
+	name = "Ровер"
+	desc = "Боевой мех, разработанный Синдикатом на основе Durand Mk. II путем удаления ненужных вещей и добавления некоторых своих технологий. Гораздо лучше защищен от любых опасностей, связанных с Нанотрейзен."
+	icon = 'modular_ss220/objects/icons/mecha.dmi'
 	icon_state = "darkdurand"
 	initial_icon = "darkdurand"
 	armor = list(melee = 30, bullet = 40, laser = 50, energy = 50, bomb = 20, rad = 50, fire = 100, acid = 100)
@@ -60,17 +69,15 @@
 	internal_damage_threshold = 35
 	wreckage = /obj/structure/mecha_wreckage/durand/rover
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
-	destruction_sleep_duration = 1
+	destruction_sleep_duration = 2 SECONDS
 
 /obj/mecha/combat/durand/rover/GrantActions(mob/living/user, human_occupant = 0)
 	..()
 	thrusters_action.Grant(user, src)
-	defense_action.Grant(user, src)
 
 /obj/mecha/combat/durand/rover/RemoveActions(mob/living/user, human_occupant = 0)
 	..()
 	thrusters_action.Remove(user)
-	defense_action.Remove(user)
 
 /obj/mecha/combat/durand/rover/loaded/Initialize(mapload)
 	. = ..()
@@ -85,3 +92,10 @@
 
 /obj/mecha/combat/durand/rover/loaded/add_cell()
 	cell = new /obj/item/stock_parts/cell/bluespace(src)
+
+// Rover's wreckage
+/obj/structure/mecha_wreckage/durand/rover
+	name = "\improper Обломки Ровера"
+	desc = "И как такой гигант пал?"
+	icon = 'modular_ss220/objects/icons/mecha.dmi'
+	icon_state = "darkdurand-broken"

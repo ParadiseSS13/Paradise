@@ -6903,10 +6903,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"zk" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/wall/indestructible/boss/see_through,
-/area/lavaland/surface/outdoors/legion)
 "zo" = (
 /obj/structure/table,
 /obj/item/kitchen/utensil/fork,
@@ -7231,14 +7227,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
-"AM" = (
-/obj/structure/window/reinforced/clockwork{
-	dir = 8;
-	move_resist = 45000
-	},
-/obj/structure/stone_tile/slab,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors/legion)
 "AN" = (
 /obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
@@ -8800,17 +8788,15 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "Kr" = (
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/block/cracked{
 	dir = 4
 	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/block{
 	dir = 8
 	},
-/turf/simulated/wall/indestructible/boss,
+/obj/structure/table/reinforced/brass,
+/obj/item/paintkit/durand_skull,
+/turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/legion)
 "Ku" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -10716,6 +10702,9 @@
 	move_resist = 45000
 	},
 /obj/structure/stone_tile/slab,
+/obj/structure/bookcase{
+	move_resist = 45000
+	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/legion)
 "Ww" = (
@@ -35224,7 +35213,7 @@ kM
 kM
 kM
 kM
-Kr
+kM
 kM
 kM
 kM
@@ -35481,7 +35470,7 @@ kM
 kM
 kM
 yv
-Ux
+Kr
 Av
 kM
 kM
@@ -43968,8 +43957,8 @@ nc
 ng
 kM
 kM
-fV
-zk
+kM
+OZ
 jl
 gr
 ah
@@ -44225,8 +44214,8 @@ hJ
 id
 kM
 kM
-fV
-zk
+kM
+OZ
 jm
 jL
 gM
@@ -49359,8 +49348,8 @@ kM
 kM
 kM
 kM
-kM
-kM
+fV
+fV
 Uf
 Ut
 yD
@@ -49617,7 +49606,7 @@ kM
 kM
 Bx
 ED
-kM
+fV
 jU
 rY
 hI
@@ -49874,7 +49863,7 @@ kM
 LH
 zQ
 Ml
-kM
+fV
 jU
 MS
 yS
@@ -50131,7 +50120,7 @@ Bx
 yD
 Wb
 jU
-kM
+fV
 Fs
 kv
 hI
@@ -50388,7 +50377,7 @@ kM
 ui
 HF
 Jd
-kM
+fV
 jU
 Rn
 hI
@@ -50645,7 +50634,7 @@ kM
 kM
 Bx
 ED
-kM
+fV
 yx
 Hw
 VM
@@ -53737,7 +53726,7 @@ Zb
 xc
 lt
 MS
-AM
+ih
 kM
 kM
 Yt

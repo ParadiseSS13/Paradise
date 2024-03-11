@@ -2,7 +2,7 @@
 /obj/mecha/lockermech
 	name = "Шкафомех"
 	desc = "Шкафчик с украденными проводами, стойками, электроникой и шлюзовыми сервоприводами, грубо собранными в нечто, напоминающее мех."
-	icon = 'modular_ss220/objects/icons/mech.dmi'
+	icon = 'modular_ss220/objects/icons/mecha.dmi'
 	icon_state = "lockermech"
 	initial_icon = "lockermech"
 	// It's made of scraps
@@ -152,7 +152,7 @@
 /obj/structure/mecha_wreckage/lockermech
 	name = "\improper Обломки Шкафомеха"
 	desc = "Владелец данного изделия, на что он надеялся?..."
-	icon = 'modular_ss220/objects/icons/mech.dmi'
+	icon = 'modular_ss220/objects/icons/mecha.dmi'
 	icon_state = "lockermech-broken"
 
 // Equipment

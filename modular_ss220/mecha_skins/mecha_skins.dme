@@ -3,4 +3,3 @@
 #include "code/fabricator_design.dm"
 #include "code/paintkit_install.dm"
 #include "code/paintkit_menu.dm"
-#include "code/mecha_preloaded.dm"
