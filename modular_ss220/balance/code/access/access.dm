@@ -4,7 +4,7 @@
 
 /datum/job/mining/New()
 	. = ..()
-	access += list(ACCESS_CARGO, ACCESS_CARGO_BAY, ACCESS_MAILSORTING)
+	access += list(ACCESS_CARGO, ACCESS_CARGO_BAY, ACCESS_SUPPLY_SHUTTLE, ACCESS_MAILSORTING)
 
 /datum/job/bartender/New()
 	. = ..()
@@ -29,6 +29,10 @@
 /datum/job/engineer/New()
 	. = ..()
 	access += list(ACCESS_ATMOSPHERICS)
+
+/datum/job/blueshield/New()
+	. = ..()
+	access += list(ACCESS_CARGO_BAY)
 
 /datum/job/roboticist/New()
 	. = ..()

@@ -7313,7 +7313,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "aFO" = (
@@ -8583,7 +8583,6 @@
 /obj/machinery/door/airlock/mining/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/supply/cargo_bay,
-/obj/effect/mapping_helpers/airlock/access/any/command/blueshield,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "aKE" = (
@@ -8903,7 +8902,6 @@
 /obj/machinery/door/airlock/mining/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/supply/cargo_bay,
-/obj/effect/mapping_helpers/airlock/access/any/command/blueshield,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "aMd" = (
@@ -9847,7 +9845,7 @@
 	},
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/cargo_bay,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "aQs" = (
@@ -94991,6 +94989,16 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/door_control/shutter/east{
+	pixel_y = -8;
+	id = "QMLoaddoor2";
+	req_one_access_txt = "79"
+	},
+/obj/machinery/door_control/shutter/east{
+	pixel_y = 8;
+	id = "QMLoaddoor";
+	req_one_access_txt = "79"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -154889,7 +154897,7 @@ ayD
 aFR
 aGP
 aFN
-aFR
+ayD
 aFN
 aIk
 aFR

@@ -2524,7 +2524,8 @@
 	id = "QMLoaddoor";
 	layer = 3;
 	name = "Loading Doors";
-	pixel_y = 8
+	pixel_y = 8;
+	req_one_access_txt = "79"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
@@ -6057,7 +6058,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch";
-	req_access_txt = "31"
+	req_one_access_txt = "79"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -26347,13 +26348,15 @@
 	id = "QMLoaddoor2";
 	layer = 4;
 	name = "Loading Doors";
-	pixel_y = -8
+	pixel_y = -8;
+	req_one_access_txt = "106"
 	},
 /obj/machinery/door_control/no_emag/east{
 	id = "QMLoaddoor";
 	layer = 4;
 	name = "Loading Doors";
-	pixel_y = 8
+	pixel_y = 8;
+	req_one_access_txt = "106"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
@@ -34162,7 +34165,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch";
-	req_access_txt = "31"
+	req_one_access_txt = "79"
 	},
 /obj/structure/fans/tiny,
 /obj/docking_port/mobile/supply{

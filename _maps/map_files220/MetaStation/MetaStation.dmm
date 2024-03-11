@@ -5415,7 +5415,7 @@
 	locked = 1
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "aDB" = (
@@ -9789,12 +9789,14 @@
 /obj/machinery/door_control/shutter/west{
 	id = "QMLoaddoor";
 	name = "Loading Doors";
-	pixel_y = -5
+	pixel_y = -8;
+	req_one_access_txt = "79"
 	},
 /obj/machinery/door_control/shutter/west{
 	id = "QMLoaddoor2";
 	name = "Loading Doors";
-	pixel_y = 5
+	pixel_y = 8;
+	req_one_access_txt = "79"
 	},
 /obj/machinery/computer/supplycomp{
 	dir = 4
@@ -14212,7 +14214,7 @@
 	},
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/cargo_bay,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "bfp" = (
@@ -56600,7 +56602,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/cargo_bay,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "iKZ" = (
@@ -81742,7 +81744,7 @@
 /obj/machinery/door_control/shutter/north{
 	id = "qm_warehouse";
 	name = "Warehouse Door Control";
-	req_access_txt = "31"
+	req_one_access_txt = "78"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
