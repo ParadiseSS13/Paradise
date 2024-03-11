@@ -432,7 +432,7 @@
 			// Most limbs will drop here. Groin won't, but this
 			// still spills out the organs that were in it.
 			limb.droplimb(FALSE, DROPLIMB_SHARP)
-			if(istype(limb,/obj/item/organ/external/groin))
+			if(istype(limb, /obj/item/organ/external/groin))
 				limb.receive_damage(100, sharp = TRUE)
 
 				var/obj/item/organ/external/left_leg = H.get_organ(BODY_ZONE_L_LEG)
