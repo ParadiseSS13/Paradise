@@ -1,6 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/item/crowbar,
+/obj/item/paper,
 /turf/simulated/floor/plating,
 /area/space)
 "J" = (
@@ -11,10 +12,6 @@
 /obj/item/multitool,
 /turf/simulated/floor/plating,
 /area/space)
-"R" = (
-/obj/item/wrench,
-/turf/simulated/floor/plating,
-/area/space)
 
 (1,1,1) = {"
 J
@@ -22,5 +19,5 @@ a
 "}
 (2,1,1) = {"
 N
-R
+N
 "}
