@@ -115,7 +115,6 @@
 	var/plasma_count = 0
 	var/intel_count = 0
 	var/crate_count = 0
-	var/salvage_count = 0
 	var/total_crate_value = 0
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
@@ -157,10 +156,6 @@
 				if(istype(thing, /obj/item/stack/sheet/mineral/plasma))
 					var/obj/item/stack/sheet/mineral/plasma/P = thing
 					plasma_count += P.amount
-
-				// Sell salvage
-				if(istype(thing, /obj/item/salvage))
-					++salvage_count
 
 				// Sell syndicate intel
 				if(istype(thing, /obj/item/documents/syndicate))
@@ -223,11 +218,6 @@
 		msg += "<span class='good'>+[credits_from_plasma]</span>: Received [plasma_count] unit(s) of exotic material.<br>"
 		credits_to_deposit += credits_from_plasma
 
-	if(salvage_count > 0)
-		var/credits_from_salvage = salvage_count * SSeconomy.credits_per_salvage
-		msg += "<span class='good'>+[credits_from_salvage]</span>: Received [salvage_count] tonne(s) of salvage.<br>"
-		credits_to_deposit += credits_from_salvage
-
 	if(intel_count > 0)
 		var/credits_from_intel = intel_count * SSeconomy.credits_per_intel
 		msg += "<span class='good'>+[credits_from_intel]</span>: Received [intel_count] article(s) of enemy intelligence.<br>"
@@ -245,5 +235,4 @@
 		if(service_credits)
 			GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE), service_credits, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
 
-	// TODO: add stats for other stuff, find good representation for tech disks/levels because number of disks is meaningless
-	SSblackbox.record_feedback("tally", "cargo_exports", salvage_count, "salvage")
+#undef MAX_CRATE_DELIVERY

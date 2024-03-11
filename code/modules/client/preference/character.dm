@@ -1087,7 +1087,7 @@
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "bgloves"), ICON_OVERLAY)
 				has_gloves = TRUE
 				if(prob(1))
-					clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "poncho"), ICON_OVERLAY)
+					clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "qmcoat"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
@@ -1656,21 +1656,21 @@
 	if(length(med_record) <= 40)
 		HTML += "[med_record]"
 	else
-		HTML += "[copytext(med_record, 1, 37)]..."
+		HTML += "[copytext_char(med_record, 1, 37)]..."
 
 	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=gen_record\">Employment Records</a><br>"
 
 	if(length(gen_record) <= 40)
 		HTML += "[gen_record]"
 	else
-		HTML += "[copytext(gen_record, 1, 37)]..."
+		HTML += "[copytext_char(gen_record, 1, 37)]..."
 
 	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=sec_record\">Security Records</a><br>"
 
 	if(length(sec_record) <= 40)
 		HTML += "[sec_record]<br>"
 	else
-		HTML += "[copytext(sec_record, 1, 37)]...<br>"
+		HTML += "[copytext_char(sec_record, 1, 37)]...<br>"
 
 	HTML += "<a href=\"byond://?_src_=prefs;preference=records;records=-1\">\[Done\]</a>"
 	HTML += "</center></tt>"
