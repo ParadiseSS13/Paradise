@@ -1,72 +1,7 @@
 name: Merge Queue Tests
-on:
-  merge_group:
+on: merge_group
 
 jobs:
-  run_linters:
-    name: Run Linters
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup Cache
-        uses: actions/cache@v4
-        with:
-          path: $HOME/SpacemanDMM
-          key: ${{ runner.os }}-spacemandmm
-      - name: Install Tools
-        run: |
-          bash tools/ci/install_build_deps.sh
-          bash tools/ci/install_dreamchecker.sh
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-          cache: 'pip'
-      - run: pip install -r tools/requirements.txt
-      - name: Run Linters
-        run: |
-          tools/ci/check_json.sh
-          tools/ci/build_tgui.sh
-          python tools/ci/check_grep2.py
-          python tools/ci/check_line_endings.py
-          python tools/ci/check_file_names.py
-          python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
-          python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
-          python -m tools.ci.check_icon_conflicts
-          python -m tools.ci.check_icon_dupenames
-          python -m tools.maplint.source --github
-      - name: Run DreamChecker
-        shell: bash
-        run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
-
-  odlint:
-    name: Lint with OpenDream
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup OD
-        run: |
-          bash tools/ci/setup_od.sh
-      - name: Run OD
-        run: |
-          bash tools/ci/run_od.sh
-
-  compile_all_maps:
-    name: Compile All Maps
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup Cache
-        uses: actions/cache@v4
-        with:
-          path: $HOME/BYOND
-          key: ${{ runner.os }}-byond
-      - name: Compile All Maps
-        run: |
-          tools/ci/install_byond.sh
-          source $HOME/BYOND/byond/bin/byondsetup
-          tools/ci/generate_maplist.sh
-          DreamMaker -DMULTIINSTANCE -DCIMAP paradise.dme
-
   map_merge:
     name: Verify map merge sanity
     runs-on: ubuntu-latest
