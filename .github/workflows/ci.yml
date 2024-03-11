@@ -142,13 +142,6 @@ jobs:
           # allegedly this is as deep as necessary to always receive the base ref
           fetch-depth: 2
 
-      - name: Setup python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-          cache: 'pip'
-      - run: pip install -r tools/requirements.txt
-
       - name: Verify map merge
         run: |
           # assume we're at the head ref and give it a name we know
