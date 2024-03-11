@@ -28812,7 +28812,6 @@
 "cWA" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/disposalpipe/segment/corner,
-/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/east)
 "cWB" = (
@@ -76939,12 +76938,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/external/southeast)
-"rVj" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/station/maintenance/disposal/east)
 "rVm" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -156101,7 +156094,7 @@ rCJ
 gZc
 exL
 kWC
-rVj
+wxn
 dbu
 dQj
 rNK
