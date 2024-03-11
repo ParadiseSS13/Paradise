@@ -416,7 +416,6 @@
 		..()
 
 /obj/item/mod/control/AltClick(mob/user)
-	. = ..()
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE) && bag)
 		bag.forceMove(user)
 		bag.show_to(user)

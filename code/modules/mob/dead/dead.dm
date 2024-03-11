@@ -1,3 +1,7 @@
+/mob/dead
+	move_resist = INFINITY
+	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
+
 /mob/dead/Login()
 	. = ..()
 	var/turf/T = get_turf(src)
@@ -31,3 +35,9 @@
 			registered_z = new_z
 		else
 			registered_z = null
+
+/mob/dead/dust()	//ghosts can't be vaporised.
+	return
+
+/mob/dead/gib()		//ghosts can't be gibbed.
+	return

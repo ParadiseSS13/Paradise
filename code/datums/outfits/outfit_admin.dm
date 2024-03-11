@@ -1431,3 +1431,72 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Oblivion Enforcer")
+
+/datum/outfit/admin/viper
+	name = "Solar Federation Viper Infiltrator"
+
+	uniform = /obj/item/clothing/under/solgov/viper
+	back = /obj/item/storage/backpack/satchel
+	belt = /obj/item/storage/belt/viper
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/jackboots
+	head = null // will end up being the bandana
+	mask = /obj/item/clothing/mask/bandana/black // will end up being a cigar
+	l_ear = /obj/item/radio/headset/ert/alt/solgov
+	glasses = /obj/item/clothing/glasses/thermal/eyepatch
+	id = /obj/item/card/id
+	l_pocket = /obj/item/kitchen/knife/combat
+	r_pocket = /obj/item/gun/projectile/automatic/pistol
+	box = /obj/item/storage/box/responseteam
+
+	backpack_contents = list(
+		/obj/item/storage/box/smoke_grenades = 1,
+		/obj/item/lighter/zippo = 1,
+		/obj/item/clothing/mask/cigarette/cigar = 3,
+		/obj/item/clothing/mask/gas/explorer = 1
+	)
+
+	bio_chips = list(/obj/item/bio_chip/stealth)
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
+	)
+
+/datum/outfit/admin/viper/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	var/codename = pick("Viper", "Serpent", "Python", "Boa", "Basilisk", "Snake", "Mamba", "Sidewinder")
+	if(prob(50))
+		var/codename_prefix = pick("Exposed", "Unveiled", "Phantom", "Mirage", "Punished", "Invisible", "Swift")
+		codename = "[codename_prefix] [codename]"
+	H.rename_character(null, codename)
+
+	var/hair_color = "#361A00"
+
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	head_organ.h_style = "Bedhead 2"
+	head_organ.f_style = "Full Beard"
+	head_organ.hair_colour = hair_color
+	head_organ.sec_facial_colour = hair_color
+	head_organ.facial_colour = hair_color
+	head_organ.sec_hair_colour = hair_color
+	H.update_hair()
+	H.update_fhair()
+	H.update_dna()
+
+	H.wear_mask.adjustmask(H) // push it back on the head
+	equip_item(H, /obj/item/clothing/mask/cigarette/cigar, SLOT_HUD_WEAR_MASK) // get them their cigar
+	if(istype(H.glasses, /obj/item/clothing/glasses)) // this is gonna be always true
+		var/obj/item/clothing/glasses/glassass = H.glasses
+		glassass.over_mask = TRUE
+		H.update_inv_glasses()
+	H.gloves.siemens_coefficient = 0 // black "insulated" gloves, since combat gloves look kinda shit
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Solar Federation Infilitrator", "lifetimeid")
+
+	qdel(H.GetComponent(/datum/component/footstep)) // they're literally stealth
+	var/datum/martial_art/cqc/CQC = new()
+	CQC.teach(H)
