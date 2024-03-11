@@ -112,17 +112,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "au" = (
-/obj/structure/rack,
-/obj/item/storage/bag/ore,
-/obj/item/pickaxe/safety,
-/obj/item/flashlight/lantern,
-/obj/item/mining_scanner,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/head/beanie/orange,
-/obj/item/clothing/gloves/fingerless,
-/obj/item/clothing/shoes/workboots,
-/obj/item/clothing/suit/storage/hazardvest,
+/obj/machinery/suit_storage_unit/gulag,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -494,9 +484,10 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/storage)
 "bq" = (
-/obj/structure/disposalpipe/segment{
+/obj/structure/chair{
 	dir = 8
 	},
+/obj/structure/disposalpipe/segment/corner,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -632,7 +623,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "bC" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -1061,7 +1052,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "cy" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -1149,7 +1140,7 @@
 	},
 /area/mine/outpost/hallway/east)
 "cK" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -1175,9 +1166,6 @@
 "cN" = (
 /obj/structure/chair{
 	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
@@ -1642,7 +1630,7 @@
 /area/mine/outpost/hallway/west)
 "dG" = (
 /obj/machinery/atmospherics/binary/pump/on,
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -1812,7 +1800,7 @@
 "dW" = (
 /obj/machinery/light/small/directional/north,
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "dX" = (
@@ -2149,7 +2137,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/east)
 "eD" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2309,7 +2297,7 @@
 	dir = 9;
 	network = list("Mining Outpost")
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
 "eR" = (
@@ -2622,7 +2610,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "fv" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -2776,6 +2764,9 @@
 "fJ" = (
 /obj/structure/chair{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
@@ -3655,10 +3646,7 @@
 	},
 /area/mine/outpost/airlock)
 "ij" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 1
-	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -5623,7 +5611,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "rM" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "rO" = (
@@ -6498,7 +6486,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "wG" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -6629,7 +6617,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
 "xA" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
@@ -6696,10 +6684,23 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "xR" = (
+/obj/structure/rack,
+/obj/item/storage/bag/ore,
+/obj/item/flashlight/lantern,
+/obj/item/pickaxe/safety,
+/obj/item/mining_scanner,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/mask/breath,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/item/clothing/head/beanie/orange,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/workboots,
+/obj/item/clothing/suit/storage/hazardvest,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "browncorner"
+	dir = 8;
+	icon_state = "brown"
 	},
 /area/mine/laborcamp)
 "xS" = (
@@ -6754,7 +6755,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/comms)
 "yp" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
@@ -7291,12 +7292,21 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
 "Bj" = (
-/obj/structure/disposalpipe/segment/corner,
+/obj/structure/rack,
+/obj/item/storage/bag/ore,
+/obj/item/pickaxe/safety,
+/obj/item/flashlight/lantern,
+/obj/item/mining_scanner,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/head/beanie/orange,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/workboots,
+/obj/item/clothing/suit/storage/hazardvest,
 /turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
+	dir = 8;
+	icon_state = "brown"
 	},
-/area/mine/outpost/cafeteria)
+/area/mine/laborcamp)
 "Bl" = (
 /obj/structure/sign/nanotrasen{
 	pixel_y = -32
@@ -7870,7 +7880,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/legion)
 "EF" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8052,23 +8062,9 @@
 	},
 /area/mine/outpost/hallway/west)
 "FO" = (
-/obj/structure/rack,
-/obj/item/storage/bag/ore,
-/obj/item/flashlight/lantern,
-/obj/item/pickaxe/safety,
-/obj/item/mining_scanner,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/mask/breath,
-/obj/machinery/light/small/directional/west,
-/obj/item/clothing/head/beanie/orange,
-/obj/item/clothing/gloves/fingerless,
-/obj/item/clothing/shoes/workboots,
-/obj/item/clothing/suit/storage/hazardvest,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
-	},
-/area/mine/laborcamp)
+/obj/structure/lavaland_billboard,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "FW" = (
 /obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
@@ -8340,12 +8336,14 @@
 	},
 /area/mine/outpost/cafeteria)
 "HK" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/suit_storage_unit/gulag,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
 /area/mine/laborcamp)
 "HM" = (
 /obj/structure/lattice/catwalk/mining,
@@ -8363,7 +8361,9 @@
 "HO" = (
 /obj/machinery/light/directional/north,
 /obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
 /obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
@@ -9138,7 +9138,7 @@
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "Mt" = (
@@ -9630,7 +9630,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "PQ" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -9717,13 +9717,23 @@
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "QE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/obj/structure/table,
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 2;
+	pixel_y = 6
 	},
-/area/mine/laborcamp)
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/mine/outpost/cafeteria)
 "QF" = (
 /obj/structure/table/reinforced,
 /obj/structure/cable{
@@ -10440,7 +10450,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -10495,7 +10505,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -10543,7 +10553,7 @@
 	},
 /area/mine/outpost/cafeteria)
 "VI" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/siberia)
 "VJ" = (
@@ -16910,10 +16920,10 @@ ar
 NG
 qT
 ME
-QE
+Ss
 xR
-bk
-HK
+Bj
+Rd
 ug
 Vt
 JZ
@@ -17932,10 +17942,10 @@ an
 an
 an
 aq
-Ss
-FO
 au
-Rd
+au
+au
+HK
 tZ
 LQ
 JZ
@@ -20272,7 +20282,7 @@ ab
 aj
 aj
 aj
-dT
+FO
 fo
 tE
 tb
@@ -20529,7 +20539,7 @@ aj
 aj
 aj
 aj
-aj
+ab
 fo
 Sa
 xC
@@ -24667,7 +24677,7 @@ yr
 eN
 AE
 aj
-aj
+ab
 aj
 aj
 "}
@@ -25182,7 +25192,7 @@ et
 AE
 ab
 aj
-aj
+ab
 aj
 "}
 (55,1,1) = {"
@@ -25438,7 +25448,7 @@ Oq
 et
 AE
 AE
-aj
+ab
 aj
 aj
 "}
@@ -25952,9 +25962,9 @@ AE
 AE
 ab
 aj
+AE
 aj
-aj
-aj
+ab
 "}
 (58,1,1) = {"
 aa
@@ -26180,7 +26190,7 @@ zJ
 aj
 te
 fJ
-bq
+xo
 bV
 xo
 Xo
@@ -26436,7 +26446,7 @@ aj
 aj
 ab
 bJ
-eW
+QE
 cN
 Qz
 xo
@@ -26693,8 +26703,8 @@ kd
 aj
 aj
 te
-cE
-Bj
+bq
+xo
 ee
 xX
 FH
@@ -26940,7 +26950,7 @@ Kd
 BB
 xG
 xG
-yj
+xG
 xG
 xG
 eJ
