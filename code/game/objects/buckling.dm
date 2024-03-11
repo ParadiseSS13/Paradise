@@ -1,19 +1,9 @@
-/atom/movable
-	var/can_buckle = FALSE
-	var/buckle_lying = -1 //bed-like behaviour, forces mob.lying = buckle_lying if != -1
-	var/buckle_requires_restraints = 0 //require people to be handcuffed before being able to buckle. eg: pipes
-	var/list/buckled_mobs = null //list()
-	var/buckle_offset = 0
-	var/max_buckled_mobs = 1
-	var/buckle_prevents_pull = FALSE
-	var/can_be_unanchored = FALSE
-
 //Interaction
 /atom/movable/attack_hand(mob/living/user)
 	. = ..()
 	if(can_buckle && has_buckled_mobs())
 		if(length(buckled_mobs) > 1)
-			var/unbuckled = input(user, "Who do you wish to unbuckle?", "Unbuckle Who?") as null|mob in buckled_mobs
+			var/unbuckled = tgui_input_list(user, "Who do you wish to unbuckle?", "Unbuckle Who?", buckled_mobs)
 			if(user_unbuckle_mob(unbuckled,user))
 				return TRUE
 		else
@@ -33,8 +23,8 @@
 	. = ..()
 	if(can_buckle && has_buckled_mobs() && Adjacent(user)) // attack_robot is called on all ranges, so the Adjacent check is needed
 		if(length(buckled_mobs) > 1)
-			var/unbuckled = input(user, "Who do you wish to unbuckle?", "Unbuckle Who?") as null|mob in buckled_mobs
-			if(user_unbuckle_mob(unbuckled,user))
+			var/unbuckled = tgui_input_list(user, "Who do you wish to unbuckle?", "Unbuckle Who?", buckled_mobs)
+			if(user_unbuckle_mob(unbuckled, user))
 				return TRUE
 		else
 			if(user_unbuckle_mob(buckled_mobs[1], user))
@@ -90,7 +80,7 @@
 	M.setDir(dir)
 	buckled_mobs |= M
 	ADD_TRAIT(M, TRAIT_IMMOBILIZED, BUCKLING_TRAIT)
-	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled)
+	M.throw_alert("buckled", /atom/movable/screen/alert/restrained/buckled)
 	post_buckle_mob(M)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
 	return TRUE

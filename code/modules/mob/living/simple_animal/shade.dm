@@ -29,7 +29,7 @@
 	faction = list("cult")
 	status_flags = CANPUSH
 	flying = TRUE
-	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
+	loot = list(/obj/item/food/snacks/ectoplasm)
 	del_on_death = TRUE
 	deathmessage = "lets out a contented sigh as their form unwinds."
 	var/holy = FALSE
@@ -38,9 +38,9 @@
 	. = ..()
 	icon_state = SSticker.cultdat?.shade_icon_state
 
-/mob/living/simple_animal/shade/death(gibbed)
-	. = ..()
+/mob/living/simple_animal/shade/Destroy()
 	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
+	return ..()
 
 /mob/living/simple_animal/shade/attackby(obj/item/O, mob/user)  //Marker -Agouri
 	if(istype(O, /obj/item/soulstone))
@@ -62,6 +62,7 @@
 	can_change_intents = FALSE // same here
 	health = 100
 	maxHealth = 100
+	weather_immunities = list("ash")
 
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()

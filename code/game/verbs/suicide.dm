@@ -24,7 +24,7 @@
 			// killing themselves as soon as they're in cuffs
 			to_chat(src, "<span class='warning'>We refuse to take the coward's way out.</span>")
 			return
-		confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
+		confirm = tgui_alert(src, "Are you sure you want to commit suicide?", "Confirm Suicide", list("Yes", "No"))
 
 	if(stat == DEAD || suiciding) //We check again, because alerts sleep until a choice is made
 		to_chat(src, "You're already dead!")
@@ -32,7 +32,7 @@
 
 	if(forced || (confirm == "Yes"))
 		if(!forced && isAntag(src) && !HAS_TRAIT(src, TRAIT_RESPAWNABLE))
-			confirm = alert("Are you absolutely sure? If you do this after you got converted/joined as an antagonist, you could face a jobban!", "Confirm Suicide", "Yes", "No")
+			confirm = tgui_alert(src, "Are you absolutely sure? If you do this after you got converted/joined as an antagonist, you could face a jobban!", "Confirm Suicide", list("Yes", "No"))
 			if(confirm == "Yes")
 				suiciding = TRUE
 				do_suicide()
@@ -53,16 +53,13 @@
 	setOxyLoss((health * 1.5), TRUE)
 
 /mob/living/simple_animal/mouse/do_suicide()
-	visible_message("<span class='danger'>[src] is playing dead permanently! It looks like [p_theyre()] trying to commit suicide.</span>")
+	visible_message("<span class='danger'>[src] is playing dead permanently! It looks like [p_theyre()] trying to commit suicide!</span>")
 	adjustOxyLoss(max(100 - getBruteLoss(100), 0))
 
 /mob/living/silicon/do_suicide()
-	to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide!</span>")
 	//put em at -175
 	adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
-
-/mob/living/silicon/robot/drone/do_suicide()
-	shut_down()
 
 /mob/living/silicon/pai/do_suicide()
 	if(mobility_flags & MOBILITY_MOVE)
@@ -78,7 +75,7 @@
 	suiciding = FALSE
 
 /mob/living/carbon/alien/humanoid/do_suicide()
-	to_chat(viewers(src), "<span class='danger'>[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(src), "<span class='danger'>[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide!</span>")
 	//put em at -175
 	adjustOxyLoss(max(175 - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 
@@ -110,7 +107,7 @@
 			human_suicide(damagetype, O)
 			return
 
-	to_chat(viewers(src), "<span class='danger'>[src] [replacetext(pick(dna.species.suicide_messages), "their", p_their())] It looks like [p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(src), "<span class='danger'>[src] [replacetext(pick(dna.species.suicide_messages), "their", p_their())] It looks like [p_theyre()] trying to commit suicide!</span>")
 	human_suicide(0)
 
 /mob/living/carbon/human/proc/human_suicide(damagetype, byitem)

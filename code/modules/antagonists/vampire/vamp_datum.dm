@@ -26,6 +26,12 @@
 
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
+	blurb_text_color = COLOR_RED
+	blurb_text_outline_width = 0
+	blurb_r = 255
+	blurb_g = 221
+	blurb_b = 138
+	blurb_a = 1
 
 /datum/antagonist/mindslave/thrall
 	name = "Vampire Thrall"
@@ -128,8 +134,7 @@
 				owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 				continue
 
-
-		if(H.stat < DEAD)
+		if(H.stat != DEAD || H.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED))
 			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, H.blood_volume)
 				adjust_blood(H, blood * BLOOD_GAINED_MODIFIER)
@@ -255,7 +260,7 @@
 	if(owner.current.hud_used)
 		var/datum/hud/hud = owner.current.hud_used
 		if(!hud.vampire_blood_display)
-			hud.vampire_blood_display = new /obj/screen()
+			hud.vampire_blood_display = new /atom/movable/screen()
 			hud.vampire_blood_display.name = "Usable Blood"
 			hud.vampire_blood_display.icon_state = "blood_display"
 			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
@@ -359,3 +364,6 @@
 /datum/hud/proc/remove_vampire_hud()
 	static_inventory -= vampire_blood_display
 	QDEL_NULL(vampire_blood_display)
+
+/datum/antagonist/vampire/custom_blurb()
+	return "On the date [GLOB.current_date_string], at [station_time_timestamp()],\n in the [station_name()], [get_area_name(owner.current, TRUE)]...\nThe hunt begins again..."

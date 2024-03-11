@@ -62,7 +62,7 @@
 			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")
 			return 0
 
-		var/choice = alert(user, "Would you like to (un)authorize a shortened launch time? [auth_need - length(authorized)] authorization\s are still needed. Use abort to cancel all authorizations.", "Shuttle Launch", "Authorize", "Repeal", "Abort")
+		var/choice = tgui_alert(user, "Would you like to (un)authorize a shortened launch time? [auth_need - length(authorized)] authorization\s are still needed. Use abort to cancel all authorizations.", "Shuttle Launch", list("Authorize", "Repeal", "Abort"))
 		if(SSshuttle.emergency.mode != SHUTTLE_DOCKED || user.get_active_hand() != W)
 			return 0
 
@@ -101,6 +101,7 @@
 		GLOB.minor_announcement.Announce("The emergency shuttle will launch in 10 seconds", "SYSTEM ERROR:")
 		SSshuttle.emergency.setTimer(100)
 		emagged = TRUE
+		return TRUE
 
 
 /obj/machinery/computer/emergency_shuttle/proc/increase_hijack_stage()

@@ -7,7 +7,8 @@
 	hitsound_wall = "ricochet"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
 
-/obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
+/// beanbag, heavy stamina damage
+/obj/item/projectile/bullet/weakbullet
 	name = "beanbag slug"
 	damage = 5
 	stamina = 40
@@ -59,13 +60,7 @@
 	damage_type = TOX
 
 /obj/item/projectile/bullet/incendiary
-
-/obj/item/projectile/bullet/incendiary/on_hit(atom/target, blocked = 0)
-	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(4)
-		M.IgniteMob()
+	immolate = 1
 
 /obj/item/projectile/bullet/incendiary/firebullet
 	damage = 10
@@ -101,25 +96,6 @@
 	if(H.getStaminaLoss() >= 60)
 		H.KnockDown(8 SECONDS)
 
-/obj/item/projectile/bullet/pellet/weak
-	tile_dropoff = 0.55		//Come on it does 6 damage don't be like that.
-	damage = 6
-
-/obj/item/projectile/bullet/pellet/weak/New()
-	range = rand(1, 8)
-	..()
-
-/obj/item/projectile/bullet/pellet/weak/on_range()
-	do_sparks(1, 1, src)
-	..()
-
-/obj/item/projectile/bullet/pellet/overload
-	damage = 3
-
-/obj/item/projectile/bullet/pellet/overload/New()
-	range = rand(1, 10)
-	..()
-
 /obj/item/projectile/bullet/pellet/assassination
 	damage = 12
 	tile_dropoff = 1	// slightly less damage and greater damage falloff compared to normal buckshot
@@ -128,15 +104,6 @@
 	if(..(target, blocked))
 		var/mob/living/M = target
 		M.AdjustSilence(4 SECONDS)	// HELP MIME KILLING ME IN MAINT
-
-/obj/item/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
-	..()
-	explosion(target, 0, 0, 2)
-
-/obj/item/projectile/bullet/pellet/overload/on_range()
-	explosion(src, 0, 0, 2)
-	do_sparks(3, 3, src)
-	..()
 
 /obj/item/projectile/bullet/midbullet
 	damage = 20
@@ -160,11 +127,8 @@
 	damage = 27
 	armour_penetration_flat = 40
 
-/obj/item/projectile/bullet/midbullet3/fire/on_hit(atom/target, blocked = 0)
-	if(..(target, blocked))
-		var/mob/living/M = target
-		M.adjust_fire_stacks(1)
-		M.IgniteMob()
+/obj/item/projectile/bullet/midbullet3/fire
+	immolate = 1
 
 /obj/item/projectile/bullet/midbullet3/overgrown
 	icon = 'icons/obj/ammo.dmi'
@@ -175,7 +139,8 @@
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
 
-/obj/item/projectile/bullet/stunshot //taser slugs for shotguns, nothing special
+/// taser slugs for shotguns, nothing special
+/obj/item/projectile/bullet/stunshot
 	name = "stunshot"
 	damage = 5
 	weaken = 10 SECONDS
@@ -265,10 +230,7 @@
 			if(M.can_inject(null, FALSE, hit_zone, piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
 
-				for(var/datum/reagent/R as anything in reagents.reagent_list)
-					if(initial(R.id) == "????") // Yes this is a specific case that we don't really want
-						continue
-					reagents.reaction(M, REAGENT_INGEST, 0.1)
+				reagents.reaction(M, REAGENT_INGEST, 0.1)
 				reagents.trans_to(M, reagents.total_volume)
 				return TRUE
 			else
@@ -315,7 +277,20 @@
 	if(isalien(target))
 		knockdown = 0
 		nodamage = TRUE
+	if(isrobot(target))
+		stun = 10 SECONDS
 	. = ..() // Execute the rest of the code.
+
+/obj/item/projectile/bullet/anti_alien_toxin
+	name = "neurotoxin spit"
+	icon_state = "neurotoxin"
+	damage = 15 // FRENDLY FIRE FRENDLY FIRE
+	damage_type = BURN
+
+/obj/item/projectile/bullet/anti_alien_toxin/on_hit(atom/target, blocked = 0)
+	if(isalien(target))
+		stun = 10 SECONDS
+	. = ..()
 
 /obj/item/projectile/bullet/cap
 	name = "cap"

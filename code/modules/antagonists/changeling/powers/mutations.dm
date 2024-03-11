@@ -240,7 +240,7 @@
 	to_chat(user, "<span class='warning'>[src] is not ready yet.</span>")
 
 /obj/item/gun/magic/tentacle/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
 
 /obj/item/ammo_casing/magic/tentacle
@@ -582,3 +582,4 @@
 	flags = BLOCKHAIR | NODROP | DROPDEL
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, RAD = 0, FIRE = 90, ACID = 90)
 	flags_inv = HIDEEARS
+	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH

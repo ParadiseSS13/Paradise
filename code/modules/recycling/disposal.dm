@@ -221,6 +221,7 @@
 		add_attack_logs(user, target, "Disposal'ed", !!target.ckey ? null : ATKLOG_ALL)
 	else
 		return
+	QDEL_LIST_CONTENTS(target.grabbed_by)
 	target.forceMove(src)
 
 	for(var/mob/C in viewers(src))
@@ -271,10 +272,13 @@
 		update()
 	return
 
-/obj/machinery/disposal/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/disposal/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/disposal/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "DisposalBin", name, 300, 250, master_ui, state)
+		ui = new(user, src, "DisposalBin", name)
 		ui.open()
 
 
@@ -543,7 +547,7 @@
 
 /obj/machinery/disposal/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
 /obj/machinery/disposal/force_eject_occupant(mob/target)
 	target.forceMove(get_turf(src))
@@ -1443,9 +1447,9 @@
 /obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/I)
 	add_fingerprint(user)
 
-	if(mode == FALSE)
+	if(!mode)
 		to_chat(user, "<span class='notice'>You remove the screws around the power connection.</span>")
-	else if(mode == TRUE)
+	else if(mode)
 		to_chat(user, "<span class='notice'>You attach the screws around the power connection.</span>")
 	I.play_tool_sound(src)
 	mode = !mode

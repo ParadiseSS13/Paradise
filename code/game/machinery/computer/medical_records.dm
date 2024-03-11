@@ -7,7 +7,8 @@
 #define FIELD(N, V, E) list(field = N, value = V, edit = E)
 #define MED_FIELD(N, V, E, LB) list(field = N, value = V, edit = E, line_break = LB)
 
-/obj/machinery/computer/med_data //TODO:SANITY
+/// TODO:SANITY
+/obj/machinery/computer/med_data
 	name = "medical records console"
 	desc = "This can be used to check medical records."
 	icon_keyboard = "med_key"
@@ -75,10 +76,13 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/computer/med_data/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/med_data/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/med_data/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "MedicalRecords", "Medical Records", 800, 800, master_ui, state)
+		ui = new(user, src, "MedicalRecords", "Medical Records")
 		ui.open()
 		ui.set_autoupdate(FALSE)
 

@@ -3,7 +3,7 @@
 //*********//
 
 /mob/living/simple_animal/hostile/panther
-	name = "\improper panther"
+	name = "panther"
 	desc = "A long sleek, black cat with sharp teeth and claws."
 	icon = 'icons/mob/alienqueen.dmi'
 	icon_state = "panther"
@@ -14,7 +14,7 @@
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak_chance = 0
 	turns_per_move = 3
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
+	butcher_results = list(/obj/item/food/snacks/meat = 3)
 	faction = list("hostile", "jungle")
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"

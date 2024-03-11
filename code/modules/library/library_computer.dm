@@ -103,10 +103,13 @@
 
 	return ..()
 
-/obj/machinery/computer/library/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/library/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/library/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "LibraryComputer", name, 1050, 600, master_ui, state)
+		ui = new(user, src, "LibraryComputer", name)
 		ui.open()
 
 /*
@@ -471,7 +474,7 @@
 			return FALSE
 
 /obj/machinery/computer/library/proc/select_book(obj/item/book/B)
-	if(B.carved == TRUE)
+	if(B.carved)
 		return
 	user_data.selected_book.title = B.title ? B.title : "No Title"
 	user_data.selected_book.author = B.author ? B.author : "No Author"
@@ -586,6 +589,10 @@
 		new /obj/item/storage/bible/syndi(loc)
 		visible_message("<span class='notice'>[src]'s printer ominously hums as it produces a completely bound book. How did it do that?</span>")
 		print_cooldown = world.time + PRINTING_COOLDOWN
+		return TRUE
+
+/obj/machinery/computer/library/syndie
+	req_one_access = list(ACCESS_SYNDICATE)
 
 #undef LIBRARY_BOOKS_PER_PAGE
 #undef LOGIN_FULL

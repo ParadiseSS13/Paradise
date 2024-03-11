@@ -22,7 +22,7 @@
 	pressure_resistance = 100
 	universal_speak = TRUE
 	AIStatus = AI_OFF //normal constructs don't have AI
-	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
+	loot = list(/obj/item/food/snacks/ectoplasm)
 	del_on_death = TRUE
 	deathmessage = "collapses in a shattered heap."
 	var/construct_type = "shade"
@@ -57,7 +57,6 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
-	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
 	if(held_body) // Null check for empty bodies
 		held_body.forceMove(get_turf(src))
 		SSticker.mode.add_cult_immunity(held_body)
@@ -71,7 +70,11 @@
 		held_body.cancel_camera()
 	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
-	. = ..()
+	return ..()
+
+/mob/living/simple_animal/hostile/construct/Destroy()
+	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
+	return ..()
 
 /mob/living/simple_animal/hostile/construct/proc/add_held_body(atom/movable/body)
 	held_body = body
@@ -123,7 +126,7 @@
 
 /mob/living/simple_animal/hostile/construct/Life(seconds, times_fired)
 	if(holy_check(src))
-		throw_alert("holy_fire", /obj/screen/alert/holy_fire, override = TRUE)
+		throw_alert("holy_fire", /atom/movable/screen/alert/holy_fire, override = TRUE)
 		visible_message("<span class='danger'>[src] slowly crumbles to dust in this holy place!</span>", \
 			"<span class='danger'>Your shell burns as you crumble to dust in this holy place!</span>")
 		playsound(loc, 'sound/items/welder.ogg', 150, TRUE)
@@ -162,7 +165,8 @@
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
 						create shield walls, rip apart enemies and walls.</b>"
 
-/mob/living/simple_animal/hostile/construct/armoured/hostile //actually hostile, will move around, hit things
+/// actually hostile, will move around, hit things
+/mob/living/simple_animal/hostile/construct/armoured/hostile
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
@@ -195,10 +199,12 @@
 	retreat_distance = 2 //AI wraiths will move in and out of combat
 	playstyle_string = "<b>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</b>"
 
-/mob/living/simple_animal/hostile/construct/wraith/hostile //actually hostile, will move around, hit things
+/// actually hostile, will move around, hit things
+/mob/living/simple_animal/hostile/construct/wraith/hostile
 	AIStatus = AI_ON
 
-/mob/living/simple_animal/hostile/construct/wraith/hostile/bubblegum //Used in bubblegum summoning. Needs MOB_SIZE_LARGE so crushers don't suffer
+/// Used in bubblegum summoning. Needs MOB_SIZE_LARGE so crushers don't suffer
+/mob/living/simple_animal/hostile/construct/wraith/hostile/bubblegum
 	mob_size =	MOB_SIZE_LARGE
 
 /////////////////////////////Artificer/////////////////////////
@@ -276,7 +282,8 @@
 	retreat_distance = initial(retreat_distance)
 	minimum_distance = initial(minimum_distance)
 
-/mob/living/simple_animal/hostile/construct/builder/hostile //actually hostile, will move around, hit things, heal other constructs
+/// actually hostile, will move around, hit things, heal other constructs
+/mob/living/simple_animal/hostile/construct/builder/hostile
 	AIStatus = AI_ON
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //only token destruction, don't smash the cult wall NO STOP
 
@@ -306,7 +313,8 @@
 	var/energy = 0
 	var/max_energy = 1000
 
-/mob/living/simple_animal/hostile/construct/behemoth/hostile //actually hostile, will move around, hit things
+/// actually hostile, will move around, hit things
+/mob/living/simple_animal/hostile/construct/behemoth/hostile
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
@@ -340,7 +348,8 @@
 	return TRUE
 
 
-/mob/living/simple_animal/hostile/construct/harvester/hostile //actually hostile, will move around, hit things
+/// actually hostile, will move around, hit things
+/mob/living/simple_animal/hostile/construct/harvester/hostile
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 

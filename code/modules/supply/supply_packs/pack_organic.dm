@@ -7,22 +7,22 @@
 
 /datum/supply_packs/organic/food
 	name = "Food Crate"
-	contains = list(/obj/item/reagent_containers/food/condiment/flour,
-					/obj/item/reagent_containers/food/condiment/rice,
-					/obj/item/reagent_containers/food/condiment/milk,
-					/obj/item/reagent_containers/food/condiment/soymilk,
-					/obj/item/reagent_containers/food/condiment/saltshaker,
-					/obj/item/reagent_containers/food/condiment/peppermill,
+	contains = list(/obj/item/reagent_containers/condiment/flour,
+					/obj/item/reagent_containers/condiment/rice,
+					/obj/item/reagent_containers/condiment/milk,
+					/obj/item/reagent_containers/condiment/soymilk,
+					/obj/item/reagent_containers/condiment/saltshaker,
+					/obj/item/reagent_containers/condiment/peppermill,
 					/obj/item/kitchen/rollingpin,
 					/obj/item/storage/fancy/egg_box,
 					/obj/item/mixing_bowl,
 					/obj/item/mixing_bowl,
-					/obj/item/reagent_containers/food/condiment/enzyme,
-					/obj/item/reagent_containers/food/condiment/sugar,
-					/obj/item/reagent_containers/food/snacks/meat/monkey,
-					/obj/item/reagent_containers/food/snacks/grown/banana,
-					/obj/item/reagent_containers/food/snacks/grown/banana,
-					/obj/item/reagent_containers/food/snacks/grown/banana)
+					/obj/item/reagent_containers/condiment/enzyme,
+					/obj/item/reagent_containers/condiment/sugar,
+					/obj/item/food/snacks/meat/monkey,
+					/obj/item/food/snacks/grown/banana,
+					/obj/item/food/snacks/grown/banana,
+					/obj/item/food/snacks/grown/banana)
 	cost = 250
 	containername = "food crate"
 	announce_beacons = list("Kitchen" = list("Kitchen"))
@@ -37,20 +37,21 @@
 	cost = 500
 	containername = "Pizza crate"
 
-/datum/supply_packs/misc/randomised/ingredients // its a bit hacky...
+/// its a bit hacky...
+/datum/supply_packs/misc/randomised/ingredients
 	num_contained = 25
-	contains = list(/obj/item/reagent_containers/food/snacks/grown/wheat,
-					/obj/item/reagent_containers/food/snacks/grown/tomato,
-					/obj/item/reagent_containers/food/snacks/grown/potato,
-					/obj/item/reagent_containers/food/snacks/grown/carrot,
-					/obj/item/reagent_containers/food/snacks/grown/pumpkin,
-					/obj/item/reagent_containers/food/snacks/grown/chili,
-					/obj/item/reagent_containers/food/snacks/grown/cocoapod,
-					/obj/item/reagent_containers/food/snacks/grown/corn,
-					/obj/item/reagent_containers/food/snacks/grown/eggplant,
-					/obj/item/reagent_containers/food/snacks/grown/apple,
-					/obj/item/reagent_containers/food/snacks/grown/banana,
-					/obj/item/reagent_containers/food/snacks/grown/cherries)
+	contains = list(/obj/item/food/snacks/grown/wheat,
+					/obj/item/food/snacks/grown/tomato,
+					/obj/item/food/snacks/grown/potato,
+					/obj/item/food/snacks/grown/carrot,
+					/obj/item/food/snacks/grown/pumpkin,
+					/obj/item/food/snacks/grown/chili,
+					/obj/item/food/snacks/grown/cocoapod,
+					/obj/item/food/snacks/grown/corn,
+					/obj/item/food/snacks/grown/eggplant,
+					/obj/item/food/snacks/grown/apple,
+					/obj/item/food/snacks/grown/banana,
+					/obj/item/food/snacks/grown/cherries)
 	name = "Ingredient Crate"
 	cost = 300
 	containername = "ingredient crate"
@@ -60,18 +61,18 @@
 
 /datum/supply_packs/organic/condiments
 	name = "Condiment Crate"
-	contains = list(/obj/item/reagent_containers/food/condiment/ketchup,
-					/obj/item/reagent_containers/food/condiment/bbqsauce,
-					/obj/item/reagent_containers/food/condiment/soysauce,
-					/obj/item/reagent_containers/food/condiment/mayonnaise,
-					/obj/item/reagent_containers/food/condiment/cherryjelly,
-					/obj/item/reagent_containers/food/condiment/peanutbutter,
-					/obj/item/reagent_containers/food/condiment/honey,
-					/obj/item/reagent_containers/food/condiment/oliveoil,
-					/obj/item/reagent_containers/food/condiment/frostoil,
-					/obj/item/reagent_containers/food/condiment/capsaicin,
-					/obj/item/reagent_containers/food/condiment/wasabi,
-					/obj/item/reagent_containers/food/condiment/vinegar)
+	contains = list(/obj/item/reagent_containers/condiment/ketchup,
+					/obj/item/reagent_containers/condiment/bbqsauce,
+					/obj/item/reagent_containers/condiment/soysauce,
+					/obj/item/reagent_containers/condiment/mayonnaise,
+					/obj/item/reagent_containers/condiment/cherryjelly,
+					/obj/item/reagent_containers/condiment/peanutbutter,
+					/obj/item/reagent_containers/condiment/honey,
+					/obj/item/reagent_containers/condiment/oliveoil,
+					/obj/item/reagent_containers/condiment/frostoil,
+					/obj/item/reagent_containers/condiment/capsaicin,
+					/obj/item/reagent_containers/condiment/wasabi,
+					/obj/item/reagent_containers/condiment/vinegar)
 	cost = 300
 	containername = "condiment crate"
 
@@ -115,15 +116,15 @@
 /datum/supply_packs/organic/party
 	name = "Party Equipment Crate"
 	contains = list(/obj/item/storage/box/drinkingglasses,
-					/obj/item/reagent_containers/food/drinks/shaker,
-					/obj/item/reagent_containers/food/drinks/bottle/patron,
-					/obj/item/reagent_containers/food/drinks/bottle/goldschlager,
-					/obj/item/reagent_containers/food/drinks/cans/ale,
-					/obj/item/reagent_containers/food/drinks/cans/ale,
-					/obj/item/reagent_containers/food/drinks/cans/beer,
-					/obj/item/reagent_containers/food/drinks/cans/beer,
-					/obj/item/reagent_containers/food/drinks/cans/beer,
-					/obj/item/reagent_containers/food/drinks/cans/beer,
+					/obj/item/reagent_containers/drinks/shaker,
+					/obj/item/reagent_containers/drinks/bottle/patron,
+					/obj/item/reagent_containers/drinks/bottle/goldschlager,
+					/obj/item/reagent_containers/drinks/cans/ale,
+					/obj/item/reagent_containers/drinks/cans/ale,
+					/obj/item/reagent_containers/drinks/cans/beer,
+					/obj/item/reagent_containers/drinks/cans/beer,
+					/obj/item/reagent_containers/drinks/cans/beer,
+					/obj/item/reagent_containers/drinks/cans/beer,
 					/obj/item/grenade/confetti,
 					/obj/item/grenade/confetti)
 	cost = 250
@@ -234,7 +235,8 @@
 
 ////// hippy gear
 
-/datum/supply_packs/organic/hydroponics // -- Skie
+/// -- Skie
+/datum/supply_packs/organic/hydroponics
 	name = "Hydroponics Supply Crate"
 	contains = list(/obj/item/reagent_containers/spray/plantbgone,
 					/obj/item/reagent_containers/spray/plantbgone,

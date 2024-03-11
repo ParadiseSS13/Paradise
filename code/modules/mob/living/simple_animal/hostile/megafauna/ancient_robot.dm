@@ -256,6 +256,8 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/charge(atom/chargeat = target, delay = 5, chargepast = 2)
 	if(!chargeat)
 		return
+	if(chargeat.z != z)
+		return
 	if(mode == BLUESPACE || (enraged && prob(13)))
 		new /obj/effect/temp_visual/bsg_kaboom(get_turf(src))
 		src.visible_message("<span class='danger'>[src] teleports somewhere nearby!</span>")
@@ -635,6 +637,7 @@ Difficulty: Hard
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	stat_attack = UNCONSCIOUS
+	maxbodytemp = INFINITY
 	var/range = 3
 	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/core = null
 	var/fake_max_hp = 300
@@ -782,7 +785,8 @@ Difficulty: Hard
 	duration = 20
 
 
-/obj/item/projectile/energy/tesla_bolt //Leaving here for adminbus / so vetus still uses it.
+/// Leaving here for adminbus / so vetus still uses it.
+/obj/item/projectile/energy/tesla_bolt
 	name = "shock bolt"
 	icon_state = "purple_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
@@ -808,7 +812,8 @@ Difficulty: Hard
 	var/turf/target_turf = get_turf(A)
 	loc = target_turf
 
-/obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot //this is the worst path I have ever made
+/// this is the worst path I have ever made
+/obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot
 	icon_state = "target"
 
 /obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot/Initialize(mapload, target)

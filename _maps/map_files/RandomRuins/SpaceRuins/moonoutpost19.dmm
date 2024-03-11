@@ -1071,7 +1071,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/space/powered)
 "dh" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -2061,10 +2061,10 @@
 	},
 /area/ruin/space/moonbase19)
 "gy" = (
-/obj/item/reagent_containers/food/snacks/xenomeatbreadslice{
+/obj/item/food/snacks/xenomeatbreadslice{
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_y = 10;
 	pixel_x = 10
 	},
@@ -2307,7 +2307,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
@@ -2575,7 +2575,7 @@
 "hV" = (
 /obj/structure/railing,
 /obj/structure/closet/secure_closet,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = -3;
 	pixel_y = -2
 	},
@@ -3170,7 +3170,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -3723,16 +3723,16 @@
 	},
 /area/ruin/space/moonbase19)
 "lC" = (
-/obj/item/reagent_containers/food/snacks/beans,
-/obj/item/reagent_containers/food/snacks/beans{
+/obj/item/food/snacks/beans,
+/obj/item/food/snacks/beans{
 	pixel_y = 6;
 	pixel_x = 9
 	},
-/obj/item/reagent_containers/food/snacks/beans{
+/obj/item/food/snacks/beans{
 	pixel_y = 3;
 	pixel_x = 3
 	},
-/obj/item/reagent_containers/food/snacks/beans{
+/obj/item/food/snacks/beans{
 	pixel_y = 1;
 	pixel_x = -5
 	},
@@ -4917,7 +4917,7 @@
 /area/ruin/space/moonbase19)
 "pZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/snacks/badrecipe,
+/obj/item/food/snacks/badrecipe,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "qa" = (
@@ -5792,6 +5792,23 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
+"ts" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/obj/item/scalpel{
+	pixel_y = 12
+	},
+/obj/item/circular_saw,
+/obj/item/hemostat,
+/obj/item/retractor,
+/obj/item/stack/cable_coil,
+/obj/structure/table/glass,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue";
+	dir = 1
+	},
+/area/ruin/space/moonbase19)
 "tv" = (
 /obj/structure/largecrate,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -6124,8 +6141,8 @@
 "vh" = (
 /obj/structure/rack,
 /obj/item/mecha_parts/core,
-/obj/item/stock_parts/cell/infinite,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/stock_parts/cell/infinite/abductor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6350,7 +6367,7 @@
 	},
 /area/ruin/space/moonbase19)
 "wk" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/moonbase19)
 "wl" = (
@@ -6414,7 +6431,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -6430,7 +6447,7 @@
 	},
 /area/ruin/space/moonbase19)
 "wL" = (
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/drinks/drinkingglass,
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
@@ -6719,7 +6736,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "yc" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -6935,12 +6952,12 @@
 	},
 /area/ruin/space/moonbase19)
 "yR" = (
-/obj/item/reagent_containers/food/snacks/xenomeatbreadslice,
-/obj/item/reagent_containers/food/snacks/xenomeatbreadslice{
+/obj/item/food/snacks/xenomeatbreadslice,
+/obj/item/food/snacks/xenomeatbreadslice{
 	pixel_y = 7;
 	pixel_x = 6
 	},
-/obj/item/reagent_containers/food/snacks/xenomeatbreadslice{
+/obj/item/food/snacks/xenomeatbreadslice{
 	pixel_y = 9;
 	pixel_x = -5
 	},
@@ -6954,7 +6971,7 @@
 	},
 /area/ruin/space/moonbase19)
 "yU" = (
-/obj/item/reagent_containers/food/snacks/candy,
+/obj/item/food/snacks/candy,
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
@@ -6978,7 +6995,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "zh" = (
-/obj/item/reagent_containers/food/snacks/badrecipe,
+/obj/item/food/snacks/badrecipe,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -7051,7 +7068,7 @@
 /area/ruin/space/moonbase19)
 "zv" = (
 /obj/structure/rack,
-/obj/item/reagent_containers/food/snacks/cornchips,
+/obj/item/food/snacks/cornchips,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "escape"
@@ -7943,8 +7960,8 @@
 /obj/structure/closet/crate,
 /obj/item/reagent_containers/glass/beaker/waterbottle,
 /obj/item/reagent_containers/glass/beaker/waterbottle,
-/obj/item/reagent_containers/food/snacks/syndicake,
-/obj/item/reagent_containers/food/snacks/syndicake,
+/obj/item/food/snacks/syndicake,
+/obj/item/food/snacks/syndicake,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -8137,7 +8154,7 @@
 /area/ruin/space/moonbase19)
 "DV" = (
 /obj/structure/closet/crate,
-/obj/item/reagent_containers/food/snacks/beans,
+/obj/item/food/snacks/beans,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Ef" = (
@@ -8269,7 +8286,7 @@
 /area/ruin/space/moonbase19)
 "Ex" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread{
+/obj/item/food/snacks/sliceable/xenomeatbread{
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/delivery,
@@ -8424,7 +8441,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "Ff" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -8799,7 +8816,7 @@
 	},
 /area/ruin/space/moonbase19)
 "GP" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -8860,11 +8877,11 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "awaykitchen"
 	},
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/drinks/bottle/whiskey{
 	pixel_y = 10;
 	pixel_x = -1
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_y = 7;
 	pixel_x = 11
 	},
@@ -9459,13 +9476,9 @@
 /area/ruin/space/moonbase19)
 "JU" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/power/apc/off_station/empty_charge{
+/obj/machinery/power/apc/off_station/empty_charge/directional/north{
 	cell_type = 15000;
-	locked = 0;
-	name = "Outpost APC";
-	req_access = null;
-	pixel_y = 24;
-	dir = 1
+	locked = 0
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -9914,7 +9927,7 @@
 	pixel_x = 6;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_y = 3;
 	pixel_x = -7
 	},
@@ -10509,9 +10522,7 @@
 	},
 /area/ruin/space/moonbase19)
 "On" = (
-/obj/structure/safe/floor{
-	known_by = list("captain")
-	},
+/obj/structure/safe/floor,
 /obj/structure/sign/singulo{
 	pixel_y = 32
 	},
@@ -10641,23 +10652,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 4
-	},
-/area/ruin/space/moonbase19)
-"OR" = (
-/obj/structure/railing{
-	dir = 10
-	},
-/obj/structure/table/tray,
-/obj/item/scalpel{
-	pixel_y = 12
-	},
-/obj/item/circular_saw,
-/obj/item/hemostat,
-/obj/item/retractor,
-/obj/item/stack/cable_coil,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue";
-	dir = 1
 	},
 /area/ruin/space/moonbase19)
 "OT" = (
@@ -10805,7 +10799,7 @@
 /area/ruin/space/moonbase19)
 "PE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/snacks/badrecipe,
+/obj/item/food/snacks/badrecipe,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -11565,7 +11559,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Tc" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -12230,7 +12224,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "VO" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
@@ -12402,7 +12396,7 @@
 /obj/item/cigbutt{
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "WF" = (
@@ -12545,7 +12539,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Xi" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -12618,7 +12612,7 @@
 /area/ruin/space/moonbase19)
 "Xv" = (
 /obj/machinery/reagentgrinder,
-/obj/item/reagent_containers/food/drinks/shaker{
+/obj/item/reagent_containers/drinks/shaker{
 	pixel_y = 4;
 	pixel_x = -12
 	},
@@ -13121,7 +13115,7 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/moonbase19)
 "Zu" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -13548,7 +13542,7 @@ vN
 af
 dd
 QI
-OR
+ts
 Wd
 Am
 Ci

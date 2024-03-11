@@ -34,7 +34,7 @@
 	wander = FALSE
 	attacktext = "glomps"
 	attack_sound = 'sound/effects/blobattack.ogg'
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2)
+	butcher_results = list(/obj/item/food/snacks/meat/slab = 2)
 
 	/// If the morph is disguised or not
 	var/morphed = FALSE
@@ -71,11 +71,10 @@
 	QDEL_NULL(pass_airlock_spell)
 	return ..()
 
-/mob/living/simple_animal/hostile/morph/Stat(Name, Value)
-	..()
-	if(statpanel("Status"))
-		stat(null, "Food Stored: [gathered_food]")
-		return TRUE
+/mob/living/simple_animal/hostile/morph/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Food Stored:", "[gathered_food]")
 
 /mob/living/simple_animal/hostile/morph/wizard
 	name = "magical morph"

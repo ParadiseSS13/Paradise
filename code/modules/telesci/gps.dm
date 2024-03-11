@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), EMP_DISABLE_TIME)
 
 /obj/item/gps/AltClick(mob/user)
-	if(ui_status(user, GLOB.inventory_state) != STATUS_INTERACTIVE)
+	if(ui_status(user, GLOB.inventory_state) != UI_INTERACTIVE)
 		return //user not valid to use gps
 	if(emped)
 		to_chat(user, "<span class='warning'>It's busted!</span>")
@@ -120,10 +120,13 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/gps/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/gps/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/gps/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "GPS", "GPS", 450, 700)
+		ui = new(user, src, "GPS", "GPS")
 		ui.open()
 
 /obj/item/gps/ui_act(action, list/params)
@@ -134,7 +137,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	switch(action)
 		if("tag")
 			var/newtag = params["newtag"] || ""
-			newtag = uppertext(paranoid_sanitize(copytext(newtag, 1, 5)))
+			newtag = uppertext(paranoid_sanitize(copytext_char(newtag, 1, 5)))
 			if(!length(newtag) || gpstag == newtag)
 				return
 			gpstag = newtag

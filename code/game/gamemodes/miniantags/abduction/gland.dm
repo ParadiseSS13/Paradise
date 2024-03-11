@@ -6,14 +6,15 @@
 	dead_icon = null
 	status = ORGAN_ROBOT
 	origin_tech = "materials=4;biotech=7;abductor=3"
-	beating = TRUE
+	organ_datums = list(/datum/organ/heart/always_beating) // alien glands are immune to stopping
+	tough = TRUE //not easily broken by combat damage
+
 	var/cooldown_low = 300
 	var/cooldown_high = 300
 	var/next_activation = 0
 	var/uses // -1 For inifinite
 	var/human_only = FALSE
 	var/active = FALSE
-	tough = TRUE //not easily broken by combat damage
 
 	var/mind_control_uses = 1
 	var/mind_control_duration = 1800
@@ -84,9 +85,6 @@
 	update_gland_hud()
 
 /obj/item/organ/internal/heart/gland/on_life()
-	if(!beating)
-		// alien glands are immune to stopping.
-		beating = TRUE
 	if(!active)
 		return
 	if(!ownerCheck())
@@ -228,7 +226,8 @@
 	return A
 
 
-/obj/item/organ/internal/heart/gland/emp //TODO : Replace with something more interesting
+/// TODO : Replace with something more interesting
+/obj/item/organ/internal/heart/gland/emp
 	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"
 	cooldown_low = 800
 	cooldown_high = 1200
@@ -265,7 +264,7 @@
 
 /obj/item/organ/internal/heart/gland/egg/activate()
 	owner.visible_message("<span class='alertalien'>[owner] [pick(EGG_LAYING_MESSAGES)]</span>")
-	new /obj/item/reagent_containers/food/snacks/egg/gland(get_turf(owner))
+	new /obj/item/food/snacks/egg/gland(get_turf(owner))
 
 /obj/item/organ/internal/heart/gland/electric
 	cooldown_low = 800

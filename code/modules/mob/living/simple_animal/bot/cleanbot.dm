@@ -95,7 +95,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/emag_act(mob/user)
 	..()
-	if(emagged == 2)
+	if(emagged)
 		if(user)
 			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
 
@@ -124,7 +124,7 @@
 		audible_message("[src] makes an excited beeping booping sound!")
 
 	if(!target) //Search for cleanables it can see.
-		target = scan(/obj/effect/decal/cleanable, avoid_bot = /mob/living/simple_animal/bot/cleanbot)
+		target = scan(/obj/effect/decal/cleanable, avoid_bot = TRUE)
 
 	if(!target && auto_patrol) //Search for cleanables it can see.
 		if(mode == BOT_IDLE || mode == BOT_START_PATROL)
@@ -143,12 +143,14 @@
 			//Try to produce a path to the target, and ignore airlocks to which it has access.
 			path = get_path_to(src, target, 30, id=access_card)
 			if(!bot_move(target))
+				ignore_job -= target.UID()
 				add_to_ignore(target)
 				target = null
 				path = list()
 				return
 			mode = BOT_MOVING
 		else if(!bot_move(target))
+			ignore_job -= target.UID()
 			target = null
 			mode = BOT_IDLE
 			return
@@ -164,6 +166,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/target)
 	if(mode == BOT_CLEANING)
+		ignore_job -= target.UID()
 		QDEL_NULL(target)
 		anchored = FALSE
 	mode = BOT_IDLE
@@ -185,10 +188,13 @@
 /mob/living/simple_animal/bot/cleanbot/show_controls(mob/user)
 	ui_interact(user)
 
-/mob/living/simple_animal/bot/cleanbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/simple_animal/bot/cleanbot/ui_state(mob/user)
+	return GLOB.default_state
+
+/mob/living/simple_animal/bot/cleanbot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotClean", name, 500, 500)
+		ui = new(user, src, "BotClean", name)
 		ui.open()
 
 /mob/living/simple_animal/bot/cleanbot/ui_data(mob/user)

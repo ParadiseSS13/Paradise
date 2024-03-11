@@ -202,7 +202,6 @@
 	result = list(/datum/nothing = 1,
 		/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot = 1)
 
-
 // Traps
 
 /obj/effect/spawner/random_spawners/syndicate/trap
@@ -266,7 +265,7 @@
 	spawn_inside = null
 	result = list(/datum/nothing = 1,
 		/obj/item/wrench = 1,
-		/obj/item/reagent_containers/food/snacks/syndicake = 1,
+		/obj/item/food/snacks/syndicake = 1,
 		/obj/item/coin/antagtoken/syndicate = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1)
 
@@ -345,7 +344,7 @@
 		/obj/item/melee/energy/sword/saber = 1,
 		/obj/item/gun/energy/kinetic_accelerator/crossbow = 1,
 		/obj/item/gun/projectile/revolver = 1,
-		/obj/item/clothing/gloves/color/yellow/power = 1,
+		/obj/item/bio_chip_implanter/shock = 1,
 		/obj/item/butcher_chainsaw = 1,
 		/obj/item/bee_briefcase = 1,
 		/obj/item/fireaxe/energized = 1,

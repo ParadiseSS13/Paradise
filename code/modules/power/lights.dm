@@ -470,6 +470,24 @@
 		LR.ReplaceLight(src, user)
 		return
 
+	// Attack with Spray Can! Coloring time.
+	if(istype(W, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/spraycan = W
+
+		// quick check to disable capped spraypainting, aesthetic reasons
+		if(spraycan.capped)
+			to_chat(user, "<span class='notice'>You can't spraypaint [src] with the cap still on!</span>")
+			return
+		var/list/hsl = rgb2hsl(hex2num(copytext(spraycan.colour, 2, 4)), hex2num(copytext(spraycan.colour, 4, 6)), hex2num(copytext(spraycan.colour, 6, 8)))
+		hsl[3] = max(hsl[3], 0.4)
+		var/list/rgb = hsl2rgb(arglist(hsl))
+		var/new_color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+		color = new_color
+		to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
+		brightness_color = new_color
+		update(TRUE, TRUE, FALSE)
+		return
+
 	// attempt to insert light
 	if(istype(W, /obj/item/light))
 		if(status != LIGHT_EMPTY)
@@ -632,7 +650,10 @@
 	if(current_apc)
 		RegisterSignal(machine_powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
-/obj/machinery/light/flicker(amount = rand(20, 30))
+/obj/machinery/light/get_spooked()
+	return forced_flicker()
+
+/obj/machinery/light/proc/forced_flicker(amount = rand(20, 30))
 	if(flickering)
 		return FALSE
 

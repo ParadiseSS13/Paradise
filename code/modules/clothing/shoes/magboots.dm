@@ -8,6 +8,8 @@
 	var/slowdown_active = 2
 	var/slowdown_passive = SHOES_SLOWDOWN
 	var/magpulse_name = "mag-pulse traction system"
+	///If a pair of magboots has different icons for being on or off
+	var/multiple_icons = TRUE
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	put_on_delay = 70
@@ -34,14 +36,16 @@
 	toggle_magpulse(user, forced)
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, forced)
-	if(magpulse)
-		flags &= ~NOSLIP
+	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
+		REMOVE_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_passive
 	else
-		flags |= NOSLIP
+		ADD_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_active
 	magpulse = !magpulse
-	icon_state = "[magboot_state][magpulse]"
+	no_slip = !no_slip
+	if(multiple_icons)
+		icon_state = "[magboot_state][magpulse]"
 	if(!forced)
 		to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
 	user.update_inv_shoes()	//so our mob-overlays update
@@ -90,7 +94,8 @@
 	magboot_state = "syndiemag"
 	origin_tech = "magnets=4;syndicate=2"
 
-/obj/item/clothing/shoes/magboots/elite //For the Syndicate Strike Team/SolGov/Tactical Teams
+/// For the Syndicate Strike Team/SolGov/Tactical Teams
+/obj/item/clothing/shoes/magboots/elite
 	name = "elite tactical magboots"
 	desc = "Advanced magboots used by strike teams across the system. Allows for tactical insertion into low-gravity areas of operation."
 	icon_state = "elitemag0"
@@ -139,7 +144,8 @@
 		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
 		enabled_waddle = FALSE
 
-/obj/item/clothing/shoes/magboots/wizard //bundled with the wiz hardsuit
+/// bundled with the wiz hardsuit
+/obj/item/clothing/shoes/magboots/wizard
 	name = "boots of gripping"
 	desc = "These magical boots, once activated, will stay gripped to any surface without slowing you down."
 	icon_state = "wizmag0"

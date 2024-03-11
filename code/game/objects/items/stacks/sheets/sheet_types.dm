@@ -242,7 +242,8 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("ore box", /obj/structure/ore_box, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("loom", /obj/structure/loom, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("fermenting barrel", /obj/structure/fermenting_barrel, 30, time = 5 SECONDS),
-	new /datum/stack_recipe("compost bin", /obj/machinery/compost_bin, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
+	new /datum/stack_recipe("compost bin", /obj/machinery/compost_bin, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("roulette", /obj/structure/roulette, 10, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
 ))
 
 /obj/item/stack/sheet/wood
@@ -293,6 +294,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 		new /datum/stack_recipe("bio bag", /obj/item/storage/bag/bio, 4),
 		new /datum/stack_recipe("fish bag", /obj/item/storage/bag/fish, 4),
 		new /datum/stack_recipe("mail bag", /obj/item/storage/bag/mail, 4),
+		new /datum/stack_recipe("construction bag", /obj/item/storage/bag/construction, 4),
 	)),
 	null,
 	new /datum/stack_recipe("improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, 1, 2, 6),
@@ -423,7 +425,8 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	else
 		. = ..()
 
-/obj/item/stack/sheet/cardboard	//BubbleWrap
+/// BubbleWrap
+/obj/item/stack/sheet/cardboard
 	name = "cardboard"
 	desc = "Large sheets of card, like boxes folded flat."
 	singular_name = "cardboard sheet"
@@ -589,6 +592,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2),
 	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty),
 	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,3),
+	new /datum/stack_recipe("spray bottle", /obj/item/reagent_containers/spray/empty, 6),
 	null,
 	new /datum/stack_recipe_list("first-aid kits", list(
 		new /datum/stack_recipe("first-aid kit", /obj/item/storage/firstaid/regular, 4),

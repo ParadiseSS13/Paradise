@@ -1,4 +1,5 @@
-/obj/item/storage/bag/dice //Thankfully no longer a pill bottle.
+/// Thankfully no longer a pill bottle.
+/obj/item/storage/bag/dice
 	name = "bag of dice"
 	desc = "Contains all the luck you'll ever need."
 	icon = 'icons/obj/dice.dmi'
@@ -32,7 +33,8 @@
 	user.visible_message("<span class='suicide'>[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (OXYLOSS)
 
-/obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
+/// depreciated d6, use /obj/item/dice/d6 if you actually want a d6
+/obj/item/dice
 	name = "die"
 	desc = "A die with six sides. Basic and serviceable."
 	icon = 'icons/obj/dice.dmi'
@@ -190,7 +192,7 @@
 			//Destroy Equipment
 			T.visible_message("<span class='userdanger'>Everything [user] is holding and wearing disappears!</span>")
 			for(var/obj/item/I in user)
-				if(istype(I, /obj/item/implant))
+				if(istype(I, /obj/item/bio_chip))
 					continue
 				qdel(I)
 		if(5)
@@ -207,8 +209,7 @@
 			T.visible_message("<span class='userdanger'>Unseen forces throw [user]!</span>")
 			user.Stun(12 SECONDS)
 			user.adjustBruteLoss(50)
-			var/throw_dir = GLOB.cardinal
-			var/atom/throw_target = get_edge_target_turf(user, throw_dir)
+			var/atom/throw_target = get_edge_target_turf(user, pick(GLOB.cardinal))
 			user.throw_at(throw_target, 200, 4)
 		if(8)
 			//Fueltank Explosion
@@ -225,7 +226,7 @@
 		if(11)
 			//Cookie
 			T.visible_message("<span class='userdanger'>A cookie appears out of thin air!</span>")
-			var/obj/item/reagent_containers/food/snacks/cookie/C = new(drop_location())
+			var/obj/item/food/snacks/cookie/C = new(drop_location())
 			create_smoke(2)
 			C.name = "Cookie of Fate"
 		if(12)
@@ -261,7 +262,7 @@
 				/obj/item/borg/upgrade/modkit/indoors,
 				/obj/item/storage/box/syndie_kit/chameleon,
 				/obj/item/mod/control/pre_equipped/traitor,
-				/obj/item/implanter/storage,
+				/obj/item/bio_chip_implanter/storage,
 				/obj/item/toy/syndicateballoon)
 			var/selected_item = pick(traitor_items)
 			T.visible_message("<span class='userdanger'>A suspicious item appears!</span>")

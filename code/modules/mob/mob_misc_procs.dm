@@ -99,7 +99,7 @@
 	INVOKE_ASYNC(client, TYPE_PROC_REF(/client, colour_transition), get_screen_colour(), flash_time)
 
 /proc/ismindshielded(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
-	for(var/obj/item/implant/mindshield/L in A)
+	for(var/obj/item/bio_chip/mindshield/L in A)
 		if(L && L.implanted)
 			return 1
 	return 0
@@ -235,12 +235,12 @@
 			return n
 	var/te = n
 	var/t = ""
-	n = length(n)
+	n = length_char(n)
 	var/p = null
 	p = 1
 	while(p <= n)
-		if((copytext(te, p, p + 1) == " " || prob(pr)))
-			t = "[t][copytext(te, p, p + 1)]"
+		if((copytext_char(te, p, p + 1) == " " || prob(pr)))
+			t = "[t][copytext_char(te, p, p + 1)]"
 		else
 			t = "[t]*"
 		p++
@@ -252,12 +252,12 @@
 
 /proc/slur(phrase, list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)
-	var/leng=length(phrase)
-	var/counter=length(phrase)
-	var/newphrase=""
-	var/newletter=""
-	while(counter>=1)
-		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+	var/leng = length_char(phrase)
+	var/counter = length_char(phrase)
+	var/newphrase = ""
+	var/newletter = ""
+	while(counter >= 1)
+		newletter=copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
 		if(rand(1,3)==3)
 			if(lowertext(newletter)=="o")	newletter="u"
 			if(lowertext(newletter)=="s")	newletter="ch"
@@ -276,12 +276,12 @@
 /proc/stutter(n)
 	var/te = html_decode(n)
 	var/t = "" //placed before the message. Not really sure what it's for.
-	n = length(n) //length of the entire word
+	n = length_char(n) //length of the entire word
 	var/p = null
 	p = 1 //1 is the start of any word
 	while(p <= n) //while P, which starts at 1 is less or equal to N which is the length.
-		var/n_letter = copytext(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
-		if(prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
+		var/n_letter = copytext_char(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
+		if(prob(80) && (lowertext(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
 			if(prob(5))
 				n_letter = text("[n_letter]-[n_letter]-[n_letter]") //replaces the current letter with this instead.
 			else
@@ -291,18 +291,18 @@
 					n_letter = text("[n_letter]-[n_letter]")
 		t = text("[t][n_letter]") //since the above is ran through for each letter, the text just adds up back to the original word.
 		p++ //for each letter p is increased to find where the next letter will be.
-	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
+	return sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
 
 /proc/robostutter(n) //for robutts
 	var/te = html_decode(n)
 	var/t = ""//placed before the message. Not really sure what it's for.
-	n = length(n)//length of the entire word
+	n = length_char(n)//length of the entire word
 	var/p = null
 	p = 1//1 is the start of any word
 	while(p <= n)//while P, which starts at 1 is less or equal to N which is the length.
 		var/robotletter = pick("@", "!", "#", "$", "%", "&", "?") //for beep boop
-		var/n_letter = copytext(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
-		if(prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
+		var/n_letter = copytext_char(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
+		if(prob(80) && (lowertext(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
 			if(prob(10))
 				n_letter = text("[n_letter]-[robotletter]-[n_letter]-[n_letter]")//replaces the current letter with this instead.
 			else
@@ -315,15 +315,15 @@
 						n_letter = text("[n_letter]-[n_letter]")
 		t = text("[t][n_letter]")//since the above is ran through for each letter, the text just adds up back to the original word.
 		p++//for each letter p is increased to find where the next letter will be.
-	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
+	return sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
 
 
 /proc/Gibberish(t, p, replace_rate = 50)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added. replace_rate is the chance a letter is corrupted.
 	/* Turn text into complete gibberish! */
 	var/returntext = ""
-	for(var/i = 1, i <= length(t), i++)
+	for(var/i = 1, i <= length_char(t), i++)
 
-		var/letter = copytext(t, i, i+1)
+		var/letter = copytext_char(t, i, i + 1)
 		if(prob(replace_rate))
 			if(p >= 70)
 				letter = ""
@@ -342,12 +342,12 @@
 
 /proc/muffledspeech(phrase)
 	phrase = html_decode(phrase)
-	var/leng=length(phrase)
-	var/counter=length(phrase)
-	var/newphrase=""
-	var/newletter=""
-	while(counter>=1)
-		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+	var/leng = length_char(phrase)
+	var/counter = length_char(phrase)
+	var/newphrase = ""
+	var/newletter = ""
+	while(counter >= 1)
+		newletter=copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
 		if(newletter in list(" ", "!", "?", ".", ","))
 			// Skip these
 			counter -= 1
@@ -456,7 +456,7 @@
 	if(IsSleeping())
 		to_chat(src, "<span class='notice'>You are already sleeping.</span>")
 		return
-	if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
+	if(tgui_alert(src, "You sure you want to sleep for a while?", "Sleep", list("Yes", "No")) == "Yes")
 		SetSleeping(40 SECONDS, voluntary = TRUE) //Short nap
 
 /mob/living/verb/rest()
@@ -554,7 +554,7 @@
 			if(flashwindow)
 				window_flash(O.client)
 			if(source)
-				var/obj/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /obj/screen/alert/notify_action)
+				var/atom/movable/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /atom/movable/screen/alert/notify_action)
 				if(A)
 					if(O.client.prefs && O.client.prefs.UI_style)
 						A.icon = ui_style2icon(O.client.prefs.UI_style)
@@ -602,7 +602,7 @@
 
 /mob/proc/rename_character(oldname, newname)
 	if(!newname)
-		return 0
+		return FALSE
 	real_name = newname
 	name = newname
 	if(mind)
@@ -620,8 +620,8 @@
 
 		//update our pda and id if we have them on our person
 		var/list/searching = GetAllContents(searchDepth = 3)
-		var/search_id = 1
-		var/search_pda = 1
+		var/search_id = TRUE
+		var/search_pda = TRUE
 
 		for(var/A in searching)
 			if(search_id && istype(A,/obj/item/card/id))
@@ -630,27 +630,26 @@
 					ID.registered_name = newname
 					ID.name = "[newname]'s ID Card ([ID.assignment])"
 					ID.RebuildHTML()
-					if(!search_pda)	break
-					search_id = 0
+					if(!search_pda)
+						break
+					search_id = FALSE
 
 			else if(search_pda && istype(A,/obj/item/pda))
 				var/obj/item/pda/PDA = A
 				if(PDA.owner == oldname)
 					PDA.owner = newname
 					PDA.name = "PDA-[newname] ([PDA.ownjob])"
-					if(!search_id)	break
-					search_pda = 0
+					if(!search_id)
+						break
+					search_pda = FALSE
 
 		//Fixes renames not being reflected in objective text
-		var/length
-		var/pos
-		for(var/datum/objective/objective in GLOB.all_objectives)
-			if(!mind || objective.target != mind)
-				continue
-			length = length(oldname)
-			pos = findtextEx(objective.explanation_text, oldname)
-			objective.explanation_text = copytext(objective.explanation_text, 1, pos)+newname+copytext(objective.explanation_text, pos+length)
-	return 1
+		if(mind)
+			for(var/datum/objective/objective in GLOB.all_objectives)
+				if(objective.target != mind)
+					continue
+				objective.update_explanation_text()
+	return TRUE
 
 /mob/proc/rename_self(role, allow_numbers = FALSE, force = FALSE)
 	spawn(0)
@@ -661,11 +660,11 @@
 
 		for(var/i=1,i<=3,i++)	//we get 3 attempts to pick a suitable name.
 			if(force)
-				newname = clean_input("Pick a new name.", "Name Change", oldname, src)
+				newname = tgui_input_text(src, "Pick a new name.", "Name Change", oldname)
 			else
-				newname = clean_input("You are a [role]. Would you like to change your name to something else? (You have 3 minutes to select a new name.)", "Name Change", oldname, src)
+				newname = tgui_input_text(src, "You are a [role]. Would you like to change your name to something else? (You have 3 minutes to select a new name.)", "Name Change", oldname, timeout = 3 MINUTES)
 			if(((world.time - time_passed) > 1800) && !force)
-				alert(src, "Unfortunately, more than 3 minutes have passed for selecting your name. If you are a robot, use the Namepick verb; otherwise, adminhelp.", "Name Change")
+				tgui_alert(src, "Unfortunately, more than 3 minutes have passed for selecting your name. If you are a robot, use the Namepick verb; otherwise, adminhelp.", "Name Change")
 				return	//took too long
 			newname = reject_bad_name(newname,allow_numbers)	//returns null if the name doesn't meet some basic requirements. Tidies up a few other things like bad-characters.
 
@@ -686,12 +685,12 @@
 
 /proc/cultslur(n) // Inflicted on victims of a stun talisman
 	var/phrase = html_decode(n)
-	var/leng = length(phrase)
-	var/counter=length(phrase)
+	var/leng = length_char(phrase)
+	var/counter = length_char(phrase)
 	var/newphrase=""
 	var/newletter=""
 	while(counter>=1)
-		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+		newletter=copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
 		if(rand(1,2)==2)
 			if(lowertext(newletter)=="o")
 				newletter="u"
@@ -818,3 +817,7 @@
 			actual_hud.invisibility = invis_value
 		else
 			actual_hud.invisibility = initial(actual_hud.invisibility)
+		// Yes we need to remove the HUD from all HUDs then re-add it to update the HUD being invisible.
+		// No, I don't like it either.
+		remove_from_all_data_huds()
+		add_to_all_human_data_huds()

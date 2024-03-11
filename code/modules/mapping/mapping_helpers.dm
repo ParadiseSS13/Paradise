@@ -1,4 +1,5 @@
-/obj/effect/baseturf_helper //Set the baseturfs of every turf in the /area/ it is placed.
+/// Set the baseturfs of every turf in the /area/ it is placed.
+/obj/effect/baseturf_helper
 	name = "baseturf editor"
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = ""
@@ -50,9 +51,13 @@
 	name = "lava baseturf editor"
 	baseturf = /turf/simulated/floor/lava
 
-/obj/effect/baseturf_helper/lava_land/surface
-	name = "lavaland baseturf editor"
+/obj/effect/baseturf_helper/lava/mapping_lava
+	name = "mapping lava baseturf editor"
 	baseturf = /turf/simulated/floor/lava/mapping_lava
+
+/obj/effect/baseturf_helper/lava_land
+	name = "lavaland baseturf editor"
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 
 /obj/effect/mapping_helpers
 	icon = 'icons/effects/mapping_helpers.dmi'
@@ -65,6 +70,7 @@
 
 /obj/effect/mapping_helpers/no_lava
 	icon_state = "no_lava"
+	layer = ON_EDGED_TURF_LAYER
 
 /obj/effect/mapping_helpers/no_lava/New()
 	var/turf/T = get_turf(src)
@@ -167,4 +173,3 @@
 /obj/effect/mapping_helpers/airlock/windoor/autoname/desk/payload(obj/machinery/door/window/windoor)
 	if(windoor.dir == dir)
 		windoor.name = "[get_area_name(windoor, TRUE)] Desk"
-

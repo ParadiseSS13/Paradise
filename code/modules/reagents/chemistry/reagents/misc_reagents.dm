@@ -447,7 +447,8 @@
 /datum/reagent/love/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	to_chat(M, "<span class='notice'>You feel loved!</span>")
 
-/datum/reagent/jestosterone //Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
+/// Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
+/datum/reagent/jestosterone
 	name = "Jestosterone"
 	id = "jestosterone"
 	description = "Jestosterone is an odd chemical compound that induces a variety of annoying side-effects in the average person. It also causes mild intoxication, and is toxic to mimes."
@@ -465,12 +466,13 @@
 		else if(C.mind.assigned_role == "Mime")
 			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
+			ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
+			C.AddElement(/datum/element/waddling)
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
-	if(C.mind.assigned_role != "Clown")
-		ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
-		C.AddElement(/datum/element/waddling)
+			ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
+			C.AddElement(/datum/element/waddling)
 	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
@@ -505,7 +507,7 @@
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
 	..()
-	if(M.mind.assigned_role != "Clown")
+	if(M.mind?.assigned_role != "Clown")
 		REMOVE_TRAIT(M, TRAIT_COMIC_SANS, id)
 		M.RemoveElement(/datum/element/waddling)
 	qdel(M.GetComponent(/datum/component/squeak))

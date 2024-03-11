@@ -1,4 +1,5 @@
-/obj/structure/closet/statue //this type path is a crime, ponies what the fuck
+/// this type path is a crime, ponies what the fuck
+/obj/structure/closet/statue
 	name = "statue"
 	desc = "An incredibly lifelike marble carving"
 	icon = 'icons/obj/statue.dmi'
@@ -115,4 +116,4 @@
 	if(user)
 		user.dust()
 	dump_contents()
-	visible_message("<span class='warning'>[src] shatters!. </span>")
+	visible_message("<span class='warning'>[src] shatters!</span>")

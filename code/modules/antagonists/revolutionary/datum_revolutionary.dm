@@ -25,7 +25,7 @@
 
 /datum/antagonist/rev/farewell()
 	if(owner && owner.current)
-		to_chat(owner.current,"<span class='userdanger'>You have been brainwashed! You are no longer a [special_role]! </span>")
+		to_chat(owner.current,"<span class='userdanger'>You have been brainwashed! You are no longer a [special_role]!</span>")
 
 
 /datum/antagonist/rev/add_owner_to_gamemode()

@@ -42,7 +42,7 @@
 /obj/item/card/id/away/old/apc
 	name = "APC Access ID"
 	desc = "A special ID card that allows access to APC terminals."
-	icon_state = "centcom_old"
+	icon_state = "retro_engineering"
 	access = list(ACCESS_ENGINE_EQUIP)
 
 /obj/item/storage/backpack/old
@@ -174,9 +174,9 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ancient
 	var/footstep = 1
 
-/obj/item/clothing/suit/space/hardsuit/ancient/on_mob_move()
-	var/mob/living/carbon/human/H = loc
-	if(!istype(H) || H.wear_suit != src)
+/obj/item/clothing/suit/space/hardsuit/ancient/on_mob_move(dir, mob/mob)
+	var/mob/living/carbon/human/H = mob
+	if(!istype(H) || H.wear_suit != src || !isturf(H.loc))
 		return
 	if(footstep > 1)
 		playsound(src, 'sound/effects/servostep.ogg', 100, 1)

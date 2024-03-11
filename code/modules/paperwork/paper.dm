@@ -83,7 +83,7 @@
 		data = "[header]<div id='markdown'>[infolinks ? info_links : info]</div>[footer][stamps]"
 	if(view)
 		var/datum/browser/popup = new(user, "Paper[UID()]", , paper_width, paper_height)
-		popup.stylesheets = list()
+		popup.include_default_stylesheet = FALSE
 		popup.set_content(data)
 		if(!stars)
 			popup.add_script("marked.js", 'html/browser/marked.js')
@@ -288,7 +288,7 @@
 
 
 /obj/item/paper/proc/openhelp(mob/user as mob)
-	user << browse({"<HTML><HEAD><TITLE>Pen Help</TITLE></HEAD>
+	user << browse({"<html><meta charset='utf-8'><head><title>Pen Help</title></head>
 	<BODY>
 		<b><center>Crayon&Pen commands</center></b><br>
 		<br>
@@ -373,7 +373,7 @@
 		topic_href_write(id, input_element)
 	if(href_list["write"])
 		var/id = href_list["write"]
-		var/input_element = input("Enter what you want to write:", "Write", null, null) as message
+		var/input_element = input("Enter what you want to write:", "Write") as message
 		topic_href_write(id, input_element)
 
 /obj/item/paper/attackby(obj/item/P, mob/living/user, params)
@@ -576,6 +576,11 @@
 /obj/item/paper/crumpled/ruins/lavaland/seed_vault/discovery
 	name = "discoveries and thoughts"
 	info = "As the Diona species, we awoke aboard our terraformation vessel with the primary goal of reshaping the alien world. Our endeavors were highly successful, as we cultivated various plant species and made astonishing discoveries throughout our journey. We seeded a remarkable 'special' grass around our ship, which thrived splendidly. However, as time passed, we faced a growing challenge - a shortage of oxygen in our containment tanks hindered our ability to spread the grass further. In response, we embarked on a series of trials and experiments to engineer plants with the capacity to survive in low-oxygen environments, thus extending our breath of life. <br>Through a series of trials, combining failures and successes, we unveiled several plant species with unique attributes. Some proved to be valuable for healing purposes, while others offered addictive properties. Glowing mushrooms emerged as a source of vital light, preventing us from succumbing to the darkness. Among these discoveries, one plant commanded our utmost attention – the 'space tobacco.' While this species did not generate oxygen, it contained a chemical known as Salbutamol, enabling us to respire in low-oxygen conditions when consumed. The only drawback was the need to meticulously extract harmful compounds for its safe utilization. <br>Amid our efforts to expand the greenery, an unexpected encounter transpired. I found myself under assault by an enigmatic creature, and I was forced to flee in haste, straying too far from our vessel. As I stand now, my supplies of life-sustaining plants are dwindling, as is my ability to endure in this low-oxygen environment. Suffocation looms, and I must hasten my return to the safety of our ship to avert this dire fate."
+
+/obj/item/paper/crumpled/bloody/hacker
+	name = "burned paper scrap"
+	icon_state = "scrap_bloodied"
+	info = "<p style='text-align:center;font-family;font-size:120%;font-weight:bold;'>FINALLY, I DECIPHERED NTS' FAXING NETWO-</p>"
 
 /obj/item/paper/fortune
 	name = "fortune"

@@ -74,10 +74,10 @@
 	else		// Drawing
 		if(reagents.total_volume < reagents.maximum_volume)
 			injection_target.transfer_blood_to(src, amount_per_transfer_from_this)
-			for(var/datum/reagent/x in injection_target.reagents.reagent_list) // Pull small amounts of reagents from the person while drawing blood
-				if(x.id in GLOB.blocked_chems)
+			for(var/datum/reagent/reagent in injection_target.reagents.reagent_list) // Pull small amounts of reagents from the person while drawing blood
+				if(reagent.id in GLOB.blocked_chems)
 					continue
-				injection_target.reagents.trans_to(src, amount_per_transfer_from_this/10)
+				injection_target.reagents.trans_id_to(src, reagent.id, amount_per_transfer_from_this / 10)
 			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/attack(mob/living/M, mob/living/user, def_zone)
@@ -163,7 +163,8 @@
 	. = ..()
 	name = "[initial(name)] - Saline Glucose"
 
-/obj/item/reagent_containers/iv_bag/blood // Don't use this - just an abstract type to allow blood bags to have a common blood_type var for ease of creation.
+/// Don't use this - just an abstract type to allow blood bags to have a common blood_type var for ease of creation.
+/obj/item/reagent_containers/iv_bag/blood
 	var/blood_type
 	var/blood_species = "Synthetic humanoid"
 	var/iv_blood_colour = "#A10808"

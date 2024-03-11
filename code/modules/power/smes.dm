@@ -44,6 +44,9 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
+	// When (re)built, try to connect to the powernet under us.
+	connect_to_network()
+
 	dir_loop:
 		for(var/d in GLOB.cardinal)
 			var/turf/T = get_step(src, d)
@@ -275,7 +278,7 @@
 		inputting = FALSE
 
 	//outputting
-	if(output_attempt)
+	if(output_attempt && powernet)
 		if(outputting)
 			output_used = min( charge/SMESRATE, output_level)		//limit output to that stored
 			if(produce_direct_power(output_used))				// add output to powernet if it exists (smes side)
@@ -339,12 +342,15 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/power/smes/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/power/smes/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/power/smes/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & BROKEN)
 		return
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Smes",  name, 340, 350, master_ui, state)
+		ui = new(user, src, "Smes",  name)
 		ui.open()
 
 /obj/machinery/power/smes/ui_data(mob/user)
@@ -358,6 +364,7 @@
 		"inputLevel_text" = DisplayPower(input_level),
 		"inputLevelMax" = input_level_max,
 		"inputAvailable" = input_available,
+		"outputPowernet" = !isnull(powernet),
 		"outputAttempt" = output_attempt,
 		"outputting" = outputting,
 		"outputLevel" = output_level,

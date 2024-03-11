@@ -94,7 +94,6 @@
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
 
-		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
 		cult_objs.study(cult_mind.current)
 		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
@@ -165,6 +164,7 @@
 		cult_objs.study(cult_mind.current)
 		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
 		RegisterSignal(cult_mind.current, COMSIG_MOB_STATCHANGE, PROC_REF(cultist_stat_change))
+		RegisterSignal(cult_mind.current, COMSIG_PARENT_QDELETING, PROC_REF(remove_cultist))
 		return TRUE
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE, mob/target_mob)
@@ -205,6 +205,7 @@
 		cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
 		"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
 	UnregisterSignal(cult_mind.current, COMSIG_MOB_STATCHANGE)
+	UnregisterSignal(cult_mind.current, COMSIG_PARENT_QDELETING)
 
 /datum/game_mode/proc/add_cult_immunity(mob/living/target)
 	ADD_TRAIT(target, TRAIT_CULT_IMMUNITY, CULT_TRAIT)

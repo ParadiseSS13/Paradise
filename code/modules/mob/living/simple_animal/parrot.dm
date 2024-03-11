@@ -49,7 +49,7 @@
 
 	speak_chance = 1//1% (1 in 100) chance every tick; So about once per 150 seconds, assuming an average tick is 1.5s
 	turns_per_move = 5
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/cracker = 3)
+	butcher_results = list(/obj/item/food/snacks/cracker = 3)
 
 	response_help = "pets"
 	response_disarm = "gently moves aside"
@@ -121,10 +121,10 @@
 		walk(src, 0)
 	return ..()
 
-/mob/living/simple_animal/parrot/Stat()
-	..()
-	if(statpanel("Status"))
-		stat("Held Item", held_item)
+/mob/living/simple_animal/parrot/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Held Item:", "[held_item]")
 
 /*
  * Inventory

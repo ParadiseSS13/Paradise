@@ -60,7 +60,8 @@ GLOBAL_LIST_INIT(lizard_recipes, list(
 	recipes = GLOB.lizard_recipes
 	return ..()
 
-/obj/item/stack/sheet/fur //basic fur sheets
+/// basic fur sheets
+/obj/item/stack/sheet/fur
 	name = "pile of fur"
 	desc = "Vulp remains."
 	singular_name = "fur piece"
@@ -187,8 +188,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	layer = MOB_LAYER
 	dynamic_icon_state = TRUE
 	var/static/list/goliath_platable_armor_typecache = typecacheof(list(
-			/obj/item/clothing/suit/space/hardsuit/mining,
-			/obj/item/clothing/head/helmet/space/hardsuit/mining,
 			/obj/item/clothing/suit/hooded/explorer,
 			/obj/item/clothing/head/hooded/explorer,
 			/obj/item/clothing/head/helmet/space/plasmaman/mining))

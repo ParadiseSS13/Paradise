@@ -110,8 +110,8 @@
 /area/ruin/powered/beach)
 "au" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/flour,
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "av" = (
@@ -120,7 +120,7 @@
 	dir = 8;
 	name = "Beach Bar Desk"
 	},
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /obj/item/reagent_containers/glass/rag,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar{
 	dir = 8
@@ -283,7 +283,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/powered/beach)
 "br" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "bx" = (
@@ -363,7 +363,7 @@
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "bP" = (
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "bQ" = (
@@ -428,9 +428,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/pod/light{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
 	},
 /area/ruin/powered/beach)
 "lM" = (
@@ -546,9 +546,9 @@
 	dir = 8
 	},
 /turf/simulated/floor/pod/light{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
 	},
 /area/ruin/powered/beach)
 "TW" = (

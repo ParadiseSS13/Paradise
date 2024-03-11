@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(safes)
 		return TRUE
 
 	if(drill && !broken)
-		switch(alert("What would you like to do?", "Thermal Drill", "Turn [drill_timer ? "Off" : "On"]", "Remove Drill", "Cancel"))
+		switch(tgui_alert(user, "What would you like to do?", "Thermal Drill", list("Turn [drill_timer ? "Off" : "On"]", "Remove Drill", "Cancel")))
 			if("Turn On")
 				if(do_after(user, 2 SECONDS, target = src))
 					drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)
@@ -221,15 +221,20 @@ GLOBAL_LIST_EMPTY(safes)
 			to_chat(user, "<span class='warning'>You can't put [I] into the safe while it is closed!</span>")
 			return
 
-/obj/structure/safe/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	var/datum/asset/safe_assets = get_asset_datum(/datum/asset/simple/safe)
-	safe_assets.send(user)
+/obj/structure/safe/ui_state(mob/user)
+	return GLOB.physical_state
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/structure/safe/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Safe", name, 600, 750)
+		ui = new(user, src, "Safe", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
+
+/obj/structure/safe/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/safe)
+	)
 
 /obj/structure/safe/ui_data(mob/user)
 	var/list/data = list()
@@ -354,13 +359,13 @@ GLOBAL_LIST_EMPTY(safes)
 	drill.song.start_playing(driller)
 	notify_ghosts("Security assault in progress in [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to jump to!)</a>", source = src, action = NOTIFY_FOLLOW)
 	for(var/mob/dead/observer/O in GLOB.player_list)
-		O.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 0)
+		O.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 0)
 	addtimer(CALLBACK(src, PROC_REF(ghost_payback_phase_2)), 2.7 SECONDS)
 
 /obj/structure/safe/proc/ghost_payback_phase_2()
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		O.clear_fullscreen("payback")
-		O.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 1)
+		O.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 1)
 	addtimer(CALLBACK(src, PROC_REF(clear_payback)), 2 MINUTES)
 
 /obj/structure/safe/proc/clear_payback()

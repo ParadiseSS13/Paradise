@@ -1124,11 +1124,11 @@
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 			if(JOB_LAWYER)
-				clothes_s = new /icon('icons/mob/clothing/under/civilian.dmi', "internalaffairs_s")
+				clothes_s = new /icon('icons/mob/clothing/under/procedure.dmi', "iaa_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/inhands/items_righthand.dmi', "briefcase"), ICON_UNDERLAY)
 				if(prob(1))
-					clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "suitjacket_blue"), ICON_OVERLAY)
+					clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "suitjacket_black"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
@@ -1467,10 +1467,9 @@
 				else if(backbag == 3 || backbag == 4)
 					clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 			if(JOB_JUDGE)
-				clothes_s = new /icon('icons/mob/clothing/under/suit.dmi', "really_black_suit_s")
+				clothes_s = new /icon('icons/mob/clothing/under/procedure.dmi', "magistrate_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "mercy_hood"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "judge"), ICON_UNDERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "magirobe"), ICON_UNDERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
@@ -1479,7 +1478,7 @@
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 			if(JOB_NANO)
-				clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")
+				clothes_s = new /icon('icons/mob/clothing/under/procedure.dmi', "ntrep_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
 				switch(backbag)
 					if(2)
@@ -1489,7 +1488,7 @@
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 			if(JOB_BLUESHIELD)
-				clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")
+				clothes_s = new /icon('icons/mob/clothing/under/procedure.dmi', "blueshield_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "swat_gl"), ICON_OVERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "blueshield"), ICON_OVERLAY)
@@ -1655,21 +1654,21 @@
 	if(length(med_record) <= 40)
 		HTML += "[med_record]"
 	else
-		HTML += "[copytext(med_record, 1, 37)]..."
+		HTML += "[copytext_char(med_record, 1, 37)]..."
 
 	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=gen_record\">Employment Records</a><br>"
 
 	if(length(gen_record) <= 40)
 		HTML += "[gen_record]"
 	else
-		HTML += "[copytext(gen_record, 1, 37)]..."
+		HTML += "[copytext_char(gen_record, 1, 37)]..."
 
 	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=sec_record\">Security Records</a><br>"
 
 	if(length(sec_record) <= 40)
 		HTML += "[sec_record]<br>"
 	else
-		HTML += "[copytext(sec_record, 1, 37)]...<br>"
+		HTML += "[copytext_char(sec_record, 1, 37)]...<br>"
 
 	HTML += "<a href=\"byond://?_src_=prefs;preference=records;records=-1\">\[Done\]</a>"
 	HTML += "</center></tt>"
@@ -1785,7 +1784,7 @@
 
 /datum/character_save/proc/copy_to(mob/living/carbon/human/character)
 	var/datum/species/S = GLOB.all_species[species]
-	character.set_species(S.type) // Yell at me if this causes everything to melt
+	character.set_species(S.type, delay_icon_update = TRUE) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender, species)
 
@@ -1886,7 +1885,7 @@
 			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
 			character.change_gender(MALE)
 
-	character.change_eye_color(e_colour)
+	character.change_eye_color(e_colour, skip_icons = TRUE)
 	character.original_eye_color = e_colour
 
 	if(disabilities & DISABILITY_FLAG_FAT)
@@ -1946,12 +1945,11 @@
 
 	character.dna.ready_dna(character, flatten_SE = FALSE)
 	character.sync_organ_dna(assimilate = TRUE)
-	character.UpdateAppearance()
 
 	// Do the initial caching of the player's body icons.
 	character.force_update_limbs()
 	character.update_eyes()
-	character.regenerate_icons()
+	character.UpdateAppearance()
 
 //Check if the user has ANY job selected.
 /datum/character_save/proc/check_any_job()

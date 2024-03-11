@@ -6,7 +6,7 @@
 		return
 
 	var/msg = input(src, "What message do you want the ping to show?", "Ping all admins") as text|null
-	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
+	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 
 	if(!msg)
 		return
@@ -26,7 +26,7 @@
 			admins_to_ping += C
 
 	if(length(admins_to_ping) < 2) // All by yourself?
-		to_chat(usr, "<span class='boldannounce'>No other admins online to ping[de_admin_also == "Yes" ? ", including those that have used de-admin" : ""]!</span>")
+		to_chat(usr, "<span class='boldannounceooc'>No other admins online to ping[de_admin_also == "Yes" ? ", including those that have used de-admin" : ""]!</span>")
 		return
 
 	var/datum/asays/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)

@@ -298,6 +298,12 @@
 	category = "Assistance"
 	cost = 1
 
+/datum/spellbook_entry/disguiseself
+	name = "Disguise Self"
+	spell_type = /obj/effect/proc_holder/spell/disguise_self
+	category = "Assistance"
+	cost = 1
+
 /datum/spellbook_entry/noclothes
 	name = "Remove Clothes Requirement"
 	spell_type = /obj/effect/proc_holder/spell/noclothes
@@ -391,7 +397,7 @@
 	var/item_path = null
 
 /datum/spellbook_entry/item/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	if(spawn_on_floor == FALSE)
+	if(!spawn_on_floor)
 		user.put_in_hands(new item_path)
 	else
 		new item_path(user.loc)
@@ -469,7 +475,7 @@
 /datum/spellbook_entry/item/everfull_mug
 	name = "Everfull Mug"
 	desc = "A magical mug that can be filled with omnizine at will, though beware of addiction! It can also produce alchohol and other less useful substances."
-	item_path = /obj/item/reagent_containers/food/drinks/everfull
+	item_path = /obj/item/reagent_containers/drinks/everfull
 	cost = 1
 	category = "Artefacts"
 
@@ -550,7 +556,7 @@
 
 /datum/spellbook_entry/item/staffchaos
 	name = "Staff of Chaos"
-	desc = "A caprious tool that can fire all sorts of magic without any rhyme or reason. Using it on people you care about is not recommended."
+	desc = "A curious staff firing bolts of chaotic energy. Any life struck will be the victim of a random effect, usually harming them. No effect on dead targets."
 	item_path = /obj/item/gun/magic/staff/chaos
 	category = "Staves"
 
@@ -649,14 +655,14 @@
 
 /datum/spellbook_entry/loadout/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(destroy_spellbook)
-		var/response = alert(user, "The [src] loadout cannot be refunded once bought. Are you sure this is what you want?", "No refunds!", "No", "Yes")
-		if(response == "No")
+		var/response = tgui_alert(user, "The [src] loadout cannot be refunded once bought. Are you sure this is what you want?", "No refunds!", list("No", "Yes"))
+		if(response != "Yes")
 			return FALSE
 		to_chat(user, "<span class='notice'>[book] crumbles to ashes as you acquire its knowledge.</span>")
 		qdel(book)
 	else if(items_path.len)
-		var/response = alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", "No", "Yes")
-		if(response == "No")
+		var/response = tgui_alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", list("No", "Yes"))
+		if(response != "Yes")
 			return FALSE
 	if(items_path.len)
 		var/obj/item/storage/box/wizard/B = new(src)
@@ -803,7 +809,7 @@
 
 /obj/item/spellbook/proc/wrap(content)
 	var/dat = ""
-	dat +="<html><head><title>Spellbook</title></head>"
+	dat +="<html><meta charset='utf-8'><head><title>Spellbook</title></head>"
 	dat += {"
 	<head>
 		<style type="text/css">

@@ -19,7 +19,7 @@
 	var/perfect_disguise = FALSE
 
 	var/static/list/black_listed_form_types = list(
-		/obj/screen,
+		/atom/movable/screen,
 		/obj/singularity,
 		/obj/effect,
 		/mob/living/simple_animal/hostile/megafauna,
@@ -187,7 +187,6 @@
 	appearance = form.appearance
 	examine_text = form.examine(user)
 	name = form.name
-
 
 /obj/effect/proc_holder/spell/mimic/morph
 	action_background_icon_state = "bg_morph"

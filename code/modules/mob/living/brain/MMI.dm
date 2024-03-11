@@ -200,7 +200,7 @@
 	mmi = null
 	return ..()
 
-/datum/action/generic/configure_mmi_radio/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/generic/configure_mmi_radio/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
 	icon_icon = mmi.icon
 	button_icon_state = mmi.icon_state
 	..()
@@ -265,7 +265,7 @@
 /obj/item/mmi/contents_ui_distance(src_object, mob/living/user)
 	. = ..()
 	if((src_object in view(src)) && get_dist(src_object, src) <= user.client.maxview())
-		return STATUS_INTERACTIVE	// interactive (green visibility)
+		return UI_INTERACTIVE	// interactive (green visibility)
 	return user.shared_living_ui_distance()
 
 /obj/item/mmi/forceMove(atom/destination)

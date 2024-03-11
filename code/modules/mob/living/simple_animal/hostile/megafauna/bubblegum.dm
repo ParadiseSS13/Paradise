@@ -63,7 +63,7 @@ Difficulty: Hard
 	/// Is it on its enraged exclusive second life?
 	var/second_life = FALSE
 	/// Does it have a portal to the funny second life arena created?
-	var/obj/effect/portal/redspace/second_life_portal
+	var/obj/effect/portal/advanced/second_life_portal
 	/// Enraged healing recived
 	var/enraged_healing = 0
 	internal_gps = /obj/item/gps/internal/bubblegum
@@ -140,8 +140,8 @@ Difficulty: Hard
 	var/mob/living/carbon/human/H = target
 	H.apply_status_effect(STATUS_EFFECT_BUBBLEGUM_CURSE, src)
 	if(second_life)
-		H.clear_fullscreen("bubblegum")
-		H.overlay_fullscreen("bubblegum", /obj/screen/fullscreen/fog, 2)
+		H.clear_fullscreen("Bubblegum")
+		H.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/fog, 2)
 
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)
@@ -649,7 +649,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/round_2/Initialize(mapload)
 	. = ..()
 	for(var/obj/effect/landmark/spawner/bubblegum_exit/E in GLOB.landmarks_list)
-		second_life_portal = new /obj/effect/portal/redspace(get_turf(E), get_turf(src), null, 2 HOURS, src, FALSE)
+		second_life_portal = new /obj/effect/portal/advanced(get_turf(E), get_turf(src), null, 2 HOURS, src, FALSE)
 		break
 	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
 	for(var/mob/living/carbon/human/H in range(20))

@@ -86,6 +86,7 @@
 /obj/item/projectile/bullet/saw/incen
 	damage = 7
 	armour_penetration_flat = 0
+	immolate = 3
 
 /obj/item/projectile/bullet/saw/incen/Move()
 	..()
@@ -93,13 +94,6 @@
 	if(location)
 		new /obj/effect/hotspot(location)
 		location.hotspot_expose(700, 50, 1)
-
-/obj/item/projectile/bullet/saw/incen/on_hit(atom/target, blocked = 0)
-	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(3)
-		M.IgniteMob()
 
 //magazines//
 
@@ -135,7 +129,8 @@
 //casings//
 
 /obj/item/ammo_casing/mm556x45
-	desc = "A 556x45mm bullet casing."
+	name = "5.56x45mm round"
+	desc = "A 5.56x45mm rifle cartridge, commonly used in light machine guns."
 	icon_state = "762-casing"
 	caliber = "mm55645"
 	projectile_type = /obj/item/projectile/bullet/saw
@@ -143,19 +138,23 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
 /obj/item/ammo_casing/mm556x45/bleeding
-	desc = "A 556x45mm bullet casing with specialized inner-casing, that when it makes contact with a target, release tiny shrapnel to induce internal bleeding."
+	name = "5.56x45mm 'Shredder' round"
+	desc = "A 5.56x45mm 'Shredder' cartridge, with a heavily serrated tip intended to cause massive bleeding."
 	icon_state = "762-casing"
 	projectile_type = /obj/item/projectile/bullet/saw/bleeding
 
 /obj/item/ammo_casing/mm556x45/hollow
-	desc = "A 556x45mm bullet casing designed to cause more damage to unarmored targets."
+	name = "5.56x45mm hollow point round"
+	desc = "A 5.56x45mm rifle cartridge designed to cause more damage to unarmored targets."
 	projectile_type = /obj/item/projectile/bullet/saw/hollow
 
 /obj/item/ammo_casing/mm556x45/ap
-	desc = "A 556x45mm bullet casing designed with a hardened-tipped core to help penetrate armored targets."
+	name = "5.56x45mm armor piercing round"
+	desc = "A 5.56x45mm rifle cartridge with a hardened tungsten core to increase armor penetration."
 	projectile_type = /obj/item/projectile/bullet/saw/ap
 
 /obj/item/ammo_casing/mm556x45/incen
-	desc = "A 556x45mm bullet casing designed with a chemical-filled capsule on the tip that when bursted, reacts with the atmosphere to produce a fireball, engulfing the target in flames. "
+	name = "5.56x45mm incendiary round"
+	desc = "A 5.56x45mm rifle cartridge with an incendiary chemical payload."
 	projectile_type = /obj/item/projectile/bullet/saw/incen
 	muzzle_flash_color = LIGHT_COLOR_FIRE

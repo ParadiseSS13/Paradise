@@ -212,7 +212,8 @@
 
 /////////////////////Titanium walls/////////////////////
 
-/turf/simulated/wall/mineral/titanium //has to use this path due to how building walls works
+/// has to use this path due to how building walls works
+/turf/simulated/wall/mineral/titanium
 	name = "wall"
 	desc = "A light-weight titanium wall used in shuttles."
 	icon = 'icons/turf/walls/plastinum_wall.dmi'
@@ -283,6 +284,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon
 	name = "russian wall"
 	desc = "Like regular titanium, but able to deflect capitalist aggressors."
+	can_dismantle_with_welder = FALSE
 
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend
 	fixed_underlay = list("icon"='icons/turf/floors.dmi', "icon_state"="darkredfull")

@@ -375,6 +375,45 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/botanical
 	category = list("Medical")
 
+/datum/design/cyberimp_shell_launcher
+	name = "Shell Launch System Implant"
+	desc = "A mounted, single-shot housing for a shell launch cannon; capable of firing twelve-gauge shotgun shells."
+	id = "ci-shell_launcher"
+	req_tech = list("materials" = 7, "engineering" = 5, "combat" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
+	construction_time = 20 SECONDS
+	build_path = /obj/item/organ/internal/cyberimp/arm/shell_launcher
+	category = list("Medical")
+
+/datum/design/cyberimp_razorwire_spool
+	name = "Razorwire Spool Arm Implant"
+	desc = "A long length of monomolecular filament, built into the back of your hand. \
+		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
+		even from a few steps away. However, results against anything more durable will heavily vary."
+	id = "ci-razorwire-spool"
+	req_tech = list("combat" = 6, "biotech" = 6, "syndicate" = 3)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2000, MAT_DIAMOND = 2000, MAT_BLUESPACE = 2000)
+	construction_time = 10 SECONDS
+	build_path = /obj/item/organ/internal/cyberimp/arm/razorwire
+	category = list("Medical")
+
+/datum/design/cyberimp_sensory_enhancer
+	name = "Qani-Laaca Sensory Computer Implant"
+	desc = "An experimental implant replacing the spine of organics. When activated, it can give a temporary boost to mental processing speed, \
+		which many users perceive as a slowing of time and quickening of their ability to act. Due to its nature, it is incompatible with \
+		systems that heavily influence the user's nervous system, like the central nervous system rebooter. \
+		As a bonus effect, you are immune to the burst of heart damage that comes at the end of mephedrone usage, as the computer is able to regulate \
+		your heart's rhythm back to normal after its use."
+	id = "ci-sensory-enhancer"
+	req_tech = list("combat" = 7, "biotech" = 7, "syndicate" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 2000, MAT_PLASMA = 10000, MAT_DIAMOND = 4000, MAT_BLUESPACE = 4000)
+	construction_time = 10 SECONDS
+	build_path = /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/rnd
+	category = list("Medical")
+
 /datum/design/cyberimp_toolset_abductor
 	name = "Abductor Toolset Implant"
 	desc = "An alien toolset, designed to be installed on subject's arm."
@@ -588,54 +627,54 @@
 ////////////Regular Implants/////////////
 /////////////////////////////////////////
 
-/datum/design/implanter
+/datum/design/bio_chip_implanter
 	name = "Bio-chip Implanter"
 	desc = "A sterile automatic bio-chip injector."
 	id = "implanter"
 	req_tech = list("materials" = 2, "biotech" = 3, "programming" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 600, MAT_GLASS = 200)
-	build_path = /obj/item/implanter
+	build_path = /obj/item/bio_chip_implanter
 	category = list("Medical")
 
-/datum/design/implantcase
+/datum/design/bio_chip_case
 	name = "Bio-chip Case"
 	desc = "A glass case containing a bio-chip."
 	id = "implantcase"
 	req_tech = list("biotech" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 500)
-	build_path = /obj/item/implantcase
+	build_path = /obj/item/bio_chip_case
 	category = list("Medical")
 
-/datum/design/implant_chem
+/datum/design/bio_chip_chem
 	name = "Chemical Bio-chip Case"
 	desc = "A glass case containing a bio-chip."
 	id = "implant_chem"
 	req_tech = list("materials" = 3, "biotech" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 700)
-	build_path = /obj/item/implantcase/chem
+	build_path = /obj/item/bio_chip_case/chem
 	category = list("Medical")
 
-/datum/design/implant_sadtrombone
+/datum/design/bio_chip_sad_trombone
 	name = "Sad Trombone Bio-chip Case"
 	desc = "Makes death amusing."
 	id = "implant_trombone"
 	req_tech = list("materials" = 3, "biotech" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 500, MAT_BANANIUM = 500)
-	build_path = /obj/item/implantcase/sad_trombone
+	build_path = /obj/item/bio_chip_case/sad_trombone
 	category = list("Medical")
 
-/datum/design/implant_tracking
+/datum/design/bio_chip_tracking
 	name = "Tracking Bio-chip Case"
 	desc = "A glass case containing a bio-chip."
 	id = "implant_tracking"
 	req_tech = list("materials" = 2, "biotech" = 3, "magnets" = 3, "programming" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
-	build_path = /obj/item/implantcase/tracking
+	build_path = /obj/item/bio_chip_case/tracking
 	category = list("Medical")
 
 //Cybernetic organs

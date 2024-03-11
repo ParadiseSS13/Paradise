@@ -1,7 +1,5 @@
 /datum/controller
 	var/name
-	// The object used for the clickable stat() button.
-	var/obj/effect/statclick/statclick
 
 /datum/controller/proc/Initialize()
 
@@ -16,12 +14,15 @@
 
 /datum/controller/proc/Recover()
 
-/datum/controller/proc/stat_entry()
+/datum/controller/proc/stat_entry(msg)
+	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_NOT_SLEEP(TRUE)
+	return msg
 
 /**
  * Standardized method for tracking startup times.
  */
 /datum/controller/proc/log_startup_progress(message)
 	Master.last_init_info = "([name]): [message]"
-	to_chat(world, "<span class='danger'><small>\[[name]]</small> [message]</span>")
+	to_chat(world, "<span class='danger'><small>\[[name]]</small> [message]</span>", MESSAGE_TYPE_DEBUG, confidential = TRUE)
 	log_world("\[[name]] [message]")

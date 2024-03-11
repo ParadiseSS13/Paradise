@@ -23,7 +23,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 	var/input = null
 	while(!input)
-		input = sanitize(copytext(input(src, "Please specify which mission the syndicate strike team shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
+		input = sanitize(copytext_char(input(src, "Please specify which mission the syndicate strike team shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
 		if(!input)
 			if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
 				return
@@ -155,7 +155,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 		equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/l6_saw(src), SLOT_HUD_RIGHT_HAND)
 		equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45(src), SLOT_HUD_IN_BACKPACK)
 
-	var/obj/item/implant/dust/D = new /obj/item/implant/dust(src)
+	var/obj/item/bio_chip/dust/D = new /obj/item/bio_chip/dust(src)
 	D.implant(src)
 	var/obj/item/card/id/syndicate/W = new(src) //Untrackable by AI
 	W.name = "[real_name]'s ID Card"

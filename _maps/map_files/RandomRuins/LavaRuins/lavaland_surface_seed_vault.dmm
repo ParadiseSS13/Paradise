@@ -102,7 +102,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "hO" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "im" = (
@@ -115,7 +115,7 @@
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mob_spawn/human/corpse/seed_vault_diona,
 /obj/item/pickaxe/mini,
-/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom{
+/obj/item/food/snacks/grown/mushroom/glowshroom{
 	pixel_x = 8;
 	pixel_y = -8
 	},
@@ -338,14 +338,14 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "IJ" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4;
 	name = "Ship Auto-Pilot Console"
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "JL" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4;
 	name = "Auto-Pilot Traveling Logs"
 	},

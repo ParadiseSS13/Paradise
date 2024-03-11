@@ -210,14 +210,10 @@
 			atom_say("End of recording.")
 			break
 		atom_say("[mytape.storedinfo[i]]")
-		if(length(mytape.storedinfo) < i + 1)
+		if(length(mytape.storedinfo) < i + 1 || playsleepseconds > 1.4 SECONDS)
 			playsleepseconds = 1 SECONDS
 		else
 			playsleepseconds = (mytape.timestamp[i + 1] - mytape.timestamp[i]) SECONDS
-		if(playsleepseconds > 1.4 SECONDS)
-			sleep(10)
-			atom_say("Skipping [playsleepseconds / 10] seconds of silence.")
-			playsleepseconds = 1 SECONDS
 		i++
 
 	stop(TRUE)
@@ -321,6 +317,7 @@
 
 	to_chat(user, "<span class='notice'>You erase the data from [src].</span>")
 	used_capacity = 0
+	remaining_capacity = max_capacity
 	storedinfo.Cut()
 	timestamp.Cut()
 

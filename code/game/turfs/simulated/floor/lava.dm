@@ -160,9 +160,9 @@
 	return
 
 /turf/simulated/floor/lava/lava_land_surface
-	temperature = 300
-	oxygen = 14
-	nitrogen = 23
+	temperature = 500
+	oxygen = 8
+	nitrogen = 14
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
@@ -206,7 +206,7 @@
 			if((O.resistance_flags & (LAVA_PROOF|INDESTRUCTIBLE)) || O.throwing)
 				continue
 			. = TRUE
-			if((O.resistance_flags & ON_FIRE))
+			if(O.resistance_flags & ON_FIRE)
 				continue
 			if(!(O.resistance_flags & FLAMMABLE))
 				O.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
@@ -256,9 +256,9 @@
 	icon_state = "mappinglava"
 	base_icon_state = "mappinglava"
 	baseturf = /turf/simulated/floor/lava/mapping_lava
-	temperature = 300
-	oxygen = 14
-	nitrogen = 23
+	temperature = 500
+	oxygen = 8
+	nitrogen = 14
 	planetary_atmos = TRUE
 
 
@@ -268,6 +268,5 @@
 
 /turf/simulated/floor/lava/mapping_lava/LateInitialize()
 	. = ..()
-	ChangeTurf(SSmapping.lavaland_theme, ignore_air = TRUE)
-
-
+	if(SSmapping.lavaland_theme?.primary_turf_type)
+		ChangeTurf(SSmapping.lavaland_theme.primary_turf_type, ignore_air = TRUE)

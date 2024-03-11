@@ -57,12 +57,6 @@
 #define MAX_TEMPERATURE 363.15 // 90C
 #define MIN_TEMPERATURE 233.15 // -40C
 
-//all air alarms in area are connected via magic
-/area
-	var/obj/machinery/alarm/master_air_alarm
-	var/list/obj/machinery/atmospherics/unary/vent_pump/vents = list()
-	var/list/obj/machinery/atmospherics/unary/vent_scrubber/scrubbers = list()
-
 /obj/machinery/alarm
 	name = "air alarm"
 	desc = "A wall-mounted device used to control atmospheric equipment. It looks a little cheaply made..."
@@ -117,7 +111,8 @@
 	custom_name = TRUE
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 
-/obj/machinery/alarm/syndicate //general syndicate access
+/// general syndicate access
+/obj/machinery/alarm/syndicate
 	report_danger_level = FALSE
 	remote_control = FALSE
 	req_access = list(ACCESS_SYNDICATE)
@@ -334,7 +329,7 @@
 			var/datum/gas_mixture/gas = location.remove_air(0.25 * environment.total_moles())
 			if(!gas)
 				return
-			if(!regulating_temperature && thermostat_state == TRUE)
+			if(!regulating_temperature && thermostat_state)
 				regulating_temperature = TRUE
 				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
 
@@ -344,7 +339,7 @@
 			if(target_temperature < MIN_TEMPERATURE)
 				target_temperature = MIN_TEMPERATURE
 
-			if(thermostat_state == TRUE)
+			if(thermostat_state)
 				var/heat_capacity = gas.heat_capacity()
 				var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
 
@@ -704,7 +699,7 @@
 			vent_info["id_tag"] = P.UID()
 			vent_info["name"] = sanitize(P.name)
 			vent_info["power"] = P.on
-			vent_info["direction"] = P.releasing ? "release" : "siphon"
+			vent_info["direction"] = P.releasing
 			vent_info["checks"] = P.pressure_checks
 			vent_info["external"] = P.external_pressure_bound
 			vents += list(vent_info)
@@ -776,16 +771,29 @@
 
 	return thresholds
 
-/obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/alarm/ui_state(mob/user)
+	if(isAI(user))
+		var/mob/living/silicon/ai/AI = user
+		if(!AI.lacks_power() || AI.apc_override)
+			return GLOB.always_state
+
+	else if(ishuman(user))
+		for(var/obj/machinery/computer/atmoscontrol/AC in range(1, user))
+			if(!AC.stat)
+				return GLOB.always_state
+
+	return GLOB.default_state
+
+/obj/machinery/alarm/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AirAlarm", name, 570, 410, master_ui, state)
+		ui = new(user, src, "AirAlarm", name)
 		ui.open()
 
-/obj/machinery/alarm/proc/is_authenticated(mob/user, datum/tgui/ui=null)
+/obj/machinery/alarm/proc/is_authenticated(mob/user, datum/tgui/ui = null, bypass = FALSE)
 	// Return true if they are connecting with a remote console
-	// DO NOT CHANGE THIS TO USE ISTYPE, IT WILL NOT WORK
-	if(ui?.master_ui?.src_object.type == /datum/ui_module/atmos_control)
+	// lol this is a wank hack, please don't shoot me
+	for(var/obj/machinery/computer/atmoscontrol/control in orange(1, user))
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
@@ -796,13 +804,13 @@
 
 /obj/machinery/alarm/ui_status(mob/user, datum/ui_state/state)
 	if(buildstage != 2)
-		return STATUS_CLOSE
+		return UI_CLOSE
 
 	if(aidisabled && (isAI(user) || isrobot(user)))
 		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
-		return STATUS_CLOSE
+		return UI_CLOSE
 
-	. = shorted ? STATUS_DISABLED : STATUS_INTERACTIVE
+	. = shorted ? UI_DISABLED : UI_INTERACTIVE
 
 	return min(..(), .)
 
@@ -849,18 +857,11 @@
 					"widenet",
 					"scrubbing",
 					"direction")
-					var/val
-					if(params["val"])
-						val = text2num(params["val"])
-					else
-						var/newval = input("Enter new value") as num|null
+					var/val = isnum(params["val"]) ? params["val"] : text2num(params["val"])
+					if(isnull(val))
+						var/newval = tgui_input_number(usr, "Enter new value", "New Value", ONE_ATMOSPHERE, 1000 + ONE_ATMOSPHERE, 0, round_value = FALSE)
 						if(isnull(newval))
 							return
-						if(params["cmd"] == "set_external_pressure")
-							if(newval > 1000 + ONE_ATMOSPHERE)
-								newval = 1000 + ONE_ATMOSPHERE
-							if(newval < 0)
-								newval = 0
 						val = newval
 
 					// Figure out what it is
@@ -869,7 +870,7 @@
 						return
 
 					if(!((U in alarm_area.vents) || (U in alarm_area.scrubbers)))
-						message_admins("<span class='boldannounce'>[key_name_admin(usr)] attempted to href-exploit an air alarm to control another object!!!</span>")
+						message_admins("<span class='boldannounceooc'>[key_name_admin(usr)] attempted to href-exploit an air alarm to control another object!!!</span>")
 						return
 
 					// Its a vent. Handle
@@ -928,7 +929,7 @@
 						return
 
 					var/datum/tlv/tlv = TLV[env]
-					var/newval = input("Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname]) as num|null
+					var/newval = tgui_input_number(usr, "Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname], round_value = FALSE)
 
 					if(isnull(newval) || ..()) // No setting if you walked away
 						return
@@ -976,7 +977,7 @@
 			var/min_temperature = max(selected.min1, MIN_TEMPERATURE)
 			var/max_temperature_c = max_temperature - T0C
 			var/min_temperature_c = min_temperature - T0C
-			var/input_temperature = input("What temperature would you like the system to maintain? (Capped between [min_temperature_c]C and [max_temperature_c]C)", "Thermostat Controls") as num|null
+			var/input_temperature = tgui_input_number(usr, "What temperature would you like the system to maintain? (Capped between [min_temperature_c]C and [max_temperature_c]C)", "Thermostat Controls", target_temperature - T0C, max_temperature_c, min_temperature_c)
 			if(isnull(input_temperature) || ..()) // No temp setting if you walked away
 				return
 			input_temperature = input_temperature + T0C
@@ -994,7 +995,7 @@
 		if(user)
 			user.visible_message("<span class='warning'>Sparks fly out of \the [src]!</span>", "<span class='notice'>You emag \the [src], disabling its safeties.</span>")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
-		return
+		return TRUE
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
