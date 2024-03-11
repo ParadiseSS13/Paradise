@@ -10,8 +10,3 @@
 	new /obj/item/gun/energy/laser/awaymission_aeg/rnd(src)
 	new /obj/item/storage/firstaid/regular(src)
 	new /obj/item/paper/pamphlet/gateway(src)
-
-/obj/structure/closet/secure_closet/blueshield/populate_contents()
-	. = ..()
-	new /obj/item/melee/baton/electrostaff/loaded(src)
-	new /obj/item/screwdriver(src)
