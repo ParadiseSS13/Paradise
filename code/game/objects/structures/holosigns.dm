@@ -144,3 +144,8 @@
 	M.electrocute_act(15, "Energy Barrier")
 	shockcd = TRUE
 	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
+
+/obj/structure/holosign/barrier/cyborg/hacked/detective
+	name = "investigation barrier"
+	desc = "An authoritive holographic barrier proclaiming a crime scene. Energy arcs off of it."
+	icon_state = "holosign_det"

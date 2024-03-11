@@ -6,7 +6,7 @@
 		return
 
 	var/msg = input(src, "What message do you want the ping to show?", "Ping all admins") as text|null
-	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
+	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 
 	if(!msg)
 		return

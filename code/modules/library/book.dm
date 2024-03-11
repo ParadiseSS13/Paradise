@@ -159,7 +159,7 @@
   * buttons and then builds the rest of the UI based on what page the player is turned to.
   */
 /obj/item/book/proc/show_content(mob/user)
-	var/dat = ""
+	var/dat = "<meta charset='utf-8'>"
 	//First, we're going to choose/generate our header buttons for switching pages and store it in var/dat
 	var/header_left = "<div style='float:left; text-align:left; width:49.9%'></div>"
 	var/header_right = "<div style ='float;left; text-align:right; width:49.9%'></div>"

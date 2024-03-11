@@ -99,13 +99,13 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				candidate.reload_save(usr)
 				//In case people have saved unsanitized stuff.
 				if(candidate.pai_name)
-					candidate.pai_name = sanitize(copytext(candidate.pai_name, 1, MAX_NAME_LEN))
+					candidate.pai_name = sanitize(copytext_char(candidate.pai_name, 1, MAX_NAME_LEN))
 				if(candidate.description)
-					candidate.description = sanitize(copytext(candidate.description, 1, MAX_MESSAGE_LEN))
+					candidate.description = sanitize(copytext_char(candidate.description, 1, MAX_MESSAGE_LEN))
 				if(candidate.role)
-					candidate.role = sanitize(copytext(candidate.role, 1, MAX_MESSAGE_LEN))
+					candidate.role = sanitize(copytext_char(candidate.role, 1, MAX_MESSAGE_LEN))
 				if(candidate.ooc_comments)
-					candidate.ooc_comments = sanitize(copytext(candidate.ooc_comments, 1, MAX_MESSAGE_LEN))
+					candidate.ooc_comments = sanitize(copytext_char(candidate.ooc_comments, 1, MAX_MESSAGE_LEN))
 
 			if("submit")
 				if(candidate)
@@ -250,7 +250,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 
 	dat += {"
 		<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
-		<html>
+		<html><meta charset='utf-8'>
 			<head>
 				<style>
 					body {

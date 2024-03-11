@@ -185,7 +185,7 @@
 	if(!recipient)
 		recipient = current
 	var/list/output = list()
-	output.Add("<B>[current.real_name]'s Memories:</B><HR>")
+	output.Add("<meta charset='UTF-8'><b>[current.real_name]'s Memories:</b><hr>")
 	output.Add(memory)
 
 	for(var/datum/antagonist/A in antag_datums)
@@ -524,7 +524,7 @@
 		alert("Not before round-start!", "Alert")
 		return
 
-	var/list/out = list("<B>[name]</B>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
+	var/list/out = list("<meta charset='UTF-8'><b>[name]</b>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
 	out.Add("Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]")
 	out.Add("Assigned role: [assigned_role]. <a href='?src=[UID()];role_edit=1'>Edit</a>")
 	out.Add("Factions and special roles:")
@@ -762,7 +762,7 @@
 				var/datum/objective/escape/escape_with_identity/O = new_objective
 				O.target_real_name = new_objective.target.current.real_name
 			if("custom")
-				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
+				var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null, 1, MAX_MESSAGE_LEN))
 				if(!expl)
 					return
 				new_objective = new /datum/objective
