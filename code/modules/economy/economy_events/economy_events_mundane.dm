@@ -22,19 +22,19 @@
 		newMsg.body = ""
 
 		switch(event_type)
-			if(RESEARCH_BREAKTHROUGH)
+			if(RANDOM_STORY_RESEARCH_BREAKTHROUGH)
 				newMsg.body = "A major breakthough in the field of [pick("plasma research","super-compressed materials","nano-augmentation","bluespace research","volatile power manipulation")] \
 				was announced [pick("yesterday","a few days ago","last week","earlier this month")] by a private firm on [affected_dest.name]. \
 				Nanotrasen declined to comment as to whether this could impinge on profits."
 
-			if(ELECTION)
+			if(RANDOM_STORY_ELECTION)
 				newMsg.body = "The pre-selection of an additional candidates was announced for the upcoming [pick("supervisors council","advisory board","governership","board of inquisitors")] \
 				election on [affected_dest.name] was announced earlier today, \
 				[pick("media mogul","web celebrity", "industry titan", "superstar", "famed chef", "popular gardener", "ex-army officer", "multi-billionaire")] \
 				[random_name(pick(MALE,FEMALE))]. In a statement to the media they said '[pick("My only goal is to help the [pick("sick","poor","children")]",\
 				"I will maintain Nanotrasen's record profits","I believe in our future","We must return to our moral core","Just like... chill out dudes")]'."
 
-			if(RESIGNATION)
+			if(RANDOM_STORY_RESIGNATION)
 				newMsg.body = "Nanotrasen regretfully announces the resignation of [pick("Sector Admiral","Division Admiral","Ship Admiral","Vice Admiral")] [random_name(pick(MALE,FEMALE))]."
 				if(prob(25))
 					var/locstring = pick("Segunda","Salusa","Cepheus","Andromeda","Gruis","Corona","Aquila","Asellus") + " " + pick("I","II","III","IV","V","VI","VII","VIII")
@@ -53,7 +53,7 @@
 				else
 					newMsg.body += " Administration Aerospace wishes them the best of luck in their retirement ceremony on [affected_dest.name]."
 
-			if(CELEBRITY_DEATH)
+			if(RANDOM_STORY_CELEBRITY_DEATH)
 				newMsg.body = "It is with regret today that we announce the sudden passing of the "
 				if(prob(33))
 					newMsg.body += "[pick("distinguished","decorated","veteran","highly respected")] \
@@ -71,18 +71,18 @@
 				" during an industrial accident",\
 				" due to [pick("heart failure","kidney failure","liver failure","brain hemorrhage")]")]"
 
-			if(BARGAINS)
-				newMsg.body += "BARGAINS! BARGAINS! BARGAINS! Commerce Control on [affected_dest.name] wants you to know that everything must go! Across all retail centres, \
+			if(RANDOM_STORY_BARGAINS)
+				newMsg.body += "RANDOM_STORY_BARGAINS! RANDOM_STORY_BARGAINS! RANDOM_STORY_BARGAINS! Commerce Control on [affected_dest.name] wants you to know that everything must go! Across all retail centres, \
 				all goods are being slashed, and all retailors are onboard - so come on over for the \[shopping\] time of your life."
 
-			if(SONG_DEBUT)
+			if(RANDOM_STORY_SONG_DEBUT)
 				newMsg.body += "[pick("Singer","Singer/songwriter","Saxophonist","Pianist","Guitarist","TV personality","Star")] [random_name(pick(MALE,FEMALE))] \
 				announced the debut of their new [pick("single","album","EP","label")] '[pick("Everyone's","Look at the","Baby don't eye those","All of those","Dirty nasty")] \
 				[pick("roses","three stars","starships","nanobots","cyborgs","Skrell","Sren'darr")] \
 				[pick("on Venus","on Reade","on Moghes","in my hand","slip through my fingers","die for you","sing your heart out","fly away")]' \
 				with [pick("pre-puchases available","a release tour","cover signings","a launch concert")] on [affected_dest.name]."
 
-			if(MOVIE_RELEASE)
+			if(RANDOM_STORY_MOVIE_RELEASE)
 				newMsg.body += "From the [pick("desk","home town","homeworld","mind")] of [pick("acclaimed","award-winning","popular","stellar")] \
 				[pick("playwright","author","director","actor","TV star")] [random_name(pick(MALE,FEMALE))] comes the latest sensation: '\
 				[pick("Deadly","The last","Lost","Dead")] [pick("Starships","Warriors","outcasts","Tajarans","Unathi","Skrell")] \
@@ -90,7 +90,7 @@
 				[pick("Moghes","Earth","Biesel","Ahdomai","S'randarr","the Void","the Edge of Space")]'.\
 				. Own it on webcast today, or visit the galactic premier on [affected_dest.name]!"
 
-			if(BIG_GAME_HUNTERS)
+			if(RANDOM_STORY_BIG_GAME_HUNTERS)
 				newMsg.body += "Game hunters on [affected_dest.name] "
 				if(prob(33))
 					newMsg.body += "were surprised when an unusual species experts have since identified as \
@@ -103,7 +103,7 @@
 					newMsg.body += "brought in an unusually [pick("valuable","rare","large","vicious","intelligent")] [pick("mammal","predator","farwa","samak")] for inspection \
 					[pick("today","yesterday","last week")]. Speculators suggest they may be tipped to break several records."
 
-			if(GOSSIP)
+			if(RANDOM_STORY_GOSSIP)
 				newMsg.body += "[pick("TV host","Webcast personality","Superstar","Model","Actor","Singer")] [random_name(pick(MALE,FEMALE))] "
 				if(prob(33))
 					newMsg.body += "and their partner announced the birth of their [pick("first","second","third")] child on [affected_dest.name] early this morning. \
@@ -120,7 +120,7 @@
 					newMsg.body += "is recovering from plastic surgery in a clinic on [affected_dest.name] for the [pick("second","third","fourth")] time, reportedly having made the decision in response to "
 					newMsg.body += "[pick("unkind comments by an ex","rumours started by jealous friends",\
 					"the decision to be dropped by a major sponsor","a disasterous interview on Nyx Tonight")]."
-			if(TOURISM)
+			if(RANDOM_STORY_TOURISM)
 				newMsg.body += "Tourists are flocking to [affected_dest.name] after the surprise announcement of [pick("major shopping bargains by a wily retailer",\
 				"a huge new ARG by a popular entertainment company","a secret tour by popular artiste [random_name(pick(MALE,FEMALE))]")]. \
 				Nyx Daily is offering discount tickets for two to see [random_name(pick(MALE,FEMALE))] live in return for eyewitness reports and up to the minute coverage."

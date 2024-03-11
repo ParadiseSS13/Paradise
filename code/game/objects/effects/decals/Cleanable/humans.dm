@@ -187,7 +187,7 @@
 		user.bloody_hands += taken
 		user.hand_blood_color = basecolor
 		user.update_inv_gloves()
-		user.verbs += /mob/living/carbon/human/proc/bloody_doodle
+		add_verb(user, /mob/living/carbon/human/proc/bloody_doodle)
 
 /obj/effect/decal/cleanable/blood/can_bloodcrawl_in()
 	return TRUE
