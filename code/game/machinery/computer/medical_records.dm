@@ -176,7 +176,7 @@
 						"name" = G.name,
 						"delivered" = G.delivered_amount,
 						"deliverygoal" = G.delivery_goal,
-						"report" = G.get_ui_report())
+						"report" = G.get_report(TRUE))
 					data["goals"] += list(payload)
 			if(MED_DATA_MEDBOT)
 				data["medbots"] = list()

@@ -12,9 +12,6 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 /datum/virology_goal/proc/get_report()
 	return "Complete this goal."
 
-/datum/virology_goal/proc/get_ui_report()
-	return "Complete this goal."
-
 /datum/virology_goal/proc/check_completion(list/reagent_list)
 	check_total_virology_goals_completion()
 	return TRUE
@@ -80,12 +77,12 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		if(goal_symptom == V.goal_symptom && goal_property == V.goal_property && goal_property_value == V.goal_property_value)
 			return TRUE
 
-/datum/virology_goal/property_symptom/get_report()
-	return {"<b>Effects of [goal_symptom_name] symptom and level [goal_property_value] [goal_property]</b><br>
-	Viral samples with a specific symptom and properties are required to study the effects of this symptom in various conditions. We need you to deliver [delivery_goal]u of viral samples containing the [goal_symptom_name] symptom and with the [goal_property] property at level [goal_property_value] along with 3 other symptoms to us through the cargo shuttle."}
-
-/datum/virology_goal/property_symptom/get_ui_report()
-	return {"Viral samples with a specific symptom and properties are required to study the effects of this symptom in various conditions. We need you to deliver [delivery_goal]u of viral samples containing the [goal_symptom_name] symptom and with the [goal_property] property at level [goal_property_value] along with 3 other symptoms to us through the cargo shuttle."}
+/datum/virology_goal/property_symptom/get_report(is_ui = FALSE)
+	var/return_text
+	if(!is_ui)
+		return_text += "<b>Effects of [goal_symptom_name] symptom and level [goal_property_value] [goal_property]</b><br>"
+	return_text += "Viral samples with a specific symptom and properties are required to study the effects of this symptom in various conditions. We need you to deliver [delivery_goal]u of viral samples containing the [goal_symptom_name] symptom and with the [goal_property] property at level [goal_property_value] along with 3 other symptoms to us through the cargo shuttle."
+	return return_text
 
 /datum/virology_goal/property_symptom/check_completion(list/datum/reagent/reagent_list)
 	. = FALSE
@@ -145,12 +142,12 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		if(goal_symptoms == V.goal_symptoms)
 			return TRUE
 
-/datum/virology_goal/virus/get_report()
-	return {"<b>[name]</b><br>
-	A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with this exact set of symptoms to us through the cargo shuttle:<br>[symptoms_list2text()]"}
-
-/datum/virology_goal/virus/get_ui_report()
-	return {"A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with this exact set of symptoms to us through the cargo shuttle: [symptoms_list2text()]"}
+/datum/virology_goal/virus/get_report(is_ui = FALSE)
+	var/return_text
+	if(!is_ui)
+		return_text += "<b>[name]</b><br>"
+	return_text += "A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with this exact set of symptoms to us through the cargo shuttle: [symptoms_list2text()]"
+	return return_text
 
 /datum/virology_goal/virus/proc/symptoms_list2text()
 	var/list/msg = list()
