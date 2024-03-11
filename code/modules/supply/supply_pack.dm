@@ -1,6 +1,7 @@
 /datum/supply_packs
 	var/name
 	var/list/contains = list()
+	var/list/contains_special = list()
 	var/manifest = ""
 	var/amount
 	var/cost //default amount to cover crate cost?
@@ -31,6 +32,9 @@
 		manifest += "<li>[initial(AM.name)]</li>"
 		//Add the name to the UI manifest
 		ui_manifest += "[initial(AM.name)]"
+	for(var/item in contains_special)
+		manifest += "<li>[item]</li>"
+		ui_manifest += "[item]"
 	manifest += "</ul>"
 
 /datum/supply_packs/proc/create_package(turf/spawn_location)
