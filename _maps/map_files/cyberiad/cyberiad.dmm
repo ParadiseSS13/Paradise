@@ -69274,11 +69274,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
-"lbv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/wall,
-/area/station/command/office/captain)
 "lbD" = (
 /obj/structure/closet/emcloset,
 /obj/item/clothing/mask/breath,
@@ -123180,7 +123175,7 @@ tiG
 bpt
 jju
 nvC
-lbv
+bON
 bON
 bON
 bON
