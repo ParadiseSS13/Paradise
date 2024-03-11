@@ -11,7 +11,12 @@
 	/// Does it clean the tile under it?
 	var/floorbuffer = FALSE
 
+/obj/vehicle/janicart/Initialize(mapload)
+	. = ..()
+	GLOB.janitorial_equipment += src
+
 /obj/vehicle/janicart/Destroy()
+	GLOB.janitorial_equipment -= src
 	QDEL_NULL(mybag)
 	return ..()
 
