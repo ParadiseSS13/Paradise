@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/list/uplink_items
 
 	var/purchase_log = ""
-	var/uplink_owner = null//text-only
+	var/uplink_owner = null //text-only
 	var/used_TC = 0
 
 	var/job = null
