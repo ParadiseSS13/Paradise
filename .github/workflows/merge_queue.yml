@@ -2,7 +2,7 @@ name: Merge Queue Tests
 on: merge_group
 
 jobs:
-  map_merge:
+  verify_merge:
     name: Verify map merge sanity
     runs-on: ubuntu-latest
     env:
