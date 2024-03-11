@@ -69,4 +69,7 @@
 /datum/supply_packs/proc/get_cost()
 	return cost * SSeconomy.pack_price_modifier
 
-/datum/supply_packs/proc/get_special_manifest()
+/datum/supply_packs/proc/get_special_manifest(content_list)
+	for(var/item in contains_special)
+		content_list += item
+	return content_list
