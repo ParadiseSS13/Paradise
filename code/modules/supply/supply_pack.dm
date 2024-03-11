@@ -1,6 +1,6 @@
 /datum/supply_packs
 	var/name
-	/// OBJ: What is inside the crate
+	v	/// OBJ: What is inside the crate
 	var/list/contains = list()
 	/// STRING: What is inside the crate
 	var/list/contains_special = list()
@@ -27,7 +27,10 @@
 /datum/supply_packs/New()
 	. = ..()
 	manifest += "<ul>"
-	for(var/atom/movable/AM in contains)
+	for(var/path in contains)
+		if(!path)
+			continue
+		var/atom/movable/AM = path
 		manifest += "<li>[initial(AM.name)]</li>"
 		//Add the name to the UI manifest
 		ui_manifest += "[initial(AM.name)]"
@@ -67,5 +70,3 @@
 	return cost * SSeconomy.pack_price_modifier
 
 /datum/supply_packs/proc/get_special_manifest()
-	for(var/item in contains_special)
-		return item
