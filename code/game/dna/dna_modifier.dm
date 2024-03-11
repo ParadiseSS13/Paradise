@@ -786,7 +786,7 @@
 
 	// Cooldown
 	injector_ready = FALSE
-	addtimer(CALLBACK(src, PROC_REF(injector_cooldown_finish)), 30 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(injector_cooldown_finish)), 10 SECONDS)
 
 	// Create it
 	var/datum/dna2/record/buf = buffers[buffer_id]
