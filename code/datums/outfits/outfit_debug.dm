@@ -172,7 +172,6 @@
 	selected_species = GLOB.all_species[choice]
 
 /obj/item/debug/human_spawner/AltClick(mob/user)
-	. = ..()
 	if(!Adjacent(user))
 		return
 	activate_mind = !activate_mind
