@@ -291,13 +291,17 @@
 
 /mob/living/verb/succumb()
 	set hidden = TRUE
-	if(health >= HEALTH_THRESHOLD_CRIT)
-		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
-		return
 	// if you use the verb you better mean it
 	do_succumb(FALSE)
 
 /mob/living/proc/do_succumb(cancel_on_no_words)
+	if(stat == DEAD)
+		to_chat(src, "<span class='notice'>It's too late, you're already dead!</span>")
+		return
+	if(health >= HEALTH_THRESHOLD_CRIT)
+		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
+		return
+
 	var/last_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE)
 
 	if(isnull(last_words) && cancel_on_no_words)

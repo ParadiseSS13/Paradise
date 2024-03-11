@@ -93,6 +93,8 @@
 	if(SSticker && SSticker.mode)
 		SSticker.mode.check_win()
 
+	clear_alert("succumb")
+
 	// u no we dead
 	return TRUE
 
