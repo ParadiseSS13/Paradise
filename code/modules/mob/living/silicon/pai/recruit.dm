@@ -99,13 +99,13 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				candidate.reload_save(usr)
 				//In case people have saved unsanitized stuff.
 				if(candidate.pai_name)
-					candidate.pai_name = sanitize(copytext_char(candidate.pai_name, 1, MAX_NAME_LEN))				// SS220 EDIT - ORIGINAL: copytext
+					candidate.pai_name = sanitize(copytext_char(candidate.pai_name, 1, MAX_NAME_LEN))
 				if(candidate.description)
-					candidate.description = sanitize(copytext_char(candidate.description, 1, MAX_MESSAGE_LEN))		// SS220 EDIT - ORIGINAL: copytext
+					candidate.description = sanitize(copytext_char(candidate.description, 1, MAX_MESSAGE_LEN))
 				if(candidate.role)
-					candidate.role = sanitize(copytext_char(candidate.role, 1, MAX_MESSAGE_LEN))					// SS220 EDIT - ORIGINAL: copytext
+					candidate.role = sanitize(copytext_char(candidate.role, 1, MAX_MESSAGE_LEN))
 				if(candidate.ooc_comments)
-					candidate.ooc_comments = sanitize(copytext_char(candidate.ooc_comments, 1, MAX_MESSAGE_LEN))	// SS220 EDIT - ORIGINAL: copytext
+					candidate.ooc_comments = sanitize(copytext_char(candidate.ooc_comments, 1, MAX_MESSAGE_LEN))
 
 			if("submit")
 				if(candidate)

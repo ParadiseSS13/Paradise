@@ -930,7 +930,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			usr << browse(null,"window=mob\ref[src]")
 
 	if(href_list["flavor_more"])
-		usr << browse(text("<html><meta charset='utf-8'><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", name, replacetext(flavor_text, "\n", "<BR>")), "window=[name];size=500x200")
+		usr << browse(text("<html><meta charset='utf-8'><head><title>[]</title></head><body><tt>[]</tt></body></html>", name, replacetext(flavor_text, "\n", "<br>")), "window=[name];size=500x200")
 		onclose(usr, "[name]")
 	if(href_list["flavor_change"])
 		update_flavor_text()

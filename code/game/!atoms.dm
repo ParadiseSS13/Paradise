@@ -1236,7 +1236,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!use_prefix)
 		default_value = name
 	else if(findtext(name, prefix) != 0)
-		default_value = copytext_char(name, length_char(prefix) + 1) // SS220 EDIT - ORIGINAL: copytext | length
+		default_value = copytext_char(name, length_char(prefix) + 1)
 	else
 		// Either the thing has a non-conforming name due to being set in the map
 		// OR (much more likely) the thing is unlabeled yet.
@@ -1263,7 +1263,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return null
 
 
-	t = sanitize(copytext_char(t, 1, MAX_NAME_LEN)) // SS220 EDIT - ORIGINAL: copytext
+	t = sanitize(copytext_char(t, 1, MAX_NAME_LEN))
 
 	// Logging
 	var/logged_name = initial(name)

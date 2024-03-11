@@ -288,7 +288,7 @@
 
 
 /obj/item/paper/proc/openhelp(mob/user as mob)
-	user << browse({"<html><meta charset='utf-8'><HEAD><TITLE>Pen Help</TITLE></HEAD>
+	user << browse({"<html><meta charset='utf-8'><head><title>Pen Help</title></head>
 	<BODY>
 		<b><center>Crayon&Pen commands</center></b><br>
 		<br>

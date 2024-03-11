@@ -1658,21 +1658,21 @@
 	if(length(med_record) <= 40)
 		HTML += "[med_record]"
 	else
-		HTML += "[copytext_char(med_record, 1, 37)]..."		// SS220 EDIT - ORIGINAL: copytext
+		HTML += "[copytext_char(med_record, 1, 37)]..."
 
 	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=gen_record\">Employment Records</a><br>"
 
 	if(length(gen_record) <= 40)
 		HTML += "[gen_record]"
 	else
-		HTML += "[copytext_char(gen_record, 1, 37)]..."		// SS220 EDIT - ORIGINAL: copytext
+		HTML += "[copytext_char(gen_record, 1, 37)]..."
 
 	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=sec_record\">Security Records</a><br>"
 
 	if(length(sec_record) <= 40)
 		HTML += "[sec_record]<br>"
 	else
-		HTML += "[copytext_char(sec_record, 1, 37)]...<br>"	// SS220 EDIT - ORIGINAL: copytext
+		HTML += "[copytext_char(sec_record, 1, 37)]...<br>"
 
 	HTML += "<a href=\"byond://?_src_=prefs;preference=records;records=-1\">\[Done\]</a>"
 	HTML += "</center></tt>"

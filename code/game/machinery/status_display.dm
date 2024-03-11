@@ -124,8 +124,8 @@ GLOBAL_LIST_EMPTY(status_displays)
 				line1 = message1
 
 			else
-				line1 = copytext_char("[message1]|[message1]", index1, index1 + DISPLAY_CHARS_PER_LINE)	// SS220 EDIT - ORIGINAL: copytext
-				var/message1_len = length_char(message1)												// SS220 EDIT - ORIGINAL: length
+				line1 = copytext_char("[message1]|[message1]", index1, index1 + DISPLAY_CHARS_PER_LINE)
+				var/message1_len = length_char(message1)
 				index1 += DISPLAY_SCROLL_SPEED
 
 				if(index1 > message1_len)
@@ -136,8 +136,8 @@ GLOBAL_LIST_EMPTY(status_displays)
 				line2 = message2
 
 			else
-				line2 = copytext_char("[message2]|[message2]", index2, index2 + DISPLAY_CHARS_PER_LINE)	// SS220 EDIT - ORIGINAL: copytext
-				var/message2_len = length_char(message2)												// SS220 EDIT - ORIGINAL: length
+				line2 = copytext_char("[message2]|[message2]", index2, index2 + DISPLAY_CHARS_PER_LINE)
+				var/message2_len = length_char(message2)
 				index2 += DISPLAY_SCROLL_SPEED
 
 				if(index2 > message2_len)
@@ -168,14 +168,14 @@ GLOBAL_LIST_EMPTY(status_displays)
 
 /obj/machinery/status_display/proc/set_message(m1, m2)
 	if(m1)
-		index1 = (length_char(m1) > DISPLAY_CHARS_PER_LINE)	// SS220 EDIT - ORIGINAL: length
+		index1 = (length_char(m1) > DISPLAY_CHARS_PER_LINE)
 		message1 = m1
 	else
 		message1 = ""
 		index1 = 0
 
 	if(m2)
-		index2 = (length_char(m2) > DISPLAY_CHARS_PER_LINE)	// SS220 EDIT - ORIGINAL: length
+		index2 = (length_char(m2) > DISPLAY_CHARS_PER_LINE)
 		message2 = m2
 	else
 		message2 = ""

@@ -46,10 +46,10 @@
 		return ..()
 
 /obj/item/folder/attack_self(mob/user as mob)
-	var/dat = {"<meta charset="UTF-8"><title>[name]</title>"} // SS220 EDIT - ORIGINAL: "<title>[name]</title>"
+	var/dat = {"<meta charset="UTF-8"><title>[name]</title>"}
 
 	for(var/obj/item/paper/P in src)
-		dat += "<A href='?src=[UID()];remove=\ref[P]'>Remove</A> - <A href='?src=[UID()];read=\ref[P]'>[P.name]</A><BR>"
+		dat += "<a href='?src=[UID()];remove=\ref[P]'>Remove</a> - <a href='?src=[UID()];read=\ref[P]'>[P.name]</a><br>"
 	for(var/obj/item/photo/Ph in src)
 		dat += "<A href='?src=[UID()];remove=\ref[Ph]'>Remove</A> - <A href='?src=[UID()];look=\ref[Ph]'>[Ph.name]</A><BR>"
 	for(var/obj/item/paper_bundle/Pa in src)

@@ -1004,8 +1004,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	/* ======== SSD Section ========= */
 	var/msg = "<html><meta charset='utf-8'><head><title>SSD & AFK Report</title></head><body>"
-	msg += "SSD Players:<BR><TABLE border='1'>"
-	msg += "<TR><TD><B>Key</B></TD><TD><B>Real Name</B></TD><TD><B>Job</B></TD><TD><B>Mins SSD</B></TD><TD><B>Special Role</B></TD><TD><B>Area</B></TD><TD><B>PPN</B></TD><TD><B>Cryo</B></TD></TR>"
+	msg += "SSD Players:<br><TABLE border='1'>"
+	msg += "<tr><td><b>Key</b></td><td><b>Real Name</b></td><td><b>Job</b></td><td><b>Mins SSD</b></td><td><b>Special Role</b></td><td><b>Area</b></td><td><b>PPN</b></td><td><b>Cryo</b></td></tr>"
 	var/mins_ssd
 	var/job_string
 	var/key_string

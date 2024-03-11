@@ -235,12 +235,12 @@
 			return n
 	var/te = n
 	var/t = ""
-	n = length_char(n)	// SS220 EDIT - ORIGINAL: length
+	n = length_char(n)
 	var/p = null
 	p = 1
 	while(p <= n)
-		if((copytext_char(te, p, p + 1) == " " || prob(pr)))	// SS220 EDIT - ORIGINAL: copytext
-			t = "[t][copytext_char(te, p, p + 1)]"	// SS220 EDIT - ORIGINAL: copytext
+		if((copytext_char(te, p, p + 1) == " " || prob(pr)))
+			t = "[t][copytext_char(te, p, p + 1)]"
 		else
 			t = "[t]*"
 		p++
@@ -252,12 +252,12 @@
 
 /proc/slur(phrase, list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)
-	var/leng=length_char(phrase)		// SS220 EDIT - ORIGINAL: length
-	var/counter=length_char(phrase)		// SS220 EDIT - ORIGINAL: length
-	var/newphrase=""
-	var/newletter=""
-	while(counter>=1)
-		newletter=copytext_char(phrase,(leng-counter)+1,(leng-counter)+2)	// SS220 EDIT - ORIGINAL: copytext
+	var/leng = length_char(phrase)
+	var/counter = length_char(phrase)
+	var/newphrase = ""
+	var/newletter = ""
+	while(counter >= 1)
+		newletter=copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
 		if(rand(1,3)==3)
 			if(lowertext(newletter)=="o")	newletter="u";	if(lowertext(newletter)=="о")	newletter="у";	if(lowertext(newletter)=="э")	newletter="и"
 			if(lowertext(newletter)=="s")	newletter="ch";	if(lowertext(newletter)=="с")	newletter="сш";	if(lowertext(newletter)=="г")	newletter="х"
@@ -276,14 +276,14 @@
 /proc/stutter(n)
 	var/te = html_decode(n)
 	var/t = "" //placed before the message. Not really sure what it's for.
-	n = length_char(n) //length of the entire word	// SS220 EDIT - ORIGINAL: length
+	n = length_char(n) //length of the entire word
 	var/p = null
 	p = 1 //1 is the start of any word
 	while(p <= n) //while P, which starts at 1 is less or equal to N which is the length.
-		var/n_letter = copytext_char(te, p, p + 1) //copies text from a certain distance. In this case, only one letter at a time.			// SS220 EDIT - ORIGINAL: copytext
-		if(prob(80) && (lowertext(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z","б","в","г","д","ж","з","к","л","м","н","п","р","с","т","ф","х","ц","ч","ш","щ")))	// SS220 EDIT - ORIGINAL: (ckey(n_letter) + ADDED RU LETTERS
-			if(prob(10))
-				n_letter = text("[n_letter]-[n_letter]-[n_letter]-[n_letter]") //replaces the current letter with this instead.
+		var/n_letter = copytext_char(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
+		if(prob(80) && (lowertext(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
+			if(prob(5))
+				n_letter = text("[n_letter]-[n_letter]-[n_letter]") //replaces the current letter with this instead.
 			else
 				if(prob(5))
 					n_letter = null
@@ -291,18 +291,18 @@
 					n_letter = text("[n_letter]-[n_letter]")
 		t = text("[t][n_letter]") //since the above is ran through for each letter, the text just adds up back to the original word.
 		p++ //for each letter p is increased to find where the next letter will be.
-	return sanitize(copytext_char(t,1,MAX_MESSAGE_LEN))	// SS220 EDIT - ORIGINAL: copytext
+	return sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
 
 /proc/robostutter(n) //for robutts
 	var/te = html_decode(n)
 	var/t = ""//placed before the message. Not really sure what it's for.
-	n = length_char(n)//length of the entire word	// SS220 EDIT - ORIGINAL: length
+	n = length_char(n)//length of the entire word
 	var/p = null
 	p = 1//1 is the start of any word
 	while(p <= n)//while P, which starts at 1 is less or equal to N which is the length.
 		var/robotletter = pick("@", "!", "#", "$", "%", "&", "?") //for beep boop
-		var/n_letter = copytext_char(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.			// SS220 EDIT - ORIGINAL: copytext
-		if(prob(80) && (lowertext(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))	// SS220 EDIT - ORIGINAL: (ckey(n_letter)
+		var/n_letter = copytext_char(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
+		if(prob(80) && (lowertext(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
 			if(prob(10))
 				n_letter = text("[n_letter]-[robotletter]-[n_letter]-[n_letter]")//replaces the current letter with this instead.
 			else
@@ -315,15 +315,15 @@
 						n_letter = text("[n_letter]-[n_letter]")
 		t = text("[t][n_letter]")//since the above is ran through for each letter, the text just adds up back to the original word.
 		p++//for each letter p is increased to find where the next letter will be.
-	return sanitize(copytext_char(t,1,MAX_MESSAGE_LEN))							// SS220 EDIT - ORIGINAL: copytext
+	return sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
 
 
 /proc/Gibberish(t, p, replace_rate = 50)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added. replace_rate is the chance a letter is corrupted.
 	/* Turn text into complete gibberish! */
 	var/returntext = ""
-	for(var/i = 1, i <= length_char(t), i++)									// SS220 EDIT - ORIGINAL: length
+	for(var/i = 1, i <= length_char(t), i++)
 
-		var/letter = copytext_char(t, i, i+1)									// SS220 EDIT - ORIGINAL: copytext
+		var/letter = copytext_char(t, i, i + 1)
 		if(prob(replace_rate))
 			if(p >= 70)
 				letter = ""
@@ -342,12 +342,12 @@
 
 /proc/muffledspeech(phrase)
 	phrase = html_decode(phrase)
-	var/leng=length_char(phrase)												// SS220 EDIT - ORIGINAL: length
-	var/counter=length_char(phrase)												// SS220 EDIT - ORIGINAL: length
-	var/newphrase=""
-	var/newletter=""
-	while(counter>=1)
-		newletter=copytext_char(phrase,(leng-counter)+1,(leng-counter)+2)		// SS220 EDIT - ORIGINAL: copytext
+	var/leng = length_char(phrase)
+	var/counter = length_char(phrase)
+	var/newphrase = ""
+	var/newletter = ""
+	while(counter >= 1)
+		newletter=copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
 		if(newletter in list(" ", "!", "?", ".", ","))
 			// Skip these
 			counter -= 1
@@ -685,12 +685,12 @@
 
 /proc/cultslur(n) // Inflicted on victims of a stun talisman
 	var/phrase = html_decode(n)
-	var/leng = length_char(phrase)												// SS220 EDIT - ORIGINAL: length
-	var/counter=length_char(phrase)												// SS220 EDIT - ORIGINAL: length
+	var/leng = length_char(phrase)
+	var/counter = length_char(phrase)
 	var/newphrase=""
 	var/newletter=""
 	while(counter>=1)
-		newletter=copytext_char(phrase,(leng-counter)+1,(leng-counter)+2)		// SS220 EDIT - ORIGINAL: copytext
+		newletter=copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
 		if(rand(1,2)==2)
 			if(lowertext(newletter)=="o")
 				newletter="u"

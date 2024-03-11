@@ -268,7 +268,7 @@
 			if(world.time > timeout || !reason || (!is_public && !is_authorized(user)) || ..())
 				// Cancel if they take too long, they dont give a reason, they aint authed, or if they walked away
 				return
-			reason = sanitize(copytext_char(reason, 1, 75)) // very long reasons are bad	// SS220 EDIT - ORIGINAL: copytext
+			reason = sanitize(copytext_char(reason, 1, 75)) // very long reasons are bad
 
 			//===orderee identification information===
 			var/idname = "*None Provided*"

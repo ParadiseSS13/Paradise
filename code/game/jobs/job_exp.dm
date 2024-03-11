@@ -55,7 +55,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	msg  += "<html><meta charset='utf-8'><head><title>Playtime Report</title></head><body>"
 	var/datum/job/theirjob
 	var/jtext
-	msg += "<TABLE border ='1'><TR><TH>Player</TH><TH>Job</TH><TH>Crew</TH>"
+	msg += "<table border ='1'><tr><th>Player</th><th>Job</th><th>Crew</th>"
 	for(var/thisdept in EXP_DEPT_TYPE_LIST)
 		msg += "<TH>[thisdept]</TH>"
 	msg += "</TR>"

@@ -571,7 +571,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(!steal_target_path)
 			return
 
-		var/theft_objective_name = sanitize(copytext_char(input("Enter target name:", "Objective target", initial(steal_target_path.name)) as text|null, 1, MAX_NAME_LEN)) // SS220 EDIT - ORIGINAL: copytext
+		var/theft_objective_name = sanitize(copytext_char(input("Enter target name:", "Objective target", initial(steal_target_path.name)) as text|null, 1, MAX_NAME_LEN))
 		if(!theft_objective_name)
 			return
 

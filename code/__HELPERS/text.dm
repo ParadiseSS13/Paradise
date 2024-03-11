@@ -69,10 +69,10 @@
 
 //Returns null if there is any bad text in the string
 /proc/reject_bad_text(text, max_length=512)
-	if(length_char(text) > max_length) return	//message too long  // SS220 EDIT - ORIGINAL: (length(text)
+	if(length_char(text) > max_length)	return			//message too long
 	var/non_whitespace = 0
-	for(var/i=1, i<=length_char(text), i++)							// ORIGINAL: length(text)
-		switch(text2ascii_char(text,i))								// ORIGINAL: text2ascii
+	for(var/i=1, i<=length_char(text), i++)
+		switch(text2ascii_char(text,i))
 			if(62,60,92,47)	return			//rejects the text if it contains these bad characters: <, >, \ or /
 			if(127 to 255)	return			//rejects weird letters like �
 			if(0 to 31)		return			//more weird stuff
@@ -103,23 +103,23 @@
 /proc/reject_bad_name(t_in, allow_numbers=0, max_length=MAX_NAME_LEN)
 	// Decode so that names with characters like < are still rejected
 	t_in = html_decode(t_in)
-	if(!t_in || length_char(t_in) > max_length)			// SS220 EDIT - ORIGINAL: length
+	if(!t_in || length_char(t_in) > max_length)
 		return //Rejects the input if it is null or if it is longer than the max length allowed
 
 	var/number_of_alphanumeric	= 0
 	var/last_char_group			= 0
 	var/t_out = ""
 
-	for(var/i=1, i<=length_char(t_in), i++)				// SS220 EDIT - ORIGINAL: for(var/i=1, i<=length(t_in), i++)
-		var/ascii_char = text2ascii_char(t_in,i)		// ORIGINAL: var/ascii_char = text2ascii(t_in,i)
+	for(var/i=1, i<=length_char(t_in), i++)
+		var/ascii_char = text2ascii_char(t_in,i)
 		switch(ascii_char)
-			// A  .. Z, 								// SS220 ADDITION: А .. Я, Ё | 1040 to 1071, 1025
+			// A  .. Z, А .. Я, Ё
 			if(65 to 90, 1040 to 1071, 1025)			//Uppercase Letters
 				t_out += ascii2text(ascii_char)
 				number_of_alphanumeric++
 				last_char_group = 4
 
-			// a  .. z, 								// SS220 ADDITION: а .. я, ё | 1072 to 1103, 1105
+			// a  .. z, а .. я, ё
 			if(97 to 122, 1072 to 1103, 1105)			//Lowercase Letters
 				if(last_char_group<2)		t_out += uppertext(ascii2text(ascii_char))	//Force uppercase first character
 				else						t_out += ascii2text(ascii_char)
@@ -192,21 +192,21 @@
 /proc/dd_hasprefix(text, prefix)
 	var/start = 1
 	var/end = length(prefix) + 1
-	return findtext_char(text, prefix, start, end)		// SS220 EDIT - ORIGINAL: findtext
+	return findtext_char(text, prefix, start, end)
 
 //Checks the beginning of a string for a specified sub-string. This proc is case sensitive
 //Returns the position of the substring or 0 if it was not found
 /proc/dd_hasprefix_case(text, prefix)
 	var/start = 1
 	var/end = length(prefix) + 1
-	return findtextEx_char(text, prefix, start, end)	// SS220 EDIT - ORIGINAL: findtext
+	return findtextEx_char(text, prefix, start, end)
 
 //Checks the end of a string for a specified substring.
 //Returns the position of the substring or 0 if it was not found
 /proc/dd_hassuffix(text, suffix)
 	var/start = length(text) - length(suffix)
 	if(start)
-		return findtext_char(text, suffix, start, null)	// SS220 EDIT - ORIGINAL: findtext
+		return findtext_char(text, suffix, start, null)
 	return
 
 //Checks the end of a string for a specified substring. This proc is case sensitive
@@ -214,7 +214,7 @@
 /proc/dd_hassuffix_case(text, suffix)
 	var/start = length(text) - length(suffix)
 	if(start)
-		return findtextEx_char(text, suffix, start, null)// SS220 EDIT - ORIGINAL: findtext
+		return findtextEx_char(text, suffix, start, null)
 
 /*
  * Text modification
@@ -222,7 +222,7 @@
 // See bygex.dm
 /proc/replace_characters(t, list/repl_chars)
 	for(var/char in repl_chars)
-		t = replacetext_char(t, char, repl_chars[char])	// SS220 EDIT - ORIGINAL: replacetext
+		t = replacetext_char(t, char, repl_chars[char])
 	return t
 
 //Strips the first char and returns it and the new string as a list
@@ -276,7 +276,7 @@
 
 //Returns a string with the first element of the string capitalized.
 /proc/capitalize(t as text)
-	return uppertext(copytext_char(t, 1, 2)) + copytext_char(t, 2)	// SS220 EDIT - ORIGINAL: copytext
+	return uppertext(copytext_char(t, 1, 2)) + copytext_char(t, 2)
 
 //Centers text by adding spaces to either side of the string.
 /proc/dd_centertext(message, length)
@@ -366,7 +366,7 @@
 		else
 			break
 	if(max_length)
-		input = copytext_char(input,1,max_length)					// SS220 EDIT - ORIGINAL: copytext
+		input = copytext_char(input, 1, max_length)
 	return sanitize(input, allow_lines ? list("\t" = " ") : list("\n" = " ", "\t" = " "))
 
 /proc/trim_strip_html_properly(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)

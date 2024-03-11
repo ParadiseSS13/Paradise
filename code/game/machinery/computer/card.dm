@@ -485,7 +485,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(!job_in_department(SSjobs.GetJob(t1)))
 					return FALSE
 			if(t1 == "Custom")
-				var/temp_t = sanitize(reject_bad_name(copytext_char(input("Enter a custom job assignment.", "Assignment"), 1, MAX_MESSAGE_LEN), TRUE)) // SS220 EDIT - ORIGINAL: copytext
+				var/temp_t = sanitize(reject_bad_name(copytext_char(input("Enter a custom job assignment.", "Assignment"), 1, MAX_MESSAGE_LEN), TRUE))
 				//let custom jobs function as an impromptu alt title, mainly for sechuds
 				if(temp_t && scan && modify)
 					var/oldrank = modify.getRankAndAssignment()
@@ -543,7 +543,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
 				visible_message("<span class='warning'>[src]: Heads may only demote members of their own department.</span>")
 				return FALSE
-			var/reason = sanitize(copytext_char(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))	// SS220 EDIT - ORIGINAL: copytext
+			var/reason = sanitize(copytext_char(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
 			if(!reason || !is_authenticated(usr) || !modify)
 				return FALSE
 			var/list/access = list()
@@ -570,7 +570,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				visible_message("<span class='warning'>[src]: Only the Captain or HOP may completely terminate the employment of a crew member.</span>")
 				return FALSE
 			var/jobnamedata = modify.getRankAndAssignment()
-			var/reason = sanitize(copytext_char(input("Enter legal reason for termination. Enter nothing to cancel.", "Employment Termination"), 1, MAX_MESSAGE_LEN))	// SS220 EDIT - ORIGINAL: copytext
+			var/reason = sanitize(copytext_char(input("Enter legal reason for termination. Enter nothing to cancel.", "Employment Termination"), 1, MAX_MESSAGE_LEN))
 			if(!reason || !has_idchange_access() || !modify)
 				return FALSE
 			var/m_ckey = modify.getPlayerCkey()
@@ -627,7 +627,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			message_admins("[key_name_admin(usr)] has closed a job slot for job \"[j.title]\".")
 			return
 		if("remote_demote")
-			var/reason = sanitize(copytext_char(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))	// SS220 EDIT - ORIGINAL: copytext
+			var/reason = sanitize(copytext_char(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
 			if(!reason || !is_authenticated(usr) || !scan)
 				return FALSE
 			for(var/datum/data/record/E in GLOB.data_core.general)

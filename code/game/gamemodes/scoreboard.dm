@@ -241,7 +241,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 
 
 	// Generate the score panel
-	var/list/dat = list("<meta charset='UTF-8'><b>Round Statistics and Score</b><br><hr>") // SS220 EDIT - ORIGINAL: ("<b>Round Statistics and Score</b><br><hr>")
+	var/list/dat = list("<meta charset='UTF-8'><b>Round Statistics and Score</b><br><hr>")
 	if(SSticker.mode)
 		dat += SSticker.mode.get_scoreboard_stats()
 

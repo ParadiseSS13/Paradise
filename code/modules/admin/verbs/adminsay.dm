@@ -3,7 +3,7 @@
 	set hidden = 1
 	if(!check_rights(R_ADMIN))	return
 
-	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))	// SS220 EDIT - ORIGINAL: copytext
+	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)	return
 
 	var/datum/asays/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
@@ -60,7 +60,7 @@
 	else if(!check_rights(R_ADMIN|R_MOD)) // Catch any other non-admins trying to use this proc
 		return
 
-	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))	// SS220 EDIT - ORIGINAL: copytext
+	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	log_mentorsay(msg, src)
 	mob.create_log(OOC_LOG, "MSAY: [msg]")
 
