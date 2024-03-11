@@ -158,7 +158,6 @@
 		open(usr)
 
 /obj/item/storage/AltClick(mob/user)
-	. = ..()
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
 		open(user)
 		add_fingerprint(user)
