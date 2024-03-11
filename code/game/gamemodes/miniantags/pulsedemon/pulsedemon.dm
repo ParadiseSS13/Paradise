@@ -6,8 +6,6 @@
 #define ALERT_CATEGORY_NOPOWER "pulse_nopower"
 #define ALERT_CATEGORY_NOREGEN "pulse_noregen"
 
-#define PULSEDEMON_SOURCE_DRAIN_INVALID (-1)
-
 /mob/living/simple_animal/demon/pulse_demon
 	name = "pulse demon"
 	real_name = "pulse demon"
@@ -267,15 +265,15 @@
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/remotedrain)
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/open_upgrades)
 
-/mob/living/simple_animal/demon/pulse_demon/Stat()
-	. = ..()
-	if(statpanel("Status"))
-		stat(null, "Charge: [format_si_suffix(charge)]W")
-		stat(null, "Maximum Charge: [format_si_suffix(maxcharge)]W")
-		stat(null, "Drained Charge: [format_si_suffix(charge_drained)]W")
-		stat(null, "Hijacked APCs: [length(hijacked_apcs)]")
-		stat(null, "Drain Rate: [format_si_suffix(power_drain_rate)]W")
-		stat(null, "Hijack Time: [hijack_time / 10] seconds")
+/mob/living/simple_animal/demon/pulse_demon/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Charge:", "[format_si_suffix(charge)]W")
+	status_tab_data[++status_tab_data.len] = list("Maximum Charge:", "[format_si_suffix(maxcharge)]W")
+	status_tab_data[++status_tab_data.len] = list("Drained Charge:", "[format_si_suffix(charge_drained)]W")
+	status_tab_data[++status_tab_data.len] = list("Hijacked APCs:", "[length(hijacked_apcs)]")
+	status_tab_data[++status_tab_data.len] = list("Drain Rate:", "[format_si_suffix(power_drain_rate)]W")
+	status_tab_data[++status_tab_data.len] = list("Hijack Time:", "[hijack_time / 10] seconds")
 
 /mob/living/simple_animal/demon/pulse_demon/dust()
 	return death()
@@ -855,3 +853,7 @@
 
 #undef ALERT_CATEGORY_NOPOWER
 #undef ALERT_CATEGORY_NOREGEN
+
+#undef PULSEDEMON_PLATING_SPARK_CHANCE
+#undef PULSEDEMON_APC_CHARGE_MULTIPLIER
+#undef PULSEDEMON_SMES_DRAIN_MULTIPLIER

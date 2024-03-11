@@ -1,6 +1,5 @@
 //allows right clicking mobs to send an admin PM to their client, forwards the selected mob's client to cmd_admin_pm
 /client/proc/cmd_admin_pm_context(mob/M as mob in GLOB.mob_list)
-	set category = null
 	set name = "\[Admin\] Admin PM Mob"
 	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
@@ -107,7 +106,7 @@
 
 	//clean the message if it's not sent by a high-rank admin
 	if(!check_rights(R_SERVER|R_DEBUG,0))
-		msg = sanitize_simple(copytext(msg,1,MAX_MESSAGE_LEN))
+		msg = sanitize_simple(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 		if(!msg)
 			return
 	else
