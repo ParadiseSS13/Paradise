@@ -154,7 +154,8 @@
 	implant_to_give.implant(spawned, spawned, TRUE, TRUE)
 
 
-/datum/station_trait/cybernetic_revolution //NOTE: THIS MAKES EMP MUCH MORE EXPENSIVE.
+/// NOTE: THIS MAKES EMP MUCH MORE EXPENSIVE.
+/datum/station_trait/cybernetic_revolution
 	name = "Cybernetic Revolution"
 	trait_type = STATION_TRAIT_POSITIVE
 	show_in_report = TRUE
@@ -166,23 +167,23 @@
 		/datum/job/assistant = /obj/item/organ/internal/heart/cybernetic, //real action, real bloodshed
 		/datum/job/atmos = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
 		/datum/job/bartender = /obj/item/organ/internal/liver/cybernetic,
-		/datum/job/hydro = /obj/item/organ/internal/cyberimp/chest/nutriment,
+		/datum/job/hydro = /obj/item/organ/internal/cyberimp/arm/botanical,
 		/datum/job/captain = /obj/item/organ/internal/heart/cybernetic/upgraded,
 		/datum/job/cargo_tech = /obj/item/organ/internal/cyberimp/brain/anti_sleep,
 		/datum/job/chaplain = /obj/item/organ/internal/cyberimp/brain/anti_drop,
 		/datum/job/chemist = /obj/item/organ/internal/liver/cybernetic,
-		/datum/job/chief_engineer = /obj/item/organ/internal/eyes/cybernetic/meson,
+		/datum/job/chief_engineer = /obj/item/organ/internal/cyberimp/brain/wire_interface,
 		/datum/job/cmo = /obj/item/organ/internal/cyberimp/chest/reviver,
 		/datum/job/clown = /obj/item/organ/internal/cyberimp/brain/anti_stam, //HONK!
 		/datum/job/chef = /obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/datum/job/coroner = /obj/item/organ/internal/cyberimp/eyes/hud/medical, //hes got a bone to pick with you
-		/datum/job/librarian = /obj/item/organ/internal/cyberimp/brain/speech_translator,
+		/datum/job/librarian = /obj/item/organ/internal/cyberimp/brain/speech_translator, //dunno what to replace this with, but this is useless since no wingdings?
 		/datum/job/detective = /obj/item/organ/internal/eyes/cybernetic/meson,
 		/datum/job/doctor = /obj/item/organ/internal/cyberimp/arm/surgery,
 		/datum/job/geneticist = /obj/item/organ/internal/alien/plasmavessel/hunter, //we don't care about implants, we have cancer.
 		/datum/job/hop = /obj/item/organ/internal/eyes/cybernetic/shield,
-		/datum/job/hos = /obj/item/organ/internal/cyberimp/arm/telebaton, //not giving them thermals
-		/datum/job/janitor = /obj/item/organ/internal/cyberimp/arm/janitorial, //Not giving them bloody xray
+		/datum/job/hos = /obj/item/organ/internal/cyberimp/brain/anti_stam, //not giving them thermals
+		/datum/job/janitor = /obj/item/organ/internal/cyberimp/eyes/hud/jani,
 		/datum/job/lawyer = /obj/item/organ/internal/heart/cybernetic/upgraded,
 		/datum/job/mime = /obj/item/organ/internal/cyberimp/brain/anti_stam, //...
 		/datum/job/paramedic = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
@@ -192,14 +193,14 @@
 		/datum/job/roboticist = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic,
 		/datum/job/scientist = /obj/item/organ/internal/ears/cybernetic,
 		/datum/job/officer = /obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/datum/job/mining = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
-		/datum/job/engineer = /obj/item/organ/internal/cyberimp/brain/wire_interface,
-		/datum/job/virologist = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
+		/datum/job/mining = /obj/item/organ/internal/eyes/cybernetic/meson,
+		/datum/job/engineer = /obj/item/organ/internal/eyes/cybernetic/shield,
+		/datum/job/virologist = /obj/item/organ/internal/cyberimp/eyes/hud/medical,
 		/datum/job/warden = /obj/item/organ/internal/cyberimp/arm/flash,
 		/datum/job/judge = /obj/item/organ/internal/cyberimp/arm/telebaton,
 		/datum/job/explorer = /obj/item/organ/internal/cyberimp/arm/toolset,
 		/datum/job/nanotrasenrep = /obj/item/organ/internal/heart/cybernetic/upgraded,
-		/datum/job/blueshield = /obj/item/organ/internal/heart/cybernetic/upgraded,
+		/datum/job/blueshield = /obj/item/organ/internal/cyberimp/arm/flash
 	)
 
 /datum/station_trait/cybernetic_revolution/New()

@@ -34,7 +34,8 @@
  * Used for tracking books that have been checked out from the library by players. Created and stored upon a book being
  * checked out and deleted upon the book being succesfully checked back in or the librarian marking a book as "lost"
  */
-/datum/borrowbook // Datum used to keep track of who has borrowed what when and for how long.
+/// Datum used to keep track of who has borrowed what when and for how long.
+/datum/borrowbook
 	var/bookname
 	var/libraryid
 	var/patron_name
@@ -48,7 +49,8 @@
  * are designed to only temporarily hold book data
  * checked out and deleted upon the book being succesfully checked back in or the librarian marking a book as "lost"
  */
-/datum/cachedbook // Datum used to cache the SQL DB books locally in order to achieve a performance gain.
+/// Datum used to cache the SQL DB books locally in order to achieve a performance gain.
+/datum/cachedbook
 	var/id
 	var/libraryid
 	var/title
