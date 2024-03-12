@@ -256,8 +256,8 @@
 		orange.target = get_turf(blue)
 
 /obj/item/gun/energy/wormhole_projector/suicide_act(mob/user)
-	to_chat(viewers(user), pick("<span class='suicide'>[user] looking directly into the operational end of [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>",
-								"<span class='suicide'>[user] is touching the operatonal end of [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
+	user.visible_message(pick("<span class='suicide'>[user] looking directly into the operational end of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>",
+								"<span class='suicide'>[user] is touching the operatonal end of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
 	user.dust()
 	return OBLITERATION
 
