@@ -475,6 +475,7 @@
 #undef MED_DATA_MAINT
 #undef MED_DATA_RECORD
 #undef MED_DATA_V_DATA
+#undef MED_DATA_GOAL_DATA
 #undef MED_DATA_MEDBOT
 #undef FIELD
 #undef MED_FIELD
