@@ -141,7 +141,7 @@
 
 		for(var/obj/item/I in E.embedded_objects)
 			// we cant just use \a here, as we want it to appear before the bicon
-			msg += "<b>[p_they(TRUE)] [p_have()] [p_a()] [bicon(I)] [I.name] embedded in [p_their()] [E.name]!</b>\n"
+			msg += "<b>[p_they(TRUE)] [p_have()] [I.p_a()] [bicon(I)] [I.name] embedded in [p_their()] [E.name]!</b>\n"
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.

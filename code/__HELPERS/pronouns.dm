@@ -49,7 +49,7 @@
 /datum/proc/p_a(temp_gender)
 	var/backslash_a = "\a [src]"
 	backslash_a = splittext_char(backslash_a, " ")
-	if(length(backslash_a) > 2) // ["some", "pop", "corn"], but we dont want "\a ["Thing"]" which is just ["Thing"]
+	if(length(backslash_a) >= 2) // ["some", "pop", "corn"], but we dont want "\a ["Thing"]" which is just ["Thing"]
 		. = backslash_a[1]
 
 //like clients, which do have gender.
