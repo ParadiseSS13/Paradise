@@ -1043,3 +1043,26 @@
 	icon = 'modular_ss220/food/icons/trash.dmi'
 	icon_state = "disk"
 	item_state = "chips"
+
+// Plov
+/obj/item/food/snacks/plov
+	name = "плов с изюмом"
+	desc = "Плов по тому самому рецепту с Земли, так ещё и с изюмом! Объедение."
+	icon = 'modular_ss220/food/icons/food.dmi'
+	icon_state = "plov"
+	trash = /obj/item/trash/plate
+	filling_color = "#B15124"
+	list_reagents = list("nutriment" = 5, "blackpepper" = 1, "vitamin" = 1, "plantmatter" = 3)
+	tastes = list("рис" = 3, "мясо" = 1, "морковка" = 1, "изюм" = 1)
+
+/datum/recipe/oven/plov
+	reagents = list("blackpepper" = 1)
+	items = list(
+		/obj/item/food/snacks/boiledrice,
+		/obj/item/food/snacks/boiledrice,
+		/obj/item/food/snacks/grown/carrot,
+		/obj/item/food/snacks/meat,
+		/obj/item/food/snacks/meat,
+		/obj/item/food/snacks/grown/berries,
+	)
+	result = /obj/item/food/snacks/plov
