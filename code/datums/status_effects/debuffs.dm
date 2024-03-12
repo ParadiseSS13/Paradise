@@ -1266,7 +1266,7 @@
 
 	owner.visible_message(
 		"<span class='warning'>The smoke slowly clears from [owner.name]...</span>",
-		"<span class='notice'>Your skin finally settles down and your throat no longer feels as dry... The brand disappearing confirms that the curse has been lifted.</span>",)
+		"<span class='notice'>Your skin finally settles down and your throat no longer feels as dry... The brand disappearing confirms that the curse has been lifted.</span>")
 	qdel(src)
 
 /// If our owner's stat changes, rapidly surge the damage chance.

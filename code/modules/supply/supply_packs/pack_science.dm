@@ -118,5 +118,5 @@
 	cost = 50
 	contains = list(/obj/item/vending_refill/scidrobe,
 					/obj/item/vending_refill/robodrobe,
-					/obj/item/vending_refill/genedrobe,)
+					/obj/item/vending_refill/genedrobe)
 	containername = "science clothing vendor crate"

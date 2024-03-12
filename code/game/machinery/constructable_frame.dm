@@ -839,7 +839,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/sheet/glass = 1,
-							/obj/item/stack/cable_coil = 2,)
+							/obj/item/stack/cable_coil = 2)
 
 /obj/item/circuitboard/mech_recharger
 	board_name = "Mech Bay Recharger"
