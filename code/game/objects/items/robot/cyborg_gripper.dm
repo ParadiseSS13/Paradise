@@ -16,7 +16,7 @@
 	var/engineering_machine_interaction = FALSE	// Used to stop non-engi grippers from grabbing cells and lightbulbs from certain machines.
 	var/can_help_up = FALSE	// Used to stop non-medical/service grippers from shaking people awake or helping them up.
 	var/list/can_hold = list(
-        /obj/item
+		/obj/item
     )
 
 	var/obj/item/gripped_item = null    // Item currently being held.
