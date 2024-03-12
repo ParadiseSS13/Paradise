@@ -24924,9 +24924,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "cloning"
 	},
@@ -25073,8 +25070,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "bWC" = (
-/obj/machinery/atmospherics/pipe/manifold4w/hidden,
 /obj/machinery/hologram/holopad,
+/obj/machinery/atmospherics/pipe/manifold/hidden,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -25300,6 +25297,9 @@
 /obj/machinery/camera{
 	c_tag = "Medbay Cryogenics";
 	dir = 1
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -26305,8 +26305,9 @@
 	},
 /area/station/medical/virology)
 "cbE" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on{
+	dir = 1;
+	name = "Temperature control unit"
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -26314,7 +26315,6 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/door/window/classic/normal{
 	dir = 1;
 	name = "Cryo Tank Storage"
@@ -26490,7 +26490,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -28427,7 +28429,7 @@
 /area/station/medical/medbay2)
 "ckC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
+	dir = 5
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -29610,8 +29612,9 @@
 /area/station/medical/surgery/primary)
 "cpa" = (
 /obj/structure/table/glass,
-/obj/item/storage/toolbox/emergency,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/storage/toolbox/emergency{
+	pixel_y = 4
+	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -45179,9 +45182,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
 /obj/structure/disposalpipe/junction{
 	dir = 8
 	},
@@ -45975,9 +45975,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -55482,10 +55479,6 @@
 /area/station/security/permabrig)
 "hlq" = (
 /obj/machinery/alarm/directional/south,
-/obj/machinery/atmospherics/unary/thermomachine/freezer/on{
-	dir = 1;
-	name = "Temperature control unit"
-	},
 /obj/machinery/light/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -57097,13 +57090,8 @@
 /obj/structure/table/reinforced,
 /obj/item/wrench,
 /obj/item/crowbar,
-/obj/item/reagent_containers/spray/cleaner,
 /obj/machinery/light_switch/west,
 /obj/structure/extinguisher_cabinet/directional/south,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 10;
-	pixel_y = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -82604,7 +82592,18 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "rcZ" = (
-/obj/machinery/alarm/directional/north,
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/door/window/classic/normal{
+	name = "Cryo Tank Storage"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/general,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -84607,6 +84606,7 @@
 /area/station/legal/courtroom)
 "rWA" = (
 /obj/machinery/clonepod/biomass,
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
