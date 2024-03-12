@@ -40,7 +40,7 @@
 #define FIRELOSS 2
 #define TOXLOSS 4
 #define OXYLOSS 8
-#define SHAME 16
+#define SHAME 16 /// Stam crits the effected mob, as well as ensures they dont die from suicide
 #define OBLITERATION 32
 
 //Bitflags defining which status effects could be or are inflicted on a mob
