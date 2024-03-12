@@ -287,6 +287,7 @@
 	epicenter = get_turf(epicenter)
 	if(!epicenter || !shrapnel_number || !shrapnel_type)
 		return
+	shrapnel_number = min(shrapnel_number, 200) // calm down badmins, no crashing the server
 
 	var/angle_increment = 360 / shrapnel_number
 	var/mob/living/mob_standing_on_turf
