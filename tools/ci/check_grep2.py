@@ -167,12 +167,7 @@ if __name__ == "__main__":
     exit_code = 0
     start = time.time()
 
-    dm_files = glob.glob("**/*.dm", recursive=True)
-
-    if len(sys.argv) > 1:
-        dm_files = [sys.argv[1]]
-
-    for code_filepath in dm_files:
+    for code_filepath in glob.glob("**/*.dm", recursive=True):
         with open(code_filepath, encoding="UTF-8") as code:
             filename = code_filepath.split(os.path.sep)[-1]
             # 515 proc syntax check is unique in running on all files but one,
