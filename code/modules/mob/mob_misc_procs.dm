@@ -235,12 +235,12 @@
 			return n
 	var/te = n
 	var/t = ""
-	n = length(n)
+	n = length_char(n)
 	var/p = null
 	p = 1
 	while(p <= n)
-		if((copytext(te, p, p + 1) == " " || prob(pr)))
-			t = "[t][copytext(te, p, p + 1)]"
+		if((copytext_char(te, p, p + 1) == " " || prob(pr)))
+			t = "[t][copytext_char(te, p, p + 1)]"
 		else
 			t = "[t]*"
 		p++
@@ -252,12 +252,12 @@
 
 /proc/slur(phrase, list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)
-	var/leng=length(phrase)
-	var/counter=length(phrase)
-	var/newphrase=""
-	var/newletter=""
-	while(counter>=1)
-		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+	var/leng = length_char(phrase)
+	var/counter = length_char(phrase)
+	var/newphrase = ""
+	var/newletter = ""
+	while(counter >= 1)
+		newletter=copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
 		if(rand(1,3)==3)
 			if(lowertext(newletter)=="o")	newletter="u"
 			if(lowertext(newletter)=="s")	newletter="ch"
@@ -277,16 +277,16 @@
 	phrase = html_decode(phrase)
 	var/list/split_phrase = splittext(phrase, " ") //Split it up into words.
 
-	var/phrase_length = length(split_phrase)
-	var/stutter_chance = clamp(max(rand(25, 50), stamina_loss), 0, 100) // between
-	for(var/index in 1 to phrase_length) //Pick a few words to stutter on.
+	var/phrase_length = length_char(split_phrase)
+	var/stutter_chance = clamp(max(rand(25, 50), stamina_loss), 0, 100)
+	for(var/index in 1 to phrase_length)
 		if(!prob(stutter_chance))
 			continue
-		var/word = split_phrase[index] // Remove from unstuttered words so we don't stutter it again.
+		var/word = split_phrase[index] // Get the word at the index
+		var/first_letter = copytext_char(word, 1, 2)
 
 		//Search for dipthongs (two letters that make one sound.)
-		var/first_sound = copytext(word, 1, 3)
-		var/first_letter = copytext(word, 1, 2)
+		var/first_sound = copytext_char(word, 1, 3)
 		if(lowertext(first_sound) in list("ch", "th", "sh"))
 			first_letter = first_sound
 
@@ -300,16 +300,16 @@
 			word = "[first_letter]-[second_repeat]-[word]"
 		else
 			word = "[first_letter]-[word]"
-		split_phrase[index] = word
+		split_phrase[index] = word // replace it
 
 	return sanitize(jointext(split_phrase, " "))
 
 /proc/Gibberish(t, p, replace_rate = 50)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added. replace_rate is the chance a letter is corrupted.
 	/* Turn text into complete gibberish! */
 	var/returntext = ""
-	for(var/i = 1, i <= length(t), i++)
+	for(var/i = 1, i <= length_char(t), i++)
 
-		var/letter = copytext(t, i, i+1)
+		var/letter = copytext_char(t, i, i + 1)
 		if(prob(replace_rate))
 			if(p >= 70)
 				letter = ""
@@ -328,12 +328,12 @@
 
 /proc/muffledspeech(phrase)
 	phrase = html_decode(phrase)
-	var/leng=length(phrase)
-	var/counter=length(phrase)
-	var/newphrase=""
-	var/newletter=""
-	while(counter>=1)
-		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+	var/leng = length_char(phrase)
+	var/counter = length_char(phrase)
+	var/newphrase = ""
+	var/newletter = ""
+	while(counter >= 1)
+		newletter=copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
 		if(newletter in list(" ", "!", "?", ".", ","))
 			// Skip these
 			counter -= 1
@@ -540,7 +540,7 @@
 			if(flashwindow)
 				window_flash(O.client)
 			if(source)
-				var/obj/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /obj/screen/alert/notify_action)
+				var/atom/movable/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /atom/movable/screen/alert/notify_action)
 				if(A)
 					if(O.client.prefs && O.client.prefs.UI_style)
 						A.icon = ui_style2icon(O.client.prefs.UI_style)
@@ -671,12 +671,12 @@
 
 /proc/cultslur(n) // Inflicted on victims of a stun talisman
 	var/phrase = html_decode(n)
-	var/leng = length(phrase)
-	var/counter=length(phrase)
+	var/leng = length_char(phrase)
+	var/counter = length_char(phrase)
 	var/newphrase=""
 	var/newletter=""
 	while(counter>=1)
-		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+		newletter=copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
 		if(rand(1,2)==2)
 			if(lowertext(newletter)=="o")
 				newletter="u"
@@ -803,3 +803,7 @@
 			actual_hud.invisibility = invis_value
 		else
 			actual_hud.invisibility = initial(actual_hud.invisibility)
+		// Yes we need to remove the HUD from all HUDs then re-add it to update the HUD being invisible.
+		// No, I don't like it either.
+		remove_from_all_data_huds()
+		add_to_all_human_data_huds()
