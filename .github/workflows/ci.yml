@@ -142,7 +142,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           # allegedly this is as deep as necessary to always receive the base ref
-          fetch-depth: 2
+          fetch-depth: 3
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
