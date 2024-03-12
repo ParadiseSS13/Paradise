@@ -275,7 +275,7 @@
 
 /proc/stutter(phrase, stamina_loss = 0, robotic = FALSE)
 	phrase = html_decode(phrase)
-	var/list/split_phrase = splittext(phrase, " ") //Split it up into words.
+	var/list/split_phrase = splittext_char(phrase, " ") //Split it up into words.
 
 	var/phrase_length = length_char(split_phrase)
 	var/stutter_chance = clamp(max(rand(25, 50), stamina_loss), 0, 100)
