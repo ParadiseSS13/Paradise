@@ -82,7 +82,7 @@
 
 	if(!in_range(src, user))
 		if(icon == src)
-			. += "<span class='notice'>It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.</span>"
+			. += "<span class='notice'>It's [p_a()] [bicon(icon)] [name]! If you want any more information you'll need to get closer.</span>"
 		return
 
 	var/celsius_temperature = air_contents.temperature - T0C
