@@ -33323,6 +33323,11 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/virology,
 /obj/machinery/door/firedoor,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "bPY" = (
@@ -71884,27 +71889,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/genetics)
-"hrB" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable,
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
 "hrD" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Perma Cell 3"
@@ -74130,15 +74114,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
-"iMy" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/turf/simulated/wall/r_wall,
-/area/station/medical/virology)
 "iNa" = (
 /obj/item/relic,
 /turf/simulated/floor/engine,
@@ -75028,11 +75003,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/sleeper)
-"jmY" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/wall/r_wall,
-/area/station/medical/virology)
 "jnk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -75864,13 +75834,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
-"jNX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/turf/simulated/wall/r_wall,
-/area/station/medical/virology)
 "jNY" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
@@ -81640,13 +81603,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
-"nlq" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/turf/simulated/wall/r_wall,
-/area/station/medical/virology)
 "nlA" = (
 /obj/machinery/door/airlock/command{
 	id_tag = "captainofficedoor"
@@ -82473,11 +82429,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -83161,9 +83112,6 @@
 	},
 /area/station/security/permabrig)
 "ogR" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -83176,28 +83124,6 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/virology/glass{
-	name = "Monkey Pen"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/virology,
-/obj/machinery/door/firedoor,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
@@ -141500,7 +141426,7 @@ kuJ
 kpd
 kpd
 tEp
-hrB
+dHO
 dHO
 tJT
 dKQ
@@ -151528,7 +151454,7 @@ uuh
 eoJ
 pGL
 rYa
-nlq
+dFG
 abj
 abj
 aaa
@@ -152038,11 +151964,11 @@ dMx
 sYf
 rOl
 dFG
-iMy
+dFG
 vOB
 hzL
-jmY
-jNX
+dFG
+dFG
 aaa
 aaa
 aaa

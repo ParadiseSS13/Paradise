@@ -2012,6 +2012,11 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/starboard)
+"amH" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/station/maintenance/disposal/east)
 "amI" = (
 /obj/machinery/light{
 	dir = 1
@@ -156860,7 +156865,7 @@ rCJ
 gZc
 exL
 kWC
-wxn
+amH
 dbu
 dQj
 rNK
