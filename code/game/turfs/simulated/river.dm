@@ -6,6 +6,7 @@
 
 /obj/effect/landmark/river_waypoint
 	name = "river waypoint"
+	/// Whether the turf of this landmark has already been linked to others during river generation.
 	var/connected = FALSE
 	invisibility = INVISIBILITY_ABSTRACT
 
