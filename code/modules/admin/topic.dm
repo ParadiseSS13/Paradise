@@ -1885,7 +1885,7 @@
 		var/eviltype = input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", "") as null|anything in etypes
 		if(!(eviltype in etypes))
 			return
-		var/customname = clean_input("Pick a title for the evil fax.", "Fax Title", , owner)
+		var/customname = clean_input("Pick a title for the evil fax.", "Fax Title", null, owner)
 		if(!customname)
 			customname = "paper"
 		var/obj/item/paper/evilfax/P = new /obj/item/paper/evilfax(null)
@@ -2445,7 +2445,7 @@
 			return
 		input = admin_pencode_to_html(html_encode(input)) // Encode everything from pencode to html
 
-		var/customname = clean_input("Pick a title for the fax.", "Fax Title", , owner)
+		var/customname = clean_input("Pick a title for the fax.", "Fax Title", null, owner)
 		if(!customname)
 			customname = "paper"
 
@@ -2478,14 +2478,14 @@
 						if("clown")
 							stampvalue = "clown"
 				else if(stamptype == "text")
-					stampvalue = clean_input("What should the stamp say?", "Stamp Text", , owner)
+					stampvalue = clean_input("What should the stamp say?", "Stamp Text", null, owner)
 				else if(stamptype == "none")
 					stamptype = ""
 				else
 					qdel(P)
 					return
 
-				sendername = clean_input("What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title). This is optional.", "Organization", , owner)
+				sendername = clean_input("What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title). This is optional.", "Organization", null, owner)
 
 		if(sender)
 			notify = alert(src.owner, "Would you like to inform the original sender that a fax has arrived?","Notify Sender","Yes","No")
@@ -3106,7 +3106,7 @@
 			if("guns")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Summon Guns")
 				var/survivor_probability = 0
-				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
+				switch(alert("Do you want this to create survivors antagonists?", null, "No Antags", "Some Antags", "All Antags!"))
 					if("Some Antags")
 						survivor_probability = 25
 					if("All Antags!")
@@ -3116,7 +3116,7 @@
 			if("magic")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Summon Magic")
 				var/survivor_probability = 0
-				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
+				switch(alert("Do you want this to create survivors antagonists?", null, "No Antags", "Some Antags", "All Antags!"))
 					if("Some Antags")
 						survivor_probability = 25
 					if("All Antags!")
