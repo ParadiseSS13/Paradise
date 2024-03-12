@@ -399,6 +399,21 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/razorwire
 	category = list("Medical")
 
+/datum/design/cyberimp_sensory_enhancer
+	name = "Qani-Laaca Sensory Computer Implant"
+	desc = "An experimental implant replacing the spine of organics. When activated, it can give a temporary boost to mental processing speed, \
+		which many users perceive as a slowing of time and quickening of their ability to act. Due to its nature, it is incompatible with \
+		systems that heavily influence the user's nervous system, like the central nervous system rebooter. \
+		As a bonus effect, you are immune to the burst of heart damage that comes at the end of mephedrone usage, as the computer is able to regulate \
+		your heart's rhythm back to normal after its use."
+	id = "ci-sensory-enhancer"
+	req_tech = list("combat" = 7, "biotech" = 7, "syndicate" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 2000, MAT_PLASMA = 10000, MAT_DIAMOND = 4000, MAT_BLUESPACE = 4000)
+	construction_time = 10 SECONDS
+	build_path = /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/rnd
+	category = list("Medical")
+
 /datum/design/cyberimp_toolset_abductor
 	name = "Abductor Toolset Implant"
 	desc = "An alien toolset, designed to be installed on subject's arm."
