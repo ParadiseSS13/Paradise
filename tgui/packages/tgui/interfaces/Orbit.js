@@ -11,7 +11,6 @@ import {
   Stack,
 } from '../components';
 import { Window } from '../layouts';
-import { createLogger } from '../logging';
 import { classes } from '../../common/react';
 
 const PATTERN_NUMBER = / \(([0-9]+)\)$/;
@@ -70,15 +69,10 @@ const BasicSection = (props, context) => {
   );
 };
 
-// const logger = createLogger('spriteFuck');
-
 const OrbitedButton = (props, context) => {
   const { act } = useBackend(context);
   const { color, thing } = props;
 
-  // if (thing.assigned_role_sprite) {
-  //   logger.error(thing.assigned_role + ' - ' + thing.assigned_role_sprite);
-  // }
   return (
     <Button
       color={color}
@@ -93,16 +87,6 @@ const OrbitedButton = (props, context) => {
                 'orbit_job16x16',
                 thing.assigned_role_sprite,
               ])}
-              // style={{
-              //   transform: 'scale(2)',
-              //   'image-rendering': 'pixelated'
-              //   // size: '200%'
-              //   // border: '0.1px'
-              //     // 'image-rendering': 'pixelated'
-              //     // 'background-size': '10px'
-              //   // '-ms-interpolation-mode': 'bicubic',
-              //   // 'verticalAlign': 'middle',
-              // }}
             />{' '}
             {thing.assigned_role}
           </Flex>
