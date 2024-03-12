@@ -32110,6 +32110,9 @@
 /area/station/command/office/cmo)
 "bXT" = (
 /obj/structure/disposalpipe/segment,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom"
 	},
