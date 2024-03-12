@@ -126,13 +126,13 @@ SUBSYSTEM_DEF(tickets)
 	if(istype(target, /datum/ticket))
 		var/datum/ticket/T = target
 		M = get_mob_by_ckey(T.client_ckey)
-		key_and_name = M ? key_name(M, TRUE, ticket_help_type) : "[T.client_ckey] (DC)/(DELETED)"
+		key_and_name = M ? key_name(M, TRUE, ticket_help_type, ticket_id = T.ticketNum) : "[T.client_ckey] (DC)/(DELETED)"
 		msg = T.title
 		ticketNum = T.ticketNum
 	else if(isclient(target))
 		var/client/C = target
 		M = C.mob
-		key_and_name = key_name(M, TRUE, ticket_help_type)
+		key_and_name = key_name(M, TRUE, ticket_help_type, ticket_id = ticketNum)
 
 	var/list/L = list()
 	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_and_name] "

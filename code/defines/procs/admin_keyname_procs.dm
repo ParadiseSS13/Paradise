@@ -1,11 +1,11 @@
 // Always return "Something/(Something)", even if it's an error message.
-/proc/key_name(whom, include_link = FALSE, type = null)
-	return key_name_helper(whom, TRUE, include_link, type)
+/proc/key_name(whom, include_link = FALSE, type = null, ticket_id = null)
+	return key_name_helper(whom, TRUE, include_link, type, ticket_id = ticket_id)
 
-/proc/key_name_hidden(whom, include_link = FALSE, type = null)
-	return key_name_helper(whom, FALSE, include_link, type)
+/proc/key_name_hidden(whom, include_link = FALSE, type = null, ticket_id = null)
+	return key_name_helper(whom, FALSE, include_link, type, ticket_id = ticket_id)
 
-/proc/key_name_helper(whom, include_name, include_link = FALSE, type = null)
+/proc/key_name_helper(whom, include_name, include_link = FALSE, type = null, ticket_id = null)
 	if(include_link != FALSE && include_link != TRUE)
 		stack_trace("Key_name was called with an incorrect include_link [include_link]")
 
@@ -42,11 +42,11 @@
 	if(key)
 		if(C && C.holder && C.holder.fakekey && !include_name)
 			if(include_link)
-				. += "<a href='?priv_msg=[C.getStealthKey()];type=[type]'>"
+				. += "<a href='?priv_msg=[C.getStealthKey()];type=[type];ticket_id=[ticket_id]'>"
 			. += "Administrator"
 		else
 			if(include_link && C)
-				. += "<a href='?priv_msg=[C.ckey];type=[type]'>"
+				. += "<a href='?priv_msg=[C.ckey];type=[type];ticket_id=[ticket_id]'>"
 			. += key
 			// See if the player is on the watchlist. Requires admin permissions.
 			if(check_rights(R_ADMIN, FALSE) && C && C.watchlisted)

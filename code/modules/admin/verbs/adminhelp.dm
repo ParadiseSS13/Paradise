@@ -25,13 +25,19 @@
 	if(!msg) // No message after sanitisation
 		return
 
+	var/span_type
+	var/message_type
 	if(selected_type == "Mentorhelp")
 		SSmentor_tickets.newHelpRequest(src, msg) // Mhelp
+		span_type = "mentorhelp"
+		message_type = MESSAGE_TYPE_MENTORPM
 	else
 		SStickets.newHelpRequest(src, msg) // Ahelp
+		span_type = "adminhelp"
+		message_type = MESSAGE_TYPE_ADMINPM
 
 	//show it to the person adminhelping too
-	to_chat(src, "<span class='boldnotice'>[selected_type]</b>: [msg]</span>", MESSAGE_TYPE_ADMINPM, confidential = TRUE)
+	to_chat(src, "<span class='[span_type]'>[selected_type]</b>: [msg]</span>", message_type, confidential = TRUE)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Adminhelp") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 	switch(selected_type)
