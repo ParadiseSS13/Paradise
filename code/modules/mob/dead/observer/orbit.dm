@@ -72,11 +72,6 @@
 		var/list/orbiters = M.get_orbiters_recursive()
 		if(length(orbiters) > 0)
 			serialized["orbiters"] = length(orbiters)
-		if(isliving(M))
-			var/mob/living/L = M
-			if(L.mind?.assigned_role && L.mind.assigned_role != L.mind.special_role)
-				serialized["assigned_role"] = L.mind.assigned_role
-				serialized["assigned_role_sprite"] = "hud[ckey(L.mind.get_assigned_role_asset())]"
 
 		if(istype(M))
 			if(isnewplayer(M))  // People in the lobby screen; only have their ckey as a name.
@@ -135,6 +130,13 @@
 						var/antag_serialized = serialized.Copy()
 						antag_serialized["antag"] = antag_name
 						antagonists += list(antag_serialized)
+
+					// Antaghud? Let them see everyone's role
+					if(isliving(M))
+						var/mob/living/L = M
+						if(L.mind?.has_normal_assigned_role())
+							serialized["assigned_role"] = L.mind.assigned_role
+							serialized["assigned_role_sprite"] = ckey(L.mind.get_assigned_role_asset())
 
 				// Player terror spiders (and other hostile player-controlled event mobs) have their own category to help see how much there are.
 				// Not in the above block because terrors can be known whether AHUD is on or not.

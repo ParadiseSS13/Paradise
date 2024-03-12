@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Divider,
+  Flex,
   Icon,
   Input,
   Section,
@@ -11,6 +12,7 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 import { createLogger } from '../logging';
+import { classes } from '../../common/react';
 
 const PATTERN_NUMBER = / \(([0-9]+)\)$/;
 
@@ -68,23 +70,42 @@ const BasicSection = (props, context) => {
   );
 };
 
-const logger = createLogger('spriteFuck');
+// const logger = createLogger('spriteFuck');
 
 const OrbitedButton = (props, context) => {
   const { act } = useBackend(context);
   const { color, thing } = props;
 
-  if (thing.assigned_role_sprite) {
-    logger.error(thing.assigned_role + ' - ' + thing.assigned_role_sprite);
-  }
+  // if (thing.assigned_role_sprite) {
+  //   logger.error(thing.assigned_role + ' - ' + thing.assigned_role_sprite);
+  // }
   return (
     <Button
       color={color}
       tooltip={
         thing.assigned_role ? (
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            {<img src={thing.assigned_role_sprite} />} {thing.assigned_role}
-          </div>
+          <Flex>
+            <Box
+              as="img"
+              mr="0.5em"
+              // mt={0.5}
+              className={classes([
+                'orbit_job16x16',
+                thing.assigned_role_sprite,
+              ])}
+              // style={{
+              //   transform: 'scale(2)',
+              //   'image-rendering': 'pixelated'
+              //   // size: '200%'
+              //   // border: '0.1px'
+              //     // 'image-rendering': 'pixelated'
+              //     // 'background-size': '10px'
+              //   // '-ms-interpolation-mode': 'bicubic',
+              //   // 'verticalAlign': 'middle',
+              // }}
+            />{' '}
+            {thing.assigned_role}
+          </Flex>
         ) : (
           ''
         )

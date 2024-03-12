@@ -5,5 +5,8 @@
 /datum/asset/spritesheet/orbit_job/create_spritesheets()
 	var/list/states = GLOB.joblist + "prisoner" + "centcom" + "solgov" + "soviet" + "unknown"
 	for(var/state in states)
-		Insert("hud[state]", 'icons/mob/hud/job_assets.dmi', "hud[state]")
+		Insert(ckey(state), 'icons/mob/hud/job_assets.dmi', ckey(state))
 
+/datum/asset/spritesheet/orbit_job/ModifyInserted(icon/pre_asset)
+	pre_asset.Scale(16, 16)
+	return pre_asset
