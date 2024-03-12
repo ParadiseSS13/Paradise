@@ -15,7 +15,7 @@
 
 /obj/structure/transit_tube_construction/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click to flip it.</b></span>"
+	. += "<span class='info'><b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click</b> to flip it.</span>"
 
 /obj/structure/transit_tube_construction/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
