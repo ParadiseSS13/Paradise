@@ -609,7 +609,7 @@
 
 /obj/machinery/chem_master/condimaster
 	name = "\improper CondiMaster 3000"
-	desc = "Used by remove reagents from that single beaker you're using. Or create condiment packs and bottles, your choice."
+	desc = "Used to remove reagents from that single beaker you're using, or create condiment packs and bottles; your choice."
 	condi = TRUE
 
 /obj/machinery/chem_master/condimaster/Initialize(mapload)
