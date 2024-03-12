@@ -45,6 +45,26 @@
 	/// UID for the atom which the current atom is orbiting
 	var/orbiting_uid = null
 
+	/*
+	Buckling Vars
+	*/
+	var/can_buckle = FALSE
+	/// Bed-like behaviour, forces the mob to lie down if buckle_lying != -1
+	var/buckle_lying = -1
+	/// Require people to be handcuffed before being able to buckle. eg: pipes
+	var/buckle_requires_restraints = 0
+	/// Lazylist of the mobs buckled to this object.
+	var/list/buckled_mobs = null
+	/// The Pixel_y to offset the buckled mob by
+	var/buckle_offset = 0
+	/// The max amount of mobs that can be buckled to this object. Currently set to 1 on every movable
+	var/max_buckled_mobs = 1
+	/// Can we pull the mob while they're buckled. Currently set to false on every movable
+	var/buckle_prevents_pull = FALSE
+
+	/// Used for icon smoothing. Won't smooth if it ain't anchored and can be unanchored. Only set to true on windows
+	var/can_be_unanchored = FALSE
+
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
 	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))
@@ -192,45 +212,43 @@
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
 			var/first_step_dir
-			// The `&& moving_diagonally` checks are so that a forceMove taking
-			// place due to a Crossed, Bumped, etc. call will interrupt
-			// the second half of the diagonal movement, or the second attempt
-			// at a first half if the cardinal Move() fails because we hit something.
+			// For each diagonal direction, we try moving NORTH/SOUTH first, and if it fails, we try moving EAST/WEST first.
+			// As long as either succeeds, we try the other.
 			if(direct & NORTH)
 				if(direct & EAST)
-					if(Move(get_step(src,  NORTH),  NORTH) && moving_diagonally)
+					if(Move(get_step(src,  NORTH),  NORTH))
 						first_step_dir = NORTH
 						moving_diagonally = SECOND_DIAG_STEP
 						. = Move(get_step(src,  EAST),  EAST)
-					else if(moving_diagonally && Move(get_step(src,  EAST),  EAST))
+					else if(Move(get_step(src,  EAST),  EAST))
 						first_step_dir = EAST
 						moving_diagonally = SECOND_DIAG_STEP
 						. = Move(get_step(src,  NORTH),  NORTH)
 				else if(direct & WEST)
-					if(Move(get_step(src,  NORTH),  NORTH) && moving_diagonally)
+					if(Move(get_step(src,  NORTH),  NORTH))
 						first_step_dir = NORTH
 						moving_diagonally = SECOND_DIAG_STEP
 						. = Move(get_step(src,  WEST),  WEST)
-					else if(moving_diagonally && Move(get_step(src,  WEST),  WEST))
+					else if(Move(get_step(src,  WEST),  WEST))
 						first_step_dir = WEST
 						moving_diagonally = SECOND_DIAG_STEP
 						. = Move(get_step(src,  NORTH),  NORTH)
 			else if(direct & SOUTH)
 				if(direct & EAST)
-					if(Move(get_step(src,  SOUTH),  SOUTH) && moving_diagonally)
+					if(Move(get_step(src,  SOUTH),  SOUTH))
 						first_step_dir = SOUTH
 						moving_diagonally = SECOND_DIAG_STEP
 						. = Move(get_step(src,  EAST),  EAST)
-					else if(moving_diagonally && Move(get_step(src,  EAST),  EAST))
+					else if(Move(get_step(src,  EAST),  EAST))
 						first_step_dir = EAST
 						moving_diagonally = SECOND_DIAG_STEP
 						. = Move(get_step(src,  SOUTH),  SOUTH)
 				else if(direct & WEST)
-					if(Move(get_step(src,  SOUTH),  SOUTH) && moving_diagonally)
+					if(Move(get_step(src,  SOUTH),  SOUTH))
 						first_step_dir = SOUTH
 						moving_diagonally = SECOND_DIAG_STEP
 						. = Move(get_step(src,  WEST),  WEST)
-					else if(moving_diagonally && Move(get_step(src,  WEST),  WEST))
+					else if(Move(get_step(src,  WEST),  WEST))
 						first_step_dir = WEST
 						moving_diagonally = SECOND_DIAG_STEP
 						. = Move(get_step(src,  SOUTH),  SOUTH)
@@ -442,7 +460,7 @@
 	TT.diagonals_first = diagonals_first
 	TT.callback = callback
 	TT.dodgeable = dodgeable
-	TT.block_movement = block_movement
+	TT.should_block_movement = block_movement
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
