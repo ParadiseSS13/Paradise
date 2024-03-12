@@ -413,3 +413,5 @@ GLOBAL_LIST_EMPTY(antagonists)
 /// This is the custom blurb message used on login for an antagonist.
 /datum/antagonist/proc/custom_blurb()
 	return FALSE
+
+#undef SUCCESSFUL_DETACH
