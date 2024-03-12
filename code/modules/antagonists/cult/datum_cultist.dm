@@ -28,7 +28,6 @@
 		ascend()
 	cult.study_objectives(owner.current)
 
-
 /datum/antagonist/cultist/detach_from_owner()
 	if(!owner.current)
 		return ..()
@@ -53,7 +52,6 @@
 	return ..()
 
 
-
 /datum/antagonist/cultist/greet()
 	return "<span class='cultlarge'>You catch a glimpse of the Realm of [GET_CULT_DATA(entity_name, "this is a bug at this point")], [GET_CULT_DATA(entity_title3, "I dont know what else to write")]. \
 						You now see how flimsy the world is, you see that it should be open to the knowledge of [GET_CULT_DATA(entity_name, "making a bug report")].</span>"
@@ -63,12 +61,6 @@
 		owner.current.visible_message("<span class='cult'>[owner.current] looks like [owner.current.p_they()] just reverted to [owner.current.p_their()] old faith!</span>",
 			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] and the memories of your time as their servant with it.</span>")
 
-
-// /datum/antagonist/cultist/add_owner_to_gamemode()
-// 	SSticker.mode.cult |= owner
-
-// /datum/antagonist/cultist/remove_owner_from_gamemode()
-// 	SSticker.mode.cult -= owner
 
 /datum/antagonist/cultist/create_team(team)
 	return SSticker.mode.get_cult_team()

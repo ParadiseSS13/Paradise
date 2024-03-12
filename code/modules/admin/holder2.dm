@@ -11,10 +11,9 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 	/// Our currently linked marked datum
 	var/datum/marked_datum
 
-	/// TEMPORARY UNTIL WE FIND A BETTER PLACE TO PUT THIS. IF THIS IS MERGED, BLOW UP ALL CODE REVIEWERS
+	/// Our index into GLOB.antagonist_teams, so that admins can have pretty tabs in the Check Teams menu.
 	var/team_switch_tab_index = 1
-	// TODO TO DO ctodo
-	// LOOK AT ME!!!
+
 
 /datum/admins/New(initial_rank = "Temporary Admin", initial_rights = 0, ckey)
 	if(IsAdminAdvancedProcCall())

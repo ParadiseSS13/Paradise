@@ -63,7 +63,7 @@
 			break
 		var/datum/mind/new_headrev = pick_n_take(pre_revolutionaries)
 		new_headrev.add_antag_datum(/datum/antagonist/rev/head)
-		// rev_team.add_member(new_headrev)
+		rev_team.add_member(new_headrev)
 
 	..()
 

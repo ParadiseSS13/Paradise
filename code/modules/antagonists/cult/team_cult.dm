@@ -242,6 +242,12 @@
 		rise_number = round(CULT_RISEN_LOW * (players - cultists))
 		ascend_number = round(CULT_ASCENDANT_LOW * (players - cultists))
 
+/datum/team/cult/proc/speak_to_all_alive_cultists(...)
+	var/message_to_sent = args.Join("<br>")
+	for(var/datum/mind/cult_mind in members)
+		if(cult_mind?.current)
+			to_chat(cult_mind.current, message_to_sent)
+
 /datum/team/cult/proc/study_objectives(mob/living/M, display_members = FALSE) //Called by cultists/cult constructs checking their objectives
 	if(!M)
 		return FALSE
@@ -296,7 +302,8 @@
 		return
 	return obj_sac
 
-/datum/team/cult/proc/current_sac_objective() //Return the current sacrifice objective datum, if any
+/// Return the current sacrifice objective datum, if any
+/datum/team/cult/proc/current_sac_objective()
 	var/list/presummon_objs = objective_holder.get_objectives()
 	if(cult_status == NARSIE_DEMANDS_SACRIFICE && length(presummon_objs))
 		var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
@@ -309,16 +316,15 @@
 	var/datum/objective/sacrifice/current_obj = current_sac_objective()
 	return istype(current_obj) && current_obj.target == mind
 
-/datum/team/cult/proc/find_new_sacrifice_target(datum/mind/mind)
+/datum/team/cult/proc/find_new_sacrifice_target()
 	var/datum/objective/sacrifice/current_obj = current_sac_objective()
 	if(!current_obj)
 		return FALSE
-	if(!current_obj.find_target())
+	if(!current_obj.find_target(list(current_obj.target)))
+		objective_holder.remove_objective(current_obj)
 		ready_to_summon()
 		return FALSE
-	for(var/datum/mind/cult_mind in members)
-		if(cult_mind && cult_mind.current)
-			to_chat(cult_mind.current, "<span class='danger'>[GET_CULT_DATA(entity_name, "Your god")]</span> murmurs, <span class='cultlarge'>Our goal is beyond your reach. Sacrifice [current_obj.target] instead...</span>")
+	speak_to_all_alive_cultists("<span class='danger'>[GET_CULT_DATA(entity_name, "Your god")]</span> murmurs, <span class='cultlarge'>Our goal is beyond your reach. Sacrifice [current_obj.target] instead...</span>")
 	return TRUE
 
 /datum/team/cult/proc/successful_sacrifice()
@@ -335,20 +341,20 @@
 	if(!obj_sac)
 		return
 
-	for(var/datum/mind/cult_mind in members)
-		if(cult_mind && cult_mind.current)
-			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have made progress, but there is more to do still before [GET_CULT_DATA(entity_title1, "The Dark One")] can be summoned!</span>")
-			to_chat(cult_mind.current, "<span class='cult'>Current goal: [obj_sac.explanation_text]</span>")
+	speak_to_all_alive_cultists(
+		"<span class='cult'>You and your acolytes have made progress, but there is more to do still before [GET_CULT_DATA(entity_title1, "The Dark One")] can be summoned!</span>",
+		"<span class='cult'>Current goal: [obj_sac.explanation_text]</span>"
+	)
 
 /datum/team/cult/proc/ready_to_summon()
 	if(!obj_summon)
 		obj_summon = objective_holder.add_objective(/datum/objective/eldergod)
 
 	cult_status = NARSIE_NEEDS_SUMMONING
-	for(var/datum/mind/cult_mind in members)
-		if(cult_mind && cult_mind.current)
-			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
-			to_chat(cult_mind.current, "<span class='cult'>Current goal: [obj_summon.explanation_text]</span>")
+	speak_to_all_alive_cultists(
+		"<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>",
+		"<span class='cult'>Current goal: [obj_summon.explanation_text]</span>"
+	)
 
 /datum/team/cult/proc/successful_summon()
 	cult_status = NARSIE_HAS_RISEN
@@ -357,10 +363,10 @@
 /datum/team/cult/proc/narsie_death()
 	cult_status = NARSIE_HAS_FALLEN
 	obj_summon.killed = TRUE
-	for(var/datum/mind/cult_mind in members)
-		if(cult_mind && cult_mind.current)
-			to_chat(cult_mind.current, "<span class='cultlarge'>RETRIBUTION!</span>")
-			to_chat(cult_mind.current, "<span class='cult'>Current goal: Slaughter the heretics!</span>")
+	speak_to_all_alive_cultists(
+		"<span class='cultlarge'>RETRIBUTION!</span>",
+		"<span class='cult'>Current goal: Slaughter the heretics!</span>"
+	)
 
 /datum/team/cult/proc/get_cult_status_as_string()
 	var/list/define_to_string = list(
@@ -387,9 +393,7 @@
 	if(!input)
 		return
 
-	for(var/datum/mind/H in members)
-		if(H.current)
-			to_chat(H.current, "<span class='cult'>[GET_CULT_DATA(entity_name, "Your god")] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
+	speak_to_all_alive_cultists("<span class='cult'>[GET_CULT_DATA(entity_name, "Your god")] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
 
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		to_chat(O, "<span class='cult'>[GET_CULT_DATA(entity_name, "Your god")] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
@@ -455,10 +459,10 @@
 
 			obj_summon.find_summon_locations(TRUE)
 			if(cult_status == NARSIE_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
-				for(var/datum/mind/cult_mind in members)
-					if(cult_mind && cult_mind.current)
-						to_chat(cult_mind.current, "<span class='cult'>The veil has shifted! Our summoning will need to take place elsewhere.</span>")
-						to_chat(cult_mind.current, "<span class='cult'>Current goal : [obj_summon.explanation_text]</span>")
+				speak_to_all_alive_cultists(
+					"<span class='cult'>The veil has shifted! Our summoning will need to take place elsewhere.</span>",
+					"<span class='cult'>Current goal : [obj_summon.explanation_text]</span>"
+				)
 
 			message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
 			log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")

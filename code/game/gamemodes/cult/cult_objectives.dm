@@ -1,5 +1,6 @@
 // Objectives
-/datum/objective/servecult //Given to cultists on conversion/roundstart
+/// Given to cultists on conversion/roundstart
+/datum/objective/servecult
 	explanation_text = "Assist your fellow cultists and Tear the Veil! (Use the Study Veil action to check your progress.)"
 	completed = TRUE
 	needs_target = FALSE
@@ -11,26 +12,48 @@
 /datum/objective/sacrifice/check_completion()
 	return sacced || completed
 
-/datum/objective/sacrifice/find_target()
-	var/list/target_candidates = list()
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		if(is_admin_level(H.z)) //We can't sacrifice people that are on the centcom z-level
+/datum/objective/sacrifice/find_target(list/target_blacklist)
+	. = ..()
+	if(target)
+		return
+
+	//There are no living unconvertables on the station. Looking for a Sacrifice Target among the convertable minds
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(possible_target in target_blacklist)
+			continue
+		var/mind_result = is_invalid_target(possible_target)
+		if(mind_result && mind_result != TARGET_INVALID_CULT_CONVERTABLE)
 			continue
 
-		if(H.mind && !IS_CULTIST(H) && (SSticker.mode.cult_team && !SSticker.mode.cult_team.is_convertable_to_cult(H.mind)) && (H.stat != DEAD) && !H.mind.offstation_role)
-			target_candidates += H.mind
-	if(!length(target_candidates))	//There are no living unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
-		for(var/mob/living/carbon/human/H in GLOB.player_list)
-			if(is_admin_level(H.z)) //We can't sacrifice people that are on the centcom z-level
-				continue
-			if(H.mind && !IS_CULTIST(H) && (H.stat != DEAD) && !H.mind.offstation_role) // Same checks, but add them even if they could be converted
-				target_candidates += H.mind
-	if(length(target_candidates))
-		target = pick(target_candidates)
-		explanation_text = "Sacrifice [target], the [target.assigned_role] via invoking an Offer rune with [target.p_their()] body or brain on it and three acolytes around it."
+		possible_targets += possible_target
+
+	if(length(possible_targets))
+		target = pick(possible_targets)
+		update_explanation_text()
 		return TRUE
+
 	message_admins("Cult Sacrifice: Could not find unconvertible or convertible target. Nar'Sie summoning unlocked!")
 	return FALSE
+
+/datum/objective/sacrifice/is_invalid_target(datum/mind/possible_target)
+	. = ..()
+	if(.)
+		return
+	if(possible_target.has_antag_datum(/datum/antagonist/cultist))
+		return TARGET_INVALID_CULTIST
+	if(!SSticker.mode.cult_team)
+		stack_trace("/datum/objective/sacrifice/is_invalid_target was called without there being an assigned cult team")
+		return
+	if(SSticker.mode.cult_team.is_convertable_to_cult(possible_target))
+		return TARGET_INVALID_CULT_CONVERTABLE
+
+/datum/objective/sacrifice/update_explanation_text()
+	if(target?.current)
+		explanation_text = "Sacrifice [target], the [target.assigned_role] via invoking an Offer rune with [target.p_their()] body or brain on it and three acolytes around it."
+	else
+		// Code will reach here as part of find_target, but people should never be able to READ it.
+		explanation_text = "If you're reading this, something went very wrong. Contact an admin."
 
 
 /datum/objective/eldergod

@@ -64,6 +64,8 @@
 #define NARSIE_HAS_RISEN 3
 #define NARSIE_HAS_FALLEN -1
 
-#define GET_CULT_DATA(variable, default) (SSticker.cult_data ? SSticker.cult_data.variable : default)
+/// Safely accesses SSticker.cult_data, returns the default if cult data is not set up yet. Allows for both variable and proc call access.
+#define GET_CULT_DATA(var_or_proc, default) (SSticker.cult_data ? SSticker.cult_data.var_or_proc : default)
 
-#define IS_CULTIST(mob) (isliving(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/cultist))
+/// Checks that the given element is living an has a cult antag datum
+#define IS_CULTIST(mob) (isliving(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/cultist)) // for someone TODO, move all antag checks over to TG's `IS_TRAITOR` defines. Also remove `isliving()` from this call someday
