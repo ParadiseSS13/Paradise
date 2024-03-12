@@ -386,7 +386,7 @@
 
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
 				sound_played = 1
-				var/hyperspace_sound = sound('sound/effects/hyperspace_begin.ogg')
+				var/hyperspace_sound = sound('modular_ss220/aesthetics_sounds/sound/shuttle/hyperspace_begin_new.ogg') //SS220 EDIT
 				for(var/area/shuttle/escape/E in world)
 					SEND_SOUND(E, hyperspace_sound)
 
@@ -396,7 +396,7 @@
 					if(is_station_level(M.z)) //Will not launch from the mine/planet
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
-				var/hyperspace_progress_sound = sound('sound/effects/hyperspace_progress.ogg')
+				var/hyperspace_progress_sound = sound('modular_ss220/aesthetics_sounds/sound/shuttle/hyperspace_progress_new.ogg') //SS220 EDIT
 				for(var/area/shuttle/escape/E in world)
 					SEND_SOUND(E, hyperspace_progress_sound)
 				enterTransit()
@@ -413,7 +413,7 @@
 				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
 					M.dock(SSshuttle.getDock("[M.id]_away"))
 
-				var/hyperspace_end_sound = sound('sound/effects/hyperspace_end.ogg')
+				var/hyperspace_end_sound = sound('modular_ss220/aesthetics_sounds/sound/shuttle/hyperspace_end_new.ogg') //SS220 EDIT
 				for(var/area/shuttle/escape/E in world)
 					SEND_SOUND(E, hyperspace_end_sound)
 

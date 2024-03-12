@@ -1089,7 +1089,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	for(var/mob/M in GLOB.player_list)
 		if(!isnewplayer(M)) // exclude people in the lobby
-			SEND_SOUND(M, sound('sound/effects/dimensional_rend.ogg'))
+			SEND_SOUND(M, sound('modular_ss220/aesthetics_sounds/sound/narsie/narsie_summon.ogg')) //SS220 EDIT
 			to_chat(M, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
 
 	icon_state = "rune_large_distorted"

@@ -461,6 +461,11 @@
 		if(SSticker.mode.traitors.len)
 			dat += check_role_table("Traitors", SSticker.mode.traitors)
 
+		// SS220 EDIT - START
+		if(SSticker.mode.blood_brothers.len)
+			dat += check_role_table("Blood Brothers", SSticker.mode.blood_brothers)
+		// SS220 EDIT - END
+
 		if(SSticker.mode.implanted.len)
 			dat += check_role_table("Mindslaves", SSticker.mode.implanted)
 

@@ -58,7 +58,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		display_colour = GLOB.mentor_ooc_colour
 		if(check_rights(R_MOD,0) && !check_rights(R_ADMIN,0))
 			display_colour = GLOB.moderator_ooc_colour
-		else if(check_rights(R_ADMIN,0))
+		if(check_rights(R_EVENT,0)) // SS220 Addition
 			if(GLOB.configuration.admin.allow_admin_ooc_colour)
 				display_colour = src.prefs.ooccolor
 			else
@@ -71,6 +71,10 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.toggles & PREFTOGGLE_CHAT_OOC)
+			// SS220 MODPACK REPLACE START
+			#ifdef MODPACK_CHAT_BADGES
+			var/display_name = get_ooc_badged_name()
+			#else
 			var/display_name = key
 
 			if(prefs.unlock_content)
@@ -83,6 +87,8 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 					var/icon/donator = icon('icons/ooc_tag_16x.png')
 					display_name = "[bicon(donator)][display_name]"
 
+			#endif
+			// SS220 MODPACK REPLACE END
 			if(holder)
 				if(holder.fakekey)
 					if(C.holder && C.holder.rights & R_ADMIN)

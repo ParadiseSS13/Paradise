@@ -31,7 +31,7 @@
 	icon_state = SSticker.cultdat?.entity_icon_state
 	name = SSticker.cultdat?.entity_name
 
-	var/sound/cry = sound(pick('sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg'))
+	var/sound/cry = sound('modular_ss220/aesthetics_sounds/sound/narsie/narsie_risen.ogg') //SS220 EDIT
 
 	for(var/mob/living/player in GLOB.player_list)
 		if(isnewplayer(player))

@@ -60,7 +60,8 @@
 		hair_gradient_alpha,
 		custom_emotes,
 		physique,
-		height
+		height,
+		tts_seed
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
 		))

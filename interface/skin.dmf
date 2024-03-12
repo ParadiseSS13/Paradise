@@ -3,128 +3,128 @@ macro "default"
 
 menu "menu"
 	elem
-		name = "&File"
+		name = "&Файл"
 	elem
-		name = "&Quick screenshot"
+		name = "&Быстрый скриншот"
 		command = ".screenshot auto"
-		category = "&File"
+		category = "&Файл"
 	elem
-		name = "&Save screenshot as..."
+		name = "&Сохранить скриншот как..."
 		command = ".screenshot"
-		category = "&File"
-	elem "reconnectbutton"
-		name = "&Reconnect"
-		command = ".reconnect"
-		category = "&File"
+		category = "&Файл"
 	elem "debugmcbutton"
 		name = "&MC Debug"
 		command = "SS-Info-Breakdown"
-		category = "&File"
+		category = "&Файл"
 		is-disabled = true
+	elem "reconnectbutton"
+		name = "&Переподключиться"
+		command = ".reconnect"
+		category = "&Файл"
 	elem
-		name = "&Quit"
+		name = "&Выход"
 		command = ".quit"
-		category = "&File"
+		category = "&Файл"
 	elem
-		name = "&Icons"
+		name = "&Вид"
 	elem
-		name = "&Size"
-		category = "&Icons"
+		name = "&Размер"
+		category = "&Вид"
 	elem "stretch"
-		name = "&Stretch to fit"
+		name = "&Растянуть"
 		command = ".winset \"paramapwindow.map.icon-size=0\""
-		category = "&Size"
+		category = "&Размер"
 		is-checked = true
 		can-check = true
 		group = "size"
 	elem "icon128"
 		name = "&128x128 (4x)"
 		command = ".winset \"paramapwindow.map.icon-size=128\""
-		category = "&Size"
+		category = "&Размер"
 		can-check = true
 		group = "size"
 	elem "icon112"
 		name = "&112x112 (3.5x)"
 		command = ".winset \"paramapwindow.map.icon-size=112\""
-		category = "&Size"
+		category = "&Размер"
 		can-check = true
 		group = "size"
 	elem "icon96"
 		name = "&96x96 (3x)"
 		command = ".winset \"paramapwindow.map.icon-size=96\""
-		category = "&Size"
+		category = "&Размер"
 		can-check = true
 		group = "size"
 	elem "icon80"
 		name = "&80x80 (2.5x)"
 		command = ".winset \"paramapwindow.map.icon-size=80\""
-		category = "&Size"
+		category = "&Размер"
 		can-check = true
 		group = "size"
 	elem "icon64"
 		name = "&64x64 (2x)"
 		command = ".winset \"paramapwindow.map.icon-size=64\""
-		category = "&Size"
+		category = "&Размер"
 		can-check = true
 		group = "size"
 	elem "icon48"
 		name = "&48x48 (1.5x)"
 		command = ".winset \"paramapwindow.map.icon-size=48\""
-		category = "&Size"
+		category = "&Размер"
 		can-check = true
 		group = "size"
 	elem "icon32"
 		name = "&32x32"
 		command = ".winset \"paramapwindow.map.icon-size=32\""
-		category = "&Size"
+		category = "&Размер"
 		can-check = true
 		group = "size"
 	elem
-		name = "&Scaling"
-		category = "&Icons"
+		name = "&Масштабирование"
+		category = "&Вид"
 	elem "NN"
-		name = "&Nearest Neighbor"
+		name = "&По соседним пикселям"
 		command = ".winset \"paramapwindow.map.zoom-mode=distort\""
-		category = "&Scaling"
+		category = "&Масштабирование"
 		can-check = true
 		is-checked = true
 		group = "scale"
 	elem "PS"
-		name = "&Point Sampling"
+		name = "&Точечный отбор"
 		command = ".winset \"paramapwindow.map.zoom-mode=normal\""
-		category = "&Scaling"
+		category = "&Масштабирование"
 		can-check = true
 		group = "scale"
 	elem "BL"
-		name = "&Bilinear"
+		name = "&Билинейное"
 		command = ".winset \"paramapwindow.map.zoom-mode=blur\""
-		category = "&Scaling"
+		category = "&Масштабирование"
 		can-check = true
 		group = "scale"
 	elem "textmode"
-		name = "&Text"
+		name = "&Текстовый режим"
 		command = ".winset \"menu.textmode.is-checked=true?paramapwindow.map.text-mode=true:paramapwindow.map.text-mode=false\""
-		category = "&Icons"
+		category = "&Вид"
 		can-check = true
 	elem
-		name = "&Options"
+		name = "&Опции"
 	elem
-		name = "&Open Volume Mixer"
+		name = "&Открыть микшер"
 		command = "Open-Volume-Mixer"
-		category = "&Options"
+		category = "&Опции"
 	elem "statusbar"
-		name = "&Show status bar"
-		category = "&Options"
+		name = "&Скрыть статус бар"
+		category = "&Опции"
 		can-check = true
 		is-checked = true
 		saved-params = "is-checked"
-		command = ".winset \"menu.statusbar.is-checked=true?paramapwindow.status_bar.is-visible=true:paramapwindow.status_bar.is-visible=false\""
+		command = ".winset \"menu.statusbar.is-checked=false?paramapwindow.status_bar.is-visible=true:paramapwindow.status_bar.is-visible=false\""
 	elem
-		name = "&Help"
+		name = "&Помощь"
 	elem
 		name = "&Admin help"
 		command = "adminhelp"
-		category = "&Help"
+		category = "&Помощь"
 
 window "mainwindow"
 	elem "mainwindow"
@@ -132,10 +132,10 @@ window "mainwindow"
 		size = 640x440
 		is-default = true
 		saved-params = "pos;size;is-minimized;is-maximized"
-		title = "Paradise Station 13"
+		title = "SS220 | WyccStation (Paradise)"
 		statusbar = false
 		is-maximized = true
-		icon = 'icons\\paradise.png'
+		icon = 'icons\\ss220.png'
 		macro = "default"
 		menu = "menu"
 	elem "mainvsplit"
@@ -180,8 +180,19 @@ window "paramapwindow"
 		is-default = true
 		saved-params = "icon-size;zoom-mode"
 		zoom-mode = "distort"
-		style = ".center { text-align: center; } .maptext { font-family: 'Small Fonts'; font-size: 7px; -dm-text-outline: 1px black; color: white; line-height: 1.1; } .small { font-size: 6px; } .big { font-size: 8px; } .reallybig { font-size: 8px; } .extremelybig { font-size: 8px; } .clown { color: #FF69Bf;} .tajaran {color: #803B56;} .skrell {color: #00CED1;} .solcom {color: #22228B;} .com_srus {color: #7c4848;} .zombie\t{color: #ff0000;} .soghun {color: #228B22;} .vox {color: #AA00AA;} .diona {color: #804000; font-weight: bold;} .trinary {color: #727272;} .kidan {color: #664205;} .slime {color: #0077AA;} .drask {color: #a3d4eb;} .vulpkanin {color: #B97A57;} .abductor {color: #800080;} .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; }"
-		on-show = ".winset \"menu.statusbar.is-checked=true?paramapwindow.status_bar.is-visible=true:paramapwindow.status_bar.is-visible=false\""
+		style = ".center { text-align: center; } .maptext { font-family: 'MS Serif'; font-size: 7px; -dm-text-outline: 1px black; color: white; line-height: 1.1; } .small { font-family: 'Small Fonts'; font-size: 6px; } .big { font-size: 8px; } .reallybig { font-size: 8px; } .extremelybig { font-size: 8px; } .clown { color: #FF69Bf;} .tajaran {color: #803B56;} .skrell {color: #00CED1;} .solcom {color: #22228B;} .com_srus {color: #7c4848;} .zombie\t{color: #ff0000;} .soghun {color: #228B22;} .vox {color: #AA00AA;} .diona {color: #804000; font-weight: bold;} .trinary {color: #727272;} .kidan {color: #664205;} .slime {color: #0077AA;} .drask {color: #a3d4eb;} .vulpkanin {color: #B97A57;} .abductor {color: #800080;} .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; }" .italics { font-family: 'Small Fonts'; }"
+		on-show = ".winset \"menu.statusbar.is-checked=false?paramapwindow.status_bar.is-visible=true:paramapwindow.status_bar.is-visible=false\""
+	elem "title_browser"
+		type = BROWSER
+		pos = 0,0
+		size = 640x480
+		anchor1 = 0,0
+		anchor2 = 100,100
+		is-visible = false
+		is-disabled = true
+		saved-params = ""
+		auto-format = false
+		style = ".center { text-align: center; } .maptext { font-family: 'Grand9K Pixel'; font-size: 6pt; -dm-text-outline: 1px black; color: white; line-height: 1.0; } .command_headset { font-weight: bold; } .small { font-family: 'TinyUnicode'; font-size: 12pt; line-height: 0.75; } .big { font-size: 8pt; } .reallybig { font-size: 8pt; } .extremelybig { font-size: 8pt; } .greentext { color: #00FF00; font-size: 6pt; } .redtext { color: #FF0000; font-size: 6pt; } .clown { color: #FF69BF; font-weight: bold; } .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; } .italics { font-family: 'TinyUnicode'; font-size: 12pt; line-height: 0.75; }"
 	elem "status_bar"
 		type = LABEL
 		pos = 0,464
@@ -212,65 +223,44 @@ window "rpane"
 		left = "infowindow"
 		right = "outputwindow"
 		is-vert = false
-	elem "textb"
-		type = BUTTON
-		pos = 0,7
-		size = 50x16
-		saved-params = "is-checked"
-		text = "Text"
-		command = ".winset \"rpanewindow.top=;\""
-		group = "rpanemode"
-		button-type = pushbox
-	elem "infob"
-		type = BUTTON
-		pos = 52,7
-		size = 50x16
-		is-checked = true
-		saved-params = "is-checked"
-		text = "Info"
-		command = ".winset \"rpanewindow.top=infowindow\""
-		group = "rpanemode"
-		button-type = pushbox
 	elem "wikib"
 		type = BUTTON
-		pos = 115,7
-		size = 50x16
-		text = "Wiki"
+		pos = 0,6
+		size = 75x17
+		anchor1 = 0,0
+		anchor2 = 14,0
+		text = "Вики"
 		command = "wiki"
-	elem "forumb"
-		type = BUTTON
-		pos = 167,7
-		size = 50x16
-		text = "Forum"
-		command = "forum"
 	elem "rulesb"
 		type = BUTTON
-		pos = 219,7
-		size = 50x16
-		text = "Rules"
+		pos = 80,6
+		size = 75x17
+		anchor1 = 14,0
+		anchor2 = 28,0
+		text = "Правила"
 		command = "rules"
-	elem "githubb"
-		type = BUTTON
-		pos = 271,7
-		size = 50x16
-		text = "GitHub"
-		command = "github"
 	elem "webmap"
 		type = BUTTON
-		pos = 323,7
-		size = 50x16
-		text = "Map"
+		pos = 160,6
+		size = 75x17
+		anchor1 = 28,0
+		anchor2 = 40,0
+		text = "Карта"
 		command = "webmap"
-	elem "changelog"
+	elem "githubb"
 		type = BUTTON
-		pos = 385,7
-		size = 70x16
-		text = "Changelog"
-		command = "Changelog"
+		pos = 240,6
+		size = 75x17
+		anchor1 = 40,0
+		anchor2 = 52,0
+		text = "GitHub"
+		command = "github"
 	elem "discordb"
 		type = BUTTON
-		pos = 457,7
-		size = 60x16
+		pos = 320,6
+		size = 75x17
+		anchor1 = 52,0
+		anchor2 = 64,0
 		font-style = "bold"
 		text-color = #ffffff
 		background-color = #7289da
@@ -278,13 +268,37 @@ window "rpane"
 		command = "discord"
 	elem "donate"
 		type = BUTTON
-		pos = 519,7
-		size = 60x16
+		pos = 400,6
+		size = 75x17
+		anchor1 = 64,0
+		anchor2 = 76,0
 		font-style = "bold"
 		text-color = #ffffff
-		background-color = #008000
-		text = "Donate"
+		background-color = #ef642b
+		text = "Boosty"
 		command = "Donate"
+	elem "changelog"
+		type = BUTTON
+		pos = 480,6
+		size = 75x17
+		anchor1 = 76,0
+		anchor2 = 88,0
+		font-style = "bold"
+		text-color = #ffffff
+		text = "Changelog"
+		command = "Changelog"
+	elem "fullscreenb"
+		type = BUTTON
+		pos = 560,6
+		size = 75x17
+		anchor1 = 88,0
+		anchor2 = 100,0
+		font-style = "bold"
+		text-color = #ffffff
+		background-color = #40628A
+		saved-params = "is-checked"
+		text = "Fullscreen"
+		command = "fullscreen"
 
 window "outputwindow"
 	elem "outputwindow"
@@ -371,12 +385,12 @@ window "infowindow"
 	elem "statbrowser"
 		type = BROWSER
 		pos = 0,0
-		size = 0x0
+		size = 640x477
 		anchor1 = 0,0
 		anchor2 = 100,100
 		is-default = true
 		highlight-color = #00aa00
-		on-show = ".winset \"rpane.infob.is-checked=true?rpane.rpanewindow.top=infowindow:rpane.rpanewindow.top=\""
+		on-show = ".winset \"rpane.rpanewindow.top=infowindow\""
 
 window "tgui_say"
 	elem "tgui_say"

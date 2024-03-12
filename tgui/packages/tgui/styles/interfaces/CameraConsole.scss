@@ -4,10 +4,10 @@ $background-color: rgba(0, 0, 0, 0.33) !default;
 
 .CameraConsole__left {
   position: absolute;
-  top: 0;
+  top: 36px;
   bottom: 0;
   left: 0;
-  width: base.em(220px);
+  width: base.em(227px);
 }
 
 .CameraConsole__right {
@@ -16,6 +16,7 @@ $background-color: rgba(0, 0, 0, 0.33) !default;
   bottom: 0;
   left: base.em(220px);
   right: 0;
+  margin: 0.5em;
   background-color: $background-color;
 }
 
@@ -50,4 +51,14 @@ $background-color: rgba(0, 0, 0, 0.33) !default;
   .NoticeBox {
     margin-top: calc(50% - 2em);
   }
+}
+
+.CameraConsole__right_map {
+  position: relative;
+  display: flex;
+  flex: 1;
+  height: 90%;
+  bottom: 3em;
+  flex-direction: column;
+  background-color: $background-color;
 }

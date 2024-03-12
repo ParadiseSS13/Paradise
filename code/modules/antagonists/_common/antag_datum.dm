@@ -149,12 +149,16 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/remove_innate_effects(mob/living/mob_override)
 	SHOULD_CALL_PARENT(TRUE)
-	var/mob/living/L = mob_override || owner.current
+
+	var/mob/living/remove_effects_from = mob_override || owner?.current
+	if(!remove_effects_from)
+		return
+
 	if(antag_hud_type && antag_hud_name)
-		remove_antag_hud(L)
+		remove_antag_hud(remove_effects_from)
 	// If `mob_override` exists it means we're only transferring this datum, we don't need to show the clown any text.
-	handle_clown_mutation(L, mob_override ? null : clown_removal_text)
-	return L
+	handle_clown_mutation(remove_effects_from, mob_override ? null : clown_removal_text)
+	return remove_effects_from
 
 /**
  * Adds this datum's antag hud to `antag_mob`.

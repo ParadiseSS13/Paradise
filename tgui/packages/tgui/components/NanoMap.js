@@ -1,5 +1,5 @@
 import { Component } from 'inferno';
-import { Box, Icon, Tooltip } from '.';
+import { Box, Icon, Tooltip, Button } from '.';
 import { useBackend } from '../backend';
 import { LabeledList } from './LabeledList';
 import { Slider } from './Slider';
@@ -176,3 +176,48 @@ const NanoMapZoomer = (props, context) => {
 };
 
 NanoMap.Zoomer = NanoMapZoomer;
+
+let ActiveButton;
+class NanoButton extends Component {
+  constructor(props) {
+    super(props);
+    const { act } = useBackend(this.props.context);
+    this.state = {
+      color: this.props.color,
+    };
+    this.handleClick = (e) => {
+      if (ActiveButton !== undefined) {
+        ActiveButton.setState({
+          color: 'blue',
+        });
+      }
+      act('switch_camera', {
+        name: this.props.name,
+      });
+      ActiveButton = this;
+      this.setState({
+        color: 'green',
+      });
+    };
+  }
+  render() {
+    let rx = this.props.x * 2 * this.props.zoom - this.props.zoom - 3;
+    let ry = this.props.y * 2 * this.props.zoom - this.props.zoom - 3;
+    return (
+      <Button
+        key={this.props.key}
+        // icon={this.props.icon}
+        onClick={this.handleClick}
+        position="absolute"
+        className="NanoMap__button"
+        lineHeight="0"
+        color={this.props.status ? this.state.color : 'red'}
+        bottom={ry + 'px'}
+        left={rx + 'px'}
+      >
+        <Tooltip content={this.props.tooltip} />
+      </Button>
+    );
+  }
+}
+NanoMap.NanoButton = NanoButton;

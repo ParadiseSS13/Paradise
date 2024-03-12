@@ -1,0 +1,5812 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aZ" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"bb" = (
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = -27;
+	name = "intercom"
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"bd" = (
+/obj/structure/closet/syndicate,
+/obj/item/storage/backpack/duffel/syndie,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered/unpowered_structures)
+"bf" = (
+/obj/effect/landmark/damageturf,
+/obj/structure/shuttle/engine/router,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"bj" = (
+/obj/structure/shuttle/engine/router,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"bq" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"bA" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered/unpowered_structures)
+"bV" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/turf/template_noop,
+/area/template_noop)
+"ci" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/flashlight,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkbluealtstrip";
+	dir = 5
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"cj" = (
+/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib{
+	wander = 0
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"cn" = (
+/obj/structure/closet/crate/secure,
+/obj/item/stack/ore/plasma,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"cG" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"cJ" = (
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_y = -10;
+	pixel_x = 16
+	},
+/turf/template_noop,
+/area/template_noop)
+"dq" = (
+/obj/machinery/light_construct/small/west,
+/obj/structure/closet,
+/obj/structure/sign/nosmoking_1{
+	pixel_x = -32
+	},
+/obj/item/clothing/head/soft,
+/obj/item/clothing/head/soft,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/gloves/color/black,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"dx" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate/secure/weapon{
+	opened = 1
+	},
+/obj/item/clothing/mask/balaclava,
+/obj/item/kitchen/knife/combat,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"dI" = (
+/obj/structure/computerframe{
+	dir = 8
+	},
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkbluealtstrip";
+	dir = 4
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"dO" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate/secure,
+/obj/item/stack/ore/plasma{
+	amount = 2
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"eh" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"ew" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 2
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"eJ" = (
+/obj/machinery/light_construct/directional/west,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"fL" = (
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "stairs";
+	dir = 8
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"fV" = (
+/obj/effect/turf_decal/delivery/white,
+/obj/structure/closet/crate/engineering,
+/obj/item/screwdriver,
+/obj/item/wrench,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"gK" = (
+/obj/effect/landmark/damageturf,
+/obj/structure/closet/crate/secure/weapon,
+/obj/item/clothing/accessory/storage,
+/obj/item/clothing/accessory/holster,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"hg" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/stand_clear,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"hV" = (
+/obj/machinery/door/poddoor,
+/obj/machinery/door_control/shutter/west,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"ia" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"ie" = (
+/obj/item/stack/sheet/mineral/titanium,
+/turf/template_noop,
+/area/template_noop)
+"it" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered/unpowered_structures)
+"iD" = (
+/obj/structure/grille/broken,
+/obj/item/shard{
+	icon_state = "large";
+	pixel_y = 9
+	},
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_y = -10;
+	pixel_x = 16
+	},
+/obj/effect/landmark/burnturf,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"iU" = (
+/obj/item/chair{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space{
+	name = "Syndicate Commando"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"jP" = (
+/obj/item/shard{
+	icon_state = "small"
+	},
+/turf/template_noop,
+/area/template_noop)
+"jU" = (
+/obj/item/chair{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"kd" = (
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "stairs";
+	dir = 8
+	},
+/area/ruin/space/powered)
+"kt" = (
+/obj/structure/shuttle/engine/router,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"lG" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"lY" = (
+/obj/item/stack/rods,
+/turf/template_noop,
+/area/template_noop)
+"mq" = (
+/obj/structure/extinguisher_cabinet/directional/west,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"mu" = (
+/obj/structure/lattice,
+/obj/item/rack_parts,
+/turf/template_noop,
+/area/template_noop)
+"mU" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"mZ" = (
+/obj/item/pickaxe,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"nd" = (
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = -27;
+	name = "intercom"
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/item/organ/internal/beard,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"ne" = (
+/turf/simulated/wall/mineral/titanium,
+/area/ruin/space/unpowered/unpowered_structures)
+"nI" = (
+/obj/structure/closet/crate,
+/obj/item/storage/bag/ore,
+/obj/item/storage/backpack/satchel/explorer,
+/obj/item/gun/energy/plasmacutter,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"nK" = (
+/obj/machinery/atmospherics/unary/outlet_injector{
+	dir = 4;
+	autolink_id = "air_in";
+	on = 1
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"nP" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 2
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"nV" = (
+/obj/item/flashlight,
+/turf/template_noop,
+/area/template_noop)
+"nW" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/space/unpowered/unpowered_structures)
+"ok" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"oq" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"oE" = (
+/obj/item/stack/sheet/mineral/plastitanium,
+/turf/template_noop,
+/area/template_noop)
+"pv" = (
+/obj/effect/turf_decal/delivery/white,
+/obj/structure/ore_box,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"qa" = (
+/obj/structure/table,
+/obj/item/folder/yellow{
+	pixel_x = 4
+	},
+/obj/item/pen{
+	pixel_x = 8;
+	pixel_y = -4
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkbluealtstrip";
+	dir = 6
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"rp" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"sn" = (
+/obj/structure/disposalpipe/segment{
+	pixel_x = -1;
+	name = "Cannon Bore"
+	},
+/turf/simulated/wall/mineral/plastitanium/interior,
+/area/ruin/space/unpowered/unpowered_structures)
+"st" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"tv" = (
+/obj/structure/table_frame,
+/obj/item/lighter{
+	pixel_x = 8
+	},
+/obj/effect/landmark/burnturf,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"tU" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate/secure/weapon{
+	opened = 1
+	},
+/obj/item/gun/energy/disabler,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"tW" = (
+/obj/effect/landmark/damageturf,
+/obj/structure/closet/crate/secure/weapon{
+	req_access_txt = "3"
+	},
+/obj/item/gun/energy/laser/retro/old,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"tZ" = (
+/obj/structure/lattice,
+/obj/structure/shuttle/engine/router,
+/turf/template_noop,
+/area/template_noop)
+"uf" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"uW" = (
+/obj/structure/table,
+/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer{
+	pixel_x = 5;
+	pixel_y = -2
+	},
+/obj/item/deck/cards/tiny{
+	pixel_x = -10
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"vo" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered/unpowered_structures)
+"vy" = (
+/obj/structure/closet/walllocker/emerglocker/west,
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"vP" = (
+/obj/structure/table,
+/obj/machinery/door_control/shutter{
+	pixel_x = -6
+	},
+/obj/item/folder/yellow{
+	pixel_x = 4
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkbluealtstrip";
+	dir = 5
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"vU" = (
+/obj/effect/turf_decal/delivery,
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space{
+	name = "Syndicate Commando"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"vV" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 2;
+	icon_keyboard = "syndie_key";
+	icon_screen = "syndinavigation"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"wc" = (
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/turf/template_noop,
+/area/template_noop)
+"wf" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"wm" = (
+/obj/machinery/door/airlock/command,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"wr" = (
+/turf/template_noop,
+/area/template_noop)
+"wu" = (
+/obj/item/stack/ore/silver{
+	amount = 25
+	},
+/obj/structure/closet/crate,
+/obj/item/stack/ore/gold{
+	amount = 25
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"wB" = (
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"wS" = (
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"xn" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/effect/turf_decal/caution/stand_clear,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"yr" = (
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"yN" = (
+/obj/machinery/constructable_frame,
+/obj/item/circuitboard/pacman,
+/obj/item/stack/cable_coil{
+	amount = 5
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"yO" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"yS" = (
+/obj/machinery/door/airlock/command,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"yT" = (
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 8
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 2
+	},
+/obj/structure/closet/crate,
+/obj/item/grenade/frag,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered/unpowered_structures)
+"zo" = (
+/turf/simulated/mineral,
+/area/ruin/space/unpowered/unpowered_structures)
+"zv" = (
+/obj/machinery/door/poddoor,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"zU" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered/unpowered_structures)
+"Ad" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered/unpowered_structures)
+"Ay" = (
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 8
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"Bv" = (
+/obj/item/storage/toolbox/mechanical,
+/turf/template_noop,
+/area/template_noop)
+"BO" = (
+/obj/structure/disposalpipe/segment{
+	pixel_x = -1;
+	name = "Cannon Bore"
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"BU" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Cd" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon/dock_marker{
+	name = "transport way beacon"
+	},
+/turf/template_noop,
+/area/template_noop)
+"Ci" = (
+/obj/machinery/atmospherics/unary/outlet_injector{
+	dir = 8;
+	autolink_id = "air_in";
+	on = 1
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"CB" = (
+/obj/structure/door_assembly/door_assembly_ext,
+/turf/template_noop,
+/area/template_noop)
+"Da" = (
+/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
+/turf/simulated/floor,
+/area/ruin/space/powered)
+"De" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Dj" = (
+/obj/structure/closet/syndicate,
+/obj/item/storage/box/donkpockets,
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered/unpowered_structures)
+"Dq" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Dt" = (
+/obj/structure/table,
+/obj/machinery/recharger{
+	pixel_x = -2
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"DT" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 8
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkbluecornersalt";
+	dir = 4
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"EB" = (
+/obj/structure/computerframe{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkbluealtstrip";
+	dir = 4
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"ET" = (
+/obj/item/shovel,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Fw" = (
+/obj/machinery/status_display/directional/east,
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered)
+"FF" = (
+/obj/machinery/light/small/directional/east,
+/obj/effect/turf_decal/delivery/white,
+/obj/structure/closet/cardboard,
+/obj/item/food/snacks/chinese/chowmein,
+/obj/item/food/snacks/chinese/chowmein,
+/obj/item/food/snacks/chinese/rice,
+/obj/item/stack/spacecash/c20,
+/obj/item/stack/spacecash/c10,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"FZ" = (
+/obj/structure/extinguisher_cabinet/directional/west,
+/obj/effect/landmark/burnturf,
+/obj/item/organ/external/arm,
+/obj/item/organ/external/hand,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"GP" = (
+/obj/structure/rack,
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkbluealtstrip";
+	dir = 6
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"GT" = (
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"GW" = (
+/obj/structure/computerframe{
+	dir = 8
+	},
+/obj/item/shard{
+	icon_state = "small"
+	},
+/obj/item/organ/internal/eyes,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkbluealtstrip";
+	dir = 4
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"GX" = (
+/turf/simulated/wall/mineral/plastitanium/interior,
+/area/ruin/space/unpowered/unpowered_structures)
+"Hx" = (
+/obj/structure/computerframe{
+	dir = 4
+	},
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"HA" = (
+/obj/effect/turf_decal/delivery/white,
+/obj/structure/closet/cardboard,
+/obj/item/food/snacks/chinese/rice,
+/obj/item/food/snacks/chinese/chowmein,
+/obj/item/reagent_containers/pill/methamphetamine,
+/obj/item/reagent_containers/pill/methamphetamine,
+/obj/item/reagent_containers/pill/methamphetamine,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"HI" = (
+/turf/simulated/mineral/random/low_chance,
+/area/ruin/space/unpowered/unpowered_structures)
+"HV" = (
+/obj/item/stack/sheet/mineral/plastitanium,
+/obj/structure/shuttle/engine/router,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"IL" = (
+/obj/item/airlock_electronics/destroyed,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"IM" = (
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 4
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 2
+	},
+/obj/structure/closet/crate,
+/obj/item/grenade/frag,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered/unpowered_structures)
+"IN" = (
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space{
+	name = "Syndicate Commando"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered/unpowered_structures)
+"IZ" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkbluecornersalt"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"Jf" = (
+/obj/machinery/light/small/directional/west,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"Jj" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"JS" = (
+/obj/item/shard,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"KG" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor{
+	id_tag = "convoy_window"
+	},
+/turf/simulated/floor,
+/area/ruin/space/unpowered/unpowered_structures)
+"KK" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/computerframe{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"KX" = (
+/turf/simulated/floor/plating/airless{
+	icon_state = "asteroidfloor"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"KY" = (
+/obj/machinery/light_construct/directional/west,
+/obj/structure/closet,
+/obj/structure/sign/nosmoking_1{
+	pixel_x = -32
+	},
+/obj/item/clothing/head/soft,
+/obj/item/clothing/head/soft,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/gloves/color/black,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"KZ" = (
+/obj/structure/shuttle/engine/router,
+/turf/simulated/floor/plating/airless{
+	icon_state = "asteroidfloor"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"Lo" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure{
+	desc = "A power generator that runs on solid plasma sheets. Rated for 80 kW max safe output.";
+	icon = 'icons/obj/power.dmi';
+	icon_state = "portgen0_0";
+	name = "\improper P.A.C.M.A.N.-type Portable Generator"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"LF" = (
+/obj/effect/mob_spawn/human/corpse/assistant,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"Md" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"MV" = (
+/obj/structure/table,
+/obj/machinery/door_control/shutter{
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle{
+	pixel_x = 8
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkbluealtstrip";
+	dir = 5
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"Nj" = (
+/obj/effect/turf_decal/delivery/white,
+/obj/structure/closet/crate/engineering/electrical,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/t_scanner,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"NK" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"OT" = (
+/obj/structure/table,
+/obj/machinery/door_control/shutter{
+	pixel_x = -6;
+	id = "convoy_window"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"Py" = (
+/obj/structure/girder/reinforced,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"PE" = (
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 4
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/machinery/disposal,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"PZ" = (
+/obj/structure/lattice,
+/obj/structure/closet/crate,
+/turf/template_noop,
+/area/template_noop)
+"Qq" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"QK" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless{
+	icon_state = "asteroidfloor"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"QN" = (
+/obj/structure/rack,
+/obj/item/clothing/glasses/welding,
+/obj/item/weldingtool,
+/obj/item/screwdriver,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"QV" = (
+/obj/structure/grille/broken,
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_y = 9
+	},
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Ra" = (
+/obj/effect/landmark/burnturf,
+/obj/structure/shuttle/engine/router,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Ru" = (
+/obj/machinery/mass_driver_frame{
+	dir = 1;
+	name = "Kinetic Cannon";
+	anchored = 1
+	},
+/obj/structure/disposalpipe/segment{
+	pixel_x = -1;
+	name = "Cannon Bore"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 2
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"RP" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/ruin/space/unpowered/unpowered_structures)
+"RV" = (
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space{
+	name = "Syndicate Commando"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"RY" = (
+/obj/machinery/mass_driver_frame{
+	dir = 1;
+	name = "Kinetic Cannon";
+	anchored = 1
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	pixel_x = -1;
+	name = "Cannon Bore"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 2
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Sn" = (
+/obj/structure/closet/walllocker/emerglocker/west,
+/obj/effect/mob_spawn/human/corpse/damaged,
+/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib{
+	wander = 0
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"Sw" = (
+/obj/effect/decal/cleanable/blood/gibs,
+/obj/effect/mob_spawn/human/corpse/damaged,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"SA" = (
+/obj/effect/turf_decal/delivery/white,
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"SR" = (
+/obj/effect/decal/cleanable/blood/oil,
+/obj/structure/closet/crate,
+/obj/item/stack/ore/titanium{
+	amount = 10
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"Tg" = (
+/obj/item/storage/fancy/cigarettes/cigpack_robust,
+/obj/effect/decal/cleanable/blood/gibs,
+/obj/item/organ/internal/ears,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"TA" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"TF" = (
+/obj/structure/closet/syndicate,
+/obj/item/ammo_box/magazine/m10mm,
+/obj/item/gun/projectile/automatic/pistol,
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered/unpowered_structures)
+"TT" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/obj/machinery/status_display/directional/east,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered)
+"TU" = (
+/obj/structure/lattice,
+/obj/machinery/light_construct/directional/west,
+/turf/template_noop,
+/area/template_noop)
+"Uo" = (
+/obj/item/stack/sheet/plasteel,
+/turf/template_noop,
+/area/template_noop)
+"Up" = (
+/obj/machinery/mass_driver_frame{
+	pixel_y = -21;
+	anchored = 1
+	},
+/obj/machinery/conveyor_switch{
+	pixel_x = 10;
+	pixel_y = 20
+	},
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless{
+	icon_state = "asteroidfloor"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"UE" = (
+/obj/effect/turf_decal/delivery/white,
+/obj/structure/closet/cardboard,
+/obj/item/food/snacks/chinese/rice,
+/obj/item/food/snacks/chinese/chowmein,
+/obj/item/food/snacks/chinese/chowmein,
+/obj/item/food/snacks/chinese/rice,
+/obj/item/stack/spacecash/c100,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"Vm" = (
+/obj/item/rack_parts,
+/obj/effect/landmark/burnturf,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"VO" = (
+/obj/structure/table,
+/obj/item/grenade/plastic/c4,
+/obj/item/clothing/glasses/sunglasses,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered/unpowered_structures)
+"VX" = (
+/obj/item/chair,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"Wq" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/atmospherics/portable/canister,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Wv" = (
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"Xg" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/item/organ/external/chest,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkbluecornersalt";
+	dir = 4
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"YG" = (
+/obj/machinery/light_construct/directional/west,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"YP" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"Ze" = (
+/obj/machinery/light/small/directional/west,
+/obj/effect/turf_decal/delivery/white,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"Zv" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/disposalpipe/segment{
+	pixel_x = -1;
+	name = "Cannon Bore"
+	},
+/turf/template_noop,
+/area/template_noop)
+"ZW" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_y = -10;
+	pixel_x = 16
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+
+(1,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(2,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(3,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(4,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+bq
+bq
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+bq
+bq
+bq
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+wr
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(5,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+bq
+Cd
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+bq
+Cd
+bq
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+"}
+(6,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+bq
+bq
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+bq
+bq
+bq
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+"}
+(7,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+HI
+zo
+zo
+HI
+HI
+HI
+HI
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+"}
+(8,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+HI
+HI
+HI
+HI
+HI
+HI
+HI
+HI
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+"}
+(9,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+HI
+HI
+HI
+HI
+HI
+HI
+HI
+HI
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+"}
+(10,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+HI
+HI
+HI
+HI
+HI
+HI
+HI
+HI
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+"}
+(11,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+HI
+HI
+HI
+HI
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+"}
+(12,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+HI
+HI
+HI
+zo
+zo
+zo
+zo
+zo
+Jj
+zo
+wr
+wr
+wr
+wr
+wr
+"}
+(13,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+HI
+HI
+zo
+zo
+zo
+Jj
+Jj
+Jj
+Jj
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(14,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+Uo
+zo
+zo
+zo
+HI
+zo
+zo
+Jj
+Jj
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(15,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+Jj
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(16,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+Jj
+Jj
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(17,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(18,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(19,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+HI
+HI
+zo
+zo
+zo
+zo
+lY
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+Qq
+bq
+wr
+wr
+wr
+zo
+zo
+wr
+wr
+wr
+wr
+nK
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(20,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+HI
+HI
+HI
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+lY
+wr
+wr
+ok
+wr
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+GX
+GX
+GX
+GX
+Da
+GX
+GX
+wr
+wr
+wr
+wr
+"}
+(21,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+HI
+HI
+HI
+HI
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+lY
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+BO
+Ru
+sn
+vo
+hg
+bA
+nW
+GX
+GX
+wr
+wr
+wr
+"}
+(22,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+HI
+HI
+HI
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+GX
+nW
+PE
+IM
+bA
+TF
+GX
+ew
+wr
+wr
+wr
+"}
+(23,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+HI
+HI
+HI
+HI
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+KG
+Dt
+bA
+bA
+zU
+yO
+ew
+wr
+wr
+wr
+"}
+(24,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+HI
+HI
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+ne
+De
+De
+De
+bV
+jP
+wr
+Hx
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+KG
+vV
+zU
+IN
+zU
+yO
+ew
+wr
+wr
+wr
+"}
+(25,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+RP
+RP
+BU
+ZW
+JS
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+KG
+OT
+bA
+bA
+zU
+yO
+ew
+wr
+wr
+wr
+"}
+(26,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+RP
+KY
+wf
+yN
+gK
+Md
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+GX
+nW
+Ay
+yT
+bA
+Dj
+GX
+ew
+wr
+wr
+wr
+"}
+(27,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+hV
+tW
+st
+Wv
+NK
+Dq
+lY
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+Zv
+RY
+sn
+Ad
+xn
+bA
+nW
+GX
+GX
+wr
+wr
+wr
+"}
+(28,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+wr
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zv
+mU
+dx
+wB
+cG
+Dq
+Dq
+PZ
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+GX
+GX
+GX
+GX
+Da
+GX
+GX
+wr
+wr
+wr
+wr
+"}
+(29,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zv
+YP
+wB
+wB
+tU
+NK
+NK
+Py
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+Ci
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(30,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zv
+Sw
+cj
+cG
+Wv
+Wv
+cG
+Py
+wr
+wr
+wr
+wr
+wr
+ie
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(31,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+RP
+TT
+kd
+pv
+UE
+HA
+FF
+RP
+wr
+wr
+wr
+wr
+lY
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(32,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+RP
+RP
+yS
+RP
+RP
+RP
+RP
+Py
+wc
+wr
+wr
+ie
+cJ
+wr
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(33,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+HI
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wS
+eJ
+iU
+nd
+vy
+FZ
+TU
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(34,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+RP
+ci
+Xg
+Tg
+VX
+GT
+eh
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(35,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+ia
+ia
+vP
+dI
+GW
+tv
+bq
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+HI
+HI
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(36,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+ia
+ia
+ia
+QV
+iD
+mu
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+HI
+HI
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(37,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+HI
+HI
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(38,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(39,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+wr
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+zo
+zo
+wr
+wr
+wr
+"}
+(40,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+wr
+wr
+wr
+"}
+(41,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+"}
+(42,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+wr
+zo
+zo
+wr
+wr
+wr
+"}
+(43,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(44,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(45,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(46,1,1) = {"
+wr
+wr
+wr
+zo
+zo
+zo
+HI
+HI
+HI
+HI
+zo
+zo
+wr
+wr
+wr
+wr
+bq
+bq
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+bq
+bq
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(47,1,1) = {"
+wr
+wr
+wr
+zo
+zo
+zo
+HI
+HI
+HI
+HI
+zo
+zo
+wr
+wr
+wr
+wr
+bq
+Cd
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+bq
+Cd
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(48,1,1) = {"
+wr
+wr
+wr
+zo
+zo
+zo
+HI
+HI
+HI
+HI
+zo
+zo
+wr
+wr
+wr
+wr
+bq
+bq
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+bq
+bq
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(49,1,1) = {"
+wr
+wr
+wr
+zo
+zo
+zo
+HI
+HI
+HI
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(50,1,1) = {"
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(51,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+Jj
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(52,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+Jj
+Jj
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(53,1,1) = {"
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+Jj
+Jj
+Jj
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(54,1,1) = {"
+wr
+wr
+wr
+wr
+zo
+zo
+Jj
+Jj
+Jj
+Jj
+Jj
+Jj
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(55,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+Jj
+Jj
+zo
+zo
+Jj
+Jj
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(56,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+Jj
+zo
+zo
+Jj
+Jj
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(57,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+Jj
+zo
+zo
+zo
+zo
+zo
+oE
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(58,1,1) = {"
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+Jj
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(59,1,1) = {"
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+Jj
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+ne
+De
+De
+De
+De
+De
+De
+ne
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(60,1,1) = {"
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+mZ
+zo
+QN
+uW
+lG
+zo
+wr
+wr
+wr
+RP
+RP
+BU
+BU
+BU
+BU
+RP
+RP
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(61,1,1) = {"
+wr
+wr
+wr
+zo
+zo
+Jj
+RV
+Jj
+Jj
+Jj
+Jj
+Jj
+aZ
+Jj
+zo
+zo
+wr
+wr
+RP
+dq
+wf
+Lo
+KK
+Wq
+Ze
+RP
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(62,1,1) = {"
+wr
+wr
+wr
+wr
+GX
+GX
+Da
+GX
+GX
+GX
+Jj
+Jj
+KX
+QK
+QK
+zo
+wr
+kt
+hV
+Ra
+yr
+LF
+SR
+cn
+fV
+RP
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(63,1,1) = {"
+wr
+wr
+wr
+oq
+oq
+bd
+bA
+bA
+bA
+nP
+Jj
+zo
+KX
+Up
+KZ
+HV
+kt
+kt
+tZ
+bf
+TA
+wB
+wB
+wB
+SA
+RP
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(64,1,1) = {"
+wr
+wr
+wr
+oq
+vV
+zU
+bA
+bA
+bA
+nP
+Jj
+Jj
+KX
+QK
+QK
+wr
+wr
+kt
+zv
+bj
+wB
+vU
+wB
+dO
+SA
+RP
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(65,1,1) = {"
+wr
+wr
+wr
+oq
+oq
+VO
+rp
+it
+it
+nP
+Jj
+zo
+Jj
+zo
+wr
+wr
+wr
+wr
+zv
+nI
+st
+Wv
+Wv
+wu
+Nj
+RP
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(66,1,1) = {"
+wr
+wr
+wr
+wr
+GX
+GX
+GX
+GX
+GX
+GX
+Jj
+Jj
+Jj
+zo
+wr
+wr
+wr
+Bv
+RP
+Fw
+fL
+pv
+pv
+pv
+pv
+RP
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(67,1,1) = {"
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+ET
+Jj
+Jj
+Jj
+zo
+Jj
+Jj
+oE
+wr
+wr
+wr
+RP
+RP
+wm
+RP
+RP
+RP
+RP
+RP
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(68,1,1) = {"
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+lY
+YG
+IL
+bb
+Sn
+mq
+Jf
+wS
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(69,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+lY
+wr
+wr
+wr
+CB
+RP
+Vm
+DT
+jU
+uf
+IZ
+GP
+RP
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(70,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+ia
+ia
+MV
+EB
+EB
+qa
+ia
+ia
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(71,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+zo
+nV
+wr
+wr
+wr
+wr
+wr
+wr
+ia
+ia
+ia
+ia
+ia
+ia
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(72,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(73,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+zo
+zo
+zo
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(74,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(75,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+bq
+bq
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+bq
+bq
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(76,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+bq
+Cd
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+bq
+Cd
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(77,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+bq
+bq
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+bq
+bq
+bq
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(78,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(79,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}
+(80,1,1) = {"
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+wr
+"}

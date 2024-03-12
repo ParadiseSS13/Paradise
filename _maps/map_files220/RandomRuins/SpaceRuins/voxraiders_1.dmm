@@ -1,0 +1,1007 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bg" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"bu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"bG" = (
+/obj/machinery/light_construct/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/rack_parts,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "Dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"ca" = (
+/obj/structure/computerframe{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/ruin/space/powered)
+"cv" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/space/powered)
+"dj" = (
+/obj/structure/closet/crate/engineering/electrical,
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/stack/cable_coil,
+/obj/item/t_scanner,
+/obj/effect/turf_decal/box,
+/obj/item/multitool,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"dQ" = (
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/ruin/space/powered)
+"ft" = (
+/obj/structure/shuttle/engine/large,
+/turf/template_noop,
+/area/ruin/space/unpowered/unpowered_structures)
+"fG" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 2
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"gx" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 2
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"gN" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 2
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"hJ" = (
+/obj/item/whetstone,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen{
+	icon_state = "plastitanium"
+	},
+/area/ruin/space/powered)
+"id" = (
+/obj/machinery/light_construct/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/item/clothing/under/solgov,
+/obj/item/clothing/head/soft/solgov,
+/obj/item/clothing/glasses/sunglasses/big,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "Dark_Golden_1";
+	dir = 10
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"il" = (
+/obj/machinery/status_display{
+	pixel_y = -30
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "Dark_Golden_1"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"iD" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen{
+	icon_state = "plastitanium"
+	},
+/area/ruin/space/powered)
+"iG" = (
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/ruin/space/powered)
+"iO" = (
+/obj/machinery/camera{
+	dir = 10;
+	network = list("Scavengers");
+	c_tag = "North-East";
+	interact_offline = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"jM" = (
+/obj/structure/grille/broken,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"jP" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"lr" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/light_construct/directional/north,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "Dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"mk" = (
+/obj/machinery/door_control/shutter/north{
+	id = "scanegers_window"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen{
+	icon_state = "rampbottom";
+	dir = 4
+	},
+/area/ruin/space/powered)
+"ni" = (
+/obj/item/wrench,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen{
+	icon_state = "plastitanium"
+	},
+/area/ruin/space/powered)
+"nz" = (
+/obj/machinery/light_construct/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"ot" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"oL" = (
+/obj/effect/turf_decal/box,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/vox/ranged_laser/space,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "Dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"oW" = (
+/mob/living/simple_animal/hostile/vox/ranged_gun,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/ruin/space/powered)
+"qT" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters{
+	dir = 8;
+	id_tag = "scanegers_window"
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/ruin/space/powered)
+"rS" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"sa" = (
+/obj/machinery/light/directional/west,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen{
+	icon_state = "plastitanium"
+	},
+/area/ruin/space/powered)
+"tz" = (
+/obj/machinery/camera{
+	dir = 6;
+	network = list("Scavengers");
+	c_tag = "South-East";
+	interact_offline = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"uc" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "scanegers_window"
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/ruin/space/powered)
+"uH" = (
+/mob/living/simple_animal/hostile/vox/melee,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen{
+	icon_state = "plastitanium"
+	},
+/area/ruin/space/powered)
+"vl" = (
+/turf/simulated/wall/mineral/titanium,
+/area/ruin/space/unpowered/unpowered_structures)
+"vp" = (
+/obj/machinery/door/airlock/command{
+	locked = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "Dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"vE" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "Dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"wn" = (
+/obj/item/stack/tile/plasteel,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"wJ" = (
+/obj/machinery/computer/security{
+	network = list("Scavengers");
+	name = "Skipjack Peep Console"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/ruin/space/powered)
+"xa" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/space/powered)
+"xu" = (
+/turf/template_noop,
+/area/ruin/space/unpowered/unpowered_structures)
+"ye" = (
+/turf/template_noop,
+/area/template_noop)
+"yO" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/ruin/space/powered)
+"Ao" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating/nitrogen,
+/area/ruin/space/powered)
+"AK" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/ruin/space/unpowered/unpowered_structures)
+"BJ" = (
+/obj/structure/door_assembly/door_assembly_ext,
+/obj/item/airlock_electronics/destroyed,
+/turf/template_noop,
+/area/template_noop)
+"Cc" = (
+/obj/structure/closet/crate,
+/obj/item/rcd,
+/obj/item/broken_device,
+/obj/item/stock_parts/cell,
+/obj/item/clothing/gloves/ring/gold,
+/obj/item/stack/spacecash/c50,
+/obj/item/stack/spacecash/c200,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen{
+	icon_state = "plastitanium"
+	},
+/area/ruin/space/powered)
+"CI" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "Dark_Golden_2"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"CQ" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Dx" = (
+/obj/machinery/camera{
+	dir = 2;
+	network = list("Scavengers");
+	c_tag = "South-West";
+	interact_offline = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"Eh" = (
+/obj/structure/table_frame,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "Dark_Golden_1";
+	dir = 5
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"EK" = (
+/obj/structure/grille/broken,
+/obj/item/shard{
+	icon_state = "large";
+	pixel_y = 9
+	},
+/obj/effect/decal/cleanable/glass,
+/obj/structure/lattice,
+/obj/effect/dummy/lighting_obj,
+/turf/template_noop,
+/area/template_noop)
+"EM" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/item/gps/ruin{
+	pixel_x = -32;
+	gpstag = "####"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/ruin/space/powered)
+"Fi" = (
+/obj/effect/turf_decal/box,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "Dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"GU" = (
+/obj/structure/closet/crate,
+/obj/item/clothing/head/fluff/goldtophat,
+/obj/item/stack/sheet/mineral/diamond,
+/obj/item/stack/sheet/mineral/titanium{
+	amount = 20
+	},
+/obj/item/stack/sheet/mineral/abductor{
+	amount = 5
+	},
+/obj/item/ammo_box/c10mm,
+/obj/item/ammo_box/magazine/m556/arg,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen{
+	icon_state = "plastitanium"
+	},
+/area/ruin/space/powered)
+"HC" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"IC" = (
+/obj/structure/grille/broken,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/shard{
+	icon_state = "small"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"JI" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "Dark_Golden_1"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"JZ" = (
+/obj/item/clothing/head/welding,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "Dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"KN" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/ruin/space/powered)
+"Lq" = (
+/turf/simulated/wall/mineral/plastitanium/interior,
+/area/ruin/space/powered)
+"Mk" = (
+/mob/living/simple_animal/hostile/vox/ranged_laser,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/ruin/space/powered)
+"Mp" = (
+/obj/machinery/light/directional/east,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/ruin/space/powered)
+"Mq" = (
+/obj/effect/turf_decal/box,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "Dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"NN" = (
+/obj/item/flag/solgov,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "Dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"Of" = (
+/obj/effect/turf_decal/box,
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard{
+	icon_state = "small"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"OC" = (
+/obj/structure/computerframe,
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/obj/effect/decal/cleanable/glass,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Pc" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "Dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"QV" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 2
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"QX" = (
+/mob/living/simple_animal/hostile/vox/ranged_laser/space,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Ra" = (
+/obj/structure/closet,
+/obj/item/clothing/head/helmet/space/vox/pressure,
+/obj/item/clothing/suit/space/vox/pressure,
+/obj/item/clothing/mask/breath,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen{
+	icon_state = "plastitanium"
+	},
+/area/ruin/space/powered)
+"Rb" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/powered)
+"Sp" = (
+/obj/structure/shuttle/engine/propulsion{
+	icon_state = "propulsion_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"SX" = (
+/obj/structure/rack,
+/obj/item/harpoon,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen{
+	icon_state = "plastitanium"
+	},
+/area/ruin/space/powered)
+"Tm" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/obj/machinery/light_construct/directional/north,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "Dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"TG" = (
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen{
+	icon_state = "plastitanium"
+	},
+/area/ruin/space/powered)
+"UM" = (
+/obj/structure/rack,
+/obj/item/tank/internals/nitrogen,
+/obj/item/clothing/mask/breath,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/ruin/space/powered)
+"UO" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/ruin/space/powered)
+"Va" = (
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen{
+	icon_state = "rampbottom";
+	dir = 4
+	},
+/area/ruin/space/powered)
+"Wi" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	icon_state = "propulsion_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"Xz" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating/nitrogen,
+/area/ruin/space/powered)
+"XZ" = (
+/obj/structure/table,
+/obj/machinery/recharger{
+	pixel_y = 9;
+	pixel_x = 8
+	},
+/obj/item/toy/plushie/voxplushie,
+/obj/item/food/snacks/cheesepizzaslice{
+	pixel_y = -2;
+	pixel_x = -7
+	},
+/obj/item/storage/box/zipties{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/grenade/plastic/c4,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen{
+	icon_state = "plastitanium"
+	},
+/area/ruin/space/powered)
+"Yg" = (
+/obj/machinery/atmospherics/portable/canister/nitrogen,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/ruin/space/powered)
+"Zp" = (
+/obj/machinery/camera{
+	dir = 1;
+	network = list("Scavengers");
+	c_tag = "North-West";
+	interact_offline = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"ZK" = (
+/obj/structure/extinguisher_cabinet/empty{
+	pixel_y = -30
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+
+(1,1,1) = {"
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+"}
+(2,1,1) = {"
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+vl
+vl
+vl
+vl
+ye
+ye
+ye
+ye
+"}
+(3,1,1) = {"
+ye
+ye
+ye
+AK
+vl
+AK
+vl
+vl
+vl
+JZ
+vE
+vl
+vl
+ft
+ye
+ye
+"}
+(4,1,1) = {"
+ye
+ye
+CQ
+AK
+id
+AK
+lr
+Fi
+wn
+nz
+vl
+vl
+vl
+xu
+ye
+ye
+"}
+(5,1,1) = {"
+ye
+EK
+IC
+QX
+ZK
+AK
+bg
+dj
+bg
+Of
+QV
+rS
+ye
+ye
+ye
+ye
+"}
+(6,1,1) = {"
+ye
+CQ
+OC
+CI
+il
+AK
+Mq
+oL
+Mq
+Fi
+gN
+rS
+ye
+ye
+ye
+ye
+"}
+(7,1,1) = {"
+ye
+CQ
+CQ
+Eh
+JI
+vp
+Pc
+bg
+Pc
+Pc
+gN
+rS
+ye
+ye
+ye
+ye
+"}
+(8,1,1) = {"
+ye
+ye
+jM
+AK
+nz
+AK
+Tm
+bu
+bg
+bG
+vl
+vl
+vl
+ft
+ye
+ye
+"}
+(9,1,1) = {"
+ye
+ye
+ye
+AK
+HC
+AK
+jP
+ot
+vl
+Pc
+NN
+vl
+vl
+xu
+ye
+ye
+"}
+(10,1,1) = {"
+ye
+ye
+ye
+ye
+ye
+BJ
+ye
+ye
+vl
+vl
+vl
+vl
+ye
+ye
+ye
+ye
+"}
+(11,1,1) = {"
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+"}
+(12,1,1) = {"
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+"}
+(13,1,1) = {"
+ye
+ye
+ye
+ye
+Zp
+xa
+Rb
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+"}
+(14,1,1) = {"
+ye
+ye
+ye
+ye
+ye
+Wi
+xa
+Rb
+Rb
+qT
+qT
+Rb
+Rb
+Rb
+ye
+ye
+"}
+(15,1,1) = {"
+ye
+ye
+ye
+ye
+ye
+Rb
+uH
+TG
+sa
+ni
+TG
+sa
+GU
+cv
+Rb
+Dx
+"}
+(16,1,1) = {"
+ye
+ye
+ye
+ye
+Lq
+xa
+iD
+Rb
+XZ
+Ra
+SX
+hJ
+Cc
+gx
+Sp
+ye
+"}
+(17,1,1) = {"
+ye
+ye
+ye
+Lq
+xa
+Yg
+iG
+Rb
+Rb
+Rb
+Rb
+Rb
+Rb
+xa
+Sp
+ye
+"}
+(18,1,1) = {"
+ye
+ye
+ye
+Ao
+dQ
+dQ
+Mk
+xa
+EM
+ca
+wJ
+UO
+fG
+Sp
+ye
+ye
+"}
+(19,1,1) = {"
+ye
+ye
+ye
+Lq
+xa
+UM
+iG
+Rb
+mk
+Xz
+Xz
+Va
+Rb
+xa
+Sp
+ye
+"}
+(20,1,1) = {"
+ye
+ye
+ye
+ye
+Lq
+xa
+yO
+Rb
+dQ
+KN
+KN
+dQ
+UO
+fG
+Sp
+ye
+"}
+(21,1,1) = {"
+ye
+ye
+ye
+ye
+ye
+Rb
+dQ
+dQ
+Mp
+oW
+dQ
+Mp
+UO
+cv
+Rb
+tz
+"}
+(22,1,1) = {"
+ye
+ye
+ye
+ye
+ye
+Wi
+xa
+Rb
+Rb
+uc
+uc
+Rb
+Rb
+Rb
+ye
+ye
+"}
+(23,1,1) = {"
+ye
+ye
+ye
+ye
+iO
+xa
+Rb
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+"}
+(24,1,1) = {"
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+"}

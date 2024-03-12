@@ -1,0 +1,4096 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aK" = (
+/obj/structure/table/glass/plasma,
+/obj/item/paper/scp/status_report,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"be" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light/directional/east,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkblue";
+	dir = 4
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"bf" = (
+/obj/effect/landmark/burnturf,
+/obj/machinery/door/airlock/highsecurity,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"bp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/reagent_containers/drinks/britcup,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"bx" = (
+/obj/structure/sign/biohazard,
+/turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
+/area/ruin/unpowered/misc_lavaruin)
+"bI" = (
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"ca" = (
+/obj/effect/decal/cleanable/dust,
+/mob/living/simple_animal/hostile/carp/eyeball,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "engine"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"ce" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"cj" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/door/airlock,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "white"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"de" = (
+/obj/structure/sign/directions/engineering,
+/turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
+/area/ruin/unpowered/misc_lavaruin)
+"em" = (
+/obj/machinery/atmospherics/unary/tank/air,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"et" = (
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkred";
+	dir = 8
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"ey" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"eY" = (
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkred";
+	dir = 9
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"fe" = (
+/obj/structure/table,
+/obj/item/soap/nanotrasen,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "white"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"fu" = (
+/obj/effect/decal/cleanable/blood/writing,
+/obj/effect/decal/cleanable/dust,
+/obj/item/ammo_casing/c9mm,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"fw" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"fH" = (
+/obj/structure/girder/reinforced,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"fN" = (
+/obj/machinery/light/directional/west,
+/obj/effect/decal/remains/robot,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"fS" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"gu" = (
+/obj/machinery/door/airlock/highsecurity,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"gz" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/obj/item/stack/rods,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"gZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/obj/structure/girder/reinforced,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"hf" = (
+/turf/simulated/mineral/random,
+/area/lavaland/surface/outdoors)
+"ic" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"ig" = (
+/obj/structure/table/reinforced,
+/obj/item/melee/baton/loaded,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"ir" = (
+/obj/effect/mapping_helpers/no_lava,
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"iu" = (
+/obj/machinery/shower{
+	pixel_y = 15
+	},
+/obj/structure/curtain/open/shower,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "white"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"iN" = (
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "white"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"jQ" = (
+/obj/machinery/washing_machine,
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "whiteblue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"kf" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"ki" = (
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"kw" = (
+/obj/structure/rack,
+/obj/item/clothing/mask/gas{
+	pixel_y = 4
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"kC" = (
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkred";
+	dir = 5
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"lB" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkred";
+	dir = 8
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"lC" = (
+/obj/machinery/light/directional/east,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"lI" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/door/airlock/highsecurity,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"my" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/table/reinforced,
+/obj/item/circuitboard/cyborgrecharger,
+/obj/item/crowbar,
+/obj/item/weldingtool,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"mE" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkblue";
+	dir = 4
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"mV" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkred";
+	dir = 8
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"nn" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "engine"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"nr" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"nz" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light/directional/west,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"nG" = (
+/obj/structure/table/reinforced,
+/obj/item/pizzabox/infinite{
+	pixel_y = 10
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"nO" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "white"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"oL" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"oN" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkbluefull"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"oY" = (
+/obj/structure/computerframe{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkbluefull"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"pb" = (
+/obj/structure/rack,
+/obj/item/storage/box/handcuffs,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"pm" = (
+/turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
+/area/ruin/unpowered/misc_lavaruin)
+"pv" = (
+/obj/machinery/light/directional/west,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"pw" = (
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"pR" = (
+/obj/item/stack/rods,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"qK" = (
+/mob/living/simple_animal/hostile/abomination/altform2,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"rv" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"rA" = (
+/obj/structure/sign/radiation,
+/turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
+/area/ruin/unpowered/misc_lavaruin)
+"rB" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"rP" = (
+/obj/machinery/light/directional/east,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkred";
+	dir = 4
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"sa" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"sf" = (
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"si" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light/built/east,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkred";
+	dir = 8
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"st" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/door/airlock{
+	name = "Staff Room"
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"sy" = (
+/obj/structure/barricade/security,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"sT" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"sY" = (
+/obj/structure/table,
+/obj/item/hand_labeler,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkbluefull"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"tP" = (
+/turf/template_noop,
+/area/template_noop)
+"ug" = (
+/mob/living/simple_animal/hostile/abomination/altform1,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "engine"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"uY" = (
+/obj/machinery/economy/vending/snack,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"vd" = (
+/obj/machinery/door/airlock/maintenance/external,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"vs" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"vv" = (
+/obj/machinery/status_display,
+/obj/structure/table/glass/plasma,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"vL" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkblue";
+	dir = 4
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"vR" = (
+/mob/living/simple_animal/hostile/tree,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"wa" = (
+/obj/effect/spawner/lootdrop/trash,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"wm" = (
+/obj/structure/girder/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"wE" = (
+/obj/effect/decal/cleanable/dust,
+/obj/item/paper/scp/research_notes,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkbluefull"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"wK" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"wP" = (
+/obj/structure/sign/directions/medical{
+	dir = 4
+	},
+/turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
+/area/ruin/unpowered/misc_lavaruin)
+"xi" = (
+/obj/structure/rack,
+/obj/machinery/light/directional/west,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"xG" = (
+/obj/structure/table,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"xT" = (
+/obj/structure/filingcabinet/chestdrawer,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"ym" = (
+/obj/structure/sign/xeno_warning_mining,
+/turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
+/area/ruin/unpowered/misc_lavaruin)
+"yw" = (
+/obj/effect/decal/remains/robot,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"yE" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"yF" = (
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"yI" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"zg" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/fire{
+	pixel_y = 4
+	},
+/obj/item/extinguisher,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"zh" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/closet/radiation,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"zl" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"zs" = (
+/obj/structure/filingcabinet/chestdrawer,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"zB" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_y = 6
+	},
+/obj/machinery/light/directional/east,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"zQ" = (
+/obj/structure/computerframe,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"AT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/built/west,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Bd" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Bx" = (
+/obj/item/chair{
+	dir = 4;
+	pixel_y = -6;
+	pixel_x = -11
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"BI" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger{
+	pixel_y = 2
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"BX" = (
+/obj/structure/table/glass/plasma,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Ci" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/girder/displaced,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Cq" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/mob_spawn/human/corpse/damaged,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkbluecorners"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Cv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/maintenance/external,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Cz" = (
+/obj/structure/barricade/security,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"CI" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/closet/l3closet,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Di" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 2
+	},
+/obj/item/storage/box/lights/mixed{
+	pixel_y = 4
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"DE" = (
+/obj/item/chair{
+	pixel_y = -6;
+	pixel_x = 10
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"DH" = (
+/obj/structure/girder/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"DJ" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/corpse/scientist,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"DZ" = (
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"En" = (
+/obj/structure/rack,
+/obj/item/flash{
+	pixel_y = 2;
+	pixel_x = -4
+	},
+/obj/item/flash{
+	pixel_x = 6;
+	pixel_y = 2
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"EL" = (
+/obj/machinery/floodlight,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"EX" = (
+/obj/effect/decal/cleanable/blood/writing,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Ff" = (
+/obj/effect/decal/cleanable/dust,
+/mob/living/simple_animal/hostile/faithless,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "engine"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Fh" = (
+/turf/simulated/wall/indestructible/rock/mineral{
+	color = "#464646"
+	},
+/area/lavaland/surface/outdoors)
+"Fr" = (
+/obj/structure/table/glass/plasma,
+/obj/item/paper_bin/nanotrasen,
+/obj/item/pen,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Fy" = (
+/obj/machinery/washing_machine,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "whiteblue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"FK" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"FQ" = (
+/obj/item/analyzer,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Gg" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkred";
+	dir = 4
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Gk" = (
+/obj/effect/decal/cleanable/dust,
+/obj/item/ammo_casing/c9mm,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"GX" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"GZ" = (
+/turf/simulated/wall/indestructible/rock/mineral{
+	color = "#464646"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Ha" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Hh" = (
+/obj/structure/sign/science,
+/turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
+/area/ruin/unpowered/misc_lavaruin)
+"Hk" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Hl" = (
+/obj/structure/table/glass/plasma,
+/obj/item/reagent_containers/drinks/coffee{
+	pixel_y = 6
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Ho" = (
+/obj/structure/rack,
+/obj/item/grenade/barrier{
+	pixel_y = 2
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Hu" = (
+/obj/structure/computerframe{
+	dir = 8
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Hy" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/suit/hooded/cultrobes,
+/obj/item/clothing/head/hooded/culthood{
+	pixel_y = 12
+	},
+/turf/simulated/floor/engine/cult/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Hz" = (
+/obj/structure/closet/wardrobe/medic_white,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"HJ" = (
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
+"HN" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"HS" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "engine"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Ir" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Jj" = (
+/obj/structure/rack,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Jm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Jp" = (
+/obj/structure/table,
+/obj/item/storage/box/donkpockets{
+	pixel_y = 5
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Jv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/paper_bin/nanotrasen,
+/obj/item/pen,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Jx" = (
+/obj/item/shard{
+	icon_state = "small"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkblue";
+	dir = 4
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"JM" = (
+/obj/structure/sign/directions/evac{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
+/area/ruin/unpowered/misc_lavaruin)
+"JO" = (
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkred";
+	dir = 1
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"JV" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/mask/cursedclown,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "engine"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Ki" = (
+/obj/structure/table,
+/obj/structure/bedsheetbin,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "whiteblue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"KE" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"KK" = (
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"KP" = (
+/obj/machinery/light/directional/east,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"KS" = (
+/obj/structure/rack,
+/obj/item/gun/energy/e_gun,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Lj" = (
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkred";
+	dir = 4
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"ML" = (
+/obj/effect/decal/cleanable/blood/writing,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Ng" = (
+/obj/structure/chair,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"NT" = (
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkred";
+	dir = 8
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"OE" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"OX" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Pc" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "engine"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Pr" = (
+/obj/machinery/doppler_array{
+	name = "Система Сейсмического Оповещения";
+	desc = "Старая ржавая машина"
+	},
+/obj/item/paper/scp/seismic_warning,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Pt" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "engine"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"PG" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"PI" = (
+/obj/structure/grille/broken,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/shard,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Qm" = (
+/obj/machinery/economy/vending/cigarette,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"QW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_casing/c9mm,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Rh" = (
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "engine"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Rt" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"Rw" = (
+/turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
+/area/lavaland/surface/outdoors)
+"RG" = (
+/obj/effect/decal/cleanable/dust,
+/mob/living/simple_animal/hostile/abomination/altform4,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Sa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/girder/reinforced,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Ss" = (
+/obj/structure/sink/directional/north,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "white"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Sv" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"SG" = (
+/obj/structure/girder/displaced,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"SU" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/door/airlock/highsecurity,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"SV" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"SZ" = (
+/turf/simulated/floor/engine/cult/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Tk" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkblue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Tl" = (
+/obj/effect/decal/cleanable/dust,
+/obj/item/ammo_casing/shotgun/buckshot,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"To" = (
+/mob/living/simple_animal/hostile/abomination,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"TC" = (
+/obj/item/stack/cable_coil/yellow,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"TD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/rods,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"TJ" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Uq" = (
+/mob/living/simple_animal/hostile/abomination/super,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "engine"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"UM" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Vv" = (
+/mob/living/simple_animal/hostile/abomination/altform3,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkred";
+	dir = 1
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"VF" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "engine"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"VG" = (
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"VO" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkred";
+	dir = 8
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Wa" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/mob_spawn/human/corpse/scientist,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"WV" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Xd" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"XD" = (
+/obj/machinery/computer/arcade,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"XO" = (
+/obj/machinery/economy/vending/coffee,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"XS" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/gibs/limb,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"XW" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Yp" = (
+/obj/effect/decal/cleanable/blood/writing,
+/obj/effect/decal/cleanable/dust,
+/obj/item/ammo_casing/shotgun/buckshot,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Yu" = (
+/obj/structure/girder/reinforced,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Yz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"YD" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkblue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"YW" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "darkbluefull"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"ZD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"ZE" = (
+/obj/machinery/economy/vending/cola,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+
+(1,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+"}
+(2,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+"}
+(3,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+"}
+(4,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+"}
+(5,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+tP
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+SV
+pm
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+"}
+(6,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+tP
+tP
+tP
+UM
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+pm
+SV
+pm
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+"}
+(7,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+tP
+tP
+tP
+vs
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+pm
+Wa
+pm
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+"}
+(8,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+Ha
+HJ
+hf
+hf
+tP
+tP
+tP
+vs
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+pm
+SV
+pm
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+"}
+(9,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+HJ
+HJ
+Fh
+pm
+pm
+gu
+Yu
+ic
+pm
+Fh
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+"}
+(10,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+Ha
+HJ
+hf
+Fh
+pm
+kf
+DZ
+SV
+ic
+pm
+Fh
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+"}
+(11,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+Ha
+HJ
+HJ
+hf
+Fh
+pm
+xG
+SV
+SV
+ic
+pm
+Fh
+hf
+hf
+hf
+hf
+hf
+hf
+Rw
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+hf
+"}
+(12,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+Ha
+HJ
+HJ
+hf
+Fh
+pm
+xG
+RG
+TC
+ic
+pm
+Fh
+hf
+hf
+hf
+hf
+Rw
+hf
+Fh
+Fh
+pm
+pm
+pm
+pm
+pm
+pm
+pm
+pm
+pm
+Fh
+hf
+"}
+(13,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+Ha
+HJ
+HJ
+hf
+Fh
+pm
+zQ
+HN
+EL
+TJ
+pm
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+wm
+pm
+XD
+pv
+XW
+XW
+XW
+pv
+wK
+pm
+Fh
+hf
+"}
+(14,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+HJ
+HJ
+HJ
+hf
+Fh
+pm
+pm
+Hk
+Hk
+gz
+pm
+pm
+pm
+pm
+pm
+pm
+pm
+Yu
+XS
+Sv
+pm
+Qm
+XW
+Bx
+fw
+sT
+XW
+Jp
+pm
+Fh
+hf
+"}
+(15,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+HJ
+HJ
+HJ
+hf
+Fh
+pm
+GX
+Xd
+Xd
+WV
+yF
+Xd
+nr
+Gk
+Xd
+yF
+Xd
+To
+FK
+GX
+OX
+XW
+Ng
+BX
+Hl
+BX
+XW
+XO
+pm
+Fh
+hf
+"}
+(16,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+HJ
+HJ
+HJ
+hf
+hf
+Fh
+Yu
+GX
+Xd
+GX
+ey
+pw
+pw
+pw
+EX
+ML
+fu
+EX
+Yp
+fS
+Xd
+st
+XW
+Ng
+aK
+vv
+BX
+XW
+ZE
+pm
+Fh
+hf
+"}
+(17,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+Ha
+HJ
+HJ
+HJ
+hf
+hf
+Fh
+Fh
+pR
+Xd
+zl
+Xd
+yF
+Xd
+yF
+GX
+QW
+yI
+Tl
+Xd
+Xd
+Xd
+OX
+wa
+Ng
+Fr
+BX
+BX
+XW
+uY
+pm
+Fh
+hf
+"}
+(18,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+HJ
+HJ
+HJ
+HJ
+hf
+hf
+Fh
+pm
+wm
+Xd
+yF
+Fh
+Yu
+pm
+pm
+vd
+pm
+pm
+JM
+sa
+bI
+bI
+pm
+zs
+XW
+rB
+rB
+DE
+wa
+Hz
+pm
+Fh
+hf
+"}
+(19,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+HJ
+HJ
+HJ
+HJ
+Ha
+hf
+hf
+Fh
+pm
+Fh
+GX
+Fh
+Fh
+pm
+em
+yw
+DZ
+DZ
+Di
+pm
+Xd
+GX
+Xd
+pm
+xT
+KP
+XW
+VG
+XW
+KP
+Hz
+pm
+Fh
+hf
+"}
+(20,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+Ha
+HJ
+HJ
+HJ
+HJ
+Ha
+Ha
+hf
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+pm
+yE
+DZ
+DZ
+DZ
+kw
+pm
+Xd
+yF
+GX
+pm
+pm
+pm
+pm
+pm
+pm
+pm
+pm
+pm
+Fh
+hf
+"}
+(21,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+Ha
+HJ
+HJ
+HJ
+HJ
+Ha
+Ha
+Ha
+hf
+Fh
+pm
+Fh
+hf
+hf
+Fh
+pm
+rv
+Pr
+Hu
+lC
+zg
+pm
+yF
+Xd
+yF
+pm
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+hf
+"}
+(22,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+HJ
+HJ
+HJ
+HJ
+HJ
+Ha
+Ha
+Ha
+Ha
+hf
+Fh
+pm
+Fh
+hf
+hf
+Fh
+pm
+pm
+pm
+pm
+pm
+pm
+pm
+CI
+yF
+zh
+pm
+Fh
+Fh
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+"}
+(23,1,1) = {"
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+HJ
+HJ
+HJ
+HJ
+HJ
+Ha
+Ha
+Ha
+Ha
+Ha
+hf
+Fh
+Fh
+Fh
+hf
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+pm
+bx
+cj
+rA
+pm
+pm
+Fh
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+tP
+"}
+(24,1,1) = {"
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+HJ
+HJ
+HJ
+HJ
+HJ
+Ha
+Ha
+Ha
+Ha
+Ha
+hf
+hf
+hf
+hf
+hf
+hf
+Fh
+pm
+pm
+pm
+pm
+pm
+Fh
+Fh
+pm
+iu
+nO
+iN
+Fy
+pm
+Fh
+hf
+hf
+hf
+hf
+hf
+hf
+tP
+tP
+"}
+(25,1,1) = {"
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+Ha
+HJ
+HJ
+HJ
+HJ
+Ha
+Ha
+Ha
+Ha
+Ha
+Ha
+hf
+hf
+hf
+hf
+hf
+hf
+Fh
+pm
+PG
+fN
+KE
+KE
+Fh
+Fh
+pm
+Ss
+iN
+nO
+jQ
+pm
+Fh
+hf
+hf
+hf
+hf
+hf
+tP
+tP
+tP
+"}
+(26,1,1) = {"
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+HJ
+HJ
+HJ
+HJ
+Ha
+Ha
+Ha
+Ha
+Ha
+Ha
+hf
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+my
+KE
+KE
+KE
+Fh
+Fh
+pm
+fe
+iN
+nO
+Ki
+pm
+Fh
+Fh
+Fh
+Fh
+hf
+hf
+tP
+tP
+tP
+"}
+(27,1,1) = {"
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+HJ
+HJ
+HJ
+HJ
+Ha
+Ha
+Ha
+hf
+Fh
+Fh
+Fh
+hf
+Fh
+pm
+pm
+pm
+pm
+pm
+pm
+pm
+pm
+pm
+pm
+KE
+pm
+pm
+pm
+ym
+cj
+Hh
+de
+pm
+pm
+pm
+pm
+Fh
+hf
+tP
+tP
+tP
+tP
+"}
+(28,1,1) = {"
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+HJ
+HJ
+HJ
+Ha
+Ha
+hf
+Fh
+Fh
+Fh
+wm
+Fh
+Fh
+Fh
+pm
+Pc
+Pc
+Pc
+Pc
+Pc
+Pc
+Pc
+pm
+KK
+KE
+KE
+KE
+GX
+KE
+KE
+KE
+KE
+FQ
+GX
+wm
+Fh
+Fh
+hf
+tP
+tP
+tP
+tP
+"}
+(29,1,1) = {"
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+Ha
+HJ
+HJ
+HJ
+Fh
+Fh
+Fh
+Fh
+wm
+wm
+GX
+Fh
+Fh
+GX
+pm
+Pc
+Pc
+Pc
+Pc
+Pc
+Pc
+Pc
+pm
+sf
+KE
+OE
+GX
+GX
+KE
+KE
+KE
+KE
+wm
+wm
+Fh
+Fh
+hf
+hf
+tP
+tP
+tP
+tP
+"}
+(30,1,1) = {"
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+Ha
+HJ
+HJ
+Ha
+Fh
+wm
+GX
+GX
+GX
+Pc
+Pc
+pm
+GX
+GX
+pm
+Pc
+Pc
+Pc
+Pc
+Pc
+Pc
+Pc
+pm
+GX
+Bd
+Cq
+be
+vL
+Jx
+GX
+mE
+GX
+Fh
+Fh
+Fh
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+"}
+(31,1,1) = {"
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+Ha
+HJ
+HJ
+HJ
+Ha
+pm
+Pc
+Pc
+Ff
+Pc
+Pc
+Rh
+pm
+GX
+GX
+SG
+Pc
+Pc
+ca
+JV
+Pc
+Pc
+Pc
+pm
+ce
+Bd
+Tk
+pm
+pm
+PI
+GZ
+GZ
+GZ
+Fh
+hf
+hf
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+"}
+(32,1,1) = {"
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+HJ
+HJ
+HJ
+HJ
+Ha
+pm
+Rh
+Rh
+Pt
+Rh
+Rh
+Rh
+pm
+GX
+GX
+fH
+Pc
+Pc
+Pc
+nn
+VF
+Pc
+Pc
+pm
+KE
+KE
+YD
+fH
+oN
+YW
+YW
+fH
+fH
+Fh
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(33,1,1) = {"
+tP
+hf
+hf
+hf
+pm
+pm
+pm
+pm
+fH
+HJ
+Ha
+Ha
+pm
+Rh
+Rh
+Pt
+Rh
+Rh
+Rh
+pm
+GX
+Yz
+pm
+Pc
+Pc
+Pc
+Pc
+VF
+Pc
+Pc
+pm
+KE
+GX
+YD
+pm
+sY
+GX
+YW
+YW
+Ir
+Fh
+hf
+HJ
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(34,1,1) = {"
+tP
+hf
+hf
+hf
+pm
+Jj
+xi
+Cz
+sy
+Ha
+Ha
+Ha
+pm
+Rh
+Rh
+Pt
+Rh
+Rh
+Rh
+pm
+GX
+Yz
+pm
+HS
+Pc
+Pc
+Pc
+Pc
+Pc
+Pc
+pm
+KE
+GX
+YD
+pm
+GX
+YW
+wE
+YW
+Jv
+Fh
+HJ
+HJ
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+"}
+(35,1,1) = {"
+tP
+hf
+hf
+hf
+pm
+KS
+eY
+NT
+Ir
+Ha
+Ha
+Ha
+Fh
+DH
+DH
+ZD
+DH
+DH
+DH
+pm
+Cv
+GZ
+pm
+pm
+pm
+pm
+lI
+pm
+pm
+pm
+pm
+ce
+KE
+Tk
+pm
+oY
+oY
+oY
+oY
+bp
+Fh
+HJ
+HJ
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+"}
+(36,1,1) = {"
+tP
+hf
+hf
+hf
+pm
+nG
+JO
+sf
+Ir
+Ir
+Ha
+Ha
+Ha
+NT
+NT
+mV
+et
+lB
+NT
+NT
+sf
+GZ
+GZ
+GZ
+Ci
+si
+KE
+NT
+VO
+VO
+nz
+GX
+KE
+YD
+pm
+pm
+oL
+oL
+oL
+oL
+Fh
+HJ
+HJ
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+"}
+(37,1,1) = {"
+tP
+hf
+hf
+hf
+pm
+ig
+Vv
+sf
+ki
+Ir
+bf
+Ha
+Ha
+Ha
+sf
+sf
+sf
+DJ
+sf
+sf
+sf
+GZ
+GZ
+GZ
+GZ
+Sa
+qK
+KE
+sf
+KE
+KE
+KE
+KE
+KE
+pm
+Ha
+Ha
+Ha
+Ha
+Ha
+HJ
+HJ
+HJ
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+"}
+(38,1,1) = {"
+tP
+hf
+hf
+hf
+pm
+BI
+JO
+sf
+sf
+sf
+Ir
+Ha
+Ha
+Ha
+Ha
+pm
+pm
+pm
+pm
+GZ
+GZ
+GZ
+GZ
+GZ
+GX
+AT
+KE
+GX
+GX
+Gg
+rP
+GX
+Jm
+GX
+pm
+Ha
+Ha
+Ha
+Ha
+HJ
+HJ
+HJ
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+"}
+(39,1,1) = {"
+tP
+hf
+hf
+hf
+pm
+Jj
+kC
+Lj
+Lj
+Lj
+Ir
+Ir
+Ha
+Rw
+Ha
+pm
+GX
+TD
+GX
+GX
+Fh
+Fh
+pm
+pm
+pm
+pm
+lI
+pm
+pm
+pm
+wP
+gZ
+Fh
+Fh
+Fh
+ir
+Ha
+Ha
+HJ
+HJ
+HJ
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(40,1,1) = {"
+tP
+hf
+hf
+hf
+pm
+Jj
+zB
+Jj
+Ho
+En
+pb
+pm
+Ha
+Ha
+Ha
+SU
+GX
+GX
+vR
+GX
+Fh
+Fh
+pm
+Rh
+Rh
+Rh
+Rh
+Rh
+Rh
+Rh
+pm
+Fh
+Fh
+hf
+Ha
+Ha
+Ha
+HJ
+HJ
+HJ
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(41,1,1) = {"
+tP
+hf
+hf
+hf
+pm
+pm
+pm
+pm
+pm
+pm
+pm
+pm
+HJ
+Ha
+Ha
+Fh
+Fh
+GX
+TD
+GX
+Fh
+Fh
+pm
+Rh
+Rh
+SZ
+Rh
+SZ
+Rh
+ug
+pm
+Fh
+hf
+Ha
+Ha
+Ha
+HJ
+HJ
+HJ
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(42,1,1) = {"
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+HJ
+HJ
+hf
+Ha
+Fh
+Fh
+Fh
+Rt
+Fh
+Fh
+pm
+Rh
+SZ
+SZ
+SZ
+SZ
+Rh
+Rh
+pm
+hf
+hf
+Ha
+Ha
+HJ
+HJ
+HJ
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(43,1,1) = {"
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+HJ
+HJ
+hf
+Ha
+hf
+Fh
+Fh
+Fh
+Fh
+pm
+Rh
+Uq
+SZ
+Hy
+SZ
+SZ
+Rh
+pm
+hf
+hf
+Ha
+Ha
+HJ
+HJ
+Ha
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(44,1,1) = {"
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+HJ
+HJ
+HJ
+Ha
+Ha
+hf
+hf
+Fh
+pm
+Ir
+Rh
+SZ
+SZ
+SZ
+Rh
+Rh
+pm
+hf
+hf
+Ha
+HJ
+HJ
+HJ
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(45,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+HJ
+HJ
+HJ
+Ha
+Ha
+hf
+Fh
+Fh
+fH
+Ir
+SZ
+Rh
+SZ
+SZ
+Rh
+pm
+hf
+hf
+Ha
+HJ
+HJ
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(46,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+Ha
+Ha
+HJ
+HJ
+Ha
+hf
+hf
+Fh
+Fh
+Ir
+Rh
+Rh
+Rh
+Rh
+Rh
+pm
+hf
+Ha
+Ha
+HJ
+HJ
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(47,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+Ha
+Ha
+HJ
+HJ
+HJ
+hf
+hf
+Fh
+Fh
+pm
+pm
+pm
+pm
+pm
+pm
+Ha
+Ha
+HJ
+HJ
+HJ
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(48,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+Ha
+Ha
+HJ
+HJ
+HJ
+HJ
+hf
+hf
+Ha
+Ha
+Ha
+Ha
+Ha
+Ha
+Ha
+HJ
+HJ
+HJ
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(49,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+Ha
+HJ
+HJ
+HJ
+HJ
+HJ
+hf
+Ha
+HJ
+HJ
+HJ
+Ha
+HJ
+HJ
+HJ
+HJ
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(50,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+Ha
+HJ
+HJ
+HJ
+HJ
+HJ
+HJ
+HJ
+HJ
+HJ
+HJ
+HJ
+Ha
+Ha
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(51,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+Ha
+Ha
+Ha
+Ha
+HJ
+HJ
+Ha
+Ha
+Ha
+Ha
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(52,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+Ha
+Ha
+Ha
+Ha
+Ha
+Ha
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(53,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+Ha
+Ha
+hf
+hf
+hf
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(54,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+"}
+(55,1,1) = {"
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+tP
+"}

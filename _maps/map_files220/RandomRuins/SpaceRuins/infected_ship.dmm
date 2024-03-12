@@ -1,0 +1,2839 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ac" = (
+/obj/structure/table,
+/obj/item/radio,
+/obj/item/radio{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/toolbox/syndicate{
+	pixel_x = -10;
+	pixel_y = 10
+	},
+/turf/simulated/floor/pod,
+/area/ruin/space/powered/requires_power_space)
+"al" = (
+/obj/machinery/suit_storage_unit/syndicate{
+	mask_type = null;
+	storage_type = null;
+	suit_type = null;
+	req_access = null
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 5;
+	pixel_x = -8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"aF" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 5;
+	pixel_x = -8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_left"
+	},
+/area/ruin/space/powered/requires_power_space)
+"aH" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"aY" = (
+/obj/machinery/light_construct/directional/south,
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"bh" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/obj/effect/decal/cleanable/blood/gibs/xeno,
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 5;
+	pixel_x = -8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"bk" = (
+/obj/machinery/door/airlock/freezer{
+	locked = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"bo" = (
+/obj/machinery/atmospherics/unary/vent_pump,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"bJ" = (
+/obj/machinery/door/airlock/survival_pod,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"bK" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/gibs/xeno/body,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"bW" = (
+/obj/structure/computerframe{
+	dir = 1
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"cB" = (
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 9
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"cC" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"cK" = (
+/obj/structure/computerframe{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"cM" = (
+/obj/machinery/suit_storage_unit/syndicate{
+	mask_type = null;
+	storage_type = null;
+	suit_type = null;
+	req_access = null
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"do" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/glass,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"dq" = (
+/obj/structure/bed/nest,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"dG" = (
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 5;
+	pixel_x = -8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"dI" = (
+/mob/living/simple_animal/hostile/alien,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"dK" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/obj/structure/sign/poster/contraband/random/north,
+/obj/effect/decal/cleanable/blood/gibs/xeno/body,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"dU" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/requires_power_space)
+"ep" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"eq" = (
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 8;
+	pixel_x = 2
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"ez" = (
+/obj/machinery/light_construct/directional/south,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/requires_power_space)
+"eC" = (
+/obj/machinery/atmospherics/portable/canister,
+/obj/machinery/light_construct/directional/east,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"eG" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/organ/internal/body_egg/alien_embryo{
+	icon_state = "facehugger_dead"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"eK" = (
+/obj/structure/computerframe,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/obj/structure/sign/poster/contraband/random/north,
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"eL" = (
+/obj/structure{
+	desc = "For the union!";
+	icon = 'icons/obj/tesla_engine/tesla_coil.dmi';
+	icon_state = "coil0";
+	name = "tesla coil"
+	},
+/obj/machinery/light_construct/directional/north,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"eR" = (
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing"
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 5;
+	pixel_x = -8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"eT" = (
+/obj/machinery/light_construct/directional/west,
+/obj/effect/decal/cleanable/glass,
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 10
+	},
+/obj/item/stack/sheet/cloth,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"ff" = (
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/decal/cleanable/blood/gibs/cleangibs,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"fK" = (
+/obj/item/stack/rods,
+/turf/template_noop,
+/area/template_noop)
+"gg" = (
+/obj/item/trash/can,
+/obj/structure/sign/poster/contraband/random/north,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_left"
+	},
+/area/ruin/space/powered/requires_power_space)
+"gD" = (
+/obj/machinery/door/airlock/survival_pod,
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"gK" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_left"
+	},
+/area/ruin/space/powered/requires_power_space)
+"hc" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/space/powered/requires_power_space)
+"hn" = (
+/obj/machinery/light_construct/directional/north,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"hw" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"hF" = (
+/obj/structure/closet/crate/trashcart,
+/obj/machinery/light/small/directional/east,
+/obj/item/bedsheet/syndie,
+/obj/item/trash/syndi_cakes,
+/obj/item/trash/syndi_cakes,
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"hG" = (
+/obj/machinery/light/small/directional/south,
+/obj/machinery/constructable_frame{
+	icon_state = "box_1"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"hP" = (
+/obj/effect/decal/cleanable/blood/gibs/xeno/body,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_left"
+	},
+/area/ruin/space/powered/requires_power_space)
+"hS" = (
+/obj/machinery/economy/vending/snack/free,
+/turf/simulated/floor/pod,
+/area/ruin/space/powered/requires_power_space)
+"ia" = (
+/obj/structure/grille/broken,
+/obj/item/shard,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/decal/cleanable/blood/drip{
+	icon_state = "5"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"iv" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"iB" = (
+/turf/template_noop,
+/area/template_noop)
+"iH" = (
+/obj/structure/table,
+/obj/structure{
+	desc = "A microwave, perfect for reheating things with radiation.";
+	icon = 'icons/obj/kitchen.dmi';
+	icon_state = "mw";
+	name = "microwave";
+	pixel_y = 9
+	},
+/obj/item/food/snacks/syndidonkpocket{
+	pixel_x = -7
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_left"
+	},
+/area/ruin/space/powered/requires_power_space)
+"iL" = (
+/obj/machinery/light_construct/directional/west,
+/obj/structure/closet/crate/secure/weapon{
+	req_access_txt = null;
+	req_access = list(150)
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/obj/item/toy/sword,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"iP" = (
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/item/shard{
+	icon_state = "small";
+	pixel_x = 10
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"iS" = (
+/mob/living/simple_animal/hostile/alien,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"jb" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"jk" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/mob/living/simple_animal/hostile/alien/sentinel,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"jl" = (
+/obj/structure/sign/poster/contraband/random/south,
+/obj/effect/decal/cleanable/blood/drip{
+	icon_state = "5"
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/decal/cleanable/generic,
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 8;
+	pixel_x = 2
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"jp" = (
+/obj/machinery/optable,
+/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/item/organ/internal/body_egg/alien_embryo,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"jr" = (
+/obj/item/chair,
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_left"
+	},
+/area/ruin/space/powered/requires_power_space)
+"jw" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"jW" = (
+/mob/living/simple_animal/hostile/alien,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"kg" = (
+/obj/machinery/door/airlock/hatch{
+	welded = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"km" = (
+/obj/machinery/door/airlock/highsecurity{
+	welded = 1
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"kx" = (
+/obj/item/chair/stool,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_left"
+	},
+/area/ruin/space/powered/requires_power_space)
+"ky" = (
+/obj/machinery/atmospherics/unary/vent_pump,
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing"
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 8;
+	pixel_x = 2
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"kK" = (
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_y = 9
+	},
+/obj/effect/decal/cleanable/glass,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/item/trash/spentcasing,
+/turf/simulated/floor/pod,
+/area/ruin/space/powered/requires_power_space)
+"kP" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"la" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"lj" = (
+/obj/structure/extinguisher_cabinet/empty{
+	pixel_y = 30
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/gibs/xeno/body,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"lk" = (
+/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/vomit/green,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"lm" = (
+/obj/machinery/light_construct/directional/west,
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"lt" = (
+/obj/machinery/light_construct/directional/south,
+/obj/structure/mirror{
+	dir = 4;
+	pixel_y = 33;
+	icon_state = "mirror_broke"
+	},
+/obj/structure/sink{
+	pixel_y = 17
+	},
+/obj/item/organ/internal/body_egg/alien_embryo,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"lu" = (
+/obj/structure/bed/nest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"lA" = (
+/obj/machinery/constructable_frame{
+	icon_state = "box_1"
+	},
+/turf/simulated/floor/pod,
+/area/ruin/space/powered/requires_power_space)
+"lP" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/decal/cleanable/blood/gibs/xeno,
+/obj/structure/sign/poster/contraband/random/north,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"mS" = (
+/obj/structure/door_assembly/door_assembly_ext,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/requires_power_space)
+"mW" = (
+/obj/structure/alien/resin/wall,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"nd" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"ne" = (
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 5
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 5;
+	pixel_x = -8
+	},
+/obj/item/stack/sheet/cardboard,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"nl" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/decal/cleanable/blood/drip{
+	icon_state = "5"
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"ns" = (
+/obj/machinery/optable,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"nz" = (
+/mob/living/simple_animal/hostile/alien,
+/turf/simulated/floor/pod,
+/area/ruin/space/powered/requires_power_space)
+"nE" = (
+/mob/living/simple_animal/hostile/alien/sentinel,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/decal/cleanable/blood/drip{
+	icon_state = "3"
+	},
+/obj/effect/decal/cleanable/blood/gibs/xeno,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"nO" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"nU" = (
+/obj/structure/grille/broken,
+/obj/machinery/door/poddoor,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"ol" = (
+/obj/machinery/light_construct/directional/north,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"ou" = (
+/obj/structure/closet/firecloset,
+/obj/structure/sign/fire{
+	pixel_x = 31
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"oz" = (
+/obj/structure/computerframe{
+	icon_state = "comp_frame_2"
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/shard{
+	icon_state = "small";
+	pixel_x = 10;
+	pixel_y = 9
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"oL" = (
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 6
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"pg" = (
+/obj/structure/alien/egg/burst,
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"pj" = (
+/obj/machinery/light_construct/directional/west,
+/obj/structure/computerframe{
+	icon_state = "comp_frame_5"
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/shard,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"pv" = (
+/obj/structure/sign/greencross{
+	pixel_x = 31
+	},
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"pz" = (
+/obj/item/chair{
+	dir = 4
+	},
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_left"
+	},
+/area/ruin/space/powered/requires_power_space)
+"pB" = (
+/obj/machinery/light_construct/directional/north,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"pK" = (
+/obj/structure/table/glass,
+/obj/item/documents/syndicate/yellow,
+/obj/item/phone{
+	pixel_y = 7
+	},
+/obj/item/pen{
+	pixel_x = 8;
+	pixel_y = -4
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"pO" = (
+/obj/machinery/light_construct/directional/south,
+/obj/structure/closet/crate/can,
+/obj/item/trash/syndi_cakes,
+/obj/item/trash/raisins,
+/obj/item/trash/can,
+/obj/item/trash/plate,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_left"
+	},
+/area/ruin/space/powered/requires_power_space)
+"pP" = (
+/obj/item/shard{
+	icon_state = "large";
+	pixel_y = 9
+	},
+/turf/template_noop,
+/area/template_noop)
+"qb" = (
+/obj/structure/closet,
+/obj/item/clothing/head/collectable/welding,
+/obj/item/weldingtool,
+/obj/effect/decal/cleanable/blood/gibs/xeno,
+/turf/simulated/floor/pod,
+/area/ruin/space/powered/requires_power_space)
+"qU" = (
+/obj/machinery/door/airlock/survival_pod,
+/turf/simulated/floor/pod,
+/area/ruin/space/powered/requires_power_space)
+"rs" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_left"
+	},
+/area/ruin/space/powered/requires_power_space)
+"rG" = (
+/obj/structure/table,
+/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"rP" = (
+/obj/structure/alien/resin/wall,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"sb" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"sg" = (
+/obj/machinery/door/airlock/hatch{
+	welded = 1;
+	locked = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"sj" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/food/snacks/meat/corgi,
+/obj/item/food/snacks/meat/corgi,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/requires_power_space)
+"st" = (
+/obj/machinery/door/airlock/survival_pod,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"sy" = (
+/obj/structure/alien/resin/wall,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/requires_power_space)
+"sA" = (
+/obj/machinery/constructable_frame{
+	icon_state = "box_1"
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"sQ" = (
+/obj/item/airlock_electronics/destroyed,
+/turf/template_noop,
+/area/template_noop)
+"tv" = (
+/mob/living/simple_animal/hostile/alien/queen/large,
+/obj/structure/bed/nest,
+/obj/effect/mob_spawn/human/corpse/damaged,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"tE" = (
+/obj/machinery/light_construct/directional/north,
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"tF" = (
+/obj/structure/extinguisher_cabinet/directional/north,
+/obj/structure/alien/egg/burst,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"tO" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"tX" = (
+/obj/structure/mecha_wreckage/mauler,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"ue" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"ug" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/organ/external/chest,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"ul" = (
+/obj/structure/table_frame,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"um" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/decal/cleanable/generic,
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 9
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"vg" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/mob/living/simple_animal/hostile/alien,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"vk" = (
+/obj/machinery/light_construct/directional/west,
+/obj/machinery/economy/vending/medical/syndicate_access,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"vB" = (
+/obj/structure/table/glass,
+/obj/item/scalpel,
+/obj/item/retractor,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"vL" = (
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/decal/cleanable/blood/gibs/xeno/body,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"vX" = (
+/obj/machinery/light/small/directional/west,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"wO" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/organ/internal/beard,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"wY" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 6
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"xb" = (
+/obj/structure/shuttle/engine/large{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/requires_power_space)
+"xe" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/gibs/xeno/body,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 8;
+	pixel_x = 2
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"xy" = (
+/obj/item/chair,
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood/gibs/xeno,
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 8;
+	pixel_x = 2
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"xD" = (
+/obj/structure/alien/resin/wall,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"xG" = (
+/obj/machinery/light_construct/directional/west,
+/obj/item/paper/crumpled,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/storage/secure/briefcase/syndie,
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"yd" = (
+/obj/structure/closet/syndicate,
+/obj/item/storage/firstaid/brute/empty,
+/obj/item/clothing/gloves/color/latex/nitrile,
+/obj/item/clothing/mask/surgical,
+/obj/item/clothing/suit/storage/labcoat,
+/obj/item/clothing/head/surgery,
+/obj/item/tank/internals/anesthetic,
+/obj/item/clothing/mask/breath,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"yp" = (
+/obj/structure/fans/tiny,
+/obj/structure/alien/resin/wall,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/requires_power_space)
+"yu" = (
+/obj/machinery/door/poddoor,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/requires_power_space)
+"yV" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/structure/extinguisher_cabinet/directional/north,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"zq" = (
+/obj/machinery/light_construct/directional/east,
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium/red/airless{
+	icon_state = "plastitanium"
+	},
+/area/ruin/space/powered/requires_power_space)
+"zH" = (
+/obj/machinery/light/small/directional/west,
+/obj/item/reagent_containers/syringe,
+/obj/item/organ/external/leg,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"zI" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"zL" = (
+/obj/item/trash/spentcasing,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"zT" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/organ/internal/body_egg/alien_embryo{
+	icon_state = "facehugger_dead"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"Ai" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"As" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 1
+	},
+/obj/item/gun/syringe,
+/obj/item/organ/external/leg/right,
+/obj/item/organ/external/chest,
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"AD" = (
+/obj/effect/decal/cleanable/blood/drip{
+	icon_state = "3"
+	},
+/obj/effect/decal/cleanable/blood/drip{
+	icon_state = "4"
+	},
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"AV" = (
+/obj/machinery/light_construct/directional/east,
+/obj/machinery/atmospherics/unary/vent_pump,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Bc" = (
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"BA" = (
+/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"BK" = (
+/obj/machinery/light/small/directional/south,
+/obj/effect/decal/cleanable/blood/gibs/xeno/body,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_left"
+	},
+/area/ruin/space/powered/requires_power_space)
+"Cg" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"CM" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"De" = (
+/obj/item/organ/internal/body_egg/alien_embryo,
+/obj/effect/decal/cleanable/blood/gibs/xeno,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"DC" = (
+/obj/machinery/porta_turret/syndicate,
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Ej" = (
+/obj/structure/door_assembly/door_assembly_ext{
+	anchored = 1
+	},
+/obj/structure/barricade/security,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/requires_power_space)
+"ET" = (
+/obj/machinery/atmospherics/portable/canister,
+/obj/machinery/light_construct/directional/east,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"Fv" = (
+/obj/structure/table,
+/obj/item/paintkit/mercenary,
+/turf/simulated/floor/pod,
+/area/ruin/space/powered/requires_power_space)
+"FB" = (
+/obj/effect/decal/cleanable/blood/drip{
+	icon_state = "4"
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"FH" = (
+/obj/structure/table_frame/wood,
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_left"
+	},
+/area/ruin/space/powered/requires_power_space)
+"FM" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/zipties,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"FQ" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"FS" = (
+/obj/effect/decal/cleanable/blood/gibs/xeno/body,
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"FT" = (
+/obj/effect/decal/cleanable/blood/drip{
+	icon_state = "3"
+	},
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Ge" = (
+/obj/structure/table/wood,
+/obj/item/trash/plate,
+/obj/item/food/snacks/syndidonkpocket{
+	pixel_y = 14;
+	pixel_x = 6
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_left"
+	},
+/area/ruin/space/powered/requires_power_space)
+"GD" = (
+/obj/item/shard{
+	icon_state = "small";
+	pixel_x = 10
+	},
+/turf/template_noop,
+/area/template_noop)
+"GW" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"He" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/paintkit/gygax_syndie,
+/turf/simulated/floor/pod,
+/area/ruin/space/powered/requires_power_space)
+"Hg" = (
+/obj/structure/bed/nest,
+/obj/effect/mob_spawn/human/corpse/damaged,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"Hn" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/beer{
+	pixel_y = 9
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"HH" = (
+/obj/machinery/door/poddoor,
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"HV" = (
+/obj/structure/extinguisher_cabinet/empty{
+	pixel_x = 30
+	},
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"HY" = (
+/obj/structure/door_assembly/door_assembly_highsecurity{
+	anchored = 1
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/vomit/green,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"Ib" = (
+/obj/item/storage/toolbox/syndicate,
+/obj/structure/closet,
+/obj/item/multitool,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"Ie" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/structure/alien/resin/door{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"In" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"IH" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"IR" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"IX" = (
+/obj/structure/sign/electricshock{
+	pixel_x = -35
+	},
+/obj/structure/alien/egg/burst,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"Ja" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/spacecash/c200,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Je" = (
+/obj/machinery/light_construct/directional/south,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 8;
+	pixel_x = 2
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Jp" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"JH" = (
+/obj/machinery/light_construct/directional/north,
+/obj/structure/dispenser/oxygen,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/sign/poster/contraband/random/north,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"JK" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"JO" = (
+/obj/item/stack/sheet/plasteel,
+/turf/template_noop,
+/area/template_noop)
+"JS" = (
+/mob/living/simple_animal/hostile/alien/sentinel,
+/obj/effect/decal/cleanable/blood/gibs/xeno/body,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"Kv" = (
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"KH" = (
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 6
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 9
+	},
+/obj/structure/sign/poster/contraband/random/north,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Ln" = (
+/obj/structure{
+	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
+	icon = 'icons/obj/power.dmi';
+	icon_state = "smes";
+	name = "power storage unit"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"LA" = (
+/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_left"
+	},
+/area/ruin/space/powered/requires_power_space)
+"LO" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"LP" = (
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"LW" = (
+/obj/structure/door_assembly/door_assembly_ext,
+/turf/template_noop,
+/area/template_noop)
+"Me" = (
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 5;
+	pixel_x = -8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Mu" = (
+/obj/structure/closet/syndicate,
+/obj/item/clothing/under/syndicate/tacticool,
+/obj/item/clothing/suit/armor/vest/fluff/tactical,
+/obj/item/clothing/mask/balaclava,
+/obj/item/clothing/shoes/jackboots,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"MM" = (
+/obj/item/chair{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/white/corner{
+	dir = 4
+	},
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"Nj" = (
+/obj/structure/barricade/security,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"NN" = (
+/obj/machinery/suit_storage_unit/syndicate{
+	mask_type = null;
+	storage_type = null;
+	suit_type = null;
+	state_open = 1;
+	req_access = null
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"NP" = (
+/obj/item/reagent_containers/drinks/oilcan,
+/obj/item/wrench,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"NY" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/organ/external/hand,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Ok" = (
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"OA" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/structure/sign/poster/contraband/random/south,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"OL" = (
+/obj/structure/alien/egg/burst,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"Pm" = (
+/obj/machinery/light/small/directional/south,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 9
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Po" = (
+/obj/structure/closet/crate/engineering,
+/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"Pq" = (
+/obj/item/organ/internal/body_egg/alien_embryo{
+	icon_state = "facehugger_dead"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Pr" = (
+/obj/structure/bed/nest,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"Px" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/soda{
+	pixel_y = 9
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"PV" = (
+/obj/structure/door_assembly/door_assembly_pod,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"QS" = (
+/obj/machinery/light_construct/directional/west,
+/obj/machinery/suit_storage_unit/syndicate{
+	mask_type = null;
+	storage_type = null;
+	suit_type = null;
+	state_open = 1;
+	req_access = null
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"QU" = (
+/obj/machinery/suit_storage_unit/syndicate{
+	mask_type = null;
+	storage_type = null;
+	suit_type = null;
+	state_open = 1;
+	req_access = null
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Rg" = (
+/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Rl" = (
+/obj/machinery/economy/vending/cigarette/syndicate/free,
+/turf/simulated/floor/pod,
+/area/ruin/space/powered/requires_power_space)
+"RN" = (
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 4
+	},
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Se" = (
+/obj/structure/door_assembly/door_assembly_pod{
+	anchored = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"SA" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Tb" = (
+/obj/structure/sign/vacuum{
+	pixel_x = -33
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless{
+	icon_state = "plastitanium"
+	},
+/area/ruin/space/powered/requires_power_space)
+"Tn" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/structure/barricade/security,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Tq" = (
+/obj/structure/table_frame,
+/obj/item/shard{
+	icon_state = "small"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Tx" = (
+/obj/structure{
+	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
+	icon = 'icons/obj/power.dmi';
+	icon_state = "smes";
+	name = "power storage unit"
+	},
+/obj/item/wrench,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"TV" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Us" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/structure/table_frame,
+/obj/item/organ/internal/body_egg/alien_embryo{
+	icon_state = "facehugger_impregnated"
+	},
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_y = 9
+	},
+/obj/item/gps/ruin{
+	pixel_y = -32;
+	gpstag = "####"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"UK" = (
+/obj/machinery/door/airlock/external{
+	req_access_txt = "150";
+	locked = 1
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"UL" = (
+/obj/structure/alien/egg/burst,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"UW" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"Vc" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium/red/airless{
+	icon_state = "plastitanium"
+	},
+/area/ruin/space/powered/requires_power_space)
+"Vn" = (
+/obj/structure/barricade/security,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"VF" = (
+/obj/item/reagent_containers/syringe,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"VN" = (
+/obj/item/organ/external/chest,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/pod,
+/area/ruin/space/powered/requires_power_space)
+"Wd" = (
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 1
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"We" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon/dock_marker,
+/turf/template_noop,
+/area/template_noop)
+"Ww" = (
+/obj/item/clothing/suit/fire/firefighter,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"WQ" = (
+/obj/item/mounted/frame/apc_frame,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/obj/structure/bed/nest,
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"WR" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/decal/cleanable/blood/drip{
+	icon_state = "5"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"WW" = (
+/obj/machinery/door/poddoor,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"Xe" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/trash/spentcasing{
+	icon_state = "r-casing";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Xx" = (
+/obj/structure/alien/egg/burst,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"XJ" = (
+/obj/structure/alien/resin/wall,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"XL" = (
+/obj/structure/bed/nest,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"XW" = (
+/obj/structure/kitchenspike_frame,
+/obj/item/stack/rods,
+/obj/item/stack/rods,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/requires_power_space)
+"Ye" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Yw" = (
+/obj/item/kirbyplants/dead,
+/turf/simulated/floor/pod,
+/area/ruin/space/powered/requires_power_space)
+"Yy" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"YF" = (
+/obj/structure{
+	icon = 'icons/obj/objects.dmi';
+	icon_state = "borgdecon2";
+	name = "cyborg recharging station"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/structure/sign/poster/contraband/random/south,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"YG" = (
+/obj/machinery/light/small/directional/east,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"Zc" = (
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/glass,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/item/trash/spentcasing,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+"Zd" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/requires_power_space)
+"Zk" = (
+/obj/structure/toilet{
+	dir = 4
+	},
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"ZA" = (
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/obj/structure/alien/egg/burst,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
+"ZE" = (
+/obj/structure/table/reinforced,
+/obj/item/ammo_box/c9mm,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"ZQ" = (
+/obj/item/storage/firstaid/fire/empty,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered/requires_power_space)
+
+(1,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+"}
+(2,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+Zd
+xb
+dU
+iB
+dU
+Zd
+xb
+jb
+iB
+iB
+iB
+"}
+(3,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+Zd
+Zd
+Ye
+dU
+Ye
+Zd
+Zd
+jb
+iB
+iB
+iB
+"}
+(4,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+jb
+Ye
+Ye
+Ln
+Ye
+Tx
+Ye
+Ye
+jb
+jb
+iB
+iB
+"}
+(5,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+Zk
+jb
+eL
+Xx
+IX
+NP
+jb
+hc
+sj
+jb
+iB
+iB
+"}
+(6,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+lt
+jb
+ZA
+WQ
+tv
+Xx
+jb
+XW
+ez
+jb
+iB
+iB
+"}
+(7,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+qU
+jb
+Ib
+pg
+FQ
+Pr
+jb
+jb
+bk
+jb
+iB
+iB
+"}
+(8,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+nz
+jb
+yV
+Xx
+Pr
+ul
+jb
+rG
+rs
+jb
+iB
+iB
+"}
+(9,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+VN
+jb
+Po
+JS
+XL
+ul
+jb
+Hn
+hP
+jb
+iB
+iB
+"}
+(10,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+ol
+jb
+ET
+JK
+Ok
+Hg
+jb
+Px
+BK
+jb
+iB
+iB
+"}
+(11,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+GD
+jw
+Cg
+jb
+eC
+JK
+iS
+hF
+jb
+gg
+pz
+jw
+iB
+iB
+"}
+(12,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+HH
+Cg
+hc
+jb
+jb
+kg
+hc
+hc
+aF
+FH
+jw
+iB
+iB
+"}
+(13,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+HH
+eq
+cB
+vX
+Cg
+GW
+jb
+iH
+gK
+kx
+jw
+iB
+iB
+"}
+(14,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+pP
+jw
+cC
+tO
+Cg
+ky
+FS
+st
+bK
+MM
+Ge
+WW
+iB
+iB
+"}
+(15,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+jw
+ue
+SA
+HV
+pv
+LP
+hc
+LA
+ff
+jr
+nU
+iB
+iB
+"}
+(16,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+In
+jb
+xD
+eR
+hc
+jb
+Se
+hc
+hc
+lj
+pO
+jb
+iB
+iB
+"}
+(17,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+DC
+sy
+xD
+Cg
+jb
+vk
+ZQ
+zH
+jb
+bJ
+jb
+jb
+jb
+iB
+"}
+(18,1,1) = {"
+iB
+iB
+In
+iB
+iB
+iB
+sy
+xD
+Ie
+xD
+yd
+dG
+As
+jb
+dK
+BA
+Tb
+Ej
+iB
+"}
+(19,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+In
+sy
+xD
+tE
+jb
+vB
+Kv
+Tq
+jb
+aY
+jb
+Vc
+jb
+iB
+"}
+(20,1,1) = {"
+iB
+iB
+iB
+iB
+sQ
+sy
+sy
+xD
+Cg
+jb
+jp
+iP
+ns
+jb
+IR
+UK
+zq
+mS
+iB
+"}
+(21,1,1) = {"
+iB
+iB
+JO
+fK
+iB
+LW
+In
+xD
+Cg
+jb
+eK
+VF
+cK
+jb
+xe
+jb
+jb
+hc
+iB
+"}
+(22,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+sy
+xD
+PV
+hc
+jb
+gD
+jb
+hc
+bJ
+jb
+jb
+iB
+iB
+"}
+(23,1,1) = {"
+iB
+iB
+iB
+iB
+JO
+iB
+jw
+lA
+CM
+Ww
+eT
+bo
+lm
+lk
+nO
+Rl
+jw
+iB
+iB
+"}
+(24,1,1) = {"
+iB
+JO
+iB
+iB
+iB
+iB
+jw
+hS
+la
+dI
+ou
+Nj
+aH
+Rg
+vL
+lA
+jw
+iB
+iB
+"}
+(25,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+jw
+Yw
+hw
+hc
+jb
+jb
+jb
+hc
+zI
+Yw
+jw
+iB
+iB
+"}
+(26,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+jb
+st
+jb
+QS
+jk
+iL
+jb
+bJ
+jb
+jb
+iB
+iB
+"}
+(27,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+fK
+DC
+jb
+pB
+jb
+al
+zT
+Ja
+jb
+Pm
+jb
+DC
+iB
+iB
+"}
+(28,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+OA
+jb
+Wd
+kP
+ZE
+jb
+KH
+jb
+iB
+iB
+iB
+"}
+(29,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+sb
+jb
+NN
+nd
+FM
+jb
+oL
+jb
+iB
+iB
+iB
+"}
+(30,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+Tn
+jb
+sA
+um
+Mu
+jb
+Me
+jb
+iB
+iB
+iB
+"}
+(31,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+aH
+hc
+jb
+km
+jb
+hc
+ne
+jb
+iB
+iB
+iB
+"}
+(32,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jw
+FT
+AD
+nl
+wO
+NY
+Jp
+aH
+jw
+iB
+iB
+iB
+"}
+(33,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jw
+jW
+FB
+AV
+ug
+YG
+TV
+cC
+jw
+iB
+iB
+iB
+"}
+(34,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jw
+zL
+hc
+jb
+HY
+jb
+hc
+IR
+jw
+iB
+iB
+iB
+"}
+(35,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jw
+Xe
+jb
+pj
+xy
+xG
+jb
+lP
+jw
+iB
+iB
+iB
+"}
+(36,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jw
+jl
+jb
+oz
+vg
+bW
+jb
+Jp
+jw
+iB
+iB
+iB
+"}
+(37,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jw
+Je
+jb
+pK
+Zc
+Us
+jb
+hn
+jw
+iB
+iB
+iB
+"}
+(38,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+sg
+jb
+iv
+ia
+iv
+jb
+sg
+jb
+iB
+iB
+iB
+"}
+(39,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+Vn
+qb
+ac
+kK
+Fv
+He
+UW
+jb
+iB
+iB
+iB
+"}
+(40,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+tF
+IH
+Ai
+eG
+do
+LO
+OL
+jb
+iB
+iB
+iB
+"}
+(41,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+JH
+UL
+bo
+Yy
+nE
+bh
+hG
+jb
+iB
+iB
+iB
+"}
+(42,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+QU
+dq
+De
+RN
+WR
+wY
+tX
+jb
+iB
+iB
+iB
+"}
+(43,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+jb
+cM
+XJ
+XJ
+Bc
+Pq
+sb
+YF
+jb
+iB
+iB
+iB
+"}
+(44,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+DC
+jb
+rP
+mW
+mW
+mW
+lu
+lu
+ep
+jb
+DC
+iB
+iB
+"}
+(45,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+We
+jb
+jb
+yp
+yu
+yu
+yu
+yu
+jb
+jb
+We
+iB
+iB
+"}
+(46,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+sy
+sy
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+"}
+(47,1,1) = {"
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+iB
+"}

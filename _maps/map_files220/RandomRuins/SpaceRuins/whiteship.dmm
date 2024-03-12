@@ -1,0 +1,2860 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ab" = (
+/obj/machinery/light/small/directional/north,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"af" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/obj/structure/closet/walllocker/emerglocker/north{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"aA" = (
+/turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
+/area/shuttle/abandoned)
+"aI" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -5;
+	pixel_y = 30
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/passive_vent,
+/obj/structure/filingcabinet/chestdrawer/autopsy,
+/obj/machinery/light/directional/west,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"bg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8;
+	initialize_directions = 11
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/obj/item/shard{
+	icon_state = "small"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"bP" = (
+/obj/structure/curtain/medical,
+/obj/machinery/shower{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/abandoned)
+"bT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/walllocker/emerglocker/north,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"bX" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/abandoned)
+"bY" = (
+/obj/structure/closet/crate/can,
+/obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,
+/obj/item/trash/pistachios,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"ca" = (
+/obj/structure/closet/wardrobe/white,
+/obj/machinery/atmospherics/unary/passive_vent{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"cl" = (
+/obj/structure/table,
+/obj/item/reagent_containers/syringe/antiviral,
+/obj/item/reagent_containers/syringe/charcoal,
+/obj/item/reagent_containers/syringe/insulin,
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/reagent_containers/glass/bottle/epinephrine,
+/obj/item/reagent_containers/syringe,
+/obj/item/stack/medical/bruise_pack/advanced{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/stack/medical/ointment/advanced{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/patch/styptic{
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/patch/styptic{
+	pixel_x = 2;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/patch/silver_sulf{
+	pixel_x = -8;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/patch/silver_sulf{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/storage/pill_bottle/painkillers{
+	pixel_x = -6;
+	pixel_y = -3
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 1;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTHWEST)"
+	},
+/area/shuttle/abandoned)
+"cT" = (
+/obj/machinery/light_construct/directional/west,
+/obj/structure/table,
+/obj/item/trash/plate,
+/obj/item/reagent_containers/drinks/coffee{
+	desc = "It's cold as dead body.";
+	pixel_x = 8;
+	pixel_y = 8;
+	volume = 15
+	},
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"dm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/light_construct/directional/west,
+/obj/item/hemostat,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"dr" = (
+/obj/structure/morgue,
+/obj/structure/window/reinforced/polarized{
+	dir = 1;
+	id = "privateroom"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"dv" = (
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/door/window/reinforced/normal,
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTHEAST)"
+	},
+/area/shuttle/abandoned)
+"dy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/obj/structure/barricade/wooden,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"dU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
+/obj/effect/decal/cleanable/blood/splatter,
+/mob/living/simple_animal/hostile/undead/zombie,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"ec" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4;
+	initialize_directions = 11
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"fo" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1;
+	initialize_directions = 11
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/undead/zombie/fast,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/abandoned)
+"gc" = (
+/obj/structure/coatrack,
+/obj/machinery/light/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"gf" = (
+/obj/structure/rack,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 1;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/item/tank/internals/emergency_oxygen/double,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"gs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/abandoned)
+"gB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	initialize_directions = 11
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"gD" = (
+/obj/machinery/door/airlock/medical,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"gL" = (
+/obj/machinery/light/directional/west,
+/obj/structure/closet/emcloset,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/shuttle/abandoned)
+"hl" = (
+/obj/machinery/atmospherics/pipe/manifold/visible,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/head/surgery,
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/abandoned)
+"hs" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/abandoned)
+"hR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/external{
+	id_tag = "whiteshipinnerairlock2";
+	locked = 1;
+	name = "External Airlock"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/shuttle/abandoned)
+"ic" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/item/clothing/under/rank/medical/doctor,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"ih" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "whiteshiproom1";
+	layer = 3;
+	name = "Room 1 Shutters"
+	},
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"ii" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -4;
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"ik" = (
+/obj/machinery/door/airlock/medical,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/abandoned)
+"io" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/item/clothing/mask/gas,
+/mob/living/simple_animal/hostile/undead/zombie/fast,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"is" = (
+/obj/structure/sign/vacuum{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/shuttle/abandoned)
+"iu" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"iO" = (
+/obj/machinery/door_control/shutter/east{
+	id = "whiteshipinnershutters";
+	name = "Medical Ship Inner Shutters Control";
+	pixel_y = -2
+	},
+/obj/machinery/door_control/shutter/east{
+	id = "whiteshipbridgeshutters";
+	name = "Medical Ship Bridge Shutters Control";
+	pixel_y = 7
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/undead/zombie/fast,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"iX" = (
+/obj/machinery/door/airlock/welded{
+	id_tag = "whiteshuttletoilet"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/abandoned)
+"jg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"jt" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/shuttle/abandoned)
+"ju" = (
+/obj/machinery/bodyscanner{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/blue/hollow,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/shuttle/abandoned)
+"jD" = (
+/obj/machinery/door/airlock/medical,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/abandoned)
+"kn" = (
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/shuttle/abandoned)
+"kC" = (
+/obj/item/gun/syringe/rapidsyringe,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"kT" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"lO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood/tracks{
+	pixel_y = -19
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"ma" = (
+/obj/machinery/door/airlock/medical/glass,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/abandoned)
+"mj" = (
+/obj/item/clothing/mask/breath,
+/turf/template_noop,
+/area/space)
+"mB" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/abandoned)
+"nb" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "whiteshipinnershutters";
+	layer = 3;
+	name = "Medical Ship Inner Shutters"
+	},
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"nk" = (
+/obj/structure/table/reinforced,
+/obj/machinery/atmospherics/unary/passive_vent,
+/obj/item/surgical_drapes,
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"nH" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "whiteshipinnershutters";
+	layer = 3;
+	name = "Medical Ship Inner Shutters"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	desc = "Труба ведёт газ на фильтрацию";
+	dir = 4;
+	name = "Труба на фильтрацию"
+	},
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"nQ" = (
+/obj/structure/sign/vacuum{
+	pixel_x = 32
+	},
+/obj/structure/fans/tiny,
+/obj/item/tank/internals/emergency_oxygen/empty,
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	name = "gnawed bones"
+	},
+/obj/machinery/light/small/directional/west,
+/obj/machinery/door_control/bolt_control/west{
+	id = "whiteshipouterairlock1";
+	in_use = 1;
+	pixel_y = -9
+	},
+/obj/item/mod/control/pre_equipped/medical,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"oB" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/drinks/coffee{
+	desc = "It's cold as dead body.";
+	pixel_x = 8;
+	pixel_y = 8;
+	volume = 15
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"oH" = (
+/obj/machinery/light/directional/west,
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/shuttle/abandoned)
+"oR" = (
+/obj/structure/sign/nosmoking_2{
+	pixel_y = -32
+	},
+/obj/machinery/economy/vending/snack/free,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"ph" = (
+/obj/structure/sign/vacuum{
+	pixel_x = 32
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/light/small/directional/west,
+/obj/machinery/door_control/bolt_control/west{
+	id = "whiteshipouterairlock2";
+	in_use = 1;
+	pixel_y = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"po" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+	dir = 4
+	},
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	name = "gnawed bones"
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood,
+/mob/living/simple_animal/hostile/undead/zombie,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull";
+	tag = "icon-whitebluefull"
+	},
+/area/shuttle/abandoned)
+"pz" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/effect/turf_decal/delivery/blue/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"pE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/abandoned)
+"pG" = (
+/obj/structure/sign/poster/official/nanotrasen_logo,
+/turf/simulated/wall/indestructible/whiteshuttle,
+/area/shuttle/abandoned)
+"qi" = (
+/obj/machinery/door/airlock/medical/glass,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/obj/item/clothing/shoes/blue,
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull";
+	tag = "icon-whitebluefull"
+	},
+/area/shuttle/abandoned)
+"qE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/abandoned)
+"rC" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull";
+	tag = "icon-whitebluefull"
+	},
+/area/shuttle/abandoned)
+"sW" = (
+/obj/structure/table/tray,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/item/retractor,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"sX" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"sZ" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 1;
+	name = "air into ship gas pump"
+	},
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"ta" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"tp" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/abandoned)
+"tw" = (
+/mob/living/simple_animal/hostile/undead/zombie,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"ub" = (
+/obj/machinery/computer/med_data{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"uo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	initialize_directions = 11
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 5
+	},
+/obj/machinery/door_control/bolt_control/south{
+	id = "whiteshipinnerairlock1";
+	in_use = 1;
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/syringe{
+	pixel_x = -1;
+	pixel_y = -9
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"ut" = (
+/obj/item/wrench/medical,
+/turf/simulated/floor/plasteel,
+/area/shuttle/abandoned)
+"vk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/obj/item/scalpel/laser/laser2{
+	pixel_y = 12
+	},
+/obj/structure/closet/walllocker/medlocker{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"vo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plasteel,
+/area/shuttle/abandoned)
+"vt" = (
+/obj/structure/bed/roller,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery/blue/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"vH" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/obj/machinery/sleeper/survival_pod,
+/obj/effect/turf_decal/delivery/blue/hollow,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/shuttle/abandoned)
+"vW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/flashlight/flare/glowstick/emergency,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"wD" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "whiteshipbridgeshutters";
+	layer = 3;
+	name = "Medical Ship Bridge Shutters"
+	},
+/obj/docking_port/stationary/whiteship{
+	dir = 8;
+	id = "whiteship_away";
+	name = "Deep Space";
+	dwidth = 8;
+	height = 31
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 8;
+	height = 31;
+	id = "whiteship";
+	name = "NT Medical Ship";
+	roundstart_move = null;
+	width = 21
+	},
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"wF" = (
+/obj/structure/rack,
+/obj/machinery/light_construct/directional/south,
+/obj/item/clothing/under/rank/medical/scrubs/green,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"wI" = (
+/obj/item/gun/energy/gun/mini,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"xf" = (
+/obj/machinery/power/smes,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/shuttle/abandoned)
+"xg" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/machinery/light_construct/small/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"xr" = (
+/obj/structure/rack,
+/obj/item/mod/control/pre_equipped/medical,
+/obj/item/clothing/mask/breath,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/item/tank/internals/emergency_oxygen/double,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"xx" = (
+/obj/machinery/door/airlock/medical/glass,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull";
+	tag = "icon-whitebluefull"
+	},
+/area/shuttle/abandoned)
+"xz" = (
+/obj/structure/sink/directional/west,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/item/radio,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"xP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4;
+	initialize_directions = 11
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/item/reagent_containers/syringe{
+	pixel_x = -1;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"yw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/airlock/medical/glass,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"yx" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	id_tag = "whiteshipbackairlock2";
+	locked = 1;
+	name = "External Airlock"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"yH" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "whiteshipbridgeshutters";
+	layer = 3;
+	name = "Medical Ship Bridge Shutters"
+	},
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"yQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit,
+/obj/machinery/door_control/bolt_control/north{
+	id = "whiteshipbridgeairlock";
+	in_use = 1;
+	pixel_x = -24
+	},
+/mob/living/simple_animal/hostile/undead/zombie/fast,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"zl" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 4;
+	pixel_y = 20
+	},
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"Ag" = (
+/obj/structure/closet{
+	icon_closed = "white";
+	icon_state = "white";
+	name = "Medical gear"
+	},
+/obj/item/clothing/under/rank/medical/paramedic,
+/obj/item/clothing/shoes/black,
+/obj/item/surgical_drapes,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"AL" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -1;
+	pixel_y = 7
+	},
+/obj/machinery/atmospherics/unary/passive_vent{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"Bm" = (
+/turf/template_noop,
+/area/space)
+"Bu" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1;
+	initialize_directions = 11
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	initialize_directions = 11
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"By" = (
+/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/effect/turf_decal/delivery/blue/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"BJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"BS" = (
+/obj/structure/bed,
+/obj/item/bedsheet/medical{
+	level = 1.4
+	},
+/obj/structure/curtain/open,
+/obj/machinery/atmospherics/unary/passive_vent,
+/obj/machinery/light_construct/small/west,
+/obj/machinery/door_control/shutter/east{
+	id = "whiteshiproom1";
+	name = "Room 1 Shutters Control";
+	pixel_y = -2
+	},
+/mob/living/simple_animal/hostile/undead/zombie/fast,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/abandoned)
+"BY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit,
+/obj/machinery/door/window/reinforced/normal{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"Ce" = (
+/obj/structure/sign/lifestar,
+/turf/simulated/wall/indestructible/whiteshuttle,
+/area/shuttle/abandoned)
+"Ci" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull";
+	tag = "icon-whitebluefull"
+	},
+/area/shuttle/abandoned)
+"Cj" = (
+/obj/structure/bed,
+/obj/item/bedsheet/medical{
+	level = 1.4
+	},
+/obj/effect/turf_decal/delivery/blue/hollow,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/shuttle/abandoned)
+"Ck" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"CI" = (
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"CR" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"DF" = (
+/obj/machinery/economy/vending/medical,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/shuttle/abandoned)
+"DH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small/south,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"DV" = (
+/obj/structure/rack,
+/obj/item/mop,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/radio,
+/obj/machinery/light_construct/directional/east,
+/obj/item/reagent_containers/glass/bucket,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"Ep" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/machinery/door/airlock/medical/glass,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull";
+	tag = "icon-whitebluefull"
+	},
+/area/shuttle/abandoned)
+"EF" = (
+/obj/structure/table,
+/obj/machinery/atmospherics/unary/passive_vent,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/under/rank/medical/doctor,
+/obj/item/stack/medical/ointment/aloe,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"Fw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/wood,
+/obj/machinery/light_construct/small/north,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"Fz" = (
+/obj/structure/rack,
+/obj/item/reagent_containers/glass/beaker/waterbottle/large{
+	pixel_x = 6;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle/large,
+/obj/machinery/light_construct/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"FA" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box/lights/mixed,
+/obj/item/storage/bag/trash,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/mop,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"FJ" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/space)
+"FZ" = (
+/obj/structure/closet/firecloset,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/directional/west,
+/obj/structure/sign/lifestar{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"Gg" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4;
+	tag = "icon-propulsion (NORTH)"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/abandoned)
+"Gi" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"Go" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "whiteshipouterairlock2";
+	locked = 1;
+	name = "External Airlock"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/shuttle/abandoned)
+"Gv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8;
+	initialize_directions = 11
+	},
+/obj/item/clothing/gloves/color/latex,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"Gy" = (
+/obj/structure/bed,
+/obj/item/bedsheet/medical{
+	level = 1.4
+	},
+/obj/structure/curtain/open,
+/obj/machinery/atmospherics/unary/passive_vent,
+/obj/machinery/light_construct/small/west,
+/obj/machinery/door_control/shutter/east{
+	id = "whiteshiproom2";
+	name = "Room 2 Shutters Control";
+	pixel_y = -2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/abandoned)
+"GC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/handheld_defibrillator,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"GO" = (
+/obj/effect/decal/cleanable/blood,
+/mob/living/simple_animal/hostile/undead/zombie/fast,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"Ia" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/abandoned)
+"IC" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	desc = "Труба ведёт газ на фильтрацию";
+	dir = 4;
+	name = "Труба на фильтрацию"
+	},
+/obj/machinery/computer/crew{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"IG" = (
+/obj/machinery/door_control/bolt_control/south{
+	id = "whiteshipbackairlock1";
+	in_use = 1;
+	pixel_x = -24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/shuttle/abandoned)
+"Jn" = (
+/obj/structure/table/glass,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/drinks/mug/cmo,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"JJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/rack,
+/obj/item/storage/box/autoinjectors{
+	pixel_x = 8;
+	pixel_y = -4
+	},
+/obj/machinery/light/directional/west,
+/obj/structure/sign/nosmoking_2{
+	pixel_x = -32
+	},
+/obj/item/tank/internals/emergency_oxygen/nitrogen{
+	pixel_x = -1;
+	pixel_y = -2
+	},
+/obj/item/tank/internals/emergency_oxygen/plasma{
+	pixel_x = -6;
+	pixel_y = -2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"JR" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4;
+	initialize_directions = 11
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/undead/zombie/fast,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"Kr" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"Kt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/machinery/atmospherics/unary/passive_vent{
+	dir = 1
+	},
+/obj/item/clothing/accessory/stethoscope,
+/obj/item/flashlight/pen,
+/obj/item/food/snacks/grown/apple{
+	desc = "An apple a day - keeps doctor away...";
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue"
+	},
+/area/shuttle/abandoned)
+"KE" = (
+/obj/machinery/iv_drip,
+/obj/machinery/light_construct/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"KK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/mob/living/simple_animal/hostile/undead/zombie/fast,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"KM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"Ll" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/abandoned)
+"LA" = (
+/obj/machinery/computer/shuttle/white_ship{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"Mx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small/south,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"Mz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	name = "gnawed bones"
+	},
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"MN" = (
+/obj/structure/sink{
+	layer = 4;
+	pixel_y = 19
+	},
+/obj/structure/mirror{
+	pixel_y = 35
+	},
+/obj/machinery/atmospherics/unary/passive_vent,
+/obj/effect/decal/cleanable/blood,
+/obj/item/weldingtool{
+	maximum_fuel = 15
+	},
+/obj/machinery/door_control/bolt_control/south{
+	id = "whiteshuttletoilet";
+	in_use = 1;
+	pixel_x = -25
+	},
+/mob/living/simple_animal/hostile/undead/zombie,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/shuttle/abandoned)
+"MZ" = (
+/obj/item/gps/ruin{
+	gpstag = "NT Medical Ship";
+	pixel_y = -32
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"NI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/item/circular_saw,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"NR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/door/airlock/command{
+	id_tag = "whiteshipbridgeairlock";
+	locked = 1;
+	name = "Medical Shuttle Bridge airlock"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"NV" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "whiteshiproom2";
+	layer = 3;
+	name = "Room 2 Shutters"
+	},
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"Oi" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/under/retro/medical{
+	name = "old medical officer's uniform"
+	},
+/mob/living/simple_animal/hostile/undead/zombie/fast,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"Pi" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/structure/rack,
+/obj/item/extinguisher/mini,
+/obj/item/clothing/gloves/color/fyellow,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/shuttle/abandoned)
+"PB" = (
+/obj/structure/sign/nosmoking_2{
+	pixel_x = 32
+	},
+/obj/machinery/power/port_gen/pacman,
+/obj/machinery/atmospherics/unary/passive_vent{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"PK" = (
+/obj/item/trash/liquidfood,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1;
+	initialize_directions = 11
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 5;
+	pixel_y = 30
+	},
+/obj/machinery/door_control/bolt_control/north{
+	id = "whiteshipinnerairlock2";
+	in_use = 1;
+	pixel_x = -8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"PU" = (
+/obj/machinery/light/directional/south,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = -32
+	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue"
+	},
+/area/shuttle/abandoned)
+"Qh" = (
+/obj/structure/table/tray,
+/obj/item/clothing/gloves/color/latex/nitrile,
+/obj/item/clothing/mask/surgical,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
+/obj/item/storage/firstaid/surgery{
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"Qp" = (
+/obj/structure/computerframe{
+	dir = 8
+	},
+/obj/item/shard{
+	icon_state = "small"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"Qs" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "whiteshipouterairlock1";
+	locked = 1;
+	name = "External Airlock"
+	},
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"Qz" = (
+/obj/structure/sign/nosmoking_2{
+	pixel_x = 32
+	},
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"QF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	initialize_directions = 11
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"Rf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/obj/machinery/door/airlock/medical,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull";
+	tag = "icon-whitebluefull"
+	},
+/area/shuttle/abandoned)
+"Rw" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/shuttle/abandoned)
+"RE" = (
+/obj/item/clothing/glasses/welding,
+/obj/structure/closet,
+/obj/item/screwdriver,
+/obj/item/multitool,
+/obj/item/wirecutters,
+/obj/item/analyzer,
+/obj/item/t_scanner,
+/obj/item/stack/cable_coil,
+/obj/item/flashlight,
+/obj/item/clothing/head/hardhat,
+/obj/item/weldingtool,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/shuttle/abandoned)
+"RN" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/beaker/cryoxadone{
+	pixel_x = 1;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/glass/beaker/cryoxadone{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"RT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/external{
+	id_tag = "whiteshipinnerairlock1";
+	name = "External Airlock"
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"RU" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plasteel,
+/area/shuttle/abandoned)
+"RZ" = (
+/obj/structure/shuttle/engine/propulsion{
+	tag = "icon-propulsion (NORTH)"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/abandoned)
+"Sl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	initialize_directions = 11
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"Ss" = (
+/obj/machinery/computer/operating{
+	dir = 1
+	},
+/obj/machinery/light/directional/south,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"Su" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/airlock/medical/glass,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"SU" = (
+/obj/machinery/atmospherics/unary/passive_vent{
+	dir = 1
+	},
+/obj/structure/closet/l3closet,
+/obj/item/clothing/mask/gas,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"Ta" = (
+/obj/machinery/door/airlock/medical,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"Ts" = (
+/turf/simulated/wall/indestructible/whiteshuttle,
+/area/shuttle/abandoned)
+"Tt" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/shuttle/abandoned)
+"TS" = (
+/obj/structure/table,
+/obj/item/storage/box/bodybags,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
+/obj/machinery/door/window/reinforced/normal{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"Ud" = (
+/obj/machinery/optable,
+/obj/item/clothing/mask/breath/medical,
+/obj/item/tank/internals/anesthetic,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = 26
+	},
+/obj/effect/turf_decal/delivery/blue/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"Ug" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door_control/bolt_control/north{
+	id = "whiteshipbackairlock2";
+	in_use = 1;
+	pixel_x = -24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/shuttle/abandoned)
+"Ul" = (
+/obj/structure/closet/radiation,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"Uy" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull";
+	tag = "icon-whitebluefull"
+	},
+/area/shuttle/abandoned)
+"UY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"Vj" = (
+/obj/machinery/light_construct/small/north,
+/obj/item/clothing/gloves/color/red/insulated,
+/obj/structure/toilet{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/shuttle/abandoned)
+"VU" = (
+/obj/structure/table,
+/obj/item/flashlight/lamp,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
+"WE" = (
+/obj/machinery/door/airlock/medical,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/item/soap,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"WM" = (
+/obj/item/tank/internals/emergency_oxygen/nitrogen{
+	pixel_x = 6;
+	pixel_y = -2
+	},
+/obj/item/reagent_containers/syringe{
+	pixel_x = -1;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"WS" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 1;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/structure/closet/l3closet,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"Xa" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 8;
+	icon_state = "broken";
+	icon_screen = "broken";
+	icon_keyboard = "generic_key_broken"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"XJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/storage/belt/medical,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"XS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 15
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/abandoned)
+"XW" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "whiteshipbackairlock1";
+	name = "External Airlock"
+	},
+/obj/structure/fans/tiny,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"XX" = (
+/obj/structure/sign/nosmoking_2{
+	pixel_y = -32
+	},
+/obj/machinery/light/directional/west,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 1;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/structure/coatrack,
+/obj/item/clothing/suit/storage/labcoat/cmo{
+	desc = "Bluer than the standard model. Still look like a new one";
+	name = "old chief medical officer's labcoat"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"Yn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"YG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	name = "Human remains"
+	},
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"YM" = (
+/obj/item/kitchen/utensil/spoon,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"YY" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/reagent_containers/iv_bag/blood/AMinus,
+/obj/item/reagent_containers/iv_bag/blood/APlus,
+/obj/item/reagent_containers/iv_bag/blood/BMinus,
+/obj/item/reagent_containers/iv_bag/blood/BPlus,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/OPlus,
+/obj/item/reagent_containers/iv_bag/blood/vox,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"Zf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 8;
+	name = "scrubber to outside gas pump";
+	target_pressure = 4000
+	},
+/obj/item/clothing/under/rank/medical/scrubs/purple,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull";
+	tag = "icon-whitebluefull"
+	},
+/area/shuttle/abandoned)
+"Zn" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	tag = "icon-propulsion (NORTH)"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/abandoned)
+"Zr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/crowbar/red{
+	desc = "...";
+	force = 20;
+	name = "Легендарная монтировка"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull";
+	tag = "icon-whitebluefull"
+	},
+/area/shuttle/abandoned)
+"Zx" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+"ZB" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	tag = "icon-propulsion (NORTH)"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/abandoned)
+"ZP" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"ZS" = (
+/obj/structure/sign/vacuum{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/shuttle/abandoned)
+"ZU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/item/kitchen/utensil/fork,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
+
+(1,1,1) = {"
+Bm
+Bm
+Bm
+Bm
+Bm
+Bm
+Zn
+Zn
+Bm
+Zn
+Zn
+Bm
+Bm
+Bm
+Bm
+Bm
+Bm
+"}
+(2,1,1) = {"
+Bm
+Bm
+Bm
+Bm
+Bm
+Ts
+Ts
+aA
+Bm
+aA
+Ts
+Ts
+Bm
+Bm
+Bm
+Bm
+Bm
+"}
+(3,1,1) = {"
+Bm
+Bm
+Bm
+Bm
+Bm
+aA
+oH
+Ts
+Bm
+Ts
+gL
+aA
+Bm
+Bm
+Bm
+Bm
+Bm
+"}
+(4,1,1) = {"
+Bm
+Bm
+Bm
+Bm
+Bm
+yx
+Ug
+Ts
+Bm
+Ts
+IG
+XW
+Bm
+Bm
+Bm
+Bm
+Bm
+"}
+(5,1,1) = {"
+Bm
+Bm
+Bm
+Bm
+Bm
+Ts
+is
+Ts
+Bm
+Ts
+ZS
+Ts
+Bm
+Bm
+Bm
+Bm
+Bm
+"}
+(6,1,1) = {"
+Bm
+Bm
+Bm
+Bm
+Bm
+Ce
+CI
+Ts
+Bm
+Ts
+vW
+Ce
+Bm
+Bm
+Bm
+Bm
+Bm
+"}
+(7,1,1) = {"
+Bm
+Bm
+FJ
+Bm
+Bm
+Ts
+ab
+Ts
+Bm
+Ts
+Mx
+Ts
+Bm
+Bm
+Bm
+Bm
+Bm
+"}
+(8,1,1) = {"
+Bm
+Bm
+Bm
+Bm
+Zn
+Ts
+KM
+Ts
+Bm
+Ts
+CI
+Ts
+Zn
+Bm
+Bm
+Bm
+Bm
+"}
+(9,1,1) = {"
+Bm
+Bm
+Bm
+Bm
+aA
+Ts
+Zr
+Ts
+Bm
+Ts
+rC
+Ts
+aA
+Bm
+Bm
+Bm
+Bm
+"}
+(10,1,1) = {"
+Bm
+Bm
+Bm
+Zn
+Ts
+Pi
+RU
+Ts
+Bm
+Ts
+ut
+RE
+Ts
+Zn
+Bm
+Bm
+Bm
+"}
+(11,1,1) = {"
+Bm
+Bm
+Bm
+aA
+Ts
+XS
+af
+Ts
+Bm
+Ts
+bT
+FA
+Ts
+aA
+Bm
+Bm
+Bm
+"}
+(12,1,1) = {"
+Bm
+Bm
+Ts
+Ts
+xf
+vo
+DH
+Ts
+hs
+Ts
+Fw
+Ll
+Rw
+Ts
+Ts
+Bm
+Bm
+"}
+(13,1,1) = {"
+Bm
+Bm
+pG
+jt
+Mz
+qE
+PB
+Ts
+nH
+Ts
+Qz
+dy
+sZ
+kn
+pG
+Bm
+Bm
+"}
+(14,1,1) = {"
+Bm
+ZB
+Ts
+Ts
+Ts
+jD
+Ts
+Ts
+IC
+Ts
+Ts
+ik
+Ts
+Ts
+Ts
+RZ
+Bm
+"}
+(15,1,1) = {"
+Bm
+aA
+Ts
+Ts
+io
+Ck
+Ep
+Uy
+Zf
+Ci
+xx
+ic
+dm
+Ts
+Ts
+aA
+Bm
+"}
+(16,1,1) = {"
+Bm
+aA
+Ts
+Qh
+QF
+Ss
+Ts
+CR
+po
+gc
+Ts
+vt
+NI
+YY
+aA
+aA
+Bm
+"}
+(17,1,1) = {"
+Bm
+nb
+nk
+bg
+xz
+Ud
+Ts
+Ts
+qi
+Ts
+Ts
+sW
+Gi
+Gv
+SU
+nb
+Bm
+"}
+(18,1,1) = {"
+Ts
+aA
+aA
+Ta
+Ts
+Ts
+Ts
+vH
+pE
+ju
+Ts
+Cj
+tw
+UY
+KE
+aA
+Ts
+"}
+(19,1,1) = {"
+ih
+BS
+ma
+gB
+ca
+Ts
+pz
+tp
+Ia
+Kt
+Ts
+Ts
+Ts
+vk
+Kr
+dr
+Ts
+"}
+(20,1,1) = {"
+Ts
+Ts
+aA
+jg
+wF
+Ts
+RN
+mB
+bX
+PU
+Ts
+Vj
+Ts
+ii
+GO
+BY
+Ts
+"}
+(21,1,1) = {"
+NV
+Gy
+ma
+Bu
+WS
+Ts
+By
+hl
+fo
+cl
+Ts
+MN
+iX
+Sl
+ZP
+TS
+Ts
+"}
+(22,1,1) = {"
+Ce
+Ts
+aA
+gD
+Ts
+Ts
+dv
+Tt
+gs
+DF
+Ts
+bP
+Ts
+WE
+aA
+Ts
+Ce
+"}
+(23,1,1) = {"
+Go
+ph
+hR
+ZU
+cT
+aA
+Ts
+Ts
+Rf
+aA
+Ts
+Ts
+Ts
+lO
+RT
+nQ
+Qs
+"}
+(24,1,1) = {"
+Ts
+Ts
+aA
+PK
+ta
+AL
+aA
+FZ
+Zx
+xg
+aA
+EF
+JJ
+uo
+aA
+Ts
+Ts
+"}
+(25,1,1) = {"
+Bm
+nb
+xr
+JR
+XJ
+iu
+yw
+GC
+dU
+ec
+Su
+kC
+KK
+xP
+gf
+nb
+mj
+"}
+(26,1,1) = {"
+Bm
+Ts
+Ts
+bY
+YM
+oR
+aA
+Ts
+NR
+Ts
+aA
+Ag
+WM
+Ul
+Ts
+Ts
+Bm
+"}
+(27,1,1) = {"
+Bm
+Bm
+aA
+aA
+Fz
+aA
+aA
+aI
+BJ
+XX
+aA
+aA
+DV
+aA
+aA
+Bm
+Bm
+"}
+(28,1,1) = {"
+Bm
+Bm
+Gg
+Ce
+Ts
+aA
+zl
+yQ
+Yn
+YG
+MZ
+aA
+Ts
+Ce
+Gg
+Bm
+Bm
+"}
+(29,1,1) = {"
+Bm
+Bm
+Bm
+Bm
+aA
+VU
+kT
+wI
+iO
+Oi
+sX
+Jn
+aA
+Bm
+Bm
+Bm
+Bm
+"}
+(30,1,1) = {"
+Bm
+Bm
+Bm
+Bm
+yH
+yH
+ub
+Qp
+oB
+LA
+Xa
+yH
+yH
+Bm
+Bm
+Bm
+Bm
+"}
+(31,1,1) = {"
+Bm
+Bm
+Bm
+Bm
+Bm
+yH
+yH
+yH
+wD
+yH
+yH
+yH
+Bm
+Bm
+Bm
+Bm
+Bm
+"}

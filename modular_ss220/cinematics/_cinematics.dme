@@ -1,0 +1,13 @@
+#include "_cinematics.dm"
+
+#include "code/_defines.dm"
+#include "code/_cinematics.dm"
+#include "code/cinematics_preferences.dm"
+#include "code/cinematics_client_proc.dm"
+#include "code/cinematics_screen.dm"
+#include "code/cinematics_ticker.dm"
+#include "code/cinematics/malf_doomsday.dm"
+#include "code/cinematics/narsie_summon.dm"
+#include "code/cinematics/nuke_cinematics.dm"
+#include "code/cinematics/credits.dm"
+#include "code/~undefs.dm"

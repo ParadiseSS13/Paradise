@@ -614,6 +614,8 @@ SUBSYSTEM_DEF(ticker)
 	SSpersistent_data.save()
 	to_chat(world, end_of_round_info.Join("<br>"))
 
+	SScredits.play_credits_cinematic()
+
 	// Display the scoreboard window
 	score.scoreboard()
 

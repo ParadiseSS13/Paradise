@@ -1,0 +1,4464 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ae" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"an" = (
+/obj/structure/holosign/barrier/atmos,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"aA" = (
+/obj/structure/mecha_wreckage/phazon{
+	obj_integrity = 40
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"aH" = (
+/obj/structure/closet/crate/secure/loot,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/directional/north,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"aK" = (
+/obj/structure/closet/crate{
+	icon_state = "radiation";
+	icon_opened = "radiation_open"
+	},
+/obj/item/stack/sheet/mineral/uranium/fifty,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"be" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_y = 2;
+	pixel_x = 4
+	},
+/obj/item/stamp/granted{
+	pixel_y = 6;
+	pixel_x = -8
+	},
+/obj/item/folder/yellow,
+/obj/item/pen,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"bf" = (
+/obj/structure/girder/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"bh" = (
+/obj/structure/table,
+/obj/item/toy/figure/mech/seraph{
+	pixel_y = 9;
+	pixel_x = -5
+	},
+/obj/machinery/door_control/shutter{
+	pixel_x = 6;
+	id = "bdoorright_mech"
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"bn" = (
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"bo" = (
+/obj/item/cigbutt{
+	pixel_y = 15;
+	pixel_x = 6
+	},
+/obj/item/cigbutt,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"bs" = (
+/obj/structure/chair/stool/bar,
+/turf/simulated/floor/carpet/blue,
+/area/ruin/space/powered)
+"bw" = (
+/obj/item/stock_parts/cell/hyper/empty{
+	pixel_y = 8
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"bx" = (
+/obj/structure/computerframe{
+	dir = 1
+	},
+/turf/simulated/floor/bluegrid,
+/area/ruin/space/powered)
+"bC" = (
+/obj/structure/closet/crate/trashcart,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/directional/north,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"bF" = (
+/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"bK" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"bP" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers/meele/axe,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"bR" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers/meele,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"cd" = (
+/obj/structure/shuttle/engine/large,
+/turf/template_noop,
+/area/template_noop)
+"ce" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"cg" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"cz" = (
+/obj/effect/turf_decal/caution{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"cF" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/soda{
+	dir = 8;
+	pixel_y = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"cG" = (
+/obj/structure/table,
+/obj/item/crowbar,
+/obj/machinery/light_construct/directional/east,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"cJ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
+/area/ruin/space/powered)
+"cK" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers/gun/spacegun,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"cX" = (
+/obj/effect/turf_decal/caution,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"cZ" = (
+/mob/living/simple_animal/hostile/scavengers/meele,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"dk" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"dL" = (
+/obj/structure{
+	icon_state = "controller-o";
+	icon = 'icons/obj/stationobjs.dmi';
+	desc = "These are some kind of high-tech structures.";
+	name = "data server";
+	density = 1
+	},
+/turf/simulated/floor/bluegrid,
+/area/ruin/space/powered)
+"eq" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit,
+/obj/structure/barricade/security,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"et" = (
+/obj/structure/sign/evac,
+/turf/simulated/wall/indestructible/whiteshuttle,
+/area/ruin/space/powered)
+"ev" = (
+/obj/machinery/door/airlock/highsecurity,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"eJ" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "sright_mech"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"eR" = (
+/obj/structure/table_frame,
+/obj/item/radio,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"eY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"fk" = (
+/obj/structure/closet/crate,
+/obj/item/mecha_parts/mecha_equipment/extinguisher,
+/obj/item/mecha_parts/mecha_equipment/repair_droid,
+/obj/item/mecha_modkit/voice/honk{
+	pixel_y = 10;
+	pixel_x = 3
+	},
+/obj/item/mecha_parts/mecha_equipment/thrusters,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"fK" = (
+/obj/structure/computerframe,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/obj/item/shard{
+	icon_state = "small"
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"fO" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/camera_bug,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"gB" = (
+/obj/structure/closet/secure_closet/freezer/fridge,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"gH" = (
+/obj/structure/mecha_wreckage/ripley{
+	obj_integrity = 20
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"gU" = (
+/obj/machinery/door_control/shutter/south{
+	id = "sleft_mech";
+	pixel_x = 8
+	},
+/obj/machinery/light_construct/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"hj" = (
+/obj/structure/bed,
+/obj/item/bedsheet/purple,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered)
+"ho" = (
+/obj/structure/computerframe{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"hw" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"hx" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"hK" = (
+/obj/structure/table,
+/obj/item/ashtray/glass,
+/obj/item/toy/figure/mech/phazon{
+	pixel_y = 20;
+	pixel_x = 5
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"hM" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 4;
+	icon_keyboard = "syndie_key";
+	icon_screen = "syndinavigation"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"hW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"ib" = (
+/obj/machinery/light_construct/directional/east,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"il" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered)
+"io" = (
+/obj/machinery/door_control/shutter/north{
+	id = "sright_mech";
+	pixel_x = -8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"ir" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"iG" = (
+/obj/effect/landmark/burnturf,
+/obj/item/flashlight{
+	on = 1
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"iK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"iP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"iT" = (
+/obj/structure/closet,
+/obj/item/clothing/head/soft,
+/obj/item/clothing/head/soft,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/gloves/color/black,
+/obj/machinery/light_construct/directional/east,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"iU" = (
+/obj/item/kirbyplants,
+/obj/machinery/light_construct/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"jq" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/drinks/cans/beer{
+	pixel_x = -4;
+	pixel_y = 6
+	},
+/obj/item/cigbutt{
+	pixel_y = 10;
+	pixel_x = 6
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"jx" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"jz" = (
+/obj/structure/closet/crate/can,
+/obj/item/toy/figure/mech/honk,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"jP" = (
+/obj/structure/table,
+/obj/item/wrench,
+/obj/item/weldingtool,
+/obj/item/clothing/glasses/welding,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"jS" = (
+/obj/effect/decal/cleanable/ash,
+/obj/item/cigbutt{
+	pixel_y = 10;
+	pixel_x = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"jU" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"kv" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"kD" = (
+/obj/structure/table,
+/obj/item/hand_labeler{
+	pixel_y = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"kE" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"kK" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers/meele/crusher,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"kM" = (
+/mob/living/simple_animal/hostile/scavengers/gun/spacegun,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"kO" = (
+/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"kR" = (
+/obj/structure/table,
+/obj/item/stack/rods{
+	amount = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/metal{
+	pixel_x = -3;
+	amount = 20
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 15
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"kU" = (
+/obj/structure/railing,
+/turf/template_noop,
+/area/template_noop)
+"lf" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"lk" = (
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"ll" = (
+/obj/machinery/porta_turret{
+	faction = "scavengers";
+	lethal = 1
+	},
+/obj/effect/dummy/lighting_obj,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"ly" = (
+/obj/effect/turf_decal/arrows{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"lF" = (
+/obj/structure/closet/walllocker/emerglocker/south,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"lH" = (
+/obj/structure/lattice{
+	icon_state = "lattice-2"
+	},
+/obj/structure/marker_beacon/dock_marker{
+	name = "transport way beacon"
+	},
+/turf/template_noop,
+/area/template_noop)
+"lR" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"lS" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"ma" = (
+/obj/item/trash/syndi_cakes,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"mt" = (
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/obj/machinery/door/poddoor{
+	id_tag = "hang1_mech"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"mN" = (
+/obj/machinery/button/windowtint/west{
+	id = "mech_toilet"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/toilet{
+	dir = 1
+	},
+/obj/machinery/light_construct/directional/west,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"mU" = (
+/mob/living/simple_animal/hostile/scavengers/gun,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"nc" = (
+/obj/structure/closet/crate/secure/loot,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/directional/south,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"ng" = (
+/obj/structure/table/wood,
+/obj/item/clothing/mask/cigarette/rollie{
+	list_reagents = list("thc" = 40, "cbd" = 20)
+	},
+/obj/item/clothing/mask/cigarette/rollie{
+	list_reagents = list("thc" = 40, "cbd" = 20);
+	pixel_y = 3
+	},
+/obj/item/storage/fancy/rollingpapers{
+	pixel_y = 7;
+	pixel_x = 6
+	},
+/obj/item/clothing/mask/cigarette/rollie{
+	list_reagents = list("thc" = 40, "cbd" = 20);
+	pixel_y = 3;
+	pixel_x = -4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"nj" = (
+/obj/structure/chair,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"nk" = (
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"nx" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered)
+"nA" = (
+/obj/machinery/door/airlock/external{
+	locked = 1
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"nM" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"nV" = (
+/obj/machinery/light_construct/directional/east,
+/obj/structure/table,
+/obj/item/hand_labeler{
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle{
+	pixel_y = 2;
+	pixel_x = -8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"ob" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"oh" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"ol" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"ov" = (
+/obj/effect/decal/cleanable/ash,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"oE" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"oL" = (
+/obj/machinery/light_construct/directional/south,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"oY" = (
+/obj/structure/closet/crate{
+	icon_state = "scicrate";
+	icon_opened = "scicrate_open"
+	},
+/obj/item/stack/sheet/mineral/plasma/fifty,
+/obj/item/stack/sheet/mineral/plasma/fifty,
+/obj/item/stack/sheet/plasteel{
+	amount = 50
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"pm" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers/meele,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"pn" = (
+/obj/structure/chair/stool,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"pw" = (
+/obj/structure/railing/corner,
+/turf/template_noop,
+/area/template_noop)
+"pQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"qa" = (
+/obj/structure/table,
+/obj/item/weldingtool,
+/obj/item/clothing/head/welding/flamedecal,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"qt" = (
+/obj/structure/lattice{
+	icon_state = "lattice-2"
+	},
+/obj/structure/marker_beacon/dock_marker/collision,
+/turf/template_noop,
+/area/template_noop)
+"qv" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"qA" = (
+/obj/mecha/combat/durand/old{
+	obj_integrity = 120
+	},
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/ruin/space/powered)
+"qB" = (
+/obj/machinery/door_control/shutter/south{
+	id = "sright_mech";
+	pixel_x = -8
+	},
+/obj/machinery/light_construct/directional/east,
+/mob/living/simple_animal/hostile/scavengers/laser,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"qC" = (
+/mob/living/simple_animal/hostile/scavengers/laser,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"qT" = (
+/obj/machinery/atmospherics/portable/pump,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"qU" = (
+/turf/template_noop,
+/area/template_noop)
+"qW" = (
+/obj/machinery/door/airlock/hatch,
+/obj/effect/turf_decal/stripes{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"rn" = (
+/obj/item/trash/can,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"ro" = (
+/obj/structure{
+	icon_state = "mechfab1";
+	desc = "Nothing is being built.";
+	name = "exosuit fabricator";
+	icon = 'icons/obj/stationobjs.dmi';
+	density = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"rs" = (
+/obj/structure/rack/gunrack,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/directional/south,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"rJ" = (
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "mech_toilet"
+	},
+/obj/machinery/door/poddoor{
+	id_tag = "bwindows_mech"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"rU" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers/laser,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"rZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/drinks/cans/beer{
+	pixel_x = 4;
+	pixel_y = 4;
+	volume = 0
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"sb" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/mecha_wreckage/ripley{
+	obj_integrity = 20
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"sh" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"ss" = (
+/obj/structure/computerframe{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"sw" = (
+/obj/machinery/light_construct/directional/west,
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"sD" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"sK" = (
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered)
+"sP" = (
+/obj/machinery/light_construct/directional/east,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"sU" = (
+/obj/structure/closet/crate/secure/loot,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"tf" = (
+/obj/structure/table,
+/obj/item/toy/figure/mech/durand{
+	pixel_y = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"tj" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_y = 12
+	},
+/turf/simulated/floor/carpet/blue,
+/area/ruin/space/powered)
+"tm" = (
+/obj/item/chair{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"to" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"tv" = (
+/turf/simulated/wall/indestructible/whiteshuttle,
+/area/ruin/space/unpowered/unpowered_structures)
+"tE" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"tK" = (
+/obj/structure/mecha_wreckage/ripley{
+	obj_integrity = 20
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"tM" = (
+/obj/effect/decal/cleanable/ants,
+/mob/living/simple_animal/hostile/scavengers/meele,
+/turf/simulated/floor/carpet/blue,
+/area/ruin/space/powered)
+"ua" = (
+/obj/structure/chair,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"uk" = (
+/obj/structure/rack/gunrack,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"ut" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"uI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"uU" = (
+/obj/structure/closet/walllocker/emerglocker/north,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"vc" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/item/mecha_parts/part/odysseus_torso,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"vd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/broken{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"vo" = (
+/obj/item/reagent_containers/drinks/cans/beer{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"vq" = (
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/obj/effect/decal/cleanable/glass,
+/mob/living/simple_animal/hostile/scavengers/gun,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"vv" = (
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 8
+	},
+/obj/structure/shuttle/engine/heater{
+	anchored = 0;
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"vw" = (
+/obj/item/stack/packageWrap,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"vy" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"vF" = (
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"vL" = (
+/obj/machinery/economy/vending/snack/free,
+/obj/machinery/light_construct/directional/west,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"vP" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "shang1_mech"
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"wi" = (
+/obj/effect/turf_decal/caution,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers/laser/spacelaser,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"wl" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "sright_mech"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"wn" = (
+/obj/item/wrench,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"wp" = (
+/obj/machinery/door/poddoor{
+	id_tag = "bwindows_mech"
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"wr" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"wv" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"wF" = (
+/obj/machinery/door/airlock/external{
+	req_access_txt = "150"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"wZ" = (
+/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"xa" = (
+/obj/structure/chair/stool,
+/obj/item/gps/ruin{
+	pixel_x = 32;
+	gpstag = "####"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"xb" = (
+/obj/structure/bed,
+/obj/item/bedsheet/purple,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered)
+"xe" = (
+/obj/machinery/mech_bay_recharge_port,
+/turf/simulated/floor/bluegrid,
+/area/ruin/space/powered)
+"xF" = (
+/obj/structure/computerframe{
+	dir = 8
+	},
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/obj/item/shard{
+	icon_state = "large";
+	pixel_y = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"xG" = (
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"xY" = (
+/obj/structure/chair/sofa/corp/right,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"yj" = (
+/obj/structure/table,
+/obj/item/stack/sheet/mineral/silver{
+	amount = 15;
+	pixel_y = 5;
+	pixel_x = 3
+	},
+/obj/item/stack/sheet/mineral/diamond{
+	amount = 5;
+	pixel_y = 4;
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"yk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"ym" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/mirror{
+	icon_state = "mirror_broke";
+	pixel_x = -30
+	},
+/obj/structure/sink/directional/east,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"yr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"ys" = (
+/turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
+/area/ruin/space/powered)
+"yt" = (
+/obj/machinery/constructable_frame/machine_frame{
+	icon_state = "box_1"
+	},
+/turf/simulated/floor/bluegrid,
+/area/ruin/space/powered)
+"yy" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"yS" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"yU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/directional/east,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"ze" = (
+/obj/structure/girder/reinforced,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"zy" = (
+/obj/machinery/computer/nonfunctional{
+	icon_state = "entertainment_console";
+	pixel_y = 32;
+	icon_screen = "entertainment_console_broken";
+	icon_keyboard = null;
+	density = 0
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"zF" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"zI" = (
+/obj/structure/railing{
+	dir = 1;
+	layer = 3.9
+	},
+/turf/template_noop,
+/area/template_noop)
+"zK" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "rampbottom"
+	},
+/area/ruin/space/powered)
+"zM" = (
+/obj/machinery/light_construct/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers/meele,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Ac" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"Ae" = (
+/obj/machinery/door_control/shutter/north{
+	id = "shang1_mech";
+	pixel_x = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers/gun,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"Ah" = (
+/obj/item/stack/rods,
+/turf/template_noop,
+/area/template_noop)
+"An" = (
+/obj/machinery/door/airlock,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Ao" = (
+/obj/structure/railing/corner{
+	dir = 4;
+	layer = 3.9
+	},
+/turf/template_noop,
+/area/template_noop)
+"Aq" = (
+/obj/machinery/power/port_gen/pacman,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"AC" = (
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"AR" = (
+/obj/item/flag,
+/obj/machinery/light_construct/directional/east,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"AS" = (
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/stock_parts/cell/hyper/empty,
+/obj/item/stack/cable_coil{
+	amount = 5
+	},
+/obj/item/circuitboard/smes{
+	icon_state = "command_broken"
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"AT" = (
+/obj/item/chair,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"Ba" = (
+/obj/effect/dummy/lighting_obj/moblight,
+/turf/template_noop,
+/area/template_noop)
+"Be" = (
+/obj/effect/turf_decal/caution{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Bh" = (
+/obj/item/kirbyplants,
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"Bj" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/machinery/light/small/directional/south,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"BD" = (
+/obj/structure/computerframe{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"BX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Cl" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers/meele/crusher,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"Cm" = (
+/obj/machinery/light_construct/directional/north,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/walllocker/emerglocker/north,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Co" = (
+/obj/structure/table,
+/obj/item/mecha_parts/core,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Cp" = (
+/obj/structure/railing,
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust,
+/obj/machinery/light_construct/directional/west,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Cw" = (
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/powered)
+"Cy" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Cz" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/mecha_wreckage/durand/old,
+/obj/effect/decal/cleanable/dirt{
+	obj_integrity = 200
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"CC" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/powered)
+"CF" = (
+/obj/machinery/mecha_part_fabricator,
+/obj/item/mecha_parts/part/odysseus_head,
+/obj/item/mecha_parts/part/odysseus_right_leg,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"CK" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id_tag = "bdoorright_mech"
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"CW" = (
+/obj/machinery/door/airlock/external{
+	locked = 1;
+	welded = 1
+	},
+/obj/structure/fans/tiny,
+/obj/structure/barricade/wooden{
+	layer = 3.11
+	},
+/obj/structure/barricade/wooden/crude{
+	layer = 3.11
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"CZ" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/mecha_wreckage/gygax,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Dh" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "sright_mech"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"Do" = (
+/obj/machinery/light_construct/directional/west,
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/door_control/shutter/north{
+	id = "hang1_mech";
+	pixel_x = -6
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"DE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/nonfunctional{
+	icon_state = "entertainment_console";
+	pixel_y = 32;
+	icon_screen = "entertainment_console_broken";
+	icon_keyboard = null;
+	density = 0
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"DG" = (
+/obj/machinery/door/airlock/hatch,
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"DJ" = (
+/obj/structure/closet/walllocker/emerglocker/north,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"Eb" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"Ec" = (
+/obj/structure/closet/firecloset,
+/obj/machinery/light_construct/directional/east,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Ei" = (
+/obj/structure/chair,
+/obj/machinery/light/small/directional/north,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"EI" = (
+/obj/structure{
+	icon_state = "controller-p";
+	icon = 'icons/obj/stationobjs.dmi';
+	desc = "These are some kind of high-tech structures.";
+	name = "data server";
+	density = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/bluegrid,
+/area/ruin/space/powered)
+"EO" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/scavengers/laser,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"EP" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers/laser/spacelaser,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Fh" = (
+/obj/structure/chair/sofa/corp/left,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Fn" = (
+/obj/structure/mecha_wreckage/phazon{
+	obj_integrity = 40
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"Fr" = (
+/obj/structure/closet/crate{
+	icon_state = "scicrate";
+	icon_opened = "scicrate_open"
+	},
+/obj/item/stack/sheet/mineral/plastitanium/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Ft" = (
+/obj/machinery/light_construct/directional/south,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered)
+"Fu" = (
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Fv" = (
+/obj/structure/table,
+/obj/machinery/door_control/shutter{
+	id = "bwindows_mech"
+	},
+/obj/machinery/light_construct/directional/east,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"Fx" = (
+/obj/structure{
+	icon_state = "holopad_open";
+	icon = 'icons/obj/stationobjs.dmi';
+	desc = "Holopad for long-distance communication.";
+	name = "holopad"
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"Fy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"FA" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_x = 1;
+	pixel_y = 6
+	},
+/obj/item/clothing/head/welding{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/item/storage/belt/utility,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"FF" = (
+/obj/structure/closet/walllocker/emerglocker/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"FK" = (
+/obj/machinery/light_construct/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"FS" = (
+/obj/machinery/light_construct/directional/west,
+/obj/structure/table,
+/obj/item/radio/off,
+/obj/item/radio/off{
+	pixel_y = 4;
+	pixel_x = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Gl" = (
+/obj/structure/table,
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/obj/item/reagent_containers/drinks/coffee{
+	list_reagents = list("coffee"=0);
+	pixel_x = 10;
+	pixel_y = 7
+	},
+/obj/item/book/manual/ripley_build_and_repair{
+	pixel_x = -2
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"Gt" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"Gu" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "shang2_mech"
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
+/obj/machinery/door_control/shutter/north{
+	id = "shang2_mech"
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"GF" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"GH" = (
+/obj/effect/turf_decal/box,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"GP" = (
+/obj/machinery/door/poddoor{
+	id_tag = "hang1_mech"
+	},
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"GS" = (
+/obj/structure/table,
+/obj/item/clothing/head/soft{
+	pixel_y = 11;
+	pixel_x = 7
+	},
+/obj/item/deck/cards/tiny{
+	pixel_y = -2
+	},
+/obj/item/toy/figure/mech/ripley{
+	pixel_y = 20;
+	pixel_x = -6
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"Hb" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers/meele/crusher,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Hi" = (
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"Hl" = (
+/obj/structure{
+	icon_state = "blackbox_b";
+	icon = 'icons/obj/stationobjs.dmi';
+	desc = "This is an old-style communications server.";
+	name = "communications server";
+	density = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/bluegrid,
+/area/ruin/space/powered)
+"Hn" = (
+/obj/machinery/computer/nonfunctional{
+	name = "shuttle control console";
+	desc = "The screen dims greens with an ERROR message. It looks completely unusable."
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"Hs" = (
+/obj/machinery/power/smes,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"HB" = (
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"HG" = (
+/obj/effect/turf_decal/caution{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"HJ" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/gun/energy/gun/turret,
+/obj/item/flashlight/seclite,
+/obj/item/trash/candy,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"HO" = (
+/obj/structure/computerframe,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"HQ" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"HU" = (
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "shang3_mech"
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Ij" = (
+/obj/machinery/economy/vending/cigarette/free,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Iw" = (
+/obj/structure/table,
+/obj/machinery/light_construct/directional/west,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"Ix" = (
+/obj/structure/computerframe,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/obj/item/shard{
+	icon_state = "small"
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"IG" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"II" = (
+/obj/machinery/computer/nonfunctional{
+	name = "exosuit control console";
+	desc = "The screen dims green with a bright ERROR message. It looks completely unusable."
+	},
+/obj/structure/computerframe,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_y = 9
+	},
+/obj/item/shard,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"IK" = (
+/obj/effect/landmark/burnturf,
+/obj/item/stack/sheet/mineral/titanium,
+/obj/item/stack/rods,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"IL" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"Ja" = (
+/obj/machinery/constructable_frame/machine_frame{
+	icon_state = "box_1"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/bluegrid,
+/area/ruin/space/powered)
+"Jq" = (
+/obj/item/kirbyplants,
+/obj/machinery/light_construct/directional/east,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Jr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"Js" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "shang2_mech"
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Ju" = (
+/obj/effect/turf_decal/arrows{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"JP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/flashlight{
+	on = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"JZ" = (
+/obj/structure/table/wood,
+/obj/item/trash/semki,
+/obj/item/storage/box/zipties{
+	pixel_y = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"Kb" = (
+/turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
+/area/ruin/space/powered)
+"Kc" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Kl" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/belt/utility,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"KH" = (
+/obj/structure/table,
+/obj/machinery/status_display/directional/north,
+/obj/item/trash/plate,
+/obj/item/newspaper{
+	pixel_y = 9;
+	pixel_x = 7
+	},
+/turf/simulated/floor/carpet/blue,
+/area/ruin/space/powered)
+"KW" = (
+/obj/effect/landmark/damageturf,
+/obj/structure/railing{
+	dir = 5
+	},
+/mob/living/simple_animal/hostile/scavengers/laser/spacelaser,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"KY" = (
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"La" = (
+/obj/structure/mecha_wreckage/ripley{
+	obj_integrity = 20
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"Lj" = (
+/obj/item/stack/cable_coil{
+	amount = 5
+	},
+/mob/living/simple_animal/hostile/scavengers/meele,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"Lo" = (
+/obj/machinery/door_control/shutter/west{
+	id = "shang3_mech";
+	pixel_y = -8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Lv" = (
+/obj/structure/table/wood,
+/obj/item/ashtray/plastic,
+/obj/item/cigbutt{
+	pixel_y = 7
+	},
+/obj/item/cigbutt,
+/obj/item/cigbutt{
+	pixel_y = 15;
+	pixel_x = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"Lz" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "sright_mech"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"LC" = (
+/obj/machinery/door_control/shutter/south{
+	id = "shang1_mech";
+	pixel_x = 8
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"LF" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "shang2_mech"
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"LV" = (
+/obj/machinery/constructable_frame/machine_frame{
+	icon_state = "box_1"
+	},
+/obj/item/stack/cable_coil{
+	amount = 5
+	},
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"LY" = (
+/obj/structure/rack/gunrack,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"Md" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Me" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
+	},
+/mob/living/simple_animal/hostile/scavengers/laser/spacelaser,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Mi" = (
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/ruin/space/powered)
+"Mp" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/obj/item/stack/sheet/mineral/titanium,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Mr" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"MN" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"MY" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "sleft_mech"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"Nb" = (
+/obj/structure/chair/stool,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Ng" = (
+/obj/machinery/light_construct/directional/south,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Nl" = (
+/obj/structure/lattice{
+	icon_state = "lattice-3"
+	},
+/turf/template_noop,
+/area/template_noop)
+"Nm" = (
+/obj/structure/computerframe,
+/obj/item/shard{
+	icon_state = "large";
+	pixel_y = 9
+	},
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"Nn" = (
+/obj/machinery/light_construct/directional/west,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"NF" = (
+/obj/structure/mecha_wreckage/honker,
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/ruin/space/powered)
+"NH" = (
+/obj/structure/table,
+/obj/item/stack/sheet/metal{
+	pixel_x = -3;
+	amount = 20
+	},
+/obj/item/stack/sheet/glass{
+	amount = 20;
+	pixel_x = 3
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Oh" = (
+/obj/machinery/light_construct/directional/north,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"OB" = (
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"Pf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"Pi" = (
+/obj/structure/railing{
+	dir = 6
+	},
+/turf/template_noop,
+/area/template_noop)
+"Pm" = (
+/obj/structure/table,
+/obj/item/stack/sheet/mineral/titanium{
+	amount = 10;
+	pixel_x = -1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Po" = (
+/obj/structure/rack/gunrack,
+/obj/machinery/light/small/directional/north,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"PB" = (
+/obj/structure/extinguisher_cabinet/directional/east,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"PF" = (
+/obj/structure/mecha_wreckage/durand{
+	obj_integrity = 100
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"PS" = (
+/obj/structure/closet/secure_closet/scientist,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"PT" = (
+/obj/effect/spawner/window/shuttle,
+/obj/machinery/door/poddoor{
+	id_tag = "bwindows_mech"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"PV" = (
+/obj/machinery/door/poddoor{
+	id_tag = "bdoorleft_mech"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Qb" = (
+/obj/structure/door_assembly/door_assembly_ext,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Qd" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Qf" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/ruin/space/powered)
+"Ql" = (
+/obj/structure/shuttle/engine/heater{
+	anchored = 0;
+	dir = 4
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"Qt" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers/meele/axe,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"Qx" = (
+/obj/item/flag/rnd{
+	desc = "It's a flag."
+	},
+/obj/machinery/light_construct/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"QD" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"QF" = (
+/obj/structure/closet/crate,
+/obj/item/mecha_parts/mecha_equipment/drill,
+/obj/item/mecha_parts/mecha_equipment/drill{
+	pixel_y = 10
+	},
+/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp{
+	pixel_y = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"QN" = (
+/obj/item/cigbutt/roach,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/oil,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"QS" = (
+/obj/item/reagent_containers/drinks/cans/beer{
+	pixel_x = 4;
+	pixel_y = 4;
+	volume = 0
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"QY" = (
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"Rb" = (
+/obj/structure/closet/crate{
+	icon_state = "scicrate";
+	icon_opened = "scicrate_open"
+	},
+/obj/item/stack/sheet/mineral/gold/fifty,
+/obj/item/stack/sheet/mineral/silver/fifty,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Ry" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"RF" = (
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"RM" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer{
+	list_reagents = list("beer"=0);
+	pixel_x = 9;
+	pixel_y = -3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"RW" = (
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"Sb" = (
+/turf/simulated/wall/indestructible/whiteshuttle,
+/area/ruin/space/powered)
+"Sc" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers/gun/spacegun,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"Sd" = (
+/obj/structure/table,
+/obj/item/toy/plushie/ipcplushie,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"Sq" = (
+/obj/machinery/light_construct/directional/west,
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"Sy" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/multitool,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"SA" = (
+/obj/structure/fans/tiny/invisible,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"SH" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/structure/barricade/wooden/crude{
+	layer = 3.11
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"SL" = (
+/obj/structure/shuttle/engine/heater{
+	anchored = 0;
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"SN" = (
+/obj/structure/mecha_wreckage/ripley{
+	obj_integrity = 40
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"SV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"Te" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/hyper,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Tf" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"Tg" = (
+/obj/effect/turf_decal/arrows{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Tl" = (
+/obj/structure/shuttle/engine/heater{
+	anchored = 0;
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"Ty" = (
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/bluegrid,
+/area/ruin/space/powered)
+"TR" = (
+/obj/item/kirbyplants,
+/obj/machinery/light_construct/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"TS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/directional/west,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"TZ" = (
+/obj/structure/closet/firecloset,
+/obj/machinery/light_construct/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Ud" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"Uj" = (
+/obj/machinery/door_control/shutter/north{
+	id = "sleft_mech";
+	pixel_x = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Uk" = (
+/obj/structure/chair,
+/obj/item/cigbutt{
+	pixel_y = 10;
+	pixel_x = 6
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Ul" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"Uo" = (
+/obj/machinery/atmospherics/unary/tank/oxygen_agent_b{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Uq" = (
+/obj/item/paintkit/durand_soviet,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Uu" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"UH" = (
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/stock_parts/cell/hyper/empty,
+/obj/item/stock_parts/cell/hyper/empty{
+	pixel_y = 8;
+	pixel_x = 6
+	},
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"UV" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "sleft_mech"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"UY" = (
+/obj/machinery/light_construct/directional/east,
+/turf/simulated/floor/carpet/blue,
+/area/ruin/space/powered)
+"Vh" = (
+/obj/structure/railing{
+	dir = 1;
+	layer = 3.9
+	},
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/obj/machinery/light/small/directional/west,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Vk" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"Vo" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"VA" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers/meele/axe,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"VB" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet/cardboard,
+/obj/item/food/snacks/baguette,
+/obj/item/food/snacks/baguette,
+/obj/item/food/snacks/beans,
+/obj/item/food/snacks/beans,
+/obj/item/food/snacks/beans,
+/obj/item/food/snacks/beans,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/food/snacks/candy/candybar,
+/obj/item/food/snacks/candy/candybar,
+/obj/item/food/snacks/candy/candybar,
+/obj/item/food/snacks/candy/taffy,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"VF" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"VL" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"VO" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/powered)
+"VQ" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"VR" = (
+/obj/effect/turf_decal/arrows{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"VY" = (
+/obj/item/circuitboard/atmoscontrol{
+	icon_state = "command_broken"
+	},
+/obj/effect/landmark/burnturf,
+/obj/machinery/light_construct/directional/north,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"VZ" = (
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"Wk" = (
+/obj/structure/table,
+/obj/machinery/door_control/shutter{
+	pixel_x = -6;
+	id = "bdoorleft_mech"
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Wp" = (
+/obj/structure/disposalpipe/broken{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Wu" = (
+/obj/machinery/light_construct/directional/west,
+/obj/machinery/atmospherics/portable/scrubber,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"WD" = (
+/obj/structure/closet/crate/secure/weapon{
+	req_access_txt = "7"
+	},
+/obj/item/mecha_parts/mecha_equipment/weapon/honker,
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang,
+/obj/item/mecha_modkit/voice/nanotrasen,
+/obj/item/toy/figure/mech/mauler,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/directional/south,
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg,
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"WK" = (
+/obj/machinery/door/airlock,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"WM" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
+/obj/item/reagent_containers/glass/beaker{
+	pixel_x = 9;
+	pixel_y = 5
+	},
+/obj/item/kitchen/knife{
+	pixel_y = 5;
+	pixel_x = -10
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Xa" = (
+/obj/effect/turf_decal/caution,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"Xy" = (
+/obj/effect/landmark/burnturf,
+/obj/machinery/light_construct/directional/north,
+/obj/structure/closet/secure_closet/engineering_electrical,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Xz" = (
+/obj/effect/turf_decal/caution,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"XE" = (
+/obj/structure/mecha_wreckage/durand{
+	obj_integrity = 100
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"XH" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scavengers/meele,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/powered)
+"Yl" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"Ym" = (
+/obj/structure/chair,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Yn" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"YU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"ZF" = (
+/obj/structure/lattice/catwalk,
+/mob/living/simple_animal/hostile/scavengers/gun/spacegun,
+/turf/template_noop,
+/area/template_noop)
+"ZS" = (
+/obj/structure/table,
+/obj/item/reagent_containers/drinks/flask/barflask,
+/turf/simulated/floor/carpet/blue,
+/area/ruin/space/powered)
+"ZT" = (
+/obj/effect/turf_decal/caution{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"ZZ" = (
+/obj/structure/lattice,
+/obj/structure/holosign/barrier/atmos,
+/turf/template_noop,
+/area/template_noop)
+
+(1,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+"}
+(2,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Sb
+GP
+GP
+Sb
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Sb
+Sb
+PV
+PV
+PV
+PV
+PV
+Sb
+Sb
+Sb
+Sb
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+"}
+(3,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Sb
+ZT
+ZT
+Sb
+Vk
+Vk
+Vk
+Vk
+Vk
+Vk
+Vk
+Vk
+Vk
+Kb
+Qd
+AC
+bK
+bK
+kv
+lS
+Nn
+xe
+Kb
+Sb
+cd
+qU
+qU
+qU
+pw
+jU
+Ao
+qU
+Ba
+qU
+qU
+qU
+pw
+jU
+Ao
+qU
+qU
+"}
+(4,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Sb
+Kb
+mt
+mt
+Kb
+Sb
+Vk
+qU
+qU
+Vk
+qU
+qU
+Vk
+qU
+Sb
+hw
+pQ
+PF
+IG
+YU
+Pf
+lS
+Mi
+Kb
+Kb
+qU
+qU
+qU
+qU
+kU
+ll
+zI
+qU
+qU
+qU
+qU
+qU
+qU
+ll
+zI
+qU
+qU
+"}
+(5,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Sb
+Kb
+Do
+ZT
+Be
+FK
+Kb
+Sb
+PT
+PT
+Sb
+Sb
+qU
+Vk
+qU
+Sb
+DE
+dk
+sD
+nk
+sD
+aA
+lS
+bx
+qv
+zF
+qU
+qU
+qU
+qU
+kU
+OB
+ys
+qU
+qU
+qU
+qU
+qU
+ze
+OB
+zI
+qU
+qU
+"}
+(6,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Sb
+kD
+sD
+sD
+nk
+nk
+nk
+Sb
+VF
+NH
+Kb
+Sb
+Vk
+Vk
+Vk
+Sb
+lS
+dk
+gH
+sD
+sD
+La
+lS
+yt
+qv
+zF
+qU
+qU
+qU
+qU
+qU
+OB
+ys
+qU
+ce
+ce
+ce
+qU
+ze
+Vk
+qU
+qU
+qU
+"}
+(7,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Sb
+sD
+Md
+sh
+HB
+HB
+LC
+Kb
+Ae
+lf
+gU
+Kb
+PT
+PT
+PT
+Kb
+Uj
+SV
+hW
+hW
+hW
+ol
+lS
+NF
+Kb
+Kb
+cd
+qU
+qU
+qU
+kU
+ZF
+ys
+qU
+ce
+hM
+ce
+qU
+ys
+OB
+zI
+qU
+qU
+"}
+(8,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Sb
+nk
+VB
+bR
+sh
+sh
+pm
+vP
+lf
+GF
+cz
+UV
+Tf
+Tf
+yk
+UV
+Xa
+mU
+lS
+AC
+lS
+hw
+mU
+bx
+Kb
+Kb
+qU
+qU
+qU
+qU
+Pi
+OB
+ys
+ys
+ys
+EO
+ys
+ys
+ys
+OB
+zI
+qU
+qU
+"}
+(9,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Sb
+sD
+vw
+sD
+sD
+sD
+hw
+vP
+lf
+Cl
+HG
+MY
+Ud
+Ud
+Ud
+MY
+Xa
+pQ
+YU
+Fn
+IG
+Pf
+AC
+Kb
+Kb
+Sb
+Sb
+Sb
+qU
+qU
+ys
+wZ
+ys
+RW
+Cp
+zK
+Vh
+vF
+ys
+wZ
+ys
+qU
+qU
+"}
+(10,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Sb
+Oh
+HB
+HB
+HB
+GF
+Ng
+Kb
+jP
+bn
+yj
+Kb
+PT
+PT
+PT
+cJ
+Cm
+Jr
+sD
+sD
+sD
+iK
+oL
+Kb
+LV
+Hs
+Eb
+Vo
+cd
+qU
+ys
+rn
+hw
+bo
+GF
+GF
+Mr
+vo
+GF
+GF
+ys
+qU
+qU
+"}
+(11,1,1) = {"
+qU
+lH
+Nl
+Vk
+OB
+Sb
+Sb
+Sb
+Sb
+qU
+Sb
+Uu
+sh
+Md
+HB
+HB
+nk
+Sb
+sb
+lf
+Co
+Sb
+qU
+qU
+qU
+et
+lS
+Jr
+kK
+GF
+nk
+IL
+lS
+Sb
+bw
+cZ
+Eb
+Vo
+qU
+qU
+ys
+Ym
+hw
+Mr
+Mr
+eY
+uI
+kO
+nx
+nx
+ys
+qU
+qU
+"}
+(12,1,1) = {"
+qU
+qU
+qU
+Sb
+Sb
+Kb
+dL
+EI
+Kb
+Sb
+Sb
+DJ
+hw
+tE
+vq
+VZ
+sD
+Sb
+Cz
+bn
+Pm
+Sb
+qU
+qU
+qU
+nA
+lS
+SN
+hW
+hw
+hW
+ol
+lS
+Sb
+Kl
+tm
+Eb
+Vo
+cd
+Ah
+ys
+Ei
+Mr
+ua
+JZ
+Bj
+nx
+il
+nx
+QD
+ze
+qU
+qU
+"}
+(13,1,1) = {"
+qU
+qU
+qU
+PT
+tf
+Iw
+oE
+Sc
+FF
+Kb
+Kb
+iT
+Tg
+xF
+ss
+VR
+be
+Sb
+cG
+bn
+BD
+Sb
+qU
+qU
+qU
+Kb
+Ec
+AC
+AC
+AC
+lS
+Wk
+nV
+Kb
+fK
+oh
+Eb
+Vo
+qU
+qU
+ys
+Ym
+eY
+ua
+Lv
+pn
+nx
+Vo
+QD
+Vk
+Vk
+qU
+qU
+"}
+(14,1,1) = {"
+qU
+qU
+qU
+PT
+fO
+VL
+oE
+QY
+QY
+TR
+Kb
+Kb
+qW
+Sb
+Sb
+DG
+Kb
+Kb
+Sb
+uU
+Sb
+Kb
+Kb
+Kb
+Kb
+Kb
+Kb
+Kb
+Gu
+Js
+LF
+Kb
+Kb
+Kb
+VY
+lR
+Eb
+zF
+an
+an
+ys
+Uk
+Mr
+nj
+jq
+cg
+nx
+QD
+Vk
+Vk
+qU
+qU
+qU
+"}
+(15,1,1) = {"
+qU
+qU
+qU
+PT
+Hn
+VL
+oE
+Hn
+Qt
+oE
+PT
+Qx
+ly
+lS
+lS
+Ju
+iU
+Kb
+lk
+lf
+PS
+Kb
+QF
+oY
+Rb
+Kb
+Sq
+sD
+nk
+sD
+sD
+qT
+Wu
+Kb
+lR
+Mp
+Sb
+Kb
+hx
+ZZ
+ys
+yy
+Hb
+Nb
+ng
+kE
+il
+Vk
+qU
+Vk
+qU
+qU
+qU
+"}
+(16,1,1) = {"
+qU
+qU
+qU
+PT
+Fx
+Ac
+oE
+Ix
+VL
+QY
+ev
+QY
+XH
+oE
+oE
+XH
+oE
+Kb
+Gl
+lf
+VA
+wp
+lf
+lf
+WD
+Kb
+GS
+sD
+pm
+sD
+sD
+sD
+sD
+Kc
+to
+Ry
+SA
+IK
+HQ
+GF
+wZ
+GF
+hw
+xa
+RM
+Bj
+ys
+qU
+qU
+qU
+qU
+qU
+qU
+"}
+(17,1,1) = {"
+qU
+qU
+qU
+PT
+II
+ut
+oE
+Nm
+oE
+QY
+PT
+AR
+lS
+AC
+lS
+lS
+Jq
+Kb
+Hi
+hw
+vy
+Kb
+fk
+aK
+Fr
+Kb
+Yl
+sD
+cK
+nk
+nk
+nk
+sP
+Kb
+iG
+wv
+Sb
+Kb
+hx
+an
+ys
+ys
+hw
+ys
+ys
+ys
+ys
+Vk
+qU
+qU
+qU
+qU
+qU
+"}
+(18,1,1) = {"
+qU
+qU
+qU
+PT
+Gt
+ut
+oE
+oE
+oE
+Bh
+Kb
+Kb
+WK
+Sb
+Sb
+Sb
+Kb
+Kb
+Sb
+Yn
+Sb
+Kb
+Kb
+Kb
+Kb
+Kb
+Kb
+Kb
+HU
+HU
+HU
+Kb
+Kb
+Kb
+Xy
+Ry
+Eb
+zF
+an
+an
+ys
+uk
+hw
+Wp
+LY
+ys
+Vo
+Vk
+qU
+qU
+qU
+qU
+qU
+"}
+(19,1,1) = {"
+qU
+qU
+qU
+PT
+Sd
+Fv
+qC
+oE
+PB
+Kb
+Kb
+vL
+lF
+Sb
+xb
+xb
+xb
+Kb
+sw
+lf
+Te
+Sb
+qU
+qU
+qU
+Kb
+TZ
+Lo
+lS
+lS
+kM
+bh
+FS
+Kb
+HO
+xG
+Eb
+Vo
+cd
+Ah
+ys
+Po
+hw
+jS
+rs
+ys
+Vo
+Vk
+Vk
+qU
+qU
+qU
+qU
+"}
+(20,1,1) = {"
+qU
+qU
+qU
+Sb
+Sb
+Kb
+Hl
+Ja
+Kb
+Sb
+Sb
+Ij
+JP
+WK
+sK
+sK
+Ft
+Sb
+ob
+bn
+kR
+Sb
+qU
+qU
+qU
+nA
+AC
+ae
+XE
+hw
+IG
+yS
+lS
+Sb
+eR
+GF
+Eb
+Vo
+qU
+Vk
+ys
+ys
+ma
+hw
+bf
+ys
+Vk
+Vk
+qU
+qU
+qU
+qU
+qU
+"}
+(21,1,1) = {"
+qU
+qt
+Nl
+Vk
+OB
+Sb
+Sb
+Sb
+Sb
+qU
+Sb
+hK
+Me
+Sb
+hj
+sK
+xb
+Sb
+CF
+lf
+Sy
+Sb
+qU
+qU
+qU
+et
+AC
+Jr
+sD
+hw
+nk
+aA
+lS
+Sb
+Lj
+AT
+Eb
+Vo
+cd
+qU
+Vk
+CW
+vd
+yr
+QS
+wF
+QD
+qU
+qU
+qU
+qU
+qU
+qU
+"}
+(22,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+PT
+xY
+GF
+Sb
+Sb
+WK
+Sb
+Sb
+vc
+Xz
+FA
+Kb
+PT
+PT
+PT
+Kb
+Cm
+Jr
+nk
+nk
+sD
+iK
+zM
+Kb
+UH
+AS
+Eb
+Vo
+qU
+qU
+QD
+il
+il
+hw
+il
+nx
+CC
+ze
+Vk
+qU
+qU
+qU
+qU
+"}
+(23,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+PT
+Fh
+lS
+Sb
+gB
+lS
+WM
+Sb
+CZ
+wi
+cz
+Lz
+Tf
+hw
+Tf
+eJ
+cX
+SV
+hW
+hW
+hW
+Ul
+lS
+Kb
+Kb
+Sb
+Sb
+Sb
+qU
+qU
+qU
+nx
+RF
+hw
+sU
+nx
+Cw
+Vk
+Vk
+qU
+qU
+qU
+qU
+"}
+(24,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Sb
+Sb
+An
+Sb
+bs
+tM
+jz
+Sb
+ro
+lf
+cz
+Dh
+Ud
+Ud
+Ud
+wl
+Xa
+GF
+AC
+AC
+AC
+lS
+bP
+bx
+Kb
+Kb
+cd
+qU
+Ah
+qU
+Vk
+nx
+aH
+rU
+nc
+nx
+QD
+Vk
+ze
+qU
+qU
+qU
+qU
+"}
+(25,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Sb
+ym
+yU
+tv
+KH
+bs
+lS
+Sb
+ho
+lf
+qB
+Kb
+PT
+PT
+PT
+Kb
+io
+hw
+hw
+hw
+YU
+Pf
+Uq
+qA
+Kb
+Kb
+qU
+qU
+qU
+Vk
+QD
+SH
+ir
+rZ
+BX
+CW
+VO
+QD
+QD
+qU
+qU
+qU
+qU
+"}
+(26,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Sb
+WK
+Sb
+Sb
+ZS
+bs
+lS
+Kb
+GH
+lf
+Kb
+Sb
+Vk
+Vk
+Vk
+Sb
+lS
+Jr
+nk
+GF
+nk
+IL
+AC
+yt
+qv
+zF
+qU
+qU
+Vk
+Vk
+Cw
+il
+eq
+hw
+KY
+il
+ze
+ze
+Vk
+qU
+qU
+qU
+qU
+"}
+(27,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Sb
+lS
+mN
+Kb
+tj
+UY
+cF
+Sb
+PT
+PT
+Sb
+Sb
+qU
+Vk
+qU
+Sb
+zy
+Jr
+sD
+sD
+sD
+tK
+lS
+bx
+qv
+zF
+qU
+qU
+qU
+Vk
+KW
+il
+il
+bF
+ys
+il
+Vk
+qU
+qU
+qU
+qU
+qU
+qU
+"}
+(28,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Sb
+Sb
+rJ
+Kb
+Kb
+Sb
+Sb
+Sb
+qU
+qU
+Vk
+qU
+qU
+Vk
+qU
+Sb
+AC
+MN
+iP
+iP
+iP
+ol
+lS
+Qf
+Kb
+Kb
+cd
+qU
+qU
+qU
+qU
+nx
+jx
+hw
+ys
+ys
+ys
+qU
+qU
+qU
+qU
+qU
+qU
+"}
+(29,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Vk
+Vk
+Vk
+Vk
+Vk
+Sb
+ib
+lS
+VQ
+EP
+VQ
+lS
+ib
+Ty
+Kb
+Sb
+qU
+qU
+qU
+qU
+qU
+nx
+Qb
+Fy
+TS
+qa
+ys
+ys
+qU
+qU
+qU
+qU
+qU
+"}
+(30,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+Sb
+Sb
+CK
+CK
+CK
+CK
+CK
+Sb
+Sb
+Sb
+Sb
+qU
+qU
+qU
+qU
+qU
+il
+HJ
+wr
+hw
+wn
+Cy
+nx
+qU
+qU
+qU
+qU
+qU
+"}
+(31,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+il
+bC
+ov
+QN
+SL
+nx
+nx
+Vk
+qU
+qU
+qU
+qU
+"}
+(32,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+ys
+Uo
+Aq
+Fu
+nx
+il
+Vk
+Vk
+qU
+qU
+qU
+qU
+"}
+(33,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+ys
+vv
+vv
+vv
+nx
+Ql
+Tl
+Vk
+qU
+qU
+qU
+qU
+"}
+(34,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+nM
+nM
+nM
+qU
+nM
+Vk
+qU
+qU
+qU
+qU
+qU
+"}
+(35,1,1) = {"
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+"}

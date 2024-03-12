@@ -243,6 +243,11 @@
 		/obj/item/organ/internal/eyes/cybernetic/shield
 	)
 
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened,
+		/obj/item/organ/internal/eyes/cybernetic/shield
+	)
+
 /datum/outfit/job/centcom/response_team/engineer/red
 	name = "RT Engineer (Red)"
 	shoes = /obj/item/clothing/shoes/magboots/advance

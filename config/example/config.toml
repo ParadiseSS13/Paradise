@@ -33,6 +33,10 @@
 # - voting_configuration
 # -
 
+# SS220 CONFIGS
+# - gateway_configuration
+# - tts_configuration
+# - antag_mix_gamemode_configuration
 
 ################################################################
 
@@ -145,7 +149,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 53
+sql_version = 532206
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -195,6 +199,8 @@ mentor_role_id = ""
 forward_all_ahelps = true
 
 
+new_round_waiting_role_id = ""
+
 ################################################################
 
 
@@ -243,6 +249,7 @@ gamemode_probabilities = [
 	{gamemode = "vampire", probability = 3},
 	{gamemode = "wizard", probability = 2},
 	{gamemode = "trifecta", probability = 3},
+	{gamemode = "antag_mix", probability = 3},
 ]
 # Do we want the amount of traitors to scale with population?
 traitor_scaling = true
@@ -304,7 +311,7 @@ disable_ambient_noise = false
 # Enable this if you want to disable the popup alert for people on the same CID
 disable_cid_warning_popup = false
 # Amount of loadout points people should get
-base_loadout_points = 5
+base_loadout_points = 4
 # Respawnability loss penalty if you cryo below this threshold (Minutes)
 cryo_penalty_period = 30
 # Observers count as roundstart if they join from the main menu before this time (in minutes). Set to 0 to allow only-pregame start observers.
@@ -414,17 +421,21 @@ job_slot_amounts = [
 	# Engineering
 	{name = "Life Support Specialist", lowpop = 3, highpop = 4},
 	{name = "Station Engineer", lowpop = 5, highpop = 6},
+	{name = "Trainee Engineer", lowpop = 0, highpop = 0},
 	# Medical
 	{name = "Chemist", lowpop = 2, highpop = 2},
 	{name = "Geneticist", lowpop = 2, highpop = 2},
 	{name = "Medical Doctor", lowpop = 5, highpop = 6},
+	{name = "Medical Intern", lowpop = 0, highpop = 0},
 	{name = "Virologist", lowpop = 1, highpop = 1},
 	# Science
 	{name = "Roboticist", lowpop = 2, highpop = 2},
 	{name = "Scientist", lowpop = 6, highpop = 7},
+	{name = "Student Scientist", lowpop = 0, highpop = 0},
 	# Security
 	{name = "Detective", lowpop = 1, highpop = 1},
 	{name = "Security Officer", lowpop = 8, highpop = 9},
+	{name = "Security Cadet", lowpop = 0, highpop = 0},
 	{name = "Warden", lowpop = 1, highpop = 1},
 	{name = "Internal Affairs Agent", lowpop = 2, highpop = 2},
 	# Service
@@ -564,6 +575,11 @@ overflow_server = "byond://yourdomain.com:1111"
 # List of ckeys who will not get rerouted to the overflow server
 overflow_whitelist = ["keyhere", "anotherhere"]
 
+# SS220 addition
+# Slot saving  time for client reconnection (in seconds)
+reservation_time = 10
+
+
 
 ################################################################
 
@@ -626,6 +642,14 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/voyager.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/wreckedcargoship.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/abandoned_engi_sat.dmm",
+	"_maps/map_files220/RandomRuins/SpaceRuins/mechtransport_new.dmm",
+	"_maps/map_files220/RandomRuins/SpaceRuins/destroyed_infiltrator.dmm",
+	"_maps/map_files220/RandomRuins/SpaceRuins/transit_bar.dmm",
+	"_maps/map_files220/RandomRuins/SpaceRuins/infected_ship.dmm",
+	"_maps/map_files220/RandomRuins/SpaceRuins/convoy_ambush.dmm",
+	"_maps/map_files220/RandomRuins/SpaceRuins/voxraiders_1.dmm",
+	"_maps/map_files220/RandomRuins/SpaceRuins/spacehotel.dmm",
+
 
 	### The following ruins are based from past pre-spawned Zlevel content ###
 	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
@@ -643,7 +667,7 @@ active_space_ruins = [
 	# The following is the white ship ruin. Its force-spawned and is required to stop SSshuttle runtiming on startup
 	# Its also important incase a white-ship console is ever built midround
 	# DO NOT DISABLE THIS UNLESS YOU HAVE A GOOD REASON
-	"_maps/map_files/RandomRuins/SpaceRuins/whiteship.dmm",
+	"_maps/map_files220/RandomRuins/SpaceRuins/whiteship.dmm",
 
 	# The following is a force-spawned ruin consisting mostly of empty space with a shuttle docking port for the free golem shuttle
 	# Disabling it will lead to the free golem shuttle sometimes being stuck on lavaland.
@@ -689,9 +713,13 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ufo_crash.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_watcher_grave.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_xeno_nest.dmm",
+	"_maps/map_files220/RandomRuins/LavaRuins/scp_facility.dmm",
+	"_maps/map_files220/RandomRuins/LavaRuins/cheesus_temple.dmm",
+	"_maps/map_files220/RandomRuins/LavaRuins/ash_old.dmm",
+	"_maps/map_files220/RandomRuins/LavaRuins/old_outpost.dmm",
 ]
 # Budget for lavaland ruins. A higher number means more will spawn
-lavaland_ruin_budget = 60
+lavaland_ruin_budget = 100
 
 
 ################################################################
@@ -844,3 +872,200 @@ asset_simple_preload = true
 
 
 # Congratulations. You reached the end. heres a cookie.
+
+# And some SS220 configs ratge.
+
+################################################################
+
+
+[gateway_configuration]
+# This section contains everything relating to the ingame gateway (away mission) system.
+
+# Do we want to enable this at all? Disable for faster load times in testing
+enable_away_mission = false
+# Delay (in deciseconds) before the gateway is usable
+away_mission_delay = 0
+# List of all enabled away missions. Comment out an entry to disable it.
+enabled_away_missions = [
+	"_maps/map_files220/RandomZLevels/beach.dmm",
+	"_maps/map_files220/RandomZLevels/wildwest.dmm",
+	"_maps/map_files220/RandomZLevels/blackmarketpackers.dmm",
+	"_maps/map_files220/RandomZLevels/gate_lizard.dmm",
+	"_maps/map_files220/RandomZLevels/caves.dmm",
+	"_maps/map_files220/RandomZLevels/blackmesa.dmm",
+]
+
+
+################################################################
+
+[tts_configuration]
+# This section contains all settings relating to the TTS system
+
+# Is TTS enabled
+tts_enabled = false
+# If enabled, what token does it use for API
+tts_token_silero = ""
+# api url for your tts provider
+tts_api_url_silero = "http://you.tts.provider.com:port/endpoint"
+# Are the audio files saved after usage
+tts_cache_enabled = false
+# What CPU threads are used for ffmpeg. Example valid values: "0-3" or "1,4-7"
+ffmpeg_cpuaffinity = ""
+
+
+################################################################
+
+[ss220_misc_configuration]
+# This section contains everything that should be in general_configuration
+
+# Force discord verification
+force_discord_verification = false
+# Respawn delay in minutes before one may respawn as a crew member
+respawn_delay = 20
+
+################################################################
+
+[species_whitelist_configuration]
+
+species_whitelist_enabled = false
+
+################################################################
+
+
+[antag_mix_gamemode_configuration]
+# This section contains all settings related to antag_mix gamemode
+
+# Budged multiplier of antag_mix gamemode.
+# Which controlls how basic budget is multiplied, values less than 1 result in less antag budget
+budget_multiplier = 1
+# Max fraction of antags relative to ready players. Value between 0 and 1
+max_antag_fraction = 1
+# Configuration of antag scenarios
+# Must be list of objects with next params:
+# - [tag] required param which identifies the antag scenarios
+# - [params] antag scenario specific params
+#
+# Valid scenario params are:
+# - [cost] optional param, which defines how much of `antag_mix` budget will be spent on it
+# - [weight] optional param, which defines how often this scenario will be picked, related to others
+# - [antag_cap] optional param, which defines how many players can be picked for this scenario at most
+# - [candidates_required] optional param, which defines how many players must be picked for this scenario at least
+# - [restricted_roles] optional param, which defines which roles are restricted from becoming candidate for this scenario.
+# Must be list of strings
+# - [protected_roles] optional param, which defines which roles are protected from becoming candidate for this scenario.
+# Must be list of strings
+# - [restricted_species] optional param, which defines which species are restricted from becoming candidate for this scenario.
+# Must be list of strings
+# Team antag specific:
+# - [team_size] optional param, which defines how much of players must be present in one team. Must equal or lower than antag_cap,
+# or otherwise scenario won't be rolled
+[[antag_mix_gamemode_configuration.antag_scenarios_configuration]]
+tag = "traitor"
+
+[antag_mix_gamemode_configuration.antag_scenarios_configuration.params]
+"required_players" = 1
+"cost" = 1
+"weight" = 1
+"antag_cap" = 1
+"candidates_required" = 1
+"restricted_roles" = ["Cyborg"]
+"protected_roles" = [
+	"Security Cadet",
+	"Security Officer",
+	"Warden",
+	"Detective",
+	"Head of Security",
+	"Captain",
+	"Blueshield",
+	"Nanotrasen Representative",
+	"Magistrate",
+	"Internal Affairs Agent",
+	"Nanotrasen Navy Officer",
+	"Special Operations Officer",
+	"Syndicate Officer",
+	"Solar Federation General",
+]
+
+[[antag_mix_gamemode_configuration.antag_scenarios_configuration]]
+tag = "changeling"
+
+[antag_mix_gamemode_configuration.antag_scenarios_configuration.params]
+"required_players" = 1
+"cost" = 1
+"weight" = 1
+"antag_cap" = 1
+"candidates_required" = 1
+"restricted_roles" = ["Cyborg", "AI"]
+"protected_roles" = [
+	"Security Cadet",
+	"Security Officer",
+	"Warden",
+	"Detective",
+	"Head of Security",
+	"Captain",
+	"Blueshield",
+	"Nanotrasen Representative",
+	"Magistrate",
+	"Internal Affairs Agent",
+	"Nanotrasen Navy Officer",
+	"Special Operations Officer",
+	"Solar Federation General",
+]
+"restricted_species" = ["Machine"]
+
+[[antag_mix_gamemode_configuration.antag_scenarios_configuration]]
+tag = "vampire"
+
+[antag_mix_gamemode_configuration.antag_scenarios_configuration.params]
+"required_players" = 1
+"cost" = 1
+"weight" = 1
+"antag_cap" = 1
+"candidates_required" = 1
+"restricted_roles" = ["Cyborg", "AI", "Chaplain"]
+"protected_roles" = [
+	"Security Cadet",
+	"Security Officer",
+	"Warden",
+	"Detective",
+	"Head of Security",
+	"Captain",
+	"Blueshield",
+	"Nanotrasen Representative",
+	"Magistrate",
+	"Internal Affairs Agent",
+	"Nanotrasen Navy Officer",
+	"Special Operations Officer",
+	"Solar Federation General",
+]
+"restricted_species" = ["Machine"]
+
+[[antag_mix_gamemode_configuration.antag_scenarios_configuration]]
+tag = "blood_brothers"
+
+[antag_mix_gamemode_configuration.antag_scenarios_configuration.params]
+"required_players" = 1
+"cost" = 1
+"weight" = 1
+"antag_cap" = 1
+"team_size" = 1
+"candidates_required" = 1
+"restricted_roles" = ["Cyborg", "AI"]
+"protected_roles" = [
+	"Security Cadet",
+	"Security Officer",
+	"Warden",
+	"Detective",
+	"Head of Security",
+	"Captain",
+	"Blueshield",
+	"Nanotrasen Representative",
+	"Magistrate",
+	"Internal Affairs Agent",
+	"Nanotrasen Navy Officer",
+	"Special Operations Officer",
+	"Solar Federation General",
+]
+
+
+################################################################

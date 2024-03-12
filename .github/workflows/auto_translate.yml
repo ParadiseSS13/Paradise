@@ -1,0 +1,61 @@
+name: Add new translation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ['translate']
+
+concurrency:
+  group: translation
+  cancel-in-progress: false
+
+jobs:
+  add_translation:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    name: 'Add new translation'
+
+    steps:
+      - name: 'Update Branch'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Installing Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Installing deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./tools/translator/requirements.txt
+
+      - name: Git fetch
+        run: |
+          git fetch
+
+      - name: Create temporary branch
+        run: |
+          git checkout -b translate_tmp ${{ github.sha }}^
+
+      - name: Apply PR translation
+        run: |
+          git diff ${{ github.sha }}^..${{ github.sha }} | git apply
+
+      - name: 'Generate Translation'
+        run: |
+          python ./tools/translator/converter.py
+          git add ./tools/translator/ss220replace.json
+          git checkout -- .
+
+      - name: 'Push Translation'
+        run: |
+          git fetch origin translate
+          git checkout origin/translate
+          git config --local user.email "action@github.com"
+          git config --local user.name "ss220bot"
+          git commit -m "Generate translation file"
+          git push origin translate:translate

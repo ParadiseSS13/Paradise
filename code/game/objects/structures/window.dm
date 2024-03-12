@@ -85,7 +85,7 @@
 		set_opacity(FALSE)
 	else
 		old_color = color
-		animate(src, color = "#222222", time = 0.5 SECONDS)
+		animate(src, color = "#2A3A45", time = 0.5 SECONDS) //SS220 EDIT - ORIGINAL: #222222
 		set_opacity(TRUE)
 
 /obj/structure/window/narsie_act()

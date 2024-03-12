@@ -87,6 +87,8 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
+/datum/job/doctor/intern	// SS220 ADDITION - new jobs
+
 /datum/job/coroner
 	title = "Coroner"
 	flag = JOB_CORONER

@@ -163,6 +163,8 @@
 			if(voice_choice)
 				curse(user)
 
+	tts_choose(choice, H) // SS220 ADD
+
 /obj/structure/mirror/magic/ui_close(mob/user)
 	curse(user)
 

@@ -179,7 +179,7 @@ SUBSYSTEM_DEF(mapping)
 	var/watch = start_watch()
 	log_startup_progress("Loading Lavaland...")
 	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = SELFLOOPING, traits = list(ORE_LEVEL, REACHABLE_BY_CREW, STATION_CONTACT, HAS_WEATHER, AI_OK))
-	GLOB.maploader.load_map(file("_maps/map_files/generic/Lavaland.dmm"), z_offset = lavaland_z_level)
+	GLOB.maploader.load_map(file("_maps/map_files220/generic/Lavaland.dmm"), z_offset = lavaland_z_level) // SS220 EDIT - map_files
 	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")
 
 /datum/controller/subsystem/mapping/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = /area/space, list/potentialRuins)

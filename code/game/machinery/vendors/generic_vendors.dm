@@ -583,7 +583,6 @@
 					/obj/item/clothing/mask/gas/mime/wizard = 1,
 					/obj/item/clothing/shoes/sandal/marisa = 1,
 					/obj/item/staff = 2)
-
 	contraband = list(/obj/item/reagent_containers/glass/bottle/wizarditis = 1)
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF

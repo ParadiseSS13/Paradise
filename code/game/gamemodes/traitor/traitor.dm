@@ -17,7 +17,7 @@
 	/// Hard limit on traitors if scaling is turned off.
 	var/traitors_possible = 4
 	/// How much the amount of players get divided by to determine the number of traitors.
-	var/const/traitor_scaling_coeff = 5
+	var/const/traitor_scaling_coeff = 10
 
 /datum/game_mode/traitor/announce()
 	to_chat(world, "<B>The current game mode is - Traitor!</B>")

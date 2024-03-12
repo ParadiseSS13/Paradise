@@ -78,7 +78,7 @@
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/engineer
 
-
+/datum/job/engineer/trainee	// SS220 ADDITION - new jobs
 
 /datum/job/atmos
 	title = "Life Support Specialist"

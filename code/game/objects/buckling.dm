@@ -135,6 +135,9 @@
 	if(M != user && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && (!in_range(M, src) || !do_after(user, 1 SECONDS, target = M)))
 		return FALSE
 
+	if(M != user && (!in_range(M, src) || !do_after(user, 1 SECONDS, target = M)))
+		return FALSE
+
 	add_fingerprint(user)
 	. = buckle_mob(M, check_loc = check_loc)
 	if(.)

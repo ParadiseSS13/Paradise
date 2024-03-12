@@ -1,0 +1,505 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered)
+"b" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
+/obj/item/book/manual/barman_recipes,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered)
+"c" = (
+/obj/structure/table/wood,
+/obj/item/ashtray/glass{
+	pixel_y = -2;
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass{
+	pixel_y = 5;
+	pixel_x = -2
+	},
+/obj/effect/turf_decal/siding/white{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered)
+"d" = (
+/obj/machinery/light/small/directional/north,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"f" = (
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"g" = (
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/space/powered)
+"h" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon/dock_marker{
+	icon_state = "markerolive-on"
+	},
+/turf/template_noop,
+/area/template_noop)
+"i" = (
+/obj/structure/sign/barsign,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered)
+"j" = (
+/obj/structure/sign/poster/contraband/random/east,
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/ruin/space/powered)
+"k" = (
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/ruin/space/powered)
+"l" = (
+/obj/machinery/economy/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/space/powered)
+"n" = (
+/turf/template_noop,
+/area/template_noop)
+"o" = (
+/turf/simulated/floor/carpet/red,
+/area/ruin/space/powered)
+"r" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer{
+	list_reagents = list("beer"=0);
+	pixel_x = 9;
+	pixel_y = -3
+	},
+/obj/item/ashtray/bronze{
+	pixel_y = 10;
+	pixel_x = -8
+	},
+/turf/simulated/floor/carpet/red,
+/area/ruin/space/powered)
+"t" = (
+/obj/machinery/door/window/reinforced/normal{
+	dir = 4
+	},
+/obj/machinery/light/small/directional/south,
+/obj/structure/sign/monkey_paint{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered)
+"u" = (
+/obj/structure/table/wood,
+/obj/item/newspaper,
+/obj/item/storage/fancy/cigarettes{
+	pixel_y = -2;
+	pixel_x = -7
+	},
+/turf/simulated/floor/carpet/red,
+/area/ruin/space/powered)
+"v" = (
+/obj/structure/sign/vacuum{
+	pixel_y = -32
+	},
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/ruin/space/powered)
+"w" = (
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/red,
+/area/ruin/space/powered)
+"x" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"y" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"z" = (
+/obj/item/kirbyplants,
+/turf/simulated/floor/carpet/red,
+/area/ruin/space/powered)
+"A" = (
+/obj/item/gps/ruin{
+	gpstag = "Mini Pub";
+	pixel_y = -32
+	},
+/obj/structure/table,
+/obj/machinery/chem_dispenser/beer{
+	dir = 1;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/space/powered)
+"B" = (
+/obj/machinery/light/small/directional/south,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"C" = (
+/obj/structure/chair/sofa/right{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/red,
+/area/ruin/space/powered)
+"F" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/soda{
+	dir = 1;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/space/powered)
+"G" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/drinks/drinkingglass{
+	pixel_y = 8;
+	pixel_x = -7
+	},
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered)
+"J" = (
+/obj/machinery/light/small/directional/west,
+/obj/structure/chair/stool/bar,
+/turf/simulated/floor/carpet/red,
+/area/ruin/space/powered)
+"K" = (
+/obj/machinery/light/small/directional/north,
+/obj/structure/sign/poster/contraband/random/north,
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/ruin/space/powered)
+"L" = (
+/obj/structure/table,
+/obj/item/lighter/zippo/engraved,
+/obj/item/reagent_containers/glass/rag{
+	pixel_x = -7
+	},
+/obj/item/reagent_containers/drinks/shaker{
+	pixel_x = 7;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/sunglasses/yeah{
+	pixel_x = -6;
+	pixel_y = 10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/space/powered)
+"N" = (
+/obj/structure/chair/stool/bar,
+/turf/simulated/floor/carpet/red,
+/area/ruin/space/powered)
+"P" = (
+/obj/machinery/economy/vending/cigarette/free,
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/ruin/space/powered)
+"Q" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered)
+"R" = (
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/ruin/space/powered)
+"T" = (
+/obj/structure/table/wood,
+/obj/machinery/light/small/directional/east,
+/obj/item/ashtray/bronze,
+/obj/item/reagent_containers/drinks/drinkingglass{
+	pixel_y = 12;
+	pixel_x = 7;
+	list_reagents = list("innocent_erp = 50")
+	},
+/obj/item/clothing/mask/cigarette/cigar{
+	pixel_y = -2;
+	pixel_x = 8
+	},
+/turf/simulated/floor/carpet/red,
+/area/ruin/space/powered)
+"V" = (
+/obj/structure/chair/sofa/left{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/red,
+/area/ruin/space/powered)
+"X" = (
+/obj/structure/table/wood,
+/obj/item/ashtray/glass{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_y = 8;
+	pixel_x = -10
+	},
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered)
+"Y" = (
+/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Z" = (
+/obj/structure/sign/vacuum{
+	pixel_y = 32
+	},
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/ruin/space/powered)
+
+(1,1,1) = {"
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+"}
+(2,1,1) = {"
+n
+h
+x
+x
+h
+x
+x
+h
+n
+n
+n
+n
+n
+n
+n
+"}
+(3,1,1) = {"
+n
+x
+n
+a
+Y
+a
+n
+a
+y
+y
+y
+y
+n
+n
+n
+"}
+(4,1,1) = {"
+n
+x
+n
+a
+d
+a
+y
+a
+l
+g
+L
+y
+y
+n
+n
+"}
+(5,1,1) = {"
+n
+h
+n
+a
+f
+a
+R
+J
+G
+Q
+Q
+F
+y
+n
+n
+"}
+(6,1,1) = {"
+n
+x
+n
+a
+Z
+k
+k
+N
+X
+Q
+Q
+A
+a
+h
+n
+"}
+(7,1,1) = {"
+n
+x
+a
+a
+K
+k
+k
+N
+c
+b
+t
+a
+a
+x
+n
+"}
+(8,1,1) = {"
+n
+h
+a
+P
+k
+k
+k
+k
+k
+j
+v
+a
+n
+x
+n
+"}
+(9,1,1) = {"
+n
+n
+y
+z
+V
+C
+o
+T
+w
+a
+f
+a
+n
+h
+n
+"}
+(10,1,1) = {"
+n
+n
+y
+y
+r
+u
+z
+a
+y
+a
+B
+i
+n
+x
+n
+"}
+(11,1,1) = {"
+n
+n
+n
+y
+y
+y
+y
+a
+n
+a
+Y
+a
+n
+x
+n
+"}
+(12,1,1) = {"
+n
+n
+n
+n
+n
+n
+n
+h
+x
+x
+h
+x
+x
+h
+n
+"}
+(13,1,1) = {"
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+"}

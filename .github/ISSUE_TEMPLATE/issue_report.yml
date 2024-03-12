@@ -12,65 +12,55 @@
 #
 name: "Issue Report"
 #title: "[Bug]: " | if you want to have a have it automatically say [Bug] when they start the form
-description: "File an issue report to make us aware of a bug or issue."
-#labels: [Bug] | Auto labels the post, as we do not use this, commenting out, purely as reference
+description: "Доложите о проблемах или багах, что бы мы могли их исправить."
+#labels: "Баг"
 
 body:
   - type: markdown
     attributes:
-      value: Thanks for taking the time to fill out this issue report! Don't forget to give it a meaningful title so users can find the report easily.
-  - type: checkboxes
-    id: not_an_exploit
-    attributes:
-      label: Exploit Reports
-      description: "[If your issue is an ingame exploit that allows players to gain an unfair advantage, or an issue which could affect server stability or security, please file it at this link so that it is safe from prying eyes.](https://www.paradisestation.org/forum/179-exploit-reports/)"
-      options:
-        - label: I confirm this issue is not an exploit. (Required)
-          required: true
+      value: Спасибо за оставленный отчёт! Не забудьте дать ему соответствующее проблеме название для упрощения работы другим.
 
   - type: input
     id: version
     attributes:
       label: BYOND Version
-      description: "What BYOND version were you using when the issue occured? (Find this by pressing the cog in the top-right of the main BYOND menu, then 'About BYOND...') (Required)"
-    validations:
-      required: true
+      description: "На какой версии BYOND встретился баг. (Если уверены, что не связано - можно пропустить.)"
 
   - type: textarea
     id: description
     attributes:
-      label: Issue Description
-      description: What is the problem? (Required)
-      placeholder: I tried buckling myself to a chair but ended up on lavaland!
+      label: Описание проблемы
+      description: В чем состоит суть проблемы? (Обязательное поле)
+      placeholder: Я сел на стул, от чего взорвался, а мой мозг оказался в душе на ЦК!
     validations:
       required: true
 
   - type: textarea
     id: what-expected
     attributes:
-      label: What did you expect to happen?
-      description: Why do you think this is an issue?
-      placeholder: I expected to be strapped to a chair.
+      label: Что должно было произойти?
+      description: Почему вы считаете это проблемой?
+      placeholder: Я ожидал, что я просто сяду на стул и буду сидеть.
 
   - type: textarea
     id: what-happened
     attributes:
-      label: What happened instead?
-      description: How is what happened different from what you expected?
-      placeholder: I got sent to lavaland and died.
+      label: Что случилось вместо этого?
+      description: Как произошедшее отличается от ваших ожиданий?
+      placeholder: Я умер и оказался на ЦК.
 
   - type: textarea
     id: why-bad
     attributes:
-      label: Why is this bad/What are the consequences?
-      description: Why do you think this is an important issue?
-      placeholder: People sitting in chairs on the station should not end up being devoured by drakes.
+      label: Почему это плохо/Какие последствия?
+      description: Почему вы считаете эту проблему значительной?
+      placeholder: Игроки должны иметь возможность сидеть на стульях, не взрываясь.
 
   - type: textarea
     id: how-to-reproduce
     attributes:
-      label: Steps to reproduce the issue.
-      description: The most important section. Review everything you did leading up to causing the issue. (Required)
+      label: Шаги для повторения проблемы.
+      description: Самая важная часть. Опишите ВСЁ, что вы делали, что бы встретиться с проблемой. (Обязательное поле)
       placeholder: Find a chair, buckle yourself into it, be eaten by dragon.
     validations:
       required: true
@@ -78,22 +68,22 @@ body:
   - type: textarea
     id: when-problem-start
     attributes:
-      label: When did the problem start happening?
-      description: If your report is about something that used to work but no longer does, when was the last time you remember it working? (Required)
-      placeholder: I could sit fine last week, so sometime around then.
+      label: Когда проблема началась?
+      description: Если отчет связан с тем, что раньше работало иначе, опишите последний раз, когда механика работала корректно. (Обязательное поле)
+      placeholder: Я мог садиться на стулья без проблем неделю назад, так что примерно тогда.
     validations:
       required: true
 
   - type: textarea
     id: extra-information
     attributes:
-      label: Extra information
-      description: Anything else you can tell us.
-      placeholder: "I think this issue was introduced in the following PR https://github.com/ParadiseSS13/Paradise/pull/18477"
+      label: Дополнительная информация
+      description: Всё, что вы считаете важным/относящимся к проблеме.
+      placeholder: "Я думаю, что проблема начала появляться после этого PR https://github.com/ss220club/Paradise-SS220/pull/583"
 
   - type: textarea
     id: logs
     attributes:
-      label: Relevant log output/runtime error
-      description: Please copy and paste any relevant log output or runtime if you have access to this. Please censor any ckeys or IP addresses.
+      label: Связанные логи
+      description: Пожалуйста, предоставьте связанные логи или рантаймы, если имеете к ним доступ(Лучше цензурить IP адреса).
       render: DM

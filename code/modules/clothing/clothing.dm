@@ -741,7 +741,7 @@
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(SLOT_HUD_JUMPSUIT) == src)
 		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attached_unequip()
+			A.attached_unequip(user) // SS220 EDIT - FIX
 
 /obj/item/clothing/under/equipped(mob/user, slot, initial)
 	..()
@@ -749,7 +749,7 @@
 		return
 	if(slot == SLOT_HUD_JUMPSUIT)
 		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attached_equip()
+			A.attached_equip(user) // SS220 EDIT - FIX
 
 /*
   * # can_attach_accessory

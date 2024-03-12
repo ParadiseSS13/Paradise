@@ -317,6 +317,10 @@
 	name = "nanotrasen recruiter medal"
 	desc = "A prize for those who completed the company's most difficult training, use it to earn the respect of everyone in human resources."
 
+/obj/item/clothing/accessory/medal/recruiter // Prize for the NT Recruiter emagged arcade
+	name = "nanotrasen recruiter medal"
+	desc = "A prize for those who completed the company's most difficult training, use it to earn the respect of everyone in human resources."
+
 /obj/item/clothing/accessory/medal/heart
 	name = "bronze heart medal"
 	desc = "A rarely-awarded medal for those who sacrifice themselves in the line of duty to save their fellow crew."

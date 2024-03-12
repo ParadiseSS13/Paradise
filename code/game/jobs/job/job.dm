@@ -72,9 +72,8 @@
 	var/job_banned_gamemode = FALSE
 
 //Only override this proc
-/datum/job/proc/after_spawn(mob/living/carbon/human/H)
+/datum/job/proc/after_spawn(mob/living/carbon/human/H, joined_late = FALSE)	// SS220 EDIT - jobs - prisoner spawn
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H)
-
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 
@@ -243,6 +242,10 @@
 			qdel(G)
 
 		gear_leftovers.Cut()
+
+	if(ismodcontrol(H.back))
+		var/obj/item/mod/control/C = H.back
+		C.quick_activation()
 
 	return 1
 

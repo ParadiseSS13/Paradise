@@ -710,6 +710,16 @@
 						return
 					active_character.flavor_text = msg
 
+				// SS220 ADDITION START
+				if("tts_seed")
+					var/datum/ui_module/tts_seeds_explorer/explorer = explorer_users[user]
+					if(!explorer)
+						explorer = new()
+						explorer_users[user] = explorer
+					explorer.ui_interact(user)
+					return
+				// SS220 ADDITION END
+
 				if("limbs")
 					var/valid_limbs = list("Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
 					if(S.bodyflags & ALL_RPARTS)
@@ -913,7 +923,7 @@
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
 				if("ui")
-					var/new_UI_style = tgui_input_list(user, "Choose your UI style", "UI style", list("Midnight", "Plasmafire", "Retro", "Slimecore", "Operative", "White"))
+					var/new_UI_style = tgui_input_list(user, "Choose your UI style", "UI style", list("Midnight", "Plasmafire", "Retro", "Slimecore", "Operative", "White", "Vaporwave", "Detective", "Trasenknox", "Clockwork")) // SS220 EDIT "Vaporwave, Detective, Trasenknox, Clockwork"
 					if(!new_UI_style)
 						return
 					switch(new_UI_style)
@@ -929,6 +939,16 @@
 							UI_style = "Operative"
 						if("White")
 							UI_style = "White"
+						// SS220 ADDITION - START
+						if("Vaporwave")
+							UI_style = "Vaporwave"
+						if("Detective")
+							UI_style = "Detective"
+						if("Trasenknox")
+							UI_style = "Trasenknox"
+						if("Clockwork")
+							UI_style = "Clockwork"
+						// SS220 ADDITION - END
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
@@ -1177,7 +1197,7 @@
 									"CLEAR" = "Center"
 								)
 
-								new_key = key_map[new_key] || new_key
+								new_key = convert_ru_key_to_en_key(key_map[new_key] || new_key) // SS220 EDIT
 
 								var/full_key
 								switch(new_key)

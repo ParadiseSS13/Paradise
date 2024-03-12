@@ -85,6 +85,8 @@
 		if(is_syndicate)
 			SSticker.mode.traitors |= H.mind //Adds them to extra antag list
 
+		H.change_voice(H) // SS220 ADD
+
 		players_spawned++
 		if(players_spawned >= teamsize)
 			break

@@ -1,20 +1,21 @@
-# Paradise
-[![CI](https://github.com/ParadiseSS13/Paradise/workflows/CI/badge.svg)](https://github.com/ParadiseSS13/Paradise/actions?query=workflow%3ACI)
-[![Render Nanomaps](https://github.com/ParadiseSS13/Paradise/workflows/Render%20Nanomaps/badge.svg)](https://github.com/ParadiseSS13/Paradise/actions?query=workflow%3A%22Render+Nanomaps%22)
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/paradisess13/paradise.svg)](http://isitmaintained.com/project/paradisess13/paradise "Average time to resolve an issue")
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/paradisess13/paradise.svg)](http://isitmaintained.com/project/paradisess13/paradise "Percentage of issues still open")
+# Paradise WyccStation SS220
+
+[![CI](https://github.com/ss220club/Paradise-SS220/workflows/CI/badge.svg)](https://github.com/ss220club/Paradise-SS220/actions?query=workflow%3ACI)
+[![Render Nanomaps](https://github.com/ss220club/Paradise-SS220/workflows/Render%20Nanomaps/badge.svg)](https://github.com/ss220club/Paradise-SS220/actions?query=workflow%3A%22Render+Nanomaps%22)
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/ss220club/Paradise-SS220.svg)](https://isitmaintained.com/project/ss220club/Paradise-SS220 "Average time to resolve an issue")
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/ss220club/Paradise-SS220.svg)](https://isitmaintained.com/project/ss220club/Paradise-SS220 "Percentage of issues still open")
 
 [![forthebadge](http://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/contains-technical-debt.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
 
-# Useful Links
+# Полезные ссылки
 
-- [Discord](https://discordapp.com/invite/YJDsXFE)
-- [Documentation](https://codedocs.paradisestation.org)
-- [Website](https://www.paradisestation.org/)
+- [Discord](https://discord.com/invite/ss220)
+- [Wiki](https://wiki.ss220.club/)
+- [Documentation](https://ss220club.github.io/Paradise-SS220/)
 
-# Useful Documents
+# Полезные материалы
 
 - [Autodocumentation Guide](.github/AUTODOC_GUIDE.md)
 - [Code of Conduct](./CODE_OF_CONDUCT.md)
@@ -22,7 +23,6 @@
 - [Installation Guide](.github/DOWNLOADING.md)
 
 ---
-
 
 ### LICENSE
 
@@ -44,8 +44,8 @@ Any files located in the
 `Paradise/sound/goonstation`
 directories, or any subdirectories of mentioned directories are licensed under the
 Creative Commons 3.0 BY-NC-SA license
-(https://creativecommons.org/licenses/by-nc-sa/3.0)
+(<https://creativecommons.org/licenses/by-nc-sa/3.0>)
 
 All other assets including icons and sound files are licensed under the
-Creative Commons 3.0 BY-SA license (https://creativecommons.org/licenses/by-sa/3.0/),
+Creative Commons 3.0 BY-SA license (<https://creativecommons.org/licenses/by-sa/3.0/>),
 unless otherwise indicated.

@@ -259,10 +259,10 @@
 	while(counter >= 1)
 		newletter=copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
 		if(rand(1,3)==3)
-			if(lowertext(newletter)=="o")	newletter="u"
-			if(lowertext(newletter)=="s")	newletter="ch"
-			if(lowertext(newletter)=="a")	newletter="ah"
-			if(lowertext(newletter)=="c")	newletter="k"
+			if(lowertext(newletter)=="o")	newletter="u";	if(lowertext(newletter)=="о")	newletter="у";	if(lowertext(newletter)=="э")	newletter="и"
+			if(lowertext(newletter)=="s")	newletter="ch";	if(lowertext(newletter)=="с")	newletter="сш";	if(lowertext(newletter)=="г")	newletter="х"
+			if(lowertext(newletter)=="a")	newletter="ah";	if(lowertext(newletter)=="а")	newletter="ах"
+			if(lowertext(newletter)=="c")	newletter="k";	if(lowertext(newletter)=="ц")	newletter="сц"
 		switch(rand(1,15))
 			if(1,3,5,8)	newletter="[lowertext(newletter)]"
 			if(2,4,6,15)	newletter="[uppertext(newletter)]"

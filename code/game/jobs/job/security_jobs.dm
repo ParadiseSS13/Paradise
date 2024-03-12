@@ -213,3 +213,4 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
+/datum/job/officer/cadet	// SS220 ADDITION - new jobs

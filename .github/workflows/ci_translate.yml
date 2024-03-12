@@ -1,0 +1,44 @@
+name: CI
+on:
+  push:
+    branches:
+    - translate
+  pull_request:
+    branches:
+    - translate
+
+jobs:
+  translate_check:
+    name: Run translate checks
+    runs-on: ubuntu-20.04
+    steps:
+      - name: 'Update Branch'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Installing Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Installing deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./tools/translator/requirements.txt
+
+      - name: Git fetch
+        run: |
+          git fetch
+
+      - name: Create temporary branch
+        run: |
+          git checkout -b translate_tmp origin/translate
+
+      - name: Apply PR translation
+        run: |
+          git diff ..${{ github.sha }} | git apply
+
+      - name: 'Generate Translation'
+        run: |
+          python ./tools/translator/converter.py

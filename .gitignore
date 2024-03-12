@@ -67,3 +67,6 @@ $RECYCLE.BIN
 
 # Linux libs
 /*.so
+
+# SS220 EDIT
+sound/tts_cache/*

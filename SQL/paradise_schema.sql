@@ -79,6 +79,7 @@ CREATE TABLE `characters` (
   `hair_gradient_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000',
   `hair_gradient_alpha` tinyint(3) UNSIGNED NOT NULL DEFAULT '255',
   `custom_emotes` LONGTEXT COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
+  `tts_seed` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -296,6 +297,7 @@ CREATE TABLE `player` (
   `server_region` VARCHAR(32) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
   `muted_adminsounds_ckeys` MEDIUMTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
   `viewrange` VARCHAR(5) NOT NULL DEFAULT '19x15' COLLATE 'utf8mb4_general_ci',
+  `species_whitelist` LONGTEXT COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
@@ -635,3 +637,39 @@ CREATE TABLE `json_datum_saves` (
 	UNIQUE INDEX `ckey_unique` (`ckey`, `slotname`) USING BTREE,
 	INDEX `ckey` (`ckey`) USING BTREE
 ) COLLATE = 'utf8mb4_general_ci' ENGINE = InnoDB;
+
+
+
+--
+-- SS220 ADDITION AND EDITS
+--
+
+--
+-- Table structure for table `ckey_whitelist`
+--
+DROP TABLE IF EXISTS `ckey_whitelist`;
+CREATE TABLE `ckey_whitelist` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`date` DATETIME DEFAULT now() NOT NULL,
+	`ckey` VARCHAR(32) NOT NULL,
+	`adminwho` VARCHAR(32) NOT NULL,
+	`port` INT(5) UNSIGNED NOT NULL,
+	`date_start` DATETIME DEFAULT now() NOT NULL,
+	`date_end` DATETIME NULL,
+	`is_valid` BOOLEAN DEFAULT true NOT NULL,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `admin_wl`
+--
+CREATE TABLE `admin_wl` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+	`admin_rank` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Administrator',
+	`level` int(2) NOT NULL DEFAULT '0',
+	`flags` int(16) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`id`),
+	KEY `ckey` (`ckey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+

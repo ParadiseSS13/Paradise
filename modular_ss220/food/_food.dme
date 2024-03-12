@@ -1,0 +1,9 @@
+#include "_food.dm"
+
+// Drinks
+#include "code/drinks.dm"
+
+// Food
+#include "code/food/food.dm"
+#include "code/food/nails.dm"
+#include "code/food/ingredients.dm"

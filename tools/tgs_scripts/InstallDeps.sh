@@ -6,6 +6,8 @@ has_git="$(command -v git)"
 has_curl="$(command -v curl)"
 has_cargo="$(command -v ~/.cargo/bin/cargo)"
 has_sudo="$(command -v sudo)"
+has_pip3="$(command -v pip3)"
+has_ffmpeg="$(command -v ffmpeg)"
 set -e
 set -x
 
@@ -31,4 +33,10 @@ if ! [ -x "$has_cargo" ]; then
 	echo "Installing rust..."
 	curl https://sh.rustup.rs -sSf | sh -s -- -y
 	. ~/.profile
+fi
+
+if ! ( [ -x "$has_ffmpeg" ] ); then
+	echo "Installing ffmpeg..."
+	apt-get update
+	apt-get install -y ffmpeg
 fi

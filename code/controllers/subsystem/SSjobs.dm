@@ -93,6 +93,8 @@ SUBSYSTEM_DEF(jobs)
 			return FALSE
 		if(job.barred_by_missing_limbs(player.client))
 			return FALSE
+		if(!job.is_donor_allowed(player.client))	// SS220 ADD - Donor Jobs
+			return FALSE
 
 		var/available = latejoin ? job.is_position_available() : job.is_spawn_position_available()
 
@@ -191,6 +193,10 @@ SUBSYSTEM_DEF(jobs)
 
 		if(job.get_exp_restrictions(player.client))
 			Debug("GRJ player not enough playtime, Player: [player]")
+			continue
+
+		if(!job.is_donor_allowed(player.client))	// SS220 ADD - Donor Jobs
+			Debug("DO player not enough donor level, Player: [player], Job:[job.title]")
 			continue
 
 		if(job.barred_by_disability(player.client))
@@ -381,6 +387,10 @@ SUBSYSTEM_DEF(jobs)
 					Debug("DO player not enough playtime, Player: [player], Job:[job.title]")
 					continue
 
+				if(!job.is_donor_allowed(player.client))	// SS220 ADD - Donor Jobs
+					Debug("DO player not enough donor level, Player: [player], Job:[job.title]")
+					continue
+
 				if(job.barred_by_disability(player.client))
 					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
 					continue
@@ -503,7 +513,7 @@ SUBSYSTEM_DEF(jobs)
 			landmarks = shuffle(landmarks) //Shuffle it so it's random
 
 		for(var/obj/effect/landmark/start/sloc in landmarks)
-			if(sloc.name != rank && !drunken_spawning)
+			if(sloc.name != rank && !drunken_spawning && (sloc.name != job.relate_job)) // SS220 EDIT - Novice Jobs - Jobs relate module
 				continue
 			if(locate(/mob/living) in sloc.loc)
 				continue
@@ -541,7 +551,7 @@ SUBSYSTEM_DEF(jobs)
 			H = new_mob
 
 	if(job && H)
-		job.after_spawn(H)
+		job.after_spawn(H, joined_late)	// SS220 EDIT - jobs - prisoner spawn
 
 		//Gives glasses to the vision impaired
 		if(HAS_TRAIT(H, TRAIT_NEARSIGHT))

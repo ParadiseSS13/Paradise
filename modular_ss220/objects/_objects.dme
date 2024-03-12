@@ -1,0 +1,33 @@
+#include "_objects.dm"
+
+// Mechs
+#include "code/mecha/lockermech.dm"
+#include "code/mecha/combat.dm"
+
+// Miscellaneous
+#include "code/beach_umbrella.dm"
+#include "code/beretta.dm"
+#include "code/big_bed.dm"
+#include "code/billboard.dm"
+#include "code/card_skins.dm"
+#include "code/closets.dm"
+#include "code/coffin.dm"
+#include "code/hampters.dm"
+#include "code/mattress.dm"
+#include "code/miscellaneous.dm"
+#include "code/officetoys.dm"
+#include "code/papershredder.dm"
+#include "code/plastic_chair.dm"
+#include "code/platform.dm"
+#include "code/posters.dm"
+#include "code/smartfridge.dm"
+#include "code/tribune.dm"
+#include "code/weapons.dm"
+#include "code/key.dm"
+#include "code/musician.dm"
+#include "code/flag.dm"
+#include "code/wallets.dm"
+#include "code/flashlight.dm"
+#include "code/electrostaff.dm"
+#include "code/material_pouch.dm"
+

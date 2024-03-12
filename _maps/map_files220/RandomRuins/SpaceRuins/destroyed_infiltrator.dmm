@@ -1,0 +1,1894 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ao" = (
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"aw" = (
+/obj/item/shard{
+	icon_state = "small"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"az" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"aM" = (
+/obj/structure/door_assembly/door_assembly_ext,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"be" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/ruin/space/unpowered/unpowered_structures)
+"bi" = (
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
+/turf/template_noop,
+/area/template_noop)
+"bq" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"bS" = (
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/turf/template_noop,
+/area/template_noop)
+"dj" = (
+/obj/structure/table,
+/obj/item/gps/ruin{
+	pixel_x = 32;
+	gpstag = "####"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"dE" = (
+/obj/structure/grille/broken,
+/obj/effect/landmark/damageturf,
+/obj/item/shard{
+	icon_state = "small";
+	pixel_x = 10;
+	pixel_y = 9
+	},
+/obj/item/stack/rods,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"dO" = (
+/obj/structure/table,
+/obj/machinery/recharger,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"ew" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"gV" = (
+/obj/structure/girder/reinforced,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"gZ" = (
+/obj/item/stack/tile{
+	pixel_y = 14
+	},
+/turf/template_noop,
+/area/template_noop)
+"he" = (
+/obj/item/stack/tile,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"hp" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"hs" = (
+/obj/item/tank/internals/anesthetic,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"hy" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"hK" = (
+/obj/structure/computerframe{
+	dir = 8
+	},
+/obj/item/shard{
+	icon_state = "large";
+	pixel_y = 9;
+	pixel_x = 19
+	},
+/turf/template_noop,
+/area/template_noop)
+"it" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/item/crowbar/red,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"ju" = (
+/obj/item/multitool,
+/turf/template_noop,
+/area/template_noop)
+"jF" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"jM" = (
+/obj/structure/girder/reinforced,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"kv" = (
+/obj/item/rack_parts,
+/turf/template_noop,
+/area/template_noop)
+"lt" = (
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"lE" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/computerframe{
+	dir = 4
+	},
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"lK" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"lW" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
+/turf/template_noop,
+/area/template_noop)
+"mt" = (
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_y = 9;
+	pixel_x = -27
+	},
+/turf/template_noop,
+/area/template_noop)
+"mS" = (
+/obj/structure/table_frame,
+/obj/item/screwdriver{
+	pixel_y = 9
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"nm" = (
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"nr" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"nA" = (
+/obj/structure/table,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"nY" = (
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_y = 9
+	},
+/turf/template_noop,
+/area/template_noop)
+"ou" = (
+/obj/item/stock_parts/cell/high{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/turf/template_noop,
+/area/template_noop)
+"oZ" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"pf" = (
+/obj/machinery/iv_drip,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"pE" = (
+/obj/item/shard,
+/turf/template_noop,
+/area/template_noop)
+"pW" = (
+/obj/machinery/constructable_frame{
+	icon_state = "box_2"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"rf" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"rM" = (
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"rR" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	autolink_id = "aisat_vent"
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"rT" = (
+/obj/item/stack/tile,
+/turf/template_noop,
+/area/template_noop)
+"sP" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"sW" = (
+/obj/item/stack/sheet/mineral/plastitanium,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"tw" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"tA" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"tB" = (
+/obj/structure/closet/syndicate,
+/turf/template_noop,
+/area/template_noop)
+"tE" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"tJ" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 8;
+	anchored = 0
+	},
+/turf/template_noop,
+/area/template_noop)
+"tM" = (
+/obj/item/trash/syndi_cakes,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"tO" = (
+/obj/structure/table_frame,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"tP" = (
+/obj/structure/table_frame,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"uS" = (
+/obj/item/stack/rods,
+/turf/template_noop,
+/area/template_noop)
+"uV" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/constructable_frame,
+/obj/machinery/teleport/hub/upgraded,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"vt" = (
+/obj/effect/landmark/damageturf,
+/obj/item/circular_saw,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"wx" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	autolink_id = "aisat_vent"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"wK" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"xY" = (
+/obj/item/circuitboard/bodyscanner,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"yn" = (
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_y = -10;
+	pixel_x = 16
+	},
+/turf/template_noop,
+/area/template_noop)
+"yJ" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"yT" = (
+/obj/machinery/light_construct/directional/south,
+/obj/machinery/atmospherics/pipe/manifold4w/hidden,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"zg" = (
+/obj/item/storage/box/syndidonkpockets,
+/turf/template_noop,
+/area/template_noop)
+"zG" = (
+/obj/structure/table,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"zT" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/burnturf,
+/obj/item/shard,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Ab" = (
+/obj/item/stock_parts/capacitor,
+/turf/template_noop,
+/area/template_noop)
+"AF" = (
+/obj/structure/computerframe{
+	dir = 8
+	},
+/obj/item/shard,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"AT" = (
+/obj/item/stack/sheet/mineral/plastitanium,
+/turf/template_noop,
+/area/template_noop)
+"Bz" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "burst_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"CH" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/space/unpowered/unpowered_structures)
+"CI" = (
+/obj/structure/grille/broken,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"CK" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/landmark/damageturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"CR" = (
+/obj/effect/landmark/burnturf,
+/obj/item/stack/sheet/mineral/plastitanium,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Dg" = (
+/obj/item/clothing/gloves/color/latex/nitrile,
+/turf/template_noop,
+/area/template_noop)
+"Dj" = (
+/obj/item/shard{
+	icon_state = "small";
+	pixel_x = 10;
+	pixel_y = 9
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"DD" = (
+/obj/item/wrench,
+/turf/template_noop,
+/area/template_noop)
+"EM" = (
+/obj/structure/table_frame,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"EW" = (
+/obj/item/stack/rods,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"GS" = (
+/obj/effect/landmark/burnturf,
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"HU" = (
+/obj/structure/closet/crate/internals,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Io" = (
+/obj/machinery/light_construct/directional/south,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Iq" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6;
+	level = 1
+	},
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"IA" = (
+/obj/machinery/suit_storage_unit/syndicate/secure,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Jr" = (
+/obj/structure/grille/broken,
+/obj/item/stack/rods,
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_y = 9
+	},
+/obj/item/shard{
+	icon_state = "small"
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Jx" = (
+/obj/item/weldingtool/largetank,
+/obj/structure/lattice,
+/obj/item/assembly/voice{
+	pixel_y = 3
+	},
+/turf/template_noop,
+/area/template_noop)
+"Kg" = (
+/obj/machinery/light_construct/directional/west,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"KK" = (
+/obj/item/shard{
+	icon_state = "large";
+	pixel_y = 9;
+	pixel_x = 19
+	},
+/turf/template_noop,
+/area/template_noop)
+"La" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 5
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/unpowered/unpowered_structures)
+"Ly" = (
+/turf/template_noop,
+/area/template_noop)
+"LO" = (
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_y = 9
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"LR" = (
+/obj/item/chair/stool,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Mt" = (
+/obj/item/stack/tile{
+	pixel_x = 22
+	},
+/turf/template_noop,
+/area/template_noop)
+"ME" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"MO" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8;
+	autolink_id = "southatmos_vent"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Nk" = (
+/obj/item/shard{
+	icon_state = "small"
+	},
+/obj/item/shard{
+	icon_state = "large";
+	pixel_y = 9
+	},
+/turf/template_noop,
+/area/template_noop)
+"NM" = (
+/obj/machinery/door/window/reinforced/normal,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"NV" = (
+/obj/machinery/sleeper/syndie{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Og" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Ok" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"OE" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"OI" = (
+/obj/structure/table,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"OS" = (
+/obj/structure/closet/syndicate,
+/obj/item/toy/plushie/nukeplushie,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"OV" = (
+/obj/item/assembly/prox_sensor{
+	pixel_x = -8;
+	pixel_y = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"Pg" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Pt" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Qh" = (
+/obj/structure/girder/reinforced,
+/obj/item/stack/sheet/mineral/plastitanium,
+/turf/template_noop,
+/area/template_noop)
+"QW" = (
+/obj/structure/mirror{
+	dir = 4;
+	pixel_y = -32;
+	icon_state = "mirror_broke"
+	},
+/obj/structure/closet/crate/medical{
+	icon_state = "medicalcrate_open"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Sl" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Ss" = (
+/obj/item/stack/tile{
+	pixel_y = 14;
+	pixel_x = 18
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"SJ" = (
+/obj/structure/table_frame,
+/obj/item/wrench,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"SK" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"SQ" = (
+/obj/item/stack/rods,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Uf" = (
+/obj/effect/landmark/burnturf,
+/obj/item/stack/tile{
+	pixel_y = 14;
+	pixel_x = 18
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Ui" = (
+/obj/structure/table_frame,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Ul" = (
+/obj/machinery/constructable_frame,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Us" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"UE" = (
+/obj/machinery/light_construct/directional/east,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"UJ" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"UW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"UY" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "syndishuttle_door_ext";
+	name = "Ship External Access";
+	req_access_txt = "150"
+	},
+/obj/machinery/door_control/no_emag{
+	pixel_y = 28
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Vh" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"VA" = (
+/obj/item/storage/toolbox/syndicate,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"VC" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/unpowered/unpowered_structures)
+"WR" = (
+/obj/structure/girder/reinforced,
+/obj/item/stack/sheet/mineral/plastitanium,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Xc" = (
+/obj/item/chair/stool,
+/turf/template_noop,
+/area/template_noop)
+"Xp" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"XO" = (
+/obj/item/stack/rods,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"Yx" = (
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+"YS" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/turf/template_noop,
+/area/template_noop)
+"YV" = (
+/obj/structure/lattice,
+/obj/item/stack/tile{
+	pixel_y = 14
+	},
+/turf/template_noop,
+/area/template_noop)
+"ZY" = (
+/obj/structure/grille/broken,
+/obj/structure/computerframe,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered/unpowered_structures)
+
+(1,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(2,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(3,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Bz
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(4,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+AT
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+hy
+OE
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(5,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+nY
+KK
+Ly
+Ly
+OE
+Ly
+Ly
+Ly
+Ly
+Nk
+Ly
+ME
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(6,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+jM
+Bz
+Bz
+Bz
+VC
+Ly
+uS
+Ly
+Ly
+Ly
+Ly
+Ly
+VC
+Sl
+Ly
+SK
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(7,1,1) = {"
+Ly
+Ly
+Ly
+AT
+Ly
+VC
+hy
+az
+hy
+VC
+Ly
+VC
+Ly
+GS
+Bz
+Ly
+lW
+jM
+oZ
+sP
+Ab
+AT
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(8,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Dg
+gZ
+vt
+Ul
+hs
+VC
+Ly
+VC
+SK
+sP
+az
+Ly
+Ly
+VC
+lE
+uV
+gZ
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(9,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+OE
+OE
+xY
+QW
+CH
+VC
+VC
+nr
+Dj
+YS
+rT
+VC
+CH
+sP
+ao
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(10,1,1) = {"
+Ly
+Ly
+Ly
+NV
+Ly
+VC
+EM
+SK
+Ss
+nr
+OI
+VC
+Yx
+Yx
+OE
+VC
+Yx
+Ly
+Ly
+Ly
+Ly
+uS
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(11,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+nm
+SK
+Yx
+EW
+pf
+LO
+Yx
+oZ
+OE
+sP
+sP
+OE
+Ly
+mt
+Ly
+Ly
+uS
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(12,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+uS
+VC
+Yx
+lt
+LR
+nr
+Us
+UE
+aw
+sP
+Ly
+sP
+Ly
+OE
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(13,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+VC
+pW
+EW
+Yx
+Ui
+dO
+VC
+he
+sP
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+La
+OE
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(14,1,1) = {"
+Ly
+Ly
+Ly
+OE
+Ly
+VC
+VC
+sW
+oZ
+jM
+VC
+CH
+be
+jM
+Ly
+AT
+Ly
+Ly
+Ly
+nA
+ou
+tE
+VC
+Ly
+Ly
+HU
+Ly
+Ly
+"}
+(15,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+VC
+IA
+Ok
+CR
+Yx
+NM
+sP
+tE
+bi
+Ly
+Ly
+Ly
+OE
+tE
+Xc
+Ly
+sP
+OE
+DD
+Ly
+Ly
+Ly
+Ly
+"}
+(16,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+WR
+oZ
+Yx
+Xp
+tA
+gV
+zT
+Ly
+Ly
+Ly
+Ly
+Ly
+ew
+Ly
+Ly
+XO
+VA
+jM
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(17,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+OE
+oZ
+jF
+OI
+VC
+OE
+Ly
+Ly
+uS
+Ly
+Ly
+sP
+Ly
+tE
+wK
+tP
+VC
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(18,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+SK
+Ly
+oZ
+nA
+nr
+tA
+sP
+Ly
+OE
+Ly
+Ly
+zG
+Ly
+nY
+nA
+SJ
+tM
+mS
+VC
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(19,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+oZ
+sP
+tA
+sP
+Xc
+Ly
+Ly
+Ly
+Ly
+Ly
+OE
+VC
+VC
+VC
+Jx
+Ly
+jM
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(20,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+sP
+VC
+Ly
+tB
+Ly
+Iq
+Ly
+Ly
+OE
+CI
+bq
+wx
+rR
+jM
+ju
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(21,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+VC
+VC
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+sP
+UW
+SK
+aM
+yT
+VC
+Ly
+kv
+Ly
+OV
+Ly
+Ly
+Ly
+"}
+(22,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+La
+Ly
+Ly
+Ly
+Ly
+sP
+tA
+tw
+Ly
+Ly
+OE
+Io
+VC
+MO
+nr
+oZ
+VC
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(23,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Og
+lK
+VC
+VC
+UY
+VC
+VC
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(24,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+KK
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Uf
+tA
+tA
+VC
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(25,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+gZ
+Ly
+Ly
+Ly
+rf
+Yx
+SQ
+OE
+Ly
+SK
+CK
+Ly
+Ly
+AT
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(26,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+OE
+VC
+it
+nr
+Pt
+VC
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(27,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+AT
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+VC
+VC
+dj
+Ui
+hp
+VC
+VC
+Ly
+Ly
+Ly
+Qh
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(28,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+he
+VC
+VC
+oZ
+SK
+VC
+VC
+VC
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(29,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+OE
+SK
+Ly
+VC
+OI
+Kg
+Yx
+oZ
+Yx
+Yx
+OS
+VC
+yn
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(30,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+SK
+Ly
+zg
+jM
+tO
+SK
+rM
+Pg
+Ok
+jF
+SK
+Mt
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(31,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+bS
+SK
+oZ
+Vh
+nA
+AF
+YV
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(32,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+SK
+Ui
+UJ
+uS
+ZY
+yJ
+dE
+Jr
+UJ
+VC
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(33,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+VC
+VC
+OE
+Ly
+Ly
+Ly
+pE
+Ly
+Ly
+tJ
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(34,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+ao
+Mt
+Ly
+Ly
+Ly
+Ly
+uS
+Ly
+AT
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(35,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+hK
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(36,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+tJ
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(37,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}
+(38,1,1) = {"
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+"}

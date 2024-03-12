@@ -314,6 +314,7 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/shield/energy,
+		/obj/item/gun/energy/pulse,
 		/obj/item/disk/nuclear/unrestricted
 	)
 
@@ -326,6 +327,9 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Deathsquad Commando"), "Deathsquad")
 	H.sec_hud_set_ID()
+	if(ismodcontrol(H.back))
+		var/obj/item/mod/control/C = H.back
+		C.quick_activation()
 
 /datum/outfit/admin/pirate
 	name = "Space Pirate"
