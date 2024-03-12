@@ -690,3 +690,7 @@ do { \
 
 #define RETURN_POINT_VECTOR(ATOM, ANGLE, SPEED) (new /datum/point_precise/vector(ATOM, null, null, null, null, ANGLE, SPEED))
 #define RETURN_POINT_VECTOR_INCREMENT(ATOM, ANGLE, SPEED, AMT) (new /datum/point_precise/vector(ATOM, null, null, null, null, ANGLE, SPEED, AMT))
+
+#define REAGENT_CHECK_EXACT 1
+#define REAGENT_CHECK_FAILURE 0
+#define REAGENT_CHECK_SURPLUS -1

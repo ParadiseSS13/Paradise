@@ -43,16 +43,16 @@
 	var/byproduct		// example: = /obj/item/kitchen/mould		// byproduct to return, such as a mould or trash
 
 /datum/recipe/proc/check_reagents(datum/reagents/avail_reagents) //1=precisely, 0=insufficiently, -1=superfluous
-	. = 1
+	. = REAGENT_CHECK_EXACT
 	for(var/r_r in reagents)
 		var/aval_r_amnt = avail_reagents.get_reagent_amount(r_r)
 		if(!(abs(aval_r_amnt - reagents[r_r])<0.5)) //if NOT equals
 			if(aval_r_amnt>reagents[r_r])
-				. = -1
+				. = REAGENT_CHECK_SURPLUS
 			else
-				return 0
+				return REAGENT_CHECK_FAILURE
 	if((reagents?(reagents.len):(0)) < avail_reagents.reagent_list.len)
-		return -1
+		return REAGENT_CHECK_SURPLUS
 	return .
 
 /**
@@ -63,30 +63,30 @@
  * Returns -1 if we have MORE than requested.
  */
 /datum/recipe/proc/check_reagents_assoc_list(list/avail_reagents)
-	. = 1
+	. = REAGENT_CHECK_EXACT
 	for(var/required_reagent_id in reagents)
 		var/provided_reagent_amount = avail_reagents[required_reagent_id]
 		if(!provided_reagent_amount)
-			return 0
+			return REAGENT_CHECK_FAILURE
 
 		if(abs(provided_reagent_amount != reagents[required_reagent_id]) >= 0.5) //if NOT equals, 0.5 tolerance.
 			if(provided_reagent_amount > reagents[required_reagent_id]) // we have more than necessary
-				. = -1
+				. = REAGENT_CHECK_SURPLUS
 			else
-				return 0 // we don't have enough
+				return REAGENT_CHECK_FAILURE // we don't have enough
 
 	if(length(reagents) < length(avail_reagents))
-		return -1
+		return REAGENT_CHECK_SURPLUS
 	return .
 
 /datum/recipe/proc/check_items(obj/container, list/ignored_items = null) //1=precisely, 0=insufficiently, -1=superfluous
-	. = 1
+	. = REAGENT_CHECK_EXACT
 	var/list/checklist = items ? items.Copy() : list()
 	for(var/obj/O in container)
 		if(ignored_items && is_type_in_list(O, ignored_items))	//skip if this is something we are ignoring
 			continue
 		if(!items)
-			return -1
+			return REAGENT_CHECK_SURPLUS
 		var/found = 0
 		for(var/type in checklist)
 			if(istype(O,type))
@@ -94,9 +94,9 @@
 				found = 1
 				break
 		if(!found)
-			. = -1
+			. = REAGENT_CHECK_SURPLUS
 	if(checklist.len)
-		return 0
+		return REAGENT_CHECK_FAILURE
 	return .
 
 /**
@@ -107,19 +107,19 @@
  * Returns -1 if we have MORE than requested.
  */
 /datum/recipe/proc/check_items_assoc_list(list/given_objects)
-	. = 1
+	. = REAGENT_CHECK_EXACT
 	var/list/checklist = items ? items.Copy() : list()
 	for(var/obj/item/I as anything in given_objects) // path
 		var/amount_given = given_objects[I]
 		if(!length(checklist))
-			return -1
+			return REAGENT_CHECK_SURPLUS
 
 		for(var/i in 1 to amount_given)
 			if(I in checklist)
 				checklist -= I
-				. = -1
+				. = REAGENT_CHECK_SURPLUS
 	if(length(checklist)) // we didnt get everything
-		return 0
+		return REAGENT_CHECK_FAILURE
 	return .
 
 //general version
@@ -143,7 +143,7 @@
 	container.reagents.clear_reagents()
 	return result_obj
 
-/proc/select_recipe(list/datum/recipe/available_recipes, obj/obj, exact = 1 as num, list/ignored_items = null)
+/proc/select_recipe(list/datum/recipe/available_recipes, obj/obj, exact = REAGENT_CHECK_EXACT, list/ignored_items = null)
 	if(!exact)
 		exact = -1
 	var/list/datum/recipe/possible_recipes = new

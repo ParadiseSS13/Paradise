@@ -2222,7 +2222,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(!recipe_type.result)
 			continue
 		var/datum/recipe/recipe = new recipe_type()
-		if(recipe.check_reagents_assoc_list(available_reagents) && recipe.check_items_assoc_list(available_ingredients))
+		if(recipe.check_reagents_assoc_list(available_reagents) != REAGENT_CHECK_FAILURE && recipe.check_items_assoc_list(available_ingredients) != REAGENT_CHECK_FAILURE)
 			if(istype(recipe, /datum/recipe/microwave))
 				possible_recipes[recipe] = RECIPE_MICROWAVE
 			else if(istype(recipe, /datum/recipe/oven))
@@ -2252,6 +2252,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 				required_reagents += "[recipe.reagents[reagent_id]] unit\s of [temp.name]"
 
 		var/obj/item/result = recipe.result
-		message += "\tI could make [result.gender == PLURAL ? "some" : "a"] [bicon(result)] <b>[result.name]</b> by using a [possible_recipes[recipe]] with [english_list(ingredient_list)][length(required_reagents) ? ", along with [english_list(required_reagents)]" : ""]."
+		message += "\tI could make [result.gender == PLURAL ? "some" : "a"] [bicon(result)] <b>[result.name]</b> by using \a [possible_recipes[recipe]] with [english_list(ingredient_list)][length(required_reagents) ? ", along with [english_list(required_reagents)]" : ""]."
 		qdel(recipe)
 	to_chat(src, chat_box_examine(message.Join("<br>")))
