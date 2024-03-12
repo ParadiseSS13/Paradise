@@ -19,7 +19,7 @@
 		/obj/item
     )
 
-	var/obj/item/gripped_item = null    // Item currently being held.
+	var/obj/item/gripped_item    // Item currently being held.
 
 /obj/item/gripper/examine_more(mob/user)
     . = ..()
