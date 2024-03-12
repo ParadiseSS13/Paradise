@@ -217,6 +217,10 @@
 		consoles = list()
 		servers = list()
 		for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+			if(istype(S, /obj/machinery/r_n_d/server/centcom) && !badmin)
+				continue
+			if(!atoms_share_level(get_turf(src), get_turf(S)) && !badmin)
+				continue
 			if(S.server_id == text2num(href_list["access"]) || S.server_id == text2num(href_list["data"]) || S.server_id == text2num(href_list["transfer"]))
 				temp_server = S
 				break
@@ -236,6 +240,13 @@
 
 	else if(href_list["upload_toggle"])
 		var/num = text2num(href_list["upload_toggle"])
+		for(var/obj/machinery/computer/rdconsole/C in consoles)
+			if(C.id != num)
+				continue
+
+			if(!atoms_share_level(get_turf(src), get_turf(C)) && !badmin)
+				to_chat(usr, "<span class='warning'>Unable to modify upload protocols of this console; is it in the same sector?</span>")
+				return
 		if(num in temp_server.id_with_upload)
 			temp_server.id_with_upload -= num
 		else
@@ -249,7 +260,7 @@
 			temp_server.id_with_download += num
 
 	else if(href_list["reset_tech"])
-		var/choice = alert("Technology Data Reset", "Are you sure you want to reset this technology to its default data? Data lost cannot be recovered.", "Continue", "Cancel")
+		var/choice = tgui_alert(usr, "Technology Data Reset", "Are you sure you want to reset this technology to its default data? Data lost cannot be recovered.", list("Continue", "Cancel"))
 		if(choice == "Continue")
 			for(var/I in temp_server.files.known_tech)
 				var/datum/tech/T = temp_server.files.known_tech[I]
@@ -259,7 +270,7 @@
 		temp_server.files.RefreshResearch()
 
 	else if(href_list["reset_design"])
-		var/choice = alert("Design Data Deletion", "Are you sure you want to blacklist this design? Ensure you sync servers after this decision.", "Continue", "Cancel")
+		var/choice = tgui_alert(usr, "Design Data Deletion", "Are you sure you want to blacklist this design? Ensure you sync servers after this decision.", list("Continue", "Cancel"))
 		if(choice == "Continue")
 			for(var/I in temp_server.files.known_designs)
 				var/datum/design/D = temp_server.files.known_designs[I]
@@ -272,7 +283,7 @@
 		temp_server.files.RefreshResearch()
 
 	else if(href_list["restore_design"])
-		var/choice = alert("Design Data Restoration", "Are you sure you want to restore this design? Ensure you sync servers after this decision.", "Continue", "Cancel")
+		var/choice = tgui_alert(usr, "Design Data Restoration", "Are you sure you want to restore this design? Ensure you sync servers after this decision.", list("Continue", "Cancel"))
 		if(choice == "Continue")
 			temp_server.files.blacklisted_designs -= href_list["restore_design"]
 			temp_server.files.unblacklisted_designs += href_list["restore_design"]
@@ -295,6 +306,8 @@
 
 			for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 				if(istype(S, /obj/machinery/r_n_d/server/centcom) && !badmin)
+					continue
+				if(!atoms_share_level(get_turf(src), get_turf(S)) && !badmin)
 					continue
 				dat += "[S.name] || "
 				dat += "<A href='?src=[UID()];access=[S.server_id]'>Access Rights</A> | "
@@ -347,17 +360,18 @@
 			dat += "[temp_server.name] Server to Server Transfer<BR><BR>"
 			dat += "Send Data to what server?<BR>"
 			for(var/obj/machinery/r_n_d/server/S in servers)
-				dat += "[S.name] <A href='?src=[UID()];send_to=[S.server_id]'> (Transfer)</A><BR>"
-			dat += "<HR><A href='?src=[UID()];main=1'>Main Menu</A>"
-	user << browse("<TITLE>R&D Server Control</TITLE><HR>[dat]", "window=server_control;size=575x400")
+				dat += "[S.name] <a href='?src=[UID()];send_to=[S.server_id]'> (Transfer)</a><br>"
+			dat += "<hr><a href='?src=[UID()];main=1'>Main Menu</a>"
+	user << browse("<title>R&D Server Control</title><hr><meta charset='UTF-8'>[dat]", "window=server_control;size=575x400")
 	onclose(user, "server_control")
 	return
 
 /obj/machinery/computer/rdservercontrol/emag_act(user as mob)
 	if(!emagged)
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
+		playsound(loc, 'sound/effects/sparks4.ogg', 75, TRUE)
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You you disable the security protocols</span>")
+		return TRUE
 	src.updateUsrDialog()
 
 /obj/machinery/r_n_d/server/core

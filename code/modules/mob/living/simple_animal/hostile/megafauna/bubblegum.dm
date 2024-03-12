@@ -140,8 +140,8 @@ Difficulty: Hard
 	var/mob/living/carbon/human/H = target
 	H.apply_status_effect(STATUS_EFFECT_BUBBLEGUM_CURSE, src)
 	if(second_life)
-		H.clear_fullscreen("bubblegum")
-		H.overlay_fullscreen("bubblegum", /obj/screen/fullscreen/fog, 2)
+		H.clear_fullscreen("Bubblegum")
+		H.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/fog, 2)
 
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)
@@ -662,3 +662,8 @@ Difficulty: Hard
 		for(var/obj/effect/landmark/spawner/bubblegum/B in GLOB.landmarks_list)
 			forceMove(get_turf(B))
 			break
+
+#undef BUBBLEGUM_SMASH
+#undef BUBBLEGUM_CAN_ENRAGE
+#undef BUBBLEGUM_IS_ENRAGED
+#undef MAXIMUM_ENRAGED_HEALING

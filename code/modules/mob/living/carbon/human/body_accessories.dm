@@ -83,19 +83,22 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 	return ..()
 
 //Tajaran
-/datum/body_accessory/tail/wingler_tail // Jay wingler fluff tail
+/// Jay wingler fluff tail
+/datum/body_accessory/tail/wingler_tail
 	name = "Striped Tail"
 	icon_state = "winglertail"
 	animated_icon_state = "winglertail_a"
 	allowed_species = list("Tajaran")
 
-/datum/body_accessory/tail/tiny //Pretty ambiguous as to what species it belongs to, tail could've been injured or docked.
+/// Pretty ambiguous as to what species it belongs to, tail could've been injured or docked.
+/datum/body_accessory/tail/tiny
 	name = "Tiny Tail"
 	icon_state = "tiny"
 	animated_icon_state = "tiny_a"
 	allowed_species = list("Vulpkanin", "Tajaran")
 
-/datum/body_accessory/tail/short //Same as above.
+/// Same as above.
+/datum/body_accessory/tail/short
 	name = "Short Tail"
 	icon_state = "short"
 	animated_icon_state = "short_a"
@@ -202,3 +205,31 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 /datum/body_accessory/wing/witchwing
 	name = "Witch Wing Wings"
 	icon_state = "witchwing"
+
+/datum/body_accessory/wing/lightbearer
+	name = "Lightbearer Wings"
+	icon_state = "lightbearer"
+
+/datum/body_accessory/wing/rosy
+	name = "Rosy Wings"
+	icon_state = "rosy"
+
+/datum/body_accessory/wing/feathery
+	name = "Feathery Wings"
+	icon_state = "feathery"
+
+/datum/body_accessory/wing/brown
+	name = "Brown Wings"
+	icon_state = "brown"
+
+/datum/body_accessory/wing/plasmafire
+	name = "Plasmafire Wings"
+	icon_state = "plasmafire"
+
+/datum/body_accessory/wing/mothra
+	name = "Mothra Wings"
+	icon_state = "mothra"
+
+/datum/body_accessory/wing/bluespace
+	name = "Bluespace Wings"
+	icon_state = "bluespace"

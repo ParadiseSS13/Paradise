@@ -26,6 +26,7 @@
 	playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 	do_sparks(5, TRUE, src)
 	circuit = /obj/item/circuitboard/aiupload_broken
+	return TRUE
 
 /obj/machinery/computer/aiupload/attackby(obj/item/O, mob/user, params)
 	if(!istype(O, /obj/item/aiModule))
@@ -93,29 +94,28 @@
 /// pushes an alert to the AI and its borgs about the law changes
 /obj/machinery/computer/aiupload/proc/alert_silicons()
 	current.show_laws()
-	current.throw_alert("newlaw", /obj/screen/alert/newlaw)
+	current.throw_alert("newlaw", /atom/movable/screen/alert/newlaw)
 	for(var/mob/living/silicon/robot/borg in current.connected_robots)
 		borg.cmd_show_laws()
-		borg.throw_alert("newlaw", /obj/screen/alert/newlaw)
+		borg.throw_alert("newlaw", /atom/movable/screen/alert/newlaw)
 
-/obj/machinery/computer/aiupload/attack_hand(mob/user as mob)
-	if(src.stat & NOPOWER)
-		to_chat(usr, "The upload computer has no power!")
+/obj/machinery/computer/aiupload/attack_hand(mob/user)
+	if(stat & NOPOWER)
+		to_chat(user, "<span class='warning'>The upload computer has no power!</span>")
 		return
-	if(src.stat & BROKEN)
-		to_chat(usr, "The upload computer is broken!")
+	if(stat & BROKEN)
+		to_chat(user, "<span class='warning'>The upload computer is broken!</span>")
 		return
 
-	src.current = select_active_ai(user)
+	current = select_active_ai(user)
 
-	if(!src.current)
-		to_chat(usr, "No active AIs detected.")
-	else
-		to_chat(usr, "[src.current.name] selected for law changes.")
-	return
+	if(!current)
+		to_chat(user, "<span class='warning'>No active AIs detected.</span>")
+		return
+	to_chat(user, "<span class='notice'>[current.name] selected for law changes.</span>")
 
-/obj/machinery/computer/aiupload/attack_ghost(user as mob)
-	return 1
+/obj/machinery/computer/aiupload/attack_ghost(user)
+	return TRUE
 
 #undef AIUPLOAD_EMAG_COOLDOWN
 
@@ -128,11 +128,10 @@
 	circuit = /obj/item/circuitboard/borgupload
 	var/mob/living/silicon/robot/current = null
 
-
-/obj/machinery/computer/borgupload/attackby(obj/item/aiModule/module as obj, mob/user as mob, params)
+/obj/machinery/computer/borgupload/attackby(obj/item/aiModule/module, mob/user, params)
 	if(istype(module, /obj/item/aiModule))
 		if(!current)//no borg selected
-			to_chat(user, "<span class='danger'>No borg selected. Please chose a target before proceeding with upload.")
+			to_chat(user, "<span class='danger'>No borg selected. Please chose a target before proceeding with upload.</span>")
 			return
 		var/turf/T = get_turf(current)
 		if(!atoms_share_level(T, src))
@@ -143,21 +142,20 @@
 	return ..()
 
 
-/obj/machinery/computer/borgupload/attack_hand(mob/user as mob)
-	if(src.stat & NOPOWER)
-		to_chat(usr, "The upload computer has no power!")
+/obj/machinery/computer/borgupload/attack_hand(mob/user)
+	if(stat & NOPOWER)
+		to_chat(user, "<span class='warning'>The upload computer has no power!</span>")
 		return
-	if(src.stat & BROKEN)
-		to_chat(usr, "The upload computer is broken!")
+	if(stat & BROKEN)
+		to_chat(user, "<span class='warning'>The upload computer is broken!</span>")
 		return
 
-	src.current = freeborg()
+	current = freeborg(user)
 
-	if(!src.current)
-		to_chat(usr, "No free cyborgs detected.")
-	else
-		to_chat(usr, "[src.current.name] selected for law changes.")
-	return
+	if(!current)
+		to_chat(user, "<span class='warning'>No free cyborgs detected.</span>")
+		return
+	to_chat(user, "<span class='notice'>[current.name] selected for law changes.</span>")
 
-/obj/machinery/computer/borgupload/attack_ghost(user as mob)
-		return 1
+/obj/machinery/computer/borgupload/attack_ghost(user)
+	return TRUE

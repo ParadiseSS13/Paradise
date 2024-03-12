@@ -112,6 +112,14 @@
 	new /obj/item/clothing/head/helmet(src)
 	new /obj/item/clothing/suit/armor/secjacket(src)
 
+/obj/structure/closet/secure_closet/evidence
+	name = "evidence locker"
+	req_access = list(ACCESS_SEC_DOORS)
+	anchored = TRUE
+
+/obj/structure/closet/secure_closet/evidence/detective
+	req_access = list(ACCESS_FORENSICS_LOCKERS)
+
 /obj/structure/closet/secure_closet/blueshield
 	name = "blueshield's locker"
 	req_access = list(ACCESS_BLUESHIELD)
@@ -196,7 +204,7 @@
 	new /obj/item/ammo_box/magazine/detective/speedcharger(src)
 	new /obj/effect/spawner/detgun(src)
 	new /obj/item/flashlight/seclite(src)
-	new /obj/item/holosign_creator/security(src)
+	new /obj/item/holosign_creator/detective(src)
 	new /obj/item/taperecorder(src)
 	new /obj/item/storage/box/tapes(src)
 

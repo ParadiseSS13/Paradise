@@ -208,7 +208,7 @@
 /mob/living/simple_animal/hostile/guardian/proc/Communicate(message)
 	var/input
 	if(!message)
-		input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
+		input = tgui_input_text(src, "Please enter a message to tell your summoner.", "Guardian")
 	else
 		input = message
 	if(!input || !summoner)
@@ -278,12 +278,12 @@
 	if(user.mind && (ischangeling(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)))
 		to_chat(user, "[ling_failure]")
 		return
-	if(used == TRUE)
+	if(used)
 		to_chat(user, "[used_message]")
 		return
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once, polling ghosts multiple times, and receiving multiple guardians.
-	var/choice = alert(user, "[confirmation_message]",, "Yes", "No")
-	if(choice == "No")
+	var/choice = tgui_alert(user, "[confirmation_message]", "Confirm", list("Yes", "No"))
+	if(choice != "Yes")
 		to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
 		used = FALSE
 		return
@@ -295,7 +295,7 @@
 			picked_random_type = pick(possible_guardians)
 		guardian_type = picked_random_type
 	else
-		guardian_type = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in possible_guardians
+		guardian_type = tgui_input_list(user, "Pick the type of [mob_name]", "[mob_name] Creation", possible_guardians)
 		if(!guardian_type)
 			to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
 			used = FALSE
@@ -374,6 +374,7 @@
 	var/picked_name = pick(name_list)
 	create_theme(G, user, picked_name, color)
 	SSblackbox.record_feedback("tally", "guardian_pick", 1, "[pickedtype]")
+	G.client?.init_verbs()
 
 /obj/item/guardiancreator/proc/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
 	G.name = "[picked_name] [color]"

@@ -146,6 +146,28 @@ The previous code made compliant:
     code
 ```
 
+### Do not compare boolean values to TRUE or FALSE
+
+Do not compare boolean values to TRUE or FALSE. For TRUE you should just check if there's a value in that address. For FALSE you should use the ! operator. An exception is made to this when working with JS or other external languages. If a function/variable can contain more values beyond null/0 or TRUE, use numbers and defines instead of true/false comparisons.
+
+```dm
+// Bad
+var/thing = pick(list(TRUE, FALSE))
+if(thing == TRUE)
+	return "bleh"
+var/other_thing = pick(list(TRUE, FALSE))
+if(other_thing == FALSE)
+	return "meh"
+
+// Good
+var/thing = pick(list(TRUE, FALSE))
+if(thing)
+	return "bleh"
+var/other_thing = pick(list(TRUE, FALSE))
+if(!other_thing)
+	return "meh"
+```
+
 ### User Interfaces
 
 All new user interfaces in the game must be created using the TGUI framework. Documentation can be found inside the [`tgui/docs`](../tgui/docs) folder, and the [`README.md`](../tgui/README.md) file. This is to ensure all ingame UIs are snappy and respond well. An exception is made for user interfaces which are purely for OOC actions (Such as character creation, or anything admin related)
@@ -153,6 +175,19 @@ All new user interfaces in the game must be created using the TGUI framework. Do
 ### No overriding type safety checks
 
 The use of the `:` operator to override type safety checks is not allowed. You must cast the variable to the proper type.
+
+### Do not access return value vars directly from functions
+
+The use of the pointer operator, `.`, should not be used to access the return values of functions directly. This can cause unintended behavior and is difficult to read.
+
+```dm
+//Bad
+var/our_x = get_turf(thing).x
+
+//Good
+var/turf/our_turf = get_turf(thing)
+var/our_x = our_turf.x
+```
 
 ### Type paths must begin with a /
 
@@ -354,7 +389,7 @@ This is clearer and enhances readability of your code! Get used to doing it!
 
 ### Player Output
 
-Due to the use of "Goonchat", Paradise requires a special syntax for outputting text messages to players. Instead of `mob << "message"`, you must use `to_chat(mob, "message")`. Failure to do so will lead to your code not working.
+Due to the use of "TGchat", Paradise requires a special syntax for outputting text messages to players. Instead of `mob << "message"`, you must use `to_chat(mob, "message")`. Failure to do so will lead to your code not working.
 
 ### Use early returns
 
@@ -435,7 +470,7 @@ Look for code examples on how to properly use it.
 
 #### Bitflags
 
-* We prefer using bitshift operators instead of directly typing out the value. I.E:
+* Bitshift operators are mandatory, opposed to directly typing out the value. I.E:
 
 ```dm
     #define MACRO_ONE (1<<0)
@@ -443,7 +478,7 @@ Look for code examples on how to properly use it.
     #define MACRO_THREE (1<<2)
 ```
 
-Is preferable to:
+Is accepted, whereas the following is not:
 
 ```dm
     #define MACRO_ONE 1
@@ -753,7 +788,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 `Headcoders` are the overarching "administrators" of the repository. People included in this role are:
 
 * [farie82](https://github.com/farie82)
-* [Charliminator](https://github.com/hal9000PR)
+* [S34N](https://github.com/S34NW)
 * [SteelSlayer](https://github.com/SteelSlayer)
 
 ---
@@ -762,19 +797,20 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 
 
 * [AffectedArc07](https://github.com/AffectedArc07)
+* [Charliminator](https://github.com/hal9000PR)
 * [lewcc](https://github.com/lewcc)
-* [S34N](https://github.com/S34NW)
 
 ---
 
 `Review Team` members are people who are denoted as having reviews which can affect mergeability status. People included in this role are:
 
-* [lewcc](https://github.com/lewcc)
-* [S34N](https://github.com/S34NW)
-* [Sirryan2002](https://github.com/Sirryan2002)
-* [Contrabang](https://github.com/Contrabang)
 * [Burzah](https://github.com/Burzah)
+* [Charliminator](https://github.com/hal9000PR)
+* [Contrabang](https://github.com/Contrabang)
 * [DGamerL](https://github.com/DGamerL)
+* [Henri215](https://github.com/Henri215)
+* [lewcc](https://github.com/lewcc)
+* [Sirryan2002](https://github.com/Sirryan2002)
 * [Warriorstar](https://github.com/warriorstar-orion)
 
 ---

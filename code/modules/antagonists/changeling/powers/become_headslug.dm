@@ -1,19 +1,21 @@
 /datum/action/changeling/headslug
 	name = "Last Resort"
-	desc = "We sacrifice our current body in a moment of need, placing us in control of a vessel that can plant our likeness in a new host. Costs 20 chemicals."
-	helptext = "We will be placed in control of a small, fragile creature. We may attack a corpse like this to plant an egg which will slowly mature into a new form for us."
+	desc = "We sacrifice our current body in a moment of need, placing us in control of a vessel that can plant our likeness in a new host. Costs 20 chemicals. We will need to absorb someone to use this ability again."
+	helptext = "We will be placed in control of a small, fragile creature. We may attack a corpse like this to plant an egg which will slowly mature into a new form for us. This ability is available only once per absorption."
 	button_icon_state = "last_resort"
 	chemical_cost = 20
-	dna_cost = 2
 	req_human = TRUE
 	req_stat = DEAD
 	bypass_fake_death = TRUE
-	power_type = CHANGELING_PURCHASABLE_POWER
-	category = /datum/changeling_power_category/defence
+	power_type = CHANGELING_INNATE_POWER
 
 /datum/action/changeling/headslug/try_to_sting(mob/user, mob/target)
-	if(alert("Are you sure you wish to do this? This action cannot be undone.",,"Yes","No") == "No")
+	if(cling.headslugged)
+		to_chat(user, "<span class='notice'>We need to absorb a humanoid to headslug again.</span>")
 		return
+	if(tgui_alert(user, "Are you sure you wish to do this? This action cannot be undone.", "Sting", list("Yes", "No")) != "Yes")
+		return
+	cling.headslugged = TRUE
 	..()
 
 /datum/action/changeling/headslug/sting_action(mob/user)

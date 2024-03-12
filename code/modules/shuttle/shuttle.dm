@@ -223,6 +223,9 @@
 	var/travelDir = 0				//direction the shuttle would travel in
 	var/rebuildable = 0				//can build new shuttle consoles for this one
 
+	/// The speed factor for this shuttle. Higher means faster.
+	var/shuttle_speed_factor = 1
+
 	var/mob/last_caller				// Who called the shuttle the last time
 
 	var/obj/docking_port/stationary/destination
@@ -694,8 +697,8 @@
 	if(divisor <= 0)
 		divisor = 10
 	if(!timer)
-		return round(callTime/divisor, 1)
-	return max( round((timer+callTime-world.time)/divisor,1), 0 )
+		return round((callTime / shuttle_speed_factor) / divisor, 1)
+	return max(round(((timer + callTime - world.time) / divisor) / shuttle_speed_factor, 1), 0)
 
 // returns 3-letter mode string, used by status screens and mob status panel
 /obj/docking_port/mobile/proc/getModeStr()
@@ -869,6 +872,7 @@
 		src.req_access = list()
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
+		return TRUE
 
 //for restricting when the computer can be used, needed for some console subtypes.
 /obj/machinery/computer/shuttle/proc/can_call_shuttle(mob/user, action)

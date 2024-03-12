@@ -1372,7 +1372,7 @@
 /obj/structure/lattice,
 /obj/machinery/light/small,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "fr" = (
 /obj/docking_port/stationary/transit{
 	dir = 4;
@@ -4568,7 +4568,7 @@
 /area/shuttle/administration)
 "ps" = (
 /turf/simulated/mineral/ancient/outer,
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "pt" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Armory"
@@ -5803,7 +5803,7 @@
 "tL" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "tM" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -7018,7 +7018,7 @@
 "ya" = (
 /obj/effect/mob_spawn/human/corpse/clown/corpse,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "yc" = (
 /obj/structure/table/reinforced,
 /obj/item/lighter/zippo/contractor,
@@ -7029,7 +7029,7 @@
 /turf/simulated/floor/plating/airless{
 	icon_state = "asteroidplating"
 	},
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "yg" = (
 /mob/living/silicon/decoy{
 	name = "A.L.I.C.E."
@@ -7110,7 +7110,7 @@
 /turf/simulated/floor/plating/airless{
 	icon_state = "asteroidplating"
 	},
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "yL" = (
 /obj/machinery/computer/card,
 /turf/simulated/floor/plasteel,
@@ -8281,10 +8281,7 @@
 	},
 /area/centcom/suppy)
 "DD" = (
-/obj/machinery/power/apc{
-	name = "Gamma Armory APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -8292,7 +8289,7 @@
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
-/obj/machinery/suit_storage_unit/gamma,
+/obj/machinery/suit_storage_unit/gamma/secure,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "DE" = (
@@ -10854,7 +10851,7 @@
 "Mu" = (
 /obj/item/coin/antagtoken,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "Mv" = (
 /obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/plasteel{
@@ -11601,7 +11598,7 @@
 /area/shuttle/escape)
 "OK" = (
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "OL" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
@@ -13974,7 +13971,7 @@
 /turf/simulated/floor/plating/airless{
 	icon_state = "asteroidplating"
 	},
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "Xt" = (
 /obj/machinery/door/airlock/centcom{
 	name = "CentCom Customs"
@@ -14332,7 +14329,7 @@
 "YI" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "YJ" = (
 /obj/machinery/door/window/classic/normal{
 	name = "Cell B";
@@ -50118,7 +50115,7 @@ IS
 LN
 LN
 LN
-NF
+vy
 Mb
 LR
 LR
