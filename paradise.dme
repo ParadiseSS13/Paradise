@@ -29,6 +29,7 @@
 #include "code\__DEFINES\_versions.dm"
 #include "code\__DEFINES\access_defines.dm"
 #include "code\__DEFINES\action_button_defines.dm"
+#include "code\__DEFINES\action_defines.dm"
 #include "code\__DEFINES\admin_defines.dm"
 #include "code\__DEFINES\announce_defines.dm"
 #include "code\__DEFINES\antag_defines.dm"
