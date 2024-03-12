@@ -87,7 +87,7 @@
 			gripped_item?.afterattack(target, user, 1, params)
 
 		//If gripped_item either didn't get deleted, or it failed to be transfered to its target
-		if(!gripped_item && contents.len)
+		if(!gripped_item && length(contents))
 			gripped_item = contents[1]
 			return FALSE
 		else if(gripped_item && !contents.len)
