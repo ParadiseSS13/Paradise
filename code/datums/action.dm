@@ -216,7 +216,7 @@
 // 		else
 // 			return TRUE
 
-/datum/action/proc/apply_unavailable_effect(var/atom/movable/screen/movable/action_button/B)
+/datum/action/proc/apply_unavailable_effect(atom/movable/screen/movable/action_button/B)
 	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
 	img.alpha = 200
 	img.appearance_flags = RESET_COLOR | RESET_ALPHA

@@ -360,7 +360,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, to_remove)
 
 /atom/movable/screen/button_palette/proc/can_use(mob/user)
-	// if (isobserver(user))
+	// if(isobserver(user))
 	// 	var/mob/dead/observer/O = user
 	// 	return !O.observetarget
 	return TRUE
@@ -404,7 +404,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 		return
 
 	if(expanded)
-		RegisterSignal(usr.client, COMSIG_CLIENT_CLICK, .proc/clicked_while_open)
+		RegisterSignal(usr.client, COMSIG_CLIENT_CLICK, PROC_REF(clicked_while_open))
 	else
 		UnregisterSignal(usr.client, COMSIG_CLIENT_CLICK)
 
