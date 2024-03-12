@@ -602,14 +602,14 @@ Returns 1 if the chain up to the area contains the given typepath
 	if(x < 1)
 		y += (1 - x) / ratio
 		x = 1
-	else if (x > world.maxx)
+	else if(x > world.maxx)
 		y += (world.maxx - x) / ratio
 		x = world.maxx
 
 	if(y < 1)
 		x += (1 - y) * ratio
 		y = 1
-	else if (y > world.maxy)
+	else if(y > world.maxy)
 		x += (world.maxy - y) * ratio
 		y = world.maxy
 
