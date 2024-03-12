@@ -25866,6 +25866,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "BS"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "bAe" = (
@@ -36545,12 +36548,19 @@
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -24;
+	pixel_x = -5
 	},
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
 /obj/effect/landmark/start/nanotrasen_rep,
+/obj/machinery/button/windowtint{
+	id = "NTR";
+	pixel_y = -24;
+	dir = 1;
+	pixel_x = 4
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "cnv" = (
@@ -58451,6 +58461,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "NTR"
+	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -58925,6 +58938,21 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
+"fYu" = (
+/obj/machinery/button/windowtint{
+	id = "BS";
+	pixel_y = -24;
+	dir = 1;
+	pixel_x = 4
+	},
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24;
+	pixel_x = -4
+	},
+/turf/simulated/floor/wood,
+/area/station/command/office/blueshield)
 "fYx" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -60758,15 +60786,6 @@
 /area/station/maintenance/apmaint2)
 "gSx" = (
 /obj/item/flag/nt,
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
-/obj/machinery/button/windowtint{
-	id = "med1";
-	pixel_x = -24;
-	dir = 4
-	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "gSC" = (
@@ -68365,7 +68384,7 @@
 "kHO" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "BS"
+	id = "NTR"
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/ntrep)
@@ -68695,6 +68714,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mail_sorting,
+/obj/effect/mapping_helpers/airlock/access/any/supply/expedition,
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "kPo" = (
@@ -82428,7 +82448,7 @@
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "BS"
+	id = "NTR"
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/ntrep)
@@ -83150,6 +83170,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mail_sorting,
+/obj/effect/mapping_helpers/airlock/access/any/supply/expedition,
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "rOm" = (
@@ -121908,7 +121929,7 @@ veA
 ciH
 col
 wgt
-clR
+fYu
 cgS
 lNb
 lNb

@@ -180,6 +180,7 @@
 		ACCESS_TELEPORTER,
 		ACCESS_CARGO,
 		ACCESS_CARGO_BAY,
+		ACCESS_MINERAL_STOREROOM,
 		ACCESS_SUPPLY_SHUTTLE
 	)
 	alt_titles = list("Salvage Technician", "Scavenger")
