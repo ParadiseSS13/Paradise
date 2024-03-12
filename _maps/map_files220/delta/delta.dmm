@@ -47170,8 +47170,8 @@
 /area/station/service/chapel/office)
 "dUK" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/poppy/geranium,
-/obj/item/food/snacks/grown/poppy/lily{
+/obj/item/food/snacks/grown/geranium,
+/obj/item/food/snacks/grown/lily{
 	pixel_x = 4;
 	pixel_y = 5
 	},
@@ -102854,7 +102854,7 @@
 /area/station/legal/lawoffice)
 "veB" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/poppy/geranium,
+/obj/item/food/snacks/grown/geranium,
 /obj/item/soap/deluxe,
 /obj/machinery/power/apc/critical/directional/east{
 	shock_proof = 1

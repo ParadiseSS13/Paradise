@@ -5295,7 +5295,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "gYH" = (
 /obj/structure/stone_tile/slab/cracked,
-/obj/item/food/snacks/grown/poppy/lily,
+/obj/item/food/snacks/grown/lily,
 /obj/item/food/snacks/grown/moonflower,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
@@ -14844,7 +14844,7 @@
 "sDQ" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/item/food/snacks/grown/poppy,
-/obj/item/food/snacks/grown/poppy/geranium,
+/obj/item/food/snacks/grown/geranium,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "sFa" = (
