@@ -105,7 +105,7 @@
 		. += "<span class='notice'>It is too far away.</span>"
 
 /obj/item/paper_bundle/proc/show_content(mob/user as mob)
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	var/obj/item/W = src[page]
 	switch(screen)
 		if(0)
@@ -127,7 +127,7 @@
 	else if(istype(src[page], /obj/item/photo))
 		var/obj/item/photo/P = W
 		usr << browse_rsc(P.img, "tmp_photo.png")
-		usr << browse(dat + "<html><head><title>[P.name]</title></head>" \
+		usr << browse(dat + "<html><meta charset='utf-8'><head><title>[P.name]</title></head>" \
 		+ "<body style='overflow:hidden'>" \
 		+ "<div> <img src='tmp_photo.png' width = '180'" \
 		+ "[P.scribble ? "<div><br> Written on the back:<br><i>[P.scribble]</i>" : ""]"\
@@ -201,10 +201,10 @@
 	. = ..()
 
 /obj/item/paper_bundle/proc/rename(mob/user)
-	var/n_name = sanitize(copytext(input(user, "What would you like to label the bundle?", "Bundle Labelling", name) as text, 1, MAX_MESSAGE_LEN))
-	if((loc == user && !user.stat))
-		name = "[(n_name ? "[n_name]" : "paper bundle")]"
-
+	var/n_name = tgui_input_text(user, "What would you like to label the bundle?", "Bundle Labelling", name)
+	if(!Adjacent(user) || !n_name || user.stat)
+		return
+	name = "[(n_name ? "[n_name]" : "paper bundle")]"
 	add_fingerprint(user)
 
 /obj/item/paper_bundle/AltShiftClick(mob/user)

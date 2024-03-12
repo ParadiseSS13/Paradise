@@ -48,7 +48,12 @@
 	var/datum/action/changeling/sting/chosen_sting
 	/// If the changeling is in the process of regenerating from their fake death.
 	var/regenerating = FALSE
-
+	/// Did changeling use headslug?
+	var/headslugged = FALSE
+	/// Can you use abilities due to a recent revival?
+	var/can_use_powers = TRUE
+	blurb_text_color = COLOR_PURPLE
+	blurb_text_outline_width = 1
 
 /datum/antagonist/changeling/New()
 	..()
@@ -429,3 +434,6 @@
 
 /proc/ischangeling(mob/M)
 	return M.mind?.has_antag_datum(/datum/antagonist/changeling)
+
+/datum/antagonist/changeling/custom_blurb()
+	return "We awaken on the [station_name()], [get_area_name(owner.current, TRUE)]...\nWe have our tasks to attend to..."

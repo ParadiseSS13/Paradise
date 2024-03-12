@@ -269,7 +269,7 @@ REAGENT SCANNER
 
 	var/implant_detect
 	for(var/obj/item/organ/internal/O in H.internal_organs)
-		if(O.is_robotic())
+		if(O.is_robotic() && !O.stealth_level)
 			implant_detect += "[H.name] is modified with a [O.name].<br>"
 	if(implant_detect)
 		msgs += "<span class='notice'>Detected cybernetic modifications:</span>"
@@ -423,7 +423,7 @@ REAGENT SCANNER
 			organ_found = null
 			if(LAZYLEN(H.internal_organs))
 				for(var/obj/item/organ/internal/O in H.internal_organs)
-					if(!O.is_robotic() || istype(O, /obj/item/organ/internal/cyberimp))
+					if(!O.is_robotic() || istype(O, /obj/item/organ/internal/cyberimp) || O.stealth_level > 1)
 						continue
 					organ_found = TRUE
 					msgs += "[capitalize(O.name)]: <font color='red'>[O.damage]</font>"
@@ -434,6 +434,8 @@ REAGENT SCANNER
 			organ_found = null
 			if(LAZYLEN(H.internal_organs))
 				for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
+					if(I.stealth_level > 1)
+						continue
 					organ_found = TRUE
 					msgs += "[capitalize(I.name)]: <font color='red'>[I.crit_fail ? "CRITICAL FAILURE" : I.damage]</font>"
 			if(!organ_found)
@@ -552,13 +554,13 @@ REAGENT SCANNER
 
 		for(var/V in SSweather.processing)
 			var/datum/weather/W = V
-			if(W.barometer_predictable && (T.z in W.impacted_z_levels) && W.area_type == user_area.type && !(W.stage == END_STAGE))
+			if(W.barometer_predictable && (T.z in W.impacted_z_levels) && W.area_type == user_area.type && !(W.stage == WEATHER_END_STAGE))
 				ongoing_weather = W
 				break
 
 		if(ongoing_weather)
-			if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
-				to_chat(user, "<span class='warning'>[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]</span>")
+			if((ongoing_weather.stage == WEATHER_MAIN_STAGE) || (ongoing_weather.stage == WEATHER_WIND_DOWN_STAGE))
+				to_chat(user, "<span class='warning'>[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == WEATHER_MAIN_STAGE ? "already here!" : "winding down."]</span>")
 				return
 
 			to_chat(user, "<span class='notice'>The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)].</span>")

@@ -379,8 +379,6 @@ details_url = "https://iphub.info/?ip="
 [job_configuration]
 # This section contains information on job configuartion, as well as the jon amounts
 
-# Disable this if you are in a lowpop environment
-jobs_have_minimal_access = true
 # Require account agre restrictions for job? Requires the database
 restrict_jobs_on_account_age = false
 # Allow admins to bypass all job age restrictions

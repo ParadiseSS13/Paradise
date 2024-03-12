@@ -157,9 +157,6 @@
 ///from base of datum/radiation_wave/check_obstructions(): (datum/radiation_wave, width)
 #define COMSIG_ATOM_RAD_WAVE_PASSING "atom_rad_wave_pass"
 	#define COMPONENT_RAD_WAVE_HANDLED (1<<0)
-///from internal loop in atom/movable/proc/CanReach(): (list/next)
-#define COMSIG_ATOM_CANREACH "atom_can_reach"
-	#define COMPONENT_BLOCK_REACH (1<<0)
 ///from base of atom/screwdriver_act(): (mob/living/user, obj/item/I)
 #define COMSIG_ATOM_SCREWDRIVER_ACT "atom_screwdriver_act"
 ///from base of atom/wrench_act(): (mob/living/user, obj/item/I)
@@ -188,6 +185,10 @@
 #define COMSIG_ATOM_HITBY "atom_hitby"
 /// Called when an atom is sharpened or dulled.
 #define COMSIG_ATOM_UPDATE_SHARPNESS "atom_update_sharpness"
+///from base of atom/atom_prehit(obj/item/projectile/P):
+#define COMSIG_ATOM_PREHIT "atom_prehit"
+	#define ATOM_PREHIT_SUCCESS (1<<0)
+	#define ATOM_PREHIT_FAILURE (1<<1)
 
 // Attack signals. These should share the returned flags, to standardize the attack chain.
 // The chain currently works like:
@@ -776,6 +777,9 @@
 ///from /mob/living/carbon/human/proc/check_shields(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
 #define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"
 	#define SHIELD_BLOCK (1<<0)
+
+///from /mob/living/carbon/human/create_mob_hud()
+#define COMSIG_HUMAN_CREATE_MOB_HUD "human_create_mob_hud"
 
 // /datum/species signals
 

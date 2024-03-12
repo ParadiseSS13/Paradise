@@ -187,7 +187,7 @@
 		user.bloody_hands += taken
 		user.hand_blood_color = basecolor
 		user.update_inv_gloves()
-		user.verbs += /mob/living/carbon/human/proc/bloody_doodle
+		add_verb(user, /mob/living/carbon/human/proc/bloody_doodle)
 
 /obj/effect/decal/cleanable/blood/can_bloodcrawl_in()
 	return TRUE
@@ -210,7 +210,8 @@
 /obj/effect/decal/cleanable/blood/drip/can_bloodcrawl_in()
 	return TRUE
 
-/obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
+/// not a child of blood on purpose
+/obj/effect/decal/cleanable/trail_holder
 	name = "blood"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
@@ -300,7 +301,8 @@
 	scoop_reagents = list("liquidgibs" = 5)
 
 
-/obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...
+/// most ironic name ever...
+/obj/effect/decal/cleanable/blood/gibs/cleangibs
 	scoop_reagents = null
 	mergeable_decal = TRUE
 

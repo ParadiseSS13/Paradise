@@ -300,18 +300,18 @@
 /proc/ionnum()
 	return "[pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")]"
 
-//When an AI is activated, it can choose from a list of non-slaved borgs to have as a slave.
-/proc/freeborg()
+// Selects an unlinked borg, used in the robot upload console
+/proc/freeborg(mob/user)
 	var/select
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
-		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || isdrone(A))
+		if(A.stat == DEAD || A.connected_ai || A.scrambledcodes || isdrone(A))
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
 
 	if(length(borgs))
-		select = input("Unshackled borg signals detected:", "Borg selection", null, null) as null|anything in borgs
+		select = tgui_input_list(user, "Unshackled borg signals detected:", "Borg selection", borgs)
 		return borgs[select]
 
 //When a borg is activated, it can choose which AI it wants to be slaved to
@@ -338,10 +338,12 @@
 
 /proc/select_active_ai(mob/user)
 	var/list/ais = active_ais()
-	if(length(ais))
-		if(user)	. = input(usr,"AI signals detected:", "AI selection") in ais
-		else		. = pick(ais)
-	return .
+	if(!length(ais))
+		return
+	if(user)
+		return tgui_input_list(user, "AI signals detected:", "AI selection", ais)
+	else
+		return pick(ais)
 
 /proc/get_sorted_mobs()
 	var/list/old_list = getmobs()
@@ -508,46 +510,50 @@ Returns 1 if the chain up to the area contains the given typepath
 // otherwise, just reset the client mob's machine var.
 
 
-// returns the turf located at the map edge in the specified direction relative to A
-// used for mass driver
-/proc/get_edge_target_turf(atom/A, direction)
-
-	var/turf/target = locate(A.x, A.y, A.z)
-	if(!A || !target)
-		return 0
-		//since NORTHEAST == NORTH & EAST, etc, doing it this way allows for diagonal mass drivers in the future
+/// Returns the turf located at the map edge in the specified direction relative to target_atom used for mass driver
+/proc/get_edge_target_turf(atom/target_atom, direction)
+	if(!target_atom)
+		return FALSE
+	var/turf/target = get_turf(target_atom)
+	if(!target)
+		return FALSE
+		//since NORTHEAST == NORTH|EAST, etc, doing it this way allows for diagonal mass drivers in the future
 		//and isn't really any more complicated
 
-		// Note diagonal directions won't usually be accurate
+	var/x = target_atom.x
+	var/y = target_atom.y
 	if(direction & NORTH)
-		target = locate(target.x, world.maxy, target.z)
-	if(direction & SOUTH)
-		target = locate(target.x, 1, target.z)
+		y = world.maxy
+	else if(direction & SOUTH) //you should not have both NORTH and SOUTH in the provided direction
+		y = 1
 	if(direction & EAST)
-		target = locate(world.maxx, target.y, target.z)
-	if(direction & WEST)
-		target = locate(1, target.y, target.z)
+		x = world.maxx
+	else if(direction & WEST)
+		x = 1
+	if(IS_DIR_DIAGONAL(direction)) //let's make sure it's accurately-placed for diagonals
+		var/lowest_distance_to_map_edge = min(abs(x - target_atom.x), abs(y - target_atom.y))
+		return get_ranged_target_turf(target_atom, direction, lowest_distance_to_map_edge)
+	return locate(x, y, target_atom.z)
 
-	return target
-
-// returns turf relative to A in given direction at set range
+/** returns turf relative to A in given direction at set range
 // result is bounded to map size
 // note range is non-pythagorean
 // used for disposal system
-/proc/get_ranged_target_turf(atom/A, direction, range)
+*/
+/proc/get_ranged_target_turf(atom/target_atom, direction, range)
 
-	var/x = A.x
-	var/y = A.y
+	var/x = target_atom.x
+	var/y = target_atom.y
 	if(direction & NORTH)
 		y = min(world.maxy, y + range)
-	if(direction & SOUTH)
+	else if(direction & SOUTH)
 		y = max(1, y - range)
 	if(direction & EAST)
 		x = min(world.maxx, x + range)
-	if(direction & WEST)
+	else if(direction & WEST) //if you have both EAST and WEST in the provided direction, then you're gonna have issues
 		x = max(1, x - range)
 
-	return locate(x,y,A.z)
+	return locate(x, y, target_atom.z)
 
 /**
  * Get ranged target turf, but with direct targets as opposed to directions
@@ -742,7 +748,8 @@ Returns 1 if the chain up to the area contains the given typepath
 				atoms += A
 	return atoms
 
-/datum/coords //Simple datum for storing coordinates.
+/// Simple datum for storing coordinates.
+/datum/coords
 	var/x_pos
 	var/y_pos
 	var/z_pos
@@ -1601,7 +1608,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return closest_atom
 
 /proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
-	if(value == FALSE) //nothing should be calling us with a number, so this is safe
+	if(!value) //nothing should be calling us with a number, so this is safe
 		value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
 		if(isnull(value))
 			return

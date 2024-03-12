@@ -43,14 +43,14 @@
 
 GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
-#define HOLDING_TANK 1
-#define CONNECTED_PORT 2
-#define LOW_PRESSURE 4
-#define NORMAL_PRESSURE 8
-#define HIGH_PRESSURE 16
-#define EXTREME_PRESSURE 32
-#define NEW_COLOR 64
-#define RESET 68
+#define HOLDING_TANK 		(1<<0)
+#define CONNECTED_PORT 		(1<<1)
+#define LOW_PRESSURE 		(1<<2)
+#define NORMAL_PRESSURE 	(1<<3)
+#define HIGH_PRESSURE 		(1<<4)
+#define EXTREME_PRESSURE 	(1<<5)
+#define NEW_COLOR 			(1<<6)
+#define RESET 				(LOW_PRESSURE | NEW_COLOR)
 
 /obj/machinery/atmospherics/portable/canister
 	name = "canister"
@@ -345,7 +345,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	switch(action)
 		if("relabel")
 			if(can_label)
-				var/T = sanitize(copytext(input("Choose canister label", "Name", name) as text|null, 1, MAX_NAME_LEN))
+				var/T = tgui_input_text(usr, "Choose canister label", "Name", name, max_length = MAX_NAME_LEN)
 				if(can_label) //Exploit prevention
 					if(T)
 						name = T

@@ -29,12 +29,12 @@
 		if(C!=src && Adjacent(C))
 			choices += C
 
-	var/mob/living/M = input(src,"Who do you wish to feed on?") in null|choices
+	var/mob/living/M = tgui_input_list(src, "Who do you wish to feed on?", "Feeding Selection", choices)
 	if(!M)
-		return 0
+		return FALSE
 	if(CanFeedon(M))
 		Feedon(M)
-		return 1
+		return TRUE
 
 /datum/action/innate/slime/feed
 	name = "Feed"
@@ -206,3 +206,9 @@
 /datum/action/innate/slime/reproduce/Activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Reproduce()
+
+#undef SIZE_DOESNT_MATTER
+#undef BABIES_ONLY
+#undef ADULTS_ONLY
+#undef NO_GROWTH_NEEDED
+#undef GROWTH_NEEDED

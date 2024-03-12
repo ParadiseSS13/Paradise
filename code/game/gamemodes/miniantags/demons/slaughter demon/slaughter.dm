@@ -86,7 +86,8 @@
 	health = 170
 
 // Cult slaughter demon
-/mob/living/simple_animal/demon/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
+/// Summoned as part of the cult objective "Bring the Slaughter"
+/mob/living/simple_animal/demon/slaughter/cult
 	name = "harbinger of the slaughter"
 	real_name = "harbinger of the Slaughter"
 	desc = "An awful creature from beyond the realms of madness."
@@ -193,7 +194,7 @@
 	if(!choice)
 		return
 
-	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")
+	var/msg = tgui_input_text(usr, "What do you wish to tell [choice]?", null, "")
 	if(!(msg))
 		return
 	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)

@@ -66,6 +66,7 @@
 		to_chat(user, "<span class='warning'>You disable \the [src]'s temperature safeguards.</span>")//Inform the mob of what emagging does.
 
 		emagged = TRUE //Set the emag var to true.
+		return TRUE
 
 /obj/machinery/poolcontroller/multitool_act(mob/user, obj/item/I)
 	. = TRUE
