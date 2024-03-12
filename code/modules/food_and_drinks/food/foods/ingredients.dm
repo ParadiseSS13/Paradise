@@ -53,6 +53,11 @@
 	filling_color = "#FFF700"
 	tastes = list("cheese" = 1)
 
+/obj/item/food/snacks/cheesewedge/checkpass(passflag)
+	if((passflag & PASSDOOR) && ismouse(pulledby))
+		return TRUE
+	return ..()
+
 /obj/item/food/snacks/cheesewedge/presliced
 	list_reagents = list("nutriment" = 3, "vitamin" = 1, "cheese" = 4)
 
