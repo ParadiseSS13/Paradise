@@ -50,10 +50,9 @@
 	if(!can_set_transfer_amount(user))
 		if(!Adjacent(user))
 			to_chat(user, "<span class='warning'>You have moved too far away!</span>")
-			return
 		if(!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			to_chat(user, "<span class='warning'>You can't use your hands!</span>")
-			return
+		return
 
 	amount_per_transfer_from_this = new_transfer_rate
 	to_chat(user, "<span class='notice'>[src] will now transfer [amount_per_transfer_from_this] units at a time.</span>")
