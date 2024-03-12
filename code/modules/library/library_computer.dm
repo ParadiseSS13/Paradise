@@ -18,6 +18,7 @@
   */
 /obj/machinery/computer/library
 	name = "Library Computer"
+	desc = "Used by dusty librarians for their dusty books."
 	anchored = TRUE
 	density = TRUE
 	icon_keyboard = null

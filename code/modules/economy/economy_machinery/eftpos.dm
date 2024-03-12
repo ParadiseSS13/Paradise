@@ -218,7 +218,7 @@
 
 /obj/item/eftpos/register
 	name = "point of sale"
-	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\". It's old and rusty, and had an EFTPOS module fitted in it."
+	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\". It's old and rusty, and had an EFTPOS module fitted in it. Swipe your ID card to make purchases electronically."
 	icon = 'icons/obj/machines/pos.dmi'
 	icon_state = "pos"
 	force = 10

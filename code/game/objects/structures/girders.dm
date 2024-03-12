@@ -1,5 +1,6 @@
 /obj/structure/girder
 	name = "girder"
+	desc = "The basis of any wall, and therefore any space station or ship."
 	icon_state = "girder"
 	anchored = TRUE
 	density = TRUE

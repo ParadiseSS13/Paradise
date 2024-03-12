@@ -164,10 +164,9 @@
   */
 /obj/machinery/light
 	name = "light fixture"
+	desc = "Yep, its a light."
 	icon = 'icons/obj/lighting.dmi'
-	var/base_state = "tube" // Base description and icon_state
 	icon_state = "tube1"
-	desc = "A lighting fixture."
 	anchored = TRUE
 	layer = 5
 	max_integrity = 100
@@ -175,6 +174,7 @@
 	idle_power_consumption = 2  //when in low power mode
 	active_power_consumption = 20 //when in full power mode
 	power_channel = PW_CHANNEL_LIGHTING //Lights are calc'd via area so they dont need to be in the machine list
+	var/base_state = "tube" // Base description and icon_state
 	/// Is the light on or off?
 	var/on = FALSE
 	/// Is the light currently turning on?
@@ -236,7 +236,7 @@
 	brightness_range = 4
 	brightness_color = "#a0a080"
 	nightshift_light_range = 4
-	desc = "A small lighting fixture."
+	desc = "Yeah, it's a light."
 	light_type = /obj/item/light/bulb
 
 /obj/machinery/light/spot
