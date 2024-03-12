@@ -281,3 +281,5 @@
 	return pda.owner && !hidden
 
 #undef TRANSFER_COOLDOWN
+
+#undef TRANSFER_REQUEST_MAX
