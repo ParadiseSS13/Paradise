@@ -148,3 +148,8 @@
 /mob/living/silicon/ai/rejuvenate()
 	..()
 	add_ai_verbs(src)
+
+#undef POWER_RESTORATION_OFF
+#undef POWER_RESTORATION_START
+#undef POWER_RESTORATION_SEARCH_APC
+#undef POWER_RESTORATION_APC_FOUND

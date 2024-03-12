@@ -9,8 +9,6 @@
 	var/instability = 0
 	/// Trait to give, if any
 	var/traits_to_add = list()
-	/// Activation probability
-	var/activation_prob = 100
 	/// Possible activation messages
 	var/list/activation_messages = list()
 	/// Possible deactivation messages
@@ -24,10 +22,7 @@
 // Return TRUE if we can activate.
 // HANDLE MUTCHK_FORCED HERE!
 /datum/mutation/proc/can_activate(mob/M, flags)
-	if(flags & MUTCHK_FORCED)
-		return TRUE
-	// Probability check
-	return prob(activation_prob)
+	return TRUE
 
 // Called when the gene activates.  Do your magic here.
 /datum/mutation/proc/activate(mob/living/M)
