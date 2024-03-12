@@ -285,7 +285,7 @@
 	name = "Flower Crown"
 	result = list(/obj/item/clothing/head/flower_crown)
 	reqs = list(/obj/item/food/snacks/grown/poppy = 3,
-					/obj/item/food/snacks/grown/poppy/lily = 3,
+					/obj/item/food/snacks/grown/lily = 3,
 					/obj/item/grown/sunflower = 3
 					)
 	time = 2 SECONDS
