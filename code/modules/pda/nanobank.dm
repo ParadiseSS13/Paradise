@@ -240,8 +240,8 @@
 	else
 		error_message(user, "Incorrect Credentials")
 
-/datum/data/pda/app/nanobank/proc/input_account_pin(mob/user, max_value = 99999)
-	var/attempt_pin = tgui_input_number(user, "Enter pin code", "NanoBank Account Auth")
+/datum/data/pda/app/nanobank/proc/input_account_pin(mob/user)
+	var/attempt_pin = tgui_input_number(user, "Enter pin code", "NanoBank Account Auth", max_value = 99999)
 	if(!user_account || !attempt_pin)
 		return
 	return attempt_pin
