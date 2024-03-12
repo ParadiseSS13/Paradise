@@ -44,6 +44,9 @@
 	if(!new_transfer_rate)
 		return
 
+	// This looks redundant, but it's not. Time elapsed while the input
+	// list was open, so we need to re-check our conditions and give an
+	// error if they changed.
 	if(!can_set_transfer_amount(user))
 		if(!Adjacent(user))
 			to_chat(user, "<span class='warning'>You have moved too far away!</span>")
