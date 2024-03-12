@@ -308,13 +308,13 @@
 /datum/crafting_recipe/lily_crown
 	name = "Lily Crown"
 	result = list(/obj/item/clothing/head/lily_crown)
-	reqs = list(/obj/item/food/snacks/grown/poppy/lily = 5)
+	reqs = list(/obj/item/food/snacks/grown/lily = 5)
 	time = 2 SECONDS
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/geranium_crown
 	name = "Geranium Crown"
 	result = list(/obj/item/clothing/head/geranium_crown)
-	reqs = list(/obj/item/food/snacks/grown/poppy/geranium = 5)
+	reqs = list(/obj/item/food/snacks/grown/geranium = 5)
 	time = 2 SECONDS
 	category = CAT_CLOTHING
