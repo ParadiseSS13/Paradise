@@ -483,8 +483,8 @@
     name = "Corpse Explosion"
     desc = "Fills a corpse with energy causing it to explode violently"
     school = "evocation" //cant figure out if i actually need this
-    base_cooldown = 10
-    clother_req = TRUE
+    base_cooldown = 50
+    clothes_req = TRUE
     invocation = "JAH ITH BER"
     invocation_type = "whisper"
     selection_activated_message = "<span class='notice'>You prepare to detonate a corpse. Click on a target to cast the spell.</span>"
@@ -499,18 +499,24 @@
 	return T
 
 /obj/effect/proc_holder/spell/corpse_explosion/cast(list/targets, mob/user)
-	if(!targets || target.stat == !DEAD)
+	var/mob/living/target = targets[1]
+	var/turf/corpse_turf = get_turf(target)
+	if(!target || target.stat == !DEAD)
 		return
 	new /obj/effect/temp_visual/corpse_explosion(get_turf(target))
-		target.gib()
-	explosion(get_turf(target), 0, 0, 2, 0, silent = TRUE,breach = FALSE)
-	for(var/mob/living/carbon/human/H in range(2, user))
-		to_chat(H, "<span class='userdanger'>You are burned by the violent dark magic escaping exploded corpse!</span>")
+	target.gib()
+	explosion(get_turf(target), 0, 0, 0, 0, silent = TRUE,breach = FALSE)
+	for(var/mob/living/carbon/human/H in range(2, corpse_turf))
+		if(H == usr)
+			return
+		to_chat(H, "<span class='userdanger'>You are viscerated by the violent dark magic!</span>")
 		H.KnockDown(4 SECONDS)
 		H.EyeBlurry(40 SECONDS)
-		H.apply_damage(100, BURN)
+		H.apply_damage(100, BRUTE)
 		H.AdjustConfused(6 SECONDS)
-	for(var/mob/living/silicon/S in range(2, user))
-		to_chat(S, "<span class='userdanger'>Your sensors are disabled and carapace burned by the dark magic!</span>")
+	for(var/mob/living/silicon/S in range(2, corpse_turf))
+		to_chat(S, "<span class='userdanger'>Your sensors are disabled and carapace ripped apart by the violent dark magic!</span>")
 		S.Weaken(6 SECONDS)
-		H.apply_damage(80, BURN)
+		S.apply_damage(80, BURN)
+	for(usr in range(2,corpse_turf))
+		return
