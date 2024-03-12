@@ -16,10 +16,6 @@
 	var/minimum_temperature_difference = 300
 	var/thermal_conductivity = 0 //WALL_HEAT_TRANSFER_COEFFICIENT No
 
-	var/maximum_pressure = 70*ONE_ATMOSPHERE
-	var/fatigue_pressure = 55*ONE_ATMOSPHERE
-	alert_pressure = 55*ONE_ATMOSPHERE
-
 	level = 1
 
 /obj/machinery/atmospherics/pipe/simple/New()
@@ -71,21 +67,6 @@
 		if(!T.transparent_floor)
 			hide(T.intact)
 		update_icon()
-
-/obj/machinery/atmospherics/pipe/simple/check_pressure(pressure)
-	var/datum/gas_mixture/environment = loc.return_air()
-
-	var/pressure_difference = pressure - environment.return_pressure()
-
-	if(pressure_difference > maximum_pressure)
-		burst()
-
-	else if(pressure_difference > fatigue_pressure)
-		//TODO: leak to turf, doing pfshhhhh
-		if(prob(5))
-			burst()
-
-	else return 1
 
 /obj/machinery/atmospherics/pipe/simple/proc/burst()
 	src.visible_message("<span class='danger'>\The [src] bursts!</span>")

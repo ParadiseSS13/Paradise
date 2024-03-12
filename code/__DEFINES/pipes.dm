@@ -11,8 +11,8 @@
 #define PIPE_MVALVE					8
 #define PIPE_PUMP					9
 #define PIPE_SCRUBBER				10
-#define PIPE_INSULATED_STRAIGHT		11
-#define PIPE_INSULATED_BENT			12
+// #define PIPE_INSULATED_STRAIGHT		11
+// #define PIPE_INSULATED_BENT			12
 #define PIPE_GAS_FILTER				13
 #define PIPE_GAS_MIXER				14
 #define PIPE_PASSIVE_GATE      		15

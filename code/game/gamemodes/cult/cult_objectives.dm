@@ -1,4 +1,5 @@
-/datum/cult_objectives //Replace with team antag datum objectives from tg once ported
+/// Replace with team antag datum objectives from tg once ported
+/datum/cult_objectives
 	var/cult_status = NARSIE_IS_ASLEEP
 	var/list/presummon_objs = list()
 	var/datum/objective/eldergod/obj_summon = new
@@ -117,7 +118,8 @@
 
 //Objectives
 
-/datum/objective/servecult //Given to cultists on conversion/roundstart
+/// Given to cultists on conversion/roundstart
+/datum/objective/servecult
 	explanation_text = "Assist your fellow cultists and Tear the Veil! (Use the Study Veil action to check your progress.)"
 	completed = TRUE
 	needs_target = FALSE

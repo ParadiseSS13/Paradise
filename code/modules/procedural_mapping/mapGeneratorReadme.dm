@@ -128,18 +128,18 @@ Variable Breakdown (For Mappers):
 		allowAtomsOnSpace - A Boolean for if we allow atoms to spawn on space tiles
 
 		clusterCheckFlags flags:
-			CLUSTER_CHECK_NONE	0 			   //No checks are done, cluster as much as possible
-			CLUSTER_CHECK_DIFFERENT_TURFS	2  //Don't let turfs of DIFFERENT types cluster
-			CLUSTER_CHECK_DIFFERENT_ATOMS	4  //Don't let atoms of DIFFERENT types cluster
-			CLUSTER_CHECK_SAME_TURFS		8  //Don't let turfs of the SAME type cluster
-			CLUSTER_CHECK_SAME_ATOMS		16 //Don't let atoms of the SAME type cluster
+			MAP_GENERATOR_CLUSTER_CHECK_NONE	0 			   //No checks are done, cluster as much as possible
+			MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS	2  //Don't let turfs of DIFFERENT types cluster
+			MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS	4  //Don't let atoms of DIFFERENT types cluster
+			MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS		8  //Don't let turfs of the SAME type cluster
+			MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS		16 //Don't let atoms of the SAME type cluster
 
-			CLUSTER_CHECK_SAMES				24 //Don't let any of the same type cluster
-			CLUSTER_CHECK_DIFFERENTS		6  //Don't let any different types cluster
-			CLUSTER_CHECK_ALL_TURFS			10 //Don't let ANY turfs cluster same and different types
-			CLUSTER_CHECK_ALL_ATOMS			20 //Don't let ANY atoms cluster same and different types
+			MAP_GENERATOR_CLUSTER_CHECK_SAMES				24 //Don't let any of the same type cluster
+			MAP_GENERATOR_CLUSTER_CHECK_DIFFERENTS		6  //Don't let any different types cluster
+			MAP_GENERATOR_CLUSTER_CHECK_ALL_TURFS			10 //Don't let ANY turfs cluster same and different types
+			MAP_GENERATOR_CLUSTER_CHECK_ALL_ATOMS			20 //Don't let ANY atoms cluster same and different types
 
-			CLUSTER_CHECK_ALL				30 //Don't let anything cluster, like, at all
+			MAP_GENERATOR_CLUSTER_CHECK_ALL				30 //Don't let anything cluster, like, at all
 
 
 

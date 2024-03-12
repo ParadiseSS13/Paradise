@@ -823,11 +823,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "YN" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Worn-out APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-2"

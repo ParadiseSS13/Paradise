@@ -1,13 +1,3 @@
-/atom/movable
-	var/can_buckle = FALSE
-	var/buckle_lying = -1 //bed-like behaviour, forces mob.lying = buckle_lying if != -1
-	var/buckle_requires_restraints = 0 //require people to be handcuffed before being able to buckle. eg: pipes
-	var/list/buckled_mobs = null //list()
-	var/buckle_offset = 0
-	var/max_buckled_mobs = 1
-	var/buckle_prevents_pull = FALSE
-	var/can_be_unanchored = FALSE
-
 //Interaction
 /atom/movable/attack_hand(mob/living/user)
 	. = ..()
@@ -90,7 +80,7 @@
 	M.setDir(dir)
 	buckled_mobs |= M
 	ADD_TRAIT(M, TRAIT_IMMOBILIZED, BUCKLING_TRAIT)
-	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled)
+	M.throw_alert("buckled", /atom/movable/screen/alert/restrained/buckled)
 	post_buckle_mob(M)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
 	return TRUE
