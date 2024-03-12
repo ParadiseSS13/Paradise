@@ -135,11 +135,11 @@
 	var/static/list/options = list("Lightning" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "chain_lightning"),/// todo add icons for these
 							"Fire" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "fire"),
 							"Bluespace" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "blink"),
-							"Forcewall" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "shield"))
+							"Forcewall" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "shield"),)
 	var/static/list/options_to_type = list("Lightning" = /datum/enchantment/lightning,
 									"Fire" = /datum/enchantment/fire,
 									"Bluespace" = /datum/enchantment/bluespace,
-									"Forcewall" = /datum/enchantment/forcewall)
+									"Forcewall" = /datum/enchantment/forcewall,)
 
 	var/choice = show_radial_menu(user, src, options)
 	if(!choice)
@@ -317,6 +317,6 @@
 	var/list/options = list(/datum/enchantment/lightning,
 							/datum/enchantment/fire,
 							/datum/enchantment/forcewall,
-							/datum/enchantment/bluespace)
+							/datum/enchantment/bluespace,)
 	var/datum/enchantment/E = pick(options)
 	add_enchantment(E, intentional = FALSE)

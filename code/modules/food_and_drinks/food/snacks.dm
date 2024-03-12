@@ -86,7 +86,7 @@
 		rename_interactive(user, W, use_prefix = FALSE, prompt = "What would you like to name this dish?")
 		return
 	if(isstorage(W))
-		..() // -> item/attackby(obj/item/W, mob/user, params)
+		..() // -> item/attackby(, params)
 
 	else if(istype(W,/obj/item/kitchen/utensil))
 

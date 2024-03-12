@@ -101,7 +101,7 @@ start	the index of the first element in the range that is	not already known to b
 	if(start <= lo)
 		start = lo + 1
 
-	for(null, start < hi, ++start)
+	for(,start < hi, ++start)
 		var/pivot = fetchElement(L,start)
 
 		//set left and right to the index where pivot belongs

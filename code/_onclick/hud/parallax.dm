@@ -10,7 +10,7 @@
 		S.color = list(1, 1, 1, 1,
 					1, 1, 1, 1,
 					1, 1, 1, 1,
-					1, 1, 1, 1)
+					1, 1, 1, 1,)
 	S.appearance_flags |= NO_CLIENT_COLOR
 	if(!length(C.parallax_layers_cached))
 		C.parallax_layers_cached = list()

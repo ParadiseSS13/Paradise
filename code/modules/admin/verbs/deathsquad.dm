@@ -19,7 +19,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 	log_admin("[key_name_admin(proccaller)] has started to spawn a DeathSquad.")
 	to_chat(proccaller, "<span class='boldwarning'>This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle or use the end round verb when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected will be the team leader.</span>")
 
-	var/mission = sanitize(copytext_char(input(src, "Please specify which mission the Deathsquad shall undertake.", "Specify Mission", ""), 1, MAX_MESSAGE_LEN))
+	var/mission = sanitize(copytext_char(input(src, "Please specify which mission the Deathsquad shall undertake.", "Specify Mission", "",), 1, MAX_MESSAGE_LEN))
 	if(!mission)
 		if(alert("Error, no mission set. Do you want to exit the setup process?",, "Yes", "No") == "Yes")
 			message_admins("[key_name_admin(proccaller)] cancelled their Deathsquad.")

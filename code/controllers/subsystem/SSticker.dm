@@ -76,7 +76,7 @@ SUBSYSTEM_DEF(ticker)
 	'sound/music/space.ogg',\
 	'sound/music/title1.ogg',\
 	'sound/music/title2.ogg',\
-	'sound/music/title3.ogg')
+	'sound/music/title3.ogg',)
 
 
 /datum/controller/subsystem/ticker/fire()

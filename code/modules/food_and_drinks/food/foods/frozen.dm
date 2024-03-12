@@ -325,7 +325,7 @@
 	name = "sea salt ice-cream bar"
 	desc = "This sky-blue ice-cream bar is flavoured with only the finest imported sea salt. Salty... no, sweet!"
 	icon_state = "sea_salt_pop"
-	list_reagents = list("salt" = 1, "nutriment" = 2, "cream" = 2, "vanilla" = 2, "sugar"= 4)
+	list_reagents = list("salt" = 1, "nutriment" = 2, "cream" = 2, "vanilla" = 2, "sugar"= 4,)
 	tastes = list("salt" = 1, "sweet" = 1)
 
 /obj/item/food/snacks/frozen/popsicle/ant
@@ -333,5 +333,5 @@
 	desc = "A colony of ants suspended in hardened sugar. Those things are dead, right?"
 	icon_state = "ant_pop"
 	trash = /obj/item/stack/rods
-	list_reagents = list("nutriment" = 1, "vitamin" = 1, "sugar" = 5, "ants" = 3)
+	list_reagents = list("nutriment" = 1, "vitamin" = 1, "sugar" = 5, "ants" = 3,)
 	tastes = list("candy" = 1, "ants" = 2)
