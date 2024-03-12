@@ -158,6 +158,10 @@
 					var/obj/item/stack/sheet/mineral/plasma/P = thing
 					plasma_count += P.amount
 
+				// Sell salvage
+				if(istype(thing, /obj/item/sellable/salvage))
+					++salvage_count
+
 				// Sell syndicate intel
 				if(istype(thing, /obj/item/documents/syndicate))
 					++intel_count
