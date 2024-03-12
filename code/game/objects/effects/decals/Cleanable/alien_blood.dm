@@ -39,7 +39,8 @@
 /obj/effect/decal/cleanable/blood/xtracks
 	basecolor = "#05EE05"
 
-/obj/effect/decal/cleanable/blood/slime // this is the alien blood file, slimes are aliens.
+/// this is the alien blood file, slimes are aliens.
+/obj/effect/decal/cleanable/blood/slime
 	name = "slime jelly"
 	desc = "It's a transparent semi-liquid from a slime or slime person. Don't lick it."
 	basecolor = "#0b8f70"

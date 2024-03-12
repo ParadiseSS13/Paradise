@@ -660,3 +660,8 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/AltClickOn(atom/movable/A)
 	return
+
+#undef DRAKE_SWOOP_HEIGHT
+#undef DRAKE_SWOOP_DIRECTION_CHANGE_RANGE
+#undef SWOOP_DAMAGEABLE
+#undef SWOOP_INVULNERABLE
