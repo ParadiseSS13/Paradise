@@ -67,6 +67,18 @@
 
 	return ..()
 
+/obj/item/gun/energy/disabler/smg
+	name = "disabler smg"
+	desc = "An automatic disabler variant, as opposed to the conventional model. Boasts a higher ammunition capacity at the cost of slightly reduced beam effectiveness."
+	icon_state = "disabler_smg"
+	weapon_weight = WEAPON_HEAVY
+	w_class = WEIGHT_CLASS_BULKY
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/smg)
+	burst_size = 2
+	fire_delay = 2.5
+	shaded_charge = TRUE
+	can_holster = FALSE
+
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"
 	desc = "An integrated disabler that draws from a cyborg's power cell. This weapon contains a limiter to prevent the cyborg's power cell from overheating."

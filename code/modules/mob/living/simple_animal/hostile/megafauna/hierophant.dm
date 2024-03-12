@@ -577,7 +577,8 @@ Difficulty: Hard
 		var/turf/simulated/mineral/M = loc
 		M.gets_drilled(caster)
 
-/obj/effect/temp_visual/hierophant/wall //smoothing and pooling were not friends, but pooling is dead.
+/// smoothing and pooling were not friends, but pooling is dead.
+/obj/effect/temp_visual/hierophant/wall
 	name = "vortex wall"
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
 	icon_state = "hierophant_wall_temp-0"
@@ -612,7 +613,8 @@ Difficulty: Hard
 		return TRUE
 	return FALSE
 
-/obj/effect/temp_visual/hierophant/chaser //a hierophant's chaser. follows target around, moving and producing a blast every speed deciseconds.
+/// a hierophant's chaser. follows target around, moving and producing a blast every speed deciseconds.
+/obj/effect/temp_visual/hierophant/chaser
 	duration = 98
 	var/mob/living/target //what it's following
 	var/turf/targetturf //what turf the target is actually on

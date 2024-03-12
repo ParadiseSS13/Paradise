@@ -3,7 +3,8 @@
 	species_allowed = list("Unathi")
 	glasses_over = 1
 
-/datum/sprite_accessory/hair/braid_hip_una // Future coder: Change the typepath under unathi. This is a legacy of my accessories splitting PR where typepath change is avoided at all cost
+// Future coder: Change the typepath under unathi. This is a legacy of my accessories splitting PR where typepath change is avoided at all cost
+/datum/sprite_accessory/hair/braid_hip_una
 	icon = 'icons/mob/sprite_accessories/unathi/unathi_hair.dmi'
 	name = "Unathi Hippie Braid"
 	icon_state = "hipbraid"
