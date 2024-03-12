@@ -1180,7 +1180,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/update_icons()
 	overlays.Cut()
-	
+
 	if(stat != DEAD && !(IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
 			overlays += "eyes-[custom_panel]"
@@ -1388,10 +1388,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(W)
 		W.attack_self(src)
 
-/mob/living/silicon/robot/proc/SetLockdown(state = 1)
+/mob/living/silicon/robot/proc/SetLockdown(state = TRUE)
 	// They stay locked down if their wire is cut.
 	if(wires.is_cut(WIRE_BORG_LOCKED))
-		state = 1
+		state = TRUE
 	if(state)
 		throw_alert("locked", /atom/movable/screen/alert/locked)
 	else
