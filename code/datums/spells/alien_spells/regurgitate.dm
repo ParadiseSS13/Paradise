@@ -9,6 +9,9 @@
 /obj/effect/proc_holder/spell/alien_spell/regurgitate/cast(list/targets, mob/living/carbon/user)
 	for(var/mob/M in user.stomach_contents)
 		var/turf/output_loc = user.loc
+		if(!istype(output_loc))
+			return
+		user.stomach_contents -= M
 		M.forceMove(output_loc)
 		visible_message("<span class='alertalien'><B>[user] hurls out the contents of [p_their()] stomach!</span>")
 		return
