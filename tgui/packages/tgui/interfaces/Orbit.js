@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Divider,
-  Flex,
   Icon,
   Input,
   Section,
@@ -78,18 +77,17 @@ const OrbitedButton = (props, context) => {
       color={color}
       tooltip={
         thing.assigned_role ? (
-          <Flex>
+          <Stack>
             <Box
               as="img"
               mr="0.5em"
-              // mt={0.5}
               className={classes([
                 'orbit_job16x16',
                 thing.assigned_role_sprite,
               ])}
             />{' '}
             {thing.assigned_role}
-          </Flex>
+          </Stack>
         ) : (
           ''
         )

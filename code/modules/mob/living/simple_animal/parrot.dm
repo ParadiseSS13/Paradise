@@ -121,10 +121,10 @@
 		walk(src, 0)
 	return ..()
 
-/mob/living/simple_animal/parrot/Stat()
-	..()
-	if(statpanel("Status"))
-		stat("Held Item", held_item)
+/mob/living/simple_animal/parrot/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Held Item:", "[held_item]")
 
 /*
  * Inventory
@@ -757,3 +757,11 @@
 
 /mob/living/simple_animal/parrot/CanPathfindPassTo(ID, dir, obj/destination)
 	return is_type_in_typecache(destination, desired_perches)
+
+#undef PARROT_PERCH
+#undef PARROT_SWOOP
+#undef PARROT_WANDER
+#undef PARROT_STEAL
+#undef PARROT_ATTACK
+#undef PARROT_RETURN
+#undef PARROT_FLEE
