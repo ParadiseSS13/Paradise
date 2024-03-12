@@ -171,9 +171,7 @@
     Use it to help patients up once surgery is complete, or to substitute for hands in surgical operations."
 	can_help_up = TRUE
 	actions_types = list(null)	// REMOVE THIS if you add anything to the can_hold list for this gripper!
-	can_hold = list(
-        null
-        )  						// Not giving this anything to hold yet, but stuff may be added in the future. Organs/implants are currently viewed as too strong to hold.
+	can_hold = null 						// Not giving this anything to hold yet, but stuff may be added in the future. Organs/implants are currently viewed as too strong to hold.
 
 /******************************
 /       SERVICE GRIPPER
