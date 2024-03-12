@@ -103,10 +103,12 @@
 		var/mob/living/L = AM
 		L.adjustFireLoss(sanctify_force) // Bonus fire damage for sanctified (ERT) versions of nullrod
 
-/obj/item/nullrod/fluff // fluff subtype to be used for all donator nullrods
+/// fluff subtype to be used for all donator nullrods
+/obj/item/nullrod/fluff
 	reskin_selectable = FALSE
 
-/obj/item/nullrod/ert // ERT subtype, applies sanctified property to any derived rod
+/// ERT subtype, applies sanctified property to any derived rod
+/obj/item/nullrod/ert
 	name = "inquisitor null rod"
 	reskin_selectable = FALSE
 	sanctify_force = 10
@@ -305,8 +307,7 @@
 		S.name = name
 		S.ckey = theghost.ckey
 		dust_if_respawnable(theghost)
-		var/input = stripped_input(S, "What are you named?", null, "", MAX_NAME_LEN)
-
+		var/input = tgui_input_text(S, "What are you named?", "Change Name", max_length = MAX_NAME_LEN)
 		if(src && input)
 			name = input
 			S.real_name = input
@@ -371,7 +372,7 @@
 /datum/hud/sword/New(mob/user)
 	..()
 
-	mymob.healths = new /obj/screen/healths()
+	mymob.healths = new /atom/movable/screen/healths()
 	infodisplay += mymob.healths
 
 /mob/living/simple_animal/shade/sword/ClickOn(atom/A, params)
@@ -417,14 +418,18 @@
 /obj/item/nullrod/fedora
 	name = "binary fedora"
 	desc = "The brim of the hat is as sharp as the division between 0 and 1. It makes a mighty throwing weapon."
+	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "fedora"
 	item_state = "fedora"
 	slot_flags = SLOT_FLAG_HEAD
-	icon = 'icons/obj/clothing/hats.dmi'
 	force = 0
 	throw_speed = 4
 	throw_range = 7
 	throwforce = 25 // Yes, this is high, since you can typically only use it once in a fight.
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+	)
 
 /obj/item/nullrod/armblade
 	name = "dark blessing"
@@ -472,7 +477,8 @@
 	user.faction |= "carp"
 	used_blessing = TRUE
 
-/obj/item/nullrod/claymore/bostaff //May as well make it a "claymore" and inherit the blocking
+/// May as well make it a "claymore" and inherit the blocking
+/obj/item/nullrod/claymore/bostaff
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, now used to harass the clown."
 	icon_state = "bostaff0"

@@ -77,7 +77,8 @@
 	name = "Mining Station Cafeteria"
 	icon_state = "mining_living"
 
-/area/lavaland/surface/outdoors/outpost/catwalk //subtype of /surface so storms hit there
+/// subtype of /surface so storms hit there
+/area/lavaland/surface/outdoors/outpost/catwalk
 	name = "Mining Station Catwalk"
 	icon_state = "mining"
 
@@ -89,7 +90,8 @@
 	name = "Mining Station Custodial Storage"
 	icon_state = "janitor"
 
-/area/mine/outpost/engineering // basically engi and atmos combined. I'm keeping it as "engineering" code wise, but "Life Support" sounds cooler in-game
+/// basically engi and atmos combined. I'm keeping it as "engineering" code wise, but "Life Support" sounds cooler in-game
+/area/mine/outpost/engineering
 	name = "Mining Station Life Support"
 	icon_state = "engi"
 
@@ -184,10 +186,12 @@
 	name = "Lavaland Wastes"
 	outdoors = TRUE
 
-/area/lavaland/surface/outdoors/unexplored //monsters and ruins spawn here
+/// monsters and ruins spawn here
+/area/lavaland/surface/outdoors/unexplored
 	icon_state = "unexplored"
 
-/area/lavaland/surface/outdoors/unexplored/danger //megafauna will also spawn here
+/// megafauna will also spawn here
+/area/lavaland/surface/outdoors/unexplored/danger
 	icon_state = "danger"
 
 /area/lavaland/surface/outdoors/explored

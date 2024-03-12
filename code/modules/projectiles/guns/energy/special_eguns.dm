@@ -749,11 +749,11 @@
 		return
 	var/tracking_target = locateUID(tracking_target_UID)
 	if(tracking_target)
-		if(alert("Do you want to clear the tracker?", "Tracker reset", "Yes", "No") == "Yes")
+		if(tgui_alert(user, "Do you want to clear the tracker?", "Tracker reset", list("Yes", "No")) == "Yes")
 			to_chat(user, "<span class='notice'>[src] stops tracking [tracking_target]</span>")
 			stop_pointing()
 	if(linked_pinpointer_UID)
-		if(alert("Do you want to clear the linked pinpointer?", "Pinpointer reset", "Yes", "No") == "Yes")
+		if(tgui_alert(user, "Do you want to clear the linked pinpointer?", "Pinpointer reset", list("Yes", "No")) == "Yes")
 			to_chat(user, "<span class='notice'>[src] is ready to be linked to a new pinpointer.</span>")
 			unlink()
 
@@ -765,7 +765,7 @@
 	if(!C)
 		return
 	C.linked_gun_UID = null
-	if(C.mode == MODE_DET)
+	if(C.mode == PINPOINTER_MODE_DET)
 		C.stop_tracking()
 	linked_pinpointer_UID = null
 	tracking_target_UID = null
@@ -833,12 +833,13 @@
 /obj/item/gun/energy/detective/proc/stop_pointing()
 	if(linked_pinpointer_UID)
 		var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
-		if(C?.mode == MODE_DET)
+		if(C?.mode == PINPOINTER_MODE_DET)
 			C.stop_tracking()
 	tracking_target_UID = null
 
 
-/obj/item/gun/energy/spikethrower //It's like the cyborg LMG, uses energy to make spikes
+/// It's like the cyborg LMG, uses energy to make spikes
+/obj/item/gun/energy/spikethrower
 	name = "\improper Vox spike thrower"
 	desc = "A vicious alien projectile weapon. Parts of it quiver gelatinously, as though the thing is insectile and alive."
 	icon = 'icons/obj/guns/projectile.dmi'

@@ -14,22 +14,24 @@
 	if(istype(I, /obj/item/wrench) && deconstructible)
 		user.visible_message("<span class='notice'>[user] starts disassembling [src]...</span>", "<span class='notice'>You start disassembling [src]...</span>")
 		playsound(loc, I.usesound, 50, 1)
-		if(do_after(src, 50 * I.toolspeed, target = src))
+		if(do_after(user, 5 SECONDS * I.toolspeed, target = src))
 			user.visible_message("<span class='notice'>[user] disassembles [src]!</span>", "<span class='notice'>You break down [src] into scrap metal.</span>")
 			playsound(user, 'sound/items/deconstruct.ogg', 50, 1)
-			new/obj/item/stack/sheet/metal(drop_location())
+			new /obj/item/stack/sheet/metal(drop_location())
 			qdel(src)
 		return
 	return ..()
 
-/obj/structure/fluff/empty_terrarium //Empty terrariums are created when a preserved terrarium in a lavaland seed vault is activated.
+/// Empty terrariums are created when a preserved terrarium in a lavaland seed vault is activated.
+/obj/structure/fluff/empty_terrarium
 	name = "empty terrarium"
 	desc = "An ancient machine that seems to be used for storing plant matter. Its hatch is ajar."
 	icon = 'icons/obj/lavaland/spawners.dmi'
 	icon_state = "terrarium_open"
 	density = TRUE
 
-/obj/structure/fluff/empty_sleeper //Empty sleepers are created by a good few ghost roles in lavaland.
+/// Empty sleepers are created by a good few ghost roles in lavaland.
+/obj/structure/fluff/empty_sleeper
 	name = "empty sleeper"
 	desc = "An open sleeper. It looks as though it would be awaiting another patient, were it not broken."
 	icon = 'icons/obj/cryogenic2.dmi'
@@ -44,13 +46,15 @@
 /obj/structure/fluff/empty_sleeper/syndicate
 	icon_state = "sleeper_s-open"
 
-/obj/structure/fluff/empty_cryostasis_sleeper //Empty cryostasis sleepers are created when a malfunctioning cryostasis sleeper in a lavaland shelter is activated
+/// Empty cryostasis sleepers are created when a malfunctioning cryostasis sleeper in a lavaland shelter is activated
+/obj/structure/fluff/empty_cryostasis_sleeper
 	name = "empty cryostasis sleeper"
 	desc = "Although comfortable, this sleeper won't function as anything but a bed ever again."
 	icon = 'icons/obj/lavaland/spawners.dmi'
 	icon_state = "cryostasis_sleeper_open"
 
-/obj/structure/fluff/drake_statue //Ash drake status spawn on either side of the necropolis gate in lavaland.
+/// Ash drake status spawn on either side of the necropolis gate in lavaland.
+/obj/structure/fluff/drake_statue
 	name = "drake statue"
 	desc = "A towering basalt sculpture of a proud and regal drake. Its eyes are six glowing gemstones."
 	icon = 'icons/effects/64x64.dmi'
@@ -60,7 +64,8 @@
 	deconstructible = FALSE
 	layer = EDGED_TURF_LAYER
 
-/obj/structure/fluff/drake_statue/falling //A variety of statue in disrepair; parts are broken off and a gemstone is missing
+/// A variety of statue in disrepair; parts are broken off and a gemstone is missing
+/obj/structure/fluff/drake_statue/falling
 	desc = "A towering basalt sculpture of a drake. Cracks run down its surface and parts of it have fallen off."
 	icon_state = "drake_statue_falling"
 

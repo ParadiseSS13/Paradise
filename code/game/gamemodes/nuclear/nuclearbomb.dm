@@ -21,7 +21,7 @@ GLOBAL_VAR(bomb_set)
 	flags_2 = NO_MALF_EFFECT_2 | CRITICAL_ATOM_2
 	anchored = TRUE
 	power_state = NO_POWER_USE
-	requires_power = FALSE
+	interact_offline = TRUE
 
 	/// Are our bolts *supposed* to be in the floor, may not actually cause anchoring if the bolts are cut
 	var/extended = TRUE
@@ -439,9 +439,9 @@ GLOBAL_VAR(bomb_set)
 				yes_code = FALSE
 				return
 			// If no code set, enter new one
-			var/tempcode = input(usr, "Code", "Input Code", null) as num|null
+			var/tempcode = tgui_input_number(usr, "Code", "Input Code", max_value = 999999)
 			if(tempcode)
-				code = min(max(round(tempcode), 0), 999999)
+				code = tempcode
 				if(code == r_code)
 					yes_code = TRUE
 					code = null
@@ -478,9 +478,10 @@ GLOBAL_VAR(bomb_set)
 
 	switch(action)
 		if("set_time")
-			var/time = input(usr, "Detonation time (seconds, min 120, max 600)", "Input Time", 120) as num|null
-			if(time)
-				timeleft = min(max(round(time), 120), 600)
+			var/time = tgui_input_number(usr, "Detonation time (seconds, min 120, max 600)", "Input Time", 120, 600, 120)
+			if(!time)
+				return
+			timeleft = time
 		if("toggle_safety")
 			safety = !(safety)
 			if(safety)

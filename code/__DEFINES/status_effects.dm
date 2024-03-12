@@ -112,6 +112,7 @@
 
 #define STATUS_EFFECT_MAGIC_DISGUISE /datum/status_effect/magic_disguise
 
+#define STATUS_EFFECT_PEPPERSPRAYED /datum/status_effect/pepper_spray
 
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
@@ -169,6 +170,8 @@
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
 
 #define STATUS_EFFECT_IMPACT_IMMUNE /datum/status_effect/impact_immune
+
+#define STATUS_EFFECT_RECENTLY_SUCCUMBED /datum/status_effect/recently_succumbed
 
 //#define STATUS_EFFECT_SIGILMARK /datum/status_effect/sigil_mark
 

@@ -96,7 +96,8 @@
 	R.add_fingerprint(user)
 	qdel(src)
 
-/obj/structure/inflatable/door //Based on mineral door code
+/// Based on mineral door code
+/obj/structure/inflatable/door
 	name = "inflatable door"
 	icon_state = "door_closed"
 	torn = /obj/item/inflatable/door/torn
@@ -147,7 +148,6 @@
 		flick("door_closing",src)
 	sleep(10)
 	density = !density
-	opacity = !opacity
 	state_open = !state_open
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
