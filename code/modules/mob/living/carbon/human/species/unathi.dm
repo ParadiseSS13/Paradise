@@ -24,9 +24,9 @@
 	cold_level_2 = 220 //Default 200
 	cold_level_3 = 140 //Default 120
 
-	heat_level_1 = 380 //Default 360 - Higher is better
-	heat_level_2 = 420 //Default 400
-	heat_level_3 = 480 //Default 460
+	heat_level_1 = 505 //Default 360 - Higher is better
+	heat_level_2 = 540 //Default 400
+	heat_level_3 = 600 //Default 460
 
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG

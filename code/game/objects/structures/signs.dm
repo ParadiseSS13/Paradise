@@ -232,39 +232,39 @@
 	icon_state = "kidanplaque"
 
 /obj/structure/sign/mech
-	name = "\improper mech painting"
+	name = "mech painting"
 	desc = "A painting of a mech."
 	icon_state = "mech"
 
 /obj/structure/sign/nuke
-	name = "\improper nuke painting"
+	name = "nuke painting"
 	desc = "A painting of a nuke."
 	icon_state = "nuke"
 
 /obj/structure/sign/clown
-	name = "\improper clown painting"
+	name = "clown painting"
 	desc = "A painting of the clown and mime. Awwww."
 	icon_state = "clown"
 
 /obj/structure/sign/bobross
-	name = "\improper calming painting"
+	name = "calming painting"
 	desc = "We don't make mistakes, just happy little accidents."
 	icon_state = "bob"
 
 /obj/structure/sign/singulo
-	name = "\improper singulo painting"
+	name = "singulo painting"
 	desc = "A mesmerizing painting of a singularity. It seems to suck you in..."
 	icon_state = "singulo"
 
 /obj/structure/sign/barber
-	name = "\improper barber shop sign"
+	name = "barber shop sign"
 	desc = "A spinning sign indicating a barbershop is near."
 	icon_state = "barber"
 	does_emissive = TRUE
 	blocks_emissive = FALSE
 
 /obj/structure/sign/chinese
-	name = "\improper chinese restaurant sign"
+	name = "chinese restaurant sign"
 	desc = "A glowing dragon invites you in."
 	icon_state = "chinese"
 	does_emissive = TRUE

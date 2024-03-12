@@ -198,7 +198,7 @@
 
 /obj/item/gun/energy/suicide_act(mob/user)
 	if(can_shoot())
-		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide.</span>")
+		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)
 			user.visible_message("<span class='suicide'>[user] melts [user.p_their()] face off with [src]!</span>")

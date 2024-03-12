@@ -155,7 +155,8 @@
 	secondary_theme = "fest"
 	no_sec_colour = 1
 
-/datum/sprite_accessory/hair/fluff/zeke_fluff_tentacle //Zeke Fluff hair
+/// Zeke Fluff hair
+/datum/sprite_accessory/hair/fluff/zeke_fluff_tentacle
 	icon = 'icons/mob/sprite_accessories/skrell/skrell_hair.dmi'
 	name = "Zekes Tentacles"
 	icon_state = "zeke_fluff_hair"
