@@ -307,11 +307,11 @@
 			Shrapnel.Bump(mob_standing_on_turf, TRUE)
 			continue
 		// If you dive on it, you're even more likely to get hit
-		if(mob_lying_on_turf && prob(2*chance_to_hit_same_turf))
+		if(mob_lying_on_turf && prob(2 * chance_to_hit_same_turf))
 			Shrapnel.Bump(mob_lying_on_turf, TRUE)
 			continue
 
-		var/angle = i*angle_increment + rand(-angle_increment / 2, angle_increment / 2)
+		var/angle = i * angle_increment + rand(-angle_increment / 2, angle_increment / 2)
 		Shrapnel.fire(angle)
 
 #undef CREAK_DELAY
