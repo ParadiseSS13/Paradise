@@ -48,7 +48,7 @@
 		var/wizard_name_first = pick(GLOB.wizard_first)
 		var/wizard_name_second = pick(GLOB.wizard_second)
 		var/randomname = "[wizard_name_first] [wizard_name_second]"
-		var/newname = sanitize(copytext(input(M, "You are the wizard's apprentice. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
+		var/newname = sanitize(copytext_char(input(M, "You are the wizard's apprentice. Would you like to change your name to something else?", "Name change", randomname) as null|text, 1, MAX_NAME_LEN))
 
 		if(!newname)
 			newname = randomname
@@ -702,7 +702,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/multisword/pure_evil
 	probability_evil = 100
 
-/obj/item/multisword/pike //If We are to be used and spent, let it be for a noble purpose.
+/// If We are to be used and spent, let it be for a noble purpose.
+/obj/item/multisword/pike
 	name = "phantom pike"
 	desc = "A fishing pike that appears to be imbued with a peculiar energy."
 	icon = 'icons/obj/items.dmi'

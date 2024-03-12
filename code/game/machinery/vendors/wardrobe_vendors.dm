@@ -718,8 +718,12 @@
 
 	vend_reply = "Thank you for using the JaniDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/janitor = 3,
-					/obj/item/clothing/head/soft/purple = 3,
-					/obj/item/clothing/gloves/color/black = 3,
+					/obj/item/clothing/under/rank/civilian/janitor/skirt = 3,
+					/obj/item/clothing/under/rank/civilian/janitor/overalls = 3,
+					/obj/item/clothing/head/soft/janitorgrey = 3,
+					/obj/item/clothing/head/soft/janitorpurple = 3,
+					/obj/item/clothing/head/beret/janitor = 3,
+					/obj/item/clothing/gloves/janitor = 3,
 					/obj/item/clothing/shoes/galoshes = 3,
 					/obj/item/clothing/accessory/armband/service = 3,
 					/obj/item/storage/belt/janitor = 3)
@@ -727,7 +731,11 @@
 	contraband = list(/obj/item/toy/figure/crew/janitor = 1)
 
 	prices = list(/obj/item/clothing/under/rank/civilian/janitor = 50,
-					/obj/item/clothing/head/soft/purple = 20,
+					/obj/item/clothing/under/rank/civilian/janitor/skirt = 50,
+					/obj/item/clothing/under/rank/civilian/janitor/overalls = 50,
+					/obj/item/clothing/head/soft/janitorgrey = 20,
+					/obj/item/clothing/head/soft/janitorpurple = 20,
+					/obj/item/clothing/head/beret/janitor = 20,
 					/obj/item/clothing/accessory/armband/service = 20)
 
 	refill_canister = /obj/item/vending_refill/janidrobe

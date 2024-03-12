@@ -17,13 +17,17 @@
 		new /obj/effect/temp_visual/cult/turf(src)
 		icon_state = SSticker.cultdat.cult_wall_icon_state
 
+/turf/simulated/wall/cult/bullet_act(obj/item/projectile/Proj)
+	. = ..()
+	new /obj/effect/temp_visual/cult/turf(src)
+
 /turf/simulated/wall/cult/artificer
 	name = "runed stone wall"
 	desc = "A cold stone wall engraved with indecipherable symbols. Studying them causes your head to pound."
 
 /turf/simulated/wall/cult/artificer/break_wall()
 	new /obj/effect/temp_visual/cult/turf(get_turf(src))
-	return null //excuse me we want no runed metal here
+	return //excuse me we want no runed metal here
 
 /turf/simulated/wall/cult/artificer/devastate_wall()
 	new /obj/effect/temp_visual/cult/turf(get_turf(src))
@@ -62,6 +66,11 @@
 /turf/simulated/wall/clockwork/Destroy()
 	QDEL_NULL(realappearance)
 	return ..()
+
+/turf/simulated/wall/clockwork/bullet_act(obj/item/projectile/Proj)
+	. = ..()
+	new /obj/effect/temp_visual/ratvar/wall(get_turf(src))
+	new /obj/effect/temp_visual/ratvar/beam(get_turf(src))
 
 /turf/simulated/wall/clockwork/narsie_act()
 	..()
