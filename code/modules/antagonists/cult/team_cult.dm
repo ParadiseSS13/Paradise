@@ -23,7 +23,7 @@
 	/// Are cultist mirror shields active yet?
 	var/mirror_shields_active = FALSE
 
-	// Is this for adminbus or debugging coderman, you decide.
+	// Disables the station-wide announcements, unused except for admin editing.
 	var/no_announcements = FALSE
 
 /datum/team/cult/New(list/starting_members)
@@ -50,7 +50,7 @@
 	. = ..()
 	check_cult_size()
 	RegisterSignal(new_member.current, COMSIG_MOB_STATCHANGE, PROC_REF(cultist_stat_change))
-	RegisterSignal(new_member.current, COMSIG_PARENT_QDELETING, PROC_REF(remove_member))
+	RegisterSignal(new_member.current, COMSIG_PARENT_QDELETING, PROC_REF(cultist_deleting))
 
 /datum/team/cult/handle_removing_member(datum/mind/member)
 	. = ..()
@@ -83,7 +83,9 @@
  */
 /datum/team/cult/proc/cult_body_transfer(old_body, new_body)
 	UnregisterSignal(old_body, COMSIG_MOB_STATCHANGE)
+	UnregisterSignal(old_body, COMSIG_PARENT_QDELETING)
 	RegisterSignal(new_body, COMSIG_MOB_STATCHANGE, PROC_REF(cultist_stat_change))
+	RegisterSignal(new_body, COMSIG_PARENT_QDELETING, PROC_REF(cultist_deleting))
 
 /**
   * Returns the current number of cultists and constructs.
@@ -95,12 +97,15 @@
 /datum/team/cult/proc/get_cultists(separate = FALSE)
 	var/cultists = 0
 	var/constructs = 0
+	var/list/minds_to_remove = list()
 	for(var/datum/mind/M as anything in members)
 		if(isnull(M))
-			stack_trace("Found a null mind in /datum/team/cult's members.")
+			stack_trace("Found a null mind in /datum/team/cult's members. Removing...")
+			minds_to_remove |= M // I don't really want to remove them while iterating, as I'm not sure how byond would handle that while iterating over members
 			continue
 		if(isnull(M.current))
-			stack_trace("Found a mind with no body in /datum/team/cult's members.")
+			stack_trace("Found a mind with no body in /datum/team/cult's members. Removing...")
+			minds_to_remove |= M // I don't really want to remove them while iterating, as I'm not sure how byond would handle that while iterating over members
 			continue
 		if(QDELETED(M) || M.current.stat == DEAD)
 			continue
@@ -108,17 +113,27 @@
 			cultists++
 		else if(isconstruct(M.current))
 			constructs++
+
+	if(length(minds_to_remove))
+		for(var/datum/mind/M as anything in minds_to_remove)
+			remove_member(M)
+
 	if(separate)
 		return list(cultists, constructs)
 	return cultists + constructs
 
 /datum/team/cult/proc/cultist_stat_change(mob/target_cultist, new_stat, old_stat)
+	SIGNAL_HANDLER
 	if(new_stat == old_stat) // huh, how? whatever, we ignore it
 		return
 	if(new_stat != DEAD && old_stat != DEAD)
 		return // switching between alive and unconcious
 	// switching between dead and alive/unconcious
-	check_cult_size()
+	INVOKE_ASYNC(src, PROC_REF(check_cult_size))
+
+/datum/team/cult/proc/cultist_deleting(mob/deleting_cultist)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(remove_member), deleting_cultist.mind)
 
 /datum/team/cult/proc/check_cult_size()
 	var/cult_players = get_cultists()
