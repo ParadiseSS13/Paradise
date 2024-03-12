@@ -23,7 +23,7 @@
 	icon_state = "magspear"
 	gender = PLURAL
 	range = DEFAULT_SHRAPNEL_RANGE
-	damage = 0
+	damage = 1 // 1 damage, to trigger stuff that reacts to damage. Rest of the damage is done through the physical shrapnel
 	var/embed_prob = 100 //reduced by armor
 	var/embedded_type = /obj/item/shrapnel
 
@@ -57,7 +57,7 @@
 	desc = "Metal shards at high velocity, a classic method of blowing your enemies up."
 	icon = 'icons/obj/shards.dmi'
 	icon_state = "shrapnel1"
-	force = 5
+	force = 8 // its a sharp piece of metal, but still not very effective
 	gender = PLURAL
 	embed_chance = 100
 	embedded_fall_chance = 0
