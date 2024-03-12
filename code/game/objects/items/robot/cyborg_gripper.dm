@@ -108,20 +108,18 @@
 
 	else if(istype(target,/obj/machinery/power/apc))
 		var/obj/machinery/power/apc/A = target
-		if(A.opened)
-			if(A.cell)
+		if(A.opened && A.cell)
+			gripped_item = A.cell
 
-				gripped_item = A.cell
+			A.cell.add_fingerprint(user)
+			A.cell.update_icon()
+			A.cell.forceMove(src)
+			A.cell = null
 
-				A.cell.add_fingerprint(user)
-				A.cell.update_icon()
-				A.cell.forceMove(src)
-				A.cell = null
+			A.charging = APC_NOT_CHARGING
+			A.update_icon()
 
-				A.charging = APC_NOT_CHARGING
-				A.update_icon()
-
-				user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")
+			user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")
 
 	else if(istype(target, /obj/machinery/cell_charger))
 		var/obj/machinery/cell_charger/cell_charger = target
