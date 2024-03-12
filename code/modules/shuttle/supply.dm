@@ -159,7 +159,7 @@
 					plasma_count += P.amount
 
 				// Sell salvage
-				if(istype(thing, /obj/item/sellable/salvage))
+				if(istype(thing, /obj/item/salvage))
 					++salvage_count
 
 				// Sell syndicate intel
