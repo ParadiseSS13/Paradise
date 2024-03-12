@@ -30,6 +30,10 @@
 #define SUPERMATTER_EMERGENCY 5		// Integrity < 50%
 #define SUPERMATTER_DELAMINATING 6	// Pretty obvious, Integrity < 25%
 
+// More defines for the suppermatter
+/// Higher == Crystal safe operational temperature is higher.
+#define SUPERMATTER_HEAT_PENALTY_THRESHOLD 40
+
 // Firelock states
 #define FD_OPEN 1
 #define FD_CLOSED 2
@@ -77,6 +81,22 @@
 #define AIR_ALARM_UNWIRED	1
 #define AIR_ALARM_READY		2
 
+/**
+ * Air alarm modes
+ */
+#define AALARM_MODE_SCRUBBING 1
+#define AALARM_MODE_VENTING 2 //makes draught
+#define AALARM_MODE_PANIC 3 //like siphon, but stronger (enables widenet)
+#define AALARM_MODE_REPLACEMENT 4 //sucks off all air, then refill and swithes to scrubbing
+#define AALARM_MODE_SIPHON 5 //Scrubbers suck air
+#define AALARM_MODE_CONTAMINATED 6 //Turns on all filtering and widenet scrubbing.
+#define AALARM_MODE_REFILL 7 //just like normal, but with triple the air output
+#define AALARM_MODE_OFF 8
+#define AALARM_MODE_FLOOD 9 //Emagged mode; turns off scrubbers and pressure checks on vents
+
 #define NUKE_STATUS_INTACT 0
 #define NUKE_CORE_MISSING 1
 #define NUKE_MISSING 2
+
+#define CIRCULATOR_SIDE_LEFT WEST
+#define CIRCULATOR_SIDE_RIGHT EAST

@@ -1,23 +1,3 @@
-//clusterCheckFlags defines
-//All based on clusterMin and clusterMax as guides
-
-//Individual defines
-#define CLUSTER_CHECK_NONE				0  //No checks are done, cluster as much as possible
-#define CLUSTER_CHECK_DIFFERENT_TURFS	(1<<1)  //Don't let turfs of DIFFERENT types cluster
-#define CLUSTER_CHECK_DIFFERENT_ATOMS	(1<<2)  //Don't let atoms of DIFFERENT types cluster
-#define CLUSTER_CHECK_SAME_TURFS		(1<<3)  //Don't let turfs of the SAME type cluster
-#define CLUSTER_CHECK_SAME_ATOMS		(1<<4) //Don't let atoms of the SAME type cluster
-
-//Combined defines
-#define CLUSTER_CHECK_SAMES				(CLUSTER_CHECK_SAME_TURFS | CLUSTER_CHECK_SAME_ATOMS) //Don't let any of the same type cluster
-#define CLUSTER_CHECK_DIFFERENTS		(CLUSTER_CHECK_DIFFERENT_TURFS | CLUSTER_CHECK_DIFFERENT_ATOMS) //Don't let any of different types cluster
-#define CLUSTER_CHECK_ALL_TURFS			(CLUSTER_CHECK_DIFFERENT_TURFS | CLUSTER_CHECK_SAME_TURFS) //Don't let ANY turfs cluster same and different types
-#define CLUSTER_CHECK_ALL_ATOMS			(CLUSTER_CHECK_DIFFERENT_ATOMS | CLUSTER_CHECK_SAME_ATOMS) //Don't let ANY atoms cluster same and different types
-
-//All
-#define CLUSTER_CHECK_ALL				((1<<4) - 2) //Don't let anything cluster, like, at all.  -2 because we skipped <<1 for some odd reason.
-
-
 /datum/mapGenerator
 
 	//Map information
@@ -173,9 +153,9 @@
 		to_chat(src, "End Coords: [endCoords[1]] - [endCoords[2]] - [endCoords[3]]")
 		return
 
-	var/list/clusters = list("None"=CLUSTER_CHECK_NONE,"All"=CLUSTER_CHECK_ALL,"Sames"=CLUSTER_CHECK_SAMES,"Differents"=CLUSTER_CHECK_DIFFERENTS, \
-	"Same turfs"=CLUSTER_CHECK_SAME_TURFS, "Same atoms"=CLUSTER_CHECK_SAME_ATOMS, "Different turfs"=CLUSTER_CHECK_DIFFERENT_TURFS, \
-	"Different atoms"=CLUSTER_CHECK_DIFFERENT_ATOMS, "All turfs"=CLUSTER_CHECK_ALL_TURFS,"All atoms"=CLUSTER_CHECK_ALL_ATOMS)
+	var/list/clusters = list("None"=MAP_GENERATOR_CLUSTER_CHECK_NONE,"All"=MAP_GENERATOR_CLUSTER_CHECK_ALL,"Sames"=MAP_GENERATOR_CLUSTER_CHECK_SAMES,"Differents"=MAP_GENERATOR_CLUSTER_CHECK_DIFFERENTS, \
+	"Same turfs"=MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS, "Same atoms"=MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS, "Different turfs"=MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS, \
+	"Different atoms"=MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS, "All turfs"=MAP_GENERATOR_CLUSTER_CHECK_ALL_TURFS,"All atoms"=MAP_GENERATOR_CLUSTER_CHECK_ALL_ATOMS)
 
 	var/moduleClusters = input("Cluster Flags (Cancel to leave unchanged from defaults)","Map Gen Settings") as null|anything in clusters
 	//null for default
@@ -187,7 +167,7 @@
 			return
 		theCluster = clusters[moduleClusters]
 	else
-		theCluster =  CLUSTER_CHECK_NONE
+		theCluster =  MAP_GENERATOR_CLUSTER_CHECK_NONE
 
 	if(theCluster)
 		for(var/datum/mapGeneratorModule/M in N.modules)
