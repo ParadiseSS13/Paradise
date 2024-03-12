@@ -218,3 +218,4 @@
 		/obj/item/stack/tile/light,
 		/obj/item/light
 	)
+	
