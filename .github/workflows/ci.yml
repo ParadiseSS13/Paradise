@@ -133,6 +133,8 @@ jobs:
     if: ${{ github.event_name == 'merge_group' }}
     name: Verify map merge sanity
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -148,3 +150,7 @@ jobs:
       - name: Verify map merge
         run: |
           ./tools/bootstrap/python -m mapmerge2.merge_queue_check
+      - name: TEMP -- Cancel all other builds --
+        if: failure()
+        uses: "andymckay/cancel-action@0.3"
+
