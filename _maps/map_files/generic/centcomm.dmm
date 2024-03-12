@@ -1982,7 +1982,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate_sit)
 "hm" = (
-/obj/machinery/door_control/no_emag{
+/obj/machinery/door_control/no_emag/no_cyborg{
 	pixel_y = 24;
 	req_access_txt = "114";
 	name = "Engineering Storage Shutters";
@@ -13950,10 +13950,16 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Xo" = (
-/obj/machinery/door_control/no_emag{
-	id = "SPECOPS";
+/obj/machinery/door_control/no_emag/no_cyborg{
 	name = "Nanotrasen Asset Protection Shutters";
-	pixel_y = -24
+	req_access_txt = "114";
+	pixel_y = 24
+	},
+/obj/machinery/door_control/no_emag/no_cyborg{
+	name = "Nanotrasen Asset Protection Shutters";
+	req_access_txt = "114";
+	pixel_y = -24;
+	id = "SPECOPS"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
