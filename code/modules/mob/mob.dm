@@ -5,7 +5,8 @@
 	input_focus = null
 	if(s_active)
 		s_active.close(src)
-	QDEL_NULL(hud_used)
+	if(!QDELETED(hud_used))
+		QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
 	mobspellremove(src)
