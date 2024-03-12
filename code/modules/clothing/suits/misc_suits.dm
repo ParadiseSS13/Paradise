@@ -173,7 +173,7 @@
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/clothing/suit/corgisuit/en
-	name = "\improper super-hero E-N suit"
+	name = "super-hero E-N suit"
 	icon_state = "ensuit"
 
 /obj/item/clothing/suit/corgisuit/super_hero
@@ -182,7 +182,7 @@
 	flags = NODROP
 
 /obj/item/clothing/suit/corgisuit/super_hero/en
-	name = "\improper super-hero E-N suit"
+	name = "super-hero E-N suit"
 	icon_state = "ensuit"
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/Initialize(mapload)
@@ -325,7 +325,8 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
-/obj/item/clothing/suit/hooded/bee_costume // It's Hip!
+/// It's Hip!
+/obj/item/clothing/suit/hooded/bee_costume
 	name = "bee costume"
 	desc = "Bee the true Queen!"
 	icon_state = "bee"
@@ -344,14 +345,16 @@
 	flags_inv = HIDEEARS
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
-/obj/item/clothing/suit/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
+/// OH MY GOD WHAT HAVE YOU DONE!?!?!?
+/obj/item/clothing/suit/bloated_human
 	name = "bloated human suit"
 	desc = "A horribly bloated suit made from human skins."
 	icon_state = "lingspacesuit"
 	item_state = "lingspacesuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
-/obj/item/clothing/suit/draculacoat // Bleh!
+/// Bleh!
+/obj/item/clothing/suit/draculacoat
 	name = "transylvanian coat"
 	desc = "<i>What is a spessman? A miserable little pile of secrets.</i>"
 	icon_state = "draculacoat"

@@ -206,6 +206,10 @@
 						msg += "<span class='good'>[S.rarity]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
 						service_credits += S.rarity / 2 // That's right, no bonus for potency. Send a crappy sample first to "show improvement" later
 						credits_to_deposit += S.rarity / 2
+
+				if(istype(thing, /obj/item/organ/internal/alien))
+					var/obj/item/organ/internal/alien/organ = thing
+					credits_to_deposit += organ.cargo_profit
 		qdel(MA)
 		SSeconomy.sold_atoms += "."
 
@@ -230,3 +234,5 @@
 			GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE), research_credits, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
 		if(service_credits)
 			GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE), service_credits, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
+
+#undef MAX_CRATE_DELIVERY
