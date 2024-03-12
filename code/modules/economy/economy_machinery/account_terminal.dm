@@ -136,8 +136,40 @@
 			var/account_name = params["holder_name"]
 			if(!account_name)
 				return
-			GLOB.station_money_database.create_account(account_name, 0, ACCOUNT_SECURITY_ID, name, supress_log = FALSE)
+			var/datum/money_account/account = GLOB.station_money_database.create_account(account_name, 0, ACCOUNT_SECURITY_ID, name, supress_log = FALSE)
+			print_new_account_info(account)
 			current_page = AUT_ACCLST
+
+/obj/machinery/computer/account_database/proc/print_new_account_info(datum/money_account/account)
+	//create a sealed package containing the account details
+	var/obj/item/smallDelivery/P = new /obj/item/smallDelivery(loc)
+
+	var/obj/item/paper/R = new /obj/item/paper(P)
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	P.wrapped = R
+	R.name = "Account information: [account.account_name]"
+
+	var/overseer = "Unknown"
+	var/datum/ui_login/L = ui_login_get()
+	if(L.id)
+		overseer = L.id.registered_name
+	R.info = {"<b>Account details (confidential)</b><br><hr><br>
+		<i>Account holder:</i> [account.account_name]<br>
+		<i>Account number:</i> [account.account_number]<br>
+		<i>Account pin:</i> [account.account_pin]<br>
+		<i>Starting balance:</i> $[account.credit_balance]<br>
+		<i>Date and time:</i> [station_time_timestamp()], [GLOB.current_date_string]<br><br>
+		<i>Authorised NT officer overseeing creation:</i> [overseer]<br>"}
+
+	//stamp the paper
+	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
+	stampoverlay.icon_state = "paper_stamp-cent"
+	if(!R.stamped)
+		R.stamped = new
+	R.stamped += /obj/item/stamp
+	R.stamp_overlays += stampoverlay
+	R.stamps += "<HR><i>This paper has been stamped by the Accounts Database.</i>"
+	
 
 /obj/machinery/computer/account_database/proc/clear_viewed_account()
 	UnregisterSignal(detailed_account_view, COMSIG_PARENT_QDELETING)
