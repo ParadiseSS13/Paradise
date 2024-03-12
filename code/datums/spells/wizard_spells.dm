@@ -478,3 +478,39 @@
 	if(isliving(user))
 		var/mob/living/U = user
 		U.IgniteMob()
+
+/obj/effect/proc_holder/spell/corpse_explosion
+    name = "Corpse Explosion"
+    desc = "Fills a corpse with energy causing it to explode violently"
+    school = "evocation" //cant figure out if i actually need this
+    base_cooldown = 10
+    clother_req = TRUE
+    invocation = "JAH ITH BER"
+    invocation_type = "whisper"
+    selection_activated_message = "<span class='notice'>You prepare to detonate a corpse. Click on a target to cast the spell.</span>"
+    selection_deactivated_message = "<span class='notice'>You cancel the spelll.</span>"
+    action_icon_state = "corpse_explosion"
+
+
+/obj/effect/proc_holder/spell/corpse_explosion/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.click_radius = 0
+	T.allowed_type = /mob/living
+	return T
+
+/obj/effect/proc_holder/spell/corpse_explosion/cast(list/targets, mob/user)
+	if(!targets || target.stat == !DEAD)
+		return
+	new /obj/effect/temp_visual/corpse_explosion(get_turf(target))
+		target.gib()
+	explosion(get_turf(target), 0, 0, 2, 0, silent = TRUE,breach = FALSE)
+	for(var/mob/living/carbon/human/H in range(2, user))
+		to_chat(H, "<span class='userdanger'>You are burned by the violent dark magic escaping exploded corpse!</span>")
+		H.KnockDown(4 SECONDS)
+		H.EyeBlurry(40 SECONDS)
+		H.apply_damage(100, BURN)
+		H.AdjustConfused(6 SECONDS)
+	for(var/mob/living/silicon/S in range(2, user))
+		to_chat(S, "<span class='userdanger'>Your sensors are disabled and carapace burned by the dark magic!</span>")
+		S.Weaken(6 SECONDS)
+		H.apply_damage(80, BURN)

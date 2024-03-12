@@ -103,6 +103,12 @@
 	icon_state = "liquify"
 	duration = 12
 
+/obj/effect/temp_visual/corpse_explosion
+	icon_state = "corpse_explosion"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "corpse_explosion"
+	duration = 10
+
 /obj/effect/temp_visual/monkeyify
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "h2monkey"
