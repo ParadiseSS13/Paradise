@@ -51,7 +51,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	)
 
 	if(GLOB.configuration.url.github_url)
-		response_phrases["New Bug"] = "That sounds like a bug! To report it, please go to our <a href='[GLOB.configuration.url.github_url]'>Github page</a>. Then go to 'Issues'. Then 'New Issue'. Then fill out the report form. If the report would reveal current-round information, file it after the round ends."
+		response_phrases["New Bug"] = "That sounds like a bug! To report it, please go to our <a href='[GLOB.configuration.url.github_url]'>Github page</a>. Then go to 'Issues', click 'New Issue', and fill out the report form. If the report would reveal current-round information, file it after the round ends."
 
 	if(GLOB.configuration.url.exploit_url)
 		response_phrases["Exploit Report"] = "That sounds like it could be an exploit! To report it, please go to our <a href='[GLOB.configuration.url.exploit_url]'>Exploit Report page</a>. Then 'Start New Topic'. Then fill out the topic with as much information about the exploit that you can. If possible, add steps taken to reproduce the exploit. The Development Team will be informed automatically of the post."
@@ -67,7 +67,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 		return
 
 	SEND_SOUND(returnClient(N), sound('sound/effects/adminhelp.ogg'))
-	to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> <span class='adminticketalt'>[response_phrases[message_key]]</span>")//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
+	to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with:</span> <span class='adminticketalt'>[response_phrases[message_key]]</span>") //for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
 	message_staff("[C] has auto responded to [ticket_owner]\'s mentorhelp with:<span class='adminticketalt'> [message_key]</span>") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
 	T.lastStaffResponse = "Autoresponse: [message_key]"
 	resolveTicket(N)
