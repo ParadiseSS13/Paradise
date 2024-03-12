@@ -414,6 +414,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 		stone.invisibility = INVISIBILITY_MAXIMUM // So it's not picked up during transfer_soul()
 		stone.transfer_soul("FORCE", offering, user) // If it cannot be added
 		stone.invisibility = 0
+		var/put_in_hands = user.put_in_any_hand_if_possible(stone)
+		if(put_in_hands)
+			to_chat(user, "<span class='cultitalic'>A glowing crimson shard appears in your hand - your new ally contained within.</span>")
 	else
 		if(isrobot(offering))
 			offering.dust() //To prevent the MMI from remaining

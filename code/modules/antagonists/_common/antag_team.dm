@@ -354,3 +354,5 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 			var/list/stringy_list = T.get_admin_html()
 			content += stringy_list.Join()
 	return content.Join()
+
+#undef DEFAULT_TEAM_NAME

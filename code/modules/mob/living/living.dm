@@ -1167,3 +1167,8 @@
 				dir = get_cardinal_dir(src, A)
 		return
 	return ..()
+
+/mob/living/Moved(OldLoc, Dir, Forced = FALSE)
+	. = ..()
+	for(var/obj/O in src)
+		O.on_mob_move(Dir, src)

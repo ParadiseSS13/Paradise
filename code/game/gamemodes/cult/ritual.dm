@@ -196,3 +196,6 @@
 	R.color = H.dna.species.blood_color
 	R.rune_blood_color = H.dna.species.blood_color
 	to_chat(user, "<span class='cult'>The [lowertext(initial(rune.cultist_name))] rune [initial(rune.cultist_desc)]</span>")
+
+#undef CULT_ELDERGOD
+#undef CULT_SLAUGHTER
