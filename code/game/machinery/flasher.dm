@@ -20,7 +20,8 @@
 	. = ..()
 	update_icon()
 
-/obj/machinery/flasher/portable //Portable version of the flasher. Only flashes when anchored
+/// Portable version of the flasher. Only flashes when anchored
+/obj/machinery/flasher/portable
 	name = "portable flasher"
 	desc = "A portable flashing device. Wrench to activate and deactivate. Cannot detect slow movements."
 	icon_state = "pflash1"

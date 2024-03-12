@@ -123,7 +123,8 @@
 	mutatelist = list(/obj/item/seeds/sunflower/moonflower, /obj/item/seeds/sunflower/novaflower)
 	reagents_add = list("cornoil" = 0.08, "plantmatter" = 0.04)
 
-/obj/item/grown/sunflower // FLOWER POWER!
+/// FLOWER POWER!
+/obj/item/grown/sunflower
 	seed = /obj/item/seeds/sunflower
 	name = "sunflower"
 	desc = "It's beautiful! A certain person might beat you to death if you trample these."
