@@ -37,8 +37,9 @@
 	name = "Quartermaster"
 	jobtype = /datum/job/qm
 
-	uniform = /obj/item/clothing/under/rank/cargo/quartermaster
+	uniform = /obj/item/clothing/under/rank/cargo/qm
 	shoes = /obj/item/clothing/shoes/workboots/mining
+	head = /obj/item/clothing/head/qm
 	l_ear = /obj/item/radio/headset/heads/qm
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
@@ -448,6 +449,11 @@
 	pda = /obj/item/pda/janitor
 	r_pocket = /obj/item/door_remote/janikeyring
 
+/datum/outfit/job/janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	ADD_TRAIT(H, TRAIT_NEVER_MISSES_DISPOSALS, ROUNDSTART_TRAIT)
 
 //More or less assistants
 /datum/job/librarian
