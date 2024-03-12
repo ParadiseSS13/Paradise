@@ -166,3 +166,5 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
 
 	return 1
+
+#undef SYNDICATE_COMMANDOS_POSSIBLE

@@ -1,3 +1,7 @@
+#define ERT_TYPE_AMBER		1
+#define ERT_TYPE_RED		2
+#define ERT_TYPE_GAMMA		3
+
 // GYGAX
 
 /// NT Special Gygax
@@ -99,3 +103,7 @@
 	desc = "И как такой гигант пал?"
 	icon = 'modular_ss220/objects/icons/mecha.dmi'
 	icon_state = "darkdurand-broken"
+
+#undef ERT_TYPE_AMBER
+#undef ERT_TYPE_RED
+#undef ERT_TYPE_GAMMA

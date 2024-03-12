@@ -1091,7 +1091,7 @@
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "bgloves"), ICON_OVERLAY)
 				has_gloves = TRUE
 				if(prob(1))
-					clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "poncho"), ICON_OVERLAY)
+					clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "qmcoat"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)

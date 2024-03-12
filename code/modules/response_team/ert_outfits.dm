@@ -511,6 +511,12 @@
 		/obj/item/melee/flyswatter = 1
 	)
 
+/datum/outfit/job/centcom/response_team/janitorial/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	ADD_TRAIT(H, TRAIT_NEVER_MISSES_DISPOSALS, ROUNDSTART_TRAIT)
+
 /datum/outfit/job/centcom/response_team/janitorial/amber
 	name = "RT Janitor (Amber)"
 	suit = /obj/item/clothing/suit/armor/vest/ert/janitor

@@ -1,3 +1,10 @@
+#define IDCOMPUTER_SCREEN_TRANSFER 0
+#define IDCOMPUTER_SCREEN_SLOTS 1
+#define IDCOMPUTER_SCREEN_ACCESS 2
+#define IDCOMPUTER_SCREEN_RECORDS 3
+#define IDCOMPUTER_SCREEN_DEPT 4
+
+
 /obj/machinery/computer/card/ui_data(mob/user)
 	var/list/data = ..()
 
@@ -39,3 +46,10 @@
 			formatted.Remove(list(i))
 
 	return formatted
+
+
+#undef IDCOMPUTER_SCREEN_TRANSFER
+#undef IDCOMPUTER_SCREEN_SLOTS
+#undef IDCOMPUTER_SCREEN_ACCESS
+#undef IDCOMPUTER_SCREEN_RECORDS
+#undef IDCOMPUTER_SCREEN_DEPT

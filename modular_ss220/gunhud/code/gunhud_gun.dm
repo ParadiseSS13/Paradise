@@ -1,3 +1,5 @@
+#define GET_FUEL reagents.get_reagent_amount("fuel")
+
 /obj/item/gun/projectile/attackby(obj/item/A, mob/user, params)
 	. = ..()
 	SEND_SIGNAL(src, COMSIG_UPDATE_GUNHUD)
@@ -58,3 +60,5 @@
 	. = ..()
 	if(refills_over_time && GET_FUEL != maximum_fuel)
 		SEND_SIGNAL(src, COMSIG_UPDATE_GUNHUD)
+
+#undef GET_FUEL

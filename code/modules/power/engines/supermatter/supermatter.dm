@@ -34,7 +34,6 @@
 #define POWER_PENALTY_THRESHOLD 5000          //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of cryo anomalies, +2 bolts of electricity
 #define SEVERE_POWER_PENALTY_THRESHOLD 7000   //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of cryo anomalies
 #define CRITICAL_POWER_PENALTY_THRESHOLD 9000 //+1 bolt of electricity.
-#define HEAT_PENALTY_THRESHOLD 40             //Higher == Crystal safe operational temperature is higher.
 #define DAMAGE_HARDCAP 0.002
 #define DAMAGE_INCREASE_MULTIPLIER 0.25
 
@@ -157,7 +156,7 @@
 	///Uses powerloss_dynamic_scaling and combined_gas to lessen the effects of our powerloss functions
 	var/powerloss_inhibitor = 1
 	///value plus T0C = temp at which the SM starts to take damage. Variable for event usage
-	var/heat_penalty_threshold = HEAT_PENALTY_THRESHOLD
+	var/heat_penalty_threshold = SUPERMATTER_HEAT_PENALTY_THRESHOLD
 	///Based on co2 percentage, slowly moves between 0 and 1. We use it to calc the powerloss_inhibitor
 	var/powerloss_dynamic_scaling= 0
 	///Affects the amount of radiation the sm makes. We multiply this with power to find the rads.
@@ -1262,3 +1261,47 @@
 #undef MACHINERY
 #undef OBJECT
 #undef LOWEST
+
+#undef PLASMA_HEAT_PENALTY
+#undef OXYGEN_HEAT_PENALTY
+#undef CO2_HEAT_PENALTY
+#undef NITROGEN_HEAT_PENALTY
+#undef OXYGEN_TRANSMIT_MODIFIER
+#undef PLASMA_TRANSMIT_MODIFIER
+#undef N2O_HEAT_RESISTANCE
+#undef POWERLOSS_INHIBITION_GAS_THRESHOLD
+#undef POWERLOSS_INHIBITION_MOLE_THRESHOLD
+#undef POWERLOSS_INHIBITION_MOLE_BOOST_THRESHOLD
+#undef MOLE_CRUNCH_THRESHOLD
+#undef MOLE_PENALTY_THRESHOLD
+#undef MOLE_HEAT_PENALTY
+#undef EVENT_POWER_PENALTY_THRESHOLD
+#undef POWER_PENALTY_THRESHOLD
+#undef SEVERE_POWER_PENALTY_THRESHOLD
+#undef CRITICAL_POWER_PENALTY_THRESHOLD
+#undef DAMAGE_HARDCAP
+#undef DAMAGE_INCREASE_MULTIPLIER
+#undef THERMAL_RELEASE_MODIFIER
+#undef PLASMA_RELEASE_MODIFIER
+#undef OXYGEN_RELEASE_MODIFIER
+#undef REACTION_POWER_MODIFIER
+#undef MATTER_POWER_CONVERSION
+#undef DETONATION_RADS
+#undef DETONATION_HALLUCINATION
+#undef WARNING_DELAY
+#undef SUPERMATTER_DELAM_PERCENT
+#undef SUPERMATTER_EMERGENCY_PERCENT
+#undef SUPERMATTER_DANGER_PERCENT
+#undef SUPERMATTER_WARNING_PERCENT
+#undef CRITICAL_TEMPERATURE
+#undef SUPERMATTER_COUNTDOWN_TIME
+#undef SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN
+#undef DEFAULT_ZAP_ICON_STATE
+#undef SLIGHTLY_CHARGED_ZAP_ICON_STATE
+#undef OVER_9000_ZAP_ICON_STATE
+#undef MAX_SPACE_EXPOSURE_DAMAGE
+#undef SUPERMATTER_COLOUR
+#undef SUPERMATTER_RED
+#undef SUPERMATTER_TESLA_COLOUR
+#undef SUPERMATTER_SINGULARITY_RAYS_COLOUR
+#undef SUPERMATTER_SINGULARITY_LIGHT_COLOUR

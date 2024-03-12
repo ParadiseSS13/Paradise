@@ -1,3 +1,5 @@
+#define GET_FUEL reagents.get_reagent_amount("fuel")
+
 /datum/component/gunhud
 	var/atom/movable/screen/ammo_counter/hud
 
@@ -169,3 +171,4 @@
 	. = ..()
 	add_gunhud()
 
+#undef GET_FUEL
