@@ -141,7 +141,10 @@ jobs:
         with:
           # allegedly this is as deep as necessary to always receive the base ref
           fetch-depth: 2
-
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
       - name: Verify map merge
         run: |
-          /tools/bootstrap/python -m mapmerge2.merge_queue_check
+          ./tools/bootstrap/python -m mapmerge2.merge_queue_check
