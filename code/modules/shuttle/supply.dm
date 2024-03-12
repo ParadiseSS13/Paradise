@@ -223,6 +223,11 @@
 		msg += "<span class='good'>+[credits_from_plasma]</span>: Received [plasma_count] unit(s) of exotic material.<br>"
 		credits_to_deposit += credits_from_plasma
 
+	if(salvage_count > 0)
+		var/credits_from_salvage = salvage_count * SSeconomy.credits_per_salvage
+		msg += "<span class='good'>+[credits_from_salvage]</span>: Received [salvage_count] tonne(s) of salvage.<br>"
+		credits_to_deposit += credits_from_salvage
+
 	if(intel_count > 0)
 		var/credits_from_intel = intel_count * SSeconomy.credits_per_intel
 		msg += "<span class='good'>+[credits_from_intel]</span>: Received [intel_count] article(s) of enemy intelligence.<br>"
