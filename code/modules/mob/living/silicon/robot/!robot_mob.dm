@@ -124,8 +124,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		/mob/living/silicon/robot/proc/self_diagnosis,
 		/mob/living/silicon/proc/subsystem_law_manager)
 
-	hud_type = /datum/hud/robot
-
 /mob/living/silicon/robot/get_cell()
 	return cell
 
@@ -1183,7 +1181,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/update_icons()
 	overlays.Cut()
-	
+
 	if(stat != DEAD && !(IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
 			overlays += "eyes-[custom_panel]"

@@ -112,17 +112,18 @@
 
 
 /atom/movable/screen/movable/action_button/proc/save_position()
-	var/mob/user = our_hud.mymob
-	if(!user?.client)
-		return
-	var/position_info = ""
-	switch(location)
-		if(SCRN_OBJ_FLOATING)
-			position_info = screen_loc
-		if(SCRN_OBJ_IN_LIST)
-			position_info = SCRN_OBJ_IN_LIST
-		if(SCRN_OBJ_IN_PALETTE)
-			position_info = SCRN_OBJ_IN_PALETTE
+	return
+	// var/mob/user = our_hud.mymob
+	// if(!user?.client)
+	// 	return
+	// var/position_info = ""
+	// switch(location)
+	// 	if(SCRN_OBJ_FLOATING)
+	// 		position_info = screen_loc
+	// 	if(SCRN_OBJ_IN_LIST)
+	// 		position_info = SCRN_OBJ_IN_LIST
+	// 	if(SCRN_OBJ_IN_PALETTE)
+	// 		position_info = SCRN_OBJ_IN_PALETTE
 
 	// TODO maybe???
 

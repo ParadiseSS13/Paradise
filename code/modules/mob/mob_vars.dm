@@ -84,6 +84,7 @@
 	var/obj/item/storage/s_active = null //Carbon
 	var/obj/item/clothing/mask/wear_mask = null //Carbon
 
+	/// The instantiated version of the mob's hud.
 	var/datum/hud/hud_used = null
 
 	hud_possible = list(SPECIALROLE_HUD)
@@ -121,7 +122,7 @@
 
 	var/move_on_shuttle = TRUE // Can move on the shuttle.
 
-	/// The type of HUD that you will use
+	/// The type of HUD that this mob uses. Not to
 	var/hud_type = /datum/hud
 
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now

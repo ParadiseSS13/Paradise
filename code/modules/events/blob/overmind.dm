@@ -12,7 +12,7 @@
 	pass_flags = PASSBLOB
 	faction = list(ROLE_BLOB)
 
-	hud_used = /datum/hud/blob_overmind
+	hud_type = /datum/hud/blob_overmind
 
 	var/obj/structure/blob/core/blob_core = null // The blob overmind's core
 	var/blob_points = 0

@@ -14,7 +14,7 @@
 	var/max_grown = 200
 	death_message = "lets out a waning high-pitched cry."
 	death_sound = null
-	hud_used = /datum/hud/larva
+	hud_type = /datum/hud/larva
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/Initialize(mapload)
