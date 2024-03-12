@@ -4,7 +4,7 @@
 
 /obj/machinery/photocopier
 	name = "photocopier"
-	desc = "For making copies of important documents, or more likely your ass."
+	desc = "For making copies of important documents, or more likely, your ass."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
 

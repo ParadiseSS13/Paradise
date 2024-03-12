@@ -3,7 +3,7 @@
 
 /obj/machinery/iv_drip
 	name = "\improper IV drip"
-	desc = "Simply attach a bloodbag, and stab the patient, and they'll have more blood in no time."
+	desc = "Simply attach a bloodbag, and stab the patient with a needle, and they'll have more blood in no time."
 	icon = 'icons/goonstation/objects/iv.dmi'
 	icon_state = "stand"
 	anchored = FALSE

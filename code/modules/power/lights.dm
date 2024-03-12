@@ -164,7 +164,7 @@
   */
 /obj/machinery/light
 	name = "light fixture"
-	desc = "Yep, its a light."
+	desc = "Industrial-grade light fixture for brightening up dark corners of the station."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "tube1"
 	anchored = TRUE
@@ -231,12 +231,12 @@
   */
 /obj/machinery/light/small
 	icon_state = "bulb1"
-	base_state = "bulb"
+	desc = "A compact and cheap light fixture, perfect for subtle illumination and maintenance tunnels."
 	fitting = "bulb"
+	base_state = "bulb"
 	brightness_range = 4
 	brightness_color = "#a0a080"
 	nightshift_light_range = 4
-	desc = "Yeah, it's a light."
 	light_type = /obj/item/light/bulb
 
 /obj/machinery/light/spot
