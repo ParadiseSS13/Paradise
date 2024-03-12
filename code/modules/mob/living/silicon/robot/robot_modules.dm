@@ -356,6 +356,11 @@
 	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_facid)
 	special_rechargables = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/extinguisher/mini)
 
+/obj/item/robot_module/medical/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/medical/G = locate(/obj/item/gripper/medical) in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
+
 // Disable safeties on the borg's defib.
 /obj/item/robot_module/medical/emag_act(mob/user)
 	. = ..()
@@ -402,7 +407,6 @@
 		/obj/item/geiger_counter/cyborg,
 		/obj/item/holosign_creator/engineering,
 		/obj/item/gripper/engineering,
-		/obj/item/gripper,
 		/obj/item/matter_decompiler,
 		/obj/item/painter,
 		/obj/item/areaeditor/blueprints/cyborg,
@@ -539,6 +543,10 @@
 		/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer
 	)
 
+/obj/item/robot_module/butler/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/service/G = locate(/obj/item/gripper/service) in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
 
 // This is a special type of beer given when emagged, one sip and the target falls asleep.
 /obj/item/reagent_containers/drinks/cans/beer/sleepy_beer
@@ -634,6 +642,11 @@
 	)
 	special_rechargables = list(/obj/item/gun/energy/pulse/cyborg)
 
+/obj/item/robot_module/deathsquad/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/nuclear/G = locate(/obj/item/gripper/nuclear) in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
+
 // Sydicate assault cyborg module.
 /obj/item/robot_module/syndicate
 	name = "syndicate assault robot module"
@@ -648,6 +661,11 @@
 		/obj/item/pinpointer/operative,
 		/obj/item/gripper/nuclear
 	)
+
+/obj/item/robot_module/syndicate/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/nuclear/G = locate(/obj/item/gripper/nuclear) in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
 
 // Sydicate medical cyborg module.
 /obj/item/robot_module/syndicate_medical
@@ -684,6 +702,11 @@
 	)
 	special_rechargables = list(/obj/item/extinguisher/mini)
 
+/obj/item/robot_module/syndicate_medical/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/nuclear/G = locate(/obj/item/gripper/nuclear) in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
+	
 // Sydicate engineer/sabotuer cyborg module.
 /obj/item/robot_module/syndicate_saboteur
 	name = "saboteur robot module" // Disguises are handled in the actual cyborg projector
@@ -716,6 +739,10 @@
 	)
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg)
 
+/obj/item/robot_module/syndicate_saboteur/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/nuclear/G = locate(/obj/item/gripper/nuclear) in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
 /obj/item/robot_module/destroyer
 	name = "destroyer robot module"
 	module_type = "Malf"
