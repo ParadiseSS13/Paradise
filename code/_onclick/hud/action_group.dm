@@ -7,6 +7,8 @@
 	var/north_offset = 0
 	/// The pixel vertical offset of our action buttons
 	var/pixel_north_offset = 0
+	/// The pixel horizontal offset of our action buttons
+	var/pixel_horiz_offset = 0
 	/// Max amount of buttons we can have per row
 	/// Indexes at 1
 	var/column_max = 0
@@ -56,7 +58,7 @@
 
 	var/button_number = 0
 	for(var/atom/movable/screen/button as anything in actions)
-		var/postion = ButtonNumberToScreenCoords(button_number )
+		var/postion = ButtonNumberToScreenCoords(button_number)
 		button.screen_loc = postion
 		button_number++
 
@@ -89,7 +91,8 @@
 	var/visual_column = number % column_max
 	var/coord_col = "+[visual_column]"
 	var/coord_col_offset = 4 + 2 * (visual_column + 1)
-	return "WEST[coord_col]:[coord_col_offset],NORTH[coord_row]:-[pixel_north_offset]"
+	var/coord_row_offset = pixel_north_offset + 2 * (1 * visual_row)
+	return "WEST[coord_col]:[coord_col_offset],NORTH[coord_row]:-[coord_row_offset]"
 
 /datum/action_group/proc/check_against_view()
 	var/owner_view = owner?.mymob?.client?.view

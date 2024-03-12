@@ -100,21 +100,3 @@
 	var/x_off = which == 1 ? -1 : 0
 	var/y_off = round(1 / 2)
 	return "CENTER+[x_off]:16,SOUTH+[y_off+1]:5"
-
-//Upper left (action buttons)
-
-#define ui_action_palette "WEST+0:23,NORTH-1:5"
-#define ui_action_palette_offset(north_offset) ("WEST+0:23,NORTH-[1+north_offset]:5")
-
-#define ui_palette_scroll "WEST+1:8,NORTH-6:28"
-#define ui_palette_scroll_offset(north_offset) ("WEST+1:8,NORTH-[6+north_offset]:28")
-// Defines relating to action button positions
-
-/// Whatever the base action datum thinks is best
-#define SCRN_OBJ_DEFAULT "default"
-/// Floating somewhere on the hud, not in any predefined place
-#define SCRN_OBJ_FLOATING "floating"
-/// In the list of buttons stored at the top of the screen
-#define SCRN_OBJ_IN_LIST "list"
-/// In the collapseable palette
-#define SCRN_OBJ_IN_PALETTE "palette"

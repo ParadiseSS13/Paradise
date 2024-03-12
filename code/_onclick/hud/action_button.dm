@@ -39,6 +39,7 @@
 	if(!can_use(usr))
 		return
 
+
 	var/atom/last_hovered = locateUID(last_hovered_ref)
 	if(last_hovered == over_object)
 		return
@@ -48,8 +49,11 @@
 			last_hovered = src
 			var/datum/hud/our_hud = usr.hud_used
 			our_hud?.generate_landings(src)
+			// close the tooltips on our button so we don't get stuck with them
+
 	if(last_hovered)
 		last_hovered.MouseExited(over_location, over_control, params)
+		closeToolTip(usr)
 	last_hovered_ref = UID(over_object)
 	over_object.MouseEntered(over_location, over_control, params)
 
@@ -165,6 +169,9 @@
 	if(modifiers["middle"])
 		linked_action.Trigger(left_click = FALSE)
 		return TRUE
+	if(modifiers["ctrl"])
+		CtrlClick(usr)
+		return TRUE
 	linked_action.Trigger(TRUE)
 	transform = transform.Scale(0.8, 0.8)
 	alpha = 200
@@ -213,10 +220,11 @@
 
 /atom/movable/screen/movable/action_button/MouseEntered(location, control, params)
 	. = ..()
-	if(!QDELETED(src))
+	var/list/modifiers = params2list(params)
+	if(!QDELETED(src) && !LAZYACCESS(modifiers, DRAG) && !LAZYACCESS(modifiers, LEFT_CLICK))  // tooltips opening on drag prevents things from being dropped onto their actual objects)
 		if(!linked_keybind)
 			openToolTip(usr, src, params, title = name, content = desc, theme = actiontooltipstyle)
-		else
+		else if(linked_keybind)
 			var/list/desc_information = list()
 			desc_information += desc
 			desc_information += "This action is currently bound to the [linked_keybind.binded_to] key."
@@ -282,7 +290,7 @@
 
 
 /atom/movable/screen/button_palette
-	desc = "<b>Drag</b> buttons to move them.<br><b>Shift-click</b> any button to reset it.<br><b>Alt-click</b> this to reset all buttons."
+	desc = "<b>Drag</b> buttons to move them.<br><b>Shift-click</b> any button to reset it.<br><b>Alt-click</b> this to reset all buttons.<br><b>Ctrl-click</b> this to get a detailed explanation of how to use this."
 	icon = 'icons/hud/64x16_actions.dmi'
 	icon_state = "screen_gen_palette"
 	screen_loc = ui_action_palette
@@ -313,6 +321,26 @@
 	else
 		name = "Show Buttons"
 
+/atom/movable/screen/button_palette/CtrlClick(mob/user)
+	if(!istype(user))
+		return
+
+	var/list/explanation = list()
+
+	explanation.Insert(
+		"<b><center>The Action Palette [bicon(src)] and You</center></b>",
+		"The Action Palette [bicon(src)] is the new way to hide action buttons. You can hide only some buttons, and quickly bring them up when needed, instead of hiding all of them.",
+		"To use it, drag action buttons onto it, or onto other buttons already in the palette. You can then click the palette to hide or show it. If you click away from the palette, it will be hidden.",
+		"If you have more than 9 action buttons, you can use the scroll arrows to see all of the buttons present, and you can always drag buttons out of the palette whenever you want.",
+		"You can drag action buttons anywhere on the screen, onto other buttons, or onto the little squares that appear when you start dragging them.",
+		"If you drag a button onto another button, it'll snap onto that other button and form a little group.",
+		"",  // empty space to force another br
+		"If you need more help, check the wiki or send a mentorhelp."
+	)
+
+	to_chat(user, chat_box_notice(explanation.Join("<br>")))
+
+
 
 /atom/movable/screen/button_palette/proc/refresh_owner()
 	var/mob/viewer = our_hud.mymob
@@ -332,7 +360,10 @@
 	. = ..()
 	if(QDELETED(src))
 		return
-	show_tooltip(params)
+	var/list/modifiers = params2list(params)
+	// don't show the tooltip if we're dragging
+	if(!LAZYACCESS(modifiers, DRAG) && !LAZYACCESS(modifiers, LEFT_CLICK))
+		show_tooltip(params)
 
 /atom/movable/screen/button_palette/MouseExited()
 	closeToolTip(usr)
@@ -371,6 +402,10 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 		return
 
 	var/list/modifiers = params2list(params)
+
+	if(LAZYACCESS(modifiers, CTRL_CLICK))
+		CtrlClick(usr)
+		return TRUE
 
 	if(LAZYACCESS(modifiers, ALT_CLICK))
 		for(var/datum/action/action as anything in usr.actions) // Reset action positions to default
@@ -430,6 +465,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 /atom/movable/screen/palette_scroll/proc/set_hud(datum/hud/our_hud)
 	src.our_hud = our_hud
 	refresh_owner()
+	// ltodo ADD SIGNAL SCROLLWHEEL LISTENER FOR CLIENT ON BUTTONS
 
 /atom/movable/screen/palette_scroll/proc/refresh_owner()
 	var/mob/viewer = our_hud.mymob
@@ -514,29 +550,6 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 /atom/movable/screen/action_landing/proc/hit_by(atom/movable/screen/movable/action_button/button)
 	var/datum/hud/our_hud = owner.owner
 	our_hud.position_action(button, owner.location)
-
-
-/datum/hud/proc/ButtonNumberToScreenCoords(number) // TODO : Make this zero-indexed for readabilty
-	var/row = round((number - 1)/AB_MAX_COLUMNS)
-	var/col = ((number - 1)%(AB_MAX_COLUMNS)) + 1
-
-	var/coord_col = "+[col-1]"
-	var/coord_col_offset = 4 + 2 * col
-
-	var/coord_row = "[row ? -row : "+0"]"
-
-	return "WEST[coord_col]:[coord_col_offset],NORTH[coord_row]:-6"
-
-/datum/hud/proc/SetButtonCoords(atom/movable/screen/button,number)
-	var/row = round((number-1)/AB_MAX_COLUMNS)
-	var/col = ((number - 1)%(AB_MAX_COLUMNS)) + 1
-	var/x_offset = 32*(col-1) + 4 + 2*col
-	var/y_offset = -32*(row+1) + 26
-
-	var/matrix/M = matrix()
-	M.Translate(x_offset,y_offset)
-	button.transform = M
-
 
 /datum/hud/proc/position_action(atom/movable/screen/movable/action_button/button, position)
 	if(button.location != SCRN_OBJ_DEFAULT)
