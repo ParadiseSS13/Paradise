@@ -1058,6 +1058,7 @@
 #include "code\game\objects\items\mountable_frames\mountables.dm"
 #include "code\game\objects\items\mountable_frames\newscaster_frame.dm"
 #include "code\game\objects\items\robot\ai_upgrades.dm"
+#include "code\game\objects\items\robot\cyborg_gripper.dm"
 #include "code\game\objects\items\robot\robot_items.dm"
 #include "code\game\objects\items\robot\robot_parts.dm"
 #include "code\game\objects\items\robot\robot_upgrades.dm"
