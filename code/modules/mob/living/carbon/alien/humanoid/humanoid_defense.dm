@@ -4,14 +4,11 @@
 			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
 			return FALSE
 		..(user, TRUE)
-		adjustBruteLoss(15)
+		adjustBruteLoss(10)
 		var/hitverb = "punched"
 		if(mob_size < MOB_SIZE_LARGE)
-			Paralyse(2 SECONDS)
-			spawn(0)
-				step_away(src, user, 15)
-				sleep(1)
-				step_away(src, user, 15)
+			Stun(2 SECONDS)
+			throw_at(get_edge_target_turf(user, get_dir(user, src)), 3, 7)
 			hitverb = "slammed"
 		playsound(loc, "punch", 25, 1, -1)
 		visible_message("<span class='danger'>[user] has [hitverb] [src]!</span>", "<span class='userdanger'>[user] has [hitverb] [src]!</span>")

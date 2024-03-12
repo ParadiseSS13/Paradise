@@ -68,6 +68,8 @@
 			return "Miscellaneous"
 		if(SUPPLY_VEND)
 			return "Vending"
+		if(SUPPLY_SHUTTLE)
+			return "Shuttles"
 
 /obj/machinery/computer/supplycomp/proc/build_request_data(mob/user)
 	var/list/requests = list()
@@ -109,7 +111,8 @@
 			"req_cargo_approval" = order.requires_cargo_approval,
 			"req_head_approval" = order.requires_head_approval,
 			"can_approve" = can_approve,
-			"can_deny" = can_deny
+			"can_deny" = can_deny,
+			"singleton_id" = initial(order.object?.singleton_group_id)
 		)
 		//The way approval rights is determined
 		//If a crate requires CT approval and head approval - Only CTs can approve it for now, heads can still deny it at this point however
@@ -165,7 +168,8 @@
 			"ordernum" = order.ordernum,
 			"supply_type" = order.object.name,
 			"orderedby" = order.orderedby,
-			"comment" = order.comment
+			"comment" = order.comment,
+			"singleton_id" = initial(order.object?.singleton_group_id)
 		)
 		orders += list(order_data)
 	return orders
@@ -214,12 +218,22 @@
 
 	for(var/set_name in SSeconomy.supply_packs)
 		var/datum/supply_packs/pack = SSeconomy.supply_packs[set_name]
-		if((pack.hidden && hacked) || (pack.contraband && can_order_contraband) || (pack.special && pack.special_enabled) || (!pack.contraband && !pack.hidden && !pack.special))
+		var/shown_if_hacked = pack.hidden && hacked
+		var/shown_if_contraband = pack.contraband && can_order_contraband
+		var/shown_if_cmagged = pack.cmag_hidden && HAS_TRAIT(src, TRAIT_CMAGGED)
+
+		var/shown = (!pack.hidden || shown_if_hacked) && (!pack.contraband || shown_if_contraband) && (!HAS_TRAIT(src, TRAIT_CMAGGED) || shown_if_cmagged)
+
+		if(pack.special)
+			shown &= pack.special_enabled
+
+		if(shown)
 			packs_list.Add(list(list(
 				"name" = pack.name,
 				"cost" = pack.get_cost(),
 				"ref" = "[pack.UID()]",
 				"contents" = pack.ui_manifest,
+				"singleton" = pack.singleton,
 				"cat" = pack.group)))
 
 	static_data["supply_packs"] = packs_list
@@ -255,20 +269,26 @@
 				visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
 				return
 			var/amount = 1
-			if(params["multiple"])
-				var/num_input = input(user, "Amount", "How many crates? ([MULTIPLE_CRATE_MAX] Max)") as null|num
-				if(!num_input || (!is_public && !is_authorized(user)) || ..()) // Make sure they dont walk away
-					return
-				amount = clamp(round(num_input), 1, MULTIPLE_CRATE_MAX)
 			var/datum/supply_packs/P = locateUID(params["crate"])
 			if(!istype(P))
 				return
+
+			if(!P.can_order())
+				to_chat(user, "<span class='warning'>That cannot be ordered right now. Please try again later.</span>")
+				return
+
+			if(!P.singleton && params["multiple"])
+				var/num_input = tgui_input_number(user, "Amount", "How many crates?", max_value = MULTIPLE_CRATE_MAX)
+				if(!num_input || (!is_public && !is_authorized(user)) || ..()) // Make sure they dont walk away
+					return
+				amount = clamp(round(num_input), 1, MULTIPLE_CRATE_MAX)
+
 			var/timeout = world.time + (60 SECONDS) // If you dont type the reason within a minute, theres bigger problems here
-			var/reason = input(user, "Reason", "Why do you require this item?","") as null|text
+			var/reason = tgui_input_text(user, "Reason", "Why do you require this item?", encode = FALSE)
 			if(world.time > timeout || !reason || (!is_public && !is_authorized(user)) || ..())
 				// Cancel if they take too long, they dont give a reason, they aint authed, or if they walked away
 				return
-			reason = sanitize(copytext(reason, 1, 75)) // very long reasons are bad
+			reason = sanitize(copytext_char(reason, 1, 75)) // very long reasons are bad
 
 			//===orderee identification information===
 			var/idname = "*None Provided*"
@@ -282,13 +302,19 @@
 
 			//===orderee account information===
 			var/datum/money_account/selected_account = locateUID(params["account"])
+			var/successes = 0
 			for(var/i in 1 to amount)
 				var/datum/supply_order/order = SSeconomy.generate_supply_order(params["crate"], idname, idrank, reason)
-				order_crate(user, order, selected_account)
-				if(i == 1)
-					playsound(loc, 'sound/machines/ping.ogg', 15, 0)
-					to_chat(user, "<span class='notice'>Order Sent.</span>")
-					generate_requisition_paper(order, amount)
+				if(istype(order))
+					successes++
+					order_crate(user, order, selected_account)
+					if(successes == 1)
+						playsound(loc, 'sound/machines/ping.ogg', 15, FALSE)
+						to_chat(user, "<span class='notice'>Order Sent.</span>")
+						generate_requisition_paper(order, amount)
+			if(successes != amount)
+				playsound(loc, 'sound/machines/buzz-sigh.ogg', 15, FALSE)
+				to_chat(user, "<span class='warning'>Some items were unable to be ordered. Please check requisition paper and try again at a different time.</span>")
 
 		if("approve")
 			var/ordernum = text2num(params["ordernum"])
@@ -360,6 +386,8 @@
 			if(account.account_type == ACCOUNT_TYPE_PERSONAL || isnull(order.ordered_by_department))
 				if(pay_with_account(account, order.object.get_cost(), "[pack.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
 					SSeconomy.process_supply_order(order, TRUE) //send 'er back through
+					update_static_data(user)
+					SStgui.update_uis(src)
 					return TRUE
 				atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
 				SSeconomy.request_list -= order //just remove order at this poin
@@ -379,6 +407,8 @@
 				if(pay_with_account(account, pack.get_cost(), "[pack.name] Crate Purchase", "[src]", user, account_database.vendor_account))
 					order.requires_head_approval = FALSE
 					SSeconomy.process_supply_order(order, TRUE)
+					update_static_data(user)
+					SStgui.update_uis(src)
 					investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [cargo_account.credit_balance].", "cargo")
 					SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, pack.name)
 				else
@@ -431,8 +461,8 @@
 	var/attempt_pin = pin
 	if(customer_account.security_level != ACCOUNT_SECURITY_ID && !attempt_pin)
 		//if pin is not given, we'll prompt them here
-		attempt_pin = input("Enter pin code", "Vendor transaction") as num
-		if(!Adjacent(user))
+		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction")
+		if(!Adjacent(user) || !attempt_pin)
 			return FALSE
 	var/is_admin = is_admin(user)
 	if(!account_database.try_authenticate_login(customer_account, attempt_pin, TRUE, FALSE, is_admin))
@@ -481,7 +511,17 @@
 	if(!hacked)
 		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
 		hacked = TRUE
+		update_static_data(user)
+		SStgui.update_uis(src)
 		return TRUE
+
+/obj/machinery/computer/supplycomp/cmag_act(mob/user)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	to_chat(user, "<span class='notice sans'>Special supplies unlocked.</span>")
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+	return TRUE
 
 /obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"

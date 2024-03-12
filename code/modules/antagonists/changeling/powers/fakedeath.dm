@@ -18,7 +18,7 @@
 	user.updatehealth("fakedeath sting")
 	cling.regenerating = TRUE
 
-	addtimer(CALLBACK(src, PROC_REF(ready_to_regenerate), user), LING_FAKEDEATH_TIME)
+	addtimer(CALLBACK(src, PROC_REF(ready_to_regenerate), user), CHANGELING_FAKEDEATH_TIME)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
@@ -32,7 +32,7 @@
 		to_chat(user, "<span class='warning'>We are already regenerating.</span>")
 		return FALSE
 	if(!user.stat)//Confirmation for living changelings if they want to fake their death
-		switch(alert("Are we sure we wish to fake our death?",,"Yes","No"))
+		switch(tgui_alert(user, "Are we sure we wish to fake our death?", "Fake Death", list("Yes", "No")))
 			if("No")
 				return FALSE
 		// Do the checks again since we had user input

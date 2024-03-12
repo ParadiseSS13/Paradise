@@ -68,35 +68,5 @@
 /datum/martial_art/judo/explaination_header(user)
 	to_chat(user, "<b><i>You recall the teachings of Corporate Judo.</i></b>")
 
-/datum/martial_art/cqc/explaination_footer(user)
+/datum/martial_art/judo/explaination_footer(user)
 	to_chat(user, "<b>Your unarmed strikes hit about twice as hard as your peers, on average.</b>")
-
-/datum/martial_art/judo/under_siege
-	name = "Professional Bodyguarding"
-	var/static/list/areas_under_siege = typecacheof(list(/area/station/service/kitchen, /area/station/service/bar))
-
-/datum/martial_art/judo/under_siege/teach(mob/living/carbon/human/H, make_temporary)
-	RegisterSignal(H, COMSIG_AREA_ENTERED, PROC_REF(bar_check))
-	return ..()
-
-/datum/martial_art/judo/under_siege/remove(mob/living/carbon/human/H)
-	UnregisterSignal(H, COMSIG_AREA_ENTERED)
-	return ..()
-
-/datum/martial_art/judo/under_siege/proc/bar_check(mob/living/carbon/human/H, area/entered_area)
-	SIGNAL_HANDLER
-	if(!is_type_in_typecache(entered_area, areas_under_siege))
-		var/list/held_items = list(H.get_active_hand(), H.get_inactive_hand())
-		for(var/obj/item/slapper/parry/smacking_hand in held_items)
-			qdel(smacking_hand)
-		can_parry = FALSE
-		weight = 0
-	else
-		can_parry = TRUE
-		weight = 5
-
-/datum/martial_art/judo/under_siege/can_use(mob/living/carbon/human/H)
-	var/area/A = get_area(H)
-	if(!(is_type_in_typecache(A, areas_under_siege)))
-		return FALSE
-	return ..()
