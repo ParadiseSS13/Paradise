@@ -467,7 +467,7 @@
 	name = "E-revolver Charge Pack"
 	id = "e_charger"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000, MAT_GLASS = 6000)
+	materials = list(MAT_METAL = 20000, MAT_GLASS = 6000)
 	build_path = /obj/item/ammo_box/magazine/detective/speedcharger
 	category = list("initial", "Security")
 

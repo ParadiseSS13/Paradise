@@ -86,7 +86,8 @@ SUBSYSTEM_DEF(economy)
 		SUPPLY_ORGANIC,
 		SUPPLY_MATERIALS,
 		SUPPLY_MISC,
-		SUPPLY_VEND
+		SUPPLY_VEND,
+		SUPPLY_SHUTTLE
 	)
 	///The modifier on crate prices to multiple the price by.
 	var/pack_price_modifier = 1
@@ -128,9 +129,15 @@ SUBSYSTEM_DEF(economy)
 	current_10_minute_spending = 0
 	ordernum = rand(1, 9000)
 
-	for(var/typepath in subtypesof(/datum/supply_packs))
+	// these represent intermediate types, we really shouldn't bother with them
+	var/list/ignored_supply_pack_types = list(
+		/datum/supply_packs/abstract,
+		/datum/supply_packs/abstract/shuttle
+	)
+
+	for(var/typepath in subtypesof(/datum/supply_packs) - ignored_supply_pack_types)
 		var/datum/supply_packs/P = typepath
-		if(initial(P.name) == "HEADER")
+		if(initial(P.name) == "HEADER" || isnull(initial(P.name)))
 			continue // To filter out group headers
 		P = new typepath()
 		supply_packs["[P.type]"] = P
@@ -203,19 +210,21 @@ SUBSYSTEM_DEF(economy)
 	var/datum/supply_packs/pack = locateUID(packID)
 	if(!pack)
 		return FALSE
+	if(!pack.can_order())
+		// if this cannot be ordered at this point, just refuse it
+		return FALSE
 
-	var/datum/supply_order/order = new()
-	order.ordernum = ordernum++
-	order.object = pack
-	order.orderedby = orderedby
-	order.orderedbyRank = occupation
-	order.comment = comment
-
+	var/datum/supply_order/order = pack.create_order(orderedby, occupation, comment, ordernum++)
 	return order
 
 /datum/controller/subsystem/economy/proc/process_supply_order(datum/supply_order/order, paid_for)
 	if(!order)
 		CRASH("process_supply_order() called with a null datum/supply_order")
+
+	// remove any other items we share a group with, so only one of these can be ordered at once.
+	for(var/datum/supply_order/other_order in SSeconomy.request_list)
+		if(other_order.object.singleton_group_id && other_order.object.singleton_group_id == order.object.singleton_group_id)
+			SSeconomy.request_list -= other_order
 
 	if(!paid_for && !(order in request_list))
 		request_list += order //submit a request but do not finalize it
@@ -237,6 +246,12 @@ SUBSYSTEM_DEF(economy)
 		CRASH("finalize_supply_order() called with a null datum/supply_order")
 	if(order in request_list)
 		request_list -= order
+
+	order.object.on_order_confirm(order)
+
+	// Abstract orders won't get added to the shuttle delivery list -- if they're finalized, they're getting processed here and now.
+	if(istype(order.object, /datum/supply_packs/abstract))
+		return
 
 	if(SSshuttle.supply.getDockedId() == "supply_away" && SSshuttle.supply.mode == SHUTTLE_IDLE)
 		delivery_list += order

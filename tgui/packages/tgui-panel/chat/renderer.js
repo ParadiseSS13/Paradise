@@ -9,6 +9,9 @@ import { classes } from 'common/react';
 import { createLogger } from 'tgui/logging';
 import {
   COMBINE_MAX_MESSAGES,
+  COMBINE_MAX_TIME_WINDOW,
+  MAX_PERSISTED_MESSAGES,
+  MAX_VISIBLE_MESSAGES,
   IMAGE_RETRY_DELAY,
   IMAGE_RETRY_LIMIT,
   IMAGE_RETRY_MESSAGE_AGE,
@@ -109,8 +112,6 @@ class ChatRenderer {
     this.visibleMessages = [];
     this.page = null;
     this.events = new EventEmitter();
-    this.messageStackInSeconds = 30;
-    this.maxTotalMessage = 10000;
     // Scroll handler
     /** @type {HTMLElement} */
     this.scrollNode = null;
@@ -263,14 +264,6 @@ class ChatRenderer {
     });
   }
 
-  setMessageDelayStacking(value) {
-    this.messageStackInSeconds = value;
-  }
-
-  setMessageTotal(value) {
-    this.maxTotalMessage = value;
-  }
-
   scrollToBottom() {
     // scrollHeight is always bigger than scrollTop and is
     // automatically clamped to the valid range.
@@ -317,7 +310,7 @@ class ChatRenderer {
         // Text payload must fully match
         && isSameMessage(message, predicate)
         // Must land within the specified time window
-        && now < message.createdAt + (this.messageStackInSeconds * 1000)
+        && now < message.createdAt + COMBINE_MAX_TIME_WINDOW
       );
       if (matches) {
         return message;
@@ -456,7 +449,7 @@ class ChatRenderer {
     // Visible messages
     {
       const messages = this.visibleMessages;
-      const fromIndex = Math.max(0, messages.length - this.maxTotalMessage);
+      const fromIndex = Math.max(0, messages.length - MAX_VISIBLE_MESSAGES);
       if (fromIndex > 0) {
         this.visibleMessages = messages.slice(fromIndex);
         for (let i = 0; i < fromIndex; i++) {
@@ -477,7 +470,7 @@ class ChatRenderer {
     {
       const fromIndex = Math.max(
         0,
-        this.messages.length - this.maxTotalMessage
+        this.messages.length - MAX_VISIBLE_MESSAGES
       );
       if (fromIndex > 0) {
         this.messages = this.messages.slice(fromIndex);
@@ -491,7 +484,7 @@ class ChatRenderer {
       return;
     }
     // Make a copy of messages
-    const fromIndex = Math.max(0, this.messages.length - this.maxTotalMessage);
+    const fromIndex = Math.max(0, this.messages.length - MAX_VISIBLE_MESSAGES);
     const messages = this.messages.slice(fromIndex);
     // Remove existing nodes
     for (let message of messages) {

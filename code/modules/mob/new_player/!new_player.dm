@@ -439,7 +439,7 @@
 	var/mins = (mills % 36000) / 600
 	var/hours = mills / 36000
 
-	var/dat = "<html><body><center>"
+	var/dat = "<html><meta charset='utf-8'><body><center>"
 	dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
 	dat += "<b>The station alert level is: [SSsecurity_level.get_colored_current_security_level_name()]</b><br>"
 
