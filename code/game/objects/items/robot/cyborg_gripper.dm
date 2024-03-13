@@ -17,7 +17,7 @@
 	var/can_help_up = FALSE	// Used to stop non-medical/service grippers from shaking people awake or helping them up.
 	var/list/can_hold = list(
 		/obj/item
-    )
+	)
 
 	var/obj/item/gripped_item    // Item currently being held.
 
@@ -217,4 +217,3 @@
 		/obj/item/stack/tile/light,
 		/obj/item/light
 	)
-	
