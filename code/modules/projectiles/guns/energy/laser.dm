@@ -95,7 +95,7 @@
 
 /obj/item/gun/energy/lasercannon
 	name = "accelerator laser cannon"
-	desc = "An advanced laser cannon that does more damage the farther away the target is."
+	desc = "An advanced laser cannon that does more damage the farther away the target is. At close range, damage is lower than a regular laser rifle."
 	icon_state = "lasercannon"
 	item_state = null
 	w_class = WEIGHT_CLASS_BULKY
@@ -107,6 +107,11 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/accelerator)
 	ammo_x_offset = 3
 	execution_speed = 8 SECONDS
+
+/obj/item/gun/energy/lasercannon/examine_more(mob/user)
+	. = ..()
+	. += "This offering from Nanotrasen R&D is a real headscratcher. No one is quite sure how it works or how they did it, but the fired beam becomes more damaging the further it travels from the barrel. \
+	Kind of like a gyrojet but made of light. No plasma or bluespace to account for this one. At any rate, Nanotrasen is looking to sell these to sniper units who will undoubtedly appreciate the devastating effect that one of these can have when given proper operating distance. "
 
 /obj/item/ammo_casing/energy/laser/accelerator
 	projectile_type = /obj/item/projectile/beam/laser/accelerator

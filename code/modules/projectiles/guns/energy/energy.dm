@@ -102,8 +102,8 @@
 	item_state = "gun"
 
 /obj/item/gun/energy/gun/turret
-	name = "hybrid turret gun"
-	desc = "A heavy hybrid energy cannon with two settings: Stun and kill."
+	name = "AG(H)-22 hybrid turret gun"
+	desc = "A heavy hybrid energy cannon with two settings: Stun and kill. Cannot function without a turret frame."
 	icon_state = "turretlaser"
 	item_state = "turretlaser"
 	slot_flags = null
@@ -116,9 +116,16 @@
 	shaded_charge = FALSE
 	execution_speed = 8 SECONDS
 
+/obj/item/gun/energy/gun/turret/examine_more(mob/user)
+	. = ..()
+	. += "The AG(H)-22 is part of a long line of developments in automated weapon emplacement technology, manufactured Shellguard Munitions for static area defence.\
+	 A high-powered laser with an electrode gun bolted onto it to allow a choice of lethal or less-than-lethal response to unauthorised access. \
+	 Freed from the requirement to be mobile, this weapon and others like it offload many of their operational requirements such as cooling or power to external hardware, dramatically increasing reliability and reducing the technical know-how to make a functioning unit. \
+	 Just don't expect to pick one up and be able to shoot it in your hands."
+
 /obj/item/gun/energy/gun/nuclear
 	name = "advanced energy gun"
-	desc = "An energy gun with an experimental miniaturized nuclear reactor that automatically charges the internal power cell."
+	desc = "An energy gun with an experimental miniaturized nuclear reactor that automatically charges the internal power cell. It has two settings: stun and kill"
 	icon_state = "nucgun"
 	item_state = null
 	origin_tech = "combat=4;magnets=4;powerstorage=4"
@@ -133,3 +140,10 @@
 /obj/item/gun/energy/gun/nuclear/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This items cell recharges on it's own. Known to drive people mad by forcing them to wait for shots to recharge.</span>"
+
+/obj/item/gun/energy/gun/nuclear/examine_more(mob/user)
+	. = ..()
+	. += "The Advanced Energy Gun project is part of Nanotrasen R&D's attempts to recreate the micro-fission reactor of the Antique Energy Gun. \
+	Intense efforts have been partially successful - Nanotrasen is now capable of creating sufficiently small reactors to fit in a rifle-sized weapon at a reasonable cost of credits and material. \
+	However, the ultimate goal of making an affordable recreation at the scale of the original Antique have thus far still failed. \
+	Nonetheless, Nanotrasen Marketing is very pleased with the current product, and hopes that it can soon be sold on the galactic market to customers that wish to employ energy weapons free from the logicstical constraints of recharging stations."

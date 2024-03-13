@@ -173,7 +173,7 @@
 // Plasma Cutters //
 /obj/item/gun/energy/plasmacutter
 	name = "plasma cutter"
-	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
+	desc = "A mining tool capable of expelling concentrated plasma bursts. Its effectiveness drops dramatically outside of low-pressure environments. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
 	icon_state = "plasmacutter"
 	item_state = "plasmacutter"
 	modifystate = -1
@@ -189,6 +189,13 @@
 	sharp = TRUE
 	can_charge = FALSE
 	can_holster = TRUE
+
+
+/obj/item/gun/energy/plasmacutter/examine(mob/user)
+	. = ..()
+	. += "The plasma cutter is an old and reliable Althland Mining Co. design made for rapid tunnelling, excavation, and ore extraction. It uses a magnetic catapult to launch superheated slugs of hypervelocity plasma. \
+	These slugs effortlessly destabilise and punch through most kinds of rock, allowing for easy clearance. It can be reloaded using refined plasma sheets, or plasma ore obtained in the field (although the latter is less efficient). \
+	Plasma cutters such as these can be found in use at plasma mining operations throughout known space."
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
@@ -220,12 +227,19 @@
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
+	desc = "An improved version of the venerable Plasma Cutter, evolved by Nanotrasen. It's just straight up better!"
 	icon_state = "adv_plasmacutter"
 	item_state = "plasmacutteradv"
 	modifystate = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 	force = 15
+
+/obj/item/gun/energy/plasmacutter/adv/examine_more(mob/user)
+	. = ..()
+	. += "Progression in technology has allowed Nanotrasen to refine the original Althland Plasma Cutter into a superior design. \
+	This advanced model has an improved charging system to slightly increase the fire rate, and a completely redesigned plasma slug launch system that cuts the required plasma for a shot down by 87%! Careful redesigning of the frame's angles and weight distribution also makes it slightly better as a melee weapon as well. \
+	These new plasma cutters are not yet in common use, but the massive efficiency gains over their predecessors all but guarantees that they will sell like wildfire."
 
 // Wormhole Projectors //
 /obj/item/gun/energy/wormhole_projector
