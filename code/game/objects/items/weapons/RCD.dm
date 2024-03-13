@@ -143,7 +143,7 @@
 		if(!do_after(user, 5 SECONDS))					// Deconstruction of most structures takes 5 seconds, wait for the animation to finish.
 			return
 		QDEL_NULL(suicide_A)
-		if(!user.l_hand == src && !user.r_hand == src)	// Do not commit die if the RCD isn't in your hands.
+		if(!(user.l_hand == src) && !(user.r_hand == src))	// Do not commit die if the RCD isn't in your hands.
 			return SHAME								// If this triggers, someone probably chopped off your hand mid-suicide for some reason.
 		useResource(5, user)	// Consume ammo.
 		user.visible_message("<span class='suicide'>[user] deconstructs [user.p_they()]self with [src]!</span>")
