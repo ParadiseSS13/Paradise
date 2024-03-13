@@ -509,7 +509,7 @@
 	for(var/mob/living/carbon/human/H in range(2, corpse_turf))
 		if(H == usr)
 			return
-		to_chat(H, "<span class='userdanger'>You are viscerated by the violent dark magic!</span>")
+		to_chat(H, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
 		H.KnockDown(4 SECONDS)
 		H.EyeBlurry(40 SECONDS)
 		H.apply_damage(100, BRUTE)
@@ -518,5 +518,11 @@
 		to_chat(S, "<span class='userdanger'>Your sensors are disabled and carapace ripped apart by the violent dark magic!</span>")
 		S.Weaken(6 SECONDS)
 		S.apply_damage(80, BURN)
-	for(usr in range(2,corpse_turf))
-		return
+	for(var/mob/living/M in range(2, corpse_turf))
+		if(M == var/mob/living/carbon/human)
+			return
+		if(M == var/mob/living/silicon)
+			return
+		to_chat(M, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
+		M.apply_damage(100, BRUTE)
+
