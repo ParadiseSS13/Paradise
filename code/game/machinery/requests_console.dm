@@ -410,3 +410,25 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	radio.autosay("Alert; a new message has been received from [sender]", "[recipient] Requests Console", "[radiochannel]")
 
 	return TRUE
+
+#undef RC_ASSIST
+#undef RC_SUPPLY
+#undef RC_INFO
+#undef RCS_MAINMENU
+#undef RCS_RQSUPPLY
+#undef RCS_RQASSIST
+#undef RCS_SENDINFO
+#undef RCS_SENTPASS
+#undef RCS_SENTFAIL
+#undef RCS_VIEWMSGS
+#undef RCS_MESSAUTH
+#undef RCS_ANNOUNCE
+#undef RCS_SHIPPING
+#undef RCS_SHIP_LOG
+#undef ENGI_ROLES
+#undef SEC_ROLES
+#undef MISC_ROLES
+#undef MED_ROLES
+#undef COM_ROLES
+#undef SCI_ROLES
+#undef SUPPLY_ROLES

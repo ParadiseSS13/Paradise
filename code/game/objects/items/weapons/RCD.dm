@@ -703,3 +703,10 @@
 
 #undef MATTER_100
 #undef MATTER_500
+
+#undef TAB_AIRLOCK_TYPE
+#undef TAB_AIRLOCK_ACCESS
+#undef MODE_TURF
+#undef MODE_AIRLOCK
+#undef MODE_WINDOW
+#undef MODE_DECON
