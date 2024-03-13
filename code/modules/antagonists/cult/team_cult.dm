@@ -66,7 +66,6 @@
 	UnregisterSignal(member.current, COMSIG_PARENT_QDELETING)
 	check_cult_size()
 
-
 /datum/team/cult/on_round_end()
 	var/list/endtext = list()
 	endtext += "<br><b>The cultists' objectives were:</b>"

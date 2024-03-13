@@ -16,7 +16,7 @@
 /datum/team/revolution/can_create_team()
 	return isnull(SSticker.mode.rev_team)
 
-/datum/team/cult/assign_team()
+/datum/team/revolution/assign_team()
 	SSticker.mode.rev_team = src
 
 /datum/team/revolution/clear_team_reference()
@@ -27,13 +27,6 @@
 
 /datum/team/revolution/get_target_excludes()
 	return ..() + get_targetted_head_minds()
-
-
-/datum/team/revolution/handle_removing_member(datum/mind/member)
-	. = ..()
-	var/datum/antagonist/rev/revolting = member.has_antag_datum(/datum/antagonist/rev) // maybe this should be get_antag_datum_from_member(member)
-	if(!QDELETED(revolting))
-		member.remove_antag_datum(/datum/antagonist/rev)
 
 /datum/team/revolution/admin_add_objective(mob/user)
 	sanitize_objectives()

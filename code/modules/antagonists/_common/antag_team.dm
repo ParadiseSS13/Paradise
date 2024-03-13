@@ -117,9 +117,11 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 			continue
 		valid_minds[H.real_name] = H.mind
 
+	if(!length(valid_minds))
+		to_chat(user, "<span class='warning'>No suitable humanoid targets found!</span>")
+		return
 	var/name = input(user, "Choose a player to add to this team", "Add Team Member") as null|anything in valid_minds
 	if(!name)
-		to_chat(user, "<span class='warning'>No suitable humanoid targets found!</span>")
 		return
 
 	var/datum/mind/new_member = valid_minds[name]

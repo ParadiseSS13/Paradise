@@ -1,6 +1,3 @@
-// then call SSticker.mode.add_revolutionary(_THE_PLAYERS_MIND_)
-// nothing else needs to be done, as that proc will check if they are a valid target.
-// Just make sure the converter is a head before you call it!
 // To remove a rev (from brainwashing or w/e), call SSticker.mode.remove_revolutionary(_THE_PLAYERS_MIND_),
 // this will also check they're not a head, so it can just be called freely
 
@@ -41,7 +38,7 @@
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs |= protected_jobs
 
-	for(var/i = 1 to REVOLUTION_MAX_HEADREVS)
+	for(var/i in 1 to REVOLUTION_MAX_HEADREVS)
 		if(!length(possible_revolutionaries))
 			break
 		var/datum/mind/new_headrev = pick_n_take(possible_revolutionaries)
@@ -63,7 +60,6 @@
 			break
 		var/datum/mind/new_headrev = pick_n_take(pre_revolutionaries)
 		new_headrev.add_antag_datum(/datum/antagonist/rev/head)
-		rev_team.add_member(new_headrev)
 
 	..()
 
@@ -112,21 +108,7 @@
 ///////////////////////////////////////////////////
 //Deals with converting players to the revolution//
 ///////////////////////////////////////////////////
-/datum/game_mode/proc/add_revolutionary(datum/mind/rev_mind)
-	var/mob/living/carbon/human/conversion_target = rev_mind.current
-	if(rev_mind.assigned_role in GLOB.command_positions)
-		return FALSE
-	if(ismindshielded(conversion_target))
-		return FALSE
-	if(rev_mind.has_antag_datum(/datum/antagonist/rev))
-		return FALSE
-	if(!conversion_target)
-		return FALSE
-	rev_mind.add_antag_datum(/datum/antagonist/rev)
-
-	conversion_target.Silence(10 SECONDS)
-	conversion_target.Stun(10 SECONDS)
-	return TRUE
+/datum/game_mode/proc/
 
 //////////////////////////////////////////////////////////////////////////////
 //Deals with players being converted from the revolution (Not a rev anymore)//  // Modified to handle borged MMIs.  Accepts another var if the target is being borged at the time  -- Polymorph.

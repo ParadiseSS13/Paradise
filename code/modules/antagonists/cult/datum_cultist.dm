@@ -61,7 +61,6 @@
 		owner.current.visible_message("<span class='cult'>[owner.current] looks like [owner.current.p_they()] just reverted to [owner.current.p_their()] old faith!</span>",
 			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] and the memories of your time as their servant with it.</span>")
 
-
 /datum/antagonist/cultist/create_team(team)
 	return SSticker.mode.get_cult_team()
 
@@ -102,10 +101,10 @@
 /datum/antagonist/cultist/proc/add_cult_actions()
 	if(!owner.current)
 		return
-	var/datum/action/innate/cult/comm/C = new
-	var/datum/action/innate/cult/check_progress/D = new
-	C.Grant(owner.current)
-	D.Grant(owner.current)
+	var/datum/action/innate/cult/comm/communicate_spell = new
+	var/datum/action/innate/cult/check_progress/progress_report = new
+	communicate_spell.Grant(owner.current)
+	progress_report.Grant(owner.current)
 	if(ishuman(owner.current))
 		var/datum/action/innate/cult/blood_magic/magic = new
 		var/datum/action/innate/cult/use_dagger/dagger = new
