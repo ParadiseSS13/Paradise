@@ -1622,10 +1622,19 @@
 
 		var/datum/team/team
 		if(href_list["team_command"] == "new_custom_team") // this needs to be handled before all the other stuff, as the team doesn't exist yet
-			message_admins("[key_name_admin(usr)] created a new custom team.")
-			log_admin("[key_name(usr)] created a new custom team.")
-			team = new()
-			team.admin_rename_team(usr)
+			var/list/possible_teams = list()
+			for(var/datum/team/team_path as anything in typesof(/datum/team))
+				possible_teams[initial(team_path.name)] = team_path
+
+			var/chosen_team_name = input("Select a team type: (Creating a duplicate of a non-generic team may produce runtimes!)", "Team Type") as null|anything in possible_teams
+			if(!chosen_team_name)
+				return
+
+			var/chosen_team_path = possible_teams[chosen_team_name]
+			team = new chosen_team_path()
+			log_and_message_admins("created a new team '[team]' ([chosen_team_path]).")
+			if(chosen_team_path == /datum/team)
+				team.admin_rename_team(usr) // this has to come after, because the admin log could be delayed indefinitely.
 			check_teams()
 			return
 

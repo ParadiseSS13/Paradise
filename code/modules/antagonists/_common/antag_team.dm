@@ -1,6 +1,6 @@
 GLOBAL_LIST_EMPTY(antagonist_teams)
 
-#define DEFAULT_TEAM_NAME "Generic Team Name"
+#define DEFAULT_TEAM_NAME "Generic/Custom Team"
 
 /**
  * # Antagonist Team
@@ -11,7 +11,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	/// The name of the team.
 	var/name = DEFAULT_TEAM_NAME
 	/// A list of [minds][/datum/mind] who belong to this team.
-	var/list/datum/mind/members
+	var/list/datum/mind/members = list()
 	/// A list of objectives which all team members share.
 	var/datum/objective_holder/objective_holder
 	/// Type of antag datum members of this team have. Also given to new members added by admins.
@@ -29,7 +29,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 /datum/team/proc/create_team(list/starting_members)
 	PROTECTED_PROC(TRUE)
-	members = list()
 	objective_holder = new(src)
 	if(starting_members && !islist(starting_members))
 		starting_members = list(starting_members)
@@ -223,21 +222,60 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	message_admins("Team Message: [key_name(user)] -> '[name]' team. Message: [message]")
 	log_admin("Team Message: [key_name(user)] -> '[name]' team. Message: [message]")
 
+#define SEPERATOR "---"
 /**
  * Allows admins to add a team objective.
  */
 /datum/team/proc/admin_add_objective(mob/user)
-	var/selected = input("Select an objective type:", "Objective Type") as null|anything in GLOB.admin_objective_list
-	if(!selected)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	// available_objectives is assoc, `objective name` = `objective_path`
+	var/list/available_objectives = get_admin_priority_objectives()
+	if(length(available_objectives))
+		available_objectives[SEPERATOR] = "Whatever, we never read this"
+	available_objectives += GLOB.admin_objective_list
+	var/selected = input("Select an objective type:", "Objective Type") as null|anything in available_objectives
+	if(!selected || selected == SEPERATOR)
 		return
 
-	var/objective_type = GLOB.admin_objective_list[selected]
+	var/objective_type = available_objectives[selected]
+	var/return_value = handle_adding_admin_objective(user, objective_type)
+
+	if(istype(return_value, /datum/objective)) // handle_adding_admin_objective can return TRUE if its handled
+		add_team_objective(return_value)
+
+	else
+		if(return_value & TEAM_ADMIN_ADD_OBJ_PURPOSEFUL_CANCEL)
+			return
+		if(!(return_value & TEAM_ADMIN_ADD_OBJ_SUCCESS))
+			to_chat(user, "<span class='warning'>[src] team failed to properly handle your selected objective, if you believe this was an error, tell a coder.</span>")
+			return
+		if(return_value & TEAM_ADMIN_ADD_OBJ_CANCEL_LOG) // Logs are being handled elsewhere
+			return
+
+	message_admins("[key_name_admin(user)] added objective [objective_type] to the team '[name]'.")
+	log_admin("[key_name(user)] added objective [objective_type] to the team '[name]'.")
+
+#undef SEPERATOR
+
+/**
+ * Overridable logic for handling how the adding of objectives works works
+ * Can return an objective datum, or a boolean.
+ * Returns a boolean if its already added to the team objectives in a custom way
+ */
+/datum/team/proc/handle_adding_admin_objective(mob/user, objective_type)
+	PROTECTED_PROC(TRUE)
 	var/datum/objective/O = new objective_type(team_to_join = src)
 	O.find_target(get_target_excludes()) // Blacklist any team members from being the target.
-	add_team_objective(O)
+	return O
 
-	message_admins("[key_name_admin(user)] added objective [O.type] to the team '[name]'.")
-	log_admin("[key_name(user)] added objective [O.type] to the team '[name]'.")
+
+/**
+ * Returns an associated list of priority objectives for admins to add to the team, this is like
+ * Must return in the form `objective name` = `objective_path`.
+ */
+/datum/team/proc/get_admin_priority_objectives()
+	return list()
 
 /**
  * Allows admins to announce objectives to all team members.

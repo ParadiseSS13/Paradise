@@ -273,6 +273,67 @@
 		if(cult_mind?.current)
 			to_chat(cult_mind.current, message_to_sent)
 
+/datum/team/cult/get_admin_priority_objectives()
+	. = list()
+	.["Sacrifice"] = /datum/objective/sacrifice
+	.["Summon God"] = /datum/objective/eldergod
+
+/datum/team/cult/handle_adding_admin_objective(mob/user, objective_type)
+	if(objective_type == /datum/objective/sacrifice)
+		if(obj_summon)
+			if(confirm_remove_eldergod_obj(user))
+				return TEAM_ADMIN_ADD_OBJ_SUCCESS
+
+		if(current_sac_objective())
+			var/alert_result = alert(user, "There is already a current sacrifice, reroll the cult's sacrifice target?", "Cult Debug", "Reroll", "Add new sacrifice", "Cancel")
+			if(alert_result == "Reroll")
+				admin_reroll_sac_target(user)
+				return TEAM_ADMIN_ADD_OBJ_SUCCESS | TEAM_ADMIN_ADD_OBJ_CANCEL_LOG
+			else if(alert_result == "Add new sacrifice")
+				return ..()
+			else
+				return TEAM_ADMIN_ADD_OBJ_PURPOSEFUL_CANCEL
+
+		return ..()
+
+
+	else if(objective_type == /datum/objective/eldergod)
+		if(confirm_add_eldergod_obj())
+			return TEAM_ADMIN_ADD_OBJ_SUCCESS
+		return TEAM_ADMIN_ADD_OBJ_PURPOSEFUL_CANCEL
+
+	return ..()
+
+/datum/team/cult/admin_remove_objective(mob/user, datum/objective/O)
+	if(istype(O, /datum/objective/eldergod))
+		confirm_remove_eldergod_obj(user)
+		return
+	. = ..()
+
+/datum/team/cult/proc/confirm_add_eldergod_obj(admin_caller, alert_text = "Unlock the ability to summon Nar'Sie?")
+	if(alert(admin_caller, alert_text, "Cult Debug", "Yes", "No") != "Yes")
+		return FALSE
+
+	ready_to_summon()
+
+	message_admins("Admin [key_name_admin(admin_caller)] has unlocked the Cult's ability to summon Nar'Sie.")
+	log_admin("Admin [key_name_admin(admin_caller)] has unlocked the Cult's ability to summon Nar'Sie.")
+	return TRUE
+
+/datum/team/cult/proc/confirm_remove_eldergod_obj(admin_caller)
+	if(alert(admin_caller, "Revert to pre-summon stage of Cult?", "Cult Debug", "Yes", "No") != "Yes")
+		return FALSE
+
+	sacrifices_required = max(sacrifices_done + 1, sacrifices_required) // make sure we're at least one above the required amount
+	objective_holder.remove_objective(obj_summon) // qdel's the objective too
+	obj_summon = null
+	current_sac_objective() // Create an objective only if needed
+	cult_status = NARSIE_DEMANDS_SACRIFICE
+
+	message_admins("Admin [key_name_admin(admin_caller)] has removed the Cult's ability to summon Nar'Sie.")
+	log_admin("Admin [key_name_admin(admin_caller)] has removed the Cult's ability to summon Nar'Sie.")
+	return TRUE
+
 /datum/team/cult/proc/study_objectives(mob/living/M, display_members = FALSE) //Called by cultists/cult constructs checking their objectives
 	if(!M)
 		return FALSE
@@ -409,8 +470,7 @@
 
 /datum/team/cult/get_admin_commands()
 	return list(
-		"Cult Mindspeak" = CALLBACK(src, PROC_REF(cult_mindspeak)),
-		"[obj_summon ? "Lock" : "Unlock"] Narsie summoning" = CALLBACK(src, PROC_REF(toggle_summoning))
+		"Cult Mindspeak" = CALLBACK(src, PROC_REF(cult_mindspeak))
 		)
 
 /datum/team/cult/proc/cult_mindspeak(admin_caller)
@@ -426,26 +486,12 @@
 	message_admins("Admin [key_name_admin(admin_caller)] has talked with the Voice of [GET_CULT_DATA(entity_name, "Cult God")].")
 	log_admin("[key_name(admin_caller)] Voice of [GET_CULT_DATA(entity_name, "Cult God")]: [input]")
 
-/datum/team/cult/proc/toggle_summoning(admin_caller)
-	if(!obj_summon)
-		if(alert(admin_caller, "Unlock the ability to summon Nar'Sie?", "Cult Debug", "Yes", "No") != "Yes")
-			return
+/datum/team/cult/proc/admin_reroll_sac_target(mob/user)
+	find_new_sacrifice_target()
 
-		ready_to_summon()
-
-		message_admins("Admin [key_name_admin(admin_caller)] has unlocked the Cult's ability to summon Nar'Sie.")
-		log_admin("Admin [key_name_admin(admin_caller)] has unlocked the Cult's ability to summon Nar'Sie.")
-	else
-		if(alert(admin_caller, "Revert to pre-summon stage of Cult?", "Cult Debug", "Yes", "No") != "Yes")
-			return
-
-		sacrifices_required = max(sacrifices_done + 1, sacrifices_required) // make sure we're at least one above the required amount
-		objective_holder.remove_objective(obj_summon)
-		obj_summon = null
-		create_next_sacrifice()
-
-		message_admins("Admin [key_name_admin(admin_caller)] has removed the Cult's ability to summon Nar'Sie.")
-		log_admin("Admin [key_name_admin(admin_caller)] has removed the Cult's ability to summon Nar'Sie.")
+	message_admins("Admin [key_name_admin(user)] has rerolled the Cult's sacrifice target.")
+	log_admin("Admin [key_name_admin(user)] has rerolled the Cult's sacrifice target.")
+	user.client.holder.check_teams()
 
 /datum/team/cult/Topic(href, href_list)
 	. = ..()
@@ -463,17 +509,14 @@
 				sacrifices_required = amount
 				message_admins("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
 				log_admin("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
+				if(sacrifices_done >= sacrifices_required)
+					confirm_add_eldergod_obj(usr, "Would you also like to unlock the summoning of Nar'sie?")
 			usr.client.holder.check_teams()
 
 		if("cult_newtarget")
 			if(alert(usr, "Reroll the cult's sacrifice target?", "Cult Debug", "Yes", "No") != "Yes")
 				return
-
-			find_new_sacrifice_target()
-
-			message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
-			log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
-			usr.client.holder.check_teams()
+			admin_reroll_sac_target(usr)
 
 		if("cult_newsummonlocations")
 			if(!obj_summon)
@@ -486,7 +529,7 @@
 			if(cult_status == NARSIE_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
 				speak_to_all_alive_cultists(
 					"<span class='cult'>The veil has shifted! Our summoning will need to take place elsewhere.</span>",
-					"<span class='cult'>Current goal : [obj_summon.explanation_text]</span>"
+					"<span class='cult'>Current goal: [obj_summon.explanation_text]</span>"
 				)
 
 			message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
