@@ -287,7 +287,7 @@
 		trick.shoot_gun(src)
 
 	if(istype(hand_item, /obj/item/slapper))
-		visible_message("<b>[src]</b> raises their hand!")
+		visible_message("<b>[src]</b> raises [p_their()] hand!")
 		return TRUE
 
 	visible_message("<b>[src]</b> points to [pointed_object]")
