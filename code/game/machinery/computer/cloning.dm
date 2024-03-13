@@ -260,6 +260,8 @@
 				feedback = list("text" = "The cloning operation is too expensive!", "color" = "bad")
 			else
 				selected_pod.start_cloning(scanner.last_scan, desired_data)
+				scanner?.update_scan_status()
+				feedback = list("text" = "Beginning cloning operation...", "color" = "good")
 			return TRUE
 		if("scan")
 			if(!COOLDOWN_FINISHED(src, scancooldown))

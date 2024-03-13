@@ -229,7 +229,7 @@
 			if(parent_organ_is_limb)
 				continue
 			limbs_to_grow += limb //It's not supposed to be missing and it's not vital - so we'll be growing it.
-		shuffle(limbs_to_grow)
+		limbs_to_grow = shuffle(limbs_to_grow)
 
 	if(clone)
 		clone.Weaken(4 SECONDS) //make sure they stay in the pod
@@ -243,6 +243,7 @@
 				clone_progress += speed_modifier
 				return
 			if(11 to 90)
+				clone_progress += speed_modifier
 				if(!clone)
 					create_clone()
 					return
@@ -282,7 +283,7 @@
 					return
 
 			if(91 to 100)
-				if(length(limbs_to_grow)) //This shouldn't happen, but just in case.. (no more feetless clones)
+				if(length(limbs_to_grow) || current_limb) //This shouldn't happen, but just in case.. (no more feetless clones)
 					clone_progress -= 5
 				if(eject_clone())
 					return
