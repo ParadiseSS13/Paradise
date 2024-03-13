@@ -107,6 +107,8 @@
 	icon_state = "corpse_explosion"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "corpse_explosion"
+	brightness_on = 10
+	light_color = "#f7dce3"
 	duration = 10
 
 /obj/effect/temp_visual/monkeyify
