@@ -28,7 +28,6 @@
 
 /datum/team/cult/create_team(list/starting_members)
 	cult_threshold_check() // Set this ALWAYS before any check_cult_size check, or
-	SSticker.mode.cult_team = src // Assign the team before member assignment to prevent duplicate teams
 	. = ..()
 
 	objective_holder.add_objective(/datum/objective/servecult)
@@ -45,6 +44,9 @@
 
 /datum/team/cult/can_create_team()
 	return isnull(SSticker.mode.cult_team)
+
+/datum/team/cult/assign_team()
+	SSticker.mode.cult_team = src
 
 /datum/team/cult/clear_team_reference()
 	if(SSticker.mode.cult_team == src)

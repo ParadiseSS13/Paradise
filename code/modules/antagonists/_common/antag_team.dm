@@ -24,8 +24,10 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	if(!can_create_team())
 		QDEL_IN(src, 0 SECONDS) // Give us time to crash so we can get the full call stack
 		CRASH("[src] ([type]) is not allowed to be created, this may be a duplicate team. Deleting...")
+	// Assign the team before member assignment to prevent duplicate teams
+	assign_team()
 	if(!create_team(starting_members))
-		stack_trace()
+		CRASH("[src] ([type]) somehow failed to create a team!")
 
 /datum/team/proc/create_team(list/starting_members)
 	PROTECTED_PROC(TRUE)
@@ -37,9 +39,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	GLOB.antagonist_teams += src
 	return TRUE
 
-/datum/team/proc/can_create_team()
-	return TRUE
-
 /datum/team/Destroy(force = FALSE, ...)
 	for(var/datum/mind/member as anything in members)
 		remove_member(member)
@@ -48,6 +47,12 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	members.Cut()
 	GLOB.antagonist_teams -= src
 	return ..()
+
+/datum/team/proc/can_create_team()
+	return TRUE
+
+/datum/team/proc/assign_team()
+	return
 
 /datum/team/proc/clear_team_reference()
 	return

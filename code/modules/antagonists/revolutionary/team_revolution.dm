@@ -5,17 +5,19 @@
 	var/have_we_won = FALSE
 
 /datum/team/revolution/create_team()
-	SSticker.mode.rev_team = src // Assign the team before member assignment to prevent duplicate teams
 	. = ..()
 	update_team_objectives()
 	SSshuttle.registerHostileEnvironment(src)
 
-/datum/team/revolution/can_create_team()
-	return isnull(SSticker.mode.rev_team)
-
 /datum/team/revolution/Destroy(force, ...)
 	SSshuttle.clearHostileEnvironment(src)
 	return ..()
+
+/datum/team/revolution/can_create_team()
+	return isnull(SSticker.mode.rev_team)
+
+/datum/team/cult/assign_team()
+	SSticker.mode.rev_team = src
 
 /datum/team/revolution/clear_team_reference()
 	if(SSticker.mode.rev_team == src)
