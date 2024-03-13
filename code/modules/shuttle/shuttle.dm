@@ -162,9 +162,9 @@
 
 // Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
 /obj/docking_port/stationary/whiteship
-	dwidth = 10
-	height = 35
-	width = 21
+	dwidth = 6
+	height = 19
+	width = 12
 
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
@@ -907,8 +907,8 @@
 
 
 /obj/machinery/computer/shuttle/white_ship
-	name = "White Ship Console"
-	desc = "Used to control the White Ship."
+	name = "Navigation console"
+	desc = "Used to control the NEV Limulus expeditionary vessel."
 	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
 	possible_destinations = null // Set at runtime
