@@ -519,9 +519,9 @@
 		S.Weaken(6 SECONDS)
 		S.apply_damage(80, BURN)
 	for(var/mob/living/M in range(2, corpse_turf))
-		if(M == var/mob/living/carbon/human)
+		if(M == /mob/living/silicon)
 			return
-		if(M == var/mob/living/silicon)
+		if(M == /mob/living/carbon/human)
 			return
 		to_chat(M, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
 		M.apply_damage(100, BRUTE)
