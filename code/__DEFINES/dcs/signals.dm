@@ -927,6 +927,10 @@
 #define COMSIG_ACTION_TRIGGER "action_trigger"
 	#define COMPONENT_ACTION_BLOCK_TRIGGER (1<<0)
 
+// Note that this is only defined for actions because this could be a good bit expensive otherwise
+/// From base of /atom/movable/screen/movable/action_button/MouseWheel(src, delta_x, delta_y, location, control, params)
+#define COMSIG_ACTION_SCROLLED "action_scrolled"
+
 //Xenobio hotkeys
 
 ///from slime CtrlClickOn(): (/mob)

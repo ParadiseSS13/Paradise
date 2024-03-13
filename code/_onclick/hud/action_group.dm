@@ -155,14 +155,24 @@
 	max_rows = 3
 	location = SCRN_OBJ_IN_PALETTE
 
+/datum/action_group/palette/proc/on_scroll(atom/movable/screen/movable/action_button/button, delta_x, delta_y, location, control, params)
+	SIGNAL_HANDLER  // COMSIG_ACTION_SCROLLED
+	if(delta_y > 0)
+		owner.palette_actions.scroll(1)
+	else if(delta_y < 0)
+		owner.palette_actions.scroll(-1)
+
+
 /datum/action_group/palette/insert_action(atom/movable/screen/action, index)
 	. = ..()
 	var/atom/movable/screen/button_palette/palette = owner.toggle_palette
+	RegisterSignal(action, COMSIG_ACTION_SCROLLED, PROC_REF(on_scroll))
 	palette.play_item_added()
 
 /datum/action_group/palette/remove_action(atom/movable/screen/action)
 	. = ..()
 	var/atom/movable/screen/button_palette/palette = owner.toggle_palette
+	UnregisterSignal(action, COMSIG_ACTION_SCROLLED)
 	palette.play_item_removed()
 	if(!length(actions))
 		palette.set_expanded(FALSE)

@@ -114,6 +114,9 @@
 	// 	closeToolTip(usr)
 	// 	return ..()
 
+/atom/movable/screen/movable/action_button/MouseWheel(delta_x, delta_y, location, control, params)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_ACTION_SCROLLED, delta_x, delta_y, location, control, params)
 
 /atom/movable/screen/movable/action_button/proc/save_position()
 	return
