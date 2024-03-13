@@ -17,7 +17,7 @@
 			var/len = length(notes_tempodiv)
 			if(len >= 2)
 				tempodiv = text2num(notes_tempodiv[2])
-			if(len)			//some dunkass is going to do , null, null, null, to make 3 rests instead of ,/1 because there's no standardization so let's be prepared for that.
+			if(len)			//some dunkass is going to do ,,,, to make 3 rests instead of ,/1 because there's no standardization so let's be prepared for that.
 				var/list/notes = splittext(notes_tempodiv[1], "-")
 				for(var/note in notes)
 					if(length(note) == 0)
