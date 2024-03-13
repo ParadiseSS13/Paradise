@@ -8,17 +8,18 @@
 #define RC_INFO   (1<<2)		//Relay Info
 
 //Request Console Screens
-#define RCS_MAINMENU 0	// Main menu
-#define RCS_RQSUPPLY 1	// Request supplies
-#define RCS_RQASSIST 2	// Request assistance
-#define RCS_SENDINFO 3	// Relay information
-#define RCS_SENTPASS 4	// Message sent successfully
-#define RCS_SENTFAIL 5	// Message sent unsuccessfully
-#define RCS_VIEWMSGS 6	// View messages
-#define RCS_MESSAUTH 7	// Authentication before sending
-#define RCS_ANNOUNCE 8	// Send announcement
-#define RCS_SHIPPING 9	// Print Shipping Labels/Packages
-#define RCS_SHIP_LOG 10	// View Shipping Label Log
+#define RCS_MAINMENU	0	// Main menu
+#define RCS_RQSUPPLY	1	// Request supplies
+#define RCS_RQASSIST	2	// Request assistance
+#define RCS_SENDINFO	3	// Relay information
+#define RCS_SENTPASS	4	// Message sent successfully
+#define RCS_SENTFAIL	5	// Message sent unsuccessfully
+#define RCS_VIEWMSGS	6	// View messages
+#define RCS_MESSAUTH	7	// Authentication before sending
+#define RCS_ANNOUNCE	8	// Send announcement
+#define RCS_SHIPPING	9	// Print Shipping Labels/Packages
+#define RCS_SHIP_LOG	10	// View Shipping Label Log
+#define RCS_SECONDARY	11	// Request secodary goal
 
 //Radio list. For a console to announce messages on a specific radio, it's "department" variable must be in the list below.
 #define ENGI_ROLES list("Atmospherics", "Engineering", "Chief Engineer's Desk")
@@ -51,14 +52,16 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/announcementConsole = FALSE
 		// FALSE = This console cannot be used to send department announcements
 		// TRUE = This console can send department announcementsf
-	var/announceAuth = 0 //Will be set to 1 when you authenticate yourself for announcements
-	var/msgVerified = "" //Will contain the name of the person who varified it
-	var/msgStamped = "" //If a message is stamped, this will contain the stamp name
+	var/announceAuth = FALSE //Will be set to TRUE when you authenticate yourself for announcements
+	var/secondaryGoalAuth = FALSE //Will be set to TRUE when you authenticate yourself for requesting a secondary goal
+	var/msgVerified = "Not verified" //Will contain the name of the person who varified it
+	var/msgStamped = "Not stamped" //If a message is stamped, this will contain the stamp name
 	var/message = ""
 	var/recipient = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
 	light_range = 0
 	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/requests_console)
+	var/goalRequester = "" // The displayed name/title of the person requesting a scondary goal
 	var/list/shipping_log = list()
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
@@ -167,6 +170,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	data["msgStamped"] = msgStamped
 	data["msgVerified"] = msgVerified
 	data["announceAuth"] = announceAuth
+	data["secondaryGoalAuth"] = secondaryGoalAuth
+	data["secondaryGoalEnabled"] = TRUE // TODO: FIXME
 	data["shipDest"] = ship_tag_name
 	data["shipping_log"] = shipping_log
 
@@ -212,6 +217,12 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			announcer.Announce(message)
 			reset_message(TRUE)
 
+		if("requestSecondaryGoal")
+			generate_secondary_goal(department, goalRequester, usr)
+			reset_message(FALSE)
+			view_messages()
+			screen = RCS_VIEWMSGS
+
 		if("department")
 			if(send_requests_console_message(message, department, recipient, msgStamped, msgVerified, priority, Radio))
 				screen = RCS_SENTPASS
@@ -223,18 +234,11 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		//Handle screen switching
 		if("setScreen")
 			// Ensures screen cant be set higher or lower than it should be
-			var/tempScreen = round(clamp(text2num(params["setScreen"]), 0, 10), 1)
+			var/tempScreen = round(clamp(text2num(params["setScreen"]), 0, 11), 1)
 			if(tempScreen == RCS_ANNOUNCE && !announcementConsole)
 				return
 			if(tempScreen == RCS_VIEWMSGS)
-				for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
-					if(Console.department == department)
-						Console.newmessagepriority = RQ_NONEW_MESSAGES
-						Console.update_icon(UPDATE_OVERLAYS)
-						Console.set_light(1)
-						if(reminder_timer_id != TIMER_ID_NULL)
-							deltimer(reminder_timer_id)
-							reminder_timer_id = TIMER_ID_NULL
+				view_messages()
 			if(tempScreen == RCS_MAINMENU)
 				reset_message()
 			screen = tempScreen
@@ -275,12 +279,17 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if(screen == RCS_ANNOUNCE)
 			var/obj/item/card/id/ID = I
 			if(ACCESS_RC_ANNOUNCE in ID.GetAccess())
-				announceAuth = 1
+				announceAuth = TRUE
 				announcer.author = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
 			else
 				reset_message()
 				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
 			SStgui.update_uis(src)
+		if(screen == RCS_SECONDARY)
+			var/obj/item/card/id/ID = I
+			if(ID)
+				secondaryGoalAuth = TRUE
+				goalRequester = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
 		if(screen == RCS_SHIPPING)
 			var/obj/item/card/id/T = I
 			msgVerified = "Sender verified as [T.registered_name] ([T.assignment])"
@@ -299,16 +308,18 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	message = ""
 	recipient = ""
 	priority = RQ_NONEW_MESSAGES
-	msgVerified = ""
-	msgStamped = ""
+	msgVerified = "Not verified"
+	msgStamped = "Not stamped"
 	announceAuth = FALSE
+	secondaryGoalAuth = FALSE
 	announcer.author = ""
+	goalRequester = ""
 	ship_tag_name = ""
 	ship_tag_index = FALSE
 	if(mainmenu)
 		screen = RCS_MAINMENU
 
-/obj/machinery/requests_console/proc/createMessage(source, title, message, priority, forced = FALSE)
+/obj/machinery/requests_console/proc/createMessage(source, title, message, priority, forced = FALSE, verified = "", stamped = "")
 	var/linkedSender
 	if(inoperable() && !forced)
 		message_log.Add(list(list("Message lost due to console failure. Please contact [station_name()]'s system administrator or AI for technical assistance.")))
@@ -329,9 +340,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	switch(priority)
 		if(RQ_HIGHPRIORITY) // High
-			message_log.Add(list(list("High Priority - From: [linkedSender]", message))) // List in a list for passing into TGUI
+			message_log.Add(list(list("High Priority - From: [linkedSender]", message, verified, stamped))) // List in a list for passing into TGUI
 		else // Normal
-			message_log.Add(list(list("From: [linkedSender]", message))) // List in a list for passing into TGUI
+			message_log.Add(list(list("From: [linkedSender]", message, verified, stamped))) // List in a list for passing into TGUI
 	set_light(2)
 
 /obj/machinery/requests_console/proc/remind_unread_messages()
@@ -350,6 +361,16 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	sp.sortTag = tag_index
 	sp.update_desc()
 	print_cooldown = world.time + 600	//1 minute cooldown before you can print another label, but you can still configure the next one during this time
+
+/obj/machinery/requests_console/proc/view_messages()
+	for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
+		if(Console.department == department)
+			Console.newmessagepriority = RQ_NONEW_MESSAGES
+			Console.update_icon(UPDATE_OVERLAYS)
+			Console.set_light(1)
+			if(reminder_timer_id != TIMER_ID_NULL)
+				deltimer(reminder_timer_id)
+				reminder_timer_id = TIMER_ID_NULL
 
 /proc/send_requests_console_message(message, sender, recipient, stamped, verified, priority, obj/item/radio/radio)
 	if(!message)
