@@ -77,7 +77,6 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	active_power_consumption = 3000
 	power_channel = PW_CHANNEL_ENVIRONMENT
 	power_state = IDLE_POWER_USE
-	interact_offline = TRUE
 	/// Is the generator producing gravity
 	var/on = TRUE
 	/// Is the breaker switch turned on
