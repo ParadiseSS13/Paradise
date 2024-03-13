@@ -72,6 +72,12 @@
 	path = /obj/item/clothing/head/soft/sec/corp
 	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
+/datum/gear/hat/cowboyhat/sec
+	display_name = "Cowboy hat, security"
+	path = /obj/item/clothing/head/cowboyhat/sec
+	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+
+
 /datum/gear/hat/capsec
 	display_name = "Security cap"
 	path = /obj/item/clothing/head/soft/sec

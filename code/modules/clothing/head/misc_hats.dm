@@ -271,6 +271,12 @@
 	item_state = "cowboyhat_pink"
 	desc = "For those buckle bunnies wanta' become a real buckaroo."
 
+/obj/item/clothing/head/cowboyhat/sec
+	name = "security cowboy hat"
+	icon_state = "cowboyhat_sec"
+	item_state = "cowboyhat_sec"
+	desc = "Secway is your horse."
+
 /obj/item/clothing/head/fedora
 	name = "fedora"
 	desc = "A great hat ruined by being within fifty yards of you."
