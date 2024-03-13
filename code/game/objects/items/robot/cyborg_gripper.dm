@@ -71,7 +71,7 @@
 		pickup_target.AdjustWeakened(-6 SECONDS)
 		pickup_target.AdjustKnockDown(-6 SECONDS)
 		pickup_target.adjustStaminaLoss(-10)
-		resting = FALSE
+		pickup_target.resting = FALSE
 		pickup_target.stand_up()
 		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		user.visible_message( \
