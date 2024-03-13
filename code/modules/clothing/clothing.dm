@@ -526,21 +526,18 @@
 		return
 
 	if(istype(I, /obj/item/kitchen/knife/combat))
-		var/obj/item/kitchen/knife/combat/W = I
 		if(!knife_slot)
-			to_chat(user, "<span class='notice'>There is no place to put [W] in [src]!</span>")
+			to_chat(user, "<span class='notice'>There is no place to put [I] in [src]!</span>")
 			return
 		if(hidden_blade)
 			to_chat(user, "<span class='notice'>There is already something in [src]!</span>")
 			return
-		if(!user.unEquip(W))
+		if(!user.unEquip(I))
 			return
-		user.visible_message("<span class='notice'>[user] places [W] into their [name]!</span>", \
-			"<span class='notice'>You place [W] into the side of your [name]!</span>")
-		W.forceMove(src)
-		hidden_blade = W
-
-
+		user.visible_message("<span class='notice'>[user] places [I] into their [name]!</span>", \
+			"<span class='notice'>You place [I] into the side of your [name]!</span>")
+		I.forceMove(src)
+		hidden_blade = I
 	else
 		return ..()
 
@@ -563,17 +560,14 @@
 	item_state = "[item_state]_opentoe"
 
 /obj/item/clothing/shoes/AltClick(mob/user)
-	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
-		return
-
-	if(!knife_slot)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !knife_slot)
 		return
 	if(!hidden_blade)
 		to_chat(user, "<span class='warning'>There's nothing in your [name]!</span>")
 		return
 
-	if(!isnull(user.get_active_hand()) && !isnull(user.get_inactive_hand()))
-		to_chat(user, "<span class='warning'>You need an empty hand to pull [hidden_blade]!</span>")
+	if(user.get_active_hand() && user.get_inactive_hand())
+		to_chat(user, "<span class='warning'>You need an empty hand to pull out [hidden_blade]!</span>")
 		return
 
 	user.visible_message("<span class='notice'>[user] pulls [hidden_blade] from their [name]!</span>", \
@@ -584,9 +578,10 @@
 
 /obj/item/clothing/shoes/examine(mob/user)
 	. = ..()
-
 	if(knife_slot)
-		. += "<span class='info'>You can <b>Alt-Click</b> [src] to remove a stored knife. Use the knife on the shoes to place one in [src]</span>"
+		. += "<span class='info'>You can <b>Alt-Click</b> [src] to remove a stored knife. Use the knife on the shoes to place one in [src].</span>"
+		if(hidden_blade)
+			. += "<span class='info'>Your boot has a [hidden_blade.name] hidden inside of it!</span>"
 
 //Suit
 /obj/item/clothing/suit
