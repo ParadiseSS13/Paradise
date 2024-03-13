@@ -117,7 +117,9 @@
 	var/send_pm_type = " "
 	var/recieve_pm_type = "Player"
 	var/message_type
-	if(type == "Mentorhelp")
+	// We treat PMs as mentorhelps if we were explicitly so, or if neither
+	// party is an admin.
+	if(type == "Mentorhelp" || !(check_rights(R_ADMIN|R_MOD, 0, C.mob) || check_rights(R_ADMIN|R_MOD, 0, src.mob)))
 		send_span = "mentorhelp"
 		recieve_span = "mentorhelp"
 		message_type = MESSAGE_TYPE_MENTORPM
@@ -168,7 +170,7 @@
 	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
 	var/window_link = "(<a href='?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
 	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? " (<a href='?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
-	to_chat(src, "<span class='[send_span]'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type) : key_name_hidden(C, TRUE, type)]</b>: [emoji_msg]</span> [ping_link] [window_link][alert_link]", message_type)
+	to_chat(src, "<span class='[send_span]'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type, ticket_id = ticket_id) : key_name_hidden(C, TRUE, type, ticket_id = ticket_id)]</b>: [emoji_msg]</span> [ping_link] [window_link][alert_link]", message_type)
 
 	/*if(holder && !C.holder)
 		C.last_pm_recieved = world.time
@@ -186,37 +188,42 @@
 		if(X == C || X == src)
 			continue
 		if(X.key != key && X.key != C.key)
-			switch(type)
-				if("Mentorhelp")
-					if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-						to_chat(X, "<span class='mentorhelp'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]</span>", type = MESSAGE_TYPE_MENTORCHAT)
-				if("Adminhelp")
-					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						to_chat(X, "<span class='adminhelp'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]</span>", type = MESSAGE_TYPE_ADMINCHAT)
-				else
-					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						to_chat(X, "<span class='boldnotice'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]</span>", type = MESSAGE_TYPE_ADMINCHAT)
+			if(message_type == MESSAGE_TYPE_MENTORPM)
+				if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
+					to_chat(X, "<span class='mentorhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]: [emoji_msg]</span>", type = message_type)
+			else
+				if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
+					to_chat(X, "<span class='adminhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]: [emoji_msg]</span>", type = message_type)
 
-	//Check if the mob being PM'd has any open admin tickets.
+	//Check if the mob being PM'd has any open tickets.
 	var/tickets = list()
-	if(type == "Mentorhelp")
+	if(message_type == MESSAGE_TYPE_MENTORPM)
 		tickets = SSmentor_tickets.checkForTicket(C)
 	else
 		tickets = SStickets.checkForTicket(C)
+
 	if(tickets)
 		for(var/datum/ticket/i in tickets)
-			if(i.ticketNum == ticket_id)
+			if(ticket_id == -1)
+				i.addResponse(src, msg) // Add this response to all tickets of matching type, since we don't know which is right
+			else if(i.ticketNum == ticket_id)
 				i.addResponse(src, msg) // Add this response to the ticket they replied to
 				return
-	if(type == "Mentorhelp")
-		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
+
+	// If we didn't find a specific ticket by the target mob, we check for
+	// tickets by the source mob.
+	if(message_type == MESSAGE_TYPE_MENTORPM)
+		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob))
 			tickets = SSmentor_tickets.checkForTicket(src)
-	else // Ahelp
-		if(check_rights(R_ADMIN|R_MOD, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
+	else
+		if(check_rights(R_ADMIN|R_MOD, 0, C.mob))
 			tickets = SStickets.checkForTicket(src)
+
 	if(tickets)
 		for(var/datum/ticket/i in tickets)
-			if(i.ticketNum == ticket_id)
+			if(ticket_id == -1)
+				i.addResponse(src, msg) // Add this response to all tickets of matching type, since we don't know which is right
+			else if(i.ticketNum == ticket_id)
 				i.addResponse(src, msg) // Add this response to the ticket they replied to
 				return
 
