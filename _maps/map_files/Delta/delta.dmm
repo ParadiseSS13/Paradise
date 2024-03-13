@@ -81914,7 +81914,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "nsl" = (
-/obj/machinery/clonepod/biomass,
+/obj/machinery/clonepod,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},

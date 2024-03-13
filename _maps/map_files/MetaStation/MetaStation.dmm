@@ -37505,13 +37505,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
 "cAj" = (
-/obj/machinery/clonepod/biomass,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /obj/effect/turf_decal/siding{
 	dir = 5
 	},
+/obj/machinery/clonepod,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

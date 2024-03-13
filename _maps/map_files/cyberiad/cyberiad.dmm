@@ -33106,10 +33106,10 @@
 	},
 /area/station/medical/cloning)
 "caN" = (
-/obj/machinery/clonepod/biomass,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/machinery/clonepod,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
