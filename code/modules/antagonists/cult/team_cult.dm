@@ -26,10 +26,10 @@
 	// Disables the station-wide announcements, unused except for admin editing.
 	var/no_announcements = FALSE
 
-/datum/team/cult/New(list/starting_members)
-	cult_threshold_check()
-	..()
-	SSticker.mode.cult_team = src
+/datum/team/cult/create_team(list/starting_members)
+	cult_threshold_check() // Set this ALWAYS before any check_cult_size check, or
+	SSticker.mode.cult_team = src // Assign the team before member assignment to prevent duplicate teams
+	. = ..()
 
 	objective_holder.add_objective(/datum/objective/servecult)
 
@@ -43,8 +43,14 @@
 		var/datum/antagonist/cultist/cultist = M.has_antag_datum(/datum/antagonist/cultist)
 		cultist.equip_roundstart_cultist()
 
+/datum/team/cult/can_create_team()
+	return isnull(SSticker.mode.cult_team)
+
 /datum/team/cult/clear_team_reference()
-	SSticker.mode.cult_team = null
+	if(SSticker.mode.cult_team == src)
+		SSticker.mode.cult_team = null
+	else
+		CRASH("[src] ([type]) attempted to clear a team reference that wasn't itself!")
 
 /datum/team/cult/handle_adding_member(datum/mind/new_member)
 	. = ..()
@@ -136,6 +142,10 @@
 	INVOKE_ASYNC(src, PROC_REF(remove_member), deleting_cultist.mind)
 
 /datum/team/cult/proc/check_cult_size()
+	if(!ascend_percent)
+		stack_trace("[src]'s check_cult_size was called before cult_threshold_check, which leads to weird logic! This should be fixed ASAP.")
+		cult_threshold_check()
+
 	var/cult_players = get_cultists()
 
 	if(cult_ascendant)

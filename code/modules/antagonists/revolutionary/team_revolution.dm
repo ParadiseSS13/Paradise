@@ -4,17 +4,24 @@
 	var/max_headrevs = REVOLUTION_MAX_HEADREVS // adminbus is possible
 	var/have_we_won = FALSE
 
-/datum/team/revolution/New()
-	..()
+/datum/team/revolution/create_team()
+	SSticker.mode.rev_team = src // Assign the team before member assignment to prevent duplicate teams
+	. = ..()
 	update_team_objectives()
 	SSshuttle.registerHostileEnvironment(src)
+
+/datum/team/revolution/can_create_team()
+	return isnull(SSticker.mode.rev_team)
 
 /datum/team/revolution/Destroy(force, ...)
 	SSshuttle.clearHostileEnvironment(src)
 	return ..()
 
 /datum/team/revolution/clear_team_reference()
-	SSticker.mode.rev_team = null
+	if(SSticker.mode.rev_team == src)
+		SSticker.mode.rev_team = null
+	else
+		CRASH("[src] ([type]) attempted to clear a team reference that wasn't itself!")
 
 /datum/team/revolution/get_target_excludes()
 	return ..() + get_targetted_head_minds()

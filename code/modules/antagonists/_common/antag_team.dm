@@ -21,6 +21,14 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 /datum/team/New(list/starting_members)
 	..()
+	if(!can_create_team())
+		QDEL_IN(src, 0 SECONDS) // Give us time to crash so we can get the full call stack
+		CRASH("[src] ([type]) is not allowed to be created, this may be a duplicate team. Deleting...")
+	if(!create_team(starting_members))
+		stack_trace()
+
+/datum/team/proc/create_team(list/starting_members)
+	PROTECTED_PROC(TRUE)
 	members = list()
 	objective_holder = new(src)
 	if(starting_members && !islist(starting_members))
@@ -28,6 +36,10 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	for(var/datum/mind/M as anything in starting_members)
 		add_member(M)
 	GLOB.antagonist_teams += src
+	return TRUE
+
+/datum/team/proc/can_create_team()
+	return TRUE
 
 /datum/team/Destroy(force = FALSE, ...)
 	for(var/datum/mind/member as anything in members)
@@ -108,6 +120,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 	var/datum/mind/new_member = valid_minds[name]
 	add_member(new_member, TRUE)
+	log_admin("[key_name(usr)] added [key_name(new_member)] to the team '[src]'.")
+	message_admins("[key_name_admin(usr)] added [key_name(new_member)] to the team '[src]'.")
 
 /**
  * Adds a team objective to each member's matching antag datum.
@@ -337,10 +351,10 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	if(!length(GLOB.antagonist_teams))
 		content += "There are currently no antag teams.<br/>"
 	content += "<a href='?_src_=holder;team_command=new_custom_team;'>Create new Team</a>"
-	content += "<a href='?_src_=holder;team_command=reload;'>Reload</a><br>"
+	content += "<a href='?_src_=holder;team_command=reload;'>Reload Menu</a><br>"
 	if(length(GLOB.antagonist_teams) > 1)
 		var/index = 1
-		for(var/datum/team/T as anything in GLOB.antagonist_teams) // with multiple teams, this is going to get messy. It should probably be turned into a tabs-like system
+		for(var/datum/team/T as anything in GLOB.antagonist_teams)
 			content += "<a href='?_src_=holder;team_command=switch_team_tab;team_index=[index]'>[T.name]</a>"
 			index++
 	else

@@ -56,7 +56,7 @@
 
 /datum/game_mode/revolution/post_setup()
 
-	rev_team = new /datum/team/revolution()
+	get_rev_team()
 
 	for(var/i in 1 to rev_team.need_another_headrev(1)) // yes this is a ONE, not a true
 		if(!length(pre_revolutionaries))
@@ -81,7 +81,7 @@
 
 /datum/game_mode/proc/get_rev_team()
 	if(!rev_team)
-		rev_team = new /datum/team/revolution()
+		new /datum/team/revolution() // assignment happens in create_team()
 	return rev_team
 
 //////////////////////////////////////

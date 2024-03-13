@@ -3,7 +3,7 @@
 
 /datum/game_mode/proc/get_cult_team()
 	if(!cult_team)
-		cult_team = new /datum/team/cult()
+		new /datum/team/cult() // assignment happens in create_team()
 	return cult_team
 
 /datum/game_mode/cult
@@ -40,7 +40,7 @@
 	return length(pre_cult)
 
 /datum/game_mode/cult/post_setup()
-	cult_team = new /datum/team/cult(pre_cult)
+	new /datum/team/cult(pre_cult)
 	..()
 
 /datum/game_mode/cult/declare_completion()
