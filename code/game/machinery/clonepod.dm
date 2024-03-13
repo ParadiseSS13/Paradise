@@ -176,7 +176,7 @@
 		if(istype(SP, /obj/item/stock_parts/matter_bin/)) //Matter bins for storage modifier
 			storage_modifier = round(10 * (SP.rating / 2)) //5 at tier 1, 10 at tier 2, 15 at tier 3, 20 at tier 4
 		else if(istype(SP, /obj/item/stock_parts/scanning_module)) //Scanning modules for price modifier (more accurate scans = more efficient)
-			price_modifier = round(-(SP.rating / 10) + 1.2) //1.1 at tier 1, 1 at tier 2, 0.9 at tier 3, 0.8 at tier 4
+			price_modifier = -(SP.rating / 10) + 1.2 //1.1 at tier 1, 1 at tier 2, 0.9 at tier 3, 0.8 at tier 4
 		else if(istype(SP, /obj/item/stock_parts/manipulator)) //Manipulators for speed modifier
 			speed_modifier += SP.rating / 2 //1 at tier 1, 2 at tier 2, et cetera
 
@@ -237,10 +237,10 @@
 
 	//Actually grow clones (this is the fun part of the proc!)
 	if(currently_cloning)
-		clone_progress += speed_modifier
 		switch(clone_progress)
 			if(0 to 10)
 				desc_flavor = "You see muscle quickly growing on a ribcage and skull inside [src]."
+				clone_progress += speed_modifier
 				return
 			if(11 to 90)
 				if(!clone)
@@ -269,7 +269,7 @@
 						desc_flavor = "You see [src] attaching \a [EO.name] to [clone]."
 						EO.replaced(clone)
 						current_limb = null
-						clone.adjustCloneLoss(8 / speed_modifier) //4 cycles to repair this normally, 2 at tier 2, 1 at tier 4. tier 3 is a decimal so essentially 2
+						clone.adjustCloneLoss(4 / speed_modifier)
 						clone.regenerate_icons()
 						return
 
@@ -277,15 +277,18 @@
 					var/obj/item/organ/external/EO = new EO_path(clone) //Passing a human to a limb's New() proc automatically attaches it
 					desc_flavor = "You see \a [EO.name] growing from [clone]'[clone.p_s()] [EO.amputation_point]."
 					current_limb = null
-					clone.adjustCloneLoss(8 / speed_modifier)
+					clone.adjustCloneLoss(4 / speed_modifier)
 					clone.regenerate_icons()
 					return
 
 			if(91 to 100)
+				if(length(limbs_to_grow)) //This shouldn't happen, but just in case.. (no more feetless clones)
+					clone_progress -= 5
 				if(eject_clone())
 					return
 				clone.adjustCloneLoss(-5 * speed_modifier) //rapidly heal clone damage
 				desc_flavor = "You see [src] finalizing the cloning process."
+				clone_progress += speed_modifier
 				return
 			if(101 to INFINITY) //this state can be reached with an upgraded cloner
 				if(eject_clone())

@@ -226,7 +226,6 @@
 		data["selected_pod_UID"] = selected_pod.UID()
 		if(scanner?.last_scan && desired_data)
 			var/list/costs = selected_pod.get_cloning_cost(scanner.last_scan, desired_data)
-			log_debug("[costs[1]], [costs[2]], [costs[3]]")
 			data["cloning_cost"] = costs
 
 	data["pods"] = pod_data
