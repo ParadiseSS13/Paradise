@@ -225,9 +225,10 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 #define SEPERATOR "---"
 /**
  * Allows admins to add a team objective.
+ * Minimize overriding this proc please.
  */
 /datum/team/proc/admin_add_objective(mob/user)
-	SHOULD_NOT_OVERRIDE(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
 
 	// available_objectives is assoc, `objective name` = `objective_path`
 	var/list/available_objectives = get_admin_priority_objectives()
