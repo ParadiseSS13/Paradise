@@ -250,7 +250,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 		)
 
 /obj/item/clothing/head/cowboyhat/tan
