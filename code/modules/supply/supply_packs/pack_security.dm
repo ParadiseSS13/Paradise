@@ -243,14 +243,14 @@
 	access = ACCESS_HEADS
 
 /datum/supply_packs/security/armory/wt550
-	name = "WT-550 Auto Rifle Crate"
+	name = "WT-550 PDW Crate"
 	contains = list(/obj/item/gun/projectile/automatic/wt550,
 					/obj/item/gun/projectile/automatic/wt550)
 	cost = 625
 	containername = "auto rifle crate"
 
 /datum/supply_packs/security/armory/wt550ammo
-	name = "WT-550 Rifle Ammo Crate"
+	name = "WT-550 PDW Ammo Crate"
 	contains = list(/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
@@ -351,3 +351,10 @@
 				/obj/item/clothing/suit/armor/secjacket)
 	cost = 500 // Convenience has a price and this pack is genuinely loaded
 	containername = "officer starter crate"
+
+/datum/supply_packs/security/secway
+	name = "Secway Crate"
+	cost = 800
+	containertype = /obj/structure/largecrate/secway
+	containername = "secway crate"
+	access = ACCESS_HEADS

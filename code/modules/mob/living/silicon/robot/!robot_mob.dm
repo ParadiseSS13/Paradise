@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/opened = FALSE
 	var/custom_panel = null
 	var/list/custom_panel_names = list("Cricket")
-	var/list/custom_eye_names = list("Cricket","Standard")
+	var/list/custom_eye_names = list("Cricket", "Standard")
 	var/emagged = 0
 	var/is_emaggable = TRUE
 	var/eye_protection = 0
@@ -117,6 +117,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	/// Integer used to determine self-mailing location, used only by drones and saboteur borgs
 	var/mail_destination = 1
+	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
+	var/datum/ui_module/destination_tagger/mail_setter
+	silicon_subsystems = list(
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager)
 
 /mob/living/silicon/robot/get_cell()
 	return cell
@@ -179,6 +184,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scanner = new(src)
 	scanner.Grant(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
+
+	robot_module_hat_offset(icon_state)
 
 /mob/living/silicon/robot/get_radio()
 	return radio
@@ -386,7 +393,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Mop Gear Rex" = image('icons/mob/robots.dmi', "mopgearrex"),
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Jani"),
 				"Noble-CLN" = image('icons/mob/robots.dmi', "Noble-CLN"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-JANI")
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-JANI"),
+				"Custodiborg" = image('icons/mob/robots.dmi', "custodiborg")
 			)
 		if("Medical")
 			module_sprites = list(
@@ -396,7 +404,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Needles" = image('icons/mob/robots.dmi', "medicalrobot"),
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Medi"),
 				"Noble-MED" = image('icons/mob/robots.dmi', "Noble-MED"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MEDI")
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MEDI"),
+				"Qualified Doctor" = image('icons/mob/robots.dmi', "qualified_doctor")
 			)
 		if("Mining")
 			module_sprites = list(
@@ -406,7 +415,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Mine"),
 				"Noble-DIG" = image('icons/mob/robots.dmi', "Noble-DIG"),
 				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MINE"),
-				"Lavaland" = image('icons/mob/robots.dmi', "lavaland")
+				"Lavaland" = image('icons/mob/robots.dmi', "lavaland"),
+				"Squat" = image('icons/mob/robots.dmi', "squatminer"),
+				"Coffin Drill" = image('icons/mob/robots.dmi', "coffinMiner")
 			)
 		if("Service")
 			module_sprites = list(
@@ -431,7 +442,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Bloodhound" = image('icons/mob/robots.dmi', "bloodhound"),
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Secy"),
 				"Noble-SEC" = image('icons/mob/robots.dmi', "Noble-SEC"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SEC")
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SEC"),
+				"Heavy" = image('icons/mob/robots.dmi', "heavySec")
 			)
 		if("Destroyer") //for Adminbus presumably
 			module_sprites = list(
@@ -446,6 +458,85 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		module_sprites["Custom"] = image('icons/mob/custom_synthetic/custom-synthetic.dmi', "[ckey]-[selected_module]")
 
 	return module_sprites
+
+/**
+  * Sets the offset for a cyborg's hats based on their module icon.
+  * Borgs are grouped by similar sprites (Eg. all the Noble borgs are all the same sprite but recoloured.)
+  *
+  * Arguments:
+  * * module - An `icon_state` for which the offset needs to be calculated.
+  */
+/mob/living/silicon/robot/proc/robot_module_hat_offset(module)
+	switch(module)
+		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot")
+			can_be_hatted = FALSE // Their base sprite already comes with a hat
+			hat_offset_y = -1
+		if("Noble-CLN", "Noble-SRV", "Noble-DIG", "Noble-MED", "Noble-SEC", "Noble-ENG", "Noble-STD")
+			can_be_hatted = TRUE
+			can_wear_restricted_hats = TRUE
+			hat_offset_y = 4
+		if("droid-medical")
+			can_be_hatted = TRUE
+			can_wear_restricted_hats = TRUE
+			hat_offset_y = 4
+		if("droid-miner", "mk2", "mk3")
+			can_be_hatted = TRUE
+			is_centered = TRUE
+			hat_offset_y = 3
+		if("bloodhound", "nano_bloodhound", "syndie_bloodhound", "ertgamma")
+			can_be_hatted = TRUE
+			hat_offset_y = 1
+		if("Cricket-SEC", "Cricket-MEDI", "Cricket-JANI", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV")
+			can_be_hatted = TRUE
+			hat_offset_y = 2
+		if("droidcombat-shield", "droidcombat")
+			can_be_hatted = TRUE
+			hat_alpha = 255
+			hat_offset_y = 2
+		if("droidcombat-roll")
+			can_be_hatted = TRUE
+			hat_alpha = 0
+			hat_offset_y = 2
+		if("syndi-medi", "surgeon", "toiletbot")
+			can_be_hatted = TRUE
+			is_centered = TRUE
+			hat_offset_y = 1
+		if("Security", "janitorrobot", "medicalrobot")
+			can_be_hatted = TRUE
+			is_centered = TRUE
+			can_wear_restricted_hats = TRUE
+			hat_offset_y = -1
+		if("Brobot", "Service", "Service2", "robot_old", "securityrobot")
+			can_be_hatted = TRUE
+			is_centered = TRUE
+			can_wear_restricted_hats = TRUE
+			hat_offset_y = -1
+		if("Miner", "lavaland")
+			can_be_hatted = TRUE
+			hat_offset_y = -1
+		if("robot", "Standard", "Standard-Secy", "Standard-Medi", "Standard-Engi",
+			"Standard-Jani", "Standard-Serv", "Standard-Mine", "xenoborg-state-a")
+			can_be_hatted = TRUE
+			hat_offset_y = -3
+		if("droid")
+			can_be_hatted = TRUE
+			is_centered = TRUE
+			can_wear_restricted_hats = TRUE
+			hat_offset_y = -4
+		if("landmate", "syndi-engi")
+			can_be_hatted = TRUE
+			hat_offset_y = -7
+		if("mopgearrex")
+			can_be_hatted = TRUE
+			hat_offset_y = -6
+
+	if(silicon_hat)
+		if(!can_be_hatted)
+			remove_from_head(usr)
+			return
+		if(!can_wear_restricted_hats && is_type_in_list(silicon_hat, restricted_hats))
+			remove_from_head(usr)
+			return
 
 /**
   * Sets up the module items and sprites for the cyborg module chosen in `pick_module()`.
@@ -510,6 +601,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	custom_panel = trim(names[1])
 
 	update_module_icon()
+	robot_module_hat_offset(icon_state)
 	update_icons()
 	if(client.stat_tab == "Status")
 		SSstatpanels.set_status_tab(client)
@@ -538,6 +630,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.recalculateChannels()
 	custom_panel = null
 
+	robot_module_hat_offset(icon_state)
 	update_icons()
 	update_headlamp()
 
@@ -1071,7 +1164,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(wiresexposed)
 		wires.Interact(user)
 	else
-		..() //this calls the /mob/living/attack_ghost proc for the ghost health/cyborg analyzer
+		..() //this calls the /mob/living/attack_ghost proc for the ghost health/machine analyzer
 
 /mob/living/silicon/robot/proc/allowed(obj/item/I)
 	var/obj/dummy = new /obj(null) // Create a dummy object to check access on as to avoid having to snowflake check_access on every mob
@@ -1087,6 +1180,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/update_icons()
 	overlays.Cut()
+	
 	if(stat != DEAD && !(IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
 			overlays += "eyes-[custom_panel]"
@@ -1107,6 +1201,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			overlays += "[panelprefix]-openpanel -c"
 	borg_icons()
+	robot_module_hat_offset(icon_state)
+	update_hat_icons()
 	update_fire()
 
 /mob/living/silicon/robot/proc/borg_icons() // Exists so that robot/destroyer can override it
@@ -1237,6 +1333,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(cell) //Sanity check.
 		cell.forceMove(T)
 		cell = null
+	drop_hat()
 	qdel(src)
 
 #define CAMERA_UPDATE_COOLDOWN 2.5 SECONDS
@@ -1585,8 +1682,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/verb/powerwarn()
 	set category = "Robot Commands"
 	set name = "Power Warning"
-
-
 
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)
 		if(!start_audio_emote_cooldown(TRUE, 10 SECONDS))

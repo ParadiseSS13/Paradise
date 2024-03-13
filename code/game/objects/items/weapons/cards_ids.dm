@@ -630,8 +630,7 @@
 	assignment = "Captain"
 
 /obj/item/card/id/captains_spare/New()
-	var/datum/job/captain/J = new/datum/job/captain
-	access = J.get_access()
+	access = get_all_accesses()
 	..()
 
 /obj/item/card/id/admin
