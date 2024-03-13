@@ -225,7 +225,9 @@
 										"max_reagent_capacity" = selected_pod.reagents.maximum_volume)
 		data["selected_pod_UID"] = selected_pod.UID()
 		if(scanner?.last_scan && desired_data)
-			data["cloningCost"] = selected_pod.get_cloning_cost(scanner.last_scan, desired_data)
+			var/list/costs = selected_pod.get_cloning_cost(scanner.last_scan, desired_data)
+			log_debug("[costs[1]], [costs[2]], [costs[3]]")
+			data["cloning_cost"] = costs
 
 	data["pods"] = pod_data
 	data["pod_amount"] = length(pods)
@@ -245,7 +247,7 @@
 			switch(text2num(params["tab"]))
 				if(TAB_MAIN)
 					tab = TAB_MAIN
-					scanner?.has_scanned = FALSE
+					scanner?.update_scan_status()
 					return TRUE
 				if(TAB_DAMAGES_BREAKDOWN)
 					tab = TAB_DAMAGES_BREAKDOWN

@@ -159,7 +159,7 @@ const CloningConsoleDamage = (props, context) => {
     scanner_has_patient,
     feedback,
     scan_successful,
-    cloningCost,
+    cloning_cost,
     has_scanner,
   } = data;
   return (
@@ -216,7 +216,7 @@ const CloningConsoleDamage = (props, context) => {
                   <Stack height="25px">
                     <Stack.Item width="50%">
                       <ProgressBar
-                        value={cloningCost[0]}
+                        value={cloning_cost[0]}
                         maxValue={selected_pod_data['biomass_storage_capacity']}
                         ranges={{
                           bad: [
@@ -237,18 +237,19 @@ const CloningConsoleDamage = (props, context) => {
                           ],
                         }}
                         color={
-                          cloningCost[0] > selected_pod_data['biomass']
+                          cloning_cost[0] > selected_pod_data['biomass']
                             ? 'bad'
                             : null
                         }
                       >
-                        Biomass: {cloningCost[0]}/{selected_pod_data['biomass']}
-                        /{selected_pod_data['biomass_storage_capacity']}
+                        Biomass: {cloning_cost[0]}/
+                        {selected_pod_data['biomass']}/
+                        {selected_pod_data['biomass_storage_capacity']}
                       </ProgressBar>
                     </Stack.Item>
                     <Stack.Item width="25%" mx="2px">
                       <ProgressBar
-                        value={cloningCost[1]}
+                        value={cloning_cost[1]}
                         maxValue={selected_pod_data['max_reagent_capacity']}
                         ranges={{
                           bad: [
@@ -265,19 +266,20 @@ const CloningConsoleDamage = (props, context) => {
                           ],
                         }}
                         color={
-                          cloningCost[1] > selected_pod_data['sanguine_reagent']
+                          cloning_cost[1] >
+                          selected_pod_data['sanguine_reagent']
                             ? 'bad'
                             : 'good'
                         }
                       >
-                        Sanguine: {cloningCost[1]}/
+                        Sanguine: {cloning_cost[1]}/
                         {selected_pod_data['sanguine_reagent']}/
                         {selected_pod_data['max_reagent_capacity']}
                       </ProgressBar>
                     </Stack.Item>
                     <Stack.Item width="25%">
                       <ProgressBar
-                        value={cloningCost[2]}
+                        value={cloning_cost[2]}
                         maxValue={selected_pod_data['max_reagent_capacity']}
                         ranges={{
                           bad: [
@@ -294,12 +296,12 @@ const CloningConsoleDamage = (props, context) => {
                           ],
                         }}
                         color={
-                          cloningCost[1] > selected_pod_data['osseous_reagent']
+                          cloning_cost[2] > selected_pod_data['osseous_reagent']
                             ? 'bad'
                             : 'good'
                         }
                       >
-                        Osseous: {cloningCost[2]}/
+                        Osseous: {cloning_cost[2]}/
                         {selected_pod_data['osseous_reagent']}/
                         {selected_pod_data['max_reagent_capacity']}
                       </ProgressBar>

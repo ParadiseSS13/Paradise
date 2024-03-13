@@ -188,8 +188,6 @@
 		return
 	inserted.forceMove(src)
 	occupant = inserted
-	if(last_scan?.name != inserted.dna?.real_name)
-		last_scan = null
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/clonescanner/proc/remove_mob(mob/living/carbon/human/removed)
@@ -197,8 +195,12 @@
 		return
 	removed.forceMove(get_turf(loc))
 	occupant = null
-	has_scanned = FALSE
+	update_scan_status()
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/clonescanner/proc/update_scan_status()
+	last_scan = null
+	has_scanned = FALSE
 
 /obj/machinery/clonescanner/update_icon_state()
 	if(panel_open)
