@@ -77772,9 +77772,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "qIB" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
