@@ -96,6 +96,11 @@
 	path = /obj/item/clothing/suit/jacket/secbomber
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
+/datum/gear/suit/secponcho
+	display_name = "Poncho, security"
+	path = /obj/item/clothing/suit/armor/secponcho
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
+
 /datum/gear/suit/bomber/job/cargo
 	display_name = "Bomber jacket, cargo"
 	path = /obj/item/clothing/suit/jacket/cargobomber
