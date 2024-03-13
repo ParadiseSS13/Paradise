@@ -365,7 +365,7 @@
 		return
 	var/list/modifiers = params2list(params)
 	// don't show the tooltip if we're dragging
-	if(!LAZYACCESS(modifiers, DRAG) && !LAZYACCESS(modifiers, LEFT_CLICK))
+	if(!LAZYACCESS(modifiers, DRAG) && !LAZYACCESS(modifiers, RIGHT_CLICK))
 		show_tooltip(params)
 
 /atom/movable/screen/button_palette/MouseExited()
