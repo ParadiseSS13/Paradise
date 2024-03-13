@@ -121,7 +121,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
 
-	/obj/item/clothing/suit/armor/secponcho
+/obj/item/clothing/suit/armor/secponcho
 	name = "security poncho"
 	desc = "A stylish black and red  poncho made with reinforced fabric."
 	icon_state = "security_poncho"
