@@ -70,6 +70,8 @@
 		pickup_target.AdjustStunned(-6 SECONDS)
 		pickup_target.AdjustWeakened(-6 SECONDS)
 		pickup_target.AdjustKnockDown(-6 SECONDS)
+		pickup_target.adjustStaminaLoss(-10)
+		resting = FALSE
 		pickup_target.stand_up()
 		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		user.visible_message( \
@@ -99,9 +101,10 @@
 			to_chat(user, "<span class='notice'>You collect [I].</span>")
 			I.forceMove(src)
 			gripped_item = I
-		else
-			to_chat(user, "<span class='warning'>Your gripper cannot hold [target].</span>")
-			return FALSE
+			return TRUE
+		
+		to_chat(user, "<span class='warning'>Your gripper cannot hold [target].</span>")
+		return FALSE
 
 	if(!engineering_machine_interaction)	// Everything past this point requires being able to engineer.
 		return
