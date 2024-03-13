@@ -247,6 +247,12 @@
 	item_state = "cowboyhat"
 	desc = "For the Rancher in us all."
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
+		)
+
 /obj/item/clothing/head/cowboyhat/tan
 	name = "tan cowboy hat"
 	icon_state = "cowboyhat_tan"
