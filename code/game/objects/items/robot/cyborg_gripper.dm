@@ -22,11 +22,11 @@
 	var/obj/item/gripped_item    // Item currently being held.
 
 /obj/item/gripper/examine_more(mob/user)
-    . = ..()
-    . += "Cyborg grippers are well-developed, and despite some anatomical differences that manifest in some models, \
-    they can be used just as effectively as a regular hand with enough practice. \
-    Companies like Nanotrasen use software to limit the items that a cyborg can manipulate to a specific pre-defined list, as part of their multi-layered \
-    protections to try and eliminate the chance of a hypothetical synthetic uprising, not wishing to see a repeat of the IPC uprising in 2525."
+	. = ..()
+	. += "Cyborg grippers are well-developed, and despite some anatomical differences that manifest in some models, \
+	they can be used just as effectively as a regular hand with enough practice. \
+	Companies like Nanotrasen use software to limit the items that a cyborg can manipulate to a specific pre-defined list, as part of their multi-layered \
+	protections to try and eliminate the chance of a hypothetical synthetic uprising, not wishing to see a repeat of the IPC uprising in 2525."
 
 
 /obj/item/gripper/Initialize(mapload)
@@ -150,8 +150,8 @@
 	engineering_machine_interaction = TRUE	// It's UNIVERSAL so it can do both of these things.
 	can_help_up = TRUE
 	can_hold = list(
-        /obj/item
-    )
+		/obj/item
+	)
 
 /******************************
 /     NUCLEAR OPS GRIPPER
@@ -160,8 +160,8 @@
 	name = "suspicious disk gripper"
 	desc = "A suspicious grasping tool to allow you to \''get dat fokkin' disk!''\ "
 	can_hold = list(
-        /obj/item/disk			// Can hold any disk so that no disk cannot be gotten. 
-    )
+		/obj/item/disk			// Can hold any disk so that no disk cannot be gotten. 
+	)
 
 /******************************
 /       MEDICAL GRIPPER
@@ -169,7 +169,7 @@
 /obj/item/gripper/medical  		// For medical borgs, for doing medical stuff!
 	name = "medical gripper"
 	desc = "A grasping tool for cyborgs. This one is covered with hygenic medical-grade silicone rubber. \
-    Use it to help patients up once surgery is complete, or to substitute for hands in surgical operations."
+	Use it to help patients up once surgery is complete, or to substitute for hands in surgical operations."
 	can_help_up = TRUE
 	actions_types = list(null)	// REMOVE THIS if you add anything to the can_hold list for this gripper!
 	can_hold = null 						// Not giving this anything to hold yet, but stuff may be added in the future. Organs/implants are currently viewed as too strong to hold.
@@ -182,12 +182,12 @@
 	desc = "A grasping tool for cyborgs. This version is made from hygenic easy-clean material. Maybe some day you'll be able to grab food with it..."
 	can_help_up = TRUE			// For waking up drunkards.
 	can_hold = list(
-        /obj/item/deck,
-        /obj/item/cardhand, 	// For playing card games!
-        /obj/item/paper,	    // The "important" papers and photos you had the borg make shouldn't be sullied on the dirty floor.
-        /obj/item/photo,
-        /obj/item/toy/plushie   // To allow the borg to bring you a soft toy. D'aww!
-    )
+		/obj/item/deck,
+		/obj/item/cardhand, 	// For playing card games!
+		/obj/item/paper,	    // The "important" papers and photos you had the borg make shouldn't be sullied on the dirty floor.
+		/obj/item/photo,
+		/obj/item/toy/plushie   // To allow the borg to bring you a soft toy. D'aww!
+	)
 
 /******************************
 /     ENGINEERING GRIPPER
