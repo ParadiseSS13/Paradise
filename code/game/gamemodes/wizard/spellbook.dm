@@ -132,6 +132,11 @@
 	spell_type = /obj/effect/proc_holder/spell/touch/disintegrate
 	category = "Offensive"
 
+/datum/spellbook_entry/corpse_explosion
+	name = "Corpse Explosion"
+	spell_type = /obj/effect/proc_holder/spell/corpse_explosion
+	category = "Offensive"
+
 /datum/spellbook_entry/fireball
 	name = "Fireball"
 	spell_type = /obj/effect/proc_holder/spell/fireball
