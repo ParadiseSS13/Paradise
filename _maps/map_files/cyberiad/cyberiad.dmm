@@ -63078,9 +63078,6 @@
 	},
 /area/station/service/barber)
 "hUX" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -63088,6 +63085,7 @@
 	name = "Prison Intercom (General)";
 	pixel_y = 25
 	},
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
