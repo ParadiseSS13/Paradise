@@ -508,6 +508,3 @@
 		hud_used.move_intent.icon_state = icon_toggle
 		for(var/atom/movable/screen/mov_intent/selector in hud_used.static_inventory)
 			selector.update_icon()
-
-#undef MOVEMENT_DELAY_BUFFER
-#undef MOVEMENT_DELAY_BUFFER_DELTA
