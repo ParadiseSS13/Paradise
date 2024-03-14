@@ -78670,11 +78670,11 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "pFI" = (
-/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/power/apc/important/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreencorner"
