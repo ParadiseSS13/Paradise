@@ -73,11 +73,7 @@
 
 /datum/ColorMatrix/New(mat, contrast = 1, brightness = null)
 	..()
-	if(istext(mat))
-		SetPreset(mat)
-		if(!matrix)
-			SetColor(mat, contrast, brightness)
-	else if(isnum(mat))
+	if(isnum(mat))
 		SetSaturation(mat, contrast, brightness)
 	else
 		matrix = mat
@@ -126,6 +122,19 @@
 	else if(matrix.len == 3)
 		for(var/i = matrix.len - 1 to matrix.len - 4 step -1)
 			matrix[i] = brightness
+
+/datum/ColorMatrix/proc/hex2value(hex)
+	var/num1 = copytext(hex, 1, 2)
+	var/num2 = copytext(hex, 2)
+	if(isnum(text2num(num1)))
+		num1 = text2num(num1)
+	else
+		num1 = text2ascii(lowertext(num1)) - 87
+	if(isnum(text2num(num1)))
+		num2 = text2num(num1)
+	else
+		num2 = text2ascii(lowertext(num2)) - 87
+	return num1 * 16 + num2
 
 /datum/ColorMatrix/proc/SetColor(color, contrast = 1, brightness = null)
 	var/rr = hex2value(copytext(color, 2, 4)) / 255
