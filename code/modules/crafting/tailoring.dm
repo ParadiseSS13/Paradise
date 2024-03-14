@@ -234,7 +234,7 @@
 	result = list(/obj/item/clothing/glasses/sunglasses/reagent)
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	reqs = list(/obj/item/clothing/glasses/meson = 1,
+	reqs = list(/obj/item/clothing/glasses/science = 1,
 				/obj/item/clothing/glasses/sunglasses = 1,
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
