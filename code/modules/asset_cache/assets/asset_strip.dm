@@ -2,7 +2,6 @@
 	assets = list(
 		"inventory-glasses.png" = 'icons/ui_icons/inventory/glasses.png',
 		"inventory-head.png" = 'icons/ui_icons/inventory/head.png',
-		"inventory-neck.png" = 'icons/ui_icons/inventory/neck.png',
 		"inventory-mask.png" = 'icons/ui_icons/inventory/mask.png',
 		"inventory-ears.png" = 'icons/ui_icons/inventory/ears.png',
 		"inventory-uniform.png" = 'icons/ui_icons/inventory/uniform.png',

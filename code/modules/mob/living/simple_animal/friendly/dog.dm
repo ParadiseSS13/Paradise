@@ -240,7 +240,7 @@
 					return
 			if("collar")
 				if(pcollar)
-					remove_collar()
+					var/the_collar = remove_collar()
 					usr.put_in_hands(the_collar)
 					update_corgi_fluff()
 					regenerate_icons()
@@ -659,7 +659,7 @@
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
-	strippable_inventory_slots = list(/datum/strippable_item/corgi_back, /datum/strippable_item/pet_collar, /datum/strippable_item/corgi_id) //Lisa already has a cute bow! // ctodo
+	strippable_inventory_slots = list(/datum/strippable_item/corgi_back, /datum/strippable_item/pet_collar) //Lisa already has a cute bow! // ctodo
 	var/turns_since_scan = 0
 
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Life()

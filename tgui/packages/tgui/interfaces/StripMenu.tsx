@@ -66,9 +66,9 @@ const ALTERNATE_ACTIONS: Record<string, AlternateAction> = {
     text: 'Disable internals',
   },
 
-  adjust_jumpsuit: {
+  suit_sensors: {
     icon: 'tshirt',
-    text: 'Adjust jumpsuit',
+    text: 'Adjust suit sensors',
   },
 };
 
@@ -93,11 +93,11 @@ const SLOTS: Record<
     image: 'inventory-head.png',
   },
 
-  neck: {
-    displayName: 'neckwear',
-    gridSpot: getGridSpotKey([1, 1]),
-    image: 'inventory-neck.png',
-  },
+  // neck: {
+  //   displayName: 'neckwear',
+  //   gridSpot: getGridSpotKey([1, 1]),
+  //   image: 'inventory-neck.png',
+  // },
 
   mask: {
     displayName: 'mask',
@@ -111,8 +111,14 @@ const SLOTS: Record<
     image: 'inventory-collar.png',
   },
 
-  ears: {
-    displayName: 'earwear',
+  left_ear: {
+    displayName: 'left ear',
+    gridSpot: getGridSpotKey([0, 3]),
+    image: 'inventory-ears.png',
+  },
+
+  right_ear: {
+    displayName: 'right ear',
     gridSpot: getGridSpotKey([1, 3]),
     image: 'inventory-ears.png',
   },

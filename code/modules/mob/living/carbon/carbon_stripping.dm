@@ -1,10 +1,10 @@
 /datum/strippable_item/mob_item_slot/head
 	key = STRIPPABLE_ITEM_HEAD
-	item_slot = SLOT_FLAG_HEAD
+	item_slot = SLOT_HUD_HEAD
 
 /datum/strippable_item/mob_item_slot/back
 	key = STRIPPABLE_ITEM_BACK
-	item_slot = SLOT_FLAG_BACK
+	item_slot = SLOT_HUD_BACK
 
 /datum/strippable_item/mob_item_slot/back/get_alternate_action(atom/source, mob/user)
 	return get_strippable_alternate_action_internals(get_item(source), source)
@@ -16,11 +16,11 @@
 
 /datum/strippable_item/mob_item_slot/mask
 	key = STRIPPABLE_ITEM_MASK
-	item_slot = SLOT_FLAG_MASK
+	item_slot = SLOT_HUD_WEAR_MASK
 
 /datum/strippable_item/mob_item_slot/handcuffs
 	key = STRIPPABLE_ITEM_HANDCUFFS
-	item_slot = SLOT_FLAG_HANDCUFFED
+	item_slot = SLOT_HUD_HANDCUFFED
 
 /datum/strippable_item/mob_item_slot/handcuffs/should_show(atom/source, mob/user)
 	if(!iscarbon(source))
@@ -35,7 +35,7 @@
 
 /datum/strippable_item/mob_item_slot/legcuffs
 	key = STRIPPABLE_ITEM_LEGCUFFS
-	item_slot = SLOT_FLAG_LEGCUFFED
+	item_slot = SLOT_HUD_LEGCUFFED
 
 /datum/strippable_item/mob_item_slot/legcuffs/should_show(atom/source, mob/user)
 	if(!iscarbon(source))
@@ -50,8 +50,6 @@
 
 /// A strippable item for a hand
 /datum/strippable_item/hand
-	// Putting dangerous clothing in our hand is fine.
-	show_visible_message = FALSE
 
 	/// Which hand?
 	var/which_hand
@@ -72,8 +70,7 @@
 		return FALSE
 
 	var/mob/mob_source = source
-
-	if(!mob_source.can_put_in_hand(equipping, hand_index))
+	if(!equipping.mob_can_equip(mob_source, which_hand, TRUE))
 		to_chat(src, "<span class='warning'>\The [equipping] doesn't fit in that place!</span>")
 		return FALSE
 
@@ -102,7 +99,7 @@
 		return FALSE
 
 	var/mob/mob_source = source
-	mob_source.put_in_hand(equipping, hand_index)
+	mob_source.put_in_hand(equipping, which_hand)
 
 /datum/strippable_item/hand/start_unequip(atom/source, mob/user)
 	. = ..()

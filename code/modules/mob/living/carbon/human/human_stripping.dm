@@ -6,7 +6,8 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	/datum/strippable_item/mob_item_slot/back,
 	/datum/strippable_item/mob_item_slot/mask,
 	/datum/strippable_item/mob_item_slot/eyes,
-	/datum/strippable_item/mob_item_slot/ears,
+	/datum/strippable_item/mob_item_slot/left_ear,
+	/datum/strippable_item/mob_item_slot/right_ear,
 	/datum/strippable_item/mob_item_slot/jumpsuit,
 	/datum/strippable_item/mob_item_slot/suit,
 	/datum/strippable_item/mob_item_slot/gloves,
@@ -24,56 +25,48 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/eyes
 	key = STRIPPABLE_ITEM_EYES
-	item_slot = SLOT_FLAG_EYES
-
-/datum/strippable_item/mob_item_slot/ears
-	key = STRIPPABLE_ITEM_EARS
-	item_slot = SLOT_FLAG_EARS
+	item_slot = SLOT_HUD_GLASSES
 
 /datum/strippable_item/mob_item_slot/jumpsuit
 	key = STRIPPABLE_ITEM_JUMPSUIT
-	item_slot = SLOT_FLAG_ICLOTHING
+	item_slot = SLOT_HUD_JUMPSUIT
+
+/datum/strippable_item/mob_item_slot/left_ear
+	key = STRIPPABLE_ITEM_L_EAR
+	item_slot = SLOT_HUD_LEFT_EAR
+
+/datum/strippable_item/mob_item_slot/right_ear
+	key = STRIPPABLE_ITEM_R_EAR
+	item_slot = SLOT_HUD_RIGHT_EAR
 
 /datum/strippable_item/mob_item_slot/jumpsuit/get_alternate_action(atom/source, mob/user)
 	var/obj/item/clothing/under/jumpsuit = get_item(source)
 	if(!istype(jumpsuit))
 		return null
-	return jumpsuit?.can_adjust ? "adjust_jumpsuit" : null
+	return jumpsuit.has_sensor ? "suit_sensors" : null
 
 /datum/strippable_item/mob_item_slot/jumpsuit/alternate_action(atom/source, mob/user)
 	if(!..())
 		return
 	var/obj/item/clothing/under/jumpsuit = get_item(source)
-	if(!istype(jumpsuit))
-		return null
-	to_chat(source, "<span class='notice'>[user] is trying to adjust your [jumpsuit.name].")
-	if(!do_after(user, (jumpsuit.strip_delay * 0.5), source))
-		return
-	to_chat(source, "<span class='notice'>[user] successfully adjusted your [jumpsuit.name].")
-	jumpsuit.toggle_jumpsuit_adjust()
-
-	if(!ismob(source))
-		return
-
-	var/mob/mob_source = source
-	mob_source.update_worn_undersuit()
-	mob_source.update_body()
+	if(istype(jumpsuit))
+		jumpsuit.set_sensors(user)
 
 /datum/strippable_item/mob_item_slot/suit
 	key = STRIPPABLE_ITEM_SUIT
-	item_slot = SLOT_FLAG_OCLOTHING
+	item_slot = SLOT_HUD_OUTER_SUIT
 
 /datum/strippable_item/mob_item_slot/gloves
 	key = STRIPPABLE_ITEM_GLOVES
-	item_slot = SLOT_FLAG_GLOVES
+	item_slot = SLOT_HUD_GLOVES
 
 /datum/strippable_item/mob_item_slot/feet
 	key = STRIPPABLE_ITEM_FEET
-	item_slot = SLOT_FLAG_FEET
+	item_slot = SLOT_HUD_SHOES
 
 /datum/strippable_item/mob_item_slot/suit_storage
 	key = STRIPPABLE_ITEM_SUIT_STORAGE
-	item_slot = SLOT_FLAG_SUITSTORE
+	item_slot = SLOT_HUD_SUIT_STORE
 
 /datum/strippable_item/mob_item_slot/suit_storage/get_alternate_action(atom/source, mob/user)
 	return get_strippable_alternate_action_internals(get_item(source), source)
@@ -85,11 +78,11 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/id
 	key = STRIPPABLE_ITEM_ID
-	item_slot = SLOT_FLAG_ID
+	item_slot = SLOT_HUD_WEAR_ID
 
 /datum/strippable_item/mob_item_slot/belt
 	key = STRIPPABLE_ITEM_BELT
-	item_slot = SLOT_FLAG_BELT
+	item_slot = SLOT_HUD_BELT
 
 /datum/strippable_item/mob_item_slot/belt/get_alternate_action(atom/source, mob/user)
 	return get_strippable_alternate_action_internals(get_item(source), source)
@@ -138,12 +131,12 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/pocket/left
 	key = STRIPPABLE_ITEM_LPOCKET
-	item_slot = SLOT_FLAG_LPOCKET
+	item_slot = SLOT_HUD_LEFT_STORE
 	pocket_side = "left"
 
 /datum/strippable_item/mob_item_slot/pocket/right
 	key = STRIPPABLE_ITEM_RPOCKET
-	item_slot = SLOT_FLAG_RPOCKET
+	item_slot = SLOT_HUD_RIGHT_STORE
 	pocket_side = "right"
 
 /proc/get_strippable_alternate_action_internals(obj/item/item, atom/source)
@@ -172,28 +165,23 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	carbon_source.visible_message(
 		"<span class='danger'>[user] tries to [(carbon_source.internal != item) ? "open" : "close"] the valve on [source]'s [item.name].</span>",
 		"<span class='userdanger'>[user] tries to [(carbon_source.internal != item) ? "open" : "close"] the valve on your [item.name].</span>",
-		ignored_mobs = user,
 	)
-
-	to_chat(user, "<span class='notice'>You try to [(carbon_source.internal != item) ? "open" : "close"] the valve on [source]'s [item.name]...</span>")
 
 	if(!do_after(user, INTERNALS_TOGGLE_DELAY, carbon_source))
 		return
 
 	if(carbon_source.internal == item)
-		carbon_source.close_internals()
-	// This isn't meant to be FALSE, it correlates to the item's name.
+		carbon_source.internal = null
 	else if(!QDELETED(item))
-		if(!carbon_source.try_open_internals(item))
-			return
+		carbon_source.internal = item
+
+	carbon_source.update_action_buttons_icon()
 
 	carbon_source.visible_message(
 		"<span class='danger'>[user] [isnull(carbon_source.internal) ? "closes": "opens"] the valve on [source]'s [item.name].</span>",
 		"<span class='userdanger'>[user] [isnull(carbon_source.internal) ? "closes": "opens"] the valve on your [item.name].</span>",
-		ignored_mobs = user,
 	)
 
-	to_chat(user, "<span class='notice'>You [isnull(carbon_source.internal) ? "close" : "open"] the valve on [source]'s [item.name].</span>")
 
 #undef INTERNALS_TOGGLE_DELAY
 #undef POCKET_EQUIP_DELAY

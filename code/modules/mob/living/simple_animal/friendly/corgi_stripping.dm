@@ -3,8 +3,7 @@
 GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	/datum/strippable_item/corgi_head,
 	/datum/strippable_item/corgi_back,
-	/datum/strippable_item/pet_collar,
-	/datum/strippable_item/corgi_id,
+	/datum/strippable_item/pet_collar
 )))
 
 /datum/strippable_item/corgi_head
@@ -99,7 +98,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 			step_rand(equipping)
 		var/old_dir = corgi.dir
 		corgi.spin(7, 1)
-		setDir(old_dir)
+		corgi.setDir(old_dir)
 		return FALSE
 	return TRUE
 

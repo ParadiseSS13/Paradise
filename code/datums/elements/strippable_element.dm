@@ -58,8 +58,6 @@
 	/// The STRIPPABLE_ITEM_* key
 	var/key
 
-	/// Should we give feedback messages?
-	var/show_visible_message = TRUE
 
 /// Gets the item from the given source.
 /datum/strippable_item/proc/get_item(atom/source)
@@ -81,8 +79,21 @@
 /// Start the equipping process. This is the proc you should yield in.
 /// Returns TRUE/FALSE depending on if it is allowed.
 /datum/strippable_item/proc/start_equip(atom/source, obj/item/equipping, mob/user)
+	source.visible_message(
+		"<span class='notice'>[user] tries to put [equipping] on [source].</span>",
+		"<span class='notice'>[user] tries to put [equipping] on you.</span>",
+	)
+	if(ishuman(source))
+		var/mob/living/carbon/human/victim_human = source
+		if(!victim_human.has_vision())
+			to_chat(victim_human, "<span class='userdanger'>You feel someone trying to put something on you.</span>")
 
-	equipping.item_start_equip(source, equipping, user, show_visible_message)
+	if(!do_mob(user, source, equipping.put_on_delay))
+		return FALSE
+
+	if(QDELETED(equipping) || user.Adjacent(source) || (equipping.flags & NODROP))
+		return FALSE
+
 	return TRUE
 
 /// The proc that places the item on the source. This should not yield.
@@ -205,14 +216,14 @@
 	var/mob/mob_source = source
 	mob_source.equip_to_slot(equipping, item_slot)
 
-	return finish_equip_mob(equipping, source, user)
+	add_attack_logs(user, source, "Strip equipped [equipping]")
 
 /datum/strippable_item/mob_item_slot/get_obscuring(atom/source)
-	if(iscarbon(source))
-		var/mob/living/carbon/carbon_source = source
-		return (carbon_source.check_obscured_slots() & item_slot) \
-			? STRIPPABLE_OBSCURING_COMPLETELY \
-			: STRIPPABLE_OBSCURING_NONE
+	if(ishuman(source))
+		var/mob/living/carbon/human/human_source = source
+		if(human_source.check_obscured_slots() & item_slot)
+			return STRIPPABLE_OBSCURING_COMPLETELY
+		return STRIPPABLE_OBSCURING_NONE
 
 	return FALSE
 
@@ -237,10 +248,6 @@
 /datum/strippable_item/mob_item_slot/proc/get_equip_delay(obj/item/equipping)
 	return equipping.put_on_delay
 
-/// A utility function for `/datum/strippable_item`s to finish equipping an item to a mob.
-/proc/finish_equip_mob(obj/item/item, mob/source, mob/user)
-	add_attack_logs(user, source, "Strip equipped [item]")
-
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
 	if(!strip_delay)
@@ -252,10 +259,10 @@
 
 /// A utility function for `/datum/strippable_item`s to finish unequipping an item from a mob.
 /proc/finish_unequip_mob(obj/item/item, mob/source, mob/user)
-	if(!item.doStrip(user, source))
-		return FALSE
+	if(!source.unEquip(item))
+		return
 
-	add_attack_logs(user, source, "Stripping of [what]")
+	add_attack_logs(user, source, "Stripping of [item]")
 
 /// A representation of the stripping UI
 /datum/strip_menu
@@ -381,11 +388,11 @@
 
 					// They equipped an item in the meantime
 					if(!isnull(strippable_item.get_item(owner)))
-						user.put_in_hands(held_item)
+						// user.put_in_hands(held_item) // ctodo i dont think we need this put_in_hands
 						return
 
 					if(!user.Adjacent(owner))
-						user.put_in_hands(held_item)
+						// user.put_in_hands(held_item) // ctodo i dont think we need this put_in_hands
 						return
 
 					strippable_item.finish_equip(owner, held_item, user)

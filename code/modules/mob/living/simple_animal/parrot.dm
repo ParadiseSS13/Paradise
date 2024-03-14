@@ -178,26 +178,7 @@
 						ears = headset_to_add
 						to_chat(usr, "You fit the headset onto [src].")
 
-						available_channels.Cut()
-						for(var/ch in headset_to_add.channels)
-							switch(ch)
-								if("Engineering")
-									available_channels.Add(":e")
-								if("Command")
-									available_channels.Add(":c")
-								if("Security")
-									available_channels.Add(":s")
-								if("Science")
-									available_channels.Add(":n")
-								if("Medical")
-									available_channels.Add(":m")
-								if("Mining")
-									available_channels.Add(":d")
-								if("Cargo")
-									available_channels.Add(":q")
-
-						if(headset_to_add.translate_binary)
-							available_channels.Add(":b")
+						update_available_channels()
 						update_speak()
 			// show_inv(usr)
 		else
@@ -269,17 +250,41 @@
 	if(pulledby && stat == CONSCIOUS)
 		icon_state = "parrot_fly"
 
+/mob/living/simple_animal/parrot/proc/update_available_channels()
+	available_channels.Cut()
+	if(!istype(ears) || QDELETED(ears))
+		return
+
+	for(var/ch in ears.channels)
+		switch(ch)
+			if("Engineering")
+				available_channels.Add(":e")
+			if("Command")
+				available_channels.Add(":c")
+			if("Security")
+				available_channels.Add(":s")
+			if("Science")
+				available_channels.Add(":n")
+			if("Medical")
+				available_channels.Add(":m")
+			if("Mining")
+				available_channels.Add(":d")
+			if("Cargo")
+				available_channels.Add(":q")
+
+	if(ears.translate_binary)
+		available_channels.Add(":b")
+
 /mob/living/simple_animal/parrot/proc/update_speak()
 	speak.Cut()
 
-	if(available_channels.len && ears)
+	if(ears && length(available_channels))
 		for(var/possible_phrase in clean_speak)
 			//50/50 chance to not use the radio at all
 			speak += "[prob(50) ? pick(available_channels) : ""][possible_phrase]"
-
-	else //If we have no headset or channels to use, dont try to use any!
-		for(var/possible_phrase in clean_speak)
-			speak += possible_phrase
+		return
+	//If we have no headset or channels to use, dont try to use any!
+	speak = clean_speak.Copy()
 
 /mob/living/simple_animal/parrot/handle_automated_movement()
 	if(pulledby)

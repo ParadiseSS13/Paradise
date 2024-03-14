@@ -33,10 +33,12 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	if(!istype(parrot_source))
 		return
 
-	if(!user.transferItemToLoc(radio, source))
+	if(!user.unEquip(radio, source))
 		return
 
 	parrot_source.ears = radio
+	parrot_source.update_available_channels()
+	parrot_source.update_speak()
 
 	to_chat(user, "<span class='notice'>You fit [radio] onto [source].</span>")
 
@@ -49,9 +51,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	if(!istype(parrot_source))
 		return
 
-	if(parrot_source.stat == CONSCIOUS)
-		var/list/list_of_channels = parrot_source.get_available_channels()
-		parrot_source.say("[list_of_channels ? "[pick(list_of_channels)] " : null]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!", forced = "attempted headset removal")
+	if(parrot_source.stat == CONSCIOUS) // DEAD PARROTS TELL NO TALES (Finally moved this out of topic, thank god)
+		parrot_source.say("[parrot_source.available_channels ? "[pick(parrot_source.available_channels)] " : null]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
 
 	return TRUE
 
@@ -62,3 +63,5 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 	parrot_source.ears.forceMove(parrot_source.drop_location())
 	parrot_source.ears = null
+	parrot_source.update_available_channels()
+	parrot_source.update_speak()

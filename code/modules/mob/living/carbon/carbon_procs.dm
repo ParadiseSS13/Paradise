@@ -803,7 +803,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			return l_hand
 		if(SLOT_HUD_RIGHT_HAND)
 			return r_hand
-		if(SLOT_HUD_HANDCUFFED)
+		if(SLOT_HUD_HANDCUFFED) // ctodo here
 			return handcuffed
 		if(SLOT_HUD_LEGCUFFED)
 			return legcuffed
