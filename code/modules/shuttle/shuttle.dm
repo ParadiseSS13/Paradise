@@ -284,7 +284,7 @@
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
 /obj/docking_port/mobile/proc/canMove()
-	return 0	//0 means we can move
+	return TRUE // TRUE means we can move. Why would it ever be otherwise?
 
 //this is to check if this shuttle can physically dock at dock S
 /obj/docking_port/mobile/proc/canDock(obj/docking_port/stationary/S)
@@ -450,7 +450,7 @@
 		if(!check_dock(S1))
 			return -1
 
-		if(canMove())
+		if(!canMove())
 			return -1
 
 	var/obj/docking_port/stationary/S0 = get_docked()
