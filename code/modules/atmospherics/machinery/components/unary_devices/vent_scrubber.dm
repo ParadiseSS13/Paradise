@@ -90,7 +90,7 @@
 			if(node)
 				add_underlay(T, node, dir, node.icon_connect_type)
 			else
-				add_underlay(T,, dir)
+				add_underlay(T, null, dir)
 			var/icon/frame = icon('icons/atmos/vent_scrubber.dmi', "frame")
 			underlays += frame
 
