@@ -111,6 +111,7 @@
 #include "code\__DEFINES\station_defines.dm"
 #include "code\__DEFINES\station_goals.dm"
 #include "code\__DEFINES\status_effects.dm"
+#include "code\__DEFINES\strippable.dm"
 #include "code\__DEFINES\subsystems.dm"
 #include "code\__DEFINES\supermatter_defines.dm"
 #include "code\__DEFINES\surgery_defines.dm"

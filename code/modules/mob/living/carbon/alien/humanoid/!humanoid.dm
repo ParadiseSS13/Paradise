@@ -3,8 +3,6 @@
 	icon_state = "alien_s"
 
 	butcher_results = list(/obj/item/food/snacks/monstermeat/xenomeat = 5, /obj/item/stack/sheet/animalhide/xeno = 1)
-	var/obj/item/r_store = null
-	var/obj/item/l_store = null
 	var/caste = ""
 	var/alt_icon = 'icons/mob/alienleap.dmi' //used to switch between the two alien icon files.
 	var/custom_pixel_x_offset = 0 //for admin fuckery.
@@ -14,6 +12,13 @@
 	var/alien_movement_delay = 0 //This can be + or -, how fast an alien moves
 	var/temperature_resistance = T0C+75
 	pass_flags = PASSTABLE
+
+GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
+	/datum/strippable_item/hand/left,
+	/datum/strippable_item/hand/right,
+	/datum/strippable_item/mob_item_slot/handcuffs,
+	/datum/strippable_item/mob_item_slot/legcuffs,
+)))
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/humanoid/Initialize(mapload)
@@ -25,18 +30,12 @@
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/regurgitate)
 	. = ..()
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
+	AddElement(/datum/element/strippable, GLOB.strippable_alien_humanoid_items)
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(check_drift = 0)
 	if(..())
 		return TRUE
 	return FALSE
-
-/mob/living/carbon/alien/humanoid/emp_act(severity)
-	if(r_store) 
-		r_store.emp_act(severity)
-	if(l_store) 
-		l_store.emp_act(severity)
-	..()
 
 /mob/living/carbon/alien/humanoid/ex_act(severity)
 	..()
@@ -87,7 +86,6 @@
 	dat += "<tr><td>&nbsp;</td></tr>"
 
 	dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_OUTER_SUIT]'>[(wear_suit && !(wear_suit.flags&ABSTRACT)) ? html_encode(wear_suit) : "<font color=grey>Empty</font>"]</A></td></tr>"
-	dat += "<tr><td><B>Pouches:</B></td><td><A href='?src=[UID()];item=pockets'>[((l_store && !(l_store.flags&ABSTRACT)) || (r_store && !(r_store.flags&ABSTRACT))) ? "Full" : "<font color=grey>Empty</font>"]</A>"
 
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>

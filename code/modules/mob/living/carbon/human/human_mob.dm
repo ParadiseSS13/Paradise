@@ -10,6 +10,7 @@
 	UpdateAppearance()
 	GLOB.human_list += src
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
+	AddElement(/datum/element/strippable, GLOB.strippable_human_items, TYPE_PROC_REF(/mob/living/carbon/human, should_strip))
 	RegisterSignal(src, COMSIG_BODY_TRANSFER_TO, PROC_REF(mind_checks))
 
 /**

@@ -74,13 +74,18 @@
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
 	collar_type = "corgi"
-	var/obj/item/inventory_head
-	var/obj/item/inventory_back
+	///Currently worn item on the head slot
+	var/obj/item/inventory_head = null
+	///Currently worn item on the back slot
+	var/obj/item/inventory_back = null
+	///Item slots that are available for this corgi to equip stuff into
+	var/list/strippable_inventory_slots = list()
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
 
 /mob/living/simple_animal/pet/dog/corgi/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/strippable, length(strippable_inventory_slots) ? create_strippable_list(strippable_inventory_slots) : GLOB.strippable_corgi_items)
 	regenerate_icons()
 
 /mob/living/simple_animal/pet/dog/corgi/Destroy()
@@ -677,6 +682,7 @@
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
+	strippable_inventory_slots = list(/datum/strippable_item/corgi_back, /datum/strippable_item/pet_collar, /datum/strippable_item/corgi_id) //Lisa already has a cute bow! // ctodo
 	var/turns_since_scan = 0
 
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Life()
