@@ -989,4 +989,29 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		result[1]++
 	return result
 
+/**
+ * Allows admins to safely pick from SSticker.minds for objectives
+ * - caller, mob to ask for results
+ * - blacklist, optional list of targets that are not available
+ * - default_target, the target to show in the list as default
+ */
+/proc/get_admin_objective_targets(mob/caller, list/blacklist, mob/default_target)
+	if(!islist(blacklist))
+		blacklist = list(blacklist)
+
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(!(possible_target in blacklist) && ishuman(possible_target.current))
+			possible_targets += possible_target.current // Allows for admins to pick off station roles
+
+	if(!length(possible_targets))
+		to_chat(caller, "<span class='warning'>No possible target found.</span>")
+		return
+
+	possible_targets = sortAtom(possible_targets)
+
+	var/mob/new_target = input(caller, "Select target:", "Objective target", default_target) as null|anything in possible_targets
+	if(!QDELETED(new_target))
+		return new_target.mind
+
 #undef PLAYER_NOTES_ENTRIES_PER_PAGE

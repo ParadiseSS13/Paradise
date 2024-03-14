@@ -14,7 +14,7 @@
 
 /datum/objective/sacrifice/find_target(list/target_blacklist)
 	. = ..()
-	if(target)
+	if(target && !(target in target_blacklist)) // check the blacklist, it wont update otherwise
 		return
 
 	//There are no living unconvertables on the station. Looking for a Sacrifice Target among the convertable minds

@@ -488,7 +488,18 @@
 	log_admin("[key_name(admin_caller)] Voice of [GET_CULT_DATA(entity_name, "Cult God")]: [input]")
 
 /datum/team/cult/proc/admin_reroll_sac_target(mob/user)
-	find_new_sacrifice_target()
+	var/datum/objective/sacrifice/current_obj = current_sac_objective()
+
+	var/choice = alert(usr, "How would you like to reroll the cult sacrifice?", "Pick objective", "Pick target", "Random reroll", "Cancel")
+	if(choice == "Pick target")
+		var/new_target = get_admin_objective_targets(user, get_target_excludes(), current_obj.target.current)
+		if(new_target)
+			current_obj.target = new_target
+			current_obj.update_explanation_text()
+	else if(choice == "Random reroll")
+		find_new_sacrifice_target()
+	else
+		return
 
 	message_admins("Admin [key_name_admin(user)] has rerolled the Cult's sacrifice target.")
 	log_admin("Admin [key_name_admin(user)] has rerolled the Cult's sacrifice target.")

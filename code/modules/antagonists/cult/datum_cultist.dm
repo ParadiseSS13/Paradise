@@ -70,6 +70,7 @@
 /datum/antagonist/cultist/on_body_transfer(old_body, new_body)
 	var/datum/team/cult/cult = get_team()
 	cult.cult_body_transfer(old_body, new_body)
+	add_cult_actions()
 
 /datum/antagonist/cultist/proc/rise()
 	if(!ishuman(owner.current))
