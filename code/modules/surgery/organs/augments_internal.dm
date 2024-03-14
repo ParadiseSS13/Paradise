@@ -363,11 +363,12 @@
 	return our_MA
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/emp_act(severity)
-	if(COOLDOWN_FINISHED(src, sensory_enhancer_cooldown)) //Not on cooldown? Drug them up. Heavily. We don't want people self emping to bypass cooldown.
-		if(prob(100 / severity) && owner)
-			for(var/datum/action/item_action/organ_action/toggle/sensory_enhancer/SE in owner.actions)
-				SE.Trigger(FALSE, TRUE, TRUE)
 	. = ..()
+	if(.)
+		if(COOLDOWN_FINISHED(src, sensory_enhancer_cooldown)) //Not on cooldown? Drug them up. Heavily. We don't want people self emping to bypass cooldown.
+			if(prob(100 / severity) && owner)
+				for(var/datum/action/item_action/organ_action/toggle/sensory_enhancer/SE in owner.actions)
+					SE.Trigger(FALSE, TRUE, TRUE)
 
 /datum/action/item_action/organ_action/toggle/sensory_enhancer
 	name = "Activate Qani-Laaca System"
