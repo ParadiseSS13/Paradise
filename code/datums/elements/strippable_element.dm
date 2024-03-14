@@ -349,7 +349,7 @@
 
 	var/mob/user = usr
 
-	switch (action)
+	switch(action)
 		if("use")
 			var/key = params["key"]
 			var/datum/strippable_item/strippable_item = strippable.items[key]
