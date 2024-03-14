@@ -119,7 +119,7 @@
 	manifest = new
 	SEND_SIGNAL(src, COMSIG_CARGO_BEGIN_SCAN)
 	for(var/atom/movable/AM in areaInstance)
-		if (!deep_scan(AM, TRUE))
+		if(!deep_scan(AM, TRUE))
 			return FALSE
 	return TRUE
 
@@ -129,7 +129,7 @@
 		return FALSE
 
 	for(var/atom/movable/child in AM)
-		if (!deep_scan(child))
+		if(!deep_scan(child))
 			return FALSE
 
 	if(handling != CARGO_SKIP_ATOM)
@@ -208,7 +208,7 @@
 			credit_changes[item.account] = 0
 		credit_changes[item.account] += item.credits
 
-		if (item.credits > 0)
+		if(item.credits > 0)
 			msg += "<span class='good'>[item.account.account_name] +[item.credits]</span>: [item.reason]<br>"
 		else
 			msg += "<span class='bad'>[item.account.account_name] [item.credits]</span>: [item.reason]<br>"
