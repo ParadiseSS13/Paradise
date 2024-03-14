@@ -429,7 +429,7 @@
 	if(!istype(I))
 		return FALSE
 	if(usr)
-		if(!Adjacent(usr))
+		if(!Adjacent(usr) && !isnewplayer(usr))
 			return FALSE
 		if(!usr.unEquip(I, silent = TRUE))
 			return FALSE

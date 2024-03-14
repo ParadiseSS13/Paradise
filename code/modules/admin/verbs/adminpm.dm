@@ -89,7 +89,7 @@
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
 		set_typing(C, TRUE)
-		msg = clean_input("Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", , src)
+		msg = clean_input("Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", null, src)
 		set_typing(C, FALSE)
 
 		if(!msg)
@@ -227,7 +227,7 @@
 	// We only allow PMs once every 10 seconds, othewrise the channel can get spammed very quickly
 	last_discord_pm_time = world.time + 10 SECONDS
 
-	var/msg = clean_input("Message:", "Private message to admins on Discord / 400 character limit", , src)
+	var/msg = clean_input("Message:", "Private message to admins on Discord / 400 character limit", null, src)
 
 	if(!msg)
 		return
