@@ -59938,17 +59938,12 @@
 	},
 /area/station/engineering/control)
 "jnZ" = (
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
-/obj/machinery/camera{
-	c_tag = "Detective's Office";
-	dir = 8
-	},
 /obj/item/kirbyplants/plant24,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/camera{
+	c_tag = "Brig Detective's Office";
+	dir = 8
+	},
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "joD" = (
@@ -78450,11 +78445,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/structure/disposalpipe/segment,
@@ -86955,11 +86945,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/structure/disposalpipe/segment,
@@ -92641,6 +92626,10 @@
 "xta" = (
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
+	},
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "xte" = (

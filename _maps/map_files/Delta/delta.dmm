@@ -30022,6 +30022,9 @@
 /area/station/maintenance/starboard2)
 "bHK" = (
 /obj/structure/closet/secure_closet/detective,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/detective)
 "bHM" = (
@@ -31435,18 +31438,8 @@
 /area/station/security/detective)
 "bLo" = (
 /obj/machinery/camera{
-	c_tag = "Detective's Office";
-	dir = 4;
-	network = list("Research","SS13");
-	pixel_y = -22
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
+	c_tag = "Brig Detective's Office";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/detective)
@@ -33036,7 +33029,14 @@
 /obj/machinery/button/windowtint{
 	dir = 1;
 	id = "Detective";
-	pixel_y = -24
+	pixel_y = -24;
+	pixel_x = 5
+	},
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24;
+	pixel_x = -5
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/detective)
@@ -65193,8 +65193,8 @@
 /area/station/service/chapel/office)
 "dUK" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/poppy/geranium,
-/obj/item/food/snacks/grown/poppy/lily{
+/obj/item/food/snacks/grown/geranium,
+/obj/item/food/snacks/grown/lily{
 	pixel_x = 4;
 	pixel_y = 5
 	},
