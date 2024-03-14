@@ -307,11 +307,15 @@
 
 		var/list/result
 
+		var/obj/item/item = item_data.get_item(owner)
+		if(item && (item.flags & ABSTRACT))
+			items[strippable_key] = result
+			return
+
 		if(strippable_key in LAZYACCESS(interactions, user))
 			LAZYSET(result, "interacting", TRUE)
 
 		var/obscuring = item_data.get_obscuring(owner)
-		var/obj/item/item = item_data.get_item(owner)
 		if(obscuring == STRIPPABLE_OBSCURING_COMPLETELY || (item && !item.canStrip(user)))
 			LAZYSET(result, "cantstrip", TRUE)
 
