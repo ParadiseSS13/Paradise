@@ -11,11 +11,11 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 /datum/strippable_item/parrot_headset/try_equip(atom/source, obj/item/equipping, mob/user)
 	. = ..()
-	if (!.)
+	if(!.)
 		return FALSE
 
-	if (!istype(equipping, /obj/item/radio/headset))
-		to_chat(user, span_warning("[equipping] won't fit!"))
+	if(!istype(equipping, /obj/item/radio/headset))
+		to_chat(user, "<span class='warning'>[equipping] won't fit!</span>")
 		return FALSE
 
 	return TRUE
@@ -26,30 +26,30 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 /datum/strippable_item/parrot_headset/finish_equip(atom/source, obj/item/equipping, mob/user)
 	var/obj/item/radio/headset/radio = equipping
-	if (!istype(radio))
+	if(!istype(radio))
 		return
 
 	var/mob/living/basic/parrot/parrot_source = source
-	if (!istype(parrot_source))
+	if(!istype(parrot_source))
 		return
 
-	if (!user.transferItemToLoc(radio, source))
+	if(!user.transferItemToLoc(radio, source))
 		return
 
 	parrot_source.ears = radio
 
-	to_chat(user, span_notice("You fit [radio] onto [source]."))
+	to_chat(user, "<span class='notice'>You fit [radio] onto [source].</span>")
 
 /datum/strippable_item/parrot_headset/start_unequip(atom/source, mob/user)
 	. = ..()
-	if (!.)
+	if(!.)
 		return FALSE
 
 	var/mob/living/basic/parrot/parrot_source = source
-	if (!istype(parrot_source))
+	if(!istype(parrot_source))
 		return
 
-	if (parrot_source.stat == CONSCIOUS)
+	if(parrot_source.stat == CONSCIOUS)
 		var/list/list_of_channels = parrot_source.get_available_channels()
 		parrot_source.say("[list_of_channels ? "[pick(list_of_channels)] " : null]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!", forced = "attempted headset removal")
 
@@ -57,7 +57,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 /datum/strippable_item/parrot_headset/finish_unequip(atom/source, mob/user)
 	var/mob/living/basic/parrot/parrot_source = source
-	if (!istype(parrot_source))
+	if(!istype(parrot_source))
 		return
 
 	parrot_source.ears.forceMove(parrot_source.drop_location())

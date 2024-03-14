@@ -1,7 +1,7 @@
 /// An element for atoms that, when dragged and dropped onto a mob, opens a strip panel.
 /datum/element/strippable
 	element_flags = ELEMENT_BESPOKE | ELEMENT_DETACH_ON_HOST_DESTROY
-	argument_hash_start_idx = 2
+	id_arg_index = 2
 
 	/// An assoc list of keys to /datum/strippable_item
 	var/list/items
@@ -75,14 +75,11 @@
 /// This should be used for checking if an item CAN be equipped.
 /// It should not perform the equipping itself.
 /datum/strippable_item/proc/try_equip(atom/source, obj/item/equipping, mob/user)
-	if(SEND_SIGNAL(user, COMSIG_TRY_STRIP, source, equipping) & COMPONENT_CANT_STRIP)
+	if(equipping.flags & NODROP)
+		to_chat(user, "<span class='warning'>You can't put [equipping] on [source], it's stuck to your hand!</span>")
 		return FALSE
 
-	if(HAS_TRAIT(equipping, TRAIT_NODROP))
-		to_chat(user, span_warning("You can't put [equipping] on [source], it's stuck to your hand!"))
-		return FALSE
-
-	if(equipping.item_flags & ABSTRACT)
+	if(equipping.flags & ABSTRACT)
 		return FALSE //I don't know a sane-sounding feedback message for trying to put a slap into someone's hand
 
 	return TRUE
@@ -110,8 +107,6 @@
 		return FALSE
 
 	if(ismob(source))
-		if(SEND_SIGNAL(user, COMSIG_TRY_STRIP, source, item) & COMPONENT_CANT_STRIP)
-			return FALSE
 		var/mob/mob_source = source
 		if(!item.canStrip(user, mob_source))
 			return FALSE
@@ -125,30 +120,21 @@
 	if(isnull(item))
 		return FALSE
 
-	if(HAS_TRAIT(item, TRAIT_NO_STRIP))
-		return FALSE
-
 	source.visible_message(
-		span_warning("[user] tries to remove [source]'s [item.name]."),
-		span_userdanger("[user] tries to remove your [item.name]."),
-		blind_message = span_hear("You hear rustling."),
-		ignored_mobs = user,
+		"<span class='warning'>[user] tries to remove [source]'s [item.name].</span>",
+		"<span class='userdanger'>[user] tries to remove your [item.name].</span>",
+		blind_message = "You hear rustling."
 	)
 
-	to_chat(user, span_danger("You try to remove [source]'s [item.name]..."))
+	to_chat(user, "<span class='danger'>You try to remove [source]'s [item.name]...</span>")
 	user.log_message("is stripping [key_name(source)] of [item].", LOG_ATTACK, color="red")
 	source.log_message("is being stripped of [item] by [key_name(user)].", LOG_VICTIM, color="orange", log_globally=FALSE)
 	item.add_fingerprint(src)
 
 	if(ishuman(source))
 		var/mob/living/carbon/human/victim_human = source
-		if(victim_human.key && !victim_human.client) // AKA braindead
-			if(victim_human.stat <= SOFT_CRIT && LAZYLEN(victim_human.afk_thefts) <= AFK_THEFT_MAX_MESSAGES)
-				var/list/new_entry = list(list(user.name, "tried unequipping your [item.name]", world.time))
-				LAZYADD(victim_human.afk_thefts, new_entry)
-
-		else if(victim_human.is_blind())
-			to_chat(source, span_userdanger("You feel someone fumble with your belongings."))
+		if(!victim_human.has_vision())
+			to_chat(source, "<span class='userdanger'>You feel someone fumble with your belongings.</span>")
 
 	return TRUE
 
@@ -171,8 +157,6 @@
 /// Returns FALSE if blocked by signal, TRUE otherwise.
 /datum/strippable_item/proc/alternate_action(atom/source, mob/user)
 	SHOULD_CALL_PARENT(TRUE)
-	if(SEND_SIGNAL(user, COMSIG_TRY_ALT_ACTION, source) & COMPONENT_CANT_ALT_ACTION)
-		return FALSE
 	return TRUE
 
 /// Returns whether or not this item should show.
@@ -181,7 +165,7 @@
 
 /// A preset for equipping items onto mob slots
 /datum/strippable_item/mob_item_slot
-	/// The ITEM_SLOT_* to equip to.
+	/// The SLOT_FLAG_* to equip to.
 	var/item_slot
 
 /datum/strippable_item/mob_item_slot/get_item(atom/source)
@@ -200,7 +184,7 @@
 		return FALSE
 
 	if(!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
-		to_chat(user, span_warning("\The [equipping] doesn't fit in that place!"))
+		to_chat(user, "<span class='warning'>\The [equipping] doesn't fit in that place!</span>")
 		return FALSE
 
 	return TRUE
@@ -270,7 +254,9 @@
 
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
-	if(!do_after(user, strip_delay || item.strip_delay, source, interaction_key = REF(item)))
+	if(!strip_delay)
+		strip_delay = item.strip_delay
+	if(!do_after(user, strip_delay, source))
 		return FALSE
 
 	return TRUE
@@ -324,7 +310,7 @@
 
 	var/list/items = list()
 
-	for (var/strippable_key in strippable.items)
+	for(var/strippable_key in strippable.items)
 		var/datum/strippable_item/item_data = strippable.items[strippable_key]
 
 		if(!item_data.should_show(owner, user))
@@ -342,7 +328,7 @@
 			continue
 
 		var/obj/item/item = item_data.get_item(owner)
-		if(isnull(item) || (HAS_TRAIT(item, TRAIT_NO_STRIP) || (item.item_flags & EXAMINE_SKIP)))
+		if(isnull(item) || (item.flags & EXAMINE_SKIP))
 			items[strippable_key] = result
 			continue
 
@@ -474,22 +460,23 @@
 	return GLOB.always_state
 
 /datum/strip_menu/ui_status(mob/user, datum/ui_state/state)
-	return min(
-		ui_status_only_living(user, owner),
-		ui_status_user_has_free_hands(user, owner),
-		ui_status_user_is_adjacent(user, owner, allow_tk = FALSE),
-		HAS_TRAIT(user, TRAIT_CAN_STRIP) ? UI_INTERACTIVE : UI_UPDATE,
-		max(
-			ui_status_user_is_conscious_and_lying_down(user),
-			ui_status_user_is_abled(user, owner),
-		),
-	)
+	return ..() // ctodo
+	// return min( // ctodo ui status for this
+	// 	ui_status_only_living(user, owner),
+	// 	ui_status_user_has_free_hands(user, owner),
+	// 	ui_status_user_is_adjacent(user, owner, allow_tk = FALSE),
+	// 	HAS_TRAIT(user, TRAIT_CAN_STRIP) ? UI_INTERACTIVE : UI_UPDATE,
+	// 	max(
+	// 		ui_status_user_is_conscious_and_lying_down(user),
+	// 		ui_status_user_is_abled(user, owner),
+	// 	),
+	// )
 
 /// Creates an assoc list of keys to /datum/strippable_item
 /proc/create_strippable_list(types)
 	var/list/strippable_items = list()
 
-	for (var/strippable_type in types)
+	for(var/strippable_type in types)
 		var/datum/strippable_item/strippable_item = new strippable_type
 		strippable_items[strippable_item.key] = strippable_item
 

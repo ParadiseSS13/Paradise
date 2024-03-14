@@ -482,6 +482,7 @@
 #include "code\datums\elements\earhealing.dm"
 #include "code\datums\elements\rad_insulation.dm"
 #include "code\datums\elements\shatters_when_thrown.dm"
+#include "code\datums\elements\strippable_element.dm"
 #include "code\datums\elements\waddling.dm"
 #include "code\datums\helper_datums\async_input.dm"
 #include "code\datums\helper_datums\construction_datum.dm"

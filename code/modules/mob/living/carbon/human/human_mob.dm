@@ -519,8 +519,8 @@
 						add_attack_logs(usr, src, "Equipped with [place_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 				// Update strip window
-				if(usr.machine == src && in_range(src, usr))
-					show_inv(usr)
+				// if(usr.machine == src && in_range(src, usr))
+				// 	show_inv(usr)
 			else
 				// Display a warning if the user mocks up if they don't have pickpocket gloves.
 				if(!thief_mode)

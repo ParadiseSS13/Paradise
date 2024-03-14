@@ -75,8 +75,8 @@
 			if(success)
 				visible_message("<span class='danger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>", \
 									"<span class='userdanger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>")
-				if(usr.machine == wearer && in_range(src, usr))
-					wearer.show_inv(usr)
+				// if(usr.machine == wearer && in_range(src, usr))
+					// wearer.show_inv(usr)
 		else
 			to_chat(usr, "You lack the ability to manipulate the lock.")
 

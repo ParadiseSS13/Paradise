@@ -247,7 +247,7 @@
 					update_corgi_fluff()
 					regenerate_icons()
 
-		show_inv(usr)
+		// show_inv(usr)
 
 	//Adding things to inventory
 	else if(href_list["add_inv"])
@@ -300,7 +300,7 @@
 					update_corgi_fluff()
 					regenerate_icons()
 
-		show_inv(usr)
+		// show_inv(usr)
 	else
 		return ..()
 

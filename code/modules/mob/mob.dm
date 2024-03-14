@@ -895,10 +895,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		unset_machine()
 		src << browse(null, t1)
 
-	if(href_list["refresh"])
-		if(machine && in_range(src, usr))
-			show_inv(machine)
-
 	if(!usr.incapacitated() && in_range(src, usr))
 		if(href_list["item"])
 			var/slot = text2num(href_list["item"])
@@ -908,12 +904,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				usr.stripPanelUnequip(what,src,slot)
 			else
 				usr.stripPanelEquip(what,src,slot)
-
-	if(usr.machine == src)
-		if(Adjacent(usr))
-			show_inv(usr)
-		else
-			usr << browse(null,"window=mob\ref[src]")
 
 	if(href_list["flavor_more"])
 		usr << browse(text("<html><meta charset='utf-8'><head><title>[]</title></head><body><tt>[]</tt></body></html>", name, replacetext(flavor_text, "\n", "<br>")), "window=[name];size=500x200")
@@ -953,7 +943,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return
 	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
 		return
-	show_inv(usr)
+	// show_inv(usr)
 
 /mob/proc/can_use_hands()
 	return

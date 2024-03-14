@@ -151,7 +151,7 @@
 					else
 						to_chat(usr, "<span class='warning'>There is nothing to remove from its [remove_from].</span>")
 						return
-			show_inv(usr)
+			// show_inv(usr)
 		else if(href_list["add_inv"])
 			var/add_to = href_list["add_inv"]
 			if(!usr.get_active_hand())
@@ -199,7 +199,7 @@
 						if(headset_to_add.translate_binary)
 							available_channels.Add(":b")
 						update_speak()
-			show_inv(usr)
+			// show_inv(usr)
 		else
 			..()
 

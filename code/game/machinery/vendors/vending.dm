@@ -364,7 +364,7 @@
 			to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
 		return
 
-	if(item_slot_check(user, I))
+	if(SLOT_FLAG_check(user, I))
 		insert_item(user, I)
 		return
 	. = ..()
@@ -479,7 +479,7 @@
 	default_unfasten_wrench(user, I, time = 6 SECONDS)
 
 //Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
-/obj/machinery/economy/vending/proc/item_slot_check(mob/user, obj/item/I)
+/obj/machinery/economy/vending/proc/SLOT_FLAG_check(mob/user, obj/item/I)
 	if(!item_slot)
 		return FALSE
 	if(inserted_item)
@@ -487,8 +487,8 @@
 		return FALSE
 	return TRUE
 
-/* Example override for item_slot_check proc:
-/obj/machinery/economy/vending/example/item_slot_check(mob/user, obj/item/I)
+/* Example override for SLOT_FLAG_check proc:
+/obj/machinery/economy/vending/example/SLOT_FLAG_check(mob/user, obj/item/I)
 	if(!..())
 		return FALSE
 	if(!istype(I, /obj/item/toy))
