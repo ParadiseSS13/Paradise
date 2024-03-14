@@ -240,6 +240,7 @@
 	attacked_sound = "sound/items/eatfood.ogg"
 	deathmessage = "loses its false life and collapses!"
 	death_sound = "bodyfall"
+	/// Number of times the corpse has been bitten
 	var/final_bites = 0
 	// In practice, this is one less than it appears, because final_bites
 	// gets incremented by the bite that kills Keeki.  So total_final_bites
