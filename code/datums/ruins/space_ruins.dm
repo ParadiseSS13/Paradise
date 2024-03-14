@@ -124,10 +124,9 @@
 /datum/map_template/ruin/space/mech_transport
 	id = "mech-transport"
 	suffix = "mechtransport.dmm"
-	name = "CF Corsair"
-	description = "Well, when is it getting here? I have bills to pay; very \
-		well-armed clients who want their shipments as soon as possible! I \
-		don't care, just find it!"
+	name = "Cybersun Exosuit Factory Ship"
+	allow_duplicates = FALSE
+	description = "A crashed mobile mech factory under security lockdown."
 
 /datum/map_template/ruin/space/onehalf
 	id = "onehalf"
