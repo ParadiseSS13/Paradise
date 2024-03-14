@@ -1055,11 +1055,7 @@
 /obj/machinery/door_control/shutter/north{
 	id = "sectorcmain"
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "bvd" = (
 /turf/simulated/floor/plasteel/smooth{
@@ -1437,11 +1433,7 @@
 	dir = 1
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "bNB" = (
 /obj/structure/table,
@@ -1462,11 +1454,7 @@
 /area/awaymission/black_mesa/xen/lost_camp)
 "bOq" = (
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/lambda_teleporter)
 "bOB" = (
 /obj/item/aicard,
@@ -1588,11 +1576,7 @@
 	dir = 1
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "bWq" = (
 /obj/structure/rack/gunrack,
@@ -3181,11 +3165,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/lambda_teleporter)
 "dUt" = (
 /obj/structure/table,
@@ -4098,11 +4078,7 @@
 	dir = 8
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "eYn" = (
 /turf/simulated/floor/beach/away/coastline/xen/edge_drop{
@@ -4976,11 +4952,7 @@
 	dir = 9
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "get" = (
 /turf/simulated/floor/plasteel/dark{
@@ -5279,11 +5251,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "gxb" = (
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "gxj" = (
 /obj/machinery/door/airlock/command,
@@ -5757,11 +5725,7 @@
 	dir = 10
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "hbJ" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -6319,11 +6283,7 @@
 /area/awaymission/black_mesa/gas_emitter_chamber)
 "hNN" = (
 /obj/structure/flora/rock,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/high_security_servers)
 "hOh" = (
 /obj/item/ammo_box/magazine/enforcer/lethal,
@@ -6494,11 +6454,7 @@
 "icx" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/lambda_teleporter)
 "icy" = (
 /obj/machinery/light/directional/west,
@@ -7030,22 +6986,14 @@
 /obj/structure/railing{
 	dir = 10
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/lambda_teleporter)
 "iNC" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
 	dir = 6
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/lambda_teleporter)
 "iNF" = (
 /obj/structure/closet/l3closet/security,
@@ -8063,11 +8011,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/tram_room)
 "jYB" = (
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/tram_room)
 "jYW" = (
 /obj/effect/turf_decal/siding/trimline/blue{
@@ -8828,11 +8772,7 @@
 /obj/structure/railing{
 	dir = 5
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/lambda_teleporter)
 "kRH" = (
 /turf/simulated/floor/beach/away/coastline/xen/edge_drop{
@@ -8928,11 +8868,7 @@
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/black_mesa/dorm_tunnel)
 "kXV" = (
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/deep_sci_turret)
 "kXZ" = (
 /obj/effect/landmark/awaymissions/black_mesa/random_mob_placer/vortigaunt_hostile,
@@ -8991,11 +8927,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/deep_sci_turret)
 "lbj" = (
 /obj/structure/stone_tile/slab,
@@ -9090,11 +9022,7 @@
 "lkL" = (
 /obj/structure/railing/corner,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "lkQ" = (
 /obj/structure/inflatable/door{
@@ -9642,11 +9570,7 @@
 /area/awaymission/black_mesa/science_labs)
 "lPM" = (
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "lPN" = (
 /obj/structure/chair/sofa/corp/left{
@@ -9681,11 +9605,7 @@
 /obj/structure/railing{
 	dir = 9
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/lambda_teleporter)
 "lRP" = (
 /obj/machinery/computer/nonfunctional,
@@ -10112,11 +10032,7 @@
 "mwb" = (
 /obj/machinery/light/directional/north,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "mwg" = (
 /obj/structure/chair/office{
@@ -10423,11 +10339,7 @@
 "mPD" = (
 /obj/structure/railing,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "mPR" = (
 /obj/effect/mob_spawn/human/corpse/damaged,
@@ -10725,11 +10637,7 @@
 /obj/machinery/power/emitter{
 	anchored = 1
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/lambda_teleporter)
 "nea" = (
 /obj/structure/flora/biolumini,
@@ -10752,11 +10660,7 @@
 "ngN" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "nhd" = (
 /obj/structure/closet/crate/secure/weapon,
@@ -11527,11 +11431,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/security_outpost)
 "oes" = (
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/high_security_servers)
 "oeA" = (
 /obj/structure/table,
@@ -12892,11 +12792,7 @@
 /area/awaymission/black_mesa/xen/freeman_hallway)
 "pKU" = (
 /obj/machinery/light_construct/directional/west,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/high_security_servers)
 "pLt" = (
 /obj/structure/bed/roller,
@@ -14191,11 +14087,7 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/lambda_teleporter)
 "rpk" = (
 /obj/structure/flora/rock/pile,
@@ -14881,11 +14773,7 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "sgC" = (
 /obj/item/kirbyplants,
@@ -15678,11 +15566,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "tgn" = (
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/xen/nihilanth_arena)
 "tgq" = (
 /obj/effect/turf_decal/stripes/line{
@@ -15855,11 +15739,7 @@
 	dir = 4;
 	anchored = 1
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/lambda_teleporter)
 "ttW" = (
 /obj/structure/rack,
@@ -16102,11 +15982,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/lambda_teleporter)
 "tJO" = (
 /obj/structure/rack/gunrack,
@@ -17065,11 +16941,7 @@
 /turf/simulated/floor/plating/xen,
 /area/awaymission/black_mesa/xen/entering_zone)
 "uSx" = (
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/lambda_teleporter)
 "uTs" = (
 /obj/machinery/suit_storage_unit/hev_suit,
@@ -17302,22 +17174,14 @@
 	dir = 6
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "viY" = (
 /obj/structure/railing/corner{
 	dir = 8
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "vjm" = (
 /obj/effect/turf_decal/siding/trimline/blue/corner{
@@ -17663,11 +17527,7 @@
 /obj/structure/sign/electricshock{
 	pixel_x = 32
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "vJf" = (
 /obj/structure/table,
@@ -18507,11 +18367,7 @@
 	dir = 1;
 	anchored = 1
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/lambda_teleporter)
 "wKG" = (
 /turf/simulated/wall/indestructible/riveted,
@@ -18861,11 +18717,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/lambda_teleporter)
 "xdi" = (
 /turf/simulated/wall/indestructible/riveted,
@@ -19218,11 +19070,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/lambda_teleporter)
 "xCC" = (
 /obj/effect/landmark/awaymissions/black_mesa/random_mob_placer,
@@ -19451,11 +19299,7 @@
 	dir = 5
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "xTU" = (
 /obj/effect/landmark/damageturf,
@@ -19550,11 +19394,7 @@
 /obj/structure/sign/electricshock{
 	pixel_x = -32
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "xYF" = (
 /obj/structure/sign/biohazard,
@@ -19645,11 +19485,7 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	light_color = null;
-	light_range = 0;
-	light_power = 0
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "yeI" = (
 /obj/effect/baseturf_helper{

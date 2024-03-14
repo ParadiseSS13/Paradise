@@ -240,3 +240,10 @@
 /turf/simulated/floor/plating/dirt/xen_dirt
 	name = "strange path"
 	color = "#ee5f1c"
+
+/* Away Chasm */
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp
+	planetary_atmos = FALSE
+	light_color = null
+	light_power = 0
+	light_range = 0 // removing faint glow
