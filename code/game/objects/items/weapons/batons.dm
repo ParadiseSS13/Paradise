@@ -157,7 +157,6 @@
 	item_state = null
 	slot_flags = SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	needs_permit = TRUE
 	on = FALSE
 	/// Force when concealed
 	var/force_off = 0
