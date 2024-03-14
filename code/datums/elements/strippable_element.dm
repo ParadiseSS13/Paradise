@@ -187,7 +187,7 @@
 	if(!ismob(source))
 		return FALSE
 
-	if(!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
+	if(!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE)
 		to_chat(user, "<span class='warning'>\The [equipping] doesn't fit in that place!</span>")
 		return FALSE
 
@@ -201,7 +201,7 @@
 	if(!ismob(source))
 		return FALSE
 
-	if(!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
+	if(!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE)
 		return FALSE
 
 	return TRUE
@@ -383,15 +383,11 @@
 					if(QDELETED(src) || QDELETED(owner))
 						return
 
-					// They equipped an item in the meantime
-					if(!isnull(strippable_item.get_item(owner)))
-						// user.put_in_hands(held_item) // ctodo i dont think we need this put_in_hands
+					// They equipped an item in the meantime, or they're no longer adjacent
+					if(!isnull(strippable_item.get_item(owner)) || !user.Adjacent(owner))
 						return
 
-					if(!user.Adjacent(owner))
-						// user.put_in_hands(held_item) // ctodo i dont think we need this put_in_hands
-						return
-
+					// make sure to drop the item
 					if(!user.unEquip(held_item))
 						return
 

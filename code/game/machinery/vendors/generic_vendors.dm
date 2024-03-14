@@ -145,7 +145,7 @@
 /obj/machinery/economy/vending/coffee/free
 	prices = list()
 
-/obj/machinery/economy/vending/coffee/SLOT_FLAG_check(mob/user, obj/item/I)
+/obj/machinery/economy/vending/coffee/item_slot_check(mob/user, obj/item/I)
 	if(!(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks)))
 		return FALSE
 	if(!..())

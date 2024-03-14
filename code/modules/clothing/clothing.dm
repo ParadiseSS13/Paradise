@@ -83,7 +83,7 @@
 	return FALSE
 
 //BS12: Species-restricted clothing check.
-/obj/item/clothing/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
+/obj/item/clothing/mob_can_equip(mob/M, slot, disable_warning = FALSE)
 
 	//if we can't equip the item anyway, don't bother with species_restricted (also cuts down on spam)
 	if(!..())
