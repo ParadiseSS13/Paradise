@@ -1,4 +1,7 @@
 /* Beach */
+/turf/simulated/floor/beach/away
+	planetary_atmos = FALSE
+
 /turf/simulated/floor/beach/away/coastline/beachcorner
 	name = "beachcorner"
 	icon = 'modular_ss220/maps220/icons/floors.dmi'
