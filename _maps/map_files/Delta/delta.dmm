@@ -8444,7 +8444,7 @@
 "aEM" = (
 /obj/structure/disposalpipe/trunk,
 /obj/structure/disposaloutlet{
-	name = "evidence outlet"
+	name = "cargo outlet"
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -9618,9 +9618,7 @@
 /area/station/public/toilet)
 "aHZ" = (
 /obj/structure/disposalpipe/trunk,
-/obj/structure/disposaloutlet{
-	name = "evidence outlet"
-	},
+/obj/structure/disposaloutlet,
 /turf/simulated/floor/plating,
 /area/station/supply/sorting)
 "aIa" = (
@@ -30024,6 +30022,9 @@
 /area/station/maintenance/starboard2)
 "bHK" = (
 /obj/structure/closet/secure_closet/detective,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/detective)
 "bHM" = (
@@ -31437,18 +31438,8 @@
 /area/station/security/detective)
 "bLo" = (
 /obj/machinery/camera{
-	c_tag = "Detective's Office";
-	dir = 4;
-	network = list("Research","SS13");
-	pixel_y = -22
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
+	c_tag = "Brig Detective's Office";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/detective)
@@ -33038,7 +33029,14 @@
 /obj/machinery/button/windowtint{
 	dir = 1;
 	id = "Detective";
-	pixel_y = -24
+	pixel_y = -24;
+	pixel_x = 5
+	},
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24;
+	pixel_x = -5
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/detective)
@@ -66291,7 +66289,7 @@
 "ebU" = (
 /obj/machinery/computer/general_air_control{
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor" = "Burn Mix");
+	autolink_sensors = list("burn_sensor"="Burn Mix");
 	dir = 1
 	},
 /obj/machinery/ignition_switch{
@@ -66457,17 +66455,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/rd)
-"ehV" = (
-/obj/structure/grille,
-/obj/structure/window/plasmareinforced{
-	dir = 1
-	},
-/obj/structure/window/plasmareinforced,
-/obj/machinery/atmospherics/meter{
-	layer = 3.3
-	},
-/turf/simulated/floor/plating,
-/area/station/science/toxins/mixing)
 "eir" = (
 /obj/machinery/economy/vending/cart,
 /obj/machinery/computer/security/telescreen/entertainment{
@@ -69333,7 +69320,7 @@
 	inlet_injector_autolink_id = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	outlet_vent_autolink_id = "n2o_out";
-	autolink_sensors = list("n2o_sensor" = "Tank")
+	autolink_sensors = list("n2o_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -72201,7 +72188,7 @@
 	name = "Mixed Air Supply Control";
 	outlet_vent_autolink_id = "air_out";
 	outlet_setting = 2000;
-	autolink_sensors = list("air_sensor" = "Tank")
+	autolink_sensors = list("air_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 10
@@ -75594,7 +75581,7 @@
 	inlet_injector_autolink_id = "n2_in";
 	name = "Nitrogen Supply Control";
 	outlet_vent_autolink_id = "n2_out";
-	autolink_sensors = list("n2_sensor" = "Tank")
+	autolink_sensors = list("n2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -80163,13 +80150,13 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
 "myx" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
 	},
 /turf/simulated/floor/plating,
 /area/station/medical/coldroom)
@@ -81180,7 +81167,7 @@
 	inlet_injector_autolink_id = "tox_in";
 	name = "Toxin Supply Control";
 	outlet_vent_autolink_id = "tox_out";
-	autolink_sensors = list("tox_sensor" = "Tank")
+	autolink_sensors = list("tox_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -83276,7 +83263,7 @@
 	inlet_injector_autolink_id = "waste_in";
 	name = "Gas Mix Tank Control";
 	outlet_vent_autolink_id = "waste_out";
-	autolink_sensors = list("waste_sensor" = "Tank")
+	autolink_sensors = list("waste_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel{
@@ -86504,7 +86491,7 @@
 	inlet_injector_autolink_id = "o2_in";
 	name = "Oxygen Supply Control";
 	outlet_vent_autolink_id = "o2_out";
-	autolink_sensors = list("o2_sensor" = "Tank")
+	autolink_sensors = list("o2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -89723,7 +89710,7 @@
 	inlet_injector_autolink_id = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	outlet_vent_autolink_id = "co2_out";
-	autolink_sensors = list("co2_sensor" = "Tank")
+	autolink_sensors = list("co2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel/dark,
@@ -132096,7 +132083,7 @@ ecs
 dyz
 iTn
 wbZ
-ehV
+vaZ
 wRN
 cKu
 sMj
@@ -132610,7 +132597,7 @@ lwr
 vhS
 nBP
 xkJ
-ehV
+vaZ
 jzV
 cRy
 qwo
