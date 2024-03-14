@@ -1,7 +1,7 @@
 /obj/item/stack/medical
 	name = "medical pack"
 	singular_name = "medical pack"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/medical.dmi'
 	amount = 6
 	max_amount = 6
 	w_class = WEIGHT_CLASS_TINY
@@ -180,7 +180,7 @@
 
 /obj/item/stack/medical/bruise_pack/advanced
 	name = "advanced trauma kit"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/medical.dmi'
 	singular_name = "advanced trauma kit"
 	desc = "An advanced trauma kit for severe injuries."
 	icon_state = "traumakit"
@@ -253,7 +253,7 @@
 	name = "advanced burn kit"
 	singular_name = "advanced burn kit"
 	desc = "An advanced treatment kit for severe burns."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/medical.dmi'
 	icon_state = "burnkit"
 	belt_icon = "burnkit"
 	heal_burn = 25
@@ -268,12 +268,11 @@
 
 //Medical Herbs//
 /obj/item/stack/medical/bruise_pack/comfrey
-	name = "\improper Comfrey leaf"
-	singular_name = "Comfrey leaf"
-	desc = "A soft leaf that is rubbed on bruises."
-	icon = 'icons/obj/hydroponics/harvest.dmi'
-	icon_state = "tea_aspera_leaves"
-	color = "#378C61"
+	name = "\improper Comfrey poultice"
+	singular_name = "Comfrey poultice"
+	desc = "A medical poultice for treating brute injuries, made from crushed comfrey leaves. The effectiveness of the poultice depends on the potency of the comfrey it was made from."
+	icon = 'icons/obj/medical.dmi'
+	icon_state = "traumapoultice"
 	max_amount = 6
 	stop_bleeding = 0
 	heal_brute = 12
@@ -287,14 +286,20 @@
 	return ..()
 
 /obj/item/stack/medical/ointment/aloe
-	name = "\improper Aloe Vera leaf"
-	singular_name = "Aloe Vera leaf"
-	desc = "A cold leaf that is rubbed on burns."
-	icon = 'icons/obj/hydroponics/harvest.dmi'
-	icon_state = "ambrosiavulgaris"
-	color = "#4CC5C7"
+	name = "\improper Aloe Vera poultice"
+	singular_name = "Aloe Vera poultice"
+	desc = "A medical poultice for treating burns, made from crushed aloe vera leaves. The effectiveness of the poultice depends on the potency of the aloe it was made from."
+	icon = 'icons/obj/medical.dmi'
+	icon_state = "burnpoultice"
 	heal_burn = 12
+	drop_sound = 'sound/misc/moist_impact.ogg'
+	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
+	hitsound = 'sound/misc/moist_impact.ogg'
 	dynamic_icon_state = FALSE
+
+/obj/item/stack/medical/ointment/aloe/heal(mob/living/M, mob/user)
+	playsound(src, 'sound/misc/soggy.ogg', 30, TRUE)
+	return ..()
 
 // Splints
 /obj/item/stack/medical/splint
