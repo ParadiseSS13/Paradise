@@ -438,6 +438,23 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>View Range:</b> <a href='?_src_=prefs;preference=setviewrange'>[viewrange]</a><br>"
 			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Modsuit Activation Method:</b> <a href='?_src_=prefs;preference=mam'>[(toggles2 & PREFTOGGLE_2_MOD_ACTIVATION_METHOD) ? "Middle Click" : "Alt Click"]</a><br>"
+			dat += "<b>Lighting settings:</b><br>"
+			dat += "<b> - Old Lighting:</b> <a href='?_src_=prefs;preference=enablelighting'>[(old_lighting) ? "Yes" : "No"]</a><br>"
+			dat += "<b> - Glow Level:</b> <a href='?_src_=prefs;preference=glowlevel'>"
+			switch(glowlevel)
+				if(GLOW_LOW)
+					dat += "Low"
+				if(GLOW_MED)
+					dat += "Medium"
+				if(GLOW_HIGH)
+					dat += "High"
+				if(GLOW_DISABLE)
+					dat += "Disabled"
+				else
+					dat += "Medium"
+			dat += "</a><br>"
+			dat += "<b> - Lamp Exposure:</b> <a href='?_src_=prefs;preference=exposure'>[(lampsexposure) ? "Yes" : "No"]</a><br>"
+			dat += "<b> - Lamp Glare:</b> <a href='?_src_=prefs;preference=glare'>[(lampsglare) ? "Yes" : "No"]</a><br>"
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='405px' height='300px' valign='top'>"
 			dat += "<h2>Interface Settings</h2>"

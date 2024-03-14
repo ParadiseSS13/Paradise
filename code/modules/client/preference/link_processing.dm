@@ -953,6 +953,18 @@
 				if("ghost_att_anim")
 					toggles2 ^= PREFTOGGLE_2_ITEMATTACK
 
+				if("enablelighting")
+					user.client.toggle_oldnew_lighting()
+
+				if("glowlevel")
+					user.client.set_glow_level()
+
+				if("exposure")
+					user.client.toggle_lamp_exposure()
+
+				if("glare")
+					user.client.toggle_lamps_glare()
+
 				if("winflash")
 					toggles2 ^= PREFTOGGLE_2_WINDOWFLASHING
 
