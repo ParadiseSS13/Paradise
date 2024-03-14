@@ -73,7 +73,9 @@
 
 /datum/ColorMatrix/New(mat, contrast = 1, brightness = null)
 	..()
-	if(isnum(mat))
+	if(istext(mat))
+		SetColor(mat, contrast, brightness)
+	else if(isnum(mat))
 		SetSaturation(mat, contrast, brightness)
 	else
 		matrix = mat
