@@ -201,7 +201,7 @@
 	if(!ismob(source))
 		return FALSE
 
-	if(!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE)
+	if(!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE))
 		return FALSE
 
 	return TRUE
