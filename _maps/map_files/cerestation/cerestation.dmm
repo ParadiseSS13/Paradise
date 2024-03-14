@@ -40451,6 +40451,12 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/service/clown/secret)
+"fWT" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/security/permabrig)
 "fXg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/red{
 	dir = 6
@@ -57524,12 +57530,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/lobby)
-"luT" = (
-/obj/machinery/recharge_station,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/security/permabrig)
 "lva" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -117945,7 +117945,7 @@ adS
 aeJ
 afd
 rHj
-luT
+fWT
 duc
 aQL
 gLk
