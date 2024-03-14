@@ -8444,7 +8444,7 @@
 "aEM" = (
 /obj/structure/disposalpipe/trunk,
 /obj/structure/disposaloutlet{
-	name = "evidence outlet"
+	name = "cargo outlet"
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -9618,9 +9618,7 @@
 /area/station/public/toilet)
 "aHZ" = (
 /obj/structure/disposalpipe/trunk,
-/obj/structure/disposaloutlet{
-	name = "evidence outlet"
-	},
+/obj/structure/disposaloutlet,
 /turf/simulated/floor/plating,
 /area/station/supply/sorting)
 "aIa" = (
