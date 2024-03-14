@@ -7,20 +7,23 @@
 		return
 	var/mob/living/carbon/human/H = source
 	var/obj/item/organ/internal/headpocket/pocket = H.get_int_organ(/obj/item/organ/internal/headpocket)
-	return istype(pocket) ? "dislodge_headpocket" : null
+	if(istype(pocket) && pocket.held_item)
+		return "dislodge_headpocket"
 
 
 /datum/strippable_item/mob_item_slot/head/alternate_action(atom/source, mob/user)
 	if(!..())
 		return
 	var/mob/living/carbon/human/H = source
+	var/obj/item/organ/internal/headpocket/pocket = H.get_int_organ(/obj/item/organ/internal/headpocket)
+	if(!pocket.held_item)
+		return
 	user.visible_message("<span class='danger'>[user] is trying to remove something from [source]'s head!</span>",
 						"<span class='danger'>You start to dislodge whatever's inside [source]'s headpocket!</span>")
 	if(do_mob(user, source, POCKET_STRIP_DELAY))
 		user.visible_message("<span class='danger'>[user] has dislodged something from [source]'s head!</span>",
 							"<span class='danger'>You have dislodged everything from [source]'s headpocket!</span>")
-		var/obj/item/organ/internal/headpocket/C = H.get_int_organ(/obj/item/organ/internal/headpocket)
-		C.empty_contents()
+		pocket.empty_contents()
 		add_attack_logs(user, source, "Stripped of headpocket items", isLivingSSD(source) ? null : ATKLOG_ALL)
 
 /datum/strippable_item/mob_item_slot/back
@@ -107,10 +110,7 @@
 
 	var/mob/mob_source = source
 
-	if(!do_after(user, equipping.put_on_delay, source))
-		return FALSE
-
-	if(!mob_source.get_item_by_slot(which_hand))
+	if(mob_source.get_item_by_slot(which_hand))
 		return FALSE
 
 	return TRUE
@@ -119,8 +119,7 @@
 	if(!iscarbon(source))
 		return FALSE
 
-	var/mob/mob_source = source
-	mob_source.put_in_hand(equipping, which_hand)
+	INVOKE_ASYNC(source, TYPE_PROC_REF(/mob, put_in_hand), equipping, which_hand)
 
 /datum/strippable_item/hand/start_unequip(atom/source, mob/user)
 	. = ..()

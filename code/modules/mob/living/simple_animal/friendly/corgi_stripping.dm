@@ -21,7 +21,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	if(!istype(corgi_source))
 		return
 
-	corgi_source.place_on_head(equipping, user)
+	INVOKE_ASYNC(source, TYPE_PROC_REF(/mob/living/simple_animal/pet/dog/corgi, place_on_head), equipping, user)
 
 /datum/strippable_item/corgi_head/finish_unequip(atom/source, mob/user)
 	var/mob/living/simple_animal/pet/dog/corgi/corgi_source = source
@@ -59,10 +59,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	if(!istype(pet_source))
 		return
 
-	pet_source.add_collar(equipping, user)
-	if(istype(pet_source, /mob/living/simple_animal/pet/dog/corgi))
-		var/mob/living/simple_animal/pet/dog/corgi/cargoi = pet_source
-		cargoi.update_corgi_fluff()
+	INVOKE_ASYNC(source, TYPE_PROC_REF(/mob/living/simple_animal, add_collar), equipping, user)
 
 /datum/strippable_item/pet_collar/finish_unequip(atom/source, mob/user)
 	var/mob/living/simple_animal/pet_source = source
@@ -107,7 +104,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	if(!istype(corgi_source))
 		return
 
-	equipping.forceMove(corgi_source)
+	INVOKE_ASYNC(equipping, TYPE_PROC_REF(/atom/movable, forceMove), corgi_source)
 	corgi_source.inventory_back = equipping
 	corgi_source.update_corgi_fluff()
 	corgi_source.update_appearance(UPDATE_OVERLAYS)

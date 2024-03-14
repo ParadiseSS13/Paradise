@@ -33,9 +33,6 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	if(!istype(parrot_source))
 		return
 
-	if(!user.unEquip(radio, source))
-		return
-
 	parrot_source.ears = radio
 	parrot_source.update_available_channels()
 	parrot_source.update_speak()

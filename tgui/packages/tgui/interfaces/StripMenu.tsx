@@ -6,9 +6,9 @@ import { Box, Button, Icon, Stack } from '../components';
 import { Window } from '../layouts';
 
 const ROWS = 5;
-const COLUMNS = 6;
+const COLUMNS = 5;
 
-const BUTTON_DIMENSIONS = '50px';
+const BUTTON_DIMENSIONS = '64px';
 
 type GridSpotKey = string;
 
@@ -26,10 +26,11 @@ const CornerText = (props: {
     <Box
       style={{
         position: 'relative',
-        left: align === 'left' ? '2px' : '-2px',
+        left: align === 'left' ? '6px' : '-8px', // spacing letters is hard, but it looks good like this
         'text-align': align,
-        'text-shadow': '1px 1px 1px #555',
-      }}>
+        'text-shadow': '2px 2px 2px #000',
+      }}
+    >
       {children}
     </Box>
   );
@@ -42,12 +43,12 @@ type AlternateAction = {
 
 const ALTERNATE_ACTIONS: Record<string, AlternateAction> = {
   enable_internals: {
-    icon: 'mask-face',
+    icon: 'lungs',
     text: 'Enable internals',
   },
 
   disable_internals: {
-    icon: 'mask-face',
+    icon: 'lungs',
     text: 'Disable internals',
   },
 
@@ -57,7 +58,7 @@ const ALTERNATE_ACTIONS: Record<string, AlternateAction> = {
   },
 
   dislodge_headpocket: {
-    icon: 'get-pocket',
+    icon: 'circle',
     text: 'Dislodge headpocket',
   },
 };
@@ -162,7 +163,7 @@ const SLOTS: Record<
   },
 
   suit_storage: {
-    displayName: 'suit storage item',
+    displayName: 'suit storage',
     gridSpot: getGridSpotKey([4, 0]),
     image: 'inventory-suit_storage.png',
   },
@@ -170,12 +171,6 @@ const SLOTS: Record<
   id: {
     displayName: 'ID',
     gridSpot: getGridSpotKey([4, 1]),
-    image: 'inventory-id.png',
-  },
-
-  pda: {
-    displayName: 'ID',
-    gridSpot: getGridSpotKey([4, 6]),
     image: 'inventory-id.png',
   },
 
@@ -193,14 +188,20 @@ const SLOTS: Record<
 
   left_pocket: {
     displayName: 'left pocket',
-    gridSpot: getGridSpotKey([4, 4]),
+    gridSpot: getGridSpotKey([3, 4]),
     image: 'inventory-pocket.png',
   },
 
   right_pocket: {
     displayName: 'right pocket',
-    gridSpot: getGridSpotKey([4, 5]),
+    gridSpot: getGridSpotKey([3, 3]),
     image: 'inventory-pocket.png',
+  },
+
+  pda: {
+    displayName: 'PDA',
+    gridSpot: getGridSpotKey([4, 4]),
+    image: 'inventory-id.png',
   },
 };
 
@@ -252,7 +253,7 @@ export const StripMenu = (props, context) => {
   }
 
   return (
-    <Window title={`Stripping ${data.name}`} width={400} height={400}>
+    <Window title={`Stripping ${data.name}`} width={360} height={390}>
       <Window.Content>
         <Stack fill vertical>
           {range(0, ROWS).map((row) => (
@@ -313,7 +314,7 @@ export const StripMenu = (props, context) => {
                         }
                         size={3}
                         ml={0}
-                        mt={1.3}
+                        mt={2.75}
                         style={{
                           'text-align': 'center',
                           height: '100%',
@@ -331,13 +332,15 @@ export const StripMenu = (props, context) => {
                       style={{
                         width: BUTTON_DIMENSIONS,
                         height: BUTTON_DIMENSIONS,
-                      }}>
+                      }}
+                    >
                       <Box
                         style={{
                           position: 'relative',
                           width: '100%',
                           height: '100%',
-                        }}>
+                        }}
+                      >
                         <Button
                           onClick={() => {
                             act('use', {
@@ -349,25 +352,26 @@ export const StripMenu = (props, context) => {
                           style={{
                             background: item?.interacting
                               ? 'hsl(39, 73%, 30%)'
-                              : undefined,
+                              : '#32475e',
                             position: 'relative',
                             width: '100%',
                             height: '100%',
                             padding: 0,
-                          }}>
+                          }}
+                        >
                           {slot.image && (
                             <Box
                               as="img"
                               src={resolveAsset(slot.image)}
                               opacity={0.7}
                               style={{
-                                position: "absolute",
-                                width: "32px",
-                                height: "32px",
-                                left: "50%",
-                                top: "50%",
+                                position: 'absolute',
+                                width: '32px',
+                                height: '32px',
+                                left: '50%',
+                                top: '50%',
                                 transform:
-                                  "translateX(-50%) translateY(-50%) scale(0.8)",
+                                  'translateX(-50%) translateY(-50%) scale(1.2)',
                               }}
                             />
                           )}
@@ -385,13 +389,15 @@ export const StripMenu = (props, context) => {
                               });
                             }}
                             tooltip={alternateAction.text}
+                            width="1.8em"
                             style={{
                               background: 'rgba(0, 0, 0, 0.6)',
                               position: 'absolute',
                               bottom: 0,
                               right: 0,
                               'z-index': 2,
-                            }}>
+                            }}
+                          >
                             <Icon name={alternateAction.icon} />
                           </Button>
                         )}

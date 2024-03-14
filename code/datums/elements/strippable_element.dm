@@ -91,7 +91,7 @@
 	if(!do_mob(user, source, equipping.put_on_delay))
 		return FALSE
 
-	if(QDELETED(equipping) || user.Adjacent(source) || (equipping.flags & NODROP))
+	if(QDELETED(equipping) || !user.Adjacent(source) || (equipping.flags & NODROP))
 		return FALSE
 
 	return TRUE
@@ -128,12 +128,12 @@
 	source.visible_message(
 		"<span class='warning'>[user] tries to remove [source]'s [item.name].</span>",
 		"<span class='userdanger'>[user] tries to remove your [item.name].</span>",
-		blind_message = "You hear rustling."
+		"You hear rustling."
 	)
 
 	to_chat(user, "<span class='danger'>You try to remove [source]'s [item.name]...</span>")
 	add_attack_logs(user, source, "Attempting stripping of [item]")
-	item.add_fingerprint(src)
+	item.add_fingerprint(user)
 
 	if(ishuman(source))
 		var/mob/living/carbon/human/victim_human = source
@@ -201,9 +201,6 @@
 	if(!ismob(source))
 		return FALSE
 
-	if(!do_after(user, get_equip_delay(equipping), source))
-		return FALSE
-
 	if(!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
 		return FALSE
 
@@ -252,7 +249,7 @@
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
 	if(!strip_delay)
 		strip_delay = item.strip_delay
-	if(!do_after(user, strip_delay, source))
+	if(!do_mob(user, source, strip_delay))
 		return FALSE
 
 	return TRUE
@@ -393,6 +390,9 @@
 
 					if(!user.Adjacent(owner))
 						// user.put_in_hands(held_item) // ctodo i dont think we need this put_in_hands
+						return
+
+					if(!user.unEquip(held_item))
 						return
 
 					strippable_item.finish_equip(owner, held_item, user)

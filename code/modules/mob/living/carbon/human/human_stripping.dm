@@ -1,30 +1,28 @@
 #define INTERNALS_TOGGLE_DELAY (4 SECONDS)
 #define POCKET_EQUIP_DELAY (1 SECONDS)
 
-#define DEFAULT_HUMAN_STRIPPABLES list(\
-	/datum/strippable_item/mob_item_slot/head,\
-	/datum/strippable_item/mob_item_slot/back,\
-	/datum/strippable_item/mob_item_slot/mask,\
-	/datum/strippable_item/mob_item_slot/eyes,\
-	/datum/strippable_item/mob_item_slot/left_ear,\
-	/datum/strippable_item/mob_item_slot/right_ear,\
-	/datum/strippable_item/mob_item_slot/jumpsuit,\
-	/datum/strippable_item/mob_item_slot/suit,\
-	/datum/strippable_item/mob_item_slot/gloves,\
-	/datum/strippable_item/mob_item_slot/feet,\
-	/datum/strippable_item/mob_item_slot/suit_storage,\
-	/datum/strippable_item/mob_item_slot/id,\
-	/datum/strippable_item/mob_item_slot/pda,\
-	/datum/strippable_item/mob_item_slot/belt,\
-	/datum/strippable_item/mob_item_slot/pocket/left,\
-	/datum/strippable_item/mob_item_slot/pocket/right,\
-	/datum/strippable_item/hand/left,\
-	/datum/strippable_item/hand/right,\
-	/datum/strippable_item/mob_item_slot/handcuffs,\
-	/datum/strippable_item/mob_item_slot/legcuffs,\
-)
-
-GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list())
+GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
+	/datum/strippable_item/mob_item_slot/head,
+	/datum/strippable_item/mob_item_slot/back,
+	/datum/strippable_item/mob_item_slot/mask,
+	/datum/strippable_item/mob_item_slot/eyes,
+	/datum/strippable_item/mob_item_slot/left_ear,
+	/datum/strippable_item/mob_item_slot/right_ear,
+	/datum/strippable_item/mob_item_slot/jumpsuit,
+	/datum/strippable_item/mob_item_slot/suit,
+	/datum/strippable_item/mob_item_slot/gloves,
+	/datum/strippable_item/mob_item_slot/feet,
+	/datum/strippable_item/mob_item_slot/suit_storage,
+	/datum/strippable_item/mob_item_slot/id,
+	/datum/strippable_item/mob_item_slot/pda,
+	/datum/strippable_item/mob_item_slot/belt,
+	/datum/strippable_item/mob_item_slot/pocket/left,
+	/datum/strippable_item/mob_item_slot/pocket/right,
+	/datum/strippable_item/hand/left,
+	/datum/strippable_item/hand/right,
+	/datum/strippable_item/mob_item_slot/handcuffs,
+	/datum/strippable_item/mob_item_slot/legcuffs,
+)))
 
 /datum/strippable_item/mob_item_slot/eyes
 	key = STRIPPABLE_ITEM_EYES
@@ -174,7 +172,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list())
 		"<span class='userdanger'>[user] tries to [(carbon_source.internal != item) ? "open" : "close"] the valve on your [item.name].</span>",
 	)
 
-	if(!do_after(user, INTERNALS_TOGGLE_DELAY, carbon_source))
+	if(!do_mob(user, carbon_source, INTERNALS_TOGGLE_DELAY))
 		return
 
 	if(carbon_source.internal == item)
