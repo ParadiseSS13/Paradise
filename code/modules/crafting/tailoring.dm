@@ -229,6 +229,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/meson/sunglasses = 1)
 	category = CAT_CLOTHING
+
 /datum/crafting_recipe/beergoggles
 	name = "Sunscanners"
 	result = list(/obj/item/clothing/glasses/sunglasses/reagent)
