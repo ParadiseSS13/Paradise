@@ -906,9 +906,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/openedDoor(obj/machinery/door/D)
 	frustration = 0
 
-/mob/living/simple_animal/bot/show_inv()
-	return
-
 /mob/living/simple_animal/bot/proc/show_controls(mob/M)
 	users |= M
 	var/dat = ""
