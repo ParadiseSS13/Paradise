@@ -41,21 +41,6 @@ type AlternateAction = {
 };
 
 const ALTERNATE_ACTIONS: Record<string, AlternateAction> = {
-  knot: {
-    icon: 'shoe-prints',
-    text: 'Knot',
-  },
-
-  untie: {
-    icon: 'shoe-prints',
-    text: 'Untie',
-  },
-
-  unknot: {
-    icon: 'shoe-prints',
-    text: 'Unknot',
-  },
-
   enable_internals: {
     icon: 'mask-face',
     text: 'Enable internals',
@@ -70,6 +55,11 @@ const ALTERNATE_ACTIONS: Record<string, AlternateAction> = {
     icon: 'tshirt',
     text: 'Adjust suit sensors',
   },
+
+  dislodge_headpocket: {
+    icon: 'get-pocket',
+    text: 'Dislodge headpocket',
+  },
 };
 
 const SLOTS: Record<
@@ -83,97 +73,91 @@ const SLOTS: Record<
 > = {
   eyes: {
     displayName: 'eyewear',
-    gridSpot: getGridSpotKey([0, 1]),
+    gridSpot: getGridSpotKey([1, 0]),
     image: 'inventory-glasses.png',
   },
 
   head: {
     displayName: 'headwear',
-    gridSpot: getGridSpotKey([0, 2]),
+    gridSpot: getGridSpotKey([0, 1]),
     image: 'inventory-head.png',
   },
 
-  // neck: {
-  //   displayName: 'neckwear',
-  //   gridSpot: getGridSpotKey([1, 1]),
-  //   image: 'inventory-neck.png',
-  // },
-
   mask: {
     displayName: 'mask',
-    gridSpot: getGridSpotKey([1, 2]),
+    gridSpot: getGridSpotKey([1, 1]),
     image: 'inventory-mask.png',
   },
 
   corgi_collar: {
     displayName: 'collar',
-    gridSpot: getGridSpotKey([1, 2]),
+    gridSpot: getGridSpotKey([1, 1]),
     image: 'inventory-collar.png',
-  },
-
-  left_ear: {
-    displayName: 'left ear',
-    gridSpot: getGridSpotKey([0, 3]),
-    image: 'inventory-ears.png',
   },
 
   right_ear: {
     displayName: 'right ear',
-    gridSpot: getGridSpotKey([1, 3]),
+    gridSpot: getGridSpotKey([0, 2]),
+    image: 'inventory-ears.png',
+  },
+
+  left_ear: {
+    displayName: 'left ear',
+    gridSpot: getGridSpotKey([1, 2]),
     image: 'inventory-ears.png',
   },
 
   parrot_headset: {
     displayName: 'headset',
-    gridSpot: getGridSpotKey([1, 3]),
+    gridSpot: getGridSpotKey([1, 2]),
     image: 'inventory-ears.png',
   },
 
   handcuffs: {
     displayName: 'handcuffs',
-    gridSpot: getGridSpotKey([1, 4]),
+    gridSpot: getGridSpotKey([1, 3]),
   },
 
   legcuffs: {
     displayName: 'legcuffs',
-    gridSpot: getGridSpotKey([1, 5]),
+    gridSpot: getGridSpotKey([1, 4]),
   },
 
   jumpsuit: {
     displayName: 'uniform',
-    gridSpot: getGridSpotKey([2, 1]),
+    gridSpot: getGridSpotKey([2, 0]),
     image: 'inventory-uniform.png',
   },
 
   suit: {
     displayName: 'suit',
-    gridSpot: getGridSpotKey([2, 2]),
+    gridSpot: getGridSpotKey([2, 1]),
     image: 'inventory-suit.png',
   },
 
   gloves: {
     displayName: 'gloves',
-    gridSpot: getGridSpotKey([2, 3]),
+    gridSpot: getGridSpotKey([2, 2]),
     image: 'inventory-gloves.png',
   },
 
   right_hand: {
     displayName: 'right hand',
-    gridSpot: getGridSpotKey([2, 4]),
+    gridSpot: getGridSpotKey([2, 3]),
     image: 'inventory-hand_r.png',
     additionalComponent: <CornerText align="left">R</CornerText>,
   },
 
   left_hand: {
     displayName: 'left hand',
-    gridSpot: getGridSpotKey([2, 5]),
+    gridSpot: getGridSpotKey([2, 4]),
     image: 'inventory-hand_l.png',
     additionalComponent: <CornerText align="right">L</CornerText>,
   },
 
   shoes: {
     displayName: 'shoes',
-    gridSpot: getGridSpotKey([3, 2]),
+    gridSpot: getGridSpotKey([3, 1]),
     image: 'inventory-shoes.png',
   },
 
@@ -186,6 +170,12 @@ const SLOTS: Record<
   id: {
     displayName: 'ID',
     gridSpot: getGridSpotKey([4, 1]),
+    image: 'inventory-id.png',
+  },
+
+  pda: {
+    displayName: 'ID',
+    gridSpot: getGridSpotKey([4, 6]),
     image: 'inventory-id.png',
   },
 
@@ -368,9 +358,17 @@ export const StripMenu = (props, context) => {
                           {slot.image && (
                             <Box
                               as="img"
-                              className="centered-image"
                               src={resolveAsset(slot.image)}
                               opacity={0.7}
+                              style={{
+                                position: "absolute",
+                                width: "32px",
+                                height: "32px",
+                                left: "50%",
+                                top: "50%",
+                                transform:
+                                  "translateX(-50%) translateY(-50%) scale(0.8)",
+                              }}
                             />
                           )}
 

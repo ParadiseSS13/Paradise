@@ -943,7 +943,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return
 	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
 		return
-	// show_inv(usr)
+	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, M, usr) // this is currently only used for stripping
 
 /mob/proc/can_use_hands()
 	return

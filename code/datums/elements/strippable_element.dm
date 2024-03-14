@@ -19,7 +19,7 @@
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
 
-	RegisterSignal(target, COMSIG_MOUSEDROP_ONTO, PROC_REF(mouse_drop_onto))
+	RegisterSignal(target, COMSIG_DO_MOB_STRIP, PROC_REF(mouse_drop_onto))
 
 	src.items = items
 	src.should_strip_proc_path = should_strip_proc_path
@@ -27,7 +27,7 @@
 /datum/element/strippable/Detach(datum/source)
 	. = ..()
 
-	UnregisterSignal(source, COMSIG_MOUSEDROP_ONTO)
+	UnregisterSignal(source, COMSIG_DO_MOB_STRIP)
 
 	if(!isnull(strip_menus))
 		qdel(strip_menus[source])
@@ -221,7 +221,7 @@
 /datum/strippable_item/mob_item_slot/get_obscuring(atom/source)
 	if(ishuman(source))
 		var/mob/living/carbon/human/human_source = source
-		if(human_source.check_obscured_slots() & item_slot)
+		if(item_slot in human_source.check_obscured_slots())
 			return STRIPPABLE_OBSCURING_COMPLETELY
 		return STRIPPABLE_OBSCURING_NONE
 
@@ -449,7 +449,7 @@
 	return owner
 
 /datum/strip_menu/ui_state(mob/user)
-	return GLOB.always_state
+	return GLOB.default_state
 
 /datum/strip_menu/ui_status(mob/user, datum/ui_state/state)
 	return ..() // ctodo

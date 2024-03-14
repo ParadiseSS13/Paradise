@@ -12,6 +12,7 @@
 #define STRIPPABLE_ITEM_FEET "shoes"
 #define STRIPPABLE_ITEM_SUIT_STORAGE "suit_storage"
 #define STRIPPABLE_ITEM_ID "id"
+#define STRIPPABLE_ITEM_PDA "pda"
 #define STRIPPABLE_ITEM_BELT "belt"
 #define STRIPPABLE_ITEM_LPOCKET "left_pocket"
 #define STRIPPABLE_ITEM_RPOCKET "right_pocket"

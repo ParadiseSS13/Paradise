@@ -1,27 +1,30 @@
 #define INTERNALS_TOGGLE_DELAY (4 SECONDS)
 #define POCKET_EQUIP_DELAY (1 SECONDS)
 
-GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
-	/datum/strippable_item/mob_item_slot/head,
-	/datum/strippable_item/mob_item_slot/back,
-	/datum/strippable_item/mob_item_slot/mask,
-	/datum/strippable_item/mob_item_slot/eyes,
-	/datum/strippable_item/mob_item_slot/left_ear,
-	/datum/strippable_item/mob_item_slot/right_ear,
-	/datum/strippable_item/mob_item_slot/jumpsuit,
-	/datum/strippable_item/mob_item_slot/suit,
-	/datum/strippable_item/mob_item_slot/gloves,
-	/datum/strippable_item/mob_item_slot/feet,
-	/datum/strippable_item/mob_item_slot/suit_storage,
-	/datum/strippable_item/mob_item_slot/id,
-	/datum/strippable_item/mob_item_slot/belt,
-	/datum/strippable_item/mob_item_slot/pocket/left,
-	/datum/strippable_item/mob_item_slot/pocket/right,
-	/datum/strippable_item/hand/left,
-	/datum/strippable_item/hand/right,
-	/datum/strippable_item/mob_item_slot/handcuffs,
-	/datum/strippable_item/mob_item_slot/legcuffs,
-)))
+#define DEFAULT_HUMAN_STRIPPABLES list(\
+	/datum/strippable_item/mob_item_slot/head,\
+	/datum/strippable_item/mob_item_slot/back,\
+	/datum/strippable_item/mob_item_slot/mask,\
+	/datum/strippable_item/mob_item_slot/eyes,\
+	/datum/strippable_item/mob_item_slot/left_ear,\
+	/datum/strippable_item/mob_item_slot/right_ear,\
+	/datum/strippable_item/mob_item_slot/jumpsuit,\
+	/datum/strippable_item/mob_item_slot/suit,\
+	/datum/strippable_item/mob_item_slot/gloves,\
+	/datum/strippable_item/mob_item_slot/feet,\
+	/datum/strippable_item/mob_item_slot/suit_storage,\
+	/datum/strippable_item/mob_item_slot/id,\
+	/datum/strippable_item/mob_item_slot/pda,\
+	/datum/strippable_item/mob_item_slot/belt,\
+	/datum/strippable_item/mob_item_slot/pocket/left,\
+	/datum/strippable_item/mob_item_slot/pocket/right,\
+	/datum/strippable_item/hand/left,\
+	/datum/strippable_item/hand/right,\
+	/datum/strippable_item/mob_item_slot/handcuffs,\
+	/datum/strippable_item/mob_item_slot/legcuffs,\
+)
+
+GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list())
 
 /datum/strippable_item/mob_item_slot/eyes
 	key = STRIPPABLE_ITEM_EYES
@@ -80,6 +83,10 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	key = STRIPPABLE_ITEM_ID
 	item_slot = SLOT_HUD_WEAR_ID
 
+/datum/strippable_item/mob_item_slot/pda
+	key = STRIPPABLE_ITEM_PDA
+	item_slot = SLOT_HUD_WEAR_PDA
+
 /datum/strippable_item/mob_item_slot/belt
 	key = STRIPPABLE_ITEM_BELT
 	item_slot = SLOT_HUD_BELT
@@ -117,7 +124,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	to_chat(user, "<span class='notice'>You try to empty [source]'s [pocket_side] pocket.</span>")
 
 	add_attack_logs(user, source, "Attempting pickpocketing of [item]")
-	item.add_fingerprint(src)
+	item.add_fingerprint(user)
 
 	var/result = start_unequip_mob(item, source, user, POCKET_STRIP_DELAY)
 
