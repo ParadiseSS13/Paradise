@@ -772,8 +772,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/turf/turf = get_turf(src)
 	return list("GPS:", "[COORD(turf)]")
 
-/mob/living/silicon/robot/proc/show_stack_energy(datum/robot_energy_storage/robot_energy_storage)
-	return list("[robot_energy_storage.statpanel_name]:", "[robot_energy_storage.energy] / [robot_energy_storage.max_energy]")
+/mob/living/silicon/robot/proc/show_stack_energy(datum/robot_storage/robot_storage)
+	return list("[robot_storage.statpanel_name]:", "[robot_storage.amount] / [robot_storage.max_amount]")
 
 // update the status screen display
 /mob/living/silicon/robot/get_status_tab_items()
@@ -788,8 +788,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(locate(/obj/item/gps/cyborg) in module.modules)
 		status_tab_data[++status_tab_data.len] = show_gps_coords()
 
-	for(var/datum/robot_energy_storage/robot_energy_storage in module.storages)
-		status_tab_data[++status_tab_data.len] = show_stack_energy(robot_energy_storage)
+	for(var/datum/robot_storage/robot_storage in module.storages)
+		status_tab_data[++status_tab_data.len] = show_stack_energy(robot_storage)
 
 /mob/living/silicon/robot/restrained()
 	return 0
