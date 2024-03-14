@@ -22,16 +22,6 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	/datum/strippable_item/mob_item_slot/legcuffs,
 )))
 
-/mob/living/carbon/human/proc/should_strip(mob/user)
-	if(user.pulling != src || user.grab_state != GRAB_AGGRESSIVE)
-		return TRUE
-
-	if(ishuman(user))
-		var/mob/living/carbon/human/human_user = user
-		return !human_user.can_be_firemanned(src)
-
-	return TRUE
-
 /datum/strippable_item/mob_item_slot/eyes
 	key = STRIPPABLE_ITEM_EYES
 	item_slot = SLOT_FLAG_EYES
@@ -133,8 +123,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 	to_chat(user, "<span class='notice'>You try to empty [source]'s [pocket_side] pocket.</span>")
 
-	user.log_message("is pickpocketing [key_name(source)] of [item] ([pocket_side])", LOG_ATTACK, color="red")
-	source.log_message("is being pickpocketed of [item] by [key_name(user)] ([pocket_side])", LOG_VICTIM, color="orange", log_globally=FALSE)
+	add_attack_logs(user, source, "Attempting pickpocketing of [item]")
 	item.add_fingerprint(src)
 
 	var/result = start_unequip_mob(item, source, user, POCKET_STRIP_DELAY)

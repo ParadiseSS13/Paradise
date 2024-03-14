@@ -11,21 +11,21 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	key = STRIPPABLE_ITEM_HEAD
 
 /datum/strippable_item/corgi_head/get_item(atom/source)
-	var/mob/living/basic/pet/dog/corgi/corgi_source = source
+	var/mob/living/simple_animal/pet/dog/corgi/corgi_source = source
 	if(!istype(corgi_source))
 		return
 
 	return corgi_source.inventory_head
 
 /datum/strippable_item/corgi_head/finish_equip(atom/source, obj/item/equipping, mob/user)
-	var/mob/living/basic/pet/dog/corgi/corgi_source = source
+	var/mob/living/simple_animal/pet/dog/corgi/corgi_source = source
 	if(!istype(corgi_source))
 		return
 
 	corgi_source.place_on_head(equipping, user)
 
 /datum/strippable_item/corgi_head/finish_unequip(atom/source, mob/user)
-	var/mob/living/basic/pet/dog/corgi/corgi_source = source
+	var/mob/living/simple_animal/pet/dog/corgi/corgi_source = source
 	if(!istype(corgi_source))
 		return
 
@@ -38,43 +38,49 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	key = STRIPPABLE_ITEM_PET_COLLAR
 
 /datum/strippable_item/pet_collar/get_item(atom/source)
-	var/mob/living/basic/pet/pet_source = source
+	var/mob/living/simple_animal/pet_source = source
 	if(!istype(pet_source))
 		return
 
-	return pet_source.collar
+	return pet_source.pcollar
 
 /datum/strippable_item/pet_collar/try_equip(atom/source, obj/item/equipping, mob/user)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	if(!istype(equipping, /obj/item/clothing/neck/petcollar))
+	if(!istype(equipping, /obj/item/petcollar))
 		to_chat(user, "<span class='warning'>That's not a collar.</span>")
 		return FALSE
 
 	return TRUE
 
 /datum/strippable_item/pet_collar/finish_equip(atom/source, obj/item/equipping, mob/user)
-	var/mob/living/basic/pet/pet_source = source
+	var/mob/living/simple_animal/pet_source = source
 	if(!istype(pet_source))
 		return
 
 	pet_source.add_collar(equipping, user)
+	if(istype(pet_source, /mob/living/simple_animal/pet/dog/corgi))
+		var/mob/living/simple_animal/pet/dog/corgi/cargoi = pet_source
+		cargoi.update_corgi_fluff()
 
 /datum/strippable_item/pet_collar/finish_unequip(atom/source, mob/user)
-	var/mob/living/basic/pet/pet_source = source
+	var/mob/living/simple_animal/pet_source = source
 	if(!istype(pet_source))
 		return
 
 	var/obj/collar = pet_source.remove_collar(user.drop_location())
 	user.put_in_hands(collar)
+	if(istype(pet_source, /mob/living/simple_animal/pet/dog/corgi))
+		var/mob/living/simple_animal/pet/dog/corgi/cargoi = pet_source
+		cargoi.update_corgi_fluff()
 
 /datum/strippable_item/corgi_back
 	key = STRIPPABLE_ITEM_BACK
 
 /datum/strippable_item/corgi_back/get_item(atom/source)
-	var/mob/living/basic/pet/dog/corgi/corgi_source = source
+	var/mob/living/simple_animal/pet/dog/corgi/corgi_source = source
 	if(!istype(corgi_source))
 		return
 
@@ -86,18 +92,19 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		return FALSE
 
 	if(!ispath(equipping.dog_fashion, /datum/dog_fashion/back))
-		to_chat(user, "<span class='warning'>You set [equipping] on [source]'s back, but it falls off!</span>")
+		var/mob/living/simple_animal/pet/dog/corgi/corgi = source
+		to_chat(user, "<span class='warning'>You set [equipping] on [source]'s back, but it falls off!</span>") // ctodo
 		equipping.forceMove(source.drop_location())
 		if(prob(25))
 			step_rand(equipping)
-		dance_rotate(source, set_original_dir = TRUE)
-
+		var/old_dir = corgi.dir
+		corgi.spin(7, 1)
+		setDir(old_dir)
 		return FALSE
-
 	return TRUE
 
 /datum/strippable_item/corgi_back/finish_equip(atom/source, obj/item/equipping, mob/user)
-	var/mob/living/basic/pet/dog/corgi/corgi_source = source
+	var/mob/living/simple_animal/pet/dog/corgi/corgi_source = source
 	if(!istype(corgi_source))
 		return
 
@@ -107,50 +114,11 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	corgi_source.update_appearance(UPDATE_OVERLAYS)
 
 /datum/strippable_item/corgi_back/finish_unequip(atom/source, mob/user)
-	var/mob/living/basic/pet/dog/corgi/corgi_source = source
+	var/mob/living/simple_animal/pet/dog/corgi/corgi_source = source
 	if(!istype(corgi_source))
 		return
 
 	user.put_in_hands(corgi_source.inventory_back)
 	corgi_source.inventory_back = null
-	corgi_source.update_corgi_fluff()
-	corgi_source.update_appearance(UPDATE_OVERLAYS)
-
-/datum/strippable_item/corgi_id
-	key = STRIPPABLE_ITEM_ID
-
-/datum/strippable_item/corgi_id/get_item(atom/source)
-	var/mob/living/basic/pet/dog/corgi/corgi_source = source
-	if(!istype(corgi_source))
-		return
-
-	return corgi_source.access_card
-
-/datum/strippable_item/corgi_id/try_equip(atom/source, obj/item/equipping, mob/user)
-	. = ..()
-	if(!.)
-		return FALSE
-
-	if(!isidcard(equipping))
-		to_chat(user, "<span class='warning'>You can't pin [equipping] to [source]!</span>")
-		return FALSE
-
-	return TRUE
-
-/datum/strippable_item/corgi_id/finish_equip(atom/source, obj/item/equipping, mob/user)
-	var/mob/living/basic/pet/dog/corgi/corgi_source = source
-	if(!istype(corgi_source))
-		return
-
-	equipping.forceMove(source)
-	corgi_source.access_card = equipping
-
-/datum/strippable_item/corgi_id/finish_unequip(atom/source, mob/user)
-	var/mob/living/basic/pet/dog/corgi/corgi_source = source
-	if(!istype(corgi_source))
-		return
-
-	user.put_in_hands(corgi_source.access_card)
-	corgi_source.access_card = null
 	corgi_source.update_corgi_fluff()
 	corgi_source.update_appearance(UPDATE_OVERLAYS)

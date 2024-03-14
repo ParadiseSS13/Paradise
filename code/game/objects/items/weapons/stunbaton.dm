@@ -83,7 +83,7 @@
 /obj/item/melee/baton/get_cell()
 	return cell
 
-/obj/item/melee/baton/mob_can_equip(mob/M, slot, disable_warning = TRUE, bypass_equip_delay_self = FALSE)
+/obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE, bypass_equip_delay_self = FALSE)
 	if(turned_on && (slot == SLOT_HUD_BELT || slot == SLOT_HUD_SUIT_STORE))
 		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
 		return FALSE

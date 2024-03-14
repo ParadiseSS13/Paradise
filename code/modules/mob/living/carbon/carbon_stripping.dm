@@ -54,14 +54,14 @@
 	show_visible_message = FALSE
 
 	/// Which hand?
-	var/hand_index
+	var/which_hand
 
 /datum/strippable_item/hand/get_item(atom/source)
 	if(!ismob(source))
 		return null
 
 	var/mob/mob_source = source
-	return mob_source.get_item_for_held_index(hand_index)
+	return mob_source.get_item_by_slot(which_hand)
 
 /datum/strippable_item/hand/try_equip(atom/source, obj/item/equipping, mob/user)
 	. = ..()
@@ -89,13 +89,10 @@
 
 	var/mob/mob_source = source
 
-	if(!do_after(user, equipping.equip_delay_other, source))
+	if(!do_after(user, equipping.put_on_delay, source))
 		return FALSE
 
-	if(!mob_source.can_put_in_hand(equipping, hand_index))
-		return FALSE
-
-	if(!user.temporarilyRemoveItemFromInventory(equipping))
+	if(!mob_source.get_item_by_slot(which_hand))
 		return FALSE
 
 	return TRUE
@@ -126,8 +123,8 @@
 
 /datum/strippable_item/hand/left
 	key = STRIPPABLE_ITEM_LHAND
-	hand_index = 1
+	which_hand = SLOT_HUD_LEFT_HAND
 
 /datum/strippable_item/hand/right
 	key = STRIPPABLE_ITEM_RHAND
-	hand_index = 2
+	which_hand = SLOT_HUD_RIGHT_HAND

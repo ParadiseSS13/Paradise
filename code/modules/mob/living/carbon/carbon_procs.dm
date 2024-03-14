@@ -1345,3 +1345,19 @@ so that different stomachs can handle things in different ways VB*/
 	// keep most of what's passed in, but don't change the angle
 	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, should_rotate = FALSE, rightable = FALSE)
 	KnockDown(10 SECONDS)
+
+/// Returns TRUE if an air tank compatible mask or breathing tube is equipped.
+/mob/living/carbon/proc/can_breathe_internals()
+	return can_breathe_tube() || can_breathe_mask() || can_breathe_helmet()
+
+/// Returns TRUE if an air tank compatible helmet is equipped.
+/mob/living/carbon/proc/can_breathe_helmet()
+	return (isclothing(head) && (head.flags & AIRTIGHT))
+
+/// Returns TRUE if an air tank compatible mask is equipped.
+/mob/living/carbon/proc/can_breathe_mask()
+	return (isclothing(wear_mask) && (wear_mask.flags & AIRTIGHT))
+
+/// Returns TRUE if a breathing tube is equipped.
+/mob/living/carbon/proc/can_breathe_tube()
+	return get_organ_slot("breathing_tube")

@@ -42,12 +42,6 @@
 	if(over != user)
 		return
 
-	// Cyborgs buckle people by dragging them onto them, unless in combat mode.
-	if(iscyborg(user))
-		var/mob/living/silicon/robot/cyborg_user = user
-		if(!cyborg_user.combat_mode)
-			return
-
 	if(!isnull(should_strip_proc_path) && !call(source, should_strip_proc_path)(user))
 		return
 
@@ -127,8 +121,7 @@
 	)
 
 	to_chat(user, "<span class='danger'>You try to remove [source]'s [item.name]...</span>")
-	user.log_message("is stripping [key_name(source)] of [item].", LOG_ATTACK, color="red")
-	source.log_message("is being stripped of [item] by [key_name(user)].", LOG_VICTIM, color="orange", log_globally=FALSE)
+	add_attack_logs(user, source, "Attempting stripping of [item]")
 	item.add_fingerprint(src)
 
 	if(ishuman(source))
@@ -203,9 +196,6 @@
 	if(!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
 		return FALSE
 
-	if(!user.temporarilyRemoveItemFromInventory(equipping))
-		return FALSE
-
 	return TRUE
 
 /datum/strippable_item/mob_item_slot/finish_equip(atom/source, obj/item/equipping, mob/user)
@@ -245,12 +235,11 @@
 
 /// Returns the delay of equipping this item to a mob
 /datum/strippable_item/mob_item_slot/proc/get_equip_delay(obj/item/equipping)
-	return equipping.equip_delay_other
+	return equipping.put_on_delay
 
 /// A utility function for `/datum/strippable_item`s to finish equipping an item to a mob.
 /proc/finish_equip_mob(obj/item/item, mob/source, mob/user)
-	user.log_message("has put [item] on [key_name(source)].", LOG_ATTACK, color="red")
-	source.log_message("had [item] put on them by [key_name(user)].", LOG_VICTIM, color="orange", log_globally=FALSE)
+	add_attack_logs(user, source, "Strip equipped [item]")
 
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
@@ -266,11 +255,7 @@
 	if(!item.doStrip(user, source))
 		return FALSE
 
-	user.log_message("has stripped [key_name(source)] of [item].", LOG_ATTACK, color="red")
-	source.log_message("has been stripped of [item] by [key_name(user)].", LOG_VICTIM, color="orange", log_globally=FALSE)
-
-	// Updates speed in case stripped speed affecting item
-	source.update_equipment_speed_mods()
+	add_attack_logs(user, source, "Stripping of [what]")
 
 /// A representation of the stripping UI
 /datum/strip_menu
@@ -328,7 +313,7 @@
 			continue
 
 		var/obj/item/item = item_data.get_item(owner)
-		if(isnull(item) || (item.flags & EXAMINE_SKIP))
+		if(isnull(item))
 			items[strippable_key] = result
 			continue
 
@@ -376,7 +361,7 @@
 
 			var/item = strippable_item.get_item(owner)
 			if(isnull(item))
-				var/obj/item/held_item = user.get_active_held_item()
+				var/obj/item/held_item = user.get_active_hand()
 				if(isnull(held_item))
 					return
 

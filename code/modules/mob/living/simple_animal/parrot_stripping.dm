@@ -6,7 +6,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	key = STRIPPABLE_ITEM_PARROT_HEADSET
 
 /datum/strippable_item/parrot_headset/get_item(atom/source)
-	var/mob/living/basic/parrot/poly/parrot_source = source
+	var/mob/living/simple_animal/parrot/parrot_source = source
 	return istype(parrot_source) ? parrot_source.ears : null
 
 /datum/strippable_item/parrot_headset/try_equip(atom/source, obj/item/equipping, mob/user)
@@ -29,7 +29,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	if(!istype(radio))
 		return
 
-	var/mob/living/basic/parrot/parrot_source = source
+	var/mob/living/simple_animal/parrot/parrot_source = source
 	if(!istype(parrot_source))
 		return
 
@@ -45,7 +45,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	if(!.)
 		return FALSE
 
-	var/mob/living/basic/parrot/parrot_source = source
+	var/mob/living/simple_animal/parrot/parrot_source = source
 	if(!istype(parrot_source))
 		return
 
@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	return TRUE
 
 /datum/strippable_item/parrot_headset/finish_unequip(atom/source, mob/user)
-	var/mob/living/basic/parrot/parrot_source = source
+	var/mob/living/simple_animal/parrot/parrot_source = source
 	if(!istype(parrot_source))
 		return
 

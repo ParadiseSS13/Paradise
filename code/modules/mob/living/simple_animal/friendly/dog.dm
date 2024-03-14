@@ -240,10 +240,8 @@
 					return
 			if("collar")
 				if(pcollar)
-					var/the_collar = pcollar
-					unEquip(pcollar)
+					remove_collar()
 					usr.put_in_hands(the_collar)
-					pcollar = null
 					update_corgi_fluff()
 					regenerate_icons()
 
@@ -628,10 +626,8 @@
 	pass_flags = PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	collar_type = "puppy"
+	strippable_inventory_slots = list(/datum/strippable_item/pet_collar) // Puppies do not have a head or back equipment slot.
 
-/mob/living/simple_animal/pet/dog/corgi/puppy/get_invslot_content()
-	// Puppies do not have a head or back equipment slot.
-	return "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
 
 /// Tribute to the corgis born in nullspace
 /mob/living/simple_animal/pet/dog/corgi/puppy/void
@@ -669,13 +665,6 @@
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Life()
 	..()
 	make_babies()
-
-/mob/living/simple_animal/pet/dog/corgi/Lisa/get_invslot_content()
-	// Lisa already has a cute bow! Only back and collar slots available.
-	var/dat = "<br><B>Back:</B> <A href='?src=[UID()];[inventory_back ? "remove_inv=back'>[html_encode(inventory_back)]" : "add_inv=back'>Nothing"]</A>"
-	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
-
-	return dat
 
 /mob/living/simple_animal/pet/dog/corgi/Lisa/handle_automated_movement()
 	. = ..()

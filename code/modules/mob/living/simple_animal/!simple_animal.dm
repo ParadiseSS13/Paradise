@@ -644,6 +644,18 @@
 		name = P.tagname
 		real_name = P.tagname
 
+/mob/living/simple_animal/proc/remove_collar(atom/new_loc)
+	if(!pcollar)
+		return
+
+	var/obj/old_collar = pcollar
+
+	pcollar.forceMove(new_loc)
+	pcollar = null
+
+	return old_collar
+
+
 /mob/living/simple_animal/regenerate_icons()
 	cut_overlays()
 	if(pcollar && collar_type)
