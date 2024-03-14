@@ -41,7 +41,7 @@
 	shoes = /obj/item/clothing/shoes/workboots/mining
 	head = /obj/item/clothing/head/qm
 	l_ear = /obj/item/radio/headset/heads/qm
-	glasses = /obj/item/clothing/glasses/sunglasses
+	glasses = /obj/item/clothing/glasses/meson/sunglasses
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
 	id = /obj/item/card/id/quartermaster
 	l_hand = /obj/item/clipboard

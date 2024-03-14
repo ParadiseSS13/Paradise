@@ -138,6 +138,7 @@
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/glasses/welding/superior(src)
 	new /obj/item/clothing/gloves/color/yellow(src)
+	new /obj/item/clothing/glasses/meson/sunglasses(src)
 
 /obj/item/storage/bag/garment/nanotrasen_representative
 	name = "\improper Nanotrasen representative's garment bag"
