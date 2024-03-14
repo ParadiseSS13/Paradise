@@ -279,9 +279,9 @@
 
 /obj/item/clothing/head/cowboyhat/sec
 	name = "security cowboy hat"
+	desc = "Secway is your horse."
 	icon_state = "cowboyhat_sec"
 	item_state = "cowboyhat_sec"
-	desc = "Secway is your horse."
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
