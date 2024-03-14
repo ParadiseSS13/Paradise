@@ -531,14 +531,12 @@
 				var/amount_to_add
 				if(stack.amount >= (mat_store.max_amount - mat_store.amount))
 					amount_to_add = mat_store.max_amount - mat_store.amount
-					mat_store.amount = mat_store.max_amount
-					remove_from_storage(stack, amount_to_add)
 					to_chat(robot, "<span class='notice'>You refill [mat_store] to full.</span>")
 				else
 					amount_to_add = round(stack.amount) // In case we have half a sheet stored
-					mat_store.amount += amount_to_add
-					remove_from_storage(stack, amount_to_add)
 					to_chat(robot, "<span class='notice'>You refill [round(stack.amount)] sheets to [mat_store].</span>")
+				mat_store.amount += amount_to_add
+				remove_from_storage(stack, amount_to_add)
 				. = TRUE
 				break // We found our match for this material storage, so we go to the next one
 
