@@ -215,7 +215,7 @@
 /datum/crafting_recipe/hudsunmeson
 	name = "Meson HUD sunglasses"
 	result = list(/obj/item/clothing/glasses/meson/sunglasses)
-	time = 20
+	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/meson = 1,
 				/obj/item/clothing/glasses/sunglasses = 1,
@@ -225,7 +225,7 @@
 /datum/crafting_recipe/hudsunmesonremoval
 	name = "Meson HUD sunglasses removal"
 	result = list(/obj/item/clothing/glasses/sunglasses, /obj/item/clothing/glasses/meson)
-	time = 20
+	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/meson/sunglasses = 1)
 	category = CAT_CLOTHING
