@@ -1510,6 +1510,10 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/althland_excavation)
+"XS" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors)
 "Ya" = (
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
@@ -1806,10 +1810,10 @@ aB
 aB
 aA
 TD
-TN
+XS
 Ei
 zp
-TN
+XS
 BW
 aB
 Ei
@@ -1969,7 +1973,7 @@ aB
 aB
 aL
 or
-TN
+XS
 Ei
 Ei
 TN
@@ -1998,7 +2002,7 @@ aB
 aB
 aB
 aB
-TN
+XS
 eC
 Ei
 Ei
