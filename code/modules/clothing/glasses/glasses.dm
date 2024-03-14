@@ -123,7 +123,6 @@
 	name = "meson HUD sunglasses"
 	desc = "Sunglasses with an inbuilt scanner that can see through both walls and flooring.."
 	icon_state = "sunhudmeson"
-	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
 
