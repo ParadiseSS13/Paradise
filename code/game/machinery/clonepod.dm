@@ -167,9 +167,6 @@
 	. += "<span class='notice'>[desc_flavor]</span>"
 	. += "<span class='notice'>[src] is currently [locked ? "locked" : "unlocked"], and can be [locked ? "unlocked" : "locked"] by swiping an ID with medical access on it.</span>"
 
-/obj/machinery/clonepod/attack_ai(mob/user)
-	return examine(user)
-
 /obj/machinery/clonepod/RefreshParts()
 	speed_modifier = 0 //Since we have multiple manipulators, which affect this modifier, we reset here so we can just use += later
 	for(var/obj/item/stock_parts/SP as anything in component_parts)
@@ -606,7 +603,18 @@
 
 /obj/machinery/clonepod/attack_hand(mob/user)
 	. = ..()
+	add_fingerprint(user)
+
+	if(stat & (BROKEN|NOPOWER))
+		return
+
 	ui_interact(user)
+
+/obj/machinery/clonepod/attack_ai(mob/user)
+	return attack_hand(user)
+
+/obj/machinery/clonepod/attack_ghost(mob/user)
+	return attack_hand(user)
 
 /obj/machinery/clonepod/emag_act(user)
 	. = ..()
