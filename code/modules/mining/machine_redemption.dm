@@ -529,12 +529,13 @@
 			var/obj/item/stack/sheet/sheet = stack.sheet_type
 			if(ispath(mat_store.stack, sheet))
 				var/amount_to_add
-				if(stack.amount >= (mat_store.max_amount - mat_store.amount))
-					amount_to_add = mat_store.max_amount - mat_store.amount
+				var/total_stacks = stack.amount / MINERAL_MATERIAL_AMOUNT // To account for 1 sheet being 2000 units of metal
+				if(total_stacks >= (mat_store.max_amount - mat_store.amount))
+					amount_to_add = round(mat_store.max_amount - mat_store.amount)
 					to_chat(robot, "<span class='notice'>You refill [mat_store] to full.</span>")
 				else
-					amount_to_add = round(stack.amount) // In case we have half a sheet stored
-					to_chat(robot, "<span class='notice'>You refill [round(stack.amount)] sheets to [mat_store].</span>")
+					amount_to_add = round(total_stacks) // In case we have half a sheet stored
+					to_chat(robot, "<span class='notice'>You refill [amount_to_add] sheets to [mat_store].</span>")
 				mat_store.amount += amount_to_add
 				remove_from_storage(stack, amount_to_add)
 				. = TRUE
@@ -542,6 +543,7 @@
 
 /obj/machinery/mineral/ore_redemption/proc/remove_from_storage(datum/material/stack, sheet_amount)
 	return stack.amount -= sheet_amount * MINERAL_MATERIAL_AMOUNT
+
 /**
   * Called when an item is inserted manually as material.
   *
