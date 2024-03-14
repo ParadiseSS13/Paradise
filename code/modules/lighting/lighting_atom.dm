@@ -129,7 +129,7 @@
 			glow_overlay = image(icon = glow_icon, icon_state = glow_icon_state, dir = dir, layer = 1)
 
 		glow_overlay.plane = LIGHTING_LAMPS_PLANE
-		glow_overlay.blend_mode = BLEND_OVERLAY
+		glow_overlay.blend_mode = BLEND_ADD
 		if(glow_colored)
 			var/datum/ColorMatrix/MATRIX = new(light_color, GLOB.configuration.lighting_effects.glow_contrast_base + GLOB.configuration.lighting_effects.glow_contrast_power * light_power, GLOB.configuration.lighting_effects.glow_brightness_base + GLOB.configuration.lighting_effects.glow_brightness_power * light_power)
 			glow_overlay.color = MATRIX.Get()

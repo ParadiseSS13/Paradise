@@ -1,17 +1,17 @@
 /// Config holder for all ligting effect related things
 /datum/configuration_section/lighting_effects_configuration
 	/// Brightness of bloom effect independent of light_power
-	var/glow_brightness_base = -0.2
+	var/glow_brightness_base = 0
 	/// Brightness of bloom effect that depends on light_power
-	var/glow_brightness_power = 0
+	var/glow_brightness_power = -0.25
 	/// Contrast of bloom effect independent of light_power
-	var/glow_contrast_base = 0.4
+	var/glow_contrast_base = 0
 	/// Contrast of bloom effect that depends on light_power
-	var/glow_contrast_power = 0
+	var/glow_contrast_power = 0.5
 	/// Brightness of exposure effect independent of light_power
-	var/exposure_brightness_base = 0
+	var/exposure_brightness_base = 0.01
 	/// Brightness of exposure effect that depends on light_power
-	var/exposure_brightness_power = 0.01
+	var/exposure_brightness_power = 0
 	/// Contrast of exposure effect independent of light_power
 	var/exposure_contrast_base = 9.5
 	/// Contrast of exposure effect that depends on light_power

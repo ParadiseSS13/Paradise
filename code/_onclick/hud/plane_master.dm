@@ -5,7 +5,7 @@
 	blend_mode = BLEND_OVERLAY
 	var/show_alpha = 255
 	var/hide_alpha = 0
-	
+
 	//--rendering relay vars--
 	///integer: what plane we will relay this planes render to
 	var/render_relay_plane = RENDER_PLANE_MASTER
@@ -116,6 +116,17 @@
 	plane = SMOKE_PLANE
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
+
+/atom/movable/screen/plane_master/lamps
+	name = "lamps plane master"
+	plane = LIGHTING_LAMPS_PLANE
+	blend_mode = BLEND_OVERLAY
+	blend_mode_override = BLEND_OVERLAY
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_relay_plane = RENDER_PLANE_GAME
+
+	render_target = LIGHTING_LAMPS_RENDER_TARGET
+
 /atom/movable/screen/plane_master/exposure
 	name = "exposure plane master"
 	plane = LIGHTING_EXPOSURE_PLANE
@@ -172,17 +183,7 @@
 			return
 
 	add_filter("add_lamps_to_selfglow", 1, layering_filter(render_source = LIGHTING_LAMPS_RENDER_TARGET, blend_mode = BLEND_OVERLAY))
-	add_filter("lamps_selfglow_bloom", 1, bloom_filter(threshold = "#aaaaaa", size = bloomsize, offset = bloomoffset, alpha = 100))
-
-/atom/movable/screen/plane_master/lamps
-	name = "lamps plane master"
-	plane = LIGHTING_LAMPS_PLANE
-	blend_mode = BLEND_OVERLAY
-	blend_mode_override = BLEND_OVERLAY
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	render_relay_plane = RENDER_PLANE_GAME
-
-	render_target = LIGHTING_LAMPS_RENDER_TARGET
+	add_filter("lamps_selfglow_bloom", 1, bloom_filter(threshold = "#777777", size = bloomsize, offset = bloomoffset, alpha = 80))
 
 /atom/movable/screen/plane_master/lamps_glare
 	name = "lamps glare plane master"
@@ -202,4 +203,4 @@
 
 	if(enabled)
 		add_filter("add_lamps_to_glare", 1, layering_filter(render_source = LIGHTING_LAMPS_RENDER_TARGET, blend_mode = BLEND_ADD))
-		add_filter("lamps_glare", 1, radial_blur_filter(size = 0.025))
+		add_filter("lamps_glare", 1, radial_blur_filter(size = 0.035))

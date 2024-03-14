@@ -110,10 +110,10 @@
 #define LIGHTING_PLANE 15
 #define LIGHTING_LAYER 15
 
-#define LIGHTING_EXPOSURE_PLANE 16 // Light sources "cones"
-#define LIGHTING_LAMPS_SELFGLOW 17 // Light sources glow (lamps, doors overlay, etc.)
-#define LIGHTING_LAMPS_PLANE 18 // Light sources themselves (lamps, screens, etc.)
-#define LIGHTING_LAMPS_GLARE 19 // Light glare (optional setting)
+#define LIGHTING_LAMPS_GLARE 16 // Light glare (optional setting)
+#define LIGHTING_EXPOSURE_PLANE 17 // Light sources "cones"
+#define LIGHTING_LAMPS_SELFGLOW 18 // Light sources glow (lamps, doors overlay, etc.)
+#define LIGHTING_LAMPS_PLANE 19 // Light sources themselves (lamps, screens, etc.)
 
 #define LIGHTING_LAMPS_RENDER_TARGET "*LIGHTING_LAMPS_RENDER_TARGET"
 
