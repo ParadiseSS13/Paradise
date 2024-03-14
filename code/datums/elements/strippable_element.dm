@@ -187,7 +187,7 @@
 	if(!ismob(source))
 		return FALSE
 
-	if(!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE)
+	if(!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE))
 		to_chat(user, "<span class='warning'>\The [equipping] doesn't fit in that place!</span>")
 		return FALSE
 
