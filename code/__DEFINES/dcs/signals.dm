@@ -1010,3 +1010,25 @@
 
 /// from /obj/structure/cursed_slot_machine/determine_victor() when someone finally wins.
 #define COMSIG_GLOB_CURSED_SLOT_MACHINE_WON "cursed_slot_machine_won"
+
+
+// Signal types for the cargo shuttle
+
+// Sent before the shuttle scans its contents.
+// Use to initialize data that will be needed during the scan.
+#define COMSIG_CARGO_BEGIN_SCAN			"begin_scan"
+// Sent as the shuttle scans its contents.
+// Can return sell flags (see code/__DEFINES/supply_defines.dm).
+#define COMSIG_CARGO_CHECK_SELL			"check_sell"
+// Sent as the shuttle begins selling off its contents.
+// Use to initialize data that will be needed during the sale.
+#define COMSIG_CARGO_BEGIN_SELL			"begin_sell"
+// Sent during sales for items marked with COMSIG_CARGO_SELL_PRIORITY.
+#define COMSIG_CARGO_DO_PRIORITY_SELL	"do_priority_sell"
+// Sent during sales for items marked with COMSIG_CARGO_SELL_NORMAL.
+#define COMSIG_CARGO_DO_SELL			"do_sell"
+// Sent during sales for items marked with COMSIG_CARGO_SELL_WRONG.
+#define COMSIG_CARGO_SEND_ERROR			"send_error"
+// Sent when sales are completed.
+// Use to send summary messages for items that sell in bulk.
+#define COMSIG_CARGO_END_SELL			"end_sell"

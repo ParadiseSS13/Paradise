@@ -208,7 +208,7 @@
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
 	data["timeleft"] = SSshuttle.supply.timeLeft(60 SECONDS)
-	data["can_launch"] = !SSshuttle.supply.canMove()
+	data["can_launch"] = SSshuttle.supply.canMove()
 
 	return data
 
@@ -442,7 +442,7 @@
 /obj/machinery/computer/supplycomp/proc/move_shuttle(mob/user)
 	if(is_public) // Public consoles cant move the shuttle. Dont allow exploiters.
 		return
-	if(SSshuttle.supply.canMove())
+	if(!SSshuttle.supply.canMove())
 		to_chat(user, "<span class='warning'>For safety reasons the automated supply shuttle cannot transport live organisms, undelivered mail, classified nuclear weaponry or homing beacons.</span>")
 	else if(SSshuttle.supply.getDockedId() == "supply_home")
 		SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
