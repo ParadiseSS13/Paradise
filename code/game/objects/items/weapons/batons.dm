@@ -143,7 +143,6 @@
 	desc = "A cane with special engraving on it. It seems well suited for fending off assailants..."
 	icon_state = "cane_nt"
 	item_state = "cane_nt"
-	needs_permit = TRUE
 
 /obj/item/melee/classic_baton/ntcane/get_crutch_efficiency()
 	return 2
