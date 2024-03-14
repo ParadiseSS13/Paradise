@@ -42,6 +42,40 @@
 	key = STRIPPABLE_ITEM_MASK
 	item_slot = SLOT_HUD_WEAR_MASK
 
+/datum/strippable_item/mob_item_slot/back/get_alternate_action(atom/source, mob/user)
+	var/obj/item/clothing/mask/muzzle/muzzle = get_item(source)
+	if(!istype(muzzle))
+		return
+	if(muzzle.security_lock)
+		return "[muzzle.locked ? "dis" : "en"]able_lock"
+
+/datum/strippable_item/mob_item_slot/back/alternate_action(atom/source, mob/user)
+	if(!..())
+		return
+	var/obj/item/clothing/mask/muzzle/muzzle = get_item(source)
+	if(!istype(muzzle))
+		return
+	if(!ishuman(user))
+		to_chat(user, "You lack the ability to manipulate the lock.")
+		return
+
+	muzzle.visible_message("<span class='danger'>[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name].</span>", \
+					"<span class='userdanger'>[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name].</span>")
+	if(!do_mob(user, source, POCKET_STRIP_DELAY))
+		return
+
+	var/success = FALSE
+	if(muzzle.locked)
+		success = muzzle.do_unlock(user)
+	else
+		success = muzzle.do_lock(user)
+
+	if(!success)
+		return
+	muzzle.visible_message("<span class='danger'>[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name].</span>", \
+					"<span class='userdanger'>[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name].</span>")
+
+
 /datum/strippable_item/mob_item_slot/handcuffs
 	key = STRIPPABLE_ITEM_HANDCUFFS
 	item_slot = SLOT_HUD_HANDCUFFED

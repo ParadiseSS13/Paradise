@@ -52,13 +52,23 @@ const ALTERNATE_ACTIONS: Record<string, AlternateAction> = {
     text: 'Disable internals',
   },
 
+  enable_lock: {
+    icon: 'lock',
+    text: 'Enable lock',
+  },
+
+  disable_lock: {
+    icon: 'unlock',
+    text: 'Disable lock',
+  },
+
   suit_sensors: {
     icon: 'tshirt',
     text: 'Adjust suit sensors',
   },
 
   dislodge_headpocket: {
-    icon: 'circle',
+    icon: 'circle', // todo change this to a more apt icon
     text: 'Dislodge headpocket',
   },
 };
@@ -201,7 +211,7 @@ const SLOTS: Record<
   pda: {
     displayName: 'PDA',
     gridSpot: getGridSpotKey([4, 4]),
-    image: 'inventory-id.png',
+    image: 'inventory-pda.png',
   },
 };
 
@@ -252,9 +262,27 @@ export const StripMenu = (props, context) => {
     gridSpots.set(SLOTS[key].gridSpot, key);
   }
 
+  const get_button_color = (item) => {
+    if (!item) {
+      return 'translucent';
+    }
+    if (item.cantstrip) {
+      return 'transparent';
+    }
+    if (item.interacting) {
+      return 'average';
+    }
+    return 'translucent';
+  };
+
   return (
-    <Window title={`Stripping ${data.name}`} width={360} height={390}>
-      <Window.Content>
+    <Window
+      title={`Stripping ${data.name}`}
+      width={360}
+      height={390}
+      theme="nologo"
+    >
+      <Window.Content style={{ 'background-color': 'rgba(0, 0, 0, 0.5)' }}>
         <Stack fill vertical>
           {range(0, ROWS).map((row) => (
             <Stack.Item key={row}>
@@ -315,6 +343,7 @@ export const StripMenu = (props, context) => {
                         size={3}
                         ml={0}
                         mt={2.75}
+                        color="white"
                         style={{
                           'text-align': 'center',
                           height: '100%',
@@ -348,11 +377,9 @@ export const StripMenu = (props, context) => {
                             });
                           }}
                           fluid
+                          color={get_button_color(item)}
                           tooltip={tooltip}
                           style={{
-                            background: item?.interacting
-                              ? 'hsl(39, 73%, 30%)'
-                              : '#32475e',
                             position: 'relative',
                             width: '100%',
                             height: '100%',
@@ -371,7 +398,7 @@ export const StripMenu = (props, context) => {
                                 left: '50%',
                                 top: '50%',
                                 transform:
-                                  'translateX(-50%) translateY(-50%) scale(1.2)',
+                                  'translateX(-50%) translateY(-50%) scale(2)',
                               }}
                             />
                           )}

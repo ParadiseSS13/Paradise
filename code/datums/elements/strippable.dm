@@ -311,12 +311,15 @@
 			LAZYSET(result, "interacting", TRUE)
 
 		var/obscuring = item_data.get_obscuring(owner)
+		var/obj/item/item = item_data.get_item(owner)
+		if(obscuring == STRIPPABLE_OBSCURING_COMPLETELY || (item && !item.canStrip(user)))
+			LAZYSET(result, "cantstrip", TRUE)
+
 		if(obscuring != STRIPPABLE_OBSCURING_NONE)
 			LAZYSET(result, "obscured", obscuring)
 			items[strippable_key] = result
 			continue
 
-		var/obj/item/item = item_data.get_item(owner)
 		if(isnull(item))
 			items[strippable_key] = result
 			continue

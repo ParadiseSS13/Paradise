@@ -85,6 +85,11 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	key = STRIPPABLE_ITEM_PDA
 	item_slot = SLOT_HUD_WEAR_PDA
 
+/datum/strippable_item/mob_item_slot/pda/get_obscuring(atom/source)
+	return isnull(get_item(source)) \
+		? STRIPPABLE_OBSCURING_NONE \
+		: STRIPPABLE_OBSCURING_HIDDEN
+
 /datum/strippable_item/mob_item_slot/belt
 	key = STRIPPABLE_ITEM_BELT
 	item_slot = SLOT_HUD_BELT

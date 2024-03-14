@@ -12,6 +12,7 @@
 		"inventory-shoes.png" = 'icons/ui_icons/inventory/shoes.png',
 		"inventory-suit_storage.png" = 'icons/ui_icons/inventory/suit_storage.png',
 		"inventory-id.png" = 'icons/ui_icons/inventory/id.png',
+		"inventory-pda.png" = 'icons/ui_icons/inventory/pda.png',
 		"inventory-belt.png" = 'icons/ui_icons/inventory/belt.png',
 		"inventory-back.png" = 'icons/ui_icons/inventory/back.png',
 		"inventory-pocket.png" = 'icons/ui_icons/inventory/pocket.png',
