@@ -237,31 +237,31 @@
 	RegisterSignal(S, COMSIG_CARGO_END_SELL,			PROC_REF(end_sell))
 
 /datum/economy/simple_seller/proc/begin_scan(obj/docking_port/mobile/supply/S)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_CARGO_BEGIN_SCAN
 	return
 
 /datum/economy/simple_seller/proc/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_CARGO_CHECK_SELL
 	return NONE
 
 /datum/economy/simple_seller/proc/begin_sell(obj/docking_port/mobile/supply/S)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_CARGO_BEGIN_SELL
 	return
 
 /datum/economy/simple_seller/proc/sell_priority(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_CARGO_DO_PRIORITY_SELL
 	return check_sell(S, AM) & COMSIG_CARGO_SELL_PRIORITY
 
 /datum/economy/simple_seller/proc/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_CARGO_DO_SELL
 	return check_sell(S, AM) & COMSIG_CARGO_SELL_NORMAL
 
 /datum/economy/simple_seller/proc/sell_wrong(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_CARGO_SEND_ERROR
 	return check_sell(S, AM) & COMSIG_CARGO_SELL_WRONG
 
 /datum/economy/simple_seller/proc/end_sell(obj/docking_port/mobile/supply/S, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_CARGO_END_SELL
 	return
 
 
@@ -270,17 +270,14 @@
 	var/credits = 0
 
 /datum/economy/simple_seller/crates/begin_sell(obj/docking_port/mobile/supply/S)
-	SIGNAL_HANDLER
 	crates = 0
 	credits = 0
 
 /datum/economy/simple_seller/crates/check_sell(obj/docking_port/mobile/supply/S, AM)
-	SIGNAL_HANDLER
 	if(istype(AM, /obj/structure/closet/crate) || istype(AM, /obj/structure/closet/critter) || istype(AM, /obj/structure/closet/crate/mail))
 		return COMSIG_CARGO_SELL_NORMAL | COMSIG_CARGO_IS_SECURED
 
 /datum/economy/simple_seller/crates/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
 	if(!..())
 		return
 
@@ -292,7 +289,6 @@
 		credits += DEFAULT_CRATE_VALUE
 
 /datum/economy/simple_seller/crates/end_sell(obj/docking_port/mobile/supply/S, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
 	if(!credits)
 		return
 	var/datum/economy/line_item/item = new
@@ -306,16 +302,13 @@
 	var/plasma = 0
 
 /datum/economy/simple_seller/plasma/begin_sell(obj/docking_port/mobile/supply/S)
-	SIGNAL_HANDLER
 	plasma = 0
 
 /datum/economy/simple_seller/plasma/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
-	SIGNAL_HANDLER
 	if(istype(AM, /obj/item/stack/sheet/mineral/plasma))
 		return COMSIG_CARGO_SELL_NORMAL
 
 /datum/economy/simple_seller/plasma/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
 	if(!..())
 		return
 
@@ -323,7 +316,6 @@
 	plasma += P.amount
 
 /datum/economy/simple_seller/plasma/end_sell(obj/docking_port/mobile/supply/S, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
 	if(!plasma)
 		return
 	var/datum/economy/line_item/item = new
@@ -337,23 +329,19 @@
 	var/intel = 0
 
 /datum/economy/simple_seller/intel/begin_sell(obj/docking_port/mobile/supply/S)
-	SIGNAL_HANDLER
 	intel = 0
 
 /datum/economy/simple_seller/intel/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
-	SIGNAL_HANDLER
 	if(istype(AM, /obj/item/documents/syndicate))
 		return COMSIG_CARGO_SELL_NORMAL
 
 /datum/economy/simple_seller/intel/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
 	if(!..())
 		return
 
 	intel++
 
 /datum/economy/simple_seller/intel/end_sell(obj/docking_port/mobile/supply/S, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
 	if(!intel)
 		return
 	var/datum/economy/line_item/item = new
@@ -366,12 +354,10 @@
 /datum/economy/simple_seller/alien_organs
 
 /datum/economy/simple_seller/alien_organs/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
-	SIGNAL_HANDLER
 	if(istype(AM, /obj/item/organ/internal/alien))
 		return COMSIG_CARGO_SELL_NORMAL
 
 /datum/economy/simple_seller/alien_organs/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
 	if(!..())
 		return
 
@@ -386,12 +372,10 @@
 /datum/economy/simple_seller/shipping_manifests
 
 /datum/economy/simple_seller/shipping_manifests/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
-	SIGNAL_HANDLER
 	if(istype(AM,/obj/item/paper/manifest))
 		return COMSIG_CARGO_SELL_NORMAL
 
 /datum/economy/simple_seller/shipping_manifests/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
 	if(!..())
 		return
 
@@ -408,15 +392,12 @@
 	var/list/temp_tech_levels
 
 /datum/economy/simple_seller/tech_levels/begin_scan(obj/docking_port/mobile/supply/S)
-	SIGNAL_HANDLER
 	temp_tech_levels = SSeconomy.tech_levels.Copy()
 
 /datum/economy/simple_seller/tech_levels/begin_sell(obj/docking_port/mobile/supply/S)
-	SIGNAL_HANDLER
 	temp_tech_levels = SSeconomy.tech_levels.Copy()
 
 /datum/economy/simple_seller/tech_levels/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
-	SIGNAL_HANDLER
 	if(istype(AM, /obj/item/disk/tech_disk))
 		var/obj/item/disk/tech_disk/disk = AM
 		if(!disk.stored)
@@ -430,7 +411,6 @@
 		return COMSIG_CARGO_SELL_WRONG
 
 /datum/economy/simple_seller/tech_levels/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
 	if(!..())
 		return
 
@@ -458,7 +438,6 @@
 	manifest.line_items += science_item
 
 /datum/economy/simple_seller/tech_levels/sell_wrong(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
 	if(!..())
 		return
 
@@ -483,15 +462,12 @@
 	var/list/temp_designs
 
 /datum/economy/simple_seller/designs/begin_scan(obj/docking_port/mobile/supply/S)
-	SIGNAL_HANDLER
 	temp_designs = SSeconomy.research_designs.Copy()
 
 /datum/economy/simple_seller/designs/begin_sell(obj/docking_port/mobile/supply/S)
-	SIGNAL_HANDLER
 	temp_designs = SSeconomy.research_designs.Copy()
 
 /datum/economy/simple_seller/designs/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
-	SIGNAL_HANDLER
 	if(istype(AM, /obj/item/disk/design_disk))
 		var/obj/item/disk/design_disk/disk = AM
 		if(!disk.blueprint)
@@ -503,7 +479,6 @@
 		return COMSIG_CARGO_SELL_NORMAL
 
 /datum/economy/simple_seller/designs/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
 	if(!..())
 		return
 
@@ -528,7 +503,6 @@
 	manifest.line_items += science_item
 
 /datum/economy/simple_seller/designs/sell_wrong(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
 	if(!..())
 		return
 
@@ -552,15 +526,12 @@
 	var/list/temp_discovered
 
 /datum/economy/simple_seller/seeds/begin_scan(obj/docking_port/mobile/supply/S)
-	SIGNAL_HANDLER
 	temp_discovered = SSeconomy.discovered_plants.Copy()
 
 /datum/economy/simple_seller/seeds/begin_sell(obj/docking_port/mobile/supply/S)
-	SIGNAL_HANDLER
 	temp_discovered = SSeconomy.discovered_plants.Copy()
 
 /datum/economy/simple_seller/seeds/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
-	SIGNAL_HANDLER
 	if(istype(AM, /obj/item/seeds))
 		var/obj/item/seeds/seed = AM
 		if(seed.rarity == 0) // Mundane species
@@ -571,7 +542,6 @@
 		return COMSIG_CARGO_SELL_WRONG
 
 /datum/economy/simple_seller/seeds/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
 	if(!..())
 		return
 
@@ -610,7 +580,6 @@
 	manifest.line_items += service_item
 
 /datum/economy/simple_seller/seeds/sell_wrong(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
-	SIGNAL_HANDLER
 	if(!..())
 		return
 
@@ -632,7 +601,6 @@
 	var/list/temp_discovered
 
 /datum/economy/simple_seller/messes/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
-	SIGNAL_HANDLER
 	if(istype(AM, /obj/effect))
 		var/obj/effect/E = AM
 		if(E.is_cleanable())
