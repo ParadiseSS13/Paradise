@@ -14,31 +14,38 @@
 
 	// The list of things that can't be sent to CC.
 	var/list/blacklist = list(
-		/mob/living,
-		/obj/structure/blob,
-		/obj/structure/spider/spiderling,
-		/obj/item/disk/nuclear,
-		/obj/machinery/nuclearbomb,
-		/obj/item/radio/beacon,
-		/obj/machinery/the_singularitygen,
-		/obj/singularity,
-		/obj/machinery/teleport/station,
-		/obj/machinery/teleport/hub,
-		/obj/machinery/telepad,
-		/obj/machinery/telepad_cargo,
-		/obj/machinery/clonepod,
-		/obj/effect/hierophant,
-		/obj/item/warp_cube,
-		/obj/machinery/quantumpad,
-		/obj/structure/extraction_point,
-		/obj/item/envelope,
-		/obj/item/paicard)
+		"living creatures" = list(
+			/mob/living,
+			/obj/structure/blob,
+			/obj/structure/spider/spiderling,
+			/obj/machinery/clonepod,
+			/obj/item/paicard),
+		"classified nuclear weaponry" = list(
+			/obj/item/disk/nuclear,
+			/obj/machinery/nuclearbomb),
+		"homing beacons" = list(
+			/obj/item/radio/beacon,
+			/obj/machinery/quantumpad,
+			/obj/machinery/teleport/station,
+			/obj/machinery/teleport/hub,
+			/obj/machinery/telepad,
+			/obj/machinery/telepad_cargo,
+			/obj/structure/extraction_point),
+		"high-energy objects" = list(
+			/obj/singularity,
+			/obj/machinery/the_singularitygen,
+			/obj/effect/hierophant,
+			/obj/item/warp_cube),
+		"undelivered mail" = list(/obj/item/envelope))
 
 	// The current manifest of what's on the shuttle.
 	var/datum/economy/cargo_shuttle_manifest/manifest = new
 
 	// The auto-registered simple_seller instances.
 	var/list/simple_sellers = list()
+
+	// The item preventing this shuttle from going to CC.
+	var/blocking_item = "ERR_UNKNOWN"
 
 /obj/docking_port/mobile/supply/Initialize()
 	..()
@@ -141,8 +148,22 @@
 	return TRUE
 
 /obj/docking_port/mobile/supply/proc/prefilter_atom(atom/movable/AM)
-	if(is_type_in_list(AM, blacklist))
-		return CARGO_PREVENT_SHUTTLE
+	for(var/reason in blacklist)
+		if(is_type_in_list(AM, blacklist[reason]))
+			blocking_item = "[reason] ([AM])"
+			return CARGO_PREVENT_SHUTTLE
+
+	if(istype(AM, /obj/structure/closet/crate))
+		var/obj/structure/closet/crate/C = AM
+		if(C.manifest)
+			blocking_item = "crates with their manifest still attached ([AM])"
+			return CARGO_PREVENT_SHUTTLE
+
+	if(istype(AM, /obj/structure/closet/crate/secure))
+		var/obj/structure/closet/crate/secure/SC = AM
+		if(SC.locked)
+			blocking_item = "locked crates ([AM])"
+			return CARGO_PREVENT_SHUTTLE
 
 	if(istype(AM, /obj/effect))
 		var/obj/effect/E = AM
