@@ -1,6 +1,7 @@
 /obj/item/nullrod
 	name = "null rod"
 	desc = "A rod of pure obsidian, its very presence disrupts and dampens the powers of dark magic."
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "nullrod"
 	item_state = "tele_baton"
 	force = 15
@@ -151,6 +152,7 @@
 	name = "holy claymore"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "claymore"
 	item_state = "claymore"
 	desc = "A weapon fit for a crusade!"
@@ -171,6 +173,7 @@
 
 /obj/item/nullrod/claymore/darkblade
 	name = "dark blade"
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "cultblade"
 	item_state = "darkbalde"
 	desc = "Spread the glory of the dark gods!"
@@ -179,6 +182,7 @@
 
 /obj/item/nullrod/claymore/chainsaw_sword
 	name = "sacred chainsaw sword"
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "chainswordon"
 	item_state = "chainswordon"
 	desc = "Suffer not a heretic to live."
@@ -188,6 +192,7 @@
 
 /obj/item/nullrod/claymore/glowing
 	name = "force blade"
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "swordon"
 	item_state = "swordon"
 	desc = "The blade glows with the power of faith. Or possibly a battery."
@@ -203,6 +208,7 @@
 /obj/item/nullrod/claymore/multiverse
 	name = "extradimensional blade"
 	desc = "Once the harbringer of a interdimensional war, now a dormant souvenir. Still sharp though."
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "multiverse"
 	item_state = "multiverse"
 	slot_flags = SLOT_FLAG_BELT
@@ -210,7 +216,7 @@
 /obj/item/nullrod/claymore/saber
 	name = "light energy blade"
 	hitsound = 'sound/weapons/blade1.ogg'
-	icon = 'icons/obj/energy_melee.dmi'
+	icon = 'icons/obj/weapons/energy_melee.dmi'
 	icon_state = "swordblue"
 	item_state = "swordblue"
 	desc = "If you strike me down, I shall become more robust than you can possibly imagine."
@@ -243,6 +249,7 @@
 
 /obj/item/nullrod/scythe
 	name = "reaper scythe"
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "scythe0"
 	item_state = "scythe0"
 	desc = "Ask not for whom the bell tolls..."
@@ -257,6 +264,7 @@
 	name = "high frequency blade"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "hfrequency1"
 	item_state = "hfrequency1"
 	desc = "Bad references are the DNA of the soul."
@@ -276,6 +284,7 @@
 	name = "possessed blade"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "talking_sword"
 	item_state = "talking_sword"
 	desc = "When the station falls into chaos, it's nice to have a friend by your side."
@@ -396,6 +405,7 @@
 	desc = "Good? Bad? You're the guy with the chainsaw hand."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "chainsaw1"
 	item_state = "mounted_chainsaw"
 	w_class = WEIGHT_CLASS_HUGE
@@ -436,6 +446,7 @@
 	desc = "Particularly twisted deities grant gifts of dubious value."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP
@@ -481,6 +492,7 @@
 /obj/item/nullrod/claymore/bostaff
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, now used to harass the clown."
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "bostaff0"
 	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
@@ -613,7 +625,7 @@
 
 /obj/item/nullrod/rosary/bread
 	name = "prayer bread"
-	icon = 'icons/obj/food/food.dmi'
+	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "baguette"
 	desc = "a staple of worshipers of the Silentfather, this holy mime artifact has an odd effect on clowns."
 	var/list/smited_clowns
