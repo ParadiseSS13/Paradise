@@ -140,14 +140,11 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
+/obj/machinery/power/apc/off_station/directional/north{
 	environment_channel = 2;
 	equipment_channel = 0;
 	lighting_channel = 0;
-	locked = 0;
-	pixel_y = 24;
-	req_access = ""
+	locked = 0
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -460,14 +457,11 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
+/obj/machinery/power/apc/off_station/directional/north{
 	equipment_channel = 0;
 	lighting_channel = 0;
 	locked = 0;
-	operating = 0;
-	pixel_y = 24;
-	req_access = ""
+	operating = 0
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
@@ -798,13 +792,10 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
+/obj/machinery/power/apc/off_station/directional/north{
 	environment_channel = 0;
 	locked = 0;
-	operating = 0;
-	pixel_y = 24;
-	req_access = ""
+	operating = 0
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
@@ -1165,12 +1156,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
+/obj/machinery/power/apc/off_station/directional/north{
 	locked = 0;
-	operating = 0;
-	pixel_y = 24;
-	req_access = ""
+	operating = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"

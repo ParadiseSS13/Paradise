@@ -1,4 +1,3 @@
-
 /mob/living/carbon/alien/larva/regenerate_icons()
 	overlays = list()
 	update_icons()

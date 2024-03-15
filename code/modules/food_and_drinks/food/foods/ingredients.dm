@@ -53,6 +53,11 @@
 	filling_color = "#FFF700"
 	tastes = list("cheese" = 1)
 
+/obj/item/food/snacks/cheesewedge/checkpass(passflag)
+	if((passflag & PASSDOOR) && ismouse(pulledby))
+		return TRUE
+	return ..()
+
 /obj/item/food/snacks/cheesewedge/presliced
 	list_reagents = list("nutriment" = 3, "vitamin" = 1, "cheese" = 4)
 
@@ -239,7 +244,8 @@
 		return ..()
 
 
-/obj/item/food/snacks/choc_pile //for reagent chocolate being spilled on turfs
+/// for reagent chocolate being spilled on turfs
+/obj/item/food/snacks/choc_pile
 	name = "pile of chocolate"
 	desc = "A pile of pure chocolate pieces."
 	icon_state = "cocoa"

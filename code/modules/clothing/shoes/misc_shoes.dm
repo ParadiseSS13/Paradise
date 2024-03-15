@@ -3,7 +3,8 @@
 	icon_state = "mime"
 	item_color = "mime"
 
-/obj/item/clothing/shoes/combat //basic syndicate combat boots for nuke ops and mob corpses
+/// basic syndicate combat boots for nuke ops and mob corpses
+/obj/item/clothing/shoes/combat
 	name = "combat boots"
 	desc = "High speed, low drag combat boots."
 	w_class = WEIGHT_CLASS_NORMAL
@@ -14,7 +15,8 @@
 	strip_delay = 70
 	resistance_flags = NONE
 
-/obj/item/clothing/shoes/combat/swat //overpowered gimmick boots
+/// overpowered gimmick boots
+/obj/item/clothing/shoes/combat/swat
 	name = "\improper SWAT shoes"
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
@@ -57,7 +59,8 @@
 	desc = "A pair of purple rubber boots, designed to prevent slipping on wet surfaces while also drying them."
 	icon_state = "galoshes_dry"
 
-/obj/item/clothing/shoes/galoshes/dry/lightweight /// for red janitor ert.
+/// / for red janitor ert.
+/obj/item/clothing/shoes/galoshes/dry/lightweight
 	name = "lightweight absorbent galoshes"
 	desc = "A pair of expensive looking lightweight rubber boots, designed to prevent slipping on wet surfaces while also drying them."
 	slowdown = NONE
@@ -205,6 +208,10 @@
 	desc = "Steel-toed mining boots for mining in hazardous environments. Very good at keeping toes uncrushed."
 	icon_state = "explorer"
 	resistance_flags = FIRE_PROOF
+	cold_protection = FEET|LEGS
+	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
+	heat_protection = FEET|LEGS
+	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 
 /obj/item/clothing/shoes/winterboots
 	name = "winter boots"

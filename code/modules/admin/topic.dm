@@ -343,13 +343,12 @@
 			if("2")
 				if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
 					return
+				SSshuttle.emergency.cancel(byCC = TRUE)
 				switch(SSshuttle.emergency.mode)
 					if(SHUTTLE_CALL)
-						SSshuttle.emergency.cancel()
 						log_admin("[key_name(usr)] sent the Emergency Shuttle back")
 						message_admins("<span class='adminnotice'>[key_name_admin(usr)] sent the Emergency Shuttle back</span>")
 					else
-						SSshuttle.emergency.cancel()
 						log_admin("[key_name(usr)] called the Emergency Shuttle")
 						message_admins("<span class='adminnotice'>[key_name_admin(usr)] called the Emergency Shuttle to the station</span>")
 
@@ -726,7 +725,7 @@
 
 		//Banning comes first
 		if(notbannedlist.len) //at least 1 unbanned job exists in joblist so we have stuff to ban.
-			switch(alert("Temporary Ban of [M.ckey]?",,"Yes","No", "Cancel"))
+			switch(alert("Temporary Ban of [M.ckey]?", null,"Yes","No", "Cancel"))
 				if("Yes")
 					var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
 					if(!mins)
@@ -789,7 +788,7 @@
 		if(C == null)
 			to_chat(usr, "<span class='warning'>Mob has no client to kick.</span>")
 			return
-		if(alert("Kick [C.ckey]?",,"Yes","No") == "Yes")
+		if(alert("Kick [C.ckey]?", null,"Yes","No") == "Yes")
 			if(C && C.holder && (C.holder.rights & R_BAN))
 				to_chat(usr, "<span class='warning'>[key_name_admin(C)] cannot be kicked from the server.</span>")
 				return
@@ -834,7 +833,7 @@
 		var/target_ckey = href_list["webtools"]
 		if(GLOB.configuration.url.forum_playerinfo_url)
 			var/url_to_open = "[GLOB.configuration.url.forum_playerinfo_url][target_ckey]"
-			if(alert("Open [url_to_open]",,"Yes","No")=="Yes")
+			if(alert("Open [url_to_open]", null,"Yes","No")=="Yes")
 				usr.client << link(url_to_open)
 
 	else if(href_list["shownoteckey"])
@@ -870,7 +869,7 @@
 			return
 		var/ban_ckey_param = href_list["dbbanaddckey"]
 
-		switch(alert("Temporary Ban of [M.ckey] / [ban_ckey_param]?",,"Yes","No", "Cancel"))
+		switch(alert("Temporary Ban of [M.ckey] / [ban_ckey_param]?", null,"Yes","No", "Cancel"))
 			if("Yes")
 				var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
 				if(!mins)
@@ -1036,7 +1035,7 @@
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
-		if(alert(usr, "Confirm make monkey?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make monkey?", null, "Yes", "No") != "Yes")
 			return
 
 		log_admin("[key_name(usr)] attempting to monkeyize [key_name(H)]")
@@ -1052,7 +1051,7 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		if(alert(usr, "Confirm make corgi?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make corgi?", null, "Yes", "No") != "Yes")
 			return
 
 		log_admin("[key_name(usr)] attempting to corgize [key_name(H)]")
@@ -1066,15 +1065,15 @@
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
-		if(alert(usr, "Confirm make pai?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make pai?", null, "Yes", "No") != "Yes")
 			return
 
 		var/painame = "Default"
 		var/name = ""
 		if(alert(usr, "Do you want to set their name or let them choose their own name?", "Name Choice", "Set Name", "Let them choose") == "Set Name")
-			name = sanitize(copytext(input(usr, "Enter a name for the new pAI. Default name is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
+			name = sanitize(copytext_char(input(usr, "Enter a name for the new pAI. Default name is [painame].", "pAI Name", painame), 1, MAX_NAME_LEN))
 		else
-			name = sanitize(copytext(input(H, "An admin wants to make you into a pAI. Choose a name. Default is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
+			name = sanitize(copytext_char(input(H, "An admin wants to make you into a pAI. Choose a name. Default is [painame].", "pAI Name", painame), 1, MAX_NAME_LEN))
 
 		if(!name)
 			name = painame
@@ -1477,7 +1476,7 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		if(alert(usr, "Confirm make ai?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make ai?", null, "Yes", "No") != "Yes")
 			return
 
 		message_admins("<span class='warning'>Admin [key_name_admin(usr)] AIized [key_name_admin(H)]!</span>", 1)
@@ -1492,7 +1491,7 @@
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
-		if(alert(usr, "Confirm make alien?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make alien?", null, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_alienize(H)
@@ -1504,7 +1503,7 @@
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
-		if(alert(usr, "Confirm make slime?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make slime?", null, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_slimeize(H)
@@ -1517,7 +1516,7 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		if(alert(usr, "Confirm make superhero?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make superhero?", null, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_super(H)
@@ -1529,7 +1528,7 @@
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
-		if(alert(usr, "Confirm make robot?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make robot?", null, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_robotize(H)
@@ -1541,7 +1540,7 @@
 		if(isnewplayer(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/new_player</span>")
 			return
-		if(alert(usr, "Confirm make animal?",, "Yes", "No") != "Yes")
+		if(alert(usr, "Confirm make animal?", null, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_animalize(M)
@@ -1886,7 +1885,7 @@
 		var/eviltype = input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", "") as null|anything in etypes
 		if(!(eviltype in etypes))
 			return
-		var/customname = clean_input("Pick a title for the evil fax.", "Fax Title", , owner)
+		var/customname = clean_input("Pick a title for the evil fax.", "Fax Title", null, owner)
 		if(!customname)
 			customname = "paper"
 		var/obj/item/paper/evilfax/P = new /obj/item/paper/evilfax(null)
@@ -1896,7 +1895,7 @@
 		P.info = "<b>You <i>really</i> should've known better.</b>"
 		P.myeffect = eviltype
 		P.mytarget = H
-		if(alert("Do you want the Evil Fax to activate automatically if [H] tries to ignore it?",,"Yes", "No") == "Yes")
+		if(alert("Do you want the Evil Fax to activate automatically if [H] tries to ignore it?", null,"Yes", "No") == "Yes")
 			P.activate_on_timeout = TRUE
 		P.x = rand(-2, 0)
 		P.y = rand(-1, 2)
@@ -2017,7 +2016,7 @@
 						D.assignment = "Pet"
 						C.access_id = D
 					spawn(30)
-						var/newname = sanitize(copytext(input(P, "You are [P], special event pet of [H]. Change your name to something else?", "Name change", P.name) as null|text,1,MAX_NAME_LEN))
+						var/newname = sanitize(copytext_char(input(P, "You are [P], special event pet of [H]. Change your name to something else?", "Name change", P.name) as null|text, 1, MAX_NAME_LEN))
 						if(newname && newname != P.name)
 							P.name = newname
 							if(P.mind)
@@ -2420,7 +2419,7 @@
 		if(sender)
 			message_admins("[key_name_admin(owner)] has started replying to a fax message from [key_name_admin(sender)]")
 
-		var/use_letterheard = alert("Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.",,"Nanotrasen","Syndicate", "No")
+		var/use_letterheard = alert("Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.", null,"Nanotrasen","Syndicate", "No")
 		switch(use_letterheard)
 			if("Nanotrasen")
 				P = new /obj/item/paper/central_command(null)
@@ -2446,7 +2445,7 @@
 			return
 		input = admin_pencode_to_html(html_encode(input)) // Encode everything from pencode to html
 
-		var/customname = clean_input("Pick a title for the fax.", "Fax Title", , owner)
+		var/customname = clean_input("Pick a title for the fax.", "Fax Title", null, owner)
 		if(!customname)
 			customname = "paper"
 
@@ -2479,14 +2478,14 @@
 						if("clown")
 							stampvalue = "clown"
 				else if(stamptype == "text")
-					stampvalue = clean_input("What should the stamp say?", "Stamp Text", , owner)
+					stampvalue = clean_input("What should the stamp say?", "Stamp Text", null, owner)
 				else if(stamptype == "none")
 					stamptype = ""
 				else
 					qdel(P)
 					return
 
-				sendername = clean_input("What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title). This is optional.", "Organization", , owner)
+				sendername = clean_input("What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title). This is optional.", "Organization", null, owner)
 
 		if(sender)
 			notify = alert(src.owner, "Would you like to inform the original sender that a fax has arrived?","Notify Sender","Yes","No")
@@ -2950,7 +2949,7 @@
 					return
 				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
-				var/objective = sanitize(copytext(input("Enter an objective"),1,MAX_MESSAGE_LEN))
+				var/objective = sanitize(copytext_char(input("Enter an objective"), 1, MAX_MESSAGE_LEN))
 				if(!objective)
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Traitor All ([objective])")
@@ -3107,7 +3106,7 @@
 			if("guns")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Summon Guns")
 				var/survivor_probability = 0
-				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
+				switch(alert("Do you want this to create survivors antagonists?", null, "No Antags", "Some Antags", "All Antags!"))
 					if("Some Antags")
 						survivor_probability = 25
 					if("All Antags!")
@@ -3117,7 +3116,7 @@
 			if("magic")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Summon Magic")
 				var/survivor_probability = 0
-				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
+				switch(alert("Do you want this to create survivors antagonists?", null, "No Antags", "Some Antags", "All Antags!"))
 					if("Some Antags")
 						survivor_probability = 25
 					if("All Antags!")
@@ -3345,7 +3344,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 		var/text = html_decode(href_list["showdetails"])
-		usr << browse("<HTML><HEAD><TITLE>Details</TITLE></HEAD><BODY><TT>[replacetext(text, "\n", "<BR>")]</TT></BODY></HTML>",
+		usr << browse("<html><meta charset='utf-8'><head><title>Details</title></head><body><tt>[replacetext(text, "\n", "<BR>")]</tt></body></html>",
 			"window=show_details;size=500x200")
 
 	else if(href_list["create_outfit_finalize"])

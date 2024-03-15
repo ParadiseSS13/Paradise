@@ -72,7 +72,7 @@
 		return
 
 	var/dat = {"
-<html>
+<html><meta charset='utf-8'>
 	<head>
 		<title>Arcade Ticket Exchange</title>
 		<style type="text/css">

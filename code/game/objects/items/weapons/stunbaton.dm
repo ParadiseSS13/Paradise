@@ -57,7 +57,7 @@
 		cell = new(src)
 
 /obj/item/melee/baton/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return FIRELOSS
 
 /obj/item/melee/baton/update_icon_state()
@@ -187,6 +187,7 @@
 		return ..() // Whack them too if in harm intent
 
 	if(!turned_on)
+		user.do_attack_animation(L)
 		L.visible_message("<span class='warning'>[user] has prodded [L] with [src]. Luckily it was off.</span>",
 			"<span class='danger'>[L == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>")
 		return
@@ -280,6 +281,11 @@
 							"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
 		return TRUE
 	..()
+
+/// baton used for security bots
+/obj/item/melee/baton/infinite_cell
+	hitcost = 0
+	turned_on = TRUE
 
 //Makeshift stun baton. Replacement for stun gloves.
 /obj/item/melee/baton/cattleprod
