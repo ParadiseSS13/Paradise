@@ -3809,6 +3809,10 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"ld" = (
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "le" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -5848,6 +5852,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"yz" = (
+/turf/simulated/wall/mineral/titanium/interior,
+/area/lavaland/surface/outdoors)
 "yE" = (
 /obj/machinery/computer/crew,
 /obj/machinery/computer/guestpass{
@@ -5952,6 +5959,12 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/hallway/west)
+"zm" = (
+/obj/structure/closet/walllocker/emerglocker/north,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/flashlight/flare,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/lavaland/surface/outdoors)
 "zn" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/decal/cleanable/dirt,
@@ -7206,6 +7219,12 @@
 /obj/item/trash/sosjerky,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
+"Iv" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/titanium/interior,
+/area/lavaland/surface/outdoors)
 "Iw" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing/corner,
@@ -7234,6 +7253,12 @@
 "IC" = (
 /turf/simulated/wall,
 /area/mine/outpost/hallway/east)
+"ID" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Escape Pod Airlock"
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/lavaland/surface/outdoors)
 "IF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -7377,6 +7402,18 @@
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"JD" = (
+/obj/structure/grille/broken,
+/obj/structure/grille/broken,
+/obj/effect/mob_spawn/human/corpse/skeleton,
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard,
+/turf/simulated/floor/plating{
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
+	},
 /area/lavaland/surface/outdoors)
 "JP" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8896,6 +8933,13 @@
 	icon_state = "tranquillite"
 	},
 /area/mine/outpost/cafeteria)
+"VE" = (
+/obj/item/mounted/frame/intercom,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/lavaland/surface/outdoors)
 "VF" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6
@@ -9061,6 +9105,9 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
+"Wy" = (
+/turf/simulated/wall/mineral/titanium,
+/area/lavaland/surface/outdoors)
 "WD" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -9361,6 +9408,14 @@
 	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
+"Yp" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating{
+	nitrogen = 14;
+	oxygen = 8;
+	temperature = 500
+	},
 /area/lavaland/surface/outdoors)
 "Yr" = (
 /obj/effect/spawner/random_spawners/dirt_maybe,
@@ -11511,9 +11566,9 @@ an
 an
 an
 an
-an
-an
-an
+ld
+Aw
+Aw
 an
 an
 an
@@ -11529,8 +11584,8 @@ an
 an
 an
 an
-an
-an
+Aw
+Aw
 an
 an
 an
@@ -11546,8 +11601,8 @@ an
 an
 an
 an
-an
-an
+Aw
+Aw
 an
 an
 an
@@ -11768,9 +11823,9 @@ an
 an
 an
 an
-an
-an
-an
+ab
+ab
+ab
 an
 an
 an
@@ -12025,9 +12080,9 @@ an
 an
 an
 an
-an
-an
-an
+Iv
+ID
+Iv
 an
 an
 an
@@ -12282,9 +12337,9 @@ an
 an
 an
 an
-an
-an
-an
+Wy
+zm
+Wy
 an
 an
 an
@@ -12539,9 +12594,9 @@ an
 an
 an
 an
-an
-an
-an
+Wy
+VE
+Wy
 an
 an
 an
@@ -12796,9 +12851,9 @@ an
 an
 an
 an
-an
-an
-an
+Yp
+JD
+yz
 an
 an
 an
