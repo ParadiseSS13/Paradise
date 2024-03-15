@@ -14,10 +14,10 @@
 /obj/item/melee/touch_attack/banana
 	name = "banana touch"
 	desc = "It's time to start clowning around."
-	icon_state = "banana_touch"
-	item_state = "banana_touch"
 	catchphrase = "NWOLC YRGNA"
 	on_use_sound = 'sound/items/AirHorn.ogg'
+	icon_state = "banana_touch"
+	item_state = "banana_touch"
 
 /obj/effect/proc_holder/spell/touch/banana/apprentice
 	hand_path = /obj/item/melee/touch_attack/banana/apprentice
