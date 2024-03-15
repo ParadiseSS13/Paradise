@@ -210,6 +210,8 @@
 
 		if(item.credits > 0)
 			msg += "<span class='good'>[item.account.account_name] +[item.credits]</span>: [item.reason]<br>"
+		else if(item.credits == 0)
+			msg += "<span class='[item.zero_is_good ? "good" : "bad"]'>[item.account.account_name] Notice</span>: [item.reason]<br>"
 		else
 			msg += "<span class='bad'>[item.account.account_name] [item.credits]</span>: [item.reason]<br>"
 
@@ -619,6 +621,7 @@
 	var/datum/money_account/account
 	var/credits
 	var/reason
+	var/zero_is_good = FALSE
 
 #undef MAX_CRATE_DELIVERY
 #undef CARGO_PREVENT_SHUTTLE

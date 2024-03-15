@@ -3,11 +3,26 @@
 	required_crew = 1
 	// Should match the values used for requests consoles.
 	var/department = "Unknown"
+	var/complete = FALSE
+	var/progress_type = /datum/secondary_goal_progress
+	var/datum/secondary_goal_progress/progress
+	var/datum/secondary_goal_tracker/tracker
 
 /datum/station_goal/secondary/robotics_test
 	name = "Test Goal"
 	department = "Robotics"
 	report_message = "Die."
+
+/datum/station_goal/secondary/proc/Initialize()
+	randomize_params()
+	progress = new progress_type
+	progress.configure(src)
+	tracker = new(src, progress)
+	tracker.register(SSshuttle.supply)
+
+// Override this to randomly configure the goal before generating a progress
+// tracker.
+/datum/station_goal/secondary/proc/randomize_params()
 
 /datum/station_goal/secondary/send_report(requester)
 	var/list/message_parts = list()
@@ -33,6 +48,7 @@
 
 	var/datum/station_goal/secondary/picked = pick(possible)
 	var/datum/station_goal/secondary/built = new picked
+	built.Initialize()
 	built.send_report(requester)
 	if(SSticker)
 		SSticker.mode.secondary_goals += built

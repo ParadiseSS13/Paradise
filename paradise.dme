@@ -2707,6 +2707,8 @@
 #include "code\modules\station_goals\shield.dm"
 #include "code\modules\station_goals\station_goal.dm"
 #include "code\modules\station_goals\secondary\secondary_goal.dm"
+#include "code\modules\station_goals\secondary\secondary_goal_tracker.dm"
+#include "code\modules\station_goals\secondary\bar\random_bulk_drink.dm"
 #include "code\modules\supply\supply_console.dm"
 #include "code\modules\supply\supply_order.dm"
 #include "code\modules\supply\supply_pack.dm"
