@@ -184,7 +184,9 @@
 			return CARGO_PREVENT_SHUTTLE
 
 	if(istype(AM, /obj/item/storage/lockbox))
-		return CARGO_REQUIRE_PRIORITY
+		var/obj/item/storage/lockbox/LB = AM
+		if(LB.locked)
+			return CARGO_REQUIRE_PRIORITY
 
 	if(istype(AM, /obj/effect))
 		var/obj/effect/E = AM
