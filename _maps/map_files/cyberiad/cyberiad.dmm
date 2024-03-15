@@ -9521,6 +9521,15 @@
 /obj/structure/chair,
 /turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint2)
+"aEM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/nw)
 "aEN" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
@@ -26678,6 +26687,11 @@
 "bDO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
 "bDP" = (
@@ -27534,6 +27548,11 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
 "bHc" = (
@@ -29042,6 +29061,11 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
 "bMn" = (
@@ -29089,11 +29113,6 @@
 	},
 /area/station/science/hallway)
 "bMu" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
 	},
@@ -29545,13 +29564,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "bNY" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
 "bOd" = (
@@ -47372,11 +47391,6 @@
 	c_tag = "Central Hallway West";
 	dir = 8
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
 	},
@@ -47468,11 +47482,6 @@
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 27
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -59469,8 +59478,8 @@
 "gtr" = (
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
+	d2 = 8;
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -63370,6 +63379,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
+"ioq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/west)
 "iot" = (
 /obj/effect/decal/cleanable/ash,
 /obj/effect/decal/cleanable/dirt,
@@ -63662,11 +63681,6 @@
 	},
 /area/station/science/xenobiology)
 "iwZ" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -68709,11 +68723,6 @@
 "kUF" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
 	},
 /obj/machinery/alarm{
 	dir = 8;
@@ -75919,11 +75928,6 @@
 	},
 /area/station/medical/patients_rooms1)
 "oxX" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
@@ -120556,12 +120560,12 @@ bwB
 brJ
 bCt
 bDO
-bDO
+ioq
 bGZ
-bDO
-bDO
-bDO
-bDO
+ioq
+ioq
+ioq
+ioq
 bMm
 bNY
 bQn
@@ -120809,7 +120813,7 @@ bnP
 bnP
 bnP
 bnP
-bmV
+aEM
 bAz
 bxk
 gtr
