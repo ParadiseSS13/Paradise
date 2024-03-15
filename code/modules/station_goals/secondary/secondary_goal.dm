@@ -6,6 +6,8 @@
 	var/progress_type = /datum/secondary_goal_progress
 	var/datum/secondary_goal_progress/progress
 	var/datum/secondary_goal_tracker/tracker
+	// Abstract goals can't be used directly.
+	var/abstract = TRUE
 
 /datum/station_goal/secondary/robotics_test
 	name = "Test Goal"
@@ -36,7 +38,7 @@
 	var/list/possible = list()
 	for(var/T in subtypesof(/datum/station_goal/secondary))
 		var/datum/station_goal/secondary/G = T
-		if(initial(G.department) != department)
+		if(initial(G.department) != department || initial(G.abstract))
 			continue
 		possible += G
 
