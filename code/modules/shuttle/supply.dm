@@ -2,6 +2,13 @@
 #define CARGO_PREVENT_SHUTTLE 1
 #define CARGO_SKIP_ATOM 2
 
+#define CARGO_OK 0
+#define CARGO_PREVENT_SHUTTLE 1
+#define CARGO_SKIP_ATOM 2
+#define CARGO_REQUIRE_PRIORITY 2
+#define CARGO_HAS_PRIORITY 2
+
+
 /obj/docking_port/mobile/supply
 	name = "supply shuttle"
 	id = "supply"
@@ -126,26 +133,37 @@
 	manifest = new
 	SEND_SIGNAL(src, COMSIG_CARGO_BEGIN_SCAN)
 	for(var/atom/movable/AM in areaInstance)
-		if(!deep_scan(AM, TRUE))
+		if(deep_scan(AM, TRUE) == CARGO_PREVENT_SHUTTLE)
 			return FALSE
 	return TRUE
 
 /obj/docking_port/mobile/supply/proc/deep_scan(atom/movable/AM, top_level = FALSE)
 	var/handling = prefilter_atom(AM)
 	if(handling == CARGO_PREVENT_SHUTTLE)
-		return FALSE
+		return CARGO_PREVENT_SHUTTLE
 
+	var/found_priority = FALSE
 	for(var/atom/movable/child in AM)
-		if(!deep_scan(child))
-			return FALSE
+		var/child_handling = deep_scan(child)
+		if(child_handling == CARGO_PREVENT_SHUTTLE)
+			return CARGO_PREVENT_SHUTTLE
+		if(child_handling == CARGO_HAS_PRIORITY)
+			found_priority = TRUE
 
 	if(handling != CARGO_SKIP_ATOM)
 		var/sellable = SEND_SIGNAL(src, COMSIG_CARGO_CHECK_SELL, AM)
 		manifest.items_to_sell[AM] = sellable
 		if(top_level && !(sellable & COMSIG_CARGO_IS_SECURED))
 			manifest.loose_cargo = TRUE
+		if(top_level)
+			return CARGO_OK
+		if(sellable & COMSIG_CARGO_SELL_PRIORITY)
+			return CARGO_HAS_PRIORITY
+		if(handling == CARGO_REQUIRE_PRIORITY && !found_priority)
+			blocking_item = "locked containers that don't contain goal items ([AM])"
+			return CARGO_PREVENT_SHUTTLE
 
-	return TRUE
+	return CARGO_OK
 
 /obj/docking_port/mobile/supply/proc/prefilter_atom(atom/movable/AM)
 	for(var/reason in blacklist)
@@ -165,13 +183,19 @@
 			blocking_item = "locked crates ([AM])"
 			return CARGO_PREVENT_SHUTTLE
 
+	if(istype(AM, /obj/item/storage/lockbox))
+		return CARGO_REQUIRE_PRIORITY
+
 	if(istype(AM, /obj/effect))
 		var/obj/effect/E = AM
 		if(E.is_cleanable())
-			return NONE
+			return CARGO_OK
 
 	if(AM.anchored)
 		return CARGO_SKIP_ATOM
+
+	return CARGO_OK
+
 
 /obj/docking_port/mobile/supply/proc/sell()
 	if(z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
@@ -621,13 +645,19 @@
 
 
 /datum/economy/simple_seller/messes
-	var/list/temp_discovered
 
 /datum/economy/simple_seller/messes/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
 	if(istype(AM, /obj/effect))
 		var/obj/effect/E = AM
 		if(E.is_cleanable())
 			return COMSIG_CARGO_MESS | COMSIG_CARGO_IS_SECURED
+
+
+/datum/economy/simple_seller/containers
+
+/datum/economy/simple_seller/messes/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
+	if(istype(AM, /obj/item/storage))
+		return COMSIG_CARGO_SELL_NORMAL
 
 
 /datum/economy/cargo_shuttle_manifest
@@ -645,5 +675,8 @@
 	var/zero_is_good = FALSE
 
 #undef MAX_CRATE_DELIVERY
+#undef CARGO_OK
 #undef CARGO_PREVENT_SHUTTLE
 #undef CARGO_SKIP_ATOM
+#undef CARGO_REQUIRE_PRIORITY
+#undef CARGO_SKIP_PRIORITY
