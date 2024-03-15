@@ -51,8 +51,26 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 		return
 	if(action_key == "suit_sensors")
 		jumpsuit.set_sensors(user)
-	if(action_key == "remove_accessory")
-		jumpsuit.access_accessories(user)
+		return
+
+	if(action_key != "remove_accessory")
+		return
+	if(!length(jumpsuit.accessories))
+		return
+	var/obj/item/clothing/accessory/A = jumpsuit.accessories[1]
+	if(!in_thief_mode(user))
+		user.visible_message("<span class='danger'>[user] starts to take off [A] from [source]'s [jumpsuit]!</span>", \
+							"<span class='danger'>You start to take off [A] from [source]'s [jumpsuit]!</span>")
+
+	if(!do_mob(user, source, POCKET_STRIP_DELAY))
+		return
+	if(QDELETED(A) || !(A in jumpsuit.accessories))
+		return
+
+	if(!in_thief_mode(user))
+		user.visible_message("<span class='danger'>[user] takes [A] off of [source]'s [jumpsuit]!</span>", \
+							"<span class='danger'>You take [A] off of [source]'s [jumpsuit]!</span>")
+	jumpsuit.detach_accessory(A, user)
 
 /datum/strippable_item/mob_item_slot/left_ear
 	key = STRIPPABLE_ITEM_L_EAR

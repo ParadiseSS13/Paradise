@@ -453,12 +453,12 @@
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(!usr.stat && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !usr.restrained() && in_range(src, usr))
-		var/thief_mode = 0
-		if(ishuman(usr))
-			var/mob/living/carbon/human/H = usr
-			var/obj/item/clothing/gloves/G = H.gloves
-			if(G && G.pickpocket)
-				thief_mode = 1
+		// var/thief_mode = 0
+		// if(ishuman(usr))
+		// 	var/mob/living/carbon/human/H = usr
+		// 	var/obj/item/clothing/gloves/G = H.gloves
+		// 	if(G && G.pickpocket)
+		// 		thief_mode = 1
 
 		if(href_list["embedded_object"])
 			var/obj/item/organ/external/L = locate(href_list["embedded_limb"]) in bodyparts
@@ -532,30 +532,30 @@
 		// 		var/obj/item/clothing/under/U = w_uniform
 		// 		U.set_sensors(usr)
 
-		if(href_list["dislodge_headpocket"])
-			usr.visible_message("<span class='danger'>[usr] is trying to remove something from [src]'s head!</span>",
-													"<span class='danger'>You start to dislodge whatever's inside [src]'s headpocket!</span>")
-			if(do_mob(usr, src, POCKET_STRIP_DELAY))
-				usr.visible_message("<span class='danger'>[usr] has dislodged something from [src]'s head!</span>",
-														"<span class='danger'>You have dislodged everything from [src]'s headpocket!</span>")
-				var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
-				C.empty_contents()
-				add_attack_logs(usr, src, "Stripped of headpocket items", isLivingSSD(src) ? null : ATKLOG_ALL)
+		// if(href_list["dislodge_headpocket"])
+		// 	usr.visible_message("<span class='danger'>[usr] is trying to remove something from [src]'s head!</span>",
+		// 											"<span class='danger'>You start to dislodge whatever's inside [src]'s headpocket!</span>")
+		// 	if(do_mob(usr, src, POCKET_STRIP_DELAY))
+		// 		usr.visible_message("<span class='danger'>[usr] has dislodged something from [src]'s head!</span>",
+		// 												"<span class='danger'>You have dislodged everything from [src]'s headpocket!</span>")
+		// 		var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
+		// 		C.empty_contents()
+		// 		add_attack_logs(usr, src, "Stripped of headpocket items", isLivingSSD(src) ? null : ATKLOG_ALL)
 
-		if(href_list["strip_accessory"])
-			if(istype(w_uniform, /obj/item/clothing/under))
-				var/obj/item/clothing/under/U = w_uniform
-				if(U.accessories.len)
-					var/obj/item/clothing/accessory/A = U.accessories[1]
-					if(!thief_mode)
-						usr.visible_message("<span class='danger'>\The [usr] starts to take off \the [A] from \the [src]'s [U]!</span>", \
-											"<span class='danger'>You start to take off \the [A] from \the [src]'s [U]!</span>")
+		// if(href_list["strip_accessory"])
+		// 	if(istype(w_uniform, /obj/item/clothing/under))
+		// 		var/obj/item/clothing/under/U = w_uniform
+		// 		if(U.accessories.len)
+		// 			var/obj/item/clothing/accessory/A = U.accessories[1]
+		// 			if(!thief_mode)
+		// 				usr.visible_message("<span class='danger'>\The [usr] starts to take off \the [A] from \the [src]'s [U]!</span>",
+		// 									"<span class='danger'>You start to take off \the [A] from \the [src]'s [U]!</span>")
 
-					if(do_mob(usr, src, 40) && A && U.accessories.len)
-						if(!thief_mode)
-							usr.visible_message("<span class='danger'>\The [usr] takes \the [A] off of \the [src]'s [U]!</span>", \
-												"<span class='danger'>You take \the [A] off of \the [src]'s [U]!</span>")
-						U.detach_accessory(A, usr)
+		// 			if(do_mob(usr, src, 40) && A && U.accessories.len)
+		// 				if(!thief_mode)
+		// 					usr.visible_message("<span class='danger'>\The [usr] takes \the [A] off of \the [src]'s [U]!</span>",
+		// 										"<span class='danger'>You take \the [A] off of \the [src]'s [U]!</span>")
+		// 				U.detach_accessory(A, usr)
 
 	if(href_list["criminal"])
 		try_set_criminal_status(usr)

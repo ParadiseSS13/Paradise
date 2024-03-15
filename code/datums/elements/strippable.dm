@@ -464,12 +464,10 @@
 			if(strippable_item.get_obscuring(owner) == STRIPPABLE_OBSCURING_COMPLETELY)
 				return
 
-			var/item = strippable_item.get_item(owner)
-			if(isnull(item))
-				return
-
-			if(isnull(strippable_item.get_alternate_actions(owner, user)))
-				return
+			if(isnull(strippable_item.get_body_action(owner, user)))
+				var/item = strippable_item.get_item(owner)
+				if(isnull(item) || isnull(strippable_item.get_alternate_actions(owner, user)))
+					return
 
 			LAZYORASSOCLIST(interactions, user, key)
 
