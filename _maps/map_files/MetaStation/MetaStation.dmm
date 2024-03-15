@@ -11771,6 +11771,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "aXi" = (
@@ -49408,6 +49409,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "eRZ" = (
@@ -55494,15 +55496,6 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
-"hpF" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel,
-/area/station/supply/storage)
 "hpJ" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -128620,7 +128613,7 @@ aQD
 aTo
 spj
 aTo
-aXk
+aTo
 aYK
 aLl
 niC
