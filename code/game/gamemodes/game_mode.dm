@@ -497,9 +497,24 @@
 	print_command_report(message_text, "NAS Trurl Orders", FALSE)
 
 /datum/game_mode/proc/declare_station_goal_completion()
-	for(var/V in station_goals)
-		var/datum/station_goal/G = V
-		G.print_result()
+	for(var/datum/station_goal/goal in station_goals)
+		goal.print_result()
+
+	var/departments = list()
+	for(var/datum/station_goal/secondary/goal in secondary_goals)
+		if(goal.completed)
+			if(!departments[goal.department])
+				departments[goal.department] = 0
+			departments[goal.department]++
+
+	to_chat(world, "<b>Secondary Goals</b>:")
+	var/any = FALSE
+	for(var/department in departments)
+		if(departments[department])
+			any = TRUE
+			to_chat(world, "<b>[department]</b>: <span class='greenannounce'>[departments[department]] completed!</span>")
+	if(!any)
+		to_chat(world, "<span class='boldannounceic'>None completed!</span>")
 
 /datum/game_mode/proc/generate_station_trait_report()
 	var/something_to_print = FALSE
