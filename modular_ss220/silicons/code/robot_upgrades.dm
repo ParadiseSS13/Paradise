@@ -13,16 +13,16 @@
 		to_chat(usr, span_notice("There's no room for another [name] unit!"))
 		return FALSE
 
-	for(var/datum/robot_energy_storage/ES in R.module.storages)
+	for(var/datum/robot_storage/energy/ES in R.module.storages)
 		// ОФФы решили не делать деактиватор, поэтому против абуза сбрасываем.
-		ES.max_energy = initial(ES.max_energy)
+		ES.max_amount = initial(ES.max_amount)
 		ES.recharge_rate = initial(ES.recharge_rate)
-		ES.energy = initial(ES.max_energy)
+		ES.amount = initial(ES.max_amount)
 
 		// Modifier
-		ES.max_energy *= max_energy_multiplication
+		ES.max_amount *= max_energy_multiplication
 		ES.recharge_rate *= recharge_rate_multiplication
-		ES.energy = ES.max_energy
+		ES.amount = ES.max_amount
 
 	return TRUE
 
