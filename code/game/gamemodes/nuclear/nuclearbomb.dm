@@ -21,7 +21,7 @@ GLOBAL_VAR(bomb_set)
 	flags_2 = NO_MALF_EFFECT_2 | CRITICAL_ATOM_2
 	anchored = TRUE
 	power_state = NO_POWER_USE
-	requires_power = FALSE
+	interact_offline = TRUE
 
 	/// Are our bolts *supposed* to be in the floor, may not actually cause anchoring if the bolts are cut
 	var/extended = TRUE

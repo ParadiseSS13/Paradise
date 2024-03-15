@@ -372,7 +372,7 @@
 /datum/hud/sword/New(mob/user)
 	..()
 
-	mymob.healths = new /obj/screen/healths()
+	mymob.healths = new /atom/movable/screen/healths()
 	infodisplay += mymob.healths
 
 /mob/living/simple_animal/shade/sword/ClickOn(atom/A, params)
@@ -418,14 +418,18 @@
 /obj/item/nullrod/fedora
 	name = "binary fedora"
 	desc = "The brim of the hat is as sharp as the division between 0 and 1. It makes a mighty throwing weapon."
+	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "fedora"
 	item_state = "fedora"
 	slot_flags = SLOT_FLAG_HEAD
-	icon = 'icons/obj/clothing/hats.dmi'
 	force = 0
 	throw_speed = 4
 	throw_range = 7
 	throwforce = 25 // Yes, this is high, since you can typically only use it once in a fight.
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+	)
 
 /obj/item/nullrod/armblade
 	name = "dark blessing"

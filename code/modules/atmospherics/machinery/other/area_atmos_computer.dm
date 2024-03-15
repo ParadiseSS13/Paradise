@@ -31,7 +31,7 @@
 		return
 	src.add_fingerprint(usr)
 	var/dat = {"
-	<html>
+	<html><meta charset='utf-8'>
 		<head>
 			<style type="text/css">
 				a.green:link

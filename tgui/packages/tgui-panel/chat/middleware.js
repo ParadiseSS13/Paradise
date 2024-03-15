@@ -176,7 +176,6 @@ export const chatMiddleware = (store) => {
         settings.highlightSettings,
         settings.highlightSettingById
       );
-
       return;
     }
     if (type === 'roundrestart') {

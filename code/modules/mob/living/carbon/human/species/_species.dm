@@ -284,7 +284,7 @@
 
 	if(!has_gravity(H))
 		return
-	if(!IS_HORIZONTAL(H))
+	if(!IS_HORIZONTAL(H) || (HAS_TRAIT(H, TRAIT_NOKNOCKDOWNSLOWDOWN) && !H.resting)) //You are slowed if crawling without noknockdownslowdown. However, if you are self crawling, you don't ignore it, so no self crawling to not drop items
 		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
 			. -= 1
 		else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
@@ -1033,16 +1033,14 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
 	return
 
-/proc/get_random_species(species_name = FALSE)	// Returns a random non black-listed or hazardous species, either as a string or datum
+/// Returns a list of names of non-blacklisted or hazardous species.
+/proc/get_safe_species()
 	var/static/list/random_species = list()
-	if(!random_species.len)
-		for(var/thing  in subtypesof(/datum/species))
-			var/datum/species/S = thing
+	if(!length(random_species))
+		for(var/datum/species/S as anything in subtypesof(/datum/species))
 			if(!initial(S.dangerous_existence) && !initial(S.blacklisted))
 				random_species += initial(S.name)
-	var/picked_species = pick(random_species)
-	var/datum/species/selected_species = GLOB.all_species[picked_species]
-	return species_name ? picked_species : selected_species.type
+	return random_species
 
 /datum/species/proc/can_hear(mob/living/carbon/human/H)
 	. = FALSE

@@ -57,7 +57,6 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
-	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
 	if(held_body) // Null check for empty bodies
 		held_body.forceMove(get_turf(src))
 		SSticker.mode.add_cult_immunity(held_body)
@@ -71,7 +70,11 @@
 		held_body.cancel_camera()
 	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
-	. = ..()
+	return ..()
+
+/mob/living/simple_animal/hostile/construct/Destroy()
+	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
+	return ..()
 
 /mob/living/simple_animal/hostile/construct/proc/add_held_body(atom/movable/body)
 	held_body = body
@@ -123,7 +126,7 @@
 
 /mob/living/simple_animal/hostile/construct/Life(seconds, times_fired)
 	if(holy_check(src))
-		throw_alert("holy_fire", /obj/screen/alert/holy_fire, override = TRUE)
+		throw_alert("holy_fire", /atom/movable/screen/alert/holy_fire, override = TRUE)
 		visible_message("<span class='danger'>[src] slowly crumbles to dust in this holy place!</span>", \
 			"<span class='danger'>Your shell burns as you crumble to dust in this holy place!</span>")
 		playsound(loc, 'sound/items/welder.ogg', 150, TRUE)
