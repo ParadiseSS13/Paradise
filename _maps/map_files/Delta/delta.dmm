@@ -79340,14 +79340,7 @@
 	},
 /area/station/security/main)
 "mef" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/table/wood,
 /obj/item/taperecorder,
 /obj/item/restraints/handcuffs,
@@ -79357,24 +79350,6 @@
 	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/power/apc/directional/north,
-/obj/structure/table/wood,
-/obj/item/taperecorder,
-/obj/item/restraints/handcuffs,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/detective)
@@ -96655,9 +96630,6 @@
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "wbm" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/disposalpipe/segment/corner{
@@ -96668,27 +96640,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
