@@ -644,7 +644,7 @@
 		name = P.tagname
 		real_name = P.tagname
 
-/mob/living/simple_animal/proc/remove_collar(atom/new_loc)
+/mob/living/simple_animal/proc/remove_collar(atom/new_loc, mob/user)
 	if(!pcollar)
 		return
 
@@ -652,6 +652,9 @@
 
 	pcollar.forceMove(new_loc)
 	pcollar = null
+
+	if(user)
+		user.put_in_hands(old_collar)
 
 	return old_collar
 

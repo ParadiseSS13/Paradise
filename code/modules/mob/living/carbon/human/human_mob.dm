@@ -482,55 +482,55 @@
 					clear_alert("embeddedobject")
 			return
 
-		if(href_list["item"])
-			var/slot = text2num(href_list["item"])
-			if(slot in check_obscured_slots())
-				to_chat(usr, "<span class='warning'>You can't reach that! Something is covering it.</span>")
-				return
+		// if(href_list["item"])
+		// 	var/slot = text2num(href_list["item"])
+		// 	if(slot in check_obscured_slots())
+		// 		to_chat(usr, "<span class='warning'>You can't reach that! Something is covering it.</span>")
+		// 		return
 
-		if(href_list["pockets"])
-			var/pocket_side = href_list["pockets"]
-			var/pocket_id = (pocket_side == "right" ? SLOT_HUD_RIGHT_STORE : SLOT_HUD_LEFT_STORE)
-			var/obj/item/pocket_item = (pocket_id == SLOT_HUD_RIGHT_STORE ? r_store : l_store)
-			var/obj/item/place_item = usr.get_active_hand() // Item to place in the pocket, if it's empty
+		// if(href_list["pockets"])
+		// 	var/pocket_side = href_list["pockets"]
+		// 	var/pocket_id = (pocket_side == "right" ? SLOT_HUD_RIGHT_STORE : SLOT_HUD_LEFT_STORE)
+		// 	var/obj/item/pocket_item = (pocket_id == SLOT_HUD_RIGHT_STORE ? r_store : l_store)
+		// 	var/obj/item/place_item = usr.get_active_hand() // Item to place in the pocket, if it's empty
 
-			var/delay_denominator = 1
-			if(pocket_item && !(pocket_item.flags&ABSTRACT))
-				if(pocket_item.flags & NODROP)
-					to_chat(usr, "<span class='warning'>You try to empty [src]'s [pocket_side] pocket, it seems to be stuck!</span>")
-				to_chat(usr, "<span class='notice'>You try to empty [src]'s [pocket_side] pocket.</span>")
-			else if(place_item && place_item.mob_can_equip(src, pocket_id, 1) && !(place_item.flags&ABSTRACT))
-				to_chat(usr, "<span class='notice'>You try to place [place_item] into [src]'s [pocket_side] pocket.</span>")
-				delay_denominator = 4
-			else
-				return
+		// 	var/delay_denominator = 1
+		// 	if(pocket_item && !(pocket_item.flags&ABSTRACT))
+		// 		if(pocket_item.flags & NODROP)
+		// 			to_chat(usr, "<span class='warning'>You try to empty [src]'s [pocket_side] pocket, it seems to be stuck!</span>")
+		// 		to_chat(usr, "<span class='notice'>You try to empty [src]'s [pocket_side] pocket.</span>")
+		// 	else if(place_item && place_item.mob_can_equip(src, pocket_id, 1) && !(place_item.flags&ABSTRACT))
+		// 		to_chat(usr, "<span class='notice'>You try to place [place_item] into [src]'s [pocket_side] pocket.</span>")
+		// 		delay_denominator = 4
+		// 	else
+		// 		return
 
-			if(do_mob(usr, src, POCKET_STRIP_DELAY/delay_denominator)) //placing an item into the pocket is 4 times faster
-				if(pocket_item)
-					if(pocket_item == (pocket_id == SLOT_HUD_RIGHT_STORE ? r_store : l_store)) //item still in the pocket we search
-						unEquip(pocket_item)
-						if(thief_mode)
-							usr.put_in_hands(pocket_item)
-						add_attack_logs(usr, src, "Stripped of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
-				else
-					if(place_item)
-						usr.unEquip(place_item)
-						equip_to_slot_if_possible(place_item, pocket_id, FALSE, TRUE)
-						add_attack_logs(usr, src, "Equipped with [place_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
+		// 	if(do_mob(usr, src, POCKET_STRIP_DELAY/delay_denominator)) //placing an item into the pocket is 4 times faster
+		// 		if(pocket_item)
+		// 			if(pocket_item == (pocket_id == SLOT_HUD_RIGHT_STORE ? r_store : l_store)) //item still in the pocket we search
+		// 				unEquip(pocket_item)
+		// 				// if(thief_mode)
+		// 				// 	usr.put_in_hands(pocket_item)
+		// 				add_attack_logs(usr, src, "Stripped of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
+		// 		else
+		// 			if(place_item)
+		// 				usr.unEquip(place_item)
+		// 				equip_to_slot_if_possible(place_item, pocket_id, FALSE, TRUE)
+		// 				add_attack_logs(usr, src, "Equipped with [place_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 
-				// Update strip window
-				// if(usr.machine == src && in_range(src, usr))
-				// 	show_inv(usr)
-			else
-				// Display a warning if the user mocks up if they don't have pickpocket gloves.
-				if(!thief_mode)
-					to_chat(src, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
-				add_attack_logs(usr, src, "Attempted strip of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
+		// 		// Update strip window
+		// 		// if(usr.machine == src && in_range(src, usr))
+		// 		// 	show_inv(usr)
+		// 	else
+		// 		// Display a warning if the user mocks up if they don't have pickpocket gloves.
+		// 		// if(!thief_mode)
+		// 		// 	to_chat(src, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
+		// 		// add_attack_logs(usr, src, "Attempted strip of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 
-		if(href_list["set_sensor"])
-			if(istype(w_uniform, /obj/item/clothing/under))
-				var/obj/item/clothing/under/U = w_uniform
-				U.set_sensors(usr)
+		// if(href_list["set_sensor"])
+		// 	if(istype(w_uniform, /obj/item/clothing/under))
+		// 		var/obj/item/clothing/under/U = w_uniform
+		// 		U.set_sensors(usr)
 
 		if(href_list["dislodge_headpocket"])
 			usr.visible_message("<span class='danger'>[usr] is trying to remove something from [src]'s head!</span>",

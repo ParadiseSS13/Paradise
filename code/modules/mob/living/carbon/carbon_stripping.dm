@@ -2,7 +2,23 @@
 	key = STRIPPABLE_ITEM_HEAD
 	item_slot = SLOT_HUD_HEAD
 
-/datum/strippable_item/mob_item_slot/head/get_alternate_action(atom/source, mob/user)
+/datum/strippable_item/mob_item_slot/back
+	key = STRIPPABLE_ITEM_BACK
+	item_slot = SLOT_HUD_BACK
+
+/datum/strippable_item/mob_item_slot/back/get_alternate_actions(atom/source, mob/user)
+	return get_strippable_alternate_action_internals(get_item(source), source)
+
+/datum/strippable_item/mob_item_slot/back/alternate_action(atom/source, mob/user, action_key)
+	if(!..())
+		return
+	strippable_alternate_action_internals(get_item(source), source, user)
+
+/datum/strippable_item/mob_item_slot/mask
+	key = STRIPPABLE_ITEM_MASK
+	item_slot = SLOT_HUD_WEAR_MASK
+
+/datum/strippable_item/mob_item_slot/mask/get_body_action(atom/source, mob/user)
 	if(!ishuman(source))
 		return
 	var/mob/living/carbon/human/H = source
@@ -11,8 +27,10 @@
 		return "dislodge_headpocket"
 
 
-/datum/strippable_item/mob_item_slot/head/alternate_action(atom/source, mob/user)
+/datum/strippable_item/mob_item_slot/mask/alternate_action(atom/source, mob/user, action_key)
 	if(!..())
+		return
+	if(action_key != "dislodge_headpocket")
 		return
 	var/mob/living/carbon/human/H = source
 	var/obj/item/organ/internal/headpocket/pocket = H.get_int_organ(/obj/item/organ/internal/headpocket)
@@ -26,31 +44,33 @@
 		pocket.empty_contents()
 		add_attack_logs(user, source, "Stripped of headpocket items", isLivingSSD(source) ? null : ATKLOG_ALL)
 
-/datum/strippable_item/mob_item_slot/back
-	key = STRIPPABLE_ITEM_BACK
-	item_slot = SLOT_HUD_BACK
-
-/datum/strippable_item/mob_item_slot/back/get_alternate_action(atom/source, mob/user)
-	return get_strippable_alternate_action_internals(get_item(source), source)
-
-/datum/strippable_item/mob_item_slot/back/alternate_action(atom/source, mob/user)
-	if(!..())
-		return
-	strippable_alternate_action_internals(get_item(source), source, user)
-
-/datum/strippable_item/mob_item_slot/mask
-	key = STRIPPABLE_ITEM_MASK
-	item_slot = SLOT_HUD_WEAR_MASK
-
-/datum/strippable_item/mob_item_slot/back/get_alternate_action(atom/source, mob/user)
+/datum/strippable_item/mob_item_slot/mask/get_alternate_actions(atom/source, mob/user)
 	var/obj/item/clothing/mask/muzzle/muzzle = get_item(source)
 	if(!istype(muzzle))
 		return
 	if(muzzle.security_lock)
 		return "[muzzle.locked ? "dis" : "en"]able_lock"
 
-/datum/strippable_item/mob_item_slot/back/alternate_action(atom/source, mob/user)
+/datum/strippable_item/mob_item_slot/mask/alternate_action(atom/source, mob/user, action_key)
 	if(!..())
+		return
+	// Headpocket dislodging
+	if(action_key == "dislodge_headpocket")
+		var/mob/living/carbon/human/H = source
+		var/obj/item/organ/internal/headpocket/pocket = H.get_int_organ(/obj/item/organ/internal/headpocket)
+		if(!pocket.held_item)
+			return
+		user.visible_message("<span class='danger'>[user] is trying to remove something from [source]'s head!</span>",
+							"<span class='danger'>You start to dislodge whatever's inside [source]'s headpocket!</span>")
+		if(do_mob(user, source, POCKET_STRIP_DELAY))
+			user.visible_message("<span class='danger'>[user] has dislodged something from [source]'s head!</span>",
+								"<span class='danger'>You have dislodged everything from [source]'s headpocket!</span>")
+			pocket.empty_contents()
+			add_attack_logs(user, source, "Stripped of headpocket items", isLivingSSD(source) ? null : ATKLOG_ALL)
+		return
+
+	// Altering a muzzle
+	if(action_key != "enable_lock" && action_key != "disable_lock")
 		return
 	var/obj/item/clothing/mask/muzzle/muzzle = get_item(source)
 	if(!istype(muzzle))
@@ -170,7 +190,7 @@
 	if(!ismob(source))
 		return FALSE
 
-	return finish_unequip_mob(item, source, user)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(finish_unequip_mob), item, source, user)
 
 /datum/strippable_item/hand/left
 	key = STRIPPABLE_ITEM_LHAND

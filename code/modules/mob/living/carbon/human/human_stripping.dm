@@ -32,6 +32,28 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	key = STRIPPABLE_ITEM_JUMPSUIT
 	item_slot = SLOT_HUD_JUMPSUIT
 
+/datum/strippable_item/mob_item_slot/jumpsuit/get_alternate_actions(atom/source, mob/user)
+	var/list/multiple_options = list()
+	var/obj/item/clothing/under/jumpsuit = get_item(source)
+	if(!istype(jumpsuit))
+		return null
+	if(jumpsuit.has_sensor)
+		multiple_options |= "suit_sensors"
+	if(length(jumpsuit.accessories))
+		multiple_options |= "remove_accessory"
+	return multiple_options
+
+/datum/strippable_item/mob_item_slot/jumpsuit/alternate_action(atom/source, mob/user, action_key)
+	if(!..())
+		return
+	var/obj/item/clothing/under/jumpsuit = get_item(source)
+	if(!istype(jumpsuit))
+		return
+	if(action_key == "suit_sensors")
+		jumpsuit.set_sensors(user)
+	if(action_key == "remove_accessory")
+		jumpsuit.access_accessories(user)
+
 /datum/strippable_item/mob_item_slot/left_ear
 	key = STRIPPABLE_ITEM_L_EAR
 	item_slot = SLOT_HUD_LEFT_EAR
@@ -39,19 +61,6 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 /datum/strippable_item/mob_item_slot/right_ear
 	key = STRIPPABLE_ITEM_R_EAR
 	item_slot = SLOT_HUD_RIGHT_EAR
-
-/datum/strippable_item/mob_item_slot/jumpsuit/get_alternate_action(atom/source, mob/user)
-	var/obj/item/clothing/under/jumpsuit = get_item(source)
-	if(!istype(jumpsuit))
-		return null
-	return jumpsuit.has_sensor ? "suit_sensors" : null
-
-/datum/strippable_item/mob_item_slot/jumpsuit/alternate_action(atom/source, mob/user)
-	if(!..())
-		return
-	var/obj/item/clothing/under/jumpsuit = get_item(source)
-	if(istype(jumpsuit))
-		jumpsuit.set_sensors(user)
 
 /datum/strippable_item/mob_item_slot/suit
 	key = STRIPPABLE_ITEM_SUIT
@@ -69,10 +78,10 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	key = STRIPPABLE_ITEM_SUIT_STORAGE
 	item_slot = SLOT_HUD_SUIT_STORE
 
-/datum/strippable_item/mob_item_slot/suit_storage/get_alternate_action(atom/source, mob/user)
+/datum/strippable_item/mob_item_slot/suit_storage/get_alternate_actions(atom/source, mob/user)
 	return get_strippable_alternate_action_internals(get_item(source), source)
 
-/datum/strippable_item/mob_item_slot/suit_storage/alternate_action(atom/source, mob/user)
+/datum/strippable_item/mob_item_slot/suit_storage/alternate_action(atom/source, mob/user, action_key)
 	if(!..())
 		return
 	strippable_alternate_action_internals(get_item(source), source, user)
@@ -94,10 +103,10 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	key = STRIPPABLE_ITEM_BELT
 	item_slot = SLOT_HUD_BELT
 
-/datum/strippable_item/mob_item_slot/belt/get_alternate_action(atom/source, mob/user)
+/datum/strippable_item/mob_item_slot/belt/get_alternate_actions(atom/source, mob/user)
 	return get_strippable_alternate_action_internals(get_item(source), source)
 
-/datum/strippable_item/mob_item_slot/belt/alternate_action(atom/source, mob/user)
+/datum/strippable_item/mob_item_slot/belt/alternate_action(atom/source, mob/user, action_key)
 	if(!..())
 		return
 	strippable_alternate_action_internals(get_item(source), source, user)
@@ -112,11 +121,11 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 		: STRIPPABLE_OBSCURING_HIDDEN
 
 /datum/strippable_item/mob_item_slot/pocket/get_equip_delay(obj/item/equipping)
-	return POCKET_EQUIP_DELAY
+	return POCKET_EQUIP_DELAY // Equipping is 4 times as fast as stripping
 
 /datum/strippable_item/mob_item_slot/pocket/start_equip(atom/source, obj/item/equipping, mob/user)
 	. = ..()
-	if(!.)
+	if(!. && !in_thief_mode(user))
 		warn_owner(source)
 
 /datum/strippable_item/mob_item_slot/pocket/start_unequip(atom/source, mob/user)
@@ -131,13 +140,19 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 	var/result = start_unequip_mob(item, source, user, POCKET_STRIP_DELAY)
 
-	if(!result)
+	if(!result && !in_thief_mode(user))
 		warn_owner(source)
 
 	return result
 
 /datum/strippable_item/mob_item_slot/pocket/proc/warn_owner(atom/owner)
 	to_chat(owner, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
+
+/datum/strippable_item/mob_item_slot/pocket/finish_unequip(atom/source, mob/user)
+	var/obj/item/item = get_item(source)
+	. = ..()
+	if(in_thief_mode(user))
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), item)
 
 /datum/strippable_item/mob_item_slot/pocket/left
 	key = STRIPPABLE_ITEM_LPOCKET

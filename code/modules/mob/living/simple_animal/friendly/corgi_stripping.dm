@@ -28,7 +28,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	if(!istype(corgi_source))
 		return
 
-	user.put_in_hands(corgi_source.inventory_head)
+	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), corgi_source.inventory_head)
 	corgi_source.inventory_head = null
 	corgi_source.update_corgi_fluff()
 	corgi_source.update_appearance(UPDATE_OVERLAYS)
@@ -66,11 +66,8 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	if(!istype(pet_source))
 		return
 
-	var/obj/collar = pet_source.remove_collar(user.drop_location())
-	user.put_in_hands(collar)
-	if(istype(pet_source, /mob/living/simple_animal/pet/dog/corgi))
-		var/mob/living/simple_animal/pet/dog/corgi/cargoi = pet_source
-		cargoi.update_corgi_fluff()
+	INVOKE_ASYNC(pet_source, TYPE_PROC_REF(/mob/living/simple_animal, remove_collar), user.drop_location(), user)
+
 
 /datum/strippable_item/corgi_back
 	key = STRIPPABLE_ITEM_BACK
@@ -114,7 +111,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	if(!istype(corgi_source))
 		return
 
-	user.put_in_hands(corgi_source.inventory_back)
+	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), corgi_source.inventory_back)
 	corgi_source.inventory_back = null
 	corgi_source.update_corgi_fluff()
 	corgi_source.update_appearance(UPDATE_OVERLAYS)

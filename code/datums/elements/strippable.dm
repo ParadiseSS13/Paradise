@@ -42,10 +42,10 @@
 	if(over != user)
 		return
 
-	if(!isnull(should_strip_proc_path) && !call(source, should_strip_proc_path)(user))
+	if(!isnull(should_strip_proc_path) && !call(source, should_strip_proc_path)(user)) // ctodo do we need this
 		return
 
-	var/datum/strip_menu/strip_menu
+	var/datum/strip_menu/strip_menu = LAZYACCESS(strip_menus, source)
 
 	if(isnull(strip_menu))
 		strip_menu = new(source, src)
@@ -144,6 +144,8 @@
 
 /// The proc that unequips the item from the source. This should not yield.
 /datum/strippable_item/proc/finish_unequip(atom/source, mob/user)
+	SHOULD_NOT_SLEEP(TRUE)
+	return
 
 /// Returns a STRIPPABLE_OBSCURING_* define to report on whether or not this is obscured.
 /datum/strippable_item/proc/get_obscuring(atom/source)
@@ -153,19 +155,33 @@
 /// Returns the ID of this item's strippable action.
 /// Return `null` if there is no alternate action.
 /// Any return value of this must be in StripMenu.
-/datum/strippable_item/proc/get_alternate_action(atom/source, mob/user)
+/datum/strippable_item/proc/get_alternate_actions(atom/source, mob/user)
 	return null
+
+/**
+ * Actions that can happen to that body part, regardless if there is an item or not. As long as it is not obscured
+ */
+/datum/strippable_item/proc/get_body_action(atom/source, mob/user)
+	return
 
 /// Performs an alternative action on this strippable_item.
 /// `has_alternate_action` needs to be TRUE.
 /// Returns FALSE if blocked by signal, TRUE otherwise.
-/datum/strippable_item/proc/alternate_action(atom/source, mob/user)
+/datum/strippable_item/proc/alternate_action(atom/source, mob/user, action_key)
 	SHOULD_CALL_PARENT(TRUE)
 	return TRUE
 
 /// Returns whether or not this item should show.
 /datum/strippable_item/proc/should_show(atom/source, mob/user)
 	return TRUE
+
+/// Returns whether or not this item should show.
+/datum/strippable_item/proc/in_thief_mode(mob/user)
+	if(!ishuman(user))
+		return FALSE
+	var/mob/living/carbon/human/H = usr
+	var/obj/item/clothing/gloves/G = H.gloves
+	return G?.pickpocket
 
 /// A preset for equipping items onto mob slots
 /datum/strippable_item/mob_item_slot
@@ -239,7 +255,7 @@
 	if(!ismob(source))
 		return FALSE
 
-	return finish_unequip_mob(item, source, user)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(finish_unequip_mob), item, source, user)
 
 /// Returns the delay of equipping this item to a mob
 /datum/strippable_item/mob_item_slot/proc/get_equip_delay(obj/item/equipping)
@@ -324,7 +340,13 @@
 			items[strippable_key] = result
 			continue
 
+		var/alternates = item_data.get_body_action(owner, user)
+		if(!islist(alternates) && !isnull(alternates))
+			alternates = list(alternates)
+
 		if(isnull(item))
+			if(length(alternates))
+				LAZYSET(result, "alternates", alternates)
 			items[strippable_key] = result
 			continue
 
@@ -332,7 +354,15 @@
 
 		result["icon"] = icon2base64(icon(item.icon, item.icon_state))
 		result["name"] = item.name
-		result["alternate"] = item_data.get_alternate_action(owner, user)
+
+		var/real_alts = item_data.get_alternate_actions(owner, user)
+		if(islist(alternates))
+			alternates += real_alts
+		else
+			alternates = real_alts
+			if(!islist(alternates) && !isnull(alternates))
+				alternates = list(alternates)
+		result["alternates"] = alternates
 
 		items[strippable_key] = result
 
@@ -354,7 +384,7 @@
 
 	. = TRUE
 
-	var/mob/user = usr
+	var/mob/user = ui.user
 
 	switch(action)
 		if("use")
@@ -438,13 +468,13 @@
 			if(isnull(item))
 				return
 
-			if(isnull(strippable_item.get_alternate_action(owner, user)))
+			if(isnull(strippable_item.get_alternate_actions(owner, user)))
 				return
 
 			LAZYORASSOCLIST(interactions, user, key)
 
 			// Potentially yielding
-			strippable_item.alternate_action(owner, user)
+			strippable_item.alternate_action(owner, user, params["action_key"])
 
 			LAZYREMOVEASSOC(interactions, user, key)
 

@@ -4,6 +4,7 @@ import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Box, Button, Icon, Stack } from '../components';
 import { Window } from '../layouts';
+import { createLogger } from '../logging';
 
 const ROWS = 5;
 const COLUMNS = 5;
@@ -65,6 +66,11 @@ const ALTERNATE_ACTIONS: Record<string, AlternateAction> = {
   suit_sensors: {
     icon: 'tshirt',
     text: 'Adjust suit sensors',
+  },
+
+  remove_accessory: {
+    icon: 'circle', // todo change this to a more apt icon
+    text: 'Remove accessory',
   },
 
   dislodge_headpocket: {
@@ -241,7 +247,7 @@ type StripMenuItem =
       | {
           icon: string;
           name: string;
-          alternate?: string;
+          alternates?: Array<string>;
         }
       | {
           obscured: ObscuringLevel;
@@ -253,6 +259,8 @@ type StripMenuData = {
   items: Record<keyof typeof SLOTS, StripMenuItem>;
   name: string;
 };
+
+const logger = createLogger('fuck shit');
 
 export const StripMenu = (props, context) => {
   const { act, data } = useBackend<StripMenuData>(context);
@@ -306,7 +314,7 @@ export const StripMenu = (props, context) => {
                   const item = data.items[keyAtSpot];
                   const slot = SLOTS[keyAtSpot];
 
-                  let alternateAction: AlternateAction | undefined;
+                  let alternateActions: Array<string> | undefined;
 
                   let content;
                   let tooltip;
@@ -314,10 +322,6 @@ export const StripMenu = (props, context) => {
                   if (item === null) {
                     tooltip = slot.displayName;
                   } else if ('name' in item) {
-                    if (item.alternate) {
-                      alternateAction = ALTERNATE_ACTIONS[item.alternate];
-                    }
-
                     content = (
                       <Box
                         as="img"
@@ -353,6 +357,15 @@ export const StripMenu = (props, context) => {
                     );
 
                     tooltip = `obscured ${slot.displayName}`;
+                  }
+
+                  if (item !== null) {
+                    if ('alternates' in item) {
+                      if (item.alternates !== null) {
+                        alternateActions = item.alternates;
+                        logger.log(item);
+                      }
+                    }
                   }
 
                   return (
@@ -407,27 +420,37 @@ export const StripMenu = (props, context) => {
 
                           {slot.additionalComponent}
                         </Button>
-
-                        {alternateAction !== undefined && (
-                          <Button
-                            onClick={() => {
-                              act('alt', {
-                                key: keyAtSpot,
-                              });
-                            }}
-                            tooltip={alternateAction.text}
-                            width="1.8em"
-                            style={{
-                              background: 'rgba(0, 0, 0, 0.6)',
-                              position: 'absolute',
-                              bottom: 0,
-                              right: 0,
-                              'z-index': 2,
-                            }}
-                          >
-                            <Icon name={alternateAction.icon} />
-                          </Button>
-                        )}
+                        <Stack direction="row-reverse">
+                          {alternateActions !== undefined &&
+                            alternateActions.map((actionKey, index) => {
+                              const buttonOffset = index * 1.8;
+                              return (
+                                <Stack.Item key={index} width="100%">
+                                  <Button
+                                    onClick={() => {
+                                      act('alt', {
+                                        key: keyAtSpot,
+                                        action_key: actionKey,
+                                      });
+                                    }}
+                                    tooltip={ALTERNATE_ACTIONS[actionKey].text}
+                                    width="1.8em"
+                                    style={{
+                                      background: 'rgba(0, 0, 0, 0.6)',
+                                      position: 'absolute',
+                                      bottom: 0,
+                                      right: `${buttonOffset}em`,
+                                      'z-index': 2 + index,
+                                    }}
+                                  >
+                                    <Icon
+                                      name={ALTERNATE_ACTIONS[actionKey].icon}
+                                    />
+                                  </Button>
+                                </Stack.Item>
+                              );
+                            })}
+                        </Stack>
                       </Box>
                     </Stack.Item>
                   );
