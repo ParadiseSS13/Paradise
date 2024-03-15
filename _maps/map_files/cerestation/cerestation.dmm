@@ -36935,11 +36935,6 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
 "eGa" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
