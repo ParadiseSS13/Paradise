@@ -1,5 +1,5 @@
 /mob/dead/observer/say(message)
-	message = sanitize(copytext(message, 1, MAX_MESSAGE_LEN))
+	message = sanitize(copytext_char(message, 1, MAX_MESSAGE_LEN))
 
 	if(!message)
 		return

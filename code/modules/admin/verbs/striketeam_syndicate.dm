@@ -23,7 +23,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 	var/input = null
 	while(!input)
-		input = sanitize(copytext(input(src, "Please specify which mission the syndicate strike team shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
+		input = sanitize(copytext_char(input(src, "Please specify which mission the syndicate strike team shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
 		if(!input)
 			if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
 				return
@@ -166,3 +166,5 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
 
 	return 1
+
+#undef SYNDICATE_COMMANDOS_POSSIBLE

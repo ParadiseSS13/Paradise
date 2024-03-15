@@ -1,7 +1,8 @@
 /*
  * Fireaxe
  */
-/obj/item/fireaxe  // DEM AXES MAN, marker -Agouri
+/// DEM AXES MAN, marker -Agouri
+/obj/item/fireaxe
 	base_icon_state = "fireaxe"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
@@ -41,7 +42,8 @@
 			var/obj/structure/W = A
 			W.obj_destruction("fireaxe")
 
-/obj/item/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
+/// Blatant imitation of the fireaxe, but made out of bone.
+/obj/item/fireaxe/boneaxe
 	icon_state = "bone_axe0"
 	base_icon_state = "bone_axe"
 	name = "bone axe"
@@ -306,7 +308,8 @@
 		explosive.prime()
 		qdel(src)
 
-/obj/item/spear/bonespear	//Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
+/// Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
+/obj/item/spear/bonespear
 	name = "bone spear"
 	desc = "A haphazardly-constructed yet still deadly weapon. The pinnacle of modern technology."
 	base_icon_state = "bone_spear"
@@ -519,6 +522,8 @@
 	if(isrobot(target)) //no buff from attacking robots
 		return
 	if(!isliving(target)) //no buff from attacking inanimate objects
+		return
+	if(user.reagents.get_reagent_amount("mephedrone") > 15) // No patrick, you do not get to be chainsaw stun immune and bullet immune at once
 		return
 	if(target.stat != DEAD) //no buff from attacking dead targets
 		user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
@@ -1017,7 +1022,8 @@
 
 #undef BROOM_PUSH_LIMIT
 
-/obj/item/supermatter_halberd  //Supermatter Halberd, used by Oblivion Enforcers
+/// Supermatter Halberd, used by Oblivion Enforcers
+/obj/item/supermatter_halberd
 	name = "supermatter halberd"
 	desc = "The revered weapon of Oblivion Enforcers, used to enforce the Order's will."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'

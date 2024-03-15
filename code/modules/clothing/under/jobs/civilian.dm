@@ -138,11 +138,25 @@
 	permeability_coefficient = 0.50
 
 /obj/item/clothing/under/rank/civilian/janitor
-	desc = "It's the official uniform of the station's janitor. It has minor protection from biohazards."
 	name = "janitor's jumpsuit"
+	desc = "It's the official uniform of the station's janitor. It has minor protection from biohazards."
 	icon_state = "janitor"
+	item_state = "janitor"
 	item_color = "janitor"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+
+/obj/item/clothing/under/rank/civilian/janitor/skirt
+	name = "janitor's jumpskirt"
+	desc = "It's the official skirt variant of the janitor's uniform. It has leggings for protection against messes."
+	icon_state = "janitor_skirt"
+	item_state = "janitor_skirt"
+	item_color = "janitor_skirt"
+
+/obj/item/clothing/under/rank/civilian/janitor/overalls
+	name = "janitor's overalls"
+	desc = "Protective overalls designed to protect the wearer against large amounts of viscera."
+	icon_state = "janitor_overalls"
+	item_state = "janitor_overalls"
+	item_color = "janitor_overalls"
 
 /obj/item/clothing/under/rank/civilian/librarian
 	name = "sensible suit"

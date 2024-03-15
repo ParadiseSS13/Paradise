@@ -130,17 +130,19 @@
 	desc = "It's a decoy!"
 	duration = 15
 
-/obj/effect/temp_visual/decoy/New(loc, atom/mimiced_atom)
-	..()
+/obj/effect/temp_visual/decoy/Initialize(mapload, atom/mimiced_atom)
+	. = ..()
 	alpha = initial(alpha)
 	if(mimiced_atom)
 		name = mimiced_atom.name
 		appearance = mimiced_atom.appearance
+		invisibility = mimiced_atom.invisibility
+		alpha = mimiced_atom.alpha
 		setDir(mimiced_atom.dir)
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/obj/effect/temp_visual/decoy/fading/New(loc, atom/mimiced_atom)
-	..()
+/obj/effect/temp_visual/decoy/fading/Initialize(mapload, atom/mimiced_atom)
+	. = ..()
 	animate(src, alpha = 0, time = duration)
 
 /obj/effect/temp_visual/decoy/fading/threesecond
@@ -200,7 +202,8 @@
 	icon_state = "mummy_revive"
 	duration = 20
 
-/obj/effect/temp_visual/heal //color is white by default, set to whatever is needed
+/// color is white by default, set to whatever is needed
+/obj/effect/temp_visual/heal
 	name = "healing glow"
 	icon_state = "heal"
 	duration = 15
