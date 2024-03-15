@@ -425,6 +425,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 #undef RCS_ANNOUNCE
 #undef RCS_SHIPPING
 #undef RCS_SHIP_LOG
+#undef RCS_SECONDARY
 #undef ENGI_ROLES
 #undef SEC_ROLES
 #undef MISC_ROLES

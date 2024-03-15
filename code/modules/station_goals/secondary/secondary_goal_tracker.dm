@@ -42,7 +42,7 @@
 /datum/secondary_goal_tracker/proc/check_for_completion(obj/docking_port/mobile/supply/shuttle, datum/economy/cargo_shuttle_manifest/manifest)
 	SIGNAL_HANDLER  // COMSIG_CARGO_END_SELL
 	if(real_progress.check_complete(manifest))
-		goal.complete = TRUE
+		goal.completed = TRUE
 		unregister(SSshuttle.supply)
 
 

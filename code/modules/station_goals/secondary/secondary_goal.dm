@@ -3,7 +3,6 @@
 	required_crew = 1
 	// Should match the values used for requests consoles.
 	var/department = "Unknown"
-	var/complete = FALSE
 	var/progress_type = /datum/secondary_goal_progress
 	var/datum/secondary_goal_progress/progress
 	var/datum/secondary_goal_tracker/tracker
