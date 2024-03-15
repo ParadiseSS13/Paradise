@@ -68,6 +68,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/print_cooldown = 0	//cooldown on shipping label printer, stores the  in-game time of when the printer will next be ready
 	var/obj/item/radio/Radio
 	var/reminder_timer_id = TIMER_ID_NULL
+	var/has_active_secondary_goal = FALSE
 
 /obj/machinery/requests_console/power_change()
 	if(!..())
@@ -171,7 +172,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	data["msgVerified"] = msgVerified
 	data["announceAuth"] = announceAuth
 	data["secondaryGoalAuth"] = secondaryGoalAuth
-	data["secondaryGoalEnabled"] = TRUE // TODO: FIXME
+	data["secondaryGoalEnabled"] = !has_active_secondary_goal
 	data["shipDest"] = ship_tag_name
 	data["shipping_log"] = shipping_log
 
@@ -218,6 +219,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			reset_message(TRUE)
 
 		if("requestSecondaryGoal")
+			has_active_secondary_goal = check_for_active_secondary_goal()
+			if(has_active_secondary_goal || !secondaryGoalAuth)
+				return
 			generate_secondary_goal(department, goalRequester, usr)
 			reset_message(FALSE)
 			view_messages()
@@ -241,6 +245,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				view_messages()
 			if(tempScreen == RCS_MAINMENU)
 				reset_message()
+			if(tempScreen == RCS_SECONDARY)
+				has_active_secondary_goal = check_for_active_secondary_goal()
 			screen = tempScreen
 
 		if("shipSelect")
@@ -371,6 +377,12 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(reminder_timer_id != TIMER_ID_NULL)
 				deltimer(reminder_timer_id)
 				reminder_timer_id = TIMER_ID_NULL
+
+/obj/machinery/requests_console/proc/check_for_active_secondary_goal()
+	for(var/datum/station_goal/secondary/goal in SSticker.mode.secondary_goals)
+		if(goal.department == department && !goal.completed)
+			return TRUE
+	return FALSE
 
 /proc/send_requests_console_message(message, sender, recipient, stamped, verified, priority, obj/item/radio/radio)
 	if(!message)

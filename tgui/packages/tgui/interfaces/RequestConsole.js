@@ -498,7 +498,7 @@ const SecondaryGoal = (props, context) => {
               </Box>
             )
           ) : (
-            <Box textAlign="center" color="green">
+            <Box textAlign="center" color="label">
               Complete your current goal first!
             </Box>
           )}
