@@ -3,7 +3,7 @@
 	var/datum/secondary_goal_progress/temporary_progress
 	var/datum/station_goal/secondary/goal
 
-/datum/secondary_goal_tracker/New(var/datum/station_goal/secondary/goal_in, var/datum/secondary_goal_progress/progress)
+/datum/secondary_goal_tracker/New(datum/station_goal/secondary/goal_in, datum/secondary_goal_progress/progress)
 	goal = goal_in
 	real_progress = progress
 	temporary_progress = progress.Copy()
