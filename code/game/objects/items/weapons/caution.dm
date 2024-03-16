@@ -73,7 +73,7 @@
 	icon_state = "caution"
 	force = 1.0
 	attack_verb = list("warned", "cautioned", "smashed")
-	energy_type = /datum/robot_energy_storage/janitor/landmine
+	energy_type = /datum/robot_storage/energy/janitor/landmine
 	is_cyborg = TRUE
 
 /obj/item/stack/caution/proximity_sign/malf/afterattack(atom/target, mob/user)

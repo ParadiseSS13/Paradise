@@ -996,6 +996,12 @@
 /datum/robot_storage/energy/medical/nanopaste/syndicate
 	max_amount = 25
 
+//Energy stack for landmines
+/datum/robot_storage/energy/janitor/landmine
+	name = "Landmine Synthesizer"
+	statpanel_name = "Landmines"
+	max_amount = 4
+	recharge_rate = 0.2
 /// This datum is an alternative to the energy storages, instead being recharged in different ways
 /datum/robot_storage/material
 	name = "Generic material storage"
@@ -1026,9 +1032,5 @@
 	stack = /obj/item/stack/sheet/metal
 	add_to_storage = TRUE
 
-//Energy stack for landmines
-/datum/robot_energy_storage/janitor/landmine
-	name = "Landmine Synthesizer"
-	statpanel_name = "Landmines"
-	max_energy = 4
-	recharge_rate = 0.2
+
+
