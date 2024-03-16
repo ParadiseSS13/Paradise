@@ -86369,7 +86369,8 @@
 	name = "Surgery Window Tint Control";
 	pixel_x = -24;
 	pixel_y = 4;
-	dir = 4
+	dir = 4;
+	range = 2
 	},
 /obj/machinery/button/windowtint{
 	desc = "A remote control switch for polarized windows.  For culling the sight of the equipment-starved masses.";
