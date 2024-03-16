@@ -43,6 +43,34 @@
 	del_on_death = TRUE
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
 
+/mob/living/simple_animal/demon/slaughter_demon/laughter
+	// The laughter demon! It's everyone's best friend! It just wants to hug
+	// them so much, it wants to hug everyone at once!
+	name = "laughter demon"
+	real_name = "laughter demon"
+	desc = "A large, adorable creature covered in armor with pink bows."
+	speak_emote = list("giggles", "titters", "chuckles")
+	emote_hear = list("gaffaws", "laughs")
+	response_help  = "hugs"
+	attacktext = "wildly tickles"
+
+	attack_sound = 'sound/items/bikehorn.ogg'
+	feast_sound = 'sound/spookoween/scary_horn2.ogg'
+	death_sound = 'sound/misc/sadtrombone.ogg'
+
+	icon_state = "bowmon"
+	icon_living = "bowmon"
+	deathmessage = "fades out, as all of its friends are released from its prison of hugs."
+	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
+
+/mob/living/simple_animal/demon/slaughter_demon/laughter/release_consumed(mob/living/M)
+	if(M.revive())
+		M.grab_ghost(force = TRUE)
+		playsound(get_turf(src), feast_sound, 50, 1, -1)
+		to_chat(M, "<span class='clown'>You leave [src]'s warm embrace, and feel ready to take on the world.</span>")
+	..(M)
+
+
 /mob/living/simple_animal/demon/slaughter_demon/New()
 	..()
 	remove_from_all_data_huds()
@@ -57,6 +85,20 @@
 	if(istype(loc, /obj/effect/dummy/slaughter_demon))
 		phased = FALSE
 	addtimer(CALLBACK(src, PROC_REF(attempt_objectives)), 5 SECONDS)
+
+/mob/living/simple_animal/demon/slaughter_demon/proc/attempt_objectives()
+	if(mind)
+		var/list/messages = list()
+		messages.Add(playstyle_string)
+		messages.Add("<b><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></b>")
+		SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
+		if(!vialspawned)
+			SSticker.mode.traitors |= mind
+			mind.add_mind_objective(/datum/objective/slaughter)
+			mind.add_mind_objective(/datum/objective/demon_fluff)
+			messages.Add(mind.prepare_announce_objectives(FALSE))
+		messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)</span>")
+		to_chat(src, chat_box_red(messages.Join("<br>")))
 
 /obj/effect/dummy/slaughter_demon //Can't use the wizard one, blocked by jaunt/slow
 	name = "odd blood"
@@ -140,8 +182,14 @@
 
 /mob/living/simple_animal/demon/slaughter_demon/proc/absorb()
 	for(var/mob/living/L in range(1, get_turf(src)))
-		if(L.stat != DEAD)
+		if(L.stat == CONSCIOUS)
 			continue
+		var/obj/item/organ/internal/regenerative_core/legion/core = L.get_int_organ(/obj/item/organ/internal/regenerative_core/legion)
+		if(core)
+			core.remove(L)
+			qdel(core)
+		L.emote("scream")
+		L.adjustBruteLoss(1000)
 		devoured++
 		L.forceMove(src)
 		ADD_TRAIT(L, TRAIT_UNREVIVABLE, "demon")
@@ -162,6 +210,8 @@
 	while(mindsabsorbed % 4 == 0 && mindsabsorbed > 0)
 		mindsabsorbed -= 4
 		maxHealth += 50
+	playsound(src, feast_sound, 100, TRUE, -1)
+
 
 /mob/living/simple_animal/demon/slaughter_demon/proc/perform_phaseout()
 	icon_state = "daemon"
@@ -194,20 +244,6 @@
 	visible_message("<span class='danger'>[src] sinks into [A].</span>")
 	playsound(mob_loc, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(mob_loc, src.dir, "jaunt")
-
-/mob/living/simple_animal/demon/slaughter_demon/proc/attempt_objectives()
-	if(mind)
-		var/list/messages = list()
-		messages.Add(playstyle_string)
-		messages.Add("<b><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></b>")
-		SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
-		if(!vialspawned)
-			SSticker.mode.traitors |= mind
-			mind.add_mind_objective(/datum/objective/slaughter)
-			mind.add_mind_objective(/datum/objective/demon_fluff)
-			messages.Add(mind.prepare_announce_objectives(FALSE))
-		messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)</span>")
-		to_chat(src, chat_box_red(messages.Join("<br>")))
 
 /mob/living/simple_animal/demon/slaughter_demon/adjustHealth(amount, updating_health = TRUE)
 	to_chat(world, "Took [amount] Damage")

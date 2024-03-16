@@ -123,13 +123,7 @@
 	L.stop_pulling()
 	to_chat(L, "<b>You begin to feast on [victim]. You can not move while you are doing this.</b>")
 	A.visible_message("<span class='warning'><B>Loud eating sounds come from the blood...</b></span>")
-	var/sound
-	if(isslaughterdemon(L))
-		var/mob/living/simple_animal/demon/slaughter/SD = L
-		sound = SD.feast_sound
-	else
-		sound = 'sound/misc/demon_consume.ogg'
-
+	var/sound = 'sound/misc/demon_consume.ogg'
 	for(var/i in 1 to 3)
 		playsound(get_turf(L), sound, 100, 1)
 		sleep(3 SECONDS)
@@ -151,29 +145,9 @@
 	else if(isanimal(victim))
 		to_chat(L, "<span class='warning'>You devour [victim], but this measly meal barely sates your appetite!</span>")
 		L.adjustBruteLoss(-25)
-		if(!isslaughterdemon(L))
-			L.adjustFireLoss(-25)
-
-	if(isslaughterdemon(L))
-		var/mob/living/simple_animal/demon/slaughter/demon = L
-		demon.devoured++
-		to_chat(victim, "<span class='userdanger'>You feel teeth sink into your flesh, and the--</span>")
-		var/obj/item/organ/internal/regenerative_core/legion/core = victim.get_int_organ(/obj/item/organ/internal/regenerative_core/legion)
-		if(core)
-			core.remove(victim)
-			qdel(core)
-		victim.adjustBruteLoss(1000)
-		victim.forceMove(demon)
-		demon.consumed_mobs.Add(victim)
-		ADD_TRAIT(victim, TRAIT_UNREVIVABLE, "demon")
-		if(ishuman(victim))
-			var/mob/living/carbon/human/H = victim
-			if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under))
-				var/obj/item/clothing/under/U = H.w_uniform
-				U.sensor_mode = SENSOR_OFF
-	else
-		victim.ghostize()
-		qdel(victim)
+		L.adjustFireLoss(-25)
+	victim.ghostize()
+	qdel(victim)
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/post_phase_in(mob/living/L, obj/effect/dummy/slaughter/holder)
 	L.notransform = FALSE
@@ -213,10 +187,6 @@
 	A.visible_message("<span class='warning'>[A] starts to bubble...</span>")
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/post_phase_out(atom/A, mob/living/L)
-	if(isslaughterdemon(L))
-		var/mob/living/simple_animal/demon/slaughter/S = L
-		S.speed = 0
-		S.boost = world.time + 6 SECONDS
 	L.color = A.color
 	addtimer(VARSET_CALLBACK(L, color, null), 6 SECONDS)
 

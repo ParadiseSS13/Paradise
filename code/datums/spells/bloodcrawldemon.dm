@@ -32,7 +32,7 @@
 			ADD_TRAIT(D, TRAIT_IMMOBILIZED, "channelingblood")
 			D.phaseoutchaneltime = world.time + 2 SECONDS
 			D.channeling = TRUE
-			D.icon_state = "daemonchannelling"
+			D.icon_state = "daemonchanneling"
 			cooldown_handler.recharge_duration = 5 SECONDS
 			cooldown_handler.start_recharge(5 SECONDS)
 			return

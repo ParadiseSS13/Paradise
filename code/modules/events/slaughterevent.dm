@@ -1,6 +1,6 @@
 /datum/event/spawn_slaughter
 	var/key_of_slaughter
-	var/mob/living/simple_animal/demon/demon = /mob/living/simple_animal/demon/slaughter/lesser
+	var/mob/living/simple_animal/demon/slaughter_demon/demon = /mob/living/simple_animal/demon/slaughter_demon
 
 /datum/event/spawn_slaughter/proc/get_slaughter()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [initial(demon.name)]?", ROLE_DEMON, TRUE, source = demon)
@@ -19,7 +19,7 @@
 	player_mind.active = TRUE
 	dust_if_respawnable(C)
 	var/turf/spawn_loc = get_spawn_loc(player_mind.current)
-	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(spawn_loc)
+	var/obj/effect/dummy/slaughter_demon/holder = new /obj/effect/dummy/slaughter_demon(spawn_loc)
 	var/mob/living/simple_animal/demon/S = new demon(holder)
 	player_mind.transfer_to(S)
 	player_mind.assigned_role = "Demon"
@@ -44,7 +44,7 @@
 	INVOKE_ASYNC(src, PROC_REF(get_slaughter))
 
 /datum/event/spawn_slaughter/greater
-	demon = /mob/living/simple_animal/demon/slaughter
+	demon = /mob/living/simple_animal/demon/slaughter_demon
 
 /datum/event/spawn_slaughter/shadow
 	demon = /mob/living/simple_animal/demon/shadow

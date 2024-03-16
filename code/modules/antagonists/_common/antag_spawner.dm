@@ -184,7 +184,7 @@
 	var/veil_msg = "<span class='warning'>You sense a dark presence lurking \
 		just beyond the veil...</span>"
 	var/objective_verb = "Kill"
-	var/mob/living/demon_type = /mob/living/simple_animal/demon/slaughter
+	var/mob/living/demon_type = /mob/living/simple_animal/demon/slaughter_demon
 
 /obj/item/antag_spawner/slaughter_demon/attack_self(mob/user)
 	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a demon from the Den..
@@ -198,7 +198,7 @@
 	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire spirits of the underworld...</span>")
 
 	var/type = "slaughter"
-	if(demon_type == /mob/living/simple_animal/demon/slaughter/laughter)
+	if(demon_type == /mob/living/simple_animal/demon/slaughter_demon/laughter)
 		type = "laughter"
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [type] demon summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
 
@@ -215,12 +215,11 @@
 		to_chat(user, "<span class='notice'>The demons do not respond to your summon. Perhaps you should try again later.</span>")
 
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
-	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
+	var/obj/effect/dummy/slaughter_demon/holder = new /obj/effect/dummy/slaughter_demon(T)
 	var/mob/living/simple_animal/demon/D = new demon_type(holder)
-	if(istype(D, /mob/living/simple_animal/demon/slaughter))
-		var/mob/living/simple_animal/demon/slaughter/S = D
+	if(istype(D, /mob/living/simple_animal/demon/slaughter_demon))
+		var/mob/living/simple_animal/demon/slaughter_demon/S = D
 		S.vialspawned = TRUE
-
 	D.key = C.key
 	D.mind.assigned_role = D.name
 	D.mind.special_role = D.name
@@ -232,11 +231,9 @@
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to summon you."
 	messages.Add(KillDaWiz.explanation_text)
 	D.mind.add_mind_objective(KillDaWiz)
-
-	var/datum/objective/KillDaCrew = new /datum/objective
-	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
+	var/datum/objective/killdacrew/KillDaCrew = new /datum/objective/killdacrew
+	KillDaCrew.explanation_text = "Kill everyone else while you're at it."
 	messages.Add(KillDaCrew.explanation_text)
-	KillDaCrew.completed = TRUE
 	D.mind.add_mind_objective(KillDaCrew)
 	to_chat(D, chat_box_red(messages.Join("<br>")))
 
@@ -250,7 +247,7 @@
 	veil_msg = "<span class='warning'>You sense an adorable presence \
 		lurking just beyond the veil...</span>"
 	objective_verb = "Hug and tickle"
-	demon_type = /mob/living/simple_animal/demon/slaughter/laughter
+	demon_type = /mob/living/simple_animal/demon/slaughter_demon/laughter
 
 /obj/item/antag_spawner/slaughter_demon/shadow
 	name = "vial of shadow"
