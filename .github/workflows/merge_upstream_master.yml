@@ -37,3 +37,4 @@ jobs:
           curl -s -H "Authorization: token ${{ github.token }}" \
             -X POST -d '{"body": "Merging upstream failed:\nhttps://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
             "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments"
+            
