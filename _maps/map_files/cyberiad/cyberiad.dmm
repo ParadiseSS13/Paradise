@@ -32052,7 +32052,6 @@
 /turf/simulated/floor/plating,
 /area/station/science/genetics)
 "bXO" = (
-/obj/machinery/dna_scannernew,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -32060,6 +32059,7 @@
 	layer = 4;
 	pixel_x = 32
 	},
+/obj/machinery/clonescanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -32980,10 +32980,10 @@
 	},
 /area/station/medical/cloning)
 "caN" = (
-/obj/machinery/clonepod/biomass,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/machinery/clonepod,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},

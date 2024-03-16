@@ -81719,7 +81719,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "nsl" = (
-/obj/machinery/clonepod/biomass,
+/obj/machinery/clonepod,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -93376,7 +93376,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "udS" = (
-/obj/machinery/dna_scannernew,
+/obj/machinery/clonescanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
