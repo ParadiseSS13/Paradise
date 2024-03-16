@@ -34,7 +34,7 @@
 	for(var/mob/living/M in targets)
 		var/turf/start = get_turf(M)
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
-		playsound(start, pick(voice), 50, 1, -1)
+		playsound(start, pick(voice), 50, TRUE, -1)
 		var/obj/effect/immovablerod/demon/D = new(start, get_ranged_target_turf(M, M.dir, 15), 2)
 		D.caster = M
 		D.max_distance = 7
