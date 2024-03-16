@@ -127,3 +127,30 @@ jobs:
         python-version: '3.8.2' # Script was made for 3.8.2
         architecture: 'x86' # This MUST be x86
     - run: python tools/ci/validate_rustg_windows.py
+
+  verify_merge:
+    # Below if lets it run as a required check but skip on normal push/PR events
+    if: ${{ github.event_name == 'merge_group' }}
+    name: Verify map merge sanity
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # allegedly this is as deep as necessary to always receive the base ref
+          fetch-depth: 3
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - name: Verify map merge
+        run: |
+          ./tools/bootstrap/python -m mapmerge2.merge_queue_check
+      - name: TEMP -- Cancel all other builds --
+        if: failure()
+        uses: "andymckay/cancel-action@0.3"
+
