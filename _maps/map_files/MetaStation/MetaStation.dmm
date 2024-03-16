@@ -84391,11 +84391,6 @@
 	dir = 1
 	},
 /obj/machinery/hologram/holopad,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/science/research)
 "tHk" = (
