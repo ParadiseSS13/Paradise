@@ -26925,9 +26925,7 @@
 "cPP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/economy/atm{
-	pixel_x = -32
-	},
+/obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -33960,18 +33958,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/hallway/primary/central/east)
-"dDW" = (
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	color = "#954535"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/fore/west)
 "dEi" = (
 /obj/structure/table/wood,
 /obj/item/ammo_box/shotgun/beanbag,
@@ -36392,6 +36378,27 @@
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
+"eua" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/fore/north)
 "eul" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -43431,16 +43438,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
-"gXA" = (
-/obj/machinery/economy/atm{
-	pixel_y = 32
-	},
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "browncorner"
-	},
-/area/station/hallway/primary/fore/east)
 "gXL" = (
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plating,
@@ -44090,14 +44087,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"hiN" = (
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry/west)
 "hiU" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
@@ -54815,26 +54804,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
-"kBj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/port/east)
 "kBo" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable,
@@ -55045,6 +55014,12 @@
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/fsmaint)
+"kEV" = (
+/obj/machinery/economy/atm/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry/west)
 "kFj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -56104,6 +56079,24 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/fsmaint)
+"kUQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/economy/atm/directional/south,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/port/east)
 "kVq" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -56474,6 +56467,14 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/west)
+"lcn" = (
+/obj/machinery/economy/atm/directional/north,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "browncorner"
+	},
+/area/station/hallway/primary/fore/east)
 "lcq" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -58852,15 +58853,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"lME" = (
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellowcorner"
-	},
-/area/station/hallway/primary/central/north)
 "lMW" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -63531,29 +63523,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay)
-"nqK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/economy/atm{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "bluecorner"
-	},
-/area/station/hallway/primary/fore/north)
 "nqO" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -75977,6 +75946,13 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/surgery/primary)
+"rqJ" = (
+/obj/machinery/economy/atm/directional/south,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/central/north)
 "rrp" = (
 /obj/machinery/shower{
 	pixel_y = 20
@@ -82255,6 +82231,16 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/aft/west)
+"tuO" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
+/obj/machinery/economy/atm/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/fore/west)
 "tuX" = (
 /obj/structure/girder,
 /obj/structure/grille,
@@ -93391,9 +93377,7 @@
 	dir = 4;
 	color = "#954535"
 	},
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -116566,7 +116550,7 @@ fxA
 fxA
 boJ
 umX
-kBj
+kUQ
 aZZ
 xqU
 xyD
@@ -121666,7 +121650,7 @@ xla
 xla
 lbJ
 haT
-dDW
+tuO
 ice
 gFu
 ivS
@@ -132746,7 +132730,7 @@ pKj
 aYJ
 eQQ
 bgf
-lME
+rqJ
 aYJ
 bhQ
 dcG
@@ -135028,7 +135012,7 @@ dGA
 eDi
 djn
 dmA
-nqK
+eua
 vuY
 pwc
 fXC
@@ -138480,7 +138464,7 @@ dbg
 sFj
 dbg
 eWu
-hiN
+kEV
 qHn
 rNK
 rNK
@@ -146850,7 +146834,7 @@ frm
 sxn
 frm
 frm
-gXA
+lcn
 fmI
 xjm
 rWb
