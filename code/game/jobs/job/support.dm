@@ -162,7 +162,45 @@
 	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	mask = /obj/item/clothing/mask/breath
 
+/datum/job/explorer
+	title = "Explorer"
+	flag = JOB_EXPLORER
+	department_flag = JOBCAT_SUPPORT
+	job_department_flags = DEP_FLAG_SUPPLY
+	total_positions = 4
+	spawn_positions = 4
+	supervisors = "the quartermaster"
+	department_head = list("Quartermaster")
+	selection_color = "#eeddbe"
+	access = list(
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_EXPEDITION,
+		ACCESS_EVA,
+		ACCESS_EXTERNAL_AIRLOCKS,
+		ACCESS_TELEPORTER,
+		ACCESS_CARGO,
+		ACCESS_CARGO_BAY,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SUPPLY_SHUTTLE,
+		ACCESS_MINING_STATION
+	)
+	alt_titles = list("Salvage Technician", "Scavenger")
+	outfit = /datum/outfit/job/explorer
 
+/datum/outfit/job/explorer
+	name = "Explorer"
+	jobtype = /datum/job/explorer
+	l_ear = /obj/item/radio/headset/headset_cargo/expedition
+	head = /obj/item/clothing/head/expedition
+	uniform = /obj/item/clothing/under/rank/cargo/expedition
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/jackboots
+	belt = /obj/item/storage/belt/utility/expedition
+	id = /obj/item/card/id/explorer
+	pda = /obj/item/pda/explorer
+	backpack = /obj/item/storage/backpack/explorer
+	satchel = /obj/item/storage/backpack/satchel/explorer
+	box = /obj/item/storage/box/survival_mining
 
 //Food
 /datum/job/bartender
@@ -496,26 +534,3 @@
 		if(new_language.flags & (HIVEMIND|NOLIBRARIAN))
 			continue
 		H.add_language(la)
-
-/datum/job/explorer
-	title = "Explorer"
-	flag = JOB_EXPLORER
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 4
-	spawn_positions = 4
-	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_EXPEDITION, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	outfit = /datum/outfit/job/explorer
-
-/datum/outfit/job/explorer
-	name = "Explorer"
-	jobtype = /datum/job/explorer
-	uniform = /obj/item/clothing/under/color/orange
-	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/workboots
-	glasses = /obj/item/clothing/glasses/welding
-	belt = /obj/item/storage/belt/utility
-	l_pocket = /obj/item/gps
-	id = /obj/item/card/id/explorer
