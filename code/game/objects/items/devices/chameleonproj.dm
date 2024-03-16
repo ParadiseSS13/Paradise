@@ -101,6 +101,10 @@
 	var/can_move = TRUE
 	var/obj/item/chameleon/master = null
 
+/obj/effect/dummy/chameleon/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_EFFECT_CAN_TELEPORT, ROUNDSTART_TRAIT)
+
 /obj/effect/dummy/chameleon/proc/activate(obj/O, mob/M, new_icon, new_iconstate, new_overlays, new_underlays, obj/item/chameleon/C)
 	name = O.name
 	desc = O.desc
