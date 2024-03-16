@@ -252,7 +252,6 @@
 		speed = 0
 	if(phaseoutchaneltime < world.time && channeling && phased)
 		perform_phaseout()
-		to_chat(src, "Channeling time over!")
 	if(phaseinchaneltime < world.time && channeling && !phased)
 		perform_phasein()
 	if(!phased && health < 200 && lasthealtime < world.time)
