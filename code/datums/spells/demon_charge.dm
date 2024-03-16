@@ -13,7 +13,7 @@
 	desc = "Take on the form of an immovable rod, destroying all in your path."
 	clothes_req = FALSE
 	human_req = FALSE
-	base_cooldown = 50
+	base_cooldown = 5 SECONDS
 	cooldown_min = 50
 	action_icon_state = "immrod"
 	centcom_cancast = FALSE
