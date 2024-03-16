@@ -14,7 +14,7 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	base_cooldown = 5 SECONDS
-	cooldown_min = 50
+	cooldown_min = 5 SECONDS
 	action_icon_state = "immrod"
 	centcom_cancast = FALSE
 	var/bloodcharge = TRUE
