@@ -177,6 +177,6 @@
 	apc_starts_off = TRUE
 
 /area/ruin/space/mech_transport
-	there_can_be_many = FALSE
 	name = "Cybersun Mobile Exosuit Factory"
 	apc_starts_off = TRUE
+	there_can_be_many = FALSE

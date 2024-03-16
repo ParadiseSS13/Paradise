@@ -125,8 +125,8 @@
 	id = "mech-transport"
 	suffix = "mechtransport.dmm"
 	name = "Cybersun Exosuit Factory Ship"
-	allow_duplicates = FALSE
 	description = "A crashed mobile mech factory under security lockdown."
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/onehalf
 	id = "onehalf"
