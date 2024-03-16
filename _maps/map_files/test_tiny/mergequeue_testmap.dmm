@@ -4,13 +4,8 @@
 /obj/item/paper,
 /turf/simulated/floor/plating,
 /area/space)
-"f" = (
-/obj/item/weldingtool,
-/turf/simulated/floor/plating,
-/area/space)
 "J" = (
-/obj/item/crowbar,
-/obj/item/wrench,
+/obj/item/paper,
 /turf/simulated/floor/plating,
 /area/space)
 "N" = (
@@ -23,6 +18,6 @@ J
 a
 "}
 (2,1,1) = {"
-f
+N
 N
 "}
