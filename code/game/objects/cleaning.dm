@@ -54,3 +54,5 @@
 
 /atom/proc/post_clean(atom/target, mob/user) //For specific cleaning object behaviors after cleaning, such as mops making floors slippery.
 	return
+
+#undef CMAG_CLEANTIME

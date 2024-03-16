@@ -522,3 +522,5 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 /obj/item/udder/cow/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent("milk", 20)
+
+#undef MAX_CHICKENS
