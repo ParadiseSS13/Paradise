@@ -674,3 +674,5 @@
 			return
 	..()
 
+
+#undef EMP_RANDOMISE_TIME
