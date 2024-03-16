@@ -192,7 +192,7 @@
 /mob/living/simple_animal/demon/slaughter_demon/proc/sink_animation(atom/A)
 	var/turf/mob_loc = get_turf(channel_target)
 	visible_message("<span class='danger'>[src] sinks into [A].</span>")
-	playsound(mob_loc, 'sound/misc/enter_blood.ogg', 100, 1, -1)
+	playsound(mob_loc, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(mob_loc, src.dir, "jaunt")
 
 /mob/living/simple_animal/demon/slaughter_demon/proc/attempt_objectives()
