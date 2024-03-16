@@ -42,7 +42,6 @@
 		M.forceMove(D)
 		M.notransform = TRUE
 		M.status_flags |= GODMODE
-
 	bloodcharge = FALSE
 
 /obj/effect/immovablerod/demon/Move()
