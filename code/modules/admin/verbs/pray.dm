@@ -23,11 +23,11 @@
 		cross = image('icons/obj/storage.dmi',"kingyellow")
 		font_color = "blue"
 		prayer_type = "CHAPLAIN PRAYER"
-	else if(iscultist(usr))
+	else if(IS_CULTIST(usr))
 		cross = image('icons/obj/storage.dmi',"tome")
 		font_color = "red"
 		prayer_type = "CULTIST PRAYER"
-		deity = SSticker.cultdat.entity_name
+		deity = GET_CULT_DATA(entity_name, "Cult God")
 
 	log_say("(PRAYER) [msg]", usr)
 	msg = "<span class='notice'>[bicon(cross)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""][mind && HAS_MIND_TRAIT(usr, TRAIT_HOLY) ? " (blessings: [mind.num_blessed])" : ""]:</font> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<A HREF='?_src_=holder;Bless=[UID()]'>BLESS</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b> [msg]</span>"

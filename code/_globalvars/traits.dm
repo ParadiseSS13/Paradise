@@ -95,7 +95,8 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 	/datum/mind = list(
 		"TRAIT_HOLY" = TRAIT_HOLY,
 		"TRAIT_SLEIGHT_OF_HAND" = TRAIT_SLEIGHT_OF_HAND,
-		"TRAIT_TABLE_LEAP" = TRAIT_TABLE_LEAP
+		"TRAIT_TABLE_LEAP" = TRAIT_TABLE_LEAP,
+		"TRAIT_NEVER_MISSES_DISPOSALS" = TRAIT_NEVER_MISSES_DISPOSALS
 	),
 
 	/obj/item = list(
@@ -110,6 +111,9 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 	),
 	/turf = list(
 		"bluespace_speed_trait" = TRAIT_BLUESPACE_SPEED
+	),
+	/obj/effect = list(
+		"TRAIT_EFFECT_CAN_TELEPORT" = TRAIT_EFFECT_CAN_TELEPORT
 	)
 ))
 
