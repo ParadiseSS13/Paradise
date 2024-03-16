@@ -28,7 +28,6 @@
 			to_chat(D, "You are currently channeling!")
 			return
 		if(D.phased)
-			to_chat(user, "CALLED THE PHASED PROC")
 			D.channel_target = get_turf(target)
 			ADD_TRAIT(D, TRAIT_IMMOBILIZED, "channelingblood")
 			D.phaseoutchaneltime = world.time + 2 SECONDS
