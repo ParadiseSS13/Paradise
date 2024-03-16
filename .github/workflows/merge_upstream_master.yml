@@ -1,4 +1,4 @@
-name: merge_upstream
+name: Merge Upstream Master
 on:
   issue_comment:
     types: [created]
@@ -6,7 +6,7 @@ on:
 jobs:
   merge-upstream:
     if: ${{ github.event.issue.pull_request && github.event.comment.body == '!merge_upstream' }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: PR Data
         run: |
