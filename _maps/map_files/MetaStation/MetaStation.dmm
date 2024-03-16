@@ -3481,6 +3481,11 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "avS" = (
@@ -3523,6 +3528,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "avW" = (
@@ -3613,6 +3623,11 @@
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
@@ -5459,6 +5474,11 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
@@ -8165,6 +8185,11 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "aMR" = (
@@ -10567,6 +10592,11 @@
 "aUK" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/smes)
 "aUL" = (
@@ -11112,6 +11142,11 @@
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
@@ -11841,6 +11876,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/smes)
 "aYE" = (
@@ -11884,6 +11924,11 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/smes)
 "aYJ" = (
@@ -11926,6 +11971,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "aYS" = (
@@ -11933,6 +11983,11 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/engineer,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "aYT" = (
@@ -46503,6 +46558,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "ebV" = (
@@ -48501,6 +48561,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "eUb" = (
@@ -59263,6 +59328,11 @@
 	name = "Supermatter Interior Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -66035,6 +66105,23 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
+"maQ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/control)
 "maV" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
@@ -68227,6 +68314,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "mVN" = (
@@ -69245,6 +69337,11 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "nnS" = (
@@ -69792,6 +69889,11 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
@@ -78481,6 +78583,11 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /obj/machinery/light,
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "rmg" = (
@@ -82109,6 +82216,11 @@
 /area/station/command/bridge)
 "sLD" = (
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -83830,6 +83942,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "tvx" = (
@@ -84012,6 +84129,11 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
@@ -87259,6 +87381,14 @@
 	},
 /turf/simulated/floor/grass/no_creep,
 /area/station/hallway/secondary/garden)
+"uYE" = (
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/control)
 "uYF" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Sanitarium"
@@ -92820,6 +92950,11 @@
 	name = "Supermatter Exterior Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -137130,7 +137265,7 @@ kWg
 dqs
 aPu
 gVB
-ekt
+maQ
 ekt
 ekt
 aLE
@@ -137387,7 +137522,7 @@ vUb
 vUb
 vUb
 irX
-vUb
+uYE
 vUb
 vUb
 owQ
