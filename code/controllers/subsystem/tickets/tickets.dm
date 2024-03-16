@@ -186,7 +186,7 @@ SUBSYSTEM_DEF(tickets)
 /datum/controller/subsystem/tickets/proc/convert_to_other_ticket(ticketId)
 	if(!check_rights(rights_needed))
 		return
-	if(alert("Are you sure to convert this ticket to an '[other_ticket_name]' ticket?",,"Yes","No") != "Yes")
+	if(alert("Are you sure to convert this ticket to an '[other_ticket_name]' ticket?", null,"Yes","No") != "Yes")
 		return
 	if(!other_ticket_system_staff_check())
 		return
@@ -199,7 +199,7 @@ SUBSYSTEM_DEF(tickets)
 /datum/controller/subsystem/tickets/proc/other_ticket_system_staff_check()
 	var/list/staff = staff_countup(other_ticket_permission)
 	if(!staff[1])
-		if(alert("No active staff online to answer the ticket. Are you sure you want to convert the ticket?",, "No", "Yes") != "Yes")
+		if(alert("No active staff online to answer the ticket. Are you sure you want to convert the ticket?", null, "No", "Yes") != "Yes")
 			return FALSE
 	return TRUE
 
@@ -635,7 +635,7 @@ UI STUFF
 		if(!check_rights(close_rights))
 			to_chat(usr, "<span class='warning'>Not enough rights to close this ticket.</span>")
 			return
-		if(alert("Are you sure? This will send a negative message.",,"Yes","No") != "Yes")
+		if(alert("Are you sure? This will send a negative message.", null,"Yes","No") != "Yes")
 			return
 		if(closeTicket(indexNum))
 			showDetailUI(usr, indexNum)
