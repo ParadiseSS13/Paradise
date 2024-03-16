@@ -42,7 +42,7 @@
 			ADD_TRAIT(D, TRAIT_IMMOBILIZED, "channelingblood")
 			D.channeling = TRUE
 			new /obj/effect/temp_visual/bloodstorm(get_turf(target))
-			D.phaseinchaneltime = world.time + 50
+			D.phaseinchaneltime = world.time + 5 SECONDS
 			cooldown_handler.recharge_duration = 20 SECONDS
 			cooldown_handler.start_recharge(20 SECONDS)
 			return
