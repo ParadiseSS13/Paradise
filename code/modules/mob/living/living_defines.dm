@@ -96,3 +96,11 @@
 	var/datum/language/default_language
 
 	var/datum/middleClickOverride/middleClickOverride = null
+
+	/*
+	Taste Vars
+	*/
+	/// Stores a var of the last world time we tasted something. used so we don't spam people messages while they eat
+	var/last_taste_time
+	/// Stores a var of the last tast message we got. used so we don't spam people messages while they eat
+	var/last_taste_text
