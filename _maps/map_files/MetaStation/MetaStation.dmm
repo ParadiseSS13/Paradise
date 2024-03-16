@@ -37480,13 +37480,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
 "cAj" = (
-/obj/machinery/clonepod/biomass,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /obj/effect/turf_decal/siding{
 	dir = 5
 	},
+/obj/machinery/clonepod,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39927,13 +39927,13 @@
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "cIR" = (
-/obj/machinery/dna_scannernew,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/siding{
 	dir = 1
 	},
+/obj/machinery/clonescanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

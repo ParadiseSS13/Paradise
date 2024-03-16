@@ -41182,7 +41182,7 @@
 	network = list("SS13","CMO")
 	},
 /obj/machinery/light,
-/obj/machinery/dna_scannernew,
+/obj/machinery/clonescanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
