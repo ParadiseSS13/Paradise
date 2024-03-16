@@ -200,3 +200,5 @@
 		. += icon(focus.icon,focus.icon_state)
 
 #undef TK_COOLDOWN
+
+#undef TK_MAXRANGE

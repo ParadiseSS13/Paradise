@@ -127,3 +127,8 @@ SUBSYSTEM_DEF(machines)
 		processing = SSmachines.processing
 	if(istype(SSmachines.powernets))
 		powernets = SSmachines.powernets
+
+#undef SSMACHINES_DEFERREDPOWERNETS
+#undef SSMACHINES_POWERNETS
+#undef SSMACHINES_PREMACHINERY
+#undef SSMACHINES_MACHINERY

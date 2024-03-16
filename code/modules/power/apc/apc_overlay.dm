@@ -171,23 +171,23 @@
 
 		if(!equipment_channel)
 			update_overlay |= APC_UPOVERLAY_EQUIPMENT0
-		else if(equipment_channel == CHANNEL_SETTING_AUTO_OFF)
+		else if(equipment_channel == APC_CHANNEL_SETTING_AUTO_OFF)
 			update_overlay |= APC_UPOVERLAY_EQUIPMENT1
-		else if(equipment_channel == CHANNEL_SETTING_ON)
+		else if(equipment_channel == APC_CHANNEL_SETTING_ON)
 			update_overlay |= APC_UPOVERLAY_EQUIPMENT2
 
 		if(!lighting_channel)
 			update_overlay |= APC_UPOVERLAY_LIGHTING0
-		else if(lighting_channel == CHANNEL_SETTING_AUTO_OFF)
+		else if(lighting_channel == APC_CHANNEL_SETTING_AUTO_OFF)
 			update_overlay |= APC_UPOVERLAY_LIGHTING1
-		else if(lighting_channel == CHANNEL_SETTING_ON)
+		else if(lighting_channel == APC_CHANNEL_SETTING_ON)
 			update_overlay |= APC_UPOVERLAY_LIGHTING2
 
 		if(!environment_channel)
 			update_overlay |= APC_UPOVERLAY_ENVIRON0
-		else if(environment_channel == CHANNEL_SETTING_AUTO_OFF)
+		else if(environment_channel == APC_CHANNEL_SETTING_AUTO_OFF)
 			update_overlay |= APC_UPOVERLAY_ENVIRON1
-		else if(environment_channel == CHANNEL_SETTING_ON)
+		else if(environment_channel == APC_CHANNEL_SETTING_ON)
 			update_overlay |= APC_UPOVERLAY_ENVIRON2
 
 	var/results = 0
@@ -225,3 +225,25 @@
 	return TRUE
 
 #undef APC_UPDATE_ICON_COOLDOWN
+
+#undef UPSTATE_CELL_IN
+#undef UPSTATE_OPENED1
+#undef UPSTATE_OPENED2
+#undef UPSTATE_MAINT
+#undef UPSTATE_BROKE
+#undef UPSTATE_BLUESCREEN
+#undef UPSTATE_WIREEXP
+#undef UPSTATE_ALLGOOD
+#undef APC_UPOVERLAY_CHARGEING0
+#undef APC_UPOVERLAY_CHARGEING1
+#undef APC_UPOVERLAY_CHARGEING2
+#undef APC_UPOVERLAY_EQUIPMENT0
+#undef APC_UPOVERLAY_EQUIPMENT1
+#undef APC_UPOVERLAY_EQUIPMENT2
+#undef APC_UPOVERLAY_LIGHTING0
+#undef APC_UPOVERLAY_LIGHTING1
+#undef APC_UPOVERLAY_LIGHTING2
+#undef APC_UPOVERLAY_ENVIRON0
+#undef APC_UPOVERLAY_ENVIRON1
+#undef APC_UPOVERLAY_ENVIRON2
+#undef APC_UPOVERLAY_LOCKED

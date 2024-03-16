@@ -197,6 +197,11 @@
 	path = /obj/item/clothing/head/hop/beret
 	allowed_roles = list("Head of Personnel")
 
+/datum/gear/hat/beret_job/qm
+	display_name = "Beret, quartermaster"
+	path = /obj/item/clothing/head/qm/beret
+	allowed_roles = list("Quartermaster")
+
 /datum/gear/hat/beret_job/sci
 	display_name = "Beret, science"
 	path = /obj/item/clothing/head/beret/sci

@@ -602,3 +602,5 @@
 /obj/machinery/shieldwall/syndicate/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	phaseout()
 	return ..()
+
+#undef MAX_STORED_POWER

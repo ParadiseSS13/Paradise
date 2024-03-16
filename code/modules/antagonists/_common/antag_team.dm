@@ -300,3 +300,5 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 			content += "<a href='?_src_=holder;team_command=remove_member;team=[T.UID()];member=[M.UID()]'>Remove Member</a></li>"
 		content += "</ol><a href='?_src_=holder;team_command=admin_add_member;team=[T.UID()]'>Add Member</a><hr>"
 	return content.Join()
+
+#undef DEFAULT_TEAM_NAME

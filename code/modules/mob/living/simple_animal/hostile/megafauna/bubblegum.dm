@@ -662,3 +662,8 @@ Difficulty: Hard
 		for(var/obj/effect/landmark/spawner/bubblegum/B in GLOB.landmarks_list)
 			forceMove(get_turf(B))
 			break
+
+#undef BUBBLEGUM_SMASH
+#undef BUBBLEGUM_CAN_ENRAGE
+#undef BUBBLEGUM_IS_ENRAGED
+#undef MAXIMUM_ENRAGED_HEALING

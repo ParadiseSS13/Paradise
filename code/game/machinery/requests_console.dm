@@ -378,3 +378,25 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	sp.sortTag = tag_index
 	sp.update_desc()
 	print_cooldown = world.time + 600	//1 minute cooldown before you can print another label, but you can still configure the next one during this time
+
+#undef RC_ASSIST
+#undef RC_SUPPLY
+#undef RC_INFO
+#undef RCS_MAINMENU
+#undef RCS_RQSUPPLY
+#undef RCS_RQASSIST
+#undef RCS_SENDINFO
+#undef RCS_SENTPASS
+#undef RCS_SENTFAIL
+#undef RCS_VIEWMSGS
+#undef RCS_MESSAUTH
+#undef RCS_ANNOUNCE
+#undef RCS_SHIPPING
+#undef RCS_SHIP_LOG
+#undef ENGI_ROLES
+#undef SEC_ROLES
+#undef MISC_ROLES
+#undef MED_ROLES
+#undef COM_ROLES
+#undef SCI_ROLES
+#undef SUPPLY_ROLES

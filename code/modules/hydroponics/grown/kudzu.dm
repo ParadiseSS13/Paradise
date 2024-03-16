@@ -53,7 +53,7 @@
 
 	if(S.has_reagent("sterilizine", 5))
 		for(var/datum/spacevine_mutation/SM in mutations)
-			if(SM.quality == NEGATIVE)
+			if(SM.quality == SPACEVINE_MUTATION_NEGATIVE)
 				temp_mut_list += SM
 		if(prob(20) && temp_mut_list.len)
 			mutations.Remove(pick(temp_mut_list))
@@ -61,7 +61,7 @@
 
 	if(S.has_reagent("fuel", 5))
 		for(var/datum/spacevine_mutation/SM in mutations)
-			if(SM.quality == POSITIVE)
+			if(SM.quality == SPACEVINE_MUTATION_POSITIVE)
 				temp_mut_list += SM
 		if(prob(20) && temp_mut_list.len)
 			mutations.Remove(pick(temp_mut_list))
@@ -69,7 +69,7 @@
 
 	if(S.has_reagent("phenol", 5))
 		for(var/datum/spacevine_mutation/SM in mutations)
-			if(SM.quality == MINOR_NEGATIVE)
+			if(SM.quality == SPACEVINE_MUTATION_MINOR_NEGATIVE)
 				temp_mut_list += SM
 		if(prob(20) && temp_mut_list.len)
 			mutations.Remove(pick(temp_mut_list))

@@ -525,3 +525,11 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 /obj/machinery/computer/atmoscontrol/ui_interact(mob/user, datum/tgui/ui = null)
 	atmos_control.ui_interact(user, ui)
+
+#undef SENSOR_PRESSURE
+#undef SENSOR_TEMPERATURE
+#undef SENSOR_O2
+#undef SENSOR_PLASMA
+#undef SENSOR_N2
+#undef SENSOR_CO2
+#undef SENSOR_N2O

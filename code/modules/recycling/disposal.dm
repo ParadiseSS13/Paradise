@@ -6,8 +6,6 @@
 // Can hold items and human size things, no other draggables
 // Toilets are a type of disposal bin for small objects only and work on magic. By magic, I mean torque rotation
 #define SEND_PRESSURE 0.05*ONE_ATMOSPHERE
-/// How frequently disposals can make sounds, to prevent huge sound stacking
-#define DISPOSAL_SOUND_COOLDOWN (0.1 SECONDS)
 
 /obj/machinery/disposal
 	name = "disposal unit"
@@ -1511,3 +1509,5 @@
 		dirs = GLOB.alldirs.Copy()
 
 	src.streak(dirs)
+
+#undef SEND_PRESSURE

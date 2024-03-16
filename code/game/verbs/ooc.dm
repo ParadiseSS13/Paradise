@@ -326,3 +326,5 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	set hidden = TRUE
 
 	init_verbs()
+
+#undef DEFAULT_PLAYER_OOC_COLOUR

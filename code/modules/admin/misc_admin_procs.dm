@@ -988,3 +988,5 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 			continue
 		result[1]++
 	return result
+
+#undef PLAYER_NOTES_ENTRIES_PER_PAGE

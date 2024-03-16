@@ -813,3 +813,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	light_color = COLOR_YELLOW
 	req_access = list(ACCESS_CE)
 	circuit = /obj/item/circuitboard/card/minor/ce
+
+#undef IDCOMPUTER_SCREEN_TRANSFER
+#undef IDCOMPUTER_SCREEN_SLOTS
+#undef IDCOMPUTER_SCREEN_ACCESS
+#undef IDCOMPUTER_SCREEN_RECORDS
+#undef IDCOMPUTER_SCREEN_DEPT

@@ -595,3 +595,7 @@
 		qdel(B)
 		raise_alert("Sentry bot removed via emergency recall.")
 	playsound(user, sound_yes, 50, 0)
+
+#undef DEPOT_VISITOR_START
+#undef DEPOT_VISITOR_END
+#undef DEPOT_VISITOR_ADD

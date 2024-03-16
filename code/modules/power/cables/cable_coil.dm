@@ -388,7 +388,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	update_wclass()
 
 /obj/item/stack/cable_coil/cyborg
-	energy_type = /datum/robot_energy_storage/cable
+	energy_type = /datum/robot_storage/energy/cable
 	is_cyborg = TRUE
 
 /obj/item/stack/cable_coil/cyborg/update_icon_state()

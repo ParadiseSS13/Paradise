@@ -51,6 +51,9 @@
 			brainmob.forceMove(src)
 			REMOVE_TRAIT(brainmob, TRAIT_RESPAWNABLE, GHOSTED)
 			brainmob.set_stat(CONSCIOUS)
+			// If they suicided as an MMI, re-inserting them should
+			// restore their ability to suicide.
+			brainmob.suiciding = FALSE
 			brainmob.see_invisible = initial(brainmob.see_invisible)
 			GLOB.dead_mob_list -= brainmob//Update dem lists
 			GLOB.alive_mob_list += brainmob

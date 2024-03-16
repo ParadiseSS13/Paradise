@@ -261,3 +261,7 @@
 /datum/dog_fashion/head/roman
 	name = "Imperator REAL_NAME"
 	desc = "For the Senate and the people of Rome!"
+
+/datum/dog_fashion/head/qm
+	name = "Supplymaster REAL_NAME"
+	desc = "A loyal watchdog for the most secure transportation."

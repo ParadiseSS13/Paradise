@@ -111,6 +111,9 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 	),
 	/turf = list(
 		"bluespace_speed_trait" = TRAIT_BLUESPACE_SPEED
+	),
+	/obj/effect = list(
+		"TRAIT_EFFECT_CAN_TELEPORT" = TRAIT_EFFECT_CAN_TELEPORT
 	)
 ))
 

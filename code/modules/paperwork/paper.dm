@@ -82,7 +82,7 @@
 	else
 		data = "[header]<div id='markdown'>[infolinks ? info_links : info]</div>[footer][stamps]"
 	if(view)
-		var/datum/browser/popup = new(user, "Paper[UID()]", , paper_width, paper_height)
+		var/datum/browser/popup = new(user, "Paper[UID()]", null, paper_width, paper_height)
 		popup.include_default_stylesheet = FALSE
 		popup.set_content(data)
 		if(!stars)

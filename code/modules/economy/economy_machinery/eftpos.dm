@@ -292,3 +292,5 @@
 	else
 		WRENCH_UNANCHOR_MESSAGE
 	SStgui.close_uis(src)
+
+#undef MAX_EFTPOS_CHARGE

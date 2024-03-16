@@ -24,8 +24,10 @@
 	var/list/malf_modules = list()
 	/// A list of modules that require special recharge handling. Examples include things like flashes, sprays and welding tools.
 	var/list/special_rechargables = list()
-	/// A list of all "energy stacks", i.e metal, glass, brute kits, splints, etc.
+	/// A list of all "energy stacks", i.e cables, brute kits, splints, etc.
 	var/list/storages = list()
+	/// A list of all "material stacks", i.e. metal, glass, and reinforced glass
+	var/list/material_storages = list()
 	/// Special actions this module will gain when chosen such as meson vision, or thermal vision.
 	var/list/module_actions = list()
 	/// Available tools given in the verb tab such as a crew monitor, or power monitor.
@@ -143,17 +145,20 @@
  * Returns a `robot_energy_strage` datum of type `storage_type`. If one already exists, it returns that one, otherwise it create a new one.
  *
  * Arguments:
- * * storage_type - the subtype of `datum/robot_energy_storage` to fetch or create.
+ * * storage_type - the subtype of `datum/robot_storage` to fetch or create.
  */
 /obj/item/robot_module/proc/get_or_create_estorage(storage_type)
 	for(var/e_storage in storages)
-		var/datum/robot_energy_storage/S = e_storage
+		var/datum/robot_storage/energy/S = e_storage
 		if(istype(S, storage_type))
 			return S
+		var/datum/robot_storage/material/M = e_storage
+		if(istype(M, storage_type))
+			return M
 	return new storage_type(src)
 
 /**
- * Adds the item `I` to our `modules` list, and sets up an `/datum/robot_energy_storage` if its a stack.
+ * Adds the item `I` to our `modules` list, and sets up an `/datum/robot_storage/energy` if its a stack.
  *
  * Arugments:
  * * I - the item to add to our modules.
@@ -230,7 +235,7 @@
  */
 /obj/item/robot_module/proc/recharge_consumables(mob/living/silicon/robot/R, coeff = 1)
 	for(var/e_storage in storages)
-		var/datum/robot_energy_storage/E = e_storage
+		var/datum/robot_storage/energy/E = e_storage
 		E.add_charge(max(1, coeff * E.recharge_rate))
 	for(var/item in special_rechargables)
 		var/obj/item/I = item
@@ -791,13 +796,13 @@
 		/obj/item/t_scanner,
 		/obj/item/rpd,
 		/obj/item/analyzer,
-		/obj/item/stack/sheet/metal/cyborg,
+		/obj/item/stack/sheet/metal/cyborg/drone,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/tile/catwalk/cyborg,
 		/obj/item/stack/cable_coil/cyborg,
-		/obj/item/stack/sheet/glass/cyborg,
-		/obj/item/stack/sheet/rglass/cyborg,
+		/obj/item/stack/sheet/glass/cyborg/drone,
+		/obj/item/stack/sheet/rglass/cyborg/drone,
 		/obj/item/stack/sheet/wood/cyborg,
 		/obj/item/stack/tile/wood/cyborg
 	)
@@ -832,116 +837,153 @@
  *	The `recharge_rate` will be affected by the charge rate of a borg recharger, depending on the level of parts. By default it is 1.
  *	This amount will be given every 2 seconds. So at round start, rechargers will give 1 energy back every 2 seconds, to each stack the borg has.
  */
-/datum/robot_energy_storage
-	/// The name of the energy storage.
-	var/name = "Generic energy storage"
+
+/datum/robot_storage
+	/// The name of the storage.
+	var/name = "Generic storage"
 	/// The name that will be displayed in the status panel.
 	var/statpanel_name = "Statpanel name"
-	/// The max amount of energy the stack can hold at once.
-	var/max_energy = 50
-	/// The amount of energy the stack will regain while charging.
-	var/recharge_rate = 1
-	/// Current amount of energy.
-	var/energy
+	/// The max amount of materials the stack can hold at once.
+	var/max_amount = 50
+	/// Current amount of materials.
+	var/amount
 
-/datum/robot_energy_storage/New(obj/item/robot_module/R = null)
-	if(!energy)
-		energy = max_energy
-	if(R)
-		R.storages += src
+/datum/robot_storage/New(obj/item/robot_module/R)
+	if(!amount)
+		amount = max_amount
 
 /**
- * Called whenever the cyborg uses one of its stacks. Subtract the amount used from this datum's `energy` variable.
+ * Called whenever the cyborg uses one of its stacks. Subtract the amount used from this datum's `amount` variable.
  *
  * Arguments:
- * * amount - the number to subtract from the `energy` var.
+ * * reduction - the number to subtract from the `amount` var.
  */
-/datum/robot_energy_storage/proc/use_charge(amount)
-	if(energy < amount)
+/datum/robot_storage/proc/use_charge(reduction)
+	if(amount < reduction)
 		return FALSE // If we have more energy that we're about to drain, return
 
-	energy -= amount
+	amount -= reduction
 	return TRUE
 
 /**
  * Called whenever the cyborg is recharging and gains charge on its stack, or when clicking on other same-type stacks in the world.
  *
  * Arguments:
- * * amount - the number to add to the `energy` var.
+ * * addition - the number to add to the `energy` var.
  */
-/datum/robot_energy_storage/proc/add_charge(amount)
-	energy = min(energy + amount, max_energy)
+/datum/robot_storage/proc/add_charge(addition)
+	amount = min(amount + addition, max_amount)
 
-/datum/robot_energy_storage/metal
+/datum/robot_storage/energy
+	name = "Generic energy storage"
+	/// The amount of energy the stack will regain while charging.
+	var/recharge_rate = 1
+
+/datum/robot_storage/energy/New(obj/item/robot_module/R)
+	. = ..()
+	if(R)
+		R.storages += src
+
+/datum/robot_storage/energy/metal
 	name = "Metal Synthesizer"
 	statpanel_name = "Metal"
 
-/datum/robot_energy_storage/metal_tile
+/datum/robot_storage/energy/metal_tile
 	name = "Floor tile Synthesizer"
 	statpanel_name = "Floor tiles"
-	max_energy = 60
+	max_amount = 60
 
-/datum/robot_energy_storage/rods
+/datum/robot_storage/energy/rods
 	name = "Rod Synthesizer"
 	statpanel_name = "Rods"
 
-/datum/robot_energy_storage/catwalk
+/datum/robot_storage/energy/catwalk
 	name= "Catwalk Synthesizer"
 	statpanel_name = "Catwalk Tiles"
-	max_energy = 60
+	max_amount = 60
 
-/datum/robot_energy_storage/glass
+/datum/robot_storage/energy/glass
 	name = "Glass Synthesizer"
 	statpanel_name = "Glass"
 
-/datum/robot_energy_storage/rglass
+/datum/robot_storage/energy/rglass
 	name = "Reinforced glass Synthesizer"
 	statpanel_name = "Reinforced glass"
 
-/datum/robot_energy_storage/wood
+/datum/robot_storage/energy/wood
 	name = "Wood Synthesizer"
 	statpanel_name = "Wood"
 
-/datum/robot_energy_storage/wood_tile
+/datum/robot_storage/energy/wood_tile
 	name = "Wooden tile Synthesizer"
 	statpanel_name = "Wooden tiles"
-	max_energy = 60
+	max_amount = 60
 
-/datum/robot_energy_storage/cable
+/datum/robot_storage/energy/cable
 	name = "Cable Synthesizer"
 	statpanel_name = "Cable"
 
 // For the medical stacks, even though the recharge rate is 0, it will be set to 1 by default because of a `max()` proc.
 // It will always take ~12 seconds to fully recharge these stacks beacuse of this. This time does not apply to the syndicate storages.
-/datum/robot_energy_storage/medical
+/datum/robot_storage/energy/medical
 	name = "Medical Synthesizer"
-	max_energy = 6
+	max_amount = 6
 	recharge_rate = 0
 
-/datum/robot_energy_storage/medical/splint
+/datum/robot_storage/energy/medical/splint
 	name = "Splint Synthesizer"
 	statpanel_name = "Splints"
 
-/datum/robot_energy_storage/medical/splint/syndicate
-	max_energy = 25
+/datum/robot_storage/energy/medical/splint/syndicate
+	max_amount = 25
 
-/datum/robot_energy_storage/medical/adv_burn_kit
+/datum/robot_storage/energy/medical/adv_burn_kit
 	name = "Burn kit Synthesizer"
 	statpanel_name = "Burn kits"
 
-/datum/robot_energy_storage/medical/adv_burn_kit/syndicate
-	max_energy = 25
+/datum/robot_storage/energy/medical/adv_burn_kit/syndicate
+	max_amount = 25
 
-/datum/robot_energy_storage/medical/adv_brute_kit
+/datum/robot_storage/energy/medical/adv_brute_kit
 	name = "Trauma kit Synthesizer"
 	statpanel_name = "Brute kits"
 
-/datum/robot_energy_storage/medical/adv_brute_kit/syndicate
-	max_energy = 25
+/datum/robot_storage/energy/medical/adv_brute_kit/syndicate
+	max_amount = 25
 
-/datum/robot_energy_storage/medical/nanopaste
+/datum/robot_storage/energy/medical/nanopaste
 	name = "Nanopaste Synthesizer"
 	statpanel_name = "Nanopaste"
 
-/datum/robot_energy_storage/medical/nanopaste/syndicate
-	max_energy = 25
+/datum/robot_storage/energy/medical/nanopaste/syndicate
+	max_amount = 25
+
+/// This datum is an alternative to the energy storages, instead being recharged in different ways
+/datum/robot_storage/material
+	name = "Generic material storage"
+	/// What stacktype do we originally have
+	var/stack
+	/// Does this get added to the autorefill from the ORM
+	var/add_to_storage = FALSE
+
+/datum/robot_storage/material/New(obj/item/robot_module/R)
+	if(R && add_to_storage)
+		R.material_storages += src
+	..()
+
+/datum/robot_storage/material/glass
+	name = "Glass Storage"
+	statpanel_name = "Glass"
+	stack = /obj/item/stack/sheet/glass
+	add_to_storage = TRUE
+
+/datum/robot_storage/material/rglass
+	name = "Reinforced glass Storage"
+	statpanel_name = "Reinforced glass"
+	stack = /obj/item/stack/sheet/rglass
+
+/datum/robot_storage/material/metal
+	name = "Metal Storage"
+	statpanel_name = "Metal"
+	stack = /obj/item/stack/sheet/metal
+	add_to_storage = TRUE

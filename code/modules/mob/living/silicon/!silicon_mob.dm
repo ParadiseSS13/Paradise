@@ -596,9 +596,6 @@
 		drop_hat()
 	. = ..()
 
-/mob/living/silicon/grabbedby(mob/living/user)
-	remove_from_head(user)
-
 /mob/living/silicon/examine(mob/user)
 	. = ..()
 	if(silicon_hat)

@@ -165,7 +165,7 @@
 	/// List of all job types with the cybernetics they should receive.
 	var/static/list/job_to_cybernetic = list(
 		/datum/job/assistant = /obj/item/organ/internal/heart/cybernetic, //real action, real bloodshed
-		/datum/job/atmos = /obj/item/organ/internal/lungs/cybernetic/upgraded,
+		/datum/job/atmos = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
 		/datum/job/bartender = /obj/item/organ/internal/liver/cybernetic,
 		/datum/job/hydro = /obj/item/organ/internal/cyberimp/arm/botanical,
 		/datum/job/captain = /obj/item/organ/internal/heart/cybernetic/upgraded,

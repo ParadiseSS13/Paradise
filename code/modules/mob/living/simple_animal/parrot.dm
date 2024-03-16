@@ -757,3 +757,11 @@
 
 /mob/living/simple_animal/parrot/CanPathfindPassTo(ID, dir, obj/destination)
 	return is_type_in_typecache(destination, desired_perches)
+
+#undef PARROT_PERCH
+#undef PARROT_SWOOP
+#undef PARROT_WANDER
+#undef PARROT_STEAL
+#undef PARROT_ATTACK
+#undef PARROT_RETURN
+#undef PARROT_FLEE

@@ -136,13 +136,18 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	. += "<span class='notice'>Metal is used in various different construction sequences.</span>"
 
 /obj/item/stack/sheet/metal/cyborg
-	energy_type = /datum/robot_energy_storage/metal
+	energy_type = /datum/robot_storage/material/metal
 	is_cyborg = TRUE
 	materials = list()
 
 /obj/item/stack/sheet/metal/cyborg/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>As a synthetic, you can regain sheets of reinforced glass by recharging in a <b>cyborg recharger</b>.</span>"
+	var/mob/living/silicon/robot/robot = user
+	if(!istype(robot.module, /obj/item/robot_module/drone))
+		. += "<span class='notice'>You can refill your metal by using your <b>magnetic gripper</b> on the Ore Redemption machine, or by picking it up from the ground.</span>"
+
+/obj/item/stack/sheet/metal/cyborg/drone
+	energy_type = /datum/robot_storage/energy/metal
 
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
@@ -196,7 +201,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	return ..()
 
 /obj/item/stack/sheet/wood/cyborg
-	energy_type = /datum/robot_energy_storage/wood
+	energy_type = /datum/robot_storage/energy/wood
 	is_cyborg = TRUE
 
 /*

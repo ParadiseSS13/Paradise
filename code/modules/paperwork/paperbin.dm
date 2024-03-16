@@ -72,7 +72,7 @@
 			P = papers[papers.len]
 			papers.Remove(P)
 		else
-			if(letterhead_type && alert("Choose a style",,"Letterhead","Blank")=="Letterhead")
+			if(letterhead_type && alert("Choose a style", null,"Letterhead","Blank")=="Letterhead")
 				P = new letterhead_type
 			else
 				P = new /obj/item/paper

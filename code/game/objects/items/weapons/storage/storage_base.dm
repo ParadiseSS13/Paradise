@@ -158,7 +158,6 @@
 		open(usr)
 
 /obj/item/storage/AltClick(mob/user)
-	. = ..()
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
 		open(user)
 		add_fingerprint(user)
@@ -430,7 +429,7 @@
 	if(!istype(I))
 		return FALSE
 	if(usr)
-		if(!Adjacent(usr))
+		if(!Adjacent(usr) && !isnewplayer(usr))
 			return FALSE
 		if(!usr.unEquip(I, silent = TRUE))
 			return FALSE
