@@ -255,7 +255,7 @@
 	if(phaseinchaneltime < world.time && channeling && !phased)
 		perform_phasein()
 	if(!phased && health < 200 && lasthealtime < world.time)
-		lasthealtime = world.time + 10
+		lasthealtime = world.time + 1 SECONDS
 		adjustHealth(-(maxHealth * 0.05))
 	if(decay_time < world.time && stat_amplification)
 		if(last_stat_decrease < world.time)
