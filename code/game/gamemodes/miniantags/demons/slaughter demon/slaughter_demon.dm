@@ -121,13 +121,6 @@
 /obj/effect/dummy/slaughter_demon/singularity_act()
 	return
 
-/*/obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
-	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
-	var/mob/living/simple_animal/demon/D = new demon_type(holder)
-	if(istype(D, /mob/living/simple_animal/demon/slaughter))
-		var/mob/living/simple_animal/demon/slaughter/S = D
-		S.vialspawned = TRUE*/
-
 /mob/living/simple_animal/demon/slaughter_demon/Destroy()
 	for(var/mob/living/M in consumed_mobs)
 		REMOVE_TRAIT(M, TRAIT_UNREVIVABLE, "demon")
