@@ -453,12 +453,6 @@
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(!usr.stat && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !usr.restrained() && in_range(src, usr))
-		// var/thief_mode = 0
-		// if(ishuman(usr))
-		// 	var/mob/living/carbon/human/H = usr
-		// 	var/obj/item/clothing/gloves/G = H.gloves
-		// 	if(G && G.pickpocket)
-		// 		thief_mode = 1
 
 		if(href_list["embedded_object"])
 			var/obj/item/organ/external/L = locate(href_list["embedded_limb"]) in bodyparts
@@ -481,81 +475,6 @@
 				if(!has_embedded_objects())
 					clear_alert("embeddedobject")
 			return
-
-		// if(href_list["item"])
-		// 	var/slot = text2num(href_list["item"])
-		// 	if(slot in check_obscured_slots())
-		// 		to_chat(usr, "<span class='warning'>You can't reach that! Something is covering it.</span>")
-		// 		return
-
-		// if(href_list["pockets"])
-		// 	var/pocket_side = href_list["pockets"]
-		// 	var/pocket_id = (pocket_side == "right" ? SLOT_HUD_RIGHT_STORE : SLOT_HUD_LEFT_STORE)
-		// 	var/obj/item/pocket_item = (pocket_id == SLOT_HUD_RIGHT_STORE ? r_store : l_store)
-		// 	var/obj/item/place_item = usr.get_active_hand() // Item to place in the pocket, if it's empty
-
-		// 	var/delay_denominator = 1
-		// 	if(pocket_item && !(pocket_item.flags&ABSTRACT))
-		// 		if(pocket_item.flags & NODROP)
-		// 			to_chat(usr, "<span class='warning'>You try to empty [src]'s [pocket_side] pocket, it seems to be stuck!</span>")
-		// 		to_chat(usr, "<span class='notice'>You try to empty [src]'s [pocket_side] pocket.</span>")
-		// 	else if(place_item && place_item.mob_can_equip(src, pocket_id, 1) && !(place_item.flags&ABSTRACT))
-		// 		to_chat(usr, "<span class='notice'>You try to place [place_item] into [src]'s [pocket_side] pocket.</span>")
-		// 		delay_denominator = 4
-		// 	else
-		// 		return
-
-		// 	if(do_mob(usr, src, POCKET_STRIP_DELAY/delay_denominator)) //placing an item into the pocket is 4 times faster
-		// 		if(pocket_item)
-		// 			if(pocket_item == (pocket_id == SLOT_HUD_RIGHT_STORE ? r_store : l_store)) //item still in the pocket we search
-		// 				unEquip(pocket_item)
-		// 				// if(thief_mode)
-		// 				// 	usr.put_in_hands(pocket_item)
-		// 				add_attack_logs(usr, src, "Stripped of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
-		// 		else
-		// 			if(place_item)
-		// 				usr.unEquip(place_item)
-		// 				equip_to_slot_if_possible(place_item, pocket_id, FALSE, TRUE)
-		// 				add_attack_logs(usr, src, "Equipped with [place_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
-
-		// 		// Update strip window
-		// 		// if(usr.machine == src && in_range(src, usr))
-		// 		// 	show_inv(usr)
-		// 	else
-		// 		// Display a warning if the user mocks up if they don't have pickpocket gloves.
-		// 		// if(!thief_mode)
-		// 		// 	to_chat(src, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
-		// 		// add_attack_logs(usr, src, "Attempted strip of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
-
-		// if(href_list["set_sensor"])
-		// 	if(istype(w_uniform, /obj/item/clothing/under))
-		// 		var/obj/item/clothing/under/U = w_uniform
-		// 		U.set_sensors(usr)
-
-		// if(href_list["dislodge_headpocket"])
-		// 	usr.visible_message("<span class='danger'>[usr] is trying to remove something from [src]'s head!</span>",
-		// 											"<span class='danger'>You start to dislodge whatever's inside [src]'s headpocket!</span>")
-		// 	if(do_mob(usr, src, POCKET_STRIP_DELAY))
-		// 		usr.visible_message("<span class='danger'>[usr] has dislodged something from [src]'s head!</span>",
-		// 												"<span class='danger'>You have dislodged everything from [src]'s headpocket!</span>")
-		// 		var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
-		// 		C.empty_contents()
-		// 		add_attack_logs(usr, src, "Stripped of headpocket items", isLivingSSD(src) ? null : ATKLOG_ALL)
-
-		// if(href_list["strip_accessory"])
-		// 	if(istype(w_uniform, /obj/item/clothing/under))
-		// 		var/obj/item/clothing/under/U = w_uniform
-		// 		if(U.accessories.len)
-		// 			var/obj/item/clothing/accessory/A = U.accessories[1]
-		// 			if(!thief_mode)
-		// 				usr.visible_message("<span class='danger'>\The [usr] starts to take off \the [A] from \the [src]'s [U]!</span>",
-		// 									"<span class='danger'>You start to take off \the [A] from \the [src]'s [U]!</span>")
-
-		// 			if(do_mob(usr, src, 40) && A && U.accessories.len)
-		// 				if(!thief_mode)
-		// 					usr.visible_message("<span class='danger'>\The [usr] takes \the [A] off of \the [src]'s [U]!</span>",
-		// 										"<span class='danger'>You take \the [A] off of \the [src]'s [U]!</span>")
-		// 				U.detach_accessory(A, usr)
 
 	if(href_list["criminal"])
 		try_set_criminal_status(usr)

@@ -128,62 +128,6 @@
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Held Item:", "[held_item]")
 
-/mob/living/simple_animal/parrot/Topic(href, href_list)
-	//Can the usr physically do this?
-	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.stat || usr.restrained() || !usr.Adjacent(src))
-		return
-
-	//Is the usr's mob type able to do this?
-	if(ishuman(usr) || isrobot(usr))
-		if(href_list["remove_inv"])
-			var/remove_from = href_list["remove_inv"]
-			switch(remove_from)
-				if("ears")
-					if(ears)
-						if(stat == CONSCIOUS) //DEAD PARROTS SHOULD NOT SPEAK (i hate that this is done in topic)
-							if(length(available_channels))
-								say("[pick(available_channels)]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
-							else
-								say("BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
-						ears.forceMove(loc)
-						ears = null
-						update_speak()
-					else
-						to_chat(usr, "<span class='warning'>There is nothing to remove from its [remove_from].</span>")
-						return
-			// show_inv(usr)
-		else if(href_list["add_inv"])
-			var/add_to = href_list["add_inv"]
-			if(!usr.get_active_hand())
-				to_chat(usr, "<span class='warning'>You have nothing in your hand to put on its [add_to].</span>")
-				return
-			switch(add_to)
-				if("ears")
-					if(ears)
-						to_chat(usr, "<span class='warning'>It's already wearing something.</span>")
-						return
-					else
-						var/obj/item/item_to_add = usr.get_active_hand()
-						if(!item_to_add)
-							return
-
-						if(!istype(item_to_add, /obj/item/radio/headset))
-							to_chat(usr, "<span class='warning'>This object won't fit.</span>")
-							return
-
-						var/obj/item/radio/headset/headset_to_add = item_to_add
-
-						usr.drop_item()
-						headset_to_add.forceMove(src)
-						ears = headset_to_add
-						to_chat(usr, "You fit the headset onto [src].")
-
-						update_available_channels()
-						update_speak()
-			// show_inv(usr)
-		else
-			..()
-
 /*
  * Attack responces
  */
