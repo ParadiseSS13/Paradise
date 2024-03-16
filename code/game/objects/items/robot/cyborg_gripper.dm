@@ -53,7 +53,7 @@
 /obj/item/gripper/attack(mob/living/carbon/M, mob/living/carbon/user)
 	return
 
-/// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_item())` checks done in certain attackby's. // What does this even MEAN - GDN
+/// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_item())` checks done in certain attackby's. // What does this even MEAN - GDN // I don't know either - CRUNCH
 /obj/item/gripper/forceMove(atom/destination)
 	return
 
@@ -158,7 +158,7 @@
 ******************************/
 /obj/item/gripper/nuclear		// For syndicate nuke-ops borgs. Get dat fokkin' disk!
 	name = "suspicious disk gripper"
-	desc = "A suspicious grasping tool to allow you to \''get dat fokkin' disk!''\ "
+	desc = "A suspicious grasping tool to allow you to <font color='red'><i><b>GET DAT FOKKIN' DISK!</b></i></font>\ "
 	can_hold = list(
 		/obj/item/disk			// Can hold any disk so that no disk cannot be gotten. 
 	)
