@@ -267,7 +267,7 @@
 				stat_amplification = 0
 				return
 			to_chat(src, "Stat amp is now set to [stat_amplification]")
-			last_stat_decrease = world.time + 10
+			last_stat_decrease = world.time + 1 SECONDS
 
 
 //temporary visual effects(/obj/effect/temp_visual) used by clockcult stuff
