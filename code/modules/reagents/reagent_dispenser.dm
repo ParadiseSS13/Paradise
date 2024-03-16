@@ -281,7 +281,7 @@
 	anchored = TRUE
 	var/exploding = FALSE
 
-/obj/structure/reagent_dispensers/beerkeg/nuke/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/structure/reagent_dispensers/beerkeg/nuke/attackby(obj/item/O, mob/user, params)
 	. = ..()
 	if(exploding)
 		return
@@ -290,7 +290,7 @@
 	user.visible_message(
 		"<span class='danger'>[user] inserts [O] into [src] and it begins making a loud beeping noise! Uh-oh!</span>",
 		"<span class='danger'>You prime [src] with [O] and it begins making a loud beeping noise! Better run!</span>")
-	playsound(src, 'sound/machines/alarm.ogg', 100, 0, 0)
+	playsound(src, 'sound/machines/alarm.ogg', 100, FALSE, 0)
 	exploding = TRUE
 	sleep(13 SECONDS)
 	var/datum/reagents/R = new(100)
@@ -298,7 +298,7 @@
 	R.add_reagent("beer", 100)
 	var/datum/effect_system/smoke_spread/chem/smoke = new
 	smoke.set_up(R, src, TRUE)
-	playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+	playsound(src.loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 	smoke.start(3)
 	qdel(R)
 	qdel(src)
