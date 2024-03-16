@@ -25,7 +25,7 @@
 	if(isslaughterdemon(user))
 		var/mob/living/simple_animal/demon/slaughter_demon/D = user
 		if(D.channeling)
-			to_chat(D, "You are currently channeling!")
+			to_chat(D, "<span class='notice'>You begin to channel yourself into the blood!</span>")
 			return
 		if(D.phased)
 			D.channel_target = get_turf(target)
