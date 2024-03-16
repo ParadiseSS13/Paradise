@@ -143,6 +143,22 @@ const CoreGenes = (props, context) => {
           <Stack.Item width="100%" ml="2px">
             {gene.name}
           </Stack.Item>
+          <Stack.Item>
+            <Button
+              content="Extract"
+              disabled={!disk?.can_extract}
+              icon="save"
+              onClick={() => act('extract', { id: gene.id })}
+            />
+          </Stack.Item>
+          <Stack.Item>
+            <Button
+              content="Replace"
+              disabled={!gene.is_type || !disk.can_insert}
+              icon="arrow-circle-down"
+              onClick={() => act('replace', { id: gene.id })}
+            />
+          </Stack.Item>
         </Stack>
       ))}{' '}
       {
@@ -152,15 +168,15 @@ const CoreGenes = (props, context) => {
               content="Extract All"
               disabled={!disk?.can_extract}
               icon="save"
-              onClick={() => act('extract_core')}
+              onClick={() => act('bulk_extract_core')}
             />
           </Stack.Item>
           <Stack.Item>
             <Button
               content="Replace All"
-              disabled={!disk?.is_core}
+              disabled={!disk?.is_bulk_core}
               icon="arrow-circle-down"
-              onClick={() => act('replace_core')}
+              onClick={() => act('bulk_replace_core')}
             />
           </Stack.Item>
         </Stack>
