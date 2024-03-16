@@ -1002,6 +1002,7 @@
 	statpanel_name = "Landmines"
 	max_amount = 4
 	recharge_rate = 0.2
+
 /// This datum is an alternative to the energy storages, instead being recharged in different ways
 /datum/robot_storage/material
 	name = "Generic material storage"
@@ -1031,6 +1032,4 @@
 	statpanel_name = "Metal"
 	stack = /obj/item/stack/sheet/metal
 	add_to_storage = TRUE
-
-
 

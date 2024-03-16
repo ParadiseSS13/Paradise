@@ -122,7 +122,6 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/compactslug
 	max_ammo = 12
 
-
 /obj/item/ammo_box/magazine/internal/shot/dual
 	name = "double-barrel shotgun internal magazine"
 	max_ammo = 2
