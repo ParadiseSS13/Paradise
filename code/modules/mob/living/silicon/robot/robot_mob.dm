@@ -513,8 +513,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_icons()
 	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(selected_module)]")
 	notify_ai(2)
-
-/mob/living/silicon/robot/proc/spill_upgrades() // Take the borg's upgrades and spill them on the floor
+/// Take the borg's upgrades and spill them on the floor
+/mob/living/silicon/robot/proc/spill_upgrades()
 	for(var/obj/item/borg/upgrade/U in contents)
 		if(istype(U, /obj/item/borg/upgrade/reset)) // The reset module is supposed to be consumed on use, this stops it from dropping on the floor if used
 			QDEL_NULL(U)
