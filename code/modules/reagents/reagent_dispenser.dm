@@ -292,7 +292,9 @@
 		"<span class='danger'>You prime [src] with [O] and it begins making a loud beeping noise! Better run!</span>")
 	playsound(src, 'sound/machines/alarm.ogg', 100, FALSE, 0)
 	exploding = TRUE
-	sleep(13 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(explode)), 13 SECONDS)
+
+/obj/structure/reagent_dispensers/beerkeg/nuke/proc/explode()
 	var/datum/reagents/R = new(100)
 	R.my_atom = src
 	R.add_reagent("beer", 100)
