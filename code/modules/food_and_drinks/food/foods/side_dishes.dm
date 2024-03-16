@@ -24,6 +24,7 @@
 	filling_color = "#EDDD00"
 	list_reagents = list("nutriment" = 4)
 	tastes = list("fries" = 3, "salt" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/cheesyfries
 	name = "cheesy fries"
@@ -33,6 +34,7 @@
 	filling_color = "#EDDD00"
 	list_reagents = list("nutriment" = 6)
 	tastes = list("fries" = 3, "cheese" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/tatortot
 	name = "tator tot"
@@ -41,6 +43,7 @@
 	list_reagents = list("nutriment" = 4)
 	filling_color = "FFD700"
 	tastes = list("fried potato" = 3, "valids" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/onionrings
 	name = "onion rings"
@@ -50,6 +53,7 @@
 	filling_color = "#C0C9A0"
 	gender = PLURAL
 	tastes = list("onion" = 3, "batter" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/carrotfries
 	name = "carrot fries"
@@ -59,6 +63,7 @@
 	filling_color = "#FAA005"
 	list_reagents = list("plantmatter" = 3, "oculine" = 3, "vitamin" = 2)
 	tastes = list("carrots" = 3, "salt" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 
 //////////////////////
@@ -71,6 +76,7 @@
 	icon_state = "beans"
 	list_reagents = list("nutriment" = 10, "beans" = 10, "vitamin" = 3)
 	tastes = list("beans" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /// mashed taters
 /obj/item/food/snacks/mashed_potatoes
@@ -81,6 +87,7 @@
 	filling_color = "#D6D9C1"
 	list_reagents = list("nutriment" = 5, "gravy" = 5, "mashedpotatoes" = 10, "vitamin" = 2)
 	tastes = list("mashed potato" = 3, "gravy" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/stuffing
 	name = "stuffing"
@@ -89,6 +96,7 @@
 	filling_color = "#C9AC83"
 	list_reagents = list("nutriment" = 3)
 	tastes = list("bread crumbs" = 1, "herbs" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/loadedbakedpotato
 	name = "loaded baked potato"
@@ -97,6 +105,7 @@
 	filling_color = "#9C7A68"
 	list_reagents = list("nutriment" = 6)
 	tastes = list("potato" = 1, "cheese" = 1, "herbs" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/boiledrice
 	name = "boiled rice"
@@ -106,6 +115,7 @@
 	filling_color = "#FFFBDB"
 	list_reagents = list("nutriment" = 5, "vitamin" = 1)
 	tastes = list("rice" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 
 /obj/item/food/snacks/roastparsnip
@@ -116,3 +126,4 @@
 	list_reagents = list("nutriment" = 3, "vitamin" = 4)
 	filling_color = "#FF5500"
 	tastes = list("parsnip" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL

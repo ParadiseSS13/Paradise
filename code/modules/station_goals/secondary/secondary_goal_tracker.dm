@@ -28,6 +28,7 @@
 /datum/secondary_goal_tracker/proc/reset_tempporary_progress(obj/docking_port/mobile/supply/shuttle)
 	SIGNAL_HANDLER  // COMSIG_CARGO_BEGIN_SCAN, COMSIG_CARGO_BEGIN_SELL
 	temporary_progress = real_progress.Copy()
+	real_progress.start_shipment()
 
 // Checks for temporary goal progress when selling a cargo item.
 /datum/secondary_goal_tracker/proc/check_for_progress(obj/docking_port/mobile/supply/shuttle, atom/movable/thing)
@@ -53,6 +54,12 @@
 /datum/secondary_goal_progress/proc/Copy()
 	SIGNAL_HANDLER  // Indirect: COMSIG_CARGO_BEGIN_SCAN, COMSIG_CARGO_BEGIN_SELL
 	return new type
+
+// Override for custom shipment start behavior
+// (e.g. ampount-per-shipment tracking)
+// Only called on the real progress tracker.
+/datum/secondary_goal_progress/proc/start_shipment()
+	SIGNAL_HANDLER  // Indirect: COMSIG_CARGO_BEGIN_SCAN, COMSIG_CARGO_BEGIN_SELL
 
 // Check the item to see if it belongs to this goal.
 // Update the manifest accodingly, if provided.

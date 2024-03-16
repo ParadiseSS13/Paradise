@@ -33,6 +33,7 @@
 /// Like O- blood but doesn't contribute to blood_volume or vampire nutrition
 #define BLOOD_TYPE_FAKE_BLOOD	"Vh Null"
 
+/// Used for secondary goals.
 #define REAGENT_GOAL_SKIP 0
 #define REAGENT_GOAL_EASY 1
 #define REAGENT_GOAL_NORMAL 2
