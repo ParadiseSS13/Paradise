@@ -360,7 +360,6 @@
 		/obj/item/gun/syringe/malf
 	)
 
-
 // Disable safeties on the borg's defib.
 /obj/item/robot_module/medical/emag_act(mob/user)
 	. = ..()
@@ -560,10 +559,12 @@
 		/obj/item/reagent_containers/drinks/shaker
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer)
-	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg)
+	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/instrument/guitar/cyborg)
+	malf_modules = list(/obj/item/gun/projectile/shotgun/automatic/combat/cyborg)
 	special_rechargables = list(
 		/obj/item/reagent_containers/condiment/enzyme,
-		/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer
+		/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer,
+		/obj/item/gun/projectile/shotgun/automatic/combat/cyborg
 	)
 
 
@@ -575,6 +576,12 @@
 /obj/item/reagent_containers/drinks/cans/beer/sleepy_beer/cyborg_recharge(coeff, emagged)
 	if(emagged)
 		reagents.check_and_add("beer2", volume, 5)
+
+//This is a special guitar for the emagged service borg that hits pretty hard and can still play music. Clonk.
+/obj/item/instrument/guitar/cyborg
+	name = "steel-reinforced guitar"
+	desc = "This guitar has robust metal plating inside to give it some extra kick."
+	force = 20
 
 /obj/item/robot_module/butler/add_languages(mob/living/silicon/robot/R)
 	//full set of languages

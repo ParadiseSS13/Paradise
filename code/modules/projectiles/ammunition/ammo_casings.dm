@@ -169,6 +169,16 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
+/obj/item/ammo_casing/shotgun/compactslug
+	name = "compact slug"
+	desc = "A 20 gauge lead slug. Fires a single solid projectile."
+	icon_state = "blshell"
+	caliber = "shotgun"
+	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
+	projectile_type = /obj/item/projectile/bullet/compact
+	materials = list(MAT_METAL=4000)
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
 /obj/item/ammo_casing/shotgun/buckshot
 	name = "buckshot shell"

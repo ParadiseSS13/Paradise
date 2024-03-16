@@ -324,6 +324,18 @@
 	w_class = WEIGHT_CLASS_BULKY
 	execution_speed = 5 SECONDS
 
+//Service Malfunction Borg Combat Shotgun Variant
+/obj/item/gun/projectile/shotgun/automatic/combat/cyborg
+	name = "cyborg shotgun"
+	desc = "Get those organics off your station. Holds twelve shots."
+	icon_state = "cshotgun"
+	item_state = "shotgun_combat"
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/malf
+
+/obj/item/gun/projectile/shotgun/automatic/combat/cyborg/cyborg_recharge(coeff, emagged)
+	if (magazine.ammo_count() < magazine.max_ammo)
+		magazine.stored_ammo.Add(new /obj/item/ammo_casing/shotgun/compactslug)
+
 //Dual Feed Shotgun
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube

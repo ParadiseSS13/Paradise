@@ -856,7 +856,7 @@
 /datum/AI_Module/borgupgrade
 	module_name = "Combat Cyborg Firmware Upgrade"
 	mod_pick_name = "combatborgs"
-	description = "Downloads firmware that activates built-in combat hardware present in all cyborgs. Cyborgs build after this is used will come with the hardware activated."
+	description = "Downloads firmware that activates built-in combat hardware present in all cyborgs. Cyborgs built after this is used will come with the hardware activated."
 	cost = 50 // IDK look into this
 	one_purchase = TRUE
 	upgrade = TRUE
