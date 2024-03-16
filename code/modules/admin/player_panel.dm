@@ -429,34 +429,9 @@
 		/*if(ticker.mode.ninjas.len)
 			dat += check_role_table("Ninjas", ticker.mode.ninjas)*/
 
-		if(SSticker.mode.cult.len)
-			var/datum/game_mode/gamemode = SSticker.mode
-			var/datum/objective/current_sac_obj = gamemode.cult_objs.current_sac_objective()
-			dat += check_role_table("Cultists", SSticker.mode.cult)
-			if(current_sac_obj)
-				dat += "<br>Current cult objective: <br>[current_sac_obj.explanation_text]"
-			else if(gamemode.cult_objs.cult_status == NARSIE_NEEDS_SUMMONING)
-				dat += "<br>Current cult objective: Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"]"
-			else if(gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
-				dat += "<br>Current cult objective: Feed [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"]"
-			else if(gamemode.cult_objs.cult_status == NARSIE_HAS_FALLEN)
-				dat += "<br>Current cult objective: Kill all non-cultists"
-			else
-				dat += "<br>Current cult objective: None! (This is most likely a bug, or var editing gone wrong.)"
-			dat += "<br>Sacrifice objectives completed: [gamemode.cult_objs.sacrifices_done]"
-			dat += "<br>Sacrifice objectives needed for summoning: [gamemode.cult_objs.sacrifices_required]"
-			dat += "<br>Summoning locations: [english_list(gamemode.cult_objs.obj_summon.summon_spots)]"
-			dat += "<br><a href='?src=[UID()];cult_mindspeak=[UID()]'>Cult Mindspeak</a>"
-
-			if(gamemode.cult_objs.cult_status == NARSIE_DEMANDS_SACRIFICE)
-				dat += "<br><a href='?src=[UID()];cult_adjustsacnumber=[UID()]'>Modify amount of sacrifices required</a>"
-				dat += "<br><a href='?src=[UID()];cult_newtarget=[UID()]'>Reroll sacrifice target</a>"
-			else
-				dat += "<br>Modify amount of sacrifices required (Summon available!)</a>"
-				dat += "<br>Reroll sacrifice target (Summon available!)</a>"
-
-			dat += "<br><a href='?src=[UID()];cult_newsummonlocations=[UID()]'>Reroll summoning locations</a>"
-			dat += "<br><a href='?src=[UID()];cult_unlocknarsie=[UID()]'>Unlock Nar'Sie summoning</a>"
+		if(SSticker.mode.cult_team)
+			dat += check_role_table("Cultists", SSticker.mode.cult_team.members)
+			dat += "<a href='?src=[UID()];check_teams=1'>View Cult Team & Controls</a><br>"
 
 		if(SSticker.mode.traitors.len)
 			dat += check_role_table("Traitors", SSticker.mode.traitors)

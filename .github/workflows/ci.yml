@@ -39,6 +39,7 @@ jobs:
           python tools/ci/check_file_names.py
           python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
           python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
+          python tools/ci/define_sanity.py
           python -m tools.ci.check_icon_conflicts
           python -m tools.ci.check_icon_dupenames
           python -m tools.maplint.source --github
