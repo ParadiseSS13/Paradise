@@ -333,7 +333,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/malf
 
 /obj/item/gun/projectile/shotgun/automatic/combat/cyborg/cyborg_recharge(coeff, emagged)
-	if (magazine.ammo_count() < magazine.max_ammo)
+	if(magazine.ammo_count() < magazine.max_ammo)
 		magazine.stored_ammo.Add(new /obj/item/ammo_casing/shotgun/compactslug)
 
 //Dual Feed Shotgun

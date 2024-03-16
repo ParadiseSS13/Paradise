@@ -410,7 +410,7 @@
 //Preload Syringes
 /obj/item/gun/syringe/malf/Initialize(mapload)
 	..()
-	while (syringes.len + (chambered.BB ? 1 : 0) < max_syringes)
+	while(syringes.len + (chambered.BB ? 1 : 0) < max_syringes)
 		var/obj/item/reagent_containers/syringe/S = new /obj/item/reagent_containers/syringe
 		S.reagents.add_reagent_list(list("cyanide" = 10))
 		syringes.Add(S)

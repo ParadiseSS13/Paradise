@@ -538,8 +538,8 @@
 	if(H.stat != CONSCIOUS || IS_HORIZONTAL(H))
 		return ..()
 	H.visible_message("<span class='danger'>[user] sweeps [H]'s legs out from under [H.p_them()]!</span>", \
-					  	"<span class='userdanger'>[user] sweeps your legs out from under you!</span>", \
-					  	"<span class='italics'>You hear sweeping.</span>")
+						"<span class='userdanger'>[user] sweeps your legs out from under you!</span>", \
+						"<span class='italics'>You hear sweeping.</span>")
 	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	H.apply_damage(20, BRUTE)
 	H.KnockDown(4 SECONDS)
