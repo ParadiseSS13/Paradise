@@ -273,26 +273,32 @@
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
+	desc = "A great hat ruined by being within fifty yards of you."
 	icon_state = "fedora"
 	item_state = "fedora"
-	desc = "A great hat ruined by being within fifty yards of you."
 	actions_types = list(/datum/action/item_action/tip_fedora)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
-
 /obj/item/clothing/head/fedora/attack_self(mob/user)
 	tip_fedora(user)
 
 /obj/item/clothing/head/fedora/item_action_slot_check(slot)
 	if(slot == SLOT_HUD_HEAD)
-		return 1
+		return TRUE
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
-	user.visible_message("[user] tips [user.p_their()] fedora.", "You tip your fedora")
+	user.visible_message("<span class='notice'>[user] tips [user.p_their()] fedora.</span>", "<span class='notice'>You tip your fedora.</span>")
 
+/obj/item/clothing/head/fedora/whitefedora
+	name = "white fedora"
+	icon_state = "wfedora"
+
+/obj/item/clothing/head/fedora/brownfedora
+	name = "brown fedora"
+	icon_state = "bfedora"
 
 /obj/item/clothing/head/fez
 	name = "fez"
@@ -367,32 +373,8 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
-/obj/item/clothing/head/fedora
-	name = "fedora"
-	desc = "Someone wearing this definitely makes them cool"
-	icon_state = "fedora"
-
-	sprite_sheets = list(
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-	)
-
-/obj/item/clothing/head/fedora/whitefedora
-	name = "white fedora"
-	icon_state = "wfedora"
-
-	sprite_sheets = list(
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-	)
-
-/obj/item/clothing/head/fedora/brownfedora
-	name = "brown fedora"
-	icon_state = "bfedora"
-
-	sprite_sheets = list(
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-	)
-
-/obj/item/clothing/head/stalhelm //Why do these exist - Because they aren't specifically Nazi Germany
+/// Why do these exist - Because they aren't specifically Nazi Germany
+/obj/item/clothing/head/stalhelm
 	name = "clown stalhelm"
 	desc = "The typical clown soldier's helmet."
 	icon_state = "stalhelm"
@@ -415,7 +397,8 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
-/obj/item/clothing/head/beret/purple //Fluff?
+/// Fluff?
+/obj/item/clothing/head/beret/purple
 	name = "Pierson Family Beret"
 	desc = " A purple beret, with a small golden crescent moon sewn onto it."
 	icon_state = "beret_purple"
