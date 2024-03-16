@@ -5440,9 +5440,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "sq" = (
-/obj/machinery/economy/atm{
-	pixel_y = 32
-	},
+/obj/machinery/economy/atm/directional/north,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
