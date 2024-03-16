@@ -26873,9 +26873,7 @@
 "cPP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/economy/atm{
-	pixel_x = -32
-	},
+/obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -33895,9 +33893,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	color = "#954535"
@@ -36256,6 +36252,27 @@
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
+"eua" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/fore/north)
 "eul" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -41178,7 +41195,7 @@
 	network = list("SS13","CMO")
 	},
 /obj/machinery/light,
-/obj/machinery/dna_scannernew,
+/obj/machinery/clonescanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -43324,9 +43341,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/economy/atm{
-	pixel_y = 32
-	},
+/obj/machinery/economy/atm/directional/north,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -43981,14 +43996,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"hiN" = (
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry/west)
 "hiU" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
@@ -54636,9 +54643,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -54845,6 +54850,12 @@
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/fsmaint)
+"kEV" = (
+/obj/machinery/economy/atm/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry/west)
 "kFj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -58619,15 +58630,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"lME" = (
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellowcorner"
-	},
-/area/station/hallway/primary/central/north)
 "lMW" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -63306,29 +63308,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay)
-"nqK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/economy/atm{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "bluecorner"
-	},
-/area/station/hallway/primary/fore/north)
 "nqO" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -75744,6 +75723,13 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/surgery/primary)
+"rqJ" = (
+/obj/machinery/economy/atm/directional/south,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/central/north)
 "rrp" = (
 /obj/machinery/shower{
 	pixel_y = 20
@@ -93094,9 +93080,7 @@
 	dir = 4;
 	color = "#954535"
 	},
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -132442,7 +132426,7 @@ pKj
 aYJ
 eQQ
 bgf
-lME
+rqJ
 aYJ
 bhQ
 dcG
@@ -134724,7 +134708,7 @@ dGA
 eDi
 djn
 dmA
-nqK
+eua
 vuY
 pwc
 fXC
@@ -138176,7 +138160,7 @@ dbg
 sFj
 dbg
 eWu
-hiN
+kEV
 qHn
 rNK
 rNK
