@@ -857,7 +857,7 @@
 	module_name = "Combat Cyborg Firmware Upgrade"
 	mod_pick_name = "combatborgs"
 	description = "Downloads firmware that activates built-in combat hardware present in all cyborgs. Cyborgs built after this is used will come with the hardware activated."
-	cost = 50 // IDK look into this
+	cost = 70 // IDK look into this
 	one_purchase = TRUE
 	upgrade = TRUE
 	unlock_text = "<span class='notice'>Firmware downloaded. Bugs removed. Combat subsystems operating at 73% efficiency.</span>"
