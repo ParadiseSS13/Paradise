@@ -13,6 +13,7 @@
 	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
 	required_enemies = 5
 	recommended_enemies = 5
+	single_antag_positions = list()
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
 
@@ -424,7 +425,7 @@
 
 /proc/nukelastname(mob/M as mob) //--All praise goes to NEO|Phyte, all blame goes to DH, and it was Cindi-Kate's idea. Also praise Urist for copypasta ho.
 	var/randomname = pick(GLOB.last_names)
-	var/newname = sanitize(copytext(input(M,"You are the nuke operative [pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")]. Please choose a last name for your family.", "Name change",randomname),1,MAX_NAME_LEN))
+	var/newname = sanitize(copytext_char(input(M,"You are the nuke operative [pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")]. Please choose a last name for your family.", "Name change", randomname), 1, MAX_NAME_LEN))
 
 	if(!newname)
 		newname = randomname

@@ -242,7 +242,7 @@
 			if(new_dest)
 				set_destination(new_dest)
 		if("setid")
-			var/new_id = stripped_input(usr, "Enter ID:", name, suffix, MAX_NAME_LEN)
+			var/new_id = tgui_input_text(usr, "Enter ID:", name, suffix, MAX_NAME_LEN)
 			if(new_id)
 				set_suffix(new_id)
 		if("sethome")
@@ -479,8 +479,9 @@
 	diag_hud_set_botmode()
 
 	if(!has_power())
-		on = FALSE
+		turn_off()
 		return
+
 	if(!on)
 		return
 
@@ -607,7 +608,7 @@
 /mob/living/simple_animal/bot/mulebot/proc/start_home()
 	if(!on)
 		return
-	INVOKE_ASYNC(src, PROC_REF(do_start_home))
+	do_start_home()
 
 /mob/living/simple_animal/bot/mulebot/proc/do_start_home()
 	set_destination(home_destination)

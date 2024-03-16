@@ -101,7 +101,8 @@
 	instant = TRUE // Work instantly if there are no comms
 	freqlock = TRUE
 
-/obj/item/radio/headset/syndicate/alt //undisguised bowman with flash protection
+/// undisguised bowman with flash protection
+/obj/item/radio/headset/syndicate/alt
 	name = "syndicate headset"
 	desc = "A syndicate headset that can be used to hear all radio frequencies. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
@@ -348,6 +349,9 @@
 /obj/item/radio/headset/ert/alt/solgov
 	name = "\improper Trans-Solar Federation Marine's bowman headset"
 
+/obj/item/radio/headset/ert/alt/solgovviper
+	name = "\improper Trans-Solar Federation Infiltrator's bowman headset"
+
 /obj/item/radio/headset/ert/alt/commander
 	name = "ERT commander's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs. Can transmit even if telecomms are down."
@@ -367,7 +371,8 @@
 	requires_tcomms = FALSE
 	instant = TRUE
 
-/obj/item/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
+/// No need to care about icons, it should be hidden inside the AI anyway.
+/obj/item/radio/headset/heads/ai_integrated
 	name = "\improper AI subspace transceiver"
 	desc = "Integrated AI radio transceiver."
 	icon = 'icons/obj/robot_component.dmi'

@@ -27,7 +27,7 @@
 	button_icon_state = "communicate"
 
 /datum/action/guardian/communicate/Trigger(left_click)
-	var/input = stripped_input(owner, "Enter a message to tell your guardian:", "Message", "")
+	var/input = tgui_input_text(owner, "Enter a message to tell your guardian:", "Message")
 	if(!input || !guardian)
 		return
 
@@ -76,8 +76,8 @@
 		to_chat(owner, "<span class='warning'>This ability is still recharging.</span>")
 		return
 
-	var/confirm = alert("Are you sure you want replace your guardian's player?", "Confirm", "Yes", "No")
-	if(confirm == "No")
+	var/confirm = tgui_alert(owner, "Are you sure you want replace your guardian's player?", "Confirm", list("Yes", "No"))
+	if(confirm != "Yes")
 		return
 
 	// Do this immediately, so the user can't spam a bunch of polls.
@@ -170,7 +170,7 @@
 
 /obj/effect/proc_holder/spell/choose_battlecry/cast(list/targets, mob/living/user = usr)
 	var/mob/living/simple_animal/hostile/guardian/punch/guardian_user = user
-	var/input = stripped_input(guardian_user, "What do you want your battlecry to be? Max length of 5 characters.", ,"", 6)
+	var/input = tgui_input_text(guardian_user, "What do you want your battlecry to be? Max length of 6 characters.", "Change Battlecry", guardian_user.battlecry, 6)
 	if(!input)
 		revert_cast()
 		return

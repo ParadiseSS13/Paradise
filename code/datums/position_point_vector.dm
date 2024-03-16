@@ -3,12 +3,6 @@
 
 //You might see places where it does - 16 - 1. This is intentionally 17 instead of 16, because of how byond's tiles work and how not doing it will result in rounding errors like things getting put on the wrong turf.
 
-#define RETURN_PRECISE_POSITION(A) new /datum/position(A)
-#define RETURN_PRECISE_POINT(A) new /datum/point_precise(A)
-
-#define RETURN_POINT_VECTOR(ATOM, ANGLE, SPEED) (new /datum/point_precise/vector(ATOM, null, null, null, null, ANGLE, SPEED))
-#define RETURN_POINT_VECTOR_INCREMENT(ATOM, ANGLE, SPEED, AMT) (new /datum/point_precise/vector(ATOM, null, null, null, null, ANGLE, SPEED, AMT))
-
 /proc/point_midpoint_points(datum/point_precise/a, datum/point_precise/b) //Obviously will not support multiZ calculations! Same for the two below.
 	var/datum/point_precise/P = new
 	P.x = a.x + (b.x - a.x) * 0.5
@@ -214,7 +208,8 @@
 		v.increment(multiplier * amount)
 	return v
 
-/datum/point_precise/vector/processed //pixel_speed is per decisecond.
+/// pixel_speed is per decisecond.
+/datum/point_precise/vector/processed
 	var/last_process = 0
 	var/last_move = 0
 	var/paused = FALSE

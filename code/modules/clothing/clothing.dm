@@ -238,16 +238,10 @@
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
 		return
 
-	var/action_fluff = "You adjust \the [src]"
-	if(user.glasses == src)
-		if(!user.canUnEquip(src))
-			to_chat(user, "<span class='warning'>[src] is stuck to you!</span>")
-			return
-		if(attack_hand(user)) //Remove the glasses for this action. Prevents logic-defying instances where glasses phase through your mask as it ascends/descends to another plane of existence.
-			action_fluff = "You remove \the [src] and adjust it"
-
 	over_mask = !over_mask
-	to_chat(user, "<span class='notice'>[action_fluff] to be worn [over_mask ? "over" : "under"] a mask.</span>")
+	if(user.glasses == src)
+		user.update_inv_glasses()
+	to_chat(user, "<span class='notice'>You adjust [src] to be worn [over_mask ? "over" : "under"] a mask.</span>")
 
 //Gloves
 /obj/item/clothing/gloves
@@ -313,7 +307,7 @@
 		return
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
-	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes)
+	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, modes[sensor_mode + 1])
 	if(!user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
@@ -493,6 +487,8 @@
 	if(!no_slip)
 		return
 	var/mob/living/carbon/human/H = user
+	if(!user)
+		return
 	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
 		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
 

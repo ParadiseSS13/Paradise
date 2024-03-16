@@ -82,7 +82,7 @@
 	else
 		data = "[header]<div id='markdown'>[infolinks ? info_links : info]</div>[footer][stamps]"
 	if(view)
-		var/datum/browser/popup = new(user, "Paper[UID()]", , paper_width, paper_height)
+		var/datum/browser/popup = new(user, "Paper[UID()]", null, paper_width, paper_height)
 		popup.include_default_stylesheet = FALSE
 		popup.set_content(data)
 		if(!stars)
@@ -288,7 +288,7 @@
 
 
 /obj/item/paper/proc/openhelp(mob/user as mob)
-	user << browse({"<HTML><HEAD><TITLE>Pen Help</TITLE></HEAD>
+	user << browse({"<html><meta charset='utf-8'><head><title>Pen Help</title></head>
 	<BODY>
 		<b><center>Crayon&Pen commands</center></b><br>
 		<br>
@@ -373,7 +373,7 @@
 		topic_href_write(id, input_element)
 	if(href_list["write"])
 		var/id = href_list["write"]
-		var/input_element = input("Enter what you want to write:", "Write", null, null) as message
+		var/input_element = input("Enter what you want to write:", "Write") as message
 		topic_href_write(id, input_element)
 
 /obj/item/paper/attackby(obj/item/P, mob/living/user, params)

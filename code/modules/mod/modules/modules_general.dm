@@ -159,7 +159,7 @@
 /obj/item/mod/module/jetpack/configure_edit(key, value)
 	switch(key)
 		if("stabilizers")
-			set_stabilizers(text2bool(value))
+			set_stabilizers(value)
 
 /obj/item/mod/module/jetpack/proc/allow_thrust()
 	if(!active)

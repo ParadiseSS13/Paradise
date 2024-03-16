@@ -126,7 +126,7 @@
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && panel_open)
-		if(!user.drop_item())
+		if(!user.canUnEquip(I, FALSE))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
 		if(!isEmpProof())
@@ -137,7 +137,7 @@
 		else
 			to_chat(user, "[msg2]")
 	else if(istype(I, /obj/item/assembly/prox_sensor) && panel_open)
-		if(!user.drop_item())
+		if(!user.canUnEquip(I, FALSE))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
 		if(!isMotion())
@@ -180,10 +180,10 @@
 					to_chat(AI, "<b>[U]</b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				else
 					to_chat(AI, "<b><a href='?src=[AI.UID()];track=[html_encode(U.name)]'>[U]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
-				AI.last_paper_seen = "<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"
+				AI.last_paper_seen = "<html><meta charset='utf-8'><head><title>[itemname]</title></head><body><tt>[info]</tt></body></html>"
 			else if(O.client && O.client.eye == src)
 				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
-				O << browse("<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>", "window=[itemname]")
+				O << browse("<html><meta charset='utf-8'><head><title>[itemname]</title></head><body><tt>[info]</tt></body></html>", "window=[itemname]")
 
 	else if(istype(I, /obj/item/laser_pointer))
 		var/obj/item/laser_pointer/L = I
@@ -390,7 +390,7 @@
 
 /obj/machinery/camera/get_remote_view_fullscreens(mob/user)
 	if(view_range == short_range) //unfocused
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
 /obj/machinery/camera/update_remote_sight(mob/living/user)
 	if(isXRay() && isAI(user))
@@ -405,7 +405,8 @@
 	..()
 	return TRUE
 
-/obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.
+/// Cameras which are placed inside of things, such as helmets.
+/obj/machinery/camera/portable
 	start_active = TRUE // theres no real way to reactivate these, so never break them when they init
 	var/turf/prev_turf
 

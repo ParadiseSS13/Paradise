@@ -1,0 +1,39 @@
+name: Merge Upstream Master
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  merge-upstream:
+    if: ${{ github.event.issue.pull_request && github.event.comment.body == '!merge_upstream' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR Data
+        run: |
+          curl -H "Authorization: token ${{ github.token }}" ${{ github.event.issue.pull_request.url }} > pr.json
+          echo "PR_REPO=`jq -r '.head.repo.full_name' < pr.json`" >> $GITHUB_ENV
+          echo "PR_BRANCH=`jq -r '.head.ref' < pr.json`" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.PR_REPO }}
+          ref: ${{ env.PR_BRANCH }}
+          fetch-depth: 0
+
+      - name: Perform Merge
+        run: |
+          bash tools/hooks/install.sh
+          bash tgui/bin/tgui --install-git-hooks
+          chmod +x tools/hooks/*.merge tgui/bin/tgui
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git remote add upstream "https://github.com/${{ github.repository }}.git"
+          git fetch upstream master
+          git merge upstream/master && git push origin
+
+      - name: Notify Failure
+        if: failure()
+        run: |
+          curl -s -H "Authorization: token ${{ github.token }}" \
+            -X POST -d '{"body": "Merging upstream failed:\nhttps://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments"
