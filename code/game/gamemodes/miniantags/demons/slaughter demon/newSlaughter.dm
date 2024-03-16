@@ -235,7 +235,7 @@
 		if(stat_amplification < max_amplification_stacks)
 			stat_amplification += 0.05
 		heal_overall_damage(10, 0, updating_health = TRUE)
-		boost = world.time + 50
+		boost = world.time + 5 SECONDS
 	..()
 
 /mob/living/simple_animal/demon/slaughter_demon/Move(NewLoc, direct)
