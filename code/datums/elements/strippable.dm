@@ -6,15 +6,10 @@
 	/// An assoc list of keys to /datum/strippable_item
 	var/list/items
 
-	/// A proc path that returns TRUE/FALSE if we should show the strip panel for this entity.
-	/// If it does not exist, the strip menu will always show.
-	/// Will be called with (mob/user).
-	var/should_strip_proc_path
-
 	/// An existing strip menus
 	var/list/strip_menus
 
-/datum/element/strippable/Attach(datum/target, list/items = list(), should_strip_proc_path)
+/datum/element/strippable/Attach(datum/target, list/items = list())
 	. = ..()
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
@@ -22,7 +17,6 @@
 	RegisterSignal(target, COMSIG_DO_MOB_STRIP, PROC_REF(mouse_drop_onto))
 
 	src.items = items
-	src.should_strip_proc_path = should_strip_proc_path
 
 /datum/element/strippable/Detach(datum/source)
 	. = ..()
@@ -40,9 +34,6 @@
 		return
 
 	if(over != user)
-		return
-
-	if(!isnull(should_strip_proc_path) && !call(source, should_strip_proc_path)(user)) // ctodo do we need this
 		return
 
 	var/datum/strip_menu/strip_menu = LAZYACCESS(strip_menus, source)
@@ -483,17 +474,9 @@
 	return GLOB.default_state
 
 /datum/strip_menu/ui_status(mob/user, datum/ui_state/state)
-	return ..() // ctodo
-	// return min( // ctodo ui status for this
-	// 	ui_status_only_living(user, owner),
-	// 	ui_status_user_has_free_hands(user, owner),
-	// 	ui_status_user_is_adjacent(user, owner, allow_tk = FALSE),
-	// 	HAS_TRAIT(user, TRAIT_CAN_STRIP) ? UI_INTERACTIVE : UI_UPDATE,
-	// 	max(
-	// 		ui_status_user_is_conscious_and_lying_down(user),
-	// 		ui_status_user_is_abled(user, owner),
-	// 	),
-	// )
+	var/can_strip = HAS_TRAIT(user, TRAIT_CAN_STRIP) ? UI_INTERACTIVE : UI_UPDATE,
+	return min(..(), can_strip)
+
 
 /// Creates an assoc list of keys to /datum/strippable_item
 /proc/create_strippable_list(types)

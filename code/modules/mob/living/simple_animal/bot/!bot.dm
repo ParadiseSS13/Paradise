@@ -16,7 +16,6 @@
 	has_unlimited_silicon_privilege = TRUE
 	sentience_type = SENTIENCE_ARTIFICIAL
 	status_flags = 0 						// No default canpush
-	can_strip = FALSE
 
 	speak_emote = list("states")
 	friendly = "boops"
@@ -245,6 +244,8 @@
 	diag_hud_set_bothealth()
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
+
+	REMOVE_TRAIT(user, TRAIT_CAN_STRIP, TRAIT_GENERIC)
 
 
 /mob/living/simple_animal/bot/med_hud_set_health()

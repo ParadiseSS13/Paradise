@@ -46,7 +46,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	see_invisible = SEE_INVISIBLE_LIVING_AI
 	see_in_dark = 8
-	can_strip = FALSE
 	hat_offset_y = 3
 	is_centered = TRUE
 	can_be_hatted = TRUE
@@ -239,6 +238,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		stored_locations += "unset" //This is checked in ai_keybinds.dm.
 
 	..()
+
+/mob/living/silicon/ai/Initialize(mapload)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_CAN_STRIP, TRAIT_GENERIC)
 
 /mob/living/silicon/ai/Destroy()
 	GLOB.ai_list -= src
