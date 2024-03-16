@@ -314,6 +314,8 @@
 		return
 	. += "<span class='warning'>Yellow ooze is dripping from the card slot!</span>"
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/atm, 30, 30)
+
 #undef ATM_SCREEN_DEFAULT
 #undef ATM_SCREEN_SECURITY
 #undef ATM_SCREEN_TRANSFER

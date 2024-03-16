@@ -10309,9 +10309,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "aTi" = (
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -24421,9 +24419,7 @@
 	c_tag = "Arrivals - Middle Arm";
 	dir = 1
 	},
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
@@ -37484,13 +37480,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
 "cAj" = (
-/obj/machinery/clonepod/biomass,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /obj/effect/turf_decal/siding{
 	dir = 5
 	},
+/obj/machinery/clonepod,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39931,13 +39927,13 @@
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "cIR" = (
-/obj/machinery/dna_scannernew,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/siding{
 	dir = 1
 	},
+/obj/machinery/clonescanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42135,9 +42131,7 @@
 	},
 /area/station/medical/surgery/secondary)
 "cRq" = (
-/obj/machinery/economy/atm{
-	pixel_y = 32
-	},
+/obj/machinery/economy/atm/directional/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -67055,6 +67049,16 @@
 	icon_state = "whiteblue"
 	},
 /area/station/security/permabrig)
+"mgu" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/station/science/toxins/launch)
 "mgZ" = (
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "air_sensor";
@@ -68569,16 +68573,6 @@
 	icon_state = "greenblue"
 	},
 /area/station/service/hydroponics)
-"mQW" = (
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
-	},
-/area/station/science/toxins/launch)
 "mRj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -73031,9 +73025,7 @@
 	},
 /area/station/maintenance/asmaint)
 "oPi" = (
-/obj/machinery/economy/atm{
-	pixel_x = -32
-	},
+/obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/wood,
 /area/station/public/mrchangs)
 "oPO" = (
@@ -78974,9 +78966,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "rmg" = (
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -93428,9 +93418,7 @@
 /area/station/service/chapel)
 "xKg" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/economy/atm{
-	pixel_x = 32
-	},
+/obj/machinery/economy/atm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -128756,7 +128744,7 @@ wtQ
 jQZ
 eGn
 iXy
-mQW
+mgu
 tQW
 czx
 naq
