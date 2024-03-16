@@ -11,10 +11,6 @@
 	if(HAS_TRAIT(user, TRAIT_UNREVIVABLE))
 		to_chat(user, "<span class='notice'>Something is preventing us from regenerating, we will need to revive at another point.</span>")
 		return FALSE
-
-	cling.can_use_powers = FALSE
-	addtimer(VARSET_CALLBACK(cling, can_use_powers, TRUE), 10 SECONDS)
-
 	REMOVE_TRAIT(user, TRAIT_FAKEDEATH, CHANGELING_TRAIT)
 	for(var/obj/item/grab/G in user.grabbed_by)
 		var/mob/living/carbon/M = G.assailant

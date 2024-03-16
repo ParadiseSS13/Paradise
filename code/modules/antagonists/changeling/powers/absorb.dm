@@ -86,10 +86,6 @@
 			target_cling.absorbed_dna.len = 1
 			target_cling.absorbed_count = 0
 
-		if(cling.headslugged)
-			cling.headslugged = FALSE
-			to_chat(user, "<span class='boldnotice'>By absorbing [target], we are once again strong enough to turn into a headslug.</span>")
-
 	cling.chem_charges = min(cling.chem_charges + 10, cling.chem_storage)
 
 	cling.is_absorbing = FALSE

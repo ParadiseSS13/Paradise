@@ -291,11 +291,22 @@
 
 /mob/living/verb/succumb()
 	set hidden = TRUE
+	// if you use the verb you better mean it
+	do_succumb(FALSE)
+
+/mob/living/proc/do_succumb(cancel_on_no_words)
+	if(stat == DEAD)
+		to_chat(src, "<span class='notice'>It's too late, you're already dead!</span>")
+		return
 	if(health >= HEALTH_THRESHOLD_CRIT)
 		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
 		return
 
 	var/last_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE)
+
+	if(isnull(last_words) && cancel_on_no_words)
+		to_chat(src, "<span class='notice'>You decide you aren't quite ready to die.</span>")
+		return
 
 	if(stat == DEAD)
 		// cancel em out if they died while they had the message box up
@@ -303,6 +314,7 @@
 
 	if(!isnull(last_words))
 		create_log(MISC_LOG, "gave their final words, [last_words]")
+		src.last_words = last_words  // sorry
 		whisper(last_words)
 
 	add_attack_logs(src, src, "[src] has [!isnull(last_words) ? "whispered [p_their()] final words" : "succumbed to death"] with [round(health, 0.1)] points of health!")

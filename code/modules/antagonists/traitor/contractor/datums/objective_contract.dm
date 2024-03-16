@@ -203,6 +203,9 @@
 	// We pick the target ourselves so we don't want the default behaviour.
 	owning_contract.invalidate()
 
+/datum/objective/contract/update_explanation_text()
+	return
+
 /**
   * Assigns a randomly selected zone to the contract's selectable zone at the given difficulty.
   *
