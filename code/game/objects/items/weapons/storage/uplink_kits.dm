@@ -209,7 +209,7 @@
 		/obj/item/clothing/head/collectable/slime,  // 0TC priceless
 		/obj/item/encryptionkey/syndicate) // 10TC
 
-/// 150 TC
+/// 195 TC
 
 /obj/item/storage/box/syndie_kit/bundle/tf13_spy
 	name = "TF13 Spy"
@@ -222,7 +222,8 @@
 		/obj/item/chameleon, // 25TC
 		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 3TC
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 7TC
-		/obj/item/storage/cigcase, // 0TC
+		/obj/item/bio_chip/stealth, // 45TC
+		/obj/item/storage/cigcase/syndie, // TC
 		/obj/item/lighter/zippo, // 0TC
 		/obj/item/clothing/mask/balaclava, // 0TC
 		/obj/item/encryptionkey/syndicate) // 10TC

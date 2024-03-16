@@ -1,7 +1,7 @@
 /obj/item/storage/wallet
 	name = "leather wallet"
 	desc = "Made from genuine leather, it is of the highest quality."
-	storage_slots = 10
+	storage_slots = 8
 	icon = 'icons/obj/wallets.dmi'
 	icon_state = "wallet"
 	w_class = WEIGHT_CLASS_SMALL
@@ -26,7 +26,6 @@
 		/obj/item/reagent_containers/dropper,
 		/obj/item/screwdriver,
 		/obj/item/stamp,
-		/obj/item/reagent_containers/patch,
 		/obj/item/rollingpaper)
 	cant_hold = list(
 		/obj/item/screwdriver/power
@@ -120,4 +119,4 @@
 /obj/item/storage/wallet/cheap
 	name = "cheap wallet"
 	desc = "A cheap and flimsy wallet from the arcade."
-	storage_slots = 5		//smaller storage than normal wallets
+	storage_slots = 4		//smaller storage than normal wallets
