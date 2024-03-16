@@ -230,7 +230,7 @@
 		if(T.stat == DEAD || !T.ckey)
 			to_chat(src, "No life force to consume!")
 			return
-		boost = world.time + 50
+		boost = world.time + 5 SECONDS
 		decay_time = world.time + 50
 		if(stat_amplification < max_amplification_stacks)
 			stat_amplification += 0.05
