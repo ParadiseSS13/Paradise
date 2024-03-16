@@ -28,7 +28,6 @@
 	speak_emote = list("yarrs")
 	loot = list(/obj/item/melee/energy/sword/pirate,
 			/obj/item/clothing/head/helmet/space/pirate,
-			/obj/item/salvage/loot/pirate,
 			/obj/effect/mob_spawn/human/corpse/pirate,
 			/obj/effect/decal/cleanable/blood/innards,
 			/obj/effect/decal/cleanable/blood,
@@ -38,6 +37,17 @@
 	faction = list("pirate")
 	sentience_type = SENTIENCE_OTHER
 	footstep_type = FOOTSTEP_MOB_SHOE
+
+/mob/living/simple_animal/hostile/pirate/Initialize(mapload)
+	. = ..()
+	if(prob(50))
+		loot = list(/obj/item/clothing/head/helmet/space/pirate,
+			/obj/item/salvage/loot/pirate,
+			/obj/effect/mob_spawn/human/corpse/pirate,
+			/obj/effect/decal/cleanable/blood/innards,
+			/obj/effect/decal/cleanable/blood,
+			/obj/effect/gibspawner/generic,
+			/obj/effect/gibspawner/generic)
 
 /mob/living/simple_animal/hostile/pirate/Process_Spacemove(movement_dir = 0)
 	return TRUE
@@ -65,5 +75,18 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate,
 				/obj/item/gun/energy/laser,
 				/obj/item/clothing/head/helmet/space/pirate,
-				/obj/item/salvage/loot/pirate
-				)
+				/obj/effect/decal/cleanable/blood/innards,
+				/obj/effect/decal/cleanable/blood,
+				/obj/effect/gibspawner/generic,
+				/obj/effect/gibspawner/generic)
+
+/mob/living/simple_animal/hostile/pirate/ranged/Initialize(mapload)
+	. = ..()
+	if(prob(50))
+		loot = list(/obj/item/clothing/head/helmet/space/pirate,
+			/obj/item/salvage/loot/pirate,
+			/obj/effect/mob_spawn/human/corpse/pirate,
+			/obj/effect/decal/cleanable/blood/innards,
+			/obj/effect/decal/cleanable/blood,
+			/obj/effect/gibspawner/generic,
+			/obj/effect/gibspawner/generic)
