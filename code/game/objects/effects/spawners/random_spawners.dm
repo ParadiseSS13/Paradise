@@ -297,6 +297,7 @@
 		/obj/item/storage/box/syndie_kit/camera_bug = 1,
 		/obj/item/gun/projectile/automatic/toy/pistol/riot = 1,
 		/obj/item/flash/cameraflash = 1,
+		/obj/item/mod/module/chameleon = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level3
@@ -327,6 +328,7 @@
 	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot/armory
 	// Combat orientated items that could give the player an advantage if an antag messes with them.
 	result = list(/obj/item/melee/energy/sword/saber = 1,
+		/obj/item/autosurgeon/organ/syndicate/razorwire = 1,
 		/obj/item/chameleon = 1,
 		/obj/item/CQC_manual = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
