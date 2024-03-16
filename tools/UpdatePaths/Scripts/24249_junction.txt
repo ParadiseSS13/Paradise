@@ -1,0 +1,4 @@
+/obj/structure/disposalpipe/segment{icon_state="pipe-c"} : /obj/structure/disposalpipe/segment/corner{@OLD;icon_state=@SKIP}
+/obj/structure/disposalpipe/junction{icon_state="pipe-j2"} : /obj/structure/disposalpipe/junction/reversed{@OLD;icon_state=@SKIP}
+/obj/structure/disposalpipe/junction{icon_state="pipe-y"} : /obj/structure/disposalpipe/junction/y{@OLD;icon_state=@SKIP}
+/obj/structure/disposalpipe/sortjunction{icon_state="pipe-j2s"} : /obj/structure/disposalpipe/sortjunction/reversed{@OLD;icon_state=@SKIP}
