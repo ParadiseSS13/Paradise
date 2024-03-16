@@ -18714,9 +18714,7 @@
 	dir = 4
 	},
 /obj/machinery/light,
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -21815,9 +21813,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/ne)
 "bnu" = (
-/obj/machinery/economy/atm{
-	pixel_x = 32
-	},
+/obj/machinery/economy/atm/directional/east,
 /obj/machinery/camera{
 	c_tag = "Arrivals Hallway";
 	dir = 8
@@ -22881,9 +22877,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "bql" = (
-/obj/machinery/economy/atm{
-	pixel_x = 32
-	},
+/obj/machinery/economy/atm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/east)
 "bqm" = (
@@ -25163,9 +25157,7 @@
 /turf/simulated/floor/carpet,
 /area/station/service/chapel)
 "bxE" = (
-/obj/machinery/economy/atm{
-	pixel_x = 32
-	},
+/obj/machinery/economy/atm/directional/east,
 /obj/item/kirbyplants,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
@@ -25858,9 +25850,7 @@
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
 "bAn" = (
-/obj/machinery/economy/atm{
-	pixel_y = 32
-	},
+/obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/west)
 "bAo" = (
@@ -26128,9 +26118,7 @@
 	},
 /area/station/supply/sorting)
 "bBq" = (
-/obj/machinery/economy/atm{
-	pixel_x = -32
-	},
+/obj/machinery/economy/atm/directional/west,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -27054,9 +27042,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
 "bFo" = (
-/obj/machinery/economy/atm{
-	pixel_y = 32
-	},
+/obj/machinery/economy/atm/directional/north,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -28436,9 +28422,7 @@
 	},
 /area/station/medical/chemistry)
 "bJP" = (
-/obj/machinery/economy/atm{
-	pixel_y = -32
-	},
+/obj/machinery/economy/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
@@ -32421,9 +32405,7 @@
 	c_tag = "Cargo Bay Entrance";
 	dir = 4
 	},
-/obj/machinery/economy/atm{
-	pixel_x = -32
-	},
+/obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "browncorner"
@@ -33489,9 +33471,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "ccn" = (
-/obj/machinery/economy/atm{
-	pixel_y = 32
-	},
+/obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "cco" = (
@@ -51622,9 +51602,7 @@
 	},
 /area/station/turret_protected/ai)
 "dnk" = (
-/obj/machinery/economy/atm{
-	pixel_x = 32
-	},
+/obj/machinery/economy/atm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/ne)
 "dnl" = (
