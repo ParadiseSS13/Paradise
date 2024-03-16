@@ -133,7 +133,7 @@
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(tele_turf, src.dir, "jaunt")
 	if(prob(25))
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
-		playsound(tele_turf, pick(voice), 50, 1, -1)
+		playsound(tele_turf, pick(voice), 50, TRUE, -1)
 	channel_target.visible_message("<span class='warning'><b>[src] rises out of [channel_target]!</b>")
 	playsound(tele_turf, 'sound/misc/exit_blood.ogg', 100, 1, -1)
 	bloodspots = list()
