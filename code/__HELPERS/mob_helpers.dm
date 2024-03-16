@@ -540,7 +540,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 	else
 		health_description = "This mob type has no health to speak of."
 
-	//Gener
+	//Gender
 	switch(M.gender)
 		if(MALE, FEMALE)
 			gender_description = "[M.gender]"
