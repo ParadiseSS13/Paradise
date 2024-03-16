@@ -63,7 +63,7 @@
 	desc = "Slam the ground!"
 	clothes_req = FALSE
 	human_req = FALSE
-	base_cooldown = 50
+	base_cooldown = 5 SECONDS
 	cooldown_min = 50
 	action_icon_state = "immrod"
 	centcom_cancast = TRUE
