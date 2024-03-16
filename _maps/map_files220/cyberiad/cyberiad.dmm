@@ -25379,7 +25379,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/command/office/rd)
 "bYk" = (
-/obj/machinery/dna_scannernew,
+/obj/machinery/clonescanner,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -84605,7 +84605,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/station/legal/courtroom)
 "rWA" = (
-/obj/machinery/clonepod/biomass,
+/obj/machinery/clonepod,
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"

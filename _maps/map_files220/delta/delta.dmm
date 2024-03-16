@@ -17034,7 +17034,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "bvO" = (
-/obj/machinery/dna_scannernew,
+/obj/machinery/clonescanner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -104912,7 +104912,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/clonepod/biomass,
+/obj/machinery/clonepod,
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

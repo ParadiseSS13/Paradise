@@ -5645,6 +5645,12 @@
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"dNN" = (
+/obj/machinery/clonescanner,
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "barber"
+	},
+/area/shuttle/administration)
 "dOd" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on,
 /obj/structure/light_fake{
@@ -19938,7 +19944,7 @@
 	},
 /area/syndicate_mothership)
 "nGm" = (
-/obj/machinery/dna_scannernew,
+/obj/machinery/clonescanner,
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -48444,7 +48450,7 @@ wCi
 wCi
 wCi
 wCi
-ibG
+dNN
 frK
 rkZ
 nfA
