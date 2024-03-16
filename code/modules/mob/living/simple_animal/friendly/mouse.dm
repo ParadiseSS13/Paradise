@@ -167,7 +167,7 @@
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/mouse/brown/Brain/update_desc()
+/mob/living/simple_animal/mouse/white/Brain/update_desc()
 	. = ..()
 	desc = "Gee Virology, what are we going to do tonight? The same thing we do every night, try to take over the world!"
 
