@@ -275,7 +275,7 @@
 	name = "blood storm"
 	icon = 'icons/effects/224x224.dmi'
 	icon_state = "singularity_s7"
-	duration = 50
+	duration = 5 SECONDS
 	randomdir = 0
 	pixel_x = -96
 	pixel_y = -96
