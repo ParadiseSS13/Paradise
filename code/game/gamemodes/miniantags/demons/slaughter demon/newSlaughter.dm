@@ -231,7 +231,7 @@
 			to_chat(src, "No life force to consume!")
 			return
 		boost = world.time + 5 SECONDS
-		decay_time = world.time + 50
+		decay_time = world.time + 5 SECONDS
 		if(stat_amplification < max_amplification_stacks)
 			stat_amplification += 0.05
 		heal_overall_damage(10, 0, updating_health = TRUE)
