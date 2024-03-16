@@ -31,7 +31,7 @@
 			to_chat(user, "CALLED THE PHASED PROC")
 			D.channel_target = get_turf(target)
 			ADD_TRAIT(D, TRAIT_IMMOBILIZED, "channelingblood")
-			D.phaseoutchaneltime = world.time + 20
+			D.phaseoutchaneltime = world.time + 2 SECONDS
 			D.channeling = TRUE
 			D.icon_state = "daemonchannelling"
 			cooldown_handler.recharge_duration = 5 SECONDS
