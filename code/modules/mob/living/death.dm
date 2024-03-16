@@ -58,9 +58,6 @@
 	SetJitter(0)
 	SetLoseBreath(0)
 
-	overlay_fullscreen("robusted!", /atom/movable/screen/fullscreen/robusted)
-	addtimer(CALLBACK(src, PROC_REF(clear_robusted)), 20 SECONDS)
-
 	if(!gibbed && deathgasp_on_death)
 		emote("deathgasp")
 
@@ -76,6 +73,8 @@
 	update_health_hud()
 	med_hud_set_health()
 	med_hud_set_status()
+	overlay_fullscreen("robusted!", /atom/movable/screen/fullscreen/robusted)
+	addtimer(CALLBACK(src, PROC_REF(clear_robusted)), 20 SECONDS)
 
 	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list += src
