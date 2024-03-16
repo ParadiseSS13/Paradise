@@ -84,6 +84,10 @@
 	slowdown = SHOES_SLOWDOWN+1
 	item_color = "clown"
 	var/enabled_waddle = TRUE
+	// "Dyeable" in this case is a bit of an understatement, washing these
+	// with a crayon will give them the appearance and name of normal
+	// shoes, but the functionality of clown shoes.
+	dyeable = TRUE
 
 /obj/item/clothing/shoes/clown_shoes/Initialize(mapload)
 	. = ..()
