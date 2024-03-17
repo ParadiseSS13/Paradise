@@ -93,24 +93,6 @@
 		S.possible_destinations = null
 		S.connect()
 
-	var/turf/bl_corner = locate(min_x - 1, min_y - 1, user.z)
-	var/turf/br_corner = locate(max_x + 1, min_y - 1, user.z)
-	var/turf/tl_corner = locate(min_x - 1, max_y + 1, user.z)
-	var/turf/tr_corner = locate(max_x + 1, max_y + 1, user.z)
-
-	new/obj/structure/marker_beacon/dock_marker(bl_corner)
-	new/obj/structure/marker_beacon/dock_marker(br_corner)
-	new/obj/structure/marker_beacon/dock_marker(tl_corner)
-	new/obj/structure/marker_beacon/dock_marker(tr_corner)
-
-	var/marker_interval = 4
-	for(var/x_ = min_x - 1 + marker_interval, x_ < max_x; x_ += marker_interval)
-		new/obj/structure/marker_beacon/dock_marker(locate(x_, min_y - 1, user.z))
-		new/obj/structure/marker_beacon/dock_marker(locate(x_, max_y + 1, user.z))
-	for(var/y_ = min_y - 1 + marker_interval, y_ < max_y; y_ += marker_interval)
-		new/obj/structure/marker_beacon/dock_marker(locate(min_x - 1, y_, user.z))
-		new/obj/structure/marker_beacon/dock_marker(locate(max_x + 1, y_, user.z))
-
 	log_admin("[key_name(user)] created a whiteship dock named '[name]' at [COORD(port)].")
 
 	if(dock_count < max_docks)
