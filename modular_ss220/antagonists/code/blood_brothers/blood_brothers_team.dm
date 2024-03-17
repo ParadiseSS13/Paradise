@@ -44,11 +44,11 @@
 	pick_meeting_area()
 	forge_objectives()
 
-/datum/team/blood_brothers_team/add_member(datum/mind/new_member, add_antag_datum)
+/datum/team/blood_brothers_team/handle_adding_member(datum/mind/new_member)
 	. = ..()
 	update_name()
 
-/datum/team/blood_brothers_team/remove_member(datum/mind/member)
+/datum/team/blood_brothers_team/handle_removing_member(datum/mind/member, force)
 	. = ..()
 	update_name()
 

@@ -1,5 +1,7 @@
 GLOBAL_LIST_EMPTY(antagonists)
 
+#define SUCCESSFUL_DETACH "dont touch this string numbnuts"
+
 /datum/antagonist
 	/// The name of the antagonist.
 	var/name = "Antagonist"
@@ -33,6 +35,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/clown_gain_text = "You are no longer clumsy."
 	/// If the owner is a clown, this text will be displayed to them when they lose this datum.
 	var/clown_removal_text = "You are clumsy again."
+	/// The spawn class to use for gain/removal clown text
+	var/clown_text_span_class = "boldnotice"
 	/// The url page name for this antagonist, appended to the end of the wiki url in the form of: [GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name]
 	var/wiki_page_name
 
@@ -56,8 +60,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/Destroy(force, ...)
 	qdel(objective_holder)
 	GLOB.antagonists -= src
-	if(!QDELETED(owner))
-		detach_from_owner()
+	if(!QDELETED(owner) && detach_from_owner() != SUCCESSFUL_DETACH)
+		stack_trace("[src] ([type]) failed to detach from owner! This is very bad!")
 
 	return ..()
 
@@ -79,6 +83,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	LAZYREMOVE(owner.antag_datums, src)
 	restore_last_hud_and_role()
 	owner = null
+	return SUCCESSFUL_DETACH
 
 /**
  * Adds the owner to their respective gamemode's list. For example `SSticker.mode.traitors |= owner`.
@@ -149,16 +154,16 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/remove_innate_effects(mob/living/mob_override)
 	SHOULD_CALL_PARENT(TRUE)
-
-	var/mob/living/remove_effects_from = mob_override || owner?.current
-	if(!remove_effects_from)
+	// SS220 EDIT START - null safe var access
+	var/mob/living/L = mob_override || owner?.current
+	if(!L)
 		return
-
+	// SS220 EDIT END
 	if(antag_hud_type && antag_hud_name)
-		remove_antag_hud(remove_effects_from)
+		remove_antag_hud(L)
 	// If `mob_override` exists it means we're only transferring this datum, we don't need to show the clown any text.
-	handle_clown_mutation(remove_effects_from, mob_override ? null : clown_removal_text)
-	return remove_effects_from
+	handle_clown_mutation(L, mob_override ? null : clown_removal_text)
+	return L
 
 /**
  * Adds this datum's antag hud to `antag_mob`.
@@ -412,3 +417,5 @@ GLOBAL_LIST_EMPTY(antagonists)
 /// This is the custom blurb message used on login for an antagonist.
 /datum/antagonist/proc/custom_blurb()
 	return FALSE
+
+#undef SUCCESSFUL_DETACH

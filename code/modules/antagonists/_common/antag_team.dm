@@ -1,6 +1,6 @@
 GLOBAL_LIST_EMPTY(antagonist_teams)
 
-#define DEFAULT_TEAM_NAME "Generic Team Name"
+#define DEFAULT_TEAM_NAME "Generic/Custom Team"
 
 /**
  * # Antagonist Team
@@ -11,7 +11,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	/// The name of the team.
 	var/name = DEFAULT_TEAM_NAME
 	/// A list of [minds][/datum/mind] who belong to this team.
-	var/list/datum/mind/members
+	var/list/datum/mind/members = list()
 	/// A list of objectives which all team members share.
 	var/datum/objective_holder/objective_holder
 	/// Type of antag datum members of this team have. Also given to new members added by admins.
@@ -19,46 +19,100 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	/// The name to save objective successes under in the blackboxes. Saves nothing if blank.
 	var/blackbox_save_name
 
-/datum/team/New(list/starting_members, add_antag_datum = TRUE)
+/datum/team/New(list/starting_members, add_antag_datum = TRUE) // SS220 EDIT - add_antag_datum arg
 	..()
-	members = list()
-	objective_holder = new(src)
+	if(!can_create_team())
+		QDEL_IN(src, 0 SECONDS) // Give us time to crash so we can get the full call stack
+		CRASH("[src] ([type]) is not allowed to be created, this may be a duplicate team. Deleting...")
+	// Assign the team before member assignment to prevent duplicate teams
+	assign_team()
+	if(!create_team(starting_members, add_antag_datum)) // SS220 EDIT - add_antag_datum arg
+		CRASH("[src] ([type]) somehow failed to create a team!")
 
+/datum/team/proc/create_team(list/starting_members, add_antag_datum = TRUE) // SS220 EDIT - add_antag_datum arg
+	PROTECTED_PROC(TRUE)
+	objective_holder = new(src)
 	if(starting_members && !islist(starting_members))
 		starting_members = list(starting_members)
 	for(var/datum/mind/M as anything in starting_members)
-		add_member(M, add_antag_datum)
+		add_member(M, add_antag_datum = add_antag_datum) // SS220 EDIT - add_antag_datum arg
 	GLOB.antagonist_teams += src
+	return TRUE
 
 /datum/team/Destroy(force = FALSE, ...)
 	for(var/datum/mind/member as anything in members)
 		remove_member(member)
+	clear_team_reference() // Team reference must come AFTER removing all members, otherwise antag datums will not get removed
 	qdel(objective_holder)
 	members.Cut()
 	GLOB.antagonist_teams -= src
 	return ..()
 
+/datum/team/proc/can_create_team()
+	return TRUE
+
+/datum/team/proc/assign_team()
+	return
+
+/datum/team/proc/clear_team_reference()
+	return
+
 /**
  * Adds `new_member` to this team.
  *
- * Generally this should ONLY be called by `add_antag_datum()` to ensure proper order of operations.
+ * This is an interface proc, to prevent handle_removing_member from being called multiple times.
+ * It is better if this is only called from `add_antag_datum()`, but it is not required.
  */
-/datum/team/proc/add_member(datum/mind/new_member, add_antag_datum = TRUE)
-	SHOULD_CALL_PARENT(TRUE)
+/datum/team/proc/add_member(datum/mind/new_member, force = FALSE, add_antag_datum = TRUE) // SS220 EDIT - add_antag_datum arg
+	SHOULD_NOT_OVERRIDE(TRUE)
+	if(!force && (new_member in members))
+		return FALSE
 	members |= new_member
-
+	// SS220 EDIT START
+	. = TRUE
 	if(add_antag_datum && antag_datum_type)
 		var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
 		// If no matching antag datum was found, give them one.
 		if(!antag)
-			return new_member.add_antag_datum(antag_datum_type, src)
+			. = new_member.add_antag_datum(antag_datum_type, src)
+	handle_adding_member(new_member)
+	// SS220 EDIT END
+
+/**
+ * An internal proc to allow teams to handle custom parts of adding a member.
+ * This should ONLY be called by `add_member()` to ensure proper order of operations.
+ */
+/datum/team/proc/handle_adding_member(datum/mind/new_member)
+	PROTECTED_PROC(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+
+	// SS220 EDIT START - Commented for #840
+	// var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
+	// if(!antag) // this team has no antag role, we'll add it directly to their mind team
+		// LAZYDISTINCTADD(new_member.teams, src)
+	return
+	// SS220 EDIT END
 
 /**
  * Removes `member` from this team.
+ * This is an interface proc, to prevent handle_removing_member from being called multiple times.
  */
-/datum/team/proc/remove_member(datum/mind/member)
-	SHOULD_CALL_PARENT(TRUE)
+/datum/team/proc/remove_member(datum/mind/member, force = FALSE)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	if(!force && !(member in members))
+		return FALSE
 	members -= member
+	handle_removing_member(member)
+	return TRUE
+
+/**
+ * An internal proc for teams to remove a member.
+ */
+/datum/team/proc/handle_removing_member(datum/mind/member, force = FALSE)
+	PROTECTED_PROC(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+
+	// LAZYREMOVE(member.teams, src) // SS220 EDIT - Commented for #840
 	var/datum/antagonist/antag = get_antag_datum_from_member(member)
 	if(!QDELETED(antag))
 		qdel(antag)
@@ -73,13 +127,17 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 			continue
 		valid_minds[H.real_name] = H.mind
 
+	if(!length(valid_minds))
+		to_chat(user, "<span class='warning'>No suitable humanoid targets found!</span>")
+		return
 	var/name = input(user, "Choose a player to add to this team", "Add Team Member") as null|anything in valid_minds
 	if(!name)
-		to_chat(user, "<span class='warning'>No suitable humanoid targets found!</span>")
 		return
 
 	var/datum/mind/new_member = valid_minds[name]
-	add_member(new_member)
+	add_member(new_member, TRUE)
+	log_admin("[key_name(usr)] added [key_name(new_member)] to the team '[src]'.")
+	message_admins("[key_name_admin(usr)] added [key_name(new_member)] to the team '[src]'.")
 
 /**
  * Adds a team objective to each member's matching antag datum.
@@ -106,6 +164,9 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		if(A.get_team() != src)
 			continue
 		return A
+	// If no matching antag datum was found, give them one.
+	if(antag_datum_type)
+		return member.add_antag_datum(antag_datum_type, src)
 
 /**
  * Special overrides for teams for target exclusion from objectives.
@@ -178,21 +239,61 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	message_admins("Team Message: [key_name(user)] -> '[name]' team. Message: [message]")
 	log_admin("Team Message: [key_name(user)] -> '[name]' team. Message: [message]")
 
+#define SEPERATOR "---"
 /**
  * Allows admins to add a team objective.
+ * Minimize overriding this proc please.
  */
 /datum/team/proc/admin_add_objective(mob/user)
-	var/selected = input("Select an objective type:", "Objective Type") as null|anything in GLOB.admin_objective_list
-	if(!selected)
+	SHOULD_CALL_PARENT(TRUE)
+
+	// available_objectives is assoc, `objective name` = `objective_path`
+	var/list/available_objectives = get_admin_priority_objectives()
+	if(length(available_objectives))
+		available_objectives[SEPERATOR] = "Whatever, we never read this"
+	available_objectives += GLOB.admin_objective_list
+	var/selected = input("Select an objective type:", "Objective Type") as null|anything in available_objectives
+	if(!selected || selected == SEPERATOR)
 		return
 
-	var/objective_type = GLOB.admin_objective_list[selected]
+	var/objective_type = available_objectives[selected]
+	var/return_value = handle_adding_admin_objective(user, objective_type)
+
+	if(istype(return_value, /datum/objective)) // handle_adding_admin_objective can return TRUE if its handled
+		add_team_objective(return_value)
+
+	else
+		if(return_value & TEAM_ADMIN_ADD_OBJ_PURPOSEFUL_CANCEL)
+			return
+		if(!(return_value & TEAM_ADMIN_ADD_OBJ_SUCCESS))
+			to_chat(user, "<span class='warning'>[src] team failed to properly handle your selected objective, if you believe this was an error, tell a coder.</span>")
+			return
+		if(return_value & TEAM_ADMIN_ADD_OBJ_CANCEL_LOG) // Logs are being handled elsewhere
+			return
+
+	message_admins("[key_name_admin(user)] added objective [objective_type] to the team '[name]'.")
+	log_admin("[key_name(user)] added objective [objective_type] to the team '[name]'.")
+
+#undef SEPERATOR
+
+/**
+ * Overridable logic for handling how the adding of objectives works works
+ * Can return an objective datum, or a boolean.
+ * Returns a boolean if its already added to the team objectives in a custom way
+ */
+/datum/team/proc/handle_adding_admin_objective(mob/user, objective_type)
+	PROTECTED_PROC(TRUE)
 	var/datum/objective/O = new objective_type(team_to_join = src)
 	O.find_target(get_target_excludes()) // Blacklist any team members from being the target.
-	add_team_objective(O)
+	return O
 
-	message_admins("[key_name_admin(user)] added objective [O.type] to the team '[name]'.")
-	log_admin("[key_name(user)] added objective [O.type] to the team '[name]'.")
+
+/**
+ * Returns an associated list of priority objectives for admins to add to the team, this is like
+ * Must return in the form `objective name` = `objective_path`.
+ */
+/datum/team/proc/get_admin_priority_objectives()
+	return list()
 
 /**
  * Allows admins to announce objectives to all team members.
@@ -239,7 +340,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /datum/team/proc/admin_remove_member(mob/user, datum/mind/M)
 	message_admins("[key_name_admin(user)] removed [key_name_admin(M)] from the team '[name]'.")
 	log_admin("[key_name(user)] removed [key_name(M)] from the team '[name]'.")
-	remove_member(M)
+	remove_member(M, TRUE)
 
 // Used for running team specific admin commands.
 /datum/team/Topic(href, href_list)
@@ -251,7 +352,34 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		if(href_list["command"] == admin_command)
 			var/datum/callback/C = commands[admin_command]
 			C.Invoke(usr)
+			usr.client.holder.check_teams()
 			return
+
+/datum/team/proc/get_admin_html()
+	var/list/content = list()
+	content += "<h3>[name] - [type]</h3>"
+	content += "<a href='?_src_=holder;team_command=rename_team;team=[UID()]'>Rename Team</a>"
+	content += "<a href='?_src_=holder;team_command=delete_team;team=[UID()]'>Delete Team</a>"
+	content += "<a href='?_src_=holder;team_command=communicate;team=[UID()]'>OOC Message Team</a>"
+	content += ADMIN_VV(src, "View Variables")
+	for(var/command in get_admin_commands())
+		// src is UID() so it points to `/datum/team/Topic` instead of `/datum/admins/Topic`.
+		content += "<a href='?src=[UID()];command=[command]'>[command]</a>"
+	content += "<br><br>Objectives:<br><ol>"
+	for(var/datum/objective/O as anything in objective_holder.get_objectives())
+		if(!istype(O))
+			stack_trace("Non-objective found in [type]'s objective_holder.get_objectives()")
+			continue
+		content += "<li>[O.explanation_text] - <a href='?_src_=holder;team_command=remove_objective;team=[UID()];objective=[O.UID()]'>Remove</a></li>"
+	content += "</ol><a href='?_src_=holder;team_command=add_objective;team=[UID()]'>Add Objective</a><br>"
+	if(objective_holder.has_objectives())
+		content += "</ol><a href='?_src_=holder;team_command=announce_objectives;team=[UID()]'>Announce Objectives to All Members</a><br><br>"
+	content += "Members: <br><ol>"
+	for(var/datum/mind/M as anything in members)
+		content += "<li>[M.name] - <a href='?_src_=holder;team_command=view_member;team=[UID()];member=[M.UID()]'>Show Player Panel</a>"
+		content += "<a href='?_src_=holder;team_command=remove_member;team=[UID()];member=[M.UID()]'>Remove Member</a></li>"
+	content += "</ol><a href='?_src_=holder;team_command=admin_add_member;team=[UID()]'>Add Member</a>"
+	return content
 
 /**
  * A list of team-specific admin commands for this team. Should be in the form of `"command" = CALLBACK(x, PROC_REF(some_proc))`.
@@ -279,26 +407,22 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	if(!length(GLOB.antagonist_teams))
 		content += "There are currently no antag teams.<br/>"
 	content += "<a href='?_src_=holder;team_command=new_custom_team;'>Create new Team</a>"
-	for(var/datum/team/T as anything in GLOB.antagonist_teams) // with multiple teams, this is going to get messy. It should probably be turned into a tabs-like system
-		content += "<h3>[T.name] - [T.type]</h3>"
-		content += "<a href='?_src_=holder;team_command=rename_team;team=[T.UID()]'>Rename Team</a>"
-		content += "<a href='?_src_=holder;team_command=delete_team;team=[T.UID()]'>Delete Team</a>"
-		content += "<a href='?_src_=holder;team_command=communicate;team=[T.UID()]'>Message Team</a>"
-		content += ADMIN_VV(T, "View Variables")
-		for(var/command in T.get_admin_commands())
-			// _src_ is T.UID() so it points to `/datum/team/Topic` instead of `/datum/admins/Topic`.
-			content += "<a href='?_src_=[T.UID()];command=[command]'>[command]</a>"
-		content += "<br><br>Objectives:<br><ol>"
-		for(var/datum/objective/O as anything in T.objective_holder.get_objectives())
-			content += "<li>[O.explanation_text] - <a href='?_src_=holder;team_command=remove_objective;team=[T.UID()];objective=[O.UID()]'>Remove</a></li>"
-		content += "</ol><a href='?_src_=holder;team_command=add_objective;team=[T.UID()]'>Add Objective</a><br>"
-		if(T.objective_holder.has_objectives())
-			content += "</ol><a href='?_src_=holder;team_command=announce_objectives;team=[T.UID()]'>Announce Objectives to All Members</a><br><br>"
-		content += "Members: <br><ol>"
-		for(var/datum/mind/M as anything in T.members)
-			content += "<li>[M.name] - <a href='?_src_=holder;team_command=view_member;team=[T.UID()];member=[M.UID()]'>Show Player Panel</a>"
-			content += "<a href='?_src_=holder;team_command=remove_member;team=[T.UID()];member=[M.UID()]'>Remove Member</a></li>"
-		content += "</ol><a href='?_src_=holder;team_command=admin_add_member;team=[T.UID()]'>Add Member</a><hr>"
+	content += "<a href='?_src_=holder;team_command=reload;'>Reload Menu</a><br>"
+	if(length(GLOB.antagonist_teams) > 1)
+		var/index = 1
+		for(var/datum/team/T as anything in GLOB.antagonist_teams)
+			content += "<a href='?_src_=holder;team_command=switch_team_tab;team_index=[index]'>[T.name]</a>"
+			index++
+	else
+		team_switch_tab_index = 1
+
+	if(length(GLOB.antagonist_teams))
+		content += "<hr>"
+		team_switch_tab_index = clamp(team_switch_tab_index, 1, length(GLOB.antagonist_teams))
+		var/datum/team/T = GLOB.antagonist_teams[team_switch_tab_index]
+		if(istype(T))
+			var/list/stringy_list = T.get_admin_html()
+			content += stringy_list.Join()
 	return content.Join()
 
 #undef DEFAULT_TEAM_NAME
