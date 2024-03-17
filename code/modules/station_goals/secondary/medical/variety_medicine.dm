@@ -7,6 +7,4 @@
 
 /datum/station_goal/secondary/variety_reagent/medchem/randomize_params()
 	..()
-	account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
-	reward = SSeconomy.credits_per_medchem_goal
 	report_message = "A refrigiration failure on a smaller station has left them critically low on supplies. Please send us at least [amount_per] units of [different_types] different medicines. Pills, patches, bottles, however you can send them, just keep the medicines from mixing."

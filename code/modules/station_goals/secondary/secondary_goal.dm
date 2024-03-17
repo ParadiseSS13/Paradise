@@ -3,18 +3,15 @@
 	required_crew = 1
 	// Should match the values used for requests consoles.
 	var/department = "Unknown"
+	var/personal_account
 	var/progress_type = /datum/secondary_goal_progress
 	var/datum/secondary_goal_progress/progress
 	var/datum/secondary_goal_tracker/tracker
 	// Abstract goals can't be used directly.
 	var/abstract = TRUE
 
-/datum/station_goal/secondary/robotics_test
-	name = "Test Goal"
-	department = "Robotics"
-	report_message = "Die."
-
-/datum/station_goal/secondary/proc/Initialize()
+/datum/station_goal/secondary/proc/Initialize(var/requester_account)
+	personal_account = requester_account
 	randomize_params()
 	progress = new progress_type
 	progress.configure(src)
@@ -34,7 +31,7 @@
 	send_requests_console_message(combined_message, "Central Command", "Captain's Desk", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
 	send_requests_console_message(combined_message, "Central Command", "Bridge", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
 
-/proc/generate_secondary_goal(department, requester = "CentCom", mob/user = null)
+/proc/generate_secondary_goal(department, requester = null, mob/user = null)
 	var/list/possible = list()
 	for(var/T in subtypesof(/datum/station_goal/secondary))
 		var/datum/station_goal/secondary/G = T
@@ -49,7 +46,14 @@
 
 	var/datum/station_goal/secondary/picked = pick(possible)
 	var/datum/station_goal/secondary/built = new picked
-	built.Initialize()
-	built.send_report(requester)
-	if(SSticker)
-		SSticker.mode.secondary_goals += built
+
+	var/requester_account = null
+	var/obj/item/card/id/ID = requester
+	if(ID)
+		requester_account = GLOB.station_money_database.find_user_account(ID.associated_account_number)
+	built.Initialize(requester_account)
+	if(!ID)
+		built.send_report("CentCom")
+	else
+		built.send_report(ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name)
+	SSticker.mode.secondary_goals += built

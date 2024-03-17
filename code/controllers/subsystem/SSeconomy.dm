@@ -59,11 +59,16 @@ SUBSYSTEM_DEF(economy)
 	/// credits gained per working mech sold
 	var/credits_per_mech = 100
 	/// credits gained for each secondary goal completed
-	var/credits_per_bar_goal = 200
-	var/credits_per_kitchen_goal = 200
-	var/credits_per_medchem_goal = 200
-	var/credits_per_scichem_goal = 200
-	var/credits_per_mech_goal = 500
+	/// These get split in 3, one part for Cargo, one for the department,
+	/// and one part for the person who requested the goal.
+	var/credits_per_easy_reagent_goal = 150
+	var/credits_per_normal_reagent_goal = 300
+	var/credits_per_hard_reagent_goal = 450
+	var/credits_per_variety_reagent_goal = 300
+	var/credits_per_easy_food_goal =300
+	var/credits_per_normal_food_goal = 450
+	var/credits_per_hard_food_goal = 600
+	var/credits_per_ripley_goal = 500
 	var/credits_per_kudzu_goal = 500
 	/// credits lost for sending unsecured cargo
 	var/fine_for_loose_cargo = -100

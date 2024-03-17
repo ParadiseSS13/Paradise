@@ -48,8 +48,10 @@
 
 
 /datum/secondary_goal_progress
+	var/personal_account
 
 /datum/secondary_goal_progress/proc/configure(datum/station_goal/secondary/goal)
+	personal_account = goal.personal_account
 
 /datum/secondary_goal_progress/proc/Copy()
 	SIGNAL_HANDLER  // Indirect: COMSIG_CARGO_BEGIN_SCAN, COMSIG_CARGO_BEGIN_SELL

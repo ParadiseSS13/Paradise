@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/priority = -1 ; //Priority of the message being sent
 	light_range = 0
 	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/requests_console)
-	var/goalRequester = "" // The displayed name/title of the person requesting a scondary goal
+	var/goalRequester // The ID card of the person requesting a scondary goal.
 	var/list/shipping_log = list()
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
@@ -295,7 +295,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			var/obj/item/card/id/ID = I
 			if(ID)
 				secondaryGoalAuth = TRUE
-				goalRequester = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
+				goalRequester = ID
 		if(screen == RCS_SHIPPING)
 			var/obj/item/card/id/T = I
 			msgVerified = "Sender verified as [T.registered_name] ([T.assignment])"
