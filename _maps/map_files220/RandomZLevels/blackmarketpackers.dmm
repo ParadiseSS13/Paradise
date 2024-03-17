@@ -201,9 +201,7 @@
 /area/space)
 "aN" = (
 /obj/structure/kitchenspike,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "aQ" = (
@@ -336,9 +334,7 @@
 /area/awaymission/BMPship/Buffer)
 "br" = (
 /obj/machinery/light/small/directional/south,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/largecrate/goat,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -535,14 +531,11 @@
 	layer = 2.8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/awaymission/BMPship/Fore)
 "bT" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -566,9 +559,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "bY" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/chair/office{
 	dir = 8
 	},
@@ -576,9 +567,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
 "bZ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/item/reagent_containers/drinks/sillycup,
 /obj/item/reagent_containers/pill/methamphetamine,
 /turf/simulated/floor/wood/fancy/oak,
@@ -646,8 +635,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "carpetside";
-	tag = "icon-carpetside (NORTH)"
+	icon_state = "carpetside"
 	},
 /area/awaymission/BMPship/Fore)
 "ch" = (
@@ -717,9 +705,7 @@
 /turf/space,
 /area/space)
 "cu" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/closet/crate/freezer,
 /obj/item/food/snacks/monstermeat/bearmeat,
 /obj/item/food/snacks/monstermeat/bearmeat,
@@ -1005,9 +991,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/TurretsSouth)
 "dj" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/sign/securearea{
 	name = "MAXIMUM ATTENTION";
 	pixel_x = -32
@@ -1195,9 +1179,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "dG" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/largecrate/lisa,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -1583,8 +1565,7 @@
 /area/awaymission/BMPship/Containment)
 "eL" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 4;
-	tag = "icon-heater (EAST)"
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1850,8 +1831,7 @@
 /obj/structure/sink/directional/west,
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Kitchen)
 "fu" = (
@@ -1887,9 +1867,7 @@
 /area/awaymission/BMPship/Buffer)
 "fx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead{
-	tag = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
@@ -2013,9 +1991,7 @@
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/north,
-/obj/item/kirbyplants/dead{
-	tag = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "fN" = (
@@ -2045,8 +2021,7 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Kitchen)
 "fT" = (
@@ -2313,9 +2288,7 @@
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/south,
-/obj/item/kirbyplants/dead{
-	tag = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "gI" = (
@@ -2341,8 +2314,7 @@
 "gL" = (
 /obj/machinery/processor,
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Kitchen)
 "gM" = (
@@ -2398,9 +2370,7 @@
 	id = "packerCargo"
 	},
 /obj/machinery/light/small/directional/south,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -2503,8 +2473,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Kitchen)
 "ht" = (
@@ -2783,9 +2752,7 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/food/snacks/meat,
 /obj/item/food/snacks/hugemushroomslice,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/item/food/snacks/monstermeat/spidermeat,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -3095,8 +3062,7 @@
 /obj/item/food/snacks/candy/confectionery/caramel_nougat,
 /obj/item/food/snacks/candy/confectionery/toffee,
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Kitchen)
 "jE" = (
@@ -3446,9 +3412,7 @@
 /area/awaymission/BMPship/Kitchen)
 "mA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead{
-	tag = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/machinery/light_construct/small/north,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
@@ -3561,9 +3525,7 @@
 "nO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/south,
-/obj/item/kirbyplants/dead{
-	tag = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
@@ -3634,8 +3596,7 @@
 "op" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Kitchen)
 "or" = (
@@ -3849,9 +3810,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
@@ -4056,9 +4015,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Buffer)
 "rJ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/item/stack/sheet/wood,
 /obj/item/stack/sheet/wood,
 /obj/item/stack/sheet/wood,
@@ -4244,8 +4201,7 @@
 /area/awaymission/BMPship/Dormitories)
 "ty" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	tag = "icon-propulsion (WEST)"
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Gate)
@@ -4929,9 +4885,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "zP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -5311,8 +5265,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Kitchen)
 "Dx" = (
@@ -5416,8 +5369,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "barber";
-	tag = "icon-barber"
+	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Kitchen)
 "Et" = (
@@ -5568,8 +5520,7 @@
 /area/awaymission/BMPship/Dormitories)
 "FL" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 4;
-	tag = "icon-heater (EAST)"
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -6009,9 +5960,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "Ky" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/largecrate/cow,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -6148,9 +6097,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "LV" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /mob/living/simple_animal/mouse/brown,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -6175,8 +6122,7 @@
 /area/awaymission)
 "Mi" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	tag = "icon-propulsion (WEST)"
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Bath)
@@ -6490,9 +6436,7 @@
 /area/awaymission/BMPship/Fore)
 "Qk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead{
-	tag = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -6692,8 +6636,7 @@
 /area/awaymission/BMPship/Armory)
 "SF" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	tag = "icon-propulsion (WEST)"
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Engines)
@@ -6881,9 +6824,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -7008,8 +6949,7 @@
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "green";
-	tag = "icon-green (EAST)"
+	icon_state = "green"
 	},
 /area/awaymission/BMPship/Kitchen)
 "Wi" = (
@@ -7025,8 +6965,7 @@
 /area/awaymission/BMPship/Gate)
 "WC" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 4;
-	tag = "icon-heater (EAST)"
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -7095,9 +7034,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "Xn" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/punching_bag,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
@@ -7147,9 +7084,7 @@
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/south,
-/obj/item/kirbyplants/dead{
-	tag = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
@@ -7271,9 +7206,7 @@
 /area/awaymission/BMPship/Fore)
 "YU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead{
-	tag = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)

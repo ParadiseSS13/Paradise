@@ -151,8 +151,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHWEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "cT" = (
@@ -201,8 +200,7 @@
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHEAST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "dy" = (
@@ -489,8 +487,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/shuttle/abandoned)
 "ju" = (
@@ -500,8 +497,7 @@
 /obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "jD" = (
@@ -521,8 +517,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/shuttle/abandoned)
 "kC" = (
@@ -697,8 +692,7 @@
 /obj/effect/decal/cleanable/blood,
 /mob/living/simple_animal/hostile/undead/zombie,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "pz" = (
@@ -744,8 +738,7 @@
 /obj/item/clothing/shoes/blue,
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "qE" = (
@@ -759,8 +752,7 @@
 /area/shuttle/abandoned)
 "rC" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "sW" = (
@@ -900,8 +892,7 @@
 /obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "vW" = (
@@ -928,7 +919,6 @@
 	height = 31;
 	id = "whiteship";
 	name = "NT Medical Ship";
-	roundstart_move = null;
 	width = 21
 	},
 /obj/effect/spawner/window/shuttle,
@@ -953,8 +943,7 @@
 /obj/machinery/power/smes,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/shuttle/abandoned)
 "xg" = (
@@ -991,8 +980,7 @@
 "xx" = (
 /obj/machinery/door/airlock/medical/glass,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "xz" = (
@@ -1188,8 +1176,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "Cj" = (
@@ -1200,8 +1187,7 @@
 /obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "Ck" = (
@@ -1233,8 +1219,7 @@
 /obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "DH" = (
@@ -1261,8 +1246,7 @@
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/machinery/door/airlock/medical/glass,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "EF" = (
@@ -1325,8 +1309,7 @@
 /area/shuttle/abandoned)
 "Gg" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	tag = "icon-propulsion (NORTH)"
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
@@ -1511,8 +1494,7 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "KE" = (
@@ -1720,8 +1702,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "Qh" = (
@@ -1801,16 +1782,14 @@
 	},
 /obj/machinery/door/airlock/medical,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "Rw" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/shuttle/abandoned)
 "RE" = (
@@ -1863,9 +1842,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/abandoned)
 "RZ" = (
-/obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion (NORTH)"
-	},
+/obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
 "Sl" = (
@@ -1940,8 +1917,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "TS" = (
@@ -1991,8 +1967,7 @@
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "UY" = (
@@ -2198,14 +2173,12 @@
 	},
 /obj/item/clothing/under/rank/medical/scrubs/purple,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "Zn" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (NORTH)"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
@@ -2217,8 +2190,7 @@
 	name = "Легендарная монтировка"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "Zx" = (
@@ -2236,8 +2208,7 @@
 /area/shuttle/abandoned)
 "ZB" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	tag = "icon-propulsion (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)

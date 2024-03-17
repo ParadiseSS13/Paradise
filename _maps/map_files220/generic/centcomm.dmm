@@ -12499,8 +12499,7 @@
 	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/ss220/court)
 "ipZ" = (
@@ -20023,8 +20022,7 @@
 /area/shuttle/syndicate)
 "nID" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/ss220/admin1)
 "nIM" = (
@@ -21942,8 +21940,7 @@
 	},
 /obj/structure/sign/barsign{
 	icon_state = "syndibarsign";
-	pixel_y = 32;
-	tag = "syndibarsign"
+	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/elite_squad)
@@ -28218,8 +28215,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/ss220/court)
 "tAU" = (
