@@ -28,8 +28,8 @@
 
 /obj/singularity/narsie/large/Initialize(mapload, starting_energy)
 	. = ..()
-	icon_state = SSticker.cultdat?.entity_icon_state
-	name = SSticker.cultdat?.entity_name
+	icon_state = GET_CULT_DATA(entity_icon_state, initial(icon_state))
+	name = GET_CULT_DATA(entity_name, initial(name))
 
 	var/sound/cry = sound('modular_ss220/aesthetics_sounds/sound/narsie/narsie_risen.ogg') //SS220 EDIT
 
@@ -40,9 +40,7 @@
 		to_chat(player, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
 		SEND_SOUND(player, cry)
 
-	var/datum/game_mode/gamemode = SSticker.mode
-	if(gamemode)
-		gamemode.cult_objs.succesful_summon()
+	SSticker.mode?.cult_team?.successful_summon()
 
 	var/area/A = get_area(src)
 	if(A)
@@ -59,13 +57,7 @@
 /obj/singularity/narsie/large/Destroy()
 	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS FALLEN</b></font>")
 	SEND_SOUND(world, sound('sound/hallucinations/wail.ogg'))
-	var/datum/game_mode/gamemode = SSticker.mode
-	if(gamemode)
-		gamemode.cult_objs.narsie_death()
-		for(var/datum/mind/cult_mind in SSticker.mode.cult)
-			if(cult_mind && cult_mind.current)
-				to_chat(cult_mind.current, "<span class='cultlarge'>RETRIBUTION!</span>")
-				to_chat(cult_mind.current, "<span class='cult'>Current goal: Slaughter the heretics!</span>")
+	SSticker.mode?.cult_team?.narsie_death()
 	..()
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
@@ -102,7 +94,7 @@
 /obj/singularity/narsie/mezzer()
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(M.stat == CONSCIOUS)
-			if(!iscultist(M))
+			if(!IS_CULTIST(M))
 				to_chat(M, "<span class='warning'>You feel your sanity crumble away in an instant as you gaze upon [src.name]...</span>")
 				M.Stun(6 SECONDS)
 
@@ -129,7 +121,7 @@
 		if(pos.z != src.z)
 			continue
 
-		if(iscultist(food))
+		if(IS_CULTIST(food))
 			cultists += food
 		else
 			noncultists += food
@@ -160,12 +152,12 @@
 		return
 	if(!target)
 		return
-	to_chat(target, "<span class='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HAS LOST INTEREST IN YOU</span>")
+	to_chat(target, "<span class='cultlarge'>[uppertext(GET_CULT_DATA(entity_name, name))] HAS LOST INTEREST IN YOU</span>")
 	target = food
 	if(ishuman(target))
-		to_chat(target, "<span class ='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HUNGERS FOR YOUR SOUL</span>")
+		to_chat(target, "<span class ='cultlarge'>[uppertext(GET_CULT_DATA(entity_name, name))] HUNGERS FOR YOUR SOUL</span>")
 	else
-		to_chat(target, "<span class ='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HAS CHOSEN YOU TO LEAD HER TO HER NEXT MEAL</span>")
+		to_chat(target, "<span class ='cultlarge'>[uppertext(GET_CULT_DATA(entity_name, name))] HAS CHOSEN YOU TO LEAD HER TO HER NEXT MEAL</span>")
 
 //Wizard narsie
 /obj/singularity/narsie/wizard
@@ -182,7 +174,7 @@
 	icon = 'icons/obj/narsie_spawn_anim.dmi'
 	dir = SOUTH
 	move_self = FALSE
-	flick(SSticker.cultdat?.entity_spawn_animation, src)
+	flick(GET_CULT_DATA(entity_spawn_animation, "narsie_spawn_anim"), src)
 	sleep(11)
 	move_self = TRUE
 	icon = initial(icon)
