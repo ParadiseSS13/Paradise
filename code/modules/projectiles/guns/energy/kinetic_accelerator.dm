@@ -79,6 +79,15 @@
 	max_mod_capacity = 80
 	icon_state = "kineticgun_b"
 
+/obj/item/gun/energy/kinetic_accelerator/cyborg/malf
+	name = "kinetic accelerator cannon"
+	desc = "A cyborg-modified kinetic accelerator that operates in pressurized environments, but cannot be upgraded and fires slowly."
+	icon_state = "kineticgun_h"
+	item_state = "kineticgun_h"
+	max_mod_capacity = 0
+	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/malf)
+	overheat_time = 20
+
 /obj/item/gun/energy/kinetic_accelerator/minebot
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	overheat_time = 20
@@ -170,15 +179,6 @@
 	item_state = "kineticgun_h"
 	origin_tech = "combat=5;powerstorage=3;engineering=5"
 	max_mod_capacity = 200
-
-/obj/item/gun/energy/kinetic_accelerator/cyborg/malf
-	name = "kinetic accelerator cannon"
-	desc = "A cyborg-modified kinetic accelerator that operates in pressurized environments, but cannot be upgraded and fires slowly."
-	icon_state = "kineticgun_h"
-	item_state = "kineticgun_h"
-	max_mod_capacity = 0
-	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/malf)
-	overheat_time = 20
 
 //Casing
 /obj/item/ammo_casing/energy/kinetic
