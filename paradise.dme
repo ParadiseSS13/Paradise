@@ -2686,6 +2686,7 @@
 #include "code\modules\server_commands\servermsg.dm"
 #include "code\modules\server_commands\commands\newroundannounce.dm"
 #include "code\modules\shuttle\assault_pod.dm"
+#include "code\modules\shuttle\dock_generator.dm"
 #include "code\modules\shuttle\emergency.dm"
 #include "code\modules\shuttle\ert_shuttle.dm"
 #include "code\modules\shuttle\navigation_computer.dm"
