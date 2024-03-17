@@ -1,4 +1,4 @@
-/obj/item/soap
+code/modules/clothing/head/collectable.dm/obj/item/soap
 	name = "soap"
 	desc = "A cheap bar of soap. Doesn't smell."
 	gender = PLURAL
@@ -102,7 +102,7 @@
 	return
 
 /obj/item/soap/deluxe
-	desc = "A deluxe Waffle Co. brand bar of soap. Smells of comdoms."
+	desc = "A luxury bar of soap. Smells of honey."
 	icon_state = "soapdeluxe"
 	cleanspeed = 40 //slightly better because deluxe -- captain gets one of these
 

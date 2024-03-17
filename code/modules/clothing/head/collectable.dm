@@ -47,7 +47,7 @@
 
 /obj/item/clothing/head/collectable/captain
 	name = "collectable captain's hat"
-	desc = "A Collectable Hat that'll make you look just like a real comdom!"
+	desc = "A Collectable Hat that'll make you look just like a real captain!"
 	icon_state = "captain_hat"
 	item_state = "captain_hat"
 	dog_fashion = /datum/dog_fashion/head/captain
