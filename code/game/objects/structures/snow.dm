@@ -11,7 +11,6 @@
 	var/cooldown = 0 // very cool down
 
 /obj/structure/snow/AltClick(mob/user)
-	. = ..()
 	if(cooldown > world.time)
 		return
 	if(ishuman(user) && Adjacent(user))

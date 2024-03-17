@@ -364,6 +364,10 @@
 		if("openLink")
 			client << link(href_list["url"])
 		if("cacheReloaded")
+			// Reinitialize
 			reinitialize()
+			// Resend the assets
+			for(var/asset in sent_assets)
+				send_asset(asset)
 		if("chat/resend")
 			SSchat.handle_resend(client, payload)

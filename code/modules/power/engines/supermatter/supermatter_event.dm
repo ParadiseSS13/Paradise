@@ -34,7 +34,7 @@
 
 /datum/supermatter_event/proc/on_end()
 	sm_radio_say("Anomalous crystal activity has ended.")
-	supermatter.heat_penalty_threshold = HEAT_PENALTY_THRESHOLD
+	supermatter.heat_penalty_threshold = SUPERMATTER_HEAT_PENALTY_THRESHOLD
 	supermatter.gas_multiplier = 1
 	supermatter.power_additive = 0
 	supermatter.heat_multiplier = 1

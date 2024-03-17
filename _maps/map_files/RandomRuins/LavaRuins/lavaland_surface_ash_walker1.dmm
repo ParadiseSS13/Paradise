@@ -67,7 +67,7 @@
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "am" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/wall/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "aq" = (
