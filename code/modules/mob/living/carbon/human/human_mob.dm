@@ -2252,6 +2252,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 				required_reagents += "[recipe.reagents[reagent_id]] unit\s of [temp.name]"
 
 		var/obj/item/result = recipe.result
-		message += "\tI could make [result.gender == PLURAL ? "some" : "a"] [bicon(result)] <b>[result.name]</b> by using \a [possible_recipes[recipe]] with [english_list(ingredient_list)][length(required_reagents) ? ", along with [english_list(required_reagents)]" : ""]."
+		message += "\tI could make [result.gender == PLURAL ? "some" : "a"] [bicon(result)] <b>[result.name]</b> by using a [possible_recipes[recipe]] with [english_list(ingredient_list)][length(required_reagents) ? ", along with [english_list(required_reagents)]" : ""]."
 		qdel(recipe)
 	to_chat(src, chat_box_examine(message.Join("<br>")))
