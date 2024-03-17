@@ -1012,4 +1012,4 @@
 #define COMSIG_GLOB_CURSED_SLOT_MACHINE_WON "cursed_slot_machine_won"
 
 ///from of mob/MouseDrop(): (/atom/over, /mob/user)
-#define COMSIG_DO_MOB_STRIP "cursed_slot_machine_won"
+#define COMSIG_DO_MOB_STRIP "do_mob_strip"
