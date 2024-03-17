@@ -42,6 +42,12 @@
 	hitsound = 'sound/weapons/guitarslam.ogg'
 	allowed_instrument_ids = "guitar"
 
+/// This is a special guitar for the emagged service borg that hits pretty hard and can still play music. Clonk.
+/obj/item/instrument/guitar/cyborg
+	name = "steel-reinforced guitar"
+	desc = "This guitar has robust metal plating inside to give it some extra kick."
+	force = 20
+
 /obj/item/instrument/eguitar
 	name = "electric guitar"
 	desc = "Makes all your shredding needs possible."
