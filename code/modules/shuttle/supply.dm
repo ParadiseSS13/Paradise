@@ -638,10 +638,11 @@
 	if(seed.rarity == 0)
 		item.reason = "We don't need samples of mundane species \"[capitalize(seed.species)]\"."
 		manifest.line_items += item
-		return
-	else
+	else if(SSeconomy.discovered_plants[seed.type] && SSeconomy.discovered_plants[seed.type] < seed.potency)
 		item.reason = "New sample of \"[capitalize(seed.species)]\" is not more potent than existing sample ([SSeconomy.discovered_plants[seed.type]] potency)."
 		manifest.line_items += item
+	// If neither succeeds, this seed was declared wrong by a different
+	// seller, so we should be quiet.
 
 
 /datum/economy/simple_seller/messes
