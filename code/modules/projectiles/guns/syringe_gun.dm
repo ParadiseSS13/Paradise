@@ -400,9 +400,9 @@
 	// no printing infinite syringes.
 	return
 
-///Version for Malf Borgs
+/// Version for Malf Borgs
 /obj/item/gun/syringe/malf
-	name = "Rapid Syringe Cannon"
+	name = "rapid syringe cannon"
 	desc = "A syringe gun integrated into a medical cyborg's chassis. Fires syringes filled with Cyanide."
 	icon_state = "rapidsyringegun"
 	max_syringes = 14

@@ -853,7 +853,7 @@
 		AI.cracked_camera = TRUE
 		QDEL_NULL(AI.builtInCamera)
 
-/datum/AI_Module/borgupgrade
+/datum/AI_Module/borg_upgrade
 	module_name = "Combat Cyborg Firmware Upgrade"
 	mod_pick_name = "combatborgs"
 	description = "Downloads firmware that activates built-in combat hardware present in all cyborgs. Cyborgs built after this is used will come with the hardware activated."
@@ -863,7 +863,7 @@
 	unlock_text = "<span class='notice'>Firmware downloaded. Bugs removed. Combat subsystems operating at 73% efficiency.</span>"
 	unlock_sound = 'sound/items/rped.ogg'
 
-/datum/AI_Module/borgupgrade/upgrade(mob/living/silicon/ai/AI)
+/datum/AI_Module/borg_upgrade/upgrade(mob/living/silicon/ai/AI)
 	AI.purchased_modules = list(/obj/item/robot_module/engineering, /obj/item/robot_module/janitor, /obj/item/robot_module/medical, /obj/item/robot_module/miner, /obj/item/robot_module/butler)
 	log_game("[key_name(usr)] purchased combat upgrades for all cyborgs.")
 	message_admins("<span class='notice'>[key_name_admin(usr)] purchased combat upgrades for all cyborgs!</span>")
