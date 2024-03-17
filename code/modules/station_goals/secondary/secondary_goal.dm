@@ -10,7 +10,7 @@
 	// Abstract goals can't be used directly.
 	var/abstract = TRUE
 
-/datum/station_goal/secondary/proc/Initialize(var/requester_account)
+/datum/station_goal/secondary/proc/Initialize(requester_account)
 	personal_account = requester_account
 	randomize_params()
 	progress = new progress_type
