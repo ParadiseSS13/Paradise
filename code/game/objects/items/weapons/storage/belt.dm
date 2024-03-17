@@ -287,6 +287,7 @@
 		/obj/item/melee/classic_baton,
 		/obj/item/flashlight/seclite,
 		/obj/item/holosign_creator/security,
+		/obj/item/holosign_creator/detective,
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/clothing/mask/gas/sechailer,

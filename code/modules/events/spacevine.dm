@@ -12,7 +12,7 @@
 
 	if(turfs.len) //Pick a turf to spawn at if we can
 		var/turf/T = pick(turfs)
-		var/obj/structure/spacevine_controller/SC = new /obj/structure/spacevine_controller(T, , rand(30,70),rand(5,2)) //spawn a controller at turf
+		var/obj/structure/spacevine_controller/SC = new /obj/structure/spacevine_controller(T, null, rand(30,70),rand(5,2)) //spawn a controller at turf
 
 		// Make the event start fun - give the vine a random hostile mutation
 		if(SC.vines.len)
@@ -534,7 +534,7 @@
 
 /obj/structure/spacevine_controller/New(loc, list/muts, potency, production)
 	color = "#ffffff"
-	spawn_spacevine_piece(loc, , muts)
+	spawn_spacevine_piece(loc, null, muts)
 	START_PROCESSING(SSobj, src)
 	init_subtypes(/datum/spacevine_mutation/, mutations_list)
 	if(potency != null && potency > 0)
