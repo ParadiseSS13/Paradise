@@ -651,8 +651,7 @@
 
 	var/obj/old_collar = pcollar
 
-	pcollar.forceMove(new_loc)
-	pcollar = null
+	unEquip(pcollar)
 
 	if(user)
 		user.put_in_hands(old_collar)
