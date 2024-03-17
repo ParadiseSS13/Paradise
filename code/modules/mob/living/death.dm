@@ -87,9 +87,13 @@
 				var/mob/M = P
 				if((M.client?.prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) && (isobserver(M) || M.stat == DEAD))
 					to_chat(M, "<span class='deadsay'><b>[mind.name]</b> has died at <b>[area_name]</b>. (<a href='?src=[M.UID()];jump=\ref[T]'>JMP</a>)</span>")
+					if(last_words)
+						to_chat(M, "<span class='deadsay'><b>[p_their(TRUE)] last words were:</b> \"[last_words]\"</span>")
 
 	if(SSticker && SSticker.mode)
 		SSticker.mode.check_win()
+
+	clear_alert("succumb")
 
 	// u no we dead
 	return TRUE

@@ -226,7 +226,8 @@
 	return A
 
 
-/obj/item/organ/internal/heart/gland/emp //TODO : Replace with something more interesting
+/// TODO : Replace with something more interesting
+/obj/item/organ/internal/heart/gland/emp
 	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"
 	cooldown_low = 800
 	cooldown_high = 1200

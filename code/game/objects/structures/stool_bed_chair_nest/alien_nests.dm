@@ -47,8 +47,11 @@
 			add_fingerprint(user)
 
 /obj/structure/bed/nest/user_buckle_mob(mob/living/M, mob/living/user)
-	if(!istype(M) || (get_dist(src, user) > 1) || (M.loc != loc) || user.incapacitated() || M.buckled)
+	if(!istype(M) || user.incapacitated() || M.buckled)
 		return
+
+	if(M != user && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && (!in_range(M, src) || !do_after(user, 1 SECONDS, target = M)))
+		return FALSE
 
 	if(M.get_int_organ(/obj/item/organ/internal/alien/hivenode))
 		to_chat(user, "<span class='noticealien'>[M]'s linkage with the hive prevents you from securing them into [src]</span>")
@@ -75,7 +78,7 @@
 		if(istype(hugger_mask) && !hugger_mask.sterile && (locate(/obj/item/organ/internal/body_egg/alien_embryo) in buckled_mob.internal_organs))
 			if(user && !isalien(user))
 				return
-			buckled_mob.throw_alert("ghost_nest", /obj/screen/alert/ghost)
+			buckled_mob.throw_alert("ghost_nest", /atom/movable/screen/alert/ghost)
 			to_chat(buckled_mob, "<span class='ghostalert'>You may now ghost, you keep respawnability in this state. You will be alerted when you're removed from the nest.</span>")
 
 /obj/structure/bed/nest/post_buckle_mob(mob/living/M)
@@ -113,7 +116,7 @@
 
 /obj/structure/bed/revival_nest
 	name = "alien rejuvenation nest"
-	desc = "It's a gruesome pile of thick, sticky resin shaped like a flytrap. Heals damaged aliens and slowly revives the dead, breaks down non xenos and uses their genetic soup to make an alien egg."
+	desc = "It's a gruesome pile of thick, sticky resin shaped like a flytrap. Heals damaged aliens and slowly revives the dead."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "placeholder_rejuv_nest"
 	max_integrity = 30
@@ -121,60 +124,48 @@
 	comfort = 0
 	flags = NODECONSTRUCT
 	var/processing_ticks = 0
-	var/revive_or_decay_timer
+	var/revive_timer
+
+/obj/structure/bed/revival_nest/Initialize(mapload)
+	. = ..()
+	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer = MOB_LAYER - 0.2)
 
 /obj/structure/bed/revival_nest/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
 	for(var/mob/living/M in buckled_mobs) //breaking a nest releases all the buckled mobs, because the nest isn't holding them down anymore
-		if(HAS_TRAIT(user, TRAIT_XENO_IMMUNE))
+		if(user.get_int_organ(/obj/item/organ/internal/alien/hivenode))
 			unbuckle_mob(M)
 			add_fingerprint(user)
-			return
 
-		if(M != user)
-			M.visible_message("<span class='notice'>[user] tears [M] out of the rejuvination pod!</span>",\
-				"<span class='notice'>[user] pulls you free from the rejuvination pod!</span>",\
-				"<span class='italics'>You hear squelching...</span>")
-		else
-			M.visible_message("<span class='warning'>[M] struggles to break free from the rejuvination pod!</span>",\
-				"<span class='notice'>You struggle to break free from the rejuvination pod... (Stay still for 15 seconds.)</span>",\
-				"<span class='italics'>You hear squelching...</span>")
-			if(!do_after(M, 15 SECONDS, target = src))
-				if(M && M.buckled)
-					to_chat(M, "<span class='warning'>You fail to escape \the [src]!</span>")
-				return
-			if(!M.buckled)
-				return
-			M.visible_message("<span class='warning'>[M] breaks free from the rejuvination pod!</span>",\
-				"<span class='notice'>You break free from the rejuvination pod!</span>",\
-				"<span class='italics'>You hear squelching...</span>")
-			unbuckle_mob(M)
-			add_fingerprint(user)
+/obj/structure/bed/revival_nest/post_buckle_mob(mob/living/M)
+	M.layer = BELOW_MOB_LAYER
+	add_overlay(nest_overlay)
 
 /obj/structure/bed/revival_nest/post_unbuckle_mob(mob/living/M)
+	M.layer = initial(M.layer)
+	cut_overlay(nest_overlay)
 	STOP_PROCESSING(SSobj, src)
-	deltimer(revive_or_decay_timer)
+	deltimer(revive_timer)
+	revive_timer = null
 
 /obj/structure/bed/revival_nest/process()
 	for(var/mob/living/buckled_mob in buckled_mobs)
 		processing_ticks++
-		if(isalien(buckled_mob))
-			buckled_mob.adjustBruteLoss(-5)
-			buckled_mob.adjustFireLoss(-5)
-			buckled_mob.adjustToxLoss(-5)
-			buckled_mob.adjustOxyLoss(-5)
-			buckled_mob.adjustCloneLoss(-5)
-			for(var/datum/disease/virus in buckled_mob.viruses)
-				if(virus.stage < 1 && processing_ticks >= 4)
-					virus.cure()
-					processing_ticks = 0
-				if(virus.stage > 1 && processing_ticks >= 4)
-					virus.stage--
-					processing_ticks = 0
-			if(buckled_mob.stat == DEAD && !revive_or_decay_timer)
-				revive_or_decay_timer = addtimer(CALLBACK(src, PROC_REF(revive_dead_alien), buckled_mob), 40 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
-		else
-			buckled_mob.adjustBruteLoss(3)
-			buckled_mob.adjustFireLoss(3)
+		if(!buckled_mob.get_int_organ(/obj/item/organ/internal/alien/hivenode))
+			continue
+		buckled_mob.adjustBruteLoss(-5)
+		buckled_mob.adjustFireLoss(-5)
+		buckled_mob.adjustToxLoss(-5)
+		buckled_mob.adjustOxyLoss(-5)
+		buckled_mob.adjustCloneLoss(-5)
+		for(var/datum/disease/virus in buckled_mob.viruses)
+			if(virus.stage < 1 && processing_ticks >= 4)
+				virus.cure()
+				processing_ticks = 0
+			if(virus.stage > 1 && processing_ticks >= 4)
+				virus.stage--
+				processing_ticks = 0
+		if(buckled_mob.stat == DEAD && !revive_timer && isalien(buckled_mob))
+			revive_timer = addtimer(CALLBACK(src, PROC_REF(revive_dead_alien), buckled_mob), 40 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
 
 /obj/structure/bed/revival_nest/proc/revive_dead_alien(mob/living/carbon/alien/dead_alien)
 	dead_alien.revive()
@@ -202,8 +193,11 @@
 		SEND_SOUND(dead_alien, sound('sound/voice/hiss5.ogg'))
 
 /obj/structure/bed/revival_nest/user_buckle_mob(mob/living/M, mob/living/user)
-	if(!istype(M) || (get_dist(src, user) > 1) || (M.loc != loc) || user.incapacitated() || M.buckled)
+	if(!istype(M) || user.incapacitated() || M.buckled)
 		return
+
+	if(M != user && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && (!in_range(M, src) || !do_after(user, 1 SECONDS, target = M)))
+		return FALSE
 
 	if(!user.get_int_organ(/obj/item/organ/internal/alien/hivenode))
 		to_chat(user, "<span class='noticealien'>Your lack of linkage to the hive prevents you from buckling [M] into [src].</span>")
@@ -211,6 +205,10 @@
 
 	if(has_buckled_mobs())
 		unbuckle_all_mobs()
+
+	if(!M.get_int_organ(/obj/item/organ/internal/alien/hivenode))
+		to_chat(user, "<span class='noticealien'>[src] would be of no use to [M].</span>")
+		return
 
 	if(buckle_mob(M))
 		M.visible_message("<span class='notice'>[user] secretes a thick vile goo, securing [M] into [src]!</span>",\

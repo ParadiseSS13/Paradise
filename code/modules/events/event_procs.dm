@@ -1,7 +1,7 @@
 
 /client/proc/forceEvent(type in SSevents.allEvents)
 	set name = "Trigger Event"
-	set category = "Debug"
+	set category = "Event"
 
 	if(!check_rights(R_EVENT))
 		return
