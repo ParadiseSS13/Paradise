@@ -2709,6 +2709,7 @@
 #include "code\modules\station_goals\dna_vault.dm"
 #include "code\modules\station_goals\shield.dm"
 #include "code\modules\station_goals\station_goal.dm"
+#include "code\modules\station_goals\task_backlog.dm"
 #include "code\modules\station_goals\secondary\random_bulk_reagent.dm"
 #include "code\modules\station_goals\secondary\secondary_goal.dm"
 #include "code\modules\station_goals\secondary\secondary_goal_tracker.dm"
