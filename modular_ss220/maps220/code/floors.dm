@@ -78,9 +78,9 @@
 /* Lavaland */
 /turf/simulated/floor/plasteel/lavaland_air
 	name = "floor"
-	temperature = 300
-	oxygen = 14
-	nitrogen = 23
+	temperature = 500
+	oxygen = 8
+	nitrogen = 14
 
 /* Indestructible */
 /turf/simulated/floor/indestructible/grass
