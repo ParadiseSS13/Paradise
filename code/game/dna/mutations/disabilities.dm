@@ -16,7 +16,7 @@
 	name = "Hallucinate"
 	activation_messages = list("Your mind says 'Hello'.")
 	deactivation_messages = list("Sanity returns. Or does it?")
-	instability = -GENE_INSTABILITY_MODERATE
+	instability = -GENE_INSTABILITY_MAJOR
 
 /datum/mutation/disability/hallucinate/New()
 	..()
@@ -61,7 +61,7 @@
 	name = "Clumsiness"
 	activation_messages = list("You feel lightheaded.")
 	deactivation_messages = list("You regain some control of your movements")
-	instability = -GENE_INSTABILITY_MINOR
+	instability = -GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_CLUMSY)
 
 /datum/mutation/disability/clumsy/New()
@@ -128,7 +128,7 @@
 	name = "Colourblindness"
 	activation_messages = list("You feel a peculiar prickling in your eyes while your perception of colour changes.")
 	deactivation_messages = list("Your eyes tingle unsettlingly, though everything seems to become a lot more colourful.")
-	instability = -GENE_INSTABILITY_MODERATE
+	instability = -GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_COLORBLIND)
 
 /datum/mutation/disability/colourblindness/New()
@@ -208,7 +208,7 @@
 	desc = "Garbles the subject's voice into an incomprehensible speech."
 	activation_messages = list("<span class='wingdings'>Your vocal cords feel alien.</span>")
 	deactivation_messages = list("Your vocal cords no longer feel alien.")
-	instability = -GENE_INSTABILITY_MINOR
+	instability = -GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_WINGDINGS)
 
 /datum/mutation/disability/wingdings/New()
@@ -241,7 +241,7 @@
 	desc = "Completely shuts down the speech center of the subject's brain."
 	activation_messages = list("You feel unable to express yourself at all.")
 	deactivation_messages = list("You feel able to speak freely again.")
-	instability = -GENE_INSTABILITY_MODERATE
+	instability = -GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_MUTE)
 
 /datum/mutation/disability/mute/New()
@@ -292,7 +292,6 @@
 	desc = "Greatly slows the subject's metabolism, enabling greater buildup of lipid tissue."
 	activation_messages = list("You feel blubbery and lethargic!")
 	deactivation_messages = list("You feel fit!")
-	instability = -GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_SLOWDIGESTION)
 
 /datum/mutation/disability/fat/New()
@@ -535,7 +534,7 @@
 	desc = "Causes the cerebellum to shut down in some places."
 	activation_messages = list("You feel very dizzy...")
 	deactivation_messages = list("You regain your balance.")
-	instability = -GENE_INSTABILITY_MINOR
+	instability = -GENE_INSTABILITY_MODERATE
 
 /datum/mutation/disability/dizzy/New()
 	..()

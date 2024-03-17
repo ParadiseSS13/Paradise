@@ -505,18 +505,18 @@
 
 /obj/machinery/door/airlock/cult/Initialize()
 	. = ..()
-	icon = SSticker.cultdat?.airlock_runed_icon_file
-	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
+	icon = GET_CULT_DATA(airlock_runed_icon_file, initial(icon))
+	overlays_file = GET_CULT_DATA(airlock_runed_overlays_file, initial(overlays_file))
 	update_icon()
 	new openingoverlaytype(loc)
 
 /obj/machinery/door/airlock/cult/canAIControl(mob/user)
-	return (iscultist(user) && !isAllPowerLoss())
+	return (IS_CULTIST(user) && !isAllPowerLoss())
 
 /obj/machinery/door/airlock/cult/allowed(mob/living/L)
 	if(!density)
 		return TRUE
-	if(friendly || iscultist(L) || isshade(L)|| isconstruct(L))
+	if(friendly || IS_CULTIST(L) || isshade(L) || isconstruct(L))
 		if(!stealthy)
 			new openingoverlaytype(loc)
 		return TRUE
@@ -545,8 +545,8 @@
 	update_icon()
 
 /obj/machinery/door/airlock/cult/cult_reveal()
-	icon = SSticker.cultdat?.airlock_runed_icon_file
-	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
+	icon = GET_CULT_DATA(airlock_runed_icon_file, initial(icon))
+	overlays_file = GET_CULT_DATA(airlock_runed_overlays_file, initial(overlays_file))
 	opacity = initial(opacity)
 	glass = initial(glass)
 	airlock_material = initial(airlock_material)
@@ -583,8 +583,8 @@
 
 /obj/machinery/door/airlock/cult/unruned/Initialize()
 	. = ..()
-	icon = SSticker.cultdat?.airlock_unruned_icon_file
-	overlays_file = SSticker.cultdat?.airlock_unruned_overlays_file
+	icon = GET_CULT_DATA(airlock_unruned_icon_file, initial(icon))
+	overlays_file = GET_CULT_DATA(airlock_unruned_overlays_file, initial(overlays_file))
 	update_icon()
 
 /obj/machinery/door/airlock/cult/unruned/friendly

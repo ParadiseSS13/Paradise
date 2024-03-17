@@ -207,6 +207,12 @@
 		user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>",
 							"<span class='notice'>You insert [I] into [src].</span>")
 		return
+
+	else if(istype(I, /obj/item/gripper_engineering))
+		if(!try_refill_storage(user))
+			to_chat(user, "<span class='notice'>You fail to retrieve any sheets from [src].</span>")
+		return
+
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/crowbar_act(mob/user, obj/item/I)
@@ -505,6 +511,38 @@
 	user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>", \
 							"<span class='notice'>You insert [I] into [src].</span>")
 	return TRUE
+
+/obj/machinery/mineral/ore_redemption/proc/try_refill_storage(mob/living/silicon/robot/robot)
+	. = FALSE
+	if(!istype(robot))
+		return
+	if(!istype(robot.module, /obj/item/robot_module/engineering)) // Should only happen for drones
+		return
+
+	for(var/datum/robot_storage/material/mat_store in robot.module.material_storages)
+		if(mat_store.amount == mat_store.max_amount) // Already full, no need to run a check
+			to_chat(robot, "<span class='notice'>[mat_store] could not be filled due to it already being full.</span>")
+			continue
+		var/datum/component/material_container/container_component = GetComponent(/datum/component/material_container)
+		for(var/mat_id in container_component.materials)
+			var/datum/material/stack = container_component.materials[mat_id] // Should have only `/datum/material` in the list
+			var/obj/item/stack/sheet/sheet = stack.sheet_type
+			if(ispath(mat_store.stack, sheet))
+				var/amount_to_add
+				var/total_stacks = stack.amount / MINERAL_MATERIAL_AMOUNT // To account for 1 sheet being 2000 units of metal
+				if(total_stacks >= (mat_store.max_amount - mat_store.amount))
+					amount_to_add = round(mat_store.max_amount - mat_store.amount)
+					to_chat(robot, "<span class='notice'>You refill [mat_store] to full.</span>")
+				else
+					amount_to_add = round(total_stacks) // In case we have half a sheet stored
+					to_chat(robot, "<span class='notice'>You refill [amount_to_add] sheets to [mat_store].</span>")
+				mat_store.amount += amount_to_add
+				remove_from_storage(stack, amount_to_add)
+				. = TRUE
+				break // We found our match for this material storage, so we go to the next one
+
+/obj/machinery/mineral/ore_redemption/proc/remove_from_storage(datum/material/stack, sheet_amount)
+	return stack.amount -= sheet_amount * MINERAL_MATERIAL_AMOUNT
 
 /**
   * Called when an item is inserted manually as material.
