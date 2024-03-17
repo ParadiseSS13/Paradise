@@ -245,7 +245,7 @@
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 
-	REMOVE_TRAIT(user, TRAIT_CAN_STRIP, TRAIT_GENERIC)
+	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
 
 
 /mob/living/simple_animal/bot/med_hud_set_health()

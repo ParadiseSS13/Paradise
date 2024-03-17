@@ -85,8 +85,10 @@
 
 /mob/living/simple_animal/pet/dog/corgi/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/strippable, length(strippable_inventory_slots) ? create_strippable_list(strippable_inventory_slots) : GLOB.strippable_corgi_items)
 	regenerate_icons()
+
+/mob/living/simple_animal/pet/dog/corgi/add_strippable_element()
+	AddElement(/datum/element/strippable, length(strippable_inventory_slots) ? create_strippable_list(strippable_inventory_slots) : GLOB.strippable_corgi_items)
 
 /mob/living/simple_animal/pet/dog/corgi/Destroy()
 	QDEL_NULL(inventory_head)

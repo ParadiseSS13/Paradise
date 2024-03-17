@@ -38,7 +38,7 @@
 	reset_perspective(src)
 	prepare_huds()
 	update_runechat_msg_location()
-	ADD_TRAIT(user, TRAIT_CAN_STRIP, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
 	. = ..()
 
 /atom/proc/prepare_huds()
@@ -924,7 +924,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return
 	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
 		return
-	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, M, usr) // this is currently only used for stripping
+	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, M, usr)
 
 /mob/proc/can_use_hands()
 	return

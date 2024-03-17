@@ -109,6 +109,8 @@
 									/obj/machinery/recharge_station,	/obj/machinery/smartfridge, \
 									/obj/machinery/computer))
 
+
+/mob/living/simple_animal/parrot/add_strippable_element()
 	AddElement(/datum/element/strippable, GLOB.strippable_parrot_items)
 
 /mob/living/simple_animal/parrot/Destroy()

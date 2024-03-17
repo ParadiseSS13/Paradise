@@ -1,5 +1,6 @@
 GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	/datum/strippable_item/parrot_headset,
+	/datum/strippable_item/pet_collar
 )))
 
 /datum/strippable_item/parrot_headset
@@ -18,10 +19,6 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 		to_chat(user, "<span class='warning'>[equipping] won't fit!</span>")
 		return FALSE
 
-	return TRUE
-
-// There is no delay for putting a headset on a parrot.
-/datum/strippable_item/parrot_headset/start_equip(atom/source, obj/item/equipping, mob/user)
 	return TRUE
 
 /datum/strippable_item/parrot_headset/finish_equip(atom/source, obj/item/equipping, mob/user)
@@ -49,7 +46,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 		return
 
 	if(parrot_source.stat == CONSCIOUS) // DEAD PARROTS TELL NO TALES (Finally moved this out of topic, thank god)
-		parrot_source.say("[parrot_source.available_channels ? "[pick(parrot_source.available_channels)] " : null]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
+		parrot_source.say("[length(parrot_source.available_channels) ? "[pick(parrot_source.available_channels)] " : null]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
 
 	return TRUE
 

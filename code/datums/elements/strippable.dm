@@ -131,7 +131,7 @@
 		if(!victim_human.has_vision())
 			to_chat(source, "<span class='userdanger'>You feel someone fumble with your belongings.</span>")
 
-	return TRUE
+	return start_unequip_mob(get_item(source), source, user)
 
 /// The proc that unequips the item from the source. This should not yield.
 /datum/strippable_item/proc/finish_unequip(atom/source, mob/user)
@@ -231,13 +231,6 @@
 
 	return FALSE
 
-/datum/strippable_item/mob_item_slot/start_unequip(atom/source, mob/user)
-	. = ..()
-	if(!.)
-		return
-
-	return start_unequip_mob(get_item(source), source, user)
-
 /datum/strippable_item/mob_item_slot/finish_unequip(atom/source, mob/user)
 	var/obj/item/item = get_item(source)
 	if(isnull(item))
@@ -317,7 +310,7 @@
 		var/obj/item/item = item_data.get_item(owner)
 		if(item && (item.flags & ABSTRACT))
 			items[strippable_key] = result
-			return
+			continue
 
 		if(strippable_key in LAZYACCESS(interactions, user))
 			LAZYSET(result, "interacting", TRUE)
@@ -347,12 +340,13 @@
 		result["name"] = item.name
 
 		var/real_alts = item_data.get_alternate_actions(owner, user)
-		if(islist(alternates))
-			alternates += real_alts
-		else
-			alternates = real_alts
-			if(!islist(alternates) && !isnull(alternates))
-				alternates = list(alternates)
+		if(!isnull(real_alts))
+			if(islist(alternates))
+				alternates += real_alts
+			else
+				alternates = real_alts
+				if(!islist(alternates) && !isnull(alternates))
+					alternates = list(alternates)
 		result["alternates"] = alternates
 
 		items[strippable_key] = result
@@ -373,10 +367,11 @@
 	if(.)
 		return
 
+	var/mob/living/user = ui.user
+	if(!isliving(ui.user) || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
+		return
+
 	. = TRUE
-
-	var/mob/user = ui.user
-
 	switch(action)
 		if("use")
 			var/key = params["key"]
@@ -471,12 +466,7 @@
 	return owner
 
 /datum/strip_menu/ui_state(mob/user)
-	return GLOB.default_state
-
-/datum/strip_menu/ui_status(mob/user, datum/ui_state/state)
-	var/can_strip = HAS_TRAIT(user, TRAIT_CAN_STRIP) ? UI_INTERACTIVE : UI_UPDATE,
-	return min(..(), can_strip)
-
+	return GLOB.strippable_state
 
 /// Creates an assoc list of keys to /datum/strippable_item
 /proc/create_strippable_list(types)

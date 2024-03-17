@@ -69,12 +69,12 @@ const ALTERNATE_ACTIONS: Record<string, AlternateAction> = {
   },
 
   remove_accessory: {
-    icon: 'circle', // todo change this to a more apt icon
+    icon: 'medal',
     text: 'Remove accessory',
   },
 
   dislodge_headpocket: {
-    icon: 'circle', // todo change this to a more apt icon
+    icon: 'head-side-virus', // I can't find a better icon, this will do
     text: 'Dislodge headpocket',
   },
 };
@@ -106,7 +106,7 @@ const SLOTS: Record<
     image: 'inventory-mask.png',
   },
 
-  corgi_collar: {
+  pet_collar: {
     displayName: 'collar',
     gridSpot: getGridSpotKey([1, 1]),
     image: 'inventory-collar.png',
@@ -260,8 +260,6 @@ type StripMenuData = {
   name: string;
 };
 
-const logger = createLogger('fuck shit');
-
 export const StripMenu = (props, context) => {
   const { act, data } = useBackend<StripMenuData>(context);
 
@@ -363,7 +361,6 @@ export const StripMenu = (props, context) => {
                     if ('alternates' in item) {
                       if (item.alternates !== null) {
                         alternateActions = item.alternates;
-                        logger.log(item);
                       }
                     }
                   }

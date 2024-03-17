@@ -149,7 +149,7 @@
 
 	var/mob/mob_source = source
 	if(!equipping.mob_can_equip(mob_source, which_hand, TRUE))
-		to_chat(src, "<span class='warning'>\The [equipping] doesn't fit in that place!</span>")
+		to_chat(user, "<span class='warning'>\The [equipping] doesn't fit in that place!</span>")
 		return FALSE
 
 	return TRUE
@@ -174,13 +174,6 @@
 		return FALSE
 
 	INVOKE_ASYNC(source, TYPE_PROC_REF(/mob, put_in_hand), equipping, which_hand)
-
-/datum/strippable_item/hand/start_unequip(atom/source, mob/user)
-	. = ..()
-	if(!.)
-		return
-
-	return start_unequip_mob(get_item(source), source, user)
 
 /datum/strippable_item/hand/finish_unequip(atom/source, mob/user)
 	var/obj/item/item = get_item(source)
