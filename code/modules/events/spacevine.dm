@@ -451,8 +451,9 @@
 /obj/structure/spacevine/proc/remove_mutation(datum/spacevine_mutation/mutation)
 	mutations -= mutation
 	if(length(mutations))
-		var/oldmutation = pick(mutations)
-		color = mutations[oldmutation].hue
+		var/oldmutation_type = pick(mutations)
+		var/datum/spacevine_mutation/oldmutation = mutations[oldmutation_type]
+		color = oldmutation.hue
 
 /obj/structure/spacevine/proc/on_chem_effect(datum/reagent/R)
 	var/override = 0
@@ -633,7 +634,7 @@
 
 	for(var/SM_type in mutations)
 		var/datum/spacevine_mutation/SM = mutations[SM_type]
-		mutations[SM].on_grow(src)
+		SM.on_grow(src)
 
 /obj/structure/spacevine/proc/entangle_mob()
 	if(!has_buckled_mobs() && prob(25))
@@ -648,7 +649,7 @@
 		return
 	for(var/SM_type in mutations)
 		var/datum/spacevine_mutation/SM = mutations[SM_type]
-		mutations[SM].on_buckle(src, V)
+		SM.on_buckle(src, V)
 	if((V.stat != DEAD) && (V.buckled != src)) //not dead or captured
 		to_chat(V, "<span class='danger'>The vines [pick("wind", "tangle", "tighten")] around you!</span>")
 		buckle_mob(V, 1)
@@ -658,7 +659,7 @@
 	var/spread_search = FALSE // Whether to exhaustive search all 4 cardinal dirs for an open direction
 	for(var/SM_type in mutations)
 		var/datum/spacevine_mutation/SM = mutations[SM_type]
-		spread_search |= mutations[SM].on_search(src)
+		spread_search |= SM.on_search(src)
 	while(dir_list.len)
 		var/direction = pick(dir_list)
 		dir_list -= direction

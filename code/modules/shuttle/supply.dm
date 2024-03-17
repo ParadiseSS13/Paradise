@@ -191,7 +191,7 @@
 		if(E.is_cleanable())
 			return CARGO_OK
 
-	if(AM.anchored)
+	if(AM.anchored && !istype(AM, /obj/mecha/working))
 		return CARGO_SKIP_ATOM
 
 	return CARGO_OK
