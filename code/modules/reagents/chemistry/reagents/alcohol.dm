@@ -514,7 +514,6 @@
 	drink_name = "Brave Bull"
 	drink_desc = "Tequila and Coffee liquor, brought together in a mouthwatering mixture. Drink up."
 	taste_description = "sweet alcohol"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/tequila_sunrise
 	name = "Tequila Sunrise"
@@ -571,7 +570,6 @@
 	drink_name = "Irish Cream"
 	drink_desc = "It's cream, mixed with whiskey. What else would you expect from the Irish?"
 	taste_description = "creamy alcohol"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/manly_dorf
 	name = "The Manly Dorf"
@@ -675,7 +673,6 @@
 	drink_name = "Manhattan"
 	drink_desc = "The Detective's undercover drink of choice. He never could stomach gin..."
 	taste_description = "a bustling city"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/manhattan_proj
 	name = "Manhattan Project"
@@ -904,7 +901,6 @@
 	drink_name = "Iced Beer"
 	drink_desc = "A beer so frosty, the air around it freezes."
 	taste_description = "cold beer"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/iced_beer/on_mob_life(mob/living/M)
 	if(M.bodytemperature > 270)
@@ -1373,7 +1369,6 @@
 	drink_name = "Glass of Synthignon"
 	drink_desc = "Someone mixed good wine and robot booze. Romantic, but atrocious."
 	taste_description = "fancy motor oil"
-	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/fruit_wine
 	name = "Fruit Wine"
