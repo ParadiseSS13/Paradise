@@ -8,4 +8,5 @@
 /datum/station_goal/secondary/variety_reagent/bar/randomize_params()
 	..()
 	account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE)
+	reward = SSeconomy.credits_per_scichem_goal
 	report_message = "We're training a drug moose, and need some samples of drugs. Send us at least [amount_per] units of [different_types] different ones. --Not Steve"

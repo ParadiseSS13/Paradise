@@ -5,6 +5,7 @@
 	var/amount_per = 50
 	var/account
 	var/generic_name_plural = "reagents"
+	var/reward
 
 /datum/secondary_goal_progress/variety_reagent
 	var/list/reagents_sent = list()
@@ -12,6 +13,7 @@
 	var/needed
 	var/amount_per
 	var/account
+	var/reward
 	var/generic_name_plural
 
 /datum/secondary_goal_progress/variety_reagent/configure(datum/station_goal/secondary/variety_reagent/goal)
@@ -19,6 +21,7 @@
 	needed = goal.different_types
 	amount_per = goal.amount_per
 	account = goal.account
+	reward = goal.reward
 	generic_name_plural = goal.generic_name_plural
 
 /datum/secondary_goal_progress/variety_reagent/Copy()
@@ -28,6 +31,7 @@
 	copy.needed = needed
 	copy.amount_per = amount_per
 	copy.account = account
+	copy.reward = reward
 	copy.generic_name_plural = generic_name_plural
 	return copy
 
@@ -107,13 +111,13 @@
 
 	var/datum/economy/line_item/supply_item = new
 	supply_item.account = SSeconomy.cargo_account
-	supply_item.credits = 50
+	supply_item.credits = reward / 2
 	supply_item.reason = "Secondary goal complete: [needed] different [generic_name_plural]."
 	manifest.line_items += supply_item
 
 	var/datum/economy/line_item/department_item = new
 	department_item.account = account
-	department_item.credits = 50
+	department_item.credits = reward / 2
 	department_item.reason = "Secondary goal complete: [needed] different [generic_name_plural]."
 	manifest.line_items += department_item
 

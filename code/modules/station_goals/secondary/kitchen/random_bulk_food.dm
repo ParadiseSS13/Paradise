@@ -72,13 +72,13 @@
 
 	var/datum/economy/line_item/supply_item = new
 	supply_item.account = SSeconomy.cargo_account
-	supply_item.credits = 50
+	supply_item.credits = SSeconomy.credits_per_kitchen_goal
 	supply_item.reason = "Secondary goal complete: [needed] servings of [initial(food_type.name)]."
 	manifest.line_items += supply_item
 
 	var/datum/economy/line_item/department_item = new
 	department_item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE)
-	department_item.credits = 50
+	department_item.credits = SSeconomy.credits_per_kitchen_goal
 	department_item.reason = "Secondary goal complete: [needed] servings of [initial(food_type.name)]."
 	manifest.line_items += department_item
 

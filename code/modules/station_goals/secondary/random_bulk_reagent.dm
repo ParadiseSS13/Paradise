@@ -4,6 +4,7 @@
 	var/datum/reagent/reagent_type
 	var/amount
 	var/account
+	var/reward
 
 /datum/station_goal/secondary/random_bulk_reagent/randomize_params()
 	var/list/valid_reagents = list()
@@ -34,11 +35,13 @@
 	var/needed
 	var/sent = 0
 	var/account
+	var/reward
 
 /datum/secondary_goal_progress/random_bulk_reagent/configure(datum/station_goal/secondary/random_bulk_reagent/goal)
 	reagent_type = goal.reagent_type
 	needed = goal.amount
 	account = goal.account
+	reward = goal.reward
 
 /datum/secondary_goal_progress/random_bulk_reagent/Copy()
 	var/datum/secondary_goal_progress/random_bulk_reagent/copy = new
@@ -46,6 +49,7 @@
 	copy.needed = needed
 	copy.sent = sent
 	copy.account = account
+	copy.reward = reward
 	return copy
 
 /datum/secondary_goal_progress/random_bulk_reagent/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
@@ -75,13 +79,13 @@
 
 	var/datum/economy/line_item/supply_item = new
 	supply_item.account = SSeconomy.cargo_account
-	supply_item.credits = 50
+	supply_item.credits = reward / 2
 	supply_item.reason = "Secondary goal complete: [needed] units of [initial(reagent_type.name)]."
 	manifest.line_items += supply_item
 
 	var/datum/economy/line_item/department_item = new
 	department_item.account = account
-	department_item.credits = 50
+	department_item.credits = reward / 2
 	department_item.reason = "Secondary goal complete: [needed] units of [initial(reagent_type.name)]."
 	manifest.line_items += department_item
 

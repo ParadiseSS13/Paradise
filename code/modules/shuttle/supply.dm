@@ -656,8 +656,40 @@
 
 /datum/economy/simple_seller/containers
 
-/datum/economy/simple_seller/messes/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
+/datum/economy/simple_seller/containers/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
 	if(istype(AM, /obj/item/storage))
+		return COMSIG_CARGO_SELL_NORMAL
+
+
+/datum/economy/simple_seller/mechs
+
+/datum/economy/simple_seller/mechs/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
+	if(!..())
+		return
+
+	var/datum/economy/line_item/cargo_item = new
+	cargo_item.account = SSeconomy.cargo_account
+	cargo_item.credits = SSeconomy.credits_per_mech / 2
+	cargo_item.reason = "Received a working [AM.name], great job!"
+	manifest.line_items += cargo_item
+
+	var/datum/economy/line_item/science_item = new
+	science_item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE)
+	science_item.credits = SSeconomy.credits_per_mech / 2
+	science_item.reason = "Received a working [AM.name], great job!"
+	manifest.line_items += science_item
+
+
+/datum/economy/simple_seller/mechs/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
+	if(istype(AM, /obj/mecha/working))
+		return COMSIG_CARGO_SELL_NORMAL
+
+
+// Discard mech parts to avoid complaining about them.
+/datum/economy/simple_seller/mech_parts
+
+/datum/economy/simple_seller/mech_parts/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
+	if(istype(AM.loc, /obj/mecha/working))
 		return COMSIG_CARGO_SELL_NORMAL
 
 

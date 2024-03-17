@@ -50,12 +50,21 @@ SUBSYSTEM_DEF(economy)
 
 	/// credits gained per slip returned
 	var/credits_per_manifest = 5
-	/// credits gained per intel returned
+	/// credits gained per intel sold
 	var/credits_per_intel = 750
-	/// credits gained per plasma returned
+	/// credits gained per plasma sold
 	var/credits_per_plasma = 10
-	/// credits gained per research design returned
+	/// credits gained per research design sold
 	var/credits_per_design = 20
+	/// credits gained per working mech sold
+	var/credits_per_mech = 100
+	/// credits gained for each secondary goal completed
+	var/credits_per_bar_goal = 200
+	var/credits_per_kitchen_goal = 200
+	var/credits_per_medchem_goal = 200
+	var/credits_per_scichem_goal = 200
+	var/credits_per_mech_goal = 500
+	var/credits_per_kudzu_goal = 500
 	/// credits lost for sending unsecured cargo
 	var/fine_for_loose_cargo = -100
 	/// credits lost for sending a messy shuttle
