@@ -193,10 +193,11 @@
 /obj/machinery/alarm/Initialize(mapload, direction, building = 0)
 	. = ..()
 
+	alarm_area = get_area(src)
+
 	if(custom_name)
 		name = custom_name
 	else
-		alarm_area = get_area(src)
 		name = "[alarm_area.name] Air Alarm"
 
 	if(building) // Do this first since the Init uses this later on. TODO refactor to just use an Init
