@@ -86,7 +86,7 @@
 	item_state = "kineticgun_h"
 	max_mod_capacity = 0
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/malf)
-	overheat_time = 20
+	overheat_time = 2 SECONDS
 
 /obj/item/gun/energy/kinetic_accelerator/minebot
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL

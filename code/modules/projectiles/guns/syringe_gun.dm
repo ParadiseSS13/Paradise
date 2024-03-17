@@ -410,7 +410,7 @@
 //Preload Syringes
 /obj/item/gun/syringe/malf/Initialize(mapload)
 	..()
-	while(syringes.len + (chambered.BB ? 1 : 0) < max_syringes)
+	while(length(syringes) + (chambered.BB ? 1 : 0) < max_syringes)
 		var/obj/item/reagent_containers/syringe/S = new /obj/item/reagent_containers/syringe
 		S.reagents.add_reagent_list(list("cyanide" = 10))
 		syringes.Add(S)
@@ -418,7 +418,7 @@
 
 //Recharge syringes in a recharger
 /obj/item/gun/syringe/malf/cyborg_recharge(coeff, emagged)
-	if(syringes.len < max_syringes)
+	if(length(syringes) < max_syringes)
 		var/obj/item/reagent_containers/syringe/S = new /obj/item/reagent_containers/syringe
 		S.reagents.add_reagent_list(list("cyanide" = 10))
 		syringes.Add(S)
@@ -430,7 +430,6 @@
 
 //Load syringe into the chamber
 /obj/item/gun/syringe/malf/process_chamber()
-
 	if(!length(syringes) || chambered?.BB)
 		return
 
