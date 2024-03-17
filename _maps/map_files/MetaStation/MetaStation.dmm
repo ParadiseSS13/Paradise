@@ -28567,9 +28567,7 @@
 	},
 /area/station/supply/expedition)
 "bTU" = (
-/obj/structure/chair/stool{
-	dir = 4
-	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
@@ -41489,9 +41487,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "cPD" = (
-/obj/machinery/computer/arcade/recruiter{
-	dir = 8
-	},
+/obj/machinery/suit_storage_unit/expedition,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellow"
@@ -59192,6 +59188,13 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/launch)
+"iXP" = (
+/obj/machinery/economy/vending/exploredrobe,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/station/supply/expedition)
 "iYh" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -81332,13 +81335,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
-"sqP" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/landmark/start/explorer,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/supply/expedition)
 "srB" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -125707,7 +125703,7 @@ bZX
 bTU
 xfH
 xfH
-sqP
+cdB
 cdB
 cdB
 lKl
@@ -125965,7 +125961,7 @@ cPD
 vDl
 bSp
 vDl
-vDl
+iXP
 cJT
 bWZ
 bZX

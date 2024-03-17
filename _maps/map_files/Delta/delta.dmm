@@ -95534,6 +95534,13 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/south)
+"vze" = (
+/obj/machinery/economy/vending/exploredrobe,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "browncorner"
+	},
+/area/station/supply/expedition)
 "vzo" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -143292,7 +143299,7 @@ cuk
 cyw
 cuk
 jtP
-cuk
+vze
 cyv
 csW
 ckv

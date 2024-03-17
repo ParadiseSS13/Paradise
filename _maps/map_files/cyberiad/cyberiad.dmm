@@ -32742,7 +32742,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -34108,6 +34107,7 @@
 	dir = 4;
 	network = list("SS13","MiniSat")
 	},
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -35590,6 +35590,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "ckx" = (
+/obj/machinery/economy/vending/exploredrobe,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
