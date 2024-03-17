@@ -17,6 +17,7 @@
 #pragma PointlessBuiltinCall error
 #pragma SuspiciousMatrixCall error
 #pragma FallbackBuiltinArgument error
+#pragma PointlessScopeOperator error
 #pragma MalformedRange error
 #pragma InvalidRange error
 #pragma InvalidSetStatement error
@@ -28,6 +29,6 @@
 
 //3000-3999
 #pragma EmptyBlock error
-#pragma EmptyProc disabled
+#pragma EmptyProc error
 #pragma UnsafeClientAccess disabled
 #pragma AssignmentInConditional error
