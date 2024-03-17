@@ -588,6 +588,66 @@
 	list_reagents = list("nutriment" = 1)
 	tastes = list("cracker" = 1)
 
+/obj/item/food/snacks/yumyum
+	name = "yum yum"
+	desc = "PLACEHOLDER."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "yumyum"
+	filling_color = "#E7D8AB"
+	bitesize = 2
+	list_reagents = list("nutriment" = 3, "sugar" = 3)
+	tastes = list("flaky dough" = 1, "sugar" = 2)
+
+/obj/item/food/snacks/belgianbun
+	name = "belgian bun"
+	desc = "PLACEHOLDER."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "belgianbun"
+	filling_color = "#E7D8AB"
+	bitesize = 2
+	list_reagents = list("nutriment" = 3, "sugar" = 3)
+	tastes = list("sweet dough" = 1, "cherry" = 1, "sugar" = 2)
+
+/obj/item/food/snacks/steakbake
+	name = "steak bake"
+	desc = "PLACEHOLDER."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "steakbake"
+	filling_color = "#532c11"
+	bitesize = 3
+	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	tastes = list("dough" = 1, "steak" = 1)
+
+/obj/item/food/snacks/cheesebeanmelt
+	name = "sausage, cheese and bean melt"
+	desc = "PLACEHOLDER."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "cheesebeanmelt"
+	filling_color = "#dfc14a"
+	bitesize = 3
+	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	tastes = list("sausage" = 1, "cheese" = 1, "beans" = 1)
+
+/obj/item/food/snacks/sausageroll
+	name = "sausage roll"
+	desc = "PLACEHOLDER."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "sausageroll"
+	filling_color = "#dfc14a"
+	bitesize = 3
+	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	tastes = list("sausage" = 1, "flaky dough" = 1)
+
+/obj/item/food/snacks/vegansausageroll
+	name = "vegan sausage roll"
+	desc = "PLACEHOLDER."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "vegansausageroll"
+	filling_color = "#dfc14a"
+	bitesize = 3
+	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+	tastes = list("soy" = 1, "flaky dough" = 1)
+
 /obj/item/food/snacks/croissant
 	name = "croissant"
 	desc = "Once a pastry reserved for the bourgeois, this flaky goodness is now on your table."

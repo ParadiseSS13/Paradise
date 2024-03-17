@@ -1337,6 +1337,12 @@
 	items = list(/obj/item/food/snacks/grown/potato)
 	result = /obj/item/food/snacks/mashed_potatoes
 
+/datum/recipe/microwave/yumyum
+	reagents = list("milk" = 5, "sugar" = 5)
+	items = list(
+		/obj/item/food/snacks/doughslice)
+	result = /obj/item/food/snacks/yumyum
+
 //////////////////////////////////////////
 // bs12 food port stuff
 //////////////////////////////////////////

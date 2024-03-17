@@ -600,3 +600,44 @@
 		/obj/item/food/snacks/dough
 	)
 	result = /obj/item/food/snacks/lasagna
+
+/datum/recipe/oven/belgianbun
+	reagents = list("milk" = 5, "sugar" = 10)
+	items = list(
+		/obj/item/food/snacks/dough,
+		/obj/item/food/snacks/grown/cherries
+	)
+	result = /obj/item/food/snacks/belgianbun
+
+/datum/recipe/oven/sausageroll
+	reagents = list("sodiumchloride" = 1)
+	items = list(
+		/obj/item/food/snacks/sliceable/flatdough,
+		/obj/item/food/snacks/sausage
+	)
+	result = /obj/item/food/snacks/sausageroll
+
+/datum/recipe/oven/vegansausageroll
+	reagents = list("sodiumchloride" = 1)
+	items = list(
+		/obj/item/food/snacks/sliceable/flatdough,
+        /obj/item/food/snacks/soydope
+	)
+	result = /obj/item/food/snacks/vegansausageroll
+
+/datum/recipe/oven/steakbake
+	items = list(
+		/obj/item/food/snacks/sliceable/flatdough,
+		/obj/item/food/snacks/meatsteak,
+		/obj/item/food/snacks/onion_slice
+	)
+	result = /obj/item/food/snacks/steakbake
+
+/datum/recipe/oven/cheesebeanmelt
+	items = list(
+		/obj/item/food/snacks/sliceable/flatdough,
+		/obj/item/food/snacks/cheesewedge,
+		/obj/item/food/snacks/beans,
+		/obj/item/food/snacks/sausage
+	)
+	result = /obj/item/food/snacks/cheesebeanmelt
