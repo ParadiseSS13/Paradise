@@ -1,7 +1,6 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // This define is used when we have to spawn in an uplink item in a weird way, like a Surplus crate spawning an actual crate.
 // Use this define by setting `uses_special_spawn` to TRUE on the item, and then checking if the parent proc of `spawn_item` returns this define. If it does, implement your special spawn after that.
-#define UPLINK_SPECIAL_SPAWNING "ONE PINK CHAINSAW PLEASE"
 
 /proc/get_uplink_items(obj/item/uplink/U)
 	var/list/uplink_items = list()
