@@ -3,6 +3,7 @@
 
 /obj/item/clothing/mask/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
+	return
 
 /obj/item/clothing/mask/equipped(mob/M, slot)
 	. = ..()

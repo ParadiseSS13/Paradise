@@ -90,6 +90,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	// var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
 	// if(!antag) // this team has no antag role, we'll add it directly to their mind team
 		// LAZYDISTINCTADD(new_member.teams, src)
+	return
 	// SS220 EDIT END
 
 /**

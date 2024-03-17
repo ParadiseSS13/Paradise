@@ -28,6 +28,7 @@
 
 
 /datum/credits/proc/fill_credits()
+	return
 
 /datum/credits/proc/count_time()
 	playing_time += delay_time
