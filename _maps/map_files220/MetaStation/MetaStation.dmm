@@ -36639,7 +36639,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
 "cAj" = (
-/obj/machinery/clonepod/biomass,
+/obj/machinery/clonepod,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -39158,7 +39158,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "cIR" = (
-/obj/machinery/dna_scannernew,
+/obj/machinery/clonescanner,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},

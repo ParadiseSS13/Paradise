@@ -110,17 +110,17 @@
 	real_name = random_name(gender, species)
 
 /datum/character_save/proc/save(client/C)
-	var/organlist
-	var/rlimblist
+	var/organ_list
+	var/rlimb_list
 	var/playertitlelist
 	var/gearlist
 
 	var/markingcolourslist = list2params(m_colours)
 	var/markingstyleslist = list2params(m_styles)
 	if(!isemptylist(organ_data))
-		organlist = list2params(organ_data)
+		organ_list = list2params(organ_data)
 	if(!isemptylist(rlimb_data))
-		rlimblist = list2params(rlimb_data)
+		rlimb_list = list2params(rlimb_data)
 	if(!isemptylist(player_alt_titles))
 		playertitlelist = list2params(player_alt_titles)
 	if(!isemptylist(loadout_gear))
@@ -177,8 +177,8 @@
 					gen_record=:gen_record,
 					player_alt_titles=:playertitlelist,
 					disabilities=:disabilities,
-					organ_data=:organlist,
-					rlimb_data=:rlimblist,
+					organ_data=:organ_list,
+					rlimb_data=:rlimb_list,
 					nanotrasen_relation=:nanotrasen_relation,
 					physique=:physique,
 					height=:height,
@@ -237,8 +237,8 @@
 						"gen_record" = gen_record,
 						"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentnional. It wont work without it!
 						"disabilities" = disabilities,
-						"organlist" = (organlist ? organlist : ""),
-						"rlimblist" = (rlimblist ? rlimblist : ""),
+						"organ_list" = (organ_list ? organ_list : ""),
+						"rlimb_list" = (rlimb_list ? rlimb_list : ""),
 						"nanotrasen_relation" = nanotrasen_relation,
 						"physique" = physique,
 						"height" = height,
@@ -318,7 +318,7 @@
 			:sec_record,
 			:gen_record,
 			:playertitlelist,
-			:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :physique, :height, :speciesprefs,
+			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
 			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :tts_seed)
 	"}, list(
@@ -366,8 +366,8 @@
 		"gen_record" = gen_record,
 		"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentional. It wont work without it!
 		"disabilities" = disabilities,
-		"organlist" = (organlist ? organlist : ""),
-		"rlimblist" = (rlimblist ? rlimblist : ""),
+		"organ_list" = (organ_list ? organ_list : ""),
+		"rlimb_list" = (rlimb_list ? rlimb_list : ""),
 		"nanotrasen_relation" = nanotrasen_relation,
 		"physique" = physique,
 		"height" = height,
