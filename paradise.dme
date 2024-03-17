@@ -2721,6 +2721,7 @@
 #include "code\modules\station_goals\secondary\medical\random_bulk_medicine.dm"
 #include "code\modules\station_goals\secondary\medical\variety_medicine.dm"
 #include "code\modules\station_goals\secondary\science\random_bulk_chemical.dm"
+#include "code\modules\station_goals\secondary\science\random_ripley.dm"
 #include "code\modules\station_goals\secondary\science\variety_chemicals.dm"
 #include "code\modules\supply\supply_console.dm"
 #include "code\modules\supply\supply_order.dm"
