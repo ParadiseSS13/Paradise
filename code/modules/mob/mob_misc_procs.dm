@@ -796,9 +796,6 @@
 		if(DEAD)
 			return "dead"
 
-/mob/proc/attempt_listen_to_deadsay()
-
-
 /mob/proc/is_roundstart_observer()
 	return (ckey in GLOB.roundstart_observer_keys)
 
