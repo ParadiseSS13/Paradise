@@ -62,6 +62,7 @@
 // Only called on the real progress tracker.
 /datum/secondary_goal_progress/proc/start_shipment()
 	SIGNAL_HANDLER  // Indirect: COMSIG_CARGO_BEGIN_SCAN, COMSIG_CARGO_BEGIN_SELL
+	return
 
 // Check the item to see if it belongs to this goal.
 // Update the manifest accodingly, if provided.
@@ -69,6 +70,7 @@
 // Use COMSIG_CARGO_SELL_PRIORITY, not COMSIG_CARGO_SELL_NORMAL.
 /datum/secondary_goal_progress/proc/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
 	SIGNAL_HANDLER  // Indirect: COMSIG_CARGO_CHECK_SELL, COMSIG_CARGO_DO_PRIORITY_SELL, COMSIG_CARGO_DO_SELL, COMSIG_CARGO_SEND_ERROR
+	return
 
 // Check to see if this goal has been completed.
 // Update the manifest accordingly.

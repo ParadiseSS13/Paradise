@@ -21,6 +21,7 @@
 // Override this to randomly configure the goal before generating a progress
 // tracker.
 /datum/station_goal/secondary/proc/randomize_params()
+	return
 
 /datum/station_goal/secondary/send_report(requester)
 	var/list/message_parts = list()
