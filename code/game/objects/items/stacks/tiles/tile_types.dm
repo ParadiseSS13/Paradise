@@ -95,7 +95,7 @@
 	amount = 20
 
 /obj/item/stack/tile/bamboo/tatami/purple
-	name = "Tatami with purple rim"
+	name = "tatami with purple rim"
 	singular_name = "purple tatami floor tile"
 	icon_state = "tile_tatami_purple"
 	turf_type = /turf/simulated/floor/bamboo/tatami/purple
@@ -105,7 +105,7 @@
 	amount = 20
 
 /obj/item/stack/tile/bamboo/tatami/black
-	name = "Tatami with black rim"
+	name = "tatami with black rim"
 	singular_name = "black tatami floor tile"
 	icon_state = "tile_tatami_black"
 	turf_type = /turf/simulated/floor/bamboo/tatami/black

@@ -228,11 +228,6 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 		new /datum/stack_recipe("pew (left)", /obj/structure/chair/sofa/pew/left, 5, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("pew (right)", /obj/structure/chair/sofa/pew/right, 5, one_per_turf = TRUE, on_floor = TRUE),
 		)),
-	new /datum/stack_recipe_list("bamboo benches", list(
-		new /datum/stack_recipe("bamboo bench (middle)", /obj/structure/chair/sofa/bamboo, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("bamboo bench (left)", /obj/structure/chair/sofa/bamboo/left, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("bamboo bench (right)", /obj/structure/chair/sofa/bamboo/right, 2, one_per_turf = TRUE, on_floor = TRUE),
-		)),
 	null,
 	new /datum/stack_recipe("drying rack", /obj/machinery/smartfridge/drying_rack, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("rifle stock", /obj/item/weaponcrafting/stock, 10, time = 4 SECONDS),
@@ -270,11 +265,11 @@ GLOBAL_LIST_INIT(wood_recipes, list(
  */
 GLOBAL_LIST_INIT(bamboo_recipes, list( \
 	new/datum/stack_recipe("punji sticks trap", /obj/structure/punji_sticks, req_amount = 5, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE), \
-	new/datum/stack_recipe("bamboo spear", /obj/item/spear/bamboospear, req_amount = 25, time = 9 SECONDS), \
+	new/datum/stack_recipe("bamboo spear", /obj/item/spear/bamboo, req_amount = 25, time = 9 SECONDS), \
 	new/datum/stack_recipe("blow gun", /obj/item/gun/syringe/blowgun, req_amount = 10, time = 7 SECONDS), \
 	new/datum/stack_recipe("rice hat", /obj/item/clothing/head/rice_hat, req_amount = 10, time = 7 SECONDS), \
 	null, \
-	new/datum/stack_recipe("bamboo stool", /obj/structure/chair/stool/bamboo, req_amount = 2, time = 1 SECONDS, on_floor = TRUE), \
+	new /datum/stack_recipe("punji sticks trap", /obj/structure/punji_sticks, req_amount = 5, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new/datum/stack_recipe("bamboo mat piece", /obj/item/stack/tile/bamboo, req_amount = 1, res_amount = 4, max_res_amount = 20), \
 	new/datum/stack_recipe_list("tatami mats", list(
 		new/datum/stack_recipe("green tatami", /obj/item/stack/tile/bamboo/tatami, req_amount = 1, res_amount = 4, max_res_amount = 20),
