@@ -10,9 +10,6 @@
 /client/key_loop()
 	mob.input_focus?.key_loop(src)
 
-/client
-	var/list/macro_sets
-
 /// This proc sets the built in BYOND macros for keypresses to pass inputs on to the rebindable input system or the legacy system
 /// If you plan on ripping out the legacy system, see the set_macros() proc at the following commit: https://github.com/S34NW/Paradise/commit/83a0a0b0c633807cc5a88a630f623cec24e16027
 /client/proc/set_macros()

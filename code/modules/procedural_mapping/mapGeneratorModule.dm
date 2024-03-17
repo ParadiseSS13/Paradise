@@ -5,7 +5,7 @@
 	var/list/spawnableTurfs = list()
 	var/clusterMax = 5
 	var/clusterMin = 1
-	var/clusterCheckFlags = CLUSTER_CHECK_SAME_ATOMS
+	var/clusterCheckFlags = MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS
 	var/allowAtomsOnSpace = FALSE
 
 
@@ -40,7 +40,7 @@
 		if(clusterMax && clusterMin)
 
 			//You're the same as me? I hate you I'm going home
-			if(clusterCheckFlags & CLUSTER_CHECK_SAME_TURFS)
+			if(clusterCheckFlags & MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS)
 				clustering = rand(clusterMin,clusterMax)
 				for(var/turf/F in spiral_range_turfs(clustering,T))
 					if(istype(F,turfPath))
@@ -51,7 +51,7 @@
 					continue
 
 			//You're DIFFERENT to me? I hate you I'm going home
-			if(clusterCheckFlags & CLUSTER_CHECK_DIFFERENT_TURFS)
+			if(clusterCheckFlags & MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS)
 				clustering = rand(clusterMin,clusterMax)
 				for(var/turf/F in spiral_range_turfs(clustering,T))
 					if(!(istype(F,turfPath)))
@@ -74,7 +74,7 @@
 			if(clusterMax && clusterMin)
 
 				//You're the same as me? I hate you I'm going home
-				if(clusterCheckFlags & CLUSTER_CHECK_SAME_ATOMS)
+				if(clusterCheckFlags & MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS)
 					clustering = rand(clusterMin, clusterMax)
 					for(var/atom/movable/M in range(clustering,T))
 						if(istype(M,atomPath))
@@ -85,7 +85,7 @@
 						continue
 
 				//You're DIFFERENT from me? I hate you I'm going home
-				if(clusterCheckFlags & CLUSTER_CHECK_DIFFERENT_ATOMS)
+				if(clusterCheckFlags & MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS)
 					clustering = rand(clusterMin, clusterMax)
 					for(var/atom/movable/M in range(clustering,T))
 						if(!(istype(M,atomPath)))
@@ -128,18 +128,18 @@
 //Settings appropriate for a turf that covers the entire map region, eg a fill colour on a bottom layer in a graphics program.
 //Should only have one of these in your mapGenerator unless you want to waste CPU
 /datum/mapGeneratorModule/bottomLayer
-	clusterCheckFlags = CLUSTER_CHECK_NONE
+	clusterCheckFlags = MAP_GENERATOR_CLUSTER_CHECK_NONE
 	spawnableAtoms = list()//Recommended: No atoms.
 	spawnableTurfs = list(/turf = 100)
 
 //Settings appropriate for turfs/atoms that cover SOME of the map region, sometimes referred to as a splatter layer.
 /datum/mapGeneratorModule/splatterLayer
-	clusterCheckFlags = CLUSTER_CHECK_ALL
+	clusterCheckFlags = MAP_GENERATOR_CLUSTER_CHECK_ALL
 	spawnableAtoms = list(/atom = 30)
 	spawnableTurfs = list(/turf = 30)
 
 //Settings appropriate for turfs/atoms that cover a lot of the map region, eg a dense forest.
 /datum/mapGeneratorModule/denseLayer
-	clusterCheckFlags = CLUSTER_CHECK_NONE
+	clusterCheckFlags = MAP_GENERATOR_CLUSTER_CHECK_NONE
 	spawnableAtoms = list(/atom = 75)
 	spawnableTurfs = list(/turf = 75)

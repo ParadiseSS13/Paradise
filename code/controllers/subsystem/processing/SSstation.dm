@@ -34,6 +34,9 @@ PROCESSING_SUBSYSTEM_DEF(station)
 
 		return
 
+	if(!GLOB.configuration.gamemode.add_random_station_traits)
+		return
+
 	for(var/i in subtypesof(/datum/station_trait))
 		var/datum/station_trait/trait_typepath = i
 

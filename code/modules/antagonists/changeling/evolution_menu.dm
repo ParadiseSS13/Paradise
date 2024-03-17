@@ -141,3 +141,6 @@
 		))
 
 	return abilities_by_category_name
+
+#undef COMPACT_MODE
+#undef EXPANDED_MODE

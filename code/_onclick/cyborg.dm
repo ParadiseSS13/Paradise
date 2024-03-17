@@ -121,14 +121,19 @@
 // for non-doors/apcs
 /mob/living/silicon/robot/ShiftClickOn(atom/A)
 	A.BorgShiftClick(src)
+
 /mob/living/silicon/robot/CtrlClickOn(atom/A)
 	A.BorgCtrlClick(src)
+
 /mob/living/silicon/robot/AltClickOn(atom/A)
 	A.BorgAltClick(src)
+
 /mob/living/silicon/robot/CtrlShiftClickOn(atom/A)
 	A.BorgCtrlShiftClick(src)
+
 /mob/living/silicon/robot/AltShiftClickOn(atom/A)
 	A.BorgAltShiftClick(src)
+
 /mob/living/silicon/robot/ShiftMiddleClickOn(atom/A)
 	A.BorgShiftMiddleClick(src)
 

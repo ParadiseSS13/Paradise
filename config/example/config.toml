@@ -254,6 +254,8 @@ disable_certain_round_early_end = false
 traitor_objective_amount = 2
 # Enable player limits on gamemodes. Disable if testing
 enable_gamemode_player_limit = true
+# Enable to generate zero or more random station traits on game start.
+add_random_station_traits = false
 
 
 ################################################################

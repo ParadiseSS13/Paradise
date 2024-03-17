@@ -14,14 +14,14 @@
 //Type defines, to avoid spelling mistakes
 /datum/mob_type/fire
 	name = "Fire"
-	weakness = list(TYPE_WATER,
-					TYPE_ROCK,
-					TYPE_GROUND)
-	resistance = list(TYPE_BUG,
-					TYPE_FIRE,
-					TYPE_GRASS,
-					TYPE_ICE,
-					TYPE_STEEL)
+	weakness = list(NANOMOB_TYPE_WATER,
+					NANOMOB_TYPE_ROCK,
+					NANOMOB_TYPE_GROUND)
+	resistance = list(NANOMOB_TYPE_BUG,
+					NANOMOB_TYPE_FIRE,
+					NANOMOB_TYPE_GRASS,
+					NANOMOB_TYPE_ICE,
+					NANOMOB_TYPE_STEEL)
 	area_blacklist = list(/area/station/public/toilet,
 						/area/station/science/server/coldroom)
 	area_whitelist = list(/area/station/maintenance/turbine,
@@ -31,12 +31,12 @@
 
 /datum/mob_type/water
 	name = "Water"
-	weakness = list(TYPE_ELECTRIC,
-					TYPE_GRASS)
-	resistance = list(TYPE_FIRE,
-					TYPE_ICE,
-					TYPE_STEEL,
-					TYPE_WATER)
+	weakness = list(NANOMOB_TYPE_ELECTRIC,
+					NANOMOB_TYPE_GRASS)
+	resistance = list(NANOMOB_TYPE_FIRE,
+					NANOMOB_TYPE_ICE,
+					NANOMOB_TYPE_STEEL,
+					NANOMOB_TYPE_WATER)
 	area_blacklist = list(/area/station/maintenance/turbine,
 						/area/station/maintenance/incinerator,
 						/area/station/service/kitchen)
@@ -45,15 +45,15 @@
 
 /datum/mob_type/grass
 	name = "Grass"
-	weakness = list(TYPE_FIRE,
-					TYPE_BUG,
-					TYPE_POISON,
-					TYPE_ICE,
-					TYPE_FLYING)
-	resistance = list(TYPE_WATER,
-					TYPE_GRASS,
-					TYPE_ELECTRIC,
-					TYPE_GROUND)
+	weakness = list(NANOMOB_TYPE_FIRE,
+					NANOMOB_TYPE_BUG,
+					NANOMOB_TYPE_POISON,
+					NANOMOB_TYPE_ICE,
+					NANOMOB_TYPE_FLYING)
+	resistance = list(NANOMOB_TYPE_WATER,
+					NANOMOB_TYPE_GRASS,
+					NANOMOB_TYPE_ELECTRIC,
+					NANOMOB_TYPE_GROUND)
 	area_blacklist = list(/area/station/science)
 	area_whitelist = list(/area/station/service/hydroponics,
 						/area/station/public/construction) // dont ask me why grass types can appear in construction sites, I'm just migrating areas
@@ -61,10 +61,10 @@
 
 /datum/mob_type/electric
 	name = "Electric"
-	weakness = list(TYPE_GROUND)
-	resistance = list(TYPE_ELECTRIC,
-					TYPE_FLYING,
-					TYPE_STEEL)
+	weakness = list(NANOMOB_TYPE_GROUND)
+	resistance = list(NANOMOB_TYPE_ELECTRIC,
+					NANOMOB_TYPE_FLYING,
+					NANOMOB_TYPE_STEEL)
 	area_whitelist = list(/area/station/engineering/engine,
 						/area/station/science/server,
 						/area/station/maintenance,
@@ -77,24 +77,24 @@
 
 /datum/mob_type/ground
 	name = "Ground"
-	weakness = list(TYPE_WATER,
-					TYPE_GRASS,
-					TYPE_ICE)
-	resistance = list(TYPE_ROCK,
-					TYPE_POISON)
-	immunity = list(TYPE_ELECTRIC)
+	weakness = list(NANOMOB_TYPE_WATER,
+					NANOMOB_TYPE_GRASS,
+					NANOMOB_TYPE_ICE)
+	resistance = list(NANOMOB_TYPE_ROCK,
+					NANOMOB_TYPE_POISON)
+	immunity = list(NANOMOB_TYPE_ELECTRIC)
 
 /datum/mob_type/rock
 	name = "Rock"
-	weakness = list(TYPE_WATER,
-					TYPE_GRASS,
-					TYPE_GROUND,
-					TYPE_FIGHTING,
-					TYPE_STEEL)
-	resistance = list(TYPE_FIRE,
-					TYPE_FLYING,
-					TYPE_POISON,
-					TYPE_NORMAL)
+	weakness = list(NANOMOB_TYPE_WATER,
+					NANOMOB_TYPE_GRASS,
+					NANOMOB_TYPE_GROUND,
+					NANOMOB_TYPE_FIGHTING,
+					NANOMOB_TYPE_STEEL)
+	resistance = list(NANOMOB_TYPE_FIRE,
+					NANOMOB_TYPE_FLYING,
+					NANOMOB_TYPE_POISON,
+					NANOMOB_TYPE_NORMAL)
 	area_whitelist = list(/area/station/supply,
 						/area/station/maintenance/disposal)
 	turf_whitelist = list(/turf/simulated/wall,
@@ -102,12 +102,12 @@
 
 /datum/mob_type/bug
 	name = "Bug"
-	weakness = list(TYPE_FIRE,
-					TYPE_ROCK,
-					TYPE_FLYING)
-	resistance = list(TYPE_GRASS,
-					TYPE_GROUND,
-					TYPE_FIGHTING)
+	weakness = list(NANOMOB_TYPE_FIRE,
+					NANOMOB_TYPE_ROCK,
+					NANOMOB_TYPE_FLYING)
+	resistance = list(NANOMOB_TYPE_GRASS,
+					NANOMOB_TYPE_GROUND,
+					NANOMOB_TYPE_FIGHTING)
 	area_blacklist = list(/area/station/science)
 	area_whitelist = list(/area/station/service/hydroponics,
 						/area/station/public/construction) // dont ask me why bug types can appear in construction sites, I'm just migrating areas
@@ -115,12 +115,12 @@
 
 /datum/mob_type/poison
 	name = "Poison"
-	weakness = list(TYPE_GROUND,
-					TYPE_PSYCHIC)
-	resistance = list(TYPE_GRASS,
-					TYPE_BUG,
-					TYPE_POISON,
-					TYPE_FIGHTING)
+	weakness = list(NANOMOB_TYPE_GROUND,
+					NANOMOB_TYPE_PSYCHIC)
+	resistance = list(NANOMOB_TYPE_GRASS,
+					NANOMOB_TYPE_BUG,
+					NANOMOB_TYPE_POISON,
+					NANOMOB_TYPE_FIGHTING)
 	area_blacklist = list(/area/station/medical,
 						/area/station/service/janitor)
 	area_whitelist = list(/area/station/medical/virology,
@@ -130,16 +130,16 @@
 
 /datum/mob_type/normal
 	name = "Normal"
-	weakness = list(TYPE_FIGHTING)
-	immunity = list(TYPE_GHOST)
+	weakness = list(NANOMOB_TYPE_FIGHTING)
+	immunity = list(NANOMOB_TYPE_GHOST)
 
 /datum/mob_type/fighting
 	name = "Fighting"
-	weakness = list(TYPE_PSYCHIC,
-					TYPE_FLYING)
-	resistance = list(TYPE_ROCK,
-					TYPE_BUG,
-					TYPE_DARK)
+	weakness = list(NANOMOB_TYPE_PSYCHIC,
+					NANOMOB_TYPE_FLYING)
+	resistance = list(NANOMOB_TYPE_ROCK,
+					NANOMOB_TYPE_BUG,
+					NANOMOB_TYPE_DARK)
 	area_blacklist = list(/area/station/medical)
 	area_whitelist = list(/area/station/service/bar,
 						/area/station/public/fitness,
@@ -148,11 +148,11 @@
 
 /datum/mob_type/psychic
 	name = "Psychic"
-	weakness = list(TYPE_BUG,
-					TYPE_GHOST,
-					TYPE_DARK)
-	resistance = list(TYPE_FIGHTING,
-					TYPE_PSYCHIC)
+	weakness = list(NANOMOB_TYPE_BUG,
+					NANOMOB_TYPE_GHOST,
+					NANOMOB_TYPE_DARK)
+	resistance = list(NANOMOB_TYPE_FIGHTING,
+					NANOMOB_TYPE_PSYCHIC)
 	area_blacklist = list(/area/station/science,
 						/area/station/command/office/rd,
 						/area/station/maintenance/asmaint2,
@@ -164,23 +164,23 @@
 
 /datum/mob_type/ghost
 	name = "Ghost"
-	weakness = list(TYPE_GHOST,
-					TYPE_DARK)
-	resistance = list(TYPE_BUG,
-					TYPE_POISON)
-	immunity = list(TYPE_NORMAL,
-					TYPE_FIGHTING)
+	weakness = list(NANOMOB_TYPE_GHOST,
+					NANOMOB_TYPE_DARK)
+	resistance = list(NANOMOB_TYPE_BUG,
+					NANOMOB_TYPE_POISON)
+	immunity = list(NANOMOB_TYPE_NORMAL,
+					NANOMOB_TYPE_FIGHTING)
 	area_whitelist = list(/area/station/medical/morgue,
 						/area/station/service/chapel,
 						/area/station/medical/cloning)
 
 /datum/mob_type/ice
 	name = "Ice"
-	weakness = list(TYPE_FIRE,
-					TYPE_ROCK,
-					TYPE_FIGHTING,
-					TYPE_STEEL)
-	resistance = list(TYPE_ICE)
+	weakness = list(NANOMOB_TYPE_FIRE,
+					NANOMOB_TYPE_ROCK,
+					NANOMOB_TYPE_FIGHTING,
+					NANOMOB_TYPE_STEEL)
+	resistance = list(NANOMOB_TYPE_ICE)
 	area_blacklist = list(/area/station/maintenance/turbine,
 						/area/station/maintenance/incinerator,
 						/area/station/service/kitchen)
@@ -188,32 +188,32 @@
 
 /datum/mob_type/flying
 	name = "Flying"
-	weakness = list(TYPE_ELECTRIC,
-					TYPE_ROCK,
-					TYPE_ICE)
-	resistance = list(TYPE_GRASS,
-					TYPE_BUG,
-					TYPE_FIGHTING)
-	immunity = list(TYPE_GROUND)
+	weakness = list(NANOMOB_TYPE_ELECTRIC,
+					NANOMOB_TYPE_ROCK,
+					NANOMOB_TYPE_ICE)
+	resistance = list(NANOMOB_TYPE_GRASS,
+					NANOMOB_TYPE_BUG,
+					NANOMOB_TYPE_FIGHTING)
+	immunity = list(NANOMOB_TYPE_GROUND)
 	area_blacklist = list(/area/station/maintenance)
 	area_whitelist = list(/area/station/hallway)
 
 /datum/mob_type/bluespace
 	name = "Bluespace"
-	weakness = list(TYPE_ICE,
-					TYPE_BLUESPACE)
-	resistance = list(TYPE_FIRE,
-					TYPE_WATER,
-					TYPE_GRASS,
-					TYPE_ELECTRIC)
+	weakness = list(NANOMOB_TYPE_ICE,
+					NANOMOB_TYPE_BLUESPACE)
+	resistance = list(NANOMOB_TYPE_FIRE,
+					NANOMOB_TYPE_WATER,
+					NANOMOB_TYPE_GRASS,
+					NANOMOB_TYPE_ELECTRIC)
 
 /datum/mob_type/dark
 	name = "Dark"
-	weakness = list(TYPE_BUG,
-					TYPE_FIGHTING)
-	resistance = list(TYPE_GHOST,
-					TYPE_DARK)
-	immunity = list(TYPE_PSYCHIC)
+	weakness = list(NANOMOB_TYPE_BUG,
+					NANOMOB_TYPE_FIGHTING)
+	resistance = list(NANOMOB_TYPE_GHOST,
+					NANOMOB_TYPE_DARK)
+	immunity = list(NANOMOB_TYPE_PSYCHIC)
 	area_blacklist = list(/area/station/engineering/solar,
 						/area/station/maintenance/auxsolarport,
 						/area/station/maintenance/starboardsolar,
@@ -226,16 +226,16 @@
 
 /datum/mob_type/steel
 	name = "Steel"
-	weakness = list(TYPE_FIRE,
-					TYPE_GROUND,
-					TYPE_FIGHTING)
-	resistance = list(TYPE_GRASS,
-					TYPE_ROCK,
-					TYPE_BUG,
-					TYPE_NORMAL,
-					TYPE_PSYCHIC,
-					TYPE_ICE,
-					TYPE_FLYING,
-					TYPE_BLUESPACE,
-					TYPE_STEEL)
-	immunity = list(TYPE_POISON)
+	weakness = list(NANOMOB_TYPE_FIRE,
+					NANOMOB_TYPE_GROUND,
+					NANOMOB_TYPE_FIGHTING)
+	resistance = list(NANOMOB_TYPE_GRASS,
+					NANOMOB_TYPE_ROCK,
+					NANOMOB_TYPE_BUG,
+					NANOMOB_TYPE_NORMAL,
+					NANOMOB_TYPE_PSYCHIC,
+					NANOMOB_TYPE_ICE,
+					NANOMOB_TYPE_FLYING,
+					NANOMOB_TYPE_BLUESPACE,
+					NANOMOB_TYPE_STEEL)
+	immunity = list(NANOMOB_TYPE_POISON)

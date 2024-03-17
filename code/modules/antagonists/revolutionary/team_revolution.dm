@@ -4,26 +4,29 @@
 	var/max_headrevs = REVOLUTION_MAX_HEADREVS // adminbus is possible
 	var/have_we_won = FALSE
 
-/datum/team/revolution/New()
-	..()
+/datum/team/revolution/create_team()
+	. = ..()
 	update_team_objectives()
 	SSshuttle.registerHostileEnvironment(src)
 
 /datum/team/revolution/Destroy(force, ...)
-	SSticker.mode.rev_team = null
 	SSshuttle.clearHostileEnvironment(src)
 	return ..()
 
+/datum/team/revolution/can_create_team()
+	return isnull(SSticker.mode.rev_team)
+
+/datum/team/revolution/assign_team()
+	SSticker.mode.rev_team = src
+
+/datum/team/revolution/clear_team_reference()
+	if(SSticker.mode.rev_team == src)
+		SSticker.mode.rev_team = null
+	else
+		CRASH("[src] ([type]) attempted to clear a team reference that wasn't itself!")
 
 /datum/team/revolution/get_target_excludes()
 	return ..() + get_targetted_head_minds()
-
-
-/datum/team/revolution/remove_member(datum/mind/member)
-	. = ..()
-	var/datum/antagonist/rev/revolting = member.has_antag_datum(/datum/antagonist/rev) // maybe this should be get_antag_datum_from_member(member)
-	if(!QDELETED(revolting))
-		member.remove_antag_datum(/datum/antagonist/rev)
 
 /datum/team/revolution/admin_add_objective(mob/user)
 	sanitize_objectives()
@@ -31,6 +34,10 @@
 	if(sanitize_objectives())
 		message_admins("[key_name_admin(user)] added a mutiny objective to the team '[name]', and no target was found, removing.")
 		log_admin("[key_name_admin(user)] added a mutiny objective to the team '[name]', and no target was found, removing.")
+
+/datum/team/revolution/get_admin_priority_objectives()
+	. = list()
+	.["Mutiny"] = /datum/objective/mutiny
 
 /datum/team/revolution/on_round_end()
 	return // for now... show nothing. Add this in when revs is added to midround/dynamic. Not showing it currently because its dependent on rev gamemode

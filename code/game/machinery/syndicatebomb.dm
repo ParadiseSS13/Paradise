@@ -344,6 +344,7 @@
 	qdel(src)
 
 /obj/item/bombcore/proc/defuse()
+	return
 //Note: 	Because of how var/defused is used you shouldn't override this UNLESS you intend to set the var to 0 or
 //			otherwise remove the core/reset the wires before the end of defuse(). It will repeatedly be called otherwise.
 

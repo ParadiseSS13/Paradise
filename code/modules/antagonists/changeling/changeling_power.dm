@@ -1,11 +1,4 @@
 
-// Defines below to be used with the `power_type` var.
-/// Denotes that this power is free and should be given to all changelings by default.
-#define CHANGELING_INNATE_POWER			1
-/// Denotes that this power can only be obtained by purchasing it.
-#define CHANGELING_PURCHASABLE_POWER	2
-/// Denotes that this power can not be obtained normally. Primarily used for base types such as [/datum/action/changeling/weapon].
-#define CHANGELING_UNOBTAINABLE_POWER	3
 
 /datum/action/changeling
 	name = "Prototype Sting"
@@ -89,9 +82,6 @@
 		return FALSE
 	if(HAS_TRAIT(user, TRAIT_FAKEDEATH) && !bypass_fake_death)
 		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
-		return FALSE
-	if(!cling.can_use_powers)
-		to_chat(owner, "<span class='warning'>Our cells are repairing themselves, we are unable to use our powers!</span>")
 		return FALSE
 	return TRUE
 

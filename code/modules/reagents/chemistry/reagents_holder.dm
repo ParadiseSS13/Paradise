@@ -992,3 +992,6 @@
 	if(my_atom && my_atom.reagents == src)
 		my_atom.reagents = null
 	my_atom = null
+
+#undef ADDICTION_TIME
+#undef MINIMUM_REAGENT_AMOUNT

@@ -20,6 +20,7 @@
 	maxHealth = 125
 	melee_damage_lower = 15
 	melee_damage_upper = 15
+	maxbodytemp = INFINITY
 	obj_damage = 10
 	environment_smash = 0
 	check_friendly_fire = TRUE

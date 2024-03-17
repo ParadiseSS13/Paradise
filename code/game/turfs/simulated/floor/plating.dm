@@ -169,9 +169,9 @@
 	name = "plating"
 
 /turf/simulated/floor/plating/lavaland_air
-	temperature = 300
-	oxygen = 14
-	nitrogen = 23
+	temperature = 500
+	oxygen = 8
+	nitrogen = 14
 
 /turf/simulated/floor/engine
 	name = "reinforced floor"
@@ -235,16 +235,26 @@
 
 /turf/simulated/floor/engine/cult/Initialize(mapload)
 	. = ..()
-	if(SSticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
-		icon_state = SSticker.cultdat.cult_floor_icon_state
+	icon_state = GET_CULT_DATA(cult_floor_icon_state, initial(icon_state))
+
+/turf/simulated/floor/engine/cult/Entered(atom/A, atom/OL, ignoreRest)
+	. = ..()
+	var/counter = 0
+	for(var/obj/effect/temp_visual/cult/turf/open/floor/floor in contents)
+		if(++counter == 3)
+			return
+
+	if(!. && isliving(A))
+		sleep(2 DECISECONDS)
+		new /obj/effect/temp_visual/cult/turf/open/floor(src)
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
 
 /turf/simulated/floor/engine/cult/lavaland_air
-	nitrogen = 23
-	oxygen = 14
-	temperature = 300
+	nitrogen = 14
+	oxygen = 8
+	temperature = 500
 
 //air filled floors; used in atmos pressure chambers
 

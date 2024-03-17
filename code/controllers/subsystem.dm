@@ -323,6 +323,7 @@
 //usually called via datum/controller/subsystem/New() when replacing a subsystem (i.e. due to a recurring crash)
 //should attempt to salvage what it can from the old instance of subsystem
 /datum/controller/subsystem/Recover()
+	return
 
 /datum/controller/subsystem/vv_edit_var(var_name, var_value)
 	switch(var_name)

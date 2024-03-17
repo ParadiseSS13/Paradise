@@ -11,12 +11,12 @@
 
 	var/dice = num2text(sum) + "d" + num2text(side)
 
-	if(alert("Do you want to inform the world about your game?",,"Yes", "No") == "Yes")
+	if(alert("Do you want to inform the world about your game?", null,"Yes", "No") == "Yes")
 		to_chat(world, "<h2 style=\"color:#A50400\">The dice have been rolled by Gods!</h2>")
 
 	var/result = roll(dice)
 
-	if(alert("Do you want to inform the world about the result?",,"Yes", "No") == "Yes")
+	if(alert("Do you want to inform the world about the result?", null,"Yes", "No") == "Yes")
 		to_chat(world, "<h2 style=\"color:#A50400\">Gods rolled [dice], result is [result]</h2>")
 
 	message_admins("[key_name_admin(src)] rolled dice [dice], result is [result]", 1)

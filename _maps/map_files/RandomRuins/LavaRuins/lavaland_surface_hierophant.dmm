@@ -27,7 +27,7 @@
 /turf/simulated/floor/indestructible/hierophant/two,
 /area/ruin/unpowered/hierophant)
 "g" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/indestructible/hierophant/two,
 /area/ruin/unpowered/hierophant)
 

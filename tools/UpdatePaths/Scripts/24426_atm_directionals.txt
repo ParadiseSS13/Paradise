@@ -1,0 +1,4 @@
+/obj/machinery/economy/atm{pixel_x=-32} : /obj/machinery/economy/atm/directional/west
+/obj/machinery/economy/atm{pixel_x=32} : /obj/machinery/economy/atm/directional/east
+/obj/machinery/economy/atm{pixel_y=-32} : /obj/machinery/economy/atm/directional/south
+/obj/machinery/economy/atm{pixel_y=32} : /obj/machinery/economy/atm/directional/north

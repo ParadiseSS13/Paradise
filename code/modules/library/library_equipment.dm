@@ -438,3 +438,8 @@
 		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 		to_chat(user, "<span class='notice'>Please reconnect [src] to a library computer.</span>")
 		return FALSE
+
+#undef BARCODE_MODE_SCAN_SELECT
+#undef BARCODE_MODE_SCAN_INVENTORY
+#undef BARCODE_MODE_CHECKOUT
+#undef BARCODE_MODE_CHECKIN

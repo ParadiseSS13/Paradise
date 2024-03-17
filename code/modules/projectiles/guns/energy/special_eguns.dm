@@ -158,6 +158,7 @@
 	item_state = "plasmacutter"
 	modifystate = -1
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
+	needs_permit = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	fire_sound = 'sound/weapons/laser.ogg'
 	usesound = 'sound/items/welder.ogg'
@@ -765,7 +766,7 @@
 	if(!C)
 		return
 	C.linked_gun_UID = null
-	if(C.mode == MODE_DET)
+	if(C.mode == PINPOINTER_MODE_DET)
 		C.stop_tracking()
 	linked_pinpointer_UID = null
 	tracking_target_UID = null
@@ -833,7 +834,7 @@
 /obj/item/gun/energy/detective/proc/stop_pointing()
 	if(linked_pinpointer_UID)
 		var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
-		if(C?.mode == MODE_DET)
+		if(C?.mode == PINPOINTER_MODE_DET)
 			C.stop_tracking()
 	tracking_target_UID = null
 

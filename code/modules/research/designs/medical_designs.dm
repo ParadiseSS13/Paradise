@@ -32,10 +32,10 @@
 	build_path = /obj/item/reagent_containers/glass/beaker/noreact
 	category = list("Medical")
 
-/datum/design/cyborg_analyzer
-	name = "Cyborg Analyzer"
-	desc = "A hand-held scanner able to diagnose robotic injuries."
-	id = "cyborg_analyzer"
+/datum/design/machine_analyzer
+	name = "Machine Analyzer"
+	desc = "A hand-held scanner able to diagnose robotic injuries and the condition of machinery."
+	id = "machine_analyzer"
 	req_tech = list("programming" = 2, "biotech" = 2, "magnets" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 300, MAT_GLASS = 200)

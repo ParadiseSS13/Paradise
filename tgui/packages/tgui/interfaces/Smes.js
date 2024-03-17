@@ -25,6 +25,7 @@ export const Smes = (props, context) => {
     inputLevel,
     inputLevelMax,
     inputAvailable,
+    outputPowernet,
     outputAttempt,
     outputting,
     outputLevel,
@@ -149,11 +150,13 @@ export const Smes = (props, context) => {
                 }
               >
                 <Box color={outputState}>
-                  {outputting
-                    ? 'Sending'
-                    : charge > 0
-                      ? 'Not Sending'
-                      : 'No Charge'}
+                  {outputPowernet
+                    ? outputting
+                      ? 'Sending'
+                      : charge > 0
+                        ? 'Not Sending'
+                        : 'No Charge'
+                    : 'Not Connected'}
                 </Box>
               </LabeledList.Item>
               <LabeledList.Item label="Target Output">

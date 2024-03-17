@@ -418,14 +418,18 @@
 /obj/item/nullrod/fedora
 	name = "binary fedora"
 	desc = "The brim of the hat is as sharp as the division between 0 and 1. It makes a mighty throwing weapon."
+	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "fedora"
 	item_state = "fedora"
 	slot_flags = SLOT_FLAG_HEAD
-	icon = 'icons/obj/clothing/hats.dmi'
 	force = 0
 	throw_speed = 4
 	throw_range = 7
 	throwforce = 25 // Yes, this is high, since you can typically only use it once in a fight.
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+	)
 
 /obj/item/nullrod/armblade
 	name = "dark blessing"
@@ -557,8 +561,10 @@
 			var/mob/living/carbon/human/target = M
 
 			if(target.mind)
-				if(iscultist(target))
-					SSticker.mode.remove_cultist(target.mind, TRUE, TRUE) // This proc will handle message generation.
+				if(IS_CULTIST(target))
+					var/datum/antagonist/cultist/cultist = IS_CULTIST(target)
+					cultist.remove_gear_on_removal = TRUE
+					target.mind.remove_antag_datum(/datum/antagonist/cultist)
 					praying = FALSE
 					return
 				var/datum/antagonist/vampire/V = M.mind?.has_antag_datum(/datum/antagonist/vampire)

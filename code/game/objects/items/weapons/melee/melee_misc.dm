@@ -19,7 +19,7 @@
 
 
 /obj/item/melee/chainofcommand/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] is strangling [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(user), "<span class='suicide'>[user] is strangling [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
 
 /obj/item/melee/rapier
@@ -156,7 +156,7 @@
 
 /obj/item/melee/spellblade/examine(mob/user)
 	. = ..()
-	if(enchant && (iswizard(user) || iscultist(user))) // only wizards and cultists understand runes
+	if(enchant && (iswizard(user) || IS_CULTIST(user))) // only wizards and cultists understand runes
 		. += "The runes along the side read; [enchant.desc]."
 
 

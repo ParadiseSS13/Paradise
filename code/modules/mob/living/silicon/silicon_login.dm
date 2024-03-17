@@ -2,7 +2,7 @@
 	SetSleeping(0)
 	if(mind && SSticker && SSticker.mode)
 		SSticker.mode.remove_revolutionary(mind, 1)
-		SSticker.mode.remove_cultist(mind, 1)
+		mind.remove_antag_datum(/datum/antagonist/cultist)
 		SSticker.mode.remove_wizard(mind)
 		mind.remove_antag_datum(/datum/antagonist/changeling)
 		mind.remove_antag_datum(/datum/antagonist/vampire)

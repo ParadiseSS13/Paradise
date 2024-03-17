@@ -362,3 +362,5 @@
 	var/id = get_blood_id()
 	if(id)
 		reagents.del_reagent(get_blood_id())
+
+#undef EXOTIC_BLEED_MULTIPLIER

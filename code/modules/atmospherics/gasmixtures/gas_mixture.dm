@@ -589,3 +589,13 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 10/20*5 = 2.5
 10 = 2.5/5*20
 **/
+
+#undef SPECIFIC_HEAT_TOXIN
+#undef SPECIFIC_HEAT_AIR
+#undef SPECIFIC_HEAT_CDO
+#undef SPECIFIC_HEAT_N2O
+#undef SPECIFIC_HEAT_AGENT_B
+#undef HEAT_CAPACITY_CALCULATION
+#undef MINIMUM_HEAT_CAPACITY
+#undef MINIMUM_MOLE_COUNT
+#undef QUANTIZE

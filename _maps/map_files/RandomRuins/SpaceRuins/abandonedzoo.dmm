@@ -645,17 +645,15 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "by" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /turf/simulated/wall/r_wall,
 /area/ruin/space/unpowered)
 "bz" = (
 /obj/machinery/space_heater,
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /obj/machinery/light{
 	dir = 8

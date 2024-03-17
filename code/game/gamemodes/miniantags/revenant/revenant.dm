@@ -363,3 +363,6 @@
 /obj/item/ectoplasm/revenant/examine(mob/user)
 	. = ..()
 	. += "<span class='revennotice'>Lifeless ectoplasm, still faintly glimmering in the light. From what was once a spirit seeking revenge on the station.</span>"
+
+#undef INVISIBILITY_REVENANT
+#undef REVENANT_NAME_FILE

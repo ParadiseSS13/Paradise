@@ -359,21 +359,21 @@ Pipelines + Other Objects -> Pipe network
 	if(node)
 		var/node_dir = get_dir(src,node)
 		if(node.icon_connect_type == "-supply")
-			add_underlay_adapter(T, , node_dir, "")
+			add_underlay_adapter(T, null, node_dir, "")
 			add_underlay_adapter(T, node, node_dir, "-supply")
-			add_underlay_adapter(T, , node_dir, "-scrubbers")
+			add_underlay_adapter(T, null, node_dir, "-scrubbers")
 		else if(node.icon_connect_type == "-scrubbers")
-			add_underlay_adapter(T, , node_dir, "")
-			add_underlay_adapter(T, , node_dir, "-supply")
+			add_underlay_adapter(T, null, node_dir, "")
+			add_underlay_adapter(T, null, node_dir, "-supply")
 			add_underlay_adapter(T, node, node_dir, "-scrubbers")
 		else
 			add_underlay_adapter(T, node, node_dir, "")
-			add_underlay_adapter(T, , node_dir, "-supply")
-			add_underlay_adapter(T, , node_dir, "-scrubbers")
+			add_underlay_adapter(T, null, node_dir, "-supply")
+			add_underlay_adapter(T, null, node_dir, "-scrubbers")
 	else
-		add_underlay_adapter(T, , direction, "-supply")
-		add_underlay_adapter(T, , direction, "-scrubbers")
-		add_underlay_adapter(T, , direction, "")
+		add_underlay_adapter(T, null, direction, "-supply")
+		add_underlay_adapter(T, null, direction, "-scrubbers")
+		add_underlay_adapter(T, null, direction, "")
 
 /obj/machinery/atmospherics/proc/add_underlay_adapter(turf/T, obj/machinery/atmospherics/node, direction, icon_connect_type) //modified from add_underlay, does not make exposed underlays
 	if(node)
@@ -431,3 +431,5 @@ Pipelines + Other Objects -> Pipe network
 	update_icon()
 	if(user)
 		to_chat(user, "<span class='notice'>You set the target pressure of [src] to maximum.</span>")
+
+#undef VENT_SOUND_DELAY

@@ -150,7 +150,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 /obj/item/organ/internal/vocal_cords/colossus/handle_speech(message)
 	spans = "colossus yell" //reset spans, just in case someone gets deculted or the cords change owner
-	if(iscultist(owner))
+	if(IS_CULTIST(owner))
 		spans += "narsiesmall"
 	return "<span class=\"[spans]\">[uppertext(message)]</span>"
 
@@ -186,7 +186,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 			power_multiplier *= 0.5
 
 	//Cultists are closer to their gods and are more powerful, but they'll give themselves away
-	if(iscultist(owner))
+	if(IS_CULTIST(owner))
 		power_multiplier *= 2
 
 	//It's magic, they are a wizard.

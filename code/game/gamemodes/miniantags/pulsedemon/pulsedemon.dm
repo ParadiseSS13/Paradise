@@ -6,8 +6,6 @@
 #define ALERT_CATEGORY_NOPOWER "pulse_nopower"
 #define ALERT_CATEGORY_NOREGEN "pulse_noregen"
 
-#define PULSEDEMON_SOURCE_DRAIN_INVALID (-1)
-
 /mob/living/simple_animal/demon/pulse_demon
 	name = "pulse demon"
 	real_name = "pulse demon"
@@ -855,3 +853,7 @@
 
 #undef ALERT_CATEGORY_NOPOWER
 #undef ALERT_CATEGORY_NOREGEN
+
+#undef PULSEDEMON_PLATING_SPARK_CHANCE
+#undef PULSEDEMON_APC_CHARGE_MULTIPLIER
+#undef PULSEDEMON_SMES_DRAIN_MULTIPLIER

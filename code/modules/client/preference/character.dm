@@ -110,17 +110,17 @@
 	real_name = random_name(gender, species)
 
 /datum/character_save/proc/save(client/C)
-	var/organlist
-	var/rlimblist
+	var/organ_list
+	var/rlimb_list
 	var/playertitlelist
 	var/gearlist
 
 	var/markingcolourslist = list2params(m_colours)
 	var/markingstyleslist = list2params(m_styles)
 	if(!isemptylist(organ_data))
-		organlist = list2params(organ_data)
+		organ_list = list2params(organ_data)
 	if(!isemptylist(rlimb_data))
-		rlimblist = list2params(rlimb_data)
+		rlimb_list = list2params(rlimb_data)
 	if(!isemptylist(player_alt_titles))
 		playertitlelist = list2params(player_alt_titles)
 	if(!isemptylist(loadout_gear))
@@ -177,8 +177,8 @@
 					gen_record=:gen_record,
 					player_alt_titles=:playertitlelist,
 					disabilities=:disabilities,
-					organ_data=:organlist,
-					rlimb_data=:rlimblist,
+					organ_data=:organ_list,
+					rlimb_data=:rlimb_list,
 					nanotrasen_relation=:nanotrasen_relation,
 					physique=:physique,
 					height=:height,
@@ -236,8 +236,8 @@
 						"gen_record" = gen_record,
 						"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentnional. It wont work without it!
 						"disabilities" = disabilities,
-						"organlist" = (organlist ? organlist : ""),
-						"rlimblist" = (rlimblist ? rlimblist : ""),
+						"organ_list" = (organ_list ? organ_list : ""),
+						"rlimb_list" = (rlimb_list ? rlimb_list : ""),
 						"nanotrasen_relation" = nanotrasen_relation,
 						"physique" = physique,
 						"height" = height,
@@ -316,7 +316,7 @@
 			:sec_record,
 			:gen_record,
 			:playertitlelist,
-			:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :physique, :height, :speciesprefs,
+			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
 			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes)
 	"}, list(
@@ -364,8 +364,8 @@
 		"gen_record" = gen_record,
 		"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentional. It wont work without it!
 		"disabilities" = disabilities,
-		"organlist" = (organlist ? organlist : ""),
-		"rlimblist" = (rlimblist ? rlimblist : ""),
+		"organ_list" = (organ_list ? organ_list : ""),
+		"rlimb_list" = (rlimb_list ? rlimb_list : ""),
 		"nanotrasen_relation" = nanotrasen_relation,
 		"physique" = physique,
 		"height" = height,
@@ -1087,7 +1087,7 @@
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "bgloves"), ICON_OVERLAY)
 				has_gloves = TRUE
 				if(prob(1))
-					clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "poncho"), ICON_OVERLAY)
+					clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "qmcoat"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
@@ -1654,21 +1654,21 @@
 	if(length(med_record) <= 40)
 		HTML += "[med_record]"
 	else
-		HTML += "[copytext(med_record, 1, 37)]..."
+		HTML += "[copytext_char(med_record, 1, 37)]..."
 
 	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=gen_record\">Employment Records</a><br>"
 
 	if(length(gen_record) <= 40)
 		HTML += "[gen_record]"
 	else
-		HTML += "[copytext(gen_record, 1, 37)]..."
+		HTML += "[copytext_char(gen_record, 1, 37)]..."
 
 	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=sec_record\">Security Records</a><br>"
 
 	if(length(sec_record) <= 40)
 		HTML += "[sec_record]<br>"
 	else
-		HTML += "[copytext(sec_record, 1, 37)]...<br>"
+		HTML += "[copytext_char(sec_record, 1, 37)]...<br>"
 
 	HTML += "<a href=\"byond://?_src_=prefs;preference=records;records=-1\">\[Done\]</a>"
 	HTML += "</center></tt>"

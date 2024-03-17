@@ -248,3 +248,6 @@
 	src.yield = yield
 	src.potency = potency
 	src.amount = amount
+
+#undef BASE_MAX_SEEDS
+#undef MAX_DISPENSE_SEEDS

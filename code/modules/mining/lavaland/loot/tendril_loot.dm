@@ -405,6 +405,10 @@
 	icon = 'icons/effects/effects.dmi'
 	var/can_destroy = FALSE
 
+/obj/effect/immortality_talisman/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_EFFECT_CAN_TELEPORT, ROUNDSTART_TRAIT)
+
 /obj/effect/immortality_talisman/attackby()
 	return
 

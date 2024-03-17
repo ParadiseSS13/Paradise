@@ -139,8 +139,8 @@
 	for(var/l in H.bodyparts_by_name)
 		var/obj/item/organ/external/E = H.bodyparts_by_name[l]
 		if(!istype(E))
-			var/list/limblist = H.dna.species.has_limbs[l]
-			var/obj/item/organ/external/limb = limblist["path"]
+			var/list/limb_list = H.dna.species.has_limbs[l]
+			var/obj/item/organ/external/limb = limb_list["path"]
 			var/parent_organ = initial(limb.parent_organ)
 			var/obj/item/organ/external/parentLimb = H.bodyparts_by_name[parent_organ]
 			if(!istype(parentLimb))

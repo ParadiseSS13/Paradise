@@ -189,3 +189,5 @@
 					inserted_id?.goal = max(text2num(answer), 0)
 
 	return FALSE
+
+#undef IMPLANT_WARN_COOLDOWN

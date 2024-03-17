@@ -164,3 +164,14 @@
 /mob/living/simple_animal/hostile/alien/maid/can_clean()
 	return TRUE
 
+/mob/living/simple_animal/hostile/alien/lavaland
+	maxbodytemp = INFINITY
+
+/mob/living/simple_animal/hostile/alien/drone/lavaland
+	maxbodytemp = INFINITY
+
+/mob/living/simple_animal/hostile/alien/sentinel/lavaland
+	maxbodytemp = INFINITY
+
+/mob/living/simple_animal/hostile/alien/queen/large/lavaland
+	maxbodytemp = INFINITY

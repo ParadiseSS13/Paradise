@@ -591,6 +591,9 @@
 		print_cooldown = world.time + PRINTING_COOLDOWN
 		return TRUE
 
+/obj/machinery/computer/library/syndie
+	req_one_access = list(ACCESS_SYNDICATE)
+
 #undef LIBRARY_BOOKS_PER_PAGE
 #undef LOGIN_FULL
 #undef LOGIN_PUBLIC

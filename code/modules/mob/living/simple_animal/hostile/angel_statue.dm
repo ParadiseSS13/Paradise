@@ -189,18 +189,16 @@
 	aoe_range = 10
 
 /obj/effect/proc_holder/spell/aoe/blindness/create_new_targeting()
-	var/datum/spell_targeting/aoe/turf/targeting = new()
+	var/datum/spell_targeting/aoe/targeting = new()
 	targeting.range = aoe_range
+	targeting.allowed_type = /mob/living
 	return targeting
 
 /obj/effect/proc_holder/spell/aoe/blindness/cast(list/targets, mob/user = usr)
-	for(var/mob/living/L in GLOB.alive_mob_list)
-		if(L == user)
+	for(var/mob/living/L in targets)
+		if(istype(L, /mob/living/simple_animal/hostile/statue))
 			continue
-		var/turf/T = get_turf(L.loc)
-		if(T && (T in targets))
-			L.EyeBlind(8 SECONDS)
-	return
+		L.EyeBlind(8 SECONDS)
 
 /mob/living/simple_animal/hostile/statue/sentience_act()
 	faction -= "neutral"
@@ -208,4 +206,4 @@
 /mob/living/simple_animal/hostile/statue/restrained()
 	. = ..()
 	if(can_be_seen(loc))
-		return 1
+		return TRUE
