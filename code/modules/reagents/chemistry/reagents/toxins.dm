@@ -182,6 +182,8 @@
 	metabolization_rate = 0.3
 	taste_mult = 0.9
 	taste_description = "slime"
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/mutagen/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(!M || !M.dna || HAS_TRAIT(M, TRAIT_BADDNA) || HAS_TRAIT(M, TRAIT_GENELESS))
@@ -279,6 +281,8 @@
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "<span class='userdanger'>ACID</span>"
 	var/acidpwr = 10 //the amount of protection removed from the armour
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/acid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -336,6 +340,8 @@
 	description = "Fluorosulfuric acid is a an extremely corrosive super-acid."
 	color = "#5050FF"
 	acidpwr = 42
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/acid/facid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -389,6 +395,8 @@
 	color = "#0080ff"
 	reagent_state = LIQUID
 	taste_description = "vinegar"
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/acetic_acid/reaction_mob(mob/living/carbon/human/H, method = REAGENT_TOUCH, volume)
 	if(method != REAGENT_TOUCH)
@@ -588,6 +596,8 @@
 	color = "#B44B00"
 	penetrates_skin = TRUE
 	taste_description = "bitterness"
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/formaldehyde/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -604,6 +614,8 @@
 	color = "#B44B00"
 	penetrates_skin = TRUE
 	taste_description = "apples"
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/acetaldehyde/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -645,6 +657,8 @@
 	color = "#60A584"
 	metabolization_rate = 1
 	taste_mult = 0
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/neurotoxin2/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -685,6 +699,8 @@
 	metabolization_rate = 0.1
 	penetrates_skin = TRUE
 	taste_description = "almonds"
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/cyanide/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -710,6 +726,8 @@
 	metabolization_rate = 0.3
 	penetrates_skin = TRUE
 	taste_description = "prickliness"
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/itching_powder/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_STAT
@@ -1083,6 +1101,8 @@
 	reagent_state = LIQUID
 	color = "#773E73" //RGB: 47 24 45
 	lethality = 2 //Atrazine, however, is definitely toxic
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_EASY
 
 
 /// To-Do; make this more realistic.
