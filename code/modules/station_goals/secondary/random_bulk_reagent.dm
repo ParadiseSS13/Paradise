@@ -67,7 +67,7 @@
 		return
 
 	var/obj/item/reagent_containers/container = AM
-	var/amount = container.reagents.get_reagent_amount(initial(reagent_type.id))
+	var/amount = container.reagents?.get_reagent_amount(initial(reagent_type.id))
 	if(!amount)
 		return
 	sent += amount

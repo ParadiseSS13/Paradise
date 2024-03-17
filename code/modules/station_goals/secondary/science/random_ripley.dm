@@ -27,12 +27,12 @@
 	)
 
 /datum/station_goal/secondary/random_ripley/randomize_params()
-	var/general_module = pick(general_modules)
+	var/obj/item/mecha_parts/general_module = pick(general_modules)
 	modules += general_module
-	var/engineering_module = pick(engineering_modules)
+	var/obj/item/mecha_parts/engineering_module = pick(engineering_modules)
 	modules += engineering_module
 
-	report_message = "One of our rapid-response teams lost a mech, and needs a replacement Ripley with \a [general_module] and \a [engineering_module]."
+	report_message = "One of our rapid-response teams lost a mech, and needs a replacement Ripley with \a [initial(general_module.name)] and \a [initial(engineering_module.name)]."
 
 /datum/secondary_goal_progress/random_ripley
 	var/obj/item/food/snacks/food_type
@@ -69,9 +69,11 @@
 	var/remaining_needs = modules.Copy()
 	for(var/component in AM)
 		for(var/need in remaining_needs)
-			if(istype(AM, need))
+			if(istype(component, need))
 				remaining_needs -= need
 				break
+		// We sell or skip all of these, so we can delete it.
+		qdel(component)
 	if(length(remaining_needs))
 		var/datum/economy/line_item/wrong_item = new
 		wrong_item.account = SSeconomy.cargo_account
@@ -80,6 +82,8 @@
 		manifest.line_items += wrong_item
 		send_requests_console_message(wrong_item.reason + ", so we sent the usual amount to your supply account.", "Central Command", "Robotics", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 		return COMSIG_CARGO_SELL_PRIORITY
+
+	sent = TRUE
 	
 	var/datum/economy/line_item/cargo_item = new
 	cargo_item.account = SSeconomy.cargo_account

@@ -221,7 +221,7 @@
 			manifest.messy_shuttle = TRUE
 			SSeconomy.sold_atoms += "[AM.name](mess)"
 			qdel(AM)
-		else
+		else if(!(sellable & COMSIG_CARGO_SELL_SKIP))
 			manifest.sent_trash = TRUE
 
 	SEND_SIGNAL(src, COMSIG_CARGO_END_SELL, manifest)
@@ -682,15 +682,15 @@
 
 /datum/economy/simple_seller/mechs/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
 	if(istype(AM, /obj/mecha/working))
-		return COMSIG_CARGO_SELL_NORMAL
+		return COMSIG_CARGO_SELL_NORMAL | COMSIG_CARGO_IS_SECURED
 
 
-// Discard mech parts to avoid complaining about them.
+// Skip mech parts to avoid complaining about them.
 /datum/economy/simple_seller/mech_parts
 
 /datum/economy/simple_seller/mech_parts/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
 	if(istype(AM.loc, /obj/mecha/working))
-		return COMSIG_CARGO_SELL_NORMAL
+		return COMSIG_CARGO_SELL_SKIP
 
 
 /datum/economy/cargo_shuttle_manifest

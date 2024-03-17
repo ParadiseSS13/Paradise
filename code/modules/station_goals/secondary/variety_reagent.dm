@@ -7,6 +7,10 @@
 	var/generic_name_plural = "reagents"
 	var/reward
 
+/datum/station_goal/secondary/variety_reagent/Initialize(requester_account)
+	reward = SSeconomy.credits_per_variety_reagent_goal
+	..()
+
 /datum/secondary_goal_progress/variety_reagent
 	var/list/reagents_sent = list()
 	var/department
@@ -48,10 +52,10 @@
 	if(!container.reagents.reagent_list)
 		return
 
-	var/datum/reagent/reagent = container.reagents.get_master_reagent()
+	var/datum/reagent/reagent = container.reagents?.get_master_reagent()
 
 	// Make sure it's for our department.
-	if(reagent.goal_department != department)
+	if(!reagent || reagent.goal_department != department)
 		return
 
 	// Isolated reagents only, please.
