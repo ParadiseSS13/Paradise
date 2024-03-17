@@ -159,6 +159,12 @@
 
 	user.SpinAnimation(5, 1)
 
+	if(isrobot(user))
+		var/mob/living/silicon/robot/borg = user
+		if(borg.drop_hat())
+			borg.visible_message("<span class='warning'><span class='name'>[user]</span> drops their hat!</span>",
+							"<span class='warning'>As you flip your hat falls off!</span>")
+
 	if(prob(5) && ishuman(user))
 		message = "attempts a flip and crashes to the floor!"
 		sleep(0.3 SECONDS)
