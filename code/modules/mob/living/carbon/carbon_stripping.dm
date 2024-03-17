@@ -26,24 +26,6 @@
 	if(istype(pocket) && pocket.held_item)
 		return "dislodge_headpocket"
 
-
-/datum/strippable_item/mob_item_slot/mask/alternate_action(atom/source, mob/user, action_key)
-	if(!..())
-		return
-	if(action_key != "dislodge_headpocket")
-		return
-	var/mob/living/carbon/human/H = source
-	var/obj/item/organ/internal/headpocket/pocket = H.get_int_organ(/obj/item/organ/internal/headpocket)
-	if(!pocket.held_item)
-		return
-	user.visible_message("<span class='danger'>[user] is trying to remove something from [source]'s head!</span>",
-						"<span class='danger'>You start to dislodge whatever's inside [source]'s headpocket!</span>")
-	if(do_mob(user, source, POCKET_STRIP_DELAY))
-		user.visible_message("<span class='danger'>[user] has dislodged something from [source]'s head!</span>",
-							"<span class='danger'>You have dislodged everything from [source]'s headpocket!</span>")
-		pocket.empty_contents()
-		add_attack_logs(user, source, "Stripped of headpocket items", isLivingSSD(source) ? null : ATKLOG_ALL)
-
 /datum/strippable_item/mob_item_slot/mask/get_alternate_actions(atom/source, mob/user)
 	var/obj/item/clothing/mask/muzzle/muzzle = get_item(source)
 	if(!istype(muzzle))
