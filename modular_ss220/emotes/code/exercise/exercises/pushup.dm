@@ -5,6 +5,7 @@
 /datum/emote/exercise/pushup
 	key = "pushup"
 	key_third_person = "pushups"
+	name = EMOTE_PUSHUP
 	subtypes_types = /datum/exercise/pushup
 
 	message_prepare = "начал отжиматься."

@@ -357,3 +357,38 @@
 		return FALSE
 
 	return TRUE
+
+/datum/emote/living/carbon/human/warble/get_sound(mob/living/user)
+	return pick(
+		'modular_ss220/emotes/audio/skrell/warble_1.ogg',
+		'modular_ss220/emotes/audio/skrell/warble_2.ogg')
+
+/datum/emote/living/carbon/human/croak
+	key = "croak"
+	key_third_person = "croak"
+	message = "квакает."
+	message_param = "квакает на %t."
+	emote_type = EMOTE_AUDIBLE
+	age_based = TRUE
+	species_type_whitelist_typecache = list(/datum/species/skrell)
+
+/datum/emote/living/carbon/human/croak/get_sound(mob/living/user)
+	return pick(
+		'modular_ss220/emotes/audio/skrell/croak_1.ogg',
+		'modular_ss220/emotes/audio/skrell/croak_2.ogg',
+		'modular_ss220/emotes/audio/skrell/croak_3.ogg')
+
+/datum/emote/living/carbon/human/croak/anger
+	key = "croak_anger"
+	key_third_person = "croak_anger"
+	message = "гневно квакает!"
+	message_param = "гневно квакает на %t."
+	emote_type = EMOTE_AUDIBLE
+	age_based = TRUE
+	volume = 80
+	species_type_whitelist_typecache = list(/datum/species/skrell)
+
+/datum/emote/living/carbon/human/croak/anger/get_sound(mob/living/user)
+	return pick(
+		'modular_ss220/emotes/audio/skrell/anger_1.ogg',
+		'modular_ss220/emotes/audio/skrell/anger_2.ogg')

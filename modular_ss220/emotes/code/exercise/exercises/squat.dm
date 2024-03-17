@@ -5,6 +5,7 @@
 /datum/emote/exercise/squat
 	key = "squat"
 	key_third_person = "squats"
+	name = EMOTE_SQUAT
 	subtypes_types = /datum/exercise/squat
 
 	message_prepare = "начал приседать."

@@ -148,25 +148,25 @@
 
 /// Emote Brain
 
-/datum/emote/living/carbon/brain/alarm
+/datum/emote/living/brain/alarm
 	name = EMOTE_BRAIN_ALARM
 
-/datum/emote/living/carbon/brain/alert
+/datum/emote/living/brain/alert
 	name = EMOTE_BRAIN_ALERT
 
-/datum/emote/living/carbon/brain/flash
+/datum/emote/living/brain/flash
 	name = EMOTE_BRAIN_FLASH
 
-/datum/emote/living/carbon/brain/notice
+/datum/emote/living/brain/notice
 	name = EMOTE_BRAIN_NOTICE
 
-/datum/emote/living/carbon/brain/whistle
+/datum/emote/living/brain/whistle
 	name = EMOTE_BRAIN_WHISTLE
 
-/datum/emote/living/carbon/brain/beep
+/datum/emote/living/brain/beep
 	name = EMOTE_BRAIN_BEEP
 
-/datum/emote/living/carbon/brain/boop
+/datum/emote/living/brain/boop
 	name = EMOTE_BRAIN_BOOP
 
 // Emote Carbon
@@ -268,17 +268,11 @@
 /datum/emote/living/carbon/sign/signal
 	name = EMOTE_HUMAN_SIGNAL
 
-/datum/emote/living/carbon/human/flap
-	name = EMOTE_HUMAN_FLAP
-
-/datum/emote/living/carbon/human/flutter
-	name = EMOTE_HUMAN_FLUTTER
-
-/datum/emote/living/carbon/human/flap/aflap
-	name = EMOTE_HUMAN_AFLAP
-
 /datum/emote/living/carbon/human/gasp
 	name = EMOTE_HUMAN_GASP
+
+/datum/emote/living/carbon/human/shake
+	name = EMOTE_HUMAN_SHAKE
 
 /datum/emote/living/carbon/human/grumble
 	name = EMOTE_HUMAN_GRUMBLE
@@ -340,8 +334,20 @@
 /datum/emote/living/carbon/human/shrug
 	name = EMOTE_HUMAN_SHRUG
 
+/datum/emote/living/carbon/human/sniff
+	name = EMOTE_HUMAN_SNIFF
+
 /datum/emote/living/carbon/human/nod
 	name = EMOTE_HUMAN_NOD
+
+/datum/emote/living/carbon/human/drask_talk/drone
+	name = EMOTE_HUMAN_DRONE
+
+/datum/emote/living/carbon/human/drask_talk/hum
+	name = EMOTE_HUMAN_HUM
+
+/datum/emote/living/carbon/human/drask_talk/rumble
+	name = EMOTE_HUMAN_RUMBLE
 
 /datum/emote/living/carbon/human/monkey/gnarl
 	name = EMOTE_HUMAN_GNARL
@@ -351,6 +357,9 @@
 
 /datum/emote/living/carbon/human/monkey/tail
 	name = EMOTE_HUMAN_TAIL
+
+/datum/emote/living/carbon/human/monkey/scratch
+	name = EMOTE_HUMAN_SCRATCH
 
 /// Emote Silicon
 
@@ -386,11 +395,47 @@
 
 /// Species specific
 
+/datum/emote/living/carbon/human/hiss
+	name = EMOTE_HUMAN_HISS
+
+/datum/emote/living/carbon/human/creak
+	name = EMOTE_HUMAN_CREAK
+
+/datum/emote/living/carbon/human/quill
+	name = EMOTE_HUMAN_QUILL
+
+/datum/emote/living/carbon/human/warble
+	name = EMOTE_HUMAN_WARBLE
+
+/datum/emote/living/carbon/human/croak
+	name = EMOTE_HUMAN_CROAK
+
+/datum/emote/living/carbon/human/croak/anger
+	name = EMOTE_HUMAN_CROAK_ANGER
+
+/datum/emote/living/carbon/human/clack
+	name = EMOTE_HUMAN_CLACK
+
+/datum/emote/living/carbon/human/clack/click
+	name = EMOTE_HUMAN_CLICK
+
+/datum/emote/living/carbon/human/flap
+	name = EMOTE_HUMAN_FLAP
+
+/datum/emote/living/carbon/human/flutter
+	name = EMOTE_HUMAN_FLUTTER
+
+/datum/emote/living/carbon/human/flap/aflap
+	name = EMOTE_HUMAN_AFLAP
+
 /datum/emote/living/carbon/human/howl
 	name = EMOTE_HUMAN_HOWL
 
 /datum/emote/living/carbon/human/growl
 	name = EMOTE_HUMAN_GROWL
+
+/datum/emote/living/carbon/human/rattle
+	name = EMOTE_HUMAN_RATTLE
 
 /datum/emote/living/carbon/human/slime/squish
 	name = EMOTE_HUMAN_SQUISH
@@ -400,6 +445,41 @@
 
 /datum/emote/living/carbon/human/slime/pop
 	name = EMOTE_HUMAN_POP
+
+/// Emote Animal
+
+/datum/emote/living/simple_animal/gorilla/ooga
+	name = EMOTE_ANIMAL_OOGA
+
+/datum/emote/living/simple_animal/diona_chirp
+	name = EMOTE_ANIMAL_CHIRP
+
+/datum/emote/living/simple_animal/gorilla_ooga
+	name = EMOTE_ANIMAL_OOGA
+
+/datum/emote/living/simple_animal/pet/dog/bark
+	name = EMOTE_ANIMAL_BARK
+
+/datum/emote/living/simple_animal/pet/dog/yelp
+	name = EMOTE_ANIMAL_YELP
+
+/datum/emote/living/simple_animal/pet/dog/growl
+	name = EMOTE_ANIMAL_GROWL
+
+/datum/emote/living/simple_animal/mouse/squeak
+	name = EMOTE_ANIMAL_SQUEAK
+
+/datum/emote/living/simple_animal/pet/cat/meow
+	name = EMOTE_ANIMAL_MEOW
+
+/datum/emote/living/simple_animal/pet/cat/hiss
+	name = EMOTE_ANIMAL_HISS
+
+/datum/emote/living/simple_animal/pet/cat/purr
+	name = EMOTE_ANIMAL_PURR
+
+/datum/emote/living/simple_animal/pet/cat/sit
+	name = EMOTE_ANIMAL_SIT
 
 /// New Emotes
 

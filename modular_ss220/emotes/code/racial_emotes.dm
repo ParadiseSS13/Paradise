@@ -62,27 +62,39 @@
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
+	H.verbs |= /mob/living/carbon/human/proc/emote_flap
+	H.verbs |= /mob/living/carbon/human/proc/emote_aflap
 	H.verbs |= /mob/living/carbon/human/proc/emote_flutter
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
+	H.verbs -= /mob/living/carbon/human/proc/emote_flap
+	H.verbs -= /mob/living/carbon/human/proc/emote_aflap
 	H.verbs -= /mob/living/carbon/human/proc/emote_flutter
 
 /datum/species/skrell/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_warble
+	H.verbs |= /mob/living/carbon/human/proc/emote_croak
+	H.verbs |= /mob/living/carbon/human/proc/emote_croak_anger
 
 /datum/species/skrell/on_species_loss(mob/living/carbon/human/H)
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_warble
+	H.verbs -= /mob/living/carbon/human/proc/emote_croak
+	H.verbs -= /mob/living/carbon/human/proc/emote_croak_anger
 
 /datum/species/slime/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_squish
+	H.verbs |= /mob/living/carbon/human/proc/emote_bubble
+	H.verbs |= /mob/living/carbon/human/proc/emote_pop
 
 /datum/species/slime/on_species_loss(mob/living/carbon/human/H)
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_squish
+	H.verbs -= /mob/living/carbon/human/proc/emote_bubble
+	H.verbs -= /mob/living/carbon/human/proc/emote_pop
 
 /datum/species/tajaran/on_species_gain(mob/living/carbon/human/H)
 	..()
@@ -133,3 +145,11 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_wag
 	H.verbs -= /mob/living/carbon/human/proc/emote_swag
 	H.verbs -= /mob/living/carbon/human/proc/emote_quill
+
+/datum/species/skeleton/on_species_gain(mob/living/carbon/human/H)
+	..()
+	H.verbs |= /mob/living/carbon/human/proc/emote_rattle
+
+/datum/species/skeleton/on_species_loss(mob/living/carbon/human/H)
+	..()
+	H.verbs -= /mob/living/carbon/human/proc/emote_rattle
