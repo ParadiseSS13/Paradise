@@ -393,6 +393,7 @@
 
 
 /mob/proc/get_contents()
+	return
 
 
 //Recursive function to find everything a mob is holding.
@@ -846,6 +847,7 @@
 	return 0
 
 /mob/living/proc/check_ear_prot()
+	return
 
 /**
  * Returns the name override, if any, for the slot somebody is trying to strip
