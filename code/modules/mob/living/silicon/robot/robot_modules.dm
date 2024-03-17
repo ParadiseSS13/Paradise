@@ -634,23 +634,9 @@
 		/obj/item/gun/energy/kinetic_accelerator/cyborg,
 		/obj/item/gps/cyborg
 	)
-	emag_modules = list(/obj/item/borg/stun, /obj/item/pickaxe/drill/cyborg/diamond, /obj/item/restraints/handcuffs/cable/zipties/cyborg)
+	emag_modules = list(/obj/item/pickaxe/drill/jackhammer)
+	malf_modules = list(/obj/item/gun/energy/kinetic_accelerator/cyborg/malf)
 	special_rechargables = list(/obj/item/extinguisher/mini, /obj/item/weldingtool/mini)
-
-// Replace their normal drill with a diamond drill.
-/obj/item/robot_module/miner/emag_act()
-	. = ..()
-	for(var/obj/item/pickaxe/drill/cyborg/D in modules)
-		// Make sure we don't remove the diamond drill If they already have a diamond drill from the borg upgrade.
-		if(!istype(D, /obj/item/pickaxe/drill/cyborg/diamond))
-			qdel(D)
-			basic_modules -= D // Remove it from this list so it doesn't get added in the rebuild.
-
-// Readd the normal drill
-/obj/item/robot_module/miner/unemag()
-	var/obj/item/pickaxe/drill/cyborg/C = new(src)
-	basic_modules += C
-	return ..()
 
 // This makes it so others can crowbar out KA upgrades from the miner borg.
 /obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
