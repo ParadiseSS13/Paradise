@@ -959,6 +959,13 @@
 	allowed = list(/obj/item/pickaxe, /obj/item/t_scanner/adv_mining_scanner, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/energy/kinetic_accelerator, /obj/item/shovel, /obj/item/storage/bag/ore)
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
+/obj/item/clothing/suit/jacket/expeditionbomber
+	name = "expedition bomber jacket"
+	desc = "A stylish jacket for station-side explorers. Won't do much to protect you from space."
+	icon_state = "bomberexpedition"
+	item_state = "bomberexpedition"
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/energy/kinetic_accelerator, /obj/item/t_scanner/adv_mining_scanner, /obj/item/shovel, /obj/item/pickaxe, /obj/item/storage/bag/ore, /obj/item/gps)
+
 /obj/item/clothing/suit/jacket/hydrobomber
 	name = "hydroponics bomber jacket"
 	desc = "A stylish choice for the workers of the hydroponics lab."

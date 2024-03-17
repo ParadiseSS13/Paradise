@@ -277,6 +277,7 @@ to destroy them and players will be able to make replacements.
 		"EngiDrobe" =							/obj/machinery/economy/vending/engidrobe,
 		"AtmosDrobe" =							/obj/machinery/economy/vending/atmosdrobe,
 		"CargoDrobe" =							/obj/machinery/economy/vending/cargodrobe,
+		"ExploreDrobe" =						/obj/machinery/economy/vending/exploredrobe,
 		"ChefDrobe" =							/obj/machinery/economy/vending/chefdrobe,
 		"BarDrobe" =							/obj/machinery/economy/vending/bardrobe,
 		"HydroDrobe" =							/obj/machinery/economy/vending/hydrodrobe,
