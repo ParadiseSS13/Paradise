@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/disguise_self
 	name = "Disguise Self"
 	desc = "Disguise yourself as a crewmember, based on your current location. Also changes your voice. \
-		The disguise will not hold up to being examined directly, and will break if you're hurt, pushed, or hit by objects."
+		The illusion isn't strong enough for more thorough examinations, but will fool people at a glance, you'll loose control over the illusion if you're attacked, shoved, or a object is thrown at you, no matter how soft."
 
 	school = "illusion"
 	base_cooldown = 10 SECONDS
