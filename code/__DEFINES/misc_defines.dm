@@ -182,7 +182,7 @@
 #define SHOES_LAYER				28
 #define GLOVES_LAYER			27
 #define EARS_LAYER				26
-#define BELT_LAYER				25	//Possible make this an overlay of somethign required to wear a belt?
+#define BELT_LAYER				25	//Possible make this an overlay of something required to wear a belt?
 #define SUIT_LAYER				24
 #define SUIT_STORE_LAYER		23
 #define BACK_LAYER				22
