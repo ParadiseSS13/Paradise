@@ -108,7 +108,6 @@
 	var/coin = pickweight(list(/obj/item/coin/iron = 3,
 							/obj/item/coin/silver = 2,
 							/obj/item/coin/gold = 1))
-	new
 	new cash(src)
 	if(prob(50)) // 50% chance of a second
 		new cash(src)
