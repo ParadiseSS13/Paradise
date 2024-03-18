@@ -262,7 +262,7 @@
 	name = "Cell 7 Locker"
 	id = "Cell 7"
 
-/obj/structure/closet/secure_closet/brig/temp/cell_1
+/obj/structure/closet/secure_closet/brig/temp/cell_8
 	name = "Cell 8 Locker"
 	id = "Cell 8"
 
