@@ -10,3 +10,12 @@
 		return
 
 	usr << link(SSmapping.map_datum.webmap_url)
+
+/client/verb/open_balance_pr()
+	set name = "balance_pr"
+	set hidden = TRUE
+
+	if(tgui_alert(usr, "Do you want to open a balance PR?", "Webmap", list("Yes", "No")) != "Yes")
+		return
+
+//	usr << link(SSmapping.map_datum.webmap_url)

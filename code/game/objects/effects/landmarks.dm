@@ -668,3 +668,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/free_golem_spawn
 	name = "Free Golem Spawn Point"
+
+/obj/effect/landmark/skeleton
+	name = "Skeleton spawner"
+
+/obj/effect/landmark/skeleton/Initialize(mapload)
+	. = ..()
+	GLOB.skeleton_spawners += loc

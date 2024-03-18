@@ -73,8 +73,19 @@
 	update_health_hud()
 	med_hud_set_health()
 	med_hud_set_status()
-	overlay_fullscreen("robusted!", /atom/movable/screen/fullscreen/robusted)
-	addtimer(CALLBACK(src, PROC_REF(clear_robusted)), 20 SECONDS)
+	if(client)
+		var/atom/movable/screen/fullscreen/robusted/robusted = new()
+		var/atom/movable/screen/fullscreen/robusted/respawn/respawn = new()
+		var/atom/movable/screen/fullscreen/robusted/open_pr/open_pr = new()
+		respawn.robusted = robusted
+		respawn.open_pr = open_pr
+		open_pr.robusted = robusted
+		open_pr.respawn = respawn
+		robusted.respawn = respawn
+		robusted.open_pr = open_pr
+		client.screen += robusted
+		client.screen += respawn
+		client.screen += open_pr
 
 	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list += src
