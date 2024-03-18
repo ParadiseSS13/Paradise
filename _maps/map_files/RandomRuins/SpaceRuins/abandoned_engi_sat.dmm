@@ -79,9 +79,8 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "cK" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /obj/effect/spawner/random_spawners/wall_rusted_probably,
 /turf/simulated/wall,
@@ -243,9 +242,8 @@
 /turf/simulated/floor/carpet/airless,
 /area/ruin/space/abandoned_engi_sat)
 "hE" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -927,9 +925,8 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "De" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall/r_wall,

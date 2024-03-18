@@ -690,3 +690,7 @@ do { \
 
 #define RETURN_POINT_VECTOR(ATOM, ANGLE, SPEED) (new /datum/point_precise/vector(ATOM, null, null, null, null, ANGLE, SPEED))
 #define RETURN_POINT_VECTOR_INCREMENT(ATOM, ANGLE, SPEED, AMT) (new /datum/point_precise/vector(ATOM, null, null, null, null, ANGLE, SPEED, AMT))
+
+#define TEAM_ADMIN_ADD_OBJ_SUCCESS				(1<<0)
+#define TEAM_ADMIN_ADD_OBJ_CANCEL_LOG 			(1<<1)
+#define TEAM_ADMIN_ADD_OBJ_PURPOSEFUL_CANCEL 	(1<<2)
