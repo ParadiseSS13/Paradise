@@ -52,16 +52,21 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/announcementConsole = FALSE
 		// FALSE = This console cannot be used to send department announcements
 		// TRUE = This console can send department announcementsf
-	var/announceAuth = FALSE //Will be set to TRUE when you authenticate yourself for announcements
-	var/secondaryGoalAuth = FALSE //Will be set to TRUE when you authenticate yourself for requesting a secondary goal
-	var/msgVerified = "Not verified" //Will contain the name of the person who varified it
-	var/msgStamped = "Not stamped" //If a message is stamped, this will contain the stamp name
+	/// Will be set to TRUE when you authenticate yourself for announcements
+	var/announceAuth = FALSE
+	/// Will be set to TRUE when you authenticate yourself for requesting a secondary goal
+	var/secondaryGoalAuth = FALSE
+	/// Will contain the name of the person who verified it
+	var/msgVerified = "Not verified"
+	/// If a message is stamped, this will contain the stamp name
+	var/msgStamped = "Not stamped"
 	var/message = ""
 	var/recipient = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
 	light_range = 0
 	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/requests_console)
-	var/goalRequester // The ID card of the person requesting a scondary goal.
+	/// The ID card of the person requesting a secondary goal.
+	var/goalRequester
 	var/list/shipping_log = list()
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
