@@ -219,13 +219,12 @@
 		/obj/item/ammo_box/a357, // 15TC
 		/obj/item/ammo_box/a357, // 15TC
 		/obj/item/pen/edagger, // 10TC
-		/obj/item/chameleon, // 25TC
+		/obj/item/storage/box/syndie_kit/chameleon, // 20TC
 		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 3TC
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 7TC
 		/obj/item/bio_chip/stealth, // 45TC
-		/obj/item/storage/cigcase/syndie, // TC
+		/obj/item/storage/cigcase/syndie, // 5TC
 		/obj/item/lighter/zippo, // 0TC
-		/obj/item/clothing/mask/balaclava, // 0TC
 		/obj/item/encryptionkey/syndicate) // 10TC
 
 /obj/item/storage/box/syndie_kit/bundle/populate_contents()

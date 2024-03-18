@@ -559,6 +559,14 @@
 	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/badass/cigcase
+	name = "Cigarette Case"
+	desc = "An embellished cigarette case made of Plastitanium, perfect for carrying everything one might in a wallet."
+	reference = "SCC"
+	item /obj/item/storage/cigcase/syndie
+	cost = 5
+	excludefrom = list(UPLINK_TYPE_NUCLEAR) // Nukies have no need for a cigarette case, but SST might
+
 /datum/uplink_item/bundles_TC/contractor
 	name = "Syndicate Contractor Kit"
 	desc = "A bundle granting you the privilege of taking on kidnapping contracts for credit and TC payouts that can add up to more than its initial cost."

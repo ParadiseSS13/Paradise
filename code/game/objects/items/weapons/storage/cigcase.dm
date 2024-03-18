@@ -1,7 +1,7 @@
 /obj/item/storage/cigcase
 	name = "cigarette case"
 	desc = "A durable case for holding cigarettes and a variety of other things that can fit in it. You have a strange urge to crouch and look up when holding it."
-	storage_slots = 12
+	storage_slots = 10
 	icon = 'icons/obj/wallets.dmi'
 	icon_state = "cigcase"
 	w_class = WEIGHT_CLASS_SMALL
@@ -28,18 +28,27 @@
 		/obj/item/stamp,
 		/obj/item/rollingpaper)
 	cant_hold = list(
-		/obj/item/toy/crayon/spraycan
-	)
+		/obj/item/toy/crayon/spraycan)
+
+/obj/item/storage/cigcase/random/populate_contents()
+	new /obj/item/clothing/mask/cigarette(src)
+	new /obj/item/clothing/mask/cigarette(src)
+	new /obj/item/clothing/mask/cigarette(src)
+	if(prob(50))
+		new /obj/item/clothing/mask/cigarette(src)
+	if(prob(50))
+		new /obj/item/clothing/mask/cigarette(src)
 
 /obj/item/storage/cigcase/nt_rep
 	name = "golden cigarette case"
 	desc = "A fancy golden cigarette case made in cooperation with Louis Crabbemarche. Often given to diplomats and representatives as a gift."
-	storage_slots = 12
 	icon_state = "cigcase_nt"
 	origin_tech = "materials=5"
 	materials = list(MAT_GOLD = 500)
 
 /obj/item/storage/cigcase/syndie
 	name = "suspicious cigarette case"
-	desc = "Shifty though it may look, can't deny it's got style."
+	desc = "Simple. Stylish. Shady. Perfect for the discerning ner-do-well who lurks in maintenance tunnels."
 	icon_state = "cigcase_syndie"
+	origin_tech = "materials=3,syndicate=1"
+	materials = list(MAT_TITANIUM = 250, MAT_PLASMA = 250)
