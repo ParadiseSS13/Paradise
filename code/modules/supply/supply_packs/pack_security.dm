@@ -352,6 +352,9 @@
 
 /datum/supply_packs/security/secway
 	name = "Secway Crate"
+	contains_special = list(
+		"Secway"
+	)
 	cost = 800
 	containertype = /obj/structure/largecrate/secway
 	containername = "secway crate"

@@ -557,11 +557,12 @@
 
 	if(mind)
 		mind.active = FALSE					//we wish to transfer the key manually
-		if(mind.assigned_role == "Clown")				//give them a clownname if they are a clown
-			new_character.real_name = pick(GLOB.clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
+		// Clowns and mimes get appropriate default names, and the chance to pick a custom one.
+		if(mind.assigned_role == "Clown")
+			new_character.rename_character(new_character.real_name, pick(GLOB.clown_names))
 			new_character.rename_self("clown")
 		else if(mind.assigned_role == "Mime")
-			new_character.real_name = pick(GLOB.mime_names)
+			new_character.rename_character(new_character.real_name, pick(GLOB.mime_names))
 			new_character.rename_self("mime")
 		mind.set_original_mob(new_character)
 		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
