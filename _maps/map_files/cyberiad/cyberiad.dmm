@@ -12024,10 +12024,6 @@
 /obj/structure/window/full/reinforced/wallwindow/tinted,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical)
-"aMr" = (
-/obj/structure/window/full/reinforced/wallwindow/tinted,
-/turf/simulated/floor/plating,
-/area/space/nearstation)
 "aMs" = (
 /obj/structure/window/full/reinforced/wallwindow,
 /turf/simulated/floor/plating,
@@ -81803,8 +81799,7 @@
 	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
 	name = "KEEP CLEAR: DOCKING AREA"
 	},
-/obj/structure/window/full/reinforced/wallwindow/tinted,
-/turf/simulated/floor/plating,
+/turf/simulated/wall,
 /area/space/nearstation)
 "qUu" = (
 /obj/machinery/light_switch{
@@ -111750,7 +111745,7 @@ aaa
 aaa
 aaa
 aaa
-aMr
+oau
 aaa
 aaa
 aaa
@@ -113030,8 +113025,8 @@ aaa
 aaa
 aaa
 aab
-aMr
-aMr
+oau
+oau
 aab
 abN
 aeT
@@ -121512,9 +121507,9 @@ aaa
 aaa
 aaa
 aaa
-aMr
-aMr
-aMr
+oau
+oau
+oau
 aab
 jMx
 akZ
@@ -123055,7 +123050,7 @@ afO
 aab
 afO
 qTO
-aMr
+oau
 aab
 aab
 abY
