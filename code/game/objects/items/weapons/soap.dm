@@ -1,4 +1,4 @@
-code/modules/clothing/head/collectable.dm/obj/item/soap
+/obj/item/soap
 	name = "soap"
 	desc = "A cheap bar of soap. Doesn't smell."
 	gender = PLURAL
