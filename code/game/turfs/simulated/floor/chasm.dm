@@ -147,13 +147,15 @@
 	falling_atoms[AM] = TRUE
 	var/turf/T = locate(drop_x, drop_y, drop_z)
 	if(T)
+		if(isliving(AM))
+			var/mob/living/L = AM
+			L.emote("aaauuuggghhh", intentional = FALSE)
+			L.Weaken(10 SECONDS)
+			L.adjustBruteLoss(30)
 		AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>GAH! Ah... where are you?</span>")
 		T.visible_message("<span class='boldwarning'>[AM] falls from above!</span>")
 		AM.forceMove(T)
-		if(isliving(AM))
-			var/mob/living/L = AM
-			L.Weaken(10 SECONDS)
-			L.adjustBruteLoss(30)
+
 	falling_atoms -= AM
 
 /turf/simulated/floor/chasm/straight_down

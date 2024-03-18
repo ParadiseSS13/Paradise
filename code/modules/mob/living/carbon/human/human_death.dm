@@ -46,10 +46,13 @@
 	if(!IS_HORIZONTAL(src))
 		// keep us upright so the animation fits.
 		ADD_TRAIT(src, TRAIT_FORCED_STANDING, TRAIT_GENERIC)
+	emote("aaauuuggghhh", intentional = FALSE)
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	notransform = TRUE
+
 	dust_animation()
+
 	QDEL_IN(src, 2 SECONDS)
 	return TRUE
 

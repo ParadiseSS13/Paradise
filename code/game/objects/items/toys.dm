@@ -1176,6 +1176,7 @@
 		if(!(user.has_organ(zone))) // If they somehow don't have a head.
 			zone = "chest"
 		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
+		playsound(src, 'sound/voice/now.ogg', 80, TRUE)
 		user.visible_message("<span class='danger'>[src] goes off!</span>")
 		post_shot(user)
 		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")

@@ -468,6 +468,9 @@
 
 	target.visible_message("<span class='warning'>[user] pulls the trigger!</span>", "<span class='userdanger'>[user] pulls the trigger!</span>")
 
+	if(user == target)
+		playsound(src, 'sound/voice/now.ogg', 80, TRUE)
+
 	if(chambered && chambered.BB)
 		chambered.BB.damage *= 5
 

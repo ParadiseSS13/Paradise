@@ -453,6 +453,22 @@
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
 	hands_use_check = TRUE
 
+/datum/emote/living/carbon/human/aaauuuggghhh
+	key = "aaauuuggghhh"
+	message = "screams in agony!"
+	message_mime = "raises their hands and makes an agonized expression!"
+	emote_type = EMOTE_AUDIBLE
+	sound = 'sound/voice/dust.ogg'
+	vary = TRUE
+
+/datum/emote/living/carbon/human/play_sound_effect(mob/living/carbon/human/user, intentional, sound_path, sound_volume)
+	if(intentional)
+		// get trolled idiot
+		user.visible_message("<span class='danger'>[user] starts having a seizure!</span>", "<span class='alert'>You have a seizure!</span>")
+		user.Paralyse(20 SECONDS)
+		user.Jitter(2000 SECONDS)
+	else
+		return ..()
 
 /////////
 // Species-specific emotes

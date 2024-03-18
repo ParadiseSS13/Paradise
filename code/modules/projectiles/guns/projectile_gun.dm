@@ -200,6 +200,7 @@
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)
 			process_fire(user, user, 0, zone_override = "head")
+			playsound(src, 'sound/voice/now.ogg', 80, TRUE)
 			user.visible_message("<span class='suicide'>[user] blows [user.p_their()] brains out with [src]!</span>")
 			return BRUTELOSS
 		else
