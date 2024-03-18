@@ -63071,10 +63071,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/reception)
-"hSD" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/space/nearstation)
 "hSU" = (
 /obj/structure/railing{
 	dir = 8
@@ -89710,7 +89706,7 @@
 /area/station/service/barber)
 "uZe" = (
 /obj/structure/grille/broken,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "uZi" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -133206,13 +133202,13 @@ cRi
 dem
 hjF
 aaa
-hSD
-hSD
-hSD
-hSD
-hSD
-hSD
-hSD
+afX
+afX
+afX
+afX
+afX
+afX
+afX
 uZe
 aaa
 diu
@@ -145443,7 +145439,7 @@ aAf
 aAf
 aAf
 aAf
-aDs
+aAf
 aAf
 aGX
 aGX
