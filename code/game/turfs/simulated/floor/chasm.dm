@@ -199,6 +199,7 @@
 		var/mob/living/L = AM
 		L.notransform = TRUE
 		L.Weaken(20 SECONDS)
+		L.emote("aaauuuggghhh", intentional = FALSE)
 	var/oldtransform = AM.transform
 	var/oldcolor = AM.color
 	var/oldalpha = AM.alpha
