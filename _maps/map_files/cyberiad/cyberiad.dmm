@@ -7948,8 +7948,7 @@
 /area/station/maintenance/abandonedbar)
 "azU" = (
 /obj/structure/sign/electricshock,
-/obj/structure/window/full/reinforced/wallwindow/tinted,
-/turf/simulated/floor/plating,
+/turf/simulated/wall,
 /area/station/engineering/solar/auxstarboard)
 "azV" = (
 /obj/structure/cable{
@@ -47992,9 +47991,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
-"cZS" = (
-/turf/simulated/wall/r_wall,
-/area/station/engineering/atmos)
 "cZT" = (
 /obj/structure/chair/office/light{
 	dir = 8
@@ -51621,8 +51617,7 @@
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "dmD" = (
-/obj/structure/window/full/reinforced/reinforcedwallwindow/tinted,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/r_wall,
 /area/space/nearstation)
 "dmE" = (
 /obj/machinery/door/poddoor{
@@ -55024,7 +55019,8 @@
 	layer = 2.9;
 	name = "Mixed Air Tank Out"
 	},
-/turf/simulated/wall/r_wall,
+/obj/structure/window/full/reinforced/reinforcedwallwindow/tinted,
+/turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "eeJ" = (
 /obj/effect/turf_decal/delivery/white/hollow,
@@ -63077,7 +63073,6 @@
 /area/station/medical/reception)
 "hSD" = (
 /obj/structure/grille,
-/obj/structure/window/full/reinforced/wallwindow/tinted,
 /turf/simulated/floor/plating,
 /area/space/nearstation)
 "hSU" = (
@@ -67277,7 +67272,8 @@
 /obj/machinery/atmospherics/meter{
 	layer = 2.9
 	},
-/turf/simulated/wall/r_wall,
+/obj/structure/window/full/reinforced/reinforcedwallwindow/tinted,
+/turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "jYv" = (
 /obj/structure/railing{
@@ -75466,6 +75462,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
+"oau" = (
+/turf/simulated/wall,
+/area/space/nearstation)
 "oaA" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -76592,7 +76591,8 @@
 	layer = 2.9;
 	name = "Mixed Air Tank In"
 	},
-/turf/simulated/wall/r_wall,
+/obj/structure/window/full/reinforced/reinforcedwallwindow/tinted,
+/turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "oyO" = (
 /obj/item/stack/packageWrap,
@@ -85875,7 +85875,8 @@
 /obj/machinery/atmospherics/meter{
 	layer = 2.9
 	},
-/turf/simulated/wall/r_wall,
+/obj/structure/window/full/reinforced/reinforcedwallwindow/tinted,
+/turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "taA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -89709,7 +89710,6 @@
 /area/station/service/barber)
 "uZe" = (
 /obj/structure/grille/broken,
-/obj/structure/window/full/reinforced/wallwindow/tinted,
 /turf/simulated/floor/plating,
 /area/space/nearstation)
 "uZi" = (
@@ -129097,11 +129097,11 @@ dgM
 dcF
 roQ
 aab
-cZS
-cZS
-cZS
-cZS
-cZS
+hjF
+wXT
+wXT
+wXT
+wXT
 gdw
 tkW
 esa
@@ -129358,7 +129358,7 @@ taa
 khW
 dkO
 dkO
-cZS
+wXT
 gdw
 ddr
 esa
@@ -129615,7 +129615,7 @@ nZP
 mVr
 bbM
 dlv
-cZS
+hjF
 dcq
 ddr
 dOc
@@ -129872,7 +129872,7 @@ taa
 qRU
 dkO
 dkO
-cZS
+hjF
 aab
 aaa
 dOc
@@ -130125,11 +130125,11 @@ dgQ
 dhx
 roQ
 cQp
-cZS
+hjF
 wXT
 wXT
 wXT
-cZS
+hjF
 aab
 aaa
 dOc
@@ -130386,7 +130386,7 @@ taa
 oLk
 dkT
 dkT
-cZS
+hjF
 aab
 aaa
 aaa
@@ -130643,7 +130643,7 @@ nZP
 khY
 bbO
 dlw
-cZS
+hjF
 aab
 aaa
 aaa
@@ -130900,7 +130900,7 @@ taa
 oCa
 dkT
 dkT
-cZS
+hjF
 aab
 aab
 aab
@@ -131153,11 +131153,11 @@ dgQ
 cSd
 roQ
 cQp
-cZS
+hjF
 wXT
 wXT
 wXT
-cZS
+hjF
 aaa
 aab
 aaa
@@ -131414,7 +131414,7 @@ oyH
 tGy
 dkV
 dkV
-cZS
+hjF
 aaa
 aab
 aaa
@@ -131671,7 +131671,7 @@ nZP
 hrg
 bdG
 dlx
-cZS
+hjF
 aaa
 aab
 aaa
@@ -131928,7 +131928,7 @@ eew
 khK
 dkV
 dkV
-cZS
+hjF
 aaa
 aab
 aab
@@ -132181,11 +132181,11 @@ wKR
 roQ
 roQ
 cQp
-cZS
-cZS
-cZS
-cZS
-cZS
+hjF
+hjF
+hjF
+hjF
+hjF
 aaa
 aab
 aaa
@@ -132674,23 +132674,23 @@ cKj
 cLO
 cxO
 cQp
-cZS
+hjF
 jYu
 nZP
 jYu
-cZS
+hjF
 jYu
 nZP
 jYu
-cZS
+hjF
 jYu
 nZP
 jYu
-cZS
+hjF
 jYu
 nZP
 jYu
-cZS
+hjF
 aaa
 aaa
 aaa
@@ -132931,7 +132931,7 @@ fEv
 uOG
 cxO
 cQp
-cZS
+hjF
 olG
 pRS
 ecy
@@ -132947,7 +132947,7 @@ wXT
 hWr
 pUX
 pxv
-cZS
+hjF
 aaa
 aaa
 aaa
@@ -133188,7 +133188,7 @@ fEv
 cLP
 cxO
 cQp
-cZS
+hjF
 cSs
 cSw
 cSw
@@ -133204,7 +133204,7 @@ wXT
 dem
 cRi
 dem
-cZS
+hjF
 aaa
 hSD
 hSD
@@ -133445,7 +133445,7 @@ sWc
 cts
 cxO
 cQp
-cZS
+hjF
 cSw
 cTw
 cSw
@@ -133461,7 +133461,7 @@ wXT
 dem
 deY
 dem
-cZS
+hjF
 aaa
 aab
 aaa
@@ -133702,23 +133702,23 @@ vzf
 xYd
 cxO
 cQp
-cZS
-cZS
-cZS
-cZS
-cZS
-cZS
-cZS
-cZS
-cZS
-cZS
-cZS
-cZS
-cZS
-cZS
-cZS
-cZS
-cZS
+hjF
+hjF
+hjF
+hjF
+hjF
+hjF
+hjF
+hjF
+hjF
+hjF
+hjF
+hjF
+hjF
+hjF
+hjF
+hjF
+hjF
 diu
 djE
 xzG
@@ -144678,7 +144678,7 @@ aIE
 aGX
 aGX
 aab
-aMr
+oau
 aab
 aGX
 aJN
@@ -144935,7 +144935,7 @@ aGY
 aGY
 aGX
 aab
-aMr
+oau
 aab
 aGX
 aJL
@@ -145192,7 +145192,7 @@ aGY
 aLc
 aGX
 aab
-aMr
+oau
 aaa
 aGX
 aGX
@@ -145449,7 +145449,7 @@ aGX
 aGX
 aGX
 aaa
-aMr
+oau
 aaa
 aaa
 aaa
@@ -145963,7 +145963,7 @@ aaa
 aaa
 aaa
 aaa
-aMr
+oau
 aaa
 aaa
 aaa
@@ -146220,13 +146220,13 @@ aaa
 aaa
 aaa
 aaa
-aMr
+oau
 aaa
 aaa
 aaa
 aaa
 aaa
-aMr
+oau
 aaa
 aaa
 aaa
@@ -146483,7 +146483,7 @@ aaa
 aaa
 aaa
 aaa
-aMr
+oau
 aaa
 aaa
 aaa
