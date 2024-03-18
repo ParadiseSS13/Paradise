@@ -638,8 +638,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	bot_reset() // Reset a bot before setting it to call mode.
 	var/area/end_area = get_area(waypoint)
 
-	var/datum/job/captain/All = new/datum/job/captain
-	access_card.access = All.get_access() // Give the bot temporary all access
+	access_card.access = get_all_accesses() // Give the bot temporary all access
 
 	set_path(get_path_to(src, waypoint, 200, id = access_card))
 	calling_ai = caller // Link the AI to the bot!
