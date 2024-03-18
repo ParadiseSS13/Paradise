@@ -9,6 +9,13 @@
 	name = "blood sparks"
 	icon_state = "bloodsparkles"
 
+/obj/effect/temp_visual/cult/sparks/hierophant
+	icon = 'icons/effects/effects.dmi'
+	randomdir = TRUE
+	duration = 12
+	name = "purple sparks"
+	icon_state = "hierophant_blast"
+
 /obj/effect/temp_visual/dir_setting/cult/phase
 	name = "phase glow"
 	duration = 12

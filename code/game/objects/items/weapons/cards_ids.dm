@@ -47,6 +47,21 @@
 		return
 	A.emag_act(user)
 
+/obj/item/card/emag/one_use
+	desc = "It's a card with a magic strip attached to some circuitry. Looks delicate!"
+	name = "magic cryptographic sequencer"
+	origin_tech = "magnets=2"
+
+/obj/item/card/emag/one_use/afterattack(atom/target, mob/user, proximity)
+	. = ..()
+	qdel(src)
+
+/obj/item/card/emag/afterattack(atom/target, mob/user, proximity)
+	var/atom/A = target
+	if(!proximity)
+		return
+	A.emag_act(user)
+
 /obj/item/card/cmag
 	desc = "It's a card coated in a slurry of electromagnetic bananium."
 	name = "jestographic sequencer"

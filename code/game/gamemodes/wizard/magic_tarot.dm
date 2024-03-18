@@ -65,13 +65,13 @@
 
 /obj/item/magic_tarot_card/attack_self(mob/user) //QWERTODO: Invoke asynk on the hit effect
 	if(our_tarot)
-		our_tarot.activate(user)
+		INVOKE_ASYNC(our_tarot, TYPE_PROC_REF(/datum/tarot, activate), user)
 	poof()
 
 /obj/item/magic_tarot_card/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(isliving(hit_atom) && our_tarot)
-		our_tarot.activate(hit_atom)
+		INVOKE_ASYNC(our_tarot, TYPE_PROC_REF(/datum/tarot, activate), hit_atom)
 	poof()
 
 /obj/item/magic_tarot_card/proc/poof()
@@ -120,6 +120,9 @@
 
 /obj/effect/abstract/bubblegum_rend_helper/Initialize(mapload, mob/living/owner, damage)
 	. = ..()
+	INVOKE_ASYNC(src, PROC_REF(rend), owner, damage)
+
+/obj/effect/abstract/bubblegum_rend_helper/proc/rend(mob/living/owner, damage)
 	var/turf/TA = get_turf(owner)
 	owner.Immobilize(3 SECONDS)
 	new /obj/effect/decal/cleanable/blood/bubblegum(TA)
@@ -142,6 +145,7 @@
 	var/turf/TD = get_turf(owner)
 	to_chat(owner, "<span class='userdanger'>Something huge rends you!</span>")
 	playsound(TD, 'sound/misc/demon_attack1.ogg', 100, TRUE, -1)
+	owner.adjustBruteLoss(damage)
 	qdel(src)
 
 /datum/tarot/the_empress //Unsure!
@@ -171,5 +175,200 @@
 
 	target.forceMove(pick(L))
 
+/datum/tarot/the_hierophant
+	name = "V - The Hierophant"
+	desc = "Two prayers for the lost"
+
+/datum/tarot/the_hierophant/activate(mob/living/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(H.wear_suit)
+			H.wear_suit.setup_hierophant_shielding()
+			H.update_appearance(UPDATE_ICON)
+
 //Chariot blood drunk, and vampire bonus.
-// Hierophant for hierphant, make shield purple.
+
+/datum/tarot/the_lovers
+	name = "VI - The Lovers"
+	desc = "May you prosper and be in good health"
+
+/datum/tarot/the_lovers/activate(mob/living/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.adjustBruteLoss(-40, robotic = TRUE)
+		H.adjustFireLoss(-40, robotic = TRUE)
+	else
+		target.adjustBruteLoss(-40)
+		target.adjustFireLoss(-40)
+	target.adjustOxyLoss(-40)
+	target.adjustToxLoss(-40)
+
+/datum/tarot/the_chariot
+	name = "VII - The Chariot"
+	desc = "May nothing stand before you"
+
+/datum/tarot/the_chariot/activate(mob/living/target)
+	target.apply_status_effect(STATUS_EFFECT_BLOOD_RUSH)
+	target.apply_status_effect(STATUS_EFFECT_FORCESHIELD)
+
+/datum/tarot/justice
+	name = "VIII - Justice"
+	desc = "May your future become balanced"
+
+/datum/tarot/justice/activate(mob/living/target)
+	var/turf/target_turf = get_turf(target)
+	new /obj/item/storage/firstaid/regular(target_turf)
+	new /obj/item/grenade/frag(target_turf)
+	new /obj/item/card/emag/one_use(target_turf)
+	new /obj/item/stack/spacecash/c200(target_turf)
+
+/datum/tarot/the_hermit
+	name = "IX - The Hermit"
+	desc = "May you see what life has to offer"
+
+/datum/tarot/the_hermit/activate(mob/living/target)
+	var/list/viable_vendors = list()
+	for(var/obj/machinery/economy/vending/candidate in GLOB.machines)
+		if(!is_station_level(candidate.z))
+			continue
+		viable_vendors += candidate
+
+	if(!length(viable_vendors))
+		to_chat(target, "<span class='warning'>No vending machines? Well, with luck cargo will have something to offer. If you go there yourself.</span>")
+		return
+
+	target.forceMove(get_turf(pick(viable_vendors)))
+
+
+/datum/tarot/wheel_of_fortune
+	name = "X - Wheel of Fortune"
+	desc = "Spin the wheel of destiny"
+
+/datum/tarot/wheel_of_fortune/activate(mob/living/target)
+	var/list/static/bad_vendors = list(/obj/machinery/economy/vending/liberationstation,
+	/obj/machinery/economy/vending/toyliberationstation,
+	/obj/machinery/economy/vending/wallmed)
+	var/turf/target_turf = get_turf(target)
+	var/vendorpath = pick(subtypesof(/obj/machinery/economy/vending) - bad_vendors)
+	new vendorpath(target_turf)
+
+/datum/tarot/strength
+	name = "XI - Strength"
+	desc = "May your power bring rage"
+
+/datum/tarot/strength/activate(mob/living/target)
+	target.apply_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
+	target.apply_status_effect(STATUS_EFFECT_BLOOD_SWELL)
+
+/datum/tarot/the_hanged_man
+	name = "XII - The Hanged Man"
+	desc = "May you find enlightenment"
+
+/datum/tarot/the_hanged_man/activate(mob/living/target)
+	if(target.flying)
+		return
+	target.flying = TRUE
+	addtimer(VARSET_CALLBACK(target, flying, FALSE), 60 SECONDS)
+
+/datum/tarot/death
+	name = "XIII - Death"
+	desc = "Lay waste to all that oppose you"
+
+/datum/tarot/death/activate(mob/living/target) //qwertodo: to_chat? visable effect? unsure
+	for(var/mob/living/L in oview(9, target))
+		L.adjustBruteLoss(20)
+		L.adjustFireLoss(20)
+
+/datum/tarot/temperance
+	name = "XIV - Temperance"
+	desc = "May you be pure in heart"
+
+/datum/tarot/temperance/activate(mob/living/target)
+	. = ..()
+
+/datum/tarot/the_devil
+	name = "XV - The Devil"
+	desc = "Revel in the power of darkness"
+
+/datum/tarot/the_devil/activate(mob/living/target)
+	. = ..()
+
+/datum/tarot/the_tower
+	name = "XVI - The Tower"
+	desc = "Destruction brings creation"
+
+/datum/tarot/the_tower/activate(mob/living/target)
+	var/obj/item/grenade/clusterbuster/ied/bakoom = new(get_turf(target))
+	bakoom.prime()
+
+/datum/tarot/the_stars //I'm sorry matt, this is very funny.
+	name = "XVII - The Stars"
+	desc = "May you find what you desire"
+
+/datum/tarot/the_stars/activate(mob/living/target)
+	var/list/L = list()
+	for(var/turf/T in get_area_turfs(/area/station/security/evidence))
+		if(is_blocked_turf(T))
+			continue
+		L.Add(T)
+
+	if(!length(L))
+		to_chat(target, "<span class='warning'>Huh. No evidence? Well, that means they can't charge you with a crime, right?</span>")
+		return
+
+	target.forceMove(pick(L))
+	for(var/obj/structure/closet/C in shuffle(view(9, target)))
+		if(istype(C, /obj/structure/closet/secure_closet))
+			var/obj/structure/closet/secure_closet/SC = C
+			SC.locked = FALSE
+		C.open()
+		break //Only open one locker
+
+/datum/tarot/the_moon
+	name = "XVIII - The Moon"
+	desc = "May you find all you have lost"
+
+/datum/tarot/the_moon/activate(mob/living/target)
+	var/list/funny_ruin_list = list()
+	var/turf/target_turf = get_turf(target)
+	for(var/i in GLOB.ruin_landmarks)
+		var/obj/effect/landmark/ruin/ruin_landmark = i
+		if(ruin_landmark.z == target_turf.z)
+			funny_ruin_list += ruin_landmark
+
+	if(length(funny_ruin_list))
+		target.forceMove(get_turf(pick(funny_ruin_list)))
+		target.update_parallax_contents()
+		return
+	//We did not find a ruin on the same level. Well. I hope you have a space suit, but we'll go space ruins as they are mostly sorta kinda safer.
+	for(var/i in GLOB.ruin_landmarks)
+		var/obj/effect/landmark/ruin/ruin_landmark = i
+		if(!is_mining_level(ruin_landmark.z))
+			funny_ruin_list += ruin_landmark
+
+	if(length(funny_ruin_list))
+		target.forceMove(get_turf(pick(funny_ruin_list)))
+		target.update_parallax_contents()
+		return
+	to_chat(target, "<span class='warning'>Huh. No space ruins? Well, this card is RUINED!</span>")
+
+/datum/tarot/the_sun
+	name = "XIX - The Sun"
+	desc = "May the light heal and enlighten you"
+
+/datum/tarot/the_sun/activate(mob/living/target)
+	target.revive()
+
+/datum/tarot/judgement
+	name = "XX - Judgement"
+	desc = "Judge lest ye be judged"
+
+/datum/tarot/judgement/activate(mob/living/target)
+	notify_ghosts("[target] has used a judgment card. Judge them. Or not, up to you.", enter_link="<a href=?src=[UID()];follow=1>(Click to judge)</a>", source = target, action = NOTIFY_FOLLOW)
+
+/datum/tarot/the_world //qwertodo: temporary xray vision
+	name = "XXI - The World"
+	desc = "Open your eyes and see"
+
+/datum/tarot/the_world/activate(mob/living/target)
+	. = ..()
