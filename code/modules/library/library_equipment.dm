@@ -415,7 +415,7 @@
 			else
 				confirm = tgui_alert(user, "Are you sure you want to checkout [B] to [computer.user_data.patron_name]?", "Confirm Checkout", list("Yes", "No"))
 
-			if(confirm == "No")
+			if(confirm != "Yes")
 				return
 			if(computer.checkout(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
@@ -438,3 +438,8 @@
 		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 		to_chat(user, "<span class='notice'>Please reconnect [src] to a library computer.</span>")
 		return FALSE
+
+#undef BARCODE_MODE_SCAN_SELECT
+#undef BARCODE_MODE_SCAN_INVENTORY
+#undef BARCODE_MODE_CHECKOUT
+#undef BARCODE_MODE_CHECKIN

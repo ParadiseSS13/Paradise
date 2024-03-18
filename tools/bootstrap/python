@@ -23,6 +23,7 @@ cd "$OldPWD"
 PythonVersion="$PYTHON_VERSION"
 PythonDir="$Cache/python-$PythonVersion"
 PythonExe="$PythonDir/python.exe"
+PythonArg=""
 Log="$Cache/last-command.log"
 
 # If a portable Python for Windows is not present, search on $PATH.
@@ -38,7 +39,8 @@ if [ "$(uname)" = "Linux" ] || [ ! -f "$PythonExe" ]; then
 	elif command -v python >/dev/null 2>&1; then
 		PythonExe=python
 	elif command -v py >/dev/null 2>&1; then
-		PythonExe="py -3"
+		PythonExe="py"
+		PythonArg="-3"
 	else
 		echo
 		if command -v apt-get >/dev/null 2>&1; then
@@ -62,12 +64,17 @@ if [ "$(uname)" = "Linux" ] || [ ! -f "$PythonExe" ]; then
 	PythonDir="$Cache/venv"
 	if [ ! -d "$PythonDir" ]; then
 		echo "Creating virtualenv..."
-		"$PythonExe" -m venv "$PythonDir"
+		"$PythonExe" $PythonArg -m venv "$PythonDir"
 	fi
 	if [ -f "$PythonDir/bin/python" ]; then
 		PythonExe="$PythonDir/bin/python"
+		PythonArg=""
 	elif [ -f "$PythonDir/scripts/python3.exe" ]; then
 		PythonExe="$PythonDir/scripts/python3.exe";
+		PythonArg=""
+	elif [ -f "$PythonDir/scripts/python.exe" ]; then
+		PythonExe="$PythonDir/scripts/python.exe";
+		PythonArg=""
 	else
 		echo "bootstrap/python failed to find the python executable inside its virtualenv"
 		exit 1
@@ -77,8 +84,9 @@ fi
 # Use pip to install our requirements
 if [ ! -f "$PythonDir/requirements.txt" ] || [ "$(b2sum < "$Sdk/requirements.txt")" != "$(b2sum < "$PythonDir/requirements.txt")" ]; then
 	echo "Updating dependencies..."
-	"$PythonExe" -m pip install -U wheel
-	"$PythonExe" -m pip install -U pip -r "$Sdk/requirements.txt"
+	"$PythonExe"  $PythonArg -m ensurepip || echo "ensurepip failed, continuing anyway..."
+	"$PythonExe" $PythonArg -m pip install -U wheel
+	"$PythonExe" $PythonArg -m pip install -U pip -r "$Sdk/requirements.txt"
 	cp "$Sdk/requirements.txt" "$PythonDir/requirements.txt"
 	echo "---"
 fi
@@ -105,6 +113,11 @@ if ! command -v tee >/dev/null 2>&1; then
 			echo "$line"
 		done
 	}
+fi
+
+if [ "$(uname -o)" = "Msys" ]; then
+	# replace /c/ with c:/ for Windows
+	Sdk=$(echo "$Sdk" | sed 's|^\(/.\)/|\1:/|')
 fi
 
 # Invoke python with all command-line arguments
