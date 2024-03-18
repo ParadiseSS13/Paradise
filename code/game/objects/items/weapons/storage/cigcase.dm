@@ -30,15 +30,6 @@
 	cant_hold = list(
 		/obj/item/toy/crayon/spraycan)
 
-/obj/item/storage/cigcase/random/populate_contents()
-	new /obj/item/clothing/mask/cigarette(src)
-	new /obj/item/clothing/mask/cigarette(src)
-	new /obj/item/clothing/mask/cigarette(src)
-	if(prob(50))
-		new /obj/item/clothing/mask/cigarette(src)
-	if(prob(50))
-		new /obj/item/clothing/mask/cigarette(src)
-
 /obj/item/storage/cigcase/nt_rep
 	name = "golden cigarette case"
 	desc = "A fancy golden cigarette case made in cooperation with Louis Crabbemarche. Often given to diplomats and representatives as a gift."
