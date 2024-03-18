@@ -1947,6 +1947,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/structure/cable/orange{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/service/clown/secret)
 "amt" = (
@@ -2822,6 +2827,15 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
+"arG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/station/service/clown/secret)
 "arO" = (
 /obj/effect/decal/remains/human,
 /obj/effect/landmark/spawner/xeno,
@@ -7829,6 +7843,11 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -21351,6 +21370,17 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/secondary/entry/west)
+"ckp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/service/clown/secret)
 "ckr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -40122,6 +40152,11 @@
 "fOt" = (
 /obj/structure/bed,
 /obj/item/bedsheet/clown,
+/obj/structure/cable/orange{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -40595,6 +40630,11 @@
 "fWQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -43780,6 +43820,16 @@
 	icon_state = "red"
 	},
 /area/station/security/storage)
+"hco" = (
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/service/clown/secret)
 "hcp" = (
 /obj/structure/chair/comfy{
 	dir = 8
@@ -48680,6 +48730,11 @@
 /area/station/science/robotics)
 "iHG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -53392,6 +53447,11 @@
 	name = "Secret Clown HQ"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/service/clown/secret)
 "kes" = (
@@ -57807,6 +57867,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/service/clown/secret)
 "lvT" = (
@@ -58620,6 +58685,11 @@
 /area/station/hallway/spacebridge/scidock)
 "lHG" = (
 /mob/living/carbon/human/monkey/teeny,
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -64313,6 +64383,11 @@
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -76144,6 +76219,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -78597,6 +78677,11 @@
 "slQ" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/service/clown/secret)
 "slX" = (
@@ -82610,6 +82695,11 @@
 "tBo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/service/clown/secret)
@@ -87820,6 +87910,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/structure/cable/orange{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/service/clown/secret)
 "viJ" = (
@@ -91163,6 +91258,11 @@
 "wjk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
+	},
+/obj/structure/cable/orange{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -108883,7 +108983,7 @@ vtY
 vtY
 bWr
 fOt
-cHL
+arG
 mhA
 xud
 bWr
@@ -109397,7 +109497,7 @@ vtY
 vtY
 cRq
 gmy
-mhA
+hco
 mhA
 eAi
 bWr
@@ -109911,7 +110011,7 @@ cbc
 viE
 iHG
 kel
-iHG
+ckp
 mDV
 cRq
 bWr
