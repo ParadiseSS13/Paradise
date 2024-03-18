@@ -20152,10 +20152,6 @@
 	},
 /area/station/maintenance/asmaint)
 "cdv" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 6";
-	name = "Cell 6 Locker"
-	},
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
@@ -20173,6 +20169,7 @@
 	c_tag = "Brig Cell 6";
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_6,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -28917,10 +28914,6 @@
 	},
 /area/station/engineering/atmos)
 "cZn" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 7";
-	name = "Cell 7 Locker"
-	},
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
@@ -28938,6 +28931,7 @@
 	c_tag = "Brig Cell 7";
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_7,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -29326,10 +29320,6 @@
 	},
 /area/station/medical/break_room)
 "ddq" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 8";
-	name = "Cell 8 Locker"
-	},
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
@@ -29347,6 +29337,7 @@
 	c_tag = "Brig Cell 8";
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_8,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -42041,10 +42032,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "gAQ" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 4";
-	name = "Cell 4 Locker"
-	},
+/obj/structure/closet/secure_closet/brig/temp/cell_4,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -42792,10 +42780,7 @@
 	},
 /area/station/maintenance/asmaint)
 "gME" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 1";
-	name = "Cell 1 Locker"
-	},
+/obj/structure/closet/secure_closet/brig/temp/cell_1,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -72915,10 +72900,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/north)
 "qrV" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 2";
-	name = "Cell 2 Locker"
-	},
+/obj/structure/closet/secure_closet/brig/temp/cell_2,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -93613,10 +93595,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/external/southeast)
 "wYj" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 3";
-	name = "Cell 3 Locker"
-	},
+/obj/structure/closet/secure_closet/brig/temp/cell_3,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"

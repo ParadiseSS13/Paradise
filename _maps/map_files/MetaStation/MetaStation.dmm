@@ -48659,10 +48659,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "eCO" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 1";
-	name = "Cell 1 Locker"
-	},
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -48672,6 +48668,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/brig/temp/cell_1,
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block/A)
 "eDj" = (
@@ -53727,10 +53724,6 @@
 /turf/simulated/floor/bluegrid,
 /area/station/maintenance/starboard)
 "gHX" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 3";
-	name = "Cell 3 Locker"
-	},
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -53740,6 +53733,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/brig/temp/cell_3,
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block/A)
 "gIb" = (
@@ -66099,14 +66093,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "lNw" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 2";
-	name = "Cell 2 Locker"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/brig/temp/cell_2,
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block/A)
 "lNT" = (
@@ -74172,11 +74163,8 @@
 	},
 /area/station/science/xenobiology)
 "pnB" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 5";
-	name = "Cell 5 Locker"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/brig/temp/cell_5,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "pos" = (
@@ -87555,14 +87543,11 @@
 	},
 /area/station/hallway/primary/starboard/east)
 "vbF" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 4";
-	name = "Cell 4 Locker"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/brig/temp/cell_4,
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block/A)
 "vbV" = (

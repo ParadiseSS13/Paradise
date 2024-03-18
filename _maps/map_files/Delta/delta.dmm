@@ -29103,15 +29103,12 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 1";
-	name = "Cell 1 Locker"
-	},
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/structure/closet/secure_closet/brig/temp/cell_1,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -29212,10 +29209,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 6";
-	name = "Cell 6 Locker"
-	},
+/obj/structure/closet/secure_closet/brig/temp/cell_6,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -70044,13 +70038,10 @@
 	},
 /area/station/maintenance/theatre)
 "glX" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 3";
-	name = "Cell 3 Locker"
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_3,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -74416,13 +74407,10 @@
 	c_tag = "Brig - Cell 2";
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 2";
-	name = "Cell 2 Locker"
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_2,
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block)
 "iYj" = (
@@ -90727,13 +90715,10 @@
 /turf/simulated/floor/plating,
 /area/station/security/execution)
 "sCu" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 4";
-	name = "Cell 4 Locker"
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_4,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -94940,10 +94925,6 @@
 /turf/simulated/floor/carpet/purple,
 /area/station/medical/psych)
 "uYc" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "Cell 5";
-	name = "Cell 5 Locker"
-	},
 /obj/machinery/camera{
 	c_tag = "Brig - Cell 5"
 	},
@@ -94956,6 +94937,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_5,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
