@@ -40,7 +40,7 @@
 	var/hot_message = "your face burning and a searing heat"
 	var/heat_level_1_threshold = 360
 	var/heat_level_2_threshold = 400
-	var/heat_level_3_threshold = 1000
+	var/heat_level_3_threshold = 460
 	var/heat_level_1_damage = HEAT_GAS_DAMAGE_LEVEL_1
 	var/heat_level_2_damage = HEAT_GAS_DAMAGE_LEVEL_2
 	var/heat_level_3_damage = HEAT_GAS_DAMAGE_LEVEL_3
@@ -329,8 +329,46 @@
 	cold_level_3_damage = -COLD_GAS_DAMAGE_LEVEL_3
 	cold_damage_types = list(BRUTE = 0.5, BURN = 0.25)
 
+	heat_level_1_threshold = 310
+	heat_level_2_threshold = 340
+	heat_level_3_threshold = 400
+
+/datum/organ/lungs/tajaran
+	cold_level_1_threshold = 240
+	cold_level_2_threshold = 180
+	cold_level_3_threshold = 100
+
+	heat_level_1_threshold = 340
+	heat_level_2_threshold = 380
+	heat_level_3_threshold = 440
+
+/datum/organ/lungs/unathi
+	cold_level_1_threshold = 280
+	cold_level_2_threshold = 220
+	cold_level_3_threshold = 140
+
+	heat_level_1_threshold = 505
+	heat_level_2_threshold = 540
+	heat_level_3_threshold = 600
+
 /datum/organ/lungs/ashwalker
 	safe_oxygen_min = 4 // 4x as efficient as regular Unathi, can comfortably breathe on lavaland
+	heat_level_1_threshold = 505
+	heat_level_2_threshold = 540
+	heat_level_3_threshold = 600
+
+	cold_level_1_threshold = 280
+	cold_level_2_threshold = 220
+	cold_level_3_threshold = 140
+
+	heat_level_1_threshold = 505
+	heat_level_2_threshold = 540
+	heat_level_3_threshold = 600
+
+/datum/organ/lungs/slime
+	cold_level_1_threshold = 280
+	cold_level_2_threshold = 240
+	cold_level_3_threshold = 200
 
 /datum/organ/lungs/advanced_cyber/New(obj/item/organ/internal/link_em)
 	. = ..()
