@@ -14,6 +14,32 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered/no_grav/way_home)
+"g" = (
+/obj/structure/spawner/mining/hivelord,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered/no_grav/way_home)
+"n" = (
+/turf/simulated/mineral/random/high_chance/clown,
+/area/ruin/space/unpowered/no_grav/way_home)
+"s" = (
+/mob/living/simple_animal/hostile/carp/megacarp,
+/turf/template_noop,
+/area/template_noop)
+"z" = (
+/obj/structure/spawner/mining/basilisk,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered/no_grav/way_home)
+"O" = (
+/obj/item/salvage/ruin/tablet,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered/no_grav/way_home)
+"P" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
+"R" = (
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/space/unpowered/no_grav/way_home)
 
 (1,1,1) = {"
 a
@@ -75,7 +101,7 @@ a
 a
 a
 a
-a
+P
 a
 a
 "}
@@ -104,8 +130,8 @@ a
 a
 a
 a
-b
-b
+R
+R
 a
 a
 a
@@ -136,9 +162,9 @@ a
 a
 a
 a
-b
-b
-b
+R
+R
+R
 a
 a
 a
@@ -169,10 +195,10 @@ a
 a
 a
 a
-b
+R
 a
 a
-a
+P
 a
 "}
 (6,1,1) = {"
@@ -234,7 +260,7 @@ a
 a
 a
 a
-a
+P
 a
 a
 a
@@ -252,7 +278,7 @@ a
 a
 b
 b
-b
+R
 b
 b
 b
@@ -282,10 +308,10 @@ a
 a
 a
 b
-b
-b
-b
-b
+R
+R
+R
+R
 b
 b
 a
@@ -315,13 +341,13 @@ b
 b
 b
 b
-b
-b
+R
+R
 b
 b
 a
 a
-a
+P
 a
 a
 a
@@ -348,7 +374,7 @@ b
 b
 b
 b
-b
+R
 b
 c
 a
@@ -356,7 +382,7 @@ a
 a
 a
 a
-a
+s
 a
 a
 a
@@ -376,8 +402,8 @@ b
 b
 b
 b
-b
-b
+R
+R
 b
 b
 b
@@ -407,8 +433,8 @@ a
 b
 b
 b
-b
-b
+R
+R
 b
 b
 b
@@ -423,7 +449,7 @@ a
 a
 a
 a
-a
+P
 a
 a
 a
@@ -438,15 +464,15 @@ a
 b
 b
 b
-b
-b
+R
+R
 b
 b
 b
 b
 b
 c
-c
+g
 c
 c
 c
@@ -469,10 +495,10 @@ a
 b
 b
 b
+R
+R
 b
-b
-b
-b
+R
 b
 b
 c
@@ -507,7 +533,7 @@ b
 b
 b
 c
-c
+O
 c
 a
 a
@@ -546,7 +572,7 @@ a
 a
 c
 c
-c
+O
 c
 c
 c
@@ -583,7 +609,7 @@ c
 b
 b
 b
-b
+n
 b
 b
 a
@@ -612,11 +638,11 @@ a
 a
 c
 c
-c
+z
 b
-b
-b
-b
+R
+n
+n
 b
 a
 a
@@ -647,8 +673,8 @@ c
 c
 c
 b
-b
-b
+n
+n
 b
 b
 a
@@ -680,8 +706,8 @@ a
 c
 b
 b
-b
-b
+n
+n
 b
 a
 a
@@ -777,8 +803,8 @@ a
 a
 a
 a
-b
-b
+R
+R
 a
 a
 a
@@ -817,7 +843,7 @@ a
 "}
 (26,1,1) = {"
 a
-a
+P
 a
 a
 a
@@ -850,7 +876,7 @@ a
 (27,1,1) = {"
 a
 a
-a
+P
 a
 a
 a
@@ -882,7 +908,7 @@ a
 (28,1,1) = {"
 a
 a
-a
+P
 a
 a
 a
@@ -913,8 +939,8 @@ a
 "}
 (29,1,1) = {"
 a
-a
-a
+P
+P
 a
 a
 a
@@ -944,7 +970,7 @@ a
 a
 "}
 (30,1,1) = {"
-a
+s
 a
 a
 a

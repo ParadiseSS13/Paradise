@@ -3,7 +3,7 @@
 	desc = "These seeds grow into comfrey."
 	icon_state = "seed-cabbage"
 	species = "cabbage"
-	plantname = "Comfrey"
+	plantname = "comfrey"
 	product = /obj/item/food/snacks/grown/comfrey
 	yield = 2
 	maturation = 3

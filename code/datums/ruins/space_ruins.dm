@@ -147,7 +147,8 @@
 		No tabs. No violence in the inside areas. That's it. Welcome to the \
 		Rampant Golem and Yellow Hound. Can I take your order?"
 	allow_duplicates = FALSE //it spawn ship docking, no more than one to avoid duplication in console.
-	cost = 2
+	always_place = TRUE
+	cost = 0
 
 /datum/map_template/ruin/space/turreted_outpost
 	id = "turreted-outpost"

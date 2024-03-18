@@ -21,6 +21,10 @@
 	mmi_icon = 'icons/obj/species_organs/unathi.dmi'
 	mmi_icon_state = "mmi_full"
 
+/obj/item/organ/internal/lungs/unathi
+	name = "unathi lungs"
+	icon = 'icons/obj/species_organs/unathi.dmi'
+
 /obj/item/organ/internal/kidneys/unathi
 	name = "unathi kidneys"
 	icon = 'icons/obj/species_organs/unathi.dmi'

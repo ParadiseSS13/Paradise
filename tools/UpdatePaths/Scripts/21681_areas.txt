@@ -162,7 +162,7 @@
 
 /area/bridge/hall : /area/station/hallway/secondary/bridge{@OLD}
 
-/area/expedition : /area/station/service/expedition
+/area/expedition : /area/station/supply/expedition
 
 /area/security/@SUBTYPES : /area/station/security/@SUBTYPES{@OLD}
 /area/quartermaster/@SUBTYPES : /area/station/supply/@SUBTYPES{@OLD}

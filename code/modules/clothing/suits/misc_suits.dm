@@ -305,9 +305,39 @@
 	icon_state = "carp_casual"
 	body_parts_covered = HEAD
 	cold_protection = HEAD
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
+
+/obj/item/clothing/suit/hooded/carp_costume/dragon
+	name = "space carp poncho"
+	desc = "A poncho fashioned from the scales of a corrupted space carp, it still smells."
+	armor = list(MELEE = 30, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS|HANDS|FEET
+	flags = STOPSPRESSUREDMAGE
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	hoodtype = /obj/item/clothing/head/hooded/carp_hood/dragon
+
+/obj/item/clothing/suit/hooded/carp_costume/dragon/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot == SLOT_FLAG_OCLOTHING)
+		user.faction += "carp"
+		to_chat(user, "<span class='cult'>You feel a something gnash in the back of your mind- the carp are your friends, not your foe.</span>")
+		playsound(loc, 'sound/weapons/bite.ogg', 35, TRUE)
+
+/obj/item/clothing/suit/hooded/carp_costume/dragon/dropped(mob/user)
+	. = ..()
+	if(user)
+		user.faction -= "carp"
+		to_chat(user, "<span class='cult'>A sudden calm fills the gnashing void of your mind- you're alone now.</span>")
+
+/obj/item/clothing/head/hooded/carp_hood/dragon
+	name = "space carp hood"
+	desc = "Fashioned from the maw of a carp, this outfit makes you feel like a fish out of water."
+	armor = list(MELEE = 55, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
+	flags = STOPSPRESSUREDMAGE
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 
 /obj/item/clothing/suit/hooded/salmon_costume
 	name = "salmon suit"
@@ -928,6 +958,13 @@
 	item_state = "bombermining"
 	allowed = list(/obj/item/pickaxe, /obj/item/t_scanner/adv_mining_scanner, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/energy/kinetic_accelerator, /obj/item/shovel, /obj/item/storage/bag/ore)
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+
+/obj/item/clothing/suit/jacket/expeditionbomber
+	name = "expedition bomber jacket"
+	desc = "A stylish jacket for station-side explorers. Won't do much to protect you from space."
+	icon_state = "bomberexpedition"
+	item_state = "bomberexpedition"
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/energy/kinetic_accelerator, /obj/item/t_scanner/adv_mining_scanner, /obj/item/shovel, /obj/item/pickaxe, /obj/item/storage/bag/ore, /obj/item/gps)
 
 /obj/item/clothing/suit/jacket/hydrobomber
 	name = "hydroponics bomber jacket"

@@ -57,7 +57,8 @@
 
 /datum/antagonist/rev/head/proc/demote()
 	var/datum/mind/old_owner = owner
-	owner.remove_antag_datum(/datum/antagonist/rev/head, silent_removal = TRUE)
+	silent = TRUE
+	owner.remove_antag_datum(/datum/antagonist/rev/head)
 
 	var/datum/antagonist/rev/demoted = new()
 	demoted.silent = TRUE

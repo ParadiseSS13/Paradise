@@ -56,7 +56,8 @@ SUBSYSTEM_DEF(economy)
 	var/credits_per_plasma = 10
 	/// points gained per research design returned
 	var/credits_per_design = 20
-
+	/// points gained per salvage sold
+	var/credits_per_salvage = 100
 	/// Remarks from Centcom on how well you checked the last order.
 	var/centcom_message
 	/// Typepaths for unusual plants we've already sent CentComm, associated with their potencies

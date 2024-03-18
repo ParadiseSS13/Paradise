@@ -104,7 +104,6 @@ AI MODULES
 	log_and_message_admins("used [src.name] on [target.name]([target.key])")
 
 /obj/item/aiModule/proc/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
-	return
 
 
 /******************** Safeguard ********************/

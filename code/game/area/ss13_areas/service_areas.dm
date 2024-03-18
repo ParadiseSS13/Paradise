@@ -41,6 +41,7 @@
 
 /area/station/service/clown/secret
 	name = "\improper Top Secret Clown HQ"
+	requires_power = FALSE
 
 /area/station/service/mime
 	name = "\improper Mime's Office"
@@ -58,10 +59,4 @@
 /area/station/service/hydroponics
 	name = "Hydroponics"
 	icon_state = "hydro"
-	sound_environment = SOUND_AREA_STANDARD_STATION
-
-/area/station/service/expedition
-	name = "\improper Expedition room"
-	icon_state = "expedition"
-	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION

@@ -1,5 +1,4 @@
 import { round } from 'common/math';
-import { capitalize } from 'common/string';
 import { useBackend } from '../backend';
 import {
   AnimatedNumber,
@@ -103,7 +102,7 @@ export const BodyScanner = (props, context) => {
     <BodyScannerEmpty />
   );
   return (
-    <Window width={700} height={600} title="Body Scanner">
+    <Window width={690} height={600}>
       <Window.Content scrollable>{body}</Window.Content>
     </Window>
   );
@@ -157,9 +156,9 @@ const BodyScannerMainOccupant = (props, context) => {
           {stats[occupant.stat][1]}
         </LabeledList.Item>
         <LabeledList.Item label="Temperature">
-          <AnimatedNumber value={round(occupant.bodyTempC)} />
+          <AnimatedNumber value={round(occupant.bodyTempC, 0)} />
           &deg;C,&nbsp;
-          <AnimatedNumber value={round(occupant.bodyTempF)} />
+          <AnimatedNumber value={round(occupant.bodyTempF, 0)} />
           &deg;F
         </LabeledList.Item>
         <LabeledList.Item label="Implants">
@@ -246,7 +245,7 @@ const BodyScannerMainDamageBar = (props) => {
       mb={!!props.marginBottom && '0.5rem'}
       ranges={damageRange}
     >
-      {round(props.value)}
+      {round(props.value, 0)}
     </ProgressBar>
   );
 };
@@ -269,7 +268,7 @@ const BodyScannerMainOrgansExternal = (props) => {
           <Table.Cell textAlign="right">Injuries</Table.Cell>
         </Table.Row>
         {props.organs.map((o, i) => (
-          <Table.Row key={i}>
+          <Table.Row key={i} textTransform="capitalize">
             <Table.Cell
               color={
                 (!!o.status.dead && 'bad') ||
@@ -284,41 +283,35 @@ const BodyScannerMainOrgansExternal = (props) => {
               }
               width="33%"
             >
-              {capitalize(o.name)}
+              {o.name}
             </Table.Cell>
-            <Table.Cell textAlign="center">
+            <Table.Cell textAlign="center" q>
               <ProgressBar
-                m={-0.5}
                 min="0"
                 max={o.maxHealth}
                 mt={i > 0 && '0.5rem'}
                 value={o.totalLoss / o.maxHealth}
                 ranges={damageRange}
               >
-                <Stack>
-                  <Tooltip content="Total damage">
-                    <Stack.Item>
-                      <Icon name="heartbeat" mr={0.5} />
-                      {round(o.totalLoss)}
-                    </Stack.Item>
-                  </Tooltip>
+                <Box float="left" inline>
                   {!!o.bruteLoss && (
-                    <Tooltip content="Brute damage">
-                      <Stack.Item grow>
-                        <Icon name="bone" mr={0.5} />
-                        {round(o.bruteLoss)}
-                      </Stack.Item>
+                    <Tooltip position="top" content="Brute damage">
+                      <Box inline position="relative">
+                        <Icon name="bone" />
+                        {round(o.bruteLoss, 0)}&nbsp;
+                      </Box>
                     </Tooltip>
                   )}
                   {!!o.fireLoss && (
-                    <Tooltip content="Burn damage">
-                      <Stack.Item>
-                        <Icon name="fire" mr={0.5} />
-                        {round(o.fireLoss)}
-                      </Stack.Item>
+                    <Tooltip position="top" content="Burn damage">
+                      <Box inline position="relative">
+                        <Icon name="fire" />
+                        {round(o.fireLoss, 0)}
+                      </Box>
                     </Tooltip>
                   )}
-                </Stack>
+                </Box>
+                <Box inline>{round(o.totalLoss, 0)}</Box>
               </ProgressBar>
             </Table.Cell>
             <Table.Cell
@@ -377,7 +370,7 @@ const BodyScannerMainOrgansInternal = (props) => {
           <Table.Cell textAlign="right">Injuries</Table.Cell>
         </Table.Row>
         {props.organs.map((o, i) => (
-          <Table.Row key={i}>
+          <Table.Row key={i} textTransform="capitalize">
             <Table.Cell
               color={
                 (!!o.dead && 'bad') ||
@@ -386,7 +379,7 @@ const BodyScannerMainOrgansInternal = (props) => {
               }
               width="33%"
             >
-              {capitalize(o.name)}
+              {o.name}
             </Table.Cell>
             <Table.Cell textAlign="center">
               <ProgressBar
@@ -396,7 +389,7 @@ const BodyScannerMainOrgansInternal = (props) => {
                 mt={i > 0 && '0.5rem'}
                 ranges={damageRange}
               >
-                {round(o.damage)}
+                {round(o.damage, 0)}
               </ProgressBar>
             </Table.Cell>
             <Table.Cell

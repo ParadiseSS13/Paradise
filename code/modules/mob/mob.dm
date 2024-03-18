@@ -1486,11 +1486,12 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		return FALSE
 
 	//Allows cult to bypass holy areas once they summon
-	if(mind.has_antag_datum(/datum/antagonist/cultist) && SSticker.mode.cult_team.cult_status == NARSIE_HAS_RISEN)
+	var/datum/game_mode/gamemode = SSticker.mode
+	if(iscultist(src) && gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
 		return FALSE
 
 	//Execption for Holy Constructs
-	if(isconstruct(src) && !mind.has_antag_datum(/datum/antagonist/cultist))
+	if(isconstruct(src) && !iscultist(src))
 		return FALSE
 
 	to_chat(src, "<span class='warning'>Your powers are useless on this holy ground.</span>")

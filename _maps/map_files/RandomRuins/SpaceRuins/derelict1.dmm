@@ -73,6 +73,25 @@
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /obj/effect/decal/remains/xeno,
+/mob/living/simple_animal/hostile/alien,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"F" = (
+/obj/structure/alien/weeds/node,
+/mob/living/simple_animal/hostile/alien/maid,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"G" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/mob/living/simple_animal/hostile/alien,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"S" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/effect/decal/remains/human,
+/mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 
@@ -680,7 +699,7 @@ b
 b
 k
 f
-i
+G
 f
 c
 m
@@ -810,7 +829,7 @@ c
 f
 c
 f
-j
+S
 f
 c
 f
@@ -1015,7 +1034,7 @@ b
 c
 i
 f
-h
+F
 f
 f
 c

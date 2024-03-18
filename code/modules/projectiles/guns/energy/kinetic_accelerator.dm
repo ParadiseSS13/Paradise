@@ -251,6 +251,18 @@
 	K.color = color
 
 
+/obj/item/gun/energy/kinetic_accelerator/pistol
+	name = "proto-kinetic pistol"
+	desc = "A lightweight mining tool, sacrificing upgrade capacity for convenience."
+	icon_state = "kineticgun_p"
+	item_state = "gun"
+	w_class = WEIGHT_CLASS_SMALL
+	max_mod_capacity = 65
+	can_bayonet = FALSE
+	can_flashlight = FALSE
+	can_holster = TRUE
+
+
 //Modkits
 /obj/item/borg/upgrade/modkit
 	name = "kinetic accelerator modification kit"
@@ -332,19 +344,13 @@
 	return ..()
 
 /obj/item/borg/upgrade/modkit/proc/modify_projectile(obj/item/projectile/kinetic/K)
-	return
 
 //use this one for effects you want to trigger before any damage is done at all and before damage is decreased by pressure
 /obj/item/borg/upgrade/modkit/proc/projectile_prehit(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
-	return
-
 //use this one for effects you want to trigger before mods that do damage
 /obj/item/borg/upgrade/modkit/proc/projectile_strike_predamage(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
-	return
-
 //and this one for things that don't need to trigger before other damage-dealing mods
 /obj/item/borg/upgrade/modkit/proc/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
-	return
 
 //Range
 /obj/item/borg/upgrade/modkit/range

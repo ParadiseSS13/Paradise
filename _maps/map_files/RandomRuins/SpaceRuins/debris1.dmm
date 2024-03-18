@@ -21,6 +21,10 @@
 /obj/structure/grille/broken,
 /turf/space,
 /area/space)
+"f" = (
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space,
+/turf/space,
+/area/space)
 "g" = (
 /obj/structure/disposalpipe/broken{
 	dir = 4
@@ -143,6 +147,11 @@
 /area/space)
 "V" = (
 /turf/simulated/wall,
+/area/space)
+"W" = (
+/obj/structure/lattice,
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space,
+/turf/space,
 /area/space)
 "X" = (
 /turf/space,
@@ -295,7 +304,7 @@ X
 X
 y
 E
-X
+f
 E
 Y
 X
@@ -383,7 +392,7 @@ X
 X
 I
 v
-v
+W
 X
 v
 t

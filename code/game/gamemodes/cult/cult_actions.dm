@@ -5,7 +5,7 @@
 	buttontooltipstyle = "cult"
 
 /datum/action/innate/cult/IsAvailable()
-	if(!IS_CULTIST(owner))
+	if(!iscultist(owner))
 		return FALSE
 	return ..()
 
@@ -55,7 +55,7 @@
 
 	living_message = "<span class='cult[(large ? "large" : "speech")]'>[title]: [message]</span>"
 	for(var/mob/M in GLOB.player_list)
-		if(IS_CULTIST(M))
+		if(iscultist(M))
 			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
 			to_chat(M, "<span class='cult[(large ? "large" : "speech")]'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
@@ -78,7 +78,7 @@
 	living_message = "<span class='cultlarge'>[title]: [message]</span>"
 
 	for(var/mob/M in GLOB.player_list)
-		if(IS_CULTIST(M))
+		if(iscultist(M))
 			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
 			to_chat(M, "<span class='cultlarge'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
@@ -92,17 +92,20 @@
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/cult/check_progress/New()
-	button_icon_state = GET_CULT_DATA(tome_icon, "tome")
+	if(SSticker.mode)
+		button_icon_state = SSticker.cultdat.tome_icon
 	..()
 
 /datum/action/innate/cult/check_progress/IsAvailable()
-	return IS_CULTIST(owner) || isobserver(owner)
+	if(iscultist(owner) || isobserver(owner))
+		return TRUE
+	return FALSE
 
 /datum/action/innate/cult/check_progress/Activate()
 	if(!IsAvailable())
 		return
-	if(SSticker?.mode?.cult_team)
-		SSticker.mode.cult_team.study_objectives(usr, TRUE)
+	if(SSticker && SSticker.mode)
+		SSticker.mode.cult_objs.study(usr, TRUE)
 	else
 		to_chat(usr, "<span class='cultitalic'>You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)</span>")
 
@@ -114,7 +117,8 @@
 	button_icon_state = "blood_dagger"
 
 /datum/action/innate/cult/use_dagger/Grant()
-	button_icon_state = GET_CULT_DATA(dagger_icon, "blood_dagger")
+	if(SSticker.mode)
+		button_icon_state = SSticker.cultdat.dagger_icon
 	..()
 
 /datum/action/innate/cult/use_dagger/override_location()

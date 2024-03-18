@@ -21,7 +21,6 @@
 	environment_smash = 0
 	speak_emote = list("squeaks")
 	pass_flags = PASSTABLE | PASSMOB
-	mob_size = MOB_SIZE_SMALL
 	density = FALSE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	a_intent = INTENT_HARM

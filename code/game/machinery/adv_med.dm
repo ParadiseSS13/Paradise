@@ -228,10 +228,10 @@
 /obj/machinery/bodyscanner/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/bodyscanner/ui_interact(mob/user, datum/tgui/ui)
+/obj/machinery/bodyscanner/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "BodyScanner")
+		ui = new(user, src, "BodyScanner", "Body Scanner")
 		ui.open()
 
 /obj/machinery/bodyscanner/ui_data(mob/user)

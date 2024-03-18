@@ -1367,6 +1367,12 @@
 	icon_state = "cargotech"
 	toysay = "For Cargonia!"
 
+/obj/item/toy/figure/crew/explorer
+	name = "\improper Explorer action figure"
+	desc = "The oblivious explorer, from Space Life's SS12 figurine collection."
+	icon_state = "explorer"
+	toysay = "I f-foun-nd-d it-t in-n s-spac-ce!"
+
 /obj/item/toy/figure/crew/ce
 	name = "\improper Chief Engineer action figure"
 	desc = "The expert Chief Engineer, from Space Life's SS12 figurine collection."

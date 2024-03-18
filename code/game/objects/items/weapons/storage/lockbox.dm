@@ -82,10 +82,8 @@
 		return
 
 /obj/item/storage/lockbox/hear_talk(mob/living/M as mob, list/message_pieces)
-	return
 
 /obj/item/storage/lockbox/hear_message(mob/living/M as mob, msg)
-	return
 
 /obj/item/storage/lockbox/mindshield
 	name = "Lockbox (Mindshield Implants)"

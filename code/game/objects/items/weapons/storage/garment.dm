@@ -137,7 +137,6 @@
 	new /obj/item/clothing/suit/storage/hazardvest(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/glasses/welding/superior(src)
-	new /obj/item/clothing/glasses/meson/sunglasses(src)
 	new /obj/item/clothing/gloves/color/yellow(src)
 
 /obj/item/storage/bag/garment/nanotrasen_representative
@@ -298,4 +297,15 @@
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/shoes/black(src)
 
+/obj/item/storage/bag/garment/explorer
+	name = "explorer's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the explorer."
 
+/obj/item/storage/bag/garment/explorer/populate_contents()
+	new /obj/item/clothing/under/rank/cargo/expedition(src)
+	new /obj/item/clothing/under/rank/cargo/expedition/overalls(src)
+	new /obj/item/clothing/head/expedition(src)
+	new /obj/item/clothing/head/beret/expedition(src)
+	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/shoes/jackboots(src)
+	new /obj/item/clothing/mask/gas/explorer(src)

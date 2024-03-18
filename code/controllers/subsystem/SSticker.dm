@@ -37,8 +37,8 @@ SUBSYSTEM_DEF(ticker)
 	var/Bible_name
 	/// Name of the bible deity
 	var/Bible_deity_name
-	/// Cult static info, used for things like sprites. Someone should refactor the sprites out of it someday and just use SEPERATE ICONS DEPNDING ON THE TYPE OF CULT... like a sane person
-	var/datum/cult_info/cult_data
+	/// Cult data. Here instead of cult for adminbus purposes
+	var/datum/cult_info/cultdat = null
 	/// If set to nonzero, ALL players who latejoin or declare-ready join will have random appearances/genders
 	var/random_players = FALSE
 	/// Did we broadcast the tip of the round yet?
@@ -159,8 +159,7 @@ SUBSYSTEM_DEF(ticker)
 		reboot_helper("Round ended.", "proper completion")
 
 /datum/controller/subsystem/ticker/proc/setup()
-	var/random_cult = pick(typesof(/datum/cult_info))
-	cult_data = new random_cult()
+	cultdat = setupcult()
 	score = new()
 
 	// Create and announce mode
