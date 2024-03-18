@@ -30,6 +30,10 @@
 		server_region = query.item[23]
 		raw_muted_admins = query.item[24]
 		viewrange = query.item[25]
+		old_lighting = query.item[26]
+		glowlevel = query.item[27]
+		lampsexposure = query.item[28]
+		lampsglare = query.item[29]
 
 	lastchangelog_2 = lastchangelog // Clone please
 
@@ -100,7 +104,11 @@
 		keybindings=:keybindings,
 		server_region=:server_region,
 		muted_adminsounds_ckeys=:muted_adminsounds_ckeys,
-		viewrange=:viewrange
+		viewrange=:viewrange,
+		old_lighting=:old_lighting,
+		glowlevel=:glowlevel,
+		lampsexposure=:lampsexposure,
+		lampsglare=:lampsglare
 		WHERE ckey=:ckey"}, list(
 			// OH GOD THE PARAMETERS
 			"ooccolour" = ooccolor,
@@ -127,7 +135,11 @@
 			"ckey" = C.ckey,
 			"server_region" = server_region,
 			"muted_adminsounds_ckeys" = json_encode(admin_sound_ckey_ignore),
-			"viewrange" = viewrange
+			"viewrange" = viewrange,
+			"old_lighting" = old_lighting,
+			"glowlevel" = glowlevel,
+			"lampsexposure" = lampsexposure,
+			"lampsglare" = lampsglare
 		))
 
 	if(!query.warn_execute())

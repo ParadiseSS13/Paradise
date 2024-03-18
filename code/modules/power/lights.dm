@@ -167,6 +167,8 @@
 	icon = 'icons/obj/lighting.dmi'
 	var/base_state = "tube" // Base description and icon_state
 	icon_state = "tube1"
+	glow_icon_state = "tube"
+	exposure_icon_state = "cone"
 	desc = "A lighting fixture."
 	anchored = TRUE
 	layer = 5
@@ -232,6 +234,8 @@
 /obj/machinery/light/small
 	icon_state = "bulb1"
 	base_state = "bulb"
+	glow_icon_state = "bulb"
+	exposure_icon_state = "circle"
 	fitting = "bulb"
 	brightness_range = 4
 	brightness_color = "#a0a080"
