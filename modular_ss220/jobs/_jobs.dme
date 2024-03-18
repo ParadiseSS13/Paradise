@@ -23,6 +23,7 @@
 #include "code/job/science_jobs.dm"
 #include "code/job/security_jobs.dm"
 #include "code/job/service_jobs.dm"
+#include "code/objects/mail.dm"
 #include "code/objects/job_objects.dm"
 #include "code/objects/engineering_job_objects.dm"
 #include "code/objects/medical_job_objects.dm"
