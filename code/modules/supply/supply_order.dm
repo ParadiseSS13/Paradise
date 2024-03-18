@@ -55,6 +55,10 @@
 	for(var/atom/A in crate.contents)
 		slip.info += "<li>[A.name]</li>"
 
+	var/special_content = object.get_special_manifest()
+	if(special_content)
+		slip.info += "<li>[special_content]</li>"
+
 	if(istype(crate, /obj/structure/closet/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
 		var/obj/structure/closet/critter/CritCrate = crate
 		if(CritCrate.content_mob)

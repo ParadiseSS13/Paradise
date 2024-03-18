@@ -1383,3 +1383,12 @@ so that different stomachs can handle things in different ways VB*/
 	// keep most of what's passed in, but don't change the angle
 	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, should_rotate = FALSE, rightable = FALSE)
 	KnockDown(10 SECONDS)
+
+/mob/living/carbon/rename_character(oldname, newname)
+	. = ..()
+	if(!.)
+		return
+
+	for(var/obj/item/organ/internal/IO in internal_organs)
+		if(IO.dna?.real_name == oldname)
+			IO.dna.real_name = newname
