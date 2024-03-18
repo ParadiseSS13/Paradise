@@ -563,7 +563,7 @@
 	name = "Cigarette Case"
 	desc = "An embellished cigarette case made of Plastitanium, perfect for carrying everything one might in a wallet."
 	reference = "SCC"
-	item /obj/item/storage/cigcase/syndie
+	item = /obj/item/storage/cigcase/syndie
 	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR) // Nukies have no need for a cigarette case, but SST might
 
