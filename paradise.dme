@@ -2544,6 +2544,7 @@
 #include "code\modules\projectiles\guns\rocket.dm"
 #include "code\modules\projectiles\guns\syringe_gun.dm"
 #include "code\modules\projectiles\guns\throw.dm"
+#include "code\modules\projectiles\guns\toolgun.dm"
 #include "code\modules\projectiles\guns\energy\energy.dm"
 #include "code\modules\projectiles\guns\energy\kinetic_accelerator.dm"
 #include "code\modules\projectiles\guns\energy\laser.dm"
