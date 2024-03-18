@@ -135,7 +135,9 @@ task-merge-bundle() {
   local file_current="${2}"
   local file_other="${3}"
   local conflict_marker_size="${4}"
-  echo "tgui: Discarding a local tgui build"
+  echo "tgui: Discarding a local tgui build and rebuilding"
+  task-install
+  task-webpack --mode=production
   ## Do nothing (file_current will be merged and is what we want to keep).
   exit 0
 }
