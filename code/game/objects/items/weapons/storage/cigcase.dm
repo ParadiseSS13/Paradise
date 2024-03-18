@@ -41,5 +41,5 @@
 	name = "suspicious cigarette case"
 	desc = "Simple. Stylish. Shady. Perfect for the discerning ner-do-well who lurks in maintenance tunnels."
 	icon_state = "cigcase_syndie"
-	origin_tech = "materials=3,syndicate=1"
+	origin_tech = "materials=3;syndicate=1"
 	materials = list(MAT_TITANIUM = 250, MAT_PLASMA = 250)
