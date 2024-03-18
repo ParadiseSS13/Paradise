@@ -43,7 +43,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
-		var/dat
+		var/dat = {"<meta charset="UTF-8">"}
 		pages = 0
 		switch(screen)
 			if(SCREEN_COVER) //Cover
@@ -82,8 +82,8 @@
 						dat += "<ul>"
 						var/i = 0
 						for(var/datum/feed_message/MESSAGE in C.messages)
-							var/title = (MESSAGE.censor_flags & CENSOR_STORY) ? "\[REDACTED\]" : MESSAGE.title
-							var/body = (MESSAGE.censor_flags & CENSOR_STORY) ? "\[REDACTED\]" : MESSAGE.body
+							var/title = (MESSAGE.censor_flags & NEWSCASTER_CENSOR_STORY) ? "\[REDACTED\]" : MESSAGE.title
+							var/body = (MESSAGE.censor_flags & NEWSCASTER_CENSOR_STORY) ? "\[REDACTED\]" : MESSAGE.body
 							i++
 							dat += "<b>[title]</b> <br>"
 							dat += "[body] <br>"
