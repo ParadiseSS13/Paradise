@@ -39904,6 +39904,7 @@
 /area/station/engineering/tech_storage)
 "cyv" = (
 /obj/structure/sign/electricshock,
+/obj/structure/window/full/reinforced/wallwindow,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "cyw" = (
@@ -40903,6 +40904,7 @@
 /area/station/maintenance/incinerator)
 "cBk" = (
 /obj/structure/sign/securearea,
+/obj/structure/window/full/reinforced/wallwindow,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "cBl" = (
@@ -123139,7 +123141,7 @@ cgS
 lNb
 ybL
 cgQ
-cwO
+cvx
 vLb
 cyv
 mnD
