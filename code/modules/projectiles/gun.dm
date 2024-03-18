@@ -75,9 +75,6 @@
 	. = ..()
 	build_zooming()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
-
-/obj/item/gun/New()
-	. = ..()
 	appearance_flags |= KEEP_TOGETHER
 
 /obj/item/gun/Destroy()
