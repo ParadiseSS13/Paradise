@@ -63,7 +63,7 @@
 	. = ..()
 	. += "<span class='hierophant'>[card_desc]</span>"
 
-/obj/item/magic_tarot_card/attack_self(mob/user)
+/obj/item/magic_tarot_card/attack_self(mob/user) //QWERTODO: Invoke asynk on the hit effect
 	if(our_tarot)
 		our_tarot.activate(user)
 	poof()
