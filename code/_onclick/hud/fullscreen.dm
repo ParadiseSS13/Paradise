@@ -270,8 +270,8 @@
 
 /atom/movable/screen/fullscreen/robusted/open_pr/Click(location, control, params)
 	. = ..()
-	if(user.client)
-		user.client.balance_pr()
+	if(usr.client)
+		usr.client.open_balance_pr()
 
 /atom/movable/screen/fullscreen/robusted/open_pr/Destroy()
 	. = ..()
