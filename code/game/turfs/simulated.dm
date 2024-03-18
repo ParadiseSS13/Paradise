@@ -142,5 +142,6 @@
 	QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/simulated/proc/is_shielded()
+	return
 
 #undef WATER_WEAKEN_TIME

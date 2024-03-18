@@ -80,7 +80,7 @@
 	host.add_fingerprint(user)
 
 /obj/proc/CouldNotUseTopic(mob/user)
-	// Nada
+	return
 
 /obj/Destroy()
 	if(!ismachinery(src))

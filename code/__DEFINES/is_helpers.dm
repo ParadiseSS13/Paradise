@@ -116,6 +116,9 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 // Structures
 #define isstructure(A)	(istype((A), /obj/structure))
 
+// Vehicles
+#define isvehicle(A) istype(A, /obj/vehicle)
+
 // Misc
 #define isclient(A) istype(A, /client)
 #define isradio(A) istype(A, /obj/item/radio)

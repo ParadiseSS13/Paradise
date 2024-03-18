@@ -393,6 +393,7 @@
 
 
 /mob/proc/get_contents()
+	return
 
 
 //Recursive function to find everything a mob is holding.
@@ -482,11 +483,6 @@
 			C.reagents.clear_reagents()
 			QDEL_LIST_CONTENTS(C.reagents.addiction_list)
 			C.reagents.addiction_threshold_accumulated.Cut()
-		if(iscultist(src))
-			if(SSticker.mode.cult_risen)
-				SSticker.mode.rise(src)
-			if(SSticker.mode.cult_ascendant)
-				SSticker.mode.ascend(src)
 
 		QDEL_LIST_CONTENTS(C.processing_patches)
 
@@ -851,6 +847,7 @@
 	return 0
 
 /mob/living/proc/check_ear_prot()
+	return
 
 /**
  * Returns the name override, if any, for the slot somebody is trying to strip

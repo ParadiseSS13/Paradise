@@ -2,17 +2,22 @@
 	var/name
 
 /datum/controller/proc/Initialize()
+	return
 
 //cleanup actions
 /datum/controller/proc/Shutdown()
+	return
 
 //when we enter dmm_suite.load_map
 /datum/controller/proc/StartLoadingMap()
+	return
 
 //when we exit dmm_suite.load_map
 /datum/controller/proc/StopLoadingMap()
+	return
 
 /datum/controller/proc/Recover()
+	return
 
 /datum/controller/proc/stat_entry(msg)
 	SHOULD_CALL_PARENT(TRUE)

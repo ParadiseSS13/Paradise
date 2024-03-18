@@ -1616,12 +1616,30 @@
 	else if(href_list["team_command"])
 		if(!check_rights(R_ADMIN))
 			return
+		if(href_list["team_command"] == "reload") // reload the panel
+			check_teams()
+			return
+
 		var/datum/team/team
 		if(href_list["team_command"] == "new_custom_team") // this needs to be handled before all the other stuff, as the team doesn't exist yet
-			message_admins("[key_name_admin(usr)] created a new custom team.")
-			log_admin("[key_name(usr)] created a new custom team.")
-			team = new()
-			team.admin_rename_team(usr)
+			var/list/possible_teams = list()
+			for(var/datum/team/team_path as anything in typesof(/datum/team))
+				possible_teams[initial(team_path.name)] = team_path
+
+			var/chosen_team_name = input("Select a team type: (Creating a duplicate of a non-generic team may produce runtimes!)", "Team Type") as null|anything in possible_teams
+			if(!chosen_team_name)
+				return
+
+			var/chosen_team_path = possible_teams[chosen_team_name]
+			team = new chosen_team_path()
+			log_and_message_admins("created a new team '[team]' ([chosen_team_path]).")
+			if(chosen_team_path == /datum/team)
+				team.admin_rename_team(usr) // this has to come after, because the admin log could be delayed indefinitely.
+			check_teams()
+			return
+
+		if(href_list["team_command"] == "switch_team_tab")
+			team_switch_tab_index = clamp(text2num(href_list["team_index"]), 1, length(GLOB.antagonist_teams))
 			check_teams()
 			return
 
@@ -1691,65 +1709,6 @@
 			SSmentor_tickets.convert_to_other_ticket(indexNum)
 		else
 			SStickets.convert_to_other_ticket(indexNum)
-
-	else if(href_list["cult_mindspeak"])
-		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [SSticker.cultdat.entity_name]", "Voice of [SSticker.cultdat.entity_name]")
-		if(!input)
-			return
-
-		for(var/datum/mind/H in SSticker.mode.cult)
-			if(H.current)
-				to_chat(H.current, "<span class='cult'>[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
-
-		for(var/mob/dead/observer/O in GLOB.player_list)
-			to_chat(O, "<span class='cult'>[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
-
-		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [SSticker.cultdat.entity_name].")
-		log_admin("[key_name(usr)] Voice of [SSticker.cultdat.entity_name]: [input]")
-
-	else if(href_list["cult_adjustsacnumber"])
-		var/amount = input("Adjust the amount of sacrifices required before summoning Nar'Sie", "Sacrifice Adjustment", 2) as null | num
-		if(amount > 0)
-			var/datum/game_mode/gamemode = SSticker.mode
-			var/old = gamemode.cult_objs.sacrifices_required
-			gamemode.cult_objs.sacrifices_required = amount
-			message_admins("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
-			log_admin("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
-
-	else if(href_list["cult_newtarget"])
-		if(alert(usr, "Reroll the cult's sacrifice target?", "Cult Debug", "Yes", "No") != "Yes")
-			return
-
-		var/datum/game_mode/gamemode = SSticker.mode
-		if(!gamemode.cult_objs.find_new_sacrifice_target())
-			gamemode.cult_objs.ready_to_summon()
-
-		message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
-		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
-
-	else if(href_list["cult_newsummonlocations"])
-		if(alert(usr, "Reroll the cult's summoning locations?", "Cult Debug", "Yes", "No") != "Yes")
-			return
-
-		var/datum/game_mode/gamemode = SSticker.mode
-		gamemode.cult_objs.obj_summon.find_summon_locations(TRUE)
-		if(gamemode.cult_objs.cult_status == NARSIE_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
-			for(var/datum/mind/cult_mind in gamemode.cult)
-				if(cult_mind && cult_mind.current)
-					to_chat(cult_mind.current, "<span class='cult'>The veil has shifted! Our summoning will need to take place elsewhere.</span>")
-					to_chat(cult_mind.current, "<span class='cult'>Current goal : [gamemode.cult_objs.obj_summon.explanation_text]</span>")
-
-		message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
-		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
-
-	else if(href_list["cult_unlocknarsie"])
-		if(alert(usr, "Unlock the ability to summon Nar'Sie?", "Cult Debug", "Yes", "No") != "Yes")
-			return
-
-		var/datum/game_mode/gamemode = SSticker.mode
-		gamemode.cult_objs.ready_to_summon()
-		message_admins("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
-		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
 
 	else if(href_list["adminplayerobservecoodjump"])
 		var/client/C = usr.client

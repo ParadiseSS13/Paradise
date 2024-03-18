@@ -354,9 +354,8 @@
 			I.forceMove(loc)
 
 	// Find a new sacrifice target if needed, if unable allow summoning
-	if(is_sacrifice_target(occupant.mind))
-		if(!SSticker.mode.cult_objs.find_new_sacrifice_target())
-			SSticker.mode.cult_objs.ready_to_summon()
+	if(IS_SACRIFICE_TARGET(occupant.mind))
+		SSticker.mode.cult_team.find_new_sacrifice_target()
 
 	//Update any existing objectives involving this mob.
 	if(occupant.mind)

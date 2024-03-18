@@ -396,6 +396,7 @@
 	if(knife_overlay)
 		overlays -= knife_overlay
 		knife_overlay = null
+		update_icon()
 	return TRUE
 
 /obj/item/gun/extinguish_light(force = FALSE)

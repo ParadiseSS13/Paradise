@@ -39,8 +39,6 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 			card.setPersonality(pai)
 			card.looking_for_personality = 0
 
-			SSticker.mode.update_cult_icons_removed(card.pai.mind)
-
 			pai_candidates -= candidate
 			usr << browse(null, "window=findPai")
 		return

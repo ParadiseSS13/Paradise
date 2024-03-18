@@ -21,3 +21,4 @@
 	else
 		health = 100 - getBruteLoss() - getFireLoss()
 		update_stat("updatehealth([reason])")
+		diag_hud_set_health()

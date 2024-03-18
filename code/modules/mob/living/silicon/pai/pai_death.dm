@@ -13,5 +13,8 @@
 	if(!.)
 		return FALSE
 
+	diag_hud_set_status()
+	diag_hud_set_health()
+
 	if(icon_state != "[chassis]_dead" || cleanWipe)
 		qdel(src)

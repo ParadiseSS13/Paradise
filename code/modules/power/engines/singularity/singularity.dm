@@ -314,10 +314,10 @@
 		set_light(10)
 	if(istype(A, /obj/singularity/narsie))
 		if(current_size == STAGE_SIX)
-			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] is consumed by [src]!</span>")
+			visible_message("<span class='userdanger'>[GET_CULT_DATA(entity_name, A.name)] is consumed by [src]!</span>")
 			qdel(A)
 		else
-			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] strikes down [src]!</span>")
+			visible_message("<span class='userdanger'>[GET_CULT_DATA(entity_name, A.name)] strikes down [src]!</span>")
 			investigate_log("has been destroyed by Nar'Sie","singulo")
 			qdel(src)
 

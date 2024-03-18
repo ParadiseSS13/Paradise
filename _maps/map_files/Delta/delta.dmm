@@ -98695,6 +98695,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"xkI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/station/security/permabrig)
 "xkJ" = (
 /obj/machinery/atmospherics/binary/pump{
 	name = "burn chamber to port";
@@ -152596,7 +152604,7 @@ ygH
 uUu
 kju
 aKU
-aOX
+xkI
 nFh
 aSj
 aTH

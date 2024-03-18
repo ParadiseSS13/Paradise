@@ -180,10 +180,26 @@
 		return
 	if(M.stat != CONSCIOUS)
 		to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")
-	else if(SSticker.mode.add_revolutionary(M.mind))
+	else if(add_revolutionary(M.mind))
 		times_used-- //Flashes less likely to burn out for headrevs when used for conversion
 	else
 		to_chat(user, "<span class='warning'>This mind seems resistant to [src]!</span>")
+
+/obj/item/flash/proc/add_revolutionary(datum/mind/converting_mind)
+	var/mob/living/carbon/human/conversion_target = converting_mind.current
+	if(converting_mind.assigned_role in GLOB.command_positions)
+		return FALSE
+	if(!istype(conversion_target))
+		return FALSE
+	if(ismindshielded(conversion_target))
+		return FALSE
+	if(converting_mind.has_antag_datum(/datum/antagonist/rev))
+		return FALSE
+	converting_mind.add_antag_datum(/datum/antagonist/rev)
+
+	conversion_target.Silence(10 SECONDS)
+	conversion_target.Stun(10 SECONDS)
+	return TRUE
 
 /obj/item/flash/cyborg
 	origin_tech = null
