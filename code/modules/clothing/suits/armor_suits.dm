@@ -123,7 +123,7 @@
 
 /obj/item/clothing/suit/armor/secponcho
 	name = "security poncho"
-	desc = "A stylish black and red  poncho made with reinforced fabric."
+	desc = "A stylish black and red poncho made with reinforced fabric."
 	icon_state = "security_poncho"
 	item_state = "security_poncho"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
