@@ -19,15 +19,13 @@
 
 /datum/action/New(Target)
 	target = Target
-	// button = new
-	// button.linked_action = src
-	// button.name = name
-	// button.actiontooltipstyle = buttontooltipstyle
-	// var/list/our_description = list()
-	// our_description += desc
-	// our_description += button.desc
-	// button.desc = our_description.Join(" ")
-	// TODO salvage this
+
+/datum/action/proc/clear_ref(datum/ref)
+	SIGNAL_HANDLER
+	if(ref == owner)
+		Remove(owner)
+	if(ref == target)
+		qdel(src)
 
 /datum/action/Destroy()
 	if(owner)
@@ -46,7 +44,7 @@
 			return
 		Remove(owner)
 	owner = M
-	// todo tg has a clearref thing goin on here
+	RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref), override = TRUE)
 	GiveAction(M)
 
 /datum/action/proc/Remove(mob/M)
@@ -54,13 +52,16 @@
 		if(!hud.mymob)
 			continue
 		HideFrom(hud.mymob)
+
 	LAZYREMOVE(M.actions, src) // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
 	viewers = list()
 	owner = null
-	if(!M)
-		return
-		// button.clean_up_keybinds(M)
 
+	if(owner)
+		UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
+		if(target == owner)
+			RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref))
+		owner = null
 
 /datum/action/proc/UpdateButtons(status_only, force)
 	for(var/datum/hud/hud in viewers)
@@ -165,6 +166,7 @@
 	var/atom/movable/screen/movable/action_button/button = viewers[our_hud]
 	LAZYREMOVE(viewer.actions, src)
 	if(button)
+		button.clean_up_keybinds(viewer)
 		qdel(button)
 
 
@@ -196,25 +198,6 @@
 		if(bitfield & bitflag)
 			our_button.id = bitflag
 			return
-
-
-// /datum/action/proc/UpdateButtonIcon()
-// 	if(button)
-// 		if(owner && owner.client && background_icon_state == "bg_default") // If it's a default action background, apply the custom HUD style
-// 			button.alpha = owner.client.prefs.UI_style_alpha
-// 			button.color = owner.client.prefs.UI_style_color
-// 			button.icon = ui_style2icon(owner.client.prefs.UI_style)
-// 			button.icon_state = "template"
-// 		else
-// 			button.icon = button_icon
-// 			button.icon_state = background_icon_state
-
-// 		ApplyIcon(button)
-// 		var/obj/effect/proc_holder/spell/S = target
-// 		if(istype(S) && S.cooldown_handler.should_draw_cooldown() || !IsAvailable())
-// 			apply_unavailable_effect()
-// 		else
-// 			return TRUE
 
 /datum/action/proc/apply_unavailable_effect(atom/movable/screen/movable/action_button/B)
 	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")

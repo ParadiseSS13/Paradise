@@ -634,7 +634,6 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 
 	return list(viewX, viewY)
 
-
 //Used in chemical_mob_spawn. Generates a random mob based on a given gold_core_spawnable value.
 /proc/create_random_mob(spawn_location, mob_class = HOSTILE_SPAWN)
 	var/static/list/mob_spawn_meancritters = list() // list of possible hostile mobs

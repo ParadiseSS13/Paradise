@@ -71,32 +71,29 @@
 #define EXAMINE_HUD_MEDICAL_WRITE "medical_write"
 #define EXAMINE_HUD_SKILLS "skills"
 
-
-/*
-	These defines specificy screen locations.  For more information, see the byond documentation on the screen_loc var.
-	The short version:
-	Everything is encoded as strings because apparently that's how Byond rolls.
-	"1,1" is the bottom left square of the user's screen.  This aligns perfectly with the turf grid.
-	"1:2,3:4" is the square (1,3) with pixel offsets (+2, +4); slightly right and slightly above the turf grid.
-	Pixel offsets are used so you don't perfectly hide the turf under them, that would be crappy.
-	In addition, the keywords NORTH, SOUTH, EAST, WEST and CENTER can be used to represent their respective
-	screen borders. NORTH-1, for example, is the row just below the upper edge. Useful if you want your
-	UI to scale with screen size.
-	The size of the user's screen is defined by client.view (indirectly by world.view), in our case "15x15".
-	Therefore, the top right corner (except during admin shenanigans) is at "15,15"
-*/
-
-/proc/ui_hand_position(i) //values based on old hand ui positions (CENTER:-/+16,SOUTH:5)
+/proc/ui_hand_position(i)
+	// values based on old hand ui positions (CENTER:-/+16,SOUTH:5)
 	var/x_off = i % 2 ? 0 : -1
 	var/y_off = round((i-1) / 2)
 	return"CENTER+[x_off]:16,SOUTH+[y_off]:5"
 
 /proc/ui_equip_position(mob/M)
-// todo verify this
-	var/y_off = round(1 / 2) //values based on old equip ui position (CENTER: +/-16,SOUTH+1:5)
+	// values based on old equip ui position (CENTER: +/-16,SOUTH+1:5)
+	var/y_off = round(1 / 2)
 	return "CENTER:-16,SOUTH+[y_off+1]:5"
 
-/proc/ui_swaphand_position(mob/M, which = 1) //values based on old swaphand ui positions (CENTER: +/-16,SOUTH+1:5)
+/proc/ui_swaphand_position(mob/M, which = 1)
+	// values based on old swaphand ui positions (CENTER: +/-16,SOUTH+1:5)
 	var/x_off = which == 1 ? -1 : 0
 	var/y_off = round(1 / 2)
 	return "CENTER+[x_off]:16,SOUTH+[y_off+1]:5"
+
+
+/// Takes a string or num view, and converts it to pixel width/height in a list(pixel_width, pixel_height)
+/proc/view_to_pixels(view)
+	if(!view)
+		return list(0, 0)
+	var/list/view_info = getviewsize(view)
+	view_info[1] *= world.icon_size
+	view_info[2] *= world.icon_size
+	return view_info

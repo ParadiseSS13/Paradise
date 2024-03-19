@@ -12,7 +12,7 @@
 	var/location = SCRN_OBJ_DEFAULT
 	/// A unique bitflag, combined with the name of our linked action this lets us persistently remember any user changes to our position
 	var/id
-	/// UID of the last thing we hovered over
+	/// UID of the last thing we hovered over. Used for managing action button dragging.
 	var/last_hovered_ref
 
 /atom/movable/screen/movable/action_button/Destroy()
@@ -40,6 +40,7 @@
 		return
 
 
+	// We're basically holding a ref here to the last object we were over.
 	var/atom/last_hovered = locateUID(last_hovered_ref)
 	if(last_hovered == over_object)
 		return
@@ -70,78 +71,30 @@
 		var/atom/movable/screen/action_landing/reserve = over_object
 		reserve.hit_by(src)
 		our_hud.hide_landings()
-		save_position()
 		return
 
 	our_hud.hide_landings()
 
 	if(istype(over_object, /atom/movable/screen/button_palette) || istype(over_object, /atom/movable/screen/palette_scroll))
 		our_hud.position_action(src, SCRN_OBJ_IN_PALETTE)
-		save_position()
 		return
 	if(istype(over_object, /atom/movable/screen/movable/action_button))
 		var/atom/movable/screen/movable/action_button/button = over_object
 		our_hud.position_action_relative(src, button)
-		save_position()
 		return
 
 	. = ..()
 
 	our_hud.position_action(src, screen_loc)
-	save_position()
-	// if(locked && could_be_click_lag()) // in case something bad happend and game realised we dragged our ability instead of pressing it
-	// 	Click()
-	// 	drag_start = 0
-	// 	return
-	// drag_start = 0
-	// if(locked)
-	// 	to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
-	// 	closeToolTip(usr)
-	// 	return
-	// if((istype(over_object, /atom/movable/screen/movable/action_button) && !istype(over_object, /atom/movable/screen/movable/action_button/hide_toggle)))
-	// 	var/atom/movable/screen/movable/action_button/B = over_object
-	// 	var/list/actions = usr.actions
-	// 	actions.Swap(actions.Find(linked_action), actions.Find(B.linked_action))
-	// 	moved = FALSE
-	// 	ordered = TRUE
-	// 	B.moved = FALSE
-	// 	B.ordered = TRUE
-	// 	closeToolTip(usr)
-	// 	usr.update_action_buttons()
-	// else if(istype(over_object, /atom/movable/screen/movable/action_button/hide_toggle))
-	// 	closeToolTip(usr)
-	// else
-	// 	closeToolTip(usr)
-	// 	return ..()
 
 /atom/movable/screen/movable/action_button/MouseWheel(delta_x, delta_y, location, control, params)
 	. = ..()
 	SEND_SIGNAL(src, COMSIG_ACTION_SCROLLED, delta_x, delta_y, location, control, params)
 
-/atom/movable/screen/movable/action_button/proc/save_position()
-	return
-	// var/mob/user = our_hud.mymob
-	// if(!user?.client)
-	// 	return
-	// var/position_info = ""
-	// switch(location)
-	// 	if(SCRN_OBJ_FLOATING)
-	// 		position_info = screen_loc
-	// 	if(SCRN_OBJ_IN_LIST)
-	// 		position_info = SCRN_OBJ_IN_LIST
-	// 	if(SCRN_OBJ_IN_PALETTE)
-	// 		position_info = SCRN_OBJ_IN_PALETTE
-
-	// TODO maybe???
-
-	// user.client.prefs.action_buttons_screen_locs["[name]_[id]"] = position_info
-
-
 /atom/movable/screen/movable/action_button/proc/load_position()
 	var/mob/user = our_hud.mymob
 	if(!user)
 		return
-	// TODO MAYBE???
 	var/position_info = SCRN_OBJ_DEFAULT
 	user.hud_used.position_action(src, position_info)
 
@@ -156,16 +109,6 @@
 	if(modifiers["shift"])
 		var/datum/hud/our_hud = usr.hud_used
 		our_hud.position_action(src, SCRN_OBJ_DEFAULT)
-	// 	if(locked)
-	// 		to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
-	// 		return TRUE
-	// 	moved = FALSE
-	// 	usr.update_action_buttons(TRUE) //redraw buttons that are no longer considered "moved"
-	// 	return TRUE
-	// if(modifiers["ctrl"])
-	// 	locked = !locked
-	// 	to_chat(usr, "<span class='notice'>Action button \"[name]\" [locked ? "" : "un"]locked.</span>")
-	// 	return TRUE
 	if(modifiers["alt"])
 		AltClick(usr)
 		return TRUE
@@ -190,7 +133,6 @@
  */
 /datum/hud/proc/get_action_buttons_icons()
 	. = list()
-	// todo
 	.["bg_icon"] = ui_style2icon(mymob.client.prefs.UI_style)
 	.["bg_state"] = "template"
 	.["bg_state_active"] = "template_active"
@@ -259,34 +201,9 @@
 
 	if(reload_screen)
 		hud_used.update_our_owner()
+
 	// This holds the logic for the palette buttons
 	hud_used.palette_actions.refresh_actions()
-
-	// else
-	// 	for(var/datum/action/A in actions)
-	// 		A.override_location() // If the action has a location override, call it
-	// 		A.UpdateButtons()
-
-	// 		var/atom/movable/screen/movable/action_button/B = A.button
-	// 		if(B.ordered)
-	// 			button_number++
-	// 		if(!B.moved)
-	// 			B.screen_loc = hud_used.ButtonNumberToScreenCoords(button_number)
-	// 		else
-	// 			B.screen_loc = B.moved
-	// 		if(reload_screen)
-	// 			client.screen += B
-
-	// 	if(!button_number)
-	// 		hud_used.hide_actions_toggle.screen_loc = null
-	// 		return
-
-	// if(!hud_used.hide_actions_toggle.moved)
-	// 	hud_used.hide_actions_toggle.screen_loc = hud_used.ButtonNumberToScreenCoords(button_number+1)
-	// else
-	// 	hud_used.hide_actions_toggle.screen_loc = hud_used.hide_actions_toggle.moved
-	// if(reload_screen)
-	// 	client.screen += hud_used.hide_actions_toggle
 
 
 #define AB_MAX_COLUMNS 10
@@ -395,9 +312,6 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, to_remove)
 
 /atom/movable/screen/button_palette/proc/can_use(mob/user)
-	// if(isobserver(user))
-	// 	var/mob/dead/observer/O = user
-	// 	return !O.observetarget
 	return TRUE
 
 /atom/movable/screen/button_palette/Click(location, control, params)
@@ -459,16 +373,12 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 	var/datum/hud/our_hud
 
 /atom/movable/screen/palette_scroll/proc/can_use(mob/user)
-	// if(isobserver(user))
-	// 	var/mob/dead/observer/O = user
-	// 	return !O.observetarget
 	return TRUE
 
 
 /atom/movable/screen/palette_scroll/proc/set_hud(datum/hud/our_hud)
 	src.our_hud = our_hud
 	refresh_owner()
-	// ltodo ADD SIGNAL SCROLLWHEEL LISTENER FOR CLIENT ON BUTTONS
 
 /atom/movable/screen/palette_scroll/proc/refresh_owner()
 	var/mob/viewer = our_hud.mymob
@@ -559,7 +469,6 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 		hide_action(button)
 	switch(position)
 		if(SCRN_OBJ_DEFAULT) // Reset to the default
-			// button.dump_save() // Nuke any existing saves
 			position_action(button, button.linked_action.default_button_position)
 			return
 		if(SCRN_OBJ_IN_LIST)
