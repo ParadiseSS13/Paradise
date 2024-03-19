@@ -39,10 +39,10 @@
 		pockets.show_to(user)
 
 /obj/item/clothing/suit/storage/attack_ghost(mob/user)
-        if(isobserver(user))
-                // Revenants don't get to play with the toys.
-                pockets.show_to(user)
-        return ..()
+	if(isobserver(user))
+		// Revenants don't get to play with the toys.
+		pockets.show_to(user)
+	return ..()
 
 /obj/item/clothing/suit/storage/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()

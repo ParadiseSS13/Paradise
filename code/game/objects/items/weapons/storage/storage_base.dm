@@ -241,8 +241,8 @@
 		child.update_viewers()
 
 /obj/item/storage/Moved(atom/oldloc, dir, forced = FALSE)
-        . = ..()
-        update_viewers()
+	. = ..()
+	update_viewers()
 
 /obj/item/storage/proc/open(mob/user)
 	if(use_sound && isliving(user))

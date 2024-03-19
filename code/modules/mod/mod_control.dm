@@ -413,17 +413,17 @@
 		..()
 
 /obj/item/mod/control/AltClick(mob/user)
-        if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
-                bag?.open(user)
-                add_fingerprint(user)
-        else if(isobserver(user))
-                bag?.show_to(user)
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
+		bag?.open(user)
+		add_fingerprint(user)
+	else if(isobserver(user))
+		bag?.show_to(user)
 
 /obj/item/mod/control/attack_ghost(mob/user)
-        if(isobserver(user))
-                // Revenants don't get to play with the toys.
-                bag?.show_to(user)
-        return ..()
+	if(isobserver(user))
+		// Revenants don't get to play with the toys.
+		bag?.show_to(user)
+	return ..()
 
 /obj/item/mod/control/proc/can_be_inserted(I, stop_messages)
 	if(bag)

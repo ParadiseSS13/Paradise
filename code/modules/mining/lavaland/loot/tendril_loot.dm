@@ -49,10 +49,10 @@
 	bag?.attackby(W, user, params)
 
 /obj/item/shared_storage/attack_ghost(mob/user)
-        if(isobserver(user))
-                // Revenants don't get to play with the toys.
-                bag?.show_to(user)
-        return ..()
+	if(isobserver(user))
+		// Revenants don't get to play with the toys.
+		bag?.show_to(user)
+	return ..()
 
 /obj/item/shared_storage/attack_self(mob/living/carbon/user)
 	if(!iscarbon(user))
@@ -71,11 +71,11 @@
 		..()
 
 /obj/item/shared_storage/AltClick(mob/user)
-        if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
-                bag?.open(user)
-                add_fingerprint(user)
-        else if(isobserver(user))
-                bag?.show_to(user)
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
+		bag?.open(user)
+		add_fingerprint(user)
+	else if(isobserver(user))
+		bag?.show_to(user)
 
 /obj/item/shared_storage/MouseDrop(atom/over_object)
 	if(iscarbon(usr))
