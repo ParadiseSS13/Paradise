@@ -1,9 +1,9 @@
-/obj/item/tarot_generator
+/obj/item/tarot_generator//Qwertodo: Cooldown between uses, prob 20 seconds?
 	name = "Enchanted tarot card pack" //Qwertodo: A better name
-	desc = "Reusable card generator"
-	icon = 'icons/obj/playing_cards.dmi'
-	icon_state = "card_holder"
-	w_class = WEIGHT_CLASS_SMALL
+	desc = "Reusable card generator" //QWERTODO: spawn directly librarian / chaplain april fools day
+	icon = 'icons/obj/playing_cards.dmi'//Qwertodo: Uplink, wizard
+	icon_state = "card_holder" //Qwertodo: tendril chest, wizard ship
+	w_class = WEIGHT_CLASS_SMALL //Qwertodo: Cult making a card 5 minute cooldown from one of the structures
 	/// What is the maximum number of cards the tarot generator can have in the world at a time?
 	var/maximum_cards = 3
 	/// List of cards we have created, to check against maximum, and so we can purge them from the pack.
@@ -27,6 +27,33 @@
 		MTC.dust()
 	to_chat(user, "<span class='hierophant'>You dispell the cards [src] had created.</span>")
 
+/obj/item/tarot_card_pack
+	name = "\improper Enchanted Arcana Pack"
+	desc = "A pack of Enchanted tarot cards. Collect them all!"
+	icon = 'icons/obj/playing_cards.dmi'
+	icon_state = "card_holder"
+	///How many cards in a pack. 3 in base, 5 in jumbo, 7 in mega
+	var/cards = 3
+
+/obj/item/tarot_card_pack/attack_self(mob/user)
+	to_chat(user, "<span class='hierophant'>You tear open [src]!</span>")
+	playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
+	var/prints = 0
+	while(prints < cards)
+		new /obj/item/magic_tarot_card(get_turf(src))
+		prints++
+	qdel(src)
+
+/obj/item/tarot_card_pack/jumbo
+	name = "\improper Jumbo Arcana Pack"
+	desc = "A Jumbo card pack from your friend Jimbo!"
+	cards = 5
+
+/obj/item/tarot_card_pack/mega
+	name = "\improper MEGA Arcana Pack"
+	desc = "Sadly, you won't find a Joker for an angel room, or a Soul card in here either."
+	cards = 7
+
 /obj/item/magic_tarot_card
 	name = "XXII - The Unknown"
 	desc = "A tarot card. However, it feels like it has a meaning behind it?"
@@ -48,11 +75,11 @@
 	. = ..()
 	if(source)
 		creator_deck = source
-	var/tarotpath = pick(subtypesof(/datum/tarot))
+	var/tarotpath = pick(subtypesof(/datum/tarot) - /datum/tarot/reversed)
 	our_tarot = new tarotpath
 	name = our_tarot.name
 	card_desc = our_tarot.desc
-	icon_state = "tarot_the_unknown" //Qwertodo: Change this to use the datums icon, once we sprite it
+	icon_state = "tarot_[our_tarot.card_icon]" //Qwertodo: Change this to use the datums icon, once we sprite it
 
 /obj/item/magic_tarot_card/Destroy()
 	if(creator_deck)
@@ -93,24 +120,33 @@
 /datum/tarot/proc/activate(mob/living/target)
 	message_admins("Uh oh! A bugged tarot card was spawned and used. Please make an issue report! Type was [src.type]")
 
-/datum/tarot/the_fool //Assistant
+/datum/tarot/reversed
+	name = "XXII - The Unknown?"
+	desc = "Untold answers... wait what? This is a bug, report this as an issue on github! This one was a reversed arcana!"
+	card_icon = "the_unknown?"
+
+/datum/tarot/the_fool
 	name = "0 - The Fool"
 	desc = "Where journey begins."
+	card_icon = "the_fool"
 
 /datum/tarot/the_fool/activate(mob/living/target)
 	target.forceMove(pick(GLOB.latejoin))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 
-/datum/tarot/the_magician //Wizard
+/datum/tarot/the_magician
 	name = "I - The Magician"
-	desc = "May you never miss your goal"
+	desc = "May you never miss your goal."
+	card_icon = "the_magician"
 
 /datum/tarot/the_magician/activate(mob/living/target)
-	. = ..()
+	target.apply_status_effect(STATUS_EFFECT_BADASS)
+	to_chat(target, "<span class='notice'>You feel badass.</span>")
 
-/datum/tarot/the_high_priestess //BUBBLEGUM
+/datum/tarot/the_high_priestess
 	name = "II - The High Priestess"
-	desc = "Mother is watching you"
+	desc = "Mother is watching you."
+	card_icon = "the_high_priestess"
 
 /datum/tarot/the_high_priestess/activate(mob/living/target)
 	new /obj/effect/abstract/bubblegum_rend_helper(get_turf(target), target, 20)
@@ -123,6 +159,10 @@
 	INVOKE_ASYNC(src, PROC_REF(rend), owner, damage)
 
 /obj/effect/abstract/bubblegum_rend_helper/proc/rend(mob/living/owner, damage)
+	if(!owner)
+		for(var/mob/living/L in shuffle(view(9, src)))
+			owner = L
+			break
 	var/turf/TA = get_turf(owner)
 	owner.Immobilize(3 SECONDS)
 	new /obj/effect/decal/cleanable/blood/bubblegum(TA)
@@ -148,9 +188,10 @@
 	owner.adjustBruteLoss(damage)
 	qdel(src)
 
-/datum/tarot/the_empress //Unsure!
+/datum/tarot/the_empress
 	name = "III - The Empress"
-	desc = "May your rage bring power"
+	desc = "May your rage bring power."
+	card_icon = "the_empress"
 
 /datum/tarot/the_empress/activate(mob/living/target)
 	if(ishuman(target))
@@ -158,9 +199,10 @@
 		H.reagents.add_reagent("mephedrone", 4.5)
 		H.reagents.add_reagent("mitocholide", 12)
 
-/datum/tarot/the_emperor //Captain
+/datum/tarot/the_emperor
 	name = "IV - The Emperor"
 	desc = "Challenge me!"
+	card_icon = "the_emperor"
 
 /datum/tarot/the_emperor/activate(mob/living/target)
 	var/list/L = list()
@@ -177,7 +219,8 @@
 
 /datum/tarot/the_hierophant
 	name = "V - The Hierophant"
-	desc = "Two prayers for the lost"
+	desc = "Two prayers for the lost."
+	card_icon = "the_hierophant"
 
 /datum/tarot/the_hierophant/activate(mob/living/target)
 	if(ishuman(target))
@@ -186,11 +229,10 @@
 			H.wear_suit.setup_hierophant_shielding()
 			H.update_appearance(UPDATE_ICON)
 
-//Chariot blood drunk, and vampire bonus.
-
 /datum/tarot/the_lovers
 	name = "VI - The Lovers"
-	desc = "May you prosper and be in good health"
+	desc = "May you prosper and be in good health."
+	card_icon = "the_lovers"
 
 /datum/tarot/the_lovers/activate(mob/living/target)
 	if(ishuman(target))
@@ -205,26 +247,29 @@
 
 /datum/tarot/the_chariot
 	name = "VII - The Chariot"
-	desc = "May nothing stand before you"
+	desc = "May nothing stand before you."
+	card_icon = "the_chariot"
 
 /datum/tarot/the_chariot/activate(mob/living/target)
 	target.apply_status_effect(STATUS_EFFECT_BLOOD_RUSH)
-	target.apply_status_effect(STATUS_EFFECT_FORCESHIELD)
+	target.apply_status_effect(STATUS_EFFECT_BLOODDRUNK_CHARIOT)
 
 /datum/tarot/justice
 	name = "VIII - Justice"
-	desc = "May your future become balanced"
+	desc = "May your future become balanced."
+	card_icon = "justice"
 
 /datum/tarot/justice/activate(mob/living/target)
 	var/turf/target_turf = get_turf(target)
 	new /obj/item/storage/firstaid/regular(target_turf)
 	new /obj/item/grenade/frag(target_turf)
 	new /obj/item/card/emag/one_use(target_turf)
-	new /obj/item/stack/spacecash/c200(target_turf)
+	new /obj/item/stack/spacecash/c100(target_turf)
 
 /datum/tarot/the_hermit
 	name = "IX - The Hermit"
-	desc = "May you see what life has to offer"
+	desc = "May you see what life has to offer."
+	card_icon = "the_hermit"
 
 /datum/tarot/the_hermit/activate(mob/living/target)
 	var/list/viable_vendors = list()
@@ -242,7 +287,8 @@
 
 /datum/tarot/wheel_of_fortune
 	name = "X - Wheel of Fortune"
-	desc = "Spin the wheel of destiny"
+	desc = "Spin the wheel of destiny."
+	card_icon = "wheel_of_fortune"
 
 /datum/tarot/wheel_of_fortune/activate(mob/living/target)
 	var/list/static/bad_vendors = list(/obj/machinery/economy/vending/liberationstation,
@@ -254,7 +300,8 @@
 
 /datum/tarot/strength
 	name = "XI - Strength"
-	desc = "May your power bring rage"
+	desc = "May your power bring rage."
+	card_icon = "strength"
 
 /datum/tarot/strength/activate(mob/living/target)
 	target.apply_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
@@ -262,7 +309,8 @@
 
 /datum/tarot/the_hanged_man
 	name = "XII - The Hanged Man"
-	desc = "May you find enlightenment"
+	desc = "May you find enlightenment."
+	card_icon = "the_hanged_man"
 
 /datum/tarot/the_hanged_man/activate(mob/living/target)
 	if(target.flying)
@@ -272,7 +320,8 @@
 
 /datum/tarot/death
 	name = "XIII - Death"
-	desc = "Lay waste to all that oppose you"
+	desc = "Lay waste to all that oppose you."
+	card_icon = "death"
 
 /datum/tarot/death/activate(mob/living/target) //qwertodo: to_chat? visable effect? unsure
 	for(var/mob/living/L in oview(9, target))
@@ -281,21 +330,39 @@
 
 /datum/tarot/temperance
 	name = "XIV - Temperance"
-	desc = "May you be pure in heart"
+	desc = "May you be pure in heart."
+	card_icon = "temperance"
 
 /datum/tarot/temperance/activate(mob/living/target)
-	. = ..()
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/internal/body_egg/egg = H.get_int_organ(/obj/item/organ/internal/body_egg)
+		if(egg)
+			egg.remove(H)
+			H.vomit()
+			egg.forceMove(get_turf(H))
+		H.reagents.add_reagent("mutadone", 1)
+		for(var/obj/item/organ/internal/I in H.internal_organs)
+			I.heal_internal_damage(60)
+		H.apply_status_effect(STATUS_EFFECT_PANACEA)
+		for(var/thing in H.viruses)
+			var/datum/disease/D = thing
+			if(D.severity == NONTHREAT)
+				continue
+			D.cure()
 
 /datum/tarot/the_devil
 	name = "XV - The Devil"
-	desc = "Revel in the power of darkness"
+	desc = "Revel in the power of darkness."
+	card_icon = "the_devil"
 
 /datum/tarot/the_devil/activate(mob/living/target)
-	. = ..()
+	target.apply_status_effect(STATUS_EFFECT_SHADOW_MEND_DEVIL)
 
 /datum/tarot/the_tower
 	name = "XVI - The Tower"
-	desc = "Destruction brings creation"
+	desc = "Destruction brings creation."
+	card_icon = "the_tower"
 
 /datum/tarot/the_tower/activate(mob/living/target)
 	var/obj/item/grenade/clusterbuster/ied/bakoom = new(get_turf(target))
@@ -303,7 +370,8 @@
 
 /datum/tarot/the_stars //I'm sorry matt, this is very funny.
 	name = "XVII - The Stars"
-	desc = "May you find what you desire"
+	desc = "May you find what you desire."
+	card_icon = "the_stars"
 
 /datum/tarot/the_stars/activate(mob/living/target)
 	var/list/L = list()
@@ -326,7 +394,8 @@
 
 /datum/tarot/the_moon
 	name = "XVIII - The Moon"
-	desc = "May you find all you have lost"
+	desc = "May you find all you have lost."
+	card_icon = "the_moon"
 
 /datum/tarot/the_moon/activate(mob/living/target)
 	var/list/funny_ruin_list = list()
@@ -354,21 +423,221 @@
 
 /datum/tarot/the_sun
 	name = "XIX - The Sun"
-	desc = "May the light heal and enlighten you"
+	desc = "May the light heal and enlighten you."
+	card_icon = "the_sun"
 
 /datum/tarot/the_sun/activate(mob/living/target)
 	target.revive()
 
 /datum/tarot/judgement
 	name = "XX - Judgement"
-	desc = "Judge lest ye be judged"
+	desc = "Judge lest ye be judged."
+	card_icon = "judgement"
 
 /datum/tarot/judgement/activate(mob/living/target)
 	notify_ghosts("[target] has used a judgment card. Judge them. Or not, up to you.", enter_link="<a href=?src=[UID()];follow=1>(Click to judge)</a>", source = target, action = NOTIFY_FOLLOW)
 
-/datum/tarot/the_world //qwertodo: temporary xray vision
+/datum/tarot/the_world
 	name = "XXI - The World"
-	desc = "Open your eyes and see"
+	desc = "Open your eyes and see."
+	card_icon = "the_world"
 
 /datum/tarot/the_world/activate(mob/living/target)
+	target.apply_status_effect(STATUS_EFFECT_XRAY)
+
+/datum/tarot/reversed/the_fool
+	name = "0 - The Fool?"
+	desc = "Let go and move on."
+	card_icon = "the_fool?"
+
+/datum/tarot/reversed/the_fool/activate(mob/living/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		for(var/obj/item/I in H)
+			if(istype(/obj/item/bio_chip, I))
+				continue
+			H.unEquip(I)
+
+/datum/tarot/reversed/the_magician
+	name = "I - The Magician?"
+	desc = "May no harm come to you."
+	card_icon = "the_magician?"
+
+/datum/tarot/reversed/the_magician/activate(mob/living/target)
 	. = ..()
+
+/datum/tarot/reversed/the_high_priestess
+	name = "II - The High Priestess?"
+	desc = "Run."
+	card_icon = "the_high_priestess?"
+
+/datum/tarot/reversed/the_high_priestess/activate(mob/living/target)
+	target.visible_message("<span class='colossus'><b>WHO DARES TO TRY TO USE MY POWER IN A CARD?</b></span>")
+	target.apply_status_effect(STATUS_EFFECT_REVERSED_HIGH_PRIESTESS)
+
+/datum/tarot/reversed/the_empress
+	name = "III - The Empress?"
+	desc = "May your love bring protection."
+	card_icon = "the_empress?"
+
+/datum/tarot/reversed/the_empress/activate(mob/living/target)
+	for(var/mob/living/L in oview(9, target))
+		L.apply_status_effect(STATUS_EFFECT_PACIFIED)
+
+/datum/tarot/reversed/the_emperor
+	name = "IV - The Emperor?"
+	desc = "Challenge me!"
+	card_icon = "the_emperor?"
+
+/datum/tarot/reversed/the_emperor/activate(mob/living/target)
+	var/list/L = list()
+	var/list/heads = SSticker.mode.get_all_heads()
+	for(var/datum/mind/head in heads)
+		if(ishuman(head.current))
+			L.Add(head.current)
+
+	if(!length(L))
+		to_chat(target, "<span class='warning'>Huh. No command members? I hope you didn't kill them all already...</span>")
+		return
+
+	target.forceMove(get_turf(pick(L)))
+
+/datum/tarot/reversed/the_hierophant
+	name = "V - The Hierophant?"
+	desc = "Two prayers for the forgotten."
+	card_icon = "the_hierophant?"
+
+/datum/tarot/reversed/the_hierophant/activate(mob/living/target)
+	var/active_chasers = 0
+	for(var/mob/living/M in shuffle(oview(9, src)))
+		if(M.stat == DEAD) //Let us not have dead mobs be used to make a disco inferno.
+			continue
+		if(active_chasers >= 2)
+			return
+		var/obj/effect/temp_visual/hierophant/chaser/C = new(target.loc, target, M, 1, TRUE)
+		C.moving = 2
+		C.standard_moving_before_recalc = 2
+		C.moving_dir = text2dir(pick("NORTH", "SOUTH", "EAST", "WEST"))
+		active_chasers += 1
+
+/datum/tarot/reversed/the_lovers
+	name = "VI - The Lovers?"
+	desc = "May your heart shatter to pieces."
+	card_icon = "the_lovers?"
+
+/datum/tarot/reversed/the_lovers/activate(mob/living/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.apply_damage(20, BRUTE, BODY_ZONE_CHEST)
+		H.bleed(120)
+		var/obj/item/organ/external/chest = H.get_organ(BODY_ZONE_CHEST)
+		chest.fracture()
+		var/datum/organ/heart/datum_heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
+		var/obj/item/organ/internal/our_heart = datum_heart.linked_organ
+		our_heart.receive_damage(20, TRUE)
+
+/datum/tarot/reversed/the_chariot
+	name = "VII - The Chariot?"
+	desc = "May nothing walk past you."
+	card_icon = "the_chariot?"
+
+/datum/tarot/reversed/the_chariot/activate(mob/living/target)
+	target.Stun(4 SECONDS)
+	new /obj/structure/closet/statue/indestructible(target.loc, target)
+
+/datum/tarot/reversed/justice
+	name = "VIII - Justice?"
+	desc = "May your sins come back to torment you."
+	card_icon = "justice?"
+
+/datum/tarot/reversed/justice/activate(mob/living/target)
+	var/chosen = pick(SSeconomy.supply_packs)
+	var/datum/supply_packs/the_pack = new chosen()
+	var/spawn_location = get_turf(target)
+	var/obj/structure/closet/crate/crate = the_pack.create_package(spawn_location)
+	crate.name = "magic [crate.name]"
+	qdel(the_pack)
+
+/datum/tarot/reversed/the_hermit
+	name = "IX - The Hermit?"
+	desc = "May you see the value of all things in life."
+	card_icon = "the_hermit?"
+
+/datum/tarot/reversed/the_hermit/activate(mob/living/target) //Someone can improve this in the future
+	for(var/obj/item/I in view(7, target))
+		if(istype(I, /obj/item/gun))
+			new /obj/item/stack/spacecash/c200(get_turf(I))
+			qdel(I)
+			continue
+		if(istype(I, /obj/item/grenade))
+			new /obj/item/stack/spacecash/c50(get_turf(I))
+			qdel(I)
+		if(istype(I, /obj/item/clothing/suit/armor))
+			new /obj/item/stack/spacecash/c100(get_turf(I))
+			qdel(I)
+		if(istype(I, /obj/item/melee/baton))
+			new /obj/item/stack/spacecash/c100(get_turf(I))
+			qdel(I)
+
+/datum/tarot/reversed/wheel_of_fortune
+	name = "X - Wheel of Fortune?"
+	desc = "Throw the dice of fate."
+	card_icon = "wheel_of_fortune?"
+
+/datum/tarot/reversed/wheel_of_fortune/activate(mob/living/target)
+	var/obj/item/dice/d20/fate/one_use/gonna_roll_a_one = new/obj/item/dice/d20/fate/one_use(get_turf(target))
+	gonna_roll_a_one.diceroll(target)
+
+/datum/tarot/reversed/strength
+	name = "XI - Strength?"
+	desc = "May you break their resolve."
+	card_icon = "strength?"
+
+/datum/tarot/reversed/strength/activate(mob/living/target)
+	for(var/mob/living/M in oview(9, src))
+		M.Hallucinate(2 MINUTES)
+		new /obj/effect/hallucination/delusion(get_turf(M), M)
+		M.adjustBrainLoss(30)
+
+/datum/tarot/reversed/the_hanged_man
+	name = "XII - The Hanged Man?"
+	desc = "May your greed know no bounds."
+	card_icon = "the_hanged_man?"
+
+/datum/tarot/reversed/the_hanged_man/activate(mob/living/target)
+	var/obj/structure/cursed_slot_machine/pull_the_lever_kronk = new /obj/structure/cursed_slot_machine(get_turf(src))
+	if(ishuman(target))
+		var/mob/living/carbon/human/WRONG_LEVER = target
+		pull_the_lever_kronk.attack_hand(WRONG_LEVER)
+
+/datum/tarot/reversed/death
+	name = "XIII - Death?"
+	desc = "May life spring forth from the fallen."
+	card_icon = "death?"
+
+/datum/tarot/reversed/death/activate(mob/living/target)
+	new /obj/structure/constructshell(get_turf(target))
+	new /obj/item/soulstone/anybody(get_turf(target))
+
+/datum/tarot/reversed/temperance
+	name = "XIV - Temperance?"
+	desc = "May your hunger be satiated."
+	card_icon = "temperance?"
+
+/datum/tarot/reversed/temperance/activate(mob/living/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/i = 0
+		while(i <= 5)
+			H.reagents.add_reagent(get_random_reagent_id_for_real(), 10)
+			i++
+		target.visible_message("<span class='warning'>[target] consumes 5 pills rapidly!</span>")
+
+/datum/tarot/reversed/the_devil
+	name = "XV - The Devil?"
+	desc = "Bask in the light of your mercy."
+	card_icon = "the_devil?"
+
+/datum/tarot/reversed/the_devil/activate(mob/living/target)
+	var/obj/item/grenade/clusterbuster/i_hate_nians = new(get_turf(target))
+	i_hate_nians.prime()
