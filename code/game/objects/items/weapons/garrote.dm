@@ -4,9 +4,11 @@
  * 	Improvised garrotes
  */
 
-/obj/item/garrote // 12TC traitor item
+/// 12TC traitor item
+/obj/item/garrote
 	name = "fiber wire"
 	desc = "A length of razor-thin wire with an elegant wooden handle on either end.<br>You suspect you'd have to be behind the target to use this weapon effectively."
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "garrot_wrap"
 	w_class = WEIGHT_CLASS_TINY
 	var/mob/living/carbon/human/strangling
@@ -27,7 +29,8 @@
 	else
 		icon_state = "garrot_[improvised ? "I_" : ""][HAS_TRAIT(src, TRAIT_WIELDED) ? "un" : ""]wrap"
 
-/obj/item/garrote/improvised // Made via tablecrafting
+/// Made via tablecrafting
+/obj/item/garrote/improvised
 	name = "garrote"
 	desc = "A length of cable with a shoddily-carved wooden handle tied to either end.<br>You suspect you'd have to be behind the target to use this weapon effectively."
 	icon_state = "garrot_I_wrap"
@@ -170,6 +173,6 @@
 
 
 /obj/item/garrote/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck and pulling the handles! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck and pulling the handles! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 15, 1, -10, ignore_walls = FALSE)
 	return OXYLOSS

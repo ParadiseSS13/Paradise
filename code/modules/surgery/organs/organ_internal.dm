@@ -34,7 +34,6 @@
 	QDEL_LIST_ASSOC_VAL(organ_datums) // The removal from internal_organ_datums should be handled when the organ is removed
 	. = ..()
 
-
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
 		return
@@ -60,6 +59,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		parent = H.get_organ(check_zone(parent_organ))
+		H.update_int_organs()
 		if(!istype(parent))
 			stack_trace("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]")
 		else

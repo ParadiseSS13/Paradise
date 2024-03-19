@@ -9,6 +9,7 @@
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 1
+	single_antag_positions = list()
 	var/use_huds = TRUE
 
 	var/finished = FALSE
@@ -27,7 +28,6 @@
 	var/datum/mind/wizard = pick(possible_wizards)
 
 	wizards += wizard
-	modePlayer += wizard
 	wizard.assigned_role = SPECIAL_ROLE_WIZARD //So they aren't chosen for other jobs.
 	wizard.special_role = SPECIAL_ROLE_WIZARD
 	wizard.set_original_mob(wizard.current)
@@ -86,7 +86,7 @@
 	var/wizard_name_first = pick(GLOB.wizard_first)
 	var/wizard_name_second = pick(GLOB.wizard_second)
 	var/randomname = "[wizard_name_first] [wizard_name_second]"
-	var/newname = sanitize(copytext(input(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
+	var/newname = sanitize(copytext_char(input(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text, 1, MAX_NAME_LEN))
 
 	if(!newname)
 		newname = randomname

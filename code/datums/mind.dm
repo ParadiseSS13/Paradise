@@ -167,13 +167,6 @@
 		var/mob/living/carbon/human/H = new_character
 		if(H.mind in SSticker.mode.syndicates)
 			SSticker.mode.update_synd_icons_added()
-		if(H.mind in SSticker.mode.cult)
-			SSticker.mode.update_cult_icons_added(H.mind) // Adds the cult antag hud
-			SSticker.mode.add_cult_actions(H.mind) // And all the actions
-			if(SSticker.mode.cult_risen)
-				SSticker.mode.rise(H)
-				if(SSticker.mode.cult_ascendant)
-					SSticker.mode.ascend(H)
 
 /datum/mind/proc/store_memory(new_text)
 	memory += "[new_text]<br>"
@@ -185,7 +178,7 @@
 	if(!recipient)
 		recipient = current
 	var/list/output = list()
-	output.Add("<B>[current.real_name]'s Memories:</B><HR>")
+	output.Add("<meta charset='UTF-8'><b>[current.real_name]'s Memories:</b><hr>")
 	output.Add(memory)
 
 	for(var/datum/antagonist/A in antag_datums)
@@ -339,7 +332,7 @@
 
 /datum/mind/proc/memory_edit_cult(mob/living/carbon/human/H)
 	. = _memory_edit_header("cult")
-	if(src in SSticker.mode.cult)
+	if(has_antag_datum(/datum/antagonist/cultist))
 		. += "<a href='?src=[UID()];cult=clear'>no</a>|<b><font color='red'>CULTIST</font></b>"
 		. += "<br>Give <a href='?src=[UID()];cult=dagger'>dagger</a>|<a href='?src=[UID()];cult=runedmetal'>runedmetal</a>."
 	else
@@ -524,7 +517,7 @@
 		alert("Not before round-start!", "Alert")
 		return
 
-	var/list/out = list("<B>[name]</B>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
+	var/list/out = list("<meta charset='UTF-8'><b>[name]</b>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
 	out.Add("Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]")
 	out.Add("Assigned role: [assigned_role]. <a href='?src=[UID()];role_edit=1'>Edit</a>")
 	out.Add("Factions and special roles:")
@@ -762,7 +755,7 @@
 				var/datum/objective/escape/escape_with_identity/O = new_objective
 				O.target_real_name = new_objective.target.current.real_name
 			if("custom")
-				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
+				var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null, 1, MAX_MESSAGE_LEN))
 				if(!expl)
 					return
 				new_objective = new /datum/objective
@@ -818,8 +811,7 @@
 				to_chat(H, "<span class='userdanger'>You somehow have become the recipient of a mindshield transplant, and it just activated!</span>")
 				var/datum/antagonist/rev/has_rev = has_antag_datum(/datum/antagonist/rev)
 				if(has_rev)
-					has_rev.silent = TRUE // we have some custom text, lets make the removal silent
-					remove_antag_datum(/datum/antagonist/rev)
+					remove_antag_datum(/datum/antagonist/rev, silent_removal = TRUE) // we have some custom text, lets make the removal silent
 					to_chat(H, "<span class='userdanger'>The nanobots in the mindshield implant remove all thoughts about being a revolutionary. Get back to work!</span>")
 
 	else if(href_list["revolution"])
@@ -911,27 +903,25 @@
 	else if(href_list["cult"])
 		switch(href_list["cult"])
 			if("clear")
-				if(src in SSticker.mode.cult)
-					SSticker.mode.remove_cultist(src)
-					special_role = null
+				if(has_antag_datum(/datum/antagonist/cultist))
+					remove_antag_datum(/datum/antagonist/cultist)
 					log_admin("[key_name(usr)] has de-culted [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-culted [key_name_admin(current)]")
 			if("cultist")
-				if(!(src in SSticker.mode.cult))
-					to_chat(current, CULT_GREETING)
-					SSticker.mode.add_cultist(src)
-					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [SSticker.cultdat.entity_title2] above all else. Bring It back.</span>")
-					log_and_message_admins("[key_name(usr)] has culted [key_name(current)]")
+				if(!has_antag_datum(/datum/antagonist/cultist))
+					add_antag_datum(/datum/antagonist/cultist)
+					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [GET_CULT_DATA(entity_title2, "your god")] above all else. Bring It back.</span>")
+					log_and_message_admins("has culted [key_name(current)]")
 			if("dagger")
-				var/mob/living/carbon/human/H = current
-				if(!SSticker.mode.cult_give_item(/obj/item/melee/cultblade/dagger, H))
+				var/datum/antagonist/cultist/cultist = has_antag_datum(/datum/antagonist/cultist)
+				if(!cultist.cult_give_item(/obj/item/melee/cultblade/dagger))
 					to_chat(usr, "<span class='warning'>Spawning dagger failed!</span>")
-				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with a cult dagger")
+				log_and_message_admins("has equipped [key_name(current)] with a cult dagger")
 			if("runedmetal")
-				var/mob/living/carbon/human/H = current
-				if(!SSticker.mode.cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H))
+				var/datum/antagonist/cultist/cultist = has_antag_datum(/datum/antagonist/cultist)
+				if(!cultist.cult_give_item(/obj/item/stack/sheet/runed_metal/ten))
 					to_chat(usr, "<span class='warning'>Spawning runed metal failed!</span>")
-				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with 10 runed metal sheets")
+				log_and_message_admins("has equipped [key_name(current)] with 10 runed metal sheets")
 
 	else if(href_list["wizard"])
 
@@ -1433,7 +1423,7 @@
 					return
 
 				var/mob/living/carbon/human/H = current
-				var/gear = alert("Agent or Scientist Gear","Gear","Agent","Scientist")
+				var/gear = alert("Agent or Scientist Gear", "Gear", "Agent", "Scientist")
 				if(gear)
 					if(gear=="Agent")
 						H.equipOutfit(/datum/outfit/abductor/agent)
@@ -1536,9 +1526,11 @@
  * Arguments:
  * * datum_type - an antag datum typepath
  */
-/datum/mind/proc/remove_antag_datum(datum_type, check_subtypes = TRUE)
+/datum/mind/proc/remove_antag_datum(datum_type, check_subtypes = TRUE, silent_removal = FALSE)
 	var/datum/antagonist/A = has_antag_datum(datum_type, check_subtypes)
-	qdel(A)
+	if(A)
+		A.silent |= silent_removal
+		qdel(A)
 
 /**
  * Removes all antag datums from the src mind.
@@ -1666,9 +1658,9 @@
 		SSticker.mode.update_wiz_icons_added(src)
 
 /datum/mind/proc/make_Abductor()
-	var/role = alert("Abductor Role ?","Role","Agent","Scientist")
-	var/team = input("Abductor Team ?","Team ?") in list(1,2,3,4)
-	var/teleport = alert("Teleport to ship ?","Teleport","Yes","No")
+	var/role = alert("Abductor Role?", "Role", "Agent", "Scientist")
+	var/team = input("Abductor Team?", "Team?") in list(1,2,3,4)
+	var/teleport = alert("Teleport to ship?", "Teleport", "Yes", "No")
 
 	if(!role || !team || !teleport)
 		return

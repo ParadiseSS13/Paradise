@@ -1,5 +1,5 @@
 /obj/item/melee/energy
-	icon = 'icons/obj/energy_melee.dmi'
+	icon = 'icons/obj/weapons/energy_melee.dmi'
 	var/active = FALSE
 	var/force_on = 30 //force when active
 	var/throwforce_on = 20
@@ -41,8 +41,8 @@
 		force -= faction_bonus_force
 
 /obj/item/melee/energy/suicide_act(mob/user)
-	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>", \
-						"<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
+	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \
+						"<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)
@@ -111,7 +111,7 @@
 	light_color = LIGHT_COLOR_WHITE
 
 /obj/item/melee/energy/axe/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] swings [src] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] swings [src] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/melee/energy/sword
@@ -159,7 +159,8 @@
 		..()
 	return
 
-/obj/item/melee/energy/sword/cyborg/saw //Used by medical Syndicate cyborgs
+/// Used by medical Syndicate cyborgs
+/obj/item/melee/energy/sword/cyborg/saw
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
 	force_on = 30
