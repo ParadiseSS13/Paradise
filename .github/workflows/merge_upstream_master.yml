@@ -32,7 +32,9 @@ jobs:
           source ~/.nvm/nvm.sh
           nvm install $NODE_VERSION
           nvm use $NODE_VERSION
-          npm install --global yarn
+          corepack enable
+          yarn set version stable
+          yarn install
 
       - uses: actions/setup-python@v5
         with:
@@ -45,7 +47,9 @@ jobs:
           source ~/.nvm/nvm.sh
           nvm install $NODE_VERSION
           nvm use $NODE_VERSION
-          npm install --global yarn
+          corepack enable
+          yarn set version stable
+          yarn install
           chmod +x tools/bootstrap/python
           bash tools/hooks/install.sh
           bash tgui/bin/tgui --install-git-hooks

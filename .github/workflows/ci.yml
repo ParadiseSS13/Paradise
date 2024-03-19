@@ -38,7 +38,9 @@ jobs:
           source ~/.nvm/nvm.sh
           nvm install $NODE_VERSION
           nvm use $NODE_VERSION
-          npm install --global yarn
+          corepack enable
+          yarn set version stable
+          yarn install
       - run: pip install -r tools/requirements.txt
       - name: Run Linters
         run: |
