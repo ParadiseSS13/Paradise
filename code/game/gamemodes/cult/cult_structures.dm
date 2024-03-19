@@ -48,25 +48,25 @@
 
 /obj/structure/cult/functional/examine(mob/user)
 	. = ..()
-	if(iscultist(user) && cooldowntime > world.time)
+	if(IS_CULTIST(user) && cooldowntime > world.time)
 		. += "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>"
 	. += "<span class='notice'>[src] is [anchored ? "":"not "]secured to the floor.</span>"
 
 /obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
+	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
 		if(user.holy_check())
 			return
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
-			icon_state = SSticker.cultdat?.get_icon("[initial(icon_state)]_off")
+			icon_state = GET_CULT_DATA(get_icon("[initial(icon_state)]_off"), "[initial(icon_state)]_off")
 		else
-			icon_state = SSticker.cultdat?.get_icon("[initial(icon_state)]")
+			icon_state = GET_CULT_DATA(get_icon(initial(icon_state)), initial(icon_state))
 		return
 	return ..()
 
 /obj/structure/cult/functional/attack_hand(mob/living/user)
-	if(!iscultist(user))
+	if(!IS_CULTIST(user))
 		to_chat(user, "[heathen_message]")
 		return
 	if(invisibility)
@@ -150,7 +150,7 @@
 
 /obj/structure/cult/functional/altar/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.altar_icon_state
+	icon_state = GET_CULT_DATA(altar_icon_state, "altar")
 	cooldowntime = world.time + CULT_STRUCTURE_COOLDOWN
 
 /obj/structure/cult/functional/forge
@@ -170,7 +170,7 @@
 
 /obj/structure/cult/functional/forge/get_choosable_items()
 	. = ..()
-	if(SSticker.cultdat.mirror_shields_active)
+	if(SSticker.mode.cult_team.mirror_shields_active)
 		// Both lines here are needed. If you do it without, youll get issues.
 		. += "Mirror Shield"
 		.["Mirror Shield"] = /obj/item/shield/mirror
@@ -178,7 +178,7 @@
 
 /obj/structure/cult/functional/forge/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.forge_icon_state
+	icon_state = GET_CULT_DATA(forge_icon_state, "forge")
 
 /obj/structure/cult/functional/forge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 /obj/structure/cult/functional/pylon/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	icon_state = SSticker.cultdat?.pylon_icon_state
+	icon_state = GET_CULT_DATA(pylon_icon_state, "pylon")
 
 /obj/structure/cult/functional/pylon/attack_hand(mob/living/user)//override as it should not create anything
 	return
@@ -260,7 +260,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	if(last_heal <= world.time)
 		last_heal = world.time + heal_delay
 		for(var/mob/living/L in range(5, src))
-			if(iscultist(L) || iswizard(L) || isshade(L) || isconstruct(L))
+			if(IS_CULTIST(L) || iswizard(L) || isshade(L) || isconstruct(L))
 				if(L.health != L.maxHealth)
 					new /obj/effect/temp_visual/heal(get_turf(src), COLOR_HEALING_GREEN)
 
@@ -322,7 +322,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 /obj/structure/cult/functional/archives/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.archives_icon_state
+	icon_state = GET_CULT_DATA(archives_icon_state, "archives")
 
 /obj/effect/gateway
 	name = "gateway"
