@@ -284,7 +284,7 @@
 /mob/living/simple_animal/parrot/Life(seconds, times_fired)
 	..()
 
-	if(held_item.loc != src)
+	if(held_item?.loc != src)
 		held_item = null
 		update_held_icon()
 
