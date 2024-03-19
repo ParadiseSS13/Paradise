@@ -284,6 +284,10 @@
 /mob/living/simple_animal/parrot/Life(seconds, times_fired)
 	..()
 
+	if(held_item.loc != src)
+		held_item = null
+		update_held_icon()
+
 	//Sprite and AI update for when a parrot gets pulled
 	if(pulledby && stat == CONSCIOUS)
 		icon_state = "parrot_fly"
