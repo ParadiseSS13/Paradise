@@ -142,7 +142,7 @@ task-merge-bundle() {
   task-install
   task-webpack --mode=production
   echo "tgui: replacing conflicted bundle with newly compiled bundle"
-  cp $relative_file_path $file_current
+  cp $relative_file_path ../$file_current
   ## file_current will be merged and is what we want to keep.
   exit 0
 }
