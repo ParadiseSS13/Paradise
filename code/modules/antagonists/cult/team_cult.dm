@@ -1,4 +1,4 @@
-/* RESTRICT_TEAM(/datum/team/cult) */
+/* RESTRICT_TYPE(/datum/team/cult) */
 
 /datum/team/cult/test
 
