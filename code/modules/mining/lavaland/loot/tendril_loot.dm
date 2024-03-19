@@ -66,9 +66,9 @@
 			return
 
 		if(!M.restrained() && !M.stat)
-			playsound(loc, "rustle", 50, 1, -5)
+			playsound(loc, "rustle", 50, TRUE, -5)
 
-			if(istype(over_object, /obj/screen/inventory/hand))
+			if(istype(over_object, /atom/movable/screen/inventory/hand))
 				if(!M.unEquip(src))
 					return
 				M.put_in_active_hand(src)
@@ -404,6 +404,10 @@
 	icon_state = "blank"
 	icon = 'icons/effects/effects.dmi'
 	var/can_destroy = FALSE
+
+/obj/effect/immortality_talisman/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_EFFECT_CAN_TELEPORT, ROUNDSTART_TRAIT)
 
 /obj/effect/immortality_talisman/attackby()
 	return

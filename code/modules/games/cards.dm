@@ -67,7 +67,7 @@
 
 		if(length(H.cards) > 1)
 			var/confirm = tgui_alert(user, "Are you sure you want to put your [length(H.cards)] cards back into the deck?", "Return Hand", list("Yes", "No"))
-			if(confirm == "No" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+			if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 				return
 		for(var/datum/playingcard/P in H.cards)
 			cards += P
@@ -239,7 +239,7 @@
 	if(!ishuman(M))
 		return
 
-	if(istype(over, /obj/screen))
+	if(is_screen_atom(over))
 		if(!remove_item_from_storage(get_turf(M)))
 			M.unEquip(src)
 		switch(over.name)
