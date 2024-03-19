@@ -73,6 +73,12 @@
 	hud_used = new_hud
 	new_hud.build_action_groups()
 
+/datum/hud/proc/get_all_action_buttons()
+	var/list/all_action_buttons = list()
+	all_action_buttons += palette_actions.actions
+	all_action_buttons += listed_actions.actions
+	return all_action_buttons
+
 /datum/hud/New(mob/owner)
 	mymob = owner
 

@@ -1,7 +1,7 @@
 /datum/action_group
 	/// The hud we're owned by
 	var/datum/hud/owner
-	/// The actions we're managing
+	/// The action buttons we're managing
 	var/list/atom/movable/screen/movable/action_button/actions
 	/// The initial vertical offset of our action buttons
 	var/north_offset = 0

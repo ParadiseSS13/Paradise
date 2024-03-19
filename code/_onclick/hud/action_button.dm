@@ -198,6 +198,7 @@
 		action.UpdateButtons()
 		if(reload_screen)
 			client.screen += button
+			client.update_active_keybindings()
 
 	if(reload_screen)
 		hud_used.update_our_owner()
