@@ -25396,7 +25396,7 @@
 /area/station/hallway/primary/central/west)
 "bzN" = (
 /obj/effect/spawner/airlock/w_to_e/long{
-	req_access_txt = 11,24
+	req_access_txt = 32
 	},
 /turf/simulated/wall/r_wall,
 /area/station/engineering/ai_transit_tube)
