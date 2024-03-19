@@ -50,6 +50,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	var/goal_property_value
 
 /datum/virology_goal/property_symptom/New()
+	var/times_looped = 0 //The chance for this to make a infinite loop that lags the server is astronomically small but its still a chance
 	do
 		var/type = pick(subtypesof(/datum/symptom))
 		var/datum/symptom/S = new type()
@@ -67,7 +68,8 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 			if("transmittable")
 				goal_property_value += S.transmittable
 		qdel(S)
-	while(check_for_duplicate())
+		times_looped++
+	while(check_for_duplicate() && times_looped < 30)
 
 /datum/virology_goal/property_symptom/check_for_duplicate()
 	. = FALSE
@@ -113,26 +115,23 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	var/list/goal_symptoms = list() //List of type paths of the symptoms, we could go with a diseaseID here instead a list of symptoms but we need the list to tell the player what symptoms to include
 
 /datum/virology_goal/virus/New()
+	var/times_looped = 0 //The chance for this to make a infinite loop that lags the server is astronomically small but its still a chance
 	do
 		goal_symptoms = list()
 		var/list/symptoms = subtypesof(/datum/symptom)
 		var/stealth = 0
 		for(var/i in 1 to 5)
 			var/list/candidates = list()
-			for(var/V as anything in symptoms) //There is a "as anything" added because for some mystery reason it doesnt work without it
-				var/datum/symptom/S = V
-				if(istype(src, /datum/virology_goal/virus/stealth))
-					if(stealth + S.stealth < 3) //The Pandemic cant detect a virus with stealth 3 or higher and we want that, this is a stealth virus
-						continue
-				else
-					if(stealth + S.stealth >= 3) //The Pandemic cant detect a virus with stealth 3 or higher and we dont want that, this isnt a stealth virus
-						continue
+			for(var/datum/symptom/S as anything in symptoms) //There is a "as anything" added because for some mystery reason it doesnt work without it
+				if(!meets_stealth_requirement(stealth + S.stealth))
+					continue
 				candidates += S
 			var/datum/symptom/S2 = pick(candidates)
 			goal_symptoms += S2
 			stealth += S2.stealth
 			symptoms -= S2
-	while(check_for_duplicate())
+		times_looped++
+	while(check_for_duplicate() && times_looped < 30)
 
 /datum/virology_goal/virus/check_for_duplicate()
 	. = FALSE
@@ -141,6 +140,9 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	for(var/datum/virology_goal/virus/V in (GLOB.archived_virology_goals + GLOB.virology_goals))
 		if(goal_symptoms == V.goal_symptoms)
 			return TRUE
+
+/datum/virology_goal/virus/proc/meets_stealth_requirement(stealth)
+	return (stealth < 3)
 
 /datum/virology_goal/virus/get_report(is_ui = FALSE)
 	var/return_text
@@ -176,3 +178,6 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal/virus/stealth
 	name = "Specific Viral Sample Request (Stealth)"
+
+/datum/virology_goal/virus/stealth/meets_stealth_requirement(stealth)
+	return (stealth >= 3)
