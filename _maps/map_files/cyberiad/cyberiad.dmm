@@ -14016,8 +14016,9 @@
 	},
 /area/station/hallway/primary/fore)
 "aSV" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 2
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
@@ -41266,13 +41267,6 @@
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/misc_lab)
-"cFW" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/starboard/east)
 "cFX" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -62067,9 +62061,6 @@
 	},
 /area/station/service/barber)
 "hUX" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -62077,6 +62068,7 @@
 	name = "Prison Intercom (General)";
 	pixel_y = 25
 	},
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -64563,6 +64555,12 @@
 	icon_state = "white"
 	},
 /area/station/maintenance/aft)
+"jlQ" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard/east)
 "jlW" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -138069,7 +138067,7 @@ aGY
 bte
 aSI
 bwv
-aSV
+jlQ
 xWq
 anx
 qlS
@@ -138328,7 +138326,7 @@ bve
 bwv
 bwv
 aSI
-cFW
+aSV
 vbR
 gSC
 bWj

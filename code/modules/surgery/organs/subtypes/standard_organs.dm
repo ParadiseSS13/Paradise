@@ -264,8 +264,6 @@
 		if(!istype(dna))
 			dna = owner.dna.Clone()
 		name = "[dna.real_name]'s head"
-		if(is_species(owner, /datum/species/monkey))
-			name = "[owner.name]'s head"
 		if(owner.glasses)
 			owner.unEquip(owner.glasses, force = TRUE)
 		if(owner.head)
