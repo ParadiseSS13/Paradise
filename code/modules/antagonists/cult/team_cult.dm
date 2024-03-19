@@ -1,3 +1,16 @@
+/* RESTRICT_TEAM(/datum/team/cult) */
+
+/datum/team/cult/test
+
+/datum/team/cult/proc/epic_fail()
+	return
+
+/datum/team/cult/test/epic_fail()
+	return
+
+/datum/team/revolution/New()
+	return
+
 /datum/team/cult
 	name = "Cult"
 	antag_datum_type = /datum/antagonist/cultist
