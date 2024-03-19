@@ -234,7 +234,9 @@
 			if(mind)
 				mind.transfer_to(C)
 			if(pcollar)
-				C.pcollar = pcollar
+				var/the_collar = pcollar
+				unEquip(pcollar)
+				C.add_collar(the_collar)
 			qdel(src)
 
 
