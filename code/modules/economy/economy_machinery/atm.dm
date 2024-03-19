@@ -32,6 +32,7 @@
 
 /obj/machinery/economy/atm/Initialize(mapload)
 	. = ..()
+	name = "Nanotrasen automatic teller machine"
 	update_icon()
 
 /obj/machinery/economy/atm/update_icon_state()
