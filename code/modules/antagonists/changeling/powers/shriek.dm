@@ -55,3 +55,6 @@
 		L.break_light_tube()
 	empulse(get_turf(user), 3, 5, 1)
 	return TRUE
+
+/datum/action/changeling/dissonant_shriek/cyberrev
+	dna_cost = 5
