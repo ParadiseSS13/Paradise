@@ -190,7 +190,7 @@
 		qdel(bse)
 		build_stage = BARSIGN_CIRCUIT
 		update_icon()
-		playsound(get_turf(src), I.usesound, 50, 1)
+		playsound(get_turf(src), I.usesound, 50, TRUE)
 		return
 	// Wiring the bar sign
 	else if(build_stage == BARSIGN_CIRCUIT && istype(I, /obj/item/stack/cable_coil))
@@ -200,7 +200,7 @@
 		stat &= ~EMPED
 		build_stage = BARSIGN_WIRED
 		update_icon()
-		playsound(get_turf(src), I.usesound, 50, 1)
+		playsound(get_turf(src), I.usesound, 50, TRUE)
 		to_chat(user, "<span class='notice'>You wire [src]!</span>")
 		power_state = IDLE_POWER_USE
 		return
@@ -210,7 +210,7 @@
 			to_chat(user, "<span class='warning'>You need at least 2 sheets of glass for this!</span>")
 			return
 		build_stage = BARSIGN_COMPLETE
-		playsound(get_turf(src), I.usesound, 50, 1)
+		playsound(get_turf(src), I.usesound, 50, TRUE)
 		obj_integrity = max_integrity
 		if(stat & BROKEN)
 			stat &= ~BROKEN
@@ -409,6 +409,7 @@
 
 
 /datum/stack_recipe/barsign_frame
+
 /datum/stack_recipe/barsign_frame/try_build(mob/user, obj/item/stack/S, multiplier)
 	if(!..())
 		return FALSE
@@ -457,9 +458,9 @@
 
 /obj/item/barsign_electronics
 	name = "bar sign electronics"
+	desc = "A circuit. It has a small data storage component filled with various bar sign designs."
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
-	desc = "A circuit. It has a small data storage component filled with various bar sign designs.\n<span class='notice'>Use a multitool on it to toggle the access restrictions.</span>"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
@@ -468,18 +469,25 @@
 	var/destroyed = FALSE
 	var/restricts_access = TRUE
 
-/obj/item/barsign_electronics/multitool_act(mob/living/user, obj/item/I)
-	if(!destroyed)
-		if(restricts_access)
-			restricts_access = FALSE
-			to_chat(user, "<span class='notice'>You disable the access restrictions of [src].</span>")
-		else
-			restricts_access = TRUE
-			to_chat(user, "<span class='notice'>You enable the access restrictions of [src].</span>")
+/obj/item/barsign_electronics/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Use it while in your active hand to toggle the access restrictions.</span>"
+
+/obj/item/barsign_electronics/attack_self(mob/user)
+	..()
+	if(destroyed)
+		return
+	if(restricts_access)
+		restricts_access = FALSE
+		to_chat(user, "<span class='notice'>You disable the access restrictions of [src].</span>")
+	else
+		restricts_access = TRUE
+		to_chat(user, "<span class='notice'>You enable the access restrictions of [src].</span>")
 
 // For the ghost bar since occupants don't have bar access.
 /obj/machinery/barsign/ghost_bar
 	req_access = list()
+
 /obj/machinery/barsign/ghost_bar/Initialize(mapload)
 	..()
 	// Also give them access to syndicate signs because why not.
