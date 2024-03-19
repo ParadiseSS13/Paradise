@@ -16,7 +16,7 @@
 		return active_keybindings
 	for(var/datum/action/action as anything in mob.actions)
 		// TODO FIX KEYBINDS
-		// if(action.button?.linked_keybind?.binded_to)
+		if(action.button?.linked_keybind?.binded_to && action)
 		// 	var/datum/keybinding/mob/trigger_action_button/linked_bind = action.button.linked_keybind
 		// 	active_keybindings[linked_bind.binded_to] += list(linked_bind)
 

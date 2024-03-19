@@ -118,9 +118,6 @@
 		action.name = name
 		action.desc = desc
 		UpdateButtons()
-	// if(action && action.button)
-	// 	action.name = action.button.name = name
-	// 	action.desc = action.button.desc = desc
 
 	target.name = "ensouled [target.name]"
 	target.desc += "<br><span class='warning'>A terrible aura surrounds this item, its very existence is offensive to life itself...</span>"

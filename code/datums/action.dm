@@ -13,7 +13,7 @@
 	var/mob/owner
 	/// Where any buttons we create should be by default. Accepts screen_loc and location defines
 	var/default_button_position = SCRN_OBJ_IN_LIST
-	///List of all mobs that are viewing our action button -> A unique movable for them to view.
+	/// List of all mobs that are viewing our action button -> A unique movable for them to view.
 	var/list/viewers = list()
 
 
@@ -634,14 +634,8 @@
 	var/obj/effect/proc_holder/spell/S = target
 	S.action = src
 	name = S.name
-	// var/list/our_description = list()
-	// our_description += S.desc
-	// our_description += button.desc
-	// button.desc = our_description.Join(" ")
-	button_icon = S.action_icon
-	button_icon_state = S.action_icon_state
-	background_icon_state = S.action_background_icon_state
-	// button.name = name
+	desc = S.desc
+	UpdateButtons()
 
 
 /datum/action/spell_action/Destroy()
