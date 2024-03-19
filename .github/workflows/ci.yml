@@ -14,24 +14,29 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup Cache
         uses: actions/cache@v4
         with:
           path: $HOME/SpacemanDMM
           key: ${{ runner.os }}-spacemandmm
+
       - name: Install Tools
         run: |
           bash tools/ci/install_build_deps.sh
           bash tools/ci/install_dreamchecker.sh
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
           cache-dependency-path: tgui/package.json
+
       - name: Setup Node & nvm
         run: |
           source _build_dependencies.sh
@@ -39,8 +44,7 @@ jobs:
           nvm install $NODE_VERSION
           nvm use $NODE_VERSION
           corepack enable
-          tgui_yarn_version=$(cd tgui && yarn --version && cd ../)
-          yarn set version $tgui_yarn_version
+
       - run: pip install -r tools/requirements.txt
       - name: Run Linters
         run: |
@@ -55,6 +59,7 @@ jobs:
           python -m tools.ci.check_icon_conflicts
           python -m tools.ci.check_icon_dupenames
           python -m tools.maplint.source --github
+
       - name: Run DreamChecker
         shell: bash
         run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
