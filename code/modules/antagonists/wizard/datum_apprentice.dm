@@ -1,3 +1,5 @@
+/* RESTRICT_TYPE(/datum/antagonist/wizard/apprentice) */
+
 /datum/antagonist/wizard/apprentice
 	name = "Wizard Apprentice"
 	special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
