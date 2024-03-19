@@ -1,34 +1,46 @@
-/// All Signs are 64 by 32 pixels, they take two tiles
-/obj/structure/sign/barsign
+#define BARSIGN_FRAME		0
+#define BARSIGN_CIRCUIT		1
+#define BARSIGN_WIRED		2
+#define BARSIGN_COMPLETE	3
+
+
+
+/obj/machinery/barsign // All Signs are 64 by 32 pixels, they take two tiles
 	name = "Bar Sign"
 	desc = "A bar sign with no writing on it."
 	icon = 'icons/obj/barsigns.dmi'
-	icon_state = "empty"
+	icon_state = "off"
 	req_access = list(ACCESS_BAR)
-	max_integrity = 500
-	integrity_failure = 250
-	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
-	var/list/barsigns=list()
-	var/list/hiddensigns
+	max_integrity = 200
+	integrity_failure = 160
+	idle_power_consumption = 2
+	active_power_consumption = 4
+	power_state = ACTIVE_POWER_USE
+	armor = list(MELEE = 0, BULLET = 0, LASER = 20, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 50, ACID = 50)
+	anchored = TRUE
+	layer = ABOVE_WINDOW_LAYER
+	var/list/barsigns = list()
+	var/list/syndisigns = list()
 	var/datum/barsign/current_sign
 	var/datum/barsign/prev_sign
-	var/panel_open = FALSE
-	blocks_emissive = FALSE
-	does_emissive = TRUE
+	var/build_stage = BARSIGN_COMPLETE
 
-/obj/structure/sign/barsign/Initialize(mapload)
+/obj/machinery/barsign/Initialize(mapload)
 	. = ..()
 
-	//filling the barsigns list
+	// Fill the barsigns lists
 	for(var/bartype in subtypesof(/datum/barsign))
 		var/datum/barsign/signinfo = new bartype
 		if(!signinfo.hidden)
-			barsigns += signinfo
+			if(!signinfo.syndicate)
+				barsigns += signinfo
+			else
+				syndisigns += signinfo
 
-	//randomly assigning a sign
-	set_sign(pick(barsigns))
+	set_random_sign()
+	set_light(1, LIGHTING_MINIMUM_POWER)
 
-/obj/structure/sign/barsign/proc/set_sign(datum/barsign/sign)
+/obj/machinery/barsign/proc/set_sign(datum/barsign/sign)
 	if(!istype(sign))
 		return
 	current_sign = sign
@@ -41,120 +53,448 @@
 
 	update_icon()
 
-/obj/structure/sign/barsign/update_icon_state()
-	. = ..()
+/obj/machinery/barsign/proc/set_random_sign()
+	if(!emagged)
+		set_sign(pick(barsigns))
+	else
+		set_sign(pick(syndisigns))
 
-	if(!current_sign || broken)
-		icon_state = "empty"
+// Saves a /datum/barsign (by default the current_sign) to the prev_sign variable.
+/obj/machinery/barsign/proc/save_sign(datum/barsign/S=current_sign)
+	// Broken, blank, and EMPed screens shouldn't be saved.
+	if(istype(S, /datum/barsign) && !istype(S, /datum/barsign/hiddensigns))
+		prev_sign = S
+		return TRUE
+	return FALSE
+
+/obj/machinery/barsign/update_icon_state()
+	if(build_stage == BARSIGN_FRAME && !istype(current_sign, /datum/barsign/hiddensigns/building/frame))
+		set_sign(new /datum/barsign/hiddensigns/building/frame)
+	if(build_stage == BARSIGN_CIRCUIT && !istype(current_sign, /datum/barsign/hiddensigns/building/circuited))
+		set_sign(new /datum/barsign/hiddensigns/building/circuited)
+	if(build_stage == BARSIGN_WIRED && !istype(current_sign, /datum/barsign/hiddensigns/building/wired))
+		set_sign(new /datum/barsign/hiddensigns/building/wired)
+	if(build_stage == BARSIGN_COMPLETE)
+		if((stat & BROKEN) && !istype(current_sign, /datum/barsign/hiddensigns/signbroken))
+			set_sign(new /datum/barsign/hiddensigns/signbroken)
+			return
+		if((stat & NOPOWER) && !(stat & BROKEN) && !istype(current_sign, /datum/barsign/hiddensigns/signoff))
+			set_sign(new /datum/barsign/hiddensigns/signoff)
+			return
+		if((stat & EMPED) && !(stat & BROKEN|NOPOWER) && !istype(current_sign, /datum/barsign/hiddensigns/empbarsign))
+			set_sign(new /datum/barsign/hiddensigns/empbarsign)
+			return
+	if(!current_sign)
+		turn_off()
 		return
 	icon_state = current_sign.icon
 
-/obj/structure/sign/barsign/update_overlays()
+// Allows the sign to be visible in complete darkness.
+/obj/machinery/barsign/update_overlays()
 	. = ..()
 	underlays.Cut()
 
-	if(current_sign == "empty" || broken || !current_sign)
+	if(power_state < ACTIVE_POWER_USE || stat & (BROKEN|NOPOWER) || !current_sign || build_stage < BARSIGN_COMPLETE)
 		return
 
 	underlays |= emissive_appearance(icon, current_sign.icon)
 
-/obj/structure/sign/barsign/obj_break(damage_flag)
-	if(!broken && !(flags & NODECONSTRUCT))
-		broken = TRUE
-		prev_sign = current_sign
-		set_light(0)
-		update_icon()
+/obj/machinery/barsign/examine(mob/user)
+	. = ..()
+	switch(build_stage)
+		if(BARSIGN_FRAME)
+			. += "<span class='notice'>It's missing a <i>circuit board</i> and the <b>bolts</b> are exposed.</span>"
+		if(BARSIGN_CIRCUIT)
+			. += "<span class='notice'>The frame needs <i>wiring</i> and the circuit board could be <b>pried out</b>.</span>"
+		if(BARSIGN_WIRED)
+			. += "<span class='notice'>The frame lacks a <i>glass screen</i> and is filled with wires that could be <b>cut</b>.</span>"
+		if(BARSIGN_COMPLETE)
+			. += "<span class='info'><b>Alt-Click</b> to toggle it's power.</span>"
+			if(panel_open)
+				. += "<span class='notice'>It is disabled by it's <i>unscrewed</i> maintenance panel that exposes an area from which the screen could be <b>pried out</b>.</span>"
 
-/obj/structure/sign/barsign/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/metal(drop_location(), 2)
-	new /obj/item/stack/cable_coil(drop_location(), 2)
-	qdel(src)
+/obj/machinery/barsign/proc/is_on()
+	if(power_state == ACTIVE_POWER_USE)
+		return TRUE
+	return FALSE
 
-/obj/structure/sign/barsign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
-	switch(damage_type)
-		if(BRUTE)
-			playsound(src.loc, 'sound/effects/glasshit.ogg', 75, TRUE)
-		if(BURN)
-			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
+/obj/machinery/barsign/proc/toggle_on_off()
+	if(is_on())
+		return turn_off()
+	else
+		return turn_on()
 
-/obj/structure/sign/barsign/attack_ai(mob/user as mob)
-	return src.attack_hand(user)
+/obj/machinery/barsign/proc/turn_off()
+	if((stat & (BROKEN|EMPED|MAINT)) || !is_on() || build_stage < BARSIGN_COMPLETE)
+		return FALSE
+	save_sign()
+	set_light(0)
+	// update_icon() won't update the lighting properly, but using a 0 second callback will make it work.  There is almost certainly a better way to do this, but I don't know it.
+	addtimer(CALLBACK(src, PROC_REF(update_icon_alt)), 0 SECONDS)
+	set_sign(new /datum/barsign/hiddensigns/signoff)
+	power_state = IDLE_POWER_USE
+	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
+	return TRUE
 
-/obj/structure/sign/barsign/attack_hand(mob/user as mob)
-	if(!src.allowed(user))
-		to_chat(user, "<span class = 'info'>Access denied.</span>")
+/obj/machinery/barsign/proc/turn_on()
+	if((stat & (BROKEN|NOPOWER|MAINT)) || build_stage < BARSIGN_COMPLETE)
+		return FALSE
+	if(panel_open)
+		return FALSE
+	set_light(1, LIGHTING_MINIMUM_POWER)
+	addtimer(CALLBACK(src, PROC_REF(update_icon_alt)), 0 SECONDS)
+	if(prev_sign)
+		set_sign(prev_sign)
+	else
+		set_random_sign()
+	power_state = ACTIVE_POWER_USE
+	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
+	return TRUE
+
+/obj/machinery/barsign/proc/update_icon_alt()
+	update_icon()
+
+/obj/machinery/barsign/attack_hand(mob/user)
+	if(stat & MAINT)
+		to_chat(user, "<span class ='warning'>Wait until the repairs are complete!</span>")
 		return
-	if(broken)
-		to_chat(user, "<span class ='danger'>The controls seem unresponsive.</span>")
+	if((stat & (BROKEN|NOPOWER|EMPED)) || build_stage < BARSIGN_COMPLETE)
+		to_chat(user, "<span class ='warning'>The controls seem unresponsive.</span>")
+		return
+	if(panel_open)
+		to_chat(user, "<span class ='warning'>Close the maintenance panel first!</span>")
+		return
+	if(!src.allowed(user))
+		to_chat(user, "<span class = 'warning'>Access denied.</span>")
 		return
 	pick_sign()
 
-/obj/structure/sign/barsign/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/stack/cable_coil) && panel_open)
-		var/obj/item/stack/cable_coil/C = I
-		if(emagged) //Emagged, not broken by EMP
-			to_chat(user, "<span class='warning'>Sign has been damaged beyond repair!</span>")
-			return
-		else if(!broken)
-			to_chat(user, "<span class='warning'>This sign is functioning properly!</span>")
-			return
+/obj/machinery/barsign/AltClick(mob/user)
+	if(toggle_on_off())
+		return
+	attack_hand(user)
 
-		if(C.use(2))
-			to_chat(user, "<span class='notice'>You replace the burnt wiring.</span>")
-			broken = FALSE
+/obj/machinery/barsign/attackby(obj/item/I, mob/user, params)
+	// Inserting the electronics/circuit
+	if(build_stage == BARSIGN_FRAME && istype(I, /obj/item/barsign_electronics))
+		var/obj/item/barsign_electronics/bse = I
+		if(bse.destroyed)
+			emagged = TRUE
 		else
-			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
-	else
-		return ..()
-
-/obj/structure/sign/barsign/screwdriver_act(mob/user, obj/item/I)
-	if(!panel_open)
-		to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
-		prev_sign = current_sign
+			emagged = FALSE
+		if(bse.restricts_access)
+			req_access = list(ACCESS_BAR)
+		else
+			req_access = list()
+		to_chat(user, "<span class='notice'>You insert the circuit!</span>")
+		qdel(bse)
+		build_stage = BARSIGN_CIRCUIT
+		update_icon()
+		playsound(get_turf(src), I.usesound, 50, 1)
+		return
+	// Wiring the bar sign
+	else if(build_stage == BARSIGN_CIRCUIT && istype(I, /obj/item/stack/cable_coil))
+		if(!I.use(5))
+			to_chat(user, "<span class='warning'>You need a total of five cables to wire [src]!</span>")
+			return
+		stat &= ~EMPED
+		build_stage = BARSIGN_WIRED
+		update_icon()
+		playsound(get_turf(src), I.usesound, 50, 1)
+		to_chat(user, "<span class='notice'>You wire [src]!</span>")
+		power_state = IDLE_POWER_USE
+		return
+	// Placing in the glass
+	else if(build_stage == BARSIGN_WIRED && istype(I, /obj/item/stack/sheet/glass))
+		if(!I.use(2))
+			to_chat(user, "<span class='warning'>You need at least 2 sheets of glass for this!</span>")
+			return
+		build_stage = BARSIGN_COMPLETE
+		playsound(get_turf(src), I.usesound, 50, 1)
+		obj_integrity = max_integrity
+		if(stat & BROKEN)
+			stat &= ~BROKEN
 		set_sign(new /datum/barsign/hiddensigns/signoff)
+		return
+	. = ..()
+
+/obj/machinery/barsign/proc/pick_sign()
+	var/picked_name
+	if(!emagged)
+		picked_name = tgui_input_list(usr, "Available Signage", "Bar Sign", barsigns)
 	else
-		to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
-		if(!broken && !emagged)
-			set_sign(prev_sign)
-			set_light(1, LIGHTING_MINIMUM_POWER)
-		else if(emagged)
-			set_sign(new /datum/barsign/hiddensigns/syndibarsign)
+		picked_name = tgui_input_list(usr, "Available Signage", "Bar Sign", syndisigns)
+	if(!picked_name)
+		return
+	set_sign(picked_name)
+
+/obj/machinery/barsign/obj_break(damage_flag)
+	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+		turn_off()
+		stat |= BROKEN
+		// Don't break the glass unless it actually has glass.
+		if(build_stage == BARSIGN_COMPLETE)
+			set_sign(new /datum/barsign/hiddensigns/signbroken)
+			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
+
+/obj/machinery/barsign/welder_act(mob/living/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	. = TRUE
+	if(obj_integrity >= max_integrity)
+		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+		return
+	if(I.tool_behaviour != TOOL_WELDER)
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	var/time = max(50 * (1 - obj_integrity / max_integrity), 5)
+	WELDER_ATTEMPT_REPAIR_MESSAGE
+	turn_off()
+	stat |= MAINT
+	if(I.use_tool(src, user, time, volume = I.tool_volume))
+		WELDER_REPAIR_SUCCESS_MESSAGE
+		obj_integrity = max_integrity
+		stat &= ~BROKEN
+		set_sign(new /datum/barsign/hiddensigns/signoff)
+	stat &= ~MAINT
+
+/obj/machinery/barsign/screwdriver_act(mob/living/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	. = TRUE
+	if(I.tool_behaviour != TOOL_SCREWDRIVER)
+		return
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	if(!(flags & NODECONSTRUCT))
+		if(!panel_open)
+			panel_open = TRUE
+			turn_off()
+			to_chat(user, "<span class='notice'>You open the maintenance panel of [src].</span>")
 		else
-			set_sign(new /datum/barsign/hiddensigns/empbarsign)
-	panel_open = !panel_open
-	return TRUE
+			panel_open = FALSE
+			to_chat(user, "<span class='notice'>You close the maintenance panel of [src].</span>")
+		I.play_tool_sound(user, I.tool_volume)
 
-/obj/structure/sign/barsign/emp_act(severity)
-	set_sign(new /datum/barsign/hiddensigns/empbarsign)
-	broken = TRUE
+/obj/machinery/barsign/wrench_act(mob/living/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	if(build_stage != BARSIGN_FRAME)
+		return
+	. = TRUE
+	if(I.tool_behaviour != TOOL_WRENCH)
+		return
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	if(!(flags & NODECONSTRUCT))
+		WRENCH_UNANCHOR_WALL_MESSAGE
+		I.play_tool_sound(user, I.tool_volume)
+		deconstruct(TRUE)
 
-/obj/structure/sign/barsign/emag_act(mob/user)
-	if(broken || emagged)
-		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
+/obj/machinery/barsign/crowbar_act(mob/living/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	if(build_stage != BARSIGN_CIRCUIT && build_stage != BARSIGN_COMPLETE)
+		return
+	. = TRUE
+	if(I.tool_behaviour != TOOL_CROWBAR)
+		return
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	if(!(flags & NODECONSTRUCT))
+		// Removing the electronics
+		if(build_stage == BARSIGN_CIRCUIT)
+			var/obj/item/barsign_electronics/bse
+			bse = new /obj/item/barsign_electronics
+			if(!emagged)
+				to_chat(user, "<span class='notice'>You pull the electronics out from [src].</span>")
+			else
+				// Give fried electronics if the sign is emagged
+				to_chat(user, "<span class='notice'>You pull the fried electronics out from [src].</span>")
+				bse.destroyed = TRUE
+				bse.icon_state = "door_electronics_smoked"
+			if(!req_access.len)
+				bse.restricts_access = FALSE
+			bse.forceMove(get_turf(user))
+			build_stage = BARSIGN_FRAME
+			update_icon()
+		// Removing the glass screen
+		else if(build_stage == BARSIGN_COMPLETE)
+			if(panel_open)
+				// Drop a shard if the glass is broken
+				if(stat & BROKEN)
+					to_chat(user, "<span class='notice'>You remove the broken screen from [src].</span>")
+					new /obj/item/shard(get_turf(user))
+				else
+					to_chat(user, "<span class='notice'>You pull the glass screen out from [src].</span>")
+					var/obj/item/stack/sheet/glass/G
+					G = new /obj/item/stack/sheet/glass
+					G.amount = 2
+					G.forceMove(get_turf(user))
+				build_stage = BARSIGN_WIRED
+				update_icon()
+			else
+				to_chat(user, "<span class='warning'>Open the maintenance panel first!</span>")
+				return
+		I.play_tool_sound(user, I.tool_volume)
+
+/obj/machinery/barsign/wirecutter_act(mob/living/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	if(build_stage != BARSIGN_WIRED)
+		return
+	. = TRUE
+	if(I.tool_behaviour != TOOL_WIRECUTTER)
+		return
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	if(!(flags & NODECONSTRUCT))
+		if(stat & EMPED)
+			to_chat(user, "<span class='notice'>You remove the burnt wires out from [src].</span>")
+		else
+			to_chat(user, "<span class='notice'>You cut the wires out from [src].</span>")
+			var/obj/item/stack/cable_coil/C
+			C = new /obj/item/stack/cable_coil
+			C.amount = 5
+			C.forceMove(get_turf(user))
+		build_stage = BARSIGN_CIRCUIT
+		update_icon()
+		power_state = NO_POWER_USE
+		I.play_tool_sound(user, I.tool_volume)
+
+/obj/machinery/barsign/emag_act(mob/user)
+	if(stat & (BROKEN|NOPOWER|EMPED))
+		to_chat(user, "<span class='warning'>[src] cannot be taken over right now!</span>")
+		return
+	if(emagged)
+		to_chat(user, "<span class='warning'>[src] is already taken over!</span>")
 		return
 	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
 	addtimer(CALLBACK(src, PROC_REF(post_emag)), 10 SECONDS)
 	return TRUE
 
-/obj/structure/sign/barsign/proc/post_emag()
-	if(broken || emagged)
+/obj/machinery/barsign/proc/post_emag()
+	if(stat & (BROKEN|NOPOWER|EMPED))
 		return
-	set_sign(new /datum/barsign/hiddensigns/syndibarsign)
 	emagged = TRUE
-	req_access = list(ACCESS_SYNDICATE)
+	set_random_sign()
+	req_access = list()
 
-/obj/structure/sign/barsign/proc/pick_sign()
-	var/picked_name = tgui_input_list(usr, "Available Signage", "Bar Sign", barsigns)
-	if(!picked_name)
-		return
-	set_sign(picked_name)
+/obj/machinery/barsign/emp_act(severity)
+	if(build_stage >= BARSIGN_WIRED)
+		if(!(stat & EMPED))
+			stat |= EMPED
+			turn_on()
+			set_sign(new /datum/barsign/hiddensigns/empbarsign)
+			playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
+			. = ..()
+
+/obj/machinery/barsign/power_change()
+	. = ..()
+	if(. && (stat & NOPOWER))
+		turn_off()
+
+/obj/machinery/barsign/deconstruct(disassembled=FALSE)
+	if(disassembled)
+		new /obj/item/stack/sheet/metal(drop_location(), 4)
+	else
+		new /obj/item/stack/sheet/metal(drop_location(), 2)
+		if(build_stage >= BARSIGN_WIRED && !(stat & EMPED))
+			new /obj/item/stack/cable_coil(drop_location(), 3)
+		if(build_stage >= BARSIGN_COMPLETE)
+			new /obj/item/shard(drop_location())
+	qdel(src)
+
+
+
+/datum/stack_recipe/barsign_frame
+/datum/stack_recipe/barsign_frame/try_build(mob/user, obj/item/stack/S, multiplier)
+	if(!..())
+		return FALSE
+	var/user_turf = get_turf(user)
+	var/placing_on = get_step(user_turf, user.dir)
+	// Return FALSE if the user isn't facing a wall/window.
+	if(!is_valid_turf(placing_on))
+		to_chat(user, "<span class='warning'>You need to be facing a wall or window to place the [title].</span>")
+		return FALSE
+	// Return FALSE if there isn't space for the entire sign.
+	if((user.dir != NORTH && user.dir != SOUTH) || !is_valid_turf(get_step(placing_on, EAST)))
+		to_chat(user, "<span class='warning'>There is not enough space to place the [title].</span>")
+		return FALSE
+	// Return FALSE if there's already stuff on the wall.
+	if(gotwallitem(user_turf, FLIP_DIR_VERTICALLY(user.dir)) || gotwallitem(get_step(user_turf, EAST), FLIP_DIR_VERTICALLY(user.dir)))
+		to_chat(user, "<span class='warning'>There's already an item on the wall!</span>")
+		return FALSE
+	// Return FALSE if it would cause two bar signs to overlap.
+	if((locate(/obj/machinery/barsign) in get_step(user_turf, WEST)))
+		to_chat(user, "<span class='warning'>There's already a bar sign here!</span>")
+		return FALSE
+	return TRUE
+
+/datum/stack_recipe/barsign_frame/proc/is_valid_turf(turf/T)
+	if(!istype(T))
+		return FALSE
+	if(iswallturf(T))
+		return TRUE
+	if(locate(/obj/structure/window/full) in T)
+		return TRUE
+	return FALSE
+
+/datum/stack_recipe/barsign_frame/post_build(mob/user, obj/item/stack/S, obj/machinery/barsign/O)
+	..()
+	playsound(O, 'sound/items/deconstruct.ogg', 10, TRUE)
+	O.build_stage = BARSIGN_FRAME
+	O.power_state = NO_POWER_USE
+	O.set_light(0)
+	O.update_icon()
+	if(user.dir == SOUTH)
+		O.pixel_y = -32
+	else
+		O.pixel_y = 32
+
+
+
+/obj/item/barsign_electronics
+	name = "bar sign electronics"
+	icon = 'icons/obj/doors/door_assembly.dmi'
+	icon_state = "door_electronics"
+	desc = "A circuit. It has a small data storage component filled with various bar sign designs.\n<span class='notice'>Use a multitool on it to toggle the access restrictions.</span>"
+	w_class = WEIGHT_CLASS_SMALL
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	origin_tech = "engineering=2;programming=1"
+	toolspeed = 1
+	usesound = 'sound/items/deconstruct.ogg'
+	var/destroyed = FALSE
+	var/restricts_access = TRUE
+
+/obj/item/barsign_electronics/multitool_act(mob/living/user, obj/item/I)
+	if(!destroyed)
+		if(restricts_access)
+			restricts_access = FALSE
+			to_chat(user, "<span class='notice'>You disable the access restrictions of [src].</span>")
+		else
+			restricts_access = TRUE
+			to_chat(user, "<span class='notice'>You enable the access restrictions of [src].</span>")
+
+// For the ghost bar since occupants don't have bar access.
+/obj/machinery/barsign/ghost_bar
+	req_access = list()
+/obj/machinery/barsign/ghost_bar/Initialize(mapload)
+	..()
+	// Also give them access to syndicate signs because why not.
+	barsigns |= syndisigns
+	set_random_sign()
+
+
 
 //Code below is to define useless variables for datums. It errors without these
 /datum/barsign
 	var/name = "Name"
 	var/icon = "Icon"
 	var/desc = "desc"
-	var/hidden = 0
+	var/hidden = FALSE
+	var/syndicate = FALSE
 
 //Anything below this is where all the specific signs are. If people want to add more signs, add them below.
 /datum/barsign/maltesefalcon
@@ -383,8 +723,14 @@
 	icon = "themaint"
 	desc = "Home to Greytiders, Security and other unholy creations."
 
+/datum/barsign/syndicat
+	name = "The SyndiCat"
+	icon = "thesyndicat"
+	desc = "Syndicate or die."
+	syndicate = TRUE
+
 /datum/barsign/hiddensigns
-	hidden = 1
+	hidden = TRUE
 
 //Hidden signs list below this point
 /datum/barsign/hiddensigns/empbarsign
@@ -392,12 +738,31 @@
 	icon = "empbarsign"
 	desc = "Something has gone very wrong."
 
-/datum/barsign/hiddensigns/syndibarsign
-	name = "Syndi Cat Takeover"
-	icon = "syndibarsign"
-	desc = "Syndicate or die."
-
 /datum/barsign/hiddensigns/signoff
 	name = "Bar Sign"
-	icon = "empty"
+	icon = "off"
 	desc = "This sign doesn't seem to be on."
+
+/datum/barsign/hiddensigns/signbroken
+	name = "Broken Bar Sign"
+	icon = "broken"
+	desc = "This sign has a massive crack in it!"
+
+/datum/barsign/hiddensigns/building
+	name = "Bar Sign Frame"
+	desc = "This isn't advertising anything except that the bar is under renovations."
+
+/datum/barsign/hiddensigns/building/frame
+	icon = "frame"
+
+/datum/barsign/hiddensigns/building/circuited
+	icon = "circuited"
+
+/datum/barsign/hiddensigns/building/wired
+	icon = "wired"
+
+
+#undef BARSIGN_FRAME
+#undef BARSIGN_CIRCUIT
+#undef BARSIGN_WIRED
+#undef BARSIGN_COMPLETE

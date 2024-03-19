@@ -26109,10 +26109,6 @@
 "cMz" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fore)
-"cMA" = (
-/obj/structure/sign/barsign,
-/turf/simulated/wall,
-/area/station/maintenance/gambling_den)
 "cME" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -47981,10 +47977,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/spacebridge/serveng)
-"iwJ" = (
-/obj/structure/sign/barsign,
-/turf/simulated/wall,
-/area/station/service/bar)
 "iwU" = (
 /obj/structure/sign/directions/evac{
 	dir = 4;
@@ -61426,6 +61418,9 @@
 /obj/structure/chair/sofa/corp{
 	dir = 1
 	},
+/obj/machinery/barsign{
+	pixel_y = -32
+	},
 /turf/simulated/floor/carpet,
 /area/station/hallway/primary/port/east)
 "mJX" = (
@@ -61764,6 +61759,9 @@
 /area/station/maintenance/electrical_shop)
 "mPu" = (
 /obj/structure/table/wood/poker,
+/obj/machinery/barsign{
+	pixel_y = 32
+	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
@@ -117598,7 +117596,7 @@ pkc
 iqL
 rZl
 mJT
-iwJ
+aZZ
 iox
 bjr
 rRc
@@ -120970,7 +120968,7 @@ bhO
 hUU
 sbn
 sbn
-cMA
+uJT
 mPu
 mER
 oWa

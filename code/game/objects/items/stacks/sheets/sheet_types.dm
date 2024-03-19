@@ -113,6 +113,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("air alarm frame", /obj/item/mounted/frame/alarm_frame, 2),
 	new /datum/stack_recipe("fire alarm frame", /obj/item/mounted/frame/firealarm, 2),
 	new /datum/stack_recipe("intercom frame", /obj/item/mounted/frame/intercom, 2),
+	new /datum/stack_recipe/barsign_frame("bar sign frame", /obj/machinery/barsign, 4),
 	new /datum/stack_recipe("extinguisher cabinet frame", /obj/item/mounted/frame/extinguisher, 2),
 	null
 ))

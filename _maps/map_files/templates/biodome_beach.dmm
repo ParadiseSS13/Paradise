@@ -454,6 +454,12 @@
 	},
 /turf/simulated/floor/pod,
 /area/ruin/powered/beach)
+"qe" = (
+/obj/machinery/barsign{
+	pixel_y = 32
+	},
+/turf/simulated/floor/beach/sand,
+/area/ruin/powered/beach)
 "qT" = (
 /obj/machinery/shower{
 	dir = 8
@@ -490,10 +496,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/beach/sand,
-/area/ruin/powered/beach)
-"Ds" = (
-/obj/structure/sign/barsign,
-/turf/simulated/wall/mineral/sandstone,
 /area/ruin/powered/beach)
 "Ec" = (
 /obj/machinery/door/airlock/sandstone{
@@ -1087,8 +1089,8 @@ aC
 aC
 aC
 JF
-Ds
-bE
+aj
+qe
 bE
 bE
 bE

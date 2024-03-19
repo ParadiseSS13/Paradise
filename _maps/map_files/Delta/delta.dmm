@@ -2833,7 +2833,7 @@
 /area/station/maintenance/fore)
 "aqv" = (
 /obj/structure/table/wood,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /obj/item/wrench,
@@ -4911,7 +4911,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "avL" = (
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -9122,7 +9122,7 @@
 /area/station/service/bar)
 "aGA" = (
 /obj/structure/table/wood,
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /obj/machinery/chem_dispenser/soda{
@@ -54591,7 +54591,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/sign/barsign{
+/obj/machinery/barsign{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,

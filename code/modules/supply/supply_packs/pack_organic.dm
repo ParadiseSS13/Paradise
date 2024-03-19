@@ -135,7 +135,8 @@
 	name = "Bar Starter Kit"
 	contains = list(/obj/item/storage/box/drinkingglasses,
 					/obj/item/circuitboard/chem_dispenser/soda,
-					/obj/item/circuitboard/chem_dispenser/beer)
+					/obj/item/circuitboard/chem_dispenser/beer,
+					/obj/item/barsign_electronics)
 	cost = 250
 	containername = "beer starter kit"
 	announce_beacons = list("Bar" = list("Bar"))
