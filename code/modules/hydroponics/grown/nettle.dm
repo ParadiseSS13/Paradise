@@ -35,6 +35,7 @@
 	icon = 'icons/obj/items.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "nettle"
 	damtype = "fire"
 	force = 15
