@@ -244,6 +244,10 @@
 							0.4,0.6,0.0,\
 							0.2,0.2,0.6)
 
+#define MATRIX_STANDARD list(1.0,0.0,0.0,\
+							0.0,1.0,0.0,\
+							0.0,0.0,1.0)
+
 /*
 	Used for wire name appearances. Replaces the color name on the left with the one on the right.
 	The color on the left is the one used as the actual color of the wire, but it doesn't look good when written.

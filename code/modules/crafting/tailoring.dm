@@ -248,6 +248,246 @@
 	reqs = list(/obj/item/clothing/glasses/sunglasses/reagent = 1)
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/shadedtajblind
+	name = "Shaded Tajaran veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/shadedtajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/sunglasses)
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+
+/datum/crafting_recipe/shadedtajblindremoval
+	name = "Shaded Tajaran veil removal"
+	result = list(/obj/item/clothing/glasses/sunglasses, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/shadedtajblindremoval/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind/shaded)
+
+/datum/crafting_recipe/engtajblind
+	name = "Tajaran engineering meson veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/eng)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/meson = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/engtajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+	blacklist += subtypesof(/obj/item/clothing/glasses/meson)
+
+/datum/crafting_recipe/engtajblindremoval
+	name = "Tajaran engineering meson removal"
+	result = list(/obj/item/clothing/glasses/meson, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/eng = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/shadeengtajblind
+	name = "Shaded Tajaran engineering meson veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/eng)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/meson/sunglasses = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/shadeengtajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+
+/datum/crafting_recipe/shadeengtajblindremoval
+	name = "Shaded Tajaran engineering meson veil removal"
+	result = list(/obj/item/clothing/glasses/meson/sunglasses, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/eng = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/cargotajblind
+	name = "Tajaran mining meson veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/cargo)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/meson = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/cargotajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+	blacklist += subtypesof(/obj/item/clothing/glasses/meson)
+
+/datum/crafting_recipe/cargotajblindremoval
+	name = "Tajaran mining meson veil removal"
+	result = list(/obj/item/clothing/glasses/meson, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/cargo = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/shadecargotajblind
+	name = "Shaded Tajaran mining meson veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/cargo)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/meson/sunglasses = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/shadecargotajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+
+/datum/crafting_recipe/shadedcargotajblindremoval
+	name = "Shaded Tajaran mining meson veil removal"
+	result = list(/obj/item/clothing/glasses/meson/sunglasses, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/cargo = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/scitajblind
+	name = "Tajaran scientific veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/sci)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/science = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/scitajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+
+/datum/crafting_recipe/scitajblindremoval
+	name = "Tajaran scientific veil removal"
+	result = list(/obj/item/clothing/glasses/science, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/sci = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/shadedscitajblind
+	name = "Shaded Tajaran scientific veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/sci)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/sunglasses/reagent = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/shadedscitajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+
+/datum/crafting_recipe/shadedscitajblindremoval
+	name = "Shaded Tajaran scientific veil removal"
+	result = list(/obj/item/clothing/glasses/sunglasses/reagent, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/sci = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/medtajblind
+	name = "Tajaran medical veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/med)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/health = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/medtajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/health)
+
+/datum/crafting_recipe/medtajblindremoval
+	name = "Tajaran medical veil removal"
+	result = list(/obj/item/clothing/glasses/hud/health, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/med = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/shadedmedtajblind
+	name = "Shaded Tajaran medical veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/med)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/health/sunglasses = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/shadedmedtajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+
+/datum/crafting_recipe/shadedmedtajblindremoval
+	name = "Shaded Tajaran medical veil removal"
+	result = list(/obj/item/clothing/glasses/hud/health/sunglasses, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/med = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/sectajblind
+	name = "Tajaran security veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/sec)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/security = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/sectajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/security)
+
+/datum/crafting_recipe/sectajblindremoval
+	name = "Tajaran security veil removal"
+	result = list(/obj/item/clothing/glasses/hud/security, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/sec = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/shadedsectajblind
+	name = "Shaded Tajaran security veil"
+	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/sec)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/security/sunglasses = 1,
+				/obj/item/clothing/glasses/hud/tajblind = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/shadedsectajblind/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
+
+/datum/crafting_recipe/shadedsectajblindremoval
+	name = "Shaded Tajaran security veil removal"
+	result = list(/obj/item/clothing/glasses/hud/security/sunglasses, /obj/item/clothing/glasses/hud/tajblind)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/sec = 1)
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/ghostsheet
 	name = "Ghost Sheet"
 	result = list(/obj/item/clothing/suit/ghost_sheet)
