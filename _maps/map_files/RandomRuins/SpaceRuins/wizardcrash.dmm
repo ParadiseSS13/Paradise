@@ -167,6 +167,7 @@
 /area/ruin/space/unpowered)
 "aF" = (
 /obj/structure/table/wood,
+/obj/item/blank_tarot_card,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},

@@ -2,7 +2,7 @@
 	name = "Enchanted tarot card pack" //Qwertodo: A better name
 	desc = "Reusable card generator" //QWERTODO: spawn directly librarian / chaplain april fools day
 	icon = 'icons/obj/playing_cards.dmi'//Qwertodo: Uplink, wizard
-	icon_state = "card_holder" //Qwertodo: tendril chest, wizard ship
+	icon_state = "card_holder"
 	w_class = WEIGHT_CLASS_SMALL
 	/// What is the maximum number of cards the tarot generator can have in the world at a time?
 	var/maximum_cards = 3
@@ -521,7 +521,7 @@
 
 /datum/tarot/reversed/the_emperor
 	name = "IV - The Emperor?"
-	desc = "Challenge me!"
+	desc = "May you find a worthy opponent."
 	card_icon = "the_emperor?"
 
 /datum/tarot/reversed/the_emperor/activate(mob/living/target)

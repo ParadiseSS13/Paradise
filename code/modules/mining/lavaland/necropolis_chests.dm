@@ -69,6 +69,19 @@
 		if(23)
 			new /obj/item/borg/upgrade/modkit/lifesteal(src)
 			new /obj/item/bedsheet/cult(src)
+		if(24)
+			var/cardpool = rand(1, 11)
+			switch(cardpool)
+				if(1)
+					new /obj/item/blank_tarot_card(src)
+				if(2, 3, 4, 5)
+					new /obj/item/tarot_card_pack(src)
+				if(6, 7, 8)
+					new /obj/item/tarot_card_pack/jumbo(src)
+				if(9, 10)
+					new /obj/item/tarot_card_pack/mega(src)
+				if(11)
+					new /obj/item/tarot_generator(src) // ~1/250? Seems reasonable
 
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disk
