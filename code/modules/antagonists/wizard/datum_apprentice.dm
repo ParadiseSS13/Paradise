@@ -1,5 +1,3 @@
-/* RESTRICT_TYPE(/datum/antagonist/wizard/apprentice) */
-
 /datum/antagonist/wizard/apprentice
 	name = "Wizard Apprentice"
 	special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
@@ -21,7 +19,7 @@
 	new_objective.explanation_text = "Protect and obey [my_teacher.real_name], your teacher."
 	add_antag_objective(new_objective)
 
-/datum/antagonist/wizard/on_gain()
+/datum/antagonist/wizard/apprentice/on_gain()
 	. = ..()
 	my_teacher = null // all uses of my_teacher come before this, so lets clean up the reference.
 
