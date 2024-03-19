@@ -479,7 +479,7 @@
 		var/dropped_something = FALSE
 
 		for(var/obj/item/I in contents)
-			var/obj/item/newItem = new I.type(dropspot)
+			remove_from_storage(I)
 			// Set the properties of the new item here, e.g., stack count, hover highlight, tooltip
 			contents.Remove(I)
 			remove_from_storage()
