@@ -1,8 +1,3 @@
-/// A limb that's not missing with no damages or flags.
-#define HEALTHY_LIMB list(0, 0, 0, FALSE)
-/// As above, but for organs.
-#define HEALTHY_ORGAN list(0, 0, FALSE)
-
 /// A datum to store the information gained by scanning a patient OR the fixes to be made to their body.
 /datum/cloning_data
 	/// The patient's name.
@@ -20,33 +15,6 @@
 
 	/// The patient's DNA
 	var/datum/dna/genetic_info
-
-//this is mostly an example
-/datum/cloning_data/healthy
-
-	limbs = list(
-		"head"   = HEALTHY_LIMB,
-		"torso"  = HEALTHY_LIMB,
-		"groin"  = HEALTHY_LIMB,
-		"r_arm"  = HEALTHY_LIMB,
-		"r_hand" = HEALTHY_LIMB,
-		"l_arm"  = HEALTHY_LIMB,
-		"l_hand" = HEALTHY_LIMB,
-		"r_leg"  = HEALTHY_LIMB,
-		"r_foot" = HEALTHY_LIMB,
-		"l_leg"  = HEALTHY_LIMB,
-		"l_foot" = HEALTHY_LIMB
-	)
-
-	organs = list(
-		"heart"    = HEALTHY_ORGAN,
-		"lungs"    = HEALTHY_ORGAN,
-		"liver"    = HEALTHY_ORGAN,
-		"kidneys"  = HEALTHY_ORGAN,
-		"brain"    = HEALTHY_ORGAN,
-		"appendix" = HEALTHY_ORGAN,
-		"eyes"     = HEALTHY_ORGAN
-	)
 
 //The cloning scanner itself.
 /obj/machinery/clonescanner
@@ -224,6 +192,3 @@
 		return
 	var/obj/item/multitool/M = I
 	M.set_multitool_buffer(user, src)
-
-#undef HEALTHY_LIMB
-#undef HEALTHY_ORGAN
