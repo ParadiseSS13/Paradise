@@ -279,6 +279,7 @@
 	icon = 'icons/obj/nuclearbomb.dmi'
 	icon_state = "nuclearbomb0"
 	anchored = TRUE
+	/// If TRUE, prevents the player from inserting the disk again while it is currently exploding.
 	var/exploding = FALSE
 
 /obj/structure/reagent_dispensers/beerkeg/nuke/attackby(obj/item/O, mob/user, params)
