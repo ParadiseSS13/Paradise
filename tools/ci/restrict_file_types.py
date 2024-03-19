@@ -41,6 +41,7 @@ if __name__ == "__main__":
 
             type_path = restrict_regex.group(1)
 
+            # These regexes could probably usee some refinement, but they're the best I could come up with.
             proc_search = re.compile(r'^(/[\w/]{3,}?)\/(?:proc\/)?\w+\(') # Search for any procs that are not of this type
             def_search = re.compile(r'(^(?:/(?:\w+))+)') # Search for any definition that are not of this type
             code.seek(0)
