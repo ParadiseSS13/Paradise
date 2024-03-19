@@ -85,7 +85,7 @@
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 
-// health + cyborg analyzer for ghosts
+// health + machine analyzer for ghosts
 /mob/living/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the health_scan var.
 		return

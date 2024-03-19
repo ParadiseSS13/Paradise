@@ -82,6 +82,7 @@
 
 
 /obj/item/grenade/proc/prime()
+	return
 
 /obj/item/grenade/proc/update_mob()
 	if(ismob(loc))

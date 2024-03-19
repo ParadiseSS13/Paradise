@@ -15,7 +15,6 @@
 	var/throw_range = 7
 	var/no_spin = FALSE
 	var/no_spin_thrown = FALSE
-	var/moved_recently = FALSE
 	var/mob/pulledby = null
 	var/atom/movable/pulling
 	/// Face towards the atom while pulling it
@@ -212,45 +211,43 @@
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
 			var/first_step_dir
-			// The `&& moving_diagonally` checks are so that a forceMove taking
-			// place due to a Crossed, Bumped, etc. call will interrupt
-			// the second half of the diagonal movement, or the second attempt
-			// at a first half if the cardinal Move() fails because we hit something.
+			// For each diagonal direction, we try moving NORTH/SOUTH first, and if it fails, we try moving EAST/WEST first.
+			// As long as either succeeds, we try the other.
 			if(direct & NORTH)
 				if(direct & EAST)
-					if(Move(get_step(src,  NORTH),  NORTH) && moving_diagonally)
+					if(Move(get_step(src,  NORTH),  NORTH))
 						first_step_dir = NORTH
 						moving_diagonally = SECOND_DIAG_STEP
 						. = Move(get_step(src,  EAST),  EAST)
-					else if(moving_diagonally && Move(get_step(src,  EAST),  EAST))
+					else if(Move(get_step(src,  EAST),  EAST))
 						first_step_dir = EAST
 						moving_diagonally = SECOND_DIAG_STEP
 						. = Move(get_step(src,  NORTH),  NORTH)
 				else if(direct & WEST)
-					if(Move(get_step(src,  NORTH),  NORTH) && moving_diagonally)
+					if(Move(get_step(src,  NORTH),  NORTH))
 						first_step_dir = NORTH
 						moving_diagonally = SECOND_DIAG_STEP
 						. = Move(get_step(src,  WEST),  WEST)
-					else if(moving_diagonally && Move(get_step(src,  WEST),  WEST))
+					else if(Move(get_step(src,  WEST),  WEST))
 						first_step_dir = WEST
 						moving_diagonally = SECOND_DIAG_STEP
 						. = Move(get_step(src,  NORTH),  NORTH)
 			else if(direct & SOUTH)
 				if(direct & EAST)
-					if(Move(get_step(src,  SOUTH),  SOUTH) && moving_diagonally)
+					if(Move(get_step(src,  SOUTH),  SOUTH))
 						first_step_dir = SOUTH
 						moving_diagonally = SECOND_DIAG_STEP
 						. = Move(get_step(src,  EAST),  EAST)
-					else if(moving_diagonally && Move(get_step(src,  EAST),  EAST))
+					else if(Move(get_step(src,  EAST),  EAST))
 						first_step_dir = EAST
 						moving_diagonally = SECOND_DIAG_STEP
 						. = Move(get_step(src,  SOUTH),  SOUTH)
 				else if(direct & WEST)
-					if(Move(get_step(src,  SOUTH),  SOUTH) && moving_diagonally)
+					if(Move(get_step(src,  SOUTH),  SOUTH))
 						first_step_dir = SOUTH
 						moving_diagonally = SECOND_DIAG_STEP
 						. = Move(get_step(src,  WEST),  WEST)
-					else if(moving_diagonally && Move(get_step(src,  WEST),  WEST))
+					else if(Move(get_step(src,  WEST),  WEST))
 						first_step_dir = WEST
 						moving_diagonally = SECOND_DIAG_STEP
 						. = Move(get_step(src,  SOUTH),  SOUTH)

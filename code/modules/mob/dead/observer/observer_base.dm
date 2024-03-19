@@ -796,3 +796,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/get_runechat_color()
 	return alive_runechat_color
+
+#undef GHOST_CAN_REENTER
+#undef GHOST_IS_OBSERVER
