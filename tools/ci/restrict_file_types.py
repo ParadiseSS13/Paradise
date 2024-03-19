@@ -14,7 +14,7 @@ NC = "\033[0m"  # No Color
 
 def print_error(message: str, filename: str, line_number: int):
     if os.getenv("GITHUB_ACTIONS") == "true": # We're on github, output in a special format.
-        print(f"::error file={filename},line={line_number},title=Check Grep::{filename}:{line_number}: {RED}{message}{NC}")
+        print(f"::error file={filename},line={line_number},title=Restricted Type in File::{filename}:{line_number}: {RED}{message}{NC}")
     else:
         print(f"{filename}:{line_number}: {RED}{message}{NC}")
 
