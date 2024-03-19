@@ -1,4 +1,4 @@
-/* RESTRICT_TYPE(/datum/team/revolution) */
+RESTRICT_TYPE(/datum/team/revolution)
 
 /datum/team/revolution
 	name = "Revolution"

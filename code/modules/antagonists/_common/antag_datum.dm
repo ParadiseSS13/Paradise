@@ -1,4 +1,4 @@
-/* RESTRICT_TYPE(/datum/antagonist) */
+RESTRICT_TYPE(/datum/antagonist)
 
 GLOBAL_LIST_EMPTY(antagonists)
 

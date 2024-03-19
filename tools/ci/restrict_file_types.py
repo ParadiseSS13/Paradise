@@ -35,7 +35,7 @@ if __name__ == "__main__":
         with open(code_filepath, encoding="UTF-8") as code:
             filename = code_filepath.split(os.path.sep)[-1]
 
-            restrict_regex = re.match(r"\/\*\s*RESTRICT_TYPE\((.+)\)\s*\*\/", code.read())
+            restrict_regex = re.match(r"RESTRICT_TYPE\((.+)\)", code.read())
             if(not restrict_regex):
                 continue
 

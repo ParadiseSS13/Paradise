@@ -1,4 +1,4 @@
-/* RESTRICT_TYPE(/datum/antagonist/vampire) */
+RESTRICT_TYPE(/datum/antagonist/vampire)
 
 /datum/antagonist/vampire
 	name = "Vampire"

@@ -1,4 +1,4 @@
-/* RESTRICT_TYPE(/datum/antagonist/mindslave/thrall) */
+RESTRICT_TYPE(/datum/antagonist/mindslave/thrall)
 
 /datum/antagonist/mindslave/thrall
 	name = "Vampire Thrall"

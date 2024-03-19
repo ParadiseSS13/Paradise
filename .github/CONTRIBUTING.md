@@ -580,7 +580,7 @@ Code should be modular where possible; if you are working on a new addition, the
 Our codebase also has support for checking files so that they only contain one specific typepath, including none of its subtypes. This can be done by adding a specific header at the beginning of the file, which the CI will look for when running. An example can be seen below. You can also run this test locally using `/tools/ci/restrict_file_types.py`
 
 ```dm
-/* RESTRICT_TYPE(/datum/foo) */
+RESTRICT_TYPE(/datum/foo)
 
 /datum/proc/do_thing() // Error: '/datum' proc found in a file restricted to '/datum/foo'
 

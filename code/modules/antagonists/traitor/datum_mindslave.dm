@@ -1,4 +1,4 @@
-/* RESTRICT_TYPE(/datum/antagonist/mindslave) */
+RESTRICT_TYPE(/datum/antagonist/mindslave)
 
 // For Mindslaves and Zealots
 /datum/antagonist/mindslave
