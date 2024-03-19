@@ -74,7 +74,6 @@
 
 	if(isliving(loc))
 		var/mob/living/M = loc
-		var/turf/T = M.loc
 		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
 		do_sparks(3, 1, M)
 
