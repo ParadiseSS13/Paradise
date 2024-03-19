@@ -127,7 +127,7 @@
 		return
 	var/mob/living/carbon/C = our_target
 	in_use = TRUE
-	user.visible_message("<span class='danger'>[user] activates [src] and begins to drill into [C]!</span>", "<span class='warning'>You level the extractor at [C] and hold down the trigger.</span>")
+	user.visible_message("<span class='danger'>[user] activates [src] and begins to drill into [C]!</span>", "<span class='warning'>You level the extractor at [user_is_target ? "yourself" : C] and hold down the trigger.</span>")
 	var/drilled_organ = storedorgan.parent_organ
 	C.apply_damage(5, BRUTE, drilled_organ)
 	playsound(get_turf(C), 'sound/weapons/circsawhit.ogg', 50, TRUE)
