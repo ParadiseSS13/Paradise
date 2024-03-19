@@ -121,8 +121,8 @@ if ($Args.Length -gt 0) {
   }
 
   if ($Args[0] -eq "--install-git-hooks") {
-  task-install-git-hooks
-  exit 0
+    task-install-git-hooks
+    exit 0
   }
 
   if ($Args[0] -eq "--dev") {
