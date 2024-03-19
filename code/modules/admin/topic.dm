@@ -359,8 +359,8 @@
 	else if(href_list["edit_shuttle_time"])
 		if(!check_rights(R_SERVER))	return
 
-		var/timer = input("Enter new shuttle duration (minutes):","Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft(600) ) as num
-		SSshuttle.emergency.setTimer(timer*600)
+		var/timer = input("Enter new shuttle duration (minutes):","Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft(600)) as num
+		SSshuttle.emergency.setTimer(timer MINUTES)
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] minutes")
 		GLOB.minor_announcement.Announce("The emergency shuttle will reach its destination in [round(SSshuttle.emergency.timeLeft(600))] minutes.")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] minutes</span>")
