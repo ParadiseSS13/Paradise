@@ -96,8 +96,8 @@
 	storedorgan = internal_organ
 	storedorgan.rejuvenate() //Organ gets dumped into the internal mito tank, heals it up. And nanites for robotic organs, I guess.
 	in_use = FALSE
-	var/xx = internal_organ.pixel_x
-	var/yy = internal_organ.pixel_y
+	var/organ_x = internal_organ.pixel_x
+	var/organ_y = internal_organ.pixel_y
 	internal_organ.pixel_x = 2
 	internal_organ.pixel_y = -2
 	var/image/img = image("icon" = internal_organ, "layer" = FLOAT_LAYER)
@@ -106,8 +106,8 @@
 	img.transform = MA
 	img.plane = FLOAT_PLANE
 	overlays += img
-	internal_organ.pixel_x = xx
-	internal_organ.pixel_y = yy
+	internal_organ.pixel_x = organ_x
+	internal_organ.pixel_y = organ_y
 	overlays += "organ_extractor_2" //should look nicer for transparent stuff.
 
 /obj/item/organ_extractor/proc/insert_organ(mob/user, mob/our_target)
