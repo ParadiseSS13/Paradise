@@ -416,7 +416,7 @@
 	knife_slot = TRUE
 	var/jumpdistance = 5 //-1 from to see the actual distance, e.g 4 goes over 3 tiles
 	var/jumpspeed = 3
-	var/recharging_rate = 60 //default 6 seconds between each dash
+	var/recharging_rate = 6 SECONDS //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
 
 /obj/item/clothing/shoes/bhop/item_action_slot_check(slot)

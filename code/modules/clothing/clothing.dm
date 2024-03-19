@@ -463,7 +463,7 @@
 	var/cut_open = FALSE
 	var/no_slip = FALSE
 	var/knife_slot = FALSE
-	var/obj/item/kitchen/knife/combat/hidden_blade = null
+	var/obj/item/kitchen/knife/combat/hidden_blade
 
 	body_parts_covered = FEET
 	slot_flags = SLOT_FLAG_FEET
@@ -532,8 +532,9 @@
 			"<span class='notice'>You place [I] into the side of your [name]!</span>")
 		I.forceMove(src)
 		hidden_blade = I
-	else
-		return ..()
+		return
+
+	return ..()
 
 /obj/item/clothing/shoes/update_name()
 	. = ..()
@@ -575,7 +576,7 @@
 	if(knife_slot)
 		. += "<span class='info'>You can <b>Alt-Click</b> [src] to remove a stored knife. Use the knife on the shoes to place one in [src].</span>"
 		if(hidden_blade)
-			. += "<span class='info'>Your boot has a [hidden_blade.name] hidden inside of it!</span>"
+			. += "<span class='notice'>Your boot has a [hidden_blade.name] hidden inside of it!</span>"
 
 //Suit
 /obj/item/clothing/suit
