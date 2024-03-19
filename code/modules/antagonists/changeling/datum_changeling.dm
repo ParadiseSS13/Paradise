@@ -242,7 +242,7 @@
  */
 /datum/antagonist/changeling/proc/get_powers_of_type(power_type)
 	var/list/station_trait_restrictions = list(
-		// "Station trait" = list(Typepath/disabled/when/trait, Typepath/disabled/when/not/trait)
+		// "Station trait" = Replace 1st with 2nd when trait active
 		STATION_TRAIT_CYBERNETIC_REVOLUTION = list(/datum/action/changeling/dissonant_shriek, /datum/action/changeling/dissonant_shriek/cyberrev)
 	)
 
@@ -251,7 +251,6 @@
 		var/datum/action/changeling/power = power_path
 		if(initial(power.power_type) != power_type)
 			continue
-
 		powers += power_path
 
 	for(var/trait in station_trait_restrictions)
