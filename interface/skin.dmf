@@ -16,9 +16,11 @@ menu "menu"
 		name = "&Reconnect"
 		command = ".reconnect"
 		category = "&File"
-	elem
-		name = ""
+	elem "debugmcbutton"
+		name = "&MC Debug"
+		command = "SS-Info-Breakdown"
 		category = "&File"
+		is-disabled = true
 	elem
 		name = "&Quit"
 		command = ".quit"
@@ -178,7 +180,7 @@ window "paramapwindow"
 		is-default = true
 		saved-params = "icon-size;zoom-mode"
 		zoom-mode = "distort"
-		style = ".center { text-align: center; } .maptext { font-family: 'Small Fonts'; font-size: 7px; -dm-text-outline: 1px black; color: white; line-height: 1.1; } .small { font-size: 6px; } .big { font-size: 8px; } .reallybig { font-size: 8px; } .extremelybig { font-size: 8px; } .clown { color: #FF69Bf;} .tajaran {color: #803B56;} .skrell {color: #00CED1;} .solcom {color: #22228B;} .com_srus {color: #7c4848;} .zombie\t{color: #ff0000;} .soghun {color: #228B22;} .vox {color: #AA00AA;} .diona {color: #804000; font-weight: bold;} .trinary {color: #727272;} .kidan {color: #664205;} .slime {color: #0077AA;} .drask {color: #a3d4eb;} .vulpkanin {color: #B97A57;} .abductor {color: #800080; font-style: italic;} .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; }"
+		style = ".center { text-align: center; } .maptext { font-family: 'Small Fonts'; font-size: 7px; -dm-text-outline: 1px black; color: white; line-height: 1.1; } .small { font-size: 6px; } .big { font-size: 8px; } .reallybig { font-size: 8px; } .extremelybig { font-size: 8px; } .clown { color: #FF69Bf;} .tajaran {color: #803B56;} .skrell {color: #00CED1;} .solcom {color: #22228B;} .com_srus {color: #7c4848;} .zombie\t{color: #ff0000;} .soghun {color: #228B22;} .vox {color: #AA00AA;} .diona {color: #804000; font-weight: bold;} .trinary {color: #727272;} .kidan {color: #664205;} .slime {color: #0077AA;} .drask {color: #a3d4eb;} .vulpkanin {color: #B97A57;} .abductor {color: #800080;} .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; }"
 		on-show = ".winset \"menu.statusbar.is-checked=true?paramapwindow.status_bar.is-visible=true:paramapwindow.status_bar.is-visible=false\""
 	elem "status_bar"
 		type = LABEL
@@ -212,7 +214,7 @@ window "rpane"
 		is-vert = false
 	elem "textb"
 		type = BUTTON
-		pos = 3,7
+		pos = 0,7
 		size = 50x16
 		saved-params = "is-checked"
 		text = "Text"
@@ -221,7 +223,7 @@ window "rpane"
 		button-type = pushbox
 	elem "infob"
 		type = BUTTON
-		pos = 55,7
+		pos = 52,7
 		size = 50x16
 		is-checked = true
 		saved-params = "is-checked"
@@ -231,43 +233,43 @@ window "rpane"
 		button-type = pushbox
 	elem "wikib"
 		type = BUTTON
-		pos = 117,7
+		pos = 115,7
 		size = 50x16
 		text = "Wiki"
 		command = "wiki"
 	elem "forumb"
 		type = BUTTON
-		pos = 169,7
+		pos = 167,7
 		size = 50x16
 		text = "Forum"
 		command = "forum"
 	elem "rulesb"
 		type = BUTTON
-		pos = 221,7
+		pos = 219,7
 		size = 50x16
 		text = "Rules"
 		command = "rules"
 	elem "githubb"
 		type = BUTTON
-		pos = 273,7
+		pos = 271,7
 		size = 50x16
 		text = "GitHub"
 		command = "github"
 	elem "webmap"
 		type = BUTTON
-		pos = 325,7
+		pos = 323,7
 		size = 50x16
 		text = "Map"
 		command = "webmap"
 	elem "changelog"
 		type = BUTTON
-		pos = 387,7
+		pos = 385,7
 		size = 70x16
 		text = "Changelog"
 		command = "Changelog"
 	elem "discordb"
 		type = BUTTON
-		pos = 459,7
+		pos = 457,7
 		size = 60x16
 		font-style = "bold"
 		text-color = #ffffff
@@ -276,7 +278,7 @@ window "rpane"
 		command = "discord"
 	elem "donate"
 		type = BUTTON
-		pos = 521,7
+		pos = 519,7
 		size = 60x16
 		font-style = "bold"
 		text-color = #ffffff
@@ -296,8 +298,8 @@ window "outputwindow"
 		is-pane = true
 	elem "input"
 		type = INPUT
-		pos = 2,460
-		size = 517x20
+		pos = 0,460
+		size = 519x20
 		anchor1 = 0,100
 		anchor2 = 100,100
 		is-default = true
@@ -366,8 +368,8 @@ window "infowindow"
 		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
-	elem "info"
-		type = INFO
+	elem "statbrowser"
+		type = BROWSER
 		pos = 0,0
 		size = 0x0
 		anchor1 = 0,0
@@ -375,3 +377,22 @@ window "infowindow"
 		is-default = true
 		highlight-color = #00aa00
 		on-show = ".winset \"rpane.infob.is-checked=true?rpane.rpanewindow.top=infowindow:rpane.rpanewindow.top=\""
+
+window "tgui_say"
+	elem "tgui_say"
+		type = MAIN
+		pos = 848,500
+		size = 275x30
+		anchor1 = 50,50
+		anchor2 = 50,50
+		is-visible = false
+		saved-params = ""
+		statusbar = false
+		can-minimize = false
+	elem "browser"
+		type = BROWSER
+		pos = 0,0
+		size = 275x30
+		anchor1 = 0,0
+		anchor2 = 0,0
+		saved-params = ""

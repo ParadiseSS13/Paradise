@@ -5,7 +5,7 @@ export const pda_janitor = (props, context) => {
   const { act, data } = useBackend(context);
   const { janitor } = data;
 
-  const { user_loc, mops, buckets, cleanbots, carts } = janitor;
+  const { user_loc, mops, buckets, cleanbots, carts, janicarts } = janitor;
 
   return (
     <LabeledList>
@@ -44,6 +44,15 @@ export const pda_janitor = (props, context) => {
           {carts.map((c) => (
             <Box key={c}>
               {c.x},{c.y} ({c.dir}) - [{c.volume}/{c.max_volume}]
+            </Box>
+          ))}
+        </LabeledList.Item>
+      )}
+      {janicarts && (
+        <LabeledList.Item label="Janicart Locations">
+          {janicarts.map((janicart) => (
+            <Box key={janicart}>
+              {janicart.x},{janicart.y} ({janicart.direction_from_user})
             </Box>
           ))}
         </LabeledList.Item>

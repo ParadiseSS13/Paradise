@@ -21,7 +21,7 @@
 	if(client)
 		stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
-	var/mob/living/silicon/ai/O = new (loc,,,1)//No MMI but safety is in effect.
+	var/mob/living/silicon/ai/O = new (loc, null, null,1)//No MMI but safety is in effect.
 	O.invisibility = 0
 	O.aiRestorePowerRoutine = 0
 
@@ -36,6 +36,8 @@
 	O.add_ai_verbs()
 
 	O.rename_self("AI", TRUE)
+
+	O.blurb_it()
 
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src) // To prevent the proc from returning null. Todo: Convert to QDEL_IN
 	return O

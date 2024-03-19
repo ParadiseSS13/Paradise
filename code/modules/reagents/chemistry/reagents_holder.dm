@@ -352,6 +352,7 @@
 				update_flags |= R.on_mob_overdose_life(M) //We want to drain reagents but not do the entire mob life.
 			if(R.volume < R.overdose_threshold && R.overdosed)
 				R.overdosed = FALSE
+				R.overdose_end(M)
 			if(R.overdosed)
 				var/list/overdose_results = R.overdose_process(M, R.volume >= R.overdose_threshold * 2 ? 2 : 1)
 				if(overdose_results) // to protect against poorly-coded overdose procs
@@ -991,3 +992,6 @@
 	if(my_atom && my_atom.reagents == src)
 		my_atom.reagents = null
 	my_atom = null
+
+#undef ADDICTION_TIME
+#undef MINIMUM_REAGENT_AMOUNT

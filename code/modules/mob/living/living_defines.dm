@@ -71,6 +71,8 @@
 
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
+	/// A multiplier for the ammount of time it takes for someone to regenerate stamina damage.
+	var/stamina_regen_block_modifier = 1
 	var/stam_paralyzed = FALSE //knocks you down
 
 	/// Number of degrees of rotation of a mob. 0 means no rotation, up-side facing NORTH. 90 means up-side rotated to face EAST, and so on.
@@ -94,3 +96,14 @@
 	var/datum/language/default_language
 
 	var/datum/middleClickOverride/middleClickOverride = null
+
+	/// Famous last words -- if succumbing, what the user's last words were
+	var/last_words
+
+	/*
+	Taste Vars
+	*/
+	/// Stores a var of the last world time we tasted something. used so we don't spam people messages while they eat
+	var/last_taste_time
+	/// Stores a var of the last tast message we got. used so we don't spam people messages while they eat
+	var/last_taste_text

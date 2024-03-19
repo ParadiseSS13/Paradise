@@ -125,8 +125,8 @@
 	poll_icon = image(icon = 'icons/mob/robots.dmi', icon_state = "syndi-engi-preview")
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/before_candidate_search(mob/user)
-	var/switch_roles_choice = input("Would you like to continue playing as an operative or take over as the cyborg? If you play as the cyborg, another player will control your old self.", "Play As") as null|anything in list("Nuclear Operative", "Syndicate Cyborg")
-	if(!switch_roles_choice || !(check_usability(user)))
+	var/switch_roles_choice = tgui_input_list(user, "Would you like to continue playing as an operative or take over as the cyborg? If you play as the cyborg, another player will control your old self.", "Play As", list("Nuclear Operative", "Syndicate Cyborg", "Don't activate this Cyborg Teleporter"))
+	if(!switch_roles_choice || !(check_usability(user)) || switch_roles_choice == "Don't activate this Cyborg Teleporter")
 		return FALSE
 
 	if(switch_roles_choice == "Syndicate Cyborg")
@@ -174,7 +174,8 @@
 
 ///////////SLAUGHTER DEMON
 
-/obj/item/antag_spawner/slaughter_demon //Warning edgiest item in the game
+/// Warning edgiest item in the game
+/obj/item/antag_spawner/slaughter_demon
 	name = "vial of blood"
 	desc = "A magically infused bottle of blood, distilled from countless murder victims. Used in unholy rituals to attract horrifying creatures."
 	icon = 'icons/obj/wizard.dmi'

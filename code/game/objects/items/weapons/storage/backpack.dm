@@ -65,7 +65,7 @@
 
 /obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/backpack/holding))
-		var/response = alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?","IMMINENT DEATH!", "No", "Yes")
+		var/response = tgui_alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?", "IMMINENT DEATH!", list("No", "Yes"))
 		if(response == "Yes")
 			user.visible_message("<span class='warning'>[user] grins as [user.p_they()] begin[user.p_s()] to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
 			if(do_after(user, 30, target=src))
@@ -600,7 +600,8 @@
 	new /obj/item/clothing/mask/muzzle(src)
 	new /obj/item/reagent_containers/glass/bottle/reagent/hydrocodone(src)
 
-/obj/item/storage/backpack/duffel/syndie/med/surgery_fake //for maint spawns
+/// for maint spawns
+/obj/item/storage/backpack/duffel/syndie/med/surgery_fake
 	name = "surgery duffelbag"
 	desc = "A suspicious looking duffelbag for holding surgery tools."
 

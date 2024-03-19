@@ -43,7 +43,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
-		var/dat
+		var/dat = {"<meta charset="UTF-8">"}
 		pages = 0
 		switch(screen)
 			if(SCREEN_COVER) //Cover
@@ -82,8 +82,8 @@
 						dat += "<ul>"
 						var/i = 0
 						for(var/datum/feed_message/MESSAGE in C.messages)
-							var/title = (MESSAGE.censor_flags & CENSOR_STORY) ? "\[REDACTED\]" : MESSAGE.title
-							var/body = (MESSAGE.censor_flags & CENSOR_STORY) ? "\[REDACTED\]" : MESSAGE.body
+							var/title = (MESSAGE.censor_flags & NEWSCASTER_CENSOR_STORY) ? "\[REDACTED\]" : MESSAGE.title
+							var/body = (MESSAGE.censor_flags & NEWSCASTER_CENSOR_STORY) ? "\[REDACTED\]" : MESSAGE.body
 							i++
 							dat += "<b>[title]</b> <br>"
 							dat += "[body] <br>"
@@ -163,8 +163,7 @@
 		if(scribble_page == curr_page)
 			to_chat(user, "<span class='notice'>There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?</span>")
 		else
-			var/s = strip_html(input(user, "Write something", "Newspaper", ""))
-			s = sanitize(copytext(s, 1, MAX_MESSAGE_LEN))
+			var/s = tgui_input_text(user, "Write something", "Newspaper")
 			if(!s || !Adjacent(user))
 				return
 			scribble_page = curr_page

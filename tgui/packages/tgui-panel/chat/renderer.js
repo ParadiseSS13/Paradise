@@ -10,11 +10,11 @@ import { createLogger } from 'tgui/logging';
 import {
   COMBINE_MAX_MESSAGES,
   COMBINE_MAX_TIME_WINDOW,
+  MAX_PERSISTED_MESSAGES,
+  MAX_VISIBLE_MESSAGES,
   IMAGE_RETRY_DELAY,
   IMAGE_RETRY_LIMIT,
   IMAGE_RETRY_MESSAGE_AGE,
-  MAX_PERSISTED_MESSAGES,
-  MAX_VISIBLE_MESSAGES,
   MESSAGE_PRUNE_INTERVAL,
   MESSAGE_TYPES,
   MESSAGE_TYPE_INTERNAL,
@@ -190,7 +190,7 @@ class ChatRenderer {
       const highlightWholeMessage = setting.highlightWholeMessage;
       const matchWord = setting.matchWord;
       const matchCase = setting.matchCase;
-      const allowedRegex = /^[a-z0-9_\-$/^[\s\]\\]+$/gi;
+      const allowedRegex = /^[a-zа-яё0-9_\-$/^[\s\]\\]+$/gi;
       const regexEscapeCharacters = /[!#$%^&*)(+=.<>{}[\]:;'"|~`_\-\\/]/g;
       const lines = String(text)
         .split(/[,|]/)
@@ -470,7 +470,7 @@ class ChatRenderer {
     {
       const fromIndex = Math.max(
         0,
-        this.messages.length - MAX_PERSISTED_MESSAGES
+        this.messages.length - MAX_VISIBLE_MESSAGES
       );
       if (fromIndex > 0) {
         this.messages = this.messages.slice(fromIndex);
@@ -484,10 +484,7 @@ class ChatRenderer {
       return;
     }
     // Make a copy of messages
-    const fromIndex = Math.max(
-      0,
-      this.messages.length - MAX_PERSISTED_MESSAGES
-    );
+    const fromIndex = Math.max(0, this.messages.length - MAX_VISIBLE_MESSAGES);
     const messages = this.messages.slice(fromIndex);
     // Remove existing nodes
     for (let message of messages) {

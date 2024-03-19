@@ -122,7 +122,7 @@
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap
 		//the puller can always swap with it's victim if on grab intent
-		if(M.pulledby == src && a_intent == INTENT_GRAB)
+		if(length(M.grabbed_by) && a_intent == INTENT_GRAB)
 			mob_swap = TRUE
 		//restrained people act if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
 		else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
@@ -291,11 +291,22 @@
 
 /mob/living/verb/succumb()
 	set hidden = TRUE
+	// if you use the verb you better mean it
+	do_succumb(FALSE)
+
+/mob/living/proc/do_succumb(cancel_on_no_words)
+	if(stat == DEAD)
+		to_chat(src, "<span class='notice'>It's too late, you're already dead!</span>")
+		return
 	if(health >= HEALTH_THRESHOLD_CRIT)
 		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
 		return
 
-	var/last_words = input(src, "Do you have any last words?", "Goodnight, Sweet Prince") as text|null
+	var/last_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE)
+
+	if(isnull(last_words) && cancel_on_no_words)
+		to_chat(src, "<span class='notice'>You decide you aren't quite ready to die.</span>")
+		return
 
 	if(stat == DEAD)
 		// cancel em out if they died while they had the message box up
@@ -303,6 +314,7 @@
 
 	if(!isnull(last_words))
 		create_log(MISC_LOG, "gave their final words, [last_words]")
+		src.last_words = last_words  // sorry
 		whisper(last_words)
 
 	add_attack_logs(src, src, "[src] has [!isnull(last_words) ? "whispered [p_their()] final words" : "succumbed to death"] with [round(health, 0.1)] points of health!")
@@ -320,7 +332,7 @@
 	else
 		death()
 	to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
-
+	apply_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED)
 
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
@@ -381,6 +393,7 @@
 
 
 /mob/proc/get_contents()
+	return
 
 
 //Recursive function to find everything a mob is holding.
@@ -470,11 +483,6 @@
 			C.reagents.clear_reagents()
 			QDEL_LIST_CONTENTS(C.reagents.addiction_list)
 			C.reagents.addiction_threshold_accumulated.Cut()
-		if(iscultist(src))
-			if(SSticker.mode.cult_risen)
-				SSticker.mode.rise(src)
-			if(SSticker.mode.cult_ascendant)
-				SSticker.mode.ascend(src)
 
 		QDEL_LIST_CONTENTS(C.processing_patches)
 
@@ -799,7 +807,7 @@
 	if(has_gravity)
 		clear_alert("weightless")
 	else
-		throw_alert("weightless", /obj/screen/alert/weightless)
+		throw_alert("weightless", /atom/movable/screen/alert/weightless)
 	if(!flying)
 		float(!has_gravity)
 
@@ -829,7 +837,7 @@
 	return TRUE
 
 //called when the mob receives a bright flash
-/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /obj/screen/fullscreen/flash)
+/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/flash)
 	if(can_be_flashed(intensity, override_blindness_check))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
@@ -839,6 +847,7 @@
 	return 0
 
 /mob/living/proc/check_ear_prot()
+	return
 
 /**
  * Returns the name override, if any, for the slot somebody is trying to strip
@@ -1104,7 +1113,7 @@
 			if((stat == DEAD) && (var_value < DEAD))//Bringing the dead back to life
 				GLOB.dead_mob_list -= src
 				GLOB.alive_mob_list += src
-			if((stat < DEAD) && (var_value == DEAD))//Kill he
+			if((stat != DEAD) && (var_value == DEAD))//Kill he
 				GLOB.alive_mob_list -= src
 				GLOB.dead_mob_list += src
 	. = ..()
@@ -1116,7 +1125,7 @@
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
 
-/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable, block_movement)
 	stop_pulling()
 	return ..()
 
@@ -1146,7 +1155,7 @@
 /mob/living/proc/set_forced_look(atom/A, track = FALSE)
 	forced_look = track ? A.UID() : get_cardinal_dir(src, A)
 	to_chat(src, "<span class='userdanger'>You are now facing [track ? A : dir2text(forced_look)]. To cancel this, shift-middleclick yourself.</span>")
-	throw_alert("direction_lock", /obj/screen/alert/direction_lock)
+	throw_alert("direction_lock", /atom/movable/screen/alert/direction_lock)
 
 /**
   * Clears the mob's direction lock if enabled.
@@ -1172,3 +1181,8 @@
 				dir = get_cardinal_dir(src, A)
 		return
 	return ..()
+
+/mob/living/Moved(OldLoc, Dir, Forced = FALSE)
+	. = ..()
+	for(var/obj/O in src)
+		O.on_mob_move(Dir, src)

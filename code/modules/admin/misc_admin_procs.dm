@@ -67,7 +67,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
 /datum/admins/proc/show_player_panel(mob/M in GLOB.mob_list)
-	set category = null
 	set name = "\[Admin\] Show Player Panel"
 	set desc="Edit player (respawn, ban, heal, etc)"
 
@@ -78,7 +77,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
-	var/body = "<html><head><title>Options for [M.key]</title></head>"
+	var/body = "<html><meta charset='UTF-8'><head><title>Options for [M.key]</title></head>"
 	body += "<body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
@@ -280,12 +279,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	usr << browse(body, "window=adminplayeropts;size=550x615")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Player Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
-/datum/player_info/var/author // admin who authored the information
-/datum/player_info/var/rank //rank of admin who made the notes
-/datum/player_info/var/content // text content of the information
-/datum/player_info/var/timestamp // Because this is bloody annoying
-
 #define PLAYER_NOTES_ENTRIES_PER_PAGE 50
 /datum/admins/proc/PlayerNotes()
 	set category = "Admin"
@@ -397,7 +390,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	set desc = "Instantly ends the round and brings up the scoreboard, in the same way that wizards dying do."
 	if(!check_rights(R_SERVER))
 		return
-	var/input = sanitize(copytext(input(usr, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!"), 1, MAX_MESSAGE_LEN))
+	var/input = sanitize(copytext_char(input(usr, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!"), 1, MAX_MESSAGE_LEN))
 
 	if(!input)
 		return
@@ -650,7 +643,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Head Rev"
 	if(M.mind.has_antag_datum(/datum/antagonist/rev, FALSE))
 		antag_list += "Revolutionary"
-	if(M.mind in SSticker.mode.cult)
+	if(IS_CULTIST(M))
 		antag_list += "Cultist"
 	if(M.mind in SSticker.mode.syndicates)
 		antag_list += "Nuclear Operative"
@@ -812,7 +805,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /client/proc/update_mob_sprite(mob/living/carbon/human/H as mob)
 	set name = "\[Admin\] Update Mob Sprite"
 	set desc = "Should fix any mob sprite update errors."
-	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -996,3 +988,30 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 			continue
 		result[1]++
 	return result
+
+/**
+ * Allows admins to safely pick from SSticker.minds for objectives
+ * - caller, mob to ask for results
+ * - blacklist, optional list of targets that are not available
+ * - default_target, the target to show in the list as default
+ */
+/proc/get_admin_objective_targets(mob/caller, list/blacklist, mob/default_target)
+	if(!islist(blacklist))
+		blacklist = list(blacklist)
+
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(!(possible_target in blacklist) && ishuman(possible_target.current))
+			possible_targets += possible_target.current // Allows for admins to pick off station roles
+
+	if(!length(possible_targets))
+		to_chat(caller, "<span class='warning'>No possible target found.</span>")
+		return
+
+	possible_targets = sortAtom(possible_targets)
+
+	var/mob/new_target = input(caller, "Select target:", "Objective target", default_target) as null|anything in possible_targets
+	if(!QDELETED(new_target))
+		return new_target.mind
+
+#undef PLAYER_NOTES_ENTRIES_PER_PAGE

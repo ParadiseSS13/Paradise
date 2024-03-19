@@ -1,15 +1,3 @@
-/proc/GetOppositeDir(dir)
-	switch(dir)
-		if(NORTH)     return SOUTH
-		if(SOUTH)     return NORTH
-		if(EAST)      return WEST
-		if(WEST)      return EAST
-		if(SOUTHWEST) return NORTHEAST
-		if(NORTHWEST) return SOUTHEAST
-		if(NORTHEAST) return SOUTHWEST
-		if(SOUTHEAST) return NORTHWEST
-	return 0
-
 /proc/random_underwear(gender, species = "Human")
 	var/list/pick_list = list()
 	switch(gender)
@@ -217,12 +205,14 @@
 			else					return "unknown"
 	else if(species == "Vox")
 		switch(tone)
-			if(2)					return "dark green"
+			if(2)					return "plum"
 			if(3)					return "brown"
 			if(4)					return "gray"
 			if(5)					return "emerald"
 			if(6)					return "azure"
-			else					return "green"
+			if(7)					return "crimson"
+			if(8)					return "nebula"
+			else					return "lime"
 	else
 		return "unknown"
 
@@ -549,7 +539,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 	else
 		health_description = "This mob type has no health to speak of."
 
-	//Gener
+	//Gender
 	switch(M.gender)
 		if(MALE, FEMALE)
 			gender_description = "[M.gender]"
@@ -581,7 +571,6 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
 
 // Suppress the mouse macros
-/client/var/next_mouse_macro_warning
 /mob/proc/LogMouseMacro(verbused, params)
 	if(!client)
 		return
@@ -591,14 +580,17 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 	if(client.next_mouse_macro_warning < world.time) // Warn occasionally
 		SEND_SOUND(usr, sound('sound/misc/sadtrombone.ogg'))
 		client.next_mouse_macro_warning = world.time + 600
+
 /mob/verb/ClickSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".click"
 	LogMouseMacro(".click", params)
+
 /mob/verb/DblClickSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".dblclick"
 	LogMouseMacro(".dblclick", params)
+
 /mob/verb/MouseSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".mouse"
@@ -706,3 +698,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		out_ckey = "(Disconnected)"
 
 	return out_ckey
+
+/// rounds value to limited symbols after the period for organ damage and other values
+/proc/round_health(health)
+	return round(health, 0.01)

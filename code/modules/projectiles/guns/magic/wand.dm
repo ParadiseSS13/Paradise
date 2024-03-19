@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	can_charge = FALSE
 	max_charges = 100 //100, 50, 50, 34 (max charge distribution by 25%ths)
-	var/variable_charges = 1
+	var/variable_charges = TRUE
 	execution_speed = 3 SECONDS
 
 /obj/item/gun/magic/wand/Initialize(mapload)
@@ -199,5 +199,31 @@
 
 /obj/item/gun/magic/wand/slipping/zap_self(mob/living/user)
 	to_chat(user, "<span class='notice'>You feel rather silly!.</span>")
+	charges--
+	..()
+
+/////////////////////////////////////
+//WAND OF CHAOS - Only spawned by the Staff of Chaos as a rare random effect
+/////////////////////////////////////
+/obj/item/gun/magic/wand/chaos
+	name = "wand of chaos"
+	desc = "Payback time!"
+	fire_sound = 'sound/magic/staff_chaos.ogg'
+	ammo_type = /obj/item/ammo_casing/magic/chaos
+	icon_state = "chaoswand"
+	max_charges = 20
+	variable_charges = FALSE
+	no_den_usage = TRUE
+
+/obj/item/gun/magic/wand/chaos/zap_self(mob/living/user)
+	if(!ishuman(user))
+		return
+	to_chat(user, "<span class='chaosneutral'>[pick("Chaos chaos!", "You can do anything!", "You hear a mariachi band playing in the distance.", \
+		"Would you like a glass of water?", "What fun is there in making sense?", "Maybe you ought to go back home and crawl under your bed.", \
+		"Time to dual wield chaos wands!", "Sixty percent of the time, it works every time.", "Cheese for everyone!", "You hear a deep voice cackling.", \
+		"Xom bursts into laughter!", "Xom thinks this is hilarious!")]</span>")
+	var/obj/item/projectile/magic/chaos/proj = new /obj/item/projectile/magic/chaos(src)
+	proj.chaos_chaos(user)
+	qdel(proj)
 	charges--
 	..()

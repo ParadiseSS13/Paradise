@@ -207,14 +207,14 @@
 
 		if(deviation == DEVIATION_FULL)
 			target.Confused(6 SECONDS)
-			target.adjustStaminaLoss(20)
+			target.apply_damage(20, STAMINA)
 		else if(deviation == DEVIATION_PARTIAL)
 			target.KnockDown(5 SECONDS)
 			target.Confused(6 SECONDS)
-			target.adjustStaminaLoss(40)
+			target.apply_damage(40, STAMINA)
 		else
 			target.Confused(10 SECONDS)
-			target.adjustStaminaLoss(70)
+			target.apply_damage(70, STAMINA)
 			target.KnockDown(12 SECONDS)
 			target.AdjustSilence(8 SECONDS)
 			target.flash_eyes(1, TRUE, TRUE)
@@ -242,7 +242,7 @@
 	// - V - Attacker facing south
 	// - - -
 	// Victim at 135 or more degrees of where the victim is facing.
-	if(attacker_dir & GetOppositeDir(attacker_to_victim))
+	if(attacker_dir & reverse_direction(attacker_to_victim))
 		return DEVIATION_FULL
 
 	// - - -

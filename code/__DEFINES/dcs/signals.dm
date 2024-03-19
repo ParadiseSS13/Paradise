@@ -157,9 +157,6 @@
 ///from base of datum/radiation_wave/check_obstructions(): (datum/radiation_wave, width)
 #define COMSIG_ATOM_RAD_WAVE_PASSING "atom_rad_wave_pass"
 	#define COMPONENT_RAD_WAVE_HANDLED (1<<0)
-///from internal loop in atom/movable/proc/CanReach(): (list/next)
-#define COMSIG_ATOM_CANREACH "atom_can_reach"
-	#define COMPONENT_BLOCK_REACH (1<<0)
 ///from base of atom/screwdriver_act(): (mob/living/user, obj/item/I)
 #define COMSIG_ATOM_SCREWDRIVER_ACT "atom_screwdriver_act"
 ///from base of atom/wrench_act(): (mob/living/user, obj/item/I)
@@ -188,6 +185,10 @@
 #define COMSIG_ATOM_HITBY "atom_hitby"
 /// Called when an atom is sharpened or dulled.
 #define COMSIG_ATOM_UPDATE_SHARPNESS "atom_update_sharpness"
+///from base of atom/atom_prehit(obj/item/projectile/P):
+#define COMSIG_ATOM_PREHIT "atom_prehit"
+	#define ATOM_PREHIT_SUCCESS (1<<0)
+	#define ATOM_PREHIT_FAILURE (1<<1)
 
 // Attack signals. These should share the returned flags, to standardize the attack chain.
 // The chain currently works like:
@@ -525,7 +526,12 @@
 #define COMSIG_CARBON_UPDATE_HANDCUFFED "carbon_update_handcuff"
 /// From /mob/living/carbon/regenerate_icons()
 #define COMSIG_CARBON_REGENERATE_ICONS "carbon_regen_icons"
-
+/// From /mob/living/carbon/enter_stamcrit()
+#define COMSIG_CARBON_ENTER_STAMINACRIT "carbon_enter_staminacrit"
+/// From /mob/living/carbon/update_stamina()
+#define COMSIG_CARBON_EXIT_STAMINACRIT "carbon_exit_staminacrit"
+/// From /mob/living/carbon/handle_status_effects()
+#define COMSIG_CARBON_STAMINA_REGENERATED "carbon_stamina_regenerated"
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
@@ -772,6 +778,9 @@
 #define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"
 	#define SHIELD_BLOCK (1<<0)
 
+///from /mob/living/carbon/human/create_mob_hud()
+#define COMSIG_HUMAN_CREATE_MOB_HUD "human_create_mob_hud"
+
 // /datum/species signals
 
 ///from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)
@@ -943,7 +952,7 @@
 #define COMSIG_AIRLOCK_CLOSE "airlock_close"
 
 // /datum/objective signals
-///from datum/objective/proc/find_target()
+///from datum/objective/proc/find_target(list/target_blacklist)
 #define COMSIG_OBJECTIVE_TARGET_FOUND "objective_target_found"
 ///from datum/objective/is_invalid_target()
 #define COMSIG_OBJECTIVE_CHECK_VALID_TARGET "objective_check_valid_target"

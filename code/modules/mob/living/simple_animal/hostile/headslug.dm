@@ -1,5 +1,5 @@
-#define EGG_INCUBATION_DEAD_CYCLE 60
-#define EGG_INCUBATION_LIVING_CYCLE 120
+#define EGG_INCUBATION_DEAD_CYCLE 120
+#define EGG_INCUBATION_LIVING_CYCLE 200
 /mob/living/simple_animal/hostile/headslug
 	name = "headslug"
 	desc = "Absolutely not de-beaked or harmless. Keep away from corpses."
@@ -21,6 +21,7 @@
 	environment_smash = 0
 	speak_emote = list("squeaks")
 	pass_flags = PASSTABLE | PASSMOB
+	mob_size = MOB_SIZE_SMALL
 	density = FALSE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	a_intent = INTENT_HARM
@@ -52,10 +53,16 @@
 	if(HAS_TRAIT(carbon_target, TRAIT_XENO_HOST))
 		to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
 		return
+	if(!carbon_target.get_int_organ_datum(ORGAN_DATUM_HEART))
+		to_chat(src, "<span class='userdanger'>There's no heart for us to infest!</span>")
+		return
 	Infect(carbon_target)
 	to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
 	addtimer(CALLBACK(src, PROC_REF(death)), 25 SECONDS)
 
+/mob/living/simple_animal/hostile/headslug/projectile_hit_check(obj/item/projectile/P)
+	return (stat || FALSE)
+	
 /obj/item/organ/internal/body_egg/changeling_egg
 	name = "changeling egg"
 	desc = "Twitching and disgusting."
@@ -73,7 +80,7 @@
 		owner.adjustToxLoss(30)
 	if(time >= 90 && prob(15))
 		to_chat(owner, pick("<span class='danger'>Something hurts.</span>", "<span class='danger'>Someone is thinking, but it's not you.</span>", "<span class='danger'>You feel at peace.</span>", "<span class='danger'>Close your eyes.</span>"))
-		owner.adjustStaminaLoss(50)
+		owner.apply_damage(50, STAMINA)
 	if(time >= EGG_INCUBATION_DEAD_CYCLE && owner.stat == DEAD || time >= EGG_INCUBATION_LIVING_CYCLE)
 		Pop()
 		STOP_PROCESSING(SSobj, src)
@@ -114,11 +121,13 @@
 		owner.gib()
 		return
 
-	owner.apply_damage(300, BRUTE, BODY_ZONE_CHEST)
 	owner.bleed(BLOOD_VOLUME_NORMAL)
-	var/obj/item/organ/external/chest = owner.get_organ(BODY_ZONE_CHEST)
-	chest.fracture()
-	chest.disembowel()
+	var/datum/organ/our_heart_datum = owner.get_int_organ_datum(ORGAN_DATUM_HEART)
+	var/obj/item/organ/internal/our_heart = our_heart_datum.linked_organ
+	var/obj/item/organ/external/heart_location = owner.get_organ(our_heart.parent_organ)
+	owner.apply_damage(300, BRUTE, our_heart.parent_organ)
+	heart_location.fracture()
+	heart_location.disembowel(our_heart.parent_organ)
 
 #undef EGG_INCUBATION_DEAD_CYCLE
 #undef EGG_INCUBATION_LIVING_CYCLE

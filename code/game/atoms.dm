@@ -36,6 +36,8 @@
 
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
+	/// Materials scannable by detective
+	var/list/suit_fibers
 
 	var/admin_spawned = FALSE	//was this spawned by an admin? used for stat tracking stuff.
 
@@ -58,6 +60,9 @@
 	/// Last color calculated for the the chatmessage overlays. Used for caching.
 	var/chat_color
 
+	/*
+	Smoothing Vars
+	*/
 	///Icon-smoothing behavior.
 	var/smoothing_flags = NONE
 	///Smoothing variable
@@ -76,6 +81,29 @@
 	var/smoothing_junction = null //This starts as null for us to know when it's first set, but after that it will hold a 8-bit mask ranging from 0 to 255.
 	///Used for changing icon states for different base sprites.
 	var/base_icon_state
+	/// This var isn't actually used for anything, but is present so that DM's map reader doesn't forfeit on reading a JSON-serialized map. AKA DO NOT FUCK WITH
+	var/map_json_data
+
+	/*
+	Lighting Vars
+	*/
+	/// Intensity of the light. Can be negative to remove light
+	var/light_power = 1
+	// Range in tiles of the light.
+	var/light_range = 0
+	// Hexadecimal RGB string representing the colour of the light. ALWAYS REMEMBER TO MAKE SURE THIS CAN'T BE NULL/NEGATIVE
+	var/light_color
+
+	// Our light source. Don't fuck with this directly unless you have a good reason!
+	var/tmp/datum/light_source/light
+	// Any light sources that are "inside" of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.
+	var/tmp/list/light_sources
+	/// The alternate appearances we own. Lazylist
+	var/list/alternate_appearances
+	/// The alternate appearances we're viewing, stored here to reestablish them after Logout()s. Lazylist
+	var/list/viewing_alternate_appearances
+	/// Contains the world.time of when we start dragging something with our mouse. Used to prevent weird situations where you fail to click on something
+	var/drag_start = 0
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -515,8 +543,10 @@
 /atom/proc/welder_act(mob/living/user, obj/item/I)
 	return
 
+/// This is when an atom is emagged. Should return false if it fails, or it has no emag_act defined.
 /atom/proc/emag_act(mob/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
+	return FALSE
 
 /atom/proc/unemag()
 	return
@@ -875,12 +905,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
 		G.add_blood(blood_dna, b_color)
-		verbs += /mob/living/carbon/human/proc/bloody_doodle
+		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 	else
 		hand_blood_color = b_color
 		bloody_hands = rand(2, 4)
 		transfer_blood_dna(blood_dna)
-		verbs += /mob/living/carbon/human/proc/bloody_doodle
+		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 
 	update_inv_gloves()	//handles bloody hands overlays and updating
 	return TRUE
@@ -1206,7 +1236,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!use_prefix)
 		default_value = name
 	else if(findtext(name, prefix) != 0)
-		default_value = copytext(name, length(prefix) + 1)
+		default_value = copytext_char(name, length_char(prefix) + 1)
 	else
 		// Either the thing has a non-conforming name due to being set in the map
 		// OR (much more likely) the thing is unlabeled yet.
@@ -1233,7 +1263,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return null
 
 
-	t = sanitize(copytext(t, 1, MAX_NAME_LEN))
+	t = sanitize(copytext_char(t, 1, MAX_NAME_LEN))
 
 	// Logging
 	var/logged_name = initial(name)
@@ -1287,3 +1317,36 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(caller && (caller.pass_flags & pass_flags_self))
 		return TRUE
 	. = !density
+
+/atom/proc/atom_prehit(obj/item/projectile/P)
+	return SEND_SIGNAL(src, COMSIG_ATOM_PREHIT, P)
+
+/// Passes Stat Browser Panel clicks to the game and calls client click on an atom
+/atom/Topic(href, list/href_list)
+	. = ..()
+	if(!usr?.client)
+		return
+
+	if(href_list["statpanel_item_click"])
+		var/client/usr_client = usr.client
+		var/list/paramslist = list()
+		switch(href_list["statpanel_item_click"])
+			if("left")
+				paramslist[LEFT_CLICK] = "1"
+			if("right")
+				paramslist[RIGHT_CLICK] = "1"
+			if("middle")
+				paramslist[MIDDLE_CLICK] = "1"
+			else
+				return
+
+		if(href_list["statpanel_item_shiftclick"])
+			paramslist[SHIFT_CLICK] = "1"
+		if(href_list["statpanel_item_ctrlclick"])
+			paramslist[CTRL_CLICK] = "1"
+		if(href_list["statpanel_item_altclick"])
+			paramslist[ALT_CLICK] = "1"
+
+		var/mouseparams = list2params(paramslist)
+		usr_client.Click(src, loc, null, mouseparams)
+		return TRUE

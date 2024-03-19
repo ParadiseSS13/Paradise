@@ -474,7 +474,7 @@
 			return FALSE
 
 /obj/machinery/computer/library/proc/select_book(obj/item/book/B)
-	if(B.carved == TRUE)
+	if(B.carved)
 		return
 	user_data.selected_book.title = B.title ? B.title : "No Title"
 	user_data.selected_book.author = B.author ? B.author : "No Author"
@@ -589,6 +589,10 @@
 		new /obj/item/storage/bible/syndi(loc)
 		visible_message("<span class='notice'>[src]'s printer ominously hums as it produces a completely bound book. How did it do that?</span>")
 		print_cooldown = world.time + PRINTING_COOLDOWN
+		return TRUE
+
+/obj/machinery/computer/library/syndie
+	req_one_access = list(ACCESS_SYNDICATE)
 
 #undef LIBRARY_BOOKS_PER_PAGE
 #undef LOGIN_FULL

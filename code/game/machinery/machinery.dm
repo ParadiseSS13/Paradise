@@ -11,8 +11,6 @@
 
 	/// How is this machine currently passively consuming power?
 	var/power_state = IDLE_POWER_USE
-	/// Does this machine require power?
-	var/requires_power = TRUE
 	/// How much power does this machine consume when it is idling
 	var/idle_power_consumption = 0
 	/// How much power does this machine consume when it is in use
@@ -94,7 +92,7 @@
 // returns true if the area has power on given channel (or doesn't require power).
 // defaults to power_channel
 /obj/machinery/proc/has_power(channel = power_channel) // defaults to power_channel
-	if(!requires_power)
+	if(interact_offline)
 		return TRUE
 	if(!machine_powernet)
 		return FALSE
@@ -125,7 +123,7 @@
 */
 /obj/machinery/proc/power_change()
 	var/old_stat = stat
-	if(has_power(power_channel) || !requires_power) //if we don't require power, we don't give a shit about the power channel!
+	if(has_power(power_channel) || interact_offline) //if we don't require power, we don't give a shit about the power channel!
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
@@ -185,16 +183,10 @@
 	return !inoperable(additional_flags)
 
 /obj/machinery/proc/inoperable(additional_flags = 0)
-	return (stat & (NOPOWER|BROKEN|additional_flags))
+	return ((!interact_offline && (stat & NOPOWER)) || (stat & (BROKEN|additional_flags)))
 
 /obj/machinery/ui_status(mob/user, datum/ui_state/state)
-	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
-		return UI_CLOSE
-
-	return ..()
-
-/obj/machinery/ui_status(mob/user, datum/ui_state/state)
-	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
+	if(!is_operational())
 		return UI_CLOSE
 
 	return ..()
@@ -222,10 +214,29 @@
 		return attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user as mob)
-	if(user.incapacitated())
+	if(try_attack_hand(user))
 		return TRUE
 
-	if(!user.IsAdvancedToolUser())
+	add_fingerprint(user)
+
+	return ..()
+
+/**
+  * Preprocess machinery interaction.
+  *
+  * If overriding and extending interaction limitations, better call this with ..()
+  * unless you really know what you are doing.
+  *
+  * Returns TRUE when interaction is done due to different limitations and nothing should be done next.
+  * Returns FALSE when interaction can be continued.
+  * Arguments:
+  * * user - the mob interacting with this machinery
+  */
+/obj/machinery/proc/try_attack_hand(mob/user)
+	if(user.incapacitated() && !isobserver(user))
+		return TRUE
+
+	if(!user.IsAdvancedToolUser() && !isobserver(user))
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return TRUE
 
@@ -239,18 +250,17 @@
 			return TRUE
 
 	if(panel_open)
-		add_fingerprint(user)
+		if(!isobserver(user))
+			add_fingerprint(user)
 		return FALSE
 
-	if(!interact_offline && stat & (NOPOWER|BROKEN|MAINT))
+	if(!is_operational())
 		return TRUE
 
-	add_fingerprint(user)
-
-	return ..()
+	return FALSE
 
 /obj/machinery/proc/is_operational()
-	return !(stat & (NOPOWER|BROKEN|MAINT))
+	return !inoperable(MAINT)
 
 /obj/machinery/CheckParts(list/parts_list)
 	..()
@@ -362,7 +372,7 @@
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
-	if((flags & NODECONSTRUCT))
+	if(flags & NODECONSTRUCT)
 		return FALSE
 	if(istype(W) && component_parts)
 		if(panel_open || W.works_from_distance)

@@ -3,9 +3,9 @@
 
 //Request Console Department Types.
 //For one console to be under multiple categories, you need to add the numbers with each other. For example, value of 6 will allow you to request supplies and relay info to that specific console.
-#define RC_ASSIST 1		//Request Assistance
-#define RC_SUPPLY 2		//Request Supplies
-#define RC_INFO   4		//Relay Info
+#define RC_ASSIST (1<<0)		//Request Assistance
+#define RC_SUPPLY (1<<1)		//Request Supplies
+#define RC_INFO   (1<<2)		//Relay Info
 
 //Request Console Screens
 #define RCS_MAINMENU 0	// Main menu
@@ -65,6 +65,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/print_cooldown = 0	//cooldown on shipping label printer, stores the  in-game time of when the printer will next be ready
 	var/obj/item/radio/Radio
 	var/radiochannel = ""
+	var/reminder_timer_id = TIMER_ID_NULL
 
 /obj/machinery/requests_console/power_change()
 	if(!..())
@@ -185,7 +186,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(reject_bad_text(params["write"]))
 				recipient = params["write"] //write contains the string of the receiving department's name
 
-				var/new_message = sanitize(input("Write your message:", "Awaiting Input", ""))
+				var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", encode = FALSE)
 				if(new_message)
 					message = new_message
 					screen = RCS_MESSAUTH
@@ -200,7 +201,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 					reset_message(TRUE)
 
 		if("writeAnnouncement")
-			var/new_message = input("Write your message:", "Awaiting Input", message) as message|null
+			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", message, multiline = TRUE, encode = FALSE)
 			if(new_message)
 				message = new_message
 			else
@@ -243,7 +244,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				else if(recipient in SUPPLY_ROLES)
 					radiochannel = "Supply"
 				message_log.Add(list(list("Message sent to [recipient] at [station_time_timestamp()]", "[message]")))
-				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
+				Radio.autosay("Alert; a new message has been received from [department]", "[recipient] Requests Console", "[radiochannel]")
 			else
 				atom_say("No server detected!")
 
@@ -259,6 +260,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 						Console.newmessagepriority = RQ_NONEW_MESSAGES
 						Console.update_icon(UPDATE_OVERLAYS)
 						Console.set_light(1)
+						if(reminder_timer_id != TIMER_ID_NULL)
+							deltimer(reminder_timer_id)
+							reminder_timer_id = TIMER_ID_NULL
 			if(tempScreen == RCS_MAINMENU)
 				reset_message()
 			screen = tempScreen
@@ -332,31 +336,67 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(mainmenu)
 		screen = RCS_MAINMENU
 
-/obj/machinery/requests_console/proc/createMessage(source, title, message, priority)
+/obj/machinery/requests_console/proc/createMessage(source, title, message, priority, forced = FALSE)
 	var/linkedSender
+	if(inoperable() && !forced)
+		message_log.Add(list(list("Message lost due to console failure. Please contact [station_name()]'s system administrator or AI for technical assistance.")))
+		return
 	if(istype(source, /obj/machinery/requests_console))
 		var/obj/machinery/requests_console/sender = source
 		linkedSender = sender.department
 	else
-		capitalize(source)
 		linkedSender = source
-	capitalize(title)
 	if(newmessagepriority < priority)
 		newmessagepriority = priority
 		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	if(!silent)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 		atom_say(title)
+		if(reminder_timer_id == TIMER_ID_NULL)
+			reminder_timer_id = addtimer(CALLBACK(src, PROC_REF(remind_unread_messages)), 5 MINUTES, TIMER_STOPPABLE | TIMER_LOOP)
 
 	switch(priority)
 		if(RQ_HIGHPRIORITY) // High
-			message_log.Add(list(list("High Priority - From: [linkedSender]") + message)) // List in a list for passing into TGUI
+			message_log.Add(list(list("High Priority - From: [linkedSender]", message))) // List in a list for passing into TGUI
 		else // Normal
-			message_log.Add(list(list("From: [linkedSender]") + message)) // List in a list for passing into TGUI
+			message_log.Add(list(list("From: [linkedSender]", message))) // List in a list for passing into TGUI
 	set_light(2)
+
+/obj/machinery/requests_console/proc/remind_unread_messages()
+	if(reminder_timer_id == TIMER_ID_NULL)
+		return
+
+	if(newmessagepriority == RQ_NONEW_MESSAGES)
+		deltimer(reminder_timer_id)
+		reminder_timer_id = TIMER_ID_NULL
+		return
+
+	atom_say("Unread message(s) available.")
 
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)
 	var/obj/item/shippingPackage/sp = new /obj/item/shippingPackage(get_turf(src))
 	sp.sortTag = tag_index
 	sp.update_desc()
 	print_cooldown = world.time + 600	//1 minute cooldown before you can print another label, but you can still configure the next one during this time
+
+#undef RC_ASSIST
+#undef RC_SUPPLY
+#undef RC_INFO
+#undef RCS_MAINMENU
+#undef RCS_RQSUPPLY
+#undef RCS_RQASSIST
+#undef RCS_SENDINFO
+#undef RCS_SENTPASS
+#undef RCS_SENTFAIL
+#undef RCS_VIEWMSGS
+#undef RCS_MESSAUTH
+#undef RCS_ANNOUNCE
+#undef RCS_SHIPPING
+#undef RCS_SHIP_LOG
+#undef ENGI_ROLES
+#undef SEC_ROLES
+#undef MISC_ROLES
+#undef MED_ROLES
+#undef COM_ROLES
+#undef SCI_ROLES
+#undef SUPPLY_ROLES

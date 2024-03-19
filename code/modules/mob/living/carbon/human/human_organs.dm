@@ -4,9 +4,6 @@
 		eyes.update_colour()
 		update_body()
 
-/mob/living/carbon/human/var/list/bodyparts = list()
-/mob/living/carbon/human/var/list/bodyparts_by_name = list() // map organ names to organs
-
 // Takes care of organ related updates, such as broken and missing limbs
 /mob/living/carbon/human/handle_organs()
 	..()
@@ -178,3 +175,12 @@ old_ue: Set this to a UE string, and this proc will overwrite the dna of organs 
 	for(var/obj/item/organ/external/limb in bodyparts)
 		if(limb.status & ORGAN_SPLINTED)
 			splinted_limbs += limb
+
+/mob/living/carbon/human/rename_character(oldname, newname)
+	. = ..()
+	if(!.)
+		return
+
+	for(var/obj/item/organ/external/BP in bodyparts)
+		if(BP.dna?.real_name == oldname)
+			BP.dna.real_name = newname
