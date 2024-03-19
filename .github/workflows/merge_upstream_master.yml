@@ -33,8 +33,8 @@ jobs:
           nvm install $NODE_VERSION
           nvm use $NODE_VERSION
           corepack enable
-          yarn set version stable
-          yarn install
+          tgui_yarn_version=$(cd tgui && yarn --version && cd ../)
+          yarn set version $tgui_yarn_version
 
       - uses: actions/setup-python@v5
         with:
@@ -43,13 +43,6 @@ jobs:
 
       - name: Perform Merge
         run: |
-          source _build_dependencies.sh
-          source ~/.nvm/nvm.sh
-          nvm install $NODE_VERSION
-          nvm use $NODE_VERSION
-          corepack enable
-          yarn set version stable
-          yarn install
           chmod +x tools/bootstrap/python
           bash tools/hooks/install.sh
           bash tgui/bin/tgui --install-git-hooks

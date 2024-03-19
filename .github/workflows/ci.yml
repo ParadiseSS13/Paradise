@@ -39,8 +39,8 @@ jobs:
           nvm install $NODE_VERSION
           nvm use $NODE_VERSION
           corepack enable
-          yarn set version stable
-          yarn install
+          tgui_yarn_version=$(cd tgui && yarn --version && cd ../)
+          yarn set version $tgui_yarn_version
       - run: pip install -r tools/requirements.txt
       - name: Run Linters
         run: |
