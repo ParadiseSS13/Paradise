@@ -70,6 +70,8 @@
 
 #define STATUS_EFFECT_BADASS /datum/status_effect/badass // Badass trait for 2 minutes.
 
+#define STATUS_EFFECT_REVERSED_SUN /datum/status_effect/reversed_sun // Weaker eternal darkness, nightvision, but nearsight
+
 /////////////
 // DEBUFFS //
 /////////////

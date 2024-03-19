@@ -3,7 +3,7 @@
 	desc = "Reusable card generator" //QWERTODO: spawn directly librarian / chaplain april fools day
 	icon = 'icons/obj/playing_cards.dmi'//Qwertodo: Uplink, wizard
 	icon_state = "card_holder" //Qwertodo: tendril chest, wizard ship
-	w_class = WEIGHT_CLASS_SMALL //Qwertodo: Cult making a card 5 minute cooldown from one of the structures
+	w_class = WEIGHT_CLASS_SMALL
 	/// What is the maximum number of cards the tarot generator can have in the world at a time?
 	var/maximum_cards = 3
 	/// List of cards we have created, to check against maximum, and so we can purge them from the pack.
@@ -27,6 +27,7 @@
 		MTC.dust()
 	to_chat(user, "<span class='hierophant'>You dispell the cards [src] had created.</span>")
 
+// Booster packs filled with 3, 5, or 7 playing cards! Used by the wizard space ruin, or rarely in lavaland tendril chests.
 /obj/item/tarot_card_pack
 	name = "\improper Enchanted Arcana Pack"
 	desc = "A pack of Enchanted tarot cards. Collect them all!"
@@ -54,6 +55,39 @@
 	desc = "Sadly, you won't find a Joker for an angel room, or a Soul card in here either."
 	cards = 7
 
+// Blank tarot cards. Made by the cult, however also good for space ruins potentially, where one feels a card pack would be too much?
+/obj/item/blank_tarot_card
+	name = "blank tarot card"
+	desc = "A blank tarot card."
+	icon = 'icons/obj/playing_cards.dmi'
+	icon_state = "tarot_blank"
+	w_class = WEIGHT_CLASS_TINY
+	throw_speed = 3
+	throw_range = 10
+	throwforce = 0
+	force = 0
+	resistance_flags = FLAMMABLE
+
+/obj/item/blank_tarot_card/examine(mob/user)
+	. = ..()
+	. += "<span class='hierophant'>With a bit of Ink, a work of art could be created. Will you provide your Ink?</span>"
+
+/obj/item/blank_tarot_card/attack_self(mob/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.dna && (NO_BLOOD in H.dna.species.species_traits))
+		to_chat(user, "<span class='cult'>No blood to provide?...</span><span class='hierophant'> Then no Ink for the art...</span>")
+		return
+	if(H.blood_volume <= 100) //Shouldn't happen, they should be dead, but failsafe. Not bleeding as then they could recover the blood with blood rites
+		return
+	H.blood_volume -= 100
+	H.drop_item()
+	var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src))
+	user.put_in_hands(MTC)
+	to_chat(user, "<span class='cult'>Your blood flows into [src]...</span><span class='hierophant'> And the Ink makes a work of art! [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
+	qdel(src)
+
 /obj/item/magic_tarot_card
 	name = "XXII - The Unknown"
 	desc = "A tarot card. However, it feels like it has a meaning behind it?"
@@ -64,6 +98,7 @@
 	throw_range = 10
 	throwforce = 0
 	force = 0
+	resistance_flags = FLAMMABLE
 	/// The deck that created us. Notifies it we have been deleted on use.
 	var/obj/item/tarot_generator/creator_deck
 	/// Our magic tarot card datum that lets the tarot card do stuff on use, or hitting someone
@@ -79,7 +114,7 @@
 	our_tarot = new tarotpath
 	name = our_tarot.name
 	card_desc = our_tarot.desc
-	icon_state = "tarot_[our_tarot.card_icon]" //Qwertodo: Change this to use the datums icon, once we sprite it
+	icon_state = "tarot_[our_tarot.card_icon]"
 
 /obj/item/magic_tarot_card/Destroy()
 	if(creator_deck)
@@ -90,7 +125,7 @@
 	. = ..()
 	. += "<span class='hierophant'>[card_desc]</span>"
 
-/obj/item/magic_tarot_card/attack_self(mob/user) //QWERTODO: Invoke asynk on the hit effect
+/obj/item/magic_tarot_card/attack_self(mob/user)
 	if(our_tarot)
 		INVOKE_ASYNC(our_tarot, TYPE_PROC_REF(/datum/tarot, activate), user)
 	poof()
@@ -262,7 +297,7 @@
 /datum/tarot/justice/activate(mob/living/target)
 	var/turf/target_turf = get_turf(target)
 	new /obj/item/storage/firstaid/regular(target_turf)
-	new /obj/item/grenade/frag(target_turf)
+	new /obj/item/grenade/chem_grenade/waterpotassium(target_turf)
 	new /obj/item/card/emag/one_use(target_turf)
 	new /obj/item/stack/spacecash/c100(target_turf)
 
@@ -509,12 +544,12 @@
 
 /datum/tarot/reversed/the_hierophant/activate(mob/living/target)
 	var/active_chasers = 0
-	for(var/mob/living/M in shuffle(oview(9, src)))
+	for(var/mob/living/M in shuffle(orange(7, target)))
 		if(M.stat == DEAD) //Let us not have dead mobs be used to make a disco inferno.
 			continue
 		if(active_chasers >= 2)
 			return
-		var/obj/effect/temp_visual/hierophant/chaser/C = new(target.loc, target, M, 1, TRUE)
+		var/obj/effect/temp_visual/hierophant/chaser/C = new(get_turf(target), target, M, 1, FALSE)
 		C.moving = 2
 		C.standard_moving_before_recalc = 2
 		C.moving_dir = text2dir(pick("NORTH", "SOUTH", "EAST", "WEST"))
@@ -550,7 +585,7 @@
 	desc = "May your sins come back to torment you."
 	card_icon = "justice?"
 
-/datum/tarot/reversed/justice/activate(mob/living/target)
+/datum/tarot/reversed/justice/activate(mob/living/target) //qwertodo: exclude shuttles from this it breaks shit
 	var/chosen = pick(SSeconomy.supply_packs)
 	var/datum/supply_packs/the_pack = new chosen()
 	var/spawn_location = get_turf(target)
@@ -594,7 +629,7 @@
 	card_icon = "strength?"
 
 /datum/tarot/reversed/strength/activate(mob/living/target)
-	for(var/mob/living/M in oview(9, src))
+	for(var/mob/living/M in oview(9, target))
 		M.Hallucinate(2 MINUTES)
 		new /obj/effect/hallucination/delusion(get_turf(M), M)
 		M.adjustBrainLoss(30)
@@ -605,7 +640,7 @@
 	card_icon = "the_hanged_man?"
 
 /datum/tarot/reversed/the_hanged_man/activate(mob/living/target)
-	var/obj/structure/cursed_slot_machine/pull_the_lever_kronk = new /obj/structure/cursed_slot_machine(get_turf(src))
+	var/obj/structure/cursed_slot_machine/pull_the_lever_kronk = new /obj/structure/cursed_slot_machine(get_turf(target))
 	if(ishuman(target))
 		var/mob/living/carbon/human/WRONG_LEVER = target
 		pull_the_lever_kronk.attack_hand(WRONG_LEVER)
@@ -641,3 +676,72 @@
 /datum/tarot/reversed/the_devil/activate(mob/living/target)
 	var/obj/item/grenade/clusterbuster/i_hate_nians = new(get_turf(target))
 	i_hate_nians.prime()
+
+/datum/tarot/reversed/the_tower
+	name = "XVI - The Tower?"
+	desc = "Creation brings destruction."
+	card_icon = "the_tower?"
+
+/datum/tarot/reversed/the_tower/activate(mob/living/target)
+	for(var/turf/t in RANGE_TURFS(9, target))
+		if(locate(/mob/living) in t)
+			continue
+		if(istype(t, /turf/simulated/wall/indestructible))
+			continue
+		if(prob(70))
+			continue
+		t.ChangeTurf(/turf/simulated/mineral/random/labormineral)
+
+/datum/tarot/reversed/the_stars
+	name = "XVII - The Stars?"
+	desc = "May your loss bring fortune."
+	card_icon = "the_stars?"
+
+/datum/tarot/reversed/the_stars/activate(mob/living/target)
+	. = ..()
+
+/datum/tarot/reversed/the_moon
+	name = "XVIII - The Moon?"
+	desc = "May you remember lost memories."
+	card_icon = "the_moon?"
+
+/datum/tarot/reversed/the_moon/activate(mob/living/target)
+	for(var/mob/living/L in view(5, target)) //Shorter range as this kinda can give away antagonists, though that is also funny.
+		target.mind.show_memory(L, 0) //Safe code? Bank accounts? PDA codes? It's yours my friend, as long as you have enough tarots
+
+/datum/tarot/reversed/the_sun
+	name = "XIX - The Sun?"
+	desc = "May the darkness swallow all around you."
+	card_icon = "the_sun?"
+
+/datum/tarot/reversed/the_sun/activate(mob/living/target)
+	target.apply_status_effect(STATUS_EFFECT_REVERSED_SUN)
+
+/datum/tarot/reversed/judgement
+	name = "XX - Judgement?"
+	desc = "May you redeem those found wanting" //Who wants more, but ghosts for something interesting
+	card_icon = "judgement?"
+
+/datum/tarot/reversed/judgement/activate(mob/living/target)
+	var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
+	var/decrease = 2.5 MINUTES
+	EC.next_event_time -= decrease
+	log_and_message_admins("decreased timer for [GLOB.severity_to_string[EC.severity]] events by 2.5 minutes by use of a [src].")
+
+/datum/tarot/reversed/the_world
+	name = "XXI - The World?"
+	desc = "Step into the abyss."
+	card_icon = "the_world?"
+
+/datum/tarot/reversed/the_world/activate(mob/living/target)
+	var/list/L = list()
+	for(var/turf/T in get_area_turfs(/area/mine/outpost)) //Lavaland is the abyss, but also too hot to send people too. Mining base should be fair!
+		if(is_blocked_turf(T))
+			continue
+		L.Add(T)
+
+	if(!length(L))
+		to_chat(target, "<span class='warning'>Hmm. No base? A miner issue.</span>")
+		return
+
+	target.forceMove(pick(L))

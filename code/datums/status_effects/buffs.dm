@@ -821,11 +821,37 @@
 
 /datum/status_effect/badass/on_apply()
 	. = ..()
-	ADD_TRAIT(owner, TRAIT_XRAY_VISION, "XRAY_BUFF")
 	ADD_TRAIT(owner, TRAIT_BADASS, "BADDASS_BUFF")
-
 
 /datum/status_effect/badass/on_remove()
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_BADASS, "BADDASS_BUFF")
 
+/datum/status_effect/reversed_sun
+	id = "reversed_sun"
+	alert_type = null
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 1 MINUTES
+	tick_interval = 0.2 SECONDS
+
+/datum/status_effect/reversed_sun/on_apply()
+	. = ..()
+	owner.become_nearsighted("reversed_sun")
+	ADD_TRAIT(owner, TRAIT_NIGHT_VISION, "reversed_sun")
+	owner.update_sight()
+	owner.set_light(7, -5, "#ddd6cf")
+
+/datum/status_effect/reversed_sun/on_remove()
+	. = ..()
+	owner.remove_light()
+	owner.cure_nearsighted()
+	REMOVE_TRAIT(owner, TRAIT_NIGHT_VISION, "reversed_sun")
+	owner.update_sight()
+
+/datum/status_effect/reversed_sun/tick()
+	for(var/mob/living/L in oview(8, owner))
+		if(L.affects_vampire(owner))
+			L.adjust_bodytemperature(-1.5 * TEMPERATURE_DAMAGE_COEFFICIENT)
+	for(var/obj/item/projectile/P in view(8, owner))
+		if(P.flag == ENERGY || P.flag == LASER)
+			P.damage *= 0.85
