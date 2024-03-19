@@ -254,11 +254,7 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/obj/machinery/power/apc/off_station{
-	keep_preset_name = 1;
-	name = "Hallway APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/off_station/directional/south,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "aM" = (
@@ -582,9 +578,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/drone_bay)
 "br" = (
-/obj/structure/disposalpipe/junction{
-	dir = 1;
-	icon_state = "pipe-y"
+/obj/structure/disposalpipe/junction/y{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/drone_bay)
@@ -681,9 +676,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/drone_bay)
 "bF" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/drone_bay)
@@ -866,9 +860,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/onehalf/abandonedbridge)
 "cp" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -1288,12 +1281,7 @@
 /obj/item/healthanalyzer,
 /obj/item/reagent_containers/iv_bag/blood/OMinus,
 /obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/machinery/power/apc/off_station{
-	dir = 4;
-	keep_preset_name = 1;
-	name = "Crew Quarters APC";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/off_station/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1303,12 +1291,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
-	keep_preset_name = 1;
-	name = "Mining Drone Bay APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/off_station/directional/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -1329,12 +1312,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 1;
-	keep_preset_name = 1;
-	name = "Bridge APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/off_station/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
 

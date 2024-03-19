@@ -157,6 +157,7 @@
 		user.visible_message("<span class='danger'>[user] stuffs [victim] into [src]!</span>")
 	else
 		return
+	QDEL_LIST_CONTENTS(victim.grabbed_by)
 	victim.forceMove(src)
 	occupant = victim
 
@@ -201,7 +202,7 @@
 	var/list/gibber_viewers = list()
 	for(var/mob/viewer as anything in viewers(src))
 		gibber_viewers += viewer.client
-	for(var/client/viewer as anything in gibber_viewers)
+	for(var/client/viewer in gibber_viewers)
 		viewer.images += victim
 	flick_overlay(grinder_overlay, gibber_viewers, animation_delay * 2)
 	animate(victim, pixel_y = 16, time = animation_delay)
@@ -209,7 +210,7 @@
 	victim.icon += icon('icons/obj/kitchen.dmi', "footicon") //this is some byond magic; += to the icon var with a black and white image will mask it
 	animate(victim, pixel_y = -3, time = animation_delay) // Animate going down further
 	sleep(animation_delay)
-	for(var/client/viewer as anything in gibber_viewers)
+	for(var/client/viewer in gibber_viewers)
 		viewer.images -= victim
 	qdel(victim)
 	qdel(grinder_overlay)
@@ -425,3 +426,5 @@
 			sleep(1)
 	if(spats)
 		visible_message("<span class='warning'>\The [src] spits out more possessions!</span>")
+
+#undef GIBBER_ANIMATION_DELAY

@@ -72,7 +72,7 @@
 		return
 
 	var/dat = {"
-<html>
+<html><meta charset='utf-8'>
 	<head>
 		<title>Arcade Ticket Exchange</title>
 		<style type="text/css">
@@ -189,8 +189,8 @@ th.cost.toomuch {background:maroon;}
 	if(href_list["buy"])
 		var/itemID = text2num(href_list["buy"])
 		var/datum/prize_item/item = GLOB.global_prizes.prizes[itemID]
-		var/sure = alert(usr,"Are you sure you wish to purchase [item.name] for [item.cost] tickets?","You sure?","Yes","No") in list("Yes","No")
-		if(sure=="No")
+		var/sure = tgui_alert(usr,"Are you sure you wish to purchase [item.name] for [item.cost] tickets?", "You sure?", list("Yes","No"))
+		if(sure == "No")
 			updateUsrDialog()
 			return
 		if(!GLOB.global_prizes.PlaceOrder(src, itemID))

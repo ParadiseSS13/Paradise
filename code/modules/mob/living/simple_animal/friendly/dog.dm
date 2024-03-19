@@ -64,7 +64,7 @@
 //Corgis and pugs are now under one dog subtype
 
 /mob/living/simple_animal/pet/dog/corgi
-	name = "\improper corgi"
+	name = "corgi"
 	real_name = "corgi"
 	desc = "It's a corgi."
 	icon_state = "corgi"
@@ -632,7 +632,7 @@
 	adjustBruteLoss(-maxHealth)
 
 /mob/living/simple_animal/pet/dog/corgi/puppy
-	name = "\improper corgi puppy"
+	name = "corgi puppy"
 	real_name = "corgi"
 	desc = "It's a corgi puppy!"
 	icon_state = "puppy"
@@ -647,8 +647,9 @@
 	// Puppies do not have a head or back equipment slot.
 	return "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
 
-/mob/living/simple_animal/pet/dog/corgi/puppy/void		//Tribute to the corgis born in nullspace
-	name = "\improper void puppy"
+/// Tribute to the corgis born in nullspace
+/mob/living/simple_animal/pet/dog/corgi/puppy/void
+	name = "void puppy"
 	real_name = "voidy"
 	desc = "A corgi puppy that has been infused with deep space energy. It's staring back..."
 	icon_state = "void_puppy"
@@ -732,7 +733,8 @@
 	if(!emagged)
 		emagged = TRUE
 		visible_message("<span class='warning'>[user] swipes a card through [src].</span>", "<span class='notice'>You overload [src]s internal reactor.</span>")
-		addtimer(CALLBACK(src, PROC_REF(explode)), 1000)
+		addtimer(CALLBACK(src, PROC_REF(explode)), 100 SECONDS)
+		return TRUE
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
 	visible_message("<span class='warning'>[src] makes an odd whining noise.</span>")
@@ -775,7 +777,7 @@
 ///Pugs
 
 /mob/living/simple_animal/pet/dog/pug
-	name = "\improper pug"
+	name = "pug"
 	real_name = "pug"
 	desc = "It's a pug."
 	icon = 'icons/mob/pets.dmi'

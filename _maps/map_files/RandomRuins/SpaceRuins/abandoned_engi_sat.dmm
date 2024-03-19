@@ -8,7 +8,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "aN" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -79,9 +79,8 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "cK" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /obj/effect/spawner/random_spawners/wall_rusted_probably,
 /turf/simulated/wall,
@@ -188,9 +187,7 @@
 	icon_state = "0-4";
 	d2 = 4
 	},
-/obj/machinery/power/apc/off_station/empty_charge{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/south,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
@@ -245,9 +242,8 @@
 /turf/simulated/floor/carpet/airless,
 /area/ruin/space/abandoned_engi_sat)
 "hE" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -664,7 +660,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "tO" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -917,7 +913,7 @@
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
 "CY" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -929,9 +925,8 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "De" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall/r_wall,
@@ -1104,7 +1099,7 @@
 	pixel_y = 1;
 	d2 = 2
 	},
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"

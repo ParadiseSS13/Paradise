@@ -41,34 +41,42 @@
 
 /obj/item/photo/attackby(obj/item/P as obj, mob/user as mob, params)
 	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
-		var/txt = sanitize(input(user, "What would you like to write on the back?", "Photo Writing", null)  as text)
+		var/txt = tgui_input_text(user, "What would you like to write on the back?", "Photo Writing")
+		if(!txt)
+			return
 		txt = copytext(txt, 1, 128)
 		if(loc == user && user.stat == 0)
 			scribble = txt
-	else if(istype(P, /obj/item/lighter))
+	else if(P.get_heat())
 		burnphoto(P, user)
 	..()
 
-/obj/item/photo/proc/burnphoto(obj/item/lighter/P, mob/user)
-	var/class = "<span class='warning'>"
+/obj/item/photo/proc/burnphoto(obj/item/P, mob/user)
+	if(user.restrained())
+		return
 
-	if(P.lit && !user.restrained())
-		if(istype(P, /obj/item/lighter/zippo))
-			class = "<span class='rose'>"
+	var/class = "warning"
+	if(istype(P, /obj/item/lighter/zippo))
+		class = "rose"
 
-		user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
-		"[class]You hold [P] up to [src], burning it slowly.</span>")
+	user.visible_message("<span class='[class]'>[user] holds [P] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
+	"<span class='[class]'>You hold [P] up to [src], burning it slowly.</span>")
 
-		if(do_after(user, 50, target = src))
-			if(user.get_active_hand() == P && P.lit)
-				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
-				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
-				if(user.is_in_inactive_hand(src))
-					user.unEquip(src)
-				new /obj/effect/decal/cleanable/ash(get_turf(src))
-				qdel(src)
-			else
-				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
+	if(!do_after(user, 5 SECONDS, target = src))
+		return
+
+	if(user.get_active_hand() != P || !P.get_heat())
+		to_chat(user, "<span class='warning'>You must hold [P] steady to burn [src].</span>")
+		return
+
+	user.visible_message("<span class='[class]'>[user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
+	"<span class='[class]'>You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
+
+	if(user.is_in_inactive_hand(src))
+		user.unEquip(src)
+
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	qdel(src)
 
 /obj/item/photo/examine(mob/user)
 	. = ..()
@@ -98,7 +106,7 @@
 			colormatrix[7], colormatrix[8], colormatrix[9],
 		)
 	usr << browse_rsc(img_shown, "tmp_photo.png")
-	usr << browse("<html><head><title>[name]</title></head>" \
+	usr << browse("<html><meta charset='utf-8'><head><title>[name]</title></head>" \
 		+ "<body style='overflow:hidden;margin:0;text-align:center'>" \
 		+ "<img src='tmp_photo.png' width='[64*photo_size]' style='-ms-interpolation-mode:nearest-neighbor' />" \
 		+ "[scribble ? "<br>Written on the back:<br><i>[scribble]</i>" : ""]"\
@@ -106,9 +114,11 @@
 	onclose(usr, "Photo[UID()]")
 
 /obj/item/photo/proc/rename(mob/user)
-	var/n_name = sanitize(copytext(input(user, "What would you like to label the photo?", "Photo Labelling", name) as text, 1, MAX_MESSAGE_LEN))
+	var/n_name = tgui_input_text(user, "What would you like to label the photo?", "Photo Labelling", name)
+	if(!n_name)
+		return
 	//loc.loc check is for making possible renaming photos in clipboards
-	if(( (loc == user || (loc.loc && loc.loc == user)) && !user.stat))
+	if(((loc == user || (loc.loc && loc.loc == user)) && !user.stat))
 		name = "[(n_name ? "[n_name]" : "photo")]"
 	add_fingerprint(user)
 
@@ -132,7 +142,7 @@
 
 	if(ishuman(usr))
 		var/mob/M = usr
-		if(!istype(over_object, /obj/screen))
+		if(!is_screen_atom(over_object))
 			return ..()
 		playsound(loc, "rustle", 50, 1, -5)
 		if((!M.restrained() && !M.stat && M.back == src))
@@ -418,7 +428,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	var/datum/picture/P = new()
 	if(istype(src,/obj/item/camera/digital))
-		P.fields["name"] = input(user,"Name photo:","photo")
+		P.fields["name"] = tgui_input_text(user, "Name photo:", "Photo", encode = FALSE)
 		if(!P.fields["name"])
 			P.fields["name"] = "Photo [current_photo_num]"
 			current_photo_num++

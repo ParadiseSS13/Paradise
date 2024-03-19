@@ -26,8 +26,8 @@
 	var/max_combined_w_class = 14
 	/// The number of storage slots in this container.
 	var/storage_slots = 7
-	var/obj/screen/storage/boxes = null
-	var/obj/screen/close/closer = null
+	var/atom/movable/screen/storage/boxes = null
+	var/atom/movable/screen/close/closer = null
 
 	/// Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
 	var/use_to_pickup = FALSE
@@ -59,14 +59,14 @@
 
 	populate_contents()
 
-	boxes = new /obj/screen/storage()
+	boxes = new /atom/movable/screen/storage()
 	boxes.name = "storage"
 	boxes.master = src
 	boxes.icon_state = "block"
 	boxes.screen_loc = "7,7 to 10,8"
 	boxes.layer = HUD_LAYER
 	boxes.plane = HUD_PLANE
-	closer = new /obj/screen/close()
+	closer = new /atom/movable/screen/close()
 	closer.master = src
 	closer.icon_state = "backpack_close"
 	closer.layer = ABOVE_HUD_LAYER
@@ -123,7 +123,7 @@
 		if(isfloorturf(over_object))
 			if(get_turf(M) != T)
 				return // Can only empty containers onto the floor under you
-			if(alert(M, "Empty [src] onto [T]?", "Confirm", "Yes", "No") != "Yes")
+			if(tgui_alert(M, "Empty [src] onto [T]?", "Confirm", list("Yes", "No")) != "Yes")
 				return
 			if(!(M && over_object && length(contents) && loc == M && !M.stat && !M.restrained() && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && get_turf(M) == T))
 				return // Something happened while the player was thinking
@@ -136,7 +136,7 @@
 		update_icon() // For content-sensitive icons
 		return
 
-	if(!(istype(over_object, /obj/screen)))
+	if(!is_screen_atom(over_object))
 		return ..()
 	if(!(loc == M) || (loc && loc.loc == M))
 		return
@@ -158,7 +158,6 @@
 		open(usr)
 
 /obj/item/storage/AltClick(mob/user)
-	. = ..()
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
 		open(user)
 		add_fingerprint(user)
@@ -430,6 +429,8 @@
 	if(!istype(I))
 		return FALSE
 	if(usr)
+		if(!Adjacent(usr) && !isnewplayer(usr))
+			return FALSE
 		if(!usr.unEquip(I, silent = TRUE))
 			return FALSE
 		usr.update_icons()	//update our overlays

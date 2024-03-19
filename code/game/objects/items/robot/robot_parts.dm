@@ -263,7 +263,7 @@
 			if(!aisync)
 				lawsync = FALSE
 
-			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc), unfinished = 1, ai_to_sync_to = forced_ai)
+			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc), unfinished = 1, connect_to_AI = aisync, ai_to_sync_to = forced_ai)
 			if(!O)
 				return
 
@@ -315,8 +315,8 @@
 			O.robot_suit = src
 
 			if(!locomotion)
-				O.lockcharge = 1
-				to_chat(O, "<span class='warning'>Error: Servo motors unresponsive.</span>")
+				O.SetLockdown(TRUE)
+				to_chat(O, "<span class='danger'>Error: Servo motors unresponsive. Lockdown enabled.</span>")
 
 		else
 			to_chat(user, "<span class='warning'>The MMI must go in after everything else!</span>")
@@ -427,3 +427,4 @@
 	else
 		to_chat(user, "<span class='warning'>You slide the emag into the dataport on [src] and short out the safeties.</span>")
 		sabotaged = TRUE
+		return TRUE

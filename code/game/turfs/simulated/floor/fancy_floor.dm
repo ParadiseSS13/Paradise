@@ -49,9 +49,9 @@
 	temperature = 180
 
 /turf/simulated/floor/wood/lavaland_air
-	nitrogen = 23
-	oxygen = 14
-	temperature = 300
+	nitrogen = 14
+	oxygen = 8
+	temperature = 500
 
 /turf/simulated/floor/grass
 	name = "grass patch"
@@ -85,14 +85,16 @@
 	base_icon_state = "junglegrass"
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_GRASS, SMOOTH_GROUP_JUNGLE_GRASS)
 
-/turf/simulated/floor/grass/no_creep //This vairant shows up under normal turfs so fits in the regular 32x32 sprite
+/// This vairant shows up under normal turfs so fits in the regular 32x32 sprite
+/turf/simulated/floor/grass/no_creep
 	smoothing_flags = null
 	smoothing_groups = null
 	canSmoothWith = null
 	layer = GRASS_UNDER_LAYER
 	transform = null
 
-/turf/simulated/floor/grass/jungle/no_creep //This vairant shows up under normal turfs so fits in the regular 32x32 sprite
+/// This vairant shows up under normal turfs so fits in the regular 32x32 sprite
+/turf/simulated/floor/grass/jungle/no_creep
 	smoothing_flags = null
 	smoothing_groups = null
 	canSmoothWith = null

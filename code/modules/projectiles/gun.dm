@@ -73,8 +73,6 @@
 
 /obj/item/gun/Initialize(mapload)
 	. = ..()
-	if(gun_light)
-		verbs += /obj/item/gun/proc/toggle_gunlight
 	build_zooming()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
@@ -398,6 +396,7 @@
 	if(knife_overlay)
 		overlays -= knife_overlay
 		knife_overlay = null
+		update_icon()
 	return TRUE
 
 /obj/item/gun/extinguish_light(force = FALSE)

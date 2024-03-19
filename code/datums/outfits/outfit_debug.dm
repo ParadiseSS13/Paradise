@@ -40,11 +40,17 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Debugger", "admin")
 
+	H.dna.SetSEState(GLOB.breathlessblock, 1)
+	singlemutcheck(H, GLOB.breathlessblock, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(GLOB.breathlessblock)
+	H.check_mutations = 1
+
 /obj/item/radio/headset/centcom/debug
 	name = "AVD-CNED bowman headset"
 	ks2type = /obj/item/encryptionkey/syndicate/all_channels
 
-/obj/item/encryptionkey/syndicate/all_channels // has to be a subtype and stuff
+/// has to be a subtype and stuff
+/obj/item/encryptionkey/syndicate/all_channels
 	name = "AVD-CNED Encryption Key"
 	desc = "Lets you listen to <b>everything</b>. Use in hand to toggle voice changing. Alt-click to change your fake name."
 	icon_state = "com_cypherkey"
@@ -62,10 +68,10 @@
 	to_chat(user, "You switch [src] to [change_voice ? "" : "not "]change your voice on syndicate communications.")
 
 /obj/item/encryptionkey/syndicate/all_channels/AltClick(mob/user)
-	var/new_name = stripped_input(user, "Enter new fake agent name...", "New name")
+	var/new_name = tgui_input_text(user, "Enter new fake agent name...", "New name", max_length = MAX_NAME_LEN)
 	if(!new_name)
 		return
-	fake_name = copytext(new_name, 1, MAX_NAME_LEN + 1)
+	fake_name = new_name
 
 /obj/item/clothing/mask/gas/welding/advanced
 	name = "AVD-CNED welding mask"
@@ -166,7 +172,6 @@
 	selected_species = GLOB.all_species[choice]
 
 /obj/item/debug/human_spawner/AltClick(mob/user)
-	. = ..()
 	if(!Adjacent(user))
 		return
 	activate_mind = !activate_mind

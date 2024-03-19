@@ -254,6 +254,8 @@ disable_certain_round_early_end = false
 traitor_objective_amount = 2
 # Enable player limits on gamemodes. Disable if testing
 enable_gamemode_player_limit = true
+# Enable to generate zero or more random station traits on game start.
+add_random_station_traits = false
 
 
 ################################################################
@@ -379,8 +381,6 @@ details_url = "https://iphub.info/?ip="
 [job_configuration]
 # This section contains information on job configuartion, as well as the jon amounts
 
-# Disable this if you are in a lowpop environment
-jobs_have_minimal_access = true
 # Require account agre restrictions for job? Requires the database
 restrict_jobs_on_account_age = false
 # Allow admins to bypass all job age restrictions

@@ -6,9 +6,8 @@
 	name = "No Breathing"
 	activation_messages = list("You feel no need to breathe.")
 	deactivation_messages = list("You feel the need to breathe, once more.")
-	instability = GENE_INSTABILITY_MODERATE
+	instability = GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_NOBREATH)
-	activation_prob = 25
 
 /datum/mutation/nobreath/New()
 	..()
@@ -65,7 +64,7 @@
 	name = "No Prints"
 	activation_messages = list("Your fingers feel numb.")
 	deactivation_messages = list("Your fingers no longer feel numb.")
-	instability = GENE_INSTABILITY_MINOR
+	instability = GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_NOFINGERPRINTS)
 
 /datum/mutation/noprints/New()
@@ -83,24 +82,24 @@
 	..()
 	block = GLOB.shockimmunityblock
 
-/datum/mutation/midget
-	name = "Midget"
+/datum/mutation/dwarf
+	name = "Dwarf"
 	activation_messages = list("Everything around you seems bigger now...")
 	deactivation_messages = list("Everything around you seems to shrink...")
-	instability = GENE_INSTABILITY_MINOR
+	instability = GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_DWARF)
 
-/datum/mutation/midget/New()
+/datum/mutation/dwarf/New()
 	..()
 	block = GLOB.smallsizeblock
 
-/datum/mutation/midget/activate(mob/M)
+/datum/mutation/dwarf/activate(mob/M)
 	..()
 	M.pass_flags |= PASSTABLE
 	M.resize = 0.8
 	M.update_transform()
 
-/datum/mutation/midget/deactivate(mob/M)
+/datum/mutation/dwarf/deactivate(mob/M)
 	..()
 	M.pass_flags &= ~PASSTABLE
 	M.resize = 1.25
@@ -113,7 +112,6 @@
 	deactivation_messages = list("Your muscles shrink.")
 	instability = GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_HULK, TRAIT_CHUNKYFINGERS)
-	activation_prob = 15
 
 /datum/mutation/hulk/New()
 	..()
@@ -147,7 +145,6 @@
 	deactivation_messages = list("You feel dumber.")
 	instability = GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_TELEKINESIS)
-	activation_prob = 15
 
 /datum/mutation/tk/New()
 	..()
@@ -163,6 +160,7 @@
 	name = "Sober"
 	activation_messages = list("You feel unusually sober.")
 	deactivation_messages = list("You feel like you could use a stiff drink.")
+	instability = GENE_INSTABILITY_MINOR
 
 	traits_to_add = list(TRAIT_ALCOHOL_TOLERANCE)
 
@@ -176,6 +174,7 @@
 	desc = "Boosts efficiency in sectors of the brain commonly associated with meta-mental energies."
 	activation_messages = list("Your mind feels closed.")
 	deactivation_messages = list("You feel oddly exposed.")
+	instability = GENE_INSTABILITY_MINOR
 
 /datum/mutation/psychic_resist/New()
 	..()
@@ -186,7 +185,7 @@
 /////////////////////////
 
 /datum/mutation/stealth
-	instability = GENE_INSTABILITY_MODERATE
+	instability = GENE_INSTABILITY_MAJOR
 
 /datum/mutation/stealth/can_activate(mob/M, flags)
 	// Can only activate one of these at a time.
@@ -205,7 +204,6 @@
 	desc = "Enables the subject to bend low levels of light around themselves, creating a cloaking effect."
 	activation_messages = list("You begin to fade into the shadows.")
 	deactivation_messages = list("You become fully visible.")
-	activation_prob = 25
 
 /datum/mutation/stealth/darkcloak/New()
 	..()
@@ -231,7 +229,6 @@
 	desc = "The subject becomes able to subtly alter light patterns to become invisible, as long as they remain still."
 	activation_messages = list("You feel one with your surroundings.")
 	deactivation_messages = list("You feel oddly visible.")
-	activation_prob = 25
 
 /datum/mutation/stealth/chameleon/New()
 	..()
@@ -340,7 +337,7 @@
 	desc = "Allows the subject to eat just about anything without harm."
 	activation_messages = list("You feel hungry.")
 	deactivation_messages = list("You don't feel quite so hungry anymore.")
-	instability = GENE_INSTABILITY_MINOR
+	instability = GENE_INSTABILITY_MODERATE
 
 	spelltype=/obj/effect/proc_holder/spell/eat
 
@@ -428,7 +425,25 @@
 				return
 			user.visible_message("<span class='danger'>[user] [pick("chomps","bites")] off [the_item]'s [limb]!</span>")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
-			limb.droplimb(0, DROPLIMB_SHARP)
+
+			// Most limbs will drop here. Groin won't, but this
+			// still spills out the organs that were in it.
+			limb.droplimb(FALSE, DROPLIMB_SHARP)
+			if(istype(limb, /obj/item/organ/external/groin))
+				limb.receive_damage(100, sharp = TRUE)
+
+				var/obj/item/organ/external/left_leg = H.get_organ(BODY_ZONE_L_LEG)
+				if(istype(left_leg))
+					left_leg.droplimb(FALSE, DROPLIMB_SHARP)
+
+				var/obj/item/organ/external/right_leg = H.get_organ(BODY_ZONE_R_LEG)
+				if(istype(right_leg))
+					right_leg.droplimb(FALSE, DROPLIMB_SHARP)
+
+				var/obj/item/organ/external/chest = H.get_organ(BODY_ZONE_CHEST)
+				if(istype(chest))
+					chest.receive_damage(50, sharp = TRUE)
+
 			doHeal(user)
 	else
 		user.visible_message("<span class='danger'>[user] eats \the [the_item].</span>")
@@ -445,7 +460,7 @@
 	//cooldown = 30
 	activation_messages = list("Your leg muscles feel taut and strong.")
 	deactivation_messages = list("Your leg muscles shrink back to normal.")
-	instability = GENE_INSTABILITY_MINOR
+	instability = GENE_INSTABILITY_MODERATE
 
 	spelltype =/obj/effect/proc_holder/spell/leap
 
@@ -702,7 +717,7 @@
 	spelltype =/obj/effect/proc_holder/spell/morph
 	activation_messages = list("Your body feels like it can alter its appearance.")
 	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
-	instability = GENE_INSTABILITY_MINOR
+	instability = GENE_INSTABILITY_MODERATE
 
 /datum/mutation/grant_spell/morph/New()
 	..()
@@ -734,7 +749,7 @@
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = M.get_int_organ(/obj/item/organ/internal/eyes)
 
-	var/new_gender = alert(user, "Please select gender.", "Character Generation", "Male", "Female")
+	var/new_gender = tgui_alert(user, "Please select gender.", "Character Generation", list("Male", "Female"))
 	if(new_gender)
 		if(new_gender == "Male")
 			M.change_gender(MALE)
@@ -750,13 +765,13 @@
 		//Alt heads.
 		if(head_organ.dna.species.bodyflags & HAS_ALT_HEADS)
 			var/list/valid_alt_heads = M.generate_valid_alt_heads()
-			var/new_alt_head = input("Please select alternate head", "Character Generation", head_organ.alt_head) as null|anything in valid_alt_heads
+			var/new_alt_head = tgui_input_list(user, "Please select alternate head", "Character Generation", valid_alt_heads)
 			if(new_alt_head)
 				M.change_alt_head(new_alt_head)
 
 		// hair
 		var/list/valid_hairstyles = M.generate_valid_hairstyles()
-		var/new_style = input("Please select hair style", "Character Generation", head_organ.h_style) as null|anything in valid_hairstyles
+		var/new_style = tgui_input_list(user, "Please select hair style", "Character Generation", valid_hairstyles)
 
 		// if new style selected (not cancel)
 		if(new_style)
@@ -774,7 +789,7 @@
 
 		// facial hair
 		var/list/valid_facial_hairstyles = M.generate_valid_facial_hairstyles()
-		new_style = input("Please select facial style", "Character Generation", head_organ.f_style) as null|anything in valid_facial_hairstyles
+		new_style = tgui_input_list(user, "Please select facial style", "Character Generation", valid_facial_hairstyles)
 
 		if(new_style)
 			M.change_facial_hair(new_style)
@@ -792,7 +807,7 @@
 		//Head accessory.
 		if(head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
 			var/list/valid_head_accessories = M.generate_valid_head_accessories()
-			var/new_head_accessory = input("Please select head accessory style", "Character Generation", head_organ.ha_style) as null|anything in valid_head_accessories
+			var/new_head_accessory = tgui_input_list(user, "Please select head accessory style", "Character Generation", valid_head_accessories)
 			if(new_head_accessory)
 				M.change_head_accessory(new_head_accessory)
 
@@ -804,8 +819,8 @@
 	//Body accessory.
 	if((M.dna.species.tail && M.dna.species.bodyflags & (HAS_TAIL)) || (M.dna.species.wing && M.dna.species.bodyflags & (HAS_WING)))
 		var/list/valid_body_accessories = M.generate_valid_body_accessories()
-		if(valid_body_accessories.len > 1) //By default valid_body_accessories will always have at the very least a 'none' entry populating the list, even if the user's species is not present in any of the list items.
-			var/new_body_accessory = input("Please select body accessory style", "Character Generation", M.body_accessory) as null|anything in valid_body_accessories
+		if(length(valid_body_accessories) > 1) //By default valid_body_accessories will always have at the very least a 'none' entry populating the list, even if the user's species is not present in any of the list items.
+			var/new_body_accessory = tgui_input_list(user, "Please select body accessory style", "Character Generation", valid_body_accessories)
 			if(new_body_accessory)
 				M.change_body_accessory(new_body_accessory)
 
@@ -813,7 +828,7 @@
 		//Head markings.
 		if(M.dna.species.bodyflags & HAS_HEAD_MARKINGS)
 			var/list/valid_head_markings = M.generate_valid_markings("head")
-			var/new_marking = input("Please select head marking style", "Character Generation", M.m_styles["head"]) as null|anything in valid_head_markings
+			var/new_marking = tgui_input_list(user, "Please select head marking style", "Character Generation", valid_head_markings)
 			if(new_marking)
 				M.change_markings(new_marking, "head")
 
@@ -824,7 +839,7 @@
 	//Body markings.
 	if(M.dna.species.bodyflags & HAS_BODY_MARKINGS)
 		var/list/valid_body_markings = M.generate_valid_markings("body")
-		var/new_marking = input("Please select body marking style", "Character Generation", M.m_styles["body"]) as null|anything in valid_body_markings
+		var/new_marking = tgui_input_list(user, "Please select body marking style", "Character Generation", valid_body_markings)
 		if(new_marking)
 			M.change_markings(new_marking, "body")
 
@@ -834,7 +849,7 @@
 	//Tail markings.
 	if(M.dna.species.bodyflags & HAS_TAIL_MARKINGS)
 		var/list/valid_tail_markings = M.generate_valid_markings("tail")
-		var/new_marking = input("Please select tail marking style", "Character Generation", M.m_styles["tail"]) as null|anything in valid_tail_markings
+		var/new_marking = tgui_input_list("Please select tail marking style", "Character Generation", valid_tail_markings)
 		if(new_marking)
 			M.change_markings(new_marking, "tail")
 
@@ -918,11 +933,10 @@
 	if(user.mind?.miming) // Dont let mimes telepathically talk
 		to_chat(user,"<span class='warning'>You can't communicate without breaking your vow of silence.</span>")
 		return
-	var/say = input("What do you wish to say") as text|null
+	var/say = tgui_input_text(user, "What do you wish to say?", "Project Mind")
 	if(!say || usr.stat)
 		return
-	say = strip_html(say)
-	say = pencode_to_html(say, usr, format = 0, fields = 0)
+	say = pencode_to_html(say, usr, format = FALSE, fields = FALSE)
 
 	for(var/mob/living/target in targets)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
@@ -977,11 +991,10 @@
 		if(!(target in available_targets))
 			return
 		available_targets -= target
-		var/say = input("What do you wish to say") as text|null
+		var/say = tgui_input_text(user, "What do you wish to say?", "Scan Mind")
 		if(!say)
 			return
-		say = strip_html(say)
-		say = pencode_to_html(say, target, format = 0, fields = 0)
+		say = pencode_to_html(say, target, format = FALSE, fields = FALSE)
 		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))
@@ -1107,9 +1120,11 @@
 	name = "Flash Protection"
 	activation_messages = list("You stop noticing the glare from lights...")
 	deactivation_messages = list("Lights begin glaring again...")
-	instability = GENE_INSTABILITY_MINOR
+	instability = GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_FLASH_PROTECTION)
 
 /datum/mutation/flash_protection/New()
 	..()
 	block = GLOB.noflashblock
+
+#undef EAT_MOB_DELAY

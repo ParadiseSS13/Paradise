@@ -1372,7 +1372,7 @@
 /obj/structure/lattice,
 /obj/machinery/light/small,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "fr" = (
 /obj/docking_port/stationary/transit{
 	dir = 4;
@@ -3854,7 +3854,6 @@
 /area/abductor_ship)
 "mX" = (
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Cockpit";
 	req_access_txt = "150"
 	},
@@ -4139,15 +4138,11 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "nN" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "nO" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "nP" = (
@@ -4554,10 +4549,10 @@
 /turf/simulated/floor/carpet/purple,
 /area/wizard_station)
 "pq" = (
-/obj/machinery/clonepod/upgraded,
 /obj/machinery/light/spot{
 	dir = 1
 	},
+/obj/machinery/clonepod/upgraded,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "pr" = (
@@ -4568,7 +4563,7 @@
 /area/shuttle/administration)
 "ps" = (
 /turf/simulated/mineral/ancient/outer,
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "pt" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Armory"
@@ -4908,8 +4903,7 @@
 "qJ" = (
 /obj/structure/table,
 /obj/machinery/door/window/classic/normal{
-	name = "security checkpoint";
-	dir = 2
+	name = "security checkpoint"
 	},
 /turf/simulated/floor/carpet,
 /area/admin)
@@ -5054,6 +5048,10 @@
 /obj/structure/coatrack,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"rg" = (
+/obj/machinery/clonescanner,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
 "rh" = (
 /obj/machinery/economy/vending/liberationstation,
 /turf/simulated/floor/plasteel,
@@ -5440,9 +5438,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "sq" = (
-/obj/machinery/economy/atm{
-	pixel_y = 32
-	},
+/obj/machinery/economy/atm/directional/north,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
@@ -5803,7 +5799,7 @@
 "tL" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "tM" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -6836,7 +6832,7 @@
 /area/admin)
 "xf" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -7018,7 +7014,7 @@
 "ya" = (
 /obj/effect/mob_spawn/human/corpse/clown/corpse,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "yc" = (
 /obj/structure/table/reinforced,
 /obj/item/lighter/zippo/contractor,
@@ -7029,7 +7025,7 @@
 /turf/simulated/floor/plating/airless{
 	icon_state = "asteroidplating"
 	},
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "yg" = (
 /mob/living/silicon/decoy{
 	name = "A.L.I.C.E."
@@ -7110,7 +7106,7 @@
 /turf/simulated/floor/plating/airless{
 	icon_state = "asteroidplating"
 	},
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "yL" = (
 /obj/machinery/computer/card,
 /turf/simulated/floor/plasteel,
@@ -7909,9 +7905,7 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Cl" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
 "Cm" = (
@@ -8281,10 +8275,7 @@
 	},
 /area/centcom/suppy)
 "DD" = (
-/obj/machinery/power/apc{
-	name = "Gamma Armory APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -8292,7 +8283,7 @@
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
-/obj/machinery/suit_storage_unit/gamma,
+/obj/machinery/suit_storage_unit/gamma/secure,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "DE" = (
@@ -8485,7 +8476,6 @@
 /area/holodeck/source_basketball)
 "Ej" = (
 /obj/machinery/door/window/reinforced/normal{
-	dir = 2;
 	name = "Cell Door";
 	req_access_txt = "150"
 	},
@@ -9076,7 +9066,7 @@
 "Gs" = (
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost")
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
@@ -10176,7 +10166,7 @@
 "Kd" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
@@ -10451,7 +10441,7 @@
 "Lb" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
@@ -10854,7 +10844,7 @@
 "Mu" = (
 /obj/item/coin/antagtoken,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "Mv" = (
 /obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/plasteel{
@@ -11386,9 +11376,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "Of" = (
@@ -11601,7 +11589,7 @@
 /area/shuttle/escape)
 "OK" = (
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "OL" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
@@ -13974,7 +13962,7 @@
 /turf/simulated/floor/plating/airless{
 	icon_state = "asteroidplating"
 	},
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "Xt" = (
 /obj/machinery/door/airlock/centcom{
 	name = "CentCom Customs"
@@ -14264,7 +14252,7 @@
 "Yu" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
@@ -14332,12 +14320,11 @@
 "YI" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/space/nearstation)
+/area/space/nearstation/centcom)
 "YJ" = (
 /obj/machinery/door/window/classic/normal{
 	name = "Cell B";
-	req_access_txt = "101";
-	dir = 2
+	req_access_txt = "101"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
@@ -28042,7 +28029,7 @@ ZN
 ZN
 Ek
 ZG
-km
+rg
 lr
 lr
 Sx
@@ -50118,7 +50105,7 @@ IS
 LN
 LN
 LN
-NF
+vy
 Mb
 LR
 LR
