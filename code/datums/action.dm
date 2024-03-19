@@ -230,6 +230,7 @@
 		use_itemicon = FALSE
 		icon_icon = custom_icon
 		button_icon_state = custom_icon_state
+	UpdateButtons()
 
 /datum/action/item_action/Destroy()
 	var/obj/item/I = target
@@ -635,6 +636,9 @@
 	S.action = src
 	name = S.name
 	desc = S.desc
+	button_icon = S.action_icon
+	button_icon_state = S.action_icon_state
+	background_icon_state = S.action_background_icon_state
 	UpdateButtons()
 
 
@@ -685,19 +689,6 @@
 	var/text = S.cooldown_handler.statpanel_info()
 	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
 	button.add_overlay(count_down_holder)
-
-/*
-/datum/action/spell_action/alien
-
-/datum/action/spell_action/alien/IsAvailable()
-	if(!target)
-		return 0
-	var/obj/effect/proc_holder/alien/ab = target
-
-	if(owner)
-		return ab.cost_check(ab.check_turf, owner, 1)
-	return 0
-*/
 
 //Preset for general and toggled actions
 /datum/action/innate
