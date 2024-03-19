@@ -137,13 +137,12 @@ task-merge-bundle() {
   local file_other="${4}"
   local conflict_marker_size="${5}"
   echo "----------------------"
-  echo "tgui: Discarding a local tgui bundle, ${file_path}, and rebuilding"
+  echo "tgui: rebuilding a conflicted tgui bundle, ${file_path}"
   task-install
   task-webpack --mode=production
   echo "tgui: replacing conflicted bundle with newly compiled bundle"
   cd ../
-  cp $file_path $file_current
-  ## file_current will be merged and is what we want to keep.
+  cat $file_path > $file_current
   exit 0
 }
 
