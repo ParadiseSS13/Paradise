@@ -451,8 +451,9 @@
 	if(user)
 		S.faction |= "\ref[user]" //Add the master as a faction, allowing inter-mob cooperation
 		if(iswizard(user))
-			SSticker.mode.update_wiz_icons_added(S.mind)
-			S.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
+			var/datum/antagonist/wizard/apprentice/apprentice = new /datum/antagonist/wizard/apprentice()
+			apprentice.should_name_pick = FALSE
+			S.mind.add_antag_datum(apprentice)
 		if(IS_CULTIST(user))
 			S.mind.add_antag_datum(/datum/antagonist/cultist)
 			to_chat(S, "<span class='userdanger'>Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs.</span>")

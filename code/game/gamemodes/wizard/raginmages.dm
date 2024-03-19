@@ -2,7 +2,6 @@
 	name = "ragin' mages"
 	config_tag = "raginmages"
 	required_players = 20
-	use_huds = TRUE
 	but_wait_theres_more = TRUE
 	var/max_mages = 0
 	var/making_mage = FALSE
@@ -17,17 +16,6 @@
 /datum/game_mode/wizard/raginmages/announce()
 	to_chat(world, "<B>The current game mode is - Ragin' Mages!</B>")
 	to_chat(world, "<B>The <font color='red'>Space Wizard Federation</font> is pissed, crew must help defeat all the Space Wizards invading the station!</B>")
-
-/datum/game_mode/wizard/raginmages/greet_wizard(datum/mind/wizard, you_are=1)
-	var/list/messages = list()
-	if(you_are)
-		messages.Add("<span class='danger'>You are the Space Wizard!</span>")
-	messages.Add("<B>The Space Wizards Federation has given you the following tasks:</B>")
-
-	messages.Add("<b>Supreme Objective</b>: Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour.")
-	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
-	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
-	wizard.current.create_log(MISC_LOG, "[wizard.current] was made into a wizard")
 
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
@@ -126,7 +114,10 @@
 	making_mage = FALSE
 	if(harry)
 		var/mob/living/carbon/human/new_character = makeBody(harry)
-		new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
+		var/datum/antagonist/wizard/wizard = new /datum/antagonist/wizard()
+		wizard.additional_text = "Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour."
+		new_character.mind.add_antag_datum(wizard)
+		new_character.forceMove(pick(GLOB.wizardstart))
 		new_character.equip_to_slot_or_del(new /obj/item/reagent_containers/drinks/mugwort(harry), SLOT_HUD_IN_BACKPACK)
 		// The first wiznerd can get their mugwort from the wizard's den, new ones will also need mugwort!
 		mages_made++

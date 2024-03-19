@@ -647,9 +647,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Cultist"
 	if(M.mind in SSticker.mode.syndicates)
 		antag_list += "Nuclear Operative"
-	if(M.mind in SSticker.mode.wizards)
+	if(M.mind.has_antag_datum(/datum/antagonist/wizard))
 		antag_list += "Wizard"
-	if(M.mind in SSticker.mode.changelings)
+	if(M.mind.has_antag_datum(/datum/antagonist/changeling))
 		antag_list += "Changeling"
 	if(M.mind in SSticker.mode.abductors)
 		antag_list += "Abductor"

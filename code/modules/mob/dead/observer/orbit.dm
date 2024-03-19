@@ -111,8 +111,6 @@
 					if(SSticker && SSticker.mode)
 						other_antags += list(
 							"Blob" = (mind.special_role == SPECIAL_ROLE_BLOB),
-							"Wizard" = (mind in SSticker.mode.wizards),
-							"Wizard's Apprentice" = (mind in SSticker.mode.apprentices),
 							"Nuclear Operative" = (mind in SSticker.mode.syndicates),
 							"Abductor" = (mind in SSticker.mode.abductors)
 						)
