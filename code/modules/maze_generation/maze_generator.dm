@@ -121,7 +121,7 @@
 
 			// On both tiles
 			for(var/obj/structure/window/reinforced/mazeglass/W in T3)
-				if(W.dir == GetOppositeDir(text2num(D)))
+				if(W.dir == reverse_direction(text2num(D)))
 					qdel(W)
 
 			// Mark as visited

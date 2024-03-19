@@ -13,13 +13,13 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	if(!SSticker)
 		alert("The game hasn't started yet!")
 		return
-	if(alert("Do you want to send in the Syndicate Infiltration Team?",,"Yes","No")=="No")
+	if(alert("Do you want to send in the Syndicate Infiltration Team?", null,"Yes","No")=="No")
 		return
 	var/spawn_dummies = 0
-	if(alert("Spawn full-size team, even if there aren't enough ghosts to populate them?",,"Yes","No")=="Yes")
+	if(alert("Spawn full-size team, even if there aren't enough ghosts to populate them?", null,"Yes","No")=="Yes")
 		spawn_dummies = 1
 	var/pick_manually = 0
-	if(alert("Pick the team members manually? If you select yes, you pick from ghosts. If you select no, ghosts get offered the chance to join.",,"Yes","No")=="Yes")
+	if(alert("Pick the team members manually? If you select yes, you pick from ghosts. If you select no, ghosts get offered the chance to join.", null,"Yes","No")=="Yes")
 		pick_manually = 1
 	var/list/teamsizeoptions = list(2,3,4,5,6)
 	var/teamsize = input(src, "How many team members, including the team leader?") as null|anything in teamsizeoptions
@@ -36,7 +36,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	var/tcamount = text2num(tctext)
 	tcamount = clamp(tcamount, 0, 1000)
 	if(GLOB.sent_syndicate_infiltration_team == 1)
-		if(alert("A Syndicate Infiltration Team has already been sent. Sure you want to send another?",,"Yes","No")=="No")
+		if(alert("A Syndicate Infiltration Team has already been sent. Sure you want to send another?", null,"Yes","No")=="No")
 			return
 
 	var/syndicate_leader_selected = 0

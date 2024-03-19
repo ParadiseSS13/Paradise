@@ -282,7 +282,8 @@
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_RC_ANNOUNCE,
 		ACCESS_SEC_DOORS,
-		ACCESS_SECURITY
+		ACCESS_SECURITY,
+		ACCESS_WEAPONS
 	)
 	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
 	outfit = /datum/outfit/job/judge
@@ -309,8 +310,6 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
 
-
-//GLOBAL_VAR_INIT(lawyer, 0) //Checks for another lawyer //This changed clothes on 2nd lawyer, both IA get the same dreds. | This was deprecated back in 2014, and its now 2020
 /datum/job/lawyer
 	title = "Internal Affairs Agent"
 	flag = JOB_LAWYER
@@ -322,6 +321,7 @@
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	access = list(
+		ACCESS_CARGO,
 		ACCESS_CONSTRUCTION,
 		ACCESS_COURT,
 		ACCESS_LAWYER,

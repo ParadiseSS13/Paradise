@@ -208,7 +208,6 @@
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
 	data["timeleft"] = SSshuttle.supply.timeLeft(60 SECONDS)
-	data["can_launch"] = !SSshuttle.supply.canMove()
 
 	return data
 

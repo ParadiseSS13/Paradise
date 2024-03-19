@@ -607,6 +607,8 @@
 	name = newname
 	if(mind)
 		mind.name = newname
+		if(mind.initial_account?.account_name == oldname)
+			mind.initial_account.account_name = newname
 	if(dna)
 		dna.real_name = real_name
 
@@ -795,9 +797,6 @@
 			return "unconscious"
 		if(DEAD)
 			return "dead"
-
-/mob/proc/attempt_listen_to_deadsay()
-
 
 /mob/proc/is_roundstart_observer()
 	return (ckey in GLOB.roundstart_observer_keys)
