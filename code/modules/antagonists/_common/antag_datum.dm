@@ -1,3 +1,5 @@
+/* RESTRICT_TYPE(/datum/antagonist) */
+
 GLOBAL_LIST_EMPTY(antagonists)
 
 #define SUCCESSFUL_DETACH "dont touch this string numbnuts"

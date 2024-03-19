@@ -19,7 +19,7 @@ def print_error(message: str, filename: str, line_number: int):
         print(f"{filename}:{line_number}: {RED}{message}{NC}")
 
 if __name__ == "__main__":
-    print("restrict_file_type started")
+    print("restrict_file_types started")
 
     exit_code = 0
     start = time.time()
@@ -41,8 +41,8 @@ if __name__ == "__main__":
 
             type_path = restrict_regex.group(1)
 
-            proc_search = re.compile(r'^([\w/]{4,}?)\/(?:proc\/)?\w+\(') # Search for any procs that are not of this type
-            def_search = re.compile(r'(^[\w/]{4,})') # Search for any definition that are not of this type
+            proc_search = re.compile(r'^(/[\w/]{3,}?)\/(?:proc\/)?\w+\(') # Search for any procs that are not of this type
+            def_search = re.compile(r'(^(?:/(?:\w+))+)') # Search for any definition that are not of this type
             code.seek(0)
             for idx, line in enumerate(code):
                 if(rematch_result := re.search(proc_search, line)):
@@ -61,6 +61,6 @@ if __name__ == "__main__":
             print_error(failure.message, failure.filename, failure.lineno)
 
     end = time.time()
-    print(f"restrict_file_type tests completed in {end - start:.2f}s\n")
+    print(f"restrict_file_types tests completed in {end - start:.2f}s\n")
 
     sys.exit(exit_code)
