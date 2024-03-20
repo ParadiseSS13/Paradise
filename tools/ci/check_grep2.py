@@ -137,15 +137,14 @@ def check_tgui_ui_new_argument(idx, line):
 FOR_ALL_DATUMS = re.compile(r"for\s*\(\s*var\/((\w+)(?:(?:\/\w+){2,})?)\)")
 # double-checks that we don't have any attempts at looping like for(var/atom/a)
 FOR_ALL_NOT_DATUMS = re.compile(r"for\s*\(\s*var\/((?:atom|area|turf|obj|mob)(?:\/\w+))\)")
-def check_datum_loops(lines):
-    for idx, line in enumerate(lines):
-        if FOR_ALL_DATUMS.search(line) or FOR_ALL_NOT_DATUMS.search(line):
-            return Failure(
-                idx + 1,
-                # yes this will concatenate the strings, don't look too hard
-                "Found a for loop without explicit contents. If you're trying to loop over everything in the world, first double check that you truly need to, and if so specify \'in world\'.\n"
-                "If you're trying to check bare datums, please ensure that your value is only cast to /datum, and please make sure you use \'as anything\', or use a global list instead."
-            )
+def check_datum_loops(idx, line):
+    if FOR_ALL_DATUMS.search(line) or FOR_ALL_NOT_DATUMS.search(line):
+        return Failure(
+            idx + 1,
+            # yes this will concatenate the strings, don't look too hard
+            "Found a for loop without explicit contents. If you're trying to loop over everything in the world, first double check that you truly need to, and if so specify \'in world\'.\n"
+            "If you're trying to check bare datums, please ensure that your value is only cast to /datum, and please make sure you use \'as anything\', or use a global list instead."
+        )
 
 CODE_CHECKS = [
     check_space_indentation,
