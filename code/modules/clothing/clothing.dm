@@ -574,7 +574,7 @@
 /obj/item/clothing/shoes/examine(mob/user)
 	. = ..()
 	if(knife_slot)
-		. += "<span class='info'>You can <b>Alt-Click</b> [src] to remove a stored knife. Use the knife on the shoes to place one in [src].</span>"
+		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to remove a stored knife. Use the knife on the shoes to place one in [src].</span>"
 		if(hidden_blade)
 			. += "<span class='notice'>Your boot has a [hidden_blade.name] hidden inside of it!</span>"
 
