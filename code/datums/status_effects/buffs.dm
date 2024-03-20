@@ -88,12 +88,19 @@
 		owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 		return
 	else
-		owner.visible_message("<span class='warning'>The violet light around [owner] glows black... and shoots off to those around him!</span>", "<span class='warning'>The tendrils around you cinch tightly... but then unwravel and fly at others!</span>")
+		var/found_someone = FALSE
+
 		for(var/mob/living/L in oview(9, owner))
+			found_someone = TRUE
 			playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
 			L.Beam(owner, "grabber_beam", time = 1 SECONDS, maxdistance = 9)
 			L.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
-
+		if(found_someone)
+			owner.visible_message("<span class='warning'>The violet light around [owner] glows black... and shoots off to those around him!</span>", "<span class='warning'>The tendrils around you cinch tightly... but then unwravel and fly at others!</span>")
+		else
+			owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
+			playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
+			owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 
 /datum/status_effect/void_price
 	id = "void_price"

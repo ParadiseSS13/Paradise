@@ -1343,7 +1343,7 @@
 
 /obj/effect/bubblegum_warning/Initialize()
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(slap_someone), 2.5 SECONDS)) //A chance to run away
+	addtimer(CALLBACK(src, PROC_REF(slap_someone)), 2.5 SECONDS) //A chance to run away
 
 /obj/effect/bubblegum_warning/proc/slap_someone()
 	new /obj/effect/abstract/bubblegum_rend_helper(get_turf(src), null, 10)
