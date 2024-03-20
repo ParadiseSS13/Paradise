@@ -10,6 +10,12 @@
 
 	By default, emulate the user's unarmed attack
 */
+/*
+	Returns: True if the target is within the 15 tile range of telekinesis and on the same z-level, false otherwise.
+*/
+/proc/telekinesis_range_check(mob/living/carbon/human/user, atom/target)
+	return (get_dist(user, target) <= TK_MAXRANGE && user.z == target.z)
+
 /atom/proc/attack_tk(mob/user)
 	if(user.stat)
 		return
@@ -119,7 +125,7 @@
 	var/d = get_dist(user, target)
 	if(focus)
 		d = max(d,get_dist(user,focus)) // whichever is further
-	if(d > TK_MAXRANGE)
+	if(d > TK_MAXRANGE || user.z != target.z)
 		to_chat(user, "<span class='warning'>Your mind won't reach that far.</span>")
 		return
 
