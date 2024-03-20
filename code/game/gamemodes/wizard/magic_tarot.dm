@@ -1,6 +1,6 @@
 /obj/item/tarot_generator//Qwertodo: Cooldown between uses, prob 20 seconds?
-	name = "Enchanted tarot card pack" //Qwertodo: A better name
-	desc = "Reusable card generator" //QWERTODO: spawn directly librarian / chaplain april fools day
+	name = "Enchanted tarot card deck"
+	desc = "This tarot card box has quite the aray of runes and artwork on it."
 	icon = 'icons/obj/playing_cards.dmi'//Qwertodo: Uplink, wizard
 	icon_state = "card_holder"
 	w_class = WEIGHT_CLASS_SMALL
@@ -67,30 +67,55 @@
 	throwforce = 0
 	force = 0
 	resistance_flags = FLAMMABLE
+	///If a person can choose what the card produces. No cost if they can choose.
+	var/let_people_choose = FALSE
 
 /obj/item/blank_tarot_card/examine(mob/user)
 	. = ..()
-	. += "<span class='hierophant'>With a bit of Ink, a work of art could be created. Will you provide your Ink?</span>"
+	if(!let_people_choose)
+		. += "<span class='hierophant'>With a bit of Ink, a work of art could be created. Will you provide your Ink?</span>"
+	else
+		. += "<span class='hierophant'>We have the Ink... Could you provide your Vision instead?</span>"
 
 /obj/item/blank_tarot_card/attack_self(mob/user)
 	if(!ishuman(user))
 		return
-	var/mob/living/carbon/human/H = user
-	if(H.dna && (NO_BLOOD in H.dna.species.species_traits))
-		to_chat(user, "<span class='cult'>No blood to provide?...</span><span class='hierophant'> Then no Ink for the art...</span>")
+	if(!let_people_choose)
+		var/mob/living/carbon/human/H = user
+		if(H.dna && (NO_BLOOD in H.dna.species.species_traits))
+			to_chat(user, "<span class='cult'>No blood to provide?...</span><span class='hierophant'> Then no Ink for the art...</span>")
+			return
+		if(H.blood_volume <= 100) //Shouldn't happen, they should be dead, but failsafe. Not bleeding as then they could recover the blood with blood rites
+			return
+		H.blood_volume -= 100
+		H.drop_item()
+		var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src))
+		user.put_in_hands(MTC)
+		to_chat(user, "<span class='cult'>Your blood flows into [src]...</span><span class='hierophant'> And your Ink makes a work of art! [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
+		qdel(src)
 		return
-	if(H.blood_volume <= 100) //Shouldn't happen, they should be dead, but failsafe. Not bleeding as then they could recover the blood with blood rites
-		return
-	H.blood_volume -= 100
-	H.drop_item()
-	var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src))
-	user.put_in_hands(MTC)
-	to_chat(user, "<span class='cult'>Your blood flows into [src]...</span><span class='hierophant'> And the Ink makes a work of art! [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
-	qdel(src)
+	var/tarot_type
+	var/tarot_name
+	var/list/card_by_name = list()
+	for(var/T in subtypesof(/datum/tarot) - /datum/tarot/reversed)
+		var/datum/tarot/temp = T
+		card_by_name[temp.name] = T
+
+	tarot_name = tgui_input_list(user, "Choose the Work of Art to create.", "Art Creation", card_by_name)
+	tarot_type = card_by_name[tarot_name]
+	if(tarot_type)
+		user.drop_item()
+		var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src), null, tarot_type)
+		user.put_in_hands(MTC)
+		to_chat(user, "</span><span class='hierophant'>You put your Vision into [src], and your Vision makes a work of Art! [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
+		qdel(src)
+
+/obj/item/blank_tarot_card/choose //For admins mainly, to spawn a specific tarot card. Not recomended for ruins.
+	let_people_choose = TRUE
 
 /obj/item/magic_tarot_card
 	name = "XXII - The Unknown"
-	desc = "A tarot card. However, it feels like it has a meaning behind it?"
+	desc = "A beautiful tarot card. However, it feels like... more?"
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "tarot_the_unknown"
 	w_class = WEIGHT_CLASS_TINY
@@ -106,12 +131,15 @@
 	/// Our fancy description given to use by the tarot datum.
 	var/card_desc = "Untold answers... wait what? This is a bug, report this as an issue on github!"
 
-/obj/item/magic_tarot_card/Initialize(mapload, obj/item/tarot_generator/source)
+/obj/item/magic_tarot_card/Initialize(mapload, obj/item/tarot_generator/source, datum/tarot/chosen_tarot)
 	. = ..()
 	if(source)
 		creator_deck = source
-	var/tarotpath = pick(subtypesof(/datum/tarot) - /datum/tarot/reversed)
-	our_tarot = new tarotpath
+	if(chosen_tarot)
+		our_tarot = new chosen_tarot
+	if(!our_tarot)
+		var/tarotpath = pick(subtypesof(/datum/tarot) - /datum/tarot/reversed)
+		our_tarot = new tarotpath
 	name = our_tarot.name
 	card_desc = our_tarot.desc
 	icon_state = "tarot_[our_tarot.card_icon]"
@@ -137,11 +165,12 @@
 	poof()
 
 /obj/item/magic_tarot_card/proc/poof()
-	new /obj/effect/particle_effect/sparks(get_turf(src)) //Something more magical
+	new /obj/effect/temp_visual/revenant(get_turf(src))
 	qdel(src)
 
 /obj/item/magic_tarot_card/proc/dust()
 	visible_message("<span class='danger'>[src] disintigrates into dust!</span>")
+	new /obj/effect/temp_visual/revenant(get_turf(src))
 	qdel(src)
 
 /datum/tarot
@@ -441,7 +470,10 @@
 			funny_ruin_list += ruin_landmark
 
 	if(length(funny_ruin_list))
-		target.forceMove(get_turf(pick(funny_ruin_list)))
+		var/turf/t = get_turf(pick(funny_ruin_list))
+		target.forceMove(t)
+		t.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall, and a pickaxe to avoid being trapped in a wall
+		new /obj/item/pickaxe/emergency(t)
 		target.update_parallax_contents()
 		return
 	//We did not find a ruin on the same level. Well. I hope you have a space suit, but we'll go space ruins as they are mostly sorta kinda safer.
@@ -451,7 +483,10 @@
 			funny_ruin_list += ruin_landmark
 
 	if(length(funny_ruin_list))
-		target.forceMove(get_turf(pick(funny_ruin_list)))
+		var/turf/t = get_turf(pick(funny_ruin_list))
+		target.forceMove(t)
+		t.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall, and a pickaxe to avoid being trapped in a wall
+		new /obj/item/pickaxe/emergency(t)
 		target.update_parallax_contents()
 		return
 	to_chat(target, "<span class='warning'>Huh. No space ruins? Well, this card is RUINED!</span>")
@@ -480,6 +515,10 @@
 /datum/tarot/the_world/activate(mob/living/target)
 	target.apply_status_effect(STATUS_EFFECT_XRAY)
 
+////////////////////////////////
+////////REVERSED ARCANA/////////
+////////////////////////////////
+
 /datum/tarot/reversed/the_fool
 	name = "0 - The Fool?"
 	desc = "Let go and move on."
@@ -499,7 +538,32 @@
 	card_icon = "the_magician?"
 
 /datum/tarot/reversed/the_magician/activate(mob/living/target)
-	. = ..()
+	var/list/thrown_atoms = list()
+	var/sparkle_path = /obj/effect/temp_visual/gravpush
+	for(var/turf/T in range(5, target)) //Done this way so things don't get thrown all around hilariously.
+		for(var/atom/movable/AM in T)
+			thrown_atoms += AM
+
+	for(var/atom/movable/AM as anything in thrown_atoms)
+		if(AM == target || AM.anchored || (ismob(AM) && !isliving(AM)))
+			continue
+
+		var/throw_target = get_edge_target_turf(target, get_dir(target, get_step_away(AM, target)))
+		var/dist_from_user = get_dist(target, AM)
+		if(dist_from_user == 0)
+			if(isliving(AM))
+				var/mob/living/M = AM
+				M.Weaken(6 SECONDS)
+				M.adjustBruteLoss(10)
+				to_chat(M, "<span class='userdanger'>You're slammed into the floor by [name]</span>")
+				add_attack_logs(target, M, "[M] was thrown by [target]'s [name]", ATKLOG_ALMOSTALL)
+		else
+			new sparkle_path(get_turf(AM), get_dir(target, AM))
+			if(isliving(AM))
+				var/mob/living/M = AM
+				to_chat(M, "<span class='userdanger'>You're thrown back by [name]!</span>")
+				add_attack_logs(target, M, "[M] was thrown by [target]'s [name]", ATKLOG_ALMOSTALL)
+			INVOKE_ASYNC(AM, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, ((clamp((3 - (clamp(dist_from_user - 2, 0, dist_from_user))), 3, 3))), 1) //So stuff gets tossed around at the same time.
 
 /datum/tarot/reversed/the_high_priestess
 	name = "II - The High Priestess?"
@@ -585,8 +649,12 @@
 	desc = "May your sins come back to torment you."
 	card_icon = "justice?"
 
-/datum/tarot/reversed/justice/activate(mob/living/target) //qwertodo: exclude shuttles from this it breaks shit
-	var/chosen = pick(SSeconomy.supply_packs)
+/datum/tarot/reversed/justice/activate(mob/living/target)
+	var/list/ignored_supply_pack_types = list(
+		/datum/supply_packs/abstract,
+		/datum/supply_packs/abstract/shuttle
+	)
+	var/chosen = pick(SSeconomy.supply_packs - ignored_supply_pack_types)
 	var/datum/supply_packs/the_pack = new chosen()
 	var/spawn_location = get_turf(target)
 	var/obj/structure/closet/crate/crate = the_pack.create_package(spawn_location)
@@ -598,7 +666,7 @@
 	desc = "May you see the value of all things in life."
 	card_icon = "the_hermit?"
 
-/datum/tarot/reversed/the_hermit/activate(mob/living/target) //Someone can improve this in the future
+/datum/tarot/reversed/the_hermit/activate(mob/living/target) //Someone can improve this in the future (hopefully comment will not be here in 10 years.)
 	for(var/obj/item/I in view(7, target))
 		if(istype(I, /obj/item/gun))
 			new /obj/item/stack/spacecash/c200(get_turf(I))
@@ -664,7 +732,10 @@
 		var/mob/living/carbon/human/H = target
 		var/i = 0
 		while(i <= 5)
-			H.reagents.add_reagent(get_random_reagent_id_for_real(), 10)
+			var/datum/reagents/R = new/datum/reagents(10)
+			R.add_reagent(get_random_reagent_id_for_real(), 10)
+			R.reaction(H, REAGENT_INGEST)
+			R.trans_to(H, 10)
 			i++
 		target.visible_message("<span class='warning'>[target] consumes 5 pills rapidly!</span>")
 
@@ -688,7 +759,7 @@
 			continue
 		if(istype(t, /turf/simulated/wall/indestructible))
 			continue
-		if(prob(70))
+		if(prob(66))
 			continue
 		t.ChangeTurf(/turf/simulated/mineral/random/labormineral)
 
@@ -697,8 +768,25 @@
 	desc = "May your loss bring fortune."
 	card_icon = "the_stars?"
 
-/datum/tarot/reversed/the_stars/activate(mob/living/target)
-	. = ..()
+/datum/tarot/reversed/the_stars/activate(mob/living/target) //Heavy clone damage hit, but gain 2 cards. Not teathered to the card producer. Could lead to card stacking, but would require the sun to fix easily
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.adjustCloneLoss(50)
+		for(var/obj/item/organ/external/E in shuffle(H.bodyparts))
+			switch(rand(1,3))
+				if(1)
+					E.fracture()
+				if(2)
+					E.cause_internal_bleeding()
+				if(3)
+					E.cause_burn_wound()
+			break // I forgot the break the first time. Very funny.
+		H.drop_l_hand()
+		H.drop_r_hand()
+		var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src))
+		var/obj/item/magic_tarot_card/MPC = new /obj/item/magic_tarot_card(get_turf(src))
+		H.put_in_hands(MTC)
+		H.put_in_hands(MPC)
 
 /datum/tarot/reversed/the_moon
 	name = "XVIII - The Moon?"
