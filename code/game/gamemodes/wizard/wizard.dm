@@ -136,20 +136,5 @@
 		qdel(spell_to_remove)
 		mob_spell_list -= spell_to_remove
 
-/*Checks if the wizard can cast spells.
-Made a proc so this is not repeated 14 (or more) times.*/
-/mob/proc/casting()
-//Removed the stat check because not all spells require clothing now.
-	// if(!istype(usr:wear_suit, /obj/item/clothing/suit/wizrobe))
-	// 	to_chat(usr, "I don't feel strong enough without my robe.")
-	// 	return FALSE
-	// if(!istype(usr:shoes, /obj/item/clothing/shoes/sandal))
-	// 	to_chat(usr, "I don't feel strong enough without my sandals.")
-	// 	return FALSE
-	// if(!istype(usr:head, /obj/item/clothing/head/wizard))
-	// 	to_chat(usr, "I don't feel strong enough without my hat.")
-	// 	return FALSE
-	// return TRUE
-
 /proc/iswizard(mob/living/M)
 	return istype(M) && M.mind?.has_antag_datum(/datum/antagonist/wizard)

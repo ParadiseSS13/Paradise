@@ -1627,18 +1627,6 @@
 		SSticker.mode.blob_overminds += src
 		special_role = SPECIAL_ROLE_BLOB_OVERMIND
 
-// /datum/mind/proc/make_Wizard()
-// 	if(has_antag_datum(/datum/antagonist/wizard))
-// 		return
-// 	var/datum/antagonist/wizard/wizard = add_antag_datum(/datum/antagonist/wizard)
-// 	if(!GLOB.wizardstart.len)
-// 		current.forceMove(pick(GLOB.latejoin))
-// 		to_chat(current, "HOT INSERTION, GO GO GO")
-// 	else
-// 		current.forceMove(pick(GLOB.wizardstart))
-
-
-
 /datum/mind/proc/make_Abductor()
 	var/role = alert("Abductor Role?", "Role", "Agent", "Scientist")
 	var/team = input("Abductor Team?", "Team?") in list(1,2,3,4)
