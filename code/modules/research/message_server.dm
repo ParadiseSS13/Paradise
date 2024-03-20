@@ -77,7 +77,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 		update_icon(UPDATE_ICON_STATE)
 		return
 	if(prob(3))
-		playsound(loc, "computer_ambience", 10, 1, ignore_walls = FALSE)
+		playsound(loc, "computer_ambience", 10, TRUE, ignore_walls = FALSE)
 
 /obj/machinery/message_server/proc/send_pda_message(recipient = "", sender = "", message = "")
 	pda_msgs += new/datum/data_pda_msg(recipient,sender,message)
