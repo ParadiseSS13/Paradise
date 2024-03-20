@@ -10,17 +10,18 @@
 
 	By default, emulate the user's unarmed attack
 */
-/*
-	Returns: True if the target is within the 15 tile range of telekinesis and on the same z-level, false otherwise.
-*/
-/proc/telekinesis_range_check(mob/living/carbon/human/user, atom/target)
-	return (get_dist(user, target) <= TK_MAXRANGE && user.z == target.z)
 
 /atom/proc/attack_tk(mob/user)
 	if(user.stat)
 		return
 	user.UnarmedAttack(src,0) // attack_hand, attack_paw, etc
 	return
+
+/*
+	Returns: True if the target is within the 15 tile range of telekinesis and on the same z-level, false otherwise.
+*/
+/proc/telekinesis_range_check(mob/living/carbon/human/user, atom/target)
+	return (get_dist(user, target) <= TK_MAXRANGE && user.z == target.z)
 
 /*
 	This is similar to item attack_self, but applies to anything
