@@ -7,9 +7,9 @@
 	/// The class type of this apprentice,
 	var/class_type
 
-/datum/antagonist/wizard/apprentice/greet() // a fuckery workaround, but a workaround none-the-less
+/datum/antagonist/wizard/apprentice/greet()
 	. = ..()
-	. += "<span class='userdanger'>You are [my_teacher.real_name]'s apprentice! You are bound by magic contract to follow [my_teacher.p_their()] orders and help [my_teacher.p_them()] in accomplishing [my_teacher.p_their()] goals.</span>"
+	. += "<span class='danger'>You are [my_teacher.real_name]'s apprentice! You are bound by magic contract to follow [my_teacher.p_their()] orders and help [my_teacher.p_them()] in accomplishing [my_teacher.p_their()] goals.</span>"
 
 /datum/antagonist/wizard/apprentice/give_objectives()
 	if(!ishuman(owner.current)) // constructs can be wizard apprentices too
