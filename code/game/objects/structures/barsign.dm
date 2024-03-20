@@ -129,10 +129,8 @@
 		return FALSE
 	save_sign()
 	set_light(0)
-	// update_icon() won't update the lighting properly, but using a 0 second callback will make it work.  There is almost certainly a better way to do this, but I don't know it.
-	addtimer(CALLBACK(src, PROC_REF(update_icon_alt)), 0 SECONDS)
-	set_sign(new /datum/barsign/hiddensigns/signoff)
 	power_state = IDLE_POWER_USE
+	set_sign(new /datum/barsign/hiddensigns/signoff)
 	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
 	return TRUE
 
@@ -142,17 +140,13 @@
 	if(panel_open)
 		return FALSE
 	set_light(1, LIGHTING_MINIMUM_POWER)
-	addtimer(CALLBACK(src, PROC_REF(update_icon_alt)), 0 SECONDS)
+	power_state = ACTIVE_POWER_USE
 	if(prev_sign)
 		set_sign(prev_sign)
 	else
 		set_random_sign()
-	power_state = ACTIVE_POWER_USE
 	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
 	return TRUE
-
-/obj/machinery/barsign/proc/update_icon_alt()
-	update_icon()
 
 /obj/machinery/barsign/attack_hand(mob/user)
 	if(..())
@@ -232,6 +226,7 @@
 		picked_name = tgui_input_list(usr, "Available Signage", "Bar Sign", syndisigns)
 	if(!picked_name)
 		return
+	turn_on()
 	set_sign(picked_name)
 
 /obj/machinery/barsign/obj_break(damage_flag)
