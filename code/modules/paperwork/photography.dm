@@ -47,30 +47,36 @@
 		txt = copytext(txt, 1, 128)
 		if(loc == user && user.stat == 0)
 			scribble = txt
-	else if(istype(P, /obj/item/lighter))
+	else if(P.get_heat())
 		burnphoto(P, user)
 	..()
 
-/obj/item/photo/proc/burnphoto(obj/item/lighter/P, mob/user)
-	var/class = "<span class='warning'>"
+/obj/item/photo/proc/burnphoto(obj/item/P, mob/user)
+	if(user.restrained())
+		return
 
-	if(P.lit && !user.restrained())
-		if(istype(P, /obj/item/lighter/zippo))
-			class = "<span class='rose'>"
+	var/class = "warning"
+	if(istype(P, /obj/item/lighter/zippo))
+		class = "rose"
 
-		user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
-		"[class]You hold [P] up to [src], burning it slowly.</span>")
+	user.visible_message("<span class='[class]'>[user] holds [P] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
+	"<span class='[class]'>You hold [P] up to [src], burning it slowly.</span>")
 
-		if(do_after(user, 50, target = src))
-			if(user.get_active_hand() == P && P.lit)
-				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
-				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
-				if(user.is_in_inactive_hand(src))
-					user.unEquip(src)
-				new /obj/effect/decal/cleanable/ash(get_turf(src))
-				qdel(src)
-			else
-				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
+	if(!do_after(user, 5 SECONDS, target = src))
+		return
+
+	if(user.get_active_hand() != P || !P.get_heat())
+		to_chat(user, "<span class='warning'>You must hold [P] steady to burn [src].</span>")
+		return
+
+	user.visible_message("<span class='[class]'>[user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
+	"<span class='[class]'>You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
+
+	if(user.is_in_inactive_hand(src))
+		user.unEquip(src)
+
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	qdel(src)
 
 /obj/item/photo/examine(mob/user)
 	. = ..()
@@ -100,7 +106,7 @@
 			colormatrix[7], colormatrix[8], colormatrix[9],
 		)
 	usr << browse_rsc(img_shown, "tmp_photo.png")
-	usr << browse("<html><head><title>[name]</title></head>" \
+	usr << browse("<html><meta charset='utf-8'><head><title>[name]</title></head>" \
 		+ "<body style='overflow:hidden;margin:0;text-align:center'>" \
 		+ "<img src='tmp_photo.png' width='[64*photo_size]' style='-ms-interpolation-mode:nearest-neighbor' />" \
 		+ "[scribble ? "<br>Written on the back:<br><i>[scribble]</i>" : ""]"\
@@ -136,7 +142,7 @@
 
 	if(ishuman(usr))
 		var/mob/M = usr
-		if(!istype(over_object, /obj/screen))
+		if(!is_screen_atom(over_object))
 			return ..()
 		playsound(loc, "rustle", 50, 1, -5)
 		if((!M.restrained() && !M.stat && M.back == src))

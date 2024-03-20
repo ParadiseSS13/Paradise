@@ -1,13 +1,11 @@
 //A set of constants used to determine which type of mute an admin wishes to apply:
-//Please read and understand the muting/automuting stuff before changing these. MUTE_IC_AUTO etc = (MUTE_IC << 1)
-//Therefore there needs to be a gap between the flags for the automute flags
-#define MUTE_IC			1
-#define MUTE_OOC		2
-#define MUTE_PRAY		4
-#define MUTE_ADMINHELP	8
-#define MUTE_DEADCHAT	16
-#define MUTE_EMOTE 		32
-#define MUTE_ALL		63
+#define MUTE_IC			(1<<0)
+#define MUTE_OOC		(1<<1)
+#define MUTE_PRAY		(1<<2)
+#define MUTE_ADMINHELP	(1<<3)
+#define MUTE_DEADCHAT	(1<<4)
+#define MUTE_EMOTE 		(1<<5)
+#define MUTE_ALL		((1<<6)-1) //5 bit bitmask, update me if we ever add more mute options.
 
 //Number of identical messages required to get the spam-prevention automute thing to trigger warnings and automutes
 #define SPAM_TRIGGER_WARNING 5
@@ -24,28 +22,29 @@
 
 //Please don't edit these values without speaking to Errorage first	~Carn
 //Admin Permissions
-#define R_BUILDMODE		1
-#define R_ADMIN			2
-#define R_BAN			4
-#define R_EVENT			8
-#define R_SERVER		16
-#define R_DEBUG			32
-#define R_POSSESS		64
-#define R_PERMISSIONS	128
-#define R_STEALTH		256
-#define R_REJUVINATE	512
-#define R_VAREDIT		1024
-#define R_SOUNDS		2048
-#define R_SPAWN			4096
-#define R_MOD			8192
-#define R_MENTOR		16384
-#define R_PROCCALL		32768
-#define R_VIEWRUNTIMES	65536
-#define R_MAINTAINER	131072
+#define R_BUILDMODE		(1<<0)
+#define R_ADMIN			(1<<1)
+#define R_BAN			(1<<2)
+#define R_EVENT			(1<<3)
+#define R_SERVER		(1<<4)
+#define R_DEBUG			(1<<5)
+#define R_POSSESS		(1<<6)
+#define R_PERMISSIONS	(1<<7)
+#define R_STEALTH		(1<<8)
+#define R_REJUVINATE	(1<<9)
+#define R_VAREDIT		(1<<10)
+#define R_SOUNDS		(1<<11)
+#define R_SPAWN			(1<<12)
+#define R_MOD			(1<<13)
+#define R_MENTOR		(1<<14)
+#define R_PROCCALL		(1<<15)
+#define R_VIEWRUNTIMES	(1<<16)
+#define R_MAINTAINER	(1<<17)
+// Update the following two defines if you add more
 
-#define R_MAXPERMISSION 131072 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION (1<<17) //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
-#define R_HOST			262143 // Sum of all permissions to allow easy setting
+#define R_HOST			((1<<18)-1) //17 bit bitmask, update me if we ever add more admin permissions. Sum of all permissions to allow easy setting.
 
 #define ADMIN_QUE(user,display) "<a href='?_src_=holder;adminmoreinfo=[user.UID()]'>[display]</a>"
 #define ADMIN_FLW(user,display) "<a href='?_src_=holder;adminplayerobservefollow=[user.UID()]'>[display]</a>"

@@ -27,6 +27,7 @@
 		ACCESS_RC_ANNOUNCE,
 		ACCESS_SEC_DOORS,
 		ACCESS_SUPPLY_SHUTTLE,
+		ACCESS_WEAPONS
 	)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/qm
@@ -37,10 +38,11 @@
 	name = "Quartermaster"
 	jobtype = /datum/job/qm
 
-	uniform = /obj/item/clothing/under/rank/cargo/quartermaster
+	uniform = /obj/item/clothing/under/rank/cargo/qm
 	shoes = /obj/item/clothing/shoes/workboots/mining
+	head = /obj/item/clothing/head/qm
 	l_ear = /obj/item/radio/headset/heads/qm
-	glasses = /obj/item/clothing/glasses/sunglasses
+	glasses = /obj/item/clothing/glasses/meson/sunglasses
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
 	id = /obj/item/card/id/quartermaster
 	l_hand = /obj/item/clipboard
@@ -200,10 +202,8 @@
 	singlemutcheck(H, GLOB.soberblock, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(GLOB.soberblock)
 	H.check_mutations = 1
-	var/datum/martial_art/judo/under_siege/bouncer_delight = new
-	bouncer_delight.teach(H)
 	ADD_TRAIT(H.mind, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
-
+	ADD_TRAIT(H.mind, TRAIT_SLEIGHT_OF_HAND, ROUNDSTART_TRAIT)
 
 /datum/job/chef
 	title = "Chef"
@@ -450,6 +450,11 @@
 	pda = /obj/item/pda/janitor
 	r_pocket = /obj/item/door_remote/janikeyring
 
+/datum/outfit/job/janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	ADD_TRAIT(H, TRAIT_NEVER_MISSES_DISPOSALS, ROUNDSTART_TRAIT)
 
 //More or less assistants
 /datum/job/librarian

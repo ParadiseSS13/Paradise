@@ -1,12 +1,12 @@
 GLOBAL_LIST_EMPTY(gas_sensors)
 
-#define SENSOR_PRESSURE 1
-#define SENSOR_TEMPERATURE 2
-#define SENSOR_O2 4
-#define SENSOR_PLASMA 8
-#define SENSOR_N2 16
-#define SENSOR_CO2 32
-#define SENSOR_N2O 64
+#define SENSOR_PRESSURE		(1<<0)
+#define SENSOR_TEMPERATURE	(1<<1)
+#define SENSOR_O2			(1<<2)
+#define SENSOR_PLASMA		(1<<3)
+#define SENSOR_N2			(1<<4)
+#define SENSOR_CO2			(1<<5)
+#define SENSOR_N2O			(1<<6)
 
 /obj/machinery/atmospherics/air_sensor
 	icon = 'icons/obj/stationobjs.dmi'
@@ -174,7 +174,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 // This is its own proc so it can be modified in child types
 /obj/machinery/computer/general_air_control/proc/configure_sensors(mob/living/user, obj/item/multitool/M)
 	var/choice = tgui_alert(user, "Would you like to add or remove a sensor/meter", "Configuration", list("Add", "Remove", "Cancel"))
-	if((choice == "Cancel") || !Adjacent(user))
+	if(!choice || (choice == "Cancel") || !Adjacent(user))
 		return
 
 	switch(choice)
@@ -354,7 +354,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/configure_inlet(mob/living/user, obj/item/multitool/M)
 	var/choice = tgui_alert(user, "Would you like to add/replace the existing inlet or clear it?", "Configuration", list("Add/Replace", "Clear", "Cancel"))
-	if((choice == "Cancel") || !Adjacent(user))
+	if(!choice || (choice == "Cancel") || !Adjacent(user))
 		return
 
 	switch(choice)
@@ -390,7 +390,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/configure_outlet(mob/living/user, obj/item/multitool/M)
 	var/choice = tgui_alert(user, "Would you like to add/replace the existing outlet or clear it?", "Configuration", list("Add/Replace", "Clear", "Cancel"))
-	if((choice == "Cancel") || !Adjacent(user))
+	if(!choice || (choice == "Cancel") || !Adjacent(user))
 		return
 
 	switch(choice)
@@ -495,7 +495,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 // Central atmos control //
 /obj/machinery/computer/atmoscontrol
-	name = "\improper central atmospherics computer"
+	name = "central atmospherics computer"
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "atmos_key"
 	icon_screen = "tank"
@@ -525,3 +525,11 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 /obj/machinery/computer/atmoscontrol/ui_interact(mob/user, datum/tgui/ui = null)
 	atmos_control.ui_interact(user, ui)
+
+#undef SENSOR_PRESSURE
+#undef SENSOR_TEMPERATURE
+#undef SENSOR_O2
+#undef SENSOR_PLASMA
+#undef SENSOR_N2
+#undef SENSOR_CO2
+#undef SENSOR_N2O

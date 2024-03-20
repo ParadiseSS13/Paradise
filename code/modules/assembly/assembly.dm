@@ -1,9 +1,3 @@
-#define WIRE_RECEIVE		(1<<0)	//Allows pulse(0) to call Activate()
-#define WIRE_PULSE			(1<<1)	//Allows pulse(0) to act on the holder
-#define WIRE_PULSE_SPECIAL	(1<<2)	//Allows pulse(0) to act on the holders special assembly
-#define WIRE_RADIO_RECEIVE	(1<<3)	//Allows pulse(1) to call Activate()
-#define WIRE_RADIO_PULSE	(1<<4)	//Allows pulse(1) to send a radio message
-
 /obj/item/assembly
 	name = "assembly"
 	desc = "A small electronic device that should never exist."
@@ -27,7 +21,7 @@
 	var/list/attached_overlays = null
 	var/obj/item/assembly_holder/holder = null
 	var/cooldown = FALSE //To prevent spam
-	var/wires = WIRE_RECEIVE | WIRE_PULSE
+	var/wires = ASSEMBLY_WIRE_RECEIVE | ASSEMBLY_WIRE_PULSE
 	var/datum/wires/connected = null // currently only used by timer/signaler
 
 /obj/item/assembly/proc/activate()									//What the device does when turned on
@@ -69,9 +63,9 @@
 	return ..()
 
 /obj/item/assembly/pulsed(radio = FALSE)
-	if(holder && (wires & WIRE_RECEIVE))
+	if(holder && (wires & ASSEMBLY_WIRE_RECEIVE))
 		activate()
-	if(radio && (wires & WIRE_RADIO_RECEIVE))
+	if(radio && (wires & ASSEMBLY_WIRE_RADIO_RECEIVE))
 		activate()
 	return TRUE
 
@@ -80,9 +74,9 @@
 	if(connected && wires)
 		connected.pulse_assembly(src)
 		return TRUE
-	if(holder && (wires & WIRE_PULSE))
+	if(holder && (wires & ASSEMBLY_WIRE_PULSE))
 		holder.process_activation(src, 1, 0)
-	if(holder && (wires & WIRE_PULSE_SPECIAL))
+	if(holder && (wires & ASSEMBLY_WIRE_PULSE_SPECIAL))
 		holder.process_activation(src, 0, 1)
 	if(istype(loc, /obj/item/grenade)) // This is a hack.  Todo: Manage this better -Sayu
 		var/obj/item/grenade/G = loc

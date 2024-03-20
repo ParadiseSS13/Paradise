@@ -50,7 +50,7 @@
 		var/obj/structure/elite_tumor/T = target
 		if(T.mychild == src && T.activity == TUMOR_PASSIVE)
 			var/response = tgui_alert(src, "Re-enter the tumor?", "Despawn yourself?", list("Yes", "No"))
-			if(response == "No" || QDELETED(src) || !Adjacent(T))
+			if(response != "Yes" || QDELETED(src) || !Adjacent(T))
 				return
 			T.clear_activator(src)
 			T.mychild = null
@@ -475,9 +475,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		return FALSE
 
 /obj/effect/temp_visual/elite_tumor_wall/gargantua/CanPass(atom/movable/mover, border_dir)
-	. = ..()
-	if(istype(mover, /obj/item/projectile))
-		return FALSE
+	return FALSE
 
 /obj/item/gps/internal/tumor
 	icon_state = null

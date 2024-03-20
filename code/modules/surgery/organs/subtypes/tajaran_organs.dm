@@ -10,7 +10,8 @@
 	replace_colours = TRITANOPIA_COLOR_REPLACE
 	see_in_dark = 4
 
-/obj/item/organ/internal/eyes/tajaran/farwa //Being the lesser form of Tajara, Farwas have an utterly incurable version of their colourblindness.
+/// Being the lesser form of Tajara, Farwas have an utterly incurable version of their colourblindness.
+/obj/item/organ/internal/eyes/tajaran/farwa
 	name = "farwa eyeballs"
 	colourmatrix = MATRIX_TAJ_CBLIND
 	see_in_dark = 3
@@ -25,10 +26,6 @@
 	icon_state = "brain2"
 	mmi_icon = 'icons/obj/species_organs/tajaran.dmi'
 	mmi_icon_state = "mmi_full"
-
-/obj/item/organ/internal/lungs/tajaran
-	name = "tajaran lungs"
-	icon = 'icons/obj/species_organs/tajaran.dmi'
 
 /obj/item/organ/internal/kidneys/tajaran
 	name = "tajaran kidneys"

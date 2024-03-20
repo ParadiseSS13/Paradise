@@ -4,9 +4,9 @@
 	smoothing_flags = NONE
 
 /turf/simulated/floor/vault/lavaland_air
-	temperature = 300
-	oxygen = 14
-	nitrogen = 23
+	temperature = 500
+	oxygen = 8
+	nitrogen = 14
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
@@ -91,7 +91,8 @@
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
 
-/turf/simulated/floor/beach/water // TODO - Refactor water so they share the same parent type - Or alternatively component something like that
+/// TODO - Refactor water so they share the same parent type - Or alternatively component something like that
+/turf/simulated/floor/beach/water
 	name = "water"
 	icon_state = "water"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -141,9 +142,9 @@
 	return
 
 /turf/simulated/floor/noslip/lavaland
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	oxygen = 8
+	nitrogen = 14
+	temperature = 500
 	planetary_atmos = TRUE
 
 /turf/simulated/floor/lubed
@@ -178,6 +179,17 @@
 		new /obj/effect/temp_visual/ratvar/beam(src)
 		realappearence = new /obj/effect/clockwork/overlay/floor(src)
 		realappearence.linked = src
+
+/turf/simulated/floor/clockwork/Entered(atom/A, atom/OL, ignoreRest)
+	. = ..()
+	var/counter = 0
+	for(var/obj/effect/temp_visual/ratvar/floor/floor in contents)
+		if(++counter == 3)
+			return
+
+	if(!. && isliving(A))
+		sleep(2 DECISECONDS)
+		new /obj/effect/temp_visual/ratvar/floor(src)
 
 /turf/simulated/floor/clockwork/Destroy()
 	if(uses_overlay && realappearence)
@@ -218,9 +230,9 @@
 	uses_overlay = FALSE
 
 /turf/simulated/floor/clockwork/lavaland_air
-	nitrogen = 23
-	oxygen = 14
-	temperature = 300
+	nitrogen = 14
+	oxygen = 8
+	temperature = 500
 
 /turf/simulated/floor/catwalk
 	name = "catwalk"

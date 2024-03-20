@@ -1,4 +1,4 @@
-/obj/screen/text/blurb
+/atom/movable/screen/text/blurb
 	maptext_height = 64
 	maptext_width = 512
 	screen_loc = "LEFT+1,BOTTOM+2"
@@ -33,7 +33,7 @@
 	var/background_a = 0
 
 
-/obj/screen/text/blurb/proc/show_to(list/client/viewers)
+/atom/movable/screen/text/blurb/proc/show_to(list/client/viewers)
 	if(!blurb_text || !viewers)
 		return
 
@@ -52,12 +52,12 @@
 	print_text()
 
 	if(hold_for)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/screen/text/blurb, hide_from), viewers), hold_for)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom/movable/screen/text/blurb, hide_from), viewers), hold_for)
 	else
 		hide_from(viewers)
 
 
-/obj/screen/text/blurb/proc/get_text_style()
+/atom/movable/screen/text/blurb/proc/get_text_style()
 	PRIVATE_PROC(TRUE)
 
 	return {"\
@@ -69,25 +69,25 @@
 		color: [text_color];
 	"}
 
-/obj/screen/text/blurb/proc/hide_from(list/client/viewers)
+/atom/movable/screen/text/blurb/proc/hide_from(list/client/viewers)
 	PRIVATE_PROC(TRUE)
 
 	fade()
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/screen/text/blurb, remove_from_viewers), viewers), fade_animation_duration)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom/movable/screen/text/blurb, remove_from_viewers), viewers), fade_animation_duration)
 
-/obj/screen/text/blurb/proc/appear()
+/atom/movable/screen/text/blurb/proc/appear()
 	PRIVATE_PROC(TRUE)
 
 	animate(src, alpha = 255, time = appear_animation_duration)
 
 
-/obj/screen/text/blurb/proc/fade()
+/atom/movable/screen/text/blurb/proc/fade()
 	PRIVATE_PROC(TRUE)
 
 	animate(src, alpha = 0, time = fade_animation_duration)
 
 
-/obj/screen/text/blurb/proc/print_text()
+/atom/movable/screen/text/blurb/proc/print_text()
 	PRIVATE_PROC(TRUE)
 
 	var/text_style = get_text_style()
@@ -97,10 +97,10 @@
 		maptext += get_formatted_text_segment(text_style, segment_start, segment_end)
 		sleep(interval)
 
-/obj/screen/text/blurb/proc/get_formatted_text_segment(style, segment_start, segment_end)
+/atom/movable/screen/text/blurb/proc/get_formatted_text_segment(style, segment_start, segment_end)
 	return "<span style=\"[style]\">[copytext_char(blurb_text, segment_start, segment_end)]</span>"
 
-/obj/screen/text/blurb/proc/remove_from_viewers(list/client/viewers)
+/atom/movable/screen/text/blurb/proc/remove_from_viewers(list/client/viewers)
 	PRIVATE_PROC(TRUE)
 
 	for(var/client/viewer as anything in viewers)
@@ -116,7 +116,7 @@
 		return
 	SEND_SOUND(show_blurb_to, sound('sound/machines/typewriter.ogg'))
 
-	var/obj/screen/text/blurb/location_blurb = new()
+	var/atom/movable/screen/text/blurb/location_blurb = new()
 	if(antag_check.antag_datums)
 		for(var/datum/antagonist/role in antag_check.antag_datums)
 			if(role.custom_blurb())
@@ -146,7 +146,7 @@
 	if(!length(GLOB.clients))
 		return
 
-	var/obj/screen/text/blurb/server_restart_blurb = new()
+	var/atom/movable/screen/text/blurb/server_restart_blurb = new()
 	server_restart_blurb.text_color = COLOR_RED
 	server_restart_blurb.blurb_text = "Round is restarting...\n[reason]"
 	server_restart_blurb.hold_for = 90 SECONDS

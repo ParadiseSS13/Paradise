@@ -57,3 +57,7 @@
 /datum/sprite_accessory/body_markings/moth/witchwing
 	name = "Witch Wing Markings"
 	icon_state = "witchwing"
+
+/datum/sprite_accessory/body_markings/moth/lightbearer
+	name = "Lightbearer Markings"
+	icon_state = "lightbearer"

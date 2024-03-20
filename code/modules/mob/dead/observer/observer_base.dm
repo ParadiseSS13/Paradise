@@ -35,6 +35,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	///toggle for ghost gas analyzer
 	var/gas_analyzer = FALSE
 	var/datum/orbit_menu/orbit_menu
+	/// The "color" their runechat would have had
+	var/alive_runechat_color = "#FFFFFF"
 
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -42,10 +44,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
 	see_in_dark = 100
-	verbs += list(
+	add_verb(src, list(
 		/mob/dead/observer/proc/dead_tele,
 		/mob/dead/observer/proc/jump_to_ruin,
-		/mob/dead/observer/proc/open_spawners_menu)
+		/mob/dead/observer/proc/open_spawners_menu))
 
 	// Our new boo spell.
 	AddSpell(new /obj/effect/proc_holder/spell/boo(null))
@@ -59,6 +61,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(ismob(body))
 		T = get_turf(body)				//Where is the body located?
 		attack_log_old = body.attack_log_old	//preserve our attack logs by copying them to our ghost
+		alive_runechat_color = body.get_runechat_color()
 
 		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
@@ -192,6 +195,7 @@ Works together with spawning an observer, noted above.
 		if(ghost_name)
 			ghost.name = ghost_name
 		ghost.key = key
+		ghost.client?.init_verbs()
 		return ghost
 
 /*
@@ -279,11 +283,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/can_use_hands()	return 0
 
-/mob/dead/observer/Stat()
-	..()
-	if(statpanel("Status"))
-		show_stat_emergency_shuttle_eta()
-		stat(null, "Respawnability: [HAS_TRAIT(src, TRAIT_RESPAWNABLE) ? "Yes" : "No"]")
+/mob/dead/observer/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Respawnability:", "[HAS_TRAIT(src, TRAIT_RESPAWNABLE) ? "Yes" : "No"]")
 
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"
@@ -311,7 +314,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(message)
 		to_chat(src, "<span class='ghostalert'>[message]</span>")
 		if(source)
-			var/obj/screen/alert/A = throw_alert("\ref[source]_notify_cloning", /obj/screen/alert/notify_cloning)
+			var/atom/movable/screen/alert/A = throw_alert("\ref[source]_notify_cloning", /atom/movable/screen/alert/notify_cloning)
 			if(A)
 				if(client && client.prefs && client.prefs.UI_style)
 					A.icon = ui_style2icon(client.prefs.UI_style)
@@ -846,3 +849,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return allow_roundstart_observers
 	return FALSE
 
+
+/mob/dead/observer/get_runechat_color()
+	return alive_runechat_color
+
+#undef GHOST_CAN_REENTER
+#undef GHOST_IS_OBSERVER

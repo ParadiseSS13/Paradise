@@ -376,8 +376,10 @@
 	var/list/options = gps_locators
 	if(area_aim)
 		options += target_all_areas ? SSmapping.ghostteleportlocs : SSmapping.teleportlocs
-	var/V = input(user,"Select target", "Select target",null) in options|null
-	target = options[V]
+	var/choose = tgui_input_list(user, "Select target", "Target",  options)
+	if(!choose)
+		return
+	target = options[choose]
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
 	if(isarea(target))

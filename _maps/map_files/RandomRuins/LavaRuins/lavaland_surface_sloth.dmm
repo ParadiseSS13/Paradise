@@ -38,7 +38,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "h" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/sepia{
 	slowdown = 10
 	},
