@@ -10,7 +10,6 @@
 
 	By default, emulate the user's unarmed attack
 */
-
 /atom/proc/attack_tk(mob/user)
 	if(user.stat)
 		return
