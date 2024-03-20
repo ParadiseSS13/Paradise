@@ -182,3 +182,5 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal/virus/stealth/meets_stealth_requirement(stealth)
 	return (stealth >= 3)
+
+#undef MAX_LOOPS
