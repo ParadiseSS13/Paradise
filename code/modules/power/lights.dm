@@ -231,7 +231,7 @@
   */
 /obj/machinery/light/small
 	icon_state = "bulb1"
-	desc = "A compact and cheap light fixture, perfect for subtle illumination and maintenance tunnels."
+	desc = "A compact and cheap light fixture, perfect for keeping maintenance tunnels appropriately spooky."
 	fitting = "bulb"
 	base_state = "bulb"
 	brightness_range = 4

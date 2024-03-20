@@ -159,7 +159,7 @@
  */
 /obj/machinery/bookbinder
 	name = "Book Binder"
-	desc = "Used by authors, poets, and librarians to scan papers and print copies of their books."
+	desc = "Used by authors, poets, and librarians to scan papers and print copies of their fanfics."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "binder"
 	anchored = TRUE
