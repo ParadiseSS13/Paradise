@@ -26,12 +26,13 @@
 
 /obj/item/contract/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
+	if(!.)
+		return
 
 	if(used)
 		return
 	INVOKE_ASYNC(src, PROC_REF(async_find_apprentice), action, ui.user)
 	SStgui.close_uis(src)
-
 
 /obj/item/contract/proc/async_find_apprentice(action, user)
 	if(!ishuman(user))
@@ -46,10 +47,10 @@
 		used = FALSE
 		to_chat(H, "<span class='warning'>Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later.</span>")
 		return
-	new /obj/effect/particle_effect/smoke(H.loc)
+	new /obj/effect/particle_effect/smoke(get_turf(H))
 
 	var/mob/C = pick(candidates)
-	var/mob/living/carbon/human/M = new/mob/living/carbon/human(H.loc)
+	var/mob/living/carbon/human/M = new /mob/living/carbon/human(get_turf(H))
 	M.key = C.key
 
 	var/datum/antagonist/wizard/apprentice/apprentice = new /datum/antagonist/wizard/apprentice()

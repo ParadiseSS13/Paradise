@@ -6,7 +6,6 @@
 
 	should_equip_wizard = FALSE
 	should_name_pick = FALSE
-	i_have_mugwort = FALSE
 	/// Temporary reference to a mob for purposes of objectives, and general text for the apprentice.
 	var/mob/living/my_creator
 
@@ -32,3 +31,6 @@
 
 /datum/antagonist/wizard/construct/equip_wizard()
 	return
+
+/datum/antagonist/wizard/construct/full_on_wizard()
+	return FALSE

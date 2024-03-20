@@ -4,7 +4,6 @@
 	antag_hud_name = "apprentice"
 	antag_datum_blacklist = list(/datum/antagonist/wizard/construct)
 
-	i_have_mugwort = FALSE
 	/// Temporary reference to a mob for purposes of objectives, and general text for the apprentice.
 	var/mob/living/my_teacher
 	/// The class type of this apprentice,
@@ -98,3 +97,6 @@
 			messages += "<b>Your dedication pays off! Under [my_teacher.real_name]'s guidance, you've mastered magical honkings, seamlessly casting spells like Banana Touch, Ethereal Jaunt, and Instant Summons, while skillfully wielding a Staff of Slipping. Honk!</b>"
 
 	return messages
+
+/datum/antagonist/wizard/apprentice/full_on_wizard()
+	return FALSE

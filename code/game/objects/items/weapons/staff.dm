@@ -58,7 +58,7 @@
 	..()
 
 /obj/item/staff/broom/dropped(mob/user)
-	if(user.mind.has_antag_datum(/datum/antagonist/wizard) && user.flying)
+	if(iswizard(user) && user.flying)
 		user.flying = FALSE
 	..()
 

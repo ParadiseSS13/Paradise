@@ -28,7 +28,6 @@
 	pre_wizards += wizard
 	wizard.assigned_role = SPECIAL_ROLE_WIZARD //So they aren't chosen for other jobs.
 	wizard.special_role = SPECIAL_ROLE_WIZARD
-	// wizard.set_original_mob(wizard.current)
 	if(!length(GLOB.wizardstart))
 		to_chat(wizard.current, "<span class='danger'>A starting location for you could not be found, please report this bug!</span>")
 		return FALSE
@@ -102,7 +101,7 @@
 				wizardwin = 0
 			count++
 
-		if(wizard.current && wizard.current.stat!=DEAD && wizardwin)
+		if(wizard.current && wizard.current.stat != DEAD && wizardwin)
 			text += "<br><font color='green'><B>The wizard was successful!</B></font>"
 			SSblackbox.record_feedback("tally", "wizard_success", 1, "SUCCESS")
 		else

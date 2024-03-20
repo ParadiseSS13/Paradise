@@ -952,6 +952,8 @@
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a wizard")
 			if("name")
 				var/datum/antagonist/wizard/wizard = has_antag_datum(/datum/antagonist/wizard)
+				if(!istype(wizard))
+					return
 				wizard.name_wizard()
 				log_admin("[key_name(usr)] has allowed wizard [key_name(current)] to name themselves")
 				message_admins("[key_name_admin(usr)] has allowed wizard [key_name_admin(current)] to name themselves")

@@ -157,7 +157,7 @@
 /obj/item/clothing/shoes/magboots/wizard/attack_self(mob/user)
 	if(!user)
 		return
-	if(!user.mind.has_antag_datum(/datum/antagonist/wizard))
+	if(!iswizard(user))
 		to_chat(user, "<span class='notice'>You poke the gem on [src]. Nothing happens.</span>")
 		return
 	if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint

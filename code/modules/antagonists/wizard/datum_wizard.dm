@@ -12,7 +12,6 @@
 	wiki_page_name = "Wizard"
 	var/should_equip_wizard = TRUE
 	var/should_name_pick = TRUE
-	var/i_have_mugwort = TRUE
 	var/additional_text
 
 /datum/antagonist/wizard/on_gain()
@@ -33,7 +32,7 @@
 	var/list/messages = list()
 	if(should_equip_wizard)
 		messages = equip_wizard()
-	if(i_have_mugwort)
+	if(full_on_wizard())
 		messages += "Remember to bring your magical Mugwort Tea, it will slowly heal you when you drink it."
 	return messages
 
@@ -114,3 +113,6 @@
 	new_wiz.update_icons()
 	new_wiz.gene_stability += DEFAULT_GENE_STABILITY //magic
 	return reading
+
+/datum/antagonist/wizard/proc/full_on_wizard()
+	return TRUE
