@@ -802,14 +802,14 @@
 			to_chat(usr, "This can only be used on instances of type /obj")
 			return
 
-		var/action_type = alert("Strict type ([O.type]) or type and all subtypes?",,"Strict type","Type and subtypes","Cancel")
+		var/action_type = alert("Strict type ([O.type]) or type and all subtypes?", null,"Strict type","Type and subtypes","Cancel")
 		if(action_type == "Cancel" || !action_type)
 			return
 
-		if(alert("Are you really sure you want to delete all objects of type [O.type]?",,"Yes","No") != "Yes")
+		if(alert("Are you really sure you want to delete all objects of type [O.type]?", null,"Yes","No") != "Yes")
 			return
 
-		if(alert("Second confirmation required. Delete?",,"Yes","No") != "Yes")
+		if(alert("Second confirmation required. Delete?", null,"Yes","No") != "Yes")
 			return
 
 		var/O_type = O.type

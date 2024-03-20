@@ -64,7 +64,7 @@
 #define HANDS			(HAND_LEFT | HAND_RIGHT)
 #define FULL_BODY		((1<<11)-1) //10 bit bitmask, update me if we ever add more clothing parts.
 
-// bitflags for the percentual amount of protection a piece of clothing which covers the body part offers.
+// the percentual amount of protection a piece of clothing which covers the body part offers.
 // Used with human/proc/get_heat_protection() and human/proc/get_cold_protection()
 // The values here should add up to 1.
 // Hands and feet have 2.5%, arms and legs 7.5%, each of the torso parts has 15% and the head has 30%

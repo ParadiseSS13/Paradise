@@ -6,7 +6,7 @@
 	if(!check_rights(R_ADMIN|R_DEBUG))
 		return
 
-	var/choice = alert("Do you want to rebuild space transitions?",,"Yes", "No")
+	var/choice = alert("Do you want to rebuild space transitions?", null,"Yes", "No")
 
 	if(choice == "No")
 		return
@@ -29,7 +29,7 @@
 	if(!check_rights(R_ADMIN|R_DEBUG))
 		return
 
-	var/choice = alert("Are you sure you want to make a space map out of turfs?",,"Yes","No")
+	var/choice = alert("Are you sure you want to make a space map out of turfs?", null,"Yes","No")
 
 	if(choice == "No")
 		return

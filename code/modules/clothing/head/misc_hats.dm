@@ -247,6 +247,12 @@
 	item_state = "cowboyhat"
 	desc = "For the Rancher in us all."
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+		)
+
 /obj/item/clothing/head/cowboyhat/tan
 	name = "tan cowboy hat"
 	icon_state = "cowboyhat_tan"
@@ -270,6 +276,12 @@
 	icon_state = "cowboyhat_pink"
 	item_state = "cowboyhat_pink"
 	desc = "For those buckle bunnies wanta' become a real buckaroo."
+
+/obj/item/clothing/head/cowboyhat/sec
+	name = "security cowboy hat"
+	desc = "Secway is your horse."
+	icon_state = "cowboyhat_sec"
+	item_state = "cowboyhat_sec"
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
