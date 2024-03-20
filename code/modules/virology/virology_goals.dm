@@ -92,24 +92,25 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	var/datum/reagent/blood/BL = locate() in reagent_list
 	if(!BL)
 		return
-	if(BL.data && BL.data["viruses"])
-		for(var/datum/disease/advance/D in BL.data["viruses"])
-			if(length(D.symptoms) < 4) //We want 3 other symptoms alongside the requested one
+	if(!BL.data || !BL.data["viruses"])
+		return
+	for(var/datum/disease/advance/D in BL.data["viruses"])
+		if(length(D.symptoms) < 4) //We want 3 other symptoms alongside the requested one
+			continue
+		var/properties = D.GenerateProperties()
+		var/property = properties[goal_property]
+		if(property != goal_property_value)
+			continue
+		for(var/datum/symptom/S in D.symptoms)
+			if(!goal_symptom)
+				return
+			if(S.type != goal_symptom)
 				continue
-			var/properties = D.GenerateProperties()
-			var/property = properties[goal_property]
-			if(property != goal_property_value)
-				continue
-			for(var/datum/symptom/S in D.symptoms)
-				if(!goal_symptom)
-					return
-				if(S.type != goal_symptom)
-					continue
-				delivered_amount += BL.volume
-				if(delivered_amount >= delivery_goal)
-					completed = TRUE
-					check_total_virology_goals_completion()
-					return TRUE
+			delivered_amount += BL.volume
+			if(delivered_amount >= delivery_goal)
+				completed = TRUE
+				check_total_virology_goals_completion()
+				return TRUE
 
 /datum/virology_goal/virus
 	name = "Specific Viral Sample Request (Non-Stealth)"
@@ -163,19 +164,20 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	var/datum/reagent/blood/BL = locate() in reagent_list
 	if(!BL)
 		return
-	if(BL.data && BL.data["viruses"])
-		for(var/datum/disease/advance/D in BL.data["viruses"])
-			if(length(D.symptoms) != length(goal_symptoms)) //This is here so viruses with extra symptoms dont get approved
+	if(!BL.data || !BL.data["viruses"])
+		return
+	for(var/datum/disease/advance/D in BL.data["viruses"])
+		if(length(D.symptoms) != length(goal_symptoms)) //This is here so viruses with extra symptoms dont get approved
+			return
+		for(var/S in goal_symptoms)
+			var/datum/symptom/SY = locate(S) in D.symptoms
+			if(!SY)
 				return
-			for(var/S in goal_symptoms)
-				var/datum/symptom/SY = locate(S) in D.symptoms
-				if(!SY)
-					return
-				delivered_amount += BL.volume
-				if(delivered_amount >= delivery_goal)
-					completed = TRUE
-					check_total_virology_goals_completion()
-					return TRUE
+			delivered_amount += BL.volume
+			if(delivered_amount >= delivery_goal)
+				completed = TRUE
+				check_total_virology_goals_completion()
+				return TRUE
 
 /datum/virology_goal/virus/stealth
 	name = "Specific Viral Sample Request (Stealth)"
