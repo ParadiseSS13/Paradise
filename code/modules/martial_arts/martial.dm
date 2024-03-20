@@ -159,7 +159,7 @@
 		if(istype(MA, src))
 			return
 	if(has_explaination_verb)
-		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
+		add_verb(H, /mob/living/carbon/human/proc/martial_arts_help)
 	temporary = make_temporary
 	owner_UID = H.UID()
 	H.mind.known_martial_arts.Add(src)
@@ -172,7 +172,7 @@
 	deltimer(combo_timer)
 	H.mind.known_martial_arts.Remove(MA)
 	H.mind.martial_art = get_highest_weight(H)
-	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
+	remove_verb(H, /mob/living/carbon/human/proc/martial_arts_help)
 
 ///	Returns the martial art with the highest weight from all the ones someone knows.
 /datum/martial_art/proc/get_highest_weight(mob/living/carbon/human/H)
@@ -386,6 +386,7 @@
 /obj/item/bostaff
 	name = "bo staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "bostaff0"
 	base_icon_state = "bostaff"
 	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'

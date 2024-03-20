@@ -392,3 +392,6 @@
 #undef MACHINERY
 #undef BLOB
 #undef STRUCTURE
+
+#undef TESLA_DEFAULT_POWER
+#undef TESLA_MINI_POWER

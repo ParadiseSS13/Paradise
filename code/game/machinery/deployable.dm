@@ -105,6 +105,16 @@
 			return //return is need to prevent people from exploiting zero-hit cooldowns with the do_after here
 	return ..()
 
+/obj/structure/barricade/wooden/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	user.visible_message("<span class='notice'>[user] starts ripping [src] down!</span>", "<span class='notice'>You struggle to pull [src] apart...</span>", "<span class='warning'>You hear wood splintering...</span>")
+	if(!I.use_tool(src, user, 6 SECONDS, volume = I.tool_volume))
+		return
+	new /obj/item/stack/sheet/wood(get_turf(src), 5)
+	qdel(src)
+
 /obj/structure/barricade/wooden/crude
 	name = "crude plank barricade"
 	desc = "This space is blocked off by a crude assortment of planks."

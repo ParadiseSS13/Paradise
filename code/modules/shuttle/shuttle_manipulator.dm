@@ -179,7 +179,7 @@
 			var/datum/map_template/shuttle/S = GLOB.shuttle_templates[params["shuttle_id"]]
 			if(S)
 				unload_preview()
-				load_template(S)
+				preview_shuttle = SSshuttle.load_template(S)
 				if(preview_shuttle)
 					preview_template = S
 					usr.forceMove(get_turf(preview_shuttle))
@@ -194,14 +194,33 @@
 					intact for round sanity.")
 			else if(S)
 				// If successful, returns the mobile docking port
-				var/obj/docking_port/mobile/mdp = action_load(S)
+				var/obj/docking_port/mobile/mdp = action_load_old(S)
 				if(mdp)
 					usr.forceMove(get_turf(mdp))
 					message_admins("[key_name_admin(usr)] loaded [mdp] with the shuttle manipulator.")
 					log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.</span>")
 
-
 /obj/machinery/shuttle_manipulator/proc/action_load(datum/map_template/shuttle/loading_template)
+	if(isnull(loading_template))
+		CRASH("No template passed.")
+
+	if(preview_shuttle && (loading_template != preview_template))
+		preview_shuttle.jumpToNullSpace()
+		preview_shuttle = null
+		preview_template = null
+
+	if(!preview_shuttle)
+		preview_shuttle = SSshuttle.load_template(loading_template)
+		preview_template = loading_template
+
+	SSshuttle.replace_shuttle(preview_shuttle)
+
+	existing_shuttle = null
+	preview_shuttle = null
+	preview_template = null
+	selected = null
+
+/obj/machinery/shuttle_manipulator/proc/action_load_old(datum/map_template/shuttle/loading_template)
 	// Check for an existing preview
 	if(preview_shuttle && (loading_template != preview_template))
 		preview_shuttle.jumpToNullSpace()
@@ -209,7 +228,7 @@
 		preview_template = null
 
 	if(!preview_shuttle)
-		load_template(loading_template)
+		preview_shuttle = SSshuttle.load_template(loading_template)
 		preview_template = loading_template
 
 	// get the existing shuttle information, if any
@@ -260,51 +279,6 @@
 	selected = null
 
 	return preview_shuttle
-
-/obj/machinery/shuttle_manipulator/proc/load_template(datum/map_template/shuttle/S)
-	// load shuttle template, centred at shuttle import landmark,
-	var/turf/landmark_turf = get_turf(locate("landmark*Shuttle Import"))
-	S.load(landmark_turf, centered = TRUE)
-
-	var/affected = S.get_affected_turfs(landmark_turf, centered=TRUE)
-
-	var/found = 0
-	// Search the turfs for docking ports
-	// - We need to find the mobile docking port because that is the heart of
-	//   the shuttle.
-	// - We need to check that no additional ports have slipped in from the
-	//   template, because that causes unintended behaviour.
-	for(var/T in affected)
-		for(var/obj/docking_port/P in T)
-			if(istype(P, /obj/docking_port/mobile))
-				var/obj/docking_port/mobile/M = P
-				found++
-				if(found > 1)
-					qdel(P, force=TRUE)
-					world.log << "Map warning: Shuttle Template [S.mappath] \
-						has multiple mobile docking ports."
-				else if(!M.timid)
-					// The shuttle template we loaded isn't "timid" which means
-					// it's already registered with the shuttles subsystem.
-					// This is a bad thing.
-					var/m = "Template [S] is non-timid! Unloading."
-					WARNING(m)
-					M.jumpToNullSpace()
-					return
-				else
-					preview_shuttle = P
-			if(istype(P, /obj/docking_port/stationary))
-				world.log << "Map warning: Shuttle Template [S.mappath] has a \
-					stationary docking port."
-	if(!found)
-		var/msg = "load_template(): Shuttle Template [S.mappath] has no \
-			mobile docking port. Aborting import."
-		for(var/T in affected)//wot do?
-			var/turf/T0 = T
-			T0.contents = null
-
-		message_admins(msg)
-		WARNING(msg)
 
 /obj/machinery/shuttle_manipulator/proc/unload_preview()
 	if(preview_shuttle)

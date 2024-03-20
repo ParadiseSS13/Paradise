@@ -194,3 +194,6 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 //	to_chat(src, "Downloading [file]")
 		var/sound/S = sound("[VOX_PATH][file]")
 		src << browse_rsc(S)
+
+#undef VOX_DELAY
+#undef VOX_PATH

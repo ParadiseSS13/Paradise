@@ -229,8 +229,14 @@
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
 			var/mob/living/simple_animal/chicken/C = new /mob/living/simple_animal/chicken(loc)
+			if(name != initial(name))
+				C.name = name
 			if(mind)
 				mind.transfer_to(C)
+			if(pcollar)
+				var/the_collar = pcollar
+				unEquip(pcollar)
+				C.add_collar(the_collar)
 			qdel(src)
 
 
@@ -520,3 +526,5 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 /obj/item/udder/cow/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent("milk", 20)
+
+#undef MAX_CHICKENS

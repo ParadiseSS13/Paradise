@@ -39,8 +39,10 @@
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 	var/contact_poison_poisoner = null
-	var/paper_width = 400//Width of the window that opens
-	var/paper_height = 400//Height of the window that opens
+	/// Width of the window that opens
+	var/paper_width = 600
+	/// Height of the window that opens
+	var/paper_height = 750
 
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"
@@ -82,7 +84,7 @@
 	else
 		data = "[header]<div id='markdown'>[infolinks ? info_links : info]</div>[footer][stamps]"
 	if(view)
-		var/datum/browser/popup = new(user, "Paper[UID()]", , paper_width, paper_height)
+		var/datum/browser/popup = new(user, "Paper[UID()]", null, paper_width, paper_height)
 		popup.include_default_stylesheet = FALSE
 		popup.set_content(data)
 		if(!stars)
@@ -288,7 +290,7 @@
 
 
 /obj/item/paper/proc/openhelp(mob/user as mob)
-	user << browse({"<HTML><HEAD><TITLE>Pen Help</TITLE></HEAD>
+	user << browse({"<html><meta charset='utf-8'><head><title>Pen Help</title></head>
 	<BODY>
 		<b><center>Crayon&Pen commands</center></b><br>
 		<br>
@@ -585,6 +587,7 @@
 /obj/item/paper/fortune
 	name = "fortune"
 	icon_state = "slip"
+	paper_width = 400
 	paper_height = 150
 
 /obj/item/paper/fortune/New()
