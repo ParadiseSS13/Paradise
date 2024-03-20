@@ -37,19 +37,11 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: ./tgui/yarn.lock
 
-      - name: Setup Node & nvm
-        run: |
-          source _build_dependencies.sh
-          source ~/.nvm/nvm.sh
-          nvm install $NODE_VERSION
-          nvm use $NODE_VERSION
-          corepack enable
-
       - run: pip install -r tools/requirements.txt
       - name: Run Linters
         run: |
           tools/ci/check_json.sh
-          tools/ci/build_tgui.sh
+          tgui/bin/tgui --ci
           python tools/ci/check_grep2.py
           python tools/ci/check_line_endings.py
           python tools/ci/check_file_names.py

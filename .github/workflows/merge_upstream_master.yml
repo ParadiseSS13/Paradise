@@ -26,14 +26,6 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: ./tgui/yarn.lock
 
-      - name: Setup Node & nvm
-        run: |
-          source _build_dependencies.sh
-          source ~/.nvm/nvm.sh
-          nvm install $NODE_VERSION
-          nvm use $NODE_VERSION
-          corepack enable
-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
