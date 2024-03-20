@@ -607,6 +607,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		SSstatpanels.set_status_tab(client)
 	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(selected_module)]")
 	notify_ai(2)
+/// Take the borg's upgrades and spill them on the floor
+/mob/living/silicon/robot/proc/spill_upgrades()
+	for(var/obj/item/borg/upgrade/U in contents)
+		if(istype(U, /obj/item/borg/upgrade/reset)) // The reset module is supposed to be consumed on use, this stops it from dropping on the floor if used
+			QDEL_NULL(U)
+		U.forceMove(get_turf(src))
 
 /mob/living/silicon/robot/proc/reset_module()
 	notify_ai(2)
@@ -634,17 +640,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_icons()
 	update_headlamp()
 
-	speed = 0 // Remove upgrades.
+	spill_upgrades()
+	speed = 0 // Strip lingering upgrade effects.
 	ionpulse = FALSE
 	weapons_unlock = FALSE
 	add_language("Robot Talk", TRUE)
 	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
 		weather_immunities -= "lava"
 	armor = getArmor(arglist(initial(armor)))
-
-	for(var/obj/item/borg/upgrade/U in contents)
-		QDEL_NULL(U)
-		//This is needed so that upgrades can be installed again after the borg's module is reset.
 
 	status_flags |= CANPUSH
 
@@ -1017,6 +1020,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		to_chat(user, "You jam the crowbar into the robot and begin levering the securing bolts...")
 		if(I.use_tool(src, user, 30, volume = I.tool_volume))
 			user.visible_message("[user] deconstructs [src]!", "<span class='notice'>You unfasten the securing bolts, and [src] falls to pieces!</span>")
+			spill_upgrades()
 			deconstruct()
 		return
 	// Okay we're not removing the cell or an MMI, but maybe something else?
@@ -1180,7 +1184,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/update_icons()
 	overlays.Cut()
-	
+
 	if(stat != DEAD && !(IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
 			overlays += "eyes-[custom_panel]"
@@ -1388,10 +1392,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(W)
 		W.attack_self(src)
 
-/mob/living/silicon/robot/proc/SetLockdown(state = 1)
+/mob/living/silicon/robot/proc/SetLockdown(state = TRUE)
 	// They stay locked down if their wire is cut.
 	if(wires.is_cut(WIRE_BORG_LOCKED))
-		state = 1
+		state = TRUE
 	if(state)
 		throw_alert("locked", /atom/movable/screen/alert/locked)
 	else
