@@ -199,7 +199,6 @@
 /obj/item/gun/magic/tentacle
 	name = "tentacle"
 	desc = "A fleshy tentacle that can stretch out and grab things or people."
-	icon = 'icons/obj/items.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "tentacle"
