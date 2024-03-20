@@ -231,6 +231,7 @@
 		"military+jacket%2c+white": "/datum/gear/suit/wh_miljacket",
 		"security+jacket": "/datum/gear/suit/secjacket",
 		"security+bomber+jacket": "/datum/gear/suit/secbomberjacket",
+		"security+poncho": "/datum/gear/suit/secponcho",
 		"Ian+Shirt": "/datum/gear/suit/ianshirt",
 		"poncho%2c+classic": "/datum/gear/suit/poncho",
 		"poncho%2c+green": "/datum/gear/suit/grponcho",

@@ -1,7 +1,7 @@
 /obj/item/melee/baton
 	name = "stunbaton"
 	desc = "A stun baton for incapacitating people with."
-	icon = 'icons/obj/baton.dmi'
+	icon = 'icons/obj/weapons/baton.dmi'
 	icon_state = "stunbaton"
 	var/base_icon = "stunbaton"
 	item_state = null

@@ -1,7 +1,7 @@
 /obj/item/katana/energy
 	name = "energy katana"
 	desc = "A katana infused with a strong energy"
-	icon = 'icons/obj/energy_melee.dmi'
+	icon = 'icons/obj/weapons/energy_melee.dmi'
 	icon_state = "energy_katana"
 	item_state = "energy_katana"
 	force = 40
