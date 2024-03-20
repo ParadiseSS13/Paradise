@@ -156,12 +156,13 @@
 	return linked_action.AltTrigger()
 
 /atom/movable/screen/movable/action_button/proc/clean_up_keybinds(mob/owner)
-	if(linked_keybind)
-		owner.client.active_keybindings[linked_keybind.binded_to] -= (linked_keybind)
-		if(!length(owner.client.active_keybindings[linked_keybind.binded_to]))
-			owner.client.active_keybindings[linked_keybind.binded_to] = null
-			owner.client.active_keybindings -= linked_keybind.binded_to
-		QDEL_NULL(linked_keybind)
+	if(!linked_keybind || !owner.client)
+		return
+	owner.client.active_keybindings[linked_keybind.binded_to] -= (linked_keybind)
+	if(!length(owner.client.active_keybindings[linked_keybind.binded_to]))
+		owner.client.active_keybindings[linked_keybind.binded_to] = null
+		owner.client.active_keybindings -= linked_keybind.binded_to
+	QDEL_NULL(linked_keybind)
 
 /atom/movable/screen/movable/action_button/MouseEntered(location, control, params)
 	. = ..()

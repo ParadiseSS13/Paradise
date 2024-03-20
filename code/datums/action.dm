@@ -5,7 +5,8 @@
 	var/obj/target = null
 	var/check_flags = 0
 	var/button_icon = 'icons/mob/actions/actions.dmi'
-	var/background_icon_state = "bg_default"
+	var/background_icon = 'icons/mob/actions/actions.dmi'
+	var/background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
 	var/buttontooltipstyle = ""
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
 	var/button_icon_state = "default"
@@ -47,20 +48,23 @@
 	RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref), override = TRUE)
 	GiveAction(M)
 
-/datum/action/proc/Remove(mob/M)
+/datum/action/proc/Remove(mob/remove_from)
 	for(var/datum/hud/hud in viewers)
 		if(!hud.mymob)
 			continue
 		HideFrom(hud.mymob)
 
-	LAZYREMOVE(M.actions, src) // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
+	LAZYREMOVE(remove_from?.actions, src) // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
 	viewers = list()
-	owner = null
+	// owner = null
 
-	if(owner)
+	if(isnull(owner))
+		return
+
+	if(target == owner)
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref))
+	if(owner == remove_from)
 		UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
-		if(target == owner)
-			RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref))
 		owner = null
 
 /datum/action/proc/UpdateButtons(status_only, force)
@@ -234,7 +238,7 @@
 
 /datum/action/item_action/Destroy()
 	var/obj/item/I = target
-	I.actions -= src
+	LAZYREMOVE(I?.actions, src)
 	return ..()
 
 /datum/action/item_action/Trigger(left_click = TRUE, attack_self = TRUE) //Maybe we don't want to click the thing itself
