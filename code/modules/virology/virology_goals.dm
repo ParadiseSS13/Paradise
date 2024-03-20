@@ -1,5 +1,6 @@
 GLOBAL_LIST_INIT(virology_goals, list(new /datum/virology_goal/property_symptom, new /datum/virology_goal/virus, new /datum/virology_goal/virus/stealth))
 GLOBAL_LIST_EMPTY(archived_virology_goals)
+#define MAX_LOOPS 30
 
 /datum/virology_goal
 	var/name = "Generic Virology Goal"
@@ -69,7 +70,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 				goal_property_value += S.transmittable
 		qdel(S)
 		times_looped++
-	while(check_for_duplicate() && times_looped < 30)
+	while(check_for_duplicate() && times_looped < MAX_LOOPS)
 
 /datum/virology_goal/property_symptom/check_for_duplicate()
 	. = FALSE
@@ -122,7 +123,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		var/stealth = 0
 		for(var/i in 1 to 5)
 			var/list/candidates = list()
-			for(var/datum/symptom/S as anything in symptoms) //There is a "as anything" added because for some mystery reason it doesnt work without it
+			for(var/datum/symptom/S as anything in symptoms)
 				if(!meets_stealth_requirement(stealth + S.stealth))
 					continue
 				candidates += S
@@ -131,7 +132,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 			stealth += S2.stealth
 			symptoms -= S2
 		times_looped++
-	while(check_for_duplicate() && times_looped < 30)
+	while(check_for_duplicate() && times_looped < MAX_LOOPS)
 
 /datum/virology_goal/virus/check_for_duplicate()
 	. = FALSE
