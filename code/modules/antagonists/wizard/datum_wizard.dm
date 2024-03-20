@@ -12,6 +12,7 @@
 	wiki_page_name = "Wizard"
 	var/should_equip_wizard = TRUE
 	var/should_name_pick = TRUE
+	var/i_have_mugwort = TRUE
 	var/additional_text
 
 /datum/antagonist/wizard/on_gain()
@@ -32,15 +33,16 @@
 	var/list/messages = list()
 	if(should_equip_wizard)
 		messages = equip_wizard()
-	messages += "Remember to bring your magical Mugwort Tea, it will slowly heal you when you drink it."
+	if(i_have_mugwort)
+		messages += "Remember to bring your magical Mugwort Tea, it will slowly heal you when you drink it."
 	return messages
 
 /datum/antagonist/wizard/detach_from_owner()
-	. = ..()
 	owner.current.faction |= "neutral"
 	owner.current.faction -= "wizard"
 	owner.offstation_role = FALSE
 	owner.current.spellremove()
+	return ..()
 
 /datum/antagonist/wizard/farewell()
 	if(owner?.current)

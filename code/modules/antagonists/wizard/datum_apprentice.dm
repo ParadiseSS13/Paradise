@@ -2,6 +2,9 @@
 	name = "Wizard Apprentice"
 	special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 	antag_hud_name = "apprentice"
+	antag_datum_blacklist = list(/datum/antagonist/wizard/construct)
+
+	i_have_mugwort = FALSE
 	/// Temporary reference to a mob for purposes of objectives, and general text for the apprentice.
 	var/mob/living/my_teacher
 	/// The class type of this apprentice,
@@ -12,8 +15,6 @@
 	. += "<span class='danger'>You are [my_teacher.real_name]'s apprentice! You are bound by magic contract to follow [my_teacher.p_their()] orders and help [my_teacher.p_them()] in accomplishing [my_teacher.p_their()] goals.</span>"
 
 /datum/antagonist/wizard/apprentice/give_objectives()
-	if(!ishuman(owner.current)) // constructs can be wizard apprentices too
-		return
 	var/datum/objective/protect/new_objective = new /datum/objective/protect
 	new_objective.target = my_teacher.mind
 	new_objective.explanation_text = "Protect and obey [my_teacher.real_name], your teacher."
@@ -32,8 +33,6 @@
 /datum/antagonist/wizard/apprentice/equip_wizard()
 	if(!class_type)
 		CRASH("/datum/antagonist/wizard/apprentice was never assigned a class_type")
-	if(!ishuman(owner.current))
-		return
 	var/mob/living/carbon/human/new_wiz = owner.current
 	new_wiz.equip_to_slot_or_del(new /obj/item/radio/headset(new_wiz), SLOT_HUD_LEFT_EAR)
 	if(class_type == "stealth")
