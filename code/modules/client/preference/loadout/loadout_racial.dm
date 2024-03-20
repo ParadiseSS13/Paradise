@@ -17,7 +17,7 @@
 	cost = 1
 
 /datum/gear/racial/taj
-	display_name = "Embroidered veil"
+	display_name = "Tajaran veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Can be combined with various other eyewear."
 	path = /obj/item/clothing/glasses/hud/tajblind
 	slot = SLOT_HUD_GLASSES

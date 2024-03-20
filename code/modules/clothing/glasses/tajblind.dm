@@ -59,45 +59,29 @@
 			These current designs are adapted from recreations of the ancient veils, created by the Alchemists Guild. Technologically advanced and created to help Tajara adapt to life in the larger galactic community, they have systems built-in that allow them to have holographic huds, as well as corrective technology to help Tajaran overcome their genetic tritanopia colour blindness. <br>\
 			Availability on the wider market is highly restricted as a result of their cultural importance, as well as the patent held by the Alchemists Guild, and the lenses are very hard to reverse engineer. Popular theories suggest this as a result of the unique materials available on Adhomai, or the inability to recreate the light conditions of the Tajara homeworld."
 
-/obj/item/clothing/glasses/hud/tajblind/cargo
-	name = "\improper Tajaran mining meson veil"
-	icon_state = "tajblind_cargo"
-	item_state = "tajblind_cargo"
-	var/active_on_equip = TRUE
-
-/obj/item/clothing/glasses/hud/tajblind/cargo/New()
-	..()
-	desc += " It has an optical meson scanner integrated into it."
-
-/obj/item/clothing/glasses/hud/tajblind/cargo/equipped(mob/user, slot, initial)
-	. = ..()
-	if(active_on_equip && slot == SLOT_HUD_GLASSES)
-		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
-
-/obj/item/clothing/glasses/hud/tajblind/cargo/dropped(mob/user)
-	. = ..()
-	if(user)
-		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
-
-/obj/item/clothing/glasses/hud/tajblind/eng
+/obj/item/clothing/glasses/hud/tajblind/meson
 	name = "\improper Tajaran engineering meson veil"
 	icon_state = "tajblind_engi"
 	item_state = "tajblind_engi"
-	var/active_on_equip = TRUE
 
-/obj/item/clothing/glasses/hud/tajblind/eng/New()
+/obj/item/clothing/glasses/hud/tajblind/meson/Initialize()
 	..()
 	desc += " It has an optical meson scanner integrated into it."
 
-/obj/item/clothing/glasses/hud/tajblind/eng/equipped(mob/user, slot, initial)
+/obj/item/clothing/glasses/hud/tajblind/meson/equipped(mob/user, slot, initial)
 	. = ..()
-	if(active_on_equip && slot == SLOT_HUD_GLASSES)
+	if(slot == SLOT_HUD_GLASSES)
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
-/obj/item/clothing/glasses/hud/tajblind/eng/dropped(mob/user)
+/obj/item/clothing/glasses/hud/tajblind/meson/dropped(mob/user)
 	. = ..()
 	if(user)
 		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+
+/obj/item/clothing/glasses/hud/tajblind/meson/cargo
+	name = "\improper Tajaran mining meson veil"
+	icon_state = "tajblind_cargo"
+	item_state = "tajblind_cargo"
 
 /obj/item/clothing/glasses/hud/tajblind/sci
 	name = "\improper Tajaran scientific veil"
@@ -106,7 +90,7 @@
 	scan_reagents = 1
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/toggle_research_scanner)
 
-/obj/item/clothing/glasses/hud/tajblind/sci/New()
+/obj/item/clothing/glasses/hud/tajblind/sci/Initialize()
 	..()
 	desc += " It has science goggles integrated into it."
 
@@ -117,7 +101,7 @@
 	hud_types = DATA_HUD_MEDICAL_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_MEDICAL_READ)
 
-/obj/item/clothing/glasses/hud/tajblind/med/New()
+/obj/item/clothing/glasses/hud/tajblind/med/Initialize()
 	..()
 	desc += " It has a health HUD integrated into it."
 
@@ -129,7 +113,7 @@
 	hud_types = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
-/obj/item/clothing/glasses/hud/tajblind/sec/New()
+/obj/item/clothing/glasses/hud/tajblind/sec/Initialize()
 	..()
 	desc += " It has a security HUD integrated into it."
 
@@ -138,50 +122,34 @@
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/New()
+/obj/item/clothing/glasses/hud/tajblind/shaded/Initialize()
 	..()
 	desc += " This one has an in-built flash protection."
 
-
-/obj/item/clothing/glasses/hud/tajblind/shaded/cargo
-	name = "shaded Tajaran mining meson veil"
-	icon_state = "tajblind_cargo"
-	item_state = "tajblind_cargo"
-	var/active_on_equip = TRUE
-
-/obj/item/clothing/glasses/hud/tajblind/shaded/cargo/New()
-	..()
-	desc += " It has an optical meson scanner integrated into it."
-
-/obj/item/clothing/glasses/hud/tajblind/shaded/cargo/equipped(mob/user, slot, initial)
-	. = ..()
-	if(active_on_equip && slot == SLOT_HUD_GLASSES)
-		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
-
-/obj/item/clothing/glasses/hud/tajblind/shaded/cargo/dropped(mob/user)
-	. = ..()
-	if(user)
-		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
-
-/obj/item/clothing/glasses/hud/tajblind/shaded/eng
+/obj/item/clothing/glasses/hud/tajblind/shaded/meson
 	name = "shaded Tajaran engineering meson veil"
 	icon_state = "tajblind_engi"
 	item_state = "tajblind_engi"
-	var/active_on_equip = TRUE
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/eng/New()
+/obj/item/clothing/glasses/hud/tajblind/shaded/meson/Initialize()
 	..()
 	desc += " It has an optical meson scanner integrated into it."
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/eng/equipped(mob/user, slot, initial)
+/obj/item/clothing/glasses/hud/tajblind/shaded/meson/equipped(mob/user, slot, initial)
 	. = ..()
-	if(active_on_equip && slot == SLOT_HUD_GLASSES)
+	if(slot == SLOT_HUD_GLASSES)
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/eng/dropped(mob/user)
+/obj/item/clothing/glasses/hud/tajblind/shaded/meson/dropped(mob/user)
 	. = ..()
 	if(user)
 		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+
+
+/obj/item/clothing/glasses/hud/tajblind/shaded/meson/cargo
+	name = "shaded Tajaran mining meson veil"
+	icon_state = "tajblind_cargo"
+	item_state = "tajblind_cargo"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sci
 	name = "shaded Tajaran scientific veil"
@@ -190,7 +158,7 @@
 	scan_reagents = 1
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/toggle_research_scanner)
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/sci/New()
+/obj/item/clothing/glasses/hud/tajblind/shaded/sci/Initialize()
 	..()
 	desc += " It has science goggles integrated into it."
 
@@ -201,10 +169,9 @@
 	hud_types = DATA_HUD_MEDICAL_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_MEDICAL_READ)
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/med/New()
+/obj/item/clothing/glasses/hud/tajblind/shaded/med/Initialize()
 	..()
 	desc += " It has a health HUD integrated into it."
-
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sec
 	name = "shaded Tajaran security veil"
@@ -215,7 +182,7 @@
 	hud_types = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/sec/New()
+/obj/item/clothing/glasses/hud/tajblind/shaded/sec/Initialize()
 	..()
 	desc += " It has a security HUD integrated into it."
 

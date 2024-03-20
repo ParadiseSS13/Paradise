@@ -276,7 +276,7 @@
 
 /datum/crafting_recipe/engtajblind
 	name = "Tajaran engineering meson veil"
-	result = list(/obj/item/clothing/glasses/hud/tajblind/eng)
+	result = list(/obj/item/clothing/glasses/hud/tajblind/meson)
 	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/meson = 1,
@@ -293,12 +293,16 @@
 	result = list(/obj/item/clothing/glasses/meson, /obj/item/clothing/glasses/hud/tajblind)
 	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	reqs = list(/obj/item/clothing/glasses/hud/tajblind/eng = 1)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/meson = 1)
 	category = CAT_CLOTHING
+
+/datum/crafting_recipe/engtajblindremoval/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind/meson)
 
 /datum/crafting_recipe/shadeengtajblind
 	name = "Shaded Tajaran engineering meson veil"
-	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/eng)
+	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/meson)
 	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/meson/sunglasses = 1,
@@ -314,12 +318,17 @@
 	result = list(/obj/item/clothing/glasses/meson/sunglasses, /obj/item/clothing/glasses/hud/tajblind)
 	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/eng = 1)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/meson = 1)
 	category = CAT_CLOTHING
+
+/datum/crafting_recipe/shadeengtajblindremoval/New()
+	..()
+	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind/shaded/meson)
+
 
 /datum/crafting_recipe/cargotajblind
 	name = "Tajaran mining meson veil"
-	result = list(/obj/item/clothing/glasses/hud/tajblind/cargo)
+	result = list(/obj/item/clothing/glasses/hud/tajblind/meson/cargo)
 	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/meson = 1,
@@ -336,12 +345,12 @@
 	result = list(/obj/item/clothing/glasses/meson, /obj/item/clothing/glasses/hud/tajblind)
 	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	reqs = list(/obj/item/clothing/glasses/hud/tajblind/cargo = 1)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/meson/cargo = 1)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/shadecargotajblind
 	name = "Shaded Tajaran mining meson veil"
-	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/cargo)
+	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/meson/cargo)
 	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/meson/sunglasses = 1,
@@ -357,7 +366,7 @@
 	result = list(/obj/item/clothing/glasses/meson/sunglasses, /obj/item/clothing/glasses/hud/tajblind)
 	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/cargo = 1)
+	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/meson/cargo = 1)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/scitajblind
