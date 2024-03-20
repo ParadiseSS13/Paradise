@@ -367,7 +367,7 @@
 	icon_state = "enhead"
 
 /obj/item/clothing/head/bearpelt
-	name = "bear pelt hat"
+	name = "space bear pelt hat"
 	desc = "Fuzzy."
 	icon_state = "bearpelt"
 	item_state = "bearpelt"
@@ -376,6 +376,22 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
+
+/obj/item/clothing/head/bearpelt/black
+	name = "black bear pelt hat"
+	icon_state = "black_bearpelt"
+	item_state = "black_bearpelt"
+
+/obj/item/clothing/head/bearpelt/brown
+	name = "brown bear pelt hat"
+	icon_state = "brown_bearpelt"
+	item_state = "brown_bearpelt"
+
+/obj/item/clothing/head/bearpelt/polar
+	name = "polar bear pelt hat"
+	desc = "Fuzzy, and also stained with blood."
+	icon_state = "polar_bearpelt"
+	item_state = "polar_bearpelt"
 
 /obj/item/clothing/head/xenos
 	name = "xeno helmet"
