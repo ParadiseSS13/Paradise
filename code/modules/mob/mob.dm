@@ -783,9 +783,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
-/mob/proc/is_dead()
-	return stat == DEAD
-
 // Nobody in their right mind will have this enabled on the production server, uncomment if you want this for some reason
 /*
 /mob/verb/abandon_mob()
