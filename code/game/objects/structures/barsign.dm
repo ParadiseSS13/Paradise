@@ -155,6 +155,8 @@
 	update_icon()
 
 /obj/machinery/barsign/attack_hand(mob/user)
+	if(..())
+		return
 	if(stat & MAINT)
 		to_chat(user, "<span class ='warning'>Wait until the repairs are complete!</span>")
 		return
@@ -170,6 +172,7 @@
 	pick_sign()
 
 /obj/machinery/barsign/AltClick(mob/user)
+	add_fingerprint(user)
 	if(toggle_on_off())
 		return
 	attack_hand(user)
@@ -191,6 +194,7 @@
 		build_stage = BARSIGN_CIRCUIT
 		update_icon()
 		playsound(get_turf(src), I.usesound, 50, TRUE)
+		add_fingerprint(user)
 		return
 	// Wiring the bar sign
 	else if(build_stage == BARSIGN_CIRCUIT && istype(I, /obj/item/stack/cable_coil))
@@ -203,6 +207,7 @@
 		playsound(get_turf(src), I.usesound, 50, TRUE)
 		to_chat(user, "<span class='notice'>You wire [src]!</span>")
 		power_state = IDLE_POWER_USE
+		add_fingerprint(user)
 		return
 	// Placing in the glass
 	else if(build_stage == BARSIGN_WIRED && istype(I, /obj/item/stack/sheet/glass))
@@ -215,6 +220,7 @@
 		if(stat & BROKEN)
 			stat &= ~BROKEN
 		set_sign(new /datum/barsign/hiddensigns/signoff)
+		add_fingerprint(user)
 		return
 	. = ..()
 
@@ -257,6 +263,7 @@
 		obj_integrity = max_integrity
 		stat &= ~BROKEN
 		set_sign(new /datum/barsign/hiddensigns/signoff)
+		add_fingerprint(user)
 	stat &= ~MAINT
 
 /obj/machinery/barsign/screwdriver_act(mob/living/user, obj/item/I)
@@ -276,6 +283,7 @@
 			panel_open = FALSE
 			to_chat(user, "<span class='notice'>You close the maintenance panel of [src].</span>")
 		I.play_tool_sound(user, I.tool_volume)
+		add_fingerprint(user)
 
 /obj/machinery/barsign/wrench_act(mob/living/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
@@ -319,6 +327,7 @@
 			bse.forceMove(get_turf(user))
 			build_stage = BARSIGN_FRAME
 			update_icon()
+			add_fingerprint(user)
 		// Removing the glass screen
 		else if(build_stage == BARSIGN_COMPLETE)
 			if(panel_open)
@@ -334,6 +343,7 @@
 					G.forceMove(get_turf(user))
 				build_stage = BARSIGN_WIRED
 				update_icon()
+				add_fingerprint(user)
 			else
 				to_chat(user, "<span class='warning'>Open the maintenance panel first!</span>")
 				return
@@ -362,6 +372,7 @@
 		update_icon()
 		power_state = NO_POWER_USE
 		I.play_tool_sound(user, I.tool_volume)
+		add_fingerprint(user)
 
 /obj/machinery/barsign/emag_act(mob/user)
 	if(stat & (BROKEN|NOPOWER|EMPED))
@@ -371,6 +382,7 @@
 		to_chat(user, "<span class='warning'>[src] is already taken over!</span>")
 		return
 	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
+	add_fingerprint(user)
 	addtimer(CALLBACK(src, PROC_REF(post_emag)), 10 SECONDS)
 	return TRUE
 
