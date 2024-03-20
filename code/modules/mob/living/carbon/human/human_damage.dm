@@ -110,7 +110,7 @@
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
 		if(amount > 0)
-			O.receive_damage(amount, 0, sharp = damage_source.sharp, used_weapon = damage_source, forbidden_limbs = list(), ignore_resists = FALSE, updating_health = updating_health)
+			O.receive_damage(amount, 0, sharp = (damage_source ? damage_source.sharp : null), used_weapon = damage_source, forbidden_limbs = list(), ignore_resists = FALSE, updating_health = updating_health)
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
 			O.heal_damage(-amount, 0, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
