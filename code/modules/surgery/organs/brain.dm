@@ -78,9 +78,6 @@
 
 	if(!owner) return ..() // Probably a redundant removal; just bail
 
-	if(is_species(owner, /datum/species/monkey))
-		name = "[owner.name]'s [initial(name)]"
-
 	var/obj/item/organ/internal/brain/B = src
 	if(!special)
 		if(owner.mind && !non_primary && !decoy_brain)//don't transfer if the owner does not have a mind.
