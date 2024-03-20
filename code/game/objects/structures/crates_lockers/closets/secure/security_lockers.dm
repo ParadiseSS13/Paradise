@@ -229,7 +229,7 @@
 	new /obj/item/radio/headset(src)
 
 /obj/structure/closet/secure_closet/brig/temp
-	desc = "A locker connected to the cell's timer system, used to store prisioner belongings. It unlocks automatically once the sentence has been served."
+	desc = "A locker connected to the cell's timer system, used to store prisoner belongings. It unlocks automatically once the sentence has been served."
 
 /obj/structure/closet/secure_closet/brig/temp/populate_contents()
 	return
