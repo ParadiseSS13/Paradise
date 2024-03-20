@@ -85,7 +85,7 @@
 	amount = 20
 
 /obj/item/stack/tile/bamboo/tatami
-	name = "Tatami with green rim"
+	name = "tatami with green rim"
 	singular_name = "green tatami floor tile"
 	icon_state = "tile_tatami_green"
 	turf_type = /turf/simulated/floor/bamboo/tatami

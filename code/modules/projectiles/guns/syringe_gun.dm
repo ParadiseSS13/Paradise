@@ -406,9 +406,6 @@
 	desc = "Fire syringes at a short distance."
 	icon_state = "blowgun"
 	item_state = "gun"
-	fire_sound = 'sound/items/syringeproj.ogg'
-	w_class = WEIGHT_CLASS_NORMAL
-	force = 4
 
 /obj/item/gun/syringe/blowgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	visible_message("<span class='danger'>[user] shoots the blowgun!</span>")
