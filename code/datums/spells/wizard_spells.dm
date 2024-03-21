@@ -494,7 +494,8 @@
 
 /obj/effect/proc_holder/spell/corpse_explosion/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
-	T.click_radius = -1
+	T.click_radius = 0
+	T.try_auto_target = FALSE
 	T.allowed_type = /mob/living
 	return T
 
