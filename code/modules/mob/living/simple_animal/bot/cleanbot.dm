@@ -29,6 +29,7 @@
 	var/failed_steps
 	var/next_dest
 	var/next_dest_loc
+	var/area/area_locked
 	var/static/list/clean_dirt = list(
 		/obj/effect/decal/cleanable/vomit,
 		/obj/effect/decal/cleanable/blood/gibs/robot,
@@ -42,6 +43,8 @@
 		/obj/effect/decal/cleanable/ash,
 		/obj/effect/decal/cleanable/greenglow,
 		/obj/effect/decal/cleanable/dirt
+		/obj/effect/decal/cleanable/glass
+
 	)
 	var/static/list/clean_blood = list(
 		/obj/effect/decal/cleanable/blood,
@@ -100,8 +103,14 @@
 			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
 
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
-	if(is_type_in_typecache(D, clean_dirt) || blood && is_type_in_typecache(D, clean_blood))
-		return D
+	if(!(is_type_in_typecache(D, clean_dirt) || blood && is_type_in_typecache(D, clean_blood)))
+		return FALSE
+	if(area_locked)
+		var/area/target_area = get_area(D)
+		if(target_area == area_locked)
+			return D
+		return FALSE
+	return D
 
 /mob/living/simple_animal/bot/cleanbot/handle_automated_action()
 	if(!..())
@@ -157,6 +166,9 @@
 
 	oldloc = loc
 
+/mob/living/simple_animal/bot/cleanbot/proc/assign_area()
+	area_locked = get_area(loc)
+
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	anchored = TRUE
 	icon_state = "cleanbot-c"
@@ -200,6 +212,7 @@
 /mob/living/simple_animal/bot/cleanbot/ui_data(mob/user)
 	var/list/data = ..()
 	data["cleanblood"] = blood
+	data["area"] = get_area_name(area_locked)
 	return data
 
 /mob/living/simple_animal/bot/cleanbot/ui_act(action, params)
@@ -225,6 +238,8 @@
 			remote_disabled = !remote_disabled
 		if("blood")
 			blood =!blood
+		if("area")
+			assign_area()
 		if("ejectpai")
 			ejectpai()
 
