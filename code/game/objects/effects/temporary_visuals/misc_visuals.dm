@@ -105,11 +105,11 @@
 
 /obj/effect/temp_visual/corpse_explosion
 	icon_state = "corpse_explosion"
-	icon = 'icons/effects/effects.dmi'
+	icon = 'icons/effects/64x64.dmi'
 	icon_state = "corpse_explosion"
 	light_range = 5
 	light_color = "#f7dce3"
-	duration = 10
+	duration = 13
 
 /obj/effect/temp_visual/monkeyify
 	icon = 'icons/mob/mob.dmi'
