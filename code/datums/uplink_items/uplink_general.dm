@@ -810,7 +810,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/bio_chips/proto_adrenal
 	name = "Proto-Adrenal Bio-chip"
-	desc = "A cheaper version of Adrenals, that grants the user 4 seconds of antistun, getting them back on their feet instantly, but nothing more. No speed or healing is provided"
+	desc = "A old prototype of the Adrenalin implant, that grants the user 4 seconds of antistun, getting them back on their feet instantly once, but nothing more. Speed and healing sold seperately."
 	reference = "PAI"
 	item = /obj/item/bio_chip_implanter/proto_adrenalin
 	cost = 18
