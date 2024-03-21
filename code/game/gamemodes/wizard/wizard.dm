@@ -42,6 +42,9 @@
 
 // Checks if the game should end due to all wizards and apprentices being dead, or MMI'd/Borged
 /datum/game_mode/wizard/check_finished()
+	if(but_wait_theres_more)
+		return ..()
+
 	// Wizards
 	for(var/datum/mind/wizard in wizards)
 		if(!iscarbon(wizard.current) || wizard.current.stat == DEAD) // wizard is in an MMI, don't count them as alive
@@ -58,8 +61,6 @@
 			continue
 		return ..()
 
-	if(but_wait_theres_more)
-		return ..()
 	finished = TRUE
 	return TRUE
 

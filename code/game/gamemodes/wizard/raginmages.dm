@@ -25,14 +25,14 @@
 		if(isnull(wizard.current))
 			continue
 		if(wizard.current.stat == DEAD || isbrain(wizard.current) || !iscarbon(wizard.current))
-			squabble_helper(wizard)
-			continue
-		if(wizard.current.stat == UNCONSCIOUS)
-			if(wizard.current.health < HEALTH_THRESHOLD_DEAD) //Lets make this not get funny rng crit involved
+			if(squabble_helper(wizard))
+				continue
+		if(wizard.current.stat != CONSCIOUS)
+			if(wizard.current.health < HEALTH_THRESHOLD_DEAD || wizard.current.stat == DEAD) //Lets make this not get funny rng crit involved
 				if(!squabble_helper(wizard))
 					to_chat(wizard.current, "<span class='warning'><font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font></span>")
 					wizard.current.dust() // *REAL* ACTION!! *REAL* DRAMA!! *REAL* BLOODSHED!!
-			continue
+				continue
 
 		if(!wizard.current.client)
 			continue // Could just be a bad connection, so SSD wiz's shouldn't be gibbed over it, but they're not "alive" either
