@@ -189,7 +189,7 @@
 	if(on)
 		icon_state = "cleanbot1[area_locked ? "r" : null]"
 	else
-		icon_state = "cleanbot0
+		icon_state = "cleanbot0"
 
 /mob/living/simple_animal/bot/cleanbot/explode()
 	on = FALSE
