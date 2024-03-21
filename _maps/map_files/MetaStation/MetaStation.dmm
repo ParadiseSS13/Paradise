@@ -77252,9 +77252,7 @@
 	},
 /area/station/medical/reception)
 "qIB" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

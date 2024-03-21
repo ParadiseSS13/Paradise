@@ -628,19 +628,19 @@ do { \
 
 //Individual defines
 #define MAP_GENERATOR_CLUSTER_CHECK_NONE				0  //No checks are done, cluster as much as possible
-#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS	2  //Don't let turfs of DIFFERENT types cluster
-#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS	4  //Don't let atoms of DIFFERENT types cluster
-#define MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS		8  //Don't let turfs of the SAME type cluster
-#define MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS		16 //Don't let atoms of the SAME type cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS	(1<<1)  //Don't let turfs of DIFFERENT types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS	(1<<2)  //Don't let atoms of DIFFERENT types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS		(1<<3)  //Don't let turfs of the SAME type cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS		(1<<4) //Don't let atoms of the SAME type cluster
 
 //Combined defines
-#define MAP_GENERATOR_CLUSTER_CHECK_SAMES				24 //Don't let any of the same type cluster
-#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENTS		6  //Don't let any of different types cluster
-#define MAP_GENERATOR_CLUSTER_CHECK_ALL_TURFS			10 //Don't let ANY turfs cluster same and different types
-#define MAP_GENERATOR_CLUSTER_CHECK_ALL_ATOMS			20 //Don't let ANY atoms cluster same and different types
+#define MAP_GENERATOR_CLUSTER_CHECK_SAMES				(MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS | MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS) //Don't let any of the same type cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENTS		(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS | MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS) //Don't let any of different types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL_TURFS			(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS | MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS) //Don't let ANY turfs cluster same and different types
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL_ATOMS			(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS | MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS) //Don't let ANY atoms cluster same and different types
 
 //All
-#define MAP_GENERATOR_CLUSTER_CHECK_ALL				30 //Don't let anything cluster, like, at all
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL				((1<<4) - 2) //Don't let anything cluster, like, at all.  -2 because we skipped <<1 for some odd reason.
 
 // Buffer datatype flags.
 #define DNA2_BUF_UI (1<<0)
