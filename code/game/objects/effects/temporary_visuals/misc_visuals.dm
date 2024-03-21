@@ -107,6 +107,8 @@
 	icon_state = "corpse_explosion"
 	icon = 'icons/effects/64x64.dmi'
 	icon_state = "corpse_explosion"
+	pixel_x = -32
+	pixel_y = -32
 	light_range = 5
 	light_color = "#f7dce3"
 	duration = 13
