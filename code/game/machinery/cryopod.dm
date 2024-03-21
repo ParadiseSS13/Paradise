@@ -426,7 +426,7 @@
 				announce.autosay("[occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
 			else
 				if(announce_rank)
-					announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
+					announce.autosay("[occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
 				else
 					announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
 	visible_message("<span class='notice'>[src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
