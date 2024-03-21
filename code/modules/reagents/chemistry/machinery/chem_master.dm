@@ -496,7 +496,7 @@
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	RefreshParts()
 
-/datum/chemical_production_mode/
+/datum/chemical_production_mode
 	var/production_name = ""
 	/// FontAwesome icon name
 	var/production_icon = ""
