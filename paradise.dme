@@ -1010,6 +1010,7 @@
 #include "code\game\objects\items\trash.dm"
 #include "code\game\objects\items\devices\aicard.dm"
 #include "code\game\objects\items\devices\autopsy.dm"
+#include "code\game\objects\items\devices\button.dm"
 #include "code\game\objects\items\devices\camera_bug.dm"
 #include "code\game\objects\items\devices\chameleon_counter.dm"
 #include "code\game\objects\items\devices\chameleonproj.dm"
