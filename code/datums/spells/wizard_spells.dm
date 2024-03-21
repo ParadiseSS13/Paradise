@@ -507,23 +507,47 @@
 	new /obj/effect/temp_visual/corpse_explosion(get_turf(target))
 	target.gib()
 	explosion(get_turf(target), 0, 0, 0, 0, silent = TRUE,breach = FALSE)
-	for(var/mob/living/carbon/human/H in range(2, corpse_turf))
+	for(var/mob/living/carbon/human/H in range(1, corpse_turf))
 		if(H == usr)
 			return
 		to_chat(H, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
 		H.KnockDown(4 SECONDS)
 		H.EyeBlurry(40 SECONDS)
-		H.apply_damage(100, BRUTE)
+		H.apply_damage(85, BRUTE)
 		H.AdjustConfused(6 SECONDS)
-	for(var/mob/living/silicon/S in range(2, corpse_turf))
+	for(var/mob/living/silicon/S in range(1, corpse_turf))
 		to_chat(S, "<span class='userdanger'>Your sensors are disabled and carapace ripped apart by the violent dark magic!</span>")
 		S.Weaken(6 SECONDS)
-		S.apply_damage(80, BURN)
-	for(var/mob/living/M in range(2, corpse_turf))
+		S.apply_damage(85, BRUTE)
+	for(var/mob/living/M in range(1, corpse_turf))
 		if(M == /mob/living/silicon)
 			return
 		if(M == /mob/living/carbon/human)
 			return
 		to_chat(M, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
-		M.apply_damage(100, BRUTE)
-
+		M.apply_damage(85, BRUTE)
+	for(var/mob/living/carbon/human/H in range(2, corpse_turf))
+		if(H == usr)
+			return
+		if(range <= 1)
+			return
+		to_chat(H, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
+		H.KnockDown(2 SECONDS)
+		H.EyeBlurry(25 SECONDS)
+		H.apply_damage(50, BRUTE)
+		H.AdjustConfused(4 SECONDS)
+	for(var/mob/living/silicon/S in range(2, corpse_turf))
+		if(range <= 1)
+			return
+		to_chat(S, "<span class='userdanger'>Your sensors are disabled and carapace ripped apart by the violent dark magic!</span>")
+		S.Weaken(4 SECONDS)
+		S.apply_damage(50, BRUTE)
+	for(var/mob/living/M in range(2, corpse_turf))
+		if(range <= 1)
+			return
+		if(M == /mob/living/silicon)
+			return
+		if(M == /mob/living/carbon/human)
+			return
+		to_chat(M, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
+		M.apply_damage(50, BRUTE)
