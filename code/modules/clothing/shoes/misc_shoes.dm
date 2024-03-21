@@ -119,11 +119,13 @@
 		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/clown_shoes/nodrop
+	dyeable = FALSE
 	flags = NODROP
 
 /obj/item/clothing/shoes/clown_shoes/magical
 	name = "magical clown shoes"
 	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And powerful! Somehow."
+	dyeable = FALSE
 	magical = TRUE
 
 /obj/item/clothing/shoes/clown_shoes/magical/nodrop
@@ -131,6 +133,7 @@
 	flags = NODROP
 
 /obj/item/clothing/shoes/clown_shoes/slippers
+	dyeable = FALSE
 	actions_types = list(/datum/action/item_action/slipping)
 	enabled_waddle = FALSE
 	slowdown = 0
@@ -326,6 +329,7 @@
 
 
 /obj/item/clothing/shoes/clown_shoes/false_cluwne_shoes
+	dyeable = FALSE
 	name = "cursed clown shoes"
 	desc = "Moldering clown flip flops. They're neon green for some reason."
 	icon = 'icons/goonstation/objects/clothing/feet.dmi'
