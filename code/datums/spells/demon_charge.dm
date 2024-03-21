@@ -72,7 +72,7 @@
 /obj/effect/proc_holder/spell/demon_slam/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/demon_slam/cast(list/targets,mob/user = usr)
+/obj/effect/proc_holder/spell/demon_slam/cast(list/targets, mob/user = usr)
 	if(get_turf(user) != user.loc)
 		to_chat(user, "<span class='warning'>You must be phased in to slam!</span>")
 		revert_cast()
