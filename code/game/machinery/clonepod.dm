@@ -508,7 +508,7 @@
 			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
 			return
 
-	if(isorgan(inserted))
+	if(isexternalorgan(inserted))
 		if(is_type_in_list(inserted, FORBIDDEN_LIMBS))
 			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
 			return
@@ -570,7 +570,7 @@
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 
-	if(is_int_organ(I) || isorgan(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
+	if(is_int_organ(I) || isexternalorgan(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
 		insert_organ(I, user)
 		return
 
