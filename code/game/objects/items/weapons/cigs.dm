@@ -226,6 +226,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/proc/smoke()
 	var/turf/location = get_turf(src)
 	var/is_being_smoked = FALSE
+	var/datum/effect_system/smoke_spread = new
+
 	// Check whether this is actually in a mouth, being smoked
 	if(iscarbon(loc))
 		var/mob/living/carbon/C = loc
@@ -240,6 +242,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 			for(var/datum/reagent/R in reagents.reagent_list)
 				reagents.trans_id_to(C, R.id, first_puff ? 1 : max(REAGENTS_METABOLISM / reagents.reagent_list.len, 0.1)) //transfer at least .1 of each chem
 			first_puff = FALSE
+			smoke.set_up(1, FALSE, src, null, reagents)
+			smoke.start()
 			if(!reagents.total_volume) // There were reagents, but now they're gone
 				to_chat(C, "<span class='notice'>Your [name] loses its flavor.</span>")
 		else // else just remove some of the reagents

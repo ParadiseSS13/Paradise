@@ -31,10 +31,14 @@
 			set_opacity(0)
 		stoplag()
 
-/obj/effect/particle_effect/smoke/New()
+/obj/effect/particle_effect/smoke/New(chemicals = null)
 	..()
 	START_PROCESSING(SSobj, src)
 	lifetime += rand(-1,1)
+	if(chemicals)
+		create_reagents(10)
+		chemicals.trans_to(reagents)
+		color = mix_color_from_reagents(reagents)
 
 /obj/effect/particle_effect/smoke/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -71,6 +75,8 @@
 		return FALSE
 	C.smoke_delay++
 	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10)
+		if(reagents)
+			reagents.trans_to(C)
 	return TRUE
 
 /obj/effect/particle_effect/smoke/proc/remove_smoke_delay(mob/living/carbon/C)
@@ -79,20 +85,26 @@
 
 /datum/effect_system/smoke_spread
 	effect_type = /obj/effect/particle_effect/smoke
+	var/datum/reagents/chemicals_to_add = new/datum/reagents(1000)
 	var/direction
 
-/datum/effect_system/smoke_spread/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction)
+/datum/effect_system/smoke_spread/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, chemicals = null)
 	number = clamp(amount, amount, 20)
 	cardinals = only_cardinals
 	location = get_turf(source)
 	if(desired_direction)
 		direction = desired_direction
+	if(chemicals)
+		chemicals.copy_to(chemicals_to_add)
 
 /datum/effect_system/smoke_spread/start()
 	for(var/i=0, i<number, i++)
 		if(holder)
 			location = get_turf(holder)
 		var/obj/effect/particle_effect/smoke/S = new effect_type(location)
+		if(chemicals_to_add)
+			var/chems_per_smoke = (chemicals_to_add.total_volume / number)
+			chemicals_to_add.trans_to(S, chems_per_smoke)
 		if(!direction)
 			if(cardinals)
 				S.direction = pick(GLOB.cardinal)
