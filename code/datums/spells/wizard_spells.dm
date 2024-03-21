@@ -480,17 +480,16 @@
 		U.IgniteMob()
 
 /obj/effect/proc_holder/spell/corpse_explosion
-    name = "Corpse Explosion"
-    desc = "Fills a corpse with energy causing it to explode violently"
-    school = "evocation" //cant figure out if i actually need this
-    base_cooldown = 50
-    clothes_req = TRUE
-    invocation = "JAH ITH BER"
-    invocation_type = "whisper"
-    selection_activated_message = "<span class='notice'>You prepare to detonate a corpse. Click on a target to cast the spell.</span>"
-    selection_deactivated_message = "<span class='notice'>You cancel the spelll.</span>"
-    action_icon_state = "corpse_explosion"
-
+	name = "Corpse Explosion"
+	desc = "Fills a corpse with energy causing it to explode violently"
+	school = "evocation"
+	base_cooldown = 50
+	clothes_req = TRUE
+	invocation = "JAH ITH BER"
+	invocation_type = "whisper"
+	selection_activated_message = "<span class='notice'>You prepare to detonate a corpse. Click on a target to cast the spell.</span>"
+	selection_deactivated_message = "<span class='notice'>You cancel the spelll.</span>"
+	action_icon_state = "corpse_explosion"
 
 /obj/effect/proc_holder/spell/corpse_explosion/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
