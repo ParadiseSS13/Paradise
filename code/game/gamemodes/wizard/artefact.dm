@@ -319,7 +319,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/multisword
 	name = "multiverse sword"
 	desc = "A weapon capable of conquering the universe and beyond. Activate it to summon copies of yourself from others dimensions to fight by your side."
-	icon = 'icons/obj/energy_melee.dmi'
+	icon = 'icons/obj/weapons/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "energy_katana"
@@ -706,7 +706,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/multisword/pike
 	name = "phantom pike"
 	desc = "A fishing pike that appears to be imbued with a peculiar energy."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "harpoon"
 	item_state = "harpoon"
 	cooldown_between_uses = 200 //Half the time

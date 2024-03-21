@@ -5,7 +5,14 @@ on:
 
 jobs:
   merge-upstream:
-    if: ${{ github.event.issue.pull_request && github.event.comment.body == '!merge_upstream' }}
+    if: |
+      github.event.issue.pull_request &&
+      (github.event.comment.body == '!merge_upstream') &&
+      ((github.event.sender == github.event.issue.user) ||
+      (github.event.comment.author_association == 'COLLABORATOR') ||
+      (github.event.comment.author_association == 'MEMBER') ||
+      (github.event.comment.author_association == 'OWNER'))
+
     runs-on: ubuntu-latest
     steps:
       - name: PR Data
@@ -20,9 +27,16 @@ jobs:
           ref: ${{ env.PR_BRANCH }}
           fetch-depth: 0
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+          cache-dependency-path: ./tgui/yarn.lock
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
 
       - name: Perform Merge
         run: |

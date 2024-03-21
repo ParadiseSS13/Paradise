@@ -36,12 +36,12 @@
 #define SECONDS_TO_JITTER SECONDS_TO_LIFE_CYCLES*3
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
-#define BRUTELOSS       (1<<0)
-#define FIRELOSS        (1<<1)
-#define TOXLOSS         (1<<2)
-#define OXYLOSS         (1<<3)
-#define SHAME           (1<<4)
-#define OBLITERATION    (1<<5)
+#define BRUTELOSS		(1<<0)
+#define FIRELOSS		(1<<1)
+#define TOXLOSS			(1<<2)
+#define OXYLOSS			(1<<3)
+#define SHAME 			(1<<4)
+#define OBLITERATION 	(1<<5)
 
 //Bitflags defining which status effects could be or are inflicted on a mob
 #define CANSTUN			(1<<0)

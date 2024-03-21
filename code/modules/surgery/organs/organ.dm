@@ -139,6 +139,8 @@
 		return TRUE
 	if(is_found_within(/obj/machinery/clonepod))
 		return TRUE
+	if(is_found_within(/obj/item/organ_extractor))
+		return TRUE
 	if(isturf(loc))
 		if(world.time - last_freezer_update_time > freezer_update_period)
 			// I don't want to loop through everything in the tile constantly, especially since it'll be a pile of organs
