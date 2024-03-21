@@ -214,7 +214,7 @@
 			foundblood = C
 			break
 	if(!foundblood)
-		to_chat(src, "<span class='warning'>The blood you were channeling has been cleaned away!<span>")
+		to_chat(src, "<span class='warning'>The blood you were channeling has been cleaned away!</span>")
 		channeling = FALSE
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "channelingblood")
 		return
