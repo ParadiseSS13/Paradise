@@ -10,7 +10,7 @@
 
 /obj/effect/proc_holder/spell/demon_charge
 	name = "Demon Charge"
-	desc = "Take on the form of an immovable rod, destroying all in your path."
+	desc = "Perform a powerful charge, crushing all in your path."
 	clothes_req = FALSE
 	human_req = FALSE
 	base_cooldown = 5 SECONDS

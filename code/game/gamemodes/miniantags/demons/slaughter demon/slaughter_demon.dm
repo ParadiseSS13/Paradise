@@ -239,11 +239,8 @@
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(mob_loc, src.dir, "jaunt")
 
 /mob/living/simple_animal/demon/slaughter_demon/adjustHealth(amount, updating_health = TRUE)
-	to_chat(world, "Took [amount] Damage")
 	if(stat_amplification && amount > 0)
-		to_chat(world, "Subtracting [amount * stat_amplification]")
 		amount = amount - (amount * stat_amplification)
-		to_chat(world, "Suffered [amount] damage!")
 	..(amount, updating_health)
 
 /mob/living/simple_animal/demon/slaughter_demon/UnarmedAttack(atom/A)
@@ -251,7 +248,6 @@
 		if(stat_amplification > 0)
 			melee_damage_lower = round(melee_damage_lower + (melee_damage_lower * stat_amplification))
 			melee_damage_upper = round(melee_damage_upper + (melee_damage_upper * stat_amplification))
-			to_chat(world, "Modified melee damage is [melee_damage_lower]")
 		..()
 		melee_damage_lower = 30
 		melee_damage_upper = 30
@@ -265,6 +261,7 @@
 			stat_amplification += 0.05
 		heal_overall_damage(10, 0, updating_health = TRUE)
 		boost = world.time + 5 SECONDS
+		return
 	..()
 
 /mob/living/simple_animal/demon/slaughter_demon/Move(NewLoc, direct)
@@ -276,7 +273,6 @@
 	..()
 	if(boost < world.time)
 		speed = 1
-		src << "Boost has been set to 1"
 	else
 		speed = 0
 	if(phaseoutchaneltime < world.time && channeling && phased)
@@ -288,18 +284,13 @@
 		adjustHealth(-(maxHealth * 0.05))
 	if(decay_time < world.time && stat_amplification)
 		if(last_stat_decrease < world.time)
-			to_chat(src, "Decreasing stat amp")
-			to_chat(src, "Stat amp is currently [stat_amplification]")
 			stat_amplification -= 0.1
 			stat_amplification = round(stat_amplification, 0.05)
 			if(stat_amplification < 0)
 				stat_amplification = 0
 				return
-			to_chat(src, "Stat amp is now set to [stat_amplification]")
 			last_stat_decrease = world.time + 1 SECONDS
 
-
-//temporary visual effects(/obj/effect/temp_visual) used by clockcult stuff
 /obj/effect/temp_visual/bloodstorm
 	name = "blood storm"
 	icon = 'icons/effects/224x224.dmi'
