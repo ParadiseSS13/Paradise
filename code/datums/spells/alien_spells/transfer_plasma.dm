@@ -1,4 +1,4 @@
-/datum/spell/touch/alien_spell/transfer_plasma
+/datum/spell/alien_spell/transfer_plasma
 	name = "Transfer Plasma"
 	desc = "Transfers 50 plasma to a nearby alien"
 	action_icon_state = "alien_transfer"
