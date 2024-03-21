@@ -182,7 +182,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(actions)
 		for(var/I in actions)
 			qdel(I)
-			actions.Cut()
+		actions.Cut()
 
 	master = null
 	return ..()
