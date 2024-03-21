@@ -205,7 +205,7 @@
 
 	var/name = speaker.name
 	if(!say_understands(speaker) && ismob(speaker))
-		var/mob/speaker_mob
+		var/mob/speaker_mob = speaker
 		name = speaker_mob.voice_name
 
 	if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
