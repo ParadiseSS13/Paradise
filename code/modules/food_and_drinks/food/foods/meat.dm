@@ -352,7 +352,9 @@
 			creature.faction = faction
 		if(LAZYLEN(fingerprintshidden))
 			creature.fingerprintshidden = fingerprintshidden
+		var/old_name = creature.real_name
 		creature.set_species(monkey_type)
+		creature.rename_character(old_name, creature.name)
 		SSmobs.cubemonkeys += creature
 		qdel(src)
 
