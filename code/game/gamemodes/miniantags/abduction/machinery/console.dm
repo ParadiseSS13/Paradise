@@ -71,6 +71,7 @@
 		dat += "<a href='?src=[UID()];dispense=silencer'>Radio Silencer</A><br>"
 		dat += "<a href='?src=[UID()];dispense=tool'>Science Tool</A><br>"
 		dat += "<a href='?src=[UID()];dispense=mind_device'>Mental Interface Device</A><br>"
+		dat += "<a href='?src=[UID()];dispense=organ_extractor'>Organ Extractor</A><br>"
 	else
 		dat += "<span class='bad'>NO EXPERIMENT MACHINE DETECTED</span> <br>"
 
@@ -134,6 +135,8 @@
 				Dispense(/obj/item/clothing/suit/armor/abductor/vest)
 			if("mind_device")
 				Dispense(/obj/item/abductor/mind_device, cost = 2)
+			if("organ_extractor")
+				Dispense(/obj/item/organ_extractor/abductor, cost = 4) // This shit expensive, but it's good
 	updateUsrDialog()
 
 
