@@ -40640,6 +40640,12 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/service/clown/secret)
+"fWT" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/security/permabrig)
 "fXg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/red{
 	dir = 6
@@ -118368,7 +118374,7 @@ adS
 aeJ
 afd
 rHj
-rHj
+fWT
 duc
 aQL
 gLk
