@@ -486,6 +486,9 @@
 		info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
 
 /obj/item/paper/proc/stamp(obj/item/stamp/S)
+	if(length(stamp_overlays) > 49) //Do not remove this cap or you'll unleash evil upon the world
+		return
+
 	stamps += (!stamps || stamps == "" ? "<HR>" : "") + "<img src=large_[S.icon_state].png>"
 
 	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
