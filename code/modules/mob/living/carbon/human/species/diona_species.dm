@@ -64,8 +64,8 @@
 
 /datum/species/diona/can_understand(mob/other)
 	if(isnymph(other))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	..()
