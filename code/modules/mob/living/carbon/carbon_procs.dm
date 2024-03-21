@@ -340,7 +340,7 @@
 		status_list += msg
 
 		for(var/obj/item/I in LB.embedded_objects)
-			status_list += "<a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
+			status_list += "\t<a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
 
 	for(var/t in missing)
 		status_list += "<span class='boldannounceic'>Your [parse_zone(t)] is missing!</span>"
@@ -353,8 +353,7 @@
 		else
 			status_list += "<span class='info'>You feel fatigued.</span>"
 
-	var/output = status_list.Join("\n")
-	to_chat(src, output)
+	to_chat(src, chat_box_examine(status_list.Join("\n")))
 
 	if(HAS_TRAIT(H, TRAIT_SKELETONIZED) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
