@@ -93,7 +93,6 @@
 	cost = 4500 //I do wonder about shuttle prices, especially considering how many guns you could get for this price. Perhaps a lowering in the future.
 	template = /datum/map_template/shuttle/emergency/raven
 
-
 // these, otoh, have some pretty silly features, and are hidden behind emag
 
 /datum/supply_packs/abstract/shuttle/clown

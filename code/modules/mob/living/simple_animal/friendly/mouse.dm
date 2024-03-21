@@ -161,8 +161,6 @@
 /mob/living/simple_animal/mouse/white/Brain
 	name = "Brain"
 	real_name = "Brain"
-	response_help = "pets"
-	response_disarm = "gently pushes aside"
 	response_harm = "splats"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
