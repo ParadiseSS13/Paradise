@@ -13,8 +13,8 @@
 	req_access = list(ACCESS_BAR)
 	max_integrity = 200
 	integrity_failure = 160
-	idle_power_consumption = 2
-	active_power_consumption = 4
+	idle_power_consumption = 5
+	active_power_consumption = 25
 	power_state = ACTIVE_POWER_USE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 20, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 50, ACID = 50)
 	anchored = TRUE
@@ -59,8 +59,8 @@
 	else
 		set_sign(pick(syndisigns))
 
-// Saves a /datum/barsign (by default the current_sign) to the prev_sign variable.
-/obj/machinery/barsign/proc/save_sign(datum/barsign/S=current_sign)
+// Saves a /datum/barsign to the prev_sign variable.
+/obj/machinery/barsign/proc/save_sign(datum/barsign/S)
 	// Broken, blank, and EMPed screens shouldn't be saved.
 	if(istype(S, /datum/barsign) && !istype(S, /datum/barsign/hiddensigns))
 		prev_sign = S
@@ -127,7 +127,7 @@
 /obj/machinery/barsign/proc/turn_off()
 	if((stat & (BROKEN|EMPED|MAINT)) || !is_on() || build_stage < BARSIGN_COMPLETE)
 		return FALSE
-	save_sign()
+	save_sign(current_sign)
 	set_light(0)
 	power_state = IDLE_POWER_USE
 	set_sign(new /datum/barsign/hiddensigns/signoff)
@@ -152,16 +152,16 @@
 	if(..())
 		return
 	if(stat & MAINT)
-		to_chat(user, "<span class ='warning'>Wait until the repairs are complete!</span>")
+		to_chat(user, "<span class='warning'>Wait until the repairs are complete!</span>")
 		return
 	if((stat & (BROKEN|NOPOWER|EMPED)) || build_stage < BARSIGN_COMPLETE)
-		to_chat(user, "<span class ='warning'>The controls seem unresponsive.</span>")
+		to_chat(user, "<span class='warning'>The controls seem unresponsive.</span>")
 		return
 	if(panel_open)
-		to_chat(user, "<span class ='warning'>Close the maintenance panel first!</span>")
+		to_chat(user, "<span class='warning'>Close the maintenance panel first!</span>")
 		return
-	if(!src.allowed(user))
-		to_chat(user, "<span class = 'warning'>Access denied.</span>")
+	if(!allowed(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 	pick_sign()
 
@@ -402,7 +402,7 @@
 	if(. && (stat & NOPOWER))
 		turn_off()
 
-/obj/machinery/barsign/deconstruct(disassembled=FALSE)
+/obj/machinery/barsign/deconstruct(disassembled = FALSE)
 	if(disassembled)
 		new /obj/item/stack/sheet/metal(drop_location(), 4)
 	else
@@ -412,7 +412,6 @@
 		if(build_stage >= BARSIGN_COMPLETE)
 			new /obj/item/shard(drop_location())
 	qdel(src)
-
 
 
 /datum/stack_recipe/barsign_frame
@@ -462,7 +461,6 @@
 		O.pixel_y = 32
 
 
-
 /obj/item/barsign_electronics
 	name = "bar sign electronics"
 	desc = "A circuit. It has a small data storage component filled with various bar sign designs."
@@ -484,12 +482,8 @@
 	..()
 	if(destroyed)
 		return
-	if(restricts_access)
-		restricts_access = FALSE
-		to_chat(user, "<span class='notice'>You disable the access restrictions of [src].</span>")
-	else
-		restricts_access = TRUE
-		to_chat(user, "<span class='notice'>You enable the access restrictions of [src].</span>")
+	restricts_access = !restricts_access
+	to_chat(user, "<span class='notice'>You [restricts_access ? "enable" : "disable"] the access restrictions of [src].</span>")
 
 // For the ghost bar since occupants don't have bar access.
 /obj/machinery/barsign/ghost_bar
@@ -506,242 +500,241 @@
 //Code below is to define useless variables for datums. It errors without these
 /datum/barsign
 	var/name = "Name"
-	var/icon = "Icon"
 	var/desc = "desc"
+	var/icon = "Icon"
 	var/hidden = FALSE
 	var/syndicate = FALSE
 
 //Anything below this is where all the specific signs are. If people want to add more signs, add them below.
 /datum/barsign/maltesefalcon
 	name = "Maltese Falcon"
-	icon = "maltesefalcon"
 	desc = "The Maltese Falcon, Space Bar and Grill."
+	icon = "maltesefalcon"
 
 /datum/barsign/thebark
 	name = "The Bark"
-	icon = "thebark"
 	desc = "Ian's bar of choice."
+	icon = "thebark"
 
 /datum/barsign/harmbaton
 	name = "The Harmbaton"
-	icon = "theharmbaton"
 	desc = "A great dining experience for both security members and assistants."
-
+	icon = "theharmbaton"
 
 /datum/barsign/thesingulo
 	name = "The Singulo"
-	icon = "thesingulo"
 	desc = "Where people go that'd rather not be called by their name."
+	icon = "thesingulo"
 
 /datum/barsign/thedrunkcarp
 	name = "The Drunk Carp"
-	icon = "thedrunkcarp"
 	desc = "Don't drink and swim."
+	icon = "thedrunkcarp"
 
 /datum/barsign/scotchservinwill
 	name = "Scotch Servin Willy's"
-	icon = "scotchservinwill"
 	desc = "Willy sure moved up in the world from clown to bartender."
+	icon = "scotchservinwill"
 
 /datum/barsign/officerbeersky
 	name = "Officer Beersky's"
-	icon = "officerbeersky"
 	desc = "Man eat a dong, these drinks are great."
+	icon = "officerbeersky"
 
 /datum/barsign/thecavern
 	name = "The Cavern"
-	icon = "thecavern"
 	desc = "Fine drinks while listening to some fine tunes."
+	icon = "thecavern"
 
 /datum/barsign/theouterspess
 	name = "The Outer Spess"
-	icon = "theouterspess"
 	desc = "This bar isn't actually located in outer space."
+	icon = "theouterspess"
 
 /datum/barsign/slipperyshots
 	name = "Slippery Shots"
-	icon = "slipperyshots"
 	desc = "Slippery slope to drunkenness with our shots!"
+	icon = "slipperyshots"
 
 /datum/barsign/thegreytide
 	name = "The Grey Tide"
-	icon = "thegreytide"
 	desc = "Abandon your toolboxing ways and enjoy a lazy beer!"
+	icon = "thegreytide"
 
 /datum/barsign/honkednloaded
 	name = "Honked 'n' Loaded"
-	icon = "honkednloaded"
 	desc = "Honk."
+	icon = "honkednloaded"
 
 /datum/barsign/thenest
 	name = "The Nest"
-	icon = "thenest"
 	desc = "A good place to retire for a drink after a long night of crime fighting."
+	icon = "thenest"
 
 /datum/barsign/thecoderbus
 	name = "The Coderbus"
-	icon = "thecoderbus"
 	desc = "A very controversial bar known for its wide variety of constantly-changing drinks."
+	icon = "thecoderbus"
 
 /datum/barsign/theadminbus
 	name = "The Adminbus"
-	icon = "theadminbus"
 	desc = "An establishment visited mainly by space-judges. It isn't bombed nearly as much as court hearings."
+	icon = "theadminbus"
 
 /datum/barsign/oldcockinn
 	name = "The Old Cock Inn"
-	icon = "oldcockinn"
 	desc = "Something about this sign fills you with despair."
+	icon = "oldcockinn"
 
 /datum/barsign/thewretchedhive
 	name = "The Wretched Hive"
-	icon = "thewretchedhive"
 	desc = "Legally obligated to instruct you to check your drinks for acid before consumption."
+	icon = "thewretchedhive"
 
 /datum/barsign/robustacafe
 	name = "The Robusta Cafe"
-	icon = "robustacafe"
 	desc = "Holder of the 'Most Lethal Barfights' record 5 years uncontested."
+	icon = "robustacafe"
 
 /datum/barsign/emergencyrumparty
 	name = "The Emergency Rum Party"
-	icon = "emergencyrumparty"
 	desc = "Still serving drinks that were banned years ago."
+	icon = "emergencyrumparty"
 
 /datum/barsign/combocafe
 	name = "The Combo Cafe"
-	icon = "combocafe"
 	desc = "Renowned system-wide for their utterly uncreative drink combinations."
+	icon = "combocafe"
 
 /datum/barsign/vladssaladbar
 	name = "Vlad's Salad Bar"
-	icon = "vladssaladbar"
 	desc = "Under new management. Vlad was always a bit too trigger happy with that shotgun."
+	icon = "vladssaladbar"
 
 /datum/barsign/theshaken
 	name = "The Shaken"
-	icon = "theshaken"
 	desc = "This establishment does not serve stirred drinks."
+	icon = "theshaken"
 
 /datum/barsign/thealenath
 	name = "The Ale' Nath"
-	icon = "thealenath"
 	desc = "All right, buddy. I think you've had EI NATH. Time to get a cab."
+	icon = "thealenath"
 
 /datum/barsign/thealohasnackbar
 	name = "The Aloha Snackbar"
-	icon = "alohasnackbar"
 	desc = "A tasteful, inoffensive tiki bar sign."
+	icon = "alohasnackbar"
 
 /datum/barsign/thenet
 	name = "The Net"
-	icon = "thenet"
 	desc = "The sea of drinkformation." //you couldn't come up with something better?
+	icon = "thenet"
 
 /datum/barsign/armok
 	name = "Armok's Bar and Grill"
-	icon = "armokbar"
 	desc = "Dorfs need not apply."
+	icon = "armokbar"
 
 /datum/barsign/meadbay
 	name = "Mead Bay"
-	icon = "meadbay"
 	desc = "Still probably a better place to get treated than the real one."
+	icon = "meadbay"
 
 /datum/barsign/whiskeyimplant
 	name = "Whiskey Implant"
+	desc = "A bar known for its unconventional means of serving you drinks, whether you want them or not."
 	icon = "whiskeyimplant"
-	desc = "A bar known for its unconventional means of serving you drinks,whether you want them or not."
 
 /datum/barsign/redshirt
 	name = "The Red Shirt"
-	icon = "theredshirt"
 	desc = "A number of famous patrons have attended this bar, including:..."
+	icon = "theredshirt"
 
 /datum/barsign/lv426
 	name = "LV-426"
-	icon = "lv426"
 	desc = "Drinking with fancy facemasks is clearly more important than going to medbay."
+	icon = "lv426"
 
 /datum/barsign/zocalo
 	name = "Zocalo"
-	icon = "zocalo"
 	desc = "Anteriormente ubicado en Spessmerica."
+	icon = "zocalo"
 
 /datum/barsign/fourtheemprah
 	name = "4 The Emprah"
-	icon = "4theemprah"
 	desc = "Enjoyed by fanatics, heretics, and brain-damaged patrons alike."
+	icon = "4theemprah"
 
 /datum/barsign/ishimura
 	name = "Ishimura"
-	icon = "ishimura"
 	desc = "Well known for their quality brownstar and delicious crackers."
+	icon = "ishimura"
 
 /datum/barsign/tardis
 	name = "Tardis"
-	icon = "tardis"
 	desc = "This establishment has been through at least 5,343 iterations."
+	icon = "tardis"
 
 /datum/barsign/quarks
 	name = "Quark's"
-	icon = "quarks"
 	desc = "Frequenters of this establishment are often seen wearing meson scanners; how quaint."
+	icon = "quarks"
 
 /datum/barsign/tenforward
 	name = "Ten Forward"
-	icon = "tenforward"
 	desc = "Totally not a rip-off of an established bar or anything like that."
+	icon = "tenforward"
 
 /datum/barsign/thepranicngpony
 	name = "The Prancing Pony"
-	icon = "thepranicngpony"
 	desc = "Ok, we don't take to kindly to you short folk pokin' round looking for some ranger scum."
+	icon = "thepranicngpony"
 
 /datum/barsign/vault13
 	name = "Vault 13"
-	icon = "vault13"
 	desc = "Coincidence is intentional."
+	icon = "vault13"
 
 /datum/barsign/solaris
 	name = "Solaris"
-	icon = "solaris"
 	desc = "When is a plasma giant not a plasma giant? When it's a bar serving plasma from a plasma giant."
+	icon = "solaris"
 
 /datum/barsign/thehive
 	name = "The Hive"
-	icon = "thehive"
 	desc = "Dedicated to and founded in memory of those who died aboard the NT Class 4407 Research Stations."
+	icon = "thehive"
 
 /datum/barsign/cantina
 	name = "Chalmun's Cantina"
-	icon = "cantina"
 	desc = "The bar was founded on the principles of originality; they have the same music playing 24/7."
+	icon = "cantina"
 
 /datum/barsign/milliways42
 	name = "Milliways 42"
-	icon = "milliways42"
 	desc = "It's not really the end; it's the beginning, meaning, and answer for all your beverage needs."
+	icon = "milliways42"
 
 /datum/barsign/timeofeve
 	name = "The Time of Eve"
-	icon = "thetimeofeve"
 	desc = "Vintage drinks from 2453!."
+	icon = "thetimeofeve"
 
 /datum/barsign/spaceasshole
 	name = "Space Asshole"
-	icon = "spaceasshole"
 	desc = "Open since 2125, Not much has changed since then; the engineers still release the singulo and the damn miners still are more likely to cave your face in that deliver ores."
+	icon = "spaceasshole"
 
 /datum/barsign/themaint
 	name = "The Maint"
-	icon = "themaint"
 	desc = "Home to Greytiders, Security and other unholy creations."
+	icon = "themaint"
 
 /datum/barsign/syndicat
 	name = "The SyndiCat"
-	icon = "thesyndicat"
 	desc = "Syndicate or die."
+	icon = "thesyndicat"
 	syndicate = TRUE
 
 /datum/barsign/hiddensigns
@@ -750,18 +743,18 @@
 //Hidden signs list below this point
 /datum/barsign/hiddensigns/empbarsign
 	name = "Haywire Barsign"
-	icon = "empbarsign"
 	desc = "Something has gone very wrong."
+	icon = "empbarsign"
 
 /datum/barsign/hiddensigns/signoff
 	name = "Bar Sign"
-	icon = "off"
 	desc = "This sign doesn't seem to be on."
+	icon = "off"
 
 /datum/barsign/hiddensigns/signbroken
 	name = "Broken Bar Sign"
-	icon = "broken"
 	desc = "This sign has a massive crack in it!"
+	icon = "broken"
 
 /datum/barsign/hiddensigns/building
 	name = "Bar Sign Frame"
