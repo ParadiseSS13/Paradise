@@ -117,16 +117,19 @@
 	var/send_pm_type = " "
 	var/recieve_pm_type = "Player"
 	var/message_type
+	var/datum/controller/subsystem/tickets/tickets_system
 	// We treat PMs as mentorhelps if we were explicitly so, or if neither
 	// party is an admin.
 	if(type == "Mentorhelp" || !(check_rights(R_ADMIN|R_MOD, 0, C.mob) || check_rights(R_ADMIN|R_MOD, 0, src.mob)))
 		send_span = "mentorhelp"
 		recieve_span = "mentorhelp"
 		message_type = MESSAGE_TYPE_MENTORPM
+		tickets_system = SSmentor_tickets
 	else
 		send_span = "adminhelp"
 		recieve_span = "adminhelp"
 		message_type = MESSAGE_TYPE_ADMINPM
+		tickets_system = SStickets
 
 
 	if(holder)
@@ -196,19 +199,11 @@
 					to_chat(X, "<span class='adminhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]: [emoji_msg]</span>", type = message_type)
 
 	//Check if the mob being PM'd has any open tickets.
-	var/tickets = list()
-	if(message_type == MESSAGE_TYPE_MENTORPM)
-		tickets = SSmentor_tickets.checkForTicket(C)
-	else
-		tickets = SStickets.checkForTicket(C)
+	var/list/tickets = tickets_system.checkForTicket(C, ticket_id)
 
-	if(tickets)
-		for(var/datum/ticket/i in tickets)
-			if(ticket_id == -1)
-				i.addResponse(src, msg) // Add this response to all tickets of matching type, since we don't know which is right
-			else if(i.ticketNum == ticket_id)
-				i.addResponse(src, msg) // Add this response to the ticket they replied to
-				return
+	if(length(tickets))
+		tickets_system.addResponse(tickets, src, msg)
+		return
 
 	// If we didn't find a specific ticket by the target mob, we check for
 	// tickets by the source mob.
@@ -219,13 +214,8 @@
 		if(check_rights(R_ADMIN|R_MOD, 0, C.mob))
 			tickets = SStickets.checkForTicket(src)
 
-	if(tickets)
-		for(var/datum/ticket/i in tickets)
-			if(ticket_id == -1)
-				i.addResponse(src, msg) // Add this response to all tickets of matching type, since we don't know which is right
-			else if(i.ticketNum == ticket_id)
-				i.addResponse(src, msg) // Add this response to the ticket they replied to
-				return
+	if(length(tickets))
+		tickets_system.addResponse(tickets, src, msg)
 
 /client/proc/cmd_admin_discord_pm()
 	if(check_mute(ckey, MUTE_ADMINHELP))

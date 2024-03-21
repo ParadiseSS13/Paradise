@@ -110,8 +110,9 @@ SUBSYSTEM_DEF(tickets)
 		to_chat(C.mob, "<span class='[span_class]'>Your [ticket_name] #[ticketNum] remains open! Visit \"My tickets\" under the Admin Tab to view it.</span>")
 		var/url_message = makeUrlMessage(C, text, ticketNum)
 		message_staff(url_message, NONE, TRUE)
+		return T
 	else
-		newTicket(C, text, text)
+		return newTicket(C, text, text)
 
 /**
  * Will add the URLs usable by staff to the message and return it
@@ -165,12 +166,14 @@ SUBSYSTEM_DEF(tickets)
 	SEND_SOUND(C, sound('sound/effects/adminticketopen.ogg'))
 
 	message_staff(url_title, NONE, TRUE)
+	return T
 
 //Set ticket state with key N to open
 /datum/controller/subsystem/tickets/proc/openTicket(N)
 	var/datum/ticket/T = allTickets[N]
 	if(T.ticketState != TICKET_OPEN)
 		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) re-opened [ticket_name] number [N]</span>")
+		to_chat_safe(returnClient(N), "<span class='[span_class]'>Your [ticket_name] has been re-opened.</span>")
 		T.ticketState = TICKET_OPEN
 		return TRUE
 
@@ -182,6 +185,12 @@ SUBSYSTEM_DEF(tickets)
 		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) resolved [ticket_name] number [N]</span>")
 		to_chat_safe(returnClient(N), "<span class='[span_class]'>Your [ticket_name] has now been resolved.</span>")
 		return TRUE
+
+/datum/controller/subsystem/tickets/proc/addResponse(list/tickets, who, message)
+	var/list/ticket_numbers = list()
+	for(var/datum/ticket/T in tickets)
+		ticket_numbers += T.ticketNum
+		T.addResponse(who, message)
 
 /datum/controller/subsystem/tickets/proc/convert_to_other_ticket(ticketId)
 	if(!check_rights(rights_needed))
@@ -195,6 +204,7 @@ SUBSYSTEM_DEF(tickets)
 		to_chat(usr, "<span class='warning'>This ticket has already been converted!</span>")
 		return
 	convert_ticket(T)
+	message_staff("<span class='[span_class]'>[usr.client] / ([usr]) converted [ticket_name] number [ticketId]</span>")
 
 /datum/controller/subsystem/tickets/proc/other_ticket_system_staff_check()
 	var/list/staff = staff_countup(other_ticket_permission)
@@ -301,7 +311,9 @@ SUBSYSTEM_DEF(tickets)
 	return FALSE
 
 //Check if the user has ANY ticket not resolved or closed.
-/datum/controller/subsystem/tickets/proc/checkForTicket(client/C)
+/datum/controller/subsystem/tickets/proc/checkForTicket(client/C, ticket_id = -1)
+	if(ticket_id > 0 && ticket_id <= length(allTickets))
+		return list(allTickets[ticket_id])
 	var/list/tickets = list()
 	for(var/datum/ticket/T in allTickets)
 		if(T.client_ckey == C.ckey && (T.ticketState == TICKET_OPEN || T.ticketState == TICKET_STALE))
