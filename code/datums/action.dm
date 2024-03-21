@@ -238,7 +238,8 @@
 
 /datum/action/item_action/Destroy()
 	var/obj/item/I = target
-	LAZYREMOVE(I?.actions, src)
+	if(islist(I?.actions))
+		I.actions -= src
 	return ..()
 
 /datum/action/item_action/Trigger(left_click = TRUE, attack_self = TRUE) //Maybe we don't want to click the thing itself

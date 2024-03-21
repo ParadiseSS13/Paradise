@@ -179,10 +179,12 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
-	if(length(actions) && actions)
-		for(var/I in actions)
-			qdel(I)
-	actions.Cut()
+	// actions clear themselves from the list on cut
+	if(islist(actions))
+		for(var/datum/action/A as anything in actions)
+			qdel(A)
+		if(!isnull(actions))
+			actions.Cut()
 
 	master = null
 	return ..()
