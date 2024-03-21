@@ -477,9 +477,9 @@
 	. = TRUE
 	if(!is_type_in_typecache(user, mob_type_allowed_typecache))
 		return FALSE
+	if(is_type_in_typecache(user, mob_type_blacklist_typecache))
+		return FALSE
 
-	// the user's mob type may not be allowed, but its species could be
-	var/species_can_use = FALSE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.dna)
@@ -489,10 +489,6 @@
 
 			if(species_type_blacklist_typecache && is_type_in_typecache(H.dna.species, species_type_blacklist_typecache))
 				return FALSE
-			species_can_use = TRUE
-
-	if(is_type_in_typecache(user, mob_type_blacklist_typecache) && !species_can_use)
-		return FALSE
 
 	if(intentional && only_unintentional)
 		return FALSE
