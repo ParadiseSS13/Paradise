@@ -123,9 +123,8 @@
 	L.stop_pulling()
 	to_chat(L, "<b>You begin to feast on [victim]. You can not move while you are doing this.</b>")
 	A.visible_message("<span class='warning'><B>Loud eating sounds come from the blood...</b></span>")
-	var/sound = 'sound/misc/demon_consume.ogg'
 	for(var/i in 1 to 3)
-		playsound(get_turf(L), sound, 100, 1)
+		playsound(get_turf(L), 'sound/misc/demon_consume.ogg', 100, TRUE)
 		sleep(3 SECONDS)
 
 	if(!victim)
