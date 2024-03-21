@@ -87,6 +87,17 @@
 
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
+
+	// im going to hijack this onto this proc
+	var/message_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
+	message_text += "<h3>S-GBS Outbreak</h3></div><hr>"
+	message_text += "<b>Outbreak Warning for [station_name()]:</b><br><br>"
+	message_text += "Active cases of \"Spontaneous Gravitokinetic Bipotential SADS+\" have been reported in the Epsilon Eridani sector. \
+					All crew are encouraged to wear masks and stand 6 feet apart. Nanotrasen is not liable for any damages that are self-inflicted by S-GBS. \
+					Any crew that suddenly and violent explode into a shower of gore, may have been infected with S-GBS. Please inform your crew of the outbreak to help prevent the spread."
+
+	print_command_report(message_text, "S-GBS Outbreak")
+
 	return 1
 
 ///process()

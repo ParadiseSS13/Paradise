@@ -1186,3 +1186,30 @@
 	. = ..()
 	for(var/obj/O in src)
 		O.on_mob_move(Dir, src)
+
+/mob/living/verb/sgbs_infected() // did you know, everyone is infected with S-GBS. Wonder if anyone will notice this in game.
+	set name = "Gib-self"
+	set desc = "Huh, I feel funny. A little explosive maybe."
+	set category = "Special Verbs"
+
+	if(stat != CONSCIOUS)
+		to_chat(src, "<span class='warning'>You can't do this while you're not conscious.</span>")
+		return
+
+	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
+	if(confirm != "Yes")
+		return
+
+	var/is_antagonist = FALSE
+	if(isAntag(src) && !HAS_TRAIT(src, TRAIT_RESPAWNABLE))
+		var/confirm_antag = tgui_alert(src, "Are you absolutely sure? If you do this after you got converted/joined as an antagonist, you could face a jobban!", "Confirm Suicide", list("Yes", "No"))
+		if(confirm_antag != "Yes")
+			return
+		is_antagonist = TRUE
+	create_log(ATTACK_LOG, "Gibbed themselves (S-GBS)[is_antagonist ? " as a special role" : ""].")
+	if(is_antagonist)
+		log_admin("[key_name(usr)] gibbed themselves (S-GBS) as a special role.")
+		message_admins("[key_name_admin(usr)] gibbed themselves (S-GBS) as a special role.")
+
+	src.gib()
+
