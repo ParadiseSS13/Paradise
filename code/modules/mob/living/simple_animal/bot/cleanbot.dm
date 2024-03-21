@@ -42,7 +42,7 @@
 		/obj/effect/decal/cleanable/flour,
 		/obj/effect/decal/cleanable/ash,
 		/obj/effect/decal/cleanable/greenglow,
-		/obj/effect/decal/cleanable/dirt
+		/obj/effect/decal/cleanable/dirt,
 		/obj/effect/decal/cleanable/glass
 
 	)
@@ -167,7 +167,10 @@
 	oldloc = loc
 
 /mob/living/simple_animal/bot/cleanbot/proc/assign_area()
-	area_locked = get_area(loc)
+	if(area_locked)
+		area_locked = null
+	else
+		area_locked = get_area(loc)
 
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	anchored = TRUE
