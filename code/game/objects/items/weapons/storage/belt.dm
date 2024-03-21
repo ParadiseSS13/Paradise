@@ -194,7 +194,8 @@
 		/obj/item/wrench/medical,
 		/obj/item/handheld_defibrillator,
 		/obj/item/reagent_containers/applicator,
-		/obj/item/geiger_counter
+		/obj/item/geiger_counter,
+		/obj/item/organ_extractor
 	)
 
 /obj/item/storage/belt/medical/surgery
@@ -287,6 +288,7 @@
 		/obj/item/melee/classic_baton,
 		/obj/item/flashlight/seclite,
 		/obj/item/holosign_creator/security,
+		/obj/item/holosign_creator/detective,
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/clothing/mask/gas/sechailer,

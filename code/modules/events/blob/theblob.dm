@@ -2,6 +2,7 @@
 
 GLOBAL_LIST_EMPTY(blobs)
 GLOBAL_LIST_EMPTY(blob_nodes)
+GLOBAL_LIST_EMPTY(blob_minions)
 
 /obj/structure/blob
 	name = "blob"

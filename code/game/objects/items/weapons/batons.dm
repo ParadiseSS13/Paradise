@@ -8,7 +8,7 @@
 /obj/item/melee/classic_baton
 	name = "police baton"
 	desc = "A wooden truncheon for beating criminal scum."
-	icon = 'icons/obj/baton.dmi'
+	icon = 'icons/obj/weapons/baton.dmi'
 	icon_state = "baton"
 	item_state = "classic_baton"
 	slot_flags = SLOT_FLAG_BELT
@@ -143,7 +143,6 @@
 	desc = "A cane with special engraving on it. It seems well suited for fending off assailants..."
 	icon_state = "cane_nt"
 	item_state = "cane_nt"
-	needs_permit = FALSE
 
 /obj/item/melee/classic_baton/ntcane/get_crutch_efficiency()
 	return 2
@@ -158,7 +157,6 @@
 	item_state = null
 	slot_flags = SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	needs_permit = FALSE
 	on = FALSE
 	/// Force when concealed
 	var/force_off = 0
