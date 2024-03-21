@@ -266,32 +266,36 @@
 	return ..()
 
 /mob/living/run_pointed(atom/A)
-	if(!..())
-		return FALSE
-	var/pointed_object = "\the [A]"
-	if(A.loc in src)
-		pointed_object += " inside [A.loc]"
+    if(!..())
+        return FALSE
 
-	var/obj/item/hand_item = get_active_hand()
-	if(!QDELETED(hand_item) && istype(hand_item) && HAS_TRAIT(hand_item, TRAIT_CAN_POINT_WITH) && A != hand_item)
-		if(a_intent == INTENT_HELP || !ismob(A))
-			visible_message("<b>[src]</b> points to [pointed_object] with [hand_item]")
-			return TRUE
-		A.visible_message("<span class='danger'>[src] points [hand_item] at [pointed_object]!</span>",
-											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
-		SEND_SOUND(A, sound('sound/weapons/targeton.ogg'))
-		return TRUE
-	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && A != hand_item)
-		var/obj/item/toy/russian_revolver/trick_revolver/trick = hand_item
-		visible_message("<span class='danger'>[src] points [trick] at- and [trick] goes off in their hand!</span>")
-		trick.shoot_gun(src)
+    var/obj/item/hand_item = get_active_hand()
+    if(istype(hand_item) && hand_item.run_pointed_on_item(src, A))
+        return TRUE
+    var/pointed_object = "\the [A]"
+    if(A.loc in src)
+        pointed_object += " inside [A.loc]"
 
-	if(istype(hand_item, /obj/item/slapper) && hand_item == A)
-		visible_message("<b>[src]</b> raises [p_their()] hand!")
-		return TRUE
+    visible_message("<b>[src]</b> points to [pointed_object]")
+    return TRUE
 
-	visible_message("<b>[src]</b> points to [pointed_object]")
-	return TRUE
+
+/obj/item/proc/run_pointed_on_item(mob/pointer_mob, atom/target_atom)
+    if(!HAS_TRAIT(src, TRAIT_CAN_POINT_WITH) || target_atom == src)
+        return FALSE
+
+    var/pointed_object = "\the [target_atom]"
+    if(target_atom.loc in pointer_mob)
+        pointed_object += " inside [target_atom.loc]"
+
+    if(pointer_mob.a_intent == INTENT_HELP || !ismob(target_atom))
+        pointer_mob.visible_message("<b>[pointer_mob]</b> points to [pointed_object] with [src]")
+        return TRUE
+
+    target_atom.visible_message("<span class='danger'>[pointer_mob] points [src] at [pointed_object]!</span>",
+                                        "<span class='userdanger'>[pointer_mob] points [src] at you!</span>")
+    SEND_SOUND(target_atom, sound('sound/weapons/targeton.ogg'))
+    return TRUE
 
 /mob/living/verb/succumb()
 	set hidden = TRUE
