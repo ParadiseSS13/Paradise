@@ -144,8 +144,8 @@ window "mainwindow"
 		anchor1 = 0,0
 		anchor2 = 100,100
 		saved-params = "splitter"
-		left = "paramapwindow"
-		right = "rpane"
+		left = "rpane"
+		right = "paramapwindow"
 		is-vert = true
 	elem "asset_cache_browser"
 		type = BROWSER

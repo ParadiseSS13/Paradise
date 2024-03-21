@@ -290,7 +290,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	// Calculate and apply a best estimate
 	// +4 pixels are for the width of the splitter's handle
 	var/pct = 100 * (desired_width + 4) / split_width
-	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
+	winset(src, "mainwindow.mainvsplit", "splitter=[100-pct]") // chat has been put on the other side, flip the sizes
 
 	// Apply an ever-lowering offset until we finish or fail
 	var/delta
@@ -310,7 +310,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 			delta = -delta / 2
 
 	pct += delta
-	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
+	winset(src, "mainwindow.mainvsplit", "splitter=[100-pct]")
 
 
 /mob/proc/get_looc_source()
