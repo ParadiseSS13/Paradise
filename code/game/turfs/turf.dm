@@ -154,6 +154,8 @@
 				to_chat(user, "<span class='warning'>That type of pipe won't fit under [A]!</span>")
 				return
 		our_rpd.create_disposals_pipe(user, src)
+	else if(our_rpd.mode == RPD_TRANSIT_MODE)
+		our_rpd.create_transit_tube(user, src)
 	else if(our_rpd.mode == RPD_ROTATE_MODE)
 		our_rpd.rotate_all_pipes(user, src)
 	else if(our_rpd.mode == RPD_FLIP_MODE)
