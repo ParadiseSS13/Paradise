@@ -642,14 +642,8 @@
 		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/gun/energy/pulse/cyborg,
 		/obj/item/crowbar/cyborg/red,
-		/obj/item/gripper/nuclear
 	)
 	special_rechargables = list(/obj/item/gun/energy/pulse/cyborg)
-
-/obj/item/robot_module/deathsquad/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper/nuclear/G = locate(/obj/item/gripper/nuclear) in modules
-	if(G)
-		G.drop_gripped_item(silent = TRUE)
 
 // Sydicate assault cyborg module.
 /obj/item/robot_module/syndicate
@@ -663,13 +657,7 @@
 		/obj/item/card/emag,
 		/obj/item/crowbar/cyborg/red,
 		/obj/item/pinpointer/operative,
-		/obj/item/gripper/nuclear
 	)
-
-/obj/item/robot_module/syndicate/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper/nuclear/G = locate(/obj/item/gripper/nuclear) in modules
-	if(G)
-		G.drop_gripped_item(silent = TRUE)
 
 // Sydicate medical cyborg module.
 /obj/item/robot_module/syndicate_medical
@@ -702,15 +690,9 @@
 		/obj/item/gun/medbeam,
 		/obj/item/extinguisher/mini,
 		/obj/item/gripper/medical,
-		/obj/item/gripper/nuclear
 	)
 	special_rechargables = list(/obj/item/extinguisher/mini)
 
-/obj/item/robot_module/syndicate_medical/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper/nuclear/G = locate(/obj/item/gripper/nuclear) in modules
-	if(G)
-		G.drop_gripped_item(silent = TRUE)
-	
 // Sydicate engineer/sabotuer cyborg module.
 /obj/item/robot_module/syndicate_saboteur
 	name = "saboteur robot module" // Disguises are handled in the actual cyborg projector
@@ -729,7 +711,6 @@
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
 		/obj/item/gripper/engineering,
-		/obj/item/gripper/nuclear,
 		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/card/emag,
 		/obj/item/borg_chameleon,
@@ -743,10 +724,6 @@
 	)
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg)
 
-/obj/item/robot_module/syndicate_saboteur/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper/nuclear/G = locate(/obj/item/gripper/nuclear) in modules
-	if(G)
-		G.drop_gripped_item(silent = TRUE)
 /obj/item/robot_module/destroyer
 	name = "destroyer robot module"
 	module_type = "Malf"
