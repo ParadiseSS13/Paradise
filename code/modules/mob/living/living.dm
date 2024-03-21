@@ -282,7 +282,7 @@
 
 /obj/item/proc/run_pointed_on_item(mob/pointer_mob, atom/target_atom)
 	if(!HAS_TRAIT(src, TRAIT_CAN_POINT_WITH) || target_atom == src)
-    	return FALSE
+		return FALSE
 
 	var/pointed_object = "\the [target_atom]"
 	if(target_atom.loc in pointer_mob)
