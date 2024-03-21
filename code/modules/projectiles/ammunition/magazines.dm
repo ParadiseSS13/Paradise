@@ -119,8 +119,8 @@
 
 /obj/item/ammo_box/magazine/internal/shot/malf
 	name = "cyborg shotgun internal magazine"
-	ammo_type = /obj/item/ammo_casing/shotgun/compactslug
-	max_ammo = 12
+	ammo_type = /obj/item/ammo_casing/shotgun/lasershot
+	max_ammo = 8
 
 /obj/item/ammo_box/magazine/internal/shot/dual
 	name = "double-barrel shotgun internal magazine"
