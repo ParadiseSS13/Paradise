@@ -402,8 +402,8 @@
 
 /// Version for Malf Borgs
 /obj/item/gun/syringe/malf
-	name = "rapid syringe cannon"
-	desc = "A syringe gun integrated into a medical cyborg's chassis. Fires syringes filled with Cyanide."
+	name = "plasma syringe cannon"
+	desc = "A syringe gun integrated into a medical cyborg's chassis. Fires heavy-duty plasma syringes tipped in poison."
 	icon_state = "rapidsyringegun"
 	max_syringes = 14
 
@@ -412,7 +412,7 @@
 	..()
 	while(length(syringes) + (chambered.BB ? 1 : 0) < max_syringes)
 		var/obj/item/reagent_containers/syringe/S = new /obj/item/reagent_containers/syringe
-		S.reagents.add_reagent_list(list("cyanide" = 10))
+		S.reagents.add_reagent_list(list("toxin" = 2))
 		syringes.Add(S)
 		process_chamber()
 
@@ -420,7 +420,7 @@
 /obj/item/gun/syringe/malf/cyborg_recharge(coeff, emagged)
 	if(length(syringes) < max_syringes)
 		var/obj/item/reagent_containers/syringe/S = new /obj/item/reagent_containers/syringe
-		S.reagents.add_reagent_list(list("cyanide" = 10))
+		S.reagents.add_reagent_list(list("toxin" = 2))
 		syringes.Add(S)
 		process_chamber()
 
@@ -437,7 +437,7 @@
 	if(!S)
 		return
 
-	chambered.BB = new /obj/item/projectile/bullet/dart/syringe/pierce_ignore(src)
+	chambered.BB = new /obj/item/projectile/bullet/dart/syringe/heavyduty(src)
 	S.reagents.trans_to(chambered.BB, S.reagents.total_volume)
 	chambered.BB.name = S.name
 	syringes.Remove(S)
