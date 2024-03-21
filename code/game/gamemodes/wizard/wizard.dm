@@ -110,12 +110,8 @@
 			SSblackbox.record_feedback("tally", "wizard_success", 1, "FAIL")
 		if(wizard.spell_list)
 			text += "<br><B>[wizard.name] used the following spells: </B>"
-			var/i = 1
-			for(var/obj/effect/proc_holder/spell/S in wizard.spell_list)
-				text += "[S.name]"
-				if(wizard.spell_list.len > i)
-					text += ", "
-				i++
+			text += english_list(wizard.spell_list)
+
 		text += "<br>"
 
 	return text.Join("")
