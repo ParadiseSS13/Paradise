@@ -132,7 +132,7 @@
 		for(var/mob/living/carbon/C in loc)
 			dust_mobs(C)
 		has_close_field = FALSE
-		sleep(1 DECISECONDS)
+		sleep(1)
 
 
 /obj/singularity/energy_ball/proc/find_the_basket()
