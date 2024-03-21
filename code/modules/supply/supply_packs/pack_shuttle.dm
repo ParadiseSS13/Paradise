@@ -83,13 +83,17 @@
 	cost = 3750
 	template = /datum/map_template/shuttle/emergency/cramped
 
-// these, otoh, have some pretty silly features, and are hidden behind emag
-
 /datum/supply_packs/abstract/shuttle/military
-	// if you can pool enough money together for this one, maybe you deserve it
-	speed_factor = 1.5
-	cost = 4250
+	cost = 3500
 	template = /datum/map_template/shuttle/emergency/military
+
+// if you can pool enough money together for this one, maybe you deserve it
+
+/datum/supply_packs/abstract/shuttle/raven
+	cost = 4500 //I do wonder about shuttle prices, especially considering how many guns you could get for this price. Perhaps a lowering in the future.
+	template = /datum/map_template/shuttle/emergency/raven
+
+// these, otoh, have some pretty silly features, and are hidden behind emag
 
 /datum/supply_packs/abstract/shuttle/clown
 	speed_factor = 0.75  // this one's a little slower, enjoy your ride!

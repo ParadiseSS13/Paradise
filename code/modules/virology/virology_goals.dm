@@ -58,7 +58,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		goal_symptom = S.type
 		goal_symptom_name = S.name
 		goal_property = pick("resistance", "stealth", "stage rate", "transmittable")  
-		goal_property_value = rand(-18, 11)
+		goal_property_value = rand(-8, 6)
 		switch(goal_property)
 			if("resistance")
 				goal_property_value += S.resistance
