@@ -62,6 +62,8 @@ SUBSYSTEM_DEF(economy)
 	var/fine_for_messy_shuttle = -100
 	/// credits lost for sending unwanted items
 	var/fine_for_selling_trash = -100
+	/// points gained per virology goal
+	var/credits_per_virology_goal = 200
 
 	/// Remarks from Centcom on how well you checked the last order.
 	var/centcom_message
@@ -150,6 +152,8 @@ SUBSYSTEM_DEF(economy)
 
 	next_paycheck_delay = 30 MINUTES + world.time
 	next_mail_delay = 15 MINUTES + world.time
+
+	check_total_virology_goals_completion()
 
 /datum/controller/subsystem/economy/fire()
 	if(next_paycheck_delay <= world.time)

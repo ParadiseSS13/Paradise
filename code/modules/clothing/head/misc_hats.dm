@@ -247,6 +247,12 @@
 	item_state = "cowboyhat"
 	desc = "For the Rancher in us all."
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+		)
+
 /obj/item/clothing/head/cowboyhat/tan
 	name = "tan cowboy hat"
 	icon_state = "cowboyhat_tan"
@@ -270,6 +276,12 @@
 	icon_state = "cowboyhat_pink"
 	item_state = "cowboyhat_pink"
 	desc = "For those buckle bunnies wanta' become a real buckaroo."
+
+/obj/item/clothing/head/cowboyhat/sec
+	name = "security cowboy hat"
+	desc = "Secway is your horse."
+	icon_state = "cowboyhat_sec"
+	item_state = "cowboyhat_sec"
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
@@ -355,7 +367,7 @@
 	icon_state = "enhead"
 
 /obj/item/clothing/head/bearpelt
-	name = "bear pelt hat"
+	name = "space bear pelt hat"
 	desc = "Fuzzy."
 	icon_state = "bearpelt"
 	item_state = "bearpelt"
@@ -364,6 +376,22 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
+
+/obj/item/clothing/head/bearpelt/black
+	name = "black bear pelt hat"
+	icon_state = "black_bearpelt"
+	item_state = "black_bearpelt"
+
+/obj/item/clothing/head/bearpelt/brown
+	name = "brown bear pelt hat"
+	icon_state = "brown_bearpelt"
+	item_state = "brown_bearpelt"
+
+/obj/item/clothing/head/bearpelt/polar
+	name = "polar bear pelt hat"
+	desc = "Fuzzy, and also stained with blood."
+	icon_state = "polar_bearpelt"
+	item_state = "polar_bearpelt"
 
 /obj/item/clothing/head/xenos
 	name = "xeno helmet"

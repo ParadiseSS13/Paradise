@@ -1,4 +1,5 @@
 /obj/item/melee
+	icon = 'icons/obj/weapons/melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	needs_permit = TRUE
@@ -156,7 +157,7 @@
 
 /obj/item/melee/spellblade/examine(mob/user)
 	. = ..()
-	if(enchant && (iswizard(user) || iscultist(user))) // only wizards and cultists understand runes
+	if(enchant && (iswizard(user) || IS_CULTIST(user))) // only wizards and cultists understand runes
 		. += "The runes along the side read; [enchant.desc]."
 
 
