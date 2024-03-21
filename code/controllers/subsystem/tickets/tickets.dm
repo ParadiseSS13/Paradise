@@ -173,6 +173,7 @@ SUBSYSTEM_DEF(tickets)
 	var/datum/ticket/T = allTickets[N]
 	if(T.ticketState != TICKET_OPEN)
 		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) re-opened [ticket_name] number [N]</span>")
+		sendFollowupToDiscord(T, usr.client, "*Ticket reopened.*")
 		to_chat_safe(returnClient(N), "<span class='[span_class]'>Your [ticket_name] has been re-opened.</span>")
 		T.ticketState = TICKET_OPEN
 		return TRUE
@@ -183,6 +184,7 @@ SUBSYSTEM_DEF(tickets)
 	if(T.ticketState != TICKET_RESOLVED)
 		T.ticketState = TICKET_RESOLVED
 		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) resolved [ticket_name] number [N]</span>")
+		sendFollowupToDiscord(T, usr.client, "*Ticket resolved.*")
 		to_chat_safe(returnClient(N), "<span class='[span_class]'>Your [ticket_name] has now been resolved.</span>")
 		return TRUE
 
@@ -191,6 +193,20 @@ SUBSYSTEM_DEF(tickets)
 	for(var/datum/ticket/T in tickets)
 		ticket_numbers += T.ticketNum
 		T.addResponse(who, message)
+
+	if(length(ticket_numbers) == 1)
+		for(var/datum/ticket/only_ticket in tickets)
+			sendFollowupToDiscord(only_ticket, who, message)
+	else if(length(ticket_numbers) > 1)
+		sendAmbiguousFollowupToDiscord(ticket_numbers, who, message)
+	else
+		CRASH("addResponse on [ticket_system_name] called with no tickets")
+
+/datum/controller/subsystem/tickets/proc/sendFollowupToDiscord(datum/ticket/T, who, message)
+	GLOB.discord_manager.send2discord_simple_noadmins("**\[Adminhelp]** Ticket [T.ticketNum], [who]: [message]", check_send_always = TRUE)
+
+/datum/controller/subsystem/tickets/proc/sendAmbiguousFollowupToDiscord(list/ticket_numbers, who, message)
+	GLOB.discord_manager.send2discord_simple_noadmins("**\[Adminhelp]** Ticket [ticket_numbers.Join(", ")] (ambiguous), [who]: [message]", check_send_always = TRUE)
 
 /datum/controller/subsystem/tickets/proc/convert_to_other_ticket(ticketId)
 	if(!check_rights(rights_needed))
@@ -205,6 +221,7 @@ SUBSYSTEM_DEF(tickets)
 		return
 	convert_ticket(T)
 	message_staff("<span class='[span_class]'>[usr.client] / ([usr]) converted [ticket_name] number [ticketId]</span>")
+	sendFollowupToDiscord(T, usr.client, "*Ticket converted.*")
 
 /datum/controller/subsystem/tickets/proc/other_ticket_system_staff_check()
 	var/list/staff = staff_countup(other_ticket_permission)
@@ -283,6 +300,7 @@ SUBSYSTEM_DEF(tickets)
 			T.lastStaffResponse = "Autoresponse: [message_key]"
 			resolveTicket(N)
 			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:<span class='adminticketalt'> [message_key]</span>")
+			sendFollowupToDiscord(T, C, "*Autoresponded with [message_key]*")
 			log_game("[C] has auto responded to [T.client_ckey]\'s adminhelp with: [response_phrases[message_key]]")
 		if("Mentorhelp")
 			convert_ticket(T)
@@ -290,6 +308,7 @@ SUBSYSTEM_DEF(tickets)
 			SEND_SOUND(returnClient(N), sound('sound/effects/adminhelp.ogg'))
 			to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> <span class='adminticketalt'>[response_phrases[message_key]]</span>")//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
 			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:<span class='adminticketalt'> [message_key]</span>") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
+			sendFollowupToDiscord(T, C, "*Autoresponded with [message_key]*")
 			T.lastStaffResponse = "Autoresponse: [message_key]"
 			resolveTicket(N)
 			log_game("[C] has auto responded to [ticket_owner]\'s adminhelp with: [response_phrases[message_key]]")
@@ -299,6 +318,7 @@ SUBSYSTEM_DEF(tickets)
 	var/datum/ticket/T = allTickets[N]
 	if(T.ticketState != TICKET_CLOSED)
 		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) closed [ticket_name] number [N]</span>")
+		sendFollowupToDiscord(T, usr.client, "*Ticket closed.*")
 		to_chat_safe(returnClient(N), close_messages)
 		T.ticketState = TICKET_CLOSED
 		return TRUE
@@ -311,6 +331,7 @@ SUBSYSTEM_DEF(tickets)
 	return FALSE
 
 //Check if the user has ANY ticket not resolved or closed.
+//If ticket_id is valid, will return that ticket regardless of state.
 /datum/controller/subsystem/tickets/proc/checkForTicket(client/C, ticket_id = -1)
 	if(ticket_id > 0 && ticket_id <= length(allTickets))
 		return list(allTickets[ticket_id])
