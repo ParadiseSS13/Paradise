@@ -14,6 +14,7 @@
 	var/list/tube_dirs = null
 	var/exit_delay = 1
 	var/enter_delay = 0
+	var/uninstalled_type = /obj/structure/transit_tube_construction/straight
 
 /obj/structure/transit_tube/Initialize(mapload, new_direction)
 	. = ..()
@@ -45,16 +46,14 @@
 				AM.loc = loc
 				AM.ex_act(severity++)
 
-			qdel(src)
-			return
+			deconstruct(disassembled = FALSE)
 		if(EXPLODE_HEAVY)
 			if(prob(50))
 				for(var/atom/movable/AM in contents)
 					AM.loc = loc
 					AM.ex_act(severity++)
 
-				qdel(src)
-				return
+				deconstruct(disassembled = FALSE)
 		if(EXPLODE_LIGHT)
 			return
 
@@ -148,6 +147,30 @@
 		else
 			. += create_tube_overlay(direction ^ (EAST|WEST), WEST)
 
+/obj/structure/transit_tube/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	to_chat(user, "<span class='notice'>You must uninstall [src] before disassembling it!</span>")
+
+/obj/structure/transit_tube/screwdriver_act(mob/living/user, obj/item/I)
+	var/obj/structure/transit_tube_construction/construction = new uninstalled_type(get_turf(src))
+	if(!istype(construction))
+		CRASH("expected [construction] to be a transit_tube construction")
+	. = TRUE
+
+	var/leaf = copytext("[type]", (findlasttext("[type]", "/") + 1))
+	construction.dir = dir
+	if(leaf == "flipped")
+		construction.flip()
+
+	user.visible_message("<span class='notice'>[user] uninstalls [src].</span>")
+	qdel(src)
+
+/obj/structure/transit_tube/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT) && !disassembled)
+		playsound(src, "shatter", 70, TRUE)
+		new /obj/effect/decal/cleanable/glass(loc)
+	qdel(src)
+
 
 /obj/structure/transit_tube/proc/create_tube_overlay(direction, shift_dir)
 	// We use image() because a mutable appearance will have its dir mirror the parent which sort of fucks up what we're doing here
@@ -176,6 +199,7 @@
 
 /obj/structure/transit_tube/diagonal
 	icon_state = "diagonal"
+	uninstalled_type = /obj/structure/transit_tube_construction/diagonal
 
 /obj/structure/transit_tube/diagonal/init_tube_dirs()
 	switch(dir)
@@ -195,6 +219,7 @@
 /obj/structure/transit_tube/diagonal/crossing
 	density = FALSE
 	icon_state = "diagonal_crossing"
+	uninstalled_type = /obj/structure/transit_tube_construction/diagonal/crossing
 
 //mostly for mapping use
 /obj/structure/transit_tube/diagonal/crossing/topleft
@@ -203,6 +228,7 @@
 
 /obj/structure/transit_tube/curved
 	icon_state = "curved0"
+	uninstalled_type = /obj/structure/transit_tube_construction/curved
 
 /obj/structure/transit_tube/curved/init_tube_dirs()
 	switch(dir)
@@ -232,6 +258,7 @@
 
 /obj/structure/transit_tube/junction
 	icon_state = "junction0"
+	uninstalled_type = /obj/structure/transit_tube_construction/junction
 
 /obj/structure/transit_tube/junction/init_tube_dirs()
 	switch(dir)
@@ -261,6 +288,7 @@
 
 /obj/structure/transit_tube/crossing
 	icon_state = "crossing"
+	uninstalled_type = /obj/structure/transit_tube_construction/straight/crossing
 	density = FALSE
 
 //mostly for mapping use
