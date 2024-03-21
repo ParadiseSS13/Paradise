@@ -69,7 +69,6 @@
 	var/list/data = list()
 
 	data["is_advanced"] = is_advanced
-
 	data["possible_levels"] = list()
 	for(var/z in 1 to world.maxz)
 		data["possible_levels"] |= z
