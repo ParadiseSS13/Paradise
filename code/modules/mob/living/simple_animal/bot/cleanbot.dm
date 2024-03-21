@@ -64,7 +64,8 @@
 
 /mob/living/simple_animal/bot/cleanbot/turn_on()
 	..()
-	icon_state = "cleanbot[on]"
+	icon_state = "cleanbot1[area_locked ? "r" : null]"
+
 
 /mob/living/simple_animal/bot/cleanbot/turn_off()
 	..()
@@ -175,7 +176,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	anchored = TRUE
-	icon_state = "cleanbot-c"
+	icon_state = "cleanbot-[area_locked ? "r" : null]c"
 	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
 	mode = BOT_CLEANING
 	addtimer(CALLBACK(src, PROC_REF(do_clean), target), 5 SECONDS)
@@ -186,7 +187,10 @@
 		QDEL_NULL(target)
 		anchored = FALSE
 	mode = BOT_IDLE
-	icon_state = "cleanbot[on]"
+	if(on)
+		icon_state = "cleanbot1[area_locked ? "r" : null]"
+	else
+		icon_state = "cleanbot0
 
 /mob/living/simple_animal/bot/cleanbot/explode()
 	on = FALSE
