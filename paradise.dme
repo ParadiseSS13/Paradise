@@ -2760,6 +2760,7 @@
 #include "code\modules\surgery\organs\mmi_holder.dm"
 #include "code\modules\surgery\organs\organ.dm"
 #include "code\modules\surgery\organs\organ_external.dm"
+#include "code\modules\surgery\organs\organ_extractor.dm"
 #include "code\modules\surgery\organs\organ_helpers.dm"
 #include "code\modules\surgery\organs\organ_icon.dm"
 #include "code\modules\surgery\organs\organ_internal.dm"
