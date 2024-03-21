@@ -1,4 +1,4 @@
-/obj/structure/closet/secure_closest/guncabinet
+/obj/structure/closet/secure_closet/guncabinet
 	name = "gun cabinet"
 	req_access = list(ACCESS_ARMORY)
 	icon = 'icons/obj/guncabinet.dmi'
@@ -54,5 +54,3 @@
 
 /obj/structure/closet/secure_closet/guncabinet/cc
 	req_access = list(ACCESS_CENT_SPECOPS_COMMANDER)
-	icon = 'icons/obj/guncabinet.dmi'  //if this isnt here, it uses the secure locker sprite. I dont know why, but it does and this is needed.
-	icon_state = "base" // same as above
