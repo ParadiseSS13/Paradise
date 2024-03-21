@@ -1,10 +1,9 @@
 /*   CONTENTS:
 0. generic define gripper
 1. UNIVERSAL GRIPPER
-2. NUCLEAR OPS GRIPPER
-3. MEDICAL GRIPPER
-4. SERVICE GRIPPER
-5. ENGINEERING GRIPPER
+2. MEDICAL GRIPPER
+3. SERVICE GRIPPER
+4. ENGINEERING GRIPPER
 */
 
 /obj/item/gripper   // Generic gripper. This should never appear anywhere.
@@ -151,16 +150,6 @@
 	can_help_up = TRUE
 	can_hold = list(
 		/obj/item
-	)
-
-/******************************
-/     NUCLEAR OPS GRIPPER
-******************************/
-/obj/item/gripper/nuclear		// For syndicate nuke-ops borgs. Get dat fokkin' disk!
-	name = "suspicious disk gripper"
-	desc = "A suspicious grasping tool to allow you to <font color='red'><i><b>GET DAT FOKKIN' DISK!</b></i></font>\ "
-	can_hold = list(
-		/obj/item/disk			// Can hold any disk so that no disk cannot be gotten. 
 	)
 
 /******************************
