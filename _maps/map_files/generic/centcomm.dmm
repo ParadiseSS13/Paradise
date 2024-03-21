@@ -1476,17 +1476,6 @@
 	icon_state = "dark"
 	},
 /area/ghost_bar)
-"fH" = (
-/obj/docking_port/stationary/transit{
-	dir = 4;
-	dwidth = 11;
-	height = 13;
-	id = "emergency_transit";
-	name = "emergency in transit";
-	width = 24
-	},
-/turf/space/transit,
-/area/space/centcomm)
 "fI" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/tdome/arena_source)
@@ -2889,12 +2878,12 @@
 "kf" = (
 /obj/docking_port/stationary{
 	area_type = /area/syndicate_mothership;
-	dwidth = 11;
-	height = 18;
+	dwidth = 15;
+	height = 21;
 	id = "emergency_syndicate";
 	name = "404 Not Found";
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/airless;
-	width = 29
+	width = 32
 	},
 /turf/simulated/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
@@ -4505,6 +4494,17 @@
 	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
+"pf" = (
+/obj/docking_port/stationary/transit{
+	dir = 4;
+	dwidth = 15;
+	height = 21;
+	id = "emergency_transit";
+	name = "emergency in transit";
+	width = 32
+	},
+/turf/space/transit,
+/area/space/centcomm)
 "pg" = (
 /obj/machinery/door/airlock/titanium/glass{
 	name = "trader shuttle airlock";
@@ -12205,11 +12205,11 @@
 	},
 /obj/docking_port/stationary{
 	dir = 4;
-	dwidth = 11;
-	height = 18;
+	dwidth = 15;
+	height = 21;
 	id = "emergency_away";
 	name = "emergency centcom";
-	width = 29
+	width = 32
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
@@ -16366,7 +16366,7 @@ ck
 ck
 ck
 ck
-ck
+pf
 ck
 ck
 ck
@@ -17137,7 +17137,7 @@ ck
 ck
 ck
 ck
-fH
+ck
 ck
 ck
 ck
@@ -49367,7 +49367,7 @@ aN
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -50399,7 +50399,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -50429,7 +50429,7 @@ Pb
 vy
 Iv
 Zp
-Db
+aN
 aN
 aN
 aN
@@ -50652,7 +50652,7 @@ aN
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -50686,7 +50686,7 @@ XB
 od
 ux
 ux
-aN
+Db
 aN
 aN
 aN
@@ -51684,7 +51684,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 vy
 Ew
 Fq
@@ -51714,7 +51714,7 @@ Pb
 vy
 Iv
 Zp
-Db
+aN
 aN
 aN
 aN
@@ -51937,11 +51937,11 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
 Db
+aN
+aN
+aN
+aN
 vy
 Ez
 Fq
@@ -52451,7 +52451,7 @@ aN
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -52485,7 +52485,7 @@ JC
 vy
 Iv
 Zp
-aN
+Db
 aN
 aN
 aN
@@ -53226,7 +53226,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -53256,7 +53256,7 @@ YT
 vy
 Iv
 Zp
-Db
+aN
 aN
 aN
 aN
@@ -53736,7 +53736,7 @@ aN
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -53770,7 +53770,7 @@ qF
 od
 Iv
 Zp
-aN
+Db
 aN
 aN
 aN
@@ -54254,37 +54254,37 @@ aN
 aN
 aN
 aN
-Db
 aN
 aN
 aN
 aN
-Db
 aN
 aN
 aN
 aN
-Db
 aN
 aN
 aN
 aN
-Db
 aN
 aN
 aN
 aN
-Db
 aN
 aN
 aN
 aN
-Db
 aN
 aN
 aN
 aN
-Db
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -55021,41 +55021,41 @@ aN
 aN
 aN
 aN
+Db
+aN
+aN
+aN
+Db
 aN
 aN
 aN
 aN
+Db
 aN
 aN
 aN
 aN
+Db
 aN
 aN
 aN
 aN
+Db
 aN
 aN
 aN
 aN
+Db
 aN
 aN
 aN
 aN
+Db
 aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Db
 aN
 aN
 aN
