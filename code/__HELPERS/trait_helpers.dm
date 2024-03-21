@@ -265,6 +265,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///An item that can be pointed at mobs, while on non-help intent.
 #define TRAIT_CAN_POINT_WITH "can_point_with"
 
+///An organ that was inserted into a dead mob, that has not been revived yet
+#define TRAIT_ORGAN_INSERTED_WHILE_DEAD "organ_inserted_while_dead"
+
 ///An /obj that should not increase the "depth" of the search for adjacency,
 ///e.g. a storage container or a modsuit.
 #define TRAIT_ADJACENCY_TRANSPARENT "adjacency_transparent"
