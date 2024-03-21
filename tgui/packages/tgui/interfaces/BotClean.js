@@ -30,9 +30,11 @@ export const BotClean = (props, context) => {
             disabled={noaccess}
             onClick={() => act('blood')}
           />
+        </Section>
+        <Section title="Misc Settings">
           <Button
             fluid
-            content="Restrict to Current Area"
+            content={area ? 'Reset Area Selection' : 'Restrict to Current Area'}
             onClick={() => act('area')}
           />
           {area !== null && (
