@@ -169,11 +169,6 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
-/obj/item/ammo_casing/shotgun/compactslug
-	name = "compact slug"
-	desc = "A 20 gauge lead slug. Fires a single solid projectile."
-	projectile_type = /obj/item/projectile/bullet/compact
-
 /obj/item/ammo_casing/shotgun/buckshot
 	name = "buckshot shell"
 	desc = "A 12 gauge buckshot shell. Fires a spread of lethal shot."
