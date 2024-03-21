@@ -286,7 +286,7 @@
 		visible_message("<span class='danger'>[src] points [trick] at- and [trick] goes off in their hand!</span>")
 		trick.shoot_gun(src)
 
-	if(istype(hand_item, /obj/item/slapper))
+	if(istype(hand_item, /obj/item/slapper) && hand_item == A)
 		visible_message("<b>[src]</b> raises [p_their()] hand!")
 		return TRUE
 
