@@ -75,7 +75,7 @@
 /obj/machinery/dna_scannernew/Initialize(mapload)
 	. = ..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/clonescanner(null)
+	component_parts += new /obj/item/circuitboard/dna_scanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
@@ -87,7 +87,7 @@
 /obj/machinery/dna_scannernew/upgraded/Initialize(mapload)
 	. = ..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/clonescanner(null)
+	component_parts += new /obj/item/circuitboard/dna_scanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
@@ -252,14 +252,6 @@
 	occupant = M
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
-
-	// search for ghosts, if the corpse is empty and the scanner is connected to a cloner
-	if(locate(/obj/machinery/computer/cloning, get_step(src, NORTH)) \
-		|| locate(/obj/machinery/computer/cloning, get_step(src, SOUTH)) \
-		|| locate(/obj/machinery/computer/cloning, get_step(src, EAST)) \
-		|| locate(/obj/machinery/computer/cloning, get_step(src, WEST)))
-
-		occupant.notify_ghost_cloning(source = src)
 
 /obj/machinery/dna_scannernew/proc/go_out(mob/user, force)
 	if(!occupant)
