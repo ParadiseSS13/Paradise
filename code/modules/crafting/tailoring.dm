@@ -248,7 +248,7 @@
 	reqs = list(/obj/item/clothing/glasses/sunglasses/reagent = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/shadedtajblind
+/datum/crafting_recipe/shaded_tajblind
 	name = "Shaded Tajaran veil"
 	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded)
 	time = 2 SECONDS
@@ -257,12 +257,12 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/shadedtajblind/New()
+/datum/crafting_recipe/shaded_tajblind/New()
 	..()
 	blacklist += subtypesof(/obj/item/clothing/glasses/sunglasses)
 	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
 
-/datum/crafting_recipe/shadedtajblindremoval
+/datum/crafting_recipe/shaded_tajblind_removal
 	name = "Shaded Tajaran veil removal"
 	result = list(/obj/item/clothing/glasses/sunglasses, /obj/item/clothing/glasses/hud/tajblind)
 	time = 2 SECONDS
@@ -270,11 +270,11 @@
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/shadedtajblindremoval/New()
+/datum/crafting_recipe/shaded_tajblind_removal/New()
 	..()
 	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind/shaded)
 
-/datum/crafting_recipe/engtajblind
+/datum/crafting_recipe/engi_tajblind
 	name = "Tajaran engineering meson veil"
 	result = list(/obj/item/clothing/glasses/hud/tajblind/meson)
 	time = 2 SECONDS
@@ -283,12 +283,12 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/engtajblind/New()
+/datum/crafting_recipe/engi_tajblind/New()
 	..()
 	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
 	blacklist += subtypesof(/obj/item/clothing/glasses/meson)
 
-/datum/crafting_recipe/engtajblindremoval
+/datum/crafting_recipe/engi_tajblind_removal
 	name = "Tajaran engineering meson removal"
 	result = list(/obj/item/clothing/glasses/meson, /obj/item/clothing/glasses/hud/tajblind)
 	time = 2 SECONDS
@@ -296,11 +296,11 @@
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/meson = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/engtajblindremoval/New()
+/datum/crafting_recipe/engi_tajblind_removal/New()
 	..()
 	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind/meson)
 
-/datum/crafting_recipe/shadeengtajblind
+/datum/crafting_recipe/shaded_engi_tajblind
 	name = "Shaded Tajaran engineering meson veil"
 	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/meson)
 	time = 2 SECONDS
@@ -309,11 +309,11 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/shadeengtajblind/New()
+/datum/crafting_recipe/shaded_engi_tajblind/New()
 	..()
 	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
 
-/datum/crafting_recipe/shadeengtajblindremoval
+/datum/crafting_recipe/shaded_engi_tajblind_removal
 	name = "Shaded Tajaran engineering meson veil removal"
 	result = list(/obj/item/clothing/glasses/meson/sunglasses, /obj/item/clothing/glasses/hud/tajblind)
 	time = 2 SECONDS
@@ -321,12 +321,11 @@
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/meson = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/shadeengtajblindremoval/New()
+/datum/crafting_recipe/shaded_engi_tajblind_removal/New()
 	..()
 	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind/shaded/meson)
 
-
-/datum/crafting_recipe/cargotajblind
+/datum/crafting_recipe/cargo_tajblind
 	name = "Tajaran mining meson veil"
 	result = list(/obj/item/clothing/glasses/hud/tajblind/meson/cargo)
 	time = 2 SECONDS
@@ -335,12 +334,12 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/cargotajblind/New()
+/datum/crafting_recipe/cargo_tajblind/New()
 	..()
 	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
 	blacklist += subtypesof(/obj/item/clothing/glasses/meson)
 
-/datum/crafting_recipe/cargotajblindremoval
+/datum/crafting_recipe/cargo_tajblind_removal
 	name = "Tajaran mining meson veil removal"
 	result = list(/obj/item/clothing/glasses/meson, /obj/item/clothing/glasses/hud/tajblind)
 	time = 2 SECONDS
@@ -348,7 +347,7 @@
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/meson/cargo = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/shadecargotajblind
+/datum/crafting_recipe/shaded_cargo_tajblind
 	name = "Shaded Tajaran mining meson veil"
 	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/meson/cargo)
 	time = 2 SECONDS
@@ -357,11 +356,11 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/shadecargotajblind/New()
+/datum/crafting_recipe/shaded_cargo_tajblind/New()
 	..()
 	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
 
-/datum/crafting_recipe/shadedcargotajblindremoval
+/datum/crafting_recipe/shaded_cargo_tajblind_removal
 	name = "Shaded Tajaran mining meson veil removal"
 	result = list(/obj/item/clothing/glasses/meson/sunglasses, /obj/item/clothing/glasses/hud/tajblind)
 	time = 2 SECONDS
@@ -369,7 +368,7 @@
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/meson/cargo = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/scitajblind
+/datum/crafting_recipe/sci_tajblind
 	name = "Tajaran scientific veil"
 	result = list(/obj/item/clothing/glasses/hud/tajblind/sci)
 	time = 2 SECONDS
@@ -378,11 +377,11 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/scitajblind/New()
+/datum/crafting_recipe/sci_tajblind/New()
 	..()
 	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
 
-/datum/crafting_recipe/scitajblindremoval
+/datum/crafting_recipe/sci_tajblind_removal
 	name = "Tajaran scientific veil removal"
 	result = list(/obj/item/clothing/glasses/science, /obj/item/clothing/glasses/hud/tajblind)
 	time = 2 SECONDS
@@ -390,7 +389,7 @@
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/sci = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/shadedscitajblind
+/datum/crafting_recipe/shaded_sci_tajblind
 	name = "Shaded Tajaran scientific veil"
 	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/sci)
 	time = 2 SECONDS
@@ -399,11 +398,11 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/shadedscitajblind/New()
+/datum/crafting_recipe/shaded_sci_tajblind/New()
 	..()
 	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
 
-/datum/crafting_recipe/shadedscitajblindremoval
+/datum/crafting_recipe/shaded_sci_tajblind_removal
 	name = "Shaded Tajaran scientific veil removal"
 	result = list(/obj/item/clothing/glasses/sunglasses/reagent, /obj/item/clothing/glasses/hud/tajblind)
 	time = 2 SECONDS
@@ -411,7 +410,7 @@
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/sci = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/medtajblind
+/datum/crafting_recipe/med_tajblind
 	name = "Tajaran medical veil"
 	result = list(/obj/item/clothing/glasses/hud/tajblind/med)
 	time = 2 SECONDS
@@ -420,12 +419,12 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/medtajblind/New()
+/datum/crafting_recipe/med_tajblind/New()
 	..()
 	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
 	blacklist += subtypesof(/obj/item/clothing/glasses/hud/health)
 
-/datum/crafting_recipe/medtajblindremoval
+/datum/crafting_recipe/med_tajblind_removal
 	name = "Tajaran medical veil removal"
 	result = list(/obj/item/clothing/glasses/hud/health, /obj/item/clothing/glasses/hud/tajblind)
 	time = 2 SECONDS
@@ -433,7 +432,7 @@
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/med = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/shadedmedtajblind
+/datum/crafting_recipe/shaded_med_tajblind
 	name = "Shaded Tajaran medical veil"
 	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/med)
 	time = 2 SECONDS
@@ -442,11 +441,11 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/shadedmedtajblind/New()
+/datum/crafting_recipe/shaded_med_tajblind/New()
 	..()
 	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
 
-/datum/crafting_recipe/shadedmedtajblindremoval
+/datum/crafting_recipe/shaded_med_tajblind_removal
 	name = "Shaded Tajaran medical veil removal"
 	result = list(/obj/item/clothing/glasses/hud/health/sunglasses, /obj/item/clothing/glasses/hud/tajblind)
 	time = 2 SECONDS
@@ -454,7 +453,7 @@
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/shaded/med = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/sectajblind
+/datum/crafting_recipe/sec_tajblind
 	name = "Tajaran security veil"
 	result = list(/obj/item/clothing/glasses/hud/tajblind/sec)
 	time = 2 SECONDS
@@ -463,12 +462,12 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/sectajblind/New()
+/datum/crafting_recipe/sec_tajblind/New()
 	..()
 	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
 	blacklist += subtypesof(/obj/item/clothing/glasses/hud/security)
 
-/datum/crafting_recipe/sectajblindremoval
+/datum/crafting_recipe/sec_tajblind_removal
 	name = "Tajaran security veil removal"
 	result = list(/obj/item/clothing/glasses/hud/security, /obj/item/clothing/glasses/hud/tajblind)
 	time = 2 SECONDS
@@ -476,7 +475,7 @@
 	reqs = list(/obj/item/clothing/glasses/hud/tajblind/sec = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/shadedsectajblind
+/datum/crafting_recipe/shaded_sec_tajblind
 	name = "Shaded Tajaran security veil"
 	result = list(/obj/item/clothing/glasses/hud/tajblind/shaded/sec)
 	time = 2 SECONDS
@@ -485,11 +484,11 @@
 				/obj/item/clothing/glasses/hud/tajblind = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/shadedsectajblind/New()
+/datum/crafting_recipe/shaded_sec_tajblind/New()
 	..()
 	blacklist += subtypesof(/obj/item/clothing/glasses/hud/tajblind)
 
-/datum/crafting_recipe/shadedsectajblindremoval
+/datum/crafting_recipe/shaded_sec_tajblind_removal
 	name = "Shaded Tajaran security veil removal"
 	result = list(/obj/item/clothing/glasses/hud/security/sunglasses, /obj/item/clothing/glasses/hud/tajblind)
 	time = 2 SECONDS

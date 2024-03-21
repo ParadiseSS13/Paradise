@@ -4,11 +4,11 @@
 
 /obj/item/clothing/glasses/hud/tajblind
 	name = "\improper Tajaran veil"
-	desc = "A sleek, high-tech Tajaran veil, adapted from ancient designs and important to their culture and spirituality."
+	desc = "A sleek, high-tech Tajaran veil, adapted from ancient designs and important to their culture and spirituality.<br>\
+			<span class='info'>Can switch between three modes: Sight-blocking veiled mode, transparent natural sight mode and colorblindness correction mode.</span>"
 	icon_state = "tajblind"
 	item_state = "tajblind"
 	actions_types = list(/datum/action/item_action/toggle)
-	prescription_upgradable = TRUE
 	color_view = MATRIX_STANDARD
 	correct_wires = TRUE
 	var/list/modes = list(MODE_OFF = MODE_NATURAL, MODE_NATURAL = MODE_CORRECTION, MODE_CORRECTION = MODE_OFF)
@@ -49,10 +49,6 @@
 			H.update_sight()
 			H.update_client_colour()
 
-/obj/item/clothing/glasses/hud/tajblind/examine(mob/user)
-	. = ..()
-	. += "<span class='info'>Can switch between three modes: Sight-blocking veiled mode, transparent natural sight mode and colorblindness correction mode.</span>"
-
 /obj/item/clothing/glasses/hud/tajblind/examine_more(mob/user)
 	. = ..()
 	. += "Tajaran Veils have long been an important part of their spirituality and culture, suppressed by the Overseers and making a strong return after the civil war. Tajaran believe that to see one’s eyes is to see their soul, and thus the more spiritual Tajara wear veils to conceal their eyes from everyone but the ones closest to them. <br>\
@@ -66,7 +62,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/meson/Initialize()
 	..()
-	desc += " It has an optical meson scanner integrated into it."
+	desc += "<br><span class='info'>It has an optical meson scanner integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/meson/equipped(mob/user, slot, initial)
 	. = ..()
@@ -92,7 +88,11 @@
 
 /obj/item/clothing/glasses/hud/tajblind/sci/Initialize()
 	..()
-	desc += " It has science goggles integrated into it."
+	desc += "<br><span class='info'>It has science goggles integrated into it.</span>"
+
+/obj/item/clothing/glasses/hud/tajblind/sci/item_action_slot_check(slot)
+	if(slot == SLOT_HUD_GLASSES)
+		return TRUE
 
 /obj/item/clothing/glasses/hud/tajblind/med
 	name = "\improper Tajaran medical veil"
@@ -103,7 +103,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/med/Initialize()
 	..()
-	desc += " It has a health HUD integrated into it."
+	desc += "<br><span class='info'>It has a health HUD integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/sec
 	name = "\improper Tajaran security veil"
@@ -115,7 +115,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/sec/Initialize()
 	..()
-	desc += " It has a security HUD integrated into it."
+	desc += "<br><span class='info'>It has a security HUD integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded
 	name = "shaded Tajaran veil"
@@ -124,7 +124,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/Initialize()
 	..()
-	desc += " This one has an in-built flash protection."
+	desc += "<br><span class='info'>This one has an in-built flash protection.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson
 	name = "shaded Tajaran engineering meson veil"
@@ -133,7 +133,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/Initialize()
 	..()
-	desc += " It has an optical meson scanner integrated into it."
+	desc += "<br><span class='info'>It has an optical meson scanner integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/equipped(mob/user, slot, initial)
 	. = ..()
@@ -160,7 +160,11 @@
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sci/Initialize()
 	..()
-	desc += " It has science goggles integrated into it."
+	desc += "<br><span class='info'>It has science goggles integrated into it.</span>"
+
+/obj/item/clothing/glasses/hud/tajblind/shaded/sci/item_action_slot_check(slot)
+	if(slot == SLOT_HUD_GLASSES)
+		return TRUE
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/med
 	name = "shaded Tajaran medical veil"
@@ -171,7 +175,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/med/Initialize()
 	..()
-	desc += " It has a health HUD integrated into it."
+	desc += "<br><span class='info'>It has a health HUD integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sec
 	name = "shaded Tajaran security veil"
@@ -184,7 +188,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sec/Initialize()
 	..()
-	desc += " It has a security HUD integrated into it."
+	desc += "<br><span class='info'>It has a security HUD integrated into it.</span>"
 
 #undef MODE_OFF
 #undef MODE_NATURAL

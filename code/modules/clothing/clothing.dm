@@ -215,7 +215,7 @@
 	var/list/color_view = null//overrides client.color while worn
 	var/prescription = FALSE
 	var/prescription_upgradable = FALSE
-	//overrides colorblindness when interacting with wires
+	// Overrides colorblindness when interacting with wires
 	var/correct_wires = FALSE
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
