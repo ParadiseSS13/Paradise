@@ -115,6 +115,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 /datum/virology_goal/virus
 	name = "Specific Viral Sample Request (Non-Stealth)"
 	var/list/goal_symptoms = list() //List of type paths of the symptoms, we could go with a diseaseID here instead a list of symptoms but we need the list to tell the player what symptoms to include
+	var/symptoms_amount = 5
 
 /datum/virology_goal/virus/New()
 	var/times_looped = 0 //The chance for this to make a infinite loop that lags the server is astronomically small but its still a chance
@@ -122,7 +123,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		goal_symptoms = list()
 		var/list/symptoms = subtypesof(/datum/symptom)
 		var/stealth = 0
-		for(var/i in 1 to 5)
+		for(var/i in 1 to symptoms_amount)
 			var/list/candidates = list()
 			for(var/datum/symptom/S as anything in symptoms)
 				if(!meets_stealth_requirement(stealth + S.stealth))
@@ -181,6 +182,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal/virus/stealth
 	name = "Specific Viral Sample Request (Stealth)"
+	symptoms_amount = 4
 
 /datum/virology_goal/virus/stealth/meets_stealth_requirement(stealth)
 	return (stealth >= 3)
