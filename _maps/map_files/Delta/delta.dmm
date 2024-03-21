@@ -72159,7 +72159,7 @@
 /area/station/security/evidence)
 "hFE" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/transit_tube/crossing{
+/obj/structure/transit_tube{
 	dir = 8
 	},
 /turf/space,

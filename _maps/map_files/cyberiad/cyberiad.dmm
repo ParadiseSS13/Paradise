@@ -59204,7 +59204,7 @@
 /area/station/hallway/primary/central/south)
 "gCu" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube/crossing/horizontal,
+/obj/structure/transit_tube/horizontal,
 /turf/space,
 /area/space/nearstation)
 "gCE" = (

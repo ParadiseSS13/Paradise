@@ -7541,7 +7541,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "aWo" = (
-/obj/structure/transit_tube/crossing/horizontal,
+/obj/structure/transit_tube/horizontal,
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
@@ -13634,7 +13634,7 @@
 	},
 /area/station/engineering/control)
 "bzJ" = (
-/obj/structure/transit_tube/crossing,
+/obj/structure/transit_tube,
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
@@ -43358,7 +43358,7 @@
 /area/station/hallway/primary/fore/north)
 "gXd" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube/crossing,
+/obj/structure/transit_tube,
 /turf/space,
 /area/space/nearstation)
 "gXl" = (

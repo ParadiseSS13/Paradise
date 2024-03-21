@@ -1054,10 +1054,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
-"de" = (
-/obj/structure/transit_tube/crossing/horizontal,
-/turf/template_noop,
-/area/space/nearstation)
 "df" = (
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating/airless,
@@ -4992,10 +4988,6 @@
 /obj/machinery/power/tesla_coil,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
-"Db" = (
-/obj/structure/transit_tube/crossing,
-/turf/template_noop,
-/area/space/nearstation)
 "Lu" = (
 /obj/structure/transit_tube/horizontal{
 	dir = 4
@@ -5810,7 +5802,7 @@ aa
 aa
 aa
 aa
-de
+VT
 aa
 uQ
 ck
@@ -7443,7 +7435,7 @@ aa
 aa
 aa
 dk
-Db
+cX
 aa
 dg
 dg
@@ -7506,7 +7498,7 @@ aa
 aa
 aa
 aa
-de
+VT
 aa
 aa
 aa
