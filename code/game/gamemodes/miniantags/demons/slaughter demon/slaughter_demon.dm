@@ -36,10 +36,10 @@
 	var/obj/effect/proc_holder/spell/demon_slam/slam_holder
 	var/obj/effect/proc_holder/spell/demon_charge/charge_holder
 	loot = list(/obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic, /obj/item/organ/internal/heart/demon/slaughter)
-	var/playstyle_string = "<B>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: to kill.  \
+	var/playstyle_string = "<b>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: to kill.  \
 						You may use the blood crawl icon when on blood pools to travel through them, appearing and dissapearing from the station at will. \
 						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to feast. \
-						You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. </B>"
+						You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. </b>"
 	del_on_death = TRUE
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
 
