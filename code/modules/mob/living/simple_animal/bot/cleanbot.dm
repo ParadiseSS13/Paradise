@@ -75,6 +75,7 @@
 	ignore_list.Cut() //Allows the bot to clean targets it previously ignored due to being unreachable.
 	target = null
 	oldloc = null
+	area_locked = null
 
 /mob/living/simple_animal/bot/cleanbot/set_custom_texts()
 	text_hack = "You corrupt [name]'s cleaning software."
