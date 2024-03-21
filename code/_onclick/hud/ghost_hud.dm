@@ -6,10 +6,6 @@
 /atom/movable/screen/ghost
 	icon = 'icons/mob/screen_ghost.dmi'
 
-/atom/movable/screen/ghost/MouseEntered()
-	. = ..()
-	flick(icon_state + "_anim", src)
-
 /atom/movable/screen/ghost/orbit
 	name = "Orbit"
 	icon_state = "orbit"
@@ -25,6 +21,10 @@
 /atom/movable/screen/ghost/reenter_corpse/Click()
 	var/mob/dead/observer/G = usr
 	G.reenter_corpse()
+
+/atom/movable/screen/ghost/reenter_corpse/MouseEntered()
+	. = ..()
+	flick(icon_state + "_anim", src)
 
 /atom/movable/screen/ghost/teleport
 	name = "Teleport"
