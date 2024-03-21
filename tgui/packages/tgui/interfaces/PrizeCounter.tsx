@@ -47,7 +47,7 @@ export const PrizeCounter = (props, context) => {
                     <Button
                       fluid
                       iconRight
-                      icon="ticket-alt"
+                      icon="ticket"
                       disabled={!tickets}
                       content={<>Tickets: {<b>{tickets}</b>}</>}
                       onClick={() => act('eject')}
@@ -83,7 +83,7 @@ export const PrizeCounter = (props, context) => {
                           'PrizeCounter__BuyButton',
                           disabled && 'PrizeCounter__BuyButton--disabled',
                         ])}
-                        icon="ticket-alt"
+                        icon="ticket"
                         content={prize.cost}
                         tooltip={disabled ? 'Not enough tickets.' : null}
                         tooltipPosition="top-end"
