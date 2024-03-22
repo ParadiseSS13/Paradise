@@ -31,6 +31,7 @@
 	var/datum/mind/origin
 	var/egg_layed = FALSE
 	sentience_type = SENTIENCE_OTHER
+	var/evented = FALSE
 
 /mob/living/simple_animal/hostile/headslug/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)
@@ -44,6 +45,7 @@
 	visible_message("<span class='warning'>[src] plants something in [victim]'s flesh!</span>", \
 					"<span class='danger'>We inject our egg into [victim]'s body!</span>")
 	egg_layed = TRUE
+	egg.evented = src.evented
 
 /mob/living/simple_animal/hostile/headslug/AltClickOn(mob/living/carbon/carbon_target)
 	if(egg_layed || !istype(carbon_target) || !Adjacent(carbon_target) || ismachineperson(carbon_target))
@@ -62,13 +64,14 @@
 
 /mob/living/simple_animal/hostile/headslug/projectile_hit_check(obj/item/projectile/P)
 	return (stat || FALSE)
-	
+
 /obj/item/organ/internal/body_egg/changeling_egg
 	name = "changeling egg"
 	desc = "Twitching and disgusting."
 	origin_tech = "biotech=7" // You need to be really lucky to obtain it.
 	var/datum/mind/origin
 	var/time = 0
+	var/evented
 
 /obj/item/organ/internal/body_egg/changeling_egg/egg_process()
 	// Changeling eggs grow in everyone
@@ -95,28 +98,60 @@
 
 	if(origin && origin.current && (origin.current.stat == DEAD))
 		origin.transfer_to(M)
+
+		if(evented && !M.mind.has_antag_datum(/datum/antagonist/changeling))
+			M.mind.add_antag_datum(/datum/antagonist/changeling)
+
 		var/datum/antagonist/changeling/cling = M.mind.has_antag_datum(/datum/antagonist/changeling)
+
 		if(cling.can_absorb_dna(owner))
 			cling.absorb_dna(owner)
+
+		if(evented)
+			cling.genetic_points += 6 //buffed cus midrounded!
 
 		cling.update_languages()
 
 		// When they became a headslug, power typepaths were added to this list, so we need to make new ones from the paths.
-		for(var/power_path in cling.acquired_powers)
-			cling.give_power(new power_path, M, FALSE)
-			cling.acquired_powers -= power_path
+		if(!evented)
+			for(var/power_path in cling.acquired_powers)
+				cling.give_power(new power_path, M, FALSE)
+				cling.acquired_powers -= power_path
+			var/datum/action/changeling/evolution_menu/E = locate() in cling.acquired_powers
 
-		var/datum/action/changeling/evolution_menu/E = locate() in cling.acquired_powers
+			// Add purchasable powers they have back to the evolution menu's purchased list.
+			for(var/datum/action/changeling/power as anything in cling.acquired_powers)
+				if(power.power_type == CHANGELING_PURCHASABLE_POWER)
+					E.purchased_abilities += power.type
 
-		// Add purchasable powers they have back to the evolution menu's purchased list.
-		for(var/datum/action/changeling/power as anything in cling.acquired_powers)
-			if(power.power_type == CHANGELING_PURCHASABLE_POWER)
-				E.purchased_abilities += power.type
+		if(!evented)
+			cling.give_power(new /datum/action/changeling/humanform)
+		else
+			var/datum/action/changeling/lesserform/sluglesser = new /datum/action/changeling/lesserform // give new innate power
+			sluglesser.power_type = "changeling_innate_power"
+			sluglesser.dna_cost = 0
 
-		cling.give_power(new /datum/action/changeling/humanform)
+			var/datum/action/changeling/humanform/humanslug = new /datum/action/changeling/humanform // give new innate power
+			humanslug.power_type = "changeling_innate_power"
+			humanslug.dna_cost = 0
+
+			cling.give_power(sluglesser)
+			cling.give_power(humanslug)
+
 		M.key = origin.key
 		M.revive() // better make sure some weird shit doesn't happen, because it has in the pas
 		M.forceMove(get_turf(owner)) // So that they are not stuck inside
+
+		if(evented)
+			var/mob/living/carbon/human/rand_dna = new
+			rand_dna.height = pick(GLOB.character_heights)
+			rand_dna.physique = pick(GLOB.character_physiques)
+			var/new_name = random_name(rand_dna.gender, rand_dna.dna.species.name)
+			rand_dna.rename_character(rand_dna.real_name, new_name)
+			cling.absorbed_dna = null
+			cling.absorb_dna(rand_dna)
+			origin.prepare_announce_objectives()
+
 	if(!ishuman(owner))
 		owner.gib()
 		return
