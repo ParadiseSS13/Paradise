@@ -45,7 +45,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal/property_symptom
 	name = "Symptom With Properties Viral Sample Request"
-	var/goal_symptom //Type path of the symptom
+	var/datum/symptom/goal_symptom //Type path of the symptom
 	var/goal_symptom_name
 	var/goal_property
 	var/goal_property_value
@@ -95,11 +95,15 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	if(!BL.data || !BL.data["viruses"])
 		return
 	for(var/datum/disease/advance/D in BL.data["viruses"])
-		if(length(D.symptoms) < 4) //We want 3 other symptoms alongside the requested one
+		//We want 3 other symptoms alongside the requested one
+		var/required_symptoms = 4
+		if(length(D.symptoms) < required_symptoms)
+			send_requests_console_message("Virus [D.name] has too few symptoms for [name] ([length(D.symptoms)] is less than [required_symptoms]).", "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 			continue
 		var/properties = D.GenerateProperties()
 		var/property = properties[goal_property]
 		if(property != goal_property_value)
+			send_requests_console_message("Virus [D.name] has the wrong [goal_property] for [name] ([property] is not [goal_property_value]).", "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 			continue
 		for(var/datum/symptom/S in D.symptoms)
 			if(!goal_symptom)
@@ -111,6 +115,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 				completed = TRUE
 				check_total_virology_goals_completion()
 				return TRUE
+		send_requests_console_message("Virus [D.name] is missing the required symptom [initial(goal_symptom.name)] for [name].", "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 
 /datum/virology_goal/virus
 	name = "Specific Viral Sample Request (Non-Stealth)"
@@ -168,11 +173,13 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	if(!BL.data || !BL.data["viruses"])
 		return
 	for(var/datum/disease/advance/D in BL.data["viruses"])
-		if(length(D.symptoms) != length(goal_symptoms)) //This is here so viruses with extra symptoms dont get approved
+		if(length(D.symptoms) != length(goal_symptoms))
+			send_requests_console_message("Virus [D.name] has the wrong number of symptoms for [name] ([length(D.symptoms)] is not [length(goal_symptoms)]).", "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 			return
 		for(var/S in goal_symptoms)
 			var/datum/symptom/SY = locate(S) in D.symptoms
 			if(!SY)
+				send_requests_console_message("Virus [D.name] is missing symptom [initial(SY.name)] for [name].", "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 				return
 			delivered_amount += BL.volume
 			if(delivered_amount >= delivery_goal)
