@@ -629,7 +629,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	var/mob/living/carbon/C = owner
 
-	if(!hasorgans(C))
+	if(!iscarbon(C))
 		return
 
 	var/organ_spilled = FALSE
