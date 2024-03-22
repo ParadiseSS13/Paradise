@@ -94,7 +94,6 @@
 	if(inoperable())
 		return
 
-	add_fingerprint(usr)
 
 	. = TRUE
 
