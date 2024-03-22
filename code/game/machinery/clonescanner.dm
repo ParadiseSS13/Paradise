@@ -59,6 +59,8 @@
 /obj/machinery/clonescanner/Destroy()
 	if(console)
 		console.scanner = null
+	if(occupant)
+		occupant.forceMove(get_turf(src))
 	return ..()
 
 /obj/machinery/clonescanner/MouseDrop_T(atom/movable/O, mob/user)
