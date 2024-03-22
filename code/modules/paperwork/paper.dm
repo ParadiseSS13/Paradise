@@ -709,7 +709,7 @@
 
 /obj/item/paper/seed_vault/terraforming_introduction
 	name = "Terraformation Experiment for SN-856B"
-	info = "Thanks to genetic engineering, we modified this grass to be able grow in rocky, waterless environments. Remember to grow the grass seeds first and when it matures, weave them together to create patches of grass. Cover as much ground with these patches as you can, and within time it will start producing oxygen, which will begin to increase the density of the atmosphere."
+	info = "Thanks to genetic engineering, we modified this grass to be able grow in rocky, waterless environments. Remember to grow the grass seeds first and when it matures, weave them together to create patches of grass. Cover as much ground with these patches as you can, and with time it will start producing oxygen, which will begin to increase the density of the atmosphere."
 
 /obj/item/paper/seed_vault/autopilot_logs
 	name = "Automatical Logs Printout"
