@@ -19,13 +19,15 @@ export const RPD = (props, context) => {
         return <FlipPipeContent />;
       case 5:
         return <BinPipeContent />;
+      case 6:
+        return <TransitTubeContent />;
       default:
         return "WE SHOULDN'T BE HERE!";
     }
   };
 
   return (
-    <Window width={450} height={415}>
+    <Window width={550} height={415}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
@@ -511,6 +513,149 @@ const BinPipeContent = (props, context) => {
           </Stack.Item>
         </Stack>
       </Section>
+    </Stack.Item>
+  );
+};
+
+const TransitTubeContent = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { pipe_category, pipelist, whatttube, iconrotation } = data;
+  let transit_pipe_type = 3;
+
+  return (
+    <Stack.Item grow>
+      <Stack fill>
+        <Stack.Item grow basis="50%">
+          <Section fill>
+            <Grid>
+              <Grid.Column>
+                {pipelist
+                  .filter((p) => p.pipe_type === transit_pipe_type)
+                  .map((p) => (
+                    <Box key={p.pipe_name}>
+                      <Button
+                        fluid
+                        color="translucent"
+                        content={p.pipe_name}
+                        icon="cog"
+                        selected={p.pipe_id === whatttube}
+                        onClick={() =>
+                          act('whatttube', { whatttube: p.pipe_id })
+                        }
+                        style={{ 'margin-bottom': '2px' }}
+                      />
+                    </Box>
+                  ))}
+              </Grid.Column>
+            </Grid>
+          </Section>
+        </Stack.Item>
+        <Stack.Item grow basis="50%">
+          <Section fill>
+            <Grid>
+              <Grid.Column>
+                {pipelist
+                  .filter(
+                    (p) =>
+                      p.pipe_type === transit_pipe_type &&
+                      p.pipe_id === whatttube &&
+                      p.orientations !== 1
+                  )
+                  .map((p) => (
+                    <Stack.Item key={p.pipe_id}>
+                      <Grid>
+                        <Grid.Column>
+                          <Button
+                            fluid
+                            color="translucent"
+                            textAlign="center"
+                            selected={iconrotation === 1}
+                            content={
+                              <Box
+                                className={classes([
+                                  'rpd32x32',
+                                  `north-${p.pipe_icon}`,
+                                ])}
+                              />
+                            }
+                            onClick={() =>
+                              act('iconrotation', { iconrotation: 1 })
+                            }
+                            style={{ 'margin-bottom': '5px' }}
+                          />
+                        </Grid.Column>
+                        <Grid.Column>
+                          <Button
+                            fluid
+                            color="translucent"
+                            textAlign="center"
+                            selected={iconrotation === 4}
+                            content={
+                              <Box
+                                className={classes([
+                                  'rpd32x32',
+                                  `east-${p.pipe_icon}`,
+                                ])}
+                              />
+                            }
+                            onClick={() =>
+                              act('iconrotation', { iconrotation: 4 })
+                            }
+                            style={{ 'margin-bottom': '5px' }}
+                          />
+                        </Grid.Column>
+                      </Grid>
+                      {p.orientations === 4 && (
+                        <Grid>
+                          <Grid.Column>
+                            <Button
+                              fluid
+                              color="translucent"
+                              textAlign="center"
+                              selected={iconrotation === 2}
+                              content={
+                                <Box
+                                  className={classes([
+                                    'rpd32x32',
+                                    `south-${p.pipe_icon}`,
+                                  ])}
+                                />
+                              }
+                              onClick={() =>
+                                act('iconrotation', { iconrotation: 2 })
+                              }
+                              style={{ 'margin-bottom': '5px' }}
+                            />
+                          </Grid.Column>
+                          <Grid.Column>
+                            <Button
+                              fluid
+                              color="translucent"
+                              textAlign="center"
+                              selected={iconrotation === 8}
+                              content={
+                                <Box
+                                  className={classes([
+                                    'rpd32x32',
+                                    `west-${p.pipe_icon}`,
+                                  ])}
+                                />
+                              }
+                              onClick={() =>
+                                act('iconrotation', { iconrotation: 8 })
+                              }
+                              style={{ 'margin-bottom': '5px' }}
+                            />
+                          </Grid.Column>
+                        </Grid>
+                      )}
+                    </Stack.Item>
+                  ))}
+              </Grid.Column>
+            </Grid>
+          </Section>
+        </Stack.Item>
+      </Stack>
     </Stack.Item>
   );
 };

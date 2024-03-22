@@ -111,6 +111,14 @@
 	name = "Emergency shuttle JUNG-13"
 	description = "You can hear screeching and hissing as this shuttle docks."
 
+/datum/map_template/shuttle/emergency/raven
+	suffix = "raven"
+	name = "CentCom Raven Cruiser"
+	description = "The CentCom Raven Cruiser is a former high-risk salvage vessel, now repurposed into an emergency escape shuttle. \
+	Once first to the scene to pick through warzones for valuable remains, it now serves as an excellent escape option for stations under heavy fire from outside forces. \
+	This escape shuttle boasts shields and numerous anti-personnel turrets guarding its perimeter to fend off meteors and enemy boarding attempts."
+	admin_notes = "Comes with turrets that will target simple mobs."
+
 /datum/map_template/shuttle/ferry/base
 	suffix = "base"
 	name = "transport ferry"

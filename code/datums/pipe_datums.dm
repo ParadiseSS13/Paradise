@@ -337,6 +337,100 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_icon = "pipe-j1s"
 	rpd_dispensable = TRUE
 
+
+/// Pipe types for transit tubes.
+/datum/pipes/transit
+	pipe_type = PIPETYPE_TRANSIT
+	/// The type of the object that results from dispensing this datum from the RPD.
+	var/construction_type = null
+
+/datum/pipes/transit/pod
+	pipe_name = "transit pod"
+	construction_type = /obj/structure/transit_tube_construction/pod
+	pipe_id = PIPE_TRANSIT_POD
+	orientations = 2
+	pipe_icon = "transit_pod"
+	rpd_dispensable = TRUE
+
+/datum/pipes/transit/tube
+	pipe_name = "transit tube"
+	construction_type = /obj/structure/transit_tube_construction/straight
+	pipe_id = PIPE_TRANSIT_TUBE
+	orientations = 2
+	pipe_icon = "transit_straight"
+	rpd_dispensable = TRUE
+
+/datum/pipes/transit/tube/crossing
+	pipe_name = "transit tube crossing"
+	construction_type = /obj/structure/transit_tube_construction/straight/crossing
+	pipe_id = PIPE_TRANSIT_TUBE_CROSSING
+	orientations = 2
+	pipe_icon = "transit_straight_crossing"
+	rpd_dispensable = TRUE
+
+/datum/pipes/transit/tube/diagonal
+	pipe_name = "diagonal transit tube"
+	construction_type = /obj/structure/transit_tube_construction/diagonal
+	pipe_id = PIPE_TRANSIT_TUBE_DIAGONAL
+	orientations = 2
+	pipe_icon = "transit_diagonal"
+	rpd_dispensable = TRUE
+
+/datum/pipes/transit/tube/diagonal/crossing
+	pipe_name = "diagonal transit tube crossing"
+	construction_type = /obj/structure/transit_tube_construction/diagonal/crossing
+	pipe_id = PIPE_TRANSIT_TUBE_DIAGONAL_CROSSING
+	orientations = 2
+	pipe_icon = "transit_diagonal_crossing"
+	rpd_dispensable = TRUE
+
+/datum/pipes/transit/tube/curved
+	pipe_name = "curved transit tube"
+	construction_type = /obj/structure/transit_tube_construction/curved
+	pipe_id = PIPE_TRANSIT_TUBE_CURVED
+	orientations = 4
+	pipe_icon = "transit_curved"
+	rpd_dispensable = TRUE
+
+/datum/pipes/transit/tube/junction
+	pipe_name = "junction transit tube"
+	construction_type = /obj/structure/transit_tube_construction/junction
+	pipe_id = PIPE_TRANSIT_TUBE_JUNCTION
+	orientations = 4
+	pipe_icon = "transit_junction"
+	rpd_dispensable = TRUE
+
+/datum/pipes/transit/tube/terminus
+	pipe_name = "transit tube terminus"
+	construction_type = /obj/structure/transit_tube_construction/terminus
+	pipe_id = PIPE_TRANSIT_TUBE_TERMINUS
+	orientations = 4
+	pipe_icon = "transit_terminus"
+	rpd_dispensable = TRUE
+
+/datum/pipes/transit/tube/station
+	pipe_name = "transit tube station"
+	construction_type = /obj/structure/transit_tube_construction/station
+	pipe_id = PIPE_TRANSIT_TUBE_STATION
+	orientations = 4
+	pipe_icon = "transit_station"
+	rpd_dispensable = TRUE
+
+/datum/pipes/transit/tube/terminus_dispenser_station
+	pipe_name = "terminus dispenser tube station"
+	construction_type = /obj/structure/transit_tube_construction/terminus/dispenser
+	pipe_id = PIPE_TRANSIT_TUBE_TERMINUS_DISPENSER
+	orientations = 4
+	pipe_icon = "transit_dispenser_terminus"
+	rpd_dispensable = TRUE
+
+/datum/pipes/transit/tube/dispenser_station
+	pipe_name = "dispenser tube station"
+	pipe_id = PIPE_TRANSIT_TUBE_DISPENSER_STATION
+	orientations = 4
+	pipe_icon = "transit_dispenser_station"
+	rpd_dispensable = TRUE
+
 //Pipes the RPD can't dispense. Since these don't use an interface, we don't need to bother with setting an icon. We do, however, want to name these for other purposes
 
 /datum/pipes/atmospheric/circulator
