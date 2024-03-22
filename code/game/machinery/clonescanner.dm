@@ -60,7 +60,7 @@
 	if(console)
 		console.scanner = null
 	if(occupant)
-		occupant.forceMove(get_turf(src))
+		remove_mob(occupant)
 	return ..()
 
 /obj/machinery/clonescanner/MouseDrop_T(atom/movable/O, mob/user)
