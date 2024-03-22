@@ -13,24 +13,25 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 /datum/virology_goal/proc/register()
 	RegisterSignal(SSshuttle.supply, COMSIG_CARGO_CHECK_SELL, PROC_REF(check_for_virus))
 	RegisterSignal(SSshuttle.supply, COMSIG_CARGO_DO_PRIORITY_SELL, PROC_REF(sell_virus))
+	RegisterSignal(SSshuttle.supply, COMSIG_CARGO_SEND_ERROR, PROC_REF(complain_about_virus))
 
 /datum/virology_goal/proc/unregister()
 	UnregisterSignal(SSshuttle.supply, COMSIG_CARGO_CHECK_SELL)
 	UnregisterSignal(SSshuttle.supply, COMSIG_CARGO_DO_PRIORITY_SELL)
+	UnregisterSignal(SSshuttle.supply, COMSIG_CARGO_SEND_ERROR)
 
 /datum/virology_goal/proc/check_for_virus(shuttle, atom/movable/thing)
 	SIGNAL_HANDLER  // COMSIG_CARGO_CHECK_SELL
-	if(istype(thing, /obj/item/reagent_containers) || istype(thing, /obj/item/storage/lockbox/vials))
-		return COMSIG_CARGO_SELL_PRIORITY
+	if(istype(thing, /obj/item/reagent_containers))
+		var/obj/item/reagent_containers/C = thing
+		if(check_viruses(C.reagents.reagent_list))
+			return COMSIG_CARGO_SELL_PRIORITY
+		return COMSIG_CARGO_SELL_WRONG
 
-/datum/virology_goal/proc/sell_virus(shuttle, atom/movable/thing, datum/economy/cargo_shuttle_manifest/manifest)
+/datum/virology_goal/proc/sell_virus(shuttle, atom/movable/thing, datum/economy/cargo_shuttle_manifest/manifest, complain = FALSE)
 	SIGNAL_HANDLER  // COMSIG_CARGO_DO_PRIORITY_SELL
 	// Ignore everything after we're done.
 	if(completed)
-		return
-
-	// Always ignore the box.
-	if(istype(thing, /obj/item/storage/lockbox/vials))
 		return
 
 	// Look for reagent containers, those in vial lockboxes included
@@ -42,7 +43,9 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		// Nothing to look at.
 		return
 
-	if(!check_completion(C.reagents.reagent_list))
+	check_viruses(C.reagents.reagent_list, manifest, complain, complain)
+
+	if(!completed)
 		// Didn't finish yet.
 		return
 
@@ -56,10 +59,13 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	// Stop listening.
 	unregister()
 
+/datum/virology_goal/proc/complain_about_virus(shuttle, atom/movable/thing, datum/economy/cargo_shuttle_manifest/manifest)
+	sell_virus(shuttle, thing, manifest, TRUE)
+
 /datum/virology_goal/proc/get_report()
 	return "Complete this goal."
 
-/datum/virology_goal/proc/check_completion(list/reagent_list)
+/datum/virology_goal/proc/check_viruses(list/reagent_list)
 	check_total_virology_goals_completion()
 	return TRUE
 
@@ -91,7 +97,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal/property_symptom
 	name = "Symptom With Properties Viral Sample Request"
-	var/goal_symptom //Type path of the symptom
+	var/datum/symptom/goal_symptom //Type path of the symptom
 	var/goal_symptom_name
 	var/goal_property
 	var/goal_property_value
@@ -134,7 +140,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	return_text += "Viral samples with a specific symptom and properties are required to study the effects of this symptom in various conditions. We need you to deliver [delivery_goal]u of viral samples containing the [goal_symptom_name] symptom and with the [goal_property] property at level [goal_property_value] along with 3 other symptoms to us through the cargo shuttle."
 	return return_text
 
-/datum/virology_goal/property_symptom/check_completion(list/datum/reagent/reagent_list)
+/datum/virology_goal/property_symptom/check_viruses(list/datum/reagent/reagent_list, datum/economy/cargo_shuttle_manifest/manifest, simulate = TRUE, complain = FALSE)
 	. = FALSE
 	var/datum/reagent/blood/BL = locate() in reagent_list
 	if(!BL)
@@ -142,22 +148,57 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	if(!BL.data || !BL.data["viruses"])
 		return
 	for(var/datum/disease/advance/D in BL.data["viruses"])
-		if(length(D.symptoms) < 4) //We want 3 other symptoms alongside the requested one
+		//We want 3 other symptoms alongside the requested one
+		var/required_symptoms = 4
+		if(length(D.symptoms) < required_symptoms)
+			if(simulate || !manifest || !complain)
+				continue
+			var/datum/economy/line_item/item = new
+			item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
+			item.credits = 0
+			item.reason = "Virus [D.name] has too few symptoms for [name] ([length(D.symptoms)] is less than [required_symptoms])."
+			manifest.line_items += item
+			send_requests_console_message(item.reason, "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 			continue
 		var/properties = D.GenerateProperties()
 		var/property = properties[goal_property]
 		if(property != goal_property_value)
+			if(simulate || !manifest || !complain)
+				continue
+			var/datum/economy/line_item/item = new
+			item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
+			item.credits = 0
+			item.reason = "Virus [D.name] has the wrong [goal_property] for [name] ([property] is not [goal_property_value])."
+			manifest.line_items += item
+			send_requests_console_message(item.reason, "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 			continue
 		for(var/datum/symptom/S in D.symptoms)
 			if(!goal_symptom)
 				return
 			if(S.type != goal_symptom)
 				continue
+			if(simulate)
+				return TRUE
+			if(manifest)
+				var/datum/economy/line_item/item = new
+				item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
+				item.credits = 0
+				item.zero_is_good = TRUE
+				item.reason = "Received [BL.volume] units of usable virus [D.name] for [name]."
+				manifest.line_items += item
 			delivered_amount += BL.volume
 			if(delivered_amount >= delivery_goal)
 				completed = TRUE
 				check_total_virology_goals_completion()
 				return TRUE
+		if(simulate || !manifest || !complain)
+			continue
+		var/datum/economy/line_item/item = new
+		item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
+		item.credits = 0
+		item.reason = "Virus [D.name] is missing the required symptom [initial(goal_symptom.name)] for [name]."
+		manifest.line_items += item
+		send_requests_console_message(item.reason, "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 
 /datum/virology_goal/virus
 	name = "Specific Viral Sample Request (Non-Stealth)"
@@ -208,7 +249,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		msg += initial(S.name)
 	return english_list(msg, ", ")
 
-/datum/virology_goal/virus/check_completion(list/datum/reagent/reagent_list)
+/datum/virology_goal/virus/check_viruses(list/datum/reagent/reagent_list, datum/economy/cargo_shuttle_manifest/manifest, simulate = TRUE, complain = FALSE)
 	. = FALSE
 	var/datum/reagent/blood/BL = locate() in reagent_list
 	if(!BL)
@@ -216,17 +257,42 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	if(!BL.data || !BL.data["viruses"])
 		return
 	for(var/datum/disease/advance/D in BL.data["viruses"])
-		if(length(D.symptoms) != length(goal_symptoms)) //This is here so viruses with extra symptoms dont get approved
-			return
+		if(length(D.symptoms) != length(goal_symptoms))
+			if(simulate || !manifest || !complain)
+				continue
+			var/datum/economy/line_item/item = new
+			item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
+			item.credits = 0
+			item.reason = "Virus [D.name] has the wrong number of symptoms for [name] ([length(D.symptoms)] is not [length(goal_symptoms)])."
+			manifest.line_items += item
+			send_requests_console_message(item.reason, "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
+			continue
 		for(var/S in goal_symptoms)
 			var/datum/symptom/SY = locate(S) in D.symptoms
 			if(!SY)
+				if(simulate || !manifest || !complain)
+					continue
+				var/datum/economy/line_item/item = new
+				item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
+				item.credits = 0
+				item.reason = "Virus [D.name] is missing symptom [initial(SY.name)] for [name]."
+				manifest.line_items += item
+				send_requests_console_message(item.reason, "Central Command", "Virology", "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
 				return
-			delivered_amount += BL.volume
-			if(delivered_amount >= delivery_goal)
-				completed = TRUE
-				check_total_virology_goals_completion()
+			if(simulate)
 				return TRUE
+		if(manifest)
+			var/datum/economy/line_item/item = new
+			item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
+			item.credits = 0
+			item.zero_is_good = TRUE
+			item.reason = "Received [BL.volume] units of usable virus [D.name] for [name]."
+			manifest.line_items += item
+		delivered_amount += BL.volume
+		if(delivered_amount >= delivery_goal)
+			completed = TRUE
+			check_total_virology_goals_completion()
+			return TRUE
 
 /datum/virology_goal/virus/stealth
 	name = "Specific Viral Sample Request (Stealth)"

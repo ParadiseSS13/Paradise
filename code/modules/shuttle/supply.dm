@@ -1,6 +1,11 @@
 #define MAX_CRATE_DELIVERY 40
+
+#define CARGO_OK 0
 #define CARGO_PREVENT_SHUTTLE 1
 #define CARGO_SKIP_ATOM 2
+#define CARGO_REQUIRE_PRIORITY 2
+#define CARGO_HAS_PRIORITY 2
+
 
 /obj/docking_port/mobile/supply
 	name = "supply shuttle"
@@ -126,26 +131,37 @@
 	manifest = new
 	SEND_SIGNAL(src, COMSIG_CARGO_BEGIN_SCAN)
 	for(var/atom/movable/AM in areaInstance)
-		if(!deep_scan(AM, TRUE))
+		if(deep_scan(AM, TRUE) == CARGO_PREVENT_SHUTTLE)
 			return FALSE
 	return TRUE
 
 /obj/docking_port/mobile/supply/proc/deep_scan(atom/movable/AM, top_level = FALSE)
 	var/handling = prefilter_atom(AM)
 	if(handling == CARGO_PREVENT_SHUTTLE)
-		return FALSE
+		return CARGO_PREVENT_SHUTTLE
 
+	var/found_priority = FALSE
 	for(var/atom/movable/child in AM)
-		if(!deep_scan(child))
-			return FALSE
+		var/child_handling = deep_scan(child)
+		if(child_handling == CARGO_PREVENT_SHUTTLE)
+			return CARGO_PREVENT_SHUTTLE
+		if(child_handling == CARGO_HAS_PRIORITY)
+			found_priority = TRUE
 
 	if(handling != CARGO_SKIP_ATOM)
 		var/sellable = SEND_SIGNAL(src, COMSIG_CARGO_CHECK_SELL, AM)
 		manifest.items_to_sell[AM] = sellable
 		if(top_level && !(sellable & COMSIG_CARGO_IS_SECURED))
 			manifest.loose_cargo = TRUE
+		if(top_level)
+			return CARGO_OK
+		if(sellable & COMSIG_CARGO_SELL_PRIORITY)
+			return CARGO_HAS_PRIORITY
+		if(handling == CARGO_REQUIRE_PRIORITY && !found_priority)
+			blocking_item = "locked containers that don't contain goal items ([AM])"
+			return CARGO_PREVENT_SHUTTLE
 
-	return TRUE
+	return CARGO_OK
 
 /obj/docking_port/mobile/supply/proc/prefilter_atom(atom/movable/AM)
 	for(var/reason in blacklist)
@@ -165,13 +181,21 @@
 			blocking_item = "locked crates ([AM])"
 			return CARGO_PREVENT_SHUTTLE
 
+	if(istype(AM, /obj/item/storage/lockbox))
+		var/obj/item/storage/lockbox/LB = AM
+		if(LB.locked)
+			return CARGO_REQUIRE_PRIORITY
+
 	if(istype(AM, /obj/effect))
 		var/obj/effect/E = AM
 		if(E.is_cleanable())
-			return NONE
+			return CARGO_OK
 
-	if(AM.anchored)
+	if(AM.anchored && !istype(AM, /obj/mecha/working))
 		return CARGO_SKIP_ATOM
+
+	return CARGO_OK
+
 
 /obj/docking_port/mobile/supply/proc/sell()
 	if(z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
@@ -197,7 +221,7 @@
 			manifest.messy_shuttle = TRUE
 			SSeconomy.sold_atoms += "[AM.name](mess)"
 			qdel(AM)
-		else
+		else if(!(sellable & COMSIG_CARGO_SELL_SKIP))
 			manifest.sent_trash = TRUE
 
 	SEND_SIGNAL(src, COMSIG_CARGO_END_SELL, manifest)
@@ -231,6 +255,8 @@
 
 		if(item.credits > 0)
 			msg += "<span class='good'>[item.account.account_name] +[item.credits]</span>: [item.reason]<br>"
+		else if(item.credits == 0)
+			msg += "<span class='[item.zero_is_good ? "good" : "bad"]'>[item.account.account_name] Notice</span>: [item.reason]<br>"
 		else
 			msg += "<span class='bad'>[item.account.account_name] [item.credits]</span>: [item.reason]<br>"
 
@@ -612,20 +638,59 @@
 	if(seed.rarity == 0)
 		item.reason = "We don't need samples of mundane species \"[capitalize(seed.species)]\"."
 		manifest.line_items += item
-		return
-	else
+	else if(SSeconomy.discovered_plants[seed.type] && SSeconomy.discovered_plants[seed.type] < seed.potency)
 		item.reason = "New sample of \"[capitalize(seed.species)]\" is not more potent than existing sample ([SSeconomy.discovered_plants[seed.type]] potency)."
 		manifest.line_items += item
+	// If neither succeeds, this seed was declared wrong by a different
+	// seller, so we should be quiet.
 
 
 /datum/economy/simple_seller/messes
-	var/list/temp_discovered
 
 /datum/economy/simple_seller/messes/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
 	if(istype(AM, /obj/effect))
 		var/obj/effect/E = AM
 		if(E.is_cleanable())
 			return COMSIG_CARGO_MESS | COMSIG_CARGO_IS_SECURED
+
+
+/datum/economy/simple_seller/containers
+
+/datum/economy/simple_seller/containers/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
+	if(istype(AM, /obj/item/storage))
+		return COMSIG_CARGO_SELL_NORMAL
+
+
+/datum/economy/simple_seller/mechs
+
+/datum/economy/simple_seller/mechs/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
+	if(!..())
+		return
+
+	var/datum/economy/line_item/cargo_item = new
+	cargo_item.account = SSeconomy.cargo_account
+	cargo_item.credits = SSeconomy.credits_per_mech / 2
+	cargo_item.reason = "Received a working [AM.name], great job!"
+	manifest.line_items += cargo_item
+
+	var/datum/economy/line_item/science_item = new
+	science_item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE)
+	science_item.credits = SSeconomy.credits_per_mech / 2
+	science_item.reason = "Received a working [AM.name], great job!"
+	manifest.line_items += science_item
+
+
+/datum/economy/simple_seller/mechs/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
+	if(istype(AM, /obj/mecha/working))
+		return COMSIG_CARGO_SELL_NORMAL | COMSIG_CARGO_IS_SECURED
+
+
+// Skip mech parts to avoid complaining about them.
+/datum/economy/simple_seller/mech_parts
+
+/datum/economy/simple_seller/mech_parts/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
+	if(istype(AM.loc, /obj/mecha/working))
+		return COMSIG_CARGO_SELL_SKIP
 
 
 /datum/economy/cargo_shuttle_manifest
@@ -640,7 +705,12 @@
 	var/datum/money_account/account
 	var/credits
 	var/reason
+	var/zero_is_good = FALSE
 
 #undef MAX_CRATE_DELIVERY
+
+#undef CARGO_OK
 #undef CARGO_PREVENT_SHUTTLE
 #undef CARGO_SKIP_ATOM
+#undef CARGO_REQUIRE_PRIORITY
+#undef CARGO_HAS_PRIORITY

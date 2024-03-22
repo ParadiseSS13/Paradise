@@ -56,6 +56,8 @@ SUBSYSTEM_DEF(economy)
 	var/credits_per_plasma = 10
 	/// credits gained per research design returned
 	var/credits_per_design = 20
+	/// credits gained per working mech sold
+	var/credits_per_mech = 100
 	/// credits lost for sending unsecured cargo
 	var/fine_for_loose_cargo = -100
 	/// credits lost for sending a messy shuttle
