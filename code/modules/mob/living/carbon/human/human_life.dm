@@ -662,6 +662,11 @@
 				healthdoll.overlays -= (cached_overlays - new_overlays)
 				healthdoll.cached_healthdoll_overlays = new_overlays
 
+		if(health <= HEALTH_THRESHOLD_CRIT)
+			throw_alert("succumb", /atom/movable/screen/alert/succumb)
+		else
+			clear_alert("succumb")
+
 #undef BODYPART_PAIN_REDUCTION
 
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element

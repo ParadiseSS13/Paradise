@@ -1,5 +1,5 @@
-#define EGG_INCUBATION_DEAD_CYCLE 60
-#define EGG_INCUBATION_LIVING_CYCLE 120
+#define EGG_INCUBATION_DEAD_CYCLE 120
+#define EGG_INCUBATION_LIVING_CYCLE 200
 /mob/living/simple_animal/hostile/headslug
 	name = "headslug"
 	desc = "Absolutely not de-beaked or harmless. Keep away from corpses."
@@ -21,6 +21,7 @@
 	environment_smash = 0
 	speak_emote = list("squeaks")
 	pass_flags = PASSTABLE | PASSMOB
+	mob_size = MOB_SIZE_SMALL
 	density = FALSE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	a_intent = INTENT_HARM
@@ -59,6 +60,9 @@
 	to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
 	addtimer(CALLBACK(src, PROC_REF(death)), 25 SECONDS)
 
+/mob/living/simple_animal/hostile/headslug/projectile_hit_check(obj/item/projectile/P)
+	return (stat || FALSE)
+	
 /obj/item/organ/internal/body_egg/changeling_egg
 	name = "changeling egg"
 	desc = "Twitching and disgusting."
