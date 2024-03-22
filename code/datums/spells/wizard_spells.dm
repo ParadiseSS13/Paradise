@@ -525,7 +525,7 @@
 		if(issilicon(M))
 			return
 		if(ishuman(M))
-			return
+			continue 
 		to_chat(M, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
 		var/range = get_dist_euclidian(M, corpse_turf)
 		M.apply_damage(85 / range, BRUTE)
