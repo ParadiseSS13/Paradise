@@ -534,7 +534,7 @@
 						RebuildHTML()
 
 					if("Money Account")
-						var/new_account = tgui_input_number(user, "What money account would you like to link to this card?", "Agent Card Account", 12345)
+						var/new_account = tgui_input_number(user, "What money account would you like to link to this card?", "Agent Card Account", 12345, max_value = 9999999)
 						if(!Adjacent(user) || !new_account)
 							return
 						associated_account_number = new_account
@@ -630,8 +630,7 @@
 	assignment = "Captain"
 
 /obj/item/card/id/captains_spare/New()
-	var/datum/job/captain/J = new/datum/job/captain
-	access = J.get_access()
+	access = get_all_accesses()
 	..()
 
 /obj/item/card/id/admin

@@ -31,7 +31,7 @@
 
 /obj/structure/inflatable/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Shift-Click</b> to deflate [src].</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to deflate [src].</span>"
 
 /obj/structure/inflatable/Initialize(location)
 	..()
@@ -148,7 +148,6 @@
 		flick("door_closing",src)
 	sleep(10)
 	density = !density
-	opacity = !opacity
 	state_open = !state_open
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE

@@ -136,7 +136,7 @@
 	..()
 
 /datum/action/innate/cult/blood_spell/IsAvailable()
-	if(!iscultist(owner) || owner.incapacitated() || !charges)
+	if(!IS_CULTIST(owner) || owner.incapacitated() || !charges)
 		return FALSE
 	return ..()
 
@@ -229,8 +229,7 @@
 	button_icon_state = "cult_dagger"
 
 /datum/action/innate/cult/blood_spell/dagger/New()
-	if(SSticker.mode)
-		button_icon_state = SSticker.cultdat.dagger_icon
+	button_icon_state = GET_CULT_DATA(dagger_icon, "cult_dagger")
 	..()
 
 /datum/action/innate/cult/blood_spell/dagger/Activate()
@@ -298,7 +297,7 @@
 /obj/effect/proc_holder/horror/InterceptClickOn(mob/living/user, params, atom/target)
 	if(..())
 		return
-	if(ranged_ability_user.incapacitated() || !iscultist(user))
+	if(ranged_ability_user.incapacitated() || !IS_CULTIST(user))
 		user.ranged_ability.remove_ranged_ability(user)
 		return
 	if(user.holy_check())
@@ -307,7 +306,7 @@
 	if(!isturf(T))
 		return FALSE
 	if(target in view(7, ranged_ability_user))
-		if(!ishuman(target) || iscultist(target))
+		if(!ishuman(target) || IS_CULTIST(target))
 			return
 		var/mob/living/carbon/human/H = target
 		H.Hallucinate(120 SECONDS)
@@ -336,7 +335,7 @@
 		owner.visible_message("<span class='warning'>Thin grey dust falls from [owner]'s hand!</span>", \
 		"<span class='cultitalic'>You invoke the veiling spell, hiding nearby runes and cult structures.</span>")
 		charges--
-		if(!SSticker.mode.cult_risen || !SSticker.mode.cult_ascendant)
+		if(!SSticker.mode.cult_team.cult_risen || !SSticker.mode.cult_team.cult_ascendant)
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(4)) // If Cult is risen/ascendant.
 		else
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(1)) // If Cult is unpowered.
@@ -352,7 +351,7 @@
 		"<span class='cultitalic'>You invoke the counterspell, revealing nearby runes and cult structures.</span>")
 		charges--
 		owner.whisper(invocation)
-		if(!SSticker.mode.cult_risen || !SSticker.mode.cult_ascendant)
+		if(!SSticker.mode.cult_team.cult_risen || !SSticker.mode.cult_team.cult_ascendant)
 			playsound(owner, 'sound/misc/enter_blood.ogg', 25, TRUE, SOUND_RANGE_SET(7)) // If Cult is risen/ascendant.
 		else
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(1)) // If Cult is unpowered.
@@ -381,9 +380,9 @@
 
 // The "magic hand" items
 /obj/item/melee/blood_magic
-	name = "\improper magical aura"
+	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "disintegrate"
@@ -429,7 +428,7 @@
 	afterattack(user, user, TRUE)
 
 /obj/item/melee/blood_magic/attack(mob/living/M, mob/living/carbon/user)
-	if(!iscarbon(user) || !iscultist(user))
+	if(!iscarbon(user) || !IS_CULTIST(user))
 		uses = 0
 		qdel(src)
 		return
@@ -462,7 +461,7 @@
 	if(!isliving(target) || !proximity)
 		return
 	var/mob/living/L = target
-	if(iscultist(target))
+	if(IS_CULTIST(target))
 		return
 	if(user.holy_check())
 		return
@@ -511,7 +510,7 @@
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
 	var/atom/movable/teleportee
-	if(!iscultist(target) || !proximity)
+	if(!IS_CULTIST(target) || !proximity)
 		to_chat(user, "<span class='warning'>You can only teleport adjacent cultists with this spell!</span>")
 		return
 	if(user != target) // So that the teleport effect shows on the correct mob
@@ -875,7 +874,7 @@
 	if(!proximity)
 		return ..()
 	if(ishuman(target))
-		if(iscultist(target))
+		if(IS_CULTIST(target))
 			heal_cultist(user, target)
 			target.clean_blood()
 		else

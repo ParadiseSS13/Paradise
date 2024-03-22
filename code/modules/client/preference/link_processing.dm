@@ -191,7 +191,7 @@
 		if("input")
 			switch(href_list["preference"])
 				if("name")
-					var/raw_name = clean_input("Choose your character's name:", "Character Preference", , user)
+					var/raw_name = clean_input("Choose your character's name:", "Character Preference", null, user)
 					if(!isnull(raw_name)) // Check to ensure that the user entered text (rather than cancel.)
 						var/new_name = reject_bad_name(raw_name, 1)
 						if(new_name)
@@ -1012,7 +1012,7 @@
 				if("thought_bubble")
 					toggles2 ^= PREFTOGGLE_2_THOUGHT_BUBBLE
 					if(length(parent?.screen))
-						var/obj/screen/plane_master/point/PM = locate(/obj/screen/plane_master/point) in parent.screen
+						var/atom/movable/screen/plane_master/point/PM = locate(/atom/movable/screen/plane_master/point) in parent.screen
 						PM.backdrop(parent.mob)
 
 				if("be_special")
@@ -1092,7 +1092,7 @@
 				if("ambientocclusion")
 					toggles ^= PREFTOGGLE_AMBIENT_OCCLUSION
 					if(length(parent?.screen))
-						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
+						var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in parent.screen
 						PM.backdrop(parent.mob)
 
 				if("parallax")

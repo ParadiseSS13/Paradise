@@ -69,8 +69,8 @@
 		to_chat(user, "<span class='warning'>You must hold [P] steady to burn [src].</span>")
 		return
 
-	user.visible_message("[class][user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
-	"[class]You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
+	user.visible_message("<span class='[class]'>[user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
+	"<span class='[class]'>You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
 
 	if(user.is_in_inactive_hand(src))
 		user.unEquip(src)
@@ -106,7 +106,7 @@
 			colormatrix[7], colormatrix[8], colormatrix[9],
 		)
 	usr << browse_rsc(img_shown, "tmp_photo.png")
-	usr << browse("<html><head><title>[name]</title></head>" \
+	usr << browse("<html><meta charset='utf-8'><head><title>[name]</title></head>" \
 		+ "<body style='overflow:hidden;margin:0;text-align:center'>" \
 		+ "<img src='tmp_photo.png' width='[64*photo_size]' style='-ms-interpolation-mode:nearest-neighbor' />" \
 		+ "[scribble ? "<br>Written on the back:<br><i>[scribble]</i>" : ""]"\
@@ -142,7 +142,7 @@
 
 	if(ishuman(usr))
 		var/mob/M = usr
-		if(!istype(over_object, /obj/screen))
+		if(!is_screen_atom(over_object))
 			return ..()
 		playsound(loc, "rustle", 50, 1, -5)
 		if((!M.restrained() && !M.stat && M.back == src))

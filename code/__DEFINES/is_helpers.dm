@@ -116,6 +116,9 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 // Structures
 #define isstructure(A)	(istype((A), /obj/structure))
 
+// Vehicles
+#define isvehicle(A) istype(A, /obj/vehicle)
+
 // Misc
 #define isclient(A) istype(A, /client)
 #define isradio(A) istype(A, /obj/item/radio)
@@ -133,3 +136,5 @@ GLOBAL_LIST_INIT(turfs_pass_meteor, typecacheof(list(
 )))
 
 #define ispassmeteorturf(A) (is_type_in_typecache(A, GLOB.turfs_pass_meteor))
+
+#define is_screen_atom(A) istype(A, /atom/movable/screen)
