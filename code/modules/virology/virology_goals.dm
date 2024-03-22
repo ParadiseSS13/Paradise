@@ -101,16 +101,22 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		var/property = properties[goal_property]
 		if(property != goal_property_value)
 			continue
+		var/found_goal_symptom = FALSE
 		for(var/datum/symptom/S in D.symptoms)
 			if(!goal_symptom)
 				return
 			if(S.type != goal_symptom)
 				continue
-			delivered_amount += BL.volume
-			if(delivered_amount >= delivery_goal)
-				completed = TRUE
-				check_total_virology_goals_completion()
-				return TRUE
+			else
+				found_goal_symptom = TRUE
+				break
+		if(!found_goal_symptom)
+			return
+		delivered_amount += BL.volume
+		if(delivered_amount >= delivery_goal)
+			completed = TRUE
+			check_total_virology_goals_completion()
+			return TRUE
 
 /datum/virology_goal/virus
 	name = "Specific Viral Sample Request (Non-Stealth)"
@@ -174,11 +180,11 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 			var/datum/symptom/SY = locate(S) in D.symptoms
 			if(!SY)
 				return
-			delivered_amount += BL.volume
-			if(delivered_amount >= delivery_goal)
-				completed = TRUE
-				check_total_virology_goals_completion()
-				return TRUE
+		delivered_amount += BL.volume
+		if(delivered_amount >= delivery_goal)
+			completed = TRUE
+			check_total_virology_goals_completion()
+			return TRUE
 
 /datum/virology_goal/virus/stealth
 	name = "Specific Viral Sample Request (Stealth)"
