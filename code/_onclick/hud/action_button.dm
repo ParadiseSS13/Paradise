@@ -133,7 +133,7 @@
  */
 /datum/hud/proc/get_action_buttons_icons()
 	. = list()
-	.["bg_icon"] = ui_style2icon(mymob?.client.prefs.UI_style)
+	.["bg_icon"] = ui_style2icon(mymob.client?.prefs.UI_style)
 	.["bg_state"] = "template"
 	.["bg_state_active"] = "template_active"
 
