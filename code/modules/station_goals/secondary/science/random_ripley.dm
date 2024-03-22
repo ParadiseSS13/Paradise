@@ -84,26 +84,9 @@
 		return COMSIG_CARGO_SELL_PRIORITY
 
 	sent = TRUE
-	
-	var/datum/economy/line_item/cargo_item = new
-	cargo_item.account = SSeconomy.cargo_account
-	cargo_item.credits = SSeconomy.credits_per_ripley_goal / 3
-	cargo_item.reason = "Secondary goal complete: Customized Ripley."
-	manifest.line_items += cargo_item
-
-	var/datum/economy/line_item/science_item = new
-	science_item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE)
-	science_item.credits = SSeconomy.credits_per_ripley_goal / 3
-	science_item.reason = "Secondary goal complete: Customized Ripley."
-	manifest.line_items += science_item
-
-	var/datum/economy/line_item/personal_item = new
-	personal_item.account = personal_account || science_item.account
-	personal_item.credits = SSeconomy.credits_per_ripley_goal / 3
-	personal_item.reason = "Secondary goal complete: Customized Ripley."
-	manifest.line_items += personal_item
-
 	return COMSIG_CARGO_SELL_PRIORITY
 
 /datum/secondary_goal_progress/random_ripley/check_complete(datum/economy/cargo_shuttle_manifest/manifest)
+	if(sent)
+		three_way_reward(manifest, "Robotics", GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE), SSeconomy.credits_per_ripley_goal, "Secondary goal complete: Customized Ripley.")
 	return sent

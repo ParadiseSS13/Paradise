@@ -34,6 +34,7 @@
 
 	report_message = "Someone spiked the water cooler at CC with Space Drugs again, and we all have a craving for [initial(food_type.name)]. Please send us [amount] servings of it."
 
+
 /datum/secondary_goal_progress/random_bulk_food
 	var/obj/item/food/snacks/food_type
 	var/needed
@@ -81,22 +82,5 @@
 	if(sent < needed)
 		return
 
-	var/datum/economy/line_item/supply_item = new
-	supply_item.account = SSeconomy.cargo_account
-	supply_item.credits = reward / 3
-	supply_item.reason = "Secondary goal complete: [needed] servings of [initial(food_type.name)]."
-	manifest.line_items += supply_item
-
-	var/datum/economy/line_item/department_item = new
-	department_item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE)
-	department_item.credits = reward / 3
-	department_item.reason = "Secondary goal complete: [needed] servings of [initial(food_type.name)]."
-	manifest.line_items += department_item
-
-	var/datum/economy/line_item/personal_item = new
-	personal_item.account = personal_account || department_item.account
-	personal_item.credits = reward / 3
-	personal_item.reason = "Secondary goal complete: [needed] servings of [initial(food_type.name)]."
-	manifest.line_items += personal_item
-
+	three_way_reward(manifest, "Kitchen", GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE), reward, "Secondary goal complete: [needed] units of [initial(food_type.name)].")
 	return TRUE

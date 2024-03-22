@@ -33,6 +33,7 @@
 			amount = 50
 			reward = SSeconomy.credits_per_hard_reagent_goal
 
+
 /datum/secondary_goal_progress/random_bulk_reagent
 	var/datum/reagent/reagent_type
 	var/needed
@@ -87,23 +88,5 @@
 	if(sent < needed)
 		return
 
-	var/datum/economy/line_item/supply_item = new
-	supply_item.account = SSeconomy.cargo_account
-	supply_item.credits = reward / 3
-	supply_item.reason = "Secondary goal complete: [needed] units of [initial(reagent_type.name)]."
-	manifest.line_items += supply_item
-
-	var/datum/economy/line_item/department_item = new
-	department_item.account = department_account
-	department_item.credits = reward / 3
-	department_item.reason = "Secondary goal complete: [needed] units of [initial(reagent_type.name)]."
-	manifest.line_items += department_item
-
-	var/datum/economy/line_item/personal_item = new
-	personal_item.account = personal_account || department_account
-	personal_item.credits = reward / 3
-	personal_item.reason = "Secondary goal complete: [needed] units of [initial(reagent_type.name)]."
-	manifest.line_items += personal_item
-
-	send_requests_console_message(personal_item.reason, "Central Command", department, "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
+	three_way_reward(manifest, department, department_account, reward, "Secondary goal complete: [needed] units of [initial(reagent_type.name)].")
 	return TRUE

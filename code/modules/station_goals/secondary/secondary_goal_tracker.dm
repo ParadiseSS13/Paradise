@@ -78,3 +78,24 @@
 /datum/secondary_goal_progress/proc/check_complete(datum/economy/cargo_shuttle_manifest/manifest)
 	SIGNAL_HANDLER  // Indirect: COMSIG_CARGO_END_SELL
 	return FALSE
+
+/datum/secondary_goal_progress/three_way_reward(datum/economy/cargo_shuttle_manifest/manifest, department, department_account, reward, message)
+	var/datum/economy/line_item/supply_item = new
+	supply_item.account = SSeconomy.cargo_account
+	supply_item.credits = reward / 3
+	supply_item.reason = message
+	manifest.line_items += supply_item
+
+	var/datum/economy/line_item/department_item = new
+	department_item.account = department_account
+	department_item.credits = reward / 3
+	department_item.reason = message
+	manifest.line_items += department_item
+
+	var/datum/economy/line_item/personal_item = new
+	personal_item.account = personal_account || department_account
+	personal_item.credits = reward / 3
+	personal_item.reason = message
+	manifest.line_items += personal_item
+
+	send_requests_console_message(message, "Central Command", department, "Stamped with the Central Command rubber stamp.", null, RQ_NORMALPRIORITY)
