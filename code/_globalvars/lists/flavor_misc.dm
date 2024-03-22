@@ -67,3 +67,4 @@ GLOBAL_LIST_INIT(backbaglist, list(DBACKPACK, DSATCHEL, DDUFFLEBAG, GBACKPACK, G
 #define ROBOBRAIN_BORG "Robobrain"
 #define POSITRONIC_BORG "Positronic"
 GLOBAL_LIST_INIT(borg_brain_choices, list(MMI_BORG, ROBOBRAIN_BORG, POSITRONIC_BORG))
+GLOBAL_PROTECT(borg_brain_choices)
