@@ -455,9 +455,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			else
 				new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 		if("Wizard")
-			new_character.loc = pick(GLOB.wizardstart)
+			new_character.forceMove(pick(GLOB.wizardstart))
 			//ticker.mode.learn_basic_spells(new_character)
-			SSticker.mode.equip_wizard(new_character)
+			var/datum/antagonist/wizard/wizard = new_character.mind.has_antag_datum(/datum/antagonist/wizard)
+			if(istype(wizard))
+				wizard.equip_wizard()
 		if("Syndicate")
 			var/obj/effect/landmark/synd_spawn = locate("landmark*Syndicate-Spawn")
 			if(synd_spawn)

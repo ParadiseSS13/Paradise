@@ -200,6 +200,11 @@
 	display_name = "Poncho, red"
 	path = /obj/item/clothing/suit/poncho/red
 
+/datum/gear/suit/secponcho
+	display_name = "Poncho, security"
+	path = /obj/item/clothing/suit/armor/secponcho
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
+
 /datum/gear/suit/tphoodie
 	display_name = "Hoodie, Tharsis Polytech"
 	path = /obj/item/clothing/suit/hooded/hoodie/tp
