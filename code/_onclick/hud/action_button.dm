@@ -1,9 +1,11 @@
 /atom/movable/screen/movable/action_button
 	desc = "CTRL-Shift click on this button to bind it to a hotkey."
-	var/datum/action/linked_action
-	var/actiontooltipstyle = ""
 	screen_loc = null
-	var/ordered = TRUE
+	/// The action triggered by this button.
+	var/datum/action/linked_action
+	/// The style of tool-tip.
+	var/actiontooltipstyle = ""
+	/// The keybind that will trigger this action button.
 	var/datum/keybinding/mob/trigger_action_button/linked_keybind
 	/// The HUD this action button belongs to
 	var/datum/hud/our_hud

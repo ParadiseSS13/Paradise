@@ -14,7 +14,7 @@
 	var/mob/owner
 	/// Where any buttons we create should be by default. Accepts screen_loc and location defines
 	var/default_button_position = SCRN_OBJ_IN_LIST
-	/// List of all mobs that are viewing our action button -> A unique movable for them to view.
+	/// Map of huds viewing a button with our action -> their button
 	var/list/viewers = list()
 
 
