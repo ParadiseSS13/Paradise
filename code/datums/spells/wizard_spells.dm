@@ -508,7 +508,7 @@
 	explosion(corpse_turf, 0, 0, 0, 0, silent = TRUE, breach = FALSE)
 	for(var/mob/living/carbon/human/H in range(4, corpse_turf))
 		if(H == user)
-			return
+			continue 
 		to_chat(H, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
 		var/range = get_dist_euclidian(H, corpse_turf)
 		if(range < 4)
