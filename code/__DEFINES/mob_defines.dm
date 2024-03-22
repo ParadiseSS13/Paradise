@@ -278,7 +278,7 @@
 
 #define is_external_organ(A)		(istype((A), /obj/item/organ/external))
 #define is_internal_organ(A)		(istype((A), /obj/item/organ/internal))
-#define	isorgan(A)				(istype((A), /obj/item/organ))
+#define	is_organ(A)				(istype((A), /obj/item/organ))
 #define hasorgans(A)	(iscarbon(A))
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)

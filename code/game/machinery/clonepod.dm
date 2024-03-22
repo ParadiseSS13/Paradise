@@ -570,7 +570,7 @@
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 
-	if(isorgan(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
+	if(is_organ(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
 		insert_organ(I, user)
 		return
 
