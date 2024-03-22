@@ -70,8 +70,8 @@
 		dat += "<a href='?src=[UID()];dispense=vest'>Agent Vest</a><br>"
 		dat += "<a href='?src=[UID()];dispense=silencer'>Radio Silencer</a><br>"
 		dat += "<a href='?src=[UID()];dispense=tool'>Science Tool</a><br>"
-		dat += "<a href='?src=[UID()];dispense=mind_device'>Mental Interface Device (2)</A><br>"
-		dat += "<a href='?src=[UID()];dispense=organ_extractor'>Organ Extractor (2)</A><br>"
+		dat += "<a href='?src=[UID()];dispense=mind_device'>Mental Interface Device (2)</a><br>"
+		dat += "<a href='?src=[UID()];dispense=organ_extractor'>Organ Extractor (2)</a><br>"
 	else
 		dat += "<span class='bad'>NO EXPERIMENT MACHINE DETECTED</span> <br>"
 
