@@ -705,7 +705,7 @@
 
 /obj/item/paper/seed_vault
 	name = "Seed Vault Objective"
-	info = "<center><i>Seed Vault objective:</i></center> \ Your creator have sent you to planet SN-856B in the Jansev4 system to preform terraforming. <br>To assist you with terraforming, we provided you with: <br>- 4 compact pickaxes <br>- 4 extended-capacity emergency oxygen tanks <br>- 4 breathing masks <br>- 4 bee starter kits <br>- A fully functional botanical setup <br><br>You will find an Introduction for Experimental terraforming inside the cockpit."
+	info = "<center><i>Seed Vault objective:</i></center> \ Your creator has sent you to planet SN-856B in the Jansev4 system to perform terraforming. <br>To assist you in your task, we provided you with: <br>- 4 compact pickaxes <br>- 4 extended-capacity emergency oxygen tanks <br>- 4 breathing masks <br>- 4 bee starter kits <br>- A fully functional botanical setup <br><br>You will find an Introduction for Experimental Terraforming inside the cockpit."
 
 /obj/item/paper/seed_vault/terraforming_introduction
 	name = "Terraformation Experiment for SN-856B"
