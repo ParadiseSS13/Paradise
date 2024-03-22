@@ -507,7 +507,7 @@
 	target.gib()
 	explosion(get_turf(target), 0, 0, 0, 0, silent = TRUE, breach = FALSE)
 	for(var/mob/living/carbon/human/H in range(4, corpse_turf))
-		if(H == usr)
+		if(H == user)
 			return
 		to_chat(H, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
 		var/range = get_dist_euclidian(H, corpse_turf)
