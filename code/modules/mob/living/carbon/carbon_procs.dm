@@ -335,7 +335,7 @@
 		status_list += msg
 
 		for(var/obj/item/I in LB.embedded_objects)
-			status_list += "<a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
+			status_list += "\t<a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
 
 	for(var/t in missing)
 		status_list += "<span class='boldannounceic'>Your [parse_zone(t)] is missing!</span>"
@@ -348,8 +348,7 @@
 		else
 			status_list += "<span class='info'>You feel fatigued.</span>"
 
-	var/output = status_list.Join("\n")
-	to_chat(src, output)
+	to_chat(src, chat_box_examine(status_list.Join("\n")))
 
 	if(HAS_TRAIT(H, TRAIT_SKELETONIZED) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
@@ -1383,3 +1382,12 @@ so that different stomachs can handle things in different ways VB*/
 	// keep most of what's passed in, but don't change the angle
 	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, should_rotate = FALSE, rightable = FALSE)
 	KnockDown(10 SECONDS)
+
+/mob/living/carbon/rename_character(oldname, newname)
+	. = ..()
+	if(!.)
+		return
+
+	for(var/obj/item/organ/internal/IO in internal_organs)
+		if(IO.dna?.real_name == oldname)
+			IO.dna.real_name = newname

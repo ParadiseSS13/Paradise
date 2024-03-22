@@ -49,6 +49,7 @@
 	desc = "What are you standing around staring at this for? Get to killing!"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "claymore"
 	item_state = "claymore"
 	flags = CONDUCT
@@ -81,6 +82,7 @@
 	desc = "Woefully underpowered in D20."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
@@ -112,6 +114,7 @@
 	desc = "Tharr she blows!"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "harpoon"
 	item_state = "harpoon"
 	force = 20
@@ -162,6 +165,7 @@
 /obj/item/throwing_star
 	name = "throwing star"
 	desc = "An ancient weapon still used to this day due to it's ease of lodging itself into victim's body parts"
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "throwingstar"
 	item_state = "eshield0"
 	force = 2
@@ -187,7 +191,6 @@
 	name = "baseball bat"
 	desc = "There ain't a skull in the league that can withstand a swatter."
 	flags_2 = RANDOM_BLOCKER_2
-	icon = 'icons/obj/items.dmi'
 	icon_state = "baseball_bat"
 	item_state = "baseball_bat"
 	var/deflectmode = FALSE // deflect small/medium thrown objects

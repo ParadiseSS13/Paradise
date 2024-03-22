@@ -1,4 +1,3 @@
-
 /datum/mapGenerator
 
 	//Map information

@@ -2,7 +2,6 @@
 	name = "ragin' mages"
 	config_tag = "raginmages"
 	required_players = 20
-	use_huds = TRUE
 	but_wait_theres_more = TRUE
 	var/max_mages = 0
 	var/making_mage = FALSE
@@ -18,17 +17,6 @@
 	to_chat(world, "<B>The current game mode is - Ragin' Mages!</B>")
 	to_chat(world, "<B>The <font color='red'>Space Wizard Federation</font> is pissed, crew must help defeat all the Space Wizards invading the station!</B>")
 
-/datum/game_mode/wizard/raginmages/greet_wizard(datum/mind/wizard, you_are=1)
-	var/list/messages = list()
-	if(you_are)
-		messages.Add("<span class='danger'>You are the Space Wizard!</span>")
-	messages.Add("<B>The Space Wizards Federation has given you the following tasks:</B>")
-
-	messages.Add("<b>Supreme Objective</b>: Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour.")
-	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
-	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
-	wizard.current.create_log(MISC_LOG, "[wizard.current] was made into a wizard")
-
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
 	var/wizard_cap = CEILING((num_players_started() / players_per_mage), 1)
@@ -37,14 +25,14 @@
 		if(isnull(wizard.current))
 			continue
 		if(wizard.current.stat == DEAD || isbrain(wizard.current) || !iscarbon(wizard.current))
-			squabble_helper(wizard)
-			continue
-		if(wizard.current.stat == UNCONSCIOUS)
-			if(wizard.current.health < HEALTH_THRESHOLD_DEAD) //Lets make this not get funny rng crit involved
+			if(squabble_helper(wizard))
+				continue
+		if(wizard.current.stat != CONSCIOUS)
+			if(wizard.current.health < HEALTH_THRESHOLD_DEAD || wizard.current.stat == DEAD) //Lets make this not get funny rng crit involved
 				if(!squabble_helper(wizard))
 					to_chat(wizard.current, "<span class='warning'><font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font></span>")
 					wizard.current.dust() // *REAL* ACTION!! *REAL* DRAMA!! *REAL* BLOODSHED!!
-			continue
+				continue
 
 		if(!wizard.current.client)
 			continue // Could just be a bad connection, so SSD wiz's shouldn't be gibbed over it, but they're not "alive" either
@@ -126,7 +114,10 @@
 	making_mage = FALSE
 	if(harry)
 		var/mob/living/carbon/human/new_character = makeBody(harry)
-		new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
+		var/datum/antagonist/wizard/wizard = new /datum/antagonist/wizard()
+		wizard.additional_text = "Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour."
+		new_character.mind.add_antag_datum(wizard)
+		new_character.forceMove(pick(GLOB.wizardstart))
 		new_character.equip_to_slot_or_del(new /obj/item/reagent_containers/drinks/mugwort(harry), SLOT_HUD_IN_BACKPACK)
 		// The first wiznerd can get their mugwort from the wizard's den, new ones will also need mugwort!
 		mages_made++

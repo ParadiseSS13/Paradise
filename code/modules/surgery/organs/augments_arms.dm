@@ -464,7 +464,7 @@
 	desc = "A long length of monomolecular filament, built into the back of your hand. \
 		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
 		even from a few steps away. However, results against anything more durable will heavily vary."
-	icon = 'icons/obj/energy_melee.dmi'
+	icon = 'icons/obj/weapons/energy_melee.dmi'
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	icon_state = "razorwire_weapon"

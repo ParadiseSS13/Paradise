@@ -1,16 +1,16 @@
 {
 	"gitlens.advanced.blame.customArguments": [
-		"--ignore-revs-file", "${workspaceRoot}/.git-blame-ignore-revs"
+		"--ignore-revs-file",
+		"${workspaceRoot}/.git-blame-ignore-revs"
 	],
 	// ESLint settings:
-	"eslint.workingDirectories": [
-		"./tgui"
-	],
+	"eslint.workingDirectories": ["tgui/"],
 	"search.exclude": {
-    "**/.yarn": true,
-    "**/.pnp.*": true
+		"**/.yarn": true,
+		"**/.pnp.*": true
 	},
 	"eslint.nodePath": "tgui/.yarn/sdks",
+	"prettier.configPath": "tgui/.prettierrc.yml",
 	"prettier.prettierPath": "tgui/.yarn/sdks/prettier/index.cjs",
 	"typescript.tsdk": "tgui/.yarn/sdks/typescript/lib",
 	"typescript.enablePromptUseWorkspaceTsdk": true,

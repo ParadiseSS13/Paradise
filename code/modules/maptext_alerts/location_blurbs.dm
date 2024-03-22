@@ -118,7 +118,7 @@
 
 	var/atom/movable/screen/text/blurb/location_blurb = new()
 	if(antag_check.antag_datums)
-		for(var/datum/antagonist/role)
+		for(var/datum/antagonist/role in antag_check.antag_datums)
 			if(role.custom_blurb())
 				location_blurb.blurb_text = uppertext(role.custom_blurb())
 				location_blurb.text_color = role.blurb_text_color

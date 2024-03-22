@@ -48,11 +48,13 @@
 
 /mob/living/simple_animal/hostile/construct/Destroy()
 	mind?.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
+	mind?.remove_antag_datum(/datum/antagonist/wizard/construct, silent_removal = TRUE)
 	remove_held_body()
 	return ..()
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
 	mind?.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
+	mind?.remove_antag_datum(/datum/antagonist/wizard/construct, silent_removal = TRUE)
 	if(held_body) // Null check for empty bodies
 		held_body.forceMove(get_turf(src))
 		SSticker.mode?.cult_team?.add_cult_immunity(held_body)

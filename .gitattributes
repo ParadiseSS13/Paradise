@@ -1,3 +1,6 @@
-## Merger hooks, run tools/hooks/install.bat or install.sh to set up
+## Merge hooks, run tools/hooks/install.bat or install.sh to set up
 *.dmm text eol=lf merge=dmm
 *.dmi binary merge=dmi
+## TGUI bundle merge drivers
+*.bundle.* binary merge=tgui-merge-bundle
+*.chunk.* binary merge=tgui-merge-bundle

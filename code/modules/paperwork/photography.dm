@@ -69,8 +69,8 @@
 		to_chat(user, "<span class='warning'>You must hold [P] steady to burn [src].</span>")
 		return
 
-	user.visible_message("[class][user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
-	"[class]You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
+	user.visible_message("<span class='[class]'>[user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
+	"<span class='[class]'>You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
 
 	if(user.is_in_inactive_hand(src))
 		user.unEquip(src)

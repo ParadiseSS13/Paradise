@@ -124,6 +124,7 @@
 /obj/item/melee/changeling_corrosive_acid
 	name = "Corrosive acid"
 	desc = "A fistfull of death."
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "alien_acid"
 	item_state = null
 	flags = ABSTRACT | NODROP | DROPDEL

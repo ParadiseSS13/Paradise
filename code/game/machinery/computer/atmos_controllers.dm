@@ -1,12 +1,12 @@
 GLOBAL_LIST_EMPTY(gas_sensors)
 
-#define SENSOR_PRESSURE 	(1<<0)
-#define SENSOR_TEMPERATURE 	(1<<1)
-#define SENSOR_O2 			(1<<2)
-#define SENSOR_PLASMA 		(1<<3)
-#define SENSOR_N2 			(1<<4)
-#define SENSOR_CO2 			(1<<5)
-#define SENSOR_N2O 			(1<<6)
+#define SENSOR_PRESSURE		(1<<0)
+#define SENSOR_TEMPERATURE	(1<<1)
+#define SENSOR_O2			(1<<2)
+#define SENSOR_PLASMA		(1<<3)
+#define SENSOR_N2			(1<<4)
+#define SENSOR_CO2			(1<<5)
+#define SENSOR_N2O			(1<<6)
 
 /obj/machinery/atmospherics/air_sensor
 	icon = 'icons/obj/stationobjs.dmi'
