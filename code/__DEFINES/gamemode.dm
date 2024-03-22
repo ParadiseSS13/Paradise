@@ -28,6 +28,7 @@
 #define SPECIAL_ROLE_BLOB "Blob"
 #define SPECIAL_ROLE_BLOB_OVERMIND "Blob Overmind"
 #define SPECIAL_ROLE_CHANGELING "Changeling"
+#define SPECIAL_ROLE_HEADSLUG "Headslug"
 #define SPECIAL_ROLE_CULTIST "Cultist"
 #define SPECIAL_ROLE_DEATHSQUAD "Deathsquad Commando"
 #define SPECIAL_ROLE_ERT "Response Team"
