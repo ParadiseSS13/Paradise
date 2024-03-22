@@ -401,7 +401,7 @@
 /obj/item/seeds/grass{
 	name = "modificated pack of grass seeds"
 	},
-/obj/item/paper/seed_vault/terraformation,
+/obj/item/paper/seed_vault/terraforming_introduction,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "QX" = (
