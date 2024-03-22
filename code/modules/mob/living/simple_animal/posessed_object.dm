@@ -23,6 +23,9 @@
 	/// What is the actual item we are "possessing"
 	var/obj/item/possessed_item
 
+	/// If set, a shade that we can become on death.
+	var/mob/living/simple_animal/shade/shade
+
 /mob/living/simple_animal/possessed_object/examine(mob/user)
 	. = possessed_item.examine(user)
 	if(health > (maxHealth / 30))
@@ -48,11 +51,15 @@
 	lay_down()
 	var/mob/dead/observer/ghost = ghostize(TRUE)
 	ghost.timeofdeath = world.time
-	death(0) // Turn back into a regular object.
+	death(TRUE) // Turn back into a regular object.
 
 /mob/living/simple_animal/possessed_object/death(gibbed)
 	if(can_die())
-		ghostize(TRUE)
+		if(shade)
+			shade.ckey = ckey
+			shade.forceMove(loc)
+		else
+			ghostize(TRUE)
 		// if gibbed, the item goes with the ghost
 		if(!gibbed && possessed_item.loc == src)
 			// Put the normal item back once the EVIL SPIRIT has been vanquished from it. If it's not already in place
@@ -62,11 +69,35 @@
 
 	return ..()
 
-/mob/living/simple_animal/possessed_object/Life(seconds, times_fired)
-	..()
+/mob/living/simple_animal/possessed_object/proc/check_host()
+	if(possessed_item?.loc)
+		return TRUE
+	// Our posessed item disappeared. Check to see if it became
+	// something else.
+	var/new_host = locate(/obj/item) in contents
+	if(new_host)
+		// Sweet, new host.
+		possessed_item = new_host
+		return TRUE
+	else
+		// guess I'll die
+		death(TRUE)
+		return FALSE
 
-	if(!possessed_item) // If we're a donut and someone's eaten us, for instance.
-		death(1)
+// Don't drop what we're posessing.
+/mob/living/simple_animal/possessed_object/unEquip(obj/item/I)
+	if(I != possessed_item)
+		..()
+	if(I == l_hand)
+		l_hand = null
+	if(I == r_hand)
+		r_hand = null
+
+/mob/living/simple_animal/possessed_object/Life(seconds, times_fired)
+	if(!check_host())
+		return
+
+	..()
 
 	if(possessed_item.loc != src)
 		if(isturf(possessed_item.loc)) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
@@ -106,6 +137,7 @@
 		qdel(src)
 
 	possessed_item = loc
+	shade = locate(/mob/living/simple_animal/shade) in possessed_item.contents
 	forceMove(possessed_loc)
 	possessed_item.forceMove(src) // We'll keep the actual item inside of us until we die.
 
@@ -148,6 +180,10 @@
 	else
 		..()
 
+	// Check to see if our host is still valid, i.e. if it got deleted
+	// or replaced by a different /obj/item instance.
+	check_host()
+
 	if(possessed_item.loc != src)
 		if(isturf(possessed_item.loc)) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
 			forceMove(possessed_item.loc)
@@ -177,7 +213,7 @@
 	. = ..()
 	if(istype(O, /obj/item/nullrod))
 		visible_message("<span type='notice'>[O] dispels the spooky aura!</span>")
-		death()
+		death(FALSE)
 
 /mob/living/simple_animal/possessed_object/throw_impact(atom/hit_atom, throwingdatum)
 	//Don't call parent here as the mob isn't doing the hitting, technically
