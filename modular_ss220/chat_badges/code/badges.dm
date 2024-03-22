@@ -6,7 +6,12 @@ GLOBAL_LIST(badge_icons_cache)
 	var/icon/donator_badge_icon = get_badge_icon(get_donator_badge())
 	var/icon/worker_badge_icon = get_badge_icon(get_worker_badge())
 
-	return "[donator_badge_icon ? bicon(donator_badge_icon) : ""][worker_badge_icon ? bicon(worker_badge_icon) : ""][key]"
+	var/badge_part = "[donator_badge_icon ? bicon(donator_badge_icon) : ""][worker_badge_icon ? bicon(worker_badge_icon) : ""]"
+	var/list/parts = list()
+	if(badge_part)
+		parts += badge_part
+	parts += key
+	return jointext(parts, " ")
 
 /client/proc/get_donator_badge()
 	if(donator_level && (prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC))
