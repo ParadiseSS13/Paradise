@@ -500,9 +500,9 @@
 
 /obj/effect/proc_holder/spell/corpse_explosion/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
-	var/turf/corpse_turf = get_turf(target)
 	if(!target || target.stat == !DEAD)
 		return
+	var/turf/corpse_turf = get_turf(target)
 	new /obj/effect/temp_visual/corpse_explosion(get_turf(target))
 	target.gib()
 	explosion(get_turf(target), 0, 0, 0, 0, silent = TRUE,breach = FALSE)
