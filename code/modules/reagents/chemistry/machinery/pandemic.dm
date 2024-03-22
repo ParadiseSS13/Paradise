@@ -255,7 +255,6 @@
 			for(var/datum/symptom/S in A.symptoms)
 				symptoms += list(list(
 					"name" = S.name,
-					// "description" : Reserved
 					"stealth" = S.stealth,
 					"resistance" = S.resistance,
 					"stageSpeed" = S.stage_speed,
