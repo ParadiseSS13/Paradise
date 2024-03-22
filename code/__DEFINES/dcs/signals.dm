@@ -1018,7 +1018,6 @@
 /// from /obj/structure/cursed_slot_machine/determine_victor() when someone finally wins.
 #define COMSIG_GLOB_CURSED_SLOT_MACHINE_WON "cursed_slot_machine_won"
 
-
 // Signal types for the cargo shuttle
 
 // Sent before the shuttle scans its contents.
