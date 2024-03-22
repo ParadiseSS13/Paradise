@@ -15,7 +15,7 @@
 	var/datum/symptom/S = pick(subtypesof(/datum/symptom))
 	goal_symptom = S
 	goal_symptom_name = initial(S.name)
-	goal_property_value = rand(-18, 11)
+	goal_property_value = rand(-8, 6)
 	goal_property = pick("resistance", "stealth", "stage rate", "transmittable")
 	switch(goal_property)
 		if("resistance")
