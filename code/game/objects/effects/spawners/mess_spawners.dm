@@ -61,9 +61,9 @@
 			/obj/item/shard,
 		)
 		var/obj/trash = new trash_type(T)
-		trash.pixel_x = rand(-10,10)
-		trash.pixel_y = rand(-10,10)
-		trash.transform = turn(transform,rand(0,360))
+		trash.pixel_x = rand(-10, 10)
+		trash.pixel_y = rand(-10, 10)
+		trash.transform = turn(transform, rand(0, 360))
 
 /obj/effect/spawner/themed_mess/bloody
 	name = "bloody mess spawner"
@@ -80,7 +80,7 @@
 		"#a3d4eb",
 		"#b9ae9c",
 		"#fb9800")
-	. = ..()
+	return ..()
 
 /obj/effect/spawner/themed_mess/bloody/make_next_spawner(turf/T)
 	new type(T, remaining_tiles - 1, bloodcolor)
@@ -107,8 +107,8 @@
 			/obj/item/organ/internal/appendix,
 		)
 		var/obj/organ = new organ_type(T)
-		organ.pixel_x = rand(-10,10)
-		organ.pixel_y = rand(-10,10)
+		organ.pixel_x = rand(-10, 10)
+		organ.pixel_y = rand(-10, 10)
 
 /obj/effect/spawner/themed_mess/robotic
 	name = "robotic themed mess"
@@ -184,9 +184,9 @@
 		/obj/item/trash/snack_bowl,
 	)
 	var/obj/trash = new extra_trash(T)
-	trash.pixel_x = rand(-10,10)
-	trash.pixel_y = rand(-10,10)
-	trash.transform = turn(transform,rand(0,360))
+	trash.pixel_x = rand(-10, 10)
+	trash.pixel_y = rand(-10, 10)
+	trash.transform = turn(transform, rand(0, 360))
 
 /proc/generate_themed_messes(themed_mess_types)
 	var/mess_count = rand(10, 20)
