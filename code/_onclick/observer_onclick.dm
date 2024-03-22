@@ -39,7 +39,8 @@
 			M = get_mob_in_atom_with_warning(A)
 			if(M)
 				client.holder.show_player_panel(M)
-			CtrlClickOn(A)
+			else
+				CtrlClickOn(A)
 			return
 		if(modifiers["shift"] && modifiers["middle"])
 			M = get_mob_in_atom_with_warning(A)
