@@ -133,10 +133,10 @@
 	flags = NODROP
 
 /obj/item/clothing/shoes/clown_shoes/slippers
-	dyeable = FALSE
 	actions_types = list(/datum/action/item_action/slipping)
 	enabled_waddle = FALSE
 	slowdown = 0
+	dyeable = FALSE
 	var/slide_distance = 6
 	var/recharging_rate = 8 SECONDS
 	var/recharging_time = 0
@@ -329,7 +329,6 @@
 
 
 /obj/item/clothing/shoes/clown_shoes/false_cluwne_shoes
-	dyeable = FALSE
 	name = "cursed clown shoes"
 	desc = "Moldering clown flip flops. They're neon green for some reason."
 	icon = 'icons/goonstation/objects/clothing/feet.dmi'
@@ -338,6 +337,7 @@
 	icon_override = 'icons/goonstation/mob/clothing/feet.dmi'
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
+	dyeable = FALSE
 
 /obj/item/clothing/shoes/singery
 	name = "yellow performer's boots"
