@@ -46,7 +46,7 @@
 
 /mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
 	if(shade)
-		var/response = tgui_alert(src, "Return to life as a shade? You will need help if you want to possess an object again.", list("Become shade", "Continue possessing"))
+		var/response = tgui_alert(src, "Return to life as a shade? You will need help if you want to possess an object again.", "Are you sure you want to ghost?", list("Become shade", "Continue possessing"))
 		if(response != "Become shade")
 			return
 		lay_down()
@@ -64,16 +64,19 @@
 /mob/living/simple_animal/possessed_object/death(gibbed)
 	if(can_die())
 		if(shade)
-			shade.ckey = ckey
 			shade.forceMove(loc)
+			shade.ckey = ckey
+			shade.cancel_camera()
 		else
 			ghostize(TRUE)
+
 		// if gibbed, the item goes with the ghost
 		if(!gibbed && possessed_item.loc == src)
 			// Put the normal item back once the EVIL SPIRIT has been vanquished from it. If it's not already in place
 			visible_message("<span type='notice'>The spooky aura in [src] dissipates!</span>")
 			possessed_item.forceMove(loc)
 			possessed_item.throwforce = initial(possessed_item.throwforce)
+		qdel(src)
 
 	return ..()
 
@@ -147,7 +150,6 @@
 		qdel(src)
 
 	possessed_item = loc
-	shade = locate(/mob/living/simple_animal/shade) in possessed_item.contents
 	forceMove(possessed_loc)
 	possessed_item.forceMove(src) // We'll keep the actual item inside of us until we die.
 

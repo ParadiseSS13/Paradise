@@ -245,10 +245,16 @@
 	if(!do_after(user, 4 SECONDS, target = O))
 		return ..()
 
-	S.forceMove(O)
 	var/mob/living/simple_animal/possessed_object/possession = new(O)
 	possession.ckey = S.ckey
 	possession.del_on_death = FALSE
+	possession.cancel_camera()
+	S.forceMove(possession)
+	possession.shade = S
+
+	if(held_body)
+		held_body.forceMove(possession)
+		remove_held_body()
 
 	name = "soulstone"
 	icon_state = initial(icon_state)
