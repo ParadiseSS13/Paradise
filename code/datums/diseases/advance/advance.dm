@@ -197,13 +197,13 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	if(!symptoms || !symptoms.len)
 		CRASH("We did not have any symptoms before generating properties.")
 
-	var/list/properties = list("resistance" = 1, "stealth" = 0, "stage_rate" = 1, "transmittable" = 1, "severity" = 0)
+	var/list/properties = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1, "severity" = 0)
 
 	for(var/datum/symptom/S in symptoms)
 
 		properties["resistance"] += S.resistance
 		properties["stealth"] += S.stealth
-		properties["stage_rate"] += S.stage_speed
+		properties["stage rate"] += S.stage_speed
 		properties["transmittable"] += S.transmittable
 		properties["severity"] = max(properties["severity"], S.severity) // severity is based on the highest severity symptom
 
@@ -223,7 +223,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		SetSpread(clamp(2 ** (properties["transmittable"] - symptoms.len), BLOOD, AIRBORNE))
 		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)
 		cure_chance = 15 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
-		stage_prob = max(properties["stage_rate"], 2)
+		stage_prob = max(properties["stage rate"], 2)
 		SetSeverity(properties["severity"])
 		GenerateCure(properties)
 	else

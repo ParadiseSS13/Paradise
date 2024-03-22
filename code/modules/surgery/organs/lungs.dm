@@ -27,9 +27,20 @@
 	organ_datums = list(/datum/organ/lungs/vox)
 
 /obj/item/organ/internal/lungs/drask
+	name = "drask lungs"
 	icon = 'icons/obj/species_organs/drask.dmi'
 
 	organ_datums = list(/datum/organ/lungs/drask)
+
+/obj/item/organ/internal/lungs/tajaran
+	name = "tajaran lungs"
+	icon = 'icons/obj/species_organs/tajaran.dmi'
+	organ_datums = list(/datum/organ/lungs/tajaran)
+
+/obj/item/organ/internal/lungs/unathi
+	name = "unathi lungs"
+	icon = 'icons/obj/species_organs/unathi.dmi'
+	organ_datums = list(/datum/organ/lungs/unathi)
 
 /obj/item/organ/internal/lungs/cybernetic
 	name = "cybernetic lungs"
