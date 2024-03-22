@@ -973,7 +973,7 @@
 /obj/docking_port/mobile/emergency{
 	dwidth = 15;
 	height = 21;
-	width = 32;
+	width = 33;
 	timid = 1
 	},
 /obj/machinery/door/airlock/external{
