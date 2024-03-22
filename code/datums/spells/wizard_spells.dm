@@ -522,7 +522,7 @@
 		S.Weaken(6 SECONDS / range)
 		S.apply_damage(85 / range, BRUTE)
 	for(var/mob/living/M in range(1, corpse_turf))
-		if(M == /mob/living/silicon)
+		if(issilicon(M))
 			return
 		if(M == /mob/living/carbon/human)
 			return
