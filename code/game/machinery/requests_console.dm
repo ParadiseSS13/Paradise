@@ -214,38 +214,11 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			reset_message(TRUE)
 
 		if("department")
-			if(!message)
-				return
-			var/log_msg = message
-			var/pass = FALSE
-			screen = RCS_SENTFAIL
-			for(var/M in GLOB.message_servers)
-				var/obj/machinery/message_server/MS = M
-				if(!MS.active)
-					continue
-				MS.send_rc_message(ckey(params["department"]), department, log_msg, msgStamped, msgVerified, priority)
-				pass = TRUE
-			if(pass)
+			if(send_requests_console_message(message, department, recipient, msgStamped, msgVerified, priority, Radio))
 				screen = RCS_SENTPASS
-				if(recipient in ENGI_ROLES)
-					radiochannel = "Engineering"
-				else if(recipient in SEC_ROLES)
-					radiochannel = "Security"
-				else if(recipient in MISC_ROLES)
-					radiochannel = "Service"
-				else if(recipient in MED_ROLES)
-					radiochannel = "Medical"
-				else if(recipient in COM_ROLES)
-					radiochannel = "Command"
-				else if(recipient in SCI_ROLES)
-					radiochannel = "Science"
-				else if(recipient == "AI")
-					radiochannel = "AI Private"
-				else if(recipient in SUPPLY_ROLES)
-					radiochannel = "Supply"
 				message_log.Add(list(list("Message sent to [recipient] at [station_time_timestamp()]", "[message]")))
-				Radio.autosay("Alert; a new message has been received from [department]", "[recipient] Requests Console", "[radiochannel]")
 			else
+				screen = RCS_SENTFAIL
 				atom_say("No server detected!")
 
 		//Handle screen switching
@@ -378,6 +351,45 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	sp.sortTag = tag_index
 	sp.update_desc()
 	print_cooldown = world.time + 600	//1 minute cooldown before you can print another label, but you can still configure the next one during this time
+
+/proc/send_requests_console_message(message, sender, recipient, stamped, verified, priority, obj/item/radio/radio)
+	if(!message)
+		return
+	var/log_msg = message
+	var/found_message_server = FALSE
+	for(var/M in GLOB.message_servers)
+		var/obj/machinery/message_server/MS = M
+		if(!MS.active)
+			continue
+		MS.send_rc_message(ckey(recipient), sender, log_msg, stamped, verified, priority)
+		found_message_server = TRUE
+
+	if(!found_message_server)
+		return FALSE
+
+	if(!radio)
+		return TRUE
+
+	var/radiochannel = ""
+	if(recipient in ENGI_ROLES)
+		radiochannel = "Engineering"
+	else if(recipient in SEC_ROLES)
+		radiochannel = "Security"
+	else if(recipient in MISC_ROLES)
+		radiochannel = "Service"
+	else if(recipient in MED_ROLES)
+		radiochannel = "Medical"
+	else if(recipient in COM_ROLES)
+		radiochannel = "Command"
+	else if(recipient in SCI_ROLES)
+		radiochannel = "Science"
+	else if(recipient == "AI")
+		radiochannel = "AI Private"
+	else if(recipient in SUPPLY_ROLES)
+		radiochannel = "Supply"
+	radio.autosay("Alert; a new message has been received from [sender]", "[recipient] Requests Console", "[radiochannel]")
+
+	return TRUE
 
 #undef RC_ASSIST
 #undef RC_SUPPLY
