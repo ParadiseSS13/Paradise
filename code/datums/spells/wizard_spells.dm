@@ -524,7 +524,7 @@
 	for(var/mob/living/M in range(1, corpse_turf))
 		if(issilicon(M))
 			return
-		if(M == /mob/living/carbon/human)
+		if(ishuman(M))
 			return
 		to_chat(M, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
 		var/range = get_dist_euclidian(M, corpse_turf)
