@@ -483,7 +483,7 @@
 	name = "Corpse Explosion"
 	desc = "Fills a corpse with energy causing it to explode violently"
 	school = "evocation"
-	base_cooldown = 50
+	base_cooldown = 5 SECONDS
 	clothes_req = TRUE
 	invocation = "JAH ITH BER"
 	invocation_type = "whisper"
