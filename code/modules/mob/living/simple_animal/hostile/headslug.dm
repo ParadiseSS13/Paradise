@@ -142,7 +142,9 @@
 		M.revive() // better make sure some weird shit doesn't happen, because it has in the pas
 		M.forceMove(get_turf(owner)) // So that they are not stuck inside
 
-		if(evented)
+		if(!evented)
+			cling.give_power(new /datum/action/changeling/humanform)
+		else
 			var/mob/living/carbon/human/rand_dna = new
 			rand_dna.height = pick(GLOB.character_heights)
 			rand_dna.physique = pick(GLOB.character_physiques)
