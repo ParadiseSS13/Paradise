@@ -109,6 +109,7 @@
 	if(modifiers["shift"])
 		var/datum/hud/our_hud = usr.hud_used
 		our_hud.position_action(src, SCRN_OBJ_DEFAULT)
+		return TRUE
 	if(modifiers["alt"])
 		AltClick(usr)
 		return TRUE
