@@ -43034,7 +43034,7 @@
 	height = 21;
 	id = "emergency_home";
 	name = "emergency evac bay";
-	width = 32
+	width = 33
 	},
 /turf/space,
 /area/space)
