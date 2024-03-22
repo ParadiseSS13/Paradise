@@ -45,6 +45,14 @@
 
 
 /mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
+	if(shade)
+		var/response = tgui_alert(src, "Return to life as a shade? You will need help if you want to possess an object again.", list("Become shade", "Continue possessing"))
+		if(response != "Become shade")
+			return
+		lay_down()
+		death()
+		return
+
 	var/response = tgui_alert(src, "End your possession of this object? (It will not stop you from respawning later)", "Are you sure you want to ghost?", list("Ghost", "Stay in body"))
 	if(response != "Ghost")
 		return
@@ -69,6 +77,8 @@
 
 	return ..()
 
+// Check to see if our host is still valid, i.e. if it got deleted
+// or replaced by a different /obj/item instance.
 /mob/living/simple_animal/possessed_object/proc/check_host()
 	if(possessed_item?.loc)
 		return TRUE
@@ -180,11 +190,7 @@
 	else
 		..()
 
-	// Check to see if our host is still valid, i.e. if it got deleted
-	// or replaced by a different /obj/item instance.
-	check_host()
-
-	if(possessed_item.loc != src)
+	if(check_host() && possessed_item.loc != src)
 		if(isturf(possessed_item.loc)) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
 			forceMove(possessed_item.loc)
 			possessed_item.forceMove(src)

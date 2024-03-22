@@ -250,6 +250,9 @@
 	possession.ckey = S.ckey
 	possession.del_on_death = FALSE
 
+	name = "soulstone"
+	icon_state = initial(icon_state)
+
 /obj/item/soulstone/attack_self(mob/living/user)
 	var/mob/living/simple_animal/shade/S = locate(/mob/living/simple_animal/shade) in contents
 	if(!in_range(src, user) || !S)
