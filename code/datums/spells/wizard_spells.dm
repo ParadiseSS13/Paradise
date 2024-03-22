@@ -508,24 +508,24 @@
 	explosion(corpse_turf, 0, 0, 0, 0, silent = TRUE, breach = FALSE)
 	for(var/mob/living/carbon/human/H in range(4, corpse_turf))
 		if(H == user)
-			continue 
+			continue
 		to_chat(H, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
 		var/range = get_dist_euclidian(H, corpse_turf)
 		if(range < 4)
 			H.KnockDown(4 SECONDS / range)
 		H.EyeBlurry(40 SECONDS / range)
-		H.apply_damage(85 / range, BRUTE)
+		H.apply_damage(100 / range, BRUTE)
 		H.AdjustConfused(6 SECONDS / range)
 	for(var/mob/living/silicon/S in range(4, corpse_turf))
 		to_chat(S, "<span class='userdanger'>Your sensors are disabled and carapace ripped apart by the violent dark magic!</span>")
 		var/range = get_dist_euclidian(S, corpse_turf)
 		S.Weaken(6 SECONDS / range)
-		S.apply_damage(85 / range, BRUTE)
+		S.apply_damage(100 / range, BRUTE)
 	for(var/mob/living/M in range(1, corpse_turf))
 		if(issilicon(M))
-			continue 
+			continue
 		if(ishuman(M))
-			continue 
+			continue
 		to_chat(M, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
 		var/range = get_dist_euclidian(M, corpse_turf)
-		M.apply_damage(85 / range, BRUTE)
+		M.apply_damage(100 / range, BRUTE)
