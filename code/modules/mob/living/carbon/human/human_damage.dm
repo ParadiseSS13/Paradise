@@ -324,7 +324,7 @@ This function restores all organs.
 
 /mob/living/carbon/human/proc/HealDamage(zone, brute, burn)
 	var/obj/item/organ/external/E = get_organ(zone)
-	if(isexternalorgan(E))
+	if(is_external_organ(E))
 		if(E.heal_damage(brute, burn))
 			UpdateDamageIcon()
 	else

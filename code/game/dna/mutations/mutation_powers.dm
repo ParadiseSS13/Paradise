@@ -382,7 +382,7 @@
 			if(!H.bodyparts_by_name[name])
 				continue
 			affecting = H.bodyparts_by_name[name]
-			if(!isexternalorgan(affecting))
+			if(!is_external_organ(affecting))
 				continue
 			affecting.heal_damage(4, 0, updating_health = FALSE)
 		H.UpdateDamageIcon()
