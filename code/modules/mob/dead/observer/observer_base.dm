@@ -5,6 +5,8 @@ GLOBAL_LIST_EMPTY(ghost_images)
 
 GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
+GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
+
 /mob/dead/observer
 	name = "ghost"
 	desc = "It's a g-g-g-g-ghooooost!" //jinkies!
@@ -35,7 +37,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	///toggle for ghost gas analyzer
 	var/gas_analyzer = FALSE
 	var/datum/orbit_menu/orbit_menu
-	var/datum/ui_module/crew_monitor/ghost/crew_monitor
 	/// The "color" their runechat would have had
 	var/alive_runechat_color = "#FFFFFF"
 
@@ -112,9 +113,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
-	if(crew_monitor)
-		SStgui.close_uis(crew_monitor)
-		QDEL_NULL(crew_monitor)
 	if(seerads)
 		STOP_PROCESSING(SSobj, src)
 	remove_observer_verbs()
@@ -486,10 +484,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Crew Monitor"
 	set desc = "Use a ghastly crew monitor that lets you follow people you select."
 
-	if(!crew_monitor)
-		crew_monitor = new(src)
-
-	crew_monitor.ui_interact(src)
+	GLOB.ghost_crew_monitor.ui_interact(src)
 
 /mob/dead/observer/proc/add_observer_verbs()
 	verbs.Add(/mob/dead/observer/proc/ManualFollow)
