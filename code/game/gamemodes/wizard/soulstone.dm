@@ -26,6 +26,9 @@
 	var/opt_in = FALSE
 	var/purified = FALSE
 
+	// Bonk ALL the objects!
+	can_hit_anything = TRUE
+
 /obj/item/soulstone/proc/add_held_body(atom/movable/body)
 	held_body = body
 	RegisterSignal(body, COMSIG_PARENT_QDELETING, PROC_REF(remove_held_body))
@@ -228,6 +231,24 @@
 			to_chat(user, "<span class='notice'>You have cleansed [src] of holy magic.</span>")
 	else
 		..()
+
+/obj/item/soulstone/attack_obj(obj/O, mob/living/user)
+	if(!isitem(O))
+		return ..()
+	if(!can_use(user))
+		return ..()
+	var/mob/living/simple_animal/shade/S = locate(/mob/living/simple_animal/shade) in contents
+	if(!S)
+		to_chat(user, "<span class='warning'>The soulstone contains no souls!</span>")
+		return ..()
+	user.visible_message("[user] holds [src] to [O] and begins chanting.")
+	if(!do_after(user, 4 SECONDS, target = O))
+		return ..()
+
+	S.forceMove(O)
+	var/mob/living/simple_animal/possessed_object/possession = new(O)
+	possession.ckey = S.ckey
+	possession.del_on_death = FALSE
 
 /obj/item/soulstone/attack_self(mob/living/user)
 	var/mob/living/simple_animal/shade/S = locate(/mob/living/simple_animal/shade) in contents
