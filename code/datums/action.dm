@@ -62,7 +62,7 @@
 		return
 
 	if(target == owner)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref))
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref), override = TRUE)
 	if(owner == remove_from)
 		UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
 		owner = null
