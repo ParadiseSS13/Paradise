@@ -280,6 +280,7 @@
 		return
 
 	target.forceMove(pick(L))
+	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 
 /datum/tarot/the_hierophant
 	name = "V - The Hierophant"
@@ -347,6 +348,7 @@
 		return
 
 	target.forceMove(get_turf(pick(viable_vendors)))
+	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 
 
 /datum/tarot/wheel_of_fortune
@@ -449,6 +451,7 @@
 		return
 
 	target.forceMove(pick(L))
+	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 	for(var/obj/structure/closet/C in shuffle(view(9, target)))
 		if(istype(C, /obj/structure/closet/secure_closet))
 			var/obj/structure/closet/secure_closet/SC = C
@@ -472,6 +475,7 @@
 	if(length(funny_ruin_list))
 		var/turf/t = get_turf(pick(funny_ruin_list))
 		target.forceMove(t)
+		to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 		t.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall, and a pickaxe to avoid being trapped in a wall
 		new /obj/item/pickaxe/emergency(t)
 		target.update_parallax_contents()
@@ -485,6 +489,7 @@
 	if(length(funny_ruin_list))
 		var/turf/t = get_turf(pick(funny_ruin_list))
 		target.forceMove(t)
+		to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 		t.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall, and a pickaxe to avoid being trapped in a wall
 		new /obj/item/pickaxe/emergency(t)
 		target.update_parallax_contents()
@@ -600,6 +605,7 @@
 		return
 
 	target.forceMove(get_turf(pick(L)))
+	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 
 /datum/tarot/reversed/the_hierophant
 	name = "V - The Hierophant?"
@@ -833,3 +839,4 @@
 		return
 
 	target.forceMove(pick(L))
+	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
