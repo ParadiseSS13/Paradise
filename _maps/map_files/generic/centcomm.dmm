@@ -2883,7 +2883,7 @@
 	id = "emergency_syndicate";
 	name = "404 Not Found";
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/airless;
-	width = 32
+	width = 33
 	},
 /turf/simulated/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
@@ -4501,7 +4501,7 @@
 	height = 21;
 	id = "emergency_transit";
 	name = "emergency in transit";
-	width = 32
+	width = 33
 	},
 /turf/space/transit,
 /area/space/centcomm)
@@ -12209,7 +12209,7 @@
 	height = 21;
 	id = "emergency_away";
 	name = "emergency centcom";
-	width = 32
+	width = 33
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
