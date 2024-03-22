@@ -180,6 +180,7 @@
 /obj/item/organ_extractor/abductor/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(istype(I, /obj/item/organ/internal) && !storedorgan)
+		user.unEquip(I)
 		insert_internal_organ_in_extractor(I)
 
 /obj/item/organ_extractor/abductor/emp_act(severity)
