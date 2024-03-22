@@ -523,7 +523,7 @@
 		S.apply_damage(85 / range, BRUTE)
 	for(var/mob/living/M in range(1, corpse_turf))
 		if(issilicon(M))
-			return
+			continue 
 		if(ishuman(M))
 			continue 
 		to_chat(M, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
