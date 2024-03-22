@@ -655,14 +655,20 @@
 
 /datum/spellbook_entry/loadout/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(destroy_spellbook)
-		var/response = alert(user, "The [src] loadout cannot be refunded once bought. Are you sure this is what you want?", "No refunds!", "No", "Yes")
-		if(response == "No")
+		var/response = tgui_alert(user, "The [src] loadout cannot be refunded once bought. Are you sure this is what you want?", "No refunds!", list("No", "Yes"))
+		if(response != "Yes")
+			return FALSE
+		if(!CanBuy(user, book))
+			to_chat(user, "<span class='warning'>You can't afford that anymore!</span>")
 			return FALSE
 		to_chat(user, "<span class='notice'>[book] crumbles to ashes as you acquire its knowledge.</span>")
 		qdel(book)
 	else if(items_path.len)
-		var/response = alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", "No", "Yes")
-		if(response == "No")
+		var/response = tgui_alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", list("No", "Yes"))
+		if(response != "Yes")
+			return FALSE
+		if(!CanBuy(user, book))
+			to_chat(user, "<span class='warning'>You can't afford that anymore!</span>")
 			return FALSE
 	if(items_path.len)
 		var/obj/item/storage/box/wizard/B = new(src)
@@ -809,7 +815,7 @@
 
 /obj/item/spellbook/proc/wrap(content)
 	var/dat = ""
-	dat +="<html><head><title>Spellbook</title></head>"
+	dat +="<html><meta charset='utf-8'><head><title>Spellbook</title></head>"
 	dat += {"
 	<head>
 		<style type="text/css">

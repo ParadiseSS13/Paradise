@@ -1,10 +1,12 @@
 /*
  * Fireaxe
  */
-/obj/item/fireaxe  // DEM AXES MAN, marker -Agouri
+/// DEM AXES MAN, marker -Agouri
+/obj/item/fireaxe
 	base_icon_state = "fireaxe"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "fireaxe0"
 	name = "fire axe"
 	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
@@ -41,7 +43,8 @@
 			var/obj/structure/W = A
 			W.obj_destruction("fireaxe")
 
-/obj/item/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
+/// Blatant imitation of the fireaxe, but made out of bone.
+/obj/item/fireaxe/boneaxe
 	icon_state = "bone_axe0"
 	base_icon_state = "bone_axe"
 	name = "bone axe"
@@ -96,7 +99,7 @@
 /obj/item/dualsaber
 	name = "double-bladed energy sword"
 	desc = "Handle with care."
-	icon = 'icons/obj/energy_melee.dmi'
+	icon = 'icons/obj/weapons/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "dualsaber0"
@@ -233,7 +236,7 @@
 /obj/item/spear
 	name = "spear"
 	desc = "A haphazardly-constructed yet still deadly weapon of ancient design."
-	icon = 'icons/obj/spear.dmi'
+	icon = 'icons/obj/weapons/spears.dmi'
 	base_icon_state = "spearglass"
 	icon_state = "spearglass0"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
@@ -306,7 +309,8 @@
 		explosive.prime()
 		qdel(src)
 
-/obj/item/spear/bonespear	//Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
+/// Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
+/obj/item/spear/bonespear
 	name = "bone spear"
 	desc = "A haphazardly-constructed yet still deadly weapon. The pinnacle of modern technology."
 	base_icon_state = "bone_spear"
@@ -403,6 +407,7 @@
 	desc = "A versatile power tool. Useful for limbing trees and delimbing humans."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "gchainsaw_off"
 	flags = CONDUCT
 	force = 13
@@ -475,6 +480,7 @@
 	desc = "Perfect for felling trees or fellow spacemen."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	base_icon_state = "chainsaw"
 	icon_state = "chainsaw0"
 	force = 15
@@ -520,6 +526,8 @@
 		return
 	if(!isliving(target)) //no buff from attacking inanimate objects
 		return
+	if(user.reagents.get_reagent_amount("mephedrone") > 15) // No patrick, you do not get to be chainsaw stun immune and bullet immune at once
+		return
 	if(target.stat != DEAD) //no buff from attacking dead targets
 		user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
 
@@ -542,6 +550,7 @@
 	desc = "The pinnacle of close combat technology, the hammer harnesses the power of a miniaturized singularity to deal crushing blows."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "singulohammer0"
 	base_icon_state = "singulohammer"
 	flags = CONDUCT
@@ -613,6 +622,7 @@
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "mjollnir0"
 	base_icon_state = "mjollnir"
 	flags = CONDUCT
@@ -660,6 +670,7 @@
 	desc = "A hammer made of sturdy metal with a golden skull adorned with wings on either side of the head. <br>This weapon causes devastating damage to those it hits due to a power field sustained by a mini-singularity inside of the hammer."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "knighthammer0"
 	base_icon_state = "knighthammer"
 	flags = CONDUCT
@@ -728,6 +739,7 @@
 	desc = "The power of the sun, in the claws of your hand."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/energy_melee.dmi'
 	icon_state = "pyro_claws"
 	flags = ABSTRACT | NODROP | DROPDEL
 	force = 22
@@ -1017,11 +1029,13 @@
 
 #undef BROOM_PUSH_LIMIT
 
-/obj/item/supermatter_halberd  //Supermatter Halberd, used by Oblivion Enforcers
+/// Supermatter Halberd, used by Oblivion Enforcers
+/obj/item/supermatter_halberd
 	name = "supermatter halberd"
 	desc = "The revered weapon of Oblivion Enforcers, used to enforce the Order's will."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "smhalberd0"
 	base_icon_state = "smhalberd"
 	force = 5

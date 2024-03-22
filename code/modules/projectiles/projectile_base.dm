@@ -149,7 +149,7 @@
 		if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
 
-		W.add_dent(WALL_DENT_SHOT, hitx, hity)
+		W.add_dent(PROJECTILE_IMPACT_WALL_DENT_SHOT, hitx, hity)
 		return 0
 	if(alwayslog)
 		add_attack_logs(firer, target, "Shot with a [type]")
@@ -279,7 +279,10 @@
 
 	var/turf/target_turf = get_turf(A)
 	prehit(A)
-	var/permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
+	var/pre_permutation = A.atom_prehit(src)
+	var/permutation = -1
+	if(pre_permutation != ATOM_PREHIT_FAILURE)
+		permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
 		if(forcedodge)
 			forcedodge -= 1

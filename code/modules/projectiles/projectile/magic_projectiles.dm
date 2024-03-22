@@ -30,6 +30,7 @@
 	damage = 10
 	damage_type = BRUTE
 	nodamage = 0
+	immolate = 6
 
 	//explosion values
 	var/exp_devastate = -1
@@ -180,12 +181,44 @@
 	. = ..()
 	wabbajack(change)
 
+GLOBAL_LIST_INIT(wabbajack_hostile_animals, list(
+	"carp" = /mob/living/simple_animal/hostile/carp,
+	"bear" = /mob/living/simple_animal/hostile/bear,
+	"mushroom" = /mob/living/simple_animal/hostile/mushroom,
+	"statue" = /mob/living/simple_animal/hostile/statue,
+	"bat" = /mob/living/simple_animal/hostile/scarybat,
+	"goat" = /mob/living/simple_animal/hostile/retaliate/goat,
+	"tomato" = /mob/living/simple_animal/hostile/killertomato,
+	"gorilla" = /mob/living/simple_animal/hostile/gorilla,
+	"kangaroo" = /mob/living/simple_animal/hostile/retaliate/kangaroo,
+))
+
+GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
+	"parrot" = /mob/living/simple_animal/parrot,
+	"corgi" = /mob/living/simple_animal/pet/dog/corgi,
+	"crab" = /mob/living/simple_animal/crab,
+	"cat" = /mob/living/simple_animal/pet/cat,
+	"mouse" = /mob/living/simple_animal/mouse,
+	"chicken" = /mob/living/simple_animal/chicken,
+	"cow" = /mob/living/simple_animal/cow,
+	"lizard" = /mob/living/simple_animal/lizard,
+	"fox" = /mob/living/simple_animal/pet/dog/fox,
+	"chick" = /mob/living/simple_animal/chick,
+	"pug" = /mob/living/simple_animal/pet/dog/pug,
+	"turkey" = /mob/living/simple_animal/turkey,
+	"seal" = /mob/living/simple_animal/seal,
+	"bunny" = /mob/living/simple_animal/bunny,
+	"penguin" = /mob/living/simple_animal/pet/penguin/emperor,
+))
+
 /proc/wabbajack(mob/living/M, force_borg = FALSE, force_animal = FALSE)
 	if(istype(M) && M.stat != DEAD && !M.notransform)
 		M.notransform = TRUE
 		M.icon = null
 		M.overlays.Cut()
 		M.invisibility = 101
+
+		var/list/random_species = get_safe_species()
 
 		if(isrobot(M))
 			var/mob/living/silicon/robot/Robot = M
@@ -194,6 +227,8 @@
 		else
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
+				// Don't transform back into our original species
+				random_species -= H.dna.species.name
 				// Make sure there are no organs or limbs to drop
 				for(var/t in H.bodyparts)
 					qdel(t)
@@ -205,11 +240,24 @@
 
 		var/mob/living/new_mob
 
-		var/randomize = pick("robot", "slime", "xeno", "human", "animal")
+		var/randomize = null
+		var/transform_weights = list(
+				"robot" = 4,
+				"slime" = 4,
+				"xeno" = 4,
+				"terror" = 4,
+				"human" = length(random_species),
+				// double animal weight to account for the absurd number of human species we have
+				"animal" = (length(GLOB.wabbajack_docile_animals) + length(GLOB.wabbajack_hostile_animals)) * 2,
+			)
+
 		if(force_borg)
 			randomize = "robot"
-		if(force_animal)
+		else if(force_animal)
 			randomize = "animal"
+		else
+			randomize = pickweight(transform_weights)
+
 		switch(randomize)
 			if("robot")
 				var/path
@@ -238,56 +286,31 @@
 				else
 					new_mob = new /mob/living/carbon/alien/humanoid/sentinel(M.loc)
 				new_mob.universal_speak = TRUE
-				to_chat(M, "<span class='userdanger'>Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards non-xenomorph life!</span>")
+				to_chat(M, chat_box_red("<span class='userdanger'>Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards non-xenomorph life!</span>"))
+			if("terror")
+				var/terror_type = pick(
+					/mob/living/simple_animal/hostile/poison/terror_spider/red,
+					/mob/living/simple_animal/hostile/poison/terror_spider/brown,
+					/mob/living/simple_animal/hostile/poison/terror_spider/gray,
+					/mob/living/simple_animal/hostile/poison/terror_spider/black)
+				new_mob = new terror_type(M.loc)
+				to_chat(M, chat_box_red("<span class='userdanger'>Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards all non-terror-spider lifeforms!</span>"))
 			if("animal")
 				if(prob(50))
-					var/beast = pick("carp","bear","mushroom","statue", "bat", "goat", "tomato", "gorilla")
-					switch(beast)
-						if("carp")
-							new_mob = new /mob/living/simple_animal/hostile/carp(M.loc)
-						if("bear")
-							new_mob = new /mob/living/simple_animal/hostile/bear(M.loc)
-						if("mushroom")
-							new_mob = new /mob/living/simple_animal/hostile/mushroom(M.loc)
-						if("statue")
-							new_mob = new /mob/living/simple_animal/hostile/statue(M.loc)
-						if("bat")
-							new_mob = new /mob/living/simple_animal/hostile/scarybat(M.loc)
-						if("goat")
-							new_mob = new /mob/living/simple_animal/hostile/retaliate/goat(M.loc)
-						if("tomato")
-							new_mob = new /mob/living/simple_animal/hostile/killertomato(M.loc)
-						if("gorilla")
-							new_mob = new /mob/living/simple_animal/hostile/gorilla(M.loc)
+					var/beast = pick(GLOB.wabbajack_hostile_animals)
+					var/beast_type = GLOB.wabbajack_hostile_animals[beast]
+					new_mob = new beast_type(M.loc)
 				else
-					var/animal = pick("parrot", "corgi", "crab", "pug", "cat", "mouse", "chicken", "cow", "lizard", "chick", "fox")
-					switch(animal)
-						if("parrot")
-							new_mob = new /mob/living/simple_animal/parrot(M.loc)
-						if("corgi")
-							new_mob = new /mob/living/simple_animal/pet/dog/corgi(M.loc)
-						if("crab")
-							new_mob = new /mob/living/simple_animal/crab(M.loc)
-						if("cat")
-							new_mob = new /mob/living/simple_animal/pet/cat(M.loc)
-						if("mouse")
-							new_mob = new /mob/living/simple_animal/mouse(M.loc)
-						if("chicken")
-							new_mob = new /mob/living/simple_animal/chicken(M.loc)
-						if("cow")
-							new_mob = new /mob/living/simple_animal/cow(M.loc)
-						if("lizard")
-							new_mob = new /mob/living/simple_animal/lizard(M.loc)
-						if("fox")
-							new_mob = new /mob/living/simple_animal/pet/dog/fox(M.loc)
-						else
-							new_mob = new /mob/living/simple_animal/chick(M.loc)
+					var/animal = pick(GLOB.wabbajack_docile_animals)
+					var/animal_type = GLOB.wabbajack_docile_animals[animal]
+					new_mob = new animal_type(M.loc)
+
 				new_mob.universal_speak = TRUE
 			if("human")
 				new_mob = new /mob/living/carbon/human(M.loc)
 				var/mob/living/carbon/human/H = new_mob
 				var/datum/character_save/S = new //Randomize appearance for the human
-				S.species = get_random_species(TRUE)
+				S.species = pick(random_species)
 				S.randomise()
 				S.copy_to(new_mob)
 				randomize = H.dna.species.name
@@ -324,8 +347,11 @@
 				S.icon = change.icon
 				if(H.mind)
 					H.mind.transfer_to(S)
-					to_chat(S, "<span class='warning'>You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved!</span>")
-					to_chat(S, "<span class='userdanger'>Do not harm [firer.name], your creator.</span>")
+					var/list/messages = list()
+					messages.Add("<span class='userdanger'>You have been transformed into an animated statue.</span>")
+					messages.Add("You cannot move when monitored, but are nearly invincible and deadly when unobserved! Hunt down those who shackle you.")
+					messages.Add("Do not harm [firer.name], your creator.")
+					to_chat(S, chat_box_red(messages.Join("<br>")))
 				H = change
 				H.loc = S
 				qdel(src)

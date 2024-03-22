@@ -1,13 +1,14 @@
 //Bit flags for the flags_inv variable, which determine when a piece of clothing hides another. IE a helmet hiding glasses.
-#define HIDEGLOVES		1	//APPLIES ONLY TO THE EXTERIOR SUIT!!
-#define HIDESUITSTORAGE	2	//APPLIES ONLY TO THE EXTERIOR SUIT!!
-#define HIDEJUMPSUIT	4	//APPLIES ONLY TO THE EXTERIOR SUIT!!
-#define HIDESHOES		8	//APPLIES ONLY TO THE EXTERIOR SUIT!!
-#define HIDETAIL 		16	//APPLIES ONLY TO THE EXTERIOR SUIT!!
-#define HIDEMASK	1	//APPLIES ONLY TO HELMETS/MASKS!!
-#define HIDEEARS	2	//APPLIES ONLY TO HELMETS/MASKS!! (ears means headsets and such)
-#define HIDEEYES	4	//APPLIES ONLY TO HELMETS/MASKS!! (eyes means glasses)
-#define HIDEFACE	8	//APPLIES ONLY TO HELMETS/MASKS!! Dictates whether we appear as unknown.
+#define HIDEGLOVES		(1<<0)	//APPLIES ONLY TO THE EXTERIOR SUIT!!
+#define HIDESUITSTORAGE	(1<<1)	//APPLIES ONLY TO THE EXTERIOR SUIT!!
+#define HIDEJUMPSUIT	(1<<2)	//APPLIES ONLY TO THE EXTERIOR SUIT!!
+#define HIDESHOES		(1<<3)	//APPLIES ONLY TO THE EXTERIOR SUIT!!
+#define HIDETAIL 		(1<<4)	//APPLIES ONLY TO THE EXTERIOR SUIT!!
+
+#define HIDEMASK	(1<<0)	//APPLIES ONLY TO HELMETS/MASKS!!
+#define HIDEEARS	(1<<1)	//APPLIES ONLY TO HELMETS/MASKS!! (ears means headsets and such)
+#define HIDEEYES	(1<<2)	//APPLIES ONLY TO HELMETS/MASKS!! (eyes means glasses)
+#define HIDEFACE	(1<<3)	//APPLIES ONLY TO HELMETS/MASKS!! Dictates whether we appear as unknown.
 
 // Slot defines for var/list/inv_slots, some of these dont really show up on the HUD,
 // but still function like it in other ways. I know thats weird, and I hate it too.
@@ -46,24 +47,24 @@
 //Cant seem to find a mob bitflags area other than the powers one
 
 // bitflags for clothing parts
-#define HEAD			1
-#define UPPER_TORSO		2
-#define LOWER_TORSO		4
-#define LEG_LEFT		8
-#define LEG_RIGHT		16
-#define LEGS			24
-#define FOOT_LEFT		32
-#define FOOT_RIGHT		64
-#define FEET			96
-#define ARM_LEFT		128
-#define ARM_RIGHT		256
-#define ARMS			384
-#define HAND_LEFT		512
-#define HAND_RIGHT		1024
-#define HANDS			1536
-#define FULL_BODY		2047
+#define HEAD			(1<<0)
+#define UPPER_TORSO		(1<<1)
+#define LOWER_TORSO		(1<<2)
+#define LEG_LEFT		(1<<3)
+#define LEG_RIGHT		(1<<4)
+#define LEGS			(LEG_LEFT | LEG_RIGHT)
+#define FOOT_LEFT		(1<<5)
+#define FOOT_RIGHT		(1<<6)
+#define FEET			(FOOT_LEFT | FOOT_RIGHT)
+#define ARM_LEFT		(1<<7)
+#define ARM_RIGHT		(1<<8)
+#define ARMS			(ARM_LEFT | ARM_RIGHT)
+#define HAND_LEFT		(1<<9)
+#define HAND_RIGHT		(1<<10)
+#define HANDS			(HAND_LEFT | HAND_RIGHT)
+#define FULL_BODY		((1<<11)-1) //10 bit bitmask, update me if we ever add more clothing parts.
 
-// bitflags for the percentual amount of protection a piece of clothing which covers the body part offers.
+// the percentual amount of protection a piece of clothing which covers the body part offers.
 // Used with human/proc/get_heat_protection() and human/proc/get_cold_protection()
 // The values here should add up to 1.
 // Hands and feet have 2.5%, arms and legs 7.5%, each of the torso parts has 15% and the head has 30%
@@ -80,11 +81,11 @@
 #define THERMAL_PROTECTION_HAND_RIGHT	0.025
 
 //flags for covering body parts
-#define GLASSESCOVERSEYES	1
-#define MASKCOVERSEYES		2		// get rid of some of the other mess in these flags
-#define HEADCOVERSEYES		4		// feel free to realloc these numbers for other purposes
-#define MASKCOVERSMOUTH		8		// on other items, these are just for mask/head
-#define HEADCOVERSMOUTH		16
+#define GLASSESCOVERSEYES	(1<<0)
+#define MASKCOVERSEYES		(1<<1)		// get rid of some of the other mess in these flags
+#define HEADCOVERSEYES		(1<<2)		// feel free to realloc these numbers for other purposes
+#define MASKCOVERSMOUTH		(1<<3)		// on other items, these are just for mask/head
+#define HEADCOVERSMOUTH		(1<<4)
 
 // Suit sensor levels
 #define SUIT_SENSOR_OFF 0

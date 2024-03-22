@@ -101,7 +101,8 @@
 		),
 	)
 
-/datum/mod_theme/standard //We don't want the civilian skin to apply to all modsuits, that causes issues.
+/// We don't want the civilian skin to apply to all modsuits, that causes issues.
+/datum/mod_theme/standard
 	name = "standard"
 
 
@@ -924,7 +925,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_syndicate
-	armor = list(MELEE = 15, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 35, RAD = 50, FIRE = 50, ACID = 450)
+	armor = list(MELEE = 15, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 35, RAD = INFINITY, FIRE = 50, ACID = 450)
 	//melee = 40 with booster
 	//bullet = 50
 	//laser = 20 with booster
@@ -986,7 +987,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_elite
-	armor = list(MELEE = 50, BULLET = 45, LASER = 35, ENERGY = 10, BOMB = 60, RAD = 150, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 50, BULLET = 45, LASER = 35, ENERGY = 10, BOMB = 60, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	//melee = 50 // 75 with booster
 	//bullet = 45 // 75 same as
 	//laser = 35 //50 same as
@@ -1125,7 +1126,8 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_responsory //This has no slowdown active, and no variation between levels. I am ASSUMING this will be gamma only.
+/// This has no slowdown active, and no variation between levels. I am ASSUMING this will be gamma only.
+/obj/item/mod/armor/mod_theme_responsory
 	armor = list(MELEE = 40, BULLET = 25, LASER = 25, ENERGY = 20, BOMB = 25, RAD = INFINITY, FIRE = 200, ACID = 200)
 
 /datum/mod_theme/apocryphal
@@ -1335,5 +1337,6 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_administrative //considering this should not be used, it's getting just DS armor, not infinity in everything.
+/// considering this should not be used, it's getting just DS armor, not infinity in everything.
+/obj/item/mod/armor/mod_theme_administrative
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)

@@ -1,8 +1,3 @@
-//Types of usual mutations
-#define	POSITIVE 			1
-#define	NEGATIVE			2
-#define	MINOR_NEGATIVE		3
-
 /datum/event/spacevine/start()
 	var/list/turfs = list() //list of all the empty floor turfs in the hallway areas
 
@@ -17,7 +12,7 @@
 
 	if(turfs.len) //Pick a turf to spawn at if we can
 		var/turf/T = pick(turfs)
-		var/obj/structure/spacevine_controller/SC = new /obj/structure/spacevine_controller(T, , rand(30,70),rand(5,2)) //spawn a controller at turf
+		var/obj/structure/spacevine_controller/SC = new /obj/structure/spacevine_controller(T, null, rand(30,70),rand(5,2)) //spawn a controller at turf
 
 		// Make the event start fun - give the vine a random hostile mutation
 		if(SC.vines.len)
@@ -25,7 +20,7 @@
 			var/list/mutations = SC.mutations_list.Copy()
 			while(mutations.len)
 				var/datum/spacevine_mutation/SM = pick_n_take(mutations)
-				if(SM.quality == NEGATIVE && !SM.nofun)
+				if(SM.quality == SPACEVINE_MUTATION_NEGATIVE && !SM.nofun)
 					SM.add_mutation_to_vinepiece(SV)
 					break
 			mutations.Cut()
@@ -99,7 +94,7 @@
 /datum/spacevine_mutation/space_covering
 	name = "space protective"
 	hue = "#aa77aa"
-	quality = POSITIVE
+	quality = SPACEVINE_MUTATION_POSITIVE
 
 /turf/simulated/floor/vines
 	color = "#aa77aa"
@@ -179,7 +174,7 @@
 /datum/spacevine_mutation/bluespace
 	name = "bluespace"
 	hue = "#3333ff"
-	quality = MINOR_NEGATIVE
+	quality = SPACEVINE_MUTATION_MINOR_NEGATIVE
 
 /datum/spacevine_mutation/bluespace/on_spread(obj/structure/spacevine/holder, turf/target)
 	if(holder.energy > 1 && !locate(/obj/structure/spacevine) in target)
@@ -194,7 +189,7 @@
 /datum/spacevine_mutation/light
 	name = "light"
 	hue = "#ffff00"
-	quality = POSITIVE
+	quality = SPACEVINE_MUTATION_POSITIVE
 	severity = 4
 
 /datum/spacevine_mutation/light/on_grow(obj/structure/spacevine/holder)
@@ -205,7 +200,7 @@
 	name = "toxic"
 	hue = "#ff00ff"
 	severity = 10
-	quality = NEGATIVE
+	quality = SPACEVINE_MUTATION_NEGATIVE
 
 /datum/spacevine_mutation/toxicity/on_cross(obj/structure/spacevine/holder, mob/living/crosser)
 	if(issilicon(crosser))
@@ -218,10 +213,11 @@
 	if(!isvineimmune(eater))
 		eater.adjustToxLoss(5)
 
-/datum/spacevine_mutation/explosive  //OH SHIT IT CAN CHAINREACT RUN!!!
+/// OH SHIT IT CAN CHAINREACT RUN!!!
+/datum/spacevine_mutation/explosive
 	name = "explosive"
 	hue = "#ff0000"
-	quality = NEGATIVE
+	quality = SPACEVINE_MUTATION_NEGATIVE
 	severity = 2
 	// kaboom events aren't fun
 	nofun = TRUE
@@ -239,7 +235,7 @@
 /datum/spacevine_mutation/fire_proof
 	name = "fire proof"
 	hue = "#ff8888"
-	quality = MINOR_NEGATIVE
+	quality = SPACEVINE_MUTATION_MINOR_NEGATIVE
 
 /datum/spacevine_mutation/fire_proof/process_temperature(obj/structure/spacevine/holder, temp, volume)
 	return 1
@@ -253,7 +249,7 @@
 /datum/spacevine_mutation/vine_eating
 	name = "vine eating"
 	hue = "#ff7700"
-	quality = MINOR_NEGATIVE
+	quality = SPACEVINE_MUTATION_MINOR_NEGATIVE
 
 /datum/spacevine_mutation/vine_eating/on_spread(obj/structure/spacevine/holder, turf/target)
 	var/obj/structure/spacevine/prey = locate() in target
@@ -261,11 +257,12 @@
 		prey.wither()
 		. = TRUE
 
-/datum/spacevine_mutation/aggressive_spread  //very OP, but im out of other ideas currently
+/// very OP, but im out of other ideas currently
+/datum/spacevine_mutation/aggressive_spread
 	name = "aggressive spreading"
 	hue = "#333333"
 	severity = 3
-	quality = NEGATIVE
+	quality = SPACEVINE_MUTATION_NEGATIVE
 
 /datum/spacevine_mutation/aggressive_spread/on_spread(obj/structure/spacevine/holder, turf/target)
 	if(isreinforcedwallturf(target))
@@ -286,7 +283,7 @@
 /datum/spacevine_mutation/transparency
 	name = "transparent"
 	hue = ""
-	quality = POSITIVE
+	quality = SPACEVINE_MUTATION_POSITIVE
 
 /datum/spacevine_mutation/transparency/on_grow(obj/structure/spacevine/holder)
 	holder.set_opacity(0)
@@ -296,7 +293,7 @@
 	name = "thorny"
 	hue = "#666666"
 	severity = 10
-	quality = NEGATIVE
+	quality = SPACEVINE_MUTATION_NEGATIVE
 
 /datum/spacevine_mutation/thorns/on_cross(obj/structure/spacevine/holder, mob/living/crosser)
 	if(prob(severity) && istype(crosser) && !isvineimmune(holder))
@@ -314,7 +311,7 @@
 /datum/spacevine_mutation/woodening
 	name = "hardened"
 	hue = "#997700"
-	quality = NEGATIVE
+	quality = SPACEVINE_MUTATION_NEGATIVE
 
 /datum/spacevine_mutation/woodening/on_grow(obj/structure/spacevine/holder)
 	if(holder.energy)
@@ -331,7 +328,7 @@
 /datum/spacevine_mutation/flowering
 	name = "flowering"
 	hue = "#0A480D"
-	quality = NEGATIVE
+	quality = SPACEVINE_MUTATION_NEGATIVE
 	severity = 10
 
 /datum/spacevine_mutation/flowering/on_grow(obj/structure/spacevine/holder)
@@ -346,7 +343,7 @@
 /datum/spacevine_mutation/virulent_spread
 	name = "virulently spreading"
 	hue = "#FF8080"
-	quality = MINOR_NEGATIVE
+	quality = SPACEVINE_MUTATION_MINOR_NEGATIVE
 
 /datum/spacevine_mutation/virulent_spread/on_search(obj/structure/spacevine/holder)
 	return 1
@@ -356,7 +353,7 @@
 /datum/spacevine_mutation/mineral
 	name = "metallic"
 	hue = "#444444"
-	quality = POSITIVE
+	quality = SPACEVINE_MUTATION_POSITIVE
 	severity = 3
 	var/drop_rate = 20
 	var/list/mineral_results = list(
@@ -537,7 +534,7 @@
 
 /obj/structure/spacevine_controller/New(loc, list/muts, potency, production)
 	color = "#ffffff"
-	spawn_spacevine_piece(loc, , muts)
+	spawn_spacevine_piece(loc, null, muts)
 	START_PROCESSING(SSobj, src)
 	init_subtypes(/datum/spacevine_mutation/, mutations_list)
 	if(potency != null && potency > 0)

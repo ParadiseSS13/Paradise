@@ -126,9 +126,9 @@
 	AddComponent(/datum/component/surgery_initiator/robo)
 
 /obj/item/kitchen/knife/suicide_act(mob/user)
-	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
-						"<span class='suicide'>[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
-						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>"))
+	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>", \
+						"<span class='suicide'>[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>", \
+						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>"))
 	return BRUTELOSS
 
 /obj/item/kitchen/knife/plastic
@@ -147,7 +147,7 @@
 /obj/item/kitchen/knife/shiv
 	name = "glass shiv"
 	desc = "A haphazard sharp object wrapped in cloth, just like great-great-great-great grandma used to make."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	item_state = "glass_shiv"
 	icon_state = "glass_shiv"
 

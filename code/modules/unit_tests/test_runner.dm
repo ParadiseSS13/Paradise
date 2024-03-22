@@ -3,7 +3,11 @@
 // intentionally (if there's a lot of legitimate map errors), or accidentally if
 // a test condition is written incorrectly and starts e.g. logging failures for
 // every single tile.
+#ifdef LOCAL_UNIT_TESTS
+#define MAX_MAP_TEST_FAILURE_COUNT 100
+#else
 #define MAX_MAP_TEST_FAILURE_COUNT 20
+#endif
 
 /datum/test_runner
 	var/datum/unit_test/current_test
@@ -76,6 +80,11 @@
 /datum/test_runner/proc/Finalize(emit_failures = FALSE)
 	var/time = world.timeofday
 	set waitfor = FALSE
+
+	#ifdef LOCAL_UNIT_TESTS
+	emit_failures = TRUE
+	#endif
+
 	var/list/fail_reasons
 	if(GLOB)
 		if(GLOB.total_runtimes != 0)
@@ -112,3 +121,5 @@
 
 	sleep(0)	//yes, 0, this'll let Reboot finish and prevent byond memes
 	del(world)	//shut it down
+
+#undef MAX_MAP_TEST_FAILURE_COUNT
