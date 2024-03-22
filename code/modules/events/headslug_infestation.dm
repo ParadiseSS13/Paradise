@@ -1,5 +1,4 @@
 #define PLAYER_NEED 40
-#define GAMEMODE_IS_SHADOWLING (SSticker && istype(SSticker.mode, /datum/game_mode/shadowling))
 #define GAMEMODE_IS_CULTS (SSticker && (istype(SSticker.mode, /datum/game_mode/cult))
 
 /datum/event/headslug_infestation
