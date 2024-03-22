@@ -1,5 +1,5 @@
 #define PLAYER_NEED 40
-#define GAMEMODE_IS_CULTS (SSticker && (istype(SSticker.mode, /datum/game_mode/cult))
+#define GAMEMODE_IS_CULT (SSticker && (istype(SSticker.mode, /datum/game_mode/cult))
 
 /datum/event/headslug_infestation
 	announceWhen = 300
@@ -22,7 +22,7 @@
 	INVOKE_ASYNC(src, PROC_REF(wrappedstart))
 
 /datum/event/headslug_infestation/proc/wrappedstart()
-	if(length(GLOB.clients) < PLAYER_NEED || GAMEMODE_IS_CULTS || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_SHADOWLING)
+	if(length(GLOB.clients) < PLAYER_NEED || GAMEMODE_IS_CULT || GAMEMODE_IS_NUCLEAR)
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
 		EC.next_event_time = world.time + (40 * 10)
 		return
@@ -48,6 +48,5 @@
 			successSpawn = TRUE
 			log_game("[new_slug.key] has become Changeling Headslug.")
 
-#undef GAMEMODE_IS_CULTS
-#undef GAMEMODE_IS_SHADOWLING
+#undef GAMEMODE_IS_CULT
 #undef PLAYER_NEED
