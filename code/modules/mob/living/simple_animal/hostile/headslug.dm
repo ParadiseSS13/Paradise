@@ -107,9 +107,6 @@
 		if(cling.can_absorb_dna(owner))
 			cling.absorb_dna(owner)
 
-		if(evented)
-			cling.genetic_points += 6 //buffed cus midrounded!
-
 		cling.update_languages()
 
 		// When they became a headslug, power typepaths were added to this list, so we need to make new ones from the paths.
