@@ -1,6 +1,7 @@
 import { useBackend, useLocalState } from '../backend';
 import {
   Button,
+  ButtonCheckbox,
   LabeledList,
   Box,
   Section,
@@ -9,9 +10,8 @@ import {
   Flex,
   NoticeBox,
   Icon,
+  IconStack,
 } from '../components';
-import { ButtonCheckbox } from '../components/Button';
-import { IconStack } from '../components/Icon';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 
@@ -99,7 +99,7 @@ const MuleStatus = (props, context) => {
     sethome,
     unload,
     bot_suffix,
-    home,
+    set_home,
   } = data;
   return (
     <Section fill scrollable backgroundColor="transparent">
@@ -126,7 +126,7 @@ const MuleStatus = (props, context) => {
         />
         <Button.Checkbox fluid content="Set Home" />
         <LabeledList mb={1}>
-          <LabeledList.Item label="Home">{home}</LabeledList.Item>
+          <LabeledList.Item label="Home">{set_home}</LabeledList.Item>
         </LabeledList>
       </Section>
     </Section>
@@ -135,22 +135,7 @@ const MuleStatus = (props, context) => {
 
 const MuleLoad = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    noaccess,
-    painame,
-    mode,
-    load,
-    destination,
-    cell,
-    auto_pickup,
-    auto_return,
-    stop,
-    go,
-    home,
-    setid,
-    sethome,
-    unload,
-  } = data;
+  const { noaccess, mode, load, destination } = data;
   return (
     <Section fill scrollable backgroundColor="transparent">
       <Section title="Delivery Settings">
@@ -166,21 +151,18 @@ const MuleLoad = (props, context) => {
           <Button
             icon="location-arrow"
             content="Go"
-            selected={go}
             disabled={noaccess}
             onClick={() => act('go')}
           />
           <Button
-            icon="location-arrow"
-            content="Home"
-            selected={home}
+            icon="home"
+            content="Return Home"
             disabled={noaccess}
             onClick={() => act('home')}
           />
           <Button
             icon="stop"
             content="Stop"
-            selected={stop}
             disabled={noaccess}
             color="bad"
             onClick={() => act('stop')}
