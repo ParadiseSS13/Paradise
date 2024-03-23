@@ -1144,6 +1144,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	// Something something don't run with scissors
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 	KnockDown(knockdown)
+
+	if(mind?.assigned_role == "Clown")
+		for(var/mob/living/carbon/human/H in GLOB.human_list)
+			playsound(H.loc, 'sound/misc/slip.ogg', 50, 1, -3)
+			H.KnockDown(knockdown)
 	return TRUE
 
 /mob/living/carbon/proc/shock_reduction()
