@@ -61,11 +61,11 @@
 		"\improper ARG" = list('icons/obj/guns/projectile.dmi', "arg-30"),
 		"\improper C4" = list('icons/obj/grenade.dmi', "plastic-explosive0"),
 		"\improper L6 SAW" = list('icons/obj/guns/projectile.dmi', "l6closed100"),
-		"chainsaw" = list('icons/obj/items.dmi', "chainsaw0"),
+		"chainsaw" = list('icons/obj/weapons/melee.dmi', "chainsaw0"),
 		"combat shotgun" = list('icons/obj/guns/projectile.dmi', "cshotgun"),
-		"double-bladed energy sword" = list('icons/obj/items.dmi', "dualsaberred1"),
-		"energy sword" = list('icons/obj/items.dmi', "swordred"),
-		"fireaxe" = list('icons/obj/items.dmi', "fireaxe1"),
+		"double-bladed energy sword" = list('icons/obj/weapons/energy_melee.dmi', "dualsaberred1"),
+		"energy sword" = list('icons/obj/weapons/energy_melee.dmi', "swordred"),
+		"fireaxe" = list('icons/obj/weapons/melee.dmi', "fireaxe1"),
 		"ritual dagger" = list('icons/obj/cult.dmi', "blood_dagger"),
 		"ritual dagger" = list('icons/obj/cult.dmi', "death_dagger"),
 		"ritual dagger" = list('icons/obj/cult.dmi', "hell_dagger"),
@@ -437,7 +437,7 @@
   * Returns the image to use as override to the target's appearance.
   */
 /obj/effect/hallucination/self_delusion/proc/get_image()
-	return image('icons/mob/animal.dmi', target, pick("bear", "brownbear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))
+	return image('icons/mob/animal.dmi', target, pick("black_bear", "brown_bear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))
 
 /**
   * # Hallucination - Delusion
@@ -466,4 +466,4 @@
   * Returns the image to use as override to the target's appearance.
   */
 /obj/effect/hallucination/delusion/proc/get_image(mob/living/carbon/human/H)
-	return image('icons/mob/animal.dmi', H, pick("bear", "brownbear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))
+	return image('icons/mob/animal.dmi', H, pick("black_bear", "brown_bear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))

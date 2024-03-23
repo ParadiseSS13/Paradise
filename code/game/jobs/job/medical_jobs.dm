@@ -26,7 +26,8 @@
 		ACCESS_RC_ANNOUNCE,
 		ACCESS_SEC_DOORS,
 		ACCESS_SURGERY,
-		ACCESS_VIROLOGY
+		ACCESS_VIROLOGY,
+		ACCESS_WEAPONS
 	)
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_MEDICAL = 1200)
@@ -226,6 +227,9 @@
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)
+	required_objectives = list(
+		/datum/job_objective/virus_samples
+	)
 	outfit = /datum/outfit/job/virologist
 
 /datum/outfit/job/virologist
