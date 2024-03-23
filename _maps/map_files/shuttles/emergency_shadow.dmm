@@ -154,7 +154,8 @@
 	},
 /obj/machinery/igniter/on,
 /obj/machinery/atmospherics/unary/passive_vent/high_volume/shadow{
-	dir = 4
+	dir = 4;
+	invisibility = 99
 	},
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
@@ -747,7 +748,8 @@
 /area/shuttle/escape)
 "Gs" = (
 /obj/machinery/atmospherics/unary/passive_vent/high_volume/shadow{
-	dir = 4
+	dir = 4;
+	invisibility = 99
 	},
 /turf/simulated/floor/engine/plasma,
 /area/shuttle/escape)
