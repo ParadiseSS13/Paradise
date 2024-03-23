@@ -852,6 +852,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "(Pointless) Badassery"
 	surplus = 0
 
+/datum/uplink_item/badass/pen
+	name = "Syndicate Fountain Pen"
+	desc = "A slick syndicate branded pen to show everyone you mean business at the meeting."
+	reference = "PEN"
+	item = /obj/item/pen/multi/syndicate
+	cost = 1
+
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"
 	desc = "Strong flavor, dense smoke, infused with omnizine."
