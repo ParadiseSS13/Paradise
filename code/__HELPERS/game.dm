@@ -213,14 +213,8 @@
 
 	return hear
 
-/proc/get_root_atom(atom/leaf)
-	var/atom/branch = leaf
-	while(branch.loc && !isturf(branch.loc))
-		branch = branch.loc
-	return branch
-
 /proc/is_same_root_atom(atom/one, atom/two)
-	return get_root_atom(one) == get_root_atom(two)
+	return get_atom_on_turf(one) == get_atom_on_turf(two)
 
 /proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
