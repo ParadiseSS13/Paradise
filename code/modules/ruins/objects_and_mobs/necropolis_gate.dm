@@ -141,6 +141,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 /obj/structure/necropolis_gate/legion_gate
 	desc = "A tremendous, impossibly large gateway, set into a massive tower of stone."
 	sight_blocker_distance = 2
+	var/legion_triggered = FALSE
 
 /obj/structure/necropolis_gate/legion_gate/Initialize()
 	. = ..()
@@ -164,6 +165,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 /obj/structure/necropolis_gate/legion_gate/toggle_the_gate(mob/user)
 	if(open)
 		return
+	GLOB.necropolis_gate.legion_triggered = TRUE
 	if(..())
 		locked = TRUE
 		var/turf/T = get_turf(src)
