@@ -41,28 +41,7 @@
 		H.dna.default_blocks.Remove(GLOB.remotetalkblock)
 
 /datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = REAGENT_TOUCH)
-	. = ..()
-
-	if(method == REAGENT_TOUCH)
-		if((H.head?.flags & THICKMATERIAL) && (H.wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
-			return
-		if(volume > 25)
-			if(prob(75))
-				H.take_organ_damage(5, 10)
-				H.emote("scream")
-				var/obj/item/organ/external/affecting = H.get_organ("head")
-				if(affecting)
-					affecting.disfigure()
-			else
-				H.take_organ_damage(5, 10)
-		else
-			H.take_organ_damage(5, 10)
-	else
-		to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
-		if(volume >= 10)
-			H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
-			H.emote("scream")
-			to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+	return
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.active_character.speciesprefs
@@ -77,15 +56,6 @@
 			implant.insert(H)
 			if(!translator_pref)
 				to_chat(H, "<span class='notice'>A speech translator implant has been installed due to your role on the station.</span>")
-
-/datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "sacid" || R.id == "facid")
-		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		return FALSE
-	if(R.id == "water")
-		H.adjustFireLoss(1)
-		return TRUE
-	return ..()
 
 /datum/species/grey/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
