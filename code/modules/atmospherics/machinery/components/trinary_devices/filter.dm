@@ -238,3 +238,15 @@
 #undef FILTER_NITROGEN
 #undef FILTER_CO2
 #undef FILTER_N2O
+
+/obj/machinery/atmospherics/trinary/filter/shadow
+	dir = 1
+	filter_type = 3
+	name = "Gas Filter (Co2 Outlet)"
+	on = FALSE
+	target_pressure = 99999
+
+/obj/machinery/atmospherics/trinary/filter/shadow/onTransitZ(old_z, new_z)
+	. = ..()
+	if(is_station_level(new_z))
+		on = TRUE

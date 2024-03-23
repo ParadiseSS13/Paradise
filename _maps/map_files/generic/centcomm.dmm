@@ -2878,12 +2878,12 @@
 "kf" = (
 /obj/docking_port/stationary{
 	area_type = /area/syndicate_mothership;
-	dwidth = 15;
+	dwidth = 16;
 	height = 21;
 	id = "emergency_syndicate";
 	name = "404 Not Found";
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/airless;
-	width = 33
+	width = 41
 	},
 /turf/simulated/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
@@ -4497,11 +4497,11 @@
 "pf" = (
 /obj/docking_port/stationary/transit{
 	dir = 4;
-	dwidth = 15;
+	dwidth = 16;
 	height = 21;
 	id = "emergency_transit";
 	name = "emergency in transit";
-	width = 33
+	width = 41
 	},
 /turf/space/transit,
 /area/space/centcomm)
@@ -12205,11 +12205,11 @@
 	},
 /obj/docking_port/stationary{
 	dir = 4;
-	dwidth = 15;
+	dwidth = 16;
 	height = 21;
 	id = "emergency_away";
 	name = "emergency centcom";
-	width = 33
+	width = 41
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
