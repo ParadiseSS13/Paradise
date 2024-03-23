@@ -121,7 +121,7 @@ const MuleStatus = (props, context) => {
         />
         <Button.Checkbox
           fluid
-          content='Change ID'
+          content="Change ID"
           onClick={() => act('setid')}
         />
         <Button.Checkbox fluid content="Set Home" />
