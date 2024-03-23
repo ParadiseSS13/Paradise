@@ -19316,6 +19316,11 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -19330,21 +19335,15 @@
 	icon_state = "dark"
 	},
 /area/station/service/hydroponics)
-"bhN" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
-/area/station/hallway/secondary/entry/lounge)
 "bhO" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -19367,6 +19366,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -19626,14 +19630,6 @@
 	icon_state = "grimy"
 	},
 /area/station/service/chapel/office)
-"biA" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
-	},
-/area/station/hallway/secondary/entry/lounge)
 "biC" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -20685,6 +20681,11 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -109272,7 +109273,7 @@ aXD
 aZf
 aUt
 aNu
-bhN
+bda
 aSX
 bhm
 bhm
@@ -109529,7 +109530,7 @@ aXC
 aZa
 mNq
 aNu
-bhN
+bda
 aSW
 bhm
 bhm
@@ -110043,7 +110044,7 @@ aXE
 aZb
 aVc
 bcG
-bhN
+bda
 sYL
 sYL
 sYL
@@ -110300,7 +110301,7 @@ aTu
 aTu
 aTu
 bcM
-bhN
+bda
 bgv
 biv
 bkd
@@ -110558,7 +110559,7 @@ aZj
 aTu
 bgC
 bhQ
-biA
+blq
 blh
 blq
 blq
