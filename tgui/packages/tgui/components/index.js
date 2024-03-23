@@ -22,6 +22,7 @@ export { Dropdown } from './Dropdown';
 export { Flex } from './Flex';
 export { Grid } from './Grid';
 export { Icon } from './Icon';
+export { ImageButton } from './ImageButton';
 export { Input } from './Input';
 export { Knob } from './Knob';
 export { LabeledControls } from './LabeledControls';

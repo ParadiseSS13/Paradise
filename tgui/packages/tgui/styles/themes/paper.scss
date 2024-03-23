@@ -47,6 +47,14 @@ $font-size: 24px;
     )
   );
   @include meta.load-css(
+    '../components/ImageButton.scss',
+    $with: (
+      'color-default': darken(#e8e4c9, 40%),
+      'color-disabled': #363636,
+      'color-selected': #9d0808
+    )
+  );
+  @include meta.load-css(
     '../components/ProgressBar.scss',
     $with: ('color-disabled': #363636)
   );
