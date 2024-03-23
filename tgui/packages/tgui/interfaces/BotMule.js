@@ -6,12 +6,43 @@ import {
   Section,
   Tabs,
   Stack,
+  Flex,
   NoticeBox,
+  Icon,
 } from '../components';
+import { IconStack } from '../components/Icon';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 
 export const BotMule = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { cell } = data;
+  if (cell) {
+    return <MuleMain />;
+  } else {
+    return <HasCell />;
+  }
+};
+
+const HasCell = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { cell } = data;
+  return (
+    <Window width={500} height={500}>
+      <Stack justify="center" align="center" height="100%">
+        <Icon.Stack>
+          <Icon size="3" name="slash" />
+          <Icon size="3" name="battery-quarter" />
+        </Icon.Stack>
+        <Box bold={1} color="bad">
+          Please Insert Battery
+        </Box>
+      </Stack>
+    </Window>
+  );
+};
+
+const MuleMain = (props, context) => {
   const { act, data } = useBackend(context);
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
   const decideTab = (index) => {
