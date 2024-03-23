@@ -75345,10 +75345,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay)
-"ovV" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/station/science/toxins/test)
 "owa" = (
 /obj/machinery/ai_status_display{
 	pixel_x = 32;
@@ -153533,7 +153529,7 @@ aaa
 aaa
 aaa
 aab
-ovV
+cie
 cij
 cvs
 cie
@@ -155070,7 +155066,7 @@ aaa
 aaa
 aab
 aab
-ovV
+cie
 cie
 ckb
 ckb

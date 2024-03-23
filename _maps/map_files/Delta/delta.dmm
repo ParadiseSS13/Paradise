@@ -13879,7 +13879,6 @@
 	},
 /area/station/service/bar)
 "aTq" = (
-/obj/structure/lattice,
 /obj/effect/spawner/airlock,
 /turf/simulated/wall,
 /area/station/hallway/secondary/exit)
