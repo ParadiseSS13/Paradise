@@ -219,7 +219,7 @@
 /proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
-	var/list/obj/item/radio/speaker_coverage = list()
+	var/list/speaker_coverage = list()
 	for(var/obj/item/radio/R in radios)
 		if(R)
 			//Cyborg checks. Receiving message uses a bit of cyborg's charge.
@@ -235,7 +235,8 @@
 			var/turf/speaker = get_turf(R)
 			if(speaker)
 				for(var/turf/T in hear(R.canhear_range,speaker))
-					if(!speaker_coverage[T])
+					var/obj/item/radio/oldR = speaker_coverage[T]
+					if(!istype(oldR))
 						speaker_coverage[T] = R
 						continue
 					if(speaker_coverage[T].canhear_range < R.canhear_range)
@@ -256,7 +257,8 @@
 			continue
 		if(!speaker_coverage[ear])
 			continue
-		if(speaker_coverage[ear].canhear_range > 0)
+		var/obj/item/radio/R = speaker_coverage[ear]
+		if(!istype(R) || R.canhear_range > 0)
 			. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
 			continue
 		if(is_same_root_atom(M, speaker_coverage[ear]))
