@@ -425,7 +425,7 @@
 
 	var/obj/item/organ/external/organ = null
 	if(!spread_damage)
-		if(isorgan(def_zone))
+		if(is_external_organ(def_zone))
 			organ = def_zone
 		else
 			if(!def_zone)
@@ -500,6 +500,9 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
 		return FALSE
+	if(!attacker_style && target.buckled)
+		target.buckled.user_unbuckle_mob(target, user)
+		return TRUE
 	if(attacker_style && attacker_style.grab_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)
 		return TRUE
 	else
