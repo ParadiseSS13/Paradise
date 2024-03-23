@@ -24,8 +24,11 @@ def process_dmm(map_filename, lints: dict[str, lint.Lint]) -> list[MaplintError]
             # No structured data to lint.
             return problems
 
+        map_path = pathlib.Path(map_filename)
         for lint_name, lint in lints.items():
             try:
+                if map_path in lint.exclude_files:
+                    continue
                 problems.extend(lint.run(map_data))
             except KeyboardInterrupt:
                 raise
