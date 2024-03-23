@@ -289,7 +289,7 @@
 		F.update_icon()
 	qdel(src)
 
-/obj/machinery/door/firedoor/CanPass(atom/movable/mover, turf/target) //QWERTODO: Make heavy doors block vision when CLOSED, not open
+/obj/machinery/door/firedoor/CanPass(atom/movable/mover, turf/target)
 	if(..())
 		return TRUE
 	if(isliving(mover) && !locked)
