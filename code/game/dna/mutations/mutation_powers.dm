@@ -6,9 +6,8 @@
 	name = "No Breathing"
 	activation_messages = list("You feel no need to breathe.")
 	deactivation_messages = list("You feel the need to breathe, once more.")
-	instability = GENE_INSTABILITY_MODERATE
+	instability = GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_NOBREATH)
-	activation_prob = 25
 
 /datum/mutation/nobreath/New()
 	..()
@@ -65,7 +64,7 @@
 	name = "No Prints"
 	activation_messages = list("Your fingers feel numb.")
 	deactivation_messages = list("Your fingers no longer feel numb.")
-	instability = GENE_INSTABILITY_MINOR
+	instability = GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_NOFINGERPRINTS)
 
 /datum/mutation/noprints/New()
@@ -83,24 +82,24 @@
 	..()
 	block = GLOB.shockimmunityblock
 
-/datum/mutation/midget
-	name = "Midget"
+/datum/mutation/dwarf
+	name = "Dwarf"
 	activation_messages = list("Everything around you seems bigger now...")
 	deactivation_messages = list("Everything around you seems to shrink...")
-	instability = GENE_INSTABILITY_MINOR
+	instability = GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_DWARF)
 
-/datum/mutation/midget/New()
+/datum/mutation/dwarf/New()
 	..()
 	block = GLOB.smallsizeblock
 
-/datum/mutation/midget/activate(mob/M)
+/datum/mutation/dwarf/activate(mob/M)
 	..()
 	M.pass_flags |= PASSTABLE
 	M.resize = 0.8
 	M.update_transform()
 
-/datum/mutation/midget/deactivate(mob/M)
+/datum/mutation/dwarf/deactivate(mob/M)
 	..()
 	M.pass_flags &= ~PASSTABLE
 	M.resize = 1.25
@@ -113,7 +112,6 @@
 	deactivation_messages = list("Your muscles shrink.")
 	instability = GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_HULK, TRAIT_CHUNKYFINGERS)
-	activation_prob = 15
 
 /datum/mutation/hulk/New()
 	..()
@@ -147,7 +145,6 @@
 	deactivation_messages = list("You feel dumber.")
 	instability = GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_TELEKINESIS)
-	activation_prob = 15
 
 /datum/mutation/tk/New()
 	..()
@@ -163,6 +160,7 @@
 	name = "Sober"
 	activation_messages = list("You feel unusually sober.")
 	deactivation_messages = list("You feel like you could use a stiff drink.")
+	instability = GENE_INSTABILITY_MINOR
 
 	traits_to_add = list(TRAIT_ALCOHOL_TOLERANCE)
 
@@ -176,6 +174,7 @@
 	desc = "Boosts efficiency in sectors of the brain commonly associated with meta-mental energies."
 	activation_messages = list("Your mind feels closed.")
 	deactivation_messages = list("You feel oddly exposed.")
+	instability = GENE_INSTABILITY_MINOR
 
 /datum/mutation/psychic_resist/New()
 	..()
@@ -186,7 +185,7 @@
 /////////////////////////
 
 /datum/mutation/stealth
-	instability = GENE_INSTABILITY_MODERATE
+	instability = GENE_INSTABILITY_MAJOR
 
 /datum/mutation/stealth/can_activate(mob/M, flags)
 	// Can only activate one of these at a time.
@@ -205,7 +204,6 @@
 	desc = "Enables the subject to bend low levels of light around themselves, creating a cloaking effect."
 	activation_messages = list("You begin to fade into the shadows.")
 	deactivation_messages = list("You become fully visible.")
-	activation_prob = 25
 
 /datum/mutation/stealth/darkcloak/New()
 	..()
@@ -231,7 +229,6 @@
 	desc = "The subject becomes able to subtly alter light patterns to become invisible, as long as they remain still."
 	activation_messages = list("You feel one with your surroundings.")
 	deactivation_messages = list("You feel oddly visible.")
-	activation_prob = 25
 
 /datum/mutation/stealth/chameleon/New()
 	..()
@@ -340,7 +337,7 @@
 	desc = "Allows the subject to eat just about anything without harm."
 	activation_messages = list("You feel hungry.")
 	deactivation_messages = list("You don't feel quite so hungry anymore.")
-	instability = GENE_INSTABILITY_MINOR
+	instability = GENE_INSTABILITY_MODERATE
 
 	spelltype=/obj/effect/proc_holder/spell/eat
 
@@ -385,7 +382,7 @@
 			if(!H.bodyparts_by_name[name])
 				continue
 			affecting = H.bodyparts_by_name[name]
-			if(!isorgan(affecting))
+			if(!is_external_organ(affecting))
 				continue
 			affecting.heal_damage(4, 0, updating_health = FALSE)
 		H.UpdateDamageIcon()
@@ -428,7 +425,25 @@
 				return
 			user.visible_message("<span class='danger'>[user] [pick("chomps","bites")] off [the_item]'s [limb]!</span>")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
-			limb.droplimb(0, DROPLIMB_SHARP)
+
+			// Most limbs will drop here. Groin won't, but this
+			// still spills out the organs that were in it.
+			limb.droplimb(FALSE, DROPLIMB_SHARP)
+			if(istype(limb, /obj/item/organ/external/groin))
+				limb.receive_damage(100, sharp = TRUE)
+
+				var/obj/item/organ/external/left_leg = H.get_organ(BODY_ZONE_L_LEG)
+				if(istype(left_leg))
+					left_leg.droplimb(FALSE, DROPLIMB_SHARP)
+
+				var/obj/item/organ/external/right_leg = H.get_organ(BODY_ZONE_R_LEG)
+				if(istype(right_leg))
+					right_leg.droplimb(FALSE, DROPLIMB_SHARP)
+
+				var/obj/item/organ/external/chest = H.get_organ(BODY_ZONE_CHEST)
+				if(istype(chest))
+					chest.receive_damage(50, sharp = TRUE)
+
 			doHeal(user)
 	else
 		user.visible_message("<span class='danger'>[user] eats \the [the_item].</span>")
@@ -445,7 +460,7 @@
 	//cooldown = 30
 	activation_messages = list("Your leg muscles feel taut and strong.")
 	deactivation_messages = list("Your leg muscles shrink back to normal.")
-	instability = GENE_INSTABILITY_MINOR
+	instability = GENE_INSTABILITY_MODERATE
 
 	spelltype =/obj/effect/proc_holder/spell/leap
 
@@ -702,7 +717,7 @@
 	spelltype =/obj/effect/proc_holder/spell/morph
 	activation_messages = list("Your body feels like it can alter its appearance.")
 	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
-	instability = GENE_INSTABILITY_MINOR
+	instability = GENE_INSTABILITY_MODERATE
 
 /datum/mutation/grant_spell/morph/New()
 	..()
@@ -1105,9 +1120,11 @@
 	name = "Flash Protection"
 	activation_messages = list("You stop noticing the glare from lights...")
 	deactivation_messages = list("Lights begin glaring again...")
-	instability = GENE_INSTABILITY_MINOR
+	instability = GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_FLASH_PROTECTION)
 
 /datum/mutation/flash_protection/New()
 	..()
 	block = GLOB.noflashblock
+
+#undef EAT_MOB_DELAY

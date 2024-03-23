@@ -20,7 +20,6 @@
 	var/probability = 0
 	var/station_was_nuked = FALSE //see nuclearbomb.dm and malfunction.dm
 	var/explosion_in_progress = FALSE //sit back and relax
-	var/list/datum/mind/modePlayer = new
 	var/list/restricted_jobs = list()	// Jobs it doesn't make sense to be.  I.E chaplain or AI cultist
 	var/list/secondary_restricted_jobs = list() // Same as above, but for secondary antagonists
 	var/list/protected_jobs = list()	// Jobs that can't be traitors
@@ -34,7 +33,6 @@
 	var/newscaster_announcements = null
 	var/ert_disabled = FALSE
 	var/uplink_welcome = "Syndicate Uplink Console:"
-	var/uplink_uses = 100
 
 	var/list/player_draft_log = list()
 	var/list/datum/mind/xenos = list()

@@ -608,3 +608,89 @@
 #define TS_INFESTATION_QUEEN_SPIDER 5
 
 #define MAX_ALLOWED_TELEPORTS_PER_PROCESS 20
+
+#define CONSTRUCTION_PATH_FORWARDS -1
+#define CONSTRUCTION_PATH_BACKWARDS 1
+#define CONSTRUCTION_TOOL_BEHAVIOURS list(TOOL_CROWBAR, TOOL_SCREWDRIVER, TOOL_WELDER, TOOL_WRENCH)
+
+#define WEATHER_STARTUP_STAGE 1
+#define WEATHER_MAIN_STAGE 2
+#define WEATHER_WIND_DOWN_STAGE 3
+#define WEATHER_END_STAGE 4
+
+/**
+ * I dont recommend touching these map generator defines unless you know what you're doing with maze generators.
+ */
+#define LOG_MAZE_PROGRESS(proc2run, opname) \
+do { \
+	var/timer = start_watch(); \
+	proc2run ;\
+	log_debug("\[MAZE] Operation '[opname]' on maze at [x],[y],[z] took [stop_watch(timer)]s"); \
+} while(FALSE)
+
+//clusterCheckFlags defines
+//All based on clusterMin and clusterMax as guides
+
+//Individual defines
+#define MAP_GENERATOR_CLUSTER_CHECK_NONE				0  //No checks are done, cluster as much as possible
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS	(1<<1)  //Don't let turfs of DIFFERENT types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS	(1<<2)  //Don't let atoms of DIFFERENT types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS		(1<<3)  //Don't let turfs of the SAME type cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS		(1<<4) //Don't let atoms of the SAME type cluster
+
+//Combined defines
+#define MAP_GENERATOR_CLUSTER_CHECK_SAMES				(MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS | MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS) //Don't let any of the same type cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENTS		(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS | MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS) //Don't let any of different types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL_TURFS			(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS | MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS) //Don't let ANY turfs cluster same and different types
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL_ATOMS			(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS | MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS) //Don't let ANY atoms cluster same and different types
+
+//All
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL				((1<<4) - 2) //Don't let anything cluster, like, at all.  -2 because we skipped <<1 for some odd reason.
+
+// Buffer datatype flags.
+#define DNA2_BUF_UI (1<<0)
+#define DNA2_BUF_UE (1<<1)
+#define DNA2_BUF_SE (1<<2)
+
+#define CLONER_BIOMASS_REQUIRED 150
+
+#define SOLAR_MACHINERY_MAX_DIST 40
+
+#define AMMO_BOX_MULTI_SPRITE_STEP_NONE null
+#define AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF -1
+
+/// Detective's mode on pinpointers
+#define PINPOINTER_MODE_DET 7
+
+/// How frequently disposals can make sounds, to prevent huge sound stacking
+#define DISPOSAL_SOUND_COOLDOWN (0.1 SECONDS)
+
+/// The different kinds of voting
+#define VOTE_RESULT_TYPE_MAJORITY "Majority"
+
+#define HOLOPAD_MAX_DIAL_TIME 200
+
+#define PROJECTILE_IMPACT_WALL_DENT_HIT 1
+#define PROJECTILE_IMPACT_WALL_DENT_SHOT 2
+
+#define ASSEMBLY_WIRE_RECEIVE		(1<<0)	//Allows pulse(0) to call Activate()
+#define ASSEMBLY_WIRE_PULSE			(1<<1)	//Allows pulse(0) to act on the holder
+#define ASSEMBLY_WIRE_PULSE_SPECIAL	(1<<2)	//Allows pulse(0) to act on the holders special assembly
+#define ASSEMBLY_WIRE_RADIO_RECEIVE	(1<<3)	//Allows pulse(1) to call Activate()
+#define ASSEMBLY_WIRE_RADIO_PULSE	(1<<4)	//Allows pulse(1) to send a radio message
+
+
+//Types of usual spacevine mutations mutations
+#define	SPACEVINE_MUTATION_POSITIVE 			1
+#define	SPACEVINE_MUTATION_NEGATIVE			2
+#define	SPACEVINE_MUTATION_MINOR_NEGATIVE		3
+
+#define RETURN_PRECISE_POSITION(A) new /datum/position(A)
+#define RETURN_PRECISE_POINT(A) new /datum/point_precise(A)
+
+#define RETURN_POINT_VECTOR(ATOM, ANGLE, SPEED) (new /datum/point_precise/vector(ATOM, null, null, null, null, ANGLE, SPEED))
+#define RETURN_POINT_VECTOR_INCREMENT(ATOM, ANGLE, SPEED, AMT) (new /datum/point_precise/vector(ATOM, null, null, null, null, ANGLE, SPEED, AMT))
+
+#define TEAM_ADMIN_ADD_OBJ_SUCCESS				(1<<0)
+#define TEAM_ADMIN_ADD_OBJ_CANCEL_LOG 			(1<<1)
+#define TEAM_ADMIN_ADD_OBJ_PURPOSEFUL_CANCEL 	(1<<2)

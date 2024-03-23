@@ -241,6 +241,7 @@
 #define isguardian(A)		(istype((A), /mob/living/simple_animal/hostile/guardian))
 #define isnymph(A)      	(istype((A), /mob/living/simple_animal/diona))
 #define ishostile(A) 		(istype((A), /mob/living/simple_animal/hostile))
+#define isretaliate(A) 		(istype((A), /mob/living/simple_animal/hostile/retaliate))
 #define isterrorspider(A) 	(istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
 #define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
 #define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
@@ -275,7 +276,9 @@
 
 #define isnewplayer(A)  (istype((A), /mob/new_player))
 
-#define isorgan(A)		(istype((A), /obj/item/organ/external))
+#define is_external_organ(A)		(istype((A), /obj/item/organ/external))
+#define is_internal_organ(A)		(istype((A), /obj/item/organ/internal))
+#define	is_organ(A)				(istype((A), /obj/item/organ))
 #define hasorgans(A)	(iscarbon(A))
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
@@ -330,3 +333,30 @@
 			return LEG_LEFT
 		if("l_foot")
 			return FOOT_LEFT
+
+#define SPINNING_WEB 1
+#define LAYING_EGGS 2
+#define MOVING_TO_TARGET 3
+#define SPINNING_COCOON 4
+
+#define TS_DAMAGE_SIMPLE 0
+#define TS_DAMAGE_POISON 1
+#define TS_DAMAGE_BRUTE 2
+
+#define TS_DESC_RED "Red - Assault"
+#define TS_DESC_GRAY "Gray - Ambush"
+#define TS_DESC_GREEN "Green - Nurse"
+#define TS_DESC_WHITE "White - Infect"
+#define TS_DESC_BLACK "Black - Poison"
+#define TS_DESC_PURPLE "Purple - Guard"
+#define TS_DESC_BROWN "Brown - Breacher"
+#define TS_DESC_PRINCE "Prince - HERO"
+#define TS_DESC_PRINCESS "Princess - HORDE"
+#define TS_DESC_MOTHER "Mother - SUPPORT"
+#define TS_DESC_QUEEN "Queen - LEADER"
+
+#define TS_TIER_1 1
+#define TS_TIER_2 2
+#define TS_TIER_3 3
+#define TS_TIER_4 4
+#define TS_TIER_5 5

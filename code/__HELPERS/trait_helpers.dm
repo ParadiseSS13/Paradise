@@ -228,7 +228,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
-#define TRAIT_TABLE_LEAP "table_leap"
+#define TRAIT_TABLE_LEAP "table_leap" // Lets bartender and chef mount tables faster
+#define TRAIT_NEVER_MISSES_DISPOSALS "trait_never_misses_disposals" // For janitors landing disposal throws
 #define TRAIT_SLEIGHT_OF_HAND "sleight_of_hand"
 
 //***** ITEM AND MOB TRAITS *****//
@@ -265,6 +266,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 ///An item that can be pointed at mobs, while on non-help intent.
 #define TRAIT_CAN_POINT_WITH "can_point_with"
+
+///An organ that was inserted into a dead mob, that has not been revived yet
+#define TRAIT_ORGAN_INSERTED_WHILE_DEAD "organ_inserted_while_dead"
 
 //
 // common trait sources
@@ -364,3 +368,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // turf trait sources
 #define FLOOR_EFFECT_TRAIT "floor_effect_trait"
 
+//***** TURF TRAITS *****//
+// Causes the effect to go through a teleporter instead of being deleted by it.
+#define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"

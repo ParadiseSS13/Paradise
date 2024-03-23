@@ -44,6 +44,22 @@
 	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
+"aJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/ore{
+	pixel_y = -9;
+	pixel_x = -6
+	},
+/obj/effect/landmark/burnturf,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
+	},
+/turf/simulated/floor{
+	temperature = 500;
+	oxygen = 8;
+	nitrogen = 14
+	},
+/area/ruin/unpowered/althland_processing)
 "aM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -145,9 +161,8 @@
 /area/ruin/unpowered/althland_processing)
 "dh" = (
 /obj/effect/mapping_helpers/no_lava,
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -293,22 +308,11 @@
 	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
-"gC" = (
+"gw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery/white/partial,
-/obj/machinery/light_construct/small{
+/obj/structure/disposalpipe/segment/corner{
 	dir = 8
-	},
-/obj/effect/decal/cleanable/glass,
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
-/obj/machinery/mineral/processing_unit_console{
-	pixel_y = -2;
-	pixel_x = -29
 	},
 /turf/simulated/floor/plasteel{
 	temperature = 500;
@@ -379,6 +383,10 @@
 	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
+"hI" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors)
 "hP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -511,10 +519,9 @@
 	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
-"ms" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+"mv" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
 	},
 /turf/simulated/floor{
 	temperature = 500;
@@ -780,6 +787,16 @@
 	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
+"tH" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
+	},
+/turf/simulated/floor{
+	temperature = 500;
+	oxygen = 8;
+	nitrogen = 14
+	},
+/area/ruin/unpowered/althland_processing)
 "tS" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
@@ -954,21 +971,16 @@
 	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
-"zq" = (
+"zv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/ore{
-	pixel_y = -9;
-	pixel_x = -6
-	},
-/obj/effect/landmark/burnturf,
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced,
+/obj/machinery/conveyor/west,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor{
-	temperature = 500;
-	oxygen = 8;
-	nitrogen = 14
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
 	},
 /area/ruin/unpowered/althland_processing)
 "zE" = (
@@ -1243,6 +1255,20 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Es" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/ore/plasma,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor{
+	temperature = 500;
+	oxygen = 8;
+	nitrogen = 14
+	},
+/area/ruin/unpowered/althland_processing)
 "Fa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1262,6 +1288,28 @@
 	},
 /obj/item/tank/internals/oxygen,
 /obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	temperature = 500;
+	oxygen = 8;
+	nitrogen = 14
+	},
+/area/ruin/unpowered/althland_processing)
+"FW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery/white/partial,
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/glass,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
+	},
+/obj/machinery/mineral/processing_unit_console{
+	pixel_y = -2;
+	pixel_x = -29
+	},
 /turf/simulated/floor/plasteel{
 	temperature = 500;
 	oxygen = 8;
@@ -1316,17 +1364,6 @@
 	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
-"Gz" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor{
-	temperature = 500;
-	oxygen = 8;
-	nitrogen = 14
-	},
-/area/ruin/unpowered/althland_processing)
 "GF" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/decal/cleanable/glass,
@@ -1343,25 +1380,18 @@
 /area/ruin/unpowered/althland_processing)
 "Hj" = (
 /obj/effect/mapping_helpers/no_lava,
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Hp" = (
+"Hs" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/stack/ore/plasma,
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
-/obj/effect/landmark/burnturf,
-/turf/simulated/floor{
-	temperature = 500;
-	oxygen = 8;
-	nitrogen = 14
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
 	},
 /area/ruin/unpowered/althland_processing)
 "Hx" = (
@@ -1374,6 +1404,16 @@
 	temperature = 500;
 	oxygen = 8;
 	nitrogen = 14
+	},
+/area/ruin/unpowered/althland_processing)
+"Hz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
 	},
 /area/ruin/unpowered/althland_processing)
 "HO" = (
@@ -1553,6 +1593,17 @@
 	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
+"Mu" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	temperature = 500;
+	oxygen = 8;
+	nitrogen = 14
+	},
+/area/ruin/unpowered/althland_processing)
 "Mw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1588,18 +1639,6 @@
 	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
-"Nu" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	temperature = 500;
-	oxygen = 8;
-	nitrogen = 14
-	},
-/area/ruin/unpowered/althland_processing)
 "Og" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
@@ -1791,19 +1830,6 @@
 	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
-"UU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plasteel{
-	temperature = 500;
-	oxygen = 8;
-	nitrogen = 14
-	},
-/area/ruin/unpowered/althland_processing)
 "Vj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1889,6 +1915,11 @@
 	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
+"WU" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Xn" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
@@ -2048,9 +2079,8 @@
 "ZB" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -2310,7 +2340,7 @@ ZB
 hc
 Pn
 fv
-zq
+aJ
 ui
 ab
 ab
@@ -2381,8 +2411,8 @@ ab
 af
 ui
 Ec
-gC
-UU
+FW
+gw
 ui
 ab
 ab
@@ -2395,7 +2425,7 @@ ui
 QE
 af
 BM
-no
+Hz
 bO
 In
 dM
@@ -2445,7 +2475,7 @@ bV
 bL
 ab
 af
-ui
+hI
 bT
 ab
 ab
@@ -2469,7 +2499,7 @@ bT
 af
 TX
 rw
-ms
+mv
 ui
 bT
 ab
@@ -2524,7 +2554,7 @@ bT
 bT
 bT
 ui
-hP
+zv
 UP
 Ic
 ui
@@ -2541,7 +2571,7 @@ ui
 vf
 Yt
 uC
-Gz
+tH
 ui
 bT
 bT
@@ -2711,7 +2741,7 @@ ui
 ab
 ab
 ab
-ab
+WU
 ab
 ab
 ab
@@ -2741,7 +2771,7 @@ cb
 ab
 Au
 WQ
-Hp
+Es
 fd
 ui
 ab
@@ -2760,7 +2790,7 @@ KJ
 af
 bT
 bT
-ui
+hI
 ab
 bL
 "}
@@ -2830,7 +2860,7 @@ bT
 bT
 bT
 bT
-ui
+hI
 af
 bT
 ab
@@ -2841,7 +2871,7 @@ bV
 bL
 ab
 ab
-ui
+hI
 af
 bT
 bT
@@ -2882,7 +2912,7 @@ ab
 bT
 bT
 bT
-ui
+hI
 bT
 bT
 bT
@@ -2932,12 +2962,12 @@ lZ
 ui
 Yd
 nN
-ui
+hI
 af
 AL
 af
 af
-ui
+hI
 bT
 ab
 ab
@@ -2957,14 +2987,14 @@ bT
 bT
 af
 af
-ui
+hI
 af
 bT
 ui
 Dp
 fY
 hY
-Nu
+Mu
 ui
 af
 af
@@ -3143,17 +3173,17 @@ YK
 hj
 Az
 BV
-hj
+Hs
 Dz
 ui
 bT
 Wp
-ui
+hI
 af
 af
 af
 af
-ui
+hI
 bT
 bT
 ab
@@ -3247,7 +3277,7 @@ bT
 bT
 bT
 bT
-ui
+hI
 bT
 bT
 bT

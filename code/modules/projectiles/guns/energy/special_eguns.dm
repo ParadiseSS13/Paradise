@@ -162,6 +162,7 @@
 	item_state = "plasmacutter"
 	modifystate = -1
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
+	needs_permit = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	fire_sound = 'sound/weapons/laser.ogg'
 	usesound = 'sound/items/welder.ogg'
@@ -258,6 +259,15 @@
 	if(orange && blue)
 		blue.target = get_turf(orange)
 		orange.target = get_turf(blue)
+
+/obj/item/gun/energy/wormhole_projector/suicide_act(mob/user)
+	user.visible_message(pick("<span class='suicide'>[user] looking directly into the operational end of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>",
+								"<span class='suicide'>[user] is touching the operatonal end of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
+	if(!do_after(user, 0.5 SECONDS, target = user)) // touch/looking doesn't take that long, but still probably good for a delay to exist for shoving and whatnot
+		return SHAME
+	user.dust()
+	playsound(loc, 'sound/effects/supermatter.ogg', 20, TRUE)
+	return OBLITERATION
 
 /* 3d printer 'pseudo guns' for borgs */
 /obj/item/gun/energy/printer
@@ -769,7 +779,7 @@
 	if(!C)
 		return
 	C.linked_gun_UID = null
-	if(C.mode == MODE_DET)
+	if(C.mode == PINPOINTER_MODE_DET)
 		C.stop_tracking()
 	linked_pinpointer_UID = null
 	tracking_target_UID = null
@@ -837,7 +847,7 @@
 /obj/item/gun/energy/detective/proc/stop_pointing()
 	if(linked_pinpointer_UID)
 		var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
-		if(C?.mode == MODE_DET)
+		if(C?.mode == PINPOINTER_MODE_DET)
 			C.stop_tracking()
 	tracking_target_UID = null
 
