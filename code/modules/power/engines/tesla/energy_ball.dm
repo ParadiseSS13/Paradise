@@ -41,6 +41,8 @@
 	var/has_close_field = FALSE
 	/// Init list that has all the areas that we can possibly move to, to reduce processing impact
 	var/list/all_possible_areas = list()
+	/// List that has the turfs to move around
+	var/list/turfs_to_move_over = list()
 
 /obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	miniball = is_miniball
@@ -108,6 +110,7 @@
 		. += "There are [length(orbiting_balls)] mini-balls orbiting it."
 
 /obj/singularity/energy_ball/proc/move_the_basket_ball()
+	has_close_field = FALSE
 	for(var/i in 1 to length(GLOB.field_generator_fields))
 		var/temp_distance = get_dist(src, GLOB.field_generator_fields[i])
 		if(temp_distance <= 15)
@@ -117,28 +120,33 @@
 		var/turf/T = get_step(src, pick(GLOB.alldirs))
 		if(can_move(T))
 			forceMove(T)
-			has_close_field = FALSE
 			for(var/mob/living/carbon/C in loc)
 				dust_mobs(C)
 		return
+
 	if(!target_turf)
 		find_the_basket()
 		return
+
+	var/length = min(length(turfs_to_move_over), 9)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, Beam), turfs_to_move_over[length], "lightning[rand(1, 12)]", 'icons/effects/effects.dmi', 2 SECONDS, INFINITY), 0.2 SECONDS)
 	for(var/i in 0 to 8)
-		movement_dir = get_dir(get_turf(src), target_turf)
-		forceMove(get_step(src, movement_dir))
+		var/turf_to_move_to = turfs_to_move_over[1]
+//		movement_dir = get_dir(get_turf(src), turf_to_move_to)
+//		forceMove(get_step(src, movement_dir))
+		forceMove(turf_to_move_to)
 		if(get_turf(src) == target_turf)
 			target_turf = null
 		for(var/mob/living/carbon/C in loc)
 			dust_mobs(C)
-		has_close_field = FALSE
-		sleep(1)
-
+		turfs_to_move_over -= turf_to_move_to
 
 /obj/singularity/energy_ball/proc/find_the_basket()
 	var/area/where_to_move = pick(all_possible_areas) // Grabs a random area that isn't restricted
 	var/turf/target_area_turfs = get_area_turfs(where_to_move) // Grabs the turfs from said area
 	target_turf = pick(target_area_turfs) // Grabs a single turf from the entire list
+	turfs_to_move_over = get_line(src, target_turf)
+	new /mob/living/carbon/human/skrell(target_turf)
 	return
 
 
