@@ -10,6 +10,7 @@ import {
   NoticeBox,
   Icon,
 } from '../components';
+import { ButtonCheckbox } from '../components/Button';
 import { IconStack } from '../components/Icon';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
@@ -29,10 +30,10 @@ const HasCell = (props, context) => {
   const { cell } = data;
   return (
     <Window width={500} height={500}>
-      <Stack justify="center" align="center" height="100%">
+      <Stack justify="center" align="center" fill vertical>
         <Icon.Stack>
-          <Icon size="3" name="slash" />
-          <Icon size="3" name="battery-quarter" />
+          <Icon size="5" name="slash" />
+          <Icon size="5" name="battery-quarter" />
         </Icon.Stack>
         <Box bold={1} color="bad">
           Please Insert Battery
@@ -48,7 +49,7 @@ const MuleMain = (props, context) => {
   const decideTab = (index) => {
     switch (index) {
       case 0:
-        return <BotStatus />;
+        return <MuleStatus />;
       case 1:
         return <MuleLoad />;
       default:
@@ -87,6 +88,51 @@ const MuleMain = (props, context) => {
   );
 };
 
+const MuleStatus = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    noaccess,
+    mode,
+    destination,
+    auto_pickup,
+    auto_return,
+    sethome,
+    unload,
+    bot_suffix,
+    home,
+  } = data;
+  return (
+    <Section fill scrollable backgroundColor="transparent">
+      <BotStatus />
+      <Section title="Delivery Settings">
+        <Button.Checkbox
+          fluid
+          checked={auto_pickup}
+          content="Auto Pickup"
+          disabled={noaccess}
+          onClick={() => act('auto_pickup')}
+        />
+        <Button.Checkbox
+          fluid
+          checked={auto_return}
+          content="Auto Return"
+          disabled={noaccess}
+          onClick={() => act('auto_return')}
+        />
+        <Button.Checkbox
+          fluid
+          content='Change ID'
+          onClick={() => act('setid')}
+        />
+        <Button.Checkbox fluid content="Set Home" />
+        <LabeledList mb={1}>
+          <LabeledList.Item label="Home">{home}</LabeledList.Item>
+        </LabeledList>
+      </Section>
+    </Section>
+  );
+};
+
 const MuleLoad = (props, context) => {
   const { act, data } = useBackend(context);
   const {
@@ -109,7 +155,6 @@ const MuleLoad = (props, context) => {
     <Section fill scrollable backgroundColor="transparent">
       <Section title="Delivery Settings">
         <Button
-          icon=""
           content={destination ? destination : 'Select Destination'}
           selected={destination}
           disabled={noaccess}
