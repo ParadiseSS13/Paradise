@@ -99,9 +99,11 @@
 /mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
 	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
 		cell_insert(I, user)
+		return
 
 	if(istype(I, /obj/item/crowbar) && open && cell)
 		cell_remove(I, user)
+		return
 
 	if(istype(I, /obj/item/wrench))
 		if(health < maxHealth)
@@ -139,8 +141,8 @@
 	return
 
 /mob/living/simple_animal/bot/mulebot/proc/cell_remove(obj/item/I, mob/user)
-	cell.add_fingerprint(usr)
-	cell.forceMove(loc)
+	cell.add_fingerprint(user)
+	cell.forceMove(user.loc)
 	cell = null
 	visible_message("[user] crowbars out the power cell from [src].",
 					"<span class='notice'>You pry the powercell out of [src].</span>")
@@ -288,11 +290,10 @@
 /mob/living/simple_animal/bot/mulebot/show_controls(mob/user)
 	if(!open)
 		ui_interact(user)
+	else if(isAI(user))
+		to_chat(user, "<span class='warning'>The bot is in maintenance mode and cannot be controlled.</span>")
 	else
-		if(isAI(user))
-			to_chat(user, "<span class='warning'>The bot is in maintenance mode and cannot be controlled.</span>")
-		else
-			wires.Interact(user)
+		wires.Interact(user)
 
 /mob/living/simple_animal/bot/mulebot/ui_state(mob/user)
 	return GLOB.default_state
@@ -307,13 +308,13 @@
 	var/list/data = ..()
 	data["mode"] = mode
 	data["load"] = load ? load.name : "None"
-	data["cell"] = cell ? cell.percent() : 0
+	data["cell"] = cell ? 1 : 0
 	data["auto_pickup"]  = auto_pickup
 	data["auto_return"] = auto_return
 	data["report"] = report_delivery
-	data["destination"] = destination
+	data["destination"] = new_destination
 //	data[""] =
-
+	return data
 
 /mob/living/simple_animal/bot/mulebot/ui_act(action, params, datum/tgui/ui)
 	if(..())
