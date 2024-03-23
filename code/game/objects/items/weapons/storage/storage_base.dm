@@ -449,10 +449,10 @@
 		var/mob/M = _M
 		if((M.s_active == src) && M.client)
 			M.client.screen += I
-
-	if(user.client && user.s_active != src)
-		user.client.screen -= I
-	I.dropped(user, TRUE)
+	if(user)
+		if(user.client && user.s_active != src)
+			user.client.screen -= I
+		I.dropped(user, TRUE)
 	add_fingerprint(user)
 
 	if(!prevent_warning)
@@ -464,10 +464,9 @@
 		// if the item less than normal sized, only people within 1 tile get the message, otherwise, everybody in view gets it
 		if(I.w_class < WEIGHT_CLASS_NORMAL)
 			for(var/mob/M in viewer_list)
-				var/distance = get_dist(M, user)
 				if(M == user)
 					continue
-				if(distance <= 1)
+				if(in_range(M, user))
 					M.show_message("<span class='notice'>[user] puts [I] into [src].</span>")
 		else
 			// restrict player list to include only those in view
