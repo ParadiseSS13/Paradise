@@ -116,10 +116,13 @@ SUBSYSTEM_DEF(economy)
 				return FALSE //really fuck off, you're vv editing something to a value that will break the economy
 	return ..()
 
-/datum/controller/subsystem/economy/Initialize()
-	///create main station accounts
+/proc/init_current_date_string()
 	if(!GLOB.current_date_string)
 		GLOB.current_date_string = "[time2text(world.timeofday, "DD Month")], [GLOB.game_year]"
+
+/datum/controller/subsystem/economy/Initialize()
+	init_current_date_string()
+	///create main station accounts
 	if(GLOB.station_money_database)
 		populate_station_database()
 		cargo_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SUPPLY)
