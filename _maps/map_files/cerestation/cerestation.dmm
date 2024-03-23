@@ -21925,10 +21925,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/sortjunction{
-	dir = 2;
-	name = "disposal pipe - Chemistry";
-	sort_type_txt = "11"
+/obj/structure/disposalpipe/sortjunction/reversed{
+	name = "disposal pipe - Medbay";
+	sort_type_txt = "9";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -39859,11 +39859,6 @@
 	},
 /area/station/hallway/primary/aft/west)
 "fLp" = (
-/obj/structure/disposalpipe/sortjunction{
-	dir = 2;
-	name = "disposal pipe - CMO Office";
-	sort_type_txt = "10"
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -41527,14 +41522,6 @@
 	icon_state = "wood-broken7"
 	},
 /area/station/maintenance/asmaint)
-"gqG" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/station/medical/break_room)
 "gqH" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -46425,7 +46412,6 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -47788,10 +47774,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment/corner{
-	dir = 1
-	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -50257,7 +50243,6 @@
 	dir = 4;
 	pixel_x = 11
 	},
-/obj/structure/disposalpipe/segment/corner,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -52373,16 +52358,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"jOU" = (
-/obj/structure/disposalpipe/sortjunction{
-	dir = 2;
-	name = "disposal pipe - Genetics";
-	sort_type_txt = "23"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/station/medical/break_room)
 "jPa" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating{
@@ -84971,9 +84946,7 @@
 	},
 /area/station/maintenance/port)
 "uso" = (
-/obj/structure/disposalpipe/junction{
-	dir = 1
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -86625,9 +86598,7 @@
 	dir = 8
 	},
 /obj/structure/chair/stool,
-/obj/structure/disposalpipe/junction{
-	dir = 1
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -148218,8 +148189,8 @@ xeq
 cdI
 uhF
 owY
-gqG
-jOU
+tKE
+tKE
 fLp
 cnW
 gxB
