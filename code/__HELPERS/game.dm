@@ -239,7 +239,7 @@
 					if(!istype(oldR))
 						speaker_coverage[T] = R
 						continue
-					if(speaker_coverage[T].canhear_range < R.canhear_range)
+					if(oldR.canhear_range < R.canhear_range)
 						speaker_coverage[T] = R
 
 
