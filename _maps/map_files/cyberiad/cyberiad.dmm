@@ -54328,8 +54328,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "ejO" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 4
+/obj/structure/disposalpipe/junction{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -62696,6 +62696,8 @@
 /turf/simulated/floor/grass/jungle/no_creep,
 /area/station/command/bridge)
 "imB" = (
+/obj/machinery/door/firedoor,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -82307,6 +82309,13 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/hallway)
+"rHw" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/station/medical/medbay)
 "rHJ" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	dir = 4
@@ -131415,8 +131424,8 @@ cjC
 cjC
 crY
 cnw
-ure
-ure
+rHw
+rHw
 imB
 ejO
 crt
