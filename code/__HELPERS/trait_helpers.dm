@@ -268,6 +268,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///An organ that was inserted into a dead mob, that has not been revived yet
 #define TRAIT_ORGAN_INSERTED_WHILE_DEAD "organ_inserted_while_dead"
 
+///An object that should not be able to be possessed by a player.
+#define TRAIT_DO_NOT_POSSESS "do_not_possess"
+
 //
 // common trait sources
 #define TRAIT_GENERIC "generic"

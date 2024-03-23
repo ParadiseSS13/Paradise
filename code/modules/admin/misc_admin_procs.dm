@@ -902,14 +902,20 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		var/ask = alert("Are you sure you want to allow [frommob.name]([frommob.key]) to possess [toitem.name]?", "Place ghost in control of item?", "Yes", "No")
 		if(ask != "Yes")
 			return TRUE
+		var/has_do_not_possess = ""
+		if(HAS_TRAIT(tothing, TRAIT_DO_NOT_POSSESS))
+			var/double_confirm = alert("[tothing] has TRAIT_DO_NOT_POSSSESS. Things could break if you possess it. Are you REALLY sure?", "Override TRAIT_DO_NOT_POSSESS?", "Yes, break stuff!", "No, play it safe.")
+			if(double_confirm != "Yes, break stuff!")
+				return TRUE
+			has_do_not_possess = " (TRAIT_DO_NOT_POSSESS)"
 
 		if(!frommob || !toitem) //make sure the mobs don't go away while we waited for a response
 			return TRUE
 
 		var/mob/living/simple_animal/possessed_object/tomob = new(toitem)
 
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
-		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
+		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name][has_do_not_possess].</span>")
+		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name][has_do_not_possess].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
 
 		tomob.ckey = frommob.ckey
