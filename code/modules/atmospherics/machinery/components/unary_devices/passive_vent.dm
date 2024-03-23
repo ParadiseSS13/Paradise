@@ -10,7 +10,6 @@
 	can_unwrench = TRUE
 
 	var/volume = 250
-	on = TRUE
 
 /obj/machinery/atmospherics/unary/passive_vent/high_volume
 	name = "large passive vent"
@@ -24,14 +23,17 @@
 	if(is_station_level(new_z))
 		on = TRUE
 
+/obj/machinery/atmospherics/unary/passive_vent/high_volume/shadow/process_atmos()
+	if(!on)
+		return
+	..()
+
 /obj/machinery/atmospherics/unary/passive_vent/Initialize(mapload)
 	. = ..()
 	air_contents.volume = volume
 
 /obj/machinery/atmospherics/unary/passive_vent/process_atmos()
 	..()
-	if(!on)
-		return
 	if(!node)
 		return 0
 

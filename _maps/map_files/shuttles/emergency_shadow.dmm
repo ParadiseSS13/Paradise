@@ -592,10 +592,6 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Ah" = (
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
@@ -1051,6 +1047,7 @@
 	dir = 1
 	},
 /obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/glass/bottle/reagent/hydrocodone,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -1615,7 +1612,7 @@ vU
 JM
 AA
 Rk
-XA
+vU
 vx
 Fz
 WQ
