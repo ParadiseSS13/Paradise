@@ -26,6 +26,37 @@
 	/// If set, a shade that we can become on death.
 	var/mob/living/simple_animal/shade/shade
 
+	var/static/list/literate_objects = typecacheof(list(
+		/obj/item/book,
+		/obj/item/clipboard,
+		/obj/item/clothing/glasses,
+		/obj/item/dice,
+		/obj/item/folder,
+		/obj/item/hand_labeler,
+		/obj/item/mmi/robotic_brain,
+		/obj/item/organ/internal/brain,
+		/obj/item/paper,
+		/obj/item/paper_bin,
+		/obj/item/paper_bundle,
+		/obj/item/paperplane,
+		/obj/item/pen,
+		/obj/item/spellbook,
+		/obj/item/stamp,
+		/obj/item/toy/AI,
+		/obj/item/toy/character,
+		/obj/item/toy/codex_gigas,
+		/obj/item/toy/crayon,
+		/obj/item/toy/eight_ball,
+		/obj/item/toy/figure,
+		/obj/item/toy/plushie/abductor,
+		/obj/item/toy/plushie/greyplushie,
+		/obj/item/toy/plushie/ipcplushie,
+		/obj/item/toy/plushie/lizardplushie,
+		/obj/item/toy/plushie/nianplushie,
+		/obj/item/toy/plushie/nukeplushie,
+		/obj/item/toy/plushie/voxplushie
+	))
+
 /mob/living/simple_animal/possessed_object/examine(mob/user)
 	. = possessed_item.examine(user)
 	if(health > (maxHealth / 30))
@@ -162,6 +193,8 @@
 	visible_message("<span class='notice'>[src] rises into the air and begins to float!</span>") // Inform those around us that shit's gettin' spooky.
 	animate_ghostly_presence(src, -1, 20, 1)
 
+/mob/living/simple_animal/possessed_object/is_literate()
+	return is_type_in_typecache(possessed_item, literate_objects)
 
 /mob/living/simple_animal/possessed_object/get_active_hand() // So that our attacks count as attacking with the item we've possessed.
 	return possessed_item
