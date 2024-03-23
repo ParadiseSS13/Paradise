@@ -24,52 +24,40 @@
 	data["used"] = used
 	return data
 
-/obj/item/contract/ui_act(action, params)
+/obj/item/contract/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
-	var/mob/living/carbon/human/H = usr
-
 	if(used)
 		return
+	INVOKE_ASYNC(src, PROC_REF(async_find_apprentice), action, ui.user)
+	SStgui.close_uis(src)
 
+/obj/item/contract/proc/async_find_apprentice(action, user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
 	used = TRUE
 
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [H.real_name]?", ROLE_WIZARD, TRUE, source = source)
 
-	if(length(candidates))
-		var/mob/C = pick(candidates)
-		new /obj/effect/particle_effect/smoke(H.loc)
-		var/mob/living/carbon/human/M = new/mob/living/carbon/human(H.loc)
-		M.key = C.key
-		to_chat(M, "<b>You are [H.real_name]'s apprentice! You are bound by magic contract to follow [H.p_their()] orders and help [H.p_them()] in accomplishing [H.p_their()] goals.</b>")
-		equip_apprentice(action, M, H)
-		var/wizard_name_first = pick(GLOB.wizard_first)
-		var/wizard_name_second = pick(GLOB.wizard_second)
-		var/randomname = "[wizard_name_first] [wizard_name_second]"
-		var/newname = sanitize(copytext_char(input(M, "You are the wizard's apprentice. Would you like to change your name to something else?", "Name change", randomname) as null|text, 1, MAX_NAME_LEN))
-
-		if(!newname)
-			newname = randomname
-		M.mind.name = newname
-		M.real_name = newname
-		M.name = newname
-
-		var/datum/objective/protect/new_objective = new /datum/objective/protect
-		new_objective.target = H.mind
-		new_objective.explanation_text = "Protect and obey [H.real_name], your teacher."
-		M.mind.add_mind_objective(new_objective)
-
-		SSticker.mode.apprentices += M.mind
-		M.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
-		SSticker.mode.update_wiz_icons_added(M.mind)
-		dust_if_respawnable(C)
-		M.faction = list("wizard")
-		SStgui.close_uis(src)
-	else
+	if(!length(candidates))
 		used = FALSE
 		to_chat(H, "<span class='warning'>Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later.</span>")
+		return
+	new /obj/effect/particle_effect/smoke(get_turf(H))
+
+	var/mob/C = pick(candidates)
+	var/mob/living/carbon/human/M = new /mob/living/carbon/human(get_turf(H))
+	M.key = C.key
+
+	var/datum/antagonist/wizard/apprentice/apprentice = new /datum/antagonist/wizard/apprentice()
+	apprentice.my_teacher = H
+	apprentice.class_type = action
+	M.mind.add_antag_datum(apprentice)
+
+	dust_if_respawnable(C)
 
 /obj/item/contract/attack_self(mob/user as mob)
 	if(..())
@@ -81,67 +69,6 @@
 
 	ui_interact(user)
 
-/obj/item/contract/proc/equip_apprentice(action, mob/living/carbon/human/M, mob/living/carbon/human/H)
-	M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
-	if(action == "stealth")
-		M.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(M), SLOT_HUD_JUMPSUIT)
-	else
-		M.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(M), SLOT_HUD_JUMPSUIT)
-	M.equip_to_slot_or_del(new /obj/item/storage/backpack(M), SLOT_HUD_BACK)
-	M.equip_to_slot_or_del(new /obj/item/storage/box(M), SLOT_HUD_IN_BACKPACK)
-	M.equip_to_slot_or_del(new /obj/item/teleportation_scroll/apprentice(M), SLOT_HUD_RIGHT_STORE)
-	switch(action)
-		if("fire")
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/apprentice(null))
-			M.mind.AddSpell(new  /obj/effect/proc_holder/spell/sacred_flame(null))
-			ADD_TRAIT(M, TRAIT_RESISTHEAT, MAGIC_TRAIT)
-			ADD_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt(null))
-			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), SLOT_HUD_SHOES)
-			M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red(M), SLOT_HUD_OUTER_SUIT)
-			M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red(M), SLOT_HUD_HEAD)
-			to_chat(M, "<b>Your service has not gone unrewarded. Under the tutelage of [H.real_name], you've acquired proficiency in the fundamentals of Firebending, enabling you to cast spells like Fireball, Sacred Flame, and Ethereal Jaunt.</b>")
-			to_chat(M, "<b>You are immune to fire, but you are NOT immune to the explosions caused by your fireballs. Neither is your teacher, for that matter. Be careful!</b>")
-		if("translocation")
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/area_teleport/teleport(null))
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/turf_teleport/blink(null))
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt(null))
-			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), SLOT_HUD_SHOES)
-			M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(M), SLOT_HUD_OUTER_SUIT)
-			M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(M), SLOT_HUD_HEAD)
-			to_chat(M, "<b>Your service has not gone unrewarded. While studying under [H.real_name], you mastered reality-bending mobility spells, allowing you to cast Teleport, Blink, and Ethereal Jaunt.</b>")
-		if("restoration")
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/charge(null))
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
-			var/obj/effect/proc_holder/spell/return_to_teacher/S = new /obj/effect/proc_holder/spell/return_to_teacher(null)
-			S.teacher = H.mind
-			M.mind.AddSpell(S)
-			M.equip_to_slot_or_del(new /obj/item/gun/magic/staff/healing(M), SLOT_HUD_RIGHT_HAND)
-			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal/marisa(M), SLOT_HUD_SHOES)
-			M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/marisa(M), SLOT_HUD_OUTER_SUIT)
-			M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/marisa(M), SLOT_HUD_HEAD)
-			to_chat(M, "<b>Your service has not gone unrewarded. Under the guidance of [H.real_name], you've acquired life-saving survival spells. You can now cast Charge and Knock, and possess the ability to teleport back to your mentor.</b>")
-			to_chat(M, "<b>Your Charge spell can be used to recharge your Staff of Healing or reduce the cooldowns of your teacher, if you are grabbing them with empty hands.</b>")
-		if("stealth")
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/mind_transfer(null))
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/toolbox(null))
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/disguise_self(null))
-			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), SLOT_HUD_SHOES)
-			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas(M), SLOT_HUD_WEAR_MASK)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(M), SLOT_HUD_GLOVES)
-			M.equip_to_slot_or_del(new /obj/item/storage/belt/utility/full(M), SLOT_HUD_BELT)
-			to_chat(M, "<b>Your service has not gone unrewarded. Under the mentorship of [H.real_name], you've mastered stealthy, robeless spells. You can now cast Mindswap, Knock, Homing Toolbox, and Disguise Self without the need for wizard robes.</b>")
-		if("honk")
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/touch/banana/apprentice(null))
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt(null))
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
-			M.equip_to_slot_or_del(new /obj/item/gun/magic/staff/slipping(M), SLOT_HUD_RIGHT_HAND)
-			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes/magical/nodrop(M), SLOT_HUD_SHOES)
-			M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/clown(M), SLOT_HUD_OUTER_SUIT)
-			M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/clown(M), SLOT_HUD_HEAD)
-			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clownwiz(M), SLOT_HUD_WEAR_MASK)
-			to_chat(M, "<b>Your dedication pays off! Under [H.real_name]'s guidance, you've mastered magical honkings, seamlessly casting spells like Banana Touch, Ethereal Jaunt, and Instant Summons, while skillfully wielding a Staff of Slipping. Honk!</b>")
 
 ///////////////////////////Veil Render//////////////////////
 

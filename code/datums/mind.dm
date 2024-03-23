@@ -346,11 +346,9 @@
 
 /datum/mind/proc/memory_edit_wizard(mob/living/carbon/human/H)
 	. = _memory_edit_header("wizard")
-	if(src in SSticker.mode.wizards)
+	if(has_antag_datum(/datum/antagonist/wizard))
 		. += "<b><font color='red'>WIZARD</font></b>|<a href='?src=[UID()];wizard=clear'>no</a>"
 		. += "<br><a href='?src=[UID()];wizard=lair'>To lair</a>, <a href='?src=[UID()];common=undress'>undress</a>, <a href='?src=[UID()];wizard=dressup'>dress up</a>, <a href='?src=[UID()];wizard=name'>let choose name</a>."
-		if(!objective_holder.has_objectives())
-			. += "<br>Objectives are empty! <a href='?src=[UID()];wizard=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];wizard=wizard'>wizard</a>|<b>NO</b>"
 
@@ -934,24 +932,18 @@
 
 		switch(href_list["wizard"])
 			if("clear")
-				if(src in SSticker.mode.wizards)
-					SSticker.mode.wizards -= src
-					special_role = null
-					current.spellremove(current)
-					current.faction = list("Station")
-					SSticker.mode.update_wiz_icons_removed(src)
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a wizard!</B></FONT></span>")
+				if(has_antag_datum(/datum/antagonist/wizard))
+					remove_antag_datum(/datum/antagonist/wizard)
+
 					log_admin("[key_name(usr)] has de-wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-wizarded [key_name_admin(current)]")
 			if("wizard")
-				if(!(src in SSticker.mode.wizards))
-					SSticker.mode.wizards += src
-					special_role = SPECIAL_ROLE_WIZARD
-					//ticker.mode.learn_basic_spells(current)
-					SSticker.mode.update_wiz_icons_added(src)
-					SEND_SOUND(current, sound('sound/ambience/antag/ragesmages.ogg'))
-					to_chat(current, "<span class='danger'>You are a Space Wizard!</span>")
-					current.faction = list("wizard")
+				if(!has_antag_datum(/datum/antagonist/wizard))
+					var/datum/antagonist/wizard/wizard = new /datum/antagonist/wizard()
+					wizard.should_equip_wizard = FALSE
+					wizard.should_name_pick = FALSE
+					add_antag_datum(wizard)
+
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has wizarded [key_name_admin(current)]")
 					current.create_log(MISC_LOG, "[current] was made into a wizard by [key_name_admin(usr)]")
@@ -960,18 +952,18 @@
 				log_admin("[key_name(usr)] has moved [key_name(current)] to the wizard's lair")
 				message_admins("[key_name_admin(usr)] has moved [key_name_admin(current)] to the wizard's lair")
 			if("dressup")
-				SSticker.mode.equip_wizard(current)
+				var/datum/antagonist/wizard/wizard = has_antag_datum(/datum/antagonist/wizard)
+				var/list/text_result = wizard.equip_wizard()
+				to_chat(current, chat_box_red(text_result.Join("<br>")))
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a wizard")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a wizard")
 			if("name")
-				INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/wizard, name_wizard), current)
+				var/datum/antagonist/wizard/wizard = has_antag_datum(/datum/antagonist/wizard)
+				if(!istype(wizard))
+					return
+				wizard.name_wizard()
 				log_admin("[key_name(usr)] has allowed wizard [key_name(current)] to name themselves")
 				message_admins("[key_name_admin(usr)] has allowed wizard [key_name_admin(current)] to name themselves")
-			if("autoobjectives")
-				SSticker.mode.forge_wizard_objectives(src)
-				to_chat(usr, "<span class='notice'>The objectives for wizard [key] have been generated. You can edit them and announce manually.</span>")
-				log_admin("[key_name(usr)] has automatically forged wizard objectives for [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has automatically forged wizard objectives for [key_name_admin(current)]")
 
 
 	else if(href_list["changeling"])
@@ -1643,26 +1635,6 @@
 	if(!(src in SSticker.mode.blob_overminds))
 		SSticker.mode.blob_overminds += src
 		special_role = SPECIAL_ROLE_BLOB_OVERMIND
-
-/datum/mind/proc/make_Wizard()
-	if(!(src in SSticker.mode.wizards))
-		SSticker.mode.wizards += src
-		special_role = SPECIAL_ROLE_WIZARD
-		assigned_role = SPECIAL_ROLE_WIZARD
-		//ticker.mode.learn_basic_spells(current)
-		if(!GLOB.wizardstart.len)
-			current.loc = pick(GLOB.latejoin)
-			to_chat(current, "HOT INSERTION, GO GO GO")
-		else
-			current.loc = pick(GLOB.wizardstart)
-
-		SSticker.mode.equip_wizard(current)
-		for(var/obj/item/spellbook/S in current.contents)
-			S.op = 0
-		INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/wizard, name_wizard), current)
-		SSticker.mode.forge_wizard_objectives(src)
-		SSticker.mode.greet_wizard(src)
-		SSticker.mode.update_wiz_icons_added(src)
 
 /datum/mind/proc/make_Abductor()
 	var/role = alert("Abductor Role?", "Role", "Agent", "Scientist")
