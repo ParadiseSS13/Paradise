@@ -289,7 +289,7 @@
 		F.update_icon()
 	qdel(src)
 
-/obj/machinery/door/firedoor/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/door/firedoor/CanPass(atom/movable/mover, turf/target) //QWERTODO: Make heavy doors block vision when CLOSED, not open
 	if(..())
 		return TRUE
 	if(isliving(mover) && !locked)
@@ -338,7 +338,6 @@
 	name = "heavy firelock"
 	icon = 'icons/obj/doors/doorfire.dmi'
 	glass = FALSE
-	opacity = TRUE
 	explosion_block = 2
 	assemblytype = /obj/structure/firelock_frame/heavy
 	max_integrity = 550
