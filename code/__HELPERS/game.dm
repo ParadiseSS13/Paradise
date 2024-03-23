@@ -213,6 +213,14 @@
 
 	return hear
 
+/proc/get_root_atom(atom/leaf)
+	var/atom/branch = leaf
+	while(branch.loc && !isturf(branch.loc))
+		branch = branch.loc
+	return branch
+
+/proc/is_same_root_atom(atom/one, atom/two)
+	return get_root_atom(one) == get_root_atom(two)
 
 /proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
@@ -233,18 +241,32 @@
 			var/turf/speaker = get_turf(R)
 			if(speaker)
 				for(var/turf/T in hear(R.canhear_range,speaker))
-					speaker_coverage[T] = T
+					if(!speaker_coverage[T])
+						speaker_coverage[T] = R
+						continue
+					if(speaker_coverage[T].canhear_range < R.canhear_range)
+						speaker_coverage[T] = R
 
 
 	// Try to find all the players who can hear the message
 	for(var/A in GLOB.player_list + GLOB.hear_radio_list)
 		var/mob/M = A
-		if(M)
-			var/turf/ear = get_turf(M)
-			if(ear)
-				// Ghostship is magic: Ghosts can hear radio chatter from anywhere
-				if(speaker_coverage[ear] || (isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO)))
-					. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
+		if(!M)
+			continue
+		var/turf/ear = get_turf(M)
+		if(!ear)
+			continue
+		// Ghostship is magic: Ghosts can hear radio chatter from anywhere
+		if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO))
+			. |= M
+			continue
+		if(!speaker_coverage[ear])
+			continue
+		if(speaker_coverage[ear].canhear_range > 0)
+			. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
+			continue
+		if(is_same_root_atom(M, speaker_coverage[ear]))
+			. |= M
 	return .
 
 /proc/inLineOfSight(X1,Y1,X2,Y2,Z=1,PX1=16.5,PY1=16.5,PX2=16.5,PY2=16.5)
