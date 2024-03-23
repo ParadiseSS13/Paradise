@@ -22,7 +22,7 @@
 	INVOKE_ASYNC(src, PROC_REF(wrappedstart))
 
 /datum/event/headslug_infestation/proc/wrappedstart()
-	if(length(GLOB.clients) < PLAYER_NEED || GAMEMODE_IS_CULT || GAMEMODE_IS_NUCLEAR)
+	if(length(GLOB.clients) < PLAYER_NEED || GAMEMODE_IS_CULT || GAMEMODE_IS_NUCLEAR))
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
 		EC.next_event_time = world.time + (40 * 10)
 		return
