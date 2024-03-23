@@ -50125,6 +50125,7 @@
 	pixel_y = 28;
 	name = "custom placement"
 	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/westalt)
 "jeq" = (
