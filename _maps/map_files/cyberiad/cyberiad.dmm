@@ -87271,11 +87271,6 @@
 "uij" = (
 /turf/simulated/floor/engine,
 /area/station/science/explab/chamber)
-"ujI" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "ujR" = (
 /obj/structure/chair/sofa/corp{
 	dir = 1
@@ -155330,7 +155325,7 @@ aaa
 aaa
 aaa
 aaa
-ujI
+aab
 cie
 cie
 ckb
