@@ -15,13 +15,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
-"aI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
-	},
-/obj/structure/marker_beacon/dock_marker/collision,
-/turf/simulated/floor/engine/airless,
-/area/shuttle/escape)
 "aK" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/electrical{
@@ -39,6 +32,14 @@
 "aZ" = (
 /obj/effect/turf_decal/stripes/red/corner,
 /turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"bh" = (
+/obj/machinery/door/firedoor/border_only,
+/obj/effect/turf_decal/stripes/red/line,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
+	},
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "bD" = (
 /obj/effect/turf_decal/caution/stand_clear,
@@ -98,7 +99,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "cX" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/structure/window/full/plasmareinforced,
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "dw" = (
@@ -125,7 +126,6 @@
 /obj/effect/turf_decal/stripes/red/corner{
 	dir = 4
 	},
-/obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
@@ -152,11 +152,17 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/outlet_injector/on{
+/obj/machinery/igniter/on,
+/obj/machinery/atmospherics/unary/passive_vent/high_volume/shadow{
 	dir = 4
 	},
-/obj/machinery/igniter/on,
 /turf/simulated/floor/engine/airless,
+/area/shuttle/escape)
+"fV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/turf/simulated/floor/engine/plasma,
 /area/shuttle/escape)
 "ge" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -170,9 +176,9 @@
 	},
 /area/shuttle/escape)
 "gs" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 10
+/obj/structure/window/full/plasmareinforced,
+/obj/machinery/atmospherics/trinary/filter/shadow{
+	invisibility = 99
 	},
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
@@ -348,8 +354,8 @@
 	},
 /area/shuttle/escape)
 "oQ" = (
-/obj/machinery/atmospherics/trinary/filter/shadow{
-	invisibility = 99
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 4
 	},
 /turf/simulated/floor/engine/plasma,
 /area/shuttle/escape)
@@ -414,12 +420,16 @@
 	icon_state = "darkblue"
 	},
 /area/shuttle/escape)
-"uc" = (
+"tb" = (
+/obj/structure/window/full/plasmareinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "uu" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
-/obj/machinery/atmospherics/pipe/simple/hidden{
+/obj/structure/window/full/plasmareinforced,
+/obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 4
 	},
 /turf/simulated/floor/engine/airless,
@@ -485,8 +495,9 @@
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "wb" = (
-/obj/effect/spawner/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/grille,
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "wj" = (
@@ -567,7 +578,7 @@
 	},
 /area/shuttle/escape)
 "zu" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/structure/window/full/plasmareinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
@@ -648,7 +659,8 @@
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "Dl" = (
-/obj/effect/spawner/window/plastitanium,
+/obj/structure/window/full/plastitanium,
+/obj/structure/grille,
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "Dq" = (
@@ -672,8 +684,9 @@
 	},
 /area/shuttle/escape)
 "DN" = (
-/obj/effect/spawner/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/machinery/door/firedoor/heavy,
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "DY" = (
@@ -694,12 +707,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/pod/dark,
-/area/shuttle/escape)
-"Fj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/turf/simulated/floor/engine/o2,
 /area/shuttle/escape)
 "Fn" = (
 /obj/structure/chair/comfy/shuttle{
@@ -737,6 +744,12 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"Gs" = (
+/obj/machinery/atmospherics/unary/passive_vent/high_volume/shadow{
+	dir = 4
+	},
+/turf/simulated/floor/engine/plasma,
 /area/shuttle/escape)
 "Gx" = (
 /obj/structure/extinguisher_cabinet{
@@ -911,12 +924,6 @@
 	icon_state = "darkblue"
 	},
 /area/shuttle/escape)
-"LQ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/turf/simulated/floor/engine/airless,
-/area/shuttle/escape)
 "MP" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -928,9 +935,6 @@
 /area/shuttle/escape)
 "MT" = (
 /obj/effect/turf_decal/stripes/red/corner,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
@@ -942,7 +946,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "NI" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/structure/window/full/plasmareinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
@@ -1050,6 +1054,14 @@
 	icon_state = "darkblue"
 	},
 /area/shuttle/escape)
+"Sn" = (
+/obj/machinery/door/firedoor/border_only,
+/obj/effect/turf_decal/stripes/red/line,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/escape)
 "So" = (
 /obj/item/lazarus_injector,
 /obj/item/healthanalyzer,
@@ -1092,7 +1104,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "US" = (
-/obj/effect/spawner/window/plastitanium,
+/obj/structure/window/full/plastitanium,
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "Vg" = (
@@ -1124,6 +1137,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
+"Wv" = (
+/obj/structure/window/full/plasmareinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
+	},
+/turf/simulated/floor/engine/airless,
+/area/shuttle/escape)
 "Wy" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Engine Room"
@@ -1137,18 +1157,17 @@
 	},
 /area/shuttle/escape)
 "WW" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
-	external_pressure_bound = 0;
-	autolink_id = "tox_out";
-	internal_pressure_bound = 4000;
-	pressure_checks = 2;
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine/plasma,
 /area/shuttle/escape)
 "Xp" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 9
+/obj/structure/marker_beacon/dock_marker/collision,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 1;
+	invisibility = 99
 	},
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
@@ -1168,7 +1187,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Yb" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/structure/window/full/plasmareinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
@@ -1186,19 +1205,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
-"YL" = (
-/obj/structure/window/plasmareinforced{
-	dir = 4
-	},
-/obj/structure/shuttle/engine/heater{
-	dir = 8
-	},
-/obj/machinery/igniter/on,
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 4
-	},
-/turf/simulated/floor/engine/airless,
-/area/shuttle/escape)
 "YP" = (
 /obj/effect/turf_decal/delivery/blue/partial{
 	dir = 4
@@ -1207,10 +1213,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/shuttle/escape)
-"YS" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on,
-/turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "Zc" = (
 /obj/item/surgical_drapes,
@@ -1267,7 +1269,7 @@ Cw
 Cw
 vU
 fE
-YL
+fE
 fE
 vU
 fE
@@ -1278,8 +1280,8 @@ Cw
 Cw
 "}
 (3,1,1) = {"
-gV
-uc
+Cw
+Cw
 vU
 uW
 uW
@@ -1289,11 +1291,11 @@ ow
 uW
 uW
 vU
-YS
-aI
+Cw
+Cw
 "}
 (4,1,1) = {"
-uc
+Cw
 vU
 XA
 MT
@@ -1305,10 +1307,10 @@ vw
 fb
 XA
 vU
-LQ
+Cw
 "}
 (5,1,1) = {"
-uc
+gV
 Dl
 zs
 Bu
@@ -1323,25 +1325,25 @@ wb
 Xp
 "}
 (6,1,1) = {"
-uc
+Cw
 vU
 Ah
-Bu
+Sn
 uu
+fV
 zj
-zj
-zj
+Gs
 cX
 wF
 OU
 vU
-uc
+Cw
 "}
 (7,1,1) = {"
 vU
 XA
 Hh
-Bu
+bh
 gs
 oQ
 DY
@@ -1357,8 +1359,8 @@ US
 Lv
 OL
 Bu
-cX
-Fj
+tb
+jR
 CD
 jR
 cX
@@ -1372,8 +1374,8 @@ vU
 hz
 OL
 Bu
-cX
-gs
+Wv
+Yb
 Yb
 Yb
 Yb

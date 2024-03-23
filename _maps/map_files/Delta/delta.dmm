@@ -13878,6 +13878,11 @@
 	icon_state = "bar"
 	},
 /area/station/service/bar)
+"aTq" = (
+/obj/structure/lattice,
+/obj/effect/spawner/airlock,
+/turf/simulated/wall,
+/area/station/hallway/secondary/exit)
 "aTr" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -93638,10 +93643,6 @@
 	icon_state = "darkred"
 	},
 /area/station/security/processing)
-"uil" = (
-/obj/effect/spawner/airlock,
-/turf/simulated/wall,
-/area/station/service/chapel/office)
 "uit" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
@@ -137119,7 +137120,7 @@ dUQ
 dYU
 dIx
 abj
-aaa
+abj
 aaa
 aaa
 aaa
@@ -137374,9 +137375,9 @@ dIx
 dIx
 dIx
 dIx
-uil
+dIx
+aTq
 abj
-aaa
 aaa
 aaa
 aaa
@@ -137619,6 +137620,7 @@ dLA
 dMo
 dKP
 dKP
+dKP
 dOv
 dPb
 eBl
@@ -137634,7 +137636,6 @@ jJq
 dVb
 acF
 acF
-aaa
 aaa
 aaa
 aaa
@@ -137877,6 +137878,7 @@ sZI
 dPM
 dPM
 dPM
+dPM
 rCw
 dPM
 dPM
@@ -137890,7 +137892,6 @@ dIH
 dIH
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -138134,6 +138135,7 @@ hVf
 dKo
 dKo
 dKo
+dKo
 rvx
 dKo
 dKo
@@ -138147,7 +138149,6 @@ kdg
 tSp
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -138388,6 +138389,7 @@ cYk
 cYk
 cYk
 dbR
+cYk
 dbV
 ddw
 dNa
@@ -138404,7 +138406,6 @@ dKo
 dUT
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -138645,6 +138646,7 @@ dKo
 dKo
 dKo
 hVf
+dKo
 dNb
 dNN
 dOw
@@ -138660,7 +138662,6 @@ dKo
 dWA
 dVb
 pjC
-aaa
 aaa
 aaa
 aaa
@@ -138902,6 +138903,7 @@ dKo
 gkk
 dKo
 hVf
+dKo
 dNc
 dNO
 dXF
@@ -138918,7 +138920,6 @@ dUm
 dVb
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -139159,6 +139160,7 @@ dKo
 dKo
 dKo
 hVf
+dKo
 dNb
 dNP
 dOw
@@ -139175,7 +139177,6 @@ dUn
 dVb
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -139416,6 +139417,7 @@ dKp
 dKp
 dKp
 dIh
+dKo
 dOu
 dNQ
 dOx
@@ -139432,7 +139434,6 @@ dOw
 dUY
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -139673,6 +139674,7 @@ wgY
 rIb
 rIb
 pJE
+dKo
 dNb
 bGr
 dOw
@@ -139689,7 +139691,6 @@ dUp
 suy
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -139933,6 +139934,7 @@ iFB
 iqq
 iqq
 iqq
+iqq
 uFa
 sbt
 sDb
@@ -139946,7 +139948,6 @@ dUq
 dUZ
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -140189,6 +140190,7 @@ nIs
 ngE
 kuJ
 kuJ
+kuJ
 tJT
 dXn
 dXn
@@ -140203,7 +140205,6 @@ dUr
 dVb
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -140446,6 +140447,7 @@ dTJ
 dMs
 jac
 jac
+jac
 vSW
 scA
 ajq
@@ -140459,7 +140461,6 @@ dTH
 dUs
 dVb
 pjC
-aaa
 aaa
 aaa
 aaa
@@ -140704,6 +140705,7 @@ dVp
 dKp
 dKp
 dKp
+dKp
 pGr
 rev
 vJu
@@ -140717,7 +140719,6 @@ dUt
 dVc
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -140961,6 +140962,7 @@ ulH
 dTy
 dTy
 dTy
+dTy
 rmq
 msT
 dKP
@@ -140974,7 +140976,6 @@ dKP
 dXQ
 dIH
 abj
-aaa
 aaa
 aaa
 aaa
@@ -141217,6 +141218,7 @@ kpd
 tEp
 dHO
 dHO
+dHO
 tJT
 dKQ
 jpk
@@ -141231,7 +141233,6 @@ pjC
 dKQ
 pjC
 abj
-aaa
 aaa
 aaa
 aaa
@@ -141474,6 +141475,7 @@ abj
 abj
 abj
 abj
+abj
 pjC
 dKP
 pjC
@@ -141487,7 +141489,6 @@ dKP
 pjC
 dKP
 pjC
-aaa
 aaa
 aaa
 aaa
@@ -141731,13 +141732,6 @@ aaa
 aaa
 aaa
 aaa
-pjC
-dKQ
-pjC
-dKQ
-pjC
-aaa
-aaa
 aaa
 pjC
 dKQ
@@ -141745,6 +141739,13 @@ pjC
 dKQ
 pjC
 aaa
+aaa
+aaa
+pjC
+dKQ
+pjC
+dKQ
+pjC
 aaa
 aaa
 aaa
@@ -141991,8 +141992,8 @@ aaa
 aaa
 aaa
 aaa
-dNS
 aaa
+dNS
 aaa
 aaa
 aaa
