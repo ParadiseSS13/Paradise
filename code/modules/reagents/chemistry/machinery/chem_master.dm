@@ -212,7 +212,7 @@
 			var/new_production_mode = text2num(params["production_mode"])
 			if(isnull(new_production_mode) || new_production_mode < 1 || new_production_mode > length(production_modes))
 				return
-			production_mode = new_production_mode;
+			production_mode = new_production_mode
 
 		if("set_sprite_style")
 			var/production_mode = text2num(params["production_mode"])
@@ -529,7 +529,6 @@
 /datum/chemical_production_mode/proc/ConfigureItem(data, datum/reagents/R, obj/item/reagent_containers/P)
 	if(sprites)
 		P.icon_state = sprites[set_sprite]
-	return
 
 /datum/chemical_production_mode/proc/Synthesize(user, location, datum/reagents/reagents, obj/item/storage/S = null)
 	if(!reagents.total_volume)
@@ -542,7 +541,7 @@
 		medicine_name = PlaceholderNameWithAmount(reagents, amount_per_item)
 
 	var/data = list()
-	for(var/i = 1 to count)
+	for(var/i in 1 to count)
 		if(reagents.total_volume <= 0)
 			to_chat(user, "<span class='warning'>Not enough reagents to create these items!</span>")
 			return
@@ -617,16 +616,16 @@
 /datum/chemical_production_mode/condiment_bottles
 	production_name = "Bottles"
 	production_icon = "wine-bottle"
-	item_type = /obj/item/reagent_containers/condiment/
+	item_type = /obj/item/reagent_containers/condiment
 	max_items_amount = 5
 	max_units_per_item = 50
 
 	set_name = CUSTOM_NAME_DISABLED
 
 /datum/chemical_production_mode/condiment_packs
-	production_name = "Satchets"
+	production_name = "Packet"
 	production_icon = "bacon"
-	item_type = /obj/item/reagent_containers/condiment/pack/
+	item_type = /obj/item/reagent_containers/condiment/pack
 	max_items_amount = 10
 	max_units_per_item = 10
 	name_suffix = " pack"
