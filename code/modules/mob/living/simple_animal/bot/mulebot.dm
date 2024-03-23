@@ -314,7 +314,7 @@
 	data["report"] = report_delivery
 	data["destination"] = new_destination
 	data["bot_suffix"] = suffix
-	data["home"] = home_destination
+	data["set_home"] = home_destination
 //	data[""] =
 	return data
 
