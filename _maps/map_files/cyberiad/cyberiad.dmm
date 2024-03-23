@@ -47923,7 +47923,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
 "dds" = (
-/mob/living/carbon/human/monkey/punpun,
 /turf/simulated/wall,
 /area/station/service/janitor)
 "ddt" = (
