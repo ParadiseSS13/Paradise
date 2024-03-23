@@ -521,6 +521,15 @@
 		if(beaker.reagents.holder_full())
 			return
 
+	// Cigarettes - Transfers reagents from it into beaker
+	for(var/obj/item/clothing/mask/cigarette/O in holdingitems)
+		O.reagents.trans_to(beaker, O.reagents.total_volume)
+
+		if(!O.reagents.total_volume)
+			remove_object(O)
+		if(beaker.reagents.holder_full())
+			return
+
 	// Everything else - Transfers reagents from it into beaker
 	for(var/obj/item/reagent_containers/O in holdingitems)
 		O.reagents.trans_to(beaker, O.reagents.total_volume)
