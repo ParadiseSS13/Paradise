@@ -105,7 +105,7 @@
 	render_target = GRAVITY_PULSE_RENDER_TARGET
 	appearance_flags = PLANE_MASTER | NO_CLIENT_COLOR
 
-/obj/screen/plane_master/smoke
+/atom/movable/screen/plane_master/smoke
 	name = "point plane master"
 	plane = SMOKE_PLANE
 	appearance_flags = PLANE_MASTER
