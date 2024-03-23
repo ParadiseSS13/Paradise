@@ -219,7 +219,7 @@
 /proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
-	var/list/speaker_coverage = list()
+	var/list/obj/item/radio/speaker_coverage = list()
 	for(var/obj/item/radio/R in radios)
 		if(R)
 			//Cyborg checks. Receiving message uses a bit of cyborg's charge.
