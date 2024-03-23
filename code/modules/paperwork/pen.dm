@@ -100,7 +100,7 @@
 
 /obj/item/pen/multi/fountain
 	name = "engraved fountain pen"
-	desc = "An expensive looking pen."
+	desc = "An expensive looking pen typically issued to Nanotrasen employees."
 	icon_state = "fountainpen"
 	pen_colour_shift = 0
 
