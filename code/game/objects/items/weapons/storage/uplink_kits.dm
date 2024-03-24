@@ -210,7 +210,6 @@
 		/obj/item/encryptionkey/syndicate) // 10TC
 
 /// 195 TC
-
 /obj/item/storage/box/syndie_kit/bundle/tf13_spy
 	name = "TF13 Spy"
 	desc = "Brush up on your French and hone your backstabbing skills like a true, suave Gentlemann."

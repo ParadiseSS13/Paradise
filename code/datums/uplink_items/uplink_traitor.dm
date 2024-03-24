@@ -561,7 +561,7 @@
 
 /datum/uplink_item/badass/cigcase
 	name = "Cigarette Case"
-	desc = "An embellished cigarette case made of Plastitanium, perfect for carrying everything one might in a wallet."
+	desc = "An embellished cigarette case made of Plastitanium, able to carry things much like a wallet."
 	reference = "SCC"
 	item = /obj/item/storage/cigcase/syndie
 	cost = 5
