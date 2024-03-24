@@ -172,8 +172,10 @@
 					/obj/item/clothing/mask/gas/sechailer/swat,
 					/obj/item/clothing/mask/gas/sechailer/swat,
 					/obj/item/storage/belt/military/assault,
-					/obj/item/storage/belt/military/assault)
-	cost = 800
+					/obj/item/storage/belt/military/assault,
+					/obj/item/clothing/shoes/combat,
+					/obj/item/clothing/shoes/combat)
+	cost = 900
 	containername = "assault armor crate"
 
 /datum/supply_packs/security/armory/laserarmor
@@ -216,7 +218,8 @@
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy gun crate"
 
-/datum/supply_packs/security/armory/epistol	// costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
+/// costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
+/datum/supply_packs/security/armory/epistol
 	name = "Energy Pistol Crate"
 	contains = list(/obj/item/gun/energy/gun/mini,
 					/obj/item/gun/energy/gun/mini,
@@ -240,14 +243,14 @@
 	access = ACCESS_HEADS
 
 /datum/supply_packs/security/armory/wt550
-	name = "WT-550 Auto Rifle Crate"
+	name = "WT-550 PDW Crate"
 	contains = list(/obj/item/gun/projectile/automatic/wt550,
 					/obj/item/gun/projectile/automatic/wt550)
 	cost = 625
 	containername = "auto rifle crate"
 
 /datum/supply_packs/security/armory/wt550ammo
-	name = "WT-550 Rifle Ammo Crate"
+	name = "WT-550 PDW Ammo Crate"
 	contains = list(/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
@@ -279,6 +282,14 @@
 					/obj/item/storage/box/tranquilizer)
 	cost = 400
 	containername = "tranquilizer shell crate"
+
+/datum/supply_packs/security/armory/disablersmg
+	name = "WT-450 Disabler SMG Crate"
+	contains = list(/obj/item/gun/energy/disabler/smg,
+					/obj/item/gun/energy/disabler/smg)
+	cost = 550
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "disabler smg crate"
 
 /////// Implants & etc
 
@@ -322,7 +333,8 @@
 	cost = 200
 	containername = "security clothing crate"
 
-/datum/supply_packs/security/officerpack // Starter pack for an officer. Contains everything in a locker but backpack (officer already start with one). Convenient way to equip new officer on highpop.
+/// Starter pack for an officer. Contains everything in a locker but backpack (officer already start with one). Convenient way to equip new officer on highpop.
+/datum/supply_packs/security/officerpack
 	name = "Officer Starter Pack"
 	contains = list(/obj/item/clothing/suit/armor/vest/security,
 				/obj/item/radio/headset/headset_sec/alt,
@@ -339,3 +351,13 @@
 				/obj/item/clothing/suit/armor/secjacket)
 	cost = 500 // Convenience has a price and this pack is genuinely loaded
 	containername = "officer starter crate"
+
+/datum/supply_packs/security/secway
+	name = "Secway Crate"
+	contains_special = list(
+		"Secway"
+	)
+	cost = 800
+	containertype = /obj/structure/largecrate/secway
+	containername = "secway crate"
+	access = ACCESS_HEADS

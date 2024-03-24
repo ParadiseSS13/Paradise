@@ -238,16 +238,10 @@
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
 		return
 
-	var/action_fluff = "You adjust \the [src]"
-	if(user.glasses == src)
-		if(!user.canUnEquip(src))
-			to_chat(user, "<span class='warning'>[src] is stuck to you!</span>")
-			return
-		if(attack_hand(user)) //Remove the glasses for this action. Prevents logic-defying instances where glasses phase through your mask as it ascends/descends to another plane of existence.
-			action_fluff = "You remove \the [src] and adjust it"
-
 	over_mask = !over_mask
-	to_chat(user, "<span class='notice'>[action_fluff] to be worn [over_mask ? "over" : "under"] a mask.</span>")
+	if(user.glasses == src)
+		user.update_inv_glasses()
+	to_chat(user, "<span class='notice'>You adjust [src] to be worn [over_mask ? "over" : "under"] a mask.</span>")
 
 //Gloves
 /obj/item/clothing/gloves
@@ -313,7 +307,7 @@
 		return
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
-	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes)
+	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, modes[sensor_mode + 1])
 	if(!user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
@@ -468,6 +462,9 @@
 	var/can_cut_open = FALSE
 	var/cut_open = FALSE
 	var/no_slip = FALSE
+	var/knife_slot = FALSE
+	var/obj/item/kitchen/knife/combat/hidden_blade
+
 	body_parts_covered = FEET
 	slot_flags = SLOT_FLAG_FEET
 
@@ -493,6 +490,8 @@
 	if(!no_slip)
 		return
 	var/mob/living/carbon/human/H = user
+	if(!user)
+		return
 	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
 		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
 
@@ -519,8 +518,23 @@
 			else
 				to_chat(user, "<span class='notice'>[src] have already had [p_their()] toes cut open!</span>")
 		return
-	else
-		return ..()
+
+	if(istype(I, /obj/item/kitchen/knife/combat))
+		if(!knife_slot)
+			to_chat(user, "<span class='notice'>There is no place to put [I] in [src]!</span>")
+			return
+		if(hidden_blade)
+			to_chat(user, "<span class='notice'>There is already something in [src]!</span>")
+			return
+		if(!user.unEquip(I))
+			return
+		user.visible_message("<span class='notice'>[user] places [I] into their [name]!</span>", \
+			"<span class='notice'>You place [I] into the side of your [name]!</span>")
+		I.forceMove(src)
+		hidden_blade = I
+		return
+
+	return ..()
 
 /obj/item/clothing/shoes/update_name()
 	. = ..()
@@ -539,6 +553,30 @@
 		return
 	icon_state = "[icon_state]_opentoe"
 	item_state = "[item_state]_opentoe"
+
+/obj/item/clothing/shoes/AltClick(mob/user)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !knife_slot)
+		return
+	if(!hidden_blade)
+		to_chat(user, "<span class='warning'>There's nothing in your [name]!</span>")
+		return
+
+	if(user.get_active_hand() && user.get_inactive_hand())
+		to_chat(user, "<span class='warning'>You need an empty hand to pull out [hidden_blade]!</span>")
+		return
+
+	user.visible_message("<span class='notice'>[user] pulls [hidden_blade] from their [name]!</span>", \
+		"<span class='notice'>You draw [hidden_blade] from your [name]!</span>")
+	user.put_in_hands(hidden_blade)
+	hidden_blade.add_fingerprint(user)
+	hidden_blade = null
+
+/obj/item/clothing/shoes/examine(mob/user)
+	. = ..()
+	if(knife_slot)
+		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to remove a stored knife. Use the knife on the shoes to place one in [src].</span>"
+		if(hidden_blade)
+			. += "<span class='notice'>Your boot has a [hidden_blade.name] hidden inside of it!</span>"
 
 //Suit
 /obj/item/clothing/suit

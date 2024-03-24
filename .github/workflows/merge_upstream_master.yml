@@ -1,0 +1,90 @@
+name: Merge Upstream Master
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  merge-upstream:
+    if: |
+      github.event.issue.pull_request &&
+      (github.event.comment.body == '!merge_upstream') &&
+      ((github.event.sender.id == github.event.issue.user.id) ||
+      (github.event.comment.author_association == 'COLLABORATOR') ||
+      (github.event.comment.author_association == 'MEMBER') ||
+      (github.event.comment.author_association == 'OWNER'))
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR Data
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pr_json=$(curl -L -s --fail-with-body -H "Authorization: token ${{ github.token }}" ${{ github.event.issue.pull_request.url }})
+          if [ `jq -r '.maintainer_can_modify' <<<$pr_json` == "false" ] ; then
+            gh pr comment ${{ github.event.issue.html_url }} --body 'GitHub Actions can not push to the repository without "Allow edits and access to secrets by maintainers" checked.'
+            exit 1
+          fi
+          echo "PR_REPO=`jq -r '.head.repo.full_name' <<<$pr_json`" >> $GITHUB_ENV
+          echo "PR_BRANCH=`jq -r '.head.ref' <<<$pr_json`" >> $GITHUB_ENV
+          echo "PR_HEAD_LABEL=`jq -r '.head.label' <<<$pr_json`" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.PR_REPO }}
+          ref: ${{ env.PR_BRANCH }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+          cache-dependency-path: ./tgui/yarn.lock
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Perform Merge
+        env:
+          BASE_BRANCH: ${{ github.event.repository.default_branch }}
+          BASE_REPOSITORY: ${{ github.repository }}
+        run: |
+          # Compare head branch and base branch
+          compare_result=$(curl -L -s --fail-with-body \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/$BASE_REPOSITORY/compare/$BASE_BRANCH...$PR_HEAD_LABEL")
+          # Assign multiple variables with one jq execution
+          if IFS=$'\n' read -d '' -r behind_by ahead_by <<<$(jq '.behind_by, .ahead_by' <<<$compare_result) ; [ -z "$behind_by" ] || [ -z "$ahead_by" ] ; then
+            echo '- Unable to determine the distance between the head branch and the base branch.' | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          if [ "$behind_by" -le 0 ] ; then
+            echo '- Skipping merge. Up-to-date with base branch.' | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          else
+            echo '- Merging base branch. Head branch is behind by '"$behind_by"' commits and ahead by '"$ahead_by"' commits.' | tee -a "$GITHUB_STEP_SUMMARY"
+          fi
+
+          # Install Tools
+          chmod +x tools/bootstrap/python
+          bash tools/hooks/install.sh
+          bash tgui/bin/tgui --install-git-hooks
+          chmod +x tools/hooks/*.merge tgui/bin/tgui
+
+          # Actual Merge
+          git config user.name github-actions
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add upstream "https://github.com/$BASE_REPOSITORY.git"
+
+          git fetch origin "$PR_BRANCH" --depth=$((ahead_by + 1))
+          git fetch upstream "$BASE_BRANCH" --depth=$((behind_by + 1))
+          git merge FETCH_HEAD
+          git push origin
+
+      - name: Notify Failure
+        if: failure()
+        run: |
+          curl -s -H "Authorization: token ${{ github.token }}" \
+            -X POST -d '{"body": "Merging upstream failed:\nhttps://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments"

@@ -1,7 +1,6 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // This define is used when we have to spawn in an uplink item in a weird way, like a Surplus crate spawning an actual crate.
 // Use this define by setting `uses_special_spawn` to TRUE on the item, and then checking if the parent proc of `spawn_item` returns this define. If it does, implement your special spawn after that.
-#define UPLINK_SPECIAL_SPAWNING "ONE PINK CHAINSAW PLEASE"
 
 /proc/get_uplink_items(obj/item/uplink/U)
 	var/list/uplink_items = list()
@@ -620,7 +619,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/teleporter
 	cost = 40
 
-
+/datum/uplink_item/device_tools/organ_extractor
+	name = "Organ Extractor"
+	desc = "A device that can remove organs or cybernetic implants from a target, and stores them inside. \
+	Stored organs can be implanted into the user, or into other targets. Synthesizes chemicals to keep the organs fresh."
+	reference = "OREX"
+	item = /obj/item/organ_extractor
+	cost = 20
 
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
@@ -660,6 +665,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/mod/module/plate_compression
 	cost = 10
 
+/datum/uplink_item/suits/chameleon_module
+	name = "MODsuit Chameleon Module"
+	desc = "A module using chameleon technology to disguise an undeployed modsuit as another object. Note: the disguise will not work once the modsuit is deployed, but can be toggled again when retracted."
+	reference = "MSCM"
+	item = /obj/item/mod/module/chameleon
+	cost = 10
+
 /datum/uplink_item/suits/noslip
 	name = "MODsuit Anti-Slip Module"
 	desc = "A MODsuit module preventing the user from slipping on water. Already installed in the uplink modsuits."
@@ -688,6 +700,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "HHM"
 	item = /obj/item/mod/module/holster/hidden
 	cost = 5
+	surplus = 10
+
+/datum/uplink_item/suits/smoke_grenade
+	name = "Smoke Grenade Module"
+	desc = "A module that dispenses primed smoke grenades to disperse crowds."
+	reference = "SGM"
+	item = /obj/item/mod/module/dispenser/smoke
+	cost = 10
 	surplus = 10
 
 /datum/uplink_item/device_tools/binary
@@ -812,7 +832,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Binyat Wireless Hacking System Autoimplanter"
 	desc = "This implant will allow you to wirelessly emag from a distance. However, it will slightly burn you \
 	on use, and will be quite visual as you are emaging the object. \
-	Will not show on unupgraded body scanners."
+	Will not show on unupgraded body scanners. Incompatible with the Qani-Laaca Sensory Computer."
 	reference = "HKR"
 	item = /obj/item/autosurgeon/organ/syndicate/hackerman_deck
 	cost = 30 // Probably slightly less useful than an emag with heat / cooldown, but I am not going to make it cheaper or everyone picks it over emag
@@ -824,7 +844,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		even from a few steps away. However, results against anything more durable will heavily vary."
 	reference = "RZR"
 	item = /obj/item/autosurgeon/organ/syndicate/razorwire
-	cost = 15
+	cost = 20
 
 // POINTLESS BADASSERY
 

@@ -82,6 +82,16 @@
 	path = /obj/item/clothing/head/soft/deliverysoft
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
+/datum/gear/hat/capjanigrey
+	display_name = "Cap, janitor grey"
+	path = /obj/item/clothing/head/soft/janitorgrey
+	allowed_roles = list("Janitor")
+
+/datum/gear/hat/capjanipurple
+	display_name = "Cap, janitor purple"
+	path = /obj/item/clothing/head/soft/janitorpurple
+	allowed_roles = list("Janitor")
+
 /datum/gear/hat/capred
 	display_name = "Cap, red"
 	path = /obj/item/clothing/head/soft/red
@@ -138,6 +148,11 @@
 	display_name = "Cowboy hat, pink"
 	path = /obj/item/clothing/head/cowboyhat/pink
 
+/datum/gear/hat/cowboyhat/sec
+	display_name = "Cowboy hat, security"
+	path = /obj/item/clothing/head/cowboyhat/sec
+	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+
 /datum/gear/hat/beret_purple
 	display_name = "Beret, purple"
 	path = /obj/item/clothing/head/beret/purple_normal
@@ -177,10 +192,20 @@
 	path = /obj/item/clothing/head/beret/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
+/datum/gear/hat/beret_job/jani
+	display_name = "Beret, janitor"
+	path = /obj/item/clothing/head/beret/janitor
+	allowed_roles = list("Janitor")
+
 /datum/gear/hat/beret_job/hop
 	display_name = "Beret, head of personnel"
 	path = /obj/item/clothing/head/hop/beret
 	allowed_roles = list("Head of Personnel")
+
+/datum/gear/hat/beret_job/qm
+	display_name = "Beret, quartermaster"
+	path = /obj/item/clothing/head/qm/beret
+	allowed_roles = list("Quartermaster")
 
 /datum/gear/hat/beret_job/sci
 	display_name = "Beret, science"

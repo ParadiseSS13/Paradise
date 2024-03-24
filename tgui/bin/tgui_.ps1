@@ -104,12 +104,24 @@ function task-validate-build {
   Write-Output "tgui: build is ok"
 }
 
+## Installs merge drivers and git hooks
+function task-install-git-hooks () {
+    Set-Location $global:basedir
+    git config --replace-all merge.tgui-merge-bundle.driver "tgui/bin/tgui --merge=bundle %P %O %A %B %L"
+    Write-Output "tgui: Merge drivers have been successfully installed!"
+}
+
 ## Main
 ## --------------------------------------------------------
 
 if ($Args.Length -gt 0) {
   if ($Args[0] -eq "--clean") {
     task-clean
+    exit 0
+  }
+
+  if ($Args[0] -eq "--install-git-hooks") {
+    task-install-git-hooks
     exit 0
   }
 

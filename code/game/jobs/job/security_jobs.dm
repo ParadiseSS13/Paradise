@@ -147,7 +147,7 @@
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/detective
-	l_pocket = /obj/item/toy/crayon/white
+	l_pocket = /obj/item/toy/crayon/white/chalk
 	r_pocket = /obj/item/lighter/zippo
 	pda = /obj/item/pda/detective
 	backpack_contents = list(

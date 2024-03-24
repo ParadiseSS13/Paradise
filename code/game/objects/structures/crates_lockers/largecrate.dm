@@ -90,7 +90,7 @@
 /obj/structure/largecrate/chick/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/crowbar))
 		var/num = rand(4, 6)
-		for(var/i = 0, i < num, i++)
+		for(var/i in 1 to num)
 			new /mob/living/simple_animal/chick(loc)
 	return ..()
 
@@ -101,4 +101,13 @@
 /obj/structure/largecrate/cat/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/crowbar))
 		new /mob/living/simple_animal/pet/cat(loc)
+	return ..()
+
+/obj/structure/largecrate/secway
+	name = "secway crate"
+
+/obj/structure/largecrate/secway/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/crowbar))
+		new /obj/vehicle/secway(loc)
+		new /obj/item/key/security(loc)
 	return ..()

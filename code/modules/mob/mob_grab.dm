@@ -11,7 +11,7 @@
 /obj/item/grab
 	name = "grab"
 	flags = NOBLUDGEON | ABSTRACT | DROPDEL
-	var/obj/screen/grab/hud = null
+	var/atom/movable/screen/grab/hud = null
 	var/mob/living/affecting = null
 	var/mob/living/assailant = null
 	var/state = GRAB_PASSIVE
@@ -48,7 +48,7 @@
 	RegisterSignal(affecting, COMSIG_MOVABLE_MOVED, PROC_REF(grab_moved))
 	RegisterSignal(assailant, COMSIG_MOVABLE_MOVED, PROC_REF(pull_grabbed))
 
-	hud = new /obj/screen/grab(src)
+	hud = new /atom/movable/screen/grab(src)
 	hud.icon_state = "reinforce"
 	icon_state = "grabbed"
 	hud.name = "reinforce grab"
@@ -291,7 +291,7 @@
 		if(EAST)
 			animate(affecting, pixel_x =-shift, pixel_y = 0, 5, 1, LINEAR_EASING)
 
-/obj/item/grab/proc/s_click(obj/screen/S)
+/obj/item/grab/proc/s_click(atom/movable/screen/S)
 	if(!affecting)
 		return
 	if(state >= GRAB_AGGRESSIVE && HAS_TRAIT(assailant, TRAIT_PACIFISM))
@@ -303,7 +303,7 @@
 		return
 	if(world.time < (last_upgrade + UPGRADE_COOLDOWN))
 		return
-	if(!(assailant.mobility_flags & MOBILITY_MOVE) || IS_HORIZONTAL(assailant))
+	if(HAS_TRAIT(assailant, TRAIT_HANDS_BLOCKED) || IS_HORIZONTAL(assailant))
 		qdel(src)
 		return
 
@@ -504,3 +504,6 @@
 #undef EAT_TIME_FAT
 
 #undef EAT_TIME_ANIMAL
+
+#undef UPGRADE_COOLDOWN
+#undef UPGRADE_KILL_TIMER
