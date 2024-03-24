@@ -31,11 +31,12 @@
 	// Fill the barsigns lists
 	for(var/bartype in subtypesof(/datum/barsign))
 		var/datum/barsign/signinfo = new bartype
-		if(!signinfo.hidden)
-			if(!signinfo.syndicate)
-				barsigns += signinfo
-			else
-				syndisigns += signinfo
+		if(signinfo.hidden)
+			continue
+		if(!signinfo.syndicate)
+			barsigns += signinfo
+		else
+			syndisigns += signinfo
 
 	set_random_sign()
 	set_light(1, LIGHTING_MINIMUM_POWER)
@@ -174,17 +175,17 @@
 /obj/machinery/barsign/attackby(obj/item/I, mob/user, params)
 	// Inserting the electronics/circuit
 	if(build_stage == BARSIGN_FRAME && istype(I, /obj/item/barsign_electronics))
-		var/obj/item/barsign_electronics/bse = I
-		if(bse.destroyed)
+		var/obj/item/barsign_electronics/electronic = I
+		if(electronic.destroyed)
 			emagged = TRUE
 		else
 			emagged = FALSE
-		if(bse.restricts_access)
+		if(electronic.restricts_access)
 			req_access = list(ACCESS_BAR)
 		else
 			req_access = list()
 		to_chat(user, "<span class='notice'>You insert the circuit!</span>")
-		qdel(bse)
+		qdel(electronic)
 		build_stage = BARSIGN_CIRCUIT
 		update_icon()
 		playsound(get_turf(src), I.usesound, 50, TRUE)
@@ -308,18 +309,18 @@
 	if(!(flags & NODECONSTRUCT))
 		// Removing the electronics
 		if(build_stage == BARSIGN_CIRCUIT)
-			var/obj/item/barsign_electronics/bse
-			bse = new /obj/item/barsign_electronics
+			var/obj/item/barsign_electronics/electronic
+			electronic = new /obj/item/barsign_electronics
 			if(!emagged)
 				to_chat(user, "<span class='notice'>You pull the electronics out from [src].</span>")
 			else
 				// Give fried electronics if the sign is emagged
 				to_chat(user, "<span class='notice'>You pull the fried electronics out from [src].</span>")
-				bse.destroyed = TRUE
-				bse.icon_state = "door_electronics_smoked"
-			if(!req_access.len)
-				bse.restricts_access = FALSE
-			bse.forceMove(get_turf(user))
+				electronic.destroyed = TRUE
+				electronic.icon_state = "door_electronics_smoked"
+			if(!length(req_access))
+				electronic.restricts_access = FALSE
+			electronic.forceMove(get_turf(user))
 			build_stage = BARSIGN_FRAME
 			update_icon()
 			add_fingerprint(user)
@@ -395,7 +396,7 @@
 			turn_on()
 			set_sign(new /datum/barsign/hiddensigns/empbarsign)
 			playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
-			. = ..()
+			return ..()
 
 /obj/machinery/barsign/power_change()
 	. = ..()
@@ -469,7 +470,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	var/destroyed = FALSE
 	var/restricts_access = TRUE
