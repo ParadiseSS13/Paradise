@@ -66,17 +66,18 @@
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.active_character.speciesprefs
-	if(translator_pref || ((ismindshielded(H) || J.job_department_flags & DEP_FLAG_COMMAND) && HAS_TRAIT(H, TRAIT_WINGDINGS)))
-		if(J.title == "Mime")
-			return
-		if(J.title == "Clown")
-			var/obj/item/organ/internal/cyberimp/brain/speech_translator/clown/implant = new
-			implant.insert(H)
-		else
-			var/obj/item/organ/internal/cyberimp/brain/speech_translator/implant = new
-			implant.insert(H)
-			if(!translator_pref)
-				to_chat(H, "<span class='notice'>A speech translator implant has been installed due to your role on the station.</span>")
+	if(translator_pref || ((ismindshielded(H) || J?.job_department_flags & DEP_FLAG_COMMAND) && HAS_TRAIT(H, TRAIT_WINGDINGS)))
+		if(istype(J))
+			if(J.title == "Mime")
+				return
+			if(J.title == "Clown")
+				var/obj/item/organ/internal/cyberimp/brain/speech_translator/clown/implant = new
+				implant.insert(H)
+				return
+		var/obj/item/organ/internal/cyberimp/brain/speech_translator/implant = new
+		implant.insert(H)
+		if(!translator_pref && istype(J))
+			to_chat(H, "<span class='notice'>A speech translator implant has been installed due to your role on the station.</span>")
 
 /datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "sacid" || R.id == "facid")

@@ -117,7 +117,7 @@
 	return new /datum/spell_targeting/alive_mob_list
 
 /obj/effect/proc_holder/spell/sense_victims/valid_target(mob/living/target, user)
-	return target.stat == CONSCIOUS && target.key && !iscultist(target) // Only conscious, non cultist players
+	return target.stat == CONSCIOUS && target.key && !IS_CULTIST(target) // Only conscious, non cultist players
 
 /obj/effect/proc_holder/spell/sense_victims/cast(list/targets, mob/user)
 	var/mob/living/victim = targets[1]
@@ -152,7 +152,7 @@
 		S.mind.assigned_role = "Harbinger of the Slaughter"
 		S.mind.special_role = "Harbinger of the Slaughter"
 		to_chat(S, playstyle_string)
-		SSticker.mode.add_cultist(S.mind)
+		S.mind.add_antag_datum(/datum/antagonist/cultist)
 		var/obj/effect/proc_holder/spell/sense_victims/SV = new
 		AddSpell(SV)
 
@@ -167,7 +167,7 @@
 
 /datum/action/innate/demon/whisper
 	name = "Demonic Whisper"
-	button_icon_state = "cult_comms"
+	button_icon_state = "demon_comms"
 	background_icon_state = "bg_demon"
 
 /datum/action/innate/demon/whisper/IsAvailable()

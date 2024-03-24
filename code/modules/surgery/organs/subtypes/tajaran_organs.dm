@@ -27,10 +27,6 @@
 	mmi_icon = 'icons/obj/species_organs/tajaran.dmi'
 	mmi_icon_state = "mmi_full"
 
-/obj/item/organ/internal/lungs/tajaran
-	name = "tajaran lungs"
-	icon = 'icons/obj/species_organs/tajaran.dmi'
-
 /obj/item/organ/internal/kidneys/tajaran
 	name = "tajaran kidneys"
 	icon = 'icons/obj/species_organs/tajaran.dmi'

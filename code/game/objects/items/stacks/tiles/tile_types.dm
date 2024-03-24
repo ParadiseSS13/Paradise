@@ -65,7 +65,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/stack/tile/wood/cyborg
-	energy_type = /datum/robot_energy_storage/wood_tile
+	energy_type = /datum/robot_storage/energy/wood_tile
 	is_cyborg = TRUE
 
 
@@ -232,7 +232,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/stack/tile/plasteel/cyborg
-	energy_type = /datum/robot_energy_storage/metal_tile
+	energy_type = /datum/robot_storage/energy/metal_tile
 	is_cyborg = TRUE
 
 //Light
@@ -336,5 +336,5 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/stack/tile/catwalk/cyborg
-	energy_type = /datum/robot_energy_storage/catwalk
+	energy_type = /datum/robot_storage/energy/catwalk
 	is_cyborg = TRUE

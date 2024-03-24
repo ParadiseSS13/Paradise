@@ -20,13 +20,15 @@ import {
   changeScrollTracking,
   clearChat,
   loadChat,
+  moveChatPageLeft,
+  moveChatPageRight,
   rebuildChat,
   toggleAcceptedType,
   updateMessageCount,
   removeChatPage,
   saveChatToDisk,
 } from './actions';
-import { MESSAGE_SAVE_INTERVAL } from './constants';
+import { MAX_PERSISTED_MESSAGES, MESSAGE_SAVE_INTERVAL } from './constants';
 import { createMessage, serializeMessage } from './model';
 import { chatRenderer } from './renderer';
 import { selectChat, selectCurrentChatPage } from './selectors';
@@ -38,7 +40,7 @@ const saveChatToStorage = async (store) => {
   const state = selectChat(store.getState());
   const fromIndex = Math.max(
     0,
-    chatRenderer.messages.length - chatRenderer.maxTotalMessage
+    chatRenderer.messages.length - MAX_PERSISTED_MESSAGES
   );
   const messages = chatRenderer.messages
     .slice(fromIndex)
@@ -152,7 +154,9 @@ export const chatMiddleware = (store) => {
       type === changeChatPage.type ||
       type === addChatPage.type ||
       type === removeChatPage.type ||
-      type === toggleAcceptedType.type
+      type === toggleAcceptedType.type ||
+      type === moveChatPageLeft.type ||
+      type === moveChatPageRight.type
     ) {
       next(action);
       const page = selectCurrentChatPage(store.getState());
