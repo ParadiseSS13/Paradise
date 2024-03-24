@@ -455,7 +455,8 @@
 	add_fingerprint(user)
 
 	if(!prevent_warning)
-		var/viewer_list = GLOB.player_list
+		// all mobs with clients attached, sans the item's user
+		var/viewer_list = GLOB.player_list - user
 
 		// the item's user will always get a notification
 		to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
@@ -463,16 +464,12 @@
 		// if the item less than normal sized, only people within 1 tile get the message, otherwise, everybody in view gets it
 		if(I.w_class < WEIGHT_CLASS_NORMAL)
 			for(var/mob/M in viewer_list)
-				if(M == user)
-					continue
 				if(in_range(M, user))
 					M.show_message("<span class='notice'>[user] puts [I] into [src].</span>")
 		else
 			// restrict player list to include only those in view
 			viewer_list = viewer_list & viewers(world.view, user)
 			for(var/mob/M in viewer_list)
-				if(M == user)
-					continue
 				M.show_message("<span class='notice'>[user] puts [I] into [src].</span>")
 
 	orient2hud(user)
