@@ -1,6 +1,6 @@
 /obj/item/whiteship_port_generator
 	name = "docking area signaller"
-	desc = "A signaling device for the NT expeditionary vessel, used to assign new docking areas."
+	desc = "A signaling device for the NT expeditionary vessel, used to designate new docking areas."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-white"
 
@@ -15,17 +15,17 @@
 /obj/item/whiteship_port_generator/attack_self(mob/living/user)
 	if(is_station_level(user.z))
 		log_admin("[key_name(user)] attempted to create a whiteship dock in the station's sector at [COORD(user)].")
-		to_chat(user, "New docking areas cannot be placed in the station's sector!")
+		to_chat(user, "New docking areas cannot be designated within the station's sector!")
 		return
 
 	if(is_admin_level(user.z))
 		log_admin("[key_name(user)] attempted to create a whiteship dock on Centcomm level at [COORD(user)].")
-		to_chat(user, "A new docking area cannot be placed in this sector!")
+		to_chat(user, "New docking areas cannot be designated in this sector!")
 		return
 
 	if(is_mining_level(user.z))
 		log_admin("[key_name(user)] attempted to create a whiteship dock on Lavaland at [COORD(user)].")
-		to_chat(user, "A new docking area cannot be placed here!")
+		to_chat(user, "New docking areas cannot be designated planet side!")
 		return
 
 	for(var/obj/placed_dock in placed_docks)
