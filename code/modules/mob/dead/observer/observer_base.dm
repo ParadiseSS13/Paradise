@@ -39,6 +39,7 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	var/datum/orbit_menu/orbit_menu
 	/// The "color" their runechat would have had
 	var/alive_runechat_color = "#FFFFFF"
+	hud_type = /datum/hud/ghost
 
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)

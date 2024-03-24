@@ -4,6 +4,7 @@
 	health = 20
 	maxHealth = 20
 	gender = PLURAL //placeholder
+	hud_type = /datum/hud/simple_animal
 
 	universal_understand = TRUE
 	universal_speak = FALSE
