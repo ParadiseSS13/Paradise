@@ -179,11 +179,11 @@
 		post_corner_dist = abs(start.x - end.x) - pre_corner_dist
 
 /datum/move_with_corner/proc/get_early_end(dist)
-	if (dist <= pre_corner_dist)
+	if(dist <= pre_corner_dist)
 		return locate(start.x + pre_corner_x_unit * dist, start.y + pre_corner_y_unit * dist, start.z)
-	else if (dist == pre_corner_dist)
+	else if(dist == pre_corner_dist)
 		return corner
-	else if (dist >= pre_corner_dist + post_corner_dist)
+	else if(dist >= pre_corner_dist + post_corner_dist)
 		return end
 
 	var/remaining_dist = dist - pre_corner_dist
