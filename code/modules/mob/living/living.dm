@@ -276,7 +276,7 @@
 	if(A.loc in src)
 		pointed_object += " inside [A.loc]"
 
-		visible_message("<b>[src]</b> points to [pointed_object]")
+	visible_message("<b>[src]</b> points to [pointed_object]")
 	return TRUE
 
 /mob/living/verb/succumb()
