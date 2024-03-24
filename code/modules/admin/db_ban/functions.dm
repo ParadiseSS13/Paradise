@@ -490,7 +490,7 @@
 		output += "<option value='[j]'>[j]</option>"
 	for(var/j in GLOB.other_roles)
 		output += "<option value='[j]'>[j]</option>"
-	for(var/j in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","supportdept","nonhumandept"))
+	for(var/j in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","servicedept","nonhumandept"))
 		output += "<option value='[j]'>[j]</option>"
 	for(var/j in list("Syndicate") + GLOB.antag_roles)
 		output += "<option value='[j]'>[j]</option>"

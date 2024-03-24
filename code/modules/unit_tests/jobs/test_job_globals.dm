@@ -18,7 +18,6 @@
 	validate_list(GLOB.engineering_positions, "engineering_positions")
 	validate_list(GLOB.medical_positions, "medical_positions")
 	validate_list(GLOB.science_positions, "science_positions")
-	validate_list(GLOB.support_positions, "support_positions")
 	validate_list(GLOB.supply_positions, "supply_positions")
 	validate_list(GLOB.service_positions, "service_positions")
 	validate_list(GLOB.security_positions, "security_positions")
