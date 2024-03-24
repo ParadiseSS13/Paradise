@@ -22,6 +22,10 @@
 			return TRUE
 	return (!mover.density || !density || horizontal)
 
+/mob/Crossed(atom/movable/mover)
+	if(istype(mover, /obj/singularity/energy_ball))
+		dust()
+
 /mob/proc/projectile_hit_check(obj/item/projectile/P)
 	return !density
 
