@@ -12,6 +12,20 @@
 	else if(!ispath(primary_turf_type))
 		stack_trace("Wrong turf type `[primary_turf_type.type]` in `[type]` lavaland theme")
 
+/datum/lavaland_theme/proc/setup_caves()
+	var/max_attempts = 100
+	var/max_cave_spawns = 40
+	var/z = level_name_to_num(MINING)
+	while(max_attempts > 0 && max_cave_spawns > 0)
+		var/x = rand(1, 255)
+		var/y = rand(10, 222)
+		var/turf/next_turf = locate(x, y, z)
+		var/area/next_area = get_area(next_turf)
+		if(istype(next_turf, /turf/simulated/mineral/random/volcanic) && istype(next_area, /area/lavaland/surface/outdoors/unexplored/danger))
+			next_turf.ChangeTurf(/turf/simulated/floor/plating/asteroid/airless/cave/volcanic, FALSE, TRUE, TRUE)
+			max_cave_spawns--
+		max_attempts--
+
 /**
  * This proc should do all theme specific thing.
  * Now it only generates rivers, but it can do all stuff you desire.
