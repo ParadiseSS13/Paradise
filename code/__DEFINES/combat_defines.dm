@@ -40,6 +40,7 @@
 #define FIRELOSS		(1<<1)
 #define TOXLOSS			(1<<2)
 #define OXYLOSS			(1<<3)
+/// Stam crits the effected mob, as well as ensures they dont die from suicide
 #define SHAME 			(1<<4)
 #define OBLITERATION 	(1<<5)
 
