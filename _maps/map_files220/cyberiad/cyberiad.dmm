@@ -25379,11 +25379,15 @@
 "bYr" = (
 /obj/structure/table,
 /obj/item/megaphone{
-	pixel_x = -3;
-	pixel_y = 7
+	pixel_x = -2;
+	pixel_y = 12
 	},
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/item/paper_bin{
+	pixel_y = -8
+	},
+/obj/item/pen{
+	pixel_y = -4
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -72482,15 +72486,23 @@
 /area/station/command/bridge)
 "nBz" = (
 /obj/structure/table,
-/obj/item/clipboard,
+/obj/item/clipboard{
+	pixel_y = 3
+	},
 /obj/item/stamp/granted{
 	pixel_x = -4;
-	pixel_y = 4
+	pixel_y = 6
 	},
-/obj/item/stamp/qm,
+/obj/item/stamp/qm{
+	pixel_y = 2
+	},
 /obj/item/stamp/denied{
 	pixel_x = 4;
-	pixel_y = -4
+	pixel_y = -2
+	},
+/obj/item/lighter/zippo/engraved{
+	pixel_x = 14;
+	pixel_y = 6
 	},
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
