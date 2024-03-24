@@ -300,7 +300,7 @@
 			if(isnull(production_mode) || production_mode < 1 || production_mode > length(production_modes))
 				return
 			var/datum/chemical_production_mode/M = production_modes[production_mode]
-			M.Synthesize(ui.user, loc, reagents, loaded_pill_bottle)
+			M.synthesize(ui.user, loc, reagents, loaded_pill_bottle)
 		else
 			return FALSE
 
@@ -359,7 +359,7 @@
 		if(M.set_name != CUSTOM_NAME_DISABLED)
 			mode_data["set_name"] = M.set_name
 			if(reagents.total_volume)
-				mode_data["placeholder_name"] = M.PlaceholderName(reagents)
+				mode_data["placeholder_name"] = M.get_placeholder_name(reagents)
 		if(M.sprites)
 			mode_data["set_sprite"] = M.set_sprite
 		production_data += list(mode_data)
@@ -511,10 +511,10 @@
 	var/set_items_amount = 1
 	var/placeholder_name = ""
 
-/datum/chemical_production_mode/proc/PlaceholderName(datum/reagents/reagents)
-	return PlaceholderNameWithAmount(reagents, clamp(reagents.total_volume / set_items_amount, 0, max_units_per_item))
+/datum/chemical_production_mode/proc/get_placeholder_name(datum/reagents/reagents)
+	return get_base_placeholder_name(reagents, clamp(reagents.total_volume / set_items_amount, 0, max_units_per_item))
 
-/datum/chemical_production_mode/proc/PlaceholderNameWithAmount(datum/reagents/reagents, amount_per_item)
+/datum/chemical_production_mode/proc/get_base_placeholder_name(datum/reagents/reagents, amount_per_item)
 	return "[reagents.get_master_reagent_name()] ([amount_per_item]u)"
 
 /**
@@ -526,11 +526,11 @@
 	required R The reagents used to make the item P.
 	required P The container to configure.
 */
-/datum/chemical_production_mode/proc/ConfigureItem(data, datum/reagents/R, obj/item/reagent_containers/P)
+/datum/chemical_production_mode/proc/configure_item(data, datum/reagents/R, obj/item/reagent_containers/P)
 	if(sprites)
 		P.icon_state = sprites[set_sprite]
 
-/datum/chemical_production_mode/proc/Synthesize(user, location, datum/reagents/reagents, obj/item/storage/S = null)
+/datum/chemical_production_mode/proc/synthesize(user, location, datum/reagents/reagents, obj/item/storage/S = null)
 	if(!reagents.total_volume)
 		return
 
@@ -538,7 +538,7 @@
 	var/count = set_items_amount
 	var/amount_per_item = clamp(reagents.total_volume / count, 0, max_units_per_item)
 	if(!isnull(medicine_name) && length(medicine_name) <= 0)
-		medicine_name = PlaceholderNameWithAmount(reagents, amount_per_item)
+		medicine_name = get_base_placeholder_name(reagents, amount_per_item)
 
 	var/data = list()
 	for(var/i in 1 to count)
@@ -552,7 +552,7 @@
 		P.pixel_x = rand(-7, 7) // Random position
 		P.pixel_y = rand(-7, 7)
 		reagents.trans_to(P, amount_per_item)
-		ConfigureItem(data, reagents, P)
+		configure_item(data, reagents, P)
 
 		// Load the items into the bottle if there's one loaded
 		if(istype(S) && S.can_be_inserted(P, TRUE))
@@ -591,7 +591,7 @@
 			return FALSE
 	return TRUE
 
-/datum/chemical_production_mode/patches/ConfigureItem(data, datum/reagents/R, obj/item/reagent_containers/patch/P)
+/datum/chemical_production_mode/patches/configure_item(data, datum/reagents/R, obj/item/reagent_containers/patch/P)
 	var/chemicals_is_safe = data["chemicals_is_safe"]
 
 	if(isnull(chemicals_is_safe))
@@ -611,7 +611,7 @@
 	max_units_per_item = 50
 	name_suffix = " bottle"
 
-/datum/chemical_production_mode/bottles/PlaceholderNameWithAmount(datum/reagents/reagents, amount_per_item)
+/datum/chemical_production_mode/bottles/get_base_placeholder_name(datum/reagents/reagents, amount_per_item)
 	return reagents.get_master_reagent_name()
 
 /datum/chemical_production_mode/condiment_bottles
@@ -631,7 +631,7 @@
 	max_units_per_item = 10
 	name_suffix = " pack"
 
-/datum/chemical_production_mode/condiment_packs/PlaceholderNameWithAmount(datum/reagents/reagents, amount_per_item)
+/datum/chemical_production_mode/condiment_packs/get_base_placeholder_name(datum/reagents/reagents, amount_per_item)
 	return reagents.get_master_reagent_name()
 
 #undef MAX_PILL_SPRITE
