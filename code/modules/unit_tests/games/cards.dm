@@ -27,10 +27,10 @@
 	cards.build_decks()
 
 	// is deck proper upon spawning
-	if (!validate_deck(cards))
+	if(!validate_deck(cards))
 		Fail("52 card deck not initialized correctly.")
 
 	// is deck proper after shuffling
 	cards.deckshuffle()
-	if (!validate_deck(cards))
+	if(!validate_deck(cards))
 		Fail("52 card deck broken after shuffling.")
