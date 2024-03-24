@@ -132,7 +132,7 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 
 	// Now to actually output the error info...
 	log_world("\[[time_stamp()]] Runtime in [e.file]:[e.line]: [e]")
-	log_runtime_txt("Runtime in [e.file]:[e.line]: [e]")
+	log_runtime_txt("Runtime in [e.file],[e.line]: [e]") // All other runtimes show as [e.file]:[e.line] except this one to prevent fuckery with analyzing both old and new runtimes. runtime.log should stay in the [e.file],[e.line] format.
 	for(var/line in desclines)
 		log_world(line)
 		log_runtime_txt(line)
