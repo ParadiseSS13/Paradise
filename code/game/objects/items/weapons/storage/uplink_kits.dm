@@ -91,8 +91,7 @@
 		/obj/item/autosurgeon/organ/syndicate/meson_eyes, // 0TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-
-/// 175TC
+/// 185TC
 /obj/item/storage/box/syndie_kit/bundle/payday
 	name = "Heist Bundle"
 	desc = "Alright guys, today we're performing a heist on a space station owned by a greedy corporation. Drain the vault of all its worth so we can get that pay dirt!11"
@@ -210,7 +209,8 @@
 		/obj/item/clothing/head/collectable/slime,  // 0TC priceless
 		/obj/item/encryptionkey/syndicate) // 10TC
 
-/obj/item/storage/box/syndie_kit/bundle/ocelot // 170 TC + combat knife + outfit
+// 170 TC + combat knife + outfit
+/obj/item/storage/box/syndie_kit/bundle/ocelot
 	name = "Ocelot Bundle"
 	desc = "Get pretty good with two revolvers, two speedloaders, and a backup combat knife."
 	items = list(
