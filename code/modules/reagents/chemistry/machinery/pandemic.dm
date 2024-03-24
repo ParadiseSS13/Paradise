@@ -241,6 +241,20 @@
 		"selectedStrainIndex" = selected_strain_index,
 	)
 
+	return data
+
+/obj/machinery/computer/pandemic/ui_static_data(mob/user)
+	var/list/data = list()
+	. = data
+
+	var/datum/reagent/blood/Blood = null
+	if(beaker)
+		var/datum/reagents/R = beaker.reagents
+		for(var/datum/reagent/blood/B in R.reagent_list)
+			if(B)
+				Blood = B
+				break
+
 	var/list/strains = list()
 	for(var/datum/disease/D in GetViruses())
 		if(D.visibility_flags & HIDDEN_PANDEMIC)
@@ -286,8 +300,6 @@
 			if(D)
 				resistances += list(D.name)
 	data["resistances"] = resistances
-
-	return data
 
 /obj/machinery/computer/pandemic/proc/eject_beaker()
 	beaker.forceMove(loc)
@@ -384,9 +396,19 @@
 		beaker.loc = src
 		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
 		updateUsrDialog()
+		force_update_static_data()
 		icon_state = "pandemic1"
 	else
 		return ..()
+
+/obj/machinery/computer/pandemic/proc/force_update_static_data()
+	var/ui_key = "[src.UID()]"
+	var/open_uis = SStgui.open_uis_by_src[ui_key]
+	// No UIs opened for this src_object
+	if(isnull(open_uis) || !islist(open_uis))
+		return
+	for(var/datum/tgui/ui in open_uis)
+		ui.send_full_update(null, TRUE)
 
 /obj/machinery/computer/pandemic/screwdriver_act(mob/user, obj/item/I)
 	if(beaker)
