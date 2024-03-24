@@ -6,13 +6,13 @@
 
 /datum/sprite_accessory/hair/vulpkanin/hair_pigtailss
 	icon = 'modular_ss220/hairs/icons/vulpkanin_hair.dmi'
-	name = "Pigtailss"
+	name = "Pigtails (Vulpkanin)"
 	icon_state = "pigtailss"
 	gender = FEMALE
 
 /datum/sprite_accessory/hair/vulpkanin/hair_dave
 	icon = 'modular_ss220/hairs/icons/vulpkanin_hair.dmi'
-	name = "Dave"
+	name = "Dave (Vulpkanin)"
 	icon_state = "dave"
 
 /datum/sprite_accessory/hair/vulpkanin/hair_ziegler
@@ -39,7 +39,7 @@
 
 /datum/sprite_accessory/hair/vulpkanin/hair_beehive2
 	icon = 'modular_ss220/hairs/icons/vulpkanin_hair.dmi'
-	name = "Beehive"
+	name = "Beehive (Vulpkanin)"
 	icon_state = "beehive2"
 	gender = FEMALE
 
@@ -56,7 +56,7 @@
 
 /datum/sprite_accessory/hair/vulpkanin/hair_bunhead3
 	icon = 'modular_ss220/hairs/icons/vulpkanin_hair.dmi'
-	name = "Bunhead3"
+	name = "Bun 3 (Vulpkanin)"
 	icon_state = "bunhead3"
 
 /datum/sprite_accessory/hair/vulpkanin/hair_ponytailalt
@@ -79,7 +79,7 @@
 
 /datum/sprite_accessory/hair/vulpkanin/hair_bunhead4
 	icon = 'modular_ss220/hairs/icons/vulpkanin_hair.dmi'
-	name = "Bunhead4"
+	name = "Bun 4 (Vulpkanin)"
 	icon_state = "bunhead4"
 	gender = FEMALE
 
@@ -90,13 +90,13 @@
 
 /datum/sprite_accessory/hair/vulpkanin/hair_unkempt
 	icon = 'modular_ss220/hairs/icons/vulpkanin_hair.dmi'
-	name = "Unkempt"
+	name = "Unkempt (Vulpkanin)"
 	icon_state = "unkempt"
 	gender = FEMALE
 
 /datum/sprite_accessory/hair/vulpkanin/hair_nia
 	icon = 'modular_ss220/hairs/icons/vulpkanin_hair.dmi'
-	name = "Nia"
+	name = "Nia (Vulpkanin)"
 	icon_state = "nia"
 	gender = FEMALE
 
@@ -213,7 +213,7 @@
 
 /datum/sprite_accessory/hair/vulpkanin/hair_country
 	icon = 'modular_ss220/hairs/icons/vulpkanin_hair.dmi'
-	name = "Country"
+	name = "Country (Vulpkanin)"
 	icon_state = "country"
 	gender = FEMALE
 
