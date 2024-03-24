@@ -359,7 +359,7 @@ const ResistancesSection = (props, context) => {
                 onClick={() =>
                   act('clone_vaccine', { resistance_index: i + 1 })
                 }
-                mr="0.75ex"
+                mr="0.5em"
               />
               {r}
             </Stack.Item>
