@@ -54,7 +54,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/deck/proc/build_decks()
-	if(!length(cards))
+	if(length(cards))
 		// prevent building decks more than once
 		return
 	for(var/deck in 1 to deck_size)
