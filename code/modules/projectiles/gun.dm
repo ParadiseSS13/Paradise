@@ -75,6 +75,7 @@
 	. = ..()
 	build_zooming()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
+	appearance_flags |= KEEP_TOGETHER
 
 /obj/item/gun/Destroy()
 	QDEL_NULL(bayonet)
@@ -396,6 +397,7 @@
 	if(knife_overlay)
 		overlays -= knife_overlay
 		knife_overlay = null
+		update_icon()
 	return TRUE
 
 /obj/item/gun/extinguish_light(force = FALSE)

@@ -15,7 +15,6 @@
 	var/throw_range = 7
 	var/no_spin = FALSE
 	var/no_spin_thrown = FALSE
-	var/moved_recently = FALSE
 	var/mob/pulledby = null
 	var/atom/movable/pulling
 	/// Face towards the atom while pulling it
