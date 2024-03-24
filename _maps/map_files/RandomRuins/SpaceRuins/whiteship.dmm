@@ -157,7 +157,9 @@
 /turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "tV" = (
-/obj/machinery/door/airlock/titanium/glass,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "uo" = (
@@ -461,7 +463,7 @@ zO
 zO
 zO
 zO
-tV
+wF
 tV
 zO
 zO
