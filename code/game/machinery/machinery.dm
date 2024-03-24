@@ -410,12 +410,12 @@
 					if(B.reagents.maximum_volume <= A.reagents.maximum_volume)
 						continue
 					W.remove_from_storage(B, src)
-					W.handle_item_insertion(A, 1)
+					W.handle_item_insertion(A, TRUE)
 					component_parts -= A
 					component_parts += B
 					B.loc = null
 					to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
-					shouldplaysound = 1
+					shouldplaysound = TRUE
 					break
 			RefreshParts()
 		else
