@@ -1,18 +1,3 @@
-/obj/screen
-	/**
-	 * Map name assigned to this object.
-	 * Automatically set by /client/proc/add_obj_to_map.
-	 */
-	var/assigned_map
-	/**
-	 * Mark this object as garbage-collectible after you clean the map
-	 * it was registered on.
-	 *
-	 * This could probably be changed to be a proc, for conditional removal.
-	 * But for now, this works.
-	 */
-	var/del_on_map_removal = TRUE
-
 /**
  * A screen object, which acts as a container for turfs and other things
  * you want to show on the map, which you usually attach to "vis_contents".
