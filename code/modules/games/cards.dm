@@ -54,7 +54,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/deck/proc/build_decks()
-	if(length(cards) != 0)
+	if(!length(cards))
 		// prevent building decks more than once
 		return
 	for(var/deck in 1 to deck_size)
@@ -234,7 +234,7 @@
 	if(cooldown < world.time - 1 SECONDS)
 		cards = shuffle(cards)
 
-		if(user != null)
+		if(user)
 			user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
 			playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
 		cooldown = world.time
