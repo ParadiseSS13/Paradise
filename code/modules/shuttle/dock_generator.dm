@@ -15,22 +15,22 @@
 /obj/item/whiteship_port_generator/attack_self(mob/living/user)
 	if(is_station_level(user.z))
 		log_admin("[key_name(user)] attempted to create a whiteship dock in the station's sector at [COORD(user)].")
-		to_chat(user, "New docking areas cannot be designated within the station's sector!")
+		to_chat(user, "<span class='notice'>New docking areas cannot be designated within the station's sector!</span>")
 		return
 
 	if(is_admin_level(user.z))
 		log_admin("[key_name(user)] attempted to create a whiteship dock on Centcomm level at [COORD(user)].")
-		to_chat(user, "New docking areas cannot be designated in this sector!")
+		to_chat(user, "<span class='notice'>New docking areas cannot be designated in this sector!</span>")
 		return
 
 	if(is_mining_level(user.z))
 		log_admin("[key_name(user)] attempted to create a whiteship dock on Lavaland at [COORD(user)].")
-		to_chat(user, "New docking areas cannot be designated planet side!")
+		to_chat(user, "<span class='notice'>New docking areas cannot be designated planet side!</span>")
 		return
 
 	for(var/obj/placed_dock in placed_docks)
 		if(placed_dock.z == user.z)
-			to_chat(user, "A docking area has already been placed in this sector!")
+			to_chat(user, "<span class='notice'>A docking area has already been placed in this sector!</span>")
 			return
 
 	var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
@@ -55,23 +55,23 @@
 		max_x = max_x < 0 ? T.x : max(max_x, T.x)
 		max_y = max_y < 0 ? T.y : max(max_y, T.y)
 		if(!isspaceturf(T))
-			to_chat(user, "Obstruction found in docking space area, aborting!")
+			to_chat(user, "<span class='notice'>Obstruction found in docking space area, aborting!</span>")
 			qdel(port, force = TRUE)
 			return
 		for(var/obj/O in T.contents)
 			if(O == port)
 				continue
 			else
-				to_chat(user, "Objects found in docking space area, aborting!")
+				to_chat(user, "<span class='notice'>Objects found in docking space area, aborting!</span>")
 				qdel(port, force = TRUE)
 				return
 
 	if(min_x <= TRANSITION_BORDER_WEST + 1 || max_x >= TRANSITION_BORDER_EAST - 1)
-		to_chat(user, "Docking space area too close to edge of sector, aborting!")
+		to_chat(user, "<span class='notice'>Docking space area too close to edge of sector, aborting!</span>")
 		qdel(port, force = TRUE)
 		return
 	if(min_y <= TRANSITION_BORDER_SOUTH + 1 || max_y >= TRANSITION_BORDER_NORTH - 1)
-		to_chat(user, "Docking space area too close to edge of sector, aborting!")
+		to_chat(user, "<span class='notice'>Docking space area too close to edge of sector, aborting!</span>")
 		qdel(port, force = TRUE)
 		return
 
@@ -96,7 +96,7 @@
 	log_admin("[key_name(user)] created a whiteship dock named '[name]' at [COORD(port)].")
 
 	if(dock_count < max_docks)
-		to_chat(user, "Landing zone set.")
+		to_chat(user, "<span class='info'>Landing zone set.</span>")
 	else
-		to_chat(user, "Landing zone set. The signaller vanishes!")
+		to_chat(user, "<span class='info'>Landing zone set. The signaller vanishes!</span>")
 		qdel(src)
