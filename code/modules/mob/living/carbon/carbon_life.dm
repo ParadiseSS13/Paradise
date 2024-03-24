@@ -286,7 +286,8 @@
 			healths.icon_state = "health7"
 
 	if(staminas)
-		switch(staminaloss)
+		var/perceived_stamina = staminaloss - shock_reduction()
+		switch(perceived_stamina)
 			if(100 to INFINITY)
 				staminas.icon_state = "stamina6"
 			if(80 to 100)
