@@ -210,13 +210,14 @@ const StrainInformationSection = (
   context
 ) => {
   const { act, data } = useBackend<PanDEMICData>(context);
-  const { synthesisCooldown } = data;
+  let synthesisCooldown = !!data.synthesisCooldown;
   const appliedSectionButtons = (
     <>
       <Button
-        icon="clone"
+        icon={synthesisCooldown ? 'spinner' : 'clone'}
+        iconSpin={synthesisCooldown}
         content="Clone"
-        disabled={!!synthesisCooldown}
+        disabled={synthesisCooldown}
         onClick={() => act('clone_strain', { strain_index: props.strainIndex })}
       />
       {props.sectionButtons}
