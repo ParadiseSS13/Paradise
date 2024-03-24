@@ -50,10 +50,16 @@
 
 /obj/item/deck/Initialize(mapload)
 	. = ..()
+	build_decks()
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/deck/proc/build_decks()
+	if(length(cards) != 0)
+		// prevent building decks more than once
+		return
 	for(var/deck in 1 to deck_size)
 		build_deck()
 	deck_total = length(cards)
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/deck/proc/build_deck()
 	return
@@ -227,8 +233,10 @@
 	var/mob/living/user = usr
 	if(cooldown < world.time - 1 SECONDS)
 		cards = shuffle(cards)
-		user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
-		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
+
+		if(user != null)
+			user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
+			playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
 		cooldown = world.time
 
 
