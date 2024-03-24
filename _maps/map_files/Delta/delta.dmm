@@ -72083,8 +72083,7 @@
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
 	id = "whiteship_kerberos";
-	name = "north of Kerberos";
-	
+	name = "north of Kerberos"
 	},
 /turf/space,
 /area/space)
