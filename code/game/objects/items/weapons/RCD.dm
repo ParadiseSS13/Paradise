@@ -136,7 +136,7 @@
 	flags |= NODROP				// You cannot drop. You commit to die.
 	var/turf/suicide_tile = get_turf(src)
 	if(mode == MODE_DECON && checkResource(5, user))	// Same cost as deconstructing a wall.
-		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 		to_chat(user, "Deconstructing User...")
 		var/obj/effect/temp_visual/rcd_effect/reverse/suicide_A = new(suicide_tile)
