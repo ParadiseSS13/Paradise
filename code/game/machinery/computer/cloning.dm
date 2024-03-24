@@ -139,6 +139,19 @@
 
 	return desired_data
 
+/obj/machinery/computer/cloning/proc/extract_damage_data(datum/cloning_data/patient_data)
+	var/datum/cloning_data/desired_data = new
+
+	for(var/limb in patient_data.limbs)
+		var/list/limb_data = patient_data.limbs[limb]
+		desired_data.limbs[limb] = limb_data.Copy()
+
+	for(var/organ in patient_data.organs)
+		var/list/organ_data = patient_data.organs[organ]
+		desired_data.organs[organ] = organ_data.Copy()
+
+	return desired_data
+
 /obj/machinery/computer/cloning/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & (NOPOWER|BROKEN))
 		return
@@ -298,7 +311,7 @@
 			desired_data = generate_healthy_data(scanner.last_scan)
 			return TRUE
 		if("fix_none")
-			desired_data = scanner.last_scan
+			desired_data = extract_damage_data(scanner.last_scan)
 			return TRUE
 		if("toggle_limb_repair")
 			switch(params["type"])
