@@ -28769,6 +28769,15 @@
 /mob/living/simple_animal/pet/cat/Floppa,
 /turf/simulated/floor/wood/oak,
 /area/station/command/office/blueshield)
+"clS" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "clU" = (
 /obj/machinery/door/airlock/medical/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -54952,6 +54961,12 @@
 /obj/item/radio/intercom,
 /turf/simulated/wall,
 /area/station/engineering/atmos)
+"hcy" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/plating/airless,
+/area/station/engineering/control)
 "hcz" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /obj/machinery/atmospherics/meter,
@@ -60427,6 +60442,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/processing)
+"jft" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "jfx" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -66719,6 +66744,12 @@
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/engine,
 /area/station/science/explab/chamber)
+"lBS" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plating/airless,
+/area/station/engineering/control)
 "lCk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -77526,6 +77557,18 @@
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
+"pqE" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/power/grounding_rod{
+	anchored = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "pqG" = (
 /obj/structure/table,
 /obj/machinery/door/window/classic/normal{
@@ -121183,17 +121226,17 @@ qsQ
 qsQ
 qsQ
 cSU
-cKr
-cKr
-cKr
+jft
+jft
+jft
 cSU
-cKr
-cKr
-cKr
+clS
+pqE
+clS
 cSU
-cKr
-cKr
-cKr
+jft
+jft
+jft
 cSU
 cKr
 cKr
@@ -121694,7 +121737,7 @@ aab
 cSU
 iIG
 dpO
-cPn
+lBS
 aaa
 cTn
 cVB
@@ -121710,7 +121753,7 @@ cVB
 cVB
 rDS
 aaa
-qJO
+hcy
 afT
 cSU
 cSU
@@ -123236,7 +123279,7 @@ aab
 cSU
 cSU
 cRz
-cRA
+cLC
 aab
 dei
 cWf
@@ -123252,7 +123295,7 @@ aaa
 cRk
 mha
 aab
-cRA
+cLC
 dfA
 cSU
 cSU

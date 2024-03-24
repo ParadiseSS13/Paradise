@@ -49194,6 +49194,12 @@
 "eoX" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/permabrig)
+"epo" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plating/airless,
+/area/station/engineering/control)
 "epE" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -57204,6 +57210,16 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
+"gSE" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "gSH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/sofa/pew/right{
@@ -94522,6 +94538,15 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft)
+"sAx" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "sAG" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -101088,6 +101113,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/service/hydroponics)
+"uIz" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/power/grounding_rod{
+	anchored = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "uIK" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -129579,17 +129616,17 @@ cba
 cba
 cba
 bXU
-cie
-cie
-cie
+gSE
+gSE
+gSE
 bXU
-cie
-cie
-cie
+sAx
+uIz
+sAx
 bXU
-cie
-cie
-cie
+gSE
+gSE
+gSE
 bXU
 cie
 cie
@@ -130090,7 +130127,7 @@ aaa
 bXU
 bZj
 cbb
-cdc
+epo
 aaa
 ctY
 cJe
@@ -130106,7 +130143,7 @@ cJe
 cJe
 cOm
 aaa
-cda
+cbb
 cbb
 cDx
 bXU
@@ -131632,7 +131669,7 @@ jof
 bXU
 bXU
 bZl
-cbb
+cda
 abj
 cBU
 cjJ
@@ -131648,7 +131685,7 @@ aaa
 dUE
 cPK
 abj
-cbb
+cda
 cDv
 bXU
 cEA
