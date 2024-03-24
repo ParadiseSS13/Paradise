@@ -5,6 +5,8 @@ GLOBAL_LIST_EMPTY(ghost_images)
 
 GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
+GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
+
 /mob/dead/observer
 	name = "ghost"
 	desc = "It's a g-g-g-g-ghooooost!" //jinkies!
@@ -44,10 +46,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
 	see_in_dark = 100
-	verbs += list(
+	add_verb(src, list(
 		/mob/dead/observer/proc/dead_tele,
 		/mob/dead/observer/proc/jump_to_ruin,
-		/mob/dead/observer/proc/open_spawners_menu)
+		/mob/dead/observer/proc/open_spawners_menu))
 
 	// Our new boo spell.
 	AddSpell(new /datum/spell/boo(null))
@@ -195,6 +197,7 @@ Works together with spawning an observer, noted above.
 		if(ghost_name)
 			ghost.name = ghost_name
 		ghost.key = key
+		ghost.client?.init_verbs()
 		return ghost
 
 /*
@@ -282,11 +285,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/can_use_hands()	return 0
 
-/mob/dead/observer/Stat()
-	..()
-	if(statpanel("Status"))
-		show_stat_emergency_shuttle_eta()
-		stat(null, "Respawnability: [HAS_TRAIT(src, TRAIT_RESPAWNABLE) ? "Yes" : "No"]")
+/mob/dead/observer/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Respawnability:", "[HAS_TRAIT(src, TRAIT_RESPAWNABLE) ? "Yes" : "No"]")
 
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"
@@ -476,6 +478,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		orbit_menu = new(src)
 
 	orbit_menu.ui_interact(src)
+
+/mob/dead/observer/verb/crew_monitor()
+	set category = "Ghost"
+	set name = "Crew Monitor"
+	set desc = "Use a ghastly crew monitor that lets you follow people you select."
+
+	GLOB.ghost_crew_monitor.ui_interact(src)
 
 /mob/dead/observer/proc/add_observer_verbs()
 	verbs.Add(/mob/dead/observer/proc/ManualFollow)
@@ -852,3 +861,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/get_runechat_color()
 	return alive_runechat_color
+
+#undef GHOST_CAN_REENTER
+#undef GHOST_IS_OBSERVER

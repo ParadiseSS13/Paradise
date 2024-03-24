@@ -13,6 +13,8 @@
 	static_inventory += using
 	action_intent = using
 
+	user.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
+
 
 /mob/living/simple_animal/pet/create_mob_hud()
 	if(client && !hud_used)

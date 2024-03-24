@@ -80,14 +80,14 @@
 
 /obj/effect/temp_visual/dir_setting/wraith/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.wraith_jaunt_in_animation
+	icon_state = GET_CULT_DATA(wraith_jaunt_in_animation, initial(icon_state))
 
 /obj/effect/temp_visual/dir_setting/wraith/out
 	icon_state = "phase_shift"
 
 /obj/effect/temp_visual/dir_setting/wraith/out/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.wraith_jaunt_out_animation
+	icon_state = GET_CULT_DATA(wraith_jaunt_out_animation, initial(icon_state))
 
 /obj/effect/temp_visual/dir_setting/tailsweep
 	icon_state = "tailsweep"
@@ -130,17 +130,19 @@
 	desc = "It's a decoy!"
 	duration = 15
 
-/obj/effect/temp_visual/decoy/New(loc, atom/mimiced_atom)
-	..()
+/obj/effect/temp_visual/decoy/Initialize(mapload, atom/mimiced_atom)
+	. = ..()
 	alpha = initial(alpha)
 	if(mimiced_atom)
 		name = mimiced_atom.name
 		appearance = mimiced_atom.appearance
+		invisibility = mimiced_atom.invisibility
+		alpha = mimiced_atom.alpha
 		setDir(mimiced_atom.dir)
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/obj/effect/temp_visual/decoy/fading/New(loc, atom/mimiced_atom)
-	..()
+/obj/effect/temp_visual/decoy/fading/Initialize(mapload, atom/mimiced_atom)
+	. = ..()
 	animate(src, alpha = 0, time = duration)
 
 /obj/effect/temp_visual/decoy/fading/threesecond

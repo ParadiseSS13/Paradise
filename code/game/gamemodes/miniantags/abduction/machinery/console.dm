@@ -88,7 +88,7 @@
 	if(vest)
 		dat += "<h4> Agent Vest Mode </h4><br>"
 		var/mode = vest.mode
-		if(mode == VEST_STEALTH)
+		if(mode == ABDUCTOR_VEST_STEALTH)
 			dat += "<a href='?src=[UID()];flip_vest=1'>Combat</A>"
 			dat += "<span class='linkOff'>Stealth</span>"
 		else

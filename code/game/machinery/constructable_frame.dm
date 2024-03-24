@@ -824,19 +824,19 @@ to destroy them and players will be able to make replacements.
 	origin_tech = "programming=2;biotech=2"
 	req_components = list(
 							/obj/item/stack/cable_coil = 2,
-							/obj/item/stock_parts/scanning_module = 2,
+							/obj/item/stock_parts/scanning_module = 1,
+							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/clonescanner
 	board_name = "Cloning Scanner"
 	icon_state = "medical"
-	build_path = /obj/machinery/dna_scannernew
+	build_path = /obj/machinery/clonescanner
 	board_type = "machine"
 	origin_tech = "programming=2;biotech=2"
 	req_components = list(
 							/obj/item/stock_parts/scanning_module = 1,
-							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/sheet/glass = 1,
 							/obj/item/stack/cable_coil = 2,)

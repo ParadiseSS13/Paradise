@@ -74,7 +74,7 @@ SUBSYSTEM_DEF(changelog)
 
 	// If we are ready, process the button style
 	if(C.prefs.lastchangelog != current_cl_timestamp)
-		winset(C, "rpane.changelog", "border=line;font-style=bold")
+		winset(C, "rpane.changelog", "border=line;background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
 		to_chat(C, "<span class='boldnotice'>Changelog has changed since your last visit.</span>")
 
 /datum/controller/subsystem/changelog/proc/OpenChangelog(client/C)

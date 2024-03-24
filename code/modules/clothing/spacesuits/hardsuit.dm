@@ -247,8 +247,8 @@
 	if(slot == SLOT_HUD_OUTER_SUIT) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
 		return 1
 
-/obj/item/clothing/suit/space/hardsuit/on_mob_move(dir, mob)
-	if(jetpack)
+/obj/item/clothing/suit/space/hardsuit/on_mob_move(dir, mob/mob)
+	if(jetpack && isturf(mob.loc))
 		jetpack.on_mob_move(dir, mob)
 
 //Syndicate hardsuit

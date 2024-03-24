@@ -15,6 +15,7 @@
  */
 
 GLOBAL_LIST_INIT(glass_recipes, list (
+	new /datum/stack_recipe("glass shard", /obj/item/shard, time = 0 SECONDS),
 	new /datum/stack_recipe/window("directional window", /obj/structure/window/basic, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	new /datum/stack_recipe/window("fulltile window", /obj/structure/window/full/basic, 2, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	new /datum/stack_recipe("fishbowl", /obj/machinery/fishtank/bowl, 1, time = 1 SECONDS),
@@ -48,14 +49,18 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	amount = 50
 
 /obj/item/stack/sheet/glass/cyborg
-	energy_type = /datum/robot_energy_storage/glass
+	energy_type = /datum/robot_storage/material/glass
 	is_cyborg = TRUE
 	materials = list()
 
 /obj/item/stack/sheet/glass/cyborg/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>As a synthetic, you can regain sheets of glass by recharging in a <b>cyborg recharger</b>.</span>"
+	var/mob/living/silicon/robot/robot = user
+	if(!istype(robot.module, /obj/item/robot_module/drone))
+		. += "<span class='notice'>You can refill your glass by using your <b>magnetic gripper</b> on the Ore Redemption machine, or by picking it up from the ground.</span>"
 
+/obj/item/stack/sheet/glass/cyborg/drone
+	energy_type = /datum/robot_storage/energy/glass
 
 /obj/item/stack/sheet/glass/New(loc, amount)
 	recipes = GLOB.glass_recipes
@@ -92,6 +97,7 @@ GLOBAL_LIST_INIT(glass_recipes, list (
  */
 
 GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
+	new /datum/stack_recipe("glass shard", /obj/item/shard, time = 0 SECONDS),
 	new /datum/stack_recipe/window("windoor frame", /obj/structure/windoor_assembly, 5, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	null,
 	new /datum/stack_recipe/window("directional reinforced window", /obj/structure/window/reinforced, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
@@ -128,18 +134,24 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
 	. += "<span class='notice'>Reinforced glass is much stronger against damage than normal glass, otherwise it functions like normal glass does.</span>"
 
 GLOBAL_LIST_INIT(pglass_recipes, list (
+	new /datum/stack_recipe("plasma shard", /obj/item/shard/plasma, time = 0 SECONDS),
 	new /datum/stack_recipe/window("directional window", /obj/structure/window/plasmabasic, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	new /datum/stack_recipe/window("fulltile window", /obj/structure/window/full/plasmabasic, 2, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE)
 ))
 
 /obj/item/stack/sheet/rglass/cyborg
-	energy_type = /datum/robot_energy_storage/rglass
+	energy_type = /datum/robot_storage/material/rglass
 	is_cyborg = TRUE
 	materials = list()
 
 /obj/item/stack/sheet/rglass/cyborg/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>As a synthetic, you can regain sheets of reinforced glass by recharging in a <b>cyborg recharger</b>.</span>"
+	var/mob/living/silicon/robot/robot = user
+	if(!istype(robot.module, /obj/item/robot_module/drone))
+		. += "<span class='notice'>You can refill your reinforced glass by picking it up from the ground.</span>"
+
+/obj/item/stack/sheet/rglass/cyborg/drone
+	energy_type = /datum/robot_storage/energy/rglass
 
 /obj/item/stack/sheet/plasmaglass
 	name = "plasma glass"
@@ -184,6 +196,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
  */
 
 GLOBAL_LIST_INIT(prglass_recipes, list (
+	new /datum/stack_recipe("plasma shard", /obj/item/shard/plasma, time = 0 SECONDS),
 	new /datum/stack_recipe/window("directional reinforced window", /obj/structure/window/plasmareinforced, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	new /datum/stack_recipe/window("fulltile reinforced window", /obj/structure/window/full/plasmareinforced, 2, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE)
 ))

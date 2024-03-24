@@ -242,7 +242,7 @@
 	// - V - Attacker facing south
 	// - - -
 	// Victim at 135 or more degrees of where the victim is facing.
-	if(attacker_dir & GetOppositeDir(attacker_to_victim))
+	if(attacker_dir & reverse_direction(attacker_to_victim))
 		return DEVIATION_FULL
 
 	// - - -

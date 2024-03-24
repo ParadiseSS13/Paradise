@@ -327,3 +327,8 @@
 		if(prob(numLow))
 			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
 			owner.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
+
+/obj/item/organ/internal/heart/cybernetic/upgraded/hardened
+	name = "hardened overclocked cybernetic heart"
+	emp_proof = TRUE
+	emagged = TRUE

@@ -356,7 +356,7 @@ GLOBAL_PROTECT(VVmaint_only)
 
 	L += var_value
 
-	switch(alert("Would you like to associate a value with the list entry?",,"Yes","No"))
+	switch(alert("Would you like to associate a value with the list entry?", null,"Yes","No"))
 		if("Yes")
 			L[var_value] = mod_list_add_ass(O) //hehe
 	if(O)

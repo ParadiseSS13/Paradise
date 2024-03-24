@@ -1,5 +1,3 @@
-#define VEST_STEALTH 1
-#define VEST_COMBAT 2
 #define GIZMO_SCAN 1
 #define GIZMO_MARK 2
 #define MIND_DEVICE_MESSAGE 1
@@ -17,7 +15,7 @@
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = 115, ACID = 115)
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	allowed = list(/obj/item/abductor, /obj/item/abductor_baton, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
-	var/mode = VEST_STEALTH
+	var/mode = ABDUCTOR_VEST_STEALTH
 	var/stealth_active = 0
 	var/combat_cooldown = 10
 	var/datum/icon_snapshot/disguise
@@ -37,13 +35,13 @@
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/flip_mode()
 	switch(mode)
-		if(VEST_STEALTH)
-			mode = VEST_COMBAT
+		if(ABDUCTOR_VEST_STEALTH)
+			mode = ABDUCTOR_VEST_COMBAT
 			DeactivateStealth()
 			armor = combat_armor
 			icon_state = "vest_combat"
-		if(VEST_COMBAT)// TO STEALTH
-			mode = VEST_STEALTH
+		if(ABDUCTOR_VEST_COMBAT)// TO STEALTH
+			mode = ABDUCTOR_VEST_STEALTH
 			armor = stealth_armor
 			icon_state = "vest_stealth"
 	if(ishuman(loc))
@@ -94,9 +92,9 @@
 
 /obj/item/clothing/suit/armor/abductor/vest/ui_action_click()
 	switch(mode)
-		if(VEST_COMBAT)
+		if(ABDUCTOR_VEST_COMBAT)
 			Adrenaline()
-		if(VEST_STEALTH)
+		if(ABDUCTOR_VEST_STEALTH)
 			if(stealth_active)
 				DeactivateStealth()
 			else
@@ -749,3 +747,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	airlock_type = /obj/machinery/door/airlock/abductor
 	material_type = /obj/item/stack/sheet/mineral/abductor
 	noglass = TRUE
+
+#undef GIZMO_SCAN
+#undef GIZMO_MARK
+#undef MIND_DEVICE_MESSAGE
+#undef MIND_DEVICE_CONTROL
+#undef BATON_STUN
+#undef BATON_SLEEP
+#undef BATON_CUFF
+#undef BATON_PROBE
+#undef BATON_MODES

@@ -439,6 +439,14 @@
 	build_path = /obj/item/storage/pill_bottle
 	category = list("initial", "Medical")
 
+/datum/design/lockbox_vial
+	name = "Secure Vial Storage Box"
+	id = "lockbox_vial"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 200, MAT_GLASS = 1000)
+	build_path = /obj/item/storage/lockbox/vials
+	category = list("initial", "Medical")
+
 /datum/design/beanbag_slug
 	name = "Beanbag Slug"
 	id = "beanbag_slug"
@@ -459,7 +467,7 @@
 	name = "E-revolver Charge Pack"
 	id = "e_charger"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000, MAT_GLASS = 6000)
+	materials = list(MAT_METAL = 20000, MAT_GLASS = 6000)
 	build_path = /obj/item/ammo_box/magazine/detective/speedcharger
 	category = list("initial", "Security")
 

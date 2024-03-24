@@ -14,7 +14,7 @@
 	permissions_asset.send(usr)
 
 	var/output = {"<!DOCTYPE html>
-<html>
+<html><meta charset='utf-8'>
 <head>
 <title>Permissions Panel</title>
 <script type='text/javascript' src='[SSassets.transport.get_asset_url("search.js")]'></script>

@@ -91,7 +91,6 @@
 	. += "---"
 
 /client/proc/debug_variables(datum/D in world)
-	set category = "Debug"
 	set name = "\[Admin\] View Variables"
 
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
@@ -240,6 +239,7 @@
 
 	var/html = {"
 <html>
+	<meta charset="UTF-8">
 	<head>
 		<title>[title]</title>
 		<style>
@@ -571,7 +571,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 
-		var/new_name = reject_bad_name(sanitize(copytext(input(usr, "What would you like to name this mob?", "Input a name", M.real_name) as text|null, 1, MAX_NAME_LEN)), allow_numbers = TRUE)
+		var/new_name = reject_bad_name(sanitize(copytext_char(input(usr, "What would you like to name this mob?", "Input a name", M.real_name) as text|null, 1, MAX_NAME_LEN)), allow_numbers = TRUE)
 		if(!new_name || !M)	return
 
 		message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")
@@ -802,14 +802,14 @@
 			to_chat(usr, "This can only be used on instances of type /obj")
 			return
 
-		var/action_type = alert("Strict type ([O.type]) or type and all subtypes?",,"Strict type","Type and subtypes","Cancel")
+		var/action_type = alert("Strict type ([O.type]) or type and all subtypes?", null,"Strict type","Type and subtypes","Cancel")
 		if(action_type == "Cancel" || !action_type)
 			return
 
-		if(alert("Are you really sure you want to delete all objects of type [O.type]?",,"Yes","No") != "Yes")
+		if(alert("Are you really sure you want to delete all objects of type [O.type]?", null,"Yes","No") != "Yes")
 			return
 
-		if(alert("Second confirmation required. Delete?",,"Yes","No") != "Yes")
+		if(alert("Second confirmation required. Delete?", null,"Yes","No") != "Yes")
 			return
 
 		var/O_type = O.type
@@ -1097,7 +1097,7 @@
 		if(!verb || verb == "Cancel")
 			return
 		else
-			H.verbs += verb
+			add_verb(H, verb)
 			message_admins("[key_name_admin(usr)] has given [key_name_admin(H)] the verb [verb]")
 			log_admin("[key_name(usr)] has given [key_name(H)] the verb [verb]")
 
@@ -1116,7 +1116,7 @@
 		if(!verb)
 			return
 		else
-			H.verbs -= verb
+			remove_verb(H, verb)
 			message_admins("[key_name_admin(usr)] has removed verb [verb] from [key_name_admin(H)]")
 			log_admin("[key_name(usr)] has removed verb [verb] from [key_name(H)]")
 
