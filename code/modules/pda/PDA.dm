@@ -76,7 +76,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 	// The slot where you can store a pen
 	var/obj/item/held_pen
 	var/retro_mode = 0
-	var/obj/item/pen/default_pen = /obj/item/pen // What pen is loaded in the PDA
+	/// What pen is loaded in the PDA
+	var/obj/item/pen/default_pen = /obj/item/pen
 
 /*
  *	The Actual PDA

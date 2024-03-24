@@ -854,7 +854,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/badass/pen
 	name = "Syndicate Fountain Pen"
-	desc = "A slick syndicate branded pen to show everyone you mean business at the meeting."
+	desc = "A slick Syndicate-branded pen, to show everyone at the meeting that you mean business."
 	reference = "PEN"
 	item = /obj/item/pen/multi/syndicate
 	cost = 1

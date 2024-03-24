@@ -100,13 +100,13 @@
 
 /obj/item/pen/multi/fountain
 	name = "engraved fountain pen"
-	desc = "An expensive looking pen typically issued to Nanotrasen employees."
+	desc = "An expensive-looking pen typically issued to Nanotrasen employees."
 	icon_state = "fountainpen"
 	pen_colour_shift = 0
 
 /obj/item/pen/multi/syndicate
 	name = "syndicate fountain pen"
-	desc = "A suspicious looking pen issued to syndicate staff."
+	desc = "A suspicious-looking pen issued to Syndicate staff."
 	icon_state = "pen_syndie"
 	pen_colour_shift = 0
 
@@ -117,32 +117,32 @@
 
 /obj/item/pen/hop
 	name = "head of personnel's fountain pen"
-	desc = "An expensive looking pen only issued to heads of service."
+	desc = "An expensive-looking pen only issued to heads of service."
 	icon_state = "pen_hop"
 
 /obj/item/pen/hos
 	name = "head of security's fountain pen"
-	desc = "An expensive looking pen only issued to heads of security."
+	desc = "An expensive-looking pen only issued to heads of security."
 	icon_state = "pen_hos"
 
 /obj/item/pen/cmo
 	name = "chief medical officer's fountain pen"
-	desc = "An expensive looking pen only issued to heads of medical."
+	desc = "An expensive-looking pen only issued to heads of medical."
 	icon_state = "pen_cmo"
 
 /obj/item/pen/ce
 	name = "chief engineer's fountain pen"
-	desc = "An expensive looking pen only issued to heads of engineering."
+	desc = "An expensive-looking pen only issued to heads of engineering."
 	icon_state = "pen_ce"
 
 /obj/item/pen/rd
 	name = "research director's fountain pen"
-	desc = "An expensive looking pen only issued to heads of research."
+	desc = "An expensive-looking pen only issued to heads of research."
 	icon_state = "pen_rd"
 
 /obj/item/pen/qm
 	name = "quartermaster's fountain pen"
-	desc = "An expensive looking pen only issued to heads of cargo."
+	desc = "An expensive-looking pen only issued to heads of cargo."
 	icon_state = "pen_qm"
 
 /*
