@@ -216,18 +216,18 @@
 
 		if("set_sprite_style")
 			var/production_mode = text2num(params["production_mode"])
-			if(isnull(production_mode) || production_mode < 1 || production_mode > length(production_modes))
+			if(ISINDEXSAFE(production_modes, production_mode))
 				return
 			var/datum/chemical_production_mode/M = production_modes[production_mode]
 			if(!M.sprites)
 				return
 			var/new_style = text2num(params["style"])
-			if(isnull(new_style) || new_style < 1 || new_style > length(M.sprites))
+			if(ISINDEXSAFE(M.sprites, new_style))
 				return
 			M.set_sprite = new_style
 		if("set_items_amount")
 			var/production_mode = text2num(params["production_mode"])
-			if(isnull(production_mode) || production_mode < 1 || production_mode > length(production_modes))
+			if(ISINDEXSAFE(production_modes, production_mode))
 				return
 			var/datum/chemical_production_mode/M = production_modes[production_mode]
 			var/new_amount = text2num(params["amount"])
@@ -236,7 +236,7 @@
 			M.set_items_amount = new_amount
 		if("set_items_name")
 			var/production_mode = text2num(params["production_mode"])
-			if(isnull(production_mode) || production_mode < 1 || production_mode > length(production_modes))
+			if(ISINDEXSAFE(production_modes, production_mode))
 				return
 			var/datum/chemical_production_mode/M = production_modes[production_mode]
 			if(M.set_name == CUSTOM_NAME_DISABLED)
@@ -595,7 +595,8 @@
 	var/chemicals_is_safe = data["chemicals_is_safe"]
 
 	if(isnull(chemicals_is_safe))
-		chemicals_is_safe = data["chemicals_is_safe"] = SafetyCheck(R)
+		chemicals_is_safe = SafetyCheck(R)
+		data["chemicals_is_safe"] = chemicals_is_safe
 
 	if(chemicals_is_safe)
 		P.instant_application = TRUE
