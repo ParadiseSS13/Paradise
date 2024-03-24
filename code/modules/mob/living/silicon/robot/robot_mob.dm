@@ -13,6 +13,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	universal_understand = TRUE
 	deathgasp_on_death = TRUE
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+	hud_type = /datum/hud/robot
 
 	var/sight_mode = 0
 	var/custom_name = ""

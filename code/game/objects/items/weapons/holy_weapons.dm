@@ -375,9 +375,6 @@
 		melee_attack_chain(attacking_shade, attacking_atom)
 		force += 5
 
-/mob/living/simple_animal/shade/sword/create_mob_hud()
-	hud_used = new /datum/hud/sword(src)
-
 /datum/hud/sword/New(mob/user)
 	..()
 

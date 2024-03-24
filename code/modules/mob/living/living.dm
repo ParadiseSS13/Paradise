@@ -268,23 +268,13 @@
 /mob/living/run_pointed(atom/A)
 	if(!..())
 		return FALSE
+
+	var/obj/item/hand_item = get_active_hand()
+	if(istype(hand_item) && hand_item.run_pointed_on_item(src, A))
+		return TRUE
 	var/pointed_object = "\the [A]"
 	if(A.loc in src)
 		pointed_object += " inside [A.loc]"
-
-	var/obj/item/hand_item = get_active_hand()
-	if(!QDELETED(hand_item) && istype(hand_item) && HAS_TRAIT(hand_item, TRAIT_CAN_POINT_WITH) && A != hand_item)
-		if(a_intent == INTENT_HELP || !ismob(A))
-			visible_message("<b>[src]</b> points to [pointed_object] with [hand_item]")
-			return TRUE
-		A.visible_message("<span class='danger'>[src] points [hand_item] at [pointed_object]!</span>",
-											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
-		SEND_SOUND(A, sound('sound/weapons/targeton.ogg'))
-		return TRUE
-	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && A != hand_item)
-		var/obj/item/toy/russian_revolver/trick_revolver/trick = hand_item
-		visible_message("<span class='danger'>[src] points [trick] at- and [trick] goes off in their hand!</span>")
-		trick.shoot_gun(src)
 
 	visible_message("<b>[src]</b> points to [pointed_object]")
 	return TRUE

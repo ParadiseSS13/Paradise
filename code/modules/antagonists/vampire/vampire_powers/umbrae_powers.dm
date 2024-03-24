@@ -17,7 +17,9 @@
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(!V)
 		return
-	action.button.name = "[initial(name)] ([V.iscloaking ? "Deactivate" : "Activate"])"
+
+	action.name = "[initial(name)] ([V.iscloaking ? "Deactivate" : "Activate"])"
+	UpdateButtons()
 
 /obj/effect/proc_holder/spell/vampire/self/cloak/cast(list/targets, mob/user = usr)
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)

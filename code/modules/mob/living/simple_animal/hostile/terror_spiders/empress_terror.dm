@@ -46,7 +46,8 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/NestMode()
 	..()
-	queeneggs_action.button.name = "Empress Eggs"
+	queeneggs_action.name = "Empress Eggs"
+	queeneggs_action.UpdateButtons()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/LayQueenEggs()
 	var/eggtype = tgui_input_list(src, "What kind of eggs?", "Egg laying", list(TS_DESC_QUEEN, TS_DESC_MOTHER, TS_DESC_PRINCE, TS_DESC_PRINCESS, TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN, TS_DESC_BLACK, TS_DESC_PURPLE, TS_DESC_WHITE, TS_DESC_BROWN))

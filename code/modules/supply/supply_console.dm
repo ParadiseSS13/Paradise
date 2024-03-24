@@ -221,7 +221,7 @@
 		var/shown_if_contraband = pack.contraband && can_order_contraband
 		var/shown_if_cmagged = pack.cmag_hidden && HAS_TRAIT(src, TRAIT_CMAGGED)
 
-		var/shown = (!pack.hidden || shown_if_hacked) && (!pack.contraband || shown_if_contraband) && (!HAS_TRAIT(src, TRAIT_CMAGGED) || shown_if_cmagged)
+		var/shown = (!pack.hidden || shown_if_hacked) && (!pack.contraband || shown_if_contraband) && (!pack.cmag_hidden || shown_if_cmagged)
 
 		if(pack.special)
 			shown &= pack.special_enabled

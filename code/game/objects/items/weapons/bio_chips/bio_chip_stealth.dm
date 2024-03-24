@@ -63,11 +63,11 @@
 	SIGNAL_HANDLER
 	on_cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(end_cooldown)), 10 SECONDS)
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/item_action/agent_box/proc/end_cooldown()
 	on_cooldown = FALSE
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/item_action/agent_box/IsAvailable()
 	if(..() && !on_cooldown)

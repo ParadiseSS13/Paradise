@@ -296,7 +296,7 @@
 		if(egg != /obj/item/fish_eggs) 				// Don't harvest duds
 			egg = new egg(get_turf(user))			//Spawn the egg at the user's feet
 			if(fish_bag?.can_be_inserted(egg))
-				fish_bag.handle_item_insertion(egg)
+				fish_bag.handle_item_insertion(egg, user)
 		else
 			duds++
 		egg_list.Remove(egg)						//Remove the egg from the egg_list
@@ -350,7 +350,7 @@
 	if(fish_item)
 		var/obj/item/I = new fish_item(get_turf(user))
 		if(fish_bag?.can_be_inserted(I))
-			fish_bag.handle_item_insertion(I)
+			fish_bag.handle_item_insertion(I, user)
 	user.visible_message("[user.name] scoops \a [fish_name] from [src].", "You scoop \a [fish_name] out of [src].")
 	kill_fish(fish_to_scoop)						//Kill the caught fish from the tank
 

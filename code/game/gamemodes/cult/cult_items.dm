@@ -633,6 +633,7 @@
 	button_icon_state = "bloodspear"
 	var/obj/item/cult_spear/spear
 	var/cooldown = 0
+	default_button_position = "6:157,4:-2"
 
 /datum/action/innate/cult/spear/Grant(mob/user, obj/blood_spear)
 	. = ..()

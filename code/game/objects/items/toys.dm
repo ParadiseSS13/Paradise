@@ -1239,6 +1239,13 @@
 		shoot_gun(user)
 	return ..()
 
+/obj/item/toy/russian_revolver/trick_revolver/run_pointed_on_item(mob/pointer_mob, atom/target_atom)
+	if(target_atom != src)
+		pointer_mob.visible_message("<span class='danger'>[pointer_mob] points [src] at- and [src] goes off in their hand!</span>")
+		shoot_gun(pointer_mob)
+		return TRUE
+	return ..()
+
 /*
  * Rubber Chainsaw
  */

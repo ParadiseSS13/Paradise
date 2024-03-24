@@ -11,10 +11,6 @@
 		var/mob/living/simple_animal/bot/B = usr
 		B.Radio.interact(usr)
 
-/mob/living/simple_animal/bot/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/bot(src)
-
 /datum/hud/bot/New(mob/owner)
 	..()
 	var/atom/movable/screen/using

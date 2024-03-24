@@ -114,7 +114,7 @@
 	W.forceMove(drop_location())
 	W.layer = initial(W.layer)
 	W.plane = initial(W.plane)
-	W.dropped()
+	W.dropped(src)
 
 /mob/proc/drop_item_v()		//this is dumb.
 	if(stat == CONSCIOUS && isturf(loc))
@@ -243,50 +243,50 @@
 /obj/item/proc/equip_to_best_slot(mob/M)
 	if(src != M.get_active_hand())
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
-		return 0
+		return FALSE
 
 	if(M.equip_to_appropriate_slot(src))
 		if(M.hand)
 			M.update_inv_l_hand()
 		else
 			M.update_inv_r_hand()
-		return 1
+		return TRUE
 
-	if(M.s_active && M.s_active.can_be_inserted(src, 1))	//if storage active insert there
-		M.s_active.handle_item_insertion(src)
-		return 1
+	if(M.s_active && M.s_active.can_be_inserted(src, TRUE))	//if storage active insert there
+		M.s_active.handle_item_insertion(src, M)
+		return TRUE
 
 	var/obj/item/storage/S = M.get_inactive_hand()
-	if(istype(S) && S.can_be_inserted(src, 1))	//see if we have box in other hand
-		S.handle_item_insertion(src)
-		return 1
+	if(istype(S) && S.can_be_inserted(src, M, TRUE))	//see if we have box in other hand
+		S.handle_item_insertion(src, M)
+		return TRUE
 
 	S = M.get_item_by_slot(SLOT_HUD_WEAR_ID)
-	if(istype(S) && S.can_be_inserted(src, 1))		//else we put in a wallet
-		S.handle_item_insertion(src)
-		return 1
+	if(istype(S) && S.can_be_inserted(src, TRUE))		//else we put in a wallet
+		S.handle_item_insertion(src, M)
+		return TRUE
 
 	S = M.get_item_by_slot(SLOT_HUD_BELT)
-	if(istype(S) && S.can_be_inserted(src, 1))		//else we put in belt
-		S.handle_item_insertion(src)
-		return 1
+	if(istype(S) && S.can_be_inserted(src, TRUE))		//else we put in belt
+		S.handle_item_insertion(src, M)
+		return TRUE
 
 	var/obj/item/O = M.get_item_by_slot(SLOT_HUD_BACK)	//else we put in backpack
 	if(istype(O, /obj/item/storage))
 		S = O
-		if(S.can_be_inserted(src, 1))
-			S.handle_item_insertion(src)
+		if(S.can_be_inserted(src, TRUE))
+			S.handle_item_insertion(src, M)
 			playsound(loc, "rustle", 50, TRUE, -5)
-			return 1
+			return TRUE
 	if(ismodcontrol(O))
 		var/obj/item/mod/control/C = O
-		if(C.can_be_inserted(src, 1))
-			C.handle_item_insertion(src)
+		if(C.can_be_inserted(src, TRUE))
+			C.handle_item_insertion(src, M)
 			playsound(loc, "rustle", 50, TRUE, -5)
-			return 1
+			return TRUE
 
 	to_chat(M, "<span class='warning'>You are unable to equip that!</span>")
-	return 0
+	return FALSE
 
 /mob/proc/get_all_slots()
 	return list(wear_mask, back, l_hand, r_hand)

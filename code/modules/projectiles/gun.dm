@@ -388,7 +388,7 @@
 
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/gun/proc/clear_bayonet()
 	if(!bayonet)

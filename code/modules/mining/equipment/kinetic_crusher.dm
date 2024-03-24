@@ -185,7 +185,7 @@
 	spawn(1)
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.UpdateButtons()
 
 //destablizing force
 /obj/item/projectile/destabilizer

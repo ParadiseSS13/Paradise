@@ -16,7 +16,7 @@
 	if(!action)
 		return
 	action.button_icon_state = "alien_neurotoxin_[active]"
-	action.UpdateButtonIcon()
+	action.UpdateButtons()
 
 /obj/effect/proc_holder/spell/alien_spell/neurotoxin/cast(list/targets, mob/living/carbon/user)
 	var/target = targets[1]

@@ -15,7 +15,7 @@ Updates the spell's actions on use as well, so they know when they can or can't 
 	vessel.stored_plasma = clamp(vessel.stored_plasma + amount, 0, vessel.max_plasma)
 	update_plasma_display(src)
 	for(var/datum/action/spell_action/action in actions)
-		action.UpdateButtonIcon()
+		action.UpdateButtons()
 
 /obj/effect/proc_holder/spell/alien_spell
 	action_background_icon_state = "bg_alien"

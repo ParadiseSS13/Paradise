@@ -202,7 +202,7 @@
 		icon_state = "selfrepair_[on ? "on" : "off"]"
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.UpdateButtons()
 	else
 		icon_state = "cyborg_upgrade5"
 

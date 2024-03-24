@@ -397,7 +397,7 @@
 						else if(B.rating <= A.rating)
 							continue
 						W.remove_from_storage(B, src)
-						W.handle_item_insertion(A, 1)
+						W.handle_item_insertion(A, user, TRUE)
 						component_parts -= A
 						component_parts += B
 						B.loc = null

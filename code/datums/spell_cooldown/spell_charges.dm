@@ -28,7 +28,7 @@
 	if(recharge_time > world.time)
 		return FALSE
 	current_charges++
-	spell_parent.action.UpdateButtonIcon()
+	spell_parent.action.UpdateButtons()
 	if(current_charges < max_charges) // we have more recharges to go
 		recharge_time = world.time + recharge_duration
 		return FALSE

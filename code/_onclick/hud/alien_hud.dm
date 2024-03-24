@@ -38,11 +38,6 @@
 	name = "plasma stored"
 	screen_loc = ui_alienplasmadisplay
 
-
-/mob/living/carbon/alien/humanoid/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/alien(src)
-
 /datum/hud/alien/New(mob/living/carbon/alien/humanoid/owner)
 	..()
 

@@ -51,7 +51,7 @@
 
 /mob/living/carbon/human/create_mob_hud()
 	if(client && !hud_used)
-		hud_used = new /datum/hud/human(src, ui_style2icon(client.prefs.UI_style), client.prefs.UI_style_color, client.prefs.UI_style_alpha)
+		set_hud_used(new /datum/hud/human(src, ui_style2icon(client.prefs.UI_style), client.prefs.UI_style_color, client.prefs.UI_style_alpha))
 		SEND_SIGNAL(src, COMSIG_HUMAN_CREATE_MOB_HUD)
 
 /datum/hud/human

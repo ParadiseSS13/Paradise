@@ -80,13 +80,13 @@
 	var/obj/item/I = new item_to_summon(src)
 	if(H.back && isstorage(H.back))
 		var/obj/item/storage/S = H.back
-		S.handle_item_insertion(I, TRUE) //We don't check if it can be inserted because it's magic, GET IN THERE!
+		S.handle_item_insertion(I, H, TRUE) //We don't check if it can be inserted because it's magic, GET IN THERE!
 		H.visible_message("<span class='chaosgood'>[H]'s [S.name] glows bright!</span>", "<span class='chaosverygood'>\A [I] suddenly appears in your glowing [S.name]!</span>")
 		return
 	if(H.back && ismodcontrol(H.back))
 		var/obj/item/mod/control/C = H.back
 		if(C.bag)
-			C.handle_item_insertion(I, TRUE)
+			C.handle_item_insertion(I, H, TRUE)
 			H.visible_message("<span class='chaosgood'>[H]'s [C] glows bright!</span>", "<span class='chaosverygood'>\A [I] suddenly appears in your glowing [C.name]!</span>")
 			return
 	I.forceMove(get_turf(H))

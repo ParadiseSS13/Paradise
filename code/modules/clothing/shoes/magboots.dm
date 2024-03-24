@@ -52,7 +52,7 @@
 	user.update_gravity(user.mob_has_gravity())
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 	check_mag_pulse(user)
 
 /obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user)

@@ -28,7 +28,7 @@
 	else
 		GLOB.active_jammers -= src
 	for(var/datum/action/item_action/toggle_radio_jammer/A in actions)
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/teleporter
 	name = "syndicate teleporter"

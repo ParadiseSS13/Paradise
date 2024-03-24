@@ -52,7 +52,7 @@
 		to_chat(user, "<span class='notice'>You turn the jetpack off.</span>")
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 
 /obj/item/tank/jetpack/proc/turn_on(mob/user)

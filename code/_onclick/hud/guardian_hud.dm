@@ -1,7 +1,3 @@
-/mob/living/simple_animal/hostile/guardian/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/guardian(src)
-
 /datum/hud/guardian/New(mob/owner)
 	..()
 	var/atom/movable/screen/using

@@ -77,3 +77,9 @@
 		creature.EyeBlind(2 SECONDS) //OH GOD MY EARS ARE RINGING
 		creature.Deaf(4 SECONDS) //OH MY HEAD
 	return ..()
+
+/obj/item/slapper/run_pointed_on_item(mob/pointer_mob, atom/target_atom)
+	if(target_atom == src)
+		pointer_mob.visible_message("<b>[pointer_mob]</b> raises [pointer_mob.p_their()] hand!")
+		return TRUE
+	return ..()

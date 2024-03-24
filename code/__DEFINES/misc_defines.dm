@@ -412,11 +412,6 @@
 #define AREASELECT_CORNERA "corner A"
 #define AREASELECT_CORNERB "corner B"
 
-//https://secure.byond.com/docs/ref/info.html#/atom/var/mouse_opacity
-#define MOUSE_OPACITY_TRANSPARENT 0
-#define MOUSE_OPACITY_ICON 1
-#define MOUSE_OPACITY_OPAQUE 2
-
 // Defib stats
 /// Past this much time the patient is unrecoverable (in deciseconds).
 #define BASE_DEFIB_TIME_LIMIT (300 SECONDS)

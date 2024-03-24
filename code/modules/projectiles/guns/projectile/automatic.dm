@@ -63,7 +63,7 @@
 	update_icon()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/gun/projectile/automatic/can_shoot()
 	return get_ammo()
