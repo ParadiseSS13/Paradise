@@ -676,6 +676,59 @@
 	if(M.mind)
 		attacker_style = M.mind.martial_art
 
+	// Shoe Tying Mechanics
+	if((M.zone_selected == BODY_ZONE_PRECISE_L_FOOT || M.zone_selected == BODY_ZONE_PRECISE_R_FOOT) && IS_HORIZONTAL(M) && M.a_intent == INTENT_GRAB)
+		if(!H.has_organ_for_slot(SLOT_HUD_SHOES))
+			if(!H.has_organ("r_foot"))
+				if(!H.has_organ("l_foot"))
+					to_chat(M, "<span class='warning'>[H] doesn't have any feet, let alone shoes!</span>")
+				else
+					to_chat(M, "<span class='warning'>[H] doesn't have a right foot, let alone shoes!</span>")
+			else
+				to_chat(M, "<span class='warning'>[H] doesn't have a left foot, let alone shoes!</span>")
+			return
+		// For whatever reason the equipment slot for shoes isn't typed specifically for shoes, so we'll have to check that it is the actual 'shoes' subtype here.
+		var/obj/item/clothing/shoes/the_shoes = H.shoes
+		if(!istype(the_shoes))
+			to_chat(M, "<span class='warning'>[H] isn't wearing any shoes!</span>")
+			return
+		if(!the_shoes.has_laces)
+			to_chat(M, "<span class='warning'>[H]'s [the_shoes] do not have any laces!</span>")
+			return
+		var/expert_tying = 1
+		// The gloves also aren't typed to gloves specifically...
+		var/obj/item/clothing/gloves/G = M.gloves
+		if(istype(G) && G.pickpocket)
+			expert_tying += 1
+		// TODO: Add trait to expert_tying counter here
+		the_shoes.add_fingerprint(M)
+		// Untying
+		if(the_shoes.laces_tied_together)
+			if(expert_tying > 1)
+				to_chat(M, "You begin to expertly untie the laces between [H]'s [the_shoes].")
+			else
+				M.visible_message("[M] begins to untie the laces between [H]'s [the_shoes].", "You begin to untie the laces between [H]'s [the_shoes].")
+			if(do_after(M, 8 SECONDS / expert_tying, target = H))
+				the_shoes.laces_tied_together = FALSE
+				if(expert_tying > 1)
+					to_chat(M, "You successfully untie the laces between [H]'s [the_shoes].")
+				else
+					M.visible_message("<span class='danger'>[M] successfully unties the laces between [H]'s [the_shoes].</span>", "You successfully untie the laces between [H]'s [the_shoes].")
+		// Tying
+		else
+			if(expert_tying > 1)
+				to_chat(M, "You begin to expertly tie together the laces on [H]'s [the_shoes].")
+			else
+				M.visible_message("<span class='danger'>[M] begins to tie together the laces on [H]'s [the_shoes].</span>", "You begin to tie together the laces on [H]'s [the_shoes].")
+			if(do_after(M, 8 SECONDS / expert_tying, target = H))
+				the_shoes.laces_tied_together = TRUE
+				add_attack_logs(M, H, "Tied laces together")
+				if(expert_tying > 1)
+					to_chat(M, "You successfully tie together the laces on [H]'s [the_shoes].")
+				else
+					M.visible_message("<span class='danger'>[M] successfully ties together the laces on [H]'s [the_shoes].</span>", "You successfully tie together the laces on [H]'s [the_shoes].")
+		return
+
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
 		H.visible_message("<span class='warning'>[M] attempted to touch [H]!</span>")

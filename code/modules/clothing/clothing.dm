@@ -463,6 +463,8 @@
 	var/cut_open = FALSE
 	var/no_slip = FALSE
 	var/knife_slot = FALSE
+	var/has_laces = TRUE
+	var/laces_tied_together = FALSE
 	var/obj/item/kitchen/knife/combat/hidden_blade
 
 	body_parts_covered = FEET
@@ -571,12 +573,63 @@
 	hidden_blade.add_fingerprint(user)
 	hidden_blade = null
 
+/obj/item/clothing/shoes/AltShiftClick(mob/user)
+	. = ..()
+	shoelace_prank(user)
+
+// TODO: Condition for if the shoes are worn by /prankster
+/obj/item/clothing/shoes/proc/shoelace_prank(mob/living/carbon/human/prankster)
+	if(!istype(prankster))
+		return
+	if(!has_laces)
+		to_chat(prankster, "<span class='warning'>[src] do not have any laces.</span>")
+		return
+	var/is_wearing_the_shoes = FALSE
+	if(prankster.shoes == src)
+		is_wearing_the_shoes = TRUE
+	var/expert_tying = 1
+	var/obj/item/clothing/gloves/G = prankster.gloves
+	if(istype(G) && G.pickpocket)
+		expert_tying += 1
+	// TODO: Add trait to expert_tying counter here
+	add_fingerprint(prankster)
+	if(laces_tied_together)
+		if(is_wearing_the_shoes)
+			visible_message("[prankster] begins to untie the laces between [prankster.p_their(FALSE)] [src].", "You begin to untie the laces between your [src].")
+		else
+			to_chat(prankster, "You begin to untie the laces between [src].")
+		if(do_after(prankster, 8 SECONDS / expert_tying, src))
+			laces_tied_together = FALSE
+			if(is_wearing_the_shoes)
+				visible_message("[prankster] successfully unties the laces between [prankster.p_their(FALSE)] [src].", "You successfully untie the laces between your [src].")
+			else
+				to_chat(prankster, "You successfully untie the laces between [src].")
+	else
+		if(is_wearing_the_shoes)
+			visible_message("[prankster] begins to tie together the laces on [prankster.p_their(FALSE)] [src].", "You begin to tie together the laces on your [src].")
+		else
+			to_chat(prankster, "You begin to tie together the laces on [src].")
+		if(do_after(prankster, 8 SECONDS / expert_tying, src))
+			laces_tied_together = TRUE
+			if(is_wearing_the_shoes)
+				visible_message("[prankster] successfully ties together the laces on [prankster.p_their(FALSE)] [src].", "You successfully tie together the laces on your [src].")
+			else
+				to_chat(prankster, "You successfully tie together the laces on [src].")
+	return
+
 /obj/item/clothing/shoes/examine(mob/user)
 	. = ..()
 	if(knife_slot)
 		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to remove a stored knife. Use the knife on the shoes to place one in [src].</span>"
 		if(hidden_blade)
 			. += "<span class='notice'>Your boot has a [hidden_blade.name] hidden inside of it!</span>"
+	if(has_laces)
+		if(laces_tied_together)
+			. += "<span class='warning'>The laces are tied together, you can <b>Alt-Shift-Click</b> [src] to undo the knot.</span>"
+		else
+			. += "<span class='notice'>You can <b>Alt-Shift-Click</b> [src] to tie the shoelaces together.</span>"
+	else
+		. += "<span class='notice'>[src] do not have any laces."
 
 //Suit
 /obj/item/clothing/suit
