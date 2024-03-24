@@ -30,6 +30,7 @@
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
 	butcher_results = list(/obj/item/food/snacks/ectoplasm = 1)
+	hud_type = /datum/hud/guardian
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
