@@ -180,3 +180,20 @@
 			throw_alert("succumb", /atom/movable/screen/alert/succumb)
 		else
 			clear_alert("succumb")
+
+	if(staminas)
+		switch(staminaloss)
+			if(100 to INFINITY)
+				staminas.icon_state = "stamina6"
+			if(80 to 100)
+				staminas.icon_state = "stamina5"
+			if(60 to 80)
+				staminas.icon_state = "stamina4"
+			if(40 to 60)
+				staminas.icon_state = "stamina3"
+			if(20 to 40)
+				staminas.icon_state = "stamina2"
+			if(1 to 20)
+				staminas.icon_state = "stamina1"
+			else
+				staminas.icon_state = "stamina0"
