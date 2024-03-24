@@ -91,23 +91,23 @@
 		/obj/item/autosurgeon/organ/syndicate/meson_eyes, // 0TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-/// 175TC
+/// 185TC
 /obj/item/storage/box/syndie_kit/bundle/payday
 	name = "Heist Bundle"
 	desc = "Alright guys, today we're performing a heist on a space station owned by a greedy corporation. Drain the vault of all its worth so we can get that pay dirt!11"
 	items = list(
-		/obj/item/gun/projectile/revolver, // 13TC
-		/obj/item/ammo_box/a357, // 3TC
-		/obj/item/ammo_box/a357, // 3TC
-		/obj/item/card/emag, // 6TC
-		/obj/item/jammer, // 4TC
-		/obj/item/card/id/syndicate, // 2TC
+		/obj/item/gun/projectile/revolver, // 65 TC
+		/obj/item/ammo_box/a357, // 15 TC
+		/obj/item/ammo_box/a357, // 15 TC
+		/obj/item/card/emag, // 30 TC
+		/obj/item/jammer, // 20 TC
+		/obj/item/card/id/syndicate, // 10 TC
 		/obj/item/clothing/under/suit/really_black, // 0TC
 		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 0TC
 		/obj/item/clothing/gloves/color/latex/nitrile, // 0 TC
 		/obj/item/clothing/mask/gas/clown_hat, // 0TC
-		/obj/item/grenade/plastic/c4, // 1TC
-		/obj/item/thermal_drill/diamond_drill/syndicate, // 1TC
+		/obj/item/grenade/plastic/c4, // 5 TC
+		/obj/item/thermal_drill/diamond_drill/syndicate, // 5 TC
 		/obj/item/bio_chip_implanter/freedom/prototype, // 10 TC
 		/obj/item/encryptionkey/syndicate) // 10TC
 
@@ -208,6 +208,24 @@
 		/obj/item/storage/belt/utility/full/multitool, // 15TC
 		/obj/item/clothing/head/collectable/slime,  // 0TC priceless
 		/obj/item/encryptionkey/syndicate) // 10TC
+
+// 170 TC + combat knife + outfit
+/obj/item/storage/box/syndie_kit/bundle/ocelot
+	name = "Ocelot Bundle"
+	desc = "Get pretty good with two revolvers, two speedloaders, and a backup combat knife."
+	items = list(
+		/obj/item/kitchen/knife/combat, // 0 TC but very robust
+		/obj/item/gun/projectile/revolver,  // 65 TC
+		/obj/item/gun/projectile/revolver,  // 65 TC
+		/obj/item/ammo_box/a357, // 15 TC
+		/obj/item/ammo_box/a357, // 15 TC
+		/obj/item/encryptionkey/syndicate, // 10 TC
+		/obj/item/clothing/under/syndicate/combat, // 0 TC
+		/obj/item/clothing/accessory/holster, // 0 TC
+		/obj/item/clothing/accessory/scarf/red, // 0 TC
+		/obj/item/clothing/head/beret, // 0 TC
+		/obj/item/clothing/gloves/combat, // 0 TC
+		/obj/item/clothing/shoes/combat) // 0 TC
 
 /obj/item/storage/box/syndie_kit/bundle/populate_contents()
 	for(var/obj/item/item as anything in items)
