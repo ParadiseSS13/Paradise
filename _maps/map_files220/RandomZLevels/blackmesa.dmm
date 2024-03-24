@@ -5393,8 +5393,8 @@
 /area/awaymission/black_mesa/hecu_zone_external_hall)
 "gDe" = (
 /obj/structure/rack,
-/obj/item/radio/alternative,
-/obj/item/radio/alternative{
+/obj/item/radio,
+/obj/item/radio{
 	pixel_x = 3;
 	pixel_y = 3
 	},
@@ -9510,7 +9510,7 @@
 "lLt" = (
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_x = 8;
 	pixel_y = 8
 	},

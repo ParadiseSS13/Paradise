@@ -13854,7 +13854,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/item/radio{
+/obj/item/radio/security{
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -16146,21 +16146,21 @@
 	dir = 8
 	},
 /obj/machinery/ai_status_display/north,
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_y = 12
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_y = 6
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_x = 8;
 	pixel_y = 6
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_y = 6;
 	pixel_x = -8
 	},
-/obj/item/radio/alternative,
+/obj/item/radio,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -34177,7 +34177,7 @@
 /obj/structure/table,
 /obj/item/folder,
 /obj/item/folder,
-/obj/item/radio,
+/obj/item/radio/alternative,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -37871,14 +37871,14 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_y = 4;
 	pixel_x = -8
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_y = 4
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_x = 8;
 	pixel_y = 4
 	},
@@ -37956,18 +37956,18 @@
 "cTT" = (
 /obj/structure/table,
 /obj/machinery/status_display/directional/north,
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_y = 6;
 	pixel_x = -8
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_x = 8;
 	pixel_y = 6
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_y = 12
 	},
-/obj/item/radio/alternative,
+/obj/item/radio,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -81935,9 +81935,9 @@
 	c_tag = "Engineering Equipment Storage Lockers";
 	network = list("SS13","Engineering")
 	},
-/obj/item/radio/alternative,
-/obj/item/radio/alternative,
-/obj/item/radio/alternative,
+/obj/item/radio,
+/obj/item/radio,
+/obj/item/radio,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

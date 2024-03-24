@@ -30005,18 +30005,18 @@
 "ccm" = (
 /obj/machinery/alarm/directional/east,
 /obj/structure/table,
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_x = 8;
 	pixel_y = 6
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_y = 12
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_y = 6;
 	pixel_x = -8
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -66641,7 +66641,7 @@
 	icon_state = "map-right-MS";
 	pixel_y = 32
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_x = 8;
 	pixel_y = 4
 	},
@@ -86889,7 +86889,7 @@
 	c_tag = "Engineering - Foyer - Starboard";
 	dir = 6
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_x = -12;
 	pixel_y = 4
 	},
@@ -87974,7 +87974,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_x = 8;
 	pixel_y = 4
 	},

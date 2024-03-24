@@ -2278,7 +2278,7 @@
 "apn" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/security_space_law,
-/obj/item/radio,
+/obj/item/radio/security,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -29331,7 +29331,7 @@
 "cmX" = (
 /obj/structure/rack,
 /obj/item/tank/internals/oxygen,
-/obj/item/radio,
+/obj/item/radio/alternative,
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
@@ -32005,19 +32005,19 @@
 /obj/machinery/light/directional/east,
 /obj/item/radio/intercom/directional/east,
 /obj/structure/table,
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_y = 7;
 	pixel_x = -7
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_y = 7;
 	pixel_x = -3
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_y = 7;
 	pixel_x = 1
 	},
-/obj/item/radio/alternative{
+/obj/item/radio{
 	pixel_y = 7;
 	pixel_x = 5
 	},
@@ -33060,7 +33060,7 @@
 "cCK" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/belt/utility,
-/obj/item/radio,
+/obj/item/radio/alternative,
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "cCL" = (
@@ -43912,9 +43912,9 @@
 "dEU" = (
 /obj/structure/table/reinforced,
 /obj/item/radio/intercom/directional/north,
-/obj/item/radio{
-	pixel_x = -14;
-	pixel_y = 7
+/obj/item/radio/security{
+	pixel_x = -16;
+	pixel_y = 6
 	},
 /obj/item/storage/box/ids{
 	pixel_x = 2;
@@ -80638,20 +80638,20 @@
 /obj/structure/table,
 /obj/machinery/firealarm/directional/north,
 /obj/item/radio/alternative{
-	pixel_y = 12;
-	pixel_x = -6
+	pixel_x = -6;
+	pixel_y = 12
 	},
 /obj/item/radio/alternative{
-	pixel_y = 3;
-	pixel_x = -6
+	pixel_x = -6;
+	pixel_y = 6
 	},
 /obj/item/radio/alternative{
-	pixel_y = 12;
-	pixel_x = 4
+	pixel_x = 6;
+	pixel_y = 12
 	},
 /obj/item/radio/alternative{
-	pixel_y = 3;
-	pixel_x = 4
+	pixel_x = 6;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -111230,8 +111230,8 @@
 /area/station/hallway/primary/central)
 "xQB" = (
 /obj/structure/table/reinforced,
-/obj/item/radio{
-	pixel_y = 8
+/obj/item/radio/security{
+	pixel_y = 6
 	},
 /obj/structure/reagent_dispensers/peppertank/east,
 /obj/machinery/requests_console{
