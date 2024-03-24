@@ -1010,3 +1010,6 @@
 
 /// from /obj/structure/cursed_slot_machine/determine_victor() when someone finally wins.
 #define COMSIG_GLOB_CURSED_SLOT_MACHINE_WON "cursed_slot_machine_won"
+
+/// from /mob/living/simple_animal/hostile/construct/proc/init_construct()
+#define COMSIG_SHADE_TO_CONSTRUCT_TRANSFER "shade_to_construct_transfer"

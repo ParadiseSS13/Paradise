@@ -392,6 +392,7 @@
 #include "code\datums\components\codeword_hearing.dm"
 #include "code\datums\components\connect_mob_behalf.dm"
 #include "code\datums\components\corpse_description.dm"
+#include "code\datums\components\cult_held_body.dm"
 #include "code\datums\components\deadchat_control.dm"
 #include "code\datums\components\decal.dm"
 #include "code\datums\components\defibrillator.dm"
