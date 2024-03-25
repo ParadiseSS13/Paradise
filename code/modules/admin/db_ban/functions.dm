@@ -160,10 +160,10 @@
 		"rounds" = (rounds ? "[rounds]" : "0"), // And here
 		"ckey" = ckey,
 		"computerid" = computerid,
-		"ip" = ip,
+		"ip" = "[ip ? ip : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
 		"a_ckey" = a_ckey,
 		"a_computerid" = a_computerid,
-		"a_ip" = a_ip,
+		"a_ip" = "[a_ip ? a_ip : ""]",
 		"who" = who,
 		"adminwho" = adminwho,
 		"roundid" = GLOB.round_id,
