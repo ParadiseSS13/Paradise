@@ -253,6 +253,7 @@
 		if(staminaloss)
 			setStaminaLoss(0, FALSE)
 			SEND_SIGNAL(src, COMSIG_CARBON_STAMINA_REGENERATED)
+			update_stamina_hud()
 			update_health_hud()
 
 	// Keep SSD people asleep
@@ -285,6 +286,9 @@
 		else
 			healths.icon_state = "health7"
 
+/mob/living/carbon/update_stamina_hud()
+	if(!client)
+		return
 	if(staminas)
 		var/perceived_stamina = staminaloss - shock_reduction()
 		switch(perceived_stamina)

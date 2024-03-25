@@ -181,6 +181,9 @@
 		else
 			clear_alert("succumb")
 
+/mob/living/update_stamina_hud()
+	if(!client)
+		return
 	if(staminas)
 		switch(staminaloss)
 			if(100 to INFINITY)
