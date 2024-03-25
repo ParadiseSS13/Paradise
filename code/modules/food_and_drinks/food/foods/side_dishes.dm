@@ -107,6 +107,14 @@
 	list_reagents = list("nutriment" = 5, "vitamin" = 1)
 	tastes = list("rice" = 1)
 
+/obj/item/food/snacks/boiledrice/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/seaweed))
+		var/obj/item/stack/seaweed/S = I
+		new /obj/item/food/snacks/onigiri(get_turf(src))
+		S.use(1)
+		qdel(src)
+		return
+	return ..()
 
 /obj/item/food/snacks/roastparsnip
 	name = "roast parsnip"
@@ -116,3 +124,11 @@
 	list_reagents = list("nutriment" = 3, "vitamin" = 4)
 	filling_color = "#FF5500"
 	tastes = list("parsnip" = 1)
+
+/obj/item/food/snacks/onigiri
+	name = "onigiri"
+	desc = "Rice and seaweed"
+	icon_state = "onigiri"
+	list_reagents = list("nutriment" = 5, "vitamin" = 2)
+	tastes = list("rice" = 3, "seaweed" = 2)
+

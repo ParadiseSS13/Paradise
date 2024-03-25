@@ -63,6 +63,11 @@
 	desc = "For when you need to go ham."
 	list_reagents = list("protein" = 3, "porktonium" = 10)
 
+/obj/item/food/snacks/meat/chicken
+	name = "chicken meat"
+	desc = "Cluck cluck!"
+	icon_state = "birdmeat"
+
 /obj/item/food/snacks/meat/meatwheat
 	name = "meatwheat clump"
 	desc = "This doesn't look like meat, but your standards aren't <i>that</i> high to begin with."
@@ -201,6 +206,12 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 5)
 	tastes = list("meat" = 1)
+
+/obj/item/food/snacks/meatsteak/chicken
+	name = "cooked chicken"
+	desc = "Cluck cluck!"
+	icon_state = "birdsteak"
+	tastes = list("chicken" = 1, "meat" = 1)
 
 /obj/item/food/snacks/bacon
 	name = "bacon"
@@ -573,3 +584,4 @@
 	list_reagents = list("nutriment" = 3, "protein" = 10, "bbqsauce" = 10)
 	filling_color = "#FF1C1C"
 	bitesize = 3
+

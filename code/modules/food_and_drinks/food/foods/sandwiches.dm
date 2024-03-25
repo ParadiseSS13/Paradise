@@ -299,6 +299,14 @@
 	list_reagents = list("nutriment" = 2, "protein" = 7, "vitamin" = 4, "bbqsauce" = 1)
 	tastes = list("bun" = 1, "pork" = 1, "patty" = 1)
 
+/obj/item/food/snacks/burger/chickenburger
+	name = "chicken burger"
+	desc = "May I mayo?"
+	icon_state = "chickenburger"
+	bitesize = 3
+	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	tastes = list("bun" = 4, "chicken" = 2)
+
 /obj/item/food/snacks/burger/jelly
 	name = "jelly burger"
 	desc = "Culinary delight...?"
@@ -420,3 +428,4 @@
 	bitesize = 2
 	list_reagents = list("nutriment" = 5, "protein" = 2)
 	tastes = list("peanutbutter" = 3, "banana" = 3, "bread" = 2)
+
