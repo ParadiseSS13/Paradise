@@ -240,9 +240,9 @@
 #undef FILTER_N2O
 
 /obj/machinery/atmospherics/trinary/filter/shadow
+	name = "gas filter (Co2 Outlet)"
 	dir = 1
 	filter_type = 3
-	name = "Gas Filter (Co2 Outlet)"
 	on = FALSE
 	target_pressure = 99999
 
