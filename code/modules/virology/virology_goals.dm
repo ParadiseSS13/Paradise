@@ -107,9 +107,8 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 				return
 			if(S.type != goal_symptom)
 				continue
-			else
-				found_goal_symptom = TRUE
-				break
+			found_goal_symptom = TRUE
+			break
 		if(!found_goal_symptom)
 			return
 		delivered_amount += BL.volume
