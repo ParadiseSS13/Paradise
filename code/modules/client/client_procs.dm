@@ -532,7 +532,8 @@
 		if(SSredis.connected)
 			var/list/mentorcounter = staff_countup(R_MENTOR)
 			var/mentor_count = mentorcounter[1]
-			mentor_count-- // Exclude ourself
+			if(!(holder.fakekey || is_afk()))
+				mentor_count-- // Exclude ourself
 			var/msg = "**[ckey]** logged out. **[mentor_count]** mentor[mentor_count == 1 ? "" : "s"] online."
 			var/list/data = list()
 			data["author"] = "alice"
@@ -544,7 +545,8 @@
 		if(SSredis.connected)
 			var/list/admincounter = staff_countup(R_BAN)
 			var/admin_count = admincounter[1]
-			admin_count-- // Exclude ourself
+			if(!(holder.fakekey || is_afk()))
+				admin_count-- // Exclude ourself
 			var/msg = "**[ckey]** logged out. **[admin_count]** admin[admin_count == 1 ? "" : "s"] online."
 			var/list/data = list()
 			data["author"] = "alice"
