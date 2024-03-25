@@ -1,6 +1,6 @@
 ///A component that allows players to use the item to zoom out. Mainly intended for firearms, but now works with other items too.
 /datum/component/scope
-	/// How far we can extend, with modifier of 1, up to our vision edge, higher numbers multiply.
+	/// How far the view can be moved from the player. At 1, it can be moved by the player's view distance; other values scale linearly.
 	var/range_modifier = 1
 	/// Fullscreen object we use for tracking.
 	var/obj/screen/fullscreen/cursor_catcher/scope/tracker
