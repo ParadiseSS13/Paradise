@@ -65,34 +65,25 @@
 			user << browse(null, "window=records")
 
 		if(href_list["task"] == "med_record")
-			var/medmsg = tgui_input_text(usr, "Set your medical notes here.", "Medical Records", active_character.med_record, multiline = TRUE, encode = FALSE)
-
-			if(medmsg != null)
-				medmsg = copytext(medmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				medmsg = html_encode(medmsg)
-
-				active_character.med_record = medmsg
-				active_character.SetRecords(user)
+			var/medmsg = tgui_input_text(usr, "Set your medical notes here.", "Medical Records", active_character.med_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+			if(isnull(medmsg))
+				return
+			active_character.med_record = medmsg
+			active_character.SetRecords(user)
 
 		if(href_list["task"] == "sec_record")
-			var/secmsg = tgui_input_text(usr, "Set your security notes here.", "Security Records", active_character.sec_record, multiline = TRUE, encode = FALSE)
-
-			if(secmsg != null)
-				secmsg = copytext(secmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				secmsg = html_encode(secmsg)
-
-				active_character.sec_record = secmsg
-				active_character.SetRecords(user)
+			var/secmsg = tgui_input_text(usr, "Set your security notes here.", "Security Records", active_character.sec_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+			if(isnull(secmsg))
+				return
+			active_character.sec_record = secmsg
+			active_character.SetRecords(user)
 
 		if(href_list["task"] == "gen_record")
-			var/genmsg = tgui_input_text(usr, "Set your employment notes here.", "Employment Records", active_character.gen_record, multiline = TRUE, encode = FALSE)
-
-			if(genmsg != null)
-				genmsg = copytext(genmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				genmsg = html_encode(genmsg)
-
-				active_character.gen_record = genmsg
-				active_character.SetRecords(user)
+			var/genmsg = tgui_input_text(usr, "Set your employment notes here.", "Employment Records", active_character.gen_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+			if(isnull(genmsg))
+				return
+			active_character.gen_record = genmsg
+			active_character.SetRecords(user)
 
 	if(href_list["preference"] == "gear")
 		if(href_list["toggle_gear"])
@@ -200,7 +191,7 @@
 		if("input")
 			switch(href_list["preference"])
 				if("name")
-					var/raw_name = clean_input("Choose your character's name:", "Character Preference", , user)
+					var/raw_name = clean_input("Choose your character's name:", "Character Preference", null, user)
 					if(!isnull(raw_name)) // Check to ensure that the user entered text (rather than cancel.)
 						var/new_name = reject_bad_name(raw_name, 1)
 						if(new_name)
@@ -328,7 +319,7 @@
 
 				if("metadata")
 					var/new_metadata = tgui_input_text(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference", active_character.metadata, multiline = TRUE, encode = FALSE)
-					if(!new_metadata)
+					if(isnull(new_metadata))
 						return
 					active_character.metadata = new_metadata
 
@@ -714,13 +705,10 @@
 						active_character.height = new_height
 
 				if("flavor_text")
-					var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", active_character.flavor_text, multiline = TRUE, encode = FALSE)
-
-					if(msg != null)
-						msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-						msg = html_encode(msg)
-
-						active_character.flavor_text = msg
+					var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", active_character.flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+					if(isnull(msg))
+						return
+					active_character.flavor_text = msg
 
 				if("limbs")
 					var/valid_limbs = list("Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
@@ -1024,7 +1012,7 @@
 				if("thought_bubble")
 					toggles2 ^= PREFTOGGLE_2_THOUGHT_BUBBLE
 					if(length(parent?.screen))
-						var/obj/screen/plane_master/point/PM = locate(/obj/screen/plane_master/point) in parent.screen
+						var/atom/movable/screen/plane_master/point/PM = locate(/atom/movable/screen/plane_master/point) in parent.screen
 						PM.backdrop(parent.mob)
 
 				if("be_special")
@@ -1104,7 +1092,7 @@
 				if("ambientocclusion")
 					toggles ^= PREFTOGGLE_AMBIENT_OCCLUSION
 					if(length(parent?.screen))
-						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
+						var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in parent.screen
 						PM.backdrop(parent.mob)
 
 				if("parallax")

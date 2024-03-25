@@ -42,9 +42,10 @@
 		if(initial(uses) > 1) //no need to tell 'em if it was one-use anyway!
 			to_chat(owner, "<span class='warning'>[name] has run out of uses!</span>")
 		qdel(src)
-	else
-		desc = "[initial(desc)] It has [uses] use\s remaining."
-		UpdateButtonIcon()
+	if(QDELETED(src) || uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
+		return
+	desc = "[initial(desc)] It has [uses] use\s remaining."
+	UpdateButtons()
 
 //Framework for ranged abilities that can have different effects by left-clicking stuff.
 /datum/action/innate/ai/ranged
@@ -190,7 +191,7 @@
 					else //Adding uses to an existing module
 						action.uses += initial(action.uses)
 						action.desc = "[initial(action.desc)] It has [action.uses] use\s remaining."
-						action.UpdateButtonIcon()
+						action.UpdateButtons()
 						temp = "Additional use[action.uses > 1 ? "s" : ""] added to [action.name]!"
 			processing_time -= AM.cost
 
@@ -582,7 +583,7 @@
 	if(!owner_AI.can_place_transformer(src))
 		return
 	active = TRUE
-	if(tgui_alert(owner, "Are you sure you want to place the machine here?", "Are you sure?", list("Yes", "No")) == "No")
+	if(tgui_alert(owner, "Are you sure you want to place the machine here?", "Are you sure?", list("Yes", "No")) != "Yes")
 		active = FALSE
 		return
 	if(!owner_AI.can_place_transformer(src))
@@ -1017,3 +1018,8 @@
 		else
 			stack_trace("non-standard dir entered to get_rotation_from_dir. (got: [dir])")
 			return 0
+
+#undef MALF_AI_ROLL_TIME
+#undef MALF_AI_ROLL_COOLDOWN
+#undef MALF_AI_ROLL_DAMAGE
+#undef MALF_AI_ROLL_CRIT_CHANCE

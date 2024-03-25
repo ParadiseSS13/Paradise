@@ -1,5 +1,5 @@
 /mob/living/simple_animal/bot/honkbot
-	name = "\improper honkbot"
+	name = "honkbot"
 	desc = "A little robot. It looks happy with its bike horn."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "honkbot"

@@ -7,7 +7,8 @@
 	hitsound_wall = "ricochet"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
 
-/obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
+/// beanbag, heavy stamina damage
+/obj/item/projectile/bullet/weakbullet
 	name = "beanbag slug"
 	damage = 5
 	stamina = 40
@@ -138,7 +139,8 @@
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
 
-/obj/item/projectile/bullet/stunshot //taser slugs for shotguns, nothing special
+/// taser slugs for shotguns, nothing special
+/obj/item/projectile/bullet/stunshot
 	name = "stunshot"
 	damage = 5
 	weaken = 10 SECONDS
@@ -275,7 +277,20 @@
 	if(isalien(target))
 		knockdown = 0
 		nodamage = TRUE
+	if(isrobot(target))
+		stun = 10 SECONDS
 	. = ..() // Execute the rest of the code.
+
+/obj/item/projectile/bullet/anti_alien_toxin
+	name = "neurotoxin spit"
+	icon_state = "neurotoxin"
+	damage = 15 // FRENDLY FIRE FRENDLY FIRE
+	damage_type = BURN
+
+/obj/item/projectile/bullet/anti_alien_toxin/on_hit(atom/target, blocked = 0)
+	if(isalien(target))
+		stun = 10 SECONDS
+	. = ..()
 
 /obj/item/projectile/bullet/cap
 	name = "cap"

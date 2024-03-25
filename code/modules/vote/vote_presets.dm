@@ -35,7 +35,7 @@
 /datum/vote/map/announce()
 	..()
 	for(var/mob/M in GLOB.player_list)
-		M.throw_alert("Map Vote", /obj/screen/alert/notify_mapvote, timeout_override = GLOB.configuration.vote.vote_time)
+		M.throw_alert("Map Vote", /atom/movable/screen/alert/notify_mapvote, timeout_override = GLOB.configuration.vote.vote_time)
 
 /datum/vote/map/handle_result(result)
 	// Find target map.

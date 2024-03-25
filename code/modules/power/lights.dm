@@ -650,7 +650,10 @@
 	if(current_apc)
 		RegisterSignal(machine_powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
-/obj/machinery/light/flicker(amount = rand(20, 30))
+/obj/machinery/light/get_spooked()
+	return forced_flicker()
+
+/obj/machinery/light/proc/forced_flicker(amount = rand(20, 30))
 	if(flickering)
 		return FALSE
 

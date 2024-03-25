@@ -522,3 +522,7 @@
 /obj/machinery/autolathe/syndicate/Initialize()
 	. = ..()
 	files = new /datum/research/autolathe/syndicate(src)
+
+#undef AUTOLATHE_MAIN_MENU
+#undef AUTOLATHE_CATEGORY_MENU
+#undef AUTOLATHE_SEARCH_MENU

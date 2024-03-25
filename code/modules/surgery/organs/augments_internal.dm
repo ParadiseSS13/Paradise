@@ -240,7 +240,8 @@
 	REMOVE_TRAIT(M, TRAIT_COMIC_SANS, "augment")
 	return ..()
 
-/obj/item/organ/internal/cyberimp/brain/speech_translator //actual translating done in human/handle_speech_problems
+// actual translating done in human/handle_speech_problems
+/obj/item/organ/internal/cyberimp/brain/speech_translator
 	name = "Speech translator implant"
 	desc = "While known as a translator, this implant actually generates speech based on the user's thoughts when activated, completely bypassing the need to speak."
 	implant_color = "#C0C0C0"
@@ -302,6 +303,139 @@
 	desc = "This wire interface implant is actually wireless, to avoid issues with electromagnetic pulses."
 	origin_tech = "materials=6;programming=6;biotech=6"
 	emp_proof = TRUE
+
+// An implant that injects you with mephedrone on demand, acting like a bootleg sandevistan
+
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer
+	name = "\improper Qani-Laaca sensory computer"
+	desc = "An experimental implant replacing the spine of organics. When activated, it can give a temporary boost to mental processing speed, \
+		which many users perceive as a slowing of time and quickening of their ability to act. Due to its nature, it is incompatible with \
+		systems that heavily influence the user's nervous system, like the central nervous system rebooter. \
+		As a bonus effect, you are immune to the burst of heart damage that comes at the end of mephedrone usage, as the computer is able to regulate \
+		your heart's rhythm back to normal after its use."
+	icon_state = "sandy"
+	implant_overlay = null
+	implant_color = null
+	slot = "brain_antistun"
+	emp_proof = TRUE
+	actions_types = list(/datum/action/item_action/organ_action/toggle/sensory_enhancer)
+	origin_tech = "combat=6;biotech=6;syndicate=4"
+	///The icon state used for the on mob sprite. Default is sandy. Drask and vox have their own unique sprites
+	var/custom_mob_sprite = "sandy"
+	COOLDOWN_DECLARE(sensory_enhancer_cooldown)
+
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/rnd
+	emp_proof = FALSE
+
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/examine(mob/user)
+	. = ..()
+	. += "<span class='userdanger'>Epilepsy Warning: Drug has vibrant visual effects!</span>"
+
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/examine_more(mob/user)
+	. = ..()
+	. += "<i>Developed by Biotech Solutions this revolutionary full spinal cord replacement implant uses an integrated chemical synthesizer designed to administer Mephedrone: \
+	a potent stimulant and hyper-movement drug. This implant dramatically enhances the user's reflexes, with many reporting an almost time-slowing effect during its operation.</i>"
+	. += "<i>Biotech's experimentation with stimulant drug research has long been a cornerstone of their competitive edge, especially against their rival: \
+	Interydyne Pharmaceuticals, whose efforts yielded a drug capable of enhancing reflexes, although they were never mitigate the adverse effects of said product. \
+	A premature leak of the prototype implant pressured the company into accelerating its development, leaving the drug's side effects unresolved. \
+	They completed the spinal implant, which is uniquely equipped with built-in vials for Mephedrone delivery. \
+	Its material is solid plastitanium, and while strong in material, it surprisingly feels light, considering its spinal integration.</i>"
+	. += "<i>The implant is highly sought after because of its extreme capabilities in combat. Many military groups pay a handsome fee simply for the licensing of the item. \
+	In spite of this, recent Biotech shipments have come under fire from piracy, with the company quick to blame Interdyne for said attacks. Said allegations remain unverified.</i>"
+
+
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/insert(mob/living/carbon/M, special = 0)
+	. = ..()
+	ADD_TRAIT(M, TRAIT_MEPHEDRONE_ADAPTED, "[UID()]")
+
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/remove(mob/living/carbon/M, special = 0)
+	. = ..()
+	REMOVE_TRAIT(M, TRAIT_MEPHEDRONE_ADAPTED, "[UID()]")
+
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/render()
+	if(isvox(owner))
+		custom_mob_sprite = "vox_sandy"
+	else if(isdrask(owner))
+		custom_mob_sprite = "drask_sandy"
+	else
+		custom_mob_sprite = "sandy"
+	var/mutable_appearance/our_MA = mutable_appearance('icons/mob/human_races/robotic.dmi', icon_state, layer = -INTORGAN_LAYER)
+	return our_MA
+
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/emp_act(severity)
+	. = ..()
+	if(!.)
+		return
+	if(!COOLDOWN_FINISHED(src, sensory_enhancer_cooldown)) //Not on cooldown? Drug them up. Heavily. We don't want people self emping to bypass cooldown.
+		return
+	if(!prob(100 / severity) || !owner)
+		return
+
+	for(var/datum/action/item_action/organ_action/toggle/sensory_enhancer/SE in owner.actions)
+		SE.Trigger(FALSE, TRUE, TRUE)
+
+/datum/action/item_action/organ_action/toggle/sensory_enhancer
+	name = "Activate Qani-Laaca System"
+	desc = "Activates your Qani-Laaca computer and grants you its powers. LMB: Short, safer activation. ALT/MIDDLE: Longer, more powerful, more dangerous activation."
+	button_icon = 'icons/obj/surgery.dmi'
+	button_icon_state = "sandy"
+	check_flags = AB_CHECK_CONSCIOUS
+	/// Keeps track of how much mephedrone we inject into people on activation
+	var/injection_amount = 10
+
+
+/datum/action/item_action/organ_action/toggle/sensory_enhancer/AltTrigger()
+	Trigger(FALSE, TRUE)
+
+/datum/action/item_action/organ_action/toggle/sensory_enhancer/Trigger(left_click, attack_self, emp_triggered = FALSE)
+	. = ..()
+	if(istype(target, /obj/item/organ/internal/cyberimp/brain/sensory_enhancer))
+		var/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/ourtarget = target
+		if(!COOLDOWN_FINISHED(ourtarget, sensory_enhancer_cooldown))
+			to_chat(owner, "<span class='warning'>[ourtarget] is still on cooldown for another [round(COOLDOWN_TIMELEFT(ourtarget, sensory_enhancer_cooldown), 1 SECONDS) / 10] seconds!</span>")
+			return
+
+		COOLDOWN_START(ourtarget, sensory_enhancer_cooldown, 5 MINUTES)
+
+		injection_amount = 10
+
+		if(!left_click)
+			injection_amount = 20
+		if(emp_triggered)
+			injection_amount = 40 //Time for a quick medical visit
+		Activate()
+
+
+/datum/action/item_action/organ_action/toggle/sensory_enhancer/proc/Activate(atom/target)
+
+	var/mob/living/carbon/human/human_owner = owner
+
+	human_owner.reagents.add_reagent("mephedrone", injection_amount)
+
+	owner.visible_message("<span class='danger'>[owner.name] jolts suddenly as two small glass vials are fired from ports in the implant on [owner.p_their()] spine, shattering as they land.</span>", \
+			"<span class='userdanger'>You jolt suddenly as your Qani-Laaca system ejects two empty glass vials rearward, shattering as they land.</span>")
+	playsound(human_owner, 'sound/goonstation/items/hypo.ogg', 80, TRUE)
+
+	var/obj/item/telegraph_vial = new /obj/item/qani_laaca_telegraph(get_turf(owner))
+	var/turf/turf_we_throw_at = get_edge_target_turf(owner, REVERSE_DIR(owner.dir))
+	telegraph_vial.throw_at(turf_we_throw_at, 5, 1)
+
+	// Safety net in case the injection amount doesn't get reset. Apparently it happened to someone in a round.
+	injection_amount = initial(injection_amount)
+
+/obj/item/qani_laaca_telegraph
+	name = "spent Qani-Laaca cartridge"
+	desc = "A small glass vial, usually kept in a large stack inside a Qani-Laaca implant, that is broken open and ejected \
+		each time the implant is used. If you're looking at one long enough to think about it this long, you either have fast eyes \
+		or were lucky enough to catch one before it broke."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "blastoff_ampoule_empty"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/qani_laaca_telegraph/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/shatters_when_thrown, /obj/effect/decal/cleanable/glass, 1, "shatter")
+	transform = transform.Scale(0.75, 0.75)
 
 /obj/item/organ/internal/cyberimp/brain/hackerman_deck
 	name = "\improper Binyat wireless hacking system"

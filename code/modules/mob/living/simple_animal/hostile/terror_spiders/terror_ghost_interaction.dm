@@ -33,7 +33,7 @@
 		return
 	if(error_on_humanize == "")
 		var/spider_ask = tgui_alert(user, humanize_prompt, "Join as Terror Spider?", list("Yes", "No"))
-		if(spider_ask == "No" || !src || QDELETED(src))
+		if(spider_ask != "Yes" || !src || QDELETED(src))
 			return
 	else
 		to_chat(user, "Cannot inhabit spider: [error_on_humanize]")

@@ -8,8 +8,8 @@
 /datum/click_intercept
 	/// A reference to the client which is assigned this click intercept datum.
 	var/client/holder = null
-	/// Any `obj/screen/buttons` the client is meant to receive when assigned this click intercept datum.
-	var/list/obj/screen/buttons = list()
+	/// Any `atom/movable/screen/buttons` the client is meant to receive when assigned this click intercept datum.
+	var/list/atom/movable/screen/buttons = list()
 
 /datum/click_intercept/New(client/C)
 	create_buttons()

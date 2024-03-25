@@ -204,7 +204,7 @@
 	new /obj/item/ammo_box/magazine/detective/speedcharger(src)
 	new /obj/effect/spawner/detgun(src)
 	new /obj/item/flashlight/seclite(src)
-	new /obj/item/holosign_creator/security(src)
+	new /obj/item/holosign_creator/detective(src)
 	new /obj/item/taperecorder(src)
 	new /obj/item/storage/box/tapes(src)
 

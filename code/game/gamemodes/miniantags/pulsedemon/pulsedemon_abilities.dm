@@ -1,4 +1,3 @@
-#define KW *1000
 #define PULSEDEMON_REMOTE_DRAIN_MULTIPLIER 5
 
 #define PD_UPGRADE_HIJACK_SPEED "Speed"
@@ -33,9 +32,9 @@
 	else
 		name = "[initial(name)][cast_cost == 0 ? "" : " ([format_si_suffix(cast_cost)]W)"]"
 		desc = "[initial(desc)][spell_level == level_max ? "" : " It costs [format_si_suffix(upgrade_cost)]W to upgrade."]"
-	action.button.name = name
+	action.name = name
 	action.desc = desc
-	action.UpdateButtonIcon()
+	action.UpdateButtons()
 
 /obj/effect/proc_holder/spell/pulse_demon/can_cast(mob/living/simple_animal/demon/pulse_demon/user, charge_check, show_message)
 	if(!..())
@@ -258,7 +257,7 @@
 /obj/effect/proc_holder/spell/pulse_demon/toggle/proc/do_toggle(varstate, mob/user)
 	if(action)
 		action.background_icon_state = varstate ? action_background_icon_state : "[action_background_icon_state]_disabled"
-		action.UpdateButtonIcon()
+		action.UpdateButtons()
 	if(user)
 		to_chat(user, "<span class='notice'>You will [varstate ? "now" : "no longer"] [base_message]</span>")
 	return varstate
@@ -484,4 +483,12 @@
 			return FALSE
 	return TRUE
 
-#undef KW
+
+#undef PULSEDEMON_REMOTE_DRAIN_MULTIPLIER
+#undef PD_UPGRADE_HIJACK_SPEED
+#undef PD_UPGRADE_DRAIN_SPEED
+#undef PD_UPGRADE_HEALTH_LOSS
+#undef PD_UPGRADE_HEALTH_REGEN
+#undef PD_UPGRADE_MAX_HEALTH
+#undef PD_UPGRADE_HEALTH_COST
+#undef PD_UPGRADE_MAX_CHARGE

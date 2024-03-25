@@ -579,7 +579,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("maxresearch")
 			if(!check_rights(R_ADMIN))
 				return
-			if(tgui_alert(usr, "Are you sure you want to maximize research levels?", "Confirmation", list("Yes", "No"))=="No")
+			if(tgui_alert(usr, "Are you sure you want to maximize research levels?", "Confirmation", list("Yes", "No")) != "Yes")
 				return
 			log_admin("[key_name(usr)] has maximized the research levels.")
 			message_admins("[key_name_admin(usr)] has maximized the research levels.")

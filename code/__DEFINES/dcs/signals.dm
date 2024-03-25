@@ -185,6 +185,10 @@
 #define COMSIG_ATOM_HITBY "atom_hitby"
 /// Called when an atom is sharpened or dulled.
 #define COMSIG_ATOM_UPDATE_SHARPNESS "atom_update_sharpness"
+///from base of atom/atom_prehit(obj/item/projectile/P):
+#define COMSIG_ATOM_PREHIT "atom_prehit"
+	#define ATOM_PREHIT_SUCCESS (1<<0)
+	#define ATOM_PREHIT_FAILURE (1<<1)
 
 // Attack signals. These should share the returned flags, to standardize the attack chain.
 // The chain currently works like:
@@ -214,6 +218,9 @@
 #define COMSIG_LIVING_START_PULL "living_start_pull"
 
 /////////////////
+
+///from base of client/Click(): (atom/target, atom/location, control, params, mob/user)
+#define COMSIG_CLIENT_CLICK "atom_client_click"
 
 ///from base of area/Entered(): (/area)
 #define COMSIG_ENTER_AREA "enter_area"
@@ -777,6 +784,9 @@
 #define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"
 	#define SHIELD_BLOCK (1<<0)
 
+///from /mob/living/carbon/human/create_mob_hud()
+#define COMSIG_HUMAN_CREATE_MOB_HUD "human_create_mob_hud"
+
 // /datum/species signals
 
 ///from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)
@@ -920,6 +930,10 @@
 #define COMSIG_ACTION_TRIGGER "action_trigger"
 	#define COMPONENT_ACTION_BLOCK_TRIGGER (1<<0)
 
+// Note that this is only defined for actions because this could be a good bit expensive otherwise
+/// From base of /atom/movable/screen/movable/action_button/MouseWheel(src, delta_x, delta_y, location, control, params)
+#define COMSIG_ACTION_SCROLLED "action_scrolled"
+
 //Xenobio hotkeys
 
 ///from slime CtrlClickOn(): (/mob)
@@ -948,7 +962,7 @@
 #define COMSIG_AIRLOCK_CLOSE "airlock_close"
 
 // /datum/objective signals
-///from datum/objective/proc/find_target()
+///from datum/objective/proc/find_target(list/target_blacklist)
 #define COMSIG_OBJECTIVE_TARGET_FOUND "objective_target_found"
 ///from datum/objective/is_invalid_target()
 #define COMSIG_OBJECTIVE_CHECK_VALID_TARGET "objective_check_valid_target"

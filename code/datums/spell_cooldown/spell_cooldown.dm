@@ -33,7 +33,7 @@
 	if(!spell_parent.action)
 		stack_trace("[spell_parent.type] ended up with a null action")
 		return PROCESS_KILL
-	spell_parent.action.UpdateButtonIcon()
+	spell_parent.action.UpdateButtons()
 	if(should_end_cooldown())
 		return PROCESS_KILL
 
@@ -58,7 +58,7 @@
 	else
 		recharge_time = get_recharge_time()
 	if(spell_parent.action)
-		spell_parent.action.UpdateButtonIcon()
+		spell_parent.action.UpdateButtons()
 		START_PROCESSING(SSfastprocess, src)
 
 /datum/spell_cooldown/proc/revert_cast()

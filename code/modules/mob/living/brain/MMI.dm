@@ -1,6 +1,7 @@
 /obj/item/mmi
 	name = "\improper Man-Machine Interface"
-	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity."
+	desc = "A compact, highly portable self-contained life support system, capable of housing a single brain and allowing it to seamlessly interface with whatever it is installed into. \
+	It can be installed into a cyborg shell, AI core, mech, spiderbot, or an Integrated Robotic Chassis' chest cavity."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -28,6 +29,15 @@
 	var/next_possible_ghost_ping
 	//Used by syndie MMIs, stores the master's mind UID for later referencing
 	var/master_uid = null
+	/// Extended description on examine_more
+	var/extended_desc = "Development of Man-Machine Interfaces can be dated all the way back to the late 20th century within the Sol system, but the first viable designs didn't emerge until 2408 when Zeng-Hu Pharmaceuticals and Bishop Cybernetics unveiled a co-developed unit and established dominance over the niche market that persists into the present day. \
+	The brain is submerged in a preservation fluid rich in mannitol, mitocholide, dissolved oxygen (or functional equivalent in other species) as well as a carefully tuned mixture of nutrients, hormones, peptides, and various other essential substances produced by a specialised chemical synthesiser. \
+	A non-invasive neural interface uses a combination of targeted magnetic pulses, micro-electric discharges, and a grid of highly sensitive EMF probes allow a two-way connection between the MMI and the brain. On-board microphones, cameras, and a speaker provide basic sensory input and a method of communication, which can be expanded with an optional radio upgrade. Any further functionality must be provided by whatever the MMI is installed into. \
+	Brains housed inside an MMI are effectively biologically immortal, provided the unit remains powered."
+
+/obj/item/mmi/examine_more(mob/user)
+	. = ..()
+	. += extended_desc
 
 /obj/item/mmi/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/organ/internal/brain/golem))
@@ -51,6 +61,9 @@
 			brainmob.forceMove(src)
 			REMOVE_TRAIT(brainmob, TRAIT_RESPAWNABLE, GHOSTED)
 			brainmob.set_stat(CONSCIOUS)
+			// If they suicided as an MMI, re-inserting them should
+			// restore their ability to suicide.
+			brainmob.suiciding = FALSE
 			brainmob.see_invisible = initial(brainmob.see_invisible)
 			GLOB.dead_mob_list -= brainmob//Update dem lists
 			GLOB.alive_mob_list += brainmob
@@ -68,7 +81,7 @@
 				alien = 0
 
 			if(radio_action)
-				radio_action.UpdateButtonIcon()
+				radio_action.UpdateButtons()
 			SSblackbox.record_feedback("amount", "mmis_filled", 1)
 		else
 			to_chat(user, "<span class='warning'>You can't drop [B]!</span>")
@@ -167,7 +180,7 @@
 /obj/item/mmi/proc/become_occupied(new_icon)
 	icon_state = new_icon
 	if(radio)
-		radio_action.UpdateButtonIcon()
+		radio_action.UpdateButtons()
 
 /obj/item/mmi/examine(mob/user)
 	. = ..()
@@ -200,7 +213,7 @@
 	mmi = null
 	return ..()
 
-/datum/action/generic/configure_mmi_radio/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/generic/configure_mmi_radio/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
 	icon_icon = mmi.icon
 	button_icon_state = mmi.icon_state
 	..()
@@ -286,10 +299,14 @@
 
 /obj/item/mmi/syndie
 	name = "\improper Syndicate Man-Machine Interface"
-	desc = "Syndicate's own brand of MMI. Mindslaves any brain inserted into it for as long as it's in. Cyborgs made with this MMI will be slaved to the owner. Does not fit into NT AI cores."
+	desc = "The Syndicate's own brand of MMI. Mindslaves any brain inserted into it for as long as it's inside. Cyborgs, mechs, spiderbots, or IRCs made with this MMI will be slaved to the owner. Does not fit into NT AI cores. \
+	Cyborgs will appear to be linked to an AI (if present). If someone attempts to detonate the cyborg, it will automatically block the attempt and then disconnect from the AI. No emagged equipment is provided."
 	origin_tech = "biotech=4;programming=4;syndicate=2"
 	syndiemmi = TRUE
 	mmi_item_name = "Syndicate Man-Machine Interface"
+	extended_desc = "Before the development of the mindslave implant by Cybersun, they first prototyped the technology using test subjects in MMIs. The unfettered access given to the user's brain made the task of delivering the memetic payloads trivial, allowing Cybersun's R&D to perfect their brainwashing techniques before moving on to a miniaturised implant. \
+	Whilst these specialty MMIs are rarely used owing to the far greater applicability and convenience of the mindslave implant, they do see occasional employment by undercover agents that wish to stealthily convert the AI-slaved cyborgs of Nanotrasen. \
+	Just like the mindslave implant, these are extremely illegal in most regions of space. Simple possession (to say nothing of actual use) generally warrants a very long prison sentence."
 
 /obj/item/mmi/syndie/attackby(obj/item/O, mob/user, params)
 	if(!master_uid && ishuman(user) && user.mind && istype(O,/obj/item/organ/internal/brain))

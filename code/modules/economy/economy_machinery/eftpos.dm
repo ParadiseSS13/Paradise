@@ -105,25 +105,7 @@
 		if("link_account")
 			if(!account_database)
 				reconnect_database()
-			if(account_database)
-				var/attempt_account_num = tgui_input_number(user, "Enter account number to pay EFTPOS charges into:", "New account number", max_value = 9999999, min_value = 1000000)
-				if(!attempt_account_num)
-					return
-				var/attempt_pin = tgui_input_number(user, "Enter pin code", "Account pin", max_value = 99999, min_value = 10000)
-				if(!check_user_position(user) || !account_database || !attempt_pin)
-					return
-				var/datum/money_account/target_account = GLOB.station_money_database.find_user_account(attempt_account_num, include_departments = TRUE)
-				if(!target_account)
-					for(var/department_key in GLOB.station_money_database.department_accounts)
-						var/datum/money_account/department_account = GLOB.station_money_database.department_accounts[department_key]
-						if(department_account.account_number == attempt_account_num)
-							target_account = department_account
-				if(target_account && GLOB.station_money_database.try_authenticate_login(target_account, attempt_pin, TRUE, FALSE, FALSE))
-					linked_account = target_account
-				else
-					to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to inputed account.</span>")
-					return
-			else
+			if(!account_database)
 				to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
 				return
 			var/datum/money_account/target_account = locateUID(params["account"])
@@ -310,3 +292,5 @@
 	else
 		WRENCH_UNANCHOR_MESSAGE
 	SStgui.close_uis(src)
+
+#undef MAX_EFTPOS_CHARGE

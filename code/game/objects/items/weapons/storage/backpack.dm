@@ -454,7 +454,7 @@
 
 // The following three procs handle refusing access to contents if the duffel is zipped
 
-/obj/item/storage/backpack/duffel/handle_item_insertion(obj/item/I, prevent_warning, bypass_zip = FALSE)
+/obj/item/storage/backpack/duffel/handle_item_insertion(obj/item/I, mob/user, prevent_warning, bypass_zip = FALSE)
 	if(bypass_zip)
 		return ..()
 
@@ -600,7 +600,8 @@
 	new /obj/item/clothing/mask/muzzle(src)
 	new /obj/item/reagent_containers/glass/bottle/reagent/hydrocodone(src)
 
-/obj/item/storage/backpack/duffel/syndie/med/surgery_fake //for maint spawns
+/// for maint spawns
+/obj/item/storage/backpack/duffel/syndie/med/surgery_fake
 	name = "surgery duffelbag"
 	desc = "A suspicious looking duffelbag for holding surgery tools."
 
