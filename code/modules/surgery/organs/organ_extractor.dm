@@ -49,6 +49,7 @@
 	if(!iscarbon(M))
 		to_chat(user, "<span class='warning'>ERROR: [M] has no organs to harvest!</span>")
 		return
+
 	var/mob/living/carbon/C = M
 	if(!length(C.client_mobs_in_contents)) //Basically, we don't want someone putting organs in monkeys then extracting from it. Has to be someone who had a client in the past
 		to_chat(user, "<span class='warning'>ERROR: [C] has no soul trace to assist in targeting the drill bit!</span>")
@@ -60,6 +61,7 @@
 		to_chat(user, "<span class='warning'>NOTICE: Internal organ deteced. Beginning insertion procedure!</span>")
 		insert_organ(user, C)
 		return
+
 	in_use = TRUE
 	var/obj/item/chosen_organ = tgui_input_list(user, "Please select an organ for removal", "Organ Selection", C.internal_organs)
 	if(!chosen_organ || !user.Adjacent(C))
@@ -77,11 +79,13 @@
 		to_chat(user, "<span class='warning'>ERROR: [chosen_organ] was inserted when [C] was dead, and has no soul trace to lock onto!</span>")
 		in_use = FALSE
 		return
+
 	var/obj/item/organ/internal/internal_organ = chosen_organ
 	var/drilled_organ = internal_organ.parent_organ
 	user.visible_message("<span class='danger'>[user] activates [src] and begins to drill into [C]!</span>", "<span class='warning'>You level the extractor at [M] and hold down the trigger.</span>")
 	to_chat(C, "<span class='danger'>You feel a lot of pain as [user] drills into your [drilled_organ]!</span>")
 	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 75, TRUE)
+
 	if(!advanced)
 		C.apply_damage(15, BRUTE, drilled_organ)
 	if(!do_after_once(user, insert_time, target = C))// Slightly longer than stamina crit, at least cuff and buckle them to a pipe or something
@@ -92,6 +96,7 @@
 		to_chat(user, "<span class='warning'>ERROR: unable to find the desired organ!</span>")
 		in_use = FALSE
 		return
+
 	user.visible_message("<span class='danger'>[user] removes [internal_organ] from [C]!</span>", "<span class='warning'>You remove [internal_organ] from [C] as it gets sucked into [src]'s internal container!</span>")
 	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 75, TRUE)
 	C.apply_damage(10, BRUTE, drilled_organ)
@@ -106,6 +111,7 @@
 	if(in_use)
 		to_chat(user, "<span class='warning'>[src] is already busy!</span>")
 		return
+
 	var/user_is_target = FALSE
 	if(user == our_target)
 		user_is_target = TRUE
@@ -114,6 +120,7 @@
 		return
 	if(!iscarbon(our_target))
 		return
+
 	var/mob/living/carbon/C = our_target
 	in_use = TRUE
 	user.visible_message("<span class='danger'>[user] activates [src] and begins to drill into [C]!</span>", "<span class='warning'>You level the extractor at [user_is_target ? "yourself" : C] and hold down the trigger.</span>")
