@@ -1,10 +1,4 @@
-/datum/unit_test/deck/Run()
-	return
-
-/datum/unit_test/deck/cards/Run()
-	return
-
-/datum/unit_test/deck/cards/proc/validate_deck(obj/item/deck/deck)
+/datum/unit_test/card_deck/proc/validate_deck(obj/item/deck/deck)
 	var/list/card_count = list()
 	for(var/datum/playingcard/card in deck.cards)
 		if(card_count[card.name] == null)
@@ -20,7 +14,7 @@
 	return TRUE
 
 
-/datum/unit_test/deck/cards/initialized_properly/Run()
+/datum/unit_test/card_deck/Run()
 	// setup
 	var/loc = pick(block(run_loc_bottom_left, run_loc_top_right))
 	var/obj/item/deck/cards/cards = new /obj/item/deck/cards(loc)
