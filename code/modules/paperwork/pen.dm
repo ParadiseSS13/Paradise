@@ -62,7 +62,6 @@
 		"blue" = list(0.5, 0.5, 1),
 		"yellow" = list(1, 1, 0))
 	var/pen_colour_iconstate = "pencolor"
-	var/pen_colour_shift = 0
 
 /obj/item/pen/multi/Initialize(mapload)
 	..()
@@ -83,8 +82,6 @@
 	var/icon/colour_overlay = new(icon, pen_colour_iconstate)
 	var/list/colours = colour_choices[colour]
 	colour_overlay.SetIntensity(colours[1], colours[2], colours[3])
-	if(pen_colour_shift)
-		colour_overlay.Shift(SOUTH, pen_colour_shift)
 	. += colour_overlay
 
 /obj/item/pen/fancy
@@ -96,19 +93,16 @@
 	name = "gilded pen"
 	desc = "A golden pen that is gilded with a meager amount of gold material. The word 'Nanotrasen' is etched on the clip of the pen."
 	icon_state = "goldpen"
-	pen_colour_shift = 0
 
 /obj/item/pen/multi/fountain
 	name = "engraved fountain pen"
 	desc = "An expensive-looking pen typically issued to Nanotrasen employees."
 	icon_state = "fountainpen"
-	pen_colour_shift = 0
 
 /obj/item/pen/multi/syndicate
 	name = "syndicate fountain pen"
 	desc = "A suspicious-looking pen issued to Syndicate staff."
 	icon_state = "pen_syndie"
-	pen_colour_shift = 0
 
 /obj/item/pen/cap
 	name = "captain's fountain pen"
