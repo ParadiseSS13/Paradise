@@ -8,8 +8,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	can_hold = list(
 		/obj/item/stock_parts,
-		// Added separately in Initialize to avoid picking up unwanted
-		// subtypes.
+		// This type is part of can_hold, but is added separately in Initialize to avoid picking up unwanted subtypes.
 		// /obj/item/reagent_containers/glass/beaker,
 		/obj/item/reagent_containers/glass/beaker/large,
 		/obj/item/reagent_containers/glass/beaker/bluespace
